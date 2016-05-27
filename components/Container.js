@@ -13,7 +13,7 @@ const Container = (data) => (
 );
 
 function mapStateToProps(data) {
-  return data.content;
+    return data.content;
 }
 
 export default connect(mapStateToProps)(Container);
