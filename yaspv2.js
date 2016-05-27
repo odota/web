@@ -35,11 +35,8 @@ import
 }
 from 'react-router-redux';
 // Load CSS
-require('../../node_modules/font-awesome/css/font-awesome.css');
-require('../../node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
-//require('../../node_modules/bootstrap/dist/css/bootstrap.css');
-//require('../../node_modules/bootswatch/darkly/bootstrap.css');
-//require('../css/yasp.css');
+
+require('./node_modules/font-awesome/css/font-awesome.css');
 const loggerMiddleware = createLogger();
 const reducer = combineReducers(Object.assign(
 {},

@@ -1,6 +1,8 @@
 /**
  * Webpack configuration file
  **/
+// var postcss = require('postcss');
+
 module.exports = {
     entry:
     {
@@ -12,12 +14,18 @@ module.exports = {
         path: './build/',
         publicPath: './build/'
     },
+    resolve: {
+      extensions: ['', '.jsx', '.js', '.css', '.json']
+    },
+    devtool: 'source-map',
     module:
     {
         loaders: [
             {
                 test: /\.css$/,
-                loader: "style-loader!css-loader"
+                loader: "style-loader!css-loader?"
+                // add to loader string for css modules and postcss
+                // modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]d!postcss-loader
             },
             {
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -26,11 +34,16 @@ module.exports = {
             {
                 test: /\.(ttf|eot|svg|jpg|gif|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: "file-loader?name=[hash].[ext]"
-                },
+            },
             {
                 test: /\.(json)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: "json-loader"
-                },
+            },
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /(node_modules|bower_components)/,
+                loader: 'babel', // 'babel-loader' is also a legal name to reference
+            },
             {
                 test: /jquery\.js$/,
                 loader: 'expose?$'
@@ -38,20 +51,18 @@ module.exports = {
             {
                 test: /jquery\.js$/,
                 loader: 'expose?jQuery'
-            },
-            {
-                test: /\.jsx?$/,
-                exclude: /(node_modules|bower_components)/,
-                loader: 'babel', // 'babel-loader' is also a legal name to reference
-                query:
-                {
-                    presets: ['react', 'es2015']
-                }
             }
         ]
     },
-    devServer:
-    {
+    // postcss (webpack) {
+    //   return [
+    //     require('postcss-import')({ addDependencyTo: webpack }),
+    //     require('postcss-cssnext')(),
+    //     require('postcss-browser-reporter')(),
+    //     require('postcss-reporter')(),
+    //   ]
+    // },
+    devServer: {
         contentBase: '.',
         progress: true,
         host: "0.0.0.0",
