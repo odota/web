@@ -1,4 +1,4 @@
-import { userActions } from '../actions';
+import { playerActions } from '../actions';
 
 const initialState = {
   loading: true,
@@ -7,18 +7,18 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch(action.type) {
-    case userActions.REQUEST:
+    case playerActions.REQUEST:
       return {
         ...state,
         loading: true
       };
-    case userActions.OK:
+    case playerActions.OK:
       return {
         ...state,
         loading: false,
-        user: actions.payload.user
+        player: action.payload.player
       };
-    case userActions.ERROR:
+    case playerActions.ERROR:
       return {
         ...state,
         loading: false,

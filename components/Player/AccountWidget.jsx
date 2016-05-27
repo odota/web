@@ -2,17 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Spinner from '../Spinner';
 import { REDUCER_KEY } from '../../reducers';
-import { getUser } from '../../actions';
+import { getPlayer } from '../../actions';
 import { Link } from 'react-router';
 
-const AccountWidget = ({ loading, error, user }) => {
+const AccountWidget = ({ loading, error, player }) => {
   return (
     <div>
       { loading && !error && <Spinner />}
       { error && <div >Error</div>}
-      { !error && !loading && user ? (
+      { !error && !loading && player ? (
           <div>
-            <li><Link href={`/players/${user.account_id}`}>Profile</Link></li>
+            <li><Link to={`/players/${player.account_id}`}>Profile</Link></li>
             <li><a href='/logout'>Logout</a></li>
           </div>
         )
@@ -24,7 +24,7 @@ const AccountWidget = ({ loading, error, user }) => {
 
 class AccountWidgetWrapper extends React.Component {
   componentDidMount() {
-    this.props.getUser(this.props.userId);
+    this.props.getPlayer(this.props.playerId);
   }
 
   render() {
@@ -35,18 +35,18 @@ class AccountWidgetWrapper extends React.Component {
 export { AccountWidget };
 
 const mapStateToProps = (state) => {
-  const { error, loading, user } = state[REDUCER_KEY].gotUser;
-
+  const { error, loading, player } = state[REDUCER_KEY].gotPlayer;
+  
   return {
     loading,
     error,
-    user
+    player
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getUser: (userId) => dispatch(getUser(userId))
+    getPlayer: (playerId) => dispatch(getPlayer(playerId))
   };
 };
 

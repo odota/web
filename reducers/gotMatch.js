@@ -1,26 +1,24 @@
-import { metadataActions } from '../actions';
+import { matchActions } from '../actions';
 
 const initialState = {
   loading: true,
-  error: false,
-  links: []
+  error: false
 };
 
 export default (state = initialState, action) => {
   switch(action.type) {
-    case metadataActions.REQUEST:
+    case matchActions.REQUEST:
       return {
         ...state,
         loading: true
       };
-    case metadataActions.OK:
+    case matchActions.OK:
       return {
         ...state,
         loading: false,
-        links: action.payload.links,
-        donations: action.payload.cheese
+        match: action.payload
       };
-    case metadataActions.ERROR:
+    case matchActions.ERROR:
       return {
         ...state,
         loading: false,

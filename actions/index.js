@@ -1,4 +1,15 @@
 import { metadataActions, getMetadata } from './metadataActions';
-import { userActions, getUser } from './userActions';
+import { playerActions, getPlayer } from './playerActions';
+import { matchActions, getMatch } from './matchActions';
 
-export { metadataActions, getMetadata, userActions, getUser };
+const HOST_URL = 'https://yasp.co';
+
+export {
+  metadataActions,
+  getMetadata,
+  playerActions,
+  getPlayer,
+  matchActions,
+  getMatch,
+  HOST_URL
+};

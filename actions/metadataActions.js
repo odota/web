@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
+import { HOST_URL } from '../actions';
 
-const url = 'http://yasp.co/api/metadata';
+const url = '/api/metadata';
 
 const REQUEST = 'yasp/metadata/REQUEST';
 const OK = 'yasp/metadata/OK';
@@ -24,11 +25,23 @@ const getMetadataError = (payload) => ({
   payload
 });
 
-export const getMetadata = (userId) => {
+export const getMetadata = (userId, host=HOST_URL) => {
   return (dispatch) => {
-    return fetch(url)
+    return fetch(`${host}${url}`)
       .then(response => response.json())
-      .then(json => dispatch(getMetadataOk(json)))
-      .catch(error => dispatch(getMetadataError()));
+      .then(json => {
+        const links = Object.keys(json.navbar_pages).map((key, index) => {
+          return json.navbar_pages[key];
+        });
+        const transformedData = {
+          ...json,
+          links
+        };
+        dispatch(getMetadataOk(transformedData));
+      })
+      .catch(error => {
+        console.error(error);
+        dispatch(getMetadataError(error));
+      });
   };
 };

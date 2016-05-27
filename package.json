@@ -6,7 +6,8 @@
   "scripts": {
     "webpack": "webpack -p",
     "watch": "webpack --watch",
-    "webpack-dev-server": "webpack-dev-server"
+    "webpack-dev-server": "webpack-dev-server -d",
+    "start": "npm run webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -36,7 +37,6 @@
     "babel-preset-es2015-webpack": "^6.4.1",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
-    "coveralls": "2.11.9",
     "css-loader": "^0.23.1",
     "database-cleaner": "^0.13.0",
     "expose-loader": "^0.7.1",

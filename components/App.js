@@ -13,7 +13,7 @@ export default function App({ children }) {
       <div className='container'>
         <Header />
         { children }
-        { /* <Footer /> */ }
+        <Footer />
       </div>
   );
 }

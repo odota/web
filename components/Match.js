@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import * as Actions from '../actions/actions';
+import { matchActions } from '../actions';
 class Match extends React.Component
 {
   constructor(props)
@@ -10,10 +10,11 @@ class Match extends React.Component
   }
   componentDidMount()
   {
-    this.props.dispatch(Actions.fetchData(Actions.MATCH,
-    {
-      match_id: this.props.params.match_id
-    }));
+    //commenting it out so I can try to merge with master more quickly instead of refactoring everything before merging with master
+    // this.props.dispatch(Actions.fetchData(Actions.MATCH,
+    // {
+    //   match_id: this.props.params.match_id
+    // }));
   }
   render()
   {

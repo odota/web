@@ -1,12 +1,12 @@
 import React from 'react';
 import Logo from '../Logo';
 import NavBar from '../NavBar';
-import User from '../User';
+import Player from '../Player';
 
 export default () => (
   <div>
     <Logo />
     <NavBar />
-    <User />
+    <Player />
   </div>
 );
