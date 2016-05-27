@@ -5,11 +5,13 @@ import { Link } from 'react-router';
 
 const NavBar = (props) => {
    var navLeft, navRight
-   if(props.isFetching){
+   if(props.isFetching)
+   {
       navLeft = (<li><i className="fa fa-spinner fa-spin"></i></li>);
       navRight = (<li><i className="fa fa-spinner fa-spin"></i></li>);
    }
-   else{
+   else
+   {
       navLeft = Object.keys(props.data.navbar_pages).map(page =>
           <li key={page}><Link to={'/'+page}>{props.data.navbar_pages[page].name}</Link></li>
       );
