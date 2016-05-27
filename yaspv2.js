@@ -14,8 +14,8 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore, routerReducer as routing } from 'react-router-redux';
 
 // Load CSS
-require('../../node_modules/font-awesome/css/font-awesome.css');
-//require('../../node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
+require('./node_modules/font-awesome/css/font-awesome.css');
+//require('./node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
 //require('../../node_modules/bootstrap/dist/css/bootstrap.css');
 //require('../../node_modules/bootswatch/darkly/bootstrap.css');
 //require('../css/yasp.css');
