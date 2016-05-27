@@ -1,55 +1,38 @@
 import React from 'react';
-import
-{
-  render
-}
-from 'react-dom';
-import
-{
-  Provider
-}
-from 'react-redux';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 import App from './components/App';
 import Match from './components/Match';
 import Player from './components/Player';
 import Home from './components/Home';
-import
-{
-  createStore, applyMiddleware, combineReducers
-}
-from 'redux';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import reducers from './reducers/reducers';
 import * as Actions from './actions/actions';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import
-{
-  Router, Route, browserHistory, IndexRoute
-}
-from 'react-router';
-import
-{
-  syncHistoryWithStore, routerReducer
-}
-from 'react-router-redux';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+import { syncHistoryWithStore, routerReducer as routing } from 'react-router-redux';
+
 // Load CSS
-require('./node_modules/font-awesome/css/font-awesome.css');
-//require('./node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
+require('../../node_modules/font-awesome/css/font-awesome.css');
+//require('../../node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
 //require('../../node_modules/bootstrap/dist/css/bootstrap.css');
 //require('../../node_modules/bootswatch/darkly/bootstrap.css');
 //require('../css/yasp.css');
+
 const loggerMiddleware = createLogger();
-var reducer = combineReducers(Object.assign(
-{},
-{
-  reducers: reducers,
-},
-{
-  routing: routerReducer,
-}));
-var store = createStore(reducer, applyMiddleware(thunkMiddleware, // lets us dispatch() functions
-  loggerMiddleware // neat middleware that logs actions
+var reducer = combineReducers(
+    {
+        reducers,
+        routing
+    });
+
+var store = createStore(reducer, compose(applyMiddleware(thunkMiddleware), // lets us dispatch() functions
+    applyMiddleware(loggerMiddleware), // neat middleware that logs actions
+    (window.devToolsExtension ? window.devToolsExtension() : () => {
+    }) //This enables the redux dev tools extension, or does nothing if not installed
 ));
+
 // Fetch metadata (used on all pages)
 store.dispatch(Actions.fetchData(Actions.METADATA));
 // Create an enhanced history that syncs navigation events with the store
@@ -59,20 +42,20 @@ let reactElement = document.getElementById('react');
 render(<Provider store={store}>
     { /* Tell the Router to use our enhanced history */ }
     <Router history={history}>
-      <Route path="/" component={App}>
-        <IndexRoute component={Home} />
-        <Route path="matches/:match_id" component={Match}>
-          <Route path=":info"/>
-        </Route>
-        <Route path="players/:account_id" component={Player}>
-          <Route path="/:info">
-            <Route path="/:subkey">
+        <Route path="/" component={App}>
+            <IndexRoute component={Home}/>
+            <Route path="matches/:match_id" component={Match}>
+                <Route path=":info"/>
             </Route>
-          </Route>
+            <Route path="players/:account_id" component={Player}>
+                <Route path="/:info">
+                    <Route path="/:subkey">
+                    </Route>
+                </Route>
+            </Route>
         </Route>
-      </Route>
     </Router>
-  </Provider>, reactElement);
+</Provider>, reactElement);
 /*
 <Route path="distributions" component={Distribution}/>
 <Route path="carry" component={Carry}/>

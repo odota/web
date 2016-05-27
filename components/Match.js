@@ -1,9 +1,10 @@
 import React from 'react';
 import
 {
-  connect
+    connect
 }
-from 'react-redux';
+    from 'react-redux';
+import { Link } from 'react-router';
 import * as Actions from '../actions/actions';
 class Match extends React.Component
 {
@@ -14,9 +15,9 @@ class Match extends React.Component
   componentDidMount()
   {
     this.props.dispatch(Actions.fetchData(Actions.MATCH,
-    {
-      match_id: this.props.params.match_id
-    }));
+        {
+          match_id: this.props.params.match_id
+        }));
   }
   render()
   {
