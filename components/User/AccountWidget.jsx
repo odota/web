@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Spinner from '../Spinner';
 import { REDUCER_KEY } from '../../reducers';
 import { getUser } from '../../actions';
+import { Link } from 'react-router';
 
 const AccountWidget = ({ loading, error, user }) => {
   return (
@@ -11,7 +12,7 @@ const AccountWidget = ({ loading, error, user }) => {
       { error && <div >Error</div>}
       { !error && !loading && user ? (
           <div>
-            <li><a href={`/players/${user.account_id}`}>Profile</a></li>
+            <li><Link href={`/players/${user.account_id}`}>Profile</Link></li>
             <li><a href='/logout'>Logout</a></li>
           </div>
         )

@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Spinner from '../Spinner';
 import { REDUCER_KEY } from '../../reducers';
+import { Link } from 'react-router';
 
 const NavBar = ({ loading, error, navbarPages }) => {
   const getNavLinks = (navbarPages) => {
     return (
       Object.keys(navbarPages).map(page => (
         <li>
-          <a href={'/'+page}>{navbarPages[page].name}</a>
+          <Link href={'/'+page}>{navbarPages[page].name}</Link>
         </li>
       ))
     );
