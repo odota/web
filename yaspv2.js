@@ -6,35 +6,34 @@ import Match from './components/Match';
 import Player from './components/Player';
 import Home from './components/Home';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
-import reducers from './reducers/reducers';
-import * as Actions from './actions/actions';
-import thunkMiddleware from 'redux-thunk';
+// import reducers from './reducers/reducers';
+import appReducer, { REDUCER_KEY } from './reducers';
+// import * as Actions from './actions/actions';
+import { getMetadata } from './actions';import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore, routerReducer as routing } from 'react-router-redux';
 
 // Load CSS
-require('./node_modules/font-awesome/css/font-awesome.css');
+// These are sprites, will be needed at some point
 //require('./node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
-//require('../../node_modules/bootstrap/dist/css/bootstrap.css');
-//require('../../node_modules/bootswatch/darkly/bootstrap.css');
-//require('../css/yasp.css');
 
+require('./node_modules/font-awesome/css/font-awesome.css');
 const loggerMiddleware = createLogger();
-var reducer = combineReducers(
-    {
-        reducers,
-        routing
-    });
-
-var store = createStore(reducer, compose(applyMiddleware(thunkMiddleware), // lets us dispatch() functions
+const reducer = combineReducers({
+  [REDUCER_KEY]: appReducer,
+  routing
+});
+const store = createStore(reducer, compose(applyMiddleware(thunkMiddleware), // lets us dispatch() functions
     applyMiddleware(loggerMiddleware), // neat middleware that logs actions
     (window.devToolsExtension ? window.devToolsExtension() : () => {
     }) //This enables the redux dev tools extension, or does nothing if not installed
-));
+  )
+);
 
 // Fetch metadata (used on all pages)
-store.dispatch(Actions.fetchData(Actions.METADATA));
+// store.dispatch(Actions.fetchData(Actions.METADATA));
+store.dispatch(getMetadata());
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
 //history.listen(function(location) {Actions.routeChange(location)});
