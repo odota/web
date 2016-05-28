@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+- 'node'
+notifications:
+  email:
+  - howardc93@gmail.com
+  - aqc2109@columbia.edu
+script:
+- npm run build
+deploy:
+  provider: script
+  skip_cleanup: true
+  on:
+    branch: master
+  script: deploy.sh

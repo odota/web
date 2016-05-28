@@ -6,8 +6,8 @@
   "scripts": {
     "webpack": "webpack -p",
     "watch": "webpack --watch",
-    "webpack-dev-server": "webpack-dev-server -d",
-    "start": "npm run webpack-dev-server"
+    "start": "webpack-dev-server -d",
+    "build": "npm run webpack"
   },
   "repository": {
     "type": "git",
