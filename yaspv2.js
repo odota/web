@@ -12,16 +12,20 @@ import App from './components/App';
 import Match from './components/Match';
 import Player from './components/Player';
 import Home from './components/Home';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+// This is used by material-ui components
+injectTapEventPlugin();
 
 // Load CSS
 // These are sprites, will be needed at some point
-//require('./node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
+// require('./node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
 
 require('./node_modules/font-awesome/css/font-awesome.css');
 const loggerMiddleware = createLogger();
 const reducer = combineReducers({
   [REDUCER_KEY]: appReducer,
-  routing
+  routing,
 });
 const store = createStore(reducer, compose(applyMiddleware(thunkMiddleware), // lets us dispatch() functions
     applyMiddleware(loggerMiddleware) // neat middleware that logs actions
@@ -37,25 +41,25 @@ const store = createStore(reducer, compose(applyMiddleware(thunkMiddleware), // 
 store.dispatch(getMetadata());
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
-//history.listen(function(location) {Actions.routeChange(location)});
-let reactElement = document.getElementById('react');
-render(<Provider store={store}>
-    { /* Tell the Router to use our enhanced history */ }
+// history.listen(function(location) {Actions.routeChange(location)});
+const reactElement = document.getElementById('react');
+render(
+  <Provider store={store}>
+    {/* Tell the Router to use our enhanced history */}
     <Router history={history}>
-        <Route path="/" component={App}>
-            <IndexRoute component={Home}/>
-            <Route path="matches/:match_id" component={Match}>
-                <Route path=":info"/>
-            </Route>
-            <Route path="players/:account_id" component={Player}>
-                <Route path="/:info">
-                    <Route path="/:subkey">
-                    </Route>
-                </Route>
-            </Route>
+      <Route path="/" component={App}>
+        <IndexRoute component={Home} />
+        <Route path="matches/:match_id" component={Match}>
+          <Route path=":info" />
         </Route>
+        <Route path="players/:account_id" component={Player}>
+          <Route path="/:info">
+            <Route path="/:subkey" />
+          </Route>
+        </Route>
+      </Route>
     </Router>
-</Provider>, reactElement);
+  </Provider>, reactElement);
 /*
 <Route path="distributions" component={Distribution}/>
 <Route path="carry" component={Carry}/>

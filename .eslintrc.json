@@ -1,0 +1,10 @@
+{
+  "parserOptions": {
+    "ecmaFeatures": { "experimentalObjectRestSpread": true }
+  },
+  "extends": "airbnb",
+  "rules": {
+    "react/prop-types": 1,
+    "max-len": ["error", 150]
+  }
+}

@@ -15,7 +15,9 @@ module.exports = {
       // sourceMapFilename: '[name].map'
   },
   // devtool: 'eval-source-map',
-
+  resolve: {
+    extensions: ['', '.jsx', '.js', '.css', '.json']
+  },
   module:
   {
     loaders: [
@@ -41,16 +43,8 @@ module.exports = {
         loader: 'babel', // 'babel-loader' is also a legal name to reference
         query:
         {
-          presets: ['react', 'es2015']
+          presets: ['stage-2', 'react', 'es2015']
         }
-        },
-      {
-        test: /jquery\.js$/,
-        loader: 'expose?$'
-      },
-      {
-        test: /jquery\.js$/,
-        loader: 'expose?jQuery'
       }
     ]
   },

@@ -10,26 +10,25 @@ const ERROR = 'yasp/player/ERROR';
 export const playerActions = {
   REQUEST,
   OK,
-  ERROR
+  ERROR,
 };
 
 const getPlayerRequest = () => ({ type: REQUEST });
 
 const getPlayerOk = (payload) => ({
   type: OK,
-  payload
-})
+  payload,
+});
 
 const getPlayerError = (payload) => ({
   type: ERROR,
-  payload
+  payload,
 });
 
-export const getPlayer = (account_id, host=HOST_URL) => {
-  return (dispatch) => {
-    return fetch(`${host}${url}/${account_id}`)
-      .then(response => response.json())
-      .then(json => dispatch(getPlayerOk(json)))
-      .catch(error => dispatch(getPlayerError()));
-  };
+export const getPlayer = (accountId, host = HOST_URL) => (dispatch) => {
+  dispatch(getPlayerRequest());
+  return fetch(`${host}${url}/${accountId}`)
+    .then(response => response.json())
+    .then(json => dispatch(getPlayerOk(json)))
+    .catch(error => dispatch(getPlayerError(error)));
 };

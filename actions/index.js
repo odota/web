@@ -11,5 +11,5 @@ export {
   getPlayer,
   matchActions,
   getMatch,
-  HOST_URL
+  HOST_URL,
 };

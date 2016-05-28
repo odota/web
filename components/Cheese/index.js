@@ -1,3 +1,3 @@
-import Cheese from './Cheese.jsx';
+import Cheese from './Cheese';
 
 export default Cheese;
