@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const Home = (data) => (
+const Home = () => (
   <div>This is a home page!</div>
 );
 

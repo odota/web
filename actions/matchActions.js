@@ -10,19 +10,19 @@ const ERROR = 'yasp/match/ERROR';
 export const matchActions = {
   REQUEST,
   OK,
-  ERROR
+  ERROR,
 };
 
 const getMatchRequest = () => ({ type: REQUEST });
 
 const getMatchOk = (payload) => ({
   type: OK,
-  payload
+  payload,
 });
 
 const getMatchError = (payload) => ({
   type: ERROR,
-  payload
+  payload,
 });
 
 export const getMatch = (matchId, host = HOST_URL) => (dispatch) => {

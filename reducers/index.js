@@ -10,5 +10,5 @@ export { REDUCER_KEY };
 export default combineReducers({
   gotMetadata,
   gotPlayer,
-  gotMatch
+  gotMatch,
 });

@@ -20,9 +20,9 @@ const Cheese = ({ donations }) => {
         </div>
       </div>
       <div className="col-md-4 text-center">
-        <span style={{padding: "5px 11px"}} className="flaticon-1 medium-cheese" />
+        <span style={{ padding: '5px 11px' }} className="flaticon-1 medium-cheese" />
         <a href="/carry" target="_blank">
-          <button style={{ "marginBottom":"2em", "marginLeft": "2em" }} className="btn btn-warning">Help Us Out</button>
+          <button style={{ marginBottom: '2em', marginLeft: '2em' }} className="btn btn-warning">Help Us Out</button>
         </a>
       </div>
     </div>

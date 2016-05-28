@@ -4,7 +4,6 @@
   },
   "extends": "airbnb",
   "rules": {
-    "comma-dangle": 0,
     "react/prop-types": 1,
     "max-len": ["error", 150]
   }

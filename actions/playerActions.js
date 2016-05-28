@@ -10,19 +10,19 @@ const ERROR = 'yasp/player/ERROR';
 export const playerActions = {
   REQUEST,
   OK,
-  ERROR
+  ERROR,
 };
 
 const getPlayerRequest = () => ({ type: REQUEST });
 
 const getPlayerOk = (payload) => ({
   type: OK,
-  payload
+  payload,
 });
 
 const getPlayerError = (payload) => ({
   type: ERROR,
-  payload
+  payload,
 });
 
 export const getPlayer = (accountId, host = HOST_URL) => (dispatch) => {

@@ -7,14 +7,16 @@
     "webpack": "webpack -p",
     "watch": "webpack --watch",
     "start": "webpack-dev-server -d",
-    "build": "npm run webpack",
+    "build": "npm run lint && npm run webpack",
     "lint": "eslint ./components/** ./actions/** ./reducers/** ./yaspv2.js"
   },
   "repository": {
     "type": "git",
     "url": "http://github.com/yasp-dota/ui"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react-tap-event-plugin": "^1.0.0"
+  },
   "devDependencies": {
     "babel-core": "6.7.4",
     "babel-loader": "^6.2.3",

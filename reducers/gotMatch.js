@@ -2,7 +2,7 @@ import { matchActions } from '../actions';
 
 const initialState = {
   loading: true,
-  error: false
+  error: false,
 };
 
 export default (state = initialState, action) => {
@@ -10,19 +10,19 @@ export default (state = initialState, action) => {
     case matchActions.REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case matchActions.OK:
       return {
         ...state,
         loading: false,
-        match: action.payload
+        match: action.payload,
       };
     case matchActions.ERROR:
       return {
         ...state,
         loading: false,
-        error: true
+        error: true,
       };
     default:
       return state;

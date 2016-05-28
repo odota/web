@@ -3,7 +3,7 @@ import { metadataActions } from '../actions';
 const initialState = {
   loading: true,
   error: false,
-  links: []
+  links: [],
 };
 
 export default (state = initialState, action) => {
@@ -11,20 +11,20 @@ export default (state = initialState, action) => {
     case metadataActions.REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case metadataActions.OK:
       return {
         state,
         ...action.payload,
         loading: false,
-        donations: action.payload.cheese
+        donations: action.payload.cheese,
       };
     case metadataActions.ERROR:
       return {
         ...state,
         loading: false,
-        error: true
+        error: true,
       };
     default:
       return state;

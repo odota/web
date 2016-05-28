@@ -2,7 +2,7 @@ import { playerActions } from '../actions';
 
 const initialState = {
   loading: true,
-  error: false
+  error: false,
 };
 
 export default (state = initialState, action) => {
@@ -10,19 +10,19 @@ export default (state = initialState, action) => {
     case playerActions.REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case playerActions.OK:
       return {
         ...state,
         loading: false,
-        player: action.payload.profile
+        player: action.payload.profile,
       };
     case playerActions.ERROR:
       return {
         ...state,
         loading: false,
-        error: true
+        error: true,
       };
     default:
       return state;
