@@ -17,7 +17,7 @@ const getMetadataOk = (payload) => (
 {
   type: OK,
   payload
-})
+});
 const getMetadataError = (payload) => (
 {
   type: ERROR,
@@ -31,7 +31,7 @@ export const getMetadata = (userId, host = HOST_URL) =>
     {
       const links = Object.keys(json.navbar_pages).map((key, index) =>
       {
-        return json.navbar_pages[key];
+        return {path: '/' + key, name: json.navbar_pages[key].name};
       });
       const transformedData = Object.assign({}, {links: links}, json);
       dispatch(getMetadataOk(transformedData));

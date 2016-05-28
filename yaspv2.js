@@ -1,16 +1,17 @@
-import App from './components/App';
-import Match from './components/Match';
-import Player from './components/Player';
-import Home from './components/Home';
+import React from 'react';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import appReducer, { REDUCER_KEY } from './reducers';
 import { getMetadata } from './actions';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import createLogger from 'redux-logger';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore, routerReducer as routing } from 'react-router-redux';
+import App from './components/App';
+import Match from './components/Match';
+import Player from './components/Player';
+import Home from './components/Home';
 
 // Load CSS
 // These are sprites, will be needed at some point
@@ -23,9 +24,11 @@ const reducer = combineReducers({
   routing
 });
 const store = createStore(reducer, compose(applyMiddleware(thunkMiddleware), // lets us dispatch() functions
-    applyMiddleware(loggerMiddleware), // neat middleware that logs actions
+    applyMiddleware(loggerMiddleware) // neat middleware that logs actions
+    /*
     (window.devToolsExtension ? window.devToolsExtension() : () => {
     }) //This enables the redux dev tools extension, or does nothing if not installed
+    */
   )
 );
 

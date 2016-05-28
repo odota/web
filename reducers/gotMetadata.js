@@ -9,13 +9,11 @@ const initialState = {
 export default (state = initialState, action) => {
   switch(action.type) {
     case metadataActions.REQUEST:
-      return Object.assign({}, {loading: true}, state);
+      return Object.assign({}, state, {loading: true});
     case metadataActions.OK:
-      return Object.assign({}, {loading: false,        links: action.payload.links,
-        donations: action.payload.cheese}, state);
+      return Object.assign({}, state, Object.assign({}, {loading: false}, action.payload));
     case metadataActions.ERROR:
-      return Object.assign({}, {        loading: false,
-        error: true}, state);
+      return Object.assign({}, state, {loading: false, error: true});
     default:
       return state;
   }

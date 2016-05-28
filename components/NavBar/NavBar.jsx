@@ -9,7 +9,7 @@ const NavBar = ({ loading, error, links }) => {
     return (
       links.map((link, index) => (
         <li key={index}>
-          <Link to={'/'+link}>{link.name}</Link>
+          <Link to={link.path}>{link.name}</Link>
         </li>
       ))
     );
