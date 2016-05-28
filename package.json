@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "license": "GPL-3.0",
   "scripts": {
-    "webpack": "webpack -p",
+    "webpack": "webpack -p --bail",
     "watch": "webpack --watch",
     "start": "webpack-dev-server -d",
     "build": "npm run lint && npm run webpack",
