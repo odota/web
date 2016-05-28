@@ -1,3 +1,3 @@
-import AccountWidget from './AccountWidget';
+import Player from './Player.jsx';
 
-export default AccountWidget;
+export default Player;

@@ -1,12 +1,12 @@
 import React from 'react';
 import Logo from '../Logo';
 import NavBar from '../NavBar';
-import Player from '../Player';
+import AccountWidget from '../AccountWidget';
 
 export default () => (
   <div>
     <Logo />
     <NavBar />
-    <Player />
+    <AccountWidget />
   </div>
 );

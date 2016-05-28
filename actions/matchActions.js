@@ -25,9 +25,9 @@ const getMatchError = (payload) => ({
   payload
 });
 
-export const getMatch = (matchId, host=HOST_URL) => {
+export const getMatch = (match_id, host=HOST_URL) => {
   return (dispatch) => {
-    return fetch(`${host}${url}/${matchId}`)
+    return fetch(`${host}${url}/${match_id}`)
       .then(response => response.json())
       .then(json => dispatch(getMatchOk(json)))
       .catch(error => dispatch(getMatchError()));

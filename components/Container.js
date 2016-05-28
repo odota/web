@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Match from './Match';
-import Player from './Player';
+//import Match from './Match';
+//import Player from './Player';
 
 const Container = (data) => (
   <div>

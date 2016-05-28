@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { matchActions } from '../actions';
+//import { matchActions } from '../actions';
 class Match extends React.Component
 {
   constructor(props)

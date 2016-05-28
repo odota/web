@@ -25,9 +25,9 @@ const getPlayerError = (payload) => ({
   payload
 });
 
-export const getPlayer = (playerId, host=HOST_URL) => {
+export const getPlayer = (account_id, host=HOST_URL) => {
   return (dispatch) => {
-    return fetch(`${host}${url}/${playerId}`)
+    return fetch(`${host}${url}/${account_id}`)
       .then(response => response.json())
       .then(json => dispatch(getPlayerOk(json)))
       .catch(error => dispatch(getPlayerError()));
