@@ -1,3 +1,5 @@
+#!/bin/bash
+
 rev=$(git rev-parse --short HEAD)
 
 git config user.name "Travis CI"
