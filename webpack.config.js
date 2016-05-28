@@ -3,7 +3,9 @@
  **/
 // var postcss = require('postcss');
 module.exports = {
-  entry: './yaspv2',
+  entry: {
+    yaspv2: './yaspv2.js',
+  },
   output:
   {
     filename: '[name].min.js',
