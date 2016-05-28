@@ -5,21 +5,18 @@ import { REDUCER_KEY } from '../../reducers';
 import { Link } from 'react-router';
 
 const NavBar = ({ loading, error, links }) => {
-  const getNavLinks = (links) => {
-    return (
-      links.map((link, index) => (
-        <li key={index}>
-          <Link to={link.path}>{link.name}</Link>
-        </li>
-      ))
-    );
-  };
+  const getNavLinks = (navLinks) =>
+    navLinks.map((link, index) => (
+      <li key={index}>
+        <Link to={link.path}>{link.name}</Link>
+      </li>
+    ));
 
   return (
     <div>
-      { loading && !error && <Spinner /> }
-      { error && <div>Error</div> }
-      { !loading && !error && getNavLinks(links) }
+      {loading && !error && <Spinner />}
+      {error && <div>Error</div>}
+      {!loading && !error && getNavLinks(links)}
     </div>
   );
 };

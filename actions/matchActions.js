@@ -18,18 +18,17 @@ const getMatchRequest = () => ({ type: REQUEST });
 const getMatchOk = (payload) => ({
   type: OK,
   payload
-})
+});
 
 const getMatchError = (payload) => ({
   type: ERROR,
   payload
 });
 
-export const getMatch = (match_id, host=HOST_URL) => {
-  return (dispatch) => {
-    return fetch(`${host}${url}/${match_id}`)
-      .then(response => response.json())
-      .then(json => dispatch(getMatchOk(json)))
-      .catch(error => dispatch(getMatchError()));
-  };
+export const getMatch = (matchId, host = HOST_URL) => (dispatch) => {
+  dispatch(getMatchRequest());
+  return fetch(`${host}${url}/${matchId}`)
+    .then(response => response.json())
+    .then(json => dispatch(getMatchOk(json)))
+    .catch(error => dispatch(getMatchError(error)));
 };

@@ -13,9 +13,9 @@ const Cheese = ({ donations }) => {
       </div>
       <div className="col-md-4 text-center">
         <div className="meter_wrapper">
-          <h3 style={{ "fontWeight":700, "marginTop": 0 }}>Monthly Cheese Goal</h3>
+          <h3 style={{ fontWeight: 700, marginTop: 0 }}>Monthly Cheese Goal</h3>
           <div className="meter">
-            <span style={{ width: cheesePercent+"%" }}>{cheesePercent}</span>
+            <span style={{ width: `${cheesePercent}%` }}>{cheesePercent}</span>
           </div>
         </div>
       </div>

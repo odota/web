@@ -1,3 +1,3 @@
-import Match from './Match.jsx';
+import Match from './Match';
 
 export default Match;

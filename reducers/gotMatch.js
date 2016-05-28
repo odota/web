@@ -6,13 +6,24 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case matchActions.REQUEST:
-      return Object.assign({}, state, {loading: true});
+      return {
+        ...state,
+        loading: true
+      };
     case matchActions.OK:
-      return Object.assign({}, state, {loading: false, match: action.payload,});
+      return {
+        ...state,
+        loading: false,
+        match: action.payload
+      };
     case matchActions.ERROR:
-      return Object.assign({}, state, {loading: false, error: true,});
+      return {
+        ...state,
+        loading: false,
+        error: true
+      };
     default:
       return state;
   }

@@ -1,3 +1,3 @@
-import AccountWidget from './AccountWidget.jsx';
+import AccountWidget from './AccountWidget';
 
 export default AccountWidget;
