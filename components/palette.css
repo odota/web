@@ -1,0 +1,22 @@
+:root {
+  --darkPrimaryColor: #388E3C;
+  --defaultPrimaryColor: #4CAF50;
+  --lightPrimaryColor: #C8E6C9;
+  --textPrimaryColor: #FFFFFF;
+  --accentColor: #FF5722;
+  --primaryTextColor: #212121;
+  --secondaryTextColor: #727272;
+  --dividerColor: #B6B6B6;
+
+  /* font sizes */
+  --normalFontSize: 12px;
+}
+
+/*.darkPrimaryColor  { background: #388E3C; }
+.defaultPrimaryColor { background: #4CAF50; }
+.lightPrimaryColor   { background: #C8E6C9; }
+.textPrimaryColor    { color: #FFFFFF; }
+.accentColor          { background: #FF5722; }
+.primaryTextColor    { color: #212121; }
+.secondaryTextColor  { color: #727272; }
+.dividerColor         { border-color: #B6B6B6; }*/

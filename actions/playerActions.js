@@ -29,6 +29,8 @@ export const getPlayer = (accountId, host = HOST_URL) => (dispatch) => {
   dispatch(getPlayerRequest());
   return fetch(`${host}${url}/${accountId}`)
     .then(response => response.json())
-    .then(json => dispatch(getPlayerOk(json)))
+    .then(json => {
+      dispatch(getPlayerOk(json));
+    })
     .catch(error => dispatch(getPlayerError(error)));
 };

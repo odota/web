@@ -12,7 +12,7 @@ const AccountWidget = ({ loading, error, player }) => (
     {error && <div >Error</div>}
     {!error && !loading && player ? (
       <div>
-        <li><Link to={`/players/${player.account_id}`}>Profile</Link></li>
+        <li><Link to={`/players/${player.profile.account_id}`}>Profile</Link></li>
         <li><a href="/logout">Logout</a></li>
       </div>
     )
@@ -23,7 +23,7 @@ const AccountWidget = ({ loading, error, player }) => (
 
 class AccountWidgetWrapper extends React.Component {
   componentDidMount() {
-    this.props.getPlayer(this.props.playerId);
+    this.props.getPlayer(15446376);
   }
 
   render() {
@@ -39,12 +39,12 @@ const mapStateToProps = (state) => {
   return {
     loading,
     error,
-    player
+    player,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getPlayer: (playerId) => dispatch(getPlayer(playerId))
+  getPlayer: (playerId) => dispatch(getPlayer(playerId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountWidgetWrapper);

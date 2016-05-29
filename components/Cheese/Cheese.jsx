@@ -35,7 +35,7 @@ const mapStateToProps = (state) => {
   return {
     loading,
     error,
-    donations
+    donations,
   };
 };
 

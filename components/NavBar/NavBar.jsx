@@ -27,7 +27,7 @@ const mapStateToProps = (state) => {
   return {
     loading,
     error,
-    links
+    links,
   };
 };
 

@@ -27,14 +27,12 @@ const reducer = combineReducers({
   [REDUCER_KEY]: appReducer,
   routing,
 });
-const store = createStore(reducer, compose(applyMiddleware(thunkMiddleware), // lets us dispatch() functions
-    applyMiddleware(loggerMiddleware) // neat middleware that logs actions
-    /*
-    (window.devToolsExtension ? window.devToolsExtension() : () => {
-    }) //This enables the redux dev tools extension, or does nothing if not installed
-    */
-  )
-);
+const store = createStore(reducer, compose(
+  applyMiddleware(thunkMiddleware),
+  applyMiddleware(loggerMiddleware),
+  (window.devToolsExtension ? window.devToolsExtension() : () => {
+  }) // This enables the redux dev tools extension, or does nothing if not installed
+));
 
 // Fetch metadata (used on all pages)
 // store.dispatch(Actions.fetchData(Actions.METADATA));
