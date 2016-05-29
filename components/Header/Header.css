@@ -1,0 +1,19 @@
+nav {
+  height: 51px;
+}
+menu {
+  list-style: none;
+  white-space: nowrap;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  line-height: 49px
+}
+menu > li {
+  display: inline;
+  margin: 0 13px;
+}
+nav a:hover {
+  text-decoration: none;
+  opacity: .8;
+}
