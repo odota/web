@@ -4,15 +4,12 @@ import { REDUCER_KEY } from '../../reducers';
 import Table from './Table';
 import createConstantsWrapper from '../Constants';
 import { getMatch } from '../../actions';
-//TODO choose columns based on table being rendered
-import playerMatchesColumns from './playerMatchesColumns';
-
 const mapStateToProps = (state) => {
   const { error, loading, match } = state[REDUCER_KEY].gotMatch;
   return {
     loading,
     error,
-    data: match
+    data: match && match.players ? match.players : match,
   };
 };
 
@@ -27,7 +24,7 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    return <Table {...this.props} columns={playerMatchesColumns} />;
+    return <Table {...this.props} />;
   }
 }
 
