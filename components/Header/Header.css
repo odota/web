@@ -1,0 +1,12 @@
+@import "../palette.css";
+
+.header {
+  background-color: var(--defaultPrimaryColor) !important;
+
+  & a {
+    color: #fff;
+    &:hover {
+      color: var(--primaryTextColor);
+    }
+  }
+}

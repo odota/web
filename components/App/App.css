@@ -1,0 +1,22 @@
+@import "../palette.css";
+
+.container {
+  transition: var(--normalTransition);
+  position: relative;
+  display: flex;
+  flex-direction:column;
+  min-height: 100%;
+}
+
+.drawerOpen {
+  left: 256px;
+}
+
+.drawerClosed {
+  left: 0;
+}
+
+.body {
+  padding: 50px;
+  flex-grow: 1;
+}

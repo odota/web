@@ -16,7 +16,9 @@
     "url": "http://github.com/yasp-dota/ui"
   },
   "dependencies": {
-    "react-tap-event-plugin": "^1.0.0"
+    "moment": "^2.13.0",
+    "react-tap-event-plugin": "^1.0.0",
+    "reselect": "^2.5.1"
   },
   "devDependencies": {
     "babel-core": "6.9.0",
@@ -40,6 +42,7 @@
     "material-ui": "^0.15.0-alpha.2",
     "npm-check-updates": "2.6.5",
     "postcss-browser-reporter": "^0.5.0",
+    "postcss-color-function": "^2.0.1",
     "postcss-cssnext": "^2.5.2",
     "postcss-import": "^8.1.2",
     "postcss-loader": "^0.9.1",

@@ -54,6 +54,7 @@ module.exports = {
       require('postcss-cssnext')(),
       require('postcss-browser-reporter')(),
       require('postcss-reporter')(),
+      require("postcss-color-function")(),
     ];
   },
   devServer:

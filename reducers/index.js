@@ -2,6 +2,7 @@ import gotMetadata from './gotMetadata';
 import gotConstants from './gotConstants';
 import gotMatch from './gotMatch';
 import gotPlayer from './gotPlayer';
+import appBar from './appBar';
 import { combineReducers } from 'redux';
 
 const REDUCER_KEY = 'yaspReducer';
@@ -13,4 +14,5 @@ export default combineReducers({
   gotPlayer,
   gotMatch,
   gotConstants,
+  appBar,
 });

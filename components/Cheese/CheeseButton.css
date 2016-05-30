@@ -1,0 +1,13 @@
+@import "../palette.css";
+
+:export { backgroundColor: var(--lightPrimaryColor) }
+
+.cheese {
+  font-family: Flaticon;
+  font-size: 40px;
+  text-shadow: 0 0 10px #ff0;
+  margin: 0 10px;
+  &::before {
+    content: "\E000";
+  }
+}
