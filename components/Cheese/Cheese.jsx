@@ -4,9 +4,9 @@ import { REDUCER_KEY } from '../../reducers';
 import Spinner from '../Spinner';
 import styles from './Cheese.css';
 import LinearProgress from 'material-ui/LinearProgress';
+import CheeseButton from './CheeseButton';
 
 const Cheese = ({ donations, error, loading }) => {
-  // const cheesePercent = donations ? donations.cheese / donations.goal : 0;
   const { goal, cheese } = donations;
   const percent = cheese / goal;
 
@@ -38,10 +38,7 @@ const Cheese = ({ donations, error, loading }) => {
         </div>
       </div>
       <div className={styles.section}>
-        <span style={{ padding: '5px 11px' }} className="flaticon-1 medium-cheese" />
-        <a href="/carry" target="_blank">
-          <button style={{ marginBottom: '2em', marginLeft: '2em' }} className="btn btn-warning">Help Us Out</button>
-        </a>
+        <CheeseButton />
       </div>
     </div>
   );
