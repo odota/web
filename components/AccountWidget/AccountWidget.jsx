@@ -8,18 +8,16 @@ import { Link } from 'react-router';
 
 // Maybe we can factor out this ternary into a function?
 const AccountWidget = ({ loading, error, user }) => (
-  <div>
+  <menu>
     {loading && !error && <Spinner />}
     {error && <Error />}
-    {!error && !loading && user ? (
-      <div>
-        <li><Link to={`/players/${user.account_id}`}>Profile</Link></li>
-        <li><a href="/logout">Logout</a></li>
-      </div>
-    )
+    {!error && !loading && user ? ([
+      <li><Link to={`/players/${user.account_id}`}>Profile</Link></li>,
+      <li><a href="/logout">Logout</a></li>,
+    ])
     : <li><a href="/login">Login</a></li>
     }
-  </div>
+  </menu>
 );
 
 export { AccountWidget };

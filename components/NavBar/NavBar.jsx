@@ -14,11 +14,11 @@ const NavBar = ({ loading, error, links }) => {
     ));
 
   return (
-    <div>
+    <menu>
       {loading && !error && <Spinner />}
       {error && <Error />}
       {!loading && !error && getNavLinks(links)}
-    </div>
+    </menu>
   );
 };
 
