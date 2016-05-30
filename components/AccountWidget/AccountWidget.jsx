@@ -11,12 +11,10 @@ const AccountWidget = ({ loading, error, player }) => (
   <menu>
     {loading && !error && <Spinner />}
     {error && <Error />}
-    {!error && !loading && player ? (
-      [
-        <li><Link to={`/players/${player.account_id}`}>Profile</Link></li>,
-        <li><a href="/logout">Logout</a></li>
-      ]
-    )
+    {!error && !loading && player ? ([
+      <li><Link to={`/players/${player.account_id}`}>Profile</Link></li>,
+      <li><a href="/logout">Logout</a></li>,
+    ])
     : <li><a href="/login">Login</a></li>
     }
   </menu>
