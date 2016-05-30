@@ -1,8 +1,10 @@
 import React from 'react';
-// import { connect } from 'react-redux';
-// import { Link } from 'react-router';
-// import { matchActions } from '../actions';
+import { MatchTable } from '../Table';
+import Error from '../Error';
 
-const Match = () => <pre>{JSON.stringify(this.props, null, 2)}</pre>;
-
-export default Match;
+export default ({ params }) => (
+  <div>
+    {params && params.match_id && <MatchTable matchId={params.match_id} />}
+    {(!params || !params.match_id) && <Error />}
+  </div>
+);
