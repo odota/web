@@ -3,4 +3,11 @@
 .listItem {
   padding: 20px;
   font-size: var(--mediumLargeFontSize);
+
+  color: var(--primaryTextColor);
+
+  &:hover {
+    background-color: var(--primaryTextColor);
+    color: #fff;
+  }
 }

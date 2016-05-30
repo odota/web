@@ -10,12 +10,12 @@ import styles from './NavBar.css';
 const NavBar = ({ loading, error, links }) => {
   const getNavLinks = (navLinks) =>
     navLinks.map((link, index) => (
-      <div key={index}>
+      <Link key={index} to={link.path}>
         <li className={styles.listItem}>
-          <Link to={link.path}>{link.name}</Link>
+          {link.name}
         </li>
         <Divider />
-      </div>
+      </Link>
     ));
 
   return (
