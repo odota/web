@@ -1,7 +1,8 @@
 import React from 'react';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import appReducer, { REDUCER_KEY } from './reducers';
-import { getMetadata } from './actions';
+import { DEV_URL } from './yasp.config';
+import { getMetadata, getConstants } from './actions';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
@@ -37,6 +38,7 @@ const store = createStore(reducer, compose(
 // Fetch metadata (used on all pages)
 // store.dispatch(Actions.fetchData(Actions.METADATA));
 store.dispatch(getMetadata());
+store.dispatch(getConstants(DEV_URL));
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
 // history.listen(function(location) {Actions.routeChange(location)});

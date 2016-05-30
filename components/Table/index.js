@@ -1,5 +1,5 @@
 import Table from './Table';
-import MatchesTable from './MatchesTable.container';
+import PlayerMatchesTable from './PlayerMatchesTable.container';
 
 export default Table;
-export { MatchesTable };
+export { PlayerMatchesTable };

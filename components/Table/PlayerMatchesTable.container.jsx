@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { REDUCER_KEY } from '../../reducers';
 import Table from './Table';
 import { getPlayerMatches } from '../../actions';
-import { matchColumns } from '../../yasp.config';
+import playerMatchesColumns from './playerMatchesColumns';
 
 const mapStateToProps = (state) => {
-  const { error, loading, matches } = state[REDUCER_KEY].gotPlayerMatches;
+  const { error, loading, matches } = state[REDUCER_KEY].gotPlayer.matches;
 
   return {
     loading,
@@ -26,7 +26,7 @@ class TableWrapper extends React.Component {
   }
 
   render() {
-    return <Table {...this.props} columns={matchColumns} />;
+    return <Table {...this.props} columns={playerMatchesColumns} />;
   }
 }
 

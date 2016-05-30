@@ -23,20 +23,11 @@ const getMetadataError = (payload) => ({
   payload,
 });
 
-export const getMetadata = (userId, host = HOST_URL) => (dispatch) => {
+export const getMetadata = (host = HOST_URL) => (dispatch) => {
   getMetadataRequest();
-  return fetch(`${host}${url}`)
+  return fetch(`${host}${url}`, { credentials: 'include' })
   .then(response => response.json())
-  .then(json => {
-    const links = Object.keys(json.navbar_pages).map(
-      (key) => ({ path: `/${key}`, name: json.navbar_pages[key].name })
-    );
-    const transformedData = {
-      ...json,
-      links,
-    };
-    dispatch(getMetadataOk(transformedData));
-  })
+  .then(json => dispatch(getMetadataOk(json)))
   .catch(error => {
     dispatch(getMetadataError(error));
   });

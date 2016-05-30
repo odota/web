@@ -26,7 +26,7 @@ const getMatchError = (payload) => ({
 });
 
 const matchApiCall = (matchId, host) => {
-  fetch(`${host}${url}${matchId}`)
+  fetch(`${host}${url}${matchId}`, { credentials: 'include' })
   .then(response => response.json())
   .catch(error => error);
 };

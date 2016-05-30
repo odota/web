@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Spinner from '../Spinner';
+import Error from '../Error';
 import { REDUCER_KEY } from '../../reducers';
 import { Link } from 'react-router';
 
@@ -15,14 +16,14 @@ const NavBar = ({ loading, error, links }) => {
   return (
     <div>
       {loading && !error && <Spinner />}
-      {error && <div>Error</div>}
+      {error && <Error />}
       {!loading && !error && getNavLinks(links)}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  const { loading, error, links } = state[REDUCER_KEY].gotMetadata;
+  const { loading, error, links } = state[REDUCER_KEY].gotConstants;
 
   return {
     loading,

@@ -1,4 +1,4 @@
-import { playerActions } from '../actions';
+import { playerActions } from '../../actions';
 
 const initialState = {
   loading: true,
