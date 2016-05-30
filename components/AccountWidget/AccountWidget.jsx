@@ -18,7 +18,7 @@ const AccountWidget = ({ loading, error, user }) => (
         <li><a href="/logout">Logout</a></li>
       </ul>
     )
-    : <li><a href="/login">Login</a></li>
+    : <a href="/login">Login</a>
     }
   </div>
 );

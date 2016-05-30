@@ -16,6 +16,7 @@
     "url": "http://github.com/yasp-dota/ui"
   },
   "dependencies": {
+    "moment": "^2.13.0",
     "react-tap-event-plugin": "^1.0.0",
     "reselect": "^2.5.1"
   },

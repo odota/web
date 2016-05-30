@@ -25,7 +25,6 @@ const getPlayerMatchesError = (payload) => ({
   payload,
 });
 
-// TODO - memoize this with selectors
 const playerMatchTransformSwitch = (match, field, heroes) => {
   switch (field) {
     case 'hero_id':
@@ -68,7 +67,6 @@ export const getPlayerMatches = (playerId, numMatches, host = HOST_URL) => (disp
   return fetch(`${host}${url(playerId, numMatches)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => {
-      console.log(getState());
       const transformedMatches = json.matches.map(match =>
         playerMatchTransform(match)(getState().yaspReducer.gotConstants.heroes)
       );

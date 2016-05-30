@@ -10,6 +10,7 @@ export default ({ openMenu }) => (
     <AppBar
       className={styles.header}
       iconElementRight={(<AccountWidget />)}
+      iconStyleRight={{ marginRight: 0 }}
       title={(<Logo />)}
       onLeftIconButtonTouchTap={() => openMenu()}
     />
