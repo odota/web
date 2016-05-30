@@ -1,3 +1,4 @@
 import React from 'react';
+import CircularProgress from 'material-ui/CircularProgress';
 
-export default () => <div><i className="fa fa-spinner fa-spin"></i></div>;
+export default ({ size = 1 }) => <div><CircularProgress size={size} /></div>;

@@ -2,11 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import NavBar from './NavBar';
 import Drawer from 'material-ui/Drawer';
+import { FooterLinks } from '../Footer';
 import { REDUCER_KEY } from '../../reducers';
+import styles from './NavDrawer.css';
 
 const NavDrawer = ({ open }) => (
   <Drawer open={open}>
-    <NavBar />
+    <div className={styles.container}>
+      <div className={styles.navigation}>
+        <NavBar />
+      </div>
+      <div className={styles.footerLinks}>
+        <FooterLinks />
+      </div>
+    </div>
   </Drawer>
 );
 

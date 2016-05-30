@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  flex-direction:column;
+  min-height: 100%;
+  position: relative;
+}
+
+.navigation {
+  flex-grow: 1;
+}
