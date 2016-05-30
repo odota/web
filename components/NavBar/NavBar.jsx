@@ -6,6 +6,7 @@ import { REDUCER_KEY } from '../../reducers';
 import { Link } from 'react-router';
 import Divider from 'material-ui/Divider';
 import styles from './NavBar.css';
+import { getAlphabetizedLinks } from '../../selectors';
 
 const NavBar = ({ loading, error, links }) => {
   const getNavLinks = (navLinks) =>
@@ -28,12 +29,12 @@ const NavBar = ({ loading, error, links }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { loading, error, links } = state[REDUCER_KEY].gotConstants;
+  const { loading, error } = state[REDUCER_KEY].gotConstants;
 
   return {
     loading,
     error,
-    links,
+    links: getAlphabetizedLinks(state),
   };
 };
 
