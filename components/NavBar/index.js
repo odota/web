@@ -1,3 +1,7 @@
 import NavBar from './NavBar';
+import NavDrawer from './NavDrawer';
 
-export default NavBar;
+export {
+  NavBar,
+  NavDrawer,
+};

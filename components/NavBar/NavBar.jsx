@@ -4,13 +4,18 @@ import Spinner from '../Spinner';
 import Error from '../Error';
 import { REDUCER_KEY } from '../../reducers';
 import { Link } from 'react-router';
+import Divider from 'material-ui/Divider';
+import styles from './NavBar.css';
 
 const NavBar = ({ loading, error, links }) => {
   const getNavLinks = (navLinks) =>
     navLinks.map((link, index) => (
-      <li key={index}>
-        <Link to={link.path}>{link.name}</Link>
-      </li>
+      <div key={index}>
+        <li className={styles.listItem}>
+          <Link to={link.path}>{link.name}</Link>
+        </li>
+        <Divider />
+      </div>
     ));
 
   return (

@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.section {
+  width: calc(100% / 3);
+  text-align: center;
+}
+
+.meter {
+
+}

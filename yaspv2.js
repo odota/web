@@ -23,6 +23,7 @@ injectTapEventPlugin();
 // require('./node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
 
 require('./node_modules/font-awesome/css/font-awesome.css');
+import './global.css';
 const loggerMiddleware = createLogger();
 const reducer = combineReducers({
   [REDUCER_KEY]: appReducer,

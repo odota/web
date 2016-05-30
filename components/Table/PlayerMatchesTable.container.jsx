@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 class TableWrapper extends React.Component {
   componentDidMount() {
-    this.props.getPlayerMatches(this.props.playerId, 5);
+    this.props.getPlayerMatches(this.props.playerId, this.props.numMatches);
   }
 
   render() {

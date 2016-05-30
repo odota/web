@@ -1,0 +1,6 @@
+@import "../palette.css";
+
+.listItem {
+  padding: 20px;
+  font-size: var(--mediumLargeFontSize);
+}

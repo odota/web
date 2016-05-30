@@ -1,0 +1,28 @@
+@import "./components/palette.css";
+
+:global(body) {
+  margin: 0;
+  color: var(--primaryTextColor);
+  font-family: var(--fontFamily);
+  height: 100%;
+}
+
+:global(a) {
+  text-decoration: none;
+  color: var(--primaryLinkColor);
+  &:hover {
+    color: color(var(--primaryLinkColor) lightness(-33%));
+  }
+}
+
+:global(li) {
+  list-style-type: none;
+}
+
+:global(html) {
+  height: 100%;
+}
+
+:global(#react) {
+  height: 100%;
+}

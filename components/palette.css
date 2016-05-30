@@ -4,19 +4,19 @@
   --lightPrimaryColor: #C8E6C9;
   --textPrimaryColor: #FFFFFF;
   --accentColor: #FF5722;
+
   --primaryTextColor: #212121;
   --secondaryTextColor: #727272;
+
+  --primaryLinkColor: #42A5F5;
+
   --dividerColor: #B6B6B6;
 
   /* font sizes */
   --normalFontSize: 12px;
-}
+  --mediumLargeFontSize: 16px;
+  --fontFamily: 'Roboto', sans-serif;
 
-/*.darkPrimaryColor  { background: #388E3C; }
-.defaultPrimaryColor { background: #4CAF50; }
-.lightPrimaryColor   { background: #C8E6C9; }
-.textPrimaryColor    { color: #FFFFFF; }
-.accentColor          { background: #FF5722; }
-.primaryTextColor    { color: #212121; }
-.secondaryTextColor  { color: #727272; }
-.dividerColor         { border-color: #B6B6B6; }*/
+  --navDrawerWidth: 256px;
+  --normalTransition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+}

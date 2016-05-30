@@ -4,6 +4,7 @@ const initialState = {
   loading: true,
   error: false,
   links: [],
+  donations: {},
 };
 
 export default (state = initialState, action) => {

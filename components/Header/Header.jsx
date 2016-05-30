@@ -1,12 +1,18 @@
 import React from 'react';
 import Logo from '../Logo';
-import NavBar from '../NavBar';
+import { NavDrawer } from '../NavBar';
 import AccountWidget from '../AccountWidget';
+import AppBar from 'material-ui/AppBar';
+import styles from './Header.css';
 
-export default () => (
+export default ({ openMenu }) => (
   <div>
-    <Logo />
-    <NavBar />
-    <AccountWidget />
+    <AppBar
+      className={styles.header}
+      iconElementRight={(<AccountWidget />)}
+      title={(<Logo />)}
+      onLeftIconButtonTouchTap={() => openMenu()}
+    />
+    <NavDrawer />
   </div>
 );
