@@ -6,16 +6,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 export default () => (
   <Link to="/carry">
+
+    <FontIcon className={styles.cheese} />
     <RaisedButton
+      label="Help us out"
+      labelColor="#fff"
       backgroundColor={styles.backgroundColor}
       style={{ height: 50 }}
-      icon={(
-        <div>
-          <FontIcon className={styles.cheese} />
-          <span>Help us out</span>
-          <FontIcon className={styles.cheese} />
-        </div>
-      )}
     />
+    <FontIcon className={styles.cheese} />
   </Link>
 );

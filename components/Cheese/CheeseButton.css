@@ -1,6 +1,6 @@
 @import "../palette.css";
 
-:export { backgroundColor: var(--lightPrimaryColor) }
+:export { backgroundColor: var(--defaultPrimaryColor) }
 
 .cheese {
   font-family: Flaticon;

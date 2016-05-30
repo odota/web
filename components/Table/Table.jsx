@@ -12,7 +12,7 @@ import { Text } from '../Text';
 import styles from './Table.css';
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 
-const Table = ({ matches, columns, loading, error }) => {
+const Table = ({ data, columns, loading, error, constantsLoading, constantsError }) => {
   const totalWidth = columns.reduce((prev, current) => prev.width + current.width, 0);
 
   const getTable = () => (
@@ -25,7 +25,7 @@ const Table = ({ matches, columns, loading, error }) => {
         </TableRow>
       </TableHeader>
       <TableBody displayRowCheckbox={false} selectable={false}>
-        {matches.map((match, index) => (
+        {data.map((match, index) => (
           <TableRow key={index} className={styles[`row${index % 2}`]}>
             {columns.map((column, indexCol) => (
               <TableRowColumn
@@ -43,9 +43,9 @@ const Table = ({ matches, columns, loading, error }) => {
 
   return (
     <div>
-      {loading && <Spinner />}
-      {!loading && error && <div>Whoops, something went wrong</div>}
-      {!loading && !error && getTable()}
+      {loading || constantsLoading && <Spinner />}
+      {!loading || !constantsLoading && error || constantsError && <div>Whoops, something went wrong</div>}
+      {!loading && !constantsLoading && !error && !constantsError && getTable()}
     </div>
   );
 };
