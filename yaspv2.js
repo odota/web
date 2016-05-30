@@ -31,8 +31,7 @@ const reducer = combineReducers({
 const store = createStore(reducer, compose(
   applyMiddleware(thunkMiddleware),
   applyMiddleware(loggerMiddleware),
-  (window.devToolsExtension ? window.devToolsExtension() : () => {
-  }) // This enables the redux dev tools extension, or does nothing if not installed
+  (window.devToolsExtension ? window.devToolsExtension() : f => f) // This enables the redux dev tools extension, or does nothing if not installed
 ));
 
 // Fetch metadata (used on all pages)
