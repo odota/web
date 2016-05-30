@@ -1,26 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
-class Player extends React.Component
-{
-  constructor(props)
-  {
-    super(props);
-  }
-  componentDidMount()
-  {
-  }
-  render()
-  {
-    //sections
-    return <pre>{JSON.stringify(this.props, null, 2)}</pre>;
-  }
-}
+import { PlayerMatchesTable } from '../Table';
+import Error from '../Error';
 
-function mapStateToProps(data)
-{
-  return {
-    data
-  };
-}
-export default connect(mapStateToProps)(Player);
+export default ({ params }) => (
+  <div>
+    {params && params.account_id && <PlayerMatchesTable playerId={params.account_id} />}
+    {(!params || !params.account_id) && <Error />}
+  </div>
+);

@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Spinner from '../Spinner';
+import Error from '../Error';
 import { REDUCER_KEY } from '../../reducers';
 import { getPlayer } from '../../actions';
 import { Link } from 'react-router';
 
 // Maybe we can factor out this ternary into a function?
-const AccountWidget = ({ loading, error, player }) => (
+const AccountWidget = ({ loading, error, user }) => (
   <div>
     {loading && !error && <Spinner />}
-    {error && <div >Error</div>}
-    {!error && !loading && player ? (
+    {error && <Error />}
+    {!error && !loading && user ? (
       <div>
-        <li><Link to={`/players/${player.account_id}`}>Profile</Link></li>
+        <li><Link to={`/players/${user.account_id}`}>Profile</Link></li>
         <li><a href="/logout">Logout</a></li>
       </div>
     )
@@ -21,30 +22,20 @@ const AccountWidget = ({ loading, error, player }) => (
   </div>
 );
 
-class AccountWidgetWrapper extends React.Component {
-  componentDidMount() {
-    this.props.getPlayer(this.props.playerId);
-  }
-
-  render() {
-    return <AccountWidget { ...this.props } />;
-  }
-}
-
 export { AccountWidget };
 
 const mapStateToProps = (state) => {
-  const { error, loading, player } = state[REDUCER_KEY].gotPlayer;
+  const { error, loading, user } = state[REDUCER_KEY].gotMetadata;
 
   return {
     loading,
     error,
-    player
+    user,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getPlayer: (playerId) => dispatch(getPlayer(playerId))
+  getPlayer: (playerId) => dispatch(getPlayer(playerId)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountWidgetWrapper);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountWidget);

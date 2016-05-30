@@ -1,7 +1,8 @@
 /**
  * Webpack configuration file
  **/
-// var postcss = require('postcss');
+const postcss = require('postcss');
+
 module.exports = {
   entry: {
     yaspv2: './yaspv2.js',
@@ -47,14 +48,14 @@ module.exports = {
       }
     ]
   },
-  // postcss (webpack) {
-  //   return [
-  //     require('postcss-import')({ addDependencyTo: webpack }),
-  //     require('postcss-cssnext')(),
-  //     require('postcss-browser-reporter')(),
-  //     require('postcss-reporter')(),
-  //   ]
-  // },
+  postcss (webpack){
+    return [
+      require('postcss-import')({ addDependencyTo: webpack }),
+      require('postcss-cssnext')(),
+      require('postcss-browser-reporter')(),
+      require('postcss-reporter')(),
+    ];
+  },
   devServer:
   {
     contentBase: '.',

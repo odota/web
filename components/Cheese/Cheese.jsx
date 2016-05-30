@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { REDUCER_KEY } from '../../reducers';
+import Spinner from '../Spinner';
 
-const Cheese = ({ donations }) => {
+const Cheese = ({ donations, error, loading }) => {
   const cheesePercent = donations ? donations.cheese / donations.goal : 0;
 
   return (
@@ -15,7 +16,9 @@ const Cheese = ({ donations }) => {
         <div className="meter_wrapper">
           <h3 style={{ fontWeight: 700, marginTop: 0 }}>Monthly Cheese Goal</h3>
           <div className="meter">
-            <span style={{ width: `${cheesePercent}%` }}>{cheesePercent}</span>
+            {error && <Error />}
+            {loading && <Spinner />}
+            {!error && !loading && <span style={{ width: `${cheesePercent}%` }}>{cheesePercent}</span>}
           </div>
         </div>
       </div>
@@ -35,7 +38,7 @@ const mapStateToProps = (state) => {
   return {
     loading,
     error,
-    donations
+    donations,
   };
 };
 
