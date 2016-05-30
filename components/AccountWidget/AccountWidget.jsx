@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Spinner from '../Spinner';
+import Error from '../Error';
 import { REDUCER_KEY } from '../../reducers';
 import { getPlayer } from '../../actions';
 import { Link } from 'react-router';
@@ -9,7 +10,7 @@ import { Link } from 'react-router';
 const AccountWidget = ({ loading, error, player }) => (
   <menu>
     {loading && !error && <Spinner />}
-    {error && <li>Error</li>}
+    {error && <Error />}
     {!error && !loading && player ? (
       [
         <li><Link to={`/players/${player.account_id}`}>Profile</Link></li>,
@@ -21,30 +22,20 @@ const AccountWidget = ({ loading, error, player }) => (
   </menu>
 );
 
-class AccountWidgetWrapper extends React.Component {
-  componentDidMount() {
-    this.props.getPlayer(this.props.playerId);
-  }
-
-  render() {
-    return <AccountWidget { ...this.props } />;
-  }
-}
-
 export { AccountWidget };
 
 const mapStateToProps = (state) => {
-  const { error, loading, player } = state[REDUCER_KEY].gotPlayer;
+  const { error, loading, user } = state[REDUCER_KEY].gotMetadata;
 
   return {
     loading,
     error,
-    player
+    user,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getPlayer: (playerId) => dispatch(getPlayer(playerId))
+  getPlayer: (playerId) => dispatch(getPlayer(playerId)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountWidgetWrapper);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountWidget);

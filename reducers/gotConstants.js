@@ -1,24 +1,26 @@
-import { playerActions } from '../actions';
+import { constantsActions } from '../actions';
 
 const initialState = {
   loading: true,
   error: false,
+  links: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case playerActions.REQUEST:
+    case constantsActions.REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case playerActions.OK:
+    case constantsActions.OK:
       return {
-        ...state,
+        state,
+        ...action.payload,
         loading: false,
-        player: action.payload.profile,
+        donations: action.payload.cheese,
       };
-    case playerActions.ERROR:
+    case constantsActions.ERROR:
       return {
         ...state,
         loading: false,

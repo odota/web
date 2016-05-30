@@ -1,0 +1,18 @@
+@import "../palette.css";
+
+.header {
+  background-color: var(--darkPrimaryColor);
+}
+
+.row {
+  background-color: #fff;
+}
+
+.row0 {
+  composes: row;
+}
+
+.row1 {
+  composes: row;
+  background-color: #eee;
+}
