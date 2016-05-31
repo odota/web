@@ -27,7 +27,6 @@ class RequestLayer extends React.Component {
 
   render() {
     return <Table {...this.props} columns={playerMatchesColumns} />;
-    // return <div>HERE I AM</div>
   }
 }
 

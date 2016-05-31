@@ -2,15 +2,16 @@ import React from 'react';
 import FontIcon from 'material-ui/FontIcon';
 import { Link } from 'react-router';
 import styles from './CheeseButton.css';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 
 export default () => (
   <Link to="/carry">
 
     <FontIcon className={styles.cheese} />
-    <RaisedButton
+    <FlatButton
       label="Help us out"
-      labelColor="#fff"
+      labelStyle={{ color: '#fff' }}
+      hoverColor={styles.hoverColor}
       backgroundColor={styles.backgroundColor}
       style={{ height: 50 }}
     />

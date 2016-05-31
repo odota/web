@@ -4,6 +4,28 @@
   background-color: var(--darkPrimaryColor);
 }
 
+.headerCell {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  & * {
+    color: #fff!important;
+  }
+  &:hover {
+    cursor: pointer;
+    & span {
+      font-size: 16px!important;
+      position: relative;
+      transition: var(--linearTransition);
+    }
+  }
+}
+
+.headerCellContainer {
+
+}
+
 .row {
   background-color: #fff;
 }
