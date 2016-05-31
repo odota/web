@@ -29,4 +29,5 @@
 
 :global(#react) {
   height: 100%;
+  overflow-x: hidden;
 }
