@@ -24,7 +24,7 @@ const columns = [{
 }];
 export default ({ params }) => (
   <div>
-    {params && params.match_id && <MatchTable matchId={params.match_id} columns={columns}/>}
+    {params && params.match_id && <MatchTable matchId={params.match_id} columns={columns} />}
     {(!params || !params.match_id) && <Error />}
   </div>
 );

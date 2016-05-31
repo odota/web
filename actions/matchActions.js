@@ -29,6 +29,6 @@ export const getMatch = (matchId) => (dispatch) => {
   dispatch(getMatchRequest());
   return fetch(`${HOST_URL}${url}${matchId}`)
     .then(response => response.json())
-    .then(json => {dispatch(getMatchOk(json))})
+    .then(json => dispatch(getMatchOk(json)))
     .catch(error => dispatch(getMatchError(error)));
 };
