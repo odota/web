@@ -4,6 +4,26 @@
   background-color: var(--darkPrimaryColor);
 }
 
+.headerCell {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  & * {
+    color: #fff!important;
+  }
+  &:hover {
+    cursor: pointer;
+    & span, & div {
+      color: var(--primaryTextColor)!important;
+    }
+  }
+}
+
+.headerCellContainer {
+
+}
+
 .row {
   background-color: #fff;
 }
