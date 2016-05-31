@@ -14,10 +14,8 @@
   }
   &:hover {
     cursor: pointer;
-    & span {
-      font-size: 16px!important;
-      position: relative;
-      transition: var(--linearTransition);
+    & span, & div {
+      color: var(--primaryTextColor)!important;
     }
   }
 }
