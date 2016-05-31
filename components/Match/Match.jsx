@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from '../Table';
-import Error from '../Error';
+// import Error from '../Error';
 import { REDUCER_KEY } from '../../reducers';
 import { getMatch } from '../../actions';
 import { connect } from 'react-redux';
@@ -44,13 +44,13 @@ const mapDispatchToProps = (dispatch) => ({
 
 class RequestLayer extends React.Component {
   componentDidMount() {
-    this.props.getMatch(this.props.matchId);
+    this.props.getMatch(this.props.routeParams.match_id);
   }
 
   render() {
-    return <div>
-      { <Table {...this.props} data={this.props.data && this.props.data.players ? this.props.data.players : this.props.data} columns={columns} /> }
-    </div>;
+    return (<div>
+      {<Table {...this.props} data={this.props.data && this.props.data.players ? this.props.data.players : this.props.data} columns={columns} />}
+    </div>);
   }
 }
 

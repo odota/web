@@ -14,7 +14,6 @@ import styles from './Table.css';
 
 const Table = ({ data, columns, loading, error, constantsLoading, constantsError }) => {
   const totalWidth = columns.reduce((prev, current) => prev.width + current.width, 0);
-
   const getTable = () => (
     <MaterialTable selectable={false}>
       <TableHeader displaySelectAll={false} adjustForCheckbox={false} className={styles.header}>
