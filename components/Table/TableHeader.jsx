@@ -1,8 +1,6 @@
 import React from 'react';
 import { TableRow as MaterialTableRow } from 'material-ui/Table';
 import TableHeaderColumn from './TableHeaderColumn';
-import { getTotalWidth } from './tableHelpers';
-
 
 const TableHeader = ({ columns, sortState, sortField, sortClick, totalWidth }) => (
   <MaterialTableRow>

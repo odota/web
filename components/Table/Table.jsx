@@ -6,8 +6,6 @@ import {
   Table as MaterialTable,
   TableBody as MaterialTableBody,
   TableHeader as MaterialTableHeader,
-  TableRow as MaterialTableRow,
-  TableRowColumn as MaterialTableRowColumn,
 } from 'material-ui/Table';
 import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
