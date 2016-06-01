@@ -6,12 +6,21 @@ const url = (playerId, numMatches) => `/api/players/${playerId}/matches?limit=${
 const REQUEST = 'yasp/playerMatches/REQUEST';
 const OK = 'yasp/playerMatches/OK';
 const ERROR = 'yasp/playerMatches/ERROR';
+const SORT = 'yasp/playerMatches/SORT';
 
 export const playerMatchesActions = {
   REQUEST,
   OK,
   ERROR,
+  SORT,
 };
+
+export const setPlayerMatchesSort = (sortField, sortState, sortFn) => ({
+  type: SORT,
+  sortField,
+  sortState,
+  sortFn,
+});
 
 const getPlayerMatchesRequest = () => ({ type: REQUEST });
 

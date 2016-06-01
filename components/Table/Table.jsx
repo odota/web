@@ -1,3 +1,6 @@
+// TODO - consume the new action, read it in mstp of table, pass down the sort fn action and the
+// sorted state through mstp/mdtp, and add the sorting functions to the column definition
+
 import React from 'react';
 import {
   Table as MaterialTable,
@@ -14,10 +17,24 @@ import styles from './Table.css';
 import FontIcon from 'material-ui/FontIcon';
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 
-const Table = ({ data, columns, loading, error, constantsLoading, constantsError }) => {
+const Table = ({ data, columns, loading, error, sortState, sortField, sortClick }) => {
   const totalWidth = columns.reduce((prev, current) => prev + current.width, 0);
 
   const getWidthStyle = (column, total) => ({ width: `${column / total}%` });
+
+  const isSortField = (sortField, field) => sortField === field;
+
+  const getSortIcon = (sortState, sortField, field) => {
+    let sort = 'sort';
+    if (isSortField(sortField, field)) {
+      if (sortState === 'asc') {
+        sort = 'arrow_upward';
+      } else if (sortState === 'desc') {
+        sort = 'arrow_downward';
+      }
+    }
+    return sort;
+  };
 
   const getTable = () => (
     <MaterialTable selectable={false}>
@@ -28,13 +45,16 @@ const Table = ({ data, columns, loading, error, constantsLoading, constantsError
               key={index}
               style={getWidthStyle(column.width, totalWidth)}
             >
-              <div className={styles.headerCell}>
-                <Text>{column.displayName}</Text>
+              <div
+                className={styles.headerCell}
+                onClick={() => sortClick(column.field, isSortField(sortField, column.field) ? sortState : '', column.sortFn)}
+              >
+                <Text size={16}>{column.displayName}</Text>
                 <FontIcon
-                  style={{ fontSize: 12 }}
+                  style={{ fontSize: 16 }}
                   className="material-icons"
                 >
-                  arrow_downwards
+                  {getSortIcon(sortState, sortField, column.field)}
                 </FontIcon>
               </div>
             </TableHeaderColumn>
@@ -60,9 +80,9 @@ const Table = ({ data, columns, loading, error, constantsLoading, constantsError
 
   return (
     <div>
-      {loading || constantsLoading && <Spinner />}
-      {!loading || !constantsLoading && error || constantsError && <Error />}
-      {!loading && !constantsLoading && !error && !constantsError && getTable()}
+      {loading && <Spinner />}
+      {!loading && error && <Error />}
+      {!loading && !error && getTable()}
     </div>
   );
 };
