@@ -6,6 +6,11 @@ const defaultSort = (array, field) => array.sort((a, b) => {
   return 0;
 });
 
+const useOriginalValueSort = (array, field) => {
+  const origField = field.slice(0, field.lastIndexOf('Display'));
+  return defaultSort(array, origField);
+};
+
 export default [{
   displayName: 'ID',
   field: 'match_idDisplay',
@@ -31,7 +36,7 @@ export default [{
   displayName: 'Date',
   field: 'start_timeDisplay',
   width: 2,
-  sortFn: defaultSort,
+  sortFn: useOriginalValueSort,
 }, {
   displayName: 'Duration',
   field: 'durationDisplay',

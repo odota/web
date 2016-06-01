@@ -64,7 +64,7 @@ const playerMatchTransformSwitch = (match, field, heroes) => {
 
 // TODO - memoize this with selectors
 const playerMatchTransform = (match) => (heroes) => {
-  const transformedMatch = {};
+  const transformedMatch = { ...match };
   Object.keys(match).forEach((field) => {
     transformedMatch[`${field}Display`] = playerMatchTransformSwitch(match, field, heroes);
   });
