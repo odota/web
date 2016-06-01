@@ -48,9 +48,12 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    return (<div>
-      {<Table {...this.props} data={this.props.data && this.props.data.players ? this.props.data.players : this.props.data} columns={columns} />}
-    </div>);
+    const { data } = this.props;
+    return (
+      <div>
+        {<Table {...this.props} data={data && data.players ? data.players : data} columns={columns} />}
+      </div>
+    );
   }
 }
 
