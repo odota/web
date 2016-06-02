@@ -4,15 +4,16 @@ import { REDUCER_KEY } from '../../reducers';
 import Table from './Table';
 import createConstantsWrapper from '../Constants';
 import { getPlayerMatches, setPlayerMatchesSort } from '../../actions';
-import playerMatchesColumns from './playerMatchesColumns';
-import { sortPlayerMatches } from '../../selectors';
+import { playerMatchesColumns } from './columnDefinitions';
+import { sortPlayerMatches, transformPlayerMatches } from '../../selectors';
 
 const mapStateToProps = (state) => {
-  const { error, loading, matches, sortState, sortField } = state[REDUCER_KEY].gotPlayer.matches;
+  const { error, loading, sortState, sortField } = state[REDUCER_KEY].gotPlayer.matches;
+
   return {
     loading,
     error,
-    data: sortState ? sortPlayerMatches(state) : matches,
+    data: sortState ? sortPlayerMatches(state) : transformPlayerMatches(state),
     sortState,
     sortField,
   };

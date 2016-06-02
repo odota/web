@@ -1,6 +1,6 @@
 import transformation from './transformations';
 
-const playerMatchTransformSwitch = (match, field, heroes) => {
+const playerMatchTransform = (match, field, heroes) => {
   switch (field) {
     case 'hero_id':
       return transformation.heroId(match[field], heroes);
@@ -15,14 +15,6 @@ const playerMatchTransformSwitch = (match, field, heroes) => {
     default:
       return match[field];
   }
-};
-
-const playerMatchTransform = (match) => (heroes) => {
-  const transformedMatch = {};
-  Object.keys(match).forEach((field) => {
-    transformedMatch[`${field}Display`] = playerMatchTransformSwitch(match, field, heroes);
-  });
-  return transformedMatch;
 };
 
 export default playerMatchTransform;

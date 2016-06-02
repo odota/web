@@ -11,7 +11,6 @@ import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import styles from './Table.css';
-// import TableBody from './TableBody';
 import TableRow from './TableRow';
 import { getTotalWidth } from './tableHelpers';
 

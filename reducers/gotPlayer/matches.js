@@ -11,6 +11,7 @@ const SORT_ENUM = {
 const initialState = {
   loading: true,
   error: false,
+  matches: [],
   sortState: '',
   sortField: '',
   sortFn: f => f,

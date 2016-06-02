@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-fetch';
 import { HOST_URL } from './';
-import { playerMatchTransform } from '../transformations';
 
 const url = (playerId, numMatches) => `/api/players/${playerId}/matches?limit=${numMatches}`;
 
@@ -35,16 +34,11 @@ const getPlayerMatchesError = (payload) => ({
   payload,
 });
 
-export const getPlayerMatches = (playerId, numMatches, host = HOST_URL) => (dispatch, getState) => {
+export const getPlayerMatches = (playerId, numMatches, host = HOST_URL) => (dispatch) => {
   dispatch(getPlayerMatchesRequest());
   return fetch(`${host}${url(playerId, numMatches)}`, { credentials: 'include' })
     .then(response => response.json())
-    .then(json => {
-      const transformedMatches = json.matches.map(match =>
-        playerMatchTransform(match)(getState().yaspReducer.gotConstants.heroes)
-      );
-      dispatch(getPlayerMatchesOk(transformedMatches));
-    })
+    .then(json => dispatch(getPlayerMatchesOk(json.matches)))
     .catch(error => {
       console.error(error);
       return dispatch(getPlayerMatchesError(error));
