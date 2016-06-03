@@ -29,10 +29,10 @@ const Table = ({ data, columns, loading, error, sortState, sortField, sortClick 
         />
       </MaterialTableHeader>
       <MaterialTableBody displayRowCheckbox={false} selectable={false}>
-        {data.map((match, index) => (
+        {data.map((row, index) => (
           <TableRow
             key={index}
-            match={match}
+            row={row}
             columns={columns}
             totalWidth={totalWidth}
             index={index}

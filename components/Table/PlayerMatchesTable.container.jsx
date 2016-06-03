@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
   return {
     loading,
     error,
-    data: sortState ? sortPlayerMatches(state) : transformPlayerMatches(state),
+    data: sortState ? sortPlayerMatches(state) : state[REDUCER_KEY].gotPlayer.matches.matches,
     sortState,
     sortField,
   };
