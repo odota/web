@@ -10,22 +10,24 @@ const columns = [{
   displayName: 'Hero',
   field: 'hero_id',
   width: 2,
-  sorted: false,
-}, {
+}, 
+{
+  displayName: 'Player',
+  field: 'personaname',
+  width: 2,
+},
+{
   displayName: 'Kills',
   field: 'kills',
   width: 2,
-  sorted: false,
 }, {
   displayName: 'Deaths',
   field: 'deaths',
   width: 2,
-  sorted: false,
 }, {
   displayName: 'Assists',
   field: 'assists',
   width: 2,
-  sorted: false,
 }];
 
 const mapStateToProps = (state) => {
