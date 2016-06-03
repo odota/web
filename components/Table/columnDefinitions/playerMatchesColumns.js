@@ -3,48 +3,48 @@ import { defaultSort, useOriginalValueSort } from './utility';
 
 export default [{
   displayName: 'ID',
-  field: 'match_idDisplay',
+  field: 'match_id',
   width: 2,
   sortFn: defaultSort,
 }, {
   displayName: 'Hero',
-  field: 'hero_idDisplay',
+  field: 'hero_id',
   width: 1.5,
   sortFn: defaultSort,
   component: (srcUrl) => <img src={srcUrl} style={{ height: '24px' }} role="presentation" />,
 }, {
   displayName: 'W/L',
-  field: 'radiant_winDisplay',
+  field: 'radiant_win',
   width: 1.5,
   sortFn: defaultSort,
 }, {
   displayName: 'Mode',
-  field: 'game_modeDisplay',
+  field: 'game_mode',
   width: 3,
   sortFn: defaultSort,
 }, {
   displayName: 'Date',
-  field: 'start_timeDisplay',
+  field: 'start_time',
   width: 2,
   sortFn: useOriginalValueSort,
 }, {
   displayName: 'Duration',
-  field: 'durationDisplay',
+  field: 'duration',
   width: 2,
   sortFn: defaultSort,
 }, {
   displayName: 'Kills',
-  field: 'killsDisplay',
+  field: 'kills',
   width: 1.5,
   sortFn: defaultSort,
 }, {
   displayName: 'Deaths',
-  field: 'deathsDisplay',
+  field: 'deaths',
   width: 1.5,
   sortFn: defaultSort,
 }, {
   displayName: 'Assists',
-  field: 'assistsDisplay',
+  field: 'assists',
   width: 1.5,
   sortFn: defaultSort,
 }];
