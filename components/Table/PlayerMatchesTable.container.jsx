@@ -29,6 +29,12 @@ class RequestLayer extends React.Component {
     this.props.getPlayerMatches(this.props.playerId, this.props.numMatches);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.playerId !== nextProps.playerId) {
+      this.props.getPlayerMatches(nextProps.playerId, nextProps.numMatches);
+    }
+  }
+
   render() {
     return <Table {...this.props} columns={playerMatchesColumns} />;
   }
