@@ -3,20 +3,24 @@ import { connect } from 'react-redux';
 import { REDUCER_KEY } from '../../reducers';
 import Table from './Table';
 import createConstantsWrapper from '../Constants';
-import { getPlayerMatches } from '../../actions';
-import playerMatchesColumns from './playerMatchesColumns';
+import { getPlayerMatches, setPlayerMatchesSort } from '../../actions';
+import { playerMatchesColumns } from './columnDefinitions';
+import { sortPlayerMatches, transformPlayerMatches } from '../../selectors';
 
 const mapStateToProps = (state) => {
-  const { error, loading, matches } = state[REDUCER_KEY].gotPlayer.matches;
+  const { error, loading, sortState, sortField } = state[REDUCER_KEY].gotPlayer.matches;
+
   return {
     loading,
     error,
-    data: matches,
+    data: sortState ? sortPlayerMatches(state) : transformPlayerMatches(state),
+    sortState,
+    sortField,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  sort: (column) => dispatch(getPlayerMatches(column)),
+  sortClick: (field, sortState, sortFn) => dispatch(setPlayerMatchesSort(field, sortState, sortFn)),
   getPlayerMatches: (playerId, numMatches, host) => dispatch(getPlayerMatches(playerId, numMatches, host)),
 });
 
