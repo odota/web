@@ -5,6 +5,7 @@
   "extends": "airbnb",
   "rules": {
     "react/prop-types": 1,
-    "max-len": ["error", 150]
+    "max-len": ["error", 150],
+    "no-shadow": 0
   }
 }

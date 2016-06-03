@@ -1,3 +1,9 @@
 import getAlphabetizedLinks from './getAlphabetizedLinks';
+import sortPlayerMatches from './sortPlayerMatches';
+import transformPlayerMatches from './transformPlayerMatches';
 
-export { getAlphabetizedLinks };
+export {
+  getAlphabetizedLinks,
+  sortPlayerMatches,
+  transformPlayerMatches,
+};

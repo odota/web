@@ -7,8 +7,8 @@ const getAlphabetizedLinks = createSelector(
   [getLinks],
   (links) => links.sort((a, b) => {
     if (a.name < b.name) return -1;
-    if (a.name === b.name) return 0;
     if (a.name > b.name) return 1;
+    return 0;
   })
 );
 
