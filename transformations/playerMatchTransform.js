@@ -6,7 +6,7 @@ import transformation from './transformations';
 const playerMatchTransform = (match, field, constants) => {
   if (transformation[field])
   {
-    return transformation[field](match, field, constants);
+    return transformation[field](match, match[field], constants);
   }
   else {
     return match[field];

@@ -31,11 +31,11 @@ function formatSeconds(input) {
 }
 
 const transformation = {
-  hero_id: (m, field, c) => `${HOST_URL}${c.heroes[field].img}`,
-  radiant_win: (m, field, c) => isRadiant(m) === field,
-  game_mode: (m, field, c) => (c.game_modes[field] ? c.game_modes[field] : field),
-  start_time: (m, field, c) => moment(field, 'X').fromNow(),
-  duration: (m, field, c) => formatSeconds(field),
+  hero_id: (m, v, c) => `${HOST_URL}${c.heroes[v] ? c.heroes[v].img: v}`,
+  radiant_win: (m, v, c) => isRadiant(m) === v ? 'W' : 'L',
+  game_mode: (m, v, c) => (c.game_mode[v] ? c.game_mode[v].name : v),
+  start_time: (m, v, c) => moment(v, 'X').fromNow(),
+  duration: (m, v, c) => formatSeconds(v),
 };
 
 export default transformation;

@@ -11,7 +11,6 @@ export default [{
   field: 'hero_id',
   width: 1.5,
   sortFn: defaultSort,
-  //TODO make API return hero_url, or pass constants here so we can translate it
   dispFn: (row, column) => <img src={row.hero_idDisplay} style={{ height: '24px' }} role="presentation" />,
 }, {
   displayName: 'W/L',

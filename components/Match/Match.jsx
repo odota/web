@@ -5,30 +5,7 @@ import { REDUCER_KEY } from '../../reducers';
 import { getMatch } from '../../actions';
 import { connect } from 'react-redux';
 import createConstantsWrapper from '../Constants';
-
-const columns = [{
-  displayName: 'Hero',
-  field: 'hero_id',
-  width: 2,
-}, 
-{
-  displayName: 'Player',
-  field: 'personaname',
-  width: 2,
-},
-{
-  displayName: 'Kills',
-  field: 'kills',
-  width: 2,
-}, {
-  displayName: 'Deaths',
-  field: 'deaths',
-  width: 2,
-}, {
-  displayName: 'Assists',
-  field: 'assists',
-  width: 2,
-}];
+import { overviewColumns } from '../Table/columnDefinitions/matchColumns';
 
 const mapStateToProps = (state) => {
   const { error, loading, match } = state[REDUCER_KEY].gotMatch;
@@ -53,7 +30,7 @@ class RequestLayer extends React.Component {
     const { data } = this.props;
     return (
       <div>
-        {<Table {...this.props} data={data && data.players ? data.players : data} columns={columns} />}
+        {<Table {...this.props} data={data && data.players ? data.players : data} columns={overviewColumns} />}
       </div>
     );
   }
