@@ -9,7 +9,7 @@
     "start": "webpack-dev-server -d",
     "ncu": "npm-check-updates -u",
     "build": "npm run lint && npm run webpack",
-    "lint": "eslint ./components ./actions ./reducers ./yaspv2.js ./yasp.config.js --ext .js,.jsx"
+    "lint": "eslint ./actions ./components ./reducers ./selectors ./transformations ./yaspv2.js ./yasp.config.js --ext .js,.jsx"
   },
   "repository": {
     "type": "git",

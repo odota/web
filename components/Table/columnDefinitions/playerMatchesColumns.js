@@ -20,7 +20,7 @@ export default [{
 }, {
   displayName: 'Mode',
   field: 'game_mode',
-  width: 3,
+  width: 2.5,
   sortFn: defaultSort,
 }, {
   displayName: 'Date',
@@ -35,16 +35,16 @@ export default [{
 }, {
   displayName: 'Kills',
   field: 'kills',
-  width: 1.5,
+  width: 1.8,
   sortFn: defaultSort,
 }, {
   displayName: 'Deaths',
   field: 'deaths',
-  width: 1.5,
+  width: 1.8,
   sortFn: defaultSort,
 }, {
   displayName: 'Assists',
   field: 'assists',
-  width: 1.5,
+  width: 1.8,
   sortFn: defaultSort,
 }];
