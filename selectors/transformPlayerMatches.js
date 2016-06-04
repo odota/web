@@ -10,8 +10,10 @@ const transformPlayerMatches = createSelector(
   (matches, constants) => matches.map(match => {
     const transformedMatch = {};
     Object.keys(match).forEach((field) => {
-      transformedMatch[`${field}Display`] = playerMatchTransform(match, field, constants);
-      transformedMatch[field] = match[field];
+      transformedMatch[`${field}`] = {
+        display: playerMatchTransform(match, field, constants),
+        value: match[field],
+      };
     });
     return transformedMatch;
   })
