@@ -1,7 +1,4 @@
-import playerMatchTransform from './playerMatchTransform';
-import transformations from './transformations';
+import transform, { transformations } from './transformations';
 
-export {
-  playerMatchTransform,
-  transformations,
-};
+export default transform;
+export { transformations };
