@@ -1,50 +1,50 @@
 import React from 'react';
-import { defaultSort, useOriginalValueSort } from './utility';
+import { defaultSort } from './utility';
 
 export default [{
   displayName: 'ID',
-  field: 'match_idDisplay',
+  field: 'match_id',
   width: 2,
   sortFn: defaultSort,
 }, {
   displayName: 'Hero',
-  field: 'hero_idDisplay',
+  field: 'hero_id',
   width: 1.5,
   sortFn: defaultSort,
-  component: (srcUrl) => <img src={srcUrl} style={{ height: '24px' }} role="presentation" />,
+  displayFn: ({ field }) => <img src={field.display} style={{ height: '24px' }} role="presentation" />,
 }, {
   displayName: 'W/L',
-  field: 'radiant_winDisplay',
+  field: 'radiant_win',
   width: 1.5,
   sortFn: defaultSort,
 }, {
   displayName: 'Mode',
-  field: 'game_modeDisplay',
-  width: 3,
+  field: 'game_mode',
+  width: 2.5,
   sortFn: defaultSort,
 }, {
   displayName: 'Date',
-  field: 'start_timeDisplay',
+  field: 'start_time',
   width: 2,
-  sortFn: useOriginalValueSort,
+  sortFn: defaultSort,
 }, {
   displayName: 'Duration',
-  field: 'durationDisplay',
+  field: 'duration',
   width: 2,
   sortFn: defaultSort,
 }, {
   displayName: 'Kills',
-  field: 'killsDisplay',
-  width: 1.5,
+  field: 'kills',
+  width: 1.8,
   sortFn: defaultSort,
 }, {
   displayName: 'Deaths',
-  field: 'deathsDisplay',
-  width: 1.5,
+  field: 'deaths',
+  width: 1.8,
   sortFn: defaultSort,
 }, {
   displayName: 'Assists',
-  field: 'assistsDisplay',
-  width: 1.5,
+  field: 'assists',
+  width: 1.8,
   sortFn: defaultSort,
 }];

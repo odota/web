@@ -1,10 +1,7 @@
-export const defaultSort = (array, field) => array.sort((a, b) => {
-  if (a[field] < b[field]) return -1;
-  if (a[field] > b[field]) return 1;
+export const defaultSort = (array, field, property = 'display') => array.sort((a, b) => {
+  if (a[field][property] < b[field][property]) return -1;
+  if (a[field][property] > b[field][property]) return 1;
   return 0;
 });
 
-export const useOriginalValueSort = (array, field) => {
-  const origField = field.slice(0, field.lastIndexOf('Display'));
-  return defaultSort(array, origField);
-};
+export const useOriginalValueSort = (array, field) => defaultSort(array, field, 'value');

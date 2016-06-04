@@ -27,7 +27,7 @@ const getPlayerError = (payload) => ({
 
 export const getPlayer = (accountId, host = HOST_URL) => (dispatch) => {
   dispatch(getPlayerRequest());
-  return fetch(`${host}${url}/${accountId}`, { credentials: 'include' })
+  return fetch(`${host}${url}/${accountId}`)
     .then(response => response.json())
     .then(json => {
       dispatch(getPlayerOk(json));
