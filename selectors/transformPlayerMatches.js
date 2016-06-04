@@ -3,15 +3,15 @@ import { REDUCER_KEY } from '../reducers';
 import { playerMatchTransform } from '../transformations';
 
 const getMatches = (state) => state[REDUCER_KEY].gotPlayer.matches.matches;
-const getHeroes = (state) => state[REDUCER_KEY].gotConstants.heroes;
+const getConstants = (state) => state[REDUCER_KEY].gotConstants;
 
 const transformPlayerMatches = createSelector(
-  [getMatches, getHeroes],
-  (matches, heroes) => matches.map(match => {
+  [getMatches, getConstants],
+  (matches, constants) => matches.map(match => {
     const transformedMatch = {};
     Object.keys(match).forEach((field) => {
       transformedMatch[`${field}`] = {
-        display: playerMatchTransform(match, field, heroes),
+        display: playerMatchTransform(match, field, constants),
         value: match[field],
       };
     });

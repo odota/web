@@ -25,15 +25,10 @@ const getMatchError = (payload) => ({
   payload,
 });
 
-const matchApiCall = (matchId, host) => {
-  fetch(`${host}${url}${matchId}`, { credentials: 'include' })
-  .then(response => response.json())
-  .catch(error => error);
-};
-
-export const getMatch = (matchId, host = HOST_URL) => (dispatch) => {
+export const getMatch = (matchId) => (dispatch) => {
   dispatch(getMatchRequest());
-  matchApiCall(matchId, host)
+  return fetch(`${HOST_URL}${url}${matchId}`)
+    .then(response => response.json())
     .then(json => dispatch(getMatchOk(json)))
     .catch(error => dispatch(getMatchError(error)));
 };

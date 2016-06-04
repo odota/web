@@ -1,5 +1,5 @@
 import React from 'react';
-import { defaultSort, useOriginalValueSort } from './utility';
+import { defaultSort } from './utility';
 
 export default [{
   displayName: 'ID',
@@ -11,7 +11,7 @@ export default [{
   field: 'hero_id',
   width: 1.5,
   sortFn: defaultSort,
-  component: (srcUrl) => <img src={srcUrl} style={{ height: '24px' }} role="presentation" />,
+  dispFn: (r, c, v) => <img src={v.display} style={{ height: '24px' }} role="presentation" />,
 }, {
   displayName: 'W/L',
   field: 'radiant_win',
@@ -26,7 +26,7 @@ export default [{
   displayName: 'Date',
   field: 'start_time',
   width: 2,
-  sortFn: useOriginalValueSort,
+  sortFn: defaultSort,
 }, {
   displayName: 'Duration',
   field: 'duration',
