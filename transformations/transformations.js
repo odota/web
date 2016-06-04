@@ -1,16 +1,12 @@
 import { HOST_URL } from '../yasp.config';
 import moment from 'moment';
 
-    //TODO move to utility module
-function isRadiant(p)
-{
-  return p.player_slot < 128;
-}
+// TODO move to utility module
+const isRadiant = (p) => p.player_slot < 128;
 
-function pad(n, width, z) {
-    z = z || '0';
-    n = n + '';
-    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+function pad(n, width, z = '0') {
+  const str = `${n}`;
+  return str.length >= width ? str : new Array(width - str.length + 1).join(z) + n;
 }
 /*
 function format(input) {
@@ -22,20 +18,20 @@ function format(input) {
 }
 */
 function formatSeconds(input) {
-    var absTime = Math.abs(input);
-    var minutes = ~~(absTime / 60);
-    var seconds = pad(~~(absTime % 60), 2);
-    var time = ((input < 0) ? "-" : "");
-    time += minutes + ":" + seconds;
-    return time;
+  const absTime = Math.abs(input);
+  const minutes = ~~(absTime / 60);
+  const seconds = pad(~~(absTime % 60), 2);
+  let time = ((input < 0) ? '-' : '');
+  time += `${minutes}:${seconds}`;
+  return time;
 }
 
 const transformation = {
-  hero_id: (m, v, c) => `${HOST_URL}${c.heroes[v] ? c.heroes[v].img: v}`,
-  radiant_win: (m, v, c) => isRadiant(m) === v ? 'W' : 'L',
-  game_mode: (m, v, c) => (c.game_mode[v] ? c.game_mode[v].name : v),
-  start_time: (m, v, c) => moment(v, 'X').fromNow(),
-  duration: (m, v, c) => formatSeconds(v),
+  heroId: (field, { heroes }) => `${HOST_URL}${heroes[field] ? heroes[field].img : field}`,
+  radiantWin: (field, playerSlot) => (isRadiant(playerSlot) === field ? 'W' : 'L'),
+  gameMode: (field, { game_mode }) => (game_mode[field] ? game_mode[field].name : field),
+  startTime: (field) => moment.unix(field).fromNow(),
+  duration: (field) => formatSeconds(field),
 };
 
 export default transformation;

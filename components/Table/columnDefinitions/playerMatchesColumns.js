@@ -11,7 +11,7 @@ export default [{
   field: 'hero_id',
   width: 1.5,
   sortFn: defaultSort,
-  dispFn: (r, c, v) => <img src={v.display} style={{ height: '24px' }} role="presentation" />,
+  displayFn: (field) => <img src={field.display} style={{ height: '24px' }} role="presentation" />,
 }, {
   displayName: 'W/L',
   field: 'radiant_win',
@@ -20,7 +20,7 @@ export default [{
 }, {
   displayName: 'Mode',
   field: 'game_mode',
-  width: 3,
+  width: 2.5,
   sortFn: defaultSort,
 }, {
   displayName: 'Date',
@@ -35,16 +35,16 @@ export default [{
 }, {
   displayName: 'Kills',
   field: 'kills',
-  width: 1.5,
+  width: 1.8,
   sortFn: defaultSort,
 }, {
   displayName: 'Deaths',
   field: 'deaths',
-  width: 1.5,
+  width: 1.8,
   sortFn: defaultSort,
 }, {
   displayName: 'Assists',
   field: 'assists',
-  width: 1.5,
+  width: 1.8,
   sortFn: defaultSort,
 }];

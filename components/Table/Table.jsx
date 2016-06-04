@@ -18,32 +18,34 @@ const Table = ({ data, columns, loading, error, sortState, sortField, sortClick 
   const totalWidth = getTotalWidth(columns);
 
   const getTable = () => (
-    <MaterialTable selectable={false}>
-      <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false} className={styles.header}>
-        <TableHeader
-          columns={columns}
-          sortState={sortState}
-          sortField={sortField}
-          sortClick={sortClick}
-          totalWidth={totalWidth}
-        />
-      </MaterialTableHeader>
-      <MaterialTableBody displayRowCheckbox={false} selectable={false}>
-        {data.map((row, index) => (
-          <TableRow
-            key={index}
-            row={row}
+    <div className={styles.innerContainer}>
+      <MaterialTable selectable={false}>
+        <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false} className={styles.header}>
+          <TableHeader
             columns={columns}
+            sortState={sortState}
+            sortField={sortField}
+            sortClick={sortClick}
             totalWidth={totalWidth}
-            index={index}
           />
-        ))}
-      </MaterialTableBody>
-    </MaterialTable>
+        </MaterialTableHeader>
+        <MaterialTableBody displayRowCheckbox={false} selectable={false}>
+          {data.map((row, index) => (
+            <TableRow
+              key={index}
+              row={row}
+              columns={columns}
+              totalWidth={totalWidth}
+              index={index}
+            />
+          ))}
+        </MaterialTableBody>
+      </MaterialTable>
+    </div>
   );
 
   return (
-    <div>
+    <div className={styles.container}>
       {loading && <Spinner />}
       {!loading && error && <Error />}
       {!loading && !error && getTable()}
