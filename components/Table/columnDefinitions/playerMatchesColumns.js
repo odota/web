@@ -1,7 +1,5 @@
 import React from 'react';
 import { defaultSort } from './utility';
-import moment from 'moment';
-import { HOST_URL } from '../../../yasp.config.js';
 
 export default [{
   displayName: 'ID',

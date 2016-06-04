@@ -9,7 +9,7 @@ import { sortPlayerMatches, transformPlayerMatches } from '../../selectors';
 
 const mapStateToProps = (state) => {
   const { error, loading, sortState, sortField } = state[REDUCER_KEY].gotPlayer.matches;
-  
+
   return {
     loading,
     error,
