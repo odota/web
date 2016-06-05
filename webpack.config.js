@@ -1,7 +1,6 @@
 /**
  * Webpack configuration file
  **/
-const postcss = require('postcss');
 
 module.exports = {
   entry: {
