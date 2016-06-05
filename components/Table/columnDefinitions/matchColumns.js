@@ -24,5 +24,25 @@ const overviewColumns = [
     field: 'assists',
     width: 2,
   }];
-
-export { overviewColumns };
+var abUpgradeColumns = [
+  {
+    displayName: 'Hero',
+    field: 'hero_id',
+    width: 2,
+  }];
+for (var i = 0; i < 25; i++)
+{
+  abUpgradeColumns.push(
+  {
+    displayName: i + 1,
+    field: 'ability_upgrades',
+    displayFn: (
+    {
+      row, column, field
+    }) => <img src={field.display && field.display[i] ? field.display[i].img : ""} style={{ height: '24px' }} role="presentation" />
+  });
+}
+export
+{
+  overviewColumns, abUpgradeColumns
+};

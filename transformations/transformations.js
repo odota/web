@@ -27,11 +27,12 @@ function formatSeconds(input) {
 }
 
 export const transformation = {
-  hero_id: ({ field, constants }) => `${HOST_URL}${constants.heroes[field] ? constants.heroes[field].img : field}`,
+  hero_id: ({ field, constants }) => `${HOST_URL}${constants.heroes[field]}`,
   radiant_win: ({ field, match }) => (isRadiant(match.player_slot) === field ? 'W' : 'L'),
   game_mode: ({ field, constants }) => (constants.game_mode[field] ? constants.game_mode[field].name : field),
   start_time: ({ field }) => moment.unix(field).fromNow(),
   duration: ({ field }) => formatSeconds(field),
+  ability_upgrades: ({field, constants}) => field.map(function(ability_id){return constants.abilities[constants.ability_ids[ability_id]]}),
 };
 
 const transform = (match, field, constants) => {

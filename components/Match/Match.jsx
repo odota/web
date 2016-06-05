@@ -5,14 +5,15 @@ import { REDUCER_KEY } from '../../reducers';
 import { getMatch } from '../../actions';
 import { connect } from 'react-redux';
 import createConstantsWrapper from '../Constants';
-import { overviewColumns } from '../Table/columnDefinitions/matchColumns';
+import { overviewColumns, abUpgradeColumns } from '../Table/columnDefinitions/matchColumns';
+import { transformMatch } from '../../selectors';
 
 const mapStateToProps = (state) => {
-  const { error, loading, match } = state[REDUCER_KEY].gotMatch;
+  const { error, loading } = state[REDUCER_KEY].gotMatch;
   return {
     loading,
     error,
-    data: match,
+    data: transformMatch(state),
   };
 };
 
@@ -31,6 +32,7 @@ class RequestLayer extends React.Component {
     return (
       <div>
         {<Table {...this.props} data={data && data.players ? data.players : data} columns={overviewColumns} />}
+        {<Table {...this.props} data={data && data.players ? data.players : data} columns={abUpgradeColumns} />}
       </div>
     );
   }
