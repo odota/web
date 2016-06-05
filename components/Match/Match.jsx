@@ -4,16 +4,15 @@ import { Table } from '../Table';
 import { REDUCER_KEY } from '../../reducers';
 import { getMatch } from '../../actions';
 import { connect } from 'react-redux';
-import createConstantsWrapper from '../Constants';
 import { overviewColumns, abUpgradeColumns } from '../Table/columnDefinitions/matchColumns';
-import { transformMatch } from '../../selectors';
+// import { transformMatch } from '../../selectors';
 
 const mapStateToProps = (state) => {
-  const { error, loading } = state[REDUCER_KEY].gotMatch;
+  const { error, loading, match } = state[REDUCER_KEY].gotMatch;
   return {
     loading,
     error,
-    data: transformMatch(state),
+    data: match,
   };
 };
 
@@ -31,13 +30,11 @@ class RequestLayer extends React.Component {
     const { data } = this.props;
     return (
       <div>
-        {<Table {...this.props} data={data && data.players ? data.players : data} columns={overviewColumns} />}
-        {<Table {...this.props} data={data && data.players ? data.players : data} columns={abUpgradeColumns} />}
+        <Table {...this.props} data={data && data.players ? data.players : data} columns={overviewColumns} />
+        <Table {...this.props} data={data && data.players ? data.players : data} columns={abUpgradeColumns} />
       </div>
     );
   }
 }
 
-const TableWrapper = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
-
-export default createConstantsWrapper(TableWrapper);
+export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

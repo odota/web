@@ -1,3 +1,7 @@
+import React from 'react';
+import { HOST_URL } from '../../../yasp.config.js';
+const constants = require('../../../constants.json');
+
 const overviewColumns = [
   {
     displayName: 'Hero',
@@ -24,25 +28,30 @@ const overviewColumns = [
     field: 'assists',
     width: 2,
   }];
-var abUpgradeColumns = [
+const abUpgradeColumns = [
   {
     displayName: 'Hero',
     field: 'hero_id',
     width: 2,
   }];
-for (var i = 0; i < 25; i++)
-{
+for (let i = 0; i < 25; i++) {
   abUpgradeColumns.push(
-  {
-    displayName: i + 1,
-    field: 'ability_upgrades',
-    displayFn: (
     {
-      row, column, field
-    }) => <img src={field.display && field.display[i] ? field.display[i].img : ""} style={{ height: '24px' }} role="presentation" />
-  });
+      displayName: i + 1,
+      field: 'ability_upgrades_arr',
+      index: i,
+      displayFn: ({ column, field }) => {
+        const abilityId = field[column.index];
+        const abilityData = constants.abilities[constants.ability_ids[abilityId]];
+        console.log(abilityId, abilityData);
+        if (abilityData) {
+          return <img src={HOST_URL + abilityData.img} style={{ height: '24px' }} role="presentation" />;
+        }
+        return null;
+      },
+    });
 }
 export
 {
-  overviewColumns, abUpgradeColumns
+  overviewColumns, abUpgradeColumns,
 };
