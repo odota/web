@@ -34,7 +34,7 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId === nextProps.playerId) {
+    if (this.props.playerId !== nextProps.playerId) {
       this.props.getPlayer(nextProps.playerId);
     }
   }
