@@ -1,5 +1,5 @@
 import React from 'react';
-import { defaultSort } from './utility';
+import { defaultSort, useOriginalValueSort } from './utility';
 
 export default [{
   displayName: 'ID',
@@ -26,7 +26,7 @@ export default [{
   displayName: 'Date',
   field: 'start_time',
   width: 2,
-  sortFn: defaultSort,
+  sortFn: useOriginalValueSort,
 }, {
   displayName: 'Duration',
   field: 'duration',
