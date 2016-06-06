@@ -12,7 +12,7 @@ import App from './components/App';
 import Match from './components/Match';
 import Player from './components/Player';
 import Home from './components/Home';
-import Search from './components/Search'
+import Search from './components/Search';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // This is used by material-ui components

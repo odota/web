@@ -5,7 +5,7 @@ const url = '/api/search';
 
 const REQUEST = 'yasp/search/REQUEST';
 const OK = 'yasp/search/OK';
-const ERROR = 'yasp/match/ERROR';
+const ERROR = 'yasp/search/ERROR';
 
 export const searchActions = {
   REQUEST,
@@ -24,15 +24,15 @@ const getSearchOk = (payload) => ({
 });
 
 const getSearchError = (payload) => ({
-  type : ERROR,
-  payload
+  type: ERROR,
+  payload,
 });
 
 export const getSearchResult = (query) => (dispatch) => {
-  dispatch(getSearchRequest())
+  dispatch(getSearchRequest());
 
   return fetch(`${HOST_URL}${url}?q=${query}`)
     .then(res => res.json())
     .then(json => dispatch(getSearchOk(json)))
-    .catch(err => dispatch(getMatchError(err)));
+    .catch(err => dispatch(getSearchError(err)));
 };
