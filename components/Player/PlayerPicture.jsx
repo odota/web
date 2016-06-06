@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { player } from '../../reducers';
-import styles from './PlayerHeader.css';
+import Avatar from 'material-ui/Avatar';
 
 const PlayerPicture = ({ picture, steamLink }) => (
   <a href={steamLink}>
-    <div className={styles.playerImage} style={{ backgroundImage: `url(${picture})` }} />
+    <Avatar src={picture} />
   </a>
 );
 

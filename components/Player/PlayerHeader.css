@@ -24,10 +24,6 @@
   composes: image;
 }
 
-.playerImage {
-  composes: image;
-}
-
 .container {
   display: flex;
   flex-direction: row;

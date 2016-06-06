@@ -22,14 +22,14 @@ export const setPlayerMatchesSort = (sortField, sortState, sortFn) => ({
   sortFn,
 });
 
-const getPlayerMatchesRequest = () => ({ type: REQUEST });
+export const getPlayerMatchesRequest = () => ({ type: REQUEST });
 
-const getPlayerMatchesOk = (payload) => ({
+export const getPlayerMatchesOk = (payload) => ({
   type: OK,
   payload,
 });
 
-const getPlayerMatchesError = (payload) => ({
+export const getPlayerMatchesError = (payload) => ({
   type: ERROR,
   payload,
 });

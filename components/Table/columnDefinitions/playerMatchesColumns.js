@@ -12,7 +12,7 @@ export default [{
   field: 'hero_id',
   width: 1.5,
   sortFn: defaultSort,
-  displayFn: ({ field }) => <img src={field.display} style={{ height: '24px' }} role="presentation" />,
+  displayFn: ({ field }) => <img src={field.display} style={{ height: 30, borderRadius: 500 }} role="presentation" />,
 }, {
   displayName: 'W/L',
   field: 'radiant_win',
