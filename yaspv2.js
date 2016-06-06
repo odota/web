@@ -12,6 +12,7 @@ import App from './components/App';
 import Match from './components/Match';
 import Player from './components/Player';
 import Home from './components/Home';
+import Search from './components/Search'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // This is used by material-ui components
@@ -50,6 +51,7 @@ render(
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
+        <Route path="search" component={Search} />
         <Route path="matches/:match_id" component={Match}>
           <Route path=":info" />
         </Route>
