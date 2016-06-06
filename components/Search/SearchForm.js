@@ -6,45 +6,39 @@ import ActionSearch from 'material-ui/svg-icons/action/search';
 
 class SearchForm extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    const { hintText, onSubmit, query } = this.props;
-
-    const onEnter = (e) => {
-      
-      if (e.keyCode !== 13)
-        return;
-
-      onSubmit(this.textField.input.value)
-    }
+    const { hintText, onSubmit } = this.props;
+    const formSubmit = (e) => {
+      e.preventDefault();
+      onSubmit(this.textField.input.value);
+    };
 
     return (
-      <div>
-        <TextField 
-          name="search" 
-          ref={(ref) => this.textField = ref} 
-          onKeyDown={onEnter} 
-          hintText={hintText} 
-          fullWidth={true} />
-
-        <RaisedButton onClick={() => onSubmit(this.textField.input.value)} label="Search" icon={<ActionSearch />}/>
-      </div>
+      <form onSubmit={formSubmit}>
+        <TextField
+          ref={(ref) => {
+            this.textField = ref;
+          }}
+          hintText={hintText}
+          fullWidth
+        />
+        <RaisedButton
+          type="submit"
+          label="Search"
+          icon={<ActionSearch />}
+        />
+      </form>
     );
   }
-};
-
+}
 
 SearchForm.propTypes = {
   onSubmit: React.PropTypes.func,
   hintText: React.PropTypes.string,
 };
-
 SearchForm.defaultProps = {
   onSubmit: () => {},
   hintText: '',
 };
 
-export default SearchForm
+export default SearchForm;

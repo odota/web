@@ -1,37 +1,19 @@
-import React, { Component } from 'react';
-
+import React from 'react';
 import SearchResultItem from './SearchResultItem';
+import { List } from 'material-ui/List';
+import style from './search.css';
 
-export class SearchResult extends Component {
-    render() {
-      const { players } = this.props
+export default ({ players }) => {
+  let playerResult = players.map((player, idx) => (
+    <SearchResultItem
+      key={idx}
+      name={player.personaname}
+      steamId={player.account_id}
+      avatarFullUrl={player.avatarfull}
+    />
+  ));
 
-      var players_div = players.map((player) => {
-        <SearchResultItem 
-          steamId={player.account_id}
-          name={player.personaname}
-          avatarFullUrl={player.avatarfull}
-          similarity={player.similarity}
-        />
-      });
-
-      return (
-          <div>
-          {players.map((player) => 
-            <SearchResultItem 
-              steamId={player.account_id}
-              name={player.personaname}
-              avatarFullUrl={player.avatarfull}
-              similarity={player.similarity}
-            />
-          )}
-          </div>
-      );
-    }
-}
-
-SearchResult.propTypes = {
-  players : React.PropTypes.array
-}
-
-export default SearchResult
+  return (
+    <List className={style.searchResult}>{playerResult}</List>
+  );
+};
