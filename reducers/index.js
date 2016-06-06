@@ -2,6 +2,7 @@ import gotMetadata from './gotMetadata';
 import gotConstants from './gotConstants';
 import gotMatch from './gotMatch';
 import gotPlayer from './gotPlayer';
+import gotSearch from './gotSearch';
 import appBar from './appBar';
 import { combineReducers } from 'redux';
 
@@ -14,5 +15,6 @@ export default combineReducers({
   gotPlayer,
   gotMatch,
   gotConstants,
+  gotSearch,
   appBar,
 });
