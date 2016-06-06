@@ -4,6 +4,7 @@ import { playerActions, getPlayer } from './playerActions';
 import { matchActions, getMatch, getMatches } from './matchActions';
 import { playerMatchesActions, getPlayerMatches, setPlayerMatchesSort } from './playerMatchesActions';
 import { appBarActions, openMenu } from './appBarActions';
+import { searchActions, getSearchResult } from './searchActions';
 import { HOST_URL } from '../yasp.config';
 
 export {
@@ -21,5 +22,7 @@ export {
   setPlayerMatchesSort,
   appBarActions,
   openMenu,
+  getSearchResult,
+  searchActions,
   HOST_URL,
 };
