@@ -2,7 +2,7 @@ import { HOST_URL } from '../yasp.config';
 import moment from 'moment';
 
 // TODO move to utility module
-const isRadiant = (p) => p.player_slot < 128;
+const isRadiant = (playerSlot) => playerSlot < 128;
 
 function pad(n, width, z = '0') {
   const str = `${n}`;
