@@ -6,6 +6,7 @@ export default [{
   field: 'match_id',
   width: 2,
   sortFn: defaultSort,
+  displayFn: ({ field }) => <a href={`/matches/${field.display}`}>{field.display}</a>,
 }, {
   displayName: 'Hero',
   field: 'hero_id',
