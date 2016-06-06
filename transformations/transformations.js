@@ -2,7 +2,7 @@ import { HOST_URL } from '../yasp.config';
 import moment from 'moment';
 
 // TODO move to utility module
-const isRadiant = (playerSlot) => playerSlot < 128;
+const isRadiant = ({ playerSlot }) => playerSlot < 128;
 
 function pad(n, width, z = '0') {
   const str = `${n}`;
@@ -28,7 +28,7 @@ function formatSeconds(input) {
 
 export const transformation = {
   hero_id: ({ field, constants }) => `${HOST_URL}${constants.heroes[field] ? constants.heroes[field].img : field}`,
-  radiant_win: ({ field, match }) => (isRadiant(match.player_slot) === field ? 'W' : 'L'),
+  radiant_win: ({ field, match }) => (isRadiant({ playerSlot: match.player_slot }) === field ? 'W' : 'L'),
   game_mode: ({ field, constants }) => (constants.game_mode[field] ? constants.game_mode[field].name : field),
   start_time: ({ field }) => moment.unix(field).fromNow(),
   duration: ({ field }) => formatSeconds(field),
