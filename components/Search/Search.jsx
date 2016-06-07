@@ -14,7 +14,7 @@ const Search = ({ dispatchSearch, data, loading, done }) => (
       disabled={loading}
       onSubmit={(value) => dispatchSearch(value)}
     />
-    {done === true ? <SearchResult players={data} /> : ''}
+    {done ? <SearchResult players={data} /> : ''}
   </div>
 );
 
