@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -12,49 +12,36 @@ const loadingStyle = {
   margin: '40px auto 0 auto',
 };
 
-class SearchForm extends Component {
+const SearchForm = ({ hintText, onSubmit, disabled }) => {
+  let queryValue = '';
 
-  render() {
-    const { hintText, onSubmit, disabled } = this.props;
-    const formSubmit = (e) => {
-      e.preventDefault();
-      onSubmit(this.textField.input.value);
-    };
-    const loadingIndicator = () => (
-      <div className={style.loadingWrapper}>
-        <CircularProgress style={loadingStyle} />
-      </div>
-    );
+  const formSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(queryValue);
+  };
+  const loadingIndicator = () => (
+    <div className={style.loadingWrapper}>
+      <CircularProgress style={loadingStyle} />
+    </div>
+  );
 
-    return (
-      <form onSubmit={formSubmit}>
-        <TextField
-          ref={(ref) => {
-            this.textField = ref;
-          }}
-          disabled={disabled}
-          hintText={hintText}
-          fullWidth
-        />
-        <RaisedButton
-          type="submit"
-          label="Search"
-          disabled={disabled}
-          icon={<ActionSearch />}
-        />
-        {disabled === true ? loadingIndicator() : ''}
-      </form>
-    );
-  }
-}
-
-SearchForm.propTypes = {
-  onSubmit: React.PropTypes.func,
-  hintText: React.PropTypes.string,
-};
-SearchForm.defaultProps = {
-  onSubmit: () => {},
-  hintText: '',
+  return (
+    <form onSubmit={formSubmit}>
+      <TextField
+        disabled={disabled}
+        hintText={hintText}
+        onChange={(e) => { queryValue = e.target.value; }}
+        fullWidth
+      />
+      <RaisedButton
+        type="submit"
+        label="Search"
+        disabled={disabled}
+        icon={<ActionSearch />}
+      />
+      {disabled ? loadingIndicator() : ''}
+    </form>
+  );
 };
 
 export default SearchForm;
