@@ -22,14 +22,14 @@ export const setPlayerMatchesSort = (sortField, sortState, sortFn) => ({
   sortFn,
 });
 
-const getPlayerMatchesRequest = () => ({ type: REQUEST });
+export const getPlayerMatchesRequest = () => ({ type: REQUEST });
 
-const getPlayerMatchesOk = (payload) => ({
+export const getPlayerMatchesOk = (payload) => ({
   type: OK,
   payload,
 });
 
-const getPlayerMatchesError = (payload) => ({
+export const getPlayerMatchesError = (payload) => ({
   type: ERROR,
   payload,
 });
@@ -39,8 +39,5 @@ export const getPlayerMatches = (playerId, numMatches, host = HOST_URL) => (disp
   return fetch(`${host}${url(playerId, numMatches)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerMatchesOk(json.matches)))
-    .catch(error => {
-      console.error(error);
-      return dispatch(getPlayerMatchesError(error));
-    });
+    .catch(error => dispatch(getPlayerMatchesError(error)));
 };

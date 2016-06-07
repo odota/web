@@ -1,8 +1,10 @@
-import player from './player';
+import playerReducer, { player } from './player';
 import matches from './matches';
 import { combineReducers } from 'redux';
 
 export default combineReducers({
-  player,
+  playerReducer,
   matches,
 });
+
+export { player };

@@ -1,0 +1,32 @@
+.header {
+  margin-bottom: 30px;
+}
+
+.image {
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  background-size: cover;
+}
+
+.nameContainer {
+  display: flex;
+  flex-direction: row;
+  font-size: 26px;
+  text-transform: uppercase;
+}
+
+.playerName {
+  margin: 0 10px;
+}
+
+.yaspBadge {
+  composes: image;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  margin: 0 0 5px 0;
+  justify-content: space-between;
+}

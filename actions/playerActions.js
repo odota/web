@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
-import { HOST_URL } from '../actions';
+import { HOST_URL } from '.';
+import { getPlayerMatchesOk, getPlayerMatchesRequest, getPlayerMatchesError } from './playerMatchesActions';
 
 const url = '/api/players';
 
@@ -27,10 +28,16 @@ const getPlayerError = (payload) => ({
 
 export const getPlayer = (accountId, host = HOST_URL) => (dispatch) => {
   dispatch(getPlayerRequest());
+  dispatch(getPlayerMatchesRequest());
   return fetch(`${host}${url}/${accountId}`)
     .then(response => response.json())
     .then(json => {
-      dispatch(getPlayerOk(json));
+      const { matches, ...playerData } = json;
+      dispatch(getPlayerOk(playerData));
+      dispatch(getPlayerMatchesOk(matches));
     })
-    .catch(error => dispatch(getPlayerError(error)));
+    .catch(error => {
+      dispatch(getPlayerError(error));
+      dispatch(getPlayerMatchesError(error));
+    });
 };
