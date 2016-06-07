@@ -3,23 +3,22 @@ import { HOST_URL } from '../actions';
 
 const url = '/api/search';
 
-const REQUEST = 'yasp/search/REQUEST';
-const OK = 'yasp/search/OK';
+const START = 'yasp/search/START';
+const DONE = 'yasp/search/DONE';
 const ERROR = 'yasp/search/ERROR';
 
 export const searchActions = {
-  REQUEST,
-  OK,
+  START,
+  DONE,
   ERROR,
 };
 
-
-const getSearchRequest = () => ({
-  type: REQUEST,
+const getSearchStart = () => ({
+  type: START,
 });
 
-const getSearchOk = (payload) => ({
-  type: OK,
+const getSearchDone = (payload) => ({
+  type: DONE,
   payload,
 });
 
@@ -29,10 +28,10 @@ const getSearchError = (payload) => ({
 });
 
 export const getSearchResult = (query) => (dispatch) => {
-  dispatch(getSearchRequest());
+  dispatch(getSearchStart());
 
   return fetch(`${HOST_URL}${url}?q=${query}`)
     .then(res => res.json())
-    .then(json => dispatch(getSearchOk(json)))
+    .then(json => dispatch(getSearchDone(json)))
     .catch(err => dispatch(getSearchError(err)));
 };
