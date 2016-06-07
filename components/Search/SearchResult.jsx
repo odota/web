@@ -14,6 +14,11 @@ export default ({ players }) => {
   ));
 
   return (
-    <List className={style.searchResult}>{playerResult}</List>
+    <div className={style.searchResult}>
+      <p>
+        <em>There are {players.length} results</em> {/* TODO replace hardcoded text */}
+      </p>
+      <List>{playerResult}</List>
+    </div>
   );
 };

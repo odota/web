@@ -7,22 +7,24 @@ import { getSearchResult } from '../../actions';
 import SearchForm from './SearchForm';
 import SearchResult from './SearchResult';
 
-const Search = ({ dispatchSearch, data }) => (
+const Search = ({ dispatchSearch, data, loading, done }) => (
   <div>
     <SearchForm
-      hintText="Search by name or SteamID"
+      hintText="Search by name or SteamID" // TODO replace hardcoded with tooltips.json from yasp core
+      disabled={loading}
       onSubmit={(value) => dispatchSearch(value)}
     />
-    <SearchResult players={data} />
+    {done === true ? <SearchResult players={data} /> : ''}
   </div>
 );
 
 const mapStateToProps = (state) => {
-  const { error, loading, searchResults } = state[REDUCER_KEY].gotSearch;
+  const { error, loading, done, searchResults } = state[REDUCER_KEY].gotSearch;
 
   return {
     loading,
     error,
+    done,
     data: searchResults,
   };
 };
