@@ -26,13 +26,24 @@ function formatSeconds(input) {
   return time;
 }
 
-export const transformation = {
+const transformation = {
   hero_id: ({ field, constants }) => `${HOST_URL}${constants.heroes[field] ? constants.heroes[field].img : field}`,
   radiant_win: ({ field, match }) => (isRadiant({ playerSlot: match.player_slot }) === field ? 'W' : 'L'),
   game_mode: ({ field, constants }) => (constants.game_mode[field] ? constants.game_mode[field].name : field),
   start_time: ({ field }) => moment.unix(field).fromNow(),
   duration: ({ field }) => formatSeconds(field),
 };
+
+const transformMatchItem = ({ field, constants }) => {
+  if (field === 0) {
+    return false;
+  }
+  return `${HOST_URL}${constants.items[constants.item_ids[field]].img}`;
+};
+
+for (let i = 0; i < 6; i++) {
+  transformation[`item_${i}`] = transformMatchItem;
+}
 
 const transform = (match, field, constants) => {
   if (transformation[field]) {
@@ -42,3 +53,4 @@ const transform = (match, field, constants) => {
 };
 
 export default transform;
+export { transformation };

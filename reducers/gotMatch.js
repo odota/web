@@ -3,6 +3,9 @@ import { matchActions } from '../actions';
 const initialState = {
   loading: true,
   error: false,
+  match: {
+    players: [],
+  },
 };
 
 export default (state = initialState, action) => {
@@ -16,7 +19,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        match: action.payload,
+        match: { ...action.payload },
       };
     case matchActions.ERROR:
       return {

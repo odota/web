@@ -1,12 +1,13 @@
 import React from 'react';
 import { defaultSort, useOriginalValueSort } from './utility';
+import { Link } from 'react-router';
 
 export default [{
   displayName: 'ID',
   field: 'match_id',
   width: 2,
   sortFn: defaultSort,
-  displayFn: ({ field }) => <a href={`/matches/${field.display}`}>{field.display}</a>,
+  displayFn: ({ field }) => <Link to={`/matches/${field.display}`}>{field.display}</Link>,
 }, {
   displayName: 'Hero',
   field: 'hero_id',
