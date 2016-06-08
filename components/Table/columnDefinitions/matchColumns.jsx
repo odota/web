@@ -12,7 +12,7 @@ const overviewColumns = [{
     <div style={{ marginTop: 5 }}>
       <div>
         <div className={row.isRadiant.value ? styles.radiant : styles.dire}></div>
-        <img src={field.display} style={{ height: 30, borderRadius: 2 }} role="presentation" />
+        <img src={field.display} style={{ height: 30 }} role="presentation" />
         {row.last_login && row.last_login.value && <span style={{ marginLeft: 3 }}><YaspBadge /></span>}
       </div>
       {row.account_id.value ? <Link to={`/players/${row.account_id.value}`}>{row.personaname.value}</Link> : 'Anonymous'}
@@ -86,7 +86,7 @@ const overviewColumns = [{
     const itemArray = [];
     for (let i = 0; i < 6; i++) {
       if (row[`item_${i}`].display) {
-        itemArray.push(<img key={i} style={{ height: 25, margin: '0 3px', borderRadius: 2 }} role="presentation" src={row[`item_${i}`].display} />);
+        itemArray.push(<img key={i} style={{ height: 25, margin: '0 3px' }} role="presentation" src={row[`item_${i}`].display} />);
       }
     }
     return itemArray;
