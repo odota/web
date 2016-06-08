@@ -1,18 +1,19 @@
 import React from 'react';
 import { defaultSort, useOriginalValueSort } from './utility';
+import { Link } from 'react-router';
 
 export default [{
   displayName: 'ID',
   field: 'match_id',
   width: 2,
   sortFn: defaultSort,
-  displayFn: ({ field }) => <a href={`/matches/${field.display}`}>{field.display}</a>,
+  displayFn: ({ field }) => <Link to={`/matches/${field.display}`}>{field.display}</Link>,
 }, {
   displayName: 'Hero',
   field: 'hero_id',
   width: 1.5,
   sortFn: defaultSort,
-  displayFn: ({ field }) => <img src={field.display} style={{ height: 30, borderRadius: 500 }} role="presentation" />,
+  displayFn: ({ field }) => <img src={field.display} style={{ height: 30 }} role="presentation" />,
 }, {
   displayName: 'W/L',
   field: 'radiant_win',

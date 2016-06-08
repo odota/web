@@ -4,11 +4,10 @@ import PlayerHeader from './PlayerHeader';
 import Error from '../Error';
 import { getPlayer } from '../../actions';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import styles from './PlayerHeader.css';
 
-const Player = ({ params }) => {
-  if (!params || !params.account_id) {
+const Player = ({ playerId }) => {
+  if (!playerId) {
     return <Error />;
   }
 
@@ -17,7 +16,7 @@ const Player = ({ params }) => {
       <div className={styles.header}>
         <PlayerHeader />
       </div>
-      <PlayerMatchesTable playerId={params.account_id} numMatches={20} />
+      <PlayerMatchesTable playerId={playerId} numMatches={20} />
     </div>
   );
 };
@@ -44,7 +43,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RequestLayer));
+export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
 
 // const mapStateToProps = (state) => ({
 //   profile: player.getProfile(state),

@@ -1,20 +1,15 @@
 import React from 'react';
-import { Table } from '../Table';
-// import Error from '../Error';
-import { REDUCER_KEY } from '../../reducers';
+import { MatchTable } from '../Table';
 import { getMatch } from '../../actions';
 import { connect } from 'react-redux';
-import createConstantsWrapper from '../Constants';
-import { overviewColumns } from '../Table/columnDefinitions/matchColumns';
 
-const mapStateToProps = (state) => {
-  const { error, loading, match } = state[REDUCER_KEY].gotMatch;
-  return {
-    loading,
-    error,
-    data: match,
-  };
-};
+const Match = () => (
+  <div>
+    <MatchTable />
+  </div>
+);
+
+const mapStateToProps = (state, { params }) => ({ matchId: params.match_id });
 
 const mapDispatchToProps = (dispatch) => ({
   sort: (column) => dispatch(getMatch(column)),
@@ -26,16 +21,19 @@ class RequestLayer extends React.Component {
     this.props.getMatch(this.props.routeParams.match_id);
   }
 
+  componentWillUpdate(nextProps) {
+    if (this.props.match_id !== nextProps.match_id) {
+      this.props.getMatch(nextProps.match_id);
+    }
+  }
+
   render() {
-    const { data } = this.props;
     return (
       <div>
-        {<Table {...this.props} data={data && data.players ? data.players : data} columns={overviewColumns} />}
+        <Match {...this.props} />
       </div>
     );
   }
 }
 
-const TableWrapper = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
-
-export default createConstantsWrapper(TableWrapper);
+export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
