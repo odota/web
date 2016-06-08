@@ -34,6 +34,13 @@ const transformation = {
   duration: ({ field }) => formatSeconds(field),
 };
 
+/* ---------------------------- match item_n transformation ---------------------------- */
+// This code is used to transform the items in the match.players (array of players with match data).
+// the items for each player are stored as item_0, item_1, ..., item_5. If there is no item, we
+// have a value of 0 there, so we return false for those cases so we don't render a broken image link.
+// Otherwise, we just put the url in the image. THis will also contain the tooltip stuff as well
+// (once I get to the tooltips).
+
 const transformMatchItem = ({ field, constants }) => {
   if (field === 0) {
     return false;
@@ -44,6 +51,8 @@ const transformMatchItem = ({ field, constants }) => {
 for (let i = 0; i < 6; i++) {
   transformation[`item_${i}`] = transformMatchItem;
 }
+
+/* -------------------------------------------------------- */
 
 const transform = (match, field, constants) => {
   if (transformation[field]) {
