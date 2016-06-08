@@ -18,12 +18,11 @@ export default ({ column, sortClick, sortField, sortState, totalWidth }) => (
       onClick={() => sortClick(column.field, isSortField(sortField, column.field) ? sortState : '', column.sortFn)}
     >
       <Text size={16}>{column.displayName}</Text>
-      <FontIcon
-        style={{ fontSize: 16 }}
-        className="material-icons"
-      >
-        {getSortIcon(sortState, sortField, column.field)}
-      </FontIcon>
+      {column.sortFn && (
+        <FontIcon style={{ fontSize: 16 }} className="material-icons">
+          {getSortIcon(sortState, sortField, column.field)}
+        </FontIcon>
+      )}
     </div>
   </MaterialTableHeaderColumn>
 );

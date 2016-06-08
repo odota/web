@@ -4,7 +4,7 @@ import Table from './Table';
 import createConstantsWrapper from '../Constants';
 import { getMatch, setMatchSort } from '../../actions';
 import { overviewColumns } from './columnDefinitions';
-import { /* sortMatch, */ transformMatch } from '../../selectors';
+import { sortMatch, transformMatch } from '../../selectors';
 
 const mapStateToProps = (state) => {
   const { error, loading, sortState, sortField } = state[REDUCER_KEY].gotMatch.match.players;
@@ -12,8 +12,8 @@ const mapStateToProps = (state) => {
   return {
     loading,
     error,
-    // data: sortState ? sortMatch(state) : transformMatch(state),
-    data: transformMatch(state),
+    data: sortState ? sortMatch(state) : transformMatch(state),
+    // data: transformMatch(state),
     sortState,
     sortField,
     // important to set the columns here since we don't have wrapper anymore
