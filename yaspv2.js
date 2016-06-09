@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
-import { syncHistoryWithStore, routerReducer as routing } from 'react-router-redux';
+import { syncHistoryWithStore, routerReducer as routing, routerMiddleware } from 'react-router-redux';
 import App from './components/App';
 import Match from './components/Match';
 import Player from './components/Player';
@@ -27,6 +27,7 @@ import './assets/flaticon.css';
 import './global.css';
 import 'material-design-icons';
 const loggerMiddleware = createLogger();
+
 const reducer = combineReducers({
   [REDUCER_KEY]: appReducer,
   routing,
@@ -34,6 +35,7 @@ const reducer = combineReducers({
 const store = createStore(reducer, compose(
   applyMiddleware(thunkMiddleware),
   applyMiddleware(loggerMiddleware),
+  applyMiddleware(routerMiddleware(browserHistory)),
   window.devToolsExtension ? window.devToolsExtension() : f => f // This enables the redux dev tools extension, or does nothing if not installed
 ));
 

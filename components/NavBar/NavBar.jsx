@@ -6,12 +6,12 @@ import { REDUCER_KEY } from '../../reducers';
 import { Link } from 'react-router';
 import Divider from 'material-ui/Divider';
 import styles from './NavBar.css';
-import { getAlphabetizedLinks } from '../../selectors';
+import { openMenu } from '../../actions';
 
-const NavBar = ({ loading, error, links }) => {
+const NavBar = ({ loading, error, links, toggleMenu }) => {
   const getNavLinks = (navLinks) =>
     navLinks.map((link, index) => (
-      <Link key={index} to={link.path}>
+      <Link key={index} to={link.path} onTouchTap={toggleMenu}>
         <li className={styles.listItem}>
           {link.name}
         </li>
@@ -29,13 +29,13 @@ const NavBar = ({ loading, error, links }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { loading, error } = state[REDUCER_KEY].gotConstants;
+  const { loading, error, links } = state[REDUCER_KEY].gotConstants;
 
   return {
     loading,
     error,
-    links: getAlphabetizedLinks(state),
+    links,
   };
 };
 
-export default connect(mapStateToProps, null)(NavBar);
+export default connect(mapStateToProps, { toggleMenu: openMenu })(NavBar);

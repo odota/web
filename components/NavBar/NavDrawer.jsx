@@ -5,9 +5,10 @@ import Drawer from 'material-ui/Drawer';
 import { FooterLinks } from '../Footer';
 import { REDUCER_KEY } from '../../reducers';
 import styles from './NavDrawer.css';
+import { openMenu } from '../../actions';
 
-const NavDrawer = ({ open }) => (
-  <Drawer open={open}>
+const NavDrawer = ({ open, openMenu }) => (
+  <Drawer open={open} docked={false} onRequestChange={openMenu}>
     <div className={styles.container}>
       <div className={styles.navigation}>
         <NavBar />
@@ -23,4 +24,4 @@ const mapStateToProps = (state) => ({
   open: state[REDUCER_KEY].appBar.open,
 });
 
-export default connect(mapStateToProps)(NavDrawer);
+export default connect(mapStateToProps, { openMenu })(NavDrawer);

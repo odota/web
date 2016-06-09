@@ -16,6 +16,7 @@ const Player = ({ playerId }) => {
       <div className={styles.header}>
         <PlayerHeader />
       </div>
+
       <PlayerMatchesTable playerId={playerId} numMatches={20} />
     </div>
   );
