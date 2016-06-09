@@ -33,7 +33,7 @@ export default [{
   displayName: 'Duration',
   field: 'duration',
   width: 2,
-  sortFn: defaultSort,
+  sortFn: useOriginalValueSort,
 }, {
   displayName: 'Kills',
   field: 'kills',
