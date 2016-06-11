@@ -1,3 +1,5 @@
+@import "../palette.css";
+
 .header {
   margin-bottom: 30px;
 }
@@ -14,10 +16,35 @@
   flex-direction: row;
   font-size: 26px;
   text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.pictureContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .playerName {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin: 0 10px;
+}
+
+.playerPicture {
+  border-radius: 100px;
+  height: 40px;
+}
+
+.playerPictureYasp {
+  composes: playerPicture;
+  border: 5px solid #BBF0FD;
+}
+
+.playerPictureCheese {
+  composes: playerPicture;
+  border: 5px solid #FFD700
 }
 
 .yaspBadge {
@@ -29,4 +56,27 @@
   flex-direction: row;
   margin: 0 0 5px 0;
   justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+
+@media only screen and (max-width: 650px) {
+  .mmr {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .mmrContainer {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .playerInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
 }

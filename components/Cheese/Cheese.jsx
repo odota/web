@@ -12,8 +12,8 @@ const Cheese = ({ donations, error, loading }) => {
 
   const getCheeseMeter = () => (
     <div>
-      <div>{percent * 100}%</div>
-      <LinearProgress mode="determinate" value={percent * 100} color="#FFC469" />
+      <div className={styles.percent}>{(percent * 100).toFixed(2)}%</div>
+      <LinearProgress style={{ height: 15 }} mode="determinate" value={percent * 100} color="#FFD700" />
       {percent >= 1 && <div> - Woo!!! Thanks guys! No more ads! - Resets in X days.</div>}
     </div>
   );
@@ -21,8 +21,7 @@ const Cheese = ({ donations, error, loading }) => {
   return (
     <div className={styles.container}>
       <div className={styles.section}>
-        <p>Buy some cheese. Help pay for servers.</p>
-        <p>Reaching the goal every month keeps us running.</p>
+        <div>Buy some cheese. Help pay for servers. Reaching the goal every month keeps us running.</div>
       </div>
       <div className={styles.section}>
         <div className="meter_wrapper">

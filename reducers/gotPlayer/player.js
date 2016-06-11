@@ -46,4 +46,5 @@ export const player = {
   getCompetitiveRank: state => player.getPlayer(state).competitive_rank,
   getPicture: state => player.getProfile(state).avatarmedium,
   getSteamLink: state => player.getProfile(state).profileurl,
+  getCheese: state => player.getProfile(state).cheese,
 };

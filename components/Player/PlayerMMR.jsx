@@ -19,7 +19,7 @@ export const PlayerMMR = ({ loading, error, rank, soloRank, mmrEstimate }) => {
   };
 
   return (
-    <div>
+    <div className={styles.mmrContainer}>
       {getPlayerMMR()}
     </div>
   );
