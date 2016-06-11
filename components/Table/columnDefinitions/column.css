@@ -1,0 +1,17 @@
+.teamIndicator {
+  opacity: .5;
+  height: 30px;
+  width: 7px;
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.dire {
+  composes: teamIndicator;
+  background-color: #CD5C5C;
+}
+
+.radiant {
+  composes: teamIndicator;
+  background-color: #66CD00;
+}

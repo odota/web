@@ -6,11 +6,13 @@ const url = '/api/matches/';
 const REQUEST = 'yasp/match/REQUEST';
 const OK = 'yasp/match/OK';
 const ERROR = 'yasp/match/ERROR';
+const SORT = 'yasp/match/SORT';
 
 export const matchActions = {
   REQUEST,
   OK,
   ERROR,
+  SORT,
 };
 
 const getMatchRequest = () => ({ type: REQUEST });
@@ -23,6 +25,14 @@ const getMatchOk = (payload) => ({
 const getMatchError = (payload) => ({
   type: ERROR,
   payload,
+});
+
+
+export const setMatchSort = (sortField, sortState, sortFn) => ({
+  type: SORT,
+  sortField,
+  sortState,
+  sortFn,
 });
 
 export const getMatch = (matchId) => (dispatch) => {

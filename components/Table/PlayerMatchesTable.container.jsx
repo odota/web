@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { REDUCER_KEY } from '../../reducers';
 import Table from './Table';
@@ -16,6 +15,8 @@ const mapStateToProps = (state) => {
     data: sortState ? sortPlayerMatches(state) : transformPlayerMatches(state),
     sortState,
     sortField,
+    // important to set the columns here since we don't have wrapper anymore
+    columns: playerMatchesColumns,
   };
 };
 
@@ -24,22 +25,6 @@ const mapDispatchToProps = (dispatch) => ({
   getPlayerMatches: (playerId, numMatches, host) => dispatch(getPlayerMatches(playerId, numMatches, host)),
 });
 
-class RequestLayer extends React.Component {
-  componentDidMount() {
-    this.props.getPlayerMatches(this.props.playerId, this.props.numMatches);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.playerId !== nextProps.playerId) {
-      this.props.getPlayerMatches(nextProps.playerId, nextProps.numMatches);
-    }
-  }
-
-  render() {
-    return <Table {...this.props} columns={playerMatchesColumns} />;
-  }
-}
-
-const TableWrapper = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+const TableWrapper = connect(mapStateToProps, mapDispatchToProps)(Table);
 
 export default createConstantsWrapper(TableWrapper);

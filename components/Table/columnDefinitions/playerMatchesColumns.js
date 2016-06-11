@@ -1,11 +1,13 @@
 import React from 'react';
-import { defaultSort } from './utility';
+import { defaultSort, useOriginalValueSort } from './utility';
+import { Link } from 'react-router';
 
 export default [{
   displayName: 'ID',
   field: 'match_id',
   width: 2,
   sortFn: defaultSort,
+  displayFn: ({ field }) => <Link to={`/matches/${field.display}`}>{field.display}</Link>,
 }, {
   displayName: 'Hero',
   field: 'hero_id',
@@ -26,12 +28,12 @@ export default [{
   displayName: 'Date',
   field: 'start_time',
   width: 2,
-  sortFn: defaultSort,
+  sortFn: useOriginalValueSort,
 }, {
   displayName: 'Duration',
   field: 'duration',
   width: 2,
-  sortFn: defaultSort,
+  sortFn: useOriginalValueSort,
 }, {
   displayName: 'Kills',
   field: 'kills',

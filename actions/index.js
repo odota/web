@@ -1,9 +1,10 @@
 import { metadataActions, getMetadata } from './metadataActions';
 import { constantsActions, getConstants } from './constantsActions';
 import { playerActions, getPlayer } from './playerActions';
-import { matchActions, getMatch, getMatches } from './matchActions';
+import { matchActions, getMatch, setMatchSort } from './matchActions';
 import { playerMatchesActions, getPlayerMatches, setPlayerMatchesSort } from './playerMatchesActions';
 import { appBarActions, openMenu } from './appBarActions';
+import { searchActions, getSearchResult } from './searchActions';
 import { HOST_URL } from '../yasp.config';
 
 export {
@@ -15,11 +16,13 @@ export {
   getPlayer,
   matchActions,
   getMatch,
-  getMatches,
+  setMatchSort,
   playerMatchesActions,
   getPlayerMatches,
   setPlayerMatchesSort,
   appBarActions,
   openMenu,
+  getSearchResult,
+  searchActions,
   HOST_URL,
 };
