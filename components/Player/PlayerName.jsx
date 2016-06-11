@@ -1,5 +1,5 @@
 import React from 'react';
-import YaspBadge from './YaspBadge';
+// import YaspBadge from './YaspBadge';
 import PlayerPicture from './PlayerPicture';
 import Error from '../Error';
 import Spinner from '../Spinner';
@@ -14,9 +14,10 @@ const PlayerName = ({ playerName, registered, loading, error }) => {
 
     return (
       <div className={styles.nameContainer}>
-        <PlayerPicture />
+        <div className={styles.pictureContainer}>
+          <PlayerPicture registered={registered} />
+        </div>
         <div className={styles.playerName}>{playerName}</div>
-        {registered && <YaspBadge />}
       </div>
     );
   };

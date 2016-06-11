@@ -7,7 +7,7 @@ import styles from './PlayerHeader.css';
 export default () => (
   <div className={styles.container}>
     <PlayerName />
-    <div>
+    <div className={styles.playerInfo}>
       <PlayerRecord />
       <PlayerMMR />
     </div>

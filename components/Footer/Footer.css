@@ -14,8 +14,4 @@
   flex-wrap: wrap;
   justify-content: center;
   padding: 1em 1em 1em 1em;
-
-  @media only screen and (max-width: 480) {
-    flex-direction: column;
-  }
 }

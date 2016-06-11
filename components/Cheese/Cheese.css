@@ -2,9 +2,22 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  flex-wrap: wrap;
+
+  @media only screen and (max-width: 650px) {
+    flex-direction: column;
+  }
+}
+
+.percent {
+  margin-bottom: 10px;
 }
 
 .section {
   width: calc(100% / 3);
   text-align: center;
+  @media only screen and (max-width: 650px) {
+    width: 100%;
+    margin-bottom: 25px;
+  }
 }
