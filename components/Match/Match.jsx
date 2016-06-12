@@ -4,10 +4,11 @@ import { getMatch } from '../../actions';
 import { connect } from 'react-redux';
 import { overviewColumns, abUpgradeColumns } from '../Table/columnDefinitions/matchColumns.jsx';
 
+//TODO only show ability upgrades if players have it
+//<MatchTable columns={abUpgradeColumns} />
 const Match = () => (
   <div>
     <MatchTable columns={overviewColumns} />
-    <MatchTable columns={abUpgradeColumns} />
   </div>
 );
 

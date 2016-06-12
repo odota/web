@@ -4,7 +4,7 @@ import { formatSeconds, isRadiant } from '../util/utility';
 const constants = require('../constants');
 
 const transformation = {
-  hero_id: ({ field }) => `${HOST_URL}${constants.heroes[field]}`,
+  hero_id: ({ field }) => constants.heroes[field],
   radiant_win: ({ field, match }) => (isRadiant({ playerSlot: match.player_slot }) === field ? 'W' : 'L'),
   game_mode: ({ field }) => (constants.game_mode[field] ? constants.game_mode[field].name : field),
   start_time: ({ field }) => moment.unix(field).fromNow(),

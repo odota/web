@@ -6,22 +6,24 @@ import styles from './column.css';
 import { HOST_URL } from '../../../yasp.config.js';
 const constants = require('../../../constants.json');
 
-const overviewColumns = [{
-  displayName: 'Hero',
-  field: 'hero_id',
-  width: 3.5,
-  //TODO refactor this out into HeroTd
-  displayFn: ({ field, row }) => (
+const heroTd = ({ field, row }) => (
     <div style={{ marginTop: 5 }}>
       <div>
         <div className={row.isRadiant.value ? styles.radiant : styles.dire}></div>
-        <img src={field.display ? field.display.img : ''} style={{ height: 30 }} role="presentation" />
+        <img src={field.display ? `${HOST_URL}${field.display.img}` : ''} style={{ height: 30 }} role="presentation" />
         {row.last_login && row.last_login.value && <span style={{ marginLeft: 3 }}><YaspBadge /></span>}
       </div>
       {row.account_id.value ? <Link to={`/players/${row.account_id.value}`}>{row.personaname.value}</Link> : 'Anonymous'}
     </div>
-  ),
-}, {
+  );
+
+const overviewColumns = [{
+  displayName: 'Hero',
+  field: 'hero_id',
+  width: 3.5,
+  displayFn: heroTd, 
+},
+{
   displayName: 'LVL',
   field: 'level',
   width: 1.5,
@@ -100,16 +102,7 @@ const abUpgradeColumns = [
     displayName: 'Hero',
     field: 'hero_id',
     width: 2,
-    displayFn: ({ field, row }) => (
-      <div style={{ marginTop: 5 }}>
-        <div>
-          <div className={row.isRadiant.value ? styles.radiant : styles.dire}></div>
-          <img src={field.display ? field.display.img : ''} style={{ height: 30 }} role="presentation" />
-          {row.last_login && row.last_login.value && <span style={{ marginLeft: 3 }}><YaspBadge /></span>}
-        </div>
-        {row.account_id.value ? <Link to={`/players/${row.account_id.value}`}>{row.personaname.value}</Link> : 'Anonymous'}
-      </div>
-    ),
+    displayFn: heroTd,
   }];
 for (let i = 0; i < 25; i++) {
   abUpgradeColumns.push(
@@ -118,12 +111,12 @@ for (let i = 0; i < 25; i++) {
       field: 'ability_upgrades_arr',
       index: i,
       displayFn: ({ column, field }) => {
-        const abilityId = field[column.index];
-        const abilityData = constants.abilities[constants.ability_ids[abilityId]];
-        if (abilityData) {
-          return <img src={HOST_URL + abilityData.img} style={{ height: '24px' }} role="presentation" />;
-        }
-        return null;
+          const abilityId = field[column.index];
+          const abilityData = constants.abilities[constants.ability_ids[abilityId]];
+          if (abilityData) {
+            return <img src={HOST_URL + abilityData.img} style={{ height: '24px' }} role="presentation" />;
+          }
+          return null;
       },
     });
 }
