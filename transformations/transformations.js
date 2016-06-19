@@ -31,7 +31,7 @@ for (let i = 0; i < 6; i++) {
 
 /* -------------------------------------------------------- */
 
-const transform = (match, field, constants) => {
+const transform = (match, field) => {
   if (transformation[field]) {
     return transformation[field]({ match, field: match[field] });
   }

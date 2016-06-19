@@ -4,14 +4,12 @@ import { getMatch } from '../../actions';
 import { connect } from 'react-redux';
 import { overviewColumns, abUpgradeColumns } from '../Table/columnDefinitions/matchColumns.jsx';
 
-const Match = function() {
-  return (
+const Match = () => (
   <div>
     <MatchTable columns={overviewColumns} />
     <MatchTable columns={abUpgradeColumns} />
   </div>
-  );
-};
+);
 
 const mapStateToProps = (state, { params }) => ({ matchId: params.match_id });
 
