@@ -1,0 +1,7 @@
+@import "../palette.css";
+
+:export { inkBarColor: var(--primaryTextColor) }
+
+.tab {
+  background-color: var(--defaultPrimaryColor) !important;
+}

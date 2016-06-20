@@ -1,16 +1,14 @@
 import React from 'react';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router';
+import styles from './TabBar.css';
 
-  // {overview && <Tab value={overview}}
-  // {Object.keys(pages).map((key, index) => (
-  //   <Tab value={pages[key]}
-  // ))}
-const TabBar = () => (
-  <Tabs>
-    <Tab value="/player/overview" label="overview" onActive={(tab) => browserHistory.push(tab.props.value)} />
-    <Tab value="/player/matches" label="matches" onActive={(tab) => browserHistory.push(tab.props.value)} />
-    <Tab label="heroes" onActive={(tab) => browserHistory.push(tab.props.value)} />
+const TabBar = ({ router, tabs }) => (
+  <Tabs inkBarStyle={{ backgroundColor: styles.inkBarColor }}>
+    {tabs.map(tab => (
+      <Tab className={styles.tab} value={tab.route} label={tab.label} onActive={(tab) => router.push(tab.props.value)} />
+    ))}
   </Tabs>
 );
-export default TabBar;
+
+export default withRouter(TabBar);

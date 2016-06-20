@@ -58,8 +58,8 @@ render(
           <Route path=":info" />
         </Route>
         <Route path="players/:account_id" component={Player}>
-          <Route path="/:info">
-            <Route path="/:subkey" />
+          <Route path=":info">
+            <Route path=":subkey" />
           </Route>
         </Route>
       </Route>
