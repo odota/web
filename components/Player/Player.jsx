@@ -45,7 +45,7 @@ class RequestLayer extends React.Component {
   componentDidMount() {
     this.props.getPlayer(this.props.playerId);
     if (this.props.info === 'matches') {
-      this.props.getPlayerMatches(this.props.playerId, 50);
+      this.props.getPlayerMatches(this.props.playerId);
     }
   }
 
@@ -53,8 +53,8 @@ class RequestLayer extends React.Component {
     if (this.props.playerId !== nextProps.playerId) {
       this.props.getPlayer(nextProps.playerId);
     }
-    if (nextProps.info === 'matches') {
-      this.props.getPlayerMatches(nextProps.playerId, 50);
+    if (nextProps.info === 'matches' && this.props.playerId !== nextProps.playerId) {
+      this.props.getPlayerMatches(nextProps.playerId);
     }
   }
 
