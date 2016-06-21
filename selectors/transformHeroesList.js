@@ -5,9 +5,9 @@ import { transformationFunction } from './utility';
 const getHeroes = (state) => state[REDUCER_KEY].gotMatch.match.players.heroes_list;
 const getConstants = (state) => state[REDUCER_KEY].gotConstants;
 
-const transformMatchTable = createSelector(
+const transformHeroesList = createSelector(
   [getHeroes, getConstants],
-  (players, constants) => transformationFunction(players, constants)
+  (heroes, constants) => transformationFunction(heroes, constants)
 );
 
-export default transformMatchTable;
+export default transformHeroesList;

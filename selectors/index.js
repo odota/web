@@ -3,6 +3,7 @@ import sortPlayerMatches from './sortPlayerMatches';
 import sortMatch from './sortMatch';
 import transformPlayerMatches from './transformPlayerMatches';
 import transformMatch from './transformMatch';
+import transformHeroesList from './transformHeroesList';
 
 export {
   getAlphabetizedLinks,
@@ -10,4 +11,5 @@ export {
   sortMatch,
   transformPlayerMatches,
   transformMatch,
+  transformHeroesList,
 };
