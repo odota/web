@@ -2,10 +2,12 @@ import React from 'react';
 import { MatchTable } from '../Table';
 import { getMatch } from '../../actions';
 import { connect } from 'react-redux';
+import { overviewColumns, abUpgradeColumns } from '../Table/columnDefinitions/matchColumns.jsx';
 
 const Match = () => (
   <div>
-    <MatchTable />
+    <MatchTable columns={overviewColumns} />
+    <MatchTable columns={abUpgradeColumns} />
   </div>
 );
 
