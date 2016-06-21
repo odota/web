@@ -1,15 +1,17 @@
 import getAlphabetizedLinks from './getAlphabetizedLinks';
 import sortPlayerMatches from './sortPlayerMatches';
 import sortMatch from './sortMatch';
+import sortPlayerHeroes from './sortPlayerHeroes';
 import transformPlayerMatches from './transformPlayerMatches';
 import transformMatch from './transformMatch';
-import transformHeroesList from './transformHeroesList';
+import transformPlayerHeroes from './transformPlayerHeroes';
 
 export {
   getAlphabetizedLinks,
   sortPlayerMatches,
   sortMatch,
+  sortPlayerHeroes,
   transformPlayerMatches,
   transformMatch,
-  transformHeroesList,
+  transformPlayerHeroes,
 };

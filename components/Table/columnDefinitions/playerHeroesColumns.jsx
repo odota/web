@@ -22,7 +22,7 @@ const overviewColumns = [{
   field: 'win',
   width: 1,
   displayFn: ({ field, row }) => `${(field / row.games).toFixed(2)}`,
-  sortFn: transformedSort.bind(winPercentTransform),
+  sortFn: transformedSort.bind(null, winPercentTransform),
 }];
 
 export { overviewColumns };

@@ -3,6 +3,7 @@ import { constantsActions, getConstants } from './constantsActions';
 import { playerActions, getPlayer } from './playerActions';
 import { matchActions, getMatch, setMatchSort } from './matchActions';
 import { playerMatchesActions, getPlayerMatches, setPlayerMatchesSort } from './playerMatchesActions';
+import { playerHeroesActions, getPlayerHeroes, setPlayerHeroesSort } from './playerHeroesActions';
 import { appBarActions, openMenu } from './appBarActions';
 import { searchActions, getSearchResult } from './searchActions';
 import { HOST_URL } from '../yasp.config';
@@ -20,6 +21,9 @@ export {
   playerMatchesActions,
   getPlayerMatches,
   setPlayerMatchesSort,
+  playerHeroesActions,
+  getPlayerHeroes,
+  setPlayerHeroesSort,
   appBarActions,
   openMenu,
   getSearchResult,

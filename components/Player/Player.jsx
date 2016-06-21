@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlayerMatchesTable } from '../Table';
+import { PlayerMatchesTable, PlayerHeroesTable } from '../Table';
 import PlayerHeader from './PlayerHeader';
 import Error from '../Error';
 import { getPlayer, getPlayerMatches } from '../../actions';
@@ -13,7 +13,7 @@ const getPlayerSubroute = (info, playerId) => {
     case 'matches':
       return <PlayerMatchesTable playerId={playerId} />;
     case 'heroes':
-      return <div>Heroes table</div>;
+      return <PlayerHeroesTable playerId={playerId} />;
     default:
       return <PlayerMatchesTable playerId={playerId} />;
   }
