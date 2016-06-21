@@ -2,11 +2,11 @@ import { createSelector } from 'reselect';
 import { REDUCER_KEY } from '../reducers';
 import { transformationFunction } from './utility';
 
-const getMatch = (state) => state[REDUCER_KEY].gotMatch.match.players.players;
+const getHeroes = (state) => state[REDUCER_KEY].gotMatch.match.players.heroes_list;
 const getConstants = (state) => state[REDUCER_KEY].gotConstants;
 
 const transformMatchTable = createSelector(
-  [getMatch, getConstants],
+  [getHeroes, getConstants],
   (players, constants) => transformationFunction(players, constants)
 );
 

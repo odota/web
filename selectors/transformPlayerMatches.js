@@ -1,22 +1,13 @@
 import { createSelector } from 'reselect';
 import { REDUCER_KEY } from '../reducers';
-import transform from '../transformations';
+import { transformationFunction } from './utility';
 
 const getMatches = (state) => state[REDUCER_KEY].gotPlayer.matches.matches;
 const getConstants = (state) => state[REDUCER_KEY].gotConstants;
 
 const transformPlayerMatches = createSelector(
   [getMatches, getConstants],
-  (matches, constants) => matches.map(match => {
-    const transformedMatch = {};
-    Object.keys(match).forEach((field) => {
-      transformedMatch[`${field}`] = {
-        display: transform(match, field, constants),
-        value: match[field],
-      };
-    });
-    return transformedMatch;
-  })
+  (matches, constants) => transformationFunction(matches, constants)
 );
 
 export default transformPlayerMatches;
