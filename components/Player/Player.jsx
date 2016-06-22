@@ -4,7 +4,7 @@ import PlayerHeader from './PlayerHeader';
 import Error from '../Error';
 import { getPlayer, getPlayerMatches, setPlayerMatchesSort, setPlayerHeroesSort } from '../../actions';
 import { connect } from 'react-redux';
-import styles from './PlayerHeader.css';
+import styles from './Player.css';
 import { playerMatchesColumns, playerHeroesColumns } from '../Table/columnDefinitions';
 import {
   sortPlayerMatches,
@@ -12,6 +12,7 @@ import {
   sortPlayerHeroes,
   transformPlayerHeroes,
 } from '../../selectors';
+import { Text } from '../Text';
 
 const playerMatches = (state) => state.gotPlayer.matches;
 const playerHeroes = (state) => state.gotPlayer.heroes;
@@ -27,16 +28,31 @@ const PlayerHeroesTable = createTable(
   setPlayerHeroesSort
 );
 
+const getOverviewTab = () => (
+  <div>
+    <div className={styles.overviewMatches}>
+      <Text size={25}>Matches</Text>
+      <PlayerMatchesTable columns={playerMatchesColumns} />
+    </div>
+    <div className={styles.overviewHeroes}>
+      <div className={styles.heroesContainer}>
+        <Text size={25}>Heroes</Text>
+        <PlayerHeroesTable columns={playerHeroesColumns} />
+      </div>
+    </div>
+  </div>
+);
+
 const getPlayerSubroute = (info) => {
   switch (info) {
     case 'overview':
-      return <PlayerMatchesTable columns={playerMatchesColumns} />;
+      return getOverviewTab();
     case 'matches':
       return <PlayerMatchesTable columns={playerMatchesColumns} />;
     case 'heroes':
       return <PlayerHeroesTable columns={playerHeroesColumns} />;
     default:
-      return <PlayerMatchesTable columns={playerMatchesColumns} />;
+      return getOverviewTab();
   }
 };
 
