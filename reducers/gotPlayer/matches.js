@@ -4,7 +4,7 @@ import { SORT_ENUM } from '../utility';
 const initialState = {
   loading: true,
   error: false,
-  matches: [],
+  matchList: [],
   sortState: '',
   sortField: '',
   sortFn: f => f,
@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        matches: [...action.payload],
+        matchList: [...action.payload],
       };
     case playerMatchesActions.ERROR:
       return {
