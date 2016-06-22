@@ -1,16 +1,18 @@
 :root {
-  --darkPrimaryColor: #388E3C;
+  --darkPrimaryColor: #2D9434;
   --defaultPrimaryColor: #4CAF50;
-  --lightPrimaryColor: #C8E6C9;
+  --lightPrimaryColor: #77CC7D;
   --textPrimaryColor: #FFFFFF;
-  --accentColor: #FF5722;
+  --accentColor: #DE6461;
 
-  --primaryTextColor: #212121;
+  --neutralColor: #3B8386;
+
+  --primaryTextColor: #1f231f;
   --secondaryTextColor: #727272;
 
   --primaryLinkColor: #42A5F5;
 
-  --dividerColor: #B6B6B6;
+  --dividerColor: #dfe2e0;
 
   /* font sizes */
   --normalFontSize: 12px;

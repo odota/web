@@ -22,7 +22,7 @@
 
 .pieInner {
   fill: var(--primaryTextColor);
-  stroke: var(--defaultPrimaryColor);
+  stroke: var(--accentColor);
   stroke-width: 32;
   stroke-dasharray: 38 100;
 }
