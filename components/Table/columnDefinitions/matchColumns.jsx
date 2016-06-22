@@ -101,24 +101,26 @@ const abUpgradeColumns = [
   {
     displayName: 'Hero',
     field: 'hero_id',
-    width: 3,
+    width: 2.5,
     displayFn: heroTd,
   }];
 for (let i = 0; i < 25; i++) {
-  abUpgradeColumns.push(
-    {
-      displayName: i + 1,
-      field: 'ability_upgrades_arr',
-      index: i,
-      width: 1,
-      displayFn: ({ column, field }) => {
+  abUpgradeColumns.push({
+    displayName: i + 1,
+    field: 'ability_upgrades_arr',
+    index: i,
+    width: 1,
+    displayFn: ({ column, field }) => {
+      // TODO - why does this code get executed when the abUpgradeColumnsTable doesn't get rendered...
+      if (field) {
         const abilityId = field.value[column.index];
         const abilityData = constants.abilities[constants.ability_ids[abilityId]];
         if (abilityData) {
-          return <img src={HOST_URL + abilityData.img} style={{ height: '24px' }} role="presentation" />;
+          return <img src={HOST_URL + abilityData.img} style={{ height: 35, position: 'relative', left: -10 }} role="presentation" />;
         }
-        return null;
-      },
-    });
+      }
+      return null;
+    },
+  });
 }
 export { overviewColumns, abUpgradeColumns };

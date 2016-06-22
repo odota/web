@@ -18,7 +18,7 @@
   background-color: var(--darkPrimaryColor)!important;
 }
 
-.headerCell {
+.headerCellNoSort {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -26,6 +26,10 @@
   & * {
     color: #fff!important;
   }
+}
+
+.headerCell {
+  composes: headerCellNoSort;
   &:hover {
     cursor: pointer;
     & span, & div {

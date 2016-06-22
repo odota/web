@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import { overviewColumns, abUpgradeColumns } from '../Table/columnDefinitions/matchColumns.jsx';
 import { sortMatch, transformMatch, transformAbilityUpgrades } from '../../selectors';
 
-const MatchTable = createTable(transformMatch, sortMatch, setMatchSort);
-const AbilityUpgradesTable = createTable(transformAbilityUpgrades, sortMatch, setMatchSort);
+const players = (state) => state.gotMatch.match.players;
+const MatchTable = createTable(players, transformMatch, sortMatch, setMatchSort);
+const AbilityUpgradesTable = createTable(players, transformAbilityUpgrades, sortMatch, setMatchSort);
 
 const Match = () => (
   <div>

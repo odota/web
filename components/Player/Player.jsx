@@ -13,8 +13,11 @@ import {
   transformPlayerHeroes,
 } from '../../selectors';
 
-const PlayerMatchesTable = createTable(transformPlayerMatches, sortPlayerMatches, setPlayerMatchesSort);
-const PlayerHeroesTable = createTable(transformPlayerHeroes, sortPlayerHeroes, setPlayerHeroesSort);
+const playerMatches = (state) => state.gotPlayer.matches;
+const playerHeroes = (state) => state.gotPlayer.heroes;
+
+const PlayerMatchesTable = createTable(playerMatches, transformPlayerMatches, sortPlayerMatches, setPlayerMatchesSort);
+const PlayerHeroesTable = createTable(playerHeroes, transformPlayerHeroes, sortPlayerHeroes, setPlayerHeroesSort);
 
 const getPlayerSubroute = (info) => {
   switch (info) {

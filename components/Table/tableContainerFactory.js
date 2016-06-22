@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import { REDUCER_KEY } from '../../reducers';
 import Table from './Table';
 
-const createTable = (transformFn, sortFn, sortAction) => {
+const createTable = (getStateFn, transformFn, sortFn, sortAction) => {
   const mapStateToProps = (state, ownProps) => {
-    const { error, loading, sortState, sortField } = state[REDUCER_KEY].gotMatch.match.players;
+    const { error, loading, sortState, sortField } = getStateFn(state[REDUCER_KEY]);
 
     return {
       loading,
@@ -23,7 +23,5 @@ const createTable = (transformFn, sortFn, sortAction) => {
 
   return connect(mapStateToProps, mapDispatchToProps)(Table);
 };
-
-console.log(createTable);
 
 export default createTable;
