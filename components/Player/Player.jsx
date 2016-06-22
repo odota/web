@@ -1,5 +1,5 @@
 import React from 'react';
-import createTable from '../Table/tableContainerFactory';
+import { createTable } from '../Table';
 import PlayerHeader from './PlayerHeader';
 import Error from '../Error';
 import { getPlayer, getPlayerMatches, setPlayerMatchesSort, setPlayerHeroesSort } from '../../actions';
