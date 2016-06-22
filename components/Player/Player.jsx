@@ -16,8 +16,16 @@ import {
 const playerMatches = (state) => state.gotPlayer.matches;
 const playerHeroes = (state) => state.gotPlayer.heroes;
 
-const PlayerMatchesTable = createTable(playerMatches, transformPlayerMatches, sortPlayerMatches, setPlayerMatchesSort);
-const PlayerHeroesTable = createTable(playerHeroes, transformPlayerHeroes, sortPlayerHeroes, setPlayerHeroesSort);
+const PlayerMatchesTable = createTable(
+  playerMatches,
+  (state, sortState) => (sortState ? sortPlayerMatches(state) : transformPlayerMatches(state)),
+  setPlayerMatchesSort
+);
+const PlayerHeroesTable = createTable(
+  playerHeroes,
+  (state, sortState) => (sortState ? sortPlayerHeroes(state) : transformPlayerHeroes(state)),
+  setPlayerHeroesSort
+);
 
 const getPlayerSubroute = (info) => {
   switch (info) {

@@ -6,8 +6,15 @@ import { overviewColumns, abUpgradeColumns } from '../Table/columnDefinitions/ma
 import { sortMatch, transformMatch, transformAbilityUpgrades } from '../../selectors';
 
 const players = (state) => state.gotMatch.match.players;
-const MatchTable = createTable(players, transformMatch, sortMatch, setMatchSort);
-const AbilityUpgradesTable = createTable(players, transformAbilityUpgrades, sortMatch, setMatchSort);
+const MatchTable = createTable(players,
+  (state, sortState) => (sortState ? sortMatch(state) : transformMatch(state)),
+  setMatchSort
+);
+const AbilityUpgradesTable = createTable(
+  players,
+  state => transformAbilityUpgrades(state),
+  setMatchSort
+);
 
 const Match = () => (
   <div>
