@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import { REDUCER_KEY } from '../../reducers';
 import Table from './Table';
-import createConstantsWrapper from '../Constants';
-import { getMatch, setMatchSort } from '../../actions';
+import { setMatchSort } from '../../actions';
 import { sortMatch, transformMatch } from '../../selectors';
 
 const mapStateToProps = (state, ownProps) => {
@@ -22,9 +21,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => ({
   sortClick: (field, sortState, sortFn) => dispatch(setMatchSort(field, sortState, sortFn)),
-  getMatch: (matchId) => dispatch(getMatch(matchId)),
 });
 
 const TableWrapper = connect(mapStateToProps, mapDispatchToProps)(Table);
 
-export default createConstantsWrapper(TableWrapper);
+export default TableWrapper;

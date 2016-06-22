@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { REDUCER_KEY } from '../../reducers';
 import Table from './Table';
-import createConstantsWrapper from '../Constants';
 import { getPlayerMatches, setPlayerMatchesSort } from '../../actions';
 import { playerMatchesColumns } from './columnDefinitions';
 import { sortPlayerMatches, transformPlayerMatches } from '../../selectors';
@@ -27,4 +26,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 const TableWrapper = connect(mapStateToProps, mapDispatchToProps)(Table);
 
-export default createConstantsWrapper(TableWrapper);
+export default TableWrapper;

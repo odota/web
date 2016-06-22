@@ -1,15 +1,16 @@
 import React from 'react';
 import { defaultSort, transformedSort } from './utility';
+import { HOST_URL } from '../../../yasp.config';
 
 const winPercentTransform = (list, field, property) => list[field][property] / list.games[property];
 
-const overviewColumns = [{
+export default [{
   displayName: 'Hero',
   field: 'hero_id',
-  width: 3.5,
+  width: 1,
   displayFn: ({ field }) => (
     <div style={{ marginTop: 5 }}>
-      <img src={field.display} style={{ height: 30 }} role="presentation" />
+      <img src={`${HOST_URL}${field.display.img}`} style={{ height: 30 }} role="presentation" />
     </div>
   ),
 }, {
@@ -21,8 +22,6 @@ const overviewColumns = [{
   displayName: 'Win %',
   field: 'win',
   width: 1,
-  displayFn: ({ field, row }) => `${(field / row.games).toFixed(2)}`,
+  displayFn: ({ field, row }) => `${(Math.ceil(10000 * ((field.display) / (row.games.display))) / 100).toFixed(2)}%`,
   sortFn: transformedSort.bind(null, winPercentTransform),
 }];
-
-export { overviewColumns };

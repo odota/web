@@ -48,7 +48,7 @@ const Table = ({ data, columns, loading, error, sortState, sortField, sortClick 
     <div className={styles.container}>
       {loading && <Spinner />}
       {!loading && error && <Error />}
-      {!loading && !error && getTable()}
+      {!loading && !error && data !== null && data !== undefined && getTable()}
     </div>
   );
 };

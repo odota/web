@@ -101,7 +101,7 @@ const abUpgradeColumns = [
   {
     displayName: 'Hero',
     field: 'hero_id',
-    width: 3.5,
+    width: 3,
     displayFn: heroTd,
   }];
 for (let i = 0; i < 25; i++) {
@@ -110,6 +110,7 @@ for (let i = 0; i < 25; i++) {
       displayName: i + 1,
       field: 'ability_upgrades_arr',
       index: i,
+      width: 1,
       displayFn: ({ column, field }) => {
         const abilityId = field.value[column.index];
         const abilityData = constants.abilities[constants.ability_ids[abilityId]];

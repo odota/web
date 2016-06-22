@@ -1,21 +1,31 @@
 import React from 'react';
-import { PlayerMatchesTable, PlayerHeroesTable } from '../Table';
+import createTable from '../Table/tableContainerFactory';
 import PlayerHeader from './PlayerHeader';
 import Error from '../Error';
-import { getPlayer, getPlayerMatches } from '../../actions';
+import { getPlayer, getPlayerMatches, setPlayerMatchesSort, setPlayerHeroesSort } from '../../actions';
 import { connect } from 'react-redux';
 import styles from './PlayerHeader.css';
+import { playerMatchesColumns, playerHeroesColumns } from '../Table/columnDefinitions';
+import {
+  sortPlayerMatches,
+  transformPlayerMatches,
+  sortPlayerHeroes,
+  transformPlayerHeroes,
+} from '../../selectors';
 
-const getPlayerSubroute = (info, playerId) => {
+const PlayerMatchesTable = createTable(transformPlayerMatches, sortPlayerMatches, setPlayerMatchesSort);
+const PlayerHeroesTable = createTable(transformPlayerHeroes, sortPlayerHeroes, setPlayerHeroesSort);
+
+const getPlayerSubroute = (info) => {
   switch (info) {
     case 'overview':
-      return <PlayerMatchesTable playerId={playerId} />;
+      return <PlayerMatchesTable columns={playerMatchesColumns} />;
     case 'matches':
-      return <PlayerMatchesTable playerId={playerId} />;
+      return <PlayerMatchesTable columns={playerMatchesColumns} />;
     case 'heroes':
-      return <PlayerHeroesTable playerId={playerId} />;
+      return <PlayerHeroesTable columns={playerHeroesColumns} />;
     default:
-      return <PlayerMatchesTable playerId={playerId} />;
+      return <PlayerMatchesTable columns={playerMatchesColumns} />;
   }
 };
 
@@ -29,7 +39,7 @@ const Player = ({ playerId, info }) => {
       <div className={styles.header}>
         <PlayerHeader playerId={playerId} />
       </div>
-      {getPlayerSubroute(info, playerId)}
+      {getPlayerSubroute(info)}
     </div>
   );
 };
