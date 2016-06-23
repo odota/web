@@ -4,18 +4,16 @@ import PlayerMMR from './PlayerMMR';
 import PlayerRecord from './PlayerRecord';
 import styles from './PlayerHeader.css';
 import TabBar from '../TabBar';
+import constants from '../../constants';
 
-// TODO - once I have internet, maybe we already have this info from constats
-const getTabs = (playerId) => [{
-  label: 'overview',
-  route: `/players/${playerId}/overview`,
-}, {
-  label: 'matches',
-  route: `/players/${playerId}/matches`,
-}, {
-  label: 'heroes',
-  route: `/players/${playerId}/heroes`,
-}];
+const getPlayerPages = (playerId) => Object.keys(constants.player_pages).map(
+  (key) => {
+    if (constants.player_pages[key].name.toLowerCase() === 'overview') {
+      return { route: `/players/${playerId}/overview`, label: constants.player_pages[key].name };
+    }
+    return { route: `/players/${playerId}/${key}`, label: constants.player_pages[key].name };
+  }
+);
 
 export default ({ playerId }) => (
   <div>
@@ -26,6 +24,6 @@ export default ({ playerId }) => (
         <PlayerMMR />
       </div>
     </div>
-    <TabBar tabs={getTabs(playerId)} />
+    <TabBar tabs={getPlayerPages(playerId)} />
   </div>
 );
