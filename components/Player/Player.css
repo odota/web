@@ -1,0 +1,17 @@
+.header {
+  margin-bottom: 30px;
+}
+
+.overviewMatches {
+  width: 75%;
+  display: inline-block;
+}
+
+.overviewHeroes {
+  width: 25%;
+  display: inline-block;
+}
+
+.heroesContainer {
+  margin-left: 30px;
+}

@@ -2,13 +2,13 @@
 
 .footer {
   padding: 20px;
-  background-color: var(--primaryTextColor);
-  color: #fff;
+  background-color: var(--textPrimaryColor);
+  color: var(--primaryTextColor);
 }
 
 .links {
-  background-color: var(--primaryTextColor);
-  color: #fff;
+  background-color: var(--textPrimaryColor);
+  color: var(--primaryTextColor);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

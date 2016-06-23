@@ -1,10 +1,10 @@
-import { playerMatchesActions } from '../../actions';
+import { playerHeroesActions } from '../../actions';
 import { SORT_ENUM } from '../utility';
 
 const initialState = {
   loading: true,
   error: false,
-  matchList: [],
+  heroes: [],
   sortState: '',
   sortField: '',
   sortFn: f => f,
@@ -12,24 +12,24 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case playerMatchesActions.REQUEST:
+    case playerHeroesActions.REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case playerMatchesActions.OK:
+    case playerHeroesActions.OK:
       return {
         ...state,
         loading: false,
-        matchList: [...action.payload],
+        heroes: [...action.payload],
       };
-    case playerMatchesActions.ERROR:
+    case playerHeroesActions.ERROR:
       return {
         ...state,
         loading: false,
         error: true,
       };
-    case playerMatchesActions.SORT:
+    case playerHeroesActions.SORT:
       return {
         ...state,
         sortState: action.sortField === state.sortField ? SORT_ENUM.next(SORT_ENUM[state.sortState]) : SORT_ENUM[0],

@@ -6,7 +6,7 @@ const initialState = {
   error: false,
   match: {
     players: {
-      players: [],
+      matchArray: [],
       sortState: '',
       sortField: '',
       sortFn: f => f,
@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
         match: {
           ...rest,
           players: {
-            players,
+            matchArray: players,
           },
         },
       };
@@ -48,7 +48,7 @@ export default (state = initialState, action) => {
         match: {
           ...restMatch,
           players: {
-            players: players.players,
+            matchArray: players.matchArray,
             sortState: action.sortField === players.sortField ? SORT_ENUM.next(SORT_ENUM[players.sortState]) : SORT_ENUM[0],
             sortField: action.sortField,
             sortFn: action.sortFn,

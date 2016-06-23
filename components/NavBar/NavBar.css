@@ -1,13 +1,16 @@
 @import "../palette.css";
 
+:export { dividerColor: var(--dividerColor) }
+
 .listItem {
   padding: 20px;
   font-size: var(--mediumLargeFontSize);
 
-  color: var(--primaryTextColor);
+  color:  var(--primaryTextColor);
+  background-color: var(--textPrimaryColor);
 
   &:hover {
     background-color: var(--primaryTextColor);
-    color: #fff;
+    color: var(--textPrimaryColor);
   }
 }

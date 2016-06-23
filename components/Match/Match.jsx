@@ -1,13 +1,25 @@
 import React from 'react';
-import { MatchTable } from '../Table';
-import { getMatch } from '../../actions';
+import { createTable } from '../Table';
+import { getMatch, setMatchSort } from '../../actions';
 import { connect } from 'react-redux';
 import { overviewColumns, abUpgradeColumns } from '../Table/columnDefinitions/matchColumns.jsx';
+import { sortMatch, transformMatch, transformAbilityUpgrades } from '../../selectors';
+
+const players = (state) => state.gotMatch.match.players;
+const MatchTable = createTable(players,
+  (state, sortState) => (sortState ? sortMatch(state) : transformMatch(state)),
+  setMatchSort
+);
+const AbilityUpgradesTable = createTable(
+  players,
+  state => transformAbilityUpgrades(state),
+  setMatchSort
+);
 
 const Match = () => (
   <div>
     <MatchTable columns={overviewColumns} />
-    <MatchTable columns={abUpgradeColumns} />
+    <AbilityUpgradesTable columns={abUpgradeColumns} />
   </div>
 );
 

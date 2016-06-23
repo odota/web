@@ -15,27 +15,37 @@
 }
 
 .header {
-  background-color: var(--darkPrimaryColor)!important;
+  background-color: var(--defaultPrimaryColor)!important;
 }
 
-.headerCell {
+.headerRow {
+  border-bottom-color: var(--dividerColor)!important;
+}
+
+.headerCellNoSort {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   text-align: center;
   & * {
-    color: #fff!important;
+    color: var(--primaryTextColor)!important;
   }
+}
+
+.headerCell {
+  composes: headerCellNoSort;
   &:hover {
     cursor: pointer;
     & span, & div {
-      color: var(--primaryTextColor)!important;
+      color: var(--textPrimaryColor)!important;
     }
   }
 }
 
 .row {
-  background-color: #fff;
+  background-color: color(var(--textPrimaryColor) lightness(30%));
+  color: var(--primaryTextColor)!important;
+  border-bottom-color: var(--dividerColor)!important;
 }
 
 .row0 {
@@ -44,5 +54,5 @@
 
 .row1 {
   composes: row;
-  background-color: #eee;
+  background-color: color(var(--textPrimaryColor) lightness(40%));
 }

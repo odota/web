@@ -10,10 +10,8 @@ module.exports = {
   {
     filename: '[name].min.js',
     path: 'build/',
-    publicPath: 'build/'
-      // sourceMapFilename: '[name].map'
+    publicPath: 'build/',
   },
-  // devtool: 'eval-source-map',
   resolve: {
     extensions: ['', '.jsx', '.js', '.css', '.json']
   },

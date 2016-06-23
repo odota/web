@@ -1,6 +1,7 @@
 import React from 'react';
 import { defaultSort, useOriginalValueSort } from './utility';
 import { Link } from 'react-router';
+import { HOST_URL } from '../../../yasp.config';
 
 export default [{
   displayName: 'ID',
@@ -13,7 +14,7 @@ export default [{
   field: 'hero_id',
   width: 1.5,
   sortFn: defaultSort,
-  displayFn: ({ field }) => <img src={field.display ? field.display.img : ''} style={{ height: '24px' }} role="presentation" />,
+  displayFn: ({ field }) => <img src={field.display ? `${HOST_URL}${field.display.img}` : ''} style={{ height: '24px' }} role="presentation" />,
 }, {
   displayName: 'W/L',
   field: 'radiant_win',

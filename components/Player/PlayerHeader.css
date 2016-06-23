@@ -1,9 +1,5 @@
 @import "../palette.css";
 
-.header {
-  margin-bottom: 30px;
-}
-
 .image {
   display: inline-block;
   height: 30px;

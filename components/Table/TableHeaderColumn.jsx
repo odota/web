@@ -14,8 +14,8 @@ export default ({ column, sortClick, sortField, sortState, totalWidth }) => (
     style={getWidthStyle(column.width, totalWidth)}
   >
     <div
-      className={styles.headerCell}
-      onClick={() => sortClick(column.field, isSortField(sortField, column.field) ? sortState : '', column.sortFn)}
+      className={column.sortFn ? styles.headerCell : styles.headerCellNoSort}
+      onClick={() => column.sortFn && sortClick(column.field, isSortField(sortField, column.field) ? sortState : '', column.sortFn)}
     >
       <Text size={16}>{column.displayName}</Text>
       {column.sortFn && (
