@@ -2,6 +2,7 @@ import React from 'react';
 import { defaultSort, transformedSort } from './utility';
 import { HOST_URL } from '../../../yasp.config';
 import styles from './playerHeroesColumns.css';
+import PiePercent from '../../PiePercent';
 
 const winPercentTransform = (list, field, property) => list[field][property] / list.games[property];
 
@@ -29,13 +30,7 @@ export default [{
     <div className={styles.percentContainer}>
       <span className={styles.textContainer}>{getPercentWin(field.display, row.games.display).toFixed(1)}</span>
       <span>
-        <svg viewBox="0 0 32 32" className={styles.pieChart}>
-          <circle
-            r="16" cx="16" cy="16"
-            className={styles.pieInner}
-            style={{ strokeDasharray: `${getPercentWin(field.display, row.games.display)} 100` }}
-          />
-        </svg>
+        <PiePercent percent={getPercentWin(field.display, row.games.display)} />
       </span>
     </div>
   ),

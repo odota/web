@@ -1,0 +1,16 @@
+@import "../palette.css";
+
+.pieChart {
+  width: 32px;
+  height: 32px;
+  transform: rotate(-90deg);
+  background: var(--primaryTextColor);
+  border-radius: 50%;
+}
+
+.pieInner {
+  fill: var(--primaryTextColor);
+  stroke: var(--accentColor);
+  stroke-width: 32;
+  stroke-dasharray: 38 100;
+}
