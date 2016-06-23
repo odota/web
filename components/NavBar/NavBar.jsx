@@ -19,7 +19,7 @@ const NavBar = ({ loading, error, links = navLinks, toggleMenu }) => {
         <li className={styles.listItem}>
           {link.name}
         </li>
-        <Divider />
+        <Divider style={{ backgroundColor: styles.dividerColor }} />
       </Link>
     ));
 

@@ -4,9 +4,9 @@
   background-color: var(--defaultPrimaryColor) !important;
 
   & a {
-    color: #fff;
+    color: var(--primaryTextColor);
     &:hover {
-      color: var(--primaryTextColor);
+      color: var(--textPrimaryColor);
     }
   }
 }

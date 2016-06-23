@@ -15,7 +15,11 @@
 }
 
 .header {
-  background-color: var(--darkPrimaryColor)!important;
+  background-color: var(--defaultPrimaryColor)!important;
+}
+
+.headerRow {
+  border-bottom-color: var(--dividerColor)!important;
 }
 
 .headerCellNoSort {
@@ -24,7 +28,7 @@
   justify-content: space-between;
   text-align: center;
   & * {
-    color: #fff!important;
+    color: var(--primaryTextColor)!important;
   }
 }
 
@@ -33,13 +37,15 @@
   &:hover {
     cursor: pointer;
     & span, & div {
-      color: var(--primaryTextColor)!important;
+      color: var(--textPrimaryColor)!important;
     }
   }
 }
 
 .row {
-  background-color: #fff;
+  background-color: color(var(--textPrimaryColor) lightness(30%));
+  color: var(--primaryTextColor)!important;
+  border-bottom-color: var(--dividerColor)!important;
 }
 
 .row0 {
@@ -48,5 +54,5 @@
 
 .row1 {
   composes: row;
-  background-color: #eee;
+  background-color: color(var(--textPrimaryColor) lightness(40%));
 }
