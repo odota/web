@@ -25,7 +25,7 @@
 
 :global(html) {
   height: 100%;
-  background-color: var(--textPrimaryColor);
+  background-color: var(--textSecondaryColor);
 }
 
 :global(#react) {

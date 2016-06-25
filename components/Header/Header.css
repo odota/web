@@ -6,7 +6,7 @@
   & a {
     color: var(--primaryTextColor);
     &:hover {
-      color: var(--textPrimaryColor);
+      color: var(--textSecondaryColor);
     }
   }
 }
