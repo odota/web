@@ -6,6 +6,8 @@ import { REDUCER_KEY } from '../../reducers';
 import { getPlayer } from '../../actions';
 import { Link } from 'react-router';
 import styles from './AccountWidget.css';
+import FontIcon from 'material-ui/FontIcon';
+import { PlayerPicture } from '../Player';
 
 // Maybe we can factor out this ternary into a function?
 const AccountWidget = ({ loading, error, user }) => (
@@ -13,10 +15,14 @@ const AccountWidget = ({ loading, error, user }) => (
     {loading && !error && <Spinner />}
     {error && <Error />}
     {!error && !loading && user ? (
-      <ul>
-        <li><Link to={`/players/${user.account_id}`}>Profile</Link></li>
-        <li><a href="/logout">Logout</a></li>
-      </ul>
+      <div className={styles.flexContainer}>
+        <PlayerPicture noSteamLink link={`/players/${user.account_id}`} user />
+        <a href="/logout" className={styles.logout}>
+          <FontIcon style={{ fontSize: 30, color: '#FFF' }} className="material-icons">
+            exit_to_app
+          </FontIcon>
+        </a>
+      </div>
     )
     : <a href="/login">Login</a>
     }

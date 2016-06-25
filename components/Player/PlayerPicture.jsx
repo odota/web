@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { player } from '../../reducers';
 import Avatar from 'material-ui/Avatar';
 import styles from './PlayerHeader.css';
+import { Link } from 'react-router';
 
 const getPlayerStyle = (registered, cheese) => {
   if (cheese) return styles.playerPictureCheese;
@@ -10,18 +11,30 @@ const getPlayerStyle = (registered, cheese) => {
   return styles.playerPicture;
 };
 
-const PlayerPicture = ({ picture, steamLink, cheese, registered }) => (
-  <a href={steamLink} className={getPlayerStyle(registered, cheese)}>
-    <Avatar src={picture} />
-  </a>
-);
+const getComponent = (picture, steamLink, cheese, registered, link) => {
+  if (link) {
+    return (
+      <Link to={link} className={getPlayerStyle(registered, cheese)}>
+        <Avatar src={picture} />
+      </Link>
+    );
+  }
+  return (
+    <a href={steamLink} className={getPlayerStyle(registered, cheese)}>
+      <Avatar src={picture} />
+    </a>
+  );
+};
+
+const PlayerPicture = ({ picture, steamLink, cheese, registered, link }) =>
+  getComponent(picture, steamLink, cheese, registered, link);
 
 // TODO - refactor so that account is its own reducer with its own getX() functions
 
-const mapStateToProps = (state) => ({
-  picture: player.getPicture(state),
-  steamLink: player.getSteamLink(state),
-  cheese: player.getCheese(state),
+const mapStateToProps = (state, ownProps) => ({
+  picture: player.getPicture(state, ownProps.user),
+  steamLink: player.getSteamLink(state, ownProps.user),
+  cheese: player.getCheese(state, ownProps.user),
 });
 
 export { PlayerPicture };

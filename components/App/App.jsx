@@ -7,10 +7,10 @@ import styles from './App.css';
 import { connect } from 'react-redux';
 import { REDUCER_KEY } from '../../reducers';
 
-const App = ({ children, open }) => (
+const App = ({ children, open, params }) => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
     <div className={`${open ? styles.drawerOpen : styles.drawerClosed} ${styles.container}`}>
-      <Header />
+      <Header params={params} />
       <div className={styles.body}>
         {children}
       </div>

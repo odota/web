@@ -1,6 +1,17 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
+.flexContainer {
+  display: flex;
+  flex-direction: row;
+  margin: auto 0;
+}
 
-.container li {
-  display: inline-block;
-  padding-left: 10px;
+.logout {
+  margin-left: 15px;
 }
