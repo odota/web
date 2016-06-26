@@ -5,7 +5,7 @@ import styles from './TabBar.css';
 
 const getInitialSelectedRoute = (tabs, router) => tabs.findIndex((tab) => router.isActive(tab.route));
 
-const TabBar = ({ router, tabs, zDepth }) => (
+const TabBar = ({ router, tabs }) => (
   <Tabs
     inkBarStyle={{ backgroundColor: styles.inkBarColor }}
     initialSelectedIndex={getInitialSelectedRoute(tabs, router)}
