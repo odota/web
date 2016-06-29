@@ -31,3 +31,8 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export const getWinLoss = {
+  getWins: state => state.yaspReducer.gotPlayer.winloss.win,
+  getLosses: state => state.yaspReducer.gotPlayer.winloss.lose,
+};

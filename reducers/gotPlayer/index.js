@@ -1,7 +1,7 @@
-import playerReducer, { player } from './player';
+import playerReducer, { getPlayer } from './player';
 import matches from './matches';
 import heroes from './heroes';
-import winloss from './winloss';
+import winloss, { getWinLoss } from './winloss';
 import { combineReducers } from 'redux';
 
 export default combineReducers({
@@ -10,5 +10,10 @@ export default combineReducers({
   heroes,
   winloss,
 });
+
+const player = {
+  ...getPlayer,
+  ...getWinLoss,
+};
 
 export { player };
