@@ -2,7 +2,7 @@ import React from 'react';
 import { createTable } from '../Table';
 import PlayerHeader from './PlayerHeader';
 import Error from '../Error';
-import { getPlayer, getPlayerMatches, getPlayerHeroes, setPlayerMatchesSort, setPlayerHeroesSort } from '../../actions';
+import { getPlayer, getPlayerMatches, getPlayerHeroes, getPlayerWinLoss, setPlayerMatchesSort, setPlayerHeroesSort } from '../../actions';
 import { connect } from 'react-redux';
 import styles from './Player.css';
 import { playerMatchesColumns, playerHeroesColumns } from '../Table/columnDefinitions';
@@ -77,6 +77,7 @@ const mapDispatchToProps = (dispatch) => ({
   getPlayer: (playerId) => dispatch(getPlayer(playerId)),
   getPlayerMatches: (playerId, numMatches) => dispatch(getPlayerMatches(playerId, numMatches)),
   getPlayerHeroes: (playerId) => dispatch(getPlayerHeroes(playerId)),
+  getPlayerWinLoss: (playerId) => dispatch(getPlayerWinLoss(playerId)),
 });
 
 class RequestLayer extends React.Component {
@@ -84,6 +85,7 @@ class RequestLayer extends React.Component {
     this.props.getPlayer(this.props.playerId);
     this.props.getPlayerMatches(this.props.playerId, 10);
     this.props.getPlayerHeroes(this.props.playerId);
+    this.props.getPlayerWinLoss(this.props.playerId);
   }
 
   componentWillUpdate(nextProps) {
