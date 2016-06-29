@@ -4,6 +4,7 @@ export { playerActions, getPlayer } from './playerActions';
 export { matchActions, getMatch, setMatchSort } from './matchActions';
 export { playerMatchesActions, getPlayerMatches, setPlayerMatchesSort } from './playerMatchesActions';
 export { playerHeroesActions, getPlayerHeroes, setPlayerHeroesSort } from './playerHeroesActions';
+export { playerWinLossActions, getPlayerWinLoss } from './playerWinLossActions';
 export { appBarActions, openMenu } from './appBarActions';
 export { searchActions, getSearchResult } from './searchActions';
 export { HOST_URL } from '../yasp.config';

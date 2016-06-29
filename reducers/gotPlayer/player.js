@@ -32,19 +32,17 @@ export default (state = initialState, action) => {
   }
 };
 
-export const player = {
+export const getPlayer = {
   getError: state => state.yaspReducer.gotPlayer.playerReducer.error,
   getLoading: state => state.yaspReducer.gotPlayer.playerReducer.loading,
   getPlayer: state => state.yaspReducer.gotPlayer.playerReducer.player,
-  getProfile: state => player.getPlayer(state).profile,
-  getPlayerName: state => player.getPlayer(state).profile.personaname,
-  getLastLogin: state => player.getPlayer(state).profile.last_login,
-  getWins: state => player.getPlayer(state).win,
-  getLosses: state => player.getPlayer(state).lose,
-  getMmrEstimate: state => player.getPlayer(state).mmr_estimate,
-  getSoloMmrEstimate: state => player.getPlayer(state).solo_competitive_rank,
-  getCompetitiveRank: state => player.getPlayer(state).competitive_rank,
-  getPicture: state => player.getProfile(state).avatarmedium,
-  getSteamLink: state => player.getProfile(state).profileurl,
-  getCheese: state => player.getProfile(state).cheese,
+  getProfile: state => getPlayer.getPlayer(state).profile,
+  getPlayerName: state => getPlayer.getPlayer(state).profile.personaname,
+  getLastLogin: state => getPlayer.getPlayer(state).profile.last_login,
+  getMmrEstimate: state => getPlayer.getPlayer(state).mmr_estimate,
+  getSoloMmrEstimate: state => getPlayer.getPlayer(state).solo_competitive_rank,
+  getCompetitiveRank: state => getPlayer.getPlayer(state).competitive_rank,
+  getPicture: state => getPlayer.getProfile(state).avatarmedium,
+  getSteamLink: state => getPlayer.getProfile(state).profileurl,
+  getCheese: state => getPlayer.getProfile(state).cheese,
 };
