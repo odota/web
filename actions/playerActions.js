@@ -1,7 +1,5 @@
 import fetch from 'isomorphic-fetch';
 import { HOST_URL } from '.';
-import { getPlayerMatchesOk, getPlayerMatchesRequest, getPlayerMatchesError } from './playerMatchesActions';
-import { getPlayerHeroesOk, getPlayerHeroesRequest, getPlayerHeroesError } from './playerHeroesActions';
 
 const url = '/api/players';
 

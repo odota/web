@@ -7,11 +7,11 @@ const initialState = {
   lose: null,
 };
 
-export default ( state = initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case playerWinLossActions.REQUEST:
       return {
-	...state,
+        ...state,
         loading: true,
       };
     case playerWinLossActions.OK:
