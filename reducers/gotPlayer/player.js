@@ -1,4 +1,13 @@
 import { playerActions } from '../../actions';
+// const byId = (state = {}, action) => {
+//   switch (action.type) {
+//     case expression:
+//
+//       break;
+//     default:
+//
+//   }
+// };
 
 const initialState = {
   loading: true,

@@ -9,6 +9,7 @@ const TabBar = ({ router, tabs }) => (
   <Tabs
     inkBarStyle={{ backgroundColor: styles.inkBarColor }}
     initialSelectedIndex={getInitialSelectedRoute(tabs, router)}
+    className={styles.tabs}
   >
     {tabs.map((tab, index) => (
       <Tab key={index} className={styles.tab} value={tab.route} label={tab.label} onActive={(tab) => router.push(tab.props.value)} />

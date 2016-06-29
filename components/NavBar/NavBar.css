@@ -7,10 +7,10 @@
   font-size: var(--mediumLargeFontSize);
 
   color:  var(--primaryTextColor);
-  background-color: var(--textPrimaryColor);
+  background-color: var(--textSecondaryColor);
 
   &:hover {
     background-color: var(--primaryTextColor);
-    color: var(--textPrimaryColor);
+    color: var(--textSecondaryColor);
   }
 }

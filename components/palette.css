@@ -2,7 +2,7 @@
   --darkPrimaryColor: #2D9434;
   --defaultPrimaryColor: #8B311E;
   --lightPrimaryColor: color(var(--defaultPrimaryColor), lightness(30%));
-  --textPrimaryColor: #212020;
+  --textSecondaryColor: #212020;
 
   --accentColor: #537F1B;
 
@@ -13,7 +13,7 @@
 
   --primaryLinkColor: #42A5F5;
 
-  --dividerColor: color(var(--textPrimaryColor) lightness(20%));
+  --dividerColor: color(var(--textSecondaryColor) lightness(20%));
 
   /* font sizes */
   --normalFontSize: 12px;
@@ -30,7 +30,7 @@
 --darkPrimaryColor: #2D9434;
 --defaultPrimaryColor: #4CAF50;
 --lightPrimaryColor: #77CC7D;
---textPrimaryColor: #FFFFFF;
+--textSecondaryColor: #FFFFFF;
 --accentColor: #DE6461;
 
 --neutralColor: #3B8386;

@@ -1,6 +1,29 @@
+@import "../palette.css";
 
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
-.container li {
-  display: inline-block;
-  padding-left: 10px;
+.flexContainer {
+  display: flex;
+  flex-direction: row;
+  margin: auto 0;
+}
+
+.logout {
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  & > span {
+
+    color: var(--primaryTextColor)!important;
+    &:hover {
+      color: var(--textSecondaryColor)!important;
+    }
+  }
 }
