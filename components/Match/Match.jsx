@@ -4,6 +4,7 @@ import { getMatch, setMatchSort } from '../../actions';
 import { connect } from 'react-redux';
 import { overviewColumns, abUpgradeColumns } from '../Table/columnDefinitions/matchColumns.jsx';
 import { sortMatch, transformMatch, transformAbilityUpgrades } from '../../selectors';
+import { BuildingMap } from '../BuildingMap/BuildingMap';
 
 const players = (state) => state.gotMatch.match.players;
 const MatchTable = createTable(players,
@@ -16,10 +17,11 @@ const AbilityUpgradesTable = createTable(
   setMatchSort
 );
 
-const Match = () => (
+const Match = (props) => (
   <div>
     <MatchTable columns={overviewColumns} />
     <AbilityUpgradesTable columns={abUpgradeColumns} />
+    <BuildingMap match={props} />
   </div>
 );
 
