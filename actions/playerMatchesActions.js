@@ -38,6 +38,6 @@ export const getPlayerMatches = (playerId, numMatches, host = HOST_URL) => (disp
   dispatch(getPlayerMatchesRequest());
   return fetch(`${host}${url(playerId, numMatches)}`, { credentials: 'include' })
     .then(response => response.json())
-    .then(json => dispatch(getPlayerMatchesOk(json.matches)))
+    .then(json => dispatch(getPlayerMatchesOk(json)))
     .catch(error => dispatch(getPlayerMatchesError(error)));
 };
