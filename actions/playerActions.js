@@ -13,26 +13,28 @@ export const playerActions = {
   ERROR,
 };
 
-const getPlayerRequest = () => ({ type: REQUEST });
+const getPlayerRequest = (id) => ({ type: REQUEST, id });
 
-const getPlayerOk = (payload) => ({
+const getPlayerOk = (payload, id) => ({
   type: OK,
   payload,
+  id,
 });
 
-const getPlayerError = (payload) => ({
+const getPlayerError = (payload, id) => ({
   type: ERROR,
   payload,
+  id,
 });
 
 export const getPlayer = (accountId, isUser, host = HOST_URL) => (dispatch) => {
   dispatch(getPlayerRequest());
   return fetch(`${host}${url}/${accountId}`)
-    .then(response => response.json())
+    .then(response => response.json(accountId))
     .then(json => {
-      dispatch(getPlayerOk(json));
+      dispatch(getPlayerOk(json, accountId));
     })
     .catch(error => {
-      dispatch(getPlayerError(error));
+      dispatch(getPlayerError(error, accountId));
     });
 };

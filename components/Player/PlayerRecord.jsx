@@ -25,11 +25,11 @@ export const PlayerRecord = ({ loading, error, wins, losses }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  loading: player.getLoading(state),
-  error: player.getError(state),
-  wins: player.getWins(state),
-  losses: player.getLosses(state),
+const mapStateToProps = (state, ownProps) => ({
+  loading: player.getLoading(state, ownProps.playerId),
+  error: player.getError(state, ownProps.playerId),
+  wins: player.getWins(state, ownProps.playerId),
+  losses: player.getLosses(state, ownProps.playerId),
 });
 
 
