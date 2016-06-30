@@ -50,6 +50,9 @@ const byId = (state = {}, action) => {
 const allIds = (state = [], action) => {
   switch (action.type) {
     case playerActions.OK:
+      if (state.includes(action.id)) {
+        return state;
+      }
       return [...state, action.id];
     default:
       return state;
