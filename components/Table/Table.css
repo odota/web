@@ -43,7 +43,7 @@
 }
 
 .row {
-  background-color: color(var(--textSecondaryColor) lightness(30%));
+  background-color: color(var(--textSecondaryColor) lightness(20%));
   color: var(--primaryTextColor)!important;
   border-bottom-color: var(--dividerColor)!important;
 }
@@ -54,5 +54,5 @@
 
 .row1 {
   composes: row;
-  background-color: color(var(--textSecondaryColor) lightness(40%));
+  background-color: color(var(--textSecondaryColor) lightness(25%));
 }
