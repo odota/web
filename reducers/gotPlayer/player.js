@@ -4,6 +4,7 @@ import { combineReducers } from 'redux';
 const initialState = {
   loading: true,
   error: false,
+  loaded: false,
   player: {
     profile: {},
   },
@@ -15,11 +16,13 @@ const player = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+        loaded: false,
       };
     case playerActions.OK:
       return {
         ...state,
         loading: false,
+        loaded: true,
         player: action.payload,
       };
     case playerActions.ERROR:
@@ -27,6 +30,7 @@ const player = (state = initialState, action) => {
         ...state,
         loading: false,
         error: true,
+        loaded: false,
       };
     default:
       return state;
@@ -77,6 +81,7 @@ export const getPlayer = {
   },
   getError: (state, id) => getPlayer.getPlayerById(state, id).error,
   getLoading: (state, id) => getPlayer.getPlayerById(state, id).loading,
+  isLoaded: (state, id) => getPlayer.getPlayerById(state, id).loaded,
   getPlayer: (state, id) => getPlayer.getPlayerById(state, id).player,
   getProfile: (state, id) => getPlayer.getPlayer(state, id).profile,
   getAccountId: (state, id) => getPlayer.getPlayer(state, id).profile.account_id,
