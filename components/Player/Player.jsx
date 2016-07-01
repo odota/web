@@ -30,7 +30,7 @@ const PlayerHeroesTable = createTable(
 );
 
 const getOverviewTab = playerId => (
-  <div>
+  <div className={styles.overviewContainer}>
     <div className={styles.overviewMatches}>
       <Text className={styles.tableHeading}>RECENT MATCHES</Text>
       <Card className={styles.card}>
