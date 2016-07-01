@@ -8,7 +8,7 @@ import styles from './Player.css';
 import { playerMatchesColumns, playerHeroesColumns } from '../Table/columnDefinitions';
 import {
   sortPlayerMatches,
-  transformPlayerMatches,
+  transformPlayerMatchesById,
   sortPlayerHeroes,
   transformPlayerHeroes,
 } from '../../selectors';
@@ -20,7 +20,7 @@ const playerHeroes = (state) => state.gotPlayer.heroes;
 
 const PlayerMatchesTable = createTable(
   playerMatches,
-  (state, sortState) => (sortState ? sortPlayerMatches(state) : transformPlayerMatches(state)),
+  (state, sortState, playerId) => (sortState ? sortPlayerMatches(state) : transformPlayerMatchesById(playerId)(state)),
   setPlayerMatchesSort
 );
 const PlayerHeroesTable = createTable(
@@ -29,35 +29,35 @@ const PlayerHeroesTable = createTable(
   setPlayerHeroesSort
 );
 
-const getOverviewTab = () => (
+const getOverviewTab = playerId => (
   <div>
     <div className={styles.overviewMatches}>
       <Text className={styles.tableHeading}>RECENT MATCHES</Text>
       <Card className={styles.card}>
-        <PlayerMatchesTable columns={playerMatchesColumns} />
+        <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
       </Card>
     </div>
     <div className={styles.overviewHeroes}>
       <div className={styles.heroesContainer}>
         <Text className={styles.tableHeading}>HERO STATS</Text>
         <Card className={styles.card}>
-          <PlayerHeroesTable columns={playerHeroesColumns} />
+          <PlayerHeroesTable columns={playerHeroesColumns} id={playerId} />
         </Card>
       </div>
     </div>
   </div>
 );
 
-const getPlayerSubroute = (info) => {
+const getPlayerSubroute = (info, playerId) => {
   switch (info) {
     case 'overview':
-      return getOverviewTab();
+      return getOverviewTab(playerId);
     case 'matches':
-      return <PlayerMatchesTable columns={playerMatchesColumns} />;
+      return <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />;
     case 'heroes':
-      return <PlayerHeroesTable columns={playerHeroesColumns} />;
+      return <PlayerHeroesTable columns={playerHeroesColumns} id={playerId} />;
     default:
-      return getOverviewTab();
+      return getOverviewTab(playerId);
   }
 };
 
@@ -71,7 +71,7 @@ const Player = ({ playerId, info }) => {
       <div className={styles.header}>
         <PlayerHeader playerId={playerId} />
       </div>
-      {getPlayerSubroute(info)}
+      {getPlayerSubroute(info, playerId)}
     </div>
   );
 };
