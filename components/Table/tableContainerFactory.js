@@ -1,10 +1,9 @@
 import { connect } from 'react-redux';
-import { REDUCER_KEY } from '../../reducers';
 import Table from './Table';
 
 const createTable = (getStateFn, getData, sortAction) => {
   const mapStateToProps = (state, ownProps) => {
-    const { error, loading, sortState, sortField } = getStateFn(state[REDUCER_KEY]);
+    const { error, loading, sortState, sortField } = getStateFn(state, ownProps.id);
 
     return {
       loading,
@@ -17,8 +16,8 @@ const createTable = (getStateFn, getData, sortAction) => {
     };
   };
 
-  const mapDispatchToProps = (dispatch) => ({
-    sortClick: (field, sortState, sortFn) => dispatch(sortAction(field, sortState, sortFn)),
+  const mapDispatchToProps = (dispatch, ownProps) => ({
+    sortClick: (field, sortState, sortFn) => dispatch(sortAction(field, sortState, sortFn, ownProps.id)),
   });
 
   return connect(mapStateToProps, mapDispatchToProps)(Table);

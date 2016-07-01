@@ -14,13 +14,13 @@ import {
 } from '../../selectors';
 import { Text } from '../Text';
 import { Card } from 'material-ui/Card';
+import { playerMatches, REDUCER_KEY } from '../../reducers';
 
-const playerMatches = (state) => state.gotPlayer.matches;
-const playerHeroes = (state) => state.gotPlayer.heroes;
+const playerHeroes = (state) => state[REDUCER_KEY].gotPlayer.heroes;
 
 const PlayerMatchesTable = createTable(
-  playerMatches,
-  (state, sortState, playerId) => (sortState ? sortPlayerMatches(state) : transformPlayerMatchesById(playerId)(state)),
+  playerMatches.getPlayerMatchesById,
+  (state, sortState, playerId) => (sortState ? sortPlayerMatches(playerId)(state) : transformPlayerMatchesById(playerId)(state)),
   setPlayerMatchesSort
 );
 const PlayerHeroesTable = createTable(

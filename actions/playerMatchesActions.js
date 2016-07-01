@@ -16,11 +16,12 @@ export const playerMatchesActions = {
   SORT,
 };
 
-export const setPlayerMatchesSort = (sortField, sortState, sortFn) => ({
+export const setPlayerMatchesSort = (sortField, sortState, sortFn, id) => ({
   type: SORT,
   sortField,
   sortState,
   sortFn,
+  id,
 });
 
 export const getPlayerMatchesRequest = (id) => ({ type: REQUEST, id });

@@ -52,6 +52,7 @@ const byId = (state = {}, action) => {
     case playerMatchesActions.REQUEST:
     case playerMatchesActions.OK:
     case playerMatchesActions.ERROR:
+    case playerMatchesActions.SORT:
       return {
         ...state,
         [action.id]: matches(state[action.id], action),
@@ -93,5 +94,6 @@ export const getPlayerMatches = {
   isLoaded: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).loaded,
   getMatchList: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).matchList,
   getSortState: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).sortState,
+  getSortField: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).sortField,
   getSortFn: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).sortFn,
 };

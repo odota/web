@@ -4,9 +4,11 @@ import { getMatch, setMatchSort } from '../../actions';
 import { connect } from 'react-redux';
 import { overviewColumns, abUpgradeColumns } from '../Table/columnDefinitions/matchColumns.jsx';
 import { sortMatch, transformMatch, transformAbilityUpgrades } from '../../selectors';
+import { REDUCER_KEY } from '../../reducers';
 
-const players = (state) => state.gotMatch.match.players;
-const MatchTable = createTable(players,
+const players = (state) => state[REDUCER_KEY].gotMatch.match.players;
+const MatchTable = createTable(
+  players,
   (state, sortState) => (sortState ? sortMatch(state) : transformMatch(state)),
   setMatchSort
 );

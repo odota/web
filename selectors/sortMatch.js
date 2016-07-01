@@ -6,10 +6,10 @@ const getSortState = (state) => state[REDUCER_KEY].gotMatch.match.players.sortSt
 const getSortField = (state) => state[REDUCER_KEY].gotMatch.match.players.sortField;
 const getSortFn = (state) => state[REDUCER_KEY].gotMatch.match.players.sortFn;
 
-const sortPlayerMatches = createSelector(
+const sortMatch = createSelector(
   [transformMatch, getSortState, getSortField, getSortFn],
   (matches, sortState, sortField, sortFn) =>
     (sortState === 'desc' ? matches.reverse() : sortFn(matches, sortField))
 );
 
-export default sortPlayerMatches;
+export default sortMatch;
