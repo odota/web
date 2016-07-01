@@ -6,7 +6,7 @@ import { HOST_URL } from '../../../yasp.config';
 export default [{
   displayName: 'ID',
   field: 'match_id',
-  width: 2,
+  width: 2.5,
   sortFn: defaultSort,
   displayFn: ({ field }) => <Link to={`/matches/${field.display}`}>{field.display}</Link>,
 }, {

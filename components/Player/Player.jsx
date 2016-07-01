@@ -13,7 +13,7 @@ import {
   transformPlayerHeroes,
 } from '../../selectors';
 import { Text } from '../Text';
-import { Card, CardHeader } from 'material-ui/Card';
+import { Card } from 'material-ui/Card';
 
 const playerMatches = (state) => state.gotPlayer.matches;
 const playerHeroes = (state) => state.gotPlayer.heroes;
