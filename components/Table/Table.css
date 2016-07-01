@@ -15,7 +15,7 @@
 }
 
 .header {
-  background-color: var(--defaultPrimaryColor)!important;
+  /*background-color: var(--defaultPrimaryColor)!important;*/
 }
 
 .headerRow {
@@ -55,4 +55,8 @@
 .row1 {
   composes: row;
   background-color: color(var(--textSecondaryColor) lightness(25%));
+}
+
+.table {
+  background-color: var(--defaultPrimaryColor)!important;
 }
