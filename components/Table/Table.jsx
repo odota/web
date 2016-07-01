@@ -19,7 +19,7 @@ const Table = ({ data, columns, loading, error, sortState, sortField, sortClick 
 
   const getTable = () => (
     <div className={styles.innerContainer}>
-      <MaterialTable selectable={false}>
+      <MaterialTable selectable={false} className={styles.table}>
         <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false} className={styles.header}>
           <TableHeader
             columns={columns}

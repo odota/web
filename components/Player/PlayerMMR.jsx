@@ -25,12 +25,12 @@ export const PlayerMMR = ({ loading, error, rank, soloRank, mmrEstimate }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  loading: player.getLoading(state),
-  error: player.getError(state),
-  rank: player.getCompetitiveRank(state),
-  soloRank: player.getSoloMmrEstimate(state),
-  mmrEstimate: player.getMmrEstimate(state),
+const mapStateToProps = (state, ownProps) => ({
+  loading: player.getLoading(state, ownProps.playerId),
+  error: player.getError(state, ownProps.playerId),
+  rank: player.getCompetitiveRank(state, ownProps.playerId),
+  soloRank: player.getSoloMmrEstimate(state, ownProps.playerId),
+  mmrEstimate: player.getMmrEstimate(state, ownProps.playerId),
 });
 
 

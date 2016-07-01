@@ -13,6 +13,7 @@ import {
   transformPlayerHeroes,
 } from '../../selectors';
 import { Text } from '../Text';
+import { Card } from 'material-ui/Card';
 
 const playerMatches = (state) => state.gotPlayer.matches;
 const playerHeroes = (state) => state.gotPlayer.heroes;
@@ -31,13 +32,17 @@ const PlayerHeroesTable = createTable(
 const getOverviewTab = () => (
   <div>
     <div className={styles.overviewMatches}>
-      <Text size={25}>Matches</Text>
-      <PlayerMatchesTable columns={playerMatchesColumns} />
+      <Text className={styles.tableHeading}>RECENT MATCHES</Text>
+      <Card className={styles.card}>
+        <PlayerMatchesTable columns={playerMatchesColumns} />
+      </Card>
     </div>
     <div className={styles.overviewHeroes}>
       <div className={styles.heroesContainer}>
-        <Text size={25}>Heroes</Text>
-        <PlayerHeroesTable columns={playerHeroesColumns} />
+        <Text className={styles.tableHeading}>HERO STATS</Text>
+        <Card className={styles.card}>
+          <PlayerHeroesTable columns={playerHeroesColumns} />
+        </Card>
       </div>
     </div>
   </div>

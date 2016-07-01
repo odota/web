@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { player } from '../../reducers';
 import styles from './PlayerHeader.css';
 
-const PlayerName = ({ playerName, registered, loading, error }) => {
+const PlayerName = ({ playerName, registered, loading, error, playerId }) => {
   const getPlayerName = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;
@@ -15,7 +15,7 @@ const PlayerName = ({ playerName, registered, loading, error }) => {
     return (
       <div className={styles.nameContainer}>
         <div className={styles.pictureContainer}>
-          <PlayerPicture registered={registered} />
+          <PlayerPicture registered={registered} playerId={playerId} />
         </div>
         <div className={styles.playerName}>{playerName}</div>
       </div>
@@ -27,13 +27,14 @@ const PlayerName = ({ playerName, registered, loading, error }) => {
 
 export { PlayerName };
 
-// TODO - add account reducer for player so I can just call getX() instead of dot notation
-
-const mapStateToProps = (state) => ({
-  loading: player.getLoading(state),
-  error: player.getError(state),
-  playerName: player.getPlayerName(state),
-  registered: player.getLastLogin(state),
+// metadata.getUserId(state)
+// TODO - why is the player picture not showing up at all? that's whack
+const mapStateToProps = (state, ownProps) => ({
+  loading: player.getLoading(state, ownProps.playerId),
+  error: player.getError(state, ownProps.playerId),
+  playerName: player.getPlayerName(state, ownProps.playerId),
+  registered: player.getLastLogin(state, ownProps.playerId),
+  playerId: ownProps.playerId,
 });
 
 export default connect(mapStateToProps)(PlayerName);

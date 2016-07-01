@@ -31,6 +31,15 @@
 .playerPicture {
   border-radius: 100px;
   height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  & > button {
+    color: var(--primaryTextColor) !important;
+    &:hover {
+      color: var(--textSecondaryColor) !important;
+    }
+  }
 }
 
 .playerPictureYasp {

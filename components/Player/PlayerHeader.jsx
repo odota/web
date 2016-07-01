@@ -4,13 +4,13 @@ import PlayerMMR from './PlayerMMR';
 import PlayerRecord from './PlayerRecord';
 import styles from './PlayerHeader.css';
 
-export default () => (
+export default ({ playerId }) => (
   <div>
     <div className={styles.container}>
-      <PlayerName />
+      <PlayerName playerId={playerId} />
       <div className={styles.playerInfo}>
-        <PlayerRecord />
-        <PlayerMMR />
+        <PlayerRecord playerId={playerId} />
+        <PlayerMMR playerId={playerId} />
       </div>
     </div>
   </div>
