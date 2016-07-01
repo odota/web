@@ -1,6 +1,6 @@
 @import "../palette.css";
 
-:export { inkBarColor: var(--accentColor) }
+:export { inkBarColor: var(--primaryTextColor) }
 
 .tabs {
   box-shadow: 0 0 5px 5px rgba(0,0,0,0.2);
