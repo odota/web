@@ -41,7 +41,7 @@ const getOverviewTab = playerId => (
       <div className={styles.heroesContainer}>
         <Text className={styles.tableHeading}>HERO STATS</Text>
         <Card className={styles.card}>
-          <PlayerHeroesTable columns={playerHeroesColumns} id={playerId} />
+          <PlayerHeroesTable columns={playerHeroesColumns} id={playerId} numRows={10} />
         </Card>
       </div>
     </div>

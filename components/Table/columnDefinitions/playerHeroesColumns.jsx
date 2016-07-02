@@ -4,9 +4,10 @@ import { HOST_URL } from '../../../yasp.config';
 import styles from './playerHeroesColumns.css';
 import PiePercent from '../../PiePercent';
 
-const winPercentTransform = (list, field, property) => list[field][property] / list.games[property];
+const winPercentTransform = (list, field, property) =>
+  (list.games[property] ? list[field][property] / list.games[property] : 0);
 
-const getPercentWin = (wins, games) => Math.ceil(1000 * (wins / games)) / 10;
+const getPercentWin = (wins, games) => (games ? Math.ceil(1000 * (wins / games)) / 10 : 0);
 
 export default [{
   displayName: 'Hero',
