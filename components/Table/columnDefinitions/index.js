@@ -1,6 +1,3 @@
-import playerMatchesColumns from './playerMatchesColumns';
-import { playerHeroesOverviewColumns } from './playerHeroesColumns';
-import { overviewColumns } from './matchColumns';
-import playerHeroesColumns from './playerHeroesColumns'
-
-export { playerMatchesColumns, overviewColumns, playerHeroesOverviewColumns, playerHeroesColumns};
+export { default as playerMatchesColumns } from './playerMatchesColumns';
+export { default as playerHeroesColumns, playerHeroesOverviewColumns } from './playerHeroesColumns';
+export { overviewColumns } from './matchColumns';

@@ -4,7 +4,9 @@ import { HOST_URL } from '../../../yasp.config';
 import styles from './playerHeroesColumns.css';
 import PiePercent from '../../PiePercent';
 
-const winPercentTransform = (list, field, property) => list[field][property] / list.games[property];
+const winPercentTransform = numGamesField => (list, field, property) =>
+  list[field][property] / list[numGamesField][property];
+
 
 const getPercentWin = (wins, games) => Math.ceil(1000 * (wins / games)) / 10;
 
@@ -32,7 +34,7 @@ const playerHeroesOverviewColumns = [{
         <PiePercent percent={getPercentWin(field.display, row.games.display)} />
       </span>
     </div>),
-  sortFn: transformedSort.bind(null, winPercentTransform),
+  sortFn: transformedSort.bind(null, winPercentTransform('games')),
 }];
 
 const restColumns = [{
@@ -56,7 +58,7 @@ const restColumns = [{
         <PiePercent percent={getPercentWin(field.display, row.with_games.display)} />
       </span>
     </div>),
-  sortFn: transformedSort.bind(null, winPercentTransform),
+  sortFn: transformedSort.bind(null, winPercentTransform('with_games')),
 }, {
   displayName: 'Against',
   field: 'against_games',
@@ -73,7 +75,7 @@ const restColumns = [{
         <PiePercent percent={getPercentWin(field.display, row.against_games.display)} />
       </span>
     </div>),
-  sortFn: transformedSort.bind(null, winPercentTransform),
+  sortFn: transformedSort.bind(null, winPercentTransform('against_games')),
 }];
 
 export default [
