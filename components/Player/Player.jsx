@@ -5,7 +5,7 @@ import Error from '../Error';
 import { getPlayer, getPlayerMatches, getPlayerHeroes, getPlayerWinLoss, setPlayerMatchesSort, setPlayerHeroesSort } from '../../actions';
 import { connect } from 'react-redux';
 import styles from './Player.css';
-import { playerMatchesColumns, playerHeroesColumns } from '../Table/columnDefinitions';
+import { playerMatchesColumns, playerHeroesColumns, playerHeroesOverviewColumns } from '../Table/columnDefinitions';
 import {
   sortPlayerMatches,
   transformPlayerMatches,
@@ -41,7 +41,7 @@ const getOverviewTab = () => (
       <div className={styles.heroesContainer}>
         <Text className={styles.tableHeading}>HERO STATS</Text>
         <Card className={styles.card}>
-          <PlayerHeroesTable columns={playerHeroesColumns} />
+          <PlayerHeroesTable columns={playerHeroesOverviewColumns} />
         </Card>
       </div>
     </div>
