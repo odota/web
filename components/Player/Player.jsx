@@ -2,19 +2,35 @@ import React from 'react';
 import { createTable } from '../Table';
 import PlayerHeader from './PlayerHeader';
 import Error from '../Error';
-import { getPlayer, getPlayerMatches, getPlayerHeroes, getPlayerWinLoss, setPlayerMatchesSort, setPlayerHeroesSort } from '../../actions';
+import {
+  getPlayer,
+  getPlayerMatches,
+  setPlayerMatchesSort,
+  getPlayerHeroes,
+  setPlayerHeroesSort,
+  getPlayerWinLoss,
+  getPlayerPeers,
+  setPlayerPeersSort,
+} from '../../actions';
 import { connect } from 'react-redux';
 import styles from './Player.css';
-import { playerMatchesColumns, playerHeroesColumns, playerHeroesOverviewColumns } from '../Table/columnDefinitions';
+import {
+  playerMatchesColumns,
+  playerHeroesColumns,
+  playerHeroesOverviewColumns,
+  playerPeersColumns,
+} from '../Table/columnDefinitions';
 import {
   sortPlayerMatches,
   transformPlayerMatchesById,
+  sortPlayerPeers,
+  transformPlayerPeersById,
   sortPlayerHeroes,
   transformPlayerHeroes,
 } from '../../selectors';
 import { Text } from '../Text';
 import { Card } from 'material-ui/Card';
-import { playerMatches, REDUCER_KEY } from '../../reducers';
+import { playerMatches, playerPeers, REDUCER_KEY } from '../../reducers';
 
 const playerHeroes = (state) => state[REDUCER_KEY].gotPlayer.heroes;
 
@@ -27,6 +43,11 @@ const PlayerHeroesTable = createTable(
   playerHeroes,
   (state, sortState) => (sortState ? sortPlayerHeroes(state) : transformPlayerHeroes(state)),
   setPlayerHeroesSort
+);
+const PeersTable = createTable(
+  playerPeers.getPlayerPeersById,
+  (state, sortState, playerId) => (sortState ? sortPlayerPeers(playerId)(state) : transformPlayerPeersById(playerId)(state)),
+  setPlayerPeersSort
 );
 
 const getOverviewTab = playerId => (
@@ -56,6 +77,8 @@ const getPlayerSubroute = (info, playerId) => {
       return <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />;
     case 'heroes':
       return <PlayerHeroesTable columns={playerHeroesColumns} id={playerId} />;
+    case 'peers':
+      return <PeersTable columns={playerPeersColumns} id={playerId} />;
     default:
       return getOverviewTab(playerId);
   }
@@ -83,21 +106,25 @@ const mapDispatchToProps = (dispatch) => ({
   getPlayerMatches: (playerId, numMatches) => dispatch(getPlayerMatches(playerId, numMatches)),
   getPlayerHeroes: (playerId) => dispatch(getPlayerHeroes(playerId)),
   getPlayerWinLoss: (playerId) => dispatch(getPlayerWinLoss(playerId)),
+  getPlayerPeers: (playerId) => dispatch(getPlayerPeers(playerId)),
 });
+
+const getData = props => {
+  props.getPlayer(props.playerId);
+  props.getPlayerMatches(props.playerId, 20);
+  props.getPlayerHeroes(props.playerId);
+  props.getPlayerWinLoss(props.playerId);
+  props.getPlayerPeers(props.playerId);
+};
 
 class RequestLayer extends React.Component {
   componentDidMount() {
-    this.props.getPlayer(this.props.playerId);
-    this.props.getPlayerMatches(this.props.playerId, 20);
-    this.props.getPlayerHeroes(this.props.playerId);
-    this.props.getPlayerWinLoss(this.props.playerId);
+    getData(this.props);
   }
 
   componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId) {
-      this.props.getPlayer(nextProps.playerId);
-      this.props.getPlayerMatches(nextProps.playerId, 20);
-      this.props.getPlayerHeroes(this.props.playerId);
+      getData(this.props);
     }
   }
 
