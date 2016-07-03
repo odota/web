@@ -41,7 +41,7 @@ const getOverviewTab = playerId => (
       <div className={styles.heroesContainer}>
         <Text className={styles.tableHeading}>HERO STATS</Text>
         <Card className={styles.card}>
-          <PlayerHeroesTable columns={playerHeroesOverviewColumns} id={playerId} numRows={10} />
+          <PlayerHeroesTable columns={playerHeroesOverviewColumns} id={playerId} numRows={20} />
         </Card>
       </div>
     </div>
@@ -88,7 +88,7 @@ const mapDispatchToProps = (dispatch) => ({
 class RequestLayer extends React.Component {
   componentDidMount() {
     this.props.getPlayer(this.props.playerId);
-    this.props.getPlayerMatches(this.props.playerId, 10);
+    this.props.getPlayerMatches(this.props.playerId, 20);
     this.props.getPlayerHeroes(this.props.playerId);
     this.props.getPlayerWinLoss(this.props.playerId);
   }
@@ -96,7 +96,7 @@ class RequestLayer extends React.Component {
   componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId) {
       this.props.getPlayer(nextProps.playerId);
-      this.props.getPlayerMatches(nextProps.playerId, 10);
+      this.props.getPlayerMatches(nextProps.playerId, 20);
       this.props.getPlayerHeroes(this.props.playerId);
     }
   }
