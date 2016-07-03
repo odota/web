@@ -1,5 +1,5 @@
 import playerReducer, { getPlayer } from './player';
-import matches from './matches';
+import matches, { getPlayerMatches } from './matches';
 import heroes from './heroes';
 import winloss, { getWinLoss } from './winloss';
 import { combineReducers } from 'redux';
@@ -16,4 +16,4 @@ const player = {
   ...getWinLoss,
 };
 
-export { player };
+export { player, getPlayerMatches as playerMatches };

@@ -16,7 +16,24 @@ const getPlayerPages = (playerId) => Object.keys(constants.player_pages).map(
   }
 );
 
-export default ({ openMenu, params }) => (
+const getTabBar = (params, location) => {
+  if (location.pathname.includes('/players')) {
+    return (
+      <div className={styles.tabBarContainer}>
+        <TabBar tabs={getPlayerPages(params.account_id)} />
+      </div>
+    );
+  } else if (location.pathname.includes('/matches')) {
+    return (
+      <div className={styles.tabBarContainer}>
+        <TabBar tabs={getPlayerPages(params.account_id)} />
+      </div>
+    );
+  }
+  return <div className={styles.emptyTabBarContainer} />;
+};
+
+export default ({ openMenu, params, location }) => (
   <div>
     <AppBar
       className={styles.header}
@@ -26,9 +43,7 @@ export default ({ openMenu, params }) => (
       onLeftIconButtonTouchTap={() => openMenu()}
       zDepth={0}
     />
-    <div className={styles.tabBarContainer}>
-      <TabBar tabs={getPlayerPages(params.account_id)} />
-    </div>
+  {getTabBar(params, location)}
     <NavDrawer />
   </div>
 );

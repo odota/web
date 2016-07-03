@@ -4,6 +4,10 @@
   margin-bottom: 30px;
 }
 
+.overviewContainer {
+  display: flex;
+}
+
 .overviewMatches {
   width: 75%;
   display: inline-block;

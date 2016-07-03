@@ -5,10 +5,9 @@ import styles from './playerHeroesColumns.css';
 import PiePercent from '../../PiePercent';
 
 const winPercentTransform = numGamesField => (list, field, property) =>
-  list[field][property] / list[numGamesField][property];
+  (list[numGamesField][property] ? list[field][property] / list[numGamesField][property] : 0);
 
-
-const getPercentWin = (wins, games) => Math.ceil(1000 * (wins / games)) / 10;
+const getPercentWin = (wins, games) => (games ? Math.ceil(1000 * (wins / games)) / 10 : 0);
 
 const playerHeroesOverviewColumns = [{
   displayName: 'Hero',

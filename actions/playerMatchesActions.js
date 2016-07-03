@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { HOST_URL } from './';
+import { playerMatches } from '../reducers';
 
 const url = (playerId, numMatches) => `/api/players/${playerId}/matches?limit=${numMatches}`;
 
@@ -15,29 +16,36 @@ export const playerMatchesActions = {
   SORT,
 };
 
-export const setPlayerMatchesSort = (sortField, sortState, sortFn) => ({
+export const setPlayerMatchesSort = (sortField, sortState, sortFn, id) => ({
   type: SORT,
   sortField,
   sortState,
   sortFn,
+  id,
 });
 
-export const getPlayerMatchesRequest = () => ({ type: REQUEST });
+export const getPlayerMatchesRequest = (id) => ({ type: REQUEST, id });
 
-export const getPlayerMatchesOk = (payload) => ({
+export const getPlayerMatchesOk = (payload, id) => ({
   type: OK,
   payload,
+  id,
 });
 
-export const getPlayerMatchesError = (payload) => ({
+export const getPlayerMatchesError = (payload, id) => ({
   type: ERROR,
   payload,
+  id,
 });
 
-export const getPlayerMatches = (playerId, numMatches, host = HOST_URL) => (dispatch) => {
-  dispatch(getPlayerMatchesRequest());
+export const getPlayerMatches = (playerId, numMatches, host = HOST_URL) => (dispatch, getState) => {
+  if (playerMatches.isLoaded(getState(), playerId)) {
+    dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId));
+  } else {
+    dispatch(getPlayerMatchesRequest(playerId));
+  }
   return fetch(`${host}${url(playerId, numMatches)}`, { credentials: 'include' })
     .then(response => response.json())
-    .then(json => dispatch(getPlayerMatchesOk(json)))
-    .catch(error => dispatch(getPlayerMatchesError(error)));
+    .then(json => dispatch(getPlayerMatchesOk(json, playerId)))
+    .catch(error => dispatch(getPlayerMatchesError(error, playerId)));
 };

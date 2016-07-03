@@ -1,32 +1,37 @@
 import { playerMatchesActions } from '../../actions';
 import { SORT_ENUM } from '../utility';
+import { combineReducers } from 'redux';
 
 const initialState = {
   loading: true,
   error: false,
+  loaded: false,
   matchList: [],
   sortState: '',
   sortField: '',
   sortFn: f => f,
 };
 
-export default (state = initialState, action) => {
+const matches = (state = initialState, action) => {
   switch (action.type) {
     case playerMatchesActions.REQUEST:
       return {
         ...state,
+        loaded: false,
         loading: true,
       };
     case playerMatchesActions.OK:
       return {
         ...state,
         loading: false,
+        loaded: true,
         matchList: [...action.payload],
       };
     case playerMatchesActions.ERROR:
       return {
         ...state,
         loading: false,
+        loaded: false,
         error: true,
       };
     case playerMatchesActions.SORT:
@@ -39,4 +44,56 @@ export default (state = initialState, action) => {
     default:
       return state;
   }
+};
+
+
+const byId = (state = {}, action) => {
+  switch (action.type) {
+    case playerMatchesActions.REQUEST:
+    case playerMatchesActions.OK:
+    case playerMatchesActions.ERROR:
+    case playerMatchesActions.SORT:
+      return {
+        ...state,
+        [action.id]: matches(state[action.id], action),
+      };
+    default:
+      return state;
+  }
+};
+
+const allIds = (state = [], action) => {
+  switch (action.type) {
+    case playerMatchesActions.OK:
+      if (state.includes(action.id)) {
+        return state;
+      }
+      return [...state, action.id];
+    default:
+      return state;
+  }
+};
+
+export default combineReducers({
+  byId,
+  allIds,
+});
+
+
+export const getPlayerMatches = {
+  getPlayerMatchesById: (state, id) => {
+    if (!state.yaspReducer.gotPlayer.matches.byId[id]) {
+      return {
+        ...initialState,
+      };
+    }
+    return state.yaspReducer.gotPlayer.matches.byId[id];
+  },
+  getError: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).error,
+  getLoading: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).loading,
+  isLoaded: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).loaded,
+  getMatchList: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).matchList,
+  getSortState: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).sortState,
+  getSortField: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).sortField,
+  getSortFn: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).sortFn,
 };

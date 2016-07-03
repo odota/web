@@ -31,9 +31,10 @@ const getPlayerError = (payload, id) => ({
 export const getPlayer = (accountId, isUser, host = HOST_URL) => (dispatch, getState) => {
   // we are checking to see if the player object exists here.
   if (player.isLoaded(getState(), accountId)) {
-    return dispatch(getPlayerOk(player.getPlayer(getState(), accountId), accountId));
+    dispatch(getPlayerOk(player.getPlayer(getState(), accountId), accountId));
+  } else {
+    dispatch(getPlayerRequest(accountId));
   }
-  dispatch(getPlayerRequest());
   return fetch(`${host}${url}/${accountId}`)
     .then(response => response.json(accountId))
     .then(json => {
