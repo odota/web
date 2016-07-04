@@ -4,8 +4,8 @@ import {
   transformedSort,
   useOriginalValueSort,
   winPercentTransform,
-  PercentComponent,
 } from './utility';
+import PercentContainer from '../../PercentContainer';
 import { HOST_URL } from '../../../yasp.config';
 
 
@@ -26,7 +26,7 @@ const playerHeroesOverviewColumns = [{
   displayName: 'Win %',
   field: 'win',
   width: 2,
-  displayFn: ({ field, row }) => <PercentComponent wins={field.display} games={row.games.display} />,
+  displayFn: ({ field, row }) => <PercentContainer wins={field.display} games={row.games.display} />,
   sortFn: transformedSort.bind(null, winPercentTransform('games')),
 }];
 
@@ -44,7 +44,7 @@ const restColumns = [{
   displayName: 'Win %',
   field: 'with_win',
   width: 2,
-  displayFn: ({ field, row }) => <PercentComponent wins={field.display} games={row.with_games.display} />,
+  displayFn: ({ field, row }) => <PercentContainer wins={field.display} games={row.with_games.display} />,
   sortFn: transformedSort.bind(null, winPercentTransform('with_games')),
 }, {
   displayName: 'Against',
@@ -55,7 +55,7 @@ const restColumns = [{
   displayName: 'Win %',
   field: 'against_win',
   width: 2,
-  displayFn: ({ field, row }) => <PercentComponent wins={field.display} games={row.against_games.display} />,
+  displayFn: ({ field, row }) => <PercentContainer wins={field.display} games={row.against_games.display} />,
   sortFn: transformedSort.bind(null, winPercentTransform('against_games')),
 }];
 

@@ -3,8 +3,8 @@ import {
   defaultSort,
   transformedSort,
   winPercentTransform,
-  PercentComponent,
 } from './utility';
+import PercentContainer from '../../PercentContainer';
 import { Link } from 'react-router';
 import { YaspBadge } from '../../Player';
 
@@ -38,7 +38,7 @@ export default [{
   displayName: 'Win %',
   field: 'with_win',
   width: 2,
-  displayFn: ({ field, row }) => <PercentComponent wins={field.display} games={row.with_games.display} />,
+  displayFn: ({ field, row }) => <PercentContainer wins={field.display} games={row.with_games.display} />,
   sortFn: transformedSort.bind(null, winPercentTransform('with_games')),
 }, {
   displayName: 'Against',
@@ -49,6 +49,6 @@ export default [{
   displayName: 'Win %',
   field: 'against_win',
   width: 2,
-  displayFn: ({ field, row }) => <PercentComponent wins={field.display} games={row.against_games.display} />,
+  displayFn: ({ field, row }) => <PercentContainer wins={field.display} games={row.against_games.display} />,
   sortFn: transformedSort.bind(null, winPercentTransform('against_games')),
 }];
