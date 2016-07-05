@@ -24,7 +24,7 @@ const Cheese = ({ donations, error, loading }) => {
         <div>Buy some cheese. Help pay for servers. Reaching the goal every month keeps us running.</div>
       </div>
       <div className={styles.section}>
-        <div className="meter_wrapper">
+        <div>
           <h3 style={{ fontWeight: 700, marginTop: 0 }}>Monthly Cheese Goal</h3>
           <div>
             {error && <Error />}

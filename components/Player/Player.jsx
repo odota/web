@@ -2,16 +2,28 @@ import React from 'react';
 import { createTable } from '../Table';
 import PlayerHeader from './PlayerHeader';
 import Error from '../Error';
-import { getPlayer, getPlayerMatches, getPlayerHeroes, getPlayerWinLoss, setPlayerMatchesSort, setPlayerHeroesSort } from '../../actions';
+import {
+  getPlayer,
+  getPlayerMatches,
+  setPlayerMatchesSort,
+  getPlayerHeroes,
+  setPlayerHeroesSort,
+  getPlayerWinLoss,
+} from '../../actions';
 import { connect } from 'react-redux';
 import styles from './Player.css';
-import { playerMatchesColumns, playerHeroesColumns, playerHeroesOverviewColumns } from '../Table/columnDefinitions';
+import {
+  playerMatchesColumns,
+  playerHeroesColumns,
+  playerHeroesOverviewColumns,
+} from '../Table/columnDefinitions';
 import {
   sortPlayerMatches,
   transformPlayerMatchesById,
   sortPlayerHeroes,
   transformPlayerHeroes,
 } from '../../selectors';
+import { PeersPage } from './Pages';
 import { Text } from '../Text';
 import { Card } from 'material-ui/Card';
 import { playerMatches, REDUCER_KEY } from '../../reducers';
@@ -56,6 +68,8 @@ const getPlayerSubroute = (info, playerId) => {
       return <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />;
     case 'heroes':
       return <PlayerHeroesTable columns={playerHeroesColumns} id={playerId} />;
+    case 'peers':
+      return <PeersPage playerId={playerId} />;
     default:
       return getOverviewTab(playerId);
   }
@@ -85,19 +99,21 @@ const mapDispatchToProps = (dispatch) => ({
   getPlayerWinLoss: (playerId) => dispatch(getPlayerWinLoss(playerId)),
 });
 
+const getData = props => {
+  props.getPlayer(props.playerId);
+  props.getPlayerMatches(props.playerId, 20);
+  props.getPlayerHeroes(props.playerId);
+  props.getPlayerWinLoss(props.playerId);
+};
+
 class RequestLayer extends React.Component {
   componentDidMount() {
-    this.props.getPlayer(this.props.playerId);
-    this.props.getPlayerMatches(this.props.playerId, 20);
-    this.props.getPlayerHeroes(this.props.playerId);
-    this.props.getPlayerWinLoss(this.props.playerId);
+    getData(this.props);
   }
 
   componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId) {
-      this.props.getPlayer(nextProps.playerId);
-      this.props.getPlayerMatches(nextProps.playerId, 20);
-      this.props.getPlayerHeroes(this.props.playerId);
+      getData(this.props);
     }
   }
 

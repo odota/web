@@ -1,5 +1,6 @@
 import React from 'react';
 import { defaultSort, useOriginalValueSort } from './utility';
+import { WinLoss } from '../../ColumnComponents';
 import { Link } from 'react-router';
 import { HOST_URL } from '../../../yasp.config';
 
@@ -20,6 +21,7 @@ export default [{
   field: 'radiant_win',
   width: 1.5,
   sortFn: defaultSort,
+  displayFn: ({ field }) => <WinLoss result={field.display} />,
 }, {
   displayName: 'Mode',
   field: 'game_mode',

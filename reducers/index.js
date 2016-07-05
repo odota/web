@@ -1,7 +1,7 @@
 import gotMetadata from './gotMetadata';
 import gotConstants from './gotConstants';
 import gotMatch from './gotMatch';
-import gotPlayer, { player, playerMatches } from './gotPlayer';
+import gotPlayer, { player, playerMatches, playerPeers } from './gotPlayer';
 import gotSearch from './gotSearch';
 import appBar from './appBar';
 import { combineReducers } from 'redux';
@@ -14,6 +14,7 @@ export { REDUCER_KEY };
 export {
   player,
   playerMatches,
+  playerPeers,
 };
 
 export default combineReducers({

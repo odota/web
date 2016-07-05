@@ -1,0 +1,13 @@
+@import "../../palette.css";
+
+.win {
+  color: var(--lightAccentColor);
+}
+
+.loss {
+  color: var(--lightPrimaryColor);
+}
+
+.notScored {
+  color: var(--secondaryTextColor);
+}

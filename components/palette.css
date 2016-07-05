@@ -1,10 +1,11 @@
 :root {
   --darkPrimaryColor: #2D9434;
   --defaultPrimaryColor: #8B311E;
-  --lightPrimaryColor: color(var(--defaultPrimaryColor), lightness(30%));
+  --lightPrimaryColor: color(var(--defaultPrimaryColor) lightness(60%));
   --textSecondaryColor: #212020;
 
   --accentColor: #537F1B;
+  --lightAccentColor: color(var(--accentColor) lightness(60%));
 
   --neutralColor: #3B8386;
 
