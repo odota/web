@@ -8,7 +8,7 @@ const transformation = {
   radiant_win: ({ field, match }) => {
     const isRadiantResult = isRadiant(match.player_slot);
     if (field === undefined) {
-      return 'N/A';
+      return 'N';
     }
     return ((isRadiantResult && field) || (!isRadiantResult && !field) ? 'W' : 'L');
   },

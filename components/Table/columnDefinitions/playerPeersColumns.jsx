@@ -4,7 +4,7 @@ import {
   transformedSort,
   winPercentTransform,
 } from './utility';
-import PercentContainer from '../../PercentContainer';
+import { PercentContainer } from '../../ColumnComponents';
 import { Link } from 'react-router';
 import { YaspBadge } from '../../Player';
 

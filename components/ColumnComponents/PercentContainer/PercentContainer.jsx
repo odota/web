@@ -1,5 +1,5 @@
 import React from 'react';
-import PiePercent from '../PiePercent';
+import PiePercent from '../../PiePercent';
 import styles from './PercentContainer.css';
 
 const getPercentWin = (wins, games) => (games ? Math.ceil(1000 * (wins / games)) / 10 : 0);

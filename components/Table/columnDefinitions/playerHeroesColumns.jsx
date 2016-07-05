@@ -5,7 +5,7 @@ import {
   useOriginalValueSort,
   winPercentTransform,
 } from './utility';
-import PercentContainer from '../../PercentContainer';
+import { PercentContainer } from '../../ColumnComponents';
 import { HOST_URL } from '../../../yasp.config';
 
 
