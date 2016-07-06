@@ -17,6 +17,8 @@
     "url": "http://github.com/yasp-dota/ui"
   },
   "dependencies": {
+    "ace-builds": "^1.2.2",
+    "brace": "^0.8.0",
     "material-design-icons": "^2.2.3",
     "moment": "^2.13.0",
     "react-tap-event-plugin": "^1.0.0",

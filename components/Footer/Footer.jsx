@@ -9,6 +9,3 @@ const Footer = () => (
 );
 
 export default Footer;
-
-// tooltips();
-// formatHtml();
