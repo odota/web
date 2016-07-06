@@ -10,6 +10,7 @@ import
 }
 from '../../yasp.config';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 class Explorer extends React.Component
 {
     componentDidMount()
@@ -63,7 +64,10 @@ class Explorer extends React.Component
           </h3>
           <div>
               <div>
-                  <input id="name" type="text" placeholder="Name this query" class="form-control" />
+                <TextField
+                    id={"name"}
+                    hintText={"Name this query"}
+                  />
               </div>
               <h4>SQL</h4>
               <div id="editor" style={{width: "100%", height: "200px"}}></div>
