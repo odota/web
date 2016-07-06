@@ -1,42 +1,32 @@
 import { playerMatchesActions } from '../../actions';
-import { SORT_ENUM } from '../utility';
+import createReducer from '../reducerFactory';
 
 const initialState = {
   loading: true,
   error: false,
-  matchList: [],
+  loaded: false,
+  list: [],
   sortState: '',
   sortField: '',
   sortFn: f => f,
 };
 
-export default (state = initialState, action) => {
-  switch (action.type) {
-    case playerMatchesActions.REQUEST:
+export default createReducer(initialState, playerMatchesActions);
+
+export const getPlayerMatches = {
+  getPlayerMatchesById: (state, id) => {
+    if (!state.yaspReducer.gotPlayer.matches.byId[id]) {
       return {
-        ...state,
-        loading: true,
+        ...initialState,
       };
-    case playerMatchesActions.OK:
-      return {
-        ...state,
-        loading: false,
-        matchList: [...action.payload],
-      };
-    case playerMatchesActions.ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: true,
-      };
-    case playerMatchesActions.SORT:
-      return {
-        ...state,
-        sortState: action.sortField === state.sortField ? SORT_ENUM.next(SORT_ENUM[state.sortState]) : SORT_ENUM[0],
-        sortField: action.sortField,
-        sortFn: action.sortFn,
-      };
-    default:
-      return state;
-  }
+    }
+    return state.yaspReducer.gotPlayer.matches.byId[id];
+  },
+  getError: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).error,
+  getLoading: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).loading,
+  isLoaded: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).loaded,
+  getMatchList: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).list,
+  getSortState: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).sortState,
+  getSortField: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).sortField,
+  getSortFn: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).sortFn,
 };

@@ -1,7 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { HOST_URL } from '.';
-import { getPlayerMatchesOk, getPlayerMatchesRequest, getPlayerMatchesError } from './playerMatchesActions';
-import { getPlayerHeroesOk, getPlayerHeroesRequest, getPlayerHeroesError } from './playerHeroesActions';
+import { player } from '../reducers';
 
 const url = '/api/players';
 
@@ -15,33 +14,33 @@ export const playerActions = {
   ERROR,
 };
 
-const getPlayerRequest = () => ({ type: REQUEST });
+const getPlayerRequest = (id) => ({ type: REQUEST, id });
 
-const getPlayerOk = (payload) => ({
+const getPlayerOk = (payload, id) => ({
   type: OK,
   payload,
+  id,
 });
 
-const getPlayerError = (payload) => ({
+const getPlayerError = (payload, id) => ({
   type: ERROR,
   payload,
+  id,
 });
 
-export const getPlayer = (accountId, host = HOST_URL) => (dispatch) => {
-  dispatch(getPlayerRequest());
-  dispatch(getPlayerMatchesRequest());
-  dispatch(getPlayerHeroesRequest());
+export const getPlayer = (accountId, isUser, host = HOST_URL) => (dispatch, getState) => {
+  // we are checking to see if the player object exists here.
+  if (player.isLoaded(getState(), accountId)) {
+    dispatch(getPlayerOk(player.getPlayer(getState(), accountId), accountId));
+  } else {
+    dispatch(getPlayerRequest(accountId));
+  }
   return fetch(`${host}${url}/${accountId}`)
-    .then(response => response.json())
+    .then(response => response.json(accountId))
     .then(json => {
-      const { matches, heroes_list, ...playerData } = json;
-      dispatch(getPlayerOk(playerData));
-      dispatch(getPlayerMatchesOk(matches));
-      dispatch(getPlayerHeroesOk(heroes_list));
+      dispatch(getPlayerOk(json, accountId));
     })
     .catch(error => {
-      dispatch(getPlayerError(error));
-      dispatch(getPlayerMatchesError(error));
-      dispatch(getPlayerHeroesError(error));
+      dispatch(getPlayerError(error, accountId));
     });
 };

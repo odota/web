@@ -1,5 +1,11 @@
+@import "../palette.css";
+
 .header {
   margin-bottom: 30px;
+}
+
+.overviewContainer {
+  display: flex;
 }
 
 .overviewMatches {
@@ -14,4 +20,14 @@
 
 .heroesContainer {
   margin-left: 30px;
+}
+
+.card {
+  background-color: var(--textSecondaryColor) !important;
+  box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 6px, rgba(0, 0, 0, 0.7) 0px 1px 4px !important;
+}
+
+.tableHeading {
+  margin-bottom: 10px;
+  font-size: 20px;
 }

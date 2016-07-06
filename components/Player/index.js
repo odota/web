@@ -1,5 +1,3 @@
-import Player from './Player';
-import YaspBadge from './YaspBadge';
-
-export default Player;
-export { YaspBadge };
+export { default } from './Player';
+export { default as YaspBadge } from './YaspBadge';
+export { default as PlayerPicture } from './PlayerPicture';

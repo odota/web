@@ -14,12 +14,16 @@ import styles from './Table.css';
 import TableRow from './TableRow';
 import { getTotalWidth } from './tableHelpers';
 
-const Table = ({ data, columns, loading, error, sortState, sortField, sortClick }) => {
+const Table = ({ data, columns, loading, error, sortState, sortField, sortClick, numRows }) => {
   const totalWidth = getTotalWidth(columns);
+  let modifiedData = data;
+  if (numRows) {
+    modifiedData = data.slice(0, numRows);
+  }
 
   const getTable = () => (
     <div className={styles.innerContainer}>
-      <MaterialTable selectable={false}>
+      <MaterialTable selectable={false} className={styles.table}>
         <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false} className={styles.header}>
           <TableHeader
             columns={columns}
@@ -30,7 +34,7 @@ const Table = ({ data, columns, loading, error, sortState, sortField, sortClick 
           />
         </MaterialTableHeader>
         <MaterialTableBody displayRowCheckbox={false} selectable={false}>
-          {data.map((row, index) => (
+          {modifiedData.map((row, index) => (
             <TableRow
               key={index}
               row={row}

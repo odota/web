@@ -2,24 +2,37 @@ import React from 'react';
 import { createTable } from '../Table';
 import PlayerHeader from './PlayerHeader';
 import Error from '../Error';
-import { getPlayer, getPlayerMatches, setPlayerMatchesSort, setPlayerHeroesSort } from '../../actions';
+import {
+  getPlayer,
+  getPlayerMatches,
+  setPlayerMatchesSort,
+  getPlayerHeroes,
+  setPlayerHeroesSort,
+  getPlayerWinLoss,
+} from '../../actions';
 import { connect } from 'react-redux';
 import styles from './Player.css';
-import { playerMatchesColumns, playerHeroesColumns } from '../Table/columnDefinitions';
+import {
+  playerMatchesColumns,
+  playerHeroesColumns,
+  playerHeroesOverviewColumns,
+} from '../Table/columnDefinitions';
 import {
   sortPlayerMatches,
-  transformPlayerMatches,
+  transformPlayerMatchesById,
   sortPlayerHeroes,
   transformPlayerHeroes,
 } from '../../selectors';
+import { PeersPage } from './Pages';
 import { Text } from '../Text';
+import { Card } from 'material-ui/Card';
+import { playerMatches, REDUCER_KEY } from '../../reducers';
 
-const playerMatches = (state) => state.gotPlayer.matches;
-const playerHeroes = (state) => state.gotPlayer.heroes;
+const playerHeroes = (state) => state[REDUCER_KEY].gotPlayer.heroes;
 
 const PlayerMatchesTable = createTable(
-  playerMatches,
-  (state, sortState) => (sortState ? sortPlayerMatches(state) : transformPlayerMatches(state)),
+  playerMatches.getPlayerMatchesById,
+  (state, sortState, playerId) => (sortState ? sortPlayerMatches(playerId)(state) : transformPlayerMatchesById(playerId)(state)),
   setPlayerMatchesSort
 );
 const PlayerHeroesTable = createTable(
@@ -28,31 +41,37 @@ const PlayerHeroesTable = createTable(
   setPlayerHeroesSort
 );
 
-const getOverviewTab = () => (
-  <div>
+const getOverviewTab = playerId => (
+  <div className={styles.overviewContainer}>
     <div className={styles.overviewMatches}>
-      <Text size={25}>Matches</Text>
-      <PlayerMatchesTable columns={playerMatchesColumns} />
+      <Text className={styles.tableHeading}>RECENT MATCHES</Text>
+      <Card className={styles.card}>
+        <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
+      </Card>
     </div>
     <div className={styles.overviewHeroes}>
       <div className={styles.heroesContainer}>
-        <Text size={25}>Heroes</Text>
-        <PlayerHeroesTable columns={playerHeroesColumns} />
+        <Text className={styles.tableHeading}>HERO STATS</Text>
+        <Card className={styles.card}>
+          <PlayerHeroesTable columns={playerHeroesOverviewColumns} id={playerId} numRows={20} />
+        </Card>
       </div>
     </div>
   </div>
 );
 
-const getPlayerSubroute = (info) => {
+const getPlayerSubroute = (info, playerId) => {
   switch (info) {
     case 'overview':
-      return getOverviewTab();
+      return getOverviewTab(playerId);
     case 'matches':
-      return <PlayerMatchesTable columns={playerMatchesColumns} />;
+      return <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />;
     case 'heroes':
-      return <PlayerHeroesTable columns={playerHeroesColumns} />;
+      return <PlayerHeroesTable columns={playerHeroesColumns} id={playerId} />;
+    case 'peers':
+      return <PeersPage playerId={playerId} />;
     default:
-      return getOverviewTab();
+      return getOverviewTab(playerId);
   }
 };
 
@@ -66,7 +85,7 @@ const Player = ({ playerId, info }) => {
       <div className={styles.header}>
         <PlayerHeader playerId={playerId} />
       </div>
-      {getPlayerSubroute(info)}
+      {getPlayerSubroute(info, playerId)}
     </div>
   );
 };
@@ -76,22 +95,25 @@ const mapStateToProps = (state, { params }) => ({ playerId: params.account_id, i
 const mapDispatchToProps = (dispatch) => ({
   getPlayer: (playerId) => dispatch(getPlayer(playerId)),
   getPlayerMatches: (playerId, numMatches) => dispatch(getPlayerMatches(playerId, numMatches)),
+  getPlayerHeroes: (playerId) => dispatch(getPlayerHeroes(playerId)),
+  getPlayerWinLoss: (playerId) => dispatch(getPlayerWinLoss(playerId)),
 });
+
+const getData = props => {
+  props.getPlayer(props.playerId);
+  props.getPlayerMatches(props.playerId, 20);
+  props.getPlayerHeroes(props.playerId);
+  props.getPlayerWinLoss(props.playerId);
+};
 
 class RequestLayer extends React.Component {
   componentDidMount() {
-    this.props.getPlayer(this.props.playerId);
-    if (this.props.info === 'matches') {
-      this.props.getPlayerMatches(this.props.playerId);
-    }
+    getData(this.props);
   }
 
   componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId) {
-      this.props.getPlayer(nextProps.playerId);
-    }
-    if (nextProps.info === 'matches' && this.props.playerId !== nextProps.playerId) {
-      this.props.getPlayerMatches(nextProps.playerId);
+      getData(nextProps);
     }
   }
 

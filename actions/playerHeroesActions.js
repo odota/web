@@ -38,6 +38,6 @@ export const getPlayerHeroes = (playerId, numMatches, host = HOST_URL) => (dispa
   dispatch(getPlayerHeroesRequest());
   return fetch(`${host}${url(playerId, numMatches)}`, { credentials: 'include' })
     .then(response => response.json())
-    .then(json => dispatch(getPlayerHeroesOk(json.matches)))
+    .then(json => dispatch(getPlayerHeroesOk(json)))
     .catch(error => dispatch(getPlayerHeroesError(error)));
 };

@@ -9,7 +9,7 @@ const getSortFn = (state) => state[REDUCER_KEY].gotPlayer.heroes.sortFn;
 const sortPlayerHeroes = createSelector(
   [transformPlayerHeroes, getSortState, getSortField, getSortFn],
   (heroes, sortState, sortField, sortFn) =>
-    (sortState === 'desc' ? heroes.reverse() : sortFn(heroes, sortField))
+    (sortState === 'desc' ? sortFn(heroes, sortField).reverse() : sortFn(heroes, sortField))
 );
 
 export default sortPlayerHeroes;

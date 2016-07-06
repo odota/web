@@ -15,7 +15,7 @@
 }
 
 .header {
-  background-color: var(--defaultPrimaryColor)!important;
+  /*background-color: var(--defaultPrimaryColor)!important;*/
 }
 
 .headerRow {
@@ -37,13 +37,13 @@
   &:hover {
     cursor: pointer;
     & span, & div {
-      color: var(--textPrimaryColor)!important;
+      color: var(--textSecondaryColor)!important;
     }
   }
 }
 
 .row {
-  background-color: color(var(--textPrimaryColor) lightness(30%));
+  background-color: color(var(--textSecondaryColor) lightness(20%));
   color: var(--primaryTextColor)!important;
   border-bottom-color: var(--dividerColor)!important;
 }
@@ -54,5 +54,9 @@
 
 .row1 {
   composes: row;
-  background-color: color(var(--textPrimaryColor) lightness(40%));
+  background-color: color(var(--textSecondaryColor) lightness(25%));
+}
+
+.table {
+  background-color: var(--defaultPrimaryColor)!important;
 }

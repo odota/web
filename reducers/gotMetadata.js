@@ -5,6 +5,7 @@ const initialState = {
   error: false,
   links: [],
   donations: {},
+  user: {},
 };
 
 export default (state = initialState, action) => {
@@ -30,4 +31,9 @@ export default (state = initialState, action) => {
     default:
       return state;
   }
+};
+
+export const metadata = {
+  getMetadata: state => state.yaspReducer.gotMetadata,
+  getUserId: state => state.yaspReducer.gotMetadata.user.account_id,
 };

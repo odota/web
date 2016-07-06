@@ -5,9 +5,16 @@ const constants = require('../constants');
 
 const transformation = {
   hero_id: ({ field }) => constants.heroes[field],
-  radiant_win: ({ field, match }) => (isRadiant({ playerSlot: match.player_slot }) === field ? 'W' : 'L'),
+  radiant_win: ({ field, match }) => {
+    const isRadiantResult = isRadiant(match.player_slot);
+    if (field === undefined) {
+      return 'N';
+    }
+    return ((isRadiantResult && field) || (!isRadiantResult && !field) ? 'W' : 'L');
+  },
   game_mode: ({ field }) => (constants.game_mode[field] ? constants.game_mode[field].name : field),
   start_time: ({ field }) => moment.unix(field).fromNow(),
+  last_played: ({ field }) => moment.unix(field).fromNow(),
   duration: ({ field }) => formatSeconds(field),
 };
 

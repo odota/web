@@ -15,3 +15,6 @@ export const transformedSort = (transformFn, ...args) => {
     return 0;
   });
 };
+
+export const winPercentTransform = numGamesField => (list, field, property) =>
+  (list[numGamesField][property] ? list[field][property] / list[numGamesField][property] : 0);
