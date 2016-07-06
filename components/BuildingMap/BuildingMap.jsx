@@ -145,13 +145,11 @@ const buildingData = [
     style: "position: absolute; top: 14%; left: 83%;"
         }];
         
-export default function({ state }){
-    console.log(state);
-    return (
-    <div>
+export default function(match){
+    console.log(match);
+    return <div>
       <img />
-    </div>
-    );
+    </div>;
 }
 
 function buildMap()

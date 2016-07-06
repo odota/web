@@ -17,14 +17,6 @@ const AbilityUpgradesTable = createTable(
   setMatchSort
 );
 
-const Match = (props) => (
-  <div>
-    <MatchTable columns={overviewColumns} />
-    <AbilityUpgradesTable columns={abUpgradeColumns} />
-    <BuildingMap match={props} />
-  </div>
-);
-
 const mapStateToProps = (state, { params }) => ({ matchId: params.match_id });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -46,7 +38,8 @@ class RequestLayer extends React.Component {
   render() {
     return (
       <div>
-        <Match {...this.props} />
+        <MatchTable columns={overviewColumns} />
+        <AbilityUpgradesTable columns={abUpgradeColumns} />
       </div>
     );
   }

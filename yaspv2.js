@@ -40,7 +40,6 @@ const store = createStore(reducer, compose(
 ));
 
 // Fetch metadata (used on all pages)
-// store.dispatch(Actions.fetchData(Actions.METADATA));
 store.dispatch(getMetadata());
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
