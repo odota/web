@@ -8,28 +8,55 @@ import styles from './NavBar.css';
 import { openMenu } from '../../actions';
 import constants from '../../constants';
 
-const navLinks = Object.keys(constants.navbar_pages).map(
-  (key) => ({ path: `/${key}`, name: constants.navbar_pages[key].name })
-);
+const pages = {
+  "request": {
+    "name": "Request",
+    "path": "/request"
+  },
+  "rankings": {
+    "name": "Rankings",
+    "path": "/rankings",
+    "new-feature": true
+  },
+  "benchmarks": {
+    "name": "Benchmarks",
+    "path": "/benchmarks"
+  },
+  "distributions": {
+    "name": "Distributions",
+    "path": "/distributions"
+  },
+  "picks": {
+    "name": "Picks",
+    "path": "/picks"
+  },
+  "mmstats": {
+    "name": "MMStats",
+    "path": "/mmstats"
+  },
+  "carry": {
+    "name": "Carry",
+    "path": "/carry"
+  },
+  "search": {
+    "name": "Search",
+    "path": "/search"
+  }
+};
 
-const NavBar = ({ loading, error, links = navLinks, toggleMenu }) => {
-  const getNavLinks = (navLinks) =>
-    navLinks.map((link, index) => (
-      <Link key={index} to={link.path} onTouchTap={toggleMenu}>
+export default function NavBar({ toggleMenu })
+{
+    const links = Object.keys(pages).map((link, index) => (
+      <Link key={index} to={pages[link].path} onTouchTap={toggleMenu}>
         <li className={styles.listItem}>
-          {link.name}
+          {pages[link].name}
         </li>
         <Divider style={{ backgroundColor: styles.dividerColor }} />
       </Link>
-    ));
-
-  return (
+      ));
+    return (
     <div>
-      {loading && !error && <Spinner />}
-      {error && <Error />}
-      {!loading && !error && getNavLinks(links)}
+    { links }
     </div>
   );
-};
-
-export default connect(null, { toggleMenu: openMenu })(NavBar);
+}
