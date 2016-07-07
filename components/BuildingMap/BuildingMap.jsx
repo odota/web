@@ -34,14 +34,12 @@ export default function BuildingMap({ match, loading }) {
     }
     return (
       <div
-        style={
-          {
-            position: 'relative',
-            top: 0,
-            left: 0,
-            width: 600,
-          }
-        }
+        style={{
+          position: 'relative',
+          top: 0,
+          left: 0,
+          width: 600,
+        }}
       >
         <img width={600} src={`${HOST_URL}/public/images/map.png`} role={"presentation"} />
         {icons}
