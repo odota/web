@@ -7,5 +7,6 @@ export { playerPeersActions, getPlayerPeers, setPlayerPeersSort } from './player
 export { playerHeroesActions, getPlayerHeroes, setPlayerHeroesSort } from './playerHeroesActions';
 export { playerWinLossActions, getPlayerWinLoss } from './playerWinLossActions';
 export { appBarActions, openMenu } from './appBarActions';
+export { tabActions, setActiveTab } from './tabActions';
 export { searchActions, getSearchResult } from './searchActions';
 export { HOST_URL } from '../yasp.config';
