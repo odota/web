@@ -16,7 +16,6 @@
 
   --dividerColor: color(var(--textSecondaryColor) lightness(20%));
 
-  /* font sizes */
   --normalFontSize: 12px;
   --mediumLargeFontSize: 16px;
   --fontFamily: 'Roboto', sans-serif;
@@ -26,19 +25,3 @@
   --linearTransition: all 450ms linear 0ms;
 }
 
-/*Old values*/
-/*
---darkPrimaryColor: #2D9434;
---defaultPrimaryColor: #4CAF50;
---lightPrimaryColor: #77CC7D;
---textSecondaryColor: #FFFFFF;
---accentColor: #DE6461;
-
---neutralColor: #3B8386;
-
---primaryTextColor: #1f231f;
---secondaryTextColor: #727272;
-
---primaryLinkColor: #42A5F5;
-
---dividerColor: #dfe2e0;*/
