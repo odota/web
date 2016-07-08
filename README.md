@@ -30,3 +30,7 @@ Notes
 ----
 * For ease of development, the SPA is pointed to production YASP by default.  This means you don't need to set up the entire stack/get sample data.
 * You can configure it to point to your own instance (if you are working on a backend feature) in `yasp.config.js`.
+
+New to React/Redux? Confused about how to add a new component, even though you do have an understanding of those? Check out this wiki page!
+
+https://github.com/yasp-dota/ui/wiki/Adding-new-components-with-redux

@@ -14,7 +14,7 @@ const getPlayerPicture = ({ field, row }) => (
       <img src={field.display} style={{ height: 30 }} role="presentation" />
       {row.last_login && row.last_login.value && <span style={{ marginLeft: 3 }}><YaspBadge /></span>}
     </div>
-    {row.account_id.value ? <Link to={`/players/${row.account_id.value}`}>{row.personaname.value}</Link> : 'Anonymous'}
+    {row.account_id.value ? <Link to={`/players/${row.account_id.value}/overview`}>{row.personaname.value}</Link> : 'Anonymous'}
   </div>
 );
 
