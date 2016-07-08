@@ -19,7 +19,7 @@ const AbilityUpgradesTable = createTable(
   setMatchSort
 );
 
-const mapStateToProps = (state, { params }) => ({ 
+const mapStateToProps = (state, { params }) => ({
   matchId: params.match_id,
   match: state[REDUCER_KEY].gotMatch.match,
 });

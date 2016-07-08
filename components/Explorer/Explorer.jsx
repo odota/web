@@ -110,7 +110,11 @@ class Explorer extends React.Component
           <small> - Explore data from professional Dota 2 matches</small>
           </h3>
           <div style={{display: "flex"}}>
-            <div style={{width: "50%"}}>
+            <div style={{
+              width: "50%", 
+              height: "400px",
+              overflow: "auto"
+            }}>
               <h4>Examples</h4>
               <List id={"example"}>
                 { this.state.examples.map(function(e){
@@ -140,14 +144,14 @@ class Explorer extends React.Component
               <Table id={"table"}>
                 <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
                   <TableRow>
-                    { this.state.result.result.fields.map(function(f){
+                    { this.state.result.result ? this.state.result.result.fields.map(function(f){
                       return <TableHeaderColumn>{f.name}</TableHeaderColumn>;
-                    })
+                    }) : []
                     }
                   </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
-                  { this.state.result.result.rows.map(function(r){
+                  { this.state.result.result ? this.state.result.result.rows.map(function(r){
                     return <TableRow>
                     { Object.keys(r).map(function(k){
                         return <TableRowColumn>
@@ -156,7 +160,7 @@ class Explorer extends React.Component
                     })
                     }
                     </TableRow>;
-                  })
+                  }) : []
                   }
                 </TableBody>
               </Table>              
