@@ -6,6 +6,8 @@
   "rules": {
     "react/prop-types": 0,
     "max-len": ["error", 150],
-    "no-shadow": 0
+    "no-shadow": 0,
+    "indent": 0,
+    "prefer-arrow-callback": 0
   }
 }
