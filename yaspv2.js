@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import appReducer, { REDUCER_KEY } from './reducers';
-import { getMetadata } from './actions';
+import { getMetadata, setActiveTab } from './actions';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
@@ -43,6 +43,7 @@ const store = createStore(reducer, compose(
 store.dispatch(getMetadata());
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
+history.listen(location => store.dispatch(setActiveTab(location.pathname)));
 // history.listen(function(location) {Actions.routeChange(location)});
 const reactElement = document.getElementById('react');
 render(

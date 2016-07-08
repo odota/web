@@ -15,7 +15,7 @@ const AccountWidget = ({ loading, error, user }) => (
     {error && <Error />}
     {!error && !loading && user ? (
       <div className={styles.flexContainer}>
-        <PlayerPicture noSteamLink link={`/players/${user.account_id}`} playerId={user.account_id} />
+        <PlayerPicture noSteamLink link={`/players/${user.account_id}/overview`} playerId={user.account_id} />
         <a href="/logout" className={styles.logout}>
           <FontIcon style={{ fontSize: 40 }} className="material-icons">
             exit_to_app
