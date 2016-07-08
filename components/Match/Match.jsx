@@ -22,6 +22,7 @@ const AbilityUpgradesTable = createTable(
 const mapStateToProps = (state, { params }) => ({
   matchId: params.match_id,
   match: state[REDUCER_KEY].gotMatch.match,
+  loading: state[REDUCER_KEY].gotMatch.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -45,7 +46,7 @@ class RequestLayer extends React.Component {
       <div>
         <MatchTable columns={overviewColumns} />
         <AbilityUpgradesTable columns={abUpgradeColumns} />
-        <BuildingMap match={this.props.match} />
+        <BuildingMap match={this.props.match} loading={this.props.loading} />
       </div>
     );
   }

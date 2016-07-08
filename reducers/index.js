@@ -4,6 +4,7 @@ import gotMatch from './gotMatch';
 import gotPlayer, { player, playerMatches, playerPeers } from './gotPlayer';
 import gotSearch from './gotSearch';
 import appBar from './appBar';
+import tab, { getTab } from './tab';
 import { combineReducers } from 'redux';
 
 const REDUCER_KEY = 'yaspReducer';
@@ -15,6 +16,7 @@ export {
   player,
   playerMatches,
   playerPeers,
+  getTab as tab,
 };
 
 export default combineReducers({
@@ -24,4 +26,5 @@ export default combineReducers({
   gotConstants,
   gotSearch,
   appBar,
+  tab,
 });
