@@ -8,6 +8,7 @@
     "max-len": ["error", 150],
     "no-shadow": 0,
     "indent": 0,
-    "prefer-arrow-callback": 0
+    "prefer-arrow-callback": 0,
+    "quote-props": 0
   }
 }
