@@ -14,14 +14,15 @@ import styles from './Table.css';
 import TableRow from './TableRow';
 import { getTotalWidth } from './tableHelpers';
 
-const Table = ({ data, columns, loading, error, sortState, sortField, sortClick, numRows }) => {
+const getTable = (data, columns, sortState, sortField, sortClick, numRows) => {
   const totalWidth = getTotalWidth(columns);
   let modifiedData = data;
+
   if (numRows) {
     modifiedData = data.slice(0, numRows);
   }
 
-  const getTable = () => (
+  return (
     <div className={styles.innerContainer}>
       <MaterialTable selectable={false} className={styles.table}>
         <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false} className={styles.header}>
@@ -47,14 +48,14 @@ const Table = ({ data, columns, loading, error, sortState, sortField, sortClick,
       </MaterialTable>
     </div>
   );
-
-  return (
-    <div className={styles.container}>
-      {loading && <Spinner />}
-      {!loading && error && <Error />}
-      {!loading && !error && data && getTable()}
-    </div>
-  );
 };
+
+const Table = ({ data, columns, loading, error, sortState, sortField, sortClick, numRows }) => (
+  <div className={styles.container}>
+    {loading && <Spinner />}
+    {!loading && error && <Error />}
+    {!loading && !error && data && getTable(data, columns, sortState, sortField, sortClick, numRows)}
+  </div>
+);
 
 export default Table;

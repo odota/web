@@ -26,9 +26,7 @@ import {
 import { PeersPage } from './Pages';
 import { Text } from '../Text';
 import { Card } from 'material-ui/Card';
-import { playerMatches, REDUCER_KEY } from '../../reducers';
-
-const playerHeroes = (state) => state[REDUCER_KEY].gotPlayer.heroes;
+import { playerMatches, playerHeroes } from '../../reducers';
 
 const PlayerMatchesTable = createTable(
   playerMatches.getPlayerMatchesById,
@@ -36,8 +34,8 @@ const PlayerMatchesTable = createTable(
   setPlayerMatchesSort
 );
 const PlayerHeroesTable = createTable(
-  playerHeroes,
-  (state, sortState) => (sortState ? sortPlayerHeroes(state) : transformPlayerHeroes(state)),
+  playerHeroes.getPlayerHeroesById,
+  (state, sortState, playerId) => (sortState ? sortPlayerHeroes(playerId)(state) : transformPlayerHeroes(playerId)(state)),
   setPlayerHeroesSort
 );
 

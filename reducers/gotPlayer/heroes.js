@@ -1,42 +1,32 @@
 import { playerHeroesActions } from '../../actions';
-import { SORT_ENUM } from '../utility';
+import createReducer from '../reducerFactory';
 
 const initialState = {
   loading: true,
   error: false,
-  heroes: [],
+  loaded: false,
+  list: [],
   sortState: '',
   sortField: '',
   sortFn: f => f,
 };
 
-export default (state = initialState, action) => {
-  switch (action.type) {
-    case playerHeroesActions.REQUEST:
+export default createReducer(initialState, playerHeroesActions);
+
+export const getPlayerHeroes = {
+  getPlayerHeroesById: (state, id) => {
+    if (!state.yaspReducer.gotPlayer.heroes.byId[id]) {
       return {
-        ...state,
-        loading: true,
+        ...initialState,
       };
-    case playerHeroesActions.OK:
-      return {
-        ...state,
-        loading: false,
-        heroes: [...action.payload],
-      };
-    case playerHeroesActions.ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: true,
-      };
-    case playerHeroesActions.SORT:
-      return {
-        ...state,
-        sortState: action.sortField === state.sortField ? SORT_ENUM.next(SORT_ENUM[state.sortState]) : SORT_ENUM[0],
-        sortField: action.sortField,
-        sortFn: action.sortFn,
-      };
-    default:
-      return state;
-  }
+    }
+    return state.yaspReducer.gotPlayer.heroes.byId[id];
+  },
+  getError: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).error,
+  getLoading: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).loading,
+  isLoaded: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).loaded,
+  getHeroList: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).list,
+  getSortState: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).sortState,
+  getSortField: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).sortField,
+  getSortFn: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).sortFn,
 };

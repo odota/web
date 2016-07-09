@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { HOST_URL } from './';
+import { playerHeroes } from '../reducers';
 
 const url = (playerId, queryString) => `/api/players/${playerId}/heroes?${queryString}`;
 
@@ -15,29 +16,36 @@ export const playerHeroesActions = {
   SORT,
 };
 
-export const setPlayerHeroesSort = (sortField, sortState, sortFn) => ({
+export const setPlayerHeroesSort = (sortField, sortState, sortFn, id) => ({
   type: SORT,
   sortField,
   sortState,
   sortFn,
+  id,
 });
 
-export const getPlayerHeroesRequest = () => ({ type: REQUEST });
+export const getPlayerHeroesRequest = (id) => ({ type: REQUEST, id });
 
-export const getPlayerHeroesOk = (payload) => ({
+export const getPlayerHeroesOk = (payload, id) => ({
   type: OK,
   payload,
+  id,
 });
 
-export const getPlayerHeroesError = (payload) => ({
+export const getPlayerHeroesError = (payload, id) => ({
   type: ERROR,
   payload,
+  id,
 });
 
-export const getPlayerHeroes = (playerId, numMatches, host = HOST_URL) => (dispatch) => {
-  dispatch(getPlayerHeroesRequest());
-  return fetch(`${host}${url(playerId, numMatches)}`, { credentials: 'include' })
+export const getPlayerHeroes = (playerId, numHeroes, host = HOST_URL) => (dispatch, getState) => {
+  if (playerHeroes.isLoaded(getState(), playerId)) {
+    dispatch(getPlayerHeroesOk(playerHeroes.getHeroList(getState(), playerId), playerId));
+  } else {
+    dispatch(getPlayerHeroesRequest(playerId));
+  }
+  return fetch(`${host}${url(playerId, numHeroes)}`, { credentials: 'include' })
     .then(response => response.json())
-    .then(json => dispatch(getPlayerHeroesOk(json)))
-    .catch(error => dispatch(getPlayerHeroesError(error)));
+    .then(json => dispatch(getPlayerHeroesOk(json, playerId)))
+    .catch(error => dispatch(getPlayerHeroesError(error, playerId)));
 };
