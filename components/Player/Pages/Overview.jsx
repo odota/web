@@ -66,7 +66,6 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    console.log('inside the render')
     return <Overview {...this.props} />;
   }
 }

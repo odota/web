@@ -8,10 +8,8 @@ const getSortFn = id => state => playerHeroes.getSortFn(state, id);
 
 const sortPlayerHeroes = id => createSelector(
   [transformPlayerHeroesById(id), getSortState(id), getSortField(id), getSortFn(id)],
-  (heroes, sortState, sortField, sortFn) => {
-    console.log('inside this thing')
-    return (sortState === 'desc' ? sortFn(heroes, sortField).reverse() : sortFn(heroes, sortField))
-  }
+  (heroes, sortState, sortField, sortFn) =>
+    (sortState === 'desc' ? sortFn(heroes, sortField).reverse() : sortFn(heroes, sortField))
 );
 
 export default sortPlayerHeroes;

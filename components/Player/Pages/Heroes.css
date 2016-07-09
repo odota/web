@@ -1,0 +1,7 @@
+.card {
+  composes: card from "./Overview.css";
+}
+
+.tableHeading {
+  composes: tableHeading from "./Overview.css";
+}
