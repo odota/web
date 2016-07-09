@@ -141,7 +141,7 @@ export default ({
   openMenu,
   params,
   location,
-}) => (<div>
+}) => (<div style={{'textTransform': 'uppercase'}}>
   <AppBar
     className={styles.header}
     iconElementRight={(<AccountWidget />)}

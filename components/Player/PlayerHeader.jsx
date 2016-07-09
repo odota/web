@@ -7,11 +7,9 @@ import styles from './PlayerHeader.css';
 export default ({ playerId }) => (
   <div>
     <div className={styles.container}>
-      <PlayerName playerId={playerId} />
-      <div className={styles.playerInfo}>
-        <PlayerRecord playerId={playerId} />
-        <PlayerMMR playerId={playerId} />
-      </div>
+      <PlayerName playerId={playerId} style={{width: "40%"}}/>
+      <PlayerMMR playerId={playerId} style={{width: "30%"}}/>
+      <PlayerRecord playerId={playerId} style={{width: "30%"}}/>
     </div>
   </div>
 );

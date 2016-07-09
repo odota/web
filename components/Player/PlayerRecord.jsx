@@ -5,15 +5,22 @@ import { connect } from 'react-redux';
 import { player } from '../../reducers';
 import styles from './PlayerHeader.css';
 
+//TODO make a dumb component
 export const PlayerRecord = ({ loading, error, wins, losses }) => {
-  const calcWinPercent = (wins, losses) => Math.ceil(10000 * ((wins) / (wins + losses))) / 100;
-
   const getPlayerRecord = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;
     return (
-      <div className={styles.mmr}>
-        <div>{`${wins} - ${losses} (${calcWinPercent(wins, losses)}%)`}</div>
+      <div>
+        <span className={"text-primary"}>
+          <i className={"fa fa-trophy"}></i>
+          <small>
+            <span className={"text-success"}>{wins}</span>
+            <span> - </span>
+            <span className={"text-danger"}>{losses}</span>
+            <span>{` (${(wins/(wins+losses)*100).toFixed(2)}%)`}</span>
+          </small>
+        </span>
       </div>
     );
   };

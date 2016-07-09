@@ -6,6 +6,8 @@ import Avatar from 'material-ui/Avatar';
 import styles from './PlayerHeader.css';
 import { Link } from 'react-router';
 
+//TODO this should be a dumb component
+
 const getPlayerStyle = (registered, cheese) => {
   if (cheese) return styles.playerPictureCheese;
   if (registered) return styles.playerPictureYasp;
@@ -13,26 +15,14 @@ const getPlayerStyle = (registered, cheese) => {
 };
 
 const getComponent = (picture, steamLink, cheese, registered, link) => {
-  if (!picture) {
-    return (
-      <Link to={link} className={getPlayerStyle(registered, cheese)}>
-        <FlatButton label="Profile" />
-      </Link>
-    );
-  }
-
   if (link) {
     return (
       <Link to={link} className={getPlayerStyle(registered, cheese)}>
-        <Avatar src={picture} />
+        <img src={picture} />
       </Link>
     );
   }
-  return (
-    <a href={steamLink} className={getPlayerStyle(registered, cheese)}>
-      <Avatar src={picture} />
-    </a>
-  );
+  return <div />;
 };
 
 const PlayerPicture = ({ picture, steamLink, cheese, registered, link }) =>

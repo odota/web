@@ -6,7 +6,6 @@ import FlatButton from 'material-ui/FlatButton';
 
 export default () => (
   <Link to="/carry">
-
     <FontIcon className={styles.cheese} />
     <FlatButton
       label="Help us out"
@@ -15,6 +14,5 @@ export default () => (
       backgroundColor={styles.backgroundColor}
       style={{ height: 50 }}
     />
-    <FontIcon className={styles.cheese} />
   </Link>
 );

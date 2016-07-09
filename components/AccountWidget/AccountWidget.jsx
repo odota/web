@@ -5,22 +5,25 @@ import Error from '../Error';
 import { REDUCER_KEY } from '../../reducers';
 import { getPlayer } from '../../actions';
 import styles from './AccountWidget.css';
-import FontIcon from 'material-ui/FontIcon';
-import { PlayerPicture } from '../Player';
+import { Link } from 'react-router';
+//import FontIcon from 'material-ui/FontIcon';
+//import { PlayerPicture } from '../Player';
 
 // Maybe we can factor out this ternary into a function?
+/*
+        <PlayerPicture noSteamLink link={`/players/${user.account_id}/overview`} playerId={user.account_id} />
+        <FontIcon style={{ fontSize: 40 }} className="material-icons">
+          exit_to_app
+        </FontIcon>
+*/
 const AccountWidget = ({ loading, error, user }) => (
   <div className={styles.container}>
     {loading && !error && <Spinner />}
     {error && <Error />}
     {!error && !loading && user ? (
       <div className={styles.flexContainer}>
-        <PlayerPicture noSteamLink link={`/players/${user.account_id}/overview`} playerId={user.account_id} />
-        <a href="/logout" className={styles.logout}>
-          <FontIcon style={{ fontSize: 40 }} className="material-icons">
-            exit_to_app
-          </FontIcon>
-        </a>
+        <Link to={`/players/${user.account_id}`}>{"Profile"}</Link>
+        <a href="/logout" className={styles.logout}>{"Logout"}</a>
       </div>
     )
     : <a href="/login">Login</a>
