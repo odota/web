@@ -22,8 +22,7 @@ injectTapEventPlugin();
 // Load CSS
 // These are sprites, will be needed at some point
 // require('./node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
-
-import './node_modules/font-awesome/css/font-awesome.css';
+// import './node_modules/font-awesome/css/font-awesome.min.css';
 import './assets/flaticon.css';
 import './global.css';
 import 'material-design-icons';
@@ -69,10 +68,7 @@ render(
 /*
 <Route path="distributions" component={Distribution}/>
 <Route path="carry" component={Carry}/>
-<Route path="picks/:n" component={Picks}/>
-<Route path="mmstats" component={MMStats}/>
 <Route path="rankings/:hero_id" component={Ranking}/>
 <Route path="benchmarks/:hero_id" component={Benchmark}/>
-<Route path="search" component={Search}/>
 <Route path="status" component={Status}/>
 */
