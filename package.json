@@ -17,12 +17,6 @@
     "url": "http://github.com/yasp-dota/ui"
   },
   "dependencies": {
-    "ace-builds": "^1.2.2",
-    "brace": "^0.8.0",
-    "material-design-icons": "^2.2.3",
-    "moment": "^2.13.0",
-    "react-tap-event-plugin": "^1.0.0",
-    "reselect": "^2.5.1"
   },
   "devDependencies": {
     "babel-core": "6.9.0",
@@ -32,6 +26,7 @@
     "babel-preset-es2015-webpack": "^6.4.1",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-2": "^6.5.0",
+    "brace": "^0.8.0",
     "css-loader": "^0.23.1",
     "eslint": "^2.11.0",
     "eslint-config-airbnb": "^9.0.1",
@@ -43,7 +38,9 @@
     "font-awesome": "^4.6.3",
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.4",
+    "material-design-icons": "^2.2.3",
     "material-ui": "^0.15.0-alpha.2",
+    "moment": "^2.13.0",
     "npm-check-updates": "2.6.5",
     "postcss-browser-reporter": "^0.5.0",
     "postcss-color-function": "^2.0.1",
@@ -58,10 +55,12 @@
     "react-redux": "^4.4.0",
     "react-router": "^2.3.0",
     "react-router-redux": "^4.0.1",
+    "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.5.2",
     "redux-devtools": "^3.1.1",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.0.1",
+    "reselect": "^2.5.1",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "2.1.0-beta.5",
