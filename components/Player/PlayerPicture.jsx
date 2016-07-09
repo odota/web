@@ -15,9 +15,9 @@ const getPlayerStyle = (registered, cheese) => {
 };
 
 const getComponent = (picture, steamLink, cheese, registered, link) => {
-  if (link) {
+  if (picture) {
     return (
-      <Link to={link} className={getPlayerStyle(registered, cheese)}>
+      <Link to={link || steamLink} className={getPlayerStyle(registered, cheese)}>
         <img src={picture} />
       </Link>
     );

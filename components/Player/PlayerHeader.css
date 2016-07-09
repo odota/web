@@ -27,8 +27,9 @@
   justify-content: center;
   margin: 0 10px;
 }
-
+  /*
 .playerPicture {
+
   border-radius: 100px;
   height: 40px;
   display: flex;
@@ -42,6 +43,7 @@
   }
 }
 
+
 .playerPictureYasp {
   composes: playerPicture;
   border: 5px solid #BBF0FD;
@@ -51,7 +53,8 @@
   composes: playerPicture;
   border: 5px solid #FFD700
 }
-
+  */
+  
 .yaspBadge {
   composes: image;
 }
