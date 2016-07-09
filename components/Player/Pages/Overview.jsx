@@ -7,7 +7,7 @@ import {
   getPlayerHeroes,
   setPlayerHeroesSort,
 } from '../../../actions';
-import { playerMatchesColumns, playerHeroesColumns } from '../../Table/columnDefinitions';
+import { playerMatchesColumns, playerHeroesOverviewColumns } from '../../Table/columnDefinitions';
 import {
   sortPlayerMatches,
   transformPlayerMatchesById,
@@ -15,22 +15,42 @@ import {
   transformPlayerHeroesById,
 } from '../../../selectors';
 import { playerMatches, playerHeroes } from '../../../reducers';
+import { Text } from '../../Text';
+import { Card } from 'material-ui/Card';
+import styles from './Overview.css';
 
-const MatchesTable = createTable(
+const PlayerMatchesTable = createTable(
   playerMatches.getPlayerMatchesById,
   (state, sortState, playerId) => (sortState ? sortPlayerMatches(playerId)(state) : transformPlayerMatchesById(playerId)(state)),
   setPlayerMatchesSort
 );
-const HeroesTable = createTable(
+const PlayerHeroesTable = createTable(
   playerHeroes.getPlayerHeroesById,
   (state, sortState, playerId) => (sortState ? sortPlayerHeroes(playerId)(state) : transformPlayerHeroesById(playerId)(state)),
   setPlayerHeroesSort
 );
 
-const mapStateToProps = (state, { playerId }) => ({ playerId });
+const Overview = ({ playerId }) => (
+  <div className={styles.overviewContainer}>
+    <div className={styles.overviewMatches}>
+      <Text className={styles.tableHeading}>RECENT MATCHES</Text>
+      <Card className={styles.card}>
+        <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
+      </Card>
+    </div>
+    <div className={styles.overviewHeroes}>
+      <div className={styles.heroesContainer}>
+        <Text className={styles.tableHeading}>HERO STATS</Text>
+        <Card className={styles.card}>
+          <PlayerHeroesTable columns={playerHeroesOverviewColumns} id={playerId} numRows={20} />
+        </Card>
+      </div>
+    </div>
+  </div>
+);
 
 const getData = props => {
-  props.getPlayerMatches(props.playerId);
+  props.getPlayerMatches(props.playerId, 20);
   props.getPlayerHeroes(props.playerId);
 };
 
@@ -46,16 +66,14 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <MatchesTable columns={playerMatchesColumns} id={this.props.playerId} />
-        <HeroesTable columns={playerHeroesColumns} id={this.props.playerId} />
-      </div>
-    );
+    console.log('inside the render')
+    return <Overview {...this.props} />;
   }
 }
 
-export default connect(mapStateToProps, {
-  getPlayerMatches,
-  getPlayerHeroes,
-})(RequestLayer);
+const mapDispatchToProps = (dispatch) => ({
+  getPlayerMatches: (playerId, numMatches) => dispatch(getPlayerMatches(playerId, numMatches)),
+  getPlayerHeroes: (playerId) => dispatch(getPlayerHeroes(playerId)),
+});
+
+export default connect(null, mapDispatchToProps)(RequestLayer);
