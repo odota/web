@@ -24,7 +24,7 @@ const PlayerMatchesTable = createTable(
 );
 const PlayerHeroesTable = createTable(
   playerHeroes.getPlayerHeroesById,
-  (state, sortState, playerId) => (sortState ? sortPlayerHeroes(playerId)(state) : transformPlayerHeroesById(playerId)(state)),
+  (state, sortState, playerId) => (sortState ? sortPlayerHeroes(playerId, 20)(state) : transformPlayerHeroesById(playerId, 20)(state)),
   setPlayerHeroesSort
 );
 
@@ -34,7 +34,7 @@ const Overview = ({ playerId }) => (
       <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
     </TableContainer>
     <TableContainer title="hero stats" style={{ marginLeft: 30, width: '25%' }}>
-      <PlayerHeroesTable columns={playerHeroesOverviewColumns} id={playerId} numRows={20} />
+      <PlayerHeroesTable columns={playerHeroesOverviewColumns} id={playerId} />
     </TableContainer>
   </div>
 );
