@@ -1,6 +1,6 @@
 import React from 'react';
 import { HOST_URL } from '../../yasp.config';
-import { pad } from '../../util/utility';
+import { pad } from '../../utility';
 import buildingData from './BuildingData';
 import Spinner from '../Spinner';
 export default function BuildingMap({ match, loading }) {
