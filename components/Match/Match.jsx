@@ -4,6 +4,7 @@ import { getMatch, setMatchSort } from '../../actions';
 import { connect } from 'react-redux';
 import { overviewColumns, abUpgradeColumns } from '../Table/columnDefinitions/matchColumns.jsx';
 import { sortMatch, transformMatch, transformAbilityUpgrades } from '../../selectors';
+import BuildingMap from '../BuildingMap/BuildingMap';
 import { REDUCER_KEY } from '../../reducers';
 
 const players = (state) => state[REDUCER_KEY].gotMatch.match.players;
@@ -18,14 +19,11 @@ const AbilityUpgradesTable = createTable(
   setMatchSort
 );
 
-const Match = () => (
-  <div>
-    <MatchTable columns={overviewColumns} />
-    <AbilityUpgradesTable columns={abUpgradeColumns} />
-  </div>
-);
-
-const mapStateToProps = (state, { params }) => ({ matchId: params.match_id });
+const mapStateToProps = (state, { params }) => ({
+  matchId: params.match_id,
+  match: state[REDUCER_KEY].gotMatch.match,
+  loading: state[REDUCER_KEY].gotMatch.loading,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   sort: (column) => dispatch(getMatch(column)),
@@ -46,7 +44,9 @@ class RequestLayer extends React.Component {
   render() {
     return (
       <div>
-        <Match {...this.props} />
+        <MatchTable columns={overviewColumns} />
+        <AbilityUpgradesTable columns={abUpgradeColumns} />
+        <BuildingMap match={this.props.match} loading={this.props.loading} />
       </div>
     );
   }

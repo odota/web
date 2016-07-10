@@ -13,6 +13,7 @@ import Match from './components/Match';
 import Player from './components/Player';
 import Home from './components/Home';
 import Search from './components/Search';
+import Explorer from './components/Explorer';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // This is used by material-ui components
@@ -40,7 +41,6 @@ const store = createStore(reducer, compose(
 ));
 
 // Fetch metadata (used on all pages)
-// store.dispatch(Actions.fetchData(Actions.METADATA));
 store.dispatch(getMetadata());
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -62,6 +62,7 @@ render(
             <Route path=":subkey" />
           </Route>
         </Route>
+        <Route path="explorer" component={Explorer} />
       </Route>
     </Router>
   </Provider>, reactElement);
