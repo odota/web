@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createTable } from '../../Table';
+import { createTable, TableContainer } from '../../Table';
 import {
   getPlayerHeroes,
   setPlayerHeroesSort,
@@ -11,9 +11,6 @@ import {
   transformPlayerHeroesById,
 } from '../../../selectors';
 import { playerHeroes } from '../../../reducers';
-import { Text } from '../../Text';
-import { Card } from 'material-ui/Card';
-import styles from './Heroes.css';
 
 const PlayerHeroesTable = createTable(
   playerHeroes.getPlayerHeroesById,
@@ -22,14 +19,9 @@ const PlayerHeroesTable = createTable(
 );
 
 const Overview = ({ playerId }) => (
-  <div>
-    <div className={styles.heroesContainer}>
-      <Text className={styles.tableHeading}>HERO STATS</Text>
-      <Card className={styles.card}>
-        <PlayerHeroesTable columns={playerHeroesColumns} id={playerId} />
-      </Card>
-    </div>
-  </div>
+  <TableContainer title="hero stats">
+    <PlayerHeroesTable columns={playerHeroesColumns} id={playerId} />
+  </TableContainer>
 );
 
 const getData = props => {

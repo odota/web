@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createTable } from '../../Table';
+import { createTable, TableContainer } from '../../Table';
 import {
   getPlayerMatches,
   setPlayerMatchesSort,
@@ -11,9 +11,6 @@ import {
   transformPlayerMatchesById,
 } from '../../../selectors';
 import { playerMatches } from '../../../reducers';
-import { Text } from '../../Text';
-import { Card } from 'material-ui/Card';
-import styles from './Matches.css';
 
 const PlayerMatchesTable = createTable(
   playerMatches.getPlayerMatchesById,
@@ -22,16 +19,13 @@ const PlayerMatchesTable = createTable(
 );
 
 const Matches = ({ playerId }) => (
-  <div>
-    <Text className={styles.tableHeading}>RECENT MATCHES</Text>
-    <Card className={styles.card}>
-      <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
-    </Card>
-  </div>
+  <TableContainer title="recent matches">
+    <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
+  </TableContainer>
 );
 
 const getData = props => {
-  props.getPlayerMatches(props.playerId, 50);
+  props.getPlayerMatches(props.playerId, 20);
 };
 
 class RequestLayer extends React.Component {
