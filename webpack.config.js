@@ -2,7 +2,10 @@
  * Webpack configuration file
  **/
 
-module.exports = {
+const env = process.env.NODE_ENV || 'development';
+const isProd = env === 'production';
+
+const config = {
   entry: {
     yaspv2: './yaspv2.js',
   },
@@ -63,3 +66,26 @@ module.exports = {
     historyApiFallback: true
   }
 };
+
+if (isProd) {
+  config.plugins.push(
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      },
+      output: {
+        comments: false
+      },
+      sourceMap: false
+    }),
+    new webpack.DefinePlugin({
+      'process.env': { NODE_ENV: JSON.stringify(env) }
+    })
+  );
+}
+
+module.exports = config;

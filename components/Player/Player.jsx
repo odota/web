@@ -1,77 +1,26 @@
 import React from 'react';
-import { createTable } from '../Table';
 import PlayerHeader from './PlayerHeader';
 import Error from '../Error';
 import {
   getPlayer,
-  getPlayerMatches,
-  setPlayerMatchesSort,
-  getPlayerHeroes,
-  setPlayerHeroesSort,
   getPlayerWinLoss,
 } from '../../actions';
 import { connect } from 'react-redux';
 import styles from './Player.css';
-import {
-  playerMatchesColumns,
-  playerHeroesColumns,
-  playerHeroesOverviewColumns,
-} from '../Table/columnDefinitions';
-import {
-  sortPlayerMatches,
-  transformPlayerMatchesById,
-  sortPlayerHeroes,
-  transformPlayerHeroes,
-} from '../../selectors';
-import { PeersPage } from './Pages';
-import { Text } from '../Text';
-import { Card } from 'material-ui/Card';
-import { playerMatches, REDUCER_KEY } from '../../reducers';
-
-const playerHeroes = (state) => state[REDUCER_KEY].gotPlayer.heroes;
-
-const PlayerMatchesTable = createTable(
-  playerMatches.getPlayerMatchesById,
-  (state, sortState, playerId) => (sortState ? sortPlayerMatches(playerId)(state) : transformPlayerMatchesById(playerId)(state)),
-  setPlayerMatchesSort
-);
-const PlayerHeroesTable = createTable(
-  playerHeroes,
-  (state, sortState) => (sortState ? sortPlayerHeroes(state) : transformPlayerHeroes(state)),
-  setPlayerHeroesSort
-);
-
-const getOverviewTab = playerId => (
-  <div className={styles.overviewContainer}>
-    <div className={styles.overviewMatches}>
-      <Text className={styles.tableHeading}>RECENT MATCHES</Text>
-      <Card className={styles.card}>
-        <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
-      </Card>
-    </div>
-    <div className={styles.overviewHeroes}>
-      <div className={styles.heroesContainer}>
-        <Text className={styles.tableHeading}>HERO STATS</Text>
-        <Card className={styles.card}>
-          <PlayerHeroesTable columns={playerHeroesOverviewColumns} id={playerId} numRows={20} />
-        </Card>
-      </div>
-    </div>
-  </div>
-);
+import { PeersPage, OverviewPage, MatchesPage, HeroesPage } from './Pages';
 
 const getPlayerSubroute = (info, playerId) => {
   switch (info) {
     case 'overview':
-      return getOverviewTab(playerId);
+      return <OverviewPage playerId={playerId} />;
     case 'matches':
-      return <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />;
+      return <MatchesPage playerId={playerId} />;
     case 'heroes':
-      return <PlayerHeroesTable columns={playerHeroesColumns} id={playerId} />;
+      return <HeroesPage playerId={playerId} />;
     case 'peers':
       return <PeersPage playerId={playerId} />;
     default:
-      return getOverviewTab(playerId);
+      return <OverviewPage playerId={playerId} />;
   }
 };
 
@@ -94,15 +43,11 @@ const mapStateToProps = (state, { params }) => ({ playerId: params.account_id, i
 
 const mapDispatchToProps = (dispatch) => ({
   getPlayer: (playerId) => dispatch(getPlayer(playerId)),
-  getPlayerMatches: (playerId, numMatches) => dispatch(getPlayerMatches(playerId, numMatches)),
-  getPlayerHeroes: (playerId) => dispatch(getPlayerHeroes(playerId)),
   getPlayerWinLoss: (playerId) => dispatch(getPlayerWinLoss(playerId)),
 });
 
 const getData = props => {
   props.getPlayer(props.playerId);
-  props.getPlayerMatches(props.playerId, 20);
-  props.getPlayerHeroes(props.playerId);
   props.getPlayerWinLoss(props.playerId);
 };
 

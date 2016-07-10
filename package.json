@@ -9,7 +9,7 @@
     "start": "webpack-dev-server -d",
     "ncu": "npm-check-updates -u",
     "updateconstants": "wget -qO- https://yasp.co/api/constants > ./constants.json",
-    "build": "npm run lint && npm run webpack",
+    "build": "NODE_ENV=production npm run lint && npm run webpack",
     "lint": "eslint . --ext .js,.jsx"
   },
   "repository": {
