@@ -1,4 +1,4 @@
-function buildMap() {
+export function buildMap() {
     /*
     var buildingData = [{
         id: "t4br",
@@ -131,9 +131,9 @@ function buildMap() {
     */
 }
 
-const isRadiant = (playerSlot) => playerSlot < 128;
+export const isRadiant = (playerSlot) => playerSlot < 128;
 
-function pad(n, width, z = '0') {
+export function pad(n, width, z = '0') {
   const str = `${n}`;
   return str.length >= width ? str : new Array(width - str.length + 1).join(z) + n;
 }
@@ -146,7 +146,7 @@ function format(input) {
     return (Math.abs(input) < 1000 ? ~~(input) : numeral(input).format('0.0a'));
 }
 */
-function formatSeconds(input) {
+export function formatSeconds(input) {
   const absTime = Math.abs(input);
   const minutes = ~~(absTime / 60);
   const seconds = pad(~~(absTime % 60), 2);
@@ -155,4 +155,4 @@ function formatSeconds(input) {
   return time;
 }
 
-export { buildMap, isRadiant, pad, formatSeconds };
+export const getPercentWin = (wins, games) => (games ? ((wins / games) * 100) : 0);
