@@ -10,18 +10,6 @@ export const formActions = {
   SET_FIELD_TEXT,
 };
 
-export const addChip = (formName, fieldName, value) => (dispatch, getState) => {
-  const index = form.getChipList(getState(), formName, fieldName).findIndex(chip => chip.value.value === value.value);
-  if (index === -1) {
-    return dispatch({
-      type: ADD_CHIP,
-      formName,
-      fieldName,
-      value,
-    });
-  }
-  return null;
-};
 
 export const deleteChip = (formName, fieldName, index) => ({
   type: DELETE_CHIP,
@@ -36,3 +24,20 @@ export const setFieldText = (formName, fieldName, text) => ({
   fieldName,
   text,
 });
+
+export const addChip = (formName, fieldName, value, limit) => (dispatch, getState) => {
+  const chipList = form.getChipList(getState(), formName, fieldName);
+  if (chipList.length >= limit) {
+    dispatch(deleteChip(formName, fieldName, chipList.length - 1));
+  }
+  const index = chipList.findIndex(chip => chip.value.value === value.value);
+  if (index === -1) {
+    return dispatch({
+      type: ADD_CHIP,
+      formName,
+      fieldName,
+      value,
+    });
+  }
+  return null;
+};

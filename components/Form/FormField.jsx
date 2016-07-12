@@ -7,14 +7,15 @@ import { form } from '../../reducers';
 import { getClosestMatch } from './utility';
 import styles from './FormField.css';
 
-const onNewRequest = (value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, autoComplete, setFieldText) => {
+const onNewRequest = (value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, autoComplete, setFieldText, limit) => {
   if (index !== -1) {
     addChip(
       formName,
       name, {
         text: value[dataSourceConfig.text],
         value: value[dataSourceConfig.value],
-      }
+      },
+      limit
     );
     setFieldText(formName, name, '');
   }
@@ -23,13 +24,15 @@ const onNewRequest = (value, index, formName, name, dataSourceConfig, dataSource
       dataSource, dataSourceConfig,
       AutoComplete.fuzzyFilter, value[dataSourceConfig.text] || value
     );
-    if (closestMatch.value) {
+    // We can't just do truthy check here because the value could be 0
+    if (closestMatch.value || closestMatch.value === 0) {
       addChip(
         formName,
         name, {
           text: closestMatch.text,
           value: closestMatch.value,
-        }
+        },
+        limit
       );
       setFieldText(formName, name, '');
     }
@@ -40,13 +43,18 @@ const onNewRequest = (value, index, formName, name, dataSourceConfig, dataSource
       name, {
         text: value,
         value,
-      }
+      },
+      limit
     );
     setFieldText(formName, name, '');
   }
 };
 
-const FormField = ({ name, formName, label, dataSource = [], dataSourceConfig, addChip, className, strict, text, setFieldText }) => {
+const FormField = ({
+  name, formName, label, dataSource = [], dataSourceConfig,
+  addChip, className, strict, text, setFieldText, maxSearchResults = 5,
+  limit,
+}) => {
   let autoComplete;
 
   return (
@@ -56,9 +64,9 @@ const FormField = ({ name, formName, label, dataSource = [], dataSourceConfig, a
         dataSourceConfig={dataSourceConfig}
         floatingLabelText={label}
         filter={AutoComplete.fuzzyFilter}
-        maxSearchResults={5}
+        maxSearchResults={maxSearchResults}
         onNewRequest={(value, index) =>
-          onNewRequest(value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, autoComplete, setFieldText)}
+          onNewRequest(value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, autoComplete, setFieldText, limit)}
         onUpdateInput={searchText => setFieldText(formName, name, searchText)}
         listStyle={{ textTransform: 'uppercase' }}
         ref={elem => { autoComplete = elem; }}

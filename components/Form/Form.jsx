@@ -7,8 +7,8 @@ const onSubmit = event => {
   event.preventDefault();
 };
 
-export default ({ children, name }) => (
-  <form className={styles.form} onSubmit={onSubmit}>
+export default ({ children, name, className }) => (
+  <form className={`${styles.form} ${className}`} onSubmit={onSubmit}>
     {React.Children.map(children, child => React.cloneElement(child, {
       formName: name,
     }))}
