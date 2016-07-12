@@ -29,9 +29,14 @@ const PlayerHeroesTable = createTable(
   setPlayerHeroesSort
 );
 
+const getPlayerMatchesAndHeroes = (playerId, options) => dispatch => {
+  dispatch(getPlayerMatches(playerId, options));
+  dispatch(getPlayerHeroes(playerId, options));
+};
+
 const Overview = ({ playerId }) => (
   <div>
-    <TableFilterForm submitAction={getPlayerMatches} id={playerId} />
+    <TableFilterForm submitAction={getPlayerMatchesAndHeroes} id={playerId} />
     <div className={styles.overviewContainer}>
       <TableContainer title="recent matches" style={{ width: '75%' }}>
         <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />

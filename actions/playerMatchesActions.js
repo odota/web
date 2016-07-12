@@ -1,12 +1,9 @@
 import fetch from 'isomorphic-fetch';
 import { HOST_URL } from './';
 import { playerMatches } from '../reducers';
-import { addQueryString } from '../utility';
+import { getUrl, addQueryString, defaultOptions } from './utility';
 
 const url = playerId => `/api/players/${playerId}/matches`;
-const getUrl = (playerId, options) =>
-  `${url(playerId)}${options.reduce((previous, current) =>
-    current.values.reduce((total, value) => `${previous}${current.queryParam}=${value}&`, ''), '?')}`;
 
 const REQUEST = 'yasp/playerMatches/REQUEST';
 const OK = 'yasp/playerMatches/OK';
@@ -54,21 +51,13 @@ export const getPlayerMatchesError = (payload, id) => ({
 //     .catch(error => dispatch(getPlayerMatchesError(error, playerId)));
 // };
 
-const defaultOptions = {
-  limit: {
-    values: [
-      20,
-    ],
-  },
-};
-
 export const getPlayerMatches = (playerId, options = defaultOptions, host = HOST_URL) => (dispatch, getState) => {
   if (playerMatches.isLoaded(getState(), playerId)) {
     dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId));
   } else {
     dispatch(getPlayerMatchesRequest(playerId));
   }
-  return fetch(`${host}${getUrl(playerId, addQueryString(options))}`, { credentials: 'include' })
+  return fetch(`${host}${getUrl(playerId, addQueryString(options), url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerMatchesOk(json, playerId)))
     .catch(error => dispatch(getPlayerMatchesError(error, playerId)));

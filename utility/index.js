@@ -27,10 +27,6 @@ export const getPercentWin = (wins, games) => (games ? ((wins / games) * 100) : 
 export const camelToSnake = str =>
   str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
 
-export const addQueryString = options => Object.keys(options).map(key => ({
-  ...options[key],
-  queryParam: camelToSnake(key),
-}));
 // ?with_hero_id=1
 // &against_hero_id=1
 // &included_account_id=84227565
