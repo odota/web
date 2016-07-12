@@ -66,7 +66,7 @@ const config = {
     historyApiFallback: true
   }
 };
-
+  
 if (isProd) {
   config.plugins.push(
     new webpack.LoaderOptionsPlugin({

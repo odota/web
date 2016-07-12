@@ -36,22 +36,20 @@ function handleExamples(json) {
   }));
 }
 
-class Explorer extends React.Component
-{
+class Explorer extends React.Component {
   constructor() {
     super();
     this.state = {
       examples: [],
-      result:
-      {
-        result:
-        {
+      result: {
+        result: {
           rows: [],
           fields: [],
         },
       },
     };
   }
+
   componentDidMount() {
     this.editor = ace.edit('editor');
     this.handleClick = this.handleClick.bind(this);
@@ -79,6 +77,7 @@ class Explorer extends React.Component
       }),
     }).then(jsonResponse).then(handleResponse.bind(this));
   }
+
   render() {
     return (<div>
       <h3>Data Explorer
@@ -120,17 +119,23 @@ class Explorer extends React.Component
           <Table id={'table'}>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
               <TableRow>
-                {this.state.result.result ? this.state.result.result.fields.map(f => (
-                  <TableHeaderColumn>{f.name}</TableHeaderColumn>
-                )) : []}
+                {
+                  this.state.result.result ?
+                  this.state.result.result.fields.map(f => <TableHeaderColumn>{f.name}</TableHeaderColumn>) :
+                  []
+                }
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
-              {this.state.result.result ? this.state.result.result.rows.map(r => (
-                <TableRow>
-                  {Object.keys(r).map(k => <TableRowColumn>{r[k]}</TableRowColumn>)}
-                </TableRow>
-              )) : []}
+              {
+                this.state.result.result ?
+                this.state.result.result.rows.map(r => (
+                  <TableRow>
+                    {Object.keys(r).map(k => <TableRowColumn>{r[k]}</TableRowColumn>)}
+                  </TableRow>
+                )) :
+                []
+              }
             </TableBody>
           </Table>
         </Tab>
