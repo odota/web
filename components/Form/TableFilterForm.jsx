@@ -1,8 +1,11 @@
 import React from 'react';
 import Form from './Form';
 import FormField from './FormField';
+import SubmitButton from './SubmitButton';
 import styles from './TableFilterForm.css';
 import constants from '../../constants';
+import { connect } from 'react-redux';
+import { submitForm } from '../../actions';
 
 const heroConfig = {
   text: 'localized_name',
@@ -69,7 +72,7 @@ const dateList = [{
   id: 180,
 }];
 
-export default () => (
+const TableFilterForm = ({ submitForm }) => (
   <Form name="tableFilter" className={styles.form}>
     <FormField
       name="withHeroId"
@@ -179,23 +182,14 @@ export default () => (
       className={styles.field}
       limit={1}
     />
-
+    <div className={styles.buttonContainer}>
+      <SubmitButton label="do the thing" submitForm={submitForm} />
+    </div>
   </Form>
 );
 
-// ?with_hero_id=1
-// &with_hero_id=2
-// &against_hero_id=1
-// &included_account_id=1234567898
-// &excluded_account_id=12345678
-// &hero_id=1
-// &is_radiant=1
-// &win=1
-// &lane_role=1
-// &patch=18
-// &game_mode=0
-// &lobby_type=5
-// &date=7
-// &region=2
-// &desc=kills
-// &limit=1000000
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  submitForm: () => dispatch(submitForm(ownProps.submitAction, 'tableFilter')),
+});
+
+export default connect(null, mapDispatchToProps)(TableFilterForm);

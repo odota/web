@@ -15,6 +15,7 @@ import {
   transformPlayerHeroesById,
 } from '../../../selectors';
 import { playerMatches, playerHeroes } from '../../../reducers';
+import { TableFilterForm } from '../../Form';
 import styles from './Overview.css';
 
 const PlayerMatchesTable = createTable(
@@ -29,18 +30,21 @@ const PlayerHeroesTable = createTable(
 );
 
 const Overview = ({ playerId }) => (
-  <div className={styles.overviewContainer}>
-    <TableContainer title="recent matches" style={{ width: '75%' }}>
-      <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
-    </TableContainer>
-    <TableContainer title="hero stats" style={{ marginLeft: 30, width: '25%' }}>
-      <PlayerHeroesTable columns={playerHeroesOverviewColumns} id={playerId} />
-    </TableContainer>
+  <div>
+    <TableFilterForm submitAction={getPlayerMatches.bind(null, playerId)} />
+    <div className={styles.overviewContainer}>
+      <TableContainer title="recent matches" style={{ width: '75%' }}>
+        <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
+      </TableContainer>
+      <TableContainer title="hero stats" style={{ marginLeft: 30, width: '25%' }}>
+        <PlayerHeroesTable columns={playerHeroesOverviewColumns} id={playerId} />
+      </TableContainer>
+    </div>
   </div>
 );
 
 const getData = props => {
-  props.getPlayerMatches(props.playerId, 20);
+  props.getPlayerMatches(props.playerId);
   props.getPlayerHeroes(props.playerId);
 };
 

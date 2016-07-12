@@ -3,9 +3,10 @@ import { HOST_URL } from './';
 import { playerMatches } from '../reducers';
 import { addQueryString } from '../utility';
 
-const url = playerId => `/api/players/${playerId}/heroes`;
+const url = playerId => `/api/players/${playerId}/matches`;
 const getUrl = (playerId, options) =>
-  `${url(playerId)}${options.reduce((previous, current) => `${previous}${current.queryParam}=${current.value}&`, '?')}`;
+  `${url(playerId)}${options.reduce((previous, current) =>
+    current.values.reduce((total, value) => `${previous}${current.queryParam}=${value}&`, ''), '?')}`;
 
 const REQUEST = 'yasp/playerMatches/REQUEST';
 const OK = 'yasp/playerMatches/OK';
@@ -53,7 +54,15 @@ export const getPlayerMatchesError = (payload, id) => ({
 //     .catch(error => dispatch(getPlayerMatchesError(error, playerId)));
 // };
 
-export const getPlayerMatches = (playerId, options, host = HOST_URL) => (dispatch, getState) => {
+const defaultOptions = {
+  limit: {
+    values: [
+      20,
+    ],
+  },
+};
+
+export const getPlayerMatches = (playerId, options = defaultOptions, host = HOST_URL) => (dispatch, getState) => {
   if (playerMatches.isLoaded(getState(), playerId)) {
     dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId));
   } else {

@@ -8,6 +8,6 @@ export { playerHeroesActions, getPlayerHeroes, setPlayerHeroesSort } from './pla
 export { playerWinLossActions, getPlayerWinLoss } from './playerWinLossActions';
 export { appBarActions, openMenu } from './appBarActions';
 export { tabActions, setActiveTab } from './tabActions';
-export { formActions, addChip, deleteChip, setFieldText } from './formActions';
+export { formActions, addChip, deleteChip, setFieldText, submitForm } from './formActions';
 export { searchActions, getSearchResult } from './searchActions';
 export { HOST_URL } from '../yasp.config';

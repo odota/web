@@ -25,7 +25,7 @@ const Matches = ({ playerId }) => (
 );
 
 const getData = props => {
-  props.getPlayerMatches(props.playerId, 20);
+  props.getPlayerMatches(props.playerId);
 };
 
 class RequestLayer extends React.Component {

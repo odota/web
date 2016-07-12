@@ -5,123 +5,86 @@ import AccountWidget from '../AccountWidget';
 import AppBar from 'material-ui/AppBar';
 import styles from './Header.css';
 import TabBar from '../TabBar';
-const playerPages = (accountId) => [
-{
-  'name': 'Overview',
-},
-{
-  'name': 'Matches',
-},
-{
-  'name': 'Heroes',
-},
-{
-  'name': 'Peers',
-},
-{
-  'name': 'Pros',
-},
-{
-  'name': 'Activity',
-},
-{
-  'name': 'Records',
-},
-{
-  'name': 'Counts',
-},
-{
-  'name': 'Histograms',
-},
-{
-  'name': 'Trends',
-},
-{
-  'name': 'Wardmap',
-},
-{
-  'name': 'Items',
-},
-{
-  'name': 'Wordcloud',
-},
-{
-  'name': 'MMR',
-},
-{
-  'name': 'Rankings',
+const playerPages = (accountId) => [{
+  name: 'Overview',
+}, {
+  name: 'Matches',
+}, {
+  name: 'Heroes',
+}, {
+  name: 'Peers',
+}, {
+  name: 'Pros',
+}, {
+  name: 'Activity',
+}, {
+  name: 'Records',
+}, {
+  name: 'Counts',
+}, {
+  name: 'Histograms',
+}, {
+  name: 'Trends',
+}, {
+  name: 'Wardmap',
+}, {
+  name: 'Items',
+}, {
+  name: 'Wordcloud',
+}, {
+  name: 'MMR',
+}, {
+  name: 'Rankings',
   'new-feature': true,
-}].map((e) => (
-  Object.assign(
-  {}, e,
-  {
-    route: `/players/${accountId}/${e.name.toLowerCase()}`,
-    label: e.name,
-  })
-));
+}].map((e) => Object.assign({}, e, {
+  route: `/players/${accountId}/${e.name.toLowerCase()}`,
+  label: e.name,
+}));
 
-const matchPages = (matchId) => [
-{
-  'name': 'Overview',
-},
-{
-  'name': 'Benchmarks',
-},
-{
-  'name': 'Performances',
-  'parsed': true,
-},
-{
-  'name': 'Damage',
-  'parsed': true,
-},
-{
-  'name': 'Purchases',
-  'parsed': true,
-},
-{
-  'name': 'Farm',
-  'parsed': true,
-},
-{
-  'name': 'Combat',
-  'parsed': true,
-},
-{
-  'name': 'Graphs',
-  'parsed': true,
-},
-{
-  'name': 'Vision',
-  'parsed': true,
-},
-{
-  'name': 'Objectives',
-  'parsed': true,
-},
-{
-  'name': 'Teamfights',
-  'parsed': true,
-},
-{
-  'name': 'Actions',
-  'parsed': true,
-},
-{
-  'name': 'Analysis',
-  'parsed': true,
-},
-{
-  'name': 'Chat',
-  'parsed': true,
-}].map((e) => (
-  Object.assign(
-  {}, e,
-  {
-    route: `/matches/${matchId}/${e.name.toLowerCase()}`,
-    label: e.name,
-  }))
-);
+const matchPages = (matchId) => [{
+  name: 'Overview',
+}, {
+  name: 'Benchmarks',
+}, {
+  name: 'Performances',
+  parsed: true,
+}, {
+  name: 'Damage',
+  parsed: true,
+}, {
+  name: 'Purchases',
+  parsed: true,
+}, {
+  name: 'Farm',
+  parsed: true,
+}, {
+  name: 'Combat',
+  parsed: true,
+}, {
+  name: 'Graphs',
+  parsed: true,
+}, {
+  name: 'Vision',
+  parsed: true,
+}, {
+  name: 'Objectives',
+  parsed: true,
+}, {
+  name: 'Teamfights',
+  parsed: true,
+}, {
+  name: 'Actions',
+  parsed: true,
+}, {
+  name: 'Analysis',
+  parsed: true,
+}, {
+  name: 'Chat',
+  parsed: true,
+}].map((e) => Object.assign({}, e, {
+  route: `/matches/${matchId}/${e.name.toLowerCase()}`,
+  label: e.name,
+}));
 
 const getTabBar = (params, location) => {
   if (location.pathname.startsWith('/players')) {

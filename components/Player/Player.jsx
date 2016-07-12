@@ -8,7 +8,6 @@ import {
 import { connect } from 'react-redux';
 import styles from './Player.css';
 import { PeersPage, OverviewPage, MatchesPage, HeroesPage } from './Pages';
-import { TableFilterForm } from '../Form';
 
 const getPlayerSubroute = (info, playerId) => {
   switch (info) {
@@ -29,19 +28,17 @@ const Player = ({ playerId, info }) => {
   if (!playerId) {
     return <Error />;
   }
-
+// Need to pass in the action into filter form, need to put that filter form into each subroute as well
   return (
     <div>
       <div className={styles.header}>
         <PlayerHeader playerId={playerId} />
       </div>
-      <div>
-        <TableFilterForm />
-      </div>
+      {getPlayerSubroute(info, playerId)}
     </div>
   );
 };
-// {getPlayerSubroute(info, playerId)}
+// need to fix this
 
 const mapStateToProps = (state, { params }) => ({ playerId: params.account_id, info: params.info });
 

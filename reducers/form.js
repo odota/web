@@ -43,6 +43,8 @@ const form = (state = {}, action) => {
         ...state,
         [action.fieldName]: field(state[action.fieldName], action),
       };
+    case formActions.CLEAR_FORM:
+      return {};
     default:
       return state;
   }
@@ -53,6 +55,7 @@ export default (state = {}, action) => {
     case formActions.ADD_CHIP:
     case formActions.DELETE_CHIP:
     case formActions.SET_FIELD_TEXT:
+    case formActions.CLEAR_FORM:
       return {
         ...state,
         [action.formName]: form(state[action.formName], action),

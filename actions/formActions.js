@@ -3,11 +3,13 @@ import { form } from '../reducers';
 const ADD_CHIP = 'yasp/form/ADD_CHIP';
 const DELETE_CHIP = 'yasp/form/DELETE_CHIP';
 const SET_FIELD_TEXT = 'yasp/form/SET_FIELD_TEXT';
+const CLEAR_FORM = 'yasp/form/CLEAR_FORM';
 
 export const formActions = {
   ADD_CHIP,
   DELETE_CHIP,
   SET_FIELD_TEXT,
+  CLEAR_FORM,
 };
 
 
@@ -40,4 +42,20 @@ export const addChip = (formName, fieldName, value, limit) => (dispatch, getStat
     });
   }
   return null;
+};
+
+export const clearForm = formName => ({
+  type: CLEAR_FORM,
+  formName,
+});
+
+export const submitForm = (submitAction, formName) => (dispatch, getState) => {
+  const formFields = {};
+  Object.keys(form.getForm(getState(), formName)).forEach(key => {
+    formFields[key] = {
+      values: form.getChipList(getState(), formName, key).map(chip => chip.value.value),
+    };
+  });
+  dispatch(submitAction(formFields));
+  dispatch(clearForm(formName));
 };

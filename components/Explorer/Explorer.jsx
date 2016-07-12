@@ -25,17 +25,13 @@ function jsonResponse(response) {
 function handleResponse(json) {
   this.editor.setValue(json.sql);
   window.history.pushState('', '', `?id=${json.id}`);
-  this.setState(Object.assign(
-  {}, this.state,
-  {
+  this.setState(Object.assign({}, this.state, {
     result: json,
   }));
 }
 
 function handleExamples(json) {
-  this.setState(Object.assign(
-  {}, this.state,
-  {
+  this.setState(Object.assign({}, this.state, {
     examples: json,
   }));
 }
@@ -70,16 +66,14 @@ class Explorer extends React.Component
     fetch(`${HOST_URL}/api/explorer/examples`).then(jsonResponse).then(handleExamples.bind(this));
   }
   handleClick() {
-    fetch(`${HOST_URL}/api/explorer`,
-    {
+    fetch(`${HOST_URL}/api/explorer`, {
       method: 'post',
       headers:
       {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(
-      {
+      body: JSON.stringify({
         name: document.getElementById('name').value,
         sql: this.editor.getValue(),
       }),
@@ -100,12 +94,11 @@ class Explorer extends React.Component
         >
           <h4>Examples</h4>
           <List id={'example'}>
-            {this.state.examples.map(function example(e) {
-              return (<a href={`/explorer?id=${e.id}`}>
+            {this.state.examples.map(e => (
+              <a href={`/explorer?id=${e.id}`}>
                 <ListItem primaryText={e.name} />
-              </a>);
-            })
-            }
+              </a>
+            ))}
           </List>
         </div>
         <div style={{ width: '50%' }}>
@@ -127,22 +120,17 @@ class Explorer extends React.Component
           <Table id={'table'}>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
               <TableRow>
-                {this.state.result.result ? this.state.result.result.fields.map(function field(f) {
-                  return <TableHeaderColumn>{f.name}</TableHeaderColumn>;
-                }) : []
-                }
+                {this.state.result.result ? this.state.result.result.fields.map(f => (
+                  <TableHeaderColumn>{f.name}</TableHeaderColumn>
+                )) : []}
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
-              {this.state.result.result ? this.state.result.result.rows.map(function row(r) {
-                return (<TableRow>
-                {Object.keys(r).map(function key(k) {
-                    return (<TableRowColumn>{r[k]}</TableRowColumn>);
-                })
-                }
-                </TableRow>);
-              }) : []
-              }
+              {this.state.result.result ? this.state.result.result.rows.map(r => (
+                <TableRow>
+                  {Object.keys(r).map(k => <TableRowColumn>{r[k]}</TableRowColumn>)}
+                </TableRow>
+              )) : []}
             </TableBody>
           </Table>
         </Tab>
