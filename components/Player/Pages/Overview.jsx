@@ -31,7 +31,7 @@ const PlayerHeroesTable = createTable(
 
 const Overview = ({ playerId }) => (
   <div>
-    <TableFilterForm submitAction={getPlayerMatches.bind(null, playerId)} />
+    <TableFilterForm submitAction={getPlayerMatches} id={playerId} />
     <div className={styles.overviewContainer}>
       <TableContainer title="recent matches" style={{ width: '75%' }}>
         <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
@@ -65,7 +65,7 @@ class RequestLayer extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getPlayerMatches: (playerId, numMatches) => dispatch(getPlayerMatches(playerId, numMatches)),
+  getPlayerMatches: (playerId) => dispatch(getPlayerMatches(playerId)),
   getPlayerHeroes: (playerId) => dispatch(getPlayerHeroes(playerId)),
 });
 

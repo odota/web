@@ -189,7 +189,7 @@ const TableFilterForm = ({ submitForm }) => (
 );
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  submitForm: () => dispatch(submitForm(ownProps.submitAction, 'tableFilter')),
+  submitForm: () => dispatch(submitForm(ownProps.submitAction.bind(null, ownProps.id), 'tableFilter')),
 });
 
 export default connect(null, mapDispatchToProps)(TableFilterForm);

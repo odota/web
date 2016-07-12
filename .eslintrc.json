@@ -6,7 +6,6 @@
   "rules": {
     "react/prop-types": 0,
     "max-len": ["error", 150],
-    "no-shadow": 0,
-    "jsx-no-bind": 0
+    "no-shadow": 0
   }
 }
