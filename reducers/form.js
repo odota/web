@@ -64,10 +64,13 @@ export default (state = {}, action) => {
 
 export const getForm = {
   getForm: (state, formName) => state.yaspReducer.form[formName],
-  getFormValue: (state, formName, valueName) =>
-    (getForm.getForm(state, formName) ? getForm.getForm(state, formName)[valueName] : initialFieldState),
+  getFormValue: (state, formName, valueName) => {
+    if (getForm.getForm(state, formName) && getForm.getForm(state, formName)[valueName]) {
+      return getForm.getForm(state, formName)[valueName];
+    }
+    return initialFieldState;
+  },
   getChipList: (state, formName, valueName) =>
     getForm.getFormValue(state, formName, valueName).chipList,
-  getFieldText: (state, formName, valueName) =>
-    getForm.getFormValue(state, formName, valueName).text,
+  getFieldText: (state, formName, valueName) => getForm.getFormValue(state, formName, valueName).text,
 };

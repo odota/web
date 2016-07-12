@@ -2,30 +2,52 @@ import React from 'react';
 import Form from './Form';
 import FormField from './FormField';
 import styles from './TableFilterForm.css';
+import constants from '../../constants';
+import { connect } from 'react-redux';
 
-const config = {
-  text: 'name',
+const heroConfig = {
+  text: 'localized_name',
   value: 'id',
 };
 
-const heroList = [{
-  name: 'axe',
-  id: 12345,
-}, {
-  name: 'anti mage',
-  id: 45678,
-}, {
-  name: 'pudge',
-  id: 24938,
-}];
+// This has to be a list in order to pass it in.
+// We should consider refactoring all these kinds of objects into lists. I understand
+// they are probably built like this to allow map key access but it would be nice if I didn't
+// have to convert them all into arrays.
+const heroList = Object.keys(constants.heroes).map(id => ({
+  ...constants.heroes[id],
+}));
+
+// const mapStateToProps = (state, ownProps) => ({
+//
+// });
 
 export default () => (
   <Form name="tableFilter">
     <FormField
       name="withHeroId"
-      label="with hero"
+      label="your team had these heroes"
       dataSource={heroList}
-      dataSourceConfig={config}
+      dataSourceConfig={heroConfig}
+      className={styles.formField}
+      strict
+    />
+    <FormField
+      name="againstHeroId"
+      label="their team had these heroes"
+      dataSource={heroList}
+      dataSourceConfig={heroConfig}
+      className={styles.formField}
+      strict
+    />
+    <FormField
+      name="includedAccountId"
+      label="included these players"
+      className={styles.formField}
+    />
+    <FormField
+      name="excludedAccountId"
+      label="excluded these players"
       className={styles.formField}
     />
 
