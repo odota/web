@@ -1,8 +1,11 @@
 import fetch from 'isomorphic-fetch';
 import { HOST_URL } from './';
 import { playerMatches } from '../reducers';
+import { addQueryString } from '../utility';
 
-const url = (playerId, numMatches) => `/api/players/${playerId}/matches?limit=${numMatches}`;
+const url = playerId => `/api/players/${playerId}/heroes`;
+const getUrl = (playerId, options) =>
+  `${url(playerId)}${options.reduce((previous, current) => `${previous}${current.queryParam}=${current.value}&`, '?')}`;
 
 const REQUEST = 'yasp/playerMatches/REQUEST';
 const OK = 'yasp/playerMatches/OK';
@@ -38,13 +41,25 @@ export const getPlayerMatchesError = (payload, id) => ({
   id,
 });
 
-export const getPlayerMatches = (playerId, numMatches, host = HOST_URL) => (dispatch, getState) => {
+// export const getPlayerMatches = (playerId, numMatches, host = HOST_URL) => (dispatch, getState) => {
+//   if (playerMatches.isLoaded(getState(), playerId)) {
+//     dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId));
+//   } else {
+//     dispatch(getPlayerMatchesRequest(playerId));
+//   }
+//   return fetch(`${host}${getUrl(playerId, numMatches)}`, { credentials: 'include' })
+//     .then(response => response.json())
+//     .then(json => dispatch(getPlayerMatchesOk(json, playerId)))
+//     .catch(error => dispatch(getPlayerMatchesError(error, playerId)));
+// };
+
+export const getPlayerMatches = (playerId, options, host = HOST_URL) => (dispatch, getState) => {
   if (playerMatches.isLoaded(getState(), playerId)) {
     dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId));
   } else {
     dispatch(getPlayerMatchesRequest(playerId));
   }
-  return fetch(`${host}${url(playerId, numMatches)}`, { credentials: 'include' })
+  return fetch(`${host}${getUrl(playerId, addQueryString(options))}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerMatchesOk(json, playerId)))
     .catch(error => dispatch(getPlayerMatchesError(error, playerId)));

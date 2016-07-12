@@ -5,6 +5,7 @@ import gotPlayer, { player, playerMatches, playerPeers, playerHeroes } from './g
 import gotSearch from './gotSearch';
 import appBar from './appBar';
 import tab, { getTab } from './tab';
+import form, { getForm } from './form';
 import { combineReducers } from 'redux';
 
 const REDUCER_KEY = 'yaspReducer';
@@ -18,6 +19,7 @@ export {
   playerPeers,
   playerHeroes,
   getTab as tab,
+  getForm as form,
 };
 
 export default combineReducers({
@@ -28,4 +30,5 @@ export default combineReducers({
   gotSearch,
   appBar,
   tab,
+  form,
 });

@@ -8,6 +8,7 @@ import {
 import { connect } from 'react-redux';
 import styles from './Player.css';
 import { PeersPage, OverviewPage, MatchesPage, HeroesPage } from './Pages';
+import { TableFilterForm } from '../Form';
 
 const getPlayerSubroute = (info, playerId) => {
   switch (info) {
@@ -34,10 +35,13 @@ const Player = ({ playerId, info }) => {
       <div className={styles.header}>
         <PlayerHeader playerId={playerId} />
       </div>
-      {getPlayerSubroute(info, playerId)}
+      <div>
+        <TableFilterForm />
+      </div>
     </div>
   );
 };
+// {getPlayerSubroute(info, playerId)}
 
 const mapStateToProps = (state, { params }) => ({ playerId: params.account_id, info: params.info });
 
