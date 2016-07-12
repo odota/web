@@ -2,10 +2,11 @@ import React from 'react';
 import Form from './Form';
 import FormField from './FormField';
 import SubmitButton from './SubmitButton';
+import ClearButton from './ClearButton';
 import styles from './TableFilterForm.css';
 import constants from '../../constants';
 import { connect } from 'react-redux';
-import { submitForm } from '../../actions';
+import { submitForm, clearForm } from '../../actions';
 
 const heroConfig = {
   text: 'localized_name',
@@ -72,7 +73,7 @@ const dateList = [{
   id: 180,
 }];
 
-const TableFilterForm = ({ submitForm }) => (
+const TableFilterForm = ({ submitForm, clearForm }) => (
   <Form name="tableFilter" className={styles.form}>
     <FormField
       name="withHeroId"
@@ -183,6 +184,7 @@ const TableFilterForm = ({ submitForm }) => (
       limit={1}
     />
     <div className={styles.buttonContainer}>
+      <ClearButton label="reset the thing" clearForm={clearForm} style={{ marginRight: 10 }} />
       <SubmitButton label="do the thing" submitForm={submitForm} />
     </div>
   </Form>
@@ -190,6 +192,7 @@ const TableFilterForm = ({ submitForm }) => (
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   submitForm: () => dispatch(submitForm(ownProps.submitAction.bind(null, ownProps.id), 'tableFilter')),
+  clearForm: () => dispatch(clearForm('tableFilter')),
 });
 
 export default connect(null, mapDispatchToProps)(TableFilterForm);

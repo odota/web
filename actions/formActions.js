@@ -57,5 +57,4 @@ export const submitForm = (submitAction, formName) => (dispatch, getState) => {
     };
   });
   dispatch(submitAction(formFields));
-  dispatch(clearForm(formName));
 };

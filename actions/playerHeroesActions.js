@@ -3,6 +3,7 @@ import { HOST_URL } from './';
 import { playerHeroes } from '../reducers';
 import { getUrl, addQueryString, defaultOptions, getModifiedOptions } from './utility';
 
+const excludedOptions = ['limit'];
 const url = playerId => `/api/players/${playerId}/heroes`;
 
 const REQUEST = 'yasp/playerHeroes/REQUEST';
@@ -45,7 +46,6 @@ export const getPlayerHeroes = (playerId, options = defaultOptions, host = HOST_
   } else {
     dispatch(getPlayerHeroesRequest(playerId));
   }
-  const excludedOptions = ['limit'];
   const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
   return fetch(`${host}${getUrl(playerId, addQueryString(modifiedOptions), url)}`, { credentials: 'include' })
