@@ -64,7 +64,7 @@ const FormField = ({
       maxSearchResults={maxSearchResults}
       onNewRequest={(value, index) =>
         onNewRequest(value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, setFieldText, limit)}
-      onUpdateInput={searchText => searchText.length > 1 && setFieldText(formName, name, searchText)}
+      onUpdateInput={searchText => searchText.length === 1 && setFieldText(formName, name, searchText)}
       listStyle={{ textTransform: 'uppercase' }}
       searchText={text}
       floatingLabelFocusStyle={{ color: styles.color }}
