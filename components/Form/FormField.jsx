@@ -7,7 +7,7 @@ import { form } from '../../reducers';
 import { getClosestMatch } from './utility';
 import styles from './FormField.css';
 
-const onNewRequest = (value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, autoComplete, setFieldText, limit) => {
+const onNewRequest = (value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, setFieldText, limit) => {
   if (index !== -1) {
     addChip(
       formName,
@@ -54,31 +54,26 @@ const FormField = ({
   name, formName, label, dataSource = [], dataSourceConfig,
   addChip, className, strict, text, setFieldText, maxSearchResults = 5,
   limit,
-}) => {
-  let autoComplete;
-
-  return (
-    <div className={className}>
-      <AutoComplete
-        dataSource={dataSource}
-        dataSourceConfig={dataSourceConfig}
-        floatingLabelText={label}
-        filter={AutoComplete.fuzzyFilter}
-        maxSearchResults={maxSearchResults}
-        onNewRequest={(value, index) =>
-          onNewRequest(value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, autoComplete, setFieldText, limit)}
-        onUpdateInput={searchText => setFieldText(formName, name, searchText)}
-        listStyle={{ textTransform: 'uppercase' }}
-        ref={elem => { autoComplete = elem; }}
-        searchText={text}
-        floatingLabelFocusStyle={{ color: styles.color }}
-        underlineFocusStyle={{ borderColor: styles.color }}
-        fullWidth
-      />
-      <ChipList name={name} formName={formName} />
-    </div>
-  );
-};
+}) => (
+  <div className={className}>
+    <AutoComplete
+      dataSource={dataSource}
+      dataSourceConfig={dataSourceConfig}
+      floatingLabelText={label}
+      filter={AutoComplete.fuzzyFilter}
+      maxSearchResults={maxSearchResults}
+      onNewRequest={(value, index) =>
+        onNewRequest(value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, setFieldText, limit)}
+      onUpdateInput={searchText => searchText.length > 1 && setFieldText(formName, name, searchText)}
+      listStyle={{ textTransform: 'uppercase' }}
+      searchText={text}
+      floatingLabelFocusStyle={{ color: styles.color }}
+      underlineFocusStyle={{ borderColor: styles.color }}
+      fullWidth
+    />
+    <ChipList name={name} formName={formName} />
+  </div>
+);
 
 const mapStateToProps = (state, ownProps) => ({
   text: form.getFieldText(state, ownProps.formName, ownProps.name),
