@@ -1,6 +1,6 @@
 import { HOST_URL } from '../yasp.config';
 import moment from 'moment';
-import { formatSeconds, isRadiant } from '../util/utility';
+import { formatSeconds, isRadiant } from '../utility';
 const constants = require('../constants');
 
 const transformation = {

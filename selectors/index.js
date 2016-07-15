@@ -7,7 +7,7 @@ import transformPlayerMatchesById from './transformPlayerMatches';
 import transformPlayerPeersById from './transformPlayerPeers';
 import transformMatch from './transformMatch';
 import transformAbilityUpgrades from './transformAbilityUpgrades';
-import transformPlayerHeroes from './transformPlayerHeroes';
+import transformPlayerHeroesById from './transformPlayerHeroes';
 
 export {
   getAlphabetizedLinks,
@@ -19,5 +19,5 @@ export {
   transformPlayerPeersById,
   transformMatch,
   transformAbilityUpgrades,
-  transformPlayerHeroes,
+  transformPlayerHeroesById,
 };

@@ -1,11 +1,14 @@
+@import "../../palette.css";
+
+:export{ lineColor: var(--lightAccentColor) }
+
 .percentContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .textContainer {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  margin-right: 5px;
+  margin-bottom: 5px;
 }

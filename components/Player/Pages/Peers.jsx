@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createTable } from '../../Table';
+import { createTable, TableContainer } from '../../Table';
 import {
   getPlayerPeers,
   setPlayerPeersSort,
@@ -16,6 +16,12 @@ const PeersTable = createTable(
   playerPeers.getPlayerPeersById,
   (state, sortState, playerId) => (sortState ? sortPlayerPeers(playerId)(state) : transformPlayerPeersById(playerId)(state)),
   setPlayerPeersSort
+);
+
+const Peers = ({ playerId }) => (
+  <TableContainer title="peers">
+    <PeersTable columns={playerPeersColumns} id={playerId} />
+  </TableContainer>
 );
 
 const mapStateToProps = (state, { playerId }) => ({ playerId });
@@ -40,7 +46,7 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    return <PeersTable columns={playerPeersColumns} id={this.props.playerId} />;
+    return <Peers {...this.props} />;
   }
 }
 

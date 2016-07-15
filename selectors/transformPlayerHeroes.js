@@ -1,13 +1,12 @@
 import { createSelector } from 'reselect';
-import { REDUCER_KEY } from '../reducers';
+import { playerHeroes } from '../reducers';
 import { transformationFunction } from './utility';
 
-const getHeroes = (state) => state[REDUCER_KEY].gotPlayer.heroes.heroes;
-const getConstants = (state) => state[REDUCER_KEY].gotConstants;
+const getHeroes = (id, numRows) => state => playerHeroes.getHeroList(state, id).slice(0, numRows);
 
-const transformPlayerHeroes = createSelector(
-  [getHeroes, getConstants],
-  (heroes, constants) => transformationFunction(heroes, constants)
+const transformPlayerHeroesById = (id, numRows) => createSelector(
+  [getHeroes(id, numRows)],
+  heroes => transformationFunction(heroes)
 );
 
-export default transformPlayerHeroes;
+export default transformPlayerHeroesById;
