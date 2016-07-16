@@ -15,11 +15,13 @@
 }
 
 .header {
-  /*background-color: var(--defaultPrimaryColor)!important;*/
+  border-bottom-width: 0 !important;
+  border-bottom-style: none !important;
 }
 
 .headerRow {
-  border-bottom-color: var(--dividerColor)!important;
+  border-bottom-width: 0 !important;
+  border-bottom-style: none !important;
 }
 
 .headerCellNoSort {

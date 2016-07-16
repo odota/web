@@ -28,7 +28,7 @@ const Player = ({ playerId, info }) => {
   if (!playerId) {
     return <Error />;
   }
-
+// Need to pass in the action into filter form, need to put that filter form into each subroute as well
   return (
     <div>
       <div className={styles.header}>
@@ -38,6 +38,7 @@ const Player = ({ playerId, info }) => {
     </div>
   );
 };
+// need to fix this
 
 const mapStateToProps = (state, { params }) => ({ playerId: params.account_id, info: params.info });
 

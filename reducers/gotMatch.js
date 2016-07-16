@@ -20,12 +20,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+        error: false,
       };
     case matchActions.OK: {
       const { players, ...rest } = action.payload;
       return {
         ...state,
         loading: false,
+        error: false,
         match: {
           ...rest,
           players: {

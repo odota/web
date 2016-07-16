@@ -1,8 +1,10 @@
 import fetch from 'isomorphic-fetch';
 import { HOST_URL } from './';
 import { playerHeroes } from '../reducers';
+import { getUrl, addQueryString } from './utility';
 
-const url = (playerId, queryString) => `/api/players/${playerId}/heroes?${queryString}`;
+// const excludedOptions = ['limit'];
+const url = playerId => `/api/players/${playerId}/heroes`;
 
 const REQUEST = 'yasp/playerHeroes/REQUEST';
 const OK = 'yasp/playerHeroes/OK';
@@ -38,13 +40,15 @@ export const getPlayerHeroesError = (payload, id) => ({
   id,
 });
 
-export const getPlayerHeroes = (playerId, numHeroes, host = HOST_URL) => (dispatch, getState) => {
+export const getPlayerHeroes = (playerId, options = {}, host = HOST_URL) => (dispatch, getState) => {
   if (playerHeroes.isLoaded(getState(), playerId)) {
     dispatch(getPlayerHeroesOk(playerHeroes.getHeroList(getState(), playerId), playerId));
   } else {
     dispatch(getPlayerHeroesRequest(playerId));
   }
-  return fetch(`${host}${url(playerId, numHeroes)}`, { credentials: 'include' })
+  // const modifiedOptions = getModifiedOptions(options, excludedOptions);
+
+  return fetch(`${host}${getUrl(playerId, addQueryString(options), url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerHeroesOk(json, playerId)))
     .catch(error => dispatch(getPlayerHeroesError(error, playerId)));

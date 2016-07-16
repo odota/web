@@ -15,6 +15,7 @@ import {
   transformPlayerHeroesById,
 } from '../../../selectors';
 import { playerMatches, playerHeroes } from '../../../reducers';
+import { TableFilterForm } from '../../Form';
 import styles from './Overview.css';
 
 const PlayerMatchesTable = createTable(
@@ -28,19 +29,27 @@ const PlayerHeroesTable = createTable(
   setPlayerHeroesSort
 );
 
+const getPlayerMatchesAndHeroes = (playerId, options) => dispatch => {
+  dispatch(getPlayerMatches(playerId, options));
+  dispatch(getPlayerHeroes(playerId, options));
+};
+
 const Overview = ({ playerId }) => (
-  <div className={styles.overviewContainer}>
-    <TableContainer title="recent matches" style={{ width: '75%' }}>
-      <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
-    </TableContainer>
-    <TableContainer title="hero stats" style={{ marginLeft: 30, width: '25%' }}>
-      <PlayerHeroesTable columns={playerHeroesOverviewColumns} id={playerId} />
-    </TableContainer>
+  <div>
+    <TableFilterForm submitAction={getPlayerMatchesAndHeroes} id={playerId} page="overview" />
+    <div className={styles.overviewContainer}>
+      <TableContainer title="recent matches" style={{ width: '75%' }}>
+        <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
+      </TableContainer>
+      <TableContainer title="hero stats" style={{ marginLeft: 30, width: '25%' }}>
+        <PlayerHeroesTable columns={playerHeroesOverviewColumns} id={playerId} />
+      </TableContainer>
+    </div>
   </div>
 );
 
 const getData = props => {
-  props.getPlayerMatches(props.playerId, 20);
+  props.getPlayerMatches(props.playerId);
   props.getPlayerHeroes(props.playerId);
 };
 
@@ -61,7 +70,7 @@ class RequestLayer extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getPlayerMatches: (playerId, numMatches) => dispatch(getPlayerMatches(playerId, numMatches)),
+  getPlayerMatches: (playerId) => dispatch(getPlayerMatches(playerId)),
   getPlayerHeroes: (playerId) => dispatch(getPlayerHeroes(playerId)),
 });
 
