@@ -13,38 +13,38 @@ const TableFilterForm = ({ submitForm, clearForm }) => (
   <Form name="tableFilter" className={styles.form}>
     <FormGroup className={styles.formGroup}>
       <FormField
-        name="withHeroId"
+        name="with_hero_id"
         label="your team had these heroes"
         dataSource={data.heroList}
         dataSourceConfig={data.heroConfig}
         strict
       />
       <FormField
-        name="againstHeroId"
+        name="against_hero_id"
         label="their team had these heroes"
         dataSource={data.heroList}
         dataSourceConfig={data.heroConfig}
         strict
       />
       <FormField
-        name="includedAccountId"
+        name="included_account_id"
         label="included these players"
       />
       <FormField
-        name="excludedAccountId"
+        name="excluded_account_id"
         label="excluded these players"
       />
     </FormGroup>
     <FormGroup className={styles.formGroup}>
       <FormField
-        name="heroId"
+        name="hero_id"
         label="your hero"
         dataSource={data.heroList}
         dataSourceConfig={data.heroConfig}
         strict
       />
       <FormField
-        name="isRadiant"
+        name="is_radiant"
         label="faction"
         dataSource={data.factionList}
         dataSourceConfig={data.genericConfig}
@@ -58,7 +58,7 @@ const TableFilterForm = ({ submitForm, clearForm }) => (
         strict
       />
       <FormField
-        name="laneRole"
+        name="lane_role"
         label="lane"
         dataSource={data.laneList}
         dataSourceConfig={data.genericConfig}
@@ -75,7 +75,7 @@ const TableFilterForm = ({ submitForm, clearForm }) => (
         strict
       />
       <FormField
-        name="gameMode"
+        name="game_mode"
         label="game mode"
         dataSource={data.modeList}
         dataSourceConfig={data.genericConfig}
@@ -83,7 +83,7 @@ const TableFilterForm = ({ submitForm, clearForm }) => (
         strict
       />
       <FormField
-        name="lobbyType"
+        name="lobby_type"
         label="lobby type"
         dataSource={data.lobbyTypeList}
         dataSourceConfig={data.genericConfig}

@@ -16,7 +16,9 @@
     "type": "git",
     "url": "http://github.com/yasp-dota/ui"
   },
-  "dependencies": {},
+  "dependencies": {
+    "querystring": "^0.2.0"
+  },
   "devDependencies": {
     "babel-core": "6.9.0",
     "babel-loader": "^6.2.3",

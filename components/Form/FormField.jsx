@@ -7,7 +7,7 @@ import { form } from '../../reducers';
 import { getClosestMatch } from './utility';
 import styles from './FormField.css';
 
-const onNewRequest = (value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, setFieldText, limit) => {
+const onNewRequest = ({ value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, setFieldText, limit }) => {
   if (index !== -1) {
     addChip(
       formName,
@@ -63,7 +63,7 @@ const FormField = ({
       filter={AutoComplete.fuzzyFilter}
       maxSearchResults={maxSearchResults}
       onNewRequest={(value, index) =>
-        onNewRequest(value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, setFieldText, limit)}
+        onNewRequest({ value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, setFieldText, limit })}
       onUpdateInput={searchText => searchText.length === 1 && setFieldText(formName, name, searchText)}
       listStyle={{ textTransform: 'uppercase' }}
       searchText={text}

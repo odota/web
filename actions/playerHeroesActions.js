@@ -1,9 +1,9 @@
 import fetch from 'isomorphic-fetch';
 import { HOST_URL } from './';
 import { playerHeroes } from '../reducers';
-import { getUrl, addQueryString, defaultOptions, getModifiedOptions } from './utility';
+import { getUrl, addQueryString, defaultOptions } from './utility';
 
-const excludedOptions = ['limit'];
+// const excludedOptions = ['limit'];
 const url = playerId => `/api/players/${playerId}/heroes`;
 
 const REQUEST = 'yasp/playerHeroes/REQUEST';
@@ -46,9 +46,9 @@ export const getPlayerHeroes = (playerId, options = defaultOptions, host = HOST_
   } else {
     dispatch(getPlayerHeroesRequest(playerId));
   }
-  const modifiedOptions = getModifiedOptions(options, excludedOptions);
+  // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
-  return fetch(`${host}${getUrl(playerId, addQueryString(modifiedOptions), url)}`, { credentials: 'include' })
+  return fetch(`${host}${getUrl(playerId, addQueryString(options), url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerHeroesOk(json, playerId)))
     .catch(error => dispatch(getPlayerHeroesError(error, playerId)));

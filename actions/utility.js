@@ -1,4 +1,4 @@
-import { camelToSnake } from '../utility';
+// import { camelToSnake } from '../utility';
 
 export const getUrl = (playerId, options, url) =>
   `${url(playerId)}${options.reduce((previous, current) =>
@@ -6,7 +6,7 @@ export const getUrl = (playerId, options, url) =>
 
 export const addQueryString = options => Object.keys(options).map(key => ({
   ...options[key],
-  queryParam: camelToSnake(key),
+  queryParam: key,
 }));
 
 export const defaultOptions = {
