@@ -16,7 +16,7 @@ const FORM_NAME = 'tableFilter';
 const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
   <div>
     <ShowFormToggle page={page} formName={FORM_NAME} />
-    {showForm &&
+    <div className={showForm ? styles.showForm : styles.hideForm}>
       <Form name={FORM_NAME} className={styles.form}>
         <FormGroup className={styles.formGroup}>
           <FormField
@@ -55,8 +55,8 @@ const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
             label="faction"
             dataSource={data.factionList}
             dataSourceConfig={data.genericConfig}
-            strict
-          />
+          strict
+            />
           <FormField
             name="win"
             label="result"
@@ -125,7 +125,7 @@ const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
           <SubmitButton label="do the thing" submitForm={submitForm} />
         </div>
       </Form>
-    }
+    </div>
   </div>
 
 );

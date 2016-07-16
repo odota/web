@@ -11,6 +11,21 @@
   margin-bottom: 50px;
 }
 
+.formContainer {
+  overflow: hidden;
+  transition: max-height 1s;
+}
+
+.hideForm {
+  composes: formContainer;
+  max-height: 0;
+}
+
+.showForm {
+  composes: formContainer;
+  max-height: 1000px;
+}
+
 .buttonContainer {
   margin-top: 50px;
   width: 100%;
