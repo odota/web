@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { player } from '../../reducers';
 import styles from './PlayerHeader.css';
 
-//TODO make a dumb component
 const PlayerName = ({ playerName, registered, loading, error, playerId }) => {
   const getPlayerName = () => {
     if (error) return <Error />;

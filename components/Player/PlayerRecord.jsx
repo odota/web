@@ -4,16 +4,18 @@ import Spinner from '../Spinner';
 import { connect } from 'react-redux';
 import { player } from '../../reducers';
 import styles from './PlayerHeader.css';
+import FontIcon from 'material-ui/FontIcon';
 
-//TODO make a dumb component
 export const PlayerRecord = ({ loading, error, wins, losses }) => {
   const getPlayerRecord = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;
     return (
       <div>
-        <span className={"text-primary"}>
-          <i className={"fa fa-trophy"}></i>
+        <span>
+          <FontIcon className="material-icons">
+            poll
+          </FontIcon>
           <small>
             <span className={"text-success"}>{wins}</span>
             <span> - </span>

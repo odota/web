@@ -21,3 +21,7 @@
   box-shadow: 0 0 5px 5px rgba(0,0,0,0.2);
   background-color: var(--defaultPrimaryColor) !important;
 }
+
+.upperCase {
+  text-transform: uppercase;
+}
