@@ -39,18 +39,6 @@ export const getPlayerMatchesError = (payload, id) => ({
   id,
 });
 
-// export const getPlayerMatches = (playerId, numMatches, host = HOST_URL) => (dispatch, getState) => {
-//   if (playerMatches.isLoaded(getState(), playerId)) {
-//     dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId));
-//   } else {
-//     dispatch(getPlayerMatchesRequest(playerId));
-//   }
-//   return fetch(`${host}${getUrl(playerId, numMatches)}`, { credentials: 'include' })
-//     .then(response => response.json())
-//     .then(json => dispatch(getPlayerMatchesOk(json, playerId)))
-//     .catch(error => dispatch(getPlayerMatchesError(error, playerId)));
-// };
-
 export const getPlayerMatches = (playerId, options = defaultOptions, host = HOST_URL) => (dispatch, getState) => {
   if (playerMatches.isLoaded(getState(), playerId)) {
     dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId));

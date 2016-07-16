@@ -11,6 +11,7 @@ import {
   transformPlayerMatchesById,
 } from '../../../selectors';
 import { playerMatches } from '../../../reducers';
+import { TableFilterForm } from '../../Form';
 
 const PlayerMatchesTable = createTable(
   playerMatches.getPlayerMatchesById,
@@ -19,9 +20,12 @@ const PlayerMatchesTable = createTable(
 );
 
 const Matches = ({ playerId }) => (
-  <TableContainer title="recent matches">
-    <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
-  </TableContainer>
+  <div>
+    <TableFilterForm submitAction={getPlayerMatches} id={playerId} page="matches" />
+    <TableContainer title="recent matches">
+      <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
+    </TableContainer>
+  </div>
 );
 
 const getData = props => {
@@ -45,7 +49,7 @@ class RequestLayer extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getPlayerMatches: (playerId, numMatches) => dispatch(getPlayerMatches(playerId, numMatches)),
+  getPlayerMatches: (playerId, options) => dispatch(getPlayerMatches(playerId, options)),
 });
 
 export default connect(null, mapDispatchToProps)(RequestLayer);

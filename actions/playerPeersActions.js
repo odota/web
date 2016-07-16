@@ -1,8 +1,9 @@
 import fetch from 'isomorphic-fetch';
 import { HOST_URL } from './';
 import { playerPeers } from '../reducers';
+import { getUrl, addQueryString } from './utility';
 
-const url = (playerId, numPeers) => `/api/players/${playerId}/peers${numPeers ? `?limit=${numPeers}` : ''}`;
+const url = playerId => `/api/players/${playerId}/peers`;
 
 const REQUEST = 'yasp/playerPeers/REQUEST';
 const OK = 'yasp/playerPeers/OK';
@@ -38,13 +39,14 @@ export const getPlayerPeersError = (payload, id) => ({
   id,
 });
 
-export const getPlayerPeers = (playerId, numPeers, host = HOST_URL) => (dispatch, getState) => {
+export const getPlayerPeers = (playerId, options = {}, host = HOST_URL) => (dispatch, getState) => {
   if (playerPeers.isLoaded(getState(), playerId)) {
     dispatch(getPlayerPeersOk(playerPeers.getPeerList(getState(), playerId), playerId));
   } else {
     dispatch(getPlayerPeersRequest(playerId));
   }
-  return fetch(`${host}${url(playerId, numPeers)}`, { credentials: 'include' })
+  console.log(`${host}${getUrl(playerId, addQueryString(options), url)}`, options)
+  return fetch(`${host}${getUrl(playerId, addQueryString(options), url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerPeersOk(json, playerId)))
     .catch(error => dispatch(getPlayerPeersError(error, playerId)));

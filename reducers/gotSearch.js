@@ -13,12 +13,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         done: false,
+        error: false,
         loading: true,
       };
     case searchActions.DONE:
       return {
         ...state,
         loading: false,
+        error: false,
         done: true,
         searchResults: action.payload,
       };

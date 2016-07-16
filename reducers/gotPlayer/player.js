@@ -17,12 +17,14 @@ const player = (state = initialState, action) => {
         ...state,
         loading: true,
         loaded: false,
+        error: false,
       };
     case playerActions.OK:
       return {
         ...state,
         loading: false,
         loaded: true,
+        error: false,
         player: action.payload,
       };
     case playerActions.ERROR:

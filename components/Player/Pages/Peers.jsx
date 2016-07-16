@@ -11,6 +11,7 @@ import {
   transformPlayerPeersById,
 } from '../../../selectors';
 import { playerPeers } from '../../../reducers';
+import { TableFilterForm } from '../../Form';
 
 const PeersTable = createTable(
   playerPeers.getPlayerPeersById,
@@ -19,9 +20,12 @@ const PeersTable = createTable(
 );
 
 const Peers = ({ playerId }) => (
-  <TableContainer title="peers">
-    <PeersTable columns={playerPeersColumns} id={playerId} />
-  </TableContainer>
+  <div>
+    <TableFilterForm submitAction={getPlayerPeers} id={playerId} page="peers" />
+    <TableContainer title="peers">
+      <PeersTable columns={playerPeersColumns} id={playerId} />
+    </TableContainer>
+  </div>
 );
 
 const mapStateToProps = (state, { playerId }) => ({ playerId });
