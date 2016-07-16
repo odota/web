@@ -55,8 +55,8 @@ const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
             label="faction"
             dataSource={data.factionList}
             dataSourceConfig={data.genericConfig}
-          strict
-            />
+            strict
+          />
           <FormField
             name="win"
             label="result"

@@ -45,7 +45,6 @@ export const getPlayerPeers = (playerId, options = {}, host = HOST_URL) => (disp
   } else {
     dispatch(getPlayerPeersRequest(playerId));
   }
-  console.log(`${host}${getUrl(playerId, addQueryString(options), url)}`, options)
   return fetch(`${host}${getUrl(playerId, addQueryString(options), url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerPeersOk(json, playerId)))
