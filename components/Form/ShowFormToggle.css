@@ -1,0 +1,12 @@
+@import "../palette.css";
+
+.filterButton {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 1;
+  & button {
+
+    background-color: var(--lightAccentColor)!important;
+  }
+}

@@ -13,11 +13,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+        error: false,
       };
     case playerWinLossActions.OK:
       return {
         ...state,
         loading: false,
+        error: false,
         win: action.payload.win,
         lose: action.payload.lose,
       };

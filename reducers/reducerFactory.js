@@ -8,12 +8,14 @@ export default (initialState, actions) => {
         return {
           ...state,
           loaded: false,
+          error: false,
           loading: true,
         };
       case actions.OK:
         return {
           ...state,
           loading: false,
+          error: false,
           loaded: true,
           list: [...action.payload],
         };

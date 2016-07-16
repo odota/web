@@ -23,3 +23,22 @@ export function formatSeconds(input) {
 }
 
 export const getPercentWin = (wins, games) => (games ? ((wins / games) * 100) : 0);
+
+export const camelToSnake = str =>
+  str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
+
+// ?with_hero_id=1
+// &against_hero_id=1
+// &included_account_id=84227565
+// &excluded_account_id=84227565
+// &hero_id=1
+// &is_radiant=1
+// &win=1
+// &lane_role=1
+// &patch=18
+// &game_mode=0
+// &lobby_type=0
+// &date=7
+// &region=0
+// &desc=kills
+// &limit=1000000
