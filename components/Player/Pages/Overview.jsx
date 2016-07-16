@@ -36,7 +36,7 @@ const getPlayerMatchesAndHeroes = (playerId, options) => dispatch => {
 
 const Overview = ({ playerId }) => (
   <div>
-    <TableFilterForm submitAction={getPlayerMatchesAndHeroes} id={playerId} />
+    <TableFilterForm submitAction={getPlayerMatchesAndHeroes} id={playerId} page="overview" />
     <div className={styles.overviewContainer}>
       <TableContainer title="recent matches" style={{ width: '75%' }}>
         <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />

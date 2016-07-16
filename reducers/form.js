@@ -34,7 +34,19 @@ const field = (state = initialFieldState, action) => {
   }
 };
 
-const form = (state = {}, action) => {
+const initialPageState = {
+  show: false,
+};
+
+const page = (state = initialPageState) => ({
+  show: !state.show,
+});
+
+const initialFormState = {
+  pages: {},
+};
+
+const form = (state = initialFormState, action) => {
   switch (action.type) {
     case formActions.ADD_CHIP:
     case formActions.DELETE_CHIP:
@@ -43,8 +55,20 @@ const form = (state = {}, action) => {
         ...state,
         [action.fieldName]: field(state[action.fieldName], action),
       };
+    case formActions.TOGGLE_SHOW_FORM:
+      return {
+        ...state,
+        pages: {
+          ...state.pages,
+          [action.page]: page(state.pages[action.page]),
+        },
+      };
     case formActions.CLEAR_FORM:
-      return {};
+      return {
+        pages: {
+          ...state.pages,
+        },
+      };
     default:
       return state;
   }
@@ -56,6 +80,7 @@ export default (state = {}, action) => {
     case formActions.DELETE_CHIP:
     case formActions.SET_FIELD_TEXT:
     case formActions.CLEAR_FORM:
+    case formActions.TOGGLE_SHOW_FORM:
       return {
         ...state,
         [action.formName]: form(state[action.formName], action),
@@ -66,14 +91,11 @@ export default (state = {}, action) => {
 };
 
 export const getForm = {
-  getForm: (state, formName) => state.yaspReducer.form[formName],
-  getFormValue: (state, formName, valueName) => {
-    if (getForm.getForm(state, formName) && getForm.getForm(state, formName)[valueName]) {
-      return getForm.getForm(state, formName)[valueName];
-    }
-    return initialFieldState;
-  },
-  getChipList: (state, formName, valueName) =>
-    getForm.getFormValue(state, formName, valueName).chipList,
+  getForm: (state, formName) => state.yaspReducer.form[formName] || initialFormState,
+  getFormPages: (state, formName) => getForm.getForm(state, formName).pages,
+  getFormPage: (state, formName, page) => getForm.getFormPages(state, formName)[page] || initialPageState,
+  getFormPageShow: (state, formName, page) => getForm.getFormPage(state, formName, page).show,
+  getFormValue: (state, formName, valueName) => getForm.getForm(state, formName)[valueName] || initialFieldState,
+  getChipList: (state, formName, valueName) => getForm.getFormValue(state, formName, valueName).chipList,
   getFieldText: (state, formName, valueName) => getForm.getFormValue(state, formName, valueName).text,
 };

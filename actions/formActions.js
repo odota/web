@@ -4,14 +4,22 @@ const ADD_CHIP = 'yasp/form/ADD_CHIP';
 const DELETE_CHIP = 'yasp/form/DELETE_CHIP';
 const SET_FIELD_TEXT = 'yasp/form/SET_FIELD_TEXT';
 const CLEAR_FORM = 'yasp/form/CLEAR_FORM';
+const TOGGLE_SHOW_FORM = 'yasp/tabs/TOGGLE_SHOW_FORM';
 
 export const formActions = {
   ADD_CHIP,
   DELETE_CHIP,
   SET_FIELD_TEXT,
   CLEAR_FORM,
+  TOGGLE_SHOW_FORM,
 };
 
+
+export const toggleShowForm = (formName, page) => ({
+  type: TOGGLE_SHOW_FORM,
+  page,
+  formName,
+});
 
 export const deleteChip = (formName, fieldName, index) => ({
   type: DELETE_CHIP,
@@ -52,9 +60,13 @@ export const clearForm = formName => ({
 export const submitForm = (submitAction, formName) => (dispatch, getState) => {
   const formFields = {};
   Object.keys(form.getForm(getState(), formName)).forEach(key => {
-    formFields[key] = {
-      values: form.getChipList(getState(), formName, key).map(chip => chip.value.value),
-    };
+    // We have a pages object attached to the form for form showing state. We don't
+    // want that to be submitted.
+    if (key !== 'pages') {
+      formFields[key] = {
+        values: form.getChipList(getState(), formName, key).map(chip => chip.value.value),
+      };
+    }
   });
   dispatch(submitAction(formFields));
 };
