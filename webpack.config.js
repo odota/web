@@ -4,8 +4,9 @@
 
 const env = process.env.NODE_ENV || 'development';
 const isProd = env === 'production';
-var fs = require('fs');
-var path = require('path');
+const fs = require('fs');
+const path = require('path');
+const webpack = require('webpack');
 
 const config = {
   entry: {
@@ -50,26 +51,7 @@ const config = {
       }
     ]
   },
-  plugins: [
-    function() {
-        this.plugin("done", function(statsData) {
-            var stats = statsData.toJson();
-            console.log(statsData.compilation[0]);
-            if (!stats.errors.length) {
-                var htmlFileName = "index.html";
-                var html = fs.readFileSync(path.join(__dirname, htmlFileName), "utf8");
-
-                var htmlOutput = html.replace(
-                    /".?bundle\.js"/,
-                    "\"" + stats.hash + ".bundle.js" + "\"");
-
-                fs.writeFileSync(
-                    path.join(__dirname, htmlFileName),
-                    htmlOutput);
-            }
-        });
-    }
-],
+  plugins: [],
   postcss (webpack){
     return [
       require('postcss-import')({ addDependencyTo: webpack }),
@@ -106,7 +88,25 @@ if (isProd) {
     }),
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify(env) }
-    })
+    }),
+    function() {
+      this.plugin("done", function(statsData) {
+        var stats = statsData.toJson();
+        console.log(statsData.compilation[0]);
+        if (!stats.errors.length) {
+            var htmlFileName = "index.html";
+            var html = fs.readFileSync(path.join(__dirname, htmlFileName), "utf8");
+
+            var htmlOutput = html.replace(
+                /\/build\/.?bundle\.js/,
+                "/build/" + stats.hash + ".bundle.js");
+
+            fs.writeFileSync(
+                path.join(__dirname, htmlFileName),
+                htmlOutput);
+        }
+      });
+    }
   );
 }
 
