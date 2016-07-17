@@ -1,13 +1,13 @@
 @import "../../palette.css";
 
 .win {
-  color: var(--lightAccentColor);
+  color: var(--successColor);
 }
 
 .loss {
-  color: var(--lightPrimaryColor);
+  color: var(--dangerColor);
 }
 
 .notScored {
-  color: var(--secondaryTextColor);
+  color: var(--mutedColor);
 }

@@ -3,3 +3,11 @@
 .text {
   color: var(--primaryTextColor);
 }
+
+.danger {
+  color: var(--lightPrimaryColor);
+}
+
+.success {
+  color: var(--lightAccentColor);
+}

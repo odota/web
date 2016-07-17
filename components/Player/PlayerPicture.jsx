@@ -6,11 +6,7 @@ import Avatar from 'material-ui/Avatar';
 import styles from './PlayerHeader.css';
 import { Link } from 'react-router';
 
-//TODO this should be a dumb component
-
 const getPlayerStyle = (registered, cheese) => {
-  if (cheese) return styles.playerPictureCheese;
-  if (registered) return styles.playerPictureYasp;
   return styles.playerPicture;
 };
 

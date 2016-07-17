@@ -3,13 +3,16 @@ import PlayerName from './PlayerName';
 import PlayerMMR from './PlayerMMR';
 import PlayerRecord from './PlayerRecord';
 import styles from './PlayerHeader.css';
+import { Card, CardActions } from 'material-ui/Card';
 
 export default ({ playerId }) => (
-  <div>
+  <Card>
     <div className={styles.container}>
       <PlayerName playerId={playerId} style={{width: "40%"}}/>
-      <PlayerMMR playerId={playerId} style={{width: "30%"}}/>
-      <PlayerRecord playerId={playerId} style={{width: "30%"}}/>
+      <CardActions>
+        <PlayerRecord playerId={playerId} />
+        <PlayerMMR playerId={playerId} />
+      </CardActions>
     </div>
-  </div>
+  </Card>
 );
