@@ -8,7 +8,7 @@ import { Card, CardActions } from 'material-ui/Card';
 export default ({ playerId }) => (
   <Card>
     <div className={styles.container}>
-      <PlayerName playerId={playerId} style={{width: "40%"}}/>
+      <PlayerName playerId={playerId} style={{ width: '40%' }} />
       <CardActions>
         <PlayerRecord playerId={playerId} />
         <PlayerMMR playerId={playerId} />

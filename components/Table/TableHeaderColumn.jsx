@@ -6,7 +6,6 @@ import {
 } from './tableHelpers';
 import { TableHeaderColumn as MaterialTableHeaderColumn } from 'material-ui/Table';
 import styles from './Table.css';
-import FontIcon from 'material-ui/FontIcon';
 import { Text } from '../Text';
 
 export default ({ column, sortClick, sortField, sortState, totalWidth }) => (

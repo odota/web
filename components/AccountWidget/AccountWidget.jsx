@@ -6,8 +6,8 @@ import { REDUCER_KEY } from '../../reducers';
 import { getPlayer } from '../../actions';
 import styles from './AccountWidget.css';
 import { Link } from 'react-router';
-//import FontIcon from 'material-ui/FontIcon';
-//import { PlayerPicture } from '../Player';
+// import FontIcon from 'material-ui/FontIcon';
+// import { PlayerPicture } from '../Player';
 
 // Maybe we can factor out this ternary into a function?
 /*

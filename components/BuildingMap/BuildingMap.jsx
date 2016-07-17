@@ -1,5 +1,4 @@
 import React from 'react';
-import { HOST_URL } from '../../yasp.config';
 import { pad } from '../../utility';
 import buildingData from './BuildingData';
 import Spinner from '../Spinner';
@@ -30,7 +29,7 @@ export default function BuildingMap({ match, loading }) {
         top: buildingData[i].style.split(';')[1].split(':')[1],
         left: buildingData[i].style.split(';')[2].split(':')[1],
       };
-      icons.push(<img src={d.src} className={d.class} style={d.style} role={"presentation"} />);
+      icons.push(<img src={d.src} className={d.class} style={d.style} role={'presentation'} />);
     }
     return (
       <div
@@ -41,7 +40,7 @@ export default function BuildingMap({ match, loading }) {
           width: 600,
         }}
       >
-        <img width={600} src={`/assets/map.png`} role={"presentation"} />
+        <img width={600} src={'/assets/map.png'} role={'presentation'} />
         {icons}
       </div>);
   }

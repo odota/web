@@ -3,7 +3,7 @@ import Error from '../Error';
 import Spinner from '../Spinner';
 import { connect } from 'react-redux';
 import { player } from '../../reducers';
-import styles from './PlayerHeader.css';
+// import styles from './PlayerHeader.css';
 
 export const PlayerRecord = ({ loading, error, wins, losses }) => {
   const getPlayerRecord = () => {
@@ -16,7 +16,7 @@ export const PlayerRecord = ({ loading, error, wins, losses }) => {
             <span>{wins}</span>
             <span> - </span>
             <span>{losses}</span>
-            <span>{` (${(wins/(wins+losses)*100).toFixed(2)}%)`}</span>
+            <span>{` (${(wins / (wins + losses) * 100).toFixed(2)}%)`}</span>
           </small>
         </span>
       </div>

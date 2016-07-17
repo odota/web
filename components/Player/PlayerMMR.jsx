@@ -33,7 +33,10 @@ export const PlayerMMR = ({ loading, error, rank, soloRank, mmrEstimate }) => {
         </span>
         <span>
           <span>
-            <abbr title={"MMR estimate based on available data from peer players. This is an estimate of the population mean MMR of the recent matches played by this user."}>
+            <abbr
+              title={`MMR estimate based on available data from peer players. 
+              This is an estimate of the population mean MMR of the recent matches played by this user.`}
+            >
               <ActionHelp color={grey500} />
             </abbr>
           </span>
