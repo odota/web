@@ -4,6 +4,8 @@ import Spinner from '../Spinner';
 import { connect } from 'react-redux';
 import { player } from '../../reducers';
 // import styles from './PlayerHeader.css';
+import SocialPoll from 'material-ui/svg-icons/social/poll';
+import { green500 } from 'material-ui/styles/colors';
 
 export const PlayerRecord = ({ loading, error, wins, losses }) => {
   const getPlayerRecord = () => {
@@ -12,12 +14,11 @@ export const PlayerRecord = ({ loading, error, wins, losses }) => {
     return (
       <div>
         <span>
-          <small>
-            <span>{wins}</span>
-            <span> - </span>
-            <span>{losses}</span>
-            <span>{` (${(wins / (wins + losses) * 100).toFixed(2)}%)`}</span>
-          </small>
+          <SocialPoll color={green500} />
+          <span>{wins}</span>
+          <span> - </span>
+          <span>{losses}</span>
+          <span>{` (${(wins / (wins + losses) * 100).toFixed(2)}%)`}</span>
         </span>
       </div>
     );
