@@ -16,30 +16,20 @@ export const PlayerMMR = ({ loading, error, rank, soloRank, mmrEstimate }) => {
     return (
       <div>
         <span>
-          <span>
             <abbr title={"Solo MMR"}>
               <SocialPerson color={blue500} />
             </abbr>
-          </span>
           <small>{soloRank}</small>
-        </span>
-        <span>
-          <span>
             <abbr title={"Party MMR"}>
               <SocialGroup color={orange500} />
             </abbr>
-          </span>
           <small>{rank}</small>
-        </span>
-        <span>
-          <span>
             <abbr
               title={`MMR estimate based on available data from peer players. 
               This is an estimate of the population mean MMR of the recent matches played by this user.`}
             >
               <ActionHelp color={grey500} />
             </abbr>
-          </span>
           <small>{mmrEstimate.estimate}</small>
         </span>
       </div>
