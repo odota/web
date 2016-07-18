@@ -12,6 +12,7 @@ const transformation = {
     }
     return ((isRadiantResult && field) || (!isRadiantResult && !field) ? 'W' : 'L');
   },
+  skill: ({ field }) => (constants.skill[field] ? constants.skill[field] : field),
   game_mode: ({ field }) => (constants.game_mode[field] ? constants.game_mode[field].name : field),
   start_time: ({ field }) => moment.unix(field).fromNow(),
   last_played: ({ field }) => moment.unix(field).fromNow(),

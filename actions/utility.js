@@ -1,20 +1,12 @@
 // import { camelToSnake } from '../utility';
+const querystring = require('querystring');
 
-export const getUrl = (playerId, options, url) =>
-  `${url(playerId)}${options.reduce((previous, current) =>
-    current.values.reduce((total, value) => `${previous}${current.queryParam}=${value}&`, ''), '?')}`;
-
-export const addQueryString = options => Object.keys(options).map(key => ({
-  ...options[key],
-  queryParam: key,
-}));
+export const getUrl = (playerId, options, url) => `${url(playerId)}?${querystring.stringify(options)}`;
 
 export const defaultOptions = {
-  limit: {
-    values: [
+  limit: [
       20,
     ],
-  },
 };
 
 export const getModifiedOptions = (options, excludedOptions) => {

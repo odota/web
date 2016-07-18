@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { HOST_URL } from './';
 import { playerMatches } from '../reducers';
-import { getUrl, addQueryString, defaultOptions } from './utility';
+import { getUrl, defaultOptions } from './utility';
 
 const url = playerId => `/api/players/${playerId}/matches`;
 
@@ -45,7 +45,9 @@ export const getPlayerMatches = (playerId, options = defaultOptions, host = HOST
   } else {
     dispatch(getPlayerMatchesRequest(playerId));
   }
-  return fetch(`${host}${getUrl(playerId, addQueryString(options), url)}`, { credentials: 'include' })
+  // TODO for some reason this breaks the match table, maybe it's trying to map the property to a nonexistent form element?
+  // options.project = options.project.concat(['skill']);
+  return fetch(`${host}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerMatchesOk(json, playerId)))
     .catch(error => dispatch(getPlayerMatchesError(error, playerId)));

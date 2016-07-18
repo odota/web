@@ -14,10 +14,17 @@ const playerHeroesOverviewColumns = [{
   field: 'hero_id',
   width: 2,
   displayFn: ({ field }) => (
-    <div style={{ marginTop: 5 }}>
-      <img src={`${HOST_URL}${field.display.img}`} style={{ height: 30 }} role="presentation" />
+    <div>
+      <img src={`${HOST_URL}${field.display.img}`} style={{ height: 24 }} role="presentation" />
+      <div>{field.display ? field.display.localized_name : ''}</div>
     </div>),
 }, {
+  displayName: 'Last',
+  field: 'last_played',
+  width: 2,
+  sortFn: useOriginalValueSort,
+},
+{
   displayName: 'Played',
   field: 'games',
   width: 1.5,
@@ -31,11 +38,6 @@ const playerHeroesOverviewColumns = [{
 }];
 
 const restColumns = [{
-  displayName: 'Last Match',
-  field: 'last_played',
-  width: 2,
-  sortFn: useOriginalValueSort,
-}, {
   displayName: 'With',
   field: 'with_games',
   width: 1.5,
