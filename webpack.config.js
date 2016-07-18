@@ -51,7 +51,8 @@ const config = {
       }
     ]
   },
-  plugins: [],
+  plugins: [
+  ],
   postcss (webpack){
     return [
       require('postcss-import')({ addDependencyTo: webpack }),
@@ -86,6 +87,7 @@ if (isProd) {
       },
       sourceMap: false
     }),
+    new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify(env) }
     }),

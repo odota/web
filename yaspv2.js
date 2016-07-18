@@ -25,7 +25,6 @@ injectTapEventPlugin();
 // import './node_modules/font-awesome/css/font-awesome.min.css';
 import './assets/flaticon.css';
 import './global.css';
-import 'material-design-icons';
 const loggerMiddleware = createLogger();
 
 const reducer = combineReducers({
