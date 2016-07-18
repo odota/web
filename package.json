@@ -6,7 +6,7 @@
   "scripts": {
     "webpack": "webpack -p --bail",
     "watch": "webpack --watch",
-    "start": "webpack-dev-server -d",
+    "start": "webpack-dev-server -d --compress",
     "ncu": "npm-check-updates -u",
     "updateconstants": "wget -qO- https://yasp.co/api/constants > ./constants.json",
     "build": "NODE_ENV=production npm run lint && npm run webpack",
