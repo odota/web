@@ -17,7 +17,7 @@ export default [{
   sortFn: defaultSort,
   displayFn: ({ field }) => <img src={field.display ? `${HOST_URL}${field.display.img}` : ''} style={{ height: '24px' }} role="presentation" />,
 }, {
-  displayName: 'W/L',
+  displayName: 'Result',
   field: 'radiant_win',
   width: 1.5,
   sortFn: defaultSort,
@@ -28,7 +28,7 @@ export default [{
   width: 2.5,
   sortFn: defaultSort,
 }, {
-  displayName: 'Date',
+  displayName: 'Ended',
   field: 'start_time',
   width: 2,
   sortFn: useOriginalValueSort,
@@ -38,17 +38,17 @@ export default [{
   width: 2,
   sortFn: useOriginalValueSort,
 }, {
-  displayName: 'Kills',
+  displayName: 'K',
   field: 'kills',
   width: 1.8,
   sortFn: defaultSort,
 }, {
-  displayName: 'Deaths',
+  displayName: 'D',
   field: 'deaths',
   width: 1.8,
   sortFn: defaultSort,
 }, {
-  displayName: 'Assists',
+  displayName: 'A',
   field: 'assists',
   width: 1.8,
   sortFn: defaultSort,

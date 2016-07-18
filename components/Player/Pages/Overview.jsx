@@ -41,7 +41,7 @@ const Overview = ({ playerId }) => (
       <TableContainer title="recent matches" style={{ width: '75%' }}>
         <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
       </TableContainer>
-      <TableContainer title="hero stats" style={{ marginLeft: 30, width: '25%' }}>
+      <TableContainer title="Heroes Played" style={{ marginLeft: 30, width: '25%' }}>
         <PlayerHeroesTable columns={playerHeroesOverviewColumns} id={playerId} />
       </TableContainer>
     </div>

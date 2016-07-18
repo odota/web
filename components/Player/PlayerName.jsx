@@ -1,25 +1,32 @@
 import React from 'react';
 // import YaspBadge from './YaspBadge';
-import PlayerPicture from './PlayerPicture';
+// import PlayerPicture from './PlayerPicture';
 import Error from '../Error';
 import Spinner from '../Spinner';
 import { connect } from 'react-redux';
 import { player } from '../../reducers';
-import styles from './PlayerHeader.css';
+// import styles from './PlayerHeader.css';
+import { CardHeader } from 'material-ui/Card';
 
-const PlayerName = ({ playerName, registered, loading, error, playerId }) => {
+const PlayerName = ({ playerName, picture, loading, error }) => {
   const getPlayerName = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;
-
-    return (
-      <div className={styles.nameContainer}>
-        <div className={styles.pictureContainer}>
-          <PlayerPicture registered={registered} playerId={playerId} />
-        </div>
-        <div className={styles.playerName}>{playerName}</div>
-      </div>
-    );
+    /*
+        return (
+          <div>
+            <div className={styles.nameContainer}>
+              <div className={styles.pictureContainer}>
+                <PlayerPicture registered={registered} playerId={playerId} />
+              </div>
+              <div className={styles.playerName}>{playerName}</div>
+            </div>
+          </div>
+        );
+    */
+    // TODO display cheese, tracked state
+    // hotel icon for inactive players?
+    return (<CardHeader title={playerName} avatar={picture} />);
   };
 
   return <div>{getPlayerName()}</div>;
@@ -28,12 +35,14 @@ const PlayerName = ({ playerName, registered, loading, error, playerId }) => {
 export { PlayerName };
 
 // metadata.getUserId(state)
-// TODO - why is the player picture not showing up at all? that's whack
 const mapStateToProps = (state, ownProps) => ({
   loading: player.getLoading(state, ownProps.playerId),
   error: player.getError(state, ownProps.playerId),
   playerName: player.getPlayerName(state, ownProps.playerId),
   registered: player.getLastLogin(state, ownProps.playerId),
+  picture: player.getPicture(state, ownProps.playerId),
+  steamLink: player.getSteamLink(state, ownProps.playerId),
+  cheese: player.getCheese(state, ownProps.playerId),
   playerId: ownProps.playerId,
 });
 

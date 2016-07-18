@@ -4,6 +4,9 @@
 
 const env = process.env.NODE_ENV || 'development';
 const isProd = env === 'production';
+const fs = require('fs');
+const path = require('path');
+const webpack = require('webpack');
 
 const config = {
   entry: {
@@ -11,7 +14,7 @@ const config = {
   },
   output:
   {
-    filename: '[name].min.js',
+    filename: (isProd ? '[hash].' : '') + 'bundle.js',
     path: 'build/',
     publicPath: 'build/',
   },
@@ -48,6 +51,8 @@ const config = {
       }
     ]
   },
+  plugins: [
+  ],
   postcss (webpack){
     return [
       require('postcss-import')({ addDependencyTo: webpack }),
@@ -82,9 +87,28 @@ if (isProd) {
       },
       sourceMap: false
     }),
+    new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify(env) }
-    })
+    }),
+    function() {
+      this.plugin("done", function(statsData) {
+        var stats = statsData.toJson();
+        console.log(statsData.compilation[0]);
+        if (!stats.errors.length) {
+            var htmlFileName = "index.html";
+            var html = fs.readFileSync(path.join(__dirname, htmlFileName), "utf8");
+
+            var htmlOutput = html.replace(
+                /\/build\/.?bundle\.js/,
+                "/build/" + stats.hash + ".bundle.js");
+
+            fs.writeFileSync(
+                path.join(__dirname, htmlFileName),
+                htmlOutput);
+        }
+      });
+    }
   );
 }
 

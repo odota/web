@@ -22,7 +22,7 @@ const PlayerHeroesTable = createTable(
 const Overview = ({ playerId }) => (
   <div>
     <TableFilterForm submitAction={getPlayerHeroes} id={playerId} page="heroes" />
-    <TableContainer title="hero stats">
+    <TableContainer title="Heroes Played">
       <PlayerHeroesTable columns={playerHeroesColumns} id={playerId} />
     </TableContainer>
   </div>

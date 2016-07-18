@@ -104,15 +104,16 @@ export default ({
   openMenu,
   params,
   location,
-}) => (<div>
-  <AppBar
-    className={styles.header}
-    iconElementRight={(<AccountWidget />)}
-    iconStyleRight={{ marginRight: 0 }}
-    title={(<Logo />)}
-    onLeftIconButtonTouchTap={() => openMenu()}
-    zDepth={0}
-  />
-  {getTabBar(params, location)}
-  <NavDrawer />
-</div>);
+}) => (
+  <div className={styles.upperCase}>
+    <AppBar
+      className={styles.header}
+      iconElementRight={(<AccountWidget />)}
+      iconStyleRight={{ marginRight: 0 }}
+      title={(<Logo />)}
+      onLeftIconButtonTouchTap={() => openMenu()}
+      zDepth={0}
+    />
+    {getTabBar(params, location)}
+    <NavDrawer />
+  </div>);
