@@ -14,7 +14,7 @@ const config = {
   },
   output:
   {
-    filename: '[hash].bundle.js',
+    filename: (isProd ? '[hash].' : '') + 'bundle.js',
     path: 'build/',
     publicPath: 'build/',
   },
