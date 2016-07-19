@@ -25,6 +25,34 @@ function jsonResponse(response) {
   return response.json();
 }
 
+//TODO query builder
+//stat (hero_id, picks/bans, tower damage, hero damage, hero_healing, kills, deaths, assists, gpm, xpm, lh, dn, stat_t[minute], kills->>unit, purchase->>item, casts->>ability, uses->>item)
+//where (none, patch, league, hero, player)
+//group by (none, hero, player, league), aggregation (none, count, avg, sum)
+//order by (stat descending)
+//limit (default 1000)
+//basic player_match data: league.name as leaguename, h.localized_name, np.name, stat
+//basic agg data: count(*), agg(stat)
+/*
+`
+SELECT ${} 
+FROM player_matches pm
+LEFT JOIN notable_players np
+ON pm.account_id = np.account_id
+JOIN matches m
+ON pm.match_id = m.match_id 
+JOIN heroes h
+ON pm.hero_id = h.id
+JOIN leagues le
+ON m.leagueid = le.leagueid
+WHERE ${} 
+GROUP BY ${} 
+ORDER BY ${} 
+LIMIT ${}
+`
+*/
+//TODO automatic graphing
+
 class Explorer extends React.Component
 {
   constructor() {
