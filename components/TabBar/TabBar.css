@@ -10,5 +10,7 @@
 }
 
 .tab {
+  font-weight: 600 !important;
+  font-size: 11 !important;
   color: var(--primaryTextColor) !important;
 }

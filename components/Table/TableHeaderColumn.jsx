@@ -16,8 +16,9 @@ export default ({ column, sortClick, sortField, sortState, totalWidth }) => (
       className={column.sortFn ? styles.headerCell : styles.headerCellNoSort}
       onClick={() => column.sortFn && sortClick(column.field, isSortField(sortField, column.field) ? sortState : '', column.sortFn)}
     >
-      <Text size={16}>{column.displayName}</Text>
+      <Text size={14}>{column.displayName}
       {column.sortFn && getSortIcon(sortState, sortField, column.field)}
+      </Text>
     </div>
   </MaterialTableHeaderColumn>
 );
