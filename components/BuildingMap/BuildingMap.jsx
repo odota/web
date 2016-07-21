@@ -40,7 +40,7 @@ export default function BuildingMap({ match, loading }) {
           width: 600,
         }}
       >
-        <img width={600} src={'/assets/map.png'} role={'presentation'} />
+        <img width={600} src={'/public/images/map.png'} role={'presentation'} />
         {icons}
       </div>);
   }

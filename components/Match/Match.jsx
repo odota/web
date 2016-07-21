@@ -50,6 +50,25 @@ class RequestLayer extends React.Component {
       </div>
     );
   }
+  // MatchHeader
+  // Benchmarks
+  // purchase counts
+  // purchase times
+  // Hero kill times
+  // Abilities
+  // Items
+  // Ward maps
+  // Unit kills
+  // Last Hits
+  // Graphs
+  // Laning
+  // Stuns/Dead/biggest hit
+  // Teamfights
+  // Chat
+  // Analysis
+  // Combat
+  // Gold/XP sources
+  // Streaks
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

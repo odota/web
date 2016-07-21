@@ -8,7 +8,6 @@
     "watch": "webpack --watch",
     "start": "webpack-dev-server -d --compress",
     "ncu": "npm-check-updates -u",
-    "updateconstants": "wget -qO- https://yasp.co/api/constants > ./constants.json",
     "build": "NODE_ENV=production npm run lint && npm run webpack",
     "lint": "eslint . --ext .js,.jsx"
   },
@@ -18,6 +17,7 @@
   },
   "dependencies": {
     "brace": "^0.8.0",
+    "dotaconstants": "yasp-dota/dotaconstants#79ea5f1",
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "^0.15.0-alpha.2",
     "moment": "^2.13.0",

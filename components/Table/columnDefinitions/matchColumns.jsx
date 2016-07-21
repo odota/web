@@ -116,7 +116,7 @@ for (let i = 0; i < 25; i++) {
         const abilityId = field.value[column.index];
         const abilityData = constants.abilities[constants.ability_ids[abilityId]];
         if (abilityData) {
-          return <img src={`${'/assets'}abilityData.img`} style={{ height: 35, position: 'relative', left: -10 }} role="presentation" />;
+          return <img src={`${HOST_URL}${abilityData.img}`} style={{ height: 35, position: 'relative', left: -10 }} role="presentation" />;
         }
       }
       return null;
