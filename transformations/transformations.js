@@ -1,7 +1,7 @@
 import { HOST_URL } from '../yasp.config';
 import moment from 'moment';
 import { formatSeconds, isRadiant } from '../utility';
-const constants = require('../constants');
+import constants from 'dotaconstants';
 
 const transformation = {
   hero_id: ({ field }) => constants.heroes[field],

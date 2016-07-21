@@ -4,7 +4,7 @@ import { YaspBadge } from '../../Player';
 import { defaultSort } from './utility';
 import styles from './column.css';
 import { HOST_URL } from '../../../yasp.config.js';
-const constants = require('../../../constants.json');
+import constants from 'dotaconstants';
 
 const heroTd = ({ field, row }) => (
   <div style={{ marginTop: 5 }}>

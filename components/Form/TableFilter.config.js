@@ -1,4 +1,4 @@
-import constants from '../../constants';
+import constants from 'dotaconstants';
 
 export const heroConfig = {
   text: 'localized_name',
