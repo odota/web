@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { HOST_URL } from './';
 import { playerMatches } from '../reducers';
-import { getUrl, addQueryString, defaultOptions } from './utility';
+import { getUrl, defaultOptions } from './utility';
 
 const url = playerId => `/api/players/${playerId}/matches`;
 
@@ -39,13 +39,15 @@ export const getPlayerMatchesError = (payload, id) => ({
   id,
 });
 
-export const getPlayerMatches = (playerId, options = defaultOptions, host = HOST_URL) => (dispatch, getState) => {
+export const getPlayerMatches = (playerId, options = {}, host = HOST_URL) => (dispatch, getState) => {
+  let modifiedOptions = options;
+  if (Object.keys(options).length === 0) modifiedOptions = defaultOptions;
   if (playerMatches.isLoaded(getState(), playerId)) {
     dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId));
   } else {
     dispatch(getPlayerMatchesRequest(playerId));
   }
-  return fetch(`${host}${getUrl(playerId, addQueryString(options), url)}`, { credentials: 'include' })
+  return fetch(`${host}${getUrl(playerId, modifiedOptions, url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerMatchesOk(json, playerId)))
     .catch(error => dispatch(getPlayerMatchesError(error, playerId)));

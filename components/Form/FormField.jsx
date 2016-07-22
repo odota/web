@@ -57,6 +57,7 @@ const FormField = ({
 }) => (
   <div className={className}>
     <AutoComplete
+      openOnFocus
       dataSource={dataSource}
       dataSourceConfig={dataSourceConfig}
       floatingLabelText={label}

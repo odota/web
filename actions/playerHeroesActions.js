@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { HOST_URL } from './';
 import { playerHeroes } from '../reducers';
-import { getUrl, addQueryString } from './utility';
+import { getUrl } from './utility';
 
 // const excludedOptions = ['limit'];
 const url = playerId => `/api/players/${playerId}/heroes`;
@@ -48,7 +48,7 @@ export const getPlayerHeroes = (playerId, options = {}, host = HOST_URL) => (dis
   }
   // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
-  return fetch(`${host}${getUrl(playerId, addQueryString(options), url)}`, { credentials: 'include' })
+  return fetch(`${host}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerHeroesOk(json, playerId)))
     .catch(error => dispatch(getPlayerHeroesError(error, playerId)));

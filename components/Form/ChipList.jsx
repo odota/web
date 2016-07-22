@@ -13,7 +13,7 @@ const ChipList = ({ chipList, deleteChip }) => (
         key={index}
         onRequestDelete={() => deleteChip(index)}
       >
-        {chip.value.text}
+        {chip.text}
       </Chip>
     ))}
   </div>

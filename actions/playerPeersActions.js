@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { HOST_URL } from './';
 import { playerPeers } from '../reducers';
-import { getUrl, addQueryString } from './utility';
+import { getUrl } from './utility';
 
 const url = playerId => `/api/players/${playerId}/peers`;
 
@@ -45,7 +45,7 @@ export const getPlayerPeers = (playerId, options = {}, host = HOST_URL) => (disp
   } else {
     dispatch(getPlayerPeersRequest(playerId));
   }
-  return fetch(`${host}${getUrl(playerId, addQueryString(options), url)}`, { credentials: 'include' })
+  return fetch(`${host}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerPeersOk(json, playerId)))
     .catch(error => dispatch(getPlayerPeersError(error, playerId)));
