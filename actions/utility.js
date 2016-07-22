@@ -5,8 +5,8 @@ export const getUrl = (playerId, options, url) => `${url(playerId)}?${querystrin
 
 export const defaultOptions = {
   limit: [
-      20,
-    ],
+    20,
+  ],
 };
 
 export const getModifiedOptions = (options, excludedOptions) => {

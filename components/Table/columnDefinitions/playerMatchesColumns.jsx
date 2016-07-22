@@ -16,10 +16,10 @@ export default [{
   width: 1.5,
   sortFn: defaultSort,
   displayFn: ({ field }) => (
-  <div>
-    <img src={field.display ? `${HOST_URL}${field.display.img}` : ''} style={{ height: 24 }} role="presentation" />
-    <div>{field.display ? field.display.localized_name : ''}</div>
-  </div>),
+    <div>
+      <img src={field.display ? `${HOST_URL}${field.display.img}` : ''} style={{ height: 24 }} role="presentation" />
+      <div>{field.display ? field.display.localized_name : ''}</div>
+    </div>),
 }, {
   displayName: 'Result',
   field: 'radiant_win',
