@@ -67,6 +67,6 @@ export default [{
   field: 'version',
   width: 1,
   sortFn: defaultSort,
-  displayFn: ({ field }) => field ? <EditorPieChart /> : <div />,
-}
+  displayFn: ({ field }) => (field.display ? <EditorPieChart /> : <div />),
+},
 ];
