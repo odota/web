@@ -1,12 +1,11 @@
 // import { camelToSnake } from '../utility';
-const querystring = require('querystring');
+import querystring from 'querystring';
 
-export const getUrl = (playerId, options, url) => `${url(playerId)}?${querystring.stringify(options)}`;
+export const getUrl = (playerId, options, url) =>
+  `${url(playerId)}?${querystring.stringify(options)}`;
 
 export const defaultOptions = {
-  limit: [
-    20,
-  ],
+  limit: [20],
 };
 
 export const getModifiedOptions = (options, excludedOptions) => {

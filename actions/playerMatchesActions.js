@@ -39,15 +39,17 @@ export const getPlayerMatchesError = (payload, id) => ({
   id,
 });
 
-export const getPlayerMatches = (playerId, options = defaultOptions, host = HOST_URL) => (dispatch, getState) => {
+export const getPlayerMatches = (playerId, options = {}, host = HOST_URL) => (dispatch, getState) => {
+  let modifiedOptions = options;
+  if (Object.keys(options).length === 0) modifiedOptions = defaultOptions;
   if (playerMatches.isLoaded(getState(), playerId)) {
     dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId));
   } else {
     dispatch(getPlayerMatchesRequest(playerId));
   }
   // TODO for some reason this breaks the match table, maybe it's trying to map the property to a nonexistent form element?
-  // options.project = options.project.concat(['skill']);
-  return fetch(`${host}${getUrl(playerId, options, url)}`, { credentials: 'include' })
+  modifiedOptions.project = modifiedOptions.project.concat(['skill']);
+  return fetch(`${host}${getUrl(playerId, modifiedOptions, url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerMatchesOk(json, playerId)))
     .catch(error => dispatch(getPlayerMatchesError(error, playerId)));

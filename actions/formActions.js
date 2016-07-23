@@ -63,9 +63,7 @@ export const submitForm = (submitAction, formName) => (dispatch, getState) => {
     // We have a pages object attached to the form for form showing state. We don't
     // want that to be submitted.
     if (key !== 'pages') {
-      formFields[key] = {
-        values: form.getChipList(getState(), formName, key).map(chip => chip.value.value),
-      };
+      formFields[key] = form.getChipList(getState(), formName, key).map(chip => chip.value);
     }
   });
   dispatch(submitAction(formFields));

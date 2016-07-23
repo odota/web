@@ -12,7 +12,7 @@ const field = (state = initialFieldState, action) => {
         ...state,
         chipList: [
           ...state.chipList, {
-            value: action.value,
+            ...action.value,
           },
         ],
       };
