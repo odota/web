@@ -3,6 +3,7 @@ import { defaultSort, useOriginalValueSort } from './utility';
 import { WinLoss } from '../../ColumnComponents';
 import { Link } from 'react-router';
 import { HOST_URL } from '../../../yasp.config';
+import EditorPieChart from 'material-ui/svg-icons/editor/pie-chart';
 
 export default [{
   displayName: 'ID',
@@ -61,4 +62,11 @@ export default [{
   field: 'assists',
   width: 1,
   sortFn: defaultSort,
-}];
+}, {
+  displayName: 'P',
+  field: 'version',
+  width: 1,
+  sortFn: defaultSort,
+  displayFn: ({ field }) => field ? <EditorPieChart /> : <div />,
+}
+];

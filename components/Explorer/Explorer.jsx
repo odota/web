@@ -29,7 +29,7 @@ function jsonResponse(response) {
 // TODO query builder
 // stat (hero_id, picks/bans, tower damage, hero damage, hero_healing, kills, deaths, assists, gpm, xpm, lh, dn, stat_t[minute], kills->>unit, purchase->>item, casts->>ability, uses->>item)
 // where (none, patch, league, hero, player)
-// group by (none, hero, player, league), aggregation (none, count, avg, sum)
+// group by (none, hero, player, league, team, month), aggregation (none, count, avg, sum)
 // order by (stat descending)
 // limit (default 1000)
 // basic player_match data: league.name as leaguename, h.localized_name, np.name, stat

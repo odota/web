@@ -47,8 +47,7 @@ export const getPlayerMatches = (playerId, options = {}, host = HOST_URL) => (di
   } else {
     dispatch(getPlayerMatchesRequest(playerId));
   }
-  // TODO for some reason this breaks the match table, maybe it's trying to map the property to a nonexistent form element?
-  modifiedOptions.project = modifiedOptions.project.concat(['skill']);
+  modifiedOptions.project = ['skill'].concat(modifiedOptions.project || []);
   return fetch(`${host}${getUrl(playerId, modifiedOptions, url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerMatchesOk(json, playerId)))
