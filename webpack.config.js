@@ -93,7 +93,7 @@ if (isProd)
   {
     'process.env':
     {
-      NODE_ENV: 'production'
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV)
     }
   }), new HashBundlePlugin(), new webpack.optimize.DedupePlugin());
 }
