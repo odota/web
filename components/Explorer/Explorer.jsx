@@ -77,6 +77,9 @@ class Explorer extends React.Component
     this.editor = editor;
     const id = this.props.location.query.id;
     if (id) {
+      this.setState(Object.assign({}, this.state, {
+      loading: true,
+      }));
       fetch(`${HOST_URL}/api/explorer?id=${id}`).then(jsonResponse).then(this.handleResponse);
     }
   }
@@ -123,7 +126,8 @@ class Explorer extends React.Component
   render() {
     return (<div>
       <h3>Data Explorer
-        <small> - Explore data from professional Dota 2 matches</small>
+        <small> - Explore data from professional Dota 2 matches </small>
+        <a href='https://github.com/yasp-dota/yasp/blob/master/sql/create_tables.sql'>(Table Schema)</a>
       </h3>
       <div>
         <div>
