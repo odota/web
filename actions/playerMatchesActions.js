@@ -47,6 +47,7 @@ export const getPlayerMatches = (playerId, options = {}, host = HOST_URL) => (di
   } else {
     dispatch(getPlayerMatchesRequest(playerId));
   }
+  modifiedOptions.project = ['skill'].concat(modifiedOptions.project || []);
   return fetch(`${host}${getUrl(playerId, modifiedOptions, url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerMatchesOk(json, playerId)))

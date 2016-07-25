@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 const ace = require('brace');
 require('brace/mode/sql');
@@ -24,6 +25,35 @@ import {
 function jsonResponse(response) {
   return response.json();
 }
+/*
+// TODO query builder
+// stat (hero_id, picks/bans, tower damage, hero damage, hero_healing, kills, deaths, assists, gpm, xpm, lh, dn, stat_t[minute], kills->>unit, purchase->>item, casts->>ability, uses->>item)
+// where (none, patch, league, hero, player)
+// group by (none, hero, player, league, team, month), aggregation (none, count, avg, sum)
+// order by (stat descending)
+// limit (default 1000)
+// basic player_match data: league.name as leaguename, h.localized_name, np.name, stat
+// basic agg data: count(*), agg(stat)
+*/
+/*
+`
+SELECT ${} 
+FROM player_matches pm
+LEFT JOIN notable_players np
+ON pm.account_id = np.account_id
+JOIN matches m
+ON pm.match_id = m.match_id 
+JOIN heroes h
+ON pm.hero_id = h.id
+JOIN leagues le
+ON m.leagueid = le.leagueid
+WHERE ${} 
+GROUP BY ${} 
+ORDER BY ${} 
+LIMIT ${}
+`
+*/
+//TODO automatic graphing
 
 class Explorer extends React.Component
 {
@@ -47,6 +77,9 @@ class Explorer extends React.Component
     this.editor = editor;
     const id = this.props.location.query.id;
     if (id) {
+      this.setState(Object.assign({}, this.state, {
+      loading: true,
+      }));
       fetch(`${HOST_URL}/api/explorer?id=${id}`).then(jsonResponse).then(this.handleResponse);
     }
   }
@@ -93,7 +126,8 @@ class Explorer extends React.Component
   render() {
     return (<div>
       <h3>Data Explorer
-        <small> - Explore data from professional Dota 2 matches</small>
+        <small> - Explore data from professional Dota 2 matches </small>
+        <a href='https://github.com/yasp-dota/yasp/blob/master/sql/create_tables.sql'>(Table Schema)</a>
       </h3>
       <div>
         <div>

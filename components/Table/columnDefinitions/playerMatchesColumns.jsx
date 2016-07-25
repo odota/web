@@ -3,6 +3,7 @@ import { defaultSort, useOriginalValueSort } from './utility';
 import { WinLoss } from '../../ColumnComponents';
 import { Link } from 'react-router';
 import { HOST_URL } from '../../../yasp.config';
+import EditorPieChart from 'material-ui/svg-icons/editor/pie-chart';
 
 export default [{
   displayName: 'ID',
@@ -15,13 +16,22 @@ export default [{
   field: 'hero_id',
   width: 1.5,
   sortFn: defaultSort,
-  displayFn: ({ field }) => <img src={field.display ? `${HOST_URL}${field.display.img}` : ''} style={{ height: '24px' }} role="presentation" />,
+  displayFn: ({ field }) => (
+    <div>
+      <img src={field.display ? `${HOST_URL}${field.display.img}` : ''} style={{ height: 24 }} role="presentation" />
+      <div>{field.display ? field.display.localized_name : ''}</div>
+    </div>),
 }, {
   displayName: 'Result',
   field: 'radiant_win',
   width: 1.5,
   sortFn: defaultSort,
   displayFn: ({ field }) => <WinLoss result={field.display} />,
+}, {
+  displayName: 'Skill',
+  field: 'skill',
+  width: 1.5,
+  sortFn: useOriginalValueSort,
 }, {
   displayName: 'Mode',
   field: 'game_mode',
@@ -40,16 +50,23 @@ export default [{
 }, {
   displayName: 'K',
   field: 'kills',
-  width: 1.8,
+  width: 1,
   sortFn: defaultSort,
 }, {
   displayName: 'D',
   field: 'deaths',
-  width: 1.8,
+  width: 1,
   sortFn: defaultSort,
 }, {
   displayName: 'A',
   field: 'assists',
-  width: 1.8,
+  width: 1,
   sortFn: defaultSort,
-}];
+}, {
+  displayName: 'P',
+  field: 'version',
+  width: 1,
+  sortFn: defaultSort,
+  displayFn: ({ field }) => (field.display ? <EditorPieChart /> : <div />),
+},
+];
