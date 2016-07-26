@@ -11,6 +11,11 @@ class Search extends React.Component {
   constructor({ dispatchSearch, data, loading, done }) {
     super();
   }
+  componentDidMount() {
+    if (this.props.location.query.q) {
+      this.props.dispatchSearch(this.props.location.query.q);
+    }
+  }
   render() {
     return this.props.loading ? <Spinner /> : <SearchResult players={this.props.data || []} />;
   }
@@ -26,4 +31,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Search);
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSearch: (query) => dispatch(getSearchResult(query)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

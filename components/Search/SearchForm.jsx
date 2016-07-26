@@ -16,14 +16,6 @@ const loadingStyle = {
 };
 
 const SearchForm = ({ location, dispatchSearch, dispatchSetQuery, hintText, onSubmit, disabled, query }) => {
-  let queryValue = location.query.q;
-  
-  if (query)
-  {
-    //TODO run the search
-    console.log('test');
-  }
-  
   const formSubmit = (e) => {
     e.preventDefault();
     browserHistory.push(`/search?q=${query}`); 
@@ -41,7 +33,7 @@ const SearchForm = ({ location, dispatchSearch, dispatchSetQuery, hintText, onSu
         disabled={disabled}
         hintText={hintText}
         value={query}
-        onChange={(value)=>dispatchSetQuery(query)}
+        onChange={(e) => dispatchSetQuery(e.target.value)}
         fullWidth
       />
       <RaisedButton
