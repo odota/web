@@ -3,14 +3,14 @@ import { Link } from 'react-router';
 import { YaspBadge } from '../../Player';
 import { defaultSort } from './utility';
 import styles from './column.css';
-import { HOST_URL } from '../../../yasp.config.js';
+import { API_HOST } from '../../../yasp.config.js';
 import constants from 'dotaconstants';
 
 const heroTd = ({ field, row }) => (
   <div style={{ marginTop: 5 }}>
     <div>
       <div className={row.isRadiant.value ? styles.radiant : styles.dire}></div>
-      <img src={field.display ? `${HOST_URL}${field.display.img}` : ''} style={{ height: 30 }} role="presentation" />
+      <img src={field.display ? `${API_HOST}${field.display.img}` : ''} style={{ height: 30 }} role="presentation" />
       {row.last_login && row.last_login.value && <span style={{ marginLeft: 3 }}><YaspBadge /></span>}
     </div>
     {row.account_id.value ? <Link to={`/players/${row.account_id.value}`}>{row.personaname.value}</Link> : 'Anonymous'}
@@ -116,7 +116,7 @@ for (let i = 0; i < 25; i++) {
         const abilityId = field.value[column.index];
         const abilityData = constants.abilities[constants.ability_ids[abilityId]];
         if (abilityData) {
-          return <img src={`${HOST_URL}${abilityData.img}`} style={{ height: 35, position: 'relative', left: -10 }} role="presentation" />;
+          return <img src={`${API_HOST}${abilityData.img}`} style={{ height: 35, position: 'relative', left: -10 }} role="presentation" />;
         }
       }
       return null;

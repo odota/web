@@ -1,17 +1,24 @@
 import fetch from 'isomorphic-fetch';
-import { HOST_URL } from '../actions';
+import { API_HOST } from '../actions';
 
 const url = '/api/search';
 
 const START = 'yasp/search/START';
 const DONE = 'yasp/search/DONE';
 const ERROR = 'yasp/search/ERROR';
+const QUERY = 'yasp/search/QUERY';
 
 export const searchActions = {
   START,
   DONE,
   ERROR,
+  QUERY,
 };
+
+const setSearchQuery = (query) => ({
+  type: QUERY,
+  query: query,
+});
 
 const getSearchStart = () => ({
   type: START,
@@ -27,11 +34,16 @@ const getSearchError = (payload) => ({
   payload,
 });
 
-export const getSearchResult = (query) => (dispatch) => {
+const getSearchResult = (query) => (dispatch) => {
   dispatch(getSearchStart());
-
-  return fetch(`${HOST_URL}${url}?q=${query}`)
+  dispatch(setSearchQuery(query));
+  return fetch(`${API_HOST}${url}?q=${query}`)
     .then(res => res.json())
     .then(json => dispatch(getSearchDone(json)))
     .catch(err => dispatch(getSearchError(err)));
+};
+
+export {
+  getSearchResult,
+  setSearchQuery,
 };

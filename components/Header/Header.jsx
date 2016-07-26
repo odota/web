@@ -5,6 +5,8 @@ import AccountWidget from '../AccountWidget';
 import AppBar from 'material-ui/AppBar';
 import styles from './Header.css';
 import TabBar from '../TabBar';
+import SearchForm from '../Search/SearchForm';
+
 const playerPages = (accountId) => [{
   name: 'Overview',
 }, {
@@ -114,6 +116,13 @@ export default ({
       onLeftIconButtonTouchTap={() => openMenu()}
       zDepth={0}
     />
+    <SearchForm
+      hintText="Search by name or SteamID"
+      location={location}
+    />
     {getTabBar(params, location)}
     <NavDrawer />
   </div>);
+
+
+

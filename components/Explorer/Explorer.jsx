@@ -4,7 +4,7 @@ const ace = require('brace');
 require('brace/mode/sql');
 require('brace/theme/monokai');
 import fetch from 'isomorphic-fetch';
-import { HOST_URL } from '../../yasp.config';
+import { API_HOST } from '../../yasp.config';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Popover from 'material-ui/Popover';
@@ -80,12 +80,12 @@ class Explorer extends React.Component
       this.setState(Object.assign({}, this.state, {
       loading: true,
       }));
-      fetch(`${HOST_URL}/api/explorer?id=${id}`).then(jsonResponse).then(this.handleResponse);
+      fetch(`${API_HOST}/api/explorer?id=${id}`).then(jsonResponse).then(this.handleResponse);
     }
   }
   handleQuery() {
     this.setState(Object.assign({}, this.state, { loading: true }));
-    fetch(`${HOST_URL}/api/explorer`, {
+    fetch(`${API_HOST}/api/explorer`, {
       method: 'post',
       headers:
       {

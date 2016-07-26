@@ -4,6 +4,7 @@ const initialState = {
   loading: false,
   error: false,
   done: false,
+  query: '',
   searchResults: [],
 };
 
@@ -15,6 +16,11 @@ export default (state = initialState, action) => {
         done: false,
         error: false,
         loading: true,
+      };
+    case searchActions.QUERY:
+      return {
+        ...state,
+        query: action.query
       };
     case searchActions.DONE:
       return {

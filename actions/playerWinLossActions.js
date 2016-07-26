@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { HOST_URL } from './';
+import { API_HOST } from './';
 
 const url = (playerId) => `/api/players/${playerId}/wl`;
 
@@ -25,7 +25,7 @@ export const getPlayerWinLossError = (payload) => ({
   payload,
 });
 
-export const getPlayerWinLoss = (playerId, host = HOST_URL) => (dispatch) => {
+export const getPlayerWinLoss = (playerId, host = API_HOST) => (dispatch) => {
   dispatch(getPlayerWinLossRequest());
   return fetch(`${host}${url(playerId)}`, { credentials: 'include' })
     .then(response => response.json())

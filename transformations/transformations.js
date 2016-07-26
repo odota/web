@@ -1,4 +1,4 @@
-import { HOST_URL } from '../yasp.config';
+import { API_HOST } from '../yasp.config';
 import moment from 'moment';
 import { formatSeconds, isRadiant } from '../utility';
 import constants from 'dotaconstants';
@@ -30,7 +30,7 @@ const transformMatchItem = ({ field }) => {
   if (field === 0) {
     return false;
   }
-  return `${HOST_URL}${constants.items[constants.item_ids[field]].img}`;
+  return `${API_HOST}${constants.items[constants.item_ids[field]].img}`;
 };
 
 for (let i = 0; i < 6; i++) {

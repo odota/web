@@ -7,27 +7,14 @@ const pages = [{
   name: 'Request',
   path: '/request',
 }, {
-  name: 'Rankings',
-  path: '/rankings',
-  newFeature: true,
-}, {
-  name: 'Benchmarks',
-  path: '/benchmarks',
+  name: 'Heroes',
+  path: '/heroes',
 }, {
   name: 'Distributions',
   path: '/distributions',
 }, {
-  name: 'Picks',
-  path: '/picks',
-}, {
-  name: 'MMStats',
-  path: '/mmstats',
-}, {
   name: 'Carry',
   path: '/carry',
-}, {
-  name: 'Search',
-  path: '/search',
 }];
 
 export default function NavBar({ toggleMenu }) {

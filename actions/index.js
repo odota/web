@@ -10,4 +10,4 @@ export { appBarActions, openMenu } from './appBarActions';
 export { tabActions, setActiveTab } from './tabActions';
 export { formActions, addChip, deleteChip, setFieldText, submitForm, clearForm, toggleShowForm } from './formActions';
 export { searchActions, getSearchResult } from './searchActions';
-export { HOST_URL } from '../yasp.config';
+export { API_HOST } from '../yasp.config';

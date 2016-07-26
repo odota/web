@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { HOST_URL } from '.';
+import { API_HOST } from '.';
 import { player } from '../reducers';
 
 const url = '/api/players';
@@ -28,7 +28,7 @@ const getPlayerError = (payload, id) => ({
   id,
 });
 
-export const getPlayer = (accountId, isUser, host = HOST_URL) => (dispatch, getState) => {
+export const getPlayer = (accountId, isUser, host = API_HOST) => (dispatch, getState) => {
   // we are checking to see if the player object exists here.
   if (player.isLoaded(getState(), accountId)) {
     dispatch(getPlayerOk(player.getPlayer(getState(), accountId), accountId));
