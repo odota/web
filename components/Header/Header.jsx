@@ -3,87 +3,23 @@ import Logo from '../Logo';
 import { NavDrawer } from '../NavBar';
 import AccountWidget from '../AccountWidget';
 import AppBar from 'material-ui/AppBar';
+import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 import styles from './Header.css';
 import TabBar from '../TabBar';
 import SearchForm from '../Search/SearchForm';
+import ActionSearch from 'material-ui/svg-icons/action/search';
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import MenuItem from 'material-ui/MenuItem';
+import { navbarPages, playerPages, matchPages } from './Pages';
 
-const playerPages = (accountId) => [{
-  name: 'Overview',
-}, {
-  name: 'Matches',
-}, {
-  name: 'Heroes',
-}, {
-  name: 'Peers',
-}, {
-  name: 'Pros',
-}, {
-  name: 'Activity',
-}, {
-  name: 'Records',
-}, {
-  name: 'Counts',
-}, {
-  name: 'Histograms',
-}, {
-  name: 'Trends',
-}, {
-  name: 'Wardmap',
-}, {
-  name: 'Items',
-}, {
-  name: 'Wordcloud',
-}, {
-  name: 'MMR',
-}, {
-  name: 'Rankings',
-  'new-feature': true,
-}].map((e) => Object.assign({}, e, {
+const playerPagesMapped = (accountId) => playerPages.map((e) => Object.assign({}, e, {
   route: `/players/${accountId}/${e.name.toLowerCase()}`,
   label: e.name,
 }));
 
-const matchPages = (matchId) => [{
-  name: 'Overview',
-}, {
-  name: 'Benchmarks',
-}, {
-  name: 'Performances',
-  parsed: true,
-}, {
-  name: 'Damage',
-  parsed: true,
-}, {
-  name: 'Purchases',
-  parsed: true,
-}, {
-  name: 'Farm',
-  parsed: true,
-}, {
-  name: 'Combat',
-  parsed: true,
-}, {
-  name: 'Graphs',
-  parsed: true,
-}, {
-  name: 'Vision',
-  parsed: true,
-}, {
-  name: 'Objectives',
-  parsed: true,
-}, {
-  name: 'Teamfights',
-  parsed: true,
-}, {
-  name: 'Actions',
-  parsed: true,
-}, {
-  name: 'Analysis',
-  parsed: true,
-}, {
-  name: 'Chat',
-  parsed: true,
-}].map((e) => Object.assign({}, e, {
+const matchPagesMapped = (matchId) => matchPages.map((e) => Object.assign({}, e, {
   route: `/matches/${matchId}/${e.name.toLowerCase()}`,
   label: e.name,
 }));
@@ -92,15 +28,15 @@ const getTabBar = (params, location) => {
   if (location.pathname.startsWith('/players')) {
     return (
       <div className={styles.tabBarContainer}>
-        <TabBar tabs={playerPages(params.account_id)} />
+        <TabBar tabs={playerPagesMapped(params.account_id)} />
       </div>);
   } else if (location.pathname.startsWith('/matches')) {
     return (
       <div className={styles.tabBarContainer}>
-        <TabBar tabs={matchPages(params.match_id)} />
+        <TabBar tabs={matchPagesMapped(params.match_id)} />
       </div>);
   }
-  return <div className={styles.emptyTabBarContainer} />;
+  return;
 };
 export default ({
   openMenu,
@@ -108,6 +44,36 @@ export default ({
   location,
 }) => (
   <div className={styles.upperCase}>
+    <Toolbar
+      className={styles.header}
+    >
+            <ToolbarGroup>
+            <ToolbarTitle text="YASP" />
+          <IconMenu
+            iconButtonElement={
+              <IconButton touch={true}>
+                <MoreVertIcon />
+              </IconButton>
+            }
+          >
+            { navbarPages.map((page)=>(<MenuItem primaryText={page.name} />))}
+          </IconMenu>
+</ToolbarGroup>
+<ToolbarGroup>
+    <ActionSearch />
+    <SearchForm
+      location={location}
+    />
+</ToolbarGroup>
+<ToolbarGroup lastChild={true}>
+<AccountWidget />
+</ToolbarGroup>
+    </Toolbar>
+    {getTabBar(params, location)}
+    <NavDrawer />
+  </div>);
+
+/*
     <AppBar
       className={styles.header}
       iconElementRight={(<AccountWidget />)}
@@ -116,13 +82,4 @@ export default ({
       onLeftIconButtonTouchTap={() => openMenu()}
       zDepth={0}
     />
-    <SearchForm
-      hintText="Search by name or SteamID"
-      location={location}
-    />
-    {getTabBar(params, location)}
-    <NavDrawer />
-  </div>);
-
-
-
+*/

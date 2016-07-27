@@ -21,28 +21,17 @@ const SearchForm = ({ location, dispatchSearch, dispatchSetQuery, hintText, onSu
     browserHistory.push(`/search?q=${query}`); 
     dispatchSearch(query);
   };
-  const loadingIndicator = () => (
-    <div className={style.loadingWrapper}>
-      <CircularProgress style={loadingStyle} />
-    </div>
-  );
 
   return (
     <form onSubmit={formSubmit}>
       <TextField
-        disabled={disabled}
-        hintText={hintText}
-        value={query}
-        onChange={(e) => dispatchSetQuery(e.target.value)}
-        fullWidth
-      />
-      <RaisedButton
-        type="submit"
-        label="Search"
-        disabled={disabled}
-        icon={<ActionSearch />}
-      />
-      {disabled ? loadingIndicator() : ''}
+          disabled={disabled}
+          hintText={'Player Search'}
+          value={query}
+          onChange={(e) => dispatchSetQuery(e.target.value)}
+          fullWidth
+          leftIcon={ActionSearch}
+        />
     </form>
   );
 };
