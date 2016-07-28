@@ -48,7 +48,7 @@ export default ({
       className={styles.header}
     >
             <ToolbarGroup>
-            <ToolbarTitle text="YASP" />
+            <Logo className={styles.verticalAlign} />
           <IconMenu
             iconButtonElement={
               <IconButton touch={true}>
@@ -59,13 +59,13 @@ export default ({
             { navbarPages.map((page)=>(<MenuItem primaryText={page.name} />))}
           </IconMenu>
 </ToolbarGroup>
-<ToolbarGroup>
+<ToolbarGroup className={styles.verticalAlign}>
     <ActionSearch />
     <SearchForm
       location={location}
     />
 </ToolbarGroup>
-<ToolbarGroup lastChild={true}>
+<ToolbarGroup>
 <AccountWidget />
 </ToolbarGroup>
     </Toolbar>

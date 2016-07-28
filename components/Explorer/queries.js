@@ -252,4 +252,52 @@ LIMIT 100;
           `,
       },
       */
+
+/*
+Hero:
+Most picked
+Most banned
+Highest win rate
+Highest kill avg	
+Highest assist avg
+Lowest death avg
+Highest last hit avg
+HIghest GPM avg
+Most kills
+Most last hits
+
+Teams:
+Win
+Most kills
+Highest kill avg
+Lowest deaths
+Most assists
+Wins longest
+Wins shortest
+Longest avg
+Most distinct heroes
+Fewest distinct heroes
+
+Players:
+Highest kills avg
+Most kills
+Lowest death avg
+Highest assist avg
+Most last hits
+Most GPM
+Highest GPM avg
+Most distinct heroes
+
+Tournament
+Games played
+Heroes picked
+Heroes banned
+Most kills in game
+Longest game
+Shortest game
+Most kills by hero
+Most deaths by hero
+Most assists by hero
+Highest GPM by hero
+*/
 };

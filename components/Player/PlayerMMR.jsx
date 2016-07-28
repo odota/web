@@ -30,7 +30,7 @@ This is an estimate of the mean MMR of this player's recent matches.`}
           >
             <ActionHelp color={grey500} />
           </abbr>
-          <span>{mmrEstimate.estimate}</span>
+          <span>{mmrEstimate.estimate || 'N/A'}</span>
         </span>
       </div>
     );
