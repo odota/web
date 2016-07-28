@@ -53,7 +53,6 @@ ORDER BY ${}
 LIMIT ${}
 `
 */
-//TODO automatic graphing
 
 class Explorer extends React.Component
 {
