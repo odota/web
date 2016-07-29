@@ -25,12 +25,12 @@ const matchPagesMapped = (matchId) => matchPages.map((e) => Object.assign({}, e,
 }));
 
 const getTabBar = (params, location) => {
-  if (location.pathname.startsWith('/players')) {
+  if (location.pathname.indexOf('/players') === 0) {
     return (
       <div className={styles.tabBarContainer}>
         <TabBar tabs={playerPagesMapped(params.account_id)} />
       </div>);
-  } else if (location.pathname.startsWith('/matches')) {
+  } else if (location.pathname.indexOf('/matches') === 0) {
     return (
       <div className={styles.tabBarContainer}>
         <TabBar tabs={matchPagesMapped(params.match_id)} />

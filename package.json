@@ -18,9 +18,11 @@
   "dependencies": {
     "brace": "^0.8.0",
     "dotaconstants": "yasp-dota/dotaconstants#fa7500b",
+    "es6-promise": "^3.2.1",
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "^0.15.2",
     "moment": "^2.14.1",
+    "querystring": "^0.2.0",
     "react": "^15.2.1",
     "react-addons-css-transition-group": "^15.2.1",
     "react-dom": "^15.2.1",
@@ -33,8 +35,7 @@
     "redux-devtools": "^3.3.1",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
-    "reselect": "^2.5.3",
-    "querystring": "^0.2.0"
+    "reselect": "^2.5.3"
   },
   "devDependencies": {
     "babel-core": "6.11.4",

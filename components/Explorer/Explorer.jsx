@@ -3,6 +3,7 @@ import React from 'react';
 const ace = require('brace');
 require('brace/mode/sql');
 require('brace/theme/monokai');
+//<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"></script>
 import fetch from 'isomorphic-fetch';
 import { API_HOST } from '../../yasp.config';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -69,6 +70,7 @@ class Explorer extends React.Component
     this.handleRequestClose = this.handleRequestClose.bind(this);
   }
   componentDidMount() {
+    const ace = this.ace;
     const editor = ace.edit('editor');
     editor.setTheme('ace/theme/monokai');
     editor.getSession().setMode('ace/mode/sql');
