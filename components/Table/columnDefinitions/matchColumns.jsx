@@ -17,6 +17,10 @@ const heroTd = ({ field, row }) => (
   </div>
 );
 
+const abbreviateNumber = function (num) {
+  return (num < 1000) ? num : `${(num / 1000).toFixed(1)}k`;
+};
+
 const overviewColumns = [{
   displayName: 'Player',
   field: 'hero_id',
@@ -27,27 +31,27 @@ const overviewColumns = [{
   {
     displayName: 'LVL',
     field: 'level',
-    width: 1.5,
+    width: 1,
     sortFn: defaultSort,
   }, {
     displayName: 'K',
     field: 'kills',
-    width: 1.5,
+    width: 1,
     sortFn: defaultSort,
   }, {
     displayName: 'D',
     field: 'deaths',
-    width: 1.5,
+    width: 1,
     sortFn: defaultSort,
   }, {
     displayName: 'A',
     field: 'assists',
-    width: 1.5,
+    width: 1,
     sortFn: defaultSort,
   }, {
     displayName: 'LH',
     field: 'last_hits',
-    width: 2,
+    width: 1,
     sortFn: defaultSort,
   }, {
     displayName: 'DN',
@@ -57,33 +61,36 @@ const overviewColumns = [{
   }, {
     displayName: 'G',
     field: 'gold_per_min',
-    width: 2,
-    displayFn: ({ row }) => `${(row.gold_per_min.value * row.duration.value / 60 / 1000).toFixed(1)}k`,
+    width: 1,
+    displayFn: ({ row }) => abbreviateNumber(row.gold_per_min.value * row.duration.value / 60),
     sortFn: defaultSort,
   }, {
     displayName: 'GPM',
     field: 'gold_per_min',
-    width: 2,
+    width: 1,
     sortFn: defaultSort,
   }, {
     displayName: 'XPM',
     field: 'xp_per_min',
-    width: 2,
+    width: 1,
     sortFn: defaultSort,
   }, {
     displayName: 'HD',
     field: 'hero_damage',
-    width: 2,
+    width: 1,
+    displayFn: ({ row }) => abbreviateNumber(row.hero_damage.value),
     sortFn: defaultSort,
   }, {
     displayName: 'TD',
     field: 'tower_damage',
-    width: 2,
+    width: 1,
+    displayFn: ({ row }) => abbreviateNumber(row.tower_damage.value),
     sortFn: defaultSort,
   }, {
     displayName: 'HH',
     field: 'hero_healing',
     width: 1,
+    displayFn: ({ row }) => abbreviateNumber(row.hero_healing.value),
     sortFn: defaultSort,
   }, {
     displayName: 'Items',

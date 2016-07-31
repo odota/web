@@ -2,9 +2,13 @@
 
 .footer {
   padding: 20px;
+  background-color: var(--textSecondaryColor);
+  color: var(--primaryTextColor);
 }
 
 .links {
+  background-color: var(--textSecondaryColor);
+  color: var(--primaryTextColor);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

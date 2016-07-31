@@ -1,4 +1,6 @@
 @import "../palette.css";
 
 :export {
+  submitColor: var(--lightAccentColor);
+  textColor: var(--dividerColor);
 }

@@ -1,4 +1,5 @@
 @import "../palette.css";
 
 :export {
+  clearColor: var(--defaultPrimaryColor);
 }
