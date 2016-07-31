@@ -159,7 +159,6 @@ const benchmarksColumns = (match) => {
       }); 
     });
   }
-  console.log(cols);
   return cols;
 };
 

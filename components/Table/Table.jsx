@@ -40,14 +40,10 @@ const getTable = (data, columns, sortState, sortField, sortClick, numRows) => {
           {modifiedData.map((row, index) => (
             <MaterialTableRow
               key={index}
-              row={row}
-              columns={columns}
-              totalWidth={totalWidth}
-              index={index}
               style={{borderBottomWidth: '0px'}}
             >
               {columns.map((column, colIndex) => (
-                <MaterialTableRowColumn style={getWidthStyle(column.width, totalWidth)}>
+                <MaterialTableRowColumn key={colIndex} style={getWidthStyle(column.width, totalWidth)}>
                   {row && column.displayFn && column.displayFn({ row, column, field: row[column.field] })}
                   {row && row[column.field] && !column.displayFn && (row[column.field].display)}
                 </MaterialTableRowColumn>
