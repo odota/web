@@ -10,12 +10,12 @@ const getWidthStyle = (column, total) => ({ width: `${column / total}%` });
 const isSortField = (sortField, field) => sortField === field;
 
 const getSortIcon = (sortState, sortField, field, style) => {
-  let sort = <ContentSort style={style}/>;
+  let sort = <ContentSort style={style} />;
   if (isSortField(sortField, field)) {
     if (sortState === 'asc') {
-      sort = <NavigationArrowUpward style={style}/>;
+      sort = <NavigationArrowUpward style={style} />;
     } else if (sortState === 'desc') {
-      sort = <NavigationArrowDownward style={style}/>;
+      sort = <NavigationArrowDownward style={style} />;
     }
   }
   return sort;

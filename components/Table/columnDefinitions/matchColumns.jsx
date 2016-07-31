@@ -22,10 +22,10 @@ const heroTdColumn = {
   field: 'hero_id',
   width: 3.5,
   displayFn: heroTd,
-  sortFn: (array, field, property) => (defaultSort(array, 'player_slot'))
+  sortFn: (array) => (defaultSort(array, 'player_slot')),
 };
 
-const abbreviateNumber = function (num) {
+const abbreviateNumber = function abbreviateNumber(num) {
   return (num < 1000) ? num : `${(num / 1000).toFixed(1)}k`;
 };
 
@@ -142,29 +142,28 @@ const benchmarksColumns = (match) => {
   const cols = [
     heroTdColumn,
   ];
-  if (match.players[0] && match.players[0].benchmarks) {
-    Object.keys(match.players[0].benchmarks).forEach(function(key, i) {
+  if (match.players.matchArray[0] && match.players.matchArray[0].benchmarks) {
+    Object.keys(match.players.matchArray[0].benchmarks).forEach((key, i) => {
       cols.push({
         displayName: key,
         field: 'benchmarks',
         index: i,
-        width: 1,
-        displayFn: ({ column, field }) => {
+        width: 2,
+        displayFn: ({ field }) => {
           if (field) {
             const bm = field.value[key];
-              return <div>{`${bm.pct}/${bm.raw}`}</div>;
+            return <div>{`${bm.pct}/${bm.raw}`}</div>;
           }
           return null;
         },
-      }); 
+      });
     });
   }
   return cols;
 };
 
-
-export { 
-  overviewColumns, 
+export {
+  overviewColumns,
   abUpgradeColumns,
   benchmarksColumns,
 };

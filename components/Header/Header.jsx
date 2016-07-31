@@ -4,16 +4,16 @@ import Logo from '../Logo';
 import AccountWidget from '../AccountWidget';
 import FlatButton from 'material-ui/FlatButton';
 // import AppBar from 'material-ui/AppBar';
-import { Toolbar, ToolbarGroup, ToolbarSeparator } from 'material-ui/Toolbar';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { Link } from 'react-router';
 import styles from './Header.css';
 import TabBar from '../TabBar';
 import SearchForm from '../Search/SearchForm';
 import ActionSearch from 'material-ui/svg-icons/action/search';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import MenuItem from 'material-ui/MenuItem';
+// import IconMenu from 'material-ui/IconMenu';
+// import IconButton from 'material-ui/IconButton/IconButton';
+// import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+// import MenuItem from 'material-ui/MenuItem';
 import { navbarPages, playerPages, matchPages } from './Pages';
 
 const playerPagesMapped = (accountId) => playerPages.map((e) => Object.assign({}, e, {
@@ -59,7 +59,8 @@ export default ({
             key={page.name}
             containerElement={<Link to={page.path} />}
             href={'#'}
-            label={page.name} />
+            label={page.name}
+          />
         ))}
       </ToolbarGroup>
       <ToolbarGroup className={styles.verticalAlign}>
@@ -94,4 +95,3 @@ export default ({
   }
 >
 */
-        

@@ -13,8 +13,7 @@ import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import styles from './Table.css';
-import { getTotalWidth } from './tableHelpers';
-import { getWidthStyle } from './tableHelpers';
+import { getTotalWidth, getWidthStyle } from './tableHelpers';
 
 const getTable = (data, columns, sortState, sortField, sortClick, numRows) => {
   const totalWidth = getTotalWidth(columns);
@@ -40,7 +39,7 @@ const getTable = (data, columns, sortState, sortField, sortClick, numRows) => {
           {modifiedData.map((row, index) => (
             <MaterialTableRow
               key={index}
-              style={{borderBottomWidth: '0px'}}
+              style={{ borderBottomWidth: '0px' }}
             >
               {columns.map((column, colIndex) => (
                 <MaterialTableRowColumn key={colIndex} style={getWidthStyle(column.width, totalWidth)}>

@@ -2,8 +2,8 @@ import React from 'react';
 import { createTable } from '../Table';
 import { getMatch, setMatchSort } from '../../actions';
 import { connect } from 'react-redux';
-import { 
-  overviewColumns, 
+import {
+  overviewColumns,
   abUpgradeColumns,
   benchmarksColumns,
 } from '../Table/columnDefinitions/matchColumns.jsx';
@@ -53,10 +53,10 @@ class RequestLayer extends React.Component {
         <div>
           <div>{`Match ${this.props.match.match_id}`}</div>
           <div>{this.props.match.radiant_win ? 'Radiant Victory' : 'Dire Victory'}</div>
-          <RaisedButton href={`/request#${this.props.match.match_id}`} label='Parse Replay' />
-          <RaisedButton href={this.props.match.replay_url} label='Download Replay' />
-          <RaisedButton label='Jist.tv' />
-          <RaisedButton label='DotaCoach' />
+          <RaisedButton href={`/request#${this.props.match.match_id}`} label={'Parse Replay'} />
+          <RaisedButton href={this.props.match.replay_url} label={'Download Replay'} />
+          <RaisedButton label={'Jist.tv'} />
+          <RaisedButton label={'DotaCoach'} />
           <table>
             <tr>
               <th>Mode</th>

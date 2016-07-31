@@ -2,7 +2,7 @@ import React from 'react';
 
 import TextField from 'material-ui/TextField';
 // import RaisedButton from 'material-ui/RaisedButton';
-import ActionSearch from 'material-ui/svg-icons/action/search';
+// import ActionSearch from 'material-ui/svg-icons/action/search';
 // import CircularProgress from 'material-ui/CircularProgress';
 import { connect } from 'react-redux';
 import { getSearchResult, setSearchQuery } from '../../actions';
