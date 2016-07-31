@@ -25,7 +25,7 @@
 :global(html) {
   height: 100%;
   /*background-color: var(--textSecondaryColor);*/
-  background-color: #000000;
+  background-color: #222222;
   color: var(--primaryTextColor);
 }
 

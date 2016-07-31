@@ -56,6 +56,7 @@ export default ({
       <ToolbarGroup>
         {navbarPages.map((page) => (
           <FlatButton
+            key={page.name}
             containerElement={<Link to={page.path} />}
             href={'#'}
             label={page.name} />

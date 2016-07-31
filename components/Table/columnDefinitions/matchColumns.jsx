@@ -17,17 +17,26 @@ const heroTd = ({ field, row }) => (
   </div>
 );
 
-const abbreviateNumber = function (num) {
-  return (num < 1000) ? num : `${(num / 1000).toFixed(1)}k`;
-};
-
-const overviewColumns = [{
+const heroTdColumn = {
   displayName: 'Player',
   field: 'hero_id',
   width: 3.5,
   displayFn: heroTd,
   sortFn: (array, field, property) => (defaultSort(array, 'player_slot'))
-},
+};
+
+const abbreviateNumber = function (num) {
+  return (num < 1000) ? num : `${(num / 1000).toFixed(1)}k`;
+};
+
+const overviewColumns = [
+  heroTdColumn,
+  {
+    displayName: 'MMR',
+    field: 'solo_competitive_rank',
+    width: 1,
+    sortFn: defaultSort,
+  },
   {
     displayName: 'LVL',
     field: 'level',
@@ -107,12 +116,8 @@ const overviewColumns = [{
     },
   }];
 const abUpgradeColumns = [
-  {
-    displayName: 'Hero',
-    field: 'hero_id',
-    width: 2.5,
-    displayFn: heroTd,
-  }];
+  heroTdColumn,
+];
 for (let i = 0; i < 25; i++) {
   abUpgradeColumns.push({
     displayName: i + 1,
@@ -132,4 +137,35 @@ for (let i = 0; i < 25; i++) {
     },
   });
 }
-export { overviewColumns, abUpgradeColumns };
+
+const benchmarksColumns = (match) => {
+  const cols = [
+    heroTdColumn,
+  ];
+  if (match.players[0] && match.players[0].benchmarks) {
+    Object.keys(match.players[0].benchmarks).forEach(function(key, i) {
+      cols.push({
+        displayName: key,
+        field: 'benchmarks',
+        index: i,
+        width: 1,
+        displayFn: ({ column, field }) => {
+          if (field) {
+            const bm = field.value[key];
+              return <div>{`${bm.pct}/${bm.raw}`}</div>;
+          }
+          return null;
+        },
+      }); 
+    });
+  }
+  console.log(cols);
+  return cols;
+};
+
+
+export { 
+  overviewColumns, 
+  abUpgradeColumns,
+  benchmarksColumns,
+};

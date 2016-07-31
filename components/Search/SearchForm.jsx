@@ -25,7 +25,6 @@ const SearchForm = ({ dispatchSearch, dispatchSetQuery, disabled, query }) => {
         value={query}
         onChange={(e) => dispatchSetQuery(e.target.value)}
         fullWidth
-        leftIcon={ActionSearch}
       />
     </form>
   );
