@@ -1,13 +1,1 @@
 @import "../../palette.css";
-
-.win {
-  color: var(--successColor);
-}
-
-.loss {
-  color: var(--dangerColor);
-}
-
-.notScored {
-  color: var(--mutedColor);
-}

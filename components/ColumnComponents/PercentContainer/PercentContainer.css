@@ -1,7 +1,5 @@
 @import "../../palette.css";
 
-:export{ lineColor: var(--lightAccentColor) }
-
 .percentContainer {
   display: flex;
   flex-direction: column;

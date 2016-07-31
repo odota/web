@@ -1,14 +1,11 @@
 @import "../palette.css";
 
 .header {
-  background-color: var(--defaultPrimaryColor) !important;
+  background-color: #757575 !important;
+}
 
-  & a {
-    color: var(--primaryTextColor);
-    &:hover {
-      color: var(--textSecondaryColor);
-    }
-  }
+a {
+  color: #FFFFFF;
 }
 
 .tabBarContainer {
@@ -19,7 +16,6 @@
 .emptyTabBarContainer {
   padding: 5px;
   box-shadow: 0 0 5px 5px rgba(0,0,0,0.2);
-  background-color: var(--defaultPrimaryColor) !important;
 }
 
 .upperCase {

@@ -2,7 +2,6 @@
 
 :global(body) {
   margin: 0;
-  color: var(--primaryTextColor);
   font-family: var(--fontFamily);
   height: 100%;
 }
@@ -12,11 +11,8 @@
 }
 
 :global(a) {
-  text-decoration: none;
   color: var(--primaryLinkColor);
-  &:hover {
-    color: color(var(--primaryLinkColor) lightness(-33%));
-  }
+  text-decoration: none;
 }
 
 :global(li) {
@@ -25,10 +21,30 @@
 
 :global(html) {
   height: 100%;
-  background-color: var(--textSecondaryColor);
+  /*background-color: var(--textSecondaryColor);*/
+  background-color: #000000;
+  color: var(--primaryTextColor);
 }
 
 :global(#react) {
   height: 100%;
   overflow-x: hidden;
+}
+
+:global(.textSuccess) {
+  color: #537F1B;
+}
+
+:global(.textDanger) {
+  color: #8B311E
+}
+
+:global(.textMuted) {
+  color: #727272;
+}
+
+:global(.subText) {
+  font-size: 10px;
+  color: #999;
+  text-transform: uppercase;
 }

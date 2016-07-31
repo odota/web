@@ -1,8 +1,5 @@
 @import "../palette.css";
 
-:export { backgroundColor: var(--defaultPrimaryColor) }
-:export { hoverColor: color(var(--defaultPrimaryColor) lightness(-10%)) }
-
 .cheese {
   font-family: Flaticon;
   font-size: 40px;

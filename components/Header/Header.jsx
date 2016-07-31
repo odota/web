@@ -1,9 +1,11 @@
 import React from 'react';
 import Logo from '../Logo';
-import { NavDrawer } from '../NavBar';
+// import { NavDrawer } from '../NavBar';
 import AccountWidget from '../AccountWidget';
+import FlatButton from 'material-ui/FlatButton';
 // import AppBar from 'material-ui/AppBar';
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import { Toolbar, ToolbarGroup, ToolbarSeparator } from 'material-ui/Toolbar';
+import { Link } from 'react-router';
 import styles from './Header.css';
 import TabBar from '../TabBar';
 import SearchForm from '../Search/SearchForm';
@@ -38,6 +40,7 @@ const getTabBar = (params, location) => {
   }
   return '';
 };
+
 export default ({
   // openMenu,
   params,
@@ -49,15 +52,14 @@ export default ({
     >
       <ToolbarGroup>
         <Logo className={styles.verticalAlign} />
-        <IconMenu
-          iconButtonElement={
-            <IconButton touch>
-              <MoreVertIcon />
-            </IconButton>
-          }
-        >
-          {navbarPages.map((page) => (<MenuItem primaryText={page.name} />))}
-        </IconMenu>
+      </ToolbarGroup>
+      <ToolbarGroup>
+        {navbarPages.map((page) => (
+          <FlatButton
+            containerElement={<Link to={page.path} />}
+            href={'#'}
+            label={page.name} />
+        ))}
       </ToolbarGroup>
       <ToolbarGroup className={styles.verticalAlign}>
         <ActionSearch />
@@ -70,7 +72,6 @@ export default ({
       </ToolbarGroup>
     </Toolbar>
     {getTabBar(params, location)}
-    <NavDrawer />
   </div>);
 
 /*
@@ -83,3 +84,13 @@ export default ({
       zDepth={0}
     />
 */
+/*
+<IconMenu
+  iconButtonElement={
+    <IconButton touch>
+      <MoreVertIcon />
+    </IconButton>
+  }
+>
+*/
+        

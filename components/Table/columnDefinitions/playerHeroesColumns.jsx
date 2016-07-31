@@ -16,7 +16,7 @@ const playerHeroesOverviewColumns = [{
   displayFn: ({ field }) => (
     <div>
       <img src={`${API_HOST}${field.display.img}`} style={{ height: 24 }} role="presentation" />
-      <div>{field.display ? field.display.localized_name : ''}</div>
+      <div className="subText">{field.display ? field.display.localized_name : ''}</div>
     </div>),
 }, {
   displayName: 'Last',

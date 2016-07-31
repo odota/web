@@ -10,7 +10,7 @@ const heroTd = ({ field, row }) => (
   <div style={{ marginTop: 5 }}>
     <div>
       <div className={row.isRadiant.value ? styles.radiant : styles.dire}></div>
-      <img src={field.display ? `${API_HOST}${field.display.img}` : ''} style={{ height: 30 }} role="presentation" />
+      <img src={field.display ? `${API_HOST}${field.display.img}` : ''} style={{ height: 24 }} role="presentation" />
       {row.last_login && row.last_login.value && <span style={{ marginLeft: 3 }}><YaspBadge /></span>}
     </div>
     {row.account_id.value ? <Link to={`/players/${row.account_id.value}`}>{row.personaname.value}</Link> : 'Anonymous'}
@@ -18,10 +18,11 @@ const heroTd = ({ field, row }) => (
 );
 
 const overviewColumns = [{
-  displayName: 'Hero',
+  displayName: 'Player',
   field: 'hero_id',
   width: 3.5,
   displayFn: heroTd,
+  sortFn: (array, field, property) => (defaultSort(array, 'player_slot'))
 },
   {
     displayName: 'LVL',
@@ -49,15 +50,16 @@ const overviewColumns = [{
     width: 2,
     sortFn: defaultSort,
   }, {
-    displayName: 'D',
+    displayName: 'DN',
     field: 'denies',
     width: 1,
     sortFn: defaultSort,
   }, {
     displayName: 'G',
-    field: '',
+    field: 'gold_per_min',
     width: 2,
-    displayFn: ({ row }) => `${(row.gold_per_min.value * row.duration.value / 60 / 1000).toFixed(1)}K`,
+    displayFn: ({ row }) => `${(row.gold_per_min.value * row.duration.value / 60 / 1000).toFixed(1)}k`,
+    sortFn: defaultSort,
   }, {
     displayName: 'GPM',
     field: 'gold_per_min',
