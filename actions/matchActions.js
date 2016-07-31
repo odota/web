@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { HOST_URL } from '../actions';
+import { API_HOST } from '../actions';
 
 const url = '/api/matches/';
 
@@ -37,7 +37,7 @@ export const setMatchSort = (sortField, sortState, sortFn) => ({
 
 export const getMatch = (matchId) => (dispatch) => {
   dispatch(getMatchRequest());
-  return fetch(`${HOST_URL}${url}${matchId}`)
+  return fetch(`${API_HOST}${url}${matchId}`)
     .then(response => response.json())
     .then(json => dispatch(getMatchOk(json)))
     .catch(error => dispatch(getMatchError(error)));

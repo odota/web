@@ -2,7 +2,7 @@ import React from 'react';
 import { defaultSort, useOriginalValueSort } from './utility';
 import { WinLoss } from '../../ColumnComponents';
 import { Link } from 'react-router';
-import { HOST_URL } from '../../../yasp.config';
+import { API_HOST } from '../../../yasp.config';
 import EditorPieChart from 'material-ui/svg-icons/editor/pie-chart';
 
 export default [{
@@ -18,7 +18,7 @@ export default [{
   sortFn: defaultSort,
   displayFn: ({ field }) => (
     <div>
-      <img src={field.display ? `${HOST_URL}${field.display.img}` : ''} style={{ height: 24 }} role="presentation" />
+      <img src={field.display ? `${API_HOST}${field.display.img}` : ''} style={{ height: 24 }} role="presentation" />
       <div>{field.display ? field.display.localized_name : ''}</div>
     </div>),
 }, {

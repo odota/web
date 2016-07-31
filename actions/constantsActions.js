@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { HOST_URL } from '../actions';
+import { API_HOST } from '../actions';
 const url = '/api/constants';
 const REQUEST = 'yasp/constants/REQUEST';
 const OK = 'yasp/constants/OK';
@@ -23,7 +23,7 @@ const getConstantsError = (payload) => ({
   payload,
 });
 
-export const getConstants = (host = HOST_URL) => (dispatch) => {
+export const getConstants = (host = API_HOST) => (dispatch) => {
   getConstantsRequest();
   return fetch(`${host}${url}`, { credentials: 'include' })
   .then(response => response.json())

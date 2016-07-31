@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { HOST_URL } from '../actions';
+import { API_HOST } from '../actions';
 const url = '/api/metadata';
 const REQUEST = 'yasp/metadata/REQUEST';
 const OK = 'yasp/metadata/OK';
@@ -23,7 +23,7 @@ const getMetadataError = (payload) => ({
   payload,
 });
 
-export const getMetadata = (host = HOST_URL) => (dispatch) => {
+export const getMetadata = (host = API_HOST) => (dispatch) => {
   getMetadataRequest();
   return fetch(`${host}${url}`, { credentials: 'include' })
   .then(response => response.json())

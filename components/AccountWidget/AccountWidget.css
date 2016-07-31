@@ -14,6 +14,12 @@
   margin: auto 0;
 }
 
+.tab {
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  color: var(--primaryTextColor) !important;
+}
+
 .logout {
   margin-left: 15px;
   display: flex;

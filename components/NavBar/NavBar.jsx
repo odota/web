@@ -2,36 +2,10 @@ import React from 'react';
 import { Link } from 'react-router';
 import Divider from 'material-ui/Divider';
 import styles from './NavBar.css';
-
-const pages = [{
-  name: 'Request',
-  path: '/request',
-}, {
-  name: 'Rankings',
-  path: '/rankings',
-  newFeature: true,
-}, {
-  name: 'Benchmarks',
-  path: '/benchmarks',
-}, {
-  name: 'Distributions',
-  path: '/distributions',
-}, {
-  name: 'Picks',
-  path: '/picks',
-}, {
-  name: 'MMStats',
-  path: '/mmstats',
-}, {
-  name: 'Carry',
-  path: '/carry',
-}, {
-  name: 'Search',
-  path: '/search',
-}];
+import { navbarPages } from '../Header/Pages';
 
 export default function NavBar({ toggleMenu }) {
-  const links = pages.map((p, index) => (
+  const links = navbarPages.map((p, index) => (
     <Link key={index} to={p.path} onTouchTap={toggleMenu}>
       <li className={styles.listItem}>
         {p.name}

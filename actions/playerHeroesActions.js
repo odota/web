@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { HOST_URL } from './';
+import { API_HOST } from './';
 import { playerHeroes } from '../reducers';
 import { getUrl } from './utility';
 
@@ -40,7 +40,7 @@ export const getPlayerHeroesError = (payload, id) => ({
   id,
 });
 
-export const getPlayerHeroes = (playerId, options = {}, host = HOST_URL) => (dispatch, getState) => {
+export const getPlayerHeroes = (playerId, options = {}, host = API_HOST) => (dispatch, getState) => {
   if (playerHeroes.isLoaded(getState(), playerId)) {
     dispatch(getPlayerHeroesOk(playerHeroes.getHeroList(getState(), playerId), playerId));
   } else {

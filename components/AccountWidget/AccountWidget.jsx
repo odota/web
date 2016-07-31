@@ -6,6 +6,7 @@ import { REDUCER_KEY } from '../../reducers';
 import { getPlayer } from '../../actions';
 import styles from './AccountWidget.css';
 import { Link } from 'react-router';
+import { API_HOST } from '../../yasp.config';
 // import FontIcon from 'material-ui/FontIcon';
 // import { PlayerPicture } from '../Player';
 
@@ -21,12 +22,12 @@ const AccountWidget = ({ loading, error, user }) => (
     {loading && !error && <Spinner />}
     {error && <Error />}
     {!error && !loading && user ? (
-      <div className={styles.flexContainer}>
+      <div className={`${styles.flexContainer} ${styles.tab}`}>
         <Link to={`/players/${user.account_id}`}>{"Profile"}</Link>
-        <a href="/logout" className={styles.logout}>{"Logout"}</a>
+        <a href={`${API_HOST}/logout`} className={styles.logout}>{"Logout"}</a>
       </div>
     )
-    : <a href="/login">Login</a>
+    : <a href={`${API_HOST}/login`}>Login</a>
     }
   </div>
 );
