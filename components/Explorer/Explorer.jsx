@@ -70,7 +70,6 @@ class Explorer extends React.Component
     this.handleRequestClose = this.handleRequestClose.bind(this);
   }
   componentDidMount() {
-    const ace = this.ace;
     const editor = ace.edit('editor');
     editor.setTheme('ace/theme/monokai');
     editor.getSession().setMode('ace/mode/sql');
