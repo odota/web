@@ -17,7 +17,7 @@ export const searchActions = {
 
 const setSearchQuery = (query) => ({
   type: QUERY,
-  query: query,
+  query,
 });
 
 const getSearchStart = () => ({

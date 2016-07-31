@@ -2,8 +2,8 @@ import React from 'react';
 import Logo from '../Logo';
 import { NavDrawer } from '../NavBar';
 import AccountWidget from '../AccountWidget';
-import AppBar from 'material-ui/AppBar';
-import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
+// import AppBar from 'material-ui/AppBar';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import styles from './Header.css';
 import TabBar from '../TabBar';
 import SearchForm from '../Search/SearchForm';
@@ -36,10 +36,10 @@ const getTabBar = (params, location) => {
         <TabBar tabs={matchPagesMapped(params.match_id)} />
       </div>);
   }
-  return;
+  return '';
 };
 export default ({
-  openMenu,
+  // openMenu,
   params,
   location,
 }) => (
@@ -47,27 +47,27 @@ export default ({
     <Toolbar
       className={styles.header}
     >
-            <ToolbarGroup>
-            <Logo className={styles.verticalAlign} />
-          <IconMenu
-            iconButtonElement={
-              <IconButton touch={true}>
-                <MoreVertIcon />
-              </IconButton>
-            }
-          >
-            { navbarPages.map((page)=>(<MenuItem primaryText={page.name} />))}
-          </IconMenu>
-</ToolbarGroup>
-<ToolbarGroup className={styles.verticalAlign}>
-    <ActionSearch />
-    <SearchForm
-      location={location}
-    />
-</ToolbarGroup>
-<ToolbarGroup>
-<AccountWidget />
-</ToolbarGroup>
+      <ToolbarGroup>
+        <Logo className={styles.verticalAlign} />
+        <IconMenu
+          iconButtonElement={
+            <IconButton touch>
+              <MoreVertIcon />
+            </IconButton>
+          }
+        >
+          {navbarPages.map((page) => (<MenuItem primaryText={page.name} />))}
+        </IconMenu>
+      </ToolbarGroup>
+      <ToolbarGroup className={styles.verticalAlign}>
+        <ActionSearch />
+        <SearchForm
+          location={location}
+        />
+      </ToolbarGroup>
+      <ToolbarGroup>
+        <AccountWidget />
+      </ToolbarGroup>
     </Toolbar>
     {getTabBar(params, location)}
     <NavDrawer />

@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
     case searchActions.QUERY:
       return {
         ...state,
-        query: action.query
+        query: action.query,
       };
     case searchActions.DONE:
       return {

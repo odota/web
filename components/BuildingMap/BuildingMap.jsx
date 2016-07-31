@@ -16,7 +16,7 @@ export default function BuildingMap({ match, loading }) {
     // building data in correct order
     // determine ancient display by match winner
     for (let i = 0; i < bits.length; i++) {
-      const d = {id: buildingData[i].id};
+      const d = { id: buildingData[i].id };
       d.src = 'https://raw.githubusercontent.com/kronusme/dota2-api/master/images/map/';
       d.src += buildingData[i].id.slice(0, 1) === 't' ? 'tower' : 'racks';
       d.src += buildingData[i].id.slice(-1) === 'r' ? '_radiant.png' : '_dire.png';

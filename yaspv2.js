@@ -16,9 +16,8 @@ import Search from './components/Search';
 import Explorer from './components/Explorer';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-//Promise polyfill for IE
+// Promise polyfill for IE
 require('es6-promise').polyfill();
-
 
 // This is used by material-ui components
 injectTapEventPlugin();

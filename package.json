@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "brace": "^0.8.0",
-    "dotaconstants": "yasp-dota/dotaconstants#fa7500b",
+    "dotaconstants": "yasp-dota/dotaconstants#90a8be6",
     "es6-promise": "^3.2.1",
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "^0.15.2",

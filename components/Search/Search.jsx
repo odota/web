@@ -8,9 +8,6 @@ import { getSearchResult } from '../../actions';
 import SearchResult from './SearchResult';
 
 class Search extends React.Component {
-  constructor({ dispatchSearch, data, loading, done }) {
-    super();
-  }
   componentDidMount() {
     if (this.props.location.query.q) {
       this.props.dispatchSearch(this.props.location.query.q);
