@@ -13,6 +13,9 @@
 :global(a) {
   color: var(--primaryLinkColor);
   text-decoration: none;
+  &:hover {
+    color: color(var(--primaryLinkColor) lightness(-33%));
+  }
 }
 
 :global(li) {
