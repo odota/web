@@ -48,6 +48,6 @@
 
 :global(.subText) {
   font-size: 10px;
-  color: #999;
+  color: #c5c5c5;
   text-transform: uppercase;
 }
