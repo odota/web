@@ -1,0 +1,56 @@
+.Header {
+	display: block;
+	text-align: center;
+	margin: 0 0 40px 0;
+}
+
+.HeroListWrapper, .HeroListCol {
+	padding: 0;
+}
+
+.HeroItemAction {
+	margin: 10px 0;
+}
+
+.HeroItemActionButton {
+	margin-right: 7px;
+}
+
+.RankingTable {
+	border: solid 1px rgba(255,255,255, 0.3);
+}
+.RankingName {
+	padding: 7px 0;
+}
+.RankingColNo {
+	width: 1.7em;
+    text-align: center;
+}
+.RankingPersonaName {
+	margin: 0 0 8px 0;
+}
+
+.RankingAvatar {
+	float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+    border: solid 1px rgba(255, 255, 255, 0.6);
+}
+
+.RankingHeroBadge {
+	text-align: right;
+	display:block;
+	margin:0 0 20px 0;
+}
+.RankingHeroBadgeAvatar {
+    border: solid 1px rgba(255, 255, 255, 0.3);
+}
+.RankingHeroBadgeTd {
+	padding: 0 0 0 15px;
+}
+.RankingHeroBadgeMeta {
+	text-transform: uppercase;
+    color: #999;
+    font-size: 12px;
+    font-weight: bold;
+}

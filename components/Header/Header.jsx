@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import Logo from '../Logo';
 import { NavDrawer } from '../NavBar';
 import AccountWidget from '../AccountWidget';
@@ -56,7 +57,10 @@ export default ({
             </IconButton>
           }
         >
-          {navbarPages.map((page) => (<MenuItem primaryText={page.name} />))}
+          {navbarPages.map((page) => (
+            <Link to={page.path}>
+              <MenuItem primaryText={page.name} />
+            </Link>))}
         </IconMenu>
       </ToolbarGroup>
       <ToolbarGroup className={styles.verticalAlign}>
