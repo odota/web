@@ -27,14 +27,14 @@ const getRankingError = (payload) => ({
   payload,
 });
 
-const getRanking = (hero_id) => (dispatch) => {
-  dispatch(getRankingStart())
-  return fetch(`${API_HOST}${url}?hero_id=${hero_id}`)
+const getRanking = (heroId) => (dispatch) => {
+  dispatch(getRankingStart());
+  return fetch(`${API_HOST}${url}?hero_id=${heroId}`)
     .then(res => res.json())
     .then(json => dispatch(getRankingDone(json)))
     .catch(err => dispatch(getRankingError(err)));
-}
+};
 
 export {
-  getRanking
+  getRanking,
 };

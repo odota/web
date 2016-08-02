@@ -12,15 +12,15 @@ class Ranking extends Component {
 
   componentDidMount() {
     if (this.props.routeParams.hero_id) {
-      this.props.getRanking(this.props.routeParams.hero_id)
+      this.props.getRanking(this.props.routeParams.hero_id);
     }
   }
 
   render() {
-    const { hero_id, rankings} = this.props
+    const { hero_id, rankings } = this.props;
     let bestPlayer = null;
     if (rankings.length > 0) {
-      bestPlayer = rankings[0]
+      bestPlayer = rankings[0];
     }
 
     return (
@@ -34,11 +34,11 @@ class Ranking extends Component {
 
 const mapStateToProps = (state) => ({
   hero_id: state[REDUCER_KEY].gotRanking.hero_id,
-  rankings: state[REDUCER_KEY].gotRanking.rankings
+  rankings: state[REDUCER_KEY].gotRanking.rankings,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getRanking: (hero_id) => dispatch(getRanking(hero_id))
+  getRanking: (heroId) => dispatch(getRanking(heroId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ranking);

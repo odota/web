@@ -5,22 +5,23 @@ import { GridTile } from 'material-ui/GridList';
 
 import style from './heroes.css';
 
-const HeroActionButton = ({ hero_id }) => (
+const HeroActionButton = ({ heroId }) => (
   <div className={style.HeroItemAction}>
-    <Link to={`heroes/benchmark/${hero_id}`}>
+    <Link to={`heroes/benchmark/${heroId}`}>
       <RaisedButton className={style.HeroItemActionButton} label="Benchmark" />
     </Link>
-    <Link to={`heroes/ranking/${hero_id}`}>
+    <Link to={`heroes/ranking/${heroId}`}>
       <RaisedButton label="Ranking" />
     </Link>
   </div>
-)
+);
 
 
 export default ({ id, name, imageUrl }) => (
-  <GridTile 
+  <GridTile
     title={name}
-    subtitle={<HeroActionButton hero_id={id} />}>
-    <img src={imageUrl} />
+    subtitle={<HeroActionButton heroId={id} />}
+  >
+    <img role="presentation" src={imageUrl} />
   </GridTile>
-)
+);

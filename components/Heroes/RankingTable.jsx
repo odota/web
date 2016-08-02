@@ -1,11 +1,11 @@
 import React from 'react';
-import { 
-  Table, 
-  TableBody, 
-  TableHeader, 
-  TableHeaderColumn, 
-  TableRow, 
-  TableRowColumn
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
 } from 'material-ui/Table';
 import Avatar from 'material-ui/Avatar';
 import { Link } from 'react-router';
@@ -13,9 +13,9 @@ import { Link } from 'react-router';
 import style from './heroes.css';
 
 export default ({ rankings }) => {
-
-  if (!rankings || rankings.length === 0)
-    return <div />
+  if (!rankings || rankings.length === 0) {
+    return <div />;
+  }
 
   return (
     <Table className={style.RankingTable}>
@@ -29,7 +29,7 @@ export default ({ rankings }) => {
       <TableBody displayRowCheckbox={false}>
         {rankings.map((ranking, i) => (
           <TableRow selectable={false} key={ranking.account_id}>
-            <TableRowColumn className={style.RankingColNo} style={{textAlign: 'center'}}>{i+1}</TableRowColumn>
+            <TableRowColumn className={style.RankingColNo} style={{ textAlign: 'center' }}>{i + 1}</TableRowColumn>
             <TableRowColumn>
               <div className={style.RankingName}>
                 <Avatar
@@ -50,5 +50,5 @@ export default ({ rankings }) => {
         ))}
       </TableBody>
     </Table>
-  )
-}
+  );
+};

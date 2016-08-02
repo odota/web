@@ -24,14 +24,14 @@ export default (state = initialState, action) => {
         error: false,
         loading: false,
         hero_id: action.payload.hero_id,
-        rankings: action.payload.rankings
+        rankings: action.payload.rankings,
       };
     case rankingActions.ERROR:
       return {
         ...state,
         done: false,
         error: true,
-        loading: false
+        loading: false,
       };
     default:
       return state;
