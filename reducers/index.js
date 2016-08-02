@@ -3,6 +3,7 @@ import gotConstants from './gotConstants';
 import gotMatch from './gotMatch';
 import gotPlayer, { player, playerMatches, playerPeers, playerHeroes } from './gotPlayer';
 import gotSearch from './gotSearch';
+import gotRanking from './gotRanking';
 import appBar from './appBar';
 import tab, { getTab } from './tab';
 import form, { getForm } from './form';
@@ -28,6 +29,7 @@ export default combineReducers({
   gotMatch,
   gotConstants,
   gotSearch,
+  gotRanking,
   appBar,
   tab,
   form,
