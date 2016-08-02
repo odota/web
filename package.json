@@ -26,6 +26,7 @@
     "react": "^15.2.1",
     "react-addons-css-transition-group": "^15.2.1",
     "react-dom": "^15.2.1",
+    "react-flexbox-grid": "^0.10.2",
     "react-motion": "^0.4.4",
     "react-redux": "^4.4.5",
     "react-router": "^2.6.0",
