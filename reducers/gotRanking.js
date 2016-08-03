@@ -16,6 +16,8 @@ export default (state = initialState, action) => {
         done: false,
         error: false,
         loading: true,
+        rankings: [],
+        hero_id: 0,
       };
     case rankingActions.DONE:
       return {
