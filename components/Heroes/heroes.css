@@ -4,6 +4,11 @@
 	margin: 0 0 40px 0;
 }
 
+.Loading {
+	display: block;
+	text-align: center;
+}
+
 .HeroListWrapper, .HeroListCol {
 	padding: 0;
 }
@@ -53,4 +58,22 @@
     color: #999;
     font-size: 12px;
     font-weight: bold;
+}
+
+.BenchmarkTable {
+}
+
+.BenchmarkCell {
+	text-align: center;
+}
+
+.BenchmarkColNo {
+	width: 2.5em;
+}
+
+.BenchmarkRow-0 {
+	background-color: #3b3b3b;
+}
+.BenchmarkRow-1 {
+	//background-color: #000;
 }

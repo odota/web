@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { heroes } from 'dotaconstants';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import { REDUCER_KEY } from './../../reducers';
 import { getRanking } from './../../actions';
 
+import style from './heroes.css';
 import RankingTable from './RankingTable';
 import RankingBadge from './RankingBadge';
 
@@ -17,7 +18,7 @@ class Ranking extends Component {
   }
 
   render() {
-    const { hero_id, rankings } = this.props;
+    const { hero_id, rankings, isLoading, heroes } = this.props;
     let bestPlayer = null;
     if (rankings.length > 0) {
       bestPlayer = rankings[0];
@@ -25,6 +26,10 @@ class Ranking extends Component {
 
     return (
       <div>
+        {isLoading ?
+          <div className={style.Loading}>
+            <CircularProgress color="#fff" />
+          </div> : ''}
         <RankingBadge hero={heroes[hero_id]} bestPlayer={bestPlayer} />
         <RankingTable rankings={this.props.rankings} />
       </div>
@@ -33,8 +38,10 @@ class Ranking extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  heroes: state[REDUCER_KEY].heroes,
   hero_id: state[REDUCER_KEY].gotRanking.hero_id,
   rankings: state[REDUCER_KEY].gotRanking.rankings,
+  isLoading: state[REDUCER_KEY].gotRanking.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
-import { API_HOST } from './../../yasp.config';
 import style from './heroes.css';
 
 export default ({ hero, bestPlayer }) => {
@@ -15,7 +14,7 @@ export default ({ hero, bestPlayer }) => {
       <Grid fluid style={{ padding: '0 0 20px 0' }}>
         <Row>
           <Col xs={12} sm={6} md={6} lg={6}>
-            <img role="presentation" className={style.RankingHeroBadgeAvatar} src={`${API_HOST}${hero.img}`} />
+            <img role="presentation" className={style.RankingHeroBadgeAvatar} src={hero.img} />
           </Col>
           <Col xs={12} sm={6} md={6} lg={6} style={{ textAlign: 'right' }}>
             <h2 className={style.RankingHeroBadge}>{hero.localized_name} Player Rankings</h2>

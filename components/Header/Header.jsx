@@ -58,7 +58,7 @@ export default ({
           }
         >
           {navbarPages.map((page) => (
-            <Link to={page.path}>
+            <Link key={page.path} to={page.path}>
               <MenuItem primaryText={page.name} />
             </Link>))}
         </IconMenu>
