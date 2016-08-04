@@ -8,21 +8,21 @@ import EditorPieChart from 'material-ui/svg-icons/editor/pie-chart';
 export default [{
   displayName: 'ID',
   field: 'match_id',
-  width: 2.5,
+  width: 2,
   sortFn: defaultSort,
   displayFn: ({ field }) => <Link to={`/matches/${field.display}`}>{field.display}</Link>,
 }, {
   displayName: 'Hero',
   field: 'hero_id',
-  width: 1.5,
+  width: 3,
   sortFn: defaultSort,
   displayFn: ({ field }) => (
     <div>
       <img src={field.display ? `${API_HOST}${field.display.img}` : ''} style={{ height: 24 }} role="presentation" />
-      <div>{field.display ? field.display.localized_name : ''}</div>
+      <div className="subText">{field.display ? field.display.localized_name : ''}</div>
     </div>),
 }, {
-  displayName: 'Result',
+  displayName: 'Res',
   field: 'radiant_win',
   width: 1.5,
   sortFn: defaultSort,
@@ -32,21 +32,28 @@ export default [{
   field: 'skill',
   width: 1.5,
   sortFn: useOriginalValueSort,
+  displayFn: ({ field }) => (
+    <div className="subText">{field.display}</div>),
 }, {
   displayName: 'Mode',
   field: 'game_mode',
   width: 2.5,
   sortFn: defaultSort,
+  displayFn: ({ field }) => (
+    <div className="subText">{field.display}</div>),
 }, {
   displayName: 'Ended',
   field: 'start_time',
   width: 2,
-  sortFn: useOriginalValueSort,
+  displayFn: ({ field }) => (
+    <div className="subText">{field.display}</div>),
 }, {
-  displayName: 'Duration',
+  displayName: 'Length',
   field: 'duration',
   width: 2,
   sortFn: useOriginalValueSort,
+  displayFn: ({ field }) => (
+    <div className="subText">{field.display}</div>),
 }, {
   displayName: 'K',
   field: 'kills',

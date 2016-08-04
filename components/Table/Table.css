@@ -2,6 +2,7 @@
 
 .container {
   min-width: 100%;
+  border: 1px solid #666;
   @media only screen and (max-width: 960px) {
     margin: 0 -25px;
     overflow-x: scroll;
@@ -29,36 +30,15 @@
   flex-direction: row;
   justify-content: space-between;
   text-align: center;
-  & * {
-    color: var(--primaryTextColor)!important;
-  }
 }
 
 .headerCell {
   composes: headerCellNoSort;
   &:hover {
     cursor: pointer;
-    & span, & div {
-      color: var(--textSecondaryColor)!important;
-    }
   }
 }
 
-.row {
-  background-color: color(var(--textSecondaryColor) lightness(20%));
-  color: var(--primaryTextColor)!important;
-  border-bottom-color: var(--dividerColor)!important;
-}
-
-.row0 {
-  composes: row;
-}
-
-.row1 {
-  composes: row;
-  background-color: color(var(--textSecondaryColor) lightness(25%));
-}
-
-.table {
-  background-color: var(--defaultPrimaryColor)!important;
+tbody tr:nth-child(odd) {
+   background-color: #3e3e3e;
 }

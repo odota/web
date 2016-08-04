@@ -1,13 +1,1 @@
 @import "../palette.css";
-
-.text {
-  color: var(--primaryTextColor);
-}
-
-.danger {
-  color: var(--lightPrimaryColor);
-}
-
-.success {
-  color: var(--lightAccentColor);
-}
