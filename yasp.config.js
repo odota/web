@@ -1,4 +1,4 @@
 module.exports = {
-  HOST_URL: 'https://yasp.co',
-  // HOST_URL: 'http://hchung.westus.cloudapp.azure.com:5000',
+  API_HOST: 'https://yasp.co',
+  // API_HOST: 'http://hchung.westus.cloudapp.azure.com:5000',
 };

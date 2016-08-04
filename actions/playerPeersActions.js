@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { HOST_URL } from './';
+import { API_HOST } from './';
 import { playerPeers } from '../reducers';
 import { getUrl } from './utility';
 
@@ -39,7 +39,7 @@ export const getPlayerPeersError = (payload, id) => ({
   id,
 });
 
-export const getPlayerPeers = (playerId, options = {}, host = HOST_URL) => (dispatch, getState) => {
+export const getPlayerPeers = (playerId, options = {}, host = API_HOST) => (dispatch, getState) => {
   if (playerPeers.isLoaded(getState(), playerId)) {
     dispatch(getPlayerPeersOk(playerPeers.getPeerList(getState(), playerId), playerId));
   } else {

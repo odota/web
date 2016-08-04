@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { HOST_URL } from './';
+import { API_HOST } from './';
 import { playerMatches } from '../reducers';
 import { getUrl, defaultOptions } from './utility';
 
@@ -39,7 +39,7 @@ export const getPlayerMatchesError = (payload, id) => ({
   id,
 });
 
-export const getPlayerMatches = (playerId, options = {}, host = HOST_URL) => (dispatch, getState) => {
+export const getPlayerMatches = (playerId, options = {}, host = API_HOST) => (dispatch, getState) => {
   let modifiedOptions = options;
   if (Object.keys(options).length === 0) modifiedOptions = defaultOptions;
   if (playerMatches.isLoaded(getState(), playerId)) {

@@ -6,7 +6,7 @@ import {
   winPercentTransform,
 } from './utility';
 import { PercentContainer } from '../../ColumnComponents';
-import { HOST_URL } from '../../../yasp.config';
+import { API_HOST } from '../../../yasp.config';
 
 
 const playerHeroesOverviewColumns = [{
@@ -15,14 +15,16 @@ const playerHeroesOverviewColumns = [{
   width: 2,
   displayFn: ({ field }) => (
     <div>
-      <img src={`${HOST_URL}${field.display.img}`} style={{ height: 24 }} role="presentation" />
-      <div>{field.display ? field.display.localized_name : ''}</div>
+      <img src={`${API_HOST}${field.display.img}`} style={{ height: 24 }} role="presentation" />
+      <div className="subText">{field.display ? field.display.localized_name : ''}</div>
     </div>),
 }, {
   displayName: 'Last',
   field: 'last_played',
   width: 2,
   sortFn: useOriginalValueSort,
+  displayFn: ({ field }) => (
+    <div className="subText">{field.display}</div>),
 }, {
   displayName: 'Played',
   field: 'games',

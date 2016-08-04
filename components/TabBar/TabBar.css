@@ -4,13 +4,9 @@
 
 .tabs {
   box-shadow: 0 0 5px 5px rgba(0,0,0,0.2);
-  & > div {
-    background-color: var(--defaultPrimaryColor) !important;
-  }
 }
 
 .tab {
   font-weight: 600 !important;
-  font-size: 11 !important;
-  color: var(--primaryTextColor) !important;
+  font-size: 12px !important;
 }

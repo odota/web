@@ -25,3 +25,9 @@
 .upperCase {
   text-transform: uppercase;
 }
+
+.verticalAlign {
+  display:flex;
+  align-items: center; /* Vertical center alignment */
+  justify-content: center; /* Horizontal center alignment */
+}

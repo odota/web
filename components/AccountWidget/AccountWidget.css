@@ -14,16 +14,14 @@
   margin: auto 0;
 }
 
+.tab {
+  font-weight: 600 !important;
+  font-size: 12px !important;
+}
+
 .logout {
   margin-left: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  & > span {
-
-    color: var(--primaryTextColor)!important;
-    &:hover {
-      color: var(--textSecondaryColor)!important;
-    }
-  }
 }

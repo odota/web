@@ -6,13 +6,14 @@ import {
   Table as MaterialTable,
   TableBody as MaterialTableBody,
   TableHeader as MaterialTableHeader,
+  TableRow as MaterialTableRow,
+  TableRowColumn as MaterialTableRowColumn,
 } from 'material-ui/Table';
 import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import styles from './Table.css';
-import TableRow from './TableRow';
-import { getTotalWidth } from './tableHelpers';
+import { getTotalWidth, getWidthStyle } from './tableHelpers';
 
 const getTable = (data, columns, sortState, sortField, sortClick, numRows) => {
   const totalWidth = getTotalWidth(columns);
@@ -36,13 +37,17 @@ const getTable = (data, columns, sortState, sortField, sortClick, numRows) => {
         </MaterialTableHeader>
         <MaterialTableBody displayRowCheckbox={false} selectable={false}>
           {modifiedData.map((row, index) => (
-            <TableRow
+            <MaterialTableRow
               key={index}
-              row={row}
-              columns={columns}
-              totalWidth={totalWidth}
-              index={index}
-            />
+              style={{ borderBottomWidth: '0px' }}
+            >
+              {columns.map((column, colIndex) => (
+                <MaterialTableRowColumn key={colIndex} style={getWidthStyle(column.width, totalWidth)}>
+                  {row && column.displayFn && column.displayFn({ row, column, field: row[column.field] })}
+                  {row && row[column.field] && !column.displayFn && (row[column.field].display)}
+                </MaterialTableRowColumn>
+              ))}
+            </MaterialTableRow>
           ))}
         </MaterialTableBody>
       </MaterialTable>
