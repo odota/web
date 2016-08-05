@@ -20,7 +20,8 @@ export default [{
     <div>
       <img src={field.display ? `${API_HOST}${field.display.img}` : ''} style={{ height: 24 }} role="presentation" />
       <div className="subText">{field.display ? field.display.localized_name : ''}</div>
-    </div>),
+    </div>
+  ),
 }, {
   displayName: 'Res',
   field: 'radiant_win',
@@ -32,28 +33,20 @@ export default [{
   field: 'skill',
   width: 1.5,
   sortFn: useOriginalValueSort,
-  displayFn: ({ field = {} }) => (
-    <div className="subText">{field.display}</div>),
 }, {
   displayName: 'Mode',
   field: 'game_mode',
   width: 2.5,
   sortFn: defaultSort,
-  displayFn: ({ field }) => (
-    <div className="subText">{field.display}</div>),
 }, {
   displayName: 'Ended',
   field: 'start_time',
   width: 2,
-  displayFn: ({ field }) => (
-    <div className="subText">{field.display}</div>),
 }, {
   displayName: 'Length',
   field: 'duration',
   width: 2,
   sortFn: useOriginalValueSort,
-  displayFn: ({ field }) => (
-    <div className="subText">{field.display}</div>),
 }, {
   displayName: 'K',
   field: 'kills',
@@ -75,5 +68,4 @@ export default [{
   width: 1,
   sortFn: defaultSort,
   displayFn: ({ field }) => (field.display ? <EditorPieChart /> : <div />),
-},
-];
+}];

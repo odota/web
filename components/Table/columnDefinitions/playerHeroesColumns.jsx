@@ -23,8 +23,6 @@ const playerHeroesOverviewColumns = [{
   field: 'last_played',
   width: 2,
   sortFn: useOriginalValueSort,
-  displayFn: ({ field }) => (
-    <div className="subText">{field.display}</div>),
 }, {
   displayName: 'Played',
   field: 'games',

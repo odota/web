@@ -53,7 +53,9 @@ export const getPlayerRecords = (playerId, options = {}, host = API_HOST) => (di
     .then(json => Object.keys(json).map(key => ({
       name: key,
       value: json[key][key],
-      metadata: json[key],
+      hero_id: json[key].hero_id,
+      start_time: json[key].start_time,
+      match_id: json[key].match_id,
     })))
     .then(json => dispatch(getPlayerRecordsOk(json, playerId)))
     .catch(error => dispatch(getPlayerRecordsError(error, playerId)));
