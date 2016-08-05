@@ -32,7 +32,7 @@ export default [{
   field: 'skill',
   width: 1.5,
   sortFn: useOriginalValueSort,
-  displayFn: ({ field }) => (
+  displayFn: ({ field = {} }) => (
     <div className="subText">{field.display}</div>),
 }, {
   displayName: 'Mode',
