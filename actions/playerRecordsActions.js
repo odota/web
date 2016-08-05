@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { HOST_URL } from './';
+import { API_HOST } from './';
 import { playerRecords } from '../reducers';
 import { getUrl } from './utility';
 
@@ -40,9 +40,9 @@ export const getPlayerRecordsError = (payload, id) => ({
   id,
 });
 
-export const getPlayerRecords = (playerId, options = {}, host = HOST_URL) => (dispatch, getState) => {
+export const getPlayerRecords = (playerId, options = {}, host = API_HOST) => (dispatch, getState) => {
   if (playerRecords.isLoaded(getState(), playerId)) {
-    dispatch(getPlayerRecordsOk(playerRecords.getHeroList(getState(), playerId), playerId));
+    dispatch(getPlayerRecordsOk(playerRecords.getRecordsList(getState(), playerId), playerId));
   } else {
     dispatch(getPlayerRecordsRequest(playerId));
   }
@@ -50,6 +50,11 @@ export const getPlayerRecords = (playerId, options = {}, host = HOST_URL) => (di
 
   return fetch(`${host}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
+    .then(json => Object.keys(json).map(key => ({
+      name: key,
+      value: json[key][key],
+      metadata: json[key],
+    })))
     .then(json => dispatch(getPlayerRecordsOk(json, playerId)))
     .catch(error => dispatch(getPlayerRecordsError(error, playerId)));
 };
