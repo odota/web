@@ -58,18 +58,22 @@ class RequestLayer extends React.Component {
           <RaisedButton label={'Jist.tv'} />
           <RaisedButton label={'DotaCoach'} />
           <table>
-            <tr>
-              <th>Mode</th>
-              <th>Region</th>
-              <th>Duration</th>
-              <th>Ended</th>
-            </tr>
-            <tr>
-              <td>{this.props.match.game_mode}</td>
-              <td>{this.props.match.region}</td>
-              <td>{this.props.match.duration}</td>
-              <td>{this.props.match.start_time + this.props.match.duration}</td>
-            </tr>
+            <thead>
+              <tr>
+                <th>Mode</th>
+                <th>Region</th>
+                <th>Duration</th>
+                <th>Ended</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{this.props.match.game_mode}</td>
+                <td>{this.props.match.region}</td>
+                <td>{this.props.match.duration}</td>
+                <td>{this.props.match.start_time + this.props.match.duration}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
         <Card>

@@ -1,17 +1,16 @@
-export const defaultSort = (array, field, property = 'display') => array.sort((a, b) => {
-  if (a[field][property] < b[field][property]) return -1;
-  if (a[field][property] > b[field][property]) return 1;
+export const defaultSort = (array, field) => array.sort((a, b) => {
+  if (a[field] < b[field]) return -1;
+  if (a[field] > b[field]) return 1;
   return 0;
 });
 
-export const useOriginalValueSort = (array, field) => defaultSort(array, field, 'value');
+export const useOriginalValueSort = (array, field) => defaultSort(array, field);
 
 export const transformedSort = (transformFn, ...args) => {
   const [array, field] = args;
-  const property = 'display';
   return array.sort((a, b) => {
-    if (transformFn(a, field, property) < transformFn(b, field, property)) return -1;
-    if (transformFn(a, field, property) > transformFn(b, field, property)) return 1;
+    if (transformFn(a, field) < transformFn(b, field)) return -1;
+    if (transformFn(a, field) > transformFn(b, field)) return 1;
     return 0;
   });
 };
