@@ -1,4 +1,3 @@
-import getAlphabetizedLinks from './getAlphabetizedLinks';
 import sortPlayerMatches from './sortPlayerMatches';
 import sortPlayerPeers from './sortPlayerPeers';
 import sortMatch from './sortMatch';
@@ -11,7 +10,6 @@ import transformPlayerHeroesById from './transformPlayerHeroes';
 import transformPlayerRecordsById from './transformPlayerRecords';
 
 export {
-  getAlphabetizedLinks,
   sortPlayerMatches,
   sortPlayerPeers,
   sortMatch,

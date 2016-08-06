@@ -43,8 +43,8 @@ const getTable = (data, columns, sortState, sortField, sortClick, numRows) => {
             >
               {columns.map((column, colIndex) => (
                 <MaterialTableRowColumn key={colIndex} style={getWidthStyle(column.width, totalWidth)} className="subText">
-                  {row && column.displayFn && column.displayFn({ row, column, field: row[column.field] })}
-                  {row && row[column.field] && !column.displayFn && (row[column.field].display)}
+                  {row && column.displayFn && column.displayFn(row, column, row[column.field])}
+                  {row && !column.displayFn && row[column.field]}
                 </MaterialTableRowColumn>
               ))}
             </MaterialTableRow>

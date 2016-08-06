@@ -1,63 +1,54 @@
 import React from 'react';
-import {
-  defaultSort,
-  transformedSort,
-  useOriginalValueSort,
-  winPercentTransform,
-} from './utility';
 import { PercentContainer } from '../../ColumnComponents';
-import { API_HOST } from '../../../yasp.config';
-
+// import { API_HOST } from '../../../yasp.config';
+import { transformations } from '../../../utility';
 
 const playerHeroesOverviewColumns = [{
   displayName: 'Hero',
   field: 'hero_id',
   width: 2,
-  displayFn: ({ field }) => (
-    <div>
-      <img src={`${API_HOST}${field.display.img}`} style={{ height: 24 }} role="presentation" />
-      <div className="subText">{field.display ? field.display.localized_name : ''}</div>
-    </div>),
+  displayFn: transformations.hero_id,
 }, {
   displayName: 'Last',
   field: 'last_played',
   width: 2,
-  sortFn: useOriginalValueSort,
+  sortFn: 1,
+  displayFn: transformations.last_played,
 }, {
   displayName: 'Played',
   field: 'games',
   width: 1.5,
-  sortFn: defaultSort,
+  sortFn: true,
 }, {
   displayName: 'Win %',
   field: 'win',
   width: 2,
-  displayFn: ({ field, row }) => <PercentContainer wins={field.display} games={row.games.display} />,
-  sortFn: transformedSort.bind(null, winPercentTransform('games')),
+  displayFn: (row) => <PercentContainer wins={row.win} games={row.games} />,
+  sortFn: (row) => (row.win / row.games),
 }];
 
 const restColumns = [{
   displayName: 'With',
   field: 'with_games',
   width: 1.5,
-  sortFn: defaultSort,
+  sortFn: true,
 }, {
   displayName: 'Win %',
   field: 'with_win',
   width: 2,
-  displayFn: ({ field, row }) => <PercentContainer wins={field.display} games={row.with_games.display} />,
-  sortFn: transformedSort.bind(null, winPercentTransform('with_games')),
+  displayFn: (row) => <PercentContainer wins={row.with_win} games={row.with_games} />,
+  sortFn: (row) => (row.with_win / row.with_games),
 }, {
   displayName: 'Against',
   field: 'against_games',
   width: 1.5,
-  sortFn: defaultSort,
+  sortFn: true,
 }, {
   displayName: 'Win %',
   field: 'against_win',
   width: 2,
-  displayFn: ({ field, row }) => <PercentContainer wins={field.display} games={row.against_games.display} />,
-  sortFn: transformedSort.bind(null, winPercentTransform('against_games')),
+  displayFn: (row) => <PercentContainer wins={row.against_win} games={row.against_games} />,
+  sortFn: (row) => (row.against_win / row.against_games),
 }];
 
 export default [

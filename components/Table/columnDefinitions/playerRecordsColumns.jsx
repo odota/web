@@ -1,22 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { API_HOST } from '../../../yasp.config';
+import { transformations, prettyPrint } from '../../../utility';
 
 export default [{
-  displayName: 'stat',
+  displayName: 'record',
   field: 'name',
   width: 1,
-  displayFn: ({ field }) => field.display.replace(/_(.)/g, ' $1').toUpperCase(),
+  displayFn: prettyPrint,
 }, {
   displayName: 'hero',
   field: 'hero_id',
   width: 1,
-  displayFn: ({ field }) => (
-    <div>
-      <img src={field.display ? `${API_HOST}${field.display.img}` : ''} style={{ height: 24 }} role="presentation" />
-      <div className="subText">{field.display ? field.display.localized_name : ''}</div>
-    </div>
-  ),
+  displayFn: transformations.hero_id,
 }, {
   displayName: 'record',
   field: 'value',
@@ -25,5 +20,6 @@ export default [{
   displayName: 'set',
   field: 'start_time',
   width: 1,
-  displayFn: ({ field, row }) => <Link to={`/matches/${row.match_id.display}`}>{field.display}</Link>,
+  // sortFn: true,
+  displayFn: (row, col, field) => <Link to={`/matches/${row.match_id}`}>{transformations.start_time(row, col, field)}</Link>,
 }];

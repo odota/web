@@ -5,12 +5,10 @@ const initialState = {
   loading: true,
   error: false,
   match: {
-    players: {
-      matchArray: [],
-      sortState: '',
-      sortField: '',
-      sortFn: f => f,
-    },
+    players: [],
+    sortState: '',
+    sortField: '',
+    sortFn: f => f,
   },
 };
 
@@ -30,9 +28,7 @@ export default (state = initialState, action) => {
         error: false,
         match: {
           ...rest,
-          players: {
-            matchArray: players,
-          },
+          players,
         },
       };
     }
@@ -49,14 +45,11 @@ export default (state = initialState, action) => {
         ...rest,
         match: {
           ...restMatch,
-          players: {
-            matchArray: players.matchArray,
-            sortState: action.sortField === players.sortField ? SORT_ENUM.next(SORT_ENUM[players.sortState]) : SORT_ENUM[0],
-            sortField: action.sortField,
-            sortFn: action.sortFn,
-          },
+          players,
+          sortState: action.sortField === match.sortField ? SORT_ENUM.next(SORT_ENUM[match.sortState]) : SORT_ENUM[0],
+          sortField: action.sortField,
+          sortFn: action.sortFn,
         },
-
       };
     }
     default:

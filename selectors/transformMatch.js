@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect';
 import { REDUCER_KEY } from '../reducers';
-import { transformationFunction } from './utility';
 
-const getMatch = (state) => state[REDUCER_KEY].gotMatch.match.players.matchArray;
+const getMatch = (state) => state[REDUCER_KEY].gotMatch.match.players;
 
+// Currently a no-op
 const transformMatchTable = createSelector(
   [getMatch],
-  (matchArray) => transformationFunction(matchArray)
+  (matchArray) => matchArray
 );
 
 export default transformMatchTable;
