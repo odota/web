@@ -10,7 +10,7 @@ import {
 import { sortMatch, transformMatch, transformAbilityUpgrades } from '../../selectors';
 import BuildingMap from '../BuildingMap/BuildingMap';
 import { REDUCER_KEY } from '../../reducers';
-import { Card } from 'material-ui/Card';
+// import { Card } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const players = (state) => state[REDUCER_KEY].gotMatch.match.players;
@@ -76,9 +76,9 @@ class RequestLayer extends React.Component {
             </tbody>
           </table>
         </div>
-          <MatchTable columns={overviewColumns} />
-          <AbilityUpgradesTable columns={abUpgradeColumns} />
-          <BuildingMap match={this.props.match} loading={this.props.loading} />
+        <MatchTable columns={overviewColumns} />
+        <AbilityUpgradesTable columns={abUpgradeColumns} />
+        <BuildingMap match={this.props.match} loading={this.props.loading} />
         <MatchTable columns={benchmarksColumns(this.props.match)} />
       </div>
     );

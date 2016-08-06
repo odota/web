@@ -18,7 +18,7 @@ const playerHeroesOverviewColumns = [{
   displayName: 'Played',
   field: 'games',
   width: 1.5,
-  sortFn: 'default',
+  sortFn: true,
 }, {
   displayName: 'Win %',
   field: 'win',
@@ -31,7 +31,7 @@ const restColumns = [{
   displayName: 'With',
   field: 'with_games',
   width: 1.5,
-  sortFn: 'default',
+  sortFn: true,
 }, {
   displayName: 'Win %',
   field: 'with_win',
@@ -42,7 +42,7 @@ const restColumns = [{
   displayName: 'Against',
   field: 'against_games',
   width: 1.5,
-  sortFn: 'default',
+  sortFn: true,
 }, {
   displayName: 'Win %',
   field: 'against_win',

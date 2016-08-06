@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { API_HOST } from '../../../yasp.config';
 import { transformations, prettyPrint } from '../../../utility';
 
 export default [{

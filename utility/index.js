@@ -100,12 +100,15 @@ for (let i = 0; i < 6; i++) {
   transformations[`item_${i}`] = transformMatchItem;
 }
 
-export const defaultSort = (array, sortState, sortField, sortFn) => {
-  return array.sort((a, b) => {
+export const defaultSort = (array, sortState, sortField, sortFn) => (
+  array.sort((a, b) => {
     const sortFnExists = typeof sortFn === 'function';
     const aVal = sortFnExists ? sortFn(a) : a[sortField];
     const bVal = sortFnExists ? sortFn(b) : b[sortField];
-    return sortState === 'desc' ? (aVal < bVal ? 1 : -1) : (aVal < bVal ? -1 : 1);
-})};
+    const desc = aVal < bVal ? 1 : -1;
+    const asc = aVal < bVal ? -1 : 1;
+    return sortState === 'desc' ? desc : asc;
+  })
+);
 
 export const prettyPrint = (row, col, field) => (field.replace(/_(.)/g, ' $1').toUpperCase());

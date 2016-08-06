@@ -24,13 +24,13 @@ export default [{
   displayName: 'Last',
   field: 'last_played',
   width: 1.5,
-  sortFn: 'default',
+  sortFn: true,
   displayFn: transformations.last_played,
 }, {
   displayName: 'With',
   field: 'with_games',
   width: 1.5,
-  sortFn: 'default',
+  sortFn: true,
 }, {
   displayName: 'Win %',
   field: 'with_win',
@@ -41,7 +41,7 @@ export default [{
   displayName: 'Against',
   field: 'against_games',
   width: 1.5,
-  sortFn: 'default',
+  sortFn: true,
 }, {
   displayName: 'Win %',
   field: 'against_win',
