@@ -102,9 +102,8 @@ for (let i = 0; i < 6; i++) {
 
 export const defaultSort = (array, sortState, sortField, sortFn) => {
   return array.sort((a, b) => {
-  if (typeof sortFn === 'function') {
-    return sortState === 'desc' ? sortFn(b) - sortFn(a) : sortFn(a) - sortFn(b);
-  } else {
-    return sortState === 'desc' ? b[sortField] - a[sortField] : a[sortField] - b[sortField];
-  }
+    const sortFnExists = typeof sortFn === 'function';
+    const aVal = sortFnExists ? sortFn(a) : a[sortField];
+    const bVal = sortFnExists ? sortFn(b) : b[sortField];
+    return sortState === 'desc' ? bVal - aVal : aVal - bVal;
 })};
