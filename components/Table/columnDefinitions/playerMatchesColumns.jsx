@@ -8,7 +8,7 @@ export default [{
   displayName: 'ID',
   field: 'match_id',
   width: 2,
-  sortFn: 1,
+  sortFn: true,
   displayFn: transformations.match_id,
 }, {
   displayName: 'Hero',
@@ -24,50 +24,46 @@ export default [{
   displayName: 'Skill',
   field: 'skill',
   width: 1.5,
-  sortFn: 'default',
-  displayFn: ({ field }) => (
-    <div className="subText">{transformations.skill({ field })}</div>),
+  sortFn: true,
+  displayFn: transformations.skill,
 }, {
   displayName: 'Mode',
   field: 'game_mode',
   width: 2.5,
-  sortFn: 'default',
-  displayFn: ({ field }) => (
-    <div className="subText">{transformations.game_mode({ field })}</div>),
+  sortFn: true,
+  displayFn: transformations.game_mode,
 }, {
   displayName: 'Ended',
   field: 'start_time',
   width: 2,
-  displayFn: ({ field }) => (
-    <div className="subText">{transformations.start_time({ field })}</div>),
-  sortFn: 1,
+  displayFn: transformations.start_time,
+  sortFn: true,
 }, {
   displayName: 'Length',
   field: 'duration',
   width: 2,
-  sortFn: 'default',
-  displayFn: ({ field }) => (
-    <div className="subText">{transformations.duration({ field })}</div>),
+  sortFn: true,
+  displayFn: transformations.duration,
 }, {
   displayName: 'K',
   field: 'kills',
   width: 1,
-  sortFn: 'default',
+  sortFn: true,
 }, {
   displayName: 'D',
   field: 'deaths',
   width: 1,
-  sortFn: 'default',
+  sortFn: true,
 }, {
   displayName: 'A',
   field: 'assists',
   width: 1,
-  sortFn: 'default',
+  sortFn: true,
 }, {
   displayName: 'P',
   field: 'version',
   width: 1,
-  sortFn: 'default',
-  displayFn: ({ field }) => (field ? <EditorPieChart /> : <div />),
+  sortFn: true,
+  displayFn: (row, col, field) => (field ? <EditorPieChart /> : <div />),
 },
 ];

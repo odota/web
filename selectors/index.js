@@ -7,6 +7,7 @@ import transformPlayerPeersById from './transformPlayerPeers';
 import transformMatch from './transformMatch';
 import transformAbilityUpgrades from './transformAbilityUpgrades';
 import transformPlayerHeroesById from './transformPlayerHeroes';
+import transformPlayerRecordsById from './transformPlayerRecords';
 
 export {
   sortPlayerMatches,
@@ -18,4 +19,5 @@ export {
   transformMatch,
   transformAbilityUpgrades,
   transformPlayerHeroesById,
+  transformPlayerRecordsById,
 };

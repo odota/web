@@ -5,7 +5,7 @@ import styles from './column.css';
 import { API_HOST } from '../../../yasp.config.js';
 import constants from 'dotaconstants';
 
-const heroTd = ({ field, row }) => (
+const heroTd = (row, col, field) => (
   <div style={{ marginTop: 5 }}>
     <div>
       <div className={row.isRadiant ? styles.radiant : styles.dire}></div>
@@ -21,7 +21,7 @@ const heroTdColumn = {
   field: 'hero_id',
   width: 3.5,
   displayFn: heroTd,
-  sortFn: (array) => (defaultSort(array, 'player_slot')),
+  sortFn: (row) => (row.player_sort),
 };
 
 const abbreviateNumber = function abbreviateNumber(num) {
@@ -70,7 +70,7 @@ const overviewColumns = [
     displayName: 'G',
     field: 'gold_per_min',
     width: 1,
-    displayFn: ({ row }) => abbreviateNumber(row.gold_per_min * row.duration / 60),
+    displayFn: (row) => abbreviateNumber(row.gold_per_min * row.duration / 60),
     // sortFn: defaultSort,
   }, {
     displayName: 'GPM',
@@ -86,25 +86,25 @@ const overviewColumns = [
     displayName: 'HD',
     field: 'hero_damage',
     width: 1,
-    displayFn: ({ row }) => abbreviateNumber(row.hero_damage),
+    displayFn: (row) => abbreviateNumber(row.hero_damage),
     // sortFn: defaultSort,
   }, {
     displayName: 'TD',
     field: 'tower_damage',
     width: 1,
-    displayFn: ({ row }) => abbreviateNumber(row.tower_damage),
+    displayFn: (row) => abbreviateNumber(row.tower_damage),
     // sortFn: defaultSort,
   }, {
     displayName: 'HH',
     field: 'hero_healing',
     width: 1,
-    displayFn: ({ row }) => abbreviateNumber(row.hero_healing),
+    displayFn: (row) => abbreviateNumber(row.hero_healing),
     // sortFn: defaultSort,
   }, {
     displayName: 'Items',
     field: '',
     width: 7,
-    displayFn: ({ row }) => {
+    displayFn: (row) => {
       const itemArray = [];
       for (let i = 0; i < 6; i++) {
         if (constants.items[constants.item_ids[row[`item_${i}`]]]) {
@@ -128,7 +128,7 @@ for (let i = 0; i < 25; i++) {
     field: 'ability_upgrades_arr',
     index: i,
     width: 1,
-    displayFn: ({ column, field }) => {
+    displayFn: (row, column, field) => {
       // TODO - why does this code get executed when the abUpgradeColumnsTable doesn't get rendered...
       if (field) {
         const abilityId = field[column.index];
@@ -153,7 +153,7 @@ const benchmarksColumns = (match) => {
         field: 'benchmarks',
         index: i,
         width: 2,
-        displayFn: ({ field }) => {
+        displayFn: (row, column, field) => {
           if (field) {
             const bm = field[key];
             return (<div>

@@ -50,13 +50,13 @@ export const camelToSnake = str =>
 // &limit=1000000
 
 export const transformations = {
-  hero_id: ({ field }) => (
+  hero_id: (row, col, field) => (
     <div>
       <img src={`${API_HOST}${constants.heroes[field] ? constants.heroes[field].img : ''}`} style={{ height: 24 }} role="presentation" />
       <div className="subText">{constants.heroes[field] ? constants.heroes[field].localized_name : ''}</div>
     </div>),
-  match_id: ({ field }) => <Link to={`/matches/${field}`}>{field}</Link>,
-  radiant_win: ({ field, row }) => {
+  match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
+  radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
     const getColor = result => {
       if (result === undefined) {
@@ -75,11 +75,11 @@ export const transformations = {
         {getString(field)}
       </div>);
   },
-  skill: ({ field }) => (constants.skill[field] ? constants.skill[field] : field),
-  game_mode: ({ field }) => (constants.game_mode[field] ? constants.game_mode[field].name : field),
-  start_time: ({ field }) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
-  last_played: ({ field }) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
-  duration: ({ field }) => formatSeconds(field),
+  skill: (row, col, field) => (constants.skill[field] ? constants.skill[field] : field),
+  game_mode: (row, col, field) => (constants.game_mode[field] ? constants.game_mode[field].name : field),
+  start_time: (row, col, field) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
+  last_played: (row, col, field) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
+  duration: (row, col, field) => formatSeconds(field),
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */
@@ -105,5 +105,7 @@ export const defaultSort = (array, sortState, sortField, sortFn) => {
     const sortFnExists = typeof sortFn === 'function';
     const aVal = sortFnExists ? sortFn(a) : a[sortField];
     const bVal = sortFnExists ? sortFn(b) : b[sortField];
-    return sortState === 'desc' ? bVal - aVal : aVal - bVal;
+    return sortState === 'desc' ? (aVal < bVal ? 1 : -1) : (aVal < bVal ? -1 : 1);
 })};
+
+export const prettyPrint = (row, col, field) => (field.replace(/_(.)/g, ' $1').toUpperCase());

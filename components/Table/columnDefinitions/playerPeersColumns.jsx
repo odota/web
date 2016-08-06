@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { YaspBadge } from '../../Player';
 import { transformations } from '../../../utility';
 
-const getPlayerPicture = ({ field, row }) => (
+const getPlayerPicture = (row, col, field) => (
   <div style={{ marginTop: 5 }}>
     <div>
       <img src={field} style={{ height: 30 }} role="presentation" />
@@ -18,7 +18,7 @@ export default [{
   displayName: 'Player',
   field: 'avatar',
   width: 1.5,
-  sortFn: 'default',
+  sortFn: (row) => (row.personaname.toLowerCase()),
   displayFn: getPlayerPicture,
 }, {
   displayName: 'Last',
@@ -35,8 +35,8 @@ export default [{
   displayName: 'Win %',
   field: 'with_win',
   width: 2,
-  displayFn: ({ field, row }) => <PercentContainer wins={field} games={row.with_games} />,
-  sortFn: (a) => (a.with_win / a.with_games),
+  displayFn: (row) => <PercentContainer wins={row.with_win} games={row.with_games} />,
+  sortFn: (row) => (row.with_win / row.with_games),
 }, {
   displayName: 'Against',
   field: 'against_games',
@@ -46,6 +46,6 @@ export default [{
   displayName: 'Win %',
   field: 'against_win',
   width: 2,
-  displayFn: ({ field, row }) => <PercentContainer wins={field} games={row.against_games} />,
-  sortFn: (a) => (a.against_win / a.against_games),
+  displayFn: (row) => <PercentContainer wins={row.against_win} games={row.against_games} />,
+  sortFn: (row) => (row.against_win / row.against_games),
 }];

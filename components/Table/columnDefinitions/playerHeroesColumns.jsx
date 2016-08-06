@@ -12,9 +12,8 @@ const playerHeroesOverviewColumns = [{
   displayName: 'Last',
   field: 'last_played',
   width: 2,
-  sortFn: 'default',
-  displayFn: ({ field }) => (
-    <div className="subText">{transformations.last_played({ field })}</div>),
+  sortFn: 1,
+  displayFn: transformations.last_played,
 }, {
   displayName: 'Played',
   field: 'games',
@@ -24,8 +23,8 @@ const playerHeroesOverviewColumns = [{
   displayName: 'Win %',
   field: 'win',
   width: 2,
-  displayFn: ({ field, row }) => <PercentContainer wins={field} games={row.games} />,
-  sortFn: (a) => (a.win / a.games),
+  displayFn: (row) => <PercentContainer wins={row.win} games={row.games} />,
+  sortFn: (row) => (row.win / row.games),
 }];
 
 const restColumns = [{
@@ -37,8 +36,8 @@ const restColumns = [{
   displayName: 'Win %',
   field: 'with_win',
   width: 2,
-  displayFn: ({ field, row }) => <PercentContainer wins={field} games={row.with_games} />,
-  sortFn: (a) => (a.with_win / a.with_games),
+  displayFn: (row) => <PercentContainer wins={row.with_win} games={row.with_games} />,
+  sortFn: (row) => (row.with_win / row.with_games),
 }, {
   displayName: 'Against',
   field: 'against_games',
@@ -48,8 +47,8 @@ const restColumns = [{
   displayName: 'Win %',
   field: 'against_win',
   width: 2,
-  displayFn: ({ field, row }) => <PercentContainer wins={field} games={row.against_games} />,
-  sortFn: (a) => (a.against_win / a.against_games),
+  displayFn: (row) => <PercentContainer wins={row.against_win} games={row.against_games} />,
+  sortFn: (row) => (row.against_win / row.against_games),
 }];
 
 export default [

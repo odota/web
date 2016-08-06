@@ -1,7 +1,7 @@
 import gotMetadata from './gotMetadata';
 import gotConstants from './gotConstants';
 import gotMatch from './gotMatch';
-import gotPlayer, { player, playerMatches, playerPeers, playerHeroes } from './gotPlayer';
+import gotPlayer, { player, playerMatches, playerPeers, playerHeroes, playerRecords } from './gotPlayer';
 import gotSearch from './gotSearch';
 import appBar from './appBar';
 import tab, { getTab } from './tab';
@@ -18,6 +18,7 @@ export {
   playerMatches,
   playerPeers,
   playerHeroes,
+  playerRecords,
   getTab as tab,
   getForm as form,
 };
