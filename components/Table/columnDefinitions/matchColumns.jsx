@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { YaspBadge } from '../../Player';
-import { defaultSort } from './utility';
 import styles from './column.css';
 import { API_HOST } from '../../../yasp.config.js';
 import constants from 'dotaconstants';

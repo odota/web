@@ -99,3 +99,12 @@ const transformMatchItem = ({ field }) => {
 for (let i = 0; i < 6; i++) {
   transformations[`item_${i}`] = transformMatchItem;
 }
+
+export const defaultSort = (array, sortState, sortField, sortFn) => {
+  return array.sort((a, b) => {
+  if (typeof sortFn === 'function') {
+    return sortState === 'desc' ? sortFn(b) - sortFn(a) : sortFn(a) - sortFn(b);
+  } else {
+    return sortState === 'desc' ? b[sortField] - a[sortField] : a[sortField] - b[sortField];
+  }
+})};

@@ -1,9 +1,4 @@
 import React from 'react';
-import {
-  defaultSort,
-  transformedSort,
-  winPercentTransform,
-} from './utility';
 import { PercentContainer } from '../../ColumnComponents';
 import { Link } from 'react-router';
 import { YaspBadge } from '../../Player';
@@ -23,34 +18,34 @@ export default [{
   displayName: 'Player',
   field: 'avatar',
   width: 1.5,
-  sortFn: defaultSort,
+  sortFn: 'default',
   displayFn: getPlayerPicture,
 }, {
   displayName: 'Last',
   field: 'last_played',
   width: 1.5,
-  sortFn: defaultSort,
+  sortFn: 'default',
   displayFn: transformations.last_played,
 }, {
   displayName: 'With',
   field: 'with_games',
   width: 1.5,
-  sortFn: defaultSort,
+  sortFn: 'default',
 }, {
   displayName: 'Win %',
   field: 'with_win',
   width: 2,
   displayFn: ({ field, row }) => <PercentContainer wins={field} games={row.with_games} />,
-  sortFn: transformedSort.bind(null, winPercentTransform('with_games')),
+  sortFn: (a) => (a.with_win / a.with_games),
 }, {
   displayName: 'Against',
   field: 'against_games',
   width: 1.5,
-  sortFn: defaultSort,
+  sortFn: 'default',
 }, {
   displayName: 'Win %',
   field: 'against_win',
   width: 2,
   displayFn: ({ field, row }) => <PercentContainer wins={field} games={row.against_games} />,
-  sortFn: transformedSort.bind(null, winPercentTransform('against_games')),
+  sortFn: (a) => (a.against_win / a.against_games),
 }];

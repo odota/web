@@ -76,15 +76,9 @@ class RequestLayer extends React.Component {
             </tbody>
           </table>
         </div>
-        <Card>
           <MatchTable columns={overviewColumns} />
-        </Card>
-        <Card>
           <AbilityUpgradesTable columns={abUpgradeColumns} />
-        </Card>
-        <Card>
           <BuildingMap match={this.props.match} loading={this.props.loading} />
-        </Card>
         <MatchTable columns={benchmarksColumns(this.props.match)} />
       </div>
     );
