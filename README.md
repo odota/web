@@ -26,7 +26,7 @@ Notes
   * You can configure it to point to your own instance (if you are working on a backend feature) in `yasp.config.js`.
 * Swagger spec for YASP API: http://swagger.yasp.co/
   * You can refer to `routes/api.js` in yasp core for the canonical state of the API
-* Current state of master gets built by Travis and pushed to http://ui.yasp.co/
+* Current state of master gets built by Travis and pushed to production.
   * When we are ready to switch we'll probably route www.yasp.co to the UI
   * yasp.co will continue to host the API
 * Discord: https://discord.gg/0o5SQGbXuWCNDcaF
@@ -39,4 +39,4 @@ Development Guides
   * Getting started with Redux: https://egghead.io/courses/getting-started-with-redux
   * Idiomatic Redux: https://egghead.io/courses/building-react-applications-with-idiomatic-redux
   * ES6 guide: https://github.com/lukehoban/es6features
-  * Adding new components with Redux  https://github.com/yasp-dota/ui/wiki/Adding-new-components-with-redux
+  * Adding new components with Redux: https://github.com/yasp-dota/ui/wiki/Adding-new-components-with-redux
