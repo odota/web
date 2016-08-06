@@ -14,6 +14,7 @@ import Player from './components/Player';
 import Home from './components/Home';
 import Search from './components/Search';
 import Explorer from './components/Explorer';
+import Request from './components/Request';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // Promise polyfill for IE
@@ -63,6 +64,7 @@ render(
           </Route>
         </Route>
         <Route path="explorer" component={Explorer} />
+        <Route path="request" component={Request} />
       </Route>
     </Router>
   </Provider>, reactElement);
