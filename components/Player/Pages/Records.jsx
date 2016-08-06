@@ -21,8 +21,8 @@ const RecordsTable = createTable(
 
 const Records = ({ playerId }) => (
   <div>
-    <TableFilterForm submitAction={getPlayerRecords} id={playerId} page="peers" />
-    <TableContainer title="peers">
+    <TableFilterForm submitAction={getPlayerRecords} id={playerId} page="records" />
+    <TableContainer title="records">
       <RecordsTable columns={playerRecordsColumns} id={playerId} />
     </TableContainer>
   </div>

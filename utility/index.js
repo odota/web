@@ -103,8 +103,8 @@ for (let i = 0; i < 6; i++) {
 export const defaultSort = (array, sortState, sortField, sortFn) => (
   array.sort((a, b) => {
     const sortFnExists = typeof sortFn === 'function';
-    const aVal = sortFnExists ? sortFn(a) : a[sortField];
-    const bVal = sortFnExists ? sortFn(b) : b[sortField];
+    const aVal = (sortFnExists ? sortFn(a) : a[sortField]) || 0;
+    const bVal = (sortFnExists ? sortFn(b) : b[sortField]) || 0;
     const desc = aVal < bVal ? 1 : -1;
     const asc = aVal < bVal ? -1 : 1;
     return sortState === 'desc' ? desc : asc;
