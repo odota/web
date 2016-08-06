@@ -18,19 +18,25 @@ Tech stack
 * CSS: css-modules & postcss
 * New to React/Redux? Read these articles on React and watch these egghead series by Redux creator Dan Abramov.
 
-Thinking in React: https://facebook.github.io/react/docs/thinking-in-react.html
-
-Getting started with Redux: https://egghead.io/courses/getting-started-with-redux
-
-Idiomatic Redux: https://egghead.io/courses/building-react-applications-with-idiomatic-redux
-
-ES6 guide: https://github.com/lukehoban/es6features
-
 Notes
 ----
-* For ease of development, the SPA is pointed to production YASP by default.  This means you don't need to set up the entire stack/get sample data.
-* You can configure it to point to your own instance (if you are working on a backend feature) in `yasp.config.js`.
+* UI is now in its own repository (this one).
+  * Should improve build time on both this and yasp core
+  * All you need is Node to get started
+* You can develop the UI against production yasp API.  This is on by default, and means you don't have to set up the entire stack.
+  * You can configure it to point to your own instance (if you are working on a backend feature) in `yasp.config.js`.
+* Swagger spec for YASP API: http://swagger.yasp.co/
+  * You can refer to `routes/api.js` in yasp core for the canonical state of the API
+* Current state of master gets built by Travis and pushed to http://ui.yasp.co/
+  * When we are ready to switch we'll probably route www.yasp.co to the UI
+  * yasp.co will continue to host the API
+* Discord: https://discord.gg/0o5SQGbXuWCNDcaF
+  * Strongly recommended to join for active developers, you can get help rapidly and coordinate with others.
 
-New to React/Redux? Confused about how to add a new component, even though you do have an understanding of those? Check out this wiki page!
-
-https://github.com/yasp-dota/ui/wiki/Adding-new-components-with-redux
+Development Guides
+----
+* Thinking in React: https://facebook.github.io/react/docs/thinking-in-react.html
+* Getting started with Redux: https://egghead.io/courses/getting-started-with-redux
+* Idiomatic Redux: https://egghead.io/courses/building-react-applications-with-idiomatic-redux
+* ES6 guide: https://github.com/lukehoban/es6features
+* New to React/Redux? Confused about how to add a new component, even though you do have an understanding of those? Check out this wiki page!  https://github.com/yasp-dota/ui/wiki/Adding-new-components-with-redux
