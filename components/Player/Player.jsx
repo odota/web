@@ -7,7 +7,7 @@ import {
 } from '../../actions';
 import { connect } from 'react-redux';
 import styles from './Player.css';
-import { PeersPage, OverviewPage, MatchesPage, HeroesPage } from './Pages';
+import { PeersPage, OverviewPage, MatchesPage, HeroesPage, RecordsPage } from './Pages';
 
 const getPlayerSubroute = (info, playerId) => {
   switch (info) {
@@ -19,6 +19,8 @@ const getPlayerSubroute = (info, playerId) => {
       return <HeroesPage playerId={playerId} />;
     case 'peers':
       return <PeersPage playerId={playerId} />;
+    case 'records':
+      return <RecordsPage playerId={playerId} />;
     default:
       return <OverviewPage playerId={playerId} />;
   }
