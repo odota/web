@@ -109,7 +109,6 @@ const overviewColumns = [
       for (let i = 0; i < 6; i++) {
         const item = constants.items[constants.item_ids[row[`item_${i}`]]];
         if (item) {
-          const time = row.first_purchase_time[constants.item_ids[item.id]];
           itemArray.push(<span
             key={i}
             style={{ position: 'relative' }}
@@ -120,7 +119,9 @@ const overviewColumns = [
               src={`${API_HOST}${item.img}`}
             />
             <span className={styles.timing}>
-              {time / 60 | 0}
+              {row.first_purchase_time
+                ? `${(row.first_purchase_time[constants.item_ids[item.id]] / 60).toFixed(0)}'`
+                : ''}
             </span>
           </span>);
         }
