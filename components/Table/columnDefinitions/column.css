@@ -15,3 +15,10 @@
   composes: teamIndicator;
   background-color: #66CD00;
 }
+
+.timing {
+  background: black;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}

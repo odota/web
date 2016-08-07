@@ -107,13 +107,23 @@ const overviewColumns = [
     displayFn: (row) => {
       const itemArray = [];
       for (let i = 0; i < 6; i++) {
-        if (constants.items[constants.item_ids[row[`item_${i}`]]]) {
-          itemArray.push(<img
+        const item = constants.items[constants.item_ids[row[`item_${i}`]]];
+        if (item) {
+          itemArray.push(<span
             key={i}
-            style={{ height: 25, margin: '0 3px' }}
-            role="presentation"
-            src={`${API_HOST}${constants.items[constants.item_ids[row[`item_${i}`]]].img}`}
-          />);
+            style={{ position: 'relative' }}
+          >
+            <img
+              style={{ height: 25, margin: '0 3px' }}
+              role="presentation"
+              src={`${API_HOST}${item.img}`}
+            />
+            <span className={styles.timing}>
+              {row.first_purchase_time
+                ? `${(row.first_purchase_time[constants.item_ids[item.id]] / 60).toFixed(0)}'`
+                : ''}
+            </span>
+          </span>);
         }
       }
       return itemArray;
