@@ -34,72 +34,72 @@ const overviewColumns = [
     displayName: 'MMR',
     field: 'solo_competitive_rank',
     width: 1,
-    // sortFn: defaultSort,
+    sortFn: true,
   },
   {
     displayName: 'LVL',
     field: 'level',
     width: 1,
-    // sortFn: defaultSort,
+    sortFn: true,
   }, {
     displayName: 'K',
     field: 'kills',
     width: 1,
-    // sortFn: defaultSort,
+    sortFn: true,
   }, {
     displayName: 'D',
     field: 'deaths',
     width: 1,
-    // sortFn: defaultSort,
+    sortFn: true,
   }, {
     displayName: 'A',
     field: 'assists',
     width: 1,
-    // sortFn: defaultSort,
+    sortFn: true,
   }, {
     displayName: 'LH',
     field: 'last_hits',
     width: 1,
-    // sortFn: defaultSort,
+    sortFn: true,
   }, {
     displayName: 'DN',
     field: 'denies',
     width: 1,
-    // sortFn: defaultSort,
+    sortFn: true,
   }, {
     displayName: 'G',
     field: 'gold_per_min',
     width: 1,
     displayFn: (row) => abbreviateNumber(row.gold_per_min * row.duration / 60),
-    // sortFn: defaultSort,
+    sortFn: true,
   }, {
     displayName: 'GPM',
     field: 'gold_per_min',
     width: 1,
-    // sortFn: defaultSort,
+    sortFn: true,
   }, {
     displayName: 'XPM',
     field: 'xp_per_min',
     width: 1,
-    // sortFn: defaultSort,
+    sortFn: true,
   }, {
     displayName: 'HD',
     field: 'hero_damage',
     width: 1,
     displayFn: (row) => abbreviateNumber(row.hero_damage),
-    // sortFn: defaultSort,
+    sortFn: true,
   }, {
     displayName: 'TD',
     field: 'tower_damage',
     width: 1,
     displayFn: (row) => abbreviateNumber(row.tower_damage),
-    // sortFn: defaultSort,
+    sortFn: true,
   }, {
     displayName: 'HH',
     field: 'hero_healing',
     width: 1,
     displayFn: (row) => abbreviateNumber(row.hero_healing),
-    // sortFn: defaultSort,
+    sortFn: true,
   }, {
     displayName: 'Items',
     field: '',
@@ -157,7 +157,7 @@ const benchmarksColumns = (match) => {
           if (field) {
             const bm = field[key];
             return (<div>
-              <span>{`${Number(bm.pct).toFixed(2)}%`}</span>
+              <span>{`${Number(bm.pct*100).toFixed(2)}%`}</span>
               <span>{bm.raw.toFixed(2)}</span>
             </div>);
           }
