@@ -9,7 +9,7 @@ Quickstart
 * `npm install`
 * `npm start`
 * Visit port 8080 on your development machine.  You can configure the port used by webpack-dev-server in `webpack.config.js`.
-* Ready to make a pull request? Run `npm run build` to make sure the build runs and there are no linting errors.
+* Ready to make a pull request? Run `npm run lint` to make sure there are no linting errors.
 
 Tech Stack
 ----
