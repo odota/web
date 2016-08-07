@@ -1,13 +1,13 @@
 :root {
-  --darkPrimaryColor: #2D9434;
-  --defaultPrimaryColor: #8B311E;
+  --darkPrimaryColor: #1976D2;
+  --defaultPrimaryColor: #2196F3;
   --lightPrimaryColor: color(var(--defaultPrimaryColor) lightness(60%));
   --textSecondaryColor: #212020;
   --textPrimaryColor: #FFFFFF;
   --primaryTextColor: #FFFFFF;
-  --primaryLinkColor: #42A5F5;
+  --primaryLinkColor: #2196F3;
 
-  --accentColor: #537F1B;
+  --accentColor: #FFAB40;
   --lightAccentColor: color(var(--accentColor) lightness(60%));
 
   --neutralColor: #3B8386;
