@@ -48,7 +48,7 @@ export default (state = initialState, action) => {
           sortState: action.sortField === match.sortField ? SORT_ENUM.next(SORT_ENUM[match.sortState]) : SORT_ENUM[0],
           sortField: action.sortField,
           sortFn: action.sortFn,
-        }
+        },
       };
     }
     default:

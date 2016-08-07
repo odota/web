@@ -157,7 +157,7 @@ const benchmarksColumns = (match) => {
           if (field) {
             const bm = field[key];
             return (<div>
-              <span>{`${Number(bm.pct*100).toFixed(2)}%`}</span>
+              <span>{`${Number(bm.pct * 100).toFixed(2)}%`}</span>
               <span>{bm.raw.toFixed(2)}</span>
             </div>);
           }

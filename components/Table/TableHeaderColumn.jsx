@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   getWidthStyle,
-  isSortField,
   getSortIcon,
 } from './tableHelpers';
 import { TableHeaderColumn as MaterialTableHeaderColumn } from 'material-ui/Table';
