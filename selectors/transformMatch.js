@@ -5,7 +5,7 @@ const getMatch = (state) => state[REDUCER_KEY].gotMatch.match.players;
 
 const transformMatch = createSelector(
   [getMatch],
-  (matchArray) => matchArray
+  (matchPlayers) => matchPlayers
 );
 
 export default transformMatch;

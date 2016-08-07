@@ -13,9 +13,9 @@ import { REDUCER_KEY } from '../../reducers';
 // import { Card } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const players = (state) => state[REDUCER_KEY].gotMatch.match.players;
+const match = (state) => state[REDUCER_KEY].gotMatch.match;
 const MatchTable = createTable(
-  players,
+  match,
   (state, sortState) => (sortState ? sortMatch(state) : transformMatch(state)),
   setMatchSort
 );
@@ -27,7 +27,6 @@ const mapStateToProps = (state, { params }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sort: (column) => dispatch(getMatch(column)),
   getMatch: (matchId) => dispatch(getMatch(matchId)),
 });
 

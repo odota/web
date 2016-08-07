@@ -21,7 +21,7 @@ const heroTdColumn = {
   field: 'hero_id',
   width: 3.5,
   displayFn: heroTd,
-  sortFn: (row) => (row.player_sort),
+  sortFn: (row) => (row.player_slot),
 };
 
 const abbreviateNumber = function abbreviateNumber(num) {
