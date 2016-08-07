@@ -8,7 +8,7 @@ const initialState = {
     players: [],
     sortState: '',
     sortField: '',
-    sortFn: f => f,
+    sortFn: true,
   },
 };
 
@@ -39,13 +39,12 @@ export default (state = initialState, action) => {
         error: true,
       };
     case matchActions.SORT: {
-      const { match, ...rest } = state;
-      const { players, ...restMatch } = match;
+      const { match, ...restState } = state;
+      const { ...restMatch } = match;
       return {
-        ...rest,
+        ...restState,
         match: {
           ...restMatch,
-          players,
           sortState: action.sortField === match.sortField ? SORT_ENUM.next(SORT_ENUM[match.sortState]) : SORT_ENUM[0],
           sortField: action.sortField,
           sortFn: action.sortFn,

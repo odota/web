@@ -3,10 +3,9 @@ import { REDUCER_KEY } from '../reducers';
 
 const getMatch = (state) => state[REDUCER_KEY].gotMatch.match.players;
 
-// Currently a no-op
-const transformMatchTable = createSelector(
+const transformMatch = createSelector(
   [getMatch],
-  (matchArray) => matchArray
+  (matchPlayers) => matchPlayers
 );
 
-export default transformMatchTable;
+export default transformMatch;
