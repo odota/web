@@ -16,7 +16,6 @@ const HeroActionButton = ({ heroId }) => (
   </div>
 );
 
-
 export default ({ id, name, imageUrl }) => (
   <GridTile
     title={name}
