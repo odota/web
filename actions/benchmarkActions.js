@@ -3,22 +3,22 @@ import { API_HOST } from './../actions';
 
 const url = '/api/benchmarks';
 
-const START = 'yasp/benchmark/START';
-const DONE = 'yasp/benchmark/DONE';
+const REQUEST = 'yasp/benchmark/REQUEST';
+const OK = 'yasp/benchmark/OK';
 const ERROR = 'yasp/benchmark/ERROR';
 
 export const benchmarkActions = {
-  START,
-  DONE,
+  REQUEST,
+  OK,
   ERROR,
 };
 
 const getBenchmarkStart = () => ({
-  type: START,
+  type: REQUEST,
 });
 
 const getBenchmarkDone = (payload) => ({
-  type: DONE,
+  type: OK,
   payload,
 });
 

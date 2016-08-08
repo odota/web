@@ -3,22 +3,22 @@ import { API_HOST } from './../actions';
 
 const url = '/api/rankings';
 
-const START = 'yasp/ranking/START';
-const DONE = 'yasp/ranking/DONE';
+const REQUEST = 'yasp/ranking/REQUEST';
+const OK = 'yasp/ranking/OK';
 const ERROR = 'yasp/ranking/ERROR';
 
 export const rankingActions = {
-  START,
-  DONE,
+  REQUEST,
+  OK,
   ERROR,
 };
 
 const getRankingStart = () => ({
-  type: START,
+  type: REQUEST,
 });
 
 const getRankingDone = (payload) => ({
-  type: DONE,
+  type: OK,
   payload,
 });
 
