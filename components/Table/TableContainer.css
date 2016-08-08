@@ -1,7 +1,12 @@
 @import "../palette.css";
 
+.container {
+  background-color: #222;
+}
+
 .tableHeading {
   margin-bottom: 10px;
   font-size: 20px;
   text-transform: uppercase;
+  float: left;
 }

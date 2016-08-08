@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Table from './Table';
+import withPagination from './PaginatedTable';
 
 const createTable = (getStateFn, getData, sortAction) => {
   const mapStateToProps = (state, ownProps) => {
@@ -20,7 +21,7 @@ const createTable = (getStateFn, getData, sortAction) => {
     sortClick: (field, sortState, sortFn) => dispatch(sortAction(field, sortState, sortFn, ownProps.id)),
   });
 
-  return connect(mapStateToProps, mapDispatchToProps)(Table);
+  return connect(mapStateToProps, mapDispatchToProps)(withPagination(Table));
 };
 
 export default createTable;

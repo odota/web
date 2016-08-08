@@ -6,6 +6,7 @@ import gotSearch from './gotSearch';
 import appBar from './appBar';
 import tab, { getTab } from './tab';
 import form, { getForm } from './form';
+import table, { getTable } from './table';
 import { combineReducers } from 'redux';
 
 const REDUCER_KEY = 'yaspReducer';
@@ -21,6 +22,7 @@ export {
   playerRecords,
   getTab as tab,
   getForm as form,
+  getTable as table,
 };
 
 export default combineReducers({
@@ -32,4 +34,5 @@ export default combineReducers({
   appBar,
   tab,
   form,
+  table,
 });
