@@ -5,14 +5,19 @@
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  padding: 10px 0 10px 10px;
+  padding: 10px 0 0 10px;
 }
 
 .page {
   cursor: pointer;
   color: var(--primaryLinkColor);
-  font-size: 12px;
-  padding: 0 5px;
+  font-size: 12px !important;
+  padding: 0 5px !important;
+}
+
+.arrow {
+  composes: page;
+  color: var(--accentColor) !important;
 }
 
 .currentPage {

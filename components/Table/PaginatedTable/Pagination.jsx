@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { nextPage, prevPage, setCurrentPage } from '../../../actions';
 import styles from './Pagination.css';
+import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
+
 
 const getPages = ({ currentPage, numPages, setCurrentPage }) => {
   let i = currentPage - 4 > 0 ? currentPage - 4 : 0;
@@ -35,9 +38,9 @@ const getPages = ({ currentPage, numPages, setCurrentPage }) => {
 
 const Pagination = ({ currentPage, nextPage, prevPage, setCurrentPage, numPages }) => (numPages > 1 ? (
   <div className={styles.container}>
-    <div onClick={prevPage} className={styles.page}>{'<'}</div>
+    {currentPage > 0 && <Prev onClick={prevPage} className={styles.arrow} />}
     {getPages({ currentPage, numPages, setCurrentPage })}
-    <div onClick={nextPage} className={styles.page}>{'>'}</div>
+    {currentPage < numPages - 1 && <Next onClick={nextPage} className={styles.arrow} />}
   </div>
 ) : (
   <span></span>
