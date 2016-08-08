@@ -1,3 +1,7 @@
+@import "../palette.css";
+
+:export { searchBarColor: var(--accentColor) }
+
 .searchResult {
 	margin-top: 20px;
 }

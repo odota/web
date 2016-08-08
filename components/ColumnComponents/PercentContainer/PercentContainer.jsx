@@ -10,6 +10,12 @@ import { getPercentWin } from '../../../utility';
 export default ({ wins, games }) => (
   <div className={styles.percentContainer}>
     <div className={styles.textContainer}>{getPercentWin(wins, games).toFixed(1)}</div>
-    <LinearProgress style={{ height: 5 }} color={styles.lineColor} mode="determinate" value={getPercentWin(wins, games)} />
+    <LinearProgress
+      style={{ height: 5 }}
+      color={styles.lineColor}
+      mode="determinate"
+      value={getPercentWin(wins, games)}
+      color={styles.progressColor}
+    />
   </div>
 );

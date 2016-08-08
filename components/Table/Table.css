@@ -3,6 +3,7 @@
 .container {
   min-width: 100%;
   border: 1px solid #666;
+  clear: both;
   @media only screen and (max-width: 960px) {
     margin: 0 -25px;
     overflow-x: scroll;
@@ -30,6 +31,9 @@
   flex-direction: row;
   justify-content: space-between;
   text-align: center;
+  text-transform: uppercase;
+  color: var(--primaryTextColor) !important;
+  font-weight: 500;
 }
 
 .headerCell {
@@ -37,6 +41,10 @@
   &:hover {
     cursor: pointer;
   }
+}
+
+.row {
+  border: 0 !important;
 }
 
 tbody tr:nth-child(odd) {

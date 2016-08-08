@@ -29,7 +29,7 @@ export default function BuildingMap({ match, loading }) {
         top: buildingData[i].style.split(';')[1].split(':')[1],
         left: buildingData[i].style.split(';')[2].split(':')[1],
       };
-      icons.push(<img src={d.src} className={d.class} style={d.style} role={'presentation'} />);
+      icons.push(<img key={d.id} src={d.src} className={d.class} style={d.style} role={'presentation'} />);
     }
     return (
       <div

@@ -1,6 +1,6 @@
 .teamIndicator {
   opacity: .5;
-  height: 30px;
+  height: 24px;
   width: 7px;
   display: inline-block;
   margin-right: 3px;
@@ -14,4 +14,11 @@
 .radiant {
   composes: teamIndicator;
   background-color: #66CD00;
+}
+
+.timing {
+  background: black;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
