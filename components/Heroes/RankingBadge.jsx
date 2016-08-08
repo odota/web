@@ -22,7 +22,7 @@ export default ({ hero, bestPlayer }) => {
               <tr>
                 <td className={style.RankingHeroBadgeTd}><Link to={`/players/${bestPlayer.account_id}`}>{bestPlayer.personaname}</Link></td>
                 <td className={style.RankingHeroBadgeTd}><strong>{bestPlayer.solo_competitive_rank}</strong></td>
-                <td className={style.RankingHeroBadgeTd}><strong>{bestPlayer.score.toFixed()}</strong></td>
+                <td className={style.RankingHeroBadgeTd}><strong>{parseFloat(bestPlayer.score).toFixed()}</strong></td>
               </tr>
               <tr className={style.RankingHeroBadgeMeta}>
                 <td className={style.RankingHeroBadgeTd}>Best Player</td>

@@ -45,7 +45,7 @@ export default ({ rankings }) => {
                 {ranking.solo_competitive_rank ? <span>{ranking.solo_competitive_rank} MMR</span> : ''}
               </div>
             </TableRowColumn>
-            <TableRowColumn>{ranking.score.toFixed()}</TableRowColumn>
+            <TableRowColumn>{parseFloat(ranking.score).toFixed()}</TableRowColumn>
           </TableRow>
         ))}
       </TableBody>
