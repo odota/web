@@ -1,3 +1,4 @@
+import { REDUCER_KEY } from './../reducers';
 import { rankingActions } from './../actions';
 
 const initialState = {
@@ -10,19 +11,17 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case rankingActions.START:
+    case rankingActions.REQUEST:
       return {
         ...state,
-        done: false,
         error: false,
         loading: true,
-        rankings: [],
-        hero_id: 0,
+        rankings: null,
+        hero_id: null,
       };
-    case rankingActions.DONE:
+    case rankingActions.OK:
       return {
         ...state,
-        done: true,
         error: false,
         loading: false,
         hero_id: action.payload.hero_id,
@@ -31,11 +30,21 @@ export default (state = initialState, action) => {
     case rankingActions.ERROR:
       return {
         ...state,
-        done: false,
         error: true,
         loading: false,
+        rankings: null,
+        hero_id: null,
       };
     default:
       return state;
   }
+};
+
+export const ranking = {
+  getReducer: state => state[REDUCER_KEY].gotRanking,
+  getHeroId: state => ranking.getReducer(state).hero_id,
+  getHero: state => state[REDUCER_KEY].heroes[ranking.getReducer(state).hero_id],
+  getRankings: state => ranking.getReducer(state).rankings,
+  getError: state => ranking.getReducer(state).error,
+  getLoading: state => ranking.getReducer(state).loading,
 };
