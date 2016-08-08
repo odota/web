@@ -1,3 +1,4 @@
+/* eslint-disable camelcase*/
 const gold_per_min = 'GPM';
 const percentile = '%';
 const xp_per_min = 'XPM';
@@ -17,3 +18,4 @@ export default {
   hero_healing_per_min,
   tower_damage_per_min,
 };
+/* eslint-enable camelcase */

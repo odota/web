@@ -1,3 +1,4 @@
+/* eslint-disable camelcase*/
 const gold_per_min = 'Gold per minute';
 const percentile = 'Percentile';
 const xp_per_min = 'Experience per minute';
@@ -17,3 +18,4 @@ export default {
   hero_healing_per_min,
   tower_damage_per_min,
 };
+/* eslint-enable camelcase*/
