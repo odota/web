@@ -5,7 +5,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import { REDUCER_KEY } from './../../reducers';
 import { getRanking } from './../../actions';
 
-import style from './heroes.css';
+import style from './Heroes.css';
 import RankingTable from './RankingTable';
 import RankingBadge from './RankingBadge';
 

@@ -8,7 +8,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-import style from './heroes.css';
+import style from './Heroes.css';
 
 
 const metrics = [
@@ -21,7 +21,6 @@ const metrics = [
   'hero_healing_per_min',
   'tower_damage_per_min',
 ];
-const roundFn = (number) => Math.round(number * 100) / 100;
 const alignCenter = { textAlign: 'center' };
 
 const BenchmarkRow = ({ data, id, percentile }) => (
@@ -30,14 +29,14 @@ const BenchmarkRow = ({ data, id, percentile }) => (
       if (metric === 'percentile') {
         return (
           <TableRowColumn key={i} style={alignCenter} className={style.BenchmarkColNo}>
-            {parseFloat(percentile) * 100}%
+            {percentile * 100}%
           </TableRowColumn>
         );
       }
 
       return (
         <TableRowColumn key={i} style={alignCenter}>
-          {roundFn(parseFloat(data[metric][id].value))}
+          {data[metric][id].value.toFixed(2)}
         </TableRowColumn>
       );
     })}

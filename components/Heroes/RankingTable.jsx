@@ -10,7 +10,7 @@ import {
 import Avatar from 'material-ui/Avatar';
 import { Link } from 'react-router';
 
-import style from './heroes.css';
+import style from './Heroes.css';
 
 export default ({ rankings }) => {
   if (!rankings || rankings.length === 0) {
@@ -45,7 +45,7 @@ export default ({ rankings }) => {
                 {ranking.solo_competitive_rank ? <span>{ranking.solo_competitive_rank} MMR</span> : ''}
               </div>
             </TableRowColumn>
-            <TableRowColumn>{Math.round(parseFloat(ranking.score))}</TableRowColumn>
+            <TableRowColumn>{ranking.score.toFixed()}</TableRowColumn>
           </TableRow>
         ))}
       </TableBody>

@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 import { GridTile } from 'material-ui/GridList';
 
-import style from './heroes.css';
+import style from './Heroes.css';
 
 const HeroActionButton = ({ heroId }) => (
   <div className={style.HeroItemAction}>

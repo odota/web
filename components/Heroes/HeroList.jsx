@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import HeroListItem from './HeroListItem';
 
-import style from './heroes.css';
+import style from './Heroes.css';
 
 export default ({ heroes }) => (
   <Grid fluid className={style.HeroListWrapper}>

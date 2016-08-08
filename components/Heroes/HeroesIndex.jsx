@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { REDUCER_KEY } from './../../reducers';
 import HeroList from './HeroList';
-import style from './heroes.css';
+import style from './Heroes.css';
 
 const HeroesIndex = ({ heroes }) => (
   <div>

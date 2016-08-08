@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import style from './heroes.css';
+import style from './Heroes.css';
 import { REDUCER_KEY } from './../../reducers';
 import { getBenchmark } from './../../actions';
 

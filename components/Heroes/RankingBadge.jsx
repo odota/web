@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
-import style from './heroes.css';
+import style from './Heroes.css';
 
 export default ({ hero, bestPlayer }) => {
   if (!hero || !bestPlayer) {
@@ -22,7 +22,7 @@ export default ({ hero, bestPlayer }) => {
               <tr>
                 <td className={style.RankingHeroBadgeTd}><Link to={`/players/${bestPlayer.account_id}`}>{bestPlayer.personaname}</Link></td>
                 <td className={style.RankingHeroBadgeTd}><strong>{bestPlayer.solo_competitive_rank}</strong></td>
-                <td className={style.RankingHeroBadgeTd}><strong>{Math.round(parseFloat(bestPlayer.score))}</strong></td>
+                <td className={style.RankingHeroBadgeTd}><strong>{bestPlayer.score.toFixed()}</strong></td>
               </tr>
               <tr className={style.RankingHeroBadgeMeta}>
                 <td className={style.RankingHeroBadgeTd}>Best Player</td>
