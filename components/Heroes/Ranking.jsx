@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import { REDUCER_KEY } from './../../reducers';
+import { ranking } from './../../reducers';
 import { getRanking } from './../../actions';
 
 import style from './Heroes.css';
@@ -17,31 +17,46 @@ class Ranking extends Component {
     }
   }
 
+  renderLoading() {
+    return (
+      <div className={style.Loading}>
+        <CircularProgress color="#fff" />
+      </div>
+    );
+  }
+
+  renderRanking(hero, bestPlayer, rankings) {
+    return (
+      <div>
+        <RankingBadge hero={hero} bestPlayer={bestPlayer} />
+        <RankingTable rankings={this.props.rankings} />
+      </div>
+    );
+  }
+
   render() {
-    const { hero_id, rankings, isLoading, heroes } = this.props;
+    const { isLoading, isError, rankings, hero } = this.props;
+    
     let bestPlayer = null;
-    if (rankings.length > 0) {
+    
+    if (rankings && rankings.length > 0) {
       bestPlayer = rankings[0];
     }
 
     return (
       <div>
-        {isLoading ?
-          <div className={style.Loading}>
-            <CircularProgress color="#fff" />
-          </div> : ''}
-        <RankingBadge hero={heroes[hero_id]} bestPlayer={bestPlayer} />
-        <RankingTable rankings={this.props.rankings} />
+        {isLoading || isError || rankings == null ? 
+          this.renderLoading() : this.renderRanking(hero, bestPlayer, rankings)}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  heroes: state[REDUCER_KEY].heroes,
-  hero_id: state[REDUCER_KEY].gotRanking.hero_id,
-  rankings: state[REDUCER_KEY].gotRanking.rankings,
-  isLoading: state[REDUCER_KEY].gotRanking.loading,
+  hero: ranking.getHero(state),
+  rankings: ranking.getRankings(state),
+  isLoading: ranking.getLoading(state),
+  isError: ranking.getError(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
 
 import style from './Heroes.css';
-import { REDUCER_KEY } from './../../reducers';
+import { benchmark } from './../../reducers';
 import { getBenchmark } from './../../actions';
 
 import BenchmarkTable from './BenchmarkTable';
@@ -17,31 +17,66 @@ class Benchmark extends Component {
     }
   }
 
-  render() {
-    const { isLoading, isDone, heroes, result, heroId } = this.props;
+  renderLoading() {
+    return (
+      <div className={style.Loading}>
+        <CircularProgress color="#fff" />
+      </div>
+    );
+  }
 
+  renderBenchmark(hero, data) {
     return (
       <div>
-        {isLoading ?
-          <div className={style.Loading}>
-            <CircularProgress color="#fff" />
-          </div> : ''}
+        <BenchmarkBadge hero={hero} />
+        <BenchmarkTable data={data} />
+      </div>
+    );
+  }
 
-        {isDone ? <div>
-          <BenchmarkBadge hero={heroes[heroId]} />
-          <BenchmarkTable data={result} />
-        </div> : ''}
+  render() {
+    const { isLoading, isError, hero, result } = this.props;
+    
+    return (
+      <div>
+        {isLoading || isError || result === null ? 
+          this.renderLoading() : this.renderBenchmark(hero, result)}
       </div>
     );
   }
 }
+/**
+HISTOGRAM API
+
+<Histogram
+  title: string
+  binWidth: number (px)
+>
+  <HistogramBin 
+    height: number (px)
+    color: hex
+    style: object
+  />
+  <HistogramLegend 
+    position: enum
+    label: string
+    value: array
+  />
+</Hisogram>
+
+
+<MultiHistogram>
+  <HistogramItem>
+  </HistogramItem>
+</MultiHistogram>
+
+*/
 
 const mapStateToProps = (state) => ({
-  heroes: state[REDUCER_KEY].heroes,
-  heroId: state[REDUCER_KEY].gotBenchmark.hero_id,
-  result: state[REDUCER_KEY].gotBenchmark.result,
-  isLoading: state[REDUCER_KEY].gotBenchmark.loading,
-  isDone: state[REDUCER_KEY].gotBenchmark.done,
+  hero: benchmark.getHero(state),
+  isLoading: benchmark.getLoading(state),
+  isError: benchmark.getError(state),
+  result: benchmark.getBenchmarks(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
