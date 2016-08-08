@@ -15,13 +15,8 @@ import Error from '../Error';
 import styles from './Table.css';
 import { getTotalWidth, getWidthStyle } from './tableHelpers';
 
-const getTable = (data, columns, sortState, sortField, sortClick, numRows) => {
+const getTable = (data, columns, sortState, sortField, sortClick) => {
   const totalWidth = getTotalWidth(columns);
-  let modifiedData = data;
-
-  if (numRows) {
-    modifiedData = data.slice(0, numRows);
-  }
 
   return (
     <div className={styles.innerContainer}>
@@ -36,10 +31,10 @@ const getTable = (data, columns, sortState, sortField, sortClick, numRows) => {
           />
         </MaterialTableHeader>
         <MaterialTableBody displayRowCheckbox={false} selectable={false}>
-          {modifiedData.map((row, index) => (
+          {data.map((row, index) => (
             <MaterialTableRow
               key={index}
-              style={{ borderBottomWidth: '0px' }}
+              className={styles.row}
             >
               {columns.map((column, colIndex) => (
                 <MaterialTableRowColumn key={colIndex} style={getWidthStyle(column.width, totalWidth)} className="subText">
