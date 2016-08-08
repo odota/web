@@ -8,35 +8,30 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
+import { tooltips, abbrv } from './../../language/en/';
 import style from './Heroes.css';
 
-
-const metrics = [
-  'percentile',
-  'gold_per_min',
-  'xp_per_min',
-  'last_hits_per_min',
-  'kills_per_min',
-  'hero_damage_per_min',
-  'hero_healing_per_min',
-  'tower_damage_per_min',
-];
 const alignCenter = { textAlign: 'center' };
 
-const BenchmarkRow = ({ data, id, percentile }) => (
+const BenchmarkRow = ({ data, id }) => (
   <TableRow selectable={false} className={style[`BenchmarkRow-${id % 2}`]}>
-    {metrics.map((metric, i) => {
-      if (metric === 'percentile') {
+    {Object.keys(data).map((stat, i) => {
+      if (stat == 'percentile') {
         return (
-          <TableRowColumn key={i} style={alignCenter} className={style.BenchmarkColNo}>
-            {percentile * 100}%
+          <TableRowColumn 
+            key={i}
+            style={alignCenter}
+            className={style.BenchmarkColNo}>
+            {data[stat] * 100}%
           </TableRowColumn>
         );
       }
 
       return (
-        <TableRowColumn key={i} style={alignCenter}>
-          {data[metric][id].value.toFixed(2)}
+        <TableRowColumn 
+          key={i} 
+          style={alignCenter}>
+          {data[stat].toFixed(2)}
         </TableRowColumn>
       );
     })}
@@ -47,19 +42,34 @@ export default ({ data }) => (
   <Table wrapperStyle={{ overflow: 'visible' }} className={style.BenchmarkTable}>
     <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
       <TableRow>
-        <TableHeaderColumn tooltip="Percentile" style={alignCenter} className={style.BenchmarkColNo}>%</TableHeaderColumn>
-        <TableHeaderColumn tooltip="Gold per minute" style={alignCenter}>GPM</TableHeaderColumn>
-        <TableHeaderColumn tooltip="Exp per minute" style={alignCenter}>XPM</TableHeaderColumn>
-        <TableHeaderColumn tooltip="Last hits per minute" style={alignCenter}>LHM</TableHeaderColumn>
-        <TableHeaderColumn tooltip="Kill per minute" style={alignCenter}>KPM</TableHeaderColumn>
-        <TableHeaderColumn tooltip="Hero damage per minute" style={alignCenter}>HDM</TableHeaderColumn>
-        <TableHeaderColumn tooltip="Hero healing per minute" style={alignCenter}>HHM</TableHeaderColumn>
-        <TableHeaderColumn tooltip="Tower damage per minute" style={alignCenter}>TDM</TableHeaderColumn>
+        {Object.keys(data[0]).map(stat => {
+          if (stat == 'percentile') {
+            return (
+              <TableHeaderColumn 
+                key={stat} 
+                tooltip={tooltips[stat]} 
+                style={alignCenter} 
+                className={style.BenchmarkColNo}
+              >
+                {abbrv[stat]}
+              </TableHeaderColumn>
+            );
+          }
+
+          return (
+            <TableHeaderColumn 
+              key={stat} 
+              tooltip={tooltips[stat]} 
+              style={alignCenter}
+            >
+              {abbrv[stat]}
+            </TableHeaderColumn>
+          );
+        })}
       </TableRow>
     </TableHeader>
-    <TableBody displayRowCheckbox={false}>
-      {data.gold_per_min.map((gpm, idx) =>
-        <BenchmarkRow key={idx} data={data} id={idx} percentile={gpm.percentile} />)}
-    </TableBody>
+      <TableBody displayRowCheckbox={false}>
+        {data.map((d, i) => <BenchmarkRow key={i} data={d} />)}
+      </TableBody>
   </Table>
 );
