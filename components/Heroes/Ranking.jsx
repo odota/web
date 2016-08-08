@@ -29,23 +29,23 @@ class Ranking extends Component {
     return (
       <div>
         <RankingBadge hero={hero} bestPlayer={bestPlayer} />
-        <RankingTable rankings={this.props.rankings} />
+        <RankingTable rankings={rankings} />
       </div>
     );
   }
 
   render() {
     const { isLoading, isError, rankings, hero } = this.props;
-    
+
     let bestPlayer = null;
-    
+
     if (rankings && rankings.length > 0) {
       bestPlayer = rankings[0];
     }
 
     return (
       <div>
-        {isLoading || isError || rankings == null ? 
+        {isLoading || isError || rankings == null ?
           this.renderLoading() : this.renderRanking(hero, bestPlayer, rankings)}
       </div>
     );

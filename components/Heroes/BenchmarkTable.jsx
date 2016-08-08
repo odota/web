@@ -16,21 +16,23 @@ const alignCenter = { textAlign: 'center' };
 const BenchmarkRow = ({ data, id }) => (
   <TableRow selectable={false} className={style[`BenchmarkRow-${id % 2}`]}>
     {Object.keys(data).map((stat, i) => {
-      if (stat == 'percentile') {
+      if (stat === 'percentile') {
         return (
-          <TableRowColumn 
+          <TableRowColumn
             key={i}
             style={alignCenter}
-            className={style.BenchmarkColNo}>
+            className={style.BenchmarkColNo}
+          >
             {data[stat] * 100}%
           </TableRowColumn>
         );
       }
 
       return (
-        <TableRowColumn 
-          key={i} 
-          style={alignCenter}>
+        <TableRowColumn
+          key={i}
+          style={alignCenter}
+        >
           {data[stat].toFixed(2)}
         </TableRowColumn>
       );
@@ -43,12 +45,12 @@ export default ({ data }) => (
     <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
       <TableRow>
         {Object.keys(data[0]).map(stat => {
-          if (stat == 'percentile') {
+          if (stat === 'percentile') {
             return (
-              <TableHeaderColumn 
-                key={stat} 
-                tooltip={tooltips[stat]} 
-                style={alignCenter} 
+              <TableHeaderColumn
+                key={stat}
+                tooltip={tooltips[stat]}
+                style={alignCenter}
                 className={style.BenchmarkColNo}
               >
                 {abbrv[stat]}
@@ -57,9 +59,9 @@ export default ({ data }) => (
           }
 
           return (
-            <TableHeaderColumn 
-              key={stat} 
-              tooltip={tooltips[stat]} 
+            <TableHeaderColumn
+              key={stat}
+              tooltip={tooltips[stat]}
               style={alignCenter}
             >
               {abbrv[stat]}
@@ -68,8 +70,8 @@ export default ({ data }) => (
         })}
       </TableRow>
     </TableHeader>
-      <TableBody displayRowCheckbox={false}>
-        {data.map((d, i) => <BenchmarkRow key={i} data={d} />)}
-      </TableBody>
+    <TableBody displayRowCheckbox={false}>
+      {data.map((d, i) => <BenchmarkRow key={i} data={d} />)}
+    </TableBody>
   </Table>
 );

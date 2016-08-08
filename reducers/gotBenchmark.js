@@ -18,22 +18,21 @@ export default (state = initialState, action) => {
         result: null,
         hero_id: null,
       };
-    case benchmarkActions.OK:
+    case benchmarkActions.OK: {
       const result = action.payload.result;
-      const list_stats = Object.keys(action.payload.result);
-      const list_percentiles = result[list_stats[0]].map(i => i.percentile);
+      const listStats = Object.keys(action.payload.result);
+      const listPercentiles = result[listStats[0]].map(i => i.percentile);
+      const benchmarks = [];
 
-      let benchmarks = [];
-
-      for (let i = 0; i < list_percentiles.length; i++) {
-        let percentile_per_stat = {
-          percentile: list_percentiles[i],
+      for (let i = 0; i < listPercentiles.length; i++) {
+        const percentilePerStat = {
+          percentile: listPercentiles[i],
         };
 
-        list_stats.forEach(stat => {
-          percentile_per_stat[stat] = result[stat][i].value
+        listStats.forEach(stat => {
+          percentilePerStat[stat] = result[stat][i].value;
         });
-        benchmarks.push(percentile_per_stat);
+        benchmarks.push(percentilePerStat);
       }
 
       return {
@@ -43,6 +42,7 @@ export default (state = initialState, action) => {
         hero_id: action.payload.hero_id,
         result: benchmarks,
       };
+    }
     case benchmarkActions.ERROR:
       return {
         ...state,
@@ -63,4 +63,4 @@ export const benchmark = {
   getBenchmarks: (state) => benchmark.getReducer(state).result,
   getLoading: (state) => benchmark.getReducer(state).loading,
   getError: (state) => benchmark.getReducer(state).error,
-}
+};

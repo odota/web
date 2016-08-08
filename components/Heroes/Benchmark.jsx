@@ -36,10 +36,10 @@ class Benchmark extends Component {
 
   render() {
     const { isLoading, isError, hero, result } = this.props;
-    
+
     return (
       <div>
-        {isLoading || isError || result === null ? 
+        {isLoading || isError || result === null ?
           this.renderLoading() : this.renderBenchmark(hero, result)}
       </div>
     );
@@ -52,12 +52,12 @@ HISTOGRAM API
   title: string
   binWidth: number (px)
 >
-  <HistogramBin 
+  <HistogramBin
     height: number (px)
     color: hex
     style: object
   />
-  <HistogramLegend 
+  <HistogramLegend
     position: enum
     label: string
     value: array
