@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField';
 import { connect } from 'react-redux';
 import { getSearchResult, setSearchQuery } from '../../actions';
 import { browserHistory } from 'react-router';
-// import style from './search.css';
+import styles from './search.css';
 import { REDUCER_KEY } from '../../reducers';
 
 const SearchForm = ({ dispatchSearch, dispatchSetQuery, query }) => {
@@ -24,6 +24,7 @@ const SearchForm = ({ dispatchSearch, dispatchSetQuery, query }) => {
         value={query}
         onChange={(e) => dispatchSetQuery(e.target.value)}
         fullWidth
+        underlineFocusStyle={{ borderColor: styles.searchBarColor }}
       />
     </form>
   );

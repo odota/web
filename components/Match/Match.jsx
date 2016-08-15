@@ -7,21 +7,16 @@ import {
   abUpgradeColumns,
   benchmarksColumns,
 } from '../Table/columnDefinitions/matchColumns.jsx';
-import { sortMatch, transformMatch, transformAbilityUpgrades } from '../../selectors';
+import { sortMatch, transformMatch } from '../../selectors';
 import BuildingMap from '../BuildingMap/BuildingMap';
 import { REDUCER_KEY } from '../../reducers';
-import { Card } from 'material-ui/Card';
+// import { Card } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const players = (state) => state[REDUCER_KEY].gotMatch.match.players;
+const match = (state) => state[REDUCER_KEY].gotMatch.match;
 const MatchTable = createTable(
-  players,
+  match,
   (state, sortState) => (sortState ? sortMatch(state) : transformMatch(state)),
-  setMatchSort
-);
-const AbilityUpgradesTable = createTable(
-  players,
-  state => transformAbilityUpgrades(state),
   setMatchSort
 );
 
@@ -32,7 +27,6 @@ const mapStateToProps = (state, { params }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sort: (column) => dispatch(getMatch(column)),
   getMatch: (matchId) => dispatch(getMatch(matchId)),
 });
 
@@ -58,35 +52,31 @@ class RequestLayer extends React.Component {
           <RaisedButton label={'Jist.tv'} />
           <RaisedButton label={'DotaCoach'} />
           <table>
-            <tr>
-              <th>Mode</th>
-              <th>Region</th>
-              <th>Duration</th>
-              <th>Ended</th>
-            </tr>
-            <tr>
-              <td>{this.props.match.game_mode}</td>
-              <td>{this.props.match.region}</td>
-              <td>{this.props.match.duration}</td>
-              <td>{this.props.match.start_time + this.props.match.duration}</td>
-            </tr>
+            <thead>
+              <tr>
+                <th>Mode</th>
+                <th>Region</th>
+                <th>Duration</th>
+                <th>Ended</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{this.props.match.game_mode}</td>
+                <td>{this.props.match.region}</td>
+                <td>{this.props.match.duration}</td>
+                <td>{this.props.match.start_time + this.props.match.duration}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
-        <Card>
-          <MatchTable columns={overviewColumns} />
-        </Card>
-        <Card>
-          <AbilityUpgradesTable columns={abUpgradeColumns} />
-        </Card>
-        <Card>
-          <BuildingMap match={this.props.match} loading={this.props.loading} />
-        </Card>
+        <MatchTable columns={overviewColumns} />
+        <MatchTable columns={abUpgradeColumns} />
+        <BuildingMap match={this.props.match} loading={this.props.loading} />
         <MatchTable columns={benchmarksColumns(this.props.match)} />
       </div>
     );
   }
-  // MatchHeader
-  // Benchmarks
   // purchase counts
   // purchase times
   // Hero kill times

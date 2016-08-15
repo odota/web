@@ -160,7 +160,7 @@ class Explorer extends React.Component
       <Tabs>
         <Tab label={'Table'}>
           {!this.state.loading ?
-            <Table>
+            <Table selectable={false}>
               <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
                 <TableRow>
                   {this.state.result.result && !this.state.loading ?
