@@ -4,12 +4,11 @@ import { API_HOST } from '../actions';
 const url = '/api/request_job';
 
 const START = 'yasp/request/START';
-const DONE = 'yasp/request/DONE';
 const ERROR = 'yasp/request/ERROR';
 const PROGRESS = 'yasp/request/PROGRESS';
 const MATCH_ID = 'yasp/request/MATCH_ID';
 
-export const searchActions = {
+export const requestActions = {
   START,
   ERROR,
   PROGRESS,
@@ -25,9 +24,9 @@ const requestStart = () => ({
   type: START,
 });
 
-const requestError = (payload) => ({
+const requestError = (error) => ({
   type: ERROR,
-  payload,
+  error,
 });
 
 const requestProgress = (progress) => ({
@@ -35,33 +34,27 @@ const requestProgress = (progress) => ({
   progress,
 });
 
-const requestSubmit = (query) => (dispatch) => {
+const requestSubmit = (match_id, replay_blob) => (dispatch) => {
   dispatch(requestStart());
+  var formData  = new FormData();
+  formData.append('match_id', match_id);
   return fetch(`${API_HOST}${url}`, {
     method: 'post',
-    headers:
-    {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      match_id: query.match_id,
-      replay_blob: query.replay_blob,
-    }),
+    body: formData,
   })
   .then(res => res.json())
   .then((json) => {
      function poll(){
-       fetch(`${API_HOST}${url}?id=${json.job.id}`)
+       fetch(`${API_HOST}${url}?id=${json.job.jobId}`)
        .then(res => res.json())
        .then((json) => {
          if (json.progress) {
            dispatch(requestProgress(json.progress));
          }
-         if (json.error) {
-           dispatch(requestError(json.error));
+         if (json.error || json.state === 'failed') {
+           dispatch(requestError(json.error || 'failed'));
          } else if (json.state === 'completed') {
-           window.pushState(`/matches/${query.match_id}`);
+           window.location.href = `/matches/${match_id}`;
          } else {
            setTimeout(poll, 2000);
          }

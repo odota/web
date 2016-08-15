@@ -6,6 +6,8 @@ import gotSearch from './gotSearch';
 import appBar from './appBar';
 import tab, { getTab } from './tab';
 import form, { getForm } from './form';
+import request from './request';
+import distributions from './distributions';
 import { combineReducers } from 'redux';
 
 const REDUCER_KEY = 'yaspReducer';
@@ -31,4 +33,6 @@ export default combineReducers({
   appBar,
   tab,
   form,
+  request,
+  distributions,
 });

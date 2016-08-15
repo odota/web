@@ -22,12 +22,12 @@ export default (state = initialState, action) => {
         ...state,
         done: false,
         loading: false,
-        error: action.payload.error,
+        error: action.error,
       };
     case requestActions.PROGRESS:
       return {
         ...state,
-        progress: action.payload.progress,
+        progress: action.progress,
       };
     case requestActions.MATCH_ID:
       return {
