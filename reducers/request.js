@@ -1,8 +1,8 @@
 import { requestActions } from '../actions';
 
 const initialState = {
-  replay_blob: null,
-  match_id: window.location.hash.slice(1),
+  replayBlob: null,
+  matchId: window.location.hash.slice(1),
   progress: 0,
   error: '',
   loading: false,
@@ -32,7 +32,7 @@ export default (state = initialState, action) => {
     case requestActions.MATCH_ID:
       return {
         ...state,
-        match_id: action.match_id,
+        matchId: action.match_id,
       };
     default:
       return state;

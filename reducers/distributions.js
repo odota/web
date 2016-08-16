@@ -4,7 +4,7 @@ const initialState = {
   loading: false,
   error: false,
   done: false,
-  distributions: {},
+  data: {},
 };
 
 export default (state = initialState, action) => {
@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
         loading: false,
         error: false,
         done: true,
-        distributionsResults: action.payload,
+        data: action.payload,
       };
     case distributionsActions.ERROR:
       return {

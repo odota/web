@@ -15,9 +15,9 @@ export const requestActions = {
   MATCH_ID,
 };
 
-const setMatchId = (match_id) => ({
+const setMatchId = (matchId) => ({
   type: MATCH_ID,
-  match_id
+  matchId,
 });
 
 const requestStart = () => ({
@@ -34,32 +34,32 @@ const requestProgress = (progress) => ({
   progress,
 });
 
-const requestSubmit = (match_id, replay_blob) => (dispatch) => {
+const requestSubmit = (matchId) => (dispatch) => {
+  const formData = new FormData();
+  formData.append('match_id', matchId);
   dispatch(requestStart());
-  var formData  = new FormData();
-  formData.append('match_id', match_id);
   return fetch(`${API_HOST}${url}`, {
     method: 'post',
     body: formData,
   })
   .then(res => res.json())
   .then((json) => {
-     function poll(){
-       fetch(`${API_HOST}${url}?id=${json.job.jobId}`)
-       .then(res => res.json())
-       .then((json) => {
-         if (json.progress) {
-           dispatch(requestProgress(json.progress));
-         }
-         if (json.error || json.state === 'failed') {
-           dispatch(requestError(json.error || 'failed'));
-         } else if (json.state === 'completed') {
-           window.location.href = `/matches/${match_id}`;
-         } else {
-           setTimeout(poll, 2000);
-         }
-       });
-     }
+    function poll() {
+      fetch(`${API_HOST}${url}?id=${json.job.jobId}`)
+      .then(res => res.json())
+      .then((json) => {
+        if (json.progress) {
+          dispatch(requestProgress(json.progress));
+        }
+        if (json.error || json.state === 'failed') {
+          dispatch(requestError(json.error || 'failed'));
+        } else if (json.state === 'completed') {
+          window.location.href = `/matches/${matchId}`;
+        } else {
+          setTimeout(poll, 2000);
+        }
+      });
+    }
     poll();
   })
   .catch(err => dispatch(requestError(err)));
