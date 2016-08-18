@@ -19,7 +19,7 @@ class Search extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { error, loading, done, searchResults } = state[REDUCER_KEY].gotSearch;
+  const { error, loading, done, searchResults } = state[REDUCER_KEY].search;
   return {
     loading,
     error,

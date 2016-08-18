@@ -10,18 +10,18 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case requestActions.START:
+    case requestActions.REQUEST:
       return {
         ...state,
+        loading: true,
         done: false,
         error: false,
-        loading: true,
       };
     case requestActions.ERROR:
       return {
         ...state,
-        done: false,
         loading: false,
+        done: false,
         error: action.error,
       };
     case requestActions.PROGRESS:

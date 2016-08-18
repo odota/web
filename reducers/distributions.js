@@ -9,26 +9,26 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case distributionsActions.START:
+    case distributionsActions.REQUEST:
       return {
         ...state,
+        loading: true,
         done: false,
         error: false,
-        loading: true,
       };
-    case distributionsActions.DONE:
+    case distributionsActions.OK:
       return {
         ...state,
         loading: false,
-        error: false,
         done: true,
+        error: false,
         data: action.payload,
       };
     case distributionsActions.ERROR:
       return {
         ...state,
-        done: false,
         loading: false,
+        done: false,
         error: true,
       };
     default:

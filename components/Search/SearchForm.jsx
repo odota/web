@@ -31,11 +31,11 @@ const SearchForm = ({ dispatchSearch, dispatchSetQuery, query }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { error, loading, done, query, searchResults } = state[REDUCER_KEY].gotSearch;
+  const { error, loading, done, query, searchResults } = state[REDUCER_KEY].search;
   return {
     loading,
-    error,
     done,
+    error,
     query,
     data: searchResults,
   };

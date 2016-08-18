@@ -10,31 +10,31 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case searchActions.START:
+    case searchActions.REQUEST:
       return {
         ...state,
+        loading: true,
         done: false,
         error: false,
-        loading: true,
       };
     case searchActions.QUERY:
       return {
         ...state,
         query: action.query,
       };
-    case searchActions.DONE:
+    case searchActions.OK:
       return {
         ...state,
         loading: false,
-        error: false,
         done: true,
+        error: false,
         searchResults: action.payload,
       };
     case searchActions.ERROR:
       return {
         ...state,
-        done: false,
         loading: false,
+        done: false,
         error: true,
       };
     default:

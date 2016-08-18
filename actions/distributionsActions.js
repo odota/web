@@ -3,22 +3,22 @@ import { API_HOST } from '../actions';
 
 const url = '/api/distributions';
 
-const START = 'yasp/distributions/START';
-const DONE = 'yasp/distributions/DONE';
+const REQUEST = 'yasp/distributions/REQUEST';
+const OK = 'yasp/distributions/OK';
 const ERROR = 'yasp/distributions/ERROR';
 
 export const distributionsActions = {
-  START,
-  DONE,
+  REQUEST,
+  OK,
   ERROR,
 };
 
-const getDistributionsStart = () => ({
-  type: START,
+const getDistributionsRequest = () => ({
+  type: REQUEST,
 });
 
-const getDistributionsDone = (payload) => ({
-  type: DONE,
+const getDistributionsOk = (payload) => ({
+  type: OK,
   payload,
 });
 
@@ -28,10 +28,10 @@ const getDistributionsError = (payload) => ({
 });
 
 const getDistributions = () => (dispatch) => {
-  dispatch(getDistributionsStart());
+  dispatch(getDistributionsRequest());
   return fetch(`${API_HOST}${url}`)
     .then(res => res.json())
-    .then(json => dispatch(getDistributionsDone(json)))
+    .then(json => dispatch(getDistributionsOk(json)))
     .catch(err => dispatch(getDistributionsError(err)));
 };
 
