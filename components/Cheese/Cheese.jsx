@@ -11,7 +11,7 @@ const Cheese = ({ donations, error, loading }) => {
   const percent = cheese / goal;
 
   const getCheeseMeter = () => (
-    <div>
+    <div className={styles.content}>
       <div className={styles.percent}>{(percent * 100).toFixed(2)}%</div>
       <LinearProgress style={{ height: 15 }} mode="determinate" value={percent * 100} color="#FFD700" />
       {percent >= 1 && <div> - Woo!!! Thanks guys! No more ads! - Resets in X days.</div>}
@@ -21,20 +21,19 @@ const Cheese = ({ donations, error, loading }) => {
   return (
     <div className={styles.container}>
       <div className={styles.section}>
-        <div>Buy some cheese. Help pay for servers. Reaching the goal every month keeps us running.</div>
+          <p className={styles.cheese_promo}>Buy some cheese. Help pay for servers.</p>
+          <p className={styles.cheese_promo}>Reaching the goal every month keeps us running.</p>
       </div>
       <div className={styles.section}>
-        <div>
-          <h3 style={{ fontWeight: 700, marginTop: 0 }}>Monthly Cheese Goal</h3>
-          <div>
+          <h3 className={styles.cheese_title}>Monthly Cheese Goal</h3>
+
             {error && <Error />}
             {loading && <Spinner />}
             { /* TODO - this should be it's own component called cheese meter */
               !error && !loading
               && getCheeseMeter(donations.goal, donations.cheese)
             }
-          </div>
-        </div>
+
       </div>
       <div className={styles.section}>
         <CheeseButton />
