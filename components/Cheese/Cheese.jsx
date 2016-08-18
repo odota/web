@@ -21,19 +21,17 @@ const Cheese = ({ donations, error, loading }) => {
   return (
     <div className={styles.container}>
       <div className={styles.section}>
-          <p className={styles.cheese_promo}>Buy some cheese. Help pay for servers.</p>
-          <p className={styles.cheese_promo}>Reaching the goal every month keeps us running.</p>
+        <p className={styles.cheese_promo}>Buy some cheese. Help pay for servers.</p>
+        <p className={styles.cheese_promo}>Reaching the goal every month keeps us running.</p>
       </div>
       <div className={styles.section}>
-          <h3 className={styles.cheese_title}>Monthly Cheese Goal</h3>
-
-            {error && <Error />}
-            {loading && <Spinner />}
-            { /* TODO - this should be it's own component called cheese meter */
-              !error && !loading
-              && getCheeseMeter(donations.goal, donations.cheese)
-            }
-
+        <h3 className={styles.cheese_title}>Monthly Cheese Goal</h3>
+          {error && <Error />}
+          {loading && <Spinner />}
+          { /* TODO - this should be it's own component called cheese meter */
+            !error && !loading
+            && getCheeseMeter(donations.goal, donations.cheese)
+          }
       </div>
       <div className={styles.section}>
         <CheeseButton />
