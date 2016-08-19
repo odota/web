@@ -35,6 +35,6 @@ export default (state = initialState, action) => {
 };
 
 export const getWinLoss = {
-  getWins: state => state.yaspReducer.gotPlayer.winloss.win,
-  getLosses: state => state.yaspReducer.gotPlayer.winloss.lose,
+  getWins: state => state.app.gotPlayer.winloss.win,
+  getLosses: state => state.app.gotPlayer.winloss.lose,
 };

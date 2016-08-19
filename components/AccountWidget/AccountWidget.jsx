@@ -6,7 +6,7 @@ import { REDUCER_KEY } from '../../reducers';
 import { getPlayer } from '../../actions';
 import styles from './AccountWidget.css';
 import { Link } from 'react-router';
-import { API_HOST } from '../../yasp.config';
+import { API_HOST } from '../../config';
 // import FontIcon from 'material-ui/FontIcon';
 // import { PlayerPicture } from '../Player';
 

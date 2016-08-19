@@ -42,7 +42,7 @@ export default (state = {}, action) => {
 };
 
 export const getTable = {
-  getTable: (state, id) => state.yaspReducer.table[id] || initialState,
+  getTable: (state, id) => state.app.table[id] || initialState,
   getCurrentPage: (state, id) => getTable.getTable(state, id).currentPage,
   getTotalPages: (state, id) => getTable.getTable(state, id).totalPages,
 };

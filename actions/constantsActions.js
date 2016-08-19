@@ -1,9 +1,9 @@
 import fetch from 'isomorphic-fetch';
 import { API_HOST } from '../actions';
 const url = '/api/constants';
-const REQUEST = 'yasp/constants/REQUEST';
-const OK = 'yasp/constants/OK';
-const ERROR = 'yasp/constants/ERROR';
+const REQUEST = 'constants/REQUEST';
+const OK = 'constants/OK';
+const ERROR = 'constants/ERROR';
 
 export const constantsActions = {
   REQUEST,

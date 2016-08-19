@@ -1,6 +1,6 @@
 {
-  "name": "yasp-ui",
-  "description": "Open source Dota 2 replay parsing and statistics",
+  "name": "ui",
+  "description": "Dota 2 data Web UI",
   "version": "1.0.0",
   "license": "GPL-3.0",
   "scripts": {

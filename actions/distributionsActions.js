@@ -3,9 +3,9 @@ import { API_HOST } from '../actions';
 
 const url = '/api/distributions';
 
-const REQUEST = 'yasp/distributions/REQUEST';
-const OK = 'yasp/distributions/OK';
-const ERROR = 'yasp/distributions/ERROR';
+const REQUEST = 'distributions/REQUEST';
+const OK = 'distributions/OK';
+const ERROR = 'distributions/ERROR';
 
 export const distributionsActions = {
   REQUEST,

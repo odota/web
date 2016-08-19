@@ -15,12 +15,12 @@ export default createReducer(initialState, playerMatchesActions);
 
 export const getPlayerMatches = {
   getPlayerMatchesById: (state, id) => {
-    if (!state.yaspReducer.gotPlayer.matches.byId[id]) {
+    if (!state.app.gotPlayer.matches.byId[id]) {
       return {
         ...initialState,
       };
     }
-    return state.yaspReducer.gotPlayer.matches.byId[id];
+    return state.app.gotPlayer.matches.byId[id];
   },
   getError: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).error,
   getLoading: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).loading,

@@ -1,10 +1,10 @@
 import { form } from '../reducers';
 
-const ADD_CHIP = 'yasp/form/ADD_CHIP';
-const DELETE_CHIP = 'yasp/form/DELETE_CHIP';
-const SET_FIELD_TEXT = 'yasp/form/SET_FIELD_TEXT';
-const CLEAR_FORM = 'yasp/form/CLEAR_FORM';
-const TOGGLE_SHOW_FORM = 'yasp/tabs/TOGGLE_SHOW_FORM';
+const ADD_CHIP = 'form/ADD_CHIP';
+const DELETE_CHIP = 'form/DELETE_CHIP';
+const SET_FIELD_TEXT = 'form/SET_FIELD_TEXT';
+const CLEAR_FORM = 'form/CLEAR_FORM';
+const TOGGLE_SHOW_FORM = 'tabs/TOGGLE_SHOW_FORM';
 
 export const formActions = {
   ADD_CHIP,

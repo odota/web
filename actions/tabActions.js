@@ -1,4 +1,4 @@
-const SET_ACTIVE_TAB = 'yasp/tabs/SET_ACTIVE_TAB';
+const SET_ACTIVE_TAB = 'tabs/SET_ACTIVE_TAB';
 
 export const tabActions = {
   SET_ACTIVE_TAB,

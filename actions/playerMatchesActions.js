@@ -5,10 +5,10 @@ import { getUrl, defaultOptions } from './utility';
 
 const url = playerId => `/api/players/${playerId}/matches`;
 
-const REQUEST = 'yasp/playerMatches/REQUEST';
-const OK = 'yasp/playerMatches/OK';
-const ERROR = 'yasp/playerMatches/ERROR';
-const SORT = 'yasp/playerMatches/SORT';
+const REQUEST = 'playerMatches/REQUEST';
+const OK = 'playerMatches/OK';
+const ERROR = 'playerMatches/ERROR';
+const SORT = 'playerMatches/SORT';
 
 export const playerMatchesActions = {
   REQUEST,

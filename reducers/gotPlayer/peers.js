@@ -15,12 +15,12 @@ export default createReducer(initialState, playerPeersActions);
 
 export const getPlayerPeers = {
   getPlayerPeersById: (state, id) => {
-    if (!state.yaspReducer.gotPlayer.peers.byId[id]) {
+    if (!state.app.gotPlayer.peers.byId[id]) {
       return {
         ...initialState,
       };
     }
-    return state.yaspReducer.gotPlayer.peers.byId[id];
+    return state.app.gotPlayer.peers.byId[id];
   },
   getError: (state, id) => getPlayerPeers.getPlayerPeersById(state, id).error,
   getLoading: (state, id) => getPlayerPeers.getPlayerPeersById(state, id).loading,

@@ -5,7 +5,7 @@ require('brace/mode/sql');
 require('brace/theme/monokai');
 //<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"></script>
 import fetch from 'isomorphic-fetch';
-import { API_HOST } from '../../yasp.config';
+import { API_HOST } from '../../config';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Popover from 'material-ui/Popover';

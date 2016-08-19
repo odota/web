@@ -4,9 +4,9 @@ import { player } from '../reducers';
 
 const url = '/api/players';
 
-const REQUEST = 'yasp/player/REQUEST';
-const OK = 'yasp/player/OK';
-const ERROR = 'yasp/player/ERROR';
+const REQUEST = 'player/REQUEST';
+const OK = 'player/OK';
+const ERROR = 'player/ERROR';
 
 export const playerActions = {
   REQUEST,

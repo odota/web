@@ -3,10 +3,10 @@ import { API_HOST } from '../actions';
 
 const url = '/api/search';
 
-const REQUEST = 'yasp/search/REQUEST';
-const OK = 'yasp/search/OK';
-const ERROR = 'yasp/search/ERROR';
-const QUERY = 'yasp/search/QUERY';
+const REQUEST = 'search/REQUEST';
+const OK = 'search/OK';
+const ERROR = 'search/ERROR';
+const QUERY = 'search/QUERY';
 
 export const searchActions = {
   REQUEST,
