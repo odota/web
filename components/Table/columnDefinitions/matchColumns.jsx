@@ -142,7 +142,15 @@ for (let i = 0; i < 25; i++) {
       // TODO - why does this code get executed when the abUpgradeColumnsTable doesn't get rendered...
       if (field) {
         const abilityId = field[column.index];
-        const abilityData = constants.abilities[constants.ability_ids[abilityId]];
+        const abilityKey = constants.ability_ids[abilityId];
+        let abilityData = constants.abilities[abilityKey];
+        if (abilityKey === 'attribute_bonus') {
+          abilityData = {
+            dname: 'Attribute Bonus',
+            img: '/assets/stats.png',
+            attrib: '+2 All Attributes',
+          };
+        }
         if (abilityData) {
           return <img src={`${API_HOST}${abilityData.img}`} style={{ height: 35, position: 'relative', left: -10 }} role="presentation" />;
         }

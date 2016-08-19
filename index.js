@@ -28,7 +28,7 @@ injectTapEventPlugin();
 // These are sprites, will be needed at some point
 // require('./node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
 import './assets/flaticon.css';
-import './global.css';
+import './assets/global.css';
 const loggerMiddleware = createLogger();
 
 const reducer = combineReducers({
