@@ -1,40 +1,34 @@
-import { searchActions } from '../actions';
+import { distributionsActions } from '../actions';
 
 const initialState = {
   loading: false,
   error: false,
   done: false,
-  query: '',
-  searchResults: [],
+  data: {},
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case searchActions.START:
+    case distributionsActions.REQUEST:
       return {
         ...state,
-        done: false,
-        error: false,
         loading: true,
-      };
-    case searchActions.QUERY:
-      return {
-        ...state,
-        query: action.query,
-      };
-    case searchActions.DONE:
-      return {
-        ...state,
-        loading: false,
-        error: false,
-        done: true,
-        searchResults: action.payload,
-      };
-    case searchActions.ERROR:
-      return {
-        ...state,
         done: false,
+        error: false,
+      };
+    case distributionsActions.OK:
+      return {
+        ...state,
         loading: false,
+        done: true,
+        error: false,
+        data: action.payload,
+      };
+    case distributionsActions.ERROR:
+      return {
+        ...state,
+        loading: false,
+        done: false,
         error: true,
       };
     default:

@@ -1,0 +1,47 @@
+import React from 'react';
+import CircularProgress from 'material-ui/CircularProgress';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import { requestSubmit, setMatchId } from '../../actions';
+import { connect } from 'react-redux';
+import { REDUCER_KEY } from '../../reducers';
+
+const Request = ({ error, matchId, loading, progress, dispatchRequest, dispatchMatchId }) => {
+  function submit() {
+    dispatchRequest(matchId);
+  }
+  const progressIndicator = (progress ?
+    <CircularProgress value={progress} mode="determinate" /> :
+    <CircularProgress value={progress} mode="indeterminate" />);
+  return (
+    <div>
+      <h1>Request a Parse</h1>
+      <TextField
+        id="match_id"
+        floatingLabelText="Match ID"
+        value={matchId}
+        onChange={(e) => dispatchMatchId(e.target.value)}
+      />
+      <div className="subText">Only works for public matches with replay available in client</div>
+      <div>{error ? 'Failed to get match data.' : ''}</div>
+      {loading ? progressIndicator : <RaisedButton label="Submit" onClick={submit} />}
+    </div>
+  );
+};
+
+const mapStateToProps = (state) => {
+  const { error, matchId, loading, progress } = state[REDUCER_KEY].request;
+  return {
+    error,
+    matchId,
+    loading,
+    progress,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchRequest: (matchId) => dispatch(requestSubmit(matchId)),
+  dispatchMatchId: (matchId) => dispatch(setMatchId(matchId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Request);

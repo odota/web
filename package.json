@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "brace": "^0.8.0",
+    "c3": "github:yasp-dota/c3",
     "dotaconstants": "yasp-dota/dotaconstants#90a8be6",
     "es6-promise": "^3.2.1",
     "isomorphic-fetch": "^2.2.1",

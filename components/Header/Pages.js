@@ -2,14 +2,11 @@ const navbarPages = [{
   name: 'Request',
   path: '/request',
 }, {
-  name: 'Heroes',
-  path: '/heroes',
-}, {
   name: 'Distributions',
   path: '/distributions',
 }, {
-  name: 'Carry',
-  path: '/carry',
+  name: 'Heroes',
+  path: '/heroes',
 }];
 
 const playerPages = [{
@@ -34,8 +31,6 @@ const playerPages = [{
   name: 'Trends',
 }, {
   name: 'Wardmap',
-}, {
-  name: 'Items',
 }, {
   name: 'Wordcloud',
 }, {
