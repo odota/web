@@ -36,14 +36,14 @@
   justify-content: center;
 }
 
-.cheese_title {
+.cheeseTitle {
   font-weight: 700;
   margin-top: 0;
   margin-bottom: 10px;
 }
 
-/* this is actually pretty strange way, but it looks fine so.. */
-.cheese_promo:first-child{
+/* I saved class on both p tags for possibility to future theming. */
+.cheesePromo:first-child{
   margin: 0;
 }
 
