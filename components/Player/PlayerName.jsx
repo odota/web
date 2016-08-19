@@ -1,5 +1,4 @@
 import React from 'react';
-// import YaspBadge from './YaspBadge';
 // import PlayerPicture from './PlayerPicture';
 import Error from '../Error';
 import Spinner from '../Spinner';

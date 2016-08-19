@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { YaspBadge } from '../../Player';
+import { AppBadge } from '../../Player';
 import styles from './column.css';
-import { API_HOST } from '../../../yasp.config.js';
+import { API_HOST } from '../../../config.js';
 import constants from 'dotaconstants';
 
 const heroTd = (row, col, field) => (
@@ -10,7 +10,7 @@ const heroTd = (row, col, field) => (
     <div>
       <div className={row.isRadiant ? styles.radiant : styles.dire}></div>
       <img src={field ? `${API_HOST}${constants.heroes[field].img}` : ''} style={{ height: 24 }} role="presentation" />
-      {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><YaspBadge /></span>}
+      {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
     </div>
     {row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : 'Anonymous'}
   </div>

@@ -14,4 +14,4 @@ export { formActions, addChip, deleteChip, setFieldText, submitForm, clearForm, 
 export * from './searchActions';
 export * from './requestActions';
 export * from './distributionsActions';
-export { API_HOST } from '../yasp.config';
+export { API_HOST } from '../config';

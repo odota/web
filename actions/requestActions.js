@@ -3,10 +3,10 @@ import { API_HOST } from '../actions';
 
 const url = '/api/request_job';
 
-const REQUEST = 'yasp/request/REQUEST';
-const ERROR = 'yasp/request/ERROR';
-const PROGRESS = 'yasp/request/PROGRESS';
-const MATCH_ID = 'yasp/request/MATCH_ID';
+const REQUEST = 'request/REQUEST';
+const ERROR = 'request/ERROR';
+const PROGRESS = 'request/PROGRESS';
+const MATCH_ID = 'request/MATCH_ID';
 
 export const requestActions = {
   REQUEST,

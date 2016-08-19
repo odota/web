@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import constants from 'dotaconstants';
 import moment from 'moment';
-import { API_HOST } from '../yasp.config.js';
+import { API_HOST } from '../config.js';
 
 export const isRadiant = (playerSlot) => playerSlot < 128;
 

@@ -1,6 +1,5 @@
 import React from 'react';
 // import { Link } from 'react-router';
-// import { API_HOST } from '../../../yasp.config';
 import EditorPieChart from 'material-ui/svg-icons/editor/pie-chart';
 import { transformations } from '../../../utility';
 

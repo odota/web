@@ -1,2 +1,2 @@
 export { default } from './Player';
-export { default as YaspBadge } from './YaspBadge';
+export { default as AppBadge } from './AppBadge';

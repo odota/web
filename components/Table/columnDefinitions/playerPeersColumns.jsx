@@ -1,14 +1,14 @@
 import React from 'react';
 import { PercentContainer } from '../../ColumnComponents';
 import { Link } from 'react-router';
-import { YaspBadge } from '../../Player';
+import { AppBadge } from '../../Player';
 import { transformations } from '../../../utility';
 
 const getPlayerPicture = (row, col, field) => (
   <div style={{ marginTop: 5 }}>
     <div>
       <img src={field} style={{ height: 30 }} role="presentation" />
-      {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><YaspBadge /></span>}
+      {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
     </div>
     {row.account_id ? <Link to={`/players/${row.account_id}/overview`}>{row.personaname}</Link> : 'Anonymous'}
   </div>

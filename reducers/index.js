@@ -11,7 +11,7 @@ import distributions from './distributions';
 import table, { getTable } from './table';
 import { combineReducers } from 'redux';
 
-const REDUCER_KEY = 'yaspReducer';
+const REDUCER_KEY = 'app';
 
 export { REDUCER_KEY };
 

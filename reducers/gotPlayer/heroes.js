@@ -15,12 +15,12 @@ export default createReducer(initialState, playerHeroesActions);
 
 export const getPlayerHeroes = {
   getPlayerHeroesById: (state, id) => {
-    if (!state.yaspReducer.gotPlayer.heroes.byId[id]) {
+    if (!state.app.gotPlayer.heroes.byId[id]) {
       return {
         ...initialState,
       };
     }
-    return state.yaspReducer.gotPlayer.heroes.byId[id];
+    return state.app.gotPlayer.heroes.byId[id];
   },
   getError: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).error,
   getLoading: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).loading,
