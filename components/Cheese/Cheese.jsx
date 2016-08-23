@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { REDUCER_KEY } from '../../reducers';
 import Spinner from '../Spinner';
 import styles from './Cheese.css';
-import LinearProgress from 'material-ui/LinearProgress';
 import CheeseButton from './CheeseButton';
+import ProgressBar from '../ProgressBar';
 
 const Cheese = ({ donations, error, loading }) => {
   const { goal, cheese } = donations;
@@ -12,8 +12,7 @@ const Cheese = ({ donations, error, loading }) => {
 
   const getCheeseMeter = () => (
     <div className={styles.content}>
-      <div className={styles.percent}>{(percent * 100).toFixed(2)}%</div>
-      <LinearProgress style={{ height: 15 }} mode="determinate" value={percent * 100} color="#FFD700" />
+      <ProgressBar height="18" percent={percent} />
       {percent >= 1 && <div> - Woo!!! Thanks guys! No more ads! - Resets in X days.</div>}
     </div>
   );

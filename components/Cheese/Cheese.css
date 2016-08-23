@@ -10,13 +10,6 @@
   }
 }
 
-.percent {
-  position: relative;
-  bottom: -17px;
-  margin-top: -17px;
-  z-index: 1;
-}
-
 .section {
   /* this actually better than calc */
   width: 33.3333%;
