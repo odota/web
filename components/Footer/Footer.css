@@ -13,5 +13,5 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 1em 1em 1em 1em;
+  margin-top: 15px;
 }
