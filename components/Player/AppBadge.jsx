@@ -5,6 +5,6 @@ import styles from './PlayerHeader.css';
 export default () => (
   <div
     className={styles.appBadge}
-    style={{ backgroundImage: `url(${API_HOST}/public/images/yasp-icon.svg)` }}
+    style={{ backgroundImage: `url(/assets/logo.svg)` }}
   />
 );

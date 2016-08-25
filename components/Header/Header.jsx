@@ -1,5 +1,4 @@
 import React from 'react';
-import Logo from '../Logo';
 // import { NavDrawer } from '../NavBar';
 import AccountWidget from '../AccountWidget';
 import FlatButton from 'material-ui/FlatButton';
@@ -15,16 +14,19 @@ import ActionSearch from 'material-ui/svg-icons/action/search';
 // import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 // import MenuItem from 'material-ui/MenuItem';
 import { navbarPages, playerPages, matchPages } from './Pages';
+import { APP_NAME } from '../../config';
 
 const playerPagesMapped = (accountId) => playerPages.map((e) => Object.assign({}, e, {
   route: `/players/${accountId}/${e.name.toLowerCase()}`,
   label: e.name,
 }));
 
+/*
 const matchPagesMapped = (matchId) => matchPages.map((e) => Object.assign({}, e, {
   route: `/matches/${matchId}/${e.name.toLowerCase()}`,
   label: e.name,
 }));
+*/
 
 const getTabBar = (params, location) => {
   if (location.pathname.indexOf('/players') === 0) {
@@ -32,12 +34,15 @@ const getTabBar = (params, location) => {
       <div className={styles.tabBarContainer}>
         <TabBar tabs={playerPagesMapped(params.account_id)} />
       </div>);
-  } else if (location.pathname.indexOf('/matches') === 0) {
+  } 
+  /*
+  else if (location.pathname.indexOf('/matches') === 0) {
     return (
       <div className={styles.tabBarContainer}>
         <TabBar tabs={matchPagesMapped(params.match_id)} />
       </div>);
   }
+  */
   return '';
 };
 
@@ -46,30 +51,29 @@ export default ({
   params,
   location,
 }) => (
-  <div className={styles.upperCase}>
+  <div>
     <Toolbar
       className={styles.header}
     >
-      <ToolbarGroup>
-        <Logo className={styles.verticalAlign} />
+      <ToolbarGroup className={styles.verticalAlign}>
+        <Link to="/">
+          <strong>{APP_NAME}</strong>
+        </Link>
       </ToolbarGroup>
       <ToolbarGroup>
         {navbarPages.map((page) => (
-          <FlatButton
-            key={page.name}
-            containerElement={<Link to={page.path} />}
-            href={'#'}
-            label={page.name}
-          />
+          <div className={styles.tabContainer}>
+            <Link to={page.path} className={styles.tab}>{page.name}</Link>
+          </div>
         ))}
       </ToolbarGroup>
-      <ToolbarGroup className={styles.verticalAlign}>
+      <ToolbarGroup className={styles.verticalAlign} style={{'margin-left': 'auto'}}>
         <ActionSearch />
         <SearchForm
           location={location}
         />
       </ToolbarGroup>
-      <ToolbarGroup>
+      <ToolbarGroup style={{'margin-left': 'auto'}}>
         <AccountWidget />
       </ToolbarGroup>
     </Toolbar>
