@@ -15,7 +15,7 @@ export const PlayerMMR = ({ loading, error, rank, soloRank, mmrEstimate }) => {
     if (loading) return <Spinner />;
     return (
       <div>
-        <span>
+        <span className={styles.infoRow}>
           <abbr title={"Solo MMR"}>
             <SocialPerson color={blue500} />
           </abbr>

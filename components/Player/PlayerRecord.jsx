@@ -3,7 +3,7 @@ import Error from '../Error';
 import Spinner from '../Spinner';
 import { connect } from 'react-redux';
 import { player } from '../../reducers';
-// import styles from './PlayerHeader.css';
+import styles from './PlayerHeader.css';
 import SocialPoll from 'material-ui/svg-icons/social/poll';
 import { green500 } from 'material-ui/styles/colors';
 
@@ -13,11 +13,13 @@ export const PlayerRecord = ({ loading, error, wins, losses }) => {
     if (loading) return <Spinner />;
     return (
       <div>
-        <span>
-          <SocialPoll color={green500} />
-          <span>{wins}</span>
-          <span> - </span>
-          <span>{losses}</span>
+        <span className={styles.infoRow}>
+          <abbr title={"Win/Lose"}>
+            <SocialPoll color={green500} />
+          </abbr>
+          <span className="textSuccess">{wins}</span>
+          <span>/</span>
+          <span className="textDanger">{losses}</span>
           <span>{` (${(wins / (wins + losses) * 100).toFixed(2)}%)`}</span>
         </span>
       </div>

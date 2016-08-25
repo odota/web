@@ -82,3 +82,23 @@
     width: 100%;
   }
 }
+
+/*
+  This styles looks like a little hardcoded. I don't think this is a trouble,
+  because postcss already apply encapsulation.
+  So all but the 'global' styles are hardcoded at some kind.
+*/
+.infoRow {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 5px 5px;
+  
+  & > abbr {
+    margin-right: 2px;
+  }
+  
+  & > span:not(:last-child){
+    margin-right: 6px;
+  }
+}
