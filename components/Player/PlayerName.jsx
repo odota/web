@@ -4,28 +4,36 @@ import Error from '../Error';
 import Spinner from '../Spinner';
 import { connect } from 'react-redux';
 import { player } from '../../reducers';
-// import styles from './PlayerHeader.css';
+import styles from './PlayerHeader.css';
 import { CardHeader } from 'material-ui/Card';
+import ImageLens from 'material-ui/svg-icons/image/lens';
+import { green500 } from 'material-ui/styles/colors';
+import FontIcon from 'material-ui/FontIcon';
 
-const PlayerName = ({ playerName, picture, loading, error }) => {
+const PlayerName = ({ playerName, picture, cheese, registered, loading, error }) => {
+  const getTitle = () => (
+    <div>
+      <span className={styles.playerTitle}>{playerName}</span>
+      {registered &&
+        <ImageLens className={styles.playerRegistredIcon} color={green500} />}
+    </div>
+  );
+
+  const getSubtitle = () => (
+    <div>
+      <FontIcon className={styles.smallCheese} />
+      <span>X {cheese}</span>
+    </div>
+  );
+
   const getPlayerName = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;
-    /*
-        return (
-          <div>
-            <div className={styles.nameContainer}>
-              <div className={styles.pictureContainer}>
-                <PlayerPicture registered={registered} playerId={playerId} />
-              </div>
-              <div className={styles.playerName}>{playerName}</div>
-            </div>
-          </div>
-        );
-    */
+
     // TODO display cheese, tracked state
     // hotel icon for inactive players?
-    return (<CardHeader title={playerName} avatar={picture} />);
+
+    return (<CardHeader title={getTitle()} subtitle={getSubtitle()} avatar={picture} />);
   };
 
   return <div>{getPlayerName()}</div>;

@@ -102,3 +102,27 @@
     margin-right: 6px;
   }
 }
+
+.playerTitle {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* no way to override icon size, because it set as inline styles.
+  Actually it's possible to set style property of icon, but i don't know how to
+  get this css class as object in Jsx script.*/
+.playerRegistredIcon {
+  width: 12px !important;
+  height: 12px !important;
+  margin-left: 2px;
+}
+
+.smallCheese {
+  font-family: Flaticon;
+  font-size: 16px !important; /* same as above. important - bad. */
+  text-shadow: 0 0 10px #ff0;
+  margin: 0 10px 0 0;
+  &::before {
+    content: "\E000";
+  }
+}
