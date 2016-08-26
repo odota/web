@@ -1,5 +1,4 @@
 import React from 'react';
-import { API_HOST } from '../../config';
 import styles from './PlayerHeader.css';
 
 export default () => (

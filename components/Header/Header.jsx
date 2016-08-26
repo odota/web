@@ -62,18 +62,18 @@ export default ({
       </ToolbarGroup>
       <ToolbarGroup>
         {navbarPages.map((page) => (
-          <div className={styles.tabContainer}>
+          <div key={page.name} className={styles.tabContainer}>
             <Link to={page.path} className={styles.tab}>{page.name}</Link>
           </div>
         ))}
       </ToolbarGroup>
-      <ToolbarGroup className={styles.verticalAlign} style={{'margin-left': 'auto'}}>
+      <ToolbarGroup className={styles.verticalAlign} style={{'marginLeft': 'auto'}}>
         <ActionSearch />
         <SearchForm
           location={location}
         />
       </ToolbarGroup>
-      <ToolbarGroup style={{'margin-left': 'auto'}}>
+      <ToolbarGroup style={{'marginLeft': 'auto'}}>
         <AccountWidget />
       </ToolbarGroup>
     </Toolbar>

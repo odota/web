@@ -126,10 +126,13 @@ class Explorer extends React.Component
   render() {
     return (<div>
       <h3>Data Explorer
-        <small> - Explore data from professional Dota 2 matches </small>
+        <small> - Explore data from Dota 2 matches </small>
         <a href='https://github.com/yasp-dota/yasp/blob/master/sql/create_tables.sql'>(Table Schema)</a>
       </h3>
       <div>
+        <ul>
+         <li>matches and player_matches tables only contain competitive matches in Professional and Premium tiers</li>
+        </ul>
         <div>
           <RaisedButton
             onTouchTap={this.handleTouchTap}
