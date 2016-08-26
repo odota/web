@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import constants from 'dotaconstants';
 import moment from 'moment';
 import { API_HOST } from '../config.js';
+import styles from '../components/palette.css';
 
 export const isRadiant = (playerSlot) => playerSlot < 128;
 
@@ -53,7 +54,7 @@ export const transformations = {
   hero_id: (row, col, field) => (
     <div>
       <img src={`${API_HOST}${constants.heroes[field] ? constants.heroes[field].img : ''}`} style={{ height: 24 }} role="presentation" />
-      <div className="subText">{constants.heroes[field] ? constants.heroes[field].localized_name : ''}</div>
+      <div className={styles.subText}>{constants.heroes[field] ? constants.heroes[field].localized_name : ''}</div>
     </div>),
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
   radiant_win: (row, col, field) => {
