@@ -1,7 +1,7 @@
 import React from 'react';
 // import { NavDrawer } from '../NavBar';
 import AccountWidget from '../AccountWidget';
-import FlatButton from 'material-ui/FlatButton';
+// import FlatButton from 'material-ui/FlatButton';
 // import AppBar from 'material-ui/AppBar';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { Link } from 'react-router';
@@ -13,7 +13,7 @@ import ActionSearch from 'material-ui/svg-icons/action/search';
 // import IconButton from 'material-ui/IconButton/IconButton';
 // import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 // import MenuItem from 'material-ui/MenuItem';
-import { navbarPages, playerPages, matchPages } from './Pages';
+import { navbarPages, playerPages } from './Pages';
 import { APP_NAME } from '../../config';
 
 const playerPagesMapped = (accountId) => playerPages.map((e) => Object.assign({}, e, {
@@ -34,7 +34,7 @@ const getTabBar = (params, location) => {
       <div className={styles.tabBarContainer}>
         <TabBar tabs={playerPagesMapped(params.account_id)} />
       </div>);
-  } 
+  }
   /*
   else if (location.pathname.indexOf('/matches') === 0) {
     return (
@@ -67,13 +67,13 @@ export default ({
           </div>
         ))}
       </ToolbarGroup>
-      <ToolbarGroup className={styles.verticalAlign} style={{'marginLeft': 'auto'}}>
+      <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 'auto' }}>
         <ActionSearch />
         <SearchForm
           location={location}
         />
       </ToolbarGroup>
-      <ToolbarGroup style={{'marginLeft': 'auto'}}>
+      <ToolbarGroup style={{ marginLeft: 'auto' }}>
         <AccountWidget />
       </ToolbarGroup>
     </Toolbar>

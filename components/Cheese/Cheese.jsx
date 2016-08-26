@@ -5,7 +5,7 @@ import Spinner from '../Spinner';
 import styles from './Cheese.css';
 // import CheeseButton from './CheeseButton';
 import FontIcon from 'material-ui/FontIcon';
-import RaisedButton from 'material-ui/FlatButton';
+// import RaisedButton from 'material-ui/FlatButton';
 import ProgressBar from '../ProgressBar';
 import { Link } from 'react-router';
 

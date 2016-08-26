@@ -77,7 +77,7 @@ class RequestLayer extends React.Component {
       </div>
     );
   }
-  //TODO party indicator
+  // TODO party indicator
   // Overall (stacks/stuns/dead/biggest hit)
   // Laning (lane, eff/lh/dn, lane map)
   // skills (casts/hits/damage)

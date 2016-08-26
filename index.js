@@ -67,8 +67,8 @@ render(
         <Route path="explorer" component={Explorer} />
         <Route path="request" component={Request} />
         <Route path="distributions" component={Distributions} />
-        <Route path="carry"/>
-        <Route path="status"/>
+        <Route path="carry" />
+        <Route path="status" />
       </Route>
     </Router>
   </Provider>, reactElement);

@@ -8,19 +8,19 @@ const navbarPages = [{
   name: 'Heroes',
   path: '/heroes',
 }, {
-  name: "Status",
+  name: 'Status',
   path: '/status',
 }, {
-  name: "Blog",
-  path: "//blog.yasp.co"
+  name: 'Blog',
+  path: '//blog.yasp.co',
 }, {
-  name: "API",
-  path: "//swagger.yasp.co",
+  name: 'API',
+  path: '//swagger.yasp.co',
 }, {
-  name: "Code",
-  path: "//github.com/yasp-dota/yasp"
+  name: 'Code',
+  path: '//github.com/yasp-dota/yasp',
 }, {
-  name: "InGame",
+  name: 'InGame',
   sponsored: true,
   path: '/become-the-gamer',
 }];
