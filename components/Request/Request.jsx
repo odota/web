@@ -22,7 +22,7 @@ const Request = ({ error, matchId, loading, progress, dispatchRequest, dispatchM
         value={matchId}
         onChange={(e) => dispatchMatchId(e.target.value)}
       />
-      <div className="subText">Only works for public matches with replay available in client</div>
+      <div>Only works for public matches with replay available in client</div>
       <div>{error ? 'Failed to get match data.' : ''}</div>
       {loading ? progressIndicator : <RaisedButton label="Submit" onClick={submit} />}
     </div>

@@ -7,6 +7,22 @@ const navbarPages = [{
 }, {
   name: 'Heroes',
   path: '/heroes',
+}, {
+  name: 'Status',
+  path: '/status',
+}, {
+  name: 'Blog',
+  path: '//blog.yasp.co',
+}, {
+  name: 'API',
+  path: '//swagger.yasp.co',
+}, {
+  name: 'Code',
+  path: '//github.com/yasp-dota/yasp',
+}, {
+  name: 'InGame',
+  sponsored: true,
+  path: '/become-the-gamer',
 }];
 
 const playerPages = [{

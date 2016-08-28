@@ -67,13 +67,8 @@ render(
         <Route path="explorer" component={Explorer} />
         <Route path="request" component={Request} />
         <Route path="distributions" component={Distributions} />
+        <Route path="carry" />
+        <Route path="status" />
       </Route>
     </Router>
   </Provider>, reactElement);
-/*
-<Route path="distributions" component={Distribution}/>
-<Route path="carry" component={Carry}/>
-<Route path="rankings/:hero_id" component={Ranking}/>
-<Route path="benchmarks/:hero_id" component={Benchmark}/>
-<Route path="status" component={Status}/>
-*/

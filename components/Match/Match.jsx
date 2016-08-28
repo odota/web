@@ -77,16 +77,18 @@ class RequestLayer extends React.Component {
       </div>
     );
   }
+  // TODO party indicator
+  // Overall (stacks/stuns/dead/biggest hit)
+  // Laning (lane, eff/lh/dn, lane map)
+  // skills (casts/hits/damage)
+  // items (casts/hits/damage)
   // purchase counts
   // purchase times
   // Hero kill times
-  // Abilities
-  // Items
   // Ward maps
   // Unit kills
   // Last Hits
   // Graphs
-  // Laning
   // Stuns/Dead/biggest hit
   // Teamfights
   // Chat

@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Link } from 'react-router';
-import EditorPieChart from 'material-ui/svg-icons/editor/pie-chart';
+import ActionDone from 'material-ui/svg-icons/action/done';
 import { transformations } from '../../../utility';
 
 export default [{
@@ -38,7 +38,7 @@ export default [{
   displayFn: transformations.start_time,
   sortFn: true,
 }, {
-  displayName: 'Length',
+  displayName: 'Len',
   field: 'duration',
   width: 2,
   sortFn: true,
@@ -63,6 +63,6 @@ export default [{
   field: 'version',
   width: 1,
   sortFn: true,
-  displayFn: (row, col, field) => (field ? <EditorPieChart /> : <div />),
+  displayFn: (row, col, field) => (field ? <ActionDone /> : <div />),
 },
 ];
