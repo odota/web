@@ -8,6 +8,7 @@ import { REDUCER_KEY } from '../../reducers';
 
 const Request = ({ error, matchId, loading, progress, dispatchRequest, dispatchMatchId }) => {
   function submit() {
+    document.getElementById('match_id').value = '';
     dispatchRequest(matchId);
   }
   const progressIndicator = (progress ?
@@ -19,11 +20,11 @@ const Request = ({ error, matchId, loading, progress, dispatchRequest, dispatchM
       <TextField
         id="match_id"
         floatingLabelText="Match ID"
+        errorText={error ? 'Failed to get match data.' :false}
         value={matchId}
         onChange={(e) => dispatchMatchId(e.target.value)}
       />
       <div>Only works for public matches with replay available in client</div>
-      <div>{error ? 'Failed to get match data.' : ''}</div>
       {loading ? progressIndicator : <RaisedButton label="Submit" onClick={submit} />}
     </div>
   );
