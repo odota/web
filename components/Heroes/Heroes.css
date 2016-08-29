@@ -13,8 +13,39 @@
 	padding: 0;
 }
 
+.HeroItem {
+	width: 100%;
+	background-color: #333;
+	background-size: cover;
+	background-repeat: no-repeat;
+	min-height: 144px;
+	position: relative
+}
+.HeroItemName {
+	display: block;
+    padding: 10px 0 0 10px;
+    text-transform: uppercase;
+    margin: 0;
+}
+.HeroItemActions {
+	padding: 15px;
+}
+
+.HeroItemImage {
+	max-width: 100%;
+	max-height: 100%;
+}
+
 .HeroItemAction {
-	margin: 10px 0;
+	padding: 10px 0;
+    background-color: rgba(0,0,0,0.8);
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
 }
 
 .HeroItemActionButton {
