@@ -10,7 +10,7 @@ import { browserHistory } from 'react-router';
 import styles from './search.css';
 import { REDUCER_KEY } from '../../reducers';
 
-const SearchForm = ({ dispatchSearch, dispatchSetQuery, disabled, query }) => {
+const SearchForm = ({ dispatchSearch, dispatchSetQuery, query }) => {
   const formSubmit = (e) => {
     e.preventDefault();
     browserHistory.push(`/search?q=${query}`);
@@ -20,7 +20,6 @@ const SearchForm = ({ dispatchSearch, dispatchSetQuery, disabled, query }) => {
   return (
     <form onSubmit={formSubmit}>
       <TextField
-        disabled={disabled}
         hintText={'Player Search'}
         value={query}
         onChange={(e) => dispatchSetQuery(e.target.value)}
@@ -32,11 +31,11 @@ const SearchForm = ({ dispatchSearch, dispatchSetQuery, disabled, query }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { error, loading, done, query, searchResults } = state[REDUCER_KEY].gotSearch;
+  const { error, loading, done, query, searchResults } = state[REDUCER_KEY].search;
   return {
     loading,
-    error,
     done,
+    error,
     query,
     data: searchResults,
   };

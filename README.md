@@ -1,7 +1,7 @@
 # ui
 [![Build Status](https://travis-ci.org/yasp-dota/ui.svg?branch=master)](https://travis-ci.org/yasp-dota/ui)
 
-Web UI for YASP.  This is a SPA (single-page application) built with React, Redux, and React-Router.
+Web UI for Dota 2 data.  This is a SPA (single-page application) built with React, Redux, and React-Router.
 
 Quickstart
 ----
@@ -20,15 +20,13 @@ Tech Stack
 Notes
 ----
 * UI is now in its own repository (this one).
-  * Should improve build time on both this and yasp core
+  * Should improve build time on both this and backend
   * All you need is Node to get started
-* You can develop the UI against production yasp API.  This is on by default, and means you don't have to set up the entire stack.
-  * You can configure it to point to your own instance (if you are working on a backend feature) in `yasp.config.js`.
-* Swagger spec for YASP API: http://swagger.yasp.co/
-  * You can refer to `routes/api.js` in yasp core for the canonical state of the API
+* You can develop the UI against the production API.  This is on by default, and means you don't have to set up the entire stack.
+  * You can configure it to point to your own instance (if you are working on a backend feature) in `config.js`.
+* Swagger spec for API: http://swagger.yasp.co/
+  * You can refer to `routes/api.js` in backend repo for the canonical state of the API
 * Current state of master gets built by Travis and pushed to production.
-  * When we are ready to switch we'll probably route www.yasp.co to the UI
-  * yasp.co will continue to host the API
 * Discord: https://discord.gg/0o5SQGbXuWCNDcaF
   * Strongly recommended to join for active developers, you can get help rapidly and coordinate with others.
 

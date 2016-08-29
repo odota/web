@@ -1,4 +1,4 @@
-const OPEN = 'yasp/appBar/OPEN';
+const OPEN = 'appBar/OPEN';
 
 export const appBarActions = {
   OPEN,

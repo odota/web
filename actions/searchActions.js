@@ -3,14 +3,14 @@ import { API_HOST } from '../actions';
 
 const url = '/api/search';
 
-const START = 'yasp/search/START';
-const DONE = 'yasp/search/DONE';
-const ERROR = 'yasp/search/ERROR';
-const QUERY = 'yasp/search/QUERY';
+const REQUEST = 'search/REQUEST';
+const OK = 'search/OK';
+const ERROR = 'search/ERROR';
+const QUERY = 'search/QUERY';
 
 export const searchActions = {
-  START,
-  DONE,
+  REQUEST,
+  OK,
   ERROR,
   QUERY,
 };
@@ -20,12 +20,12 @@ const setSearchQuery = (query) => ({
   query,
 });
 
-const getSearchStart = () => ({
-  type: START,
+const getSearchRequest = () => ({
+  type: REQUEST,
 });
 
-const getSearchDone = (payload) => ({
-  type: DONE,
+const getSearchOk = (payload) => ({
+  type: OK,
   payload,
 });
 
@@ -35,11 +35,11 @@ const getSearchError = (payload) => ({
 });
 
 const getSearchResult = (query) => (dispatch) => {
-  dispatch(getSearchStart());
+  dispatch(getSearchRequest());
   dispatch(setSearchQuery(query));
   return fetch(`${API_HOST}${url}?q=${query}`)
     .then(res => res.json())
-    .then(json => dispatch(getSearchDone(json)))
+    .then(json => dispatch(getSearchOk(json)))
     .catch(err => dispatch(getSearchError(err)));
 };
 

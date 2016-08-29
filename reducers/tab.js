@@ -17,5 +17,5 @@ export default (state = initialState, action) => {
 };
 
 export const getTab = {
-  getActiveTab: state => state.yaspReducer.tab.activeTab,
+  getActiveTab: state => state.app.tab.activeTab,
 };

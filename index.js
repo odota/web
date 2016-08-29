@@ -15,6 +15,8 @@ import Home from './components/Home';
 import Search from './components/Search';
 import Explorer from './components/Explorer';
 import { Heroes, HeroesIndex, Ranking, Benchmark } from './components/Heroes';
+import Request from './components/Request';
+import Distributions from './components/Distributions';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // Promise polyfill for IE
@@ -27,7 +29,7 @@ injectTapEventPlugin();
 // These are sprites, will be needed at some point
 // require('./node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
 import './assets/flaticon.css';
-import './global.css';
+import './assets/global.css';
 const loggerMiddleware = createLogger();
 
 const reducer = combineReducers({
@@ -69,13 +71,10 @@ render(
           <Route path="ranking/:hero_id" component={Ranking} />
           <Route path="benchmark/:hero_id" component={Benchmark} />
         </Route>
+        <Route path="request" component={Request} />
+        <Route path="distributions" component={Distributions} />
+        <Route path="carry" />
+        <Route path="status" />
       </Route>
     </Router>
   </Provider>, reactElement);
-/*
-<Route path="distributions" component={Distribution}/>
-<Route path="carry" component={Carry}/>
-<Route path="rankings/:hero_id" component={Ranking}/>
-<Route path="benchmarks/:hero_id" component={Benchmark}/>
-<Route path="status" component={Status}/>
-*/

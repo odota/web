@@ -74,12 +74,12 @@ export default combineReducers({
 export const getPlayer = {
   getPlayerById: (state, id) => {
     // this feels like a hack
-    if (!state.yaspReducer.gotPlayer.playerReducer.byId[id]) {
+    if (!state.app.gotPlayer.playerReducer.byId[id]) {
       return {
         ...initialState,
       };
     }
-    return state.yaspReducer.gotPlayer.playerReducer.byId[id];
+    return state.app.gotPlayer.playerReducer.byId[id];
   },
   getError: (state, id) => getPlayer.getPlayerById(state, id).error,
   getLoading: (state, id) => getPlayer.getPlayerById(state, id).loading,

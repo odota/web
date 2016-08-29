@@ -43,19 +43,13 @@
   }
 }
 
-
-.playerPictureYasp {
-  composes: playerPicture;
-  border: 5px solid #BBF0FD;
-}
-
 .playerPictureCheese {
   composes: playerPicture;
   border: 5px solid #FFD700
 }
   */
   
-.yaspBadge {
+.appBadge {
   composes: image;
 }
 

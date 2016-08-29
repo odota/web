@@ -1,9 +1,9 @@
 import fetch from 'isomorphic-fetch';
 import { API_HOST } from '../actions';
 const url = '/api/metadata';
-const REQUEST = 'yasp/metadata/REQUEST';
-const OK = 'yasp/metadata/OK';
-const ERROR = 'yasp/metadata/ERROR';
+const REQUEST = 'metadata/REQUEST';
+const OK = 'metadata/OK';
+const ERROR = 'metadata/ERROR';
 
 export const metadataActions = {
   REQUEST,

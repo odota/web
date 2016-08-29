@@ -2,17 +2,19 @@ import gotMetadata from './gotMetadata';
 import gotConstants from './gotConstants';
 import gotMatch from './gotMatch';
 import gotPlayer, { player, playerMatches, playerPeers, playerHeroes, playerRecords } from './gotPlayer';
-import gotSearch from './gotSearch';
 import gotRanking, { ranking } from './gotRanking';
 import gotBenchmark, { benchmark } from './gotBenchmark';
 import heroes from './heroes';
+import search from './search';
 import appBar from './appBar';
 import tab, { getTab } from './tab';
 import form, { getForm } from './form';
+import request from './request';
+import distributions from './distributions';
 import table, { getTable } from './table';
 import { combineReducers } from 'redux';
 
-const REDUCER_KEY = 'yaspReducer';
+const REDUCER_KEY = 'app';
 
 export { REDUCER_KEY };
 
@@ -35,12 +37,14 @@ export default combineReducers({
   gotPlayer,
   gotMatch,
   gotConstants,
-  gotSearch,
   gotRanking,
   gotBenchmark,
   heroes,
+  search,
   appBar,
   tab,
   form,
+  request,
+  distributions,
   table,
 });

@@ -91,7 +91,7 @@ export default (state = {}, action) => {
 };
 
 export const getForm = {
-  getForm: (state, formName) => state.yaspReducer.form[formName] || initialFormState,
+  getForm: (state, formName) => state.app.form[formName] || initialFormState,
   getFormPages: (state, formName) => getForm.getForm(state, formName).pages,
   getFormPage: (state, formName, page) => getForm.getFormPages(state, formName)[page] || initialPageState,
   getFormPageShow: (state, formName, page) => getForm.getFormPage(state, formName, page).show,

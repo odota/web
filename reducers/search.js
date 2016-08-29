@@ -1,40 +1,43 @@
-import { playerWinLossActions } from '../../actions';
+import { searchActions } from '../actions';
 
 const initialState = {
-  loading: true,
+  loading: false,
   error: false,
-  win: null,
-  lose: null,
+  done: false,
+  query: '',
+  searchResults: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case playerWinLossActions.REQUEST:
+    case searchActions.REQUEST:
       return {
         ...state,
         loading: true,
+        done: false,
         error: false,
       };
-    case playerWinLossActions.OK:
+    case searchActions.QUERY:
+      return {
+        ...state,
+        query: action.query,
+      };
+    case searchActions.OK:
       return {
         ...state,
         loading: false,
+        done: true,
         error: false,
-        win: action.payload.win,
-        lose: action.payload.lose,
+        searchResults: action.payload,
       };
-    case playerWinLossActions.ERROR:
+    case searchActions.ERROR:
       return {
         ...state,
         loading: false,
+        done: false,
         error: true,
       };
     default:
       return state;
   }
-};
-
-export const getWinLoss = {
-  getWins: state => state.app.gotPlayer.winloss.win,
-  getLosses: state => state.app.gotPlayer.winloss.lose,
 };

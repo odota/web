@@ -1,5 +1,5 @@
 import { heroes } from 'dotaconstants';
-import { API_HOST } from './../yasp.config';
+import { API_HOST } from './../config';
 
 // lazy evaluation
 // add API_HOST to hero img path so components

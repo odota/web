@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { YaspBadge } from '../../Player';
+import { AppBadge } from '../../Player';
 import styles from './column.css';
-import { API_HOST } from '../../../yasp.config.js';
+import { API_HOST } from '../../../config.js';
 import constants from 'dotaconstants';
 
 const heroTd = (row, col, field) => (
@@ -10,7 +10,7 @@ const heroTd = (row, col, field) => (
     <div>
       <div className={row.isRadiant ? styles.radiant : styles.dire}></div>
       <img src={field ? `${API_HOST}${constants.heroes[field].img}` : ''} style={{ height: 24 }} role="presentation" />
-      {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><YaspBadge /></span>}
+      {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
     </div>
     {row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : 'Anonymous'}
   </div>
@@ -142,7 +142,15 @@ for (let i = 0; i < 25; i++) {
       // TODO - why does this code get executed when the abUpgradeColumnsTable doesn't get rendered...
       if (field) {
         const abilityId = field[column.index];
-        const abilityData = constants.abilities[constants.ability_ids[abilityId]];
+        const abilityKey = constants.ability_ids[abilityId];
+        let abilityData = constants.abilities[abilityKey];
+        if (abilityKey === 'attribute_bonus') {
+          abilityData = {
+            dname: 'Attribute Bonus',
+            img: '/assets/stats.png',
+            attrib: '+2 All Attributes',
+          };
+        }
         if (abilityData) {
           return <img src={`${API_HOST}${abilityData.img}`} style={{ height: 35, position: 'relative', left: -10 }} role="presentation" />;
         }

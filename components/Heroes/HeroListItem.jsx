@@ -15,7 +15,7 @@ const HeroActionButton = ({ heroId }) => (
 );
 
 export default ({ id, name, imageUrl }) => (
-  <div className={style.HeroItem} style={{backgroundImage: `url('${imageUrl}')`}}>
+  <div className={style.HeroItem} style={{ backgroundImage: `url('${imageUrl}')` }}>
     <h4 className={style.HeroItemName}>{name}</h4>
     <HeroActionButton heroId={id} />
   </div>

@@ -8,7 +8,7 @@ const isProd = process.env.NODE_ENV === 'production';
 const config = {
   entry:
   {
-    yaspv2: './yaspv2.js',
+    index: './index.js',
   },
   output:
   {

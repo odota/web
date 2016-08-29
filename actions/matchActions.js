@@ -3,10 +3,10 @@ import { API_HOST } from '../actions';
 
 const url = '/api/matches/';
 
-const REQUEST = 'yasp/match/REQUEST';
-const OK = 'yasp/match/OK';
-const ERROR = 'yasp/match/ERROR';
-const SORT = 'yasp/match/SORT';
+const REQUEST = 'match/REQUEST';
+const OK = 'match/OK';
+const ERROR = 'match/ERROR';
+const SORT = 'match/SORT';
 
 export const matchActions = {
   REQUEST,

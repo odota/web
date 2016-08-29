@@ -1,6 +1,6 @@
-const SET_CURRENT_PAGE = 'yasp/table/SET_CURRENT_PAGE';
-const NEXT_PAGE = 'yasp/table/NEXT_PAGE';
-const PREV_PAGE = 'yasp/table/PREV_PAGE';
+const SET_CURRENT_PAGE = 'table/SET_CURRENT_PAGE';
+const NEXT_PAGE = 'table/NEXT_PAGE';
+const PREV_PAGE = 'table/PREV_PAGE';
 
 export const tableActions = {
   SET_CURRENT_PAGE,
