@@ -1,5 +1,5 @@
-import tooltips from './tooltips';
-import abbrv from './abbreviation';
+import tooltips from './tooltips.json';
+import abbrv from './abbreviation.json';
 
 export {
   tooltips,
