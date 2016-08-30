@@ -1,5 +1,4 @@
 # ui
-[![Build Status](https://travis-ci.org/yasp-dota/ui.svg?branch=master)](https://travis-ci.org/yasp-dota/ui)
 
 Web UI for Dota 2 data.  This is a SPA (single-page application) built with React, Redux, and React-Router.
 
@@ -24,7 +23,7 @@ Notes
   * All you need is Node to get started
 * You can develop the UI against the production API.  This is on by default, and means you don't have to set up the entire stack.
   * You can configure it to point to your own instance (if you are working on a backend feature) in `config.js`.
-* API Documentation: https://api.yasp.co/
+* API Documentation: https://api.opendota.com/
   * You can refer to `routes/api.js` in backend repo for the canonical state of the API
 * Current state of master gets built by Travis and pushed to production.
 * Discord: https://discord.gg/0o5SQGbXuWCNDcaF
@@ -37,4 +36,4 @@ Development Guides
   * Getting started with Redux: https://egghead.io/courses/getting-started-with-redux
   * Idiomatic Redux: https://egghead.io/courses/building-react-applications-with-idiomatic-redux
   * ES6 guide: https://github.com/lukehoban/es6features
-  * Adding new components with Redux: https://github.com/yasp-dota/ui/wiki/Adding-new-components-with-redux
+  * Adding new components with Redux: https://github.com/odota/ui/wiki/Adding-new-components-with-redux

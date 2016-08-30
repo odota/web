@@ -13,12 +13,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/yasp-dota/ui"
+    "url": "http://github.com/odota/ui"
   },
   "dependencies": {
     "brace": "^0.8.0",
     "c3": "0.4.11",
-    "dotaconstants": "yasp-dota/dotaconstants#90a8be6",
+    "dotaconstants": "odota/dotaconstants#90a8be6",
     "es6-promise": "^3.2.1",
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "^0.15.2",

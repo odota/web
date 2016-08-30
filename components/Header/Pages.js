@@ -12,15 +12,15 @@ const navbarPages = [{
   path: '/status',
 }, {
   name: 'Blog',
-  path: '//blog.yasp.co',
+  path: '//blog.opendota.com',
 }, {
   name: 'API',
-  path: '//swagger.yasp.co',
+  path: '//api.opendota.com',
 }, {
   name: 'Code',
-  path: '//github.com/yasp-dota/yasp',
+  path: '//github.com/odota/yasp',
 }, {
-  name: 'InGame',
+  name: 'Ingame',
   sponsored: true,
   path: '/become-the-gamer',
 }];
