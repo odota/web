@@ -1,10 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router';
 // import { NavDrawer } from '../NavBar';
 import AccountWidget from '../AccountWidget';
 // import FlatButton from 'material-ui/FlatButton';
 // import AppBar from 'material-ui/AppBar';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import { Link } from 'react-router';
 import styles from './Header.css';
 import TabBar from '../TabBar';
 import SearchForm from '../Search/SearchForm';
@@ -52,9 +52,7 @@ export default ({
   location,
 }) => (
   <div>
-    <Toolbar
-      className={styles.header}
-    >
+    <Toolbar className={styles.header}>
       <ToolbarGroup className={styles.verticalAlign}>
         <Link to="/">
           <strong>{APP_NAME}</strong>
@@ -78,7 +76,8 @@ export default ({
       </ToolbarGroup>
     </Toolbar>
     {getTabBar(params, location)}
-  </div>);
+  </div>
+);
 
 /*
     <AppBar
