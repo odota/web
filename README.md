@@ -24,7 +24,7 @@ Notes
   * All you need is Node to get started
 * You can develop the UI against the production API.  This is on by default, and means you don't have to set up the entire stack.
   * You can configure it to point to your own instance (if you are working on a backend feature) in `config.js`.
-* Swagger spec for API: http://swagger.yasp.co/
+* API Documentation: https://api.yasp.co/
   * You can refer to `routes/api.js` in backend repo for the canonical state of the API
 * Current state of master gets built by Travis and pushed to production.
 * Discord: https://discord.gg/0o5SQGbXuWCNDcaF
