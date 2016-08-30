@@ -5,10 +5,10 @@ import style from './Heroes.css';
 
 const HeroActionButton = ({ heroId }) => (
   <div className={style.HeroItemAction}>
-    <Link className={style.HeroItemActions} to={`heroes/benchmark/${heroId}`}>
+    <Link className={style.HeroItemActions} to={`heroes/benchmarks/${heroId}`}>
       Benchmarks
     </Link>
-    <Link className={style.HeroItemActions} to={`heroes/ranking/${heroId}`}>
+    <Link className={style.HeroItemActions} to={`heroes/rankings/${heroId}`}>
       Rankings
     </Link>
   </div>

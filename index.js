@@ -68,8 +68,8 @@ render(
         <Route path="explorer" component={Explorer} />
         <Route path="heroes" component={Heroes}>
           <IndexRoute component={HeroesIndex} />
-          <Route path="ranking/:hero_id" component={Ranking} />
-          <Route path="benchmark/:hero_id" component={Benchmark} />
+          <Route path="rankings/:hero_id" component={Ranking} />
+          <Route path="benchmarks/:hero_id" component={Benchmark} />
         </Route>
         <Route path="request" component={Request} />
         <Route path="distributions" component={Distributions} />
