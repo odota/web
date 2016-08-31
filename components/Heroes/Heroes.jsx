@@ -7,7 +7,7 @@ import style from './Heroes.css';
 
 const HeroesIndex = ({ heroes }) => (
   <div>
-    <h1 className={style.Header}>All Dota 2 Heroes</h1>
+    <h1 className={style.Header}>Heroes</h1>
     <HeroList heroes={heroes} />
   </div>
 );
