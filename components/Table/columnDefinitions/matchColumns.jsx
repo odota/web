@@ -9,7 +9,7 @@ const heroTd = (row, col, field) => (
   <div style={{ marginTop: 5 }}>
     <div>
       <div className={row.isRadiant ? styles.radiant : styles.dire} />
-      <img src={field ? `${API_HOST}${constants.heroes[field].img}` : ''} style={{ height: 24 }} role="presentation" />
+      <img src={constants.heroes[field] ? `${API_HOST}${constants.heroes[field].img}` : ''} style={{ height: 24 }} role="presentation" />
       {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
     </div>
     {row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : 'Anonymous'}

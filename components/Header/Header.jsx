@@ -52,9 +52,7 @@ export default ({
   location,
 }) => (
   <div>
-    <Toolbar
-      className={styles.header}
-    >
+    <Toolbar className={styles.header}>
       <ToolbarGroup className={styles.verticalAlign}>
         <Link to="/">
           <strong>{APP_NAME}</strong>
@@ -78,7 +76,8 @@ export default ({
       </ToolbarGroup>
     </Toolbar>
     {getTabBar(params, location)}
-  </div>);
+  </div>
+);
 
 /*
     <AppBar

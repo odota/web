@@ -1,0 +1,10 @@
+{
+	"gold_per_min": "GPM",
+	"percentile": "%",
+	"xp_per_min": "XPM",
+	"last_hits_per_min": "LHM",
+	"kills_per_min": "KPM",
+	"hero_damage_per_min": "HDM",
+	"hero_healing_per_min": "HHM",
+	"tower_damage_per_min": "TDM"
+}
