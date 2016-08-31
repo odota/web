@@ -21,7 +21,7 @@ export default ({ rankings }) => {
     <Table className={style.RankingTable}>
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
         <TableRow>
-          <TableHeaderColumn className={style.RankingColNo}>No</TableHeaderColumn>
+          <TableHeaderColumn className={style.RankingColNo}>#</TableHeaderColumn>
           <TableHeaderColumn>Name</TableHeaderColumn>
           <TableHeaderColumn>Score</TableHeaderColumn>
         </TableRow>
