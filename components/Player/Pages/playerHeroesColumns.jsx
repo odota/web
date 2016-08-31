@@ -1,32 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router';
-import { PercentContainer } from '../../ColumnComponents';
-import { AppBadge } from '../../Player';
+import PercentContainer from '../../PercentContainer';
 import { transformations } from '../../../utility';
 
-const getPlayerPicture = (row, col, field) => (
-  <div style={{ marginTop: 5 }}>
-    <div>
-      <img src={field} style={{ height: 30 }} role="presentation" />
-      {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
-    </div>
-    {row.account_id ? <Link to={`/players/${row.account_id}/overview`}>{row.personaname}</Link> : 'Anonymous'}
-  </div>
-);
-
-export default [{
-  displayName: 'Player',
-  field: 'avatar',
-  width: 1.5,
-  sortFn: (row) => (row.personaname.toLowerCase()),
-  displayFn: getPlayerPicture,
+export const playerHeroesOverviewColumns = [{
+  displayName: 'Hero',
+  field: 'hero_id',
+  width: 2,
+  displayFn: transformations.hero_id,
 }, {
   displayName: 'Last',
   field: 'last_played',
-  width: 1.5,
-  sortFn: true,
+  width: 2,
+  sortFn: 1,
   displayFn: transformations.last_played,
 }, {
+  displayName: 'Played',
+  field: 'games',
+  width: 1.5,
+  sortFn: true,
+}, {
+  displayName: 'Win %',
+  field: 'win',
+  width: 2,
+  displayFn: (row) => <PercentContainer wins={row.win} games={row.games} />,
+  sortFn: (row) => (row.win / row.games),
+}];
+
+const restColumns = [{
   displayName: 'With',
   field: 'with_games',
   width: 1.5,
@@ -49,3 +49,8 @@ export default [{
   displayFn: (row) => <PercentContainer wins={row.against_win} games={row.against_games} />,
   sortFn: (row) => (row.against_win / row.against_games),
 }];
+
+export const playerHeroesColumns = [
+  ...playerHeroesOverviewColumns,
+  ...restColumns,
+];

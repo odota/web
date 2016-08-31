@@ -5,7 +5,7 @@ import {
   getPlayerRecords,
   setPlayerRecordsSort,
 } from '../../../actions';
-import { playerRecordsColumns } from '../../Table/columnDefinitions';
+import playerRecordsColumns from './playerRecordsColumns';
 import {
   sortPlayerRecords,
   transformPlayerRecordsById,

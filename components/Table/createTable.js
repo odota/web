@@ -18,7 +18,7 @@ const createTable = (getStateFn, getData, sortAction) => {
   const mapDispatchToProps = (dispatch, ownProps) => ({
     sortClick: (field, sortState, sortFn) => dispatch(sortAction(field, sortState, sortFn, ownProps.id)),
   });
-
+  
   return connect(mapStateToProps, mapDispatchToProps)(withPagination(Table));
 };
 

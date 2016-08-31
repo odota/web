@@ -5,7 +5,7 @@ import {
   getPlayerHeroes,
   setPlayerHeroesSort,
 } from '../../../actions';
-import { playerHeroesColumns } from '../../Table/columnDefinitions';
+import { playerHeroesColumns } from './playerHeroesColumns';
 import {
   sortPlayerHeroes,
   transformPlayerHeroesById,

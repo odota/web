@@ -1,9 +1,9 @@
 import React from 'react';
 import constants from 'dotaconstants';
 import { Link } from 'react-router';
-import { AppBadge } from '../../Player';
-import styles from './column.css';
-import { API_HOST } from '../../../config.js';
+import { AppBadge } from '../Player';
+import styles from './Match.css';
+import { API_HOST } from '../../config.js';
 
 const heroTd = (row, col, field) => (
   <div style={{ marginTop: 5 }}>

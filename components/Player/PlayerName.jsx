@@ -31,8 +31,6 @@ const PlayerName = ({ playerName, picture, loading, error }) => {
   return <div>{getPlayerName()}</div>;
 };
 
-export { PlayerName };
-
 // metadata.getUserId(state)
 const mapStateToProps = (state, ownProps) => ({
   loading: player.getLoading(state, ownProps.playerId),

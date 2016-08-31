@@ -8,7 +8,7 @@ import {
   overviewColumns,
   abUpgradeColumns,
   benchmarksColumns,
-} from '../Table/columnDefinitions/matchColumns.jsx';
+} from './matchColumns.jsx';
 import { sortMatch, transformMatch } from '../../selectors';
 import BuildingMap from '../BuildingMap/BuildingMap';
 import { REDUCER_KEY } from '../../reducers';
