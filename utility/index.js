@@ -81,6 +81,12 @@ export const transformations = {
   start_time: (row, col, field) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
   last_played: (row, col, field) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
   duration: (row, col, field) => formatSeconds(field),
+  region: (row, col, field) => (Object.keys(constants.regions).find((region, index) => {
+      if (constants.regions[region].region == field) {
+        return region
+      }
+    })
+  ),
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */
