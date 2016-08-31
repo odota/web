@@ -1,0 +1,34 @@
+.Header{
+	text-align: center;
+	display: block;
+	text-transform: uppercase;
+	margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.DireWin {
+	composes: Header;
+	color: #d5553a;
+}
+
+.RadiantWin {
+	composes: Header;
+	color: #a1db57;
+}
+
+.TableBackground {
+	background-color: #3e3e3e;
+}
+
+.Table {
+	border: solid 1px #797979;
+    border-collapse: collapse;
+    margin: 0 0 20px 0;
+    float: right;
+}
+
+.TableCell {
+	composes: TableBackground;
+	padding: 7px 12px;
+	text-align: right;
+}
