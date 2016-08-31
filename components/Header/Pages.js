@@ -11,19 +11,22 @@ const navbarPages = [{
   name: 'Status',
   path: '/status',
 }, {
-  name: 'Blog',
-  path: '//blog.opendota.com',
-}, {
-  name: 'API',
-  path: '//api.opendota.com',
-}, {
-  name: 'Code',
-  path: '//github.com/odota/yasp',
-}, {
   name: 'Ingame',
   sponsored: true,
   path: '/become-the-gamer',
-}];
+}, {
+  name: 'Blog',
+  path: '//odota.github.io/blog',
+  external: true,
+}, {
+  name: 'API',
+  path: '//odota.github.io/api',
+  external: true,
+}, {
+  name: 'Code',
+  path: '//github.com/odota',
+  external: true,
+},];
 
 const playerPages = [{
   name: 'Overview',
