@@ -1,14 +1,14 @@
 import React from 'react';
+import constants from 'dotaconstants';
 import { Link } from 'react-router';
 import { AppBadge } from '../../Player';
 import styles from './column.css';
 import { API_HOST } from '../../../config.js';
-import constants from 'dotaconstants';
 
 const heroTd = (row, col, field) => (
   <div style={{ marginTop: 5 }}>
     <div>
-      <div className={row.isRadiant ? styles.radiant : styles.dire}></div>
+      <div className={row.isRadiant ? styles.radiant : styles.dire} />
       <img src={field ? `${API_HOST}${constants.heroes[field].img}` : ''} style={{ height: 24 }} role="presentation" />
       {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
     </div>
@@ -70,7 +70,7 @@ const overviewColumns = [
     displayName: 'G',
     field: 'gold_per_min',
     width: 1,
-    displayFn: (row) => abbreviateNumber(row.gold_per_min * row.duration / 60),
+    displayFn: (row) => abbreviateNumber((row.gold_per_min * row.duration) / 60),
     sortFn: true,
   }, {
     displayName: 'GPM',

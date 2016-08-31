@@ -22,7 +22,7 @@ export default Table => {
         </div>
       );
     }
-    return <span></span>;
+    return <span />;
   };
 
   const mapStateToProps = (state) => ({

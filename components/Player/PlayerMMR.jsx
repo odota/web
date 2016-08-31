@@ -1,13 +1,13 @@
 import React from 'react';
-import Error from '../Error';
-import Spinner from '../Spinner';
 import { connect } from 'react-redux';
-import { player } from '../../reducers';
-import styles from './PlayerHeader.css';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import SocialGroup from 'material-ui/svg-icons/social/group';
 import ActionHelp from 'material-ui/svg-icons/action/help';
 import { blue500, orange500, grey500 } from 'material-ui/styles/colors';
+import Error from '../Error';
+import Spinner from '../Spinner';
+import { player } from '../../reducers';
+import styles from './PlayerHeader.css';
 
 export const PlayerMMR = ({ loading, error, rank, soloRank, mmrEstimate }) => {
   const getPlayerMMR = () => {

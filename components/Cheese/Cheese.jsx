@@ -1,13 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router';
+import FontIcon from 'material-ui/FontIcon';
 import { connect } from 'react-redux';
 import { REDUCER_KEY } from '../../reducers';
 import Spinner from '../Spinner';
 import styles from './Cheese.css';
 // import CheeseButton from './CheeseButton';
-import FontIcon from 'material-ui/FontIcon';
 // import RaisedButton from 'material-ui/FlatButton';
 import ProgressBar from '../ProgressBar';
-import { Link } from 'react-router';
 
 const Cheese = ({ donations, error, loading }) => {
   const { goal, cheese } = donations;

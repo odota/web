@@ -1,13 +1,15 @@
+/* global window document */
 import React from 'react';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
-import appReducer, { REDUCER_KEY } from './reducers';
-import { getMetadata, setActiveTab } from './actions';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore, routerReducer as routing, routerMiddleware } from 'react-router-redux';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import appReducer, { REDUCER_KEY } from './reducers';
+import { getMetadata, setActiveTab } from './actions';
 import App from './components/App';
 import Match from './components/Match';
 import Player from './components/Player';
@@ -16,7 +18,11 @@ import Search from './components/Search';
 import Explorer from './components/Explorer';
 import Request from './components/Request';
 import Distributions from './components/Distributions';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+// Load CSS
+// These are sprites, will be needed at some point
+// require('./node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
+import './assets/flaticon.css';
+import './assets/global.css';
 
 // Promise polyfill for IE
 require('es6-promise').polyfill();
@@ -24,11 +30,6 @@ require('es6-promise').polyfill();
 // This is used by material-ui components
 injectTapEventPlugin();
 
-// Load CSS
-// These are sprites, will be needed at some point
-// require('./node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
-import './assets/flaticon.css';
-import './assets/global.css';
 const loggerMiddleware = createLogger();
 
 const reducer = combineReducers({

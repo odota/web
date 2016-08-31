@@ -1,9 +1,9 @@
 import React from 'react';
+import { TableHeaderColumn as MaterialTableHeaderColumn } from 'material-ui/Table';
 import {
   getWidthStyle,
   getSortIcon,
 } from './tableHelpers';
-import { TableHeaderColumn as MaterialTableHeaderColumn } from 'material-ui/Table';
 import styles from './Table.css';
 import { Text } from '../Text';
 

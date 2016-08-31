@@ -1,10 +1,10 @@
 import React from 'react';
-import SearchResultItem from './SearchResultItem';
 import { List } from 'material-ui/List';
+import SearchResultItem from './SearchResultItem';
 import style from './search.css';
 
 export default ({ players }) => {
-  let playerResult = players.map((player, idx) => (
+  const playerResult = players.map((player, idx) => (
     <SearchResultItem
       key={idx}
       name={player.personaname}

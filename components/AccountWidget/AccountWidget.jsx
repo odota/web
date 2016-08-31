@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import { REDUCER_KEY } from '../../reducers';
 import { getPlayer } from '../../actions';
 import styles from './AccountWidget.css';
-import { Link } from 'react-router';
 import { API_HOST } from '../../config';
 // import FontIcon from 'material-ui/FontIcon';
 // import { PlayerPicture } from '../Player';

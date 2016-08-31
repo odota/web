@@ -1,6 +1,6 @@
 import React from 'react';
-import { PercentContainer } from '../../ColumnComponents';
 import { Link } from 'react-router';
+import { PercentContainer } from '../../ColumnComponents';
 import { AppBadge } from '../../Player';
 import { transformations } from '../../../utility';
 

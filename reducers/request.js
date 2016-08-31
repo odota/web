@@ -1,3 +1,4 @@
+/* global window */
 import { requestActions } from '../actions';
 
 const initialState = {
