@@ -15,7 +15,7 @@ const FORM_NAME = 'tableFilter';
 
 const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
   <div>
-    <ShowFormToggle page={page} formName={FORM_NAME} />
+    <ShowFormToggle page={page} />
     <div className={showForm ? styles.showForm : styles.hideForm}>
       <Form name={FORM_NAME} className={styles.form}>
         <FormGroup className={styles.formGroup}>
