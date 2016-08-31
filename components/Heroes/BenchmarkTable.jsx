@@ -8,7 +8,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-import { tooltips, abbrv } from './../../language/en/';
+import { strings } from '../../lang/en.json';
 import style from './Heroes.css';
 
 const alignCenter = { textAlign: 'center' };
@@ -33,7 +33,7 @@ const BenchmarkRow = ({ data, id }) => (
           key={i}
           style={alignCenter}
         >
-          {data[stat].toFixed(2)}
+          {Number(data[stat].toFixed(2))}
         </TableRowColumn>
       );
     })}
@@ -49,11 +49,11 @@ export default ({ data }) => (
             return (
               <TableHeaderColumn
                 key={stat}
-                tooltip={tooltips[stat]}
+                tooltip={strings[stat]}
                 style={alignCenter}
                 className={style.BenchmarkColNo}
               >
-                {abbrv[stat]}
+              {strings[`abbr_${stat}`]}
               </TableHeaderColumn>
             );
           }
@@ -61,10 +61,10 @@ export default ({ data }) => (
           return (
             <TableHeaderColumn
               key={stat}
-              tooltip={tooltips[stat]}
+              tooltip={strings[stat]}
               style={alignCenter}
             >
-              {abbrv[stat]}
+              {strings[`abbr_${stat}`]}
             </TableHeaderColumn>
           );
         })}

@@ -26,7 +26,7 @@ const navbarPages = [{
   name: 'Code',
   path: '//github.com/odota',
   external: true,
-},];
+}];
 
 const playerPages = [{
   name: 'Overview',
