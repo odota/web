@@ -15,7 +15,7 @@ const FORM_NAME = 'tableFilter';
 
 const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
   <div>
-    <ShowFormToggle page={page} />
+    <ShowFormToggle page={page} formName={FORM_NAME} />
     <div className={showForm ? styles.showForm : styles.hideForm}>
       <Form name={FORM_NAME} className={styles.form}>
         <FormGroup className={styles.formGroup}>
@@ -120,11 +120,11 @@ const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
             limit={1}
           />
         </FormGroup>
-        <div className={styles.buttonContainer}>
-          <ClearButton label="reset the thing" clearForm={clearForm} style={{ marginRight: 10 }} />
-          <SubmitButton label="do the thing" submitForm={submitForm} />
-        </div>
       </Form>
+      <div className={styles.buttonContainer}>
+        <ClearButton label="reset the thing" clearForm={clearForm} style={{ marginRight: 10 }} />
+        <SubmitButton label="do the thing" submitForm={submitForm} />
+      </div>
     </div>
   </div>
 
