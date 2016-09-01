@@ -22,10 +22,6 @@
   background-color: var(--defaultPrimaryColor) !important;
 }
 
-.upperCase {
-  text-transform: uppercase;
-}
-
 .verticalAlign {
   display:flex;
   align-items: center; /* Vertical center alignment */

@@ -32,7 +32,7 @@ export default (state = initialState, action) => {
     case requestActions.MATCH_ID:
       return {
         ...state,
-        matchId: action.match_id,
+        matchId: action.matchId,
       };
     default:
       return state;

@@ -1,6 +1,9 @@
 import gotMetadata from './gotMetadata';
 import gotConstants from './gotConstants';
 import gotMatch from './gotMatch';
+import gotRanking, { ranking } from './gotRanking';
+import gotBenchmark, { benchmark } from './gotBenchmark';
+import heroes from './heroes';
 import search from './search';
 import gotPlayer, {
   player,
@@ -32,6 +35,8 @@ export {
   playerCounts,
   getTab as tab,
   getForm as form,
+  benchmark,
+  ranking,
   getTable as table,
 };
 
@@ -40,6 +45,9 @@ export default combineReducers({
   gotPlayer,
   gotMatch,
   gotConstants,
+  gotRanking,
+  gotBenchmark,
+  heroes,
   search,
   appBar,
   tab,

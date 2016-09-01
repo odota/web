@@ -14,6 +14,7 @@ import Player from './components/Player';
 import Home from './components/Home';
 import Search from './components/Search';
 import Explorer from './components/Explorer';
+import { Heroes, Ranking, Benchmark } from './components/Heroes';
 import Request from './components/Request';
 import Distributions from './components/Distributions';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -65,15 +66,13 @@ render(
           </Route>
         </Route>
         <Route path="explorer" component={Explorer} />
+        <Route path="heroes" component={Heroes} />
+        <Route path="rankings/:hero_id" component={Ranking} />
+        <Route path="benchmarks/:hero_id" component={Benchmark} />
         <Route path="request" component={Request} />
         <Route path="distributions" component={Distributions} />
+        <Route path="carry" />
+        <Route path="status" />
       </Route>
     </Router>
   </Provider>, reactElement);
-/*
-<Route path="distributions" component={Distribution}/>
-<Route path="carry" component={Carry}/>
-<Route path="rankings/:hero_id" component={Ranking}/>
-<Route path="benchmarks/:hero_id" component={Benchmark}/>
-<Route path="status" component={Status}/>
-*/
