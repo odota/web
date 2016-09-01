@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createTable, createTables, TableContainer } from '../../Table';
+import { createTables, TableContainer } from '../../Table';
 import {
   getPlayerCounts,
   setPlayerCountsSort,
@@ -17,7 +17,7 @@ const Overview = ({ playerId, tables }) => (
   <div>
     <TableFilterForm submitAction={getPlayerCounts} id={playerId} page="counts" />
     <TableContainer title="Counts Played">
-      {tables.map(Table => <Table columns={playerCountsColumns} id={playerId} />)}
+      {tables.map((Table, id) => <Table columns={playerCountsColumns} id={playerId} key={id} />)}
     </TableContainer>
   </div>
 );
@@ -45,10 +45,12 @@ class RequestLayer extends React.Component {
 const mapStateToProps = (state, ownProps) => ({
   tables: createTables(
     playerCounts.getPlayerCountsById(state, ownProps.playerId),
-    playerCounts.getPlayerCountsById,
-    (state, sortState, playerId) => playerCounts.getPlayerCountsById(state, playerId),
-    // (state, sortState, playerId) => (sortState ? sortPlayerCounts(playerId)(state) : transformPlayerCountsById(playerId)(state)),
-    f => f
+    playerCounts,
+    // (state, sortState, playerId) => playerCounts.getPlayerCountsById(state, playerId),
+    listName => (state, sortState, playerId) => (sortState ?
+      sortPlayerCounts(listName)(playerId)(state) :
+      transformPlayerCountsById(listName)(playerId)(state)),
+    listName => setPlayerCountsSort(listName)
   ),
 });
 

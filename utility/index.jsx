@@ -90,7 +90,7 @@ for (let i = 0; i < 6; i++) {
   transformations[`item_${i}`] = transformMatchItem;
 }
 
-export const defaultSort = (array, sortState, sortField, sortFn) => (
+export const defaultSort = (array, sortState, sortField, sortFn) =>
   array.sort((a, b) => {
     const sortFnExists = typeof sortFn === 'function';
     const aVal = (sortFnExists ? sortFn(a) : a[sortField]) || 0;
@@ -98,7 +98,6 @@ export const defaultSort = (array, sortState, sortField, sortFn) => (
     const desc = aVal < bVal ? 1 : -1;
     const asc = aVal < bVal ? -1 : 1;
     return sortState === 'desc' ? desc : asc;
-  })
-);
+  });
 
 export const prettyPrint = (row, col, field) => (field.replace(/_(.)/g, ' $1').toUpperCase());

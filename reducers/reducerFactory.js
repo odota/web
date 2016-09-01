@@ -2,6 +2,19 @@ import { combineReducers } from 'redux';
 import { SORT_ENUM } from './utility';
 
 export default (initialState, actions, isObject) => {
+  const initialObjectSortState = {
+    sortState: '',
+    sortField: '',
+    sortFn: f => f,
+  };
+
+  const objectSort = (state = initialObjectSortState, action) => ({
+    ...state,
+    sortState: action.sortField === state.sortField ? SORT_ENUM.next(SORT_ENUM[state.sortState]) : SORT_ENUM[0],
+    sortField: action.sortField,
+    sortFn: action.sortFn,
+  });
+
   const data = (state = initialState, action) => {
     switch (action.type) {
       case actions.REQUEST:
@@ -36,6 +49,15 @@ export default (initialState, actions, isObject) => {
           error: true,
         };
       case actions.SORT:
+        if (isObject && action.listName) {
+          return {
+            ...state,
+            data: {
+              ...state.data,
+              [action.listName]: objectSort(state.data[action.listName], action),
+            },
+          };
+        }
         return {
           ...state,
           sortState: action.sortField === state.sortField ? SORT_ENUM.next(SORT_ENUM[state.sortState]) : SORT_ENUM[0],

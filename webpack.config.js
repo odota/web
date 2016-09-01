@@ -22,7 +22,7 @@ const config = {
   {
     extensions: ['', '.jsx', '.js', '.css', '.json']
   },
-  devTool: 'source-map',
+  devTool: 'cheap-eval-source-map',
   module:
   {
     loaders: [

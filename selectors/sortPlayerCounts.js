@@ -3,12 +3,12 @@ import { playerCounts } from '../reducers';
 import transformPlayerCountsById from './transformPlayerCounts';
 import { defaultSort } from '../utility';
 
-const getSortState = id => state => playerCounts.getSortState(state, id);
-const getSortField = id => state => playerCounts.getSortField(state, id);
-const getSortFn = id => state => playerCounts.getSortFn(state, id);
+const getSortState = listName => id => state => playerCounts.getSortState(listName)(state, id);
+const getSortField = listName => id => state => playerCounts.getSortField(listName)(state, id);
+const getSortFn = listName => id => state => playerCounts.getSortFn(listName)(state, id);
 
-const sortPlayerCounts = (id, numRows) => createSelector(
-  [transformPlayerCountsById(id, numRows), getSortState(id), getSortField(id), getSortFn(id)],
+const sortPlayerCounts = listName => (id, numRows) => createSelector(
+  [transformPlayerCountsById(listName)(id, numRows), getSortState(listName)(id), getSortField(listName)(id), getSortFn(listName)(id)],
   defaultSort
 );
 

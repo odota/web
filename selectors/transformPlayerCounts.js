@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
 import { playerCounts } from '../reducers';
 
-const getCounts = (id, numRows) => state => playerCounts.getCountsList(state, id).slice(0, numRows);
+const getCounts = listName => (id, numRows) => state => playerCounts.getCountsList(listName)(state, id).slice(0, numRows);
 
-const transformPlayerCountsById = (id, numRows) => createSelector(
-  [getCounts(id, numRows)],
+const transformPlayerCountsById = listName => (id, numRows) => createSelector(
+  [getCounts(listName)(id, numRows)],
   counts => counts
 );
 

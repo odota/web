@@ -22,12 +22,35 @@ const createTable = (getStateFn, getData, sortAction) => {
   return connect(mapStateToProps, mapDispatchToProps)(withPagination(Table));
 };
 
-export const createTables = (tablesObject, getStateFn, getData, sortAction) =>
-  Object.keys(tablesObject.data).map(key => createTable(
-      (state, id) => getStateFn(state, id),
-      (state, sortState, id) => getStateFn(state, id).data[key],
-      f => f
-      // (field, sortState, sortFn, id) => sortAction(key)(field, sortState, sortFn, id)
-    ));
+const createTableWithSelectors = (selectors, getData, sortAction) => {
+  const mapStateToProps = (state, ownProps) => {
+    const sortState = selectors.getSortState(state, ownProps.id);
+    return {
+      loading: selectors.getLoading(state, ownProps.id),
+      error: selectors.getError(state, ownProps.id),
+      data: getData(state, sortState, ownProps.id),
+      sortState,
+      sortField: selectors.getSortField(state, ownProps.id),
+      columns: ownProps.columns,
+    };
+  };
+
+  const mapDispatchToProps = (dispatch, ownProps) => ({
+    sortClick: (field, sortState, sortFn) => dispatch(sortAction(field, sortState, sortFn, ownProps.id)),
+  });
+
+  return connect(mapStateToProps, mapDispatchToProps)(withPagination(Table));
+};
+
+export const createTables = (tablesObject, selectors, getData, sortAction) =>
+  Object.keys(tablesObject.data).map(key => createTableWithSelectors(
+    {
+      ...selectors,
+      getSortState: selectors.getSortState(key),
+      getSortField: selectors.getSortField(key),
+    },
+    (state, sortState, id) => getData(key)(state, sortState, id),
+    (field, sortState, sortFn, id) => sortAction(key)(field, sortState, sortFn, id)
+  ));
 
 export default createTable;

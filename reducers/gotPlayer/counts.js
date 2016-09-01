@@ -1,6 +1,5 @@
 import { playerCountsActions } from '../../actions';
 import createReducer from '../reducerFactory';
-import { combineReducers } from 'redux';
 
 const initialState = {
   loading: true,
@@ -31,8 +30,8 @@ export const getPlayerCounts = {
   getError: (state, id) => getPlayerCounts.getPlayerCountsById(state, id).error,
   getLoading: (state, id) => getPlayerCounts.getPlayerCountsById(state, id).loading,
   isLoaded: (state, id) => getPlayerCounts.getPlayerCountsById(state, id).loaded,
-  getCountsList: (state, id) => getPlayerCounts.getPlayerCountsById(state, id).list,
-  getSortState: (state, id) => getPlayerCounts.getPlayerCountsById(state, id).sortState,
-  getSortField: (state, id) => getPlayerCounts.getPlayerCountsById(state, id).sortField,
-  getSortFn: (state, id) => getPlayerCounts.getPlayerCountsById(state, id).sortFn,
+  getCountsList: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName],
+  getSortState: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].sortState,
+  getSortField: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].sortField,
+  getSortFn: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].sortFn,
 };

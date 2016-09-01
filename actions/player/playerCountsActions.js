@@ -1,10 +1,10 @@
 import fetch from 'isomorphic-fetch';
+import constants from 'dotaconstants';
+
 import { API_HOST } from '../';
 import { playerCounts } from '../../reducers';
 import { getUrl } from '../utility';
-import constants from 'dotaconstants';
 
-// const excludedOptions = ['limit'];
 const url = playerId => `/api/players/${playerId}/counts`;
 
 const REQUEST = 'yasp/playerCounts/REQUEST';
@@ -19,8 +19,9 @@ export const playerCountsActions = {
   SORT,
 };
 
-export const setPlayerCountsSort = (sortField, sortState, sortFn, id) => ({
+export const setPlayerCountsSort = listName => (sortField, sortState, sortFn, id) => ({
   type: SORT,
+  listName,
   sortField,
   sortState,
   sortFn,
