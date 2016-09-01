@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { API_HOST } from '../actions';
+
 const url = '/api/constants';
 const REQUEST = 'constants/REQUEST';
 const OK = 'constants/OK';

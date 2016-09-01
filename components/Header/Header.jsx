@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router';
-// import { NavDrawer } from '../NavBar';
-import AccountWidget from '../AccountWidget';
-// import FlatButton from 'material-ui/FlatButton';
-// import AppBar from 'material-ui/AppBar';
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import styles from './Header.css';
-import TabBar from '../TabBar';
-import SearchForm from '../Search/SearchForm';
 import ActionSearch from 'material-ui/svg-icons/action/search';
-// import IconMenu from 'material-ui/IconMenu';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+// import FlatButton from 'material-ui/FlatButton';
 // import IconButton from 'material-ui/IconButton/IconButton';
 // import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 // import MenuItem from 'material-ui/MenuItem';
+// import IconMenu from 'material-ui/IconMenu';
+// import AppBar from 'material-ui/AppBar';
+// import { NavDrawer } from '../NavBar';
+import AccountWidget from '../AccountWidget';
+import styles from './Header.css';
+import TabBar from '../TabBar';
+import SearchForm from '../Search/SearchForm';
 import { navbarPages, playerPages } from './Pages';
 import { APP_NAME } from '../../config';
 

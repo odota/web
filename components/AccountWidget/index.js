@@ -1,3 +1,3 @@
-import AccountWidget from './AccountWidget';
+import aw from './AccountWidget';
 
-export default AccountWidget;
+export default aw;

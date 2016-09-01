@@ -7,7 +7,8 @@ import {
   getPlayerHeroes,
   setPlayerHeroesSort,
 } from '../../../actions';
-import { playerMatchesColumns, playerHeroesOverviewColumns } from '../../Table/columnDefinitions';
+import playerMatchesColumns from './playerMatchesColumns';
+import { playerHeroesOverviewColumns } from './playerHeroesColumns';
 import {
   sortPlayerMatches,
   transformPlayerMatchesById,

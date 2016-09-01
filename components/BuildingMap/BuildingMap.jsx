@@ -2,6 +2,7 @@ import React from 'react';
 import { pad } from '../../utility';
 import buildingData from './BuildingData';
 import Spinner from '../Spinner';
+
 export default function BuildingMap({ match, loading }) {
   if (match && !loading) {
     // see https://wiki.teamfortress.com/wiki/WebAPI/GetMatchDetails
@@ -10,7 +11,7 @@ export default function BuildingMap({ match, loading }) {
     bits += pad(match.tower_status_dire.toString(2), 11);
     bits += pad(match.barracks_status_dire.toString(2), 6);
     bits += match.radiant_win ? '10' : '01';
-    let icons = [];
+    const icons = [];
     // concat, iterate through bits of all four status values
     // if 1, create image
     // building data in correct order
