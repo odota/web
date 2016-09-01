@@ -1,5 +1,5 @@
-import React from 'react';
-import { PercentContainer } from '../../ColumnComponents';
+// import React from 'react';
+// import { PercentContainer } from '../../ColumnComponents';
 // import { API_HOST } from '../../../yasp.config';
 import { transformations } from '../../../utility';
 

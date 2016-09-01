@@ -1,17 +1,17 @@
 import React from 'react';
-import PlayerName from './PlayerName';
-import PlayerMMR from './PlayerMMR';
-import PlayerRecord from './PlayerRecord';
-import styles from './PlayerHeader.css';
 import { Card, CardActions } from 'material-ui/Card';
+import PName from './PlayerName';
+import PMMR from './PlayerMMR';
+import PRecord from './PlayerRecord';
+import styles from './PlayerHeader.css';
 
 export default ({ playerId }) => (
   <Card>
     <div className={styles.container}>
-      <PlayerName playerId={playerId} style={{ width: '40%' }} />
+      <PName playerId={playerId} style={{ width: '40%' }} />
       <CardActions>
-        <PlayerRecord playerId={playerId} />
-        <PlayerMMR playerId={playerId} />
+        <PRecord playerId={playerId} />
+        <PMMR playerId={playerId} />
       </CardActions>
     </div>
   </Card>

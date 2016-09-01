@@ -1,3 +1,4 @@
+import { combineReducers } from 'redux';
 import gotMetadata from './gotMetadata';
 import gotConstants from './gotConstants';
 import gotMatch from './gotMatch';
@@ -19,7 +20,6 @@ import form, { getForm } from './form';
 import request from './request';
 import distributions from './distributions';
 import table, { getTable } from './table';
-import { combineReducers } from 'redux';
 
 const REDUCER_KEY = 'app';
 

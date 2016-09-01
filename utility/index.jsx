@@ -9,7 +9,7 @@ export const isRadiant = (playerSlot) => playerSlot < 128;
 
 export function pad(n, width, z = '0') {
   const str = `${n}`;
-  return str.length >= width ? str : new Array(width - str.length + 1).join(z) + n;
+  return str.length >= width ? str : new Array((width - str.length) + 1).join(z) + n;
 }
 /*
 function format(input) {

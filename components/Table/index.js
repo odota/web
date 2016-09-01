@@ -1,3 +1,3 @@
 export { default } from './Table';
-export { default as createTable, createTables } from './tableContainerFactory';
-export { TableContainer } from './TableContainer';
+export { default as createTable, createTables } from './createTable';
+export { default as TableContainer } from './TableContainer';

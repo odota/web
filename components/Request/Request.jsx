@@ -1,9 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { requestSubmit, setMatchId } from '../../actions';
-import { connect } from 'react-redux';
 import { REDUCER_KEY } from '../../reducers';
 
 const Request = ({ error, matchId, loading, progress, dispatchRequest, dispatchMatchId }) => {

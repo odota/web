@@ -1,17 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+// import { Card } from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
 import { createTable } from '../Table';
 import { getMatch, setMatchSort } from '../../actions';
-import { connect } from 'react-redux';
 import {
   overviewColumns,
   abUpgradeColumns,
   benchmarksColumns,
-} from '../Table/columnDefinitions/matchColumns.jsx';
+} from './matchColumns.jsx';
 import { sortMatch, transformMatch } from '../../selectors';
 import BuildingMap from '../BuildingMap/BuildingMap';
 import { REDUCER_KEY } from '../../reducers';
-// import { Card } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
 
 const match = (state) => state[REDUCER_KEY].gotMatch.match;
 const MatchTable = createTable(

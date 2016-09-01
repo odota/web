@@ -5,7 +5,7 @@ import {
   getPlayerCounts,
   setPlayerCountsSort,
 } from '../../../actions';
-import { playerCountsColumns } from '../../Table/columnDefinitions';
+import playerCountsColumns from './playerCountsColumns';
 import {
   sortPlayerCounts,
   transformPlayerCountsById,

@@ -1,5 +1,5 @@
-import { playerActions } from '../../actions';
 import { combineReducers } from 'redux';
+import { playerActions } from '../../actions';
 
 const initialState = {
   loading: true,

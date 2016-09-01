@@ -1,5 +1,5 @@
-import { SORT_ENUM } from './utility';
 import { combineReducers } from 'redux';
+import { SORT_ENUM } from './utility';
 
 export default (initialState, actions, isObject) => {
   const data = (state = initialState, action) => {

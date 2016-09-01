@@ -1,8 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Clear from 'material-ui/svg-icons/content/clear';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import styles from './ShowFormToggle.css';
-import { connect } from 'react-redux';
 import { toggleShowForm } from '../../actions';
 import { form } from '../../reducers';
 

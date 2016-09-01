@@ -31,7 +31,7 @@ class RequestLayer extends React.Component {
       const counts = mmr.map((d) => (d.count));
       const count = counts.reduce((c, n) => (c + n), 0);
       const names = mmr.map((d) => (d.bin_name));
-      const pcts = mmr.map((d) => (d.cumulative_sum / count * 100));
+      const pcts = mmr.map((d) => ((d.cumulative_sum / count) * 100));
       const options = {
         bindto: '#mmr',
         size: { height: 500 },

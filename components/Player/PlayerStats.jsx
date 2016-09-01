@@ -1,10 +1,10 @@
 import React from 'react';
-import PlayerMMR from './PlayerMMR';
-import PlayerRecord from './PlayerRecord';
+import PMMR from './PlayerMMR';
+import PRecord from './PlayerRecord';
 
 export default () => (
   <div>
-    <PlayerMMR />
-    <PlayerRecord />
+    <PMMR />
+    <PRecord />
   </div>
 );
