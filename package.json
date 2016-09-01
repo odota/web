@@ -17,14 +17,9 @@
   },
   "dependencies": {
     "brace": "^0.8.0",
-<<<<<<< HEAD
-    "c3": "0.4.11",
-    "dotaconstants": "yasp-dota/dotaconstants#90a8be6",
-=======
     "classnames": "^2.2.5",
     "c3": "0.4.11",
     "dotaconstants": "odota/dotaconstants#931dcae",
->>>>>>> origin/master
     "es6-promise": "^3.2.1",
     "flexboxgrid": "^6.3.0",
     "isomorphic-fetch": "^2.2.1",
