@@ -14,20 +14,17 @@ Tech Stack
 ----
 * View layer: React
 * State management: Redux
-* CSS: css-modules & postcss
+* CSS: css-modules/postcss
 
 Notes
 ----
-* UI is now in its own repository (this one).
-  * Should improve build time on both this and backend
-  * All you need is Node to get started
-* You can develop the UI against the production API.  This is on by default, and means you don't have to set up the entire stack.
+* All you need is Node.js to get started working on the UI!
+* You can develop the UI against the production API.  This is on by default, and means you don't have to set up the entire stack/backend.
   * You can configure it to point to your own instance (if you are working on a backend feature) in `config.js`.
-* API Documentation: https://api.opendota.com/
-  * You can refer to `routes/api.js` in backend repo for the canonical state of the API
-* Current state of master gets built by Travis and pushed to production.
+* API Documentation: https://odota.github.io/api
 * Discord: https://discord.gg/0o5SQGbXuWCNDcaF
-  * Strongly recommended to join for active developers, you can get help rapidly and coordinate with others.
+  * Strongly recommended to join for active developers!
+  * You can get help rapidly and coordinate with others.
 
 Development Guides
 ----

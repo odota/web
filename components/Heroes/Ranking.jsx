@@ -28,7 +28,7 @@ class Ranking extends Component {
   renderRanking(hero, bestPlayer, rankings) {
     return (
       <div>
-        <RankingBadge hero={hero} bestPlayer={bestPlayer} />
+        <RankingBadge hero={hero} />
         <RankingTable rankings={rankings} />
       </div>
     );
