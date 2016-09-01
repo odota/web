@@ -1,12 +1,13 @@
 import React from 'react';
-import { Text } from '../Text';
 import styles from './TableContainer.css';
 
-export const TableContainer = ({ title, style, children }) => (
+const TableContainer = ({ title, style, children }) => (
   <div className={styles.container} style={{ ...style }}>
     <div className={styles.heroesContainer}>
-      <Text className={styles.tableHeading}>{title}</Text>
+      <div className={styles.tableHeading}>{title}</div>
       {children}
     </div>
   </div>
 );
+
+export default TableContainer;

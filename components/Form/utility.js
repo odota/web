@@ -1,4 +1,4 @@
-export const getClosestMatch = (dataSource, dataSourceConfig, filter, searchText) => {
+const getClosestMatch = (dataSource, dataSourceConfig, filter, searchText) => {
   const requestsList = [];
   dataSource.forEach(item => {
     switch (typeof item) {
@@ -28,3 +28,5 @@ export const getClosestMatch = (dataSource, dataSourceConfig, filter, searchText
   });
   return requestsList[0] || searchText;
 };
+
+export default getClosestMatch;

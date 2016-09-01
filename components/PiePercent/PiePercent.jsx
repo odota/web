@@ -6,7 +6,7 @@ export default ({ percent, color, negativeColor }) => (
     <circle
       r="16" cx="16" cy="16"
       className={styles.pieInner}
-      shape-rendering="crispEdges"
+      shapeRendering="crispEdges"
       style={{ strokeDasharray: `${percent} 100`, color }}
     />
   </svg>
