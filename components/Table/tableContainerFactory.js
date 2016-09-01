@@ -4,6 +4,7 @@ import withPagination from './PaginatedTable';
 
 const createTable = (getStateFn, getData, sortAction) => {
   const mapStateToProps = (state, ownProps) => {
+    console.log('wow', getStateFn(state, ownProps.id), state, ownProps.id)
     const { error, loading, sortState, sortField } = getStateFn(state, ownProps.id);
     return {
       loading,
@@ -21,5 +22,15 @@ const createTable = (getStateFn, getData, sortAction) => {
 
   return connect(mapStateToProps, mapDispatchToProps)(withPagination(Table));
 };
+
+export const createTables = (tablesObject, getStateFn, getData, sortAction) =>
+  Object.keys(tablesObject.data).map(key => {
+    console.log('key', tablesObject.data, key)
+    return createTable(
+      (state, id) => getStateFn(state, id),
+      (state, sortState, id) => getStateFn(state, id).data[key],
+      f => f
+      // (field, sortState, sortFn, id) => sortAction(key)(field, sortState, sortFn, id)
+    )});
 
 export default createTable;

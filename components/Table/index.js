@@ -1,6 +1,3 @@
-import Table from './Table';
-import createTable from './tableContainerFactory';
+export { default } from './Table';
+export { default as createTable, createTables } from './tableContainerFactory';
 export { TableContainer } from './TableContainer';
-
-export default Table;
-export { createTable };

@@ -1,7 +1,7 @@
 import { SORT_ENUM } from './utility';
 import { combineReducers } from 'redux';
 
-export default (initialState, actions) => {
+export default (initialState, actions, isObject) => {
   const data = (state = initialState, action) => {
     switch (action.type) {
       case actions.REQUEST:
@@ -12,6 +12,15 @@ export default (initialState, actions) => {
           loading: true,
         };
       case actions.OK:
+        if (isObject) {
+          return {
+            ...state,
+            loading: false,
+            error: false,
+            loaded: true,
+            data: { ...action.payload },
+          };
+        }
         return {
           ...state,
           loading: false,

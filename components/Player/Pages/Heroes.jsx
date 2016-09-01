@@ -44,7 +44,7 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    return <Overview {...this.props} />;
+    return <Overview ref={this} {...this.props} />;
   }
 }
 

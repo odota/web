@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "brace": "^0.8.0",
-    "c3": "github:yasp-dota/c3",
+    "c3": "0.4.11",
     "dotaconstants": "yasp-dota/dotaconstants#90a8be6",
     "es6-promise": "^3.2.1",
     "isomorphic-fetch": "^2.2.1",
@@ -66,6 +66,7 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "2.1.0-beta.20",
+    "webpack-dashboard": "^0.1.7",
     "webpack-dev-server": "^1.14.1"
   }
 }
