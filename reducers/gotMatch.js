@@ -1,5 +1,5 @@
 import { matchActions } from '../actions';
-import { SORT_ENUM } from './utility';
+import SORT_ENUM from './utility';
 
 const initialState = {
   loading: true,
