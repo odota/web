@@ -6,6 +6,10 @@ notifications:
   - howardc93@gmail.com
   - aqc2109@columbia.edu
   - mjr127@case.edu
+# don't build master since that's the deployment branch
+branches:
+  except:
+  - master
 script:
 - npm run build
 deploy:
