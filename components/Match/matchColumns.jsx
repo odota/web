@@ -139,7 +139,6 @@ for (let i = 0; i < 25; i++) {
     index: i,
     width: 1,
     displayFn: (row, column, field) => {
-      // TODO - why does this code get executed when the abUpgradeColumnsTable doesn't get rendered...
       if (field) {
         const abilityId = field[column.index];
         const abilityKey = constants.ability_ids[abilityId];
@@ -152,7 +151,10 @@ for (let i = 0; i < 25; i++) {
           };
         }
         if (abilityData) {
-          return <img src={`${API_HOST}${abilityData.img}`} style={{ height: 35, position: 'relative', left: -10 }} role="presentation" />;
+          return <img src={abilityKey === 'attribute_bonus' ? abilityData.img : `${API_HOST}${abilityData.img}`}
+            style={{ height: 35, position: 'relative', left: -10 }} 
+            role="presentation" 
+          />;
         }
       }
       return null;
@@ -187,8 +189,100 @@ const benchmarksColumns = (match) => {
   return cols;
 };
 
+const overallColumns = [
+  heroTdColumn,
+  {
+    displayName: 'Stacked',
+    field: 'camps_stacked',
+    width: 1,
+    sortFn: true,
+  },
+  {
+    displayName: 'Stuns',
+    field: 'stuns',
+    width: 1,
+    sortFn: true,
+  }, {
+    displayName: 'Dead',
+    field: 'life_state_dead',
+    width: 1,
+    sortFn: true,
+  }, {
+    displayName: 'Biggest Hit',
+    field: 'biggest_hit',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, column, field) => {
+      /*
+            td.nowrap
+              - player.max_hero_hit = player.max_hero_hit || {}
+              - var ability = constants.abilities[player.max_hero_hit.inflictor]
+              - var item = constants.items[player.max_hero_hit.inflictor]
+              - var hero = constants.hero_names[player.max_hero_hit.key]
+              span.img-text
+                if ability
+                  span: img.img-sm.ability(src=ability.img, title=player.max_hero_hit.inflictor)
+                else if item
+                  span: img.img-sm.item(src=item.img, title=player.max_hero_hit.inflictor)
+                else
+                  span: img.img-sm(src="/public/images/default_attack.png", title="Auto Attack/Other")
+                div #{player.max_hero_hit.value}
+              if hero
+                span.img-text: img.img-md(src=hero.img, title=hero.localized_name)
+              else
+                =player.max_hero_hit.key
+      */
+    }
+  }];
+
+const laningColumns = [
+  heroTdColumn,
+  {
+    displayName: 'Lane',
+    field: '',
+    width: 1,
+    sortFn: true,
+  },
+  {
+    displayName: 'EFF@10',
+    field: 'lane_efficiency',
+    width: 1,
+    sortFn: true,
+  }, {
+    displayName: 'LH@10',
+    field: 'lh_t',
+    width: 1,
+    sortFn: true,
+  }, {
+    displayName: 'DN@10',
+    field: 'dn_t',
+    width: 1,
+    sortFn: true,
+  }];
+
+// TODO party indicator
+// Lane map
+// skills (casts/hits/damage)
+// items (casts/hits/damage)
+// purchase counts
+// purchase times
+// Hero kill times
+// Ward maps
+// Unit kills
+// Last Hits
+// Graphs
+// Stuns/Dead/biggest hit
+// Teamfights
+// Chat
+// Analysis
+// Combat
+// Gold/XP sources
+// Streaks
+  
 export {
   overviewColumns,
   abUpgradeColumns,
   benchmarksColumns,
+  overallColumns,
+  laningColumns,
 };

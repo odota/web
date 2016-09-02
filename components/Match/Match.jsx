@@ -8,12 +8,14 @@ import {
   overviewColumns,
   abUpgradeColumns,
   benchmarksColumns,
+  overallColumns,
+  laningColumns,
 } from './matchColumns.jsx';
 import { sortMatch, transformMatch } from '../../selectors';
 import BuildingMap from '../BuildingMap/BuildingMap';
 import { REDUCER_KEY } from '../../reducers';
 
-const match = (state) => state[REDUCER_KEY].gotMatch.match;
+const match = (state) => state[REDUCER_KEY].match.match;
 const MatchTable = createTable(
   match,
   (state, sortState) => (sortState ? sortMatch(state) : transformMatch(state)),
@@ -22,8 +24,8 @@ const MatchTable = createTable(
 
 const mapStateToProps = (state, { params }) => ({
   matchId: params.match_id,
-  match: state[REDUCER_KEY].gotMatch.match,
-  loading: state[REDUCER_KEY].gotMatch.loading,
+  match: state[REDUCER_KEY].match.match,
+  loading: state[REDUCER_KEY].match.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -74,28 +76,31 @@ class RequestLayer extends React.Component {
         <MatchTable columns={abUpgradeColumns} />
         <BuildingMap match={this.props.match} loading={this.props.loading} />
         <MatchTable columns={benchmarksColumns(this.props.match)} />
+        <MatchTable columns={overallColumns} />
+        <MatchTable columns={laningColumns} />
+        <table>
+          <thead>
+            <tr>
+              <th>Ability</th>
+              <th>Casts</th>
+              <th>Hits</th>
+              <th>Damage</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.props.match.players[0] ? Object.keys(this.props.match.players[0].ability_uses).map(k =>
+              (<tr>
+                <td>{k}</td>
+                <td>{this.props.match.players[0].ability_uses[k]}</td>
+                <td>{this.props.match.players[0].hero_hits[k]}</td>
+                <td>{this.props.match.players[0].damage_inflictor[k]}</td>
+              </tr>)
+            ) : <tr />}
+          </tbody>
+        </table>        
       </div>
     );
   }
-  // TODO party indicator
-  // Overall (stacks/stuns/dead/biggest hit)
-  // Laning (lane, eff/lh/dn, lane map)
-  // skills (casts/hits/damage)
-  // items (casts/hits/damage)
-  // purchase counts
-  // purchase times
-  // Hero kill times
-  // Ward maps
-  // Unit kills
-  // Last Hits
-  // Graphs
-  // Stuns/Dead/biggest hit
-  // Teamfights
-  // Chat
-  // Analysis
-  // Combat
-  // Gold/XP sources
-  // Streaks
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
