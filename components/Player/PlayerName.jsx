@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { CardHeader } from 'material-ui/Card';
-// import PlayerPicture from './PlayerPicture';
 import Error from '../Error';
 import Spinner from '../Spinner';
 import { player } from '../../reducers';
 import styles from './PlayerHeader.css';
-import { CardHeader } from 'material-ui/Card';
 import ImageLens from 'material-ui/svg-icons/image/lens';
 import { green500 } from 'material-ui/styles/colors';
 import FontIcon from 'material-ui/FontIcon';
@@ -27,7 +25,6 @@ const PlayerName = ({ playerName, picture, cheese, registered, loading, error })
     </div>
   );
 
-const PlayerName = ({ playerName, picture, loading, error }) => {
   const getPlayerName = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;
