@@ -48,7 +48,7 @@
   border: 5px solid #FFD700
 }
   */
-  
+
 .appBadge {
   composes: image;
 }
@@ -93,11 +93,11 @@
   justify-content: flex-start;
   align-items: center;
   margin: 5px 5px;
-  
+
   & > abbr {
     margin-right: 2px;
   }
-  
+
   & > span:not(:last-child){
     margin-right: 6px;
   }
@@ -112,17 +112,8 @@
   Actually it's possible to set style property of icon, but i don't know how to
   get this css class as object in Jsx script.*/
 .playerRegistredIcon {
-  width: 12px !important;
-  height: 12px !important;
+  width: 22px !important;
+  height: 22px !important;
   margin-left: 2px;
-}
-
-.smallCheese {
-  font-family: Flaticon;
-  font-size: 16px !important; /* same as above. important - bad. */
-  text-shadow: 0 0 10px #ff0;
-  margin: 0 10px 0 0;
-  &::before {
-    content: "\E000";
-  }
+  vertical-align: bottom;
 }

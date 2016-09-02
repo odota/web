@@ -5,23 +5,25 @@ import Error from '../Error';
 import Spinner from '../Spinner';
 import { player } from '../../reducers';
 import styles from './PlayerHeader.css';
-import ImageLens from 'material-ui/svg-icons/image/lens';
+import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import { green500 } from 'material-ui/styles/colors';
 import FontIcon from 'material-ui/FontIcon';
+import palette from '../palette.css';
 
 const PlayerName = ({ playerName, picture, cheese, registered, loading, error }) => {
   const getTitle = () => (
     <div>
       <span className={styles.playerTitle}>{playerName}</span>
       {registered &&
-        <ImageLens className={styles.playerRegistredIcon} color={green500} />}
+        <AccountCircle className={styles.playerRegistredIcon} color={green500} />}
     </div>
   );
 
   const getSubtitle = () => (
     <div>
-      <FontIcon className={styles.smallCheese} />
-      <span>X {cheese}</span>
+      { /* Any other way to combine syles? */}
+      <FontIcon className={palette.cheese + " " + palette.cheeseInline} />
+      <span>x{cheese}</span>
     </div>
   );
 

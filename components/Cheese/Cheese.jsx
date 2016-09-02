@@ -8,6 +8,7 @@ import styles from './Cheese.css';
 // import CheeseButton from './CheeseButton';
 // import RaisedButton from 'material-ui/FlatButton';
 import ProgressBar from '../ProgressBar';
+import palette from '../palette.css'
 
 const Cheese = ({ donations, error, loading }) => {
   const { goal, cheese } = donations;
@@ -23,7 +24,7 @@ const Cheese = ({ donations, error, loading }) => {
     <div className={styles.container}>
       <div className={styles.section}>
         <h3 className={styles.cheeseTitle}>Monthly Cheese Goal
-          <Link to="/carry"><FontIcon className={styles.cheese} /></Link>
+          <Link to="/carry"><FontIcon className={palette.cheese} /></Link>
         </h3>
         {error && <Error />}
         {loading && <Spinner />}
