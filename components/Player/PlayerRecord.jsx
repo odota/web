@@ -1,11 +1,11 @@
 import React from 'react';
-import Error from '../Error';
-import Spinner from '../Spinner';
 import { connect } from 'react-redux';
-import { player } from '../../reducers';
-import styles from './PlayerHeader.css';
 import SocialPoll from 'material-ui/svg-icons/social/poll';
 import { green500 } from 'material-ui/styles/colors';
+import Error from '../Error';
+import Spinner from '../Spinner';
+import { player } from '../../reducers';
+// import styles from './PlayerHeader.css';
 
 export const PlayerRecord = ({ loading, error, wins, losses }) => {
   const getPlayerRecord = () => {

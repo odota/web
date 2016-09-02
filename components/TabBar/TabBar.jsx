@@ -1,8 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { withRouter } from 'react-router';
 import styles from './TabBar.css';
-import { connect } from 'react-redux';
 import { tab } from '../../reducers';
 
 const onActive = (tab, router) => {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { nextPage, prevPage, setCurrentPage } from '../../../actions';
-import styles from './Pagination.css';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
+import { nextPage, prevPage, setCurrentPage } from '../../../actions';
+import styles from './Pagination.css';
 
 
 const getPages = ({ currentPage, numPages, setCurrentPage }) => {
@@ -43,7 +43,7 @@ const Pagination = ({ currentPage, nextPage, prevPage, setCurrentPage, numPages 
     {currentPage < numPages - 1 && <Next onClick={nextPage} className={styles.arrow} />}
   </div>
 ) : (
-  <span></span>
+  <span />
 ));
 
 const mapDispatchToProps = (dispatch, { id }) => ({

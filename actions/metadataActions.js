@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { API_HOST } from '../actions';
+
 const url = '/api/metadata';
 const REQUEST = 'metadata/REQUEST';
 const OK = 'metadata/OK';

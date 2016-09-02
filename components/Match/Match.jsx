@@ -1,17 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+// import { Card } from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
 import { createTable } from '../Table';
 import { getMatch, setMatchSort } from '../../actions';
-import { connect } from 'react-redux';
 import {
   overviewColumns,
   abUpgradeColumns,
   benchmarksColumns,
-} from '../Table/columnDefinitions/matchColumns.jsx';
+} from './matchColumns.jsx';
 import { sortMatch, transformMatch } from '../../selectors';
 import BuildingMap from '../BuildingMap/BuildingMap';
 import { REDUCER_KEY } from '../../reducers';
-// import { Card } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
 
 const match = (state) => state[REDUCER_KEY].gotMatch.match;
 const MatchTable = createTable(
@@ -77,16 +77,18 @@ class RequestLayer extends React.Component {
       </div>
     );
   }
+  // TODO party indicator
+  // Overall (stacks/stuns/dead/biggest hit)
+  // Laning (lane, eff/lh/dn, lane map)
+  // skills (casts/hits/damage)
+  // items (casts/hits/damage)
   // purchase counts
   // purchase times
   // Hero kill times
-  // Abilities
-  // Items
   // Ward maps
   // Unit kills
   // Last Hits
   // Graphs
-  // Laning
   // Stuns/Dead/biggest hit
   // Teamfights
   // Chat

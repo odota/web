@@ -1,6 +1,9 @@
-module.exports = {
-  API_HOST: 'https://yasp.co',
-  RECAPTCHA_PUBLIC_KEY: '6LekswATAAAAAKXO0shvsAXPFNjYBaVcKTuS4TFi',
-  // API_HOST: 'http://hchung.westus.cloudapp.azure.com:5000',
-  APP_NAME: 'YASP',
+const API_HOST = 'https://api.opendota.com';
+const RECAPTCHA_PUBLIC_KEY = '6LekswATAAAAAKXO0shvsAXPFNjYBaVcKTuS4TFi';
+const APP_NAME = 'OpenDota';
+
+export {
+  API_HOST,
+  RECAPTCHA_PUBLIC_KEY,
+  APP_NAME,
 };

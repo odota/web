@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import { REDUCER_KEY } from '../../reducers';
 import { getPlayer } from '../../actions';
 import styles from './AccountWidget.css';
-import { Link } from 'react-router';
 import { API_HOST } from '../../config';
 // import FontIcon from 'material-ui/FontIcon';
 // import { PlayerPicture } from '../Player';
@@ -17,17 +17,17 @@ import { API_HOST } from '../../config';
           exit_to_app
         </FontIcon>
 */
-const AccountWidget = ({ loading, error, user }) => (
-  <div className={styles.container}>
+const AccountWidget = ({ loading, error, user, style }) => (
+  <div style={style} className={styles.tabContainer}>
     {loading && !error && <Spinner />}
     {error && <Error />}
     {!error && !loading && user ? (
-      <div className={`${styles.flexContainer} ${styles.tab}`}>
-        <Link to={`/players/${user.account_id}`}>{"Profile"}</Link>
-        <a href={`${API_HOST}/logout`} className={styles.logout}>{"Logout"}</a>
+      <div>
+        <Link className={styles.tab} to={`/players/${user.account_id}`}>{"Profile"}</Link>
+        <a className={styles.tab} href={`${API_HOST}/logout`}>{"Logout"}</a>
       </div>
     )
-    : <a href={`${API_HOST}/login`}>Login</a>
+    : <a className={styles.tab} href={`${API_HOST}/login`}>Login</a>
     }
   </div>
 );

@@ -11,6 +11,8 @@ export { appBarActions, openMenu } from './appBarActions';
 export { tabActions, setActiveTab } from './tabActions';
 export { tableActions, setCurrentPage, nextPage, prevPage } from './tableActions';
 export { formActions, addChip, deleteChip, setFieldText, submitForm, clearForm, toggleShowForm } from './formActions';
+export { rankingActions, getRanking } from './rankingActions';
+export { benchmarkActions, getBenchmark } from './benchmarkActions';
 export * from './searchActions';
 export * from './requestActions';
 export * from './distributionsActions';

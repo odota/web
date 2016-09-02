@@ -1,7 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Spinner from '../Spinner';
 import { REDUCER_KEY } from '../../reducers';
-import { connect } from 'react-redux';
 import { getSearchResult } from '../../actions';
 
 // import SearchForm from './SearchForm';

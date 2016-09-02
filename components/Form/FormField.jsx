@@ -1,10 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import AutoComplete from 'material-ui/AutoComplete';
 import ChipList from './ChipList';
-import { connect } from 'react-redux';
 import { addChip, setFieldText } from '../../actions';
 import { form } from '../../reducers';
-import { getClosestMatch } from './utility';
+import getClosestMatch from './utility';
 import styles from './FormField.css';
 
 const onNewRequest = ({ value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, setFieldText, limit }) => {

@@ -33,22 +33,3 @@
   height: 100%;
   overflow-x: hidden;
 }
-/*TODO - put these in the palette*/
-:global(.textSuccess) {
-  color: #537F1B;
-}
-
-:global(.textDanger) {
-  color: #8B311E
-}
-
-:global(.textMuted) {
-  color: #727272;
-}
-
-:global(.subText) {
-  font-size: 10px !important;
-  color: #c5c5c5;
-  text-overflow: initial !important;
-  text-transform: uppercase;
-}

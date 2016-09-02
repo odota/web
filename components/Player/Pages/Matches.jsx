@@ -5,7 +5,7 @@ import {
   getPlayerMatches,
   setPlayerMatchesSort,
 } from '../../../actions';
-import { playerMatchesColumns } from '../../Table/columnDefinitions';
+import playerMatchesColumns from './playerMatchesColumns';
 import {
   sortPlayerMatches,
   transformPlayerMatchesById,

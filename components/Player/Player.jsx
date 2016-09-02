@@ -1,11 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PlayerHeader from './PlayerHeader';
 import Error from '../Error';
 import {
   getPlayer,
   getPlayerWinLoss,
 } from '../../actions';
-import { connect } from 'react-redux';
 import styles from './Player.css';
 import { PeersPage, OverviewPage, MatchesPage, HeroesPage, RecordsPage } from './Pages';
 
