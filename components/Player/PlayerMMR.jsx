@@ -9,7 +9,7 @@ import Spinner from '../Spinner';
 import { player } from '../../reducers';
 import styles from './PlayerHeader.css';
 
-export const PlayerMMR = ({ loading, error, rank, soloRank, mmrEstimate }) => {
+const PlayerMMR = ({ loading, error, rank, soloRank, mmrEstimate }) => {
   const getPlayerMMR = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;

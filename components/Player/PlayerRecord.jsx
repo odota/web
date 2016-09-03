@@ -7,7 +7,7 @@ import Spinner from '../Spinner';
 import { player } from '../../reducers';
 // import styles from './PlayerHeader.css';
 
-export const PlayerRecord = ({ loading, error, wins, losses }) => {
+const PlayerRecord = ({ loading, error, wins, losses }) => {
   const getPlayerRecord = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;
