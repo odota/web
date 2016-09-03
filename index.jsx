@@ -16,6 +16,7 @@ import Player from './components/Player';
 import Home from './components/Home';
 import Search from './components/Search';
 import Explorer from './components/Explorer';
+import Combos from './components/Combos';
 import { Heroes, Ranking, Benchmark } from './components/Heroes';
 import Request from './components/Request';
 import Distributions from './components/Distributions';
@@ -67,6 +68,7 @@ render(
           </Route>
         </Route>
         <Route path="explorer" component={Explorer} />
+        <Route path="combos" component={Combos} />
         <Route path="heroes" component={Heroes} />
         <Route path="rankings/:hero_id" component={Ranking} />
         <Route path="benchmarks/:hero_id" component={Benchmark} />
