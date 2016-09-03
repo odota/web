@@ -1,11 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { CardHeader } from 'material-ui/Card';
 // import PlayerPicture from './PlayerPicture';
 import Error from '../Error';
 import Spinner from '../Spinner';
-import { connect } from 'react-redux';
 import { player } from '../../reducers';
 // import styles from './PlayerHeader.css';
-import { CardHeader } from 'material-ui/Card';
 
 const PlayerName = ({ playerName, picture, loading, error }) => {
   const getPlayerName = () => {
@@ -30,8 +30,6 @@ const PlayerName = ({ playerName, picture, loading, error }) => {
 
   return <div>{getPlayerName()}</div>;
 };
-
-export { PlayerName };
 
 // metadata.getUserId(state)
 const mapStateToProps = (state, ownProps) => ({

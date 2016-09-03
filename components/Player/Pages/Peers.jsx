@@ -5,7 +5,7 @@ import {
   getPlayerPeers,
   setPlayerPeersSort,
 } from '../../../actions';
-import { playerPeersColumns } from '../../Table/columnDefinitions';
+import playerPeersColumns from './playerPeersColumns';
 import {
   sortPlayerPeers,
   transformPlayerPeersById,

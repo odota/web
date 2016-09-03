@@ -1,3 +1,4 @@
+/* global window FormData */
 import fetch from 'isomorphic-fetch';
 import { API_HOST } from '../actions';
 

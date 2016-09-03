@@ -12,7 +12,7 @@ import {
   overviewColumns,
   abUpgradeColumns,
   benchmarksColumns,
-} from '../Table/columnDefinitions/matchColumns.jsx';
+} from './matchColumns.jsx';
 
 const match = (state) => state[REDUCER_KEY].gotMatch.match;
 const MatchTable = createTable(

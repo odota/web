@@ -5,7 +5,7 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import style from './Heroes.css';
 
 export default ({ hero, bestPlayer }) => {
-  if (!hero || !bestPlayer) {
+  if (!hero) {
     return <div />;
   }
 
@@ -18,18 +18,20 @@ export default ({ hero, bestPlayer }) => {
           </Col>
           <Col xs={12} sm={6} md={6} lg={6} style={{ textAlign: 'right' }}>
             <h2 className={style.RankingHeroBadge}>{hero.localized_name} Player Rankings</h2>
-            <table style={{ float: 'right' }}>
-              <tr>
-                <td className={style.RankingHeroBadgeTd}><Link to={`/players/${bestPlayer.account_id}`}>{bestPlayer.personaname}</Link></td>
-                <td className={style.RankingHeroBadgeTd}><strong>{bestPlayer.solo_competitive_rank}</strong></td>
-                <td className={style.RankingHeroBadgeTd}><strong>{parseFloat(bestPlayer.score).toFixed()}</strong></td>
-              </tr>
-              <tr className={style.RankingHeroBadgeMeta}>
-                <td className={style.RankingHeroBadgeTd}>Best Player</td>
-                <td className={style.RankingHeroBadgeTd}>Solo MMR</td>
-                <td className={style.RankingHeroBadgeTd}>Score</td>
-              </tr>
-            </table>
+            {bestPlayer ?
+              <table style={{ float: 'right' }}>
+                <tr>
+                  <td className={style.RankingHeroBadgeTd}><Link to={`/players/${bestPlayer.account_id}`}>{bestPlayer.personaname}</Link></td>
+                  <td className={style.RankingHeroBadgeTd}><strong>{bestPlayer.solo_competitive_rank}</strong></td>
+                  <td className={style.RankingHeroBadgeTd}><strong>{parseFloat(bestPlayer.score).toFixed()}</strong></td>
+                </tr>
+                <tr className={style.RankingHeroBadgeMeta}>
+                  <td className={style.RankingHeroBadgeTd}>Best Player</td>
+                  <td className={style.RankingHeroBadgeTd}>Solo MMR</td>
+                  <td className={style.RankingHeroBadgeTd}>Score</td>
+                </tr>
+              </table>
+            : <div />}
           </Col>
         </Row>
       </Grid>

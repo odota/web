@@ -1,12 +1,11 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import TextField from 'material-ui/TextField';
 // import RaisedButton from 'material-ui/RaisedButton';
 // import ActionSearch from 'material-ui/svg-icons/action/search';
 // import CircularProgress from 'material-ui/CircularProgress';
-import { connect } from 'react-redux';
 import { getSearchResult, setSearchQuery } from '../../actions';
-import { browserHistory } from 'react-router';
 import styles from './search.css';
 import { REDUCER_KEY } from '../../reducers';
 

@@ -1,51 +1,76 @@
+.teamIndicator {
+  opacity: .5;
+  height: 24px;
+  width: 7px;
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.dire {
+  composes: teamIndicator;
+  background-color: #CD5C5C;
+}
+
+.radiant {
+  composes: teamIndicator;
+  background-color: #66CD00;
+}
+
+.timing {
+  background: black;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
 .Header{
-	text-align: center;
-	display: block;
-	text-transform: uppercase;
-	margin-top: 0;
+  text-align: center;
+  display: block;
+  text-transform: uppercase;
+  margin-top: 0;
     margin-bottom: 30px;
 }
 
 .DireWin {
-	composes: Header;
-	color: #d5553a;
+  composes: Header;
+  color: #d5553a;
 }
 
 .RadiantWin {
-	composes: Header;
-	color: #a1db57;
+  composes: Header;
+  color: #a1db57;
 }
 
 .TableBackground {
-	background-color: #3e3e3e;
+  background-color: #3e3e3e;
 }
 
 .Table {
-	border: solid 1px #797979;
+  border: solid 1px #797979;
     border-collapse: collapse;
     float: right;
     font-size: 14px;
 }
 
 .TableCell {
-	composes: TableBackground;
-	padding: 7px 12px;
-	text-align: right;
+  composes: TableBackground;
+  padding: 7px 12px;
+  text-align: right;
 }
 
 .MatchActionWrapper {
-	float: left;
-	position: absolute;
-	bottom: 0;
-	background-color: #333;
+  float: left;
+  position: absolute;
+  bottom: 0;
+  background-color: #333;
     border: solid 1px #5f5f5f;
 }
 
 .HeaderInfoWrapper {
-	margin-bottom: 20px;
-	position:relative;
+  margin-bottom: 20px;
+  position:relative;
 }
 
 .Clear {
-	clear: both;
+  clear: both;
 }

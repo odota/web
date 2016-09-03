@@ -1,9 +1,9 @@
 import React from 'react';
+import { Card, CardActions } from 'material-ui/Card';
 import PlayerName from './PlayerName';
 import PlayerMMR from './PlayerMMR';
 import PlayerRecord from './PlayerRecord';
 import styles from './PlayerHeader.css';
-import { Card, CardActions } from 'material-ui/Card';
 
 export default ({ playerId }) => (
   <Card>

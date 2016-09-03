@@ -1,11 +1,11 @@
 import React from 'react';
-import Header from '../Header';
-import Footer from '../Footer';
+import { connect } from 'react-redux';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Header from '../Header';
+import Footer from '../Footer';
 import styles from './App.css';
-import { connect } from 'react-redux';
 import { REDUCER_KEY } from '../../reducers';
 
 const App = ({ children, open, params, location }) => (

@@ -1,9 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { requestSubmit, setMatchId } from '../../actions';
-import { connect } from 'react-redux';
 import { REDUCER_KEY } from '../../reducers';
 
 const Request = ({ error, matchId, loading, progress, dispatchRequest, dispatchMatchId }) => {
@@ -15,7 +15,7 @@ const Request = ({ error, matchId, loading, progress, dispatchRequest, dispatchM
     <CircularProgress value={progress} mode="determinate" /> :
     <CircularProgress value={progress} mode="indeterminate" />);
   return (
-    <div>
+    <div style={{ textAlign: 'center' }}>
       <h1>Request a Parse</h1>
       <TextField
         id="match_id"
@@ -24,8 +24,6 @@ const Request = ({ error, matchId, loading, progress, dispatchRequest, dispatchM
         value={matchId}
         onChange={(e) => dispatchMatchId(e.target.value)}
       />
-      <div>Only works for public matches with replay available in client</div>
-
       {loading ? progressIndicator : <RaisedButton label="Submit" onClick={submit} />}
     </div>
   );
