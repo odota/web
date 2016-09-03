@@ -151,10 +151,11 @@ for (let i = 0; i < 25; i++) {
           };
         }
         if (abilityData) {
-          return <img src={abilityKey === 'attribute_bonus' ? abilityData.img : `${API_HOST}${abilityData.img}`}
-            style={{ height: 35, position: 'relative', left: -10 }} 
-            role="presentation" 
-          />;
+          return (<img
+            src={abilityKey === 'attribute_bonus' ? abilityData.img : `${API_HOST}${abilityData.img}`}
+            style={{ height: 35, position: 'relative', left: -10 }}
+            role="presentation"
+          />);
         }
       }
       return null;
@@ -212,8 +213,8 @@ const overallColumns = [
     field: 'biggest_hit',
     width: 1,
     sortFn: true,
+    /*
     displayFn: (row, column, field) => {
-      /*
             td.nowrap
               - player.max_hero_hit = player.max_hero_hit || {}
               - var ability = constants.abilities[player.max_hero_hit.inflictor]
@@ -231,8 +232,8 @@ const overallColumns = [
                 span.img-text: img.img-md(src=hero.img, title=hero.localized_name)
               else
                 =player.max_hero_hit.key
-      */
-    }
+    },
+    */
   }];
 
 const laningColumns = [
@@ -278,7 +279,7 @@ const laningColumns = [
 // Combat
 // Gold/XP sources
 // Streaks
-  
+
 export {
   overviewColumns,
   abUpgradeColumns,

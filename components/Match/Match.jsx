@@ -97,7 +97,7 @@ class RequestLayer extends React.Component {
               </tr>)
             ) : <tr />}
           </tbody>
-        </table>        
+        </table>
       </div>
     );
   }
