@@ -263,8 +263,9 @@ const laningColumns = [
 
 // TODO party indicator
 // Lane map
-// skills (casts/hits/damage)
+// abilities (casts/hits/damage)
 // items (casts/hits/damage)
+// damage dealt/received
 // purchase counts
 // purchase times
 // Hero kill times

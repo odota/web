@@ -8,23 +8,12 @@ const navbarPages = [{
   name: 'Heroes',
   path: '/heroes',
 }, {
-  name: 'Status',
-  path: '/status',
-}, {
   name: 'Ingame',
   sponsored: true,
   path: '/become-the-gamer',
 }, {
   name: 'Blog',
   path: '//odota.github.io/blog',
-  external: true,
-}, {
-  name: 'API',
-  path: '//odota.github.io/api',
-  external: true,
-}, {
-  name: 'Code',
-  path: '//github.com/odota',
   external: true,
 }];
 

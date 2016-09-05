@@ -24,6 +24,7 @@ const MatchTable = createTable(
 
 const mapStateToProps = (state, { params }) => ({
   matchId: params.match_id,
+  //TODO transform the match with renderMatch function
   match: state[REDUCER_KEY].match.match,
   loading: state[REDUCER_KEY].match.loading,
 });
@@ -78,26 +79,27 @@ class RequestLayer extends React.Component {
         <MatchTable columns={benchmarksColumns(this.props.match)} />
         <MatchTable columns={overallColumns} />
         <MatchTable columns={laningColumns} />
-        <table>
-          <thead>
-            <tr>
-              <th>Ability</th>
-              <th>Casts</th>
-              <th>Hits</th>
-              <th>Damage</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.match.players[0] ? Object.keys(this.props.match.players[0].ability_uses).map(k =>
-              (<tr>
-                <td>{k}</td>
-                <td>{this.props.match.players[0].ability_uses[k]}</td>
-                <td>{this.props.match.players[0].hero_hits[k]}</td>
-                <td>{this.props.match.players[0].damage_inflictor[k]}</td>
-              </tr>)
-            ) : <tr />}
-          </tbody>
-        </table>
+        {this.props.match.players.length ? this.props.match.players.map(p =>
+          (<table>
+            <thead>
+              <tr>
+                <th>Ability</th>
+                <th>Casts</th>
+                <th>Hits</th>
+                <th>Damage</th>
+              </tr>
+            </thead>
+            <tbody>
+              {p.ability_uses && p.hero_hits && p.damage_inflictor ? Object.keys(p.ability_uses).map(k =>
+                (<tr>
+                  <td>{k}</td>
+                  <td>{p.ability_uses[k]}</td>
+                  <td>{p.hero_hits[k]}</td>
+                  <td>{p.damage_inflictor[k]}</td>
+                </tr>)) : <tr />}
+            </tbody>
+          </table>)) : <div />
+        }
       </div>
     );
   }
