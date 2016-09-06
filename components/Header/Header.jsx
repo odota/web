@@ -58,7 +58,7 @@ export default ({
           <strong>{APP_NAME}</strong>
         </Link>
       </ToolbarGroup>
-      <ToolbarGroup>
+      <ToolbarGroup className={styles.verticalAlign}>
         {navbarPages.map((page) => (
           <div key={page.name} className={styles.tabContainer}>
             {page.external ?
@@ -73,7 +73,7 @@ export default ({
           location={location}
         />
       </ToolbarGroup>
-      <ToolbarGroup style={{ marginLeft: 'auto' }}>
+      <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 'auto' }}>
         <AccountWidget />
       </ToolbarGroup>
     </Toolbar>

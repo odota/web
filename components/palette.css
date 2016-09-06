@@ -58,3 +58,9 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.verticalAlign {
+  display:flex;
+  align-items: center; /* Vertical center alignment */
+  justify-content: center; /* Horizontal center alignment */
+}
