@@ -5,20 +5,24 @@ import { green500 } from 'material-ui/styles/colors';
 import Error from '../Error';
 import Spinner from '../Spinner';
 import { player } from '../../reducers';
-// import styles from './PlayerHeader.css';
+import styles from './PlayerHeader.css';
+import palette from '../palette.css';
 
 export const PlayerRecord = ({ loading, error, wins, losses }) => {
   const getPlayerRecord = () => {
+
     if (error) return <Error />;
     if (loading) return <Spinner />;
     return (
       <div>
-        <span>
-          <SocialPoll color={green500} />
-          <span>{wins}</span>
-          <span> - </span>
-          <span>{losses}</span>
-          <span>{` (${((wins / (wins + losses)) * 100).toFixed(2)}%)`}</span>
+        <span className={styles.infoRow}>
+          <abbr title={"Win/Lose"}>
+            <SocialPoll color={green500} />
+          </abbr>
+          <span className={palette.textSuccess}>{wins}</span>
+          <span>/</span>
+          <span className={palette.textDanger}>{losses}</span>
+          <span>{` (${(wins / (wins + losses) * 100).toFixed(2)}%)`}</span>
         </span>
       </div>
     );
