@@ -261,23 +261,39 @@ const laningColumns = [
     sortFn: true,
   }];
 
+const purchaseColumns = [
+  heroTdColumn,
+  // TPs	Observers	Sentries	Smokes	Dusts	Gems	Rapiers	Buybacks
+];
+
+const actionsColumns = [];
+
+const purchaseTimesColumns = [];
+
+const chatColumns = [
+  heroTd,
+  { displayName: 'Time', field: 'time' },
+  { displayName: 'Message', field: 'key' },
+];
 // TODO party indicator
 // Lane map
 // abilities (casts/hits/damage)
 // items (casts/hits/damage)
 // damage dealt/received
+// kills for/against
 // purchase counts
 // purchase times
 // Hero kill times
 // Ward maps
 // Unit kills
 // Last Hits
-// Graphs
-// Stuns/Dead/biggest hit
+// Graphs (radiant adv/gold/xp/lh)
+// objective log
+// runes
 // Teamfights
 // Chat
 // Analysis
-// Combat
+// multikills/killstreaks
 // Gold/XP sources
 // Streaks
 
@@ -287,4 +303,8 @@ export {
   benchmarksColumns,
   overallColumns,
   laningColumns,
+  chatColumns,
+  purchaseColumns,
+  purchaseTimesColumns,
+  actionsColumns,
 };
