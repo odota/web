@@ -56,13 +56,16 @@ export const getPlayerCounts = (playerId, options = {}, host = API_HOST) => (dis
       const data = {};
       Object.keys(json).forEach(key => {
         // We need to map each inner object to something we can understand
-        data[key] = Object.keys(json[key])
+        data[key] = {
+          name: key,
+          list: Object.keys(json[key])
           .filter(innerKey => constants[key][innerKey])
           .map(innerKey => ({
             category: constants[key][innerKey].name || constants[key][innerKey],
             matches: json[key][innerKey].games,
             winPercent: json[key][innerKey].win / json[key][innerKey].games,
-          }));
+          })),
+        };
       });
       return data;
     })

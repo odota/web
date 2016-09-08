@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createTables, TableContainer } from '../../Table';
+import { createTables } from '../../Table';
 import {
   getPlayerCounts,
   setPlayerCountsSort,
@@ -13,12 +13,13 @@ import {
 import { playerCounts } from '../../../reducers';
 import { TableFilterForm } from '../../Form';
 
-const Overview = ({ playerId, tables }) => (
+const Counts = ({ playerId, tables }) => (
   <div>
     <TableFilterForm submitAction={getPlayerCounts} id={playerId} page="counts" />
-    <TableContainer title="Counts Played">
-      {tables.map((Table, id) => <Table columns={playerCountsColumns} id={playerId} key={id} />)}
-    </TableContainer>
+    {console.log('here i am')}
+    {tables.map((Table, id) => (
+      <Table key={id} />
+    ))}
   </div>
 );
 
@@ -38,13 +39,16 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    return <Overview {...this.props} />;
+    return <Counts {...this.props} />;
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   tables: createTables(
     playerCounts.getPlayerCountsById(state, ownProps.playerId),
+    playerCountsColumns,
+    ownProps.playerId
+  )(
     playerCounts,
     // (state, sortState, playerId) => playerCounts.getPlayerCountsById(state, playerId),
     listName => (state, sortState, playerId) => (sortState ?
