@@ -58,3 +58,19 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.cheese {
+  font-family: Flaticon;
+  font-size: 40px;
+  text-shadow: 0 0 10px #ff0;
+  margin: 0 10px;
+
+  &::before {
+    content: "\E000";
+  }
+
+  &Inline {
+    font-size: 16px !important;
+    margin: 5px 5px 5px 0;
+  }
+}
