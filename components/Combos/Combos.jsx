@@ -47,8 +47,8 @@ class Combos extends React.Component
   body: JSON.stringify({
     sql: `
     select
-    ${[1,2,3,4,5].map(i => i <= this.state.team_size ? `pm${i}.hero_id team${i},` : '').join('')}
-    ${[1,2,3,4,5].map(i => i <= this.state.oppo_size ? `opm${i}.hero_id opp${i},` : '').join('')}
+    ${[1,2,3,4,5].map(i => `${i <= this.state.team_size ? `pm${i}.hero_id` : `''`} team${i},`).join('')}
+    ${[1,2,3,4,5].map(i => `${i <= this.state.oppo_size ? `opm${i}.hero_id` : `''`} opp${i},`).join('')}
     count(*), 
     sum(case when ((pm1.player_slot < 128) = m.radiant_win) then 1 else 0 end)::float / count(*) as win
     from player_matches pm1
@@ -69,9 +69,8 @@ class Combos extends React.Component
     ON pm1.match_id = m.match_id
     WHERE pm1.hero_id = ${this.state.hero_id}
     GROUP BY
-    ${[1,2,3,4,5].map(i => i <= this.state.team_size ? `team${i}` : '')
-    .concat([1,2,3,4,5].map(i => i <= this.state.oppo_size ? `opp${i}` : ''))
-    .filter(e => e)
+    ${[1,2,3,4,5].map(i => `team${i}`)
+    .concat([1,2,3,4,5].map(i => `opp${i}`))
     .join()}
     HAVING count(*) > 5
     ORDER BY win DESC
