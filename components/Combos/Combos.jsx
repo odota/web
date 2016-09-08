@@ -47,66 +47,35 @@ class Combos extends React.Component
   body: JSON.stringify({
     sql: `
     select
-    ${[1,2,3,4,5].map(i => `${i <= this.state.team_size ? `pm${i}.hero_id` : `''`} team${i},`).join('')}
-    ${[1,2,3,4,5].map(i => `${i <= this.state.oppo_size ? `pm${i+5}.hero_id` : `''`} opp${i},`).join('')}
+    ${[1,2,3,4,5].map(i => i <= this.state.team_size ? `pm${i}.hero_id team${i},` : '').join('')}
+    ${[1,2,3,4,5].map(i => i <= this.state.oppo_size ? `opm${i}.hero_id opp${i},` : '').join('')}
     count(*), 
     sum(case when ((pm1.player_slot < 128) = m.radiant_win) then 1 else 0 end)::float / count(*) as win
     from player_matches pm1
-    join player_matches pm2
-    ON pm1.match_id = pm2.match_id 
-    AND (pm1.player_slot < 128) = (pm2.player_slot < 128)
-    AND pm2.hero_id != pm1.hero_id
-    join player_matches pm3
-    ON pm1.match_id = pm3.match_id 
-    AND (pm1.player_slot < 128) = (pm3.player_slot < 128)
-    AND pm3.hero_id > pm2.hero_id
-    AND pm3.hero_id != pm1.hero_id
-    join player_matches pm4
-    ON pm1.match_id = pm4.match_id
-    AND (pm1.player_slot < 128) = (pm4.player_slot < 128)
-    AND pm4.hero_id > pm3.hero_id
-    AND pm4.hero_id != pm1.hero_id
-    join player_matches pm5
-    ON pm1.match_id = pm5.match_id 
-    AND (pm1.player_slot < 128) = (pm5.player_slot < 128)
-    AND pm5.hero_id > pm4.hero_id
-    AND pm5.hero_id != pm1.hero_id
-    join player_matches pm6
-    ON pm1.match_id = pm6.match_id 
-    AND (pm1.player_slot < 128) != (pm6.player_slot < 128)
-    join player_matches pm7
-    ON pm1.match_id = pm7.match_id 
-    AND (pm1.player_slot < 128) != (pm7.player_slot < 128)
-    AND pm7.hero_id > pm6.hero_id
-    join player_matches pm8
-    ON pm1.match_id = pm8.match_id 
-    AND (pm1.player_slot < 128) != (pm8.player_slot < 128)
-    AND pm8.hero_id > pm7.hero_id
-    join player_matches pm9
-    ON pm1.match_id = pm9.match_id 
-    AND (pm1.player_slot < 128) != (pm9.player_slot < 128)
-    AND pm9.hero_id > pm8.hero_id
-    join player_matches pm10
-    ON pm1.match_id = pm10.match_id 
-    AND (pm1.player_slot < 128) != (pm10.player_slot < 128)
-    AND pm10.hero_id > pm9.hero_id
+    ${[2,3,4,5].map(i => i <= this.state.team_size ? `
+    JOIN player_matches pm${i} 
+    ON pm1.match_id = pm${i}.match_id 
+    AND (pm1.player_slot < 128) = (pm${i}.player_slot < 128)
+    AND pm1.hero_id != pm${i}.hero_id
+    ${i >= 3 ? `AND pm${i}.hero_id > pm${i-1}.hero_id` : ''}
+    ` : '').join('')}
+    ${[1,2,3,4,5].map(i => i <= this.state.oppo_size ? `
+    JOIN player_matches opm${i} 
+    ON pm1.match_id = opm${i}.match_id 
+    AND (pm1.player_slot < 128) != (opm${i}.player_slot < 128)
+    ${i >= 2 ? `AND opm${i}.hero_id > opm${i-1}.hero_id` : ''}
+    ` : '').join('')}
     JOIN matches m
     ON pm1.match_id = m.match_id
     WHERE pm1.hero_id = ${this.state.hero_id}
-    GROUP BY 
-    team1, 
-    team2, 
-    team3, 
-    team4, 
-    team5, 
-    opp1,
-    opp2,
-    opp3,
-    opp4,
-    opp5
+    GROUP BY
+    ${[1,2,3,4,5].map(i => i <= this.state.team_size ? `team${i}` : '')
+    .concat([1,2,3,4,5].map(i => i <= this.state.oppo_size ? `opp${i}` : ''))
+    .filter(e => e)
+    .join()}
     HAVING count(*) > 5
     ORDER BY win DESC
-    LIMIT 100
+    LIMIT 1000
     `,
   }),
 }).then(resp => resp.json()).then((json) => this.setState(Object.assign({}, this.state, {
@@ -147,8 +116,8 @@ class Combos extends React.Component
             {this.state.result.result ?
             this.state.result.result.rows.map(r => (
             <TableRow>
-              {Object.keys(r).map((k, i) => <TableRowColumn>{i < 10 && constants.heroes[r[k]] ?
-              <img src={`${API_HOST}${constants.heroes[r[k]].img}`} style={{width: '50px'}} /> : r[k]}</TableRowColumn>)}
+              {Object.keys(r).map((k, i) => <TableRowColumn>{(k.indexOf('team') === 0 || k.indexOf('opp') === 0) && constants.heroes[r[k]] ?
+              <img src={`${API_HOST}${constants.heroes[r[k]].img}`} style={{width: '50px'}} title={r[k]} /> : r[k]}</TableRowColumn>)}
             </TableRow>)) : <div />
             }
           </TableBody>
