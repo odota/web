@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import gotMetadata from './gotMetadata';
 import gotConstants from './gotConstants';
-import gotMatch from './gotMatch';
+import match from './match';
 import gotRanking, { ranking } from './gotRanking';
 import gotBenchmark, { benchmark } from './gotBenchmark';
 import heroes from './heroes';
@@ -43,7 +43,7 @@ export {
 export default combineReducers({
   gotMetadata,
   gotPlayer,
-  gotMatch,
+  match,
   gotConstants,
   gotRanking,
   gotBenchmark,
