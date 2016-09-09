@@ -12,9 +12,9 @@ const Distributions = ({ data }) => (
       <Tab key={key} label={key}>
         {(key === 'mmr') ?
           <div id="mmr" /> :
-            <pre style={{ whiteSpace: 'pre-wrap' }}>
-              {JSON.stringify(data[key], null, 2)}
-            </pre>}
+          <pre style={{ whiteSpace: 'pre-wrap' }}>
+            {JSON.stringify(data[key], null, 2)}
+          </pre>}
       </Tab>))
     }
   </Tabs>
