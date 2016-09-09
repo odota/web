@@ -14,7 +14,7 @@ import styles from './AccountWidget.css';
 const LoggedIn = ({ loading, error, playerId, playerName, playerPicture }) => {
   const getPlayerWidget = () => {
     if (error) return <Error />;
-    if (loading) return <Spinner />;
+    if (loading) return <Spinner color='#fff' size={.5} />;
 
     return (
       <div className={styles.verticalAlign}>
@@ -22,6 +22,13 @@ const LoggedIn = ({ loading, error, playerId, playerName, playerPicture }) => {
           <FlatButton
             label={playerName}
             labelPosition="before"
+            labelStyle={{
+              display: 'inline-block',
+              maxWidth: '150px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap'
+            }}
             hoverColor="#1976D2"
             icon={<Avatar src={playerPicture} size={30} />}
           />
