@@ -4,6 +4,7 @@ import constants from 'dotaconstants';
 import { API_HOST } from '../';
 import { playerCounts } from '../../reducers';
 import { getUrl } from '../utility';
+import { getPercentWin } from '../../utility';
 
 const url = playerId => `/api/players/${playerId}/counts`;
 
@@ -63,7 +64,7 @@ export const getPlayerCounts = (playerId, options = {}, host = API_HOST) => (dis
           .map(innerKey => ({
             category: constants[key][innerKey].name || constants[key][innerKey],
             matches: json[key][innerKey].games,
-            winPercent: json[key][innerKey].win / json[key][innerKey].games,
+            winPercent: getPercentWin(json[key][innerKey].win, json[key][innerKey].games),
           })),
         };
       });

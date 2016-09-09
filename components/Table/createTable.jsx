@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Table from './Table';
 import TableContainer from './TableContainer';
 import withPagination from './PaginatedTable';
+import { deSnake } from '../../utility';
 
 const createTable = (getStateFn, getData, sortAction) => {
   const mapStateToProps = (state, ownProps) => {
@@ -57,7 +58,7 @@ export const createTables = (tablesObject, columns, id) =>
         (field, sortState, sortFn, id) => sortAction(key)(field, sortState, sortFn, id)
       );
       return (
-        <TableContainer title={tablesObject.data[key].name}>
+        <TableContainer title={deSnake(tablesObject.data[key].name)}>
           <Table columns={columns} id={id} />
         </TableContainer>
       );

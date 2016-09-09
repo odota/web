@@ -1,25 +1,27 @@
 // import React from 'react';
 // import { PercentContainer } from '../../ColumnComponents';
 // import { API_HOST } from '../../../yasp.config';
+import React from 'react';
+import PercentContainer from '../../PercentContainer';
 import { transformations } from '../../../utility';
 
 export default [{
-  displayName: 'Hero',
+  displayName: 'Category',
   field: 'category',
   width: 2,
   displayFn: transformations.category,
 }, {
-  displayName: 'Last',
+  displayName: 'Matches',
   field: 'matches',
   width: 2,
   sortFn: 1,
   displayFn: transformations.matches,
 }, {
-  displayName: 'Last',
+  displayName: 'Win %',
   field: 'winPercent',
   width: 2,
   sortFn: 1,
-  displayFn: transformations.winPercent,
+  displayFn: (row, column, field) => <PercentContainer percent={field.toFixed(1)} />,
 }];
 
   // displayName: 'Win %',

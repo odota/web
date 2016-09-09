@@ -70,6 +70,7 @@ export const transformations = {
   lane_role: (row, col, field) => (constants.lane_role[field] ? constants.lane_role[field].name : field),
   region: (row, col, field) => (constants.region[field] ? constants.region[field].name : field),
   patch: (row, col, field) => (constants.patch[field] ? constants.patch[field].name : field),
+  winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */
@@ -100,4 +101,6 @@ export const defaultSort = (array, sortState, sortField, sortFn) =>
     return sortState === 'desc' ? desc : asc;
   });
 
-export const prettyPrint = (row, col, field) => (field.replace(/_(.)/g, ' $1').toUpperCase());
+export const deSnake = str => str.replace(/_(.)/g, ' $1').toUpperCase();
+
+export const prettyPrint = (row, col, field) => deSnake(field);

@@ -12,14 +12,18 @@ import {
 } from '../../../selectors';
 import { playerCounts } from '../../../reducers';
 import { TableFilterForm } from '../../Form';
+import styles from './Counts.css';
 
 const Counts = ({ playerId, tables }) => (
   <div>
     <TableFilterForm submitAction={getPlayerCounts} id={playerId} page="counts" />
-    {console.log('here i am')}
-    {tables.map((Table, id) => (
-      <Table key={id} />
-    ))}
+    <div className={styles.countsContainer}>
+      {tables.map((Table, index) => (
+        <div key={index} className={index % 2 === 0 ? styles.countTableLeft : styles.countTableRight}>
+          {Table}
+        </div>
+      ))}
+    </div>
   </div>
 );
 
