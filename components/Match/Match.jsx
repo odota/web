@@ -24,7 +24,7 @@ const MatchTable = createTable(
 
 const mapStateToProps = (state, { params }) => ({
   matchId: params.match_id,
-  //TODO transform the match with renderMatch function
+  // TODO transform the match with renderMatch function
   match: state[REDUCER_KEY].match.match,
   loading: state[REDUCER_KEY].match.loading,
 });
