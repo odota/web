@@ -19,7 +19,7 @@ const PlayerHeroesTable = createTable(
   setPlayerHeroesSort
 );
 
-const Overview = ({ playerId }) => (
+const Heroes = ({ playerId }) => (
   <div>
     <TableFilterForm submitAction={getPlayerHeroes} id={playerId} page="heroes" />
     <TableContainer title="Heroes Played">
@@ -44,7 +44,7 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    return <Overview ref={this} {...this.props} />;
+    return <Heroes {...this.props} />;
   }
 }
 

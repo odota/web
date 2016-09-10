@@ -77,9 +77,7 @@ const config = {
 };
 if (!isProd) {
   config.plugins.push(new DashboardPlugin());
-}
-if (isProd)
-{
+} else {
   config.plugins.push(new webpack.LoaderOptionsPlugin(
   {
     minimize: true,
