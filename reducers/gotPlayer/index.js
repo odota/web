@@ -5,6 +5,7 @@ import peers, { getPlayerPeers } from './peers';
 import heroes, { getPlayerHeroes } from './heroes';
 import winloss, { getWinLoss } from './winloss';
 import records, { getPlayerRecords } from './records';
+import counts, { getPlayerCounts } from './counts';
 
 export default combineReducers({
   playerReducer,
@@ -13,6 +14,7 @@ export default combineReducers({
   winloss,
   peers,
   records,
+  counts,
 });
 
 const player = {
@@ -26,4 +28,5 @@ export {
   getPlayerPeers as playerPeers,
   getPlayerHeroes as playerHeroes,
   getPlayerRecords as playerRecords,
+  getPlayerCounts as playerCounts,
 };
