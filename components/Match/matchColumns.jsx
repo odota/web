@@ -271,13 +271,12 @@ const actionsColumns = [];
 const purchaseTimesColumns = [];
 
 const chatColumns = [
-  heroTd,
+  heroTdColumn,
   { displayName: 'Time', field: 'time' },
   { displayName: 'Message', field: 'key' },
 ];
 // TODO party indicator
 // Lane map
-// abilities (casts/hits/damage)
 // items (casts/hits/damage)
 // damage dealt/received
 // kills for/against
@@ -291,11 +290,9 @@ const chatColumns = [
 // objective log
 // runes
 // Teamfights
-// Chat
 // Analysis
-// multikills/killstreaks
+// longest multikills/killstreaks
 // Gold/XP sources
-// Streaks
 
 export {
   overviewColumns,
