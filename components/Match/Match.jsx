@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 // import { Card } from 'material-ui/Card';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import RaisedButton from 'material-ui/RaisedButton';
-import { createTable, Table } from '../Table';
+import { createTable } from '../Table';
+import Table from '../Table/Table';
 import { getMatch, setMatchSort } from '../../actions';
 import {
   overviewColumns,
@@ -18,7 +19,8 @@ import { sortMatch, transformMatch } from '../../selectors';
 import BuildingMap from '../BuildingMap/BuildingMap';
 import { REDUCER_KEY } from '../../reducers';
 import { API_HOST } from '../../config';
-import renderMatch from './renderMatch';
+import { renderMatch } from './renderMatch';
+console.log(renderMatch);
 
 const match = (state) => state[REDUCER_KEY].match.match;
 const MatchTable = createTable(

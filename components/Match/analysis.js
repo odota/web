@@ -335,7 +335,7 @@ function generatePlayerAnalysis(match, pm)
     return (constants.items[key].desc.indexOf('Active: ') > -1 && !(key in whitelist));
   }
 }
-export default
+export
   {
     generatePlayerAnalysis,
   };
