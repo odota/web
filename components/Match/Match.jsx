@@ -20,7 +20,6 @@ import BuildingMap from '../BuildingMap/BuildingMap';
 import { REDUCER_KEY } from '../../reducers';
 import { API_HOST } from '../../config';
 import { renderMatch } from './renderMatch';
-console.log(renderMatch);
 
 const match = (state) => state[REDUCER_KEY].match.match;
 const MatchTable = createTable(
