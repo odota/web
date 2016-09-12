@@ -19,7 +19,7 @@ const Counts = ({ playerId, tables }) => (
     <TableFilterForm submitAction={getPlayerCounts} id={playerId} page="counts" />
     <div className={styles.countsContainer}>
       {tables.map((Table, index) => (
-        <div key={index} className={index % 2 === 0 ? styles.countTableLeft : styles.countTableRight}>
+        <div key={index} className={styles.countTable}>
           {Table}
         </div>
       ))}
