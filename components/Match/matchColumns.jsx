@@ -249,22 +249,73 @@ const laningColumns = [
     field: 'lane_efficiency',
     width: 1,
     sortFn: true,
+    displayFn: (row, col, field) => field.toFixed(2),
   }, {
     displayName: 'LH@10',
     field: 'lh_t',
     width: 1,
     sortFn: true,
+    displayFn: (row, col, field) => field ? field[10] : '',
   }, {
     displayName: 'DN@10',
     field: 'dn_t',
     width: 1,
     sortFn: true,
+    displayFn: (row, col, field) => field ? field[10] : '',
   }];
 
 const purchaseColumns = [
   heroTdColumn,
-  // TPs	Observers	Sentries	Smokes	Dusts	Gems	Rapiers	Buybacks
-];
+  {
+    displayName: 'TP',
+    tooltip: 'Town Portal Scrolls purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => field ? field.tpscroll : '',
+  }, {
+    displayName: 'Observers',
+    tooltip: 'Observer wards purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => field ? field.ward_observer : '',
+  }, {
+    displayName: 'Sentries',
+    tooltip: 'Sentry wards purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => field ? field.ward_sentry : '',
+  }, {
+    displayName: 'Smokes',
+    tooltip: 'Smokes of Deceit purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => field ? field.smoke_of_deceit : '',
+  }, {
+    displayName: 'Dusts',
+    tooltip: 'Dusts of Appearance purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => field ? field.dust : '',
+  }, {
+    displayName: 'Gems',
+    tooltip: 'Gems of True Sight purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => field ? field.gem : '',
+  }, {
+    displayName: 'Rapiers',
+    tooltip: 'Divine Rapiers purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => field ? field.rapier : '',
+  }];
 
 const actionsColumns = [];
 
@@ -280,7 +331,6 @@ const chatColumns = [
 // items (casts/hits/damage)
 // damage dealt/received
 // kills for/against
-// purchase counts
 // purchase times
 // Hero kill times
 // Ward maps

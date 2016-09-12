@@ -14,6 +14,7 @@ import {
   overallColumns,
   laningColumns,
   chatColumns,
+  purchaseColumns,
 } from './matchColumns.jsx';
 import { sortMatch, transformMatch } from '../../selectors';
 import BuildingMap from '../BuildingMap/BuildingMap';
@@ -84,6 +85,7 @@ class RequestLayer extends React.Component {
         <MatchTable columns={benchmarksColumns(this.props.match)} />
         <MatchTable columns={overallColumns} />
         <MatchTable columns={laningColumns} />
+        <MatchTable columns={purchaseColumns} />
         <Tabs>
         {this.props.match.players.map(p =>
           (
