@@ -82,3 +82,10 @@
     width: 100%;
   }
 }
+
+.steamLink {
+  opacity: .6;
+}
+.steamLink:hover {
+  opacity: .9;
+}
