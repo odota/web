@@ -249,19 +249,19 @@ const laningColumns = [
     field: 'lane_efficiency',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, field) => field.toFixed(2),
+    displayFn: (row, col, field) => (field ? field.toFixed(2) : ''),
   }, {
     displayName: 'LH@10',
     field: 'lh_t',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, field) => field ? field[10] : '',
+    displayFn: (row, col, field) => (field ? field[10] : ''),
   }, {
     displayName: 'DN@10',
     field: 'dn_t',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, field) => field ? field[10] : '',
+    displayFn: (row, col, field) => (field ? field[10] : ''),
   }];
 
 const purchaseColumns = [
@@ -272,49 +272,49 @@ const purchaseColumns = [
     field: 'purchase',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, field) => field ? field.tpscroll : '',
+    displayFn: (row, col, { tpscroll }) => tpscroll,
   }, {
     displayName: 'Observers',
     tooltip: 'Observer wards purchased',
     field: 'purchase',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, field) => field ? field.ward_observer : '',
+    displayFn: (row, col, field) => (field ? field.ward_observer : ''),
   }, {
     displayName: 'Sentries',
     tooltip: 'Sentry wards purchased',
     field: 'purchase',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, field) => field ? field.ward_sentry : '',
+    displayFn: (row, col, field) => (field ? field.ward_sentry : ''),
   }, {
     displayName: 'Smokes',
     tooltip: 'Smokes of Deceit purchased',
     field: 'purchase',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, field) => field ? field.smoke_of_deceit : '',
+    displayFn: (row, col, field) => (field ? field.smoke_of_deceit : ''),
   }, {
     displayName: 'Dusts',
     tooltip: 'Dusts of Appearance purchased',
     field: 'purchase',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, field) => field ? field.dust : '',
+    displayFn: (row, col, { dust }) => dust,
   }, {
     displayName: 'Gems',
     tooltip: 'Gems of True Sight purchased',
     field: 'purchase',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, field) => field ? field.gem : '',
+    displayFn: (row, col, { gem }) => gem,
   }, {
     displayName: 'Rapiers',
     tooltip: 'Divine Rapiers purchased',
     field: 'purchase',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, field) => field ? field.rapier : '',
+    displayFn: (row, col, { rapier }) => rapier,
   }];
 
 const actionsColumns = [];
