@@ -1,28 +1,16 @@
 .countTable {
   width: 50%;
   box-sizing: border-box;
+  padding: 15px;
   @media (max-width: 960px) {
     width: 100%;
   }
 }
 
-.countTableLeft {
-  composes: countTable;
-  @media (min-width: 961px) {
-    padding-right: 10px;
-  }
-}
-
-.countTableRight {
-  composes: countTable;
-  @media (min-width: 961px) {
-    padding-left: 10px;
-  }
-}
-
 .countsContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   height: 100vw;
+  margin: 0 -15px;
 }
