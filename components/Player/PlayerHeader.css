@@ -29,7 +29,6 @@
 }
   /*
 .playerPicture {
-
   border-radius: 100px;
   height: 40px;
   display: flex;
@@ -42,13 +41,12 @@
     }
   }
 }
-
 .playerPictureCheese {
   composes: playerPicture;
   border: 5px solid #FFD700
 }
   */
-  
+
 .appBadge {
   composes: image;
 }
@@ -81,4 +79,39 @@
     align-items: center;
     width: 100%;
   }
+}
+
+/*
+  This styles looks like a little hardcoded. I don't think this is a trouble,
+  because postcss already apply encapsulation.
+  So all but the 'global' styles are hardcoded at some kind.
+*/
+.infoRow {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 5px 5px;
+
+  & > abbr {
+    margin-right: 2px;
+  }
+
+  & > span:not(:last-child){
+    margin-right: 6px;
+  }
+}
+
+.playerTitle {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* no way to override icon size, because it set as inline styles.
+  Actually it's possible to set style property of icon, but i don't know how to
+  get this css class as object in Jsx script.*/
+.playerRegistredIcon {
+  width: 22px !important;
+  height: 22px !important;
+  margin-left: 2px;
+  vertical-align: bottom;
 }

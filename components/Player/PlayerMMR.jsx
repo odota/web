@@ -15,7 +15,7 @@ export const PlayerMMR = ({ loading, error, rank, soloRank, mmrEstimate }) => {
     if (loading) return <Spinner />;
     return (
       <div>
-        <span>
+        <span className={styles.infoRow}>
           <abbr title={"Solo MMR"}>
             <SocialPerson color={blue500} />
           </abbr>
@@ -35,14 +35,12 @@ This is an estimate of the mean MMR of this player's recent matches.`}
       </div>
     );
   };
-
   return (
     <div className={styles.mmrContainer}>
       {getPlayerMMR()}
     </div>
   );
 };
-
 const mapStateToProps = (state, ownProps) => ({
   loading: player.getLoading(state, ownProps.playerId),
   error: player.getError(state, ownProps.playerId),
@@ -50,6 +48,5 @@ const mapStateToProps = (state, ownProps) => ({
   soloRank: player.getSoloMmrEstimate(state, ownProps.playerId),
   mmrEstimate: player.getMmrEstimate(state, ownProps.playerId),
 });
-
 
 export default connect(mapStateToProps)(PlayerMMR);
