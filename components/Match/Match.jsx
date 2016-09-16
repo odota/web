@@ -1,8 +1,11 @@
 import React from 'react';
+import constants from 'dotaconstants';
 import { connect } from 'react-redux';
 // import { Card } from 'material-ui/Card';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import RaisedButton from 'material-ui/RaisedButton';
 import { createTable } from '../Table';
+import Table from '../Table/Table';
 import { getMatch, setMatchSort } from '../../actions';
 import {
   overviewColumns,
@@ -10,10 +13,14 @@ import {
   benchmarksColumns,
   overallColumns,
   laningColumns,
+  chatColumns,
+  purchaseColumns,
 } from './matchColumns.jsx';
 import { sortMatch, transformMatch } from '../../selectors';
 import BuildingMap from '../BuildingMap/BuildingMap';
 import { REDUCER_KEY } from '../../reducers';
+import { API_HOST } from '../../config';
+import { renderMatch } from './renderMatch';
 
 const match = (state) => state[REDUCER_KEY].match.match;
 const MatchTable = createTable(
@@ -24,8 +31,7 @@ const MatchTable = createTable(
 
 const mapStateToProps = (state, { params }) => ({
   matchId: params.match_id,
-  // TODO transform the match with renderMatch function
-  match: state[REDUCER_KEY].match.match,
+  match: renderMatch(state[REDUCER_KEY].match.match),
   loading: state[REDUCER_KEY].match.loading,
 });
 
@@ -79,27 +85,28 @@ class RequestLayer extends React.Component {
         <MatchTable columns={benchmarksColumns(this.props.match)} />
         <MatchTable columns={overallColumns} />
         <MatchTable columns={laningColumns} />
-        {this.props.match.players.length ? this.props.match.players.map(p =>
-          (<table>
-            <thead>
-              <tr>
-                <th>Ability</th>
-                <th>Casts</th>
-                <th>Hits</th>
-                <th>Damage</th>
-              </tr>
-            </thead>
-            <tbody>
-              {p.ability_uses && p.hero_hits && p.damage_inflictor ? Object.keys(p.ability_uses).map(k =>
-                (<tr>
-                  <td>{k}</td>
-                  <td>{p.ability_uses[k]}</td>
-                  <td>{p.hero_hits[k]}</td>
-                  <td>{p.damage_inflictor[k]}</td>
-                </tr>)) : <tr />}
-            </tbody>
-          </table>)) : <div />
+        <MatchTable columns={purchaseColumns} />
+        <Tabs>
+        {this.props.match.players.map(p =>
+          (
+          <Tab icon={<img src={`${API_HOST}${constants.heroes[p.hero_id].img}`} width={30} role="presentation" />}>
+            <Table
+              data={Object.keys(p.ability_uses || {}).map(k => ({
+                name: k,
+                casts: (p.ability_uses || {})[k],
+                hero_hits: (p.hero_hits || {})[k],
+                damage_inflictor: (p.damage_inflictor || {})[k],
+              }))}
+              columns={[{ displayName: 'Ability', field: 'name' },
+            { displayName: 'Casts', field: 'casts', sortFn: true },
+            { displayName: 'Hits', field: 'hero_hits', sortFn: true },
+            { displayName: 'Damage', field: 'damage_inflictor', sortFn: true }]}
+            />
+          </Tab>
+          ))
         }
+        </Tabs>
+        <Table data={this.props.match.chat.map(c => Object.assign({}, c, this.props.match.players[c.slot]))} columns={chatColumns} />
       </div>
     );
   }
