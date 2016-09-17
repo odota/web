@@ -42,7 +42,7 @@
 }
 
 .ActionButton {
-  padding: 10px 7px;
+  padding: 10px 14px;
   border: solid 1px rgb(58, 58, 58);
   text-transform: uppercase;
   margin-right: 10px;
@@ -61,7 +61,7 @@
 .JistTvImg {
   position: absolute;
   top: 7px;
-  left: 119px;
+  right: 5px;
   height: 20px;
 }
 .JistTvText {
@@ -69,7 +69,7 @@
 }
 .DotaCoachImg {
   position: absolute;
-  left: 103px;
+  right: 5px;
   top: 7px;
   height: 20px;
 }
