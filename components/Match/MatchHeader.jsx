@@ -25,7 +25,7 @@ const JistTvButton = ({ replayUrl }) => (
     <span className={matchStyle.JistTvText}>Get Video with</span>
     <img
       className={matchStyle.JistTvImg}
-      src="https://www.opendota.com/public/images/jist-white-logo.png"
+      src="/assets/jist-white-logo.png"
       alt="Jist.tv"
     />
   </a>
@@ -41,7 +41,7 @@ const DotaCoachButton = ({ matchId, playerMmr, steamId }) => (
     <span className={matchStyle.DotaCoachText}>Ask a coach</span>
     <img
       className={matchStyle.DotaCoachImg}
-      src="https://www.opendota.com/public/images/dotacoach-32x24.png"
+      src="/assets/dotacoach-32x24.png"
       alt="Dotacoach.org"
     />
   </a>
@@ -66,11 +66,11 @@ const MatchActions = ({ match, user }) => {
   let steamId = '';
   let playerMmr = '';
 
-  if (typeof(user) === 'object' && 'steam_id' in user) {
+  if (user && user.steam_id) {
     steamId = user.steam_id;
   }
 
-  if (typeof(user) === 'object' && 'player_mmr' in user) {
+  if (user && user.player_mmr) {
     playerMmr = user.player_mmr;
   }
 
@@ -90,7 +90,7 @@ const MatchMetadata = ({ match }) => (
       <tr>
         <th className={matchStyle.TableCell}>Match ID</th>
         <th className={matchStyle.TableCell}>Mode</th>
-        <th className={matchStyle.TableCell}>Bracket</th>
+        <th className={matchStyle.TableCell}>Skill</th>
         <th className={matchStyle.TableCell}>Region</th>
         <th className={matchStyle.TableCell}>Duration</th>
         <th className={matchStyle.TableCell}>Ended</th>
