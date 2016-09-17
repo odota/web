@@ -94,8 +94,9 @@
 .oreviewTTIcon {
   display: block;
   margin-top: -3px !important;
-  margin-left: -1px !important;
   cursor: default;
+  width: 16px !important;
+  height: 16px !important;
 }
 
 .icon {
@@ -104,8 +105,55 @@
 .icon:hover {
   opacity: .9;
 }
-.icon button {
-  height: 16px !important;
-  width: 16px !important;
+
+.playerStats {
+  display: inline-block;
   padding: 0 !important;
+  margin-right: 25px;
+  margin-top: 20px;
+}
+.playerStats span:last-child {
+  font-size: 24px !important;
+  color: rgba(255, 255, 255, 0.87) !important;
+  line-height: 36px !important;
+}
+.playerStats span:first-child {
+  font-size: 14px !important;
+  color: rgba(255, 255, 255, 0.54) !important;
+  line-height: 1 !important;
+  text-transform: uppercase;
+}
+
+.mmrEstimateIcon {
+  width: 16px !important;
+  height: 16px !important;
+  margin-left: 4px;
+  position: absolute;
+  margin-top: -14px;
+}
+
+.playerBadges {
+  font-size: 14px;
+  line-height: 1;
+  display: inline-block;
+}
+.playerBadges > div {
+  display: inline-block;
+  margin-left: 10px;
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+.playerBadges > div:first-child {
+  text-align: center;
+}
+.playerBadges > div:last-child div > span {
+  font-size: 18px !important;
+  margin-top: 8px;
+  left: -6px;
+  position: absolute !important;
+}
+.playerBadges svg {
+  position: absolute;
+  top: 4px;
 }

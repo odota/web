@@ -2,71 +2,82 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { CardTitle } from 'material-ui/Card';
 import { red400, lightGreen400 } from 'material-ui/styles/colors';
+import ActionHelp from 'material-ui/svg-icons/action/help';
+import ReactTooltip from 'react-tooltip';
 import Error from '../Error';
 import Spinner from '../Spinner';
 import { player } from '../../reducers';
 import styles from './PlayerHeader.css';
 
-export const PlayerMMR = ({ loading, error, partyRank, soloRank, mmrEstimate, wins, losses }) => {
-  const getPlayerMMR = () => {
+export const PlayerStats = ({ loading, error, partyRank, soloRank, mmrEstimate, wins, losses }) => {
+  const getPlayerStats = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;
-
-    const card = {
-      general: {
-        display: 'inline-block',
-        padding: 0,
-        marginRight: '25px',
-        marginTop: '20px',
-      },
-      title: {
-        fontSize: '24px',
-        color: 'rgba(255, 255, 255, 0.87)',
-        lineHeight: '36px',
-      },
-      subtitle: {
-        fontSize: '14px',
-        color: 'rgba(255, 255, 255, 0.54)',
-        lineHeight: 1,
-        textTransform: 'uppercase',
-      },
-    };
 
     return (
       <div style={{ position: 'absolute' }}>
         <CardTitle
-          style={card.general} subtitleStyle={card.title} titleStyle={card.subtitle}
-          subtitle={<span style={{ color: lightGreen400 }}>{wins}</span>} title="wins"
+          className={styles.playerStats}
+          subtitle={<div style={{ color: lightGreen400 }}>{wins}</div>}
+          title="wins"
         />
         <CardTitle
-          style={card.general} subtitleStyle={card.title} titleStyle={card.subtitle}
-          subtitle={<span style={{ color: red400 }}>{losses}</span>} title="losses"
+          className={styles.playerStats}
+          subtitle={<div style={{ color: red400 }}>{losses}</div>}
+          title="losses"
         />
         <CardTitle
-          style={card.general} subtitleStyle={card.title} titleStyle={card.subtitle}
-          subtitle={`${((wins / (wins + losses)) * 100).toFixed(2)}%`} title="winrate"
+          className={styles.playerStats}
+          subtitle={`${((wins / (wins + losses)) * 100).toFixed(2)}%`}
+          title="winrate"
         />
         {soloRank ? <CardTitle
-          style={card.general} subtitleStyle={card.title} titleStyle={card.subtitle}
-          subtitle={soloRank || 'N/A'} title="Solo MMR"
+          className={styles.playerStats}
+          subtitle={soloRank || 'N/A'}
+          title="Solo MMR"
         /> : null}
         {partyRank ? <CardTitle
-          style={card.general} subtitleStyle={card.title} titleStyle={card.subtitle}
-          subtitle={partyRank || 'N/A'} title="Party MMR"
+          className={styles.playerStats}
+          subtitle={partyRank || 'N/A'}
+          title="Party MMR"
         /> : null}
         {mmrEstimate.estimate ? <CardTitle
-          style={card.general} subtitleStyle={card.title} titleStyle={card.subtitle}
-          subtitle={mmrEstimate.estimate || 'N/A'} title="estimate MMR"
+          className={styles.playerStats}
+          subtitle={
+            <div>
+              <div data-tip data-for="estimate">
+                {mmrEstimate.estimate}
+              </div>
+              <ReactTooltip id="estimate" place="right" type="light" effect="float">
+                <div style={{ lineHeight: 1.2 }}>
+                  Standard deviation: {Math.round(mmrEstimate.stdDev)}
+                  <br />
+                  Matches: {mmrEstimate.n}
+                </div>
+              </ReactTooltip>
+            </div>
+          }
+          title={
+            <div>
+              estimated MMR
+              <div data-tip data-for="estimateInfo" style={{ display: 'inline-block' }}>
+                <ActionHelp className={`${styles.icon} ${styles.mmrEstimateIcon}`} />
+              </div>
+              <ReactTooltip id="estimateInfo" place="right" type="light" effect="float">
+                <div style={{ textTransform: 'none', lineHeight: 1.2 }}>
+                  MMR estimate based on data from peer players.
+                  <br />
+                  This is the mean visible MMR of the recent matches played by this user.
+                </div>
+              </ReactTooltip>
+            </div>
+          }
         /> : null}
       </div>
     );
   };
 
-  return (
-    <div className={styles.mmrContainer}>
-      {getPlayerMMR()}
-    </div>
-  );
+  return getPlayerStats();
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -80,4 +91,4 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 
-export default connect(mapStateToProps)(PlayerMMR);
+export default connect(mapStateToProps)(PlayerStats);
