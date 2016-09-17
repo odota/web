@@ -9,8 +9,11 @@ import styles from './PlayerHeader.css';
 import Error from '../Error';
 import Spinner from '../Spinner';
 import { player } from '../../reducers';
+/* eslint-disable */
 import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
+/* eslint-enable */
+import PlayerActions from './PlayerActions';
 
 const PlayerName = ({ playerName, playerId, picture, registered, loading, error }) => {
   const getPlayerName = () => {
@@ -19,7 +22,7 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error 
 
     return (
       <div style={{ width: '100%' }} className={styles.container}>
-        <div style={{ width: '100%' }}>
+        <div style={{ width: '70%' }}>
           <CardHeader
             style={{ padding: 0 }}
             avatar={
@@ -65,10 +68,11 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error 
                 <PlayerBadges playerId={playerId} />
               </div>
             }
-            titleStyle={{ fontSize: '28px', marginTop: '6px' }}
+            titleStyle={{ fontSize: 28, marginTop: 6 }}
             subtitle={<PlayerStats playerId={playerId} />}
           />
         </div>
+        <PlayerActions />
       </div>
     );
   };

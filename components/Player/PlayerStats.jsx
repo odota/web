@@ -45,7 +45,7 @@ export const PlayerStats = ({ loading, error, partyRank, soloRank, mmrEstimate, 
           className={styles.playerStats}
           subtitle={
             <div>
-              <div data-tip data-for="estimate">
+              <div data-tip data-for="estimate" style={{ cursor: 'help' }}>
                 {mmrEstimate.estimate}
               </div>
               <ReactTooltip id="estimate" place="right" type="light" effect="float">
@@ -61,7 +61,7 @@ export const PlayerStats = ({ loading, error, partyRank, soloRank, mmrEstimate, 
             <div>
               estimated MMR
               <div data-tip data-for="estimateInfo" style={{ display: 'inline-block' }}>
-                <ActionHelp className={`${styles.icon} ${styles.mmrEstimateIcon}`} />
+                <ActionHelp className={`${styles.icon} ${styles.mmrEstimateIcon}`} style={{ cursor: 'help' }} />
               </div>
               <ReactTooltip id="estimateInfo" place="right" type="light" effect="float">
                 <div style={{ textTransform: 'none', lineHeight: 1.2 }}>
