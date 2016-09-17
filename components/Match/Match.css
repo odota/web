@@ -28,7 +28,7 @@
   display: block;
   text-transform: uppercase;
   margin-top: 0;
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .DireWin {
@@ -41,15 +41,51 @@
   color: #a1db57;
 }
 
+.ActionButton {
+  padding: 10px 7px;
+  border: solid 1px rgb(58, 58, 58);
+  text-transform: uppercase;
+  margin-right: 10px;
+  background-color: #303030;
+  position: relative;
+  display: block;
+  float: left;
+  color: rgba(255,255, 255, 0.6);
+}
+
+.ActionButton:hover {
+  color: #fff;
+  transition: color .1s;
+}
+
+.JistTvImg {
+  position: absolute;
+  top: 7px;
+  left: 119px;
+  height: 20px;
+}
+.JistTvText {
+  margin-right: 64px;
+}
+.DotaCoachImg {
+  position: absolute;
+  left: 103px;
+  top: 7px;
+  height: 20px;
+}
+.DotaCoachText {
+  margin-right: 30px;
+}
+
 .TableBackground {
   background-color: #3e3e3e;
 }
 
 .Table {
   border: solid 1px #797979;
-    border-collapse: collapse;
-    float: right;
-    font-size: 14px;
+  border-collapse: collapse;
+  float: right;
+  font-size: 12px;
 }
 
 .TableCell {
@@ -62,13 +98,12 @@
   float: left;
   position: absolute;
   bottom: 0;
-  background-color: #333;
-    border: solid 1px #5f5f5f;
+  font-size: 13px;
 }
 
 .HeaderInfoWrapper {
   margin-bottom: 20px;
-  position:relative;
+  position: relative;
 }
 
 .Clear {

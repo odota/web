@@ -1,44 +1,92 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import FlatButton from 'material-ui/FlatButton';
 import { transformations } from './../../utility';
-
 import matchStyle from './Match.css';
 
-export default ({ match }) => (
+export default ({ match, user }) => (
   <div>
     {match.radiant_win ? <RadiantWinText /> : <DireWinText />}
     <div className={matchStyle.HeaderInfoWrapper}>
-      <MatchActions match={match} />
+      <MatchActions match={match} user={user} />
       <MatchMetadata match={match} />
       <div className={matchStyle.Clear} />
     </div>
   </div>
 );
 
-const MatchActions = ({ match }) => (
-  <div className={matchStyle.MatchActionWrapper}>
-    <Link to={`/request/${match.match_id}`}> {/* TODO: Replace with true link */}
-      <FlatButton label="Parse Replay" secondary />
-    </Link>
-    <Link to="/download"> {/* TODO: Replace with true link */}
-      <FlatButton label="Download Replay" secondary />
-    </Link>
-    <Link to="/jist.tv"> {/* TODO: Replace with true link */}
-      <FlatButton label="Jist TV" secondary />
-    </Link>
-    <Link to="/dotacoach"> {/* TODO: Replace with true link */}
-      <FlatButton label="DotaCoach" secondary />
-    </Link>
-  </div>
+const JistTvButton = ({ replayUrl }) => (
+  <a
+    className={matchStyle.ActionButton}
+    target="_blank"
+    href={`https://www.jist.tv/create.php?dota2-match-url=${replayUrl}`}
+  >
+    <span className={matchStyle.JistTvText}>Get Video with</span>
+    <img
+      className={matchStyle.JistTvImg}
+      src="https://www.opendota.com/public/images/jist-white-logo.png"
+      alt="Jist.tv"
+    />
+  </a>
 );
+
+const DotaCoachButton = ({ matchId, playerMmr, steamId }) => (
+  <a
+    target="_blank"
+    className={matchStyle.ActionButton}
+    href={`https://dotacoach.org/Hire/Yasp?matchID=${matchId}&userSteamId=${steamId}&playerMmr=${playerMmr}`}
+  >
+    <span className={matchStyle.DotaCoachText}>Ask a coach</span>
+    <img
+      className={matchStyle.DotaCoachImg}
+      src="https://www.opendota.com/public/images/dotacoach-32x24.png"
+      alt="Dotacoach.org"
+    />
+  </a>
+);
+
+const ParseReplayButton = ({ matchId }) => (
+  <Link
+    className={matchStyle.ActionButton}
+    to={`/request#${matchId}`}
+  >
+    Parse
+  </Link>
+);
+
+const DownloadReplayButton = ({ replayUrl }) => (
+  <a className={matchStyle.ActionButton} href={replayUrl}>
+    Download Replay
+  </a>
+);
+
+const MatchActions = ({ match, user }) => {
+  let steamId = '';
+  let playerMmr = '';
+
+  if (typeof(user) === 'object' && user.hasOwnProperty('steam_id')) {
+    steamId = user.steam_id;
+  }
+
+  if (typeof(user) === 'object' && user.hasOwnProperty('player_mmr')) {
+    playerMmr = user.player_mmr;
+  }
+
+  return (
+    <div className={matchStyle.MatchActionWrapper}>
+      <ParseReplayButton matchId={match.match_id} />
+      {match.replay_url ? <DownloadReplayButton replayUrl={match.replay_url} /> : ''}
+      {match.replay_url ? <JistTvButton replayUrl={match.replay_url} /> : ''}
+      <DotaCoachButton matchId={match.match_id} steamId={steamId} playerMmr={playerMmr} />
+    </div>
+  );
+};
 
 const MatchMetadata = ({ match }) => (
   <table className={matchStyle.Table}>
     <thead>
       <tr>
-        <th className={matchStyle.TableCell}>MatchID</th>
+        <th className={matchStyle.TableCell}>Match ID</th>
         <th className={matchStyle.TableCell}>Mode</th>
         <th className={matchStyle.TableCell}>Bracket</th>
         <th className={matchStyle.TableCell}>Region</th>
