@@ -8,7 +8,7 @@ import Spinner from '../Spinner';
 import { player } from '../../reducers';
 import styles from './PlayerHeader.css';
 
-export const PlayerBadges = ({ loading, error, cheese, tracked, steamLink }) => {
+export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink }) => {
   const getPlayerBadges = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;
@@ -59,4 +59,4 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 
-export default connect(mapStateToProps)(PlayerBadges);
+export default connect(mapStateToProps)(PlayerBadgesIcons);

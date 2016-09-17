@@ -9,10 +9,8 @@ import styles from './PlayerHeader.css';
 import Error from '../Error';
 import Spinner from '../Spinner';
 import { player } from '../../reducers';
-/* eslint-disable */
 import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
-/* eslint-enable */
 import PlayerActions from './PlayerActions';
 
 const PlayerName = ({ playerName, playerId, picture, registered, loading, error }) => {

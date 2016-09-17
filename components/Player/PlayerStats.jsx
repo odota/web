@@ -9,7 +9,7 @@ import Spinner from '../Spinner';
 import { player } from '../../reducers';
 import styles from './PlayerHeader.css';
 
-export const PlayerStats = ({ loading, error, partyRank, soloRank, mmrEstimate, wins, losses }) => {
+export const PlayerStatsCards = ({ loading, error, partyRank, soloRank, mmrEstimate, wins, losses }) => {
   const getPlayerStats = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;
@@ -90,4 +90,4 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 
-export default connect(mapStateToProps)(PlayerStats);
+export default connect(mapStateToProps)(PlayerStatsCards);
