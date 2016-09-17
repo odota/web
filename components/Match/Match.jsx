@@ -25,6 +25,7 @@ const mapStateToProps = (state, { params }) => ({
   matchId: params.match_id,
   match: state[REDUCER_KEY].gotMatch.match,
   loading: state[REDUCER_KEY].gotMatch.loading,
+  user: state[REDUCER_KEY].gotMetadata.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -45,7 +46,7 @@ class RequestLayer extends React.Component {
   render() {
     return (
       <div>
-        <MatchHeader match={this.props.match} />
+        <MatchHeader match={this.props.match} user={this.props.user} />
         <MatchTable columns={overviewColumns} />
         <MatchTable columns={abUpgradeColumns} />
         <BuildingMap match={this.props.match} loading={this.props.loading} />
