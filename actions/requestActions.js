@@ -47,7 +47,7 @@ function poll(dispatch, json, matchId) {
     } else if (json.state === 'completed') {
       window.location.href = `/matches/${matchId}`;
     } else {
-      setTimeout(poll, 2000, dispatch, json, matchId);
+      setTimeout(poll, 2000, dispatch, {job: json}, matchId);
     }
   });
 }

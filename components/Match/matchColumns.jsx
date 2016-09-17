@@ -236,9 +236,9 @@ const overallColumns = [
           props = { src: `${API_HOST}/public/images/default_attack.png` };
         }
         return (<div>
-          <img src={props.src} style={styles.imgSmall} role="presentation" />
+          <img src={props.src} className={styles.imgSmall} role="presentation" />
           <div>{field.value}</div>
-          <img src={`${API_HOST}${hero.img}`} style={styles.imgSmall} role="presentation" />
+          <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} role="presentation" />
         </div>);
       }
       return <div />;
@@ -350,6 +350,8 @@ const chatColumns = [
 // runes
 // Teamfights
 // Analysis
+// actions
+// cosmetics
 // Gold/XP sources
 
 export {
