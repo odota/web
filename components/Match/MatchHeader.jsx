@@ -18,6 +18,7 @@ export default ({ match, user }) => (
 const JistTvButton = ({ replayUrl }) => (
   <a
     className={matchStyle.ActionButton}
+    rel="noopener noreferrer"
     target="_blank"
     href={`https://www.jist.tv/create.php?dota2-match-url=${replayUrl}`}
   >
@@ -33,6 +34,7 @@ const JistTvButton = ({ replayUrl }) => (
 const DotaCoachButton = ({ matchId, playerMmr, steamId }) => (
   <a
     target="_blank"
+    rel="noopener noreferrer"
     className={matchStyle.ActionButton}
     href={`https://dotacoach.org/Hire/Yasp?matchID=${matchId}&userSteamId=${steamId}&playerMmr=${playerMmr}`}
   >
@@ -64,11 +66,11 @@ const MatchActions = ({ match, user }) => {
   let steamId = '';
   let playerMmr = '';
 
-  if (typeof(user) === 'object' && user.hasOwnProperty('steam_id')) {
+  if (typeof(user) === 'object' && 'steam_id' in user) {
     steamId = user.steam_id;
   }
 
-  if (typeof(user) === 'object' && user.hasOwnProperty('player_mmr')) {
+  if (typeof(user) === 'object' && 'player_mmr' in user) {
     playerMmr = user.player_mmr;
   }
 
