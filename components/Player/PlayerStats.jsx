@@ -66,7 +66,6 @@ export const PlayerStats = ({ loading, error, partyRank, soloRank, mmrEstimate, 
               <ReactTooltip id="estimateInfo" place="right" type="light" effect="float">
                 <div style={{ textTransform: 'none', lineHeight: 1.2 }}>
                   MMR estimate based on data from peer players.
-                  <br />
                   This is the mean visible MMR of the recent matches played by this user.
                 </div>
               </ReactTooltip>

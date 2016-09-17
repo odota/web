@@ -17,9 +17,7 @@ export default () => (
       <ReactTooltip id="update" place="left" type="light" effect="float">
         <div style={{ textAlign: 'left' }}>
           Refresh Match History:
-          <br />
           If this player has recently changed their match privacy setting,
-          <br />
           this will queue a scan to find the missing matches.
         </div>
       </ReactTooltip>
