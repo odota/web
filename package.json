@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "brace": "^0.8.0",
-    "classnames": "^2.2.5",
     "c3": "0.4.11",
+    "classnames": "^2.2.5",
     "dotaconstants": "odota/dotaconstants#931dcae",
     "es6-promise": "^3.2.1",
     "flexboxgrid": "^6.3.0",
@@ -36,6 +36,7 @@
     "react-router": "^2.6.0",
     "react-router-redux": "^4.0.5",
     "react-tap-event-plugin": "^1.0.0",
+    "react-tooltip": "^3.1.8",
     "redux": "^3.5.2",
     "redux-devtools": "^3.3.1",
     "redux-logger": "^2.6.1",
