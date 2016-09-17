@@ -1,20 +1,29 @@
 import React from 'react';
+import constants from 'dotaconstants';
 import { connect } from 'react-redux';
-
-import { getMatch, setMatchSort } from '../../actions';
-import { REDUCER_KEY } from '../../reducers';
-import { sortMatch, transformMatch } from '../../selectors';
-
+// import { Card } from 'material-ui/Card';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import { createTable } from '../Table';
-import BuildingMap from '../BuildingMap/BuildingMap';
+import Table from '../Table/Table';
+import { getMatch, setMatchSort } from '../../actions';
+
 import MatchHeader from './MatchHeader';
 import {
   overviewColumns,
   abUpgradeColumns,
   benchmarksColumns,
+  overallColumns,
+  laningColumns,
+  chatColumns,
+  purchaseColumns,
 } from './matchColumns.jsx';
+import { sortMatch, transformMatch } from '../../selectors';
+import BuildingMap from '../BuildingMap/BuildingMap';
+import { REDUCER_KEY } from '../../reducers';
+import { API_HOST } from '../../config';
+import { renderMatch } from './renderMatch';
 
-const match = (state) => state[REDUCER_KEY].gotMatch.match;
+const match = (state) => state[REDUCER_KEY].match.match;
 const MatchTable = createTable(
   match,
   (state, sortState) => (sortState ? sortMatch(state) : transformMatch(state)),
@@ -23,8 +32,8 @@ const MatchTable = createTable(
 
 const mapStateToProps = (state, { params }) => ({
   matchId: params.match_id,
-  match: state[REDUCER_KEY].gotMatch.match,
-  loading: state[REDUCER_KEY].gotMatch.loading,
+  match: renderMatch(state[REDUCER_KEY].match.match),
+  loading: state[REDUCER_KEY].match.loading,
   user: state[REDUCER_KEY].gotMetadata.user,
 });
 
@@ -51,28 +60,33 @@ class RequestLayer extends React.Component {
         <MatchTable columns={abUpgradeColumns} />
         <BuildingMap match={this.props.match} loading={this.props.loading} />
         <MatchTable columns={benchmarksColumns(this.props.match)} />
+        <MatchTable columns={overallColumns} />
+        <MatchTable columns={laningColumns} />
+        <MatchTable columns={purchaseColumns} />
+        <Tabs>
+        {this.props.match.players.map(p =>
+          (
+          <Tab icon={<img src={`${API_HOST}${constants.heroes[p.hero_id].img}`} width={30} role="presentation" />}>
+            <Table
+              data={Object.keys(p.ability_uses || {}).map(k => ({
+                name: k,
+                casts: (p.ability_uses || {})[k],
+                hero_hits: (p.hero_hits || {})[k],
+                damage_inflictor: (p.damage_inflictor || {})[k],
+              }))}
+              columns={[{ displayName: 'Ability', field: 'name' },
+            { displayName: 'Casts', field: 'casts', sortFn: true },
+            { displayName: 'Hits', field: 'hero_hits', sortFn: true },
+            { displayName: 'Damage', field: 'damage_inflictor', sortFn: true }]}
+            />
+          </Tab>
+          ))
+        }
+        </Tabs>
+        <Table data={this.props.match.chat.map(c => Object.assign({}, c, this.props.match.players[c.slot]))} columns={chatColumns} />
       </div>
     );
   }
-  // TODO party indicator
-  // Overall (stacks/stuns/dead/biggest hit)
-  // Laning (lane, eff/lh/dn, lane map)
-  // skills (casts/hits/damage)
-  // items (casts/hits/damage)
-  // purchase counts
-  // purchase times
-  // Hero kill times
-  // Ward maps
-  // Unit kills
-  // Last Hits
-  // Graphs
-  // Stuns/Dead/biggest hit
-  // Teamfights
-  // Chat
-  // Analysis
-  // Combat
-  // Gold/XP sources
-  // Streaks
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

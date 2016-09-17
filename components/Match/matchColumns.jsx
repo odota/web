@@ -139,7 +139,6 @@ for (let i = 0; i < 25; i++) {
     index: i,
     width: 1,
     displayFn: (row, column, field) => {
-      // TODO - why does this code get executed when the abUpgradeColumnsTable doesn't get rendered...
       if (field) {
         const abilityId = field[column.index];
         const abilityKey = constants.ability_ids[abilityId];
@@ -152,7 +151,11 @@ for (let i = 0; i < 25; i++) {
           };
         }
         if (abilityData) {
-          return <img src={`${API_HOST}${abilityData.img}`} style={{ height: 35, position: 'relative', left: -10 }} role="presentation" />;
+          return (<img
+            src={abilityKey === 'attribute_bonus' ? abilityData.img : `${API_HOST}${abilityData.img}`}
+            style={{ height: 35, position: 'relative', left: -10 }}
+            role="presentation"
+          />);
         }
       }
       return null;
@@ -187,8 +190,168 @@ const benchmarksColumns = (match) => {
   return cols;
 };
 
+const overallColumns = [
+  heroTdColumn,
+  {
+    displayName: 'Stacked',
+    field: 'camps_stacked',
+    width: 1,
+    sortFn: true,
+  },
+  {
+    displayName: 'Stuns',
+    field: 'stuns',
+    width: 1,
+    sortFn: true,
+  }, {
+    displayName: 'Dead',
+    field: 'life_state_dead',
+    width: 1,
+    sortFn: true,
+  }, {
+    displayName: 'Biggest Hit',
+    field: 'biggest_hit',
+    width: 1,
+    sortFn: true,
+    /*
+    displayFn: (row, column, field) => {
+            td.nowrap
+              - player.max_hero_hit = player.max_hero_hit || {}
+              - var ability = constants.abilities[player.max_hero_hit.inflictor]
+              - var item = constants.items[player.max_hero_hit.inflictor]
+              - var hero = constants.hero_names[player.max_hero_hit.key]
+              span.img-text
+                if ability
+                  span: img.img-sm.ability(src=ability.img, title=player.max_hero_hit.inflictor)
+                else if item
+                  span: img.img-sm.item(src=item.img, title=player.max_hero_hit.inflictor)
+                else
+                  span: img.img-sm(src="/public/images/default_attack.png", title="Auto Attack/Other")
+                div #{player.max_hero_hit.value}
+              if hero
+                span.img-text: img.img-md(src=hero.img, title=hero.localized_name)
+              else
+                =player.max_hero_hit.key
+    },
+    */
+  }];
+
+const laningColumns = [
+  heroTdColumn,
+  {
+    displayName: 'Lane',
+    field: '',
+    width: 1,
+    sortFn: true,
+  },
+  {
+    displayName: 'EFF@10',
+    field: 'lane_efficiency',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => (field ? field.toFixed(2) : ''),
+  }, {
+    displayName: 'LH@10',
+    field: 'lh_t',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => (field ? field[10] : ''),
+  }, {
+    displayName: 'DN@10',
+    field: 'dn_t',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => (field ? field[10] : ''),
+  }];
+
+const purchaseColumns = [
+  heroTdColumn,
+  {
+    displayName: 'TP',
+    tooltip: 'Town Portal Scrolls purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, { tpscroll }) => tpscroll,
+  }, {
+    displayName: 'Observers',
+    tooltip: 'Observer wards purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => (field ? field.ward_observer : ''),
+  }, {
+    displayName: 'Sentries',
+    tooltip: 'Sentry wards purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => (field ? field.ward_sentry : ''),
+  }, {
+    displayName: 'Smokes',
+    tooltip: 'Smokes of Deceit purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => (field ? field.smoke_of_deceit : ''),
+  }, {
+    displayName: 'Dusts',
+    tooltip: 'Dusts of Appearance purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, { dust }) => dust,
+  }, {
+    displayName: 'Gems',
+    tooltip: 'Gems of True Sight purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, { gem }) => gem,
+  }, {
+    displayName: 'Rapiers',
+    tooltip: 'Divine Rapiers purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, { rapier }) => rapier,
+  }];
+
+const actionsColumns = [];
+
+const purchaseTimesColumns = [];
+
+const chatColumns = [
+  heroTdColumn,
+  { displayName: 'Time', field: 'time' },
+  { displayName: 'Message', field: 'key' },
+];
+// TODO party indicator
+// Lane map
+// items (casts/hits/damage)
+// damage dealt/received
+// kills for/against
+// purchase times
+// Hero kill times
+// Ward maps
+// Unit kills
+// Last Hits
+// Graphs (radiant adv/gold/xp/lh)
+// objective log
+// runes
+// Teamfights
+// Analysis
+// longest multikills/killstreaks
+// Gold/XP sources
+
 export {
   overviewColumns,
   abUpgradeColumns,
   benchmarksColumns,
+  overallColumns,
+  laningColumns,
+  chatColumns,
+  purchaseColumns,
+  purchaseTimesColumns,
+  actionsColumns,
 };

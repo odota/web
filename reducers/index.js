@@ -1,12 +1,19 @@
 import { combineReducers } from 'redux';
 import gotMetadata from './gotMetadata';
 import gotConstants from './gotConstants';
-import gotMatch from './gotMatch';
-import gotPlayer, { player, playerMatches, playerPeers, playerHeroes, playerRecords } from './gotPlayer';
+import match from './match';
 import gotRanking, { ranking } from './gotRanking';
 import gotBenchmark, { benchmark } from './gotBenchmark';
 import heroes from './heroes';
 import search from './search';
+import gotPlayer, {
+  player,
+  playerMatches,
+  playerPeers,
+  playerHeroes,
+  playerRecords,
+  playerCounts,
+} from './gotPlayer';
 import appBar from './appBar';
 import tab, { getTab } from './tab';
 import form, { getForm } from './form';
@@ -25,6 +32,7 @@ export {
   playerPeers,
   playerHeroes,
   playerRecords,
+  playerCounts,
   getTab as tab,
   getForm as form,
   benchmark,
@@ -35,7 +43,7 @@ export {
 export default combineReducers({
   gotMetadata,
   gotPlayer,
-  gotMatch,
+  match,
   gotConstants,
   gotRanking,
   gotBenchmark,
