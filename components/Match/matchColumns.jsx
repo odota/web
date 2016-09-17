@@ -197,8 +197,17 @@ const overallColumns = [
     field: 'camps_stacked',
     width: 1,
     sortFn: true,
-  },
-  {
+  }, {
+    displayName: 'Multikill',
+    field: 'multi_kills_max',
+    width: 1,
+    sortFn: true,
+  }, {
+    displayName: 'Streak',
+    field: 'kill_streaks_max',
+    width: 1,
+    sortFn: true,
+  }, {
     displayName: 'Stuns',
     field: 'stuns',
     width: 1,
@@ -210,30 +219,30 @@ const overallColumns = [
     sortFn: true,
   }, {
     displayName: 'Biggest Hit',
-    field: 'biggest_hit',
+    field: 'max_hero_hit',
     width: 1,
     sortFn: true,
-    /*
     displayFn: (row, column, field) => {
-            td.nowrap
-              - player.max_hero_hit = player.max_hero_hit || {}
-              - var ability = constants.abilities[player.max_hero_hit.inflictor]
-              - var item = constants.items[player.max_hero_hit.inflictor]
-              - var hero = constants.hero_names[player.max_hero_hit.key]
-              span.img-text
-                if ability
-                  span: img.img-sm.ability(src=ability.img, title=player.max_hero_hit.inflictor)
-                else if item
-                  span: img.img-sm.item(src=item.img, title=player.max_hero_hit.inflictor)
-                else
-                  span: img.img-sm(src="/public/images/default_attack.png", title="Auto Attack/Other")
-                div #{player.max_hero_hit.value}
-              if hero
-                span.img-text: img.img-md(src=hero.img, title=hero.localized_name)
-              else
-                =player.max_hero_hit.key
+      if (field) {
+        const ability = constants.abilities[field.inflictor];
+        const item = constants.items[field.inflictor];
+        const hero = constants.hero_names[field.key] || { img: '' };
+        let props = { src: null, title: null };
+        if (ability) {
+          props = { src: `${API_HOST}${ability.img}` };
+        } else if (item) {
+          props = { src: `${API_HOST}${item.img}` };
+        } else {
+          props = { src: `${API_HOST}/public/images/default_attack.png` };
+        }
+        return (<div>
+          <img src={props.src} style={styles.imgSmall} role="presentation" />
+          <div>{field.value}</div>
+          <img src={`${API_HOST}${hero.img}`} style={styles.imgSmall} role="presentation" />
+        </div>);
+      }
+      return <div />;
     },
-    */
   }];
 
 const laningColumns = [
@@ -341,7 +350,6 @@ const chatColumns = [
 // runes
 // Teamfights
 // Analysis
-// longest multikills/killstreaks
 // Gold/XP sources
 
 export {

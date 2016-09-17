@@ -35,6 +35,10 @@
   color: #727272;
 }
 
+.imgSmall {
+  height: '30px';
+}
+
 .subText {
   font-size: 10px !important;
   color: #c5c5c5;

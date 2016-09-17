@@ -20,7 +20,6 @@ import { sortMatch, transformMatch } from '../../selectors';
 import BuildingMap from '../BuildingMap/BuildingMap';
 import { REDUCER_KEY } from '../../reducers';
 import { API_HOST } from '../../config';
-import { renderMatch } from './renderMatch';
 
 const match = (state) => state[REDUCER_KEY].match.match;
 const MatchTable = createTable(
@@ -31,7 +30,7 @@ const MatchTable = createTable(
 
 const mapStateToProps = (state, { params }) => ({
   matchId: params.match_id,
-  match: renderMatch(state[REDUCER_KEY].match.match),
+  match: state[REDUCER_KEY].match.match,
   loading: state[REDUCER_KEY].match.loading,
 });
 
@@ -106,7 +105,7 @@ class RequestLayer extends React.Component {
           ))
         }
         </Tabs>
-        <Table data={this.props.match.chat.map(c => Object.assign({}, c, this.props.match.players[c.slot]))} columns={chatColumns} />
+        <Table data={(this.props.match.chat || []).map(c => Object.assign({}, c, this.props.match.players[c.slot]))} columns={chatColumns} />
       </div>
     );
   }
