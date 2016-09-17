@@ -29,6 +29,8 @@ export const PlayerBadges = ({ loading, error, cheese, tracked, steamLink }) => 
             </div>
             <ReactTooltip id="tracked" place="top" type="light" effect="float">
               This user is tracked.
+              <br />
+              New matches have replays parsed
             </ReactTooltip>
           </div>
         }
