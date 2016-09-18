@@ -6,7 +6,8 @@
   & a {
     color: var(--primaryTextColor);
     &:hover {
-      color: var(--textSecondaryColor);
+      color: var(--primaryTextColor);
+      opacity: .6;
     }
   }
 }

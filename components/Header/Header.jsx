@@ -54,8 +54,8 @@ export default ({
   <div>
     <Toolbar className={styles.header}>
       <ToolbarGroup className={styles.verticalAlign}>
-        <Link to="/">
-          <strong>{APP_NAME}</strong>
+        <Link to="/" style={{ textTransform: 'uppercase', marginRight: 10 }}>
+          <strong>&#60;{APP_NAME}&#47;&#62;</strong>
         </Link>
       </ToolbarGroup>
       <ToolbarGroup>
@@ -67,8 +67,8 @@ export default ({
           </div>
         ))}
       </ToolbarGroup>
-      <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 'auto' }}>
-        <ActionSearch />
+      <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 20 }}>
+        <ActionSearch style={{ marginRight: 8, opacity: '.6' }} />
         <SearchForm
           location={location}
         />

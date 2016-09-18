@@ -2,12 +2,12 @@
 
 :root {
   --darkPrimaryColor: #1976D2;
-  --defaultPrimaryColor: #2196F3;
-  --lightPrimaryColor: color(var(--defaultPrimaryColor) lightness(60%));
+  --defaultPrimaryColor: rgba(0, 0, 0, .4);
+  --lightPrimaryColor: color(var(--defaultPrimaryColor) lightness(10%));
   --textSecondaryColor: #212020;
   --textPrimaryColor: #FFFFFF;
   --primaryTextColor: #FFFFFF;
-  --primaryLinkColor: #2196F3;
+  --primaryLinkColor: #6bf;
 
   --accentColor: #FFAB40;
   --lightAccentColor: color(var(--accentColor) lightness(60%));
@@ -45,12 +45,9 @@
 }
 
 .tab {
-  font-weight: 600 !important;
-  font-size: 12px !important;
-  margin-left: 5px;
-  margin-right: 5px;
+  font-weight: 300;
+  margin: 0 10px;
   text-align: center;
-  text-transform: uppercase;
 }
 
 .tabContainer {
