@@ -1,14 +1,16 @@
 @import "../palette.css";
 
-:export { inkBarColor: var(--primaryTextColor) }
+:export { inkBarColor: var(--primaryLinkColor) }
 
 .tabs {
-  box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, .2);
 }
 
 .tab {
-  font-weight: 600 !important;
-  font-size: 12px !important;
-  background-color: var(--darkPrimaryColor) !important;
   color: var(--primaryTextColor) !important;
+  text-transform: none !important;
+}
+
+.tabs > div {
+  background-color: transparent !important;
 }
