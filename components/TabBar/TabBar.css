@@ -3,12 +3,15 @@
 :export { inkBarColor: var(--primaryLinkColor) }
 
 .tabs {
-  border-bottom: 1px solid rgba(255, 255, 255, .2);
+  border-bottom: 1px solid rgba(255, 255, 255, .19);
 }
 
 .tab {
   color: var(--primaryTextColor) !important;
   text-transform: none !important;
+}
+.tab:hover {
+  background-color: rgba(255, 255, 255, .08) !important;
 }
 
 .tabs > div {

@@ -13,6 +13,7 @@
 :global(a) {
   color: var(--primaryLinkColor);
   text-decoration: none;
+  transition: var(--normalTransition);
   &:hover {
     color: color(var(--primaryLinkColor) lightness(-33%));
   }
@@ -34,9 +35,4 @@
 :global(#react) {
   height: 100%;
   overflow-x: hidden;
-}
-
-a {
-  -webkit-transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
