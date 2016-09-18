@@ -65,10 +65,15 @@ export const transformations = {
   start_time: (row, col, field) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
   last_played: (row, col, field) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
   duration: (row, col, field) => formatSeconds(field),
+  region: (row, col, field) => {
+    const regions = Object.keys(constants.regions);
+    const byRegionId = (key) => (parseInt(constants.regions[key].region, 10) === field ? key : null);
+
+    return regions.find(byRegionId);
+  },
   leaver_status: (row, col, field) => (constants.leaver_status[field] ? constants.leaver_status[field].name : field),
   lobby_type: (row, col, field) => (constants.lobby_type[field] ? constants.lobby_type[field].name : field),
   lane_role: (row, col, field) => (constants.lane_role[field] ? constants.lane_role[field].name : field),
-  region: (row, col, field) => (constants.region[field] ? constants.region[field].name : field),
   patch: (row, col, field) => (constants.patch[field] ? constants.patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
 };
