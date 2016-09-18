@@ -3,10 +3,11 @@ import constants from 'dotaconstants';
 import { connect } from 'react-redux';
 // import { Card } from 'material-ui/Card';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import RaisedButton from 'material-ui/RaisedButton';
 import { createTable } from '../Table';
 import Table from '../Table/Table';
 import { getMatch, setMatchSort } from '../../actions';
+
+import MatchHeader from './MatchHeader';
 import {
   overviewColumns,
   abUpgradeColumns,
@@ -33,6 +34,7 @@ const mapStateToProps = (state, { params }) => ({
   matchId: params.match_id,
   match: renderMatch(state[REDUCER_KEY].match.match),
   loading: state[REDUCER_KEY].match.loading,
+  user: state[REDUCER_KEY].gotMetadata.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -53,32 +55,7 @@ class RequestLayer extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <div>{`Match ${this.props.match.match_id}`}</div>
-          <div>{this.props.match.radiant_win ? 'Radiant Victory' : 'Dire Victory'}</div>
-          <RaisedButton href={`/request#${this.props.match.match_id}`} label={'Parse Replay'} />
-          <RaisedButton href={this.props.match.replay_url} label={'Download Replay'} />
-          <RaisedButton label={'Jist.tv'} />
-          <RaisedButton label={'DotaCoach'} />
-          <table>
-            <thead>
-              <tr>
-                <th>Mode</th>
-                <th>Region</th>
-                <th>Duration</th>
-                <th>Ended</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{this.props.match.game_mode}</td>
-                <td>{this.props.match.region}</td>
-                <td>{this.props.match.duration}</td>
-                <td>{this.props.match.start_time + this.props.match.duration}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <MatchHeader match={this.props.match} user={this.props.user} />
         <MatchTable columns={overviewColumns} />
         <MatchTable columns={abUpgradeColumns} />
         <BuildingMap match={this.props.match} loading={this.props.loading} />
