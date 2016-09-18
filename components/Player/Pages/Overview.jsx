@@ -39,10 +39,10 @@ const Overview = ({ playerId }) => (
   <div>
     <TableFilterForm submitAction={getPlayerMatchesAndHeroes} id={playerId} page="overview" />
     <div className={styles.overviewContainer}>
-      <TableContainer title="recent matches" style={{ width: '70%' }}>
+      <TableContainer title="Recent matches" style={{ width: '70%' }}>
         <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
       </TableContainer>
-      <TableContainer title="Heroes Played" style={{ marginLeft: 30, width: '30%' }}>
+      <TableContainer title="Heroes played" style={{ marginLeft: 30, width: '30%' }}>
         <PlayerHeroesTable columns={playerHeroesOverviewColumns} id={playerId} />
       </TableContainer>
     </div>
