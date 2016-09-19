@@ -21,9 +21,3 @@
   box-shadow: 0 0 5px 5px rgba(0,0,0,0.2);
   background-color: var(--defaultPrimaryColor) !important;
 }
-
-.verticalAlign {
-  display:flex;
-  align-items: center; /* Vertical center alignment */
-  justify-content: center; /* Horizontal center alignment */
-}

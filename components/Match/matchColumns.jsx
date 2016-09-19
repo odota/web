@@ -1,25 +1,24 @@
 import React from 'react';
 import constants from 'dotaconstants';
 import { Link } from 'react-router';
-import { AppBadge } from '../Player';
+// import { AppBadge } from '../Player';
 import styles from './Match.css';
 import { API_HOST } from '../../config.js';
 
+// {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
 const heroTd = (row, col, field) => (
   <div style={{ marginTop: 5 }}>
     <div>
       <div className={row.isRadiant ? styles.radiant : styles.dire} />
       <img src={constants.heroes[field] ? `${API_HOST}${constants.heroes[field].img}` : ''} style={{ height: 24 }} role="presentation" />
-      {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
+      <span>{row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : 'Anonymous'}</span>
     </div>
-    {row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : 'Anonymous'}
   </div>
 );
 
 const heroTdColumn = {
   displayName: 'Player',
   field: 'hero_id',
-  width: 3.5,
   displayFn: heroTd,
   sortFn: (row) => (row.player_slot),
 };
@@ -190,6 +189,30 @@ const benchmarksColumns = (match) => {
   return cols;
 };
 
+const purchaseTimesColumns = (match) => {
+  const cols = [heroTdColumn];
+  const bucket = 300;
+  for (let i = 0; i < match.duration + bucket; i += bucket) {
+    const curTime = i;
+    cols.push({
+      displayName: `${curTime / 60}'`,
+      field: 'purchase_log',
+      width: 1,
+      displayFn: (row, column, field) => (<div>
+        {field
+        .filter(p => (p.time >= curTime - bucket && p.time < curTime))
+        .map(p => {
+          const item = constants.items[p.key] || {};
+          return <span><img src={`${API_HOST}${item.img}`} role="presentation" style={{ height: '20px' }} /><br />{p.time}</span>;
+        })
+        }
+      </div>),
+    });
+  }
+  return cols;
+};
+
+
 const overallColumns = [
   heroTdColumn,
   {
@@ -328,16 +351,24 @@ const purchaseColumns = [
 
 const actionsColumns = [];
 
-const purchaseTimesColumns = [];
-
 const chatColumns = [
   heroTdColumn,
   { displayName: 'Time', field: 'time' },
   { displayName: 'Message', field: 'key' },
 ];
+
+const abilityUseColumns = [{ displayName: 'Ability', field: 'name' },
+            { displayName: 'Casts', field: 'ability_uses', sortFn: true },
+            { displayName: 'Hits', field: 'hero_hits', sortFn: true },
+            { displayName: 'Damage', field: 'damage_inflictor', sortFn: true }];
+
+const itemUseColumns = [{ displayName: 'Item', field: 'name' },
+            { displayName: 'Casts', field: 'item_uses', sortFn: true },
+            { displayName: 'Hits', field: 'hero_hits', sortFn: true },
+            { displayName: 'Damage', field: 'damage_inflictor', sortFn: true }];
+
 // TODO party indicator
 // Lane map
-// items (casts/hits/damage)
 // damage dealt/received
 // kills for/against
 // purchase times
@@ -364,4 +395,6 @@ export {
   purchaseColumns,
   purchaseTimesColumns,
   actionsColumns,
+  abilityUseColumns,
+  itemUseColumns,
 };

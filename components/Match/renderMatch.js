@@ -42,11 +42,11 @@ function renderMatch(m)
             name: (!a && !i) ? 'Auto Attack/Other' : key,
             val: pm[target][key],
             className: a ? 'ability' : i ? 'item' : 'img-sm',
+            ability_uses: (pm.ability_uses || {})[key],
+            item_uses: (pm.item_uses || {})[key],
+            hero_hits: (pm.hero_hits || {})[key],
+            damage_inflictor: (pm.damage_inflictor || {})[key],
           };
-          if (pm.hero_hits)
-          {
-            result.hero_hits = pm.hero_hits[key];
-          }
           t.push(result);
         }
         t.sort(function (a, b)
