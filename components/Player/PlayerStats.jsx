@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { CardTitle } from 'material-ui/Card';
-import { red400, lightGreen400 } from 'material-ui/styles/colors';
 import ActionHelp from 'material-ui/svg-icons/action/help';
 import ReactTooltip from 'react-tooltip';
 import Error from '../Error';
@@ -18,12 +17,12 @@ export const PlayerStatsCards = ({ loading, error, partyRank, soloRank, mmrEstim
       <div style={{ position: 'absolute' }}>
         <CardTitle
           className={styles.playerStats}
-          subtitle={<div style={{ color: lightGreen400 }}>{wins}</div>}
+          subtitle={<div className={styles.textSuccess}>{wins}</div>}
           title="wins"
         />
         <CardTitle
           className={styles.playerStats}
-          subtitle={<div style={{ color: red400 }}>{losses}</div>}
+          subtitle={<div className={styles.textDanger}>{losses}</div>}
           title="losses"
         />
         <CardTitle

@@ -7,6 +7,9 @@
   --textSecondaryColor: #212020;
   --textPrimaryColor: #FFFFFF;
   --primaryTextColor: #FFFFFF;
+  --textMutedColor: #727272;
+  --textSuccessColor: rgb(156, 204, 101);
+  --textDangerColor: rgb(239, 83, 80);
   --primaryLinkColor: #6bf;
 
   --accentColor: #FFAB40;
@@ -26,22 +29,21 @@
 }
 
 .textSuccess {
-  color: #537F1B;
+  color: var(--textSuccessColor);
 }
 
 .textDanger {
-  color: #8B311E
+  color: var(--textDangerColor);
 }
 
 .textMuted {
-  color: #727272;
+  color: var(--textMutedColor);
 }
 
 .subText {
-  font-size: 10px !important;
-  color: #c5c5c5;
+  font-size: 12px !important;
+  opacity: .6;
   text-overflow: initial !important;
-  text-transform: uppercase;
 }
 
 .tab {
@@ -66,4 +68,30 @@
   &::before {
     content: "\E000";
   }
+}
+
+:export {
+  linkColor: var(--primaryLinkColor);
+  mutedColor: var(--textMutedColor);  
+}
+
+.kda {
+  width: 100%;
+  height: 4px;
+  position: absolute;
+  bottom: -10px;
+  cursor: help;
+}
+.kda > div {
+  height: 100%;
+  display: inline-block;
+}
+.kda > div:nth-child(1) {
+  background-color: var(--textDangerColor);
+}
+.kda > div:nth-child(2) {
+  background-color: var(--textMutedColor);
+}
+.kda > div:nth-child(3) {
+  background-color: var(--textSuccessColor);
 }

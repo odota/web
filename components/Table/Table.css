@@ -66,3 +66,14 @@ tbody tr:nth-child(even) {
 table {
   background-color: transparent !important;
 }
+
+table td:first-child, table th:first-child {
+  padding-left: 24px !important;
+}
+table td:last-child, table th:last-child {
+  padding-right: 24px !important;
+}
+table td, table th {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
