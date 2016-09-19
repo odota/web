@@ -38,12 +38,6 @@ export const getPercentWin = (wins, games) => (games ? (Math.round(((wins * 100)
 export const camelToSnake = str =>
   str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
 
-const ale = (matchId) => (
-  matchId ?
-    <div style={{ position: 'absolute', left: -24, width: 2, height: '100%', backgroundColor: styles.mutedColor }} />
-  : null
-);
-
 export const transformations = {
   hero_id: (row, col, field) => (
     <div style={{ position: 'relative' }}>
@@ -56,7 +50,7 @@ export const transformations = {
             Replay has been parsed for additional statistics
           </ReactTooltip>
         </div>
-      : ale(row.match_id)}
+      : null}
       <img
         src={`${API_HOST}${constants.heroes[field] ? constants.heroes[field].img : ''}`}
         role="presentation"
