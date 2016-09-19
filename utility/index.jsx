@@ -38,6 +38,12 @@ export const getPercentWin = (wins, games) => (games ? (Math.round(((wins * 100)
 export const camelToSnake = str =>
   str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
 
+const ale = (matchId) => (
+  matchId ?
+    <div style={{ position: 'absolute', left: -24, width: 2, height: '100%', backgroundColor: styles.mutedColor }} />
+  : null
+);
+
 export const transformations = {
   hero_id: (row, col, field) => (
     <div style={{ position: 'relative' }}>
@@ -50,9 +56,7 @@ export const transformations = {
             Replay has been parsed for additional statistics
           </ReactTooltip>
         </div>
-      : row.match_id ?
-        <div style={{ position: 'absolute', left: -24, width: 2, height: '100%', backgroundColor: styles.mutedColor }} />
-      : null}
+      : ale(row.match_id)}
       <img
         src={`${API_HOST}${constants.heroes[field] ? constants.heroes[field].img : ''}`}
         role="presentation"
@@ -63,12 +67,10 @@ export const transformations = {
         {row.match_id ?
           <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
             {isRadiant(row.player_slot) ? 'Radiant' : 'Dire'}
-          </span>
-        : row.last_played ?
+          </span> :
           <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
             {Number(row.last_played) ? moment(row.last_played, 'X').fromNow() : 'never'}
-          </span>
-        : null}
+          </span>}
       </div>
     </div>),
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,

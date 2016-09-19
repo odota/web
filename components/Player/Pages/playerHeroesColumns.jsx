@@ -1,5 +1,4 @@
 import React from 'react';
-import PercentContainer from '../../PercentContainer';
 import { transformations, getPercentWin } from '../../../utility';
 import TablePercent from '../../Table/TablePercent';
 
