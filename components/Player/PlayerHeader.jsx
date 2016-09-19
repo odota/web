@@ -38,7 +38,7 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error 
                       Registered user.
                     </ReactTooltip>
                   </div>
-                  : null
+                  : ''
                 }
                 badgeStyle={{
                   fontSize: 20,

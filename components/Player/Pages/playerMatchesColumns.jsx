@@ -33,8 +33,8 @@ export default [{
 }, {
   displayName: 'KDA',
   field: 'kills',
-  sortFn: true,
-  width: 1.7,
+  sortFn: (row) => ((row.kills + row.deaths + row.assists) / row.deaths),
+  width: 2,
   displayFn: transformations.kda,
 },
 ];

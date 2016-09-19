@@ -7,6 +7,7 @@ import moment from 'moment';
 import ReactTooltip from 'react-tooltip';
 import { API_HOST } from '../config.js';
 import styles from '../components/palette.css';
+import TablePercent from '../components/Table/TablePercent';
 
 export const isRadiant = (playerSlot) => playerSlot < 128;
 
@@ -32,7 +33,7 @@ export function formatSeconds(input) {
   return time;
 }
 
-export const getPercentWin = (wins, games) => (games ? ((wins / games) * 100) : 0);
+export const getPercentWin = (wins, games) => (games ? (Math.round(((wins * 100) / games) * 100) / 100) : 0);
 
 export const camelToSnake = str =>
   str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
@@ -49,9 +50,9 @@ export const transformations = {
             Replay has been parsed for additional statistics
           </ReactTooltip>
         </div>
-        : row.match_id ?
-          <div style={{ position: 'absolute', left: -24, width: 2, height: '100%', backgroundColor: styles.mutedColor }} />
-        : null}
+      : row.match_id ?
+        <div style={{ position: 'absolute', left: -24, width: 2, height: '100%', backgroundColor: styles.mutedColor }} />
+      : null}
       <img
         src={`${API_HOST}${constants.heroes[field] ? constants.heroes[field].img : ''}`}
         role="presentation"
@@ -62,6 +63,10 @@ export const transformations = {
         {row.match_id ?
           <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
             {isRadiant(row.player_slot) ? 'Radiant' : 'Dire'}
+          </span>
+        : row.last_played ?
+          <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
+            {Number(row.last_played) ? moment(row.last_played, 'X').fromNow() : 'never'}
           </span>
         : null}
       </div>
@@ -129,22 +134,14 @@ export const transformations = {
   kda: (row, col, field) => {
     const kdaSum = field + row.deaths + row.assists;
     return (
-      <div style={{ position: 'relative' }}>
-        <div>
-          {field} / {row.deaths} / {row.assists}
-        </div>
-        <div data-tip data-for={`kda-${row.match_id}`}>
-          <div className={styles.kda}>
-            <div style={{ width: `${(field * 100) / kdaSum}%` }} />
-            <div style={{ width: `${(row.deaths * 100) / kdaSum}%` }} />
-            <div style={{ width: `${(row.assists * 100) / kdaSum}%` }} />
-          </div>
-        </div>
-        <ReactTooltip id={`kda-${row.match_id}`} place="right" type="light" effect="float">
-          {/* do not use toFixed() */}
-          KDA: {Math.round((kdaSum / row.deaths) * 100) / 100}
-        </ReactTooltip>
-      </div>
+      <TablePercent
+        text={`${field} / ${row.deaths} / ${row.assists}`}
+        tooltip={`KDA: ${Math.round((kdaSum / row.deaths) * 100) / 100}`}
+        tooltipId={`kda-${row.match_id}`}
+        val1={(field * 100) / kdaSum}
+        val2={(row.deaths * 100) / kdaSum}
+        val3={(row.assists * 100) / kdaSum}
+      />
     );
   },
 };
