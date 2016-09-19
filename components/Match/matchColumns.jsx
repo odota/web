@@ -19,6 +19,7 @@ const heroTd = (row, col, field) => (
 const heroTdColumn = {
   displayName: 'Player',
   field: 'hero_id',
+  width: 1,
   displayFn: heroTd,
   sortFn: (row) => (row.player_slot),
 };
@@ -349,8 +350,6 @@ const purchaseColumns = [
     displayFn: (row, col, { rapier }) => rapier,
   }];
 
-const actionsColumns = [];
-
 const chatColumns = [
   heroTdColumn,
   { displayName: 'Time', field: 'time' },
@@ -366,6 +365,8 @@ const itemUseColumns = [{ displayName: 'Item', field: 'name' },
             { displayName: 'Casts', field: 'item_uses', sortFn: true },
             { displayName: 'Hits', field: 'hero_hits', sortFn: true },
             { displayName: 'Damage', field: 'damage_inflictor', sortFn: true }];
+
+const actionsColumns = [];
 
 // TODO party indicator
 // Lane map
