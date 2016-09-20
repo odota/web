@@ -93,6 +93,8 @@ export const getPlayer = {
   getSoloMmrEstimate: (state, id) => getPlayer.getPlayer(state, id).solo_competitive_rank,
   getCompetitiveRank: (state, id) => getPlayer.getPlayer(state, id).competitive_rank,
   getPicture: (state, id) => getPlayer.getProfile(state, id).avatarmedium,
+  getPictureFull: (state, id) => getPlayer.getProfile(state, id).avatarfull,
   getSteamLink: (state, id) => getPlayer.getProfile(state, id).profileurl,
   getCheese: (state, id) => getPlayer.getProfile(state, id).cheese,
+  getTrackedUntil: (state, id) => getPlayer.getPlayer(state, id).tracked_until,
 };

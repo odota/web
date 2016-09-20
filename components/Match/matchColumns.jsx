@@ -249,37 +249,100 @@ const laningColumns = [
     field: 'lane_efficiency',
     width: 1,
     sortFn: true,
+    displayFn: (row, col, field) => (field ? field.toFixed(2) : ''),
   }, {
     displayName: 'LH@10',
     field: 'lh_t',
     width: 1,
     sortFn: true,
+    displayFn: (row, col, field) => (field ? field[10] : ''),
   }, {
     displayName: 'DN@10',
     field: 'dn_t',
     width: 1,
     sortFn: true,
+    displayFn: (row, col, field) => (field ? field[10] : ''),
   }];
 
+const purchaseColumns = [
+  heroTdColumn,
+  {
+    displayName: 'TP',
+    tooltip: 'Town Portal Scrolls purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, { tpscroll }) => tpscroll,
+  }, {
+    displayName: 'Observers',
+    tooltip: 'Observer wards purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => (field ? field.ward_observer : ''),
+  }, {
+    displayName: 'Sentries',
+    tooltip: 'Sentry wards purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => (field ? field.ward_sentry : ''),
+  }, {
+    displayName: 'Smokes',
+    tooltip: 'Smokes of Deceit purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, field) => (field ? field.smoke_of_deceit : ''),
+  }, {
+    displayName: 'Dusts',
+    tooltip: 'Dusts of Appearance purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, { dust }) => dust,
+  }, {
+    displayName: 'Gems',
+    tooltip: 'Gems of True Sight purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, { gem }) => gem,
+  }, {
+    displayName: 'Rapiers',
+    tooltip: 'Divine Rapiers purchased',
+    field: 'purchase',
+    width: 1,
+    sortFn: true,
+    displayFn: (row, col, { rapier }) => rapier,
+  }];
+
+const actionsColumns = [];
+
+const purchaseTimesColumns = [];
+
+const chatColumns = [
+  heroTdColumn,
+  { displayName: 'Time', field: 'time' },
+  { displayName: 'Message', field: 'key' },
+];
 // TODO party indicator
 // Lane map
-// abilities (casts/hits/damage)
 // items (casts/hits/damage)
 // damage dealt/received
-// purchase counts
+// kills for/against
 // purchase times
 // Hero kill times
 // Ward maps
 // Unit kills
 // Last Hits
-// Graphs
-// Stuns/Dead/biggest hit
+// Graphs (radiant adv/gold/xp/lh)
+// objective log
+// runes
 // Teamfights
-// Chat
 // Analysis
-// Combat
+// longest multikills/killstreaks
 // Gold/XP sources
-// Streaks
 
 export {
   overviewColumns,
@@ -287,4 +350,8 @@ export {
   benchmarksColumns,
   overallColumns,
   laningColumns,
+  chatColumns,
+  purchaseColumns,
+  purchaseTimesColumns,
+  actionsColumns,
 };
