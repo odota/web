@@ -8,8 +8,13 @@ export default () => (
   <CardActions style={{ width: '30%', boxSizing: 'border-box', padding: '15px 30px', textAlign: 'right' }}>
     <div style={{ display: 'inline-block' }}>
       <div data-tip data-for="update">
+<<<<<<< HEAD:components/Player/PlayerButtons.jsx
         <FlatButton
           disabled={true}
+=======
+        <RaisedButton
+          disabled
+>>>>>>> refs/remotes/odota/master:components/Player/PlayerActions.jsx
           icon={<ActionUpdate />}
           style={{ minWidth: 50 }}
           backgroundColor="rgba(255, 255, 255, .08)"
@@ -24,8 +29,13 @@ export default () => (
         </div>
       </ReactTooltip>
     </div>
+<<<<<<< HEAD:components/Player/PlayerButtons.jsx
     <FlatButton
       disabled={true}
+=======
+    <RaisedButton
+      disabled
+>>>>>>> refs/remotes/odota/master:components/Player/PlayerActions.jsx
       label="Ask a Coach"
       labelPosition="before"
       icon={<img src="/assets/dotacoach-32x24.png" alt="DotaCoach" />}

@@ -64,24 +64,24 @@ class RequestLayer extends React.Component {
         <MatchTable columns={laningColumns} />
         <MatchTable columns={purchaseColumns} />
         <Tabs>
-        {this.props.match.players.map(p =>
-          (
-          <Tab icon={<img src={`${API_HOST}${constants.heroes[p.hero_id].img}`} width={30} role="presentation" />}>
-            <Table
-              data={Object.keys(p.ability_uses || {}).map(k => ({
-                name: k,
-                casts: (p.ability_uses || {})[k],
-                hero_hits: (p.hero_hits || {})[k],
-                damage_inflictor: (p.damage_inflictor || {})[k],
-              }))}
-              columns={[{ displayName: 'Ability', field: 'name' },
-            { displayName: 'Casts', field: 'casts', sortFn: true },
-            { displayName: 'Hits', field: 'hero_hits', sortFn: true },
-            { displayName: 'Damage', field: 'damage_inflictor', sortFn: true }]}
-            />
-          </Tab>
-          ))
-        }
+          {this.props.match.players.map(p =>
+            (
+            <Tab icon={<img src={`${API_HOST}${constants.heroes[p.hero_id].img}`} width={30} role="presentation" />}>
+              <Table
+                data={Object.keys(p.ability_uses || {}).map(k => ({
+                  name: k,
+                  casts: (p.ability_uses || {})[k],
+                  hero_hits: (p.hero_hits || {})[k],
+                  damage_inflictor: (p.damage_inflictor || {})[k],
+                }))}
+                columns={[{ displayName: 'Ability', field: 'name' },
+              { displayName: 'Casts', field: 'casts', sortFn: true },
+              { displayName: 'Hits', field: 'hero_hits', sortFn: true },
+              { displayName: 'Damage', field: 'damage_inflictor', sortFn: true }]}
+              />
+            </Tab>
+            ))
+          }
         </Tabs>
         <Table data={this.props.match.chat.map(c => Object.assign({}, c, this.props.match.players[c.slot]))} columns={chatColumns} />
       </div>
