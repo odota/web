@@ -1,6 +1,8 @@
 /**
  * Webpack configuration file
  **/
+ var DashboardPlugin = require('webpack-dashboard/plugin');
+
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
@@ -20,6 +22,7 @@ const config = {
   {
     extensions: ['', '.jsx', '.js', '.css', '.json']
   },
+  devTool: 'cheap-module-source-map',
   module:
   {
     loaders: [
@@ -72,8 +75,9 @@ const config = {
     historyApiFallback: true
   }
 };
-if (isProd)
-{
+if (!isProd) {
+  config.plugins.push(new DashboardPlugin());
+} else {
   config.plugins.push(new webpack.LoaderOptionsPlugin(
   {
     minimize: true,
