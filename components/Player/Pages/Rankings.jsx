@@ -21,7 +21,7 @@ const PlayerRankingsTable = createTable(
 
 const Rankings = ({ playerId }) => (
   <div>
-    <TableFilterForm submitAction={getPlayerRankings} id={playerId} page="heroes" />
+    <TableFilterForm submitAction={getPlayerRankings} id={playerId} page="rankings" />
     <TableContainer title="Rankings Played">
       <PlayerRankingsTable columns={playerRankingsColumns} id={playerId} />
     </TableContainer>
