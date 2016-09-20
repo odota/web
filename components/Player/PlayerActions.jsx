@@ -9,7 +9,7 @@ export default () => (
     <div style={{ display: 'inline-block' }}>
       <div data-tip data-for="update">
         <RaisedButton
-          disabled={true}
+          disabled
           icon={<ActionUpdate />}
           style={{ minWidth: 50 }}
         />
@@ -23,7 +23,7 @@ export default () => (
       </ReactTooltip>
     </div>
     <RaisedButton
-      disabled={true}
+      disabled
       label="Ask a Coach"
       labelPosition="before"
       icon={<img src="/assets/dotacoach-32x24.png" alt="DotaCoach" />}
