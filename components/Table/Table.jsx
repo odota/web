@@ -37,7 +37,7 @@ const getTable = (data, columns, sortState, sortField, sortClick) => {
               className={styles.row}
             >
               {columns.map((column, colIndex) => (
-                <MaterialTableRowColumn key={colIndex} style={getWidthStyle(column.width, totalWidth)}>
+                <MaterialTableRowColumn key={colIndex} style={{ width: `${getWidthStyle(column.width, totalWidth)}%`, overflow: `${column.field === 'kills' ? 'visible' : null}` }}>
                   {row && column.displayFn && column.displayFn(row, column, row[column.field])}
                   {row && !column.displayFn && row[column.field]}
                 </MaterialTableRowColumn>

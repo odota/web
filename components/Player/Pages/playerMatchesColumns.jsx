@@ -4,14 +4,14 @@ import { transformations } from '../../../utility';
 export default [{
   displayName: 'Hero',
   field: 'hero_id',
-  width: 3.1,
+  width: 2.8,
   displayFn: transformations.hero_id,
 }, {
   displayName: 'Id',
-  field: 'game_mode',
+  field: 'match_id',
   width: 1.8,
   sortFn: true,
-  displayFn: transformations.match_idANDgame_mode,
+  displayFn: transformations.match_id_and_game_mode,
 }, {
   displayName: 'Res',
   field: 'radiant_win',
@@ -26,14 +26,24 @@ export default [{
 }, {
   displayName: 'Len',
   field: 'duration',
-  width: 1.5,
+  width: 1.2,
   sortFn: true,
   displayFn: transformations.duration,
 }, {
-  displayName: 'KDA',
+  displayName: 'K',
   field: 'kills',
-  sortFn: (row) => ((row.kills + row.deaths + row.assists) / row.deaths),
-  width: 2,
+  sortFn: true,
+  width: 0.8,
   displayFn: transformations.kda,
+}, {
+  displayName: 'D',
+  field: 'deaths',
+  sortFn: true,
+  width: 0.8,
+}, {
+  displayName: 'A',
+  field: 'assists',
+  sortFn: true,
+  width: 0.8,
 },
 ];

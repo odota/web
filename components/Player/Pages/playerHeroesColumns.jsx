@@ -17,15 +17,7 @@ export const playerHeroesOverviewColumns = [{
   displayName: 'Win %',
   field: 'win',
   width: 2,
-  displayFn: (row) => {
-    const percent = getPercentWin(row.win, row.games);
-    return (
-      <TablePercent
-        text={percent}
-        val1={percent}
-      />
-    );
-  },
+  displayFn: (row) => (<TablePercent val={getPercentWin(row.win, row.games)} />),
   sortFn: (row) => (row.win / row.games),
 }];
 
@@ -38,15 +30,7 @@ const restColumns = [{
   displayName: 'Win %',
   field: 'with_win',
   width: 2,
-  displayFn: (row) => {
-    const percent = getPercentWin(row.with_win, row.with_games);
-    return (
-      <TablePercent
-        text={percent}
-        val1={percent}
-      />
-    );
-  },
+  displayFn: (row) => (<TablePercent val={getPercentWin(row.with_win, row.with_games)} />),
   sortFn: (row) => (row.with_win / row.with_games),
 }, {
   displayName: 'Against',
@@ -57,15 +41,7 @@ const restColumns = [{
   displayName: 'Win %',
   field: 'against_win',
   width: 2,
-  displayFn: (row) => {
-    const percent = getPercentWin(row.against_win, row.against_games);
-    return (
-      <TablePercent
-        text={percent}
-        val1={percent}
-      />
-    );
-  },
+  displayFn: (row) => (<TablePercent val={getPercentWin(row.against_win, row.against_games)} />),
   sortFn: (row) => (row.against_win / row.against_games),
 }];
 

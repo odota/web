@@ -74,7 +74,3 @@
   linkColor: var(--primaryLinkColor);
   mutedColor: var(--textMutedColor);  
 }
-
-div[data-tip] {
-  cursor: help;
-}

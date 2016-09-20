@@ -11,7 +11,7 @@ import Spinner from '../Spinner';
 import { player } from '../../reducers';
 import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
-import PlayerActions from './PlayerActions';
+import PlayerButtons from './PlayerButtons';
 
 const PlayerName = ({ playerName, playerId, picture, registered, loading, error }) => {
   const getPlayerName = () => {
@@ -70,7 +70,7 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error 
             subtitle={<PlayerStats playerId={playerId} />}
           />
         </div>
-        <PlayerActions />
+        <PlayerButtons />
       </div>
     );
   };
