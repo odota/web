@@ -71,6 +71,11 @@
 }
 
 :export {
-  linkColor: var(--primaryLinkColor);
-  mutedColor: var(--textMutedColor);  
+  blue: var(--primaryLinkColor);
+  gray: var(--textMutedColor);
+  grey: var(--textMutedColor);
+  red: var(--textDangerColor);
+  green: var(--textSuccessColor);
+  buttonBg: rgba(255, 255, 255, .08);
+  buttonHover: rgba(255, 255, 255, .12);
 }

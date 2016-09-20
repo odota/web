@@ -32,7 +32,7 @@ export default ({
     <Toolbar className={styles.header}>
       <ToolbarGroup className={styles.verticalAlign}>
         <Link to="/" style={{ textTransform: 'uppercase', marginRight: 10 }}>
-          <strong>&#60;{APP_NAME}&#47;&#62;</strong>
+          <strong>{`<${APP_NAME}/>`}</strong>
         </Link>
       </ToolbarGroup>
       <ToolbarGroup>

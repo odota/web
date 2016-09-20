@@ -27,7 +27,7 @@ const restColumns = [{
   width: 1.5,
   sortFn: true,
 }, {
-  displayName: 'Win %',
+  displayName: 'Win with %',
   field: 'with_win',
   width: 2,
   displayFn: (row) => (<TablePercent val={getPercentWin(row.with_win, row.with_games)} />),
@@ -38,7 +38,7 @@ const restColumns = [{
   width: 1.5,
   sortFn: true,
 }, {
-  displayName: 'Win %',
+  displayName: 'Win against %',
   field: 'against_win',
   width: 2,
   displayFn: (row) => (<TablePercent val={getPercentWin(row.against_win, row.against_games)} />),

@@ -3,6 +3,7 @@ import TabBar from '../TabBar';
 import { playerPages } from '../Header/Pages';
 
 const playerPagesMapped = (accountId) => playerPages.map(page => ({
+  ...page,
   route: `/players/${accountId}/${page.name.toLowerCase()}`,
   label: page.name,
 }));

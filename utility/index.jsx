@@ -42,9 +42,9 @@ export const transformations = {
   hero_id: (row, col, field) => (
     <div style={{ position: 'relative' }}>
       {row.version ?
-        <div style={{ position: 'absolute', left: -24, width: 2, height: '100%', backgroundColor: styles.linkColor }}>
+        <div style={{ position: 'absolute', left: -24, width: 2, height: '100%', backgroundColor: styles.blue }}>
           <div data-tip data-for="parsed">
-            <ActionDoneAll color={styles.linkColor} style={{ position: 'relative', left: -10 }} />
+            <ActionDoneAll color={styles.blue} style={{ position: 'relative', left: -10 }} />
           </div>
           <ReactTooltip id="parsed" place="top" type="light" effect="float">
             Replay has been parsed for additional statistics
@@ -56,7 +56,7 @@ export const transformations = {
         role="presentation"
         style={{ height: 29, marginRight: 7 }}
       />
-      <div style={{ display: 'inline-block', verticalAlign: `${row.player_slot ? 'top' : 'super'}` }}>
+      <div style={{ display: 'inline-block', verticalAlign: 'top' }}>
         {constants.heroes[field] ? constants.heroes[field].localized_name : ''}
         {row.match_id ?
           <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
@@ -104,7 +104,7 @@ export const transformations = {
             opacity: '.6',
             height: 16,
             width: 16,
-            color: styles.linkColor,
+            color: styles.blue,
           }}
         />
       </Link>
