@@ -58,4 +58,17 @@ const Table = ({ data, columns, loading, error, sortState, sortField, sortClick,
   </div>
 );
 
+const { array, bool, string, func, number } = React.PropTypes;
+
+Table.propTypes = {
+  data: array,
+  columns: array,
+  loading: bool,
+  error: bool,
+  sortState: string,
+  sortField: string,
+  sortClick: func,
+  numRows: number,
+};
+
 export default Table;

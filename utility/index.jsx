@@ -34,22 +34,6 @@ export const getPercentWin = (wins, games) => (games ? ((wins / games) * 100) : 
 export const camelToSnake = str =>
   str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
 
-// ?with_hero_id=1
-// &against_hero_id=1
-// &included_account_id=84227565
-// &excluded_account_id=84227565
-// &hero_id=1
-// &is_radiant=1
-// &win=1
-// &lane_role=1
-// &patch=18
-// &game_mode=0
-// &lobby_type=0
-// &date=7
-// &region=0
-// &desc=kills
-// &limit=1000000
-
 export const transformations = {
   hero_id: (row, col, field) => (
     <div>
@@ -81,6 +65,17 @@ export const transformations = {
   start_time: (row, col, field) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
   last_played: (row, col, field) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
   duration: (row, col, field) => formatSeconds(field),
+  region: (row, col, field) => {
+    const regions = Object.keys(constants.regions);
+    const byRegionId = (key) => (parseInt(constants.regions[key].region, 10) === field ? key : null);
+
+    return regions.find(byRegionId);
+  },
+  leaver_status: (row, col, field) => (constants.leaver_status[field] ? constants.leaver_status[field].name : field),
+  lobby_type: (row, col, field) => (constants.lobby_type[field] ? constants.lobby_type[field].name : field),
+  lane_role: (row, col, field) => (constants.lane_role[field] ? constants.lane_role[field].name : field),
+  patch: (row, col, field) => (constants.patch[field] ? constants.patch[field].name : field),
+  winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */
@@ -101,7 +96,7 @@ for (let i = 0; i < 6; i++) {
   transformations[`item_${i}`] = transformMatchItem;
 }
 
-export const defaultSort = (array, sortState, sortField, sortFn) => (
+export const defaultSort = (array, sortState, sortField, sortFn) =>
   array.sort((a, b) => {
     const sortFnExists = typeof sortFn === 'function';
     const aVal = (sortFnExists ? sortFn(a) : a[sortField]) || 0;
@@ -109,7 +104,8 @@ export const defaultSort = (array, sortState, sortField, sortFn) => (
     const desc = aVal < bVal ? 1 : -1;
     const asc = aVal < bVal ? -1 : 1;
     return sortState === 'desc' ? desc : asc;
-  })
-);
+  });
 
-export const prettyPrint = (row, col, field) => (field.replace(/_(.)/g, ' $1').toUpperCase());
+export const deSnake = str => str.replace(/_(.)/g, ' $1').toUpperCase();
+
+export const prettyPrint = (row, col, field) => deSnake(field);

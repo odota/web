@@ -22,3 +22,90 @@
   left: 0;
   bottom: 0;
 }
+
+.Header{
+  text-align: center;
+  display: block;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.DireWin {
+  composes: Header;
+  color: #d5553a;
+}
+
+.RadiantWin {
+  composes: Header;
+  color: #a1db57;
+}
+
+.ActionButton {
+  padding: 10px 14px;
+  border: solid 1px rgb(58, 58, 58);
+  text-transform: uppercase;
+  margin-right: 10px;
+  background-color: #303030;
+  position: relative;
+  display: block;
+  float: left;
+  color: rgba(255,255, 255, 0.6);
+}
+
+.ActionButton:hover {
+  color: #fff;
+  transition: color .1s;
+}
+
+.JistTvImg {
+  position: absolute;
+  top: 7px;
+  right: 5px;
+  height: 20px;
+}
+.JistTvText {
+  margin-right: 64px;
+}
+.DotaCoachImg {
+  position: absolute;
+  right: 5px;
+  top: 7px;
+  height: 20px;
+}
+.DotaCoachText {
+  margin-right: 30px;
+}
+
+.TableBackground {
+  background-color: #3e3e3e;
+}
+
+.Table {
+  border: solid 1px #797979;
+  border-collapse: collapse;
+  float: right;
+  font-size: 12px;
+}
+
+.TableCell {
+  composes: TableBackground;
+  padding: 7px 12px;
+  text-align: right;
+}
+
+.MatchActionWrapper {
+  float: left;
+  position: absolute;
+  bottom: 0;
+  font-size: 13px;
+}
+
+.HeaderInfoWrapper {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.Clear {
+  clear: both;
+}
