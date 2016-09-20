@@ -7,7 +7,6 @@
     "webpack": "NODE_ENV=production webpack -p --bail",
     "watch": "webpack --watch",
     "start": "webpack-dev-server -d --compress",
-    "ncu": "npm-check-updates -u",
     "build": "NODE_ENV=production npm run lint && npm run webpack",
     "lint": "eslint . --ext .js,.jsx --fix"
   },
