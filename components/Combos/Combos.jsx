@@ -113,11 +113,27 @@ class Combos extends React.Component
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
             {this.state.result.result ?
-            this.state.result.result.rows.map(r => (
-            <TableRow>
-              {Object.keys(r).map((k, i) => <TableRowColumn>{(k.indexOf('team') === 0 || k.indexOf('opp') === 0) && constants.heroes[r[k]] ?
-              <img src={`${API_HOST}${constants.heroes[r[k]].img}`} style={{width: '50px'}} title={r[k]} /> : r[k]}</TableRowColumn>)}
-            </TableRow>)) : <div />
+              this.state.result.result.rows.map(r => (
+                <TableRow>
+                  {
+                    Object.keys(r).map((k, i) => (
+                      k.indexOf('team') === 0 || k.indexOf('opp') === 0) && constants.heroes[r[k]] ? 
+                        <TableRowColumn>
+                          <img src={`${API_HOST}${constants.heroes[r[k]].img}`} style={{width: '50px'}} title={r[k]} />
+                          <div>{constants.heroes[r[k]].localized_name}</div>
+                        </TableRowColumn>
+                      : <TableRowColumn>
+                          {k === 'win' ?
+                            r[k].toFixed(4)*100 + "%"
+                            : r[k]
+                          }
+                        </TableRowColumn>
+                    )
+                  }
+                </TableRow>
+                )
+              )
+              : <div />
             }
           </TableBody>
         </Table> : <Spinner />
