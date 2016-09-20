@@ -11,6 +11,7 @@ import gotPlayer, {
   playerMatches,
   playerPeers,
   playerHeroes,
+  playerRankings,
   playerRecords,
   playerCounts,
 } from './gotPlayer';
@@ -31,6 +32,7 @@ export {
   playerMatches,
   playerPeers,
   playerHeroes,
+  playerRankings,
   playerRecords,
   playerCounts,
   getTab as tab,
