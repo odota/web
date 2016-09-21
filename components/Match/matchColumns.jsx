@@ -6,12 +6,12 @@ import styles from './Match.css';
 import { API_HOST } from '../../config.js';
 
 // {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
-const heroTd = (row, col, field) => (
+const heroTd = (row, col, field, hideName) => (
   <div style={{ marginTop: 5 }}>
     <div>
       <div className={row.isRadiant ? styles.radiant : styles.dire} />
       <img src={constants.heroes[field] ? `${API_HOST}${constants.heroes[field].img}` : ''} style={{ height: 24 }} role="presentation" />
-      <span>{row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : 'Anonymous'}</span>
+      {!hideName && <span>{row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : 'Anonymous'}</span>}
     </div>
   </div>
 );
@@ -387,6 +387,7 @@ const actionsColumns = [];
 // Gold/XP sources
 
 export {
+  heroTd,
   overviewColumns,
   abUpgradeColumns,
   benchmarksColumns,
