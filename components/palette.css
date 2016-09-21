@@ -37,6 +37,10 @@
   color: #727272;
 }
 
+.imgSmall {
+  height: 30px;
+}
+
 .subText {
   font-size: 10px !important;
   color: #c5c5c5;
@@ -69,4 +73,10 @@
   &::before {
     content: "\E000";
   }
+}
+
+.verticalAlign {
+  display:flex;
+  align-items: center; /* Vertical center alignment */
+  justify-content: center; /* Horizontal center alignment */
 }
