@@ -77,19 +77,19 @@ class Explorer extends React.Component
     this.handleTouchTap = this.handleTouchTap.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
   }
-  componentDidMount() {
-    const editor = ace.edit('editor');
-    editor.setTheme('ace/theme/monokai');
-    editor.getSession().setMode('ace/mode/sql');
-    editor.setShowPrintMargin(false);
-    this.editor = editor;
-  }
   componentWillMount() {
     const id = this.props && this.props.location && this.props.location.query && this.props.location.query.id;
     if (id) {
       this.setState(Object.assign({}, this.state, {loading: true}));
       fetch(`${API_HOST}/api/explorer?id=${id}`).then(jsonResponse).then(this.handleResponse);
     }
+  }
+  componentDidMount() {
+    const editor = ace.edit('editor');
+    editor.setTheme('ace/theme/monokai');
+    editor.getSession().setMode('ace/mode/sql');
+    editor.setShowPrintMargin(false);
+    this.editor = editor;
   }
   handleQuery() {
     this.setState(Object.assign({}, this.state, { loading: true }));

@@ -175,10 +175,10 @@ class Combos extends React.Component {
                           <div>{constants.heroes[r[k]].localized_name}</div>
                         </TableRowColumn> :
                         <TableRowColumn>
-                            {k === 'win' ?
-                              `${(r[k] * 100).toFixed(2)}%`
-                              : r[k]
-                            }
+                          {k === 'win' ?
+                            `${(r[k] * 100).toFixed(2)}%`
+                            : r[k]
+                          }
                         </TableRowColumn>
                     ))
                   }
