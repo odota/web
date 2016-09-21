@@ -51,7 +51,11 @@ const CrossTable = ({ match, field1, field2 }) => (
     <TableBody displayRowCheckbox={false}>
       <TableRow>
         <TableRowColumn>Hero</TableRowColumn>
-        {match.players.slice(0, match.players.length / 2).map(p => (<TableRowColumn key={p.hero_id}>{heroTd(p, 'hero_id', p.hero_id, true)}</TableRowColumn>))}
+        {match.players.slice(0, match.players.length / 2).map(p => (
+          <TableRowColumn key={p.hero_id}>
+            {heroTd(p, 'hero_id', p.hero_id, true)}
+          </TableRowColumn>)
+        )}
       </TableRow>
       {match.players.slice(match.players.length / 2, match.players.length).map(p => (<TableRow key={p.hero_id}>
         <TableRowColumn>{heroTd(p, 'hero_id', p.hero_id, true)}</TableRowColumn>
