@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
-import HardwareKeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import constants from 'dotaconstants';
 import moment from 'moment';
 import ReactTooltip from 'react-tooltip';
 import { API_HOST } from '../config.js';
 import styles from '../components/palette.css';
 import stylesTPL from '../components/Table/TablePercent.css';
+import { TableLink } from '../components/Table';
 
 export const isRadiant = (playerSlot) => playerSlot < 128;
 
@@ -38,6 +38,7 @@ export const getPercentWin = (wins, games) => (games ? Number(((wins * 100) / ga
 export const camelToSnake = str =>
   str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
 
+// TODO - these more complicated ones should be factored out into components
 export const transformations = {
   hero_id: (row, col, field) => (
     <div style={{ position: 'relative' }}>
@@ -58,13 +59,13 @@ export const transformations = {
       />
       <div style={{ display: 'inline-block', verticalAlign: 'top' }}>
         {constants.heroes[field] ? constants.heroes[field].localized_name : ''}
-        {row.match_id ?
+        {!row.rank && (row.match_id ?
           <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
             {isRadiant(row.player_slot) ? 'Radiant' : 'Dire'}
           </span> :
           <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
             {Number(row.last_played) ? moment(row.last_played, 'X').fromNow() : 'never'}
-          </span>}
+          </span>)}
       </div>
     </div>),
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
@@ -96,18 +97,7 @@ export const transformations = {
   game_mode: (row, col, field) => (constants.game_mode[field] ? constants.game_mode[field].name : field),
   match_id_and_game_mode: (row, col, field) => (
     <div>
-      <Link to={`/matches/${field}`}>
-        {field}
-        <HardwareKeyboardArrowRight
-          style={{
-            verticalAlign: 'text-bottom',
-            opacity: '.6',
-            height: 16,
-            width: 16,
-            color: styles.blue,
-          }}
-        />
-      </Link>
+      <TableLink to={`/matches/${field}`}>{field}</TableLink>
       <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
         {constants.game_mode[row.game_mode] ? constants.game_mode[row.game_mode].name : row.game_mode}
       </span>
@@ -127,6 +117,7 @@ export const transformations = {
   lane_role: (row, col, field) => (constants.lane_role[field] ? constants.lane_role[field].name : field),
   patch: (row, col, field) => (constants.patch[field] ? constants.patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
+  // TODO - this needs to just be a component
   kda: (row, col, field) => {
     const kdaSum = field + row.deaths + row.assists;
     return (

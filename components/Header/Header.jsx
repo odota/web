@@ -16,7 +16,6 @@ import { navbarPages } from './Pages';
 import { APP_NAME } from '../../config';
 
 
-
 /*
 const matchPagesMapped = (matchId) => matchPages.map((e) => Object.assign({}, e, {
   route: `/matches/${matchId}/${e.name.toLowerCase()}`,

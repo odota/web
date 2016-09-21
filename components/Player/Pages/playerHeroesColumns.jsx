@@ -1,6 +1,6 @@
 import React from 'react';
 import { transformations, getPercentWin } from '../../../utility';
-import TablePercent from '../../Table/TablePercent';
+import { TablePercent } from '../../Table';
 
 export const playerHeroesOverviewColumns = [{
   displayName: 'Hero',
