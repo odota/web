@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import FontIcon from 'material-ui/FontIcon';
 import { connect } from 'react-redux';
 import { REDUCER_KEY } from '../../reducers';
 import Spinner from '../Spinner';
@@ -8,6 +7,7 @@ import styles from './Cheese.css';
 // import CheeseButton from './CheeseButton';
 // import RaisedButton from 'material-ui/FlatButton';
 import ProgressBar from '../ProgressBar';
+import IconCheese from '../../assets/IconCheese';
 
 const Cheese = ({ donations, error, loading }) => {
   const { goal, cheese } = donations;
@@ -23,7 +23,7 @@ const Cheese = ({ donations, error, loading }) => {
     <div className={styles.container}>
       <div className={styles.section}>
         <h3 className={styles.cheeseTitle}>Monthly Cheese Goal
-          <Link to="/carry"><FontIcon className={styles.cheese} /></Link>
+          <Link to="/carry"><IconCheese className={styles.cheese} /></Link>
         </h3>
         {error && <Error />}
         {loading && <Spinner />}

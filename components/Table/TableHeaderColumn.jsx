@@ -8,7 +8,7 @@ import styles from './Table.css';
 
 export default ({ column, sortClick, sortField, sortState, totalWidth }) => (
   <MaterialTableHeaderColumn
-    style={getWidthStyle(column.width, totalWidth)}
+    style={{ width: `${getWidthStyle(column.width, totalWidth)}%` }}
   >
     <div
       className={column.sortFn ? styles.headerCell : styles.headerCellNoSort}

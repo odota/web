@@ -1,28 +1,23 @@
 import React from 'react';
-import PercentContainer from '../../PercentContainer';
-import { transformations } from '../../../utility';
+import { transformations, getPercentWin } from '../../../utility';
+import TablePercent from '../../Table/TablePercent';
 
 export const playerHeroesOverviewColumns = [{
   displayName: 'Hero',
   field: 'hero_id',
-  width: 2,
+  width: 3.1,
   displayFn: transformations.hero_id,
+  sortFn: (row) => (row.last_played),
 }, {
-  displayName: 'Last',
-  field: 'last_played',
-  width: 2,
-  sortFn: 1,
-  displayFn: transformations.last_played,
-}, {
-  displayName: 'Played',
+  displayName: 'mp',
   field: 'games',
-  width: 1.5,
+  width: 1,
   sortFn: true,
 }, {
   displayName: 'Win %',
   field: 'win',
   width: 2,
-  displayFn: (row) => <PercentContainer wins={row.win} games={row.games} />,
+  displayFn: (row) => (<TablePercent val={getPercentWin(row.win, row.games)} />),
   sortFn: (row) => (row.win / row.games),
 }];
 
@@ -32,10 +27,10 @@ const restColumns = [{
   width: 1.5,
   sortFn: true,
 }, {
-  displayName: 'Win %',
+  displayName: 'Win with %',
   field: 'with_win',
   width: 2,
-  displayFn: (row) => <PercentContainer wins={row.with_win} games={row.with_games} />,
+  displayFn: (row) => (<TablePercent val={getPercentWin(row.with_win, row.with_games)} />),
   sortFn: (row) => (row.with_win / row.with_games),
 }, {
   displayName: 'Against',
@@ -43,10 +38,10 @@ const restColumns = [{
   width: 1.5,
   sortFn: true,
 }, {
-  displayName: 'Win %',
+  displayName: 'Win against %',
   field: 'against_win',
   width: 2,
-  displayFn: (row) => <PercentContainer wins={row.against_win} games={row.against_games} />,
+  displayFn: (row) => (<TablePercent val={getPercentWin(row.against_win, row.against_games)} />),
   sortFn: (row) => (row.against_win / row.against_games),
 }];
 
