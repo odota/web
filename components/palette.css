@@ -1,44 +1,55 @@
 @import 'https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700&subset=cyrillic';
 
 :root {
-  --darkPrimaryColor: #1976D2;
-  --defaultPrimaryColor: rgba(0, 0, 0, .4);
-  --lightPrimaryColor: color(var(--defaultPrimaryColor) lightness(10%));
-  --textSecondaryColor: #212020;
-  --textPrimaryColor: #FFFFFF;
-  --primaryTextColor: #FFFFFF;
-  --textMutedColor: #727272;
-  --textSuccessColor: rgb(156, 204, 101);
-  --textDangerColor: rgb(239, 83, 80);
-  --primaryLinkColor: #6bf;
+  --darkPrimaryColor:     #1976D2;
+  --defaultPrimaryColor:  rgba(0, 0, 0, .4);
+  --lightPrimaryColor:      color(var(--defaultPrimaryColor) lightness(10%));
 
-  --accentColor: #FFAB40;
-  --lightAccentColor: color(var(--accentColor) lightness(60%));
+  --textSecondaryColor:   #212020;
+  --textPrimaryColor:     #F5F5F5;
+  --primaryTextColor:     #F5F5F5;
+  --textMutedColor:       #727272;
+  --textSuccessColor:     rgb(156, 204, 101);
+  --textDangerColor:      rgb(239, 83, 80);
+  --primaryLinkColor:     #6bf;
 
-  --neutralColor: #3B8386;
+  --accentColor:          #FFAB40;
+  --lightAccentColor:       color(var(--accentColor) lightness(60%));
+  --neutralColor:         #3B8386;
 
-  --dividerColor: color(var(--textSecondaryColor) lightness(20%));
+  --dividerColor:           color(var(--textSecondaryColor) lightness(20%));
 
+  --fontFamily: 'PT Sans', sans-serif;
   --normalFontSize: 12px;
   --mediumLargeFontSize: 16px;
-  --fontFamily: 'PT Sans', sans-serif;
+  
 
   --navDrawerWidth: 256px;
+
   --normalTransition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
   --linearTransition: all 450ms linear 0ms;
 }
 
-.textSuccess {
-  color: var(--textSuccessColor);
+:export {
+  blue:   var(--primaryLinkColor);
+  gray:   var(--textMutedColor);
+  grey:   var(--textMutedColor);
+  red:    var(--textDangerColor);
+  green:  var(--textSuccessColor);
+
+  buttonBgDefault:    rgba(255, 255, 255, .08);
+  buttonHoverDefault: rgba(255, 255, 255, .12);
+
+  buttonBgSubmit:       var(--primaryLinkColor);
+  buttonHoverSubmit:    color(var(--primaryLinkColor) blackness(30%));
+
+  textPrimary:    var(--textPrimaryColor);
+  textSecondary:  var(--textSecondaryColor);
 }
 
-.textDanger {
-  color: var(--textDangerColor);
-}
-
-.textMuted {
-  color: var(--textMutedColor);
-}
+.textSuccess  { color: var(--textSuccessColor) }
+.textDanger   { color: var(--textDangerColor) }
+.textMuted    { color: var(--textMutedColor) }
 
 .imgSmall {
   height: 30px;
@@ -74,20 +85,8 @@
   }
 }
 
-<<<<<<< HEAD
-:export {
-  blue: var(--primaryLinkColor);
-  gray: var(--textMutedColor);
-  grey: var(--textMutedColor);
-  red: var(--textDangerColor);
-  green: var(--textSuccessColor);
-  buttonBg: rgba(255, 255, 255, .08);
-  buttonHover: rgba(255, 255, 255, .12);
-}
-=======
 .verticalAlign {
   display:flex;
   align-items: center; /* Vertical center alignment */
   justify-content: center; /* Horizontal center alignment */
 }
->>>>>>> refs/remotes/odota/master

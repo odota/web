@@ -13,8 +13,8 @@ export default () => (
           disabled
           icon={<ActionUpdate />}
           style={{ minWidth: 50 }}
-          backgroundColor={styles.buttonBg}
-          hoverColor={styles.buttonHover}
+          backgroundColor={styles.buttonBgDefault}
+          hoverColor={styles.buttonHoverDefault}
         />
       </div>
       <ReactTooltip id="update" place="left" type="light" effect="float">
@@ -31,8 +31,8 @@ export default () => (
       labelPosition="before"
       icon={<img src="/assets/dotacoach-32x24.png" alt="DotaCoach" />}
       style={{ marginLeft: 15 }}
-      backgroundColor={styles.buttonBg}
-      hoverColor={styles.buttonHover}
+      backgroundColor={styles.buttonBgDefault}
+      hoverColor={styles.buttonHoverDefault}
     />
   </CardActions>
 );
