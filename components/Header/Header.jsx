@@ -11,15 +11,11 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 // import { NavDrawer } from '../NavBar';
 import AccountWidget from '../AccountWidget';
 import styles from './Header.css';
-import TabBar from '../TabBar';
 import SearchForm from '../Search/SearchForm';
-import { navbarPages, playerPages } from './Pages';
+import { navbarPages } from './Pages';
 import { APP_NAME } from '../../config';
 
-const playerPagesMapped = (accountId) => playerPages.map((e) => Object.assign({}, e, {
-  route: `/players/${accountId}/${e.name.toLowerCase()}`,
-  label: e.name,
-}));
+
 
 /*
 const matchPagesMapped = (matchId) => matchPages.map((e) => Object.assign({}, e, {
@@ -28,34 +24,15 @@ const matchPagesMapped = (matchId) => matchPages.map((e) => Object.assign({}, e,
 }));
 */
 
-const getTabBar = (params, location) => {
-  if (location.pathname.indexOf('/players') === 0) {
-    return (
-      <div className={styles.tabBarContainer}>
-        <TabBar tabs={playerPagesMapped(params.account_id)} />
-      </div>);
-  }
-  /*
-  else if (location.pathname.indexOf('/matches') === 0) {
-    return (
-      <div className={styles.tabBarContainer}>
-        <TabBar tabs={matchPagesMapped(params.match_id)} />
-      </div>);
-  }
-  */
-  return '';
-};
-
 export default ({
   // openMenu,
-  params,
   location,
 }) => (
   <div>
     <Toolbar className={styles.header}>
       <ToolbarGroup className={styles.verticalAlign}>
-        <Link to="/">
-          <strong>{APP_NAME}</strong>
+        <Link to="/" style={{ textTransform: 'uppercase', marginRight: 10 }}>
+          <strong>{`<${APP_NAME}/>`}</strong>
         </Link>
       </ToolbarGroup>
       <ToolbarGroup>
@@ -67,8 +44,8 @@ export default ({
           </div>
         ))}
       </ToolbarGroup>
-      <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 'auto' }}>
-        <ActionSearch />
+      <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 20 }}>
+        <ActionSearch style={{ marginRight: 8, opacity: '.6' }} />
         <SearchForm
           location={location}
         />
@@ -77,7 +54,6 @@ export default ({
         <AccountWidget />
       </ToolbarGroup>
     </Toolbar>
-    {getTabBar(params, location)}
   </div>
 );
 

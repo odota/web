@@ -23,7 +23,7 @@ const AccountWidget = ({ loading, error, user, style }) => (
     {error && <Error />}
     {!error && !loading && user ? (
       <div>
-        <Link className={styles.tab} to={`/players/${user.account_id}`}>{"Profile"}</Link>
+        <Link className={styles.tab} to={`/players/${user.account_id}/overview`}>{"Profile"}</Link>
         <a className={styles.tab} href={`${API_HOST}/logout`}>{"Logout"}</a>
       </div>
     )

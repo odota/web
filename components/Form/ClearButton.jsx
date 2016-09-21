@@ -1,7 +1,13 @@
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import styles from './ClearButton.css';
+import FlatButton from 'material-ui/FlatButton';
+import styles from '../palette.css';
 
 export default ({ clearForm, label = 'clear', style }) => (
-  <RaisedButton label={label} onClick={clearForm} style={style} backgroundColor={styles.clearColor} />
+  <FlatButton
+    label={label}
+    onClick={clearForm}
+    style={style}
+    backgroundColor={styles.buttonBgDefault}
+    hoverColor={styles.buttonHoverDefault}
+  />
 );

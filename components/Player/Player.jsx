@@ -17,6 +17,7 @@ import {
   RecordsPage,
   CountsPage,
 } from './Pages';
+import PlayerTabs from './PlayerTabs';
 
 const getPlayerSubroute = (info, playerId) => {
   switch (info) {
@@ -41,7 +42,7 @@ const getPlayerSubroute = (info, playerId) => {
   }
 };
 
-const Player = ({ playerId, info }) => {
+const Player = ({ playerId, info, params, location }) => {
   if (!playerId) {
     return <Error />;
   }
@@ -50,6 +51,7 @@ const Player = ({ playerId, info }) => {
     <div>
       <div className={styles.header}>
         <PlayerHeader playerId={playerId} />
+        <PlayerTabs params={params} location={location} />
       </div>
       {getPlayerSubroute(info, playerId)}
     </div>
