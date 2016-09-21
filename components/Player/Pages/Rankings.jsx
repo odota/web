@@ -11,7 +11,6 @@ import {
   transformPlayerRankingsById,
 } from '../../../selectors';
 import { playerRankings } from '../../../reducers';
-import { TableFilterForm } from '../../Form';
 
 const PlayerRankingsTable = createTable(
   playerRankings.getPlayerRankingsById,
@@ -21,7 +20,6 @@ const PlayerRankingsTable = createTable(
 
 const Rankings = ({ playerId }) => (
   <div>
-    <TableFilterForm submitAction={getPlayerRankings} id={playerId} page="rankings" />
     <TableContainer title="Rankings Played">
       <PlayerRankingsTable columns={playerRankingsColumns} id={playerId} />
     </TableContainer>
