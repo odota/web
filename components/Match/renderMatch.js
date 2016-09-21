@@ -20,6 +20,8 @@ function renderMatch(m)
   // do render-only processing (not needed for aggregation, only for match display)
   m.players.forEach(function (pm, i)
   {
+    pm.multi_kills_max = getMaxKeyOfObject(pm.multi_kills);
+    pm.kill_streaks_max = getMaxKeyOfObject(pm.kill_streaks);
     // converts hashes to arrays and sorts them
     const targets = ['ability_uses', 'item_uses', 'damage_inflictor', 'damage_inflictor_received'];
     targets.forEach(function (target)
@@ -40,11 +42,11 @@ function renderMatch(m)
             name: (!a && !i) ? 'Auto Attack/Other' : key,
             val: pm[target][key],
             className: a ? 'ability' : i ? 'item' : 'img-sm',
+            ability_uses: (pm.ability_uses || {})[key],
+            item_uses: (pm.item_uses || {})[key],
+            hero_hits: (pm.hero_hits || {})[key],
+            damage_inflictor: (pm.damage_inflictor || {})[key],
           };
-          if (pm.hero_hits)
-          {
-            result.hero_hits = pm.hero_hits[key];
-          }
           t.push(result);
         }
         t.sort(function (a, b)
@@ -263,6 +265,11 @@ function renderMatch(m)
   m.chat = m.chat || [];
   return m;
 }
+
+const getMaxKeyOfObject = (field) => {
+  return field ? Object.keys(field).sort((a, b) => Number(b) - Number(a))[0] : '';
+};
+
 /**
  * Generates data for c3 charts in a match
  **/

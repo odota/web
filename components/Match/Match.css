@@ -1,3 +1,5 @@
+@import "../palette.css";
+
 .teamIndicator {
   opacity: .5;
   height: 24px;

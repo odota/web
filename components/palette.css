@@ -40,6 +40,10 @@
   color: var(--textMutedColor);
 }
 
+.imgSmall {
+  height: 30px;
+}
+
 .subText {
   font-size: 12px !important;
   opacity: .6;
@@ -70,6 +74,7 @@
   }
 }
 
+<<<<<<< HEAD
 :export {
   blue: var(--primaryLinkColor);
   gray: var(--textMutedColor);
@@ -79,3 +84,10 @@
   buttonBg: rgba(255, 255, 255, .08);
   buttonHover: rgba(255, 255, 255, .12);
 }
+=======
+.verticalAlign {
+  display:flex;
+  align-items: center; /* Vertical center alignment */
+  justify-content: center; /* Horizontal center alignment */
+}
+>>>>>>> refs/remotes/odota/master
