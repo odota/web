@@ -12,6 +12,8 @@ import {
   OverviewPage,
   MatchesPage,
   HeroesPage,
+  ProsPage,
+  RankingsPage,
   RecordsPage,
   CountsPage,
 } from './Pages';
@@ -25,6 +27,10 @@ const getPlayerSubroute = (info, playerId) => {
       return <MatchesPage playerId={playerId} />;
     case 'heroes':
       return <HeroesPage playerId={playerId} />;
+    case 'pros':
+      return <ProsPage playerId={playerId} />;
+    case 'rankings':
+      return <RankingsPage playerId={playerId} />;
     case 'peers':
       return <PeersPage playerId={playerId} />;
     case 'records':
