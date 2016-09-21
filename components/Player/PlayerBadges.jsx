@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import FontIcon from 'material-ui/FontIcon';
 import ActionVisibility from 'material-ui/svg-icons/action/visibility';
 import ReactTooltip from 'react-tooltip';
 import Error from '../Error';
 import Spinner from '../Spinner';
 import { player } from '../../reducers';
 import styles from './PlayerHeader.css';
+import IconCheese from '../../assets/IconCheese';
 
 export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink }) => {
   const getPlayerBadges = () => {
@@ -36,7 +36,18 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink }
         {cheese ?
           <div>
             <div data-tip data-for="cheese">
-              <FontIcon style={{ fontWeight: 600, textShadow: 'none' }} className={`${styles.cheese} ${styles.icon}`} />
+              <IconCheese
+                className={styles.icon}
+                style={{
+                  width: 18,
+                  height: 18,
+                  fill: 'white',
+                  stroke: 'white',
+                  strokeWidth: 3,
+                  paddingTop: 3,
+                  marginLeft: 4,
+                }}
+              />
             </div>
             <ReactTooltip id="cheese" place="top" type="light" effect="float">
               {cheese} Cheese bought

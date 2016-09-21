@@ -6,10 +6,6 @@
   height: 100%;
 }
 
-:global(.flaticon) {
-  font-family: Flaticon;
-}
-
 :global(a) {
   color: var(--primaryLinkColor);
   text-decoration: none;

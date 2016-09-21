@@ -76,13 +76,14 @@
 }
 
 .cheese {
-  font-family: Flaticon;
-  font-size: 40px;
-  text-shadow: 0 0 10px #ff0;
-  margin: 0 10px;
-  &::before {
-    content: "\E000";
-  }
+  height: 24px;
+  width: 24px;
+  fill: var(--primaryTextColor);
+  -webkit-filter: drop-shadow(0 0 10px #ff0);
+  filter: drop-shadow(0 0 10px #ff0);
+  margin-left: 10px;
+  vertical-align: sub;
+  stroke: white;
 }
 
 .verticalAlign {
