@@ -12,9 +12,12 @@ import {
   OverviewPage,
   MatchesPage,
   HeroesPage,
+  ProsPage,
+  RankingsPage,
   RecordsPage,
   CountsPage,
 } from './Pages';
+import PlayerTabs from './PlayerTabs';
 
 const getPlayerSubroute = (info, playerId) => {
   switch (info) {
@@ -24,6 +27,10 @@ const getPlayerSubroute = (info, playerId) => {
       return <MatchesPage playerId={playerId} />;
     case 'heroes':
       return <HeroesPage playerId={playerId} />;
+    case 'pros':
+      return <ProsPage playerId={playerId} />;
+    case 'rankings':
+      return <RankingsPage playerId={playerId} />;
     case 'peers':
       return <PeersPage playerId={playerId} />;
     case 'records':
@@ -35,7 +42,7 @@ const getPlayerSubroute = (info, playerId) => {
   }
 };
 
-const Player = ({ playerId, info }) => {
+const Player = ({ playerId, info, params, location }) => {
   if (!playerId) {
     return <Error />;
   }
@@ -44,6 +51,7 @@ const Player = ({ playerId, info }) => {
     <div>
       <div className={styles.header}>
         <PlayerHeader playerId={playerId} />
+        <PlayerTabs params={params} location={location} />
       </div>
       {getPlayerSubroute(info, playerId)}
     </div>

@@ -2,7 +2,6 @@
 
 .container {
   min-width: 100%;
-  border: 1px solid #666;
   clear: both;
   @media only screen and (max-width: 960px) {
     margin: 0 -25px;
@@ -16,14 +15,27 @@
   }
 }
 
+.innerContainer > div > div {
+  overflow: hidden !important;
+} 
+
 .header {
   border-bottom-width: 0 !important;
   border-bottom-style: none !important;
 }
 
 .headerRow {
-  border-bottom-width: 0 !important;
-  border-bottom-style: none !important;
+  /*border-bottom-width: 0 !important;
+  border-bottom-style: none !important;*/
+}
+
+.headerRow svg {
+  vertical-align: top;
+  margin-left: 2px;
+}
+
+.headerRow th {
+  background-color: rgba(0, 0, 0, .3);
 }
 
 .headerCellNoSort {
@@ -44,9 +56,28 @@
 }
 
 .row {
-  border: 0 !important;
+  border-top: 1px solid rgba(255, 255, 255, .06) !important;
+  border-bottom: 0 !important;
 }
 
 tbody tr:nth-child(odd) {
-   background-color: #3e3e3e;
+   background-color: rgba(255, 255, 255, .019);
+}
+tbody tr:nth-child(even) {
+   background-color: rgba(0, 0, 0, .019);
+}
+
+table {
+  background-color: transparent !important;
+}
+
+table td:first-child, table th:first-child {
+  padding-left: 24px !important;
+}
+table td:last-child, table th:last-child {
+  padding-right: 24px !important;
+}
+table td, table th {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
 }

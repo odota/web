@@ -1,19 +1,17 @@
-import React from 'react';
 // import { Link } from 'react-router';
-import ActionDone from 'material-ui/svg-icons/action/done';
 import { transformations } from '../../../utility';
 
 export default [{
-  displayName: 'ID',
-  field: 'match_id',
-  width: 2,
-  sortFn: true,
-  displayFn: transformations.match_id,
-}, {
   displayName: 'Hero',
   field: 'hero_id',
-  width: 3,
+  width: 2.8,
   displayFn: transformations.hero_id,
+}, {
+  displayName: 'Id',
+  field: 'match_id',
+  width: 1.8,
+  sortFn: true,
+  displayFn: transformations.match_id_and_game_mode,
 }, {
   displayName: 'Res',
   field: 'radiant_win',
@@ -26,43 +24,26 @@ export default [{
   sortFn: true,
   displayFn: transformations.skill,
 }, {
-  displayName: 'Mode',
-  field: 'game_mode',
-  width: 2.5,
-  sortFn: true,
-  displayFn: transformations.game_mode,
-}, {
-  displayName: 'Ended',
-  field: 'start_time',
-  width: 2,
-  displayFn: transformations.start_time,
-  sortFn: true,
-}, {
   displayName: 'Len',
   field: 'duration',
-  width: 2,
+  width: 1.2,
   sortFn: true,
   displayFn: transformations.duration,
 }, {
   displayName: 'K',
   field: 'kills',
-  width: 1,
   sortFn: true,
+  width: 0.8,
+  displayFn: transformations.kda,
 }, {
   displayName: 'D',
   field: 'deaths',
-  width: 1,
   sortFn: true,
+  width: 0.8,
 }, {
   displayName: 'A',
   field: 'assists',
-  width: 1,
   sortFn: true,
-}, {
-  displayName: 'P',
-  field: 'version',
-  width: 1,
-  sortFn: true,
-  displayFn: (row, col, field) => (field ? <ActionDone /> : <div />),
+  width: 0.8,
 },
 ];

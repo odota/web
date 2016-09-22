@@ -1,7 +1,14 @@
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import styles from './SubmitButton.css';
+import FlatButton from 'material-ui/FlatButton';
+import styles from '../palette.css';
 
 export default ({ submitForm, label = 'submit', style }) => (
-  <RaisedButton label={label} onClick={submitForm} style={style} labelColor={styles.textColor} backgroundColor={styles.submitColor} />
+  <FlatButton
+    label={label}
+    onClick={submitForm}
+    style={style}
+    backgroundColor={styles.buttonBgSubmit}
+    hoverColor={styles.buttonHoverSubmit}
+    labelStyle={{ color: styles.textSecondary }}
+  />
 );
