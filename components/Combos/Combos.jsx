@@ -49,7 +49,7 @@ class Combos extends React.Component {
     const dateToTimestamp = date => date.getTime() / 1000;
     const minTimestamp = dateToTimestamp(this.state.date_min);
     const maxTimestamp = dateToTimestamp(this.state.date_max);
-    this.setState(Object.assign({}, this.loading_match_ids, { loading: true }));
+    this.setState(Object.assign({}, this.state, { loading_match_ids: true }));
     alert("yay")
     // fetch(`${API_HOST}/api/explorer`, {
     //   method: 'post',
@@ -108,6 +108,28 @@ class Combos extends React.Component {
     const dateToTimestamp = date => date.getTime() / 1000;
     const minTimestamp = dateToTimestamp(this.state.date_min);
     const maxTimestamp = dateToTimestamp(this.state.date_max);
+    const select = [1, 2, 3, 4, 5].map(i => (`${i <= this.state.team_size ?
+            `pm${i}.hero_id` : `''`} team${i},`)).join('');
+    const select2 = [1, 2, 3, 4, 5].map(i => (`${i <= this.state.oppo_size ?
+            `opm${i}.hero_id` : `''`} opp${i},`)).join('');
+    const join1 = [2, 3, 4, 5].map(i => (i <= this.state.team_size ? `
+          JOIN player_matches pm${i} 
+          ON pm1.match_id = pm${i}.match_id 
+          AND (pm1.player_slot < 128) = (pm${i}.player_slot < 128)
+          AND pm${i}.hero_id != pm1.hero_id
+          AND pm${i}.hero_id > 0
+          ${i >= 3 ? `AND pm${i}.hero_id > pm${i - 1}.hero_id` : ''}
+          ` : '')).join('');
+    const join2 = [1, 2, 3, 4, 5].map(i => (i <= this.state.oppo_size ? `
+          JOIN player_matches opm${i} 
+          ON pm1.match_id = opm${i}.match_id 
+          AND (pm1.player_slot < 128) != (opm${i}.player_slot < 128)
+          ${i >= 2 ? `AND opm${i}.hero_id > opm${i - 1}.hero_id` : ''}
+          ` : '')).join('');
+    const groupBy = [1, 2, 3, 4, 5].map(i => `team${i}`)
+        .concat([1, 2, 3, 4, 5].map(i => `opp${i}`))
+        .join();
+    console.log(select, select2, join1, join2, groupBy);
     this.setState(Object.assign({}, this.state, { loading: true }));
     fetch(`${API_HOST}/api/explorer`, {
       method: 'post',
@@ -118,37 +140,21 @@ class Combos extends React.Component {
       body: JSON.stringify({
         sql: `
         select
-        ${[1, 2, 3, 4, 5].map(i => `${i <= this.state.team_size ?
-            `pm${i}.hero_id` : '\'\''} team${i},`).join('')}
-        ${[1, 2, 3, 4, 5].map(i => `${i <= this.state.oppo_size ?
-            `opm${i}.hero_id` : '\'\''} opp${i},`).join('')}
+        ${select}
+        ${select2}
         count(*),
         sum(case when ((pm1.player_slot < 128) = m.radiant_win)
             then 1 else 0 end)::float / count(*) as win
         from player_matches pm1
-        ${[2, 3, 4, 5].map(i => (i <= this.state.team_size ? `
-          JOIN player_matches pm${i} 
-          ON pm1.match_id = pm${i}.match_id 
-          AND (pm1.player_slot < 128) = (pm${i}.player_slot < 128)
-          AND pm${i}.hero_id != pm1.hero_id
-          AND pm${i}.hero_id > 0
-          ${i >= 3 ? `AND pm${i}.hero_id > pm${i - 1}.hero_id` : ''}
-          ` : '').join(''))}
-        ${[1, 2, 3, 4, 5].map(i => (i <= this.state.oppo_size ? `
-          JOIN player_matches opm${i} 
-          ON pm1.match_id = opm${i}.match_id 
-          AND (pm1.player_slot < 128) != (opm${i}.player_slot < 128)
-          ${i >= 2 ? `AND opm${i}.hero_id > opm${i - 1}.hero_id` : ''}
-          ` : '').join(''))}
+        ${join1}
+        ${join2}
         JOIN matches m
           ON pm1.match_id = m.match_id
           WHERE pm1.hero_id = ${this.state.hero_id}
           AND m.start_time >= ${minTimestamp}
           AND m.start_time <= ${maxTimestamp}
         GROUP BY
-        ${[1, 2, 3, 4, 5].map(i => `team${i}`)
-        .concat([1, 2, 3, 4, 5].map(i => `opp${i}`))
-        .join()}
+        ${groupBy}
         HAVING count(*) > 5
         ORDER BY win DESC
         LIMIT 1000
