@@ -105,6 +105,7 @@ export const transformations = {
   patch: (row, col, field) => (constants.patch[field] ? constants.patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
+  rank: (row) => row.card - row.rank,
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */
