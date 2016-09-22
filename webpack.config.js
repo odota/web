@@ -24,7 +24,6 @@ const config = {
   resolve: {
     extensions: ['', '.jsx', '.js', '.css', '.json'],
   },
-  devTool: 'cheap-module-source-map',
   module: {
     loaders: [{
       test: /\.css$/,
