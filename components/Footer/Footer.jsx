@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import AppLogo from '../App/AppLogo';
 import FooterLinks from './FooterLinks';
+import Cheese from './Cheese.jsx'; // without .jsx for some reason - ENOENT: no such file or directory
 import styles from './Footer.css';
 
 const Footer = () => (
@@ -20,7 +21,7 @@ const Footer = () => (
         <FooterLinks />
       </Col>
       <Col xs>
-        Cheese
+        <Cheese />
       </Col>
       <Col xs />
     </Row>

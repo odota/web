@@ -31,11 +31,14 @@
 }
 
 :export {
-  blue:   var(--primaryLinkColor);
-  gray:   var(--textMutedColor);
-  grey:   var(--textMutedColor);
-  red:    var(--textDangerColor);
-  green:  var(--textSuccessColor);
+  red:          var(--textDangerColor);
+  green:        var(--textSuccessColor);
+  blue:         var(--primaryLinkColor);
+  gray:         var(--textMutedColor);
+  grey:         var(--textMutedColor);
+  low:          var(--accentColor);
+  yellowOrange: var(--accentColor);
+  
 
   buttonBgDefault:    rgba(255, 255, 255, .08);
   buttonHoverDefault: rgba(255, 255, 255, .12);
@@ -77,15 +80,10 @@
   justify-content: center;
 }
 
-.cheese {
-  height: 24px;
-  width: 24px;
+.cheeseGlow {
   fill: var(--primaryTextColor);
   -webkit-filter: drop-shadow(0 0 10px #ff0);
   filter: drop-shadow(0 0 10px #ff0);
-  margin-left: 10px;
-  vertical-align: sub;
-  stroke: white;
 }
 
 .verticalAlign {

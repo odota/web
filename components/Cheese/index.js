@@ -1,3 +1,3 @@
-import CheeseMeter from './CheeseMeter';
+import CheeseCircle from './CheeseCircle';
 
-export default CheeseMeter;
+export default CheeseCircle;

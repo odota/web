@@ -6,16 +6,6 @@
   color: var(--primaryTextColor);
 }
 
-.footer > div > div:nth-child(1) {
-  text-align: left;
-}
-.footer > div > div:nth-child(2) {
-  text-align: center;
-}
-.footer > div > div:nth-child(3) {
-  text-align: right;
-}
-
 .footer p {
   padding: 2px 0 5px;
   margin: 0;
@@ -66,4 +56,16 @@
   &::after {
     content: "";
   }
+}
+.links svg {
+  fill: var(--primaryLinkColor) !important;
+}
+
+.cheese {
+  display: table;
+}
+.cheese > div {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 5px;
 }
