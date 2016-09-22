@@ -33,15 +33,77 @@ class Combos extends React.Component {
       team_size: 2,
       oppo_size: 1,
       loading: false,
+      loading_match_ids: false,
       date_max: today,
       date_min: aWhileAgo,
       result: {},
+      match_ids: {}
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.getMatchIds = this.getMatchIds.bind(this);
   }
 
   componentDidMount() {}
 
+  getMatchIds() {
+    const dateToTimestamp = date => date.getTime() / 1000;
+    const minTimestamp = dateToTimestamp(this.state.date_min);
+    const maxTimestamp = dateToTimestamp(this.state.date_max);
+    this.setState(Object.assign({}, this.loading_match_ids, { loading: true }));
+    alert("yay")
+    // fetch(`${API_HOST}/api/explorer`, {
+    //   method: 'post',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     sql: `
+    //     select
+    //     ${[1, 2, 3, 4, 5].map(i => `${i <= this.state.team_size ?
+    //         `pm${i}.hero_id` : '\'\''} team${i},`).join('')}
+    //     ${[1, 2, 3, 4, 5].map(i => `${i <= this.state.oppo_size ?
+    //         `opm${i}.hero_id` : '\'\''} opp${i},`).join('')}
+    //     count(*),
+    //     sum(case when ((pm1.player_slot < 128) = m.radiant_win)
+    //         then 1 else 0 end)::float / count(*) as win
+    //     from player_matches pm1
+    //     ${[2, 3, 4, 5].map(i => (i <= this.state.team_size ? `
+    //       JOIN player_matches pm${i} 
+    //       ON pm1.match_id = pm${i}.match_id 
+    //       AND (pm1.player_slot < 128) = (pm${i}.player_slot < 128)
+    //       AND pm${i}.hero_id != pm1.hero_id
+    //       AND pm${i}.hero_id > 0
+    //       ${i >= 3 ? `AND pm${i}.hero_id > pm${i - 1}.hero_id` : ''}
+    //       ` : '').join(''))}
+    //     ${[1, 2, 3, 4, 5].map(i => (i <= this.state.oppo_size ? `
+    //       JOIN player_matches opm${i} 
+    //       ON pm1.match_id = opm${i}.match_id 
+    //       AND (pm1.player_slot < 128) != (opm${i}.player_slot < 128)
+    //       ${i >= 2 ? `AND opm${i}.hero_id > opm${i - 1}.hero_id` : ''}
+    //       ` : '').join(''))}
+    //     JOIN matches m
+    //       ON pm1.match_id = m.match_id
+    //       WHERE pm1.hero_id = ${this.state.hero_id}
+    //       AND m.start_time >= ${minTimestamp}
+    //       AND m.start_time <= ${maxTimestamp}
+    //     GROUP BY
+    //     ${[1, 2, 3, 4, 5].map(i => `team${i}`)
+    //     .concat([1, 2, 3, 4, 5].map(i => `opp${i}`))
+    //     .join()}
+    //     HAVING count(*) > 5
+    //     ORDER BY win DESC
+    //     LIMIT 1000
+    //     `,
+    //   }),
+    // }).then(resp => resp.json()).then((json) =>
+    //   this.setState(Object.assign({}, this.state, {
+    //     loading: false,
+    //     match_ids: json,
+    //   }))
+    // );
+  }
+  
   handleSubmit() {
     const dateToTimestamp = date => date.getTime() / 1000;
     const minTimestamp = dateToTimestamp(this.state.date_min);
@@ -177,7 +239,11 @@ class Combos extends React.Component {
                         <TableRowColumn>
                           {k === 'win' ?
                             `${(r[k] * 100).toFixed(2)}%`
-                            : r[k]
+                            : 
+                          k === 'count' ?
+                            <div onClick={this.getMatchIds}>{r[k]}</div>
+                            :
+                            r[k]
                           }
                         </TableRowColumn>
                     ))
