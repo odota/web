@@ -18,7 +18,7 @@ const LoggedIn = ({ loading, error, playerId, playerName, playerPicture }) => {
 
     return (
       <div className={styles.verticalAlign}>
-        <Link to={`/players/${playerId}/overview`} className={styles.playerProfile}>
+        <Link to={`/players/${playerId}/overview`}>
           <FlatButton
             label={playerName}
             labelPosition="before"
@@ -29,7 +29,7 @@ const LoggedIn = ({ loading, error, playerId, playerName, playerPicture }) => {
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',
             }}
-            hoverColor="#1976D2"
+            hoverColor="transparent"
             icon={<Avatar src={playerPicture} size={30} />}
           />
         </Link>
