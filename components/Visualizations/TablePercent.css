@@ -1,12 +1,3 @@
-@import '../palette.css';
-
-:export {
-  red: var(--textDangerColor);
-  neutral: var(--textMutedColor);
-  green: var(--textSuccessColor);
-  low: var(--accentColor);
-}
-
 .TablePercent {
   width: 100%;
   height: 4px;

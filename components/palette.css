@@ -36,6 +36,7 @@
   grey:   var(--textMutedColor);
   red:    var(--textDangerColor);
   green:  var(--textSuccessColor);
+  low:    var(--accentColor);
 
   buttonBgDefault:    rgba(255, 255, 255, .08);
   buttonHoverDefault: rgba(255, 255, 255, .12);
