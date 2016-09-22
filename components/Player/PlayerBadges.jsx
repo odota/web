@@ -6,7 +6,7 @@ import Error from '../Error';
 import Spinner from '../Spinner';
 import { player } from '../../reducers';
 import styles from './PlayerHeader.css';
-import IconCheese from '../../assets/IconCheese';
+import { IconCheese, IconSteam } from '../Icons';
 
 export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink }) => {
   const getPlayerBadges = () => {
@@ -16,7 +16,14 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink }
       <div className={styles.playerBadges}>
         <div>
           <a data-tip data-for="steam" className={styles.icon} href={steamLink} rel="noopener noreferrer" target="_blank">
-            <img alt="Steam" src="/assets/steam_icon.png" width="16" height="16" />
+            <IconSteam
+              style={{
+                width: 16,
+                height: 16,
+                top: 8,
+                left: 4,
+              }}
+            />
           </a>
           <ReactTooltip id="steam" place="top" type="light" effect="float">
             Steam profile
