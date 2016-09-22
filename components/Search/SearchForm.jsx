@@ -23,7 +23,13 @@ const SearchForm = ({ dispatchSearch, dispatchSetQuery, query }) => {
         value={query}
         onChange={(e) => dispatchSetQuery(e.target.value)}
         fullWidth
-        underlineFocusStyle={{ borderColor: styles.searchBarColor }}
+        underlineFocusStyle={{
+          borderColor: styles.searchBarColor,
+          bottom: '-4px',
+          left: '-40px',
+          width: 'calc(100% + 40px)',
+        }}
+        underlineStyle={{ borderColor: 'transparent' }}
       />
     </form>
   );

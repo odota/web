@@ -7,7 +7,17 @@ import {
   getPlayerWinLoss,
 } from '../../actions';
 import styles from './Player.css';
-import { PeersPage, OverviewPage, MatchesPage, HeroesPage, RecordsPage } from './Pages';
+import {
+  PeersPage,
+  OverviewPage,
+  MatchesPage,
+  HeroesPage,
+  ProsPage,
+  RankingsPage,
+  RecordsPage,
+  CountsPage,
+} from './Pages';
+import PlayerTabs from './PlayerTabs';
 
 const getPlayerSubroute = (info, playerId) => {
   switch (info) {
@@ -17,16 +27,22 @@ const getPlayerSubroute = (info, playerId) => {
       return <MatchesPage playerId={playerId} />;
     case 'heroes':
       return <HeroesPage playerId={playerId} />;
+    case 'pros':
+      return <ProsPage playerId={playerId} />;
+    case 'rankings':
+      return <RankingsPage playerId={playerId} />;
     case 'peers':
       return <PeersPage playerId={playerId} />;
     case 'records':
       return <RecordsPage playerId={playerId} />;
+    case 'counts':
+      return <CountsPage playerId={playerId} />;
     default:
       return <OverviewPage playerId={playerId} />;
   }
 };
 
-const Player = ({ playerId, info }) => {
+const Player = ({ playerId, info, params, location }) => {
   if (!playerId) {
     return <Error />;
   }
@@ -35,6 +51,7 @@ const Player = ({ playerId, info }) => {
     <div>
       <div className={styles.header}>
         <PlayerHeader playerId={playerId} />
+        <PlayerTabs params={params} location={location} />
       </div>
       {getPlayerSubroute(info, playerId)}
     </div>

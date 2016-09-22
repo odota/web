@@ -36,12 +36,18 @@ const getTable = (data, columns, sortState, sortField, sortClick) => {
               key={index}
               className={styles.row}
             >
-              {columns.map((column, colIndex) => (
-                <MaterialTableRowColumn key={colIndex} style={getWidthStyle(column.width, totalWidth)}>
-                  {row && column.displayFn && column.displayFn(row, column, row[column.field])}
-                  {row && !column.displayFn && row[column.field]}
-                </MaterialTableRowColumn>
-              ))}
+              {columns.map((column, colIndex) => {
+                const MaterialTableRowColumnStyle = {
+                  width: `${getWidthStyle(column.width, totalWidth)}%`,
+                  overflow: `${column.field === 'kills' ? 'visible' : null}`,
+                };
+                return (
+                  <MaterialTableRowColumn key={colIndex} style={MaterialTableRowColumnStyle}>
+                    {row && column.displayFn && column.displayFn(row, column, row[column.field])}
+                    {row && !column.displayFn && row[column.field]}
+                  </MaterialTableRowColumn>
+                );
+              })}
             </MaterialTableRow>
           ))}
         </MaterialTableBody>
@@ -57,5 +63,18 @@ const Table = ({ data, columns, loading, error, sortState, sortField, sortClick,
     {!loading && !error && data && getTable(data, columns, sortState, sortField, sortClick, numRows)}
   </div>
 );
+
+const { array, bool, string, func, number } = React.PropTypes;
+
+Table.propTypes = {
+  data: array,
+  columns: array,
+  loading: bool,
+  error: bool,
+  sortState: string,
+  sortField: string,
+  sortClick: func,
+  numRows: number,
+};
 
 export default Table;

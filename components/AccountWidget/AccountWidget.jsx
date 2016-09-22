@@ -49,14 +49,10 @@ const mapDispatchToProps = (dispatch) => ({
   getPlayer: (playerId) => dispatch(getPlayer(playerId)),
 });
 
-const getData = props => {
-  props.getPlayer(props.user.account_id);
-};
-
 class RequestLayer extends React.Component {
   componentWillUpdate(nextProps) {
     if (nextProps.user && nextProps.user.account_id) {
-      getData(nextProps);
+      this.props.getPlayer(nextProps.user.account_id)
     }
   }
 
