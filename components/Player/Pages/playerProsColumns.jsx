@@ -1,5 +1,6 @@
 import React from 'react';
-import { TableLink, TablePercent } from '../../Table';
+import { TableLink } from '../../Table';
+import { TablePercent } from '../../Visualizations';
 import { transformations, getPercentWin } from '../../../utility';
 
 export default [{
@@ -23,8 +24,8 @@ export default [{
   displayName: 'Win%',
   field: 'with_win',
   width: 2,
-  displayFn: (row) => <TablePercent val={getPercentWin(row.win, row.games)} />,
-  sortFn: (row) => (row.win / row.games),
+  displayFn: (row) => <TablePercent val={getPercentWin(row.with_win, row.with_games)} />,
+  sortFn: (row) => (row.with_win / row.with_games),
 }, {
   displayName: 'Against',
   field: 'against_games',
@@ -34,6 +35,6 @@ export default [{
   displayName: 'Win%',
   field: 'against_win',
   width: 2,
-  displayFn: (row) => <TablePercent val={getPercentWin(row.with_win, row.with_games)} />,
-  sortFn: (row) => (row.with_win / row.with_games),
+  displayFn: (row) => <TablePercent val={getPercentWin(row.against_win, row.against_games)} />,
+  sortFn: (row) => (row.against_win / row.against_games),
 }];

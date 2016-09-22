@@ -4,7 +4,7 @@ import styles from './TablePercent.css';
 export default ({ text, val }) => (
   <div style={{ position: 'relative' }}>
     <div>
-      {!text ? val : text}
+      {text || val}
     </div>
     <div className={styles.TablePercent}>
       <div style={{ width: `${val}%`, backgroundColor: `${val >= 50 ? styles.green : styles.low}` }} />

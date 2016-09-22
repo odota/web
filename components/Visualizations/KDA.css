@@ -1,12 +1,4 @@
 @import '../palette.css';
-@import "./TablePercent.css";
-
-:export {
-  red: var(--textDangerColor);
-  neutral: var(--textMutedColor);
-  green: var(--textSuccessColor);
-  low: var(--accentColor);
-}
 
 .container {
   position: relative;

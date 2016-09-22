@@ -1,9 +1,11 @@
 import React from 'react';
 import uuid from 'node-uuid';
 import ReactTooltip from 'react-tooltip';
-import styles from './TableKDA.css';
+import styles from './KDA.css';
+import palette from '../palette.css';
 
-const TableKDA = ({ kills, deaths, assists, matchId = uuid.v4() }) => {
+
+const KDA = ({ kills, deaths, assists, matchId = uuid.v4() }) => {
   const kdaSum = kills + deaths + assists;
 
   return (
@@ -13,12 +15,12 @@ const TableKDA = ({ kills, deaths, assists, matchId = uuid.v4() }) => {
       </div>
       <div>
         <div className={styles.percent} data-tip data-for={`kda-${matchId}`}>
-          <div style={{ width: `${(kills * 100) / kdaSum}%`, backgroundColor: styles.red }} />
-          <div style={{ width: `${(deaths * 100) / kdaSum}%`, backgroundColor: styles.neutral }} />
-          <div style={{ width: `${(assists * 100) / kdaSum}%`, backgroundColor: styles.green }} />
+          <div style={{ width: `${(kills * 100) / kdaSum}%`, backgroundColor: palette.red }} />
+          <div style={{ width: `${(deaths * 100) / kdaSum}%`, backgroundColor: palette.neutral }} />
+          <div style={{ width: `${(assists * 100) / kdaSum}%`, backgroundColor: palette.green }} />
         </div>
         <ReactTooltip id={`kda-${matchId}`} place="right" type="light" effect="float">
-          {`KDA: ${Math.round((kdaSum / deaths) * 100) / 100}`}
+          {`KDA: ${Number(((kills + assists) / (deaths || 1)).toFixed(2))}`}
         </ReactTooltip>
       </div>
     </div>
@@ -27,11 +29,11 @@ const TableKDA = ({ kills, deaths, assists, matchId = uuid.v4() }) => {
 
 const { string, number } = React.PropTypes;
 
-TableKDA.propTypes = {
+KDA.propTypes = {
   kills: number,
   deaths: number,
   assists: number,
   matchId: string,
 };
 
-export default TableKDA;
+export default KDA;

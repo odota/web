@@ -4,7 +4,8 @@ import constants from 'dotaconstants';
 import moment from 'moment';
 import { API_HOST } from '../config.js';
 import styles from '../components/palette.css';
-import { TableLink, TableHeroImage, TableKDA } from '../components/Table';
+import { TableLink, TableHeroImage } from '../components/Table';
+import { KDA } from '../components/Visualizations';
 // TODO - add in the relevant text invocations of TableHeroImage
 export const isRadiant = (playerSlot) => playerSlot < 128;
 
@@ -103,7 +104,7 @@ export const transformations = {
   lane_role: (row, col, field) => (constants.lane_role[field] ? constants.lane_role[field].name : field),
   patch: (row, col, field) => (constants.patch[field] ? constants.patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
-  kda: (row, col, field) => <TableKDA kills={field} deaths={row.deaths} assists={row.assists} />,
+  kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */
