@@ -1,4 +1,5 @@
 @import '../palette.css';
+@import "./TablePercent.css";
 
 :export {
   red: var(--textDangerColor);
@@ -7,14 +8,12 @@
   low: var(--accentColor);
 }
 
-.TablePercent {
-  width: 100%;
-  height: 4px;
-  position: absolute;
-  bottom: -10px;
+.container {
+  position: relative;
 }
 
-.TablePercent > div {
-  height: 100%;
-  display: inline-block;
+.percent {
+  composes: TablePercent from "./TablePercent.css";
+  width: calc(300% + 36px);
+  left: -10px;
 }

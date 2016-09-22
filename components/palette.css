@@ -22,7 +22,7 @@
   --fontFamily: 'PT Sans', sans-serif;
   --normalFontSize: 12px;
   --mediumLargeFontSize: 16px;
-  
+
 
   --navDrawerWidth: 256px;
 
@@ -51,14 +51,9 @@
 .textDanger   { color: var(--textDangerColor) }
 .textMuted    { color: var(--textMutedColor) }
 
+/* TODO - needs to be refactored since this file shouldn't just be a place to stuff classes */
 .imgSmall {
   height: 30px;
-}
-
-.subText {
-  font-size: 12px !important;
-  opacity: .6;
-  text-overflow: initial !important;
 }
 
 .tab {

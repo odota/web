@@ -1,14 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
-import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import constants from 'dotaconstants';
 import moment from 'moment';
-import ReactTooltip from 'react-tooltip';
 import { API_HOST } from '../config.js';
 import styles from '../components/palette.css';
-import stylesTPL from '../components/Table/TablePercent.css';
-import { TableLink } from '../components/Table';
-
+import { TableLink, TableHeroImage, TableKDA } from '../components/Table';
+// TODO - add in the relevant text invocations of TableHeroImage
 export const isRadiant = (playerSlot) => playerSlot < 128;
 
 export function pad(n, width, z = '0') {
@@ -38,36 +35,25 @@ export const getPercentWin = (wins, games) => (games ? Number(((wins * 100) / ga
 export const camelToSnake = str =>
   str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
 
+const getSubtext = row => {
+  if (row.match_id) return isRadiant(row.player_slot) ? 'Radiant' : 'Dire';
+  if (row.last_played) {
+    if (Number(row.last_played)) return moment(row.last_played, 'X').fromNow();
+    return 'never';
+  }
+  return null;
+};
+
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
   hero_id: (row, col, field) => (
-    <div style={{ position: 'relative' }}>
-      {row.version ?
-        <div style={{ position: 'absolute', left: -24, width: 2, height: '100%', backgroundColor: styles.blue }}>
-          <div data-tip data-for="parsed">
-            <ActionDoneAll color={styles.blue} style={{ position: 'relative', left: -10 }} />
-          </div>
-          <ReactTooltip id="parsed" place="top" type="light" effect="float">
-            Replay has been parsed for additional statistics
-          </ReactTooltip>
-        </div>
-      : null}
-      <img
-        src={`${API_HOST}${constants.heroes[field] ? constants.heroes[field].img : ''}`}
-        role="presentation"
-        style={{ height: 29, marginRight: 7 }}
-      />
-      <div style={{ display: 'inline-block', verticalAlign: 'top' }}>
-        {constants.heroes[field] ? constants.heroes[field].localized_name : ''}
-        {!row.rank && (row.match_id ?
-          <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
-            {isRadiant(row.player_slot) ? 'Radiant' : 'Dire'}
-          </span> :
-          <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
-            {Number(row.last_played) ? moment(row.last_played, 'X').fromNow() : 'never'}
-          </span>)}
-      </div>
-    </div>),
+    <TableHeroImage
+      parsed={row.version}
+      heroName={constants.heroes[field] ? constants.heroes[field].localized_name : ''}
+      imageUrl={`${API_HOST}${constants.heroes[field] ? constants.heroes[field].img : ''}`}
+      subText={getSubtext(row)}
+    />
+  ),
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
   radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
@@ -117,27 +103,7 @@ export const transformations = {
   lane_role: (row, col, field) => (constants.lane_role[field] ? constants.lane_role[field].name : field),
   patch: (row, col, field) => (constants.patch[field] ? constants.patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
-  // TODO - this needs to just be a component
-  kda: (row, col, field) => {
-    const kdaSum = field + row.deaths + row.assists;
-    return (
-      <div style={{ position: 'relative' }}>
-        <div>
-          {field}
-        </div>
-        <div>
-          <div style={{ width: 'calc(300% + 36px)', left: -10 }} className={stylesTPL.TablePercent} data-tip data-for={`kda-${row.match_id}`}>
-            <div style={{ width: `${(field * 100) / kdaSum}%`, backgroundColor: stylesTPL.red }} />
-            <div style={{ width: `${(row.deaths * 100) / kdaSum}%`, backgroundColor: stylesTPL.neutral }} />
-            <div style={{ width: `${(row.assists * 100) / kdaSum}%`, backgroundColor: stylesTPL.green }} />
-          </div>
-          <ReactTooltip id={`kda-${row.match_id}`} place="right" type="light" effect="float">
-            {`KDA: ${Math.round((kdaSum / row.deaths) * 100) / 100}`}
-          </ReactTooltip>
-        </div>
-      </div>
-    );
-  },
+  kda: (row, col, field) => <TableKDA kills={field} deaths={row.deaths} assists={row.assists} />,
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */
