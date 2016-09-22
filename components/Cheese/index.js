@@ -1,3 +1,3 @@
-import Cheese from './Cheese';
+import CheeseMeter from './CheeseMeter';
 
-export default Cheese;
+export default CheeseMeter;

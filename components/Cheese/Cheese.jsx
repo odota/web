@@ -7,7 +7,7 @@ import styles from './Cheese.css';
 // import CheeseButton from './CheeseButton';
 // import RaisedButton from 'material-ui/FlatButton';
 import ProgressBar from '../ProgressBar';
-import IconCheese from '../../assets/IconCheese';
+import IconCheese from '../Icons';
 
 const Cheese = ({ donations, error, loading }) => {
   const { goal, cheese } = donations;

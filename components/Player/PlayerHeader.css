@@ -153,4 +153,5 @@
 .playerBadges svg {
   position: absolute;
   top: 4px;
+  fill: var(--primaryTextColor);
 }
