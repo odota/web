@@ -1,0 +1,37 @@
+@import "../palette.css";
+
+.progress {
+  position: relative;
+  width: 105px;
+  height: 105px;
+}
+.progress > div[mode="determinate"], div.cheese {
+  position: absolute !important;
+  left: 0;
+  top: 0;
+}
+.progress svg > circle {
+  stroke-width: 3;
+}
+
+.front {
+  z-index: 1;
+}
+.back svg > circle {
+  stroke: rgba(255, 255, 255, .06) !important;
+}
+
+.cheese {
+  margin: auto;
+  top: -22px !important;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 35px;
+  height: 35px;
+}
+
+.percent {
+  text-align: center;
+  padding: 0 !important;
+}
