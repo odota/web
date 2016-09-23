@@ -22,7 +22,7 @@ const TableHeroImage = ({ parsed, imageUrl, heroName, subText }) => (
       className={styles.image}
     />
     <div className={styles.heroTextContainer}>
-      {heroName}
+      {heroName || 'No hero'}
       {subText && (
         <span className={styles.subText}>
           {subText}

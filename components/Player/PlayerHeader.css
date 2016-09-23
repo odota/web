@@ -6,48 +6,6 @@
   width: 24px;
   background-size: cover;
 }
-
-.nameContainer {
-  display: flex;
-  flex-direction: row;
-  font-size: 26px;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.pictureContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.playerName {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0 10px;
-}
-  /*
-.playerPicture {
-
-  border-radius: 100px;
-  height: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  & > button {
-    color: var(--primaryTextColor) !important;
-    &:hover {
-      color: var(--textSecondaryColor) !important;
-    }
-  }
-}
-
-.playerPictureCheese {
-  composes: playerPicture;
-  border: 5px solid #FFD700
-}
-  */
   
 .appBadge {
   composes: image;
@@ -59,28 +17,6 @@
   margin: 0 0 5px 0;
   justify-content: space-between;
   flex-wrap: wrap;
-}
-
-
-@media only screen and (max-width: 650px) {
-  .mmr {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .mmrContainer {
-    width: 100%;
-    margin-top: 15px;
-  }
-
-  .playerInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
 }
 
 .oreviewAvatar {
@@ -110,7 +46,7 @@
   display: inline-block;
   padding: 0 !important;
   margin-right: 25px;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 .playerStats span:last-child {
   font-size: 24px !important;
@@ -133,25 +69,15 @@
 }
 
 .playerBadges {
-  font-size: 14px;
-  line-height: 1;
   display: inline-block;
-}
-.playerBadges > div {
-  display: inline-block;
-  margin-left: 10px;
-  width: 24px;
-  height: 24px;
   position: relative;
+  margin-left: 10px;
 }
-.playerBadges > div:last-child div > span {
-  font-size: 18px !important;
-  margin-top: 8px;
-  left: -6px;
-  position: absolute !important;
+
+.playerBadges .iconButton {
+  display: inline-block;
 }
-.playerBadges svg {
-  position: absolute;
-  top: 4px;
-  fill: var(--primaryTextColor);
+
+.cheese {
+  stroke: var(--primaryTextColor);
 }

@@ -8,7 +8,7 @@ export default () => (
     <IconButton
       target="_blank"
       rel="noopener noreferrer"
-      className={styles.button}
+      className={styles.iconButton}
       tooltipPosition="top-center"
       tooltip="View on GitHub"
       href="//github.com/odota"
@@ -18,7 +18,7 @@ export default () => (
     <IconButton
       target="_blank"
       rel="noopener noreferrer"
-      className={styles.button}
+      className={styles.iconButton}
       tooltipPosition="top-center"
       tooltip="Follow on Twitter"
       href="//twitter.com/opendota"
@@ -28,7 +28,7 @@ export default () => (
     <IconButton
       target="_blank"
       rel="noopener noreferrer"
-      className={styles.button}
+      className={styles.iconButton}
       tooltipPosition="top-center"
       href="//discord.gg/0o5SQGbXuWCNDcaF"
       tooltip="Join on Discord"

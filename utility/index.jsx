@@ -51,7 +51,7 @@ export const transformations = {
     <TableHeroImage
       parsed={row.version}
       heroName={constants.heroes[field] ? constants.heroes[field].localized_name : ''}
-      imageUrl={`${API_HOST}${constants.heroes[field] ? constants.heroes[field].img : ''}`}
+      imageUrl={`${constants.heroes[field] ? API_HOST + constants.heroes[field].img : '/assets/blank-1x1.gif'}`}
       subText={getSubtext(row)}
     />
   ),

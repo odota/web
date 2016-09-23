@@ -87,3 +87,18 @@
   align-items: center;
   justify-content: center;
 }
+
+.iconButton {
+  padding: 0 5px 4px !important;
+}
+.iconButton svg {
+  width: auto !important;
+  height: 16px;
+  vertical-align: middle;
+  fill: var(--primaryTextColor);
+  margin: 0 6px;
+  transition: var(--normalTransition);
+}
+.iconButton:hover svg {
+  opacity: .6;
+}

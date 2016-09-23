@@ -15,6 +15,10 @@
   color: darkgrey;
   font-size: var(--fontSmall);
 }
+.footer small .iconButton svg {
+  width: 14px !important;
+  height: 14px !important;
+}
 .footer hr {
   border: 0;
   height: 1px;
@@ -22,17 +26,6 @@
   background: linear-gradient(to right, var(--primaryTextColor) , rgba(0, 0, 0, 0)); 
   opacity: .1;
   
-}
-
-.icon, .button svg {
-  vertical-align: middle;
-  fill: var(--primaryTextColor);
-  margin: 0 6px;
-  transition: var(--normalTransition);
-}
-
-.icon:hover, .button:hover {
-  opacity: .6;
 }
 
 .osLink {
@@ -65,15 +58,4 @@
 .SocialLinks {
   display: inline-block;
   margin-left: 10px;
-}
-
-.button svg {
-  width: 16px;
-  height: 16px;
-}
-
-.button {
-  width: auto !important;
-  height: auto !important;
-  padding: 0 6px 4px !important;
 }
