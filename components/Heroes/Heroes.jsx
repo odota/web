@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { heroes } from 'dotaconstants';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import { REDUCER_KEY } from './../../reducers';
 import HeroList from './HeroList';
 import style from './Heroes.css';
 import Ranking from './Ranking';
@@ -13,11 +12,11 @@ import HeroBadge from './HeroBadge';
 const createHeroList = (heroes) => {
   const result = Object.keys(heroes)
     .map((key) => ({ ...heroes[key], img: API_HOST + heroes[key].img }))
-    .sort((a,b)=>(a.localized_name.localeCompare(b.localized_name)));
+    .sort((a, b) => (a.localized_name.localeCompare(b.localized_name)));
   return result;
 };
 
-const getSingleHero = (hero_id) => ({...heroes[hero_id], img: API_HOST + heroes[hero_id].img });
+const getSingleHero = (heroId) => ({ ...heroes[heroId], img: API_HOST + heroes[heroId].img });
 
 const HeroesIndex = ({ heroes }) => (
   <div>
@@ -44,9 +43,7 @@ class Heroes extends Component {
         </Tabs>
       </div>);
     }
-    else {
-      return <HeroesIndex heroes={createHeroList(heroes)} />;
-    }
+    return <HeroesIndex heroes={createHeroList(heroes)} />;
   }
 }
 

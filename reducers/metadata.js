@@ -32,8 +32,3 @@ export default (state = initialState, action) => {
       return state;
   }
 };
-
-export const metadata = {
-  getMetadata: state => state.app.metadata,
-  getUserId: state => state.app.metadata.user.account_id,
-};
