@@ -5,12 +5,12 @@ import { IconSteam } from '../Icons';
 
 export default () => (
   <div>
-    <p className={styles.links}>
+    <div className={styles.links}>
       <a href="//blog.opendota.com/2014/08/01/faq/" target="_blank" rel="noopener noreferrer">About</a>
       <a href="//blog.opendota.com/2014/08/01/faq/#what-is-your-privacy-policy" target="_blank" rel="noopener noreferrer">Privacy & Terms</a>
       <a href="//docs.opendota.com" target="_blank" rel="noopener noreferrer">API docs</a>
-    </p>
-    <p>
+    </div>
+    <div>
       <small>
         Dota 2 API powered by
         <IconButton
@@ -26,6 +26,6 @@ export default () => (
         Cheese icon by <a href="//www.flaticon.com/authors/belc" target="_blank" rel="noopener noreferrer">Belc </a>
         on <a href="//www.flaticon.com" target="_blank" rel="noopener noreferrer">Flaticon</a>
       </small>
-    </p>
+    </div>
   </div>
 );
