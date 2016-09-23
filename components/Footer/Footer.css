@@ -55,6 +55,7 @@
 .links a:last-child {
   &::after {
     content: "";
+    margin: 0;
   }
 }
 .links svg {
@@ -63,9 +64,27 @@
 
 .cheese {
   display: table;
+  position: absolute;
 }
 .cheese > div {
   display: table-cell;
   vertical-align: middle;
   padding: 0 5px;
+}
+
+.SocialLinks {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.button svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--primaryTextColor);
+}
+
+.button {
+  width: auto !important;
+  height: auto !important;
+  padding: 0 13px 4px !important;
 }

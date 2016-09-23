@@ -17,6 +17,9 @@
 .front {
   z-index: 1;
 }
+/*.front svg > circle {
+  stroke: var(--primaryLinkColor) !important;
+}*/
 .back svg > circle {
   stroke: rgba(255, 255, 255, .06) !important;
 }
@@ -34,4 +37,5 @@
 .percent {
   text-align: center;
   padding: 0 !important;
+  margin-top: -2px !important;
 }
