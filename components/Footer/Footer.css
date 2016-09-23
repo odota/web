@@ -1,16 +1,71 @@
 @import "../palette.css";
 
 .footer {
-  padding: 20px;
+  padding: 25px 50px 15px;
   background-color: var(--defaultPrimaryColor);
   color: var(--primaryTextColor);
 }
 
-.links {
+.footer p {
+  padding: 2px 0 5px;
+  margin: 0;
+  font-size: var(--fontMedium);
+}
+.footer small {
+  color: darkgrey;
+  font-size: var(--fontSmall);
+}
+.footer hr {
+  border: 0;
+  height: 1px;
+  background-color: var(--primaryTextColor);
+  background: linear-gradient(to right, var(--primaryTextColor) , rgba(0, 0, 0, 0)); 
+  opacity: .1;
+  
+}
+
+.icon {
+  vertical-align: middle;
+  fill: var(--primaryTextColor);
+  margin: 0 6px;
+}
+
+.icon:hover {
+  opacity: .6;
+  transition: var(--normalTransition);
+}
+
+.osLink {
   color: var(--primaryTextColor);
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 15px;
+}
+.osLink:hover {
+  color: var(--primaryLinkColor);
+  text-decoration: underline;
+}
+
+.links {
+  font-size: var(--fontMedium);
+}
+.links a::after {
+  content: "•";
+  margin: 0 8px;
+  opacity: .6;
+  color: var(--primaryTextColor);
+}
+.links a:last-child {
+  &::after {
+    content: "";
+  }
+}
+.links svg {
+  fill: var(--primaryLinkColor) !important;
+}
+
+.cheese {
+  display: table;
+}
+.cheese > div {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 5px;
 }

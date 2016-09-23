@@ -144,9 +144,6 @@
   height: 24px;
   position: relative;
 }
-.playerBadges > div:first-child {
-  text-align: center;
-}
 .playerBadges > div:last-child div > span {
   font-size: 18px !important;
   margin-top: 8px;
@@ -156,4 +153,5 @@
 .playerBadges svg {
   position: absolute;
   top: 4px;
+  fill: var(--primaryTextColor);
 }

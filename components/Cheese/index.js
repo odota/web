@@ -1,3 +1,3 @@
-import Cheese from './Cheese';
+import CheeseCircle from './CheeseCircle';
 
-export default Cheese;
+export default CheeseCircle;

@@ -13,7 +13,7 @@ import AccountWidget from '../AccountWidget';
 import styles from './Header.css';
 import SearchForm from '../Search/SearchForm';
 import { navbarPages } from './Pages';
-import { APP_NAME } from '../../config';
+import AppLogo from '../App/AppLogo';
 
 
 /*
@@ -30,9 +30,7 @@ export default ({
   <div>
     <Toolbar className={styles.header}>
       <ToolbarGroup className={styles.verticalAlign}>
-        <Link to="/" style={{ textTransform: 'uppercase', marginRight: 10 }}>
-          <strong>{`<${APP_NAME}/>`}</strong>
-        </Link>
+        <AppLogo style={{ marginRight: 10 }} />
       </ToolbarGroup>
       <ToolbarGroup className={styles.verticalAlign}>
         {navbarPages.map((page) => (
