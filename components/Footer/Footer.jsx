@@ -1,10 +1,12 @@
 import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import AppLogo from '../App/AppLogo';
-import FooterLinks from './FooterLinks';
-import Cheese from './Cheese.jsx'; // without .jsx for some reason - ENOENT: no such file or directory
+import Links from './Links';
+import Cheese from './Cheese';
+import SocialLinks from './SocialLinks';
 import styles from './Footer.css';
 
+// We can add third column if needed <Col xs />
 const Footer = () => (
   <footer className={styles.footer}>
     <Row>
@@ -12,18 +14,18 @@ const Footer = () => (
         <big>
           <AppLogo style={{ color: styles.textPrimary }} />
         </big>
+        <SocialLinks />
         <p>
           <a href="//github.com/odota" target="_blank" rel="noopener noreferrer" className={styles.osLink}>
             Open source
           </a> Dota 2 data tools.
         </p>
         <hr />
-        <FooterLinks />
+        <Links />
       </Col>
       <Col xs>
         <Cheese />
       </Col>
-      <Col xs />
     </Row>
   </footer>
 );

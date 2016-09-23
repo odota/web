@@ -4,6 +4,6 @@ import { APP_NAME } from '../../config';
 
 export default (props) => (
   <Link to="/" style={{ textTransform: 'uppercase' }}>
-    <strong {...props}>{`<${APP_NAME}/>`}</strong>
+    <strong {...props}>{`<${APP_NAME} />`}</strong>
   </Link>
 );

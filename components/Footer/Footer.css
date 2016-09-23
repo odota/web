@@ -24,15 +24,15 @@
   
 }
 
-.icon {
+.icon, .button svg {
   vertical-align: middle;
   fill: var(--primaryTextColor);
   margin: 0 6px;
+  transition: var(--normalTransition);
 }
 
-.icon:hover {
+.icon:hover, .button:hover {
   opacity: .6;
-  transition: var(--normalTransition);
 }
 
 .osLink {
@@ -55,17 +55,25 @@
 .links a:last-child {
   &::after {
     content: "";
+    margin: 0;
   }
 }
 .links svg {
   fill: var(--primaryLinkColor) !important;
 }
 
-.cheese {
-  display: table;
+.SocialLinks {
+  display: inline-block;
+  margin-left: 10px;
 }
-.cheese > div {
-  display: table-cell;
-  vertical-align: middle;
-  padding: 0 5px;
+
+.button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.button {
+  width: auto !important;
+  height: auto !important;
+  padding: 0 6px 4px !important;
 }
