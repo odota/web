@@ -25,19 +25,18 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink }
           <div data-tip data-for="untracked" className={styles.iconButton}>
             <IconEyeInactive className={styles.icon} style={{ height: 22, fill: 'darkgray' }} />
             <ReactTooltip id="untracked" place="top" type="light" effect="float">
-              This user is untracked.
+              This user is inactive, and replays of new matches will not be automatically parsed.
             </ReactTooltip>
           </div>
         :
           <div data-tip data-for="tracked" className={styles.iconButton}>
             <IconEye className={styles.icon} style={{ height: 22 }} />
             <ReactTooltip id="tracked" place="top" type="light" effect="float">
-              This user is tracked.
-              New matches will have their replays automatically parsed
+              This user is tracked, and replays of new matches will be automatically parsed.
             </ReactTooltip>
           </div>
         }
-        {cheese !== 0 &&
+        {cheese > 0 &&
           <div data-tip data-for="cheese" className={styles.iconButton}>
             <IconCheese className={`${styles.cheese} ${styles.icon}`} style={{ height: 18 }} />
             <ReactTooltip id="cheese" place="top" type="light" effect="float">
