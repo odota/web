@@ -15,5 +15,6 @@ export default [{
   displayName: 'Rank',
   field: 'rank',
   width: 1.5,
-  sortFn: true,
+  sortFn: transformations.rank,
+  displayFn: transformations.rank,
 }];
