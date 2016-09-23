@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router';
-import { transformations } from '../../../utility';
-import PercentContainer from '../../PercentContainer';
+import { TableLink } from '../../Table';
+import { TablePercent } from '../../Visualizations';
+import { transformations, getPercentWin } from '../../../utility';
 
 export default [{
   displayName: 'Player',
   field: 'account_id',
   width: 2,
-  displayFn: row => <Link to={`/players/${row.account_id}`}>{row.name}</Link>,
+  displayFn: row => <TableLink to={`/players/${row.account_id}`}>{row.name}</TableLink>,
   sortFn: true,
 }, {
   displayName: 'Last',
@@ -24,7 +24,7 @@ export default [{
   displayName: 'Win%',
   field: 'with_win',
   width: 2,
-  displayFn: (row) => <PercentContainer wins={row.with_win} games={row.with_games} />,
+  displayFn: (row) => <TablePercent val={getPercentWin(row.with_win, row.with_games)} />,
   sortFn: (row) => (row.with_win / row.with_games),
 }, {
   displayName: 'Against',
@@ -35,6 +35,6 @@ export default [{
   displayName: 'Win%',
   field: 'against_win',
   width: 2,
-  displayFn: (row) => <PercentContainer wins={row.against_win} games={row.against_games} />,
+  displayFn: (row) => <TablePercent val={getPercentWin(row.against_win, row.against_games)} />,
   sortFn: (row) => (row.against_win / row.against_games),
 }];

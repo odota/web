@@ -1,0 +1,42 @@
+@import "../palette.css";
+
+:export {
+  blue:   var(--primaryLinkColor);
+}
+
+.actionDoneAll {
+  position: relative !important;
+  left: -10px !important;
+}
+
+.heroTextContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.image {
+  height: 29px;
+  margin-right: 7px;
+}
+
+.subText {
+  font-size: 12px !important;
+  opacity: .6;
+  text-overflow: initial !important;
+  display: block;
+  margin-top: 1px;
+}
+
+.container {
+  display: flex;
+  position: relative;
+}
+
+.parsed {
+   position: absolute;
+   left: -24px;
+   width: 2px;
+   height: 100%;
+   background-color: var(--primaryLinkColor);
+}
