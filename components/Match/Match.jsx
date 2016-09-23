@@ -71,7 +71,7 @@ const mapStateToProps = (state, { params }) => ({
   matchId: params.match_id,
   match: state[REDUCER_KEY].match.match,
   loading: state[REDUCER_KEY].match.loading,
-  user: state[REDUCER_KEY].gotMetadata.user,
+  user: state[REDUCER_KEY].metadata.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({

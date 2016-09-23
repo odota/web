@@ -37,7 +37,7 @@ const Cheese = ({ donations, error, loading }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { loading, error, donations } = state[REDUCER_KEY].gotMetadata;
+  const { loading, error, donations } = state[REDUCER_KEY].metadata;
 
   return {
     loading,
