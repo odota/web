@@ -24,17 +24,6 @@
   
 }
 
-.icon, .button svg {
-  vertical-align: middle;
-  fill: var(--primaryTextColor);
-  margin: 0 6px;
-  transition: var(--normalTransition);
-}
-
-.icon:hover, .button:hover {
-  opacity: .6;
-}
-
 .osLink {
   color: var(--primaryTextColor);
 }
@@ -67,13 +56,23 @@
   margin-left: 10px;
 }
 
-.button svg {
-  width: 16px;
-  height: 16px;
-}
-
 .button {
   width: auto !important;
   height: auto !important;
-  padding: 0 6px 4px !important;
+  padding: 0 5px 4px !important;
+}
+.footer small .button svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+.button svg {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  fill: var(--primaryTextColor);
+  margin: 0 6px;
+  transition: var(--normalTransition);
+}
+.button:hover svg {
+  opacity: .6;
 }
