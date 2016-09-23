@@ -5,13 +5,34 @@ import styles from './Footer.css';
 
 export default () => (
   <div className={styles.SocialLinks}>
-    <IconButton href="//github.com/odota" className={`${styles.button} ${styles.icon}`}>
+    <IconButton
+      target="_blank"
+      rel="noopener noreferrer"
+      className={styles.button}
+      tooltipPosition="top-center"
+      tooltip="View on GitHub"
+      href="//github.com/odota"
+    >
       <IconGithub />
     </IconButton>
-    <IconButton href="//twitter.com/opendota" className={`${styles.button} ${styles.icon}`}>
+    <IconButton
+      target="_blank"
+      rel="noopener noreferrer"
+      className={styles.button}
+      tooltipPosition="top-center"
+      tooltip="Follow on Twitter"
+      href="//twitter.com/opendota"
+    >
       <IconTwitter />
     </IconButton>
-    <IconButton href="//discord.gg/0o5SQGbXuWCNDcaF" className={`${styles.button} ${styles.icon}`}>
+    <IconButton
+      target="_blank"
+      rel="noopener noreferrer"
+      className={styles.button}
+      tooltipPosition="top-center"
+      href="//discord.gg/0o5SQGbXuWCNDcaF"
+      tooltip="Join on Discord"
+    >
       <IconDiscord />
     </IconButton>
   </div>
