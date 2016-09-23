@@ -15,6 +15,10 @@
   color: darkgrey;
   font-size: var(--fontSmall);
 }
+.footer small .iconButton svg {
+  width: 14px !important;
+  height: 14px !important;
+}
 .footer hr {
   border: 0;
   height: 1px;
@@ -54,25 +58,4 @@
 .SocialLinks {
   display: inline-block;
   margin-left: 10px;
-}
-
-.button {
-  width: auto !important;
-  height: auto !important;
-  padding: 0 5px 4px !important;
-}
-.footer small .button svg {
-  width: 14px !important;
-  height: 14px !important;
-}
-.button svg {
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
-  fill: var(--primaryTextColor);
-  margin: 0 6px;
-  transition: var(--normalTransition);
-}
-.button:hover svg {
-  opacity: .6;
 }

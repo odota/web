@@ -16,7 +16,7 @@ export default () => (
         <IconButton
           target="_blank"
           rel="noopener noreferrer"
-          className={styles.button}
+          className={styles.iconButton}
           tooltipPosition="top-center"
           tooltip="Steam"
           href="//steampowered.com"
