@@ -13,8 +13,7 @@ import AccountWidget from '../AccountWidget';
 import styles from './Header.css';
 import SearchForm from '../Search/SearchForm';
 import { navbarPages } from './Pages';
-import { APP_NAME } from '../../config';
-
+import AppLogo from '../App/AppLogo';
 
 /*
 const matchPagesMapped = (matchId) => matchPages.map((e) => Object.assign({}, e, {
@@ -30,11 +29,9 @@ export default ({
   <div>
     <Toolbar className={styles.header}>
       <ToolbarGroup className={styles.verticalAlign}>
-        <Link to="/" style={{ textTransform: 'uppercase', marginRight: 10 }}>
-          <strong>{`<${APP_NAME}/>`}</strong>
-        </Link>
+        <AppLogo style={{ marginRight: 10 }} />
       </ToolbarGroup>
-      <ToolbarGroup>
+      <ToolbarGroup className={styles.verticalAlign}>
         {navbarPages.map((page) => (
           <div key={page.name} className={styles.tabContainer}>
             {page.external ?
@@ -49,7 +46,7 @@ export default ({
           location={location}
         />
       </ToolbarGroup>
-      <ToolbarGroup style={{ marginLeft: 'auto' }}>
+      <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 'auto' }}>
         <AccountWidget />
       </ToolbarGroup>
     </Toolbar>

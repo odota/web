@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import FlatButton from 'material-ui/FlatButton';
 import Spinner from '../Spinner';
 import Error from '../Error';
-import { REDUCER_KEY } from '../../reducers';
-import { getPlayer } from '../../actions';
-import styles from './AccountWidget.css';
 import { API_HOST } from '../../config';
+import { getPlayer } from '../../actions';
+import { REDUCER_KEY } from '../../reducers';
+import LoggedIn from './LoggedIn';
+import styles from './AccountWidget.css';
 // import FontIcon from 'material-ui/FontIcon';
 // import { PlayerPicture } from '../Player';
 
@@ -22,17 +23,17 @@ const AccountWidget = ({ loading, error, user, style }) => (
     {loading && !error && <Spinner />}
     {error && <Error />}
     {!error && !loading && user ? (
-      <div>
-        <Link className={styles.tab} to={`/players/${user.account_id}/overview`}>{"Profile"}</Link>
-        <a className={styles.tab} href={`${API_HOST}/logout`}>{"Logout"}</a>
-      </div>
+      <LoggedIn playerId={user.account_id} />
     )
-    : <a className={styles.tab} href={`${API_HOST}/login`}>Login</a>
+    :
+      <FlatButton
+        href={`${API_HOST}/login`}
+        label="Login"
+        hoverColor="#1976D2"
+      />
     }
   </div>
 );
-
-export { AccountWidget };
 
 const mapStateToProps = (state) => {
   const { error, loading, user } = state[REDUCER_KEY].gotMetadata;
@@ -48,4 +49,16 @@ const mapDispatchToProps = (dispatch) => ({
   getPlayer: (playerId) => dispatch(getPlayer(playerId)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountWidget);
+class RequestLayer extends React.Component {
+  componentWillUpdate(nextProps) {
+    if (nextProps.user && nextProps.user.account_id) {
+      this.props.getPlayer(nextProps.user.account_id);
+    }
+  }
+
+  render() {
+    return <AccountWidget {...this.props} />;
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
