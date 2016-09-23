@@ -5,6 +5,7 @@ import IconTwitter from './Twitter';
 import IconDiscord from './Discord';
 import IconEye from './Eye';
 import IconEyeInactive from './EyeInactive';
+import IconTrophy from './Trophy';
 
 export {
   IconCheese,
@@ -14,4 +15,5 @@ export {
   IconDiscord,
   IconEye,
   IconEyeInactive,
+  IconTrophy,
 };
