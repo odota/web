@@ -1,1 +1,6 @@
 @import "../palette.css";
+
+.logout {
+  display: flex;
+  padding: 5px;
+}
