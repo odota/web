@@ -50,6 +50,7 @@ export const getPlayerPros = (playerId, options = {}, host = API_HOST) => (dispa
 
   return fetch(`${host}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
+    .then(json => json.filter(pro => Number(playerId) !== pro.account_id))
     .then(json => dispatch(getPlayerProsOk(json, playerId)))
     .catch(error => dispatch(getPlayerProsError(error, playerId)));
 };
