@@ -18,7 +18,7 @@ const Cheese = ({ donations, error, loading }) => {
       {loading && <Spinner />}
       {!error && !loading &&
         <div className={styles.progress} data-tip data-for="footerCheese">
-          <CircularProgress mode="determinate" value={(percent < 100) ? percent : 100} size={1.5} className={styles.front} />
+          <CircularProgress mode="determinate" value={Math.min(percent, 100)} size={1.5} className={styles.front} />
           <CircularProgress mode="determinate" value={100} size={1.5} className={styles.back} />
           <div className={styles.cheese}>
             <IconCheese className={styles.cheeseGlow} />
