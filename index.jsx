@@ -16,6 +16,7 @@ import Player from './components/Player';
 import Home from './components/Home';
 import Search from './components/Search';
 import Explorer from './components/Explorer';
+import FourOhFour from './components/FourOhFour';
 import { Heroes, Ranking, Benchmark } from './components/Heroes';
 import Request from './components/Request';
 import Distributions from './components/Distributions';
@@ -73,6 +74,7 @@ render(
         <Route path="distributions" component={Distributions} />
         <Route path="carry" />
         <Route path="status" />
+        <Route path="*" component={FourOhFour} />
       </Route>
     </Router>
   </Provider>, reactElement);
