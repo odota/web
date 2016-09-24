@@ -15,7 +15,6 @@ import SearchForm from '../Search/SearchForm';
 import { navbarPages } from './Pages';
 import AppLogo from '../App/AppLogo';
 
-
 /*
 const matchPagesMapped = (matchId) => matchPages.map((e) => Object.assign({}, e, {
   route: `/matches/${matchId}/${e.name.toLowerCase()}`,

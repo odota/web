@@ -20,10 +20,12 @@
   --dividerColor:           color(var(--textSecondaryColor) lightness(20%));
 
   --fontFamily: 'PT Sans', sans-serif;
+  --normalFontSize: 12px;
+  --mediumLargeFontSize: 16px;
   --fontDefault: 16px;
   --fontMedium: 14px;
   --fontSmall: 12px;
-  
+
   --navDrawerWidth: 256px;
 
   --normalTransition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
@@ -38,7 +40,6 @@
   grey:         var(--textMutedColor);
   low:          var(--accentColor);
   yellowOrange: var(--accentColor);
-  
 
   buttonBgDefault:    rgba(255, 255, 255, .08);
   buttonHoverDefault: rgba(255, 255, 255, .12);
@@ -56,14 +57,9 @@
 .textDanger   { color: var(--textDangerColor) }
 .textMuted    { color: var(--textMutedColor) }
 
+/* TODO - needs to be refactored since this file shouldn't just be a place to stuff classes */
 .imgSmall {
   height: 30px;
-}
-
-.subText {
-  font-size: 12px !important;
-  opacity: .6;
-  text-overflow: initial !important;
 }
 
 .tab {
@@ -90,4 +86,19 @@
   display:flex;
   align-items: center;
   justify-content: center;
+}
+
+.iconButton {
+  padding: 0 5px 4px !important;
+}
+.iconButton svg {
+  width: auto !important;
+  height: 16px;
+  vertical-align: middle;
+  fill: var(--primaryTextColor);
+  margin: 0 6px;
+  transition: var(--normalTransition);
+}
+.iconButton:hover svg {
+  opacity: .6;
 }

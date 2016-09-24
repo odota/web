@@ -97,4 +97,5 @@ export const getPlayer = {
   getSteamLink: (state, id) => getPlayer.getProfile(state, id).profileurl,
   getCheese: (state, id) => getPlayer.getProfile(state, id).cheese,
   getTrackedUntil: (state, id) => getPlayer.getPlayer(state, id).tracked_until,
+  getOfficialPlayerName: (state, id) => getPlayer.getPlayer(state, id).profile.name,
 };
