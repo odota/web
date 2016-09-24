@@ -5,6 +5,9 @@
   "plugins": [
     "import"
   ],
+  "settings": {
+    "import/resolver": "webpack"
+  },
   "extends": "airbnb",
   "rules": {
     "react/prop-types": 0,

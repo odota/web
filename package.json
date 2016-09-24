@@ -6,7 +6,7 @@
   "scripts": {
     "webpack": "NODE_ENV=production webpack -p --bail",
     "watch": "webpack --watch",
-    "start": "webpack-dev-server -d --compress",
+    "start": "webpack-dev-server -d --compress --display-error-details",
     "build": "NODE_ENV=production npm run lintnofix && npm run webpack",
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx"
@@ -60,6 +60,7 @@
     "css-loader": "^0.25.0",
     "eslint": "^3.6.0",
     "eslint-config-airbnb": "^10.0.1",
+    "eslint-import-resolver-webpack": "^0.6.0",
     "eslint-plugin-import": "^1.15.0",
     "eslint-plugin-jsx-a11y": "^2.2.2",
     "eslint-plugin-react": "^6.3.0",
@@ -67,5 +68,6 @@
     "json-loader": "^0.5.4",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7"
-  }
+  },
+  "moduleRoots": [ "./src", "./node_modules" ]
 }
