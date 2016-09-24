@@ -49,7 +49,7 @@ const getPlayerSubroute = (info, playerId) => {
   }
 };
 
-const Player = ({ playerId, info, params, location }) => {
+const Player = ({ playerId, info, params }) => {
   if (!playerId) {
     return <Error />;
   }

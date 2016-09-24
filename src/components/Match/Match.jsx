@@ -32,9 +32,7 @@ const getMatchPlayers = (state) => state[REDUCER_KEY].match.match.players;
 const getSortState = (state) => state[REDUCER_KEY].match.sortState;
 const getSortField = (state) => state[REDUCER_KEY].match.sortField;
 const getSortFn = (state) => state[REDUCER_KEY].match.sortFn;
-const sortMatchPlayers = (state) => {
-  return defaultSort(getMatchPlayers(state), getSortState(state), getSortField(state), getSortFn(state));
-};
+const sortMatchPlayers = (state) => defaultSort(getMatchPlayers(state), getSortState(state), getSortField(state), getSortFn(state));
 const MatchPlayersTable = createTable(
   match,
   (state, sortState) => (sortState ? sortMatchPlayers(state) : getMatchPlayers(state)),
