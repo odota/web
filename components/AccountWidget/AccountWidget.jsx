@@ -36,7 +36,7 @@ const AccountWidget = ({ loading, error, user, style }) => (
 );
 
 const mapStateToProps = (state) => {
-  const { error, loading, user } = state[REDUCER_KEY].gotMetadata;
+  const { error, loading, user } = state[REDUCER_KEY].metadata;
 
   return {
     loading,

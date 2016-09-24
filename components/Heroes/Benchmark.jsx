@@ -7,12 +7,11 @@ import { benchmark } from './../../reducers';
 import { getBenchmark } from './../../actions';
 
 import BenchmarkTable from './BenchmarkTable';
-import BenchmarkBadge from './BenchmarkBadge';
 
 class Benchmark extends Component {
 
   componentDidMount() {
-    if (this.props.routeParams.hero_id) {
+    if (this.props.routeParams && this.props.routeParams.hero_id) {
       this.props.getBenchmark(this.props.routeParams.hero_id);
     }
   }
@@ -28,7 +27,6 @@ class Benchmark extends Component {
   renderBenchmark(hero, data) {
     return (
       <div>
-        <BenchmarkBadge hero={hero} />
         <BenchmarkTable data={data} />
       </div>
     );
@@ -73,7 +71,6 @@ HISTOGRAM API
 */
 
 const mapStateToProps = (state) => ({
-  hero: benchmark.getHero(state),
   isLoading: benchmark.getLoading(state),
   isError: benchmark.getError(state),
   result: benchmark.getBenchmarks(state),

@@ -7,18 +7,15 @@ import style from './Heroes.css';
 export default ({ heroes }) => (
   <Grid fluid className={style.HeroListWrapper}>
     <Row>
-      {Object.keys(heroes).map((key) => {
-        const hero = heroes[key];
-        return (
-          <Col className={style.HeroListCol} key={key} xs={12} sm={4} md={4} lg={3}>
-            <HeroListItem
-              id={hero.id}
-              name={hero.localized_name}
-              imageUrl={hero.img}
-            />
-          </Col>
-        );
-      })}
+      {heroes.map((hero, i) => (
+        <Col className={style.HeroListCol} key={i} xs={12} sm={4} md={4} lg={2}>
+          <HeroListItem
+            id={hero.id}
+            name={hero.localized_name}
+            imageUrl={hero.img}
+          />
+        </Col>
+      ))}
     </Row>
   </Grid>
 );

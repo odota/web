@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
-import gotMetadata from './gotMetadata';
-import gotConstants from './gotConstants';
+import metadata from './metadata';
 import match from './match';
-import gotRanking, { ranking } from './gotRanking';
-import gotBenchmark, { benchmark } from './gotBenchmark';
-import heroes from './heroes';
+import heroRanking, { ranking } from './heroRanking';
+import heroBenchmark, { benchmark } from './heroBenchmark';
 import search from './search';
 import gotPlayer, {
   player,
@@ -45,13 +43,11 @@ export {
 };
 
 export default combineReducers({
-  gotMetadata,
+  metadata,
   gotPlayer,
   match,
-  gotConstants,
-  gotRanking,
-  gotBenchmark,
-  heroes,
+  heroRanking,
+  heroBenchmark,
   search,
   appBar,
   tab,
