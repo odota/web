@@ -9,9 +9,9 @@ import {
   transformPlayerPeersById,
 } from 'selectors';
 import { playerPeers } from 'reducers';
-import { createTable, TableContainer } from '../../Table';
+import { createTable, TableContainer } from 'components/Table';
+import { TableFilterForm } from 'components/Form';
 import playerPeersColumns from './playerPeersColumns';
-import { TableFilterForm } from '../../Form';
 
 const PeersTable = createTable(
   playerPeers.getPlayerPeersById,

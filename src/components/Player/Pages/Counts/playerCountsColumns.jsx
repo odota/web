@@ -1,8 +1,8 @@
 // import React from 'react';
-// import { PercentContainer } from '../../ColumnComponents';
+// import { PercentContainer } from 'components/ColumnComponents';
 import React from 'react';
 import { transformations } from 'utility';
-import PercentContainer from '../../PercentContainer';
+import PercentContainer from 'components/PercentContainer';
 
 export default [{
   displayName: 'Category',

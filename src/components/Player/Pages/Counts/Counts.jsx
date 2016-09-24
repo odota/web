@@ -9,9 +9,9 @@ import {
   transformPlayerCountsById,
 } from 'selectors';
 import { playerCounts } from 'reducers';
-import { createTables } from '../../Table';
+import { createTables } from 'components/Table';
+import { TableFilterForm } from 'components/Form';
 import playerCountsColumns from './playerCountsColumns';
-import { TableFilterForm } from '../../Form';
 import styles from './Counts.css';
 
 const Counts = ({ playerId, tables }) => (

@@ -9,7 +9,7 @@ import {
   transformPlayerRankingsById,
 } from 'selectors';
 import { playerRankings } from 'reducers';
-import { createTable, TableContainer } from '../../Table';
+import { createTable, TableContainer } from 'components/Table';
 import playerRankingsColumns from './playerRankingsColumns';
 
 const PlayerRankingsTable = createTable(

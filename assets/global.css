@@ -1,4 +1,4 @@
-@import "../components/palette.css";
+@import "../src/components/palette.css";
 
 :global(body) {
   margin: 0;

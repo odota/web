@@ -25,6 +25,7 @@ const config = {
     extensions: ['', '.jsx', '.js', '.css', '.json'],
     modules: [
       path.resolve('./src'),
+      path.resolve('./assets'),
       path.resolve('./node_modules'),
     ],
   },

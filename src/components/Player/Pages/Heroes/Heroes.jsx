@@ -9,9 +9,9 @@ import {
   transformPlayerHeroesById,
 } from 'selectors';
 import { playerHeroes } from 'reducers';
-import { createTable, TableContainer } from '../../Table';
+import { createTable, TableContainer } from 'components/Table';
+import { TableFilterForm } from 'components/Form';
 import { playerHeroesColumns } from './playerHeroesColumns';
-import { TableFilterForm } from '../../Form';
 
 const PlayerHeroesTable = createTable(
   playerHeroes.getPlayerHeroesById,
