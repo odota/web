@@ -3,9 +3,9 @@ import { API_HOST } from './../actions';
 
 const url = '/api/rankings';
 
-const REQUEST = 'yasp/ranking/REQUEST';
-const OK = 'yasp/ranking/OK';
-const ERROR = 'yasp/ranking/ERROR';
+const REQUEST = 'ranking/REQUEST';
+const OK = 'ranking/OK';
+const ERROR = 'ranking/ERROR';
 
 export const rankingActions = {
   REQUEST,

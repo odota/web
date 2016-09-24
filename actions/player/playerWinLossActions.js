@@ -3,9 +3,9 @@ import { API_HOST } from '../';
 
 const url = (playerId) => `/api/players/${playerId}/wl`;
 
-const REQUEST = 'yasp/playerWinLoss/REQUEST';
-const OK = 'yasp/playerWinLoss/OK';
-const ERROR = 'yasp/playerWinLoss/ERROR';
+const REQUEST = 'playerWinLoss/REQUEST';
+const OK = 'playerWinLoss/OK';
+const ERROR = 'playerWinLoss/ERROR';
 
 export const playerWinLossActions = {
   REQUEST,

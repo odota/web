@@ -41,9 +41,8 @@ export default (state = initialState, action) => {
 };
 
 export const ranking = {
-  getReducer: state => state[REDUCER_KEY].gotRanking,
+  getReducer: state => state[REDUCER_KEY].heroRanking,
   getHeroId: state => ranking.getReducer(state).hero_id,
-  getHero: state => state[REDUCER_KEY].heroes[ranking.getReducer(state).hero_id],
   getRankings: state => ranking.getReducer(state).rankings,
   getError: state => ranking.getReducer(state).error,
   getLoading: state => ranking.getReducer(state).loading,

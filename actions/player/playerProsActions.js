@@ -6,10 +6,10 @@ import { getUrl } from '../utility';
 // const excludedOptions = ['limit'];
 const url = playerId => `/api/players/${playerId}/pros`;
 
-const REQUEST = 'yasp/playerPros/REQUEST';
-const OK = 'yasp/playerPros/OK';
-const ERROR = 'yasp/playerPros/ERROR';
-const SORT = 'yasp/playerPros/SORT';
+const REQUEST = 'playerPros/REQUEST';
+const OK = 'playerPros/OK';
+const ERROR = 'playerPros/ERROR';
+const SORT = 'playerPros/SORT';
 
 export const playerProsActions = {
   REQUEST,

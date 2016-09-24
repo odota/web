@@ -3,20 +3,12 @@ import { Link } from 'react-router';
 
 import style from './Heroes.css';
 
-const HeroActionButton = ({ heroId }) => (
-  <div className={style.HeroItemAction}>
-    <Link className={style.HeroItemActions} to={`/benchmarks/${heroId}`}>
-      Benchmarks
-    </Link>
-    <Link className={style.HeroItemActions} to={`/rankings/${heroId}`}>
-      Rankings
-    </Link>
-  </div>
-);
-
 export default ({ id, name, imageUrl }) => (
   <div className={style.HeroItem} style={{ backgroundImage: `url('${imageUrl}')` }}>
-    <h4 className={style.HeroItemName}>{name}</h4>
-    <HeroActionButton heroId={id} />
+    <h4 className={style.HeroItemName}>
+      <Link className={style.HeroItemActions} to={`/heroes/${id}`}>
+        {name}
+      </Link>
+    </h4>
   </div>
 );
