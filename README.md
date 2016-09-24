@@ -20,7 +20,7 @@ Notes
 ----
 * All you need is Node.js to get started working on the UI!
 * You can develop the UI against the production API.  This is on by default, and means you don't have to set up the entire stack/backend.
-  * You can configure it to point to your own instance (if you are working on a backend feature) in `config.js`.
+  * You can configure it to point to your own instance (if you are working on a backend feature) in `src/config.js`.
 * API Documentation: https://odota.github.io/docs
 * Discord: https://discord.gg/0o5SQGbXuWCNDcaF
   * Strongly recommended to join for active developers!
