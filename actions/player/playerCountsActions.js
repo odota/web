@@ -8,10 +8,10 @@ import { getPercentWin } from '../../utility';
 
 const url = playerId => `/api/players/${playerId}/counts`;
 
-const REQUEST = 'yasp/playerCounts/REQUEST';
-const OK = 'yasp/playerCounts/OK';
-const ERROR = 'yasp/playerCounts/ERROR';
-const SORT = 'yasp/playerCounts/SORT';
+const REQUEST = 'playerCounts/REQUEST';
+const OK = 'playerCounts/OK';
+const ERROR = 'playerCounts/ERROR';
+const SORT = 'playerCounts/SORT';
 
 export const playerCountsActions = {
   REQUEST,

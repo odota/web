@@ -6,10 +6,10 @@ import { getUrl } from '../utility';
 // const excludedOptions = ['limit'];
 const url = playerId => `/api/players/${playerId}/rankings`;
 
-const REQUEST = 'yasp/playerRankings/REQUEST';
-const OK = 'yasp/playerRankings/OK';
-const ERROR = 'yasp/playerRankings/ERROR';
-const SORT = 'yasp/playerRankings/SORT';
+const REQUEST = 'playerRankings/REQUEST';
+const OK = 'playerRankings/OK';
+const ERROR = 'playerRankings/ERROR';
+const SORT = 'playerRankings/SORT';
 
 export const playerRankingsActions = {
   REQUEST,

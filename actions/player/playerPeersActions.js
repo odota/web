@@ -5,10 +5,10 @@ import { getUrl } from '../utility';
 
 const url = playerId => `/api/players/${playerId}/peers`;
 
-const REQUEST = 'yasp/playerPeers/REQUEST';
-const OK = 'yasp/playerPeers/OK';
-const ERROR = 'yasp/playerPeers/ERROR';
-const SORT = 'yasp/playerPeers/SORT';
+const REQUEST = 'playerPeers/REQUEST';
+const OK = 'playerPeers/OK';
+const ERROR = 'playerPeers/ERROR';
+const SORT = 'playerPeers/SORT';
 
 export const playerPeersActions = {
   REQUEST,

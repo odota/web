@@ -127,7 +127,7 @@ class Explorer extends React.Component
     return (<div>
       <h3>Data Explorer
         <small> - Explore data from Dota 2 matches </small>
-        <a href='https://github.com/odota/yasp/blob/master/sql/create_tables.sql'>(Table Schema)</a>
+        <a href='https://github.com/odota/core/blob/master/sql/create_tables.sql'>(Table Schema)</a>
       </h3>
       <div>
         <ul>
