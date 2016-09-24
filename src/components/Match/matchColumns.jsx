@@ -19,7 +19,7 @@ const heroTd = (row, col, field, hideName) => (
 const heroTdColumn = {
   displayName: 'Player',
   field: 'hero_id',
-  width: 1,
+  width: 3,
   displayFn: heroTd,
   sortFn: (row) => (row.player_slot),
 };
@@ -202,9 +202,9 @@ const purchaseTimesColumns = (match) => {
       displayFn: (row, column, field) => (<div>
         {field
         .filter(p => (p.time >= curTime - bucket && p.time < curTime))
-        .map(p => {
+        .map((p, i) => {
           const item = constants.items[p.key] || {};
-          return <span><img src={`${API_HOST}${item.img}`} role="presentation" style={{ height: '20px' }} /><br />{p.time}</span>;
+          return <span key={i}><img src={`${API_HOST}${item.img}`} role="presentation" style={{ height: '20px' }} /><br />{p.time}</span>;
         })
         }
       </div>),

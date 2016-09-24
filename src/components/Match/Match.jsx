@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { Table as MaterialTable, TableRow, TableRowColumn, TableBody } from 'material-ui/Table';
 import { getMatch, setMatchSort } from 'actions';
-import { sortMatch, transformMatch } from 'selectors';
 import { REDUCER_KEY } from 'reducers';
 import { API_HOST } from 'config';
 import { createTable } from '../Table';
@@ -25,11 +24,20 @@ import {
   purchaseTimesColumns,
 } from './matchColumns.jsx';
 import BuildingMap from '../BuildingMap/BuildingMap';
+import { defaultSort } from '../../utility';
+// import { TabBar } from '../TabBar';
 
-const match = (state) => state[REDUCER_KEY].match.match;
-const MatchTable = createTable(
+const match = (state) => state[REDUCER_KEY].match;
+const getMatchPlayers = (state) => state[REDUCER_KEY].match.match.players;
+const getSortState = (state) => state[REDUCER_KEY].match.sortState;
+const getSortField = (state) => state[REDUCER_KEY].match.sortField;
+const getSortFn = (state) => state[REDUCER_KEY].match.sortFn;
+const sortMatchPlayers = (state) => {
+  return defaultSort(getMatchPlayers(state), getSortState(state), getSortField(state), getSortFn(state));
+};
+const MatchPlayersTable = createTable(
   match,
-  (state, sortState) => (sortState ? sortMatch(state) : transformMatch(state)),
+  (state, sortState) => (sortState ? sortMatchPlayers(state) : getMatchPlayers(state)),
   setMatchSort
 );
 const CastTable = ({ match, dataField, columns }) => (
@@ -93,19 +101,39 @@ class RequestLayer extends React.Component {
     return (
       <div>
         <MatchHeader match={this.props.match} user={this.props.user} />
-        <MatchTable columns={overviewColumns} />
-        <MatchTable columns={abUpgradeColumns} />
-        <BuildingMap match={this.props.match} loading={this.props.loading} />
-        <MatchTable columns={benchmarksColumns(this.props.match)} />
-        <CrossTable match={this.props.match} field1="killed" field2="killed_by" />
-        <CrossTable match={this.props.match} field1="damage" field2="damage_taken" />
-        <MatchTable columns={overallColumns} />
-        <MatchTable columns={laningColumns} />
-        <MatchTable columns={purchaseColumns} />
-        <MatchTable columns={purchaseTimesColumns(this.props.match)} />
-        <CastTable match={this.props.match} dataField="ability_uses_arr" columns={abilityUseColumns} />
-        <CastTable match={this.props.match} dataField="item_uses_arr" columns={itemUseColumns} />
-        <Table data={(this.props.match.chat || []).map(c => Object.assign({}, c, this.props.match.players[c.slot]))} columns={chatColumns} />
+        <Tabs>
+          <Tab label="Overview">
+            <MatchPlayersTable columns={overviewColumns} />
+            <MatchPlayersTable columns={abUpgradeColumns} />
+            <BuildingMap match={this.props.match} loading={this.props.loading} />
+          </Tab>
+          <Tab label="Benchmarks">
+            <MatchPlayersTable columns={benchmarksColumns(this.props.match)} />
+          </Tab>
+          <Tab label="Crosstables">
+            <CrossTable match={this.props.match} field1="killed" field2="killed_by" />
+            <CrossTable match={this.props.match} field1="damage" field2="damage_taken" />
+          </Tab>
+          <Tab label="Overall">
+            <MatchPlayersTable columns={overallColumns} />
+          </Tab>
+          <Tab label="Laning">
+            <MatchPlayersTable columns={laningColumns} />
+          </Tab>
+          <Tab label="Purchases">
+            <MatchPlayersTable columns={purchaseColumns} />
+            <MatchPlayersTable columns={purchaseTimesColumns(this.props.match)} />
+          </Tab>
+          <Tab label="Abilities">
+            <CastTable match={this.props.match} dataField="ability_uses_arr" columns={abilityUseColumns} />
+          </Tab>
+          <Tab label="Items">
+            <CastTable match={this.props.match} dataField="item_uses_arr" columns={itemUseColumns} />
+          </Tab>
+          <Tab label="Chat">
+            <Table data={(this.props.match.chat || []).map(c => Object.assign({}, c, this.props.match.players[c.slot]))} columns={chatColumns} />
+          </Tab>
+        </Tabs>
       </div>
     );
   }
