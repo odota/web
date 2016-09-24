@@ -14,7 +14,7 @@ const postcssCF = require('postcss-color-function');
 const isProd = process.env.NODE_ENV === 'production';
 const config = {
   entry: {
-    index: './index.jsx',
+    index: './src',
   },
   output: {
     filename: `${isProd ? '[hash].' : ''}bundle.js`,
@@ -23,6 +23,10 @@ const config = {
   },
   resolve: {
     extensions: ['', '.jsx', '.js', '.css', '.json'],
+    modules: [
+      path.resolve('./src'),
+      path.resolve('./node_modules'),
+    ],
   },
   module: {
     loaders: [{
