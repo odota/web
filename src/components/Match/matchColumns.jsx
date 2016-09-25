@@ -370,9 +370,6 @@ const actionsColumns = [];
 
 // TODO party indicator
 // Lane map
-// damage dealt/received
-// kills for/against
-// purchase times
 // Hero kill times
 // Ward maps
 // Unit kills
