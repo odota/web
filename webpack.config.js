@@ -35,7 +35,7 @@ const config = {
       exclude: /node_modules/,
     }, {
       test: /\.css$/,
-      loader: 'style-loader!css-loader',
+      loader: 'style-loader!css-loader?modules',
       include: /node_modules/,
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
