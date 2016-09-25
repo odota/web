@@ -21,6 +21,7 @@ const config = {
     path: 'build/',
     publicPath: 'build/',
   },
+  devTool: '#inline-source-map',
   resolve: {
     extensions: ['', '.jsx', '.js', '.css', '.json'],
     modules: [
@@ -33,6 +34,11 @@ const config = {
     loaders: [{
       test: /\.css$/,
       loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader',
+      exclude: /node_modules/,
+    }, {
+      test: /\.css$/,
+      loader: 'style-loader!css-loader',
+      include: /node_modules/,
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: 'url-loader?limit=10000&minetype=application/font-woff&name=[hash].[ext]',
@@ -91,7 +97,7 @@ HashBundlePlugin.prototype.apply = function f(compiler) {
   });
 };
 if (!isProd) {
-  config.plugins.push(new DashboardPlugin());
+  // config.plugins.push(new DashboardPlugin());
 } else {
   config.plugins.push(new webpack.LoaderOptionsPlugin({
     minimize: true,

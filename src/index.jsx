@@ -23,6 +23,7 @@ import Distributions from 'components/Distributions';
 // Load CSS
 // These are sprites, will be needed at some point
 // require('./node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
+import 'c3/c3.min.css';
 import '../assets/global.css';
 
 // Promise polyfill for IE

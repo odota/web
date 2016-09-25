@@ -5,6 +5,7 @@ import peers, { getPlayerPeers } from 'reducers/gotPlayer/peers';
 import heroes, { getPlayerHeroes } from 'reducers/gotPlayer/heroes';
 import pros, { getPlayerPros } from 'reducers/gotPlayer/pros';
 import rankings, { getPlayerRankings } from 'reducers/gotPlayer/rankings';
+import histogram, { getPlayerHistogram } from 'reducers/gotPlayer/histogram';
 import winloss, { getWinLoss } from 'reducers/gotPlayer/winloss';
 import records, { getPlayerRecords } from 'reducers/gotPlayer/records';
 import counts, { getPlayerCounts } from 'reducers/gotPlayer/counts';
@@ -15,6 +16,7 @@ export default combineReducers({
   heroes,
   pros,
   rankings,
+  histogram,
   winloss,
   peers,
   records,
@@ -33,6 +35,7 @@ export {
   getPlayerHeroes as playerHeroes,
   getPlayerPros as playerPros,
   getPlayerRankings as playerRankings,
+  getPlayerHistogram as playerHistogram,
   getPlayerRecords as playerRecords,
   getPlayerCounts as playerCounts,
 };

@@ -11,6 +11,7 @@ import gotPlayer, {
   playerHeroes,
   playerPros,
   playerRankings,
+  playerHistogram,
   playerRecords,
   playerCounts,
 } from 'reducers/gotPlayer';
@@ -33,6 +34,7 @@ export {
   playerHeroes,
   playerPros,
   playerRankings,
+  playerHistogram,
   playerRecords,
   playerCounts,
   getTab as tab,

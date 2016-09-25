@@ -7,6 +7,7 @@ export { playerPeersActions, getPlayerPeers, setPlayerPeersSort } from './player
 export { playerHeroesActions, getPlayerHeroes, setPlayerHeroesSort } from './player/playerHeroesActions';
 export { playerProsActions, getPlayerPros, setPlayerProsSort } from './player/playerProsActions';
 export { playerRankingsActions, getPlayerRankings, setPlayerRankingsSort } from './player/playerRankingsActions';
+export { playerHistogramActions, getPlayerHistogram } from './player/playerHistogramActions';
 export { playerRecordsActions, getPlayerRecords, setPlayerRecordsSort } from './player/playerRecordsActions';
 export { playerCountsActions, getPlayerCounts, setPlayerCountsSort } from './player/playerCountsActions';
 export { playerWinLossActions, getPlayerWinLoss } from './player/playerWinLossActions';

@@ -42,6 +42,14 @@ export default (initialState, actions, isObject) => {
           list: [...action.payload],
         };
       case actions.ERROR:
+        if (isObject) {
+          return {
+            ...state,
+            loading: false,
+            loaded: false,
+            error: true,
+          };
+        }
         return {
           ...state,
           loading: false,
