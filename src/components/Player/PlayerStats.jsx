@@ -1,24 +1,40 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { CardTitle } from 'material-ui/Card';
+import {
+  connect
+} from 'react-redux';
+import {
+  CardTitle
+} from 'material-ui/Card';
 import ActionHelp from 'material-ui/svg-icons/action/help';
 import ReactTooltip from 'react-tooltip';
-import { player } from 'reducers';
+import {
+  player
+} from 'reducers';
 import Error from '../Error';
 import Spinner from '../Spinner';
 import styles from './PlayerHeader.css';
 
-export const PlayerStatsCards = ({ loading, error, partyRank, soloRank, mmrEstimate, wins, losses }) => {
-  const getPlayerStats = () => {
-    if (error) return <Error />;
-    if (loading) return <Spinner />;
-
+export const PlayerStatsCards = ({
+    loading,
+    error,
+    partyRank,
+    soloRank,
+    mmrEstimate,
+    wins,
+    losses
+  }) => {
+    if (error) {
+      return <Error />;
+    }
+    if (loading) {
+      return <Spinner />;
+    }
     return (
       <div style={{ position: 'absolute' }}>
         <CardTitle
           className={styles.playerStats}
           subtitle={<div className={styles.textSuccess}>{wins}</div>}
-          title="wins"
+          title = "wins" 
         />
         <CardTitle
           className={styles.playerStats}
@@ -73,9 +89,6 @@ export const PlayerStatsCards = ({ loading, error, partyRank, soloRank, mmrEstim
         /> : null}
       </div>
     );
-  };
-
-  return getPlayerStats();
 };
 
 const mapStateToProps = (state, ownProps) => ({
