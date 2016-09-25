@@ -1,0 +1,61 @@
+@import "../palette.css";
+
+.footer {
+  padding: 25px 50px 15px;
+  background-color: var(--defaultPrimaryColor);
+  color: var(--primaryTextColor);
+}
+
+.footer p {
+  padding: 2px 0 5px;
+  margin: 0;
+  font-size: var(--fontMedium);
+}
+.footer small {
+  color: darkgrey;
+  font-size: var(--fontSmall);
+}
+.footer small .iconButton svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+.footer hr {
+  border: 0;
+  height: 1px;
+  background-color: var(--primaryTextColor);
+  background: linear-gradient(to right, var(--primaryTextColor) , rgba(0, 0, 0, 0)); 
+  opacity: .1;
+  
+}
+
+.osLink {
+  color: var(--primaryTextColor);
+}
+.osLink:hover {
+  color: var(--primaryLinkColor);
+  text-decoration: underline;
+}
+
+.links {
+  font-size: var(--fontMedium);
+}
+.links a::after {
+  content: "•";
+  margin: 0 8px;
+  opacity: .6;
+  color: var(--primaryTextColor);
+}
+.links a:last-child {
+  &::after {
+    content: "";
+    margin: 0;
+  }
+}
+.links svg {
+  fill: var(--primaryLinkColor) !important;
+}
+
+.SocialLinks {
+  display: inline-block;
+  margin-left: 10px;
+}
