@@ -80,7 +80,7 @@ class Explorer extends React.Component
   componentWillMount() {
     const id = this.props && this.props.location && this.props.location.query && this.props.location.query.id;
     if (id) {
-      this.setState(Object.assign({}, this.state, {loading: true}));
+      this.setState(Object.assign({}, this.state, { loading: true }));
       fetch(`${API_HOST}/api/explorer?id=${id}`).then(jsonResponse).then(this.handleResponse);
     }
   }
@@ -135,7 +135,7 @@ class Explorer extends React.Component
     return (<div>
       <h3>Data Explorer
         <small> - Explore data from Dota 2 matches </small>
-        <a href='https://github.com/odota/core/blob/master/sql/create_tables.sql'>(Table Schema)</a>
+        <a href="https://github.com/odota/core/blob/master/sql/create_tables.sql">(Table Schema)</a>
       </h3>
       <div>
         <ul>
