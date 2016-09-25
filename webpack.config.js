@@ -100,6 +100,7 @@ HashBundlePlugin.prototype.apply = function f(compiler) {
 if (!isProd) {
   config.plugins.push(new DashboardPlugin());
 } else {
+  delete config.devtool;
   config.plugins.push(new webpack.LoaderOptionsPlugin({
     minimize: true,
     debug: false,
