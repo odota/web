@@ -30,15 +30,18 @@ const config = {
       path.resolve('./node_modules'),
     ],
   },
+  devtool: 'eval-source-map',
   module: {
+    // We need to load flexboxgrid with css-modules, but others need to be loaded
+    // with regular css loader.
     loaders: [{
       test: /\.css$/,
       loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader',
-      exclude: /node_modules/,
+      exclude: /node_modules\/?=flexboxgrid/,
     }, {
       test: /\.css$/,
       loader: 'style-loader!css-loader',
-      include: /node_modules/,
+      include: /node_modules\/?=flexboxgrid/,
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: 'url-loader?limit=10000&minetype=application/font-woff&name=[hash].[ext]',
@@ -99,6 +102,7 @@ HashBundlePlugin.prototype.apply = function f(compiler) {
 if (!isProd) {
   // config.plugins.push(new DashboardPlugin());
 } else {
+  delete config.devtool;
   config.plugins.push(new webpack.LoaderOptionsPlugin({
     minimize: true,
     debug: false,
