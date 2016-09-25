@@ -16,7 +16,9 @@ const TabBar = ({ router, tabs, activeTab }) => (
     value={activeTab}
   >
     {tabs.map((tab, index) => (
-      <Tab key={index} className={styles.tab} value={tab.route} label={tab.label} onActive={tab => onActive(tab, router)} />
+      <Tab key={index} className={styles.tab} value={tab.route} label={tab.label} onActive={tab => onActive(tab, router)}>
+        {tab.children}
+      </Tab>
     ))}
   </Tabs>
 );

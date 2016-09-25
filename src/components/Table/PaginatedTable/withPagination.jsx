@@ -9,7 +9,7 @@ export default Table => {
   // We have to give the table an id so we can hold all tables currentPage in memory.
   const id = uuid.v4();
 
-  const PaginatedTable = ({ currentPage, data, pageLength = 20, setCurrentPage, ...rest }) => {
+  const PaginatedTable = ({ currentPage, data, pageLength = 50, setCurrentPage, ...rest }) => {
     if (data) {
       if (currentPage > Math.ceil(data.length / pageLength)) {
         setCurrentPage(0);

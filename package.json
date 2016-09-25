@@ -6,6 +6,7 @@
   "scripts": {
     "webpack": "NODE_ENV=production webpack -p --bail",
     "watch": "webpack --watch",
+    "prestart": "npm install",
     "start": "webpack-dev-server -d --compress --display-error-details",
     "build": "NODE_ENV=production npm run lintnofix && npm run webpack",
     "lint": "eslint . --ext .js,.jsx --fix",
@@ -20,6 +21,7 @@
     "c3": "^0.4.11",
     "classnames": "^2.2.5",
     "color": "^0.11.3",
+    "dota2-minimap-hero-sprites": "^2.0.0",
     "dotaconstants": "^2.0.0",
     "es6-promise": "^3.3.1",
     "flexboxgrid": "^6.3.1",

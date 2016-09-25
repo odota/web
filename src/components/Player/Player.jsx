@@ -18,7 +18,14 @@ import {
   RecordsPage,
   CountsPage,
 } from './Pages';
-import PlayerTabs from './PlayerTabs';
+import TabBar from '../TabBar';
+import { playerPages } from '../Header/Pages';
+
+const playerPagesMapped = (accountId) => playerPages.map(page => ({
+  ...page,
+  route: `/players/${accountId}/${page.name.toLowerCase()}`,
+  label: page.name,
+}));
 
 const getPlayerSubroute = (info, playerId) => {
   switch (info) {
@@ -45,7 +52,7 @@ const getPlayerSubroute = (info, playerId) => {
   }
 };
 
-const Player = ({ playerId, info, params, location }) => {
+const Player = ({ playerId, info, params }) => {
   if (!playerId) {
     return <Error />;
   }
@@ -54,7 +61,9 @@ const Player = ({ playerId, info, params, location }) => {
     <div>
       <div className={styles.header}>
         <PlayerHeader playerId={playerId} />
-        <PlayerTabs params={params} location={location} />
+        <div style={{ marginTop: 25 }}>
+          <TabBar tabs={playerPagesMapped(params.account_id)} />
+        </div>
       </div>
       {getPlayerSubroute(info, playerId)}
     </div>

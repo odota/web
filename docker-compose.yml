@@ -1,0 +1,16 @@
+# You don't usually need to edit this file.
+# If it does not fit your personal use case, docker-compose.override.yml is a preferred way to go.
+
+version: '2'
+services:
+  ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: odota/ui
+    entrypoint: "npm start"
+    ports:
+      - "8080:8080"
+    volumes: 
+      - .:/usr/src
+    container_name: odota-ui
