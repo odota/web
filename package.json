@@ -7,7 +7,7 @@
     "webpack": "NODE_ENV=production webpack -p --bail",
     "watch": "webpack --watch",
     "prestart": "npm install",
-    "start": "webpack-dev-server -d --compress",
+    "start": "webpack-dev-server",
     "build": "NODE_ENV=production npm run lintnofix && npm run webpack",
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx"

@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { Graph } from 'components/Visualizations';
 import { getPlayerHistogram } from 'actions';
 import { playerHistogram } from 'reducers';
+import { withRouter } from 'react-router';
 import histogramNames from './histogramNames';
+
 
 const getAxis = (name, show = true) => ({
   label: {
@@ -12,11 +14,15 @@ const getAxis = (name, show = true) => ({
   },
 });
 
-const Histogram = ({ histogramName, columns, xVals, selectHistogram }) => (
+const selectHistogram = (router, histogramName, playerId) => {
+  router.push(`/players/${playerId}/histograms/${histogramName}`);
+};
+
+const Histogram = ({ histogramName, columns, xVals, router, playerId }) => (
   <div style={{ fontSize: 10 }}>
     <div>
       {histogramNames.map(histogram => (
-        <button onClick={selectHistogram(histogram)}>{histogram}</button>
+        <button onClick={() => selectHistogram(router, histogram, playerId)}>{histogram }</button>
       ))}
     </div>
     <Graph
@@ -40,8 +46,9 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId) {
-      getData(this.props);
+    if (this.props.playerId !== nextProps.playerId
+      || this.props.histogramName !== nextProps.histogramName) {
+      getData(nextProps);
     }
   }
 
@@ -54,7 +61,6 @@ const mapStateToProps = (state, { histogramName, playerId }) => ({
   histograms: playerHistogram.getData(state, playerId),
   xVals: playerHistogram.getHistogramX(histogramName)(state, playerId),
   columns: playerHistogram.getHistogramY(histogramName)(state, playerId),
-  selectHistogram: f => f => f,
 });
 
-export default connect(mapStateToProps, { getPlayerHistogram })(RequestLayer);
+export default connect(mapStateToProps, { getPlayerHistogram })(withRouter(RequestLayer));

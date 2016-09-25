@@ -1,7 +1,7 @@
 /**
  * Webpack configuration file
  **/
-const DashboardPlugin = require('webpack-dashboard/plugin');
+// const DashboardPlugin = require('webpack-dashboard/plugin');
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
@@ -37,11 +37,11 @@ const config = {
     loaders: [{
       test: /\.css$/,
       loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader',
-      exclude: /node_modules\/?=flexboxgrid/,
+      exclude: /node_modules\/(?!flexboxgrid)/,
     }, {
       test: /\.css$/,
       loader: 'style-loader!css-loader',
-      include: /node_modules\/?=flexboxgrid/,
+      include: /node_modules\/(?!flexboxgrid)/,
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: 'url-loader?limit=10000&minetype=application/font-woff&name=[hash].[ext]',

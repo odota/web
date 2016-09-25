@@ -27,5 +27,5 @@ export default [
   'comeback',
   'stomp',
   'loss',
-  'actions_per_min'
-]
+  'actions_per_min',
+];

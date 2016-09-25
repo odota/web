@@ -21,7 +21,7 @@ import { Heroes } from 'components/Heroes';
 import Request from 'components/Request';
 import Distributions from 'components/Distributions';
 // Load CSS
-import 'c3/c3.min.css';
+import 'c3/c3.css';
 import './index.css';
 // require('./node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
 
@@ -62,7 +62,9 @@ render(
           <Route path=":info" />
         </Route>
         <Route path="players/:account_id" component={Player}>
-          <Route path=":info" />
+          <Route path=":info">
+            <Route path=":histogramName" />
+          </Route>
         </Route>
         <Route path="explorer" component={Explorer} />
         <Route path="heroes(/:hero_id)" component={Heroes}>

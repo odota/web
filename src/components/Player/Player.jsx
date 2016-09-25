@@ -27,7 +27,7 @@ const playerPagesMapped = (accountId) => playerPages.map(page => ({
   label: page.name,
 }));
 
-const getPlayerSubroute = (info, playerId) => {
+const getPlayerSubroute = (info, playerId, histogramName) => {
   switch (info) {
     case 'overview':
       return <OverviewPage playerId={playerId} />;
@@ -40,7 +40,7 @@ const getPlayerSubroute = (info, playerId) => {
     case 'rankings':
       return <RankingsPage playerId={playerId} />;
     case 'histograms':
-      return <HistogramsPage playerId={playerId} histogramName="kda" />;
+      return <HistogramsPage playerId={playerId} histogramName={histogramName} />;
     case 'peers':
       return <PeersPage playerId={playerId} />;
     case 'records':
@@ -52,7 +52,7 @@ const getPlayerSubroute = (info, playerId) => {
   }
 };
 
-const Player = ({ playerId, info, params }) => {
+const Player = ({ playerId, info, histogramName }) => {
   if (!playerId) {
     return <Error />;
   }
@@ -62,16 +62,20 @@ const Player = ({ playerId, info, params }) => {
       <div className={styles.header}>
         <PlayerHeader playerId={playerId} />
         <div style={{ marginTop: 25 }}>
-          <TabBar tabs={playerPagesMapped(params.account_id)} />
+          <TabBar tabs={playerPagesMapped(playerId)} />
         </div>
       </div>
-      {getPlayerSubroute(info, playerId)}
+      {getPlayerSubroute(info, playerId, histogramName)}
     </div>
   );
 };
 // need to fix this
 
-const mapStateToProps = (state, { params }) => ({ playerId: params.account_id, info: params.info });
+const mapStateToProps = (state, { params }) => ({
+  playerId: params.account_id,
+  info: params.info,
+  histogramName: params.histogramName,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   getPlayer: (playerId) => dispatch(getPlayer(playerId)),

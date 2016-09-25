@@ -18,33 +18,33 @@ const navbarPages = [{
 }];
 
 const playerPages = [{
-  name: 'Overview',
+  name: 'Overview/',
 }, {
-  name: 'Matches',
+  name: 'Matches/',
 }, {
-  name: 'Heroes',
+  name: 'Heroes/',
 }, {
-  name: 'Peers',
+  name: 'Peers/',
 }, {
-  name: 'Pros',
+  name: 'Pros/',
 }, {
-  name: 'Activity',
+  name: 'Activity/',
 }, {
-  name: 'Records',
+  name: 'Records/',
 }, {
-  name: 'Counts',
+  name: 'Counts/',
 }, {
-  name: 'Histograms',
+  name: 'Histograms/',
 }, {
-  name: 'Trends',
+  name: 'Trends/',
 }, {
-  name: 'Wardmap',
+  name: 'Wardmap/',
 }, {
-  name: 'Wordcloud',
+  name: 'Wordcloud/',
 }, {
-  name: 'MMR',
+  name: 'MMR/',
 }, {
-  name: 'Rankings',
+  name: 'Rankings/',
   'new-feature': true,
 }];
 
