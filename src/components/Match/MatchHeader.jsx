@@ -1,18 +1,20 @@
 import React from 'react';
 import {
-  Link
+  Link,
 } from 'react-router';
+/*
 import {
-  CardTitle
+  CardTitle,
 } from 'material-ui/Card';
+*/
 import {
-  transformations
+  transformations,
 } from 'utility';
 import styles from './Match.css';
 
 export default ({
   match,
-  user
+  user,
 }) => (
   <div>
     {match.radiant_win ? <RadiantWinText /> : <DireWinText />}
@@ -25,7 +27,7 @@ export default ({
 );
 
 const JistTvButton = ({
-  replayUrl
+  replayUrl,
 }) => (
   <a
     className={styles.ActionButton}
@@ -45,7 +47,7 @@ const JistTvButton = ({
 const DotaCoachButton = ({
   matchId,
   playerMmr,
-  steamId
+  steamId,
 }) => (
   <a
     target="_blank"
@@ -63,7 +65,7 @@ const DotaCoachButton = ({
 );
 
 const ParseReplayButton = ({
-  matchId
+  matchId,
 }) => (
   <Link
     className={styles.ActionButton}
@@ -74,7 +76,7 @@ const ParseReplayButton = ({
 );
 
 const DownloadReplayButton = ({
-  replayUrl
+  replayUrl,
 }) => (
   <a className={styles.ActionButton} href={replayUrl}>
     Download Replay
@@ -83,7 +85,7 @@ const DownloadReplayButton = ({
 
 const MatchActions = ({
   match,
-  user
+  user,
 }) => {
   let steamId = '';
   let playerMmr = '';

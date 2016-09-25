@@ -1,14 +1,14 @@
 import React from 'react';
 import constants from 'dotaconstants';
+import strings from 'lang/en';
 import {
-  Link
+  Link,
 } from 'react-router';
 import {
-  API_HOST
+  API_HOST,
 } from 'config.js';
 // import { AppBadge } from '../Player';
 import styles from './Match.css';
-import strings from 'lang/en';
 
 // {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
 const heroTd = (row, col, field, hideName) => (
@@ -131,7 +131,7 @@ const overviewColumns = [
       }
       return itemArray;
     },
-  }
+  },
 ];
 const abUpgradeColumns = [
   heroTdColumn,
@@ -154,10 +154,10 @@ const abUpgradeColumns = [
       }
       if (abilityData) {
         return (<img
-            src={abilityKey === 'attribute_bonus' ? abilityData.img : `${API_HOST}${abilityData.img}`}
-            style={{ height: 35, position: 'relative', left: -10 }}
-            role="presentation"
-          />);
+          src={abilityKey === 'attribute_bonus' ? abilityData.img : `${API_HOST}${abilityData.img}`}
+          style={{ height: 35, position: 'relative', left: -10 }}
+          role="presentation"
+        />);
       }
     }
     return null;
@@ -267,23 +267,23 @@ const overallColumns = [
         const ability = constants.abilities[field.inflictor];
         const item = constants.items[field.inflictor];
         const hero = constants.hero_names[field.key] || {
-          img: ''
+          img: '',
         };
         let props = {
           src: null,
-          title: null
+          title: null,
         };
         if (ability) {
           props = {
-            src: `${API_HOST}${ability.img}`
+            src: `${API_HOST}${ability.img}`,
           };
         } else if (item) {
           props = {
-            src: `${API_HOST}${item.img}`
+            src: `${API_HOST}${item.img}`,
           };
         } else {
           props = {
-            src: `${API_HOST}/public/images/default_attack.png`
+            src: `${API_HOST}/public/images/default_attack.png`,
           };
         }
         return (<div>
@@ -294,7 +294,7 @@ const overallColumns = [
       }
       return <div />;
     },
-  }
+  },
 ];
 
 const laningColumns = [
@@ -321,7 +321,7 @@ const laningColumns = [
     width: 1,
     sortFn: true,
     displayFn: (row, col, field) => (field ? field[10] : ''),
-  }
+  },
 ];
 
 const purchaseColumns = [
@@ -332,7 +332,7 @@ const purchaseColumns = [
     width: 1,
     sortFn: true,
     displayFn: (row, col, {
-      tpscroll
+      tpscroll,
     }) => tpscroll,
   }, {
     displayName: 'Observers',
@@ -363,7 +363,7 @@ const purchaseColumns = [
     width: 1,
     sortFn: true,
     displayFn: (row, col, {
-      dust
+      dust,
     }) => dust,
   }, {
     displayName: 'Gems',
@@ -372,7 +372,7 @@ const purchaseColumns = [
     width: 1,
     sortFn: true,
     displayFn: (row, col, {
-      gem
+      gem,
     }) => gem,
   }, {
     displayName: 'Rapiers',
@@ -381,53 +381,53 @@ const purchaseColumns = [
     width: 1,
     sortFn: true,
     displayFn: (row, col, {
-      rapier
+      rapier,
     }) => rapier,
-  }
+  },
 ];
 
 const chatColumns = [
   heroTdColumn, {
     displayName: 'Time',
-    field: 'time'
+    field: 'time',
   }, {
     displayName: 'Message',
-    field: 'key'
+    field: 'key',
   },
 ];
 
 const abilityUseColumns = [{
   displayName: 'Ability',
-  field: 'name'
+  field: 'name',
 }, {
   displayName: 'Casts',
   field: 'ability_uses',
-  sortFn: true
+  sortFn: true,
 }, {
   displayName: 'Hits',
   field: 'hero_hits',
-  sortFn: true
+  sortFn: true,
 }, {
   displayName: 'Damage',
   field: 'damage_inflictor',
-  sortFn: true
+  sortFn: true,
 }];
 
 const itemUseColumns = [{
   displayName: 'Item',
-  field: 'name'
+  field: 'name',
 }, {
   displayName: 'Casts',
   field: 'item_uses',
-  sortFn: true
+  sortFn: true,
 }, {
   displayName: 'Hits',
   field: 'hero_hits',
-  sortFn: true
+  sortFn: true,
 }, {
   displayName: 'Damage',
   field: 'damage_inflictor',
-  sortFn: true
+  sortFn: true,
 }];
 
 const unitKillsColumns = [
@@ -475,18 +475,18 @@ const unitKillsColumns = [
     displayName: 'Other',
     field: 'specific',
     displayFn: (row, col, field) => JSON.stringify(field),
-  }
+  },
 ];
 
 const actionsColumns = [heroTdColumn, {
-    displayName: 'APM',
-    tooltip: strings.actions_per_min,
-    field: 'actions_per_min',
-  },{
-    displayName: 'Pings',
-    tooltip: strings.pings,
-    field: 'pings',
-  }]
+  displayName: 'APM',
+  tooltip: strings.actions_per_min,
+  field: 'actions_per_min',
+}, {
+  displayName: 'Pings',
+  tooltip: strings.pings,
+  field: 'pings',
+}]
   .concat(Object.keys(constants.order_types).filter(o => constants.order_types[o] in strings).map(k => ({
     displayName: strings[`${constants.order_types[k]}_abbr`],
     tooltip: strings[constants.order_types[k]],

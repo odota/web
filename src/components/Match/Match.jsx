@@ -143,10 +143,8 @@ class RequestLayer extends React.Component {
           <Tab label="Actions">
             <MatchPlayersTable columns={actionsColumns} />
           </Tab>
-          <Tab label="Analysis">
-          </Tab>
-          <Tab label="Cosmetics">
-          </Tab>
+          <Tab label="Analysis" />
+          <Tab label="Cosmetics" />
           <Tab label="Chat">
             <Table data={(match.chat || []).map(c => Object.assign({}, c, match.players[c.slot]))} columns={chatColumns} />
           </Tab>
