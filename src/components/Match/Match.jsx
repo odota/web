@@ -22,6 +22,10 @@ import {
   abilityUseColumns,
   itemUseColumns,
   purchaseTimesColumns,
+  lastHitsTimesColumns,
+  unitKillsColumns,
+  actionsColumns,
+  runesColumns,
 } from './matchColumns.jsx';
 import BuildingMap from '../BuildingMap/BuildingMap';
 import { defaultSort } from '../../utility';
@@ -42,7 +46,7 @@ const CastTable = ({ match, dataField, columns }) => (
   <Tabs>
     {match.players.map((p) =>
       (
-      <Tab key={p.player_slot} icon={<img src={`${API_HOST}${constants.heroes[p.hero_id].img}`} width={30} role="presentation" />}>
+      <Tab key={p.player_slot} icon={<img src={`${API_HOST}${constants.heroes[p.hero_id].img}`} height={30} role="presentation" />}>
         <Table
           data={p[dataField] || []}
           columns={columns}
@@ -96,21 +100,22 @@ class RequestLayer extends React.Component {
   }
 
   render() {
+    const match = this.props.match;
     return (
       <div>
-        <MatchHeader match={this.props.match} user={this.props.user} />
+        <MatchHeader match={match} user={this.props.user} />
         <Tabs>
           <Tab label="Overview">
             <MatchPlayersTable columns={overviewColumns} />
             <MatchPlayersTable columns={abUpgradeColumns} />
-            <BuildingMap match={this.props.match} loading={this.props.loading} />
+            <BuildingMap match={match} loading={this.props.loading} />
           </Tab>
           <Tab label="Benchmarks">
-            <MatchPlayersTable columns={benchmarksColumns(this.props.match)} />
+            <MatchPlayersTable columns={benchmarksColumns(match)} />
           </Tab>
           <Tab label="Crosstables">
-            <CrossTable match={this.props.match} field1="killed" field2="killed_by" />
-            <CrossTable match={this.props.match} field1="damage" field2="damage_taken" />
+            <CrossTable match={match} field1="killed" field2="killed_by" />
+            <CrossTable match={match} field1="damage" field2="damage_taken" />
           </Tab>
           <Tab label="Overall">
             <MatchPlayersTable columns={overallColumns} />
@@ -118,18 +123,30 @@ class RequestLayer extends React.Component {
           <Tab label="Laning">
             <MatchPlayersTable columns={laningColumns} />
           </Tab>
+          <Tab label="Farm">
+            <MatchPlayersTable columns={unitKillsColumns} />
+            <MatchPlayersTable columns={lastHitsTimesColumns(match)} />
+          </Tab>
           <Tab label="Purchases">
             <MatchPlayersTable columns={purchaseColumns} />
-            <MatchPlayersTable columns={purchaseTimesColumns(this.props.match)} />
+            <MatchPlayersTable columns={purchaseTimesColumns(match)} />
           </Tab>
           <Tab label="Abilities">
-            <CastTable match={this.props.match} dataField="ability_uses_arr" columns={abilityUseColumns} />
+            <CastTable match={match} dataField="ability_uses_arr" columns={abilityUseColumns} />
           </Tab>
           <Tab label="Items">
-            <CastTable match={this.props.match} dataField="item_uses_arr" columns={itemUseColumns} />
+            <CastTable match={match} dataField="item_uses_arr" columns={itemUseColumns} />
           </Tab>
+          <Tab label="Objectives">
+            <MatchPlayersTable columns={runesColumns} />
+          </Tab>
+          <Tab label="Actions">
+            <MatchPlayersTable columns={actionsColumns} />
+          </Tab>
+          <Tab label="Analysis" />
+          <Tab label="Cosmetics" />
           <Tab label="Chat">
-            <Table data={(this.props.match.chat || []).map(c => Object.assign({}, c, this.props.match.players[c.slot]))} columns={chatColumns} />
+            <Table data={(match.chat || []).map(c => Object.assign({}, c, match.players[c.slot]))} columns={chatColumns} />
           </Tab>
         </Tabs>
       </div>

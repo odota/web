@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { API_HOST } from 'config';
-import { renderMatch } from 'components/Match/renderMatch';
+import renderMatch from 'components/Match/renderMatch';
 
 const url = '/api/matches/';
 

@@ -1,7 +1,11 @@
 import React from 'react';
 import constants from 'dotaconstants';
-import { Link } from 'react-router';
-import { API_HOST } from 'config.js';
+import {
+  Link,
+} from 'react-router';
+import {
+  API_HOST,
+} from 'config.js';
 // import { AppBadge } from '../Player';
 import styles from './Match.css';
 
@@ -29,14 +33,12 @@ const abbreviateNumber = function abbreviateNumber(num) {
 };
 
 const overviewColumns = [
-  heroTdColumn,
-  {
+  heroTdColumn, {
     displayName: 'MMR',
     field: 'solo_competitive_rank',
     width: 1,
     sortFn: true,
-  },
-  {
+  }, {
     displayName: 'LVL',
     field: 'level',
     width: 1,
@@ -128,40 +130,38 @@ const overviewColumns = [
       }
       return itemArray;
     },
-  }];
+  },
+];
 const abUpgradeColumns = [
   heroTdColumn,
-];
-for (let i = 0; i < 25; i++) {
-  abUpgradeColumns.push({
-    displayName: i + 1,
-    field: 'ability_upgrades_arr',
-    index: i,
-    width: 1,
-    displayFn: (row, column, field) => {
-      if (field) {
-        const abilityId = field[column.index];
-        const abilityKey = constants.ability_ids[abilityId];
-        let abilityData = constants.abilities[abilityKey];
-        if (abilityKey === 'attribute_bonus') {
-          abilityData = {
-            dname: 'Attribute Bonus',
-            img: '/assets/stats.png',
-            attrib: '+2 All Attributes',
-          };
-        }
-        if (abilityData) {
-          return (<img
-            src={abilityKey === 'attribute_bonus' ? abilityData.img : `${API_HOST}${abilityData.img}`}
-            style={{ height: 35, position: 'relative', left: -10 }}
-            role="presentation"
-          />);
-        }
+].concat(Array.from(new Array(25)).map((e, i) => ({
+  displayName: i + 1,
+  field: 'ability_upgrades_arr',
+  index: i,
+  width: 1,
+  displayFn: (row, column, field) => {
+    if (field) {
+      const abilityId = field[column.index];
+      const abilityKey = constants.ability_ids[abilityId];
+      let abilityData = constants.abilities[abilityKey];
+      if (abilityKey === 'attribute_bonus') {
+        abilityData = {
+          dname: 'Attribute Bonus',
+          img: '/assets/stats.png',
+          attrib: '+2 All Attributes',
+        };
       }
-      return null;
-    },
-  });
-}
+      if (abilityData) {
+        return (<img
+          src={abilityKey === 'attribute_bonus' ? abilityData.img : `${API_HOST}${abilityData.img}`}
+          style={{ height: 35, position: 'relative', left: -10 }}
+          role="presentation"
+        />);
+      }
+    }
+    return null;
+  },
+})));
 
 const benchmarksColumns = (match) => {
   const cols = [
@@ -213,10 +213,25 @@ const purchaseTimesColumns = (match) => {
   return cols;
 };
 
+const lastHitsTimesColumns = (match) => {
+  const cols = [heroTdColumn];
+  const bucket = 300;
+  for (let i = 0; i < match.duration + bucket; i += bucket) {
+    const curTime = i;
+    cols.push({
+      displayName: `${curTime / 60}'`,
+      field: 'lh_t',
+      width: 1,
+      displayFn: (row, column, field) => (<div>
+        {field[curTime / 60]}
+      </div>),
+    });
+  }
+  return cols;
+};
 
 const overallColumns = [
-  heroTdColumn,
-  {
+  heroTdColumn, {
     displayName: 'Stacked',
     field: 'camps_stacked',
     width: 1,
@@ -250,14 +265,25 @@ const overallColumns = [
       if (field) {
         const ability = constants.abilities[field.inflictor];
         const item = constants.items[field.inflictor];
-        const hero = constants.hero_names[field.key] || { img: '' };
-        let props = { src: null, title: null };
+        const hero = constants.hero_names[field.key] || {
+          img: '',
+        };
+        let props = {
+          src: null,
+          title: null,
+        };
         if (ability) {
-          props = { src: `${API_HOST}${ability.img}` };
+          props = {
+            src: `${API_HOST}${ability.img}`,
+          };
         } else if (item) {
-          props = { src: `${API_HOST}${item.img}` };
+          props = {
+            src: `${API_HOST}${item.img}`,
+          };
         } else {
-          props = { src: `${API_HOST}/public/images/default_attack.png` };
+          props = {
+            src: `${API_HOST}/public/images/default_attack.png`,
+          };
         }
         return (<div>
           <img src={props.src} className={styles.imgSmall} role="presentation" />
@@ -267,17 +293,16 @@ const overallColumns = [
       }
       return <div />;
     },
-  }];
+  },
+];
 
 const laningColumns = [
-  heroTdColumn,
-  {
+  heroTdColumn, {
     displayName: 'Lane',
     field: '',
     width: 1,
     sortFn: true,
-  },
-  {
+  }, {
     displayName: 'EFF@10',
     field: 'lane_efficiency',
     width: 1,
@@ -295,17 +320,19 @@ const laningColumns = [
     width: 1,
     sortFn: true,
     displayFn: (row, col, field) => (field ? field[10] : ''),
-  }];
+  },
+];
 
 const purchaseColumns = [
-  heroTdColumn,
-  {
+  heroTdColumn, {
     displayName: 'TP',
     tooltip: 'Town Portal Scrolls purchased',
     field: 'purchase',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, { tpscroll }) => tpscroll,
+    displayFn: (row, col, {
+      tpscroll,
+    }) => tpscroll,
   }, {
     displayName: 'Observers',
     tooltip: 'Observer wards purchased',
@@ -333,55 +360,138 @@ const purchaseColumns = [
     field: 'purchase',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, { dust }) => dust,
+    displayFn: (row, col, {
+      dust,
+    }) => dust,
   }, {
     displayName: 'Gems',
     tooltip: 'Gems of True Sight purchased',
     field: 'purchase',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, { gem }) => gem,
+    displayFn: (row, col, {
+      gem,
+    }) => gem,
   }, {
     displayName: 'Rapiers',
     tooltip: 'Divine Rapiers purchased',
     field: 'purchase',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, { rapier }) => rapier,
-  }];
-
-const chatColumns = [
-  heroTdColumn,
-  { displayName: 'Time', field: 'time' },
-  { displayName: 'Message', field: 'key' },
+    displayFn: (row, col, {
+      rapier,
+    }) => rapier,
+  },
 ];
 
-const abilityUseColumns = [{ displayName: 'Ability', field: 'name' },
-            { displayName: 'Casts', field: 'ability_uses', sortFn: true },
-            { displayName: 'Hits', field: 'hero_hits', sortFn: true },
-            { displayName: 'Damage', field: 'damage_inflictor', sortFn: true }];
+const chatColumns = [
+  heroTdColumn, {
+    displayName: 'Time',
+    field: 'time',
+  }, {
+    displayName: 'Message',
+    field: 'key',
+  },
+];
 
-const itemUseColumns = [{ displayName: 'Item', field: 'name' },
-            { displayName: 'Casts', field: 'item_uses', sortFn: true },
-            { displayName: 'Hits', field: 'hero_hits', sortFn: true },
-            { displayName: 'Damage', field: 'damage_inflictor', sortFn: true }];
+const abilityUseColumns = [{
+  displayName: 'Ability',
+  field: 'name',
+}, {
+  displayName: 'Casts',
+  field: 'ability_uses',
+  sortFn: true,
+}, {
+  displayName: 'Hits',
+  field: 'hero_hits',
+  sortFn: true,
+}, {
+  displayName: 'Damage',
+  field: 'damage_inflictor',
+  sortFn: true,
+}];
+
+const itemUseColumns = [{
+  displayName: 'Item',
+  field: 'name',
+}, {
+  displayName: 'Casts',
+  field: 'item_uses',
+  sortFn: true,
+}, {
+  displayName: 'Hits',
+  field: 'hero_hits',
+  sortFn: true,
+}, {
+  displayName: 'Damage',
+  field: 'damage_inflictor',
+  sortFn: true,
+}];
+
+const unitKillsColumns = [
+  heroTdColumn,
+  {
+    displayName: 'Heroes',
+    field: 'hero_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Creeps',
+    field: 'lane_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Neutrals',
+    field: 'neutral_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Ancients',
+    field: 'ancient_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Towers',
+    field: 'tower_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Couriers',
+    field: 'courier_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Roshans',
+    field: 'roshan_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Necronomicons',
+    field: 'necronomicon_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Other',
+    field: 'specific',
+    displayFn: (row, col, field) => JSON.stringify(field),
+  }];
 
 const actionsColumns = [];
 
-// TODO party indicator
-// Lane map
-// Hero kill times
-// Ward maps
-// Unit kills
-// Last Hits
-// Graphs (radiant adv/gold/xp/lh)
-// objective log
-// runes
-// Teamfights
-// Analysis
+const runesColumns = [];
+
+const cosmeticsColumns = [];
+
+const objectiveDamageColumns = [];
+
+const objectiveLogColumns = [];
+
+// TODO
+// party indicator
 // actions
+// runes
 // cosmetics
 // Gold/XP sources
+// Objective damage
+// Hero kill times
+// objective log
+// Teamfights
+// Analysis
+// Lane map
+// Ward maps
+// Graphs (radiant adv/gold/xp/lh)
 
 export {
   heroTd,
@@ -393,7 +503,13 @@ export {
   chatColumns,
   purchaseColumns,
   purchaseTimesColumns,
-  actionsColumns,
   abilityUseColumns,
   itemUseColumns,
+  unitKillsColumns,
+  actionsColumns,
+  lastHitsTimesColumns,
+  runesColumns,
+  cosmeticsColumns,
+  objectiveDamageColumns,
+  objectiveLogColumns,
 };
