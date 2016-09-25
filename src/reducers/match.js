@@ -1,16 +1,15 @@
 import { matchActions } from 'actions';
-import SORT_ENUM from 'utility';
-import { renderMatch } from 'components/Match/renderMatch';
+import { SORT_ENUM } from 'utility';
 
 const initialState = {
-  loading: true,
-  error: false,
   match: {
     players: [],
-    sortState: '',
-    sortField: '',
-    sortFn: true,
   },
+  sortState: '',
+  sortField: '',
+  sortFn: true,
+  loading: true,
+  error: false,
 };
 
 export default (state = initialState, action) => {
@@ -22,15 +21,11 @@ export default (state = initialState, action) => {
         error: false,
       };
     case matchActions.OK: {
-      const { players, ...rest } = action.payload;
       return {
         ...state,
         loading: false,
         error: false,
-        match: renderMatch({
-          ...rest,
-          players,
-        }),
+        match: action.payload,
       };
     }
     case matchActions.ERROR:
@@ -40,16 +35,11 @@ export default (state = initialState, action) => {
         error: true,
       };
     case matchActions.SORT: {
-      const { match, ...restState } = state;
-      const { ...restMatch } = match;
       return {
-        ...restState,
-        match: {
-          ...restMatch,
-          sortState: action.sortField === match.sortField ? SORT_ENUM.next(SORT_ENUM[match.sortState]) : SORT_ENUM[0],
-          sortField: action.sortField,
-          sortFn: action.sortFn,
-        },
+        ...state,
+        sortField: action.sortField,
+        sortFn: action.sortFn,
+        sortState: action.sortField === state.sortField ? SORT_ENUM.next(SORT_ENUM[state.sortState]) : SORT_ENUM[0],
       };
     }
     default:
