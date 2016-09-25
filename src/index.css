@@ -33,6 +33,28 @@
   overflow-x: hidden;
 }
 
+:global(.c3) {
+  & text {
+    fill: white;
+  }
+  & line {
+    fill: white;
+    stroke: white;
+  }
+}
+
+:global(.c3-axis) {
+  & > path {
+    stroke: white;
+  }
+}
+
+:global(.c3-tooltip-container) {
+  & > * {
+    color: black;
+  }
+}
+
 div[data-tip] {
   cursor: help;
 }

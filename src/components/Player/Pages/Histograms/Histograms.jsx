@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Graph } from 'components/Visualizations';
 import { getPlayerHistogram } from 'actions';
 import { playerHistogram } from 'reducers';
+import histogramNames from './histogramNames';
 
 const getAxis = (name, show = true) => ({
   label: {
@@ -11,8 +12,13 @@ const getAxis = (name, show = true) => ({
   },
 });
 
-const Histogram = ({ histogramName, columns, xVals }) => (
+const Histogram = ({ histogramName, columns, xVals, selectHistogram }) => (
   <div style={{ fontSize: 10 }}>
+    <div>
+      {histogramNames.map(histogram => (
+        <button onClick={selectHistogram(histogram)}>{histogram}</button>
+      ))}
+    </div>
     <Graph
       columns={columns}
       name={histogramName}
@@ -45,8 +51,10 @@ class RequestLayer extends React.Component {
 }
 
 const mapStateToProps = (state, { histogramName, playerId }) => ({
+  histograms: playerHistogram.getData(state, playerId),
   xVals: playerHistogram.getHistogramX(histogramName)(state, playerId),
   columns: playerHistogram.getHistogramY(histogramName)(state, playerId),
+  selectHistogram: f => f => f,
 });
 
 export default connect(mapStateToProps, { getPlayerHistogram })(RequestLayer);

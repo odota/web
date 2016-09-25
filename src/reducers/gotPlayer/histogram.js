@@ -25,6 +25,7 @@ export const getPlayerHistogram = {
   getError: (state, id) => getPlayerHistogram.getPlayerHistogramById(state, id).error,
   getLoading: (state, id) => getPlayerHistogram.getPlayerHistogramById(state, id).loading,
   isLoaded: (state, id) => getPlayerHistogram.getPlayerHistogramById(state, id).loaded,
+  getData: (state, id) => getPlayerHistogram.getPlayerHistogramById(state, id).data,
   getHistogramList: histogramName => (state, id) => getPlayerHistogram.getPlayerHistogramById(state, id).data[histogramName] || {},
   getHistogramX: histogramName => (state, id) => getPlayerHistogram.getHistogramList(histogramName)(state, id).x,
   getHistogramY: histogramName => (state, id) => getPlayerHistogram.getHistogramList(histogramName)(state, id)[histogramName],
