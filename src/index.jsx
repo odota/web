@@ -21,9 +21,9 @@ import { Heroes } from 'components/Heroes';
 import Request from 'components/Request';
 import Distributions from 'components/Distributions';
 // Load CSS
-// These are sprites, will be needed at some point
+import './index.css';
+import '../node_modules/c3/c3.css';
 // require('./node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
-import './assets/global.css';
 
 // Promise polyfill for IE
 require('es6-promise').polyfill();

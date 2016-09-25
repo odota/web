@@ -1,68 +1,92 @@
 import React from 'react';
-import { Link } from 'react-router';
+import {
+  Link,
+} from 'react-router';
+/*
+import {
+  CardTitle,
+} from 'material-ui/Card';
+*/
+import {
+  transformations,
+} from 'utility';
+import styles from './Match.css';
 
-import { transformations } from 'utility';
-import matchStyle from './Match.css';
-
-export default ({ match, user }) => (
+export default ({
+  match,
+  user,
+}) => (
   <div>
     {match.radiant_win ? <RadiantWinText /> : <DireWinText />}
-    <div className={matchStyle.HeaderInfoWrapper}>
+    <div className={styles.HeaderInfoWrapper}>
       <MatchActions match={match} user={user} />
       <MatchMetadata match={match} />
-      <div className={matchStyle.Clear} />
+      <div className={styles.Clear} />
     </div>
   </div>
 );
 
-const JistTvButton = ({ replayUrl }) => (
+const JistTvButton = ({
+  replayUrl,
+}) => (
   <a
-    className={matchStyle.ActionButton}
+    className={styles.ActionButton}
     rel="noopener noreferrer"
     target="_blank"
     href={`https://www.jist.tv/create.php?dota2-match-url=${replayUrl}`}
   >
-    <span className={matchStyle.JistTvText}>Get Video with</span>
+    <span className={styles.JistTvText}>Get Video with</span>
     <img
-      className={matchStyle.JistTvImg}
+      className={styles.JistTvImg}
       src="/assets/jist-white-logo.png"
       alt="Jist.tv"
     />
   </a>
 );
 
-const DotaCoachButton = ({ matchId, playerMmr, steamId }) => (
+const DotaCoachButton = ({
+  matchId,
+  playerMmr,
+  steamId,
+}) => (
   <a
     target="_blank"
     rel="noopener noreferrer"
-    className={matchStyle.ActionButton}
+    className={styles.ActionButton}
     href={`https://dotacoach.org/Hire/Yasp?matchID=${matchId}&userSteamId=${steamId}&playerMmr=${playerMmr}`}
   >
-    <span className={matchStyle.DotaCoachText}>Ask a coach</span>
+    <span className={styles.DotaCoachText}>Ask a coach</span>
     <img
-      className={matchStyle.DotaCoachImg}
+      className={styles.DotaCoachImg}
       src="/assets/dotacoach-32x24.png"
       alt="Dotacoach.org"
     />
   </a>
 );
 
-const ParseReplayButton = ({ matchId }) => (
+const ParseReplayButton = ({
+  matchId,
+}) => (
   <Link
-    className={matchStyle.ActionButton}
+    className={styles.ActionButton}
     to={`/request#${matchId}`}
   >
     Parse
   </Link>
 );
 
-const DownloadReplayButton = ({ replayUrl }) => (
-  <a className={matchStyle.ActionButton} href={replayUrl}>
+const DownloadReplayButton = ({
+  replayUrl,
+}) => (
+  <a className={styles.ActionButton} href={replayUrl}>
     Download Replay
   </a>
 );
 
-const MatchActions = ({ match, user }) => {
+const MatchActions = ({
+  match,
+  user,
+}) => {
   let steamId = '';
   let playerMmr = '';
 
@@ -75,7 +99,7 @@ const MatchActions = ({ match, user }) => {
   }
 
   return (
-    <div className={matchStyle.MatchActionWrapper}>
+    <div className={styles.MatchActionWrapper}>
       <ParseReplayButton matchId={match.match_id} />
       {match.replay_url ? <DownloadReplayButton replayUrl={match.replay_url} /> : ''}
       {match.replay_url ? <JistTvButton replayUrl={match.replay_url} /> : ''}
@@ -85,34 +109,73 @@ const MatchActions = ({ match, user }) => {
 };
 
 const MatchMetadata = ({ match }) => (
-  <table className={matchStyle.Table}>
+  <table className={styles.Table}>
     <thead>
       <tr>
-        <th className={matchStyle.TableCell}>Match ID</th>
-        <th className={matchStyle.TableCell}>Mode</th>
-        <th className={matchStyle.TableCell}>Skill</th>
-        <th className={matchStyle.TableCell}>Region</th>
-        <th className={matchStyle.TableCell}>Duration</th>
-        <th className={matchStyle.TableCell}>Ended</th>
+        <th className={styles.TableCell}>Match ID</th>
+        <th className={styles.TableCell}>Mode</th>
+        <th className={styles.TableCell}>Skill</th>
+        <th className={styles.TableCell}>Region</th>
+        <th className={styles.TableCell}>Duration</th>
+        <th className={styles.TableCell}>Ended</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td className={matchStyle.TableCell}>{match.match_id}</td>
-        <td className={matchStyle.TableCell}>{transformations.game_mode(null, null, match.game_mode)}</td>
-        <th className={matchStyle.TableCell}>{transformations.skill(null, null, match.skill)}</th>
-        <td className={matchStyle.TableCell}>{transformations.region(null, null, match.region)}</td>
-        <td className={matchStyle.TableCell}>{transformations.duration(null, null, match.duration)}</td>
-        <td className={matchStyle.TableCell}>{transformations.start_time(null, null, match.start_time + match.duration)}</td>
+        <td className={styles.TableCell}>{match.match_id}</td>
+        <td className={styles.TableCell}>{transformations.game_mode(null, null, match.game_mode)}</td>
+        <th className={styles.TableCell}>{transformations.skill(null, null, match.skill)}</th>
+        <td className={styles.TableCell}>{transformations.region(null, null, match.region)}</td>
+        <td className={styles.TableCell}>{transformations.duration(null, null, match.duration)}</td>
+        <td className={styles.TableCell}>{transformations.start_time(null, null, match.start_time + match.duration)}</td>
       </tr>
     </tbody>
   </table>
 );
 
+/*
+const MatchMetadata = ({
+  match
+}) => (
+  <div>
+    <CardTitle
+      className={styles.playerStats}
+      subtitle={match.match_id}
+      title="Match ID"
+    />
+    <CardTitle
+      className={styles.playerStats}
+      subtitle={transformations.game_mode(null, null, match.game_mode)}
+      title="Mode"
+    />
+    <CardTitle
+      className={styles.playerStats}
+      subtitle={transformations.skill(null, null, match.skill)}
+      title="Skill"
+    />
+    <CardTitle
+      className={styles.playerStats}
+      subtitle={transformations.region(null, null, match.region)}
+      title="Region"
+    />
+    <CardTitle
+      className={styles.playerStats}
+      subtitle={transformations.duration(null, null, match.duration)}
+      title="Duration"
+    />
+    <CardTitle
+      className={styles.playerStats}
+      subtitle={transformations.start_time(null, null, match.start_time + match.duration)}
+      title="Ended"
+    />
+  </div>
+);
+*/
+
 const RadiantWinText = () => (
-  <h1 className={matchStyle.RadiantWin}>Radiant Victory</h1>
+  <h1 className={styles.RadiantWin}>Radiant Victory</h1>
 );
 
 const DireWinText = () => (
-  <h1 className={matchStyle.DireWin}>Dire Victory</h1>
+  <h1 className={styles.DireWin}>Dire Victory</h1>
 );

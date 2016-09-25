@@ -6,6 +6,7 @@
   "scripts": {
     "webpack": "NODE_ENV=production webpack -p --bail",
     "watch": "webpack --watch",
+    "prestart": "npm install",
     "start": "webpack-dev-server -d --compress --display-error-details",
     "build": "NODE_ENV=production npm run lintnofix && npm run webpack",
     "lint": "eslint . --ext .js,.jsx --fix",
@@ -19,6 +20,7 @@
     "brace": "^0.8.0",
     "c3": "^0.4.11",
     "classnames": "^2.2.5",
+    "dota2-minimap-hero-sprites": "^2.0.0",
     "dotaconstants": "^2.0.0",
     "es6-promise": "^3.3.1",
     "flexboxgrid": "^6.3.1",
@@ -69,5 +71,8 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7"
   },
-  "moduleRoots": [ "./src", "./node_modules" ]
+  "moduleRoots": [
+    "./src",
+    "./node_modules"
+  ]
 }

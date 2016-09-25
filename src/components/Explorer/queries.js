@@ -1,16 +1,16 @@
 /* eslint-disable */
 module.exports = {
-  "players":
+  'players':
   {
-    "name": "Players",
-    "sql": `
+    'name': 'Players',
+    'sql': `
 SELECT * from notable_players;
             `,
   },
-  "players_most_damage":
+  'players_most_damage':
   {
-    "name": "Players, most damage dealt",
-    "sql": `
+    'name': 'Players, most damage dealt',
+    'sql': `
 SELECT pm.account_id, name, sum(hero_damage) as sum
 FROM player_matches pm
 JOIN matches m
@@ -42,10 +42,10 @@ LIMIT 100;
               `,
       },
       */
-  "players_most_healing":
+  'players_most_healing':
   {
-    "name": "Players, most healing",
-    "sql": `
+    'name': 'Players, most healing',
+    'sql': `
 SELECT pm.account_id, name, sum(hero_healing) as sum
 FROM player_matches pm
 JOIN matches m
@@ -57,10 +57,10 @@ ORDER BY sum desc NULLS LAST
 LIMIT 100;
         `,
   },
-  "players_most_tower_damage":
+  'players_most_tower_damage':
   {
-    "name": "Players, most tower damage",
-    "sql": `
+    'name': 'Players, most tower damage',
+    'sql': `
 SELECT pm.account_id, name, sum(tower_damage) as sum
 FROM player_matches pm
 JOIN matches m
@@ -72,10 +72,10 @@ ORDER BY sum desc NULLS LAST
 LIMIT 100;
         `,
   },
-  "players_most_lh10":
+  'players_most_lh10':
   {
-    "name": "Players, most LH@10",
-    "sql": `
+    'name': 'Players, most LH@10',
+    'sql': `
 SELECT lh_t[10], np.name, m.match_id, le.name as leaguename
 FROM matches m
 JOIN player_matches pm
@@ -109,10 +109,10 @@ LIMIT 100;
         `,
     },
     */
-  "players_most_games":
+  'players_most_games':
   {
-    "name": "Players, most pro games",
-    "sql": `
+    'name': 'Players, most pro games',
+    'sql': `
 SELECT pm.account_id, np.name,
 count(*),
 sum(case when ((pm.player_slot < 128) = m.radiant_win) then 1 else 0 end) wins
@@ -125,10 +125,10 @@ GROUP BY pm.account_id, np.name
 ORDER BY count DESC;
         `,
   },
-  "players_most_games_abaddon":
+  'players_most_games_abaddon':
   {
-    "name": "Players, most pro games on Abaddon",
-    "sql": `
+    'name': 'Players, most pro games on Abaddon',
+    'sql': `
 SELECT pm.account_id, np.name,
 count(*),
 sum(case when ((pm.player_slot < 128) = m.radiant_win) then 1 else 0 end) wins
@@ -142,10 +142,10 @@ GROUP BY pm.account_id, np.name
 ORDER BY count DESC;
             `,
   },
-  "players_most_games_furion":
+  'players_most_games_furion':
   {
-    "name": "Players, most pro games on Nature's Prophet",
-    "sql": `
+    'name': "Players, most pro games on Nature's Prophet",
+    'sql': `
 SELECT pm.account_id, np.name,
 count(*),
 sum(case when ((pm.player_slot < 128) = m.radiant_win) then 1 else 0 end) wins
@@ -159,10 +159,10 @@ GROUP BY pm.account_id, np.name
 ORDER BY count DESC;
             `,
   },
-  "player_most_midas":
+  'player_most_midas':
   {
-    "name": "Players, most Hand of Midas built",
-    "sql": `
+    'name': 'Players, most Hand of Midas built',
+    'sql': `
 SELECT pm.account_id, np.name,
 sum((purchase->>'hand_of_midas')::int)
 FROM player_matches pm
@@ -189,13 +189,13 @@ AND ml.player_slot = pm.player_slot
 WHERE type = 'chat'
 GROUP BY pm.account_id, np.name
 ORDER BY count DESC NULLS LAST;
-            `,        
+            `,
     },
     */
-  "heroes_most_picked_banned":
+  'heroes_most_picked_banned':
   {
-    "name": "Heroes, most picked/banned",
-    "sql": `
+    'name': 'Heroes, most picked/banned',
+    'sql': `
 SELECT h.localized_name,
 sum(case when ((pm.player_slot < 128) = m.radiant_win) then 1 else 0 end) wins, 
 sum(case when is_pick is true then 1 else 0 end) picks,
@@ -212,10 +212,10 @@ GROUP BY h.localized_name
 ORDER BY picks DESC;
             `,
   },
-  "heroes_most_midas":
+  'heroes_most_midas':
   {
-    "name": "Heroes, most Hand of Midas built",
-    "sql": `
+    'name': 'Heroes, most Hand of Midas built',
+    'sql': `
 SELECT h.localized_name, sum((purchase->>'hand_of_midas')::int)
 FROM player_matches pm
 JOIN heroes h
@@ -224,10 +224,10 @@ GROUP by h.localized_name
 ORDER by sum DESC NULLS LAST;
     `,
   },
-  "matches_most_recent":
+  'matches_most_recent':
   {
-    "name": "Matches, most recent",
-    "sql": `
+    'name': 'Matches, most recent',
+    'sql': `
 SELECT match_id, t1.name AS radiant_team_name, t2.name AS dire_team_name, le.name, start_time, duration
 FROM matches ma
 JOIN leagues le
@@ -252,7 +252,7 @@ LIMIT 100;
           `,
       },
       */
-          hero_most_picked: `
+  hero_most_picked: `
 SELECT h.localized_name, count(*)
 FROM picks_bans pb
 JOIN heroes h
@@ -266,7 +266,7 @@ AND to_timestamp(m.start_time) > '2016-07-01'
 GROUP BY h.localized_name
 ORDER BY count DESC;
 `,
-    hero_most_banned: `
+  hero_most_banned: `
 SELECT h.localized_name, count(*)
 FROM picks_bans pb
 JOIN heroes h
@@ -280,7 +280,7 @@ AND to_timestamp(m.start_time) > '2016-07-01'
 GROUP BY h.localized_name
 ORDER BY count DESC;
 `,
-    hero_highest_win_rate: `
+  hero_highest_win_rate: `
 SELECT h.localized_name, 
 sum(case when ((pm.player_slot < 128) = m.radiant_win) then 1 else 0 end)/count(*)::float winrate
 FROM player_matches pm
@@ -295,7 +295,7 @@ GROUP BY h.localized_name
 HAVING count(*) > 5
 ORDER BY winrate DESC
 `,
-    hero_highest_kill_avg: `
+  hero_highest_kill_avg: `
 SELECT h.localized_name, 
 avg(kills)
 FROM player_matches pm
@@ -310,7 +310,7 @@ GROUP BY h.localized_name
 HAVING count(*) > 5
 ORDER BY avg DESC
 `,
-    hero_highest_assist_avg: `
+  hero_highest_assist_avg: `
 SELECT h.localized_name, 
 avg(assists)
 FROM player_matches pm
@@ -325,7 +325,7 @@ GROUP BY h.localized_name
 HAVING count(*) > 5
 ORDER BY avg DESC
 `,
-    hero_lowest_death_avg: `
+  hero_lowest_death_avg: `
 SELECT h.localized_name, 
 avg(deaths)
 FROM player_matches pm
@@ -340,7 +340,7 @@ GROUP BY h.localized_name
 HAVING count(*) > 5
 ORDER BY avg ASC
 `,
-    hero_highest_last_hits_avg: `
+  hero_highest_last_hits_avg: `
 SELECT h.localized_name, 
 avg(last_hits)
 FROM player_matches pm
@@ -355,7 +355,7 @@ GROUP BY h.localized_name
 HAVING count(*) > 5
 ORDER BY avg DESC
 `,
-    hero_highest_gpm_avg: `
+  hero_highest_gpm_avg: `
 SELECT h.localized_name, 
 avg(gold_per_min)
 FROM player_matches pm
@@ -370,7 +370,7 @@ GROUP BY h.localized_name
 HAVING count(*) > 5
 ORDER BY avg DESC
 `,
-    team_most_kills: `
+  team_most_kills: `
 SELECT t.name,
 avg(kills)
 FROM player_matches pm
@@ -405,7 +405,7 @@ GROUP BY t.team_id
 ORDER BY avg DESC
 LIMIT 100
 `,
-    team_least_deaths: `
+  team_least_deaths: `
 SELECT t.name,
 avg(deaths)
 FROM player_matches pm
@@ -440,7 +440,7 @@ GROUP BY t.team_id
 ORDER BY avg ASC
 LIMIT 100
 `,
-    team_most_assists: `
+  team_most_assists: `
 SELECT t.name,
 avg(assists)
 FROM player_matches pm
@@ -475,7 +475,7 @@ GROUP BY t.team_id
 ORDER BY avg DESC
 LIMIT 100
 `,
-    team_longest_match: `
+  team_longest_match: `
 SELECT t.name,
 avg(m.duration)
 FROM player_matches pm
@@ -510,7 +510,7 @@ GROUP BY t.team_id
 ORDER BY avg DESC
 LIMIT 100
 `,
-    team_shortest_match: `
+  team_shortest_match: `
 SELECT t.name,
 avg(duration)
 FROM player_matches pm
@@ -545,7 +545,7 @@ GROUP BY t.team_id
 ORDER BY avg ASC
 LIMIT 100
 `,
-    team_most_heroes: `
+  team_most_heroes: `
 SELECT t.name,
 count(distinct h.localized_name)
 FROM player_matches pm
@@ -582,7 +582,7 @@ GROUP BY t.team_id
 ORDER BY count DESC
 LIMIT 100
 `,
-    team_least_heroes: `
+  team_least_heroes: `
 SELECT t.name,
 count(distinct h.localized_name)
 FROM player_matches pm
@@ -619,7 +619,7 @@ GROUP BY t.team_id
 ORDER BY count ASC
 LIMIT 100
 `,
-    player_highest_kills_avg: `
+  player_highest_kills_avg: `
 SELECT np.name,
 avg(kills)
 FROM player_matches pm
@@ -655,7 +655,7 @@ HAVING count(*) > 5
 ORDER BY avg DESC
 LIMIT 100
 `,
-    player_lowest_deaths_avg: `
+  player_lowest_deaths_avg: `
 SELECT np.name,
 avg(deaths)
 FROM player_matches pm
@@ -691,7 +691,7 @@ HAVING count(*) > 5
 ORDER BY avg ASC
 LIMIT 100
 `,
-    player_highest_assists_avg: `
+  player_highest_assists_avg: `
 SELECT np.name,
 avg(assists)
 FROM player_matches pm
@@ -727,7 +727,7 @@ HAVING count(*) > 5
 ORDER BY avg DESC
 LIMIT 100
 `,
-    player_highest_last_hits_avg: `
+  player_highest_last_hits_avg: `
 SELECT np.name,
 avg(last_hits)
 FROM player_matches pm
@@ -763,7 +763,7 @@ HAVING count(*) > 5
 ORDER BY avg DESC
 LIMIT 100
 `,
-    player_highest_gpm_avg: `
+  player_highest_gpm_avg: `
 SELECT np.name,
 avg(gold_per_min)
 FROM player_matches pm
@@ -799,7 +799,7 @@ HAVING count(*) > 5
 ORDER BY avg DESC
 LIMIT 100
 `,
-    player_most_heroes: `
+  player_most_heroes: `
 SELECT np.name,
 count(distinct pm.hero_id)
 FROM player_matches pm
@@ -835,21 +835,21 @@ HAVING count(*) > 5
 ORDER BY count DESC
 LIMIT 100
 `,
-    tournament_heroes_picked: `
+  tournament_heroes_picked: `
 SELECT count(distinct hero_id)
 FROM (SELECT * FROM picks_bans pb
 WHERE is_pick IS TRUE
 ORDER BY pb.match_id DESC
 LIMIT 1500) x
 `,
-    tournament_heroes_banned: `
+  tournament_heroes_banned: `
 SELECT count(distinct hero_id)
 FROM (SELECT * FROM picks_bans pb
 WHERE is_pick IS FALSE
 ORDER BY pb.match_id DESC
 LIMIT 1500) x
 `,
-    tournament_kills_in_game: `
+  tournament_kills_in_game: `
 SELECT sum(kills)
 FROM (SELECT * FROM player_matches pm
 ORDER BY pm.match_id DESC
@@ -858,7 +858,7 @@ GROUP BY match_id
 ORDER BY sum DESC
 LIMIT 1;
 `,
-    tournament_longest_game: `
+  tournament_longest_game: `
 SELECT max(duration) as seconds
 FROM (SELECT * FROM player_matches pm
 JOIN matches m 
@@ -866,7 +866,7 @@ ON pm.match_id = m.match_id
 ORDER BY pm.match_id DESC
 LIMIT 1500) x
 `,
-    tournament_shortest_game: `
+  tournament_shortest_game: `
 SELECT min(duration) as seconds
 FROM (SELECT * FROM player_matches pm
 JOIN matches m 
@@ -874,25 +874,25 @@ ON pm.match_id = m.match_id
 ORDER BY pm.match_id DESC
 LIMIT 1500) x
 `,
-    tournament_most_kills_on_hero: `
+  tournament_most_kills_on_hero: `
 SELECT max(kills)
 FROM (SELECT * FROM player_matches pm
 ORDER BY pm.match_id DESC
 LIMIT 1500) x
 `,
-    tournament_most_deaths_on_hero: `
+  tournament_most_deaths_on_hero: `
 SELECT max(deaths)
 FROM (SELECT * FROM player_matches pm
 ORDER BY pm.match_id DESC
 LIMIT 1500) x
 `,
-    tournament_most_assists_on_hero: `
+  tournament_most_assists_on_hero: `
 SELECT max(assists)
 FROM (SELECT * FROM player_matches pm
 ORDER BY pm.match_id DESC
 LIMIT 1500) x
 `,
-    tournament_highest_gpm_on_hero: `
+  tournament_highest_gpm_on_hero: `
 SELECT max(gold_per_min)
 FROM (SELECT * FROM player_matches pm
 ORDER BY pm.match_id DESC
