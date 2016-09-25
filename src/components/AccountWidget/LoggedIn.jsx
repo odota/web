@@ -4,12 +4,12 @@ import { Link } from 'react-router';
 import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
-import ActionExitToApp from 'material-ui/svg-icons/action/exit-to-app';
 import { API_HOST } from 'config';
 import { player } from 'reducers';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import styles from './AccountWidget.css';
+import { IconLogout } from '../Icons';
 
 const LoggedIn = ({ loading, error, playerId, playerName, playerPicture }) => {
   const getPlayerWidget = () => {
@@ -22,13 +22,7 @@ const LoggedIn = ({ loading, error, playerId, playerName, playerPicture }) => {
           <FlatButton
             label={playerName}
             labelPosition="before"
-            labelStyle={{
-              display: 'inline-block',
-              maxWidth: '150px',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
+            className={styles.account}
             hoverColor="transparent"
             icon={<Avatar src={playerPicture} size={30} />}
           />
@@ -38,8 +32,9 @@ const LoggedIn = ({ loading, error, playerId, playerName, playerPicture }) => {
           tooltip="Logout"
           tooltipPosition="bottom-center"
           style={{ zIndex: 3200 }}
+          className={styles.iconButton}
         >
-          <ActionExitToApp />
+          <IconLogout />
         </IconButton>
       </div>
     );
