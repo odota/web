@@ -8,6 +8,8 @@ import Header from '../Header';
 import Footer from '../Footer';
 import styles from './App.css';
 
+darkBaseTheme.fontFamily = "'PT Sans', sans-serif";
+
 const App = ({ children, open, params, location }) => (
   <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
     <div className={`${open ? styles.drawerOpen : styles.drawerClosed} ${styles.container}`}>

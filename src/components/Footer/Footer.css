@@ -59,3 +59,8 @@
   display: inline-block;
   margin-left: 10px;
 }
+
+.iconButton {
+  width: auto !important;
+  height: auto !important;
+}

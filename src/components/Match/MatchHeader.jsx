@@ -38,7 +38,7 @@ const JistTvButton = ({
     <span className={styles.JistTvText}>Get Video with</span>
     <img
       className={styles.JistTvImg}
-      src="/assets/jist-white-logo.png"
+      src="/assets/images/jist-white-logo.png"
       alt="Jist.tv"
     />
   </a>
@@ -58,7 +58,7 @@ const DotaCoachButton = ({
     <span className={styles.DotaCoachText}>Ask a coach</span>
     <img
       className={styles.DotaCoachImg}
-      src="/assets/dotacoach-32x24.png"
+      src="/assets/images/dotacoach-32x24.png"
       alt="Dotacoach.org"
     />
   </a>
