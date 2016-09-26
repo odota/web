@@ -5,37 +5,6 @@ import npmColor from 'color';
 
 const Graph = ({ id }) => <div id={id} />;
 
-// const bucketizeColumns = columns => {
-//   const buckets = 40;
-//   const bucketSize = buckets % columns.length;
-//   let currentBucket = 0;
-//   let currentItem = {
-//     win: 0,
-//     games: 0,
-//   };
-//   const newColumns = columns.reduce((newColumns, column) => {
-//     if (currentBucket >= bucketSize) {
-//       currentItem = {
-//         win: currentItem.win / bucketSize,
-//         games: currentItem.games / bucketSize,
-//       };
-//       newColumns.push(currentItem);
-//       currentBucket = 0;
-//       currentItem = {
-//         win: 0,
-//         games: 0,
-//       };
-//     }
-//     currentItem = {
-//       win: currentItem.win + column.win,
-//       games: currentItem.games + column.games,
-//     };
-//     currentBucket++;
-//     return newColumns;
-//   }, []);
-//   return newColumns;
-// };
-
 const buckets = 40;
 
 const bucketizeColumns = (columns, xVals) => {
@@ -49,18 +18,32 @@ const bucketizeColumns = (columns, xVals) => {
   i = 0;
   const newColumns = newXVals.map((val) => {
     const newObj = { win: 0, games: 0 };
+    let enteredLoop = false;
     while (i < xVals.length && xVals[i] <= val) {
       newObj.win += columns[i].win;
       newObj.games += columns[i].games;
       i++;
+      enteredLoop = true;
     }
-    i++;
+    if (!enteredLoop) {
+      i++;
+    } else {
+      enteredLoop = false;
+    }
     return newObj;
+  });
+  const removedIndices = [];
+  const filteredCols = newColumns.filter((obj, index) => {
+    const hasNoData = obj.games === 0;
+    if (hasNoData) {
+      removedIndices.push(index);
+    }
+    return !hasNoData;
   });
 
   return {
-    columnVals: newColumns,
-    x: newXVals,
+    columnVals: filteredCols,
+    x: newXVals.filter((val, index) => !removedIndices.includes(index)),
   };
 };
 
@@ -74,21 +57,18 @@ class GraphWrapper extends Component {
     const {
       columns,
       type,
-      // yAxis,
-      // xAxis,
       name,
       xVals,
     } = nextProps;
-    let columnVals = [];
     let xCols = xVals;
     let yCols = columns;
-    if (columns && columns.length > 40) {
+    if (columns && columns.length > buckets) {
       const buckets = bucketizeColumns(columns, xVals);
       yCols = buckets.columnVals;
       xCols = buckets.x;
     }
     if (yCols) {
-      columnVals = yCols.map(column => column.games);
+      const columnVals = yCols.map(column => column.games);
       c3.generate({
         bindto: `#${this.id}`,
         data: {
