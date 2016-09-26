@@ -36,7 +36,10 @@ class GraphWrapper extends Component {
                 return npmColor().rgb(255, 255, 255);
               }
               const percent = wins / value;
-              return npmColor().hsv(percent * 120, 80, 80).rgbString();
+              const adjustedVal = percent >= 0.5 ?
+                percent + ((1 - percent) / 5) :
+                percent - (percent / 5);
+              return npmColor().hsv((percent === 0.5 ? percent : adjustedVal) * 120, 90, 90).rgbString();
             }
             return color;
           },
