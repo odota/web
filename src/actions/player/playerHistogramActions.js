@@ -39,7 +39,7 @@ export const getPlayerHistogramError = (payload, id) => ({
 export const getPlayerHistogram = (playerId, histogramName, host = API_HOST) => (dispatch, getState) => {
   if (playerHistogram.isLoaded(getState(), playerId, histogramName)) {
     dispatch(getPlayerHistogramOk(
-      playerHistogram.getData(getState(), playerId, histogramName),
+      playerHistogram.getHistogramList(histogramName)(getState(), playerId),
       playerId,
       histogramName
     ));
@@ -60,6 +60,7 @@ export const getPlayerHistogram = (playerId, histogramName, host = API_HOST) => 
     //     [histogramName]: [],
     //   }))
     // .then(json => bucketizeColumns(json[histogramName], json.x, histogramName))
+    .then(json => json.filter(val => val.games !== 0))
     .then(json => dispatch(getPlayerHistogramOk(json, playerId, histogramName)))
     .catch(error => dispatch(getPlayerHistogramError(error, playerId, histogramName)));
 };
