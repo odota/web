@@ -48,7 +48,7 @@
     "redux-thunk": "^2.1.0",
     "reselect": "^2.5.4",
     "webpack": "2.1.0-beta.22",
-    "webpack-dashboard": "^0.1.8",
+    "webpack-dashboard": "^0.2.0",
     "webpack-dev-server": "^1.16.1"
   },
   "devDependencies": {
