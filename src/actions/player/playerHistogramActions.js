@@ -2,7 +2,6 @@ import fetch from 'isomorphic-fetch';
 import { API_HOST } from 'config';
 import { playerHistogram } from 'reducers';
 import { getUrl } from 'actions/utility';
-import { bucketizeColumns } from 'utility';
 
 // const excludedOptions = ['limit'];
 const url =
@@ -51,16 +50,16 @@ export const getPlayerHistogram = (playerId, histogramName, host = API_HOST) => 
 
   return fetch(`${host}${getUrl(playerId, null, url(histogramName))}`, { credentials: 'include' })
     .then(response => response.json())
-    .then(json =>
-      Object.keys(json).reduce((columns, key) => {
-        columns.x.push(key);
-        columns[histogramName].push(json[key]);
-        return columns;
-      }, {
-        x: [],
-        [histogramName]: [],
-      }))
-    .then(json => bucketizeColumns(json[histogramName], json.x, histogramName))
+    // .then(json =>
+    //   Object.keys(json).reduce((columns, key) => {
+    //     columns.x.push(key);
+    //     columns[histogramName].push(json[key]);
+    //     return columns;
+    //   }, {
+    //     x: [],
+    //     [histogramName]: [],
+    //   }))
+    // .then(json => bucketizeColumns(json[histogramName], json.x, histogramName))
     .then(json => dispatch(getPlayerHistogramOk(json, playerId, histogramName)))
     .catch(error => dispatch(getPlayerHistogramError(error, playerId, histogramName)));
 };

@@ -21,7 +21,7 @@ const selectHistogram = (router, histogramName, playerId) => {
   router.push(`/players/${playerId}/histograms/${histogramName}`);
 };
 
-const Histogram = ({ histogramName, columns, xVals, router, playerId }) => (
+const Histogram = ({ histogramName, columns, router, playerId }) => (
   <div style={{ fontSize: 10 }}>
     <div className={styles.buttonContainer}>
       {histogramNames.map(histogram => (
@@ -36,7 +36,6 @@ const Histogram = ({ histogramName, columns, xVals, router, playerId }) => (
     <Graph
       columns={columns}
       name={histogramName}
-      xVals={xVals}
       type="bar"
       xAxis={getAxis(histogramName)}
       yAxis={getAxis('Matches')}
@@ -67,8 +66,7 @@ class RequestLayer extends React.Component {
 
 const mapStateToProps = (state, { histogramName, playerId }) => ({
   histograms: playerHistogram.getData(state, playerId),
-  xVals: playerHistogram.getHistogramX(histogramName)(state, playerId),
-  columns: playerHistogram.getHistogramY(histogramName)(state, playerId),
+  columns: playerHistogram.getHistogramList(histogramName)(state, playerId),
 });
 
 export default connect(mapStateToProps, { getPlayerHistogram })(withRouter(RequestLayer));

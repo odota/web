@@ -17,10 +17,10 @@ class GraphWrapper extends Component {
       columns,
       type,
       name,
-      xVals,
     } = nextProps;
     if (columns) {
       const columnVals = columns.map(column => column.games);
+      const xVals = columns.map(column => column.x);
       c3.generate({
         bindto: `#${this.id}`,
         data: {
@@ -71,7 +71,6 @@ GraphWrapper.propTypes = {
   type: string,
   yAxis: object,
   xAxis: object,
-  xVals: array,
   name: string,
 };
 
