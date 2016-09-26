@@ -7,10 +7,8 @@ import styles from 'components/palette.css';
 import { TableLink, TableHeroImage } from 'components/Table';
 import { KDA } from 'components/Visualizations';
 
-// ------------------------------ RE-EXPORTS ------------------------------
 export { default as bucketizeColumns } from './bucketizeColumns';
 
-// ------------------------------ END RE-EXPORTS ------------------------------
 // TODO - add in the relevant text invocations of TableHeroImage
 export const isRadiant = (playerSlot) => playerSlot < 128;
 

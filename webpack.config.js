@@ -1,7 +1,6 @@
 /**
  * Webpack configuration file
  **/
-// const DashboardPlugin = require('webpack-dashboard/plugin');
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
