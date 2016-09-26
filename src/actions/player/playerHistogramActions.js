@@ -35,6 +35,48 @@ export const getPlayerHistogramError = (payload, id) => ({
   id,
 });
 
+const buckets = 40;
+
+const bucketizeColumns = (columns, xVals, histogramName) => {
+  const max = Math.max(...xVals);
+  const bucketSize = ~~(max / buckets);
+  const newXVals = [];
+  let i = 0;
+  for (i; i < buckets; i++) {
+    newXVals.push(bucketSize * i);
+  }
+  i = 0;
+  const newColumns = newXVals.map((val) => {
+    const newObj = { win: 0, games: 0 };
+    let enteredLoop = false;
+    while (i < xVals.length && xVals[i] <= val) {
+      newObj.win += columns[i].win;
+      newObj.games += columns[i].games;
+      i++;
+      enteredLoop = true;
+    }
+    if (!enteredLoop) {
+      i++;
+    } else {
+      enteredLoop = false;
+    }
+    return newObj;
+  });
+  const removedIndices = [];
+  const filteredCols = newColumns.filter((obj, index) => {
+    const hasNoData = obj.games === 0;
+    if (hasNoData) {
+      removedIndices.push(index);
+    }
+    return !hasNoData;
+  });
+
+  return {
+    [histogramName]: filteredCols,
+    x: newXVals.filter((val, index) => !removedIndices.includes(index)),
+  };
+};
+
 export const getPlayerHistogram = (playerId, histogramName, host = API_HOST) => (dispatch, getState) => {
   if (playerHistogram.isLoaded(getState(), playerId, histogramName)) {
     dispatch(getPlayerHistogramOk(
@@ -58,6 +100,7 @@ export const getPlayerHistogram = (playerId, histogramName, host = API_HOST) => 
         x: [],
         [histogramName]: [],
       }))
+    .then(json => (json.x.length > buckets ? bucketizeColumns(json[histogramName], json.x, histogramName) : json))
     .then(json => dispatch(getPlayerHistogramOk(json, playerId, histogramName)));
     // .catch(error => dispatch(getPlayerHistogramError(error, playerId, histogramName)));
 };
