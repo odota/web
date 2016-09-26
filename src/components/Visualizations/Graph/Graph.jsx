@@ -7,8 +7,7 @@ import styles from './Graph.css';
 const Graph = ({ id }) => <div className={styles.graphContainer} id={id} />;
 
 class GraphWrapper extends Component {
-  constructor() {
-    super();
+  componentWillMount() {
     this.id = `a-${uuid.v4()}`;
   }
 

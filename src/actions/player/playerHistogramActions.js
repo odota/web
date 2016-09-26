@@ -35,6 +35,16 @@ export const getPlayerHistogramError = (payload, id) => ({
   id,
 });
 
+const reduceArray = backwards => (array, val) => {
+  if (array.length !== 0 || val.games !== 0) {
+    if (backwards) {
+      array.unshift(val)
+    } else {
+      array.push(val);
+    }
+  }
+  return array;
+};
 
 export const getPlayerHistogram = (playerId, histogramName, host = API_HOST) => (dispatch, getState) => {
   if (playerHistogram.isLoaded(getState(), playerId, histogramName)) {
@@ -46,11 +56,11 @@ export const getPlayerHistogram = (playerId, histogramName, host = API_HOST) => 
   } else {
     dispatch(getPlayerHistogramRequest(playerId, histogramName));
   }
-  // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
   return fetch(`${host}${getUrl(playerId, null, url(histogramName))}`, { credentials: 'include' })
     .then(response => response.json())
-    // .then(json => json.filter(val => val.games !== 0))
+    .then(json => json.reduceRight(reduceArray(true), []))
+    .then(json => json.reduce(reduceArray(), []))
     .then(json => dispatch(getPlayerHistogramOk(json, playerId, histogramName)))
     .catch(error => dispatch(getPlayerHistogramError(error, playerId, histogramName)));
 };
