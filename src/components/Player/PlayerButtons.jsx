@@ -29,7 +29,7 @@ export default () => (
       disabled
       label="Ask a Coach"
       labelPosition="before"
-      icon={<img src="/assets/dotacoach-32x24.png" alt="DotaCoach" />}
+      icon={<img src="/assets/images/dotacoach-32x24.png" alt="DotaCoach" />}
       style={{ marginLeft: 15 }}
       backgroundColor={styles.buttonBgDefault}
       hoverColor={styles.buttonHoverDefault}

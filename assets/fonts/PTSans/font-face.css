@@ -1,0 +1,34 @@
+/* Font PT Serif:  Copyright � 2010 ParaType Ltd. All rights reserved.*/
+
+@font-face {
+	font-family: 'PT Sans'; 
+	src: url('/assets/fonts/PTSans/pts55f_w.eot'); 
+	src: local('PT Sans'), 
+				url('/assets/fonts/PTSans/PTS55F_W.eot?#iefix') format('embedded-opentype'),
+				url('/assets/fonts/PTSans/PTS55F_W.woff') format('woff'),
+				url('/assets/fonts/PTSans/PTS55F_W.ttf') format('truetype'),
+				url('/assets/fonts/PTSans/PTS55F_W.svg#PTSans-Regular') format('svg');
+}
+
+@font-face {
+	font-family: 'PT Sans'; 
+	font-style: italic;
+	src: url('/assets/fonts/PTSans//assets/fonts/PTSans/pts56f_w.eot'); 
+	src: local('PT Sans Italic'),
+				url('/assets/fonts/PTSans/pts56f_w.eot?#iefix') format('embedded-opentype'),
+				url('/assets/fonts/PTSans/pts56f_w.woff') format('woff'),
+				url('/assets/fonts/PTSans/pts56f_w.ttf') format('truetype'),
+				url('/assets/fonts/PTSans/pts56f_w.svg#PTSans-Italic') format('svg');
+}
+
+@font-face {
+	font-family: 'PT Sans';
+	src: url('/assets/fonts/PTSans/pts75f_w.eot');
+	font-style: normal;
+	font-weight: bold; 
+	src: local('PT Sans Bold'),
+				url('/assets/fonts/PTSans/pts75f_w.eot?#iefix') format('embedded-opentype'),
+				url('/assets/fonts/PTSans/pts75f_w.woff') format('woff'),
+				url('/assets/fonts/PTSans/pts75f_w.ttf') format('truetype'),
+				url('/assets/fonts/PTSans/pts75f_w.svg#PTSans-Bold') format('svg');
+}

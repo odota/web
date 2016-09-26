@@ -148,7 +148,7 @@ const abUpgradeColumns = [
       if (abilityKey === 'attribute_bonus') {
         abilityData = {
           dname: 'Attribute Bonus',
-          img: '/assets/stats.png',
+          img: '/assets/images/stats.png',
           attrib: '+2 All Attributes',
         };
       }

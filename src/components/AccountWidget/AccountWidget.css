@@ -1,6 +1,22 @@
 @import "../palette.css";
 
+.account div > span {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: none !important;
+  white-space: nowrap;
+  font-size: var(--fontDefault) !important;
+  padding-right: 10px !important;
+}
+
 .logout {
   display: flex;
   padding: 5px;
+}
+
+.iconButton {
+  padding: 0 !important;
+  height: auto  !important;
+  width: auto !important;
 }
