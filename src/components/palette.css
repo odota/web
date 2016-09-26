@@ -18,6 +18,7 @@
   --dividerColor:           color(var(--textSecondaryColor) lightness(20%));
 
   --fontFamily: 'PT Sans', sans-serif;
+  --fontFamilyLight: 'Open Sans', sans-serif;
   --normalFontSize: 12px;
   --mediumLargeFontSize: 16px;
   --fontDefault: 16px;
