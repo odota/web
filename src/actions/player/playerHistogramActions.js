@@ -61,6 +61,6 @@ export const getPlayerHistogram = (playerId, histogramName, host = API_HOST) => 
         [histogramName]: [],
       }))
     .then(json => bucketizeColumns(json[histogramName], json.x, histogramName))
-    .then(json => dispatch(getPlayerHistogramOk(json, playerId, histogramName)));
-    // .catch(error => dispatch(getPlayerHistogramError(error, playerId, histogramName)));
+    .then(json => dispatch(getPlayerHistogramOk(json, playerId, histogramName)))
+    .catch(error => dispatch(getPlayerHistogramError(error, playerId, histogramName)));
 };

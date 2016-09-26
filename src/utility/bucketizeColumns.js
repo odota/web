@@ -1,20 +1,18 @@
-const buckets = 40;
+const maxBuckets = 40;
 
+// This function will bucketize a array of columns based on the length of the array
+// and the max values of the x values list.
 export default (columns, xVals, histogramName) => {
-  if (columns.length <= buckets) {
+  if (columns.length <= maxBuckets) {
     return {
       [histogramName]: columns,
       x: xVals,
     };
   }
   const max = Math.max(...xVals);
-  const bucketSize = ~~(max / buckets);
-  const newXVals = [];
+  const bucketSize = ~~(max / maxBuckets);
+  const newXVals = Array.from({ length: maxBuckets }, (value, index) => bucketSize * index);
   let i = 0;
-  for (i; i < buckets; i++) {
-    newXVals.push(bucketSize * i);
-  }
-  i = 0;
   const newColumns = newXVals.map((val) => {
     const newObj = { win: 0, games: 0 };
     let enteredLoop = false;
