@@ -4,7 +4,10 @@ import { Graph } from 'components/Visualizations';
 import { getPlayerHistogram } from 'actions';
 import { playerHistogram } from 'reducers';
 import { withRouter } from 'react-router';
+import FlatButton from 'material-ui/FlatButton';
+import { deSnake } from 'utility';
 import histogramNames from './histogramNames';
+import styles from './Histograms.css';
 
 
 const getAxis = (name, show = true) => ({
@@ -22,7 +25,12 @@ const Histogram = ({ histogramName, columns, xVals, router, playerId }) => (
   <div style={{ fontSize: 10 }}>
     <div>
       {histogramNames.map(histogram => (
-        <button onClick={() => selectHistogram(router, histogram, playerId)}>{histogram }</button>
+        <FlatButton
+          onClick={() => selectHistogram(router, histogram, playerId)}
+          className={histogramName === histogram ? styles.selectedButton : styles.button}
+        >
+          <span className={styles.buttonText}>{deSnake(histogram)}</span>
+        </FlatButton>
       ))}
     </div>
     <Graph

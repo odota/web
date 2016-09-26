@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import {
   getPlayer,
   getPlayerWinLoss,
@@ -52,9 +53,12 @@ const getPlayerSubroute = (info, playerId, histogramName) => {
   }
 };
 
-const Player = ({ playerId, info, histogramName }) => {
+const Player = ({ playerId, info, histogramName, router }) => {
   if (!playerId) {
     return <Error />;
+  }
+  if (info === 'histograms' && !histogramName) {
+    router.push(`/players/${playerId}/histograms/kills`);
   }
 // Need to pass in the action into filter form, need to put that filter form into each subroute as well
   return (
@@ -103,4 +107,4 @@ class RequestLayer extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(RequestLayer));

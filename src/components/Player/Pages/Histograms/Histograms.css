@@ -1,0 +1,21 @@
+@import "../../../palette.css";
+
+.button {
+  margin: 10px !important;
+}
+
+.buttonText {
+  padding: 0 10px;
+}
+
+.selectedButton {
+  composes: button;
+  background-color: var(--primaryLinkColor) !important;
+  color: var(--textSecondaryColor) !important;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
