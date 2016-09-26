@@ -42,24 +42,6 @@
   opacity: .9;
 }
 
-.playerStats {
-  display: inline-block;
-  padding: 0 !important;
-  margin-right: 25px;
-  margin-top: 15px;
-}
-.playerStats span:last-child {
-  font-size: 24px !important;
-  color: rgba(255, 255, 255, 0.87) !important;
-  line-height: 36px !important;
-}
-.playerStats span:first-child {
-  font-size: 14px !important;
-  color: rgba(255, 255, 255, 0.54) !important;
-  line-height: 1 !important;
-  text-transform: uppercase;
-}
-
 .mmrEstimateIcon {
   width: 16px !important;
   height: 16px !important;
@@ -80,4 +62,22 @@
 
 .cheese {
   stroke: var(--primaryTextColor);
+}
+
+.playerStats {
+  display: inline-block;
+  padding: 0 !important;
+  margin-right: 25px;
+  margin-top: 15px;
+}
+.playerStats span:last-child {
+  font-size: 24px !important;
+  color: rgba(255, 255, 255, 0.87) !important;
+  line-height: 36px !important;
+}
+.playerStats span:first-child {
+  font-size: 14px !important;
+  color: rgba(255, 255, 255, 0.54) !important;
+  line-height: 1 !important;
+  text-transform: uppercase;
 }

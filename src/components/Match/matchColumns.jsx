@@ -1,7 +1,12 @@
 import React from 'react';
 import constants from 'dotaconstants';
-import { Link } from 'react-router';
-import { API_HOST } from 'config.js';
+import strings from 'lang/en';
+import {
+  Link,
+} from 'react-router';
+import {
+  API_HOST,
+} from 'config.js';
 // import { AppBadge } from '../Player';
 import styles from './Match.css';
 
@@ -19,7 +24,7 @@ const heroTd = (row, col, field, hideName) => (
 const heroTdColumn = {
   displayName: 'Player',
   field: 'hero_id',
-  width: 1,
+  width: 3,
   displayFn: heroTd,
   sortFn: (row) => (row.player_slot),
 };
@@ -29,14 +34,12 @@ const abbreviateNumber = function abbreviateNumber(num) {
 };
 
 const overviewColumns = [
-  heroTdColumn,
-  {
+  heroTdColumn, {
     displayName: 'MMR',
     field: 'solo_competitive_rank',
     width: 1,
     sortFn: true,
-  },
-  {
+  }, {
     displayName: 'LVL',
     field: 'level',
     width: 1,
@@ -128,40 +131,38 @@ const overviewColumns = [
       }
       return itemArray;
     },
-  }];
+  },
+];
 const abUpgradeColumns = [
   heroTdColumn,
-];
-for (let i = 0; i < 25; i++) {
-  abUpgradeColumns.push({
-    displayName: i + 1,
-    field: 'ability_upgrades_arr',
-    index: i,
-    width: 1,
-    displayFn: (row, column, field) => {
-      if (field) {
-        const abilityId = field[column.index];
-        const abilityKey = constants.ability_ids[abilityId];
-        let abilityData = constants.abilities[abilityKey];
-        if (abilityKey === 'attribute_bonus') {
-          abilityData = {
-            dname: 'Attribute Bonus',
-            img: '/assets/stats.png',
-            attrib: '+2 All Attributes',
-          };
-        }
-        if (abilityData) {
-          return (<img
-            src={abilityKey === 'attribute_bonus' ? abilityData.img : `${API_HOST}${abilityData.img}`}
-            style={{ height: 35, position: 'relative', left: -10 }}
-            role="presentation"
-          />);
-        }
+].concat(Array.from(new Array(25)).map((e, i) => ({
+  displayName: i + 1,
+  field: 'ability_upgrades_arr',
+  index: i,
+  width: 1,
+  displayFn: (row, column, field) => {
+    if (field) {
+      const abilityId = field[column.index];
+      const abilityKey = constants.ability_ids[abilityId];
+      let abilityData = constants.abilities[abilityKey];
+      if (abilityKey === 'attribute_bonus') {
+        abilityData = {
+          dname: 'Attribute Bonus',
+          img: '/assets/images/stats.png',
+          attrib: '+2 All Attributes',
+        };
       }
-      return null;
-    },
-  });
-}
+      if (abilityData) {
+        return (<img
+          src={abilityKey === 'attribute_bonus' ? abilityData.img : `${API_HOST}${abilityData.img}`}
+          style={{ height: 35, position: 'relative', left: -10 }}
+          role="presentation"
+        />);
+      }
+    }
+    return null;
+  },
+})));
 
 const benchmarksColumns = (match) => {
   const cols = [
@@ -202,9 +203,9 @@ const purchaseTimesColumns = (match) => {
       displayFn: (row, column, field) => (<div>
         {field
         .filter(p => (p.time >= curTime - bucket && p.time < curTime))
-        .map(p => {
+        .map((p, i) => {
           const item = constants.items[p.key] || {};
-          return <span><img src={`${API_HOST}${item.img}`} role="presentation" style={{ height: '20px' }} /><br />{p.time}</span>;
+          return <span key={i}><img src={`${API_HOST}${item.img}`} role="presentation" style={{ height: '20px' }} /><br />{p.time}</span>;
         })
         }
       </div>),
@@ -213,10 +214,25 @@ const purchaseTimesColumns = (match) => {
   return cols;
 };
 
+const lastHitsTimesColumns = (match) => {
+  const cols = [heroTdColumn];
+  const bucket = 300;
+  for (let i = 0; i < match.duration + bucket; i += bucket) {
+    const curTime = i;
+    cols.push({
+      displayName: `${curTime / 60}'`,
+      field: 'lh_t',
+      width: 1,
+      displayFn: (row, column, field) => (<div>
+        {field[curTime / 60]}
+      </div>),
+    });
+  }
+  return cols;
+};
 
 const overallColumns = [
-  heroTdColumn,
-  {
+  heroTdColumn, {
     displayName: 'Stacked',
     field: 'camps_stacked',
     width: 1,
@@ -250,14 +266,25 @@ const overallColumns = [
       if (field) {
         const ability = constants.abilities[field.inflictor];
         const item = constants.items[field.inflictor];
-        const hero = constants.hero_names[field.key] || { img: '' };
-        let props = { src: null, title: null };
+        const hero = constants.hero_names[field.key] || {
+          img: '',
+        };
+        let props = {
+          src: null,
+          title: null,
+        };
         if (ability) {
-          props = { src: `${API_HOST}${ability.img}` };
+          props = {
+            src: `${API_HOST}${ability.img}`,
+          };
         } else if (item) {
-          props = { src: `${API_HOST}${item.img}` };
+          props = {
+            src: `${API_HOST}${item.img}`,
+          };
         } else {
-          props = { src: `${API_HOST}/public/images/default_attack.png` };
+          props = {
+            src: `${API_HOST}/public/images/default_attack.png`,
+          };
         }
         return (<div>
           <img src={props.src} className={styles.imgSmall} role="presentation" />
@@ -267,17 +294,16 @@ const overallColumns = [
       }
       return <div />;
     },
-  }];
+  },
+];
 
 const laningColumns = [
-  heroTdColumn,
-  {
+  heroTdColumn, {
     displayName: 'Lane',
     field: '',
     width: 1,
     sortFn: true,
-  },
-  {
+  }, {
     displayName: 'EFF@10',
     field: 'lane_efficiency',
     width: 1,
@@ -295,96 +321,203 @@ const laningColumns = [
     width: 1,
     sortFn: true,
     displayFn: (row, col, field) => (field ? field[10] : ''),
-  }];
+  },
+];
 
 const purchaseColumns = [
-  heroTdColumn,
-  {
+  heroTdColumn, {
     displayName: 'TP',
-    tooltip: 'Town Portal Scrolls purchased',
+    tooltip: strings.purchase_tpscroll,
     field: 'purchase',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, { tpscroll }) => tpscroll,
+    displayFn: (row, col, {
+      tpscroll,
+    }) => tpscroll,
   }, {
     displayName: 'Observers',
-    tooltip: 'Observer wards purchased',
+    tooltip: strings.purchase_ward_observer,
     field: 'purchase',
     width: 1,
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.ward_observer : ''),
   }, {
     displayName: 'Sentries',
-    tooltip: 'Sentry wards purchased',
+    tooltip: strings.purchase_ward_sentry,
     field: 'purchase',
     width: 1,
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.ward_sentry : ''),
   }, {
     displayName: 'Smokes',
-    tooltip: 'Smokes of Deceit purchased',
+    tooltip: strings.purchase_smoke_of_deceit,
     field: 'purchase',
     width: 1,
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.smoke_of_deceit : ''),
   }, {
     displayName: 'Dusts',
-    tooltip: 'Dusts of Appearance purchased',
+    tooltip: strings.purchase_dust,
+
     field: 'purchase',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, { dust }) => dust,
+    displayFn: (row, col, {
+      dust,
+    }) => dust,
   }, {
     displayName: 'Gems',
-    tooltip: 'Gems of True Sight purchased',
+    tooltip: strings.purchase_gem,
     field: 'purchase',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, { gem }) => gem,
+    displayFn: (row, col, {
+      gem,
+    }) => gem,
   }, {
     displayName: 'Rapiers',
-    tooltip: 'Divine Rapiers purchased',
+    tooltip: strings.purchase_rapier,
     field: 'purchase',
     width: 1,
     sortFn: true,
-    displayFn: (row, col, { rapier }) => rapier,
-  }];
-
-const chatColumns = [
-  heroTdColumn,
-  { displayName: 'Time', field: 'time' },
-  { displayName: 'Message', field: 'key' },
+    displayFn: (row, col, {
+      rapier,
+    }) => rapier,
+  },
 ];
 
-const abilityUseColumns = [{ displayName: 'Ability', field: 'name' },
-            { displayName: 'Casts', field: 'ability_uses', sortFn: true },
-            { displayName: 'Hits', field: 'hero_hits', sortFn: true },
-            { displayName: 'Damage', field: 'damage_inflictor', sortFn: true }];
+const chatColumns = [
+  heroTdColumn, {
+    displayName: 'Time',
+    field: 'time',
+  }, {
+    displayName: 'Message',
+    field: 'key',
+  },
+];
 
-const itemUseColumns = [{ displayName: 'Item', field: 'name' },
-            { displayName: 'Casts', field: 'item_uses', sortFn: true },
-            { displayName: 'Hits', field: 'hero_hits', sortFn: true },
-            { displayName: 'Damage', field: 'damage_inflictor', sortFn: true }];
+const abilityUseColumns = [{
+  displayName: 'Ability',
+  field: 'name',
+}, {
+  displayName: 'Casts',
+  field: 'ability_uses',
+  sortFn: true,
+}, {
+  displayName: 'Hits',
+  field: 'hero_hits',
+  sortFn: true,
+}, {
+  displayName: 'Damage',
+  field: 'damage_inflictor',
+  sortFn: true,
+}];
 
-const actionsColumns = [];
+const itemUseColumns = [{
+  displayName: 'Item',
+  field: 'name',
+}, {
+  displayName: 'Casts',
+  field: 'item_uses',
+  sortFn: true,
+}, {
+  displayName: 'Hits',
+  field: 'hero_hits',
+  sortFn: true,
+}, {
+  displayName: 'Damage',
+  field: 'damage_inflictor',
+  sortFn: true,
+}];
 
-// TODO party indicator
-// Lane map
-// damage dealt/received
-// kills for/against
-// purchase times
-// Hero kill times
-// Ward maps
-// Unit kills
-// Last Hits
-// Graphs (radiant adv/gold/xp/lh)
-// objective log
-// runes
-// Teamfights
-// Analysis
-// actions
+const unitKillsColumns = [
+  heroTdColumn, {
+    displayName: 'Heroes',
+    tooltip: strings.farm_heroes,
+    field: 'hero_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Creeps',
+    tooltip: strings.farm_creeps,
+    field: 'lane_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Neutrals',
+    tooltip: strings.farm_neutrals,
+    field: 'neutral_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Ancients',
+    tooltip: strings.farm_ancients,
+    field: 'ancient_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Towers',
+    tooltip: strings.farm_towers,
+    field: 'tower_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Couriers',
+    tooltip: strings.farm_couriers,
+    field: 'courier_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Roshans',
+    tooltip: strings.farm_roshan,
+    field: 'roshan_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Necronomicons',
+    tooltip: strings.farm_necronomicon,
+    field: 'necronomicon_kills',
+    sortFn: true,
+  }, {
+    displayName: 'Other',
+    field: 'specific',
+    displayFn: (row, col, field) => JSON.stringify(field),
+  },
+];
+
+const actionsColumns = [heroTdColumn, {
+  displayName: 'APM',
+  tooltip: strings.actions_per_min,
+  field: 'actions_per_min',
+}, {
+  displayName: 'Pings',
+  tooltip: strings.pings,
+  field: 'pings',
+}]
+  .concat(Object.keys(constants.order_types).filter(o => constants.order_types[o] in strings).map(k => ({
+    displayName: strings[`${constants.order_types[k]}_abbr`],
+    tooltip: strings[constants.order_types[k]],
+    field: 'actions',
+    displayFn: (row, col, field) => field[k],
+  })));
+
+const runesColumns = [heroTdColumn].concat(Object.keys(constants.runes).map(k => ({
+  displayName: strings[`rune_${k}`],
+  field: 'runes',
+  displayFn: (row, col, field) => field[k],
+})));
+
+const cosmeticsColumns = [];
+
+const objectiveDamageColumns = [];
+
+const objectiveLogColumns = [];
+
+// TODO
+// party indicator
 // cosmetics
 // Gold/XP sources
+// Objective damage
+// Hero kill times
+// objective log
+// Teamfights
+// Analysis
+// Lane map
+// Ward maps
+// Graphs (radiant adv/gold/xp/lh)
 
 export {
   heroTd,
@@ -396,7 +529,13 @@ export {
   chatColumns,
   purchaseColumns,
   purchaseTimesColumns,
-  actionsColumns,
   abilityUseColumns,
   itemUseColumns,
+  unitKillsColumns,
+  actionsColumns,
+  lastHitsTimesColumns,
+  runesColumns,
+  cosmeticsColumns,
+  objectiveDamageColumns,
+  objectiveLogColumns,
 };
