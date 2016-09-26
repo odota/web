@@ -23,7 +23,7 @@ const selectHistogram = (router, histogramName, playerId) => {
 
 const Histogram = ({ histogramName, columns, xVals, router, playerId }) => (
   <div style={{ fontSize: 10 }}>
-    <div>
+    <div className={styles.buttonContainer}>
       {histogramNames.map(histogram => (
         <FlatButton
           onClick={() => selectHistogram(router, histogram, playerId)}

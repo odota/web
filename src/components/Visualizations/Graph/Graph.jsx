@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import c3 from 'c3';
 import uuid from 'node-uuid';
 import npmColor from 'color';
+import styles from './Graph.css';
 
-const Graph = ({ id }) => <div id={id} />;
+const Graph = ({ id }) => <div className={styles.graphContainer} id={id} />;
 
 class GraphWrapper extends Component {
   constructor() {
