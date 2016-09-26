@@ -38,7 +38,7 @@ export const getPlayerHistogramError = (payload, id) => ({
 const reduceArray = backwards => (array, val) => {
   if (array.length !== 0 || val.games !== 0) {
     if (backwards) {
-      array.unshift(val)
+      array.unshift(val);
     } else {
       array.push(val);
     }
