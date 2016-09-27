@@ -23,7 +23,6 @@ const selectHistogram = (router, histogramName, playerId) => {
 
 const Histogram = ({ histogramName = histogramNames[0], columns, router, playerId }) => (
   <div style={{ fontSize: 10 }}>
-    {console.log('test23', histogramName, columns)}
     <div className={styles.buttonContainer}>
       {histogramNames.map((histogram, index) => (
         <FlatButton
