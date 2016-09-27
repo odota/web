@@ -1,5 +1,9 @@
 @import "../../../palette.css";
 
+:export {
+  spinnerColor: var(--textSecondaryColor);
+}
+
 .button {
   margin: 10px !important;
 }
@@ -12,6 +16,15 @@
   composes: button;
   background-color: var(--primaryLinkColor) !important;
   color: var(--textSecondaryColor) !important;
+  & > div {
+    height: 100%;
+    & > div {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      justify-content: center;
+    }
+  }
 }
 
 .buttonContainer {

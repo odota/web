@@ -6,6 +6,7 @@ import { playerHistogram } from 'reducers';
 import { withRouter } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import { deSnake } from 'utility';
+import Spinner from 'components/Spinner';
 import histogramNames from './histogramNames';
 import styles from './Histograms.css';
 
@@ -24,10 +25,11 @@ const selectHistogram = (router, histogramName, playerId) => {
 const Histogram = ({ histogramName, columns, router, playerId }) => (
   <div style={{ fontSize: 10 }}>
     <div className={styles.buttonContainer}>
-      {histogramNames.map(histogram => (
+      {histogramNames.map((histogram, index) => (
         <FlatButton
           onClick={() => selectHistogram(router, histogram, playerId)}
           className={histogramName === histogram ? styles.selectedButton : styles.button}
+          key={index}
         >
           <span className={styles.buttonText}>{deSnake(histogram)}</span>
         </FlatButton>
@@ -48,13 +50,18 @@ const getData = props => {
 };
 
 class RequestLayer extends React.Component {
-  componentDidMount() {
-    getData(this.props);
+  componentWillMount() {
+    if (!this.props.histogramName) {
+      this.props.router.push(`/players/${this.props.playerId}/histograms/${histogramNames[0]}`);
+    } else {
+      getData(this.props);
+    }
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId
-      || this.props.histogramName !== nextProps.histogramName) {
+    if (!nextProps.histogramName) {
+      this.props.router.push(`/players/${this.props.playerId}/histograms/${histogramNames[0]}`);
+    } else if (this.props.playerId !== nextProps.playerId || this.props.histogramName !== nextProps.histogramName) {
       getData(nextProps);
     }
   }
@@ -65,8 +72,10 @@ class RequestLayer extends React.Component {
 }
 
 const mapStateToProps = (state, { histogramName, playerId }) => ({
-  histograms: playerHistogram.getData(state, playerId),
+  histograms: playerHistogram.getPlayerHistogramById(state, playerId),
   columns: playerHistogram.getHistogramList(histogramName)(state, playerId),
+  loading: playerHistogram.getLoading(histogramName)(state, playerId),
+  error: playerHistogram.getError(histogramName)(state, playerId),
 });
 
 export default connect(mapStateToProps, { getPlayerHistogram })(withRouter(RequestLayer));

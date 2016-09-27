@@ -22,10 +22,11 @@ import {
 import TabBar from '../TabBar';
 import { playerPages } from '../Header/Pages';
 
-const playerPagesMapped = (accountId) => playerPages.map(page => ({
-  ...page,
-  route: `/players/${accountId}/${page.name.toLowerCase()}`,
-  label: page.name,
+const playerPagesMapped = (accountId) => playerPages.map(({ name, extra = '', ...rest }) => ({
+  ...rest,
+  route: `/players/${accountId}/${name.toLowerCase()}${extra ? `/${extra}` : ''}`,
+  label: name,
+  extra,
 }));
 
 const getPlayerSubroute = (info, playerId, histogramName) => {
@@ -56,9 +57,6 @@ const getPlayerSubroute = (info, playerId, histogramName) => {
 const Player = ({ playerId, info, histogramName, router }) => {
   if (!playerId) {
     return <Error />;
-  }
-  if (info === 'histograms' && !histogramName) {
-    router.push(`/players/${playerId}/histograms/kills`);
   }
 // Need to pass in the action into filter form, need to put that filter form into each subroute as well
   return (

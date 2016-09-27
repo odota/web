@@ -19,19 +19,21 @@ export const playerHistogramActions = {
   ERROR,
 };
 
-export const getPlayerHistogramRequest = (id) => ({ type: REQUEST, id });
+export const getPlayerHistogramRequest = (id, name) => ({ type: REQUEST, id, name });
 
-export const getPlayerHistogramOk = (payload, id, histogramName) => ({
+export const getPlayerHistogramOk = (list, id, name) => ({
   type: OK,
   payload: {
-    [histogramName]: payload,
+    list,
   },
+  name,
   id,
 });
 
-export const getPlayerHistogramError = (payload, id) => ({
+export const getPlayerHistogramError = (payload, id, name) => ({
   type: ERROR,
   payload,
+  name,
   id,
 });
 
@@ -47,9 +49,10 @@ const reduceArray = backwards => (array, val) => {
 };
 
 export const getPlayerHistogram = (playerId, histogramName, host = API_HOST) => (dispatch, getState) => {
-  if (playerHistogram.isLoaded(getState(), playerId, histogramName)) {
+  if (playerHistogram.isLoaded(histogramName)(getState(), playerId)) {
+    const list = playerHistogram.getHistogramList(histogramName)(getState(), playerId);
     dispatch(getPlayerHistogramOk(
-      playerHistogram.getHistogramList(histogramName)(getState(), playerId),
+      list,
       playerId,
       histogramName
     ));
