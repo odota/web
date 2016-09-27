@@ -1,6 +1,29 @@
+@import "../palette.css";
+
 .container {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  padding-top: 50px;
+}
+
+.message {
+  font-family: var(--fontFamilyLight);
+  font-weight: 300;
+  text-align: center;
+  font-size: 32px;
+  width: 420px;
+  margin-top: 20px;
+}
+
+.FourOhFour {
+  background-color: var(--textPrimaryColor);
+  color: var(--textSecondaryColor);
+  text-transform: uppercase;
+  padding: 6px 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  margin: 30px auto 0;
+  opacity: .6;
 }
