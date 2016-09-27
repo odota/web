@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from './FourOhFour.css';
+import strings from 'lang/en.json';
 
 export default () => (
   <div className={styles.container}>
     <img src="/assets/images/sad.gif" role="presentation" />
     <div className={styles.message}>
-      The page you’re looking for can’t be found.
+      {strings.four_oh_four_message}
     </div>
     <div className={styles.FourOhFour}>
-      error 404
+      {strings.error} 404
     </div>
   </div>
 );
