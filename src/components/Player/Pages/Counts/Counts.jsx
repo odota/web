@@ -49,7 +49,7 @@ class RequestLayer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
   tables: createTables(
-    playerCounts.getPlayerCountsById(state, ownProps.playerId),
+    playerCounts.getOnlyData(state, ownProps.playerId),
     playerCountsColumns,
     ownProps.playerId
   )(

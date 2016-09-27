@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Graph } from 'components/Visualizations';
-import { getPlayerHistogram, setActiveTab } from 'actions';
+import { getPlayerHistogram } from 'actions';
 import { playerHistogram } from 'reducers';
 import { withRouter } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';

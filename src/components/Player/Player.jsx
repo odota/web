@@ -54,7 +54,7 @@ const getPlayerSubroute = (info, playerId, histogramName) => {
   }
 };
 
-const Player = ({ playerId, info, histogramName, router }) => {
+const Player = ({ playerId, info, histogramName }) => {
   if (!playerId) {
     return <Error />;
   }
