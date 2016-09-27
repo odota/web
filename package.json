@@ -22,7 +22,7 @@
     "classnames": "^2.2.5",
     "dota2-minimap-hero-sprites": "^2.0.0",
     "dotaconstants": "^2.0.0",
-    "es6-promise": "^3.3.1",
+    "es6-promise": "^4.0.1",
     "flexboxgrid": "^6.3.1",
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "^0.15.4",
