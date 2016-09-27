@@ -1,6 +1,6 @@
 import React from 'react';
+import strings from 'lang/en';
 import styles from './FourOhFour.css';
-import strings from 'lang/en.json';
 
 export default () => (
   <div className={styles.container}>
