@@ -5,8 +5,14 @@ import { withRouter } from 'react-router';
 import { tab } from 'reducers';
 import styles from './TabBar.css';
 
-const onActive = (tab, router) => {
-  router.push(tab.props.value);
+const onActive = (tab, router, extra) => {
+  router.push({
+    pathname: tab.props.value,
+    state: {
+      tabChange: true,
+      extra,
+    },
+  });
 };
 
 const TabBar = ({ router, tabs, activeTab }) => (
@@ -16,7 +22,13 @@ const TabBar = ({ router, tabs, activeTab }) => (
     value={activeTab}
   >
     {tabs.map((tab, index) => (
-      <Tab key={index} className={styles.tab} value={tab.route} label={tab.label} onActive={tab => onActive(tab, router)}>
+      <Tab
+        key={index}
+        className={styles.tab}
+        value={tab.route}
+        label={tab.label}
+        onActive={tab => onActive(tab, router, tab.extra)}
+      >
         {tab.children}
       </Tab>
     ))}

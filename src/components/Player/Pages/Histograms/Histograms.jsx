@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Graph } from 'components/Visualizations';
-import { getPlayerHistogram } from 'actions';
+import { getPlayerHistogram, setActiveTab } from 'actions';
 import { playerHistogram } from 'reducers';
 import { withRouter } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import { deSnake } from 'utility';
-import Spinner from 'components/Spinner';
 import histogramNames from './histogramNames';
 import styles from './Histograms.css';
 

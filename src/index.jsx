@@ -20,6 +20,7 @@ import FourOhFour from 'components/FourOhFour';
 import { Heroes } from 'components/Heroes';
 import Request from 'components/Request';
 import Distributions from 'components/Distributions';
+import histogramNames from 'components/Player/Pages/Histograms/histogramNames';
 // Load CSS
 import 'c3/c3.css';
 import './index.css';
@@ -48,7 +49,14 @@ const store = createStore(reducer, compose(
 store.dispatch(getMetadata());
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
-history.listen(location => store.dispatch(setActiveTab(location.pathname)));
+history.listen(({ state, pathname }) => {
+  if (state && state.tabChange) {
+    store.dispatch(setActiveTab(pathname));
+  } else if (pathname.includes('histograms')) {
+    // I'd like to do this better if there is a way
+    store.dispatch(setActiveTab(`${pathname.slice(0, pathname.lastIndexOf('/'))}/${histogramNames[0]}`));
+  }
+});
 // history.listen(function(location) {Actions.routeChange(location)});
 const reactElement = document.getElementById('react');
 render(
