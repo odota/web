@@ -1,5 +1,5 @@
 export default [
-  // 'kills',
+  'kills',
   'deaths',
   'assists',
   'kda',
