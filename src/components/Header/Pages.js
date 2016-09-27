@@ -1,6 +1,3 @@
-
-import histogramNames from 'components/Player/Pages/Histograms/histogramNames';
-
 const navbarPages = [{
   name: 'Request',
   path: '/request',
@@ -38,7 +35,6 @@ const playerPages = [{
   name: 'Counts',
 }, {
   name: 'Histograms',
-  extra: histogramNames[0],
 }, {
   name: 'Trends',
 }, {
