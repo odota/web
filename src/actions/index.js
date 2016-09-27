@@ -12,7 +12,6 @@ export { playerRecordsActions, getPlayerRecords, setPlayerRecordsSort } from './
 export { playerCountsActions, getPlayerCounts, setPlayerCountsSort } from './player/playerCountsActions';
 export { playerWinLossActions, getPlayerWinLoss } from './player/playerWinLossActions';
 export { appBarActions, openMenu } from './appBarActions';
-export { tabActions, setActiveTab } from './tabActions';
 export { tableActions, setCurrentPage, nextPage, prevPage } from './tableActions';
 export { formActions, addChip, deleteChip, setFieldText, submitForm, clearForm, toggleShowForm } from './formActions';
 export { rankingActions, getRanking } from './rankingActions';

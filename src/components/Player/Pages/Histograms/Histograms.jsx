@@ -21,8 +21,9 @@ const selectHistogram = (router, histogramName, playerId) => {
   router.push(`/players/${playerId}/histograms/${histogramName}`);
 };
 
-const Histogram = ({ histogramName, columns, router, playerId }) => (
+const Histogram = ({ histogramName = histogramNames[0], columns, router, playerId }) => (
   <div style={{ fontSize: 10 }}>
+    {console.log('test23', histogramName, columns)}
     <div className={styles.buttonContainer}>
       {histogramNames.map((histogram, index) => (
         <FlatButton
@@ -45,22 +46,16 @@ const Histogram = ({ histogramName, columns, router, playerId }) => (
 );
 
 const getData = props => {
-  props.getPlayerHistogram(props.playerId, props.histogramName);
+  props.getPlayerHistogram(props.playerId, props.histogramName || histogramNames[0]);
 };
 
 class RequestLayer extends React.Component {
   componentWillMount() {
-    if (!this.props.histogramName) {
-      this.props.router.push(`/players/${this.props.playerId}/histograms/${histogramNames[0]}`);
-    } else {
-      getData(this.props);
-    }
+    getData(this.props);
   }
 
   componentWillUpdate(nextProps) {
-    if (!nextProps.histogramName) {
-      this.props.router.push(`/players/${this.props.playerId}/histograms/${histogramNames[0]}`);
-    } else if (this.props.playerId !== nextProps.playerId || this.props.histogramName !== nextProps.histogramName) {
+    if (this.props.playerId !== nextProps.playerId || this.props.histogramName !== nextProps.histogramName) {
       getData(nextProps);
     }
   }
@@ -70,7 +65,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { histogramName, playerId }) => ({
+const mapStateToProps = (state, { histogramName = histogramNames[0], playerId }) => ({
   histograms: playerHistogram.getPlayerHistogramById(state, playerId),
   columns: playerHistogram.getHistogramList(histogramName)(state, playerId),
   loading: playerHistogram.getLoading(histogramName)(state, playerId),
