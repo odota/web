@@ -25,7 +25,7 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
           <div data-tip data-for="proPlayer" className={styles.iconButton}>
             <IconTrophy className={styles.icon} />
             <ReactTooltip id="proPlayer" place="top" type="light" effect="float">
-              This player is identified as {officialPlayerName}
+              This player is confirmed as {officialPlayerName}
             </ReactTooltip>
           </div>
         }
