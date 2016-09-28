@@ -21,8 +21,9 @@ const selectHistogram = (router, histogramName, playerId) => {
   router.push(`/players/${playerId}/histograms/${histogramName}`);
 };
 
-const Histogram = ({ histogramName = histogramNames[0], columns, router, playerId }) => (
+const Histogram = ({ histogramName = histogramNames[0], columns, router, playerId, ...restProps }) => (
   <div style={{ fontSize: 10 }}>
+    {console.log('histogram params', restProps)}
     <div className={styles.buttonContainer}>
       {histogramNames.map((histogram, index) => (
         <FlatButton
@@ -36,7 +37,7 @@ const Histogram = ({ histogramName = histogramNames[0], columns, router, playerI
     </div>
     <Graph
       columns={columns}
-      name={histogramName}
+      name={deSnake(histogramName)}
       type="bar"
       xAxis={getAxis(histogramName)}
       yAxis={getAxis('Matches')}
