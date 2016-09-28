@@ -22,11 +22,10 @@ import {
 } from './Pages';
 import { playerPages } from '../Header/Pages';
 
-const playerPagesMapped = (accountId) => playerPages.map(({ name, extra = '', ...rest }) => ({
+const playerPagesMapped = (accountId) => playerPages.map(({ name, ...rest }) => ({
   ...rest,
-  route: `/players/${accountId}/${name.toLowerCase()}${extra ? `/${extra}` : ''}`,
+  route: `/players/${accountId}/${name.toLowerCase()}`,
   label: name,
-  extra,
 }));
 
 const getPlayerSubroute = (info, playerId, subInfo) => {
