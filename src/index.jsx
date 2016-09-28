@@ -16,6 +16,7 @@ import Player from 'components/Player';
 import Home from 'components/Home';
 import Search from 'components/Search';
 import Explorer from 'components/Explorer';
+import Combos from 'components/Combos';
 import FourOhFour from 'components/FourOhFour';
 import { Heroes } from 'components/Heroes';
 import Request from 'components/Request';
@@ -64,10 +65,11 @@ render(
         <Route path="players/:account_id" component={Player}>
           <Route path=":info" />
         </Route>
-        <Route path="explorer" component={Explorer} />
         <Route path="heroes(/:hero_id)" component={Heroes}>
           <Route path=":info" />
         </Route>
+        <Route path="explorer" component={Explorer} />
+        <Route path="combos" component={Combos} />
         <Route path="request" component={Request} />
         <Route path="distributions" component={Distributions} />
         <Route path="carry" />
