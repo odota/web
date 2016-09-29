@@ -21,9 +21,8 @@ const selectHistogram = (router, histogramName, playerId) => {
   router.push(`/players/${playerId}/histograms/${histogramName}`);
 };
 
-const Histogram = ({ histogramName = histogramNames[0], columns, router, playerId, ...restProps }) => (
+const Histogram = ({ histogramName = histogramNames[0], columns, router, playerId }) => (
   <div style={{ fontSize: 10 }}>
-    {console.log('histogram params', restProps)}
     <div className={styles.buttonContainer}>
       {histogramNames.map((histogram, index) => (
         <FlatButton
