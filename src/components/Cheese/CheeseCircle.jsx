@@ -27,8 +27,7 @@ const Cheese = ({ donations, error, loading }) => {
             </p>
           </div>
           <ReactTooltip id="footerCheese" place="top" type="light" effect="float">
-            <p>{cheese} / {goal} Cheese bought</p>
-            {(percent < 100) ? null : <p>Woo-hoo! Thanks guys!</p>}
+            <p>${cheese} / ${goal}</p>
           </ReactTooltip>
         </div>
       }
