@@ -9,9 +9,9 @@ import {
   transformPlayerProsById,
 } from 'selectors';
 import { playerPros } from 'reducers';
-import { createTable, TableContainer } from '../../Table';
+import { createTable, TableContainer } from 'components/Table';
+import { TableFilterForm } from 'components/Form';
 import playerProsColumns from './playerProsColumns';
-import { TableFilterForm } from '../../Form';
 
 const PlayerProsTable = createTable(
   playerPros.getPlayerProsById,

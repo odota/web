@@ -9,7 +9,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore, routerReducer as routing, routerMiddleware } from 'react-router-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import appReducer, { REDUCER_KEY } from 'reducers';
-import { getMetadata, setActiveTab } from 'actions';
+import { getMetadata } from 'actions';
 import App from 'components/App';
 import Match from 'components/Match';
 import Player from 'components/Player';
@@ -21,8 +21,8 @@ import { Heroes } from 'components/Heroes';
 import Request from 'components/Request';
 import Distributions from 'components/Distributions';
 // Load CSS
+import 'c3/c3.css';
 import './index.css';
-import '../node_modules/c3/c3.css';
 // require('./node_modules/dota2-minimap-hero-sprites/assets/stylesheets/dota2minimapheroes.css');
 
 // Promise polyfill for IE
@@ -48,8 +48,7 @@ const store = createStore(reducer, compose(
 store.dispatch(getMetadata());
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
-history.listen(location => store.dispatch(setActiveTab(location.pathname)));
-// history.listen(function(location) {Actions.routeChange(location)});
+
 const reactElement = document.getElementById('react');
 render(
   <Provider store={store}>
@@ -61,8 +60,10 @@ render(
         <Route path="matches/:match_id" component={Match}>
           <Route path=":info" />
         </Route>
-        <Route path="players/:account_id" component={Player}>
-          <Route path=":info" />
+        <Route path="players/:accountId" component={Player}>
+          <Route path=":info">
+            <Route path=":subInfo" />
+          </Route>
         </Route>
         <Route path="explorer" component={Explorer} />
         <Route path="heroes(/:hero_id)" component={Heroes}>

@@ -13,10 +13,10 @@ import {
   transformPlayerHeroesById,
 } from 'selectors';
 import { playerMatches, playerHeroes } from 'reducers';
-import { createTable, TableContainer } from '../../Table';
-import playerMatchesColumns from './playerMatchesColumns';
-import { playerHeroesOverviewColumns } from './playerHeroesColumns';
-import { TableFilterForm } from '../../Form';
+import { createTable, TableContainer } from 'components/Table';
+import { TableFilterForm } from 'components/Form';
+import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesColumns';
+import { playerHeroesOverviewColumns } from 'components/Player/Pages/Heroes/playerHeroesColumns';
 import styles from './Overview.css';
 
 const PlayerMatchesTable = createTable(

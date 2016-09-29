@@ -1,7 +1,7 @@
 import React from 'react';
 import { transformations, getPercentWin } from 'utility';
-import { TableLink } from '../../Table';
-import { TablePercent } from '../../Visualizations';
+import { TableLink } from 'components/Table';
+import { TablePercent } from 'components/Visualizations';
 
 export default [{
   displayName: 'Player',

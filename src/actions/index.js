@@ -7,11 +7,11 @@ export { playerPeersActions, getPlayerPeers, setPlayerPeersSort } from './player
 export { playerHeroesActions, getPlayerHeroes, setPlayerHeroesSort } from './player/playerHeroesActions';
 export { playerProsActions, getPlayerPros, setPlayerProsSort } from './player/playerProsActions';
 export { playerRankingsActions, getPlayerRankings, setPlayerRankingsSort } from './player/playerRankingsActions';
+export { playerHistogramActions, getPlayerHistogram } from './player/playerHistogramActions';
 export { playerRecordsActions, getPlayerRecords, setPlayerRecordsSort } from './player/playerRecordsActions';
 export { playerCountsActions, getPlayerCounts, setPlayerCountsSort } from './player/playerCountsActions';
 export { playerWinLossActions, getPlayerWinLoss } from './player/playerWinLossActions';
 export { appBarActions, openMenu } from './appBarActions';
-export { tabActions, setActiveTab } from './tabActions';
 export { tableActions, setCurrentPage, nextPage, prevPage } from './tableActions';
 export { formActions, addChip, deleteChip, setFieldText, submitForm, clearForm, toggleShowForm } from './formActions';
 export { rankingActions, getRanking } from './rankingActions';

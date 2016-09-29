@@ -11,11 +11,11 @@ import gotPlayer, {
   playerHeroes,
   playerPros,
   playerRankings,
+  playerHistogram,
   playerRecords,
   playerCounts,
 } from 'reducers/gotPlayer';
 import appBar from 'reducers/appBar';
-import tab, { getTab } from 'reducers/tab';
 import form, { getForm } from 'reducers/form';
 import request from 'reducers/request';
 import distributions from 'reducers/distributions';
@@ -33,9 +33,9 @@ export {
   playerHeroes,
   playerPros,
   playerRankings,
+  playerHistogram,
   playerRecords,
   playerCounts,
-  getTab as tab,
   getForm as form,
   benchmark,
   ranking,
@@ -50,7 +50,6 @@ export default combineReducers({
   heroBenchmark,
   search,
   appBar,
-  tab,
   form,
   request,
   distributions,

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { transformations } from 'utility';
-import PercentContainer from '../../PercentContainer';
-import { AppBadge } from '../../Player';
+import PercentContainer from 'components/PercentContainer';
+import { AppBadge } from 'components/Player';
 
 const getPlayerPicture = (row, col, field) => (
   <div style={{ marginTop: 5 }}>

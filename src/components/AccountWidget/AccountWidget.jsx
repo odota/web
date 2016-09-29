@@ -24,8 +24,8 @@ const AccountWidget = ({ loading, error, user, style }) => (
     {error && <Error />}
     {!error && !loading && user ? (
       <LoggedIn playerId={user.account_id} />
-    )
-    :
+      )
+      :
       <FlatButton
         href={`${API_HOST}/login`}
         label="Login"

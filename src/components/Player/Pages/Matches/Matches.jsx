@@ -9,9 +9,9 @@ import {
   transformPlayerMatchesById,
 } from 'selectors';
 import { playerMatches } from 'reducers';
-import { createTable, TableContainer } from '../../Table';
+import { createTable, TableContainer } from 'components/Table';
+import { TableFilterForm } from 'components/Form';
 import playerMatchesColumns from './playerMatchesColumns';
-import { TableFilterForm } from '../../Form';
 
 const PlayerMatchesTable = createTable(
   playerMatches.getPlayerMatchesById,

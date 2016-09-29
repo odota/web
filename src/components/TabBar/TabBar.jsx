@@ -1,12 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { withRouter } from 'react-router';
-import { tab } from 'reducers';
 import styles from './TabBar.css';
 
 const onActive = (tab, router) => {
-  router.push(tab.props.value);
+  router.push(tab.route);
 };
 
 const TabBar = ({ router, tabs, activeTab }) => (
@@ -16,13 +14,28 @@ const TabBar = ({ router, tabs, activeTab }) => (
     value={activeTab}
   >
     {tabs.map((tab, index) => (
-      <Tab key={index} className={styles.tab} value={tab.route} label={tab.label} onActive={tab => onActive(tab, router)}>
+      <Tab
+        key={index}
+        className={styles.tab}
+        value={tab.label.toLowerCase()}
+        label={tab.label}
+        onActive={() => onActive(tab, router)}
+      >
         {tab.children}
       </Tab>
     ))}
   </Tabs>
 );
 
-const mapStateToProps = (state) => ({ activeTab: tab.getActiveTab(state) });
+const { string, object, array } = React.PropTypes;
+TabBar.propTypes = {
+  router: object,
+  tabs: array,
+  activeTab: string,
+};
 
-export default connect(mapStateToProps)(withRouter(TabBar));
+export default withRouter(TabBar);
+
+// const mapStateToProps = (state) => ({ activeTab: tab.getActiveTab(state) });
+
+// export default connect(mapStateToProps)(withRouter(TabBar));
