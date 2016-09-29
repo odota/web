@@ -1,5 +1,6 @@
 @import "./components/palette.css";
 @import "../assets/fonts/PTSans/font-face.css";
+@import "../assets/fonts/OpenSans/font-face.css";
 
 :global(body) {
   margin: 0;

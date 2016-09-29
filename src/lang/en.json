@@ -168,5 +168,7 @@
   "parsing_by": "Parsing by",
   "cheese_by": "Cheese icon by",
   "app_name": "OpenDota",
-  "error_message": "Whoops! Something went wrong."
+  "error_message": "Whoops! Something went wrong.",
+  "error": "Error",
+  "four_oh_four_message": "The page you’re looking for can’t be found."
 }
