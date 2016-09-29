@@ -12,7 +12,7 @@ const Footer = () => (
     <Row>
       <Col xs>
         <big>
-          <AppLogo style={{ color: styles.textPrimary }} />
+          <AppLogo style={{ color: styles.textColorPrimary }} />
         </big>
         <SocialLinks />
         <p>

@@ -1,6 +1,6 @@
 @import "../palette.css";
 
-:export { progressColor: var(--accentColor) }
+:export { progressColor: var(--colorYelor) }
 
 .percentContainer {
   display: flex;

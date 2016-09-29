@@ -9,11 +9,11 @@
 .footer p {
   padding: 2px 0 5px;
   margin: 0;
-  font-size: var(--fontMedium);
+  font-size: var(--fontSizeMedium);
 }
 .footer small {
   color: darkgrey;
-  font-size: var(--fontSmall);
+  font-size: var(--fontSizeSmall);
 }
 .footer small .iconButton svg {
   width: 14px !important;
@@ -37,7 +37,7 @@
 }
 
 .links {
-  font-size: var(--fontMedium);
+  font-size: var(--fontSizeMedium);
 }
 .links a::after {
   content: "•";
