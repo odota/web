@@ -481,13 +481,13 @@ const actionsColumns = [heroTdColumn, {
     displayName: strings[`${constants.order_types[k]}_abbr`],
     tooltip: strings[constants.order_types[k]],
     field: 'actions',
-    displayFn: (row, col, field) => field ? Number(field[k]) : '-',
+    displayFn: (row, col, field) => (field ? Number(field[k]) : '-'),
   })));
 
 const runesColumns = [heroTdColumn].concat(Object.keys(constants.runes).map(k => ({
   displayName: strings[`rune_${k}`],
   field: 'runes',
-  displayFn: (row, col, field) => field ? Number(field[k]) : '-',
+  displayFn: (row, col, field) => (field ? Number(field[k]) : '-'),
 })));
 
 const cosmeticsColumns = [];

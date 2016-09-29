@@ -1,8 +1,8 @@
 import React from 'react';
 import IconButton from 'material-ui/IconButton';
+import strings from 'lang/en';
 import styles from './Footer.css';
 import { IconSteam } from '../Icons';
-import strings from 'lang/en';
 
 export default () => (
   <div>
