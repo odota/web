@@ -51,8 +51,8 @@
   gray:   var(--colorMuted);
   grey:   var(--colorMuted);
 
-  yelor:  var(--colorYelor);
-  low:    var(--colorYelor);
+  yelor:           var(--colorYelor);
+  yellowOrange:    var(--colorYelor);
 
   textColorPrimary:    var(--textColorPrimary);
   primaryTextColor:    var(--textColorPrimary);
@@ -94,12 +94,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.cheeseGlow {
-  fill: var(--primaryTextColor);
-  -webkit-filter: drop-shadow(0 0 10px #ff0);
-  filter: drop-shadow(0 0 10px #ff0);
 }
 
 .verticalAlign {

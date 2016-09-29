@@ -1,7 +1,5 @@
 @import "../palette.css";
 
-:export { progressColor: var(--colorYelor) }
-
 .percentContainer {
   display: flex;
   flex-direction: column;

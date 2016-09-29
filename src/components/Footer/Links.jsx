@@ -22,7 +22,6 @@ export default () => (
         >
           <IconSteam style={{ width: 14, height: 14 }} />
         </IconButton>
-        {strings.cheese_credit}<a href="//www.flaticon.com/authors/belc" target="_blank" rel="noopener noreferrer"> Belc on Flaticon</a>
       </small>
     </div>
   </div>

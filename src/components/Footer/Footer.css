@@ -1,7 +1,7 @@
 @import "../palette.css";
 
 .footer {
-  padding: 25px 50px 15px;
+  padding: 20px 50px 15px;
   background-color: var(--defaultPrimaryColor);
   color: var(--primaryTextColor);
 }
@@ -25,7 +25,7 @@
   background-color: var(--primaryTextColor);
   background: linear-gradient(to right, var(--primaryTextColor) , rgba(0, 0, 0, 0)); 
   opacity: .1;
-  
+  margin: 10px 0;
 }
 
 .osLink {
