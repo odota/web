@@ -45,6 +45,12 @@ export function formatSeconds(input) {
   return time;
 }
 
+const minute = 60;
+const hour = minute * 60;
+const day = hour * 24;
+const month = day * 30;
+const year = month * 12;
+
 export function fromNow(input) {
   if (!Number(input)) {
     // Default to empty string if invalid input
@@ -55,11 +61,7 @@ export function fromNow(input) {
   const date = new Date(Number(input) * 1000);
   // Diff the current and input timestamps in seconds
   const diff = (now.getTime() - date.getTime()) / 1000;
-  const minute = 60;
-  const hour = minute * 60;
-  const day = hour * 24;
-  const month = day * 30;
-  const year = month * 12;
+
   if (diff < 0) {
     return 'in the future';
   } else if (diff < 2) {
@@ -85,12 +87,11 @@ export const camelToSnake = str =>
   str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
 
 const getSubtext = row => {
-  if (row.match_id && row.player_slot) return isRadiant(row.player_slot) ? 'Radiant' : 'Dire';
+  if (row.match_id && row.player_slot) {
+    return isRadiant(row.player_slot) ? 'Radiant' : 'Dire';
+  }
   if (row.last_played) {
-    if (Number(row.last_played)) {
-      return fromNow(row.last_played);
-    }
-    return 'never';
+    return fromNow(row.last_played);
   }
   return null;
 };
