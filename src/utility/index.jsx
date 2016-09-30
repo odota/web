@@ -1,13 +1,35 @@
 import React from 'react';
-import { Link } from 'react-router';
-import constants from 'dotaconstants';
+import {
+  Link
+} from 'react-router';
+import {
+  skill,
+  game_mode,
+  items,
+  item_ids,
+  lobby_type,
+  heroes,
+  leaver_status,
+  lane_role,
+  patch,
+} from 'dotaconstants';
 import moment from 'moment';
-import { API_HOST } from 'config';
+import {
+  API_HOST
+} from 'config';
 import styles from 'components/palette.css';
-import { TableLink, TableHeroImage } from 'components/Table';
-import { KDA } from 'components/Visualizations';
+import {
+  TableLink,
+  TableHeroImage
+} from 'components/Table';
+import {
+  KDA
+} from 'components/Visualizations';
 
-export { default as bucketizeColumns } from './bucketizeColumns';
+export {
+  default as bucketizeColumns
+}
+from './bucketizeColumns';
 
 // TODO - add in the relevant text invocations of TableHeroImage
 export const isRadiant = (playerSlot) => playerSlot < 128;
@@ -53,8 +75,8 @@ export const transformations = {
   hero_id: (row, col, field) => (
     <TableHeroImage
       parsed={row.version}
-      heroName={constants.heroes[field] ? constants.heroes[field].localized_name : ''}
-      imageUrl={`${constants.heroes[field] ? API_HOST + constants.heroes[field].img : '/assets/blank-1x1.gif'}`}
+      heroName={heroes[field] ? heroes[field].localized_name : ''}
+      imageUrl={`${heroes[field] ? API_HOST + heroes[field].img : '/assets/blank-1x1.gif'}`}
       subText={getSubtext(row)}
     />
   ),
@@ -83,13 +105,13 @@ export const transformations = {
         </span>
       </div>);
   },
-  skill: (row, col, field) => (constants.skill[field] ? constants.skill[field] : 'Unknown'),
-  game_mode: (row, col, field) => (constants.game_mode[field] ? constants.game_mode[field].name : field),
+  skill: (row, col, field) => (skill[field] ? skill[field] : 'Unknown'),
+  game_mode: (row, col, field) => (game_mode[field] ? game_mode[field].name : field),
   match_id_and_game_mode: (row, col, field) => (
     <div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
       <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
-        {constants.game_mode[row.game_mode] ? constants.game_mode[row.game_mode].name : row.game_mode}
+        {game_mode[row.game_mode] ? game_mode[row.game_mode].name : row.game_mode}
       </span>
     </div>
   ),
@@ -97,15 +119,15 @@ export const transformations = {
   last_played: (row, col, field) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
   duration: (row, col, field) => formatSeconds(field),
   region: (row, col, field) => {
-    const regions = Object.keys(constants.regions);
-    const byRegionId = (key) => (parseInt(constants.regions[key].region, 10) === field ? key : null);
+    const regions = Object.keys(regions);
+    const byRegionId = (key) => (parseInt(regions[key].region, 10) === field ? key : null);
 
     return regions.find(byRegionId);
   },
-  leaver_status: (row, col, field) => (constants.leaver_status[field] ? constants.leaver_status[field].name : field),
-  lobby_type: (row, col, field) => (constants.lobby_type[field] ? constants.lobby_type[field].name : field),
-  lane_role: (row, col, field) => (constants.lane_role[field] ? constants.lane_role[field].name : field),
-  patch: (row, col, field) => (constants.patch[field] ? constants.patch[field].name : field),
+  leaver_status: (row, col, field) => (leaver_status[field] ? leaver_status[field].name : field),
+  lobby_type: (row, col, field) => (lobby_type[field] ? lobby_type[field].name : field),
+  lane_role: (row, col, field) => (lane_role[field] ? lane_role[field].name : field),
+  patch: (row, col, field) => (patch[field] ? patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
   rank: (row) => row.card - row.rank,
@@ -118,11 +140,13 @@ export const transformations = {
 // Otherwise, we just put the url in the image. THis will also contain the tooltip stuff as well
 // (once I get to the tooltips).
 
-const transformMatchItem = ({ field }) => {
+const transformMatchItem = ({
+  field
+}) => {
   if (field === 0) {
     return false;
   }
-  return `${API_HOST}${constants.items[constants.item_ids[field]].img}`;
+  return `${API_HOST}${items[item_ids[field]].img}`;
 };
 
 for (let i = 0; i < 6; i++) {

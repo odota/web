@@ -2,12 +2,16 @@
 import {
   isRadiant,
 } from 'utility';
-import constants from 'dotaconstants';
+import {
+  specific,
+  heroes,
+  objectives,
+  xp_level,
+} from 'dotaconstants';
 import {
   generatePlayerAnalysis,
 } from './analysis';
 
-const specific = constants.specific;
 const expanded = {};
 Object.keys(specific).forEach((key) => {
   for (let i = 1; i < 5; i++) {
@@ -40,17 +44,17 @@ function renderMatch(m) {
       if (pm[target]) {
         const t = [];
         Object.keys(pm[target]).forEach((key) => {
-          const a = constants.abilities[key];
-          const i = constants.items[key];
+          // const a = abilities[key];
+          // const i = items[key];
           let def = {
             img: '/public/images/default_attack.png',
           };
-          def = a || i || def;
+          // def = a || i || def;
           const result = {
+            //TODO generate image path here
             img: def.img,
-            name: (!a && !i) ? 'Auto Attack/Other' : key,
+            name: key || 'Auto Attack/Other',
             val: pm[target][key],
-            className: a ? 'ability' : i ? 'item' : 'img-sm',
             ability_uses: (pm.ability_uses || {})[key],
             item_uses: (pm.item_uses || {})[key],
             hero_hits: (pm.hero_hits || {})[key],
@@ -128,7 +132,7 @@ function renderMatch(m) {
     };
     m.players.forEach((other_pm) => {
       const team = (pm.isRadiant) ? 'radiant' : 'dire';
-      const other_hero = constants.heroes[other_pm.hero_id];
+      const other_hero = heroes[other_pm.hero_id];
       let damage = 0;
       let taken = 0;
       let kills = 0;
@@ -168,11 +172,11 @@ function renderMatch(m) {
   // process objectives
   if (m.objectives) {
     m.objectives.forEach((entry) => {
-      entry.objective = constants.objectives[entry.subtype] || entry.subtype;
+      entry.objective = objectives[entry.subtype] || entry.subtype;
       const p = m.players[entry.slot];
       if (p) {
         entry.team = entry.team === 2 || entry.key < 64 || p.isRadiant ? 0 : 1;
-        entry.hero_img = constants.heroes[p.hero_id] ? constants.heroes[p.hero_id].img : '';
+        entry.hero_img = heroes[p.hero_id] ? heroes[p.hero_id].img : '';
       }
     });
   }
@@ -192,12 +196,12 @@ function renderMatch(m) {
         p.level_end = getLevelFromXp(p.xp_end);
 
         function getLevelFromXp(xp) {
-          for (let i = 0; i < constants.xp_level.length; i++) {
-            if (constants.xp_level[i] > xp) {
+          for (let i = 0; i < xp_level.length; i++) {
+            if (xp_level[i] > xp) {
               return i;
             }
           }
-          return constants.xp_level.length;
+          return xp_level.length;
         }
       });
       // add player's hero_id to each teamfight participant
@@ -259,7 +263,7 @@ function generateGraphData(match) {
     lh: [time],
   };
   match.players.forEach((p, i) => {
-    let hero = constants.heroes[p.hero_id] || {};
+    let hero = heroes[p.hero_id] || {};
     hero = hero.localized_name;
     data.gold.push([hero].concat(p.gold_t));
     data.xp.push([hero].concat(p.xp_t));

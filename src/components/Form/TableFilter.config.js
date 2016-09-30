@@ -1,4 +1,11 @@
-import constants from 'dotaconstants';
+import {
+  heroes,
+  lane_ids,
+  patch,
+  game_mode,
+  lobby_type,
+  region,
+} from 'dotaconstants';
 
 export const heroConfig = {
   text: 'localized_name',
@@ -13,27 +20,27 @@ export const genericConfig = {
 // We should consider refactoring all these kinds of objects into lists. I understand
 // they are probably built like this to allow map key access but it would be nice if I didn't
 // have to convert them all into arrays.
-export const heroList = Object.keys(constants.heroes).map(id => ({
-  ...constants.heroes[id],
+export const heroList = Object.keys(heroes).map(id => ({
+  ...heroes[id],
 }));
-export const laneList = Object.keys(constants.lane_ids).map(id => ({
-  text: constants.lane_ids[id],
+export const laneList = Object.keys(lane_ids).map(id => ({
+  text: lane_ids[id],
   id: Number(id),
 }));
-export const patchList = constants.patch.map((patch, index) => ({
+export const patchList = patch.map((patch, index) => ({
   text: patch.name,
   id: index,
 }));
-export const modeList = Object.keys(constants.game_mode).map(id => ({
-  text: constants.game_mode[id].name,
+export const modeList = Object.keys(game_mode).map(id => ({
+  text: game_mode[id].name,
   id,
 }));
-export const lobbyTypeList = Object.keys(constants.lobby_type).map(id => ({
-  text: constants.lobby_type[id].name,
+export const lobbyTypeList = Object.keys(lobby_type).map(id => ({
+  text: lobby_type[id].name,
   id,
 }));
-export const regionList = Object.keys(constants.region).map(id => ({
-  text: constants.region[id],
+export const regionList = Object.keys(region).map(id => ({
+  text: region[id],
   id: Number(id),
 }));
 
