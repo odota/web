@@ -12,6 +12,7 @@ import styles from './App.css';
 const muiTheme = {
   fontFamily: palette.fontFamily,
   card: { fontWeight: palette.fontWeightNormal },
+  badge: { fontWeight: palette.fontWeightNormal },
   subheader: { fontWeight: palette.fontWeightNormal },
   raisedButton: { fontWeight: palette.fontWeightNormal },
   flatButton: { fontWeight: palette.fontWeightNormal },

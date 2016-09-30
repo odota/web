@@ -33,7 +33,7 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error 
                         height: 18,
                       }}
                     />
-                    <ReactTooltip id="registered" place="top" type="light" effect="float">
+                    <ReactTooltip id="registered" place="top" type="light" effect="solid">
                       Registered user.
                     </ReactTooltip>
                   </div>

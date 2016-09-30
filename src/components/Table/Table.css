@@ -81,3 +81,9 @@ table td, table th {
   padding-left: 10px !important;
   padding-right: 10px !important;
 }
+
+.headerTooltip {
+  text-transform: none;
+  font-weight: var(--fontWeightNormal);
+  text-align: left;
+}

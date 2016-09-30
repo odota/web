@@ -1,92 +1,94 @@
+import strings from 'lang/en';
+
 const navbarPages = [{
-  name: 'Request',
+  name: strings.request,
   path: '/request',
 }, {
-  name: 'Distributions',
+  name: strings.distributions,
   path: '/distributions',
 }, {
-  name: 'Heroes',
+  name: strings.heroes,
   path: '/heroes',
 }, {
-  name: 'Ingame',
+  name: strings.ingame,
   sponsored: true,
   path: '/become-the-gamer',
 }, {
-  name: 'Blog',
+  name: strings.blog,
   path: '//odota.github.io/blog',
   external: true,
 }];
 
 const playerPages = [{
-  name: 'Overview',
+  name: strings.tab_overview,
 }, {
-  name: 'Matches',
+  name: strings.tab_matches,
 }, {
-  name: 'Heroes',
+  name: strings.tab_heroes,
 }, {
-  name: 'Peers',
+  name: strings.tab_peers,
 }, {
-  name: 'Pros',
+  name: strings.tab_pros,
 }, {
-  name: 'Activity',
+  name: strings.tab_activity,
 }, {
-  name: 'Records',
+  name: strings.tab_records,
 }, {
-  name: 'Counts',
+  name: strings.tab_counts,
 }, {
-  name: 'Histograms',
+  name: strings.tab_histograms,
 }, {
-  name: 'Trends',
+  name: strings.tab_trends,
 }, {
-  name: 'Wardmap',
+  name: strings.tab_wardmap,
 }, {
-  name: 'Wordcloud',
+  name: strings.tab_wordcloud,
 }, {
-  name: 'MMR',
+  name: strings.tab_mmr,
 }, {
-  name: 'Rankings',
+  name: strings.tab_rankings,
   'new-feature': true,
 }];
 
 const matchPages = [{
-  name: 'Overview',
+  name: strings.tab_overview,
 }, {
-  name: 'Benchmarks',
+  name: strings.tab_benchmarks,
 }, {
-  name: 'Performances',
+  name: strings.tab_performances,
   parsed: true,
 }, {
-  name: 'Damage',
+  name: strings.tab_damage,
   parsed: true,
 }, {
-  name: 'Purchases',
+  name: strings.tab_purchases,
   parsed: true,
 }, {
-  name: 'Farm',
+  name: strings.tab_farm,
   parsed: true,
 }, {
-  name: 'Combat',
+  name: strings.tab_combat,
   parsed: true,
 }, {
-  name: 'Graphs',
+  name: strings.tab_graphs,
   parsed: true,
 }, {
-  name: 'Vision',
+  name: strings.tab_vision,
   parsed: true,
 }, {
-  name: 'Objectives',
+  name: strings.tab_objectives,
   parsed: true,
 }, {
-  name: 'Teamfights',
+  name: strings.tab_teamfights,
   parsed: true,
 }, {
-  name: 'Actions',
+  name: strings.tab_actions,
   parsed: true,
 }, {
-  name: 'Analysis',
+  name: strings.tab_analysis,
   parsed: true,
 }, {
-  name: 'Chat',
+  name: strings.tab_chat,
   parsed: true,
 }];
 

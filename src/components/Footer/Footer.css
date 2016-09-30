@@ -38,6 +38,7 @@
 
 .links {
   font-size: var(--fontSizeMedium);
+  margin-bottom: 4px;
 }
 .links a::after {
   content: "•";
