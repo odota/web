@@ -1,33 +1,34 @@
 import React from 'react';
 import {
-  Link
+  Link,
 } from 'react-router';
 import {
   skill,
-  game_mode,
   items,
-  item_ids,
-  lobby_type,
   heroes,
-  leaver_status,
-  lane_role,
   patch,
+  regions,
+  game_mode as gameMode,
+  item_ids as itemIds,
+  lobby_type as lobbyType,
+  leaver_status as leaverStatus,
+  lane_role as laneRole,
 } from 'dotaconstants';
 import moment from 'moment';
 import {
-  API_HOST
+  API_HOST,
 } from 'config';
 import styles from 'components/palette.css';
 import {
   TableLink,
-  TableHeroImage
+  TableHeroImage,
 } from 'components/Table';
 import {
-  KDA
+  KDA,
 } from 'components/Visualizations';
 
 export {
-  default as bucketizeColumns
+  default as bucketizeColumns,
 }
 from './bucketizeColumns';
 
@@ -106,12 +107,12 @@ export const transformations = {
       </div>);
   },
   skill: (row, col, field) => (skill[field] ? skill[field] : 'Unknown'),
-  game_mode: (row, col, field) => (game_mode[field] ? game_mode[field].name : field),
+  game_mode: (row, col, field) => (gameMode[field] ? gameMode[field].name : field),
   match_id_and_game_mode: (row, col, field) => (
     <div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
       <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
-        {game_mode[row.game_mode] ? game_mode[row.game_mode].name : row.game_mode}
+        {gameMode[row.game_mode] ? gameMode[row.game_mode].name : row.game_mode}
       </span>
     </div>
   ),
@@ -119,14 +120,14 @@ export const transformations = {
   last_played: (row, col, field) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
   duration: (row, col, field) => formatSeconds(field),
   region: (row, col, field) => {
-    const regions = Object.keys(regions);
-    const byRegionId = (key) => (parseInt(regions[key].region, 10) === field ? key : null);
+    const reg = Object.keys(regions);
+    const byRegionId = (key) => (parseInt(reg[key].region, 10) === field ? key : null);
 
-    return regions.find(byRegionId);
+    return reg.find(byRegionId);
   },
-  leaver_status: (row, col, field) => (leaver_status[field] ? leaver_status[field].name : field),
-  lobby_type: (row, col, field) => (lobby_type[field] ? lobby_type[field].name : field),
-  lane_role: (row, col, field) => (lane_role[field] ? lane_role[field].name : field),
+  leaver_status: (row, col, field) => (leaverStatus[field] ? leaverStatus[field].name : field),
+  lobby_type: (row, col, field) => (lobbyType[field] ? lobbyType[field].name : field),
+  lane_role: (row, col, field) => (laneRole[field] ? laneRole[field].name : field),
   patch: (row, col, field) => (patch[field] ? patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
@@ -141,12 +142,12 @@ export const transformations = {
 // (once I get to the tooltips).
 
 const transformMatchItem = ({
-  field
+  field,
 }) => {
   if (field === 0) {
     return false;
   }
-  return `${API_HOST}${items[item_ids[field]].img}`;
+  return `${API_HOST}${items[itemIds[field]].img}`;
 };
 
 for (let i = 0; i < 6; i++) {

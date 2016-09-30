@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   heroes,
-  order_types,
   runes,
   items,
-  item_ids,
-  ability_ids,
-  hero_names,
+  order_types as orderTypes,
+  item_ids as itemIds,
+  ability_ids as abilityIds,
+  hero_names as heroNames,
 } from 'dotaconstants';
 import strings from 'lang/en';
 import {
@@ -118,7 +118,7 @@ const overviewColumns = [
     displayFn: (row) => {
       const itemArray = [];
       for (let i = 0; i < 6; i++) {
-        const item = items[item_ids[row[`item_${i}`]]];
+        const item = items[itemIds[row[`item_${i}`]]];
         if (item) {
           itemArray.push(<span
             key={i}
@@ -131,7 +131,7 @@ const overviewColumns = [
             />
             <span className={styles.timing}>
               {row.first_purchase_time
-                ? `${(row.first_purchase_time[item_ids[item.id]] / 60).toFixed(0)}'`
+                ? `${(row.first_purchase_time[itemIds[item.id]] / 60).toFixed(0)}'`
                 : ''}
             </span>
           </span>);
@@ -151,7 +151,7 @@ const abUpgradeColumns = [
   displayFn: (row, column, field) => {
     if (field) {
       const abilityId = field[column.index];
-      const abilityKey = ability_ids[abilityId];
+      const abilityKey = abilityIds[abilityId];
       let abilityData = {
         img: `${API_HOST}/apps/dota2/images/abilities/${abilityKey}_md.png`,
       };
@@ -277,7 +277,7 @@ const overallColumns = [
         // TODO map the ability data somehow
         const ability = null;
         const item = items[field.inflictor];
-        const hero = hero_names[field.key] || {
+        const hero = heroNames[field.key] || {
           img: '',
         };
         let props = {
@@ -481,17 +481,17 @@ const unitKillsColumns = [
 ];
 
 const actionsColumns = [heroTdColumn, {
-    displayName: 'APM',
-    tooltip: strings.actions_per_min,
-    field: 'actions_per_min',
-  }, {
-    displayName: 'Pings',
-    tooltip: strings.pings,
-    field: 'pings',
-  }]
-  .concat(Object.keys(order_types).filter(o => order_types[o] in strings).map(k => ({
-    displayName: strings[`${order_types[k]}_abbr`],
-    tooltip: strings[order_types[k]],
+  displayName: 'APM',
+  tooltip: strings.actions_per_min,
+  field: 'actions_per_min',
+}, {
+  displayName: 'Pings',
+  tooltip: strings.pings,
+  field: 'pings',
+}]
+  .concat(Object.keys(orderTypes).filter(o => orderTypes[o] in strings).map(k => ({
+    displayName: strings[`${orderTypes[k]}_abbr`],
+    tooltip: strings[orderTypes[k]],
     field: 'actions',
     displayFn: (row, col, field) => (field ? Number(field[k]) : '-'),
   })));

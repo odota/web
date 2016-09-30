@@ -1,9 +1,9 @@
 import {
   heroes,
-  lane_ids,
+  lane_ids as laneIds,
   patch,
-  game_mode,
-  lobby_type,
+  game_mode as gameMode,
+  lobby_type as lobbyType,
   region,
 } from 'dotaconstants';
 
@@ -23,20 +23,20 @@ export const genericConfig = {
 export const heroList = Object.keys(heroes).map(id => ({
   ...heroes[id],
 }));
-export const laneList = Object.keys(lane_ids).map(id => ({
-  text: lane_ids[id],
+export const laneList = Object.keys(laneIds).map(id => ({
+  text: laneIds[id],
   id: Number(id),
 }));
 export const patchList = patch.map((patch, index) => ({
   text: patch.name,
   id: index,
 }));
-export const modeList = Object.keys(game_mode).map(id => ({
-  text: game_mode[id].name,
+export const modeList = Object.keys(gameMode).map(id => ({
+  text: gameMode[id].name,
   id,
 }));
-export const lobbyTypeList = Object.keys(lobby_type).map(id => ({
-  text: lobby_type[id].name,
+export const lobbyTypeList = Object.keys(lobbyType).map(id => ({
+  text: lobbyType[id].name,
   id,
 }));
 export const regionList = Object.keys(region).map(id => ({
