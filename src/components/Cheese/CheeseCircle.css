@@ -34,13 +34,8 @@
   height: 35px;
 }
 .cheese svg {
-  fill: none !important;
   -webkit-filter: drop-shadow(0 0 10px #ff0);
   filter: drop-shadow(0 0 10px #ff0);
-}
-.cheese svg g {
-  stroke: var(--textColorPrimary);
-  stroke-width: 10;
 }
 
 .percent {

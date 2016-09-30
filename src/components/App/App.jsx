@@ -15,7 +15,7 @@ const muiTheme = {
   badge: { fontWeight: palette.fontWeightNormal },
   subheader: { fontWeight: palette.fontWeightNormal },
   raisedButton: { fontWeight: palette.fontWeightNormal },
-  flatButton: { fontWeight: palette.fontWeightNormal },
+  flatButton: { fontWeight: palette.fontWeightNormal }, // color: 'background color'
   palette: {
     textColor: palette.textColorPrimary,
     primary1Color: palette.blue,

@@ -5,7 +5,7 @@ import ActionUpdate from 'material-ui/svg-icons/action/update';
 import ReactTooltip from 'react-tooltip';
 
 export default () => (
-  <CardActions style={{ width: '30%', boxSizing: 'border-box', padding: '15px 30px', textAlign: 'right' }}>
+  <CardActions style={{ width: '30%', boxSizing: 'border-box', padding: '6px 30px', textAlign: 'right' }}>
     <div style={{ display: 'inline-block' }}>
       <div data-tip data-for="update">
         <FlatButton
