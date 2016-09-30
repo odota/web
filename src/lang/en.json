@@ -157,7 +157,7 @@
   "app_description": "Open source Dota 2 data tools",
   "error_message": "Whoops! Something went wrong.",
   "error": "Error",
-  "four_oh_four_message": "The page you’re looking for can’t be found.",
+  "four_oh_four_message": "The page you are looking for cannot be found.",
   "sponsorship": "Your sponsorship helps keep the service free for everyone.",
   "donation_goal": "Monthly Donation Goal"
 }
