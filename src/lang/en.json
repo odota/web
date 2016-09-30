@@ -212,11 +212,18 @@
   "th_kills": "K",
   "th_deaths": "D",
   "th_assists": "A",
-
   "th_games": "MP",
   "th_win": "Win %",
   "th_with_games": "With",
   "th_with_win": "Win with %",
   "th_against_games": "Against",
-  "th_against_win": "Win against %"
+  "th_against_win": "Win against %",
+  "th_avatar": "Player",
+  "th_last_played": "Last",
+  "th_record": "Record",
+  "th_set": "Set",
+  "th_category": "Category",
+  "th_matches": "Matches",
+  "th_percentile": "Percentile",
+  "th_rank": "Rank"
 }

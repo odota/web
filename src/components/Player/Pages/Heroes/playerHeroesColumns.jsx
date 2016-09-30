@@ -21,7 +21,7 @@ export const playerHeroesOverviewColumns = [{
   tooltip: strings.win_pct_as,
   field: 'win',
   width: 2,
-  displayFn: (row) => (<TablePercent val={getPercentWin(row.win, row.games)} />),
+  displayFn: (row) => <TablePercent val={getPercentWin(row.win, row.games)} />,
   sortFn: (row) => (row.win / row.games),
 }];
 
@@ -36,7 +36,7 @@ const restColumns = [{
   tooltip: strings.win_pct_with,
   field: 'with_win',
   width: 2,
-  displayFn: (row) => (<TablePercent val={getPercentWin(row.with_win, row.with_games)} />),
+  displayFn: (row) => <TablePercent val={getPercentWin(row.with_win, row.with_games)} />,
   sortFn: (row) => (row.with_win / row.with_games),
 }, {
   displayName: strings.th_against_games,
@@ -49,7 +49,7 @@ const restColumns = [{
   tooltip: strings.win_pct_against,
   field: 'against_win',
   width: 2,
-  displayFn: (row) => (<TablePercent val={getPercentWin(row.against_win, row.against_games)} />),
+  displayFn: (row) => <TablePercent val={getPercentWin(row.against_win, row.against_games)} />,
   sortFn: (row) => (row.against_win / row.against_games),
 }];
 
