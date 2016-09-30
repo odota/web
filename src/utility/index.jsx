@@ -1,22 +1,22 @@
 import React from 'react';
 import {
-  Link
+  Link,
 } from 'react-router';
 import constants from 'dotaconstants';
 import {
-  API_HOST
+  API_HOST,
 } from 'config';
 import styles from 'components/palette.css';
 import {
   TableLink,
-  TableHeroImage
+  TableHeroImage,
 } from 'components/Table';
 import {
-  KDA
+  KDA,
 } from 'components/Visualizations';
 
 export {
-  default as bucketizeColumns
+  default as bucketizeColumns,
 }
 from './bucketizeColumns';
 
@@ -65,7 +65,7 @@ export function fromNow(input) {
   if (diff < 0) {
     return 'in the future';
   } else if (diff < 2) {
-    return `just now`;
+    return 'just now';
   } else if (diff < (minute * 2)) {
     return `${diff.toFixed(0)} seconds ago`;
   } else if (diff < (hour * 2)) {
@@ -76,9 +76,8 @@ export function fromNow(input) {
     return `${(diff / day).toFixed(0)} days ago`;
   } else if (diff < (year * 2)) {
     return `${(diff / month).toFixed(0)} months ago`;
-  } else {
-    return `${(diff / year).toFixed(0)} years ago`;
   }
+  return `${(diff / year).toFixed(0)} years ago`;
 }
 
 export const getPercentWin = (wins, games) => (games ? Number(((wins * 100) / games).toFixed(2)) : 0);
@@ -167,7 +166,7 @@ export const transformations = {
 // (once I get to the tooltips).
 
 const transformMatchItem = ({
-  field
+  field,
 }) => {
   if (field === 0) {
     return false;
