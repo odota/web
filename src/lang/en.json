@@ -102,7 +102,7 @@
   "result": "Whether the player won or lost",
   "match_id": "The ID of the match",
   "game_mode": "The game mode of the match",
-  "skill": "The skill bracket of the match.<br>Approximate MMR cutoffs:<br><3200: Normal<br>3200-3700: High<br>>3700: Very High",
+  "skill": "Approximate MMR cutoffs for the brackets are 0, 3200 and 3700",
   "ended": "The time the match ended",
   "pick_order": "Order in which the player picked",
   "throw": "Maximum gold advantage in a lost game",

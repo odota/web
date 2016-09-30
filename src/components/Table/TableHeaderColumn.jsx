@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
+import uuid from 'node-uuid';
 import { TableHeaderColumn as MaterialTableHeaderColumn } from 'material-ui/Table';
 import {
   getWidthStyle,
@@ -8,7 +9,7 @@ import {
 import styles from './Table.css';
 
 export default ({ column, sortClick, sortField, sortState, totalWidth }) => {
-  const tooltipId = column.field + Math.random().toString(16).slice(2);
+  const tooltipId = uuid.v4();
 
   return (
     <MaterialTableHeaderColumn
@@ -24,10 +25,9 @@ export default ({ column, sortClick, sortField, sortState, totalWidth }) => {
             {column.sortFn && getSortIcon(sortState, sortField, column.field, { height: 14, width: 14 })}
             {column.tooltip &&
               <ReactTooltip id={tooltipId} place="top" type="light" effect="solid">
-                <div
-                  dangerouslySetInnerHTML={{ __html: column.tooltip }}
-                  className={styles.headerTooltip}
-                />
+                <div className={styles.headerTooltip}>
+                  {column.tooltip}
+                </div>
               </ReactTooltip>
             }
           </div>
