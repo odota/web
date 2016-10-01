@@ -35,7 +35,7 @@ const Trend = ({ trendName = trendNames[0], columns, router, playerId }) => (
 );
 
 const getData = props => {
-  props.getPlayerMatches(props.playerId, { project: trendNames }, undefined, false);
+  props.getPlayerMatches(props.playerId, { project: trendNames }, true);
 };
 
 class RequestLayer extends React.Component {
