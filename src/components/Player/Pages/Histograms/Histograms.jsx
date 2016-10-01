@@ -1,21 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Graph } from 'components/Visualizations';
 import { getPlayerHistogram } from 'actions';
 import { playerHistogram } from 'reducers';
 import { withRouter } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import { deSnake } from 'utility';
-import histogramNames from './histogramNames';
+import { HistogramGraph } from 'components/Visualizations';
 import styles from './Histograms.css';
-
-
-const getAxis = (name, show = true) => ({
-  label: {
-    text: name,
-    show,
-  },
-});
+import histogramNames from './histogramNames';
 
 const selectHistogram = (router, histogramName, playerId) => {
   router.push(`/players/${playerId}/histograms/${histogramName}`);
@@ -34,13 +26,7 @@ const Histogram = ({ histogramName = histogramNames[0], columns, router, playerI
         </FlatButton>
       ))}
     </div>
-    <Graph
-      columns={columns}
-      name={deSnake(histogramName)}
-      type="bar"
-      xAxis={getAxis(histogramName)}
-      yAxis={getAxis('Matches')}
-    />
+    <HistogramGraph columns={columns} />
   </div>
 );
 

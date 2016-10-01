@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { LineGraph } from 'components/Visualizations';
+import { TrendGraph } from 'components/Visualizations';
 import { getPlayerMatches } from 'actions';
 import { playerMatches } from 'reducers';
 import { getCumulativeDataByField } from 'selectors';
@@ -9,13 +9,6 @@ import FlatButton from 'material-ui/FlatButton';
 import { deSnake } from 'utility';
 import styles from './Trends.css';
 import trendNames from './trendNames';
-
-const getAxis = (name, show = true) => ({
-  label: {
-    text: name,
-    show,
-  },
-});
 
 const selectTrend = (router, trendName, playerId) => {
   router.push(`/players/${playerId}/trends/${trendName}`);
@@ -34,12 +27,9 @@ const Trend = ({ trendName = trendNames[0], columns, router, playerId }) => (
         </FlatButton>
       ))}
     </div>
-    <LineGraph
+    <TrendGraph
       columns={columns}
       name={deSnake(trendName)}
-      type="spline"
-      xAxis={getAxis(trendName)}
-      yAxis={getAxis('Matches')}
     />
   </div>
 );
