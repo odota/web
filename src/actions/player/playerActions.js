@@ -28,7 +28,7 @@ const getPlayerError = (payload, id) => ({
   id,
 });
 
-export const getPlayer = (accountId, isUser) => (dispatch, getState) => {
+export const getPlayer = (accountId) => (dispatch, getState) => {
   // we are checking to see if the player object exists here.
   if (player.isLoaded(getState(), accountId)) {
     dispatch(getPlayerOk(player.getPlayer(getState(), accountId), accountId));

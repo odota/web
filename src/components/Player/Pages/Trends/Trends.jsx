@@ -1,10 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { TrendGraph } from 'components/Visualizations';
-import {
-  getPlayerMatches,
-  defaultPlayerMatchesOptions,
- } from 'actions';
+import { getPlayerMatches } from 'actions';
 import { playerMatches } from 'reducers';
 import { getCumulativeDataByField } from 'selectors';
 import { withRouter } from 'react-router';
