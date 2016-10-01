@@ -23,7 +23,7 @@
 
 .subText {
   font-size: 12px !important;
-  opacity: .6;
+  color: color(var(--colorMuted) lightness(60%));
   text-overflow: initial !important;
   display: block;
   margin-top: 1px;

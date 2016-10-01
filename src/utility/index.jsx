@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
+import uuid from 'node-uuid';
 import {
   Link,
 } from 'react-router';
@@ -62,7 +64,7 @@ const day = hour * 24;
 const month = day * 30;
 const year = month * 12;
 
-export function fromNow(input) {
+export function fromNow(input, tooltip = false) {
   if (!Number(input)) {
     // Default to empty string if invalid input
     return '';
@@ -73,22 +75,46 @@ export function fromNow(input) {
   // Diff the current and input timestamps in seconds
   const diff = (now.getTime() - date.getTime()) / 1000;
 
+  let fromNow;
+
   if (diff < 0) {
-    return 'in the future';
+    fromNow = 'in the future';
   } else if (diff < 2) {
-    return 'just now';
+    fromNow = 'just now';
   } else if (diff < (minute * 2)) {
-    return `${diff.toFixed(0)} seconds ago`;
+    fromNow = `${diff.toFixed(0)} seconds ago`;
   } else if (diff < (hour * 2)) {
-    return `${(diff / minute).toFixed(0)} minutes ago`;
+    fromNow = `${(diff / minute).toFixed(0)} minutes ago`;
   } else if (diff < (day * 2)) {
-    return `${(diff / hour).toFixed(0)} hours ago`;
+    fromNow = `${(diff / hour).toFixed(0)} hours ago`;
   } else if (diff < (month * 2)) {
-    return `${(diff / day).toFixed(0)} days ago`;
+    fromNow = `${(diff / day).toFixed(0)} days ago`;
   } else if (diff < (year * 2)) {
-    return `${(diff / month).toFixed(0)} months ago`;
+    fromNow = `${(diff / month).toFixed(0)} months ago`;
+  } else {
+    fromNow = `${(diff / year).toFixed(0)} years ago`;
   }
-  return `${(diff / year).toFixed(0)} years ago`;
+
+  if (tooltip) {
+    const tooltipId = uuid.v4();
+
+    return (
+      <div data-tip data-for={tooltipId}>
+        {fromNow}
+        <ReactTooltip id={tooltipId} place="right" type="light" effect="float">
+          { // Country Code Language List http://www.fincher.org/Utilities/CountryLanguageList.shtml
+            date.toLocaleDateString('en-US', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+            })
+          }
+        </ReactTooltip>
+      </div>
+    );
+  }
+
+  return fromNow;
 }
 
 export const getPercentWin = (wins, games) => (games ? Number(((wins * 100) / games).toFixed(2)) : 0);
@@ -101,7 +127,7 @@ const getSubtext = row => {
     return isRadiant(row.player_slot) ? 'Radiant' : 'Dire';
   }
   if (row.last_played) {
-    return fromNow(row.last_played);
+    return fromNow(row.last_played, true);
   }
   return null;
 };
@@ -137,7 +163,7 @@ export const transformations = {
           {getString(field)}
         </span>
         <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
-          {fromNow(row.start_time + row.duration)}
+          {fromNow(row.start_time + row.duration, true)}
         </span>
       </div>);
   },
@@ -151,8 +177,8 @@ export const transformations = {
       </span>
     </div>
   ),
-  start_time: (row, col, field) => fromNow(field),
-  last_played: (row, col, field) => fromNow(field),
+  start_time: (row, col, field) => fromNow(field, true),
+  last_played: (row, col, field) => fromNow(field, true),
   duration: (row, col, field) => formatSeconds(field),
   region: (row, col, field) => region[field],
   leaver_status: (row, col, field) => (leaverStatus[field] ? leaverStatus[field].name : field),
