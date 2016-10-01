@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import c3 from 'c3';
 import uuid from 'node-uuid';
 import npmColor from 'color';
+import strings from 'lang';
 
 const Graph = ({ id, height = 320 }) => (
   <div style={{ height }} id={id} />
@@ -17,7 +18,7 @@ const generateGraph = ({ columns, type, name, height = 320 }, id) => {
         x: 'x',
         columns: [
           ['x', ...xVals],
-          [name, ...columnVals],
+          [strings.th_matches, ...columnVals],
         ],
         color: (color, data) => {
           if (data.index || data.index === 0) {
