@@ -1,5 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {
+  connect,
+} from 'react-redux';
 import {
   getPlayerMatches,
   setPlayerMatchesSort,
@@ -8,9 +10,16 @@ import {
   sortPlayerMatches,
   transformPlayerMatchesById,
 } from 'selectors';
-import { playerMatches } from 'reducers';
-import { createTable, TableContainer } from 'components/Table';
-import { TableFilterForm } from 'components/Form';
+import {
+  playerMatches,
+} from 'reducers';
+import {
+  createTable,
+  TableContainer,
+} from 'components/Table';
+import {
+  TableFilterForm,
+} from 'components/Form';
 import playerMatchesColumns from './playerMatchesColumns';
 
 const PlayerMatchesTable = createTable(
@@ -19,7 +28,9 @@ const PlayerMatchesTable = createTable(
   setPlayerMatchesSort
 );
 
-const Matches = ({ playerId }) => (
+const Matches = ({
+  playerId,
+}) => (
   <div>
     <TableFilterForm submitAction={getPlayerMatches} id={playerId} page="matches" />
     <TableContainer title="recent matches">
@@ -48,8 +59,12 @@ class RequestLayer extends React.Component {
   }
 }
 
+const defaultOptions = {
+  limit: null,
+};
+
 const mapDispatchToProps = (dispatch) => ({
-  getPlayerMatches: (playerId, options) => dispatch(getPlayerMatches(playerId, options)),
+  getPlayerMatches: (playerId, options = defaultOptions) => dispatch(getPlayerMatches(playerId, options)),
 });
 
 export default connect(null, mapDispatchToProps)(RequestLayer);

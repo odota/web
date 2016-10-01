@@ -1,4 +1,4 @@
-/* global window */
+/* global window ace */
 import React from 'react';
 import fetch from 'isomorphic-fetch';
 import { API_HOST } from 'config';
@@ -19,10 +19,11 @@ import Spinner from '../Spinner';
 import queries from './queries';
 // import {blue300} from 'material-ui/styles/colors';
 
-// <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"></script>
+/*
 const ace = require('brace');
 require('brace/mode/sql');
 require('brace/theme/monokai');
+*/
 
 function jsonResponse(response) {
   return response.json();

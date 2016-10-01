@@ -1,5 +1,5 @@
 import React from 'react';
-import constants from 'dotaconstants';
+import { heroes } from 'dotaconstants';
 import { connect } from 'react-redux';
 // import { Card } from 'material-ui/Card';
 import { Tabs, Tab } from 'material-ui/Tabs';
@@ -46,7 +46,7 @@ const CastTable = ({ match, dataField, columns }) => (
   <Tabs>
     {match.players.map((p) =>
       (
-      <Tab key={p.player_slot} icon={<img src={`${API_HOST}${constants.heroes[p.hero_id].img}`} height={30} role="presentation" />}>
+      <Tab key={p.player_slot} icon={<img src={`${API_HOST}${heroes[p.hero_id].img}`} height={30} role="presentation" />}>
         <Table
           data={p[dataField] || []}
           columns={columns}
@@ -70,7 +70,7 @@ const CrossTable = ({ match, field1, field2 }) => (
       {match.players.slice(match.players.length / 2, match.players.length).map(p => (<TableRow key={p.hero_id}>
         <TableRowColumn>{heroTd(p, 'hero_id', p.hero_id, true)}</TableRowColumn>
         {match.players.slice(0, match.players.length / 2).map(p2 => {
-          const hero2 = constants.heroes[p2.hero_id] || {};
+          const hero2 = heroes[p2.hero_id] || {};
           return <TableRowColumn key={p2.hero_id}>{`${(p[field1] || {})[hero2.name] || 0}/${(p[field2] || {})[hero2.name] || 0}`}</TableRowColumn>;
         })}
       </TableRow>))}

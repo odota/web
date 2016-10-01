@@ -8,7 +8,7 @@ export default ({ text, val }) => (
       {text || val}
     </div>
     <div className={styles.TablePercent}>
-      <div style={{ width: `${val}%`, backgroundColor: `${val >= 50 ? palette.green : palette.low}` }} />
+      <div style={{ width: `${val}%`, backgroundColor: `${val >= 50 ? palette.green : palette.yelor}` }} />
       <div style={{ width: `${100 - val}%`, backgroundColor: palette.gray }} />
     </div>
   </div>

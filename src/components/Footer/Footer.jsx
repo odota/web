@@ -11,9 +11,7 @@ const Footer = () => (
   <footer className={styles.footer}>
     <Row>
       <Col xs>
-        <big>
-          <AppLogo style={{ color: styles.textPrimary }} />
-        </big>
+        <AppLogo />
         <SocialLinks />
         <hr />
         <Links />

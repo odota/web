@@ -1,7 +1,13 @@
 import fetch from 'isomorphic-fetch';
-import { API_HOST } from 'config';
-import { playerMatches } from 'reducers';
-import { getUrl, defaultOptions } from 'actions/utility';
+import {
+  API_HOST,
+} from 'config';
+import {
+  playerMatches,
+} from 'reducers';
+import {
+  getUrl,
+} from 'actions/utility';
 
 const url = playerId => `/api/players/${playerId}/matches`;
 
@@ -25,7 +31,10 @@ export const setPlayerMatchesSort = (sortField, sortState, sortFn, id) => ({
   id,
 });
 
-export const getPlayerMatchesRequest = (id) => ({ type: REQUEST, id });
+export const getPlayerMatchesRequest = (id) => ({
+  type: REQUEST,
+  id,
+});
 
 export const getPlayerMatchesOk = (payload, id) => ({
   type: OK,
@@ -39,16 +48,20 @@ export const getPlayerMatchesError = (payload, id) => ({
   id,
 });
 
+const defaultOptions = {
+  project: ['hero_id', 'start_time', 'duration', 'player_slot', 'radiant_win', 'game_mode', 'version', 'kills', 'deaths', 'assists', 'skill'],
+};
+
 export const getPlayerMatches = (playerId, options = {}, host = API_HOST) => (dispatch, getState) => {
-  let modifiedOptions = options;
-  if (Object.keys(options).length === 0) modifiedOptions = defaultOptions;
+  const modifiedOptions = Object.assign({}, defaultOptions, options);
   if (playerMatches.isLoaded(getState(), playerId)) {
     dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId));
   } else {
     dispatch(getPlayerMatchesRequest(playerId));
   }
-  modifiedOptions.project = ['skill'].concat(modifiedOptions.project || []);
-  return fetch(`${host}${getUrl(playerId, modifiedOptions, url)}`, { credentials: 'include' })
+  return fetch(`${host}${getUrl(playerId, modifiedOptions, url)}`, {
+    credentials: 'include',
+  })
     .then(response => response.json())
     .then(json => dispatch(getPlayerMatchesOk(json, playerId)))
     .catch(error => dispatch(getPlayerMatchesError(error, playerId)));

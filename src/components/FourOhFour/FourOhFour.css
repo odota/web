@@ -9,8 +9,7 @@
 }
 
 .message {
-  font-family: var(--fontFamilyLight);
-  font-weight: 300;
+  font-weight: var(--fontWeightLight);
   text-align: center;
   font-size: 32px;
   width: 420px;
@@ -18,8 +17,8 @@
 }
 
 .FourOhFour {
-  background-color: var(--textPrimaryColor);
-  color: var(--textSecondaryColor);
+  background-color: var(--textColorPrimary);
+  color: var(--textColorSecondary);
   text-transform: uppercase;
   padding: 6px 10px;
   font-family: 'Courier New', Courier, monospace;

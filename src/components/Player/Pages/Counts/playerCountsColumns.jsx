@@ -2,25 +2,27 @@
 // import { PercentContainer } from 'components/ColumnComponents';
 import React from 'react';
 import { transformations } from 'utility';
-import PercentContainer from 'components/PercentContainer';
+import { TablePercent } from 'components/Visualizations';
+import strings from 'lang';
 
 export default [{
-  displayName: 'Category',
+  displayName: strings.th_category,
   field: 'category',
   width: 2,
+  sortFn: true,
   displayFn: transformations.category,
 }, {
-  displayName: 'Matches',
+  displayName: strings.th_matches,
   field: 'matches',
   width: 2,
   sortFn: 1,
   displayFn: transformations.matches,
 }, {
-  displayName: 'Win %',
+  displayName: strings.th_win,
   field: 'winPercent',
   width: 2,
   sortFn: 1,
-  displayFn: (row, column, field) => <PercentContainer percent={field.toFixed(1)} />,
+  displayFn: (row, column, field) => <TablePercent val={Number(field.toFixed(1))} />,
 }];
 
   // displayName: 'Win %',
