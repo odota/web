@@ -17,7 +17,7 @@
 
 .arrow {
   composes: page;
-  color: var(--accentColor) !important;
+  color: var(--colorYelor) !important;
 }
 
 .currentPage {

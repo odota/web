@@ -7,5 +7,5 @@
 .percent {
   composes: TablePercent from "./TablePercent.css";
   width: calc(300% + 36px);
-  left: -10px;
+  left: -7px;
 }

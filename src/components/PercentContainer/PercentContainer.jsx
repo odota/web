@@ -14,7 +14,7 @@ export default ({ wins, games, percent }) => (
       color={styles.lineColor}
       mode="determinate"
       value={percent || getPercentWin(wins, games)}
-      color={styles.progressColor}
+      color={styles.yelor}
     />
   </div>
 );
