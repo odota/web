@@ -1,9 +1,9 @@
 import fetch from 'isomorphic-fetch';
 import {
-  API_HOST
+  API_HOST,
 } from 'config';
 import {
-  playerMatches
+  playerMatches,
 } from 'reducers';
 import {
   getUrl,
@@ -33,7 +33,7 @@ export const setPlayerMatchesSort = (sortField, sortState, sortFn, id) => ({
 
 export const getPlayerMatchesRequest = (id) => ({
   type: REQUEST,
-  id
+  id,
 });
 
 export const getPlayerMatchesOk = (payload, id) => ({
@@ -49,7 +49,7 @@ export const getPlayerMatchesError = (payload, id) => ({
 });
 
 const defaultOptions = {
-  project: ['hero_id', 'start_time', 'duration', 'player_slot', 'radiant_win', 'game_mode', 'version', 'kills', 'deaths', 'assists', 'skill']
+  project: ['hero_id', 'start_time', 'duration', 'player_slot', 'radiant_win', 'game_mode', 'version', 'kills', 'deaths', 'assists', 'skill'],
 };
 
 export const getPlayerMatches = (playerId, options = {}, host = API_HOST) => (dispatch, getState) => {
@@ -60,8 +60,8 @@ export const getPlayerMatches = (playerId, options = {}, host = API_HOST) => (di
     dispatch(getPlayerMatchesRequest(playerId));
   }
   return fetch(`${host}${getUrl(playerId, modifiedOptions, url)}`, {
-      credentials: 'include'
-    })
+    credentials: 'include',
+  })
     .then(response => response.json())
     .then(json => dispatch(getPlayerMatchesOk(json, playerId)))
     .catch(error => dispatch(getPlayerMatchesError(error, playerId)));

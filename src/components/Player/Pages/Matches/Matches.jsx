@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  connect
+  connect,
 } from 'react-redux';
 import {
   getPlayerMatches,
@@ -11,14 +11,14 @@ import {
   transformPlayerMatchesById,
 } from 'selectors';
 import {
-  playerMatches
+  playerMatches,
 } from 'reducers';
 import {
   createTable,
-  TableContainer
+  TableContainer,
 } from 'components/Table';
 import {
-  TableFilterForm
+  TableFilterForm,
 } from 'components/Form';
 import playerMatchesColumns from './playerMatchesColumns';
 
@@ -29,7 +29,7 @@ const PlayerMatchesTable = createTable(
 );
 
 const Matches = ({
-  playerId
+  playerId,
 }) => (
   <div>
     <TableFilterForm submitAction={getPlayerMatches} id={playerId} page="matches" />
@@ -60,7 +60,7 @@ class RequestLayer extends React.Component {
 }
 
 const defaultOptions = {
-  limit: null
+  limit: null,
 };
 
 const mapDispatchToProps = (dispatch) => ({
