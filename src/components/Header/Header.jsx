@@ -10,19 +10,30 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 // import MenuItem from 'material-ui/MenuItem';
 // import IconMenu from 'material-ui/IconMenu';
 // import AppBar from 'material-ui/AppBar';
-// import { NavDrawer } from '../NavBar';
+import strings from 'lang';
 import AccountWidget from '../AccountWidget';
 import styles from './Header.css';
 import SearchForm from '../Search/SearchForm';
-import navbarPages from './Pages';
 import AppLogo from '../App/AppLogo';
 
-/*
-const matchPagesMapped = (matchId) => matchPages.map((e) => Object.assign({}, e, {
-  route: `/matches/${matchId}/${e.name.toLowerCase()}`,
-  label: e.name,
-}));
-*/
+const navbarPages = [{
+  name: strings.request,
+  path: '/request',
+}, {
+  name: strings.distributions,
+  path: '/distributions',
+}, {
+  name: strings.heroes,
+  path: '/heroes',
+}, {
+  name: strings.ingame,
+  sponsored: true,
+  path: '/become-the-gamer',
+}, {
+  name: strings.blog,
+  path: '//odota.github.io/blog',
+  external: true,
+}];
 
 // openMenu
 const Header = ({ location }) => (
@@ -50,26 +61,6 @@ const Header = ({ location }) => (
     </Toolbar>
   </div>
 );
-
-/*
-    <AppBar
-      className={styles.header}
-      iconElementRight={(<AccountWidget />)}
-      iconStyleRight={{ marginRight: 0 }}
-      title={(<Logo />)}
-      onLeftIconButtonTouchTap={() => openMenu()}
-      zDepth={0}
-    />
-*/
-/*
-<IconMenu
-  iconButtonElement={
-    <IconButton touch>
-      <MoreVertIcon />
-    </IconButton>
-  }
->
-*/
 
 const mapDispatchToProps = (dispatch) => ({
   openMenu: () => dispatch(openMenu()),
