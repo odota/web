@@ -7,6 +7,7 @@ import { Table as MaterialTable, TableRow, TableRowColumn, TableBody } from 'mat
 import { getMatch, setMatchSort } from 'actions';
 import { REDUCER_KEY } from 'reducers';
 import { API_HOST } from 'config';
+import strings from 'lang';
 import { createTable } from '../Table';
 import Table from '../Table/Table';
 import MatchHeader from './MatchHeader';
@@ -105,12 +106,12 @@ class RequestLayer extends React.Component {
       <div>
         <MatchHeader match={match} user={this.props.user} />
         <Tabs>
-          <Tab label="Overview">
+          <Tab label={strings.tab_overview}>
             <MatchPlayersTable columns={overviewColumns} />
             <MatchPlayersTable columns={abUpgradeColumns} />
             <BuildingMap match={match} loading={this.props.loading} />
           </Tab>
-          <Tab label="Benchmarks">
+          <Tab label={strings.tab_benchmarks}>
             <MatchPlayersTable columns={benchmarksColumns(match)} />
           </Tab>
           <Tab label="Crosstables">
@@ -127,7 +128,7 @@ class RequestLayer extends React.Component {
             <MatchPlayersTable columns={unitKillsColumns} />
             <MatchPlayersTable columns={lastHitsTimesColumns(match)} />
           </Tab>
-          <Tab label="Purchases">
+          <Tab label={strings.tab_purchases}>
             <MatchPlayersTable columns={purchaseColumns} />
             <MatchPlayersTable columns={purchaseTimesColumns(match)} />
           </Tab>
@@ -137,15 +138,15 @@ class RequestLayer extends React.Component {
           <Tab label="Items">
             <CastTable match={match} dataField="item_uses_arr" columns={itemUseColumns} />
           </Tab>
-          <Tab label="Objectives">
+          <Tab label={strings.tab_objectives}>
             <MatchPlayersTable columns={runesColumns} />
           </Tab>
-          <Tab label="Actions">
+          <Tab label={strings.tab_actions}>
             <MatchPlayersTable columns={actionsColumns} />
           </Tab>
-          <Tab label="Analysis" />
+          <Tab label={strings.tab_analysis} />
           <Tab label="Cosmetics" />
-          <Tab label="Chat">
+          <Tab label={strings.tab_chat}>
             <Table data={(match.chat || []).map(c => Object.assign({}, c, match.players[c.slot]))} columns={chatColumns} />
           </Tab>
         </Tabs>

@@ -14,7 +14,7 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import AccountWidget from '../AccountWidget';
 import styles from './Header.css';
 import SearchForm from '../Search/SearchForm';
-import { navbarPages } from './Pages';
+import navbarPages from './Pages';
 import AppLogo from '../App/AppLogo';
 
 /*
