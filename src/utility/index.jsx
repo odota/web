@@ -20,10 +20,10 @@ import {
 import styles from 'components/palette.css';
 import {
   TableLink,
-  TableHeroImage,
 } from 'components/Table';
 import {
   KDA,
+  TableHeroImage,
 } from 'components/Visualizations';
 
 export {

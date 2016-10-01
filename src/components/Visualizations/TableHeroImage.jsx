@@ -10,10 +10,10 @@ const TableHeroImage = ({ parsed, imageUrl, heroName, subText }) => (
       <div className={styles.parsed}>
         <div data-tip data-for="parsed">
           <ActionDoneAll color={styles.blue} className={styles.actionDoneAll} />
+          <ReactTooltip id="parsed" place="right" type="light" effect="solid">
+            Replay has been parsed for additional statistics
+          </ReactTooltip>
         </div>
-        <ReactTooltip id="parsed" place="top" type="light" effect="float">
-          Replay has been parsed for additional statistics
-        </ReactTooltip>
       </div>
     )}
     <img
@@ -32,10 +32,10 @@ const TableHeroImage = ({ parsed, imageUrl, heroName, subText }) => (
   </div>
 );
 
-const { bool, string } = React.PropTypes;
+const { number, string } = React.PropTypes;
 
 TableHeroImage.propTypes = {
-  parsed: bool,
+  parsed: number,
   imageUrl: string,
   heroName: string,
   subText: string,
