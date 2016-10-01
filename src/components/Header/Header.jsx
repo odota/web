@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { openMenu } from 'actions';
 import { Link } from 'react-router';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
@@ -22,10 +24,8 @@ const matchPagesMapped = (matchId) => matchPages.map((e) => Object.assign({}, e,
 }));
 */
 
-export default ({
-  // openMenu,
-  location,
-}) => (
+// openMenu
+const Header = ({ location }) => (
   <div>
     <Toolbar className={styles.header}>
       <ToolbarGroup className={styles.verticalAlign}>
@@ -42,9 +42,7 @@ export default ({
       </ToolbarGroup>
       <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 20 }}>
         <ActionSearch style={{ marginRight: 8, opacity: '.6' }} />
-        <SearchForm
-          location={location}
-        />
+        <SearchForm location={location} />
       </ToolbarGroup>
       <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 'auto' }}>
         <AccountWidget />
@@ -72,3 +70,9 @@ export default ({
   }
 >
 */
+
+const mapDispatchToProps = (dispatch) => ({
+  openMenu: () => dispatch(openMenu()),
+});
+
+export default connect(null, mapDispatchToProps)(Header);
