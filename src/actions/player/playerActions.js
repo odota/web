@@ -28,14 +28,14 @@ const getPlayerError = (payload, id) => ({
   id,
 });
 
-export const getPlayer = (accountId, isUser, host = API_HOST) => (dispatch, getState) => {
+export const getPlayer = (accountId, isUser) => (dispatch, getState) => {
   // we are checking to see if the player object exists here.
   if (player.isLoaded(getState(), accountId)) {
     dispatch(getPlayerOk(player.getPlayer(getState(), accountId), accountId));
   } else {
     dispatch(getPlayerRequest(accountId));
   }
-  return fetch(`${host}${url}/${accountId}`)
+  return fetch(`${API_HOST}${url}/${accountId}`)
     .then(response => response.json(accountId))
     .then(json => {
       dispatch(getPlayerOk(json, accountId));

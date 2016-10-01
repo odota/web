@@ -16,7 +16,7 @@ const getMatches = fieldName =>
           }
           return cumulativeList;
         }, [])
-        .map((value, index) => ({ x: index, value: Number((value / (index + 1)).toFixed(2)) }));
+        .map((value, index) => ({ x: index + 1, value: Number((value / (index + 1)).toFixed(2)) }));
 
 const getCumulativeDataByField = fieldName => id => createSelector(
   [getMatches(fieldName)(id)],
