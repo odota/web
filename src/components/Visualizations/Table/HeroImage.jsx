@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
-
-import styles from './TableHeroImage.css';
+import strings from 'lang';
+import styles from './HeroImage.css';
 
 const TableHeroImage = ({ parsed, imageUrl, heroName, subText }) => (
   <div className={styles.container}>
@@ -11,7 +11,7 @@ const TableHeroImage = ({ parsed, imageUrl, heroName, subText }) => (
         <div data-tip data-for="parsed">
           <ActionDoneAll color={styles.blue} className={styles.actionDoneAll} />
           <ReactTooltip id="parsed" place="right" type="light" effect="solid">
-            Replay has been parsed for additional statistics
+            {strings.parsed}
           </ReactTooltip>
         </div>
       </div>

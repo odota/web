@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactTooltip from 'react-tooltip';
-import uuid from 'node-uuid';
 import {
   Link,
 } from 'react-router';
@@ -26,6 +24,7 @@ import {
 import {
   KDA,
   TableHeroImage,
+  FromNowTooltip,
 } from 'components/Visualizations';
 
 export {
@@ -96,22 +95,7 @@ export function fromNow(input, tooltip = false) {
   }
 
   if (tooltip) {
-    const tooltipId = uuid.v4();
-
-    return (
-      <div data-tip data-for={tooltipId}>
-        {fromNow}
-        <ReactTooltip id={tooltipId} place="right" type="light" effect="float">
-          { // Country Code Language List http://www.fincher.org/Utilities/CountryLanguageList.shtml
-            date.toLocaleDateString('en-US', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
-            })
-          }
-        </ReactTooltip>
-      </div>
-    );
+    return <FromNowTooltip fromNow={fromNow} date={date} />;
   }
 
   return fromNow;
