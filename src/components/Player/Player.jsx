@@ -19,6 +19,7 @@ import {
   HistogramsPage,
   RecordsPage,
   CountsPage,
+  TrendsPage,
 } from './Pages';
 import { playerPages } from '../Header/Pages';
 
@@ -48,6 +49,8 @@ const getPlayerSubroute = (info, playerId, subInfo) => {
       return <RecordsPage playerId={playerId} />;
     case 'counts':
       return <CountsPage playerId={playerId} />;
+    case 'trends':
+      return <TrendsPage playerId={playerId} trendName={subInfo} />;
     default:
       return <OverviewPage playerId={playerId} />;
   }

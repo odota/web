@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Graph } from 'components/Visualizations';
 import { getPlayerMatches } from 'actions';
 import { playerMatches } from 'reducers';
+import { getCumulativeDataByField } from 'selectors';
 import { withRouter } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import { deSnake } from 'utility';
-import trendNames from './trendNames';
 import styles from './Trends.css';
-
+import trendNames from './trendNames';
 
 const getAxis = (name, show = true) => ({
   label: {
@@ -37,7 +37,7 @@ const Trend = ({ trendName = trendNames[0], columns, router, playerId }) => (
     <Graph
       columns={columns}
       name={deSnake(trendName)}
-      type="line"
+      type="spline"
       xAxis={getAxis(trendName)}
       yAxis={getAxis('Matches')}
     />
@@ -45,7 +45,7 @@ const Trend = ({ trendName = trendNames[0], columns, router, playerId }) => (
 );
 
 const getData = props => {
-  props.getPlayerMatches(props.playerId);
+  props.getPlayerMatches(props.playerId, { project: trendNames }, undefined, false);
 };
 
 class RequestLayer extends React.Component {
@@ -65,9 +65,9 @@ class RequestLayer extends React.Component {
 }
 
 const mapStateToProps = (state, { trendName = trendNames[0], playerId }) => ({
-  columns: playerMatches.getTrendList(trendName)(state, playerId),
-  loading: playerMatches.getLoading(trendName)(state, playerId),
-  error: playerMatches.getError(trendName)(state, playerId),
+  columns: getCumulativeDataByField(trendName)(playerId)(state),
+  loading: playerMatches.getLoading(state, playerId),
+  error: playerMatches.getError(state, playerId),
 });
 
 export default connect(mapStateToProps, { getPlayerMatches })(withRouter(RequestLayer));

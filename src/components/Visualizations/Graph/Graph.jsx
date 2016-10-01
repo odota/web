@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import c3 from 'c3';
 import uuid from 'node-uuid';
 import npmColor from 'color';
-import strings from 'lang';
 
 const Graph = ({ id, height = 320 }) => (
   <div style={{ height }} id={id} />

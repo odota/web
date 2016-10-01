@@ -7,3 +7,4 @@ export { default as RankingsPage } from './Rankings/Rankings';
 export { default as HistogramsPage } from './Histograms/Histograms';
 export { default as RecordsPage } from './Records/Records';
 export { default as CountsPage } from './Counts/Counts';
+export { default as TrendsPage } from './Trends/Trends';

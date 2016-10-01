@@ -54,6 +54,7 @@ const defaultOptions = {
 
 export const getPlayerMatches = (playerId, options = {}, host = API_HOST) => (dispatch, getState) => {
   const modifiedOptions = Object.assign({}, defaultOptions, options);
+  // modifiedOptions.project = ['skill'].concat(modifiedOptions.project || []);
   if (playerMatches.isLoaded(getState(), playerId)) {
     dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId));
   } else {

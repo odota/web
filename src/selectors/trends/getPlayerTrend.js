@@ -1,12 +1,33 @@
 import { createSelector } from 'reselect';
 import { playerMatches } from 'reducers';
 
-// TODO - take in the field name and then return the cumulative array of values
-const getMatches = id => state => playerMatches.getMatchList(state, id);
+// TODO - make this shape fit what graph.jsx is expecting or change graph.jsx
+const getMatches = fieldName =>
+  id =>
+    state =>
+      playerMatches
+        .getMatchList(state, id)
+        .reduce((cumulativeList, match, index) => {
+          if (cumulativeList.length > 0) {
+            const prevTotal = cumulativeList[index - 1];
+            cumulativeList.push(prevTotal + match[fieldName]);
+          } else {
+            cumulativeList.push(match[fieldName]);
+          }
+          return cumulativeList;
+        }, [])
+        .map((value, index) => ({ x: index, value: value / (index || 1) }));
+        // .reduce((bucketizedList, value, index) => {
+        //   if (index % 50 === 0) {
+        //     // bucketizedList.push({ x: index, value });
+        //     bucketizedList.push({ value: value / (index || 1) });
+        //   }
+        //   return bucketizedList;
+        // }, []);
 
-const transformPlayerMatchesById = id => createSelector(
-  [getMatches(id)],
+const getCumulativeDataByField = fieldName => id => createSelector(
+  [getMatches(fieldName)(id)],
   matches => matches
 );
 
-export default transformPlayerMatchesById;
+export default getCumulativeDataByField;
