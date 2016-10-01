@@ -107,7 +107,7 @@ export const camelToSnake = str =>
   str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
 
 const getSubtext = row => {
-  if (row.match_id && (row.player_slot || row.player_slot === 0)) {
+  if (row.match_id && row.player_slot !== undefined) {
     return isRadiant(row.player_slot) ? 'Radiant' : 'Dire';
   }
   if (row.last_played) {
