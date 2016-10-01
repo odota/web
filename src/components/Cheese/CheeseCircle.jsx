@@ -21,7 +21,7 @@ const Cheese = ({ donations, error, loading }) => {
           <CircularProgress mode="determinate" value={Math.min(percent, 100)} size={1.5} className={styles.front} />
           <CircularProgress mode="determinate" value={100} size={1.5} className={styles.back} />
           <div className={styles.cheese}>
-            <IconCheese className={styles.cheeseGlow} />
+            <IconCheese />
             <p className={styles.percent}>
               {(percent < 100) ? cheese : 'Done!'}
             </p>

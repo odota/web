@@ -18,7 +18,7 @@ const LoggedIn = ({ loading, error, playerId, playerName, playerPicture }) => {
 
     return (
       <div className={styles.verticalAlign}>
-        <Link to={`/players/${playerId}/overview`}>
+        <Link to={`/players/${playerId}`}>
           <FlatButton
             label={playerName}
             labelPosition="before"

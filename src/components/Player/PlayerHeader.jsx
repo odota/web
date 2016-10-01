@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { CardHeader } from 'material-ui/Card';
 import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
-import { green500 } from 'material-ui/styles/colors';
 import ReactTooltip from 'react-tooltip';
 import { player } from 'reducers';
 import styles from './PlayerHeader.css';
@@ -34,7 +33,7 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error 
                         height: 18,
                       }}
                     />
-                    <ReactTooltip id="registered" place="top" type="light" effect="float">
+                    <ReactTooltip id="registered" place="top" type="light" effect="solid">
                       Registered user.
                     </ReactTooltip>
                   </div>
@@ -44,7 +43,7 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error 
                   fontSize: 20,
                   top: 5,
                   left: 40,
-                  background: registered ? green500 : 'transparent',
+                  background: registered ? styles.green : 'transparent',
                   width: 18,
                   height: 18,
                 }}

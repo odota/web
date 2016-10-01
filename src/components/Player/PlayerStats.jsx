@@ -62,14 +62,12 @@ export const PlayerStatsCards = ({
           <div>
             <div data-tip data-for="estimate">
               {mmrEstimate.estimate}
-            </div>
-            <ReactTooltip id="estimate" place="right" type="light" effect="float">
-              <div style={{ lineHeight: 1.2 }}>
+              <ReactTooltip id="estimate" place="bottom" type="light" effect="float">
                 Standard deviation: {Math.round(mmrEstimate.stdDev)}
                 <br />
                 Matches: {mmrEstimate.n}
-              </div>
-            </ReactTooltip>
+              </ReactTooltip>
+            </div>
           </div>
         }
         title={

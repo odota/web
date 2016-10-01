@@ -12,8 +12,10 @@ export default () => (
       <CheeseCircle />
     </Col>
     <Col xs>
-      <big>{strings.donation_goal}</big>
-      <p>
+      <big>
+        {strings.donation_goal}
+      </big>
+      <p style={{ marginTop: 5 }}>
         <Link to="/carry">
           {strings.sponsorship}
         </Link>
