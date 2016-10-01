@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Graph } from 'components/Visualizations';
+import { LineGraph } from 'components/Visualizations';
 import { getPlayerMatches } from 'actions';
 import { playerMatches } from 'reducers';
 import { getCumulativeDataByField } from 'selectors';
@@ -34,7 +34,7 @@ const Trend = ({ trendName = trendNames[0], columns, router, playerId }) => (
         </FlatButton>
       ))}
     </div>
-    <Graph
+    <LineGraph
       columns={columns}
       name={deSnake(trendName)}
       type="spline"

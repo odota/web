@@ -41,26 +41,28 @@ const getColumns = (xVals, columnVals, name) => [
 
 const generateGraph = ({ values, columns, type, name, height = 320, winsGraph }, id) => {
   if (columns && columns.length > 0) {
-    const columnVals = columns.map(column => column.games);//(column.games ? column.games : column.value));
+    const columnVals = columns.map(column => column.value);
     const xVals = columns.map(column => column.x);
     const configObject = {
       bindto: `#${id}`,
       data: {
         x: 'x',
         columns: getColumns(xVals, columnVals, name),
-        // color: columns ? colorByPercent(columns) : f => f,
+        color: () => npmColor().rgb(102, 187, 255).rgbString(),
         type,
         size: {
           height,
         },
-        // labels: columns ? getLabels() : f => f,
       },
       axis: {
         x: {
           tick: {
-            values: [xVals[0]],
+            values: [xVals[0], xVals[xVals.length - 1]],
           },
         },
+      },
+      point: {
+        show: false,
       },
     };
     c3.generate(configObject);

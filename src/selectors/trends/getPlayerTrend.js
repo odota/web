@@ -16,14 +16,7 @@ const getMatches = fieldName =>
           }
           return cumulativeList;
         }, [])
-        .map((value, index) => ({ x: index, value: value / (index || 1) }));
-        // .reduce((bucketizedList, value, index) => {
-        //   if (index % 50 === 0) {
-        //     // bucketizedList.push({ x: index, value });
-        //     bucketizedList.push({ value: value / (index || 1) });
-        //   }
-        //   return bucketizedList;
-        // }, []);
+        .map((value, index) => ({ x: index, value: value / (index + 1) }));
 
 const getCumulativeDataByField = fieldName => id => createSelector(
   [getMatches(fieldName)(id)],

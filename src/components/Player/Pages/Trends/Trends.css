@@ -1,7 +1,7 @@
 @import "../../../palette.css";
 
 :export {
-  spinnerColor: var(--textSecondaryColor);
+  spinnerColor: var(--textColorSecondary);
 }
 
 .button {
@@ -15,7 +15,7 @@
 .selectedButton {
   composes: button;
   background-color: var(--primaryLinkColor) !important;
-  color: var(--textSecondaryColor) !important;
+  color: var(--textColorSecondary) !important;
   & > div {
     height: 100%;
     & > div {

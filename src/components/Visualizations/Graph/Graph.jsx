@@ -17,7 +17,7 @@ const generateGraph = ({ columns, type, name, height = 320 }, id) => {
         x: 'x',
         columns: [
           ['x', ...xVals],
-          [strings.th_matches, ...columnVals],
+          [name, ...columnVals],
         ],
         color: (color, data) => {
           if (data.index || data.index === 0) {
