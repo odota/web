@@ -7,7 +7,7 @@ import {
   items,
   heroes,
   patch,
-  regions,
+  region,
   game_mode as gameMode,
   item_ids as itemIds,
   lobby_type as lobbyType,
@@ -119,12 +119,7 @@ export const transformations = {
   start_time: (row, col, field) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
   last_played: (row, col, field) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
   duration: (row, col, field) => formatSeconds(field),
-  region: (row, col, field) => {
-    const reg = Object.keys(regions);
-    const byRegionId = (key) => (parseInt(reg[key].region, 10) === field ? key : null);
-
-    return reg.find(byRegionId);
-  },
+  region: (row, col, field) => region[field],
   leaver_status: (row, col, field) => (leaverStatus[field] ? leaverStatus[field].name : field),
   lobby_type: (row, col, field) => (lobbyType[field] ? lobbyType[field].name : field),
   lane_role: (row, col, field) => (laneRole[field] ? laneRole[field].name : field),

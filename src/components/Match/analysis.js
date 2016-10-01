@@ -5,6 +5,7 @@ import {
   item_groups,
   heroes,
   skillshots,
+  lane_role,
 } from 'dotaconstants';
 
 function generatePlayerAnalysis(match, pm) {
