@@ -9,6 +9,7 @@ export default [{
   displayName: strings.th_category,
   field: 'category',
   width: 2,
+  sortFn: true,
   displayFn: transformations.category,
 }, {
   displayName: strings.th_matches,

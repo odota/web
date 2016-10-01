@@ -1,5 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {
+  connect
+} from 'react-redux';
 import {
   getPlayerMatches,
   setPlayerMatchesSort,
@@ -12,11 +14,21 @@ import {
   sortPlayerHeroes,
   transformPlayerHeroesById,
 } from 'selectors';
-import { playerMatches, playerHeroes } from 'reducers';
-import { createTable, TableContainer } from 'components/Table';
-import { TableFilterForm } from 'components/Form';
+import {
+  playerMatches,
+  playerHeroes
+} from 'reducers';
+import {
+  createTable,
+  TableContainer
+} from 'components/Table';
+import {
+  TableFilterForm
+} from 'components/Form';
 import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesColumns';
-import { playerHeroesOverviewColumns } from 'components/Player/Pages/Heroes/playerHeroesColumns';
+import {
+  playerHeroesOverviewColumns
+} from 'components/Player/Pages/Heroes/playerHeroesColumns';
 import styles from './Overview.css';
 
 const PlayerMatchesTable = createTable(
@@ -35,7 +47,9 @@ const getPlayerMatchesAndHeroes = (playerId, options) => dispatch => {
   dispatch(getPlayerHeroes(playerId, options));
 };
 
-const Overview = ({ playerId }) => (
+const Overview = ({
+  playerId
+}) => (
   <div>
     <TableFilterForm submitAction={getPlayerMatchesAndHeroes} id={playerId} page="overview" />
     <div className={styles.overviewContainer}>
@@ -70,8 +84,12 @@ class RequestLayer extends React.Component {
   }
 }
 
+const defaultOptions = {
+  limit: [20]
+};
+
 const mapDispatchToProps = (dispatch) => ({
-  getPlayerMatches: (playerId) => dispatch(getPlayerMatches(playerId)),
+  getPlayerMatches: (playerId, options = defaultOptions) => dispatch(getPlayerMatches(playerId, options)),
   getPlayerHeroes: (playerId) => dispatch(getPlayerHeroes(playerId)),
 });
 
