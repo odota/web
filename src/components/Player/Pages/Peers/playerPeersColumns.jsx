@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { transformations, getPercentWin } from 'utility';
 import { TablePercent } from 'components/Visualizations';
 import { AppBadge } from 'components/Player';
-import strings from 'lang/en';
+import strings from 'lang';
 
 const getPlayerPicture = (row, col, field) => (
   <div style={{ marginTop: 5 }}>

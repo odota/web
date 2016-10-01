@@ -8,7 +8,7 @@ import {
   ability_ids as abilityIds,
   hero_names as heroNames,
 } from 'dotaconstants';
-import strings from 'lang/en';
+import strings from 'lang';
 import {
   Link,
 } from 'react-router';

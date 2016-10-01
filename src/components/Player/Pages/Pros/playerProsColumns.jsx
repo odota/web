@@ -2,7 +2,7 @@ import React from 'react';
 import { transformations, getPercentWin } from 'utility';
 import { TableLink } from 'components/Table';
 import { TablePercent } from 'components/Visualizations';
-import strings from 'lang/en';
+import strings from 'lang';
 
 export default [{
   displayName: strings.th_avatar,

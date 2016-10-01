@@ -1,4 +1,4 @@
-import strings from 'lang/en';
+import strings from 'lang';
 
 const navbarPages = [{
   name: strings.request,

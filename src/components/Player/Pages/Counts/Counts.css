@@ -9,8 +9,6 @@
 
 .countsContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
-  height: 100vw;
-  margin: 0 -15px;
 }

@@ -1,5 +1,5 @@
 /* eslint-disable */
-module.exports = {
+export default {
   'players':
   {
     'name': 'Players',

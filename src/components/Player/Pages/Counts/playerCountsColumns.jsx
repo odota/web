@@ -3,12 +3,13 @@
 import React from 'react';
 import { transformations } from 'utility';
 import { TablePercent } from 'components/Visualizations';
-import strings from 'lang/en';
+import strings from 'lang';
 
 export default [{
   displayName: strings.th_category,
   field: 'category',
   width: 2,
+  sortFn: true,
   displayFn: transformations.category,
 }, {
   displayName: strings.th_matches,

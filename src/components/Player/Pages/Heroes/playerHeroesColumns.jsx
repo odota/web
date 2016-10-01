@@ -1,7 +1,7 @@
 import React from 'react';
 import { transformations, getPercentWin } from 'utility';
 import { TablePercent } from 'components/Visualizations';
-import strings from 'lang/en';
+import strings from 'lang';
 
 export const playerHeroesOverviewColumns = [{
   displayName: strings.th_hero,
