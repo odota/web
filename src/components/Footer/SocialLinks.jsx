@@ -1,6 +1,6 @@
 import React from 'react';
 import IconButton from 'material-ui/IconButton';
-import strings from 'lang/en';
+import strings from 'lang';
 import { IconGithub, IconTwitter, IconDiscord } from '../Icons';
 import styles from './Footer.css';
 

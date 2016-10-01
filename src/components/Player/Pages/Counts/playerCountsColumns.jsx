@@ -3,7 +3,7 @@
 import React from 'react';
 import { transformations } from 'utility';
 import { TablePercent } from 'components/Visualizations';
-import strings from 'lang/en';
+import strings from 'lang';
 
 export default [{
   displayName: strings.th_category,

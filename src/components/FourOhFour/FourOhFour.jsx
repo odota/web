@@ -1,5 +1,5 @@
 import React from 'react';
-import strings from 'lang/en';
+import strings from 'lang';
 import styles from './FourOhFour.css';
 
 export default () => (

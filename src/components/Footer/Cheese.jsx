@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Row, Col } from 'react-flexbox-grid';
-import strings from 'lang/en';
+import strings from 'lang';
 // import EditorAttachMoney from 'material-ui/svg-icons/editor/attach-money';
 import CheeseCircle from '../Cheese';
 // import styles from './Footer.css';
