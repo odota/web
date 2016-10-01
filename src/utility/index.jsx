@@ -2,7 +2,18 @@ import React from 'react';
 import {
   Link,
 } from 'react-router';
-import constants from 'dotaconstants';
+import {
+  skill,
+  items,
+  heroes,
+  patch,
+  region,
+  game_mode as gameMode,
+  item_ids as itemIds,
+  lobby_type as lobbyType,
+  leaver_status as leaverStatus,
+  lane_role as laneRole,
+} from 'dotaconstants';
 import {
   API_HOST,
 } from 'config';
@@ -100,8 +111,8 @@ export const transformations = {
   hero_id: (row, col, field) => (
     <TableHeroImage
       parsed={row.version}
-      heroName={constants.heroes[field] ? constants.heroes[field].localized_name : ''}
-      imageUrl={`${constants.heroes[field] ? API_HOST + constants.heroes[field].img : '/assets/images/blank-1x1.gif'}`}
+      heroName={heroes[field] ? heroes[field].localized_name : ''}
+      imageUrl={`${heroes[field] ? API_HOST + heroes[field].img : '/assets/images/blank-1x1.gif'}`}
       subText={getSubtext(row)}
     />
   ),
@@ -130,29 +141,24 @@ export const transformations = {
         </span>
       </div>);
   },
-  skill: (row, col, field) => (constants.skill[field] ? constants.skill[field] : 'Unknown'),
-  game_mode: (row, col, field) => (constants.game_mode[field] ? constants.game_mode[field].name : field),
+  skill: (row, col, field) => (skill[field] ? skill[field] : 'Unknown'),
+  game_mode: (row, col, field) => (gameMode[field] ? gameMode[field].name : field),
   match_id_and_game_mode: (row, col, field) => (
     <div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
       <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
-        {constants.game_mode[row.game_mode] ? constants.game_mode[row.game_mode].name : row.game_mode}
+        {gameMode[row.game_mode] ? gameMode[row.game_mode].name : row.game_mode}
       </span>
     </div>
   ),
   start_time: (row, col, field) => fromNow(field),
   last_played: (row, col, field) => fromNow(field),
   duration: (row, col, field) => formatSeconds(field),
-  region: (row, col, field) => {
-    const regions = Object.keys(constants.regions);
-    const byRegionId = (key) => (parseInt(constants.regions[key].region, 10) === field ? key : null);
-
-    return regions.find(byRegionId);
-  },
-  leaver_status: (row, col, field) => (constants.leaver_status[field] ? constants.leaver_status[field].name : field),
-  lobby_type: (row, col, field) => (constants.lobby_type[field] ? constants.lobby_type[field].name : field),
-  lane_role: (row, col, field) => (constants.lane_role[field] ? constants.lane_role[field].name : field),
-  patch: (row, col, field) => (constants.patch[field] ? constants.patch[field].name : field),
+  region: (row, col, field) => region[field],
+  leaver_status: (row, col, field) => (leaverStatus[field] ? leaverStatus[field].name : field),
+  lobby_type: (row, col, field) => (lobbyType[field] ? lobbyType[field].name : field),
+  lane_role: (row, col, field) => (laneRole[field] ? laneRole[field].name : field),
+  patch: (row, col, field) => (patch[field] ? patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
   rank: (row) => row.card - row.rank,
@@ -171,7 +177,7 @@ const transformMatchItem = ({
   if (field === 0) {
     return false;
   }
-  return `${API_HOST}${constants.items[constants.item_ids[field]].img}`;
+  return `${API_HOST}${items[itemIds[field]].img}`;
 };
 
 for (let i = 0; i < 6; i++) {

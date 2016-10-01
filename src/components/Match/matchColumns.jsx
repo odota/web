@@ -1,5 +1,13 @@
 import React from 'react';
-import constants from 'dotaconstants';
+import {
+  heroes,
+  runes,
+  items,
+  order_types as orderTypes,
+  item_ids as itemIds,
+  ability_ids as abilityIds,
+  hero_names as heroNames,
+} from 'dotaconstants';
 import strings from 'lang/en';
 import {
   Link,
@@ -15,7 +23,7 @@ const heroTd = (row, col, field, hideName) => (
   <div style={{ marginTop: 5 }}>
     <div>
       <div className={row.isRadiant ? styles.radiant : styles.dire} />
-      <img src={constants.heroes[field] ? `${API_HOST}${constants.heroes[field].img}` : ''} style={{ height: 24 }} role="presentation" />
+      <img src={heroes[field] ? `${API_HOST}${heroes[field].img}` : ''} style={{ height: 24 }} role="presentation" />
       {!hideName && <div>{row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : 'Anonymous'}</div>}
     </div>
   </div>
@@ -110,7 +118,7 @@ const overviewColumns = [
     displayFn: (row) => {
       const itemArray = [];
       for (let i = 0; i < 6; i++) {
-        const item = constants.items[constants.item_ids[row[`item_${i}`]]];
+        const item = items[itemIds[row[`item_${i}`]]];
         if (item) {
           itemArray.push(<span
             key={i}
@@ -123,7 +131,7 @@ const overviewColumns = [
             />
             <span className={styles.timing}>
               {row.first_purchase_time
-                ? `${(row.first_purchase_time[constants.item_ids[item.id]] / 60).toFixed(0)}'`
+                ? `${(row.first_purchase_time[itemIds[item.id]] / 60).toFixed(0)}'`
                 : ''}
             </span>
           </span>);
@@ -143,8 +151,10 @@ const abUpgradeColumns = [
   displayFn: (row, column, field) => {
     if (field) {
       const abilityId = field[column.index];
-      const abilityKey = constants.ability_ids[abilityId];
-      let abilityData = constants.abilities[abilityKey];
+      const abilityKey = abilityIds[abilityId];
+      let abilityData = {
+        img: `${API_HOST}/apps/dota2/images/abilities/${abilityKey}_md.png`,
+      };
       if (abilityKey === 'attribute_bonus') {
         abilityData = {
           dname: 'Attribute Bonus',
@@ -154,7 +164,7 @@ const abUpgradeColumns = [
       }
       if (abilityData) {
         return (<img
-          src={abilityKey === 'attribute_bonus' ? abilityData.img : `${API_HOST}${abilityData.img}`}
+          src={abilityData.img}
           style={{ height: 35, position: 'relative', left: -10 }}
           role="presentation"
         />);
@@ -204,7 +214,7 @@ const purchaseTimesColumns = (match) => {
         {field ? field
         .filter(p => (p.time >= curTime - bucket && p.time < curTime))
         .map((p, i) => {
-          const item = constants.items[p.key] || {};
+          const item = items[p.key] || {};
           return <span key={i}><img src={`${API_HOST}${item.img}`} role="presentation" style={{ height: '20px' }} /><br />{p.time}</span>;
         }) : ''}
       </div>),
@@ -263,9 +273,11 @@ const overallColumns = [
     sortFn: true,
     displayFn: (row, column, field) => {
       if (field) {
-        const ability = constants.abilities[field.inflictor];
-        const item = constants.items[field.inflictor];
-        const hero = constants.hero_names[field.key] || {
+        // const ability = abilities[field.inflictor];
+        // TODO map the ability data somehow
+        const ability = null;
+        const item = items[field.inflictor];
+        const hero = heroNames[field.key] || {
           img: '',
         };
         let props = {
@@ -477,14 +489,14 @@ const actionsColumns = [heroTdColumn, {
   tooltip: strings.pings,
   field: 'pings',
 }]
-  .concat(Object.keys(constants.order_types).filter(o => constants.order_types[o] in strings).map(k => ({
-    displayName: strings[`${constants.order_types[k]}_abbr`],
-    tooltip: strings[constants.order_types[k]],
+  .concat(Object.keys(orderTypes).filter(o => orderTypes[o] in strings).map(k => ({
+    displayName: strings[`${orderTypes[k]}_abbr`],
+    tooltip: strings[orderTypes[k]],
     field: 'actions',
     displayFn: (row, col, field) => (field ? Number(field[k]) : '-'),
   })));
 
-const runesColumns = [heroTdColumn].concat(Object.keys(constants.runes).map(k => ({
+const runesColumns = [heroTdColumn].concat(Object.keys(runes).map(k => ({
   displayName: strings[`rune_${k}`],
   field: 'runes',
   displayFn: (row, col, field) => (field ? Number(field[k]) : '-'),
