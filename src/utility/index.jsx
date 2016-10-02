@@ -63,7 +63,7 @@ const day = hour * 24;
 const month = day * 30;
 const year = month * 12;
 
-export function fromNow(input, tooltip = false) {
+export function fromNow(input) {
   if (!Number(input)) {
     // Default to empty string if invalid input
     return '';
@@ -74,31 +74,22 @@ export function fromNow(input, tooltip = false) {
   // Diff the current and input timestamps in seconds
   const diff = (now.getTime() - date.getTime()) / 1000;
 
-  let fromNow;
-
   if (diff < 0) {
-    fromNow = 'in the future';
+    return 'in the future';
   } else if (diff < 2) {
-    fromNow = 'just now';
+    return 'just now';
   } else if (diff < (minute * 2)) {
-    fromNow = `${diff.toFixed(0)} seconds ago`;
+    return `${diff.toFixed(0)} seconds ago`;
   } else if (diff < (hour * 2)) {
-    fromNow = `${(diff / minute).toFixed(0)} minutes ago`;
+    return `${(diff / minute).toFixed(0)} minutes ago`;
   } else if (diff < (day * 2)) {
-    fromNow = `${(diff / hour).toFixed(0)} hours ago`;
+    return `${(diff / hour).toFixed(0)} hours ago`;
   } else if (diff < (month * 2)) {
-    fromNow = `${(diff / day).toFixed(0)} days ago`;
+    return `${(diff / day).toFixed(0)} days ago`;
   } else if (diff < (year * 2)) {
-    fromNow = `${(diff / month).toFixed(0)} months ago`;
-  } else {
-    fromNow = `${(diff / year).toFixed(0)} years ago`;
+    return `${(diff / month).toFixed(0)} months ago`;
   }
-
-  if (tooltip) {
-    return <FromNowTooltip fromNow={fromNow} date={date} />;
-  }
-
-  return fromNow;
+  return `${(diff / year).toFixed(0)} years ago`;
 }
 
 export const getPercentWin = (wins, games) => (games ? Number(((wins * 100) / games).toFixed(2)) : 0);
@@ -111,7 +102,7 @@ const getSubtext = row => {
     return isRadiant(row.player_slot) ? 'Radiant' : 'Dire';
   }
   if (row.last_played) {
-    return fromNow(row.last_played, true);
+    return <FromNowTooltip timestamp={row.last_played} />;
   }
   return null;
 };
@@ -147,7 +138,7 @@ export const transformations = {
           {getString(field)}
         </span>
         <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
-          {fromNow(row.start_time + row.duration, true)}
+          <FromNowTooltip timestamp={row.start_time + row.duration} />
         </span>
       </div>);
   },
@@ -161,8 +152,8 @@ export const transformations = {
       </span>
     </div>
   ),
-  start_time: (row, col, field) => fromNow(field, true),
-  last_played: (row, col, field) => fromNow(field, true),
+  start_time: (row, col, field) => <FromNowTooltip timestamp={field} />,
+  last_played: (row, col, field) => <FromNowTooltip timestamp={field} />,
   duration: (row, col, field) => formatSeconds(field),
   region: (row, col, field) => region[field],
   leaver_status: (row, col, field) => (leaverStatus[field] ? leaverStatus[field].name : field),

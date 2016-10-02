@@ -1,18 +1,22 @@
-import React from 'react';
+import React, {
+  PropTypes,
+} from 'react';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'node-uuid';
-
-export default ({
+import {
   fromNow,
-  date,
+} from 'utility';
+
+const FromNOwTooltip = ({
+  timestamp,
 }) => {
   const tooltipId = uuid.v4();
   return (
     <div data-tip data-for={tooltipId}>
-      {fromNow}
+      {fromNow(timestamp)}
       <ReactTooltip id={tooltipId} place="right" type="light" effect="float">
         { // Country Code Language List http://www.fincher.org/Utilities/CountryLanguageList.shtml
-          date.toLocaleDateString('en-US', {
+          new Date(Number(timestamp) * 1000).toLocaleDateString('en-US', {
             day: 'numeric',
             month: 'short',
             year: 'numeric',
@@ -22,3 +26,10 @@ export default ({
     </div>
   );
 };
+
+FromNOwTooltip.propTypes = {
+  fromNow: PropTypes.string,
+  date: PropTypes.object,
+};
+
+export default FromNOwTooltip;

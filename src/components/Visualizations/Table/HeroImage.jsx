@@ -32,13 +32,16 @@ const TableHeroImage = ({ parsed, imageUrl, heroName, subText }) => (
   </div>
 );
 
-const { number, string } = React.PropTypes;
+const { number, string, object, oneOfType } = React.PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: number,
   imageUrl: string,
   heroName: string,
-  subText: string,
+  subText: oneOfType([
+    string,
+    object,
+  ]),
 };
 
 export default TableHeroImage;
