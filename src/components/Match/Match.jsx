@@ -13,6 +13,11 @@ import {
   setMatchSort,
 } from 'actions';
 import {
+  getMatchData,
+  sortMatchPlayers,
+  getMatchPlayers
+} from 'reducers/match';
+import {
   createTable,
 } from '../Table';
 import Table from '../Table/Table';
@@ -37,19 +42,10 @@ import {
   runesColumns,
 } from './matchColumns.jsx';
 import BuildingMap from '../BuildingMap/BuildingMap';
-import {
-  defaultSort,
-} from '../../utility';
 // import { TabBar } from '../TabBar';
 
-const match = (state) => state.app.match;
-const getMatchPlayers = (state) => state.app.match.match.players;
-const getSortState = (state) => state.app.match.sortState;
-const getSortField = (state) => state.app.match.sortField;
-const getSortFn = (state) => state.app.match.sortFn;
-const sortMatchPlayers = (state) => defaultSort(getMatchPlayers(state), getSortState(state), getSortField(state), getSortFn(state));
 const MatchPlayersTable = createTable(
-  match,
+  getMatchData,
   (state, sortState) => (sortState ? sortMatchPlayers(state) : getMatchPlayers(state)),
   setMatchSort
 );
