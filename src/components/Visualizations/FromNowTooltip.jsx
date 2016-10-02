@@ -7,7 +7,7 @@ import {
   fromNow,
 } from 'utility';
 
-const FromNOwTooltip = ({
+const FromNowTooltip = ({
   timestamp,
 }) => {
   const tooltipId = uuid.v4();
@@ -27,9 +27,9 @@ const FromNOwTooltip = ({
   );
 };
 
-FromNOwTooltip.propTypes = {
+FromNowTooltip.propTypes = {
   fromNow: PropTypes.string,
   date: PropTypes.object,
 };
 
-export default FromNOwTooltip;
+export default FromNowTooltip;

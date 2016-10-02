@@ -1,4 +1,4 @@
-@import "../../palette.css";
+@import "./subText.css";
 
 .actionDoneAll {
   position: relative !important;
@@ -16,14 +16,6 @@
   height: 29px;
   width: 51px;
   margin-right: 7px;
-}
-
-.subText {
-  font-size: 12px !important;
-  color: color(var(--colorMuted) lightness(60%));
-  text-overflow: initial !important;
-  display: block;
-  margin-top: 1px;
 }
 
 .container {

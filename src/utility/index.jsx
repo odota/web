@@ -26,6 +26,7 @@ import {
   TableHeroImage,
   FromNowTooltip,
 } from 'components/Visualizations';
+import subTextStyle from 'components/Visualizations/Table/subText.css';
 
 export {
   default as bucketizeColumns,
@@ -137,7 +138,7 @@ export const transformations = {
         <span className={getColor(field)}>
           {getString(field)}
         </span>
-        <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
+        <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
           <FromNowTooltip timestamp={row.start_time + row.duration} />
         </span>
       </div>);
@@ -147,7 +148,7 @@ export const transformations = {
   match_id_and_game_mode: (row, col, field) => (
     <div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
+      <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
         {gameMode[row.game_mode] ? gameMode[row.game_mode].name : row.game_mode}
       </span>
     </div>
