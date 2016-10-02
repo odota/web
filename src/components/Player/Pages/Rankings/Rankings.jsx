@@ -10,6 +10,7 @@ import {
 } from 'selectors';
 import { playerRankings } from 'reducers';
 import { createTable, TableContainer } from 'components/Table';
+import strings from 'lang';
 import playerRankingsColumns from './playerRankingsColumns';
 
 const PlayerRankingsTable = createTable(
@@ -20,7 +21,7 @@ const PlayerRankingsTable = createTable(
 
 const Rankings = ({ playerId }) => (
   <div>
-    <TableContainer title="Rankings Played">
+    <TableContainer title={strings.heading_rankings}>
       <PlayerRankingsTable columns={playerRankingsColumns} id={playerId} />
     </TableContainer>
   </div>

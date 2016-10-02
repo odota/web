@@ -2,6 +2,7 @@ import React from 'react';
 import {
   connect,
 } from 'react-redux';
+import strings from 'lang';
 import {
   getPlayerMatches,
   setPlayerMatchesSort,
@@ -53,10 +54,10 @@ const Overview = ({
   <div>
     <TableFilterForm submitAction={getPlayerMatchesAndHeroes} id={playerId} page="overview" />
     <div className={styles.overviewContainer}>
-      <TableContainer title="Recent matches" style={{ width: '70%' }}>
+      <TableContainer title={strings.heading_matches} style={{ width: '70%' }}>
         <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
       </TableContainer>
-      <TableContainer title="Heroes played" style={{ marginLeft: 30, width: '30%' }}>
+      <TableContainer title={strings.heading_heroes} style={{ marginLeft: 30, width: '30%' }}>
         <PlayerHeroesTable columns={playerHeroesOverviewColumns} id={playerId} />
       </TableContainer>
     </div>

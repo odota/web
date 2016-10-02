@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 import { MMRGraph } from 'components/Visualizations';
 import { getPlayerMMR } from 'actions';
 import { playerMMR } from 'reducers';
+import strings from 'lang';
+import Heading from 'components/Heading';
 
 const MMR = ({ columns }) => (
   <div style={{ fontSize: 10 }}>
+    <Heading title={strings.heading_mmr} />
     <MMRGraph columns={columns} />
   </div>
 );
