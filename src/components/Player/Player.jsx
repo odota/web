@@ -20,6 +20,7 @@ import {
   RecordsPage,
   CountsPage,
   TrendsPage,
+  MMRPage,
   playerPages,
 } from './Pages';
 
@@ -51,6 +52,8 @@ const getPlayerSubroute = (info, playerId, subInfo) => {
       return <CountsPage playerId={playerId} />;
     case 'trends':
       return <TrendsPage playerId={playerId} trendName={subInfo} />;
+    case 'mmr':
+      return <MMRPage playerId={playerId} />;
     default:
       return <OverviewPage playerId={playerId} />;
   }

@@ -9,6 +9,7 @@ import histogram, { getPlayerHistogram } from 'reducers/gotPlayer/histogram';
 import winloss, { getWinLoss } from 'reducers/gotPlayer/winloss';
 import records, { getPlayerRecords } from 'reducers/gotPlayer/records';
 import counts, { getPlayerCounts } from 'reducers/gotPlayer/counts';
+import mmr, { getPlayerMMR } from 'reducers/gotPlayer/mmr';
 
 export default combineReducers({
   playerReducer,
@@ -21,6 +22,7 @@ export default combineReducers({
   peers,
   records,
   counts,
+  mmr,
 });
 
 const player = {
@@ -38,4 +40,5 @@ export {
   getPlayerHistogram as playerHistogram,
   getPlayerRecords as playerRecords,
   getPlayerCounts as playerCounts,
+  getPlayerMMR as playerMMR,
 };

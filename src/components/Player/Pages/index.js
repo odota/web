@@ -10,6 +10,7 @@ export { default as HistogramsPage } from './Histograms/Histograms';
 export { default as RecordsPage } from './Records/Records';
 export { default as CountsPage } from './Counts/Counts';
 export { default as TrendsPage } from './Trends/Trends';
+export { default as MMRPage } from './MMR/MMR';
 
 export const playerPages = [{
   name: strings.tab_overview,

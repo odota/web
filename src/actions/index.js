@@ -10,6 +10,7 @@ export { playerRankingsActions, getPlayerRankings, setPlayerRankingsSort } from 
 export { playerHistogramActions, getPlayerHistogram } from './player/playerHistogramActions';
 export { playerRecordsActions, getPlayerRecords, setPlayerRecordsSort } from './player/playerRecordsActions';
 export { playerCountsActions, getPlayerCounts, setPlayerCountsSort } from './player/playerCountsActions';
+export { playerMMRActions, getPlayerMMR } from './player/playerMMRActions';
 export { playerWinLossActions, getPlayerWinLoss } from './player/playerWinLossActions';
 export { appBarActions, openMenu } from './appBarActions';
 export { tableActions, setCurrentPage, nextPage, prevPage } from './tableActions';
