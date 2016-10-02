@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { TrendGraph } from 'components/Visualizations';
-import { getPlayerMatches } from 'actions';
+import {
+  getPlayerMatches,
+  defaultPlayerMatchesOptions,
+} from 'actions';
 import { playerMatches } from 'reducers';
 import { getCumulativeDataByField } from 'selectors';
 import { withRouter } from 'react-router';
@@ -29,7 +32,10 @@ const Trend = ({ trendName = trendNames[0], columns, router, playerId }) => (
 
 const getData = props => {
   props.getPlayerMatches(
-    props.playerId, { project: trendNames });
+    props.playerId,
+    { project: [...trendNames, ...defaultPlayerMatchesOptions.project] },
+    true
+  );
 };
 
 class RequestLayer extends React.Component {
