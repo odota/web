@@ -14,6 +14,7 @@ import gotPlayer, {
   playerHistogram,
   playerRecords,
   playerCounts,
+  playerMMR,
 } from 'reducers/gotPlayer';
 import appBar from 'reducers/appBar';
 import form, { getForm } from 'reducers/form';
@@ -36,6 +37,7 @@ export {
   playerHistogram,
   playerRecords,
   playerCounts,
+  playerMMR,
   getForm as form,
   benchmark,
   ranking,
