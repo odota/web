@@ -1,10 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import {
+  connect,
+} from 'react-redux';
+import {
+  withRouter,
+} from 'react-router';
 import {
   getPlayer,
   getPlayerWinLoss,
 } from 'actions';
+import strings from 'lang';
 import TabBar from 'components/TabBar';
 import PlayerHeader from './PlayerHeader';
 import Error from '../Error';
@@ -21,63 +26,81 @@ import {
   CountsPage,
   TrendsPage,
   MMRPage,
-  playerPages,
 } from './Pages';
 
-const playerPagesMapped = (accountId) => playerPages.map(({ name, ...rest }) => ({
-  ...rest,
-  route: `/players/${accountId}/${name.toLowerCase()}`,
-  label: name,
+const playerPages = [{
+  name: strings.tab_overview,
+  content: (playerId) => (<OverviewPage playerId={playerId} />),
+}, {
+  name: strings.tab_matches,
+  content: (playerId) => (<MatchesPage playerId={playerId} />),
+}, {
+  name: strings.tab_heroes,
+  content: (playerId) => (<HeroesPage playerId={playerId} />),
+}, {
+  name: strings.tab_peers,
+  content: (playerId) => (<PeersPage playerId={playerId} />),
+}, {
+  name: strings.tab_pros,
+  content: (playerId) => (<ProsPage playerId={playerId} />),
+}, {
+  name: strings.tab_activity,
+  content: () => (<div />),
+}, {
+  name: strings.tab_records,
+  content: (playerId) => (<RecordsPage playerId={playerId} />),
+}, {
+  name: strings.tab_counts,
+  content: (playerId) => (<CountsPage playerId={playerId} />),
+}, {
+  name: strings.tab_histograms,
+  content: (playerId, subInfo) => (<HistogramsPage playerId={playerId} histogramName={subInfo} />),
+}, {
+  name: strings.tab_trends,
+  content: (playerId, subInfo) => (<TrendsPage playerId={playerId} trendName={subInfo} />),
+}, {
+  name: strings.tab_wardmap,
+  content: () => (<div />),
+}, {
+  name: strings.tab_wordcloud,
+  content: () => (<div />),
+}, {
+  name: strings.tab_mmr,
+  content: (playerId) => (<MMRPage playerId={playerId} />),
+}, {
+  name: strings.tab_rankings,
+  content: (playerId) => (<RankingsPage playerId={playerId} />),
+}];
+
+const playerPagesMapped = (playerId) => playerPages.map(page => ({
+  ...page,
+  route: `/players/${playerId}/${page.name.toLowerCase()}`,
 }));
 
-const getPlayerSubroute = (info, playerId, subInfo) => {
-  switch (info) {
-    case 'overview':
-      return <OverviewPage playerId={playerId} />;
-    case 'matches':
-      return <MatchesPage playerId={playerId} />;
-    case 'heroes':
-      return <HeroesPage playerId={playerId} />;
-    case 'pros':
-      return <ProsPage playerId={playerId} />;
-    case 'rankings':
-      return <RankingsPage playerId={playerId} />;
-    case 'histograms':
-      return <HistogramsPage playerId={playerId} histogramName={subInfo} />;
-    case 'peers':
-      return <PeersPage playerId={playerId} />;
-    case 'records':
-      return <RecordsPage playerId={playerId} />;
-    case 'counts':
-      return <CountsPage playerId={playerId} />;
-    case 'trends':
-      return <TrendsPage playerId={playerId} trendName={subInfo} />;
-    case 'mmr':
-      return <MMRPage playerId={playerId} />;
-    default:
-      return <OverviewPage playerId={playerId} />;
-  }
-};
-
-const Player = ({ params: { accountId, info, subInfo } }) => {
+const Player = ({
+  params: {
+    accountId,
+    info = 'overview',
+    subInfo,
+  },
+}) => {
   if (!accountId) {
     return <Error />;
   }
-// Need to pass in the action into filter form, need to put that filter form into each subroute as well
+  // Need to pass in the action into filter form, need to put that filter form into each subroute as well
   return (
     <div>
       <div className={styles.header}>
         <PlayerHeader playerId={accountId} />
         <div style={{ marginTop: 25 }}>
           <TabBar
-            playerId={accountId}
-            activeTab={info}
+            info={info}
             subInfo={subInfo}
             tabs={playerPagesMapped(accountId)}
           />
         </div>
       </div>
-      {getPlayerSubroute(info, accountId, subInfo)}
+      {playerPagesMapped(accountId).filter(page => page.name.toLowerCase() === info).map(page => page.content(accountId, subInfo))}
     </div>
   );
 };

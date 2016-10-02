@@ -11,6 +11,7 @@ import {
 import { playerPeers } from 'reducers';
 import { createTable, TableContainer } from 'components/Table';
 import { TableFilterForm } from 'components/Form';
+import strings from 'lang';
 import playerPeersColumns from './playerPeersColumns';
 
 const PeersTable = createTable(
@@ -22,7 +23,7 @@ const PeersTable = createTable(
 const Peers = ({ playerId }) => (
   <div>
     <TableFilterForm submitAction={getPlayerPeers} id={playerId} page="peers" />
-    <TableContainer title="peers">
+    <TableContainer title={strings.heading_peers}>
       <PeersTable columns={playerPeersColumns} id={playerId} />
     </TableContainer>
   </div>

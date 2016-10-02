@@ -11,6 +11,7 @@ import {
 import { playerPros } from 'reducers';
 import { createTable, TableContainer } from 'components/Table';
 import { TableFilterForm } from 'components/Form';
+import strings from 'lang';
 import playerProsColumns from './playerProsColumns';
 
 const PlayerProsTable = createTable(
@@ -22,7 +23,7 @@ const PlayerProsTable = createTable(
 const Pros = ({ playerId }) => (
   <div>
     <TableFilterForm submitAction={getPlayerPros} id={playerId} page="pros" />
-    <TableContainer title="Pros Played">
+    <TableContainer title={strings.heading_pros}>
       <PlayerProsTable columns={playerProsColumns} id={playerId} />
     </TableContainer>
   </div>

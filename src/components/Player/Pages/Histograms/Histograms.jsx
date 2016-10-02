@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getPlayerHistogram } from 'actions';
 import { playerHistogram } from 'reducers';
 import { withRouter } from 'react-router';
+import Heading from 'components/Heading';
 import { HistogramGraph } from 'components/Visualizations';
 import ButtonGarden from 'components/ButtonGarden';
 import histogramNames from 'components/Player/Pages/matchDataColumns';
@@ -18,6 +19,7 @@ const Histogram = ({ histogramName = histogramNames[0], columns, router, playerI
       selectedButton={histogramName}
       onClick={selectHistogram(router, playerId)}
     />
+    <Heading title={histogramName} />
     <HistogramGraph columns={columns} />
   </div>
 );

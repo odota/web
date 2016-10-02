@@ -64,6 +64,7 @@ const day = hour * 24;
 const month = day * 30;
 const year = month * 12;
 
+// TODO localize strings
 export function fromNow(input) {
   if (!Number(input)) {
     // Default to empty string if invalid input
@@ -100,12 +101,20 @@ export const camelToSnake = str =>
 
 const getSubtext = row => {
   if (row.match_id && row.player_slot !== undefined) {
+    // TODO localize
     return isRadiant(row.player_slot) ? 'Radiant' : 'Dire';
   }
   if (row.last_played) {
     return <FromNowTooltip timestamp={row.last_played} />;
   }
   return null;
+};
+
+export const getOrdinal = (n) => {
+  // TODO localize strings
+  const s = ['th', 'st', 'nd', 'rd'];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
 
 // TODO - these more complicated ones should be factored out into components
@@ -128,8 +137,9 @@ export const transformations = {
       return won ? styles.textSuccess : styles.textDanger;
     };
     const getString = result => {
+      // TODO localize strings
       if (result === undefined) {
-        return 'N';
+        return 'No Result';
       }
       return won ? 'Win' : 'Loss';
     };
@@ -143,7 +153,7 @@ export const transformations = {
         </span>
       </div>);
   },
-  skill: (row, col, field) => (skill[field] ? skill[field] : 'Unknown'),
+  skill: (row, col, field) => (skill[field] ? skill[field] : ''),
   game_mode: (row, col, field) => (gameMode[field] ? gameMode[field].name : field),
   match_id_and_game_mode: (row, col, field) => (
     <div>
@@ -163,7 +173,7 @@ export const transformations = {
   patch: (row, col, field) => (patch[field] ? patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
-  rank: (row) => row.card - row.rank,
+  rank: (row) => getOrdinal(row.card - row.rank),
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */

@@ -4,10 +4,8 @@ import {
 } from 'react-redux';
 import strings from 'lang';
 // import { Card } from 'material-ui/Card';
-import {
-  Tabs,
-  Tab,
-} from 'material-ui/Tabs';
+import Spinner from 'components/Spinner';
+import TabBar from 'components/TabBar';
 import {
   getMatch,
   setMatchSort,
@@ -44,6 +42,7 @@ import {
   unitKillsColumns,
   actionsColumns,
   runesColumns,
+  cosmeticsColumns,
 } from './matchColumns.jsx';
 import BuildingMap from '../BuildingMap/BuildingMap';
 // import { TabBar } from '../TabBar';
@@ -53,6 +52,94 @@ const MatchPlayersTable = createTable(
   (state, sortState) => (sortState ? sortMatchPlayers(state) : getMatchPlayers(state)),
   setMatchSort
 );
+
+const matchPages = [{
+  name: strings.tab_overview,
+  content: match => (<div>
+    <MatchPlayersTable columns={overviewColumns} />
+    <MatchPlayersTable columns={abUpgradeColumns} />
+    <BuildingMap match={match} />
+  </div>),
+}, {
+  name: strings.tab_benchmarks,
+  content: match => (<div>
+    <MatchPlayersTable columns={benchmarksColumns(match)} />
+  </div>),
+}, {
+  name: strings.tab_combat,
+  content: match => (<div>
+    <CrossTable match={match} field1="killed" field2="killed_by" />
+    <CrossTable match={match} field1="damage" field2="damage_taken" />
+  </div>),
+}, {
+  name: strings.tab_performances,
+  content: () => (<div>
+    <MatchPlayersTable columns={overallColumns} />
+    <MatchPlayersTable columns={laningColumns} />
+  </div>),
+}, {
+  name: strings.tab_farm,
+  content: match => (<div>
+    <MatchPlayersTable columns={unitKillsColumns} />
+    <MatchPlayersTable columns={lastHitsTimesColumns(match)} />
+  </div>),
+}, {
+  name: strings.tab_purchases,
+  content: match => (<div>
+    <MatchPlayersTable columns={purchaseColumns} />
+    <MatchPlayersTable columns={purchaseTimesColumns(match)} />
+  </div>),
+}, {
+  name: strings.tab_graphs,
+  content: match => (<div>
+    <MatchGraph match={match} type="difference" />
+    <MatchGraph match={match} type="gold" />
+    <MatchGraph match={match} type="xp" />
+    <MatchGraph match={match} type="lh" />
+  </div>),
+}, {
+  name: strings.tab_casts,
+  content: match => (<div>
+    <CastTable match={match} dataField="ability_uses_arr" columns={abilityUseColumns} />
+    <CastTable match={match} dataField="item_uses_arr" columns={itemUseColumns} />
+  </div>),
+}, {
+  name: strings.tab_objectives,
+  content: () => (<div>
+    <MatchPlayersTable columns={runesColumns} />
+  </div>),
+}, {
+  name: strings.tab_vision,
+  content: () => (<div />),
+}, {
+  name: strings.tab_actions,
+  content: () => (<div>
+    <MatchPlayersTable columns={actionsColumns} />
+  </div>),
+}, {
+  name: strings.tab_teamfights,
+  content: () => (<div>
+    <div id="teamfights" />
+  </div>),
+}, {
+  name: strings.tab_analysis,
+  content: () => (<div />),
+}, {
+  name: strings.tab_cosmetics,
+  content: () => (<div>
+    <MatchPlayersTable columns={cosmeticsColumns} />
+  </div>),
+}, {
+  name: strings.tab_chat,
+  content: match => (<div>
+    <Table data={(match.chat || []).map(c => Object.assign({}, c, match.players[c.slot]))} columns={chatColumns} />
+  </div>),
+}];
+
+const matchPagesMapped = (matchId) => matchPages.map(page => ({
+  ...page,
+  route: `/matches/${matchId}/${page.name.toLowerCase()}`,
+}));
 
 const mapStateToProps = (state, {
   params,
@@ -80,60 +167,18 @@ class RequestLayer extends React.Component {
 
   render() {
     const match = this.props.match;
+    const matchId = this.props.matchId;
+    const info = this.props.routeParams.info || 'overview';
     return (
       <div>
         <MatchHeader match={match} user={this.props.user} />
-        <Tabs>
-          <Tab label={strings.tab_overview}>
-            <MatchPlayersTable columns={overviewColumns} />
-            <MatchPlayersTable columns={abUpgradeColumns} />
-            <BuildingMap match={match} loading={this.props.loading} />
-          </Tab>
-          <Tab label={strings.tab_benchmarks}>
-            <MatchPlayersTable columns={benchmarksColumns(match)} />
-          </Tab>
-          <Tab label="Crosstables">
-            <CrossTable match={match} field1="killed" field2="killed_by" />
-            <CrossTable match={match} field1="damage" field2="damage_taken" />
-          </Tab>
-          <Tab label="Overall">
-            <MatchPlayersTable columns={overallColumns} />
-          </Tab>
-          <Tab label="Laning">
-            <MatchPlayersTable columns={laningColumns} />
-          </Tab>
-          <Tab label="Farm">
-            <MatchPlayersTable columns={unitKillsColumns} />
-            <MatchPlayersTable columns={lastHitsTimesColumns(match)} />
-          </Tab>
-          <Tab label={strings.tab_purchases}>
-            <MatchPlayersTable columns={purchaseColumns} />
-            <MatchPlayersTable columns={purchaseTimesColumns(match)} />
-          </Tab>
-          <Tab label="Graphs">
-            <MatchGraph match={match} type="difference" />
-            <MatchGraph match={match} type="gold" />
-            <MatchGraph match={match} type="xp" />
-            <MatchGraph match={match} type="lh" />
-          </Tab>
-          <Tab label="Abilities">
-            <CastTable match={match} dataField="ability_uses_arr" columns={abilityUseColumns} />
-          </Tab>
-          <Tab label="Items">
-            <CastTable match={match} dataField="item_uses_arr" columns={itemUseColumns} />
-          </Tab>
-          <Tab label={strings.tab_objectives}>
-            <MatchPlayersTable columns={runesColumns} />
-          </Tab>
-          <Tab label={strings.tab_actions}>
-            <MatchPlayersTable columns={actionsColumns} />
-          </Tab>
-          <Tab label={strings.tab_analysis} />
-          <Tab label="Cosmetics" />
-          <Tab label={strings.tab_chat}>
-            <Table data={(match.chat || []).map(c => Object.assign({}, c, match.players[c.slot]))} columns={chatColumns} />
-          </Tab>
-        </Tabs>
+        <div style={{ marginTop: 25 }}>
+          <TabBar
+            info={info}
+            tabs={matchPagesMapped(matchId)}
+          />
+        </div>
+        {match ? matchPagesMapped(matchId).filter(page => page.name.toLowerCase() === info).map(page => page.content(match)) : <Spinner />}
       </div>
     );
   }

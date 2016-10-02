@@ -11,6 +11,7 @@ import {
 import { playerRecords } from 'reducers';
 import { createTable, TableContainer } from 'components/Table';
 import { TableFilterForm } from 'components/Form';
+import strings from 'lang';
 import playerRecordsColumns from './playerRecordsColumns';
 
 const RecordsTable = createTable(
@@ -22,7 +23,7 @@ const RecordsTable = createTable(
 const Records = ({ playerId }) => (
   <div>
     <TableFilterForm submitAction={getPlayerRecords} id={playerId} page="records" />
-    <TableContainer title="records">
+    <TableContainer title={strings.heading_records}>
       <RecordsTable columns={playerRecordsColumns} id={playerId} />
     </TableContainer>
   </div>

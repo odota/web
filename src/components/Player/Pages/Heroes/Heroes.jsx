@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import strings from 'lang';
 import {
   getPlayerHeroes,
   setPlayerHeroesSort,
@@ -22,7 +23,7 @@ const PlayerHeroesTable = createTable(
 const Heroes = ({ playerId }) => (
   <div>
     <TableFilterForm submitAction={getPlayerHeroes} id={playerId} page="heroes" />
-    <TableContainer title="Heroes Played">
+    <TableContainer title={strings.heading_heroes}>
       <PlayerHeroesTable columns={playerHeroesColumns} id={playerId} />
     </TableContainer>
   </div>

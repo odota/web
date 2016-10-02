@@ -7,22 +7,20 @@ const onActive = (tab, router) => {
   router.push(tab.route);
 };
 
-const TabBar = ({ router, tabs, activeTab }) => (
+const TabBar = ({ router, tabs, info }) => (
   <Tabs
     inkBarStyle={{ backgroundColor: styles.inkBarColor }}
     className={styles.tabs}
-    value={activeTab}
+    value={info}
   >
     {tabs.map((tab, index) => (
       <Tab
         key={index}
         className={styles.tab}
-        value={tab.label.toLowerCase()}
-        label={tab.label}
+        value={tab.name.toLowerCase()}
+        label={tab.name}
         onActive={() => onActive(tab, router)}
-      >
-        {tab.children}
-      </Tab>
+      />
     ))}
   </Tabs>
 );
@@ -35,7 +33,3 @@ TabBar.propTypes = {
 };
 
 export default withRouter(TabBar);
-
-// const mapStateToProps = (state) => ({ activeTab: tab.getActiveTab(state) });
-
-// export default connect(mapStateToProps)(withRouter(TabBar));

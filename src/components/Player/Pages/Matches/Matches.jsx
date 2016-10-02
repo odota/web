@@ -33,7 +33,7 @@ const Matches = ({
 }) => (
   <div>
     <TableFilterForm submitAction={getPlayerMatches} id={playerId} page="matches" />
-    <TableContainer title="recent matches">
+    <TableContainer title="Recent Matches">
       <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
     </TableContainer>
   </div>
