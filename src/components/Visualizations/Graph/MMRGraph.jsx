@@ -1,14 +1,13 @@
 import React from 'react';
 import npmColor from 'color';
 import { Graph } from 'components/Visualizations';
-import moment from 'moment';
 
 const getXAxis = columns =>
   columns.length > 0 &&
   ({
     label: 'Date',
     tick: {
-      format: x => moment(columns[x].x).format('MMM DD YYYY'),
+      format: x => columns[x].x.toDateString(),
     },
   });
 
