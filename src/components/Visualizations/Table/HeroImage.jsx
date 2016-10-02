@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
-
-import styles from './TableHeroImage.css';
+import strings from 'lang';
+import styles from './HeroImage.css';
 
 const TableHeroImage = ({ parsed, imageUrl, heroName, subText }) => (
   <div className={styles.container}>
@@ -10,10 +10,10 @@ const TableHeroImage = ({ parsed, imageUrl, heroName, subText }) => (
       <div className={styles.parsed}>
         <div data-tip data-for="parsed">
           <ActionDoneAll color={styles.blue} className={styles.actionDoneAll} />
+          <ReactTooltip id="parsed" place="right" type="light" effect="solid">
+            {strings.parsed}
+          </ReactTooltip>
         </div>
-        <ReactTooltip id="parsed" place="top" type="light" effect="float">
-          Replay has been parsed for additional statistics
-        </ReactTooltip>
       </div>
     )}
     <img
@@ -32,13 +32,16 @@ const TableHeroImage = ({ parsed, imageUrl, heroName, subText }) => (
   </div>
 );
 
-const { bool, string } = React.PropTypes;
+const { number, string, object, oneOfType } = React.PropTypes;
 
 TableHeroImage.propTypes = {
-  parsed: bool,
+  parsed: number,
   imageUrl: string,
   heroName: string,
-  subText: string,
+  subText: oneOfType([
+    string,
+    object,
+  ]),
 };
 
 export default TableHeroImage;

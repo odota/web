@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './TablePercent.css';
-import palette from '../palette.css';
+import palette from 'components/palette.css';
+import styles from './Percent.css';
 
 export default ({ text, val }) => (
   <div style={{ position: 'relative' }}>
