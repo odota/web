@@ -43,7 +43,7 @@ export const getPlayerCountsError = (payload, id) => ({
   id,
 });
 
-export const getPlayerCounts = (playerId, options = {}, host = API_HOST) => (dispatch, getState) => {
+export const getPlayerCounts = (playerId, options = {}) => (dispatch, getState) => {
   if (playerCounts.isLoaded(getState(), playerId)) {
     dispatch(getPlayerCountsOk(playerCounts.getCountsList(getState(), playerId), playerId));
   } else {
@@ -51,7 +51,7 @@ export const getPlayerCounts = (playerId, options = {}, host = API_HOST) => (dis
   }
   // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
-  return fetch(`${host}${getUrl(playerId, options, url)}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => {
       const data = {};

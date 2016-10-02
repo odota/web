@@ -2,7 +2,7 @@ export { metadataActions, getMetadata } from './metadataActions';
 export { constantsActions, getConstants } from './constantsActions';
 export { playerActions, getPlayer } from './player/playerActions';
 export { matchActions, getMatch, setMatchSort } from './matchActions';
-export { playerMatchesActions, getPlayerMatches, setPlayerMatchesSort } from './player/playerMatchesActions';
+export { playerMatchesActions, getPlayerMatches, setPlayerMatchesSort, defaultPlayerMatchesOptions } from './player/playerMatchesActions';
 export { playerPeersActions, getPlayerPeers, setPlayerPeersSort } from './player/playerPeersActions';
 export { playerHeroesActions, getPlayerHeroes, setPlayerHeroesSort } from './player/playerHeroesActions';
 export { playerProsActions, getPlayerPros, setPlayerProsSort } from './player/playerProsActions';

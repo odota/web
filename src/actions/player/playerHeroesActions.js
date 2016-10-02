@@ -40,7 +40,7 @@ export const getPlayerHeroesError = (payload, id) => ({
   id,
 });
 
-export const getPlayerHeroes = (playerId, options = {}, host = API_HOST) => (dispatch, getState) => {
+export const getPlayerHeroes = (playerId, options = {}) => (dispatch, getState) => {
   if (playerHeroes.isLoaded(getState(), playerId)) {
     dispatch(getPlayerHeroesOk(playerHeroes.getHeroList(getState(), playerId), playerId));
   } else {
@@ -48,7 +48,7 @@ export const getPlayerHeroes = (playerId, options = {}, host = API_HOST) => (dis
   }
   // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
-  return fetch(`${host}${getUrl(playerId, options, url)}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerHeroesOk(json, playerId)))
     .catch(error => dispatch(getPlayerHeroesError(error, playerId)));

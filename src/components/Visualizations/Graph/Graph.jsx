@@ -1,56 +1,54 @@
 import React, { Component } from 'react';
 import c3 from 'c3';
 import uuid from 'node-uuid';
-import npmColor from 'color';
-import strings from 'lang';
 
 const Graph = ({ id, height = 320 }) => (
   <div style={{ height }} id={id} />
 );
 
-const generateGraph = ({ columns, type, name, height = 320 }, id) => {
+const generateGraph = ({
+  columns,
+  type,
+  name,
+  height = 320,
+  colorFn,
+  color,
+  formatFn,
+  xAxis,
+  hidePoints,
+}, id) => {
   if (columns && columns.length > 0) {
-    const columnVals = columns.map(column => column.games);
+    const columnVals = columns.map(column => column.value);
     const xVals = columns.map(column => column.x);
-    c3.generate({
+    const configObject = {
       bindto: `#${id}`,
       data: {
         x: 'x',
         columns: [
           ['x', ...xVals],
-          [strings.th_matches, ...columnVals],
+          [name, ...columnVals],
         ],
-        color: (color, data) => {
-          if (data.index || data.index === 0) {
-            const { index, value } = data;
-            const wins = columns[index] && columns[index].win;
-            if (!value) {
-              return npmColor().rgb(255, 255, 255);
-            }
-            const percent = wins / value;
-            const adjustedVal = percent >= 0.5 ?
-              percent + ((1 - percent) / 5) :
-              percent - (percent / 5);
-            return npmColor().hsv((percent === 0.5 ? percent : adjustedVal) * 120, 90, 90).rgbString();
-          }
-          return color;
-        },
         type,
         size: {
           height,
         },
-        labels: {
-          format: (value, id, index) => {
-            if (!value) {
-              return '';
-            }
-            const wins = columns[index] && columns[index].win;
-            const newValue = Number(((wins * 100) / value).toFixed(1));
-            return `${newValue}%`;
-          },
-        },
       },
-    });
+      axis: {
+        x: xAxis,
+      },
+      point: {
+        show: !hidePoints,
+      },
+    };
+    if (formatFn) {
+      configObject.data.labels = {
+        format: formatFn,
+      };
+    }
+    if (colorFn || color) {
+      configObject.data.color = colorFn || (() => color);
+    }
+    c3.generate(configObject);
   }
 };
 
@@ -72,12 +70,21 @@ class GraphWrapper extends Component {
   }
 }
 
-const { array, string, object, number } = React.PropTypes;
+const { string, number, arrayOf, shape, func, bool } = React.PropTypes;
 GraphWrapper.propTypes = {
-  columns: array,
+  columns: arrayOf(shape({
+    x: number.isRequired,
+    value: number.isRequired,
+  })),
+  xAxis: shape({
+    tick: shape({
+      values: arrayOf(number),
+    }),
+  }),
+  hidePoints: bool,
+  formatFn: func,
+  colorFn: func,
   type: string,
-  yAxis: object,
-  xAxis: object,
   name: string,
   height: number,
 };
