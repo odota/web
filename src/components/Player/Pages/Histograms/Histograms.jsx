@@ -3,29 +3,21 @@ import { connect } from 'react-redux';
 import { getPlayerHistogram } from 'actions';
 import { playerHistogram } from 'reducers';
 import { withRouter } from 'react-router';
-import FlatButton from 'material-ui/FlatButton';
-import { deSnake } from 'utility';
 import { HistogramGraph } from 'components/Visualizations';
-import styles from './Histograms.css';
-import histogramNames from './histogramNames';
+import ButtonGarden from 'components/ButtonGarden';
+import histogramNames from 'components/Player/Pages/matchDataColumns';
 
-const selectHistogram = (router, histogramName, playerId) => {
+const selectHistogram = (router, playerId) => histogramName => {
   router.push(`/players/${playerId}/histograms/${histogramName}`);
 };
 
 const Histogram = ({ histogramName = histogramNames[0], columns, router, playerId }) => (
   <div style={{ fontSize: 10 }}>
-    <div className={styles.buttonContainer}>
-      {histogramNames.map((histogram, index) => (
-        <FlatButton
-          onClick={() => selectHistogram(router, histogram, playerId)}
-          className={histogramName === histogram ? styles.selectedButton : styles.button}
-          key={index}
-        >
-          <span className={styles.buttonText}>{deSnake(histogram)}</span>
-        </FlatButton>
-      ))}
-    </div>
+    <ButtonGarden
+      buttonNames={histogramNames}
+      selectedButton={histogramName}
+      onClick={selectHistogram(router, playerId)}
+    />
     <HistogramGraph columns={columns} />
   </div>
 );

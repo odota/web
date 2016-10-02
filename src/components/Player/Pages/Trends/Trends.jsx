@@ -5,28 +5,21 @@ import { getPlayerMatches } from 'actions';
 import { playerMatches } from 'reducers';
 import { getCumulativeDataByField } from 'selectors';
 import { withRouter } from 'react-router';
-import FlatButton from 'material-ui/FlatButton';
 import { deSnake } from 'utility';
-import styles from './Trends.css';
-import trendNames from './trendNames';
+import ButtonGarden from 'components/ButtonGarden';
+import trendNames from 'components/Player/Pages/matchDataColumns';
 
-const selectTrend = (router, trendName, playerId) => {
+const selectTrend = (router, playerId) => trendName => {
   router.push(`/players/${playerId}/trends/${trendName}`);
 };
 
 const Trend = ({ trendName = trendNames[0], columns, router, playerId }) => (
   <div style={{ fontSize: 10 }}>
-    <div className={styles.buttonContainer}>
-      {trendNames.map((trend, index) => (
-        <FlatButton
-          onClick={() => selectTrend(router, trend, playerId)}
-          className={trendName === trend ? styles.selectedButton : styles.button}
-          key={index}
-        >
-          <span className={styles.buttonText}>{deSnake(trend)}</span>
-        </FlatButton>
-      ))}
-    </div>
+    <ButtonGarden
+      buttonNames={trendNames}
+      selectedButton={trendName}
+      onClick={selectTrend(router, playerId)}
+    />
     <TrendGraph
       columns={columns}
       name={deSnake(trendName)}
