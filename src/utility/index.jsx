@@ -20,11 +20,13 @@ import {
 import styles from 'components/palette.css';
 import {
   TableLink,
-  TableHeroImage,
 } from 'components/Table';
 import {
   KDA,
+  TableHeroImage,
+  FromNowTooltip,
 } from 'components/Visualizations';
+import subTextStyle from 'components/Visualizations/Table/subText.css';
 
 export {
   default as bucketizeColumns,
@@ -98,12 +100,12 @@ export const camelToSnake = str =>
   str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
 
 const getSubtext = row => {
-  if (row.match_id && row.player_slot) {
-    // TODO localize strings
+  if (row.match_id && row.player_slot !== undefined) {
+    // TODO localize
     return isRadiant(row.player_slot) ? 'Radiant' : 'Dire';
   }
   if (row.last_played) {
-    return fromNow(row.last_played);
+    return <FromNowTooltip timestamp={row.last_played} />;
   }
   return null;
 };
@@ -146,8 +148,8 @@ export const transformations = {
         <span className={getColor(field)}>
           {getString(field)}
         </span>
-        <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
-          {fromNow(row.start_time + row.duration)}
+        <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+          <FromNowTooltip timestamp={row.start_time + row.duration} />
         </span>
       </div>);
   },
@@ -156,13 +158,13 @@ export const transformations = {
   match_id_and_game_mode: (row, col, field) => (
     <div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
+      <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
         {gameMode[row.game_mode] ? gameMode[row.game_mode].name : row.game_mode}
       </span>
     </div>
   ),
-  start_time: (row, col, field) => fromNow(field),
-  last_played: (row, col, field) => fromNow(field),
+  start_time: (row, col, field) => <FromNowTooltip timestamp={field} />,
+  last_played: (row, col, field) => <FromNowTooltip timestamp={field} />,
   duration: (row, col, field) => formatSeconds(field),
   region: (row, col, field) => region[field],
   leaver_status: (row, col, field) => (leaverStatus[field] ? leaverStatus[field].name : field),

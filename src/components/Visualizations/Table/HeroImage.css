@@ -1,8 +1,4 @@
-@import "../palette.css";
-
-:export {
-  blue:   var(--primaryLinkColor);
-}
+@import "./subText.css";
 
 .actionDoneAll {
   position: relative !important;
@@ -13,20 +9,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  line-height: 1.2;
 }
 
 .image {
   height: 29px;
   width: 51px;
   margin-right: 7px;
-}
-
-.subText {
-  font-size: 12px !important;
-  opacity: .6;
-  text-overflow: initial !important;
-  display: block;
-  margin-top: 1px;
 }
 
 .container {

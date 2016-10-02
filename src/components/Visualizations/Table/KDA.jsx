@@ -1,9 +1,9 @@
 import React from 'react';
 import uuid from 'node-uuid';
 import ReactTooltip from 'react-tooltip';
+import palette from 'components/palette.css';
+import strings from 'lang';
 import styles from './KDA.css';
-import palette from '../palette.css';
-
 
 const KDA = ({ kills, deaths, assists, matchId = uuid.v4() }) => {
   const kdaSum = kills + deaths + assists;
@@ -20,7 +20,7 @@ const KDA = ({ kills, deaths, assists, matchId = uuid.v4() }) => {
           <div style={{ width: `${(assists * 100) / kdaSum}%`, backgroundColor: palette.green }} />
         </div>
         <ReactTooltip id={`kda-${matchId}`} place="right" type="light" effect="float">
-          {`KDA: ${Number(((kills + assists) / (deaths + 1)).toFixed(2))}`}
+          {`${strings.abbr_kda}: ${Number(((kills + assists) / Math.max(deaths, 1)).toFixed(2))}`}
         </ReactTooltip>
       </div>
     </div>

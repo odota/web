@@ -25,4 +25,8 @@
   font-weight: var(--fontWeightMedium);
   color: var(--textColorPrimary);
   text-transform: uppercase;
+  &:hover {
+    color: var(--textColorPrimary);
+    opacity: .6;
+  }
 }
