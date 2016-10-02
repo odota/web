@@ -28,5 +28,5 @@
   flex-direction: row;
   flex-wrap: wrap;
   margin: 0 -10px;
-  justify-content: space-around;
+  justify-content: center;
 }
