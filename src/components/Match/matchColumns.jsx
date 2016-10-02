@@ -152,9 +152,12 @@ const abUpgradeColumns = [
     if (field) {
       const abilityId = field[column.index];
       const abilityKey = abilityIds[abilityId];
-      let abilityData = {
-        img: `${API_HOST}/apps/dota2/images/abilities/${abilityKey}_md.png`,
-      };
+      let abilityData = null;
+      if (abilityKey) {
+        abilityData = {
+          img: `${API_HOST}/apps/dota2/images/abilities/${abilityKey}_md.png`,
+        };
+      }
       if (abilityKey === 'attribute_bonus') {
         abilityData = {
           dname: 'Attribute Bonus',
@@ -170,7 +173,7 @@ const abUpgradeColumns = [
         />);
       }
     }
-    return null;
+    return <div />;
   },
 })));
 
@@ -178,7 +181,7 @@ const benchmarksColumns = (match) => {
   const cols = [
     heroTdColumn,
   ];
-  if (match.players[0] && match.players[0].benchmarks) {
+  if (match.players && match.players[0] && match.players[0].benchmarks) {
     Object.keys(match.players[0].benchmarks).forEach((key, i) => {
       cols.push({
         displayName: key,
@@ -493,14 +496,15 @@ const actionsColumns = [heroTdColumn, {
     displayName: strings[`${orderTypes[k]}_abbr`],
     tooltip: strings[orderTypes[k]],
     field: 'actions',
-    displayFn: (row, col, field) => (field ? Number(field[k]) : '-'),
+    displayFn: (row, col, field) => (field ? field[k] : '-'),
   })));
 
-const runesColumns = [heroTdColumn].concat(Object.keys(runes).map(k => ({
-  displayName: strings[`rune_${k}`],
-  field: 'runes',
-  displayFn: (row, col, field) => (field ? Number(field[k]) : '-'),
-})));
+const runesColumns = [heroTdColumn]
+  .concat(Object.keys(runes).map(k => ({
+    displayName: strings[`rune_${k}`],
+    field: 'runes',
+    displayFn: (row, col, field) => (field ? field[k] : '-'),
+  })));
 
 const cosmeticsColumns = [];
 
