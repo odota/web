@@ -173,6 +173,11 @@
   "error": "Error",
   "four_oh_four_message": "The page you are looking for cannot be found.",
 
+  "graph_difference": "Radiant Advantage",
+  "graph_gold": "Gold",
+  "graph_xp": "Experience",
+  "graph_lh": "Last Hits",
+
   "heading_matches": "Recent Matches",
   "heading_heroes": "Heroes Played",
   "heading_mmr": "MMR History",
