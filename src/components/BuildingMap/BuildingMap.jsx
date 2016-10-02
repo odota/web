@@ -1,10 +1,10 @@
 import React from 'react';
 import { pad } from 'utility';
 import buildingData from './BuildingData';
-import Spinner from '../Spinner';
+// import Spinner from '../Spinner';
 
-export default function BuildingMap({ match, loading }) {
-  if (match && !loading) {
+export default function BuildingMap({ match }) {
+  if (match && match.tower_status_radiant) {
     // see https://wiki.teamfortress.com/wiki/WebAPI/GetMatchDetails
     let bits = pad(match.tower_status_radiant.toString(2), 11);
     bits += pad(match.barracks_status_radiant.toString(2), 6);
@@ -45,5 +45,5 @@ export default function BuildingMap({ match, loading }) {
         {icons}
       </div>);
   }
-  return <Spinner />;
+  return <div />;
 }

@@ -247,7 +247,7 @@ function renderMatch(m) {
  * Generates data for c3 charts in a match
  **/
 function generateGraphData(match) {
-  if (match.players && match.players[0]) {
+  if (match.players && match.players[0] && match.radiant_gold_adv && match.radiant_xp_adv) {
     // compute graphs
     const goldDifference = ['Gold', ...match.radiant_gold_adv];
     const xpDifference = ['XP', ...match.radiant_xp_adv];
@@ -261,9 +261,15 @@ function generateGraphData(match) {
     match.players.forEach((p, i) => {
       let hero = heroes[p.hero_id] || {};
       hero = hero.localized_name;
-      data.gold.push([hero, ...p.gold_t]);
-      data.xp.push([hero, ...p.xp_t]);
-      data.lh.push([hero, ...p.lh_t]);
+      if (p.gold_t) {
+        data.gold.push([hero, ...p.gold_t]);
+      }
+      if (p.xp_t) {
+        data.xp.push([hero, ...p.xp_t]);
+      }
+      if (p.lh_t) {
+        data.lh.push([hero, ...p.lh_t]);
+      }
     });
     return data;
   }

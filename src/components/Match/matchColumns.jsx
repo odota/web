@@ -484,14 +484,14 @@ const unitKillsColumns = [
 ];
 
 const actionsColumns = [heroTdColumn, {
-  displayName: 'APM',
-  tooltip: strings.actions_per_min,
-  field: 'actions_per_min',
-}, {
-  displayName: 'Pings',
-  tooltip: strings.pings,
-  field: 'pings',
-}]
+    displayName: 'APM',
+    tooltip: strings.actions_per_min,
+    field: 'actions_per_min',
+  }, {
+    displayName: 'Pings',
+    tooltip: strings.pings,
+    field: 'pings',
+  }]
   .concat(Object.keys(orderTypes).filter(o => orderTypes[o] in strings).map(k => ({
     displayName: strings[`${orderTypes[k]}_abbr`],
     tooltip: strings[orderTypes[k]],
@@ -506,7 +506,15 @@ const runesColumns = [heroTdColumn]
     displayFn: (row, col, field) => (field ? field[k] : '-'),
   })));
 
-const cosmeticsColumns = [];
+const cosmeticsColumns = [heroTdColumn, {
+  displayName: 'Cosmetics',
+  field: 'cosmetics',
+  displayFn: (row, col, field) => field.map((c, i) => (
+    <div key={i}>
+      <img src={`http://cdn.dota2.com/apps/570/${c.image_path}`} style={{height:'40px'}} />
+      <div>{c.name}</div>
+    </div>)),
+}];
 
 const objectiveDamageColumns = [];
 
@@ -514,7 +522,7 @@ const objectiveLogColumns = [];
 
 // TODO
 // party indicator
-// cosmetics
+// Damage inflictors dealt/received
 // Gold/XP sources
 // Objective damage
 // Hero kill times
@@ -523,7 +531,6 @@ const objectiveLogColumns = [];
 // Analysis
 // Lane map
 // Ward maps
-// Graphs (radiant adv/gold/xp/lh)
 
 export {
   heroTd,

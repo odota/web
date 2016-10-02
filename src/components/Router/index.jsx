@@ -28,18 +28,14 @@ export default () => (
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="search" component={Search} />
-        <Route path="matches/:match_id" component={Match}>
-          <Route path=":info" />
-        </Route>
+        <Route path="matches/:match_id(/:info)" component={Match} />
         <Route path="players/:accountId" component={Player}>
           <Route path=":info">
             <Route path=":subInfo" />
           </Route>
         </Route>
         <Route path="explorer" component={Explorer} />
-        <Route path="heroes(/:hero_id)" component={Heroes}>
-          <Route path=":info" />
-        </Route>
+        <Route path="heroes(/:hero_id)(/:info)" component={Heroes} />
         <Route path="request" component={Request} />
         <Route path="distributions" component={Distributions} />
         <Route path="carry" />
