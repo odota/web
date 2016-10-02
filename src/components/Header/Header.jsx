@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { openMenu } from 'actions';
 import { Link } from 'react-router';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
@@ -8,24 +10,33 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 // import MenuItem from 'material-ui/MenuItem';
 // import IconMenu from 'material-ui/IconMenu';
 // import AppBar from 'material-ui/AppBar';
-// import { NavDrawer } from '../NavBar';
+import strings from 'lang';
 import AccountWidget from '../AccountWidget';
 import styles from './Header.css';
 import SearchForm from '../Search/SearchForm';
-import { navbarPages } from './Pages';
 import AppLogo from '../App/AppLogo';
 
-/*
-const matchPagesMapped = (matchId) => matchPages.map((e) => Object.assign({}, e, {
-  route: `/matches/${matchId}/${e.name.toLowerCase()}`,
-  label: e.name,
-}));
-*/
+const navbarPages = [{
+  name: strings.request,
+  path: '/request',
+}, {
+  name: strings.distributions,
+  path: '/distributions',
+}, {
+  name: strings.heroes,
+  path: '/heroes',
+}, {
+  name: strings.ingame,
+  sponsored: true,
+  path: '/become-the-gamer',
+}, {
+  name: strings.blog,
+  path: '//odota.github.io/blog',
+  external: true,
+}];
 
-export default ({
-  // openMenu,
-  location,
-}) => (
+// openMenu
+const Header = ({ location }) => (
   <div>
     <Toolbar className={styles.header}>
       <ToolbarGroup className={styles.verticalAlign}>
@@ -42,9 +53,7 @@ export default ({
       </ToolbarGroup>
       <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 20 }}>
         <ActionSearch style={{ marginRight: 8, opacity: '.6' }} />
-        <SearchForm
-          location={location}
-        />
+        <SearchForm location={location} />
       </ToolbarGroup>
       <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 'auto' }}>
         <AccountWidget />
@@ -53,22 +62,8 @@ export default ({
   </div>
 );
 
-/*
-    <AppBar
-      className={styles.header}
-      iconElementRight={(<AccountWidget />)}
-      iconStyleRight={{ marginRight: 0 }}
-      title={(<Logo />)}
-      onLeftIconButtonTouchTap={() => openMenu()}
-      zDepth={0}
-    />
-*/
-/*
-<IconMenu
-  iconButtonElement={
-    <IconButton touch>
-      <MoreVertIcon />
-    </IconButton>
-  }
->
-*/
+const mapDispatchToProps = (dispatch) => ({
+  openMenu: () => dispatch(openMenu()),
+});
+
+export default connect(null, mapDispatchToProps)(Header);

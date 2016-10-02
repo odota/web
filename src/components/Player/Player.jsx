@@ -20,8 +20,8 @@ import {
   RecordsPage,
   CountsPage,
   TrendsPage,
+  playerPages,
 } from './Pages';
-import { playerPages } from '../Header/Pages';
 
 const playerPagesMapped = (accountId) => playerPages.map(({ name, ...rest }) => ({
   ...rest,
