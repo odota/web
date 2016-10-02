@@ -19,8 +19,10 @@ import {
   HistogramsPage,
   RecordsPage,
   CountsPage,
+  TrendsPage,
+  MMRPage,
+  playerPages,
 } from './Pages';
-import { playerPages } from '../Header/Pages';
 
 const playerPagesMapped = (accountId) => playerPages.map(({ name, ...rest }) => ({
   ...rest,
@@ -48,6 +50,10 @@ const getPlayerSubroute = (info, playerId, subInfo) => {
       return <RecordsPage playerId={playerId} />;
     case 'counts':
       return <CountsPage playerId={playerId} />;
+    case 'trends':
+      return <TrendsPage playerId={playerId} trendName={subInfo} />;
+    case 'mmr':
+      return <MMRPage playerId={playerId} />;
     default:
       return <OverviewPage playerId={playerId} />;
   }

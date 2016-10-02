@@ -4,7 +4,6 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import c3 from 'c3';
 import { connect } from 'react-redux';
 import { getDistributions } from 'actions';
-import { REDUCER_KEY } from 'reducers';
 
 const Distributions = ({ data }) => (
   <Tabs>
@@ -92,7 +91,7 @@ class RequestLayer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { error, loading, data } = state[REDUCER_KEY].distributions;
+  const { error, loading, data } = state.app.distributions;
   return {
     error,
     loading,

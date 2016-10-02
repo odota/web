@@ -32,3 +32,5 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export const getMetadataUser = (state) => state.app.metadata.user;

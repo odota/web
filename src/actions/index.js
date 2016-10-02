@@ -2,7 +2,7 @@ export { metadataActions, getMetadata } from './metadataActions';
 export { constantsActions, getConstants } from './constantsActions';
 export { playerActions, getPlayer } from './player/playerActions';
 export { matchActions, getMatch, setMatchSort } from './matchActions';
-export { playerMatchesActions, getPlayerMatches, setPlayerMatchesSort } from './player/playerMatchesActions';
+export { playerMatchesActions, getPlayerMatches, setPlayerMatchesSort, defaultPlayerMatchesOptions } from './player/playerMatchesActions';
 export { playerPeersActions, getPlayerPeers, setPlayerPeersSort } from './player/playerPeersActions';
 export { playerHeroesActions, getPlayerHeroes, setPlayerHeroesSort } from './player/playerHeroesActions';
 export { playerProsActions, getPlayerPros, setPlayerProsSort } from './player/playerProsActions';
@@ -10,6 +10,7 @@ export { playerRankingsActions, getPlayerRankings, setPlayerRankingsSort } from 
 export { playerHistogramActions, getPlayerHistogram } from './player/playerHistogramActions';
 export { playerRecordsActions, getPlayerRecords, setPlayerRecordsSort } from './player/playerRecordsActions';
 export { playerCountsActions, getPlayerCounts, setPlayerCountsSort } from './player/playerCountsActions';
+export { playerMMRActions, getPlayerMMR } from './player/playerMMRActions';
 export { playerWinLossActions, getPlayerWinLoss } from './player/playerWinLossActions';
 export { appBarActions, openMenu } from './appBarActions';
 export { tableActions, setCurrentPage, nextPage, prevPage } from './tableActions';

@@ -36,10 +36,11 @@ export const getPlayerMatchesRequest = (id) => ({
   id,
 });
 
-export const getPlayerMatchesOk = (payload, id) => ({
+export const getPlayerMatchesOk = (payload, id, maxSize) => ({
   type: OK,
   payload,
   id,
+  maxSize,
 });
 
 export const getPlayerMatchesError = (payload, id) => ({
@@ -48,21 +49,25 @@ export const getPlayerMatchesError = (payload, id) => ({
   id,
 });
 
-const defaultOptions = {
+export const defaultPlayerMatchesOptions = {
   project: ['hero_id', 'start_time', 'duration', 'player_slot', 'radiant_win', 'game_mode', 'version', 'kills', 'deaths', 'assists', 'skill'],
 };
 
-export const getPlayerMatches = (playerId, options = {}, host = API_HOST) => (dispatch, getState) => {
-  const modifiedOptions = Object.assign({}, defaultOptions, options);
+export const getPlayerMatches = (playerId, options = {}, getAllData, forceRefresh) => (dispatch, getState) => {
+  const modifiedOptions = {
+    ...defaultPlayerMatchesOptions,
+    ...options,
+  };
   if (playerMatches.isLoaded(getState(), playerId)) {
-    dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId));
+    if (playerMatches.isMaxSize(getState(), playerId) && !forceRefresh) {
+      return dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId, getAllData));
+    }
+    dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId, false));
   } else {
     dispatch(getPlayerMatchesRequest(playerId));
   }
-  return fetch(`${host}${getUrl(playerId, modifiedOptions, url)}`, {
-    credentials: 'include',
-  })
+  return fetch(`${API_HOST}${getUrl(playerId, modifiedOptions, url)}`, { credentials: 'include' })
     .then(response => response.json())
-    .then(json => dispatch(getPlayerMatchesOk(json, playerId)))
+    .then(json => dispatch(getPlayerMatchesOk(json, playerId, getAllData)))
     .catch(error => dispatch(getPlayerMatchesError(error, playerId)));
 };

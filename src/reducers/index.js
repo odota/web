@@ -14,16 +14,13 @@ import gotPlayer, {
   playerHistogram,
   playerRecords,
   playerCounts,
+  playerMMR,
 } from 'reducers/gotPlayer';
 import appBar from 'reducers/appBar';
 import form, { getForm } from 'reducers/form';
 import request from 'reducers/request';
 import distributions from 'reducers/distributions';
 import table, { getTable } from 'reducers/table';
-
-const REDUCER_KEY = 'app';
-
-export { REDUCER_KEY };
 
 // This is where we will export all our state retrieval functions (better encapsulation)
 export {
@@ -36,6 +33,7 @@ export {
   playerHistogram,
   playerRecords,
   playerCounts,
+  playerMMR,
   getForm as form,
   benchmark,
   ranking,
