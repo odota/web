@@ -1,20 +1,20 @@
 import React from 'react';
 import {
   Tabs,
-  Tab
+  Tab,
 } from 'material-ui/Tabs';
 import {
-  heroes
+  heroes,
 } from 'dotaconstants';
 import {
-  API_HOST
+  API_HOST,
 } from 'config';
 import Table from '../Table/Table';
 
 const CastTable = ({
   match,
   dataField,
-  columns
+  columns,
 }) => (
   <Tabs>
     {match.players.map((p) =>

@@ -481,21 +481,21 @@ const unitKillsColumns = [
 ];
 
 const actionsColumns = [heroTdColumn, {
-    displayName: 'APM',
-    tooltip: strings.actions_per_min,
-    field: 'actions_per_min',
-  }, {
-    displayName: 'Pings',
-    tooltip: strings.pings,
-    field: 'pings',
-  }]
+  displayName: 'APM',
+  tooltip: strings.actions_per_min,
+  field: 'actions_per_min',
+}, {
+  displayName: 'Pings',
+  tooltip: strings.pings,
+  field: 'pings',
+}]
   .concat(Object.keys(orderTypes).filter(o => orderTypes[o] in strings).map(k => ({
     displayName: strings[`${orderTypes[k]}_abbr`],
     tooltip: strings[orderTypes[k]],
     field: 'actions',
     displayFn: (row, col, field) => (field ? field[k] : '-'),
   })));
-  
+
 const runesColumns = [heroTdColumn]
   .concat(Object.keys(runes).map(k => ({
     displayName: strings[`rune_${k}`],

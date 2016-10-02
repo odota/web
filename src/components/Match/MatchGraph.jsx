@@ -1,5 +1,5 @@
 import React, {
-  Component
+  Component,
 } from 'react';
 import uuid from 'node-uuid';
 import c3 from 'c3';
@@ -7,19 +7,19 @@ import {
   formatSeconds,
 } from '../../utility';
 
-const player_colors = {
-  "0": "#2E6AE6",
-  "1": "#5DE6AD",
-  "2": "#AD00AD",
-  "3": "#DCD90A",
-  "4": "#E66200",
-  "128": "#E67AB0",
-  "129": "#92A440",
-  "130": "#5CC5E0",
-  "131": "#00771F",
-  "132": "#956000"
+const playerColors = {
+  0: '#2E6AE6',
+  1: '#5DE6AD',
+  2: '#AD00AD',
+  3: '#DCD90A',
+  4: '#E66200',
+  128: '#E67AB0',
+  129: '#92A440',
+  130: '#5CC5E0',
+  131: '#00771F',
+  132: '#956000',
 };
-const color_array = Object.keys(player_colors).map(k => player_colors[k]);
+const colorArray = Object.keys(playerColors).map(k => playerColors[k]);
 
 class MatchGraph extends Component {
   componentWillMount() {
@@ -29,7 +29,7 @@ class MatchGraph extends Component {
     if (nextProps.match && nextProps.match.graphData) {
       const data = nextProps.match.graphData[nextProps.type];
       const color = nextProps.type === 'difference' ? null : {
-        pattern: color_array
+        pattern: colorArray,
       };
       const type = nextProps.type === 'difference' ? 'area-spline' : 'spline';
       c3.generate({
@@ -37,35 +37,33 @@ class MatchGraph extends Component {
         data: {
           x: 'time',
           columns: data,
-          type: type,
+          type,
         },
-        color: color,
+        color,
         axis: {
           x: {
             type: 'timeseries',
             tick: {
-              format: function (x) {
+              format(x) {
                 return formatSeconds(x);
-              }
+              },
             },
-            label: 'Time'
+            label: 'Time',
           },
           y: {
-            label: nextProps.type
-          }
+            label: nextProps.type,
+          },
         },
         zoom: {
           enabled: true,
           rescale: true,
         },
         tooltip: {
-          contents: function (d, defaultTitleFormat, defaultValueFormat, color) {
-            d.sort(function (a, b) {
-              return b.value - a.value;
-            });
+          contents(d, defaultTitleFormat, defaultValueFormat, color) {
+            d.sort((a, b) => b.value - a.value);
             return this.getTooltipContent(d, defaultTitleFormat, defaultValueFormat, color);
-          }
-        }
+          },
+        },
       });
     }
   }

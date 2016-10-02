@@ -3,10 +3,10 @@ import {
   Table,
   TableRow,
   TableRowColumn,
-  TableBody
+  TableBody,
 } from 'material-ui/Table';
 import {
-  heroes
+  heroes,
 } from 'dotaconstants';
 import {
   heroTd,
@@ -15,7 +15,7 @@ import {
 const CrossTable = ({
   match,
   field1,
-  field2
+  field2,
 }) => (
   <Table selectable={false}>
     <TableBody displayRowCheckbox={false}>
