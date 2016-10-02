@@ -4,7 +4,7 @@ import buildingData from './BuildingData';
 // import Spinner from '../Spinner';
 
 export default function BuildingMap({ match }) {
-  if (match && match.tower_status_radiant) {
+  if (match && match.tower_status_radiant !== undefined) {
     // see https://wiki.teamfortress.com/wiki/WebAPI/GetMatchDetails
     let bits = pad(match.tower_status_radiant.toString(2), 11);
     bits += pad(match.barracks_status_radiant.toString(2), 6);
