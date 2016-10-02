@@ -108,6 +108,13 @@ const getSubtext = row => {
   return null;
 };
 
+export const getOrdinal = (n) => {
+  // TODO localize strings
+  const s = ['th', 'st', 'nd', 'rd'];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+};
+
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
   hero_id: (row, col, field) => (
@@ -207,11 +214,4 @@ export const SORT_ENUM = {
   asc: 0,
   desc: 1,
   next: (state) => SORT_ENUM[(state >= 1 ? 0 : state + 1)],
-};
-
-export const getOrdinal = (n) => {
-  //TODO localize strings
-  var s = ["th", "st", "nd", "rd"],
-    v = n % 100;
-  return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
