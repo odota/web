@@ -121,7 +121,7 @@ const listData = (initialState, actions) => (state = initialState, action) => {
         loading: false,
         error: false,
         loaded: true,
-        maxSize: !!action.maxSize,
+        maxSize: action.maxSize,
         list: [...action.payload],
       };
     case actions.ERROR:
