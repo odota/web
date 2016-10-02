@@ -66,5 +66,5 @@ export const submitForm = (submitAction, formName) => (dispatch, getState) => {
       formFields[key] = form.getChipList(getState(), formName, key).map(chip => chip.value);
     }
   });
-  dispatch(submitAction(formFields));
+  dispatch(submitAction(formFields, false, true));
 };

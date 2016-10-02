@@ -39,13 +39,13 @@ export const getPlayerPeersError = (payload, id) => ({
   id,
 });
 
-export const getPlayerPeers = (playerId, options = {}, host = API_HOST) => (dispatch, getState) => {
+export const getPlayerPeers = (playerId, options = {}) => (dispatch, getState) => {
   if (playerPeers.isLoaded(getState(), playerId)) {
     dispatch(getPlayerPeersOk(playerPeers.getPeerList(getState(), playerId), playerId));
   } else {
     dispatch(getPlayerPeersRequest(playerId));
   }
-  return fetch(`${host}${getUrl(playerId, options, url)}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerPeersOk(json, playerId)))
     .catch(error => dispatch(getPlayerPeersError(error, playerId)));

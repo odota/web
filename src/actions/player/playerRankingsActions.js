@@ -40,7 +40,7 @@ export const getPlayerRankingsError = (payload, id) => ({
   id,
 });
 
-export const getPlayerRankings = (playerId, options = {}, host = API_HOST) => (dispatch, getState) => {
+export const getPlayerRankings = (playerId, options = {}) => (dispatch, getState) => {
   // TODO - there is no reason to dispatch an OK in the positive case here that I cank think of.
   // Instead, we should change this (and all like it in players probably) to be triggered on the negative
   // condition only (which is important to do).
@@ -51,7 +51,7 @@ export const getPlayerRankings = (playerId, options = {}, host = API_HOST) => (d
   }
   // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
-  return fetch(`${host}${getUrl(playerId, options, url)}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
     // We want to filter out the rankings where the person is so bad they don't even have a rank
     // for that hero

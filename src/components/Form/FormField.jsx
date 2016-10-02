@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import AutoComplete from 'material-ui/AutoComplete';
 import { addChip, setFieldText } from 'actions';
 import { form } from 'reducers';
-import getClosestMatch from 'utility';
+import getClosestMatch from './utility';
 import ChipList from './ChipList';
 import styles from '../palette.css';
 

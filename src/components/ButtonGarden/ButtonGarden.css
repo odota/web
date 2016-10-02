@@ -1,8 +1,4 @@
-@import "../../../palette.css";
-
-:export {
-  spinnerColor: var(--textColorSecondary);
-}
+@import "../palette.css";
 
 .button {
   margin: 10px !important;
@@ -32,5 +28,5 @@
   flex-direction: row;
   flex-wrap: wrap;
   margin: 0 -10px;
-  justify-content: space-around;
+  justify-content: center;
 }

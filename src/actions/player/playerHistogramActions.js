@@ -48,7 +48,7 @@ const reduceArray = backwards => (array, val) => {
   return array;
 };
 
-export const getPlayerHistogram = (playerId, histogramName, host = API_HOST) => (dispatch, getState) => {
+export const getPlayerHistogram = (playerId, histogramName) => (dispatch, getState) => {
   if (playerHistogram.isLoaded(histogramName)(getState(), playerId)) {
     const list = playerHistogram.getHistogramList(histogramName)(getState(), playerId);
     dispatch(getPlayerHistogramOk(
@@ -60,7 +60,7 @@ export const getPlayerHistogram = (playerId, histogramName, host = API_HOST) => 
     dispatch(getPlayerHistogramRequest(playerId, histogramName));
   }
 
-  return fetch(`${host}${getUrl(playerId, null, url(histogramName))}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, null, url(histogramName))}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => json.reduceRight(reduceArray(true), []))
     .then(json => dispatch(getPlayerHistogramOk(json, playerId, histogramName)))
