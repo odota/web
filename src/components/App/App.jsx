@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { REDUCER_KEY } from 'reducers';
 import palette from 'components/palette.css';
 import Header from '../Header';
 import Footer from '../Footer';
@@ -35,7 +34,7 @@ const App = ({ children, open, params, location }) => (
 );
 
 const mapStateToProps = (state) => ({
-  open: state[REDUCER_KEY].appBar.open,
+  open: state.app.appBar.open,
 });
 
 export default connect(mapStateToProps)(App);

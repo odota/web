@@ -1,5 +1,4 @@
 import { benchmarkActions } from 'actions';
-import { REDUCER_KEY } from 'reducers';
 
 const initialState = {
   loading: false,
@@ -57,7 +56,7 @@ export default (state = initialState, action) => {
 };
 
 export const benchmark = {
-  getReducer: (state) => state[REDUCER_KEY].heroBenchmark,
+  getReducer: (state) => state.app.heroBenchmark,
   getHeroId: (state) => benchmark.getReducer(state).hero_id,
   getBenchmarks: (state) => benchmark.getReducer(state).result,
   getLoading: (state) => benchmark.getReducer(state).loading,

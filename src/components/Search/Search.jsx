@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { REDUCER_KEY } from 'reducers';
 import { getSearchResult } from 'actions';
 import Spinner from '../Spinner';
 
@@ -19,7 +18,7 @@ class Search extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { error, loading, done, searchResults } = state[REDUCER_KEY].search;
+  const { error, loading, done, searchResults } = state.app.search;
   return {
     loading,
     error,

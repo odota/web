@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import { API_HOST } from 'config';
 import { getPlayer } from 'actions';
-import { REDUCER_KEY } from 'reducers';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import LoggedIn from './LoggedIn';
@@ -36,7 +35,7 @@ const AccountWidget = ({ loading, error, user, style }) => (
 );
 
 const mapStateToProps = (state) => {
-  const { error, loading, user } = state[REDUCER_KEY].metadata;
+  const { error, loading, user } = state.app.metadata;
 
   return {
     loading,
