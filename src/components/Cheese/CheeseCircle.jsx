@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
 import ReactTooltip from 'react-tooltip';
-import { REDUCER_KEY } from 'reducers';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import { IconCheese } from '../Icons';
@@ -36,7 +35,7 @@ const Cheese = ({ donations, error, loading }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { loading, error, donations } = state[REDUCER_KEY].metadata;
+  const { loading, error, donations } = state.app.metadata;
 
   return {
     loading,

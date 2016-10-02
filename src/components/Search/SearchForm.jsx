@@ -6,7 +6,6 @@ import TextField from 'material-ui/TextField';
 // import ActionSearch from 'material-ui/svg-icons/action/search';
 // import CircularProgress from 'material-ui/CircularProgress';
 import { getSearchResult, setSearchQuery } from 'actions';
-import { REDUCER_KEY } from 'reducers';
 import styles from './search.css';
 
 const SearchForm = ({ dispatchSearch, dispatchSetQuery, query }) => {
@@ -36,7 +35,7 @@ const SearchForm = ({ dispatchSearch, dispatchSetQuery, query }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { error, loading, done, query, searchResults } = state[REDUCER_KEY].search;
+  const { error, loading, done, query, searchResults } = state.app.search;
   return {
     loading,
     done,

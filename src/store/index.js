@@ -11,12 +11,12 @@ import {
   routerMiddleware,
 } from 'react-router-redux';
 import { browserHistory } from 'react-router';
-import appReducer, { REDUCER_KEY } from 'reducers';
+import app from 'reducers';
 
 const loggerMiddleware = createLogger();
 
 const reducer = combineReducers({
-  [REDUCER_KEY]: appReducer,
+  app,
   routing,
 });
 
