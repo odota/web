@@ -4,6 +4,7 @@ import {
 } from 'react-redux';
 import strings from 'lang';
 // import { Card } from 'material-ui/Card';
+import Spinner from 'components/Spinner';
 import TabBar from 'components/TabBar';
 import {
   getMatch,
@@ -58,81 +59,81 @@ const matchPages = [{
     <MatchPlayersTable columns={overviewColumns} />
     <MatchPlayersTable columns={abUpgradeColumns} />
     <BuildingMap match={match} />
-  </div>)
+  </div>),
 }, {
   name: strings.tab_benchmarks,
   content: match => (<div>
     <MatchPlayersTable columns={benchmarksColumns(match)} />
-  </div>)
+  </div>),
 }, {
   name: strings.tab_combat,
   content: match => (<div>
     <CrossTable match={match} field1="killed" field2="killed_by" />
     <CrossTable match={match} field1="damage" field2="damage_taken" />
-  </div>)
+  </div>),
 }, {
   name: strings.tab_performances,
-  content: match => (<div>
+  content: () => (<div>
     <MatchPlayersTable columns={overallColumns} />
     <MatchPlayersTable columns={laningColumns} />
-  </div>)
+  </div>),
 }, {
   name: strings.tab_farm,
   content: match => (<div>
-    <MatchPlayersTable columns={unitKillsColumns} /> 
+    <MatchPlayersTable columns={unitKillsColumns} />
     <MatchPlayersTable columns={lastHitsTimesColumns(match)} />
-  </div>)
+  </div>),
 }, {
   name: strings.tab_purchases,
   content: match => (<div>
-    <MatchPlayersTable columns={purchaseColumns} /> 
-    <MatchPlayersTable columns = {purchaseTimesColumns(match)}/> 
-  </div>)
+    <MatchPlayersTable columns={purchaseColumns} />
+    <MatchPlayersTable columns={purchaseTimesColumns(match)} />
+  </div>),
 }, {
   name: strings.tab_graphs,
   content: match => (<div>
-    <MatchGraph match={match} type="difference" /> 
+    <MatchGraph match={match} type="difference" />
     <MatchGraph match={match} type="gold" />
-    <MatchGraph match={match} type="xp" /> 
+    <MatchGraph match={match} type="xp" />
     <MatchGraph match={match} type="lh" />
-    </div>)
+  </div>),
 }, {
   name: strings.tab_casts,
   content: match => (<div>
     <CastTable match={match} dataField="ability_uses_arr" columns={abilityUseColumns} />
-    <CastTable match={match} dataField="item_uses_arr" columns={itemUseColumns} /> 
-  </div>)
+    <CastTable match={match} dataField="item_uses_arr" columns={itemUseColumns} />
+  </div>),
 }, {
   name: strings.tab_objectives,
-  content: match => (<div>
-    <MatchPlayersTable columns={runesColumns} /> 
-  </div>)
+  content: () => (<div>
+    <MatchPlayersTable columns={runesColumns} />
+  </div>),
 }, {
   name: strings.tab_vision,
-  content: match => (<div />)
+  content: () => (<div />),
 }, {
   name: strings.tab_actions,
-  content: match => (<div>
-    <MatchPlayersTable columns={actionsColumns} /> 
-  </div>)
+  content: () => (<div>
+    <MatchPlayersTable columns={actionsColumns} />
+  </div>),
 }, {
   name: strings.tab_teamfights,
-  content: match => (<div>
+  content: () => (<div>
     <div id="teamfights" />
-  </div>)
+  </div>),
 }, {
   name: strings.tab_analysis,
-  content: match => (<div />)
+  content: () => (<div />),
 }, {
   name: strings.tab_cosmetics,
-  content: match => (<div>
-    <MatchPlayersTable columns={cosmeticsColumns} /> 
-  </div>)
+  content: () => (<div>
+    <MatchPlayersTable columns={cosmeticsColumns} />
+  </div>),
 }, {
   name: strings.tab_chat,
   content: match => (<div>
     <Table data={(match.chat || []).map(c => Object.assign({}, c, match.players[c.slot]))} columns={chatColumns} />
-  </div>)
+  </div>),
 }];
 
 const matchPagesMapped = (matchId) => matchPages.map(page => ({
@@ -168,7 +169,6 @@ class RequestLayer extends React.Component {
     const match = this.props.match;
     const matchId = this.props.matchId;
     const info = this.props.routeParams.info || 'overview';
-    console.log(this.props);
     return (
       <div>
         <MatchHeader match={match} user={this.props.user} />

@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  connect
+  connect,
 } from 'react-redux';
 import {
-  withRouter
+  withRouter,
 } from 'react-router';
 import {
   getPlayer,
@@ -30,28 +30,28 @@ import {
 
 const playerPages = [{
   name: strings.tab_overview,
-  content: (playerId, subInfo) => (<OverviewPage playerId={playerId} />),
+  content: (playerId) => (<OverviewPage playerId={playerId} />),
 }, {
   name: strings.tab_matches,
-  content: (playerId, subInfo) => (<MatchesPage playerId={playerId} />),
+  content: (playerId) => (<MatchesPage playerId={playerId} />),
 }, {
   name: strings.tab_heroes,
-  content: (playerId, subInfo) => (<HeroesPage playerId={playerId} />),
+  content: (playerId) => (<HeroesPage playerId={playerId} />),
 }, {
   name: strings.tab_peers,
-  content: (playerId, subInfo) => (<PeersPage playerId={playerId} />),
+  content: (playerId) => (<PeersPage playerId={playerId} />),
 }, {
   name: strings.tab_pros,
-  content: (playerId, subInfo) => (<ProsPage playerId={playerId} />),
+  content: (playerId) => (<ProsPage playerId={playerId} />),
 }, {
   name: strings.tab_activity,
-  content: (playerId, subInfo) => (<div />),
+  content: () => (<div />),
 }, {
   name: strings.tab_records,
-  content: (playerId, subInfo) => (<RecordsPage playerId={playerId} />),
+  content: (playerId) => (<RecordsPage playerId={playerId} />),
 }, {
   name: strings.tab_counts,
-  content: (playerId, subInfo) => (<CountsPage playerId={playerId} />),
+  content: (playerId) => (<CountsPage playerId={playerId} />),
 }, {
   name: strings.tab_histograms,
   content: (playerId, subInfo) => (<HistogramsPage playerId={playerId} histogramName={subInfo} />),
@@ -60,16 +60,16 @@ const playerPages = [{
   content: (playerId, subInfo) => (<TrendsPage playerId={playerId} trendName={subInfo} />),
 }, {
   name: strings.tab_wardmap,
-  content: (playerId, subInfo) => (<div />),
+  content: () => (<div />),
 }, {
   name: strings.tab_wordcloud,
-  content: (playerId, subInfo) => (<div />),
+  content: () => (<div />),
 }, {
   name: strings.tab_mmr,
-  content: (playerId, subInfo) => (<MMRPage playerId={playerId} />),
+  content: (playerId) => (<MMRPage playerId={playerId} />),
 }, {
   name: strings.tab_rankings,
-  content: (playerId, subInfo) => (<RankingsPage playerId={playerId} />),
+  content: (playerId) => (<RankingsPage playerId={playerId} />),
 }];
 
 const playerPagesMapped = (playerId) => playerPages.map(page => ({
@@ -81,8 +81,8 @@ const Player = ({
   params: {
     accountId,
     info,
-    subInfo
-  }
+    subInfo,
+  },
 }) => {
   if (!accountId) {
     return <Error />;
@@ -101,7 +101,6 @@ const Player = ({
           />
         </div>
       </div>
-      {console.log(playerPagesMapped(accountId))}
       {playerPagesMapped(accountId).filter(page => page.name.toLowerCase() === defInfo).map(page => page.content(accountId, subInfo))}
     </div>
   );

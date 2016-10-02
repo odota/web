@@ -7,7 +7,7 @@ const onActive = (tab, router) => {
   router.push(tab.route);
 };
 
-const TabBar = ({ router, tabs, info}) => (
+const TabBar = ({ router, tabs, info }) => (
   <Tabs
     inkBarStyle={{ backgroundColor: styles.inkBarColor }}
     className={styles.tabs}

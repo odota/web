@@ -484,14 +484,14 @@ const unitKillsColumns = [
 ];
 
 const actionsColumns = [heroTdColumn, {
-    displayName: 'APM',
-    tooltip: strings.actions_per_min,
-    field: 'actions_per_min',
-  }, {
-    displayName: 'Pings',
-    tooltip: strings.pings,
-    field: 'pings',
-  }]
+  displayName: 'APM',
+  tooltip: strings.actions_per_min,
+  field: 'actions_per_min',
+}, {
+  displayName: 'Pings',
+  tooltip: strings.pings,
+  field: 'pings',
+}]
   .concat(Object.keys(orderTypes).filter(o => orderTypes[o] in strings).map(k => ({
     displayName: strings[`${orderTypes[k]}_abbr`],
     tooltip: strings[orderTypes[k]],
@@ -511,7 +511,7 @@ const cosmeticsColumns = [heroTdColumn, {
   field: 'cosmetics',
   displayFn: (row, col, field) => field.map((c, i) => (
     <div key={i}>
-      <img src={`http://cdn.dota2.com/apps/570/${c.image_path}`} style={{height:'40px'}} />
+      <img src={`http://cdn.dota2.com/apps/570/${c.image_path}`} style={{ height: '40px' }} role="presentation" />
       <div>{c.name}</div>
     </div>)),
 }];
