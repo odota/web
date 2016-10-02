@@ -161,10 +161,7 @@ function renderMatch(m) {
   m.players.forEach((pm, i) => {
     pm.analysis = generatePlayerAnalysis(m, pm);
   });
-  // create graph data
-  if (m.players[0] && m.players[0].gold_t) {
-    m.graphData = generateGraphData(m);
-  }
+  m.graphData = generateGraphData(m);
   // create heatmap data
   m.posData = m.players.map((p) => {
     return p.posData;
@@ -250,28 +247,33 @@ function renderMatch(m) {
  * Generates data for c3 charts in a match
  **/
 function generateGraphData(match) {
-  // compute graphs
-  let goldDifference = ['Gold'];
-  let xpDifference = ['XP'];
-  goldDifference = goldDifference.concat(match.radiant_gold_adv);
-  xpDifference = xpDifference.concat(match.radiant_xp_adv);
-  const time = ['time'].concat(match.players[0].times);
-  const data = {
-    difference: [time, xpDifference, goldDifference],
-    gold: [time],
-    xp: [time],
-    lh: [time],
-  };
-  match.players.forEach((p, i) => {
-    let hero = heroes[p.hero_id] || {};
-    hero = hero.localized_name;
-    data.gold.push([hero].concat(p.gold_t));
-    data.xp.push([hero].concat(p.xp_t));
-    data.lh.push([hero].concat(p.lh_t));
-  });
-  return data;
+  if (match.players) {
+    // compute graphs
+    let goldDifference = ['Gold'];
+    let xpDifference = ['XP'];
+    goldDifference = goldDifference.concat(match.radiant_gold_adv);
+    xpDifference = xpDifference.concat(match.radiant_xp_adv);
+    const time = ['time'].concat(match.players[0].times);
+    const data = {
+      difference: [time, xpDifference, goldDifference],
+      gold: [time],
+      xp: [time],
+      lh: [time],
+    };
+    match.players.forEach((p, i) => {
+      let hero = heroes[p.hero_id] || {};
+      hero = hero.localized_name;
+      data.gold.push([hero].concat(p.gold_t));
+      data.xp.push([hero].concat(p.xp_t));
+      data.lh.push([hero].concat(p.lh_t));
+    });
+    return data;
+  }
 }
 
+/**
+ * Generates position data for a player
+ **/
 function generatePositionData(d, p) {
   // d, a hash of keys to process
   // p, a player containing keys with values as position hashes

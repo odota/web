@@ -1,17 +1,25 @@
 import React from 'react';
-import { heroes } from 'dotaconstants';
-import { connect } from 'react-redux';
+import {
+  connect
+} from 'react-redux';
 // import { Card } from 'material-ui/Card';
-import { Tabs, Tab } from 'material-ui/Tabs';
-import { Table as MaterialTable, TableRow, TableRowColumn, TableBody } from 'material-ui/Table';
-import { getMatch, setMatchSort } from 'actions';
-import { REDUCER_KEY } from 'reducers';
-import { API_HOST } from 'config';
-import { createTable } from '../Table';
+import {
+  Tabs,
+  Tab
+} from 'material-ui/Tabs';
+import {
+  getMatch,
+  setMatchSort
+} from 'actions';
+import {
+  createTable
+} from '../Table';
 import Table from '../Table/Table';
 import MatchHeader from './MatchHeader';
+import CastTable from './CastTable';
+import CrossTable from './CrossTable';
+import MatchGraph from './MatchGraph';
 import {
-  heroTd,
   overviewColumns,
   abUpgradeColumns,
   benchmarksColumns,
@@ -28,60 +36,30 @@ import {
   runesColumns,
 } from './matchColumns.jsx';
 import BuildingMap from '../BuildingMap/BuildingMap';
-import { defaultSort } from '../../utility';
+import {
+  defaultSort,
+} from '../../utility';
 // import { TabBar } from '../TabBar';
 
-const match = (state) => state[REDUCER_KEY].match;
-const getMatchPlayers = (state) => state[REDUCER_KEY].match.match.players;
-const getSortState = (state) => state[REDUCER_KEY].match.sortState;
-const getSortField = (state) => state[REDUCER_KEY].match.sortField;
-const getSortFn = (state) => state[REDUCER_KEY].match.sortFn;
+const match = (state) => state.app.match;
+const getMatchPlayers = (state) => state.app.match.match.players;
+const getSortState = (state) => state.app.match.sortState;
+const getSortField = (state) => state.app.match.sortField;
+const getSortFn = (state) => state.app.match.sortFn;
 const sortMatchPlayers = (state) => defaultSort(getMatchPlayers(state), getSortState(state), getSortField(state), getSortFn(state));
 const MatchPlayersTable = createTable(
   match,
   (state, sortState) => (sortState ? sortMatchPlayers(state) : getMatchPlayers(state)),
   setMatchSort
 );
-const CastTable = ({ match, dataField, columns }) => (
-  <Tabs>
-    {match.players.map((p) =>
-      (
-      <Tab key={p.player_slot} icon={<img src={`${API_HOST}${heroes[p.hero_id].img}`} height={30} role="presentation" />}>
-        <Table
-          data={p[dataField] || []}
-          columns={columns}
-        />
-      </Tab>
-      ))
-    }
-  </Tabs>);
 
-const CrossTable = ({ match, field1, field2 }) => (
-  <MaterialTable selectable={false}>
-    <TableBody displayRowCheckbox={false}>
-      <TableRow>
-        <TableRowColumn>Hero</TableRowColumn>
-        {match.players.slice(0, match.players.length / 2).map(p => (
-          <TableRowColumn key={p.hero_id}>
-            {heroTd(p, 'hero_id', p.hero_id, true)}
-          </TableRowColumn>)
-        )}
-      </TableRow>
-      {match.players.slice(match.players.length / 2, match.players.length).map(p => (<TableRow key={p.hero_id}>
-        <TableRowColumn>{heroTd(p, 'hero_id', p.hero_id, true)}</TableRowColumn>
-        {match.players.slice(0, match.players.length / 2).map(p2 => {
-          const hero2 = heroes[p2.hero_id] || {};
-          return <TableRowColumn key={p2.hero_id}>{`${(p[field1] || {})[hero2.name] || 0}/${(p[field2] || {})[hero2.name] || 0}`}</TableRowColumn>;
-        })}
-      </TableRow>))}
-    </TableBody>
-  </MaterialTable>);
-
-const mapStateToProps = (state, { params }) => ({
+const mapStateToProps = (state, {
+  params
+}) => ({
   matchId: params.match_id,
-  match: state[REDUCER_KEY].match.match,
-  loading: state[REDUCER_KEY].match.loading,
-  user: state[REDUCER_KEY].metadata.user,
+  match: state.app.match.match,
+  loading: state.app.match.loading,
+  user: state.app.metadata.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -130,6 +108,12 @@ class RequestLayer extends React.Component {
           <Tab label="Purchases">
             <MatchPlayersTable columns={purchaseColumns} />
             <MatchPlayersTable columns={purchaseTimesColumns(match)} />
+          </Tab>
+          <Tab label="Graphs">
+            <MatchGraph match={match} type="difference" />
+            <MatchGraph match={match} type="gold" />
+            <MatchGraph match={match} type="xp" />
+            <MatchGraph match={match} type="lh" />
           </Tab>
           <Tab label="Abilities">
             <CastTable match={match} dataField="ability_uses_arr" columns={abilityUseColumns} />
