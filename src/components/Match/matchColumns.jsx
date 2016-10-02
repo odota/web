@@ -152,9 +152,12 @@ const abUpgradeColumns = [
     if (field) {
       const abilityId = field[column.index];
       const abilityKey = abilityIds[abilityId];
-      let abilityData = {
-        img: `${API_HOST}/apps/dota2/images/abilities/${abilityKey}_md.png`,
-      };
+      let abilityData = null;
+      if (abilityKey) {
+        abilityData = {
+          img: `${API_HOST}/apps/dota2/images/abilities/${abilityKey}_md.png`,
+        };
+      }
       if (abilityKey === 'attribute_bonus') {
         abilityData = {
           dname: 'Attribute Bonus',
@@ -170,7 +173,7 @@ const abUpgradeColumns = [
         />);
       }
     }
-    return null;
+    return <div />;
   },
 })));
 
@@ -481,14 +484,14 @@ const unitKillsColumns = [
 ];
 
 const actionsColumns = [heroTdColumn, {
-  displayName: 'APM',
-  tooltip: strings.actions_per_min,
-  field: 'actions_per_min',
-}, {
-  displayName: 'Pings',
-  tooltip: strings.pings,
-  field: 'pings',
-}]
+    displayName: 'APM',
+    tooltip: strings.actions_per_min,
+    field: 'actions_per_min',
+  }, {
+    displayName: 'Pings',
+    tooltip: strings.pings,
+    field: 'pings',
+  }]
   .concat(Object.keys(orderTypes).filter(o => orderTypes[o] in strings).map(k => ({
     displayName: strings[`${orderTypes[k]}_abbr`],
     tooltip: strings[orderTypes[k]],
