@@ -181,7 +181,7 @@ const benchmarksColumns = (match) => {
   const cols = [
     heroTdColumn,
   ];
-  if (match.players[0] && match.players[0].benchmarks) {
+  if (match.players && match.players[0] && match.players[0].benchmarks) {
     Object.keys(match.players[0].benchmarks).forEach((key, i) => {
       cols.push({
         displayName: key,

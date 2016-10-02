@@ -15,8 +15,12 @@ import {
 import {
   getMatchData,
   sortMatchPlayers,
-  getMatchPlayers
+  getMatchPlayers,
+  getMatchLoading,
 } from 'reducers/match';
+import {
+  getMetadataUser,
+} from 'reducers/metadata';
 import {
   createTable,
 } from '../Table';
@@ -54,9 +58,9 @@ const mapStateToProps = (state, {
   params,
 }) => ({
   matchId: params.match_id,
-  match: state.app.match.match,
-  loading: state.app.match.loading,
-  user: state.app.metadata.user,
+  match: getMatchData(state),
+  loading: getMatchLoading(state),
+  user: getMetadataUser(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
