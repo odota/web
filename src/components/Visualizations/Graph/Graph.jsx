@@ -13,19 +13,19 @@ const generateGraph = ({
   height = 320,
   colorFn,
   color,
+  colors,
   formatFn,
   xAxis,
   hidePoints,
+  otherColumnNames,
+  noX,
 }, id) => {
   if (columns && columns.length > 0) {
     const columnVals = columns.map(column => column.value);
-    const xVals = columns.map(column => column.x);
     const configObject = {
       bindto: `#${id}`,
       data: {
-        x: 'x',
         columns: [
-          ['x', ...xVals],
           [name, ...columnVals],
         ],
         type,
@@ -39,13 +39,35 @@ const generateGraph = ({
       point: {
         show: !hidePoints,
       },
+      line: {
+        connectNull: true,
+      },
     };
+    if (!noX) {
+      configObject.data.x = 'x';
+      configObject.data.columns.push([
+        'x',
+        ...columns.map(column => column.x),
+      ]);
+    }
+    // Copy over the other columns into the data columns
+    if (otherColumnNames) {
+      configObject.data.columns = [
+        ...configObject.data.columns,
+        ...otherColumnNames.map(column => [
+          column.name,
+          ...columns.map(col => col[column.property]),
+        ]),
+      ];
+    }
     if (formatFn) {
       configObject.data.labels = {
         format: formatFn,
       };
     }
-    if (colorFn || color) {
+    if (colors) {
+      configObject.data.colors = colors;
+    } else if (colorFn || color) {
       configObject.data.color = colorFn || (() => color);
     }
     c3.generate(configObject);
@@ -73,9 +95,9 @@ class GraphWrapper extends Component {
 const { string, number, arrayOf, shape, func, bool } = React.PropTypes;
 GraphWrapper.propTypes = {
   columns: arrayOf(shape({
-    x: number.isRequired,
+    x: number,
     value: number.isRequired,
-  })),
+  })).isRequired,
   xAxis: shape({
     tick: shape({
       values: arrayOf(number),
@@ -84,9 +106,14 @@ GraphWrapper.propTypes = {
   hidePoints: bool,
   formatFn: func,
   colorFn: func,
-  type: string,
+  type: string.isRequired,
   name: string,
   height: number,
+  noX: bool,
+  otherColumnNames: arrayOf(shape({
+    name: string.isRequired,
+    property: string.isRequired,
+  })),
 };
 
 export default GraphWrapper;
