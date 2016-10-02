@@ -80,14 +80,13 @@ const playerPagesMapped = (playerId) => playerPages.map(page => ({
 const Player = ({
   params: {
     accountId,
-    info,
+    info = 'overview',
     subInfo,
   },
 }) => {
   if (!accountId) {
     return <Error />;
   }
-  const defInfo = info || 'overview';
   // Need to pass in the action into filter form, need to put that filter form into each subroute as well
   return (
     <div>
@@ -95,13 +94,13 @@ const Player = ({
         <PlayerHeader playerId={accountId} />
         <div style={{ marginTop: 25 }}>
           <TabBar
-            info={defInfo}
+            info={info}
             subInfo={subInfo}
             tabs={playerPagesMapped(accountId)}
           />
         </div>
       </div>
-      {playerPagesMapped(accountId).filter(page => page.name.toLowerCase() === defInfo).map(page => page.content(accountId, subInfo))}
+      {playerPagesMapped(accountId).filter(page => page.name.toLowerCase() === info).map(page => page.content(accountId, subInfo))}
     </div>
   );
 };
