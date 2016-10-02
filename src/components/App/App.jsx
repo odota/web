@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { REDUCER_KEY } from 'reducers';
 import palette from 'components/palette.css';
+// For some reason, if reducers are not imported here, the app doesn't work
+import 'reducers';
 import Header from '../Header';
 import Footer from '../Footer';
 import styles from './App.css';
@@ -35,7 +36,7 @@ const App = ({ children, open, params, location }) => (
 );
 
 const mapStateToProps = (state) => ({
-  open: state[REDUCER_KEY].appBar.open,
+  open: state.app.appBar.open,
 });
 
 export default connect(mapStateToProps)(App);

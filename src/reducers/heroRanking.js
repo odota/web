@@ -1,4 +1,3 @@
-import { REDUCER_KEY } from 'reducers';
 import { rankingActions } from 'actions';
 
 const initialState = {
@@ -41,7 +40,7 @@ export default (state = initialState, action) => {
 };
 
 export const ranking = {
-  getReducer: state => state[REDUCER_KEY].heroRanking,
+  getReducer: state => state.app.heroRanking,
   getHeroId: state => ranking.getReducer(state).hero_id,
   getRankings: state => ranking.getReducer(state).rankings,
   getError: state => ranking.getReducer(state).error,
