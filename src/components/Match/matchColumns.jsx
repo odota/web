@@ -223,7 +223,7 @@ export const purchaseTimesColumns = (match) => {
         .filter(p => (p.time >= curTime - bucket && p.time < curTime))
         .map((p, i) => {
           if (items[p.key]) {
-            return transformations(p.key, formatSeconds(p.time), i);
+            return transformations.inflictorWithValue(p.key, formatSeconds(p.time), i);
           }
           return <span />;
         }) : ''}
@@ -382,26 +382,12 @@ export const chatColumns = [
   },
 ];
 
-export const abilityUseColumns = [{
-  displayName: 'Ability',
+export const castsColumns = [{
+  displayName: 'Name',
   field: 'name',
 }, {
   displayName: 'Casts',
-  field: 'ability_uses',
-}, {
-  displayName: 'Hits',
-  field: 'hero_hits',
-}, {
-  displayName: 'Damage',
-  field: 'damage_inflictor',
-}];
-
-export const itemUseColumns = [{
-  displayName: 'Item',
-  field: 'name',
-}, {
-  displayName: 'Casts',
-  field: 'item_uses',
+  field: 'casts',
 }, {
   displayName: 'Hits',
   field: 'hero_hits',

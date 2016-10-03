@@ -44,8 +44,7 @@ import {
   laningColumns,
   chatColumns,
   purchaseColumns,
-  abilityUseColumns,
-  itemUseColumns,
+  castsColumns,
   purchaseTimesColumns,
   lastHitsTimesColumns,
   unitKillsColumns,
@@ -119,8 +118,7 @@ const matchPages = [{
 }, {
   name: strings.tab_casts,
   content: match => (<div>
-    <CastTable match={match} dataField="ability_uses_arr" columns={abilityUseColumns} />
-    <CastTable match={match} dataField="item_uses_arr" columns={itemUseColumns} />
+    <CastTable match={match} columns={castsColumns} />
   </div>),
 }, {
   name: strings.tab_objectives,

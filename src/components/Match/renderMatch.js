@@ -199,35 +199,6 @@ function renderMatch(m) {
       kill_streaks_max: getMaxKeyOfObject(pm.kill_streaks),
       analysis: analysis(m, pm),
     };
-    /*
-    const targets = ['ability_uses', 'item_uses', 'damage_inflictor', 'damage_inflictor_received'];
-    targets.forEach((target) => {
-      if (pm[target]) {
-        const t = [];
-        Object.keys(pm[target]).forEach((key) => {
-          // const a = abilities[key];
-          // const i = items[key];
-          const def = {
-            img: '/public/images/default_attack.png',
-          };
-          // def = a || i || def;
-          const result = {
-            // TODO generate image path here
-            img: def.img,
-            name: key || 'Auto Attack/Other',
-            val: pm[target][key],
-            ability_uses: (pm.ability_uses || {})[key],
-            item_uses: (pm.item_uses || {})[key],
-            hero_hits: (pm.hero_hits || {})[key],
-            damage_inflictor: (pm.damage_inflictor || {})[key],
-          };
-          t.push(result);
-        });
-        t.sort((a, b) => b.val - a.val);
-        additionalProps[`${target}_arr`] = t;
-      }
-    });
-    */
     // filter interval data to only be >= 0
     if (pm.times) {
       const intervals = ['lh_t', 'gold_t', 'xp_t', 'times'];
