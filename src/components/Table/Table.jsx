@@ -13,11 +13,15 @@ import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import styles from './Table.css';
-import { getTotalWidth, getWidthStyle } from './tableHelpers';
+import {
+  getTotalWidth,
+  // getWidthStyle,
+} from './tableHelpers';
 
 const getTable = (data, columns, sortState, sortField, sortClick) => {
-  const totalWidth = getTotalWidth(columns);
-
+  // Not currently using totalWidth (default auto width)
+  // const totalWidth = getTotalWidth(columns);
+  getTotalWidth(columns);
   return (
     <div className={styles.innerContainer}>
       <MaterialTable selectable={false} className={styles.table}>
@@ -27,7 +31,7 @@ const getTable = (data, columns, sortState, sortField, sortClick) => {
             sortState={sortState}
             sortField={sortField}
             sortClick={sortClick}
-            totalWidth={totalWidth}
+            // totalWidth={totalWidth}
           />
         </MaterialTableHeader>
         <MaterialTableBody displayRowCheckbox={false} selectable={false}>
@@ -38,7 +42,7 @@ const getTable = (data, columns, sortState, sortField, sortClick) => {
             >
               {columns.map((column, colIndex) => {
                 const MaterialTableRowColumnStyle = {
-                  width: `${getWidthStyle(column.width, totalWidth)}%`,
+                  // width: `${getWidthStyle(column.width, totalWidth)}%`,
                   overflow: `${column.field === 'kills' ? 'visible' : null}`,
                 };
                 return (
@@ -56,7 +60,16 @@ const getTable = (data, columns, sortState, sortField, sortClick) => {
   );
 };
 
-const Table = ({ data, columns, loading, error, sortState, sortField, sortClick, numRows }) => (
+const Table = ({
+  data,
+  columns,
+  loading,
+  error,
+  sortState,
+  sortField,
+  sortClick,
+  numRows,
+}) => (
   <div className={styles.container}>
     {loading && <Spinner />}
     {!loading && error && <Error />}
@@ -64,7 +77,13 @@ const Table = ({ data, columns, loading, error, sortState, sortField, sortClick,
   </div>
 );
 
-const { array, bool, string, func, number } = React.PropTypes;
+const {
+  array,
+  bool,
+  string,
+  func,
+  number,
+} = React.PropTypes;
 
 Table.propTypes = {
   data: array,

@@ -28,11 +28,6 @@ import {
 } from 'components/Visualizations';
 import subTextStyle from 'components/Visualizations/Table/subText.css';
 
-export {
-  default as bucketizeColumns,
-}
-from './bucketizeColumns';
-
 // TODO - add in the relevant text invocations of TableHeroImage
 export const isRadiant = (playerSlot) => playerSlot < 128;
 
@@ -40,15 +35,10 @@ export function pad(n, width, z = '0') {
   const str = `${n}`;
   return str.length >= width ? str : new Array((width - str.length) + 1).join(z) + n;
 }
-/*
-function format(input) {
-    input = Number(input);
-    if (input === 0 || Number.isNaN(input)) {
-        return "-";
-    }
-    return (Math.abs(input) < 1000 ? ~~(input) : numeral(input).format('0.0a'));
+export function abbreviateNumber(num) {
+  // TODO localize string k
+  return (num < 1000) ? num : `${(num / 1000).toFixed(1)}k`;
 }
-*/
 export function formatSeconds(input) {
   const absTime = Math.abs(input);
   const minutes = ~~(absTime / 60);
@@ -99,6 +89,13 @@ export const getPercentWin = (wins, games) => (games ? Number(((wins * 100) / ga
 export const camelToSnake = str =>
   str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
 
+export const getOrdinal = (n) => {
+  // TODO localize strings
+  const s = ['th', 'st', 'nd', 'rd'];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+};
+
 const getSubtext = row => {
   if (row.match_id && row.player_slot !== undefined) {
     // TODO localize
@@ -108,13 +105,6 @@ const getSubtext = row => {
     return <FromNowTooltip timestamp={row.last_played} />;
   }
   return null;
-};
-
-export const getOrdinal = (n) => {
-  // TODO localize strings
-  const s = ['th', 'st', 'nd', 'rd'];
-  const v = n % 100;
-  return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
 
 // TODO - these more complicated ones should be factored out into components
@@ -217,3 +207,32 @@ export const SORT_ENUM = {
   desc: 1,
   next: (state) => SORT_ENUM[(state >= 1 ? 0 : state + 1)],
 };
+
+export function getObsWardsPlaced(pm) {
+  if (!pm.obs_log) {
+    return 0;
+  }
+  return pm.obs_log.filter((l) => !l.entityleft).length;
+}
+
+export function isSupport(pm) {
+  return getObsWardsPlaced(pm) >= 2 && pm.lh_t && pm.lh_t[10] < 20;
+}
+
+export function isRoshHero(pm) {
+  const roshHeroes = {
+    npc_dota_hero_lycan: 1,
+    npc_dota_hero_ursa: 1,
+    npc_dota_hero_troll_warlord: 1,
+  };
+  return heroes[pm.hero_id] && (heroes[pm.hero_id].name in roshHeroes);
+}
+
+export function isActiveItem(key) {
+  const whitelist = {
+    branches: 1,
+    bloodstone: 1,
+    radiance: 1,
+  };
+  return (items[key].desc.indexOf('Active: ') > -1 && !(key in whitelist));
+}

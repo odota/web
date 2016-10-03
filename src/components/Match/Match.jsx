@@ -6,7 +6,7 @@ import strings from 'lang';
 // import { Card } from 'material-ui/Card';
 import {
   Tabs,
-  Tab
+  Tab,
 } from 'material-ui/Tabs';
 import Spinner from 'components/Spinner';
 import TabBar from 'components/TabBar';
@@ -27,14 +27,15 @@ import {
   formatSeconds,
 } from 'utility';
 import Heading from 'components/Heading';
-import {
+import Heatmap from 'components/Heatmap';
+import Table, {
   createTable,
-} from '../Table';
-import Table from '../Table/Table';
+} from 'components/Table';
 import MatchHeader from './MatchHeader';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
 import MatchGraph from './MatchGraph';
+import BuildingMap from './BuildingMap';
 import {
   overviewColumns,
   abUpgradeColumns,
@@ -55,12 +56,10 @@ import {
   xpReasonsColumns,
   objectiveDamageColumns,
   logColumns,
-  generateLog,
   analysisColumns,
   teamfightColumns,
 } from './matchColumns.jsx';
-import BuildingMap from './BuildingMap';
-import Heatmap from './Heatmap';
+import generateLog from './generateLog';
 
 const MatchPlayersTable = createTable(
   getMatchData,
@@ -138,19 +137,20 @@ const matchPages = [{
 }, {
   name: strings.tab_teamfights,
   content: (match) => (
-  <div>
-    <Heading title={strings.heading_teamfights} />
-    <Tabs>
-      {(match.teamfights || []).map((teamfight, i) => (
-      <Tab 
-        key={i} 
-        style={{ backgroundColor: teamfight.radiant_gold_delta >= 0 ? '#66BB6A' : '#ff4c4c'}}
-        label={`${formatSeconds(teamfight.start)}, ${teamfight.radiant_gold_delta}`}
-      >
-        <Table data={teamfight.players.filter(p => p.participate)} columns={teamfightColumns} />
-      </Tab>))}
-    </Tabs>
-  </div>),
+    <div>
+      <Heading title={strings.heading_teamfights} />
+      <Tabs>
+        {(match.teamfights || []).map((teamfight, i) => (
+          <Tab
+            key={i}
+            style={{ backgroundColor: teamfight.radiant_gold_delta >= 0 ? '#66BB6A' : '#ff4c4c' }}
+            label={`${formatSeconds(teamfight.start)}, ${teamfight.radiant_gold_delta}`}
+          >
+            <Table data={teamfight.players.filter(p => p.participate)} columns={teamfightColumns} />
+          </Tab>)
+        )}
+      </Tabs>
+    </div>),
 }, {
   name: strings.tab_analysis,
   content: () => (<MatchPlayersTable columns={analysisColumns} />),

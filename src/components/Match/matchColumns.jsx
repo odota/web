@@ -8,8 +8,6 @@ import {
   ability_ids as abilityIds,
   ability_keys as abilityKeys,
   hero_names as heroNames,
-  objectives,
-  barracks_value as barracksValue,
 } from 'dotaconstants';
 import strings from 'lang';
 import {
@@ -20,6 +18,7 @@ import {
 } from 'config.js';
 import {
   formatSeconds,
+  abbreviateNumber,
 } from 'utility';
 // import { AppBadge } from '../Player';
 import styles from './Match.css';
@@ -29,7 +28,11 @@ export const heroTd = (row, col, field, hideName) => (
   <div style={{ marginTop: 5 }}>
     <div>
       <div className={row.isRadiant ? styles.radiant : styles.dire} />
-      <img src={heroes[field] ? `${API_HOST}/apps/dota2/images/heroes/${heroes[field].name.substring('npc_dota_hero_'.length)}_full.png` : ''} style={{ height: 24 }} role="presentation" />
+      <img
+        src={heroes[field] ? `${API_HOST}/apps/dota2/images/heroes/${heroes[field].name.substring('npc_dota_hero_'.length)}_full.png` : ''}
+        style={{ height: 24 }}
+        role="presentation"
+      />
       {!hideName && <div>{row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : 'Anonymous'}</div>}
     </div>
   </div>
@@ -38,83 +41,77 @@ export const heroTd = (row, col, field, hideName) => (
 export const heroTdColumn = {
   displayName: 'Player',
   field: 'hero_id',
-  width: 3,
   displayFn: heroTd,
   sortFn: (row) => (row.player_slot),
-};
-
-export const abbreviateNumber = function abbreviateNumber(num) {
-  return (num < 1000) ? num : `${(num / 1000).toFixed(1)}k`;
 };
 
 export const overviewColumns = [
   heroTdColumn, {
     displayName: 'MMR',
     field: 'solo_competitive_rank',
-    width: 1,
     sortFn: true,
   }, {
     displayName: 'LVL',
     field: 'level',
-    width: 1,
+
     sortFn: true,
   }, {
     displayName: 'K',
     field: 'kills',
-    width: 1,
+
     sortFn: true,
   }, {
     displayName: 'D',
     field: 'deaths',
-    width: 1,
+
     sortFn: true,
   }, {
     displayName: 'A',
     field: 'assists',
-    width: 1,
+
     sortFn: true,
   }, {
     displayName: 'LH',
     field: 'last_hits',
-    width: 1,
+
     sortFn: true,
   }, {
     displayName: 'DN',
     field: 'denies',
-    width: 1,
+
     sortFn: true,
   }, {
     displayName: 'G',
     field: 'gold_per_min',
-    width: 1,
+
     displayFn: (row) => abbreviateNumber((row.gold_per_min * row.duration) / 60),
     sortFn: true,
   }, {
     displayName: 'GPM',
     field: 'gold_per_min',
-    width: 1,
+
     sortFn: true,
   }, {
     displayName: 'XPM',
     field: 'xp_per_min',
-    width: 1,
+
     sortFn: true,
   }, {
     displayName: 'HD',
     field: 'hero_damage',
-    width: 1,
+
     displayFn: (row) => abbreviateNumber(row.hero_damage),
     sortFn: true,
   }, {
     displayName: 'TD',
     field: 'tower_damage',
-    width: 1,
+
     displayFn: (row) => abbreviateNumber(row.tower_damage),
     sortFn: true,
   }, {
     displayName: 'HH',
     field: 'hero_healing',
-    width: 1,
+
     displayFn: (row) => abbreviateNumber(row.hero_healing),
     sortFn: true,
   }, {
@@ -154,7 +151,7 @@ export const abUpgradeColumns = [
   displayName: i + 1,
   field: 'ability_upgrades_arr',
   index: i,
-  width: 1,
+
   displayFn: (row, column, field) => {
     if (field) {
       const abilityId = field[column.index];
@@ -219,21 +216,21 @@ export const purchaseTimesColumns = (match) => {
     cols.push({
       displayName: `${curTime / 60}'`,
       field: 'purchase_log',
-      width: 1,
+
       displayFn: (row, column, field) => (<div>
         {field ? field
         .filter(p => (p.time >= curTime - bucket && p.time < curTime))
         .map((p, i) => {
           if (items[p.key]) {
             return (
-            <span key={i} style={{ float: 'left', fontSize: '11px' }}>
-              <img src={`${API_HOST}/apps/dota2/images/items/${p.key}_lg.png`} role="presentation" style={{ height: '20px' }} />
-              <br />
-              <span>{formatSeconds(p.time)}</span>
-            </span>);
+              <span key={i} style={{ float: 'left', fontSize: '11px' }}>
+                <img src={`${API_HOST}/apps/dota2/images/items/${p.key}_lg.png`} role="presentation" style={{ height: '20px' }} />
+                <br />
+                <span>{formatSeconds(p.time)}</span>
+              </span>);
           }
           return <span />;
-          }) : ''}
+        }) : ''}
       </div>),
     });
   }
@@ -248,7 +245,7 @@ export const lastHitsTimesColumns = (match) => {
     cols.push({
       displayName: `${curTime / 60}'`,
       field: 'lh_t',
-      width: 1,
+
       displayFn: (row, column, field) => (<div>
         {field ? field[curTime / 60] : ''}
       </div>),
@@ -261,32 +258,32 @@ export const overallColumns = [
   heroTdColumn, {
     displayName: 'Stacked',
     field: 'camps_stacked',
-    width: 1,
+
     sortFn: true,
   }, {
     displayName: 'Multikill',
     field: 'multi_kills_max',
-    width: 1,
+
     sortFn: true,
   }, {
     displayName: 'Streak',
     field: 'kill_streaks_max',
-    width: 1,
+
     sortFn: true,
   }, {
     displayName: 'Stuns',
     field: 'stuns',
-    width: 1,
+
     sortFn: true,
   }, {
     displayName: 'Dead',
     field: 'life_state_dead',
-    width: 1,
+
     sortFn: true,
   }, {
     displayName: 'Biggest Hit',
     field: 'max_hero_hit',
-    width: 1,
+
     sortFn: true,
     displayFn: (row, column, field) => {
       if (field) {
@@ -326,24 +323,24 @@ export const laningColumns = [
   heroTdColumn, {
     displayName: 'Lane',
     field: '',
-    width: 1,
+
     sortFn: true,
   }, {
     displayName: 'EFF@10',
     field: 'lane_efficiency',
-    width: 1,
+
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.toFixed(2) : ''),
   }, {
     displayName: 'LH@10',
     field: 'lh_t',
-    width: 1,
+
     sortFn: true,
     displayFn: (row, col, field) => (field ? field[10] : ''),
   }, {
     displayName: 'DN@10',
     field: 'dn_t',
-    width: 1,
+
     sortFn: true,
     displayFn: (row, col, field) => (field ? field[10] : ''),
   },
@@ -354,49 +351,49 @@ export const purchaseColumns = [
     displayName: 'TP',
     tooltip: strings.purchase_tpscroll,
     field: 'purchase',
-    width: 1,
+
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.tpscroll : '-'),
   }, {
     displayName: 'Observers',
     tooltip: strings.purchase_ward_observer,
     field: 'purchase',
-    width: 1,
+
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.ward_observer : '-'),
   }, {
     displayName: 'Sentries',
     tooltip: strings.purchase_ward_sentry,
     field: 'purchase',
-    width: 1,
+
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.ward_sentry : '-'),
   }, {
     displayName: 'Smokes',
     tooltip: strings.purchase_smoke_of_deceit,
     field: 'purchase',
-    width: 1,
+
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.smoke_of_deceit : '-'),
   }, {
     displayName: 'Dusts',
     tooltip: strings.purchase_dust,
     field: 'purchase',
-    width: 1,
+
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.dust : '-'),
   }, {
     displayName: 'Gems',
     tooltip: strings.purchase_gem,
     field: 'purchase',
-    width: 1,
+
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.gem : '-'),
   }, {
     displayName: 'Rapiers',
     tooltip: strings.purchase_rapier,
     field: 'purchase',
-    width: 1,
+
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.rapier : '-'),
   },
@@ -490,14 +487,14 @@ export const unitKillsColumns = [
 ];
 
 export const actionsColumns = [heroTdColumn, {
-    displayName: strings.abbr_actions_per_min,
-    tooltip: strings.actions_per_min,
-    field: 'actions_per_min',
-  }, {
-    displayName: strings.abbr_pings,
-    tooltip: strings.pings,
-    field: 'pings',
-  }]
+  displayName: strings.abbr_actions_per_min,
+  tooltip: strings.actions_per_min,
+  field: 'actions_per_min',
+}, {
+  displayName: strings.abbr_pings,
+  tooltip: strings.pings,
+  field: 'pings',
+}]
   .concat(Object.keys(orderTypes).filter(o => orderTypes[o] in strings).map(k => ({
     displayName: strings[`abbr_${orderTypes[k]}`],
     tooltip: strings[orderTypes[k]],
@@ -595,7 +592,9 @@ export const teamfightColumns = [
     field: 'ability_uses',
     displayFn: (row, col, field) => (field ? Object.keys(field).map((k, i) => {
       if (abilityKeys[k]) {
-        return <span key={i}><img src={`${API_HOST}/apps/dota2/images/abilities/${k}_lg.png`} role="presentation" style={{ height: '20px' }} /></span>;
+        return (<span key={i}>
+          <img src={`${API_HOST}/apps/dota2/images/abilities/${k}_lg.png`} role="presentation" style={{ height: '20px' }} />
+        </span>);
       }
       return <div />;
     }) : ''),
@@ -604,11 +603,13 @@ export const teamfightColumns = [
     field: 'item_uses',
     displayFn: (row, col, field) => (field ? Object.keys(field).map((k, i) => {
       if (items[k]) {
-        return <span key={i}><img src={`${API_HOST}/apps/dota2/images/items/${k}_lg.png`} role="presentation" style={{ height: '20px' }} /></span>;
+        return (<span key={i}>
+          <img src={`${API_HOST}/apps/dota2/images/items/${k}_lg.png`} role="presentation" style={{ height: '20px' }} />
+        </span>);
       }
       return <div />;
     }) : ''),
-  }
+  },
 ];
 
 // TODO
@@ -616,24 +617,3 @@ export const teamfightColumns = [
 // Damage inflictors dealt/received
 // Lane map
 // Ward maps
-
-export const generateLog = (match) => {
-  let log = [];
-  log = log.concat(match.objectives || [])
-    .map(c => ({
-      ...c,
-      ...match.players[c.slot],
-      type: 'objective',
-      objective: `${c.key ? barracksValue[c.key] : ''} ${objectives[c.subtype || c.type] || c.subtype || c.type}`,
-    }));
-  match.players.forEach(p => {
-    log = log.concat(p.kills_log.map(l => ({
-      ...l,
-      ...p,
-      type: 'kill',
-      objective: `${l.key}`,
-    })));
-  });
-  log = log.sort((a, b) => a.time - b.time);
-  return log;
-};
