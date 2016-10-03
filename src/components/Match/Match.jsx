@@ -141,7 +141,7 @@ const matchPages = [{
   name: strings.tab_log,
   content: match => (<div>
     <Table data={generateLog(match)} columns={logColumns} />
-  </div>)
+  </div>),
 }, {
   name: strings.tab_chat,
   content: match => (<div>

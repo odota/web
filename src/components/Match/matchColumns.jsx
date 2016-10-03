@@ -18,7 +18,7 @@ import {
   API_HOST,
 } from 'config.js';
 import {
-  formatSeconds
+  formatSeconds,
 } from 'utility';
 // import { AppBadge } from '../Player';
 import styles from './Match.css';
@@ -490,14 +490,14 @@ const unitKillsColumns = [
 ];
 
 const actionsColumns = [heroTdColumn, {
-    displayName: strings.abbr_actions_per_min,
-    tooltip: strings.actions_per_min,
-    field: 'actions_per_min',
-  }, {
-    displayName: strings.abbr_pings,
-    tooltip: strings.pings,
-    field: 'pings',
-  }]
+  displayName: strings.abbr_actions_per_min,
+  tooltip: strings.actions_per_min,
+  field: 'actions_per_min',
+}, {
+  displayName: strings.abbr_pings,
+  tooltip: strings.pings,
+  field: 'pings',
+}]
   .concat(Object.keys(orderTypes).filter(o => orderTypes[o] in strings).map(k => ({
     displayName: strings[`abbr_${orderTypes[k]}`],
     tooltip: strings[orderTypes[k]],
@@ -558,7 +558,7 @@ const logColumns = [heroTdColumn, {
 }, {
   displayName: 'Target',
   field: 'objective',
-}, ];
+}];
 
 const generateLog = (match) => {
   let log = [];
@@ -567,14 +567,14 @@ const generateLog = (match) => {
       ...c,
       ...match.players[c.slot],
       type: 'objective',
-      objective: `${c.key ? barracksValue[c.key] : ''} ${objectives[c.subtype || c.type] || c.subtype || c.type}`
+      objective: `${c.key ? barracksValue[c.key] : ''} ${objectives[c.subtype || c.type] || c.subtype || c.type}`,
     }));
   match.players.forEach(p => {
     log = log.concat(p.kills_log.map(l => ({
       ...l,
       ...p,
       type: 'kill',
-      objective: `${l.key}`
+      objective: `${l.key}`,
     })));
   });
   log = log.sort((a, b) => a.time - b.time);
