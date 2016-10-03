@@ -19,6 +19,7 @@ import {
 import {
   formatSeconds,
   abbreviateNumber,
+  transformations,
 } from 'utility';
 // import { AppBadge } from '../Player';
 import styles from './Match.css';
@@ -222,12 +223,7 @@ export const purchaseTimesColumns = (match) => {
         .filter(p => (p.time >= curTime - bucket && p.time < curTime))
         .map((p, i) => {
           if (items[p.key]) {
-            return (
-              <span key={i} style={{ float: 'left', fontSize: '11px' }}>
-                <img src={`${API_HOST}/apps/dota2/images/items/${p.key}_lg.png`} role="presentation" style={{ height: '20px' }} />
-                <br />
-                <span>{formatSeconds(p.time)}</span>
-              </span>);
+            return transformations(p.key, formatSeconds(p.time), i);
           }
           return <span />;
         }) : ''}
@@ -286,35 +282,11 @@ export const overallColumns = [
 
     sortFn: true,
     displayFn: (row, column, field) => {
-      if (field) {
-        // TODO use abilities if we need the full info immediately
-        const ability = abilityKeys[field.inflictor];
-        const item = items[field.inflictor];
-        const hero = heroNames[field.key] || {};
-        let props = {
-          src: null,
-          title: null,
-        };
-        if (ability) {
-          props = {
-            src: `${API_HOST}/apps/dota2/images/abilities/${field.inflictor}_lg.png`,
-          };
-        } else if (item) {
-          props = {
-            src: `${API_HOST}/apps/dota2/images/items/${field.inflictor}_lg.png`,
-          };
-        } else {
-          props = {
-            src: `${API_HOST}/public/images/default_attack.png`,
-          };
-        }
-        return (<div>
-          <img src={props.src} className={styles.imgSmall} role="presentation" />
-          <div>{field.value}</div>
-          <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} role="presentation" />
-        </div>);
-      }
-      return <div />;
+      const hero = heroNames[field.key] || {};
+      return (<div>
+        {transformations.inflictorWithValue(field.inflictor, field.value)}
+        <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} role="presentation" />
+      </div>);
     },
   },
 ];
@@ -513,7 +485,7 @@ export const cosmeticsColumns = [heroTdColumn, {
   displayName: 'Cosmetics',
   field: 'cosmetics',
   displayFn: (row, col, field) => field.map((c, i) => (
-    <div key={i}>
+    <div key={i} style={{ float: 'left' }}>
       <img src={`http://cdn.dota2.com/apps/570/${c.image_path}`} style={{ height: '40px' }} role="presentation" />
       <div>{c.name}</div>
     </div>)),
@@ -612,8 +584,27 @@ export const teamfightColumns = [
   },
 ];
 
+export const inflictorsColumns = [{
+  displayName: 'Received',
+  field: 'damage_inflictor_received',
+  displayFn: (row, col, field) => (field ? Object.keys(field)
+      .sort((a, b) => field[b] - field[a])
+      .map((k, i) => transformations.inflictorWithValue(k, abbreviateNumber(field[k]), i)) : ''),
+}, {
+  displayFn: () => '→',
+},
+  heroTdColumn, {
+    displayFn: () => '→',
+  }, {
+    displayName: 'Dealt',
+    field: 'damage_inflictor',
+    displayFn: (row, col, field) => (field ? Object.keys(field)
+      .sort((a, b) => field[b] - field[a])
+      .map((k, i) => transformations.inflictorWithValue(k, abbreviateNumber(field[k]), i)) : ''),
+  },
+];
+
 // TODO
 // party indicator
-// Damage inflictors dealt/received
 // Lane map
 // Ward maps

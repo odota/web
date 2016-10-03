@@ -199,6 +199,7 @@ function renderMatch(m) {
       kill_streaks_max: getMaxKeyOfObject(pm.kill_streaks),
       analysis: analysis(m, pm),
     };
+    /*
     const targets = ['ability_uses', 'item_uses', 'damage_inflictor', 'damage_inflictor_received'];
     targets.forEach((target) => {
       if (pm[target]) {
@@ -226,6 +227,7 @@ function renderMatch(m) {
         additionalProps[`${target}_arr`] = t;
       }
     });
+    */
     // filter interval data to only be >= 0
     if (pm.times) {
       const intervals = ['lh_t', 'gold_t', 'xp_t', 'times'];
@@ -275,7 +277,6 @@ function renderMatch(m) {
     }
     return additionalProps;
   });
-  console.log(newPlayers);
   return {
     ...m,
     graphData: generateGraphData(m),

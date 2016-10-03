@@ -58,6 +58,7 @@ import {
   logColumns,
   analysisColumns,
   teamfightColumns,
+  inflictorsColumns,
 } from './matchColumns.jsx';
 import generateLog from './generateLog';
 
@@ -80,17 +81,18 @@ const matchPages = [{
     <MatchPlayersTable columns={benchmarksColumns(match)} />
   </div>),
 }, {
-  name: strings.tab_combat,
-  content: match => (<div>
-    <CrossTable match={match} field1="killed" field2="killed_by" />
-    <CrossTable match={match} field1="damage" field2="damage_taken" />
-  </div>),
-}, {
   name: strings.tab_performances,
   content: (match) => (<div>
     <Heatmap points={match && match.players && match.players[0] && match.players[0].posData && match.players[0].posData.lane_pos} />
     <MatchPlayersTable columns={laningColumns} />
     <MatchPlayersTable columns={overallColumns} />
+  </div>),
+}, {
+  name: strings.tab_combat,
+  content: match => (<div>
+    <CrossTable match={match} field1="killed" field2="killed_by" />
+    <CrossTable match={match} field1="damage" field2="damage_taken" />
+    <MatchPlayersTable columns={inflictorsColumns} />
   </div>),
 }, {
   name: strings.tab_farm,

@@ -13,6 +13,7 @@ import {
   lobby_type as lobbyType,
   leaver_status as leaverStatus,
   lane_role as laneRole,
+  ability_keys as abilityKeys,
 } from 'dotaconstants';
 import {
   API_HOST,
@@ -164,6 +165,35 @@ export const transformations = {
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
   rank: (row) => getOrdinal(row.card - row.rank),
+  inflictorWithValue: (inflictor, value, index) => {
+    if (inflictor) {
+      // TODO use abilities if we need the full info immediately
+      const ability = abilityKeys[inflictor];
+      const item = items[inflictor];
+      let props = {
+        src: null,
+      };
+      if (ability) {
+        props = {
+          src: `${API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`,
+        };
+      } else if (item) {
+        props = {
+          src: `${API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`,
+        };
+      } else {
+        props = {
+          src: `${API_HOST}/public/images/default_attack.png`,
+        };
+      }
+      return (<span key={index} style={{ float: 'left', fontSize: '11px' }}>
+        <img src={props.src} role="presentation" style={{ height: '20px' }} />
+        <br />
+        <span>{value}</span>
+      </span>);
+    }
+    return <div />;
+  },
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */
