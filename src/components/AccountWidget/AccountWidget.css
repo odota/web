@@ -6,7 +6,7 @@
   text-overflow: ellipsis;
   text-transform: none !important;
   white-space: nowrap;
-  font-size: var(--fontDefault) !important;
+  font-size: var(--fontSizeCommon) !important;
   padding-right: 10px !important;
 }
 

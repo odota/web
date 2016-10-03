@@ -20,3 +20,13 @@
   padding: 50px;
   flex-grow: 1;
 }
+
+.AppLogo {
+  font-weight: var(--fontWeightMedium);
+  color: var(--textColorPrimary);
+  text-transform: uppercase;
+  &:hover {
+    color: var(--textColorPrimary);
+    opacity: .6;
+  }
+}

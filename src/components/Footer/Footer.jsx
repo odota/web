@@ -11,15 +11,8 @@ const Footer = () => (
   <footer className={styles.footer}>
     <Row>
       <Col xs>
-        <big>
-          <AppLogo style={{ color: styles.textPrimary }} />
-        </big>
+        <AppLogo />
         <SocialLinks />
-        <p>
-          <a href="//github.com/odota" target="_blank" rel="noopener noreferrer" className={styles.osLink}>
-            Open source
-          </a> Dota 2 data tools.
-        </p>
         <hr />
         <Links />
       </Col>

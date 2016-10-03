@@ -1,0 +1,32 @@
+@import "./subText.css";
+
+.actionDoneAll {
+  position: relative !important;
+  left: -10px !important;
+}
+
+.heroTextContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.image {
+  height: 29px;
+  width: 51px;
+  margin-right: 7px;
+}
+
+.container {
+  display: flex;
+  position: relative;
+}
+
+.parsed {
+   position: absolute;
+   left: -24px;
+   width: 2px;
+   height: 100%;
+   background-color: var(--primaryLinkColor);
+}

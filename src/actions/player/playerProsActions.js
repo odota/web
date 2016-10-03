@@ -40,7 +40,7 @@ export const getPlayerProsError = (payload, id) => ({
   id,
 });
 
-export const getPlayerPros = (playerId, options = {}, host = API_HOST) => (dispatch, getState) => {
+export const getPlayerPros = (playerId, options = {}) => (dispatch, getState) => {
   if (playerPros.isLoaded(getState(), playerId)) {
     dispatch(getPlayerProsOk(playerPros.getProsList(getState(), playerId), playerId));
   } else {
@@ -48,7 +48,7 @@ export const getPlayerPros = (playerId, options = {}, host = API_HOST) => (dispa
   }
   // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
-  return fetch(`${host}${getUrl(playerId, options, url)}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => json.filter(pro => Number(playerId) !== pro.account_id))
     .then(json => dispatch(getPlayerProsOk(json, playerId)))

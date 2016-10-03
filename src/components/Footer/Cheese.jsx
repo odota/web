@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Row, Col } from 'react-flexbox-grid';
-import moment from 'moment';
-import EditorAttachMoney from 'material-ui/svg-icons/editor/attach-money';
+import strings from 'lang';
+// import EditorAttachMoney from 'material-ui/svg-icons/editor/attach-money';
 import CheeseCircle from '../Cheese';
-import styles from './Footer.css';
+// import styles from './Footer.css';
 
 export default () => (
   <Row middle="xs">
@@ -12,16 +12,12 @@ export default () => (
       <CheeseCircle />
     </Col>
     <Col xs>
-      <big>Monthly Cheese Goal </big><small>Resets {moment().endOf('month').fromNow()}</small>
-      <p>
-        Reaching the goal every month keeps us running.
-      </p>
-      <p className={styles.links}>
+      <big>
+        {strings.donation_goal}
+      </big>
+      <p style={{ marginTop: 5 }}>
         <Link to="/carry">
-          <span>
-            Help us out
-          </span>
-          <EditorAttachMoney style={{ verticalAlign: 'text-bottom', marginRight: -5 }} />
+          {strings.sponsorship}
         </Link>
       </p>
     </Col>

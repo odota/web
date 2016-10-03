@@ -27,9 +27,22 @@ export const getPlayerCounts = {
     }
     return state.app.gotPlayer.counts.byId[id];
   },
-  getError: (state, id) => getPlayerCounts.getPlayerCountsById(state, id).error,
-  getLoading: (state, id) => getPlayerCounts.getPlayerCountsById(state, id).loading,
-  isLoaded: (state, id) => getPlayerCounts.getPlayerCountsById(state, id).loaded,
+  getOnlyData: (state, id) => {
+    const data = getPlayerCounts.getPlayerCountsById(state, id).data;
+    return Object.keys(data)
+      .reduce((filteredObj, key) => {
+        if (key !== 'loading' && key !== 'loaded' && key !== 'error') {
+          return {
+            ...filteredObj,
+            [key]: data[key],
+          };
+        }
+        return filteredObj;
+      }, {});
+  },
+  getError: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].error,
+  getLoading: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].loading,
+  isLoaded: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].loaded,
   getCountsList: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].list,
   getCountsName: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].name,
   getSortState: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].sortState,

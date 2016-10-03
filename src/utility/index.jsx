@@ -1,11 +1,38 @@
 import React from 'react';
-import { Link } from 'react-router';
-import constants from 'dotaconstants';
-import moment from 'moment';
-import { API_HOST } from 'config';
+import {
+  Link,
+} from 'react-router';
+import {
+  skill,
+  items,
+  heroes,
+  patch,
+  region,
+  game_mode as gameMode,
+  item_ids as itemIds,
+  lobby_type as lobbyType,
+  leaver_status as leaverStatus,
+  lane_role as laneRole,
+} from 'dotaconstants';
+import {
+  API_HOST,
+} from 'config';
 import styles from 'components/palette.css';
-import { TableLink, TableHeroImage } from 'components/Table';
-import { KDA } from 'components/Visualizations';
+import {
+  TableLink,
+} from 'components/Table';
+import {
+  KDA,
+  TableHeroImage,
+  FromNowTooltip,
+} from 'components/Visualizations';
+import subTextStyle from 'components/Visualizations/Table/subText.css';
+
+export {
+  default as bucketizeColumns,
+}
+from './bucketizeColumns';
+
 // TODO - add in the relevant text invocations of TableHeroImage
 export const isRadiant = (playerSlot) => playerSlot < 128;
 
@@ -31,18 +58,63 @@ export function formatSeconds(input) {
   return time;
 }
 
+const minute = 60;
+const hour = minute * 60;
+const day = hour * 24;
+const month = day * 30;
+const year = month * 12;
+
+// TODO localize strings
+export function fromNow(input) {
+  if (!Number(input)) {
+    // Default to empty string if invalid input
+    return '';
+  }
+  const now = new Date();
+  // Parse the input string as unix time
+  const date = new Date(Number(input) * 1000);
+  // Diff the current and input timestamps in seconds
+  const diff = (now.getTime() - date.getTime()) / 1000;
+
+  if (diff < 0) {
+    return 'in the future';
+  } else if (diff < 2) {
+    return 'just now';
+  } else if (diff < (minute * 2)) {
+    return `${diff.toFixed(0)} seconds ago`;
+  } else if (diff < (hour * 2)) {
+    return `${(diff / minute).toFixed(0)} minutes ago`;
+  } else if (diff < (day * 2)) {
+    return `${(diff / hour).toFixed(0)} hours ago`;
+  } else if (diff < (month * 2)) {
+    return `${(diff / day).toFixed(0)} days ago`;
+  } else if (diff < (year * 2)) {
+    return `${(diff / month).toFixed(0)} months ago`;
+  }
+  return `${(diff / year).toFixed(0)} years ago`;
+}
+
 export const getPercentWin = (wins, games) => (games ? Number(((wins * 100) / games).toFixed(2)) : 0);
 
 export const camelToSnake = str =>
   str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
 
 const getSubtext = row => {
-  if (row.match_id && row.player_slot) return isRadiant(row.player_slot) ? 'Radiant' : 'Dire';
+  if (row.match_id && row.player_slot !== undefined) {
+    // TODO localize
+    return isRadiant(row.player_slot) ? 'Radiant' : 'Dire';
+  }
   if (row.last_played) {
-    if (Number(row.last_played)) return moment(row.last_played, 'X').fromNow();
-    return 'never';
+    return <FromNowTooltip timestamp={row.last_played} />;
   }
   return null;
+};
+
+export const getOrdinal = (n) => {
+  // TODO localize strings
+  const s = ['th', 'st', 'nd', 'rd'];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
 
 // TODO - these more complicated ones should be factored out into components
@@ -50,8 +122,8 @@ export const transformations = {
   hero_id: (row, col, field) => (
     <TableHeroImage
       parsed={row.version}
-      heroName={constants.heroes[field] ? constants.heroes[field].localized_name : ''}
-      imageUrl={`${constants.heroes[field] ? API_HOST + constants.heroes[field].img : '/assets/blank-1x1.gif'}`}
+      heroName={heroes[field] ? heroes[field].localized_name : ''}
+      imageUrl={`${heroes[field] ? API_HOST + heroes[field].img : '/assets/images/blank-1x1.gif'}`}
       subText={getSubtext(row)}
     />
   ),
@@ -65,8 +137,9 @@ export const transformations = {
       return won ? styles.textSuccess : styles.textDanger;
     };
     const getString = result => {
+      // TODO localize strings
       if (result === undefined) {
-        return 'N';
+        return 'No Result';
       }
       return won ? 'Win' : 'Loss';
     };
@@ -75,37 +148,32 @@ export const transformations = {
         <span className={getColor(field)}>
           {getString(field)}
         </span>
-        <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
-          {moment(row.start_time + row.duration, 'X').fromNow()}
+        <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+          <FromNowTooltip timestamp={row.start_time + row.duration} />
         </span>
       </div>);
   },
-  skill: (row, col, field) => (constants.skill[field] ? constants.skill[field] : 'Unknown'),
-  game_mode: (row, col, field) => (constants.game_mode[field] ? constants.game_mode[field].name : field),
+  skill: (row, col, field) => (skill[field] ? skill[field] : ''),
+  game_mode: (row, col, field) => (gameMode[field] ? gameMode[field].name : field),
   match_id_and_game_mode: (row, col, field) => (
     <div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <span className={styles.subText} style={{ display: 'block', marginTop: 1 }}>
-        {constants.game_mode[row.game_mode] ? constants.game_mode[row.game_mode].name : row.game_mode}
+      <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+        {gameMode[row.game_mode] ? gameMode[row.game_mode].name : row.game_mode}
       </span>
     </div>
   ),
-  start_time: (row, col, field) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
-  last_played: (row, col, field) => (Number(field) ? moment(field, 'X').fromNow() : 'never'),
+  start_time: (row, col, field) => <FromNowTooltip timestamp={field} />,
+  last_played: (row, col, field) => <FromNowTooltip timestamp={field} />,
   duration: (row, col, field) => formatSeconds(field),
-  region: (row, col, field) => {
-    const regions = Object.keys(constants.regions);
-    const byRegionId = (key) => (parseInt(constants.regions[key].region, 10) === field ? key : null);
-
-    return regions.find(byRegionId);
-  },
-  leaver_status: (row, col, field) => (constants.leaver_status[field] ? constants.leaver_status[field].name : field),
-  lobby_type: (row, col, field) => (constants.lobby_type[field] ? constants.lobby_type[field].name : field),
-  lane_role: (row, col, field) => (constants.lane_role[field] ? constants.lane_role[field].name : field),
-  patch: (row, col, field) => (constants.patch[field] ? constants.patch[field].name : field),
+  region: (row, col, field) => region[field],
+  leaver_status: (row, col, field) => (leaverStatus[field] ? leaverStatus[field].name : field),
+  lobby_type: (row, col, field) => (lobbyType[field] ? lobbyType[field].name : field),
+  lane_role: (row, col, field) => (laneRole[field] ? laneRole[field].name : field),
+  patch: (row, col, field) => (patch[field] ? patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
-  rank: (row) => row.card - row.rank,
+  rank: (row) => getOrdinal(row.card - row.rank),
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */
@@ -115,11 +183,13 @@ export const transformations = {
 // Otherwise, we just put the url in the image. THis will also contain the tooltip stuff as well
 // (once I get to the tooltips).
 
-const transformMatchItem = ({ field }) => {
+const transformMatchItem = ({
+  field,
+}) => {
   if (field === 0) {
     return false;
   }
-  return `${API_HOST}${constants.items[constants.item_ids[field]].img}`;
+  return `${API_HOST}${items[itemIds[field]].img}`;
 };
 
 for (let i = 0; i < 6; i++) {

@@ -13,6 +13,8 @@ import transformPlayerRankingsById from 'selectors/transformPlayerRankings';
 import transformPlayerCountsById from 'selectors/transformPlayerCounts';
 import transformPlayerRecordsById from 'selectors/transformPlayerRecords';
 
+export { default as getCumulativeDataByField } from 'selectors/trends/getPlayerTrend';
+
 export {
   sortPlayerMatches,
   sortPlayerPeers,

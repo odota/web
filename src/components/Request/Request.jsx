@@ -4,7 +4,6 @@ import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { requestSubmit, setMatchId } from 'actions';
-import { REDUCER_KEY } from 'reducers';
 
 const Request = ({ error, matchId, loading, progress, dispatchRequest, dispatchMatchId }) => {
   function submit() {
@@ -30,7 +29,7 @@ const Request = ({ error, matchId, loading, progress, dispatchRequest, dispatchM
 };
 
 const mapStateToProps = (state) => {
-  const { error, matchId, loading, progress } = state[REDUCER_KEY].request;
+  const { error, matchId, loading, progress } = state.app.request;
   return {
     error,
     matchId,

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
 import ReactTooltip from 'react-tooltip';
-import { REDUCER_KEY } from 'reducers';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import { IconCheese } from '../Icons';
@@ -21,14 +20,13 @@ const Cheese = ({ donations, error, loading }) => {
           <CircularProgress mode="determinate" value={Math.min(percent, 100)} size={1.5} className={styles.front} />
           <CircularProgress mode="determinate" value={100} size={1.5} className={styles.back} />
           <div className={styles.cheese}>
-            <IconCheese className={styles.cheeseGlow} />
+            <IconCheese />
             <p className={styles.percent}>
               {(percent < 100) ? cheese : 'Done!'}
             </p>
           </div>
           <ReactTooltip id="footerCheese" place="top" type="light" effect="float">
-            <p>{cheese} / {goal} Cheese bought</p>
-            {(percent < 100) ? null : <p>Woo-hoo! Thanks guys!</p>}
+            <p>${cheese} / ${goal}</p>
           </ReactTooltip>
         </div>
       }
@@ -37,7 +35,7 @@ const Cheese = ({ donations, error, loading }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { loading, error, donations } = state[REDUCER_KEY].metadata;
+  const { loading, error, donations } = state.app.metadata;
 
   return {
     loading,

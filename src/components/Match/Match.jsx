@@ -1,17 +1,33 @@
 import React from 'react';
-import constants from 'dotaconstants';
-import { connect } from 'react-redux';
+import {
+  connect,
+} from 'react-redux';
+import strings from 'lang';
 // import { Card } from 'material-ui/Card';
-import { Tabs, Tab } from 'material-ui/Tabs';
-import { Table as MaterialTable, TableRow, TableRowColumn, TableBody } from 'material-ui/Table';
-import { getMatch, setMatchSort } from 'actions';
-import { REDUCER_KEY } from 'reducers';
-import { API_HOST } from 'config';
-import { createTable } from '../Table';
+import Spinner from 'components/Spinner';
+import TabBar from 'components/TabBar';
+import {
+  getMatch,
+  setMatchSort,
+} from 'actions';
+import {
+  getMatchData,
+  sortMatchPlayers,
+  getMatchPlayers,
+  getMatchLoading,
+} from 'reducers/match';
+import {
+  getMetadataUser,
+} from 'reducers/metadata';
+import {
+  createTable,
+} from '../Table';
 import Table from '../Table/Table';
 import MatchHeader from './MatchHeader';
+import CastTable from './CastTable';
+import CrossTable from './CrossTable';
+import MatchGraph from './MatchGraph';
 import {
-  heroTd,
   overviewColumns,
   abUpgradeColumns,
   benchmarksColumns,
@@ -26,62 +42,112 @@ import {
   unitKillsColumns,
   actionsColumns,
   runesColumns,
+  cosmeticsColumns,
 } from './matchColumns.jsx';
 import BuildingMap from '../BuildingMap/BuildingMap';
-import { defaultSort } from '../../utility';
 // import { TabBar } from '../TabBar';
 
-const match = (state) => state[REDUCER_KEY].match;
-const getMatchPlayers = (state) => state[REDUCER_KEY].match.match.players;
-const getSortState = (state) => state[REDUCER_KEY].match.sortState;
-const getSortField = (state) => state[REDUCER_KEY].match.sortField;
-const getSortFn = (state) => state[REDUCER_KEY].match.sortFn;
-const sortMatchPlayers = (state) => defaultSort(getMatchPlayers(state), getSortState(state), getSortField(state), getSortFn(state));
 const MatchPlayersTable = createTable(
-  match,
+  getMatchData,
   (state, sortState) => (sortState ? sortMatchPlayers(state) : getMatchPlayers(state)),
   setMatchSort
 );
-const CastTable = ({ match, dataField, columns }) => (
-  <Tabs>
-    {match.players.map((p) =>
-      (
-      <Tab key={p.player_slot} icon={<img src={`${API_HOST}${constants.heroes[p.hero_id].img}`} height={30} role="presentation" />}>
-        <Table
-          data={p[dataField] || []}
-          columns={columns}
-        />
-      </Tab>
-      ))
-    }
-  </Tabs>);
 
-const CrossTable = ({ match, field1, field2 }) => (
-  <MaterialTable selectable={false}>
-    <TableBody displayRowCheckbox={false}>
-      <TableRow>
-        <TableRowColumn>Hero</TableRowColumn>
-        {match.players.slice(0, match.players.length / 2).map(p => (
-          <TableRowColumn key={p.hero_id}>
-            {heroTd(p, 'hero_id', p.hero_id, true)}
-          </TableRowColumn>)
-        )}
-      </TableRow>
-      {match.players.slice(match.players.length / 2, match.players.length).map(p => (<TableRow key={p.hero_id}>
-        <TableRowColumn>{heroTd(p, 'hero_id', p.hero_id, true)}</TableRowColumn>
-        {match.players.slice(0, match.players.length / 2).map(p2 => {
-          const hero2 = constants.heroes[p2.hero_id] || {};
-          return <TableRowColumn key={p2.hero_id}>{`${p[field1][hero2.name] || 0}/${p[field2][hero2.name] || 0}`}</TableRowColumn>;
-        })}
-      </TableRow>))}
-    </TableBody>
-  </MaterialTable>);
+const matchPages = [{
+  name: strings.tab_overview,
+  content: match => (<div>
+    <MatchPlayersTable columns={overviewColumns} />
+    <MatchPlayersTable columns={abUpgradeColumns} />
+    <BuildingMap match={match} />
+  </div>),
+}, {
+  name: strings.tab_benchmarks,
+  content: match => (<div>
+    <MatchPlayersTable columns={benchmarksColumns(match)} />
+  </div>),
+}, {
+  name: strings.tab_combat,
+  content: match => (<div>
+    <CrossTable match={match} field1="killed" field2="killed_by" />
+    <CrossTable match={match} field1="damage" field2="damage_taken" />
+  </div>),
+}, {
+  name: strings.tab_performances,
+  content: () => (<div>
+    <MatchPlayersTable columns={overallColumns} />
+    <MatchPlayersTable columns={laningColumns} />
+  </div>),
+}, {
+  name: strings.tab_farm,
+  content: match => (<div>
+    <MatchPlayersTable columns={unitKillsColumns} />
+    <MatchPlayersTable columns={lastHitsTimesColumns(match)} />
+  </div>),
+}, {
+  name: strings.tab_purchases,
+  content: match => (<div>
+    <MatchPlayersTable columns={purchaseColumns} />
+    <MatchPlayersTable columns={purchaseTimesColumns(match)} />
+  </div>),
+}, {
+  name: strings.tab_graphs,
+  content: match => (<div>
+    <MatchGraph match={match} type="difference" />
+    <MatchGraph match={match} type="gold" />
+    <MatchGraph match={match} type="xp" />
+    <MatchGraph match={match} type="lh" />
+  </div>),
+}, {
+  name: strings.tab_casts,
+  content: match => (<div>
+    <CastTable match={match} dataField="ability_uses_arr" columns={abilityUseColumns} />
+    <CastTable match={match} dataField="item_uses_arr" columns={itemUseColumns} />
+  </div>),
+}, {
+  name: strings.tab_objectives,
+  content: () => (<div>
+    <MatchPlayersTable columns={runesColumns} />
+  </div>),
+}, {
+  name: strings.tab_vision,
+  content: () => (<div />),
+}, {
+  name: strings.tab_actions,
+  content: () => (<div>
+    <MatchPlayersTable columns={actionsColumns} />
+  </div>),
+}, {
+  name: strings.tab_teamfights,
+  content: () => (<div>
+    <div id="teamfights" />
+  </div>),
+}, {
+  name: strings.tab_analysis,
+  content: () => (<div />),
+}, {
+  name: strings.tab_cosmetics,
+  content: () => (<div>
+    <MatchPlayersTable columns={cosmeticsColumns} />
+  </div>),
+}, {
+  name: strings.tab_chat,
+  content: match => (<div>
+    <Table data={(match.chat || []).map(c => Object.assign({}, c, match.players[c.slot]))} columns={chatColumns} />
+  </div>),
+}];
 
-const mapStateToProps = (state, { params }) => ({
+const matchPagesMapped = (matchId) => matchPages.map(page => ({
+  ...page,
+  route: `/matches/${matchId}/${page.name.toLowerCase()}`,
+}));
+
+const mapStateToProps = (state, {
+  params,
+}) => ({
   matchId: params.match_id,
-  match: state[REDUCER_KEY].match.match,
-  loading: state[REDUCER_KEY].match.loading,
-  user: state[REDUCER_KEY].metadata.user,
+  match: getMatchData(state),
+  loading: getMatchLoading(state),
+  user: getMetadataUser(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -101,54 +167,18 @@ class RequestLayer extends React.Component {
 
   render() {
     const match = this.props.match;
+    const matchId = this.props.matchId;
+    const info = this.props.routeParams.info || 'overview';
     return (
       <div>
         <MatchHeader match={match} user={this.props.user} />
-        <Tabs>
-          <Tab label="Overview">
-            <MatchPlayersTable columns={overviewColumns} />
-            <MatchPlayersTable columns={abUpgradeColumns} />
-            <BuildingMap match={match} loading={this.props.loading} />
-          </Tab>
-          <Tab label="Benchmarks">
-            <MatchPlayersTable columns={benchmarksColumns(match)} />
-          </Tab>
-          <Tab label="Crosstables">
-            <CrossTable match={match} field1="killed" field2="killed_by" />
-            <CrossTable match={match} field1="damage" field2="damage_taken" />
-          </Tab>
-          <Tab label="Overall">
-            <MatchPlayersTable columns={overallColumns} />
-          </Tab>
-          <Tab label="Laning">
-            <MatchPlayersTable columns={laningColumns} />
-          </Tab>
-          <Tab label="Farm">
-            <MatchPlayersTable columns={unitKillsColumns} />
-            <MatchPlayersTable columns={lastHitsTimesColumns(match)} />
-          </Tab>
-          <Tab label="Purchases">
-            <MatchPlayersTable columns={purchaseColumns} />
-            <MatchPlayersTable columns={purchaseTimesColumns(match)} />
-          </Tab>
-          <Tab label="Abilities">
-            <CastTable match={match} dataField="ability_uses_arr" columns={abilityUseColumns} />
-          </Tab>
-          <Tab label="Items">
-            <CastTable match={match} dataField="item_uses_arr" columns={itemUseColumns} />
-          </Tab>
-          <Tab label="Objectives">
-            <MatchPlayersTable columns={runesColumns} />
-          </Tab>
-          <Tab label="Actions">
-            <MatchPlayersTable columns={actionsColumns} />
-          </Tab>
-          <Tab label="Analysis" />
-          <Tab label="Cosmetics" />
-          <Tab label="Chat">
-            <Table data={(match.chat || []).map(c => Object.assign({}, c, match.players[c.slot]))} columns={chatColumns} />
-          </Tab>
-        </Tabs>
+        <div style={{ marginTop: 25 }}>
+          <TabBar
+            info={info}
+            tabs={matchPagesMapped(matchId)}
+          />
+        </div>
+        {match ? matchPagesMapped(matchId).filter(page => page.name.toLowerCase() === info).map(page => page.content(match)) : <Spinner />}
       </div>
     );
   }

@@ -8,7 +8,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-import strings from 'lang/en.json';
+import strings from 'lang';
 import style from './Heroes.css';
 
 // const alignCenter = { textAlign: 'center' };

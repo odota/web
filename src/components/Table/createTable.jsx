@@ -47,10 +47,13 @@ const createTableWithSelectors = (selectors, getData, sortAction) => {
 
 export const createTables = (tablesObject, columns, id) =>
   (selectors, getData, sortAction) =>
-    Object.keys(tablesObject.data).map(key => {
+    Object.keys(tablesObject).map(key => {
       const Table = createTableWithSelectors(
         {
           ...selectors,
+          getLoading: selectors.getLoading(key),
+          getError: selectors.getError(key),
+          isLoaded: selectors.isLoaded(key),
           getSortState: selectors.getSortState(key),
           getSortField: selectors.getSortField(key),
         },
@@ -58,7 +61,7 @@ export const createTables = (tablesObject, columns, id) =>
         (field, sortState, sortFn, id) => sortAction(key)(field, sortState, sortFn, id)
       );
       return (
-        <TableContainer title={deSnake(tablesObject.data[key].name)}>
+        <TableContainer title={deSnake(tablesObject[key].name)}>
           <Table columns={columns} id={id} />
         </TableContainer>
       );

@@ -1,10 +1,15 @@
 import React from 'react';
+import strings from 'lang';
 import styles from './FourOhFour.css';
 
 export default () => (
   <div className={styles.container}>
-    <h1>404</h1>
-    <h2>Page not found.</h2>
-    :(
+    <img src="/assets/images/sad.gif" role="presentation" />
+    <div className={styles.message}>
+      {strings.four_oh_four_message}
+    </div>
+    <div className={styles.FourOhFour}>
+      {strings.error} 404
+    </div>
   </div>
 );

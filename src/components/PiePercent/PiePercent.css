@@ -9,7 +9,7 @@
 
 .pieInner {
   fill: var(--primaryTextColor);
-  stroke: var(--accentColor);
+  stroke: var(--colorYelor);
   stroke-width: 32;
   stroke-dasharray: 38 100;
 }

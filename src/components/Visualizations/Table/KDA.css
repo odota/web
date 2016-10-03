@@ -1,0 +1,11 @@
+@import '../../palette.css';
+
+.container {
+  position: relative;
+}
+
+.percent {
+  composes: TablePercent from "./Percent.css";
+  width: calc(300% + 36px);
+  left: -7px;
+}
