@@ -7,6 +7,8 @@ import {
   item_ids as itemIds,
   ability_ids as abilityIds,
   hero_names as heroNames,
+  objectives,
+  barracks_value as barracksValue,
 } from 'dotaconstants';
 import strings from 'lang';
 import {
@@ -15,6 +17,9 @@ import {
 import {
   API_HOST,
 } from 'config.js';
+import {
+  formatSeconds
+} from 'utility';
 // import { AppBadge } from '../Player';
 import styles from './Match.css';
 
@@ -395,6 +400,7 @@ const chatColumns = [
   heroTdColumn, {
     displayName: 'Time',
     field: 'time',
+    displayFn: (row, col, field) => formatSeconds(field),
   }, {
     displayName: 'Message',
     field: 'key',
@@ -484,16 +490,16 @@ const unitKillsColumns = [
 ];
 
 const actionsColumns = [heroTdColumn, {
-  displayName: 'APM',
-  tooltip: strings.actions_per_min,
-  field: 'actions_per_min',
-}, {
-  displayName: 'Pings',
-  tooltip: strings.pings,
-  field: 'pings',
-}]
+    displayName: strings.abbr_actions_per_min,
+    tooltip: strings.actions_per_min,
+    field: 'actions_per_min',
+  }, {
+    displayName: strings.abbr_pings,
+    tooltip: strings.pings,
+    field: 'pings',
+  }]
   .concat(Object.keys(orderTypes).filter(o => orderTypes[o] in strings).map(k => ({
-    displayName: strings[`${orderTypes[k]}_abbr`],
+    displayName: strings[`abbr_${orderTypes[k]}`],
     tooltip: strings[orderTypes[k]],
     field: 'actions',
     displayFn: (row, col, field) => (field ? field[k] : '-'),
@@ -516,17 +522,68 @@ const cosmeticsColumns = [heroTdColumn, {
     </div>)),
 }];
 
-const objectiveDamageColumns = [];
+const goldReasonsColumns = [heroTdColumn]
+  .concat(Object.keys(strings)
+    .filter(str => str.indexOf('gold_reasons_') === 0)
+    .map(gr => ({
+      displayName: strings[gr],
+      field: 'gold_reasons',
+      displayFn: (row, col, field) => (field ? field[gr.substring('gold_reasons_'.length)] : '-'),
+    })));
 
-const objectiveLogColumns = [];
+const xpReasonsColumns = [heroTdColumn]
+  .concat(Object.keys(strings)
+    .filter(str => str.indexOf('xp_reasons_') === 0)
+    .map(gr => ({
+      displayName: strings[gr],
+      field: 'xp_reasons',
+      displayFn: (row, col, field) => (field ? field[gr.substring('xp_reasons_'.length)] : '-'),
+    })));
+
+const objectiveDamageColumns = [heroTdColumn]
+  .concat(Object.keys(strings).filter(str => str.indexOf('objective_') === 0)
+    .map(obj => ({
+      displayName: strings[obj],
+      field: 'objective_damage',
+      displayFn: (row, col, field) => (field ? field[obj.substring('objective_'.length)] : '-'),
+    })));
+
+const logColumns = [heroTdColumn, {
+  displayName: 'Time',
+  field: 'time',
+  displayFn: (row, col, field) => formatSeconds(field),
+}, {
+  displayName: 'Type',
+  field: 'type',
+}, {
+  displayName: 'Target',
+  field: 'objective',
+}, ];
+
+const generateLog = (match) => {
+  let log = [];
+  log = log.concat(match.objectives || [])
+    .map(c => ({
+      ...c,
+      ...match.players[c.slot],
+      type: 'objective',
+      objective: `${c.key ? barracksValue[c.key] : ''} ${objectives[c.subtype || c.type] || c.subtype || c.type}`
+    }));
+  match.players.forEach(p => {
+    log = log.concat(p.kills_log.map(l => ({
+      ...l,
+      ...p,
+      type: 'kill',
+      objective: `${l.key}`
+    })));
+  });
+  log = log.sort((a, b) => a.time - b.time);
+  return log;
+};
 
 // TODO
 // party indicator
 // Damage inflictors dealt/received
-// Gold/XP sources
-// Objective damage
-// Hero kill times
-// objective log
 // Teamfights
 // Analysis
 // Lane map
@@ -550,5 +607,8 @@ export {
   runesColumns,
   cosmeticsColumns,
   objectiveDamageColumns,
-  objectiveLogColumns,
+  logColumns,
+  goldReasonsColumns,
+  xpReasonsColumns,
+  generateLog,
 };

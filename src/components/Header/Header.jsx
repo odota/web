@@ -17,20 +17,20 @@ import SearchForm from '../Search/SearchForm';
 import AppLogo from '../App/AppLogo';
 
 const navbarPages = [{
-  name: strings.request,
+  name: strings.header_request,
   path: '/request',
 }, {
-  name: strings.distributions,
+  name: strings.header_distributions,
   path: '/distributions',
 }, {
-  name: strings.heroes,
+  name: strings.header_heroes,
   path: '/heroes',
 }, {
-  name: strings.ingame,
+  name: strings.header_ingame,
   sponsored: true,
   path: '/become-the-gamer',
 }, {
-  name: strings.blog,
+  name: strings.header_blog,
   path: '//odota.github.io/blog',
   external: true,
 }];

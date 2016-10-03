@@ -43,6 +43,11 @@ import {
   actionsColumns,
   runesColumns,
   cosmeticsColumns,
+  goldReasonsColumns,
+  xpReasonsColumns,
+  objectiveDamageColumns,
+  logColumns,
+  generateLog,
 } from './matchColumns.jsx';
 import BuildingMap from '../BuildingMap/BuildingMap';
 // import { TabBar } from '../TabBar';
@@ -82,6 +87,8 @@ const matchPages = [{
   content: match => (<div>
     <MatchPlayersTable columns={unitKillsColumns} />
     <MatchPlayersTable columns={lastHitsTimesColumns(match)} />
+    <MatchPlayersTable columns={goldReasonsColumns} />
+    <MatchPlayersTable columns={xpReasonsColumns} />
   </div>),
 }, {
   name: strings.tab_purchases,
@@ -106,6 +113,7 @@ const matchPages = [{
 }, {
   name: strings.tab_objectives,
   content: () => (<div>
+    <MatchPlayersTable columns={objectiveDamageColumns} />
     <MatchPlayersTable columns={runesColumns} />
   </div>),
 }, {
@@ -129,6 +137,11 @@ const matchPages = [{
   content: () => (<div>
     <MatchPlayersTable columns={cosmeticsColumns} />
   </div>),
+}, {
+  name: strings.tab_log,
+  content: match => (<div>
+    <Table data={generateLog(match)} columns={logColumns} />
+  </div>)
 }, {
   name: strings.tab_chat,
   content: match => (<div>
