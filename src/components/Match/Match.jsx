@@ -4,6 +4,10 @@ import {
 } from 'react-redux';
 import strings from 'lang';
 // import { Card } from 'material-ui/Card';
+import {
+  Tabs,
+  Tab
+} from 'material-ui/Tabs';
 import Spinner from 'components/Spinner';
 import TabBar from 'components/TabBar';
 import {
@@ -19,6 +23,10 @@ import {
 import {
   getMetadataUser,
 } from 'reducers/metadata';
+import {
+  formatSeconds,
+} from 'utility';
+import Heading from 'components/Heading';
 import {
   createTable,
 } from '../Table';
@@ -49,10 +57,10 @@ import {
   logColumns,
   generateLog,
   analysisColumns,
+  teamfightColumns,
 } from './matchColumns.jsx';
 import BuildingMap from './BuildingMap';
 import Heatmap from './Heatmap';
-// import { TabBar } from '../TabBar';
 
 const MatchPlayersTable = createTable(
   getMatchData,
@@ -129,9 +137,19 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_teamfights,
-  content: () => (<div>
-    {/* TODO teamfight selector*/}
-    {/* TODO matchplayertable for selected TF*/}
+  content: (match) => (
+  <div>
+    <Heading title={strings.heading_teamfights} />
+    <Tabs>
+      {(match.teamfights || []).map((teamfight, i) => (
+      <Tab 
+        key={i} 
+        style={{ backgroundColor: teamfight.radiant_gold_delta >= 0 ? '#66BB6A' : '#ff4c4c'}}
+        label={`${formatSeconds(teamfight.start)}, ${teamfight.radiant_gold_delta}`}
+      >
+        <Table data={teamfight.players.filter(p => p.participate)} columns={teamfightColumns} />
+      </Tab>))}
+    </Tabs>
   </div>),
 }, {
   name: strings.tab_analysis,
