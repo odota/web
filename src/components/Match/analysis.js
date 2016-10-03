@@ -253,7 +253,7 @@ function generatePlayerAnalysis(match, pm) {
   for (const key in checks) {
     advice[key] = checks[key](match, pm);
     const val = advice[key];
-    val.display = util.format('%s: <b>%s</b>, expected <b>%s</b>', val.name, Number(val.value ? val.value.toFixed(2) : ''), Number(val.top.toFixed(2)));
+    val.display = util.format('%s: %s, expected %s', val.name, Number(val.value ? val.value.toFixed(2) : ''), Number(val.top.toFixed(2)));
     val.display += (val.suffix ? ' ' + val.suffix : '');
     val.pct = val.score(val.value) / val.score(val.top);
     delete val.score;
@@ -276,18 +276,18 @@ function generatePlayerAnalysis(match, pm) {
 
   function isRoshHero(pm) {
     const rosh_heroes = {
-      'npc_dota_hero_lycan': 1,
-      'npc_dota_hero_ursa': 1,
-      'npc_dota_hero_troll_warlord': 1,
+      npc_dota_hero_lycan: 1,
+      npc_dota_hero_ursa: 1,
+      npc_dota_hero_troll_warlord: 1,
     };
     return heroes[pm.hero_id] && (heroes[pm.hero_id].name in rosh_heroes);
   }
 
   function isActiveItem(key) {
     const whitelist = {
-      'branches': 1,
-      'bloodstone': 1,
-      'radiance': 1,
+      branches: 1,
+      bloodstone: 1,
+      radiance: 1,
     };
     return (items[key].desc.indexOf('Active: ') > -1 && !(key in whitelist));
   }

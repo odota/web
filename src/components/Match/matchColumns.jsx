@@ -560,6 +560,20 @@ const logColumns = [heroTdColumn, {
   field: 'objective',
 }];
 
+
+const analysisColumns = [heroTdColumn, {
+  displayName: 'Analysis',
+  field: 'analysis',
+  displayFn: (row, col, field) => (
+    Object.keys(field).map(f => (
+      <div>
+        <span>{field[f].pct}</span>
+        <span>{field[f].display}</span>
+      </div>
+    ))
+  ),
+}];
+
 const generateLog = (match) => {
   let log = [];
   log = log.concat(match.objectives || [])
@@ -585,7 +599,6 @@ const generateLog = (match) => {
 // party indicator
 // Damage inflictors dealt/received
 // Teamfights
-// Analysis
 // Lane map
 // Ward maps
 
@@ -611,4 +624,5 @@ export {
   goldReasonsColumns,
   xpReasonsColumns,
   generateLog,
+  analysisColumns,
 };

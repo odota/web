@@ -124,7 +124,7 @@ const MatchMetadata = ({ match }) => (
       <tr>
         <td className={styles.TableCell}>{match.match_id}</td>
         <td className={styles.TableCell}>{transformations.game_mode(null, null, match.game_mode)}</td>
-        <th className={styles.TableCell}>{transformations.skill(null, null, match.skill)}</th>
+        <td className={styles.TableCell}>{transformations.skill(null, null, match.skill)}</td>
         <td className={styles.TableCell}>{transformations.region(null, null, match.region)}</td>
         <td className={styles.TableCell}>{transformations.duration(null, null, match.duration)}</td>
         <td className={styles.TableCell}>{transformations.start_time(null, null, match.start_time + match.duration)}</td>

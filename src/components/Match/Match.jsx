@@ -48,6 +48,7 @@ import {
   objectiveDamageColumns,
   logColumns,
   generateLog,
+  analysisColumns,
 } from './matchColumns.jsx';
 import BuildingMap from '../BuildingMap/BuildingMap';
 // import { TabBar } from '../TabBar';
@@ -127,11 +128,12 @@ const matchPages = [{
 }, {
   name: strings.tab_teamfights,
   content: () => (<div>
-    <div id="teamfights" />
+    {/* TODO teamfight selector*/}
+    {/* TODO matchplayertable for selected TF*/}
   </div>),
 }, {
   name: strings.tab_analysis,
-  content: () => (<div />),
+  content: () => (<MatchPlayersTable columns={analysisColumns} />),
 }, {
   name: strings.tab_cosmetics,
   content: () => (<div>

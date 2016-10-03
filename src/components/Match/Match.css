@@ -111,3 +111,8 @@
 .Clear {
   clear: both;
 }
+
+.matchGraph {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
