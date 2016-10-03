@@ -162,21 +162,6 @@ function renderMatch(m) {
     pm.analysis = generatePlayerAnalysis(m, pm);
   });
   m.graphData = generateGraphData(m);
-  // create heatmap data
-  m.posData = m.players.map((p) => {
-    return p.posData;
-  });
-  // process objectives
-  if (m.objectives) {
-    m.objectives.forEach((entry) => {
-      entry.objective = objectives[entry.subtype] || entry.subtype;
-      const p = m.players[entry.slot];
-      if (p) {
-        entry.team = entry.team === 2 || entry.key < 64 || p.isRadiant ? 0 : 1;
-        entry.hero_img = heroes[p.hero_id] ? heroes[p.hero_id].img : '';
-      }
-    });
-  }
   // process teamfight data
   if (m.teamfights) {
     m.teamfights.forEach((tf) => {
@@ -239,7 +224,6 @@ function renderMatch(m) {
       });
     });
   }
-  m.chat = m.chat || [];
   return m;
 }
 

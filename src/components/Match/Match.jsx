@@ -50,7 +50,8 @@ import {
   generateLog,
   analysisColumns,
 } from './matchColumns.jsx';
-import BuildingMap from '../BuildingMap/BuildingMap';
+import BuildingMap from './BuildingMap';
+import Heatmap from './Heatmap';
 // import { TabBar } from '../TabBar';
 
 const MatchPlayersTable = createTable(
@@ -79,9 +80,10 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_performances,
-  content: () => (<div>
-    <MatchPlayersTable columns={overallColumns} />
+  content: (match) => (<div>
+    <Heatmap points={match && match.players && match.players[0] && match.players[0].posData && match.players[0].posData.lane_pos} />
     <MatchPlayersTable columns={laningColumns} />
+    <MatchPlayersTable columns={overallColumns} />
   </div>),
 }, {
   name: strings.tab_farm,
