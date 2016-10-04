@@ -132,23 +132,6 @@ export const overviewColumns = [
               overlay,
               key: i,
             })
-            /*
-            <span
-              key={i}
-              style={{ position: 'relative' }}
-            >
-              <img
-                style={{ height: 25, margin: '0 3px' }}
-                role="presentation"
-                src={`${API_HOST}/apps/dota2/images/items/${itemKey}_lg.png`}
-              />
-              <span className={styles.timing}>
-                {row.first_purchase_time && row.first_purchase_time[itemIds[item.id]]
-                  ? `${(row.first_purchase_time[itemIds[item.id]] / 60).toFixed(0)}'`
-                  : ''}
-              </span>
-            </span>
-            */
           );
         }
       }
@@ -156,7 +139,8 @@ export const overviewColumns = [
     },
   },
 ];
-export const abUpgradeColumns = [
+
+export const abilityUpgradeColumns = [
   heroTdColumn,
 ].concat(Array.from(new Array(25)).map((e, i) => ({
   displayName: i + 1,
@@ -233,7 +217,7 @@ export const purchaseTimesColumns = (match) => {
         .filter(p => (p.time >= curTime - bucket && p.time < curTime))
         .map((p, i) => {
           if (items[p.key]) {
-            return inflictorWithValue(p.key, formatSeconds(p.time), i);
+            return inflictorWithValue({inflictor: p.key, value: formatSeconds(p.time), key: i});
           }
           return <span />;
         }) : ''}
@@ -294,7 +278,7 @@ export const overallColumns = [
     displayFn: (row, column, field) => {
       const hero = heroNames[field.key] || {};
       return (<div>
-        {inflictorWithValue(field)}
+        {inflictorWithValue({ inflictor: field.inflictor, value: field.value })}
         <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} role="presentation" />
       </div>);
     },
@@ -456,14 +440,14 @@ export const unitKillsColumns = [
 ];
 
 export const actionsColumns = [heroTdColumn, {
-  displayName: strings.abbr_actions_per_min,
-  tooltip: strings.actions_per_min,
-  field: 'actions_per_min',
-}, {
-  displayName: strings.abbr_pings,
-  tooltip: strings.pings,
-  field: 'pings',
-}]
+    displayName: strings.abbr_actions_per_min,
+    tooltip: strings.actions_per_min,
+    field: 'actions_per_min',
+  }, {
+    displayName: strings.abbr_pings,
+    tooltip: strings.pings,
+    field: 'pings',
+  }]
   .concat(Object.keys(orderTypes).filter(o => orderTypes[o] in strings).map(k => ({
     displayName: strings[`abbr_${orderTypes[k]}`],
     tooltip: strings[orderTypes[k]],
@@ -583,18 +567,18 @@ export const teamfightColumns = [
 ];
 
 export const inflictorsColumns = [{
-  displayName: 'Received',
-  field: 'damage_inflictor_received',
-  displayFn: (row, col, field) => (field ? Object.keys(field)
+    displayName: 'Received',
+    field: 'damage_inflictor_received',
+    displayFn: (row, col, field) => (field ? Object.keys(field)
       .sort((a, b) => field[b] - field[a])
       .map((k, i) => inflictorWithValue({
         inflictor: k,
         value: abbreviateNumber(field[k]),
         key: i,
       })) : ''),
-}, {
-  displayFn: () => '→',
-},
+  }, {
+    displayFn: () => '→',
+  },
   heroTdColumn, {
     displayFn: () => '→',
   }, {

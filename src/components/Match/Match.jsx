@@ -38,7 +38,7 @@ import MatchGraph from './MatchGraph';
 import BuildingMap from './BuildingMap';
 import {
   overviewColumns,
-  abUpgradeColumns,
+  abilityUpgradeColumns,
   benchmarksColumns,
   overallColumns,
   laningColumns,
@@ -71,7 +71,7 @@ const matchPages = [{
   name: strings.tab_overview,
   content: match => (<div>
     <MatchPlayersTable columns={overviewColumns} />
-    <MatchPlayersTable columns={abUpgradeColumns} />
+    <MatchPlayersTable columns={abilityUpgradeColumns} />
     <BuildingMap match={match} />
   </div>),
 }, {
