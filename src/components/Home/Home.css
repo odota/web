@@ -31,14 +31,14 @@
 .Buttons > div:last-child {
   margin-left: 15px
 }
-.Buttons button {
+.Buttons a {
   background-color: color(var(--defaultPrimaryColor) lightness(20%)) !important;
   border: 2px solid var(--textColorPrimary) !important;
   padding: 3px 6px !important;
   height: auto !important;
   margin: 10px 0 !important;
 }
-.Buttons button:hover {
+.Buttons a:hover {
   mix-blend-mode: screen;
 }
 .Buttons span {
@@ -50,11 +50,11 @@
   fill: var(--textColorPrimary);
   vertical-align: sub !important;
 }
-.Buttons button .label > span:first-child {
+.Buttons a .label > span:first-child {
   font-size: 18px;
   font-weight: var(--fontWeightMedium);
 }
-.Buttons button .label > span:last-child {
+.Buttons a .label > span:last-child {
   font-size: var(--fontSizeCommon);
   font-weight: var(--fontWeightLight);
   margin-left: 5px;

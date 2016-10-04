@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import strings from 'lang';
 import { IconSteam } from 'components/Icons';
@@ -19,6 +20,7 @@ export default () => (
           </span>
         }
         icon={<IconSteam />}
+        href="/login"
       />
     </div>
     <div>
@@ -33,6 +35,7 @@ export default () => (
             </span>
           </span>
         }
+        containerElement={<Link to="/request" />}
       />
     </div>
     <div>
@@ -55,6 +58,8 @@ export default () => (
             height={24}
           />
         }
+        href="//www.jist.tv/create.php?source=dota2"
+        target="_blank"
       />
     </div>
   </div>
