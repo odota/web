@@ -1,8 +1,8 @@
 @import "../palette.css";
 
 .HeadContainer {
-  width: 590px;
-  height: 345px;
+  width: 600px;
+  height: 380px;
   margin: 0 auto;
   text-align: center;
   padding-top: 120px;
@@ -11,6 +11,7 @@
   text-transform: uppercase;
   font-size: 90px;
   font-weight: var(--fontWeightMedium);
+  line-height: 1.2;
 }
 .HeadContainer .description {
   font-size: 32px;
@@ -57,4 +58,30 @@
   font-size: var(--fontSizeCommon);
   font-weight: var(--fontWeightLight);
   margin-left: 5px;
+}
+
+.why {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.AwesomeContainer {
+  margin: 50px auto 0;
+  text-align: center;
+  max-width: 1920px;
+}
+.AwesomeContainer svg {
+  width: 85px;
+  height: 85px;
+  fill: var(--colorBlue);
+}
+.AwesomeContainer .headline {
+  font-size: 24px;
+  line-height: 2;
+  position: relative;
+}
+.AwesomeContainer .description {
+  font-weight: var(--fontWeightLight);
+  line-height: 1.5;
+  color: color(var(--textColorPrimary) blackness(33%));
 }
