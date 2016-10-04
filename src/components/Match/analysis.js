@@ -1,28 +1,35 @@
-/* eslint-disable */
 import util from 'util';
 import {
   items,
-  item_groups,
-  heroes,
+  item_groups as itemGroups,
   skillshots,
-  lane_role,
 } from 'dotaconstants';
+import {
+  isSupport,
+  getObsWardsPlaced,
+  isRoshHero,
+  isActiveItem,
+} from 'utility';
 
-function generatePlayerAnalysis(match, pm) {
+export default function (match, pm) {
   // define condition check for each advice point
   const advice = {};
   const checks = {
     // EFF@10
     eff(m, pm) {
       const eff = pm.lane_efficiency ? pm.lane_efficiency : undefined;
+      let top = 0.6;
+      if (pm.lane_role === 3) {
+        top = 0.4;
+      }
+      if (isSupport(pm)) {
+        top = 0.3;
+      }
       return {
         grade: true,
         name: 'Lane efficiency at 10 minutes',
         value: eff,
-        top: isSupport(pm) ? 0.3 : pm.lane_role === 3 ? 0.4 : 0.6,
-        advice: "Consider practicing your last-hitting in order to improve your farm.  If you're struggling in lane, consider asking for a rotation from your team.  If playing a support, stack and pull to obtain farm.",
-        category: 'warning',
-        icon: 'fa-usd',
+        top,
         valid: eff !== undefined,
         score(raw) {
           return raw;
@@ -49,9 +56,6 @@ function generatePlayerAnalysis(match, pm) {
         suffix: util.format('(<b>%s</b> minutes)', start),
         value: delta / interval,
         top: isSupport(pm) ? 150 : 300,
-        advice: 'Keep finding ways to obtain farm in order to stay competitive with the opposing team.',
-        category: 'warning',
-        icon: 'fa-line-chart',
         valid: Boolean(start),
         score(raw) {
           return raw;
@@ -61,22 +65,17 @@ function generatePlayerAnalysis(match, pm) {
     // Flaming in all chat
     flaming(m, pm) {
       let flames = 0;
-      const words = ['fuck', 'shit', ];
+      const words = ['fuck', 'shit'];
       if (pm.my_word_counts) {
-        for (const key in pm.my_word_counts) {
-          if (words.some(function (w) {
-              return key.indexOf(w) !== -1;
-            })) {
+        Object.keys(pm.my_word_counts).forEach(key => {
+          if (words.some((w) => key.indexOf(w) !== -1)) {
             flames += pm.my_word_counts[key];
           }
-        }
+        });
       }
       return {
         name: 'Profanities used',
         value: flames,
-        advice: 'Keep calm in all chat in order to improve the overall game experience.',
-        category: 'danger',
-        icon: 'fa-fire',
         valid: Boolean(pm.my_word_counts),
         score(raw) {
           return 5 - raw;
@@ -90,9 +89,6 @@ function generatePlayerAnalysis(match, pm) {
       return {
         name: 'Couriers bought and fed',
         value: couriers,
-        advice: "Try not to make your team's situation worse by buying and feeding couriers.  Comebacks are always possible!",
-        category: 'danger',
-        icon: 'fa-cutlery',
         valid: Boolean(pm.purchase),
         score(raw) {
           return raw ? 0 : 1;
@@ -104,20 +100,16 @@ function generatePlayerAnalysis(match, pm) {
     skillshot(m, pm) {
       let acc;
       if (pm.ability_uses && pm.hero_hits) {
-        for (const key in pm.ability_uses) {
+        Object.keys(pm.ability_uses).forEach(key => {
           if (key in skillshots) {
             acc = pm.hero_hits[key] / pm.ability_uses[key];
           }
-        }
+        });
       }
       return {
         grade: true,
-        abbr: 'SKILLSHOT',
         name: 'Skillshots landed',
         value: acc,
-        advice: 'Practicing your skillshots can improve your match performance.',
-        category: 'info',
-        icon: 'fa-bullseye',
         valid: acc !== undefined,
         score(raw) {
           return raw || 0;
@@ -127,7 +119,7 @@ function generatePlayerAnalysis(match, pm) {
     },
     // courier buy delay (3 minute flying)
     late_courier(m, pm) {
-      const flying_available = 180;
+      const flyingAvailable = 180;
       let time;
       if (pm.purchase && pm.first_purchase_time && pm.first_purchase_time.flying_courier) {
         time = pm.first_purchase_time.flying_courier;
@@ -135,10 +127,7 @@ function generatePlayerAnalysis(match, pm) {
       return {
         grade: true,
         name: 'Courier upgrade delay',
-        value: time - flying_available,
-        advice: "Upgrade your team's courier as soon as possible to speed up item delivery.",
-        category: 'info',
-        icon: 'fa-level-up',
+        value: time - flyingAvailable,
         valid: time !== undefined,
         score(raw) {
           return 180 - raw;
@@ -148,38 +137,32 @@ function generatePlayerAnalysis(match, pm) {
     },
     // low obs wards/min
     wards(m, pm) {
-      const ward_cooldown = 60 * 7;
+      const wardCooldown = 60 * 7;
       const wards = getObsWardsPlaced(pm);
       // divide game length by ward cooldown
       // 2 wards respawn every interval
       // split responsibility between 2 supports
-      const max_placed = m.duration / ward_cooldown * 2 / 2;
+      const maxPlaced = ((m.duration / wardCooldown) * 2) / 2;
       return {
         grade: true,
         name: 'Wards placed',
         value: wards,
-        advice: 'Keep wards placed constantly to give your team vision.',
-        category: 'info',
-        icon: 'fa-eye',
         valid: isSupport(pm),
         score(raw) {
-          return raw / max_placed;
+          return raw / maxPlaced;
         },
-        top: max_placed,
+        top: maxPlaced,
       };
     },
     // roshan opportunities (specific heroes)
     roshan(m, pm) {
-      let rosh_taken = 0;
+      let roshTaken = 0;
       if (isRoshHero(pm) && pm.killed) {
-        rosh_taken = pm.killed.npc_dota_roshan || 0;
+        roshTaken = pm.killed.npc_dota_roshan || 0;
       }
       return {
         name: 'Roshans killed',
-        value: rosh_taken,
-        advice: 'Certain heroes can take Roshan for an early-game advantage.',
-        category: 'primary',
-        icon: 'fa-shield',
+        value: roshTaken,
         valid: isRoshHero(pm),
         score(raw) {
           return raw;
@@ -192,18 +175,15 @@ function generatePlayerAnalysis(match, pm) {
       let runes;
       if (pm.runes) {
         runes = 0;
-        for (const key in pm.runes) {
+        Object.keys(pm.runes).forEach(key => {
           runes += pm.runes[key];
-        }
+        });
       }
       const target = match.duration / 60 / 4;
       return {
         grade: true,
         name: 'Runes obtained',
         value: runes,
-        advice: 'Maintain rune control in order to give your team an advantage.',
-        category: 'primary',
-        icon: 'fa-battery-4',
         valid: runes !== undefined && pm.lane_role === 2,
         score(raw) {
           return raw / target;
@@ -213,35 +193,29 @@ function generatePlayerAnalysis(match, pm) {
     },
     // unused item actives (multiple results?)
     unused_item(m, pm) {
-      const result = [];
-      if (pm.purchase) {
-        for (const key in pm.purchase) {
-          if (pm.purchase[key] && getGroupedItemUses(key) < 1 && items[key] && isActiveItem(key)) {
-            // if item has cooldown, consider it usable
-            result.push("<img title='" + key + "' class='item img-sm' src='" + items[key].img + "' />");
-          }
-        }
-      }
-
       function getGroupedItemUses(key) {
         let total = 0;
-        for (const key2 in pm.item_uses) {
-          if (key === key2 || item_groups.some(function (g) {
-              return (key in g) && (key2 in g);
-            })) {
+        Object.keys(pm.item_uses).forEach(key2 => {
+          if (key === key2 || itemGroups.some((g) => (key in g) && (key2 in g))) {
             total += pm.item_uses[key];
           }
-        }
+        });
         return total;
       }
+      const result = [];
+      if (pm.purchase) {
+        Object.keys(pm.purchase).forEach(key => {
+          if (pm.purchase[key] && getGroupedItemUses(key) < 1 && items[key] && isActiveItem(key)) {
+            // if item has cooldown, consider it usable
+            result.push(`<img title='${key}' class='item img-sm' src='${items[key].img}' />`);
+          }
+        });
+      }
+
       return {
-        abbr: 'ITEMUSE',
         name: 'Unused active items',
         suffix: util.format('%s', result.length ? result.join('') : 0),
         value: result.length,
-        advice: 'Make sure to use your item actives in order to fully utilize your investment.',
-        category: 'success',
-        icon: 'fa-bolt',
         valid: pm.purchase,
         score(raw) {
           return 5 - raw;
@@ -250,48 +224,13 @@ function generatePlayerAnalysis(match, pm) {
       };
     },
   };
-  for (const key in checks) {
+  Object.keys(checks).forEach(key => {
     advice[key] = checks[key](match, pm);
     const val = advice[key];
-    val.display = util.format('%s: <b>%s</b>, expected <b>%s</b>', val.name, Number(val.value ? val.value.toFixed(2) : ''), Number(val.top.toFixed(2)));
-    val.display += (val.suffix ? ' ' + val.suffix : '');
+    val.display = util.format('%s: %s, expected %s', val.name, Number(val.value ? val.value.toFixed(2) : ''), Number(val.top.toFixed(2)));
+    val.display += (val.suffix ? ` ${val.suffix}` : '');
     val.pct = val.score(val.value) / val.score(val.top);
     delete val.score;
-    pm.desc = [lane_role[pm.lane_role], isSupport(pm) ? 'Support' : 'Core'].join('/');
-  }
+  });
   return advice;
-
-  function isSupport(pm) {
-    return getObsWardsPlaced(pm) >= 2 && pm.lh_t && pm.lh_t[10] < 20;
-  }
-
-  function getObsWardsPlaced(pm) {
-    if (!pm.obs_log) {
-      return 0;
-    }
-    return pm.obs_log.filter(function (l) {
-      return !l.entityleft;
-    }).length;
-  }
-
-  function isRoshHero(pm) {
-    const rosh_heroes = {
-      'npc_dota_hero_lycan': 1,
-      'npc_dota_hero_ursa': 1,
-      'npc_dota_hero_troll_warlord': 1,
-    };
-    return heroes[pm.hero_id] && (heroes[pm.hero_id].name in rosh_heroes);
-  }
-
-  function isActiveItem(key) {
-    const whitelist = {
-      'branches': 1,
-      'bloodstone': 1,
-      'radiance': 1,
-    };
-    return (items[key].desc.indexOf('Active: ') > -1 && !(key in whitelist));
-  }
 }
-export {
-  generatePlayerAnalysis,
-};

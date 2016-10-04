@@ -8,6 +8,7 @@ import {
 } from 'utility';
 import strings from 'lang';
 import Heading from 'components/Heading';
+import styles from './Match.css';
 
 const playerColors = {
   0: '#2E6AE6',
@@ -80,7 +81,7 @@ class MatchGraph extends Component {
   render() {
     return (<div>
       <Heading title={strings[`graph_${this.props.type}`]} />
-      <div id={this.id} />
+      <div className={styles.matchGraph} id={this.id} />
     </div>);
   }
 }

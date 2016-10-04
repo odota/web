@@ -1,16 +1,13 @@
-/* eslint-disable */
 export default {
-  'players':
-  {
-    'name': 'Players',
-    'sql': `
+  players: {
+    name: 'Players',
+    sql: `
 SELECT * from notable_players;
             `,
   },
-  'players_most_damage':
-  {
-    'name': 'Players, most damage dealt',
-    'sql': `
+  players_most_damage: {
+    name: 'Players, most damage dealt',
+    sql: `
 SELECT pm.account_id, name, sum(hero_damage) as sum
 FROM player_matches pm
 JOIN matches m
@@ -42,10 +39,9 @@ LIMIT 100;
               `,
       },
       */
-  'players_most_healing':
-  {
-    'name': 'Players, most healing',
-    'sql': `
+  players_most_healing: {
+    name: 'Players, most healing',
+    sql: `
 SELECT pm.account_id, name, sum(hero_healing) as sum
 FROM player_matches pm
 JOIN matches m
@@ -57,10 +53,9 @@ ORDER BY sum desc NULLS LAST
 LIMIT 100;
         `,
   },
-  'players_most_tower_damage':
-  {
-    'name': 'Players, most tower damage',
-    'sql': `
+  players_most_tower_damage: {
+    name: 'Players, most tower damage',
+    sql: `
 SELECT pm.account_id, name, sum(tower_damage) as sum
 FROM player_matches pm
 JOIN matches m
@@ -72,10 +67,9 @@ ORDER BY sum desc NULLS LAST
 LIMIT 100;
         `,
   },
-  'players_most_lh10':
-  {
-    'name': 'Players, most LH@10',
-    'sql': `
+  players_most_lh10: {
+    name: 'Players, most LH@10',
+    sql: `
 SELECT lh_t[10], np.name, m.match_id, le.name as leaguename
 FROM matches m
 JOIN player_matches pm
@@ -109,10 +103,9 @@ LIMIT 100;
         `,
     },
     */
-  'players_most_games':
-  {
-    'name': 'Players, most pro games',
-    'sql': `
+  players_most_games: {
+    name: 'Players, most pro games',
+    sql: `
 SELECT pm.account_id, np.name,
 count(*),
 sum(case when ((pm.player_slot < 128) = m.radiant_win) then 1 else 0 end) wins
@@ -125,10 +118,9 @@ GROUP BY pm.account_id, np.name
 ORDER BY count DESC;
         `,
   },
-  'players_most_games_abaddon':
-  {
-    'name': 'Players, most pro games on Abaddon',
-    'sql': `
+  players_most_games_abaddon: {
+    name: 'Players, most pro games on Abaddon',
+    sql: `
 SELECT pm.account_id, np.name,
 count(*),
 sum(case when ((pm.player_slot < 128) = m.radiant_win) then 1 else 0 end) wins
@@ -142,10 +134,9 @@ GROUP BY pm.account_id, np.name
 ORDER BY count DESC;
             `,
   },
-  'players_most_games_furion':
-  {
-    'name': "Players, most pro games on Nature's Prophet",
-    'sql': `
+  players_most_games_furion: {
+    name: "Players, most pro games on Nature's Prophet",
+    sql: `
 SELECT pm.account_id, np.name,
 count(*),
 sum(case when ((pm.player_slot < 128) = m.radiant_win) then 1 else 0 end) wins
@@ -159,10 +150,9 @@ GROUP BY pm.account_id, np.name
 ORDER BY count DESC;
             `,
   },
-  'player_most_midas':
-  {
-    'name': 'Players, most Hand of Midas built',
-    'sql': `
+  player_most_midas: {
+    name: 'Players, most Hand of Midas built',
+    sql: `
 SELECT pm.account_id, np.name,
 sum((purchase->>'hand_of_midas')::int)
 FROM player_matches pm
@@ -192,10 +182,9 @@ ORDER BY count DESC NULLS LAST;
             `,
     },
     */
-  'heroes_most_picked_banned':
-  {
-    'name': 'Heroes, most picked/banned',
-    'sql': `
+  heroes_most_picked_banned: {
+    name: 'Heroes, most picked/banned',
+    sql: `
 SELECT h.localized_name,
 sum(case when ((pm.player_slot < 128) = m.radiant_win) then 1 else 0 end) wins, 
 sum(case when is_pick is true then 1 else 0 end) picks,
@@ -212,10 +201,9 @@ GROUP BY h.localized_name
 ORDER BY picks DESC;
             `,
   },
-  'heroes_most_midas':
-  {
-    'name': 'Heroes, most Hand of Midas built',
-    'sql': `
+  heroes_most_midas: {
+    name: 'Heroes, most Hand of Midas built',
+    sql: `
 SELECT h.localized_name, sum((purchase->>'hand_of_midas')::int)
 FROM player_matches pm
 JOIN heroes h
@@ -224,10 +212,9 @@ GROUP by h.localized_name
 ORDER by sum DESC NULLS LAST;
     `,
   },
-  'matches_most_recent':
-  {
-    'name': 'Matches, most recent',
-    'sql': `
+  matches_most_recent: {
+    name: 'Matches, most recent',
+    sql: `
 SELECT match_id, t1.name AS radiant_team_name, t2.name AS dire_team_name, le.name, start_time, duration
 FROM matches ma
 JOIN leagues le

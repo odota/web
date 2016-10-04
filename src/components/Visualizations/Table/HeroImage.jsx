@@ -16,11 +16,13 @@ const TableHeroImage = ({ parsed, imageUrl, heroName, subText }) => (
         </div>
       </div>
     )}
-    <img
-      src={imageUrl}
-      role="presentation"
-      className={styles.image}
-    />
+    <div className={styles.imageContainer}>
+      <img
+        src={imageUrl}
+        role="presentation"
+        className={styles.image}
+      />
+    </div>
     <div className={styles.heroTextContainer}>
       {heroName || 'No hero'}
       {subText && (

@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-fetch';
 import { API_HOST } from 'config';
-import renderMatch from 'components/Match/renderMatch';
 
 const url = '/api/matches/';
 
@@ -39,7 +38,6 @@ export const getMatch = (matchId) => (dispatch) => {
   dispatch(getMatchRequest());
   return fetch(`${API_HOST}${url}${matchId}`)
     .then(response => response.json())
-    .then(json => renderMatch(json))
     .then(json => dispatch(getMatchOk(json)))
     .catch(error => dispatch(getMatchError(error)));
 };

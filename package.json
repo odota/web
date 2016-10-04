@@ -25,6 +25,7 @@
     "dotaconstants": "^3.2.0",
     "es6-promise": "^4.0.2",
     "flexboxgrid": "^6.3.1",
+    "heatmap.js": "^2.0.5",
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "^0.15.4",
     "node-uuid": "^1.4.7",
@@ -49,7 +50,8 @@
     "reselect": "^2.5.4",
     "webpack": "2.1.0-beta.22",
     "webpack-dashboard": "^0.2.0",
-    "webpack-dev-server": "^1.16.1"
+    "webpack-dev-server": "^1.16.1",
+    "wordcloud": "^1.0.5"
   },
   "devDependencies": {
     "babel-core": "^6.14.0",

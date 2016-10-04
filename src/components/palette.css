@@ -116,3 +116,11 @@
 .iconButton:hover svg {
   opacity: .6;
 }
+
+.overlay {
+  text-shadow: 0px 0px 3px #000000;
+  font-size: 11px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}

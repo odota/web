@@ -1,6 +1,6 @@
 import React from 'react';
 import { pad } from 'utility';
-import buildingData from './BuildingData';
+import buildingData from './buildingData';
 // import Spinner from '../Spinner';
 
 export default function BuildingMap({ match }) {
