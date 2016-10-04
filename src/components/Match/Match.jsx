@@ -204,6 +204,7 @@ class RequestLayer extends React.Component {
     const match = this.props.match;
     const matchId = this.props.matchId;
     const info = this.props.routeParams.info || 'overview';
+    const page = matchPagesMapped(matchId).find(page => page.name.toLowerCase() === info);
     return (
       <div>
         <MatchHeader match={match} user={this.props.user} />
@@ -213,7 +214,7 @@ class RequestLayer extends React.Component {
             tabs={matchPagesMapped(matchId)}
           />
         </div>
-        {match ? matchPagesMapped(matchId).filter(page => page.name.toLowerCase() === info).map(page => page.content(match)) : <Spinner />}
+        {match && page ? page.content(match) : <Spinner />}
       </div>
     );
   }

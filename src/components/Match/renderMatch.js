@@ -44,17 +44,17 @@ function generateGraphData(match) {
       xp: [time],
       lh: [time],
     };
-    match.players.forEach((p) => {
-      let hero = heroes[p.hero_id] || {};
+    match.players.forEach((player) => {
+      let hero = heroes[player.hero_id] || {};
       hero = hero.localized_name;
-      if (p.gold_t) {
-        data.gold.push([hero, ...p.gold_t]);
+      if (player.gold_t) {
+        data.gold.push([hero, ...player.gold_t]);
       }
-      if (p.xp_t) {
-        data.xp.push([hero, ...p.xp_t]);
+      if (player.xp_t) {
+        data.xp.push([hero, ...player.xp_t]);
       }
-      if (p.lh_t) {
-        data.lh.push([hero, ...p.lh_t]);
+      if (player.lh_t) {
+        data.lh.push([hero, ...player.lh_t]);
       }
     });
     return data;
@@ -65,21 +65,21 @@ function generateGraphData(match) {
 /**
  * Generates position data for a player
  **/
-function generatePositionData(d, p) {
-  // d, a hash of keys to process
-  // p, a player containing keys with values as position hashes
+function generatePositionData(keysObject, sourceObject) {
+  // keysObject, a hash of keys to process
+  // sourceObject, an object containing keys with values as position hashes
   // stores the resulting arrays in the keys of d
   // 64 is the offset of x and y values
   // subtracting y from 127 inverts from bottom/left origin to top/left origin
   const result = {};
-  Object.keys(d).forEach(key => {
+  Object.keys(keysObject).forEach(key => {
     const t = [];
-    Object.keys(p[key]).forEach(x => {
-      Object.keys(p[key][x]).forEach(y => {
+    Object.keys(sourceObject[key]).forEach(x => {
+      Object.keys(sourceObject[key][x]).forEach(y => {
         t.push({
           x: Number(x) - 64,
           y: 127 - (Number(y) - 64),
-          value: p[key][x][y],
+          value: sourceObject[key][x][y],
         });
       });
     });
@@ -88,20 +88,22 @@ function generatePositionData(d, p) {
   return result;
 }
 
-function generateTeamfights(m) {
+function generateTeamfights(match) {
   const computeTfData = (tf) => {
-    const newtf = {};
-    newtf.posData = [];
-    newtf.radiant_gold_delta = 0;
-    newtf.radiant_xp_delta = 0;
-    newtf.radiant_participation = 0;
-    newtf.radiant_deaths = 0;
-    newtf.dire_participation = 0;
-    newtf.dire_deaths = 0;
-    newtf.players = m.players.map(p => {
-      const tfplayer = tf.players[p.player_slot % (128 - 5)];
+    const newtf = {
+      ...tf,
+      posData: [],
+      radiant_gold_delta: 0,
+      radiant_xp_delta: 0,
+      radiant_participation: 0,
+      radiant_deaths: 0,
+      dire_participation: 0,
+      dire_deaths: 0,
+    };
+    newtf.players = match.players.map(player => {
+      const tfplayer = tf.players[player.player_slot % (128 - 5)];
       // compute team gold/xp deltas
-      if (isRadiant(p.player_slot)) {
+      if (isRadiant(player.player_slot)) {
         newtf.radiant_gold_delta += tfplayer.gold_delta;
         newtf.radiant_xp_delta += tfplayer.xp_delta;
         newtf.radiant_participation += tfplayer.participate ? 1 : 0;
@@ -113,7 +115,7 @@ function generateTeamfights(m) {
         newtf.dire_deaths += tfplayer.deaths ? 1 : 0;
       }
       return {
-        ...p,
+        ...player,
         ...tfplayer,
         participate: tfplayer.deaths > 0 || tfplayer.damage > 0 || tfplayer.healing > 0,
         level_start: getLevelFromXp(tfplayer.xp_start),
@@ -125,10 +127,7 @@ function generateTeamfights(m) {
     });
     return newtf;
   };
-  return (m.teamfights || []).map(tf => ({
-    ...tf,
-    ...computeTfData(tf),
-  }));
+  return (match.teamfights || []).map(tf => computeTfData(tf));
 }
 
 function renderMatch(m) {
@@ -191,30 +190,30 @@ function renderMatch(m) {
   });
   });
   */
-  const newPlayers = m.players.map(pm => {
+  const newPlayers = m.players.map(player => {
     const additionalProps = {
-      ...pm,
-      desc: [laneRole[pm.lane_role], isSupport(pm) ? 'Support' : 'Core'].join('/'),
-      multi_kills_max: getMaxKeyOfObject(pm.multi_kills),
-      kill_streaks_max: getMaxKeyOfObject(pm.kill_streaks),
-      analysis: analysis(m, pm),
+      ...player,
+      desc: [laneRole[player.lane_role], isSupport(player) ? 'Support' : 'Core'].join('/'),
+      multi_kills_max: getMaxKeyOfObject(player.multi_kills),
+      kill_streaks_max: getMaxKeyOfObject(player.kill_streaks),
+      analysis: analysis(m, player),
     };
     // filter interval data to only be >= 0
-    if (pm.times) {
+    if (player.times) {
       const intervals = ['lh_t', 'gold_t', 'xp_t', 'times'];
       intervals.forEach((key) => {
-        additionalProps[key] = pm[key].filter((el, i) => pm.times[i] >= 0);
+        additionalProps[key] = player[key].filter((el, i) => player.times[i] >= 0);
       });
     }
     // compute damage to towers/rax/roshan
-    if (pm.damage) {
+    if (player.damage) {
       // npc_dota_goodguys_tower2_top
       // npc_dota_goodguys_melee_rax_top
       // npc_dota_roshan
       // npc_dota_neutral_giant_wolf
       // npc_dota_creep
       additionalProps.objective_damage = {};
-      Object.keys(pm.damage).forEach(key => {
+      Object.keys(player.damage).forEach(key => {
         let identifier = null;
         if (key.indexOf('tower') !== -1) {
           identifier = key.split('_').slice(3).join('_');
@@ -229,20 +228,20 @@ function renderMatch(m) {
           identifier = 'fort';
         }
         additionalProps.objective_damage[identifier] = additionalProps.objective_damage[identifier] ?
-          additionalProps.objective_damage[identifier] + pm.damage[key] :
-          pm.damage[key];
+          additionalProps.objective_damage[identifier] + player.damage[key] :
+          player.damage[key];
       });
     }
-    if (pm.killed) {
+    if (player.killed) {
       additionalProps.specific = {};
       // expand keys in specific by # (1-4)
       // map to friendly name
       // iterate through keys in killed
       // if in expanded, put in pm.specific
-      Object.keys(pm.killed).forEach(key => {
+      Object.keys(player.killed).forEach(key => {
         if (key in expanded) {
           const name = expanded[key];
-          additionalProps.specific[name] = pm.specific[name] ? pm.specific[name] + pm.killed[key] : pm.killed[key];
+          additionalProps.specific[name] = player.specific[name] ? player.specific[name] + player.killed[key] : player.killed[key];
         }
       });
     }

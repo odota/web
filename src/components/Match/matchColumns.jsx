@@ -19,7 +19,7 @@ import {
 import {
   formatSeconds,
   abbreviateNumber,
-  transformations,
+  inflictorWithValue,
 } from 'utility';
 // import { AppBadge } from '../Player';
 import styles from './Match.css';
@@ -34,7 +34,7 @@ export const heroTd = (row, col, field, hideName) => (
         style={{ height: 24 }}
         role="presentation"
       />
-      {!hideName && <div>{row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : 'Anonymous'}</div>}
+      {!hideName && <div>{row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : strings.anonymous}</div>}
     </div>
   </div>
 );
@@ -48,75 +48,75 @@ export const heroTdColumn = {
 
 export const overviewColumns = [
   heroTdColumn, {
-    displayName: 'MMR',
+    displayName: strings.abbr_mmr,
     field: 'solo_competitive_rank',
     sortFn: true,
   }, {
-    displayName: 'LVL',
+    displayName: strings.abbr_level,
     field: 'level',
 
     sortFn: true,
   }, {
-    displayName: 'K',
+    displayName: strings.abbr_kills,
     field: 'kills',
 
     sortFn: true,
   }, {
-    displayName: 'D',
+    displayName: strings.abbr_deaths,
     field: 'deaths',
 
     sortFn: true,
   }, {
-    displayName: 'A',
+    displayName: strings.abbr_assists,
     field: 'assists',
 
     sortFn: true,
   }, {
-    displayName: 'LH',
+    displayName: strings.abbr_last_hits,
     field: 'last_hits',
 
     sortFn: true,
   }, {
-    displayName: 'DN',
+    displayName: strings.abbr_denies,
     field: 'denies',
 
     sortFn: true,
   }, {
-    displayName: 'G',
+    displayName: strings.abbr_gold,
     field: 'gold_per_min',
 
     displayFn: (row) => abbreviateNumber((row.gold_per_min * row.duration) / 60),
     sortFn: true,
   }, {
-    displayName: 'GPM',
+    displayName: strings.abbr_gold_per_min,
     field: 'gold_per_min',
 
     sortFn: true,
   }, {
-    displayName: 'XPM',
+    displayName: strings.abbr_xp_per_min,
     field: 'xp_per_min',
 
     sortFn: true,
   }, {
-    displayName: 'HD',
+    displayName: strings.abbr_hero_damage,
     field: 'hero_damage',
 
     displayFn: (row) => abbreviateNumber(row.hero_damage),
     sortFn: true,
   }, {
-    displayName: 'TD',
+    displayName: strings.abbr_tower_damage,
     field: 'tower_damage',
 
     displayFn: (row) => abbreviateNumber(row.tower_damage),
     sortFn: true,
   }, {
-    displayName: 'HH',
+    displayName: strings.abbr_hero_healing,
     field: 'hero_healing',
 
     displayFn: (row) => abbreviateNumber(row.hero_healing),
     sortFn: true,
   }, {
-    displayName: 'Items',
+    displayName: strings.th_items,
     field: '',
     width: 7,
     displayFn: (row) => {
@@ -124,22 +124,32 @@ export const overviewColumns = [
       for (let i = 0; i < 6; i++) {
         const itemKey = itemIds[row[`item_${i}`]];
         const item = items[itemKey];
+        const overlay = `${row.first_purchase_time && (row.first_purchase_time[itemKey] / 60).toFixed(0)}'`;
         if (item) {
-          itemArray.push(<span
-            key={i}
-            style={{ position: 'relative' }}
-          >
-            <img
-              style={{ height: 25, margin: '0 3px' }}
-              role="presentation"
-              src={`${API_HOST}/apps/dota2/images/items/${itemKey}_lg.png`}
-            />
-            <span className={styles.timing}>
-              {row.first_purchase_time && row.first_purchase_time[itemIds[item.id]]
-                ? `${(row.first_purchase_time[itemIds[item.id]] / 60).toFixed(0)}'`
-                : ''}
+          itemArray.push(
+            inflictorWithValue({
+              inflictor: itemKey,
+              overlay,
+              key: i,
+            })
+            /*
+            <span
+              key={i}
+              style={{ position: 'relative' }}
+            >
+              <img
+                style={{ height: 25, margin: '0 3px' }}
+                role="presentation"
+                src={`${API_HOST}/apps/dota2/images/items/${itemKey}_lg.png`}
+              />
+              <span className={styles.timing}>
+                {row.first_purchase_time && row.first_purchase_time[itemIds[item.id]]
+                  ? `${(row.first_purchase_time[itemIds[item.id]] / 60).toFixed(0)}'`
+                  : ''}
+              </span>
             </span>
-          </span>);
+            */
+          );
         }
       }
       return itemArray;
@@ -223,7 +233,7 @@ export const purchaseTimesColumns = (match) => {
         .filter(p => (p.time >= curTime - bucket && p.time < curTime))
         .map((p, i) => {
           if (items[p.key]) {
-            return transformations.inflictorWithValue(p.key, formatSeconds(p.time), i);
+            return inflictorWithValue(p.key, formatSeconds(p.time), i);
           }
           return <span />;
         }) : ''}
@@ -284,7 +294,7 @@ export const overallColumns = [
     displayFn: (row, column, field) => {
       const hero = heroNames[field.key] || {};
       return (<div>
-        {transformations.inflictorWithValue(field.inflictor, field.value)}
+        {inflictorWithValue(field)}
         <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} role="presentation" />
       </div>);
     },
@@ -440,6 +450,7 @@ export const unitKillsColumns = [
   }, {
     displayName: 'Other',
     field: 'specific',
+    // TODO prettify this
     displayFn: (row, col, field) => JSON.stringify(field),
   },
 ];
@@ -511,10 +522,9 @@ export const logColumns = [heroTdColumn, {
   displayName: 'Type',
   field: 'type',
 }, {
-  displayName: 'Target',
-  field: 'objective',
+  displayName: 'Detail',
+  field: 'detail',
 }];
-
 
 export const analysisColumns = [heroTdColumn, {
   displayName: 'Analysis',
@@ -550,9 +560,10 @@ export const teamfightColumns = [
     field: 'ability_uses',
     displayFn: (row, col, field) => (field ? Object.keys(field).map((k, i) => {
       if (abilityKeys[k]) {
-        return (<span key={i}>
-          <img src={`${API_HOST}/apps/dota2/images/abilities/${k}_lg.png`} role="presentation" style={{ height: '20px' }} />
-        </span>);
+        return (inflictorWithValue({
+          inflictor: k,
+          key: i,
+        }));
       }
       return <div />;
     }) : ''),
@@ -561,9 +572,10 @@ export const teamfightColumns = [
     field: 'item_uses',
     displayFn: (row, col, field) => (field ? Object.keys(field).map((k, i) => {
       if (items[k]) {
-        return (<span key={i}>
-          <img src={`${API_HOST}/apps/dota2/images/items/${k}_lg.png`} role="presentation" style={{ height: '20px' }} />
-        </span>);
+        return (inflictorWithValue({
+          inflictor: k,
+          key: i,
+        }));
       }
       return <div />;
     }) : ''),
@@ -575,7 +587,11 @@ export const inflictorsColumns = [{
   field: 'damage_inflictor_received',
   displayFn: (row, col, field) => (field ? Object.keys(field)
       .sort((a, b) => field[b] - field[a])
-      .map((k, i) => transformations.inflictorWithValue(k, abbreviateNumber(field[k]), i)) : ''),
+      .map((k, i) => inflictorWithValue({
+        inflictor: k,
+        value: abbreviateNumber(field[k]),
+        key: i,
+      })) : ''),
 }, {
   displayFn: () => '→',
 },
@@ -586,7 +602,11 @@ export const inflictorsColumns = [{
     field: 'damage_inflictor',
     displayFn: (row, col, field) => (field ? Object.keys(field)
       .sort((a, b) => field[b] - field[a])
-      .map((k, i) => transformations.inflictorWithValue(k, abbreviateNumber(field[k]), i)) : ''),
+      .map((k, i) => inflictorWithValue({
+        inflictor: k,
+        value: abbreviateNumber(field[k]),
+        key: i,
+      })) : ''),
   },
 ];
 

@@ -27,6 +27,7 @@ import {
   TableHeroImage,
   FromNowTooltip,
 } from 'components/Visualizations';
+import strings from 'lang';
 import subTextStyle from 'components/Visualizations/Table/subText.css';
 
 // TODO - add in the relevant text invocations of TableHeroImage
@@ -37,8 +38,7 @@ export function pad(n, width, z = '0') {
   return str.length >= width ? str : new Array((width - str.length) + 1).join(z) + n;
 }
 export function abbreviateNumber(num) {
-  // TODO localize string k
-  return (num < 1000) ? num : `${(num / 1000).toFixed(1)}k`;
+  return (num < 1000) ? num : `${(num / 1000).toFixed(1)}${strings.abbr_thousand}`;
 }
 export function formatSeconds(input) {
   const absTime = Math.abs(input);
@@ -49,40 +49,51 @@ export function formatSeconds(input) {
   return time;
 }
 
-const minute = 60;
-const hour = minute * 60;
-const day = hour * 24;
-const month = day * 30;
-const year = month * 12;
+const units = [{
+  name: strings.time_second,
+  limit: 60,
+  in_seconds: 1,
+}, {
+  name: strings.time_minute,
+  limit: 3600,
+  in_seconds: 60,
+}, {
+  name: strings.time_hour,
+  limit: 86400,
+  in_seconds: 3600,
+}, {
+  name: strings.time_day,
+  limit: 604800,
+  in_seconds: 86400,
+}, {
+  name: strings.time_week,
+  limit: 2629743,
+  in_seconds: 604800,
+}, {
+  name: strings.time_month,
+  limit: 31556926,
+  in_seconds: 2629743,
+}, {
+  name: strings.time_year,
+  limit: null,
+  in_seconds: 31556926,
+}];
 
-// TODO localize strings
-export function fromNow(input) {
-  if (!Number(input)) {
-    // Default to empty string if invalid input
-    return '';
+export function fromNow(time) {
+  const diff = (new Date() - new Date(time * 1000)) / 1000;
+  if (diff < 5) {
+    return strings.time_just_now;
   }
-  const now = new Date();
-  // Parse the input string as unix time
-  const date = new Date(Number(input) * 1000);
-  // Diff the current and input timestamps in seconds
-  const diff = (now.getTime() - date.getTime()) / 1000;
-
-  if (diff < 0) {
-    return 'in the future';
-  } else if (diff < 2) {
-    return 'just now';
-  } else if (diff < (minute * 2)) {
-    return `${diff.toFixed(0)} seconds ago`;
-  } else if (diff < (hour * 2)) {
-    return `${(diff / minute).toFixed(0)} minutes ago`;
-  } else if (diff < (day * 2)) {
-    return `${(diff / hour).toFixed(0)} hours ago`;
-  } else if (diff < (month * 2)) {
-    return `${(diff / day).toFixed(0)} days ago`;
-  } else if (diff < (year * 2)) {
-    return `${(diff / month).toFixed(0)} months ago`;
+  let i = 0;
+  let unit = units[i];
+  while (unit.limit) {
+    unit = units[i++];
+    if (diff < unit.limit || !unit.limit) {
+      const val = Math.floor(diff / unit.in_seconds);
+      return `${val} ${unit.name}${val > 1 ? strings.time_plural : ''}`;
+    }
   }
-  return `${(diff / year).toFixed(0)} years ago`;
+  return '';
 }
 
 export const getPercentWin = (wins, games) => (games ? Number(((wins * 100) / games).toFixed(2)) : 0);
@@ -108,6 +119,11 @@ const getSubtext = row => {
   return null;
 };
 
+/**
+ * Transformations of table cell data to display values.
+ * These functions are intended to be used as the displayFn property in table columns.
+ * This is why they all take (row, col, field)
+ **/
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
   hero_id: (row, col, field) => (
@@ -130,9 +146,9 @@ export const transformations = {
     const getString = result => {
       // TODO localize strings
       if (result === undefined) {
-        return 'No Result';
+        return strings.td_no_result;
       }
-      return won ? 'Win' : 'Loss';
+      return won ? strings.td_win : strings.td_loss;
     };
     return (
       <div>
@@ -165,35 +181,44 @@ export const transformations = {
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
   rank: (row) => getOrdinal(row.card - row.rank),
-  inflictorWithValue: (inflictor, value, index) => {
-    if (inflictor) {
-      // TODO use abilities if we need the full info immediately
-      const ability = abilityKeys[inflictor];
-      const item = items[inflictor];
-      let props = {
-        src: null,
+};
+
+export const inflictorWithValue = ({
+  inflictor,
+  overlay,
+  value,
+  index,
+}) => {
+  if (inflictor) {
+    // TODO use abilities if we need the full info immediately
+    const ability = abilityKeys[inflictor];
+    const item = items[inflictor];
+    let props = {
+      src: null,
+    };
+    if (ability) {
+      props = {
+        src: `${API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`,
       };
-      if (ability) {
-        props = {
-          src: `${API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`,
-        };
-      } else if (item) {
-        props = {
-          src: `${API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`,
-        };
-      } else {
-        props = {
-          src: `${API_HOST}/public/images/default_attack.png`,
-        };
-      }
-      return (<span key={index} style={{ float: 'left', fontSize: '11px' }}>
-        <img src={props.src} role="presentation" style={{ height: '20px' }} />
-        <br />
-        <span>{value}</span>
-      </span>);
+    } else if (item) {
+      props = {
+        src: `${API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`,
+      };
+    } else {
+      props = {
+        src: `${API_HOST}/public/images/default_attack.png`,
+      };
     }
-    return <div />;
-  },
+    return (<span key={index} style={{ float: 'left', fontSize: '11px', position: 'relative', margin: '2px' }} >
+      <img src={props.src} role="presentation" style={{ height: '20px' }} />
+      <span className={styles.overlay}>
+        {overlay}
+      </span>
+      <br />
+      <span>{value}</span>
+    </span>);
+  }
+  return <div />;
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */
@@ -264,5 +289,6 @@ export function isActiveItem(key) {
     bloodstone: 1,
     radiance: 1,
   };
+  // TODO this will only work for english data files
   return (items[key].desc.indexOf('Active: ') > -1 && !(key in whitelist));
 }

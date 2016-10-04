@@ -1,11 +1,23 @@
 {
+  "abbr_thousand": "k",
   "abbr_percentile": "%",
+  "abbr_mmr": "MMR",
+  "abbr_level": "LV",
+  "abbr_kills": "K",
+  "abbr_kills_per_min": "KPM",
+  "abbr_deaths": "D",
+  "abbr_assists": "A",
+  "abbr_last_hits": "LH",
+  "abbr_last_hits_per_min": "LHM",
+  "abbr_denies": "DN",
+  "abbr_gold": "G",
   "abbr_gold_per_min": "GPM",
   "abbr_xp_per_min": "XPM",
-  "abbr_last_hits_per_min": "LHM",
-  "abbr_kills_per_min": "KPM",
+  "abbr_hero_damage": "HD",
   "abbr_hero_damage_per_min": "HDM",
+  "abbr_hero_healing": "HH",
   "abbr_hero_healing_per_min": "HHM",
+  "abbr_tower_damage": "TD",
   "abbr_tower_damage_per_min": "TDM",
   "abbr_kda": "KDA",
   "abbr_actions_per_min": "APM",
@@ -24,7 +36,7 @@
   "abbr_DOTA_UNIT_ORDER_GLYPH": "Glyph",
   "abbr_DOTA_UNIT_ORDER_RADAR": "Scan",
   "abbr_DOTA_UNIT_ORDER_PING_ABILITY": "Pings (A)",
-  
+
   "DOTA_UNIT_ORDER_MOVE_TO_POSITION": "Number of times the player moved to a position",
   "DOTA_UNIT_ORDER_MOVE_TO_TARGET": "Number of times the player moved to a target",
   "DOTA_UNIT_ORDER_ATTACK_MOVE": "Number of times the player attacked a position (attack move)",
@@ -110,13 +122,13 @@
   "graph_gold": "Gold",
   "graph_xp": "Experience",
   "graph_lh": "Last Hits",
-  
+
   "header_request": "Request",
   "header_distributions": "Distributions",
   "header_heroes": "Heroes",
   "header_blog": "Blog",
   "header_ingame": "Ingame",
-  
+
   "heading_matches": "Recent Matches",
   "heading_heroes": "Heroes Played",
   "heading_mmr": "MMR History",
@@ -140,7 +152,6 @@
   "tab_wordcloud": "Wordcloud",
   "tab_mmr": "MMR",
   "tab_rankings": "Rankings",
-
   "tab_benchmarks": "Benchmarks",
   "tab_performances": "Performances",
   "tab_damage": "Damage",
@@ -163,9 +174,6 @@
   "th_result": "Result",
   "th_skill": "Skill",
   "th_duration": "Duration",
-  "th_kills": "K",
-  "th_deaths": "D",
-  "th_assists": "A",
   "th_games": "MP",
   "th_win": "Win %",
   "th_with_games": "With",
@@ -180,7 +188,21 @@
   "th_matches": "Matches",
   "th_percentile": "Percentile",
   "th_rank": "Rank",
-  
+  "th_items": "Items",
+
+  "td_win": "Win",
+  "td_loss": "Loss",
+  "td_no_result": "No Result",
+
+  "time_just_now": "just now",
+  "time_second": "second",
+  "time_minute": "minute",
+  "time_hour": "hour",
+  "time_day": "day",
+  "time_month": "month",
+  "time_year": "year",
+  "time_plural": "s",
+
   "mmr": "Solo MMR of the player",
   "level": "Level achieved by hero",
   "kills": "Number of kills by hero",
@@ -259,6 +281,7 @@
   "teamfight_radiant_gold_adv": "Net gold advantage for Radiant",
   "teamfight_radiant_xp_adv": "Net XP advantage for Radiant",
   "killstreak_multikill": "This table associates Kill Streaks (one row for each streak) with Multi Kills and the Teamfight analysis seen above (denoted under each kill in the streak).",
+  "anonymous": "Anonymous",
 
   "app_name": "OpenDota",
   "app_description": "Open source Dota 2 data tools",
