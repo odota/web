@@ -35,20 +35,20 @@ export default [{
   sortFn: true,
   displayFn: transformations.duration,
 }, {
-  displayName: strings.th_kills,
+  displayName: strings.abbr_kills,
   tooltip: strings.kills,
   field: 'kills',
   sortFn: true,
   width: 0.8,
   displayFn: transformations.kda,
 }, {
-  displayName: strings.th_deaths,
+  displayName: strings.abbr_deaths,
   tooltip: strings.deaths,
   field: 'deaths',
   sortFn: true,
   width: 0.8,
 }, {
-  displayName: strings.th_assists,
+  displayName: strings.abbr_assists,
   tooltip: strings.assists,
   field: 'assists',
   sortFn: true,

@@ -1,16 +1,14 @@
-/* eslint-disable */
 import {
   isRadiant,
+  isSupport,
 } from 'utility';
 import {
   specific,
   heroes,
-  objectives,
-  xp_level,
+  xp_level as xpLevel,
+  lane_role as laneRole,
 } from 'dotaconstants';
-import {
-  generatePlayerAnalysis,
-} from './analysis';
+import analysis from './analysis';
 
 const expanded = {};
 Object.keys(specific).forEach((key) => {
@@ -19,11 +17,123 @@ Object.keys(specific).forEach((key) => {
   }
 });
 
-const getMaxKeyOfObject = (field) => {
-  return field ? Object.keys(field).sort((a, b) => Number(b) - Number(a))[0] : '';
-};
+const getMaxKeyOfObject = (field) =>
+  (field ? Object.keys(field).sort((a, b) => Number(b) - Number(a))[0] : '');
+
+function getLevelFromXp(xp) {
+  for (let i = 0; i < xpLevel.length; i++) {
+    if (xpLevel[i] > xp) {
+      return i;
+    }
+  }
+  return xpLevel.length;
+}
+
+/**
+ * Generates data for c3 charts in a match
+ **/
+function generateGraphData(match) {
+  if (match.players && match.players[0] && match.radiant_gold_adv && match.radiant_xp_adv) {
+    // compute graphs
+    const goldDifference = ['Gold', ...match.radiant_gold_adv];
+    const xpDifference = ['XP', ...match.radiant_xp_adv];
+    const time = ['time', ...match.players[0].times];
+    const data = {
+      difference: [time, xpDifference, goldDifference],
+      gold: [time],
+      xp: [time],
+      lh: [time],
+    };
+    match.players.forEach((player) => {
+      let hero = heroes[player.hero_id] || {};
+      hero = hero.localized_name;
+      if (player.gold_t) {
+        data.gold.push([hero, ...player.gold_t]);
+      }
+      if (player.xp_t) {
+        data.xp.push([hero, ...player.xp_t]);
+      }
+      if (player.lh_t) {
+        data.lh.push([hero, ...player.lh_t]);
+      }
+    });
+    return data;
+  }
+  return {};
+}
+
+/**
+ * Generates position data for a player
+ **/
+function generatePositionData(keysObject, sourceObject) {
+  // keysObject, a hash of keys to process
+  // sourceObject, an object containing keys with values as position hashes
+  // stores the resulting arrays in the keys of d
+  // 64 is the offset of x and y values
+  // subtracting y from 127 inverts from bottom/left origin to top/left origin
+  const result = {};
+  Object.keys(keysObject).forEach(key => {
+    const t = [];
+    Object.keys(sourceObject[key]).forEach(x => {
+      Object.keys(sourceObject[key][x]).forEach(y => {
+        t.push({
+          x: Number(x) - 64,
+          y: 127 - (Number(y) - 64),
+          value: sourceObject[key][x][y],
+        });
+      });
+    });
+    result[key] = t;
+  });
+  return result;
+}
+
+function generateTeamfights(match) {
+  const computeTfData = (tf) => {
+    const newtf = {
+      ...tf,
+      posData: [],
+      radiant_gold_delta: 0,
+      radiant_xp_delta: 0,
+      radiant_participation: 0,
+      radiant_deaths: 0,
+      dire_participation: 0,
+      dire_deaths: 0,
+    };
+    newtf.players = match.players.map(player => {
+      const tfplayer = tf.players[player.player_slot % (128 - 5)];
+      // compute team gold/xp deltas
+      if (isRadiant(player.player_slot)) {
+        newtf.radiant_gold_delta += tfplayer.gold_delta;
+        newtf.radiant_xp_delta += tfplayer.xp_delta;
+        newtf.radiant_participation += tfplayer.participate ? 1 : 0;
+        newtf.radiant_deaths += tfplayer.deaths ? 1 : 0;
+      } else {
+        newtf.radiant_gold_delta -= tfplayer.gold_delta;
+        newtf.radiant_xp_delta -= tfplayer.xp_delta;
+        newtf.dire_participation += tfplayer.participate ? 1 : 0;
+        newtf.dire_deaths += tfplayer.deaths ? 1 : 0;
+      }
+      return {
+        ...player,
+        ...tfplayer,
+        participate: tfplayer.deaths > 0 || tfplayer.damage > 0 || tfplayer.healing > 0,
+        level_start: getLevelFromXp(tfplayer.xp_start),
+        level_end: getLevelFromXp(tfplayer.xp_end),
+        posData: generatePositionData({
+          deaths_pos: 1,
+        }, tfplayer),
+      };
+    });
+    return newtf;
+  };
+  return (match.teamfights || []).map(tf => computeTfData(tf));
+}
 
 function renderMatch(m) {
+  /*
+  // Not using for MVP
+  // originally implemented by @coreymaher
   m.hero_combat = {
     damage: {
       radiant: 0,
@@ -34,87 +144,7 @@ function renderMatch(m) {
       dire: 0,
     },
   };
-  // do render-only processing (not needed for aggregation, only for match display)
-  m.players.forEach((pm) => {
-    pm.multi_kills_max = getMaxKeyOfObject(pm.multi_kills);
-    pm.kill_streaks_max = getMaxKeyOfObject(pm.kill_streaks);
-    // converts hashes to arrays and sorts them
-    const targets = ['ability_uses', 'item_uses', 'damage_inflictor', 'damage_inflictor_received'];
-    targets.forEach((target) => {
-      if (pm[target]) {
-        const t = [];
-        Object.keys(pm[target]).forEach((key) => {
-          // const a = abilities[key];
-          // const i = items[key];
-          let def = {
-            img: '/public/images/default_attack.png',
-          };
-          // def = a || i || def;
-          const result = {
-            //TODO generate image path here
-            img: def.img,
-            name: key || 'Auto Attack/Other',
-            val: pm[target][key],
-            ability_uses: (pm.ability_uses || {})[key],
-            item_uses: (pm.item_uses || {})[key],
-            hero_hits: (pm.hero_hits || {})[key],
-            damage_inflictor: (pm.damage_inflictor || {})[key],
-          };
-          t.push(result);
-        });
-        t.sort((a, b) => {
-          return b.val - a.val;
-        });
-        pm[`${target}_arr`] = t;
-      }
-    });
-    // filter interval data to only be >= 0
-    if (pm.times) {
-      const intervals = ['lh_t', 'gold_t', 'xp_t', 'times'];
-      intervals.forEach((key) => {
-        pm[key] = pm[key].filter((el, i) => {
-          return pm.times[i] >= 0;
-        });
-      });
-    }
-    // compute damage to towers/rax/roshan
-    if (pm.damage) {
-      // npc_dota_goodguys_tower2_top
-      // npc_dota_goodguys_melee_rax_top
-      // npc_dota_roshan
-      // npc_dota_neutral_giant_wolf
-      // npc_dota_creep
-      pm.objective_damage = {};
-      for (const key in pm.damage) {
-        let identifier = null;
-        if (key.indexOf('tower') !== -1) {
-          identifier = key.split('_').slice(3).join('_');
-        }
-        if (key.indexOf('rax') !== -1) {
-          identifier = key.split('_').slice(4).join('_');
-        }
-        if (key.indexOf('roshan') !== -1) {
-          identifier = 'roshan';
-        }
-        if (key.indexOf('fort') !== -1) {
-          identifier = 'fort';
-        }
-        pm.objective_damage[identifier] = pm.objective_damage[identifier] ? pm.objective_damage[identifier] + pm.damage[key] : pm.damage[key];
-      }
-    }
-    if (pm.killed) {
-      pm.specific = {};
-      // expand keys in specific by # (1-4)
-      // map to friendly name
-      // iterate through keys in killed
-      // if in expanded, put in pm.specific
-      for (const key in pm.killed) {
-        if (key in expanded) {
-          const name = expanded[key];
-          pm.specific[name] = pm.specific[name] ? pm.specific[name] + pm.killed[key] : pm.killed[key];
-        }
-      }
-    }
+  m.players.forEach(pm => {
     // Compute combat k/d and damage tables
     pm.hero_combat = {
       damage: {
@@ -158,145 +188,71 @@ function renderMatch(m) {
       m.hero_combat.kills[team] += kills;
     });
   });
-  m.players.forEach((pm, i) => {
-    pm.analysis = generatePlayerAnalysis(m, pm);
   });
-  m.graphData = generateGraphData(m);
-  // create heatmap data
-  m.posData = m.players.map((p) => {
-    return p.posData;
-  });
-  // process objectives
-  if (m.objectives) {
-    m.objectives.forEach((entry) => {
-      entry.objective = objectives[entry.subtype] || entry.subtype;
-      const p = m.players[entry.slot];
-      if (p) {
-        entry.team = entry.team === 2 || entry.key < 64 || p.isRadiant ? 0 : 1;
-        entry.hero_img = heroes[p.hero_id] ? heroes[p.hero_id].img : '';
-      }
-    });
-  }
-  // process teamfight data
-  if (m.teamfights) {
-    m.teamfights.forEach((tf) => {
-      tf.posData = [];
-      tf.radiant_gold_delta = 0;
-      tf.radiant_xp_delta = 0;
-      tf.radiant_participation = 0;
-      tf.radiant_deaths = 0;
-      tf.dire_participation = 0;
-      tf.dire_deaths = 0;
-      tf.players.forEach((p) => {
-        // lookup starting, ending level
-        p.level_start = getLevelFromXp(p.xp_start);
-        p.level_end = getLevelFromXp(p.xp_end);
-
-        function getLevelFromXp(xp) {
-          for (let i = 0; i < xp_level.length; i++) {
-            if (xp_level[i] > xp) {
-              return i;
-            }
-          }
-          return xp_level.length;
-        }
-      });
-      // add player's hero_id to each teamfight participant
-      m.players.forEach((p, i) => {
-        const tfplayer = tf.players[p.player_slot % (128 - 5)];
-        tfplayer.hero_id = p.hero_id;
-        tfplayer.player_slot = p.player_slot;
-        tfplayer.isRadiant = isRadiant(p.player_slot);
-        tfplayer.personaname = p.personaname;
-        tfplayer.account_id = p.account_id;
-        tfplayer.participate = tfplayer.deaths > 0 || tfplayer.damage > 0 || tfplayer.healing > 0;
-        if (!p.teamfights_participated) {
-          p.teamfights_participated = 0;
-        }
-        p.teamfights_participated += tfplayer.participate ? 1 : 0;
-        // compute team gold/xp deltas
-        if (isRadiant(p.player_slot)) {
-          tf.radiant_gold_delta += tfplayer.gold_delta;
-          tf.radiant_xp_delta += tfplayer.xp_delta;
-          tf.radiant_participation += tfplayer.participate ? 1 : 0;
-          tf.radiant_deaths += tfplayer.deaths ? 1 : 0;
-        } else {
-          tf.radiant_gold_delta -= tfplayer.gold_delta;
-          tf.radiant_xp_delta -= tfplayer.xp_delta;
-          tf.dire_participation += tfplayer.participate ? 1 : 0;
-          tf.dire_deaths += tfplayer.deaths ? 1 : 0;
-        }
-        // convert 2d hash to array
-        tfplayer.posData = generatePositionData({
-          deaths_pos: 1,
-        }, tfplayer);
-        // console.log(player);
-        // add player hero id to each death, push into teamfight death position array
-        tfplayer.posData.deaths_pos.forEach((pt) => {
-          pt.hero_id = tfplayer.hero_id;
-          tf.posData.push(pt);
-        });
-      });
-    });
-  }
-  m.chat = m.chat || [];
-  return m;
-}
-
-/**
- * Generates data for c3 charts in a match
- **/
-function generateGraphData(match) {
-  if (match.players && match.players[0] && match.radiant_gold_adv && match.radiant_xp_adv) {
-    // compute graphs
-    const goldDifference = ['Gold', ...match.radiant_gold_adv];
-    const xpDifference = ['XP', ...match.radiant_xp_adv];
-    const time = ['time', ...match.players[0].times];
-    const data = {
-      difference: [time, xpDifference, goldDifference],
-      gold: [time],
-      xp: [time],
-      lh: [time],
+  */
+  const newPlayers = m.players.map(player => {
+    const additionalProps = {
+      ...player,
+      desc: [laneRole[player.lane_role], isSupport(player) ? 'Support' : 'Core'].join('/'),
+      multi_kills_max: getMaxKeyOfObject(player.multi_kills),
+      kill_streaks_max: getMaxKeyOfObject(player.kill_streaks),
+      analysis: analysis(m, player),
     };
-    match.players.forEach((p, i) => {
-      let hero = heroes[p.hero_id] || {};
-      hero = hero.localized_name;
-      if (p.gold_t) {
-        data.gold.push([hero, ...p.gold_t]);
-      }
-      if (p.xp_t) {
-        data.xp.push([hero, ...p.xp_t]);
-      }
-      if (p.lh_t) {
-        data.lh.push([hero, ...p.lh_t]);
-      }
-    });
-    return data;
-  }
+    // filter interval data to only be >= 0
+    if (player.times) {
+      const intervals = ['lh_t', 'gold_t', 'xp_t', 'times'];
+      intervals.forEach((key) => {
+        additionalProps[key] = player[key].filter((el, i) => player.times[i] >= 0);
+      });
+    }
+    // compute damage to towers/rax/roshan
+    if (player.damage) {
+      // npc_dota_goodguys_tower2_top
+      // npc_dota_goodguys_melee_rax_top
+      // npc_dota_roshan
+      // npc_dota_neutral_giant_wolf
+      // npc_dota_creep
+      additionalProps.objective_damage = {};
+      Object.keys(player.damage).forEach(key => {
+        let identifier = null;
+        if (key.indexOf('tower') !== -1) {
+          identifier = key.split('_').slice(3).join('_');
+        }
+        if (key.indexOf('rax') !== -1) {
+          identifier = key.split('_').slice(4).join('_');
+        }
+        if (key.indexOf('roshan') !== -1) {
+          identifier = 'roshan';
+        }
+        if (key.indexOf('fort') !== -1) {
+          identifier = 'fort';
+        }
+        additionalProps.objective_damage[identifier] = additionalProps.objective_damage[identifier] ?
+          additionalProps.objective_damage[identifier] + player.damage[key] :
+          player.damage[key];
+      });
+    }
+    if (player.killed) {
+      additionalProps.specific = {};
+      // expand keys in specific by # (1-4)
+      // map to friendly name
+      // iterate through keys in killed
+      // if in expanded, put in pm.specific
+      Object.keys(player.killed).forEach(key => {
+        if (key in expanded) {
+          const name = expanded[key];
+          additionalProps.specific[name] = player.specific[name] ? player.specific[name] + player.killed[key] : player.killed[key];
+        }
+      });
+    }
+    return additionalProps;
+  });
+  return {
+    ...m,
+    graphData: generateGraphData(m),
+    teamfights: generateTeamfights(m),
+    players: newPlayers,
+  };
 }
 
-/**
- * Generates position data for a player
- **/
-function generatePositionData(d, p) {
-  // d, a hash of keys to process
-  // p, a player containing keys with values as position hashes
-  // stores the resulting arrays in the keys of d
-  // 64 is the offset of x and y values
-  // subtracting y from 127 inverts from bottom/left origin to top/left origin
-  for (const key in d) {
-    const t = [];
-    for (const x in p[key]) {
-      for (const y in p[key][x]) {
-        t.push({
-          x: Number(x) - 64,
-          y: 127 - (Number(y) - 64),
-          value: p[key][x][y],
-        });
-      }
-    }
-    d[key] = t;
-  }
-  return d;
-}
 export default renderMatch;

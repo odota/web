@@ -4,6 +4,10 @@ import {
 } from 'react-redux';
 import strings from 'lang';
 // import { Card } from 'material-ui/Card';
+import {
+  Tabs,
+  Tab,
+} from 'material-ui/Tabs';
 import Spinner from 'components/Spinner';
 import TabBar from 'components/TabBar';
 import {
@@ -20,32 +24,42 @@ import {
   getMetadataUser,
 } from 'reducers/metadata';
 import {
+  formatSeconds,
+} from 'utility';
+import Heading from 'components/Heading';
+import Heatmap from 'components/Heatmap';
+import Table, {
   createTable,
-} from '../Table';
-import Table from '../Table/Table';
+} from 'components/Table';
 import MatchHeader from './MatchHeader';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
 import MatchGraph from './MatchGraph';
+import BuildingMap from './BuildingMap';
 import {
   overviewColumns,
-  abUpgradeColumns,
+  abilityUpgradeColumns,
   benchmarksColumns,
   overallColumns,
   laningColumns,
   chatColumns,
   purchaseColumns,
-  abilityUseColumns,
-  itemUseColumns,
+  castsColumns,
   purchaseTimesColumns,
   lastHitsTimesColumns,
   unitKillsColumns,
   actionsColumns,
   runesColumns,
   cosmeticsColumns,
+  goldReasonsColumns,
+  xpReasonsColumns,
+  objectiveDamageColumns,
+  logColumns,
+  analysisColumns,
+  teamfightColumns,
+  inflictorsColumns,
 } from './matchColumns.jsx';
-import BuildingMap from '../BuildingMap/BuildingMap';
-// import { TabBar } from '../TabBar';
+import generateLog from './generateLog';
 
 const MatchPlayersTable = createTable(
   getMatchData,
@@ -57,7 +71,7 @@ const matchPages = [{
   name: strings.tab_overview,
   content: match => (<div>
     <MatchPlayersTable columns={overviewColumns} />
-    <MatchPlayersTable columns={abUpgradeColumns} />
+    <MatchPlayersTable columns={abilityUpgradeColumns} />
     <BuildingMap match={match} />
   </div>),
 }, {
@@ -66,22 +80,26 @@ const matchPages = [{
     <MatchPlayersTable columns={benchmarksColumns(match)} />
   </div>),
 }, {
+  name: strings.tab_performances,
+  content: (match) => (<div>
+    <Heatmap points={match && match.players && match.players[0] && match.players[0].posData && match.players[0].posData.lane_pos} />
+    <MatchPlayersTable columns={laningColumns} />
+    <MatchPlayersTable columns={overallColumns} />
+  </div>),
+}, {
   name: strings.tab_combat,
   content: match => (<div>
     <CrossTable match={match} field1="killed" field2="killed_by" />
     <CrossTable match={match} field1="damage" field2="damage_taken" />
-  </div>),
-}, {
-  name: strings.tab_performances,
-  content: () => (<div>
-    <MatchPlayersTable columns={overallColumns} />
-    <MatchPlayersTable columns={laningColumns} />
+    <MatchPlayersTable columns={inflictorsColumns} />
   </div>),
 }, {
   name: strings.tab_farm,
   content: match => (<div>
     <MatchPlayersTable columns={unitKillsColumns} />
     <MatchPlayersTable columns={lastHitsTimesColumns(match)} />
+    <MatchPlayersTable columns={goldReasonsColumns} />
+    <MatchPlayersTable columns={xpReasonsColumns} />
   </div>),
 }, {
   name: strings.tab_purchases,
@@ -100,12 +118,12 @@ const matchPages = [{
 }, {
   name: strings.tab_casts,
   content: match => (<div>
-    <CastTable match={match} dataField="ability_uses_arr" columns={abilityUseColumns} />
-    <CastTable match={match} dataField="item_uses_arr" columns={itemUseColumns} />
+    <CastTable match={match} columns={castsColumns} />
   </div>),
 }, {
   name: strings.tab_objectives,
   content: () => (<div>
+    <MatchPlayersTable columns={objectiveDamageColumns} />
     <MatchPlayersTable columns={runesColumns} />
   </div>),
 }, {
@@ -118,16 +136,33 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_teamfights,
-  content: () => (<div>
-    <div id="teamfights" />
-  </div>),
+  content: (match) => (
+    <div>
+      <Heading title={strings.heading_teamfights} />
+      <Tabs>
+        {(match.teamfights || []).map((teamfight, i) => (
+          <Tab
+            key={i}
+            style={{ backgroundColor: teamfight.radiant_gold_delta >= 0 ? '#66BB6A' : '#ff4c4c' }}
+            label={`${formatSeconds(teamfight.start)}, ${teamfight.radiant_gold_delta}`}
+          >
+            <Table data={teamfight.players.filter(p => p.participate)} columns={teamfightColumns} />
+          </Tab>)
+        )}
+      </Tabs>
+    </div>),
 }, {
   name: strings.tab_analysis,
-  content: () => (<div />),
+  content: () => (<MatchPlayersTable columns={analysisColumns} />),
 }, {
   name: strings.tab_cosmetics,
   content: () => (<div>
     <MatchPlayersTable columns={cosmeticsColumns} />
+  </div>),
+}, {
+  name: strings.tab_log,
+  content: match => (<div>
+    <Table data={generateLog(match)} columns={logColumns} />
   </div>),
 }, {
   name: strings.tab_chat,
@@ -169,6 +204,7 @@ class RequestLayer extends React.Component {
     const match = this.props.match;
     const matchId = this.props.matchId;
     const info = this.props.routeParams.info || 'overview';
+    const page = matchPagesMapped(matchId).find(page => page.name.toLowerCase() === info);
     return (
       <div>
         <MatchHeader match={match} user={this.props.user} />
@@ -178,7 +214,7 @@ class RequestLayer extends React.Component {
             tabs={matchPagesMapped(matchId)}
           />
         </div>
-        {match ? matchPagesMapped(matchId).filter(page => page.name.toLowerCase() === info).map(page => page.content(match)) : <Spinner />}
+        {match && page ? page.content(match) : <Spinner />}
       </div>
     );
   }

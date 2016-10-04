@@ -18,13 +18,6 @@
   background-color: #66CD00;
 }
 
-.timing {
-  background: black;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-}
-
 .Header{
   text-align: center;
   display: block;
@@ -110,4 +103,9 @@
 
 .Clear {
   clear: both;
+}
+
+.matchGraph {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
