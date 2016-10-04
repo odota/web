@@ -55,7 +55,7 @@ export const getPlayerRankings = (playerId, options = {}) => (dispatch, getState
     .then(response => response.json())
     // We want to filter out the rankings where the person is so bad they don't even have a rank
     // for that hero
-    //TODO consider moving to reducer
+    // TODO consider moving to reducer
     .then(json => dispatch(getPlayerRankingsOk(json.filter(rankings => rankings.rank), playerId)))
     .catch(error => dispatch(getPlayerRankingsError(error, playerId)));
 };

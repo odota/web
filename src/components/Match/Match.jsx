@@ -128,7 +128,7 @@ const matchPages = [{
 }, {
   name: strings.tab_vision,
   content: (match) => (<div>
-    {/*TODO genericize*/}
+    {/* TODO genericize*/}
     <VisionMap posData={match.players[4] && match.players[4].posData} />
   </div>),
 }, {

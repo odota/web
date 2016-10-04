@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-  pad
+  pad,
 } from 'utility';
 import buildingData from './buildingData';
 // import Spinner from '../Spinner';
 
 export default function BuildingMap({
-  match
+  match,
 }) {
   if (match && match.tower_status_radiant !== undefined) {
     // see https://wiki.teamfortress.com/wiki/WebAPI/GetMatchDetails
@@ -26,7 +26,6 @@ export default function BuildingMap({
       const d = {
         key: buildingData[i].id,
         src: `https://raw.githubusercontent.com/kronusme/dota2-api/master/images/map/${type}${side}`,
-        role: 'presentation',
         style: {
           opacity: bits[i] === '1' ? '1' : '0.2',
           // TODO scale based on client width
@@ -37,7 +36,7 @@ export default function BuildingMap({
           left: buildingData[i].style.split(';')[2].split(':')[1],
         },
       };
-      icons.push(<img {...d} />);
+      icons.push(<img {...d} role="presentation" />);
     }
     return (
       <div
