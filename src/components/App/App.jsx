@@ -25,7 +25,13 @@ const muiTheme = {
 
 const App = ({ children, open, params, location }) => (
   <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
-    <div className={`${open ? styles.drawerOpen : styles.drawerClosed} ${styles.container}`}>
+    <div
+      className={
+        `${open ? styles.drawerOpen : styles.drawerClosed}
+        ${styles.container}
+        ${location.pathname === '/' && styles.HomeBackground}`
+      }
+    >
       <Header params={params} location={location} />
       <div className={styles.body}>
         {children}

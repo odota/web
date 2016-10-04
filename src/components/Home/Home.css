@@ -1,0 +1,18 @@
+@import "../palette.css";
+
+.HeadContainer {
+  width: 590px;
+  height: 345px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 140px;
+}
+.HeadContainer .headline {
+  text-transform: uppercase;
+  font-size: 90px;
+  font-weight: var(--fontWeightMedium);
+}
+.HeadContainer .description {
+  font-size: 32px;
+  font-weight: var(--fontWeightLight);
+}
