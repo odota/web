@@ -7,6 +7,8 @@ const getMatches = fieldName =>
     state =>
       playerMatches
         .getMatchList(state, id)
+        .filter(match => match[fieldName] !== undefined && match[fieldName] !== null)
+        .reverse()
         .reduce((cumulativeList, match, index) => {
           if (cumulativeList.length > 0) {
             const prevTotal = cumulativeList[index - 1];
