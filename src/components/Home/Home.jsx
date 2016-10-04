@@ -21,10 +21,10 @@ const Home = () => (
             label={
               <span className={styles.label}>
                 <span>
-                  Login
+                  {strings.login}
                 </span>
                 <span>
-                  start parsng my matches
+                  {strings.login_desc}
                 </span>
               </span>
             }
@@ -36,10 +36,10 @@ const Home = () => (
             label={
               <span className={styles.label}>
                 <span>
-                  Parse
+                  {strings.parse}
                 </span>
                 <span>
-                  a match by ID
+                  {strings.parse_desc}
                 </span>
               </span>
             }
@@ -50,10 +50,10 @@ const Home = () => (
             label={
               <span className={styles.label}>
                 <span>
-                  Get a video
+                  {strings.video}
                 </span>
                 <span>
-                  of your match with
+                  {strings.video_desc}
                 </span>
               </span>
             }
@@ -71,34 +71,34 @@ const Home = () => (
     </div>
     <div className={styles.AwesomeContainer}>
       <div className={styles.why}>
-        Why We're Awesome
+        {strings.home_why}
       </div>
       <Row around="xs">
         <Col xs={3}>
           <IconOpenSource />
           <div className={styles.headline}>
-            Open Source
+            {strings.home_opensource_title}
           </div>
           <div className={styles.description}>
-            All of our code is open source and available on GitHub for contributors to improve and modify.
+            {strings.home_opensource_desc}
           </div>
         </Col>
         <Col xs={3}>
           <IconStatsBars />
           <div className={styles.headline}>
-            In-Depth Statistics
+            {strings.home_indepth_title}
           </div>
           <div className={styles.description}>
-            We parse replay files to provide highly detailed match statistics.
+            {strings.home_indepth_desc}
           </div>
         </Col>
         <Col xs={3}>
           <IconWand />
           <div className={styles.headline}>
-            Free of charge
+            {strings.home_free_title}
           </div>
           <div className={styles.description}>
-            Our servers are paid for by donations and development is done by volunteers, so we don't charge users anything.
+            {strings.home_free_desc}
           </div>
         </Col>
       </Row>

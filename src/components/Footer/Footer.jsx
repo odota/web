@@ -7,14 +7,14 @@ import SocialLinks from './SocialLinks';
 import styles from './Footer.css';
 
 // We can add third column if needed <Col xs />
-const Footer = () => (
+const Footer = ({ location }) => (
   <footer className={styles.footer}>
     <Row>
       <Col xs>
         <AppLogo />
         <SocialLinks />
         <hr />
-        <Links />
+        <Links location={location} />
       </Col>
       <Col xs>
         <Cheese />

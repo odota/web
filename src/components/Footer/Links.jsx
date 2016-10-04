@@ -4,7 +4,7 @@ import strings from 'lang';
 import styles from './Footer.css';
 import { IconSteam } from '../Icons';
 
-export default () => (
+export default location => (
   <div>
     <div className={styles.links}>
       <a href="//blog.opendota.com/2014/08/01/faq/" target="_blank" rel="noopener noreferrer">{strings.about}</a>
@@ -21,6 +21,12 @@ export default () => (
       >
         <IconSteam style={{ width: 14, height: 14 }} />
       </IconButton>
+      {location.location === '/' &&
+        <span>
+          {strings.home_background_by}
+          <a href="//www.artstation.com/artist/mikeazevedo" target="_blank" rel="noopener noreferrer"> Mike Azevedo</a>
+        </span>
+      }
     </small>
   </div>
 );

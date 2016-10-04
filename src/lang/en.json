@@ -240,5 +240,21 @@
   "th_category": "Category",
   "th_matches": "Matches",
   "th_percentile": "Percentile",
-  "th_rank": "Rank"
+  "th_rank": "Rank",
+
+  "login": "Login",
+  "login_desc": "start parsng my matches",
+  "parse": "Parse",
+  "parse_desc": "a match by ID",
+  "video": "Get a video",
+  "video_desc": "of your match with",
+
+  "home_why": "Why We're Awesome",
+  "home_opensource_title": "Open Source",
+  "home_opensource_desc": "All of our code is open source and available on GitHub for contributors to improve and modify.",
+  "home_indepth_title": "In-Depth Statistics",
+  "home_indepth_desc": "We parse replay files to provide highly detailed match statistics.",
+  "home_free_title": "Free of charge",
+  "home_free_desc": "Our servers are paid for by donations and development is done by volunteers, so we don't charge users anything.",
+  "home_background_by": "Background picture by"
 }
