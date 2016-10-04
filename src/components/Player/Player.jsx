@@ -88,6 +88,7 @@ const Player = ({
     return <Error />;
   }
   // Need to pass in the action into filter form, need to put that filter form into each subroute as well
+  const page = playerPagesMapped(accountId).find(page => page.name.toLowerCase() === info);
   return (
     <div>
       <div className={styles.header}>
@@ -100,7 +101,7 @@ const Player = ({
           />
         </div>
       </div>
-      {playerPagesMapped(accountId).filter(page => page.name.toLowerCase() === info).map(page => page.content(accountId, subInfo))}
+      {page ? page.content(accountId, subInfo) : ''}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 @import "../palette.css";
 
 .tableHeading {
+  margin-top: 15px;
   margin-bottom: 15px;
   font-size: 20px;
-  float: left;
 }

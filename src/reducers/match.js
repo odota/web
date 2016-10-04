@@ -1,5 +1,6 @@
 import { matchActions } from 'actions';
 import { SORT_ENUM, defaultSort } from 'utility';
+import renderMatch from 'components/Match/renderMatch';
 
 const initialState = {
   match: {
@@ -25,7 +26,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error: false,
-        match: action.payload,
+        match: renderMatch(action.payload),
       };
     }
     case matchActions.ERROR:
