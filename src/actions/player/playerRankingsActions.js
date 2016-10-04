@@ -26,7 +26,7 @@ export const setPlayerRankingsSort = (sortField, sortState, sortFn, id) => ({
   id,
 });
 
-export const getPlayerRankingsRequest = (id) => ({ type: REQUEST, id });
+export const getPlayerRankingsRequest = id => ({ type: REQUEST, id });
 
 export const getPlayerRankingsOk = (payload, id) => ({
   type: OK,

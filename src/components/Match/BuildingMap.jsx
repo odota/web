@@ -20,7 +20,7 @@ export default function BuildingMap({
     // if 1, create image
     // building data in correct order
     // determine ancient display by match winner
-    for (let i = 0; i < bits.length; i++) {
+    for (let i = 0; i < bits.length; i += 1) {
       const type = buildingData[i].id.slice(0, 1) === 't' ? 'tower' : 'racks';
       const side = buildingData[i].id.slice(-1) === 'r' ? '_radiant.png' : '_dire.png';
       const d = {

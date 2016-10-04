@@ -30,28 +30,28 @@ import {
 
 const playerPages = [{
   name: strings.tab_overview,
-  content: (playerId) => (<OverviewPage playerId={playerId} />),
+  content: playerId => (<OverviewPage playerId={playerId} />),
 }, {
   name: strings.tab_matches,
-  content: (playerId) => (<MatchesPage playerId={playerId} />),
+  content: playerId => (<MatchesPage playerId={playerId} />),
 }, {
   name: strings.tab_heroes,
-  content: (playerId) => (<HeroesPage playerId={playerId} />),
+  content: playerId => (<HeroesPage playerId={playerId} />),
 }, {
   name: strings.tab_peers,
-  content: (playerId) => (<PeersPage playerId={playerId} />),
+  content: playerId => (<PeersPage playerId={playerId} />),
 }, {
   name: strings.tab_pros,
-  content: (playerId) => (<ProsPage playerId={playerId} />),
+  content: playerId => (<ProsPage playerId={playerId} />),
 }, {
   name: strings.tab_activity,
   content: () => (<div />),
 }, {
   name: strings.tab_records,
-  content: (playerId) => (<RecordsPage playerId={playerId} />),
+  content: playerId => (<RecordsPage playerId={playerId} />),
 }, {
   name: strings.tab_counts,
-  content: (playerId) => (<CountsPage playerId={playerId} />),
+  content: playerId => (<CountsPage playerId={playerId} />),
 }, {
   name: strings.tab_histograms,
   content: (playerId, subInfo) => (<HistogramsPage playerId={playerId} histogramName={subInfo} />),
@@ -66,13 +66,13 @@ const playerPages = [{
   content: () => (<div />),
 }, {
   name: strings.tab_mmr,
-  content: (playerId) => (<MMRPage playerId={playerId} />),
+  content: playerId => (<MMRPage playerId={playerId} />),
 }, {
   name: strings.tab_rankings,
-  content: (playerId) => (<RankingsPage playerId={playerId} />),
+  content: playerId => (<RankingsPage playerId={playerId} />),
 }];
 
-const playerPagesMapped = (playerId) => playerPages.map(page => ({
+const playerPagesMapped = playerId => playerPages.map(page => ({
   ...page,
   route: `/players/${playerId}/${page.name.toLowerCase()}`,
 }));
@@ -107,12 +107,12 @@ const Player = ({
 };
 // need to fix this
 
-const mapDispatchToProps = (dispatch) => ({
-  getPlayer: (playerId) => dispatch(getPlayer(playerId)),
-  getPlayerWinLoss: (playerId) => dispatch(getPlayerWinLoss(playerId)),
+const mapDispatchToProps = dispatch => ({
+  getPlayer: playerId => dispatch(getPlayer(playerId)),
+  getPlayerWinLoss: playerId => dispatch(getPlayerWinLoss(playerId)),
 });
 
-const getData = props => {
+const getData = (props) => {
   props.getPlayer(props.params.accountId);
   props.getPlayerWinLoss(props.params.accountId);
 };

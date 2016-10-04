@@ -17,12 +17,12 @@ export const matchActions = {
 
 const getMatchRequest = () => ({ type: REQUEST });
 
-const getMatchOk = (payload) => ({
+const getMatchOk = payload => ({
   type: OK,
   payload,
 });
 
-const getMatchError = (payload) => ({
+const getMatchError = payload => ({
   type: ERROR,
   payload,
 });
@@ -34,7 +34,7 @@ export const setMatchSort = (sortField, sortState, sortFn) => ({
   sortFn,
 });
 
-export const getMatch = (matchId) => (dispatch) => {
+export const getMatch = matchId => (dispatch) => {
   dispatch(getMatchRequest());
   return fetch(`${API_HOST}${url}${matchId}`)
     .then(response => response.json())

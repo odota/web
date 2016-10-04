@@ -19,7 +19,7 @@ export default [{
   displayName: strings.th_avatar,
   field: 'avatar',
   width: 1.5,
-  sortFn: (row) => (row.personaname.toLowerCase()),
+  sortFn: row => (row.personaname.toLowerCase()),
   displayFn: getPlayerPicture,
 }, {
   displayName: strings.th_last_played,
@@ -39,8 +39,8 @@ export default [{
   tooltip: strings.win_pct_with,
   field: 'with_win',
   width: 2,
-  displayFn: (row) => <TablePercent val={getPercentWin(row.with_win, row.with_games)} />,
-  sortFn: (row) => (row.with_win / row.with_games),
+  displayFn: row => <TablePercent val={getPercentWin(row.with_win, row.with_games)} />,
+  sortFn: row => (row.with_win / row.with_games),
 }, {
   displayName: strings.th_against_games,
   tooltip: strings.played_against,
@@ -52,6 +52,6 @@ export default [{
   tooltip: strings.win_pct_against,
   field: 'against_win',
   width: 2,
-  displayFn: (row) => <TablePercent val={getPercentWin(row.against_win, row.against_games)} />,
-  sortFn: (row) => (row.against_win / row.against_games),
+  displayFn: row => <TablePercent val={getPercentWin(row.against_win, row.against_games)} />,
+  sortFn: row => (row.against_win / row.against_games),
 }];

@@ -14,7 +14,7 @@ export const playerActions = {
   ERROR,
 };
 
-const getPlayerRequest = (id) => ({ type: REQUEST, id });
+const getPlayerRequest = id => ({ type: REQUEST, id });
 
 const getPlayerOk = (payload, id) => ({
   type: OK,
@@ -28,7 +28,7 @@ const getPlayerError = (payload, id) => ({
   id,
 });
 
-export const getPlayer = (accountId) => (dispatch, getState) => {
+export const getPlayer = accountId => (dispatch, getState) => {
   // we are checking to see if the player object exists here.
   if (player.isLoaded(getState(), accountId)) {
     dispatch(getPlayerOk(player.getPlayer(getState(), accountId), accountId));
@@ -37,10 +37,10 @@ export const getPlayer = (accountId) => (dispatch, getState) => {
   }
   return fetch(`${API_HOST}${url}/${accountId}`)
     .then(response => response.json(accountId))
-    .then(json => {
+    .then((json) => {
       dispatch(getPlayerOk(json, accountId));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(getPlayerError(error, accountId));
     });
 };

@@ -39,7 +39,7 @@ const Matches = ({
   </div>
 );
 
-const getData = props => {
+const getData = (props) => {
   props.getPlayerMatches(props.playerId);
 };
 
@@ -63,7 +63,7 @@ const defaultOptions = {
   limit: null,
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getPlayerMatches: (playerId, options = defaultOptions) => dispatch(getPlayerMatches(playerId, options)),
 });
 

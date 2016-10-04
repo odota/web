@@ -58,7 +58,7 @@ export const clearForm = formName => ({
 
 export const submitForm = (submitAction, formName) => (dispatch, getState) => {
   const formFields = {};
-  Object.keys(form.getForm(getState(), formName)).forEach(key => {
+  Object.keys(form.getForm(getState(), formName)).forEach((key) => {
     // We have a pages object attached to the form for form showing state. We don't
     // want that to be submitted.
     if (key !== 'pages') {

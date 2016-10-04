@@ -11,7 +11,7 @@ export default [{
   displayName: strings.th_percentile,
   field: 'rank',
   width: 2,
-  sortFn: (row) => row.rank / row.card,
+  sortFn: row => row.rank / row.card,
   displayFn: (row, column, field) => `${getPercentWin(field, row.card).toFixed(2)}%`,
 }, {
   displayName: strings.th_rank,

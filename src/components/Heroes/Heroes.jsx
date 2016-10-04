@@ -11,12 +11,12 @@ import HeroBadge from './HeroBadge';
 
 const createHeroList = (heroes) => {
   const result = Object.keys(heroes)
-    .map((key) => ({ ...heroes[key], img: API_HOST + heroes[key].img }))
+    .map(key => ({ ...heroes[key], img: API_HOST + heroes[key].img }))
     .sort((a, b) => (a.localized_name.localeCompare(b.localized_name)));
   return result;
 };
 
-const getSingleHero = (heroId) => ({ ...heroes[heroId], img: API_HOST + heroes[heroId].img });
+const getSingleHero = heroId => ({ ...heroes[heroId], img: API_HOST + heroes[heroId].img });
 
 const HeroesIndex = ({ heroes }) => (
   <div>

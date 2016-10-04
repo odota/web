@@ -25,7 +25,7 @@ export const setPlayerPeersSort = (sortField, sortState, sortFn, id) => ({
   id,
 });
 
-export const getPlayerPeersRequest = (id) => ({ type: REQUEST, id });
+export const getPlayerPeersRequest = id => ({ type: REQUEST, id });
 
 export const getPlayerPeersOk = (payload, id) => ({
   type: OK,

@@ -152,7 +152,7 @@ class Explorer extends React.Component
             onRequestClose={this.handleRequestClose}
           >
             <Menu onChange={this.handleExampleChange}>
-              {Object.keys(queries).map(k => {
+              {Object.keys(queries).map((k) => {
                 const e = queries[k];
                 return <MenuItem value={k} primaryText={e.name} />;
               })

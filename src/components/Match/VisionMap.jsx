@@ -6,7 +6,7 @@ export default function BuildingMap({
 }) {
   if (posData && posData.obs) {
     const icons = [];
-    posData.obs.forEach(ward => {
+    posData.obs.forEach((ward) => {
       const style = {
         // TODO scale based on client width
         // d.style += 'zoom: ' + document.getElementById(map').clientWidth / 600 + ';';

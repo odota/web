@@ -1,6 +1,4 @@
-import React, {
-  PropTypes,
-} from 'react';
+import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'node-uuid';
 import {
@@ -28,8 +26,7 @@ const FromNowTooltip = ({
 };
 
 FromNowTooltip.propTypes = {
-  fromNow: PropTypes.string,
-  date: PropTypes.object,
+  timestamp: React.propTypes.number,
 };
 
 export default FromNowTooltip;

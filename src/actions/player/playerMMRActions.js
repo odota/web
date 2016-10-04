@@ -16,7 +16,7 @@ export const playerMMRActions = {
   ERROR,
 };
 
-export const getPlayerMMRRequest = (id) => ({ type: REQUEST, id });
+export const getPlayerMMRRequest = id => ({ type: REQUEST, id });
 
 export const getPlayerMMROk = (payload, id) => ({
   type: OK,

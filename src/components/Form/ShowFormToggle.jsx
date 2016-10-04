@@ -6,7 +6,7 @@ import { toggleShowForm } from 'actions';
 import { form } from 'reducers';
 import styles from './ShowFormToggle.css';
 
-const getIcon = show => {
+const getIcon = (show) => {
   if (!show) {
     return (
       <svg className={styles.svg} viewBox="0 0 24 24">

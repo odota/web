@@ -15,7 +15,7 @@ import {
 } from 'react-router';
 import {
   API_HOST,
-} from 'config.js';
+} from 'config';
 import {
   formatSeconds,
   abbreviateNumber,
@@ -44,10 +44,10 @@ export const heroTdColumn = {
   displayName: 'Player',
   field: 'hero_id',
   displayFn: heroTd,
-  sortFn: (row) => (row.player_slot),
+  sortFn: row => (row.player_slot),
 };
 
-export const overviewColumns = (match) => [{
+export const overviewColumns = match => [{
   field: '',
   displayFn: (row) => {
     if (match.parties) {
@@ -124,7 +124,7 @@ export const overviewColumns = (match) => [{
     displayName: strings.abbr_gold,
     field: 'gold_per_min',
 
-    displayFn: (row) => abbreviateNumber((row.gold_per_min * row.duration) / 60),
+    displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
     sortFn: true,
   }, {
     displayName: strings.abbr_gold_per_min,
@@ -140,19 +140,19 @@ export const overviewColumns = (match) => [{
     displayName: strings.abbr_hero_damage,
     field: 'hero_damage',
 
-    displayFn: (row) => abbreviateNumber(row.hero_damage),
+    displayFn: row => abbreviateNumber(row.hero_damage),
     sortFn: true,
   }, {
     displayName: strings.abbr_tower_damage,
     field: 'tower_damage',
 
-    displayFn: (row) => abbreviateNumber(row.tower_damage),
+    displayFn: row => abbreviateNumber(row.tower_damage),
     sortFn: true,
   }, {
     displayName: strings.abbr_hero_healing,
     field: 'hero_healing',
 
-    displayFn: (row) => abbreviateNumber(row.hero_healing),
+    displayFn: row => abbreviateNumber(row.hero_healing),
     sortFn: true,
   }, {
     displayName: strings.th_items,
@@ -160,7 +160,7 @@ export const overviewColumns = (match) => [{
     width: 7,
     displayFn: (row) => {
       const itemArray = [];
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 6; i += 1) {
         const itemKey = itemIds[row[`item_${i}`]];
         const item = items[itemKey];
         const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey] / 60;

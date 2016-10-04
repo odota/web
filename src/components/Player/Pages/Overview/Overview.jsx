@@ -43,7 +43,7 @@ const PlayerHeroesTable = createTable(
   setPlayerHeroesSort
 );
 
-const getPlayerMatchesAndHeroes = (playerId, options) => dispatch => {
+const getPlayerMatchesAndHeroes = (playerId, options) => (dispatch) => {
   dispatch(getPlayerMatches(playerId, options));
   dispatch(getPlayerHeroes(playerId, options));
 };
@@ -64,7 +64,7 @@ const Overview = ({
   </div>
 );
 
-const getData = props => {
+const getData = (props) => {
   props.getPlayerMatches(props.playerId);
   props.getPlayerHeroes(props.playerId);
 };
@@ -89,9 +89,9 @@ const defaultOptions = {
   limit: [20],
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getPlayerMatches: (playerId, options = defaultOptions) => dispatch(getPlayerMatches(playerId, options)),
-  getPlayerHeroes: (playerId) => dispatch(getPlayerHeroes(playerId)),
+  getPlayerHeroes: playerId => dispatch(getPlayerHeroes(playerId)),
 });
 
 export default connect(null, mapDispatchToProps)(RequestLayer);

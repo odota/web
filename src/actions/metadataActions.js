@@ -15,11 +15,11 @@ export const metadataActions = {
 const getMetadataRequest = () => ({
   type: REQUEST,
 });
-const getMetadataOk = (payload) => ({
+const getMetadataOk = payload => ({
   type: OK,
   payload,
 });
-const getMetadataError = (payload) => ({
+const getMetadataError = payload => ({
   type: ERROR,
   payload,
 });
@@ -29,7 +29,7 @@ export const getMetadata = (host = API_HOST) => (dispatch) => {
   return fetch(`${host}${url}`, { credentials: 'include' })
   .then(response => response.json())
   .then(json => dispatch(getMetadataOk(json)))
-  .catch(error => {
+  .catch((error) => {
     dispatch(getMetadataError(error));
   });
 };

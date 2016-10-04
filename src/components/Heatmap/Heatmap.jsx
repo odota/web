@@ -11,12 +11,12 @@ import h337 from 'heatmap.js';
  * Returns the adjusted heatmap data.
  */
 function scaleAndExtrema(points, scalef, max, shift) {
-  const newPoints = points.map((p) => ({
+  const newPoints = points.map(p => ({
     x: Math.floor(p.x * scalef),
     y: Math.floor(p.y * scalef),
     value: p.value + (shift || 0),
   }));
-  const vals = points.map((p) => p.value);
+  const vals = points.map(p => p.value);
   const localMax = Math.max.apply(null, vals);
   return {
     min: 0,

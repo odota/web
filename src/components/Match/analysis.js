@@ -42,7 +42,7 @@ export default function (match, pm) {
       const interval = 5;
       let start = 0;
       if (pm.gold_t) {
-        for (let i = 0; i < pm.gold_t.length - interval; i++) {
+        for (let i = 0; i < pm.gold_t.length - interval; i += 1) {
           const diff = pm.gold_t[i + interval] - pm.gold_t[i];
           if (i > 5 && diff < delta) {
             delta = diff;
@@ -67,8 +67,8 @@ export default function (match, pm) {
       let flames = 0;
       const words = ['fuck', 'shit'];
       if (pm.my_word_counts) {
-        Object.keys(pm.my_word_counts).forEach(key => {
-          if (words.some((w) => key.indexOf(w) !== -1)) {
+        Object.keys(pm.my_word_counts).forEach((key) => {
+          if (words.some(w => key.indexOf(w) !== -1)) {
             flames += pm.my_word_counts[key];
           }
         });
@@ -100,7 +100,7 @@ export default function (match, pm) {
     skillshot(m, pm) {
       let acc;
       if (pm.ability_uses && pm.hero_hits) {
-        Object.keys(pm.ability_uses).forEach(key => {
+        Object.keys(pm.ability_uses).forEach((key) => {
           if (key in skillshots) {
             acc = pm.hero_hits[key] / pm.ability_uses[key];
           }
@@ -175,7 +175,7 @@ export default function (match, pm) {
       let runes;
       if (pm.runes) {
         runes = 0;
-        Object.keys(pm.runes).forEach(key => {
+        Object.keys(pm.runes).forEach((key) => {
           runes += pm.runes[key];
         });
       }
@@ -195,8 +195,8 @@ export default function (match, pm) {
     unused_item(m, pm) {
       function getGroupedItemUses(key) {
         let total = 0;
-        Object.keys(pm.item_uses).forEach(key2 => {
-          if (key === key2 || itemGroups.some((g) => (key in g) && (key2 in g))) {
+        Object.keys(pm.item_uses).forEach((key2) => {
+          if (key === key2 || itemGroups.some(g => (key in g) && (key2 in g))) {
             total += pm.item_uses[key];
           }
         });
@@ -204,7 +204,7 @@ export default function (match, pm) {
       }
       const result = [];
       if (pm.purchase) {
-        Object.keys(pm.purchase).forEach(key => {
+        Object.keys(pm.purchase).forEach((key) => {
           if (pm.purchase[key] && getGroupedItemUses(key) < 1 && items[key] && isActiveItem(key)) {
             // if item has cooldown, consider it usable
             result.push(`<img title='${key}' class='item img-sm' src='${items[key].img}' />`);
@@ -224,7 +224,7 @@ export default function (match, pm) {
       };
     },
   };
-  Object.keys(checks).forEach(key => {
+  Object.keys(checks).forEach((key) => {
     advice[key] = checks[key](match, pm);
     const val = advice[key];
     val.display = util.format('%s: %s, expected %s', val.name, Number(val.value ? val.value.toFixed(2) : ''), Number(val.top.toFixed(2)));
