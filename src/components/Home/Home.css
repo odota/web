@@ -5,7 +5,7 @@
   height: 345px;
   margin: 0 auto;
   text-align: center;
-  padding-top: 140px;
+  padding-top: 120px;
 }
 .HeadContainer .headline {
   text-transform: uppercase;
@@ -15,4 +15,46 @@
 .HeadContainer .description {
   font-size: 32px;
   font-weight: var(--fontWeightLight);
+}
+
+.Buttons {
+  margin-top: 30px;
+}
+.Buttons > div {
+  display: inline-block;
+  vertical-align: middle;
+}
+.Buttons > div:first-child {
+  margin-right: 15px
+}
+.Buttons > div:last-child {
+  margin-left: 15px
+}
+.Buttons button {
+  background-color: color(var(--defaultPrimaryColor) lightness(20%)) !important;
+  border: 2px solid var(--textColorPrimary) !important;
+  padding: 3px 6px !important;
+  height: auto !important;
+  margin: 10px 0 !important;
+}
+.Buttons button:hover {
+  mix-blend-mode: screen;
+}
+.Buttons span {
+  text-transform: none !important;
+}
+.Buttons svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--textColorPrimary);
+  vertical-align: sub !important;
+}
+.Buttons button .label > span:first-child {
+  font-size: 18px;
+  font-weight: var(--fontWeightMedium);
+}
+.Buttons button .label > span:last-child {
+  font-size: var(--fontSizeCommon);
+  font-weight: var(--fontWeightLight);
+  margin-left: 5px;
 }
