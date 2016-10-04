@@ -11,14 +11,11 @@ import h337 from 'heatmap.js';
  * Returns the adjusted heatmap data.
  */
 function scaleAndExtrema(points, scalef, max, shift) {
-  const newPoints = [];
-  points.forEach((p) => {
-    newPoints.push({
-      x: Math.floor(p.x * scalef),
-      y: Math.floor(p.y * scalef),
-      value: p.value + (shift || 0),
-    });
-  });
+  const newPoints = points.map((p) => ({
+    x: Math.floor(p.x * scalef),
+    y: Math.floor(p.y * scalef),
+    value: p.value + (shift || 0),
+  }));
   const vals = points.map((p) => p.value);
   const localMax = Math.max.apply(null, vals);
   return {
@@ -29,8 +26,8 @@ function scaleAndExtrema(points, scalef, max, shift) {
 }
 
 const drawHeatmap = ({
-  points = [],
-  width = 600,
+  points,
+  width,
 }, id) => {
   if (points && points.length) {
     const heatmap = h337.create({
@@ -42,12 +39,6 @@ const drawHeatmap = ({
     const adjustedData = scaleAndExtrema(points, width / 127, null, 25);
     // console.log(adjustedData);
     heatmap.setData(adjustedData);
-    /*
-    heatmap.setData({
-      max: 5,
-      data: [{ x: 10, y: 15, value: 5}]
-    });
-    */
   }
 };
 
@@ -65,17 +56,20 @@ class Heatmap extends Component {
   render() {
     return (
       <div
-        id={this.id}
         style={{
-          position: 'relative',
-          top: 0,
-          left: 0,
-          width: 600,
+          width: this.props.width,
+          height: this.props.width,
         }}
+        id={this.id}
       >
-        <img width={600} src={'/assets/images/map.png'} role={'presentation'} />
+        <img width={this.props.width} src="/assets/images/map.png" role="presentation" />
       </div>);
   }
 }
+
+Heatmap.defaultProps = {
+  points: [],
+  width: 600,
+};
 
 export default Heatmap;

@@ -53,6 +53,7 @@ export const getPlayerCounts = (playerId, options = {}) => (dispatch, getState) 
 
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
+    // TODO consider moving to reducer
     .then(json => {
       const data = {};
       Object.keys(json).forEach(key => {

@@ -14,7 +14,6 @@ export const formActions = {
   TOGGLE_SHOW_FORM,
 };
 
-
 export const toggleShowForm = (formName, page) => ({
   type: TOGGLE_SHOW_FORM,
   page,

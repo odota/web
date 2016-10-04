@@ -10,7 +10,7 @@ import {
 } from 'dotaconstants';
 import {
   heroTd,
-} from './matchColumns.jsx';
+} from './matchColumns';
 
 const CrossTable = ({
   match,

@@ -21,6 +21,7 @@ import {
   abbreviateNumber,
   inflictorWithValue,
 } from 'utility';
+import Heatmap from 'components/Heatmap';
 // import { AppBadge } from '../Player';
 import styles from './Match.css';
 
@@ -46,7 +47,45 @@ export const heroTdColumn = {
   sortFn: (row) => (row.player_slot),
 };
 
-export const overviewColumns = [
+export const overviewColumns = (match) => [{
+  field: '',
+  displayFn: (row) => {
+    if (match.parties) {
+      const i = match.players.findIndex(player => player.player_slot === row.player_slot);
+      const partyPrev = match.parties[(match.players[i - 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
+      const partyNext = match.parties[(match.players[i + 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
+      const parentStyle = {
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+      };
+      const style = {
+        position: 'absolute',
+        width: '50%',
+        left: '50%',
+      };
+      const borderStyle = '2px solid #999999';
+      if (!partyPrev && partyNext) {
+        return (<div style={parentStyle}>
+          <div style={Object.assign({}, style, { borderLeft: borderStyle, height: '50%', top: '50%' })} />
+          <div style={Object.assign({}, style, { borderTop: borderStyle, height: '50%', top: '50%' })} />
+        </div>);
+      }
+      if (partyPrev && partyNext) {
+        return (<div style={parentStyle}>
+          <div style={Object.assign({}, style, { borderLeft: borderStyle, height: '100%', top: '0%' })} />
+        </div>);
+      }
+      if (partyPrev && !partyNext) {
+        return (<div style={parentStyle}>
+          <div style={Object.assign({}, style, { borderBottom: borderStyle, height: '50%', top: '0%' })} />
+          <div style={Object.assign({}, style, { borderLeft: borderStyle, height: '50%', top: '0%' })} />
+        </div>);
+      }
+    }
+    return <div />;
+  },
+},
   heroTdColumn, {
     displayName: strings.abbr_mmr,
     field: 'solo_competitive_rank',
@@ -124,7 +163,8 @@ export const overviewColumns = [
       for (let i = 0; i < 6; i++) {
         const itemKey = itemIds[row[`item_${i}`]];
         const item = items[itemKey];
-        const overlay = `${row.first_purchase_time && (row.first_purchase_time[itemKey] / 60).toFixed(0)}'`;
+        const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey] / 60;
+        const overlay = firstPurchase ? `${firstPurchase.toFixed(0)}'` : '';
         if (item) {
           itemArray.push(
             inflictorWithValue({
@@ -288,25 +328,29 @@ export const overallColumns = [
 export const laningColumns = [
   heroTdColumn, {
     displayName: 'Lane',
-    field: '',
-
+    field: 'lane_role',
     sortFn: true,
+    // TODO render text
+    displayFn: (row, col, field) => field,
+  }, {
+    displayName: 'Map',
+    field: 'posData',
+    displayFn: (row, col, field) => (field ?
+      <Heatmap width={100} points={field.lane_pos} /> :
+      <div />),
   }, {
     displayName: 'EFF@10',
     field: 'lane_efficiency',
-
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.toFixed(2) : ''),
   }, {
     displayName: 'LH@10',
     field: 'lh_t',
-
     sortFn: true,
     displayFn: (row, col, field) => (field ? field[10] : ''),
   }, {
     displayName: 'DN@10',
     field: 'dn_t',
-
     sortFn: true,
     displayFn: (row, col, field) => (field ? field[10] : ''),
   },
@@ -595,6 +639,4 @@ export const inflictorsColumns = [{
 ];
 
 // TODO
-// party indicator
-// Lane map
 // Ward maps

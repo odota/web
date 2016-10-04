@@ -35,8 +35,6 @@ const App = ({ children, open, params, location }) => (
   </MuiThemeProvider>
 );
 
-const mapStateToProps = (state) => ({
-  open: state.app.appBar.open,
-});
+const mapStateToProps = (state) => ({});
 
 export default connect(mapStateToProps)(App);

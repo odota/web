@@ -1,5 +1,4 @@
 export { metadataActions, getMetadata } from './metadataActions';
-export { constantsActions, getConstants } from './constantsActions';
 export { playerActions, getPlayer } from './player/playerActions';
 export { matchActions, getMatch, setMatchSort } from './matchActions';
 export { playerMatchesActions, getPlayerMatches, setPlayerMatchesSort, defaultPlayerMatchesOptions } from './player/playerMatchesActions';
@@ -12,7 +11,6 @@ export { playerRecordsActions, getPlayerRecords, setPlayerRecordsSort } from './
 export { playerCountsActions, getPlayerCounts, setPlayerCountsSort } from './player/playerCountsActions';
 export { playerMMRActions, getPlayerMMR } from './player/playerMMRActions';
 export { playerWinLossActions, getPlayerWinLoss } from './player/playerWinLossActions';
-export { appBarActions, openMenu } from './appBarActions';
 export { tableActions, setCurrentPage, nextPage, prevPage } from './tableActions';
 export { formActions, addChip, deleteChip, setFieldText, submitForm, clearForm, toggleShowForm } from './formActions';
 export { rankingActions, getRanking } from './rankingActions';
@@ -20,4 +18,3 @@ export { benchmarkActions, getBenchmark } from './benchmarkActions';
 export * from './searchActions';
 export * from './requestActions';
 export * from './distributionsActions';
-export { API_HOST } from 'config';

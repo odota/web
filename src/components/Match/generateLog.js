@@ -21,7 +21,7 @@ export default (match) => {
       type: 'kill',
       detail: `${entry.key}`,
     })));
-    log = log.concat((player.obs_ward_log || []).map(entry => ({
+    log = log.concat((player.obs_log || []).map(entry => ({
       ...entry,
       ...player,
       type: 'obs_ward',

@@ -202,6 +202,7 @@
   "time_month": "month",
   "time_year": "year",
   "time_plural": "s",
+  "time_past": "ago",
 
   "mmr": "Solo MMR of the player",
   "level": "Level achieved by hero",

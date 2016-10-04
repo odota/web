@@ -27,10 +27,10 @@ import {
   formatSeconds,
 } from 'utility';
 import Heading from 'components/Heading';
-import Heatmap from 'components/Heatmap';
 import Table, {
   createTable,
 } from 'components/Table';
+import VisionMap from './VisionMap';
 import MatchHeader from './MatchHeader';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
@@ -58,7 +58,7 @@ import {
   analysisColumns,
   teamfightColumns,
   inflictorsColumns,
-} from './matchColumns.jsx';
+} from './matchColumns';
 import generateLog from './generateLog';
 
 const MatchPlayersTable = createTable(
@@ -70,7 +70,7 @@ const MatchPlayersTable = createTable(
 const matchPages = [{
   name: strings.tab_overview,
   content: match => (<div>
-    <MatchPlayersTable columns={overviewColumns} />
+    <MatchPlayersTable columns={overviewColumns(match)} />
     <MatchPlayersTable columns={abilityUpgradeColumns} />
     <BuildingMap match={match} />
   </div>),
@@ -81,8 +81,7 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_performances,
-  content: (match) => (<div>
-    <Heatmap points={match && match.players && match.players[0] && match.players[0].posData && match.players[0].posData.lane_pos} />
+  content: () => (<div>
     <MatchPlayersTable columns={laningColumns} />
     <MatchPlayersTable columns={overallColumns} />
   </div>),
@@ -128,7 +127,10 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_vision,
-  content: () => (<div />),
+  content: (match) => (<div>
+    {/*TODO genericize*/}
+    <VisionMap posData={match.players[4] && match.players[4].posData} />
+  </div>),
 }, {
   name: strings.tab_actions,
   content: () => (<div>

@@ -49,34 +49,37 @@ export function formatSeconds(input) {
   return time;
 }
 
+const second = 1;
+const minute = second * 60;
+const hour = minute * 60;
+const day = hour * 24;
+const month = day * 30;
+const year = month * 12;
+
 const units = [{
   name: strings.time_second,
-  limit: 60,
-  in_seconds: 1,
+  limit: minute,
+  in_seconds: second,
 }, {
   name: strings.time_minute,
-  limit: 3600,
-  in_seconds: 60,
+  limit: hour,
+  in_seconds: minute,
 }, {
   name: strings.time_hour,
-  limit: 86400,
-  in_seconds: 3600,
+  limit: day,
+  in_seconds: hour,
 }, {
   name: strings.time_day,
-  limit: 604800,
-  in_seconds: 86400,
-}, {
-  name: strings.time_week,
-  limit: 2629743,
-  in_seconds: 604800,
+  limit: month,
+  in_seconds: day,
 }, {
   name: strings.time_month,
-  limit: 31556926,
-  in_seconds: 2629743,
+  limit: year,
+  in_seconds: month,
 }, {
   name: strings.time_year,
   limit: null,
-  in_seconds: 31556926,
+  in_seconds: year,
 }];
 
 export function fromNow(time) {
@@ -84,13 +87,11 @@ export function fromNow(time) {
   if (diff < 5) {
     return strings.time_just_now;
   }
-  let i = 0;
-  let unit = units[i];
-  while (unit.limit) {
-    unit = units[i++];
+  for (let i = 0; i < units.length; i += 1) {
+    const unit = units[i];
     if (diff < unit.limit || !unit.limit) {
       const val = Math.floor(diff / unit.in_seconds);
-      return `${val} ${unit.name}${val > 1 ? strings.time_plural : ''}`;
+      return `${val} ${unit.name}${val > 1 ? strings.time_plural : ''} ${strings.time_past}`;
     }
   }
   return '';
