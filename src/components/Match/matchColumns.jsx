@@ -217,7 +217,7 @@ export const purchaseTimesColumns = (match) => {
         .filter(p => (p.time >= curTime - bucket && p.time < curTime))
         .map((p, i) => {
           if (items[p.key]) {
-            return inflictorWithValue({inflictor: p.key, value: formatSeconds(p.time), key: i});
+            return inflictorWithValue({ inflictor: p.key, value: formatSeconds(p.time), key: i });
           }
           return <span />;
         }) : ''}
@@ -440,14 +440,14 @@ export const unitKillsColumns = [
 ];
 
 export const actionsColumns = [heroTdColumn, {
-    displayName: strings.abbr_actions_per_min,
-    tooltip: strings.actions_per_min,
-    field: 'actions_per_min',
-  }, {
-    displayName: strings.abbr_pings,
-    tooltip: strings.pings,
-    field: 'pings',
-  }]
+  displayName: strings.abbr_actions_per_min,
+  tooltip: strings.actions_per_min,
+  field: 'actions_per_min',
+}, {
+  displayName: strings.abbr_pings,
+  tooltip: strings.pings,
+  field: 'pings',
+}]
   .concat(Object.keys(orderTypes).filter(o => orderTypes[o] in strings).map(k => ({
     displayName: strings[`abbr_${orderTypes[k]}`],
     tooltip: strings[orderTypes[k]],
@@ -567,18 +567,18 @@ export const teamfightColumns = [
 ];
 
 export const inflictorsColumns = [{
-    displayName: 'Received',
-    field: 'damage_inflictor_received',
-    displayFn: (row, col, field) => (field ? Object.keys(field)
+  displayName: 'Received',
+  field: 'damage_inflictor_received',
+  displayFn: (row, col, field) => (field ? Object.keys(field)
       .sort((a, b) => field[b] - field[a])
       .map((k, i) => inflictorWithValue({
         inflictor: k,
         value: abbreviateNumber(field[k]),
         key: i,
       })) : ''),
-  }, {
-    displayFn: () => '→',
-  },
+}, {
+  displayFn: () => '→',
+},
   heroTdColumn, {
     displayFn: () => '→',
   }, {
