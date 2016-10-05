@@ -30,7 +30,7 @@
   margin: 10px 0 !important;
 }
 .Buttons a:hover {
-  mix-blend-mode: screen;
+  background-color: var(--colorSuccess) !important;
 }
 .Buttons span {
   text-transform: none !important;
@@ -52,14 +52,17 @@
 }
 
 .why {
-  font-size: 32px;
-  margin-bottom: 30px;
+  font-size: 28px;
+  margin-bottom: 40px;
+  text-transform: uppercase;
 }
 
 .AwesomeContainer {
   margin: 50px auto 0;
   text-align: center;
   max-width: 1920px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, .05);
 }
 .AwesomeContainer svg {
   width: 85px;
@@ -77,30 +80,24 @@
 }
 
 .SponsorsContainer {
-  margin-top: 50px;
+  margin-top: 30px;
   margin-bottom: 20px;
 }
 .SponsorsContainer .headline {
   text-transform: uppercase;
   margin-bottom: 20px;
-  font-weight: var(--fontWeightMedium);
+  font-size: 20px;
 }
 .SponsorsContainer img {
   height: 32px;
   margin: 10px 15px;
   transition: var(--normalTransition);
 }
-.SponsorsContainer .Buttons a {
+.SponsorsContainer a {
+  background-color: transparent !important;
   padding: 0 !important;
   border-width: 1px !important;
-}
-.SponsorsContainer a, .SponsorsContainer .headline {
-  opacity: .8;
-}
-.SponsorsContainer a:hover {
-  border-color: var(--colorBlue) !important;
-  color: var(--colorBlue) !important;
-  opacity: 1;
+  border-radius: 0 !important;
 }
 
 .bottomText {

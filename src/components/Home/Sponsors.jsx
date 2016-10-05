@@ -27,7 +27,11 @@ export default () => (
         </div>
         <div className={styles.Buttons}>
           <FlatButton
-            label={strings.become_sponsor}
+            label={
+              <span style={{ fontWeight: 300 }}>
+                {strings.become_sponsor}
+              </span>
+            }
             href="/"
           />
         </div>
