@@ -6,9 +6,11 @@ import styles from './Home.css';
 
 export default () => (
   <div className={styles.AwesomeContainer}>
+    {/* without this string looks better
     <div className={styles.why}>
       {strings.home_why}
     </div>
+    */}
     <Row around="xs">
       <Col xs={3}>
         <IconOpenSource />

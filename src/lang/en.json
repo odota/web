@@ -315,5 +315,8 @@
   "home_indepth_desc": "We parse replay files to provide highly detailed match statistics.",
   "home_free_title": "Free of charge",
   "home_free_desc": "Our servers are paid for by donations and development is done by volunteers, so we don't charge users anything.",
-  "home_background_by": "Background picture by"
+  "home_background_by": "Background picture by",
+  "home_sponsored_by": "Proudly sponsored by",
+
+  "become_sponsor": "Become a Backer"
 }

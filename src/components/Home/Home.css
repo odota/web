@@ -16,20 +16,11 @@
 .HeadContainer .description {
   font-size: 32px;
   font-weight: var(--fontWeightLight);
+  margin-bottom: 20px;
 }
 
 .Buttons {
-  margin-top: 30px;
-}
-.Buttons > div {
-  display: inline-block;
-  vertical-align: middle;
-}
-.Buttons > div:first-child {
-  margin-right: 15px
-}
-.Buttons > div:last-child {
-  margin-left: 15px
+  margin-bottom: 30px;
 }
 .Buttons a {
   background-color: color(var(--defaultPrimaryColor) lightness(20%)) !important;
@@ -78,10 +69,50 @@
 .AwesomeContainer .headline {
   font-size: 24px;
   line-height: 2;
-  position: relative;
 }
 .AwesomeContainer .description {
   font-weight: var(--fontWeightLight);
   line-height: 1.5;
   color: color(var(--textColorPrimary) blackness(33%));
+}
+
+.SponsorsContainer {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+.SponsorsContainer .headline {
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-weight: var(--fontWeightMedium);
+}
+.SponsorsContainer img {
+  height: 32px;
+  margin: 10px 15px;
+  -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
+  filter: grayscale(100%);
+  transition: var(--normalTransition);
+}
+.SponsorsContainer img:hover {
+  opacity: 1;
+  -webkit-filter: grayscale(0%); /* Chrome, Safari, Opera */
+  filter: grayscale(0%);
+}
+.SponsorsContainer .Buttons a {
+  padding: 0 !important;
+  border-width: 1px !important;
+}
+.SponsorsContainer a, .SponsorsContainer img, .SponsorsContainer .headline {
+  opacity: .8;
+}
+.SponsorsContainer .Buttons a:hover {
+  border-color: var(--colorBlue) !important;
+  color: var(--colorBlue) !important;
+  opacity: 1;
+}
+
+.bottomText {
+  font-size: var(--fontSizeMedium);
+  opacity: .6;
+  font-weight: var(--fontWeightLight);
+  text-align: right;
 }

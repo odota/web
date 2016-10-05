@@ -38,29 +38,5 @@ export default () => (
         containerElement={<Link to="/request" />}
       />
     </div>
-    <div>
-      <FlatButton
-        label={
-          <span className={styles.label}>
-            <span>
-              {strings.video}
-            </span>
-            <span>
-              {strings.video_desc}
-            </span>
-          </span>
-        }
-        labelPosition="before"
-        icon={
-          <img
-            src="/assets/images/jist-white-logo.png"
-            role="presentation"
-            height={24}
-          />
-        }
-        href="//www.jist.tv/create.php?source=dota2"
-        target="_blank"
-      />
-    </div>
   </div>
 );

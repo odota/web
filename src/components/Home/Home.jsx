@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import strings from 'lang';
 import Buttons from './Buttons';
 import Why from './Why';
+import Sponsors from './Sponsors';
 import styles from './Home.css';
 
 const Home = () => (
@@ -17,7 +18,11 @@ const Home = () => (
       <Buttons />
     </div>
     <Why />
-    {/* Add some screenshots with description */}
+    <Sponsors />
+    <div className={styles.bottomText}>
+      {strings.home_background_by}
+      <a href="//www.artstation.com/artist/mikeazevedo" target="_blank" rel="noopener noreferrer"> Mike Azevedo</a>
+    </div>
   </div>
 );
 

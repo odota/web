@@ -6,15 +6,14 @@ import Cheese from './Cheese';
 import SocialLinks from './SocialLinks';
 import styles from './Footer.css';
 
-// We can add third column if needed <Col xs />
-const Footer = ({ location }) => (
+export default () => (
   <footer className={styles.footer}>
     <Row>
       <Col xs>
         <AppLogo />
         <SocialLinks />
         <hr />
-        <Links location={location} />
+        <Links />
       </Col>
       <Col xs>
         <Cheese />
@@ -22,5 +21,3 @@ const Footer = ({ location }) => (
     </Row>
   </footer>
 );
-
-export default Footer;
