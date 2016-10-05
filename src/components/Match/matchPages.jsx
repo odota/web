@@ -13,6 +13,7 @@ import Heading from 'components/Heading';
 import Table, {
   createTable,
 } from 'components/Table';
+// import Table2 from 'components/Table/Table2';
 import {
   setMatchSort,
 } from 'actions';
@@ -63,6 +64,7 @@ const matchPages = [{
   name: strings.tab_overview,
   content: match => (<div>
     <MatchPlayersTable columns={overviewColumns(match)} />
+    {/* <Table2 data={match.players} columns={overviewColumns(match)} />*/}
     <MatchPlayersTable columns={abilityUpgradeColumns} />
     <BuildingMap match={match} />
   </div>),
