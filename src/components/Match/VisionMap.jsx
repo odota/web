@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function BuildingMap({
+export default function VisionMap({
   posData,
   width = 600,
 }) {

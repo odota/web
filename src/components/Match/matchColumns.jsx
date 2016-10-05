@@ -157,7 +157,6 @@ export const overviewColumns = (match) => [{
   }, {
     displayName: strings.th_items,
     field: '',
-    width: 7,
     displayFn: (row) => {
       const itemArray = [];
       for (let i = 0; i < 6; i++) {
@@ -226,7 +225,6 @@ export const benchmarksColumns = (match) => {
         displayName: key,
         field: 'benchmarks',
         index: i,
-        width: 2,
         displayFn: (row, column, field) => {
           if (field) {
             const bm = field[key];
