@@ -22,7 +22,7 @@ const Cheese = ({ donations, error, loading }) => {
           <div className={styles.cheese}>
             <IconCheese />
             <p className={styles.percent}>
-              {(percent < 100) ? cheese : 'Done!'}
+              {`${cheese} / ${goal}`}
             </p>
           </div>
           <ReactTooltip id="footerCheese" place="top" type="light" effect="float">

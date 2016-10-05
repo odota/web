@@ -11,7 +11,7 @@ export default () => (
       rel="noopener noreferrer"
       className={styles.iconButton}
       tooltipPosition="top-center"
-      tooltip={strings.github}
+      tooltip={strings.app_github}
       href="//github.com/odota"
     >
       <IconGithub />
@@ -21,7 +21,7 @@ export default () => (
       rel="noopener noreferrer"
       className={styles.iconButton}
       tooltipPosition="top-center"
-      tooltip={strings.twitter}
+      tooltip={strings.app_twitter}
       href="//twitter.com/opendota"
     >
       <IconTwitter />
@@ -32,7 +32,7 @@ export default () => (
       className={styles.iconButton}
       tooltipPosition="top-center"
       href="//discord.gg/0o5SQGbXuWCNDcaF"
-      tooltip={strings.discord}
+      tooltip={strings.app_discord}
     >
       <IconDiscord />
     </IconButton>
