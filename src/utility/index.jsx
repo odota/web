@@ -31,7 +31,7 @@ import strings from 'lang';
 import subTextStyle from 'components/Visualizations/Table/subText.css';
 
 // TODO - add in the relevant text invocations of TableHeroImage
-export const isRadiant = (playerSlot) => playerSlot < 128;
+export const isRadiant = playerSlot => playerSlot < 128;
 
 export function pad(n, width, z = '0') {
   const str = `${n}`;
@@ -42,8 +42,8 @@ export function abbreviateNumber(num) {
 }
 export function formatSeconds(input) {
   const absTime = Math.abs(input);
-  const minutes = ~~(absTime / 60);
-  const seconds = pad(~~(absTime % 60), 2);
+  const minutes = Math.floor(absTime / 60);
+  const seconds = pad(Math.floor(absTime % 60), 2);
   let time = ((input < 0) ? '-' : '');
   time += `${minutes}:${seconds}`;
   return time;
@@ -109,7 +109,7 @@ export const getOrdinal = (n) => {
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
 
-const getSubtext = row => {
+const getSubtext = (row) => {
   if (row.match_id && row.player_slot !== undefined) {
     // TODO localize
     return isRadiant(row.player_slot) ? 'Radiant' : 'Dire';
@@ -138,13 +138,13 @@ export const transformations = {
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
   radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
-    const getColor = result => {
+    const getColor = (result) => {
       if (result === undefined) {
         return styles.textMuted;
       }
       return won ? styles.textSuccess : styles.textDanger;
     };
-    const getString = result => {
+    const getString = (result) => {
       // TODO localize strings
       if (result === undefined) {
         return strings.td_no_result;
@@ -181,7 +181,7 @@ export const transformations = {
   patch: (row, col, field) => (patch[field] ? patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
-  rank: (row) => getOrdinal(row.card - row.rank),
+  rank: row => getOrdinal(row.card - row.rank),
 };
 
 export const inflictorWithValue = ({
@@ -238,7 +238,7 @@ const transformMatchItem = ({
   return `${API_HOST}${items[itemIds[field]].img}`;
 };
 
-for (let i = 0; i < 6; i++) {
+for (let i = 0; i < 6; i += 1) {
   transformations[`item_${i}`] = transformMatchItem;
 }
 
@@ -261,14 +261,14 @@ export const SORT_ENUM = {
   1: 'desc',
   asc: 0,
   desc: 1,
-  next: (state) => SORT_ENUM[(state >= 1 ? 0 : state + 1)],
+  next: state => SORT_ENUM[(state >= 1 ? 0 : state + 1)],
 };
 
 export function getObsWardsPlaced(pm) {
   if (!pm.obs_log) {
     return 0;
   }
-  return pm.obs_log.filter((l) => !l.entityleft).length;
+  return pm.obs_log.filter(l => !l.entityleft).length;
 }
 
 export function isSupport(pm) {

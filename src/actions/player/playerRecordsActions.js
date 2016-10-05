@@ -26,7 +26,7 @@ export const setPlayerRecordsSort = (sortField, sortState, sortFn, id) => ({
   id,
 });
 
-export const getPlayerRecordsRequest = (id) => ({ type: REQUEST, id });
+export const getPlayerRecordsRequest = id => ({ type: REQUEST, id });
 
 export const getPlayerRecordsOk = (payload, id) => ({
   type: OK,

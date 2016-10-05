@@ -47,7 +47,7 @@ const createTableWithSelectors = (selectors, getData, sortAction) => {
 
 export const createTables = (tablesObject, columns, id) =>
   (selectors, getData, sortAction) =>
-    Object.keys(tablesObject).map(key => {
+    Object.keys(tablesObject).map((key) => {
       const Table = createTableWithSelectors(
         {
           ...selectors,

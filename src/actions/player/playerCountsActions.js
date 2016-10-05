@@ -29,7 +29,7 @@ export const setPlayerCountsSort = listName => (sortField, sortState, sortFn, id
   id,
 });
 
-export const getPlayerCountsRequest = (id) => ({ type: REQUEST, id });
+export const getPlayerCountsRequest = id => ({ type: REQUEST, id });
 
 export const getPlayerCountsOk = (payload, id) => ({
   type: OK,
@@ -54,9 +54,9 @@ export const getPlayerCounts = (playerId, options = {}) => (dispatch, getState) 
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
     // TODO consider moving to reducer
-    .then(json => {
+    .then((json) => {
       const data = {};
-      Object.keys(json).forEach(key => {
+      Object.keys(json).forEach((key) => {
         // We need to map each inner object to something we can understand
         data[key] = {
           name: key,

@@ -48,10 +48,10 @@ export default (state = initialState, action) => {
   }
 };
 
-export const getMatchData = (state) => state.app.match.match;
-export const getMatchLoading = (state) => state.app.match.loading;
-export const getMatchPlayers = (state) => state.app.match.match.players;
-export const getSortState = (state) => state.app.match.sortState;
-export const getSortField = (state) => state.app.match.sortField;
-export const getSortFn = (state) => state.app.match.sortFn;
-export const sortMatchPlayers = (state) => defaultSort(getMatchPlayers(state), getSortState(state), getSortField(state), getSortFn(state));
+export const getMatchData = state => state.app.match.match;
+export const getMatchLoading = state => state.app.match.loading;
+export const getMatchPlayers = state => state.app.match.match.players;
+export const getSortState = state => state.app.match.sortState;
+export const getSortField = state => state.app.match.sortField;
+export const getSortFn = state => state.app.match.sortFn;
+export const sortMatchPlayers = state => defaultSort(getMatchPlayers(state), getSortState(state), getSortField(state), getSortFn(state));

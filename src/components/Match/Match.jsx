@@ -127,7 +127,7 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_vision,
-  content: (match) => (<div>
+  content: match => (<div>
     {/* TODO genericize*/}
     <VisionMap posData={match.players[4] && match.players[4].posData} />
   </div>),
@@ -138,7 +138,7 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_teamfights,
-  content: (match) => (
+  content: match => (
     <div>
       <Heading title={strings.heading_teamfights} />
       <Tabs>
@@ -173,7 +173,7 @@ const matchPages = [{
   </div>),
 }];
 
-const matchPagesMapped = (matchId) => matchPages.map(page => ({
+const matchPagesMapped = matchId => matchPages.map(page => ({
   ...page,
   route: `/matches/${matchId}/${page.name.toLowerCase()}`,
 }));
@@ -187,8 +187,8 @@ const mapStateToProps = (state, {
   user: getMetadataUser(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getMatch: (matchId) => dispatch(getMatch(matchId)),
+const mapDispatchToProps = dispatch => ({
+  getMatch: matchId => dispatch(getMatch(matchId)),
 });
 
 class RequestLayer extends React.Component {

@@ -31,7 +31,7 @@ export const setPlayerMatchesSort = (sortField, sortState, sortFn, id) => ({
   id,
 });
 
-export const getPlayerMatchesRequest = (id) => ({
+export const getPlayerMatchesRequest = id => ({
   type: REQUEST,
   id,
 });

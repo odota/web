@@ -1,7 +1,7 @@
 import React from 'react';
 import { textColorPrimary } from 'components/palette.css';
 
-export default (props) => (
+export default props => (
   <svg
     {...props}
     viewBox="0 0 300 300"

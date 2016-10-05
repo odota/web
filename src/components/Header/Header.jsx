@@ -42,7 +42,7 @@ const Header = ({ location }) => (
         <AppLogo style={{ marginRight: 10 }} />
       </ToolbarGroup>
       <ToolbarGroup className={styles.verticalAlign}>
-        {navbarPages.map((page) => (
+        {navbarPages.map(page => (
           <div key={page.name} className={styles.tabContainer}>
             {page.external ?
               <a href={page.path} className={styles.tab}>{page.name}</a> :

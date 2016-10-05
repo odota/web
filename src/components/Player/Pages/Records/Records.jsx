@@ -31,11 +31,11 @@ const Records = ({ playerId }) => (
 
 const mapStateToProps = (state, { playerId }) => ({ playerId });
 
-const mapDispatchToProps = (dispatch) => ({
-  getPlayerRecords: (playerId) => dispatch(getPlayerRecords(playerId)),
+const mapDispatchToProps = dispatch => ({
+  getPlayerRecords: playerId => dispatch(getPlayerRecords(playerId)),
 });
 
-const getData = props => {
+const getData = (props) => {
   props.getPlayerRecords(props.playerId);
 };
 

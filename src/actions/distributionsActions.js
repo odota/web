@@ -17,12 +17,12 @@ const getDistributionsRequest = () => ({
   type: REQUEST,
 });
 
-const getDistributionsOk = (payload) => ({
+const getDistributionsOk = payload => ({
   type: OK,
   payload,
 });
 
-const getDistributionsError = (payload) => ({
+const getDistributionsError = payload => ({
   type: ERROR,
   payload,
 });

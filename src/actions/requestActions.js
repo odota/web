@@ -16,7 +16,7 @@ export const requestActions = {
   MATCH_ID,
 };
 
-const setMatchId = (matchId) => ({
+const setMatchId = matchId => ({
   type: MATCH_ID,
   matchId,
 });
@@ -25,12 +25,12 @@ const requestRequest = () => ({
   type: REQUEST,
 });
 
-const requestError = (error) => ({
+const requestError = error => ({
   type: ERROR,
   error,
 });
 
-const requestProgress = (progress) => ({
+const requestProgress = progress => ({
   type: PROGRESS,
   progress,
 });
@@ -52,7 +52,7 @@ function poll(dispatch, json, matchId) {
   });
 }
 
-const requestSubmit = (matchId) => (dispatch) => {
+const requestSubmit = matchId => (dispatch) => {
   const formData = new FormData();
   formData.append('match_id', matchId);
   dispatch(requestRequest());
