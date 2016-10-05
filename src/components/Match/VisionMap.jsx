@@ -1,34 +1,59 @@
 import React from 'react';
+// import Checkbox from 'material-ui/Checkbox';
+
+const obsWard = (style, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <title>Observer</title>
+    <circle fill="#ffff00" strokeWidth="5" stroke="orange" r={iconSize * 0.4} cy={iconSize / 2 } cx={iconSize / 2} fillOpacity="0.4" />
+  </g>
+  <defs>
+    <filter id="_blur">
+      <feGaussianBlur stdDeviation="0.1" in="SourceGraphic" />
+    </filter>
+  </defs>
+</svg>);
+
+const senWard = (style, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <title>Sentry</title>
+    <circle fill="#0000ff" strokeWidth="5" stroke="cyan" r={iconSize * 0.4} cy={iconSize / 2 } cx={iconSize / 2} fillOpacity="0.4" />
+  </g>
+  <defs>
+    <filter id="_blur">
+      <feGaussianBlur stdDeviation="0.1" in="SourceGraphic" />
+    </filter>
+  </defs>
+</svg>);
 
 export default function VisionMap({
-  posData,
-  width = 600,
+  match,
+  width = 500,
 }) {
-  if (posData && posData.obs) {
-    const icons = [];
-    posData.obs.forEach((ward) => {
-      const style = {
-        // TODO scale based on client width
-        // d.style += 'zoom: ' + document.getElementById(map').clientWidth / 600 + ';';
-        position: 'absolute',
-        top: ((width / 127) * ward.y) - (width / 12),
-        left: ((width / 127) * ward.x) - (width / 12),
-      };
-      const iconSize = width / 6;
-      icons.push(<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
-        <g>
-          <title>Layer 1</title>
-          <circle fill="#ffff00" strokeWidth="5" stroke="orange" r="40" cy="50" cx="50" fillOpacity="0.4" />
-        </g>
-        <defs>
-          <filter id="_blur">
-            <feGaussianBlur stdDeviation="0.1" in="SourceGraphic" />
-          </filter>
-        </defs>
-      </svg>);
-    });
-    return (
-      <div
+  // TODO player selector element
+  // TODO Hero icon on ward circles?
+
+  const obs = (match && match.players && match.players[4] && match.players[4].posData && match.players[4].posData.obs) || [];
+  const obsIcons = obs.map((ward) => {
+    const style = {
+      position: 'absolute',
+      top: ((width / 127) * ward.y) - (width / 12),
+      left: ((width / 127) * ward.x) - (width / 12),
+    };
+    const iconSize = width / 6;
+    return obsWard(style, iconSize);
+  });
+  const sen = (match && match.players && match.players[4] && match.players[4].posData && match.players[4].posData.sen) || [];
+  const senIcons = sen.map((ward) => {
+    const style = {
+      position: 'absolute',
+      top: ((width / 127) * ward.y) - (width / 12),
+      left: ((width / 127) * ward.x) - (width / 12),
+    };
+    const iconSize = width / 6;
+    return senWard(style, iconSize);
+  });
+  return (
+    <div
         style={{
           position: 'relative',
           top: 0,
@@ -37,8 +62,7 @@ export default function VisionMap({
         }}
       >
         <img width={width} src="/assets/images/map.png" role="presentation" />
-        {icons}
+        {obsIcons}
+        {senIcons}
       </div>);
-  }
-  return <div />;
 }
