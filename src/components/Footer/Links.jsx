@@ -7,7 +7,7 @@ import { IconSteam } from '../Icons';
 export default () => (
   <div>
     <div className={styles.links}>
-      <a href="//blog.opendota.com/2014/08/01/faq/" target="_blank" rel="noopener noreferrer">{strings.about}</a>
+      <a href="//blog.opendota.com/2014/08/01/faq/" target="_blank" rel="noopener noreferrer">{strings.app_about}</a>
       <a href="//blog.opendota.com/2014/08/01/faq/#what-is-your-privacy-policy" target="_blank" rel="noopener noreferrer">
         {strings.app_privacy_terms}
       </a>
