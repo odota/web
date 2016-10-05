@@ -144,7 +144,7 @@ class Explorer extends React.Component
         </ul>
         <div>
           <RaisedButton
-            onTouchTap={this.handleTouchTap}
+            onClick={this.handleTouchTap}
             label={'Examples'}
           />
           <Popover

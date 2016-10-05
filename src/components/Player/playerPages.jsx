@@ -1,3 +1,4 @@
+import React from 'react';
 import strings from 'lang';
 import {
   PeersPage,

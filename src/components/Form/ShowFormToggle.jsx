@@ -18,7 +18,7 @@ const getIcon = (show) => {
 };
 
 const ShowFormToggle = ({ formName, toggleShowForm, page, show }) => (
-  <FloatingActionButton className={!show ? styles.filterButton : styles.closeButton} onTouchTap={() => toggleShowForm(formName, page)}>
+  <FloatingActionButton className={!show ? styles.filterButton : styles.closeButton} onClick={() => toggleShowForm(formName, page)}>
     {getIcon(show)}
   </FloatingActionButton>
 );

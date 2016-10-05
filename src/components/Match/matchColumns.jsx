@@ -49,44 +49,44 @@ export const heroTdColumn = {
 };
 
 export const overviewColumns = match => [{
-    field: '',
-    displayFn: (row) => {
-      if (match.parties) {
-        const i = match.players.findIndex(player => player.player_slot === row.player_slot);
-        const partyPrev = match.parties[(match.players[i - 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
-        const partyNext = match.parties[(match.players[i + 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
-        const parentStyle = {
-          position: 'relative',
-          width: '100%',
-          height: '100%',
-        };
-        const style = {
-          position: 'absolute',
-          width: '50%',
-          left: '50%',
-        };
-        const borderStyle = '2px solid #999999';
-        if (!partyPrev && partyNext) {
-          return (<div style={parentStyle}>
+  field: '',
+  displayFn: (row) => {
+    if (match.parties) {
+      const i = match.players.findIndex(player => player.player_slot === row.player_slot);
+      const partyPrev = match.parties[(match.players[i - 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
+      const partyNext = match.parties[(match.players[i + 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
+      const parentStyle = {
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+      };
+      const style = {
+        position: 'absolute',
+        width: '50%',
+        left: '50%',
+      };
+      const borderStyle = '2px solid #999999';
+      if (!partyPrev && partyNext) {
+        return (<div style={parentStyle}>
           <div style={Object.assign({}, style, { borderLeft: borderStyle, height: '50%', top: '50%' })} />
           <div style={Object.assign({}, style, { borderTop: borderStyle, height: '50%', top: '50%' })} />
         </div>);
-        }
-        if (partyPrev && partyNext) {
-          return (<div style={parentStyle}>
+      }
+      if (partyPrev && partyNext) {
+        return (<div style={parentStyle}>
           <div style={Object.assign({}, style, { borderLeft: borderStyle, height: '100%', top: '0%' })} />
         </div>);
-        }
-        if (partyPrev && !partyNext) {
-          return (<div style={parentStyle}>
+      }
+      if (partyPrev && !partyNext) {
+        return (<div style={parentStyle}>
           <div style={Object.assign({}, style, { borderBottom: borderStyle, height: '50%', top: '0%' })} />
           <div style={Object.assign({}, style, { borderLeft: borderStyle, height: '50%', top: '0%' })} />
         </div>);
-        }
       }
-      return <div />;
-    },
+    }
+    return <div />;
   },
+},
   heroTdColumn, {
     displayName: strings.abbr_mmr,
     tooltip: strings.tooltip_mmr,
@@ -458,14 +458,14 @@ export const unitKillsColumns = [
 ];
 
 export const actionsColumns = [heroTdColumn, {
-    displayName: strings.abbr_actions_per_min,
-    tooltip: strings.actions_per_min,
-    field: 'actions_per_min',
-  }, {
-    displayName: strings.abbr_pings,
-    tooltip: strings.pings,
-    field: 'pings',
-  }]
+  displayName: strings.abbr_actions_per_min,
+  tooltip: strings.actions_per_min,
+  field: 'actions_per_min',
+}, {
+  displayName: strings.abbr_pings,
+  tooltip: strings.pings,
+  field: 'pings',
+}]
   .concat(Object.keys(orderTypes).filter(o => orderTypes[o] in strings).map(k => ({
     displayName: strings[`abbr_${orderTypes[k]}`],
     tooltip: strings[orderTypes[k]],
@@ -518,18 +518,18 @@ export const objectiveDamageColumns = [heroTdColumn]
 
 
 export const inflictorsColumns = [{
-    displayName: strings.th_damage_received,
-    field: 'damage_inflictor_received',
-    displayFn: (row, col, field) => (field ? Object.keys(field)
+  displayName: strings.th_damage_received,
+  field: 'damage_inflictor_received',
+  displayFn: (row, col, field) => (field ? Object.keys(field)
       .sort((a, b) => field[b] - field[a])
       .map((k, i) => inflictorWithValue({
         inflictor: k,
         value: abbreviateNumber(field[k]),
         key: i,
       })) : ''),
-  }, {
-    displayFn: () => '→',
-  },
+}, {
+  displayFn: () => '→',
+},
   heroTdColumn, {
     displayFn: () => '→',
   }, {
