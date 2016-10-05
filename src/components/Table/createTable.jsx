@@ -5,13 +5,13 @@ import Table from './Table';
 import TableContainer from './TableContainer';
 import withPagination from './PaginatedTable';
 
-const createTable = (getStateFn, getData, sortAction) => {
+const createTable = (getStateFn, getDataFn, sortAction) => {
   const mapStateToProps = (state, ownProps) => {
     const { error, loading, sortState, sortField } = getStateFn(state, ownProps.id);
     return {
       loading,
       error,
-      data: getData(state, sortState, ownProps.id),
+      data: getDataFn(state, sortState, ownProps.id),
       sortState,
       sortField,
       columns: ownProps.columns,

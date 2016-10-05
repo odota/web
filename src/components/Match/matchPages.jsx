@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   formatSeconds,
+  defaultSort,
 } from 'utility';
 import strings from 'lang';
 // import { Card } from 'material-ui/Card';
@@ -16,9 +17,11 @@ import {
   setMatchSort,
 } from 'actions';
 import {
-  getMatchData,
-  sortMatchPlayers,
+  getMatch,
   getMatchPlayers,
+  getSortState,
+  getSortField,
+  getSortFn,
 } from 'reducers/match';
 import VisionMap from './VisionMap';
 import CastTable from './CastTable';
@@ -49,8 +52,9 @@ import {
 } from './matchColumns';
 import generateLog from './generateLog';
 
+export const sortMatchPlayers = state => defaultSort(getMatchPlayers(state), getSortState(state), getSortField(state), getSortFn(state));
 const MatchPlayersTable = createTable(
-  getMatchData,
+  getMatch,
   (state, sortState) => (sortState ? sortMatchPlayers(state) : getMatchPlayers(state)),
   setMatchSort
 );
