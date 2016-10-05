@@ -4,7 +4,7 @@ import React from 'react';
 const obsWard = (style, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
   <g>
     <title>Observer</title>
-    <circle fill="#ffff00" strokeWidth="5" stroke="orange" r={iconSize * 0.4} cy={iconSize / 2 } cx={iconSize / 2} fillOpacity="0.4" />
+    <circle fill="#ffff00" strokeWidth="5" stroke="orange" r={iconSize * 0.4} cy={iconSize / 2} cx={iconSize / 2} fillOpacity="0.4" />
   </g>
   <defs>
     <filter id="_blur">
@@ -16,7 +16,7 @@ const obsWard = (style, iconSize) => (<svg style={style} width={iconSize} height
 const senWard = (style, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
   <g>
     <title>Sentry</title>
-    <circle fill="#0000ff" strokeWidth="5" stroke="cyan" r={iconSize * 0.4} cy={iconSize / 2 } cx={iconSize / 2} fillOpacity="0.4" />
+    <circle fill="#0000ff" strokeWidth="5" stroke="cyan" r={iconSize * 0.4} cy={iconSize / 2} cx={iconSize / 2} fillOpacity="0.4" />
   </g>
   <defs>
     <filter id="_blur">
@@ -54,15 +54,15 @@ export default function VisionMap({
   });
   return (
     <div
-        style={{
-          position: 'relative',
-          top: 0,
-          left: 0,
-          width,
-        }}
-      >
-        <img width={width} src="/assets/images/map.png" role="presentation" />
-        {obsIcons}
-        {senIcons}
-      </div>);
+      style={{
+        position: 'relative',
+        top: 0,
+        left: 0,
+        width,
+      }}
+    >
+      <img width={width} src="/assets/images/map.png" role="presentation" />
+      {obsIcons}
+      {senIcons}
+    </div>);
 }
