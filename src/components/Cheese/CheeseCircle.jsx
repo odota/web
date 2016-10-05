@@ -9,7 +9,7 @@ import styles from './CheeseCircle.css';
 
 const Cheese = ({ donations, error, loading }) => {
   const { goal, cheese } = donations;
-  const percent = ((cheese / goal) * 100).toFixed(2);
+  const percent = ((cheese / goal) * 100).toFixed(0);
 
   return (
     <div>
@@ -22,7 +22,7 @@ const Cheese = ({ donations, error, loading }) => {
           <div className={styles.cheese}>
             <IconCheese />
             <p className={styles.percent}>
-              {`${cheese} / ${goal}`}
+              {`${percent}%`}
             </p>
           </div>
           <ReactTooltip id="footerCheese" place="top" type="light" effect="float">
