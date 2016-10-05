@@ -26,7 +26,7 @@ const FromNowTooltip = ({
 };
 
 FromNowTooltip.propTypes = {
-  timestamp: React.propTypes.number,
+  timestamp: React.PropTypes.number,
 };
 
 export default FromNowTooltip;
