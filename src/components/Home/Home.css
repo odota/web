@@ -88,23 +88,16 @@
 .SponsorsContainer img {
   height: 32px;
   margin: 10px 15px;
-  -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
-  filter: grayscale(100%);
   transition: var(--normalTransition);
-}
-.SponsorsContainer img:hover {
-  opacity: 1;
-  -webkit-filter: grayscale(0%); /* Chrome, Safari, Opera */
-  filter: grayscale(0%);
 }
 .SponsorsContainer .Buttons a {
   padding: 0 !important;
   border-width: 1px !important;
 }
-.SponsorsContainer a, .SponsorsContainer img, .SponsorsContainer .headline {
+.SponsorsContainer a, .SponsorsContainer .headline {
   opacity: .8;
 }
-.SponsorsContainer .Buttons a:hover {
+.SponsorsContainer a:hover {
   border-color: var(--colorBlue) !important;
   color: var(--colorBlue) !important;
   opacity: 1;
