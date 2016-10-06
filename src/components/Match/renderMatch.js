@@ -191,7 +191,7 @@ function renderMatch(m) {
   });
   */
   const newPlayers = m.players.map((player) => {
-    const additionalProps = {
+    const newPlayer = {
       ...player,
       desc: [laneRole[player.lane_role], isSupport(player) ? 'Support' : 'Core'].join('/'),
       multi_kills_max: getMaxKeyOfObject(player.multi_kills),
@@ -202,7 +202,7 @@ function renderMatch(m) {
     if (player.times) {
       const intervals = ['lh_t', 'gold_t', 'xp_t', 'times'];
       intervals.forEach((key) => {
-        additionalProps[key] = player[key].filter((el, i) => player.times[i] >= 0);
+        newPlayer[key] = player[key].filter((el, i) => player.times[i] >= 0);
       });
     }
     // compute damage to towers/rax/roshan
@@ -212,7 +212,7 @@ function renderMatch(m) {
       // npc_dota_roshan
       // npc_dota_neutral_giant_wolf
       // npc_dota_creep
-      additionalProps.objective_damage = {};
+      newPlayer.objective_damage = {};
       Object.keys(player.damage).forEach((key) => {
         let identifier = null;
         if (key.indexOf('tower') !== -1) {
@@ -227,13 +227,13 @@ function renderMatch(m) {
         if (key.indexOf('fort') !== -1) {
           identifier = 'fort';
         }
-        additionalProps.objective_damage[identifier] = additionalProps.objective_damage[identifier] ?
-          additionalProps.objective_damage[identifier] + player.damage[key] :
+        newPlayer.objective_damage[identifier] = newPlayer.objective_damage[identifier] ?
+          newPlayer.objective_damage[identifier] + player.damage[key] :
           player.damage[key];
       });
     }
     if (player.killed) {
-      additionalProps.specific = {};
+      newPlayer.specific = {};
       // expand keys in specific by # (1-4)
       // map to friendly name
       // iterate through keys in killed
@@ -241,11 +241,11 @@ function renderMatch(m) {
       Object.keys(player.killed).forEach((key) => {
         if (key in expanded) {
           const name = expanded[key];
-          additionalProps.specific[name] = player.specific[name] ? player.specific[name] + player.killed[key] : player.killed[key];
+          newPlayer.specific[name] = newPlayer.specific[name] ? newPlayer.specific[name] + newPlayer.killed[key] : newPlayer.killed[key];
         }
       });
     }
-    return additionalProps;
+    return newPlayer;
   });
   return {
     ...m,
