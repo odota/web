@@ -276,7 +276,7 @@
   "tooltip_purchase_buyback": "Buyback purchases",
   "tooltip_used_ward_observer": "Number of Observer Wards placed during the game",
   "tooltip_used_ward_sentry": "Number of Sentry Wards placed during the game",
-  "tooltip_parsed": "Replay has been parsed for additional statistics",
+  "tooltip_parsed": "Replay has been parsed for additional data",
   "tooltip_hero_id": "The hero played by player",
   "tooltip_result": "Whether the player won or lost",
   "tooltip_match_id": "The ID of the match",
