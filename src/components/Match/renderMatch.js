@@ -2,12 +2,18 @@ import {
   isRadiant,
   isSupport,
 } from 'utility';
+/*
 import {
   specific,
   heroes,
   xp_level as xpLevel,
   lane_role as laneRole,
 } from 'dotaconstants';
+*/
+import heroes from 'dotaconstants/json/heroes.json';
+import specific from 'dotaconstants/json/specific.json';
+import xpLevel from 'dotaconstants/json/xp_level.json';
+import laneRole from 'dotaconstants/json/lane_role.json';
 import analysis from './analysis';
 
 const expanded = {};
@@ -64,11 +70,11 @@ function generateGraphData(match) {
 
 /**
  * Generates position data for a player
+ * keysObject, a hash of keys to process
+ * sourceObject, an object containing keys with values as position hashes
+ * Returns a new object with the same keys as keysObject and the values as arrays of position data
  **/
 function generatePositionData(keysObject, sourceObject) {
-  // keysObject, a hash of keys to process
-  // sourceObject, an object containing keys with values as position hashes
-  // stores the resulting arrays in the keys of d
   // 64 is the offset of x and y values
   // subtracting y from 127 inverts from bottom/left origin to top/left origin
   const result = {};

@@ -3,9 +3,12 @@ import {
   Tabs,
   Tab,
 } from 'material-ui/Tabs';
+/*
 import {
   heroes,
 } from 'dotaconstants';
+*/
+import heroes from 'dotaconstants/json/heroes.json';
 import {
   API_HOST,
 } from 'config';

@@ -1,3 +1,4 @@
+/*
 import {
   heroes,
   lane_ids as laneIds,
@@ -6,7 +7,13 @@ import {
   lobby_type as lobbyType,
   region,
 } from 'dotaconstants';
-
+*/
+import heroes from 'dotaconstants/json/heroes.json';
+import laneIds from 'dotaconstants/json/lane_ids.json';
+import patch from 'dotaconstants/json/patch.json';
+import gameMode from 'dotaconstants/json/game_mode.json';
+import lobbyType from 'dotaconstants/json/lobby_type.json';
+import region from 'dotaconstants/json/region.json';
 export const heroConfig = {
   text: 'localized_name',
   value: 'id',
