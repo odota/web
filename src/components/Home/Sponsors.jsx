@@ -18,21 +18,21 @@ export default () => (
           <a href="//dotacoach.org" target="_blank" rel="noopener noreferrer">
             <img src="/assets/images/dotacoach-32x24.png" role="presentation" />
           </a>
-          <a href="//pvgna.com/dota2?ref=yasp" target="_blank" rel="noopener noreferrer">
-            <img src="/assets/images/pvgna_logo.png" role="presentation" />
-          </a>
           <a href="//dota2.becomethegamer.com/" target="_blank" rel="noopener noreferrer">
             <img src="/assets/images/btg_logo.png" role="presentation" />
+          </a>
+          <a href="//pvgna.com/dota2?ref=yasp" target="_blank" rel="noopener noreferrer">
+            <img src="/assets/images/pvgna_logo.png" role="presentation" />
           </a>
         </div>
         <div className={styles.Buttons}>
           <FlatButton
             label={
               <span style={{ fontWeight: 300 }}>
-                {strings.become_sponsor}
+                {strings.home_become_sponsor}
               </span>
             }
-            href="/"
+            href={'/'/* TODO @albertcui needs to set up donation app*/}
           />
         </div>
       </Col>

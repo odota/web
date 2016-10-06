@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router';
+import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import strings from 'lang';
 import { API_HOST } from 'config';
@@ -36,7 +36,7 @@ export default () => (
             </span>
           </span>
         }
-        href="/request"
+        containerElement={<Link to="/request">{strings.home_parse}</Link>}
       />
     </div>
   </div>
