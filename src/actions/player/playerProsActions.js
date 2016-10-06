@@ -26,7 +26,7 @@ export const setPlayerProsSort = (sortField, sortState, sortFn, id) => ({
   id,
 });
 
-export const getPlayerProsRequest = (id) => ({ type: REQUEST, id });
+export const getPlayerProsRequest = id => ({ type: REQUEST, id });
 
 export const getPlayerProsOk = (payload, id) => ({
   type: OK,
@@ -50,6 +50,7 @@ export const getPlayerPros = (playerId, options = {}) => (dispatch, getState) =>
 
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
+    // TODO consider moving to reducer
     .then(json => json.filter(pro => Number(playerId) !== pro.account_id))
     .then(json => dispatch(getPlayerProsOk(json, playerId)))
     .catch(error => dispatch(getPlayerProsError(error, playerId)));

@@ -32,7 +32,7 @@ export default ({ data }) => (
         {Object.keys(data[0]).map(stat => (
           <TableHeaderColumn
             key={stat}
-            tooltip={strings[stat]}
+            tooltip={strings[`tooltip_${stat}`]}
           >
             {strings[`abbr_${stat}`] || stat}
           </TableHeaderColumn>

@@ -31,7 +31,7 @@ import strings from 'lang';
 import subTextStyle from 'components/Visualizations/Table/subText.css';
 
 // TODO - add in the relevant text invocations of TableHeroImage
-export const isRadiant = (playerSlot) => playerSlot < 128;
+export const isRadiant = playerSlot => playerSlot < 128;
 
 export function pad(n, width, z = '0') {
   const str = `${n}`;
@@ -42,41 +42,44 @@ export function abbreviateNumber(num) {
 }
 export function formatSeconds(input) {
   const absTime = Math.abs(input);
-  const minutes = ~~(absTime / 60);
-  const seconds = pad(~~(absTime % 60), 2);
+  const minutes = Math.floor(absTime / 60);
+  const seconds = pad(Math.floor(absTime % 60), 2);
   let time = ((input < 0) ? '-' : '');
   time += `${minutes}:${seconds}`;
   return time;
 }
 
+const second = 1;
+const minute = second * 60;
+const hour = minute * 60;
+const day = hour * 24;
+const month = day * 30;
+const year = month * 12;
+
 const units = [{
   name: strings.time_second,
-  limit: 60,
-  in_seconds: 1,
+  limit: minute,
+  in_seconds: second,
 }, {
   name: strings.time_minute,
-  limit: 3600,
-  in_seconds: 60,
+  limit: hour,
+  in_seconds: minute,
 }, {
   name: strings.time_hour,
-  limit: 86400,
-  in_seconds: 3600,
+  limit: day,
+  in_seconds: hour,
 }, {
   name: strings.time_day,
-  limit: 604800,
-  in_seconds: 86400,
-}, {
-  name: strings.time_week,
-  limit: 2629743,
-  in_seconds: 604800,
+  limit: month,
+  in_seconds: day,
 }, {
   name: strings.time_month,
-  limit: 31556926,
-  in_seconds: 2629743,
+  limit: year,
+  in_seconds: month,
 }, {
   name: strings.time_year,
   limit: null,
-  in_seconds: 31556926,
+  in_seconds: year,
 }];
 
 export function fromNow(time) {
@@ -84,13 +87,11 @@ export function fromNow(time) {
   if (diff < 5) {
     return strings.time_just_now;
   }
-  let i = 0;
-  let unit = units[i];
-  while (unit.limit) {
-    unit = units[i++];
+  for (let i = 0; i < units.length; i += 1) {
+    const unit = units[i];
     if (diff < unit.limit || !unit.limit) {
       const val = Math.floor(diff / unit.in_seconds);
-      return `${val} ${unit.name}${val > 1 ? strings.time_plural : ''}`;
+      return `${val} ${unit.name}${val > 1 ? strings.time_plural : ''} ${strings.time_past}`;
     }
   }
   return '';
@@ -108,7 +109,7 @@ export const getOrdinal = (n) => {
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
 
-const getSubtext = row => {
+const getSubtext = (row) => {
   if (row.match_id && row.player_slot !== undefined) {
     // TODO localize
     return isRadiant(row.player_slot) ? 'Radiant' : 'Dire';
@@ -137,13 +138,13 @@ export const transformations = {
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
   radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
-    const getColor = result => {
+    const getColor = (result) => {
       if (result === undefined) {
         return styles.textMuted;
       }
       return won ? styles.textSuccess : styles.textDanger;
     };
-    const getString = result => {
+    const getString = (result) => {
       // TODO localize strings
       if (result === undefined) {
         return strings.td_no_result;
@@ -180,7 +181,7 @@ export const transformations = {
   patch: (row, col, field) => (patch[field] ? patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
-  rank: (row) => getOrdinal(row.card - row.rank),
+  rank: row => getOrdinal(row.card - row.rank),
 };
 
 export const inflictorWithValue = ({
@@ -237,7 +238,7 @@ const transformMatchItem = ({
   return `${API_HOST}${items[itemIds[field]].img}`;
 };
 
-for (let i = 0; i < 6; i++) {
+for (let i = 0; i < 6; i += 1) {
   transformations[`item_${i}`] = transformMatchItem;
 }
 
@@ -260,14 +261,14 @@ export const SORT_ENUM = {
   1: 'desc',
   asc: 0,
   desc: 1,
-  next: (state) => SORT_ENUM[(state >= 1 ? 0 : state + 1)],
+  next: state => SORT_ENUM[(state >= 1 ? 0 : state + 1)],
 };
 
 export function getObsWardsPlaced(pm) {
   if (!pm.obs_log) {
     return 0;
   }
-  return pm.obs_log.filter((l) => !l.entityleft).length;
+  return pm.obs_log.filter(l => !l.entityleft).length;
 }
 
 export function isSupport(pm) {

@@ -12,10 +12,10 @@ export default () => (
         label={
           <span className={styles.label}>
             <span>
-              {strings.login}
+              {strings.home_login}
             </span>
             <span>
-              {strings.login_desc}
+              {strings.home_login_desc}
             </span>
           </span>
         }
@@ -28,10 +28,10 @@ export default () => (
         label={
           <span className={styles.label}>
             <span>
-              {strings.parse}
+              {strings.home_parse}
             </span>
             <span>
-              {strings.parse_desc}
+              {strings.home_parse_desc}
             </span>
           </span>
         }

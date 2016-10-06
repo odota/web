@@ -62,6 +62,7 @@ export const getPlayerHistogram = (playerId, histogramName) => (dispatch, getSta
 
   return fetch(`${API_HOST}${getUrl(playerId, null, url(histogramName))}`, { credentials: 'include' })
     .then(response => response.json())
+    // TODO consider moving to reducer
     .then(json => json.reduceRight(reduceArray(true), []))
     .then(json => dispatch(getPlayerHistogramOk(json, playerId, histogramName)))
     .catch(error => dispatch(getPlayerHistogramError(error, playerId, histogramName)));

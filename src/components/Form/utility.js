@@ -1,6 +1,6 @@
 const getClosestMatch = (dataSource, dataSourceConfig, filter, searchText) => {
   const requestsList = [];
-  dataSource.forEach(item => {
+  dataSource.forEach((item) => {
     switch (typeof item) {
       case 'string':
         if (filter(searchText, item, item)) {

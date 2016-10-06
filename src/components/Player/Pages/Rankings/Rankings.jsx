@@ -27,7 +27,7 @@ const Rankings = ({ playerId }) => (
   </div>
 );
 
-const getData = props => {
+const getData = (props) => {
   props.getPlayerRankings(props.playerId);
 };
 
@@ -47,7 +47,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getPlayerRankings: (playerId, options) => dispatch(getPlayerRankings(playerId, options)),
 });
 

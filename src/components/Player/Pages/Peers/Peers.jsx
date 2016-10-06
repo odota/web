@@ -31,11 +31,11 @@ const Peers = ({ playerId }) => (
 
 const mapStateToProps = (state, { playerId }) => ({ playerId });
 
-const mapDispatchToProps = (dispatch) => ({
-  getPlayerPeers: (playerId) => dispatch(getPlayerPeers(playerId)),
+const mapDispatchToProps = dispatch => ({
+  getPlayerPeers: playerId => dispatch(getPlayerPeers(playerId)),
 });
 
-const getData = props => {
+const getData = (props) => {
   props.getPlayerPeers(props.playerId);
 };
 

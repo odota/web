@@ -1,12 +1,32 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {
+  Component,
+} from 'react';
+import {
+  connect,
+} from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
-import { benchmark } from 'reducers';
-import { getBenchmark } from 'actions';
+import {
+  benchmark,
+} from 'reducers';
+import {
+  getBenchmark,
+} from 'actions';
 
 import style from './Heroes.css';
 
 import BenchmarkTable from './BenchmarkTable';
+
+const renderLoading = () => (
+  <div className={style.Loading}>
+    <CircularProgress color="#fff" />
+  </div>
+);
+
+const renderBenchmark = (hero, data) => (
+  <div>
+    <BenchmarkTable data={data} />
+  </div>
+);
 
 class Benchmark extends Component {
 
@@ -16,29 +36,19 @@ class Benchmark extends Component {
     }
   }
 
-  renderLoading() {
-    return (
-      <div className={style.Loading}>
-        <CircularProgress color="#fff" />
-      </div>
-    );
-  }
-
-  renderBenchmark(hero, data) {
-    return (
-      <div>
-        <BenchmarkTable data={data} />
-      </div>
-    );
-  }
 
   render() {
-    const { isLoading, isError, hero, result } = this.props;
+    const {
+      isLoading,
+      isError,
+      hero,
+      result,
+    } = this.props;
 
     return (
       <div>
         {isLoading || isError || result === null ?
-          this.renderLoading() : this.renderBenchmark(hero, result)}
+          renderLoading() : renderBenchmark(hero, result)}
       </div>
     );
   }
@@ -70,14 +80,14 @@ HISTOGRAM API
 
 */
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isLoading: benchmark.getLoading(state),
   isError: benchmark.getError(state),
   result: benchmark.getBenchmarks(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getBenchmark: (heroId) => dispatch(getBenchmark(heroId)),
+const mapDispatchToProps = dispatch => ({
+  getBenchmark: heroId => dispatch(getBenchmark(heroId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Benchmark);

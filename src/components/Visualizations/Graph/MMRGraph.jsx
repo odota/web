@@ -28,7 +28,7 @@ const MMRGraph = ({ columns }) => (
 );
 
 MMRGraph.propTypes = {
-  columns: React.PropTypes.array.isRequired,
+  columns: React.PropTypes.arrayOf().isRequired,
 };
 
 export default MMRGraph;

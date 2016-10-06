@@ -16,7 +16,6 @@ import gotPlayer, {
   playerCounts,
   playerMMR,
 } from 'reducers/gotPlayer';
-import appBar from 'reducers/appBar';
 import form, { getForm } from 'reducers/form';
 import request from 'reducers/request';
 import distributions from 'reducers/distributions';
@@ -47,7 +46,6 @@ export default combineReducers({
   heroRanking,
   heroBenchmark,
   search,
-  appBar,
   form,
   request,
   distributions,

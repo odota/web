@@ -3,7 +3,7 @@ import styles from './Form.css';
 // Pass down the form name to all the children as the form name
 // is where those input values will live.
 
-const onSubmit = event => {
+const onSubmit = (event) => {
   event.preventDefault();
 };
 

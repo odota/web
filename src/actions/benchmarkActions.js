@@ -17,17 +17,17 @@ const getBenchmarkStart = () => ({
   type: REQUEST,
 });
 
-const getBenchmarkDone = (payload) => ({
+const getBenchmarkDone = payload => ({
   type: OK,
   payload,
 });
 
-const getBenchmarkError = (payload) => ({
+const getBenchmarkError = payload => ({
   type: ERROR,
   payload,
 });
 
-const getBenchmark = (heroId) => (dispatch) => {
+const getBenchmark = heroId => (dispatch) => {
   dispatch(getBenchmarkStart());
   return fetch(`${API_HOST}${url}?hero_id=${heroId}`)
     .then(res => res.json())

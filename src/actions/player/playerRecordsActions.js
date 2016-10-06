@@ -26,7 +26,7 @@ export const setPlayerRecordsSort = (sortField, sortState, sortFn, id) => ({
   id,
 });
 
-export const getPlayerRecordsRequest = (id) => ({ type: REQUEST, id });
+export const getPlayerRecordsRequest = id => ({ type: REQUEST, id });
 
 export const getPlayerRecordsOk = (payload, id) => ({
   type: OK,
@@ -50,6 +50,7 @@ export const getPlayerRecords = (playerId, options = {}) => (dispatch, getState)
 
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
+    // TODO consider moving to reducer
     .then(json => Object.keys(json).map(key => ({
       name: key,
       value: json[key][key],

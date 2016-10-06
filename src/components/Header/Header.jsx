@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { openMenu } from 'actions';
 import { Link } from 'react-router';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
@@ -43,7 +42,7 @@ const Header = ({ location }) => (
         <AppLogo style={{ marginRight: 10 }} />
       </ToolbarGroup>
       <ToolbarGroup className={styles.verticalAlign}>
-        {navbarPages.map((page) => (
+        {navbarPages.map(page => (
           <div key={page.name} className={styles.tabContainer}>
             {page.external ?
               <a href={page.path} className={styles.tab}>{page.name}</a> :
@@ -62,8 +61,6 @@ const Header = ({ location }) => (
   </div>
 );
 
-const mapDispatchToProps = (dispatch) => ({
-  openMenu: () => dispatch(openMenu()),
-});
+const mapDispatchToProps = () => ({});
 
 export default connect(null, mapDispatchToProps)(Header);

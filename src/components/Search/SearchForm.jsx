@@ -20,7 +20,7 @@ const SearchForm = ({ dispatchSearch, dispatchSetQuery, query }) => {
       <TextField
         hintText={'Player Search'}
         value={query}
-        onChange={(e) => dispatchSetQuery(e.target.value)}
+        onChange={e => dispatchSetQuery(e.target.value)}
         fullWidth
         underlineFocusStyle={{
           borderColor: styles.searchBarColor,
@@ -45,9 +45,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  dispatchSearch: (query) => dispatch(getSearchResult(query)),
-  dispatchSetQuery: (query) => dispatch(setSearchQuery(query)),
+const mapDispatchToProps = dispatch => ({
+  dispatchSearch: query => dispatch(getSearchResult(query)),
+  dispatchSetQuery: query => dispatch(setSearchQuery(query)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);

@@ -14,7 +14,6 @@ export const formActions = {
   TOGGLE_SHOW_FORM,
 };
 
-
 export const toggleShowForm = (formName, page) => ({
   type: TOGGLE_SHOW_FORM,
   page,
@@ -59,7 +58,7 @@ export const clearForm = formName => ({
 
 export const submitForm = (submitAction, formName) => (dispatch, getState) => {
   const formFields = {};
-  Object.keys(form.getForm(getState(), formName)).forEach(key => {
+  Object.keys(form.getForm(getState(), formName)).forEach((key) => {
     // We have a pages object attached to the form for form showing state. We don't
     // want that to be submitted.
     if (key !== 'pages') {
