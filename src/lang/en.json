@@ -93,9 +93,9 @@
   "heading_teamfights": "Teamfights",
   
   "home_login": "Login",
-  "home_login_desc": "start parsng my matches",
+  "home_login_desc": "for automatic match parsing",
   "home_parse": "Parse",
-  "home_parse_desc": "a match by ID",
+  "home_parse_desc": "a specific match",
   "home_why": "Why We're Awesome",
   "home_opensource_title": "Open Source",
   "home_opensource_desc": "All of the code is open source and available for contributors to improve and modify.",

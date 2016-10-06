@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import strings from 'lang';
+import { API_HOST } from 'config';
 import { IconSteam } from 'components/Icons';
 import styles from './Home.css';
 
@@ -20,7 +21,7 @@ export default () => (
           </span>
         }
         icon={<IconSteam />}
-        href="/login"
+        href={`${API_HOST}/login`}
       />
     </div>
     <div>
@@ -35,7 +36,7 @@ export default () => (
             </span>
           </span>
         }
-        containerElement={<Link to="/request" />}
+        href="/request"
       />
     </div>
   </div>
