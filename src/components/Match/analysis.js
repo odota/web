@@ -1,9 +1,14 @@
 import util from 'util';
+/*
 import {
   items,
   item_groups as itemGroups,
   skillshots,
 } from 'dotaconstants';
+*/
+import items from 'dotaconstants/json/items.json';
+import itemGroups from 'dotaconstants/json/item_groups.json';
+import skillshots from 'dotaconstants/json/skillshots.json';
 import {
   isSupport,
   getObsWardsPlaced,

@@ -1,4 +1,5 @@
 import React from 'react';
+/*
 import {
   heroes,
   runes,
@@ -10,6 +11,16 @@ import {
   hero_names as heroNames,
   lane_role as laneRole,
 } from 'dotaconstants';
+*/
+import heroes from 'dotaconstants/json/heroes.json';
+import runes from 'dotaconstants/json/runes.json';
+import items from 'dotaconstants/json/items.json';
+import orderTypes from 'dotaconstants/json/order_types.json';
+import itemIds from 'dotaconstants/json/item_ids.json';
+import abilityIds from 'dotaconstants/json/ability_ids.json';
+import abilityKeys from 'dotaconstants/json/ability_keys.json';
+import heroNames from 'dotaconstants/json/hero_names.json';
+import laneRole from 'dotaconstants/json/lane_role.json';
 import strings from 'lang';
 import {
   Link,
@@ -459,34 +470,34 @@ export const unitKillsColumns = [
 
 export const actionsColumns = [heroTdColumn, {
   displayName: strings.abbr_actions_per_min,
-  tooltip: strings.actions_per_min,
+  tooltip: strings.tooltip_actions_per_min,
   field: 'actions_per_min',
 }, {
   displayName: strings.abbr_pings,
-  tooltip: strings.pings,
+  tooltip: strings.tooltip_pings,
   field: 'pings',
 }]
-  .concat(Object.keys(orderTypes).filter(o => orderTypes[o] in strings).map(k => ({
-    displayName: strings[`abbr_${orderTypes[k]}`],
-    tooltip: strings[orderTypes[k]],
+  .concat(Object.keys(orderTypes).filter(orderType => `abbr_${orderTypes[orderType]}` in strings).map(orderType => ({
+    displayName: strings[`abbr_${orderTypes[orderType]}`],
+    tooltip: strings[`tooltip_${orderTypes[orderType]}`],
     field: 'actions',
-    displayFn: (row, col, field) => (field ? field[k] : '-'),
+    displayFn: (row, col, field) => (field ? field[orderType] : '-'),
   })));
 
 export const runesColumns = [heroTdColumn]
-  .concat(Object.keys(runes).map(k => ({
-    displayName: strings[`rune_${k}`],
+  .concat(Object.keys(runes).map(runeType => ({
+    displayName: strings[`rune_${runeType}`],
     field: 'runes',
-    displayFn: (row, col, field) => (field ? field[k] : '-'),
+    displayFn: (row, col, field) => (field ? field[runeType] : '-'),
   })));
 
 export const cosmeticsColumns = [heroTdColumn, {
   displayName: strings.th_cosmetics,
   field: 'cosmetics',
-  displayFn: (row, col, field) => field.map((c, i) => (
+  displayFn: (row, col, field) => field.map((cosmetic, i) => (
     <div key={i} style={{ float: 'left' }}>
-      <img src={`http://cdn.dota2.com/apps/570/${c.image_path}`} style={{ height: '40px' }} role="presentation" />
-      <div>{c.name}</div>
+      <img src={`http://cdn.dota2.com/apps/570/${cosmetic.image_path}`} style={{ height: '40px' }} role="presentation" />
+      <div>{cosmetic.name}</div>
     </div>)),
 }];
 
