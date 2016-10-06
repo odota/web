@@ -165,7 +165,7 @@ const percentColor = (pct) => {
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
   hero_id: (row) => {
-    const heroName = heroes[row.hero_id] ? heroes[row.hero_id].localized_name : '';
+    const heroName = heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.no_hero;
     return (
       <TableHeroImage
         parsed={row.version}
@@ -204,7 +204,7 @@ export const transformations = {
         </span>
       </div>);
   },
-  skill: (row, col, field) => (skill[field] ? skill[field] : ''),
+  skill: (row, col, field) => (skill[field] ? skill[field] : strings.unknown),
   game_mode: (row, col, field) => (gameMode[field] ? gameMode[field].name : field),
   match_id_and_game_mode: (row, col, field) => (
     <div>

@@ -53,6 +53,9 @@
   "error": "Error",
   "error_message": "Whoops! Something went wrong.",
   "error_four_oh_four_message": "The page you are looking for cannot be found.",
+
+  "unknown": "Unknown",
+  "no_hero": "No hero",
   
   "farm_heroes": "Heroes killed",
   "farm_creeps": "Lane creeps killed",
