@@ -19,11 +19,11 @@
 }
 /*.front svg > circle {
   stroke: var(--primaryLinkColor) !important;
-}*/
+}
 .back svg > circle {
   stroke: rgba(255, 255, 255, .06) !important;
 }
-
+*/
 .cheese {
   margin: auto;
   top: -30px !important;
