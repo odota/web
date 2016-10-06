@@ -6,16 +6,16 @@ import lobbyType from 'dotaconstants/json/lobby_type.json';
 import leaverStatus from 'dotaconstants/json/leaver_status.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import {
-  API_HOST
+  API_HOST,
 } from 'config';
 import {
-  playerCounts
+  playerCounts,
 } from 'reducers';
 import {
-  getUrl
+  getUrl,
 } from 'actions/utility';
 import {
-  getPercentWin
+  getPercentWin,
 } from 'utility';
 
 const url = playerId => `/api/players/${playerId}/counts`;
@@ -43,7 +43,7 @@ export const setPlayerCountsSort = listName => (sortField, sortState, sortFn, id
 
 export const getPlayerCountsRequest = id => ({
   type: REQUEST,
-  id
+  id,
 });
 
 export const getPlayerCountsOk = (payload, id) => ({
@@ -63,8 +63,8 @@ const countTypes = {
   game_mode: gameMode,
   lobby_type: lobbyType,
   lane_role: laneRole,
-  region: region,
-  patch: patch,
+  region,
+  patch,
 };
 
 export const getPlayerCounts = (playerId, options = {}) => (dispatch, getState) => {
@@ -76,8 +76,8 @@ export const getPlayerCounts = (playerId, options = {}) => (dispatch, getState) 
   // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, {
-      credentials: 'include'
-    })
+    credentials: 'include',
+  })
     .then(response => response.json())
     // TODO consider moving to reducer
     .then((json) => {

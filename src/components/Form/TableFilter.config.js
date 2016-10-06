@@ -14,6 +14,7 @@ import patch from 'dotaconstants/json/patch.json';
 import gameMode from 'dotaconstants/json/game_mode.json';
 import lobbyType from 'dotaconstants/json/lobby_type.json';
 import region from 'dotaconstants/json/region.json';
+
 export const heroConfig = {
   text: 'localized_name',
   value: 'id',
