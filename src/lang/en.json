@@ -94,8 +94,8 @@
   "heading_teamfights": "Teamfights",
   
   "home_login": "Login",
-  "home_login_desc": "for automatic match parsing",
-  "home_parse": "Parse",
+  "home_login_desc": "for automatic replay parsing",
+  "home_parse": "Request",
   "home_parse_desc": "a specific match",
   "home_why": "",
   "home_opensource_title": "Open Source",
