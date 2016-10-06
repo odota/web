@@ -4,14 +4,25 @@ import strings from 'lang';
 import styles from './Footer.css';
 import { IconSteam } from '../Icons';
 
+const links = [{
+  name: strings.app_about,
+  path: '//blog.opendota.com/2014/08/01/faq/',
+}, {
+  name: strings.app_privacy_terms,
+  path: '//blog.opendota.com/2014/08/01/faq/#what-is-your-privacy-policy',
+}, {
+  name: strings.app_api_docs,
+  path: '//docs.opendota.com',
+}, {
+  name: strings.app_blog,
+  path: '//odota.github.io/blog',
+}];
 export default () => (
   <div>
     <div className={styles.links}>
-      <a href="//blog.opendota.com/2014/08/01/faq/" target="_blank" rel="noopener noreferrer">{strings.app_about}</a>
-      <a href="//blog.opendota.com/2014/08/01/faq/#what-is-your-privacy-policy" target="_blank" rel="noopener noreferrer">
-        {strings.app_privacy_terms}
-      </a>
-      <a href="//docs.opendota.com" target="_blank" rel="noopener noreferrer">{strings.app_api_docs}</a>
+      {links.map(link => (
+        <a href={link.path} target="_blank" rel="noopener noreferrer">{link.name}</a>
+      ))}
     </div>
     <small>
       {strings.app_powered_by}

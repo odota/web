@@ -28,10 +28,6 @@ const navbarPages = [{
   name: strings.header_ingame,
   sponsored: true,
   path: '/become-the-gamer',
-}, {
-  name: strings.header_blog,
-  path: '//odota.github.io/blog',
-  external: true,
 }];
 
 // openMenu
