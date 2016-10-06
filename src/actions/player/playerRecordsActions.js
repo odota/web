@@ -57,6 +57,7 @@ export const getPlayerRecords = (playerId, options = {}) => (dispatch, getState)
       hero_id: json[key].hero_id,
       start_time: json[key].start_time,
       match_id: json[key].match_id,
+      game_mode: json[key].game_mode,
     })))
     .then(json => dispatch(getPlayerRecordsOk(json, playerId)))
     .catch(error => dispatch(getPlayerRecordsError(error, playerId)));

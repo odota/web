@@ -193,7 +193,7 @@
   "th_avatar": "Player",
   "th_last_played": "Last",
   "th_record": "Record",
-  "th_set": "Set",
+  "th_title": "Title",
   "th_category": "Category",
   "th_matches": "Matches",
   "th_percentile": "Percentile",
@@ -336,5 +336,8 @@
   "teamfight_score": "Radiant kills/Dire kills",
   "teamfight_radiant_gold_adv": "Net gold advantage for Radiant",
   "teamfight_radiant_xp_adv": "Net XP advantage for Radiant",
-  "anonymous": "Anonymous"
+  "anonymous": "Anonymous",
+
+  "radiant": "Radiant",
+  "dire": "Dire"
 }

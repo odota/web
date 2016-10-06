@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Link,
-} from 'react-router';
+import { Link } from 'react-router';
 /*
 import {
   heroes,
@@ -28,13 +26,9 @@ import lobbyType from 'dotaconstants/json/lobby_type.json';
 import leaverStatus from 'dotaconstants/json/leaver_status.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import abilityKeys from 'dotaconstants/json/ability_keys.json';
-import {
-  API_HOST,
-} from 'config';
+import { API_HOST } from 'config';
 import styles from 'components/palette.css';
-import {
-  TableLink,
-} from 'components/Table';
+import { TableLink } from 'components/Table';
 import {
   KDA,
   TableHeroImage,
@@ -124,11 +118,13 @@ export const getOrdinal = (n) => {
 
 const getSubtext = (row) => {
   if (row.match_id && row.player_slot !== undefined) {
-    // TODO localize
-    return isRadiant(row.player_slot) ? 'Radiant' : 'Dire';
+    return isRadiant(row.player_slot) ? strings.radiant : strings.dire;
   }
   if (row.last_played) {
     return <FromNowTooltip timestamp={row.last_played} />;
+  }
+  if ((row.name && row.value) !== undefined) {
+    return <FromNowTooltip timestamp={row.start_time} />;
   }
   return null;
 };
@@ -140,11 +136,11 @@ const getSubtext = (row) => {
  **/
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
-  hero_id: (row, col, field) => (
+  hero_id: row => (
     <TableHeroImage
       parsed={row.version}
-      heroName={heroes[field] ? heroes[field].localized_name : ''}
-      imageUrl={`${heroes[field] ? API_HOST + heroes[field].img : '/assets/images/blank-1x1.gif'}`}
+      heroName={heroes[row.hero_id] ? heroes[row.hero_id].localized_name : ''}
+      imageUrl={`${heroes[row.hero_id] ? API_HOST + heroes[row.hero_id].img : '/assets/images/blank-1x1.gif'}`}
       subText={getSubtext(row)}
     />
   ),
