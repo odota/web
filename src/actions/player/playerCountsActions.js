@@ -1,10 +1,22 @@
 import fetch from 'isomorphic-fetch';
-import constants from 'dotaconstants';
-
-import { API_HOST } from 'config';
-import { playerCounts } from 'reducers';
-import { getUrl } from 'actions/utility';
-import { getPercentWin } from 'utility';
+import patch from 'dotaconstants/json/patch.json';
+import region from 'dotaconstants/json/region.json';
+import gameMode from 'dotaconstants/json/game_mode.json';
+import lobbyType from 'dotaconstants/json/lobby_type.json';
+import leaverStatus from 'dotaconstants/json/leaver_status.json';
+import laneRole from 'dotaconstants/json/lane_role.json';
+import {
+  API_HOST,
+} from 'config';
+import {
+  playerCounts,
+} from 'reducers';
+import {
+  getUrl,
+} from 'actions/utility';
+import {
+  getPercentWin,
+} from 'utility';
 
 const url = playerId => `/api/players/${playerId}/counts`;
 
@@ -29,7 +41,10 @@ export const setPlayerCountsSort = listName => (sortField, sortState, sortFn, id
   id,
 });
 
-export const getPlayerCountsRequest = id => ({ type: REQUEST, id });
+export const getPlayerCountsRequest = id => ({
+  type: REQUEST,
+  id,
+});
 
 export const getPlayerCountsOk = (payload, id) => ({
   type: OK,
@@ -43,6 +58,15 @@ export const getPlayerCountsError = (payload, id) => ({
   id,
 });
 
+const countTypes = {
+  leaver_status: leaverStatus,
+  game_mode: gameMode,
+  lobby_type: lobbyType,
+  lane_role: laneRole,
+  region,
+  patch,
+};
+
 export const getPlayerCounts = (playerId, options = {}) => (dispatch, getState) => {
   if (playerCounts.isLoaded(getState(), playerId)) {
     dispatch(getPlayerCountsOk(playerCounts.getCountsList(getState(), playerId), playerId));
@@ -51,7 +75,9 @@ export const getPlayerCounts = (playerId, options = {}) => (dispatch, getState) 
   }
   // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
-  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, {
+    credentials: 'include',
+  })
     .then(response => response.json())
     // TODO consider moving to reducer
     .then((json) => {
@@ -61,12 +87,12 @@ export const getPlayerCounts = (playerId, options = {}) => (dispatch, getState) 
         data[key] = {
           name: key,
           list: Object.keys(json[key])
-          .filter(innerKey => constants[key][innerKey])
-          .map(innerKey => ({
-            category: constants[key][innerKey].name || constants[key][innerKey],
-            matches: json[key][innerKey].games,
-            winPercent: getPercentWin(json[key][innerKey].win, json[key][innerKey].games),
-          })),
+            .filter(innerKey => countTypes[key][innerKey])
+            .map(innerKey => ({
+              category: (countTypes[key][innerKey] && countTypes[key][innerKey].name) || countTypes[key][innerKey],
+              matches: json[key][innerKey].games,
+              winPercent: getPercentWin(json[key][innerKey].win, json[key][innerKey].games),
+            })),
         };
       });
       return data;

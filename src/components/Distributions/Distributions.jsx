@@ -1,19 +1,41 @@
 import React from 'react';
 // import CircularProgress from 'material-ui/CircularProgress';
-import { Tabs, Tab } from 'material-ui/Tabs';
+import {
+  Tabs,
+  Tab,
+} from 'material-ui/Tabs';
 import c3 from 'c3';
-import { connect } from 'react-redux';
-import { getDistributions } from 'actions';
+import {
+  connect,
+} from 'react-redux';
+import {
+  getDistributions,
+} from 'actions';
+import strings from 'lang';
+import Table from 'components/Table';
+import Heading from 'components/Heading';
 
-const Distributions = ({ data }) => (
+const countryMmrColumns = [{
+  displayName: 'Country',
+  field: 'common',
+}, {
+  displayName: 'Count',
+  field: 'count',
+}, {
+  displayName: 'Average',
+  field: 'avg',
+}];
+
+const Distributions = ({
+  data,
+}) => (
   <Tabs>
     {Object.keys(data).map(key => (
-      <Tab key={key} label={key}>
+      <Tab key={key} label={strings[`distributions_${key}`]}>
+        <Heading title={strings[`distributions_${key}`]} />
         {(key === 'mmr') ?
           <div id="mmr" /> :
-          <pre style={{ whiteSpace: 'pre-wrap' }}>
-            {JSON.stringify(data[key], null, 2)}
-          </pre>}
+          <Table data={data[key].rows} columns={countryMmrColumns} />}
       </Tab>))
     }
   </Tabs>
@@ -33,13 +55,13 @@ class RequestLayer extends React.Component {
       const pcts = mmr.map(d => ((d.cumulative_sum / count) * 100));
       const options = {
         bindto: '#mmr',
-        size: { height: 500 },
+        size: {
+          height: 500,
+        },
         data: {
-          x: 'MMR',
+          x: strings.abbr_mmr,
           columns: [
-            ['MMR'].concat(names),
-            ['Players'].concat(counts),
-            ['Percentile'].concat(pcts),
+            [strings.abbr_mmr].concat(names), [strings.th_players].concat(counts), [strings.th_percentile].concat(pcts),
           ],
           type: 'bar',
           types: {
@@ -50,7 +72,7 @@ class RequestLayer extends React.Component {
             Percentile: 'y2',
           },
           groups: [
-            ['Players', 'Percentile'],
+            [strings.th_players, strings.th_percentile],
           ],
         },
         bar: {
@@ -91,7 +113,11 @@ class RequestLayer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { error, loading, data } = state.app.distributions;
+  const {
+    error,
+    loading,
+    data,
+  } = state.app.distributions;
   return {
     error,
     loading,

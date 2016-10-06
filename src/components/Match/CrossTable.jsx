@@ -5,9 +5,12 @@ import {
   TableRowColumn,
   TableBody,
 } from 'material-ui/Table';
+/*
 import {
   heroes,
 } from 'dotaconstants';
+*/
+import heroes from 'dotaconstants/json/heroes.json';
 import {
   heroTd,
 } from './matchColumns';

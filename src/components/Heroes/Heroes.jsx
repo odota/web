@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+/*
 import { heroes } from 'dotaconstants';
+*/
+import heroes from 'dotaconstants/json/heroes.json';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { API_HOST } from 'config';
 import HeroList from './HeroList';

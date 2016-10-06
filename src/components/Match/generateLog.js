@@ -1,7 +1,11 @@
+/*
 import {
   objectives,
   barracks_value as barracksValue,
 } from 'dotaconstants';
+*/
+import objectives from 'dotaconstants/json/objectives.json';
+import barracksValue from 'dotaconstants/json/barracks_value.json';
 
 const getObjectiveDesc = objective => (objective.key ? barracksValue[objective.key] : '');
 const getObjectiveBase = objective => objectives[objective.subtype || objective.type] || objective.subtype || objective.type;
