@@ -12,11 +12,13 @@
   font-size: 90px;
   font-weight: var(--fontWeightMedium);
   line-height: 1.2;
+  text-shadow: #000000 0px 0px 3px;
 }
 .HeadContainer .description {
   font-size: 32px;
   font-weight: var(--fontWeightLight);
   margin-bottom: 20px;
+  text-shadow: #000000 0px 0px 3px;
 }
 
 .Buttons {
