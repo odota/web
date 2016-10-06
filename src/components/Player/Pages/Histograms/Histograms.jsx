@@ -8,7 +8,7 @@ import { HistogramGraph } from 'components/Visualizations';
 import ButtonGarden from 'components/ButtonGarden';
 import histogramNames from 'components/Player/Pages/matchDataColumns';
 
-const selectHistogram = (router, playerId) => histogramName => {
+const selectHistogram = (router, playerId) => (histogramName) => {
   router.push(`/players/${playerId}/histograms/${histogramName}`);
 };
 
@@ -24,7 +24,7 @@ const Histogram = ({ histogramName = histogramNames[0], columns, router, playerI
   </div>
 );
 
-const getData = props => {
+const getData = (props) => {
   props.getPlayerHistogram(props.playerId, props.histogramName || histogramNames[0]);
 };
 

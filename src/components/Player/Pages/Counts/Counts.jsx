@@ -27,7 +27,7 @@ const Counts = ({ playerId, tables }) => (
   </div>
 );
 
-const getData = props => {
+const getData = (props) => {
   props.getPlayerCounts(props.playerId);
 };
 
@@ -62,7 +62,7 @@ const mapStateToProps = (state, ownProps) => ({
   ),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getPlayerCounts: (playerId, options) => dispatch(getPlayerCounts(playerId, options)),
 });
 

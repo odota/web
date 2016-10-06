@@ -8,6 +8,7 @@ import {
   ability_ids as abilityIds,
   ability_keys as abilityKeys,
   hero_names as heroNames,
+  lane_role as laneRole,
 } from 'dotaconstants';
 import strings from 'lang';
 import {
@@ -15,12 +16,13 @@ import {
 } from 'react-router';
 import {
   API_HOST,
-} from 'config.js';
+} from 'config';
 import {
   formatSeconds,
   abbreviateNumber,
   inflictorWithValue,
 } from 'utility';
+import Heatmap from 'components/Heatmap';
 // import { AppBadge } from '../Player';
 import styles from './Match.css';
 
@@ -43,88 +45,128 @@ export const heroTdColumn = {
   displayName: 'Player',
   field: 'hero_id',
   displayFn: heroTd,
-  sortFn: (row) => (row.player_slot),
+  sortFn: row => (row.player_slot),
 };
 
-export const overviewColumns = [
+export const overviewColumns = match => [{
+  field: '',
+  displayFn: (row) => {
+    if (match.parties) {
+      const i = match.players.findIndex(player => player.player_slot === row.player_slot);
+      const partyPrev = match.parties[(match.players[i - 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
+      const partyNext = match.parties[(match.players[i + 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
+      const parentStyle = {
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+      };
+      const style = {
+        position: 'absolute',
+        width: '50%',
+        left: '50%',
+      };
+      const borderStyle = '2px solid #999999';
+      if (!partyPrev && partyNext) {
+        return (<div style={parentStyle}>
+          <div style={Object.assign({}, style, { borderLeft: borderStyle, height: '50%', top: '50%' })} />
+          <div style={Object.assign({}, style, { borderTop: borderStyle, height: '50%', top: '50%' })} />
+        </div>);
+      }
+      if (partyPrev && partyNext) {
+        return (<div style={parentStyle}>
+          <div style={Object.assign({}, style, { borderLeft: borderStyle, height: '100%', top: '0%' })} />
+        </div>);
+      }
+      if (partyPrev && !partyNext) {
+        return (<div style={parentStyle}>
+          <div style={Object.assign({}, style, { borderBottom: borderStyle, height: '50%', top: '0%' })} />
+          <div style={Object.assign({}, style, { borderLeft: borderStyle, height: '50%', top: '0%' })} />
+        </div>);
+      }
+    }
+    return <div />;
+  },
+},
   heroTdColumn, {
     displayName: strings.abbr_mmr,
+    tooltip: strings.tooltip_mmr,
     field: 'solo_competitive_rank',
     sortFn: true,
   }, {
     displayName: strings.abbr_level,
+    tooltip: strings.tooltip_level,
     field: 'level',
-
     sortFn: true,
   }, {
     displayName: strings.abbr_kills,
+    tooltip: strings.tooltip_kills,
     field: 'kills',
-
     sortFn: true,
   }, {
     displayName: strings.abbr_deaths,
+    tooltip: strings.tooltip_deaths,
     field: 'deaths',
-
     sortFn: true,
   }, {
     displayName: strings.abbr_assists,
+    tooltip: strings.tooltip_assists,
     field: 'assists',
-
     sortFn: true,
   }, {
     displayName: strings.abbr_last_hits,
+    tooltip: strings.tooltip_last_hits,
     field: 'last_hits',
-
     sortFn: true,
   }, {
     displayName: strings.abbr_denies,
+    tooltip: strings.tooltip_denies,
     field: 'denies',
-
     sortFn: true,
   }, {
     displayName: strings.abbr_gold,
+    tooltip: strings.tooltip_gold,
     field: 'gold_per_min',
-
-    displayFn: (row) => abbreviateNumber((row.gold_per_min * row.duration) / 60),
+    displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
     sortFn: true,
   }, {
     displayName: strings.abbr_gold_per_min,
+    tooltip: strings.tooltip_gold_per_min,
     field: 'gold_per_min',
-
     sortFn: true,
   }, {
     displayName: strings.abbr_xp_per_min,
+    tooltip: strings.tooltip_xp_per_min,
     field: 'xp_per_min',
-
     sortFn: true,
   }, {
     displayName: strings.abbr_hero_damage,
+    tooltip: strings.tooltip_hero_damage,
     field: 'hero_damage',
-
-    displayFn: (row) => abbreviateNumber(row.hero_damage),
+    displayFn: row => abbreviateNumber(row.hero_damage),
     sortFn: true,
   }, {
     displayName: strings.abbr_tower_damage,
+    tooltip: strings.tooltip_tower_damage,
     field: 'tower_damage',
-
-    displayFn: (row) => abbreviateNumber(row.tower_damage),
+    displayFn: row => abbreviateNumber(row.tower_damage),
     sortFn: true,
   }, {
     displayName: strings.abbr_hero_healing,
+    tooltip: strings.tooltip_hero_healing,
     field: 'hero_healing',
-
-    displayFn: (row) => abbreviateNumber(row.hero_healing),
+    displayFn: row => abbreviateNumber(row.hero_healing),
     sortFn: true,
   }, {
     displayName: strings.th_items,
+    tooltip: strings.tooltip_items,
     field: '',
-    width: 7,
     displayFn: (row) => {
       const itemArray = [];
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 6; i += 1) {
         const itemKey = itemIds[row[`item_${i}`]];
         const item = items[itemKey];
-        const overlay = `${row.first_purchase_time && (row.first_purchase_time[itemKey] / 60).toFixed(0)}'`;
+        const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey] / 60;
+        const overlay = firstPurchase ? `${firstPurchase.toFixed(0)}'` : '';
         if (item) {
           itemArray.push(
             inflictorWithValue({
@@ -158,6 +200,7 @@ export const abilityUpgradeColumns = [
         };
       }
       if (abilityKey === 'attribute_bonus') {
+        // TODO figure out where to do this/localize strings
         abilityData = {
           dname: 'Attribute Bonus',
           img: '/assets/images/stats.png',
@@ -186,7 +229,6 @@ export const benchmarksColumns = (match) => {
         displayName: key,
         field: 'benchmarks',
         index: i,
-        width: 2,
         displayFn: (row, column, field) => {
           if (field) {
             const bm = field[key];
@@ -246,32 +288,32 @@ export const lastHitsTimesColumns = (match) => {
 
 export const overallColumns = [
   heroTdColumn, {
-    displayName: 'Stacked',
+    displayName: strings.th_stacked,
     field: 'camps_stacked',
 
     sortFn: true,
   }, {
-    displayName: 'Multikill',
+    displayName: strings.th_multikill,
     field: 'multi_kills_max',
 
     sortFn: true,
   }, {
-    displayName: 'Streak',
+    displayName: strings.th_killstreak,
     field: 'kill_streaks_max',
 
     sortFn: true,
   }, {
-    displayName: 'Stuns',
+    displayName: strings.th_stuns,
     field: 'stuns',
 
     sortFn: true,
   }, {
-    displayName: 'Dead',
+    displayName: strings.th_dead,
     field: 'life_state_dead',
 
     sortFn: true,
   }, {
-    displayName: 'Biggest Hit',
+    displayName: strings.th_biggest_hit,
     field: 'max_hero_hit',
 
     sortFn: true,
@@ -287,26 +329,29 @@ export const overallColumns = [
 
 export const laningColumns = [
   heroTdColumn, {
-    displayName: 'Lane',
-    field: '',
-
+    displayName: strings.th_lane,
+    field: 'lane_role',
     sortFn: true,
+    displayFn: (row, col, field) => laneRole[field],
   }, {
-    displayName: 'EFF@10',
+    displayName: strings.th_map,
+    field: 'posData',
+    displayFn: (row, col, field) => (field ?
+      <Heatmap width={100} points={field.lane_pos} /> :
+      <div />),
+  }, {
+    displayName: strings.th_efften,
     field: 'lane_efficiency',
-
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.toFixed(2) : ''),
   }, {
-    displayName: 'LH@10',
+    displayName: strings.th_lhten,
     field: 'lh_t',
-
     sortFn: true,
     displayFn: (row, col, field) => (field ? field[10] : ''),
   }, {
-    displayName: 'DN@10',
+    displayName: strings.th_dnten,
     field: 'dn_t',
-
     sortFn: true,
     displayFn: (row, col, field) => (field ? field[10] : ''),
   },
@@ -314,125 +359,98 @@ export const laningColumns = [
 
 export const purchaseColumns = [
   heroTdColumn, {
-    displayName: 'TP',
+    displayName: strings.th_tpscroll,
     tooltip: strings.purchase_tpscroll,
     field: 'purchase',
-
-    sortFn: true,
+    // sortFn: true,
     displayFn: (row, col, field) => (field ? field.tpscroll : '-'),
   }, {
-    displayName: 'Observers',
+    displayName: strings.th_ward_observer,
     tooltip: strings.purchase_ward_observer,
     field: 'purchase',
-
-    sortFn: true,
+    // sortFn: true,
     displayFn: (row, col, field) => (field ? field.ward_observer : '-'),
   }, {
-    displayName: 'Sentries',
+    displayName: strings.th_ward_sentry,
     tooltip: strings.purchase_ward_sentry,
     field: 'purchase',
-
-    sortFn: true,
+    // sortFn: true,
     displayFn: (row, col, field) => (field ? field.ward_sentry : '-'),
   }, {
-    displayName: 'Smokes',
+    displayName: strings.th_purchase,
     tooltip: strings.purchase_smoke_of_deceit,
     field: 'purchase',
-
-    sortFn: true,
+    // sortFn: true,
     displayFn: (row, col, field) => (field ? field.smoke_of_deceit : '-'),
   }, {
-    displayName: 'Dusts',
+    displayName: strings.th_dust,
     tooltip: strings.purchase_dust,
     field: 'purchase',
-
-    sortFn: true,
+    // sortFn: true,
     displayFn: (row, col, field) => (field ? field.dust : '-'),
   }, {
-    displayName: 'Gems',
+    displayName: strings.th_gem,
     tooltip: strings.purchase_gem,
     field: 'purchase',
-
-    sortFn: true,
+    // sortFn: true,
     displayFn: (row, col, field) => (field ? field.gem : '-'),
-  }, {
-    displayName: 'Rapiers',
-    tooltip: strings.purchase_rapier,
-    field: 'purchase',
-
-    sortFn: true,
-    displayFn: (row, col, field) => (field ? field.rapier : '-'),
   },
 ];
 
 export const chatColumns = [
   heroTdColumn, {
-    displayName: 'Time',
+    displayName: strings.th_time,
     field: 'time',
     displayFn: (row, col, field) => formatSeconds(field),
   }, {
-    displayName: 'Message',
+    displayName: strings.th_message,
     field: 'key',
   },
 ];
 
-export const castsColumns = [{
-  displayName: 'Name',
-  field: 'name',
-}, {
-  displayName: 'Casts',
-  field: 'casts',
-}, {
-  displayName: 'Hits',
-  field: 'hero_hits',
-}, {
-  displayName: 'Damage',
-  field: 'damage_inflictor',
-}];
-
 export const unitKillsColumns = [
   heroTdColumn, {
-    displayName: 'Heroes',
+    displayName: strings.th_heroes,
     tooltip: strings.farm_heroes,
     field: 'hero_kills',
     sortFn: true,
   }, {
-    displayName: 'Creeps',
+    displayName: strings.th_creeps,
     tooltip: strings.farm_creeps,
     field: 'lane_kills',
     sortFn: true,
   }, {
-    displayName: 'Neutrals',
+    displayName: strings.th_neutrals,
     tooltip: strings.farm_neutrals,
     field: 'neutral_kills',
     sortFn: true,
   }, {
-    displayName: 'Ancients',
+    displayName: strings.th_ancients,
     tooltip: strings.farm_ancients,
     field: 'ancient_kills',
     sortFn: true,
   }, {
-    displayName: 'Towers',
+    displayName: strings.th_towers,
     tooltip: strings.farm_towers,
     field: 'tower_kills',
     sortFn: true,
   }, {
-    displayName: 'Couriers',
+    displayName: strings.th_couriers,
     tooltip: strings.farm_couriers,
     field: 'courier_kills',
     sortFn: true,
   }, {
-    displayName: 'Roshans',
+    displayName: strings.th_roshan,
     tooltip: strings.farm_roshan,
     field: 'roshan_kills',
     sortFn: true,
   }, {
-    displayName: 'Necronomicons',
+    displayName: strings.th_necronomicon,
     tooltip: strings.farm_necronomicon,
     field: 'necronomicon_kills',
     sortFn: true,
   }, {
-    displayName: 'Other',
+    displayName: strings.th_other,
     field: 'specific',
     // TODO prettify this
     displayFn: (row, col, field) => JSON.stringify(field),
@@ -463,7 +481,7 @@ export const runesColumns = [heroTdColumn]
   })));
 
 export const cosmeticsColumns = [heroTdColumn, {
-  displayName: 'Cosmetics',
+  displayName: strings.th_cosmetics,
   field: 'cosmetics',
   displayFn: (row, col, field) => field.map((c, i) => (
     <div key={i} style={{ float: 'left' }}>
@@ -498,8 +516,38 @@ export const objectiveDamageColumns = [heroTdColumn]
       displayFn: (row, col, field) => (field ? field[obj.substring('objective_'.length)] : '-'),
     })));
 
+
+export const inflictorsColumns = [{
+  displayName: strings.th_damage_received,
+  field: 'damage_inflictor_received',
+  displayFn: (row, col, field) => (field ? Object.keys(field)
+      .sort((a, b) => field[b] - field[a])
+      .map((k, i) => inflictorWithValue({
+        inflictor: k,
+        value: abbreviateNumber(field[k]),
+        key: i,
+      })) : ''),
+}, {
+  displayFn: () => '→',
+},
+  heroTdColumn, {
+    displayFn: () => '→',
+  }, {
+    displayName: strings.th_damage_dealt,
+    field: 'damage_inflictor',
+    displayFn: (row, col, field) => (field ? Object.keys(field)
+      .sort((a, b) => field[b] - field[a])
+      .map((k, i) => inflictorWithValue({
+        inflictor: k,
+        value: abbreviateNumber(field[k]),
+        key: i,
+      })) : ''),
+  },
+];
+
+// TODO localize strings in the following when finalized
 export const logColumns = [heroTdColumn, {
-  displayName: 'Time',
+  displayName: strings.th_time,
   field: 'time',
   displayFn: (row, col, field) => formatSeconds(field),
 }, {
@@ -525,7 +573,7 @@ export const analysisColumns = [heroTdColumn, {
 
 export const teamfightColumns = [
   heroTdColumn, {
-    displayName: 'Died',
+    displayName: 'Death',
     field: 'deaths',
   }, {
     displayName: 'Damage',
@@ -565,36 +613,3 @@ export const teamfightColumns = [
     }) : ''),
   },
 ];
-
-export const inflictorsColumns = [{
-  displayName: 'Received',
-  field: 'damage_inflictor_received',
-  displayFn: (row, col, field) => (field ? Object.keys(field)
-      .sort((a, b) => field[b] - field[a])
-      .map((k, i) => inflictorWithValue({
-        inflictor: k,
-        value: abbreviateNumber(field[k]),
-        key: i,
-      })) : ''),
-}, {
-  displayFn: () => '→',
-},
-  heroTdColumn, {
-    displayFn: () => '→',
-  }, {
-    displayName: 'Dealt',
-    field: 'damage_inflictor',
-    displayFn: (row, col, field) => (field ? Object.keys(field)
-      .sort((a, b) => field[b] - field[a])
-      .map((k, i) => inflictorWithValue({
-        inflictor: k,
-        value: abbreviateNumber(field[k]),
-        key: i,
-      })) : ''),
-  },
-];
-
-// TODO
-// party indicator
-// Lane map
-// Ward maps

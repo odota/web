@@ -5,7 +5,7 @@ import { table } from 'reducers';
 import { setCurrentPage } from 'actions';
 import Pagination from './Pagination';
 
-export default Table => {
+export default (Table) => {
   // We have to give the table an id so we can hold all tables currentPage in memory.
   const id = uuid.v4();
 
@@ -25,11 +25,11 @@ export default Table => {
     return <span />;
   };
 
-  const mapStateToProps = (state) => ({
+  const mapStateToProps = state => ({
     currentPage: table.getCurrentPage(state, id),
   });
 
-  const mapDispatchToProps = (dispatch) => ({
+  const mapDispatchToProps = dispatch => ({
     setCurrentPage: page => dispatch(setCurrentPage(id, page)),
   });
 

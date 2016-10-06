@@ -92,6 +92,7 @@ class GraphWrapper extends Component {
   }
 }
 
+/*
 const { string, number, arrayOf, shape, func, bool } = React.PropTypes;
 GraphWrapper.propTypes = {
   columns: arrayOf(shape({
@@ -115,5 +116,6 @@ GraphWrapper.propTypes = {
     property: string.isRequired,
   })),
 };
+*/
 
 export default GraphWrapper;

@@ -25,11 +25,11 @@ const TabBar = ({ router, tabs, info }) => (
   </Tabs>
 );
 
-const { string, object, array } = React.PropTypes;
+const { string, shape, arrayOf } = React.PropTypes;
 TabBar.propTypes = {
-  router: object,
-  tabs: array,
-  activeTab: string,
+  router: shape({}),
+  tabs: arrayOf(),
+  info: string,
 };
 
 export default withRouter(TabBar);

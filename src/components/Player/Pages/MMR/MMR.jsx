@@ -13,7 +13,7 @@ const MMR = ({ columns }) => (
   </div>
 );
 
-const getData = props => {
+const getData = (props) => {
   props.getPlayerMMR(props.playerId);
 };
 

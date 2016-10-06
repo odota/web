@@ -7,7 +7,7 @@ import { getDistributions } from 'actions';
 
 const Distributions = ({ data }) => (
   <Tabs>
-    {Object.keys(data).map((key) => (
+    {Object.keys(data).map(key => (
       <Tab key={key} label={key}>
         {(key === 'mmr') ?
           <div id="mmr" /> :
@@ -27,10 +27,10 @@ class RequestLayer extends React.Component {
     const data = this.props.data;
     const mmr = data && data.mmr && data.mmr.rows;
     if (mmr) {
-      const counts = mmr.map((d) => (d.count));
+      const counts = mmr.map(d => (d.count));
       const count = counts.reduce((c, n) => (c + n), 0);
-      const names = mmr.map((d) => (d.bin_name));
-      const pcts = mmr.map((d) => ((d.cumulative_sum / count) * 100));
+      const names = mmr.map(d => (d.bin_name));
+      const pcts = mmr.map(d => ((d.cumulative_sum / count) * 100));
       const options = {
         bindto: '#mmr',
         size: { height: 500 },
@@ -99,7 +99,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   dispatchDistributions: () => dispatch(getDistributions()),
 });
 

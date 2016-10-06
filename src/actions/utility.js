@@ -6,7 +6,7 @@ export const getUrl = (playerId, options, url) =>
 
 export const getModifiedOptions = (options, excludedOptions) => {
   const modifiedOptions = {};
-  Object.keys(options).forEach(key => {
+  Object.keys(options).forEach((key) => {
     if (!excludedOptions.includes(key)) {
       modifiedOptions[key] = options[key];
     }

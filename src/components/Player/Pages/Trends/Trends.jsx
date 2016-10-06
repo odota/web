@@ -13,7 +13,7 @@ import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
 import Heading from 'components/Heading';
 
-const selectTrend = (router, playerId) => trendName => {
+const selectTrend = (router, playerId) => (trendName) => {
   router.push(`/players/${playerId}/trends/${trendName}`);
 };
 
@@ -32,7 +32,7 @@ const Trend = ({ trendName = trendNames[0], columns, router, playerId }) => (
   </div>
 );
 
-const getData = props => {
+const getData = (props) => {
   props.getPlayerMatches(
     props.playerId,
     { project: [...trendNames, ...defaultPlayerMatchesOptions.project] },
