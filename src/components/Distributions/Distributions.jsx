@@ -2,14 +2,14 @@ import React from 'react';
 // import CircularProgress from 'material-ui/CircularProgress';
 import {
   Tabs,
-  Tab
+  Tab,
 } from 'material-ui/Tabs';
 import c3 from 'c3';
 import {
-  connect
+  connect,
 } from 'react-redux';
 import {
-  getDistributions
+  getDistributions,
 } from 'actions';
 import strings from 'lang';
 import Table from 'components/Table';
@@ -17,17 +17,17 @@ import Heading from 'components/Heading';
 
 const countryMmrColumns = [{
   displayName: 'Country',
-  field: 'common'
+  field: 'common',
 }, {
   displayName: 'Count',
-  field: 'count'
+  field: 'count',
 }, {
   displayName: 'Average',
-  field: 'avg'
-}, ];
+  field: 'avg',
+}];
 
 const Distributions = ({
-  data
+  data,
 }) => (
   <Tabs>
     {Object.keys(data).map(key => (
@@ -56,7 +56,7 @@ class RequestLayer extends React.Component {
       const options = {
         bindto: '#mmr',
         size: {
-          height: 500
+          height: 500,
         },
         data: {
           x: strings.abbr_mmr,
@@ -116,7 +116,7 @@ const mapStateToProps = (state) => {
   const {
     error,
     loading,
-    data
+    data,
   } = state.app.distributions;
   return {
     error,
