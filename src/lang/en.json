@@ -47,6 +47,9 @@
   "app_github": "Source on GitHub",
   "app_discord": "Chat on Discord",
   
+  "distributions_mmr": "Solo MMR",
+  "distributions_country_mmr": "Solo MMR By Country",
+  
   "error": "Error",
   "error_message": "Whoops! Something went wrong.",
   "error_four_oh_four_message": "The page you are looking for cannot be found.",
@@ -227,6 +230,7 @@
   "th_cosmetics": "Cosmetics",
   "th_damage_received": "Received",
   "th_damage_dealt": "Dealt",
+  "th_players": "Players",
 
   "time_just_now": "just now",
   "time_second": "second",
@@ -322,7 +326,6 @@
   "xp_reasons_2": "Hero",
   "xp_reasons_3": "Roshan",
   
-  "percentile": "Percentile",
   "subheading_ranking": "Based on wins and average visible MMR in matches played. Rankings reset quarterly.",
   "unparsed_tab": "This data will be available when the replay is parsed.",
   "kill_death": "Data recorded from combat log. Includes Aegis and Reincarnation deaths.",
