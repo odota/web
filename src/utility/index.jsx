@@ -129,6 +129,34 @@ const getSubtext = (row) => {
   return null;
 };
 
+const percentColor = (pct) => {
+  if (pct >= 0.8) {
+    return {
+      color: 'green',
+      grade: 'A',
+    };
+  } else if (pct >= 0.6) {
+    return {
+      color: 'blue',
+      grade: 'B',
+    };
+  } else if (pct >= 0.4) {
+    return {
+      color: 'darkBlue',
+      grade: 'C',
+    };
+  } else if (pct >= 0.2) {
+    return {
+      color: 'yelor',
+      grade: 'D',
+    };
+  }
+  return {
+    color: 'red',
+    grade: 'F',
+  };
+};
+
 /**
  * Transformations of table cell data to display values.
  * These functions are intended to be used as the displayFn property in table columns.
@@ -191,6 +219,11 @@ export const transformations = {
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
   rank: row => getOrdinal(row.card - row.rank),
+  rank_percentile: row => (
+    <span style={{ color: styles[percentColor(row.rank / row.card).color] }}>
+      {getPercentWin(row.rank, row.card).toFixed(2)}%
+    </span>
+  ),
 };
 
 export const inflictorWithValue = ({

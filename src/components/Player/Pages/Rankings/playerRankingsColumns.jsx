@@ -1,4 +1,4 @@
-import { transformations, getPercentWin } from 'utility';
+import { transformations } from 'utility';
 import strings from 'lang';
 
 export default [{
@@ -12,11 +12,11 @@ export default [{
   field: 'rank',
   width: 2,
   sortFn: row => row.rank / row.card,
-  displayFn: (row, column, field) => `${getPercentWin(field, row.card).toFixed(2)}%`,
+  displayFn: transformations.rank_percentile,
 }, {
   displayName: strings.th_rank,
   field: 'rank',
   width: 1.5,
-  sortFn: transformations.rank,
+  sortFn: row => row.card - row.rank,
   displayFn: transformations.rank,
 }];
