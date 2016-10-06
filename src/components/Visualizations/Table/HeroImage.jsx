@@ -11,7 +11,7 @@ const TableHeroImage = ({ parsed, imageUrl, heroName, subText }) => (
         <div data-tip data-for="parsed">
           <ActionDoneAll color={styles.blue} className={styles.actionDoneAll} />
           <ReactTooltip id="parsed" place="right" type="light" effect="solid">
-            {strings.parsed}
+            {strings.tooltip_parsed}
           </ReactTooltip>
         </div>
       </div>
