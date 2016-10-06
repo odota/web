@@ -164,14 +164,21 @@ const percentColor = (pct) => {
  **/
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
-  hero_id: row => (
-    <TableHeroImage
-      parsed={row.version}
-      heroName={heroes[row.hero_id] ? heroes[row.hero_id].localized_name : ''}
-      imageUrl={`${heroes[row.hero_id] ? API_HOST + heroes[row.hero_id].img : '/assets/images/blank-1x1.gif'}`}
-      subText={getSubtext(row)}
-    />
-  ),
+  hero_id: (row) => {
+    const heroName = heroes[row.hero_id] ? heroes[row.hero_id].localized_name : '';
+    return (
+      <TableHeroImage
+        parsed={row.version}
+        heroName={
+          row.rank !== undefined ?
+            <TableLink to={`/heroes/${row.hero_id}`}>{heroName}</TableLink>
+          : heroName
+        }
+        imageUrl={`${heroes[row.hero_id] ? API_HOST + heroes[row.hero_id].img : '/assets/images/blank-1x1.gif'}`}
+        subText={getSubtext(row)}
+      />
+    );
+  },
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
   radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
@@ -182,7 +189,6 @@ export const transformations = {
       return won ? styles.textSuccess : styles.textDanger;
     };
     const getString = (result) => {
-      // TODO localize strings
       if (result === undefined) {
         return strings.td_no_result;
       }
