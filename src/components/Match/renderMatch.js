@@ -12,16 +12,16 @@ import analysis from './analysis';
 
 const expanded = {};
 Object.keys(specific).forEach((key) => {
-  for (let i = 1; i < 5; i++) {
+  for (let i = 1; i < 5; i += 1) {
     expanded[key.replace('#', i)] = specific[key];
   }
 });
 
-const getMaxKeyOfObject = (field) =>
+const getMaxKeyOfObject = field =>
   (field ? Object.keys(field).sort((a, b) => Number(b) - Number(a))[0] : '');
 
 function getLevelFromXp(xp) {
-  for (let i = 0; i < xpLevel.length; i++) {
+  for (let i = 0; i < xpLevel.length; i += 1) {
     if (xpLevel[i] > xp) {
       return i;
     }
@@ -72,10 +72,10 @@ function generatePositionData(keysObject, sourceObject) {
   // 64 is the offset of x and y values
   // subtracting y from 127 inverts from bottom/left origin to top/left origin
   const result = {};
-  Object.keys(keysObject).forEach(key => {
+  Object.keys(keysObject).forEach((key) => {
     const t = [];
-    Object.keys(sourceObject[key]).forEach(x => {
-      Object.keys(sourceObject[key][x]).forEach(y => {
+    Object.keys(sourceObject[key]).forEach((x) => {
+      Object.keys(sourceObject[key][x]).forEach((y) => {
         t.push({
           x: Number(x) - 64,
           y: 127 - (Number(y) - 64),
@@ -100,7 +100,7 @@ function generateTeamfights(match) {
       dire_participation: 0,
       dire_deaths: 0,
     };
-    newtf.players = match.players.map(player => {
+    newtf.players = match.players.map((player) => {
       const tfplayer = tf.players[player.player_slot % (128 - 5)];
       // compute team gold/xp deltas
       if (isRadiant(player.player_slot)) {
@@ -190,8 +190,8 @@ function renderMatch(m) {
   });
   });
   */
-  const newPlayers = m.players.map(player => {
-    const additionalProps = {
+  const newPlayers = m.players.map((player) => {
+    const newPlayer = {
       ...player,
       desc: [laneRole[player.lane_role], isSupport(player) ? 'Support' : 'Core'].join('/'),
       multi_kills_max: getMaxKeyOfObject(player.multi_kills),
@@ -202,7 +202,7 @@ function renderMatch(m) {
     if (player.times) {
       const intervals = ['lh_t', 'gold_t', 'xp_t', 'times'];
       intervals.forEach((key) => {
-        additionalProps[key] = player[key].filter((el, i) => player.times[i] >= 0);
+        newPlayer[key] = player[key].filter((el, i) => player.times[i] >= 0);
       });
     }
     // compute damage to towers/rax/roshan
@@ -212,8 +212,8 @@ function renderMatch(m) {
       // npc_dota_roshan
       // npc_dota_neutral_giant_wolf
       // npc_dota_creep
-      additionalProps.objective_damage = {};
-      Object.keys(player.damage).forEach(key => {
+      newPlayer.objective_damage = {};
+      Object.keys(player.damage).forEach((key) => {
         let identifier = null;
         if (key.indexOf('tower') !== -1) {
           identifier = key.split('_').slice(3).join('_');
@@ -227,25 +227,25 @@ function renderMatch(m) {
         if (key.indexOf('fort') !== -1) {
           identifier = 'fort';
         }
-        additionalProps.objective_damage[identifier] = additionalProps.objective_damage[identifier] ?
-          additionalProps.objective_damage[identifier] + player.damage[key] :
+        newPlayer.objective_damage[identifier] = newPlayer.objective_damage[identifier] ?
+          newPlayer.objective_damage[identifier] + player.damage[key] :
           player.damage[key];
       });
     }
     if (player.killed) {
-      additionalProps.specific = {};
+      newPlayer.specific = {};
       // expand keys in specific by # (1-4)
       // map to friendly name
       // iterate through keys in killed
       // if in expanded, put in pm.specific
-      Object.keys(player.killed).forEach(key => {
+      Object.keys(player.killed).forEach((key) => {
         if (key in expanded) {
           const name = expanded[key];
-          additionalProps.specific[name] = player.specific[name] ? player.specific[name] + player.killed[key] : player.killed[key];
+          newPlayer.specific[name] = newPlayer.specific[name] ? newPlayer.specific[name] + newPlayer.killed[key] : newPlayer.killed[key];
         }
       });
     }
-    return additionalProps;
+    return newPlayer;
   });
   return {
     ...m,

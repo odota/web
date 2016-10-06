@@ -15,7 +15,7 @@ export const searchActions = {
   QUERY,
 };
 
-const setSearchQuery = (query) => ({
+const setSearchQuery = query => ({
   type: QUERY,
   query,
 });
@@ -24,17 +24,17 @@ const getSearchRequest = () => ({
   type: REQUEST,
 });
 
-const getSearchOk = (payload) => ({
+const getSearchOk = payload => ({
   type: OK,
   payload,
 });
 
-const getSearchError = (payload) => ({
+const getSearchError = payload => ({
   type: ERROR,
   payload,
 });
 
-const getSearchResult = (query) => (dispatch) => {
+const getSearchResult = query => (dispatch) => {
   dispatch(getSearchRequest());
   dispatch(setSearchQuery(query));
   return fetch(`${API_HOST}${url}?q=${query}`)

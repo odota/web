@@ -1,12 +1,22 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {
+  connect,
+} from 'react-redux';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
-import { nextPage, prevPage, setCurrentPage } from 'actions';
+import {
+  nextPage,
+  prevPage,
+  setCurrentPage,
+} from 'actions';
 import styles from './Pagination.css';
 
 
-const getPages = ({ currentPage, numPages, setCurrentPage }) => {
+const getPages = ({
+  currentPage,
+  numPages,
+  setCurrentPage,
+}) => {
   let i = currentPage - 4 > 0 ? currentPage - 4 : 0;
   const pages = [];
   if (currentPage + 5 >= 10) {
@@ -28,7 +38,7 @@ const getPages = ({ currentPage, numPages, setCurrentPage }) => {
       );
     }
     pages.push(PageNumber);
-    i++;
+    i += 1;
   }
   if (currentPage <= numPages - 5) {
     pages.push(<span className={styles.page} onClick={() => setCurrentPage(numPages - 1)}>...{numPages}</span>);
@@ -36,7 +46,13 @@ const getPages = ({ currentPage, numPages, setCurrentPage }) => {
   return pages;
 };
 
-const Pagination = ({ currentPage, nextPage, prevPage, setCurrentPage, numPages }) => (numPages > 1 ? (
+const Pagination = ({
+  currentPage,
+  nextPage,
+  prevPage,
+  setCurrentPage,
+  numPages,
+}) => (numPages > 1 ? (
   <div className={styles.container}>
     {currentPage > 0 && <Prev onClick={prevPage} className={styles.arrow} />}
     {getPages({ currentPage, numPages, setCurrentPage })}
@@ -46,10 +62,12 @@ const Pagination = ({ currentPage, nextPage, prevPage, setCurrentPage, numPages 
   <span />
 ));
 
-const mapDispatchToProps = (dispatch, { id }) => ({
+const mapDispatchToProps = (dispatch, {
+  id,
+}) => ({
   nextPage: () => dispatch(nextPage(id)),
   prevPage: () => dispatch(prevPage(id)),
-  setCurrentPage: (pageNumber) => dispatch(setCurrentPage(id, pageNumber)),
+  setCurrentPage: pageNumber => dispatch(setCurrentPage(id, pageNumber)),
 });
 
 export default connect(null, mapDispatchToProps)(Pagination);

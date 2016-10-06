@@ -1,12 +1,32 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {
+  Component,
+} from 'react';
+import {
+  connect,
+} from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import { ranking } from 'reducers';
-import { getRanking } from 'actions';
+import {
+  ranking,
+} from 'reducers';
+import {
+  getRanking,
+} from 'actions';
 
 import style from './Heroes.css';
 import RankingTable from './RankingTable';
+
+const renderLoading = () => (
+  <div className={style.Loading}>
+    <CircularProgress color="#fff" />
+  </div>
+);
+
+const renderRanking = (hero, rankings) => (
+  <div>
+    <RankingTable rankings={rankings} />
+  </div>
+);
 
 class Ranking extends Component {
 
@@ -16,42 +36,31 @@ class Ranking extends Component {
     }
   }
 
-  renderLoading() {
-    return (
-      <div className={style.Loading}>
-        <CircularProgress color="#fff" />
-      </div>
-    );
-  }
-
-  renderRanking(hero, rankings) {
-    return (
-      <div>
-        <RankingTable rankings={rankings} />
-      </div>
-    );
-  }
-
   render() {
-    const { isLoading, isError, rankings, hero } = this.props;
+    const {
+      isLoading,
+      isError,
+      rankings,
+      hero,
+    } = this.props;
 
     return (
       <div>
         {isLoading || isError || rankings === null ?
-          this.renderLoading() : this.renderRanking(hero, rankings)}
+          renderLoading() : renderRanking(hero, rankings)}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   rankings: ranking.getRankings(state),
   isLoading: ranking.getLoading(state),
   isError: ranking.getError(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getRanking: (heroId) => dispatch(getRanking(heroId)),
+const mapDispatchToProps = dispatch => ({
+  getRanking: heroId => dispatch(getRanking(heroId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ranking);

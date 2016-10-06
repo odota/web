@@ -52,10 +52,10 @@ const config = {
       loader: 'json-loader',
     }, {
       test: /\.(js|jsx)$/,
-      exclude: /(node_modules|bower_components)/,
+      exclude: /(node_modules)/,
       loader: 'babel', // 'babel-loader' is also a legal name to reference
       query: {
-        presets: ['stage-2', 'react', 'es2015'],
+        presets: ['stage-3', 'react', 'es2015'],
       },
     }],
   },
@@ -79,7 +79,7 @@ const config = {
     contentBase: '.',
     progress: true,
     host: '0.0.0.0',
-    port: 8080,
+    port: process.env.PORT || 8080,
     historyApiFallback: true,
   },
 };

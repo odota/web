@@ -13,11 +13,11 @@ export default () => (
     </Col>
     <Col xs>
       <big>
-        {strings.donation_goal}
+        {strings.app_donation_goal}
       </big>
       <p style={{ marginTop: 5 }}>
         <Link to="/carry">
-          {strings.sponsorship}
+          {strings.app_sponsorship}
         </Link>
       </p>
     </Col>

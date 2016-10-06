@@ -16,7 +16,7 @@ const TrendGraph = ({ columns, name }) => (
 );
 
 TrendGraph.propTypes = {
-  columns: React.PropTypes.array,
+  columns: React.PropTypes.arrayOf(),
 };
 
 export default TrendGraph;

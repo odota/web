@@ -42,7 +42,7 @@ const HistogramGraph = ({ columns }) => (
 );
 
 HistogramGraph.propTypes = {
-  columns: React.PropTypes.array,
+  columns: React.PropTypes.arrayOf(),
 };
 
 export default HistogramGraph;

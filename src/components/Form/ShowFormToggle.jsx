@@ -6,7 +6,7 @@ import { toggleShowForm } from 'actions';
 import { form } from 'reducers';
 import styles from './ShowFormToggle.css';
 
-const getIcon = show => {
+const getIcon = (show) => {
   if (!show) {
     return (
       <svg className={styles.svg} viewBox="0 0 24 24">
@@ -18,7 +18,7 @@ const getIcon = show => {
 };
 
 const ShowFormToggle = ({ formName, toggleShowForm, page, show }) => (
-  <FloatingActionButton className={!show ? styles.filterButton : styles.closeButton} onTouchTap={() => toggleShowForm(formName, page)}>
+  <FloatingActionButton className={!show ? styles.filterButton : styles.closeButton} onClick={() => toggleShowForm(formName, page)}>
     {getIcon(show)}
   </FloatingActionButton>
 );

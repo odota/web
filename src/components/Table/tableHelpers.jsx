@@ -3,7 +3,7 @@ import NavigationArrowUpward from 'material-ui/svg-icons/navigation/arrow-upward
 import NavigationArrowDownward from 'material-ui/svg-icons/navigation/arrow-downward';
 import ContentSort from 'material-ui/svg-icons/content/sort';
 
-const getTotalWidth = (columns) => columns.reduce((prev, current) => prev + current.width, 0);
+const getTotalWidth = columns => columns.reduce((prev, current) => prev + current.width, 0);
 
 const getWidthStyle = (column, total) => (column / total);
 

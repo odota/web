@@ -29,7 +29,7 @@ const Pros = ({ playerId }) => (
   </div>
 );
 
-const getData = props => {
+const getData = (props) => {
   props.getPlayerPros(props.playerId);
 };
 
@@ -49,7 +49,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getPlayerPros: (playerId, options) => dispatch(getPlayerPros(playerId, options)),
 });
 

@@ -11,7 +11,7 @@ export default ({ wins, games, percent }) => (
     <div className={styles.textContainer}>{percent || getPercentWin(wins, games).toFixed(1)}</div>
     <LinearProgress
       style={{ height: 5 }}
-      color={styles.lineColor}
+      // color={styles.lineColor}
       mode="determinate"
       value={percent || getPercentWin(wins, games)}
       color={styles.yelor}

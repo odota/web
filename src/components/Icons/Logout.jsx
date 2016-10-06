@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default (props) => (
+export default props => (
   <svg {...props} viewBox="0 0 300 300">
     <polygon
       points="224.2,195.5 239.4,210.6 300,150 239.4,89.4 224.2,104.5 259,139.3 107.1,139.3 107.1,160.7

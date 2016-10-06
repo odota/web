@@ -21,7 +21,7 @@ const Request = ({ error, matchId, loading, progress, dispatchRequest, dispatchM
         floatingLabelText="Match ID"
         errorText={error ? 'Failed to get match data.' : false}
         value={matchId}
-        onChange={(e) => dispatchMatchId(e.target.value)}
+        onChange={e => dispatchMatchId(e.target.value)}
       />
       {loading ? progressIndicator : <RaisedButton label="Submit" onClick={submit} />}
     </div>
@@ -38,9 +38,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  dispatchRequest: (matchId) => dispatch(requestSubmit(matchId)),
-  dispatchMatchId: (matchId) => dispatch(setMatchId(matchId)),
+const mapDispatchToProps = dispatch => ({
+  dispatchRequest: matchId => dispatch(requestSubmit(matchId)),
+  dispatchMatchId: matchId => dispatch(setMatchId(matchId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Request);

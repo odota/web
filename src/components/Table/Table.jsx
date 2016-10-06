@@ -75,7 +75,7 @@ const Table = ({
 );
 
 const {
-  array,
+  arrayOf,
   bool,
   string,
   func,
@@ -83,8 +83,8 @@ const {
 } = React.PropTypes;
 
 Table.propTypes = {
-  data: array,
-  columns: array,
+  data: arrayOf(),
+  columns: arrayOf(),
   loading: bool,
   error: bool,
   sortState: string,

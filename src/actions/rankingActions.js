@@ -17,17 +17,17 @@ const getRankingStart = () => ({
   type: REQUEST,
 });
 
-const getRankingDone = (payload) => ({
+const getRankingDone = payload => ({
   type: OK,
   payload,
 });
 
-const getRankingError = (payload) => ({
+const getRankingError = payload => ({
   type: ERROR,
   payload,
 });
 
-const getRanking = (heroId) => (dispatch) => {
+const getRanking = heroId => (dispatch) => {
   dispatch(getRankingStart());
   return fetch(`${API_HOST}${url}?hero_id=${heroId}`)
     .then(res => res.json())

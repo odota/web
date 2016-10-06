@@ -44,8 +44,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getPlayer: (playerId) => dispatch(getPlayer(playerId)),
+const mapDispatchToProps = dispatch => ({
+  getPlayer: playerId => dispatch(getPlayer(playerId)),
 });
 
 class RequestLayer extends React.Component {

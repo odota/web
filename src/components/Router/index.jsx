@@ -18,9 +18,13 @@ import { Heroes } from 'components/Heroes';
 import Request from 'components/Request';
 import Distributions from 'components/Distributions';
 import store from 'store';
+import { getMetadata } from 'actions';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
+
+// Fetch metadata (used on all pages)
+store.dispatch(getMetadata());
 
 export default () => (
   <Provider store={store}>

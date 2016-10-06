@@ -27,8 +27,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  dispatchSearch: (query) => dispatch(getSearchResult(query)),
+const mapDispatchToProps = dispatch => ({
+  dispatchSearch: query => dispatch(getSearchResult(query)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
