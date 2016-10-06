@@ -1,21 +1,13 @@
 import React from 'react';
-import { transformations, getPercentWin } from 'utility';
-import { TableLink } from 'components/Table';
-import { TablePercent } from 'components/Visualizations';
+import { getPercentWin } from 'utility';
+import { TablePercent, TablePlayer } from 'components/Visualizations';
 import strings from 'lang';
 
 export default [{
   displayName: strings.th_avatar,
-  field: 'account_id',
-  width: 2,
-  displayFn: row => <TableLink to={`/players/${row.account_id}`}>{row.name}</TableLink>,
-  sortFn: true,
-}, {
-  displayName: strings.th_last_played,
-  tooltip: strings.last_played,
   field: 'last_played',
   width: 2,
-  displayFn: transformations.last_played,
+  displayFn: row => <TablePlayer row={row} />,
   sortFn: true,
 }, {
   displayName: strings.th_with_games,

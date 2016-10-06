@@ -320,6 +320,7 @@
   "tooltip_biggest_hit": "Largest instance of damage on a hero",
   "tooltip_damage_dealt": "Damage dealt to heroes by items/abilities",
   "tooltip_damage_received": "Damage received from heroes by items/abilities",
+  "tooltip_registered_user": "Registered user",
   
   "xp_reasons_0": "Other",
   "xp_reasons_1": "Creep",
