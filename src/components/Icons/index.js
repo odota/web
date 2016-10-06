@@ -7,6 +7,9 @@ import IconEye from './Eye';
 import IconEyeInactive from './EyeInactive';
 import IconTrophy from './Trophy';
 import IconLogout from './Logout';
+import IconOpenSource from './OpenSource';
+import IconStatsBars from './StatsBars';
+import IconWand from './Wand';
 
 export {
   IconCheese,
@@ -18,4 +21,7 @@ export {
   IconEyeInactive,
   IconTrophy,
   IconLogout,
+  IconOpenSource,
+  IconStatsBars,
+  IconWand,
 };
