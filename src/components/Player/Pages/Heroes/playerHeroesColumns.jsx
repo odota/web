@@ -9,7 +9,7 @@ export const playerHeroesOverviewColumns = [{
   field: 'hero_id',
   width: 3.1,
   displayFn: transformations.hero_id,
-  sortFn: row => (row.last_played),
+  sortFn: row => row.last_played,
 }, {
   displayName: strings.th_games,
   tooltip: strings.tooltip_played_as,
@@ -22,7 +22,7 @@ export const playerHeroesOverviewColumns = [{
   field: 'win',
   width: 2,
   displayFn: row => <TablePercent val={getPercentWin(row.win, row.games)} />,
-  sortFn: row => (row.win / row.games),
+  sortFn: row => row.win / row.games,
 }];
 
 const restColumns = [{
@@ -37,7 +37,7 @@ const restColumns = [{
   field: 'with_win',
   width: 2,
   displayFn: row => <TablePercent val={getPercentWin(row.with_win, row.with_games)} />,
-  sortFn: row => (row.with_win / row.with_games),
+  sortFn: row => row.with_win / row.with_games,
 }, {
   displayName: strings.th_against_games,
   tooltip: strings.tooltip_played_against,
@@ -50,7 +50,7 @@ const restColumns = [{
   field: 'against_win',
   width: 2,
   displayFn: row => <TablePercent val={getPercentWin(row.against_win, row.against_games)} />,
-  sortFn: row => (row.against_win / row.against_games),
+  sortFn: row => row.against_win / row.against_games,
 }];
 
 export const playerHeroesColumns = [

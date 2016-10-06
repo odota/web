@@ -9,7 +9,7 @@ export default [{
   displayFn: transformations.hero_id,
 }, {
   displayName: strings.th_percentile,
-  field: 'rank',
+  field: 'card',
   width: 2,
   sortFn: row => row.rank / row.card,
   displayFn: transformations.rank_percentile,
