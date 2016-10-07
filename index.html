@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
     <meta name="explanation" content="Microsoft browsers require custom 404 pages to be at least 512 bytes in length.">
-    <meta name="pi" content="3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148">
     <link rel="icon" type="image/png" href="/assets/images/logo.png">
   </head>
 
@@ -16,6 +15,15 @@
     <div id="react"></div>
     <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/1.0.3/autotrack.js"></script>
+    <script>
+      (function(){
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect != window.location.href) {
+          window.history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
     <script>
       (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
