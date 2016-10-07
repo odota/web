@@ -10,6 +10,7 @@ import winloss, { getWinLoss } from 'reducers/gotPlayer/winloss';
 import records, { getPlayerRecords } from 'reducers/gotPlayer/records';
 import counts, { getPlayerCounts } from 'reducers/gotPlayer/counts';
 import mmr, { getPlayerMMR } from 'reducers/gotPlayer/mmr';
+import items, { getPlayerItems } from 'reducers/gotPlayer/items';
 
 export default combineReducers({
   playerReducer,
@@ -23,6 +24,7 @@ export default combineReducers({
   records,
   counts,
   mmr,
+  items,
 });
 
 const player = {
@@ -41,4 +43,5 @@ export {
   getPlayerRecords as playerRecords,
   getPlayerCounts as playerCounts,
   getPlayerMMR as playerMMR,
+  getPlayerItems as playerItems,
 };

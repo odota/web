@@ -12,6 +12,7 @@ import {
   CountsPage,
   TrendsPage,
   MMRPage,
+  ItemsPage,
 } from './Pages';
 
 const playerPages = [{
@@ -44,6 +45,9 @@ const playerPages = [{
 }, {
   name: strings.tab_trends,
   content: (playerId, subInfo) => (<TrendsPage playerId={playerId} trendName={subInfo} />),
+}, {
+  name: strings.tab_items,
+  content: playerId => (<ItemsPage playerId={playerId} />),
 }, {
   name: strings.tab_wardmap,
   content: () => (<div />),

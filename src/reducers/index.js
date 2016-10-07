@@ -15,6 +15,7 @@ import gotPlayer, {
   playerRecords,
   playerCounts,
   playerMMR,
+  playerItems,
 } from 'reducers/gotPlayer';
 import form, { getForm } from 'reducers/form';
 import request from 'reducers/request';
@@ -33,6 +34,7 @@ export {
   playerRecords,
   playerCounts,
   playerMMR,
+  playerItems,
   getForm as form,
   benchmark,
   ranking,

@@ -58,6 +58,7 @@ export const getPlayerMatches = (playerId, options = {}, getAllData, forceRefres
     ...defaultPlayerMatchesOptions,
     ...options,
   };
+
   if (playerMatches.isLoaded(getState(), playerId)) {
     if (playerMatches.isMaxSize(getState(), playerId) && !forceRefresh) {
       return dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId, getAllData));
@@ -66,6 +67,7 @@ export const getPlayerMatches = (playerId, options = {}, getAllData, forceRefres
   } else {
     dispatch(getPlayerMatchesRequest(playerId));
   }
+
   return fetch(`${API_HOST}${getUrl(playerId, modifiedOptions, url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerMatchesOk(json, playerId, getAllData)))
