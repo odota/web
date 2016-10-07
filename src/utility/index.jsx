@@ -118,18 +118,16 @@ export const getOrdinal = (n) => {
 
 const getSubtext = (row) => {
   if (row.match_id && row.player_slot !== undefined) {
-    return isRadiant(row.player_slot) ? strings.radiant : strings.dire;
-  }
-  if (row.last_played) {
+    return isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire;
+  } else if (row.last_played) {
     return <FromNowTooltip timestamp={row.last_played} />;
-  }
-  if ((row.name && row.value) !== undefined) {
+  } else if (row.start_time) {
     return <FromNowTooltip timestamp={row.start_time} />;
   }
   return null;
 };
 
-const percentColor = (pct) => {
+const percentile = (pct) => {
   if (pct >= 0.8) {
     return {
       color: 'green',
@@ -165,7 +163,7 @@ const percentColor = (pct) => {
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
   hero_id: (row) => {
-    const heroName = heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.no_hero;
+    const heroName = heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero;
     return (
       <TableHeroImage
         parsed={row.version}
@@ -204,7 +202,7 @@ export const transformations = {
         </span>
       </div>);
   },
-  skill: (row, col, field) => (skill[field] ? skill[field] : strings.unknown),
+  skill: (row, col, field) => (skill[field] ? skill[field] : strings.general_unknown),
   game_mode: (row, col, field) => (gameMode[field] ? gameMode[field].name : field),
   match_id_and_game_mode: (row, col, field) => (
     <div>
@@ -226,7 +224,7 @@ export const transformations = {
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
   rank: row => getOrdinal(row.card - row.rank),
   rank_percentile: row => (
-    <span style={{ color: styles[percentColor(row.rank / row.card).color] }}>
+    <span style={{ color: styles[percentile(row.rank / row.card).color] }}>
       {getPercentWin(row.rank, row.card).toFixed(2)}%
     </span>
   ),

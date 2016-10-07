@@ -53,9 +53,6 @@
   "error": "Error",
   "error_message": "Whoops! Something went wrong.",
   "error_four_oh_four_message": "The page you are looking for cannot be found.",
-
-  "unknown": "Unknown",
-  "no_hero": "No hero",
   
   "farm_heroes": "Heroes killed",
   "farm_creeps": "Lane creeps killed",
@@ -67,6 +64,12 @@
   "farm_sentries": "Sentries killed",
   "farm_roshan": "Roshans killed",
   "farm_necronomicon": "Necronomicon units killed",
+
+  "general_unknown": "Unknown",
+  "general_no_hero": "No hero",
+  "general_anonymous": "Anonymous",
+  "general_radiant": "Radiant",
+  "general_dire": "Dire",
 
   "gold_reasons_0": "Other",
   "gold_reasons_1": "Death",
@@ -338,9 +341,5 @@
   "teamfight_participation": "Radiant participation/Dire participation",
   "teamfight_score": "Radiant kills/Dire kills",
   "teamfight_radiant_gold_adv": "Net gold advantage for Radiant",
-  "teamfight_radiant_xp_adv": "Net XP advantage for Radiant",
-  "anonymous": "Anonymous",
-
-  "radiant": "Radiant",
-  "dire": "Dire"
+  "teamfight_radiant_xp_adv": "Net XP advantage for Radiant"
 }
