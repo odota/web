@@ -2,6 +2,7 @@ import React from 'react';
 import {
   formatSeconds,
   defaultSort,
+  isRadiant,
 } from 'utility';
 import strings from 'lang';
 // import { Card } from 'material-ui/Card';
@@ -53,18 +54,37 @@ import {
 } from './matchColumns';
 import generateLog from './generateLog';
 
-export const sortMatchPlayers = state => defaultSort(getMatchPlayers(state), getSortState(state), getSortField(state), getSortFn(state));
+const filterMatchPlayers = (players, team = '') =>
+  players.filter(player =>
+    ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === '')
+  );
+
+export const sortMatchPlayers = (state, team = '') =>
+  defaultSort(filterMatchPlayers(getMatchPlayers(state), team), getSortState(state), getSortField(state), getSortFn(state));
+
 const MatchPlayersTable = createTable(
   getMatch,
-  (state, sortState) => (sortState ? sortMatchPlayers(state) : getMatchPlayers(state)),
+  (state, sortState) => (sortState ? sortMatchPlayers(state) : filterMatchPlayers(getMatchPlayers(state))),
+  setMatchSort
+);
+
+const MatchRadiantPlayersTable = createTable(
+  getMatch,
+  (state, sortState) => (sortState ? sortMatchPlayers(state, 'radiant') : filterMatchPlayers(getMatchPlayers(state), 'radiant')),
+  setMatchSort
+);
+
+const MatchDirePlayersTable = createTable(
+  getMatch,
+  (state, sortState) => (sortState ? sortMatchPlayers(state, 'dire') : filterMatchPlayers(getMatchPlayers(state), 'dire')),
   setMatchSort
 );
 
 const matchPages = [{
   name: strings.tab_overview,
   content: match => (<div>
-    <MatchPlayersTable columns={overviewColumns(match)} />
-    {/* <Table2 data={match.players} columns={overviewColumns(match)} />*/}
+    <MatchRadiantPlayersTable columns={overviewColumns(match)} />
+    <MatchDirePlayersTable columns={overviewColumns(match)} />
     <MatchPlayersTable columns={abilityUpgradeColumns} />
     <BuildingMap match={match} />
   </div>),
