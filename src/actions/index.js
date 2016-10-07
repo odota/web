@@ -10,6 +10,7 @@ export { playerHistogramActions, getPlayerHistogram } from './player/playerHisto
 export { playerRecordsActions, getPlayerRecords, setPlayerRecordsSort } from './player/playerRecordsActions';
 export { playerCountsActions, getPlayerCounts, setPlayerCountsSort } from './player/playerCountsActions';
 export { playerMMRActions, getPlayerMMR } from './player/playerMMRActions';
+export { playerItemsActions, getPlayerItems, setPlayerItemsSort } from './player/playerItemsActions';
 export { playerWinLossActions, getPlayerWinLoss } from './player/playerWinLossActions';
 export { tableActions, setCurrentPage, nextPage, prevPage } from './tableActions';
 export { formActions, addChip, deleteChip, setFieldText, submitForm, clearForm, toggleShowForm } from './formActions';

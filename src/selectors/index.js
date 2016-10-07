@@ -5,6 +5,7 @@ import sortPlayerPros from 'selectors/sortPlayerPros';
 import sortPlayerRankings from 'selectors/sortPlayerRankings';
 import sortPlayerCounts from 'selectors/sortPlayerCounts';
 import sortPlayerRecords from 'selectors/sortPlayerRecords';
+import sortPlayerItems from 'selectors/sortPlayerItems';
 import transformPlayerMatchesById from 'selectors/transformPlayerMatches';
 import transformPlayerPeersById from 'selectors/transformPlayerPeers';
 import transformPlayerHeroesById from 'selectors/transformPlayerHeroes';
@@ -12,6 +13,7 @@ import transformPlayerProsById from 'selectors/transformPlayerPros';
 import transformPlayerRankingsById from 'selectors/transformPlayerRankings';
 import transformPlayerCountsById from 'selectors/transformPlayerCounts';
 import transformPlayerRecordsById from 'selectors/transformPlayerRecords';
+import transformPlayerItemsById from 'selectors/transformPlayerItems';
 
 export { default as getCumulativeDataByField } from 'selectors/trends/getPlayerTrend';
 
@@ -23,6 +25,7 @@ export {
   sortPlayerRankings,
   sortPlayerCounts,
   sortPlayerRecords,
+  sortPlayerItems,
   transformPlayerMatchesById,
   transformPlayerPeersById,
   transformPlayerHeroesById,
@@ -30,4 +33,5 @@ export {
   transformPlayerRankingsById,
   transformPlayerCountsById,
   transformPlayerRecordsById,
+  transformPlayerItemsById,
 };
