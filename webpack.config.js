@@ -12,9 +12,7 @@ const postcssCF = require('postcss-color-function');
 
 const isProd = process.env.NODE_ENV === 'production';
 const config = {
-  entry: {
-    index: './src',
-  },
+  entry: ['babel-polyfill', './src'],
   output: {
     filename: `${isProd ? '[hash].' : ''}bundle.js`,
     path: 'build/',

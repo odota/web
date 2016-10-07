@@ -199,7 +199,6 @@ export const abilityUpgradeColumns = [
   displayName: i + 1,
   field: 'ability_upgrades_arr',
   index: i,
-
   displayFn: (row, column, field) => {
     if (field) {
       const abilityId = field[column.index];
