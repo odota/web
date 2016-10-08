@@ -33,13 +33,15 @@ const senWard = (style, stroke, iconSize) => (<svg style={style} width={iconSize
 
 // TODO Hero icon on ward circles?
 class VisionMap extends React.Component {
-  super() {
-    this.updateMap = this.updateMap.bind(this);
+  componentWillMount() {
     this.setState({
       obsIcons: [],
       senIcons: [],
       enabledIndex: {},
     });
+  }
+  super() {
+    this.updateMap = this.updateMap.bind(this);
   }
   updateMap(event, checked, index) {
     const newEnabledIndex = Object.assign({}, this.state.enabledIndex, {
