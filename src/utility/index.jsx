@@ -116,17 +116,6 @@ export const getOrdinal = (n) => {
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
 
-const getSubtext = (row) => {
-  if (row.match_id && row.player_slot !== undefined) {
-    return isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire;
-  } else if (row.last_played) {
-    return <FromNowTooltip timestamp={row.last_played} />;
-  } else if (row.start_time) {
-    return <FromNowTooltip timestamp={row.start_time} />;
-  }
-  return null;
-};
-
 const percentile = (pct) => {
   if (pct >= 0.8) {
     return {
@@ -155,6 +144,17 @@ const percentile = (pct) => {
   };
 };
 
+const getSubtitle = (row) => {
+  if (row.match_id && row.player_slot !== undefined) {
+    return isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire;
+  } else if (row.last_played) {
+    return <FromNowTooltip timestamp={row.last_played} />;
+  } else if (row.start_time) {
+    return <FromNowTooltip timestamp={row.start_time} />;
+  }
+  return null;
+};
+
 /**
  * Transformations of table cell data to display values.
  * These functions are intended to be used as the displayFn property in table columns.
@@ -167,13 +167,13 @@ export const transformations = {
     return (
       <TableHeroImage
         parsed={row.version}
-        heroName={
+        image={`${heroes[row.hero_id] ? API_HOST + heroes[row.hero_id].img : '/assets/images/blank-1x1.gif'}`}
+        title={
           row.rank !== undefined ?
             <TableLink to={`/heroes/${row.hero_id}`}>{heroName}</TableLink>
           : heroName
         }
-        imageUrl={`${heroes[row.hero_id] ? API_HOST + heroes[row.hero_id].img : '/assets/images/blank-1x1.gif'}`}
-        subText={getSubtext(row)}
+        subtitle={getSubtitle(row)}
       />
     );
   },
@@ -227,6 +227,17 @@ export const transformations = {
     <span style={{ color: styles[percentile(row.rank / row.card).color] }}>
       {getPercentWin(row.rank, row.card).toFixed(2)}%
     </span>
+  ),
+  player: row => (
+    <TableHeroImage
+      image={row.avatar}
+      imageWidth={29}
+      imageHeight={29}
+      title={row.name || row.personaname}
+      subtitle={<FromNowTooltip timestamp={row.last_played} />}
+      registered={row.last_login}
+      accountId={row.account_id}
+    />
   ),
 };
 

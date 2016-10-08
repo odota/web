@@ -1,12 +1,12 @@
 import React from 'react';
-import { getPercentWin } from 'utility';
-import { TablePercent, TablePlayer } from 'components/Visualizations';
+import { getPercentWin, transformations } from 'utility';
+import { TablePercent } from 'components/Visualizations';
 import strings from 'lang';
 
 export default [{
   displayName: strings.th_avatar,
   field: 'last_played',
-  displayFn: row => <TablePlayer row={row} />,
+  displayFn: transformations.player,
   sortFn: true,
 }, {
   displayName: strings.th_with_games,
