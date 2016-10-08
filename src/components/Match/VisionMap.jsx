@@ -35,8 +35,6 @@ const senWard = (style, stroke, iconSize) => (<svg style={style} width={iconSize
 class VisionMap extends React.Component {
   super() {
     this.updateMap = this.updateMap.bind(this);
-  }
-  componentWillMount() {
     this.setState({
       obsIcons: [],
       senIcons: [],
@@ -45,17 +43,17 @@ class VisionMap extends React.Component {
   }
   updateMap(event, checked, index) {
     const newEnabledIndex = Object.assign({}, this.state.enabledIndex, {
-      [index]: checked
+      [index]: checked,
     });
     this.setState(Object.assign({}, this.state, {
-      enabledIndex: newEnabledIndex
+      enabledIndex: newEnabledIndex,
     }));
   }
   render() {
     const match = this.props.match;
     const width = this.props.width;
     const enabledIndex = this.state.enabledIndex;
-    const style = (ward) => ({
+    const style = ward => ({
       position: 'absolute',
       top: ((width / 127) * ward.y) - (width / 12),
       left: ((width / 127) * ward.x) - (width / 12),
@@ -63,18 +61,17 @@ class VisionMap extends React.Component {
     const iconSize = width / 6;
     const obsIcons = [];
     const senIcons = [];
-    Object.keys(enabledIndex).forEach(index => {
+    Object.keys(enabledIndex).forEach((index) => {
       if (enabledIndex[index]) {
         if (match && match.players && match.players[index]) {
           const obs = (match.players[index].posData && match.players[index].posData.obs) || [];
           const sen = (match.players[index].posData && match.players[index].posData.sen) || [];
           const stroke = isRadiant(match.players[index].player_slot) ? 'green' : 'red';
-          obs.forEach((ward) => obsIcons.push(obsWard(style(ward), stroke, iconSize)));
-          sen.forEach((ward) => senIcons.push(senWard(style(ward), stroke, iconSize)));
+          obs.forEach(ward => obsIcons.push(obsWard(style(ward), stroke, iconSize)));
+          sen.forEach(ward => senIcons.push(senWard(style(ward), stroke, iconSize)));
         }
       }
     });
-    console.log(enabledIndex, obsIcons, senIcons);
     return (<div>
       <div>
         {this.props.match.players.map((player, i) => (<div>
