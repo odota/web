@@ -1,26 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
 import { Link } from 'react-router';
-/*
-import {
-  heroes,
-  skill,
-  items,
-  patch,
-  region,
-  game_mode as gameMode,
-  item_ids as itemIds,
-  lobby_type as lobbyType,
-  leaver_status as leaverStatus,
-  lane_role as laneRole,
-  ability_keys as abilityKeys,
-} from 'dotaconstants';
-*/
-=======
-import {
-  Link,
-} from 'react-router';
->>>>>>> eed79b79fe1fa4d475d6c9151f7e44fea6373610
 import heroes from 'dotaconstants/json/heroes.json';
 import skill from 'dotaconstants/json/skill.json';
 import items from 'dotaconstants/json/items.json';
