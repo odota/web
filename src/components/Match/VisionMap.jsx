@@ -1,10 +1,16 @@
 import React from 'react';
-// import Checkbox from 'material-ui/Checkbox';
+import Checkbox from 'material-ui/Checkbox';
+import Visibility from 'material-ui/svg-icons/action/visibility';
+import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
+import {
+  isRadiant,
+  transformations,
+} from 'utility';
 
-const obsWard = (style, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
+const obsWard = (style, stroke, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
   <g>
     <title>Observer</title>
-    <circle fill="#ffff00" strokeWidth="5" stroke="orange" r={iconSize * 0.4} cy={iconSize / 2} cx={iconSize / 2} fillOpacity="0.4" />
+    <circle fill="#ffff00" strokeWidth="5" stroke={stroke} r={iconSize * 0.4} cy={iconSize / 2} cx={iconSize / 2} fillOpacity="0.4" />
   </g>
   <defs>
     <filter id="_blur">
@@ -13,10 +19,10 @@ const obsWard = (style, iconSize) => (<svg style={style} width={iconSize} height
   </defs>
 </svg>);
 
-const senWard = (style, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
+const senWard = (style, stroke, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
   <g>
     <title>Sentry</title>
-    <circle fill="#0000ff" strokeWidth="5" stroke="cyan" r={iconSize * 0.4} cy={iconSize / 2} cx={iconSize / 2} fillOpacity="0.4" />
+    <circle fill="#0000ff" strokeWidth="5" stroke={stroke} r={iconSize * 0.4} cy={iconSize / 2} cx={iconSize / 2} fillOpacity="0.4" />
   </g>
   <defs>
     <filter id="_blur">
@@ -25,44 +31,81 @@ const senWard = (style, iconSize) => (<svg style={style} width={iconSize} height
   </defs>
 </svg>);
 
-export default function VisionMap({
+// TODO Hero icon on ward circles?
+class VisionMap extends React.Component {
+  super() {
+    this.updateMap = this.updateMap.bind(this);
+  }
+  componentWillMount() {
+    this.setState({
+      obsIcons: [],
+      senIcons: [],
+      enabledIndex: {},
+    });
+  }
+  updateMap(event, checked, index) {
+    const newEnabledIndex = Object.assign({}, this.state.enabledIndex, {
+      [index]: checked
+    });
+    this.setState(Object.assign({}, this.state, {
+      enabledIndex: newEnabledIndex
+    }));
+  }
+  render() {
+    const match = this.props.match;
+    const width = this.props.width;
+    const enabledIndex = this.state.enabledIndex;
+    const style = (ward) => ({
+      position: 'absolute',
+      top: ((width / 127) * ward.y) - (width / 12),
+      left: ((width / 127) * ward.x) - (width / 12),
+    });
+    const iconSize = width / 6;
+    const obsIcons = [];
+    const senIcons = [];
+    Object.keys(enabledIndex).forEach(index => {
+      if (enabledIndex[index]) {
+        if (match && match.players && match.players[index]) {
+          const obs = (match.players[index].posData && match.players[index].posData.obs) || [];
+          const sen = (match.players[index].posData && match.players[index].posData.sen) || [];
+          const stroke = isRadiant(match.players[index].player_slot) ? 'green' : 'red';
+          obs.forEach((ward) => obsIcons.push(obsWard(style(ward), stroke, iconSize)));
+          sen.forEach((ward) => senIcons.push(senWard(style(ward), stroke, iconSize)));
+        }
+      }
+    });
+    console.log(enabledIndex, obsIcons, senIcons);
+    return (<div>
+      <div>
+        {this.props.match.players.map((player, i) => (<div>
+          <Checkbox
+            checkedIcon={<Visibility />}
+            uncheckedIcon={<VisibilityOff />}
+            onCheck={(event, checked) => this.updateMap(event, checked, i)}
+          />
+          {transformations.hero_id(player, 'hero_id', player.hero_id)}
+        </div>))
+        }
+      </div>
+      <div
+        style={{
+          position: 'relative',
+          top: 0,
+          left: 0,
+          width: this.props.width,
+        }}
+      >
+        <img width={this.props.width} src="/assets/images/map.png" role="presentation" />
+        {obsIcons}
+        {senIcons}
+      </div>
+    </div>);
+  }
+}
+
+export default function ({
   match,
   width = 500,
 }) {
-  // TODO player selector element
-  // TODO Hero icon on ward circles?
-
-  const obs = (match && match.players && match.players[4] && match.players[4].posData && match.players[4].posData.obs) || [];
-  const obsIcons = obs.map((ward) => {
-    const style = {
-      position: 'absolute',
-      top: ((width / 127) * ward.y) - (width / 12),
-      left: ((width / 127) * ward.x) - (width / 12),
-    };
-    const iconSize = width / 6;
-    return obsWard(style, iconSize);
-  });
-  const sen = (match && match.players && match.players[4] && match.players[4].posData && match.players[4].posData.sen) || [];
-  const senIcons = sen.map((ward) => {
-    const style = {
-      position: 'absolute',
-      top: ((width / 127) * ward.y) - (width / 12),
-      left: ((width / 127) * ward.x) - (width / 12),
-    };
-    const iconSize = width / 6;
-    return senWard(style, iconSize);
-  });
-  return (
-    <div
-      style={{
-        position: 'relative',
-        top: 0,
-        left: 0,
-        width,
-      }}
-    >
-      <img width={width} src="/assets/images/map.png" role="presentation" />
-      {obsIcons}
-      {senIcons}
-    </div>);
+  return <VisionMap match={match} width={width} />;
 }
