@@ -8,22 +8,12 @@ const url = playerId => `/api/players/${playerId}/peers`;
 const REQUEST = 'playerPeers/REQUEST';
 const OK = 'playerPeers/OK';
 const ERROR = 'playerPeers/ERROR';
-const SORT = 'playerPeers/SORT';
 
 export const playerPeersActions = {
   REQUEST,
   OK,
   ERROR,
-  SORT,
 };
-
-export const setPlayerPeersSort = (sortField, sortState, sortFn, id) => ({
-  type: SORT,
-  sortField,
-  sortState,
-  sortFn,
-  id,
-});
 
 export const getPlayerPeersRequest = id => ({ type: REQUEST, id });
 

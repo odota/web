@@ -1,17 +1,4 @@
 import React from 'react';
-/*
-import {
-  heroes,
-  runes,
-  items,
-  order_types as orderTypes,
-  item_ids as itemIds,
-  ability_ids as abilityIds,
-  ability_keys as abilityKeys,
-  hero_names as heroNames,
-  lane_role as laneRole,
-} from 'dotaconstants';
-*/
 import heroes from 'dotaconstants/json/heroes.json';
 import runes from 'dotaconstants/json/runes.json';
 import items from 'dotaconstants/json/items.json';
@@ -47,7 +34,7 @@ export const heroTd = (row, col, field, hideName) => (
         style={{ height: 24 }}
         role="presentation"
       />
-      {!hideName && <div>{row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : strings.anonymous}</div>}
+      {!hideName && <div>{row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : strings.general_anonymous}</div>}
     </div>
   </div>
 );

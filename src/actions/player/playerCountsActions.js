@@ -23,23 +23,12 @@ const url = playerId => `/api/players/${playerId}/counts`;
 const REQUEST = 'playerCounts/REQUEST';
 const OK = 'playerCounts/OK';
 const ERROR = 'playerCounts/ERROR';
-const SORT = 'playerCounts/SORT';
 
 export const playerCountsActions = {
   REQUEST,
   OK,
   ERROR,
-  SORT,
 };
-
-export const setPlayerCountsSort = listName => (sortField, sortState, sortFn, id) => ({
-  type: SORT,
-  listName,
-  sortField,
-  sortState,
-  sortFn,
-  id,
-});
 
 export const getPlayerCountsRequest = id => ({
   type: REQUEST,

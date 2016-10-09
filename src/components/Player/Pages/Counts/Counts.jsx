@@ -2,25 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   getPlayerCounts,
-  setPlayerCountsSort,
 } from 'actions';
-import {
-  sortPlayerCounts,
-  transformPlayerCountsById,
-} from 'selectors';
+import { deSnake } from 'utility';
 import { playerCounts } from 'reducers';
-import { createTables } from 'components/Table';
+import Table, { TableContainer } from 'components/Table';
 import { TableFilterForm } from 'components/Form';
 import playerCountsColumns from './playerCountsColumns';
 import styles from './Counts.css';
 
-const Counts = ({ playerId, tables }) => (
+const Counts = ({ playerId, counts, getPlayerCounts }) => (
   <div>
     <TableFilterForm submitAction={getPlayerCounts} id={playerId} page="counts" />
     <div className={styles.countsContainer}>
-      {tables.map((Table, index) => (
+      {Object.keys(counts).map((key, index) => (
         <div key={index} className={styles.countTable}>
-          {Table}
+          <TableContainer title={deSnake(key)} />
+          <Table paginated columns={playerCountsColumns} data={counts[key].list} />
         </div>
       ))}
     </div>
@@ -47,19 +44,8 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  tables: createTables(
-    playerCounts.getOnlyData(state, ownProps.playerId),
-    playerCountsColumns,
-    ownProps.playerId
-  )(
-    playerCounts,
-    // (state, sortState, playerId) => playerCounts.getPlayerCountsById(state, playerId),
-    listName => (state, sortState, playerId) => (sortState ?
-      sortPlayerCounts(listName)(playerId)(state) :
-      transformPlayerCountsById(listName)(playerId)(state)),
-    listName => setPlayerCountsSort(listName)
-  ),
+const mapStateToProps = (state, { playerId }) => ({
+  counts: playerCounts.getOnlyData(state, playerId),
 });
 
 const mapDispatchToProps = dispatch => ({

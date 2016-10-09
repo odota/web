@@ -15,22 +15,12 @@ const url = playerId => `/api/players/${playerId}`;
 const REQUEST = 'playerItems/REQUEST';
 const OK = 'playerItems/OK';
 const ERROR = 'playerItems/ERROR';
-const SORT = 'playerItems/SORT';
 
 export const playerItemsActions = {
   REQUEST,
   OK,
   ERROR,
-  SORT,
 };
-
-export const setPlayerItemsSort = (sortField, sortState, sortFn, id) => ({
-  type: SORT,
-  sortField,
-  sortState,
-  sortFn,
-  id,
-});
 
 export const getPlayerItemsRequest = id => ({
   type: REQUEST,

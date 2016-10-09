@@ -9,22 +9,12 @@ const url = playerId => `/api/players/${playerId}/records`;
 const REQUEST = 'playerRecords/REQUEST';
 const OK = 'playerRecords/OK';
 const ERROR = 'playerRecords/ERROR';
-const SORT = 'playerRecords/SORT';
 
 export const playerRecordsActions = {
   REQUEST,
   OK,
   ERROR,
-  SORT,
 };
-
-export const setPlayerRecordsSort = (sortField, sortState, sortFn, id) => ({
-  type: SORT,
-  sortField,
-  sortState,
-  sortFn,
-  id,
-});
 
 export const getPlayerRecordsRequest = id => ({ type: REQUEST, id });
 
@@ -57,6 +47,7 @@ export const getPlayerRecords = (playerId, options = {}) => (dispatch, getState)
       hero_id: json[key].hero_id,
       start_time: json[key].start_time,
       match_id: json[key].match_id,
+      game_mode: json[key].game_mode,
     })))
     .then(json => dispatch(getPlayerRecordsOk(json, playerId)))
     .catch(error => dispatch(getPlayerRecordsError(error, playerId)));

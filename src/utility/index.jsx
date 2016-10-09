@@ -1,22 +1,5 @@
 import React from 'react';
-import {
-  Link,
-} from 'react-router';
-/*
-import {
-  heroes,
-  skill,
-  items,
-  patch,
-  region,
-  game_mode as gameMode,
-  item_ids as itemIds,
-  lobby_type as lobbyType,
-  leaver_status as leaverStatus,
-  lane_role as laneRole,
-  ability_keys as abilityKeys,
-} from 'dotaconstants';
-*/
+import { Link } from 'react-router';
 import heroes from 'dotaconstants/json/heroes.json';
 import skill from 'dotaconstants/json/skill.json';
 import items from 'dotaconstants/json/items.json';
@@ -28,13 +11,9 @@ import lobbyType from 'dotaconstants/json/lobby_type.json';
 import leaverStatus from 'dotaconstants/json/leaver_status.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import abilityKeys from 'dotaconstants/json/ability_keys.json';
-import {
-  API_HOST,
-} from 'config';
+import { API_HOST } from 'config';
 import styles from 'components/palette.css';
-import {
-  TableLink,
-} from 'components/Table';
+import { TableLink } from 'components/Table';
 import {
   KDA,
   TableHeroImage,
@@ -122,13 +101,41 @@ export const getOrdinal = (n) => {
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
 
-const getSubtext = (row) => {
-  if (row.match_id && row.player_slot !== undefined) {
-    // TODO localize
-    return isRadiant(row.player_slot) ? 'Radiant' : 'Dire';
+const percentile = (pct) => {
+  if (pct >= 0.8) {
+    return {
+      color: 'green',
+      grade: 'A',
+    };
+  } else if (pct >= 0.6) {
+    return {
+      color: 'blue',
+      grade: 'B',
+    };
+  } else if (pct >= 0.4) {
+    return {
+      color: 'darkBlue',
+      grade: 'C',
+    };
+  } else if (pct >= 0.2) {
+    return {
+      color: 'yelor',
+      grade: 'D',
+    };
   }
-  if (row.last_played) {
+  return {
+    color: 'red',
+    grade: 'F',
+  };
+};
+
+const getSubtitle = (row) => {
+  if (row.match_id && row.player_slot !== undefined) {
+    return isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire;
+  } else if (row.last_played) {
     return <FromNowTooltip timestamp={row.last_played} />;
+  } else if (row.start_time) {
+    return <FromNowTooltip timestamp={row.start_time} />;
   }
   return null;
 };
@@ -140,14 +147,21 @@ const getSubtext = (row) => {
  **/
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
-  hero_id: (row, col, field) => (
-    <TableHeroImage
-      parsed={row.version}
-      heroName={heroes[field] ? heroes[field].localized_name : ''}
-      imageUrl={`${heroes[field] ? API_HOST + heroes[field].img : '/assets/images/blank-1x1.gif'}`}
-      subText={getSubtext(row)}
-    />
-  ),
+  hero_id: (row) => {
+    const heroName = heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero;
+    return (
+      <TableHeroImage
+        parsed={row.version}
+        image={`${heroes[row.hero_id] ? API_HOST + heroes[row.hero_id].img : '/assets/images/blank-1x1.gif'}`}
+        title={
+          row.rank !== undefined ?
+            <TableLink to={`/heroes/${row.hero_id}`}>{heroName}</TableLink>
+          : heroName
+        }
+        subtitle={getSubtitle(row)}
+      />
+    );
+  },
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
   radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
@@ -158,7 +172,6 @@ export const transformations = {
       return won ? styles.textSuccess : styles.textDanger;
     };
     const getString = (result) => {
-      // TODO localize strings
       if (result === undefined) {
         return strings.td_no_result;
       }
@@ -174,7 +187,7 @@ export const transformations = {
         </span>
       </div>);
   },
-  skill: (row, col, field) => (skill[field] ? skill[field] : ''),
+  skill: (row, col, field) => (skill[field] ? skill[field] : strings.general_unknown),
   game_mode: (row, col, field) => (gameMode[field] ? gameMode[field].name : field),
   match_id_and_game_mode: (row, col, field) => (
     <div>
@@ -195,6 +208,22 @@ export const transformations = {
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
   rank: row => getOrdinal(row.card - row.rank),
+  rank_percentile: row => (
+    <span style={{ color: styles[percentile(row.rank / row.card).color] }}>
+      {getPercentWin(row.rank, row.card).toFixed(2)}%
+    </span>
+  ),
+  player: row => (
+    <TableHeroImage
+      image={row.avatar}
+      imageWidth={29}
+      imageHeight={29}
+      title={row.name || row.personaname}
+      subtitle={<FromNowTooltip timestamp={row.last_played} />}
+      registered={row.last_login}
+      accountId={row.account_id}
+    />
+  ),
 };
 
 export const inflictorWithValue = ({
