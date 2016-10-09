@@ -11,7 +11,7 @@ import { withRouter } from 'react-router';
 import { deSnake } from 'utility';
 import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
-import Heading from 'components/Heading';
+// import Heading from 'components/Heading';
 
 const selectTrend = (router, playerId) => (trendName) => {
   router.push(`/players/${playerId}/trends/${trendName}`);
@@ -24,7 +24,6 @@ const Trend = ({ trendName = trendNames[0], columns, router, playerId }) => (
       selectedButton={trendName}
       onClick={selectTrend(router, playerId)}
     />
-    <Heading title={trendName} />
     <TrendGraph
       columns={columns}
       name={deSnake(trendName)}
