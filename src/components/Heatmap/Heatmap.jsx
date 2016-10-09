@@ -28,12 +28,8 @@ function scaleAndExtrema(points, scalef, max, shift) {
 const drawHeatmap = ({
   points,
   width,
-}, id) => {
+}, heatmap) => {
   if (points && points.length) {
-    const heatmap = h337.create({
-      container: document.getElementById(id),
-      radius: 15 * (width / 600),
-    });
     // scale points by width/127 units to fit to size of map
     // offset points by 25 units to increase visibility
     const adjustedData = scaleAndExtrema(points, width / 127, null, 25);
@@ -47,10 +43,14 @@ class Heatmap extends Component {
     this.id = `a-${uuid.v4()}`;
   }
   componentDidMount() {
-    drawHeatmap(this.props, this.id);
+    this.heatmap = h337.create({
+      container: document.getElementById(this.id),
+      radius: 15 * (this.props.width / 600),
+    });
+    drawHeatmap(this.props, this.heatmap);
   }
   componentWillUpdate(nextProps) {
-    drawHeatmap(nextProps, this.id);
+    drawHeatmap(nextProps, this.heatmap);
   }
 
   render() {

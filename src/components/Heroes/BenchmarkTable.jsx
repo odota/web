@@ -34,7 +34,7 @@ export default ({ data }) => (
             key={stat}
             tooltip={strings[`tooltip_${stat}`]}
           >
-            {strings[`abbr_${stat}`] || stat}
+            {strings[`th_${stat}`] || stat}
           </TableHeaderColumn>
         ))}
       </TableRow>

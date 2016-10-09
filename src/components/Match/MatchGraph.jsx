@@ -80,7 +80,7 @@ class MatchGraph extends Component {
 
   render() {
     return (<div>
-      <Heading title={strings[`graph_${this.props.type}`]} />
+      <Heading title={strings[`heading_graph_${this.props.type}`]} />
       <div className={styles.matchGraph} id={this.id} />
     </div>);
   }

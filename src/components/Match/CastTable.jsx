@@ -15,7 +15,7 @@ import {
 import Table from '../Table/Table';
 
 // TODO localize strings
-
+// TODO add tooltips
 const castsColumns = [{
   displayName: 'Name',
   field: 'name',

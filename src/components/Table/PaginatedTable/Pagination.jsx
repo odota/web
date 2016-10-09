@@ -11,7 +11,6 @@ import {
 } from 'actions';
 import styles from './Pagination.css';
 
-
 const getPages = ({
   currentPage,
   numPages,

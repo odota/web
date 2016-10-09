@@ -30,7 +30,6 @@ const navbarPages = [{
   path: '/become-the-gamer',
 }];
 
-// openMenu
 const Header = ({ location }) => (
   <div>
     <Toolbar className={styles.header}>
