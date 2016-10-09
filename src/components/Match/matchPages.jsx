@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   formatSeconds,
-  defaultSort,
+  // defaultSort,
   isRadiant,
 } from 'utility';
 import strings from 'lang';
@@ -11,10 +11,11 @@ import {
   Tab,
 } from 'material-ui/Tabs';
 import Heading from 'components/Heading';
-import Table, {
+import Table from 'components/Table/Table2';
+/*
+import {
   createTable,
 } from 'components/Table';
-// import Table2 from 'components/Table/Table2';
 import {
   setMatchSort,
 } from 'actions';
@@ -25,11 +26,13 @@ import {
   getSortField,
   getSortFn,
 } from 'reducers/match';
+*/
 import VisionMap from './VisionMap';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
 import MatchGraph from './MatchGraph';
 import BuildingMap from './BuildingMap';
+import MatchLog from './MatchLog';
 import {
   overviewColumns,
   abilityUpgradeColumns,
@@ -47,27 +50,24 @@ import {
   goldReasonsColumns,
   xpReasonsColumns,
   objectiveDamageColumns,
-  logColumns,
   analysisColumns,
   teamfightColumns,
   inflictorsColumns,
 } from './matchColumns';
-import generateLog from './generateLog';
 
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
     ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === '')
   );
 
+/*
 export const sortMatchPlayers = (state, team = '') =>
   defaultSort(filterMatchPlayers(getMatchPlayers(state), team), getSortState(state), getSortField(state), getSortFn(state));
-
 const MatchPlayersTable = createTable(
   getMatch,
   (state, sortState) => (sortState ? sortMatchPlayers(state) : filterMatchPlayers(getMatchPlayers(state))),
   setMatchSort
 );
-
 const MatchRadiantPlayersTable = createTable(
   getMatch,
   (state, sortState) => (sortState ? sortMatchPlayers(state, 'radiant') : filterMatchPlayers(getMatchPlayers(state), 'radiant')),
@@ -79,46 +79,67 @@ const MatchDirePlayersTable = createTable(
   (state, sortState) => (sortState ? sortMatchPlayers(state, 'dire') : filterMatchPlayers(getMatchPlayers(state), 'dire')),
   setMatchSort
 );
+*/
+
+const MatchPlayersTable = ({
+  match,
+  columns,
+}) => (<Table data={match.players} columns={columns} />);
+
+const MatchRadiantPlayersTable = ({
+  match,
+  columns,
+}) => (<Table data={filterMatchPlayers(match.players, 'radiant')} columns={columns} />);
+const MatchDirePlayersTable = ({
+  match,
+  columns,
+}) => (<Table data={filterMatchPlayers(match.players, 'dire')} columns={columns} />);
+const MatchPlayersTableSplit = ({
+  match,
+  columns,
+}) => (<div>
+  <MatchRadiantPlayersTable match={match} columns={columns} />
+  <MatchDirePlayersTable match={match} columns={columns} />
+</div>);
 
 const matchPages = [{
   name: strings.tab_overview,
   content: match => (<div>
-    <MatchRadiantPlayersTable columns={overviewColumns(match)} />
-    <MatchDirePlayersTable columns={overviewColumns(match)} />
-    <MatchPlayersTable columns={abilityUpgradeColumns} />
+    <MatchPlayersTableSplit match={match} columns={overviewColumns(match)} />
+    <MatchPlayersTable match={match} columns={abilityUpgradeColumns} />
     <BuildingMap match={match} />
   </div>),
 }, {
   name: strings.tab_benchmarks,
   content: match => (<div>
-    <MatchPlayersTable columns={benchmarksColumns(match)} />
+    <MatchPlayersTable match={match} columns={benchmarksColumns(match)} />
   </div>),
 }, {
   name: strings.tab_performances,
-  content: () => (<div>
-    <MatchPlayersTable columns={laningColumns} />
-    <MatchPlayersTable columns={overallColumns} />
+  content: match => (<div>
+    <MatchPlayersTable match={match} columns={laningColumns} />
+    <MatchPlayersTable match={match} columns={overallColumns} />
   </div>),
 }, {
   name: strings.tab_combat,
   content: match => (<div>
     <CrossTable match={match} field1="killed" field2="killed_by" />
     <CrossTable match={match} field1="damage" field2="damage_taken" />
-    <MatchPlayersTable columns={inflictorsColumns} />
+    <MatchPlayersTable match={match} columns={inflictorsColumns} />
   </div>),
 }, {
   name: strings.tab_farm,
   content: match => (<div>
-    <MatchPlayersTable columns={unitKillsColumns} />
-    <MatchPlayersTable columns={lastHitsTimesColumns(match)} />
-    <MatchPlayersTable columns={goldReasonsColumns} />
-    <MatchPlayersTable columns={xpReasonsColumns} />
+    <MatchPlayersTable match={match} columns={unitKillsColumns} />
+    <MatchPlayersTable match={match} columns={lastHitsTimesColumns(match)} />
+    <MatchPlayersTable match={match} columns={goldReasonsColumns} />
+    <MatchPlayersTable match={match} columns={xpReasonsColumns} />
   </div>),
 }, {
   name: strings.tab_purchases,
   content: match => (<div>
-    <MatchPlayersTable columns={purchaseColumns} />
-    <MatchPlayersTable columns={purchaseTimesColumns(match)} />
+    <MatchPlayersTable match={match} columns={purchaseColumns} />
+    <MatchPlayersTable match={match} columns={purchaseTimesColumns(match)} />
   </div>),
 }, {
   name: strings.tab_graphs,
@@ -135,9 +156,9 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_objectives,
-  content: () => (<div>
-    <MatchPlayersTable columns={objectiveDamageColumns} />
-    <MatchPlayersTable columns={runesColumns} />
+  content: match => (<div>
+    <MatchPlayersTable match={match} columns={objectiveDamageColumns} />
+    <MatchPlayersTable match={match} columns={runesColumns} />
   </div>),
 }, {
   name: strings.tab_vision,
@@ -146,8 +167,8 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_actions,
-  content: () => (<div>
-    <MatchPlayersTable columns={actionsColumns} />
+  content: match => (<div>
+    <MatchPlayersTable match={match} columns={actionsColumns} />
   </div>),
 }, {
   name: strings.tab_teamfights,
@@ -168,17 +189,15 @@ const matchPages = [{
     </div>),
 }, {
   name: strings.tab_analysis,
-  content: () => (<MatchPlayersTable columns={analysisColumns} />),
+  content: match => (<MatchPlayersTable match={match} columns={analysisColumns} />),
 }, {
   name: strings.tab_cosmetics,
-  content: () => (<div>
-    <MatchPlayersTable columns={cosmeticsColumns} />
+  content: match => (<div>
+    <MatchPlayersTable match={match} columns={cosmeticsColumns} />
   </div>),
 }, {
   name: strings.tab_log,
-  content: match => (<div>
-    <Table data={generateLog(match)} columns={logColumns} />
-  </div>),
+  content: match => (<MatchLog match={match} />),
 }, {
   name: strings.tab_chat,
   content: match => (<div>

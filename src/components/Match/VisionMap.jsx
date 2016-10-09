@@ -6,6 +6,7 @@ import {
   isRadiant,
   transformations,
 } from 'utility';
+import { Row, Col } from 'react-flexbox-grid';
 
 const obsWard = (style, stroke, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
   <g>
@@ -60,7 +61,7 @@ class VisionMap extends React.Component {
       top: ((width / 127) * ward.y) - (width / 12),
       left: ((width / 127) * ward.x) - (width / 12),
     });
-    const iconSize = width / 6;
+    const iconSize = width / 8;
     const obsIcons = [];
     const senIcons = [];
     Object.keys(enabledIndex).forEach((index) => {
@@ -74,31 +75,37 @@ class VisionMap extends React.Component {
         }
       }
     });
-    return (<div>
-      <div>
+    return (<Row>
+      <Col md={6}>
+        <div
+          style={{
+            position: 'relative',
+            top: 0,
+            left: 0,
+            width: this.props.width,
+          }}
+        >
+          <img width={this.props.width} src="/assets/images/map.png" role="presentation" />
+          {obsIcons}
+          {senIcons}
+        </div>
+      </Col>
+      <Col md={6}>
         {this.props.match.players.map((player, i) => (<div>
-          <Checkbox
-            checkedIcon={<Visibility />}
-            uncheckedIcon={<VisibilityOff />}
-            onCheck={(event, checked) => this.updateMap(event, checked, i)}
-          />
-          {transformations.hero_id(player, 'hero_id', player.hero_id)}
+          <span>
+            <Checkbox
+              checkedIcon={<Visibility />}
+              uncheckedIcon={<VisibilityOff />}
+              onCheck={(event, checked) => this.updateMap(event, checked, i)}
+            />
+          </span>
+          <span>
+            {transformations.hero_id(player, 'hero_id', player.hero_id)}
+          </span>
         </div>))
         }
-      </div>
-      <div
-        style={{
-          position: 'relative',
-          top: 0,
-          left: 0,
-          width: this.props.width,
-        }}
-      >
-        <img width={this.props.width} src="/assets/images/map.png" role="presentation" />
-        {obsIcons}
-        {senIcons}
-      </div>
-    </div>);
+      </Col>
+    </Row>);
   }
 }
 
