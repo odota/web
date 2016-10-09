@@ -2,27 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   getPlayerRankings,
-  setPlayerRankingsSort,
 } from 'actions';
-import {
-  sortPlayerRankings,
-  transformPlayerRankingsById,
-} from 'selectors';
 import { playerRankings } from 'reducers';
-import { createTable, TableContainer } from 'components/Table';
+import Table, { TableContainer } from 'components/Table';
 import strings from 'lang';
 import playerRankingsColumns from './playerRankingsColumns';
 
-const PlayerRankingsTable = createTable(
-  playerRankings.getPlayerRankingsById,
-  (state, sortState, playerId) => (sortState ? sortPlayerRankings(playerId)(state) : transformPlayerRankingsById(playerId)(state)),
-  setPlayerRankingsSort
-);
-
-const Rankings = ({ playerId }) => (
+const Rankings = ({ data }) => (
   <div>
     <TableContainer title={strings.heading_rankings}>
-      <PlayerRankingsTable columns={playerRankingsColumns} id={playerId} />
+      <Table paginated columns={playerRankingsColumns} data={data} />
     </TableContainer>
   </div>
 );
@@ -47,8 +36,12 @@ class RequestLayer extends React.Component {
   }
 }
 
+const mapStateToProps = (state, { playerId }) => ({
+  data: playerRankings.getRankingList(state, playerId),
+});
+
 const mapDispatchToProps = dispatch => ({
   getPlayerRankings: (playerId, options) => dispatch(getPlayerRankings(playerId, options)),
 });
 
-export default connect(null, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

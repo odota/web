@@ -9,22 +9,12 @@ const url = playerId => `/api/players/${playerId}/records`;
 const REQUEST = 'playerRecords/REQUEST';
 const OK = 'playerRecords/OK';
 const ERROR = 'playerRecords/ERROR';
-const SORT = 'playerRecords/SORT';
 
 export const playerRecordsActions = {
   REQUEST,
   OK,
   ERROR,
-  SORT,
 };
-
-export const setPlayerRecordsSort = (sortField, sortState, sortFn, id) => ({
-  type: SORT,
-  sortField,
-  sortState,
-  sortFn,
-  id,
-});
 
 export const getPlayerRecordsRequest = id => ({ type: REQUEST, id });
 

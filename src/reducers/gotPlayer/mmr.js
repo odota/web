@@ -6,9 +6,6 @@ const initialState = {
   error: false,
   loaded: false,
   list: [],
-  sortState: '',
-  sortField: '',
-  sortFn: f => f,
 };
 
 export default createReducer(initialState, playerMMRActions);
@@ -26,7 +23,4 @@ export const getPlayerMMR = {
   getLoading: (state, id) => getPlayerMMR.getPlayerMMRById(state, id).loading,
   isLoaded: (state, id) => getPlayerMMR.getPlayerMMRById(state, id).loaded,
   getList: (state, id) => getPlayerMMR.getPlayerMMRById(state, id).list,
-  getSortState: (state, id) => getPlayerMMR.getPlayerMMRById(state, id).sortState,
-  getSortField: (state, id) => getPlayerMMR.getPlayerMMRById(state, id).sortField,
-  getSortFn: (state, id) => getPlayerMMR.getPlayerMMRById(state, id).sortFn,
 };
