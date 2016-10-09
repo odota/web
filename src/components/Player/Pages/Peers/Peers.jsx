@@ -2,38 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   getPlayerPeers,
-  setPlayerPeersSort,
 } from 'actions';
-import {
-  sortPlayerPeers,
-  transformPlayerPeersById,
-} from 'selectors';
 import { playerPeers } from 'reducers';
-import { createTable, TableContainer } from 'components/Table';
+import Table, { TableContainer } from 'components/Table';
 import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerPeersColumns from './playerPeersColumns';
 
-const PeersTable = createTable(
-  playerPeers.getPlayerPeersById,
-  (state, sortState, playerId) => (sortState ? sortPlayerPeers(playerId)(state) : transformPlayerPeersById(playerId)(state)),
-  setPlayerPeersSort
-);
-
-const Peers = ({ playerId }) => (
+const Peers = ({ playerId, data }) => (
   <div>
     <TableFilterForm submitAction={getPlayerPeers} id={playerId} page="peers" />
     <TableContainer title={strings.heading_peers}>
-      <PeersTable columns={playerPeersColumns} id={playerId} />
+      <Table paginated sorted columns={playerPeersColumns} data={data} />
     </TableContainer>
   </div>
 );
-
-const mapStateToProps = (state, { playerId }) => ({ playerId });
-
-const mapDispatchToProps = dispatch => ({
-  getPlayerPeers: playerId => dispatch(getPlayerPeers(playerId)),
-});
 
 const getData = (props) => {
   props.getPlayerPeers(props.playerId);
@@ -54,5 +37,13 @@ class RequestLayer extends React.Component {
     return <Peers {...this.props} />;
   }
 }
+
+const mapStateToProps = (state, { playerId }) => ({
+  data: playerPeers.getPeerList(state, playerId),
+});
+const mapDispatchToProps = dispatch => ({
+  getPlayerPeers: playerId => dispatch(getPlayerPeers(playerId)),
+});
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

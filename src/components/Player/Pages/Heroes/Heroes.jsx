@@ -3,22 +3,11 @@ import { connect } from 'react-redux';
 import strings from 'lang';
 import {
   getPlayerHeroes,
-  setPlayerHeroesSort,
 } from 'actions';
-import {
-  sortPlayerHeroes,
-  transformPlayerHeroesById,
-} from 'selectors';
 import { playerHeroes } from 'reducers';
-import Table, { createTable, TableContainer } from 'components/Table';
+import Table, { TableContainer } from 'components/Table';
 import { TableFilterForm } from 'components/Form';
 import { playerHeroesColumns } from './playerHeroesColumns';
-
-const PlayerHeroesTable = createTable(
-  playerHeroes.getPlayerHeroesById,
-  (state, sortState, playerId) => (sortState ? sortPlayerHeroes(playerId)(state) : transformPlayerHeroesById(playerId)(state)),
-  setPlayerHeroesSort
-);
 
 const Heroes = ({ playerId, data }) => (
   <div>

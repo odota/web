@@ -2,29 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   getPlayerPros,
-  setPlayerProsSort,
 } from 'actions';
-import {
-  sortPlayerPros,
-  transformPlayerProsById,
-} from 'selectors';
 import { playerPros } from 'reducers';
-import { createTable, TableContainer } from 'components/Table';
+import Table, { TableContainer } from 'components/Table';
 import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerProsColumns from './playerProsColumns';
 
-const PlayerProsTable = createTable(
-  playerPros.getPlayerProsById,
-  (state, sortState, playerId) => (sortState ? sortPlayerPros(playerId)(state) : transformPlayerProsById(playerId)(state)),
-  setPlayerProsSort
-);
-
-const Pros = ({ playerId }) => (
+const Pros = ({ playerId, data }) => (
   <div>
     <TableFilterForm submitAction={getPlayerPros} id={playerId} page="pros" />
     <TableContainer title={strings.heading_pros}>
-      <PlayerProsTable columns={playerProsColumns} id={playerId} />
+      <Table paginated sorted columns={playerProsColumns} data={data} />
     </TableContainer>
   </div>
 );
@@ -52,5 +41,8 @@ class RequestLayer extends React.Component {
 const mapDispatchToProps = dispatch => ({
   getPlayerPros: (playerId, options) => dispatch(getPlayerPros(playerId, options)),
 });
+const mapStateToProps = (state, { playerId }) => ({
+  data: playerPros.getProsList(state, playerId),
+});
 
-export default connect(null, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
