@@ -295,7 +295,7 @@ export const performanceColumns = [
     displayName: strings.th_map,
     field: 'posData',
     displayFn: (row, col, field) => (field ?
-      <Heatmap width={70} points={field.lane_pos} /> :
+      <Heatmap width={80} points={field.lane_pos} /> :
       <div />),
   }, {
     displayName: strings.th_efften,
