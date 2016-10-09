@@ -45,45 +45,39 @@ const filterMatchPlayers = (players, team = '') =>
     ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === '')
   ).sort((a, b) => a.player_slot - b.player_slot);
 
-const MatchPlayersTable = ({
+const TeamTable = ({
   match,
   columns,
-}) => (<Table data={match.players} columns={columns} />);
-
-const MatchPlayersTableSplit = ({
-  match,
-  columns,
+  heading = '',
 }) => (<div>
+  <Heading title={`${strings.general_radiant} ${heading}`} />
   <Table data={filterMatchPlayers(match.players, 'radiant')} columns={columns} />
+  <Heading title={`${strings.general_dire} ${heading}`} />
   <Table data={filterMatchPlayers(match.players, 'dire')} columns={columns} />
 </div>);
 
+// TODO: Add networth and xp graph to overview
 const matchPages = [{
   name: strings.tab_overview,
   content: match => (<div>
-    <Heading title={strings.heading_overview} />
-    <MatchPlayersTableSplit match={match} columns={overviewColumns(match)} />
-    <Heading title={strings.heading_ability_builds} />
-    <MatchPlayersTable match={match} columns={abilityUpgradeColumns} />
+    <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
+    <TeamTable match={match} columns={abilityUpgradeColumns} heading={strings.heading_ability_builds} />
     <Heading title={strings.heading_buildings} />
     <BuildingMap match={match} />
   </div>),
 }, {
   name: strings.tab_benchmarks,
   content: match => (<div>
-    <Heading title={strings.heading_benchmarks} />
-    <MatchPlayersTable match={match} columns={benchmarksColumns(match)} />
+    <TeamTable match={match} columns={benchmarksColumns(match)} heading={strings.heading_benchmarks} />
   </div>),
 }, {
   name: strings.tab_performances,
   content: match => (<Row>
     <Col md={12}>
-      <Heading title={strings.heading_performances} />
-      <MatchPlayersTable match={match} columns={performanceColumns} />
+      <TeamTable match={match} columns={performanceColumns} heading={strings.heading_performances} />
     </Col>
     <Col md={12}>
-      <Heading title={strings.heading_support} />
-      <MatchPlayersTable match={match} columns={supportColumns} />
+      <TeamTable match={match} columns={supportColumns} heading={strings.heading_support} />
     </Col>
   </Row>),
 }, {
@@ -98,33 +92,27 @@ const matchPages = [{
       <CrossTable match={match} field1="damage" field2="damage_taken" />
     </Col>
     <Col md={12}>
-      <Heading title={strings.heading_damage} />
-      <MatchPlayersTable match={match} columns={inflictorsColumns} />
+      <TeamTable match={match} columns={inflictorsColumns} heading={strings.heading_damage} />
     </Col>
   </Row>),
 }, {
   name: strings.tab_farm,
   content: match => (<div>
-    <Heading title={strings.heading_unit_kills} />
-    <MatchPlayersTable match={match} columns={unitKillsColumns} />
-    <Heading title={strings.heading_last_hits} />
-    <MatchPlayersTable match={match} columns={lastHitsTimesColumns(match)} />
+    <TeamTable match={match} columns={unitKillsColumns} heading={strings.heading_unit_kills} />
+    <TeamTable match={match} columns={lastHitsTimesColumns(match)} heading={strings.heading_last_hits} />
     <Row>
       <Col md={8}>
-        <Heading title={strings.heading_gold_reasons} />
-        <MatchPlayersTable match={match} columns={goldReasonsColumns} />
+        <TeamTable match={match} columns={goldReasonsColumns} heading={strings.heading_gold_reasons} />
       </Col>
       <Col md={4}>
-        <Heading title={strings.heading_xp_reasons} />
-        <MatchPlayersTable match={match} columns={xpReasonsColumns} />
+        <TeamTable match={match} columns={xpReasonsColumns} heading={strings.heading_xp_reasons} />
       </Col>
     </Row>
   </div>),
 }, {
   name: strings.tab_purchases,
   content: match => (<div>
-    <Heading title={strings.heading_purchase_log} />
-    <MatchPlayersTable match={match} columns={purchaseTimesColumns(match)} />
+    <TeamTable match={match} columns={purchaseTimesColumns(match)} heading={strings.heading_purchase_log} />
   </div>),
 }, {
   name: strings.tab_graphs,
@@ -143,10 +131,8 @@ const matchPages = [{
 }, {
   name: strings.tab_objectives,
   content: match => (<div>
-    <Heading title={strings.heading_objective_damage} />
-    <MatchPlayersTable match={match} columns={objectiveDamageColumns} />
-    <Heading title={strings.heading_runes} />
-    <MatchPlayersTable match={match} columns={runesColumns} />
+    <TeamTable match={match} columns={objectiveDamageColumns} heading={strings.heading_objective_damage} />
+    <TeamTable match={match} columns={runesColumns} heading={strings.heading_runes} />
   </div>),
 }, {
   name: strings.tab_vision,
@@ -157,8 +143,7 @@ const matchPages = [{
 }, {
   name: strings.tab_actions,
   content: match => (<div>
-    <Heading title={strings.heading_actions} />
-    <MatchPlayersTable match={match} columns={actionsColumns} />
+    <TeamTable match={match} columns={actionsColumns} heading={strings.heading_actions} />
   </div>),
 }, {
   name: strings.tab_teamfights,
@@ -180,14 +165,12 @@ const matchPages = [{
 }, {
   name: strings.tab_analysis,
   content: match => (<div>
-    <Heading title={strings.heading_analysis} />
-    <MatchPlayersTable match={match} columns={analysisColumns} />
+    <TeamTable match={match} columns={analysisColumns} heading={strings.heading_analysis} />
   </div>),
 }, {
   name: strings.tab_cosmetics,
   content: match => (<div>
-    <Heading title={strings.heading_cosmetics} />
-    <MatchPlayersTable match={match} columns={cosmeticsColumns} />
+    <TeamTable match={match} columns={cosmeticsColumns} heading={strings.heading_cosmetics} />
   </div>),
 }, {
   name: strings.tab_log,
