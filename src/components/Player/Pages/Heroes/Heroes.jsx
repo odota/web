@@ -10,7 +10,7 @@ import {
   transformPlayerHeroesById,
 } from 'selectors';
 import { playerHeroes } from 'reducers';
-import { createTable, TableContainer } from 'components/Table';
+import Table, { createTable, TableContainer } from 'components/Table';
 import { TableFilterForm } from 'components/Form';
 import { playerHeroesColumns } from './playerHeroesColumns';
 
@@ -20,11 +20,11 @@ const PlayerHeroesTable = createTable(
   setPlayerHeroesSort
 );
 
-const Heroes = ({ playerId }) => (
+const Heroes = ({ playerId, data }) => (
   <div>
     <TableFilterForm submitAction={getPlayerHeroes} id={playerId} page="heroes" />
     <TableContainer title={strings.heading_heroes}>
-      <PlayerHeroesTable columns={playerHeroesColumns} id={playerId} />
+      <Table paginated sorted columns={playerHeroesColumns} data={data} />
     </TableContainer>
   </div>
 );
@@ -49,8 +49,12 @@ class RequestLayer extends React.Component {
   }
 }
 
+const mapStateToProps = (state, { playerId }) => ({
+  data: playerHeroes.getHeroList(state, playerId),
+});
+
 const mapDispatchToProps = dispatch => ({
   getPlayerHeroes: (playerId, options) => dispatch(getPlayerHeroes(playerId, options)),
 });
 
-export default connect(null, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

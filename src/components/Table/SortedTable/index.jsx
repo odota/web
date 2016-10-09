@@ -1,1 +1,1 @@
-export { default } from './SortedTable';
+export { default } from './withSort';

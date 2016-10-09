@@ -15,6 +15,7 @@ import transformPlayerCountsById from 'selectors/transformPlayerCounts';
 import transformPlayerRecordsById from 'selectors/transformPlayerRecords';
 import transformPlayerItemsById from 'selectors/transformPlayerItems';
 
+export { default as getSortedTable } from 'selectors/getSortedTable';
 export { default as getCumulativeDataByField } from 'selectors/trends/getPlayerTrend';
 
 export {

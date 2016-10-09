@@ -2,33 +2,33 @@ import React from 'react';
 import { connect } from 'react-redux';
 import uuid from 'node-uuid';
 import { table } from 'reducers';
-import { setCurrentPage } from 'actions';
-import Sort from './Sort';
-
+import { sortTable } from 'actions';
+// TODO - get sorting to actually work. Nothing happens when I click right now.
 // We have to give the table an id so we can hold all tables currentPage in memory.
 export default (Table, id = uuid.v4()) => {
-  const PaginatedTable = ({ currentPage, data, pageLength = 50, setCurrentPage, ...rest }) => {
+  const SortedTable = ({ data, sortState, sortTable, ...rest }) => {
+    console.log('sortedTable', sortState, sortTable);
     if (data) {
-      if (currentPage > Math.ceil(data.length / pageLength)) {
-        setCurrentPage(0);
-      }
       return (
         <div>
-          <Sort id={id} numPages={Math.ceil(data.length / pageLength)} currentPage={currentPage} />
-          <Table {...rest} data={data.slice(currentPage * pageLength, (currentPage + 1) * pageLength)} />
+          <Table
+            {...rest}
+            sortState={sortState}
+            sortClick={sortTable}
+            data={data}
+          />
         </div>
       );
     }
     return <span />;
   };
 
-  const mapStateToProps = (state) => ({
-    currentPage: table.getCurrentPage(state, id),
+  const mapStateToProps = (state, { data }) => ({
+    sortState: table.getSortState(state, id),
+    data: table.getSortedData(data)(state, id),
   });
 
-  const mapDispatchToProps = (dispatch) => ({
-    setCurrentPage: page => dispatch(setCurrentPage(id, page)),
-  });
-
-  return connect(mapStateToProps, mapDispatchToProps)(PaginatedTable);
+  return connect(mapStateToProps, {
+    sortTable: sortTable(id),
+  })(SortedTable);
 };

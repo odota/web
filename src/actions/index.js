@@ -12,7 +12,7 @@ export { playerCountsActions, getPlayerCounts, setPlayerCountsSort } from './pla
 export { playerMMRActions, getPlayerMMR } from './player/playerMMRActions';
 export { playerItemsActions, getPlayerItems, setPlayerItemsSort } from './player/playerItemsActions';
 export { playerWinLossActions, getPlayerWinLoss } from './player/playerWinLossActions';
-export { tableActions, setCurrentPage, nextPage, prevPage } from './tableActions';
+export { tableActions, setCurrentPage, nextPage, prevPage, sortTable } from './tableActions';
 export { formActions, addChip, deleteChip, setFieldText, submitForm, clearForm, toggleShowForm } from './formActions';
 export { rankingActions, getRanking } from './rankingActions';
 export { benchmarkActions, getBenchmark } from './benchmarkActions';
