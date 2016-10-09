@@ -6,8 +6,7 @@ import { sortTable } from 'actions';
 // TODO - get sorting to actually work. Nothing happens when I click right now.
 // We have to give the table an id so we can hold all tables currentPage in memory.
 export default (Table, id = uuid.v4()) => {
-  const SortedTable = ({ data, sortState, sortTable, ...rest }) => {
-    console.log('sortedTable', sortState, sortTable);
+  const SortedTable = ({ data, sortState, sortField, sortTable, ...rest }) => {
     if (data) {
       return (
         <div>
@@ -15,6 +14,7 @@ export default (Table, id = uuid.v4()) => {
             {...rest}
             sortState={sortState}
             sortClick={sortTable}
+            sortField={sortField}
             data={data}
           />
         </div>
@@ -25,6 +25,7 @@ export default (Table, id = uuid.v4()) => {
 
   const mapStateToProps = (state, { data }) => ({
     sortState: table.getSortState(state, id),
+    sortField: table.getSortField(state, id),
     data: table.getSortedData(data)(state, id),
   });
 
