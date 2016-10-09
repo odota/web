@@ -38,10 +38,9 @@ import {
   overviewColumns,
   abilityUpgradeColumns,
   benchmarksColumns,
-  overallColumns,
-  laningColumns,
+  performanceColumns,
+  supportColumns,
   chatColumns,
-  purchaseColumns,
   purchaseTimesColumns,
   lastHitsTimesColumns,
   unitKillsColumns,
@@ -59,7 +58,7 @@ import {
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
     ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === '')
-  ).sort((a, b) => b.player_slot - a.player_slot);
+  ).sort((a, b) => a.player_slot - b.player_slot);
 
 /*
 export const sortMatchPlayers = (state, team = '') =>
@@ -122,13 +121,13 @@ const matchPages = [{
 }, {
   name: strings.tab_performances,
   content: match => (<Row>
-    <Col md={6}>
-      <Heading title={strings.heading_laning} />
-      <MatchPlayersTable match={match} columns={laningColumns} />
+    <Col md={12}>
+      <Heading title={strings.heading_performances} />
+      <MatchPlayersTable match={match} columns={performanceColumns} />
     </Col>
-    <Col md={6}>
-      <Heading title={strings.heading_overall} />
-      <MatchPlayersTable match={match} columns={overallColumns} />
+    <Col md={12}>
+      <Heading title={strings.heading_support} />
+      <MatchPlayersTable match={match} columns={supportColumns} />
     </Col>
   </Row>),
 }, {
@@ -162,8 +161,6 @@ const matchPages = [{
 }, {
   name: strings.tab_purchases,
   content: match => (<div>
-    <Heading title={strings.heading_support_purchases} />
-    <MatchPlayersTable match={match} columns={purchaseColumns} />
     <Heading title={strings.heading_purchase_log} />
     <MatchPlayersTable match={match} columns={purchaseTimesColumns(match)} />
   </div>),

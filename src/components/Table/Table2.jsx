@@ -40,7 +40,9 @@ class Table extends React.Component {
       pageNum,
     } = this.state;
     const pageSizeToUse = pageSize || data.length;
-    const dataToRender = defaultSort([...data], sortState, sortField, sortFn).slice(pageNum * pageSizeToUse, (pageNum + 1) * pageSizeToUse);
+    const dataToRender = sortState || pageNum || pageSize
+      ? defaultSort([...data], sortState, sortField, sortFn).slice(pageNum * pageSizeToUse, (pageNum + 1) * pageSizeToUse)
+      : [...data];
     return (<div className={styles.innerContainer}>
       <MaterialTable fixedHeader={false} style={{ tableLayout: 'auto' }} selectable={false} className={styles.table}>
         <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false} className={styles.header}>
