@@ -14,22 +14,12 @@ const url = playerId => `/api/players/${playerId}/matches`;
 const REQUEST = 'playerMatches/REQUEST';
 const OK = 'playerMatches/OK';
 const ERROR = 'playerMatches/ERROR';
-const SORT = 'playerMatches/SORT';
 
 export const playerMatchesActions = {
   REQUEST,
   OK,
   ERROR,
-  SORT,
 };
-
-export const setPlayerMatchesSort = (sortField, sortState, sortFn, id) => ({
-  type: SORT,
-  sortField,
-  sortState,
-  sortFn,
-  id,
-});
 
 export const getPlayerMatchesRequest = id => ({
   type: REQUEST,

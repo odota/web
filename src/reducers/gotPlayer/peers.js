@@ -6,9 +6,6 @@ const initialState = {
   error: false,
   loaded: false,
   list: [],
-  sortState: '',
-  sortField: '',
-  sortFn: f => f,
 };
 
 export default createReducer(initialState, playerPeersActions);
@@ -26,7 +23,4 @@ export const getPlayerPeers = {
   getLoading: (state, id) => getPlayerPeers.getPlayerPeersById(state, id).loading,
   isLoaded: (state, id) => getPlayerPeers.getPlayerPeersById(state, id).loaded,
   getPeerList: (state, id) => getPlayerPeers.getPlayerPeersById(state, id).list,
-  getSortState: (state, id) => getPlayerPeers.getPlayerPeersById(state, id).sortState,
-  getSortField: (state, id) => getPlayerPeers.getPlayerPeersById(state, id).sortField,
-  getSortFn: (state, id) => getPlayerPeers.getPlayerPeersById(state, id).sortFn,
 };

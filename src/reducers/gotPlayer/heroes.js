@@ -6,9 +6,6 @@ const initialState = {
   error: false,
   loaded: false,
   list: [],
-  sortState: '',
-  sortField: '',
-  sortFn: f => f,
 };
 
 export default createReducer(initialState, playerHeroesActions);
@@ -26,7 +23,4 @@ export const getPlayerHeroes = {
   getLoading: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).loading,
   isLoaded: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).loaded,
   getHeroList: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).list,
-  getSortState: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).sortState,
-  getSortField: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).sortField,
-  getSortFn: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).sortFn,
 };

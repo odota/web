@@ -9,22 +9,12 @@ const url = playerId => `/api/players/${playerId}/heroes`;
 const REQUEST = 'playerHeroes/REQUEST';
 const OK = 'playerHeroes/OK';
 const ERROR = 'playerHeroes/ERROR';
-const SORT = 'playerHeroes/SORT';
 
 export const playerHeroesActions = {
   REQUEST,
   OK,
   ERROR,
-  SORT,
 };
-
-export const setPlayerHeroesSort = (sortField, sortState, sortFn, id) => ({
-  type: SORT,
-  sortField,
-  sortState,
-  sortFn,
-  id,
-});
 
 export const getPlayerHeroesRequest = id => ({ type: REQUEST, id });
 
