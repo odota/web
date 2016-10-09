@@ -4,17 +4,11 @@ import {
 } from 'react-redux';
 import {
   getPlayerMatches,
-  setPlayerMatchesSort,
 } from 'actions';
-import {
-  sortPlayerMatches,
-  transformPlayerMatchesById,
-} from 'selectors';
 import {
   playerMatches,
 } from 'reducers';
-import {
-  createTable,
+import Table, {
   TableContainer,
 } from 'components/Table';
 import {
@@ -22,19 +16,14 @@ import {
 } from 'components/Form';
 import playerMatchesColumns from './playerMatchesColumns';
 
-const PlayerMatchesTable = createTable(
-  playerMatches.getPlayerMatchesById,
-  (state, sortState, playerId) => (sortState ? sortPlayerMatches(playerId)(state) : transformPlayerMatchesById(playerId)(state)),
-  setPlayerMatchesSort
-);
-
 const Matches = ({
   playerId,
+  data,
 }) => (
   <div>
     <TableFilterForm submitAction={getPlayerMatches} id={playerId} page="matches" />
     <TableContainer title="Recent Matches">
-      <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
+      <Table paginated columns={playerMatchesColumns} data={data} />
     </TableContainer>
   </div>
 );
@@ -63,8 +52,12 @@ const defaultOptions = {
   limit: null,
 };
 
+const mapStateToProps = (state, { playerId }) => ({
+  data: playerMatches.getMatchList(state, playerId),
+});
+
 const mapDispatchToProps = dispatch => ({
   getPlayerMatches: (playerId, options = defaultOptions) => dispatch(getPlayerMatches(playerId, options)),
 });
 
-export default connect(null, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
