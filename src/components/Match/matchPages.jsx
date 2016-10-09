@@ -12,6 +12,7 @@ import {
 } from 'material-ui/Tabs';
 import Heading from 'components/Heading';
 import Table from 'components/Table/Table2';
+import { Row, Col } from 'react-flexbox-grid';
 /*
 import {
   createTable,
@@ -58,7 +59,7 @@ import {
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
     ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === '')
-  );
+  ).sort((a,b) => b.player_slot - a.player_slot);
 
 /*
 export const sortMatchPlayers = (state, team = '') =>
@@ -105,40 +106,65 @@ const MatchPlayersTableSplit = ({
 const matchPages = [{
   name: strings.tab_overview,
   content: match => (<div>
+    <Heading title={strings.heading_overview} />
     <MatchPlayersTableSplit match={match} columns={overviewColumns(match)} />
+    <Heading title={strings.heading_ability_builds} />
     <MatchPlayersTable match={match} columns={abilityUpgradeColumns} />
+    <Heading title={strings.heading_buildings} />
     <BuildingMap match={match} />
   </div>),
 }, {
   name: strings.tab_benchmarks,
   content: match => (<div>
+    <Heading title={strings.heading_benchmarks} />
     <MatchPlayersTable match={match} columns={benchmarksColumns(match)} />
   </div>),
 }, {
   name: strings.tab_performances,
-  content: match => (<div>
-    <MatchPlayersTable match={match} columns={laningColumns} />
-    <MatchPlayersTable match={match} columns={overallColumns} />
-  </div>),
+  content: match => (<Row>
+    <Col md={6}>
+      <Heading title={strings.heading_laning} />
+      <MatchPlayersTable match={match} columns={laningColumns} />
+    </Col>
+    <Col md={6}>
+      <Heading title={strings.heading_overall} />
+      <MatchPlayersTable match={match} columns={overallColumns} />
+    </Col>
+  </Row>),
 }, {
   name: strings.tab_combat,
-  content: match => (<div>
-    <CrossTable match={match} field1="killed" field2="killed_by" />
-    <CrossTable match={match} field1="damage" field2="damage_taken" />
-    <MatchPlayersTable match={match} columns={inflictorsColumns} />
-  </div>),
+  content: match => (<Row>
+    <Col md={6}>
+      <Heading title={strings.heading_kills} />
+      <CrossTable match={match} field1="killed" field2="killed_by" />
+    </Col>
+    <Col md={6}>
+      <Heading title={strings.heading_damage} />
+      <CrossTable match={match} field1="damage" field2="damage_taken" />
+    </Col>
+    <Col md={12}>
+      <Heading title={strings.heading_damage} />
+      <MatchPlayersTable match={match} columns={inflictorsColumns} />
+    </Col>
+  </Row>),
 }, {
   name: strings.tab_farm,
   content: match => (<div>
+    <Heading title={strings.heading_unit_kills} />
     <MatchPlayersTable match={match} columns={unitKillsColumns} />
+    <Heading title={strings.heading_last_hits} />
     <MatchPlayersTable match={match} columns={lastHitsTimesColumns(match)} />
+    <Heading title={strings.heading_gold_reasons} />
     <MatchPlayersTable match={match} columns={goldReasonsColumns} />
+    <Heading title={strings.heading_xp_reasons} />
     <MatchPlayersTable match={match} columns={xpReasonsColumns} />
   </div>),
 }, {
   name: strings.tab_purchases,
   content: match => (<div>
+    <Heading title={strings.heading_support_purchases} />
     <MatchPlayersTable match={match} columns={purchaseColumns} />
+    <Heading title={strings.heading_purchase_log} />
     <MatchPlayersTable match={match} columns={purchaseTimesColumns(match)} />
   </div>),
 }, {
@@ -152,22 +178,27 @@ const matchPages = [{
 }, {
   name: strings.tab_casts,
   content: match => (<div>
+    <Heading title={strings.heading_casts} />
     <CastTable match={match} />
   </div>),
 }, {
   name: strings.tab_objectives,
   content: match => (<div>
+    <Heading title={strings.heading_objective_damage} />
     <MatchPlayersTable match={match} columns={objectiveDamageColumns} />
+    <Heading title={strings.heading_runes} />
     <MatchPlayersTable match={match} columns={runesColumns} />
   </div>),
 }, {
   name: strings.tab_vision,
   content: match => (<div>
+    <Heading title={strings.heading_vision} />
     <VisionMap match={match} />
   </div>),
 }, {
   name: strings.tab_actions,
   content: match => (<div>
+    <Heading title={strings.heading_actions} />
     <MatchPlayersTable match={match} columns={actionsColumns} />
   </div>),
 }, {
@@ -189,18 +220,26 @@ const matchPages = [{
     </div>),
 }, {
   name: strings.tab_analysis,
-  content: match => (<MatchPlayersTable match={match} columns={analysisColumns} />),
+  content: match => (<div>
+    <Heading title={strings.heading_analysis} />
+    <MatchPlayersTable match={match} columns={analysisColumns} />
+  </div>),
 }, {
   name: strings.tab_cosmetics,
   content: match => (<div>
+    <Heading title={strings.heading_cosmetics} />
     <MatchPlayersTable match={match} columns={cosmeticsColumns} />
   </div>),
 }, {
   name: strings.tab_log,
-  content: match => (<MatchLog match={match} />),
+  content: match => (<div>
+    <Heading title={strings.heading_log} />
+    <MatchLog match={match} />
+  </div>),
 }, {
   name: strings.tab_chat,
   content: match => (<div>
+    <Heading title={strings.heading_chat} />
     <Table data={(match.chat || []).map(c => Object.assign({}, c, match.players[c.slot]))} columns={chatColumns} />
   </div>),
 }];

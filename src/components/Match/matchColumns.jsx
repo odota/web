@@ -86,70 +86,70 @@ export const overviewColumns = match => [{
   },
 },
   heroTdColumn, {
-    displayName: strings.abbr_mmr,
+    displayName: strings.th_mmr,
     tooltip: strings.tooltip_mmr,
     field: 'solo_competitive_rank',
     sortFn: true,
   }, {
-    displayName: strings.abbr_level,
+    displayName: strings.th_level,
     tooltip: strings.tooltip_level,
     field: 'level',
     sortFn: true,
   }, {
-    displayName: strings.abbr_kills,
+    displayName: strings.th_kills,
     tooltip: strings.tooltip_kills,
     field: 'kills',
     sortFn: true,
   }, {
-    displayName: strings.abbr_deaths,
+    displayName: strings.th_deaths,
     tooltip: strings.tooltip_deaths,
     field: 'deaths',
     sortFn: true,
   }, {
-    displayName: strings.abbr_assists,
+    displayName: strings.th_assists,
     tooltip: strings.tooltip_assists,
     field: 'assists',
     sortFn: true,
   }, {
-    displayName: strings.abbr_last_hits,
+    displayName: strings.th_last_hits,
     tooltip: strings.tooltip_last_hits,
     field: 'last_hits',
     sortFn: true,
   }, {
-    displayName: strings.abbr_denies,
+    displayName: strings.th_denies,
     tooltip: strings.tooltip_denies,
     field: 'denies',
     sortFn: true,
   }, {
-    displayName: strings.abbr_gold,
+    displayName: strings.th_gold,
     tooltip: strings.tooltip_gold,
     field: 'gold_per_min',
     displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
     sortFn: true,
   }, {
-    displayName: strings.abbr_gold_per_min,
+    displayName: strings.th_gold_per_min,
     tooltip: strings.tooltip_gold_per_min,
     field: 'gold_per_min',
     sortFn: true,
   }, {
-    displayName: strings.abbr_xp_per_min,
+    displayName: strings.th_xp_per_min,
     tooltip: strings.tooltip_xp_per_min,
     field: 'xp_per_min',
     sortFn: true,
   }, {
-    displayName: strings.abbr_hero_damage,
+    displayName: strings.th_hero_damage,
     tooltip: strings.tooltip_hero_damage,
     field: 'hero_damage',
     displayFn: row => abbreviateNumber(row.hero_damage),
     sortFn: true,
   }, {
-    displayName: strings.abbr_tower_damage,
+    displayName: strings.th_tower_damage,
     tooltip: strings.tooltip_tower_damage,
     field: 'tower_damage',
     displayFn: row => abbreviateNumber(row.tower_damage),
     sortFn: true,
   }, {
-    displayName: strings.abbr_hero_healing,
+    displayName: strings.th_hero_healing,
     tooltip: strings.tooltip_hero_healing,
     field: 'hero_healing',
     displayFn: row => abbreviateNumber(row.hero_healing),
@@ -223,12 +223,14 @@ export const benchmarksColumns = (match) => {
   if (match.players && match.players[0] && match.players[0].benchmarks) {
     Object.keys(match.players[0].benchmarks).forEach((key, i) => {
       cols.push({
-        displayName: key,
+        displayName: strings[`th_${key}`],
+        tooltip: strings[`tooltip_${key}`],
         field: 'benchmarks',
         index: i,
         displayFn: (row, column, field) => {
           if (field) {
             const bm = field[key];
+            // TODO style this better
             return (<div>
               <span>{`${Number(bm.pct * 100).toFixed(2)}%`}</span>
               <span>{bm.raw.toFixed(2)}</span>
@@ -286,33 +288,33 @@ export const lastHitsTimesColumns = (match) => {
 export const overallColumns = [
   heroTdColumn, {
     displayName: strings.th_stacked,
+    tooltip: strings.tooltip_camps_stacked,
     field: 'camps_stacked',
-
     sortFn: true,
   }, {
     displayName: strings.th_multikill,
     field: 'multi_kills_max',
-
     sortFn: true,
   }, {
     displayName: strings.th_killstreak,
     field: 'kill_streaks_max',
-
     sortFn: true,
   }, {
     displayName: strings.th_stuns,
     field: 'stuns',
-
     sortFn: true,
   }, {
     displayName: strings.th_dead,
     field: 'life_state_dead',
-
+    sortFn: true,
+  }, {
+    displayName: strings.th_pings,
+    tooltip: strings.tooltip_pings,
+    field: 'pings',
     sortFn: true,
   }, {
     displayName: strings.th_biggest_hit,
     field: 'max_hero_hit',
-
     sortFn: true,
     displayFn: (row, column, field) => {
       if (field) {
@@ -458,18 +460,13 @@ export const unitKillsColumns = [
 ];
 
 export const actionsColumns = [heroTdColumn, {
-  displayName: strings.abbr_actions_per_min,
+  displayName: strings.th_actions_per_min,
   tooltip: strings.tooltip_actions_per_min,
   field: 'actions_per_min',
   sortFn: true,
-}, {
-  displayName: strings.abbr_pings,
-  tooltip: strings.tooltip_pings,
-  field: 'pings',
-  sortFn: true,
 }]
-  .concat(Object.keys(orderTypes).filter(orderType => `abbr_${orderTypes[orderType]}` in strings).map(orderType => ({
-    displayName: strings[`abbr_${orderTypes[orderType]}`],
+  .concat(Object.keys(orderTypes).filter(orderType => `th_${orderTypes[orderType]}` in strings).map(orderType => ({
+    displayName: strings[`th_${orderTypes[orderType]}`],
     tooltip: strings[`tooltip_${orderTypes[orderType]}`],
     field: orderType,
     sortFn: row => (row.actions ? row.actions[orderType] : 0),

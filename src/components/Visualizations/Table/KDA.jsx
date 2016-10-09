@@ -20,7 +20,7 @@ const KDA = ({ kills, deaths, assists, matchId = uuid.v4() }) => {
           <div style={{ width: `${(assists * 100) / kdaSum}%`, backgroundColor: palette.green }} />
         </div>
         <ReactTooltip id={`kda-${matchId}`} place="right" type="light" effect="float">
-          {`${strings.abbr_kda}: ${Number(((kills + assists) / Math.max(deaths, 1)).toFixed(2))}`}
+          {`${strings.th_kda}: ${Number(((kills + assists) / (deaths + 1)).toFixed(2))}`}
         </ReactTooltip>
       </div>
     </div>
