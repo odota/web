@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import uuid from 'node-uuid';
 import { table } from 'reducers';
 import { sortTable } from 'actions';
-// TODO - get sorting to actually work. Nothing happens when I click right now.
 // We have to give the table an id so we can hold all tables currentPage in memory.
 export default (Table, id = uuid.v4()) => {
   const SortedTable = ({ data, sortState, sortField, sortTable, ...rest }) => {
