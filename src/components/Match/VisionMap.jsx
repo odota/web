@@ -45,8 +45,6 @@ const senWard = (style, stroke, iconSize) => (<svg style={style} width={iconSize
 class VisionMap extends React.Component {
   componentWillMount() {
     this.setState({
-      obsIcons: [],
-      senIcons: [],
       enabledIndex: {},
     });
   }
@@ -100,26 +98,13 @@ class VisionMap extends React.Component {
         </div>
       </Col>
       <Col md={6}>
-        {
-        /*
-        this.props.match.players.map((player, i) => (<div>
-          <span>
-            <Checkbox
-              checkedIcon={<Visibility />}
-              uncheckedIcon={<VisibilityOff />}
-              onCheck={(event, checked) => this.updateMap(event, checked, i)}
-              label={(heroes[player.hero_id] || {}).localized_name}
-            />
-          </span>
-        </div>))
-        */
-        }
         <Table
           data={this.props.match.players}
           columns={[
           { displayFn: row => (<Checkbox
             checkedIcon={<Visibility />}
             uncheckedIcon={<VisibilityOff />}
+            checked={this.state.enabledIndex[this.props.match.players.findIndex(player => player.player_slot === row.player_slot)]}
             onCheck={(event, checked) =>
               this.updateMap(event, checked, this.props.match.players.findIndex(player => player.player_slot === row.player_slot))}
             label=""
