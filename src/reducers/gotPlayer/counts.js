@@ -7,9 +7,6 @@ const initialState = {
   loaded: false,
   list: [],
   data: {},
-  sortState: '',
-  sortField: '',
-  sortFn: f => f,
 };
 
 // Need to have separate actions for each table and then combine them
@@ -45,7 +42,4 @@ export const getPlayerCounts = {
   isLoaded: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].loaded,
   getCountsList: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].list,
   getCountsName: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].name,
-  getSortState: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].sortState,
-  getSortField: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].sortField,
-  getSortFn: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].sortFn,
 };

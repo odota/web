@@ -6,10 +6,7 @@ const initialState = {
   error: false,
   loaded: false,
   list: [],
-  sortState: '',
-  sortField: '',
   maxSize: false,
-  sortFn: f => f,
 };
 
 export default createReducer(initialState, playerMatchesActions);
@@ -28,7 +25,4 @@ export const getPlayerMatches = {
   isLoaded: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).loaded,
   isMaxSize: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).maxSize,
   getMatchList: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).list,
-  getSortState: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).sortState,
-  getSortField: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).sortField,
-  getSortFn: (state, id) => getPlayerMatches.getPlayerMatchesById(state, id).sortFn,
 };
