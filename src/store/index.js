@@ -22,7 +22,7 @@ const reducer = combineReducers({
 
 export default createStore(reducer, compose(
   applyMiddleware(thunkMiddleware),
-  // applyMiddleware(loggerMiddleware),
+  applyMiddleware(loggerMiddleware),
   applyMiddleware(routerMiddleware(browserHistory)),
   // This enables the redux dev tools extension, or does nothing if not installed
   window.devToolsExtension ? window.devToolsExtension() : f => f
