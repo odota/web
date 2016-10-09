@@ -21,14 +21,14 @@ const TableHeroImage = ({
   return (
     <div className={styles.container}>
       {parsed &&
-        <div className={styles.parsed}>
-          <div data-tip data-for="parsed">
-            <ActionDoneAll color={styles.blue} className={styles.actionDoneAll} />
-            <ReactTooltip id="parsed" place="right" type="light" effect="solid">
-              {strings.tooltip_parsed}
-            </ReactTooltip>
-          </div>
+      <div className={styles.parsed}>
+        <div data-tip data-for="parsed">
+          <ActionDoneAll color={styles.blue} className={styles.actionDoneAll} />
+          <ReactTooltip id="parsed" place="right" type="light" effect="solid">
+            {strings.tooltip_parsed}
+          </ReactTooltip>
         </div>
+      </div>
       }
       <div className={styles.imageContainer}>
         <img
@@ -42,11 +42,11 @@ const TableHeroImage = ({
       <div className={styles.textContainer}>
         <span>
           {registered &&
-            <div data-tip data-for={tooltipId} className={styles.registered}>
-              <ReactTooltip id={tooltipId} place="top" type="light" effect="solid">
-                {strings.tooltip_registered_user}
-              </ReactTooltip>
-            </div>
+          <div data-tip data-for={tooltipId} className={styles.registered}>
+            <ReactTooltip id={tooltipId} place="top" type="light" effect="solid">
+              {strings.tooltip_registered_user}
+            </ReactTooltip>
+          </div>
           }
           {accountId ?
             <TableLink to={`/players/${accountId}`}>
@@ -55,9 +55,9 @@ const TableHeroImage = ({
           : title}
         </span>
         {subtitle &&
-          <span className={styles.subText}>
-            {subtitle}
-          </span>
+        <span className={styles.subText}>
+          {subtitle}
+        </span>
         }
       </div>
     </div>
