@@ -1,38 +1,8 @@
-import sortPlayerMatches from 'selectors/sortPlayerMatches';
-import sortPlayerPeers from 'selectors/sortPlayerPeers';
-import sortPlayerHeroes from 'selectors/sortPlayerHeroes';
-import sortPlayerPros from 'selectors/sortPlayerPros';
-import sortPlayerRankings from 'selectors/sortPlayerRankings';
-import sortPlayerCounts from 'selectors/sortPlayerCounts';
-import sortPlayerRecords from 'selectors/sortPlayerRecords';
-import sortPlayerItems from 'selectors/sortPlayerItems';
-import transformPlayerMatchesById from 'selectors/transformPlayerMatches';
-import transformPlayerPeersById from 'selectors/transformPlayerPeers';
-import transformPlayerHeroesById from 'selectors/transformPlayerHeroes';
-import transformPlayerProsById from 'selectors/transformPlayerPros';
-import transformPlayerRankingsById from 'selectors/transformPlayerRankings';
-import transformPlayerCountsById from 'selectors/transformPlayerCounts';
-import transformPlayerRecordsById from 'selectors/transformPlayerRecords';
-import transformPlayerItemsById from 'selectors/transformPlayerItems';
-
-export { default as getSortedTable } from 'selectors/getSortedTable';
-export { default as getCumulativeDataByField } from 'selectors/trends/getPlayerTrend';
-
-export {
-  sortPlayerMatches,
-  sortPlayerPeers,
-  sortPlayerHeroes,
-  sortPlayerPros,
-  sortPlayerRankings,
-  sortPlayerCounts,
-  sortPlayerRecords,
-  sortPlayerItems,
-  transformPlayerMatchesById,
-  transformPlayerPeersById,
-  transformPlayerHeroesById,
-  transformPlayerProsById,
-  transformPlayerRankingsById,
-  transformPlayerCountsById,
-  transformPlayerRecordsById,
-  transformPlayerItemsById,
-};
+// We need to remove this eslint rule because there is a perfectly legitimate
+// reason to not have a default export if there is room for expansion of the number
+// of exports. So if we follow this rule, we actually are doing harm since
+// a file like this means we would have to refactor every import of the 'default'
+// export if we add another thing. And in these kinds of cases, there is no reason
+// that this should be the default export since it's all selectors.
+export { default } from 'selectors/getPlayerTrend';
+export { default as getCumulativeDataByField } from 'selectors/getPlayerTrend';
