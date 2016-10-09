@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  connect,
-} from 'react-redux';
+import { connect } from 'react-redux';
 import {
   getPlayerMatches,
   setPlayerMatchesSort,
@@ -10,17 +8,14 @@ import {
   sortPlayerMatches,
   transformPlayerMatchesById,
 } from 'selectors';
-import {
-  playerMatches,
-} from 'reducers';
+import { playerMatches } from 'reducers';
 import {
   createTable,
   TableContainer,
 } from 'components/Table';
-import {
-  TableFilterForm,
-} from 'components/Form';
+import { TableFilterForm } from 'components/Form';
 import playerMatchesColumns from './playerMatchesColumns';
+import styles from './Matches.css';
 
 const PlayerMatchesTable = createTable(
   playerMatches.getPlayerMatchesById,
@@ -33,7 +28,7 @@ const Matches = ({
 }) => (
   <div>
     <TableFilterForm submitAction={getPlayerMatches} id={playerId} page="matches" />
-    <TableContainer title="Recent Matches">
+    <TableContainer title="Recent Matches" className={styles.matches}>
       <PlayerMatchesTable columns={playerMatchesColumns} id={playerId} />
     </TableContainer>
   </div>

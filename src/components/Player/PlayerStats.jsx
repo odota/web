@@ -30,7 +30,7 @@ export const PlayerStatsCards = ({
     return <Spinner />;
   }
   return (
-    <div style={{ position: 'absolute' }}>
+    <div>
       <CardTitle
         className={styles.playerStats}
         subtitle={<div className={styles.textSuccess}>{wins}</div>}

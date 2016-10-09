@@ -13,10 +13,6 @@ import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import styles from './Table.css';
-import {
-  // getTotalWidth,
-  // getWidthStyle,
-} from './tableHelpers';
 
 const getTable = (data, columns, sortState, sortField, sortClick) => (
   // Not currently using totalWidth (default auto width)

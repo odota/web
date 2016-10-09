@@ -3,16 +3,6 @@
 .container {
   min-width: 100%;
   clear: both;
-  @media only screen and (max-width: 960px) {
-    margin: 0 -25px;
-    overflow-x: scroll;
-  }
-}
-
-.innerContainer {
-  @media only screen and (max-width: 960px) {
-    min-width: 1325px;
-  }
 }
 
 .innerContainer > div > div {
