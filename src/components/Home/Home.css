@@ -6,6 +6,9 @@
   margin: 0 auto;
   text-align: center;
   padding-top: 120px;
+  @media only screen and (max-width : 768px) {
+    width: auto;
+  }
 }
 .HeadContainer .headline {
   text-transform: uppercase;
@@ -13,14 +16,23 @@
   font-weight: var(--fontWeightMedium);
   line-height: 1.2;
   text-shadow: #000000 0px 0px 3px;
+
+  @media only screen and (max-width : 425px) {
+     font-size : 60px;
+  }
+  @media only screen and (max-width : 375px) {
+     font-size : 42px;
+  }
 }
 .HeadContainer .description {
   font-size: 32px;
   font-weight: var(--fontWeightLight);
   margin-bottom: 20px;
   text-shadow: #000000 0px 0px 3px;
+  @media only screen and (max-width : 768px) {
+     font-size : 25px;
+  }
 }
-
 .Buttons {
   margin-bottom: 30px;
 }
@@ -30,6 +42,9 @@
   padding: 3px 6px !important;
   height: auto !important;
   margin: 10px 0 !important;
+  @media only screen and (max-width : 375px) {
+     line-height : 20px !important;
+  }
 }
 .Buttons a:hover {
   background-color: var(--colorSuccess) !important;
