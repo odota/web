@@ -25,11 +25,11 @@ const AccountWidget = ({ loading, error, user, style }) => (
       <LoggedIn playerId={user.account_id} />
       )
       :
-      <FlatButton
-        href={`${API_HOST}/login`}
-        label="Login"
-        hoverColor="#1976D2"
-      />
+        <FlatButton
+          href={`${API_HOST}/login`}
+          label="Login"
+          hoverColor="#1976D2"
+        />
     }
   </div>
 );

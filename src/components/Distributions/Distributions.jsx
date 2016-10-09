@@ -35,7 +35,7 @@ const Distributions = ({
         <Heading title={strings[`distributions_${key}`]} />
         {(key === 'mmr') ?
           <div id="mmr" /> :
-          <Table data={data[key].rows} columns={countryMmrColumns} />}
+            <Table data={data[key].rows} columns={countryMmrColumns} />}
       </Tab>))
     }
   </Tabs>

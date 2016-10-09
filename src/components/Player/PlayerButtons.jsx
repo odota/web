@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import ActionUpdate from 'material-ui/svg-icons/action/update';
 import ReactTooltip from 'react-tooltip';
 
+// TODO localize strings
 export default () => (
   <CardActions style={{ width: '30%', boxSizing: 'border-box', padding: '6px 30px', textAlign: 'right' }}>
     <div style={{ display: 'inline-block' }}>
