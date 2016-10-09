@@ -11,23 +11,8 @@ import {
   Tab,
 } from 'material-ui/Tabs';
 import Heading from 'components/Heading';
-import Table from 'components/Table/Table2';
+import Table from 'components/Table';
 import { Row, Col } from 'react-flexbox-grid';
-/*
-import {
-  createTable,
-} from 'components/Table';
-import {
-  setMatchSort,
-} from 'actions';
-import {
-  getMatch,
-  getMatchPlayers,
-  getSortState,
-  getSortField,
-  getSortFn,
-} from 'reducers/match';
-*/
 import VisionMap from './VisionMap';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
@@ -59,27 +44,6 @@ const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
     ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === '')
   ).sort((a, b) => a.player_slot - b.player_slot);
-
-/*
-export const sortMatchPlayers = (state, team = '') =>
-  defaultSort(filterMatchPlayers(getMatchPlayers(state), team), getSortState(state), getSortField(state), getSortFn(state));
-const MatchPlayersTable = createTable(
-  getMatch,
-  (state, sortState) => (sortState ? sortMatchPlayers(state) : filterMatchPlayers(getMatchPlayers(state))),
-  setMatchSort
-);
-const MatchRadiantPlayersTable = createTable(
-  getMatch,
-  (state, sortState) => (sortState ? sortMatchPlayers(state, 'radiant') : filterMatchPlayers(getMatchPlayers(state), 'radiant')),
-  setMatchSort
-);
-
-const MatchDirePlayersTable = createTable(
-  getMatch,
-  (state, sortState) => (sortState ? sortMatchPlayers(state, 'dire') : filterMatchPlayers(getMatchPlayers(state), 'dire')),
-  setMatchSort
-);
-*/
 
 const MatchPlayersTable = ({
   match,

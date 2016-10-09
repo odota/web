@@ -3,7 +3,7 @@ import strings from 'lang';
 import {
   formatSeconds,
 } from 'utility';
-import Table from 'components/Table/Table2';
+import Table from 'components/Table';
 import objectives from 'dotaconstants/json/objectives.json';
 import barracksValue from 'dotaconstants/json/barracks_value.json';
 import {

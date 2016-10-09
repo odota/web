@@ -6,7 +6,7 @@ import {
   isRadiant,
   // transformations,
 } from 'utility';
-import Table from 'components/Table/Table2';
+import Table from 'components/Table';
 import {
   Row,
   Col,
