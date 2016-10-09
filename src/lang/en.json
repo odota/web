@@ -65,6 +65,12 @@
   "farm_roshan": "Roshans killed",
   "farm_necronomicon": "Necronomicon units killed",
 
+  "general_unknown": "Unknown",
+  "general_no_hero": "No hero",
+  "general_anonymous": "Anonymous",
+  "general_radiant": "Radiant",
+  "general_dire": "Dire",
+
   "gold_reasons_0": "Other",
   "gold_reasons_1": "Death",
   "gold_reasons_2": "Buyback",
@@ -194,7 +200,7 @@
   "th_avatar": "Player",
   "th_last_played": "Last",
   "th_record": "Record",
-  "th_set": "Set",
+  "th_title": "Title",
   "th_category": "Category",
   "th_matches": "Matches",
   "th_percentile": "Percentile",
@@ -321,6 +327,7 @@
   "tooltip_biggest_hit": "Largest instance of damage on a hero",
   "tooltip_damage_dealt": "Damage dealt to heroes by items/abilities",
   "tooltip_damage_received": "Damage received from heroes by items/abilities",
+  "tooltip_registered_user": "Registered user",
   
   "xp_reasons_0": "Other",
   "xp_reasons_1": "Creep",
@@ -335,6 +342,5 @@
   "teamfight_participation": "Radiant participation/Dire participation",
   "teamfight_score": "Radiant kills/Dire kills",
   "teamfight_radiant_gold_adv": "Net gold advantage for Radiant",
-  "teamfight_radiant_xp_adv": "Net XP advantage for Radiant",
-  "anonymous": "Anonymous"
+  "teamfight_radiant_xp_adv": "Net XP advantage for Radiant"
 }

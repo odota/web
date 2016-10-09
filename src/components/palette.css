@@ -44,9 +44,10 @@
 
 :export {
   /* -- Colors */
-  red:    var(--colorDanger);
-  green:  var(--colorSuccess);
-  blue:   var(--colorBlue);
+  red:      var(--colorDanger);
+  green:    var(--colorSuccess);
+  blue:     var(--colorBlue);
+  darkBlue: color(var(--colorBlue) lightness(-33%));
 
   gray:   var(--colorMuted);
   grey:   var(--colorMuted);

@@ -34,7 +34,7 @@ export const heroTd = (row, col, field, hideName) => (
         style={{ height: 24 }}
         role="presentation"
       />
-      {!hideName && <div>{row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : strings.anonymous}</div>}
+      {!hideName && <div>{row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : strings.general_anonymous}</div>}
     </div>
   </div>
 );

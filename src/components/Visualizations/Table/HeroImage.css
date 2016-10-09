@@ -5,7 +5,7 @@
   left: -10px !important;
 }
 
-.heroTextContainer {
+.textContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,12 +13,7 @@
 }
 
 .image {
-  height: 29px;
-  width: 51px;
   margin-right: 7px;
-}
-
-.imageContainer {
 }
 
 .container {
@@ -32,4 +27,13 @@
    width: 2px;
    height: 100%;
    background-color: var(--primaryLinkColor);
+}
+
+.registered {
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  background-color: var(--colorSuccess);
+  border-radius: 50%;
+  display: inline-block;
 }
