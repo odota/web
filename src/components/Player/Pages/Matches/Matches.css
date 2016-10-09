@@ -1,14 +1,28 @@
 @media only screen and (max-width: 880px) {
   th:nth-child(4), td:nth-child(4),
-  th:nth-child(5), td:nth-child(5) {
+  th:nth-child(5), td:nth-child(5),
+  th:nth-child(8), td:nth-child(8),
+  th:nth-child(9), td:nth-child(9),
+  th:nth-child(10), td:nth-child(10) {
     display: none;
   }
 }
 
-@media only screen and (max-width: 690px) {
+@media only screen and (min-width: 881px) {
   th:nth-child(6), td:nth-child(6),
-  th:nth-child(7), td:nth-child(7),
-  th:nth-child(8), td:nth-child(8) {
+  th:nth-child(7), td:nth-child(7) {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  th:nth-child(6), td:nth-child(6) {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  th:nth-child(7), td:nth-child(7) {
     display: none;
   }
 }

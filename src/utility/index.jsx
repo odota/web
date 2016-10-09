@@ -182,7 +182,7 @@ export const transformations = {
         <span className={getColor(field)}>
           {getString(field)}
         </span>
-        <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+        <span className={subTextStyle.subText}>
           <FromNowTooltip timestamp={row.start_time + row.duration} />
         </span>
       </div>);
@@ -192,7 +192,7 @@ export const transformations = {
   match_id_and_game_mode: (row, col, field) => (
     <div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+      <span className={subTextStyle.subText}>
         {gameMode[row.game_mode] ? gameMode[row.game_mode].name : row.game_mode}
       </span>
     </div>
@@ -223,6 +223,20 @@ export const transformations = {
       registered={row.last_login}
       accountId={row.account_id}
     />
+  ),
+  skill_and_duration: row => (
+    <div>
+      {(skill[row.skill] ? skill[row.skill] : strings.general_unknown)}
+      <span className={subTextStyle.subText}>
+        {formatSeconds(row.duration)}
+      </span>
+    </div>
+  ),
+  kda_together: row => <KDA kills={row.kills} deaths={row.deaths} assists={row.assists} together />,
+  summary: (
+    <div>
+      Match summary for small resolutions (width: 500 and smaller).
+    </div>
   ),
 };
 

@@ -30,6 +30,18 @@ export default [{
   sortFn: true,
   displayFn: transformations.duration,
 }, {
+  displayName: strings.th_skill,
+  tooltip: strings.tooltip_duration,
+  field: 'skill',
+  sortFn: true,
+  displayFn: transformations.skill_and_duration,
+}, {
+  displayName: strings.abbr_kda,
+  tooltip: strings.tooltip_kda,
+  field: 'kills',
+  sortFn: row => (row.kills + row.assists) / (row.deaths + 1),
+  displayFn: transformations.kda_together,
+}, {
   displayName: strings.abbr_kills,
   tooltip: strings.tooltip_kills,
   field: 'kills',

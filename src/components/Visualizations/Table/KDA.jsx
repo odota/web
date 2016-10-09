@@ -5,16 +5,16 @@ import palette from 'components/palette.css';
 import strings from 'lang';
 import styles from './KDA.css';
 
-const KDA = ({ kills, deaths, assists, matchId = uuid.v4() }) => {
+const KDA = ({ kills, deaths, assists, matchId = uuid.v4(), together }) => {
   const kdaSum = kills + deaths + assists;
 
   return (
     <div className={styles.container}>
       <div>
-        {kills}
+        {together ? `${kills}/${deaths}/${assists}` : kills}
       </div>
       <div>
-        <div className={styles.percent} data-tip data-for={`kda-${matchId}`}>
+        <div className={styles.percent} data-tip data-for={`kda-${matchId}`} style={{ width: together && '100%' }}>
           <div style={{ width: `${(kills * 100) / kdaSum}%`, backgroundColor: palette.red }} />
           <div style={{ width: `${(deaths * 100) / kdaSum}%`, backgroundColor: palette.gray }} />
           <div style={{ width: `${(assists * 100) / kdaSum}%`, backgroundColor: palette.green }} />

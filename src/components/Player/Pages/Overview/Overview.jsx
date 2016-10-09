@@ -29,22 +29,20 @@ const Overview = ({
 }) => (
   <div>
     <TableFilterForm submitAction={getPlayerMatchesAndHeroes} id={playerId} page="overview" />
-    <div className={styles.overviewContainer}>
-      <TableContainer title={strings.heading_matches} className={styles.overviewMatches}>
-        <Table
-          columns={playerMatchesColumns}
-          data={matchesData}
-          maxRows={MAX_OVERVIEW_ROWS}
-        />
-      </TableContainer>
-      <TableContainer title={strings.heading_heroes} className={styles.overviewHeroes}>
-        <Table
-          columns={playerHeroesOverviewColumns}
-          data={heroesData}
-          maxRows={MAX_OVERVIEW_ROWS}
-        />
-      </TableContainer>
-    </div>
+    <TableContainer title={strings.heading_matches} className={styles.overviewMatches}>
+      <Table
+        columns={playerMatchesColumns}
+        data={matchesData}
+        maxRows={MAX_OVERVIEW_ROWS}
+      />
+    </TableContainer>
+    <TableContainer title={strings.heading_heroes} className={styles.overviewHeroes}>
+      <Table
+        columns={playerHeroesOverviewColumns}
+        data={heroesData}
+        maxRows={MAX_OVERVIEW_ROWS}
+      />
+    </TableContainer>
   </div>
 );
 
