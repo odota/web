@@ -10,7 +10,7 @@ export default () => (
       {strings.home_why}
     </div>
     <Row around="xs">
-      <Col xs={3}>
+      <Col xs={12} sm={3} className={styles.xsWhyElement}>
         <IconOpenSource />
         <div className={styles.headline}>
           {strings.home_opensource_title}
@@ -19,7 +19,7 @@ export default () => (
           {strings.home_opensource_desc}
         </div>
       </Col>
-      <Col xs={3}>
+      <Col xs={12} sm={3} className={styles.xsWhyElement}>
         <IconStatsBars />
         <div className={styles.headline}>
           {strings.home_indepth_title}
@@ -28,7 +28,7 @@ export default () => (
           {strings.home_indepth_desc}
         </div>
       </Col>
-      <Col xs={3}>
+      <Col xs={12} sm={3} className={styles.xsWhyElement}>
         <IconWand />
         <div className={styles.headline}>
           {strings.home_free_title}

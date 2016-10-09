@@ -1,22 +1,19 @@
-import { transformations, getPercentWin } from 'utility';
+import { transformations } from 'utility';
 import strings from 'lang';
 
 export default [{
   displayName: strings.th_hero,
   tooltip: strings.hero_id,
   field: 'hero_id',
-  width: 2,
   displayFn: transformations.hero_id,
 }, {
   displayName: strings.th_percentile,
-  field: 'rank',
-  width: 2,
+  field: 'card',
   sortFn: row => row.rank / row.card,
-  displayFn: (row, column, field) => `${getPercentWin(field, row.card).toFixed(2)}%`,
+  displayFn: transformations.rank_percentile,
 }, {
   displayName: strings.th_rank,
   field: 'rank',
-  width: 1.5,
-  sortFn: transformations.rank,
+  sortFn: row => row.card - row.rank,
   displayFn: transformations.rank,
 }];
