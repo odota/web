@@ -11,7 +11,7 @@ import playerRankingsColumns from './playerRankingsColumns';
 const Rankings = ({ data }) => (
   <div>
     <TableContainer title={strings.heading_rankings}>
-      <Table paginated sorted columns={playerRankingsColumns} data={data} />
+      <Table paginated columns={playerRankingsColumns} data={data} />
     </TableContainer>
   </div>
 );

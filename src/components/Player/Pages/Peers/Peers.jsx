@@ -13,7 +13,7 @@ const Peers = ({ playerId, data }) => (
   <div>
     <TableFilterForm submitAction={getPlayerPeers} id={playerId} page="peers" />
     <TableContainer title={strings.heading_peers}>
-      <Table paginated sorted columns={playerPeersColumns} data={data} />
+      <Table paginated columns={playerPeersColumns} data={data} />
     </TableContainer>
   </div>
 );

@@ -13,7 +13,7 @@ const Pros = ({ playerId, data }) => (
   <div>
     <TableFilterForm submitAction={getPlayerPros} id={playerId} page="pros" />
     <TableContainer title={strings.heading_pros}>
-      <Table paginated sorted columns={playerProsColumns} data={data} />
+      <Table paginated columns={playerProsColumns} data={data} />
     </TableContainer>
   </div>
 );

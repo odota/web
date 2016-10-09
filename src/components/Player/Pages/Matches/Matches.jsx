@@ -23,7 +23,7 @@ const Matches = ({
   <div>
     <TableFilterForm submitAction={getPlayerMatches} id={playerId} page="matches" />
     <TableContainer title="Recent Matches">
-      <Table paginated sorted columns={playerMatchesColumns} data={data} />
+      <Table paginated columns={playerMatchesColumns} data={data} />
     </TableContainer>
   </div>
 );

@@ -28,6 +28,8 @@ const getPlayerMatchesAndHeroes = (playerId, options) => (dispatch) => {
   dispatch(getPlayerHeroes(playerId, options));
 };
 
+const MAX_OVERVIEW_ROWS = 20;
+
 const Overview = ({
   playerId,
   matchesData,
@@ -37,10 +39,18 @@ const Overview = ({
     <TableFilterForm submitAction={getPlayerMatchesAndHeroes} id={playerId} page="overview" />
     <div className={styles.overviewContainer}>
       <TableContainer title={strings.heading_matches} style={{ width: '70%' }}>
-        <Table paginated sorted columns={playerMatchesColumns} data={matchesData} />
+        <Table
+          columns={playerMatchesColumns}
+          data={matchesData}
+          maxRows={MAX_OVERVIEW_ROWS}
+        />
       </TableContainer>
       <TableContainer title={strings.heading_heroes} style={{ marginLeft: 30, width: '30%' }}>
-        <Table sorted columns={playerHeroesOverviewColumns} data={heroesData} />
+        <Table
+          columns={playerHeroesOverviewColumns}
+          data={heroesData}
+          maxRows={MAX_OVERVIEW_ROWS}
+        />
       </TableContainer>
     </div>
   </div>
@@ -73,7 +83,7 @@ const defaultOptions = {
 
 const mapStateToProps = (state, { playerId }) => ({
   matchesData: playerMatches.getMatchList(state, playerId),
-  heroesData: playerHeroes.getHeroList(state, playerId).slice(0, 20),
+  heroesData: playerHeroes.getHeroList(state, playerId),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -23,7 +23,7 @@ const Items = ({
   <div>
     <TableFilterForm submitAction={getPlayerItems} id={playerId} page="items" />
     <TableContainer title="Items">
-      <Table paginated sorted columns={playerItemsColumns} data={data} />
+      <Table paginated columns={playerItemsColumns} data={data} />
     </TableContainer>
   </div>
 );

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import uuid from 'node-uuid';
 import Table from './Table';
 import withSort from './SortedTable';
@@ -10,16 +10,25 @@ class TableWithOptions extends Component {
   }
 
   render() {
-    const { sorted, paginated, ...rest } = this.props;
-    let SuperTable = Table;
+    const { paginated, maxRows, data, ...rest } = this.props;
+    let TableWithOptions = Table;
     if (paginated) {
-      SuperTable = withPagination(SuperTable, this.id);
+      TableWithOptions = withPagination(TableWithOptions, this.id);
     }
-    if (sorted) {
-      SuperTable = withSort(SuperTable, this.id);
-    }
-    return <SuperTable {...rest} />;
+    TableWithOptions = withSort(TableWithOptions, this.id);
+    // we don't care about 0 row tables right?
+    const modifiedData = maxRows && maxRows <= data.length ?
+      data.slice(0, maxRows) :
+      data;
+    return <TableWithOptions data={modifiedData} {...rest} />;
   }
 }
+
+const { bool, number, arrayOf, object } = PropTypes;
+TableWithOptions.propTypes = {
+  paginated: bool,
+  maxRows: number,
+  data: arrayOf(object),
+};
 
 export default TableWithOptions;

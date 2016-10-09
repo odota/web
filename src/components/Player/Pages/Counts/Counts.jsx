@@ -17,7 +17,7 @@ const Counts = ({ playerId, counts, getPlayerCounts }) => (
       {Object.keys(counts).map((key, index) => (
         <div key={index} className={styles.countTable}>
           <TableContainer title={deSnake(key)} />
-          <Table paginated sorted columns={playerCountsColumns} data={counts[key].list} />
+          <Table paginated columns={playerCountsColumns} data={counts[key].list} />
         </div>
       ))}
     </div>
