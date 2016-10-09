@@ -86,20 +86,12 @@ const MatchPlayersTable = ({
   columns,
 }) => (<Table data={match.players} columns={columns} />);
 
-const MatchRadiantPlayersTable = ({
-  match,
-  columns,
-}) => (<Table data={filterMatchPlayers(match.players, 'radiant')} columns={columns} />);
-const MatchDirePlayersTable = ({
-  match,
-  columns,
-}) => (<Table data={filterMatchPlayers(match.players, 'dire')} columns={columns} />);
 const MatchPlayersTableSplit = ({
   match,
   columns,
 }) => (<div>
-  <MatchRadiantPlayersTable match={match} columns={columns} />
-  <MatchDirePlayersTable match={match} columns={columns} />
+  <Table data={filterMatchPlayers(match.players, 'radiant')} columns={columns} />
+  <Table data={filterMatchPlayers(match.players, 'dire')} columns={columns} />
 </div>);
 
 const matchPages = [{
@@ -153,10 +145,16 @@ const matchPages = [{
     <MatchPlayersTable match={match} columns={unitKillsColumns} />
     <Heading title={strings.heading_last_hits} />
     <MatchPlayersTable match={match} columns={lastHitsTimesColumns(match)} />
-    <Heading title={strings.heading_gold_reasons} />
-    <MatchPlayersTable match={match} columns={goldReasonsColumns} />
-    <Heading title={strings.heading_xp_reasons} />
-    <MatchPlayersTable match={match} columns={xpReasonsColumns} />
+    <Row>
+      <Col md={8}>
+        <Heading title={strings.heading_gold_reasons} />
+        <MatchPlayersTable match={match} columns={goldReasonsColumns} />
+      </Col>
+      <Col md={4}>
+        <Heading title={strings.heading_xp_reasons} />
+        <MatchPlayersTable match={match} columns={xpReasonsColumns} />
+      </Col>
+    </Row>
   </div>),
 }, {
   name: strings.tab_purchases,

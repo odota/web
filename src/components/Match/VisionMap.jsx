@@ -4,9 +4,18 @@ import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import {
   isRadiant,
-  transformations,
+  // transformations,
 } from 'utility';
-import { Row, Col } from 'react-flexbox-grid';
+import Table from 'components/Table/Table2';
+import {
+  Row,
+  Col,
+} from 'react-flexbox-grid';
+// import heroes from 'dotaconstants/json/heroes.json';
+import strings from 'lang';
+import {
+  heroTdColumn,
+} from './matchColumns';
 
 const obsWard = (style, stroke, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
   <g>
@@ -56,12 +65,12 @@ class VisionMap extends React.Component {
     const match = this.props.match;
     const width = this.props.width;
     const enabledIndex = this.state.enabledIndex;
+    const iconSize = width / 12;
     const style = ward => ({
       position: 'absolute',
-      top: ((width / 127) * ward.y) - (width / 12),
-      left: ((width / 127) * ward.x) - (width / 12),
+      top: ((width / 127) * ward.y) - (iconSize / 2),
+      left: ((width / 127) * ward.x) - (iconSize / 2),
     });
-    const iconSize = width / 8;
     const obsIcons = [];
     const senIcons = [];
     Object.keys(enabledIndex).forEach((index) => {
@@ -91,27 +100,52 @@ class VisionMap extends React.Component {
         </div>
       </Col>
       <Col md={6}>
-        {this.props.match.players.map((player, i) => (<div>
+        {
+        /*
+        this.props.match.players.map((player, i) => (<div>
           <span>
             <Checkbox
               checkedIcon={<Visibility />}
               uncheckedIcon={<VisibilityOff />}
               onCheck={(event, checked) => this.updateMap(event, checked, i)}
+              label={(heroes[player.hero_id] || {}).localized_name}
             />
           </span>
-          <span>
-            {transformations.hero_id(player, 'hero_id', player.hero_id)}
-          </span>
         </div>))
+        */
         }
+        <Table
+          data={this.props.match.players}
+          columns={[
+          { displayFn: row => (<Checkbox
+            checkedIcon={<Visibility />}
+            uncheckedIcon={<VisibilityOff />}
+            onCheck={(event, checked) =>
+              this.updateMap(event, checked, this.props.match.players.findIndex(player => player.player_slot === row.player_slot))}
+            label=""
+          />) },
+            heroTdColumn,
+            {
+              displayName: strings.th_ward_observer,
+              field: 'obs_log',
+              displayFn: (row, col, field) => (field && field.length),
+            },
+            {
+              displayName: strings.th_ward_sentry,
+              field: 'sen_log',
+              displayFn: (row, col, field) => (field && field.length),
+            },
+          ]}
+        />
       </Col>
     </Row>);
   }
 }
 
+// TODO use defaultprops and export directly
 export default function ({
   match,
-  width = 500,
+  width = 600,
 }) {
   return <VisionMap match={match} width={width} />;
 }
