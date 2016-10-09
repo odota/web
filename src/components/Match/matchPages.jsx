@@ -59,7 +59,7 @@ import {
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
     ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === '')
-  ).sort((a,b) => b.player_slot - a.player_slot);
+  ).sort((a, b) => b.player_slot - a.player_slot);
 
 /*
 export const sortMatchPlayers = (state, team = '') =>
