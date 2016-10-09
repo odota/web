@@ -5,9 +5,8 @@ import { table } from 'reducers';
 import { setCurrentPage } from 'actions';
 import Pagination from './Pagination';
 
-export default (Table) => {
+export default (Table, id = uuid.v4()) => {
   // We have to give the table an id so we can hold all tables currentPage in memory.
-  const id = uuid.v4();
 
   const PaginatedTable = ({ currentPage, data, pageLength = 50, setCurrentPage, ...rest }) => {
     if (data) {

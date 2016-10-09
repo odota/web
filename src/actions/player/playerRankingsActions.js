@@ -9,22 +9,12 @@ const url = playerId => `/api/players/${playerId}/rankings`;
 const REQUEST = 'playerRankings/REQUEST';
 const OK = 'playerRankings/OK';
 const ERROR = 'playerRankings/ERROR';
-const SORT = 'playerRankings/SORT';
 
 export const playerRankingsActions = {
   REQUEST,
   OK,
   ERROR,
-  SORT,
 };
-
-export const setPlayerRankingsSort = (sortField, sortState, sortFn, id) => ({
-  type: SORT,
-  sortField,
-  sortState,
-  sortFn,
-  id,
-});
 
 export const getPlayerRankingsRequest = id => ({ type: REQUEST, id });
 
