@@ -90,7 +90,7 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error,
             titleStyle={{ fontSize: 28, marginTop: width > HEADER_MD_BREAK ? 6 : 0 }}
             subtitle={width > HEADER_MD_BREAK ?
               <PlayerStats playerId={playerId} /> :
-              <PlayerBadges playerId={playerId} />
+                <PlayerBadges playerId={playerId} />
             }
           />
           {width <= HEADER_MD_BREAK && <PlayerStats playerId={playerId} />}
