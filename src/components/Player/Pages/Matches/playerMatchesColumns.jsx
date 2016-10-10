@@ -39,7 +39,7 @@ export default [{
   displayFn: transformations.skill_and_duration,
   mediaQ: 'skill_and_duration_narrow',
 }, {
-  displayName: strings.abbr_kda,
+  displayName: strings.th_kda,
   tooltip: strings.tooltip_kda,
   field: 'kills',
   sortFn: row => (row.kills + row.assists) / (row.deaths + 1),

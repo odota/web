@@ -8,10 +8,6 @@
     height: 48px;
     overflow-y: hidden;
   }
-
-  @media only screen and (max-width: 960px) {
-    margin: 0 -25px;
-  }
 }
 
 .subContainer {
