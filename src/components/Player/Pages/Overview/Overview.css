@@ -1,16 +1,4 @@
-@import "../../../palette.css";
-
-.overviewContainer {
-  display: flex;
-}
-
-.overviewMatches {
-  width: 75%;
-  display: inline-block;
-}
-
-.overviewHeroes {
-  width: 25%;
+.overviewContainer > div {
   display: inline-block;
 }
 
