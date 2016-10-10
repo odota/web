@@ -12,7 +12,7 @@ import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';
 
-const BREAKPOINT_SIZE = 850;
+export const HEADER_BREAK_SIZE = 850;
 
 const getRegistrationBadge = registered => registered && (
   <div>
@@ -29,7 +29,7 @@ const getRegistrationBadge = registered => registered && (
   </div>
 );
 
-const getTitle = (playerName, playerId, width) => (width > BREAKPOINT_SIZE ? (
+const getTitle = (playerName, playerId, width) => (width > HEADER_BREAK_SIZE ? (
   <div>
     {playerName}
     <PlayerBadges playerId={playerId} />
@@ -68,24 +68,26 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error,
                 <Avatar
                   src={picture}
                   style={{
-                    marginLeft: width > BREAKPOINT_SIZE ? 30 : 0,
+                    marginLeft: width > HEADER_BREAK_SIZE ? 30 : 0,
                     marginRight: 30,
                   }}
-                  size={width > BREAKPOINT_SIZE ? 124 : 62}
+                  size={width > HEADER_BREAK_SIZE ? 124 : 62}
                   className={styles.oreviewAvatar}
                 />
               </Badge>
             }
             title={getTitle(playerName, playerId, width)}
             titleStyle={{ fontSize: 28, marginTop: 6 }}
-            subtitle={width > BREAKPOINT_SIZE ?
+            subtitle={width > HEADER_BREAK_SIZE ?
               <PlayerStats playerId={playerId} /> :
               <PlayerBadges playerId={playerId} />
             }
           />
-          {width <= BREAKPOINT_SIZE && <PlayerStats playerId={playerId} />}
+          {width <= HEADER_BREAK_SIZE && <PlayerStats playerId={playerId} />}
         </div>
-        <PlayerButtons />
+        <div className={styles.playerButtonsContainer}>
+          <PlayerButtons width={width} />
+        </div>
       </div>
     );
   };

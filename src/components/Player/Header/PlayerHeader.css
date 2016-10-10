@@ -48,6 +48,10 @@
   margin-top: -14px;
 }
 
+.playerButtonsContainer {
+  margin-left: auto;
+}
+
 .playerBadges {
   display: inline-block;
   position: relative;
