@@ -39,7 +39,7 @@ class RequestLayer extends React.Component {
 }
 
 const mapStateToProps = (state, { playerId }) => ({
-  data: playerRecords.getRecordList(state, playerId),
+  data: playerRecords.getRecordsList(state, playerId),
 });
 
 const mapDispatchToProps = dispatch => ({

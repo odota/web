@@ -11,6 +11,8 @@ import records, { getPlayerRecords } from 'reducers/gotPlayer/records';
 import counts, { getPlayerCounts } from 'reducers/gotPlayer/counts';
 import mmr, { getPlayerMMR } from 'reducers/gotPlayer/mmr';
 import items, { getPlayerItems } from 'reducers/gotPlayer/items';
+import wardmap, { getPlayerWardmap } from 'reducers/gotPlayer/wardmap';
+import wordcloud, { getPlayerWordcloud } from 'reducers/gotPlayer/wordcloud';
 
 export default combineReducers({
   playerReducer,
@@ -25,6 +27,8 @@ export default combineReducers({
   counts,
   mmr,
   items,
+  wardmap,
+  wordcloud,
 });
 
 const player = {
@@ -44,4 +48,6 @@ export {
   getPlayerCounts as playerCounts,
   getPlayerMMR as playerMMR,
   getPlayerItems as playerItems,
+  getPlayerWardmap as playerWardmap,
+  getPlayerWordcloud as playerWordcloud,
 };

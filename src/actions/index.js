@@ -12,6 +12,8 @@ export { playerCountsActions, getPlayerCounts } from './player/playerCountsActio
 export { playerMMRActions, getPlayerMMR } from './player/playerMMRActions';
 export { playerItemsActions, getPlayerItems } from './player/playerItemsActions';
 export { playerWinLossActions, getPlayerWinLoss } from './player/playerWinLossActions';
+export { playerWardmapActions, getPlayerWardmap } from './player/playerWardmapActions';
+export { playerWordcloudActions, getPlayerWordcloud } from './player/playerWordcloudActions';
 export { tableActions, setCurrentPage, nextPage, prevPage, sortTable } from './tableActions';
 export { formActions, addChip, deleteChip, setFieldText, submitForm, clearForm, toggleShowForm } from './formActions';
 export { rankingActions, getRanking } from './rankingActions';

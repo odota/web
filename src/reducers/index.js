@@ -16,6 +16,8 @@ import gotPlayer, {
   playerCounts,
   playerMMR,
   playerItems,
+  playerWardmap,
+  playerWordcloud,
 } from 'reducers/gotPlayer';
 import form, { getForm } from 'reducers/form';
 import request from 'reducers/request';
@@ -35,6 +37,8 @@ export {
   playerCounts,
   playerMMR,
   playerItems,
+  playerWardmap,
+  playerWordcloud,
   getForm as form,
   benchmark,
   ranking,
