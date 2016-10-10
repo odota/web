@@ -14,15 +14,3 @@
     display: none;
   }
 }
-
-@media only screen and (max-width: 700px) {
-  th:nth-child(6), td:nth-child(6) {
-    display: none;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  th:nth-child(7), td:nth-child(7) {
-    display: none;
-  }
-}

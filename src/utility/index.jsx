@@ -233,11 +233,6 @@ export const transformations = {
     </div>
   ),
   kda_together: row => <KDA kills={row.kills} deaths={row.deaths} assists={row.assists} together />,
-  summary: (
-    <div>
-      Match summary for small resolutions (width: 500 and smaller).
-    </div>
-  ),
 };
 
 export const inflictorWithValue = ({
