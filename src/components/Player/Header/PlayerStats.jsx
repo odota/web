@@ -10,8 +10,8 @@ import ReactTooltip from 'react-tooltip';
 import {
   player,
 } from 'reducers';
-import Error from '../Error';
-import Spinner from '../Spinner';
+import Error from 'components/Error';
+import Spinner from 'components/Spinner';
 import styles from './PlayerHeader.css';
 
 // TODO localize strings
