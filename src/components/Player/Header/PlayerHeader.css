@@ -1,4 +1,4 @@
-@import "../palette.css";
+@import "../../palette.css";
 
 .image {
   display: inline-block;
@@ -6,7 +6,7 @@
   width: 24px;
   background-size: cover;
 }
-  
+
 .appBadge {
   composes: image;
 }
@@ -23,8 +23,6 @@
   -webkit-box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.4);
   -moz-box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.4);
   box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.4);
-  margin-left: 30px !important;
-  margin-right: 30px !important;
 }
 
 .oreviewTTIcon {
@@ -48,6 +46,13 @@
   margin-left: 4px;
   position: absolute;
   margin-top: -14px;
+}
+
+.playerButtonsContainer {
+  margin-left: auto;
+  & > div {
+    padding-right: 0 !important;
+  }
 }
 
 .playerBadges {
