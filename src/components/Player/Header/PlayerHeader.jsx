@@ -12,6 +12,8 @@ import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';
 
+const BREAKPOINT_SIZE = 850;
+
 const getRegistrationBadge = registered => registered && (
   <div>
     <div
@@ -27,8 +29,15 @@ const getRegistrationBadge = registered => registered && (
   </div>
 );
 
+const getTitle = (playerName, playerId, width) => (width > BREAKPOINT_SIZE ? (
+  <div>
+    {playerName}
+    <PlayerBadges playerId={playerId} />
+  </div>
+) : playerName);
+
 // TODO localize strings
-const PlayerName = ({ playerName, playerId, picture, registered, loading, error }) => {
+const PlayerName = ({ playerName, playerId, picture, registered, loading, error, width }) => {
   const getPlayerName = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;
@@ -58,20 +67,23 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error 
               >
                 <Avatar
                   src={picture}
-                  size={124}
+                  style={{
+                    marginLeft: width > BREAKPOINT_SIZE ? 30 : 0,
+                    marginRight: 30,
+                  }}
+                  size={width > BREAKPOINT_SIZE ? 124 : 62}
                   className={styles.oreviewAvatar}
                 />
               </Badge>
             }
-            title={
-              <div>
-                {playerName}
-                <PlayerBadges playerId={playerId} />
-              </div>
-            }
+            title={getTitle(playerName, playerId, width)}
             titleStyle={{ fontSize: 28, marginTop: 6 }}
-            subtitle={<PlayerStats playerId={playerId} />}
+            subtitle={width > BREAKPOINT_SIZE ?
+              <PlayerStats playerId={playerId} /> :
+              <PlayerBadges playerId={playerId} />
+            }
           />
+          {width <= BREAKPOINT_SIZE && <PlayerStats playerId={playerId} />}
         </div>
         <PlayerButtons />
       </div>
@@ -88,6 +100,7 @@ const mapStateToProps = (state, ownProps) => ({
   playerName: player.getPlayerName(state, ownProps.playerId),
   picture: player.getPictureFull(state, ownProps.playerId),
   registered: player.getLastLogin(state, ownProps.playerId),
+  width: state.browser.width,
 });
 
 export default connect(mapStateToProps)(PlayerName);
