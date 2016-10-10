@@ -1,0 +1,64 @@
+@import "../../palette.css";
+
+.header > div > div:nth-child(2) {
+  text-align: center;
+}
+.header > div > div:nth-child(3) {
+  text-align: right;
+}
+
+.gmd span {
+  text-transform: uppercase;
+  display: block;
+}
+.gmd .gameMode {
+  font-size: var(--fontSizeMedium);
+}
+.gmd .duration {
+  font-size: 28px;
+}
+.gmd .ended {
+  font-size: var(--fontSizeSmall);
+  color: var(--colorMutedLight);
+  margin-top: 3px;
+}
+.gmd .ended > div {
+  display: inline-block;
+}
+
+.winner {
+  font-size: 28px;
+  padding-top: 10px;
+  -webkit-filter: drop-shadow(0 0 15px var(--colorYelor));
+  filter: drop-shadow(0 0 15px var(--colorYelor));
+}
+.score {
+  font-size: 48px;
+}
+
+.radiant div:first-of-type {
+  float: right;
+}
+.dire div:first-of-type {
+  float: left;
+}
+
+.radiant {
+  color: var(--colorSuccess);
+}
+.dire {
+  color: var(--colorDanger);
+}
+
+.radiant svg, .dire svg {
+  width: 32px;
+  height: 32px;
+  margin: 0 15px;
+  vertical-align: sub;
+}
+.radiant svg {
+  fill: var(--colorSuccess);
+}
+.dire svg {
+  fill: var(--colorDanger);
+}

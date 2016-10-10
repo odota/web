@@ -1,19 +1,13 @@
 import React from 'react';
-import {
-  connect,
-} from 'react-redux';
+import { connect } from 'react-redux';
 import Spinner from 'components/Spinner';
 import TabBar from 'components/TabBar';
-import {
-  getMatch,
-} from 'actions';
+import { getMatch } from 'actions';
 import {
   getMatchData,
   getMatchLoading,
 } from 'reducers/match';
-import {
-  getMetadataUser,
-} from 'reducers/metadata';
+import { getMetadataUser } from 'reducers/metadata';
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
 
@@ -48,8 +42,8 @@ class RequestLayer extends React.Component {
     const page = matchPages(matchId).find(page => page.name.toLowerCase() === info);
     return (
       <div>
-        <MatchHeader match={match} user={this.props.user} />
-        <div style={{ marginTop: 25 }}>
+        <MatchHeader match={match} loading={this.props.loading} />
+        <div style={{ margin: '30px 0' }}>
           <TabBar
             info={info}
             tabs={matchPages(matchId)}
