@@ -2,6 +2,7 @@
 
 .container {
   position: relative;
+  margin: 25px 0;
 
   @media only screen and (max-width : 1250px) {
     height: 48px;
