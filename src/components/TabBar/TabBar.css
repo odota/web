@@ -1,19 +1,19 @@
 @import "../palette.css";
 
-:export { inkBarColor: var(--primaryLinkColor) }
-
 .tabs {
   border-bottom: 1px solid rgba(255, 255, 255, .19);
+  margin: 25px 0;
+
+  & > div {
+    background-color: transparent !important;
+  }
 }
 
 .tab {
   color: var(--primaryTextColor) !important;
   text-transform: none !important;
-}
-.tab:hover {
-  background-color: rgba(255, 255, 255, .08) !important;
-}
-
-.tabs > div {
-  background-color: transparent !important;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, .08) !important;
+  }
 }

@@ -43,12 +43,7 @@ class RequestLayer extends React.Component {
     return (
       <div>
         <MatchHeader match={match} loading={this.props.loading} />
-        <div style={{ margin: '30px 0' }}>
-          <TabBar
-            info={info}
-            tabs={matchPages(matchId)}
-          />
-        </div>
+        <TabBar info={info} tabs={matchPages(matchId)} />
         {match && page ? page.content(match) : <Spinner />}
       </div>
     );

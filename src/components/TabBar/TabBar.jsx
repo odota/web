@@ -9,7 +9,7 @@ const onActive = (tab, router) => {
 
 const TabBar = ({ router, tabs, info }) => (
   <Tabs
-    inkBarStyle={{ backgroundColor: styles.inkBarColor }}
+    inkBarStyle={{ backgroundColor: styles.blue }}
     className={styles.tabs}
     value={info}
   >
