@@ -78,7 +78,7 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error,
               </Badge>
             }
             title={getTitle(playerName, playerId, width)}
-            titleStyle={{ fontSize: 28, marginTop: 6 }}
+            titleStyle={{ fontSize: 28, marginTop: width > HEADER_BREAK_SIZE ? 6 : 0 }}
             subtitle={width > HEADER_BREAK_SIZE ?
               <PlayerStats playerId={playerId} /> :
                 <PlayerBadges playerId={playerId} />
