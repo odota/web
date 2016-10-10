@@ -13,7 +13,8 @@ import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';
 
-export const HEADER_BREAK_SIZE = 850;
+export const HEADER_MD_BREAK = 850;
+export const HEADER_SM_BREAK = 500;
 
 const getRegistrationBadge = registered => registered && (
   <div>
@@ -30,12 +31,20 @@ const getRegistrationBadge = registered => registered && (
   </div>
 );
 
-const getTitle = (playerName, playerId, width) => (width > HEADER_BREAK_SIZE ? (
-  <div>
-    {playerName}
-    <PlayerBadges playerId={playerId} />
-  </div>
-) : playerName);
+const getTitle = (playerName, playerId, width) => {
+  if (width > HEADER_MD_BREAK) {
+    return (
+      <div>
+        <div className={styles.titleNameButtons}>
+          {playerName}
+          <PlayerBadges playerId={playerId} />
+          <PlayerButtons />
+        </div>
+      </div>
+    );
+  }
+  return playerName;
+};
 
 // TODO localize strings
 const PlayerName = ({ playerName, playerId, picture, registered, loading, error, width }) => {
@@ -54,7 +63,7 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error,
 
     return (
       <div className={styles.container}>
-        <div>
+        <div className={styles.subContainer}>
           <CardHeader
             style={{ padding: 0 }}
             avatar={
@@ -69,26 +78,28 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error,
                 <Avatar
                   src={picture}
                   style={{
-                    marginLeft: width > HEADER_BREAK_SIZE ? 30 : 0,
+                    marginLeft: width > HEADER_MD_BREAK ? 30 : 0,
                     marginRight: 30,
                   }}
-                  size={width > HEADER_BREAK_SIZE ? 124 : 62}
+                  size={width > HEADER_MD_BREAK ? 124 : 62}
                   className={styles.oreviewAvatar}
                 />
               </Badge>
             }
             title={getTitle(playerName, playerId, width)}
-            titleStyle={{ fontSize: 28, marginTop: 6 }}
-            subtitle={width > HEADER_BREAK_SIZE ?
+            titleStyle={{ fontSize: 28, marginTop: width > HEADER_MD_BREAK ? 6 : 0 }}
+            subtitle={width > HEADER_MD_BREAK ?
               <PlayerStats playerId={playerId} /> :
-                <PlayerBadges playerId={playerId} />
+              <PlayerBadges playerId={playerId} />
             }
           />
-          {width <= HEADER_BREAK_SIZE && <PlayerStats playerId={playerId} />}
+          {width <= HEADER_MD_BREAK && <PlayerStats playerId={playerId} />}
         </div>
-        <div className={styles.playerButtonsContainer}>
-          <PlayerButtons />
-        </div>
+        {width <= HEADER_SM_BREAK && (
+          <div className={styles.playerButtonsContainer}>
+            <PlayerButtons />
+          </div>
+        )}
       </div>
     );
   };
