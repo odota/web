@@ -11,6 +11,7 @@ import {
 } from 'dotaconstants';
 */
 import heroes from 'dotaconstants/json/heroes.json';
+import { abbreviateNumber } from 'utility';
 import {
   heroTd,
 } from './matchColumns';
@@ -34,7 +35,11 @@ const CrossTable = ({
         <TableRowColumn>{heroTd(p, 'hero_id', p.hero_id, true)}</TableRowColumn>
         {match.players.slice(0, match.players.length / 2).map((p2) => {
           const hero2 = heroes[p2.hero_id] || {};
-          return <TableRowColumn key={p2.hero_id}>{`${(p[field1] || {})[hero2.name] || 0}/${(p[field2] || {})[hero2.name] || 0}`}</TableRowColumn>;
+          const pfield1 = p[field1] || {};
+          const pfield2 = p[field2] || {};
+          return (<TableRowColumn key={p2.hero_id}>
+            {`${abbreviateNumber(pfield1[hero2.name] || 0)}/${abbreviateNumber(pfield2[hero2.name] || 0)}`}
+          </TableRowColumn>);
         })}
       </TableRow>))}
     </TableBody>

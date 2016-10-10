@@ -1,15 +1,18 @@
-/*
+import React from 'react';
+import strings from 'lang';
 import {
-  objectives,
-  barracks_value as barracksValue,
-} from 'dotaconstants';
-*/
+  formatSeconds,
+} from 'utility';
+import Table from 'components/Table';
 import objectives from 'dotaconstants/json/objectives.json';
 import barracksValue from 'dotaconstants/json/barracks_value.json';
+import {
+  heroTdColumn,
+} from './matchColumns';
 
 const getObjectiveDesc = objective => (objective.key ? barracksValue[objective.key] : '');
 const getObjectiveBase = objective => objectives[objective.subtype || objective.type] || objective.subtype || objective.type;
-export default (match) => {
+const generateLog = (match) => {
   let log = [];
   log = log.concat(match.objectives || [])
     .map(objective => ({
@@ -35,3 +38,29 @@ export default (match) => {
   log = log.sort((a, b) => a.time - b.time);
   return log;
 };
+
+const logColumns = [heroTdColumn, {
+  displayName: strings.th_time,
+  field: 'time',
+  displayFn: (row, col, field) => formatSeconds(field),
+}, {
+  displayName: 'Type',
+  field: 'type',
+}, {
+  displayName: 'Detail',
+  field: 'detail',
+}];
+
+class MatchLog extends React.Component {
+  // TODO selector component
+  componentWillMount() {
+    this.setState({ selectedTypes: {} });
+  }
+  render() {
+    return (<div>
+      <Table data={generateLog(this.props.match)} columns={logColumns} />
+    </div>);
+  }
+}
+
+export default MatchLog;

@@ -35,7 +35,7 @@ const Distributions = ({
         <Heading title={strings[`distributions_${key}`]} />
         {(key === 'mmr') ?
           <div id="mmr" /> :
-          <Table data={data[key].rows} columns={countryMmrColumns} />}
+            <Table data={data[key].rows} columns={countryMmrColumns} />}
       </Tab>))
     }
   </Tabs>
@@ -59,9 +59,9 @@ class RequestLayer extends React.Component {
           height: 500,
         },
         data: {
-          x: strings.abbr_mmr,
+          x: strings.th_mmr,
           columns: [
-            [strings.abbr_mmr].concat(names), [strings.th_players].concat(counts), [strings.th_percentile].concat(pcts),
+            [strings.th_mmr].concat(names), [strings.th_players].concat(counts), [strings.th_percentile].concat(pcts),
           ],
           type: 'bar',
           types: {
@@ -82,21 +82,21 @@ class RequestLayer extends React.Component {
         },
         axis: {
           x: {
-            label: 'MMR',
+            label: strings.th_mmr,
           },
           y: {
-            label: '# Players',
+            label: strings.th_players,
           },
           y2: {
             show: true,
-            label: 'Percentile',
+            label: strings.th_percentile,
           },
         },
         tooltip: {
           format: {
             value: function tooltip(value, ratio, id) {
               // also has ind param
-              if (id === 'Percentile') {
+              if (id === strings.th_percentile) {
                 return value.toFixed(2);
               }
               return value;

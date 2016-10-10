@@ -30,7 +30,6 @@ const navbarPages = [{
   path: '/become-the-gamer',
 }];
 
-// openMenu
 const Header = ({ location }) => (
   <div>
     <Toolbar className={styles.header}>
@@ -42,7 +41,7 @@ const Header = ({ location }) => (
           <div key={page.name} className={styles.tabContainer}>
             {page.external ?
               <a href={page.path} className={styles.tab}>{page.name}</a> :
-              <Link to={page.path} className={styles.tab}>{page.name}</Link>}
+                <Link to={page.path} className={styles.tab}>{page.name}</Link>}
           </div>
         ))}
       </ToolbarGroup>

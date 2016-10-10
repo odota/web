@@ -12,6 +12,7 @@ import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';
 
+// TODO localize strings
 const PlayerName = ({ playerName, playerId, picture, registered, loading, error }) => {
   const getPlayerName = () => {
     if (error) return <Error />;

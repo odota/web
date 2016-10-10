@@ -15,12 +15,12 @@ const KDA = ({ kills, deaths, assists, matchId = uuid.v4(), together }) => {
       </div>
       <div>
         <div className={styles.percent} data-tip data-for={`kda-${matchId}`} style={{ width: together && '100%' }}>
-          <div style={{ width: `${(kills * 100) / kdaSum}%`, backgroundColor: palette.red }} />
-          <div style={{ width: `${(deaths * 100) / kdaSum}%`, backgroundColor: palette.gray }} />
-          <div style={{ width: `${(assists * 100) / kdaSum}%`, backgroundColor: palette.green }} />
+          <div style={{ width: `${(kills * 100) / kdaSum}%`, backgroundColor: palette.green }} />
+          <div style={{ width: `${(deaths * 100) / kdaSum}%`, backgroundColor: palette.red }} />
+          <div style={{ width: `${(assists * 100) / kdaSum}%`, backgroundColor: palette.gray }} />
         </div>
         <ReactTooltip id={`kda-${matchId}`} place="right" type="light" effect="float">
-          {`${strings.abbr_kda}: ${Number(((kills + assists) / Math.max(deaths, 1)).toFixed(2))}`}
+          {`${strings.th_kda}: ${Number(((kills + assists) / (deaths + 1)).toFixed(2))}`}
         </ReactTooltip>
       </div>
     </div>

@@ -7,6 +7,7 @@ import Spinner from '../Spinner';
 import styles from './PlayerHeader.css';
 import { IconCheese, IconSteam, IconEye, IconEyeInactive, IconTrophy } from '../Icons';
 
+// TODO localize strings
 export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, officialPlayerName }) => {
   const getPlayerBadges = () => {
     if (error) return <Error />;
@@ -25,15 +26,15 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
           </a>
         </div>
         {officialPlayerName &&
-          <div className={styles.iconButton}>
-            <IconTrophy
-              data-tip data-for="proPlayer"
-              className={styles.icon}
-            />
-            <ReactTooltip id="proPlayer" place="top" type="light" effect="solid">
-              This player is confirmed as {officialPlayerName}
-            </ReactTooltip>
-          </div>
+        <div className={styles.iconButton}>
+          <IconTrophy
+            data-tip data-for="proPlayer"
+            className={styles.icon}
+          />
+          <ReactTooltip id="proPlayer" place="top" type="light" effect="solid">
+            This player is confirmed as {officialPlayerName}
+          </ReactTooltip>
+        </div>
         }
         {Math.round(new Date().getTime() / 1000.0) >= Number(tracked) ?
           <div className={styles.iconButton}>
@@ -59,16 +60,16 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
           </div>
         }
         {cheese > 0 &&
-          <div className={styles.iconButton}>
-            <IconCheese
-              data-tip data-for="cheese"
-              className={`${styles.cheese} ${styles.icon}`}
-              style={{ height: 18 }}
-            />
-            <ReactTooltip id="cheese" place="top" type="light" effect="solid">
-              {cheese} Cheese bought
-            </ReactTooltip>
-          </div>
+        <div className={styles.iconButton}>
+          <IconCheese
+            data-tip data-for="cheese"
+            className={`${styles.cheese} ${styles.icon}`}
+            style={{ height: 18 }}
+          />
+          <ReactTooltip id="cheese" place="top" type="light" effect="solid">
+            {cheese} Cheese bought
+          </ReactTooltip>
+        </div>
         }
       </div>
     );

@@ -14,6 +14,7 @@ import Error from '../Error';
 import Spinner from '../Spinner';
 import styles from './PlayerHeader.css';
 
+// TODO localize strings
 export const PlayerStatsCards = ({
     loading,
     error,

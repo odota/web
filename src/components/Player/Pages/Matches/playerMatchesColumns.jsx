@@ -42,18 +42,18 @@ export default [{
   sortFn: row => (row.kills + row.assists) / (row.deaths + 1),
   displayFn: transformations.kda_together,
 }, {
-  displayName: strings.abbr_kills,
+  displayName: strings.th_kills,
   tooltip: strings.tooltip_kills,
   field: 'kills',
   sortFn: true,
   displayFn: transformations.kda,
 }, {
-  displayName: strings.abbr_deaths,
+  displayName: strings.th_deaths,
   tooltip: strings.tooltip_deaths,
   field: 'deaths',
   sortFn: true,
 }, {
-  displayName: strings.abbr_assists,
+  displayName: strings.th_assists,
   tooltip: strings.tooltip_assists,
   field: 'assists',
   sortFn: true,
