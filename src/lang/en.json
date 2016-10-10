@@ -136,6 +136,8 @@
   "objective_fort": "Ancient",
   "objective_roshan": "Roshan",
 
+  "registered_user_tooltip": "Registered user",
+
   "rune_0": "Double Damage",
   "rune_1": "Haste",
   "rune_2": "Illusion",
@@ -271,7 +273,7 @@
   "th_DOTA_UNIT_ORDER_HOLD_POSITION": "HLD",
   "th_DOTA_UNIT_ORDER_GLYPH": "GLYPH",
   "th_DOTA_UNIT_ORDER_RADAR": "SCN",
-  
+
   "time_just_now": "just now",
   "time_second": "second",
   "time_minute": "minute",
@@ -360,7 +362,7 @@
   "tooltip_damage_dealt": "Damage dealt to heroes by items/abilities",
   "tooltip_damage_received": "Damage received from heroes by items/abilities",
   "tooltip_registered_user": "Registered user",
-  
+
   "xp_reasons_0": "Other",
   "xp_reasons_1": "Creep",
   "xp_reasons_2": "Hero",

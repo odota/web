@@ -1,18 +1,42 @@
 @import "../palette.css";
 
+.container {
+  position: relative;
+
+  @media only screen and (max-width : 1250px) {
+    height: 48px;
+    overflow-y: hidden;
+  }
+}
+
+.subContainer {
+  @media only screen and (max-width : 1250px) {
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+  }
+}
+
 .tabs {
   border-bottom: 1px solid rgba(255, 255, 255, .19);
-  margin: 25px 0;
+  width: 100%;
 
+  @media only screen and (max-width : 1250px) {
+    /* Just make this value large enough that it's never reached */
+    width: 1920px !important;
+  }
   & > div {
     background-color: transparent !important;
   }
+
 }
 
 .tab {
   color: var(--primaryTextColor) !important;
   text-transform: none !important;
-  
+
   &:hover {
     background-color: rgba(255, 255, 255, .08) !important;
   }

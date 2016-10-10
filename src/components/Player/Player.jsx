@@ -10,7 +10,7 @@ import {
   getPlayerWinLoss,
 } from 'actions';
 import TabBar from 'components/TabBar';
-import PlayerHeader from './PlayerHeader';
+import PlayerHeader from './Header/PlayerHeader';
 import Error from '../Error';
 import styles from './Player.css';
 import playerPages from './playerPages';
