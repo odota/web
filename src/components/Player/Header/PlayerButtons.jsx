@@ -6,7 +6,7 @@ import ReactTooltip from 'react-tooltip';
 
 // TODO localize strings
 export default () => (
-  <CardActions style={{ width: '30%', boxSizing: 'border-box', padding: '6px 30px', textAlign: 'right' }}>
+  <CardActions>
     <div style={{ display: 'inline-block' }}>
       <div data-tip data-for="update">
         <FlatButton

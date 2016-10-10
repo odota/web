@@ -1,4 +1,4 @@
-@import "../palette.css";
+@import "../../palette.css";
 
 .image {
   display: inline-block;
@@ -6,7 +6,7 @@
   width: 24px;
   background-size: cover;
 }
-  
+
 .appBadge {
   composes: image;
 }

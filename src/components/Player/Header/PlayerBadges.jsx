@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { player } from 'reducers';
-import Error from '../Error';
-import Spinner from '../Spinner';
+import Error from 'components/Error';
+import Spinner from 'components/Spinner';
+import { IconCheese, IconSteam, IconEye, IconEyeInactive, IconTrophy } from 'components/Icons';
 import styles from './PlayerHeader.css';
-import { IconCheese, IconSteam, IconEye, IconEyeInactive, IconTrophy } from '../Icons';
 
 // TODO localize strings
 export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, officialPlayerName }) => {
@@ -25,17 +25,17 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
             </ReactTooltip>
           </a>
         </div>
-        {officialPlayerName &&
-        <div className={styles.iconButton}>
-          <IconTrophy
-            data-tip data-for="proPlayer"
-            className={styles.icon}
-          />
-          <ReactTooltip id="proPlayer" place="top" type="light" effect="solid">
-            This player is confirmed as {officialPlayerName}
-          </ReactTooltip>
-        </div>
-        }
+        {officialPlayerName && (
+          <div className={styles.iconButton}>
+            <IconTrophy
+              data-tip data-for="proPlayer"
+              className={styles.icon}
+            />
+            <ReactTooltip id="proPlayer" place="top" type="light" effect="solid">
+              This player is confirmed as {officialPlayerName}
+            </ReactTooltip>
+          </div>
+        )}
         {Math.round(new Date().getTime() / 1000.0) >= Number(tracked) ?
           <div className={styles.iconButton}>
             <IconEyeInactive
@@ -47,7 +47,7 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
               This user is inactive, and replays of new matches will not be automatically parsed.
             </ReactTooltip>
           </div>
-        :
+          :
           <div className={styles.iconButton}>
             <IconEye
               data-tip data-for="tracked"
@@ -60,16 +60,16 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
           </div>
         }
         {cheese > 0 &&
-        <div className={styles.iconButton}>
-          <IconCheese
-            data-tip data-for="cheese"
-            className={`${styles.cheese} ${styles.icon}`}
-            style={{ height: 18 }}
-          />
-          <ReactTooltip id="cheese" place="top" type="light" effect="solid">
-            {cheese} Cheese bought
-          </ReactTooltip>
-        </div>
+          <div className={styles.iconButton}>
+            <IconCheese
+              data-tip data-for="cheese"
+              className={`${styles.cheese} ${styles.icon}`}
+              style={{ height: 18 }}
+            />
+            <ReactTooltip id="cheese" place="top" type="light" effect="solid">
+              {cheese} Cheese bought
+            </ReactTooltip>
+          </div>
         }
       </div>
     );

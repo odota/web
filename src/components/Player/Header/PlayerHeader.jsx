@@ -5,12 +5,27 @@ import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
 import ReactTooltip from 'react-tooltip';
 import { player } from 'reducers';
+import Error from 'components/Error';
+import Spinner from 'components/Spinner';
 import styles from './PlayerHeader.css';
-import Error from '../Error';
-import Spinner from '../Spinner';
 import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';
+
+const getRegistrationBadge = registered => registered && (
+  <div>
+    <div
+      data-tip data-for="registered"
+      style={{
+        width: 18,
+        height: 18,
+      }}
+    />
+    <ReactTooltip id="registered" place="top" type="light" effect="solid">
+      Registered user.
+    </ReactTooltip>
+  </div>
+);
 
 // TODO localize strings
 const PlayerName = ({ playerName, playerId, picture, registered, loading, error }) => {
@@ -18,36 +33,24 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error 
     if (error) return <Error />;
     if (loading) return <Spinner />;
 
+    const badgeStyle = {
+      fontSize: 20,
+      top: 5,
+      left: 40,
+      background: registered ? styles.green : 'transparent',
+      width: 18,
+      height: 18,
+    };
+
     return (
-      <div style={{ width: '100%' }} className={styles.container}>
-        <div style={{ width: '70%' }}>
+      <div className={styles.container}>
+        <div>
           <CardHeader
             style={{ padding: 0 }}
             avatar={
               <Badge
-                badgeContent={registered ?
-                  <div>
-                    <div
-                      data-tip data-for="registered"
-                      style={{
-                        width: 18,
-                        height: 18,
-                      }}
-                    />
-                    <ReactTooltip id="registered" place="top" type="light" effect="solid">
-                      Registered user.
-                    </ReactTooltip>
-                  </div>
-                  : ''
-                }
-                badgeStyle={{
-                  fontSize: 20,
-                  top: 5,
-                  left: 40,
-                  background: registered ? styles.green : 'transparent',
-                  width: 18,
-                  height: 18,
-                }}
+                badgeContent={getRegistrationBadge(registered)}
+                badgeStyle={badgeStyle}
                 style={{
                   margin: 0,
                   padding: 0,
