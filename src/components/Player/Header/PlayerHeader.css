@@ -50,6 +50,9 @@
 
 .playerButtonsContainer {
   margin-left: auto;
+  & > div {
+    padding-right: 0 !important;
+  }
 }
 
 .playerBadges {
