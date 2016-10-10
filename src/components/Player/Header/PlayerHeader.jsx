@@ -5,6 +5,7 @@ import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
 import ReactTooltip from 'react-tooltip';
 import { player } from 'reducers';
+import strings from 'lang';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
 import styles from './PlayerHeader.css';
@@ -24,7 +25,7 @@ const getRegistrationBadge = registered => registered && (
       }}
     />
     <ReactTooltip id="registered" place="top" type="light" effect="solid">
-      Registered user.
+      {strings.registered_user_tooltip}
     </ReactTooltip>
   </div>
 );
@@ -80,13 +81,13 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error,
             titleStyle={{ fontSize: 28, marginTop: 6 }}
             subtitle={width > HEADER_BREAK_SIZE ?
               <PlayerStats playerId={playerId} /> :
-              <PlayerBadges playerId={playerId} />
+                <PlayerBadges playerId={playerId} />
             }
           />
           {width <= HEADER_BREAK_SIZE && <PlayerStats playerId={playerId} />}
         </div>
         <div className={styles.playerButtonsContainer}>
-          <PlayerButtons width={width} />
+          <PlayerButtons />
         </div>
       </div>
     );

@@ -6,7 +6,7 @@ import ReactTooltip from 'react-tooltip';
 import styles from './PlayerButtons.css';
 
 // TODO localize strings
-export default ({ width }) => (
+export default () => (
   <CardActions>
     <div className={styles.container}>
       <div data-tip data-for="update">
