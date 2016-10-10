@@ -1,0 +1,13 @@
+@media only screen and (max-width: 880px) {
+  th[data-mediaq$="_wide"],
+  td[data-mediaq$="_wide"] {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 881px) {
+  th[data-mediaq$="_narrow"],
+  td[data-mediaq$="_narrow"] {
+    display: none;
+  }
+}

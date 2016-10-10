@@ -1,20 +1,12 @@
 import React from 'react';
-import {
-  connect,
-} from 'react-redux';
-import {
-  getPlayerMatches,
-} from 'actions';
-import {
-  playerMatches,
-} from 'reducers';
-import Table, {
-  TableContainer,
-} from 'components/Table';
-import {
-  TableFilterForm,
-} from 'components/Form';
+import { connect } from 'react-redux';
+import strings from 'lang';
+import { getPlayerMatches } from 'actions';
+import { playerMatches } from 'reducers';
+import Table, { TableContainer } from 'components/Table';
+import { TableFilterForm } from 'components/Form';
 import playerMatchesColumns from './playerMatchesColumns';
+import styles from './Matches.css';
 
 const Matches = ({
   playerId,
@@ -22,7 +14,7 @@ const Matches = ({
 }) => (
   <div>
     <TableFilterForm submitAction={getPlayerMatches} id={playerId} page="matches" />
-    <TableContainer title="Recent Matches">
+    <TableContainer title={strings.heading_matches} className={styles.matches}>
       <Table paginated columns={playerMatchesColumns} data={data} />
     </TableContainer>
   </div>

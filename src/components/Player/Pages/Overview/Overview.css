@@ -1,19 +1,17 @@
 @import "../../../palette.css";
 
-.overviewContainer {
-  display: flex;
-}
-
 .overviewMatches {
-  width: 75%;
-  display: inline-block;
+  width: calc(70% - 30px);
+  margin-right: 30px;
 }
-
 .overviewHeroes {
-  width: 25%;
-  display: inline-block;
+  width: 30%;
 }
 
-.heroesContainer {
-  margin-left: 30px;
+.overviewMatches, .overviewHeroes {
+  display: inline-block;
+  @media only screen and (max-width: 1180px) {
+    width: 100%;
+    margin: 0;
+  }
 }
