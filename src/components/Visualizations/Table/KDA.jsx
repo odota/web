@@ -14,7 +14,7 @@ const KDA = ({ kills, deaths, assists, matchId = uuid.v4(), together }) => {
         {together ? `${kills}/${deaths}/${assists}` : kills}
       </div>
       <div>
-        <div className={styles.percent} data-tip data-for={`kda-${matchId}`} style={{ width: together && '100%' }}>
+        <div className={together ? styles.percentTogether : styles.percent} data-tip data-for={`kda-${matchId}`}>
           <div style={{ width: `${(kills * 100) / kdaSum}%`, backgroundColor: palette.green }} />
           <div style={{ width: `${(deaths * 100) / kdaSum}%`, backgroundColor: palette.red }} />
           <div style={{ width: `${(assists * 100) / kdaSum}%`, backgroundColor: palette.gray }} />

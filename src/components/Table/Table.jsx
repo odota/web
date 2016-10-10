@@ -40,7 +40,7 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
                 overflow: `${column.field === 'kills' ? 'visible' : null}`,
               };
               return (
-                <MaterialTableRowColumn key={colIndex} style={MaterialTableRowColumnStyle}>
+                <MaterialTableRowColumn key={colIndex} style={MaterialTableRowColumnStyle} data-mediaq={column.mediaQ}>
                   {row && column.displayFn && column.displayFn(row, column, row[column.field])}
                   {row && !column.displayFn && row[column.field]}
                 </MaterialTableRowColumn>

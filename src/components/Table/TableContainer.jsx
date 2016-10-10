@@ -3,7 +3,7 @@ import Heading from 'components/Heading';
 import styles from './TableContainer.css';
 
 const TableContainer = ({ title, style, children, className }) => (
-  <div className={className} style={{ ...style }}>
+  <div className={`${styles.container} ${className}`} style={{ ...style }}>
     <div className={styles.heroesContainer}>
       <Heading title={title} />
       {children}

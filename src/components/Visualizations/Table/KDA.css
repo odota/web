@@ -9,3 +9,8 @@
   width: calc(300% + 50px);
   left: -10px;
 }
+
+.percentTogether {
+  composes: percent;
+  width: 100%;
+}
