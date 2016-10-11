@@ -94,7 +94,7 @@
   "heading_wardmap": "Wardmap",
   "heading_wordcloud": "Wordcloud",
   "heading_wordcloud_said": "Words said (all chat)",
-  "heading_wordcloud_heard": "Words read (all chat)",
+  "heading_wordcloud_read": "Words read (all chat)",
 
   "home_login": "Login",
   "home_login_desc": "for automatic replay parsing",

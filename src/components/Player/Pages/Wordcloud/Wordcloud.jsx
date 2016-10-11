@@ -33,7 +33,7 @@ class RequestLayer extends React.Component {
       <Heading title={strings.heading_wordcloud} />
       <Heading title={strings.heading_wordcloud_said} />
       <Wordcloud counts={this.props.data.my_word_counts} />
-      <Heading title={strings.heading_wordcloud_heard} />
+      <Heading title={strings.heading_wordcloud_read} />
       <Wordcloud counts={this.props.data.all_word_counts} />
     </div>);
   }
