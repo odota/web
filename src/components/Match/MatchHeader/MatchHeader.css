@@ -1,8 +1,8 @@
 @import "../../palette.css";
 
-.gme {
-  text-align: center;
-
+.gmde {
+  margin: 0 20px;
+  
   & span {
     text-transform: uppercase;
     display: block;
@@ -31,9 +31,21 @@
 }
 .score {
   font-size: 48px;
+  text-align: center;
+}
+
+.killsRadiant {
+  composes: score;
+  color: var(--colorSuccess);
+}
+.killsDire {
+  composes: score;
+  color: var(--colorDanger);
 }
 
 .team {
+  padding: 10px;
+
   & svg {
     width: 32px;
     height: 32px;
@@ -44,25 +56,42 @@
 
 .radiant {
   composes: team;
-  text-align: left;
   color: var(--colorSuccess);
 
   & svg {
     fill: var(--colorSuccess);
   }
-  & div:first-of-type {
-    float: right;
-  }
 }
 .dire {
   composes: team;
   color: var(--colorDanger);
-  text-align: right;
   
   & svg {
     fill: var(--colorDanger);
   }
-  & div:first-of-type {
-    float: left;
+}
+
+.additionalInfo {
+  text-align: right;
+  padding-top: 20px;
+
+  & ul {
+    padding: 0;
+    margin: 0;
+
+    & li {
+      display: inline-block;
+      margin-left: 20px;
+      
+      & > span {
+        display: block;
+        text-transform: uppercase;
+        font-size: var(--fontSizeSmall);
+        color: var(--colorMutedLight);
+      }
+    }
+    & li:first-child {
+      margin-left: 0;
+    }
   }
 }
