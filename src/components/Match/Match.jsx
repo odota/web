@@ -7,7 +7,6 @@ import {
   getMatchData,
   getMatchLoading,
 } from 'reducers/match';
-import { getMetadataUser } from 'reducers/metadata';
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
 
@@ -17,7 +16,6 @@ const mapStateToProps = (state, {
   matchId: params.match_id,
   match: getMatchData(state),
   loading: getMatchLoading(state),
-  user: getMetadataUser(state),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -30,6 +30,7 @@ export default ({ match, loading }) => {
         <Row between="xs">
           <Col xs={12} md={4} className={match.radiant_win ? styles.radiant : styles.dire}>
             <div className={styles.winner}>
+              {/* If need to display team info just make condition (logo, name (side))*/}
               {match.radiant_win ?
                 <span>
                   <IconRadiant />
@@ -75,15 +76,15 @@ export default ({ match, loading }) => {
           <Col xs={12} md={4} className={styles.additionalInfo}>
             <ul>
               <li>
-                <span>Match ID</span>
+                <span>{strings.match_id}</span>
                 {match.match_id}
               </li>
               <li>
-                <span>Region</span>
+                <span>{strings.match_region}</span>
                 {transformations.region(null, null, match.region)}
               </li>
               <li>
-                <span>Avg mmr</span>
+                <span>{strings.match_avg_mmr}</span>
                 {averageMmr}
               </li>
             </ul>

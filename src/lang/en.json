@@ -119,6 +119,9 @@
   "match_radiant_win": "Radiant Victory",
   "match_dire_win": "Dire Victory",
   "match_ended": "Ended",
+  "match_id": "Match ID",
+  "match_region": "Region",
+  "match_avg_mmr": "Avg MMR",
 
   "objective_tower1_top": "T1 Top",
   "objective_tower1_mid": "T1 Mid",
