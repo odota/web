@@ -82,7 +82,6 @@ export default ({ match, loading }) => {
                 <span>Region</span>
                 {transformations.region(null, null, match.region)}
               </li>
-
               <li>
                 <span>Avg mmr</span>
                 {averageMmr}
