@@ -21,23 +21,18 @@ const getPlayerMatchesAndHeroes = (playerId, options) => (dispatch) => {
 };
 
 const MAX_OVERVIEW_ROWS = 20;
-const OVERVIEW_TABLES_BREAK_SIZE = 1224;
 
 const Overview = ({
   playerId,
   matchesData,
   heroesData,
-  width,
 }) => (
   <div>
     <TableFilterForm submitAction={getPlayerMatchesAndHeroes} id={playerId} page="overview" />
     <div className={styles.overviewContainer}>
       <TableContainer
         title={strings.heading_matches}
-        style={{
-          width: width >= OVERVIEW_TABLES_BREAK_SIZE ? 'calc(70% - 30px)' : '100%',
-          marginRight: width >= OVERVIEW_TABLES_BREAK_SIZE ? 30 : 0,
-        }}
+        className={styles.matchesTableContainer}
       >
         <Table
           columns={playerMatchesColumns}
@@ -47,7 +42,7 @@ const Overview = ({
       </TableContainer>
       <TableContainer
         title={strings.heading_heroes}
-        style={{ width: width >= OVERVIEW_TABLES_BREAK_SIZE ? '30%' : '100%' }}
+        className={styles.heroesTableContainer}
       >
         <Table
           columns={playerHeroesOverviewColumns}
@@ -87,7 +82,6 @@ const defaultOptions = {
 const mapStateToProps = (state, { playerId }) => ({
   matchesData: playerMatches.getMatchList(state, playerId),
   heroesData: playerHeroes.getHeroList(state, playerId),
-  width: state.browser.width,
 });
 
 const mapDispatchToProps = dispatch => ({
