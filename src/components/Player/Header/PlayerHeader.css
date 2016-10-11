@@ -85,6 +85,11 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
+}
+
+.playerButtonsContainerSmall {
+  composes: playerButtonsContainer;
   justify-content: center;
 }
 

@@ -151,7 +151,13 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error,
           {getSubContainerContents(playerName, playerId, width)}
         </div>
         {width <= HEADER_MD_BREAK && (
-          <div className={styles.playerButtonsContainer}>
+          <div
+            className={
+              width <= HEADER_SM_BREAK ?
+              styles.playerButtonsContainerSmall :
+              styles.playerButtonsContainer
+            }
+          >
             <PlayerButtons />
           </div>
         )}
