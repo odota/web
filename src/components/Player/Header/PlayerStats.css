@@ -45,8 +45,8 @@
       margin-right: 5px;
     }
     &:last-child {
-      margin-right: 5px;
-      margin-left: 10px;
+      margin-left: 5px;
+      margin-right: 10px;
     }
     /*Override material-ui style*/
     & > span, & > span > div {
@@ -72,5 +72,5 @@
   height: 16px !important;
   margin-left: 4px;
   position: absolute;
-  margin-top: -14px;
+  margin-top: -13px;
 }

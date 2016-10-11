@@ -36,28 +36,30 @@ const getTitle = (playerName, playerId, width) => {
   if (width <= HEADER_SM_BREAK) {
     return null;
   }
-  if (width > HEADER_MD_BREAK) {
+  if (width <= HEADER_MD_BREAK) {
     return (
-      <div>
-        <div className={styles.titleNameButtons}>
-          {playerName}
-          <PlayerBadges playerId={playerId} />
-          <PlayerButtons />
-        </div>
+      <div className={styles.titleNameButtons}>
+        {playerName}
+        <PlayerBadges playerId={playerId} />
       </div>
     );
   }
-  return playerName;
+  return (
+    <div>
+      <div className={styles.titleNameButtons}>
+        {playerName}
+        <PlayerBadges playerId={playerId} />
+        <PlayerButtons />
+      </div>
+    </div>
+  );
 };
 
-const getSubTitle = (playerId, width) => {
-  if (width <= HEADER_SM_BREAK) {
-    return null;
-  }
+const getSubtitle = (playerId, width) => {
   if (width > HEADER_MD_BREAK) {
     return <PlayerStats playerId={playerId} />;
   }
-  return <PlayerBadges playerId={playerId} />;
+  return null;
 };
 
 const getSubContainerContents = (playerName, playerId, width) => {
@@ -99,10 +101,21 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error,
     let cardHeaderStyle = {
       padding: 0,
     };
+    let titleStyle = {
+      fontSize: 28,
+      marginTop: 6,
+    };
     if (width <= HEADER_MD_BREAK) {
       badgeStyle = {
         ...badgeStyle,
         marginLeft: -1 * (LARGE_IMAGE_SIZE / 2) * 0.75,
+      };
+      titleStyle = {
+        ...titleStyle,
+        marginTop: 0,
+        position: 'absolute',
+        top: '50%',
+        transform: 'translateY(-50%)',
       };
     }
     if (width <= HEADER_SM_BREAK) {
@@ -145,8 +158,8 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error,
               </Badge>
             }
             title={getTitle(playerName, playerId, width)}
-            titleStyle={{ fontSize: 28, marginTop: width > HEADER_MD_BREAK ? 6 : 0 }}
-            subtitle={getSubTitle(playerId, width)}
+            titleStyle={titleStyle}
+            subtitle={getSubtitle(playerId, width)}
           />
           {getSubContainerContents(playerName, playerId, width)}
         </div>

@@ -46,6 +46,7 @@
 .playerName {
   color: rgba(245, 245, 245, 0.870588);
   font-size: 28px;
+  text-align: center;
 }
 
 .titleNameButtons {
