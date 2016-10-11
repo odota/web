@@ -5,6 +5,17 @@
       margin: 0 12px 0 0;
     }
   }
+  @media only screen and (max-width: 660px) {
+    & svg {
+      margin: 0 5px;
+    }
+    & svg:first-child {
+      margin: 0 5px 0 10px;
+    }
+    & svg:last-child {
+      margin: 0 10px 0 5px;
+    }
+  }
 }
 
 .playerBadges {
