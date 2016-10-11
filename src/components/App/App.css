@@ -4,7 +4,7 @@
   transition: var(--normalTransition);
   position: relative;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   height: 100%;
 }
 
@@ -19,9 +19,13 @@
 .body {
   padding: 50px;
   flex-grow: 1;
+  
   @media only screen and (max-width: 960px) {
     padding: 50px 25px;
   }
+  
+  margin: 0 auto;
+  max-width: 1440px;
 }
 
 .AppLogo {
