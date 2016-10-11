@@ -5,8 +5,6 @@
   "license": "GPL-3.0",
   "scripts": {
     "webpack": "NODE_ENV=production webpack -p --bail",
-    "watch": "webpack --watch",
-    "prestart": "npm install",
     "start": "webpack-dev-server --compress",
     "build": "NODE_ENV=production npm run lintnofix && npm run webpack",
     "lint": "eslint . --ext .js,.jsx --fix",
