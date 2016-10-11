@@ -1,6 +1,6 @@
 .iconButton {
   composes: iconButton from "../../palette.css";
-  @media only screen and (max-width: 850px) {
+  @media only screen and (max-width: 900px) {
     & svg {
       margin: 0 12px 0 0;
     }
@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: row;
   margin-left: 10px;
-  @media only screen and (max-width: 850px) {
+  @media only screen and (max-width: 900px) {
     margin-left: 0;
     margin-top: 6px;
   }

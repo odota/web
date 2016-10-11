@@ -21,18 +21,31 @@
 
 .subContainer {
   width: 100%;
-  /*Override material ui styles*/
-  & > div {
-    display: flex !important;
-    flex-direction: row;
-    flex-grow: 1;
+  @media only screen and (min-width: 901px) {
     /*Override material ui styles*/
-    & > div:nth-child(2) {
+    & > div {
+      display: flex !important;
+      flex-direction: row;
       flex-grow: 1;
-      padding-right: 0 !important;
-      margin-left: auto;
+      /*Override material ui styles*/
+      & > div:nth-child(2) {
+        flex-grow: 1;
+        padding-right: 0 !important;
+        margin-left: auto;
+      }
     }
   }
+}
+
+.smallSubContainerContents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.playerName {
+  color: rgba(245, 245, 245, 0.870588);
+  font-size: 28px;
 }
 
 .titleNameButtons {
@@ -67,41 +80,16 @@
   }
 }
 
-.mmrEstimateIcon {
-  width: 16px !important;
-  height: 16px !important;
-  margin-left: 4px;
-  position: absolute;
-  margin-top: -14px;
-}
-
 .playerButtonsContainer {
-  margin-left: auto;
-  & > div {
-    padding-right: 0 !important;
-  }
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .cheese {
   fill: var(--primaryTextColor) !important;
   -webkit-filter: drop-shadow(0 0 5px rgba(255, 255, 0, .6));
   filter: drop-shadow(0 0 5px rgba(255, 255, 0, .6));
-}
-
-.playerStats {
-  display: inline-block;
-  padding: 0 !important;
-  margin-right: 25px;
-  margin-top: 15px;
-}
-.playerStats span:last-child {
-  font-size: 24px !important;
-  color: rgba(255, 255, 255, 0.87) !important;
-  line-height: 36px !important;
-}
-.playerStats span:first-child {
-  font-size: 14px !important;
-  color: rgba(255, 255, 255, 0.54) !important;
-  line-height: 1 !important;
-  text-transform: uppercase;
 }

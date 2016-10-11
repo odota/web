@@ -13,8 +13,9 @@ import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';
 
-export const HEADER_MD_BREAK = 850;
-export const HEADER_SM_BREAK = 500;
+export const HEADER_MD_BREAK = 900;
+export const HEADER_SM_BREAK = 660;
+const LARGE_IMAGE_SIZE = 124;
 
 const getRegistrationBadge = registered => registered && (
   <div>
@@ -32,6 +33,9 @@ const getRegistrationBadge = registered => registered && (
 );
 
 const getTitle = (playerName, playerId, width) => {
+  if (width <= HEADER_SM_BREAK) {
+    return null;
+  }
   if (width > HEADER_MD_BREAK) {
     return (
       <div>
@@ -46,13 +50,39 @@ const getTitle = (playerName, playerId, width) => {
   return playerName;
 };
 
+const getSubTitle = (playerId, width) => {
+  if (width <= HEADER_SM_BREAK) {
+    return null;
+  }
+  if (width > HEADER_MD_BREAK) {
+    return <PlayerStats playerId={playerId} />;
+  }
+  return <PlayerBadges playerId={playerId} />;
+};
+
+const getSubContainerContents = (playerName, playerId, width) => {
+  if (width <= HEADER_SM_BREAK) {
+    return (
+      <div className={styles.smallSubContainerContents}>
+        <span className={styles.playerName}>{playerName}</span>
+        <PlayerBadges playerId={playerId} />
+        <PlayerStats playerId={playerId} compact />
+      </div>
+    );
+  }
+  if (width <= HEADER_MD_BREAK) {
+    return <PlayerStats playerId={playerId} />;
+  }
+  return null;
+};
+
 // TODO localize strings
 const PlayerName = ({ playerName, playerId, picture, registered, loading, error, width }) => {
   const getPlayerName = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;
 
-    const badgeStyle = {
+    let badgeStyle = {
       fontSize: 20,
       top: 5,
       left: 40,
@@ -61,11 +91,42 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error,
       height: 18,
     };
 
+    let avatarStyle = {
+      marginLeft: width > HEADER_MD_BREAK ? 30 : 0,
+      marginRight: width > HEADER_SM_BREAK ? 30 : 0,
+    };
+
+    let cardHeaderStyle = {
+      padding: 0,
+    };
+    if (width <= HEADER_MD_BREAK) {
+      badgeStyle = {
+        ...badgeStyle,
+        marginLeft: -1 * (LARGE_IMAGE_SIZE / 2) * 0.75,
+      };
+    }
+    if (width <= HEADER_SM_BREAK) {
+      cardHeaderStyle = {
+        ...cardHeaderStyle,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+      };
+      avatarStyle = {
+        ...avatarStyle,
+        marginLeft: LARGE_IMAGE_SIZE * 0.75,
+      };
+      badgeStyle = {
+        ...badgeStyle,
+        marginLeft: LARGE_IMAGE_SIZE * 0.5,
+      };
+    }
+
     return (
       <div className={styles.container}>
         <div className={styles.subContainer}>
           <CardHeader
-            style={{ padding: 0 }}
+            style={cardHeaderStyle}
             avatar={
               <Badge
                 badgeContent={getRegistrationBadge(registered)}
@@ -77,25 +138,19 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error,
               >
                 <Avatar
                   src={picture}
-                  style={{
-                    marginLeft: width > HEADER_MD_BREAK ? 30 : 0,
-                    marginRight: 30,
-                  }}
-                  size={width > HEADER_MD_BREAK ? 124 : 62}
+                  style={avatarStyle}
+                  size={width > HEADER_MD_BREAK || width <= HEADER_SM_BREAK ? LARGE_IMAGE_SIZE : LARGE_IMAGE_SIZE / 2}
                   className={styles.oreviewAvatar}
                 />
               </Badge>
             }
             title={getTitle(playerName, playerId, width)}
             titleStyle={{ fontSize: 28, marginTop: width > HEADER_MD_BREAK ? 6 : 0 }}
-            subtitle={width > HEADER_MD_BREAK ?
-              <PlayerStats playerId={playerId} /> :
-                <PlayerBadges playerId={playerId} />
-            }
+            subtitle={getSubTitle(playerId, width)}
           />
-          {width <= HEADER_MD_BREAK && <PlayerStats playerId={playerId} />}
+          {getSubContainerContents(playerName, playerId, width)}
         </div>
-        {width <= HEADER_SM_BREAK && (
+        {width <= HEADER_MD_BREAK && (
           <div className={styles.playerButtonsContainer}>
             <PlayerButtons />
           </div>
