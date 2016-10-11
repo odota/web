@@ -10,7 +10,7 @@ const initialState = {
   data: {},
 };
 
-export default createReducer(initialState, playerWordcloudActions);
+export default createReducer(initialState, playerWordcloudActions, true);
 
 export const getPlayerWordcloud = {
   getPlayerWordcloudById: (state, id) => state.app.gotPlayer.wordcloud.byId[id] || { ...initialState },

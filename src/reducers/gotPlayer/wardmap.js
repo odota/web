@@ -10,10 +10,10 @@ const initialState = {
   data: {},
 };
 
-export default createReducer(initialState, playerWardmapActions);
+export default createReducer(initialState, playerWardmapActions, true);
 
 export const getPlayerWardmap = {
-  getPlayerWardmapById: (state, id) => state.app.gotPlayer.mmr.byId[id] || { ...initialState },
+  getPlayerWardmapById: (state, id) => state.app.gotPlayer.wardmap.byId[id] || { ...initialState },
   getPlayerWardmap: (state, id) => getPlayerWardmap.getPlayerWardmapById(state, id).data,
   getError: (state, id) => getPlayerWardmap.getPlayerWardmapById(state, id).error,
   getLoading: (state, id) => getPlayerWardmap.getPlayerWardmapById(state, id).loading,

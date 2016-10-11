@@ -4,7 +4,7 @@ import { playerWordcloud } from 'reducers';
 import { getUrl } from 'actions/utility';
 
 // const excludedOptions = ['limit'];
-const url = playerId => `/api/players/${playerId}/wardmap`;
+const url = playerId => `/api/players/${playerId}/wordcloud`;
 
 const REQUEST = 'playerWordcloud/REQUEST';
 const OK = 'playerWordcloud/OK';
