@@ -13,6 +13,8 @@ import {
   TrendsPage,
   MMRPage,
   ItemsPage,
+  WardmapPage,
+  WordcloudPage,
 } from './Pages';
 
 const playerPages = [{
@@ -31,9 +33,6 @@ const playerPages = [{
   name: strings.tab_pros,
   content: playerId => (<ProsPage playerId={playerId} />),
 }, {
-  name: strings.tab_activity,
-  content: () => (<div />),
-}, {
   name: strings.tab_records,
   content: playerId => (<RecordsPage playerId={playerId} />),
 }, {
@@ -50,10 +49,10 @@ const playerPages = [{
   content: playerId => (<ItemsPage playerId={playerId} />),
 }, {
   name: strings.tab_wardmap,
-  content: () => (<div />),
+  content: playerId => (<WardmapPage playerId={playerId} />),
 }, {
   name: strings.tab_wordcloud,
-  content: () => (<div />),
+  content: playerId => (<WordcloudPage playerId={playerId} />),
 }, {
   name: strings.tab_mmr,
   content: playerId => (<MMRPage playerId={playerId} />),

@@ -8,7 +8,7 @@ import Pagination from './Pagination';
 export default (Table, id = uuid.v4()) => {
   // We have to give the table an id so we can hold all tables currentPage in memory.
 
-  const PaginatedTable = ({ currentPage, data, pageLength = 50, setCurrentPage, ...rest }) => {
+  const PaginatedTable = ({ currentPage, data, pageLength = 20, setCurrentPage, ...rest }) => {
     if (data) {
       if (currentPage > Math.ceil(data.length / pageLength)) {
         setCurrentPage(0);
