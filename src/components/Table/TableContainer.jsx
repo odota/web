@@ -2,8 +2,8 @@ import React from 'react';
 import Heading from 'components/Heading';
 import styles from './TableContainer.css';
 
-const TableContainer = ({ title, style, children }) => (
-  <div className={styles.container} style={{ ...style }}>
+const TableContainer = ({ title, style, className, children }) => (
+  <div className={`${styles.container} ${className}`} style={{ ...style }}>
     <div className={styles.heroesContainer}>
       <Heading title={title} />
       {children}
