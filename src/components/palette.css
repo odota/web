@@ -8,6 +8,8 @@
   --colorMuted:   #727272;
   --colorYelor:   #FFAB40; /* Yelor = YellowOrange */
 
+  --colorMutedLight:   color(var(--colorMuted) lightness(70%));
+
   --primaryLinkColor: var(--colorBlue);
 
   --textColorPrimary:     #F5F5F5;

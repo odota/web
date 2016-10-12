@@ -7,6 +7,10 @@ import {
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import {
+  responsiveStateReducer,
+  responsiveStoreEnhancer,
+} from 'redux-responsive';
+import {
   routerReducer as routing,
   routerMiddleware,
 } from 'react-router-redux';
@@ -18,9 +22,11 @@ const loggerMiddleware = createLogger();
 const reducer = combineReducers({
   app,
   routing,
+  browser: responsiveStateReducer,
 });
 
 export default createStore(reducer, compose(
+  responsiveStoreEnhancer,
   applyMiddleware(thunkMiddleware),
   applyMiddleware(loggerMiddleware),
   applyMiddleware(routerMiddleware(browserHistory)),

@@ -8,21 +8,25 @@ const onActive = (tab, router) => {
 };
 
 const TabBar = ({ router, tabs, info }) => (
-  <Tabs
-    inkBarStyle={{ backgroundColor: styles.inkBarColor }}
-    className={styles.tabs}
-    value={info}
-  >
-    {tabs.map((tab, index) => (
-      <Tab
-        key={index}
-        className={styles.tab}
-        value={tab.name.toLowerCase()}
-        label={tab.name}
-        onActive={() => onActive(tab, router)}
-      />
-    ))}
-  </Tabs>
+  <div className={styles.container}>
+    <div className={styles.subContainer}>
+      <Tabs
+        inkBarStyle={{ backgroundColor: styles.blue }}
+        className={styles.tabs}
+        value={info}
+      >
+        {tabs.map((tab, index) => (
+          <Tab
+            key={index}
+            className={styles.tab}
+            value={tab.name.toLowerCase()}
+            label={tab.name}
+            onActive={() => onActive(tab, router)}
+          />
+        ))}
+      </Tabs>
+    </div>
+  </div>
 );
 
 const { string, shape, arrayOf } = React.PropTypes;

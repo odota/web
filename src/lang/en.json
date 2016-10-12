@@ -120,6 +120,13 @@
   "items_build_pct": "Percentage of matches this item was built in",
   "items_win_pct": "Percentage of matches won where this item was built",
 
+  "match_radiant_win": "Radiant Victory",
+  "match_dire_win": "Dire Victory",
+  "match_ended": "Ended",
+  "match_id": "Match ID",
+  "match_region": "Region",
+  "match_avg_mmr": "Avg MMR",
+
   "objective_tower1_top": "T1 Top",
   "objective_tower1_mid": "T1 Mid",
   "objective_tower1_bot": "T1 Bot",
@@ -135,6 +142,8 @@
   "objective_rax_bot": "Rax Bot",
   "objective_fort": "Ancient",
   "objective_roshan": "Roshan",
+
+  "registered_user_tooltip": "Registered user",
 
   "rune_0": "Double Damage",
   "rune_1": "Haste",
@@ -271,7 +280,7 @@
   "th_DOTA_UNIT_ORDER_HOLD_POSITION": "HLD",
   "th_DOTA_UNIT_ORDER_GLYPH": "GLYPH",
   "th_DOTA_UNIT_ORDER_RADAR": "SCN",
-  
+
   "time_just_now": "just now",
   "time_second": "second",
   "time_minute": "minute",
@@ -360,7 +369,7 @@
   "tooltip_damage_dealt": "Damage dealt to heroes by items/abilities",
   "tooltip_damage_received": "Damage received from heroes by items/abilities",
   "tooltip_registered_user": "Registered user",
-  
+
   "xp_reasons_0": "Other",
   "xp_reasons_1": "Creep",
   "xp_reasons_2": "Hero",

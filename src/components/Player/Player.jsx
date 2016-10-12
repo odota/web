@@ -10,7 +10,7 @@ import {
   getPlayerWinLoss,
 } from 'actions';
 import TabBar from 'components/TabBar';
-import PlayerHeader from './PlayerHeader';
+import PlayerHeader from './Header/PlayerHeader';
 import Error from '../Error';
 import styles from './Player.css';
 import playerPages from './playerPages';
@@ -31,13 +31,7 @@ const Player = ({
     <div>
       <div className={styles.header}>
         <PlayerHeader playerId={accountId} />
-        <div style={{ marginTop: 25 }}>
-          <TabBar
-            info={info}
-            subInfo={subInfo}
-            tabs={playerPages(accountId)}
-          />
-        </div>
+        <TabBar info={info} subInfo={subInfo} tabs={playerPages(accountId)} />
       </div>
       {page ? page.content(accountId, subInfo) : ''}
     </div>
