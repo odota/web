@@ -10,7 +10,7 @@
   flex-direction: column;
   justify-content: center;
   line-height: 1.2;
-  max-width: 125px;
+  width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -54,7 +54,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-right: 1px solid rgba(0, 0, 0, .6);
-  border-bottom: 1px solid rgba(0, 0, 0, .6);
+  border-right: 2px solid var(--darkPrimaryColor);
+  border-bottom: 2px solid var(--darkPrimaryColor);
   border-bottom-right-radius: 100%;
 }

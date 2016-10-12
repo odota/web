@@ -42,6 +42,7 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
               const MaterialTableRowColumnStyle = {
                 // width: `${getWidthStyle(column.width, totalWidth)}%`,
                 overflow: `${column.field === 'kills' ? 'visible' : null}`,
+                color: column.color,
               };
               return (
                 <MaterialTableRowColumn key={colIndex} style={MaterialTableRowColumnStyle}>

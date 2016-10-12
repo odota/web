@@ -1,12 +1,14 @@
 :root {
   /* -- Colors */
   --defaultPrimaryColor:  rgba(0, 0, 0, .4);
+  --darkPrimaryColor:  rgba(0, 0, 0, .6);
 
   --colorSuccess: #66BB6A;
   --colorDanger:  #ff4c4c;
   --colorBlue:    #6BF;
   --colorMuted:   #727272;
   --colorYelor:   #FFAB40; /* Yelor = YellowOrange */
+  --colorGolden:  #e5c100;
 
   --colorMutedLight:   color(var(--colorMuted) lightness(70%));
 
@@ -50,9 +52,11 @@
   green:    var(--colorSuccess);
   blue:     var(--colorBlue);
   darkBlue: color(var(--colorBlue) lightness(-33%));
+  golden:   var(--colorGolden);
 
-  gray:   var(--colorMuted);
-  grey:   var(--colorMuted);
+  gray:      var(--colorMuted);
+  grey:      var(--colorMuted);
+  lightGray: var(--colorMutedLight);
 
   yelor:           var(--colorYelor);
   yellowOrange:    var(--colorYelor);
@@ -123,11 +127,11 @@
 .inflictorWithValue {
   position: relative;
   float: left;
-  margin: 0 2px;
+  margin: 2px;
   height: 29px;
 
   & .overlay {
-    background-color: rgba(0, 0, 0, .6);
+    background-color: var(--darkPrimaryColor);
     font-size: 10px;
     position: absolute;
     left: 0;

@@ -14,10 +14,11 @@ import {
   formatSeconds,
   abbreviateNumber,
   inflictorWithValue,
+  transformations,
 } from 'utility';
 import Heatmap from 'components/Heatmap';
 import { TableHeroImage } from 'components/Visualizations';
-import styles from './Match.css';
+import styles, { golden } from './Match.css';
 
 // {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
 export const heroTd = (row, col, field, hideName) => (
@@ -83,6 +84,7 @@ export const overviewColumns = match => [{
     tooltip: strings.tooltip_kills,
     field: 'kills',
     sortFn: true,
+    displayFn: transformations.kda,
   }, {
     displayName: strings.th_deaths,
     tooltip: strings.tooltip_deaths,
@@ -99,6 +101,7 @@ export const overviewColumns = match => [{
     field: 'gold_per_min',
     displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
     sortFn: true,
+    color: golden,
   }, {
     displayName: strings.th_items,
     tooltip: strings.tooltip_items,
@@ -132,6 +135,7 @@ export const overviewColumns = match => [{
     tooltip: strings.tooltip_gold_per_min,
     field: 'gold_per_min',
     sortFn: true,
+    color: golden,
   }, {
     displayName: strings.th_xp_per_min,
     tooltip: strings.tooltip_xp_per_min,
@@ -160,6 +164,7 @@ export const overviewColumns = match => [{
     tooltip: strings.tooltip_mmr,
     field: 'solo_competitive_rank',
     sortFn: true,
+    displayFn: row => row.solo_competitive_rank || `${strings.general_unknown.substr(0, 4)}.`.toLowerCase(),
   },
 ];
 
