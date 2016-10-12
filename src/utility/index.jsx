@@ -33,12 +33,15 @@ export function abbreviateNumber(num) {
   return (num < 1000) ? num : `${(num / 1000).toFixed(1)}${strings.abbr_thousand}`;
 }
 export function formatSeconds(input) {
-  const absTime = Math.abs(input);
-  const minutes = Math.floor(absTime / 60);
-  const seconds = pad(Math.floor(absTime % 60), 2);
-  let time = ((input < 0) ? '-' : '');
-  time += `${minutes}:${seconds}`;
-  return time;
+  if (!isNaN(parseFloat(input)) && isFinite(input)) {
+    const absTime = Math.abs(input);
+    const minutes = Math.floor(absTime / 60);
+    const seconds = pad(Math.floor(absTime % 60), 2);
+    let time = ((input < 0) ? '-' : '');
+    time += `${minutes}:${seconds}`;
+    return time;
+  }
+  return null;
 }
 
 const second = 1;

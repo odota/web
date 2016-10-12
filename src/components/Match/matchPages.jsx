@@ -13,6 +13,8 @@ import {
 import Heading from 'components/Heading';
 import Table from 'components/Table';
 import { Row, Col } from 'react-flexbox-grid';
+import { IconRadiant, IconDire } from 'components/Icons';
+import { red } from 'components/palette.css';
 import VisionMap from './VisionMap';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
@@ -50,9 +52,9 @@ const TeamTable = ({
   columns,
   heading = '',
 }) => (<div>
-  <Heading title={`${strings.general_radiant} ${heading}`} />
+  <Heading title={`${strings.general_radiant} ${heading}`} icon={<IconRadiant style={{ filter: 'drop-shadow(0 0 5px green)' }} />} />
   <Table data={filterMatchPlayers(match.players, 'radiant')} columns={columns} />
-  <Heading title={`${strings.general_dire} ${heading}`} />
+  <Heading title={`${strings.general_dire} ${heading}`} icon={<IconDire style={{ filter: `drop-shadow(0 0 5px ${red})`, fill: 'black' }} />} />
   <Table data={filterMatchPlayers(match.players, 'dire')} columns={columns} />
 </div>);
 
