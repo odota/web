@@ -107,16 +107,11 @@ export const overviewColumns = match => [{
       const itemArray = [];
       for (let i = 0; i < 6; i += 1) {
         const itemKey = itemIds[row[`item_${i}`]];
-        const item = items[itemKey];
-        const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey] / 60;
-        const overlay = firstPurchase ? `${Math.max(0, firstPurchase.toFixed(0))}m` : '';
-        if (item) {
+        const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey];
+
+        if (items[itemKey]) {
           itemArray.push(
-            inflictorWithValue({
-              inflictor: itemKey,
-              overlay,
-              key: i,
-            })
+            inflictorWithValue(itemKey, formatSeconds(firstPurchase))
           );
         }
       }
@@ -244,9 +239,9 @@ export const purchaseTimesColumns = (match) => {
       displayFn: (row, column, field) => (<div>
         {field ? field
         .filter(p => (p.time >= curTime - bucket && p.time < curTime))
-        .map((p, i) => {
+        .map((p) => {
           if (items[p.key]) {
-            return inflictorWithValue({ inflictor: p.key, value: formatSeconds(p.time), key: i });
+            return inflictorWithValue(p.key, formatSeconds(p.time));
           }
           return <span />;
         }) : ''}
@@ -331,7 +326,7 @@ export const performanceColumns = [
       if (field) {
         const hero = heroNames[field.key] || {};
         return (<div>
-          {inflictorWithValue({ inflictor: field.inflictor, value: field.value })}
+          {inflictorWithValue(field.inflictor, abbreviateNumber(field.value))}
           <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} role="presentation" />
         </div>);
       }
@@ -515,11 +510,7 @@ export const inflictorsColumns = [{
   field: 'damage_inflictor_received',
   displayFn: (row, col, field) => (field ? Object.keys(field)
       .sort((a, b) => field[b] - field[a])
-      .map((k, i) => inflictorWithValue({
-        inflictor: k,
-        value: abbreviateNumber(field[k]),
-        key: i,
-      })) : ''),
+      .map(k => inflictorWithValue(k, abbreviateNumber(field[k]))) : ''),
 }, {
   displayFn: () => '→',
 },
@@ -530,11 +521,7 @@ export const inflictorsColumns = [{
     field: 'damage_inflictor',
     displayFn: (row, col, field) => (field ? Object.keys(field)
       .sort((a, b) => field[b] - field[a])
-      .map((k, i) => inflictorWithValue({
-        inflictor: k,
-        value: abbreviateNumber(field[k]),
-        key: i,
-      })) : ''),
+      .map(k => inflictorWithValue(k, abbreviateNumber(field[k]))) : ''),
   },
 ];
 
@@ -572,10 +559,7 @@ export const teamfightColumns = [
     field: 'ability_uses',
     displayFn: (row, col, field) => (field ? Object.keys(field).map((k, i) => {
       if (abilityKeys[k]) {
-        return (inflictorWithValue({
-          inflictor: k,
-          key: i,
-        }));
+        return (inflictorWithValue(k, i));
       }
       return <div />;
     }) : ''),
@@ -584,10 +568,7 @@ export const teamfightColumns = [
     field: 'item_uses',
     displayFn: (row, col, field) => (field ? Object.keys(field).map((k, i) => {
       if (items[k]) {
-        return (inflictorWithValue({
-          inflictor: k,
-          key: i,
-        }));
+        return (inflictorWithValue(k, i));
       }
       return <div />;
     }) : ''),
