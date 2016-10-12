@@ -11,7 +11,7 @@ const TabBar = ({ router, tabs, info }) => (
   <div className={styles.container}>
     <div className={styles.subContainer}>
       <Tabs
-        inkBarStyle={{ backgroundColor: styles.inkBarColor }}
+        inkBarStyle={{ backgroundColor: styles.blue }}
         className={styles.tabs}
         value={info}
       >

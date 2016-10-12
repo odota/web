@@ -2,7 +2,7 @@
 
 .subText {
   font-size: 12px !important;
-  color: color(var(--colorMuted) lightness(70%));
+  color: var(--colorMutedLight);
   text-overflow: initial !important;
   display: block;
   margin-top: 1px;

@@ -1,0 +1,133 @@
+@import "../../palette.css";
+
+.gmde {
+  margin: 0 20px;
+  
+  & span {
+    text-transform: uppercase;
+    display: block;
+  }
+
+  & .gameMode {
+    font-size: var(--fontSizeMedium);
+  }
+  & .duration {
+    font-size: 28px;
+  }
+  & .ended {
+    font-size: var(--fontSizeSmall);
+    color: var(--colorMutedLight);
+    margin-top: 3px;
+    & > div {
+      display: inline-block;
+    }
+  }
+}
+
+.winner {
+  font-size: 28px;
+  padding-top: 10px;
+  filter: drop-shadow(0 0 15px var(--colorYelor));
+}
+.score {
+  font-size: 48px;
+  text-align: center;
+}
+
+.killsRadiant {
+  composes: score;
+  color: var(--colorSuccess);
+}
+.killsDire {
+  composes: score;
+  color: var(--colorDanger);
+}
+
+.team {
+  padding: 10px;
+
+  & svg {
+    width: 32px;
+    height: 32px;
+    margin: 0 15px;
+    vertical-align: sub;
+  }
+}
+
+.radiant {
+  composes: team;
+  color: var(--colorSuccess);
+
+  & svg {
+    fill: var(--colorSuccess);
+  }
+}
+.dire {
+  composes: team;
+  color: var(--colorDanger);
+  
+  & svg {
+    fill: var(--colorDanger);
+  }
+}
+
+.additionalInfo {
+  text-align: right;
+  padding-top: 20px;
+
+  & ul {
+    padding: 0;
+    margin: 0;
+
+    & li {
+      display: inline-block;
+      margin-left: 20px;
+      
+      & > span {
+        display: block;
+        text-transform: uppercase;
+        font-size: var(--fontSizeSmall);
+        color: var(--colorMutedLight);
+      }
+    }
+    & li:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .team {
+    text-align: center;
+    margin: 10px 0;
+
+    & svg {
+      display: block;
+      margin: 0 auto;
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  .additionalInfo {
+    text-align: center;
+
+    & span {
+      text-align: left;
+    }
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .score {
+    font-size: 40px;
+  }
+
+  .gmde {
+    margin: 0 10px;
+
+    & .duration {
+      font-size: 24px;
+    }
+  }
+}

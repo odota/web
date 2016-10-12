@@ -1,16 +1,12 @@
 @import "../palette.css";
 
-:export { inkBarColor: var(--primaryLinkColor) }
-
 .container {
   position: relative;
+  margin: 25px 0;
+
   @media only screen and (max-width : 1250px) {
     height: 48px;
     overflow-y: hidden;
-  }
-
-  @media only screen and (max-width: 960px) {
-    margin: 0 -25px;
   }
 }
 
@@ -21,7 +17,6 @@
     overflow-y: hidden;
     -ms-overflow-style: none;
     overflow: -moz-scrollbars-none;
-
   }
 }
 
@@ -36,14 +31,13 @@
   & > div {
     background-color: transparent !important;
   }
-  /*& > div:nth-child(2) > div {
-    width: 100px !important;
-  }*/
+
 }
 
 .tab {
   color: var(--primaryTextColor) !important;
   text-transform: none !important;
+
   &:hover {
     background-color: rgba(255, 255, 255, .08) !important;
   }

@@ -10,6 +10,8 @@ import IconLogout from './Logout';
 import IconOpenSource from './OpenSource';
 import IconStatsBars from './StatsBars';
 import IconWand from './Wand';
+import IconRadiant from './Radiant';
+import IconDire from './Dire';
 
 export {
   IconCheese,
@@ -24,4 +26,6 @@ export {
   IconOpenSource,
   IconStatsBars,
   IconWand,
+  IconRadiant,
+  IconDire,
 };
