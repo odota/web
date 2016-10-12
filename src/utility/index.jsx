@@ -252,16 +252,14 @@ export const inflictorWithValue = ({
         src: `${API_HOST}/public/images/default_attack.png`,
       };
     }
-    return (<span key={index} style={{ float: 'left', fontSize: '11px', position: 'relative', margin: '2px' }} >
-      <img src={props.src} role="presentation" style={{ height: '20px' }} />
-      <span className={styles.overlay}>
-        {overlay}
-      </span>
-      <br />
-      <span>{value}</span>
-    </span>);
+    return (
+      <div key={index} className={styles.inflictorWithValue} >
+        <img src={props.src} role="presentation" />
+        <div className={styles.overlay}>{overlay || value}</div>
+      </div>
+    );
   }
-  return <div />;
+  return null;
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */
@@ -337,3 +335,30 @@ export function isActiveItem(key) {
 }
 
 export const sum = (a, b) => a + b;
+
+export const playerSlotColor = (input) => {
+  switch (input) {
+    case 0:
+      return '#2E6AE6';
+    case 1:
+      return '#5DE6AD';
+    case 2:
+      return '#AD00AD';
+    case 3:
+      return '#DCD90A';
+    case 4:
+      return '#E66200';
+    case 128:
+      return '#E67AB0';
+    case 129:
+      return '#92A440';
+    case 130:
+      return '#5CC5E0';
+    case 131:
+      return '#00771F';
+    case 132:
+      return '#956000';
+    default:
+      return 'transparent';
+  }
+};

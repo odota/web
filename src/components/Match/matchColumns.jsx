@@ -9,41 +9,34 @@ import abilityKeys from 'dotaconstants/json/ability_keys.json';
 import heroNames from 'dotaconstants/json/hero_names.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import strings from 'lang';
-import {
-  Link,
-} from 'react-router';
-import {
-  API_HOST,
-} from 'config';
+import { API_HOST } from 'config';
 import {
   formatSeconds,
   abbreviateNumber,
   inflictorWithValue,
 } from 'utility';
 import Heatmap from 'components/Heatmap';
-// import { AppBadge } from '../Player';
+import { TableHeroImage } from 'components/Visualizations';
 import styles from './Match.css';
 
 // {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
 export const heroTd = (row, col, field, hideName) => (
-  <div style={{ marginTop: 5 }}>
-    <div>
-      <div className={row.isRadiant ? styles.radiant : styles.dire} />
-      <img
-        src={heroes[field] ? `${API_HOST}/apps/dota2/images/heroes/${heroes[field].name.substring('npc_dota_hero_'.length)}_full.png` : ''}
-        style={{ height: 24 }}
-        role="presentation"
-      />
-      {!hideName && <div>{row.account_id ? <Link to={`/players/${row.account_id}`}>{row.personaname}</Link> : strings.general_anonymous}</div>}
-    </div>
-  </div>
+  <TableHeroImage
+    image={`${heroes[row.hero_id] ? API_HOST + heroes[row.hero_id].img : '/assets/images/blank-1x1.gif'}`}
+    title={row.account_id ? row.personaname : strings.general_anonymous}
+    registered={row.last_login}
+    accountId={row.account_id}
+    subtitle={`${row.level} Lvl`}
+    playerSlot={row.player_slot}
+    hideText={hideName}
+  />
 );
 
 export const heroTdColumn = {
   displayName: 'Player',
   field: 'hero_id',
   displayFn: heroTd,
-  sortFn: row => (row.player_slot),
+  sortFn: row => (row.level),
 };
 
 export const overviewColumns = match => [{
@@ -86,16 +79,6 @@ export const overviewColumns = match => [{
   },
 },
   heroTdColumn, {
-    displayName: strings.th_mmr,
-    tooltip: strings.tooltip_mmr,
-    field: 'solo_competitive_rank',
-    sortFn: true,
-  }, {
-    displayName: strings.th_level,
-    tooltip: strings.tooltip_level,
-    field: 'level',
-    sortFn: true,
-  }, {
     displayName: strings.th_kills,
     tooltip: strings.tooltip_kills,
     field: 'kills',
@@ -111,6 +94,35 @@ export const overviewColumns = match => [{
     field: 'assists',
     sortFn: true,
   }, {
+    displayName: strings.th_gold,
+    tooltip: strings.tooltip_gold,
+    field: 'gold_per_min',
+    displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
+    sortFn: true,
+  }, {
+    displayName: strings.th_items,
+    tooltip: strings.tooltip_items,
+    field: '',
+    displayFn: (row) => {
+      const itemArray = [];
+      for (let i = 0; i < 6; i += 1) {
+        const itemKey = itemIds[row[`item_${i}`]];
+        const item = items[itemKey];
+        const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey] / 60;
+        const overlay = firstPurchase ? `${Math.max(0, firstPurchase.toFixed(0))}m` : '';
+        if (item) {
+          itemArray.push(
+            inflictorWithValue({
+              inflictor: itemKey,
+              overlay,
+              key: i,
+            })
+          );
+        }
+      }
+      return itemArray;
+    },
+  }, {
     displayName: strings.th_last_hits,
     tooltip: strings.tooltip_last_hits,
     field: 'last_hits',
@@ -119,12 +131,6 @@ export const overviewColumns = match => [{
     displayName: strings.th_denies,
     tooltip: strings.tooltip_denies,
     field: 'denies',
-    sortFn: true,
-  }, {
-    displayName: strings.th_gold,
-    tooltip: strings.tooltip_gold,
-    field: 'gold_per_min',
-    displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
     sortFn: true,
   }, {
     displayName: strings.th_gold_per_min,
@@ -143,40 +149,22 @@ export const overviewColumns = match => [{
     displayFn: row => abbreviateNumber(row.hero_damage),
     sortFn: true,
   }, {
-    displayName: strings.th_tower_damage,
-    tooltip: strings.tooltip_tower_damage,
-    field: 'tower_damage',
-    displayFn: row => abbreviateNumber(row.tower_damage),
-    sortFn: true,
-  }, {
     displayName: strings.th_hero_healing,
     tooltip: strings.tooltip_hero_healing,
     field: 'hero_healing',
     displayFn: row => abbreviateNumber(row.hero_healing),
     sortFn: true,
   }, {
-    displayName: strings.th_items,
-    tooltip: strings.tooltip_items,
-    field: '',
-    displayFn: (row) => {
-      const itemArray = [];
-      for (let i = 0; i < 6; i += 1) {
-        const itemKey = itemIds[row[`item_${i}`]];
-        const item = items[itemKey];
-        const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey] / 60;
-        const overlay = firstPurchase ? `${firstPurchase.toFixed(0)}'` : '';
-        if (item) {
-          itemArray.push(
-            inflictorWithValue({
-              inflictor: itemKey,
-              overlay,
-              key: i,
-            })
-          );
-        }
-      }
-      return itemArray;
-    },
+    displayName: strings.th_tower_damage,
+    tooltip: strings.tooltip_tower_damage,
+    field: 'tower_damage',
+    displayFn: row => abbreviateNumber(row.tower_damage),
+    sortFn: true,
+  }, {
+    displayName: strings.th_mmr,
+    tooltip: strings.tooltip_mmr,
+    field: 'solo_competitive_rank',
+    sortFn: true,
   },
 ];
 
