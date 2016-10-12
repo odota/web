@@ -1,5 +1,4 @@
 import React from 'react';
-// import CircularProgress from 'material-ui/CircularProgress';
 import {
   Tabs,
   Tab,
@@ -14,31 +13,58 @@ import {
 import strings from 'lang';
 import Table from 'components/Table';
 import Heading from 'components/Heading';
+import { sum } from 'utility';
+// import Spinner from 'components/Spinner';
 
 const countryMmrColumns = [{
-  displayName: 'Country',
+  displayName: '#',
+  field: '',
+  displayFn: (row, col, field, i) => i + 1,
+}, {
+  displayName: strings.th_country,
   field: 'common',
+  sortFn: true,
 }, {
-  displayName: 'Count',
+  displayName: strings.th_count,
   field: 'count',
+  sortFn: true,
 }, {
-  displayName: 'Average',
+  displayName: strings.th_average,
   field: 'avg',
+  sortFn: true,
 }];
 
 const Distributions = ({
   data,
+  // error,
+  // loading,
 }) => (
-  <Tabs>
-    {Object.keys(data).map(key => (
-      <Tab key={key} label={strings[`distributions_${key}`]}>
-        <Heading title={strings[`distributions_${key}`]} />
-        {(key === 'mmr') ?
-          <div id="mmr" /> :
-            <Table data={data[key].rows} columns={countryMmrColumns} />}
-      </Tab>))
-    }
-  </Tabs>
+  <div>
+    <div>{strings.distributions_warning_1}</div>
+    <div>{strings.distributions_warning_2}</div>
+    <Tabs>
+      {Object.keys(data).map(key => (
+        <Tab key={key} label={strings[`distributions_${key}`]}>
+          <Heading title={strings[`distributions_${key}`]} />
+          {(key === 'mmr') ?
+            <div>
+              <div>{`${data
+              && data.mmr
+              && data.mmr.rows
+              && data.mmr.rows.map(row => row.count).reduce(sum)} ${strings.th_players}`}</div>
+              <div id="mmr" />
+            </div> :
+              <div>
+                <div>{`${data
+              && data.country_mmr
+              && data.country_mmr.rows
+              && data.country_mmr.rows.map(row => row.count).reduce(sum)} ${strings.th_players}`}</div>
+                <Table data={data[key].rows} columns={countryMmrColumns} />
+              </div>}
+        </Tab>))
+      }
+    </Tabs>
+  </div>
 );
 
 class RequestLayer extends React.Component {
@@ -112,18 +138,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const {
-    error,
-    loading,
-    data,
-  } = state.app.distributions;
-  return {
-    error,
-    loading,
-    data,
-  };
-};
+const mapStateToProps = state => state.app.distributions;
 
 const mapDispatchToProps = dispatch => ({
   dispatchDistributions: () => dispatch(getDistributions()),

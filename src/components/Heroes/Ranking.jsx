@@ -4,23 +4,15 @@ import React, {
 import {
   connect,
 } from 'react-redux';
-import CircularProgress from 'material-ui/CircularProgress';
-
 import {
   ranking,
 } from 'reducers';
 import {
   getRanking,
 } from 'actions';
-
-import style from './Heroes.css';
+import Spinner from 'components/Spinner';
+// import style from './Heroes.css';
 import RankingTable from './RankingTable';
-
-const renderLoading = () => (
-  <div className={style.Loading}>
-    <CircularProgress color="#fff" />
-  </div>
-);
 
 const renderRanking = (hero, rankings) => (
   <div>
@@ -47,7 +39,7 @@ class Ranking extends Component {
     return (
       <div>
         {isLoading || isError || rankings === null ?
-          renderLoading() : renderRanking(hero, rankings)}
+          <Spinner /> : renderRanking(hero, rankings)}
       </div>
     );
   }
