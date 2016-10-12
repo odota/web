@@ -8,22 +8,11 @@ import styles from './MatchHeader.css';
 
 export default ({ match, loading }) => {
   if (!loading) {
-    const mapPlayers = key =>
-      (player) => {
-        if (key === 'radiant' && isRadiant(player.player_slot)) {
-          return player.kills;
-        } else if (key === 'dire' && !isRadiant(player.player_slot)) {
-          return player.kills;
-        } else if (key === 'mmr') {
-          return Number(player.solo_competitive_rank);
-        }
-        return null;
-      };
+    const mapPlayers = (key, radiant) =>
+      player =>
+        ((radiant === undefined || radiant === isRadiant(player.player_slot)) ? Number(player[key]) : null);
 
-    let averageMmr = match.players
-      .map(mapPlayers('mmr'))
-      .filter(Boolean);
-    averageMmr = Number((averageMmr.reduce(sum) / averageMmr.length).toFixed(0));
+    const mmrPlayers = match.players.map(mapPlayers('solo_competitive_rank')).filter(Boolean);
 
     return (
       <header className={styles.header}>
@@ -49,7 +38,7 @@ export default ({ match, loading }) => {
               <Col className={styles.killsRadiant}>
                 {
                   match.players
-                    .map(mapPlayers('radiant'))
+                    .map(mapPlayers('kills', true))
                     .reduce(sum)
                 }
               </Col>
@@ -67,7 +56,7 @@ export default ({ match, loading }) => {
               <Col className={styles.killsDire}>
                 {
                   match.players
-                    .map(mapPlayers('dire'))
+                    .map(mapPlayers('kills', false))
                     .reduce(sum)
                 }
               </Col>
@@ -85,7 +74,7 @@ export default ({ match, loading }) => {
               </li>
               <li>
                 <span>{strings.match_avg_mmr}</span>
-                {averageMmr}
+                {(mmrPlayers.reduce(sum) / mmrPlayers.length).toFixed(0)}
               </li>
             </ul>
           </Col>
