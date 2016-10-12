@@ -36,41 +36,40 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
             </ReactTooltip>
           </div>
         )}
-        {Math.round(new Date().getTime() / 1000.0) >= Number(tracked) ?
+        {Math.round(new Date().getTime() / 1000.0) >= Number(tracked) ? (
           <div className={styles.iconButton}>
             <IconEyeInactive
               data-tip data-for="untracked"
               className={styles.icon}
-              style={{ height: 22, fill: 'darkgray' }}
+              style={{ height: 22, fill: 'darkgray', marginTop: 4 }}
             />
             <ReactTooltip id="untracked" place="top" type="light" effect="solid">
               This user is inactive, and replays of new matches will not be automatically parsed.
             </ReactTooltip>
           </div>
-          :
-            <div className={styles.iconButton}>
-              <IconEye
-                data-tip data-for="tracked"
-                className={styles.icon}
-                style={{ height: 22 }}
-              />
-              <ReactTooltip id="tracked" place="top" type="light" effect="solid">
+          ) : (<div className={styles.iconButton}>
+            <IconEye
+              data-tip data-for="tracked"
+              className={styles.icon}
+              style={{ height: 22, marginTop: 4 }}
+            />
+            <ReactTooltip id="tracked" place="top" type="light" effect="solid">
               This user is tracked, and replays of new matches will be automatically parsed.
-              </ReactTooltip>
-            </div>
-        }
-        {cheese > 0 &&
-        <div className={styles.iconButton}>
-          <IconCheese
-            data-tip data-for="cheese"
-            className={`${styles.cheese} ${styles.icon}`}
-            style={{ height: 18 }}
-          />
-          <ReactTooltip id="cheese" place="top" type="light" effect="solid">
-            {cheese} Cheese bought
-          </ReactTooltip>
-        </div>
-        }
+            </ReactTooltip>
+          </div>
+        )}
+        {cheese > 0 && (
+          <div className={styles.iconButton}>
+            <IconCheese
+              data-tip data-for="cheese"
+              className={`${styles.cheese} ${styles.icon}`}
+              style={{ height: 18 }}
+            />
+            <ReactTooltip id="cheese" place="top" type="light" effect="solid">
+              {cheese} Cheese bought
+            </ReactTooltip>
+          </div>
+        )}
       </div>
     );
   };

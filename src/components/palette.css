@@ -104,7 +104,7 @@
 }
 
 .iconButton {
-  padding: 0 5px 4px !important;
+  padding: 0 5px 4px;
   & svg {
     width: auto !important;
     height: 16px;

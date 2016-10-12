@@ -1,46 +1,9 @@
 @import "../../palette.css";
 
-.image {
-  display: inline-block;
-  height: 24px;
-  width: 24px;
-  background-size: cover;
-}
-
-.appBadge {
-  composes: image;
-}
-
 .container {
   display: flex;
-  flex-direction: row;
-  margin: 0 0 5px 0;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.subContainer {
-  width: 100%;
-  @media only screen and (min-width: 901px) {
-    /*Override material ui styles*/
-    & > div {
-      display: flex !important;
-      flex-direction: row;
-      flex-grow: 1;
-      /*Override material ui styles*/
-      & > div:nth-child(2) {
-        flex-grow: 1;
-        padding-right: 0 !important;
-        margin-left: auto;
-      }
-    }
-  }
-}
-
-.smallSubContainerContents {
-  display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
 .playerName {
@@ -52,25 +15,24 @@
 .titleNameButtons {
   display: flex;
   flex-direction: row;
-  /*Override material ui styles*/
-  & > div:nth-child(2) {
-    margin-left: auto;
-    padding: 0 !important;
+  justify-content: flex-start;
+  @media only screen and (max-width: 660px) {
+    flex-direction: column;
+    align-items: center;
   }
 }
 
-.oreviewAvatar {
-  -webkit-box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.4);
-  -moz-box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.4);
-  box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.4);
+.stats {
+  @media only screen and (max-width: 900px) {
+    align-self: flex-end;
+  }
 }
 
-.oreviewTTIcon {
-  display: block;
-  margin-top: -3px !important;
-  cursor: default;
-  width: 16px !important;
-  height: 16px !important;
+.overviewAvatar {
+  box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.4);
+  @media only screen and (max-width: 660px) {
+    margin-left: 0 !important;
+  }
 }
 
 .icon {
@@ -79,6 +41,30 @@
   &:hover {
     opacity: .9;
   }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.topContainer {
+  composes: row;
+  @media only screen and (max-width: 660px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.topButtons {
+  margin-left: auto;
+}
+
+.playerInfo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .playerButtonsContainer {
