@@ -4,23 +4,14 @@ import React, {
 import {
   connect,
 } from 'react-redux';
-import CircularProgress from 'material-ui/CircularProgress';
 import {
   benchmark,
 } from 'reducers';
 import {
   getBenchmark,
 } from 'actions';
-
-import style from './Heroes.css';
-
+import Spinner from 'components/Spinner';
 import BenchmarkTable from './BenchmarkTable';
-
-const renderLoading = () => (
-  <div className={style.Loading}>
-    <CircularProgress color="#fff" />
-  </div>
-);
 
 const renderBenchmark = (hero, data) => (
   <div>
@@ -48,7 +39,7 @@ class Benchmark extends Component {
     return (
       <div>
         {isLoading || isError || result === null ?
-          renderLoading() : renderBenchmark(hero, result)}
+          <Spinner /> : renderBenchmark(hero, result)}
       </div>
     );
   }
