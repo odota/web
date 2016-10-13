@@ -11,14 +11,19 @@
   justify-content: center;
   line-height: 1.2;
   width: 120px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  
+  & > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .image {
   margin-right: 7px;
   position: relative;
+  height: 29px;
+  box-shadow: 0 0 5px var(--defaultPrimaryColor);
 }
 
 .container {
@@ -54,7 +59,5 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-right: 2px solid var(--darkPrimaryColor);
-  border-bottom: 2px solid var(--darkPrimaryColor);
-  border-bottom-right-radius: 100%;
+  box-shadow: 2px 2px 2px var(--defaultPrimaryColor);
 }

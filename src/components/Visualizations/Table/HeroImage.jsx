@@ -10,8 +10,6 @@ import styles from './HeroImage.css';
 const TableHeroImage = ({
   parsed,
   image,
-  imageWidth = 51,
-  imageHeight = 29,
   registered,
   title,
   subtitle,
@@ -38,8 +36,6 @@ const TableHeroImage = ({
           src={image}
           role="presentation"
           className={styles.image}
-          width={imageWidth}
-          height={imageHeight}
         />
         {playerSlot !== undefined &&
         <div
@@ -74,13 +70,11 @@ const TableHeroImage = ({
   );
 };
 
-const { number, string, object, oneOfType } = React.PropTypes;
+const { number, string, object, oneOfType, bool } = React.PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: number,
   image: string,
-  imageWidth: number,
-  imageHeight: number,
   title: string,
   subtitle: oneOfType([
     string,
@@ -88,6 +82,8 @@ TableHeroImage.propTypes = {
   ]),
   registered: string,
   accountId: number,
+  playerSlot: number,
+  hideText: bool,
 };
 
 export default TableHeroImage;

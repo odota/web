@@ -18,7 +18,7 @@ import {
 } from 'utility';
 import Heatmap from 'components/Heatmap';
 import { TableHeroImage } from 'components/Visualizations';
-import styles, { golden } from './Match.css';
+import styles from './Match.css';
 
 // {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
 export const heroTd = (row, col, field, hideName) => (
@@ -27,7 +27,7 @@ export const heroTd = (row, col, field, hideName) => (
     title={row.account_id ? row.personaname : strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
-    subtitle={`${row.level} Lvl`}
+    subtitle={`${row.solo_competitive_rank || `${strings.general_unknown.substr(0, 4)}.`} MMR`}
     playerSlot={row.player_slot}
     hideText={hideName}
   />
@@ -37,7 +37,7 @@ export const heroTdColumn = {
   displayName: 'Player',
   field: 'hero_id',
   displayFn: heroTd,
-  sortFn: row => (row.level),
+  sortFn: row => row.solo_competitive_rank,
 };
 
 export const overviewColumns = match => [{
@@ -49,37 +49,50 @@ export const overviewColumns = match => [{
       const partyNext = match.parties[(match.players[i + 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
       const parentStyle = {
         position: 'relative',
-        width: '100%',
+        width: 0,
         height: '100%',
       };
       const style = {
         position: 'absolute',
-        width: '50%',
-        left: '50%',
+        width: 10,
+        right: -25,
       };
-      const borderStyle = '2px solid #999999';
+      const borderStyle = `2px solid ${styles.lightGray}`;
+      // `row.isRadiant ? styles.green : styles.red` but it have no sense since tables are separated
       if (!partyPrev && partyNext) {
-        return (<div style={parentStyle}>
-          <div style={Object.assign({}, style, { borderLeft: borderStyle, height: '50%', top: '50%' })} />
-          <div style={Object.assign({}, style, { borderTop: borderStyle, height: '50%', top: '50%' })} />
-        </div>);
+        return (
+          <div style={parentStyle}>
+            <div style={{ ...style, borderLeft: borderStyle, height: '55%', top: '50%' }} />
+            <div style={{ ...style, borderTop: borderStyle, height: '50%', top: '50%' }} />
+          </div>
+        );
       }
       if (partyPrev && partyNext) {
-        return (<div style={parentStyle}>
-          <div style={Object.assign({}, style, { borderLeft: borderStyle, height: '100%', top: '0%' })} />
-        </div>);
+        return (
+          <div style={parentStyle}>
+            <div style={{ ...style, borderLeft: borderStyle, height: '120%', top: '-10%' }} />
+            <div style={{ ...style, borderTop: borderStyle, height: 2, top: '50%', marginTop: -1 }} />
+          </div>
+        );
       }
       if (partyPrev && !partyNext) {
-        return (<div style={parentStyle}>
-          <div style={Object.assign({}, style, { borderBottom: borderStyle, height: '50%', top: '0%' })} />
-          <div style={Object.assign({}, style, { borderLeft: borderStyle, height: '50%', top: '0%' })} />
-        </div>);
+        return (
+          <div style={parentStyle}>
+            <div style={{ ...style, borderBottom: borderStyle, height: '50%', top: '0%' }} />
+            <div style={{ ...style, borderLeft: borderStyle, height: '56%', top: -1 }} />
+          </div>
+        );
       }
     }
-    return <div />;
+    return null;
   },
 },
   heroTdColumn, {
+    displayName: strings.th_level,
+    tooltip: strings.tooltip_level,
+    field: 'level',
+    sortFn: true,
+  }, {
     displayName: strings.th_kills,
     tooltip: strings.tooltip_kills,
     field: 'kills',
@@ -96,30 +109,16 @@ export const overviewColumns = match => [{
     field: 'assists',
     sortFn: true,
   }, {
-    displayName: strings.th_gold,
-    tooltip: strings.tooltip_gold,
+    displayName: strings.th_gold_per_min,
+    tooltip: strings.tooltip_gold_per_min,
     field: 'gold_per_min',
-    displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
     sortFn: true,
-    color: golden,
+    color: styles.golden,
   }, {
-    displayName: strings.th_items,
-    tooltip: strings.tooltip_items,
-    field: '',
-    displayFn: (row) => {
-      const itemArray = [];
-      for (let i = 0; i < 6; i += 1) {
-        const itemKey = itemIds[row[`item_${i}`]];
-        const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey];
-
-        if (items[itemKey]) {
-          itemArray.push(
-            inflictorWithValue(itemKey, formatSeconds(firstPurchase))
-          );
-        }
-      }
-      return itemArray;
-    },
+    displayName: strings.th_xp_per_min,
+    tooltip: strings.tooltip_xp_per_min,
+    field: 'xp_per_min',
+    sortFn: true,
   }, {
     displayName: strings.th_last_hits,
     tooltip: strings.tooltip_last_hits,
@@ -129,17 +128,6 @@ export const overviewColumns = match => [{
     displayName: strings.th_denies,
     tooltip: strings.tooltip_denies,
     field: 'denies',
-    sortFn: true,
-  }, {
-    displayName: strings.th_gold_per_min,
-    tooltip: strings.tooltip_gold_per_min,
-    field: 'gold_per_min',
-    sortFn: true,
-    color: golden,
-  }, {
-    displayName: strings.th_xp_per_min,
-    tooltip: strings.tooltip_xp_per_min,
-    field: 'xp_per_min',
     sortFn: true,
   }, {
     displayName: strings.th_hero_damage,
@@ -160,11 +148,30 @@ export const overviewColumns = match => [{
     displayFn: row => abbreviateNumber(row.tower_damage),
     sortFn: true,
   }, {
-    displayName: strings.th_mmr,
-    tooltip: strings.tooltip_mmr,
-    field: 'solo_competitive_rank',
+    displayName: strings.th_gold,
+    tooltip: strings.tooltip_gold,
+    field: 'gold_per_min',
+    displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
     sortFn: true,
-    displayFn: row => row.solo_competitive_rank || `${strings.general_unknown.substr(0, 4)}.`.toLowerCase(),
+    color: styles.golden,
+  }, {
+    displayName: strings.th_items,
+    tooltip: strings.tooltip_items,
+    field: '',
+    displayFn: (row) => {
+      const itemArray = [];
+      for (let i = 0; i < 6; i += 1) {
+        const itemKey = itemIds[row[`item_${i}`]];
+        const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey];
+
+        if (items[itemKey]) {
+          itemArray.push(
+            inflictorWithValue(itemKey, formatSeconds(firstPurchase))
+          );
+        }
+      }
+      return itemArray;
+    },
   },
 ];
 
