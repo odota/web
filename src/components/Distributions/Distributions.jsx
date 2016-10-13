@@ -48,17 +48,21 @@ const Distributions = ({
           <Heading title={strings[`distributions_${key}`]} />
           {(key === 'mmr') ?
             <div>
-              <div>{`${data
-              && data.mmr
-              && data.mmr.rows
-              && data.mmr.rows.map(row => row.count).reduce(sum)} ${strings.th_players}`}</div>
+              <div>
+                {`${data
+                && data.mmr
+                && data.mmr.rows
+                && data.mmr.rows.map(row => row.count).reduce(sum)} ${strings.th_players}`}
+              </div>
               <div id="mmr" />
             </div> :
               <div>
-                <div>{`${data
-              && data.country_mmr
-              && data.country_mmr.rows
-              && data.country_mmr.rows.map(row => row.count).reduce(sum)} ${strings.th_players}`}</div>
+                <div>
+                  {`${data
+                  && data.country_mmr
+                  && data.country_mmr.rows
+                  && data.country_mmr.rows.map(row => row.count).reduce(sum)} ${strings.th_players}`}
+                </div>
                 <Table data={data[key].rows} columns={countryMmrColumns} />
               </div>}
         </Tab>))
