@@ -17,7 +17,6 @@ const onNewRequest = ({ value, index, formName, name, dataSourceConfig, dataSour
       },
       limit
     );
-    setFieldText(formName, name, '');
   }
   if (strict && index === -1) {
     const closestMatch = getClosestMatch(
@@ -34,7 +33,6 @@ const onNewRequest = ({ value, index, formName, name, dataSourceConfig, dataSour
         },
         limit
       );
-      setFieldText(formName, name, '');
     }
   }
   if (!strict && index === -1) {
@@ -46,8 +44,9 @@ const onNewRequest = ({ value, index, formName, name, dataSourceConfig, dataSour
       },
       limit
     );
-    setFieldText(formName, name, '');
   }
+  // TODO this doesn't always clear on selection
+  setFieldText(formName, name, '');
 };
 
 const FormField = ({

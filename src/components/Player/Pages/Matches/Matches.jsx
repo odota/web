@@ -16,6 +16,7 @@ import {
 } from 'components/Form';
 import playerMatchesColumns from './playerMatchesColumns';
 
+// TODO localize
 const Matches = ({
   playerId,
   data,

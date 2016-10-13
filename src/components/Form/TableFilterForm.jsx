@@ -13,6 +13,7 @@ import * as data from './TableFilter.config';
 
 const FORM_NAME = 'tableFilter';
 
+// TODO localize strings
 const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
   <div>
     <ShowFormToggle page={page} formName={FORM_NAME} />
@@ -21,41 +22,46 @@ const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
         <FormGroup className={styles.formGroup}>
           <FormField
             name="with_hero_id"
-            label="your team had these heroes"
+            label="With Heroes"
             dataSource={data.heroList}
             dataSourceConfig={data.heroConfig}
             strict
+            limit={5}
           />
           <FormField
             name="against_hero_id"
-            label="their team had these heroes"
+            label="Against Heroes"
             dataSource={data.heroList}
             dataSourceConfig={data.heroConfig}
             strict
+            limit={5}
           />
           <FormField
             name="included_account_id"
-            label="included these players"
+            label="Included Players"
+            limit={10}
           />
           <FormField
             name="excluded_account_id"
-            label="excluded these players"
+            label="Excluded Players"
           />
         </FormGroup>
         <FormGroup className={styles.formGroup}>
           <FormField
             name="hero_id"
-            label="your hero"
+            label="Hero"
             dataSource={data.heroList}
             dataSourceConfig={data.heroConfig}
             strict
+            limit={1}
           />
           <FormField
             name="is_radiant"
-            label="faction"
+            label="Team"
             dataSource={data.factionList}
             dataSourceConfig={data.genericConfig}
             strict
+            limit={1}
           />
           <FormField
             name="win"
@@ -63,6 +69,7 @@ const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
             dataSource={data.resultList}
             dataSourceConfig={data.genericConfig}
             strict
+            limit={1}
           />
           <FormField
             name="lane_role"
@@ -70,6 +77,7 @@ const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
             dataSource={data.laneList}
             dataSourceConfig={data.genericConfig}
             strict
+            limit={1}
           />
         </FormGroup>
         <FormGroup className={styles.formGroup}>
@@ -78,24 +86,24 @@ const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
             label="patch"
             dataSource={data.patchList}
             dataSourceConfig={data.genericConfig}
-            maxSearchResults={100}
             strict
+            limit={1}
           />
           <FormField
             name="game_mode"
             label="game mode"
             dataSource={data.modeList}
             dataSourceConfig={data.genericConfig}
-            maxSearchResults={100}
             strict
+            limit={1}
           />
           <FormField
             name="lobby_type"
             label="lobby type"
             dataSource={data.lobbyTypeList}
             dataSourceConfig={data.genericConfig}
-            maxSearchResults={100}
             strict
+            limit={1}
           />
           <FormField
             name="date"
@@ -111,8 +119,10 @@ const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
             dataSource={data.regionList}
             dataSourceConfig={data.genericConfig}
             strict
+            limit={1}
           />
         </FormGroup>
+        {/*
         <FormGroup className={styles.formGroup}>
           <FormField
             name="limit"
@@ -120,6 +130,7 @@ const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
             limit={1}
           />
         </FormGroup>
+        */}
       </Form>
       <div className={styles.buttonContainer}>
         <ClearButton label="reset the thing" clearForm={clearForm} style={{ marginRight: 10 }} />
@@ -127,7 +138,6 @@ const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
       </div>
     </div>
   </div>
-
 );
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

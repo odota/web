@@ -1,13 +1,3 @@
-/*
-import {
-  heroes,
-  lane_ids as laneIds,
-  patch,
-  game_mode as gameMode,
-  lobby_type as lobbyType,
-  region,
-} from 'dotaconstants';
-*/
 import heroes from 'dotaconstants/json/heroes.json';
 import laneIds from 'dotaconstants/json/lane_ids.json';
 import patch from 'dotaconstants/json/patch.json';
@@ -38,7 +28,7 @@ export const laneList = Object.keys(laneIds).map(id => ({
 export const patchList = patch.map((patch, index) => ({
   text: patch.name,
   id: index,
-}));
+})).reverse();
 export const modeList = Object.keys(gameMode).map(id => ({
   text: gameMode[id].name,
   id,

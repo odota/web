@@ -7,6 +7,7 @@ import { withRouter } from 'react-router';
 import { HistogramGraph } from 'components/Visualizations';
 import ButtonGarden from 'components/ButtonGarden';
 import histogramNames from 'components/Player/Pages/matchDataColumns';
+import { TableFilterForm } from 'components/Form';
 
 const selectHistogram = (router, playerId) => (histogramName) => {
   router.push(`/players/${playerId}/histograms/${histogramName}`);
@@ -14,6 +15,7 @@ const selectHistogram = (router, playerId) => (histogramName) => {
 
 const Histogram = ({ histogramName = histogramNames[0], columns, router, playerId }) => (
   <div style={{ fontSize: 10 }}>
+    <TableFilterForm submitAction={() => {}} id={playerId} page="heroes" />
     <ButtonGarden
       buttonNames={histogramNames}
       selectedButton={histogramName}
@@ -24,7 +26,7 @@ const Histogram = ({ histogramName = histogramNames[0], columns, router, playerI
 );
 
 const getData = (props) => {
-  props.getPlayerHistogram(props.playerId, props.histogramName || histogramNames[0]);
+  props.getPlayerHistogram(props.playerId, props.routeParams, props.histogramName || histogramNames[0]);
 };
 
 class RequestLayer extends React.Component {
@@ -39,6 +41,8 @@ class RequestLayer extends React.Component {
   }
 
   render() {
+    // TODO why is there no routing data here?
+    console.log(this.props);
     return <Histogram {...this.props} />;
   }
 }

@@ -6,6 +6,7 @@ import Heading from 'components/Heading';
 import Heatmap from 'components/Heatmap';
 import { Row, Col } from 'react-flexbox-grid';
 import strings from 'lang';
+import { TableFilterForm } from 'components/Form';
 
 const getData = (props) => {
   props.getPlayerWardmap(props.playerId);
@@ -24,6 +25,7 @@ class RequestLayer extends React.Component {
 
   render() {
     return (<div>
+      <TableFilterForm submitAction={getPlayerWardmap} id={this.props.playerId} page="heroes" />
       <Heading title={strings.heading_wardmap} />
       <Row>
         <Col md>

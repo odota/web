@@ -11,6 +11,7 @@ import {
 import Heading from 'components/Heading';
 import Wordcloud from 'components/Wordcloud';
 import strings from 'lang';
+import { TableFilterForm } from 'components/Form';
 // import { Row, Col } from 'react-flexbox-grid';
 
 const getData = (props) => {
@@ -30,6 +31,7 @@ class RequestLayer extends React.Component {
 
   render() {
     return (<div>
+      <TableFilterForm submitAction={getPlayerWordcloud} id={this.props.playerId} page="heroes" />
       <Heading title={strings.heading_wordcloud} />
       <Heading title={strings.heading_wordcloud_said} />
       <Wordcloud counts={this.props.data.my_word_counts} />

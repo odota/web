@@ -1,4 +1,6 @@
+/* global window */
 import { form } from 'reducers';
+import querystring from 'querystring';
 
 const ADD_CHIP = 'form/ADD_CHIP';
 const DELETE_CHIP = 'form/DELETE_CHIP';
@@ -65,5 +67,6 @@ export const submitForm = (submitAction, formName) => (dispatch, getState) => {
       formFields[key] = form.getChipList(getState(), formName, key).map(chip => chip.value);
     }
   });
-  dispatch(submitAction(formFields, false, true));
+  window.history.pushState('', '', `?${querystring.stringify(formFields)}`);
+  dispatch(submitAction(formFields));
 };

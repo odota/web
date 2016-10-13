@@ -12,6 +12,7 @@ import { deSnake } from 'utility';
 import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
 // import Heading from 'components/Heading';
+import { TableFilterForm } from 'components/Form';
 
 const selectTrend = (router, playerId) => (trendName) => {
   router.push(`/players/${playerId}/trends/${trendName}`);
@@ -19,6 +20,7 @@ const selectTrend = (router, playerId) => (trendName) => {
 
 const Trend = ({ trendName = trendNames[0], columns, router, playerId }) => (
   <div style={{ fontSize: 10 }}>
+    <TableFilterForm submitAction={() => {}} id={this.props.playerId} page="heroes" />
     <ButtonGarden
       buttonNames={trendNames}
       selectedButton={trendName}
@@ -31,6 +33,7 @@ const Trend = ({ trendName = trendNames[0], columns, router, playerId }) => (
   </div>
 );
 
+// TODO apply filter based on url query string
 const getData = (props) => {
   props.getPlayerMatches(
     props.playerId,

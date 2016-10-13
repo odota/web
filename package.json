@@ -32,7 +32,6 @@
     "postcss-import": "8.1.0",
     "postcss-loader": "0.13.0",
     "postcss-reporter": "1.4.1",
-    "querystring": "0.2.0",
     "react": "15.3.2",
     "react-dom": "15.3.2",
     "react-flexbox-grid": "0.10.2",
