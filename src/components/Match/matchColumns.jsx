@@ -35,9 +35,9 @@ export const heroTd = (row, col, field, hideName) => (
 
 export const heroTdColumn = {
   displayName: 'Player',
-  field: 'hero_id',
+  field: 'player_slot',
   displayFn: heroTd,
-  sortFn: row => row.solo_competitive_rank,
+  sortFn: true,
 };
 
 export const overviewColumns = match => [{
