@@ -1,9 +1,9 @@
 import React from 'react';
-import {
-  pad,
-} from 'utility';
+import { pad } from 'utility';
+import { API_HOST } from 'config';
 import buildingData from './buildingData';
 // import Spinner from '../Spinner';
+import styles from './BuildingMap.css';
 
 export default function BuildingMap({
   match,
@@ -30,7 +30,7 @@ export default function BuildingMap({
           opacity: bits[i] === '1' ? '1' : '0.2',
           // TODO scale based on client width
           // d.style += 'zoom: ' + document.getElementById(map').clientWidth / 600 + ';';
-          zoom: buildingData[i].id.slice(0, 1) === 'a' ? 1 : 0.5,
+          zoom: buildingData[i].id.slice(0, 1) === 'a' ? 0.8 : 0.5,
           position: 'absolute',
           top: buildingData[i].style.split(';')[1].split(':')[1],
           left: buildingData[i].style.split(';')[2].split(':')[1],
@@ -39,15 +39,12 @@ export default function BuildingMap({
       icons.push(<img {...d} role="presentation" />);
     }
     return (
-      <div
-        style={{
-          position: 'relative',
-          top: 0,
-          left: 0,
-          width: 600,
-        }}
-      >
-        <img width={600} src="/assets/images/map.png" role="presentation" />
+      <div className={styles.buildingMap}>
+        <img
+          src={`${API_HOST}/apps/dota2/images/tv/minimap_686.jpg`}
+          role="presentation"
+          className={styles.buildingMapImage}
+        />
         {icons}
       </div>);
   }
