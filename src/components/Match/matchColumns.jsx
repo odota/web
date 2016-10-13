@@ -24,10 +24,10 @@ import styles from './Match.css';
 export const heroTd = (row, col, field, hideName) => (
   <TableHeroImage
     image={`${heroes[row.hero_id] ? API_HOST + heroes[row.hero_id].img : '/assets/images/blank-1x1.gif'}`}
-    title={row.account_id ? row.personaname : strings.general_anonymous}
+    title={row.account_id ? (row.game_mode === 2 && row.name) || row.personaname : strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
-    subtitle={`${row.solo_competitive_rank || `${strings.general_unknown.substr(0, 4)}.`} MMR`}
+    subtitle={`${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`}
     playerSlot={row.player_slot}
     hideText={hideName}
   />
