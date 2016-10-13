@@ -23,7 +23,7 @@ import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import styles from './Match.css';
 
 // {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
-export const heroTd = (row, col, field, hideName) => (
+export const heroTd = (row, col, field, index, hideName) => (
   <TableHeroImage
     image={`${heroes[row.hero_id] ? API_HOST + heroes[row.hero_id].img : '/assets/images/blank-1x1.gif'}`}
     title={row.account_id ? (row.game_mode === 2 && row.name) || row.personaname : strings.general_anonymous}
