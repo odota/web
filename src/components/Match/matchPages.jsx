@@ -23,7 +23,7 @@ import BuildingMap from './BuildingMap';
 import MatchLog from './MatchLog';
 import {
   overviewColumns,
-  abilityUpgradeColumns,
+  // abilityUpgradeColumns,
   benchmarksColumns,
   performanceColumns,
   supportColumns,
@@ -63,7 +63,6 @@ const matchPages = [{
   name: strings.tab_overview,
   content: match => (<div>
     <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
-    <TeamTable match={match} columns={abilityUpgradeColumns} heading={strings.heading_ability_builds} />
     <Heading title={strings.heading_buildings} />
     <BuildingMap match={match} />
   </div>),

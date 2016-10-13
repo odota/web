@@ -18,6 +18,8 @@ import {
 } from 'utility';
 import Heatmap from 'components/Heatmap';
 import { TableHeroImage } from 'components/Visualizations';
+import ReactTooltip from 'react-tooltip';
+import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import styles from './Match.css';
 
 // {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
@@ -78,7 +80,7 @@ export const overviewColumns = match => [{
       if (partyPrev && !partyNext) {
         return (
           <div style={parentStyle}>
-            <div style={{ ...style, borderBottom: borderStyle, height: '50%', top: '0%' }} />
+            <div style={{ ...style, borderBottom: borderStyle, height: '50%', top: 0 }} />
             <div style={{ ...style, borderLeft: borderStyle, height: '56%', top: -1 }} />
           </div>
         );
@@ -172,44 +174,37 @@ export const overviewColumns = match => [{
       }
       return itemArray;
     },
+  }, {
+    displayName: strings.th_ability_builds,
+    tooltip: strings.tooltip_ability_builds,
+    displayFn: row => (
+      <div data-tip data-for={`au_${row.player_slot}`} className={styles.abilityUpgrades}>
+        {row.ability_upgrades_arr ? <NavigationMoreHoriz /> : <NavigationMoreHoriz style={{ opacity: 0.4 }} />}
+        <ReactTooltip id={`au_${row.player_slot}`} place="left" effect="solid">
+          {row.ability_upgrades_arr ? row.ability_upgrades_arr.map(
+            (ab, i) => {
+              if (ab && abilityIds[ab] !== 'attribute_bonus') {
+                // Here I hide stat upgrades, if necessary it can be displayed
+                return (
+                  <div className={styles.ability}>
+                    <img
+                      src={`${API_HOST}/apps/dota2/images/abilities/${abilityIds[ab]}_md.png`}
+                      role="presentation"
+                    />
+                    <div>
+                      {i + 1} {strings.th_level}
+                    </div>
+                  </div>
+                );
+              }
+              return null;
+            }
+          ) : <div style={{ paddingBottom: 5 }}>{strings.tooltip_ability_builds_expired}</div>}
+        </ReactTooltip>
+      </div>
+    ),
   },
 ];
-
-export const abilityUpgradeColumns = [
-  heroTdColumn,
-].concat(Array.from(new Array(25)).map((e, i) => ({
-  displayName: i + 1,
-  field: 'ability_upgrades_arr',
-  index: i,
-  displayFn: (row, column, field) => {
-    if (field) {
-      const abilityId = field[column.index];
-      const abilityKey = abilityIds[abilityId];
-      let abilityData = null;
-      if (abilityKey) {
-        abilityData = {
-          img: `${API_HOST}/apps/dota2/images/abilities/${abilityKey}_md.png`,
-        };
-      }
-      if (abilityKey === 'attribute_bonus') {
-        // TODO figure out where to do this/localize strings
-        abilityData = {
-          dname: 'Attribute Bonus',
-          img: '/assets/images/stats.png',
-          attrib: '+2 All Attributes',
-        };
-      }
-      if (abilityData) {
-        return (<img
-          src={abilityData.img}
-          style={{ height: 35, position: 'relative', left: -10 }}
-          role="presentation"
-        />);
-      }
-    }
-    return <div />;
-  },
-})));
 
 export const benchmarksColumns = (match) => {
   const cols = [

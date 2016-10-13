@@ -68,7 +68,6 @@
   "heading_graph_xp": "Experience",
   "heading_graph_lh": "Last Hits",
   "heading_overview": "Overview",
-  "heading_ability_builds": "Ability Builds",
   "heading_buildings": "Buildings",
   "heading_benchmarks": "Benchmarks",
   "heading_laning": "Laning",
@@ -280,6 +279,7 @@
   "th_DOTA_UNIT_ORDER_HOLD_POSITION": "HLD",
   "th_DOTA_UNIT_ORDER_GLYPH": "GLYPH",
   "th_DOTA_UNIT_ORDER_RADAR": "SCN",
+  "th_ability_builds": "AB",
 
   "time_just_now": "just now",
   "time_second": "second",
@@ -369,6 +369,8 @@
   "tooltip_damage_dealt": "Damage dealt to heroes by items/abilities",
   "tooltip_damage_received": "Damage received from heroes by items/abilities",
   "tooltip_registered_user": "Registered user",
+  "tooltip_ability_builds": "Ability Builds",
+  "tooltip_ability_builds_expired": "Ability upgrade data has expired for this match. Use the request form to reload data.",
 
   "xp_reasons_0": "Other",
   "xp_reasons_1": "Creep",
