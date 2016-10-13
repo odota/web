@@ -68,6 +68,8 @@ tbody tr:nth-child(even) {
 
 table {
   background-color: transparent !important;
+  table-layout: auto !important;
+  margin-bottom: 20px;
 }
 
 table td:first-child, table th:first-child {

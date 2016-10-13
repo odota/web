@@ -1,11 +1,9 @@
 import React from 'react';
 import {
   formatSeconds,
-  // defaultSort,
   isRadiant,
 } from 'utility';
 import strings from 'lang';
-// import { Card } from 'material-ui/Card';
 import {
   Tabs,
   Tab,
@@ -14,7 +12,6 @@ import Heading from 'components/Heading';
 import Table from 'components/Table';
 import { Row, Col } from 'react-flexbox-grid';
 import { IconRadiant, IconDire } from 'components/Icons';
-import { red } from 'components/palette.css';
 import VisionMap from './VisionMap';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
@@ -52,28 +49,64 @@ const TeamTable = ({
   match,
   columns,
   heading = '',
-}) => (<div>
-  <Heading title={`${strings.general_radiant} ${heading}`} icon={<IconRadiant style={{ filter: 'drop-shadow(0 0 5px green)' }} />} />
-  <Table data={filterMatchPlayers(match.players, 'radiant')} columns={columns} />
-  <Heading title={`${strings.general_dire} ${heading}`} icon={<IconDire style={{ filter: `drop-shadow(0 0 5px ${red})`, fill: 'black' }} />} />
-  <Table data={filterMatchPlayers(match.players, 'dire')} columns={columns} />
-</div>);
+}) => (
+  <div>
+    <Heading
+      title={`${strings.general_radiant} ${heading}`}
+      icon={<IconRadiant className={styles.iconRadiant} />}
+    />
+    <Table data={filterMatchPlayers(match.players, 'radiant')} columns={columns} />
+    <Heading
+      title={`${strings.general_dire} ${heading}`}
+      icon={<IconDire className={styles.iconDire} />}
+    />
+    <Table data={filterMatchPlayers(match.players, 'dire')} columns={columns} />
+  </div>
+);
 
 const matchPages = [{
   name: strings.tab_overview,
-  content: match => (
-    <div>
-      <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
-      <div className={styles.overviewMapGraph}>
-        <div className={styles.map}>
-          <BuildingMap match={match} />
-        </div>
-        <div className={styles.graph}>
-          <MatchGraph match={match} type="difference" />
+  content: (match) => {
+    const firstNumbers = () => {
+      if (match.objectives) {
+        const tower = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_TOWER_KILL');
+        const barracks = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_BARRACKS_KILL');
+        const roshan = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_ROSHAN_KILL');
+        return (
+          <div>
+            {tower && <div><span>First tower</span> {formatSeconds(match.objectives[tower].time)}</div>}
+            {barracks && <div><span>First barracks</span> {formatSeconds(match.objectives[barracks].time)}</div>}
+            {roshan && <div><span>First roshan</span> {formatSeconds(match.objectives[roshan].time)}</div>}
+          </div>
+        );
+      }
+      return null;
+    };
+    return (
+      <div>
+        <header className={styles.overviewHead}>
+          <Row>
+            <Col xs>
+              buttons
+            </Col>
+            <Col xs className={styles.matchNumbers}>
+              {match.first_blood_time && <div><span>First blood time</span> {formatSeconds(match.first_blood_time)}</div>}
+              {firstNumbers()}
+            </Col>
+          </Row>
+        </header>
+        <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
+        <div className={styles.overviewMapGraph}>
+          <div className={styles.map}>
+            <BuildingMap match={match} />
+          </div>
+          <div className={styles.graph}>
+            <MatchGraph match={match} type="difference" />
+          </div>
         </div>
       </div>
-    </div>
-  ),
+    )
+  },
 }, {
   name: strings.tab_benchmarks,
   content: match => (<div>

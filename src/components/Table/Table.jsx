@@ -22,7 +22,7 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
   // Not currently using totalWidth (default auto width)
   // const totalWidth = getTotalWidth(columns);
   <div className={styles.innerContainer}>
-    <MaterialTable fixedHeader={false} style={{ tableLayout: 'auto' }} selectable={false} className={styles.table}>
+    <MaterialTable fixedHeader={false} selectable={false}>
       <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false} className={styles.header}>
         <TableHeader
           columns={columns}
