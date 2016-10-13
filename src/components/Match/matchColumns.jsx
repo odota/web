@@ -44,9 +44,8 @@ export const heroTdColumn = {
 
 export const overviewColumns = match => [{
   field: '',
-  displayFn: (row) => {
+  displayFn: (row, col, field, i) => {
     if (match.parties) {
-      const i = match.players.findIndex(player => player.player_slot === row.player_slot);
       const partyPrev = match.parties[(match.players[i - 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
       const partyNext = match.parties[(match.players[i + 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
       const parentStyle = {

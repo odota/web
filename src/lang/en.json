@@ -16,6 +16,8 @@
 
   "distributions_mmr": "Solo MMR",
   "distributions_country_mmr": "Solo MMR By Country",
+  "distributions_warning_1": "Warning! This data set is limited to players displaying MMR on profile and sharing public match data.",
+  "distributions_warning_2": "Players do not have to sign in, but due to the opt-in nature of the data collected, averages are likely higher than expected.",
 
   "error": "Error",
   "error_message": "Whoops! Something went wrong.",
@@ -280,6 +282,11 @@
   "th_DOTA_UNIT_ORDER_GLYPH": "GLYPH",
   "th_DOTA_UNIT_ORDER_RADAR": "SCN",
   "th_ability_builds": "AB",
+  "th_country": "Country",
+  "th_count": "Count",
+  "th_average": "Average",
+  "th_name": "Name",
+  "th_score": "Score",
 
   "time_just_now": "just now",
   "time_second": "second",

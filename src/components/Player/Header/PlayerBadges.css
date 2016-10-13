@@ -1,0 +1,43 @@
+.iconButton {
+  composes: iconButton from "../../palette.css";
+  padding-bottom: 0;
+  @media only screen and (max-width: 900px) {
+    & svg {
+      margin: 0 12px 0 0;
+    }
+  }
+  @media only screen and (max-width: 660px) {
+    & svg {
+      margin: 0 5px;
+    }
+    & svg:first-child {
+      margin: 0 5px 0 10px;
+    }
+    & svg:last-child {
+      margin: 0 10px 0 5px;
+    }
+  }
+}
+
+.playerBadges {
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
+  align-items: center;
+  @media only screen and (max-width: 660px) {
+    margin-left: 0;
+    margin-top: 6px;
+  }
+
+  & .iconButton {
+    display: inline-block;
+  }
+}
+
+.icon {
+  composes: icon from "./PlayerHeader.css";
+}
+
+.cheese {
+  composes: cheese from "./PlayerHeader.css";
+}
