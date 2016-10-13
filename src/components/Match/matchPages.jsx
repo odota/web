@@ -41,6 +41,7 @@ import {
   teamfightColumns,
   inflictorsColumns,
 } from './matchColumns';
+import styles from './Match.css';
 
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
@@ -58,14 +59,21 @@ const TeamTable = ({
   <Table data={filterMatchPlayers(match.players, 'dire')} columns={columns} />
 </div>);
 
-// TODO: Add networth and xp graph to overview
 const matchPages = [{
   name: strings.tab_overview,
-  content: match => (<div>
-    <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
-    <Heading title={strings.heading_buildings} />
-    <BuildingMap match={match} />
-  </div>),
+  content: match => (
+    <div>
+      <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
+      <div className={styles.overviewMapGraph}>
+        <div className={styles.map}>
+          <BuildingMap match={match} />
+        </div>
+        <div className={styles.graph}>
+          <MatchGraph match={match} type="difference" />
+        </div>
+      </div>
+    </div>
+  ),
 }, {
   name: strings.tab_benchmarks,
   content: match => (<div>

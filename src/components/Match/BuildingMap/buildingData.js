@@ -9,7 +9,7 @@ export default [
   },
   {
     id: 't3br',
-    style: 'position: absolute; top: 88%; left: 21%;',
+    style: 'position: absolute; top: 89%; left: 21%;',
   },
   {
     id: 't2br',
@@ -45,11 +45,11 @@ export default [
   },
   {
     id: 'brbr',
-    style: 'position: absolute; top: 89%; left: 17%;',
+    style: 'position: absolute; top: 90.3%; left: 17%;',
   },
   {
     id: 'bmbr',
-    style: 'position: absolute; top: 86%; left: 17%;',
+    style: 'position: absolute; top: 86.3%; left: 17%;',
   },
   {
     id: 'brmr',

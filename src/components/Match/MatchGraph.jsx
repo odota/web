@@ -30,6 +30,7 @@ const drawGraphs = (props, id) => {
     const color = props.type === 'difference' ? null : {
       pattern: colorArray,
     };
+    console.log(data);
     const type = props.type === 'difference' ? 'area-spline' : 'spline';
     c3.generate({
       bindto: `#${id}`,
