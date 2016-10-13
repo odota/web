@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { CardHeader } from 'material-ui/Card';
 import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
 import ReactTooltip from 'react-tooltip';
@@ -13,7 +12,9 @@ import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';
 
-export const HEADER_BREAK_SIZE = 850;
+export const HEADER_MD_BREAK = 900;
+export const HEADER_SM_BREAK = 660;
+const LARGE_IMAGE_SIZE = 124;
 
 const getRegistrationBadge = registered => registered && (
   <div>
@@ -30,20 +31,13 @@ const getRegistrationBadge = registered => registered && (
   </div>
 );
 
-const getTitle = (playerName, playerId, width) => (width > HEADER_BREAK_SIZE ? (
-  <div>
-    {playerName}
-    <PlayerBadges playerId={playerId} />
-  </div>
-) : playerName);
-
 // TODO localize strings
 const PlayerName = ({ playerName, playerId, picture, registered, loading, error, width }) => {
   const getPlayerName = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;
 
-    const badgeStyle = {
+    let badgeStyle = {
       fontSize: 20,
       top: 5,
       left: 40,
@@ -52,43 +46,71 @@ const PlayerName = ({ playerName, playerId, picture, registered, loading, error,
       height: 18,
     };
 
+    let avatarStyle = {
+      marginLeft: width > HEADER_MD_BREAK ? 30 : 0,
+      marginRight: width > HEADER_SM_BREAK ? 30 : 0,
+    };
+
+    if (width <= HEADER_MD_BREAK) {
+      badgeStyle = {
+        ...badgeStyle,
+        marginLeft: -1 * (LARGE_IMAGE_SIZE / 2) * 0.75,
+      };
+    }
+    if (width <= HEADER_SM_BREAK) {
+      avatarStyle = {
+        ...avatarStyle,
+        marginLeft: LARGE_IMAGE_SIZE * 0.75,
+      };
+      badgeStyle = {
+        ...badgeStyle,
+        marginLeft: LARGE_IMAGE_SIZE * 0.5,
+      };
+    }
+
     return (
       <div className={styles.container}>
-        <div>
-          <CardHeader
-            style={{ padding: 0 }}
-            avatar={
-              <Badge
-                badgeContent={getRegistrationBadge(registered)}
-                badgeStyle={badgeStyle}
-                style={{
-                  margin: 0,
-                  padding: 0,
-                }}
-              >
-                <Avatar
-                  src={picture}
-                  style={{
-                    marginLeft: width > HEADER_BREAK_SIZE ? 30 : 0,
-                    marginRight: 30,
-                  }}
-                  size={width > HEADER_BREAK_SIZE ? 124 : 62}
-                  className={styles.oreviewAvatar}
-                />
-              </Badge>
-            }
-            title={getTitle(playerName, playerId, width)}
-            titleStyle={{ fontSize: 28, marginTop: 6 }}
-            subtitle={width > HEADER_BREAK_SIZE ?
-              <PlayerStats playerId={playerId} /> :
-                <PlayerBadges playerId={playerId} />
-            }
-          />
-          {width <= HEADER_BREAK_SIZE && <PlayerStats playerId={playerId} />}
+        <div className={styles.topContainer}>
+          <Badge
+            badgeContent={getRegistrationBadge(registered)}
+            badgeStyle={badgeStyle}
+            style={{
+              margin: 0,
+              padding: 0,
+            }}
+          >
+            <Avatar
+              src={picture}
+              style={avatarStyle}
+              size={width > HEADER_MD_BREAK || width <= HEADER_SM_BREAK ? LARGE_IMAGE_SIZE : LARGE_IMAGE_SIZE / 2}
+              className={styles.overviewAvatar}
+            />
+          </Badge>
+          <div className={styles.playerInfo}>
+            <div className={styles.titleNameButtons}>
+              <span className={styles.playerName}>{playerName}</span>
+              <PlayerBadges playerId={playerId} />
+              {width > HEADER_MD_BREAK && <div className={styles.topButtons}><PlayerButtons /></div>}
+            </div>
+            {width > HEADER_MD_BREAK && <PlayerStats playerId={playerId} />}
+          </div>
         </div>
-        <div className={styles.playerButtonsContainer}>
-          <PlayerButtons />
-        </div>
+        {width <= HEADER_MD_BREAK && (
+          <div className={styles.row}>
+            <PlayerStats playerId={playerId} compact={width <= HEADER_SM_BREAK} />
+          </div>
+        )}
+        {width <= HEADER_MD_BREAK && (
+          <div
+            className={
+              width <= HEADER_SM_BREAK ?
+              styles.playerButtonsContainerSmall :
+              styles.playerButtonsContainer
+            }
+          >
+            <PlayerButtons />
+          </div>
+        )}
       </div>
     );
   };
