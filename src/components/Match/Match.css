@@ -85,7 +85,9 @@
 }
 
 .overviewHead {
-  margin: 10px 0 20px;
+  margin: 20px 0 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, .09);
 
   & .matchNumbers {
     text-align: right;
@@ -95,8 +97,22 @@
       color: var(--colorMutedLight);
       margin-left: 10px;
     }
-    & div {
+    & > div {
       display: inline;
+      vertical-align: middle;
+        & > div {
+        display: inline;
+      }
+    }
+  }
+  & .matchButtons {
+    & a {
+      float: left;
+      margin-right: 10px !important;
+    }
+    & a:last-of-type {
+      float: left;
+      margin-right: 0 !important;
     }
   }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import {
   formatSeconds,
   isRadiant,
@@ -12,6 +13,10 @@ import Heading from 'components/Heading';
 import Table from 'components/Table';
 import { Row, Col } from 'react-flexbox-grid';
 import { IconRadiant, IconDire } from 'components/Icons';
+import FlatButton from 'material-ui/FlatButton';
+import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
+import ActionFingerprint from 'material-ui/svg-icons/action/fingerprint';
+import FileFileDownload from 'material-ui/svg-icons/file/file-download';
 import VisionMap from './VisionMap';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
@@ -66,7 +71,7 @@ const TeamTable = ({
 
 const matchPages = [{
   name: strings.tab_overview,
-  content: (match) => {
+  content: (match, user) => {
     const firstNumbers = () => {
       if (match.objectives) {
         const tower = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_TOWER_KILL');
@@ -74,23 +79,64 @@ const matchPages = [{
         const roshan = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_ROSHAN_KILL');
         return (
           <div>
-            {tower && <div><span>First tower</span> {formatSeconds(match.objectives[tower].time)}</div>}
-            {barracks && <div><span>First barracks</span> {formatSeconds(match.objectives[barracks].time)}</div>}
-            {roshan && <div><span>First roshan</span> {formatSeconds(match.objectives[roshan].time)}</div>}
+            {tower &&
+            <div>
+              <span>First tower </span>
+              {formatSeconds(match.objectives[tower].time)}
+            </div>}
+            {barracks &&
+            <div>
+              <span>First barracks </span>
+              {formatSeconds(match.objectives[barracks].time)}
+            </div>}
+            {roshan &&
+            <div>
+              <span>First roshan </span>
+              {formatSeconds(match.objectives[roshan].time)}
+            </div>}
           </div>
         );
       }
       return null;
     };
+
     return (
       <div>
         <header className={styles.overviewHead}>
           <Row>
-            <Col xs>
-              buttons
+            <Col xs className={styles.matchButtons}>
+              <FlatButton
+                label={match.version ? 're-parse' : 'parse'}
+                icon={match.version ? <NavigationRefresh /> : <ActionFingerprint />}
+                containerElement={<Link to={`/request#${match.match_id}`}>r</Link>}
+              />
+              {match.replay_url &&
+              <FlatButton
+                label="replay"
+                icon={<FileFileDownload />}
+                href={match.replay_url}
+                target="_blank"
+              />}
+              {match.replay_url &&
+              <FlatButton
+                label="Get video"
+                icon={<img src="/assets/images/jist-24x24.png" role="presentation" />}
+                href={`//www.jist.tv/create.php?dota2-match-url=${match.replay_url}`}
+                target="_blank"
+              />}
+              <FlatButton
+                label="Ask a coach"
+                icon={<img src="/assets/images/dotacoach-32x24.png" role="presentation" />}
+                href={`//dotacoach.org/Hire/Yasp?matchID=${match.match_id}&userSteamId=${user.account_id}`} // &playerMmr=
+                target="_blank"
+              />
             </Col>
             <Col xs className={styles.matchNumbers}>
-              {match.first_blood_time && <div><span>First blood time</span> {formatSeconds(match.first_blood_time)}</div>}
+              {match.first_blood_time !== undefined &&
+              <div>
+                <span>First blood </span>
+                {formatSeconds(match.first_blood_time)}
+              </div>}
               {firstNumbers()}
             </Col>
           </Row>
@@ -100,12 +146,13 @@ const matchPages = [{
           <div className={styles.map}>
             <BuildingMap match={match} />
           </div>
+          {match.version &&
           <div className={styles.graph}>
             <MatchGraph match={match} type="difference" />
-          </div>
+          </div>}
         </div>
       </div>
-    )
+    );
   },
 }, {
   name: strings.tab_benchmarks,
