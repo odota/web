@@ -11,7 +11,7 @@ import playerRecordsColumns from './playerRecordsColumns';
 
 const Records = ({ playerId, data }) => (
   <div>
-    <TableFilterForm submitAction={getPlayerRecords} id={playerId} page="records" />
+    <TableFilterForm id={playerId} page="records" />
     <TableContainer title={strings.heading_records}>
       <Table paginated columns={playerRecordsColumns} data={data} />
     </TableContainer>
@@ -28,7 +28,7 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.params.accountId !== nextProps.params.accountId || this.props.location.key !== nextProps.location.key) {
+    if (this.props.accountId !== nextProps.accountId || this.props.location.key !== nextProps.location.key) {
       getData(this.props);
     }
   }

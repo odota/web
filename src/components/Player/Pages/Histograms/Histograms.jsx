@@ -14,7 +14,7 @@ const selectHistogram = (router, playerId) => (histogramName) => {
 
 const Histogram = ({ routeParams, columns, router, playerId }) => (
   <div style={{ fontSize: 10 }}>
-    <TableFilterForm submitAction={() => {}} id={playerId} page="heroes" />
+    <TableFilterForm id={playerId} page="heroes" />
     <ButtonGarden
       buttonNames={histogramNames}
       selectedButton={routeParams.subInfo || histogramNames[0]}
@@ -34,7 +34,7 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.params.accountId !== nextProps.params.accountId || this.props.location.key !== nextProps.location.key) {
+    if (this.props.accountId !== nextProps.accountId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }

@@ -24,14 +24,14 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.params.accountId !== nextProps.params.accountId || this.props.location.key !== nextProps.location.key) {
+    if (this.props.accountId !== nextProps.accountId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }
 
   render() {
     return (<div>
-      <TableFilterForm submitAction={getPlayerWordcloud} id={this.props.playerId} />
+      <TableFilterForm id={this.props.playerId} />
       <Heading title={strings.heading_wordcloud} />
       <Heading title={strings.heading_wordcloud_said} />
       <Wordcloud counts={this.props.data.my_word_counts} />

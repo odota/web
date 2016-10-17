@@ -18,14 +18,14 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.params.accountId !== nextProps.params.accountId || this.props.location.key !== nextProps.location.key) {
+    if (this.props.accountId !== nextProps.accountId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }
 
   render() {
     return (<div>
-      <TableFilterForm submitAction={getPlayerWardmap} id={this.props.playerId} />
+      <TableFilterForm id={this.props.playerId} />
       <Heading title={strings.heading_wardmap} />
       <Row>
         <Col md>

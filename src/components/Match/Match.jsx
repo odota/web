@@ -10,18 +10,6 @@ import {
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
 
-const mapStateToProps = (state, {
-  params,
-}) => ({
-  matchId: params.match_id,
-  match: getMatchData(state),
-  loading: getMatchLoading(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  getMatch: matchId => dispatch(getMatch(matchId)),
-});
-
 class RequestLayer extends React.Component {
   componentDidMount() {
     this.props.getMatch(this.props.routeParams.match_id);
@@ -48,5 +36,15 @@ class RequestLayer extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => ({
+  matchId: ownProps.params.match_id,
+  match: getMatchData(state),
+  loading: getMatchLoading(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  getMatch: matchId => dispatch(getMatch(matchId)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

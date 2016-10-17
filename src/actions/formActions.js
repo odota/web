@@ -1,4 +1,3 @@
-/* global window */
 import { form } from 'reducers';
 
 const ADD_CHIP = 'form/ADD_CHIP';

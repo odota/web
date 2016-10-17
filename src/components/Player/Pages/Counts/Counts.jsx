@@ -10,9 +10,9 @@ import { TableFilterForm } from 'components/Form';
 import playerCountsColumns from './playerCountsColumns';
 import styles from './Counts.css';
 
-const Counts = ({ playerId, counts, getPlayerCounts }) => (
+const Counts = ({ playerId, counts }) => (
   <div>
-    <TableFilterForm submitAction={getPlayerCounts} id={playerId} page="counts" />
+    <TableFilterForm id={playerId} page="counts" />
     <div className={styles.countsContainer}>
       {Object.keys(counts).map((key, index) => (
         <div key={index} className={styles.countTable}>
@@ -34,7 +34,7 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.params.accountId !== nextProps.params.accountId || this.props.location.key !== nextProps.location.key) {
+    if (this.props.accountId !== nextProps.accountId || this.props.location.key !== nextProps.location.key) {
       getData(this.props);
     }
   }

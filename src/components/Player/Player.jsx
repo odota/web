@@ -13,14 +13,9 @@ import PlayerHeader from './Header/PlayerHeader';
 import styles from './Player.css';
 import playerPages from './playerPages';
 
-const mapDispatchToProps = dispatch => ({
-  getPlayer: playerId => dispatch(getPlayer(playerId)),
-  getPlayerWinLoss: (playerId, options) => dispatch(getPlayerWinLoss(playerId, options)),
-});
-
 const getData = (props) => {
-  props.getPlayer(props.params.accountId);
-  props.getPlayerWinLoss(props.params.accountId, props.location.query);
+  props.getPlayer(props.accountId);
+  props.getPlayerWinLoss(props.accountId, props.location.query);
 };
 
 class RequestLayer extends React.Component {
@@ -29,17 +24,14 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.params.accountId !== nextProps.params.accountId || this.props.location.key !== nextProps.location.key) {
+    if (this.props.accountId !== nextProps.params.accountId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }
 
   render() {
-    const accountId = this.props.params.accountId;
-    const loading = this.props.loading;
-    const location = this.props.location;
-    const routeParams = this.props.routeParams;
-    const info = this.props.routeParams.info || 'overview';
+    const { accountId, location, routeParams } = this.props;
+    const info = routeParams.info || 'overview';
     const page = playerPages(accountId).find(page => page.name.toLowerCase() === info);
     return (
       <div>
@@ -47,10 +39,19 @@ class RequestLayer extends React.Component {
           <PlayerHeader playerId={accountId} location={location} />
           <TabBar info={info} tabs={playerPages(accountId)} />
         </div>
-        {!loading && page ? page.content(accountId, routeParams, location) : <Spinner />}
+        {page ? page.content(accountId, routeParams, location) : <Spinner />}
       </div>
     );
   }
 }
 
-export default connect(null, mapDispatchToProps)(RequestLayer);
+const mapStateToProps = (state, ownProps) => ({
+  accountId: ownProps.params.accountId,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getPlayer: playerId => dispatch(getPlayer(playerId)),
+  getPlayerWinLoss: (playerId, options) => dispatch(getPlayerWinLoss(playerId, options)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

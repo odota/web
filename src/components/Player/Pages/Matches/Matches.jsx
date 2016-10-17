@@ -14,16 +14,16 @@ import Table, {
 import {
   TableFilterForm,
 } from 'components/Form';
+import strings from 'lang';
 import playerMatchesColumns from './playerMatchesColumns';
 
-// TODO localize
 const Matches = ({
   playerId,
   data,
 }) => (
   <div>
-    <TableFilterForm submitAction={getPlayerMatches} id={playerId} page="matches" />
-    <TableContainer title="Recent Matches">
+    <TableFilterForm id={playerId} page="matches" />
+    <TableContainer title={strings.heading_matches}>
       <Table paginated columns={playerMatchesColumns} data={data} />
     </TableContainer>
   </div>
@@ -39,7 +39,7 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.params.accountId !== nextProps.params.accountId || this.props.location.key !== nextProps.location.key) {
+    if (this.props.accountId !== nextProps.accountId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }
