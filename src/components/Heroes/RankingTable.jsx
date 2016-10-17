@@ -10,8 +10,8 @@ const rankingColumns = [{
   displayName: strings.th_name,
   displayFn: (row, col, field) => {
     const subtitle = <span>{row.solo_competitive_rank ? `${row.solo_competitive_rank} MMR` : ''}</span>;
-    return transformations.player({...row, subtitle: subtitle}, col, field);
-  }
+    return transformations.player({ ...row, subtitle }, col, field);
+  },
 }, {
   displayName: strings.th_score,
   displayFn: row => parseFloat(row.score).toFixed(),
