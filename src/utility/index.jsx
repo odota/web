@@ -219,7 +219,7 @@ export const transformations = {
       imageWidth={29}
       imageHeight={29}
       title={row.name || row.personaname}
-      subtitle={<FromNowTooltip timestamp={row.last_played} />}
+      subtitle={row.subtitle || <FromNowTooltip timestamp={row.last_played} />}
       registered={row.last_login}
       accountId={row.account_id}
     />
