@@ -29,7 +29,7 @@ const Items = ({
 );
 
 const getData = (props) => {
-  props.getPlayerItems(props.playerId);
+  props.getPlayerItems(props.playerId, props.location.query);
 };
 
 class RequestLayer extends React.Component {
@@ -38,7 +38,7 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId) {
+    if (this.props.params.accountId !== nextProps.params.accountId || this.props.location.key !== nextProps.location.key) {
       getData(this.props);
     }
   }

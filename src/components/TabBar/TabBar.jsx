@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import styles from './TabBar.css';
 
 const onActive = (tab, router) => {
+  // TODO preserve query string
   router.push(tab.route);
 };
 

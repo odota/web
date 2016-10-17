@@ -15,7 +15,7 @@ import { TableFilterForm } from 'components/Form';
 // import { Row, Col } from 'react-flexbox-grid';
 
 const getData = (props) => {
-  props.getPlayerWordcloud(props.playerId);
+  props.getPlayerWordcloud(props.playerId, props.location.query);
 };
 
 class RequestLayer extends React.Component {
@@ -24,7 +24,7 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId) {
+    if (this.props.params.accountId !== nextProps.params.accountId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }

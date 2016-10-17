@@ -30,7 +30,7 @@ const Matches = ({
 );
 
 const getData = (props) => {
-  props.getPlayerMatches(props.playerId);
+  props.getPlayerMatches(props.playerId, props.location.query);
 };
 
 class RequestLayer extends React.Component {
@@ -39,8 +39,8 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId) {
-      getData(this.props);
+    if (this.props.params.accountId !== nextProps.params.accountId || this.props.location.key !== nextProps.location.key) {
+      getData(nextProps);
     }
   }
 

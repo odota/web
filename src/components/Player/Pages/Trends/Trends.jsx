@@ -7,7 +7,6 @@ import {
 } from 'actions';
 import { playerMatches } from 'reducers';
 import { getCumulativeDataByField } from 'selectors';
-import { withRouter } from 'react-router';
 import { deSnake } from 'utility';
 import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
@@ -18,26 +17,25 @@ const selectTrend = (router, playerId) => (trendName) => {
   router.push(`/players/${playerId}/trends/${trendName}`);
 };
 
-const Trend = ({ trendName = trendNames[0], columns, router, playerId }) => (
+const Trend = ({ routeParams, columns, router, playerId }) => (
   <div style={{ fontSize: 10 }}>
     <TableFilterForm submitAction={() => {}} id={this.props.playerId} page="heroes" />
     <ButtonGarden
       buttonNames={trendNames}
-      selectedButton={trendName}
+      selectedButton={routeParams.subInfo || trendNames[0]}
       onClick={selectTrend(router, playerId)}
     />
     <TrendGraph
       columns={columns}
-      name={deSnake(trendName)}
+      name={deSnake(routeParams.subInfo || trendNames[0])}
     />
   </div>
 );
 
-// TODO apply filter based on url query string
 const getData = (props) => {
   props.getPlayerMatches(
     props.playerId,
-    { project: [...trendNames, ...defaultPlayerMatchesOptions.project] },
+    { ...props.location.query, project: [...trendNames, ...defaultPlayerMatchesOptions.project] },
     true
   );
 };
@@ -48,7 +46,7 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId || this.props.trendName !== nextProps.trendName) {
+    if (this.props.params.accountId !== nextProps.params.accountId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }
@@ -64,4 +62,4 @@ const mapStateToProps = (state, { trendName = trendNames[0], playerId }) => ({
   error: playerMatches.getError(state, playerId),
 });
 
-export default connect(mapStateToProps, { getPlayerMatches })(withRouter(RequestLayer));
+export default connect(mapStateToProps, { getPlayerMatches })(RequestLayer);

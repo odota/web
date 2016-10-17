@@ -1,5 +1,4 @@
 import React from 'react';
-import querystring from 'querystring';
 import { connect } from 'react-redux';
 import { form } from 'reducers';
 import { withRouter } from 'react-router';
@@ -136,16 +135,19 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
       </Form>
       <div className={styles.buttonContainer}>
         <ClearButton label="reset the thing" clearForm={clearForm} style={{ marginRight: 10 }} />
-        <SubmitButton label="do the thing" submitForm={() => router.push({ 
-          pathname: window.location.pathname,
-          query: getQueryObject(),
-        })} />
+        <SubmitButton
+          label="do the thing"
+          submitForm={() => router.push({
+            pathname: window.location.pathname,
+            query: getQueryObject(),
+          })}
+        />
       </div>
     </div>
   </div>
 );
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   clearForm: () => dispatch(clearForm('tableFilter')),
 });
 
