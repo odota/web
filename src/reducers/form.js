@@ -34,16 +34,9 @@ const field = (state = initialFieldState, action) => {
   }
 };
 
-const initialPageState = {
-  show: false,
-};
-
-const page = (state = initialPageState) => ({
-  show: !state.show,
-});
-
+// TODO Hydrate initial form state from query string
 const initialFormState = {
-  pages: {},
+  show: false,
 };
 
 const form = (state = initialFormState, action) => {
@@ -58,16 +51,12 @@ const form = (state = initialFormState, action) => {
     case formActions.TOGGLE_SHOW_FORM:
       return {
         ...state,
-        pages: {
-          ...state.pages,
-          [action.page]: page(state.pages[action.page]),
-        },
+        show: !state.show,
       };
     case formActions.CLEAR_FORM:
       return {
-        pages: {
-          ...state.pages,
-        },
+        ...initialFormState,
+        show: state.show,
       };
     default:
       return state;
@@ -92,10 +81,8 @@ export default (state = {}, action) => {
 
 export const getForm = {
   getForm: (state, formName) => state.app.form[formName] || initialFormState,
-  getFormPages: (state, formName) => getForm.getForm(state, formName).pages,
-  getFormPage: (state, formName, page) => getForm.getFormPages(state, formName)[page] || initialPageState,
-  getFormPageShow: (state, formName, page) => getForm.getFormPage(state, formName, page).show,
-  getFormValue: (state, formName, valueName) => getForm.getForm(state, formName)[valueName] || initialFieldState,
-  getChipList: (state, formName, valueName) => getForm.getFormValue(state, formName, valueName).chipList,
-  getFieldText: (state, formName, valueName) => getForm.getFormValue(state, formName, valueName).text,
+  getFormShow: (state, formName) => getForm.getForm(state, formName).show,
+  getFormField: (state, formName, valueName) => getForm.getForm(state, formName)[valueName] || initialFieldState,
+  getFormFieldChipList: (state, formName, valueName) => getForm.getFormField(state, formName, valueName).chipList,
+  getFormFieldText: (state, formName, valueName) => getForm.getFormField(state, formName, valueName).text,
 };

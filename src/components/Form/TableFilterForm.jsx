@@ -1,7 +1,9 @@
 import React from 'react';
+import querystring from 'querystring';
 import { connect } from 'react-redux';
 import { form } from 'reducers';
-import { submitForm, clearForm } from 'actions';
+import { withRouter } from 'react-router';
+import { clearForm } from 'actions';
 import Form from './Form';
 import FormField from './FormField';
 import FormGroup from './FormGroup';
@@ -14,7 +16,7 @@ import * as data from './TableFilter.config';
 const FORM_NAME = 'tableFilter';
 
 // TODO localize strings
-const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
+const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) => (
   <div>
     <ShowFormToggle page={page} formName={FORM_NAME} />
     <div className={showForm ? styles.showForm : styles.hideForm}>
@@ -134,19 +136,31 @@ const TableFilterForm = ({ submitForm, clearForm, page, showForm }) => (
       </Form>
       <div className={styles.buttonContainer}>
         <ClearButton label="reset the thing" clearForm={clearForm} style={{ marginRight: 10 }} />
-        <SubmitButton label="do the thing" submitForm={submitForm} />
+        <SubmitButton label="do the thing" submitForm={() => router.push({ 
+          pathname: window.location.pathname,
+          query: getQueryObject(),
+        })} />
       </div>
     </div>
   </div>
 );
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  submitForm: () => dispatch(submitForm(ownProps.submitAction.bind(null, ownProps.id), 'tableFilter')),
   clearForm: () => dispatch(clearForm('tableFilter')),
 });
 
-const mapStateToProps = (state, ownProps) => ({
-  showForm: form.getFormPageShow(state, 'tableFilter', ownProps.page),
+const mapStateToProps = state => ({
+  showForm: form.getFormShow(state, 'tableFilter'),
+  getQueryObject: () => {
+    const formFields = {};
+    Object.keys(form.getForm(state, 'tableFilter')).forEach((key) => {
+      const chips = form.getFormFieldChipList(state, 'tableFilter', key);
+      if (chips) {
+        formFields[key] = chips.map(chip => chip.value);
+      }
+    });
+    return formFields;
+  },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TableFilterForm);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TableFilterForm));

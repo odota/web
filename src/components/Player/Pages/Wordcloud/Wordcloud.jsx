@@ -31,7 +31,7 @@ class RequestLayer extends React.Component {
 
   render() {
     return (<div>
-      <TableFilterForm submitAction={getPlayerWordcloud} id={this.props.playerId} page="heroes" />
+      <TableFilterForm submitAction={getPlayerWordcloud} id={this.props.playerId} />
       <Heading title={strings.heading_wordcloud} />
       <Heading title={strings.heading_wordcloud_said} />
       <Wordcloud counts={this.props.data.my_word_counts} />

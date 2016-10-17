@@ -25,7 +25,7 @@ class RequestLayer extends React.Component {
 
   render() {
     return (<div>
-      <TableFilterForm submitAction={getPlayerWardmap} id={this.props.playerId} page="heroes" />
+      <TableFilterForm submitAction={getPlayerWardmap} id={this.props.playerId} />
       <Heading title={strings.heading_wardmap} />
       <Row>
         <Col md>

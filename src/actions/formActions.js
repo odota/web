@@ -1,6 +1,5 @@
 /* global window */
 import { form } from 'reducers';
-import querystring from 'querystring';
 
 const ADD_CHIP = 'form/ADD_CHIP';
 const DELETE_CHIP = 'form/DELETE_CHIP';
@@ -37,10 +36,12 @@ export const setFieldText = (formName, fieldName, text) => ({
 });
 
 export const addChip = (formName, fieldName, value, limit) => (dispatch, getState) => {
-  const chipList = form.getChipList(getState(), formName, fieldName);
+  const chipList = form.getFormFieldChipList(getState(), formName, fieldName);
+  // If we're at limit, remove the latest chip
   if (chipList.length >= limit) {
     dispatch(deleteChip(formName, fieldName, chipList.length - 1));
   }
+  // Prevent duplicate inputs
   const index = chipList.findIndex(chip => chip.value.value === value.value);
   if (index === -1) {
     return dispatch({
@@ -57,16 +58,3 @@ export const clearForm = formName => ({
   type: CLEAR_FORM,
   formName,
 });
-
-export const submitForm = (submitAction, formName) => (dispatch, getState) => {
-  const formFields = {};
-  Object.keys(form.getForm(getState(), formName)).forEach((key) => {
-    // We have a pages object attached to the form for form showing state. We don't
-    // want that to be submitted.
-    if (key !== 'pages') {
-      formFields[key] = form.getChipList(getState(), formName, key).map(chip => chip.value);
-    }
-  });
-  window.history.pushState('', '', `?${querystring.stringify(formFields)}`);
-  dispatch(submitAction(formFields));
-};

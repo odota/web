@@ -20,7 +20,7 @@ const ChipList = ({ chipList, deleteChip }) => (
 );
 
 const mapStateToProps = (state, ownProps) => ({
-  chipList: form.getChipList(state, ownProps.formName, ownProps.name),
+  chipList: form.getFormFieldChipList(state, ownProps.formName, ownProps.name),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
