@@ -9,7 +9,7 @@ const rankingColumns = [{
 }, {
   displayName: strings.th_name,
   displayFn: (row, col, field) => {
-    const subtitle = <span>{row.solo_competitive_rank ? `${row.solo_competitive_rank} MMR` : ''}</span>;
+    const subtitle = <span>{`${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`}</span>;
     return transformations.player({ ...row, subtitle }, col, field);
   },
 }, {
