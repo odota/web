@@ -62,7 +62,8 @@ class FormField extends React.Component {
         limit
       );
     }
-    this.input.setState({
+    // Set state on the ref'd component to clear it
+    this.autocomplete.setState({
       searchText: '',
     });
   }
@@ -84,7 +85,7 @@ class FormField extends React.Component {
 
     return (<div className={className}>
       <AutoComplete
-        ref={ref => (this.input = ref)}
+        ref={ref => (this.autocomplete = ref)}
         openOnFocus
         dataSource={dataSource}
         dataSourceConfig={dataSourceConfig}
@@ -92,8 +93,8 @@ class FormField extends React.Component {
         filter={AutoComplete.fuzzyFilter}
         maxSearchResults={maxSearchResults}
         onNewRequest={(value, index) =>
-        this.handleRequest({ value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, limit })}
-        // onUpdateInput={searchText => searchText.length === 1 && setFieldText(formName, name, searchText)}
+          this.handleRequest({ value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, limit })
+        }
         listStyle={{ textTransform: 'uppercase' }}
         searchText={text}
         floatingLabelFocusStyle={{ color: styles.blue }}
