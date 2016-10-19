@@ -12,7 +12,7 @@ import {
   CountsPage,
   TrendsPage,
   MMRPage,
-  ItemsPage,
+  // ItemsPage,
   WardmapPage,
   WordcloudPage,
 } from './Pages';
@@ -40,26 +40,39 @@ const playerPages = [{
   content: (playerId, routeParams, location) => (<CountsPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_histograms,
-  content: (playerId, routeParams, location) => (<HistogramsPage playerId={playerId} routeParams={routeParams} location={location} />),
+  content: (playerId, routeParams, location) => (<HistogramsPage
+    playerId={playerId}
+    routeParams={routeParams}
+    location={location}
+    histogramName={routeParams.subInfo}
+  />),
 }, {
   name: strings.tab_trends,
-  content: (playerId, routeParams, location) => (<TrendsPage playerId={playerId} routeParams={routeParams} location={location} />),
-}, {
+  content: (playerId, routeParams, location) => (<TrendsPage
+    playerId={playerId}
+    routeParams={routeParams}
+    location={location}
+    trendName={routeParams.subInfo}
+  />),
+},
+/* {
   name: strings.tab_items,
   content: (playerId, routeParams, location) => (<ItemsPage playerId={playerId} routeParams={routeParams} location={location} />),
-}, {
-  name: strings.tab_wardmap,
-  content: (playerId, routeParams, location) => (<WardmapPage playerId={playerId} routeParams={routeParams} location={location} />),
-}, {
-  name: strings.tab_wordcloud,
-  content: (playerId, routeParams, location) => (<WordcloudPage playerId={playerId} routeParams={routeParams} location={location} />),
-}, {
-  name: strings.tab_mmr,
-  content: (playerId, routeParams, location) => (<MMRPage playerId={playerId} routeParams={routeParams} location={location} />),
-}, {
-  name: strings.tab_rankings,
-  content: (playerId, routeParams, location) => (<RankingsPage playerId={playerId} routeParams={routeParams} location={location} />),
-}];
+},
+*/
+  {
+    name: strings.tab_wardmap,
+    content: (playerId, routeParams, location) => (<WardmapPage playerId={playerId} routeParams={routeParams} location={location} />),
+  }, {
+    name: strings.tab_wordcloud,
+    content: (playerId, routeParams, location) => (<WordcloudPage playerId={playerId} routeParams={routeParams} location={location} />),
+  }, {
+    name: strings.tab_mmr,
+    content: (playerId, routeParams, location) => (<MMRPage playerId={playerId} routeParams={routeParams} location={location} />),
+  }, {
+    name: strings.tab_rankings,
+    content: (playerId, routeParams, location) => (<RankingsPage playerId={playerId} routeParams={routeParams} location={location} />),
+  }];
 
 export default playerId => playerPages.map(page => ({
   ...page,

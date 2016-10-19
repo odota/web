@@ -9,9 +9,9 @@ import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerProsColumns from './playerProsColumns';
 
-const Pros = ({ playerId, data }) => (
+const Pros = ({ data }) => (
   <div>
-    <TableFilterForm id={playerId} page="pros" />
+    <TableFilterForm />
     <TableContainer title={strings.heading_pros}>
       <Table paginated columns={playerProsColumns} data={data} />
     </TableContainer>
@@ -28,7 +28,7 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.accountId !== nextProps.accountId || this.props.location.key !== nextProps.location.key) {
+    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(this.props);
     }
   }
@@ -41,6 +41,7 @@ class RequestLayer extends React.Component {
 const mapDispatchToProps = dispatch => ({
   getPlayerPros: (playerId, options) => dispatch(getPlayerPros(playerId, options)),
 });
+
 const mapStateToProps = (state, { playerId }) => ({
   data: playerPros.getProsList(state, playerId),
 });

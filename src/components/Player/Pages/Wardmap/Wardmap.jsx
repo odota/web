@@ -18,14 +18,14 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.accountId !== nextProps.accountId || this.props.location.key !== nextProps.location.key) {
+    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }
 
   render() {
     return (<div>
-      <TableFilterForm id={this.props.playerId} />
+      <TableFilterForm />
       <Heading title={strings.heading_wardmap} />
       <Row>
         <Col md>
@@ -48,7 +48,7 @@ const mapStateToProps = (state, { playerId }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getPlayerWardmap: playerId => dispatch(getPlayerWardmap(playerId)),
+  getPlayerWardmap: (playerId, options) => dispatch(getPlayerWardmap(playerId, options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

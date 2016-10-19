@@ -22,7 +22,7 @@ export const deleteChip = (formName, fieldName, index) => ({
   index,
 });
 
-export const addChip = (formName, fieldName, value, limit) => (dispatch) => dispatch({
+export const addChip = (formName, fieldName, value, limit) => dispatch => dispatch({
   type: ADD_CHIP,
   formName,
   fieldName,

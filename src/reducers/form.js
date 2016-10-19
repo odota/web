@@ -35,7 +35,7 @@ export default (state = initialFormState, action) => {
 };
 
 export const getForm = {
-  getForm: (state) => state.app.form || initialFormState,
+  getForm: state => state.app.form || initialFormState,
   getFormShow: (state, formName) => getForm.getForm(state, formName).show,
   getFormField: (state, formName, valueName) => getForm.getForm(state, formName)[valueName] || [],
 };

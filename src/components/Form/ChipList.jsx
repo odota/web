@@ -16,15 +16,15 @@ const ChipList = ({ chipList, router, name }) => (
         onRequestDelete={() => {
           const query = querystring.parse(window.location.search.substring(1));
           const field = [].concat(query[name] || []);
-          router.push({ 
-            pathname: window.location.pathname, 
+          router.push({
+            pathname: window.location.pathname,
             query: {
               ...query,
               [name]: [
                 ...field.slice(0, index),
                 ...field.slice(index + 1),
               ],
-            }
+            },
           });
         }}
       >

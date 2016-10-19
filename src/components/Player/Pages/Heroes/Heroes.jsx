@@ -9,9 +9,9 @@ import Table, { TableContainer } from 'components/Table';
 import { TableFilterForm } from 'components/Form';
 import { playerHeroesColumns } from './playerHeroesColumns';
 
-const Heroes = ({ playerId, data }) => (
+const Heroes = ({ data }) => (
   <div>
-    <TableFilterForm id={playerId} page="heroes" />
+    <TableFilterForm />
     <TableContainer title={strings.heading_heroes}>
       <Table paginated columns={playerHeroesColumns} data={data} />
     </TableContainer>
@@ -28,7 +28,7 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.accountId !== nextProps.accountId || this.props.location.key !== nextProps.location.key) {
+    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }

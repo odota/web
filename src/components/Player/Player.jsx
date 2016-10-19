@@ -14,8 +14,8 @@ import styles from './Player.css';
 import playerPages from './playerPages';
 
 const getData = (props) => {
-  props.getPlayer(props.accountId);
-  props.getPlayerWinLoss(props.accountId, props.location.query);
+  props.getPlayer(props.playerId);
+  props.getPlayerWinLoss(props.playerId, props.location.query);
 };
 
 class RequestLayer extends React.Component {
@@ -24,29 +24,30 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.accountId !== nextProps.params.accountId || this.props.location.key !== nextProps.location.key) {
+    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }
 
   render() {
-    const { accountId, location, routeParams } = this.props;
+    const { playerId, location, routeParams } = this.props;
     const info = routeParams.info || 'overview';
-    const page = playerPages(accountId).find(page => page.name.toLowerCase() === info);
+    const page = playerPages(playerId).find(page => page.name.toLowerCase() === info);
     return (
       <div>
         <div className={styles.header}>
-          <PlayerHeader playerId={accountId} location={location} />
-          <TabBar info={info} tabs={playerPages(accountId)} />
+          <PlayerHeader playerId={playerId} location={location} />
+          <TabBar info={info} tabs={playerPages(playerId)} />
         </div>
-        {page ? page.content(accountId, routeParams, location) : <Spinner />}
+        {page ? page.content(playerId, routeParams, location) : <Spinner />}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  accountId: ownProps.params.accountId,
+  // Passed from react-router
+  playerId: ownProps.params.accountId,
 });
 
 const mapDispatchToProps = dispatch => ({

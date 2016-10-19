@@ -18,11 +18,10 @@ import strings from 'lang';
 import playerMatchesColumns from './playerMatchesColumns';
 
 const Matches = ({
-  playerId,
   data,
 }) => (
   <div>
-    <TableFilterForm id={playerId} page="matches" />
+    <TableFilterForm />
     <TableContainer title={strings.heading_matches}>
       <Table paginated columns={playerMatchesColumns} data={data} />
     </TableContainer>
@@ -39,7 +38,7 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.accountId !== nextProps.accountId || this.props.location.key !== nextProps.location.key) {
+    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }

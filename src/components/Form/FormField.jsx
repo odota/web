@@ -66,7 +66,7 @@ class FormField extends React.Component {
         query: {
           ...query,
           [name]: field,
-        }
+        },
       });
     }
     // Set state on the ref'd component to clear it
@@ -118,7 +118,7 @@ class FormField extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   currentQueryString: state.routing.locationBeforeTransitions.search,
 });
 
