@@ -7,7 +7,7 @@ import querystring from 'querystring';
 // import { deleteChip } from 'actions';
 import styles from './ChipList.css';
 
-const ChipList = ({ chipList, deleteChip, router, name }) => (
+const ChipList = ({ chipList, router, name }) => (
   <div className={styles.container}>
     {chipList.map((chip, index) => (
       <Chip
@@ -16,13 +16,16 @@ const ChipList = ({ chipList, deleteChip, router, name }) => (
         onRequestDelete={() => {
           const query = querystring.parse(window.location.search.substring(1));
           const field = [].concat(query[name] || []);
-          router.push({pathname: window.location.pathname, query: { 
-            ...query,
-            [name]: [
-              ...field.slice(0, index),
-              ...field.slice(index + 1),
-            ],
-          }});          
+          router.push({ 
+            pathname: window.location.pathname, 
+            query: {
+              ...query,
+              [name]: [
+                ...field.slice(0, index),
+                ...field.slice(index + 1),
+              ],
+            }
+          });
         }}
       >
         {chip.text}
@@ -31,8 +34,8 @@ const ChipList = ({ chipList, deleteChip, router, name }) => (
   </div>
 );
 
-const mapStateToProps = (state, ownProps) => ({});
+const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch, ownProps) => ({});
+const mapDispatchToProps = () => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ChipList));

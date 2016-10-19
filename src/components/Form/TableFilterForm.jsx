@@ -15,7 +15,7 @@ import * as data from './TableFilter.config';
 const FORM_NAME = 'tableFilter';
 
 // TODO localize strings
-const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) => (
+const TableFilterForm = ({ router, page, showForm }) => (
   <div>
     <ShowFormToggle page={page} formName={FORM_NAME} />
     <div className={showForm ? styles.showForm : styles.hideForm}>
@@ -124,8 +124,8 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
         */}
       </Form>
       <div className={styles.buttonContainer}>
-        <ClearButton label="reset the thing" clearForm={() => router.push({pathname: window.location.pathname})} style={{ marginRight: 10 }} />
-        {/*<SubmitButton
+        <ClearButton label="reset the thing" clearForm={() => router.push({ pathname: window.location.pathname })} style={{ marginRight: 10 }} />
+        {/* <SubmitButton
           label="do the thing"
           submitForm={() => {}}
         />*/}
@@ -134,7 +134,7 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
   </div>
 );
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = () => ({});
 
 const mapStateToProps = state => ({
   showForm: form.getFormShow(state, 'tableFilter'),

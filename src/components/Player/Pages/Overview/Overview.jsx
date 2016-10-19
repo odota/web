@@ -18,7 +18,6 @@ import styles from './Overview.css';
 const MAX_OVERVIEW_ROWS = 20;
 
 const Overview = ({
-  playerId,
   matchesData,
   heroesData,
 }) => (

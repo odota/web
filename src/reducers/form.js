@@ -7,7 +7,7 @@ const initialFormState = {
 export default (state = initialFormState, action) => {
   switch (action.type) {
     case formActions.ADD_CHIP:
-      return { 
+      return {
         ...state,
         [action.fieldName]: [action.value, ...state[action.fieldName] || []].slice(0, action.limit),
       };
@@ -35,7 +35,7 @@ export default (state = initialFormState, action) => {
 };
 
 export const getForm = {
-  getForm: (state, formName) => state.app.form || initialFormState,
+  getForm: (state) => state.app.form || initialFormState,
   getFormShow: (state, formName) => getForm.getForm(state, formName).show,
   getFormField: (state, formName, valueName) => getForm.getForm(state, formName)[valueName] || [],
 };

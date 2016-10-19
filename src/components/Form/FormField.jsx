@@ -18,12 +18,9 @@ class FormField extends React.Component {
   handleRequest({
     value,
     index,
-    formName,
     name,
-    dataSourceConfig,
     dataSource,
     strict,
-    addChip,
     limit,
     router,
   }) {
@@ -64,10 +61,13 @@ class FormField extends React.Component {
     if (input) {
       const query = querystring.parse(window.location.search.substring(1));
       const field = [input.value].concat(query[name] || []).slice(0, limit);
-      router.push({pathname: window.location.pathname, query: { 
-        ...query,
-        [name]: field,
-      }});
+      router.push({
+        pathname: window.location.pathname,
+        query: {
+          ...query,
+          [name]: field,
+        }
+      });
     }
     // Set state on the ref'd component to clear it
     this.autocomplete.setState({
@@ -94,7 +94,7 @@ class FormField extends React.Component {
     // Use dataSource on current querystring to hydrate the chipList
     const query = querystring.parse(currentQueryString.substring(1));
     const field = [].concat(query[name] || []);
-    const chipList = field.map((element) => dataSource.find((data) => Number(data.value) === Number(element)));
+    const chipList = field.map(element => dataSource.find(data => Number(data.value) === Number(element)));
 
     return (<div className={className}>
       <AutoComplete
@@ -118,7 +118,7 @@ class FormField extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
   currentQueryString: state.routing.locationBeforeTransitions.search,
 });
 

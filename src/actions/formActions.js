@@ -10,7 +10,7 @@ export const formActions = {
   TOGGLE_SHOW_FORM,
 };
 
-export const toggleShowForm = (formName) => ({
+export const toggleShowForm = formName => ({
   type: TOGGLE_SHOW_FORM,
   formName,
 });
@@ -22,7 +22,7 @@ export const deleteChip = (formName, fieldName, index) => ({
   index,
 });
 
-export const addChip = (formName, fieldName, value, limit) => (dispatch, getState) => dispatch({
+export const addChip = (formName, fieldName, value, limit) => (dispatch) => dispatch({
   type: ADD_CHIP,
   formName,
   fieldName,
