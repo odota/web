@@ -1,6 +1,6 @@
 @import "../palette.css";
 
-.Header{
+.Header {
   text-align: center;
   display: block;
   text-transform: uppercase;
@@ -87,7 +87,7 @@
 .overviewHead {
   margin: 20px 0 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, .09);
+  border-bottom: 1px solid rgba(255, 255, 255, .19);
 
   & .matchNumbers {
     text-align: right;
@@ -95,7 +95,7 @@
     & span {
       font-size: var(--fontSizeSmall);
       color: var(--colorMutedLight);
-      margin-left: 10px;
+      margin-left: 20px;
     }
     & > div {
       display: inline;

@@ -4,7 +4,7 @@ import uuid from 'node-uuid';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import strings from 'lang';
 import { TableLink } from 'components/Table';
-import { playerSlotColor } from 'utility';
+import { playerColors } from 'utility';
 import styles from './HeroImage.css';
 
 const TableHeroImage = ({
@@ -31,6 +31,7 @@ const TableHeroImage = ({
         </div>
       </div>
       }
+      {image &&
       <div className={styles.imageContainer}>
         <img
           src={image}
@@ -40,12 +41,13 @@ const TableHeroImage = ({
         {playerSlot !== undefined &&
         <div
           className={styles.playerSlot}
-          style={{ backgroundColor: playerSlotColor(playerSlot) }}
+          style={{ backgroundColor: playerColors[playerSlot] }}
         />
         }
       </div>
+      }
       {!hideText &&
-      <div className={styles.textContainer}>
+      <div className={styles.textContainer} style={{ marginLeft: !image && 59 }}>
         <span>
           {registered &&
           <div data-tip data-for={tooltipId} className={styles.registered}>

@@ -155,7 +155,7 @@ export const transformations = {
     return (
       <TableHeroImage
         parsed={row.version}
-        image={`${heroes[row.hero_id] ? API_HOST + heroes[row.hero_id].img : '/assets/images/blank-1x1.gif'}`}
+        image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
         title={
           row.rank !== undefined ?
             <TableLink to={`/heroes/${row.hero_id}`}>{heroName}</TableLink>
@@ -325,29 +325,15 @@ export function isActiveItem(key) {
 
 export const sum = (a, b) => a + b;
 
-export const playerSlotColor = (input) => {
-  switch (input) {
-    case 0:
-      return '#2E6AE6';
-    case 1:
-      return '#5DE6AD';
-    case 2:
-      return '#AD00AD';
-    case 3:
-      return '#DCD90A';
-    case 4:
-      return '#E66200';
-    case 128:
-      return '#E67AB0';
-    case 129:
-      return '#92A440';
-    case 130:
-      return '#5CC5E0';
-    case 131:
-      return '#00771F';
-    case 132:
-      return '#956000';
-    default:
-      return 'transparent';
-  }
+export const playerColors = {
+  0: '#2E6AE6',
+  1: '#5DE6AD',
+  2: '#AD00AD',
+  3: '#DCD90A',
+  4: '#E66200',
+  128: '#E67AB0',
+  129: '#92A440',
+  130: '#5CC5E0',
+  131: '#00771F',
+  132: '#956000',
 };

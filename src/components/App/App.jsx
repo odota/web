@@ -21,6 +21,7 @@ const muiTheme = {
     textColor: palette.textColorPrimary,
     primary1Color: palette.blue,
   },
+  button: { height: 38 },
 };
 
 const App = ({ children, open, params, location }) => (

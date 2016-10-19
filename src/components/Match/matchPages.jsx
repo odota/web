@@ -79,17 +79,17 @@ const matchPages = [{
         const roshan = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_ROSHAN_KILL');
         return (
           <div>
-            {tower &&
+            {tower >= 0 &&
             <div>
               <span>First tower </span>
               {formatSeconds(match.objectives[tower].time)}
             </div>}
-            {barracks &&
+            {barracks >= 0 &&
             <div>
               <span>First barracks </span>
               {formatSeconds(match.objectives[barracks].time)}
             </div>}
-            {roshan &&
+            {roshan >= 0 &&
             <div>
               <span>First roshan </span>
               {formatSeconds(match.objectives[roshan].time)}
