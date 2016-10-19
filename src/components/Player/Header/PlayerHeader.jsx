@@ -26,106 +26,92 @@ const getRegistrationBadge = registered => registered && (
       }}
     />
     <ReactTooltip id="registered" place="top" type="light" effect="solid">
-      {strings.registered_user_tooltip}
+      {strings.tooltip_registered_user}
     </ReactTooltip>
   </div>
 );
 
-// TODO localize strings
-const PlayerName = ({ playerName, playerId, picture, registered, loading, error, width }) => {
-  const getPlayerName = () => {
-    if (error) return <Error />;
-    if (loading) return <Spinner />;
+const PlayerHeader = ({ playerName, playerId, picture, registered, loading, error, width, playerSoloCompetitiveRank }) => {
+  if (error) {
+    return <Error />;
+  }
+  if (loading) {
+    return <Spinner />;
+  }
 
-    let badgeStyle = {
-      fontSize: 20,
-      top: 5,
-      left: 40,
-      background: registered ? styles.green : 'transparent',
-      width: 18,
-      height: 18,
-    };
-
-    let avatarStyle = {
-      marginLeft: width > HEADER_MD_BREAK ? 30 : 0,
-      marginRight: width > HEADER_SM_BREAK ? 30 : 0,
-    };
-
-    if (width <= HEADER_MD_BREAK) {
-      badgeStyle = {
-        ...badgeStyle,
-        marginLeft: -1 * (LARGE_IMAGE_SIZE / 2) * 0.75,
-      };
-    }
-    if (width <= HEADER_SM_BREAK) {
-      avatarStyle = {
-        ...avatarStyle,
-        marginLeft: LARGE_IMAGE_SIZE * 0.75,
-      };
-      badgeStyle = {
-        ...badgeStyle,
-        marginLeft: LARGE_IMAGE_SIZE * 0.5,
-      };
-    }
-
-    return (
-      <div className={styles.container}>
-        <div className={styles.topContainer}>
-          <Badge
-            badgeContent={getRegistrationBadge(registered)}
-            badgeStyle={badgeStyle}
-            style={{
-              margin: 0,
-              padding: 0,
-            }}
-          >
-            <Avatar
-              src={picture}
-              style={avatarStyle}
-              size={width > HEADER_MD_BREAK || width <= HEADER_SM_BREAK ? LARGE_IMAGE_SIZE : LARGE_IMAGE_SIZE / 2}
-              className={styles.overviewAvatar}
-            />
-          </Badge>
-          <div className={styles.playerInfo}>
-            <div className={styles.titleNameButtons}>
-              <span className={styles.playerName}>{playerName}</span>
-              <PlayerBadges playerId={playerId} />
-              {width > HEADER_MD_BREAK && <div className={styles.topButtons}><PlayerButtons /></div>}
-            </div>
-            {width > HEADER_MD_BREAK && <PlayerStats playerId={playerId} />}
-          </div>
-        </div>
-        {width <= HEADER_MD_BREAK && (
-          <div className={styles.row}>
-            <PlayerStats playerId={playerId} compact={width <= HEADER_SM_BREAK} />
-          </div>
-        )}
-        {width <= HEADER_MD_BREAK && (
-          <div
-            className={
-              width <= HEADER_SM_BREAK ?
-              styles.playerButtonsContainerSmall :
-              styles.playerButtonsContainer
-            }
-          >
-            <PlayerButtons />
-          </div>
-        )}
-      </div>
-    );
+  let badgeStyle = {
+    fontSize: 20,
+    top: 5,
+    left: 40,
+    background: registered ? styles.green : 'transparent',
+    width: 18,
+    height: 18,
   };
 
-  return getPlayerName();
+  let avatarStyle = {
+    marginLeft: width > HEADER_MD_BREAK ? 30 : 0,
+    marginRight: width > HEADER_SM_BREAK ? 30 : 0,
+  };
+
+  if (width <= HEADER_MD_BREAK) {
+    badgeStyle = {
+      ...badgeStyle,
+      marginLeft: -1 * (LARGE_IMAGE_SIZE / 2) * 0.75,
+    };
+  }
+  if (width <= HEADER_SM_BREAK) {
+    avatarStyle = {
+      ...avatarStyle,
+      marginLeft: LARGE_IMAGE_SIZE * 0.75,
+    };
+    badgeStyle = {
+      ...badgeStyle,
+      marginLeft: LARGE_IMAGE_SIZE * 0.5,
+    };
+  }
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.topContainer}>
+        <Badge
+          badgeContent={getRegistrationBadge(registered)}
+          badgeStyle={badgeStyle}
+          style={{
+            margin: 0,
+            padding: 0,
+          }}
+        >
+          <Avatar
+            src={picture}
+            style={avatarStyle}
+            size={width > HEADER_MD_BREAK || width <= HEADER_SM_BREAK ? LARGE_IMAGE_SIZE : LARGE_IMAGE_SIZE / 2}
+            className={styles.overviewAvatar}
+          />
+        </Badge>
+        <div className={styles.playerInfo}>
+          <div className={styles.titleNameButtons}>
+            <span className={styles.playerName}>{playerName}</span>
+            <PlayerBadges playerId={playerId} />
+            <div className={styles.topButtons}>
+              <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} />
+            </div>
+          </div>
+          <PlayerStats playerId={playerId} />
+        </div>
+      </div>
+    </div>
+  );
 };
 
-// metadata.getUserId(state)
 const mapStateToProps = (state, ownProps) => ({
   loading: player.getLoading(state, ownProps.playerId),
   error: player.getError(state, ownProps.playerId),
   playerName: player.getPlayerName(state, ownProps.playerId),
+  playerId: player.getAccountId(state, ownProps.playerId),
+  playerSoloCompetitiveRank: player.getSoloCompetitiveRank(state, ownProps.playerId),
   picture: player.getPictureFull(state, ownProps.playerId),
   registered: player.getLastLogin(state, ownProps.playerId),
   width: state.browser.width,
 });
 
-export default connect(mapStateToProps)(PlayerName);
+export default connect(mapStateToProps)(PlayerHeader);

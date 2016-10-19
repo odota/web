@@ -117,7 +117,7 @@ const mapStateToProps = (state, ownProps) => ({
   loading: player.getLoading(state, ownProps.playerId),
   error: player.getError(state, ownProps.playerId),
   partyRank: player.getCompetitiveRank(state, ownProps.playerId),
-  soloRank: player.getSoloMmrEstimate(state, ownProps.playerId),
+  soloRank: player.getSoloCompetitiveRank(state, ownProps.playerId),
   mmrEstimate: player.getMmrEstimate(state, ownProps.playerId),
   wins: player.getWins(state, ownProps.playerId),
   losses: player.getLosses(state, ownProps.playerId),

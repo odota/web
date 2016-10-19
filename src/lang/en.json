@@ -18,6 +18,8 @@
   "app_untracked": "This user is inactive, and replays of new matches will not be automatically parsed.",
   "app_tracked": "This user is active, and replays of new matches will be automatically parsed.",
   "app_cheese_bought": "Cheese bought",
+  "app_dotacoach": "Ask a Coach",
+  "app_refresh": "Refresh Match History: Queue a scan to find missing matches due to match privacy setting",
 
   "distributions_mmr": "Solo MMR",
   "distributions_country_mmr": "Solo MMR By Country",
@@ -170,8 +172,6 @@
   "objective_rax_bot": "Rax Bot",
   "objective_fort": "Ancient",
   "objective_roshan": "Roshan",
-
-  "registered_user_tooltip": "Registered user",
 
   "rune_0": "Double Damage",
   "rune_1": "Haste",
