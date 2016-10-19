@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { form } from 'reducers';
 import { withRouter } from 'react-router';
-import { clearForm } from 'actions';
+// import { clearForm } from 'actions';
 import Form from './Form';
 import FormField from './FormField';
 import FormGroup from './FormGroup';
-import SubmitButton from './SubmitButton';
+// import SubmitButton from './SubmitButton';
 import ClearButton from './ClearButton';
 import ShowFormToggle from './ShowFormToggle';
 import styles from './TableFilterForm.css';
@@ -25,7 +25,6 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
             name="hero_id"
             label="Hero"
             dataSource={data.heroList}
-            dataSourceConfig={data.heroConfig}
             strict
             limit={1}
           />
@@ -33,7 +32,6 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
             name="is_radiant"
             label="Team"
             dataSource={data.factionList}
-            dataSourceConfig={data.genericConfig}
             strict
             limit={1}
           />
@@ -41,7 +39,6 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
             name="win"
             label="result"
             dataSource={data.resultList}
-            dataSourceConfig={data.genericConfig}
             strict
             limit={1}
           />
@@ -49,7 +46,6 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
             name="lane_role"
             label="lane"
             dataSource={data.laneList}
-            dataSourceConfig={data.genericConfig}
             strict
             limit={1}
           />
@@ -59,7 +55,6 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
             name="patch"
             label="patch"
             dataSource={data.patchList}
-            dataSourceConfig={data.genericConfig}
             strict
             limit={1}
           />
@@ -67,7 +62,6 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
             name="game_mode"
             label="game mode"
             dataSource={data.modeList}
-            dataSourceConfig={data.genericConfig}
             strict
             limit={1}
           />
@@ -75,7 +69,6 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
             name="lobby_type"
             label="lobby type"
             dataSource={data.lobbyTypeList}
-            dataSourceConfig={data.genericConfig}
             strict
             limit={1}
           />
@@ -83,7 +76,6 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
             name="date"
             label="date"
             dataSource={data.dateList}
-            dataSourceConfig={data.genericConfig}
             strict
             limit={1}
           />
@@ -91,7 +83,6 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
             name="region"
             label="region"
             dataSource={data.regionList}
-            dataSourceConfig={data.genericConfig}
             strict
             limit={1}
           />
@@ -101,7 +92,6 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
             name="with_hero_id"
             label="Allied Heroes"
             dataSource={data.heroList}
-            dataSourceConfig={data.heroConfig}
             strict
             limit={5}
           />
@@ -109,7 +99,6 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
             name="against_hero_id"
             label="Opposing Heroes"
             dataSource={data.heroList}
-            dataSourceConfig={data.heroConfig}
             strict
             limit={5}
           />
@@ -131,39 +120,24 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
             limit={1}
           />
         </FormGroup>
-        // TODO sort (order by descending)
+        // TODO sort (order by descending, might be tricky due to being a string input)
         */}
       </Form>
       <div className={styles.buttonContainer}>
-        <ClearButton label="reset the thing" clearForm={clearForm} style={{ marginRight: 10 }} />
-        <SubmitButton
+        <ClearButton label="reset the thing" clearForm={() => router.push({pathname: window.location.pathname})} style={{ marginRight: 10 }} />
+        {/*<SubmitButton
           label="do the thing"
-          submitForm={() => router.push({
-            pathname: window.location.pathname,
-            query: getQueryObject(),
-          })}
-        />
+          submitForm={() => {}}
+        />*/}
       </div>
     </div>
   </div>
 );
 
-const mapDispatchToProps = dispatch => ({
-  clearForm: () => dispatch(clearForm('tableFilter')),
-});
+const mapDispatchToProps = dispatch => ({});
 
 const mapStateToProps = state => ({
   showForm: form.getFormShow(state, 'tableFilter'),
-  getQueryObject: () => {
-    const formFields = {};
-    Object.keys(form.getForm(state, 'tableFilter')).forEach((key) => {
-      const chips = form.getFormField(state, 'tableFilter', key);
-      if (chips && chips.map) {
-        formFields[key] = chips.map(chip => chip.value);
-      }
-    });
-    return formFields;
-  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TableFilterForm));

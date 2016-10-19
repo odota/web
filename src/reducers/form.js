@@ -1,7 +1,5 @@
 import { formActions } from 'actions';
 
-// TODO Hydrate initial form state from query string
-// Need to translate value (saved in URL) back to text so we can display the chips properly
 const initialFormState = {
   show: false,
 };

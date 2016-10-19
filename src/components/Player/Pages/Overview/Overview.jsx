@@ -23,7 +23,7 @@ const Overview = ({
   heroesData,
 }) => (
   <div>
-    <TableFilterForm id={playerId} page="overview" />
+    <TableFilterForm />
     <div className={styles.overviewContainer}>
       <TableContainer
         title={strings.heading_matches}
