@@ -6,9 +6,6 @@ import AutoComplete from 'material-ui/AutoComplete';
 import {
   addChip,
 } from 'actions';
-import {
-  form,
-} from 'reducers';
 import getClosestMatch from './utility';
 import ChipList from './ChipList';
 import styles from '../palette.css';
@@ -78,7 +75,6 @@ class FormField extends React.Component {
       addChip,
       className,
       strict,
-      text,
       maxSearchResults = 5,
       limit,
     } = this.props;
@@ -96,7 +92,6 @@ class FormField extends React.Component {
           this.handleRequest({ value, index, formName, name, dataSourceConfig, dataSource, strict, addChip, limit })
         }
         listStyle={{ textTransform: 'uppercase' }}
-        searchText={text}
         floatingLabelFocusStyle={{ color: styles.blue }}
         underlineFocusStyle={{ borderColor: styles.blue }}
         fullWidth
@@ -107,7 +102,6 @@ class FormField extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  text: form.getFormFieldText(state, ownProps.formName, ownProps.name),
 });
 
 export default connect(mapStateToProps, {

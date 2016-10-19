@@ -22,33 +22,6 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
       <Form name={FORM_NAME} className={styles.form}>
         <FormGroup className={styles.formGroup}>
           <FormField
-            name="with_hero_id"
-            label="With Heroes"
-            dataSource={data.heroList}
-            dataSourceConfig={data.heroConfig}
-            strict
-            limit={5}
-          />
-          <FormField
-            name="against_hero_id"
-            label="Against Heroes"
-            dataSource={data.heroList}
-            dataSourceConfig={data.heroConfig}
-            strict
-            limit={5}
-          />
-          <FormField
-            name="included_account_id"
-            label="Included Players"
-            limit={10}
-          />
-          <FormField
-            name="excluded_account_id"
-            label="Excluded Players"
-          />
-        </FormGroup>
-        <FormGroup className={styles.formGroup}>
-          <FormField
             name="hero_id"
             label="Hero"
             dataSource={data.heroList}
@@ -123,6 +96,33 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
             limit={1}
           />
         </FormGroup>
+        <FormGroup className={styles.formGroup}>
+          <FormField
+            name="with_hero_id"
+            label="Allied Heroes"
+            dataSource={data.heroList}
+            dataSourceConfig={data.heroConfig}
+            strict
+            limit={5}
+          />
+          <FormField
+            name="against_hero_id"
+            label="Opposing Heroes"
+            dataSource={data.heroList}
+            dataSourceConfig={data.heroConfig}
+            strict
+            limit={5}
+          />
+          <FormField
+            name="included_account_id"
+            label="Included Players"
+            limit={10}
+          />
+          <FormField
+            name="excluded_account_id"
+            label="Excluded Players"
+          />
+        </FormGroup>
         {/*
         <FormGroup className={styles.formGroup}>
           <FormField
@@ -131,6 +131,7 @@ const TableFilterForm = ({ router, clearForm, page, showForm, getQueryObject }) 
             limit={1}
           />
         </FormGroup>
+        // TODO sort (order by descending)
         */}
       </Form>
       <div className={styles.buttonContainer}>
@@ -156,8 +157,8 @@ const mapStateToProps = state => ({
   getQueryObject: () => {
     const formFields = {};
     Object.keys(form.getForm(state, 'tableFilter')).forEach((key) => {
-      const chips = form.getFormFieldChipList(state, 'tableFilter', key);
-      if (chips) {
+      const chips = form.getFormField(state, 'tableFilter', key);
+      if (chips && chips.map) {
         formFields[key] = chips.map(chip => chip.value);
       }
     });

@@ -1,5 +1,5 @@
 import heroes from 'dotaconstants/json/heroes.json';
-import laneIds from 'dotaconstants/json/lane_ids.json';
+import laneRole from 'dotaconstants/json/lane_role.json';
 import patch from 'dotaconstants/json/patch.json';
 import gameMode from 'dotaconstants/json/game_mode.json';
 import lobbyType from 'dotaconstants/json/lobby_type.json';
@@ -21,8 +21,8 @@ export const genericConfig = {
 export const heroList = Object.keys(heroes).map(id => ({
   ...heroes[id],
 }));
-export const laneList = Object.keys(laneIds).map(id => ({
-  text: laneIds[id],
+export const laneList = Object.keys(laneRole).map(id => ({
+  text: laneRole[id],
   id: Number(id),
 }));
 export const patchList = patch.map((patch, index) => ({

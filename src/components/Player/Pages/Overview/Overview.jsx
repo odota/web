@@ -77,7 +77,7 @@ const mapStateToProps = (state, { playerId }) => ({
 
 const mapDispatchToProps = dispatch => ({
   getPlayerMatches: (playerId, options) => dispatch(getPlayerMatches(playerId, options)),
-  getPlayerHeroes: playerId => dispatch(getPlayerHeroes(playerId)),
+  getPlayerHeroes: (playerId, options) => dispatch(getPlayerHeroes(playerId, options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
