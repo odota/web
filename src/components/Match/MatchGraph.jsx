@@ -32,7 +32,7 @@ const drawGraphs = (props, id) => {
       pattern: colorArray,
     };
     const type = props.type === 'difference' ? 'area-spline' : 'spline';
-    const valueFormat = props.type === 'xp' ? xp => `${xp} - Level ${getLevelFromXp(xp)}` : undefined;
+    const valueFormat = props.type === 'xp' ? xp => `${xp} - ${strings.th_level} ${getLevelFromXp(xp)}` : undefined;
     c3.generate({
       bindto: `#${id}`,
       data: {
