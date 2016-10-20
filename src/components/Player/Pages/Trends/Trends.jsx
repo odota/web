@@ -12,9 +12,13 @@ import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
 // import Heading from 'components/Heading';
 import { TableFilterForm } from 'components/Form';
+import querystring from 'querystring';
 
 const selectTrend = (router, playerId) => (trendName) => {
-  router.push(`/players/${playerId}/trends/${trendName}`);
+  router.push({
+    pathname: `/players/${playerId}/trends/${trendName}`,
+    query: querystring.parse(window.location.search.substring(1)),
+  });
 };
 
 const Trend = ({ routeParams, columns, router, playerId }) => (

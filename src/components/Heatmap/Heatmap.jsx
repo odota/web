@@ -34,7 +34,6 @@ const drawHeatmap = ({
   const adjustedData = scaleAndExtrema(points, width / 127, null, 25);
   // console.log(adjustedData);
   heatmap.setData(adjustedData);
-  heatmap.repaint();
 };
 
 class Heatmap extends Component {

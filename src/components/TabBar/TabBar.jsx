@@ -1,11 +1,14 @@
 import React from 'react';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { withRouter } from 'react-router';
+import querystring from 'querystring';
 import styles from './TabBar.css';
 
 const onActive = (tab, router) => {
-  // TODO preserve query string
-  router.push(tab.route);
+  router.push({
+    pathname: tab.route,
+    query: querystring.parse(window.location.search.substring(1)),
+  });
 };
 
 const TabBar = ({ router, tabs, info }) => (
