@@ -81,17 +81,17 @@ const matchPages = [{
           <div>
             {tower >= 0 &&
             <div>
-              <span>First tower </span>
+              <span>{strings.match_first_tower} </span>
               {formatSeconds(match.objectives[tower].time)}
             </div>}
             {barracks >= 0 &&
             <div>
-              <span>First barracks </span>
+              <span>{strings.match_first_barracks} </span>
               {formatSeconds(match.objectives[barracks].time)}
             </div>}
             {roshan >= 0 &&
             <div>
-              <span>First roshan </span>
+              <span>{strings.match_first_roshan} </span>
               {formatSeconds(match.objectives[roshan].time)}
             </div>}
           </div>
@@ -107,26 +107,26 @@ const matchPages = [{
             <Col lg={6} xs={12} className={styles.matchButtons}>
               <div>
                 <FlatButton
-                  label={match.version ? 're-parse' : 'parse'}
+                  label={match.version ? strings.match_button_reparse : strings.match_button_parse}
                   icon={match.version ? <NavigationRefresh /> : <ActionFingerprint />}
                   containerElement={<Link to={`/request#${match.match_id}`}>r</Link>}
                 />
                 {match.replay_url &&
                 <FlatButton
-                  label="replay"
+                  label={strings.match_button_replay}
                   icon={<FileFileDownload />}
                   href={match.replay_url}
                   target="_blank"
                 />}
                 {match.replay_url &&
                 <FlatButton
-                  label="Get video"
+                  label={strings.match_button_video}
                   icon={<img src="/assets/images/jist-24x24.png" role="presentation" />}
                   href={`//www.jist.tv/create.php?dota2-match-url=${match.replay_url}`}
                   target="_blank"
                 />}
                 <FlatButton
-                  label="Ask a coach"
+                  label={strings.match_button_coach}
                   icon={<img src="/assets/images/dotacoach-32x24.png" role="presentation" />}
                   href={`//dotacoach.org/Hire/Yasp?matchID=${match.match_id}&userSteamId=${user.account_id}`} // &playerMmr=
                   target="_blank"
@@ -137,7 +137,7 @@ const matchPages = [{
               {match.first_blood_time !== undefined &&
               <div>
                 <div>
-                  <span>First blood </span>
+                  <span>{strings.match_first_blood} </span>
                   {formatSeconds(match.first_blood_time)}
                 </div>
               </div>}
