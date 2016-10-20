@@ -88,6 +88,21 @@
       margin: 0 auto;
     }
   }
+  @media only screen and (max-width: 370px) {
+    & .map {
+      width: 250px;
+
+      & div > div:last-of-type {
+        width: 250px;
+        height: 250px;
+
+        & img:first-of-type {
+          width: 250px;
+          height: 250px;
+        }
+      }
+    }
+  }
 }
 
 .iconRadiant {
