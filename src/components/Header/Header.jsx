@@ -16,9 +16,6 @@ import SearchForm from '../Search/SearchForm';
 import AppLogo from '../App/AppLogo';
 
 const navbarPages = [{
-  name: strings.header_request,
-  path: '/request',
-}, {
   name: strings.header_distributions,
   path: '/distributions',
 }, {
