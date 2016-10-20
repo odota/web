@@ -3,19 +3,12 @@
 .container {
   min-width: 100%;
   clear: both;
-  @media only screen and (max-width: 960px) {
-    overflow-x: scroll;
-  }
 }
 
-.innerContainer {
-  @media only screen and (max-width: 960px) {
-    min-width: 1325px;
-  }
-}
-
+/*Override material-ui style*/
 .innerContainer > div > div {
-  overflow: hidden !important;
+  overflow-y: hidden !important;
+  overflow-x: auto !important;
 }
 
 .header {

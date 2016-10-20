@@ -3,50 +3,19 @@ import {
   connect,
 } from 'react-redux';
 import {
-  withRouter,
-} from 'react-router';
-import {
   getPlayer,
   getPlayerWinLoss,
 } from 'actions';
 import TabBar from 'components/TabBar';
+import Spinner from 'components/Spinner';
 import PlayerHeader from './Header/PlayerHeader';
-import Error from '../Error';
+// import Error from '../Error';
 import styles from './Player.css';
 import playerPages from './playerPages';
 
-const Player = ({
-  params: {
-    accountId,
-    info = 'overview',
-    subInfo,
-  },
-}) => {
-  if (!accountId) {
-    return <Error />;
-  }
-  // Need to pass in the action into filter form, need to put that filter form into each subroute as well
-  const page = playerPages(accountId).find(page => page.name.toLowerCase() === info);
-  return (
-    <div>
-      <div className={styles.header}>
-        <PlayerHeader playerId={accountId} />
-        <TabBar info={info} subInfo={subInfo} tabs={playerPages(accountId)} />
-      </div>
-      {page ? page.content(accountId, subInfo) : ''}
-    </div>
-  );
-};
-// need to fix this
-
-const mapDispatchToProps = dispatch => ({
-  getPlayer: playerId => dispatch(getPlayer(playerId)),
-  getPlayerWinLoss: playerId => dispatch(getPlayerWinLoss(playerId)),
-});
-
 const getData = (props) => {
-  props.getPlayer(props.params.accountId);
-  props.getPlayerWinLoss(props.params.accountId);
+  props.getPlayer(props.playerId);
+  props.getPlayerWinLoss(props.playerId, props.location.query);
 };
 
 class RequestLayer extends React.Component {
@@ -55,14 +24,35 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.params.accountId !== nextProps.params.accountId) {
+    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }
 
   render() {
-    return <Player {...this.props} />;
+    const { playerId, location, routeParams } = this.props;
+    const info = routeParams.info || 'overview';
+    const page = playerPages(playerId).find(page => page.name.toLowerCase() === info);
+    return (
+      <div>
+        <div className={styles.header}>
+          <PlayerHeader playerId={playerId} location={location} />
+          <TabBar info={info} tabs={playerPages(playerId)} />
+        </div>
+        {page ? page.content(playerId, routeParams, location) : <Spinner />}
+      </div>
+    );
   }
 }
 
-export default connect(null, mapDispatchToProps)(withRouter(RequestLayer));
+const mapStateToProps = (state, ownProps) => ({
+  // Passed from react-router
+  playerId: ownProps.params.accountId,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getPlayer: playerId => dispatch(getPlayer(playerId)),
+  getPlayerWinLoss: (playerId, options) => dispatch(getPlayerWinLoss(playerId, options)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

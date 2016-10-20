@@ -9,9 +9,9 @@ import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerPeersColumns from './playerPeersColumns';
 
-const Peers = ({ playerId, data }) => (
+const Peers = ({ data }) => (
   <div>
-    <TableFilterForm submitAction={getPlayerPeers} id={playerId} page="peers" />
+    <TableFilterForm />
     <TableContainer title={strings.heading_peers}>
       <Table paginated columns={playerPeersColumns} data={data} />
     </TableContainer>
@@ -19,7 +19,7 @@ const Peers = ({ playerId, data }) => (
 );
 
 const getData = (props) => {
-  props.getPlayerPeers(props.playerId);
+  props.getPlayerPeers(props.playerId, props.location.query);
 };
 
 class RequestLayer extends React.Component {
@@ -28,8 +28,8 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId) {
-      getData(this.props);
+    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
+      getData(nextProps);
     }
   }
 
@@ -42,7 +42,7 @@ const mapStateToProps = (state, { playerId }) => ({
   data: playerPeers.getPeerList(state, playerId),
 });
 const mapDispatchToProps = dispatch => ({
-  getPlayerPeers: playerId => dispatch(getPlayerPeers(playerId)),
+  getPlayerPeers: (playerId, options) => dispatch(getPlayerPeers(playerId, options)),
 });
 
 

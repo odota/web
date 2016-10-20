@@ -17,14 +17,14 @@ const getIcon = (show) => {
   return <Clear />;
 };
 
-const ShowFormToggle = ({ formName, toggleShowForm, page, show }) => (
-  <FloatingActionButton className={!show ? styles.filterButton : styles.closeButton} onClick={() => toggleShowForm(formName, page)}>
+const ShowFormToggle = ({ formName, toggleShowForm, show }) => (
+  <FloatingActionButton className={!show ? styles.filterButton : styles.closeButton} onClick={() => toggleShowForm(formName)}>
     {getIcon(show)}
   </FloatingActionButton>
 );
 
 const mapStateToProps = (state, ownProps) => ({
-  show: form.getFormPageShow(state, ownProps.formName, ownProps.page),
+  show: form.getFormShow(state, ownProps.formName),
 });
 
 export default connect(mapStateToProps, { toggleShowForm })(ShowFormToggle);

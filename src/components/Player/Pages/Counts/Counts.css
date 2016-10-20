@@ -1,10 +1,8 @@
 .countTable {
-  width: 50%;
+  flex-grow: 1;
+  overflow-x:auto;
   box-sizing: border-box;
   padding: 15px;
-  @media (max-width: 960px) {
-    width: 100%;
-  }
 }
 
 .countsContainer {

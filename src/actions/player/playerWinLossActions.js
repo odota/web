@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { API_HOST } from 'config';
+import { getUrl } from 'actions/utility';
 
 const url = playerId => `/api/players/${playerId}/wl`;
 
@@ -25,9 +26,9 @@ export const getPlayerWinLossError = payload => ({
   payload,
 });
 
-export const getPlayerWinLoss = playerId => (dispatch) => {
+export const getPlayerWinLoss = (playerId, options = {}) => (dispatch) => {
   dispatch(getPlayerWinLossRequest());
-  return fetch(`${API_HOST}${url(playerId)}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
     .then(json => dispatch(getPlayerWinLossOk(json)))
     .catch(error => dispatch(getPlayerWinLossError(error)));

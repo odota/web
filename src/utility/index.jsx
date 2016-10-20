@@ -220,7 +220,7 @@ export const transformations = {
     <TableHeroImage
       image={row.avatar}
       title={row.name || row.personaname}
-      subtitle={<FromNowTooltip timestamp={row.last_played} />}
+      subtitle={row.subtitle || <FromNowTooltip timestamp={row.last_played} />}
       registered={row.last_login}
       accountId={row.account_id}
     />
