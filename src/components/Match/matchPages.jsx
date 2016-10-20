@@ -117,6 +117,7 @@ const matchPages = [{
                   icon={<FileFileDownload />}
                   href={match.replay_url}
                   target="_blank"
+                  rel="noopener noreferrer"
                 />}
                 {match.replay_url &&
                 <FlatButton
@@ -124,12 +125,14 @@ const matchPages = [{
                   icon={<img src="/assets/images/jist-24x24.png" role="presentation" />}
                   href={`//www.jist.tv/create.php?dota2-match-url=${match.replay_url}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                 />}
                 <FlatButton
-                  label={strings.match_button_coach}
+                  label={strings.app_dotacoach}
                   icon={<img src="/assets/images/dotacoach-32x24.png" role="presentation" />}
                   href={`//dotacoach.org/Hire/Yasp?matchID=${match.match_id}&userSteamId=${user.account_id}`} // &playerMmr=
                   target="_blank"
+                  rel="noopener noreferrer"
                 />
               </div>
             </Col>
