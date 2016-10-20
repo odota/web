@@ -4,11 +4,9 @@ import {
 } from 'react-redux';
 import { withRouter } from 'react-router';
 import AutoComplete from 'material-ui/AutoComplete';
-/*
 import {
   addChip,
 } from 'actions';
-*/
 import querystring from 'querystring';
 // import getClosestMatch from './utility';
 import ChipList from './ChipList';
@@ -46,28 +44,15 @@ class FormField extends React.Component {
       );
       // We can't just do truthy check here because the value could be 0
       if (closestMatch.value || closestMatch.value === 0) {
-        addChip(
-          formName,
-          name, {
-            text: closestMatch.text,
-            value: closestMatch.value,
-          },
-          limit
-        );
+        input = {
+          text: closestMatch.text,
+          value: closestMatch.value,
+        };
       }
     }
     */
-    // Update querystring
     if (input) {
-      const query = querystring.parse(window.location.search.substring(1));
-      const field = [input.value].concat(query[name] || []).slice(0, limit);
-      router.push({
-        pathname: window.location.pathname,
-        query: {
-          ...query,
-          [name]: field,
-        },
-      });
+      this.addChip(router, name, input, limit);
     }
     // Set state on the ref'd component to clear it
     this.autocomplete.setState({
@@ -77,15 +62,15 @@ class FormField extends React.Component {
 
   render() {
     const {
+      addChip,
       name,
       formName,
       label,
       dataSource = [],
       dataSourceConfig,
-      addChip,
       className,
       strict,
-      maxSearchResults = 5,
+      maxSearchResults = 10,
       limit,
       router,
       currentQueryString,
@@ -122,6 +107,8 @@ const mapStateToProps = state => ({
   currentQueryString: state.routing.locationBeforeTransitions.search,
 });
 
-const mapDispatchToProps = null;
+const mapDispatchToProps = dispatch => ({
+  addChip: (router, name, input, limit) => dispatch(addChip(router, name, input, limit)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(FormField));
