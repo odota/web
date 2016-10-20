@@ -14,7 +14,7 @@ class Status extends React.Component
       loading: false,
       result: {},
     });
-    fetch(`${API_HOST}/api/status`).then(jsonResponse).then((json)=>this.setState({loading: false, result: json}));
+    fetch(`${API_HOST}/api/status`).then(jsonResponse).then(json => this.setState({ loading: false, result: json }));
   }
   render() {
     return (<pre>{JSON.stringify(this.state, null, 2)}</pre>);
