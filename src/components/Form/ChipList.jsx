@@ -22,8 +22,8 @@ const ChipList = ({ deleteChip, chipList, router, name }) => (
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch) => ({
-  deleteChip: (router, name, index) => dispatch(deleteChip(router, name, index))
+const mapDispatchToProps = dispatch => ({
+  deleteChip: (router, name, index) => dispatch(deleteChip(router, name, index)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ChipList));
