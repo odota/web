@@ -114,12 +114,17 @@
 }
 
 .overviewHead {
-  margin: 20px 0 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, .19);
-
+  & hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--primaryTextColor);
+    background: linear-gradient(to right, var(--primaryTextColor) , rgba(0, 0, 0, 0)); 
+    opacity: .1;
+    margin: 20px 0 25px;
+  }
   & .matchNumbers {
     text-align: right;
+    padding-top: 5px;
     
     & span {
       font-size: var(--fontSizeSmall);
@@ -154,6 +159,7 @@
     & a {
       float: left;
       margin-right: 10px !important;
+      line-height: 34px !important;
     }
     & a:last-of-type {
       margin-right: 0 !important;
@@ -175,7 +181,7 @@
   @media only screen and (max-width: 1199px) {
     & .matchNumbers {
       text-align: center;
-      margin-top: 20px;
+      margin: 10px 0 5px;
     }
     & .matchButtons {
       & div {

@@ -147,6 +147,7 @@ const matchPages = [{
               {firstNumbers()}
             </Col>
           </Row>
+          <hr />
         </header>
         <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
         <div className={styles.overviewMapGraph}>
