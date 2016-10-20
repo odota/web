@@ -1,29 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getPlayerHistogram } from 'actions';
-import { withRouter } from 'react-router';
 import { playerHistogram } from 'reducers';
 // import Heading from 'components/Heading';
 import { HistogramGraph } from 'components/Visualizations';
 import ButtonGarden from 'components/ButtonGarden';
 import histogramNames from 'components/Player/Pages/matchDataColumns';
 import { TableFilterForm } from 'components/Form';
-import querystring from 'querystring';
 
-const selectHistogram = (router, playerId) => (histogramName) => {
-  router.push({
-    pathname: `/players/${playerId}/histograms/${histogramName}`,
-    query: querystring.parse(window.location.search.substring(1)),
-  });
-};
-
-const Histogram = ({ routeParams, columns, router, playerId }) => (
+const Histogram = ({ routeParams, columns, playerId }) => (
   <div style={{ fontSize: 10 }}>
     <TableFilterForm />
     <ButtonGarden
+      basePath={`/players/${playerId}/histograms`}
       buttonNames={histogramNames}
       selectedButton={routeParams.subInfo || histogramNames[0]}
-      onClick={selectHistogram(router, playerId)}
     />
     <HistogramGraph columns={columns} />
   </div>
@@ -58,4 +49,4 @@ const mapStateToProps = (state, { histogramName = histogramNames[0], playerId })
   error: playerHistogram.getError(histogramName)(state, playerId),
 });
 
-export default connect(mapStateToProps, { getPlayerHistogram })(withRouter(RequestLayer));
+export default connect(mapStateToProps, { getPlayerHistogram })(RequestLayer);
