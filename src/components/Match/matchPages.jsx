@@ -104,38 +104,42 @@ const matchPages = [{
       <div>
         <header className={styles.overviewHead}>
           <Row>
-            <Col xs className={styles.matchButtons}>
-              <FlatButton
-                label={match.version ? 're-parse' : 'parse'}
-                icon={match.version ? <NavigationRefresh /> : <ActionFingerprint />}
-                containerElement={<Link to={`/request#${match.match_id}`}>r</Link>}
-              />
-              {match.replay_url &&
-              <FlatButton
-                label="replay"
-                icon={<FileFileDownload />}
-                href={match.replay_url}
-                target="_blank"
-              />}
-              {match.replay_url &&
-              <FlatButton
-                label="Get video"
-                icon={<img src="/assets/images/jist-24x24.png" role="presentation" />}
-                href={`//www.jist.tv/create.php?dota2-match-url=${match.replay_url}`}
-                target="_blank"
-              />}
-              <FlatButton
-                label="Ask a coach"
-                icon={<img src="/assets/images/dotacoach-32x24.png" role="presentation" />}
-                href={`//dotacoach.org/Hire/Yasp?matchID=${match.match_id}&userSteamId=${user.account_id}`} // &playerMmr=
-                target="_blank"
-              />
+            <Col lg={6} xs={12} className={styles.matchButtons}>
+              <div>
+                <FlatButton
+                  label={match.version ? 're-parse' : 'parse'}
+                  icon={match.version ? <NavigationRefresh /> : <ActionFingerprint />}
+                  containerElement={<Link to={`/request#${match.match_id}`}>r</Link>}
+                />
+                {match.replay_url &&
+                <FlatButton
+                  label="replay"
+                  icon={<FileFileDownload />}
+                  href={match.replay_url}
+                  target="_blank"
+                />}
+                {match.replay_url &&
+                <FlatButton
+                  label="Get video"
+                  icon={<img src="/assets/images/jist-24x24.png" role="presentation" />}
+                  href={`//www.jist.tv/create.php?dota2-match-url=${match.replay_url}`}
+                  target="_blank"
+                />}
+                <FlatButton
+                  label="Ask a coach"
+                  icon={<img src="/assets/images/dotacoach-32x24.png" role="presentation" />}
+                  href={`//dotacoach.org/Hire/Yasp?matchID=${match.match_id}&userSteamId=${user.account_id}`} // &playerMmr=
+                  target="_blank"
+                />
+              </div>
             </Col>
-            <Col xs className={styles.matchNumbers}>
+            <Col lg={6} xs={12} className={styles.matchNumbers}>
               {match.first_blood_time !== undefined &&
               <div>
-                <span>First blood </span>
-                {formatSeconds(match.first_blood_time)}
+                <div>
+                  <span>First blood </span>
+                  {formatSeconds(match.first_blood_time)}
+                </div>
               </div>}
               {firstNumbers()}
             </Col>

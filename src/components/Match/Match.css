@@ -74,6 +74,20 @@
       margin-top: 14px;
     }
   }
+
+  @media only screen and (max-width: 1023px) {
+    & > div {
+      display: block;
+    }
+    & .graph {
+      margin-left: 0;
+      width: 100%;
+    }
+    & .map {
+      width: 312px;
+      margin: 0 auto;
+    }
+  }
 }
 
 .iconRadiant {
@@ -96,12 +110,28 @@
       font-size: var(--fontSizeSmall);
       color: var(--colorMutedLight);
       margin-left: 20px;
+      white-space: pre-line;
     }
     & > div {
       display: inline;
       vertical-align: middle;
-        & > div {
+
+      &:first-of-type {
+        & span {
+          margin-left: 0;
+        }
+      }
+      & > div {
         display: inline;
+
+        @media only screen and (max-width: 512px) {
+          display: block;
+          line-height: 2;
+
+          & span {
+            margin-left: 0;
+          }
+        }
       }
     }
   }
@@ -111,8 +141,32 @@
       margin-right: 10px !important;
     }
     & a:last-of-type {
-      float: left;
       margin-right: 0 !important;
+    }
+
+    @media only screen and (max-width: 600px) {
+      & a {
+        min-width: 24px !important;
+
+        & span {
+          font-size: 0px !important;
+          padding-left: 0 !important;
+          padding-right: 12px !important;
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 1199px) {
+    & .matchNumbers {
+      text-align: center;
+      margin-top: 20px;
+    }
+    & .matchButtons {
+      & div {
+        display: table;
+        margin: 0 auto;
+      }
     }
   }
 }
