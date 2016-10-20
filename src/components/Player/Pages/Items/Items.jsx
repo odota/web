@@ -17,11 +17,10 @@ import {
 import playerItemsColumns from './playerItemsColumns';
 
 const Items = ({
-  playerId,
   data,
 }) => (
   <div>
-    <TableFilterForm submitAction={getPlayerItems} id={playerId} page="items" />
+    <TableFilterForm />
     <TableContainer title="Items">
       <Table paginated columns={playerItemsColumns} data={data} />
     </TableContainer>
@@ -29,7 +28,7 @@ const Items = ({
 );
 
 const getData = (props) => {
-  props.getPlayerItems(props.playerId);
+  props.getPlayerItems(props.playerId, props.location.query);
 };
 
 class RequestLayer extends React.Component {
@@ -38,7 +37,7 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId) {
+    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(this.props);
     }
   }
@@ -53,7 +52,7 @@ const mapStateToProps = (state, { playerId }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getPlayerItems: playerId => dispatch(getPlayerItems(playerId)),
+  getPlayerItems: (playerId, options) => dispatch(getPlayerItems(playerId, options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

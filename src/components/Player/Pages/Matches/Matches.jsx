@@ -14,22 +14,22 @@ import Table, {
 import {
   TableFilterForm,
 } from 'components/Form';
+import strings from 'lang';
 import playerMatchesColumns from './playerMatchesColumns';
 
 const Matches = ({
-  playerId,
   data,
 }) => (
   <div>
-    <TableFilterForm submitAction={getPlayerMatches} id={playerId} page="matches" />
-    <TableContainer title="Recent Matches">
+    <TableFilterForm />
+    <TableContainer title={strings.heading_matches}>
       <Table paginated columns={playerMatchesColumns} data={data} />
     </TableContainer>
   </div>
 );
 
 const getData = (props) => {
-  props.getPlayerMatches(props.playerId);
+  props.getPlayerMatches(props.playerId, props.location.query);
 };
 
 class RequestLayer extends React.Component {
@@ -38,8 +38,8 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId) {
-      getData(this.props);
+    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
+      getData(nextProps);
     }
   }
 

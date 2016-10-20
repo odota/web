@@ -6,9 +6,10 @@ import Heading from 'components/Heading';
 import Heatmap from 'components/Heatmap';
 import { Row, Col } from 'react-flexbox-grid';
 import strings from 'lang';
+import { TableFilterForm } from 'components/Form';
 
 const getData = (props) => {
-  props.getPlayerWardmap(props.playerId);
+  props.getPlayerWardmap(props.playerId, props.location.query);
 };
 
 class RequestLayer extends React.Component {
@@ -17,13 +18,14 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId) {
+    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }
 
   render() {
     return (<div>
+      <TableFilterForm />
       <Heading title={strings.heading_wardmap} />
       <Row>
         <Col md>
@@ -46,7 +48,7 @@ const mapStateToProps = (state, { playerId }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getPlayerWardmap: playerId => dispatch(getPlayerWardmap(playerId)),
+  getPlayerWardmap: (playerId, options) => dispatch(getPlayerWardmap(playerId, options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

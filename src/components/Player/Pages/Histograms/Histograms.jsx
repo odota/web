@@ -1,22 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getPlayerHistogram } from 'actions';
-import { playerHistogram } from 'reducers';
 import { withRouter } from 'react-router';
+import { playerHistogram } from 'reducers';
 // import Heading from 'components/Heading';
 import { HistogramGraph } from 'components/Visualizations';
 import ButtonGarden from 'components/ButtonGarden';
 import histogramNames from 'components/Player/Pages/matchDataColumns';
+import { TableFilterForm } from 'components/Form';
+import querystring from 'querystring';
 
 const selectHistogram = (router, playerId) => (histogramName) => {
-  router.push(`/players/${playerId}/histograms/${histogramName}`);
+  router.push({
+    pathname: `/players/${playerId}/histograms/${histogramName}`,
+    query: querystring.parse(window.location.search.substring(1)),
+  });
 };
 
-const Histogram = ({ histogramName = histogramNames[0], columns, router, playerId }) => (
+const Histogram = ({ routeParams, columns, router, playerId }) => (
   <div style={{ fontSize: 10 }}>
+    <TableFilterForm />
     <ButtonGarden
       buttonNames={histogramNames}
-      selectedButton={histogramName}
+      selectedButton={routeParams.subInfo || histogramNames[0]}
       onClick={selectHistogram(router, playerId)}
     />
     <HistogramGraph columns={columns} />
@@ -24,7 +30,7 @@ const Histogram = ({ histogramName = histogramNames[0], columns, router, playerI
 );
 
 const getData = (props) => {
-  props.getPlayerHistogram(props.playerId, props.histogramName || histogramNames[0]);
+  props.getPlayerHistogram(props.playerId, props.location.query, props.routeParams.subInfo || histogramNames[0]);
 };
 
 class RequestLayer extends React.Component {
@@ -33,7 +39,9 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId || this.props.histogramName !== nextProps.histogramName) {
+    if (this.props.playerId !== nextProps.playerId
+      || this.props.routeParams.subInfo !== nextProps.routeParams.subInfo
+      || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }

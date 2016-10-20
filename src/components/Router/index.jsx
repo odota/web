@@ -33,11 +33,7 @@ export default () => (
         <IndexRoute component={Home} />
         <Route path="search" component={Search} />
         <Route path="matches/:match_id(/:info)" component={Match} />
-        <Route path="players/:accountId" component={Player}>
-          <Route path=":info">
-            <Route path=":subInfo" />
-          </Route>
-        </Route>
+        <Route path="players/:accountId(/:info)(/:subInfo)" component={Player} />
         <Route path="explorer" component={Explorer} />
         <Route path="heroes(/:hero_id)(/:info)" component={Heroes} />
         <Route path="request" component={Request} />

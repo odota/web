@@ -11,10 +11,11 @@ import {
 import Heading from 'components/Heading';
 import Wordcloud from 'components/Wordcloud';
 import strings from 'lang';
+import { TableFilterForm } from 'components/Form';
 // import { Row, Col } from 'react-flexbox-grid';
 
 const getData = (props) => {
-  props.getPlayerWordcloud(props.playerId);
+  props.getPlayerWordcloud(props.playerId, props.location.query);
 };
 
 class RequestLayer extends React.Component {
@@ -23,13 +24,14 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId) {
+    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }
 
   render() {
     return (<div>
+      <TableFilterForm />
       <Heading title={strings.heading_wordcloud} />
       <Heading title={strings.heading_wordcloud_said} />
       <Wordcloud counts={this.props.data.my_word_counts} />
@@ -48,7 +50,7 @@ const mapStateToProps = (state, {
 });
 
 const mapDispatchToProps = dispatch => ({
-  getPlayerWordcloud: playerId => dispatch(getPlayerWordcloud(playerId)),
+  getPlayerWordcloud: (playerId, options) => dispatch(getPlayerWordcloud(playerId, options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

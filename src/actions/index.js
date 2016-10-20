@@ -15,9 +15,9 @@ export { playerWinLossActions, getPlayerWinLoss } from './player/playerWinLossAc
 export { playerWardmapActions, getPlayerWardmap } from './player/playerWardmapActions';
 export { playerWordcloudActions, getPlayerWordcloud } from './player/playerWordcloudActions';
 export { tableActions, setCurrentPage, nextPage, prevPage, sortTable } from './tableActions';
-export { formActions, addChip, deleteChip, setFieldText, submitForm, clearForm, toggleShowForm } from './formActions';
-export { rankingActions, getRanking } from './rankingActions';
-export { benchmarkActions, getBenchmark } from './benchmarkActions';
+export * from './formActions';
+export * from './rankingActions';
+export * from './benchmarkActions';
 export * from './searchActions';
 export * from './requestActions';
 export * from './distributionsActions';

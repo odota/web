@@ -1,81 +1,63 @@
-/*
-import {
-  heroes,
-  lane_ids as laneIds,
-  patch,
-  game_mode as gameMode,
-  lobby_type as lobbyType,
-  region,
-} from 'dotaconstants';
-*/
 import heroes from 'dotaconstants/json/heroes.json';
-import laneIds from 'dotaconstants/json/lane_ids.json';
+import laneRole from 'dotaconstants/json/lane_role.json';
 import patch from 'dotaconstants/json/patch.json';
 import gameMode from 'dotaconstants/json/game_mode.json';
 import lobbyType from 'dotaconstants/json/lobby_type.json';
 import region from 'dotaconstants/json/region.json';
-
-export const heroConfig = {
-  text: 'localized_name',
-  value: 'id',
-};
-export const genericConfig = {
-  text: 'text',
-  value: 'id',
-};
 
 // This has to be a list in order to pass it in.
 // We should consider refactoring all these kinds of objects into lists. I understand
 // they are probably built like this to allow map key access but it would be nice if I didn't
 // have to convert them all into arrays.
 export const heroList = Object.keys(heroes).map(id => ({
-  ...heroes[id],
+  text: heroes[id].localized_name,
+  value: id,
 }));
-export const laneList = Object.keys(laneIds).map(id => ({
-  text: laneIds[id],
-  id: Number(id),
+export const laneList = Object.keys(laneRole).map(id => ({
+  text: laneRole[id],
+  value: Number(id),
 }));
 export const patchList = patch.map((patch, index) => ({
   text: patch.name,
-  id: index,
-}));
+  value: index,
+})).reverse();
 export const modeList = Object.keys(gameMode).map(id => ({
   text: gameMode[id].name,
-  id,
+  value: id,
 }));
 export const lobbyTypeList = Object.keys(lobbyType).map(id => ({
   text: lobbyType[id].name,
-  id,
+  value: id,
 }));
 export const regionList = Object.keys(region).map(id => ({
   text: region[id],
-  id: Number(id),
+  value: Number(id),
 }));
 
 export const factionList = [{
   text: 'dire',
-  id: 0,
+  value: 0,
 }, {
   text: 'radiant',
-  id: 1,
+  value: 1,
 }];
 export const resultList = [{
   text: 'loss',
-  id: 0,
+  value: 0,
 }, {
   text: 'win',
-  id: 1,
+  value: 1,
 }];
 export const dateList = [{
   text: 'last week',
-  id: 7,
+  value: 7,
 }, {
   text: 'last month',
-  id: 30,
+  value: 30,
 }, {
   text: 'last 3 months',
-  id: 90,
+  value: 90,
 }, {
   text: 'last 6 months',
-  id: 180,
+  value: 180,
 }];

@@ -12,54 +12,67 @@ import {
   CountsPage,
   TrendsPage,
   MMRPage,
-  ItemsPage,
+  // ItemsPage,
   WardmapPage,
   WordcloudPage,
 } from './Pages';
 
 const playerPages = [{
   name: strings.tab_overview,
-  content: playerId => (<OverviewPage playerId={playerId} />),
+  content: (playerId, routeParams, location) => (<OverviewPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_matches,
-  content: playerId => (<MatchesPage playerId={playerId} />),
+  content: (playerId, routeParams, location) => (<MatchesPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_heroes,
-  content: playerId => (<HeroesPage playerId={playerId} />),
+  content: (playerId, routeParams, location) => (<HeroesPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_peers,
-  content: playerId => (<PeersPage playerId={playerId} />),
+  content: (playerId, routeParams, location) => (<PeersPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_pros,
-  content: playerId => (<ProsPage playerId={playerId} />),
+  content: (playerId, routeParams, location) => (<ProsPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_records,
-  content: playerId => (<RecordsPage playerId={playerId} />),
+  content: (playerId, routeParams, location) => (<RecordsPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_counts,
-  content: playerId => (<CountsPage playerId={playerId} />),
+  content: (playerId, routeParams, location) => (<CountsPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_histograms,
-  content: (playerId, subInfo) => (<HistogramsPage playerId={playerId} histogramName={subInfo} />),
+  content: (playerId, routeParams, location) => (<HistogramsPage
+    playerId={playerId}
+    routeParams={routeParams}
+    location={location}
+    histogramName={routeParams.subInfo}
+  />),
 }, {
   name: strings.tab_trends,
-  content: (playerId, subInfo) => (<TrendsPage playerId={playerId} trendName={subInfo} />),
-}, {
+  content: (playerId, routeParams, location) => (<TrendsPage
+    playerId={playerId}
+    routeParams={routeParams}
+    location={location}
+    trendName={routeParams.subInfo}
+  />),
+},
+/* {
   name: strings.tab_items,
-  content: playerId => (<ItemsPage playerId={playerId} />),
-}, {
-  name: strings.tab_wardmap,
-  content: playerId => (<WardmapPage playerId={playerId} />),
-}, {
-  name: strings.tab_wordcloud,
-  content: playerId => (<WordcloudPage playerId={playerId} />),
-}, {
-  name: strings.tab_mmr,
-  content: playerId => (<MMRPage playerId={playerId} />),
-}, {
-  name: strings.tab_rankings,
-  content: playerId => (<RankingsPage playerId={playerId} />),
-}];
+  content: (playerId, routeParams, location) => (<ItemsPage playerId={playerId} routeParams={routeParams} location={location} />),
+},
+*/
+  {
+    name: strings.tab_wardmap,
+    content: (playerId, routeParams, location) => (<WardmapPage playerId={playerId} routeParams={routeParams} location={location} />),
+  }, {
+    name: strings.tab_wordcloud,
+    content: (playerId, routeParams, location) => (<WordcloudPage playerId={playerId} routeParams={routeParams} location={location} />),
+  }, {
+    name: strings.tab_mmr,
+    content: (playerId, routeParams, location) => (<MMRPage playerId={playerId} routeParams={routeParams} location={location} />),
+  }, {
+    name: strings.tab_rankings,
+    content: (playerId, routeParams, location) => (<RankingsPage playerId={playerId} routeParams={routeParams} location={location} />),
+  }];
 
 export default playerId => playerPages.map(page => ({
   ...page,

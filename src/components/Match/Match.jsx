@@ -10,18 +10,6 @@ import {
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
 
-const mapStateToProps = (state, {
-  params,
-}) => ({
-  matchId: params.match_id,
-  match: getMatchData(state),
-  loading: getMatchLoading(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  getMatch: matchId => dispatch(getMatch(matchId)),
-});
-
 class RequestLayer extends React.Component {
   componentDidMount() {
     this.props.getMatch(this.props.routeParams.match_id);
@@ -34,6 +22,7 @@ class RequestLayer extends React.Component {
   }
 
   render() {
+    const loading = this.props.loading;
     const match = this.props.match;
     const matchId = this.props.matchId;
     const info = this.props.routeParams.info || 'overview';
@@ -42,10 +31,20 @@ class RequestLayer extends React.Component {
       <div>
         <MatchHeader match={match} loading={this.props.loading} />
         <TabBar info={info} tabs={matchPages(matchId)} />
-        {match && page ? page.content(match) : <Spinner />}
+        {!loading && page ? page.content(match) : <Spinner />}
       </div>
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => ({
+  matchId: ownProps.params.match_id,
+  match: getMatchData(state),
+  loading: getMatchLoading(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  getMatch: matchId => dispatch(getMatch(matchId)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

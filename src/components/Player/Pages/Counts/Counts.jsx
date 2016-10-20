@@ -10,9 +10,9 @@ import { TableFilterForm } from 'components/Form';
 import playerCountsColumns from './playerCountsColumns';
 import styles from './Counts.css';
 
-const Counts = ({ playerId, counts, getPlayerCounts }) => (
+const Counts = ({ counts }) => (
   <div>
-    <TableFilterForm submitAction={getPlayerCounts} id={playerId} page="counts" />
+    <TableFilterForm />
     <div className={styles.countsContainer}>
       {Object.keys(counts).map((key, index) => (
         <div key={index} className={styles.countTable}>
@@ -25,7 +25,7 @@ const Counts = ({ playerId, counts, getPlayerCounts }) => (
 );
 
 const getData = (props) => {
-  props.getPlayerCounts(props.playerId);
+  props.getPlayerCounts(props.playerId, props.location.query);
 };
 
 class RequestLayer extends React.Component {
@@ -34,7 +34,7 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId) {
+    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(this.props);
     }
   }

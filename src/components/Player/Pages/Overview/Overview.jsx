@@ -15,20 +15,14 @@ import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesC
 import { playerHeroesOverviewColumns } from 'components/Player/Pages/Heroes/playerHeroesColumns';
 import styles from './Overview.css';
 
-const getPlayerMatchesAndHeroes = (playerId, options) => (dispatch) => {
-  dispatch(getPlayerMatches(playerId, options));
-  dispatch(getPlayerHeroes(playerId, options));
-};
-
 const MAX_OVERVIEW_ROWS = 20;
 
 const Overview = ({
-  playerId,
   matchesData,
   heroesData,
 }) => (
   <div>
-    <TableFilterForm submitAction={getPlayerMatchesAndHeroes} id={playerId} page="overview" />
+    <TableFilterForm />
     <div className={styles.overviewContainer}>
       <TableContainer
         title={strings.heading_matches}
@@ -55,8 +49,8 @@ const Overview = ({
 );
 
 const getData = (props) => {
-  props.getPlayerMatches(props.playerId);
-  props.getPlayerHeroes(props.playerId);
+  props.getPlayerMatches(props.playerId, { ...props.location.query, limit: MAX_OVERVIEW_ROWS });
+  props.getPlayerHeroes(props.playerId, props.location.query);
 };
 
 class RequestLayer extends React.Component {
@@ -65,8 +59,8 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId) {
-      getData(this.props);
+    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
+      getData(nextProps);
     }
   }
 
@@ -75,18 +69,14 @@ class RequestLayer extends React.Component {
   }
 }
 
-const defaultOptions = {
-  limit: [20],
-};
-
 const mapStateToProps = (state, { playerId }) => ({
   matchesData: playerMatches.getMatchList(state, playerId),
   heroesData: playerHeroes.getHeroList(state, playerId),
 });
 
 const mapDispatchToProps = dispatch => ({
-  getPlayerMatches: (playerId, options = defaultOptions) => dispatch(getPlayerMatches(playerId, options)),
-  getPlayerHeroes: playerId => dispatch(getPlayerHeroes(playerId)),
+  getPlayerMatches: (playerId, options) => dispatch(getPlayerMatches(playerId, options)),
+  getPlayerHeroes: (playerId, options) => dispatch(getPlayerHeroes(playerId, options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

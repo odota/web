@@ -17,7 +17,7 @@ const Rankings = ({ data }) => (
 );
 
 const getData = (props) => {
-  props.getPlayerRankings(props.playerId);
+  props.getPlayerRankings(props.playerId, props.location.query);
 };
 
 class RequestLayer extends React.Component {
@@ -26,7 +26,7 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId) {
+    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(this.props);
     }
   }
