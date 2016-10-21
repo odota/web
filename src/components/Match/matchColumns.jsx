@@ -245,10 +245,10 @@ export const purchaseTimesColumns = (match) => {
 
       displayFn: (row, column, field) => (<div>
         {field ? field
-        .filter(p => (p.time >= curTime - bucket && p.time < curTime))
-        .map((p) => {
-          if (items[p.key]) {
-            return inflictorWithValue(p.key, formatSeconds(p.time));
+        .filter(purchase => (purchase.time >= curTime - bucket && purchase.time < curTime))
+        .map((purchase) => {
+          if (items[purchase.key]) {
+            return inflictorWithValue(purchase.key, formatSeconds(purchase.time));
           }
           return <span />;
         }) : ''}
@@ -517,7 +517,7 @@ export const inflictorsColumns = [{
   field: 'damage_inflictor_received',
   displayFn: (row, col, field) => (field ? Object.keys(field)
       .sort((a, b) => field[b] - field[a])
-      .map(k => inflictorWithValue(k, abbreviateNumber(field[k]))) : ''),
+      .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
 }, {
   displayFn: () => '→',
 },
@@ -528,7 +528,7 @@ export const inflictorsColumns = [{
     field: 'damage_inflictor',
     displayFn: (row, col, field) => (field ? Object.keys(field)
       .sort((a, b) => field[b] - field[a])
-      .map(k => inflictorWithValue(k, abbreviateNumber(field[k]))) : ''),
+      .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
   },
 ];
 
@@ -564,18 +564,18 @@ export const teamfightColumns = [
   }, {
     displayName: strings.th_abilities,
     field: 'ability_uses',
-    displayFn: (row, col, field) => (field ? Object.keys(field).map((k, i) => {
-      if (abilityKeys[k]) {
-        return (inflictorWithValue(k, i));
+    displayFn: (row, col, field) => (field ? Object.keys(field).map((inflictor, count) => {
+      if (abilityKeys[inflictor]) {
+        return inflictorWithValue(inflictor, count + 1);
       }
       return <div />;
     }) : ''),
   }, {
     displayName: strings.th_items,
     field: 'item_uses',
-    displayFn: (row, col, field) => (field ? Object.keys(field).map((k, i) => {
-      if (items[k]) {
-        return (inflictorWithValue(k, i));
+    displayFn: (row, col, field) => (field ? Object.keys(field).map((inflictor, count) => {
+      if (items[inflictor]) {
+        return inflictorWithValue(inflictor, count + 1);
       }
       return <div />;
     }) : ''),
