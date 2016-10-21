@@ -35,6 +35,6 @@ const ChipList = ({ chipList, name }) => (
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = () => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChipList);
