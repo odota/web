@@ -1,6 +1,7 @@
 import {
   isRadiant,
   isSupport,
+  getLevelFromXp,
 } from 'utility';
 /*
 import {
@@ -12,7 +13,6 @@ import {
 */
 import heroes from 'dotaconstants/json/heroes.json';
 import specific from 'dotaconstants/json/specific.json';
-import xpLevel from 'dotaconstants/json/xp_level.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import analysis from './analysis';
 
@@ -25,15 +25,6 @@ Object.keys(specific).forEach((key) => {
 
 const getMaxKeyOfObject = field =>
   (field ? Object.keys(field).sort((a, b) => Number(b) - Number(a))[0] : '');
-
-function getLevelFromXp(xp) {
-  for (let i = 0; i < xpLevel.length; i += 1) {
-    if (xpLevel[i] > xp) {
-      return i;
-    }
-  }
-  return xpLevel.length;
-}
 
 /**
  * Generates data for c3 charts in a match

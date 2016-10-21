@@ -5,6 +5,7 @@ import uuid from 'node-uuid';
 import c3 from 'c3';
 import {
   formatSeconds,
+  getLevelFromXp,
   playerColors,
 } from 'utility';
 import strings from 'lang';
@@ -20,6 +21,7 @@ const drawGraphs = (props, id) => {
       pattern: colorArray,
     };
     const type = props.type === 'difference' ? 'area-spline' : 'spline';
+    const valueFormat = props.type === 'xp' ? xp => `${xp} - ${strings.th_level} ${getLevelFromXp(xp)}` : undefined;
     c3.generate({
       bindto: `#${id}`,
       data: {
@@ -49,7 +51,7 @@ const drawGraphs = (props, id) => {
       tooltip: {
         contents(d, defaultTitleFormat, defaultValueFormat, color) {
           d.sort((a, b) => b.value - a.value);
-          return this.getTooltipContent(d, defaultTitleFormat, defaultValueFormat, color);
+          return this.getTooltipContent(d, defaultTitleFormat, valueFormat || defaultValueFormat, color);
         },
       },
     });
