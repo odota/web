@@ -12,22 +12,14 @@ import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
 // import Heading from 'components/Heading';
 import { TableFilterForm } from 'components/Form';
-import querystring from 'querystring';
 
-const selectTrend = (router, playerId) => (trendName) => {
-  router.push({
-    pathname: `/players/${playerId}/trends/${trendName}`,
-    query: querystring.parse(window.location.search.substring(1)),
-  });
-};
-
-const Trend = ({ routeParams, columns, router, playerId }) => (
+const Trend = ({ routeParams, columns, playerId }) => (
   <div style={{ fontSize: 10 }}>
     <TableFilterForm />
     <ButtonGarden
+      basePath={`/players/${playerId}/trends`}
       buttonNames={trendNames}
       selectedButton={routeParams.subInfo || trendNames[0]}
-      onClick={selectTrend(router, playerId)}
     />
     <TrendGraph
       columns={columns}
