@@ -11,6 +11,7 @@ import lobbyType from 'dotaconstants/json/lobby_type.json';
 import leaverStatus from 'dotaconstants/json/leaver_status.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import abilityKeys from 'dotaconstants/json/ability_keys.json';
+import xpLevel from 'dotaconstants/json/xp_level.json';
 import { API_HOST } from 'config';
 import styles from 'components/palette.css';
 import { TableLink } from 'components/Table';
@@ -39,6 +40,14 @@ export function formatSeconds(input) {
   let time = ((input < 0) ? '-' : '');
   time += `${minutes}:${seconds}`;
   return time;
+}
+export function getLevelFromXp(xp) {
+  for (let i = 0; i < xpLevel.length; i += 1) {
+    if (xpLevel[i] > xp) {
+      return i;
+    }
+  }
+  return xpLevel.length;
 }
 
 const second = 1;
