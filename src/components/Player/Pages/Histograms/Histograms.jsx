@@ -25,7 +25,7 @@ const Histogram = ({ routeParams, columns, router, playerId }) => (
       selectedButton={routeParams.subInfo || histogramNames[0]}
       onClick={selectHistogram(router, playerId)}
     />
-    <HistogramGraph columns={columns} />
+    <HistogramGraph columns={columns || []} />
   </div>
 );
 
