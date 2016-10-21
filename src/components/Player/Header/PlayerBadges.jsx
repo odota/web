@@ -5,9 +5,9 @@ import { player } from 'reducers';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
 import { IconCheese, IconSteam, IconEye, IconEyeInactive, IconTrophy } from 'components/Icons';
+import strings from 'lang';
 import styles from './PlayerBadges.css';
 
-// TODO localize strings
 export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, officialPlayerName }) => {
   const getPlayerBadges = () => {
     if (error) return <Error />;
@@ -21,7 +21,7 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
               className={styles.icon}
             />
             <ReactTooltip id="steamLink" place="top" type="light" effect="solid">
-              Steam profile
+              {strings.app_steam_profile}
             </ReactTooltip>
           </a>
         </div>
@@ -32,7 +32,7 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
               className={styles.icon}
             />
             <ReactTooltip id="proPlayer" place="top" type="light" effect="solid">
-              This player is confirmed as {officialPlayerName}
+              {`${strings.app_confirmed_as} ${officialPlayerName}`}
             </ReactTooltip>
           </div>
         )}
@@ -44,7 +44,7 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
               style={{ height: 22, fill: 'darkgray', marginTop: 4 }}
             />
             <ReactTooltip id="untracked" place="top" type="light" effect="solid">
-              This user is inactive, and replays of new matches will not be automatically parsed.
+              {strings.app_untracked}
             </ReactTooltip>
           </div>
           ) : (<div className={styles.iconButton}>
@@ -54,7 +54,7 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
               style={{ height: 22, marginTop: 4 }}
             />
             <ReactTooltip id="tracked" place="top" type="light" effect="solid">
-              This user is tracked, and replays of new matches will be automatically parsed.
+              {strings.app_tracked}
             </ReactTooltip>
           </div>
         )}
@@ -66,7 +66,7 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
               style={{ height: 18 }}
             />
             <ReactTooltip id="cheese" place="top" type="light" effect="solid">
-              {cheese} Cheese bought
+              {`${cheese} ${strings.app_cheese_bought}`}
             </ReactTooltip>
           </div>
         )}
