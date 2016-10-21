@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { form } from 'reducers';
 import strings from 'lang';
+import { browserHistory } from 'react-router';
 // import { clearForm } from 'actions';
 import Form from './Form';
 import FormField from './FormField';
@@ -13,6 +14,8 @@ import styles from './TableFilterForm.css';
 import * as data from './TableFilter.config';
 
 const FORM_NAME = 'tableFilter';
+
+const clearForm = () => browserHistory.push(window.location.pathname);
 
 const TableFilterForm = ({ page, showForm }) => (
   <div>
@@ -125,7 +128,7 @@ const TableFilterForm = ({ page, showForm }) => (
       <div className={styles.buttonContainer}>
         <ClearButton
           label={strings.filter_reset}
-          clearForm={() => window.history.pushState('', '', window.location.pathname)}
+          clearForm={() => clearForm()}
           style={{ marginRight: 10 }}
         />
         {/* <SubmitButton
