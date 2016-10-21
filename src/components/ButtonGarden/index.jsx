@@ -1,20 +1,13 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import { withRouter } from 'react-router';
 import { deSnake } from 'utility';
-import querystring from 'querystring';
 import styles from './ButtonGarden.css';
 
-const ButtonGarden = ({ buttonNames, selectedButton, router, basePath }) => (
+const ButtonGarden = ({ buttonNames, selectedButton, onClick }) => (
   <div className={styles.buttonContainer}>
     {buttonNames.map((buttonName, index) => (
       <FlatButton
-        onClick={() => {
-          router.push({
-            pathname: `${basePath}/${buttonName}`,
-            query: querystring.parse(window.location.search.substring(1)),
-          });
-        }}
+        onClick={() => onClick(buttonName)}
         className={selectedButton === buttonName ? styles.selectedButton : styles.button}
         key={index}
       >
@@ -24,12 +17,12 @@ const ButtonGarden = ({ buttonNames, selectedButton, router, basePath }) => (
   </div>
 );
 
-const { arrayOf, string } = React.PropTypes;
+const { arrayOf, string, func } = React.PropTypes;
 
 ButtonGarden.propTypes = {
   buttonNames: arrayOf(string),
   selectedButton: string,
-  // onClick: func,
+  onClick: func,
 };
 
-export default withRouter(ButtonGarden);
+export default ButtonGarden;

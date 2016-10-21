@@ -12,12 +12,13 @@ import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
 // import Heading from 'components/Heading';
 import { TableFilterForm } from 'components/Form';
+import { browserHistory } from 'react-router';
 
 const Trend = ({ routeParams, columns, playerId }) => (
   <div style={{ fontSize: 10 }}>
     <TableFilterForm />
     <ButtonGarden
-      basePath={`/players/${playerId}/trends`}
+      onClick={buttonName => browserHistory.push(`/players/${playerId}/trends/${buttonName}${window.location.search}`)}
       buttonNames={trendNames}
       selectedButton={routeParams.subInfo || trendNames[0]}
     />

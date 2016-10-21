@@ -7,12 +7,13 @@ import { HistogramGraph } from 'components/Visualizations';
 import ButtonGarden from 'components/ButtonGarden';
 import histogramNames from 'components/Player/Pages/matchDataColumns';
 import { TableFilterForm } from 'components/Form';
+import { browserHistory } from 'react-router';
 
 const Histogram = ({ routeParams, columns, playerId }) => (
   <div style={{ fontSize: 10 }}>
     <TableFilterForm />
     <ButtonGarden
-      basePath={`/players/${playerId}/histograms`}
+      onClick={buttonName => browserHistory.push(`/players/${playerId}/histograms/${buttonName}${window.location.search}`)}
       buttonNames={histogramNames}
       selectedButton={routeParams.subInfo || histogramNames[0]}
     />
