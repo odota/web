@@ -34,12 +34,15 @@ export function abbreviateNumber(num) {
   return (num < 1000) ? num : `${(num / 1000).toFixed(1)}${strings.abbr_thousand}`;
 }
 export function formatSeconds(input) {
-  const absTime = Math.abs(input);
-  const minutes = Math.floor(absTime / 60);
-  const seconds = pad(Math.floor(absTime % 60), 2);
-  let time = ((input < 0) ? '-' : '');
-  time += `${minutes}:${seconds}`;
-  return time;
+  if (!isNaN(parseFloat(input)) && isFinite(input)) {
+    const absTime = Math.abs(input);
+    const minutes = Math.floor(absTime / 60);
+    const seconds = pad(Math.floor(absTime % 60), 2);
+    let time = ((input < 0) ? '-' : '');
+    time += `${minutes}:${seconds}`;
+    return time;
+  }
+  return null;
 }
 export function getLevelFromXp(xp) {
   for (let i = 0; i < xpLevel.length; i += 1) {
@@ -161,7 +164,7 @@ export const transformations = {
     return (
       <TableHeroImage
         parsed={row.version}
-        image={`${heroes[row.hero_id] ? API_HOST + heroes[row.hero_id].img : '/assets/images/blank-1x1.gif'}`}
+        image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
         title={
           row.rank !== undefined ?
             <TableLink to={`/heroes/${row.hero_id}`}>{heroName}</TableLink>
@@ -225,8 +228,6 @@ export const transformations = {
   player: row => (
     <TableHeroImage
       image={row.avatar}
-      imageWidth={29}
-      imageHeight={29}
       title={row.name || row.personaname}
       subtitle={row.subtitle || <FromNowTooltip timestamp={row.last_played} />}
       registered={row.last_login}
@@ -235,42 +236,28 @@ export const transformations = {
   ),
 };
 
-export const inflictorWithValue = ({
-  inflictor,
-  overlay,
-  value,
-  index,
-}) => {
-  if (inflictor) {
+export const inflictorWithValue = (inflictor, value) => {
+  if (inflictor !== undefined) {
     // TODO use abilities if we need the full info immediately
     const ability = abilityKeys[inflictor];
     const item = items[inflictor];
-    let props = {
-      src: null,
-    };
+    let image;
+
     if (ability) {
-      props = {
-        src: `${API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`,
-      };
+      image = `${API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
     } else if (item) {
-      props = {
-        src: `${API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`,
-      };
+      image = `${API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`;
     } else {
-      props = {
-        src: `${API_HOST}/public/images/default_attack.png`,
-      };
+      image = `${API_HOST}/public/images/default_attack.png`;
     }
-    return (<span key={index} style={{ float: 'left', fontSize: '11px', position: 'relative', margin: '2px' }} >
-      <img src={props.src} role="presentation" style={{ height: '20px' }} />
-      <span className={styles.overlay}>
-        {overlay}
-      </span>
-      <br />
-      <span>{value}</span>
-    </span>);
+    return (
+      <div className={styles.inflictorWithValue} >
+        <img src={image} role="presentation" />
+        <div className={styles.overlay}>{value}</div>
+      </div>
+    );
   }
-  return <div />;
+  return null;
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */
@@ -346,3 +333,16 @@ export function isActiveItem(key) {
 }
 
 export const sum = (a, b) => a + b;
+
+export const playerColors = {
+  0: '#2E6AE6',
+  1: '#5DE6AD',
+  2: '#AD00AD',
+  3: '#DCD90A',
+  4: '#E66200',
+  128: '#E67AB0',
+  129: '#92A440',
+  130: '#5CC5E0',
+  131: '#00771F',
+  132: '#956000',
+};

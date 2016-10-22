@@ -7,6 +7,7 @@ import {
   getMatchData,
   getMatchLoading,
 } from 'reducers/match';
+import { getMetadataUser } from 'reducers/metadata';
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
 
@@ -31,7 +32,7 @@ class RequestLayer extends React.Component {
       <div>
         <MatchHeader match={match} loading={this.props.loading} />
         <TabBar info={info} tabs={matchPages(matchId)} />
-        {!loading && page ? page.content(match) : <Spinner />}
+        {!loading && page ? page.content(match, this.props.user) : <Spinner />}
       </div>
     );
   }
@@ -41,6 +42,7 @@ const mapStateToProps = (state, ownProps) => ({
   matchId: ownProps.params.match_id,
   match: getMatchData(state),
   loading: getMatchLoading(state),
+  user: getMetadataUser(state),
 });
 
 const mapDispatchToProps = dispatch => ({

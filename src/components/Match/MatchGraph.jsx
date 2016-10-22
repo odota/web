@@ -6,23 +6,12 @@ import c3 from 'c3';
 import {
   formatSeconds,
   getLevelFromXp,
+  playerColors,
 } from 'utility';
 import strings from 'lang';
 import Heading from 'components/Heading';
 import styles from './Match.css';
 
-const playerColors = {
-  0: '#2E6AE6',
-  1: '#5DE6AD',
-  2: '#AD00AD',
-  3: '#DCD90A',
-  4: '#E66200',
-  128: '#E67AB0',
-  129: '#92A440',
-  130: '#5CC5E0',
-  131: '#00771F',
-  132: '#956000',
-};
 const colorArray = Object.keys(playerColors).map(k => playerColors[k]);
 
 const drawGraphs = (props, id) => {

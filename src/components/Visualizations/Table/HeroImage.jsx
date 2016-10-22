@@ -4,17 +4,18 @@ import uuid from 'node-uuid';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import strings from 'lang';
 import { TableLink } from 'components/Table';
+import { playerColors } from 'utility';
 import styles from './HeroImage.css';
 
 const TableHeroImage = ({
   parsed,
   image,
-  imageWidth = 51,
-  imageHeight = 29,
   registered,
   title,
   subtitle,
   accountId,
+  playerSlot,
+  hideText,
 }) => {
   const tooltipId = uuid.v4();
 
@@ -30,16 +31,23 @@ const TableHeroImage = ({
         </div>
       </div>
       }
+      {image &&
       <div className={styles.imageContainer}>
         <img
           src={image}
           role="presentation"
           className={styles.image}
-          width={imageWidth}
-          height={imageHeight}
         />
+        {playerSlot !== undefined &&
+        <div
+          className={styles.playerSlot}
+          style={{ backgroundColor: playerColors[playerSlot] }}
+        />
+        }
       </div>
-      <div className={styles.textContainer}>
+      }
+      {!hideText &&
+      <div className={styles.textContainer} style={{ marginLeft: !image && 59 }}>
         <span>
           {registered &&
           <div data-tip data-for={tooltipId} className={styles.registered}>
@@ -59,18 +67,16 @@ const TableHeroImage = ({
           {subtitle}
         </span>
         }
-      </div>
+      </div>}
     </div>
   );
 };
 
-const { number, string, object, oneOfType } = React.PropTypes;
+const { number, string, object, oneOfType, bool } = React.PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: number,
   image: string,
-  imageWidth: number,
-  imageHeight: number,
   title: string,
   subtitle: oneOfType([
     string,
@@ -78,6 +84,8 @@ TableHeroImage.propTypes = {
   ]),
   registered: string,
   accountId: number,
+  playerSlot: number,
+  hideText: bool,
 };
 
 export default TableHeroImage;

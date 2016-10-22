@@ -10,10 +10,20 @@
   flex-direction: column;
   justify-content: center;
   line-height: 1.2;
+  width: 120px;
+  
+  & > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .image {
   margin-right: 7px;
+  position: relative;
+  height: 29px;
+  box-shadow: 0 0 5px var(--defaultPrimaryColor);
 }
 
 .container {
@@ -36,4 +46,18 @@
   background-color: var(--colorSuccess);
   border-radius: 50%;
   display: inline-block;
+}
+
+.imageContainer {
+  position: relative;
+}
+
+.playerSlot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 2px 2px 2px var(--defaultPrimaryColor);
 }

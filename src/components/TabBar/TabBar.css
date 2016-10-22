@@ -2,7 +2,8 @@
 
 .container {
   position: relative;
-  margin: 25px 0;
+  margin: 20px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .19);
 
   @media only screen and (max-width : 1250px) {
     height: 48px;
@@ -21,7 +22,6 @@
 }
 
 .tabs {
-  border-bottom: 1px solid rgba(255, 255, 255, .19);
   width: 100%;
 
   @media only screen and (max-width : 1250px) {

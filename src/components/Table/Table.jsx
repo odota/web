@@ -22,7 +22,7 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
   // Not currently using totalWidth (default auto width)
   // const totalWidth = getTotalWidth(columns);
   <div className={styles.innerContainer}>
-    <MaterialTable fixedHeader={false} style={{ tableLayout: 'auto' }} selectable={false} className={styles.table}>
+    <MaterialTable fixedHeader={false} selectable={false}>
       <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false} className={styles.header}>
         <TableHeader
           columns={columns}
@@ -42,6 +42,7 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
               const MaterialTableRowColumnStyle = {
                 // width: `${getWidthStyle(column.width, totalWidth)}%`,
                 overflow: `${column.field === 'kills' ? 'visible' : null}`,
+                color: column.color,
               };
               return (
                 <MaterialTableRowColumn key={colIndex} style={MaterialTableRowColumnStyle}>
