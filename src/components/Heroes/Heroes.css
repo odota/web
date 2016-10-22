@@ -1,3 +1,5 @@
+@import "../palette.css";
+
 .Header {
 	display: block;
 	text-align: center;
@@ -23,12 +25,25 @@
 }
 .HeroItemName {
 	display: block;
-    padding: 10px 0 0 10px;
-    text-transform: uppercase;
-    margin: 0;
+  padding: 10px 0 0 10px;
+  text-transform: uppercase;
+  margin: 0;
 }
 .HeroItemActions {
 	padding: 15px;
+	transition: all 300ms ease-out;
+	color: var(--primaryTextColor);
+  text-shadow: 1px 1px 0 var(--secondaryTextColor),
+	 						-1px -1px 0 var(--secondaryTextColor),
+							1px -1px 0 var(--secondaryTextColor),
+							-1px 1px 0 var(--secondaryTextColor);
+	&:hover {
+		color: var(--secondaryTextColor);
+	  text-shadow: 1px 1px 0 var(--primaryTextColor),
+		 						-1px -1px 0 var(--primaryTextColor),
+								1px -1px 0 var(--primaryTextColor),
+								-1px 1px 0 var(--primaryTextColor);
+	}
 }
 
 .HeroItemImage {
