@@ -137,10 +137,14 @@
   margin-top: 6px;
   font-weight: var(--fontWeightLight);
   color: var(--colorYelor);
+  font-size: var(--fontSizeMedium);
+  letter-spacing: 0.1ex;
 
   & svg {
     vertical-align: sub;
     fill: var(--colorYelor) !important;
     margin-right: 5px;
+    width: 20px !important;
+    height: 20px !important;
   }
 }
