@@ -12,6 +12,7 @@ import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';
 
+export const HEADER_SM_BREAK = 660;
 export const HEADER_MD_BREAK = 900;
 const LARGE_IMAGE_SIZE = 124;
 
@@ -47,9 +48,9 @@ const PlayerHeader = ({ playerName, playerId, picture, registered, loading, erro
     height: 18,
   };
 
-  let avatarStyle = {
+  const avatarStyle = {
     marginLeft: width > HEADER_MD_BREAK ? 30 : 0,
-    marginRight: width > HEADER_MD_BREAK ? 30 : 0,
+    marginRight: width > HEADER_SM_BREAK ? 30 : 0,
   };
 
   if (width <= HEADER_MD_BREAK) {
@@ -62,30 +63,30 @@ const PlayerHeader = ({ playerName, playerId, picture, registered, loading, erro
   return (
     <div className={styles.container}>
       <div className={styles.topContainer}>
-        <Badge
-          badgeContent={getRegistrationBadge(registered)}
-          badgeStyle={badgeStyle}
-          style={{
-            margin: 0,
-            padding: 0,
-          }}
-        >
-          <Avatar
-            src={picture}
-            style={avatarStyle}
-            size={width > HEADER_MD_BREAK ? LARGE_IMAGE_SIZE : LARGE_IMAGE_SIZE / 2}
-            className={styles.overviewAvatar}
-          />
-        </Badge>
+        <div className={styles.imageContainer}>
+          <Badge
+            badgeContent={getRegistrationBadge(registered)}
+            badgeStyle={badgeStyle}
+            style={{
+              margin: 0,
+              padding: 0,
+            }}
+          >
+            <Avatar
+              src={picture}
+              style={avatarStyle}
+              size={LARGE_IMAGE_SIZE}
+              className={styles.overviewAvatar}
+            />
+          </Badge>
+        </div>
         <div className={styles.playerInfo}>
           <div className={styles.titleNameButtons}>
             <span className={styles.playerName}>{playerName}</span>
             <PlayerBadges playerId={playerId} />
-            <div className={width > HEADER_MD_BREAK ? styles.topButtons : ''}>
-              <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={width <= HEADER_MD_BREAK} />
-            </div>
           </div>
-          <PlayerStats playerId={playerId} compact={width <= HEADER_MD_BREAK} />
+          <PlayerStats playerId={playerId} compact={width <= HEADER_SM_BREAK} />
+          <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={width <= HEADER_SM_BREAK} />
         </div>
       </div>
     </div>

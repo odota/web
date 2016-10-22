@@ -111,9 +111,9 @@ const matchPages = [{
         <BuildingMap match={match} />
       </div>
       {match.version &&
-        <div className={styles.graph}>
-          <MatchGraph match={match} type="difference" />
-        </div>}
+      <div className={styles.graph}>
+        <MatchGraph match={match} type="difference" />
+      </div>}
     </div>
   </div>),
 }, {

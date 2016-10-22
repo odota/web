@@ -16,21 +16,28 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  @media only screen and (max-width: 900px) {
+  flex-wrap: wrap;
+  @media only screen and (max-width: 660px) {
     flex-direction: column;
     align-items: center;
   }
 }
 
 .stats {
-  @media only screen and (max-width: 900px) {
+  @media only screen and (max-width: 660px) {
     align-self: flex-end;
   }
 }
 
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .overviewAvatar {
   box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.4);
-  @media only screen and (max-width: 900px) {
+  @media only screen and (max-width: 660px) {
     margin-left: 0 !important;
   }
 }
@@ -50,7 +57,7 @@
 
 .topContainer {
   composes: row;
-  @media only screen and (max-width: 900px) {
+  @media only screen and (max-width: 660px) {
     flex-direction: column;
     align-items: center;
   }
