@@ -1,0 +1,63 @@
+@import "../palette.css";
+
+
+.HeroListCol {
+	padding: 0;
+	transition: var(--normalTransition);
+  flex-grow: 1;
+  flex-basis: calc(100% / 6);
+  max-width: calc(100% / 6);
+  @media only screen and (max-width: 1200px) {
+    flex-basis: calc(100% / 5);
+    max-width: calc(100% / 5);
+  }
+  @media only screen and (max-width: 992px) {
+    flex-basis: calc(100% / 4);
+    max-width: calc(100% / 4);
+  }
+  @media only screen and (max-width: 768px) {
+    flex-basis: calc(100% / 3);
+    max-width: calc(100% / 3);
+  }
+  @media only screen and (max-width: 550px) {
+    flex-basis: calc(100% / 2);
+    max-width: calc(100% / 2);
+  }
+  @media only screen and (max-width: 420px) {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+	&:hover {
+		opacity: .85;
+
+		& span {
+			box-shadow: inset 0 -2px var(--primaryLinkColor);
+		}
+	}
+
+}
+
+.HeroItem {
+	min-height: 130px;
+  cursor: pointer;
+  /*min-width: 230px;*/
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: relative;
+	background-color: white;
+	margin: 5px;
+
+	& span {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: calc(100% - 20px);
+		background-color: var(--darkPrimaryColor);
+		color: var(--textColorPrimary);
+		padding: 5px 10px;
+		text-align: center;
+		text-shadow: 0 0 5px black;
+		transition: var(--normalTransition);
+	}
+}
