@@ -34,17 +34,15 @@ class PlayerButtons extends React.Component {
             {strings.app_refresh}
           </div>
         </ReactTooltip>
-        {
-        // not working until dotacoach supports passing player only data (no match data here)
-          <FlatButton
-            disabled
-            label={strings.app_dotacoach}
-            labelPosition="after"
-            icon={<img src="/assets/images/dotacoach-32x24.png" alt="DotaCoach" />}
-            style={{ marginLeft: 15 }}
-            href={`https://dotacoach.org/Hire/Yasp?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}`}
-          />
-        }
+        <FlatButton
+          // not working until dotacoach supports passing player only data (no match data here)
+          disabled
+          label={strings.app_dotacoach}
+          labelPosition="after"
+          icon={<img src="/assets/images/dotacoach-32x24.png" alt="DotaCoach" />}
+          style={{ marginLeft: 15 }}
+          href={`https://dotacoach.org/Hire/Yasp?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}`}
+        />
       </div>
     </CardActions>);
   }
