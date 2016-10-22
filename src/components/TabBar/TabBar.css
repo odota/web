@@ -42,3 +42,12 @@
     background-color: rgba(255, 255, 255, .08) !important;
   }
 }
+.tabDisabled {
+  color: var(--colorMuted) !important;
+  text-transform: none !important;
+  font-weight: var(--fontWeightLight) !important;
+
+  &:hover {
+    cursor: not-allowed !important;
+  }
+}

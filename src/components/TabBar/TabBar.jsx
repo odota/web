@@ -7,7 +7,7 @@ const onActive = (tab) => {
   browserHistory.push(`${tab.route}${window.location.search}`);
 };
 
-const TabBar = ({ router, tabs, info }) => (
+const TabBar = ({ router, tabs, info, disabled = false }) => (
   <div className={styles.container}>
     <div className={styles.subContainer}>
       <Tabs
@@ -15,15 +15,28 @@ const TabBar = ({ router, tabs, info }) => (
         className={styles.tabs}
         value={info}
       >
-        {tabs.map((tab, index) => (
-          <Tab
-            key={index}
-            className={styles.tab}
-            value={tab.name.toLowerCase()}
-            label={tab.name}
-            onActive={() => onActive(tab, router)}
-          />
-        ))}
+        {tabs.map((tab, index) => {
+          let isDisabled = false;
+          if (disabled.for === 'match' && disabled.data !== undefined) {
+            if (disabled.data === null) {
+              isDisabled = true;
+            }
+            if (tab.name.toLowerCase() === 'overview' || tab.name.toLowerCase() === 'benchmarks') {
+              isDisabled = false;
+            }
+          }
+
+          return (
+            <Tab
+              key={index}
+              className={isDisabled ? styles.tabDisabled : styles.tab}
+              value={tab.name.toLowerCase()}
+              label={tab.name}
+              onActive={() => onActive(tab, router)}
+              disabled={isDisabled}
+            />
+          );
+        })}
       </Tabs>
     </div>
   </div>

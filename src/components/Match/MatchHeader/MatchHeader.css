@@ -131,3 +131,16 @@
     }
   }
 }
+
+.unparsed {
+  text-align: center;
+  margin-top: 6px;
+  font-weight: var(--fontWeightLight);
+  color: var(--colorYelor);
+
+  & svg {
+    vertical-align: sub;
+    fill: var(--colorYelor) !important;
+    margin-right: 5px;
+  }
+}
