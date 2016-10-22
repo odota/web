@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  margin: 0 -10px;
+}
+
+.tableContainer {
+  max-width: 100%;
+  flex-grow: 1;
+  margin: 0 10px;
+}

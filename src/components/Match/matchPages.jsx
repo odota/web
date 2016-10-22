@@ -10,7 +10,7 @@ import {
   Tab,
 } from 'material-ui/Tabs';
 import Heading from 'components/Heading';
-import Table from 'components/Table';
+import Table, { TableContainer } from 'components/Table';
 import { Row, Col } from 'react-flexbox-grid';
 import { IconRadiant, IconDire } from 'components/Icons';
 import FlatButton from 'material-ui/FlatButton';
@@ -44,6 +44,7 @@ import {
   inflictorsColumns,
 } from './matchColumns';
 import styles from './Match.css';
+import pageStyles from './matchPages.css';
 
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
@@ -54,8 +55,9 @@ const TeamTable = ({
   match,
   columns,
   heading = '',
+  className,
 }) => (
-  <div>
+  <div className={className}>
     <Heading
       title={`${strings.general_radiant} ${heading}`}
       icon={<IconRadiant className={styles.iconRadiant} />}
@@ -169,29 +171,21 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_performances,
-  content: match => (<Row>
-    <Col md={12}>
-      <TeamTable match={match} columns={performanceColumns} heading={strings.heading_performances} />
-    </Col>
-    <Col md={12}>
-      <TeamTable match={match} columns={supportColumns} heading={strings.heading_support} />
-    </Col>
-  </Row>),
+  content: match => ([
+    <TeamTable match={match} columns={performanceColumns} heading={strings.heading_performances} />,
+    (<TeamTable match={match} columns={supportColumns} heading={strings.heading_support} />),
+  ]),
 }, {
   name: strings.tab_combat,
-  content: match => (<Row>
-    <Col md={6}>
-      <Heading title={strings.heading_kills} />
+  content: match => (<div className={pageStyles.container}>
+    <TableContainer title={strings.heading_kills} className={pageStyles.tableContainer}>
       <CrossTable match={match} field1="killed" field2="killed_by" />
-    </Col>
-    <Col md={6}>
-      <Heading title={strings.heading_damage} />
+    </TableContainer>
+    <TableContainer title={strings.heading_damage} className={pageStyles.tableContainer}>
       <CrossTable match={match} field1="damage" field2="damage_taken" />
-    </Col>
-    <Col md={12}>
-      <TeamTable match={match} columns={inflictorsColumns} heading={strings.heading_damage} />
-    </Col>
-  </Row>),
+    </TableContainer>
+    <TeamTable className={pageStyles.tableContainer} match={match} columns={inflictorsColumns} heading={strings.heading_damage} />
+  </div>),
 }, {
   name: strings.tab_farm,
   content: match => (<div>
