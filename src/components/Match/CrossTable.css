@@ -1,0 +1,7 @@
+/*Override material-ui style*/
+.innerContainer {
+  & > div > div:nth-child(2) {
+    overflow-y: hidden !important;
+    overflow-x: auto !important;
+  }
+}

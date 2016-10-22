@@ -10,7 +10,7 @@ import {
   Tab,
 } from 'material-ui/Tabs';
 import Heading from 'components/Heading';
-import Table from 'components/Table';
+import Table, { TableContainer } from 'components/Table';
 import { Row, Col } from 'react-flexbox-grid';
 import { IconRadiant, IconDire } from 'components/Icons';
 import FlatButton from 'material-ui/FlatButton';
@@ -44,6 +44,7 @@ import {
   inflictorsColumns,
 } from './matchColumns';
 import styles from './Match.css';
+import pageStyles from './matchPages.css';
 
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
@@ -54,8 +55,9 @@ const TeamTable = ({
   match,
   columns,
   heading = '',
+  className,
 }) => (
-  <div>
+  <div className={className}>
     <Heading
       title={`${strings.general_radiant} ${heading}`}
       icon={<IconRadiant className={styles.iconRadiant} />}
@@ -112,21 +114,21 @@ const matchPages = [{
                   containerElement={<Link to={`/request#${match.match_id}`}>r</Link>}
                 />
                 {match.replay_url &&
-                  <FlatButton
-                    label={strings.match_button_replay}
-                    icon={<FileFileDownload />}
-                    href={match.replay_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  />}
+                <FlatButton
+                  label={strings.match_button_replay}
+                  icon={<FileFileDownload />}
+                  href={match.replay_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />}
                 {match.replay_url &&
-                  <FlatButton
-                    label={strings.match_button_video}
-                    icon={<img src="/assets/images/jist-24x24.png" role="presentation" />}
-                    href={`//www.jist.tv/create.php?dota2-match-url=${match.replay_url}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  />}
+                <FlatButton
+                  label={strings.match_button_video}
+                  icon={<img src="/assets/images/jist-24x24.png" role="presentation" />}
+                  href={`//www.jist.tv/create.php?dota2-match-url=${match.replay_url}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />}
                 <FlatButton
                   label={strings.app_dotacoach}
                   icon={<img src="/assets/images/dotacoach-32x24.png" role="presentation" />}
@@ -138,12 +140,12 @@ const matchPages = [{
             </Col>
             <Col lg={6} xs={12} className={styles.matchNumbers}>
               {match.first_blood_time !== undefined &&
+              <div>
                 <div>
-                  <div>
-                    <span>{strings.match_first_blood} </span>
-                    {formatSeconds(match.first_blood_time)}
-                  </div>
-                </div>}
+                  <span>{strings.match_first_blood} </span>
+                  {formatSeconds(match.first_blood_time)}
+                </div>
+              </div>}
               {firstNumbers()}
             </Col>
           </Row>
@@ -175,19 +177,15 @@ const matchPages = [{
   ]),
 }, {
   name: strings.tab_combat,
-  content: match => (<Row>
-    <Col md={6}>
-      <Heading title={strings.heading_kills} />
+  content: match => (<div className={pageStyles.container}>
+    <TableContainer title={strings.heading_kills} className={pageStyles.tableContainer}>
       <CrossTable match={match} field1="killed" field2="killed_by" />
-    </Col>
-    <Col md={6}>
-      <Heading title={strings.heading_damage} />
+    </TableContainer>
+    <TableContainer title={strings.heading_damage} className={pageStyles.tableContainer}>
       <CrossTable match={match} field1="damage" field2="damage_taken" />
-    </Col>
-    <Col md={12}>
-      <TeamTable match={match} columns={inflictorsColumns} heading={strings.heading_damage} />
-    </Col>
-  </Row>),
+    </TableContainer>
+    <TeamTable className={pageStyles.tableContainer} match={match} columns={inflictorsColumns} heading={strings.heading_damage} />
+  </div>),
 }, {
   name: strings.tab_farm,
   content: match => (<div>
