@@ -1,32 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import Chip from 'material-ui/Chip';
-import querystring from 'querystring';
 // import { form } from 'reducers';
-// import { deleteChip } from 'actions';
+import querystring from 'querystring';
+import { browserHistory } from 'react-router';
 import styles from './ChipList.css';
 
-const ChipList = ({ chipList, router, name }) => (
+const deleteChip = (name, index) => {
+  const query = querystring.parse(window.location.search.substring(1));
+  const field = [].concat(query[name] || []);
+  const newQuery = {
+    ...query,
+    [name]: [
+      ...field.slice(0, index),
+      ...field.slice(index + 1),
+    ],
+  };
+  browserHistory.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
+};
+
+const ChipList = ({ chipList, name }) => (
   <div className={styles.container}>
     {chipList.map((chip, index) => (
       <Chip
         style={{ textTransform: 'uppercase', margin: '0 5px 5px 0' }}
         key={index}
-        onRequestDelete={() => {
-          const query = querystring.parse(window.location.search.substring(1));
-          const field = [].concat(query[name] || []);
-          router.push({
-            pathname: window.location.pathname,
-            query: {
-              ...query,
-              [name]: [
-                ...field.slice(0, index),
-                ...field.slice(index + 1),
-              ],
-            },
-          });
-        }}
+        onRequestDelete={() => deleteChip(name, index)}
       >
         {chip.text}
       </Chip>
@@ -38,4 +37,4 @@ const mapStateToProps = () => ({});
 
 const mapDispatchToProps = () => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ChipList));
+export default connect(mapStateToProps, mapDispatchToProps)(ChipList);
