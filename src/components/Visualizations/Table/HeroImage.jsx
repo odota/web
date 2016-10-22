@@ -21,14 +21,16 @@ const TableHeroImage = ({
 
   return (
     <div className={styles.container}>
-      {parsed &&
-      <div className={styles.parsed}>
-        <div data-tip data-for="parsed">
-          <ActionDoneAll color={styles.blue} className={styles.actionDoneAll} />
-          <ReactTooltip id="parsed" place="right" type="light" effect="solid">
-            {strings.tooltip_parsed}
-          </ReactTooltip>
-        </div>
+      {parsed !== undefined &&
+      <div
+        className={parsed ? styles.parsed : styles.unparsed}
+        data-tip
+        data-for={parsed ? 'parsed' : 'unparsed'}
+      >
+        <ActionDoneAll />
+        <ReactTooltip id={parsed ? 'parsed' : 'unparsed'} place="right" type="light" effect="solid">
+          {parsed ? strings.tooltip_parsed : strings.tooltip_unparsed}
+        </ReactTooltip>
       </div>
       }
       {image &&

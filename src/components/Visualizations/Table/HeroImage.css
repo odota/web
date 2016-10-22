@@ -1,10 +1,5 @@
 @import "./subText.css";
 
-.actionDoneAll {
-  position: relative !important;
-  left: -10px !important;
-}
-
 .textContainer {
   display: flex;
   flex-direction: column;
@@ -32,11 +27,27 @@
 }
 
 .parsed {
-   position: absolute;
-   left: -24px;
-   width: 2px;
-   height: 100%;
-   background-color: var(--primaryLinkColor);
+  position: absolute;
+  left: -24px;
+  width: 2px;
+  height: 100%;
+  background-color: var(--colorSuccess);
+
+  /* Material-ui icon */
+  & svg {
+    position: relative !important;
+    left: -10px !important;
+    fill: var(--colorSuccess) !important;
+  }
+}
+.unparsed {
+  composes: parsed;
+  background-color: var(--colorMuted);
+
+  /* Material-ui icon */
+  & svg {
+    fill: transparent !important;
+  }
 }
 
 .registered {
