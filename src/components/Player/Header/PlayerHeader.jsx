@@ -47,7 +47,7 @@ const PlayerHeader = ({ playerName, playerId, picture, registered, loading, erro
     height: 18,
   };
 
-  let avatarStyle = {
+  const avatarStyle = {
     marginLeft: width > HEADER_MD_BREAK ? 30 : 0,
     marginRight: width > HEADER_MD_BREAK ? 30 : 0,
   };
