@@ -192,7 +192,7 @@ export const overviewColumns = match => [{
                       role="presentation"
                     />
                     <div>
-                      {i + 1} {strings.th_level}
+                      {strings.th_level} {i + 1}
                     </div>
                   </div>
                 );

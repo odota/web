@@ -4,9 +4,14 @@ import { transformations, isRadiant, sum } from 'utility';
 import strings from 'lang';
 import Spinner from 'components/Spinner';
 import { IconRadiant, IconDire } from 'components/Icons';
+import { Link } from 'react-router';
+import FlatButton from 'material-ui/FlatButton';
+import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
+import ActionFingerprint from 'material-ui/svg-icons/action/fingerprint';
+import FileFileDownload from 'material-ui/svg-icons/file/file-download';
 import styles from './MatchHeader.css';
 
-export default ({ match, loading }) => {
+export default ({ match, user, loading }) => {
   if (!loading) {
     const mapPlayers = (key, radiant) =>
       player =>
@@ -79,6 +84,42 @@ export default ({ match, loading }) => {
             </ul>
           </Col>
         </Row>
+
+        <Row className={styles.overviewHead}>
+          <Col className={styles.matchButtons}>
+            <div>
+              <FlatButton
+                label={match.version ? strings.match_button_reparse : strings.match_button_parse}
+                icon={match.version ? <NavigationRefresh /> : <ActionFingerprint />}
+                containerElement={<Link to={`/request#${match.match_id}`}>r</Link>}
+              />
+              {match.replay_url &&
+              <FlatButton
+                label={strings.match_button_replay}
+                icon={<FileFileDownload />}
+                href={match.replay_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              />}
+              {match.replay_url &&
+              <FlatButton
+                label={strings.match_button_video}
+                icon={<img src="/assets/images/jist-24x24.png" role="presentation" />}
+                href={`//www.jist.tv/create.php?dota2-match-url=${match.replay_url}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              />}
+              <FlatButton
+                label={strings.app_dotacoach}
+                icon={<img src="/assets/images/dotacoach-32x24.png" role="presentation" />}
+                href={`//dotacoach.org/Hire/Yasp?matchID=${match.match_id}&userSteamId=${user.account_id}`} // &playerMmr=
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            </div>
+          </Col>
+        </Row>
+
       </header>
     );
   }
