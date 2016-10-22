@@ -13,7 +13,6 @@ import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';
 
 export const HEADER_MD_BREAK = 900;
-export const HEADER_SM_BREAK = 660;
 const LARGE_IMAGE_SIZE = 124;
 
 const getRegistrationBadge = registered => registered && (
@@ -50,23 +49,13 @@ const PlayerHeader = ({ playerName, playerId, picture, registered, loading, erro
 
   let avatarStyle = {
     marginLeft: width > HEADER_MD_BREAK ? 30 : 0,
-    marginRight: width > HEADER_SM_BREAK ? 30 : 0,
+    marginRight: width > HEADER_MD_BREAK ? 30 : 0,
   };
 
   if (width <= HEADER_MD_BREAK) {
     badgeStyle = {
       ...badgeStyle,
       marginLeft: -1 * (LARGE_IMAGE_SIZE / 2) * 0.75,
-    };
-  }
-  if (width <= HEADER_SM_BREAK) {
-    avatarStyle = {
-      ...avatarStyle,
-      marginLeft: LARGE_IMAGE_SIZE * 0.75,
-    };
-    badgeStyle = {
-      ...badgeStyle,
-      marginLeft: LARGE_IMAGE_SIZE * 0.5,
     };
   }
 
@@ -84,7 +73,7 @@ const PlayerHeader = ({ playerName, playerId, picture, registered, loading, erro
           <Avatar
             src={picture}
             style={avatarStyle}
-            size={width > HEADER_MD_BREAK || width <= HEADER_SM_BREAK ? LARGE_IMAGE_SIZE : LARGE_IMAGE_SIZE / 2}
+            size={width > HEADER_MD_BREAK ? LARGE_IMAGE_SIZE : LARGE_IMAGE_SIZE / 2}
             className={styles.overviewAvatar}
           />
         </Badge>
@@ -92,11 +81,11 @@ const PlayerHeader = ({ playerName, playerId, picture, registered, loading, erro
           <div className={styles.titleNameButtons}>
             <span className={styles.playerName}>{playerName}</span>
             <PlayerBadges playerId={playerId} />
-            <div className={styles.topButtons}>
-              <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} />
+            <div className={width > HEADER_MD_BREAK ? styles.topButtons : ''}>
+              <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={width <= HEADER_MD_BREAK} />
             </div>
           </div>
-          <PlayerStats playerId={playerId} />
+          <PlayerStats playerId={playerId} compact={width <= HEADER_MD_BREAK} />
         </div>
       </div>
     </div>
