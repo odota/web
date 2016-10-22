@@ -18,6 +18,7 @@
   "app_untracked": "This user is inactive, and replays of new matches will not be automatically parsed.",
   "app_tracked": "This user is active, and replays of new matches will be automatically parsed.",
   "app_cheese_bought": "Cheese bought",
+  "app_dotacoach": "Ask a Coach",
 
   "distributions_mmr": "Solo MMR",
   "distributions_country_mmr": "Solo MMR By Country",
