@@ -98,26 +98,24 @@ const firstNumbers = (match) => {
     </div>
   );
 };
-    
+
 const matchPages = [{
   name: strings.tab_overview,
-  content: match => {
-    return (<div>
-      <div className={styles.matchNumbers}>
-        {firstNumbers(match)}
+  content: match => (<div>
+    <div className={styles.matchNumbers}>
+      {firstNumbers(match)}
+    </div>
+    <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
+    <div className={styles.overviewMapGraph}>
+      <div className={styles.map}>
+        <BuildingMap match={match} />
       </div>
-      <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
-      <div className={styles.overviewMapGraph}>
-        <div className={styles.map}>
-          <BuildingMap match={match} />
-        </div>
-        {match.version &&
+      {match.version &&
         <div className={styles.graph}>
           <MatchGraph match={match} type="difference" />
         </div>}
-      </div>
-    </div>);
-  },
+    </div>
+  </div>),
 }, {
   name: strings.tab_benchmarks,
   content: match => (<div>

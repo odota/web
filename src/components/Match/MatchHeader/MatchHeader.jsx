@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { transformations, isRadiant, sum, formatSeconds } from 'utility';
+import { transformations, isRadiant, sum } from 'utility';
 import strings from 'lang';
 import Spinner from 'components/Spinner';
 import { IconRadiant, IconDire } from 'components/Icons';
