@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router';
+import style from './HeroListItem.css';
 
-import style from './Heroes.css';
-
-export default ({ id, name, imageUrl }) => (
-  <div className={style.HeroItem} style={{ backgroundImage: `url('${imageUrl}')` }}>
-    <h4 className={style.HeroItemName}>
-      <Link className={style.HeroItemActions} to={`/heroes/${id}`}>
-        {name}
-      </Link>
-    </h4>
+export default ({ name, imageUrl, id }) => (
+  <div className={style.HeroListCol}>
+    <Link to={`/heroes/${id}`}>
+      <div className={style.HeroItem} style={{ backgroundImage: `url('${imageUrl}')` }}>
+        <span>
+          {name}
+        </span>
+      </div>
+    </Link>
   </div>
 );
