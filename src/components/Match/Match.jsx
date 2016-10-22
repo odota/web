@@ -30,9 +30,9 @@ class RequestLayer extends React.Component {
     const page = matchPages(matchId).find(page => page.name.toLowerCase() === info);
     return (
       <div>
-        <MatchHeader match={match} loading={this.props.loading} />
+        <MatchHeader match={match} loading={this.props.loading} user={this.props.user} />
         <TabBar info={info} tabs={matchPages(matchId)} />
-        {!loading && page ? page.content(match, this.props.user) : <Spinner />}
+        {!loading && page ? page.content(match) : <Spinner />}
       </div>
     );
   }

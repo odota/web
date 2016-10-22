@@ -1,18 +1,51 @@
 import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { transformations, isRadiant, sum } from 'utility';
+import { transformations, isRadiant, sum, formatSeconds } from 'utility';
 import strings from 'lang';
 import Spinner from 'components/Spinner';
 import { IconRadiant, IconDire } from 'components/Icons';
+import { Link } from 'react-router';
+import FlatButton from 'material-ui/FlatButton';
+import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
+import ActionFingerprint from 'material-ui/svg-icons/action/fingerprint';
+import FileFileDownload from 'material-ui/svg-icons/file/file-download';
 import styles from './MatchHeader.css';
 
-export default ({ match, loading }) => {
+export default ({ match, user, loading }) => {
   if (!loading) {
     const mapPlayers = (key, radiant) =>
       player =>
         ((radiant === undefined || radiant === isRadiant(player.player_slot)) ? Number(player[key]) : null);
 
     const mmrPlayers = match.players.map(mapPlayers('solo_competitive_rank')).filter(Boolean);
+
+    const firstNumbers = () => {
+      if (match.objectives) {
+        const tower = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_TOWER_KILL');
+        const barracks = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_BARRACKS_KILL');
+        const roshan = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_ROSHAN_KILL');
+        return (
+          <div>
+            {tower >= 0 &&
+            <div>
+              <span>{strings.match_first_tower} </span>
+              {formatSeconds(match.objectives[tower].time)}
+            </div>}
+            {barracks >= 0 &&
+            <div>
+              <span>{strings.match_first_barracks} </span>
+              {formatSeconds(match.objectives[barracks].time)}
+            </div>}
+            {roshan >= 0 &&
+            <div>
+              <span>{strings.match_first_roshan} </span>
+              {formatSeconds(match.objectives[roshan].time)}
+            </div>}
+          </div>
+        );
+      }
+      return null;
+    };
 
     return (
       <header className={styles.header}>
@@ -79,6 +112,52 @@ export default ({ match, loading }) => {
             </ul>
           </Col>
         </Row>
+
+        <Row className={styles.overviewHead}>
+          <Col lg={6} xs={12} className={styles.matchButtons}>
+            <div>
+              <FlatButton
+                label={match.version ? strings.match_button_reparse : strings.match_button_parse}
+                icon={match.version ? <NavigationRefresh /> : <ActionFingerprint />}
+                containerElement={<Link to={`/request#${match.match_id}`}>r</Link>}
+              />
+              {match.replay_url &&
+              <FlatButton
+                label={strings.match_button_replay}
+                icon={<FileFileDownload />}
+                href={match.replay_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              />}
+              {match.replay_url &&
+              <FlatButton
+                label={strings.match_button_video}
+                icon={<img src="/assets/images/jist-24x24.png" role="presentation" />}
+                href={`//www.jist.tv/create.php?dota2-match-url=${match.replay_url}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              />}
+              <FlatButton
+                label={strings.app_dotacoach}
+                icon={<img src="/assets/images/dotacoach-32x24.png" role="presentation" />}
+                href={`//dotacoach.org/Hire/Yasp?matchID=${match.match_id}&userSteamId=${user.account_id}`} // &playerMmr=
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            </div>
+          </Col>
+          <Col lg={6} xs={12} className={styles.matchNumbers}>
+            {match.first_blood_time !== undefined &&
+            <div>
+              <div>
+                <span>{strings.match_first_blood} </span>
+                {formatSeconds(match.first_blood_time)}
+              </div>
+            </div>}
+            {firstNumbers()}
+          </Col>
+        </Row>
+
       </header>
     );
   }
