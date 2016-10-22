@@ -112,21 +112,21 @@ const matchPages = [{
                   containerElement={<Link to={`/request#${match.match_id}`}>r</Link>}
                 />
                 {match.replay_url &&
-                <FlatButton
-                  label={strings.match_button_replay}
-                  icon={<FileFileDownload />}
-                  href={match.replay_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                />}
+                  <FlatButton
+                    label={strings.match_button_replay}
+                    icon={<FileFileDownload />}
+                    href={match.replay_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />}
                 {match.replay_url &&
-                <FlatButton
-                  label={strings.match_button_video}
-                  icon={<img src="/assets/images/jist-24x24.png" role="presentation" />}
-                  href={`//www.jist.tv/create.php?dota2-match-url=${match.replay_url}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                />}
+                  <FlatButton
+                    label={strings.match_button_video}
+                    icon={<img src="/assets/images/jist-24x24.png" role="presentation" />}
+                    href={`//www.jist.tv/create.php?dota2-match-url=${match.replay_url}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />}
                 <FlatButton
                   label={strings.app_dotacoach}
                   icon={<img src="/assets/images/dotacoach-32x24.png" role="presentation" />}
@@ -138,12 +138,12 @@ const matchPages = [{
             </Col>
             <Col lg={6} xs={12} className={styles.matchNumbers}>
               {match.first_blood_time !== undefined &&
-              <div>
                 <div>
-                  <span>{strings.match_first_blood} </span>
-                  {formatSeconds(match.first_blood_time)}
-                </div>
-              </div>}
+                  <div>
+                    <span>{strings.match_first_blood} </span>
+                    {formatSeconds(match.first_blood_time)}
+                  </div>
+                </div>}
               {firstNumbers()}
             </Col>
           </Row>
@@ -169,14 +169,10 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_performances,
-  content: match => (<Row>
-    <Col md={12}>
-      <TeamTable match={match} columns={performanceColumns} heading={strings.heading_performances} />
-    </Col>
-    <Col md={12}>
-      <TeamTable match={match} columns={supportColumns} heading={strings.heading_support} />
-    </Col>
-  </Row>),
+  content: match => ([
+    <TeamTable match={match} columns={performanceColumns} heading={strings.heading_performances} />,
+    (<TeamTable match={match} columns={supportColumns} heading={strings.heading_support} />),
+  ]),
 }, {
   name: strings.tab_combat,
   content: match => (<Row>
