@@ -15,34 +15,39 @@
 	padding: 0;
 }
 
+
 .HeroItem {
-	width: 100%;
-	background-color: #333;
+	min-height: 130px;
 	background-size: cover;
 	background-repeat: no-repeat;
-	min-height: 144px;
-	position: relative
+	background-position: center;
+	position: relative;
+	background-color: white;
+	margin: 5px;
+
+	& span {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: calc(100% - 20px);
+		background-color: var(--darkPrimaryColor);
+		color: var(--textColorPrimary);
+		padding: 5px 10px;
+		text-align: center;
+		text-shadow: 0 0 5px black;
+		transition: var(--normalTransition);
+	}
 }
-.HeroItemName {
-	display: block;
-  padding: 10px 0 0 10px;
-  text-transform: uppercase;
-  margin: 0;
-}
-.HeroItemActions {
-	padding: 15px;
-	transition: all 300ms ease-out;
-	color: var(--primaryTextColor);
-  text-shadow: 1px 1px 0 var(--secondaryTextColor),
-	 						-1px -1px 0 var(--secondaryTextColor),
-							1px -1px 0 var(--secondaryTextColor),
-							-1px 1px 0 var(--secondaryTextColor);
+
+.HeroListCol {
+	transition: var(--normalTransition);
+
 	&:hover {
-		color: var(--secondaryTextColor);
-	  text-shadow: 1px 1px 0 var(--primaryTextColor),
-		 						-1px -1px 0 var(--primaryTextColor),
-								1px -1px 0 var(--primaryTextColor),
-								-1px 1px 0 var(--primaryTextColor);
+		opacity: .85;
+
+		& span {
+			box-shadow: inset 0 -2px var(--primaryLinkColor);
+		}
 	}
 }
 
@@ -106,9 +111,6 @@
     font-weight: bold;
 }
 
-.BenchmarkTable {
-}
-
 .BenchmarkCell {
 	text-align: center;
 }
@@ -119,7 +121,4 @@
 
 .BenchmarkRow-0 {
 	background-color: #3b3b3b;
-}
-.BenchmarkRow-1 {
-	//background-color: #000;
 }
