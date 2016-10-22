@@ -133,6 +133,7 @@
 }
 
 .overviewHead {
+  padding-top: 20px;
   & hr {
     border: 0;
     height: 1px;
@@ -141,40 +142,8 @@
     opacity: .1;
     margin: 20px 0 25px;
   }
-  & .matchNumbers {
-    text-align: right;
-    padding-top: 5px;
-    
-    & span {
-      font-size: var(--fontSizeSmall);
-      color: var(--colorMutedLight);
-      margin-left: 20px;
-      white-space: pre-line;
-    }
-    & > div {
-      display: inline;
-      vertical-align: middle;
-
-      &:first-of-type {
-        & span {
-          margin-left: 0;
-        }
-      }
-      & > div {
-        display: inline;
-
-        @media only screen and (max-width: 560px) {
-          display: block;
-          line-height: 2;
-
-          & span {
-            margin-left: 0;
-          }
-        }
-      }
-    }
-  }
   & .matchButtons {
+    margin: 0 auto;
     /* Material-ui buttons */
     & a {
       float: left;
@@ -199,10 +168,6 @@
   }
 
   @media only screen and (max-width: 1199px) {
-    & .matchNumbers {
-      text-align: center;
-      margin: 10px 0 5px;
-    }
     & .matchButtons {
       & div {
         display: table;

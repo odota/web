@@ -19,34 +19,6 @@ export default ({ match, user, loading }) => {
 
     const mmrPlayers = match.players.map(mapPlayers('solo_competitive_rank')).filter(Boolean);
 
-    const firstNumbers = () => {
-      if (match.objectives) {
-        const tower = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_TOWER_KILL');
-        const barracks = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_BARRACKS_KILL');
-        const roshan = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_ROSHAN_KILL');
-        return (
-          <div>
-            {tower >= 0 &&
-            <div>
-              <span>{strings.match_first_tower} </span>
-              {formatSeconds(match.objectives[tower].time)}
-            </div>}
-            {barracks >= 0 &&
-            <div>
-              <span>{strings.match_first_barracks} </span>
-              {formatSeconds(match.objectives[barracks].time)}
-            </div>}
-            {roshan >= 0 &&
-            <div>
-              <span>{strings.match_first_roshan} </span>
-              {formatSeconds(match.objectives[roshan].time)}
-            </div>}
-          </div>
-        );
-      }
-      return null;
-    };
-
     return (
       <header className={styles.header}>
         <Row between="xs">
@@ -114,7 +86,7 @@ export default ({ match, user, loading }) => {
         </Row>
 
         <Row className={styles.overviewHead}>
-          <Col lg={6} xs={12} className={styles.matchButtons}>
+          <Col className={styles.matchButtons}>
             <div>
               <FlatButton
                 label={match.version ? strings.match_button_reparse : strings.match_button_parse}
@@ -145,16 +117,6 @@ export default ({ match, user, loading }) => {
                 rel="noopener noreferrer"
               />
             </div>
-          </Col>
-          <Col lg={6} xs={12} className={styles.matchNumbers}>
-            {match.first_blood_time !== undefined &&
-            <div>
-              <div>
-                <span>{strings.match_first_blood} </span>
-                {formatSeconds(match.first_blood_time)}
-              </div>
-            </div>}
-            {firstNumbers()}
           </Col>
         </Row>
 

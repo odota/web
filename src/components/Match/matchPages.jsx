@@ -64,10 +64,48 @@ const TeamTable = ({
   </div>
 );
 
+const firstNumbers = (match) => {
+  let tower;
+  let barracks;
+  let roshan;
+  if (match.objectives) {
+    tower = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_TOWER_KILL');
+    barracks = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_BARRACKS_KILL');
+    roshan = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_ROSHAN_KILL');
+  }
+  return (
+    <div>
+      {match.first_blood_time !== undefined &&
+      <div>
+        <span>{strings.match_first_blood} </span>
+        {formatSeconds(match.first_blood_time)}
+      </div>}
+      {tower >= 0 &&
+      <div>
+        <span>{strings.match_first_tower} </span>
+        {formatSeconds(match.objectives[tower].time)}
+      </div>}
+      {barracks >= 0 &&
+      <div>
+        <span>{strings.match_first_barracks} </span>
+        {formatSeconds(match.objectives[barracks].time)}
+      </div>}
+      {roshan >= 0 &&
+      <div>
+        <span>{strings.match_first_roshan} </span>
+        {formatSeconds(match.objectives[roshan].time)}
+      </div>}
+    </div>
+  );
+};
+    
 const matchPages = [{
   name: strings.tab_overview,
-  content: match => (
-    <div>
+  content: match => {
+    return (<div>
+      <div className={styles.matchNumbers}>
+        {firstNumbers(match)}
+      </div>
       <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
       <div className={styles.overviewMapGraph}>
         <div className={styles.map}>
@@ -78,8 +116,8 @@ const matchPages = [{
           <MatchGraph match={match} type="difference" />
         </div>}
       </div>
-    </div>
-  ),
+    </div>);
+  },
 }, {
   name: strings.tab_benchmarks,
   content: match => (<div>

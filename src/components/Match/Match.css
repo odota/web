@@ -113,3 +113,37 @@
   filter: drop-shadow(0 0 5px var(--colorDanger));
   fill: black !important;
 }
+
+.matchNumbers {
+  text-align: right;
+  padding-top: 5px;
+  
+  & span {
+    font-size: var(--fontSizeSmall);
+    color: var(--colorMutedLight);
+    margin-left: 20px;
+    white-space: pre-line;
+  }
+  & > div {
+    display: inline;
+    vertical-align: middle;
+
+    &:first-of-type {
+      & span {
+        margin-left: 0;
+      }
+    }
+    & > div {
+      display: inline;
+      margin: 5px;
+      @media only screen and (max-width: 560px) {
+        display: block;
+        line-height: 2;
+
+        & span {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
