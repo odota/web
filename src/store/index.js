@@ -24,12 +24,14 @@ const reducer = combineReducers({
   routing,
   browser: responsiveStateReducer,
 });
+/* eslint-disable no-underscore-dangle */
+// This enables the redux dev tools extension, or does nothing if not installed
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+/* eslint-enable */
 
-export default createStore(reducer, compose(
+export default createStore(reducer, composeEnhancers(
   responsiveStoreEnhancer,
   applyMiddleware(thunkMiddleware),
   applyMiddleware(loggerMiddleware),
   applyMiddleware(routerMiddleware(browserHistory)),
-  // This enables the redux dev tools extension, or does nothing if not installed
-  window.devToolsExtension ? window.devToolsExtension() : f => f
 ));

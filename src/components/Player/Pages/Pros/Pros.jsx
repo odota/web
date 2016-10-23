@@ -9,10 +9,10 @@ import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerProsColumns from './playerProsColumns';
 
-const Pros = ({ data }) => (
+const Pros = ({ data, error, loading }) => (
   <div>
     <TableFilterForm />
-    <TableContainer title={strings.heading_pros}>
+    <TableContainer title={strings.heading_pros} error={error} loading={loading}>
       <Table paginated columns={playerProsColumns} data={data} />
     </TableContainer>
   </div>
@@ -44,6 +44,8 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = (state, { playerId }) => ({
   data: playerPros.getProsList(state, playerId),
+  error: playerPros.getError(state, playerId),
+  loading: playerPros.getLoading(state, playerId),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

@@ -9,10 +9,10 @@ import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerRecordsColumns from './playerRecordsColumns';
 
-const Records = ({ data }) => (
+const Records = ({ data, error, loading }) => (
   <div>
     <TableFilterForm />
-    <TableContainer title={strings.heading_records}>
+    <TableContainer title={strings.heading_records} error={error} loading={loading}>
       <Table paginated columns={playerRecordsColumns} data={data} />
     </TableContainer>
   </div>
@@ -40,6 +40,8 @@ class RequestLayer extends React.Component {
 
 const mapStateToProps = (state, { playerId }) => ({
   data: playerRecords.getRecordsList(state, playerId),
+  error: playerRecords.getError(state, playerId),
+  loading: playerRecords.getLoading(state, playerId),
 });
 
 const mapDispatchToProps = dispatch => ({

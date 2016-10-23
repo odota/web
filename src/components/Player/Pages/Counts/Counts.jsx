@@ -10,14 +10,15 @@ import { TableFilterForm } from 'components/Form';
 import playerCountsColumns from './playerCountsColumns';
 import styles from './Counts.css';
 
-const Counts = ({ counts }) => (
+const Counts = ({ counts, error, loading }) => (
   <div>
     <TableFilterForm />
     <div className={styles.countsContainer}>
       {Object.keys(counts).map((key, index) => (
         <div key={index} className={styles.countTable}>
-          <TableContainer title={deSnake(key)} />
-          <Table paginated columns={playerCountsColumns} data={counts[key].list} />
+          <TableContainer title={deSnake(key)} error={error} loading={loading}>
+            <Table paginated columns={playerCountsColumns} data={counts[key].list} />
+          </TableContainer>
         </div>
       ))}
     </div>
@@ -40,12 +41,16 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    return <Counts {...this.props} />;
+    return (
+      <Counts {...this.props} />
+    );
   }
 }
 
 const mapStateToProps = (state, { playerId }) => ({
   counts: playerCounts.getOnlyData(state, playerId),
+  error: playerCounts.getError(state, playerId),
+  loading: playerCounts.getLoading(state, playerId),
 });
 
 const mapDispatchToProps = dispatch => ({

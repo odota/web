@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getPlayerWardmap } from 'actions';
 import { playerWardmap } from 'reducers';
-import Heading from 'components/Heading';
 import Heatmap from 'components/Heatmap';
+import { TableContainer } from 'components/Table';
 import { Row, Col } from 'react-flexbox-grid';
 import strings from 'lang';
 import { TableFilterForm } from 'components/Form';
@@ -24,20 +24,24 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    return (<div>
-      <TableFilterForm />
-      <Heading title={strings.heading_wardmap} />
-      <Row>
-        <Col md>
-          <Heading title={strings.th_ward_observer} />
-          <Heatmap points={this.props.data.obs} />
-        </Col>
-        <Col md>
-          <Heading title={strings.th_ward_sentry} />
-          <Heatmap points={this.props.data.sen} />
-        </Col>
-      </Row>
-    </div>);
+    const { error, loading, data } = this.props;
+    return (
+      <div>
+        <TableFilterForm />
+        <Row>
+          <Col md>
+            <TableContainer title={strings.th_ward_observer} error={error} loading={loading}>
+              <Heatmap points={data.obs} />
+            </TableContainer>
+          </Col>
+          <Col md>
+            <TableContainer title={strings.th_ward_sentry} error={error} loading={loading}>
+              <Heatmap points={data.sen} />
+            </TableContainer>
+          </Col>
+        </Row>
+      </div>
+    );
   }
 }
 

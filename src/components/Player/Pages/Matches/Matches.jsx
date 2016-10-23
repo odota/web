@@ -19,10 +19,12 @@ import playerMatchesColumns from './playerMatchesColumns';
 
 const Matches = ({
   data,
+  error,
+  loading,
 }) => (
   <div>
     <TableFilterForm />
-    <TableContainer title={strings.heading_matches}>
+    <TableContainer title={strings.heading_matches} error={error} loading={loading}>
       <Table paginated columns={playerMatchesColumns} data={data} />
     </TableContainer>
   </div>
@@ -54,6 +56,8 @@ const defaultOptions = {
 
 const mapStateToProps = (state, { playerId }) => ({
   data: playerMatches.getMatchList(state, playerId),
+  loading: playerMatches.getLoading(state, playerId),
+  error: playerMatches.getError(state, playerId),
 });
 
 const mapDispatchToProps = dispatch => ({

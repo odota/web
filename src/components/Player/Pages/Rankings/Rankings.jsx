@@ -8,9 +8,9 @@ import Table, { TableContainer } from 'components/Table';
 import strings from 'lang';
 import playerRankingsColumns from './playerRankingsColumns';
 
-const Rankings = ({ data }) => (
+const Rankings = ({ data, error, loading }) => (
   <div>
-    <TableContainer title={strings.heading_rankings}>
+    <TableContainer title={strings.heading_rankings} error={error} loading={loading}>
       <Table paginated columns={playerRankingsColumns} data={data} />
     </TableContainer>
   </div>
@@ -38,6 +38,8 @@ class RequestLayer extends React.Component {
 
 const mapStateToProps = (state, { playerId }) => ({
   data: playerRankings.getRankingList(state, playerId),
+  error: playerRankings.getError(state, playerId),
+  loading: playerRankings.getLoading(state, playerId),
 });
 
 const mapDispatchToProps = dispatch => ({

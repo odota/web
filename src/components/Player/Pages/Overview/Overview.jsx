@@ -13,13 +13,18 @@ import Table, { TableContainer } from 'components/Table';
 import { TableFilterForm } from 'components/Form';
 import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesColumns';
 import { playerHeroesOverviewColumns } from 'components/Player/Pages/Heroes/playerHeroesColumns';
+import { ContentContainer } from 'components/ContentContainer';
 import styles from './Overview.css';
 
 const MAX_OVERVIEW_ROWS = 20;
 
 const Overview = ({
   matchesData,
+  matchesLoading,
+  matchesError,
   heroesData,
+  heroesLoading,
+  heroesError,
 }) => (
   <div>
     <TableFilterForm />
@@ -28,21 +33,26 @@ const Overview = ({
         title={strings.heading_matches}
         className={styles.matchesTableContainer}
       >
-        <Table
-          columns={playerMatchesColumns}
-          data={matchesData}
-          maxRows={MAX_OVERVIEW_ROWS}
-        />
+        <ContentContainer loading={matchesLoading} error={matchesError}>
+          <Table
+            columns={playerMatchesColumns}
+            data={matchesData}
+            maxRows={MAX_OVERVIEW_ROWS}
+          />
+        </ContentContainer>
       </TableContainer>
+
       <TableContainer
         title={strings.heading_heroes}
         className={styles.heroesTableContainer}
       >
-        <Table
-          columns={playerHeroesOverviewColumns}
-          data={heroesData}
-          maxRows={MAX_OVERVIEW_ROWS}
-        />
+        <ContentContainer loading={heroesLoading} error={heroesError}>
+          <Table
+            columns={playerHeroesOverviewColumns}
+            data={heroesData}
+            maxRows={MAX_OVERVIEW_ROWS}
+          />
+        </ContentContainer>
       </TableContainer>
     </div>
   </div>
@@ -71,7 +81,11 @@ class RequestLayer extends React.Component {
 
 const mapStateToProps = (state, { playerId }) => ({
   matchesData: playerMatches.getMatchList(state, playerId),
+  matchesLoading: playerMatches.getLoading(state, playerId),
+  matchesError: playerMatches.getError(state, playerId),
   heroesData: playerHeroes.getHeroList(state, playerId),
+  heroesLoading: playerHeroes.getLoading(state, playerId),
+  heroesError: playerHeroes.getError(state, playerId),
 });
 
 const mapDispatchToProps = dispatch => ({

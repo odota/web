@@ -9,10 +9,10 @@ import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerPeersColumns from './playerPeersColumns';
 
-const Peers = ({ data }) => (
+const Peers = ({ data, error, loading }) => (
   <div>
     <TableFilterForm />
-    <TableContainer title={strings.heading_peers}>
+    <TableContainer title={strings.heading_peers} error={error} loading={loading}>
       <Table paginated columns={playerPeersColumns} data={data} />
     </TableContainer>
   </div>
@@ -40,6 +40,8 @@ class RequestLayer extends React.Component {
 
 const mapStateToProps = (state, { playerId }) => ({
   data: playerPeers.getPeerList(state, playerId),
+  error: playerPeers.getError(state, playerId),
+  loading: playerPeers.getLoading(state, playerId),
 });
 const mapDispatchToProps = dispatch => ({
   getPlayerPeers: (playerId, options) => dispatch(getPlayerPeers(playerId, options)),
