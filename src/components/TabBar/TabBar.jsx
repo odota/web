@@ -18,10 +18,11 @@ const TabBar = ({ router, tabs, info }) => (
         {tabs.map((tab, index) => (
           <Tab
             key={index}
-            className={styles.tab}
+            className={tab.disabled ? styles.tabDisabled : styles.tab}
             value={tab.name.toLowerCase()}
             label={tab.name}
             onActive={() => onActive(tab, router)}
+            disabled={tab.disabled}
           />
         ))}
       </Tabs>
