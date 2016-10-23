@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { getPercentWin, transformations } from 'utility';
 import { TablePercent } from 'components/Visualizations';
 import strings from 'lang';
