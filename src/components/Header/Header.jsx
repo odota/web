@@ -14,6 +14,10 @@ import AccountWidget from '../AccountWidget';
 import styles from './Header.css';
 import SearchForm from '../Search/SearchForm';
 import AppLogo from '../App/AppLogo';
+import BurgerMenu from '../BurgerMenu';
+
+import { HEADER_MD_BREAK } from '../Player/Header/PlayerHeader';
+import { HEADER_SM_BREAK } from '../Player/Header/PlayerHeader';
 
 const navbarPages = [{
   name: strings.header_request,
@@ -30,32 +34,63 @@ const navbarPages = [{
   path: '/become-the-gamer',
 }];
 
-const Header = ({ location }) => (
-  <div>
-    <Toolbar className={styles.header}>
-      <ToolbarGroup className={styles.verticalAlign}>
-        <AppLogo style={{ marginRight: 10 }} />
-      </ToolbarGroup>
-      <ToolbarGroup className={styles.verticalAlign}>
-        {navbarPages.map(page => (
-          <div key={page.name} className={styles.tabContainer}>
-            {page.external ?
-              <a href={page.path} className={styles.tab}>{page.name}</a> :
-                <Link to={page.path} className={styles.tab}>{page.name}</Link>}
+function browserSelector({browser}) {
+  return {browser};
+}
+
+const Header = ({location, width}) => {
+  const isTablet = width <= HEADER_MD_BREAK;
+  const isMobile = width <= HEADER_SM_BREAK;
+  const isTiny = width <= 400;
+  const toolbarPad = (isMobile && '8px') || (isTablet && '18px') || '22px';
+  const logoSize = (isTiny && '14px') || (isMobile && '16px') || '20px';
+
+  const LogoGroup = ({size}) => (
+    <ToolbarGroup className={styles.verticalAlign}>
+      {isTablet && <BurgerMenu links={navbarPages} top={<AccountWidget/>}/>}
+      <AppLogo style={{ marginRight: 18 }} size={logoSize} />
+    </ToolbarGroup>
+  );
+
+  const LinkGroup = () => (
+    <ToolbarGroup className={styles.verticalAlign}>
+      {navbarPages.map(page => (
+        <div key={page.name} className={styles.tabContainer}>
+          {page.external ?
+            <a href={page.path} className={styles.tab}>{page.name}</a> :
+            <Link to={page.path} className={styles.tab}>{page.name}</Link>}
           </div>
-        ))}
-      </ToolbarGroup>
-      <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 20 }}>
-        <ActionSearch style={{ marginRight: 8, opacity: '.6' }} />
-        <SearchForm location={location} />
-      </ToolbarGroup>
-      <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 'auto' }}>
-        <AccountWidget />
-      </ToolbarGroup>
+      ))}
+    </ToolbarGroup>
+  );
+
+  const SearchGroup = () => (
+    <ToolbarGroup style={{ marginLeft: 20 }} className={styles.verticalAlign}>
+      <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
+      <SearchForm location={location} />
+    </ToolbarGroup>
+  );
+
+  const AccountGroup = () => (
+    <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 'auto' }}>
+      <AccountWidget />
+    </ToolbarGroup>
+  );
+
+  return(
+    <div>
+    <Toolbar style={{padding: toolbarPad}} className={styles.header}>
+      <LogoGroup />
+      {!isTablet && ( <LinkGroup /> )}
+      <SearchGroup />
+      {!isTablet && ( <AccountGroup /> )}
     </Toolbar>
   </div>
-);
+  )
+};
 
 const mapDispatchToProps = () => ({});
-
-export default connect(null, mapDispatchToProps)(Header);
+const mapStateToProps = (state) => ({
+  width: state.browser.width,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

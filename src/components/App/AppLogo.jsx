@@ -3,10 +3,10 @@ import { Link } from 'react-router';
 import { APP_NAME } from 'config';
 import styles from './App.css';
 
-export default () => (
+export default ({size}) => (
   <Link to="/" className={styles.AppLogo}>
-    <big>
+    <p style={{fontSize:size || '18px'}}>
       {`<${APP_NAME}/>`}
-    </big>
+    </p>
   </Link>
 );

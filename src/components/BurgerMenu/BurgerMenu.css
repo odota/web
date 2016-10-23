@@ -1,0 +1,13 @@
+@import '../palette.css';
+
+.menuIcon {
+  position: relative;
+  
+}
+
+.menuItem {
+  width: 100%;
+  margin: auto;
+  float: left;
+  display: block;
+}
