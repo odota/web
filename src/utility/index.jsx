@@ -10,7 +10,6 @@ import itemIds from 'dotaconstants/json/item_ids.json';
 import lobbyType from 'dotaconstants/json/lobby_type.json';
 import leaverStatus from 'dotaconstants/json/leaver_status.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
-import abilityKeys from 'dotaconstants/json/ability_keys.json';
 import xpLevel from 'dotaconstants/json/xp_level.json';
 import { API_HOST } from 'config';
 import styles from 'components/palette.css';
@@ -21,8 +20,6 @@ import {
   FromNowTooltip,
 } from 'components/Visualizations';
 import strings from 'lang';
-import ReactTooltip from 'react-tooltip';
-import uuid from 'node-uuid';
 import subTextStyle from 'components/Visualizations/Table/subText.css';
 
 // TODO - add in the relevant text invocations of TableHeroImage
@@ -236,45 +233,6 @@ export const transformations = {
       accountId={row.account_id}
     />
   ),
-};
-
-export const inflictorWithValue = (inflictor, value) => {
-  if (inflictor !== undefined) {
-    // TODO use abilities if we need the full info immediately
-    const ability = abilityKeys[inflictor];
-    const item = items[inflictor];
-    let image;
-    let tooltip;
-    const ttId = uuid.v4();
-
-    if (ability) {
-      image = `${API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
-    } else if (item) {
-      image = `${API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`;
-      tooltip = (
-        <div>
-          <div>
-            {item.dname}
-          </div>
-          <div dangerouslySetInnerHTML={{ __html: item.desc }} />
-        </div>
-      );
-    } else {
-      image = `${API_HOST}/public/images/default_attack.png`;
-    }
-    return (
-      <div className={styles.inflictorWithValue} data-tip data-for={ttId}>
-        <img src={image} role="presentation" />
-        <div className={styles.overlay}>{value}</div>
-        <div className={styles.tooltip}>
-          <ReactTooltip id={ttId} effect="float">
-            {tooltip}
-          </ReactTooltip>
-        </div>
-      </div>
-    );
-  }
-  return null;
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */

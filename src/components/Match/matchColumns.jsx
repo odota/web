@@ -13,11 +13,13 @@ import { API_HOST } from 'config';
 import {
   formatSeconds,
   abbreviateNumber,
-  inflictorWithValue,
   transformations,
 } from 'utility';
 import Heatmap from 'components/Heatmap';
-import { TableHeroImage } from 'components/Visualizations';
+import {
+  TableHeroImage,
+  inflictorWithValue,
+} from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import styles from './Match.css';
