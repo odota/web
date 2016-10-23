@@ -142,4 +142,16 @@
   & img {
     height: 29px;
   }
+
+  & .tooltip {
+    & > div:matches(::after, ::before) {
+      content: none !important;
+    }
+    & > div {
+      background-color: var(--darkPrimaryColor);
+      color: var(--textColorPrimary);
+      max-width: 300px;
+      white-space: pre-wrap;
+    }
+  }
 }
