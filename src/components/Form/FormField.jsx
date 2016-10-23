@@ -83,7 +83,7 @@ class FormField extends React.Component {
     // Use dataSource on current querystring to hydrate the chipList
     const query = querystring.parse(currentQueryString.substring(1));
     const field = [].concat(query[name] || []);
-    const chipList = field.map(element => dataSource.find(data => Number(data.value) === Number(element)));
+    const chipList = field.map(element => dataSource.find(data => Number(data.value) === Number(element)) || {text: element, value: element});
 
     return (<div className={className}>
       <AutoComplete

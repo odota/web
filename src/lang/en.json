@@ -391,6 +391,7 @@
   "tooltip_DOTA_UNIT_ORDER_GLYPH": "Number of times the player used the glyph",
   "tooltip_DOTA_UNIT_ORDER_RADAR": "Number of times the player used scan",
   "tooltip_last_played": "The last time a match was played with this player/hero",
+  "tooltip_matches": "Matches played with/against this player",
   "tooltip_played_as": "Number of games played as this hero",
   "tooltip_played_with": "Number of games with this player/hero on the team",
   "tooltip_played_against": "Number of games with this player/hero on the opposing team",
