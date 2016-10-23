@@ -1,0 +1,14 @@
+@import "../palette.css";
+
+.Alert {
+  font-weight: var(--fontWeightLight);
+  font-size: var(--fontSizeMedium);
+  letter-spacing: 0.1ex;
+
+  & svg {
+    vertical-align: sub;
+    margin-right: 5px;
+    width: 20px !important;
+    height: 20px !important;
+  }
+}

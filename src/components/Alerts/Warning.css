@@ -1,0 +1,10 @@
+@import "./Alert.css";
+
+.Warning {
+  color: var(--colorYelor);
+  composes: Alert;
+
+  & svg {
+    fill: var(--colorYelor) !important;
+  }
+}

@@ -9,7 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
 import ActionFingerprint from 'material-ui/svg-icons/action/fingerprint';
 import FileFileDownload from 'material-ui/svg-icons/file/file-download';
-import AlertWarning from 'material-ui/svg-icons/alert/warning';
+import Warning from 'components/Alerts';
 import styles from './MatchHeader.css';
 
 export default ({ match, user, loading }) => {
@@ -86,12 +86,9 @@ export default ({ match, user, loading }) => {
           </Col>
         </Row>
         {!match.version &&
-        <div className={styles.unparsed}>
-          <AlertWarning />
-          <span>
-            {strings.tooltip_unparsed}
-          </span>
-        </div>}
+        <Warning className={styles.unparsed}>
+          {strings.tooltip_unparsed}
+        </Warning>}
         <div className={styles.matchButtons}>
           <FlatButton
             label={match.version ? strings.match_button_reparse : strings.match_button_parse}
