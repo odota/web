@@ -31,13 +31,16 @@ class RequestLayer extends React.Component {
     return (
       loading ? <Spinner /> :
         <div>
-          <MatchHeader match={match} />
+          <MatchHeader
+            match={match}
+            user={this.props.user}
+          />
           <TabBar
             info={info}
             tabs={matchPages(matchId)}
             disabled={{ for: 'match', data: match.version }}
           />
-          {page && page.content(match, this.props.user)}
+          {page && page.content(match)}
         </div>
     );
   }

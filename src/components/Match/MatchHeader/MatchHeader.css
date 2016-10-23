@@ -132,9 +132,32 @@
   }
 }
 
+.matchButtons {
+  display: table;
+  margin: 10px auto 0;
+  /* Material-ui buttons */
+  & a {
+    float: left;
+    margin: 5px !important;
+    line-height: 34px !important;
+  }
+
+  @media only screen and (max-width: 620px) {
+    & a {
+      min-width: 24px !important;
+
+      & span {
+        font-size: 0px !important;
+        padding-left: 0 !important;
+        padding-right: 12px !important;
+      }
+    }
+  }
+}
+
 .unparsed {
   text-align: center;
-  margin-top: 6px;
+  margin-top: 12px;
   font-weight: var(--fontWeightLight);
   color: var(--colorYelor);
   font-size: var(--fontSizeMedium);

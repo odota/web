@@ -32,7 +32,6 @@ const drawGraphs = (props, id) => {
       color,
       axis: {
         x: {
-          type: 'timeseries',
           tick: {
             format(x) {
               return formatSeconds(x);

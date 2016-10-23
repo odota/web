@@ -18,6 +18,8 @@
   "app_untracked": "This user is inactive, and replays of new matches will not be automatically parsed.",
   "app_tracked": "This user is active, and replays of new matches will be automatically parsed.",
   "app_cheese_bought": "Cheese bought",
+  "app_dotacoach": "Ask a Coach",
+  "app_refresh": "Refresh Match History: Queue a scan to find missing matches due to privacy settings",
 
   "distributions_mmr": "Solo MMR",
   "distributions_country_mmr": "Solo MMR By Country",
@@ -171,8 +173,6 @@
   "objective_fort": "Ancient",
   "objective_roshan": "Roshan",
 
-  "registered_user_tooltip": "Registered user",
-
   "rune_0": "Double Damage",
   "rune_1": "Haste",
   "rune_2": "Illusion",
@@ -278,7 +278,7 @@
   "th_abilities": "Abilities",
   "th_items": "Items",
   "th_mmr": "MMR",
-  "th_level": "Lvl",
+  "th_level": "LVL",
   "th_kills": "K",
   "th_kills_per_min": "KPM",
   "th_deaths": "D",

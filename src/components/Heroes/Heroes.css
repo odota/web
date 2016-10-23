@@ -1,3 +1,5 @@
+@import "../palette.css";
+
 .Header {
 	display: block;
 	text-align: center;
@@ -7,28 +9,6 @@
 .Loading {
 	display: block;
 	text-align: center;
-}
-
-.HeroListWrapper, .HeroListCol {
-	padding: 0;
-}
-
-.HeroItem {
-	width: 100%;
-	background-color: #333;
-	background-size: cover;
-	background-repeat: no-repeat;
-	min-height: 144px;
-	position: relative
-}
-.HeroItemName {
-	display: block;
-    padding: 10px 0 0 10px;
-    text-transform: uppercase;
-    margin: 0;
-}
-.HeroItemActions {
-	padding: 15px;
 }
 
 .HeroItemImage {
@@ -91,9 +71,6 @@
     font-weight: bold;
 }
 
-.BenchmarkTable {
-}
-
 .BenchmarkCell {
 	text-align: center;
 }
@@ -104,7 +81,4 @@
 
 .BenchmarkRow-0 {
 	background-color: #3b3b3b;
-}
-.BenchmarkRow-1 {
-	//background-color: #000;
 }
