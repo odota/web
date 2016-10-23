@@ -16,6 +16,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  flex-wrap: wrap;
   @media only screen and (max-width: 660px) {
     flex-direction: column;
     align-items: center;
@@ -23,9 +24,15 @@
 }
 
 .stats {
-  @media only screen and (max-width: 900px) {
+  @media only screen and (max-width: 660px) {
     align-self: flex-end;
   }
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .overviewAvatar {
