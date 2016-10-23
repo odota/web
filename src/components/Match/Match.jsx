@@ -37,8 +37,7 @@ class RequestLayer extends React.Component {
           />
           <TabBar
             info={info}
-            tabs={matchPages(matchId)}
-            disabled={{ for: 'match', data: match.version }}
+            tabs={matchPages(matchId, match)}
           />
           {page && page.content(match)}
         </div>

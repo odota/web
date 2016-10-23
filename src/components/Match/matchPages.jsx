@@ -123,6 +123,7 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_performances,
+  parsed: true,
   content: match => (<Row>
     <Col md={12}>
       <TeamTable match={match} columns={performanceColumns} heading={strings.heading_performances} />
@@ -133,6 +134,7 @@ const matchPages = [{
   </Row>),
 }, {
   name: strings.tab_combat,
+  parsed: true,
   content: match => (<Row>
     <Col md={6}>
       <Heading title={strings.heading_kills} />
@@ -148,6 +150,7 @@ const matchPages = [{
   </Row>),
 }, {
   name: strings.tab_farm,
+  parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={unitKillsColumns} heading={strings.heading_unit_kills} />
     <TeamTable match={match} columns={lastHitsTimesColumns(match)} heading={strings.heading_last_hits} />
@@ -162,11 +165,13 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_purchases,
+  parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={purchaseTimesColumns(match)} heading={strings.heading_purchase_log} />
   </div>),
 }, {
   name: strings.tab_graphs,
+  parsed: true,
   content: match => (<div>
     <MatchGraph match={match} type="difference" />
     <MatchGraph match={match} type="gold" />
@@ -175,29 +180,34 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_casts,
+  parsed: true,
   content: match => (<div>
     <Heading title={strings.heading_casts} />
     <CastTable match={match} />
   </div>),
 }, {
   name: strings.tab_objectives,
+  parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={objectiveDamageColumns} heading={strings.heading_objective_damage} />
     <TeamTable match={match} columns={runesColumns} heading={strings.heading_runes} />
   </div>),
 }, {
   name: strings.tab_vision,
+  parsed: true,
   content: match => (<div>
     <Heading title={strings.heading_vision} />
     <VisionMap match={match} />
   </div>),
 }, {
   name: strings.tab_actions,
+  parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={actionsColumns} heading={strings.heading_actions} />
   </div>),
 }, {
   name: strings.tab_teamfights,
+  parsed: true,
   content: match => (
     <div>
       <Heading title={strings.heading_teamfights} />
@@ -215,29 +225,34 @@ const matchPages = [{
     </div>),
 }, {
   name: strings.tab_analysis,
+  parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={analysisColumns} heading={strings.heading_analysis} />
   </div>),
 }, {
   name: strings.tab_cosmetics,
+  parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={cosmeticsColumns} heading={strings.heading_cosmetics} />
   </div>),
 }, {
   name: strings.tab_log,
+  parsed: true,
   content: match => (<div>
     <Heading title={strings.heading_log} />
     <MatchLog match={match} />
   </div>),
 }, {
   name: strings.tab_chat,
+  parsed: true,
   content: match => (<div>
     <Heading title={strings.heading_chat} />
     <Table data={(match.chat || []).map(c => Object.assign({}, c, match.players[c.slot]))} columns={chatColumns} />
   </div>),
 }];
 
-export default matchId => matchPages.map(page => ({
+export default (matchId, match) => matchPages.map(page => ({
   ...page,
   route: `/matches/${matchId}/${page.name.toLowerCase()}`,
+  disabled: match && !match.version && page.parsed,
 }));
