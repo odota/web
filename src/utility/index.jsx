@@ -113,7 +113,7 @@ export const getOrdinal = (n) => {
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
 
-const percentile = (pct) => {
+export const percentile = (pct) => {
   if (pct >= 0.8) {
     return {
       color: 'green',
