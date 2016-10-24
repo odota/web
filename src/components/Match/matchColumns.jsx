@@ -588,18 +588,18 @@ export const teamfightColumns = [
   }, {
     displayName: strings.th_abilities,
     field: 'ability_uses',
-    displayFn: (row, col, field) => (field ? Object.keys(field).map((inflictor, count) => {
+    displayFn: (row, col, field) => (field ? Object.keys(field).map((inflictor) => {
       if (abilityKeys[inflictor]) {
-        return inflictorWithValue(inflictor, count + 1);
+        return inflictorWithValue(inflictor, field[inflictor]);
       }
       return <div />;
     }) : ''),
   }, {
     displayName: strings.th_items,
     field: 'item_uses',
-    displayFn: (row, col, field) => (field ? Object.keys(field).map((inflictor, count) => {
+    displayFn: (row, col, field) => (field ? Object.keys(field).map((inflictor) => {
       if (items[inflictor]) {
-        return inflictorWithValue(inflictor, count + 1);
+        return inflictorWithValue(inflictor, field[inflictor]);
       }
       return <div />;
     }) : ''),
