@@ -554,7 +554,6 @@ export const inflictorsColumns = [{
 export const analysisColumns = [heroTdColumn, {
   displayName: strings.th_analysis,
   field: 'analysis',
-  // TODO
   displayFn: (row, col, field) => (
     Object.keys(field).map((key) => {
       const val = field[key];
@@ -566,7 +565,7 @@ export const analysisColumns = [heroTdColumn, {
         return (<div>
           <span style={{ color: styles[bucket.color], margin: '10px', fontSize: '18px' }}>{bucket.grade}</span>
           <span>{field[key].display}</span>
-          <div>{ key === 'unused_item' && field[key].metadata.map(item => inflictorWithValue(item)) }</div>
+          <div className={styles.unusedItem}>{ key === 'unused_item' && field[key].metadata.map(item => inflictorWithValue(item)) }</div>
         </div>);
       }
       return null;
