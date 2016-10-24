@@ -9,31 +9,25 @@ export default class BurgerMenu extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {open: false};
+    this.state = { open: false };
+    this.handleToggle = () => this.setState({ open: !this.state.open });
+    this.handleClose = () => this.setState({ open: false });
   }
-
-  handleToggle() {
-    this.setState({open: !this.state.open});
-  }
-
-  handleClose() {
-    this.setState({open: false});
-  }
-
 
   render() {
     return (
       <div>
-        <IconButton onTouchTap={this.handleToggle.bind(this)} style={{ left:0, margin:0 }}>
+        <IconButton onTouchTap={this.handleToggle} style={{ left: 0, margin: 0 }}>
           <MenuIcon />
         </IconButton>
         <Drawer
           docked={false}
           width={200}
           open={this.state.open}
-          onRequestChange={(open) => this.setState({open})}
+          onRequestChange={open => this.setState({ open })}
+          className={styles.drawer}
         >
-          <MenuItem style={{ backgroundColor: '#1976d2' }}>{this.props.top}</MenuItem>
+          <MenuItem style={{ backgroundColor: styles.blue }}>{this.props.top}</MenuItem>
           {
             this.props.links.map(page => (
               <MenuItem>

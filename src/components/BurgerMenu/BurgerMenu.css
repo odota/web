@@ -1,5 +1,13 @@
 @import '../palette.css';
 
+.drawer {
+  & > div {
+    &:last-of-type {
+      background-color: var(--defaultPrimaryColor) !important;
+    }
+  }
+}
+
 .menuIcon {
   position: relative;
   
