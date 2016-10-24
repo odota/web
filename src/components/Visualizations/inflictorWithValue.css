@@ -61,6 +61,21 @@
         background: linear-gradient(to right, var(--colorMutedLight) , rgba(0, 0, 0, 0)); 
         margin: 4px 0 3px;
       }
+
+      & .cost {
+        margin-top: 6px;
+
+        & span {
+          margin-right: 30px;
+
+          & img {
+            width: 16px;
+            height: 16px;
+            vertical-align: sub;
+            margin-right: 5px;
+          }
+        }
+      }
     }
   }
 }

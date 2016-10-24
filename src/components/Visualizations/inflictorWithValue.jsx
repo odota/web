@@ -32,6 +32,20 @@ const inflictorWithValue = (inflictor, value) => {
             {item.attrib && <hr />}
           </div>
           <div dangerouslySetInnerHTML={{ __html: item.attrib }} className={styles.noBr} />
+          {(item.cd || item.mc) && !item.lore && <hr />}
+          {(item.cd || item.mc) &&
+          <div className={styles.cost}>
+            {item.mc > 0 &&
+            <span>
+              <img src={`${API_HOST}/apps/dota2/images/tooltips/mana.png`} role="presentation" />
+              {item.mc}
+            </span>}
+            {item.cd > 0 &&
+            <span>
+              <img src={`${API_HOST}/apps/dota2/images/tooltips/cooldown.png`} role="presentation" />
+              {item.cd}
+            </span>}
+          </div>}
         </div>
       );
     } else {
