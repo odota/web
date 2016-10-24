@@ -33,7 +33,7 @@
   "app_login": "Login",
   "app_logout": "Logout",
   
-  "benchmarks_higher_than": "is higher than",
+  "benchmarks_higher_than": "is equal or higher than",
   "benchmarks_recent_performances": "of recent performances on this hero",
 
   "distributions_mmr": "Solo MMR",
