@@ -1,4 +1,3 @@
-import util from 'util';
 import items from 'dotaconstants/json/items.json';
 import itemGroups from 'dotaconstants/json/item_groups.json';
 import skillshots from 'dotaconstants/json/skillshots.json';

@@ -550,8 +550,8 @@ export const analysisColumns = [heroTdColumn, {
   displayName: strings.th_analysis,
   field: 'analysis',
   // TODO
-  displayFn: (row, col, field) => {
-    return Object.keys(field).map(key => {
+  displayFn: (row, col, field) => (
+    Object.keys(field).map((key) => {
       const val = field[key];
       val.display = `${val.name}: ${Number(val.value ? val.value.toFixed(2) : '')} / ${Number(val.top.toFixed(2))}`;
       val.pct = val.score(val.value) / val.score(val.top);
@@ -565,8 +565,8 @@ export const analysisColumns = [heroTdColumn, {
         </div>);
       }
       return null;
-    });
-  },
+    })
+  ),
 }];
 
 export const teamfightColumns = [
