@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
+import strings from 'lang';
 import { API_HOST } from 'config';
 import { player } from 'reducers';
 import Spinner from '../Spinner';
@@ -29,7 +30,7 @@ const LoggedIn = ({ loading, error, playerId, playerName, playerPicture }) => {
         </Link>
         <IconButton
           href={`${API_HOST}/logout`}
-          tooltip="Logout"
+          tooltip={strings.app_logout}
           tooltipPosition="bottom-center"
           style={{ zIndex: 3200 }}
           className={styles.iconButton}

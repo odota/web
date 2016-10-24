@@ -15,6 +15,7 @@ import {
   abbreviateNumber,
   inflictorWithValue,
   transformations,
+  percentile,
 } from 'utility';
 import Heatmap from 'components/Heatmap';
 import { TableHeroImage } from 'components/Visualizations';
@@ -278,57 +279,70 @@ export const lastHitsTimesColumns = (match) => {
 export const performanceColumns = [
   heroTdColumn, {
     displayName: strings.th_lane,
+    tooltip: strings.tooltip_lane,
     field: 'lane_role',
     sortFn: true,
     displayFn: (row, col, field) => laneRole[field],
   }, {
     displayName: strings.th_map,
+    tooltip: strings.tooltip_map,
     field: 'posData',
     displayFn: (row, col, field) => (field ?
       <Heatmap width={80} points={field.lane_pos} /> :
         <div />),
   }, {
-    displayName: strings.th_efften,
+    displayName: strings.th_lane_efficiency,
+    tooltip: strings.tooltip_lane_efficiency,
     field: 'lane_efficiency',
     sortFn: true,
-    displayFn: (row, col, field) => (field ? field.toFixed(2) : ''),
+    displayFn: (row, col, field) => (field ? field.toFixed(2) : '-'),
   }, {
     displayName: strings.th_lhten,
+    tooltip: strings.tooltip_lhten,
     field: 'lh_t',
     sortFn: true,
-    displayFn: (row, col, field) => (field ? field[10] : ''),
+    displayFn: (row, col, field) => (field ? field[10] : '-'),
   }, {
     displayName: strings.th_dnten,
+    tooltip: strings.tooltip_dnten,
     field: 'dn_t',
     sortFn: true,
-    displayFn: (row, col, field) => (field ? field[10] : ''),
+    displayFn: (row, col, field) => (field ? field[10] : '-'),
   }, {
     displayName: strings.th_multikill,
+    tooltip: strings.tooltip_multikill,
     field: 'multi_kills_max',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_killstreak,
+    tooltip: strings.tooltip_killstreak,
     field: 'kill_streaks_max',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_stuns,
+    tooltip: strings.tooltip_stuns,
     field: 'stuns',
     sortFn: true,
-    displayFn: (row, col, field) => (field ? field.toFixed(2) : ''),
+    displayFn: (row, col, field) => (field ? field.toFixed(2) : '-'),
   }, {
     displayName: strings.th_dead,
+    tooltip: strings.tooltip_dead,
     field: 'life_state_dead',
     sortFn: true,
+    displayFn: (row, col, field) => formatSeconds(field) || '-',
   }, {
     displayName: strings.th_pings,
     tooltip: strings.tooltip_pings,
     field: 'pings',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_biggest_hit,
+    tooltip: strings.tooltip_biggest_hit,
     field: 'max_hero_hit',
     sortFn: true,
-    // TODO figure out why default attack isn't showing up here
     displayFn: (row, column, field) => {
       if (field) {
         const hero = heroNames[field.key] || {};
@@ -348,43 +362,43 @@ export const supportColumns = [
     tooltip: strings.tooltip_camps_stacked,
     field: 'camps_stacked',
     sortFn: true,
-    displayFn: (row, col, field) => field || '',
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_tpscroll,
     tooltip: strings.tooltip_purchase_tpscroll,
-    field: 'purchase',
-    // sortFn: (row, col, field) => (field && field.tpscroll),
-    displayFn: (row, col, field) => (field && field.tpscroll),
+    field: 'purchase_tpscroll',
+    sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_ward_observer,
     tooltip: strings.tooltip_purchase_ward_observer,
-    field: 'purchase',
-    // sortFn: true,
-    displayFn: (row, col, field) => (field && field.ward_observer),
+    field: 'purchase_ward_observer',
+    sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_ward_sentry,
     tooltip: strings.tooltip_purchase_ward_sentry,
-    field: 'purchase',
-    // sortFn: true,
-    displayFn: (row, col, field) => (field && field.ward_sentry),
+    field: 'purchase_ward_sentry',
+    sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
-    displayName: strings.th_purchase,
+    displayName: strings.th_smoke_of_deceit,
     tooltip: strings.tooltip_purchase_smoke_of_deceit,
-    field: 'purchase',
-    // sortFn: true,
-    displayFn: (row, col, field) => (field && field.smoke_of_deceit),
+    field: 'purchase_smoke_of_deceit',
+    sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_dust,
     tooltip: strings.tooltip_purchase_dust,
-    field: 'purchase',
-    // sortFn: true,
-    displayFn: (row, col, field) => (field && field.dust),
+    field: 'purchase_dust',
+    sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_gem,
     tooltip: strings.tooltip_purchase_gem,
-    field: 'purchase',
-    // sortFn: true,
-    displayFn: (row, col, field) => (field && field.gem),
+    field: 'purchase_gem',
+    sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   },
 ];
 
@@ -535,14 +549,24 @@ export const inflictorsColumns = [{
 export const analysisColumns = [heroTdColumn, {
   displayName: strings.th_analysis,
   field: 'analysis',
-  displayFn: (row, col, field) => (
-    Object.keys(field).map(f => (
-      <div>
-        <span>{field[f].pct}</span>
-        <span>{field[f].display}</span>
-      </div>
-    ))
-  ),
+  // TODO
+  displayFn: (row, col, field) => {
+    return Object.keys(field).map(key => {
+      const val = field[key];
+      val.display = `${val.name}: ${Number(val.value ? val.value.toFixed(2) : '')} / ${Number(val.top.toFixed(2))}`;
+      val.pct = val.score(val.value) / val.score(val.top);
+      if (val.valid) {
+        const percent = field[key].pct;
+        const bucket = percentile(percent);
+        return (<div>
+          <span style={{ color: styles[bucket.color], margin: '10px', fontSize: '18px' }}>{bucket.grade}</span>
+          <span>{field[key].display}</span>
+          <div>{ key === 'unused_item' && field[key].metadata.map(item => inflictorWithValue(item)) }</div>
+        </div>);
+      }
+      return null;
+    });
+  },
 }];
 
 export const teamfightColumns = [
