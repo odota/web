@@ -221,10 +221,15 @@ export const benchmarksColumns = (match) => {
         displayFn: (row, column, field) => {
           if (field) {
             const bm = field[key];
-            // TODO style this better
-            return (<div>
-              <span>{`${Number(bm.pct * 100).toFixed(2)}%`}</span>
-              <span>{bm.raw.toFixed(2)}</span>
+            const bucket = percentile(bm.pct);
+            const percent = Number(bm.pct * 100).toFixed(2);
+            const value = Number(bm.raw.toFixed(2));
+            return (<div data-tip data-for={`benchmarks_${row.player_slot}_${key}`}>
+              <span style={{ color: styles[bucket.color] }}>{`${percent}%`}</span>
+              <small style={{ margin: '3px' }}>{value}</small>
+              <ReactTooltip id={`benchmarks_${row.player_slot}_${key}`} place="top" effect="solid">
+                {`${value} ${strings[`th_${key}`]} ${strings.benchmarks_higher_than} ${percent}% ${strings.benchmarks_recent_performances}`}
+              </ReactTooltip>
             </div>);
           }
           return null;

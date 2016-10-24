@@ -32,6 +32,9 @@
   "app_refresh": "Refresh Match History: Queue a scan to find missing matches due to privacy settings",
   "app_login": "Login",
   "app_logout": "Logout",
+  
+  "benchmarks_higher_than": "is higher than",
+  "benchmarks_recent_performances": "of recent performances on this hero",
 
   "distributions_mmr": "Solo MMR",
   "distributions_country_mmr": "Solo MMR By Country",
@@ -428,10 +431,6 @@
   "xp_reasons_3": "Roshan",
 
   "subheading_ranking": "Based on wins and average visible MMR in matches played. Rankings reset quarterly.",
-  "unparsed_tab": "This data will be available when the replay is parsed.",
-  "kill_death": "Data recorded from combat log. Includes Aegis and Reincarnation deaths.",
-  "ability_uses": "Abilities used",
-  "item_uses": "Items used",
   "teamfight_participation": "Radiant participation/Dire participation",
   "teamfight_score": "Radiant kills/Dire kills",
   "teamfight_radiant_gold_adv": "Net gold advantage for Radiant",
