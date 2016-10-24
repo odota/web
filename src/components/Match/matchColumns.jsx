@@ -185,17 +185,11 @@ export const overviewColumns = match => [{
         <ReactTooltip id={`au_${row.player_slot}`} place="left" effect="solid">
           {row.ability_upgrades_arr ? row.ability_upgrades_arr.map(
             (ab, i) => {
-              if (ab && abilityIds[ab] !== 'attribute_bonus') {
+              if (ab && !abilityIds[ab].includes('attribute_bonus')) {
                 // Here I hide stat upgrades, if necessary it can be displayed
                 return (
                   <div className={styles.ability}>
-                    <img
-                      src={`${API_HOST}/apps/dota2/images/abilities/${abilityIds[ab]}_md.png`}
-                      role="presentation"
-                    />
-                    <div>
-                      {strings.th_level} {i + 1}
-                    </div>
+                    {inflictorWithValue(abilityIds[ab], `${strings.th_level} ${i + 1}`)}
                   </div>
                 );
               }

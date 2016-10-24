@@ -1,15 +1,57 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'node-uuid';
-import abilityKeys from 'dotaconstants/json/ability_keys.json';
 import items from 'dotaconstants/json/items.json';
+import abilities from 'dotaconstants/json/abilities.json';
 import { API_HOST } from 'config';
 import styles from './inflictorWithValue.css';
 
-const inflictorWithValue = (inflictor, value) => {
+const tooltipContainer = thing => (
+  <div>
+    <div className={styles.heading}>
+      {thing.dname}
+      {thing.cost &&
+      <span className={styles.gold}>
+        <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />
+        {thing.cost}
+      </span>}
+      {thing.lore &&
+      <span className={styles.lore}>{thing.lore}</span>}
+      {(thing.attrib || thing.affects || thing.dmg) && <hr />}
+    </div>
+    <div dangerouslySetInnerHTML={{ __html: thing.affects }} />
+    <div dangerouslySetInnerHTML={{ __html: thing.attrib }} className={styles.noBr} />
+    <div dangerouslySetInnerHTML={{ __html: thing.dmg }} />
+    {(thing.cd || thing.mc || thing.cmb) && !thing.lore && !thing.attrib && <hr />}
+    {(thing.cd || thing.mc || thing.cmb) &&
+    <div className={styles.cost}>
+      {thing.mc > 0 &&
+      <span>
+        <img src={`${API_HOST}/apps/dota2/images/tooltips/mana.png`} role="presentation" />
+        {thing.mc}
+      </span>}
+      {thing.cd > 0 &&
+      <span>
+        <img src={`${API_HOST}/apps/dota2/images/tooltips/cooldown.png`} role="presentation" />
+        {thing.cd}
+      </span>}
+      {thing.cmb &&
+      <div
+        dangerouslySetInnerHTML={{
+          __html: thing.cmb
+            .replace('/apps/dota2/images/tooltips/mana.png', `${API_HOST}/apps/dota2/images/tooltips/mana.png`)
+            .replace('http://cdn.dota2.com/apps/dota2/images/tooltips/cooldown.png', `${API_HOST}/apps/dota2/images/tooltips/cooldown.png`),
+        }}
+        className={`${styles.noBr} ${styles.cmb}`}
+      />}
+    </div>}
+  </div>
+);
+
+export default (inflictor, value) => {
   if (inflictor !== undefined) {
     // TODO use abilities if we need the full info immediately
-    const ability = abilityKeys[inflictor];
+    const ability = abilities[inflictor];
     const item = items[inflictor];
     let image;
     let tooltip;
@@ -17,53 +59,25 @@ const inflictorWithValue = (inflictor, value) => {
 
     if (ability) {
       image = `${API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
+      tooltip = tooltipContainer(ability);
     } else if (item) {
       image = `${API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`;
-      tooltip = (
-        <div>
-          <div className={styles.heading}>
-            {item.dname}
-            <span className={styles.gold}>
-              <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />
-              {item.cost}
-            </span>
-            {item.lore &&
-            <span className={styles.lore}>{item.lore}</span>}
-            {item.attrib && <hr />}
-          </div>
-          <div dangerouslySetInnerHTML={{ __html: item.attrib }} className={styles.noBr} />
-          {(item.cd || item.mc) && !item.lore && <hr />}
-          {(item.cd || item.mc) &&
-          <div className={styles.cost}>
-            {item.mc > 0 &&
-            <span>
-              <img src={`${API_HOST}/apps/dota2/images/tooltips/mana.png`} role="presentation" />
-              {item.mc}
-            </span>}
-            {item.cd > 0 &&
-            <span>
-              <img src={`${API_HOST}/apps/dota2/images/tooltips/cooldown.png`} role="presentation" />
-              {item.cd}
-            </span>}
-          </div>}
-        </div>
-      );
+      tooltip = tooltipContainer(item);
     } else {
       image = `${API_HOST}/public/images/default_attack.png`;
     }
     return (
-      <div className={styles.inflictorWithValue} data-tip data-for={ttId}>
+      <div className={styles.inflictorWithValue} data-tip={tooltip && true} data-for={ttId}>
         <img src={image} role="presentation" />
         <div className={styles.overlay}>{value}</div>
+        {tooltip &&
         <div className={styles.tooltip}>
           <ReactTooltip id={ttId} effect="float">
             {tooltip}
           </ReactTooltip>
-        </div>
+        </div>}
       </div>
     );
   }
   return null;
 };
-
-export default inflictorWithValue;
