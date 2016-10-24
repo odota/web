@@ -21,9 +21,17 @@ const inflictorWithValue = (inflictor, value) => {
       image = `${API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`;
       tooltip = (
         <div>
-          <div>
+          <div className={styles.heading}>
             {item.dname}
+            <span className={styles.gold}>
+              <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />
+              {item.cost}
+            </span>
+            {item.lore &&
+            <span className={styles.lore}>{item.lore}</span>}
+            {item.attrib && <hr />}
           </div>
+          <div dangerouslySetInnerHTML={{ __html: item.attrib }} className={styles.noBr} />
         </div>
       );
     } else {

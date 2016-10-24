@@ -24,10 +24,54 @@
       content: none !important;
     }
     & > div {
-      background-color: var(--darkPrimaryColor);
+      background-color: rgba(0, 0, 0, .9);
       color: var(--textColorPrimary);
       max-width: 300px;
       white-space: pre-wrap;
+      line-height: 1.5 !important;
+
+      & .heading {
+        font-size: var(--fontSizeCommon);
+        text-transform: uppercase;
+        color: var(--colorBlue);
+
+        & .lore {
+          font-size: var(--fontSizeSmall);
+          text-transform: none;
+          display: block;
+          color: var(--colorMutedLight);
+          margin-bottom: 5px;
+        }
+        & .gold {
+          color: var(--colorGolden);
+          position: relative;
+          font-size: var(--fontSizeSmall);
+
+          & img {
+            height: 11px;
+            margin: 0 5px;
+          }
+        }
+      }
+
+      & hr {
+        border: 0;
+        height: 1px;
+        background-color: var(--primaryTextColor);
+        background: linear-gradient(to right, var(--colorMutedLight) , rgba(0, 0, 0, 0)); 
+        margin: 4px 0 3px;
+      }
     }
   }
+}
+
+.noBr {
+  & br {
+    display: none;
+  }
+}
+
+:global(.attribVal) {
+  color: var(--colorYelor);
+  font-weight: var(--fontWeightMedium);
 }
