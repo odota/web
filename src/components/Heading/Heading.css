@@ -3,8 +3,7 @@
 .tableHeading {
   margin-top: 15px;
   margin-bottom: 15px;
-  font-size: 20px;
-
+  
   & svg {
     vertical-align: top;
     height: 26px !important;
@@ -12,5 +11,14 @@
     margin-right: 6px;
     opacity: .8;
     fill: var(--textColorPrimary);
+  }
+
+  & .title {
+    font-size: 20px;
+  }
+
+  & .subtitle {
+    font-size: var(--fontSizeMedium);
+    color: var(--colorMutedLight);
   }
 }

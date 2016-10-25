@@ -1,5 +1,6 @@
 {
   "abbr_thousand": "k",
+  "abbr_million": "m",
   
   "analysis_eff": "Lane efficiency",
   "analysis_farm_drought": "Lowest GPM in 5 minute interval",
@@ -36,9 +37,11 @@
   "benchmarks_higher_than": "is equal or higher than",
   "benchmarks_recent_performances": "of recent performances on this hero",
 
-  "distributions_mmr": "Solo MMR",
-  "distributions_country_mmr": "Solo MMR By Country",
-  "distributions_warning_1": "Warning! This data set is limited to players displaying MMR on profile and sharing public match data.",
+  "distributions_heading_mmr": "Solo MMR distributions",
+  "distributions_heading_country_mmr": "Average MMR by country",
+  "distributions_tab_mmr": "Solo MMR",
+  "distributions_tab_country_mmr": "MMR by country",
+  "distributions_warning_1": "This data set is limited to players displaying MMR on profile and sharing public match data.",
   "distributions_warning_2": "Players do not have to sign in, but due to the opt-in nature of the data collected, averages are likely higher than expected.",
 
   "error": "Error",

@@ -4,16 +4,17 @@ import {
   Tab,
 } from 'material-ui/Tabs';
 import c3 from 'c3';
-import {
-  connect,
-} from 'react-redux';
-import {
-  getDistributions,
-} from 'actions';
+import { connect } from 'react-redux';
+import { getDistributions } from 'actions';
 import strings from 'lang';
 import Table from 'components/Table';
 import Heading from 'components/Heading';
-import { sum } from 'utility';
+import {
+  sum,
+  abbreviateNumber,
+} from 'utility';
+import Warning from 'components/Alerts';
+import styles from './Distributions.css';
 // import Spinner from 'components/Spinner';
 
 const countryMmrColumns = [{
@@ -25,11 +26,11 @@ const countryMmrColumns = [{
   field: 'common',
   sortFn: true,
 }, {
-  displayName: strings.th_count,
+  displayName: strings.th_players,
   field: 'count',
   sortFn: true,
 }, {
-  displayName: strings.th_average,
+  displayName: strings.th_mmr,
   field: 'avg',
   sortFn: true,
 }];
@@ -40,31 +41,32 @@ const Distributions = ({
   // loading,
 }) => (
   <div>
-    <div>{strings.distributions_warning_1}</div>
-    <div>{strings.distributions_warning_2}</div>
-    <Tabs>
+    <Warning className={styles.Warning}>
+      {strings.distributions_warning_1}
+      <br />
+      {strings.distributions_warning_2}
+    </Warning>
+    <Tabs
+      inkBarStyle={{ backgroundColor: styles.blue }}
+      className={styles.tabs}
+    >
       {Object.keys(data).map(key => (
-        <Tab key={key} label={strings[`distributions_${key}`]}>
-          <Heading title={strings[`distributions_${key}`]} />
+        <Tab
+          key={key}
+          label={strings[`distributions_tab_${key}`]}
+          className={styles.tab}
+        >
+          <Heading
+            title={strings[`distributions_heading_${key}`]}
+            subtitle={`
+              ${data[key].rows && abbreviateNumber(data[key].rows.map(row => row.count).reduce(sum))} ${strings.th_players}
+            `}
+            icon=" "
+            className={styles.Heading}
+          />
           {(key === 'mmr') ?
-            <div>
-              <div>
-                {`${data
-                && data.mmr
-                && data.mmr.rows
-                && data.mmr.rows.map(row => row.count).reduce(sum)} ${strings.th_players}`}
-              </div>
-              <div id="mmr" />
-            </div> :
-              <div>
-                <div>
-                  {`${data
-                  && data.country_mmr
-                  && data.country_mmr.rows
-                  && data.country_mmr.rows.map(row => row.count).reduce(sum)} ${strings.th_players}`}
-                </div>
-                <Table data={data[key].rows} columns={countryMmrColumns} />
-              </div>}
+            <div id="mmr" />
+            : <Table data={data[key].rows} columns={countryMmrColumns} />}
         </Tab>))
       }
     </Tabs>
