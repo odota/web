@@ -123,23 +123,3 @@
     opacity: .6;
   }
 }
-
-.inflictorWithValue {
-  position: relative;
-  float: left;
-  margin: 2px;
-  height: 29px;
-
-  & .overlay {
-    background-color: var(--darkPrimaryColor);
-    font-size: 10px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-  }
-  & img {
-    height: 29px;
-  }
-}

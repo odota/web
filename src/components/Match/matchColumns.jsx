@@ -13,12 +13,14 @@ import { API_HOST } from 'config';
 import {
   formatSeconds,
   abbreviateNumber,
-  inflictorWithValue,
   transformations,
   percentile,
 } from 'utility';
 import Heatmap from 'components/Heatmap';
-import { TableHeroImage } from 'components/Visualizations';
+import {
+  TableHeroImage,
+  inflictorWithValue,
+} from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import styles from './Match.css';
@@ -184,17 +186,11 @@ export const overviewColumns = match => [{
         <ReactTooltip id={`au_${row.player_slot}`} place="left" effect="solid">
           {row.ability_upgrades_arr ? row.ability_upgrades_arr.map(
             (ab, i) => {
-              if (ab && abilityIds[ab] !== 'attribute_bonus') {
+              if (ab && !abilityIds[ab].includes('attribute_bonus')) {
                 // Here I hide stat upgrades, if necessary it can be displayed
                 return (
                   <div className={styles.ability}>
-                    <img
-                      src={`${API_HOST}/apps/dota2/images/abilities/${abilityIds[ab]}_md.png`}
-                      role="presentation"
-                    />
-                    <div>
-                      {strings.th_level} {i + 1}
-                    </div>
+                    {inflictorWithValue(abilityIds[ab], `${strings.th_level} ${i + 1}`)}
                   </div>
                 );
               }
@@ -592,18 +588,18 @@ export const teamfightColumns = [
   }, {
     displayName: strings.th_abilities,
     field: 'ability_uses',
-    displayFn: (row, col, field) => (field ? Object.keys(field).map((inflictor, count) => {
+    displayFn: (row, col, field) => (field ? Object.keys(field).map((inflictor) => {
       if (abilityKeys[inflictor]) {
-        return inflictorWithValue(inflictor, count + 1);
+        return inflictorWithValue(inflictor, field[inflictor]);
       }
       return <div />;
     }) : ''),
   }, {
     displayName: strings.th_items,
     field: 'item_uses',
-    displayFn: (row, col, field) => (field ? Object.keys(field).map((inflictor, count) => {
+    displayFn: (row, col, field) => (field ? Object.keys(field).map((inflictor) => {
       if (items[inflictor]) {
-        return inflictorWithValue(inflictor, count + 1);
+        return inflictorWithValue(inflictor, field[inflictor]);
       }
       return <div />;
     }) : ''),
