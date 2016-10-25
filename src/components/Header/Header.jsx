@@ -16,8 +16,7 @@ import SearchForm from '../Search/SearchForm';
 import AppLogo from '../App/AppLogo';
 import BurgerMenu from '../BurgerMenu';
 
-import { HEADER_MD_BREAK } from '../Player/Header/PlayerHeader';
-import { HEADER_SM_BREAK } from '../Player/Header/PlayerHeader';
+import { HEADER_SM_BREAK, HEADER_MD_BREAK } from '../Player/Header/PlayerHeader';
 
 const navbarPages = [{
   name: strings.header_request,
@@ -35,11 +34,16 @@ const navbarPages = [{
 }];
 
 const Header = ({ location, width }) => {
+  const isTablet = width <= HEADER_MD_BREAK;
+  const isMobile = width <= HEADER_SM_BREAK;
+  const isTiny = width <= 400;
+  const toolbarPad = (isMobile && '8px') || (isTablet && '18px') || '22px';
+  const logoSize = (isTiny && '14px') || (isMobile && '16px');
 
-  const TitleGroup = () => (
+  const LogoGroup = () => (
     <ToolbarGroup className={styles.verticalAlign}>
-      <BurgerMenu className={styles.burger} links={navbarPages} top={<AccountWidget />} />
-      <AppLogo className={styles.appLogo} />
+      {isTablet && <BurgerMenu links={navbarPages} top={<AccountWidget />} />}
+      <AppLogo style={{ marginRight: 18 }} size={logoSize} />
     </ToolbarGroup>
   );
 
@@ -56,30 +60,32 @@ const Header = ({ location, width }) => {
   );
 
   const SearchGroup = () => (
-    <ToolbarGroup className={styles.verticalAlign}>
+    <ToolbarGroup style={{ marginLeft: 20 }} className={styles.verticalAlign}>
       <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
       <SearchForm location={location} />
     </ToolbarGroup>
   );
 
   const AccountGroup = () => (
-    <ToolbarGroup className={styles.verticalAlign} >
-      <AccountWidget className={styles.headerAccount} />
+    <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 'auto' }}>
+      <AccountWidget />
     </ToolbarGroup>
   );
 
   return (
     <div>
-      <Toolbar className={styles.header}>
-        <TitleGroup />
-        <LinkGroup className={styles.headerLink} />
-        <SearchGroup className={styles.headerSearch} />
-        <AccountGroup />
+      <Toolbar style={{ padding: toolbarPad }} className={styles.header}>
+        <LogoGroup />
+        {!isTablet && (<LinkGroup />)}
+        <SearchGroup />
+        {!isTablet && (<AccountGroup />)}
       </Toolbar>
     </div>
   );
 };
 
 const mapDispatchToProps = () => ({});
-const mapStateToProps = state => ({ width: state.browser.width });
+const mapStateToProps = state => ({
+  width: state.browser.width,
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

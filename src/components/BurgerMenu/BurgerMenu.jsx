@@ -17,7 +17,7 @@ export default class BurgerMenu extends React.Component {
   render() {
     return (
       <div>
-        <IconButton onTouchTap={this.handleToggle} style={{ left: 0, margin: 0 }}>
+        <IconButton onTouchTap={this.handleToggle}>
           <MenuIcon />
         </IconButton>
         <Drawer
@@ -30,9 +30,7 @@ export default class BurgerMenu extends React.Component {
           <MenuItem style={{ backgroundColor: styles.blue }}>{this.props.top}</MenuItem>
           {
             this.props.links.map(page => (
-              <MenuItem>
-                <a href={page.path} className={styles.tab}>{page.name}</a>
-              </MenuItem>
+              <MenuItem href={page.path} primaryText={page.name} />
             ))
           }
         </Drawer>

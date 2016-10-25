@@ -22,37 +22,3 @@
   box-shadow: 0 0 5px 5px rgba(0,0,0,0.2);
   background-color: var(--defaultPrimaryColor) !important;
 }
-
-Toolbar {
-  padding: 22px;
-}
-
-BurgerMenu { display: none !important; }
-
-AppLogo {
-  font-size: 20px !important;
-  margin-right: 18px !important;
-}
-
-SearchGroup {
-  margin-left: 20px;
-}
-
-AccountGroup {
-  margin-left: auto;
-}
-
-@media (--medium) {
-  Toolbar { padding: 18px; }
-  BurgerMenu { display: inline; }
-  AccountGroup { display: none; }
-}
-
-@media (--small) {
-  Toolbar { padding: 8px; }
-  AppLogo { font-size: 16px !important; }
-}
-
-@media (--tiny) {
-  AppLogo { font-size: 14px !important; }
-}
