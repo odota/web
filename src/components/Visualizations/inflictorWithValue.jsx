@@ -4,6 +4,7 @@ import uuid from 'node-uuid';
 import items from 'dotaconstants/json/items.json';
 import abilities from 'dotaconstants/json/abilities.json';
 import { API_HOST } from 'config';
+import strings from 'lang';
 import styles from './inflictorWithValue.css';
 
 const tooltipContainer = thing => (
@@ -56,7 +57,7 @@ export default (inflictor, value) => {
     const ability = abilities[inflictor];
     const item = items[inflictor];
     let image;
-    let tooltip;
+    let tooltip = strings.tooltip_autoattack_other;
     const ttId = uuid.v4();
 
     if (ability) {
