@@ -431,6 +431,7 @@
   "tooltip_casts": "Number of times this ability/item was cast",
   "tooltip_hits": "Number of damage instances to heroes caused by this ability/item",
   "tooltip_damage": "Amount of damage dealt to heroes by this ability/item",
+  "tooltip_autoattack_other": "Auto Attack/Other",
 
   "xp_reasons_0": "Other",
   "xp_reasons_1": "Creep",

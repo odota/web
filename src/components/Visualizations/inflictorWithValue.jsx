@@ -4,6 +4,7 @@ import uuid from 'node-uuid';
 import items from 'dotaconstants/json/items.json';
 import abilities from 'dotaconstants/json/abilities.json';
 import { API_HOST } from 'config';
+import strings from 'lang';
 import styles from './inflictorWithValue.css';
 
 const tooltipContainer = thing => (
@@ -39,8 +40,7 @@ const tooltipContainer = thing => (
       <div
         dangerouslySetInnerHTML={{
           __html: thing.cmb
-            .replace('/apps/dota2/images/tooltips/mana.png', `${API_HOST}/apps/dota2/images/tooltips/mana.png`)
-            .replace('http://cdn.dota2.com/apps/dota2/images/tooltips/cooldown.png', `${API_HOST}/apps/dota2/images/tooltips/cooldown.png`),
+            .replace(/http:\/\/cdn\.dota2\.com/g, API_HOST),
         }}
         className={`${styles.noBr} ${styles.cmb}`}
       />}
@@ -54,7 +54,7 @@ export default (inflictor, value) => {
     const ability = abilities[inflictor];
     const item = items[inflictor];
     let image;
-    let tooltip;
+    let tooltip = strings.tooltip_autoattack_other;
     const ttId = uuid.v4();
 
     if (ability) {

@@ -3,6 +3,6 @@ import CircularProgress from 'material-ui/CircularProgress';
 
 export default ({ size = 59.5, color = '#00BCD4' }) => (
   <div style={{ textAlign: 'center' }}>
-    <CircularProgress size={Math.max(size, 4)} color={color} />
+    <CircularProgress size={size} color={color} />
   </div>
 );
