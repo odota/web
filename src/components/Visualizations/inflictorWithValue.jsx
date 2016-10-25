@@ -40,8 +40,10 @@ const tooltipContainer = thing => (
       <div
         dangerouslySetInnerHTML={{
           __html: thing.cmb
-            .replace('/apps/dota2/images/tooltips/mana.png', `${API_HOST}/apps/dota2/images/tooltips/mana.png`)
-            .replace('/apps/dota2/images/tooltips/cooldown.png', `${API_HOST}/apps/dota2/images/tooltips/cooldown.png`),
+            .replace('src="/apps/dota2/images/tooltips/mana.png"', `src="${API_HOST}/apps/dota2/images/tooltips/mana.png"`)
+            .replace('src="/apps/dota2/images/tooltips/cooldown.png"', `src="${API_HOST}/apps/dota2/images/tooltips/cooldown.png"`)
+            .replace('http://cdn.dota2.com/apps/dota2/images/tooltips/mana.png', `${API_HOST}/apps/dota2/images/tooltips/mana.png`)
+            .replace('http://cdn.dota2.com/apps/dota2/images/tooltips/cooldown.png', `${API_HOST}/apps/dota2/images/tooltips/cooldown.png`),
         }}
         className={`${styles.noBr} ${styles.cmb}`}
       />}
