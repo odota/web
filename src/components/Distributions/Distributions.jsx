@@ -12,19 +12,34 @@ import Heading from 'components/Heading';
 import {
   sum,
   abbreviateNumber,
+  getOrdinal,
 } from 'utility';
 import Warning from 'components/Alerts';
+import Flag from 'react-flags';
 import styles from './Distributions.css';
 // import Spinner from 'components/Spinner';
 
 const countryMmrColumns = [{
-  displayName: '#',
+  displayName: strings.th_rank,
   field: '',
-  displayFn: (row, col, field, i) => i + 1,
+  displayFn: (row, col, field, i) => getOrdinal(i + 1),
 }, {
   displayName: strings.th_country,
   field: 'common',
   sortFn: true,
+  displayFn: row => (
+    <div className={styles.country}>
+      <Flag
+        name={row.loccountrycode.toLowerCase()}
+        format="png"
+        pngSize={24}
+        basePath="https://raw.githubusercontent.com/wiredmax/react-flags/master/vendor/flags/"
+      />
+      <span>
+        {row.common}
+      </span>
+    </div>
+  ),
 }, {
   displayName: strings.th_players,
   field: 'count',

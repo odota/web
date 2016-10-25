@@ -31,6 +31,18 @@
   padding: 10px 0 15px;
 
   & span:last-child {
+    display: block;
     text-transform: lowercase;
+  }
+}
+
+.country {
+  & img {
+    vertical-align: sub;
+    margin-right: 5px;
+  }
+  & span {
+    vertical-align: super;
+    height: 24px;
   }
 }
