@@ -329,6 +329,9 @@
   "th_average": "Average",
   "th_name": "Name",
   "th_score": "Score",
+  "th_casts": "Casts",
+  "th_hits": "Hits",
+  "th_damage": "Damage",
 
   "time_just_now": "just now",
   "time_second": "second",
@@ -425,6 +428,9 @@
   "tooltip_ability_builds_expired": "Ability upgrade data has expired for this match. Use the request form to reload data.",
   "tooltip_multikill": "Longest multi-kill",
   "tooltip_killstreak": "Longest killstreak",
+  "tooltip_casts": "Number of times this ability/item was cast",
+  "tooltip_hits": "Number of damage instances to heroes caused by this ability/item",
+  "tooltip_damage": "Amount of damage dealt to heroes by this ability/item",
   "tooltip_autoattack_other": "Auto Attack/Other",
 
   "xp_reasons_0": "Other",
