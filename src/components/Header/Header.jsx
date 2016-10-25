@@ -16,8 +16,6 @@ import SearchForm from '../Search/SearchForm';
 import AppLogo from '../App/AppLogo';
 import BurgerMenu from '../BurgerMenu';
 
-import { HEADER_SM_BREAK, HEADER_MD_BREAK } from '../Player/Header/PlayerHeader';
-
 const navbarPages = [{
   name: strings.header_request,
   path: '/request',
@@ -34,9 +32,9 @@ const navbarPages = [{
 }];
 
 const Header = ({ location, width }) => {
-  const isTablet = width <= HEADER_MD_BREAK;
-  const isMobile = width <= HEADER_SM_BREAK;
-  const isTiny = width <= 400;
+  const isTablet = width <= 820;
+  const isMobile = width <= 425;
+  const isTiny = width <= 320;
   const toolbarPad = (isMobile && '8px') || (isTablet && '18px') || '22px';
   const logoSize = (isTiny && '14px') || (isMobile && '16px');
 
