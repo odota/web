@@ -4,7 +4,8 @@ import {
   getPlayerRecords,
 } from 'actions';
 import { playerRecords } from 'reducers';
-import Table, { TableContainer } from 'components/Table';
+import Table from 'components/Table';
+import Container from 'components/Container';
 import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerRecordsColumns from './playerRecordsColumns';
@@ -12,9 +13,9 @@ import playerRecordsColumns from './playerRecordsColumns';
 const Records = ({ data, error, loading }) => (
   <div>
     <TableFilterForm />
-    <TableContainer title={strings.heading_records} error={error} loading={loading}>
+    <Container title={strings.heading_records} error={error} loading={loading}>
       <Table paginated columns={playerRecordsColumns} data={data} />
-    </TableContainer>
+    </Container>
   </div>
 );
 

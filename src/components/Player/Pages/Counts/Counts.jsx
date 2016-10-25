@@ -5,7 +5,8 @@ import {
 } from 'actions';
 import { deSnake } from 'utility';
 import { playerCounts } from 'reducers';
-import Table, { TableContainer } from 'components/Table';
+import Table from 'components/Table';
+import Container from 'components/Container';
 import { TableFilterForm } from 'components/Form';
 import playerCountsColumns from './playerCountsColumns';
 import styles from './Counts.css';
@@ -16,9 +17,9 @@ const Counts = ({ counts, error, loading }) => (
     <div className={styles.countsContainer}>
       {Object.keys(counts).map((key, index) => (
         <div key={index} className={styles.countTable}>
-          <TableContainer title={deSnake(key)} error={error} loading={loading}>
+          <Container title={deSnake(key)} error={error} loading={loading}>
             <Table paginated columns={playerCountsColumns} data={counts[key].list} />
-          </TableContainer>
+          </Container>
         </div>
       ))}
     </div>

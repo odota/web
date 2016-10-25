@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getPlayerWardmap } from 'actions';
 import { playerWardmap } from 'reducers';
 import Heatmap from 'components/Heatmap';
-import { TableContainer } from 'components/Table';
+import Container from 'components/Container';
 import { Row, Col } from 'react-flexbox-grid';
 import strings from 'lang';
 import { TableFilterForm } from 'components/Form';
@@ -30,14 +30,14 @@ class RequestLayer extends React.Component {
         <TableFilterForm />
         <Row>
           <Col md>
-            <TableContainer title={strings.th_ward_observer} error={error} loading={loading}>
+            <Container title={strings.th_ward_observer} error={error} loading={loading}>
               <Heatmap points={data.obs} />
-            </TableContainer>
+            </Container>
           </Col>
           <Col md>
-            <TableContainer title={strings.th_ward_sentry} error={error} loading={loading}>
+            <Container title={strings.th_ward_sentry} error={error} loading={loading}>
               <Heatmap points={data.sen} />
-            </TableContainer>
+            </Container>
           </Col>
         </Row>
       </div>

@@ -4,13 +4,13 @@ import { MMRGraph } from 'components/Visualizations';
 import { getPlayerMMR } from 'actions';
 import { playerMMR } from 'reducers';
 import strings from 'lang';
-import { TableContainer } from 'components/Table';
+import Container from 'components/Container';
 
 const MMR = ({ columns, error, loading }) => (
   <div style={{ fontSize: 10 }}>
-    <TableContainer title={strings.heading_mmr} error={error} loading={loading}>
+    <Container title={strings.heading_mmr} error={error} loading={loading}>
       <MMRGraph columns={columns} />
-    </TableContainer>
+    </Container>
   </div>
 );
 

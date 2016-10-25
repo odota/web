@@ -12,7 +12,7 @@ import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
 // import Heading from 'components/Heading';
 import { TableFilterForm } from 'components/Form';
-import { ContentContainer } from 'components/ContentContainer';
+import Container from 'components/Container';
 import { browserHistory } from 'react-router';
 
 const Trend = ({ routeParams, columns, playerId, error, loading }) => (
@@ -23,12 +23,12 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => (
       buttonNames={trendNames}
       selectedButton={routeParams.subInfo || trendNames[0]}
     />
-    <ContentContainer error={error} loading={loading}>
+    <Container error={error} loading={loading}>
       <TrendGraph
         columns={columns}
         name={deSnake(routeParams.subInfo || trendNames[0])}
       />
-    </ContentContainer>
+    </Container>
   </div>
 );
 

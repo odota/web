@@ -9,11 +9,11 @@ import {
   playerMatches,
   playerHeroes,
 } from 'reducers';
-import Table, { TableContainer } from 'components/Table';
+import Table from 'components/Table';
+import Container from 'components/Container';
 import { TableFilterForm } from 'components/Form';
 import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesColumns';
 import { playerHeroesOverviewColumns } from 'components/Player/Pages/Heroes/playerHeroesColumns';
-import { ContentContainer } from 'components/ContentContainer';
 import styles from './Overview.css';
 
 const MAX_OVERVIEW_ROWS = 20;
@@ -29,31 +29,31 @@ const Overview = ({
   <div>
     <TableFilterForm />
     <div className={styles.overviewContainer}>
-      <TableContainer
+      <Container
         title={strings.heading_matches}
-        className={styles.matchesTableContainer}
+        className={styles.matchesContainer}
+        loading={matchesLoading}
+        error={matchesError}
       >
-        <ContentContainer loading={matchesLoading} error={matchesError}>
-          <Table
-            columns={playerMatchesColumns}
-            data={matchesData}
-            maxRows={MAX_OVERVIEW_ROWS}
-          />
-        </ContentContainer>
-      </TableContainer>
+        <Table
+          columns={playerMatchesColumns}
+          data={matchesData}
+          maxRows={MAX_OVERVIEW_ROWS}
+        />
+      </Container>
 
-      <TableContainer
+      <Container
         title={strings.heading_heroes}
-        className={styles.heroesTableContainer}
+        className={styles.heroesContainer}
+        loading={heroesLoading}
+        error={heroesError}
       >
-        <ContentContainer loading={heroesLoading} error={heroesError}>
-          <Table
-            columns={playerHeroesOverviewColumns}
-            data={heroesData}
-            maxRows={MAX_OVERVIEW_ROWS}
-          />
-        </ContentContainer>
-      </TableContainer>
+        <Table
+          columns={playerHeroesOverviewColumns}
+          data={heroesData}
+          maxRows={MAX_OVERVIEW_ROWS}
+        />
+      </Container>
     </div>
   </div>
 );

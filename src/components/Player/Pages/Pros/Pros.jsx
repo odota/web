@@ -4,7 +4,8 @@ import {
   getPlayerPros,
 } from 'actions';
 import { playerPros } from 'reducers';
-import Table, { TableContainer } from 'components/Table';
+import Table from 'components/Table';
+import Container from 'components/Container';
 import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerProsColumns from './playerProsColumns';
@@ -12,9 +13,9 @@ import playerProsColumns from './playerProsColumns';
 const Pros = ({ data, error, loading }) => (
   <div>
     <TableFilterForm />
-    <TableContainer title={strings.heading_pros} error={error} loading={loading}>
+    <Container title={strings.heading_pros} error={error} loading={loading}>
       <Table paginated columns={playerProsColumns} data={data} />
-    </TableContainer>
+    </Container>
   </div>
 );
 

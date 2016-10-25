@@ -8,9 +8,8 @@ import {
 import {
   playerItems,
 } from 'reducers';
-import Table, {
-  TableContainer,
-} from 'components/Table';
+import Table from 'components/Table';
+import Container from 'components/Container';
 import {
   TableFilterForm,
 } from 'components/Form';
@@ -23,9 +22,9 @@ const Items = ({
 }) => (
   <div>
     <TableFilterForm />
-    <TableContainer title="Items" error={error} loading={loading}>
+    <Container title="Items" error={error} loading={loading}>
       <Table paginated columns={playerItemsColumns} data={data} />
-    </TableContainer>
+    </Container>
   </div>
 );
 
