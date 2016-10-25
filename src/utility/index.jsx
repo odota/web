@@ -10,7 +10,6 @@ import itemIds from 'dotaconstants/json/item_ids.json';
 import lobbyType from 'dotaconstants/json/lobby_type.json';
 import leaverStatus from 'dotaconstants/json/leaver_status.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
-import abilityKeys from 'dotaconstants/json/ability_keys.json';
 import xpLevel from 'dotaconstants/json/xp_level.json';
 import { API_HOST } from 'config';
 import styles from 'components/palette.css';
@@ -113,7 +112,7 @@ export const getOrdinal = (n) => {
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
 
-const percentile = (pct) => {
+export const percentile = (pct) => {
   if (pct >= 0.8) {
     return {
       color: 'green',
@@ -234,30 +233,6 @@ export const transformations = {
       accountId={row.account_id}
     />
   ),
-};
-
-export const inflictorWithValue = (inflictor, value) => {
-  if (inflictor !== undefined) {
-    // TODO use abilities if we need the full info immediately
-    const ability = abilityKeys[inflictor];
-    const item = items[inflictor];
-    let image;
-
-    if (ability) {
-      image = `${API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
-    } else if (item) {
-      image = `${API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`;
-    } else {
-      image = `${API_HOST}/public/images/default_attack.png`;
-    }
-    return (
-      <div className={styles.inflictorWithValue} >
-        <img src={image} role="presentation" />
-        <div className={styles.overlay}>{value}</div>
-      </div>
-    );
-  }
-  return null;
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */

@@ -17,9 +17,7 @@
   & .ability {
     position: relative;
     display: inline-block;
-    height: 34px;
-    width: 34px;
-    margin: 0 6px;
+    margin: 0 3px;
 
     &:first-of-type {
       margin-left: 0;
@@ -32,9 +30,9 @@
       width: 34px;
     }
     & > div {
-      position: absolute;
       background-color: var(--darkPrimaryColor);
-      width: 100%;
+      height: 34px;
+      width: 34px;
       text-align: center;
       bottom: 0;
       left: 0;
@@ -46,6 +44,7 @@
     pointer-events: auto !important;
     margin-left: 3px !important;
     padding: 6px 12px 2px !important;
+    background-color: rgba(0, 0, 0, .9) !important;
 
     &:hover {
       visibility: visible !important;
@@ -146,4 +145,9 @@
       }
     }
   }
+}
+
+.unusedItem {
+  display: inline-block;
+  vertical-align: middle;
 }

@@ -10,11 +10,11 @@ import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerPeersColumns from './playerPeersColumns';
 
-const Peers = ({ data, error, loading }) => (
+const Peers = ({ data, playerId, error, loading }) => (
   <div>
     <TableFilterForm />
     <Container title={strings.heading_peers} error={error} loading={loading}>
-      <Table paginated columns={playerPeersColumns} data={data} />
+      <Table paginated columns={playerPeersColumns(playerId)} data={data} />
     </Container>
   </div>
 );

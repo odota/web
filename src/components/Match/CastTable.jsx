@@ -3,30 +3,35 @@ import {
   Tabs,
   Tab,
 } from 'material-ui/Tabs';
-/*
 import {
-  heroes,
-} from 'dotaconstants';
-*/
+  inflictorWithValue,
+} from 'components/Visualizations';
 import heroes from 'dotaconstants/json/heroes.json';
+// import items from 'dotaconstants/json/items.json';
 import {
   API_HOST,
 } from 'config';
+import strings from 'lang';
 import Table from '../Table/Table';
 
-// TODO localize strings
-// TODO add tooltips
 const castsColumns = [{
-  displayName: 'Name',
+  displayName: strings.th_name,
   field: 'name',
+  displayFn: (row, col, field) => (<div>
+    <span>{inflictorWithValue(field)}</span>
+    {/* <span>{items[field] ? items[field].dname : field}</span>*/}
+  </div>),
 }, {
-  displayName: 'Casts',
+  displayName: strings.th_casts,
+  tooltip: strings.tooltip_casts,
   field: 'casts',
 }, {
-  displayName: 'Hits',
+  displayName: strings.th_hits,
+  tooltip: strings.tooltip_hits,
   field: 'hero_hits',
 }, {
-  displayName: 'Damage',
+  displayName: strings.th_damage,
+  tooltip: strings.tooltip_damage,
   field: 'damage_inflictor',
 }];
 
@@ -38,7 +43,7 @@ const getCastArray = (pm) => {
     if (pm[target]) {
       Object.keys(pm[target]).forEach((key) => {
         resultArray.push({
-          name: key || 'Auto Attack/Other',
+          name: key,
           val: pm[target][key],
           casts: pm[target][key],
           hero_hits: (pm.hero_hits || {})[key],

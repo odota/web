@@ -10,11 +10,11 @@ import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerProsColumns from './playerProsColumns';
 
-const Pros = ({ data, error, loading }) => (
+const Pros = ({ data, playerId, error, loading }) => (
   <div>
     <TableFilterForm />
     <Container title={strings.heading_pros} error={error} loading={loading}>
-      <Table paginated columns={playerProsColumns} data={data} />
+      <Table paginated columns={playerProsColumns(playerId)} data={data} />
     </Container>
   </div>
 );
