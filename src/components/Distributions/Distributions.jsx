@@ -33,7 +33,7 @@ const countryMmrColumns = [{
         name={row.loccountrycode.toLowerCase()}
         format="png"
         pngSize={24}
-        basePath="https://raw.githubusercontent.com/wiredmax/react-flags/master/vendor/flags/"
+        basePath="https://cdn.rawgit.com/wiredmax/react-flags/master/vendor/flags/"
       />
       <span>
         {row.common}
