@@ -128,11 +128,11 @@
   position: relative;
   float: left;
   margin: 2px;
-  height: 26px;
+  height: 29px;
 
   & .overlay {
     background-color: var(--darkPrimaryColor);
-    font-size: 9px;
+    font-size: 10px;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -140,6 +140,6 @@
     text-align: center;
   }
   & img {
-    height: 26px;
+    height: 29px;
   }
 }
