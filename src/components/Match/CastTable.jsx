@@ -25,14 +25,17 @@ const castsColumns = [{
   displayName: strings.th_casts,
   tooltip: strings.tooltip_casts,
   field: 'casts',
+  displayFn: (row, col, field) => field || '-',
 }, {
   displayName: strings.th_hits,
   tooltip: strings.tooltip_hits,
   field: 'hero_hits',
+  displayFn: (row, col, field) => field || '-',
 }, {
   displayName: strings.th_damage,
   tooltip: strings.tooltip_damage,
   field: 'damage_inflictor',
+  displayFn: (row, col, field) => field || '-',
 }];
 
 const getCastArray = (pm) => {

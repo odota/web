@@ -162,7 +162,7 @@ export const overviewColumns = match => [{
   }, {
     displayName: strings.th_items,
     tooltip: strings.tooltip_items,
-    field: '',
+    field: 'items',
     displayFn: (row) => {
       const itemArray = [];
       for (let i = 0; i < 6; i += 1) {
@@ -244,7 +244,6 @@ export const purchaseTimesColumns = (match) => {
     cols.push({
       displayName: `${curTime / 60}'`,
       field: 'purchase_log',
-
       displayFn: (row, column, field) => (<div>
         {field ? field
         .filter(purchase => (purchase.time >= curTime - bucket && purchase.time < curTime))
@@ -420,41 +419,49 @@ export const unitKillsColumns = [
     tooltip: strings.farm_heroes,
     field: 'hero_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_creeps,
     tooltip: strings.farm_creeps,
     field: 'lane_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_neutrals,
     tooltip: strings.farm_neutrals,
     field: 'neutral_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_ancients,
     tooltip: strings.farm_ancients,
     field: 'ancient_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_towers,
     tooltip: strings.farm_towers,
     field: 'tower_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_couriers,
     tooltip: strings.farm_couriers,
     field: 'courier_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_roshan,
     tooltip: strings.farm_roshan,
     field: 'roshan_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_necronomicon,
     tooltip: strings.farm_necronomicon,
     field: 'necronomicon_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_other,
     field: 'specific',
@@ -476,14 +483,14 @@ export const actionsColumns = [heroTdColumn, {
     tooltip: strings[`tooltip_${orderTypes[orderType]}`],
     field: orderType,
     sortFn: row => (row.actions ? row.actions[orderType] : 0),
-    displayFn: row => (row.actions ? row.actions[orderType] : ''),
+    displayFn: row => (row.actions ? (row.actions[orderType] || '-') : '-'),
   })));
 
 export const runesColumns = [heroTdColumn]
   .concat(Object.keys(runes).map(runeType => ({
     displayName: strings[`rune_${runeType}`],
     field: 'runes',
-    displayFn: (row, col, field) => (field ? field[runeType] : ''),
+    displayFn: (row, col, field) => (field ? (field[runeType] || '-') : '-'),
   })));
 
 export const cosmeticsColumns = [heroTdColumn, {
@@ -505,7 +512,7 @@ export const goldReasonsColumns = [heroTdColumn]
       displayName: strings[gr],
       field: gr,
       sortFn: row => (row.gold_reasons ? row.gold_reasons[gr.substring('gold_reasons_'.length)] : 0),
-      displayFn: row => (row.gold_reasons ? row.gold_reasons[gr.substring('gold_reasons_'.length)] : ''),
+      displayFn: row => (row.gold_reasons ? (row.gold_reasons[gr.substring('gold_reasons_'.length)] || '-') : '-'),
     })));
 
 export const xpReasonsColumns = [heroTdColumn]
@@ -515,7 +522,7 @@ export const xpReasonsColumns = [heroTdColumn]
       displayName: strings[xpr],
       field: xpr,
       sortFn: row => (row.xp_reasons ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] : 0),
-      displayFn: row => (row.xp_reasons ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] : ''),
+      displayFn: row => (row.xp_reasons ? (row.xp_reasons[xpr.substring('xp_reasons_'.length)] || '-') : '-'),
     })));
 
 export const objectiveDamageColumns = [heroTdColumn]
@@ -523,7 +530,7 @@ export const objectiveDamageColumns = [heroTdColumn]
     .map(obj => ({
       displayName: strings[obj],
       field: 'objective_damage',
-      displayFn: (row, col, field) => (field ? field[obj.substring('objective_'.length)] : '-'),
+      displayFn: (row, col, field) => (field ? (field[obj.substring('objective_'.length)] || '-') : '-'),
     })));
 
 
