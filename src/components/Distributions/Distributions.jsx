@@ -30,6 +30,7 @@ const countryMmrColumns = [{
     const code = row.loccountrycode.toLowerCase();
     let image;
     let name;
+
     // Fill missed flags and country names
     switch (code) {
       case 'yu':
@@ -52,9 +53,12 @@ const countryMmrColumns = [{
         image = `${require(`flag-icon-css/flags/4x3/${code}.svg`)}`; // eslint-disable-line global-require
         name = row.common;
     }
-
-    if (code === 'bq') name = 'Caribbean Netherlands';
-    if (code === 'sh') name = 'Saint Helena, Ascension and Tristan da Cunha';
+    if (code === 'bq') {
+      name = 'Caribbean Netherlands';
+    }
+    if (code === 'sh') {
+      name = 'Saint Helena, Ascension and Tristan da Cunha';
+    }
 
     return (
       <div className={styles.country}>
