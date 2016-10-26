@@ -492,6 +492,17 @@ export const runesColumns = [heroTdColumn]
     displayFn: (row, col, field) => (field ? field[runeType] : ''),
   })));
 
+
+const itemsRarity = {
+  common: '#B0C3D9',
+  uncommon: '#5E98D9',
+  rare: '#4B69FF',
+  mythical: '#8847FF',
+  legendary: '#D32CE6',
+  immortal: '#E4AE33',
+  arcana: '#ADE55C',
+  ancient: '#EB4B4B',
+};
 export const cosmeticsColumns = [{
   displayName: 'Player',
   field: 'player_slot',
@@ -517,9 +528,11 @@ export const cosmeticsColumns = [{
         <img src={`http://cdn.dota2.com/apps/570/${cosmetic.image_path}`} role="presentation" />
       </a>
       <ReactTooltip id={`cosmetic_${cosmetic.item_id}`} place="top" effect="solid">
-        {cosmetic.name}
-        <span>
-          {cosmetic.item_rarity}
+        <span style={{ color: cosmetic.item_rarity && itemsRarity[cosmetic.item_rarity] }}>
+          {cosmetic.name}
+          <span>
+            {cosmetic.item_rarity}
+          </span>
         </span>
       </ReactTooltip>
     </div>

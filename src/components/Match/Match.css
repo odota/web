@@ -166,13 +166,12 @@
   }
   & > div {
     font-size: var(--fontSizeCommon);
-    color: var(--colorBlue) !important;
 
-    & span {
-      font-size: var(--fontSizeMedium);
-      color: var(--textColorPrimary) !important;
-      display: block;
+    & span > span {
+      font-size: var(--fontSizeSmall);
+      color: var(--colorMutedLight);
       text-transform: capitalize;
+      display: block;
     }
   }
 }
