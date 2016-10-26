@@ -156,12 +156,6 @@
 
   & img {
     height: 42px;
-    transition: var(--normalTransition);
-
-    &:hover {
-      cursor: pointer;
-      opacity: .8;
-    }
   }
   & > div {
     font-size: var(--fontSizeCommon);
@@ -174,6 +168,28 @@
     }
   }
   & a {
+    transition: var(--normalTransition);
     position: relative;
+
+    &:hover {
+      cursor: pointer;
+      opacity: .8;
+
+      & svg {
+        display: block !important;
+      }
+    }
+  }
+  & svg {
+    position: absolute;
+    /* override material-ui */
+    fill: var(--primaryLinkColor) !important;
+    display: none !important;
+    width: 18px !important;
+    height: 18px !important;
+    /* -- */
+    filter: drop-shadow(0 0 3px var(--darkPrimaryColor));
+    right: 2px;
+    bottom: 6px;
   }
 }

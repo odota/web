@@ -24,6 +24,7 @@ import {
 } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
+import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import styles from './Match.css';
 
 // {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
@@ -531,6 +532,7 @@ export const cosmeticsColumns = [{
             borderBottom: `2px solid ${cosmetic.item_rarity ? itemsRarity[cosmetic.item_rarity] : styles.gray}`,
           }}
         />
+        <ActionOpenInNew />
       </a>
       <ReactTooltip id={`cosmetic_${cosmetic.item_id}`} effect="solid">
         <span style={{ color: cosmetic.item_rarity && itemsRarity[cosmetic.item_rarity] }}>
