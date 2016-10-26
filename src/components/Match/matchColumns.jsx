@@ -525,9 +525,14 @@ export const cosmeticsColumns = [{
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src={`http://cdn.dota2.com/apps/570/${cosmetic.image_path}`} role="presentation" />
+        <img
+          src={`http://cdn.dota2.com/apps/570/${cosmetic.image_path}`} role="presentation"
+          style={{
+            borderBottom: `2px solid ${cosmetic.item_rarity ? itemsRarity[cosmetic.item_rarity] : styles.gray}`,
+          }}
+        />
       </a>
-      <ReactTooltip id={`cosmetic_${cosmetic.item_id}`} place="top" effect="solid">
+      <ReactTooltip id={`cosmetic_${cosmetic.item_id}`} effect="solid">
         <span style={{ color: cosmetic.item_rarity && itemsRarity[cosmetic.item_rarity] }}>
           {cosmetic.name}
           <span>

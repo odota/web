@@ -154,10 +154,11 @@
 
 .cosmetics {
   display: inline-block;
-  margin: 5px 2px;
+  margin: 5px;
 
   & img {
     height: 42px;
+    transition: var(--normalTransition);
 
     &:hover {
       cursor: pointer;
@@ -173,5 +174,8 @@
       text-transform: capitalize;
       display: block;
     }
+  }
+  & a {
+    position: relative;
   }
 }
