@@ -44,14 +44,12 @@
     pointer-events: auto !important;
     margin-left: 3px !important;
     padding: 6px 12px 2px !important;
-    background-color: rgba(0, 0, 0, .9) !important;
 
     &:hover {
       visibility: visible !important;
       opacity: 1 !important;
     }
     &::after {
-      border-color: transparent !important;
       border-width: 20px !important;
       right: 0 !important;
       top: 0 !important;
