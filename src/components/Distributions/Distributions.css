@@ -9,7 +9,7 @@
 
 :root {
   /* width of tab with longest name * count of tabs */
-  --tabsWidth: calc(140px * 2);
+  --tabsWidth: calc(160px * 2);
 }
 
 .tabs {
