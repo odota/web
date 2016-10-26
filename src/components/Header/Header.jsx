@@ -18,17 +18,17 @@ import AppLogo from '../App/AppLogo';
 const navbarPages = [
 // TODO Explorer
 // TODO Matches
-{
-  name: strings.header_heroes,
-  path: '/heroes',
-}, {
-  name: strings.header_distributions,
-  path: '/distributions',
-}, {
-  name: strings.header_ingame,
-  sponsored: true,
-  path: '/become-the-gamer',
-}];
+  {
+    name: strings.header_heroes,
+    path: '/heroes',
+  }, {
+    name: strings.header_distributions,
+    path: '/distributions',
+  }, {
+    name: strings.header_ingame,
+    sponsored: true,
+    path: '/become-the-gamer',
+  }];
 
 const Header = ({ location }) => (
   <div>
