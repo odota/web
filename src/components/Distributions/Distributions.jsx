@@ -4,32 +4,80 @@ import {
   Tab,
 } from 'material-ui/Tabs';
 import c3 from 'c3';
-import {
-  connect,
-} from 'react-redux';
-import {
-  getDistributions,
-} from 'actions';
+import { connect } from 'react-redux';
+import { getDistributions } from 'actions';
 import strings from 'lang';
 import Table from 'components/Table';
 import Heading from 'components/Heading';
-import { sum } from 'utility';
+import {
+  sum,
+  abbreviateNumber,
+  getOrdinal,
+} from 'utility';
+import Warning from 'components/Alerts';
+import styles from './Distributions.css';
 // import Spinner from 'components/Spinner';
 
 const countryMmrColumns = [{
-  displayName: '#',
+  displayName: strings.th_rank,
   field: '',
-  displayFn: (row, col, field, i) => i + 1,
+  displayFn: (row, col, field, i) => getOrdinal(i + 1),
 }, {
   displayName: strings.th_country,
   field: 'common',
   sortFn: true,
+  displayFn: (row) => {
+    const code = row.loccountrycode.toLowerCase();
+    let image;
+    let name;
+
+    // Fill missed flags and country names
+    switch (code) {
+      case 'yu':
+        image = '//upload.wikimedia.org/wikipedia/commons/6/6e/Pan-Slavic_flag.svg';
+        name = 'Yugoslavia';
+        break;
+      case 'fx':
+        image = '//upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg';
+        name = 'Metropolitan France';
+        break;
+      case 'tp':
+        image = '//upload.wikimedia.org/wikipedia/commons/2/26/Flag_of_East_Timor.svg';
+        name = 'East Timor';
+        break;
+      case 'zr':
+        image = '//upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Zaire.svg';
+        name = 'Zaire';
+        break;
+      default:
+        image = `${require(`flag-icon-css/flags/4x3/${code}.svg`)}`; // eslint-disable-line global-require
+        name = row.common;
+    }
+    if (code === 'bq') {
+      name = 'Caribbean Netherlands';
+    }
+    if (code === 'sh') {
+      name = 'Saint Helena, Ascension and Tristan da Cunha';
+    }
+
+    return (
+      <div className={styles.country}>
+        <img
+          src={image}
+          role="presentation"
+        />
+        <span>
+          {name}
+        </span>
+      </div>
+    );
+  },
 }, {
-  displayName: strings.th_count,
+  displayName: strings.th_players,
   field: 'count',
   sortFn: true,
 }, {
-  displayName: strings.th_average,
+  displayName: strings.th_mmr,
   field: 'avg',
   sortFn: true,
 }];
@@ -40,31 +88,32 @@ const Distributions = ({
   // loading,
 }) => (
   <div>
-    <div>{strings.distributions_warning_1}</div>
-    <div>{strings.distributions_warning_2}</div>
-    <Tabs>
+    <Warning className={styles.Warning}>
+      {strings.distributions_warning_1}
+      <br />
+      {strings.distributions_warning_2}
+    </Warning>
+    <Tabs
+      inkBarStyle={{ backgroundColor: styles.blue }}
+      className={styles.tabs}
+    >
       {Object.keys(data).map(key => (
-        <Tab key={key} label={strings[`distributions_${key}`]}>
-          <Heading title={strings[`distributions_${key}`]} />
+        <Tab
+          key={key}
+          label={strings[`distributions_tab_${key}`]}
+          className={styles.tab}
+        >
+          <Heading
+            title={strings[`distributions_heading_${key}`]}
+            subtitle={`
+              ${data[key].rows && abbreviateNumber(data[key].rows.map(row => row.count).reduce(sum))} ${strings.th_players}
+            `}
+            icon=" "
+            className={styles.Heading}
+          />
           {(key === 'mmr') ?
-            <div>
-              <div>
-                {`${data
-                && data.mmr
-                && data.mmr.rows
-                && data.mmr.rows.map(row => row.count).reduce(sum)} ${strings.th_players}`}
-              </div>
-              <div id="mmr" />
-            </div> :
-              <div>
-                <div>
-                  {`${data
-                  && data.country_mmr
-                  && data.country_mmr.rows
-                  && data.country_mmr.rows.map(row => row.count).reduce(sum)} ${strings.th_players}`}
-                </div>
-                <Table data={data[key].rows} columns={countryMmrColumns} />
-              </div>}
+            <div id="mmr" />
+            : <Table data={data[key].rows} columns={countryMmrColumns} />}
         </Tab>))
       }
     </Tabs>
