@@ -15,7 +15,6 @@ import {
   getOrdinal,
 } from 'utility';
 import Warning from 'components/Alerts';
-import Flag from 'react-flags';
 import styles from './Distributions.css';
 // import Spinner from 'components/Spinner';
 
@@ -27,19 +26,48 @@ const countryMmrColumns = [{
   displayName: strings.th_country,
   field: 'common',
   sortFn: true,
-  displayFn: row => (
-    <div className={styles.country}>
-      <Flag
-        name={row.loccountrycode.toLowerCase()}
-        format="png"
-        pngSize={24}
-        basePath="https://cdn.rawgit.com/wiredmax/react-flags/master/vendor/flags/"
-      />
-      <span>
-        {row.common}
-      </span>
-    </div>
-  ),
+  displayFn: (row) => {
+    const code = row.loccountrycode.toLowerCase();
+    let image;
+    let name;
+    // Fill missed flags and country names
+    switch (code) {
+      case 'yu':
+        image = '//upload.wikimedia.org/wikipedia/commons/6/6e/Pan-Slavic_flag.svg';
+        name = 'Yugoslavia';
+        break;
+      case 'fx':
+        image = '//upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg';
+        name = 'Metropolitan France';
+        break;
+      case 'tp':
+        image = '//upload.wikimedia.org/wikipedia/commons/2/26/Flag_of_East_Timor.svg';
+        name = 'East Timor';
+        break;
+      case 'zr':
+        image = '//upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Zaire.svg';
+        name = 'Zaire';
+        break;
+      default:
+        image = `${require(`flag-icon-css/flags/4x3/${code}.svg`)}`; // eslint-disable-line global-require
+        name = row.common;
+    }
+
+    if (code === 'bq') name = 'Caribbean Netherlands';
+    if (code === 'sh') name = 'Saint Helena, Ascension and Tristan da Cunha';
+
+    return (
+      <div className={styles.country}>
+        <img
+          src={image}
+          role="presentation"
+        />
+        <span>
+          {name}
+        </span>
+      </div>
+    );
+  },
 }, {
   displayName: strings.th_players,
   field: 'count',

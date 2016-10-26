@@ -39,7 +39,10 @@
 .country {
   & img {
     vertical-align: sub;
-    margin-right: 5px;
+    margin-right: 7px;
+    height: 24px;
+    width: 32px;
+    box-shadow: 0 0 5px var(--defaultPrimaryColor);
   }
   & span {
     vertical-align: super;
