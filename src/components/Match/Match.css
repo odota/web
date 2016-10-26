@@ -151,3 +151,28 @@
   display: inline-block;
   vertical-align: middle;
 }
+
+.cosmetics {
+  display: inline-block;
+  margin: 5px 2px;
+
+  & img {
+    height: 42px;
+
+    &:hover {
+      cursor: pointer;
+      opacity: .8;
+    }
+  }
+  & > div {
+    font-size: var(--fontSizeCommon);
+    color: var(--colorBlue) !important;
+
+    & span {
+      font-size: var(--fontSizeMedium);
+      color: var(--textColorPrimary) !important;
+      display: block;
+      text-transform: capitalize;
+    }
+  }
+}

@@ -15,6 +15,7 @@ import {
   abbreviateNumber,
   transformations,
   percentile,
+  isRadiant,
 } from 'utility';
 import Heatmap from 'components/Heatmap';
 import {
@@ -26,13 +27,18 @@ import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import styles from './Match.css';
 
 // {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
-export const heroTd = (row, col, field, index, hideName) => (
+export const heroTd = (row, col, field, index, hideName, subString = 'mmr') => (
   <TableHeroImage
     image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
     title={row.account_id ? (row.game_mode === 2 && row.name) || row.personaname : strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
-    subtitle={`${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`}
+    subtitle={
+      (subString === 'mmr' &&
+      `${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`) ||
+      (subString === 'side' &&
+      isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire)
+    }
     playerSlot={row.player_slot}
     hideText={hideName}
   />
@@ -486,16 +492,38 @@ export const runesColumns = [heroTdColumn]
     displayFn: (row, col, field) => (field ? field[runeType] : ''),
   })));
 
-export const cosmeticsColumns = [heroTdColumn, {
+export const cosmeticsColumns = [{
+  displayName: 'Player',
+  field: 'player_slot',
+  cosmetics: true,
+  displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, 'side'),
+  sortFn: true,
+}, {
   displayName: strings.th_cosmetics,
   field: 'cosmetics',
+  cosmetics: true,
   displayFn: (row, col, field) => field.map((cosmetic, i) => (
-    <a href={`https://www.lootmarket.com/dota-2/item/${cosmetic.name}?partner=1101&utm_source=misc&utm_medium=misc&utm_campaign=opendota`}>
-      <div key={i} style={{ float: 'left', marginRight: '20px' }}>
-        <img src={`http://cdn.dota2.com/apps/570/${cosmetic.image_path}`} style={{ height: '40px' }} role="presentation" />
-        <div>{cosmetic.name}</div>
-      </div>
-    </a>)),
+    <div
+      key={i}
+      className={styles.cosmetics}
+      data-tip
+      data-for={`cosmetic_${cosmetic.item_id}`}
+    >
+      <a
+        href={`https://www.lootmarket.com/dota-2/item/${cosmetic.name}?partner=1101&utm_source=misc&utm_medium=misc&utm_campaign=opendota`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src={`http://cdn.dota2.com/apps/570/${cosmetic.image_path}`} role="presentation" />
+      </a>
+      <ReactTooltip id={`cosmetic_${cosmetic.item_id}`} place="top" effect="solid">
+        {cosmetic.name}
+        <span>
+          {cosmetic.item_rarity}
+        </span>
+      </ReactTooltip>
+    </div>
+  )),
 }];
 
 export const goldReasonsColumns = [heroTdColumn]
