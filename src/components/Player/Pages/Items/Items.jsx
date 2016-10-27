@@ -8,9 +8,8 @@ import {
 import {
   playerItems,
 } from 'reducers';
-import Table, {
-  TableContainer,
-} from 'components/Table';
+import Table from 'components/Table';
+import Container from 'components/Container';
 import {
   TableFilterForm,
 } from 'components/Form';
@@ -18,12 +17,14 @@ import playerItemsColumns from './playerItemsColumns';
 
 const Items = ({
   data,
+  error,
+  loading,
 }) => (
   <div>
     <TableFilterForm />
-    <TableContainer title="Items">
+    <Container title="Items" error={error} loading={loading}>
       <Table paginated columns={playerItemsColumns} data={data} />
-    </TableContainer>
+    </Container>
   </div>
 );
 
@@ -49,6 +50,8 @@ class RequestLayer extends React.Component {
 
 const mapStateToProps = (state, { playerId }) => ({
   data: playerItems.getItemsList(state, playerId),
+  loading: playerItems.getLoading(state, playerId),
+  error: playerItems.getError(state, playerId),
 });
 
 const mapDispatchToProps = dispatch => ({

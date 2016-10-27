@@ -30,7 +30,12 @@ export function pad(n, width, z = '0') {
   return str.length >= width ? str : new Array((width - str.length) + 1).join(z) + n;
 }
 export function abbreviateNumber(num) {
-  return (num < 1000) ? num : `${(num / 1000).toFixed(1)}${strings.abbr_thousand}`;
+  if (num >= 1000 && num < 1000000) {
+    return `${Number((num / 1000).toFixed(1))}${strings.abbr_thousand}`;
+  } else if (num >= 1000000) {
+    return `${Number((num / 1000000).toFixed(1))}${strings.abbr_million}`;
+  }
+  return num;
 }
 export function formatSeconds(input) {
   if (!isNaN(parseFloat(input)) && isFinite(input)) {

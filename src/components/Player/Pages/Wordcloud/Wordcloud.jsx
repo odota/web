@@ -8,7 +8,7 @@ import {
 import {
   playerWordcloud,
 } from 'reducers';
-import Heading from 'components/Heading';
+import Container from 'components/Container';
 import Wordcloud from 'components/Wordcloud';
 import strings from 'lang';
 import { TableFilterForm } from 'components/Form';
@@ -30,14 +30,18 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    return (<div>
-      <TableFilterForm />
-      <Heading title={strings.heading_wordcloud} />
-      <Heading title={strings.heading_wordcloud_said} />
-      <Wordcloud counts={this.props.data.my_word_counts} />
-      <Heading title={strings.heading_wordcloud_read} />
-      <Wordcloud counts={this.props.data.all_word_counts} />
-    </div>);
+    const { error, loading, data } = this.props;
+    return (
+      <div>
+        <TableFilterForm />
+        <Container title={strings.heading_wordcloud_said} error={error} loading={loading}>
+          <Wordcloud counts={data.my_word_counts} />
+        </Container>
+        <Container title={strings.heading_wordcloud_read} error={error} loading={loading}>
+          <Wordcloud counts={data.all_word_counts} />
+        </Container>
+      </div>
+    );
   }
 }
 
