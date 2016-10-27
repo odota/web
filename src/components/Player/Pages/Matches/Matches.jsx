@@ -8,9 +8,8 @@ import {
 import {
   playerMatches,
 } from 'reducers';
-import Table, {
-  TableContainer,
-} from 'components/Table';
+import Table from 'components/Table';
+import Container from 'components/Container';
 import {
   TableFilterForm,
 } from 'components/Form';
@@ -19,12 +18,14 @@ import playerMatchesColumns from './playerMatchesColumns';
 
 const Matches = ({
   data,
+  error,
+  loading,
 }) => (
   <div>
     <TableFilterForm />
-    <TableContainer title={strings.heading_matches}>
+    <Container title={strings.heading_matches} error={error} loading={loading}>
       <Table paginated columns={playerMatchesColumns} data={data} />
-    </TableContainer>
+    </Container>
   </div>
 );
 
@@ -54,6 +55,8 @@ const defaultOptions = {
 
 const mapStateToProps = (state, { playerId }) => ({
   data: playerMatches.getMatchList(state, playerId),
+  loading: playerMatches.getLoading(state, playerId),
+  error: playerMatches.getError(state, playerId),
 });
 
 const mapDispatchToProps = dispatch => ({

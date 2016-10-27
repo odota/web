@@ -4,15 +4,16 @@ import {
   getPlayerRankings,
 } from 'actions';
 import { playerRankings } from 'reducers';
-import Table, { TableContainer } from 'components/Table';
+import Table from 'components/Table';
+import Container from 'components/Container';
 import strings from 'lang';
 import playerRankingsColumns from './playerRankingsColumns';
 
-const Rankings = ({ data }) => (
+const Rankings = ({ data, error, loading }) => (
   <div>
-    <TableContainer title={strings.heading_rankings}>
+    <Container title={strings.heading_rankings} error={error} loading={loading}>
       <Table paginated columns={playerRankingsColumns} data={data} />
-    </TableContainer>
+    </Container>
   </div>
 );
 
@@ -38,6 +39,8 @@ class RequestLayer extends React.Component {
 
 const mapStateToProps = (state, { playerId }) => ({
   data: playerRankings.getRankingList(state, playerId),
+  error: playerRankings.getError(state, playerId),
+  loading: playerRankings.getLoading(state, playerId),
 });
 
 const mapDispatchToProps = dispatch => ({

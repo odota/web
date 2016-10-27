@@ -32,7 +32,7 @@ export const getPlayerWordcloudError = (payload, id) => ({
 
 export const getPlayerWordcloud = (playerId, options = {}) => (dispatch, getState) => {
   if (playerWordcloud.isLoaded(getState(), playerId)) {
-    dispatch(getPlayerWordcloudOk(playerWordcloud.getHeroList(getState(), playerId), playerId));
+    dispatch(getPlayerWordcloudOk(playerWordcloud.getPlayerWordcloudById(getState(), playerId), playerId));
   } else {
     dispatch(getPlayerWordcloudRequest(playerId));
   }
