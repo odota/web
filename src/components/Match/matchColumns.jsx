@@ -15,7 +15,6 @@ import {
   abbreviateNumber,
   transformations,
   percentile,
-  isRadiant,
 } from 'utility';
 import Heatmap from 'components/Heatmap';
 import {
@@ -27,19 +26,13 @@ import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import styles from './Match.css';
 
-// {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
-export const heroTd = (row, col, field, index, hideName, subString = 'mmr') => (
+export const heroTd = (row, col, field, index, hideName) => (
   <TableHeroImage
     image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
     title={row.account_id ? (row.game_mode === 2 && row.name) || row.personaname : strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
-    subtitle={
-      (subString === 'mmr' &&
-      `${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`) ||
-      (subString === 'side' &&
-      isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire)
-    }
+    subtitle={`${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`}
     playerSlot={row.player_slot}
     hideText={hideName}
   />
@@ -494,7 +487,7 @@ export const runesColumns = [heroTdColumn]
   })));
 
 
-const itemsRarity = {
+const cosmeticsRarity = {
   common: '#B0C3D9',
   uncommon: '#5E98D9',
   rare: '#4B69FF',
@@ -504,16 +497,9 @@ const itemsRarity = {
   arcana: '#ADE55C',
   ancient: '#EB4B4B',
 };
-export const cosmeticsColumns = [{
-  displayName: 'Player',
-  field: 'player_slot',
-  cosmetics: true,
-  displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, 'side'),
-  sortFn: true,
-}, {
+export const cosmeticsColumns = [heroTdColumn, {
   displayName: strings.th_cosmetics,
   field: 'cosmetics',
-  cosmetics: true,
   displayFn: (row, col, field) => field.map((cosmetic, i) => (
     <div
       key={i}
@@ -529,13 +515,13 @@ export const cosmeticsColumns = [{
         <img
           src={`http://cdn.dota2.com/apps/570/${cosmetic.image_path}`} role="presentation"
           style={{
-            borderBottom: `2px solid ${cosmetic.item_rarity ? itemsRarity[cosmetic.item_rarity] : styles.gray}`,
+            borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : styles.gray}`,
           }}
         />
         <ActionOpenInNew />
       </a>
       <ReactTooltip id={`cosmetic_${cosmetic.item_id}`} effect="solid">
-        <span style={{ color: cosmetic.item_rarity && itemsRarity[cosmetic.item_rarity] }}>
+        <span style={{ color: cosmetic.item_rarity && cosmeticsRarity[cosmetic.item_rarity] }}>
           {cosmetic.name}
           <span>
             {cosmetic.item_rarity}

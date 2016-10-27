@@ -38,7 +38,7 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
             key={index}
             className={styles.row}
             style={{
-              display: columns[0].cosmetics && row.cosmetics.length < 1 && 'none',
+              display: columns[1].field === 'cosmetics' && row.cosmetics.length < 1 && 'none',
             }}
           >
             {columns.map((column, colIndex) => {
