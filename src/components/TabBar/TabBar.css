@@ -23,7 +23,6 @@
 
 .tabs {
   width: 100%;
-
   @media only screen and (max-width : 1250px) {
     /* Just make this value large enough that it's never reached */
     width: 1920px !important;
@@ -37,7 +36,6 @@
 .tab {
   color: var(--primaryTextColor) !important;
   text-transform: none !important;
-
   &:hover {
     background-color: rgba(255, 255, 255, .08) !important;
   }

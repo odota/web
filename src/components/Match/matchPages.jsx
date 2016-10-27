@@ -99,6 +99,7 @@ const firstNumbers = (match) => {
   );
 };
 
+// TODO add key prop for routing in other languages
 const matchPages = [{
   name: strings.tab_overview,
   content: match => (<div>

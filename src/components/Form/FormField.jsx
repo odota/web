@@ -77,11 +77,11 @@ class FormField extends React.Component {
       strict,
       maxSearchResults = 10,
       limit,
-      currentQueryString = '',
+      currentQueryString,
     } = this.props;
 
     // Use dataSource on current querystring to hydrate the chipList
-    const query = querystring.parse(currentQueryString.substring(1));
+    const query = querystring.parse((currentQueryString || '').substring(1));
     const field = [].concat(query[name] || []);
     const chipList = field.map(element => dataSource.find(data => Number(data.value) === Number(element)) || { text: element, value: element });
 

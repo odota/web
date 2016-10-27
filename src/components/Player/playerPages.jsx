@@ -17,6 +17,7 @@ import {
   WordcloudPage,
 } from './Pages';
 
+// TODO add key prop for routing in other languages
 const playerPages = [{
   name: strings.tab_overview,
   content: (playerId, routeParams, location) => (<OverviewPage playerId={playerId} routeParams={routeParams} location={location} />),
