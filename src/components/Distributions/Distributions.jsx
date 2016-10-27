@@ -12,8 +12,8 @@ import {
 } from 'utility';
 import Warning from 'components/Alerts';
 import TabBar from 'components/TabBar';
-import styles from './Distributions.css';
 import Spinner from 'components/Spinner';
+import styles from './Distributions.css';
 
 const countryMmrColumns = [{
   displayName: strings.th_rank,
@@ -90,14 +90,14 @@ const getPage = (data, key) => (
       className={styles.Heading}
     />
     {(key === 'mmr') ?
-    <div id="mmr" />
+      <div id="mmr" />
     : <Table data={data[key] && data[key].rows} columns={countryMmrColumns} />}
   </div>
 );
 
 const distributionsPages = [
-  { name: strings.distributions_tab_mmr, key: 'mmr', content: getPage, route: `/distributions/mmr` },
-  { name: strings.distributions_tab_country_mmr, key: 'country_mmr', content: getPage, route: `/distributions/country_mmr` },
+  { name: strings.distributions_tab_mmr, key: 'mmr', content: getPage, route: '/distributions/mmr' },
+  { name: strings.distributions_tab_country_mmr, key: 'country_mmr', content: getPage, route: '/distributions/country_mmr' },
 ];
 
 class RequestLayer extends React.Component {
@@ -171,7 +171,7 @@ class RequestLayer extends React.Component {
     const info = this.props.routeParams.info || 'mmr';
     const page = distributionsPages.find(page => (page.key || page.name.toLowerCase()) === info);
     return loading
-      ? <Spinner /> 
+      ? <Spinner />
       : (<div>
         <Warning className={styles.Warning}>
           {strings.distributions_warning_1}
