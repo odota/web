@@ -9,3 +9,7 @@
   width: calc(300% + 50px);
   left: -10px;
 }
+
+.tooltip {
+  margin-top: 10px;
+}

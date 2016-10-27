@@ -232,9 +232,12 @@ const matchPages = [{
 }, {
   name: strings.tab_cosmetics,
   parsed: true,
-  content: match => (<div>
-    <TeamTable match={match} columns={cosmeticsColumns} heading={strings.heading_cosmetics} />
-  </div>),
+  content: match => (
+    <div>
+      <Heading title={strings.heading_cosmetics} />
+      <Table data={match.players.filter(obj => obj.cosmetics.length > 0)} columns={cosmeticsColumns} />
+    </div>
+  ),
 }, {
   name: strings.tab_log,
   parsed: true,

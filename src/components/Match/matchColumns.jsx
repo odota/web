@@ -23,9 +23,9 @@ import {
 } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
+import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import styles from './Match.css';
 
-// {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
 export const heroTd = (row, col, field, index, hideName) => (
   <TableHeroImage
     image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
@@ -486,16 +486,50 @@ export const runesColumns = [heroTdColumn]
     displayFn: (row, col, field) => (field ? field[runeType] : ''),
   })));
 
+
+const cosmeticsRarity = {
+  common: '#B0C3D9',
+  uncommon: '#5E98D9',
+  rare: '#4B69FF',
+  mythical: '#8847FF',
+  legendary: '#D32CE6',
+  immortal: '#E4AE33',
+  arcana: '#ADE55C',
+  ancient: '#EB4B4B',
+};
 export const cosmeticsColumns = [heroTdColumn, {
   displayName: strings.th_cosmetics,
   field: 'cosmetics',
   displayFn: (row, col, field) => field.map((cosmetic, i) => (
-    <a href={`https://www.lootmarket.com/dota-2/item/${cosmetic.name}?partner=1101&utm_source=misc&utm_medium=misc&utm_campaign=opendota`}>
-      <div key={i} style={{ float: 'left', marginRight: '20px' }}>
-        <img src={`http://cdn.dota2.com/apps/570/${cosmetic.image_path}`} style={{ height: '40px' }} role="presentation" />
-        <div>{cosmetic.name}</div>
-      </div>
-    </a>)),
+    <div
+      key={i}
+      className={styles.cosmetics}
+      data-tip
+      data-for={`cosmetic_${cosmetic.item_id}`}
+    >
+      <a
+        href={`https://www.lootmarket.com/dota-2/item/${cosmetic.name}?partner=1101&utm_source=misc&utm_medium=misc&utm_campaign=opendota`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src={`http://cdn.dota2.com/apps/570/${cosmetic.image_path}`} role="presentation"
+          style={{
+            borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : styles.gray}`,
+          }}
+        />
+        <ActionOpenInNew />
+      </a>
+      <ReactTooltip id={`cosmetic_${cosmetic.item_id}`} effect="solid">
+        <span style={{ color: cosmetic.item_rarity && cosmeticsRarity[cosmetic.item_rarity] }}>
+          {cosmetic.name}
+          <span>
+            {cosmetic.item_rarity}
+          </span>
+        </span>
+      </ReactTooltip>
+    </div>
+  )),
 }];
 
 export const goldReasonsColumns = [heroTdColumn]
