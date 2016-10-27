@@ -7,8 +7,8 @@ import styles from './BurgerMenu.css';
 
 export default class BurgerMenu extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = { open: false };
     this.handleToggle = () => this.setState({ open: !this.state.open });
     this.handleClose = () => this.setState({ open: false });
@@ -27,7 +27,13 @@ export default class BurgerMenu extends React.Component {
           onRequestChange={open => this.setState({ open })}
           className={styles.drawer}
         >
-          <MenuItem style={{ backgroundColor: styles.blue }}>{this.props.top}</MenuItem>
+          <MenuItem
+            style={{
+              backgroundColor: styles.blue,
+              textAlign: 'left',
+              height: '54px',
+            }}
+          >{this.props.top}</MenuItem>
           {
             this.props.links.map(page => (
               <MenuItem href={page.path} primaryText={page.name} />

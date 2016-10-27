@@ -1,21 +1,10 @@
 @import '../palette.css';
 
-.drawer {
-  & > div {
-    &:last-of-type {
+/* Overrides material-ui */
+.drawer > div:last-of-type {
       background-color: var(--defaultPrimaryColor) !important;
-    }
   }
-}
 
 .menuIcon {
   position: relative;
-  
-}
-
-.menuItem {
-  width: 100%;
-  margin: auto;
-  float: left;
-  display: block;
 }
