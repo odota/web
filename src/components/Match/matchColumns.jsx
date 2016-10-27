@@ -1,5 +1,4 @@
 import React from 'react';
-import heroes from 'dotaconstants/json/heroes.json';
 import runes from 'dotaconstants/json/runes.json';
 import items from 'dotaconstants/json/items.json';
 import orderTypes from 'dotaconstants/json/order_types.json';
@@ -28,13 +27,14 @@ import styles from './Match.css';
 // {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
 export const heroTd = (row, col, field, index, hideName) => (
   <TableHeroImage
-    image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
+    heroId={row.hero_id}
     title={row.account_id ? (row.game_mode === 2 && row.name) || row.personaname : strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
     subtitle={`${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`}
     playerSlot={row.player_slot}
     hideText={hideName}
+    hideImage={false}
   />
 );
 

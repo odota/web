@@ -30,10 +30,10 @@ const TabBar = ({ router, tabs, info }) => (
   </div>
 );
 
-const { string, shape, arrayOf } = React.PropTypes;
+const { string, shape, array } = React.PropTypes;
 TabBar.propTypes = {
   router: shape({}),
-  tabs: arrayOf(),
+  tabs: array,
   info: string,
 };
 

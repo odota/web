@@ -6,16 +6,19 @@ import strings from 'lang';
 import { TableLink } from 'components/Table';
 import { playerColors } from 'utility';
 import styles from './HeroImage.css';
+import heroes from 'dotaconstants/json/heroes.json';
+import { API_HOST } from 'config';
 
 const TableHeroImage = ({
   parsed,
-  image,
+  heroId,
   registered,
   title,
   subtitle,
   accountId,
   playerSlot,
   hideText,
+  hideImage,
 }) => {
   const tooltipId = uuid.v4();
 
@@ -33,10 +36,10 @@ const TableHeroImage = ({
         </ReactTooltip>
       </div>
       }
-      {image &&
+      {!hideImage &&
       <div className={styles.imageContainer}>
         <img
-          src={image}
+          src={heroes[heroId] && API_HOST + heroes[heroId].img}
           role="presentation"
           className={styles.image}
         />
@@ -49,7 +52,7 @@ const TableHeroImage = ({
       </div>
       }
       {!hideText &&
-      <div className={styles.textContainer} style={{ marginLeft: !image && 59 }}>
+      <div className={styles.textContainer} style={{ marginLeft: hideImage && 59 }}>
         <span>
           {registered &&
           <div data-tip data-for={tooltipId} className={styles.registered}>
@@ -78,7 +81,7 @@ const { number, string, object, oneOfType, bool } = React.PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: number,
-  image: string,
+  heroId: number,
   title: string,
   subtitle: oneOfType([
     string,
@@ -88,6 +91,7 @@ TableHeroImage.propTypes = {
   accountId: number,
   playerSlot: number,
   hideText: bool,
+  hideImage: bool,
 };
 
 export default TableHeroImage;
