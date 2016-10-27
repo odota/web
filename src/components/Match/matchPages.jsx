@@ -235,7 +235,7 @@ const matchPages = [{
   content: match => (
     <div>
       <Heading title={strings.heading_cosmetics} />
-      <Table data={match.players} columns={cosmeticsColumns} />
+      <Table data={match.players.filter(obj => obj.cosmetics.length > 0)} columns={cosmeticsColumns} />
     </div>
   ),
 }, {
