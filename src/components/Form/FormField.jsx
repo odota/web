@@ -77,7 +77,7 @@ class FormField extends React.Component {
       strict,
       maxSearchResults = 10,
       limit,
-      currentQueryString,
+      currentQueryString = '',
     } = this.props;
 
     // Use dataSource on current querystring to hydrate the chipList
@@ -108,7 +108,7 @@ class FormField extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentQueryString: state.routing.locationBeforeTransitions.search,
+  currentQueryString: state.routing.locationBeforeTransitions && state.routing.locationBeforeTransitions.search,
 });
 
 const mapDispatchToProps = () => ({});
