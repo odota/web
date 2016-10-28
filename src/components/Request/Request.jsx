@@ -10,6 +10,7 @@ const Request = ({ error, matchId, loading, progress, dispatchRequest, dispatchM
     dispatchRequest(matchId);
     dispatchMatchId('');
   }
+  dispatchMatchId(window.location.hash.slice(1));
   const progressIndicator = (progress ?
     <CircularProgress value={progress} mode="determinate" /> :
       <CircularProgress value={progress} mode="indeterminate" />);
