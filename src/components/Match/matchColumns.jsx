@@ -35,6 +35,7 @@ export const heroTd = (row, col, field, index, hideName) => (
     subtitle={`${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`}
     playerSlot={row.player_slot}
     hideText={hideName}
+    confirmed={row.account_id && row.name}
   />
 );
 

@@ -72,3 +72,14 @@
   left: 0;
   box-shadow: 2px 2px 2px var(--defaultPrimaryColor);
 }
+
+.confirmed {
+  display: inline-block;
+
+  & svg {
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    fill: var(--colorGolden);
+  }
+}
