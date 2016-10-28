@@ -9,10 +9,10 @@
 }
 
 .page {
-  cursor: pointer;
-  color: var(--primaryLinkColor);
-  font-size: 12px !important;
-  padding: 0 5px !important;
+  /* Override material-ui */
+  color: var(--primaryLinkColor) !important;
+  min-width: 20px !important;
+  padding: 5px !important;
 }
 
 .arrow {
@@ -22,7 +22,5 @@
 
 .currentPage {
   composes: page;
-  font-size: 14px;
-  color: var(--primaryTextColor);
-  cursor: auto;
+  color: var(--primaryTextColor) !important;
 }
