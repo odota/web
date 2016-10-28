@@ -47,7 +47,7 @@ const countryMmrColumns = [{
         name = 'Zaire';
         break;
       default:
-        image = `${require(`flag-icon-css/flags/4x3/${code}.svg`)}`; // eslint-disable-line global-require
+        image = `/${require(`flag-icon-css/flags/4x3/${code}.svg`)}`; // eslint-disable-line global-require
         name = row.common;
     }
     if (code === 'bq') {
