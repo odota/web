@@ -3,13 +3,11 @@ import { pad } from 'utility';
 import { API_HOST } from 'config';
 import Heading from 'components/Heading';
 import strings from 'lang';
+import ReactTooltip from 'react-tooltip';
 import buildingData from './buildingData';
-// import Spinner from '../Spinner';
 import styles from './BuildingMap.css';
 
-export default function BuildingMap({
-  match,
-}) {
+export default function BuildingMap({ match }) {
   if (match && match.tower_status_radiant !== undefined) {
     // see https://wiki.teamfortress.com/wiki/WebAPI/GetMatchDetails
     let bits = pad(match.tower_status_radiant.toString(2), 11);
@@ -25,11 +23,21 @@ export default function BuildingMap({
     for (let i = 0; i < bits.length; i += 1) {
       const type = buildingData[i].id.slice(0, 1) === 't' ? 'tower' : 'racks';
       const side = buildingData[i].id.slice(-1) === 'r' ? '_radiant.png' : '_dire.png';
-      const d = {
-        key: buildingData[i].id,
+
+      let lane = buildingData[i].id.slice(2, 3);
+      lane = (lane === 't' && 'Top') || (lane === 'm' && 'Middle') || (lane === 'b' && 'Bottom');
+      const tier = buildingData[i].id.slice(1, 2);
+      const title = buildingData[i].id.slice(0, 1) === 't' ?
+        `${lane} Tier ${tier}` : (
+          (buildingData[i].id === 'ar' && 'Radiant Ancient') ||
+          (buildingData[i].id === 'ad' && 'Dire Ancient') ||
+          (buildingData[i].id.slice(1, 2) === 'm' ? `${lane} Melee` : `${lane} Ranged`)
+          );
+
+      const props = {
         src: `https://raw.githubusercontent.com/kronusme/dota2-api/master/images/map/${type}${side}`,
         style: {
-          opacity: bits[i] === '1' ? '1' : '0.2',
+          opacity: bits[i] === '1' || '0.4',
           // TODO scale based on client width
           // d.style += 'zoom: ' + document.getElementById(map').clientWidth / 600 + ';';
           zoom: buildingData[i].id.slice(0, 1) === 'a' ? 0.8 : 0.5,
@@ -38,7 +46,16 @@ export default function BuildingMap({
           left: buildingData[i].style.split(';')[2].split(':')[1],
         },
       };
-      icons.push(<img {...d} role="presentation" />);
+      icons.push(
+        <span key={buildingData[i].id}>
+          <img
+            {...props}
+            role="presentation"
+            data-tip={title}
+          />
+          <ReactTooltip />
+        </span>
+      );
     }
     return (
       <div>
