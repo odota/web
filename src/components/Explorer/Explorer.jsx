@@ -67,7 +67,9 @@ LIMIT ${}
 // TODO autocompletion?
 // TODO send selection as query
 // TODO handle enter keypress
-// TODO GET shouldn't run the query?
+// TODO initial load shouldn't run the query?
+// TODO querystring: encodeURIComponent(sql/nql)
+// TODO get rid of queries table
 
 class Explorer extends React.Component
 {
