@@ -24,13 +24,8 @@
       content: none !important;
     }
     & > div {
-      background-color: rgba(0, 0, 0, .9);
-      color: var(--textColorPrimary);
       max-width: 300px;
-      white-space: pre-wrap;
-      line-height: 1.5 !important;
-      text-align: left;
-
+      
       & .heading {
         font-size: var(--fontSizeCommon);
         text-transform: uppercase;
