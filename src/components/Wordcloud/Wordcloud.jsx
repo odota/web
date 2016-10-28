@@ -54,6 +54,8 @@ function updateWordCloud(wordCounts, width, cloudDomId) {
 
   wordcloud(document.getElementById(cloudDomId), {
     list: wordList,
+    backgroundColor: 'transparent',
+    color: 'random-light',
   });
 }
 
@@ -68,9 +70,9 @@ class Wordcloud extends React.Component {
     updateWordCloud(nextProps.counts, this.props.width, this.id);
   }
   render() {
-    return (<div>
+    return (
       <canvas width={this.props.width} height={this.props.height} id={this.id} />
-    </div>);
+    );
   }
 }
 Wordcloud.defaultProps = {
