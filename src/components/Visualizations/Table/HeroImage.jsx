@@ -60,7 +60,7 @@ const TableHeroImage = ({
         <div data-tip data-for={`confirmed_${accountId}`} className={styles.confirmed}>
           <IconTrophy />
           <ReactTooltip id={`confirmed_${accountId}`} place="top"effect="solid">
-            {strings.app_confirmed_as} {confirmed}
+            {strings.app_confirmed_as} {title}
           </ReactTooltip>
         </div>
         }
