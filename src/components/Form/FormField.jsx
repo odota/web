@@ -81,7 +81,7 @@ class FormField extends React.Component {
     } = this.props;
 
     // Use dataSource on current querystring to hydrate the chipList
-    const query = querystring.parse(currentQueryString.substring(1));
+    const query = querystring.parse((currentQueryString || '').substring(1));
     const field = [].concat(query[name] || []);
     const chipList = field.map(element => dataSource.find(data => Number(data.value) === Number(element)) || { text: element, value: element });
 
@@ -108,7 +108,7 @@ class FormField extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentQueryString: state.routing.locationBeforeTransitions.search,
+  currentQueryString: state.routing.locationBeforeTransitions && state.routing.locationBeforeTransitions.search,
 });
 
 const mapDispatchToProps = () => ({});

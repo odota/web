@@ -64,6 +64,11 @@ LIMIT ${}
 `
 */
 
+// TODO autocompletion?
+// TODO send selection as query
+// TODO handle enter keypress
+// TODO GET shouldn't run the query?
+
 class Explorer extends React.Component
 {
   constructor() {
@@ -75,7 +80,7 @@ class Explorer extends React.Component
     this.handleQuery = this.handleQuery.bind(this);
     this.handleExampleChange = this.handleExampleChange.bind(this);
     this.handleResponse = this.handleResponse.bind(this);
-    this.handleTouchTap = this.handleTouchTap.bind(this);
+    this.handleRequestOpen = this.handleRequestOpen.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
   }
   componentWillMount() {
@@ -90,6 +95,10 @@ class Explorer extends React.Component
     editor.setTheme('ace/theme/monokai');
     editor.getSession().setMode('ace/mode/sql');
     editor.setShowPrintMargin(false);
+    editor.setOptions({
+      minLines: 10,
+      maxLines: Infinity,
+    });
     this.editor = editor;
   }
   handleQuery() {
@@ -119,10 +128,7 @@ class Explorer extends React.Component
       result: json,
     }));
   }
-  handleTouchTap(event) {
-    // This prevents ghost click.
-    event.preventDefault();
-
+  handleRequestOpen() {
     this.setState({
       open: true,
     });
@@ -144,7 +150,7 @@ class Explorer extends React.Component
         </ul>
         <div>
           <RaisedButton
-            onClick={this.handleTouchTap}
+            onClick={this.handleRequestOpen}
             label={'Examples'}
           />
           <Popover

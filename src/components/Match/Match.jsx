@@ -13,12 +13,12 @@ import matchPages from './matchPages';
 
 class RequestLayer extends React.Component {
   componentDidMount() {
-    this.props.getMatch(this.props.routeParams.match_id);
+    this.props.getMatch(this.props.routeParams.matchId);
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.match_id !== nextProps.match_id) {
-      this.props.getMatch(nextProps.match_id);
+    if (this.props.matchId !== nextProps.matchId) {
+      this.props.getMatch(nextProps.matchId);
     }
   }
 
@@ -46,7 +46,7 @@ class RequestLayer extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  matchId: ownProps.params.match_id,
+  matchId: ownProps.params.matchId,
   match: getMatchData(state),
   loading: getMatchLoading(state),
   user: getMetadataUser(state),

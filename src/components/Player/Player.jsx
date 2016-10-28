@@ -47,7 +47,7 @@ class RequestLayer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
   // Passed from react-router
-  playerId: ownProps.params.accountId,
+  playerId: ownProps.params.playerId,
 });
 
 const mapDispatchToProps = dispatch => ({

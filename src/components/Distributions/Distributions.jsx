@@ -1,8 +1,4 @@
 import React from 'react';
-import {
-  Tabs,
-  Tab,
-} from 'material-ui/Tabs';
 import c3 from 'c3';
 import { connect } from 'react-redux';
 import { getDistributions } from 'actions';
@@ -15,8 +11,9 @@ import {
   getOrdinal,
 } from 'utility';
 import Warning from 'components/Alerts';
+import TabBar from 'components/TabBar';
+import Spinner from 'components/Spinner';
 import styles from './Distributions.css';
-// import Spinner from 'components/Spinner';
 
 const countryMmrColumns = [{
   displayName: strings.th_rank,
@@ -50,7 +47,7 @@ const countryMmrColumns = [{
         name = 'Zaire';
         break;
       default:
-        image = `${require(`flag-icon-css/flags/4x3/${code}.svg`)}`; // eslint-disable-line global-require
+        image = `/${require(`flag-icon-css/flags/4x3/${code}.svg`)}`; // eslint-disable-line global-require
         name = row.common;
     }
     if (code === 'bq') {
@@ -82,43 +79,26 @@ const countryMmrColumns = [{
   sortFn: true,
 }];
 
-const Distributions = ({
-  data,
-  // error,
-  // loading,
-}) => (
+const getPage = (data, key) => (
   <div>
-    <Warning className={styles.Warning}>
-      {strings.distributions_warning_1}
-      <br />
-      {strings.distributions_warning_2}
-    </Warning>
-    <Tabs
-      inkBarStyle={{ backgroundColor: styles.blue }}
-      className={styles.tabs}
-    >
-      {Object.keys(data).map(key => (
-        <Tab
-          key={key}
-          label={strings[`distributions_tab_${key}`]}
-          className={styles.tab}
-        >
-          <Heading
-            title={strings[`distributions_heading_${key}`]}
-            subtitle={`
-              ${data[key].rows && abbreviateNumber(data[key].rows.map(row => row.count).reduce(sum))} ${strings.th_players}
-            `}
-            icon=" "
-            className={styles.Heading}
-          />
-          {(key === 'mmr') ?
-            <div id="mmr" />
-            : <Table data={data[key].rows} columns={countryMmrColumns} />}
-        </Tab>))
-      }
-    </Tabs>
+    <Heading
+      title={strings[`distributions_heading_${key}`]}
+      subtitle={`
+        ${data[key] && data[key].rows && abbreviateNumber(data[key].rows.map(row => row.count).reduce(sum))} ${strings.th_players}
+      `}
+      icon=" "
+      className={styles.Heading}
+    />
+    {(key === 'mmr') ?
+      <div id="mmr" />
+    : <Table data={data[key] && data[key].rows} columns={countryMmrColumns} />}
   </div>
 );
+
+const distributionsPages = [
+  { name: strings.distributions_tab_mmr, key: 'mmr', content: getPage, route: '/distributions/mmr' },
+  { name: strings.distributions_tab_country_mmr, key: 'country_mmr', content: getPage, route: '/distributions/country_mmr' },
+];
 
 class RequestLayer extends React.Component {
   componentDidMount() {
@@ -187,11 +167,27 @@ class RequestLayer extends React.Component {
     }
   }
   render() {
-    return <Distributions {...this.props} />;
+    const loading = this.props.loading;
+    const info = this.props.routeParams.info || 'mmr';
+    const page = distributionsPages.find(page => (page.key || page.name.toLowerCase()) === info);
+    return loading
+      ? <Spinner />
+      : (<div>
+        <Warning className={styles.Warning}>
+          {strings.distributions_warning_1}
+          <br />
+          {strings.distributions_warning_2}
+        </Warning>
+        <TabBar info={info} tabs={distributionsPages} />
+        {page && page.content(this.props.data, info)}
+      </div>);
   }
 }
 
-const mapStateToProps = state => state.app.distributions;
+const mapStateToProps = state => ({
+  data: state.app.distributions.data,
+  loading: state.app.distributions.loading,
+});
 
 const mapDispatchToProps = dispatch => ({
   dispatchDistributions: () => dispatch(getDistributions()),
