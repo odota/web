@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import wordcloud from 'wordcloud';
 import uuid from 'node-uuid';
+import styles from './Wordcloud.css';
 
 const stopWords = 'a,am,an,and,are,as,at,be,by,for,from,how,i,im,in,is,it,not,of,on,or,that,the,this,to,was,what,when,where,who,will,with';
 
@@ -54,6 +56,8 @@ function updateWordCloud(wordCounts, width, cloudDomId) {
 
   wordcloud(document.getElementById(cloudDomId), {
     list: wordList,
+    backgroundColor: 'transparent',
+    color: 'random-light',
   });
 }
 
@@ -64,19 +68,27 @@ class Wordcloud extends React.Component {
   componentDidMount() {
     updateWordCloud(this.props.counts, this.props.width, this.id);
   }
-  componentWillUpdate(nextProps) {
-    updateWordCloud(nextProps.counts, this.props.width, this.id);
+  componentDidUpdate(nextProps) {
+    updateWordCloud(nextProps.counts, nextProps.width, this.id);
   }
   render() {
-    return (<div>
-      <canvas width={this.props.width} height={this.props.height} id={this.id} />
-    </div>);
+    return (
+      <canvas
+        width={this.props.width}
+        height={this.props.height}
+        id={this.id}
+        className={styles.Wordcloud}
+      />
+    );
   }
 }
 Wordcloud.defaultProps = {
   counts: {},
-  width: 1000,
   height: 600,
 };
 
-export default Wordcloud;
+const mapStateToProps = state => ({
+  width: state.browser.width <= 960 ? state.browser.width - 50 : state.browser.width - 100,
+});
+
+export default connect(mapStateToProps)(Wordcloud);

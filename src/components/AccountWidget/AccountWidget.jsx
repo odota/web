@@ -29,7 +29,7 @@ const AccountWidget = ({ loading, error, user, style }) => (
         <FlatButton
           href={`${API_HOST}/login`}
           label={strings.app_login}
-          hoverColor="#1976D2"
+          hoverColor={styles.blue}
         />
     }
   </div>

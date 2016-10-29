@@ -3,9 +3,9 @@ import { Link } from 'react-router';
 import strings from 'lang';
 import styles from './App.css';
 
-export default () => (
+export default ({ size }) => (
   <Link to="/" className={styles.AppLogo}>
-    <big>
+    <big style={{ fontSize: size }}>
       {`<${strings.app_name}/>`}
     </big>
   </Link>
