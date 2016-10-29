@@ -2,10 +2,10 @@
 
 .buildingMap {
   position: relative;
-  display: inline-block;
   width: 300px;
   height: 300px;
   border: 6px solid rgba(255, 255, 255, .1);
+  margin: 0 auto;
 
   & .buildingMapImage {
     width: 300px;
@@ -25,6 +25,16 @@
       &:hover {
         filter: drop-shadow(0 0 8px var(--textColorPrimary));
       }
+    }
+  }
+
+  @media only screen and (max-width: 370px) {
+    width: 250px;
+    height: 250px;
+
+    & .buildingMapImage {
+      width: 250px;
+      height: 250px;
     }
   }
 }

@@ -196,10 +196,12 @@ export default function BuildingMap({ match }) {
           />
           {icons}
         </div>
-        <div className={styles.hint}>
-          <IconLightbulb />
-          {strings.building_hint}
-        </div>
+        {match.version &&
+          <div className={styles.hint}>
+            <IconLightbulb />
+            {strings.building_hint}
+          </div>
+        }
       </div>
     );
   }

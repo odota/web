@@ -108,7 +108,7 @@ const matchPages = [{
     </div>
     <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
     <div className={styles.overviewMapGraph}>
-      <div className={styles.map}>
+      <div className={`${styles.map} ${!match.version && styles.centeredMap}`}>
         <BuildingMap match={match} />
       </div>
       {match.version &&
