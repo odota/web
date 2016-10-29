@@ -169,11 +169,6 @@ export default function BuildingMap({ match }) {
                         </span>
                       </div>
                     }
-                    {type.includes('melee_rax' || 'fort') && damageByCreeps < 0 &&
-                      <div className={styles.regenerated}>
-                        Regenerated ~{Math.abs(damageByCreeps)} hit points
-                      </div>
-                    }
                   </div>
                 </div>
               }
