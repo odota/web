@@ -37,6 +37,9 @@
   "benchmarks_higher_than": "is equal or higher than",
   "benchmarks_recent_performances": "of recent performances on this hero",
 
+  "building_melee_rax": "Melee Barracks",
+  "building_range_rax": "Ranged Barracks",
+
   "distributions_heading_mmr": "Solo MMR Distribution",
   "distributions_heading_country_mmr": "Average Solo MMR by Country",
   "distributions_tab_mmr": "Solo MMR",

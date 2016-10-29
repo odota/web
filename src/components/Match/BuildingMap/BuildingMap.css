@@ -1,3 +1,5 @@
+@import "../../palette.css";
+
 .buildingMap {
   position: relative;
   display: inline-block;
@@ -9,5 +11,34 @@
     width: 300px;
     height: 300px;
     filter: grayscale(40%) brightness(180%) contrast(110%);
+  }
+  & > span {
+    position: absolute;
+
+    &:hover {
+      z-index: 99;
+    }
+    
+    & img {
+      transition: var(--normalTransition);
+
+      &:hover {
+        filter: drop-shadow(0 0 5px var(--textColorPrimary));
+      }
+    }
+  }
+}
+
+
+.destroyedBy {
+  & .text {
+    font-size: var(--fontSizeSmall);
+    color: var(--colorMutedLight);
+    font-weight: var(--fontWeightLight);
+  }
+  & .player img {
+    height: 14px;
+    vertical-align: sub;
+    margin-right: 4px;
   }
 }

@@ -1,6 +1,10 @@
 import React from 'react';
-import { pad } from 'utility';
+import {
+  pad,
+  playerColors,
+} from 'utility';
 import { API_HOST } from 'config';
+import heroes from 'dotaconstants/json/heroes.json';
 import Heading from 'components/Heading';
 import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
@@ -21,39 +25,85 @@ export default function BuildingMap({ match }) {
     // building data in correct order
     // determine ancient display by match winner
     for (let i = 0; i < bits.length; i += 1) {
-      const type = buildingData[i].id.slice(0, 1) === 't' ? 'tower' : 'racks';
-      const side = buildingData[i].id.slice(-1) === 'r' ? '_radiant.png' : '_dire.png';
-
+      let type = buildingData[i].id.slice(0, 1);
+      type =
+        (type === 't' && 'tower') ||
+        (type === 'b' && (buildingData[i].id.slice(1, 2) === 'm' ? 'melee_rax' : 'range_rax')) ||
+        (type === 'a' && 'fort');
+      const side = buildingData[i].id.slice(-1) === 'r' ? 'good' : 'bad';
+      const tier = Number(buildingData[i].id.slice(1, 2)) || '';
       let lane = buildingData[i].id.slice(2, 3);
-      lane = (lane === 't' && 'Top') || (lane === 'm' && 'Middle') || (lane === 'b' && 'Bottom');
-      const tier = buildingData[i].id.slice(1, 2);
-      const title = buildingData[i].id.slice(0, 1) === 't' ?
-        `${lane} Tier ${tier}` : (
-          (buildingData[i].id === 'ar' && 'Radiant Ancient') ||
-          (buildingData[i].id === 'ad' && 'Dire Ancient') ||
-          (buildingData[i].id.slice(1, 2) === 'm' ? `${lane} Melee` : `${lane} Ranged`)
-          );
+      lane = (tier !== 4 && (
+        (lane === 't' && 'top') ||
+        (lane === 'm' && 'mid') ||
+        (lane === 'b' && 'bot') || '')) || '';
+
+      const key = `npc_dota_${side}guys_${type}${tier}${lane && `_${lane}`}`;
+      const title =
+        strings[`${type.includes('rax') ? 'building_' : 'objective_'}${type}${tier}${type.includes('rax') ? '' : lane && `_${lane}`}`];
+
+      const destroyedBy = match.version && match.players
+        .filter(player => player.killed[key] > 0)
+        .map(player => ({
+          name: player.name || player.personaname || strings.general_anonymous,
+          player_slot: player.player_slot,
+          hero_id: player.hero_id,
+        }))[0];
 
       const props = {
-        src: `https://raw.githubusercontent.com/kronusme/dota2-api/master/images/map/${type}${side}`,
+        key: buildingData[i].id,
+        src: `/assets/images/${side}guys_${type.includes('rax') ? 'rax' : type}.png`,
         style: {
-          opacity: bits[i] === '1' || '0.4',
-          // TODO scale based on client width
-          // d.style += 'zoom: ' + document.getElementById(map').clientWidth / 600 + ';';
-          zoom: buildingData[i].id.slice(0, 1) === 'a' ? 0.8 : 0.5,
-          position: 'absolute',
-          top: buildingData[i].style.split(';')[1].split(':')[1],
-          left: buildingData[i].style.split(';')[2].split(':')[1],
+          span: {
+            top: buildingData[i].style.split(';')[1].split(':')[1],
+            left: buildingData[i].style.split(';')[2].split(':')[1],
+          },
+          img: {
+            // TODO scale based on client width
+            // d.style += 'zoom: ' + document.getElementById(map').clientWidth / 600 + ';';
+            zoom: buildingData[i].id.slice(0, 1) === 'a' ? 0.8 : 0.5,
+            opacity: bits[i] === '1' || '0.4',
+          },
         },
       };
+
       icons.push(
-        <span key={buildingData[i].id}>
+        <span
+          key={props.key}
+          data-tip
+          data-for={props.key}
+          style={props.style.span}
+        >
           <img
-            {...props}
+            src={props.src}
             role="presentation"
-            data-tip={title}
+            style={props.style.img}
           />
-          <ReactTooltip />
+          <ReactTooltip id={props.key} effect="solid">
+            <div>
+              {title}
+              {destroyedBy &&
+                <div className={styles.destroyedBy}>
+                  <span className={styles.text}>Destroyed by </span>
+                  <span className={styles.player} style={{ color: playerColors[destroyedBy.player_slot] }}>
+                    <img
+                      src={heroes[destroyedBy.hero_id] && API_HOST + heroes[destroyedBy.hero_id].img}
+                      role="presentation"
+                    />
+                    {destroyedBy.name}
+                  </span>
+                </div>
+              }
+              {match.version && !destroyedBy && bits[i] !== '1' &&
+                <div className={styles.destroyedBy}>
+                  <span className={styles.text}>Destroyed by </span>
+                  <span style={{ color: side === 'good' ? styles.red : styles.green }}>
+                    creeps
+                  </span>
+                </div>
+              }
+            </div>
+          </ReactTooltip>
         </span>
       );
     }
