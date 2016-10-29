@@ -1,3 +1,4 @@
+/* global API_HOST */
 import fetch from 'isomorphic-fetch';
 import patch from 'dotaconstants/json/patch.json';
 import region from 'dotaconstants/json/region.json';
@@ -5,9 +6,6 @@ import gameMode from 'dotaconstants/json/game_mode.json';
 import lobbyType from 'dotaconstants/json/lobby_type.json';
 import leaverStatus from 'dotaconstants/json/leaver_status.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
-import {
-  API_HOST,
-} from 'config';
 import {
   playerCounts,
 } from 'reducers';

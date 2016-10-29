@@ -1,3 +1,4 @@
+/* global API_HOST */
 import React from 'react';
 import heroes from 'dotaconstants/json/heroes.json';
 import runes from 'dotaconstants/json/runes.json';
@@ -9,7 +10,6 @@ import abilityKeys from 'dotaconstants/json/ability_keys.json';
 import heroNames from 'dotaconstants/json/hero_names.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import strings from 'lang';
-import { API_HOST } from 'config';
 import {
   formatSeconds,
   abbreviateNumber,

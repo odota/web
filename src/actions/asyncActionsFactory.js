@@ -1,6 +1,6 @@
+/* global API_HOST */
 // TODO - work in progress
 // import fetch from 'isomorphic-fetch';
-// import { API_HOST } from 'config';
 // import { player } from 'reducers';
 //
 // export default (url, name, selector) => {

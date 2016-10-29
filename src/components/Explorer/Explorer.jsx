@@ -1,7 +1,7 @@
-/* global window ace */
+/* global window ace API_HOST */
 import React from 'react';
 import fetch from 'isomorphic-fetch';
-import { API_HOST } from 'config';
+import Spinner from 'components/Spinner';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Popover from 'material-ui/Popover';
@@ -15,7 +15,6 @@ import {
     TableRow,
     TableRowColumn,
 } from 'material-ui/Table';
-import Spinner from '../Spinner';
 import queries from './queries';
 // import {blue300} from 'material-ui/styles/colors';
 
@@ -65,11 +64,10 @@ LIMIT ${}
 */
 
 // TODO autocompletion?
-// TODO send selection as query
 // TODO handle enter keypress
-// TODO initial load shouldn't run the query?
-// TODO querystring: encodeURIComponent(sql/nql)
-// TODO get rid of queries table
+// TODO use table component
+// TODO show error better
+// TODO show curl example
 
 class Explorer extends React.Component
 {
@@ -85,13 +83,6 @@ class Explorer extends React.Component
     this.handleRequestOpen = this.handleRequestOpen.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
   }
-  componentWillMount() {
-    const id = this.props && this.props.location && this.props.location.query && this.props.location.query.id;
-    if (id) {
-      this.setState(Object.assign({}, this.state, { loading: true }));
-      fetch(`${API_HOST}/api/explorer?id=${id}`).then(jsonResponse).then(this.handleResponse);
-    }
-  }
   componentDidMount() {
     const editor = ace.edit('editor');
     editor.setTheme('ace/theme/monokai');
@@ -101,29 +92,23 @@ class Explorer extends React.Component
       minLines: 10,
       maxLines: Infinity,
     });
+    const sql = this.props && this.props.location && this.props.location.query && this.props.location.query.sql;
+    if (sql) {
+      editor.setValue(decodeURIComponent(sql));
+    }
     this.editor = editor;
   }
   handleQuery() {
     this.setState(Object.assign({}, this.state, { loading: true }));
-    fetch(`${API_HOST}/api/explorer`, {
-      method: 'post',
-      headers:
-      {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        sql: this.editor.getValue(),
-      }),
-    }).then(jsonResponse).then(this.handleResponse);
+    const queryString = `?sql=${encodeURIComponent(this.editor.getSelectedText() || this.editor.getValue())}`;
+    window.history.pushState('', '', queryString);
+    fetch(`${API_HOST}/api/explorer${queryString}`).then(jsonResponse).then(this.handleResponse);
   }
   handleExampleChange(event, value) {
     this.editor.setValue(queries[value].sql);
     this.handleRequestClose();
   }
   handleResponse(json) {
-    window.history.pushState('', '', `?id=${json.id}`);
-    this.editor.setValue(json.sql);
     this.setState(Object.assign({}, this.state, {
       loading: false,
       open: false,
@@ -149,6 +134,9 @@ class Explorer extends React.Component
       <div>
         <ul>
           <li>matches and player_matches tables only contain competitive matches in Professional and Premium tiers</li>
+          <li>Queries run as read-only</li>
+          <li>Queries time out after 30 seconds</li>
+          <li>Select part of the input to send only that fragment</li>
         </ul>
         <div>
           <RaisedButton
@@ -160,7 +148,7 @@ class Explorer extends React.Component
             onRequestClose={this.handleRequestClose}
           >
             <Menu onChange={this.handleExampleChange}>
-              {Object.keys(queries).map((k) => {
+              {Object.keys(queries).filter(k => Boolean(queries[k].name)).map((k) => {
                 const e = queries[k];
                 return <MenuItem value={k} primaryText={e.name} />;
               })
@@ -183,12 +171,12 @@ class Explorer extends React.Component
             <Table selectable={false}>
               <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
                 <TableRow>
-                  {this.state.result.result && !this.state.loading ?
-                  this.state.result.result.fields.map(f => <TableHeaderColumn>{f.name}</TableHeaderColumn>) : []}
+                  {this.state.result.fields && !this.state.loading ?
+                  this.state.result.fields.map(f => (<TableHeaderColumn>{f.name}</TableHeaderColumn>)) : []}
                 </TableRow>
               </TableHeader>
               <TableBody displayRowCheckbox={false}>
-                {this.state.result.result && !this.state.loading ? this.state.result.result.rows.map(r => (<TableRow>
+                {this.state.result.rows && !this.state.loading ? this.state.result.rows.map(r => (<TableRow>
                   {Object.keys(r).map(k => <TableRowColumn>{r[k]}</TableRowColumn>)}
                 </TableRow>)) : []}
               </TableBody>

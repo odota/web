@@ -1,6 +1,5 @@
 import React from 'react';
 import { pad } from 'utility';
-import { API_HOST } from 'config';
 import Heading from 'components/Heading';
 import strings from 'lang';
 import buildingData from './buildingData';
@@ -45,7 +44,7 @@ export default function BuildingMap({
         <Heading title={strings.heading_buildings} />
         <div className={styles.buildingMap}>
           <img
-            src={`${API_HOST}/apps/dota2/images/tv/minimap_686.jpg`}
+            src="/assets/images/minimap_686.jpg"
             role="presentation"
             className={styles.buildingMapImage}
           />

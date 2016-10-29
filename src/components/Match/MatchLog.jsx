@@ -1,3 +1,4 @@
+/* global API_HOST */
 import React from 'react';
 import strings from 'lang';
 import {
@@ -7,7 +8,6 @@ import Table from 'components/Table';
 import objectives from 'dotaconstants/json/objectives.json';
 import barracksValue from 'dotaconstants/json/barracks_value.json';
 import Checkbox from 'material-ui/Checkbox';
-import { API_HOST } from 'config';
 import heroNames from 'dotaconstants/json/hero_names.json';
 import styles from './Match.css';
 import {

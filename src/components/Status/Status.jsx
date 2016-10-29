@@ -1,6 +1,6 @@
+/* global API_HOST */
 import React from 'react';
 import fetch from 'isomorphic-fetch';
-import { API_HOST } from 'config';
 import { fromNow } from 'utility';
 import Table from 'components/Table';
 

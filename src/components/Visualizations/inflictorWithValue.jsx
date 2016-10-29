@@ -1,10 +1,10 @@
+/* global API_HOST */
 /* eslint-disable react/no-danger */
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'node-uuid';
 import items from 'dotaconstants/json/items.json';
 import abilities from 'dotaconstants/json/abilities.json';
-import { API_HOST } from 'config';
 import strings from 'lang';
 import styles from './inflictorWithValue.css';
 
