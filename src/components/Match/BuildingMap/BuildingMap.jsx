@@ -11,6 +11,16 @@ import ReactTooltip from 'react-tooltip';
 import buildingData from './buildingData';
 import styles from './BuildingMap.css';
 
+const buildingsHealth = {
+  tower1: 1300,
+  tower2: 1600,
+  tower3: 1600,
+  tower4: 1600,
+  melee_rax: 1500,
+  range_rax: 1200,
+  fort: 4200,
+};
+
 export default function BuildingMap({ match }) {
   if (match && match.tower_status_radiant !== undefined) {
     // see https://wiki.teamfortress.com/wiki/WebAPI/GetMatchDetails
@@ -50,6 +60,15 @@ export default function BuildingMap({ match }) {
           hero_id: player.hero_id,
         }))[0];
 
+      const damage = match.version && match.players
+        .filter(player => player.damage[key] > 0)
+        .map(player => ({
+          name: player.name || player.personaname || strings.general_anonymous,
+          player_slot: player.player_slot,
+          hero_id: player.hero_id,
+          damage: player.damage[key],
+        }));
+
       const props = {
         key: buildingData[i].id,
         src: `/assets/images/${side}guys_${type.includes('rax') ? 'rax' : type}.png`,
@@ -82,24 +101,52 @@ export default function BuildingMap({ match }) {
           <ReactTooltip id={props.key} effect="solid">
             <div>
               {title}
-              {destroyedBy &&
-                <div className={styles.destroyedBy}>
-                  <span className={styles.text}>Destroyed by </span>
-                  <span className={styles.player} style={{ color: playerColors[destroyedBy.player_slot] }}>
-                    <img
-                      src={heroes[destroyedBy.hero_id] && API_HOST + heroes[destroyedBy.hero_id].img}
-                      role="presentation"
-                    />
-                    {destroyedBy.name}
-                  </span>
+              {damage.length > 0 &&
+                <div>
+                  <div
+                    className={styles.buildingHealth}
+                    style={{
+                      backgroundColor: (bits[i] === '1' && styles.gray) || (side === 'good' ? styles.red : styles.green),
+                    }}
+                  >
+                    {damage.map(player => (
+                      <div
+                        style={{
+                          width: `${(Number(player.damage) * 100) / buildingsHealth[type === 'tower' ? `tower${tier}` : type]}%`,
+                          backgroundColor: playerColors[player.player_slot],
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <div className={styles.damage}>
+                    Damage:
+                    {damage.map(player => (
+                      <div>
+                        <img
+                          src={heroes[player.hero_id] && API_HOST + heroes[player.hero_id].img}
+                          role="presentation"
+                        />
+                        {player.damage}
+                        <span style={{ color: playerColors[player.player_slot] }}>
+                          {player.name}
+                        </span>
+                        {destroyedBy && destroyedBy.name === player.name && 'got a lasthit'}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               }
               {match.version && !destroyedBy && bits[i] !== '1' &&
                 <div className={styles.destroyedBy}>
-                  <span className={styles.text}>Destroyed by </span>
-                  <span style={{ color: side === 'good' ? styles.red : styles.green }}>
+                  <span
+                    style={{
+                      color: side === 'good' ? styles.red : styles.green,
+                      marginLeft: 0,
+                    }}
+                  >
                     creeps
                   </span>
+                  got a lasthit
                 </div>
               }
             </div>

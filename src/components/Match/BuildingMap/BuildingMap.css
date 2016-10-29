@@ -31,14 +31,35 @@
 
 
 .destroyedBy {
-  & .text {
-    font-size: var(--fontSizeSmall);
-    color: var(--colorMutedLight);
-    font-weight: var(--fontWeightLight);
-  }
   & .player img {
     height: 14px;
     vertical-align: sub;
     margin-right: 4px;
+  }
+}
+
+.buildingHealth {
+  height: 10px;
+  min-width: 150px;
+  margin: 4px 0;
+  display: flex;
+
+  & > div {
+    height: 100%;
+    float: left;
+  }
+}
+
+.damage {
+  & img {
+    height: 14px;
+    vertical-align: sub;
+    margin-right: 4px;
+  }
+}
+
+.destroyedBy, .damage {
+  & span {
+    margin: 0 5px;
   }
 }
