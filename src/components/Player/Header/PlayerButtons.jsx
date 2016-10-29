@@ -1,10 +1,10 @@
+/* global API_HOST */
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import ActionUpdate from 'material-ui/svg-icons/action/update';
 import ReactTooltip from 'react-tooltip';
 import strings from 'lang';
 import fetch from 'isomorphic-fetch';
-import { API_HOST } from 'config';
 import styles from './PlayerButtons.css';
 
 class PlayerButtons extends React.Component {

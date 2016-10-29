@@ -1,3 +1,4 @@
+/* global API_HOST */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -5,7 +6,6 @@ import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import strings from 'lang';
-import { API_HOST } from 'config';
 import { player } from 'reducers';
 import Spinner from '../Spinner';
 import Error from '../Error';

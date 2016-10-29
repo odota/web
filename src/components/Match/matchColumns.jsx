@@ -1,3 +1,4 @@
+/* global API_HOST */
 import React from 'react';
 import heroes from 'dotaconstants/json/heroes.json';
 import runes from 'dotaconstants/json/runes.json';
@@ -9,7 +10,6 @@ import abilityKeys from 'dotaconstants/json/ability_keys.json';
 import heroNames from 'dotaconstants/json/hero_names.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import strings from 'lang';
-import { API_HOST } from 'config';
 import {
   formatSeconds,
   abbreviateNumber,
@@ -29,7 +29,7 @@ import styles from './Match.css';
 export const heroTd = (row, col, field, index, hideName) => (
   <TableHeroImage
     image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
-    title={row.account_id ? (row.game_mode === 2 && row.name) || row.personaname : strings.general_anonymous}
+    title={row.name || row.personaname || strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
     subtitle={`${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`}

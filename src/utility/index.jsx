@@ -1,3 +1,4 @@
+/* global API_HOST */
 import React from 'react';
 import { Link } from 'react-router';
 import heroes from 'dotaconstants/json/heroes.json';
@@ -11,7 +12,6 @@ import lobbyType from 'dotaconstants/json/lobby_type.json';
 import leaverStatus from 'dotaconstants/json/leaver_status.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import xpLevel from 'dotaconstants/json/xp_level.json';
-import { API_HOST } from 'config';
 import styles from 'components/palette.css';
 import { TableLink } from 'components/Table';
 import {

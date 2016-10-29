@@ -1,5 +1,6 @@
 import React from 'react';
 import { List } from 'material-ui/List';
+import strings from 'lang';
 import SearchResultItem from './SearchResultItem';
 import style from './search.css';
 
@@ -16,7 +17,7 @@ export default ({ players }) => {
   return (
     <div className={style.searchResult}>
       <p>
-        <em>There are {players.length} results</em> {/* TODO replace hardcoded text */}
+        <em>{players.length} {strings.app_results}</em>
       </p>
       <List>{playerResult}</List>
     </div>

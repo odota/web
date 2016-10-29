@@ -20,10 +20,12 @@ const getPages = ({
   // let i = currentPage - 4 > 0 ? currentPage - 4 : 0;
   const pages = [];
   pages.push(<FlatButton className={styles.page} onClick={() => setCurrentPage(0)}>1...</FlatButton>);
-  const minEnd = 4;
-  const minStart = numPages - 5;
-  const start = Math.min(Math.max(currentPage - 2, 0), minStart);
-  const end = Math.max(Math.min(start + 4, numPages - 1), minEnd);
+  const minStart = Math.max(numPages - 5, 0);
+  const minEnd = Math.min(4, numPages - 1);
+  const targetStart = Math.max(currentPage - 2, 0);
+  const targetEnd = Math.min(currentPage + 2, numPages - 1);
+  const start = Math.min(targetStart, minStart);
+  const end = Math.max(targetEnd, minEnd);
   for (let i = start; i <= end; i += 1) {
     pages.push(<FlatButton
       className={i === currentPage ? styles.currentPage : styles.page}

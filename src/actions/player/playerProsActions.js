@@ -1,5 +1,5 @@
+/* global API_HOST */
 import fetch from 'isomorphic-fetch';
-import { API_HOST } from 'config';
 import { playerPros } from 'reducers';
 import { getUrl } from 'actions/utility';
 
@@ -40,7 +40,6 @@ export const getPlayerPros = (playerId, options = {}) => (dispatch, getState) =>
 
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
-    // TODO consider moving to reducer
     .then(json => json.filter(pro => Number(playerId) !== pro.account_id))
     .then(json => dispatch(getPlayerProsOk(json, playerId)))
     .catch(error => dispatch(getPlayerProsError(error, playerId)));

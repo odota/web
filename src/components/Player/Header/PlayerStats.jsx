@@ -51,21 +51,21 @@ export const PlayerStatsCards = ({
         />
       </div>
       <div className={compact && styles.compactRow}>
-        {(soloRank === 0 || soloRank) && (
+        {soloRank && (
           <CardTitle
             className={styles.playerStats}
             subtitle={soloRank || 'N/A'}
             title={strings.th_solo_mmr}
           />
         )}
-        {(partyRank === 0 || partyRank) && (
+        {partyRank && (
           <CardTitle
             className={styles.playerStats}
             subtitle={partyRank || 'N/A'}
             title={strings.th_party_mmr}
           />
         )}
-        {(mmrEstimate.estimate === 0 || mmrEstimate.estimate) && (
+        {mmrEstimate.estimate > 0 && (
           <CardTitle
             className={styles.playerStats}
             subtitle={

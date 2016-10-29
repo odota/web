@@ -14,6 +14,10 @@ import AccountWidget from '../AccountWidget';
 import styles from './Header.css';
 import SearchForm from '../Search/SearchForm';
 import AppLogo from '../App/AppLogo';
+import BurgerMenu from '../BurgerMenu';
+
+const tablet = 800;
+const mobile = 425;
 
 const navbarPages = [
 // TODO Explorer
@@ -30,32 +34,50 @@ const navbarPages = [
     path: '/become-the-gamer',
   }];
 
-const Header = ({ location }) => (
+const LogoGroup = ({ width }) => (
+  <ToolbarGroup className={styles.verticalAlign}>
+    {width < tablet && <BurgerMenu links={navbarPages} top={<AccountWidget />} />}
+    <AppLogo style={{ marginRight: 18 }} size={width < mobile && '14px'} />
+  </ToolbarGroup>
+);
+
+const LinkGroup = () => (
+  <ToolbarGroup className={styles.verticalAlign}>
+    {navbarPages.map(page => (
+      <div key={page.name} className={styles.tabContainer}>
+        {page.external ?
+          <a href={page.path} className={styles.tab}>{page.name}</a> :
+            <Link to={page.path} className={styles.tab}>{page.name}</Link>}
+      </div>
+    ))}
+  </ToolbarGroup>
+);
+
+const SearchGroup = ({ location }) => (
+  <ToolbarGroup style={{ marginLeft: 20 }} className={styles.verticalAlign}>
+    <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
+    <SearchForm location={location} />
+  </ToolbarGroup>
+);
+
+const AccountGroup = () => (
+  <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 'auto' }}>
+    <AccountWidget />
+  </ToolbarGroup>
+);
+
+const Header = ({ location, width }) => (
   <div>
-    <Toolbar className={styles.header}>
-      <ToolbarGroup className={styles.verticalAlign}>
-        <AppLogo style={{ marginRight: 10 }} />
-      </ToolbarGroup>
-      <ToolbarGroup className={styles.verticalAlign}>
-        {navbarPages.map(page => (
-          <div key={page.name} className={styles.tabContainer}>
-            {page.external ?
-              <a href={page.path} className={styles.tab}>{page.name}</a> :
-                <Link to={page.path} className={styles.tab}>{page.name}</Link>}
-          </div>
-        ))}
-      </ToolbarGroup>
-      <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 20 }}>
-        <ActionSearch style={{ marginRight: 8, opacity: '.6' }} />
-        <SearchForm location={location} />
-      </ToolbarGroup>
-      <ToolbarGroup className={styles.verticalAlign} style={{ marginLeft: 'auto' }}>
-        <AccountWidget />
-      </ToolbarGroup>
+    <Toolbar style={{ padding: width < mobile ? '8px' : '20px' }} className={styles.header}>
+      <LogoGroup width={width} />
+      {width > tablet && <LinkGroup />}
+      <SearchGroup location={location} />
+      {width > tablet && <AccountGroup />}
     </Toolbar>
   </div>
 );
 
-const mapDispatchToProps = () => ({});
-
-export default connect(null, mapDispatchToProps)(Header);
+const mapStateToProps = state => ({
+  width: state.browser.width,
+});
+export default connect(mapStateToProps, null)(Header);

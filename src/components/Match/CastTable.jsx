@@ -1,3 +1,4 @@
+/* global API_HOST */
 import React from 'react';
 import {
   Tabs,
@@ -8,9 +9,6 @@ import {
 } from 'components/Visualizations';
 import heroes from 'dotaconstants/json/heroes.json';
 // import items from 'dotaconstants/json/items.json';
-import {
-  API_HOST,
-} from 'config';
 import strings from 'lang';
 import Table from '../Table/Table';
 

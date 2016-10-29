@@ -1,8 +1,8 @@
+/* global API_HOST */
 import React from 'react';
 import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import strings from 'lang';
-import { API_HOST } from 'config';
 import { IconSteam } from 'components/Icons';
 import styles from './Home.css';
 
