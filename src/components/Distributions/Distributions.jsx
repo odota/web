@@ -84,7 +84,7 @@ const getPage = (data, key) => (
     <Heading
       title={strings[`distributions_heading_${key}`]}
       subtitle={`
-        ${data[key] && data[key].rows && abbreviateNumber(data[key].rows.map(row => row.count).reduce(sum))} ${strings.th_players}
+        ${data[key] && data[key].rows && abbreviateNumber(data[key].rows.map(row => row.count).reduce(sum, 0))} ${strings.th_players}
       `}
       icon=" "
       className={styles.Heading}

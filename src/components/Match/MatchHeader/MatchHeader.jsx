@@ -45,7 +45,7 @@ export default ({ match, user, loading }) => {
                 {
                   match.players
                     .map(mapPlayers('kills', true))
-                    .reduce(sum)
+                    .reduce(sum, 0)
                 }
               </Col>
               <Col className={styles.gmde}>
@@ -63,7 +63,7 @@ export default ({ match, user, loading }) => {
                 {
                   match.players
                     .map(mapPlayers('kills', false))
-                    .reduce(sum)
+                    .reduce(sum, 0)
                 }
               </Col>
             </Row>
@@ -80,7 +80,7 @@ export default ({ match, user, loading }) => {
               </li>
               <li>
                 <span>{strings.match_avg_mmr}</span>
-                {(mmrPlayers.reduce(sum) / mmrPlayers.length).toFixed(0)}
+                {(mmrPlayers.reduce(sum, 0) / mmrPlayers.length).toFixed(0)}
               </li>
             </ul>
           </Col>

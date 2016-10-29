@@ -1,7 +1,5 @@
+/* global API_HOST */
 import fetch from 'isomorphic-fetch';
-import {
-  API_HOST,
-} from 'config';
 import {
   playerItems,
 } from 'reducers';

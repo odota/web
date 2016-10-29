@@ -33,6 +33,7 @@
   "app_refresh": "Refresh Match History: Queue a scan to find missing matches due to privacy settings",
   "app_login": "Login",
   "app_logout": "Logout",
+  "app results": "results",
 
   "benchmarks_higher_than": "is equal or higher than",
   "benchmarks_recent_performances": "of recent performances on this hero",

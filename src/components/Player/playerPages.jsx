@@ -17,30 +17,37 @@ import {
   WordcloudPage,
 } from './Pages';
 
-// TODO add key prop for routing in other languages
 const playerPages = [{
   name: strings.tab_overview,
+  key: 'overview',
   content: (playerId, routeParams, location) => (<OverviewPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_matches,
+  key: 'matches',
   content: (playerId, routeParams, location) => (<MatchesPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_heroes,
+  key: 'heroes',
   content: (playerId, routeParams, location) => (<HeroesPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_peers,
+  key: 'peers',
   content: (playerId, routeParams, location) => (<PeersPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_pros,
+  key: 'pros',
   content: (playerId, routeParams, location) => (<ProsPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_records,
+  key: 'records',
   content: (playerId, routeParams, location) => (<RecordsPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_counts,
+  key: 'counts',
   content: (playerId, routeParams, location) => (<CountsPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_histograms,
+  key: 'histograms',
   content: (playerId, routeParams, location) => (<HistogramsPage
     playerId={playerId}
     routeParams={routeParams}
@@ -49,6 +56,7 @@ const playerPages = [{
   />),
 }, {
   name: strings.tab_trends,
+  key: 'trends',
   content: (playerId, routeParams, location) => (<TrendsPage
     playerId={playerId}
     routeParams={routeParams}
@@ -58,20 +66,25 @@ const playerPages = [{
 },
 /* {
   name: strings.tab_items,
+  key: 'items',
   content: (playerId, routeParams, location) => (<ItemsPage playerId={playerId} routeParams={routeParams} location={location} />),
 },
 */
   {
     name: strings.tab_wardmap,
+    key: 'wardmap',
     content: (playerId, routeParams, location) => (<WardmapPage playerId={playerId} routeParams={routeParams} location={location} />),
   }, {
     name: strings.tab_wordcloud,
+    key: 'wordcloud',
     content: (playerId, routeParams, location) => (<WordcloudPage playerId={playerId} routeParams={routeParams} location={location} />),
   }, {
     name: strings.tab_mmr,
+    key: 'mmr',
     content: (playerId, routeParams, location) => (<MMRPage playerId={playerId} routeParams={routeParams} location={location} />),
   }, {
     name: strings.tab_rankings,
+    key: 'rankings',
     content: (playerId, routeParams, location) => (<RankingsPage playerId={playerId} routeParams={routeParams} location={location} />),
   }];
 

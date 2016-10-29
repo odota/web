@@ -6,6 +6,7 @@
   "scripts": {
     "webpack": "NODE_ENV=production webpack -p --bail",
     "start": "webpack-dev-server --compress",
+    "startstage": "API_HOST=http://hchung.westus.cloudapp.azure.com:5000 npm start",
     "build": "NODE_ENV=production npm run lintnofix && npm run webpack",
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx"
