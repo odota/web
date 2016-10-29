@@ -40,7 +40,6 @@ export const getPlayerRecords = (playerId, options = {}) => (dispatch, getState)
 
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
-    // TODO consider moving to reducer
     .then(json => Object.keys(json).map(key => ({
       name: key,
       value: json[key][key],

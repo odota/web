@@ -68,7 +68,6 @@ export const getPlayerCounts = (playerId, options = {}) => (dispatch, getState) 
     credentials: 'include',
   })
     .then(response => response.json())
-    // TODO consider moving to reducer
     .then((json) => {
       const data = {};
       Object.keys(json).forEach((key) => {

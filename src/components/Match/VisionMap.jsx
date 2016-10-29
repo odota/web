@@ -101,14 +101,14 @@ class VisionMap extends React.Component {
         <Table
           data={this.props.match.players}
           columns={[
-          { displayFn: row => (<Checkbox
-            checkedIcon={<Visibility />}
-            uncheckedIcon={<VisibilityOff />}
-            checked={this.state.enabledIndex[this.props.match.players.findIndex(player => player.player_slot === row.player_slot)]}
-            onCheck={(event, checked) =>
+            { displayFn: row => (<Checkbox
+              checkedIcon={<Visibility />}
+              uncheckedIcon={<VisibilityOff />}
+              checked={this.state.enabledIndex[this.props.match.players.findIndex(player => player.player_slot === row.player_slot)]}
+              onCheck={(event, checked) =>
               this.updateMap(event, checked, this.props.match.players.findIndex(player => player.player_slot === row.player_slot))}
-            label=""
-          />) },
+              label=""
+            />) },
             heroTdColumn,
             {
               displayName: strings.th_ward_observer,
