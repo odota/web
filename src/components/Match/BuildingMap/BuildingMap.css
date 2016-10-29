@@ -90,3 +90,18 @@
   font-weight: var(--fontWeightLight);
   color: var(--colorMutedLight);
 }
+
+.hint {
+  color: var(--colorMutedLight);
+  font-weight: var(--fontWeightLight);
+  font-size: var(--fontSizeMedium);
+  text-align: center;
+  margin-top: 5px;
+
+  & svg {
+    vertical-align: sub;
+    fill: var(--colorMutedLight);
+    height: 14px;
+    margin-right: 5px;
+  }
+}

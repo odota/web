@@ -39,6 +39,9 @@
 
   "building_melee_rax": "Melee Barracks",
   "building_range_rax": "Ranged Barracks",
+  "building_lasthit": "got a lasthit",
+  "building_damage": "& received damage",
+  "building_hint": "Icons on the map have tooltips",
 
   "distributions_heading_mmr": "Solo MMR Distribution",
   "distributions_heading_country_mmr": "Average Solo MMR by Country",

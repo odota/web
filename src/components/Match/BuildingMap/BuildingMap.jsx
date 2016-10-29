@@ -9,6 +9,7 @@ import heroes from 'dotaconstants/json/heroes.json';
 import Heading from 'components/Heading';
 import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
+import { IconLightbulb } from 'components/Icons';
 import buildingData from './buildingData';
 import styles from './BuildingMap.css';
 
@@ -108,7 +109,7 @@ export default function BuildingMap({ match }) {
             {damage && damage.length > 0 &&
               <span>
                 <span className={styles.subtitle}>
-                & received damage
+                  {strings.building_damage}
                 </span>
                 <div>
                   <div
@@ -145,7 +146,7 @@ export default function BuildingMap({ match }) {
                         {destroyedBy && destroyedBy.player_slot === player.player_slot &&
                           <span className={styles.lasthit}>
                             {type !== 'fort' && <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />}
-                            got a lasthit
+                            {strings.building_lasthit}
                           </span>
                         }
                       </div>
@@ -171,7 +172,7 @@ export default function BuildingMap({ match }) {
                         >creeps </span>
                         {!destroyedBy &&
                           <span className={styles.lasthit}>
-                            got a lasthit
+                            {strings.building_lasthit}
                           </span>
                         }
                       </div>
@@ -194,6 +195,10 @@ export default function BuildingMap({ match }) {
             className={styles.buildingMapImage}
           />
           {icons}
+        </div>
+        <div className={styles.hint}>
+          <IconLightbulb />
+          {strings.building_hint}
         </div>
       </div>
     );
