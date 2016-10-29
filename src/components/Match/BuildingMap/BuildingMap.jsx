@@ -2,6 +2,7 @@ import React from 'react';
 import {
   pad,
   playerColors,
+  sum,
 } from 'utility';
 import { API_HOST } from 'config';
 import heroes from 'dotaconstants/json/heroes.json';
@@ -55,11 +56,8 @@ export default function BuildingMap({ match }) {
       const destroyedBy = match.version && match.players
         .filter(player => player.killed[key] > 0)
         .map(player => ({
-          name: player.name || player.personaname || strings.general_anonymous,
           player_slot: player.player_slot,
-          hero_id: player.hero_id,
         }))[0];
-
       const damage = match.version && match.players
         .filter(player => player.damage[key] > 0)
         .map(player => ({
@@ -68,6 +66,10 @@ export default function BuildingMap({ match }) {
           hero_id: player.hero_id,
           damage: player.damage[key],
         }));
+      let damageByCreeps = damage.length > 0 && damage
+        .map(player => player.damage)
+        .reduce(sum);
+      damageByCreeps = buildingsHealth[type === 'tower' ? `tower${tier}` : type] - damageByCreeps;
 
       const props = {
         key: buildingData[i].id,
@@ -119,34 +121,52 @@ export default function BuildingMap({ match }) {
                     ))}
                   </div>
                   <div className={styles.damage}>
-                    Damage:
                     {damage.map(player => (
                       <div>
                         <img
                           src={heroes[player.hero_id] && API_HOST + heroes[player.hero_id].img}
                           role="presentation"
                         />
-                        {player.damage}
-                        <span style={{ color: playerColors[player.player_slot] }}>
+                        <span className={styles.damageValue}>
+                          {player.damage}
+                        </span>
+                        <span
+                          style={{ color: playerColors[player.player_slot] }}
+                          className={styles.playerName}
+                        >
                           {player.name}
                         </span>
-                        {destroyedBy && destroyedBy.name === player.name && 'got a lasthit'}
+                        {destroyedBy && destroyedBy.player_slot === player.player_slot &&
+                          <span className={styles.lasthit}>
+                            {type !== 'fort' && <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />}
+                            got a lasthit
+                          </span>
+                        }
                       </div>
                     ))}
+                    {(damageByCreeps > 0) && (bits[i] !== '1') &&
+                      <div className={styles.creeps}>
+                        <img
+                          src="/assets/images/blank-1x1.gif"
+                          role="presentation"
+                          style={{ backgroundColor: side === 'good' ? styles.red : styles.green }}
+                        />
+                        <span className={styles.damageValue}>
+                          {damageByCreeps}
+                        </span>
+                        <span
+                          style={{ color: side === 'good' ? styles.red : styles.green }}
+                          className={styles.playerName}
+                        >
+                          creeps {!destroyedBy &&
+                            <span className={styles.lasthit}>
+                              got a lasthit
+                            </span>
+                          }
+                        </span>
+                      </div>
+                    }
                   </div>
-                </div>
-              }
-              {match.version && !destroyedBy && bits[i] !== '1' &&
-                <div className={styles.destroyedBy}>
-                  <span
-                    style={{
-                      color: side === 'good' ? styles.red : styles.green,
-                      marginLeft: 0,
-                    }}
-                  >
-                    creeps
-                  </span>
-                  got a lasthit
                 </div>
               }
             </div>

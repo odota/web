@@ -30,14 +30,6 @@
 }
 
 
-.destroyedBy {
-  & .player img {
-    height: 14px;
-    vertical-align: sub;
-    margin-right: 4px;
-  }
-}
-
 .buildingHealth {
   height: 10px;
   min-width: 150px;
@@ -51,15 +43,36 @@
 }
 
 .damage {
-  & img {
+  & > div > img {
+    width: 24px;
     height: 14px;
     vertical-align: sub;
-    margin-right: 4px;
   }
-}
-
-.destroyedBy, .damage {
-  & span {
-    margin: 0 5px;
+  & .damageValue {
+    display: inline-block;
+    width: 36px;
+    text-align: center;
+  }
+  & .playerName {
+    margin-right: 5px;
+  }
+  & .lasthit {
+    font-size: var(--fontSizeSmall);
+    color: var(--colorGolden);
+    
+    & > img {
+      height: 10px;
+      margin-right: 3px;
+    }
+  }
+  & .creeps {
+    & .lasthit {
+      color: var(--colorMutedLight);
+    }
+    & img {
+      width: 24px;
+      height: 14px;
+      display: inline-block;
+    }
   }
 }
