@@ -23,7 +23,7 @@
       transition: var(--normalTransition);
 
       &:hover {
-        filter: drop-shadow(0 0 5px var(--textColorPrimary));
+        filter: drop-shadow(0 0 8px var(--textColorPrimary));
       }
     }
   }

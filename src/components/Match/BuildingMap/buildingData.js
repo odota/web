@@ -1,11 +1,11 @@
 export default [
   {
     id: 't4br',
-    style: 'position: absolute; top: 81%; left: 12%;',
+    style: 'position: absolute; top: 82%; left: 12%;',
   },
   {
     id: 't4tr',
-    style: 'position: absolute; top: 78%; left: 8%;',
+    style: 'position: absolute; top: 79%; left: 8%;',
   },
   {
     id: 't3br',
@@ -21,7 +21,7 @@ export default [
   },
   {
     id: 't3mr',
-    style: 'position: absolute; top: 74%; left: 16%;',
+    style: 'position: absolute; top: 75%; left: 15.4%;',
   },
   {
     id: 't2mr',
@@ -33,7 +33,7 @@ export default [
   },
   {
     id: 't3tr',
-    style: 'position: absolute; top: 69%; left: 3%;',
+    style: 'position: absolute; top: 70%; left: 2%;',
   },
   {
     id: 't2tr',
@@ -45,11 +45,11 @@ export default [
   },
   {
     id: 'brbr',
-    style: 'position: absolute; top: 90.3%; left: 17%;',
+    style: 'position: absolute; top: 90.3%; left: 18%;',
   },
   {
     id: 'bmbr',
-    style: 'position: absolute; top: 86.3%; left: 17%;',
+    style: 'position: absolute; top: 86.3%; left: 18%;',
   },
   {
     id: 'brmr',
@@ -65,7 +65,7 @@ export default [
   },
   {
     id: 'bmtr',
-    style: 'position: absolute; top: 72%; left: 6%;',
+    style: 'position: absolute; top: 72%; left: 5%;',
   },
   {
     id: 't4bd',
@@ -77,7 +77,7 @@ export default [
   },
   {
     id: 't3bd',
-    style: 'position: absolute; top: 28%; left: 92%;',
+    style: 'position: absolute; top: 27%; left: 91.4%;',
   },
   {
     id: 't2bd',
@@ -101,7 +101,7 @@ export default [
   },
   {
     id: 't3td',
-    style: 'position: absolute; top: 7%; left: 70%;',
+    style: 'position: absolute; top: 6%; left: 70%;',
   },
   {
     id: 't2td',
@@ -113,11 +113,11 @@ export default [
   },
   {
     id: 'brbd',
-    style: 'position: absolute; top: 24%; left: 89%;',
+    style: 'position: absolute; top: 24%; left: 90%;',
   },
   {
     id: 'bmbd',
-    style: 'position: absolute; top: 24%; left: 94%;',
+    style: 'position: absolute; top: 24%; left: 94.3%;',
   },
   {
     id: 'brmd',
@@ -129,15 +129,15 @@ export default [
   },
   {
     id: 'brtd',
-    style: 'position: absolute; top: 5%; left: 73%;',
+    style: 'position: absolute; top: 4%; left: 74%;',
   },
   {
     id: 'bmtd',
-    style: 'position: absolute; top: 9%; left: 73%;',
+    style: 'position: absolute; top: 7.5%; left: 74%;',
   },
   {
     id: 'ar',
-    style: 'position: absolute; top: 81%; left: 5%;',
+    style: 'position: absolute; top: 82%; left: 4%;',
   },
   {
     id: 'ad',

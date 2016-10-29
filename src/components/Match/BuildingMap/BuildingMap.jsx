@@ -66,14 +66,14 @@ export default function BuildingMap({ match }) {
           hero_id: player.hero_id,
           damage: player.damage[key],
         }));
-      let damageByCreeps = damage.length > 0 && damage
+      let damageByCreeps = damage && damage.length > 0 && damage
         .map(player => player.damage)
         .reduce(sum);
       damageByCreeps = buildingsHealth[type === 'tower' ? `tower${tier}` : type] - damageByCreeps;
 
       const props = {
         key: buildingData[i].id,
-        src: `/assets/images/${side}guys_${type.includes('rax') ? 'rax' : type}.png`,
+        src: `/assets/images/dota2/${side}guys_${type.includes('rax') ? 'rax' : type}${lane === 'mid' ? '_angle' : ''}.png`,
         style: {
           span: {
             top: buildingData[i].style.split(';')[1].split(':')[1],
@@ -82,7 +82,10 @@ export default function BuildingMap({ match }) {
           img: {
             // TODO scale based on client width
             // d.style += 'zoom: ' + document.getElementById(map').clientWidth / 600 + ';';
-            zoom: buildingData[i].id.slice(0, 1) === 'a' ? 0.8 : 0.5,
+            zoom:
+              (type === 'fort' && 0.5) ||
+              (type === 'tower' && 0.3) ||
+              (type.includes('rax') && 0.2),
             opacity: bits[i] === '1' || '0.4',
           },
         },
@@ -103,7 +106,7 @@ export default function BuildingMap({ match }) {
           <ReactTooltip id={props.key} effect="solid">
             <div>
               {title}
-              {damage.length > 0 &&
+              {damage && damage.length > 0 &&
                 <div>
                   <div
                     className={styles.buildingHealth}
@@ -166,9 +169,9 @@ export default function BuildingMap({ match }) {
                         </span>
                       </div>
                     }
-                    {type.includes('rax') && damageByCreeps < 0 &&
+                    {type.includes('melee_rax' || 'fort') && damageByCreeps < 0 &&
                       <div className={styles.regenerated}>
-                        Regenerated {Math.abs(damageByCreeps)} hit points
+                        Regenerated ~{Math.abs(damageByCreeps)} hit points
                       </div>
                     }
                   </div>
@@ -184,7 +187,7 @@ export default function BuildingMap({ match }) {
         <Heading title={strings.heading_buildings} />
         <div className={styles.buildingMap}>
           <img
-            src={`${API_HOST}/apps/dota2/images/tv/minimap_686.jpg`}
+            src="/assets/images/dota2/minimap.jpg"
             role="presentation"
             className={styles.buildingMapImage}
           />
