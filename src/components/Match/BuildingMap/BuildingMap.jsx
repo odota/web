@@ -1,3 +1,4 @@
+/* global API_HOST */
 import React from 'react';
 import {
   pad,
