@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import { API_HOST } from 'config';
 import { getPlayer } from 'actions';
+import strings from 'lang';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import LoggedIn from './LoggedIn';
@@ -27,7 +28,7 @@ const AccountWidget = ({ loading, error, user, style }) => (
       :
         <FlatButton
           href={`${API_HOST}/login`}
-          label="Login"
+          label={strings.app_login}
           hoverColor={styles.blue}
         />
     }

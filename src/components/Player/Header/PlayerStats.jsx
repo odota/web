@@ -12,9 +12,9 @@ import {
 } from 'reducers';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
+import strings from 'lang';
 import styles from './PlayerStats.css';
 
-// TODO localize strings
 export const PlayerStatsCards = ({
     loading,
     error,
@@ -37,17 +37,17 @@ export const PlayerStatsCards = ({
         <CardTitle
           className={styles.playerStats}
           subtitle={<div className={styles.textSuccess}>{wins}</div>}
-          title="wins"
+          title={strings.th_wins}
         />
         <CardTitle
           className={styles.playerStats}
           subtitle={<div className={styles.textDanger}>{losses}</div>}
-          title="losses"
+          title={strings.th_losses}
         />
         <CardTitle
           className={styles.playerStats}
           subtitle={`${((wins / (wins + losses)) * 100).toFixed(2)}%`}
-          title="winrate"
+          title={strings.th_winrate}
         />
       </div>
       <div className={compact && styles.compactRow}>
@@ -55,14 +55,14 @@ export const PlayerStatsCards = ({
           <CardTitle
             className={styles.playerStats}
             subtitle={soloRank || 'N/A'}
-            title="Solo MMR"
+            title={strings.th_solo_mmr}
           />
         )}
         {(partyRank === 0 || partyRank) && (
           <CardTitle
             className={styles.playerStats}
             subtitle={partyRank || 'N/A'}
-            title="Party MMR"
+            title={strings.th_party_mmr}
           />
         )}
         {(mmrEstimate.estimate === 0 || mmrEstimate.estimate) && (
@@ -73,23 +73,22 @@ export const PlayerStatsCards = ({
                 <div data-tip data-for="estimate">
                   {mmrEstimate.estimate}
                   <ReactTooltip id="estimate" place="bottom" type="light" effect="float">
-                    Standard deviation: {Math.round(mmrEstimate.stdDev)}
+                    {strings.general_standard_deviation}: {Math.round(mmrEstimate.stdDev)}
                     <br />
-                    Matches: {mmrEstimate.n}
+                    {strings.general_matches}: {mmrEstimate.n}
                   </ReactTooltip>
                 </div>
               </div>
             }
             title={
               <div>
-                estimated MMR
+                {strings.th_estimated_mmr}
                 <div data-tip data-for="estimateInfo" style={{ display: 'inline-block' }}>
                   <ActionHelp className={`${styles.icon} ${styles.mmrEstimateIcon}`} />
                 </div>
                 <ReactTooltip id="estimateInfo" place="right" type="light" effect="float">
                   <div style={{ textTransform: 'none', lineHeight: 1.2 }}>
-                    MMR estimate based on data from peer players.
-                    This is the mean visible MMR of the recent matches played by this user.
+                    {strings.tooltip_estimated_mmr}
                   </div>
                 </ReactTooltip>
               </div>
@@ -117,11 +116,10 @@ const mapStateToProps = (state, ownProps) => ({
   loading: player.getLoading(state, ownProps.playerId),
   error: player.getError(state, ownProps.playerId),
   partyRank: player.getCompetitiveRank(state, ownProps.playerId),
-  soloRank: player.getSoloMmrEstimate(state, ownProps.playerId),
+  soloRank: player.getSoloCompetitiveRank(state, ownProps.playerId),
   mmrEstimate: player.getMmrEstimate(state, ownProps.playerId),
   wins: player.getWins(state, ownProps.playerId),
   losses: player.getLosses(state, ownProps.playerId),
 });
-
 
 export default connect(mapStateToProps)(PlayerStatsCards);

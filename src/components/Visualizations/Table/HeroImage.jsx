@@ -1,76 +1,89 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
-import uuid from 'node-uuid';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import strings from 'lang';
 import { TableLink } from 'components/Table';
+import { playerColors } from 'utility';
+import { IconTrophy } from 'components/Icons';
 import styles from './HeroImage.css';
 
 const TableHeroImage = ({
   parsed,
   image,
-  imageWidth = 51,
-  imageHeight = 29,
   registered,
   title,
   subtitle,
   accountId,
-}) => {
-  const tooltipId = uuid.v4();
-
-  return (
-    <div className={styles.container}>
-      {parsed &&
-      <div className={styles.parsed}>
-        <div data-tip data-for="parsed">
-          <ActionDoneAll color={styles.blue} className={styles.actionDoneAll} />
-          <ReactTooltip id="parsed" place="right" type="light" effect="solid">
-            {strings.tooltip_parsed}
+  playerSlot,
+  hideText,
+  confirmed,
+}) => (
+  <div className={styles.container}>
+    {parsed !== undefined &&
+    <div
+      className={parsed ? styles.parsed : styles.unparsed}
+      data-tip
+      data-for={parsed ? 'parsed' : 'unparsed'}
+    >
+      <ActionDoneAll />
+      <ReactTooltip id={parsed ? 'parsed' : 'unparsed'} place="right" effect="solid">
+        {parsed ? strings.tooltip_parsed : strings.tooltip_unparsed}
+      </ReactTooltip>
+    </div>
+    }
+    {image &&
+    <div className={styles.imageContainer}>
+      <img
+        src={image}
+        role="presentation"
+        className={styles.image}
+      />
+      {playerSlot !== undefined &&
+      <div
+        className={styles.playerSlot}
+        style={{ backgroundColor: playerColors[playerSlot] }}
+      />
+      }
+    </div>
+    }
+    {!hideText &&
+    <div className={styles.textContainer} style={{ marginLeft: !image && 59 }}>
+      <span>
+        {registered &&
+        <div data-tip data-for={`registered_${accountId}`} className={styles.registered}>
+          <ReactTooltip id={`registered_${accountId}`} place="top" effect="solid">
+            {strings.tooltip_registered_user}
           </ReactTooltip>
         </div>
-      </div>
-      }
-      <div className={styles.imageContainer}>
-        <img
-          src={image}
-          role="presentation"
-          className={styles.image}
-          width={imageWidth}
-          height={imageHeight}
-        />
-      </div>
-      <div className={styles.textContainer}>
-        <span>
-          {registered &&
-          <div data-tip data-for={tooltipId} className={styles.registered}>
-            <ReactTooltip id={tooltipId} place="top" type="light" effect="solid">
-              {strings.tooltip_registered_user}
-            </ReactTooltip>
-          </div>
-          }
-          {accountId ?
-            <TableLink to={`/players/${accountId}`}>
-              {title}
-            </TableLink>
-          : title}
-        </span>
-        {subtitle &&
-        <span className={styles.subText}>
-          {subtitle}
-        </span>
         }
-      </div>
-    </div>
-  );
-};
+        {confirmed &&
+        <div data-tip data-for={`confirmed_${accountId}`} className={styles.confirmed}>
+          <IconTrophy />
+          <ReactTooltip id={`confirmed_${accountId}`} place="top"effect="solid">
+            {strings.app_confirmed_as} {title}
+          </ReactTooltip>
+        </div>
+        }
+        {accountId ?
+          <TableLink to={`/players/${accountId}`}>
+            {title}
+          </TableLink>
+        : title}
+      </span>
+      {subtitle &&
+      <span className={styles.subText}>
+        {subtitle}
+      </span>
+      }
+    </div>}
+  </div>
+);
 
-const { number, string, object, oneOfType } = React.PropTypes;
+const { number, string, object, oneOfType, bool } = React.PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: number,
   image: string,
-  imageWidth: number,
-  imageHeight: number,
   title: string,
   subtitle: oneOfType([
     string,
@@ -78,6 +91,8 @@ TableHeroImage.propTypes = {
   ]),
   registered: string,
   accountId: number,
+  playerSlot: number,
+  hideText: bool,
 };
 
 export default TableHeroImage;

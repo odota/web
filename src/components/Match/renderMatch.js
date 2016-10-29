@@ -1,18 +1,10 @@
 import {
   isRadiant,
   isSupport,
+  getLevelFromXp,
 } from 'utility';
-/*
-import {
-  specific,
-  heroes,
-  xp_level as xpLevel,
-  lane_role as laneRole,
-} from 'dotaconstants';
-*/
 import heroes from 'dotaconstants/json/heroes.json';
 import specific from 'dotaconstants/json/specific.json';
-import xpLevel from 'dotaconstants/json/xp_level.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import analysis from './analysis';
 
@@ -25,15 +17,6 @@ Object.keys(specific).forEach((key) => {
 
 const getMaxKeyOfObject = field =>
   (field ? Object.keys(field).sort((a, b) => Number(b) - Number(a))[0] : '');
-
-function getLevelFromXp(xp) {
-  for (let i = 0; i < xpLevel.length; i += 1) {
-    if (xpLevel[i] > xp) {
-      return i;
-    }
-  }
-  return xpLevel.length;
-}
 
 /**
  * Generates data for c3 charts in a match
@@ -250,6 +233,14 @@ function renderMatch(m) {
           newPlayer.specific[name] = newPlayer.specific[name] ? newPlayer.specific[name] + newPlayer.killed[key] : newPlayer.killed[key];
         }
       });
+    }
+    if (player.purchase) {
+      newPlayer.purchase_tpscroll = player.purchase.tpscroll;
+      newPlayer.purchase_ward_observer = player.purchase.ward_observer;
+      newPlayer.purchase_ward_sentry = player.purchase.ward_sentry;
+      newPlayer.purchase_smoke_of_deceit = player.purchase.smoke_of_deceit;
+      newPlayer.purchase_dust = player.purchase.dust;
+      newPlayer.purchase_gem = player.purchase.gem;
     }
     return newPlayer;
   });

@@ -1,8 +1,6 @@
 import React from 'react';
-import IconButton from 'material-ui/IconButton';
 import strings from 'lang';
 import styles from './Footer.css';
-import { IconSteam } from '../Icons';
 
 const links = [{
   name: strings.app_about,
@@ -24,16 +22,5 @@ export default () => (
         <a href={link.path} key={link.name} target="_blank" rel="noopener noreferrer">{link.name}</a>
       ))}
     </div>
-    <small>
-      {strings.app_powered_by}
-      <IconButton
-        target="_blank"
-        rel="noopener noreferrer"
-        className={styles.iconButton}
-        href="//steampowered.com"
-      >
-        <IconSteam style={{ width: 14, height: 14 }} />
-      </IconButton>
-    </small>
   </div>
 );

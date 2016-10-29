@@ -1,14 +1,7 @@
-import util from 'util';
-/*
-import {
-  items,
-  item_groups as itemGroups,
-  skillshots,
-} from 'dotaconstants';
-*/
 import items from 'dotaconstants/json/items.json';
 import itemGroups from 'dotaconstants/json/item_groups.json';
 import skillshots from 'dotaconstants/json/skillshots.json';
+import strings from 'lang';
 import {
   isSupport,
   getObsWardsPlaced,
@@ -32,7 +25,7 @@ export default function (match, pm) {
       }
       return {
         grade: true,
-        name: 'Lane efficiency at 10 minutes',
+        name: strings.analysis_eff,
         value: eff,
         top,
         valid: eff !== undefined,
@@ -57,48 +50,13 @@ export default function (match, pm) {
       }
       return {
         grade: true,
-        name: 'Lowest GPM in 5 minute interval',
-        suffix: util.format('(<b>%s</b> minutes)', start),
+        name: strings.analysis_farm_drought,
         value: delta / interval,
         top: isSupport(pm) ? 150 : 300,
         valid: Boolean(start),
         score(raw) {
           return raw;
         },
-      };
-    },
-    // Flaming in all chat
-    flaming(m, pm) {
-      let flames = 0;
-      const words = ['fuck', 'shit'];
-      if (pm.my_word_counts) {
-        Object.keys(pm.my_word_counts).forEach((key) => {
-          if (words.some(w => key.indexOf(w) !== -1)) {
-            flames += pm.my_word_counts[key];
-          }
-        });
-      }
-      return {
-        name: 'Profanities used',
-        value: flames,
-        valid: Boolean(pm.my_word_counts),
-        score(raw) {
-          return 5 - raw;
-        },
-        top: 0,
-      };
-    },
-    // Courier feeding
-    courier_feeding(m, pm) {
-      const couriers = pm.purchase && pm.purchase.courier ? Math.max(pm.purchase.courier - 2, 0) : 0;
-      return {
-        name: 'Couriers bought and fed',
-        value: couriers,
-        valid: Boolean(pm.purchase),
-        score(raw) {
-          return raw ? 0 : 1;
-        },
-        top: 0,
       };
     },
     // low ability accuracy (custom list of skillshots)
@@ -113,7 +71,7 @@ export default function (match, pm) {
       }
       return {
         grade: true,
-        name: 'Skillshots landed',
+        name: strings.analysis_skillshot,
         value: acc,
         valid: acc !== undefined,
         score(raw) {
@@ -131,7 +89,7 @@ export default function (match, pm) {
       }
       return {
         grade: true,
-        name: 'Courier upgrade delay',
+        name: strings.analysis_late_courier,
         value: time - flyingAvailable,
         valid: time !== undefined,
         score(raw) {
@@ -150,7 +108,7 @@ export default function (match, pm) {
       const maxPlaced = ((m.duration / wardCooldown) * 2) / 2;
       return {
         grade: true,
-        name: 'Wards placed',
+        name: strings.analysis_wards,
         value: wards,
         valid: isSupport(pm),
         score(raw) {
@@ -166,7 +124,7 @@ export default function (match, pm) {
         roshTaken = pm.killed.npc_dota_roshan || 0;
       }
       return {
-        name: 'Roshans killed',
+        name: strings.analysis_roshan,
         value: roshTaken,
         valid: isRoshHero(pm),
         score(raw) {
@@ -187,7 +145,7 @@ export default function (match, pm) {
       const target = match.duration / 60 / 4;
       return {
         grade: true,
-        name: 'Runes obtained',
+        name: strings.analysis_rune_control,
         value: runes,
         valid: runes !== undefined && pm.lane_role === 2,
         score(raw) {
@@ -212,18 +170,18 @@ export default function (match, pm) {
         Object.keys(pm.purchase).forEach((key) => {
           if (pm.purchase[key] && getGroupedItemUses(key) < 1 && items[key] && isActiveItem(key)) {
             // if item has cooldown, consider it usable
-            result.push(`<img title='${key}' class='item img-sm' src='${items[key].img}' />`);
+            result.push(key);
           }
         });
       }
 
       return {
-        name: 'Unused active items',
-        suffix: util.format('%s', result.length ? result.join('') : 0),
+        name: strings.analysis_unused_item,
+        metadata: result,
         value: result.length,
-        valid: pm.purchase,
+        valid: pm.purchase && result.length,
         score(raw) {
-          return 5 - raw;
+          return 4 - raw;
         },
         top: 0,
       };
@@ -231,11 +189,6 @@ export default function (match, pm) {
   };
   Object.keys(checks).forEach((key) => {
     advice[key] = checks[key](match, pm);
-    const val = advice[key];
-    val.display = util.format('%s: %s, expected %s', val.name, Number(val.value ? val.value.toFixed(2) : ''), Number(val.top.toFixed(2)));
-    val.display += (val.suffix ? ` ${val.suffix}` : '');
-    val.pct = val.score(val.value) / val.score(val.top);
-    delete val.score;
   });
   return advice;
 }

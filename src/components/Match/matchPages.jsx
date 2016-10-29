@@ -1,11 +1,9 @@
 import React from 'react';
 import {
   formatSeconds,
-  // defaultSort,
   isRadiant,
 } from 'utility';
 import strings from 'lang';
-// import { Card } from 'material-ui/Card';
 import {
   Tabs,
   Tab,
@@ -13,6 +11,7 @@ import {
 import Heading from 'components/Heading';
 import Table from 'components/Table';
 import { Row, Col } from 'react-flexbox-grid';
+import { IconRadiant, IconDire } from 'components/Icons';
 import VisionMap from './VisionMap';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
@@ -21,7 +20,7 @@ import BuildingMap from './BuildingMap';
 import MatchLog from './MatchLog';
 import {
   overviewColumns,
-  abilityUpgradeColumns,
+  // abilityUpgradeColumns,
   benchmarksColumns,
   performanceColumns,
   supportColumns,
@@ -39,6 +38,7 @@ import {
   teamfightColumns,
   inflictorsColumns,
 } from './matchColumns';
+import styles from './Match.css';
 
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
@@ -49,21 +49,73 @@ const TeamTable = ({
   match,
   columns,
   heading = '',
-}) => (<div>
-  <Heading title={`${strings.general_radiant} ${heading}`} />
-  <Table data={filterMatchPlayers(match.players, 'radiant')} columns={columns} />
-  <Heading title={`${strings.general_dire} ${heading}`} />
-  <Table data={filterMatchPlayers(match.players, 'dire')} columns={columns} />
-</div>);
+}) => (
+  <div>
+    <Heading
+      title={`${strings.general_radiant} ${heading}`}
+      icon={<IconRadiant className={styles.iconRadiant} />}
+    />
+    <Table data={filterMatchPlayers(match.players, 'radiant')} columns={columns} />
+    <Heading
+      title={`${strings.general_dire} ${heading}`}
+      icon={<IconDire className={styles.iconDire} />}
+    />
+    <Table data={filterMatchPlayers(match.players, 'dire')} columns={columns} />
+  </div>
+);
 
-// TODO: Add networth and xp graph to overview
+const firstNumbers = (match) => {
+  let tower;
+  let barracks;
+  let roshan;
+  if (match.objectives) {
+    tower = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_TOWER_KILL');
+    barracks = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_BARRACKS_KILL');
+    roshan = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_ROSHAN_KILL');
+  }
+  return (
+    <div>
+      {match.first_blood_time !== undefined &&
+      <div>
+        <span>{strings.match_first_blood} </span>
+        {formatSeconds(match.first_blood_time)}
+      </div>}
+      {tower >= 0 &&
+      <div>
+        <span>{strings.match_first_tower} </span>
+        {formatSeconds(match.objectives[tower].time)}
+      </div>}
+      {barracks >= 0 &&
+      <div>
+        <span>{strings.match_first_barracks} </span>
+        {formatSeconds(match.objectives[barracks].time)}
+      </div>}
+      {roshan >= 0 &&
+      <div>
+        <span>{strings.match_first_roshan} </span>
+        {formatSeconds(match.objectives[roshan].time)}
+      </div>}
+    </div>
+  );
+};
+
+// TODO add key prop for routing in other languages
 const matchPages = [{
   name: strings.tab_overview,
   content: match => (<div>
+    <div className={styles.matchNumbers}>
+      {firstNumbers(match)}
+    </div>
     <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
-    <TeamTable match={match} columns={abilityUpgradeColumns} heading={strings.heading_ability_builds} />
-    <Heading title={strings.heading_buildings} />
-    <BuildingMap match={match} />
+    <div className={styles.overviewMapGraph}>
+      <div className={styles.map}>
+        <BuildingMap match={match} />
+      </div>
+      {match.version &&
+      <div className={styles.graph}>
+        <MatchGraph match={match} type="difference" />
+      </div>}
+    </div>
   </div>),
 }, {
   name: strings.tab_benchmarks,
@@ -72,6 +124,7 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_performances,
+  parsed: true,
   content: match => (<Row>
     <Col md={12}>
       <TeamTable match={match} columns={performanceColumns} heading={strings.heading_performances} />
@@ -82,6 +135,7 @@ const matchPages = [{
   </Row>),
 }, {
   name: strings.tab_combat,
+  parsed: true,
   content: match => (<Row>
     <Col md={6}>
       <Heading title={strings.heading_kills} />
@@ -97,6 +151,7 @@ const matchPages = [{
   </Row>),
 }, {
   name: strings.tab_farm,
+  parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={unitKillsColumns} heading={strings.heading_unit_kills} />
     <TeamTable match={match} columns={lastHitsTimesColumns(match)} heading={strings.heading_last_hits} />
@@ -111,11 +166,13 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_purchases,
+  parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={purchaseTimesColumns(match)} heading={strings.heading_purchase_log} />
   </div>),
 }, {
   name: strings.tab_graphs,
+  parsed: true,
   content: match => (<div>
     <MatchGraph match={match} type="difference" />
     <MatchGraph match={match} type="gold" />
@@ -124,29 +181,34 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_casts,
+  parsed: true,
   content: match => (<div>
     <Heading title={strings.heading_casts} />
     <CastTable match={match} />
   </div>),
 }, {
   name: strings.tab_objectives,
+  parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={objectiveDamageColumns} heading={strings.heading_objective_damage} />
     <TeamTable match={match} columns={runesColumns} heading={strings.heading_runes} />
   </div>),
 }, {
   name: strings.tab_vision,
+  parsed: true,
   content: match => (<div>
     <Heading title={strings.heading_vision} />
     <VisionMap match={match} />
   </div>),
 }, {
   name: strings.tab_actions,
+  parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={actionsColumns} heading={strings.heading_actions} />
   </div>),
 }, {
   name: strings.tab_teamfights,
+  parsed: true,
   content: match => (
     <div>
       <Heading title={strings.heading_teamfights} />
@@ -164,29 +226,37 @@ const matchPages = [{
     </div>),
 }, {
   name: strings.tab_analysis,
+  parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={analysisColumns} heading={strings.heading_analysis} />
   </div>),
 }, {
   name: strings.tab_cosmetics,
-  content: match => (<div>
-    <TeamTable match={match} columns={cosmeticsColumns} heading={strings.heading_cosmetics} />
-  </div>),
+  parsed: true,
+  content: match => (
+    <div>
+      <Heading title={strings.heading_cosmetics} />
+      <Table data={match.players.filter(obj => obj.cosmetics.length > 0)} columns={cosmeticsColumns} />
+    </div>
+  ),
 }, {
   name: strings.tab_log,
+  parsed: true,
   content: match => (<div>
     <Heading title={strings.heading_log} />
     <MatchLog match={match} />
   </div>),
 }, {
   name: strings.tab_chat,
+  parsed: true,
   content: match => (<div>
     <Heading title={strings.heading_chat} />
     <Table data={(match.chat || []).map(c => Object.assign({}, c, match.players[c.slot]))} columns={chatColumns} />
   </div>),
 }];
 
-export default matchId => matchPages.map(page => ({
+export default (matchId, match) => matchPages.map(page => ({
   ...page,
   route: `/matches/${matchId}/${page.name.toLowerCase()}`,
+  disabled: match && !match.version && page.parsed,
 }));

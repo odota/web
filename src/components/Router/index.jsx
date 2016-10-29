@@ -14,9 +14,10 @@ import Home from 'components/Home';
 import Search from 'components/Search';
 import Explorer from 'components/Explorer';
 import FourOhFour from 'components/FourOhFour';
-import { Heroes } from 'components/Heroes';
+import Heroes from 'components/Heroes';
 import Request from 'components/Request';
 import Distributions from 'components/Distributions';
+import Status from 'components/Status';
 import store from 'store';
 import { getMetadata } from 'actions';
 
@@ -31,15 +32,14 @@ export default () => (
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
-        <Route path="search" component={Search} />
-        <Route path="matches/:match_id(/:info)" component={Match} />
-        <Route path="players/:accountId(/:info)(/:subInfo)" component={Player} />
-        <Route path="explorer" component={Explorer} />
-        <Route path="heroes(/:hero_id)(/:info)" component={Heroes} />
+        <Route path="matches/:matchId(/:info)" component={Match} />
+        <Route path="players/:playerId(/:info)(/:subInfo)" component={Player} />
+        <Route path="heroes(/:heroId)(/:info)" component={Heroes} />
+        <Route path="distributions(/:info)" component={Distributions} />
         <Route path="request" component={Request} />
-        <Route path="distributions" component={Distributions} />
-        <Route path="carry" />
-        <Route path="status" />
+        <Route path="status" component={Status} />
+        <Route path="explorer" component={Explorer} />
+        <Route path="search" component={Search} />
         <Route path="*" component={FourOhFour} />
       </Route>
     </Router>

@@ -15,21 +15,6 @@ export const toggleShowForm = formName => ({
   formName,
 });
 
-export const deleteChip = (formName, fieldName, index) => ({
-  type: DELETE_CHIP,
-  formName,
-  fieldName,
-  index,
-});
-
-export const addChip = (formName, fieldName, value, limit) => dispatch => dispatch({
-  type: ADD_CHIP,
-  formName,
-  fieldName,
-  value,
-  limit,
-});
-
 export const clearForm = formName => ({
   type: CLEAR_FORM,
   formName,

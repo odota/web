@@ -19,20 +19,20 @@ import BurgerMenu from '../BurgerMenu';
 const tablet = 800;
 const mobile = 425;
 
-const navbarPages = [{
-  name: strings.header_request,
-  path: '/request',
-}, {
-  name: strings.header_distributions,
-  path: '/distributions',
-}, {
-  name: strings.header_heroes,
-  path: '/heroes',
-}, {
-  name: strings.header_ingame,
-  sponsored: true,
-  path: '/become-the-gamer',
-}];
+const navbarPages = [
+// TODO Explorer
+// TODO Matches
+  {
+    name: strings.header_heroes,
+    path: '/heroes',
+  }, {
+    name: strings.header_distributions,
+    path: '/distributions',
+  }, {
+    name: strings.header_ingame,
+    sponsored: true,
+    path: '/become-the-gamer',
+  }];
 
 const LogoGroup = ({ width }) => (
   <ToolbarGroup className={styles.verticalAlign}>

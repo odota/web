@@ -9,7 +9,8 @@ import {
   playerMatches,
   playerHeroes,
 } from 'reducers';
-import Table, { TableContainer } from 'components/Table';
+import Table from 'components/Table';
+import Container from 'components/Container';
 import { TableFilterForm } from 'components/Form';
 import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesColumns';
 import { playerHeroesOverviewColumns } from 'components/Player/Pages/Heroes/playerHeroesColumns';
@@ -19,31 +20,40 @@ const MAX_OVERVIEW_ROWS = 20;
 
 const Overview = ({
   matchesData,
+  matchesLoading,
+  matchesError,
   heroesData,
+  heroesLoading,
+  heroesError,
 }) => (
   <div>
     <TableFilterForm />
     <div className={styles.overviewContainer}>
-      <TableContainer
+      <Container
         title={strings.heading_matches}
-        className={styles.matchesTableContainer}
+        className={styles.matchesContainer}
+        loading={matchesLoading}
+        error={matchesError}
       >
         <Table
           columns={playerMatchesColumns}
           data={matchesData}
           maxRows={MAX_OVERVIEW_ROWS}
         />
-      </TableContainer>
-      <TableContainer
+      </Container>
+
+      <Container
         title={strings.heading_heroes}
-        className={styles.heroesTableContainer}
+        className={styles.heroesContainer}
+        loading={heroesLoading}
+        error={heroesError}
       >
         <Table
           columns={playerHeroesOverviewColumns}
           data={heroesData}
           maxRows={MAX_OVERVIEW_ROWS}
         />
-      </TableContainer>
+      </Container>
     </div>
   </div>
 );
@@ -71,7 +81,11 @@ class RequestLayer extends React.Component {
 
 const mapStateToProps = (state, { playerId }) => ({
   matchesData: playerMatches.getMatchList(state, playerId),
+  matchesLoading: playerMatches.getLoading(state, playerId),
+  matchesError: playerMatches.getError(state, playerId),
   heroesData: playerHeroes.getHeroList(state, playerId),
+  heroesLoading: playerHeroes.getLoading(state, playerId),
+  heroesError: playerHeroes.getError(state, playerId),
 });
 
 const mapDispatchToProps = dispatch => ({

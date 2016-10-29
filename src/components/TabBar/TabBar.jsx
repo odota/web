@@ -1,14 +1,10 @@
 import React from 'react';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import { withRouter } from 'react-router';
-import querystring from 'querystring';
+import { browserHistory } from 'react-router';
 import styles from './TabBar.css';
 
-const onActive = (tab, router) => {
-  router.push({
-    pathname: tab.route,
-    query: querystring.parse(window.location.search.substring(1)),
-  });
+const onActive = (tab) => {
+  browserHistory.push(`${tab.route}${window.location.search}`);
 };
 
 const TabBar = ({ router, tabs, info }) => (
@@ -22,10 +18,11 @@ const TabBar = ({ router, tabs, info }) => (
         {tabs.map((tab, index) => (
           <Tab
             key={index}
-            className={styles.tab}
-            value={tab.name.toLowerCase()}
+            className={tab.disabled ? styles.tabDisabled : styles.tab}
+            value={tab.key || tab.name.toLowerCase()}
             label={tab.name}
             onActive={() => onActive(tab, router)}
+            disabled={tab.disabled}
           />
         ))}
       </Tabs>
@@ -40,4 +37,4 @@ TabBar.propTypes = {
   info: string,
 };
 
-export default withRouter(TabBar);
+export default TabBar;

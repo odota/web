@@ -1,24 +1,6 @@
 @import "../palette.css";
 
-.teamIndicator {
-  opacity: .5;
-  height: 24px;
-  width: 7px;
-  display: inline-block;
-  margin-right: 3px;
-}
-
-.dire {
-  composes: teamIndicator;
-  background-color: #CD5C5C;
-}
-
-.radiant {
-  composes: teamIndicator;
-  background-color: #66CD00;
-}
-
-.Header{
+.Header {
   text-align: center;
   display: block;
   text-transform: uppercase;
@@ -26,86 +8,188 @@
   margin-bottom: 30px;
 }
 
-.DireWin {
-  composes: Header;
-  color: #d5553a;
-}
-
-.RadiantWin {
-  composes: Header;
-  color: #a1db57;
-}
-
-.ActionButton {
-  padding: 10px 14px;
-  border: solid 1px rgb(58, 58, 58);
-  text-transform: uppercase;
-  margin-right: 10px;
-  background-color: #303030;
-  position: relative;
-  display: block;
-  float: left;
-  color: rgba(255,255, 255, 0.6);
-}
-
-.ActionButton:hover {
-  color: #fff;
-  transition: color .1s;
-}
-
-.JistTvImg {
-  position: absolute;
-  top: 7px;
-  right: 5px;
-  height: 20px;
-}
-.JistTvText {
-  margin-right: 64px;
-}
-.DotaCoachImg {
-  position: absolute;
-  right: 5px;
-  top: 7px;
-  height: 20px;
-}
-.DotaCoachText {
-  margin-right: 30px;
-}
-
-.TableBackground {
-  background-color: #3e3e3e;
-}
-
-.Table {
-  border: solid 1px #797979;
-  border-collapse: collapse;
-  float: right;
-  font-size: 12px;
-}
-
-.TableCell {
-  composes: TableBackground;
-  padding: 7px 12px;
-  text-align: right;
-}
-
-.MatchActionWrapper {
-  float: left;
-  position: absolute;
-  bottom: 0;
-  font-size: 13px;
-}
-
-.HeaderInfoWrapper {
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.Clear {
-  clear: both;
-}
-
 .matchGraph {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.abilityUpgrades {
+  & .ability {
+    position: relative;
+    display: inline-block;
+    margin: 0 3px;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+    &:last-of-type {
+      margin-right: 0;
+    }
+    & img {
+      height: 34px;
+      width: 34px;
+    }
+    & > div {
+      background-color: var(--darkPrimaryColor);
+      height: 34px;
+      width: 34px;
+      text-align: center;
+      bottom: 0;
+      left: 0;
+      font-size: 10px;
+    }
+  }
+  /* React-tooltip ability upgrades */
+  & > div {
+    pointer-events: auto !important;
+    margin-left: 3px !important;
+    padding: 6px 12px 2px !important;
+
+    &:hover {
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    &::after {
+      border-width: 20px !important;
+      right: 0 !important;
+      top: 0 !important;
+    }
+  }
+}
+
+.overviewMapGraph {
+  width: 100%;
+
+  & > div {
+    display: inline-block;
+    vertical-align: top;
+  }
+  & .graph {
+    margin-left: 30px;
+    width: calc(100% - 312px - 50px);
+
+    & svg[style="overflow: hidden;"] {
+      margin-top: 14px;
+    }
+  }
+
+  @media only screen and (max-width: 1023px) {
+    & > div {
+      display: block;
+    }
+    & .graph {
+      margin-left: 0;
+      width: 100%;
+    }
+    & .map {
+      width: 312px;
+      margin: 0 auto;
+    }
+  }
+  @media only screen and (max-width: 370px) {
+    & .map {
+      width: 250px;
+
+      & div > div:last-of-type {
+        width: 250px;
+        height: 250px;
+
+        & img:first-of-type {
+          width: 250px;
+          height: 250px;
+        }
+      }
+    }
+  }
+}
+
+.iconRadiant {
+  filter: drop-shadow(0 0 5px green);
+}
+.iconDire {
+  filter: drop-shadow(0 0 5px var(--colorDanger));
+  fill: black !important;
+}
+
+.matchNumbers {
+  text-align: right;
+  padding-top: 5px;
+  
+  & span {
+    font-size: var(--fontSizeSmall);
+    color: var(--colorMutedLight);
+    margin-left: 20px;
+    white-space: pre-line;
+  }
+  & > div {
+    display: inline;
+    vertical-align: middle;
+
+    &:first-of-type {
+      & span {
+        margin-left: 0;
+      }
+    }
+    & > div {
+      display: inline;
+      margin: 5px;
+      @media only screen and (max-width: 560px) {
+        display: block;
+        line-height: 2;
+
+        & span {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+.unusedItem {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.cosmetics {
+  display: inline-block;
+  margin: 5px;
+
+  & img {
+    height: 42px;
+  }
+  & > div {
+    font-size: var(--fontSizeCommon);
+
+    & span > span {
+      font-size: var(--fontSizeSmall);
+      color: var(--colorMutedLight);
+      text-transform: capitalize;
+      display: block;
+    }
+  }
+  & a {
+    transition: var(--normalTransition);
+    position: relative;
+
+    &:hover {
+      cursor: pointer;
+      opacity: .8;
+
+      & svg {
+        display: block !important;
+      }
+    }
+  }
+  & svg {
+    position: absolute;
+    /* override material-ui */
+    fill: var(--primaryLinkColor) !important;
+    display: none !important;
+    width: 18px !important;
+    height: 18px !important;
+    /* -- */
+    filter: drop-shadow(0 0 3px var(--darkPrimaryColor));
+    right: 2px;
+    bottom: 6px;
+  }
 }

@@ -12,27 +12,23 @@ import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
 // import Heading from 'components/Heading';
 import { TableFilterForm } from 'components/Form';
-import querystring from 'querystring';
+import Container from 'components/Container';
+import { browserHistory } from 'react-router';
 
-const selectTrend = (router, playerId) => (trendName) => {
-  router.push({
-    pathname: `/players/${playerId}/trends/${trendName}`,
-    query: querystring.parse(window.location.search.substring(1)),
-  });
-};
-
-const Trend = ({ routeParams, columns, router, playerId }) => (
+const Trend = ({ routeParams, columns, playerId, error, loading }) => (
   <div style={{ fontSize: 10 }}>
     <TableFilterForm />
     <ButtonGarden
+      onClick={buttonName => browserHistory.push(`/players/${playerId}/trends/${buttonName}${window.location.search}`)}
       buttonNames={trendNames}
       selectedButton={routeParams.subInfo || trendNames[0]}
-      onClick={selectTrend(router, playerId)}
     />
-    <TrendGraph
-      columns={columns}
-      name={deSnake(routeParams.subInfo || trendNames[0])}
-    />
+    <Container error={error} loading={loading}>
+      <TrendGraph
+        columns={columns}
+        name={deSnake(routeParams.subInfo || trendNames[0])}
+      />
+    </Container>
   </div>
 );
 

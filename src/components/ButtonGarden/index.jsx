@@ -1,6 +1,5 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import { withRouter } from 'react-router';
 import { deSnake } from 'utility';
 import styles from './ButtonGarden.css';
 
@@ -26,4 +25,4 @@ ButtonGarden.propTypes = {
   onClick: func,
 };
 
-export default withRouter(ButtonGarden);
+export default ButtonGarden;

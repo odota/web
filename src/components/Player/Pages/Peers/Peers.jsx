@@ -4,17 +4,18 @@ import {
   getPlayerPeers,
 } from 'actions';
 import { playerPeers } from 'reducers';
-import Table, { TableContainer } from 'components/Table';
+import Table from 'components/Table';
+import Container from 'components/Container';
 import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerPeersColumns from './playerPeersColumns';
 
-const Peers = ({ data }) => (
+const Peers = ({ data, playerId, error, loading }) => (
   <div>
     <TableFilterForm />
-    <TableContainer title={strings.heading_peers}>
-      <Table paginated columns={playerPeersColumns} data={data} />
-    </TableContainer>
+    <Container title={strings.heading_peers} error={error} loading={loading}>
+      <Table paginated columns={playerPeersColumns(playerId)} data={data} />
+    </Container>
   </div>
 );
 
@@ -40,6 +41,8 @@ class RequestLayer extends React.Component {
 
 const mapStateToProps = (state, { playerId }) => ({
   data: playerPeers.getPeerList(state, playerId),
+  error: playerPeers.getError(state, playerId),
+  loading: playerPeers.getLoading(state, playerId),
 });
 const mapDispatchToProps = dispatch => ({
   getPlayerPeers: (playerId, options) => dispatch(getPlayerPeers(playerId, options)),
