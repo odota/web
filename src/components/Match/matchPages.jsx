@@ -101,6 +101,7 @@ const firstNumbers = (match) => {
 
 const matchPages = [{
   name: strings.tab_overview,
+  key: 'overview',
   content: match => (<div>
     <div className={styles.matchNumbers}>
       {firstNumbers(match)}
@@ -118,11 +119,13 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_benchmarks,
+  key: 'benchmarks',
   content: match => (<div>
     <TeamTable match={match} columns={benchmarksColumns(match)} heading={strings.heading_benchmarks} />
   </div>),
 }, {
   name: strings.tab_performances,
+  key: 'performances',
   parsed: true,
   content: match => (<Row>
     <Col md={12}>
@@ -134,6 +137,7 @@ const matchPages = [{
   </Row>),
 }, {
   name: strings.tab_combat,
+  key: 'combat',
   parsed: true,
   content: match => (<Row>
     <Col md={6}>
@@ -150,6 +154,7 @@ const matchPages = [{
   </Row>),
 }, {
   name: strings.tab_farm,
+  key: 'farm',
   parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={unitKillsColumns} heading={strings.heading_unit_kills} />
@@ -165,12 +170,14 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_purchases,
+  key: 'purchases',
   parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={purchaseTimesColumns(match)} heading={strings.heading_purchase_log} />
   </div>),
 }, {
   name: strings.tab_graphs,
+  key: 'graphs',
   parsed: true,
   content: match => (<div>
     <MatchGraph match={match} type="difference" />
@@ -180,6 +187,7 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_casts,
+  key: 'casts',
   parsed: true,
   content: match => (<div>
     <Heading title={strings.heading_casts} />
@@ -187,6 +195,7 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_objectives,
+  key: 'objectives',
   parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={objectiveDamageColumns} heading={strings.heading_objective_damage} />
@@ -194,6 +203,7 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_vision,
+  key: 'vision',
   parsed: true,
   content: match => (<div>
     <Heading title={strings.heading_vision} />
@@ -201,12 +211,14 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_actions,
+  key: 'actions',
   parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={actionsColumns} heading={strings.heading_actions} />
   </div>),
 }, {
   name: strings.tab_teamfights,
+  key: 'teamfights',
   parsed: true,
   content: match => (
     <div>
@@ -225,18 +237,24 @@ const matchPages = [{
     </div>),
 }, {
   name: strings.tab_analysis,
+  key: 'analysis',
   parsed: true,
   content: match => (<div>
     <TeamTable match={match} columns={analysisColumns} heading={strings.heading_analysis} />
   </div>),
 }, {
   name: strings.tab_cosmetics,
+  key: 'cosmetics',
   parsed: true,
-  content: match => (<div>
-    <TeamTable match={match} columns={cosmeticsColumns} heading={strings.heading_cosmetics} />
-  </div>),
+  content: match => (
+    <div>
+      <Heading title={strings.heading_cosmetics} />
+      <Table data={match.players.filter(obj => obj.cosmetics.length > 0)} columns={cosmeticsColumns} />
+    </div>
+  ),
 }, {
   name: strings.tab_log,
+  key: 'log',
   parsed: true,
   content: match => (<div>
     <Heading title={strings.heading_log} />
@@ -244,6 +262,7 @@ const matchPages = [{
   </div>),
 }, {
   name: strings.tab_chat,
+  key: 'chat',
   parsed: true,
   content: match => (<div>
     <Heading title={strings.heading_chat} />

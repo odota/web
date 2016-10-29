@@ -5,9 +5,7 @@ const initialState = {
   loading: true,
   error: false,
   loaded: false,
-  player: {
-    profile: {},
-  },
+  player: {},
 };
 
 const player = (state = initialState, action) => {
@@ -77,17 +75,17 @@ export const getPlayer = {
   getLoading: (state, id) => getPlayer.getPlayerById(state, id).loading,
   isLoaded: (state, id) => getPlayer.getPlayerById(state, id).loaded,
   getPlayer: (state, id) => getPlayer.getPlayerById(state, id).player,
-  getProfile: (state, id) => getPlayer.getPlayer(state, id).profile,
-  getAccountId: (state, id) => getPlayer.getPlayer(state, id).profile.account_id,
-  getPlayerName: (state, id) => getPlayer.getPlayer(state, id).profile.personaname,
-  getLastLogin: (state, id) => getPlayer.getPlayer(state, id).profile.last_login,
-  getMmrEstimate: (state, id) => getPlayer.getPlayer(state, id).mmr_estimate,
   getSoloCompetitiveRank: (state, id) => getPlayer.getPlayer(state, id).solo_competitive_rank,
   getCompetitiveRank: (state, id) => getPlayer.getPlayer(state, id).competitive_rank,
+  getMmrEstimate: (state, id) => getPlayer.getPlayer(state, id).mmr_estimate || {},
+  getTrackedUntil: (state, id) => getPlayer.getPlayer(state, id).tracked_until,
+  getProfile: (state, id) => getPlayer.getPlayer(state, id).profile || {},
+  getAccountId: (state, id) => getPlayer.getProfile(state, id).account_id,
+  getPlayerName: (state, id) => getPlayer.getProfile(state, id).personaname,
+  getLastLogin: (state, id) => getPlayer.getProfile(state, id).last_login,
   getPicture: (state, id) => getPlayer.getProfile(state, id).avatarmedium,
   getPictureFull: (state, id) => getPlayer.getProfile(state, id).avatarfull,
   getSteamLink: (state, id) => getPlayer.getProfile(state, id).profileurl,
+  getOfficialPlayerName: (state, id) => getPlayer.getProfile(state, id).name,
   getCheese: (state, id) => getPlayer.getProfile(state, id).cheese,
-  getTrackedUntil: (state, id) => getPlayer.getPlayer(state, id).tracked_until,
-  getOfficialPlayerName: (state, id) => getPlayer.getPlayer(state, id).profile.name,
 };

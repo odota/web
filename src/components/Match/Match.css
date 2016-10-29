@@ -44,14 +44,12 @@
     pointer-events: auto !important;
     margin-left: 3px !important;
     padding: 6px 12px 2px !important;
-    background-color: rgba(0, 0, 0, .9) !important;
 
     &:hover {
       visibility: visible !important;
       opacity: 1 !important;
     }
     &::after {
-      border-color: transparent !important;
       border-width: 20px !important;
       right: 0 !important;
       top: 0 !important;
@@ -150,4 +148,48 @@
 .unusedItem {
   display: inline-block;
   vertical-align: middle;
+}
+
+.cosmetics {
+  display: inline-block;
+  margin: 5px;
+
+  & img {
+    height: 42px;
+  }
+  & > div {
+    font-size: var(--fontSizeCommon);
+
+    & span > span {
+      font-size: var(--fontSizeSmall);
+      color: var(--colorMutedLight);
+      text-transform: capitalize;
+      display: block;
+    }
+  }
+  & a {
+    transition: var(--normalTransition);
+    position: relative;
+
+    &:hover {
+      cursor: pointer;
+      opacity: .8;
+
+      & svg {
+        display: block !important;
+      }
+    }
+  }
+  & svg {
+    position: absolute;
+    /* override material-ui */
+    fill: var(--primaryLinkColor) !important;
+    display: none !important;
+    width: 18px !important;
+    height: 18px !important;
+    /* -- */
+    filter: drop-shadow(0 0 3px var(--darkPrimaryColor));
+    right: 2px;
+    bottom: 6px;
+  }
 }

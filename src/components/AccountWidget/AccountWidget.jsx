@@ -1,7 +1,7 @@
+/* global API_HOST */
 import React from 'react';
 import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
-import { API_HOST } from 'config';
 import { getPlayer } from 'actions';
 import strings from 'lang';
 import Spinner from '../Spinner';
@@ -29,7 +29,7 @@ const AccountWidget = ({ loading, error, user, style }) => (
         <FlatButton
           href={`${API_HOST}/login`}
           label={strings.app_login}
-          hoverColor="#1976D2"
+          hoverColor={styles.blue}
         />
     }
   </div>

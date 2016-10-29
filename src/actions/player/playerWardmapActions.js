@@ -1,5 +1,5 @@
+/* global API_HOST */
 import fetch from 'isomorphic-fetch';
-import { API_HOST } from 'config';
 import { playerWardmap } from 'reducers';
 import { getUrl } from 'actions/utility';
 
@@ -31,7 +31,7 @@ export const getPlayerWardmapError = (payload, id) => ({
 
 export const getPlayerWardmap = (playerId, options = {}) => (dispatch, getState) => {
   if (playerWardmap.isLoaded(getState(), playerId)) {
-    dispatch(getPlayerWardmapOk(playerWardmap.getHeroList(getState(), playerId), playerId));
+    dispatch(getPlayerWardmapOk(playerWardmap.getPlayerWardmap(getState(), playerId), playerId));
   } else {
     dispatch(getPlayerWardmapRequest(playerId));
   }

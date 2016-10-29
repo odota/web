@@ -1,5 +1,5 @@
+/* global API_HOST */
 import fetch from 'isomorphic-fetch';
-import { API_HOST } from 'config';
 import { playerMMR } from 'reducers';
 import { getUrl } from 'actions/utility';
 
@@ -37,7 +37,6 @@ export const getPlayerMMR = (playerId, options = {}) => (dispatch, getState) => 
 
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
     .then(response => response.json())
-    // TODO consider moving to reducer
     .then(json => json.map(mmr => ({
       value: mmr.solo_competitive_rank,
       x: new Date(mmr.time),

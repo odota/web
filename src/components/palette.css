@@ -46,6 +46,10 @@
   --linearTransition: all 450ms linear 0ms;
 }
 
+@custom-media --tiny (width < 400px);
+@custom-media --small (width < 660px);
+@custom-media --medium (width < 900px);
+
 :export {
   /* -- Colors */
   red:      var(--colorDanger);

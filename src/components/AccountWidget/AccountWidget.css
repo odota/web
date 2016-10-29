@@ -1,7 +1,8 @@
 @import "../palette.css";
 
 .account div > span {
-  max-width: 150px;
+  display: inline-block;
+  max-width: 90px;
   overflow: hidden;
   text-overflow: ellipsis;
   text-transform: none !important;

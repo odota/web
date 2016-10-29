@@ -1,3 +1,4 @@
+/* global API_HOST */
 import React from 'react';
 import heroes from 'dotaconstants/json/heroes.json';
 import runes from 'dotaconstants/json/runes.json';
@@ -9,7 +10,6 @@ import abilityKeys from 'dotaconstants/json/ability_keys.json';
 import heroNames from 'dotaconstants/json/hero_names.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import strings from 'lang';
-import { API_HOST } from 'config';
 import {
   formatSeconds,
   abbreviateNumber,
@@ -23,18 +23,19 @@ import {
 } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
+import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import styles from './Match.css';
 
-// {row.last_login && row.last_login && <span style={{ marginLeft: 3 }}><AppBadge /></span>}
 export const heroTd = (row, col, field, index, hideName) => (
   <TableHeroImage
     image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
-    title={row.account_id ? (row.game_mode === 2 && row.name) || row.personaname : strings.general_anonymous}
+    title={row.name || row.personaname || strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
     subtitle={`${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`}
     playerSlot={row.player_slot}
     hideText={hideName}
+    confirmed={row.account_id && row.name}
   />
 );
 
@@ -162,7 +163,7 @@ export const overviewColumns = match => [{
   }, {
     displayName: strings.th_items,
     tooltip: strings.tooltip_items,
-    field: '',
+    field: 'items',
     displayFn: (row) => {
       const itemArray = [];
       for (let i = 0; i < 6; i += 1) {
@@ -244,7 +245,6 @@ export const purchaseTimesColumns = (match) => {
     cols.push({
       displayName: `${curTime / 60}'`,
       field: 'purchase_log',
-
       displayFn: (row, column, field) => (<div>
         {field ? field
         .filter(purchase => (purchase.time >= curTime - bucket && purchase.time < curTime))
@@ -420,41 +420,49 @@ export const unitKillsColumns = [
     tooltip: strings.farm_heroes,
     field: 'hero_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_creeps,
     tooltip: strings.farm_creeps,
     field: 'lane_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_neutrals,
     tooltip: strings.farm_neutrals,
     field: 'neutral_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_ancients,
     tooltip: strings.farm_ancients,
     field: 'ancient_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_towers,
     tooltip: strings.farm_towers,
     field: 'tower_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_couriers,
     tooltip: strings.farm_couriers,
     field: 'courier_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_roshan,
     tooltip: strings.farm_roshan,
     field: 'roshan_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_necronomicon,
     tooltip: strings.farm_necronomicon,
     field: 'necronomicon_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_other,
     field: 'specific',
@@ -476,26 +484,60 @@ export const actionsColumns = [heroTdColumn, {
     tooltip: strings[`tooltip_${orderTypes[orderType]}`],
     field: orderType,
     sortFn: row => (row.actions ? row.actions[orderType] : 0),
-    displayFn: row => (row.actions ? row.actions[orderType] : ''),
+    displayFn: row => (row.actions ? (row.actions[orderType] || '-') : '-'),
   })));
 
 export const runesColumns = [heroTdColumn]
   .concat(Object.keys(runes).map(runeType => ({
     displayName: strings[`rune_${runeType}`],
     field: 'runes',
-    displayFn: (row, col, field) => (field ? field[runeType] : ''),
+    displayFn: (row, col, field) => (field ? (field[runeType] || '-') : '-'),
   })));
 
+
+const cosmeticsRarity = {
+  common: '#B0C3D9',
+  uncommon: '#5E98D9',
+  rare: '#4B69FF',
+  mythical: '#8847FF',
+  legendary: '#D32CE6',
+  immortal: '#E4AE33',
+  arcana: '#ADE55C',
+  ancient: '#EB4B4B',
+};
 export const cosmeticsColumns = [heroTdColumn, {
   displayName: strings.th_cosmetics,
   field: 'cosmetics',
   displayFn: (row, col, field) => field.map((cosmetic, i) => (
-    <a href={`https://www.lootmarket.com/dota-2/item/${cosmetic.name}?partner=1101&utm_source=misc&utm_medium=misc&utm_campaign=opendota`}>
-      <div key={i} style={{ float: 'left', marginRight: '20px' }}>
-        <img src={`http://cdn.dota2.com/apps/570/${cosmetic.image_path}`} style={{ height: '40px' }} role="presentation" />
-        <div>{cosmetic.name}</div>
-      </div>
-    </a>)),
+    <div
+      key={i}
+      className={styles.cosmetics}
+      data-tip
+      data-for={`cosmetic_${cosmetic.item_id}`}
+    >
+      <a
+        href={`https://www.lootmarket.com/dota-2/item/${cosmetic.name}?partner=1101&utm_source=misc&utm_medium=misc&utm_campaign=opendota`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src={`http://cdn.dota2.com/apps/570/${cosmetic.image_path}`} role="presentation"
+          style={{
+            borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : styles.gray}`,
+          }}
+        />
+        <ActionOpenInNew />
+      </a>
+      <ReactTooltip id={`cosmetic_${cosmetic.item_id}`} effect="solid">
+        <span style={{ color: cosmetic.item_rarity && cosmeticsRarity[cosmetic.item_rarity] }}>
+          {cosmetic.name}
+          <span>
+            {cosmetic.item_rarity}
+          </span>
+        </span>
+      </ReactTooltip>
+    </div>
+  )),
 }];
 
 export const goldReasonsColumns = [heroTdColumn]
@@ -505,7 +547,7 @@ export const goldReasonsColumns = [heroTdColumn]
       displayName: strings[gr],
       field: gr,
       sortFn: row => (row.gold_reasons ? row.gold_reasons[gr.substring('gold_reasons_'.length)] : 0),
-      displayFn: row => (row.gold_reasons ? row.gold_reasons[gr.substring('gold_reasons_'.length)] : ''),
+      displayFn: row => (row.gold_reasons ? (row.gold_reasons[gr.substring('gold_reasons_'.length)] || '-') : '-'),
     })));
 
 export const xpReasonsColumns = [heroTdColumn]
@@ -515,7 +557,7 @@ export const xpReasonsColumns = [heroTdColumn]
       displayName: strings[xpr],
       field: xpr,
       sortFn: row => (row.xp_reasons ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] : 0),
-      displayFn: row => (row.xp_reasons ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] : ''),
+      displayFn: row => (row.xp_reasons ? (row.xp_reasons[xpr.substring('xp_reasons_'.length)] || '-') : '-'),
     })));
 
 export const objectiveDamageColumns = [heroTdColumn]
@@ -523,7 +565,7 @@ export const objectiveDamageColumns = [heroTdColumn]
     .map(obj => ({
       displayName: strings[obj],
       field: 'objective_damage',
-      displayFn: (row, col, field) => (field ? field[obj.substring('objective_'.length)] : '-'),
+      displayFn: (row, col, field) => (field ? (field[obj.substring('objective_'.length)] || '-') : '-'),
     })));
 
 
