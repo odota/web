@@ -83,8 +83,8 @@ export default function BuildingMap({ match }) {
             // TODO scale based on client width
             // d.style += 'zoom: ' + document.getElementById(map').clientWidth / 600 + ';';
             zoom:
-              (type === 'fort' && 0.5) ||
-              (type === 'tower' && 0.3) ||
+              (type === 'fort' && 0.4) ||
+              (type === 'tower' && 0.25) ||
               (type.includes('rax') && 0.2),
             opacity: bits[i] === '1' || '0.4',
           },
@@ -104,9 +104,12 @@ export default function BuildingMap({ match }) {
             style={props.style.img}
           />
           <ReactTooltip id={props.key} effect="solid">
-            <div>
-              {title}
-              {damage && damage.length > 0 &&
+            {title}
+            {damage && damage.length > 0 &&
+              <span>
+                <span className={styles.subtitle}>
+                & received damage
+                </span>
                 <div>
                   <div
                     className={styles.buildingHealth}
@@ -152,7 +155,12 @@ export default function BuildingMap({ match }) {
                         <img
                           src="/assets/images/blank-1x1.gif"
                           role="presentation"
-                          style={{ backgroundColor: side === 'good' ? styles.red : styles.green }}
+                          style={{
+                            backgroundImage: `url(/assets/images/dota2/${side === 'good' ? 'bad' : 'good'}guys_creep.png)`,
+                            backgroundPosition: 'center',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundSize: 'contain',
+                          }}
                         />
                         <span className={styles.damageValue}>
                           {damageByCreeps}
@@ -160,19 +168,18 @@ export default function BuildingMap({ match }) {
                         <span
                           style={{ color: side === 'good' ? styles.red : styles.green }}
                           className={styles.playerName}
-                        >
-                          creeps {!destroyedBy &&
-                            <span className={styles.lasthit}>
-                              got a lasthit
-                            </span>
-                          }
-                        </span>
+                        >creeps </span>
+                        {!destroyedBy &&
+                          <span className={styles.lasthit}>
+                            got a lasthit
+                          </span>
+                        }
                       </div>
                     }
                   </div>
                 </div>
-              }
-            </div>
+              </span>
+            }
           </ReactTooltip>
         </span>
       );

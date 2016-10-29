@@ -9,7 +9,7 @@ export default [
   },
   {
     id: 't3br',
-    style: 'position: absolute; top: 89%; left: 21%;',
+    style: 'position: absolute; top: 89%; left: 21.6%;',
   },
   {
     id: 't2br',
@@ -21,7 +21,7 @@ export default [
   },
   {
     id: 't3mr',
-    style: 'position: absolute; top: 75%; left: 15.4%;',
+    style: 'position: absolute; top: 75%; left: 16.1%;',
   },
   {
     id: 't2mr',
@@ -33,7 +33,7 @@ export default [
   },
   {
     id: 't3tr',
-    style: 'position: absolute; top: 70%; left: 2%;',
+    style: 'position: absolute; top: 70%; left: 2.8%;',
   },
   {
     id: 't2tr',
@@ -45,11 +45,11 @@ export default [
   },
   {
     id: 'brbr',
-    style: 'position: absolute; top: 90.3%; left: 18%;',
+    style: 'position: absolute; top: 90.3%; left: 19%;',
   },
   {
     id: 'bmbr',
-    style: 'position: absolute; top: 86.3%; left: 18%;',
+    style: 'position: absolute; top: 86.3%; left: 19%;',
   },
   {
     id: 'brmr',
@@ -61,11 +61,11 @@ export default [
   },
   {
     id: 'brtr',
-    style: 'position: absolute; top: 72%; left: 1.3%;',
+    style: 'position: absolute; top: 72.5%; left: 1.3%;',
   },
   {
     id: 'bmtr',
-    style: 'position: absolute; top: 72%; left: 5%;',
+    style: 'position: absolute; top: 72.5%; left: 5%;',
   },
   {
     id: 't4bd',
@@ -77,7 +77,7 @@ export default [
   },
   {
     id: 't3bd',
-    style: 'position: absolute; top: 27%; left: 91.4%;',
+    style: 'position: absolute; top: 27.6%; left: 91.6%;',
   },
   {
     id: 't2bd',
@@ -113,11 +113,11 @@ export default [
   },
   {
     id: 'brbd',
-    style: 'position: absolute; top: 24%; left: 90%;',
+    style: 'position: absolute; top: 24%; left: 90.3%;',
   },
   {
     id: 'bmbd',
-    style: 'position: absolute; top: 24%; left: 94.3%;',
+    style: 'position: absolute; top: 24%; left: 93.9%;',
   },
   {
     id: 'brmd',
@@ -137,9 +137,9 @@ export default [
   },
   {
     id: 'ar',
-    style: 'position: absolute; top: 82%; left: 4%;',
+    style: 'position: absolute; top: 83%; left: 5%;',
   },
   {
     id: 'ad',
-    style: 'position: absolute; top: 9%; left: 85%;',
+    style: 'position: absolute; top: 9%; left: 84%;',
   }];

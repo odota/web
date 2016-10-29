@@ -47,6 +47,7 @@
     width: 24px;
     height: 14px;
     vertical-align: sub;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
   }
   & .damageValue {
     display: inline-block;
@@ -55,6 +56,12 @@
   }
   & .playerName {
     margin-right: 5px;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: bottom;
   }
   & .lasthit {
     font-size: var(--fontSizeSmall);
@@ -75,4 +82,11 @@
       display: inline-block;
     }
   }
+}
+
+.subtitle {
+  margin-left: 4px;
+  font-size: var(--fontSizeSmall);
+  font-weight: var(--fontWeightLight);
+  color: var(--colorMutedLight);
 }
