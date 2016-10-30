@@ -137,11 +137,9 @@ class Explorer extends React.Component
   */
   render() {
     return (<div>
-      <h3>Data Explorer
-        <small> - Explore data from Dota 2 matches </small>
-        <a href="https://github.com/odota/core/blob/master/sql/create_tables.sql">(Table Schema)</a>
-      </h3>
+      <Heading title="Data Explorer" subtitle="Explore data from Dota 2 matches" />
       <ul>
+        <li><a href="https://github.com/odota/core/blob/master/sql/create_tables.sql">Table Schema</a></li>
         <li>matches and player_matches tables only contain competitive matches in Professional and Premium tiers</li>
         <li>Queries are read-only and time out after 30 seconds</li>
         <li>Select part of the input to send only the selected text</li>
