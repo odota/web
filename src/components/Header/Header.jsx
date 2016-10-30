@@ -32,7 +32,8 @@ const navbarPages = [
   }, {
     name: strings.header_ingame,
     sponsored: true,
-    path: '/become-the-gamer',
+    external: true,
+    path: 'https://dota2.becomethegamer.com/yasp',
   }];
 
 const LogoGroup = ({ width }) => (
@@ -47,7 +48,7 @@ const LinkGroup = () => (
     {navbarPages.map(page => (
       <div key={page.name} className={styles.tabContainer}>
         {page.external ?
-          <a href={page.path} className={styles.tab}>{page.name}</a> :
+          <a href={page.path} className={styles.tab} target="_blank">{page.name}</a> :
             <Link to={page.path} className={styles.tab}>{page.name}</Link>}
       </div>
     ))}
