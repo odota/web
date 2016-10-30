@@ -1,9 +1,7 @@
 import { formActions } from 'actions';
 
 const initialFormState = {
-  // TODO if initial entry point has query string, the form shows up when switching to a page with filter
-  // should probably init this in componentWillMount
-  show: Boolean(window.location.search.substring(1)),
+  show: false,
 };
 
 export default (state = initialFormState, action) => {
