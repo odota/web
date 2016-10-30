@@ -102,9 +102,8 @@ class Explorer extends React.Component
     if (sql) {
       editor.setValue(decodeURIComponent(sql));
       this.handleQuery();
-    }
-    else {
-      editor.setValue(`select count(*) from matches;`);
+    } else {
+      editor.setValue('select count(*) from matches;');
     }
   }
   handleQuery() {
@@ -179,16 +178,19 @@ class Explorer extends React.Component
       <Heading title="Results" />
       <pre style={{ color: 'red' }}>{this.state.result.err}</pre>
       {!this.state.loading ?
-        <Table data={this.state.result.rows || []} columns={(this.state.result.fields || []).map(column => ({
-          displayName: column.name,
-          field: column.name,
-          displayFn: (row, col, field) => {
-            if (column.name === 'match_id') {
-              return <Link to={`/matches/${field}`}>{field}</Link>;
-            }
-            return JSON.stringify(field);
-          },
-        }))} />
+        <Table
+          data={this.state.result.rows || []}
+          columns={(this.state.result.fields || []).map(column => ({
+            displayName: column.name,
+            field: column.name,
+            displayFn: (row, col, field) => {
+              if (column.name === 'match_id') {
+                return <Link to={`/matches/${field}`}>{field}</Link>;
+              }
+              return JSON.stringify(field);
+            },
+          }))}
+        />
         : <Spinner />
       }
     </div>);
