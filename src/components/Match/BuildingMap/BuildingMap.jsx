@@ -108,9 +108,7 @@ export default function BuildingMap({ match }) {
             {title}
             {damage && damage.length > 0 &&
               <span>
-                <span className={styles.subtitle}>
-                  {strings.building_damage}
-                </span>
+                <span className={styles.subtitle}> & {strings.building_damage}</span>
                 <div>
                   <div
                     className={styles.buildingHealth}

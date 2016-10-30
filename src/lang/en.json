@@ -41,7 +41,7 @@
   "building_melee_rax": "Melee Barracks",
   "building_range_rax": "Ranged Barracks",
   "building_lasthit": "got the last hit",
-  "building_damage": "& received damage",
+  "building_damage": "received damage",
   "building_hint": "Icons on the map have tooltips",
 
   "distributions_heading_mmr": "Solo MMR Distribution",
