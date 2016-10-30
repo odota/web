@@ -54,22 +54,22 @@ export default function BuildingMap({ match }) {
       const title =
         strings[`${type.includes('rax') ? 'building_' : 'objective_'}${type}${tier}${type.includes('rax') ? '' : lane && `_${lane}`}`];
 
-      const destroyedBy = match.version && match.players
-        .filter(player => player.killed[key] > 0)
+      const destroyedBy = match.players
+        .filter(player => player.killed && player.killed[key] > 0)
         .map(player => ({
           player_slot: player.player_slot,
         }))[0];
-      const damage = match.version && match.players
-        .filter(player => player.damage[key] > 0)
+      const damage = match.players
+        .filter(player => player.damage && player.damage[key] > 0)
         .map(player => ({
           name: player.name || player.personaname || strings.general_anonymous,
           player_slot: player.player_slot,
           hero_id: player.hero_id,
           damage: player.damage[key],
         }));
-      let damageByCreeps = damage && damage.length > 0 && damage
+      let damageByCreeps = damage
         .map(player => player.damage)
-        .reduce(sum);
+        .reduce(sum, 0);
       damageByCreeps = buildingsHealth[type === 'tower' ? `tower${tier}` : type] - damageByCreeps;
 
       const props = {
