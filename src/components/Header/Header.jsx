@@ -15,6 +15,7 @@ import styles from './Header.css';
 import SearchForm from '../Search/SearchForm';
 import AppLogo from '../App/AppLogo';
 import BurgerMenu from '../BurgerMenu';
+import { Row, Col } from 'react-flexbox-grid';
 
 const tablet = 800;
 const mobile = 425;
@@ -74,6 +75,16 @@ const Header = ({ location, width }) => (
       <SearchGroup location={location} />
       {width > tablet && <AccountGroup />}
     </Toolbar>
+    <Row center="xs">
+      <Col xs>
+        { location.pathname === '/' || location.pathname === '' || location.pathname === null ?
+          <div />
+          : <a href = "http://www.vpgame.com/?lang=en_us">
+              <img src="/assets/images/vp-banner.jpg" role="presentation" style={{marginTop: 10, maxWidth: "100%"}}/>
+            </a>
+        }
+      </Col>
+    </Row>
   </div>
 );
 
