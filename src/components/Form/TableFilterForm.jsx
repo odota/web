@@ -2,24 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { form } from 'reducers';
 import strings from 'lang';
-import { browserHistory } from 'react-router';
 // import { clearForm } from 'actions';
 import Form from './Form';
 import FormField from './FormField';
 import FormGroup from './FormGroup';
 // import SubmitButton from './SubmitButton';
-import ClearButton from './ClearButton';
 import ShowFormToggle from './ShowFormToggle';
 import styles from './TableFilterForm.css';
 import * as data from './TableFilter.config';
 
 const FORM_NAME = 'tableFilter';
 
-const clearForm = () => browserHistory.push(window.location.pathname);
-
 const TableFilterForm = ({ page, showForm }) => (
   <div>
-    <ShowFormToggle page={page} formName={FORM_NAME} />
+    <ShowFormToggle page={page} formName={FORM_NAME} showForm={showForm} />
     <div className={showForm ? styles.showForm : styles.hideForm}>
       <Form name={FORM_NAME} className={styles.form}>
         <FormGroup className={styles.formGroup}>
@@ -125,17 +121,6 @@ const TableFilterForm = ({ page, showForm }) => (
         // TODO sort (order by descending, might be tricky due to being a string input)
         */}
       </Form>
-      <div className={styles.buttonContainer}>
-        <ClearButton
-          label={strings.filter_reset}
-          clearForm={() => clearForm()}
-          style={{ marginRight: 10 }}
-        />
-        {/* <SubmitButton
-          label="do the thing"
-          submitForm={() => {}}
-        />*/}
-      </div>
     </div>
   </div>
 );

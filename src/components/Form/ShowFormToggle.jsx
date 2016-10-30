@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Clear from 'material-ui/svg-icons/content/clear';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import { toggleShowForm } from 'actions';
-import { form } from 'reducers';
 import styles from './ShowFormToggle.css';
 
 const getIcon = (show) => {
@@ -17,14 +16,14 @@ const getIcon = (show) => {
   return <Clear />;
 };
 
-const ShowFormToggle = ({ formName, toggleShowForm, show }) => (
-  <FloatingActionButton className={!show ? styles.filterButton : styles.closeButton} onClick={() => toggleShowForm(formName)}>
-    {getIcon(show)}
+const ShowFormToggle = ({ formName, toggleShowForm, showForm }) => (
+  <FloatingActionButton className={!showForm ? styles.filterButton : styles.closeButton} onClick={() => {
+      toggleShowForm(formName);
+    }}>
+    {getIcon(showForm)}
   </FloatingActionButton>
 );
 
-const mapStateToProps = (state, ownProps) => ({
-  show: form.getFormShow(state, ownProps.formName),
-});
+const mapStateToProps = (state, ownProps) => ({});
 
 export default connect(mapStateToProps, { toggleShowForm })(ShowFormToggle);
