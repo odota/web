@@ -1,5 +1,6 @@
 /* global FormData API_HOST */
 import fetch from 'isomorphic-fetch';
+import { browserHistory } from 'react-router';
 
 const url = '/api/request_job';
 
@@ -44,7 +45,7 @@ function poll(dispatch, json, matchId) {
     if (json.error || json.state === 'failed') {
       dispatch(requestError(json.error || 'failed'));
     } else if (json.state === 'completed') {
-      window.location.href = `/matches/${matchId}`;
+      browserHistory.push(`/matches/${matchId}`);
     } else {
       setTimeout(poll, 2000, dispatch, { job: json }, matchId);
     }
