@@ -74,7 +74,7 @@ export default function BuildingMap({ match }) {
 
       const props = {
         key: buildingData[i].id,
-        src: `/assets/images/dota2/${side}guys_${type.includes('rax') ? 'rax' : type}${lane === 'mid' ? '_angle' : ''}.png`,
+        src: `/assets/images/dota2/map/${side}guys_${type.includes('rax') ? 'rax' : type}${lane === 'mid' ? '_angle' : ''}.png`,
         style: {
           span: {
             top: buildingData[i].style.split(';')[1].split(':')[1],
@@ -188,7 +188,7 @@ export default function BuildingMap({ match }) {
         <Heading title={strings.heading_buildings} />
         <div className={styles.buildingMap}>
           <img
-            src="/assets/images/dota2/minimap.jpg"
+            src="/assets/images/dota2/map/minimap.jpg"
             role="presentation"
             className={styles.buildingMapImage}
           />
