@@ -108,7 +108,7 @@ class Explorer extends React.Component
   }
   handleQuery() {
     this.setState(Object.assign({}, this.state, { loading: true }));
-    const queryString = `?sql=${this.editor.getSelectedText() || this.editor.getValue()}`;
+    const queryString = `?sql=${encodeURIComponent(this.editor.getSelectedText() || this.editor.getValue())}`;
     window.history.pushState('', '', queryString);
     fetch(`${API_HOST}/api/explorer${queryString}`).then(jsonResponse).then(this.handleResponse);
   }
