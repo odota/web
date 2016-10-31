@@ -198,3 +198,16 @@
   height: 10px;
   margin-right: 4px;
 }
+
+.runes {
+  & img {
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 5px;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, .08));
+  }
+  & span {
+    text-transform: none;
+    font-weight: var(--fontWeightNormal);
+  }
+}
