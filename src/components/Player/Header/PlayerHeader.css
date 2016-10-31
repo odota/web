@@ -43,11 +43,7 @@
 }
 
 .icon {
-  opacity: .6;
-
-  &:hover {
-    opacity: .9;
-  }
+  fill: var(--colorMutedLight) !important;
 }
 
 .row {
@@ -85,10 +81,4 @@
 .playerButtonsContainerSmall {
   composes: playerButtonsContainer;
   justify-content: center;
-}
-
-.cheese {
-  fill: var(--primaryTextColor) !important;
-  -webkit-filter: drop-shadow(0 0 5px rgba(255, 255, 0, .6));
-  filter: drop-shadow(0 0 5px rgba(255, 255, 0, .6));
 }

@@ -35,7 +35,7 @@ export function abbreviateNumber(num) {
   } else if (num >= 1000000) {
     return `${Number((num / 1000000).toFixed(1))}${strings.abbr_million}`;
   }
-  return num;
+  return num.toFixed(0);
 }
 export function formatSeconds(input) {
   if (!isNaN(parseFloat(input)) && isFinite(input)) {

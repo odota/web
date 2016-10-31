@@ -154,7 +154,12 @@ export const overviewColumns = match => [{
     displayFn: row => abbreviateNumber(row.tower_damage),
     sortFn: true,
   }, {
-    displayName: strings.th_gold,
+    displayName: (
+      <span className={styles.thGold}>
+        <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />
+        {strings.th_gold}
+      </span>
+    ),
     tooltip: strings.tooltip_gold,
     field: 'gold_per_min',
     displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
