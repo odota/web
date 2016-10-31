@@ -14,34 +14,33 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
     if (loading) return <Spinner />;
     return (
       <div className={styles.playerBadges}>
-        <div className={styles.iconButton}>
-          <a rel="noopener noreferrer" target="_blank" href={steamLink}>
-            <IconSteam
-              data-tip data-for="steamLink"
-              className={styles.icon}
-            />
-            <ReactTooltip id="steamLink" place="top" type="light" effect="solid">
-              {strings.app_steam_profile}
-            </ReactTooltip>
-          </a>
-        </div>
         {officialPlayerName && (
           <div className={styles.iconButton}>
             <IconTrophy
               data-tip data-for="proPlayer"
-              className={styles.icon}
+              className={`${styles.icon} ${styles.IconTrophy}`}
             />
             <ReactTooltip id="proPlayer" place="top" type="light" effect="solid">
               {`${strings.app_confirmed_as} ${officialPlayerName}`}
             </ReactTooltip>
           </div>
         )}
+        <div className={styles.iconButton}>
+          <a rel="noopener noreferrer" target="_blank" href={steamLink}>
+            <IconSteam
+              data-tip data-for="steamLink"
+              className={`${styles.icon} ${styles.iconSteam}`}
+            />
+            <ReactTooltip id="steamLink" place="top" type="light" effect="solid">
+              {strings.app_steam_profile}
+            </ReactTooltip>
+          </a>
+        </div>
         {Math.round(new Date().getTime() / 1000.0) >= Number(tracked) ? (
           <div className={styles.iconButton}>
             <IconEyeInactive
               data-tip data-for="untracked"
-              className={styles.icon}
-              style={{ height: 22, fill: 'darkgray', marginTop: 4 }}
+              className={`${styles.icon} ${styles.iconEye}`}
             />
             <ReactTooltip id="untracked" place="top" type="light" effect="solid">
               {strings.app_untracked}
@@ -50,8 +49,7 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
           ) : (<div className={styles.iconButton}>
             <IconEye
               data-tip data-for="tracked"
-              className={styles.icon}
-              style={{ height: 22, marginTop: 4 }}
+              className={`${styles.icon} ${styles.iconEye}`}
             />
             <ReactTooltip id="tracked" place="top" type="light" effect="solid">
               {strings.app_tracked}
@@ -63,7 +61,6 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
             <IconCheese
               data-tip data-for="cheese"
               className={`${styles.cheese} ${styles.icon}`}
-              style={{ height: 18 }}
             />
             <ReactTooltip id="cheese" place="top" type="light" effect="solid">
               {`${cheese} ${strings.app_cheese_bought}`}
