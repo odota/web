@@ -193,3 +193,8 @@
     bottom: 6px;
   }
 }
+
+.thGold img {
+  height: 10px;
+  margin-right: 4px;
+}
