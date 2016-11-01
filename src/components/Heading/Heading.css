@@ -18,6 +18,7 @@
   }
 
   & .subtitle {
+    margin-left: 5px;
     font-size: var(--fontSizeMedium);
     color: var(--colorMutedLight);
   }

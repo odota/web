@@ -12,6 +12,7 @@ import IconStatsBars from './StatsBars';
 import IconWand from './Wand';
 import IconRadiant from './Radiant';
 import IconDire from './Dire';
+import IconLightbulb from './Lightbulb';
 
 export {
   IconCheese,
@@ -28,4 +29,5 @@ export {
   IconWand,
   IconRadiant,
   IconDire,
+  IconLightbulb,
 };

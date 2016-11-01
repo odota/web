@@ -72,6 +72,22 @@
       margin-top: 14px;
     }
   }
+  & .map {
+    margin: 0 auto;
+  }
+  & .centeredMap {
+    width: 312px !important;
+    display: block;
+  }
+  @media only screen and (max-width: 370px) {
+    & .centeredMap {
+      width: 262px !important;
+      display: block;
+    }
+    & .map {
+      width: 262px !important;
+    }
+  }
 
   @media only screen and (max-width: 1023px) {
     & > div {
@@ -83,22 +99,6 @@
     }
     & .map {
       width: 312px;
-      margin: 0 auto;
-    }
-  }
-  @media only screen and (max-width: 370px) {
-    & .map {
-      width: 250px;
-
-      & div > div:last-of-type {
-        width: 250px;
-        height: 250px;
-
-        & img:first-of-type {
-          width: 250px;
-          height: 250px;
-        }
-      }
     }
   }
 }
@@ -191,5 +191,23 @@
     filter: drop-shadow(0 0 3px var(--darkPrimaryColor));
     right: 2px;
     bottom: 6px;
+  }
+}
+
+.thGold img {
+  height: 10px;
+  margin-right: 4px;
+}
+
+.runes {
+  & img {
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 5px;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, .08));
+  }
+  & span {
+    text-transform: none;
+    font-weight: var(--fontWeightNormal);
   }
 }
