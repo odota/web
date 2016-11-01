@@ -37,7 +37,7 @@ export default class BurgerMenu extends React.Component {
               this.props.links.map(page => (
                 <MenuItem>
                   {page.external ?
-                    <a href={page.path} className={styles.tab} target="_blank">{page.name}</a> :
+                    <a href={page.path} className={styles.tab} rel="noopener noreferrer" target="_blank">{page.name}</a> :
                       <Link to={page.path} className={styles.tab}>{page.name}</Link>
                   }
                 </MenuItem>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import { Row, Col } from 'react-flexbox-grid';
 // import FlatButton from 'material-ui/FlatButton';
 // import IconButton from 'material-ui/IconButton/IconButton';
 // import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
@@ -15,7 +16,6 @@ import styles from './Header.css';
 import SearchForm from '../Search/SearchForm';
 import AppLogo from '../App/AppLogo';
 import BurgerMenu from '../BurgerMenu';
-import { Row, Col } from 'react-flexbox-grid';
 
 const tablet = 800;
 const mobile = 425;
@@ -48,7 +48,7 @@ const LinkGroup = () => (
     {navbarPages.map(page => (
       <div key={page.name} className={styles.tabContainer}>
         {page.external ?
-          <a href={page.path} className={styles.tab} target="_blank">{page.name}</a> :
+          <a href={page.path} className={styles.tab} rel="noopener noreferrer" target="_blank">{page.name}</a> :
             <Link to={page.path} className={styles.tab}>{page.name}</Link>}
       </div>
     ))}
@@ -80,9 +80,9 @@ const Header = ({ location, width }) => (
       <Col xs>
         { location.pathname === '/' || location.pathname === '' || location.pathname === null ?
           <div />
-          : <a href = "http://www.vpgame.com/?lang=en_us">
-              <img src="/assets/images/vp-banner.jpg" role="presentation" style={{marginTop: 10, maxWidth: "100%"}}/>
-            </a>
+          : <a href='http://www.vpgame.com/?lang=en_us'>
+              <img src='/assets/images/vp-banner.jpg' role='presentation'style={{ marginTop: 10, maxWidth: '100%' }} />
+         </a>
         }
       </Col>
     </Row>

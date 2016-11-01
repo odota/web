@@ -9,13 +9,15 @@ import SocialLinks from './SocialLinks';
 import styles from './Footer.css';
 import { IconSteam } from '../Icons';
 
-export default ({location}) => (
+export default ({ location }) => (
   <div>
     <Row>
       <Col md>
         { location.pathname === '/' || location.pathname === '' || location.pathname === null ?
-          <div /> :
-          <iframe style={{border: "none", margin:0, width:"100%", height:250}} src="https://www.stanza.co/@dota2?embed=true&banner=true&site=opendota" />
+            <div /> :
+            <iframe
+             style={{ border: 'none', margin: 0, width: '100%', height: 250 }}
+             src='https://www.stanza.co/@dota2?embed=true&banner=true&site=opendota' />
         }
       </Col>
     </Row>
