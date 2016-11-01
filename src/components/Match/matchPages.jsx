@@ -108,7 +108,7 @@ const matchPages = [{
     </div>
     <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
     <div className={styles.overviewMapGraph}>
-      <div className={styles.map}>
+      <div className={`${styles.map} ${!match.version && styles.centeredMap}`}>
         <BuildingMap match={match} />
       </div>
       {match.version &&
@@ -160,10 +160,10 @@ const matchPages = [{
     <TeamTable match={match} columns={unitKillsColumns} heading={strings.heading_unit_kills} />
     <TeamTable match={match} columns={lastHitsTimesColumns(match)} heading={strings.heading_last_hits} />
     <Row>
-      <Col md={8}>
+      <Col md={7}>
         <TeamTable match={match} columns={goldReasonsColumns} heading={strings.heading_gold_reasons} />
       </Col>
-      <Col md={4}>
+      <Col md={5}>
         <TeamTable match={match} columns={xpReasonsColumns} heading={strings.heading_xp_reasons} />
       </Col>
     </Row>

@@ -1,8 +1,10 @@
 import React from 'react';
 import Drawer from 'material-ui/Drawer';
+import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
+import { Link } from 'react-router';
 import styles from './BurgerMenu.css';
 
 export default class BurgerMenu extends React.Component {
@@ -27,18 +29,21 @@ export default class BurgerMenu extends React.Component {
           onRequestChange={open => this.setState({ open })}
           className={styles.drawer}
         >
-          <MenuItem
-            style={{
-              backgroundColor: styles.blue,
-              textAlign: 'left',
-              height: '54px',
-            }}
-          >{this.props.top}</MenuItem>
-          {
-            this.props.links.map(page => (
-              <MenuItem href={page.path} primaryText={page.name} />
-            ))
-          }
+          <Menu onTouchTap={this.handleClose}>
+            <MenuItem>
+              {this.props.top}
+            </MenuItem>
+            {
+              this.props.links.map(page => (
+                <MenuItem>
+                  {page.external ?
+                    <a href={page.path} className={styles.tab}>{page.name}</a> :
+                      <Link to={page.path} className={styles.tab}>{page.name}</Link>
+                  }
+                </MenuItem>
+              ))
+            }
+          </Menu>
         </Drawer>
       </div>
     );

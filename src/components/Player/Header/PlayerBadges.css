@@ -1,5 +1,7 @@
+@import "../../palette.css";
+
 .iconButton {
-  composes: iconButton from "../../palette.css";
+  composes: iconButton;
   padding-bottom: 0;
   @media only screen and (max-width: 900px) {
     & svg {
@@ -31,13 +33,26 @@
 
   & .iconButton {
     display: inline-block;
+
+    & .IconTrophy {
+      fill: var(--colorGolden) !important;
+    }
+    & .iconEye {
+      height: 22px;
+      margin-top: 4px;
+    }
+    & .iconSteam:hover {
+      cursor: pointer;
+    }
   }
 }
 
 .icon {
-  composes: icon from "./PlayerHeader.css";
+  composes: icon from "./PlayerHeader.css"
 }
 
 .cheese {
-  composes: cheese from "./PlayerHeader.css";
+  -webkit-filter: drop-shadow(0 0 5px rgba(255, 255, 0, .6));
+  filter: drop-shadow(0 0 5px rgba(255, 255, 0, .6));
+  height: 18
 }

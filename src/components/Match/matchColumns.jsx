@@ -154,7 +154,12 @@ export const overviewColumns = match => [{
     displayFn: row => abbreviateNumber(row.tower_damage),
     sortFn: true,
   }, {
-    displayName: strings.th_gold,
+    displayName: (
+      <span className={styles.thGold}>
+        <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />
+        {strings.th_gold}
+      </span>
+    ),
     tooltip: strings.tooltip_gold,
     field: 'gold_per_min',
     displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
@@ -489,7 +494,22 @@ export const actionsColumns = [heroTdColumn, {
 
 export const runesColumns = [heroTdColumn]
   .concat(Object.keys(runes).map(runeType => ({
-    displayName: strings[`rune_${runeType}`],
+    displayName: (
+      <div
+        className={styles.runes}
+        data-tip data-for={`rune_${runeType}`}
+      >
+        <img
+          src={`/assets/images/dota2/runes/${runeType}.png`}
+          role="presentation"
+        />
+        <ReactTooltip id={`rune_${runeType}`} effect="solid">
+          <span>
+            {strings[`rune_${runeType}`]}
+          </span>
+        </ReactTooltip>
+      </div>
+    ),
     field: 'runes',
     displayFn: (row, col, field) => (field ? (field[runeType] || '-') : '-'),
   })));

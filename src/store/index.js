@@ -32,6 +32,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export default createStore(reducer, composeEnhancers(
   responsiveStoreEnhancer,
   applyMiddleware(thunkMiddleware),
-  applyMiddleware(loggerMiddleware),
+  process.env.NODE_ENV === 'production' ? f => f : applyMiddleware(loggerMiddleware),
   applyMiddleware(routerMiddleware(browserHistory)),
 ));
