@@ -26,7 +26,7 @@ import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import styles from './Match.css';
 
-export const heroTd = (row, col, field, index, hideName) => (
+export const heroTd = (row, col, field, index, hideName, party) => (
   <TableHeroImage
     image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
     title={row.name || row.personaname || strings.general_anonymous}
@@ -36,6 +36,7 @@ export const heroTd = (row, col, field, index, hideName) => (
     playerSlot={row.player_slot}
     hideText={hideName}
     confirmed={row.account_id && row.name}
+    party={party}
   />
 );
 
@@ -46,54 +47,30 @@ export const heroTdColumn = {
   sortFn: true,
 };
 
-export const overviewColumns = match => [{
-  field: '',
-  displayFn: (row) => {
-    if (match.parties) {
-      const i = match.players.findIndex(player => player.player_slot === row.player_slot);
-      const partyPrev = match.parties[(match.players[i - 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
-      const partyNext = match.parties[(match.players[i + 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
-      const parentStyle = {
-        position: 'relative',
-        width: 0,
-        height: '100%',
-      };
-      const style = {
-        position: 'absolute',
-        width: 10,
-        right: -25,
-      };
-      const borderStyle = `2px solid ${styles.lightGray}`;
-      // `row.isRadiant ? styles.green : styles.red` but it have no sense since tables are separated
-      if (!partyPrev && partyNext) {
-        return (
-          <div style={parentStyle}>
-            <div style={{ ...style, borderLeft: borderStyle, height: '55%', top: '50%' }} />
-            <div style={{ ...style, borderTop: borderStyle, height: '50%', top: '50%' }} />
-          </div>
-        );
-      }
-      if (partyPrev && partyNext) {
-        return (
-          <div style={parentStyle}>
-            <div style={{ ...style, borderLeft: borderStyle, height: '120%', top: '-10%' }} />
-            <div style={{ ...style, borderTop: borderStyle, height: 2, top: '50%', marginTop: -1 }} />
-          </div>
-        );
-      }
-      if (partyPrev && !partyNext) {
-        return (
-          <div style={parentStyle}>
-            <div style={{ ...style, borderBottom: borderStyle, height: '50%', top: 0 }} />
-            <div style={{ ...style, borderLeft: borderStyle, height: '56%', top: -1 }} />
-          </div>
-        );
-      }
+const parties = (row, match) => {
+  if (match.parties) {
+    const i = match.players.findIndex(player => player.player_slot === row.player_slot);
+    const partyPrev = match.parties[(match.players[i - 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
+    const partyNext = match.parties[(match.players[i + 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
+    if (!partyPrev && partyNext) {
+      return <div data-next />;
     }
-    return null;
-  },
-},
-  heroTdColumn, {
+    if (partyPrev && partyNext) {
+      return <div data-prev-next />;
+    }
+    if (partyPrev && !partyNext) {
+      return <div data-prev />;
+    }
+  }
+  return null;
+};
+
+export const overviewColumns = match => [{
+  displayName: 'Player',
+  field: 'player_slot',
+  displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, parties(row, match)),
+  sortFn: true,
+}, {
     displayName: strings.th_level,
     tooltip: strings.tooltip_level,
     field: 'level',

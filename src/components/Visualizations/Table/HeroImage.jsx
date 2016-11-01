@@ -17,6 +17,7 @@ const TableHeroImage = ({
   playerSlot,
   hideText,
   confirmed,
+  party,
 }) => (
   <div className={styles.container}>
     {parsed !== undefined &&
@@ -31,6 +32,9 @@ const TableHeroImage = ({
       </ReactTooltip>
     </div>
     }
+    <div className={styles.party}>
+      {party}
+    </div>
     {image &&
     <div className={styles.imageContainer}>
       <img
@@ -79,7 +83,7 @@ const TableHeroImage = ({
   </div>
 );
 
-const { number, string, object, oneOfType, bool } = React.PropTypes;
+const { number, string, object, oneOfType, bool, node } = React.PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: number,
@@ -93,6 +97,7 @@ TableHeroImage.propTypes = {
   accountId: number,
   playerSlot: number,
   hideText: bool,
+  party: node,
 };
 
 export default TableHeroImage;
