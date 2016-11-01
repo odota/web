@@ -24,6 +24,7 @@ import {
 import ReactTooltip from 'react-tooltip';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
+import SocialPerson from 'material-ui/svg-icons/social/person';
 import styles from './Match.css';
 
 export const heroTd = (row, col, field, index, hideName, party) => (
@@ -32,7 +33,16 @@ export const heroTd = (row, col, field, index, hideName, party) => (
     title={row.name || row.personaname || strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
-    subtitle={`${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`}
+    subtitle={
+      <span>
+        {row.solo_competitive_rank || strings.general_unknown}
+        <SocialPerson data-tip data-for={`mmr_${row.player_slot}`} />
+        <ReactTooltip id={`mmr_${row.player_slot}`} place="right" effect="solid">
+          {strings.th_solo_mmr}
+        </ReactTooltip>
+        {strings.th_mmr}
+      </span>
+    }
     playerSlot={row.player_slot}
     hideText={hideName}
     confirmed={row.account_id && row.name}
@@ -71,124 +81,123 @@ export const overviewColumns = match => [{
   displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, parties(row, match)),
   sortFn: true,
 }, {
-    displayName: strings.th_level,
-    tooltip: strings.tooltip_level,
-    field: 'level',
-    sortFn: true,
-  }, {
-    displayName: strings.th_kills,
-    tooltip: strings.tooltip_kills,
-    field: 'kills',
-    sortFn: true,
-    displayFn: transformations.kda,
-  }, {
-    displayName: strings.th_deaths,
-    tooltip: strings.tooltip_deaths,
-    field: 'deaths',
-    sortFn: true,
-  }, {
-    displayName: strings.th_assists,
-    tooltip: strings.tooltip_assists,
-    field: 'assists',
-    sortFn: true,
-  }, {
-    displayName: strings.th_gold_per_min,
-    tooltip: strings.tooltip_gold_per_min,
-    field: 'gold_per_min',
-    sortFn: true,
-    color: styles.golden,
-  }, {
-    displayName: strings.th_xp_per_min,
-    tooltip: strings.tooltip_xp_per_min,
-    field: 'xp_per_min',
-    sortFn: true,
-  }, {
-    displayName: strings.th_last_hits,
-    tooltip: strings.tooltip_last_hits,
-    field: 'last_hits',
-    sortFn: true,
-  }, {
-    displayName: strings.th_denies,
-    tooltip: strings.tooltip_denies,
-    field: 'denies',
-    sortFn: true,
-  }, {
-    displayName: strings.th_hero_damage,
-    tooltip: strings.tooltip_hero_damage,
-    field: 'hero_damage',
-    displayFn: row => abbreviateNumber(row.hero_damage),
-    sortFn: true,
-  }, {
-    displayName: strings.th_hero_healing,
-    tooltip: strings.tooltip_hero_healing,
-    field: 'hero_healing',
-    displayFn: row => abbreviateNumber(row.hero_healing),
-    sortFn: true,
-  }, {
-    displayName: strings.th_tower_damage,
-    tooltip: strings.tooltip_tower_damage,
-    field: 'tower_damage',
-    displayFn: row => abbreviateNumber(row.tower_damage),
-    sortFn: true,
-  }, {
-    displayName: (
-      <span className={styles.thGold}>
-        <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />
-        {strings.th_gold}
-      </span>
-    ),
-    tooltip: strings.tooltip_gold,
-    field: 'gold_per_min',
-    displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
-    sortFn: true,
-    color: styles.golden,
-  }, {
-    displayName: strings.th_items,
-    tooltip: strings.tooltip_items,
-    field: 'items',
-    displayFn: (row) => {
-      const itemArray = [];
-      for (let i = 0; i < 6; i += 1) {
-        const itemKey = itemIds[row[`item_${i}`]];
-        const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey];
+  displayName: strings.th_level,
+  tooltip: strings.tooltip_level,
+  field: 'level',
+  sortFn: true,
+}, {
+  displayName: strings.th_kills,
+  tooltip: strings.tooltip_kills,
+  field: 'kills',
+  sortFn: true,
+  displayFn: transformations.kda,
+}, {
+  displayName: strings.th_deaths,
+  tooltip: strings.tooltip_deaths,
+  field: 'deaths',
+  sortFn: true,
+}, {
+  displayName: strings.th_assists,
+  tooltip: strings.tooltip_assists,
+  field: 'assists',
+  sortFn: true,
+}, {
+  displayName: strings.th_gold_per_min,
+  tooltip: strings.tooltip_gold_per_min,
+  field: 'gold_per_min',
+  sortFn: true,
+  color: styles.golden,
+}, {
+  displayName: strings.th_xp_per_min,
+  tooltip: strings.tooltip_xp_per_min,
+  field: 'xp_per_min',
+  sortFn: true,
+}, {
+  displayName: strings.th_last_hits,
+  tooltip: strings.tooltip_last_hits,
+  field: 'last_hits',
+  sortFn: true,
+}, {
+  displayName: strings.th_denies,
+  tooltip: strings.tooltip_denies,
+  field: 'denies',
+  sortFn: true,
+}, {
+  displayName: strings.th_hero_damage,
+  tooltip: strings.tooltip_hero_damage,
+  field: 'hero_damage',
+  displayFn: row => abbreviateNumber(row.hero_damage),
+  sortFn: true,
+}, {
+  displayName: strings.th_hero_healing,
+  tooltip: strings.tooltip_hero_healing,
+  field: 'hero_healing',
+  displayFn: row => abbreviateNumber(row.hero_healing),
+  sortFn: true,
+}, {
+  displayName: strings.th_tower_damage,
+  tooltip: strings.tooltip_tower_damage,
+  field: 'tower_damage',
+  displayFn: row => abbreviateNumber(row.tower_damage),
+  sortFn: true,
+}, {
+  displayName: (
+    <span className={styles.thGold}>
+      <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />
+      {strings.th_gold}
+    </span>
+  ),
+  tooltip: strings.tooltip_gold,
+  field: 'gold_per_min',
+  displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
+  sortFn: true,
+  color: styles.golden,
+}, {
+  displayName: strings.th_items,
+  tooltip: strings.tooltip_items,
+  field: 'items',
+  displayFn: (row) => {
+    const itemArray = [];
+    for (let i = 0; i < 6; i += 1) {
+      const itemKey = itemIds[row[`item_${i}`]];
+      const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey];
 
-        if (items[itemKey]) {
-          itemArray.push(
-            inflictorWithValue(itemKey, formatSeconds(firstPurchase))
-          );
-        }
+      if (items[itemKey]) {
+        itemArray.push(
+          inflictorWithValue(itemKey, formatSeconds(firstPurchase))
+        );
       }
-      return itemArray;
-    },
-  }, {
-    displayName: (
-      <div style={{ marginLeft: 10 }}>
-        {strings.th_ability_builds}
-      </div>
-    ),
-    tooltip: strings.tooltip_ability_builds,
-    displayFn: row => (
-      <div data-tip data-for={`au_${row.player_slot}`} className={styles.abilityUpgrades}>
-        {row.ability_upgrades_arr ? <NavigationMoreHoriz /> : <NavigationMoreHoriz style={{ opacity: 0.4 }} />}
-        <ReactTooltip id={`au_${row.player_slot}`} place="left" effect="solid">
-          {row.ability_upgrades_arr ? row.ability_upgrades_arr.map(
-            (ab, i) => {
-              if (ab && !abilityIds[ab].includes('attribute_bonus')) {
-                // Here I hide stat upgrades, if necessary it can be displayed
-                return (
-                  <div className={styles.ability}>
-                    {inflictorWithValue(abilityIds[ab], `${strings.th_level} ${i + 1}`)}
-                  </div>
-                );
-              }
-              return null;
-            }
-          ) : <div style={{ paddingBottom: 5 }}>{strings.tooltip_ability_builds_expired}</div>}
-        </ReactTooltip>
-      </div>
-    ),
+    }
+    return itemArray;
   },
-];
+}, {
+  displayName: (
+    <div style={{ marginLeft: 10 }}>
+      {strings.th_ability_builds}
+    </div>
+  ),
+  tooltip: strings.tooltip_ability_builds,
+  displayFn: row => (
+    <div data-tip data-for={`au_${row.player_slot}`} className={styles.abilityUpgrades}>
+      {row.ability_upgrades_arr ? <NavigationMoreHoriz /> : <NavigationMoreHoriz style={{ opacity: 0.4 }} />}
+      <ReactTooltip id={`au_${row.player_slot}`} place="left" effect="solid">
+        {row.ability_upgrades_arr ? row.ability_upgrades_arr.map(
+          (ab, i) => {
+            if (ab && !abilityIds[ab].includes('attribute_bonus')) {
+              // Here I hide stat upgrades, if necessary it can be displayed
+              return (
+                <div className={styles.ability}>
+                  {inflictorWithValue(abilityIds[ab], `${strings.th_level} ${i + 1}`)}
+                </div>
+              );
+            }
+            return null;
+          }
+        ) : <div style={{ paddingBottom: 5 }}>{strings.tooltip_ability_builds_expired}</div>}
+      </ReactTooltip>
+    </div>
+  ),
+}];
 
 export const benchmarksColumns = (match) => {
   const cols = [

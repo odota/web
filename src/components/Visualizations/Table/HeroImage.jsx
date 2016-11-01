@@ -83,7 +83,7 @@ const TableHeroImage = ({
   </div>
 );
 
-const { number, string, object, oneOfType, bool, node } = React.PropTypes;
+const { number, string, oneOfType, bool, node } = React.PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: number,
@@ -91,7 +91,7 @@ TableHeroImage.propTypes = {
   title: string,
   subtitle: oneOfType([
     string,
-    object,
+    node,
   ]),
   registered: string,
   accountId: number,

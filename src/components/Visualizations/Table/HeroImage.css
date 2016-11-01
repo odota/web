@@ -127,3 +127,11 @@
     }
   }
 }
+
+.subText svg {
+  color: currentcolor !important;
+  height: 12px !important;
+  width: 12px !important;
+  vertical-align: top;
+  padding: 1px 4px;
+}
