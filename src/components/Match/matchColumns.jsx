@@ -15,6 +15,7 @@ import {
   abbreviateNumber,
   transformations,
   percentile,
+  sum,
 } from 'utility';
 import Heatmap from 'components/Heatmap';
 import {
@@ -58,7 +59,7 @@ export const heroTdColumn = {
 };
 
 const parties = (row, match) => {
-  if (match.parties) {
+  if (match.parties && Object.values(match.parties).reduce(sum) > 0) {
     const i = match.players.findIndex(player => player.player_slot === row.player_slot);
     const partyPrev = match.parties[(match.players[i - 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
     const partyNext = match.parties[(match.players[i + 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
@@ -85,6 +86,7 @@ export const overviewColumns = match => [{
   tooltip: strings.tooltip_level,
   field: 'level',
   sortFn: true,
+  maxFn: true,
 }, {
   displayName: strings.th_kills,
   tooltip: strings.tooltip_kills,

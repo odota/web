@@ -45,7 +45,6 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
                 <MaterialTableRowColumn key={colIndex} style={MaterialTableRowColumnStyle}>
                   {row && column.displayFn && column.displayFn(row, column, row[column.field], index)}
                   {row && !column.displayFn && row[column.field]}
-                  {/* console.log(row) */}
                 </MaterialTableRowColumn>
               );
             })}
