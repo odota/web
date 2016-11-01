@@ -494,7 +494,22 @@ export const actionsColumns = [heroTdColumn, {
 
 export const runesColumns = [heroTdColumn]
   .concat(Object.keys(runes).map(runeType => ({
-    displayName: strings[`rune_${runeType}`],
+    displayName: (
+      <div
+        className={styles.runes}
+        data-tip data-for={`rune_${runeType}`}
+      >
+        <img
+          src={`/assets/images/dota2/runes/${runeType}.png`}
+          role="presentation"
+        />
+        <ReactTooltip id={`rune_${runeType}`} effect="solid">
+          <span>
+            {strings[`rune_${runeType}`]}
+          </span>
+        </ReactTooltip>
+      </div>
+    ),
     field: 'runes',
     displayFn: (row, col, field) => (field ? (field[runeType] || '-') : '-'),
   })));
