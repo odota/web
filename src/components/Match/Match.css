@@ -17,7 +17,7 @@
   & .ability {
     position: relative;
     display: inline-block;
-    margin: 0 3px;
+    margin: 0 2px;
 
     &:first-of-type {
       margin-left: 0;
@@ -43,6 +43,7 @@
   & > div {
     pointer-events: auto !important;
     margin-left: 3px !important;
+    margin-top: 1px !important;
     padding: 6px 12px 2px !important;
 
     &:hover {
@@ -54,6 +55,9 @@
       right: 0 !important;
       top: 0 !important;
     }
+  }
+  & svg {
+    padding-left: 7px;
   }
 }
 

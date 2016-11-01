@@ -91,9 +91,9 @@
 
 .party {
   position: absolute;
-  width: 10px;
+  width: 11px;
   height: 100%;
-  left: -10px;
+  left: -11px;
 
   & > div {
     position: absolute;

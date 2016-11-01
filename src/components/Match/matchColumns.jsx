@@ -161,7 +161,11 @@ export const overviewColumns = match => [{
       return itemArray;
     },
   }, {
-    displayName: strings.th_ability_builds,
+    displayName: (
+      <div style={{ marginLeft: 10 }}>
+        {strings.th_ability_builds}
+      </div>
+    ),
     tooltip: strings.tooltip_ability_builds,
     displayFn: row => (
       <div data-tip data-for={`au_${row.player_slot}`} className={styles.abilityUpgrades}>

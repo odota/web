@@ -3,7 +3,7 @@
 .inflictorWithValue {
   position: relative;
   float: left;
-  margin: 2px;
+  margin: 1px;
   height: 29px;
 
   & .overlay {
@@ -20,9 +20,6 @@
   }
 
   & .tooltip {
-    & > div:matches(::after, ::before) {
-      content: none !important;
-    }
     & > div {
       max-width: 300px;
       
