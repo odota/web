@@ -72,12 +72,10 @@ const config = {
       },
     }),
     new webpack.DefinePlugin({
-      /*
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
-      */
-       // TODO Change this to api.opendota.com when beta is GA
+      // TODO Change this to api.opendota.com when beta is GA
       API_HOST: JSON.stringify(process.env.API_HOST || 'https://www.opendota.com'),
     }),
   ],
