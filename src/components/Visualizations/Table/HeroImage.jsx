@@ -23,15 +23,10 @@ const TableHeroImage = ({
     {parsed !== undefined &&
       <div
         className={parsed ? styles.parsed : styles.unparsed}
-        data-tip
-        data-for={parsed ? 'parsed' : 'unparsed'}
+        data-hint
+        title={parsed ? strings.tooltip_parsed : strings.tooltip_unparsed}
       >
-        <ActionDoneAll title={parsed ? strings.tooltip_parsed : strings.tooltip_unparsed} />
-        {/*
-        <ReactTooltip id={parsed ? 'parsed' : 'unparsed'} place="right" effect="solid">
-          {parsed ? strings.tooltip_parsed : strings.tooltip_unparsed}
-        </ReactTooltip>
-        */}
+        <ActionDoneAll />
       </div>
     }
     {party &&

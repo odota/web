@@ -72,3 +72,29 @@
     content: none !important;
   }
 }
+
+:global([data-hint]) {
+  &::after {
+    position: absolute;
+    display: inline-block;
+    opacity: 0;
+    z-index: 10000;
+    content: attr(title);
+    background-color: rgba(0, 0, 0, .9);
+    color: var(--textColorPrimary);
+    border-radius: 2px;
+    padding: 5px 8px;
+    font-weight: var(--fontWeightLight);
+    pointer-events: none;
+    transform: translate3d(-10px, 0, 0);
+    transition: var(--normalTransition);
+  }
+  &:hover {
+    cursor: help;
+
+    &::after {
+      transform: translate3d(0,0,0);
+      opacity: 1;    
+    }
+  }
+}
