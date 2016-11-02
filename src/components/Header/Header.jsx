@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import { Row, Col } from 'react-flexbox-grid';
 // import FlatButton from 'material-ui/FlatButton';
 // import IconButton from 'material-ui/IconButton/IconButton';
 // import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
@@ -31,7 +32,8 @@ const navbarPages = [
   }, {
     name: strings.header_ingame,
     sponsored: true,
-    path: '/become-the-gamer',
+    external: true,
+    path: 'https://dota2.becomethegamer.com/yasp',
   }];
 
 const LogoGroup = ({ width }) => (
@@ -46,9 +48,8 @@ const LinkGroup = () => (
     {navbarPages.map(page => (
       <div key={page.name} className={styles.tabContainer}>
         {page.external ?
-          <a href={page.path} className={styles.tab}>{page.name}</a> :
-            <Link to={page.path} className={styles.tab}>{page.name}</Link>
-        }
+          <a href={page.path} className={styles.tab} rel="noopener noreferrer" target="_blank">{page.name}</a> :
+            <Link to={page.path} className={styles.tab}>{page.name}</Link>}
       </div>
     ))}
   </ToolbarGroup>
@@ -75,6 +76,16 @@ const Header = ({ location, width }) => (
       <SearchGroup location={location} />
       {width > tablet && <AccountGroup />}
     </Toolbar>
+    <Row center="xs">
+      <Col xs>
+        { location.pathname === '/' || location.pathname === '' || location.pathname === null ?
+          <div />
+          : <a href="http://www.vpgame.com/?lang=en_us">
+            <img src="/assets/images/vp-banner.jpg" role="presentation" style={{ marginTop: 10, maxWidth: '100%' }} />
+          </a>
+        }
+      </Col>
+    </Row>
   </div>
 );
 

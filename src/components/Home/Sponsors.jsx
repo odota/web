@@ -16,13 +16,10 @@ export default () => (
             <img src="/assets/images/jist-white-logo.png" role="presentation" />
           </a>
           <a href="//dotacoach.org" target="_blank" rel="noopener noreferrer">
-            <img src="/assets/images/dotacoach-32x24.png" role="presentation" />
+            <img src="/assets/images/dotacoach-logo.png" role="presentation" />
           </a>
           <a href="//dota2.becomethegamer.com/" target="_blank" rel="noopener noreferrer">
             <img src="/assets/images/btg_logo.png" role="presentation" />
-          </a>
-          <a href="//pvgna.com/dota2?ref=yasp" target="_blank" rel="noopener noreferrer">
-            <img src="/assets/images/pvgna_logo.png" role="presentation" />
           </a>
         </div>
         <div className={styles.Buttons}>
@@ -32,7 +29,7 @@ export default () => (
                 {strings.home_become_sponsor}
               </span>
             }
-            href={'/'/* TODO @albertcui needs to set up donation app*/}
+            href="//carry.opendota.com"
           />
         </div>
       </Col>
