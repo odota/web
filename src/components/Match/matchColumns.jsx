@@ -37,10 +37,12 @@ export const heroTd = (row, col, field, index, hideName, party) => (
     subtitle={
       <span>
         {row.solo_competitive_rank || strings.general_unknown}
-        <SocialPerson data-tip data-for={`mmr_${row.player_slot}`} />
-        <ReactTooltip id={`mmr_${row.player_slot}`} place="right" effect="solid">
-          {strings.th_solo_mmr}
-        </ReactTooltip>
+        <section
+          data-hint={strings.th_solo_mmr}
+          data-hint-position="top"
+        >
+          <SocialPerson />
+        </section>
         {strings.th_mmr}
       </span>
     }

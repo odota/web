@@ -8,9 +8,16 @@
   width: 120px;
   
   & > span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    position: relative;
+
+    & a {
+      display: inline-block;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      vertical-align: sub;
+    }
   }
 }
 
@@ -52,13 +59,22 @@
   }
 }
 
-.registered {
-  width: 10px;
-  height: 10px;
-  margin-right: 5px;
-  background-color: var(--colorSuccess);
-  border-radius: 50%;
+.badge {
   display: inline-block;
+
+  & svg {
+    width: 10px !important;
+    height: 10px !important;
+    margin-right: 5px;
+  }
+}
+
+.registered {
+  composes: badge;
+
+  & svg {
+    fill: var(--colorSuccess) !important;
+  }
 }
 
 .imageContainer {
@@ -77,12 +93,9 @@
 }
 
 .confirmed {
-  display: inline-block;
+  composes: badge;
 
   & svg {
-    width: 10px;
-    height: 10px;
-    margin-right: 5px;
     fill: var(--colorGolden);
   }
 }
@@ -130,10 +143,23 @@
   }
 }
 
-.subText svg {
-  color: currentcolor !important;
-  height: 12px !important;
-  width: 12px !important;
-  vertical-align: top;
-  padding: 1px 4px;
+.subText {
+  position: relative;
+ 
+  & svg {
+    color: currentcolor !important;
+    height: 12px !important;
+    width: 12px !important;
+    vertical-align: top;
+    padding: 1px 0;
+
+    &::before, &::after {
+      content: "";
+      width: 4px;
+    }
+  }
+  & section {
+    margin: 0 4px;
+    display: inline-block;
+  }
 }

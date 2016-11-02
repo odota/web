@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactTooltip from 'react-tooltip';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
+import ImageLens from 'material-ui/svg-icons/image/lens';
 import strings from 'lang';
 import { TableLink } from 'components/Table';
 import { playerColors } from 'utility';
@@ -23,8 +23,7 @@ const TableHeroImage = ({
     {parsed !== undefined &&
       <div
         className={parsed ? styles.parsed : styles.unparsed}
-        data-hint
-        title={parsed ? strings.tooltip_parsed : strings.tooltip_unparsed}
+        data-hint={parsed ? strings.tooltip_parsed : strings.tooltip_unparsed}
       >
         <ActionDoneAll />
       </div>
@@ -53,18 +52,21 @@ const TableHeroImage = ({
       <div className={styles.textContainer} style={{ marginLeft: !image && 59 }}>
         <span>
           {registered &&
-            <div data-tip data-for={`registered_${accountId}`} className={styles.registered}>
-              <ReactTooltip id={`registered_${accountId}`} place="top" effect="solid">
-                {strings.tooltip_registered_user}
-              </ReactTooltip>
+            <div
+              className={styles.registered}
+              data-hint={strings.tooltip_registered_user}
+              data-hint-position="top"
+            >
+              <ImageLens />
             </div>
           }
           {confirmed &&
-            <div data-tip data-for={`confirmed_${accountId}`} className={styles.confirmed}>
+            <div
+              className={styles.confirmed}
+              data-hint={`${strings.app_confirmed_as} ${title}`}
+              data-hint-position="top"
+            >
               <IconTrophy />
-              <ReactTooltip id={`confirmed_${accountId}`} place="top"effect="solid">
-                {strings.app_confirmed_as} {title}
-              </ReactTooltip>
             </div>
           }
           {accountId ?
