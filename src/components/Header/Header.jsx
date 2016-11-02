@@ -78,7 +78,7 @@ const Header = ({ location, width }) => (
     </Toolbar>
     <Row center="xs">
       <Col xs>
-        { location.pathname === '/' || location.pathname === '' || location.pathname === null ?
+        { location.pathname === '/' ?
           <div />
           : <a href="http://www.vpgame.com/?lang=en_us">
             <img src="/assets/images/vp-banner.jpg" role="presentation" style={{ marginTop: 10, maxWidth: '100%' }} />

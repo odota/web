@@ -13,10 +13,10 @@ export default ({ location }) => (
   <div>
     <Row>
       <Col md>
-        { location.pathname === '/' || location.pathname === '' || location.pathname === null ?
+        { location.pathname === '/' ?
           <div /> :
             <iframe
-              style={{ border: 'none', margin: 0, width: '100%', height: 250 }}
+              style={{ border: 'none', margin: 0, width: '100%', height: 200 }}
               src="https://www.stanza.co/@dota2?embed=true&banner=true&site=opendota"
             />
         }
