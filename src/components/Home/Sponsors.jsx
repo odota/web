@@ -21,6 +21,9 @@ export default () => (
           <a href="//dota2.becomethegamer.com/" target="_blank" rel="noopener noreferrer">
             <img src="/assets/images/btg_logo.png" role="presentation" />
           </a>
+          <a href="//vpgame.com/" target="_blank" rel="noopener noreferrer">
+            <img src="/assets/images/vp-logo.png" role="presentation" />
+          </a>
         </div>
         <div className={styles.Buttons}>
           <FlatButton
