@@ -1,8 +1,8 @@
 import React from 'react';
 import uuid from 'node-uuid';
-import ReactTooltip from 'react-tooltip';
+// import ReactTooltip from 'react-tooltip';
 import palette from 'components/palette.css';
-import strings from 'lang';
+// import strings from 'lang';
 import styles from './KDA.css';
 
 const KDA = ({ kills, deaths, assists, matchId = uuid.v4() }) => {
