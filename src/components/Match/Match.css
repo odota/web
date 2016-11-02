@@ -17,7 +17,7 @@
   & .ability {
     position: relative;
     display: inline-block;
-    margin: 0 3px;
+    margin: 0 2px;
 
     &:first-of-type {
       margin-left: 0;
@@ -43,6 +43,7 @@
   & > div {
     pointer-events: auto !important;
     margin-left: 3px !important;
+    margin-top: 1px !important;
     padding: 6px 12px 2px !important;
 
     &:hover {
@@ -54,6 +55,9 @@
       right: 0 !important;
       top: 0 !important;
     }
+  }
+  & svg {
+    padding-left: 7px;
   }
 }
 
@@ -110,10 +114,13 @@
   filter: drop-shadow(0 0 5px var(--colorDanger));
   fill: black !important;
 }
+.iconRadiant, .iconDire {
+  margin-left: 5px;
+}
 
 .matchNumbers {
-  text-align: right;
-  padding-top: 5px;
+  text-align: center;
+  margin-bottom: 5px;
   
   & span {
     font-size: var(--fontSizeSmall);
@@ -121,25 +128,16 @@
     margin-left: 20px;
     white-space: pre-line;
   }
-  & > div {
+  & > div > div {
     display: inline;
-    vertical-align: middle;
+    margin: 5px;
 
-    &:first-of-type {
+    @media only screen and (max-width: 560px) {
+      display: block;
+      line-height: 2;
+
       & span {
         margin-left: 0;
-      }
-    }
-    & > div {
-      display: inline;
-      margin: 5px;
-      @media only screen and (max-width: 560px) {
-        display: block;
-        line-height: 2;
-
-        & span {
-          margin-left: 0;
-        }
       }
     }
   }

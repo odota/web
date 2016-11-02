@@ -15,6 +15,7 @@ import {
   abbreviateNumber,
   transformations,
   percentile,
+  sum,
 } from 'utility';
 import Heatmap from 'components/Heatmap';
 import {
@@ -24,18 +25,29 @@ import {
 import ReactTooltip from 'react-tooltip';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
+import SocialPerson from 'material-ui/svg-icons/social/person';
 import styles from './Match.css';
 
-export const heroTd = (row, col, field, index, hideName) => (
+export const heroTd = (row, col, field, index, hideName, party) => (
   <TableHeroImage
     image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
     title={row.name || row.personaname || strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
-    subtitle={`${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`}
+    subtitle={
+      <span>
+        {row.solo_competitive_rank || strings.general_unknown}
+        <SocialPerson data-tip data-for={`mmr_${row.player_slot}`} />
+        <ReactTooltip id={`mmr_${row.player_slot}`} place="right" effect="solid">
+          {strings.th_solo_mmr}
+        </ReactTooltip>
+        {strings.th_mmr}
+      </span>
+    }
     playerSlot={row.player_slot}
     hideText={hideName}
     confirmed={row.account_id && row.name}
+    party={party}
   />
 );
 
@@ -46,168 +58,148 @@ export const heroTdColumn = {
   sortFn: true,
 };
 
+const parties = (row, match) => {
+  if (match.parties && Object.values(match.parties).reduce(sum) > 0) {
+    const i = match.players.findIndex(player => player.player_slot === row.player_slot);
+    const partyPrev = match.parties[(match.players[i - 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
+    const partyNext = match.parties[(match.players[i + 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
+    if (!partyPrev && partyNext) {
+      return <div data-next />;
+    }
+    if (partyPrev && partyNext) {
+      return <div data-prev-next />;
+    }
+    if (partyPrev && !partyNext) {
+      return <div data-prev />;
+    }
+  }
+  return null;
+};
+
 export const overviewColumns = match => [{
-  field: '',
+  displayName: 'Player',
+  field: 'player_slot',
+  displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, parties(row, match)),
+  sortFn: true,
+}, {
+  displayName: strings.th_level,
+  tooltip: strings.tooltip_level,
+  field: 'level',
+  sortFn: true,
+  maxFn: true,
+}, {
+  displayName: strings.th_kills,
+  tooltip: strings.tooltip_kills,
+  field: 'kills',
+  sortFn: true,
+  displayFn: transformations.kda,
+}, {
+  displayName: strings.th_deaths,
+  tooltip: strings.tooltip_deaths,
+  field: 'deaths',
+  sortFn: true,
+}, {
+  displayName: strings.th_assists,
+  tooltip: strings.tooltip_assists,
+  field: 'assists',
+  sortFn: true,
+}, {
+  displayName: strings.th_gold_per_min,
+  tooltip: strings.tooltip_gold_per_min,
+  field: 'gold_per_min',
+  sortFn: true,
+  color: styles.golden,
+}, {
+  displayName: strings.th_xp_per_min,
+  tooltip: strings.tooltip_xp_per_min,
+  field: 'xp_per_min',
+  sortFn: true,
+}, {
+  displayName: strings.th_last_hits,
+  tooltip: strings.tooltip_last_hits,
+  field: 'last_hits',
+  sortFn: true,
+}, {
+  displayName: strings.th_denies,
+  tooltip: strings.tooltip_denies,
+  field: 'denies',
+  sortFn: true,
+}, {
+  displayName: strings.th_hero_damage,
+  tooltip: strings.tooltip_hero_damage,
+  field: 'hero_damage',
+  displayFn: row => abbreviateNumber(row.hero_damage),
+  sortFn: true,
+}, {
+  displayName: strings.th_hero_healing,
+  tooltip: strings.tooltip_hero_healing,
+  field: 'hero_healing',
+  displayFn: row => abbreviateNumber(row.hero_healing),
+  sortFn: true,
+}, {
+  displayName: strings.th_tower_damage,
+  tooltip: strings.tooltip_tower_damage,
+  field: 'tower_damage',
+  displayFn: row => abbreviateNumber(row.tower_damage),
+  sortFn: true,
+}, {
+  displayName: (
+    <span className={styles.thGold}>
+      <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />
+      {strings.th_gold}
+    </span>
+  ),
+  tooltip: strings.tooltip_gold,
+  field: 'gold_per_min',
+  displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
+  sortFn: true,
+  color: styles.golden,
+}, {
+  displayName: strings.th_items,
+  tooltip: strings.tooltip_items,
+  field: 'items',
   displayFn: (row) => {
-    if (match.parties) {
-      const i = match.players.findIndex(player => player.player_slot === row.player_slot);
-      const partyPrev = match.parties[(match.players[i - 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
-      const partyNext = match.parties[(match.players[i + 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
-      const parentStyle = {
-        position: 'relative',
-        width: 0,
-        height: '100%',
-      };
-      const style = {
-        position: 'absolute',
-        width: 10,
-        right: -25,
-      };
-      const borderStyle = `2px solid ${styles.lightGray}`;
-      // `row.isRadiant ? styles.green : styles.red` but it have no sense since tables are separated
-      if (!partyPrev && partyNext) {
-        return (
-          <div style={parentStyle}>
-            <div style={{ ...style, borderLeft: borderStyle, height: '55%', top: '50%' }} />
-            <div style={{ ...style, borderTop: borderStyle, height: '50%', top: '50%' }} />
-          </div>
-        );
-      }
-      if (partyPrev && partyNext) {
-        return (
-          <div style={parentStyle}>
-            <div style={{ ...style, borderLeft: borderStyle, height: '120%', top: '-10%' }} />
-            <div style={{ ...style, borderTop: borderStyle, height: 2, top: '50%', marginTop: -1 }} />
-          </div>
-        );
-      }
-      if (partyPrev && !partyNext) {
-        return (
-          <div style={parentStyle}>
-            <div style={{ ...style, borderBottom: borderStyle, height: '50%', top: 0 }} />
-            <div style={{ ...style, borderLeft: borderStyle, height: '56%', top: -1 }} />
-          </div>
+    const itemArray = [];
+    for (let i = 0; i < 6; i += 1) {
+      const itemKey = itemIds[row[`item_${i}`]];
+      const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey];
+
+      if (items[itemKey]) {
+        itemArray.push(
+          inflictorWithValue(itemKey, formatSeconds(firstPurchase))
         );
       }
     }
-    return null;
+    return itemArray;
   },
-},
-  heroTdColumn, {
-    displayName: strings.th_level,
-    tooltip: strings.tooltip_level,
-    field: 'level',
-    sortFn: true,
-  }, {
-    displayName: strings.th_kills,
-    tooltip: strings.tooltip_kills,
-    field: 'kills',
-    sortFn: true,
-    displayFn: transformations.kda,
-  }, {
-    displayName: strings.th_deaths,
-    tooltip: strings.tooltip_deaths,
-    field: 'deaths',
-    sortFn: true,
-  }, {
-    displayName: strings.th_assists,
-    tooltip: strings.tooltip_assists,
-    field: 'assists',
-    sortFn: true,
-  }, {
-    displayName: strings.th_gold_per_min,
-    tooltip: strings.tooltip_gold_per_min,
-    field: 'gold_per_min',
-    sortFn: true,
-    color: styles.golden,
-  }, {
-    displayName: strings.th_xp_per_min,
-    tooltip: strings.tooltip_xp_per_min,
-    field: 'xp_per_min',
-    sortFn: true,
-  }, {
-    displayName: strings.th_last_hits,
-    tooltip: strings.tooltip_last_hits,
-    field: 'last_hits',
-    sortFn: true,
-  }, {
-    displayName: strings.th_denies,
-    tooltip: strings.tooltip_denies,
-    field: 'denies',
-    sortFn: true,
-  }, {
-    displayName: strings.th_hero_damage,
-    tooltip: strings.tooltip_hero_damage,
-    field: 'hero_damage',
-    displayFn: row => abbreviateNumber(row.hero_damage),
-    sortFn: true,
-  }, {
-    displayName: strings.th_hero_healing,
-    tooltip: strings.tooltip_hero_healing,
-    field: 'hero_healing',
-    displayFn: row => abbreviateNumber(row.hero_healing),
-    sortFn: true,
-  }, {
-    displayName: strings.th_tower_damage,
-    tooltip: strings.tooltip_tower_damage,
-    field: 'tower_damage',
-    displayFn: row => abbreviateNumber(row.tower_damage),
-    sortFn: true,
-  }, {
-    displayName: (
-      <span className={styles.thGold}>
-        <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />
-        {strings.th_gold}
-      </span>
-    ),
-    tooltip: strings.tooltip_gold,
-    field: 'gold_per_min',
-    displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
-    sortFn: true,
-    color: styles.golden,
-  }, {
-    displayName: strings.th_items,
-    tooltip: strings.tooltip_items,
-    field: 'items',
-    displayFn: (row) => {
-      const itemArray = [];
-      for (let i = 0; i < 6; i += 1) {
-        const itemKey = itemIds[row[`item_${i}`]];
-        const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey];
-
-        if (items[itemKey]) {
-          itemArray.push(
-            inflictorWithValue(itemKey, formatSeconds(firstPurchase))
-          );
-        }
-      }
-      return itemArray;
-    },
-  }, {
-    displayName: strings.th_ability_builds,
-    tooltip: strings.tooltip_ability_builds,
-    displayFn: row => (
-      <div data-tip data-for={`au_${row.player_slot}`} className={styles.abilityUpgrades}>
-        {row.ability_upgrades_arr ? <NavigationMoreHoriz /> : <NavigationMoreHoriz style={{ opacity: 0.4 }} />}
-        <ReactTooltip id={`au_${row.player_slot}`} place="left" effect="solid">
-          {row.ability_upgrades_arr ? row.ability_upgrades_arr.map(
-            (ab, i) => {
-              if (ab && !abilityIds[ab].includes('attribute_bonus')) {
-                // Here I hide stat upgrades, if necessary it can be displayed
-                return (
-                  <div className={styles.ability}>
-                    {inflictorWithValue(abilityIds[ab], `${strings.th_level} ${i + 1}`)}
-                  </div>
-                );
-              }
-              return null;
+}, {
+  displayName: (
+    <div style={{ marginLeft: 10 }}>
+      {strings.th_ability_builds}
+    </div>
+  ),
+  tooltip: strings.tooltip_ability_builds,
+  displayFn: row => (
+    <div data-tip data-for={`au_${row.player_slot}`} className={styles.abilityUpgrades}>
+      {row.ability_upgrades_arr ? <NavigationMoreHoriz /> : <NavigationMoreHoriz style={{ opacity: 0.4 }} />}
+      <ReactTooltip id={`au_${row.player_slot}`} place="left" effect="solid">
+        {row.ability_upgrades_arr ? row.ability_upgrades_arr.map(
+          (ab, i) => {
+            if (ab && !abilityIds[ab].includes('attribute_bonus')) {
+              // Here I hide stat upgrades, if necessary it can be displayed
+              return (
+                <div className={styles.ability}>
+                  {inflictorWithValue(abilityIds[ab], `${strings.th_level} ${i + 1}`)}
+                </div>
+              );
             }
-          ) : <div style={{ paddingBottom: 5 }}>{strings.tooltip_ability_builds_expired}</div>}
-        </ReactTooltip>
-      </div>
-    ),
-  },
-];
+            return null;
+          }
+        ) : <div style={{ paddingBottom: 5 }}>{strings.tooltip_ability_builds_expired}</div>}
+      </ReactTooltip>
+    </div>
+  ),
+}];
 
 export const benchmarksColumns = (match) => {
   const cols = [

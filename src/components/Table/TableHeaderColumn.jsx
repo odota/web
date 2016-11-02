@@ -19,9 +19,7 @@ export default ({ column, sortClick, sortField, sortState }) => {
           {column.sortFn && getSortIcon(sortState, sortField, column.field, { height: 14, width: 14 })}
           {column.tooltip &&
           <ReactTooltip id={tooltipId} place="top" type="light" effect="solid">
-            <div className={styles.headerTooltip}>
-              {column.tooltip}
-            </div>
+            {column.tooltip}
           </ReactTooltip>
           }
         </div>

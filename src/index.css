@@ -68,10 +68,7 @@
   text-align: left;
   margin: -3px !important;
 
-  &::before {
-    content: none !important;
-  }
-  &::after {
+  &:matches(::after, ::before) {
     content: none !important;
   }
 }

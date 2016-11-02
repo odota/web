@@ -2,7 +2,7 @@
 
 .container {
   position: relative;
-  margin: 10px 0;
+  margin: 10px 0 30px;
   border-bottom: 1px solid rgba(255, 255, 255, .19);
 
   @media only screen and (max-width : 1250px) {
