@@ -209,3 +209,7 @@
     font-weight: var(--fontWeightNormal);
   }
 }
+
+.items > div {
+  clear: both;
+}

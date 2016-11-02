@@ -160,6 +160,7 @@ export const overviewColumns = match => [{
   field: 'items',
   displayFn: (row) => {
     const itemArray = [];
+    const itemBearArray = [];
     for (let i = 0; i < 6; i += 1) {
       const itemKey = itemIds[row[`item_${i}`]];
       const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey];
@@ -169,8 +170,24 @@ export const overviewColumns = match => [{
           inflictorWithValue(itemKey, formatSeconds(firstPurchase))
         );
       }
+
+      if (row.hero_id === 80 && row.additional_units) {
+        const itemBearKey = itemIds[row.additional_units[0][`item_${i}`]];
+        const firstBearPurchase = row.first_purchase_time && row.first_purchase_time[itemBearKey];
+
+        if (items[itemBearKey]) {
+          itemBearArray.push(
+            inflictorWithValue(itemBearKey, formatSeconds(firstBearPurchase))
+          );
+        }
+      }
     }
-    return itemArray;
+    return (
+      <div className={styles.items}>
+        {itemArray && <div>{itemArray}</div>}
+        {itemBearArray && <div>{itemBearArray}</div>}
+      </div>
+    );
   },
 }, {
   displayName: (
