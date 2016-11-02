@@ -8,17 +8,23 @@ import Form from './Form';
 import FormField from './FormField';
 import FormGroup from './FormGroup';
 // import SubmitButton from './SubmitButton';
+// import ClearButton from './ClearButton';
 import ShowFormToggle from './ShowFormToggle';
 import styles from './TableFilterForm.css';
 import * as data from './TableFilter.config';
 
 const FORM_NAME = 'tableFilter';
 
+const setFormShow = (props) => {
+  // If query string state doesn't match form show state, toggle it
+  if (Boolean(window.location.search.substring(1)) !== props.showForm) {
+    props.toggleShowForm();
+  }
+};
+
 class TableFilterForm extends React.Component {
   componentWillMount() {
-    if (Boolean(window.location.search.substring(1)) && !this.props.showForm) {
-      this.props.toggleShowForm();
-    }
+    setFormShow(this.props);
   }
   render() {
     const { page, showForm, toggleShowForm } = this.props;

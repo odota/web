@@ -16,7 +16,7 @@ import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesC
 import { playerHeroesOverviewColumns } from 'components/Player/Pages/Heroes/playerHeroesColumns';
 import styles from './Overview.css';
 
-const MAX_OVERVIEW_ROWS = 20;
+const MAX_OVERVIEW_ROWS = 10;
 
 const Overview = ({
   matchesData,

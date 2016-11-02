@@ -8,7 +8,7 @@ import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import {
   responsiveStateReducer,
-  responsiveStoreEnhancer,
+  createResponsiveStoreEnhancer,
 } from 'redux-responsive';
 import {
   routerReducer as routing,
@@ -30,7 +30,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /* eslint-enable */
 
 export default createStore(reducer, composeEnhancers(
-  responsiveStoreEnhancer,
+  createResponsiveStoreEnhancer({ performanceMode: true }),
   applyMiddleware(thunkMiddleware),
   process.env.NODE_ENV === 'production' ? f => f : applyMiddleware(loggerMiddleware),
   applyMiddleware(routerMiddleware(browserHistory)),
