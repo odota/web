@@ -29,7 +29,7 @@ export default () => (
                 {strings.home_become_sponsor}
               </span>
             }
-            href={'//carry.opendota.com'}
+            href="//carry.opendota.com"
           />
         </div>
       </Col>
