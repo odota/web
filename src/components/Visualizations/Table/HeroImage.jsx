@@ -25,10 +25,12 @@ const TableHeroImage = ({
       data-tip
       data-for={parsed ? 'parsed' : 'unparsed'}
     >
-      <ActionDoneAll />
+      <ActionDoneAll title={parsed ? strings.tooltip_parsed : strings.tooltip_unparsed} />
+      {/*
       <ReactTooltip id={parsed ? 'parsed' : 'unparsed'} place="right" effect="solid">
         {parsed ? strings.tooltip_parsed : strings.tooltip_unparsed}
       </ReactTooltip>
+      */}
     </div>
     }
     {image &&

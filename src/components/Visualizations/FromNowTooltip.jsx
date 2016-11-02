@@ -12,6 +12,7 @@ const FromNowTooltip = ({
   return (
     <div data-tip data-for={tooltipId}>
       {fromNow(timestamp)}
+      {/*
       <ReactTooltip id={tooltipId} place="right" type="light" effect="float">
         { // Country Code Language List http://www.fincher.org/Utilities/CountryLanguageList.shtml
           new Date(Number(timestamp) * 1000).toLocaleDateString('en-US', {
@@ -21,6 +22,7 @@ const FromNowTooltip = ({
           })
         }
       </ReactTooltip>
+      */}
     </div>
   );
 };
