@@ -18,7 +18,6 @@ const config = {
     path: 'build/',
     publicPath: 'build/',
   },
-  devTool: '#cheap-eval-module-source-map',
   resolve: {
     extensions: ['', '.jsx', '.js', '.css', '.json'],
     modules: [
