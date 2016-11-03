@@ -2,7 +2,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 import heroes from 'dotaconstants/json/heroes.json';
-import skill from 'dotaconstants/json/skill.json';
 import items from 'dotaconstants/json/items.json';
 import patch from 'dotaconstants/json/patch.json';
 import region from 'dotaconstants/json/region.json';
@@ -146,8 +145,10 @@ export const percentile = (pct) => {
 };
 
 const getSubtitle = (row) => {
-  if (row.match_id && row.player_slot !== undefined) {
+  if (false && row.match_id && row.player_slot !== undefined) {
     return isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire;
+  } else if (row.match_id) {
+    return <FromNowTooltip timestamp={row.start_time + row.duration} />;
   } else if (row.last_played) {
     return <FromNowTooltip timestamp={row.last_played} />;
   } else if (row.start_time) {
@@ -199,11 +200,10 @@ export const transformations = {
           {getString(field)}
         </span>
         <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
-          <FromNowTooltip timestamp={row.start_time + row.duration} />
+          {strings[`skill_${row.skill}`] || strings.general_unknown} {strings.th_skill}
         </span>
       </div>);
   },
-  skill: (row, col, field) => (skill[field] ? skill[field] : strings.general_unknown),
   game_mode: (row, col, field) => (gameMode[field] ? gameMode[field].name : field),
   match_id_and_game_mode: (row, col, field) => (
     <div>
