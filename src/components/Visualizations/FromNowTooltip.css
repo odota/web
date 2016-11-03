@@ -1,0 +1,9 @@
+.container {
+  position: relative;
+
+  &[data-hint-position="top"]::after {
+    margin-left: -10px;
+    left: 0;
+  }
+
+}
