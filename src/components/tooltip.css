@@ -30,6 +30,10 @@
     border-radius: 2px;
     padding: 5px 8px;
     font-weight: var(--fontWeightLight);
+    text-transform: none;
+    font-size: 13px;
+    line-height: 1.3;
+    white-space: nowrap;
   }
 
   &:hover {
