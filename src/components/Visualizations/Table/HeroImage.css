@@ -71,10 +71,12 @@
 
 .registered {
   composes: badge;
-
-  & svg {
-    fill: var(--colorSuccess) !important;
-  }
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  background-color: var(--colorSuccess);
+  border-radius: 50%;
+  margin-top: 1px;
 }
 
 .imageContainer {
@@ -148,15 +150,10 @@
  
   & svg {
     color: currentcolor !important;
-    height: 12px !important;
-    width: 12px !important;
+    height: 13px !important;
+    width: 13px !important;
     vertical-align: top;
     padding: 1px 0;
-
-    &::before, &::after {
-      content: "";
-      width: 4px;
-    }
   }
   & section {
     margin: 0 4px;

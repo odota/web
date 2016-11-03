@@ -56,9 +56,7 @@ const TableHeroImage = ({
               className={styles.registered}
               data-hint={strings.tooltip_registered_user}
               data-hint-position="top"
-            >
-              <ImageLens />
-            </div>
+            />
           }
           {confirmed &&
             <div

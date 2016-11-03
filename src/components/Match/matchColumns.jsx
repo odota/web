@@ -39,7 +39,7 @@ export const heroTd = (row, col, field, index, hideName, party) => (
         {row.solo_competitive_rank || strings.general_unknown}
         <section
           data-hint={strings.th_solo_mmr}
-          data-hint-position="top"
+          data-hint-position="bottom"
         >
           <SocialPerson />
         </section>
