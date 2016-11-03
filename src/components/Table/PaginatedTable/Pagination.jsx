@@ -28,6 +28,7 @@ const getPages = ({
   const end = Math.max(targetEnd, minEnd);
   for (let i = start; i <= end; i += 1) {
     pages.push(<FlatButton
+      key={i}
       className={i === currentPage ? styles.currentPage : styles.page}
       onClick={i === currentPage ? () => {} : () => setCurrentPage(i)}
     >

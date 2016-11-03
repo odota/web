@@ -23,10 +23,12 @@
 
 .tabs {
   width: 100%;
+  /*
+  Just make width large enough that it's never reached
   @media only screen and (max-width : 1250px) {
-    /* Just make this value large enough that it's never reached */
     width: 1920px !important;
   }
+  */
   & > div {
     background-color: transparent !important;
   }
@@ -35,12 +37,29 @@
 
 .tab {
   color: var(--primaryTextColor) !important;
-  font-size: 12px !important;
   text-transform: none !important;
   &:hover {
     background-color: rgba(255, 255, 255, .08) !important;
   }
 }
+
+.sliding {
+	display: inline-block;
+	position: relative;
+	padding-bottom: 3px;
+}
+.sliding:after {
+	content: '';
+	display: block;
+	margin: auto;
+	height: 3px;
+	width: 0px;
+	background: transparent;
+	transition: width .5s ease, background-color .5s ease;
+	width: 100%;
+	background: blue;
+}
+
 .tabDisabled {
   color: var(--colorMuted) !important;
   text-transform: none !important;
