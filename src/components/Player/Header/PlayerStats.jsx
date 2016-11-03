@@ -6,7 +6,6 @@ import {
   CardTitle,
 } from 'material-ui/Card';
 import ActionHelp from 'material-ui/svg-icons/action/help';
-import ReactTooltip from 'react-tooltip';
 import {
   player,
 } from 'reducers';

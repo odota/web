@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
 import { player } from 'reducers';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
