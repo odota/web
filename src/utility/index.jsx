@@ -218,9 +218,10 @@ export const transformations = {
       <span>
         {formatSeconds(field)}
       </span>
+      {row &&
       <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
         <FromNowTooltip timestamp={row.start_time + row.duration} />
-      </span>
+      </span>}
     </div>
   ),
   region: (row, col, field) => region[field],
