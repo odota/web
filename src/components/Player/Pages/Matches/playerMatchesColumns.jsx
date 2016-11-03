@@ -18,12 +18,6 @@ export default [{
   field: 'radiant_win',
   displayFn: transformations.radiant_win,
 }, {
-  displayName: strings.th_skill,
-  tooltip: strings.tooltip_skill,
-  field: 'skill',
-  sortFn: true,
-  displayFn: transformations.skill,
-}, {
   displayName: strings.th_duration,
   tooltip: strings.tooltip_duration,
   field: 'duration',
