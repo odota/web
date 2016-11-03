@@ -1,11 +1,25 @@
-.TablePercent {
+@import '../../palette.css';
+
+.container {
+  display: flex;
+  position: relative;
+  height: 100%;
+}
+
+.title {
+  align-self: center;
+  line-height: 0;
+}
+
+.percent {
   width: 100%;
   height: 4px;
   position: absolute;
-  bottom: -7px;
-}
+  background-color: var(--colorMuted);
+  align-self: flex-end;
+  bottom: -1px;
 
-.TablePercent > div {
-  height: 100%;
-  display: inline-block;
+  & > div {
+    height: 100%;
+  }
 }

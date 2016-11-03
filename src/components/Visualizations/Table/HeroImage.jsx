@@ -1,6 +1,5 @@
 import React from 'react';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
-import ImageLens from 'material-ui/svg-icons/image/lens';
 import strings from 'lang';
 import { TableLink } from 'components/Table';
 import { playerColors } from 'utility';
