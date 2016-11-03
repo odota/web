@@ -22,7 +22,7 @@ const TableHeroImage = ({
     {parsed !== undefined &&
       <div
         className={parsed ? styles.parsed : styles.unparsed}
-        data-hint={parsed ? strings.tooltip_parsed : strings.tooltip_unparsed}
+        data-hint={parsed && strings.tooltip_parsed}
       >
         <ActionDoneAll />
       </div>
