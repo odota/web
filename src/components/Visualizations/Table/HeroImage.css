@@ -32,14 +32,14 @@
   left: -24px;
   width: 2px;
   height: 29px;
-  background-color: var(--colorSuccess);
   align-self: center;
+  background-color: var(--primaryLinkColor);
 
   /* Material-ui icon */
   & svg {
     position: relative !important;
     left: -10px !important;
-    fill: var(--colorSuccess) !important;
+    fill: var(--primaryLinkColor) !important;
   }
 }
 .unparsed {
