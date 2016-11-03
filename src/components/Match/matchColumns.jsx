@@ -173,13 +173,14 @@ export const overviewColumns = match => [{
         );
       }
 
+      // Use hero_id because Meepo showing up as an additional unit in some matches http://dev.dota2.com/showthread.php?t=132401
       if (row.hero_id === 80 && row.additional_units) {
-        const itemBearKey = itemIds[row.additional_units[0][`item_${i}`]];
-        const firstBearPurchase = row.first_purchase_time && row.first_purchase_time[itemBearKey];
+        const additionalItemKey = itemIds[row.additional_units[0][`item_${i}`]];
+        const additionalFirstPurchase = row.first_purchase_time && row.first_purchase_time[additionalItemKey];
 
-        if (items[itemBearKey]) {
+        if (items[additionalItemKey]) {
           itemBearArray.push(
-            inflictorWithValue(itemBearKey, formatSeconds(firstBearPurchase))
+            inflictorWithValue(additionalItemKey, formatSeconds(additionalFirstPurchase))
           );
         }
       }
