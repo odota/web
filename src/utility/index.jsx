@@ -145,10 +145,8 @@ export const percentile = (pct) => {
 };
 
 const getSubtitle = (row) => {
-  if (false && row.match_id && row.player_slot !== undefined) {
+  if (row.match_id && row.player_slot !== undefined) {
     return isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire;
-  } else if (row.match_id) {
-    return <FromNowTooltip timestamp={row.start_time + row.duration} />;
   } else if (row.last_played) {
     return <FromNowTooltip timestamp={row.last_played} />;
   } else if (row.start_time) {
@@ -215,7 +213,16 @@ export const transformations = {
   ),
   start_time: (row, col, field) => <FromNowTooltip timestamp={field} />,
   last_played: (row, col, field) => <FromNowTooltip timestamp={field} />,
-  duration: (row, col, field) => formatSeconds(field),
+  duration: (row, col, field) => (
+    <div>
+      <span>
+        {formatSeconds(field)}
+      </span>
+      <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+        <FromNowTooltip timestamp={row.start_time + row.duration} />
+      </span>
+    </div>
+  ),
   region: (row, col, field) => region[field],
   leaver_status: (row, col, field) => (leaverStatus[field] ? leaverStatus[field].name : field),
   lobby_type: (row, col, field) => (lobbyType[field] ? lobbyType[field].name : field),
