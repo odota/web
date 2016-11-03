@@ -17,71 +17,70 @@ import {
   // getTotalWidth,
   // getWidthStyle,
 } from './tableHelpers';
+import { Fixed } from 'utility/components';
 
-const getTable = (data, columns, sortState, sortField, sortClick) => (
-  // Not currently using totalWidth (default auto width)
-  // const totalWidth = getTotalWidth(columns);
-  <div className={styles.innerContainer}>
-    <MaterialTable fixedHeader={false} selectable={false}>
-      <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false} className={styles.header}>
-        <TableHeader
-            columns={columns}
-            sortState={sortState}
-            sortField={sortField}
-            sortClick={sortClick}
-            // totalWidth={totalWidth}
-        />
-      </MaterialTableHeader>
-      <MaterialTableBody displayRowCheckbox={false} selectable={false}>
-        {data.map((row, index) => (
-           <MaterialTableRow
-               key={index}
-               className={styles.row}
-           >
-             {columns.map((column, colIndex) => {
-                const MaterialTableRowColumnStyle = {
-                  // width: `${getWidthStyle(column.width, totalWidth)}%`,
-                  overflow: `${column.field === 'kills' ? 'visible' : null}`,
-                  color: column.color,
-                };
-                const displayColumn = (column, row) => {
-                  if (row && column.displayFn) {
-                    if (column.field && column.field in row)
-                      return column.displayFn(row, column, row[column.field], index);
-                    return column.displayFn(row, column);
-                  } else {
-                    return row[column.field];
-                  }
-                }
-                return (
-                  <MaterialTableRowColumn key={colIndex} style={MaterialTableRowColumnStyle}>
-                    {displayColumn(column, row)}
-                  </MaterialTableRowColumn>
-                );
-              })}
-           </MaterialTableRow>
-         ))}
-      </MaterialTableBody>
-    </MaterialTable>
-  </div>
-);
+const PureRow = Fixed(MaterialTableRow);
 
-const Table = ({
-  data,
-  columns,
-  loading,
-  error,
-  sortState,
-  sortField,
-  sortClick,
-  numRows,
-}) => (
-  <div className={styles.container}>
-    {loading && <Spinner />}
-    {!loading && error && <Error />}
-    {!loading && !error && data && getTable(data, columns, sortState, sortField, sortClick, numRows)}
-  </div>
-);
+class Table extends React.PureComponent {
+  render() {
+    let {
+      data,
+      columns,
+      sortState,
+      sortField,
+      sortClick
+    } = this.props;
+
+    return (
+      <div>
+        <div>
+          <MaterialTable fixedHeader={false} selectable={false}>
+            <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false} className={styles.header}>
+              <TableHeader
+                  columns={columns}
+                  sortState={sortState}
+                  sortField={sortField}
+                  sortClick={sortClick}
+              />
+            </MaterialTableHeader>
+            <MaterialTableBody displayRowCheckbox={false} selectable={false}>
+              {data.map((row, index) => (
+                 <PureRow
+                     key={row.key}
+                     className={styles.row}
+                 >
+                   {columns.map((column, colIndex) => {
+                      const displayColumn = (column, row) => {
+                        if (row && column.displayFn) {
+                          if (column.field && column.field in row)
+                            return column.displayFn(row, column, row[column.field], index);
+                          return column.displayFn(row, column);
+                        } else {
+                          return row[column.field];
+                        }
+                      }
+                      return (
+                        <MaterialTableRowColumn key={colIndex}>
+                          {displayColumn(column, row)}
+                        </MaterialTableRowColumn>
+                      );
+                    })}
+                 </PureRow>
+               ))}
+            </MaterialTableBody>
+          </MaterialTable>
+        </div>
+      </div>
+    );
+  }
+}
+
+const TableLoading = (props) => {
+  let { loading, error } = props;
+  if (loading) return <Spinner />;
+  if (error) return <Error />;
+  return <Table {...props} />;
+};
 
 const {
   arrayOf,
@@ -99,7 +98,6 @@ Table.propTypes = {
   sortState: string,
   sortField: string,
   sortClick: func,
-  numRows: number,
 };
 
-export default Table;
+export default TableLoading;

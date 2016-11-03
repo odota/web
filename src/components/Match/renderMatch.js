@@ -133,6 +133,7 @@ function generateWardLog(match) {
         let wards = [e, left_log.find(sameWard(e))];
         return {
           player: i,
+          key: wards[0].ehandle,
           type: type,
           entered: wards[0],
           left: wards[1]
@@ -146,10 +147,10 @@ function generateWardLog(match) {
   };
 
   
-  const wardLog = flow(
-    map.convert({ cap: false })(computeWardData),
-    flatten,
-    sortBy(xs => xs['entered']['time']),
+  const wardLog = _.flow(
+    _.map.convert({ cap: false })(computeWardData),
+    _.flatten,
+    _.sortBy(xs => xs['entered']['time']),
   );
   return wardLog(match.players); // cap: false to keep the index
 }

@@ -6,7 +6,7 @@ import {
   isRadiant,
   // transformations,
 } from 'utility';
-import Table from 'components/Table';
+import { PlainTable as Table } from 'components/Table';
 import {
   Row,
   Col,
@@ -17,7 +17,17 @@ import {
   heroTd,
 } from './matchColumns';
 import { API_HOST } from 'config';
-import _ from 'lodash';
+import _ from 'lodash/fp';
+
+// remove this when done
+import {
+  Table as MaterialTable,
+  TableBody as MaterialTableBody,
+  TableHeader as MaterialTableHeader,
+  TableRow as MaterialTableRow,
+  TableRowColumn as MaterialTableRowColumn,
+} from 'material-ui/Table';
+
 
 const obsWard = (style, stroke, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
   <g>
@@ -51,21 +61,13 @@ const threshold = _.curry((start, limits, values, value) => {
   return _.findLast(values, (v, i) => _.inRange(value, limits[i], limits[i+1]));
 });
 
-const durationTdColor = threshold(0, [121, 241, 361], ['red', 'yellow', 'green']);
+// const durationSentryColor = threshold(0, [121, 120, 500], ['red', 'yellow', 'green']);
+const durationObserverColor = threshold(0, [121, 241, 500], ['red', 'yellow', 'green']);
 
 // TODO Hero icon on ward circles?
 class WardLog extends React.Component {
-  componentWillMount() {
-    this.setState({
-      enabledIndex: {},
-      from: 0,
-      to: -1
-    });
-  }
   render() {
-    const match = this.props.match;
     const width = this.props.width;
-    const enabledIndex = this.state.enabledIndex;
     const iconSize = width / 12;
     const style = ward => ({
       position: 'absolute',
@@ -77,7 +79,7 @@ class WardLog extends React.Component {
     return (
       <Row>
 	<Table
-          data={this.props.match.wards_log}
+          data={this.props.wardsLog}
           columns={[
 	    {
 	      displayName: "Type",
@@ -85,7 +87,7 @@ class WardLog extends React.Component {
 	      displayFn: (row, col, field) => <img height="29" src={`${API_HOST}/apps/dota2/images/items/ward_${field}_lg.png`} role="presentation" />
 	    }, {
 	      displayName: "Player",
-	      displayFn: (row) => heroTd(match.players[row.player]),
+	      displayFn: (row) => heroTd(this.props.match.players[row.player]),
 	    },{
               displayName: strings.th_ward_observer,
               field: 'entered',
@@ -99,14 +101,14 @@ class WardLog extends React.Component {
 	      displayFn: (row) => {
 	        if (!row.left) return "-";
 	        const duration = row.left.time - row.entered.time;
-		const style = { color: durationTdColor(duration) };
+		const style = { color: row.type == "sentry" ? 'white' : durationObserverColor(duration) };
 	        return <span style={style}>{duration}</span>
 	      },
 	    }, {
 	      displayName: strings.th_ward_log_killed_by || "Killed by",
 	      displayFn: (row) => {
 	        if (!row.left || !row.left.player1) return "-"; 
-	        return heroTd(match.players[row.left.player1]);
+	        return heroTd(this.props.match.players[row.left.player1]);
 	      }
 	    }
           ]}
@@ -119,7 +121,8 @@ class WardLog extends React.Component {
 // TODO use defaultprops and export directly
 export default function ({
   match,
+  wardsLog,
   width = 600,
 }) {
-  return <WardLog match={match} width={width} />;
+  return <WardLog match={match} wardsLog={wardsLog} width={width} />;
 }

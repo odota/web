@@ -12,8 +12,7 @@ import Heading from 'components/Heading';
 import Table from 'components/Table';
 import { Row, Col } from 'react-flexbox-grid';
 import { IconRadiant, IconDire } from 'components/Icons';
-import VisionMap from './VisionMap';
-import WardLog from './WardLog';
+import VisionPage from './VisionPage';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
 import MatchGraph from './MatchGraph';
@@ -197,11 +196,9 @@ const matchPages = [{
   name: strings.tab_vision,
   parsed: true,
   content: match => (<div>
-    <Heading title={strings.heading_vision} />
-    <VisionMap match={match} />
-    <Heading title="Ward log" />
-    <WardLog match={match} />
-  </div>),
+    <Heading title={strings.vision} />
+    <VisionPage match={match} />
+    </div>),
 }, {
   name: strings.tab_actions,
   parsed: true,

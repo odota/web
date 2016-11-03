@@ -6,7 +6,7 @@ import {
   isRadiant,
   // transformations,
 } from 'utility';
-import Table from 'components/Table';
+import { PlainTable as Table } from 'components/Table';
 import {
   Row,
   Col,
@@ -16,6 +16,7 @@ import strings from 'lang';
 import {
   heroTdColumn,
 } from './matchColumns';
+import { Fixed } from 'utility/components';
 
 const obsWard = (style, stroke, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
   <g>
@@ -40,6 +41,8 @@ const senWard = (style, stroke, iconSize) => (<svg style={style} width={iconSize
     </filter>
   </defs>
 </svg>);
+
+const FixedTable = Fixed(Table);
 
 // TODO Hero icon on ward circles?
 class VisionMap extends React.Component {
