@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
-// import { Tabs, Tab } from 'material-ui/Tabs';
-// import { browserHistory } from 'react-router';
 import styles from './TabBar.css';
 
 const TabBar = ({ tabs, info }) => (
-  <div className={styles.container}>
-    <div className={styles.subContainer}>
+  <main className={styles.container}>
+    <section className={styles.subContainer}>
       {tabs.map((tab, index) => (
         <Link
           key={index}
@@ -16,8 +14,8 @@ const TabBar = ({ tabs, info }) => (
           {tab.name}
         </Link>
       ))}
-    </div>
-  </div>
+    </section>
+  </main>
 );
 
 const { string, shape, arrayOf } = React.PropTypes;
