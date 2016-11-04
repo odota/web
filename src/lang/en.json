@@ -208,6 +208,10 @@
   "rune_5": "Bounty",
   "rune_6": "Arcane",
 
+  "skill_1": "Normal",
+  "skill_2": "High",
+  "skill_3": "Very High",
+  
   "tab_overview": "Overview",
   "tab_matches": "Matches",
   "tab_heroes": "Heroes",

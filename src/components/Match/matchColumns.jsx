@@ -37,10 +37,12 @@ export const heroTd = (row, col, field, index, hideName, party) => (
     subtitle={
       <span>
         {row.solo_competitive_rank || strings.general_unknown}
-        <SocialPerson data-tip data-for={`mmr_${row.player_slot}`} />
-        <ReactTooltip id={`mmr_${row.player_slot}`} place="right" effect="solid">
-          {strings.th_solo_mmr}
-        </ReactTooltip>
+        <section
+          data-hint={strings.th_solo_mmr}
+          data-hint-position="bottom"
+        >
+          <SocialPerson />
+        </section>
         {strings.th_mmr}
       </span>
     }
@@ -160,6 +162,7 @@ export const overviewColumns = match => [{
   field: 'items',
   displayFn: (row) => {
     const itemArray = [];
+    const additionalItemArray = [];
     for (let i = 0; i < 6; i += 1) {
       const itemKey = itemIds[row[`item_${i}`]];
       const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey];
@@ -169,8 +172,25 @@ export const overviewColumns = match => [{
           inflictorWithValue(itemKey, formatSeconds(firstPurchase))
         );
       }
+
+      // Use hero_id because Meepo showing up as an additional unit in some matches http://dev.dota2.com/showthread.php?t=132401
+      if (row.hero_id === 80 && row.additional_units) {
+        const additionalItemKey = itemIds[row.additional_units[0][`item_${i}`]];
+        const additionalFirstPurchase = row.first_purchase_time && row.first_purchase_time[additionalItemKey];
+
+        if (items[additionalItemKey]) {
+          additionalItemArray.push(
+            inflictorWithValue(additionalItemKey, formatSeconds(additionalFirstPurchase))
+          );
+        }
+      }
     }
-    return itemArray;
+    return (
+      <div className={styles.items}>
+        {itemArray && <div>{itemArray}</div>}
+        {additionalItemArray && <div>{additionalItemArray}</div>}
+      </div>
+    );
   },
 }, {
   displayName: (

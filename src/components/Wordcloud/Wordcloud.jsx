@@ -88,7 +88,7 @@ Wordcloud.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  width: state.browser.width <= 960 ? state.browser.width - 50 : state.browser.width - 100,
+  width: state.browser.width <= 960 ? state.browser.width - 50 : Math.min(1440, state.browser.width - 100),
 });
 
 export default connect(mapStateToProps)(Wordcloud);

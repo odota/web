@@ -2,6 +2,7 @@
   /* -- Colors */
   --defaultPrimaryColor:  rgba(0, 0, 0, .4);
   --darkPrimaryColor:  rgba(0, 0, 0, .6);
+  --almostBlack: rgba(0, 0, 0, .9);
 
   --colorSuccess: #66BB6A;
   --colorDanger:  #ff4c4c;
@@ -94,7 +95,8 @@
 }
 
 .iconButton {
-  padding: 0 5px 4px;
+  margin: 0 5px 4px;
+
   & svg {
     width: auto !important;
     height: 16px;

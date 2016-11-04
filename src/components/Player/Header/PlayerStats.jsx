@@ -6,7 +6,6 @@ import {
   CardTitle,
 } from 'material-ui/Card';
 import ActionHelp from 'material-ui/svg-icons/action/help';
-import ReactTooltip from 'react-tooltip';
 import {
   player,
 } from 'reducers';
@@ -69,28 +68,26 @@ export const PlayerStatsCards = ({
           <CardTitle
             className={styles.playerStats}
             subtitle={
-              <div>
-                <div data-tip data-for="estimate">
-                  {mmrEstimate.estimate}
-                  <ReactTooltip id="estimate" place="bottom" type="light" effect="float">
-                    {strings.general_standard_deviation}: {Math.round(mmrEstimate.stdDev)}
-                    <br />
-                    {strings.general_matches}: {mmrEstimate.n}
-                  </ReactTooltip>
-                </div>
+              <div
+                className={styles.estimatedMMR}
+                data-hint={`
+                  ${strings.general_standard_deviation}: ${Math.round(mmrEstimate.stdDev)},
+                  ${strings.general_matches}: ${mmrEstimate.n}
+                `}
+              >
+                {mmrEstimate.estimate}
               </div>
             }
             title={
               <div>
                 {strings.th_estimated_mmr}
-                <div data-tip data-for="estimateInfo" style={{ display: 'inline-block' }}>
-                  <ActionHelp className={`${styles.icon} ${styles.mmrEstimateIcon}`} />
+                <div
+                  className={styles.estimateHelp}
+                  data-hint={strings.tooltip_estimated_mmr}
+                  data-hint-position="top"
+                >
+                  <ActionHelp className={styles.icon} />
                 </div>
-                <ReactTooltip id="estimateInfo" place="right" type="light" effect="float">
-                  <div style={{ textTransform: 'none', lineHeight: 1.2 }}>
-                    {strings.tooltip_estimated_mmr}
-                  </div>
-                </ReactTooltip>
               </div>
             }
           />
