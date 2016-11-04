@@ -15,7 +15,7 @@ export default ({ location }) => (
       <Col md>
         { location.pathname !== '/' &&
           <iframe
-            style={{ border: 'none', margin: 0, width: '100%', height: 200 }}
+            style={{ border: 'none', margin: 0, width: '100%', height: 250 }}
             src="https://www.stanza.co/@dota2?embed=true&banner=true&site=opendota"
           />
         }
