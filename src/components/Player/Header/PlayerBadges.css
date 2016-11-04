@@ -3,6 +3,8 @@
 .iconButton {
   composes: iconButton;
   padding-bottom: 0;
+  cursor: default;
+
   @media only screen and (max-width: 900px) {
     & svg {
       margin: 0 12px 0 0;
@@ -26,23 +28,49 @@
   flex-direction: row;
   margin-left: 10px;
   align-items: center;
+
   @media only screen and (max-width: 660px) {
     margin-left: 0;
     margin-top: 6px;
   }
 
   & .iconButton {
-    display: inline-block;
+    position: relative;
 
     & .IconTrophy {
       fill: var(--colorGolden) !important;
     }
-    & .iconEye {
+    & .iconSteam {
+      cursor: default;
+
+      & a:hover {
+        cursor: pointer;
+      }
+    }
+    &[data-hint-position="top"] {
+      &::before {
+        margin-left: 8px;
+      }
+      &::after {
+        margin-left: -30px;
+      }
+    }
+  }
+
+  & .iconEye {
+    & svg {
       height: 22px;
       margin-top: 4px;
     }
-    & .iconSteam:hover {
-      cursor: pointer;
+    &[data-hint-position="top"] {
+      &::before {
+        margin-left: 11px;
+        top: -1px;
+      }
+      &::after {
+        margin-left: -32px;
+        margin-bottom: 1px;
+      }
     }
   }
 }

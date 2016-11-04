@@ -25,6 +25,9 @@ export default () => (
              target="_blank" rel="noopener noreferrer">
             <img src="/assets/images/loot.svg" role="presentation" />
           </a>
+          <a href="//vpgame.com/" target="_blank" rel="noopener noreferrer">
+            <img src="/assets/images/vp-logo.png" role="presentation" />
+          </a>
         </div>
         <div className={styles.Buttons}>
           <FlatButton
@@ -33,7 +36,7 @@ export default () => (
                 {strings.home_become_sponsor}
               </span>
             }
-            href={'//carry.opendota.com'}
+            href="//carry.opendota.com"
           />
         </div>
       </Col>

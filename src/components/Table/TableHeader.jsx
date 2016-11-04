@@ -1,10 +1,9 @@
 import React from 'react';
 import { TableRow as MaterialTableRow } from 'material-ui/Table';
 import TableHeaderColumn from './TableHeaderColumn';
-import styles from './Table.css';
 
 const TableHeader = ({ columns, sortState, sortField, sortClick, totalWidth }) => (
-  <MaterialTableRow className={styles.headerRow}>
+  <MaterialTableRow>
     {columns.map((column, index) => (
       <TableHeaderColumn
         key={index}

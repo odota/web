@@ -35,11 +35,13 @@ class RequestLayer extends React.Component {
     const page = playerPages(playerId).find(page => page.name.toLowerCase() === info);
     return (
       <div>
-        <div className={styles.header}>
+        <div>
           <PlayerHeader playerId={playerId} location={location} />
           <TabBar info={info} tabs={playerPages(playerId)} />
         </div>
-        {page ? page.content(playerId, routeParams, location) : <Spinner />}
+        <div className={styles.page}>
+          {page ? page.content(playerId, routeParams, location) : <Spinner />}
+        </div>
       </div>
     );
   }

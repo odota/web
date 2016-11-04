@@ -73,7 +73,7 @@ export default (inflictor, value) => {
         <div className={styles.overlay}>{value}</div>
         {tooltip &&
         <div className={styles.tooltip}>
-          <ReactTooltip id={ttId} effect="float">
+          <ReactTooltip id={ttId} effect="solid" place="left">
             {tooltip}
           </ReactTooltip>
         </div>}
