@@ -19,6 +19,11 @@
       color: var(--colorMutedLight);
     }
 
+    &[disabled] {
+      pointer-events: none;
+      color: var(--colorMuted);
+    }
+
     @media only screen and (max-width: 768px) {
       padding-left: 10px;
       padding-right: 10px;

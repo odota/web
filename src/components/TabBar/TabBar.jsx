@@ -10,6 +10,7 @@ const TabBar = ({ tabs, info, mediaQClass = null }) => (
           key={index}
           className={tab.key === info && styles.chosen}
           to={tab.route}
+          disabled={tab.disabled}
         >
           {tab.name}
         </Link>
