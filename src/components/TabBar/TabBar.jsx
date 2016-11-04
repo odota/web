@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router';
 import styles from './TabBar.css';
 
-const TabBar = ({ tabs, info }) => (
-  <main className={styles.container}>
+const TabBar = ({ tabs, info, mediaQClass = null }) => (
+  <main className={`${styles.container} ${mediaQClass}`}>
     <section className={styles.subContainer}>
       {tabs.map((tab, index) => (
         <Link
           key={index}
-          className={`${styles.tab} ${tab.key === info ? styles.sliding : ''}`}
+          className={tab.key === info && styles.chosen}
           to={tab.route}
         >
           {tab.name}
@@ -22,6 +22,7 @@ const { string, shape, arrayOf } = React.PropTypes;
 TabBar.propTypes = {
   tabs: arrayOf(shape({})),
   info: string,
+  mediaQClass: string,
 };
 
 export default TabBar;

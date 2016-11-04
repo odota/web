@@ -213,3 +213,16 @@
 .items > div {
   clear: both;
 }
+
+.tabBar {
+  & a {
+    @media only screen and (max-width: 1439px) {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+    @media only screen and (max-width: 1365px) {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+}
