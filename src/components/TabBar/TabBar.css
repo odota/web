@@ -10,7 +10,7 @@
 .subContainer {
   & a { /* Tab */
     font-weight: var(--fontWeightLight);
-    font-size: var(--fontSizeCommon);
+    font-size: 15px;
     color: var(--primaryTextColor);
     padding: 10px 14px 16px;
     border-bottom: 2px solid transparent;
