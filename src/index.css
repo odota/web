@@ -61,7 +61,7 @@
 :global([data-id="tooltip"]) {
   padding: 8px 12px !important;
   border-radius: 2px !important;
-  background-color: rgba(0, 0, 0, .9) !important;
+  background-color: var(--almostBlack) !important;
   color: var(--textColorPrimary) !important;
   white-space: pre-wrap;
   line-height: 1.5 !important;

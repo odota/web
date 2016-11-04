@@ -82,3 +82,20 @@
   composes: playerButtonsContainer;
   justify-content: center;
 }
+
+.registered {
+  width: 18px;
+  height: 18px;
+  position: relative;
+
+  &[data-hint-position="top"] {
+    &::before {
+      top: -7px;
+      margin-left: 3px;
+    }
+    &::after {
+      margin-bottom: 7px;
+      margin-left: -7px;
+    }
+  }
+}

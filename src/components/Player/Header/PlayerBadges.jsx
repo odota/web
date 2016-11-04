@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
 import { player } from 'reducers';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
@@ -15,56 +14,48 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
     return (
       <div className={styles.playerBadges}>
         {officialPlayerName && (
-          <div className={styles.iconButton}>
-            <IconTrophy
-              data-tip data-for="proPlayer"
-              className={`${styles.icon} ${styles.IconTrophy}`}
-            />
-            <ReactTooltip id="proPlayer" place="top" type="light" effect="solid">
-              {`${strings.app_confirmed_as} ${officialPlayerName}`}
-            </ReactTooltip>
+          <div
+            className={styles.iconButton}
+            data-hint={`${strings.app_confirmed_as} ${officialPlayerName}`}
+            data-hint-position="top"
+          >
+            <IconTrophy className={`${styles.icon} ${styles.IconTrophy}`} />
           </div>
         )}
-        <div className={styles.iconButton}>
+        <div
+          className={`${styles.iconButton} ${styles.iconSteam}`}
+          data-hint={strings.app_steam_profile}
+          data-hint-position="top"
+        >
           <a rel="noopener noreferrer" target="_blank" href={steamLink}>
-            <IconSteam
-              data-tip data-for="steamLink"
-              className={`${styles.icon} ${styles.iconSteam}`}
-            />
-            <ReactTooltip id="steamLink" place="top" type="light" effect="solid">
-              {strings.app_steam_profile}
-            </ReactTooltip>
+            <IconSteam className={styles.icon} />
           </a>
         </div>
         {Math.round(new Date().getTime() / 1000.0) >= Number(tracked) ? (
-          <div className={styles.iconButton}>
-            <IconEyeInactive
-              data-tip data-for="untracked"
-              className={`${styles.icon} ${styles.iconEye}`}
-            />
-            <ReactTooltip id="untracked" place="top" type="light" effect="solid">
-              {strings.app_untracked}
-            </ReactTooltip>
+          <div
+            className={`${styles.iconButton} ${styles.iconEye}`}
+            data-hint={strings.app_untracked}
+            data-hint-position="top"
+          >
+            <IconEyeInactive className={styles.icon} />
           </div>
-          ) : (<div className={styles.iconButton}>
-            <IconEye
-              data-tip data-for="tracked"
-              className={`${styles.icon} ${styles.iconEye}`}
-            />
-            <ReactTooltip id="tracked" place="top" type="light" effect="solid">
-              {strings.app_tracked}
-            </ReactTooltip>
-          </div>
-        )}
+          ) : (
+            <div
+              className={`${styles.iconButton} ${styles.iconEye}`}
+              data-hint={strings.app_tracked}
+              data-hint-position="top"
+            >
+              <IconEye className={styles.icon} />
+            </div>
+          )
+        }
         {cheese > 0 && (
-          <div className={styles.iconButton}>
-            <IconCheese
-              data-tip data-for="cheese"
-              className={`${styles.cheese} ${styles.icon}`}
-            />
-            <ReactTooltip id="cheese" place="top" type="light" effect="solid">
-              {`${cheese} ${strings.app_cheese_bought}`}
-            </ReactTooltip>
+          <div
+            className={styles.iconButton}
+            data-hint={`${cheese} ${strings.app_cheese_bought}`}
+            data-hint-position="top"
+          >
+            <IconCheese className={`${styles.cheese} ${styles.icon}`} />
           </div>
         )}
       </div>
