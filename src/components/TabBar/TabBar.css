@@ -5,14 +5,14 @@
   margin: 10px 0 30px;
   border-bottom: 1px solid rgba(255, 255, 255, .19);
 
-  @media only screen and (max-width : 1250px) {
+  @media only screen and (max-width: 1250px) {
     height: 48px;
     overflow-y: hidden;
   }
 }
 
 .subContainer {
-  @media only screen and (max-width : 1250px) {
+  @media only screen and (max-width: 1250px) {
     white-space: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
@@ -22,12 +22,19 @@
 }
 
 .tab {
-  font-weight: var(--fontWeightNormal);
+  font-weight: var(--fontWeightLight);
   font-size: var(--fontSizeCommon);
   color: var(--primaryTextColor);
+  padding: 10px 14px 16px;
+  border-bottom: 2px solid transparent;
+
+  &:hover {
+    color: var(--colorMutedLight);
+  }
 }
 
 .sliding {
 	display: inline-block;
-	position: relative;
+  border-color: var(--primaryLinkColor);
+  color: color(var(--colorMuted) lightness(85%));
 }
