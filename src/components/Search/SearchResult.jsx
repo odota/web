@@ -9,11 +9,11 @@ import Table from 'components/Table';
 const searchColumns = [{
   displayName: strings.th_name,
   field: 'personaname',
-  displayFn: (row, col, field) => {
+  displayFn: (row, col, field) =>
     // const subtitle = <span>{`${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`}</span>;
-    return transformations.player({...row
-    }, col, field);
-  },
+     transformations.player({ ...row,
+     }, col, field)
+  ,
 }];
 export default ({
   players,
