@@ -8,12 +8,18 @@
 }
 
 .subContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
   & a { /* Tab */
+    text-align: center;
     font-weight: var(--fontWeightLight);
     font-size: 15px;
     color: var(--primaryTextColor);
     padding: 10px 14px 16px;
     border-bottom: 2px solid transparent;
+    flex-grow: 1;
 
     &:hover {
       color: var(--colorMutedLight);
