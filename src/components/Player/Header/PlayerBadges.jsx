@@ -45,7 +45,7 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
               data-hint={strings.app_tracked}
               data-hint-position="top"
             >
-              <IconEye className={styles.icon} />
+              <IconEye className={styles.iconEyeTracked} />
             </div>
           )
         }
