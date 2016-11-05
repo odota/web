@@ -43,6 +43,7 @@
   "building_lasthit": "got the last hit",
   "building_damage": "received damage",
   "building_hint": "Icons on the map have tooltips",
+  "building_denied": "denied",
 
   "distributions_heading_mmr": "Solo MMR Distribution",
   "distributions_heading_country_mmr": "Average Solo MMR by Country",

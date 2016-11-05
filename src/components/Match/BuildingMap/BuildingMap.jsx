@@ -4,6 +4,7 @@ import {
   pad,
   playerColors,
   sum,
+  isRadiant
 } from 'utility';
 import heroes from 'dotaconstants/json/heroes.json';
 import Heading from 'components/Heading';
@@ -143,8 +144,16 @@ export default function BuildingMap({ match }) {
                         </span>
                         {destroyedBy && destroyedBy.player_slot === player.player_slot &&
                           <span className={styles.lasthit}>
-                            {type !== 'fort' && <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />}
-                            {strings.building_lasthit}
+                            {side === 'good' && isRadiant(destroyedBy.player_slot) ?
+                              <span className={styles.deny}>
+                                {strings.building_denied}
+                              </span>
+                            :
+                              <span>
+                                {type !== 'fort' && <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />}
+                                {strings.building_lasthit}
+                              </span>
+                            }
                           </span>
                         }
                       </div>
