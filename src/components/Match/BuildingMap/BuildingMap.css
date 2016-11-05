@@ -77,7 +77,7 @@
     font-size: var(--fontSizeSmall);
     color: var(--colorGolden);
     
-    & > img {
+    & img {
       height: 10px;
       margin-right: 3px;
     }
@@ -91,6 +91,9 @@
       height: 14px;
       display: inline-block;
     }
+  }
+  & .deny {
+    color: var(--colorMutedLight);
   }
 }
 
