@@ -2,6 +2,7 @@ import React from 'react';
 import strings from 'lang';
 import { transformations } from 'utility';
 import Table from 'components/Table';
+import Heading from 'components/Heading';
 // import { List } from 'material-ui/List';
 // import SearchResultItem from './SearchResultItem';
 // import style from './search.css';
@@ -17,4 +18,9 @@ const searchColumns = [{
 }];
 export default ({
   players,
-}) => (<Table data={players} columns={searchColumns} />);
+}) => (
+  <div>
+    <Heading title={`${players.length} ${strings.app_results}`} />
+    <Table data={players} columns={searchColumns} />
+  </div>
+);
