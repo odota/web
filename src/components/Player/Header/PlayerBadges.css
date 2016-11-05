@@ -73,6 +73,9 @@
       }
     }
   }
+  & .iconEyeTracked {
+    fill: var(--colorSuccess);
+  }
 }
 
 .icon {
