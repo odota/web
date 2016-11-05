@@ -78,11 +78,12 @@ const {
   string,
   func,
   number,
+  shape,
 } = React.PropTypes;
 
 Table.propTypes = {
-  data: arrayOf(),
-  columns: arrayOf(),
+  data: arrayOf(shape({})),
+  columns: arrayOf(shape({})),
   loading: bool,
   error: bool,
   sortState: string,

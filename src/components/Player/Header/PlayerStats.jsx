@@ -97,13 +97,13 @@ export const PlayerStatsCards = ({
   );
 };
 
-const { number, bool } = PropTypes;
+const { number, bool, shape, string } = PropTypes;
 PlayerStatsCards.propTypes = {
   loading: bool,
   error: bool,
-  partyRank: number,
-  soloRank: number,
-  mmrEstimate: number,
+  partyRank: string,
+  soloRank: string,
+  mmrEstimate: shape({}),
   wins: number,
   losses: number,
   compact: bool,
