@@ -4,7 +4,7 @@ import {
   pad,
   playerColors,
   sum,
-  isRadiant
+  isRadiant,
 } from 'utility';
 import heroes from 'dotaconstants/json/heroes.json';
 import Heading from 'components/Heading';
