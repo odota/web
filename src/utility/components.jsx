@@ -1,8 +1,8 @@
 import React from 'react';
 
 export const Fixed = (Component) => class extends React.Component {
-  shouldComponentUpdate() {
-    return false;
+  shouldComponentUpdate(newProps, newState) {
+    return this.props.style != newProps.style;
   }
   render() {
     return <Component {...this.props} />

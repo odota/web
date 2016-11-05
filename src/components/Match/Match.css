@@ -1,5 +1,11 @@
 @import "../palette.css";
 
+:root {
+  --ward-log-height: 50px;
+  --slider-ticks-color: #757575;
+  --slider-ticks-color-active: #337AB7;
+}
+
 .Header {
   text-align: center;
   display: block;
@@ -151,3 +157,74 @@
   display: inline-block;
   vertical-align: middle;
 }
+
+.ward-log {
+  width: 100%;
+  padding: 0;
+}
+
+.ward-log-item {
+  height: var(--ward-log-height);
+  background: rgba(0, 0, 0, 0.19);
+  border-bottom: 1px solid var(--dividerColor);
+
+  & .timespan {
+    text-align: right;
+  }
+}
+
+.trans-table-row-enter {
+  height: 0;
+
+  &.trans-table-row-enter-active {
+    height: var(--ward-log-height);
+    transition: height 300ms ease;
+  }
+}
+
+.trans-table-row-leave {
+  height:  var(--ward-log-height);
+  opacity: 1;
+
+  &.trans-table-row-leave-active {
+    height: 0px;
+    opacity: 0;
+    transition: height 300ms ease, opacity 300ms ease;
+  }
+}
+
+.slider-ticks {
+  position: relative;
+  height: 30px;
+  margin-top: 33px;
+  margin-bottom: -33px;
+  font-size: 0.66em;
+  border-color: var(--slider-ticks-color);
+  color: var(--slider-ticks-color);
+  
+  & .slider-tick {
+    position: absolute;
+    display: inline-block;
+    height: 100%;
+    padding: 0 0.4em;
+    border-width: 0px;
+    border-color: inherit;
+    border-style: solid;
+    border-left-width: 1px;
+
+    transition: color 150ms ease, border-color 150ms ease;
+
+    &.active {
+      border-color: var(--slider-ticks-color-active);
+      color: var(--slider-ticks-color-active);
+    }
+
+    &:last-child {
+      border-left-width: 0px;
+      border-right-width: 1px;
+      text-align: right;
+      right: 0px;
+    }
+  }
+}
+

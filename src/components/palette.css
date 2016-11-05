@@ -38,7 +38,7 @@
   --fontSizeSmall:  12px;
   /* Font -- */
 
-  --dividerColor: color(var(--textSecondaryColor) lightness(20%));
+  --dividerColor: color(var(--textColorSecondary) lightness(20%));
 
   --navDrawerWidth: 256px;
 
@@ -65,6 +65,7 @@
   primaryTextColor:    var(--textColorPrimary);
   textColorSecondary:  var(--textColorSecondary);
   secondaryTextColor:  var(--textColorSecondary);
+  dividerColor: var(--dividerColor);
   /* Colors -- */
 
   /* -- Font */
