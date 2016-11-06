@@ -49,7 +49,7 @@ const LinkGroup = () => (
       <div key={page.name} className={styles.tabContainer}>
         {page.external ?
           <a href={page.path} className={styles.tab} rel="noopener noreferrer" target="_blank">{page.name}</a> :
-            <Link to={page.path} className={styles.tab}>{page.name}</Link>}
+          <Link to={page.path} className={styles.tab}>{page.name}</Link>}
       </div>
     ))}
   </ToolbarGroup>
