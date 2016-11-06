@@ -36,14 +36,13 @@ export const heroTd = (row, col, field, index, hideName, party) => (
     accountId={row.account_id}
     subtitle={
       <span>
-        {row.solo_competitive_rank || strings.general_unknown}
         <section
           data-hint={strings.th_solo_mmr}
           data-hint-position="bottom"
         >
           <SocialPerson />
         </section>
-        {strings.th_mmr}
+        {row.solo_competitive_rank || strings.general_unknown}
       </span>
     }
     playerSlot={row.player_slot}
