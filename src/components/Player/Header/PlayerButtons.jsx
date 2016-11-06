@@ -32,13 +32,11 @@ class PlayerButtons extends React.Component {
           />
         </div>
         <FlatButton
-        // not working until dotacoach supports passing player only data (no match data here)
-          disabled
           label={strings.app_dotacoach}
           labelPosition="after"
           icon={<img src="/assets/images/dotacoach-32x24.png" alt="DotaCoach" />}
           style={{ marginLeft: 15 }}
-          href={`https://dotacoach.org/Hire/Yasp?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}`}
+          href={`https://dotacoach.org/Hire/OpenDota?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}`}
         />
       </div>);
   }
