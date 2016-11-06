@@ -36,14 +36,13 @@ export const heroTd = (row, col, field, index, hideName, party) => (
     accountId={row.account_id}
     subtitle={
       <span>
-        {row.solo_competitive_rank || strings.general_unknown}
         <section
           data-hint={strings.th_solo_mmr}
           data-hint-position="bottom"
         >
           <SocialPerson />
         </section>
-        {strings.th_mmr}
+        {row.solo_competitive_rank || strings.general_unknown}
       </span>
     }
     playerSlot={row.player_slot}
@@ -61,10 +60,10 @@ export const heroTdColumn = {
 };
 
 const parties = (row, match) => {
-  if (match.parties && Object.values(match.parties).reduce(sum) > 0) {
+  if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
     const i = match.players.findIndex(player => player.player_slot === row.player_slot);
-    const partyPrev = match.parties[(match.players[i - 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
-    const partyNext = match.parties[(match.players[i + 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
+    const partyPrev = (match.players[i - 1] || {}).party_id === row.party_id;
+    const partyNext = (match.players[i + 1] || {}).party_id === row.party_id;
     if (!partyPrev && partyNext) {
       return <div data-next />;
     }
