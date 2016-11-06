@@ -160,25 +160,38 @@
 
 .ward-log {
   width: 100%;
-  padding: 0;
-}
 
-.ward-log-item {
-  height: var(--ward-log-height);
-  background: rgba(0, 0, 0, 0.19);
-  border-bottom: 1px solid var(--dividerColor);
+  & .ward-log-header {
+    background-color: var(--tableHeaderSurfaceColor);
+    text-transform: uppercase;
+    font-size: 0.8em;
+    height: var(--ward-log-height);
+  }
+
+  & .ward-log-list {
+    padding: 0;
+    margin: 0;
+  }
 
   & .timespan {
     text-align: right;
   }
 }
 
+.ward-log-item {
+  height: var(--ward-log-height);
+  background: rgb(31, 33, 45);
+  border-bottom: 1px solid var(--dividerColor);
+}
+
 .trans-table-row-enter {
   height: 0;
+  opacity: 0;
 
   &.trans-table-row-enter-active {
     height: var(--ward-log-height);
-    transition: height 300ms ease;
+    opacity: 1;
+    transition: height 300ms ease, opacity 300ms ease;
   }
 }
 
@@ -211,19 +224,13 @@
     border-color: inherit;
     border-style: solid;
     border-left-width: 1px;
+    cursor: pointer;
 
     transition: color 150ms ease, border-color 150ms ease;
 
     &.active {
       border-color: var(--slider-ticks-color-active);
       color: var(--slider-ticks-color-active);
-    }
-
-    &:last-child {
-      border-left-width: 0px;
-      border-right-width: 1px;
-      text-align: right;
-      right: 0px;
     }
   }
 }

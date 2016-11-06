@@ -27,7 +27,7 @@
 }
 
 .headerRow th {
-  background-color: rgba(0, 0, 0, .3);
+  background-color: var(--tableHeaderSurfaceColor);
 }
 
 .headerCellNoSort {
@@ -53,10 +53,10 @@
 }
 
 tbody tr:nth-child(odd) {
-   background-color: rgba(255, 255, 255, .019);
+   background-color: var(--tableRowOddSurfaceColor);
 }
 tbody tr:nth-child(even) {
-   background-color: rgba(0, 0, 0, .019);
+   background-color: var(--tableRowEvenSurfaceColor);
 }
 
 table {

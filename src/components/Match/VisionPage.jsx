@@ -19,12 +19,12 @@ window.Perf = Perf;
 const SliderTicks = (props) => (
   <div {...props} >
     {props.ticks.map((tick) => {
-      const percent = 100*(tick-props.min)/props.max;
+      const percent = 100*(tick-props.min)/(props.max-props.min);
       const cls = [styles['slider-tick']];
       if (tick <= props.value)
         cls.push(styles['active']);
 
-      return <span key={tick} className={cls.join(' ')} style={{left: percent + '%'}}>{tick}</span>
+      return <a key={tick} onClick={() => props.onTickClick(tick)} className={cls.join(' ')} style={{left: percent + '%'}}>{formatSeconds(tick)}</a>
     })}
   </div>
 );
@@ -37,11 +37,11 @@ class VisionPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentTick: 0,
-      from: 0,
-      to: this.props.match.wards_log.length,
+      currentTick: -90,
       min: -90,
       max: props.match.duration,
+      from: 0,
+      to: this.props.match.wards_log.length,
       wardsLog: props.match.wards_log.map((e, i) => Object.assign(e, {key: i}))
     }
 
@@ -51,15 +51,11 @@ class VisionPage extends React.Component {
   }
 
   computeTick() {
-    const minute = 60;
-    // we place the 0/end of the match
-    // then every 10 minutes interval
-    const { duration } = this.props.match; 
-    let ticks = _.rangeStep(10 * minute, 0, duration);
-    return [...ticks, duration];
+    const interval = 10 * 60; // every 10 minutes interval
+    return _.rangeStep(interval, 0, this.props.match.duration);
   }
 
-  handleViewportChange(e, value) {
+  handleViewportChange(value) {
     const log = this.state.wardsLog;
     const p = this.state.from;
     
@@ -81,11 +77,13 @@ class VisionPage extends React.Component {
                      min={this.state.min}
                      max={this.state.max}
                      className={styles['slider-ticks']}
+                     onTickClick={(tick) => this.handleViewportChange(tick)}
                      ticks={this.ticks} />
         <Slider min={this.state.min}
                 max={this.state.max}
+                value={this.state.currentTick}
                 step={5}
-                onChange={(e, value) => this.handleViewportChange(e, value)} />
+                onChange={(e, value) => this.handleViewportChange(value)} />
         <WardLog match={this.props.match}
                  wardsLog={visibleWards} />
       </div>

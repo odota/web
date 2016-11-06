@@ -7,10 +7,10 @@ import { Row, Col } from 'react-flexbox-grid';
 // import heroes from 'dotaconstants/json/heroes.json';
 import { heroTd } from './matchColumns';
 import { API_HOST } from 'config';
-import { TransitionMotion, spring, presets } from 'react-motion';
 import { Fixed, Pure } from 'utility/components';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import styles from './Match.css';
+import tableStyle from '../Table/Table.css';
 
 import strings from 'lang';
 import _ from 'lodash/fp';
@@ -40,7 +40,7 @@ const RowItem = ({ style, row, match, index }) => {
   const duration = row.left ? formatSeconds(row.left.time - row.entered.time) : "-";
   return (
     <li>
-      <Row className={styles['ward-log-item']} style={style} middle="xs">
+      <Row component="li" className={styles['ward-log-item']} style={style} middle="xs">
         <Col md={1}>
           <img height="29" src={`${API_HOST}/apps/dota2/images/items/ward_${row.type}_lg.png`} role="presentation" />
         </Col>
@@ -60,39 +60,6 @@ const RowItem = ({ style, row, match, index }) => {
 const PureRowItem = Fixed(RowItem);
 
 class WardLog extends React.Component {
-  getDefaultStyles() {
-    return this.props.wardsLog.map((row, i) => (
-      {
-        data: row,
-        key: String(row.key || i),
-        style: {height: 0}
-      }));
-  }
-
-  getStyles() {
-    return this.props.wardsLog.map((row, i) => (
-      {
-        data: row,
-        key: String(row.key || i),
-        style: {
-          height: spring(50, presets.stiff),
-        }
-      }
-    ));    
-  }
-
-  willEnter() {
-    return {
-      height: 0,
-    };
-  }
-
-  willLeave() {
-    return {
-      height: spring(0),
-    };
-  }
-  
   render() {
     const width = this.props.width;
     const iconSize = width / 12;
@@ -103,14 +70,21 @@ class WardLog extends React.Component {
     });
     const obsIcons = [];
     const senIcons = [];
+    const columns = ['type', 'owner', 'entered_at', 'left_at', 'duration', 'killed_by'].map(h => 'ward_log_' + h); 
     return (
-      <Col xs>
-        <ReactCSSTransitionGroup className={styles['ward-log']} style={{width: '100%'}} component="ul"
+      <Col className={styles['ward-log']} xs>
+        <Row className={styles['ward-log-header']} middle="xs">
+          <Col md={1}>{strings[columns[0]]}</Col>
+          <Col md>{strings[columns[1]]}</Col>
+          <Col className={styles['timespan']} md={1}>{strings[columns[2]]}</Col>
+          <Col className={styles['timespan']} md={1}>{strings[columns[3]]}</Col>
+          <Col className={styles['timespan']} md={1}>{strings[columns[4]]}</Col>
+          <Col md>{strings[columns[5]]}</Col>
+        </Row>
+        <ReactCSSTransitionGroup className={styles['ward-log-list']} style={{width: '100%'}} component="ul"
                                  transitionName={extractTransitionClasses("trans-table-row", styles)}
                                  transitionEnterTimeout={300}
-                                 transitionLeaveTimeout={300}
-                                 
-        >
+                                 transitionLeaveTimeout={300}>
           {this.props.wardsLog.map((log, index) =>
             <PureRowItem key={log.key} row={log} match={this.props.match} index={index} />
            )}

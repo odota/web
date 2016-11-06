@@ -18,6 +18,10 @@
   --primaryTextColor:     #F5F5F5;
   --textColorSecondary:   #212020;
   --secondaryTextColor:   #212020;
+
+  --tableHeaderSurfaceColor: rgba(0, 0, 0, .3);
+  --tableRowOddSurfaceColor: rgba(255, 255, 255, .019);
+  --tableRowEvenSurfaceColor: rgba(0, 0, 0, .019);
   /* Colors -- */
 
   /* -- Font */
