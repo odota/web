@@ -15,9 +15,9 @@
   & a { /* Tab */
     text-align: center;
     font-weight: var(--fontWeightLight);
-    font-size: 14px;
+    font-size: 12px;
     color: var(--primaryTextColor);
-    padding: 10px 14px 16px;
+    padding: 10px 14px 8px;
     border-bottom: 2px solid transparent;
     flex-grow: 1;
 

@@ -79,3 +79,19 @@
     content: none !important;
   }
 }
+
+:global(.relative) {
+  position: relative;
+}
+
+:global(.text-left) {
+  text-align: left !important;
+}
+
+:global(.text-center) {
+  text-align: center !important;
+}
+
+:global(.text-right) {
+  text-align: right !important;
+}

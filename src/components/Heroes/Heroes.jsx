@@ -74,7 +74,7 @@ class Heroes extends Component {
             bottom: '-4px',
             left: '0',
             right: '0',
-            width: 'calc(100% + 40px)',
+            width: '100%',
           }}
           underlineStyle={{ borderColor: 'transparent' }}
         />
