@@ -3,7 +3,7 @@ import Checkbox from 'material-ui/Checkbox';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import {
-  isRadiant,
+  playerColors,
   // transformations,
 } from 'utility';
 import Table from 'components/Table';
@@ -64,7 +64,7 @@ class VisionMap extends React.Component {
     const width = this.props.width;
     const enabledIndex = this.state.enabledIndex;
     const senSize = width / 12;
-    const obsSize = senSize * (1600/850); // 850 radius sentry, 1600 radius observer
+    const obsSize = senSize * (1600 / 850); // 850 radius sentry, 1600 radius observer
     const style = (ward, iconSize) => ({
       position: 'absolute',
       top: ((width / 127) * ward.y) - (iconSize / 2),
@@ -77,7 +77,7 @@ class VisionMap extends React.Component {
         if (match && match.players && match.players[index]) {
           const obs = (match.players[index].posData && match.players[index].posData.obs) || [];
           const sen = (match.players[index].posData && match.players[index].posData.sen) || [];
-          const stroke = isRadiant(match.players[index].player_slot) ? 'green' : 'red';
+          const stroke = playerColors[match.players[index].player_slot];
           obs.forEach(ward => obsIcons.push(obsWard(style(ward, obsSize), stroke, obsSize)));
           sen.forEach(ward => senIcons.push(senWard(style(ward, senSize), stroke, senSize)));
         }
