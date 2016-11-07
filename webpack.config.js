@@ -11,6 +11,7 @@ const postcssR = require('postcss-reporter');
 const postcssCF = require('postcss-color-function');
 
 const isProd = process.env.NODE_ENV === 'production';
+
 const config = {
   entry: ['babel-polyfill', './src'],
   output: {
@@ -95,10 +96,19 @@ HashBundlePlugin.prototype.apply = (compiler) => {
     }
   });
 };
+
 if (!isProd) {
   config.devtool = 'eval-source-map';
-}
-if (isProd) {
+
+  config.entry = [
+    'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
+    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+    'babel-polyfill',
+    './src',
+  ];
+
+  config.plugins.push(new webpack.HotModuleReplacementPlugin());
+} else {
   config.plugins.push(new webpack.LoaderOptionsPlugin({
     minimize: true,
     debug: false,
@@ -112,4 +122,5 @@ if (isProd) {
     sourceMap: false,
   }), new HashBundlePlugin(), new webpack.optimize.DedupePlugin());
 }
+
 module.exports = config;
