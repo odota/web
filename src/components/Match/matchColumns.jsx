@@ -168,7 +168,7 @@ export const overviewColumns = match => [{
 
       if (items[itemKey]) {
         itemArray.push(
-          inflictorWithValue(itemKey, formatSeconds(firstPurchase))
+          inflictorWithValue(itemKey, formatSeconds(firstPurchase)),
         );
       }
 
@@ -179,7 +179,7 @@ export const overviewColumns = match => [{
 
         if (items[additionalItemKey]) {
           additionalItemArray.push(
-            inflictorWithValue(additionalItemKey, formatSeconds(additionalFirstPurchase))
+            inflictorWithValue(additionalItemKey, formatSeconds(additionalFirstPurchase)),
           );
         }
       }
@@ -213,7 +213,7 @@ export const overviewColumns = match => [{
               );
             }
             return null;
-          }
+          },
         ) : <div style={{ paddingBottom: 5 }}>{strings.tooltip_ability_builds_expired}</div>}
       </ReactTooltip>
     </div>

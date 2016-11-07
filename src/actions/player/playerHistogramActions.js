@@ -54,7 +54,7 @@ export const getPlayerHistogram = (playerId, options = {}, histogramName) => (di
     dispatch(getPlayerHistogramOk(
       list,
       playerId,
-      histogramName
+      histogramName,
     ));
   } else {
     dispatch(getPlayerHistogramRequest(playerId, histogramName));
