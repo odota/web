@@ -40,7 +40,8 @@
 }
 
 .HomeBackground {
-  background-image: url("/assets/images/home-background.png");
+  background-image: url("/assets/images/opendota_bg.png");
   background-position: center top;
   background-repeat: no-repeat;
+  background-size: 100vw;
 }

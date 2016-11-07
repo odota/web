@@ -27,6 +27,7 @@
   background-image: linear-gradient(135deg, #2e2d45, #1c2127);
   color: var(--primaryTextColor);
   box-sizing: border-box;
+  font-size: 14px;
   & * {
     box-sizing: inherit;
     &:matches(::after, ::before) {
