@@ -37,7 +37,7 @@
   margin-bottom: 30px;
 }
 .Buttons a {
-  background-color: color(var(--defaultPrimaryColor) lightness(20%)) !important;
+  background-color: color(var(--defaultPrimaryColor) .7) !important;
   border: 2px solid var(--textColorPrimary) !important;
   padding: 3px 6px !important;
   height: auto !important;
