@@ -36,7 +36,7 @@
   "benchmarks_recent_performances":"из недавних показателей этого героя",
   "building_melee_rax":"Казармы ближнего боя",
   "building_range_rax":"Казармы дальнего боя",
-  "building_lasthit":"добито",
+  "building_lasthit":"obtuvo el último golpe",
   "building_damage":"полученый урон",
   "building_hint":"У иконок на карте есть подсказки",
   "building_denied":"не отдал",
