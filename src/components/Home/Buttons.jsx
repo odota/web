@@ -25,7 +25,7 @@ export default () => (
         href={`${API_HOST}/login`}
       />
     </div>
-    <Row>
+    <Row center="xs">
       <Col md={6}>
         <FlatButton
           label={
