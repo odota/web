@@ -41,7 +41,7 @@
   "building_hint":"Icons on the map have tooltips",
   "building_denied":"negado",
   "distributions_heading_mmr":"Solo MMR Distribution",
-  "distributions_heading_country_mmr":"Average Solo MMR by Country",
+  "distributions_heading_country_mmr":"Média de MMR Solo por País",
   "distributions_tab_mmr":"Solo MMR",
   "distributions_tab_country_mmr":"Solo MMR by Country",
   "distributions_warning_1":"This data set is limited to players displaying MMR on profile and sharing public match data.",
