@@ -42,7 +42,7 @@ import styles from './Match.css';
 
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
-    ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === '')
+    ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === ''),
   ).sort((a, b) => a.player_slot - b.player_slot);
 
 const TeamTable = ({
@@ -233,7 +233,7 @@ const matchPages = [{
             label={`${formatSeconds(teamfight.start)}, ${teamfight.radiant_gold_delta}`}
           >
             <Table data={teamfight.players.filter(p => p.participate)} columns={teamfightColumns} />
-          </Tab>)
+          </Tab>),
         )}
       </Tabs>
     </div>),

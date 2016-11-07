@@ -189,7 +189,7 @@ export default function BuildingMap({ match }) {
               </span>
             }
           </ReactTooltip>
-        </span>
+        </span>,
       );
     }
     return (
