@@ -421,7 +421,7 @@
   "tooltip_biggest_hit":"Largest instance of damage on a hero",
   "tooltip_damage_dealt":"Damage dealt to heroes by items\/abilities",
   "tooltip_damage_received":"Damage received from heroes by items\/abilities",
-  "tooltip_registered_user":"Registered user",
+  "tooltip_registered_user":"Kayıtlı kullanıcı",
   "tooltip_ability_builds":"Ability Builds",
   "tooltip_ability_builds_expired":"Ability upgrade data has expired for this match. Use the request form to reload data.",
   "tooltip_multikill":"Longest multi-kill",
