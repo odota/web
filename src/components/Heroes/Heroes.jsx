@@ -13,11 +13,11 @@ import HeroBadge from './HeroBadge';
 const createHeroList = (heroes, filter) => {
   const filteredHeroes = [];
 
-  for (const key in heroes) {
+  Object.keys(heroes).forEach((key) => {
     if (typeof filter === 'undefined' || filter.length === 0) {
       filteredHeroes[key] = {
         ...heroes[key],
-        img: API_HOST + heroes[key].img
+        img: API_HOST + heroes[key].img,
       };
     }
 
@@ -25,10 +25,10 @@ const createHeroList = (heroes, filter) => {
       // localized name of hero contains the substring of filter
       filteredHeroes[key] = {
         ...heroes[key],
-        img: API_HOST + heroes[key].img
+        img: API_HOST + heroes[key].img,
       };
     }
-  }
+  });
 
   return filteredHeroes;
 };
