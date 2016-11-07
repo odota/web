@@ -41,7 +41,7 @@
   border: 2px solid var(--textColorPrimary) !important;
   padding: 3px 6px !important;
   height: auto !important;
-  margin: 10px 0 !important;
+  margin: 10px 5px !important;
   @media only screen and (max-width : 375px) {
      line-height : 20px !important;
   }
