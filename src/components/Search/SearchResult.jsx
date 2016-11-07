@@ -1,6 +1,8 @@
 import React from 'react';
 import strings from 'lang';
-import { transformations } from 'utility';
+import {
+  transformations,
+} from 'utility';
 import Table from 'components/Table';
 import Heading from 'components/Heading';
 // import { List } from 'material-ui/List';
@@ -10,17 +12,18 @@ import Heading from 'components/Heading';
 const searchColumns = [{
   displayName: strings.th_name,
   field: 'personaname',
-  displayFn: (row, col, field) =>
-    // const subtitle = <span>{`${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`}</span>;
-     transformations.player({ ...row,
-     }, col, field)
-  ,
+  displayFn: (row, col, field) => {
+    const subtitle = row.account_id;
+    return transformations.player({ ...row,
+      subtitle,
+    }, col, field);
+  },
 }];
 export default ({
   players,
 }) => (
   <div>
     <Heading title={`${players.length} ${strings.app_results}`} />
-    <Table data={players} columns={searchColumns} />
+    <Table paginated data={players} columns={searchColumns} />
   </div>
 );

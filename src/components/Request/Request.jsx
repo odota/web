@@ -19,7 +19,7 @@ class Request extends React.Component {
     }
     const progressIndicator = (progress ?
       <CircularProgress value={progress} mode="determinate" /> :
-        <CircularProgress value={progress} mode="indeterminate" />);
+      <CircularProgress value={progress} mode="indeterminate" />);
     return (
       <div style={{ textAlign: 'center' }}>
         <h1>Request a Parse</h1>

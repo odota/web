@@ -52,7 +52,7 @@ const Pagination = ({
     <FlatButton className={styles.arrow} onClick={currentPage < (numPages - 1) ? nextPage : () => {}}><Next className={styles.arrow} /></FlatButton>
   </div>
 ) : (
-  <span />
+<span />
 ));
 
 const mapDispatchToProps = (dispatch, {
