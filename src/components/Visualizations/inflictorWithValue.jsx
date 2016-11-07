@@ -65,7 +65,7 @@ export default (inflictor, value) => {
       image = `${API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`;
       tooltip = tooltipContainer(item);
     } else {
-      image = `${API_HOST}/public/images/default_attack.png`;
+      image = `/assets/images/default_attack.png`;
     }
     return (
       <div className={styles.inflictorWithValue} data-tip={tooltip && true} data-for={ttId}>
