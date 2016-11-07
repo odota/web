@@ -146,12 +146,12 @@ export default function BuildingMap({ match }) {
                         </span>
                         {destroyedBy && destroyedBy.player_slot === player.player_slot &&
                           <span className={styles.lasthit}>
-                            {((side === 'good' && isRadiant(destroyedBy.player_slot)) || (side === 'bad' && !isRadiant(destroyedBy.player_slot))) ?
-                              <span className={styles.deny}>
-                                {strings.building_denied}
-                              </span>
-                            :
-                              <span>
+                            {
+                              ((side === 'good' && isRadiant(destroyedBy.player_slot)) || (side === 'bad' && !isRadiant(destroyedBy.player_slot))) ?
+                                <span className={styles.deny}>
+                                  {strings.building_denied}
+                                </span>
+                              : <span>
                                 {type !== 'fort' && <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />}
                                 {strings.building_lasthit}
                               </span>
