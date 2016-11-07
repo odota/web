@@ -185,7 +185,7 @@ class Explorer extends React.Component
               if (column.name === 'match_id') {
                 return <Link to={`/matches/${field}`}>{field}</Link>;
               }
-              return JSON.stringify(field);
+              return typeof field === 'string' ? field : JSON.stringify(field);
             },
           }))}
         />
