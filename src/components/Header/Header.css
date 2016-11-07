@@ -37,3 +37,28 @@
   box-shadow: 0 0 5px 5px rgba(0,0,0,0.2);
   background-color: var(--defaultPrimaryColor) !important;
 }
+
+.bug {
+  margin-left: auto;
+  font-size: var(--fontSizeMedium);
+  font-weight: var(--fontWeightLight);
+  color: var(--colorMutedLight) !important;
+  display: flex;
+  align-items: center;
+  margin-top: 2px;
+  margin-right: 5px;
+
+  & svg {
+    margin-right: 5px;
+    /* Override material-ui */
+    color: currentColor !important;
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  @media only screen and (max-width: 900px) {
+    & span {
+      display: none;
+    }
+  }
+}

@@ -34,6 +34,7 @@
   "app_login": "Login",
   "app_logout": "Logout",
   "app_results": "results",
+  "app_report_bug": "Report bug",
 
   "benchmarks_higher_than": "is equal or higher than",
   "benchmarks_recent_performances": "of recent performances on this hero",
