@@ -22,7 +22,7 @@
   flex-grow: 1;
   width: 100%;
 
-  max-width: 960px;
+  max-width: 1280px;
 
   @media only screen and (max-width: 960px) {
     padding: 50px 25px;
