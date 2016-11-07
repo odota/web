@@ -165,7 +165,7 @@
   "match_button_parse":"Analizar",
   "match_button_reparse":"Volver a analizar",
   "match_button_replay":"Repetición",
-  "match_button_video":"Conseguir vídeo",
+  "match_button_video":"Obtener vídeo",
   "match_first_blood":"Primera sangre",
   "match_first_tower":"Primera torre",
   "match_first_barracks":"Primeros barracones",
@@ -289,7 +289,7 @@
   "th_xp":"XP",
   "th_abilities":"Habilidades",
   "th_mmr":"MMR",
-  "th_level":"Nvl",
+  "th_level":"NVL",
   "th_kills":"K",
   "th_kills_per_min":"KPM",
   "th_deaths":"M",
@@ -437,7 +437,7 @@
   "xp_reasons_3":"Roshan",
   "subheading_ranking":"Basado en las victorias y el MMR visible en las partidas jugadas. La clasificación se reinicia trimestralmente.",
   "teamfight_participation":"Participación Radiant\/Participación Dire",
-  "teamfight_score":"Víctimas Radiant \/ Víctimas Dire",
-  "teamfight_radiant_gold_adv":"Ventaja de valor neto para Radiant",
+  "teamfight_score":"Asesinatos Radiant\/Asesinatos Dire",
+  "teamfight_radiant_gold_adv":"Ventaja de oro neto para Radiant",
   "teamfight_radiant_xp_adv":"Ventaja de experiencia neta para Radiant"
 }
