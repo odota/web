@@ -45,7 +45,7 @@
   "distributions_tab_mmr":"Solo MMR",
   "distributions_tab_country_mmr":"Solo MMR per Land",
   "distributions_warning_1":"Diese Daten sind auf Spieler limitiert, die ihren MMR auf ihrem Profil angezeigt haben und das Teilen von öffentlichen Matchdaten aktiviert haben.",
-  "distributions_warning_2":"Players do not have to sign in, but due to the opt-in nature of the data collected, averages are likely higher than expected.",
+  "distributions_warning_2":"Spieler müssen sich nicht anmelden, aber aufgrund der Opt-in-Art der gesammelten Daten sind die Durchschnittswerte wahrscheinlich höher als erwartet.",
   "error":"Fehler",
   "error_message":"Hoppla! Etwas ist schief gelaufen.",
   "error_four_oh_four_message":"Die gewünschte Seite kann nicht gefunden werden.",
