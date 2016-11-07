@@ -552,7 +552,7 @@ export const cosmeticsColumns = [heroTdColumn, {
         rel="noopener noreferrer"
       >
         <img
-          src={`http://cdn.dota2.com/apps/570/${cosmetic.image_path}`} role="presentation"
+          src={`https://cdn.dota2.com/apps/570/${cosmetic.image_path}`} role="presentation"
           style={{
             borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : styles.gray}`,
           }}
