@@ -18,6 +18,7 @@
   background-color: var(--colorMuted);
   align-self: flex-end;
   bottom: -1px;
+  left: 0;
 
   & > div {
     height: 100%;

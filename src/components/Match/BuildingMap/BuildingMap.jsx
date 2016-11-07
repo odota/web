@@ -80,14 +80,16 @@ export default function BuildingMap({ match }) {
           span: {
             top: buildingData[i].style.split(';')[1].split(':')[1],
             left: buildingData[i].style.split(';')[2].split(':')[1],
+            width: 0,
+            height: 0,
           },
           img: {
             // TODO scale based on client width
             // d.style += 'zoom: ' + document.getElementById(map').clientWidth / 600 + ';';
-            zoom:
-              (type === 'fort' && 0.4) ||
-              (type === 'tower' && 0.25) ||
-              (type.includes('rax') && 0.2),
+            height:
+              (type === 'fort' && 25) ||
+              (type === 'tower' && 16) ||
+              (type.includes('rax') && 12),
             opacity: bits[i] === '1' || '0.4',
           },
         },
@@ -144,15 +146,15 @@ export default function BuildingMap({ match }) {
                         </span>
                         {destroyedBy && destroyedBy.player_slot === player.player_slot &&
                           <span className={styles.lasthit}>
-                            {side === 'good' && isRadiant(destroyedBy.player_slot) ?
+                            {((side === 'good' && isRadiant(destroyedBy.player_slot)) || (side === 'bad' && !isRadiant(destroyedBy.player_slot))) ?
                               <span className={styles.deny}>
                                 {strings.building_denied}
                               </span>
                             :
-                            <span>
-                              {type !== 'fort' && <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />}
-                              {strings.building_lasthit}
-                            </span>
+                              <span>
+                                {type !== 'fort' && <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />}
+                                {strings.building_lasthit}
+                              </span>
                             }
                           </span>
                         }
