@@ -20,7 +20,7 @@ import {
 const obsWard = (style, stroke, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
   <g>
     <title>Observer</title>
-    <circle fill="#ffff00" strokeWidth="5" stroke={stroke} r={iconSize * 0.4} cy={iconSize / 2} cx={iconSize / 2} fillOpacity="0.4" />
+    <circle fill="#ffff00" strokeWidth="2.5" stroke={stroke} r={iconSize * 0.4} cy={iconSize / 2} cx={iconSize / 2} fillOpacity="0.3" />
   </g>
   <defs>
     <filter id="_blur">
@@ -32,7 +32,7 @@ const obsWard = (style, stroke, iconSize) => (<svg style={style} width={iconSize
 const senWard = (style, stroke, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
   <g>
     <title>Sentry</title>
-    <circle fill="#0000ff" strokeWidth="5" stroke={stroke} r={iconSize * 0.4} cy={iconSize / 2} cx={iconSize / 2} fillOpacity="0.4" />
+    <circle fill="#0000ff" strokeWidth="2" stroke={stroke} r={iconSize * 0.4} cy={iconSize / 2} cx={iconSize / 2} fillOpacity="0.3" />
   </g>
   <defs>
     <filter id="_blur">
@@ -63,8 +63,9 @@ class VisionMap extends React.Component {
     const match = this.props.match;
     const width = this.props.width;
     const enabledIndex = this.state.enabledIndex;
-    const iconSize = width / 12;
-    const style = ward => ({
+    const senSize = width / 12;
+    const obsSize = senSize * (1600/850); // 850 radius sentry, 1600 radius observer
+    const style = (ward, iconSize) => ({
       position: 'absolute',
       top: ((width / 127) * ward.y) - (iconSize / 2),
       left: ((width / 127) * ward.x) - (iconSize / 2),
@@ -77,8 +78,8 @@ class VisionMap extends React.Component {
           const obs = (match.players[index].posData && match.players[index].posData.obs) || [];
           const sen = (match.players[index].posData && match.players[index].posData.sen) || [];
           const stroke = isRadiant(match.players[index].player_slot) ? 'green' : 'red';
-          obs.forEach(ward => obsIcons.push(obsWard(style(ward), stroke, iconSize)));
-          sen.forEach(ward => senIcons.push(senWard(style(ward), stroke, iconSize)));
+          obs.forEach(ward => obsIcons.push(obsWard(style(ward, obsSize), stroke, obsSize)));
+          sen.forEach(ward => senIcons.push(senWard(style(ward, senSize), stroke, senSize)));
         }
       }
     });
