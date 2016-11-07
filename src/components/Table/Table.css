@@ -65,10 +65,10 @@ table {
     padding-right: 10px !important;
 
     &:first-child {
-      padding-left: 24px !important;
+      // padding-left: 24px !important;
     }
     &:last-child {
-      padding-right: 24px !important;
+      // padding-right: 24px !important;
     }
   }
 }

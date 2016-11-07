@@ -52,7 +52,7 @@
 		position: absolute;
 		bottom: 0;
 		left: 0;
-		width: calc(100% - 20px);
+		width: 100%;
 		background-color: var(--darkPrimaryColor);
 		color: var(--textColorPrimary);
 		padding: 5px 10px;
