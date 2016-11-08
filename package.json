@@ -11,6 +11,9 @@
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx"
   },
+  "greenkeeper": {
+    "label": "type: greenkeeper"
+  },
   "repository": {
     "type": "git",
     "url": "http://github.com/odota/ui"
