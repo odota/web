@@ -6,6 +6,11 @@
   --slider-ticks-color-active: #337AB7;
 }
 
+:export {
+  wardLogRowOddSurfaceColor: var(--tableRowOddSurfaceColor);
+  wardLogRowEvenSurfaceColor: var(--tableRowEvenSurfaceColor);
+}
+
 .Header {
   text-align: center;
   display: block;
@@ -160,12 +165,13 @@
 
 .ward-log {
   width: 100%;
+  font-size: .8em;
 
   & .ward-log-header {
     background-color: var(--tableHeaderSurfaceColor);
+    border-bottom: 1px solid var(--dividerLightColor);
     text-transform: uppercase;
-    font-size: 0.8em;
-    height: var(--ward-log-height);
+    height: 58px;
   }
 
   & .ward-log-list {

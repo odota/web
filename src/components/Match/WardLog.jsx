@@ -14,6 +14,9 @@ import tableStyle from '../Table/Table.css';
 
 import strings from 'lang';
 import _ from 'lodash/fp';
+import { findLast } from 'lodash';
+
+console.log(styles);
 
 const extractTransitionClasses = (name, styles) => ({
   enter: styles[name + '-enter'],
@@ -29,15 +32,20 @@ const threshold = _.curry((start, limits, values, value) => {
   if (limits.length != values.length) throw "Limits must be the same as functions.";
   var limits = limits.slice(0);
   limits.unshift(start);
-  return _.findLast(values, (v, i) => _.inRange(value, limits[i], limits[i+1]));
+  return findLast(values, (v, i) => _.inRange(limits[i], limits[i+1], value));
 });
 
-// const durationSentryColor = threshold(0, [121, 120, 500], ['red', 'yellow', 'green']);
-const durationObserverColor = threshold(0, [121, 241, 500], ['red', 'yellow', 'green']);
+const durationObserverColor = threshold(0, [121, 241, 500], [styles.red, styles.yelor, styles.green]);
 
 const RowItem = ({ style, row, match, index }) => {
   const wardKiller = (row.left && row.left.player1) ? heroTd(match.players[row.left.player1]) : "-";
-  const duration = row.left ? formatSeconds(row.left.time - row.entered.time) : "-";
+  const duration = row.left ? row.left.time - row.entered.time : "-";
+  const durationColor = row.type == "observer" ? durationObserverColor(duration) : "inherit";
+  style = {...style,
+           backgroundColor: row.key % 2 == 0
+                          ? styles.wardLogRowEvenSurfaceColor
+                          : styles.wardLogRowOddSurfaceColor
+  };
   return (
     <li>
       <Row component="li" className={styles['ward-log-item']} style={style} middle="xs">
@@ -49,9 +57,7 @@ const RowItem = ({ style, row, match, index }) => {
         </Col>
         <Col md={1} className={styles.timespan}>{formatSeconds(row.entered.time)}</Col>
         <Col md={1} className={styles.timespan}>{formatSeconds(row.left && row.left.time) || "-"}</Col>
-        <Col md={1} className={styles.timespan}>
-          <span>{duration}</span>
-        </Col>
+        <Col md={1} className={styles.timespan} style={{color: durationColor}}>{formatSeconds(duration)}</Col>
         <Col md>{wardKiller}</Col>
       </Row>
     </li>

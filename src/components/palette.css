@@ -43,6 +43,7 @@
   /* Font -- */
 
   --dividerColor: color(var(--textColorSecondary) lightness(20%));
+  --dividerLightColor: #C3C3C3;
 
   --navDrawerWidth: 256px;
 

@@ -71,7 +71,7 @@ class VisionPage extends React.Component {
     const visibleWards = this.visibleData();
     return (
       <div>
-        <Heading title={strings.heading}/>
+        <Heading title={strings.heading_vision}/>
         <VisionMap match={this.props.match} />
         <SliderTicks value={this.state.currentTick}
                      min={this.state.min}
