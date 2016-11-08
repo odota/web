@@ -104,10 +104,10 @@ const matchPages = [{
   key: 'overview',
   content: match => (
     <div>
-      <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
       <div className={styles.matchNumbers}>
         {firstNumbers(match)}
       </div>
+      <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
       <div className={styles.overviewMapGraph}>
         <div className={`${styles.map} ${!match.version && styles.centeredMap}`}>
           <BuildingMap match={match} />
