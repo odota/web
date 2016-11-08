@@ -44,7 +44,7 @@
   "distributions_heading_country_mmr":"Solo MMR promedio por país",
   "distributions_tab_mmr":"MMR individual",
   "distributions_tab_country_mmr":"MMR individual por país",
-  "distributions_warning_1":"This data set is limited to players displaying MMR on profile and sharing public match data.",
+  "distributions_warning_1":"Este conjunto de datos está limitado a jugadores que tienen expuesto su MMR en su perfil y comparten los datos de sus partidas de forma pública.",
   "distributions_warning_2":"Players do not have to sign in, but due to the opt-in nature of the data collected, averages are likely higher than expected.",
   "error":"Error",
   "error_message":"¡Ups! Algo ha fallado.",
