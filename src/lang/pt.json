@@ -1,7 +1,7 @@
 {
   "abbr_thousand":"k",
   "abbr_million":"m",
-  "analysis_eff":"Eficiência",
+  "analysis_eff":"Eficiência na Lane",
   "analysis_farm_drought":"Menor OPM no intervalo de 5 minutos",
   "analysis_skillshot":"Habilidades certeiras",
   "analysis_late_courier":"Atraso no upgrade do entregador",
@@ -30,7 +30,7 @@
   "app_dotacoach":"Pergunte à um Treinador",
   "app_refresh":"Atualizar o Histórico de Partidas: Agendar uma varredura para encontrar as partidas que faltam devido às configurações de privacidade",
   "app_login":"Conectar-se",
-  "app_logout":"Desconectar",
+  "app_logout":"Sair",
   "app_results":"resultados",
   "benchmarks_higher_than":"é igual ou maior que",
   "benchmarks_recent_performances":"de desempenho recente neste herói",
