@@ -152,7 +152,7 @@
   "items_built":"Wieoft dieses Item hergestellt wurde",
   "items_matches":"Anzahl der Spiele, wo dieses Element gebaut wurde",
   "items_uses":"Wieoft dieses Item benutzt wurde",
-  "items_uses_per_match":"Mean number of times this item was used in matches where it was built",
+  "items_uses_per_match":"Durchschnittliche Anwendungsanzahl dieses Gegenstands in Spielen, in denen es gebaut wurde",
   "items_timing":"Durschnittliche Zeit, an der dieses Item gebaut wurde",
   "items_build_pct":"Prozentsatz der Matches in denen das Item gekauft wurde",
   "items_win_pct":"Prozentsatz der Matches die gewonnen wurden, wo dieses Item gekauft wurde",
