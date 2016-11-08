@@ -4,64 +4,68 @@
   padding: 20px 50px 15px;
   background-color: var(--defaultPrimaryColor);
   color: var(--primaryTextColor);
-}
 
-.footer p {
-  padding: 2px 0 5px;
-  margin: 0;
-  font-size: var(--fontSizeMedium);
-}
-.footer small {
-  color: darkgrey;
-  font-size: var(--fontSizeSmall);
-}
-.footer small .iconButton svg {
-  width: 14px !important;
-  height: 14px !important;
-}
-.footer hr {
-  border: 0;
-  height: 1px;
-  background-color: var(--primaryTextColor);
-  background: linear-gradient(to right, var(--primaryTextColor) , rgba(0, 0, 0, 0)); 
-  opacity: .1;
-  margin: 10px 0;
-}
-
-.osLink {
-  color: var(--primaryTextColor);
-}
-.osLink:hover {
-  color: var(--primaryLinkColor);
-  text-decoration: underline;
+  & p {
+    padding: 2px 0 5px;
+    margin: 0;
+    font-size: var(--fontSizeMedium);
+  }
+  & small {
+    color: darkgrey;
+    font-size: var(--fontSizeSmall);
+    
+    & svg {
+      height: 13px;
+      margin-left: 7px;
+      vertical-align: sub;
+    }
+  }
+  & hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--primaryTextColor);
+    background: linear-gradient(to right, var(--primaryTextColor) , rgba(0, 0, 0, 0)); 
+    opacity: .1;
+    margin: 10px 0;
+  }
 }
 
 .links {
-  font-size: var(--fontSizeMedium);
-  margin-bottom: 4px;
-}
-.links a::after {
-  content: "•";
-  margin: 0 8px;
-  opacity: .6;
-  color: var(--primaryTextColor);
-}
-.links a:last-child {
-  &::after {
-    content: "";
-    margin: 0;
+  & svg {
+    height: 14px;
+    margin-left: 15px;
+    fill: var(--textColorPrimary);
+
+    &:hover {
+      opacity: .6;
+    }
+  }
+
+  & .SocialLinks {
+    display: inline-block;
+
+    & a {
+      vertical-align: text-bottom;
+    }
   }
 }
-.links svg {
-  fill: var(--primaryLinkColor) !important;
-}
 
-.SocialLinks {
-  display: inline-block;
-  margin-left: 10px;
-}
+.pages {
+  font-size: var(--fontSizeMedium);
+  margin-bottom: 4px;
 
-.iconButton {
-  width: auto !important;
-  height: auto !important;
+  & a {
+    &::after {
+      content: "•";
+      margin: 0 8px;
+      opacity: .6;
+      color: var(--primaryTextColor);
+    }
+    &:last-child {
+      &::after {
+        content: "";
+        margin: 0;
+      }
+    }
+  }
 }

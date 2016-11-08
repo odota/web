@@ -16,11 +16,9 @@ const links = [{
   path: '//odota.github.io/blog',
 }];
 export default () => (
-  <div>
-    <div className={styles.links}>
-      {links.map(link => (
-        <a href={link.path} key={link.name} target="_blank" rel="noopener noreferrer">{link.name}</a>
-      ))}
-    </div>
+  <div className={styles.pages}>
+    {links.map(link => (
+      <a href={link.path} key={link.name} target="_blank" rel="noopener noreferrer">{link.name}</a>
+    ))}
   </div>
 );

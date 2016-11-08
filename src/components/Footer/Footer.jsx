@@ -23,7 +23,7 @@ export default ({ location }) => (
     </Row>
     <footer className={styles.footer}>
       <Row>
-        <Col xs>
+        <Col xs className={styles.links}>
           <AppLogo />
           <SocialLinks />
           <div>
@@ -31,15 +31,13 @@ export default ({ location }) => (
               {strings.app_description}
               {' - '}
               {strings.app_powered_by}
-              <IconButton
+              <a
                 target="_blank"
                 rel="noopener noreferrer"
-                className={styles.iconButton}
                 href="//steampowered.com"
-                style={{ padding: '0px' }}
               >
-                <IconSteam style={{ width: 14, height: 14 }} />
-              </IconButton>
+                <IconSteam />
+              </a>
             </small>
           </div>
           <hr />
