@@ -404,7 +404,7 @@
   "tooltip_DOTA_UNIT_ORDER_ATTACK_TARGET":"Número de vezes que o jogador atacou um alvo",
   "tooltip_DOTA_UNIT_ORDER_CAST_POSITION":"Número de vezes que o jogador lançou uma magia\/item em uma posição",
   "tooltip_DOTA_UNIT_ORDER_CAST_TARGET":"Número de vezes que o jogador lançou uma magia\/item em um alvo",
-  "tooltip_DOTA_UNIT_ORDER_CAST_NO_TARGET":"Número de vezes que o jogador lançou uma magia\/item em nenhum alvo",
+  "tooltip_DOTA_UNIT_ORDER_CAST_NO_TARGET":"Número de vezes que o jogador lançou uma magia\/item sem alvo",
   "tooltip_DOTA_UNIT_ORDER_HOLD_POSITION":"Número de vezes que o jogador manteve-se em posição",
   "tooltip_DOTA_UNIT_ORDER_GLYPH":"Número de vezes que o jogador utilizou o glifo de fortificação",
   "tooltip_DOTA_UNIT_ORDER_RADAR":"Número de vezes que o jogador utilizou o scan do mapa",
