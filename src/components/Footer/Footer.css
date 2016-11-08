@@ -87,9 +87,19 @@
       align-items: center;
 
       & > div:first-of-type {
-        width: 90px;
-        height: 90px;
         margin-right: 20px;
+      }
+    }
+
+    & .SocialLinks a {
+      position: relative;
+
+      &[data-hint] {
+        cursor: pointer;
+
+        &::before {
+          margin-left: 16px;
+        }
       }
     }
 
