@@ -8,8 +8,8 @@
   flex-basis: calc(100% / 6);
   max-width: calc(100% / 6);
   @media only screen and (max-width: 1200px) {
-    flex-basis: calc(100% / 5);
-    max-width: calc(100% / 5);
+    flex-basis: calc(100% / 6);
+    max-width: calc(100% / 6);
   }
   @media only screen and (max-width: 992px) {
     flex-basis: calc(100% / 4);
@@ -38,7 +38,7 @@
 }
 
 .HeroItem {
-	min-height: 130px;
+	min-height: 90px;
   cursor: pointer;
   /*min-width: 230px;*/
 	background-size: cover;
@@ -46,18 +46,19 @@
 	background-position: center;
 	position: relative;
 	background-color: white;
-	margin: 5px;
+	// margin: 5px;
 
 	& span {
 		position: absolute;
 		bottom: 0;
 		left: 0;
-		width: calc(100% - 20px);
+		width: 100%;
 		background-color: var(--darkPrimaryColor);
 		color: var(--textColorPrimary);
 		padding: 5px 10px;
 		text-align: center;
 		text-shadow: 0 0 5px black;
 		transition: var(--normalTransition);
+		font-size: 13px;
 	}
 }

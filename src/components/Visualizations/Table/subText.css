@@ -1,7 +1,7 @@
 @import "../../palette.css";
 
 .subText {
-  font-size: 12px !important;
+  font-size: 11px !important;
   color: var(--colorMutedLight);
   text-overflow: initial !important;
   display: block;

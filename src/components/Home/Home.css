@@ -1,36 +1,28 @@
 @import "../palette.css";
 
 .HeadContainer {
-  width: 600px;
-  height: 380px;
+  width: 100%;
+  max-width: 600px;
+  min-height: 320px;
   margin: 0 auto;
   text-align: center;
-  padding-top: 120px;
-  @media only screen and (max-width : 768px) {
-    width: auto;
-  }
+  padding-top: 10vh;
+  margin-bottom: 15vh;
 }
 .HeadContainer .headline {
   text-transform: uppercase;
-  font-size: 90px;
   font-weight: var(--fontWeightMedium);
   line-height: 1.2;
   text-shadow: #000000 0px 0px 3px;
-
-  @media only screen and (max-width : 425px) {
-     font-size : 60px;
-  }
-  @media only screen and (max-width : 375px) {
-     font-size : 42px;
-  }
+  font-size: 7vw;
 }
 .HeadContainer .description {
-  font-size: 32px;
+  font-size: 3.5vw;
   font-weight: var(--fontWeightLight);
   margin-bottom: 20px;
   text-shadow: #000000 0px 0px 3px;
-  @media only screen and (max-width : 768px) {
-     font-size : 25px;
+  @media only screen and (min-width : 1024px) {
+     font-size : 32px;
   }
 }
 .Buttons {
@@ -72,6 +64,7 @@
   font-size: 28px;
   margin-bottom: 40px;
   text-transform: uppercase;
+  display: block;
 }
 
 .xsWhyElement {

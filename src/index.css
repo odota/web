@@ -26,6 +26,14 @@
   background-image: -webkit-linear-gradient(315deg, #2e2d45, #1c2127);
   background-image: linear-gradient(135deg, #2e2d45, #1c2127);
   color: var(--primaryTextColor);
+  box-sizing: border-box;
+  font-size: 14px;
+  & * {
+    box-sizing: inherit;
+    &:matches(::after, ::before) {
+      box-sizing: inherit;
+    } 
+  }
 }
 
 :global(#react) {
@@ -71,4 +79,20 @@
   &:matches(::after, ::before) {
     content: none !important;
   }
+}
+
+:global(.relative) {
+  position: relative;
+}
+
+:global(.text-left) {
+  text-align: left !important;
+}
+
+:global(.text-center) {
+  text-align: center !important;
+}
+
+:global(.text-right) {
+  text-align: right !important;
 }

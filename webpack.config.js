@@ -11,6 +11,7 @@ const postcssR = require('postcss-reporter');
 const postcssCF = require('postcss-color-function');
 
 const isProd = process.env.NODE_ENV === 'production';
+
 const config = {
   entry: ['babel-polyfill', './src'],
   output: {
@@ -50,9 +51,6 @@ const config = {
       test: /\.(js|jsx)$/,
       exclude: /(node_modules)/,
       loader: 'babel', // 'babel-loader' is also a legal name to reference
-      query: {
-        presets: ['stage-3', 'react', 'es2015'],
-      },
     }],
   },
   plugins: [
@@ -100,8 +98,17 @@ HashBundlePlugin.prototype.apply = (compiler) => {
 };
 if (!isProd) {
   config.devtool = 'eval-source-map';
-}
-if (isProd) {
+  
+  // adds two entry points of dynamic generated js files via webpack,
+  // this enables hot reloading
+  config.entry = [
+    'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
+    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+    'babel-polyfill',
+    './src',
+  ];
+  config.plugins.push(new webpack.HotModuleReplacementPlugin());
+} else {
   config.plugins.push(new webpack.LoaderOptionsPlugin({
     minimize: true,
     debug: false,

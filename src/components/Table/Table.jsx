@@ -42,7 +42,7 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
                 color: column.color,
               };
               return (
-                <MaterialTableRowColumn key={colIndex} style={MaterialTableRowColumnStyle}>
+                <MaterialTableRowColumn key={colIndex} style={MaterialTableRowColumnStyle} className={column.className}>
                   {row && column.displayFn && column.displayFn(row, column, row[column.field], index)}
                   {row && !column.displayFn && row[column.field]}
                 </MaterialTableRowColumn>

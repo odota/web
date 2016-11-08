@@ -3,12 +3,16 @@
 
   width: calc(300% + 50px);
   left: -10px;
+  text-align: right;
 }
 
 .title {
   composes: title from "./Percent.css";
   
-  margin-left: 10px;
+  text-align: right;
+  position: absolute;
+  margin-right: 10px;
+  right: 66.666%;
 }
 
 .percent {

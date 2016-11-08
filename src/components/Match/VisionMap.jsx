@@ -113,11 +113,13 @@ class VisionMap extends React.Component {
             {
               displayName: strings.th_ward_observer,
               field: 'obs_log',
+              className: 'text-right',
               displayFn: (row, col, field) => (field && field.length),
             },
             {
               displayName: strings.th_ward_sentry,
               field: 'sen_log',
+              className: 'text-right',
               displayFn: (row, col, field) => (field && field.length),
             },
           ]}
