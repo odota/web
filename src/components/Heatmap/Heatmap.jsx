@@ -60,7 +60,14 @@ class Heatmap extends Component {
         }}
         id={this.id}
       >
-        <img width={this.props.width} src="/assets/images/map.png" role="presentation" />
+        <img
+          style={{
+            width: this.props.width,
+            opacity: 0.7,
+          }}
+          src="/assets/images/map.png"
+          role="presentation"
+        />
       </div>);
   }
 }
