@@ -1,16 +1,12 @@
 import React from 'react';
-import { Row, Col } from 'react-flexbox-grid';
 import strings from 'lang';
-// import EditorAttachMoney from 'material-ui/svg-icons/editor/attach-money';
 import CheeseCircle from '../Cheese';
-// import styles from './Footer.css';
+import styles from './Footer.css';
 
 export default () => (
-  <Row middle="xs">
-    <Col>
-      <CheeseCircle />
-    </Col>
-    <Col xs>
+  <div className={styles.cheese}>
+    <CheeseCircle />
+    <section>
       <big>
         {strings.app_donation_goal}
       </big>
@@ -19,6 +15,6 @@ export default () => (
           {strings.app_sponsorship}
         </a>
       </p>
-    </Col>
-  </Row>
+    </section>
+  </div>
 );

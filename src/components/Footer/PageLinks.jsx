@@ -14,6 +14,9 @@ const links = [{
 }, {
   name: strings.app_blog,
   path: '//odota.github.io/blog',
+}, {
+  name: strings.app_help_translate,
+  path: '//translate.opendota.com/',
 }];
 export default () => (
   <div className={styles.pages}>
