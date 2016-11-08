@@ -98,6 +98,9 @@ HashBundlePlugin.prototype.apply = (compiler) => {
 };
 if (!isProd) {
   config.devtool = 'eval-source-map';
+  
+  // adds two entry points of dynamic generated js files via webpack,
+  // this enables hot reloading
   config.entry = [
     'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
     'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
