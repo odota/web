@@ -212,6 +212,24 @@
   }
 }
 
+.ward-pin-enter {
+  opacity: 0;
+  
+  &.ward-pin-enter-active {
+    opacity: 1;
+    transition: opacity 150ms ease;
+  }
+}
+
+.ward-pin-leave {
+  opacity: 1;
+  
+  &.ward-pin-leave-active {
+    opacity: 0;
+    transition: opacity 150ms ease;
+  }
+}
+
 .slider-ticks {
   position: relative;
   height: 30px;
@@ -241,3 +259,13 @@
   }
 }
 
+.ward-log-player-filter {
+  padding: 0.33em;
+  font-size: 0.8em;
+  background-color: white;
+
+  & .filter-row {
+    margin: .5em 0;
+    border-bottom: 1px solid var(--dividerColor);
+  }
+}

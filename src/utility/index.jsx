@@ -321,3 +321,18 @@ export const playerColors = {
   131: '#00771F',
   132: '#956000',
 };
+
+export const extractTransitionClasses = styles => name => ({
+  enter: styles[name + '-enter'],
+  enterActive: styles[name + '-enter-active'],
+  leave: styles[name + '-leave'],
+  leaveActive: styles[name + '-leave-active'],
+  appear: styles[name + '-appear'],
+  appearActive: styles[name + '-appear-active']
+});
+
+export const gameCoordToUV = (x, y) => ({
+  x: Number(x) - 64,
+  y: 127 - (Number(y) - 64)
+});
+

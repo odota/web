@@ -18,7 +18,6 @@ const config = {
     path: 'build/',
     publicPath: 'build/',
   },
-  devTool: '#cheap-eval-module-source-map',
   resolve: {
     extensions: ['', '.jsx', '.js', '.css', '.json'],
     modules: [
@@ -27,7 +26,7 @@ const config = {
       path.resolve('./node_modules'),
     ],
   },
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   module: {
     // We need to load flexboxgrid with css-modules, but others need to be loaded
     // with regular css loader.

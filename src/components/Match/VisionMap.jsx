@@ -1,10 +1,13 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Checkbox from 'material-ui/Checkbox';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import {
   isRadiant,
   // transformations,
+  gameCoordToUV,
+  extractTransitionClasses,
 } from 'utility';
 import { PlainTable as Table } from 'components/Table';
 import {
@@ -13,127 +16,83 @@ import {
 } from 'react-flexbox-grid';
 // import heroes from 'dotaconstants/json/heroes.json';
 import strings from 'lang';
-import {
-  heroTdColumn,
-} from './matchColumns';
+import styles from './Match.css';
 import { Fixed } from 'utility/components';
 
-const obsWard = (style, stroke, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
-  <g>
-    <title>Observer</title>
-    <circle fill="#ffff00" strokeWidth="5" stroke={stroke} r={iconSize * 0.4} cy={iconSize / 2} cx={iconSize / 2} fillOpacity="0.4" />
-  </g>
-  <defs>
-    <filter id="_blur">
-      <feGaussianBlur stdDeviation="0.1" in="SourceGraphic" />
-    </filter>
-  </defs>
-</svg>);
+const style = (width, iconSize, ward) => {
+  const gamePos = gameCoordToUV(ward.x, ward.y);
+  return {
+    position: 'absolute',
+    top: ((width / 127) * gamePos.y) - iconSize/2,
+    left: ((width / 127) * gamePos.x) - iconSize/2,
+  }
+};
 
-const senWard = (style, stroke, iconSize) => (<svg style={style} width={iconSize} height={iconSize} xmlns="http://www.w3.org/2000/svg">
-  <g>
-    <title>Sentry</title>
-    <circle fill="#0000ff" strokeWidth="5" stroke={stroke} r={iconSize * 0.4} cy={iconSize / 2} cx={iconSize / 2} fillOpacity="0.4" />
-  </g>
-  <defs>
-    <filter id="_blur">
-      <feGaussianBlur stdDeviation="0.1" in="SourceGraphic" />
-    </filter>
-  </defs>
-</svg>);
+const WardLogPin = ({ width, iconSize, log }) => {
+  const stroke = log.entered.player_slot < 5 ? styles.green : styles.red;
+  const fill = log.type == "observer" ? styles.yelo : styles.blue;
+  return (
+    <svg style={style(width, iconSize, log.entered)}
+         width={iconSize}
+         height={iconSize}
+         xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <title>Observer</title>
+        <circle fill={fill}
+                strokeWidth="2"
+                stroke={stroke}
+                r={iconSize * 0.4}
+                cy={iconSize / 2}
+                cx={iconSize / 2}
+                fillOpacity="0.4" />
+      </g>
+      <defs>
+        <filter id="_blur">
+          <feGaussianBlur stdDeviation="0.1" in="SourceGraphic" />
+        </filter>
+      </defs>
+    </svg>
+  )
+};
+  
+
+// sen = #0000ff;
 
 const FixedTable = Fixed(Table);
 
 // TODO Hero icon on ward circles?
 class VisionMap extends React.Component {
-  componentWillMount() {
-    this.setState({
-      enabledIndex: {},
-    });
+  shouldComponentUpdate(newProps) {
+    if (newProps.wardsLog.length == this.props.wardsLog.length) return false;
+    return true;
   }
-  super() {
-    this.updateMap = this.updateMap.bind(this);
-  }
-  updateMap(event, checked, index) {
-    const newEnabledIndex = Object.assign({}, this.state.enabledIndex, {
-      [index]: checked,
-    });
-    this.setState(Object.assign({}, this.state, {
-      enabledIndex: newEnabledIndex,
-    }));
-  }
+  
   render() {
-    const match = this.props.match;
     const width = this.props.width;
-    const enabledIndex = this.state.enabledIndex;
     const iconSize = width / 12;
-    const style = ward => ({
-      position: 'absolute',
-      top: ((width / 127) * ward.y) - (iconSize / 2),
-      left: ((width / 127) * ward.x) - (iconSize / 2),
-    });
-    const obsIcons = [];
-    const senIcons = [];
-    Object.keys(enabledIndex).forEach((index) => {
-      if (enabledIndex[index]) {
-        if (match && match.players && match.players[index]) {
-          const obs = (match.players[index].posData && match.players[index].posData.obs) || [];
-          const sen = (match.players[index].posData && match.players[index].posData.sen) || [];
-          const stroke = isRadiant(match.players[index].player_slot) ? 'green' : 'red';
-          obs.forEach(ward => obsIcons.push(obsWard(style(ward), stroke, iconSize)));
-          sen.forEach(ward => senIcons.push(senWard(style(ward), stroke, iconSize)));
-        }
-      }
-    });
-    return (<Row>
-      <Col md={6}>
-        <div
-          style={{
-            position: 'relative',
-            top: 0,
-            left: 0,
-            width: this.props.width,
-          }}
-        >
-          <img width={this.props.width} src="/assets/images/map.png" role="presentation" />
-          {obsIcons}
-          {senIcons}
-        </div>
-      </Col>
-      <Col md={6}>
-        <Table
-          data={this.props.match.players}
-          columns={[
-          { displayFn: row => (<Checkbox
-            checkedIcon={<Visibility />}
-            uncheckedIcon={<VisibilityOff />}
-            checked={this.state.enabledIndex[this.props.match.players.findIndex(player => player.player_slot === row.player_slot)]}
-            onCheck={(event, checked) =>
-              this.updateMap(event, checked, this.props.match.players.findIndex(player => player.player_slot === row.player_slot))}
-            label=""
-          />) },
-            heroTdColumn,
-            {
-              displayName: strings.th_ward_observer,
-              field: 'obs_log',
-              displayFn: (row, col, field) => (field && field.length),
-            },
-            {
-              displayName: strings.th_ward_sentry,
-              field: 'sen_log',
-              displayFn: (row, col, field) => (field && field.length),
-            },
-          ]}
-        />
-      </Col>
-    </Row>);
+    const obsIcons = this.props.wardsLog.map(w => <WardLogPin key={w.key} width={width} iconSize={iconSize} log={w} />);
+    //const senIcons = this.props.wardsLog.map(w => senWard(width)(stroke, iconSize)(w.entered))
+    const transition = extractTransitionClasses(styles);
+    return (
+      <ReactCSSTransitionGroup component="div"
+                               transitionName={transition("ward-pin")}
+                               transitionEnterTimeout={150}
+                               transitionLeaveTimeout={150}
+                               style={{
+                                 position: 'relative',
+                                 width: this.props.width,
+                                 height: this.props.width,
+                                 background: 'url("/assets/images/map.png")',
+                                 backgroundSize: 'contain',
+                               }}>
+        {obsIcons}
+      </ReactCSSTransitionGroup>
+    );
   }
 }
 
-// TODO use defaultprops and export directly
-export default function ({
-  match,
-  width = 600,
-}) {
-  return <VisionMap match={match} width={width} />;
+VisionMap.defaultProps = {
+  width: 400,
 }
+
+export default VisionMap;

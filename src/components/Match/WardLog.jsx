@@ -2,7 +2,7 @@ import React from 'react';
 import Checkbox from 'material-ui/Checkbox';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
-import { isRadiant, formatSeconds } from 'utility';
+import { isRadiant, formatSeconds, extractTransitionClasses } from 'utility';
 import { Row, Col } from 'react-flexbox-grid';
 // import heroes from 'dotaconstants/json/heroes.json';
 import { heroTd } from './matchColumns';
@@ -16,16 +16,6 @@ import strings from 'lang';
 import _ from 'lodash/fp';
 import { findLast } from 'lodash';
 
-console.log(styles);
-
-const extractTransitionClasses = (name, styles) => ({
-  enter: styles[name + '-enter'],
-  enterActive: styles[name + '-enter-active'],
-  leave: styles[name + '-leave'],
-  leaveActive: styles[name + '-leave-active'],
-  appear: styles[name + '-appear'],
-  appearActive: styles[name + '-appear-active']
-})
 
 // a simple functor that will call the correct function depending on value 
 const threshold = _.curry((start, limits, values, value) => {
@@ -44,8 +34,7 @@ const RowItem = ({ style, row, match, index }) => {
   style = {...style,
            backgroundColor: row.key % 2 == 0
                           ? styles.wardLogRowEvenSurfaceColor
-                          : styles.wardLogRowOddSurfaceColor
-  };
+                          : styles.wardLogRowOddSurfaceColor };
   return (
     <li>
       <Row component="li" className={styles['ward-log-item']} style={style} middle="xs">
@@ -77,6 +66,7 @@ class WardLog extends React.Component {
     const obsIcons = [];
     const senIcons = [];
     const columns = ['type', 'owner', 'entered_at', 'left_at', 'duration', 'killed_by'].map(h => 'ward_log_' + h); 
+    const transition = extractTransitionClasses(styles);
     return (
       <Col className={styles['ward-log']} xs>
         <Row className={styles['ward-log-header']} middle="xs">
@@ -88,7 +78,7 @@ class WardLog extends React.Component {
           <Col md>{strings[columns[5]]}</Col>
         </Row>
         <ReactCSSTransitionGroup className={styles['ward-log-list']} style={{width: '100%'}} component="ul"
-                                 transitionName={extractTransitionClasses("trans-table-row", styles)}
+                                 transitionName={transition("trans-table-row")}
                                  transitionEnterTimeout={300}
                                  transitionLeaveTimeout={300}>
           {this.props.wardsLog.map((log, index) =>
