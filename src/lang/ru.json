@@ -379,7 +379,7 @@
   "tooltip_purchase_buyback":"Использовано выкупов",
   "tooltip_used_ward_observer":"Количество установленных Observer Ward",
   "tooltip_used_ward_sentry":"Количество установленных Sentry Ward",
-  "tooltip_parsed":"Повтор был обработан для получения дополнительных данных",
+  "tooltip_parsed":"Запись матча была обработана для получения дополнительных данных",
   "tooltip_unparsed":"Повтор ещё не обработан. Не все данные могут быть доступны.",
   "tooltip_hero_id":"Герой, на котором играл игрок",
   "tooltip_result":"Выиграна ли или проиграна игра",
