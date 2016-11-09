@@ -1,7 +1,7 @@
 /* global API_HOST */
 import React from 'react';
 import fetch from 'isomorphic-fetch';
-import { fromNow } from 'utility';
+import { fromNow, abbreviateNumber } from 'utility';
 import Table from 'components/Table';
 
 function jsonResponse(response) {
@@ -36,7 +36,10 @@ class Status extends React.Component
       <Table
         style={tableStyle}
         data={Object.keys(this.state.result.health || {})
-        .map(key => ({ key, value: `${this.state.result.health[key].metric}/${this.state.result.health[key].threshold}` }))}
+        .map(key => ({ 
+          key, 
+          value: `${abbreviateNumber(this.state.result.health[key].metric)}/${abbreviateNumber(this.state.result.health[key].threshold)}`,
+        }))}
         columns={columns}
       />
       <Table
@@ -66,8 +69,7 @@ class Status extends React.Component
       <Table
         style={tableStyle}
         data={Object.keys(this.state.result.load_times || {})
-        .filter(key => Number(key) >= 1000)
-        .map(key => ({ key, value: JSON.stringify(this.state.result.load_times[key]) }))}
+        .map(key => ({ key, value: this.state.result.load_times[key] }))}
         columns={columns}
       />
     </div>);
