@@ -36,8 +36,8 @@ class Status extends React.Component
       <Table
         style={tableStyle}
         data={Object.keys(this.state.result.health || {})
-        .map(key => ({ 
-          key, 
+        .map(key => ({
+          key,
           value: `${abbreviateNumber(this.state.result.health[key].metric)}/${abbreviateNumber(this.state.result.health[key].threshold)}`,
         }))}
         columns={columns}
