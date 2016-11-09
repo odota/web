@@ -8,6 +8,7 @@ import {
   prevPage,
   setCurrentPage,
 } from 'actions';
+import strings from 'lang';
 import styles from './Pagination.css';
 
 const getPages = ({
@@ -47,39 +48,41 @@ const Pagination = ({
   <div className={styles.container}>
     <div className={styles.pagination}>
       {currentPage > 0 &&
-        <div>
-          <FlatButton className={styles.page} onClick={() => setCurrentPage(0)}>
-            First
-          </FlatButton>
+        <FlatButton className={styles.page} onClick={() => setCurrentPage(0)}>
+          {strings.pagination_first}
+        </FlatButton>
+      }
+      <div className={styles.pages}>
+        {currentPage > 0 &&
           <FlatButton className={styles.arrow} onClick={currentPage > 0 ? prevPage : () => {}}>
             <Prev className={styles.arrow} />
           </FlatButton>
-        </div>
-      }
-      {currentPage > 2 && numPages > 2 &&
-        <FlatButton disabled className={styles.currentPage}>
-          ...
-        </FlatButton>
-      }
-      {getPages({ currentPage, numPages, setCurrentPage })}
-      {numPages > currentPage + 3 &&
-        <FlatButton disabled className={styles.currentPage}>
-          ...
-        </FlatButton>
-      }
-      {currentPage < numPages - 1 &&
-        <div>
+        }
+        {currentPage > 2 && numPages > 2 &&
+          <FlatButton disabled className={styles.currentPage}>
+            ...
+          </FlatButton>
+        }
+        {getPages({ currentPage, numPages, setCurrentPage })}
+        {numPages > currentPage + 3 &&
+          <FlatButton disabled className={styles.currentPage}>
+            ...
+          </FlatButton>
+        }
+        {currentPage < numPages - 1 &&
           <FlatButton className={styles.arrow} onClick={currentPage < (numPages - 1) ? nextPage : () => {}}>
             <Next className={styles.arrow} />
           </FlatButton>
-          <FlatButton className={styles.page} onClick={() => setCurrentPage(numPages - 1)}>
-            Last
-          </FlatButton>
-        </div>
+        }
+      </div>
+      {currentPage < numPages - 1 &&
+        <FlatButton className={styles.page} onClick={() => setCurrentPage(numPages - 1)}>
+          {strings.pagination_last}
+        </FlatButton>
       }
     </div>
     <div className={styles.info}>
-      {pageLength * currentPage} - {Math.min((pageLength * currentPage) + pageLength, length)} of {length}
+      {pageLength * currentPage} - {Math.min((pageLength * currentPage) + pageLength, length)} {strings.pagination_of} {length}
     </div>
   </div>
 ) : null);

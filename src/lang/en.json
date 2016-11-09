@@ -203,6 +203,10 @@
   "objective_fort": "Ancient",
   "objective_roshan": "Roshan",
 
+  "pagination_first": "First",
+  "pagination_last": "Last",
+  "pagination_of": "of",
+
   "rune_0": "Double Damage",
   "rune_1": "Haste",
   "rune_2": "Illusion",
