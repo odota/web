@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  connect,
-} from 'react-redux';
+import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
@@ -19,7 +17,6 @@ const getPages = ({
 }) => {
   // let i = currentPage - 4 > 0 ? currentPage - 4 : 0;
   const pages = [];
-  pages.push(<FlatButton className={styles.page} onClick={() => setCurrentPage(0)}>1...</FlatButton>);
   const minStart = Math.max(numPages - 5, 0);
   const minEnd = Math.min(4, numPages - 1);
   const targetStart = Math.max(currentPage - 2, 0);
@@ -35,7 +32,6 @@ const getPages = ({
       {i + 1}
     </FlatButton>);
   }
-  pages.push(<FlatButton className={styles.page} onClick={() => setCurrentPage(numPages - 1)}>...{numPages}</FlatButton>);
   return pages;
 };
 
@@ -45,19 +41,50 @@ const Pagination = ({
   prevPage,
   setCurrentPage,
   numPages,
+  pageLength,
+  length,
 }) => (numPages > 1 ? (
   <div className={styles.container}>
-    <FlatButton className={styles.arrow} onClick={currentPage > 0 ? prevPage : () => {}}><Prev className={styles.arrow} /></FlatButton>
-    {getPages({ currentPage, numPages, setCurrentPage })}
-    <FlatButton className={styles.arrow} onClick={currentPage < (numPages - 1) ? nextPage : () => {}}><Next className={styles.arrow} /></FlatButton>
+    <div className={styles.pagination}>
+      {currentPage > 0 &&
+        <div>
+          <FlatButton className={styles.page} onClick={() => setCurrentPage(0)}>
+            First
+          </FlatButton>
+          <FlatButton className={styles.arrow} onClick={currentPage > 0 ? prevPage : () => {}}>
+            <Prev className={styles.arrow} />
+          </FlatButton>
+        </div>
+      }
+      {currentPage > 2 && numPages > 2 &&
+        <FlatButton disabled className={styles.currentPage}>
+          ...
+        </FlatButton>
+      }
+      {getPages({ currentPage, numPages, setCurrentPage })}
+      {numPages > currentPage + 3 &&
+        <FlatButton disabled className={styles.currentPage}>
+          ...
+        </FlatButton>
+      }
+      {currentPage < numPages - 1 &&
+        <div>
+          <FlatButton className={styles.arrow} onClick={currentPage < (numPages - 1) ? nextPage : () => {}}>
+            <Next className={styles.arrow} />
+          </FlatButton>
+          <FlatButton className={styles.page} onClick={() => setCurrentPage(numPages - 1)}>
+            Last
+          </FlatButton>
+        </div>
+      }
+    </div>
+    <div className={styles.info}>
+      {pageLength * currentPage} - {Math.min((pageLength * currentPage) + pageLength, length)} of {length}
+    </div>
   </div>
-) : (
-<span />
-));
+) : null);
 
-const mapDispatchToProps = (dispatch, {
-  id,
-}) => ({
+const mapDispatchToProps = (dispatch, { id }) => ({
   nextPage: () => dispatch(nextPage(id)),
   prevPage: () => dispatch(prevPage(id)),
   setCurrentPage: pageNumber => dispatch(setCurrentPage(id, pageNumber)),
