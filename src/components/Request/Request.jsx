@@ -26,7 +26,7 @@ class Request extends React.Component {
         <TextField
           id="match_id"
           floatingLabelText="Match ID"
-          errorText={error ? 'Failed to get match data.' : false}
+          errorText={error ? 'Failed to get match data' : false}
           value={matchId}
           onChange={e => dispatchMatchId(e.target.value)}
         />
