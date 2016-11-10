@@ -17,7 +17,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10px 0 0 10px;
+  margin-bottom: 10px;
 
   & > div {
     display: flex;
@@ -28,7 +28,7 @@
   composes: pagination;
   position: absolute;
   right: 0;
-  top: -55px;
+  top: -46px;
   font-size: var(--fontSizeMedium);
 }
 
