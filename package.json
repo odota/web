@@ -77,5 +77,8 @@
   "moduleRoots": [
     "./src",
     "./node_modules"
-  ]
+  ],
+  "peerDependencies": {
+    "fbjs": "^0.8.5"
+  }
 }
