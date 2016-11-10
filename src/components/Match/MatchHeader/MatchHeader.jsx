@@ -114,7 +114,7 @@ export default ({ match, user, loading }) => {
           <FlatButton
             label={strings.app_dotacoach}
             icon={<img src="/assets/images/dotacoach-32x24.png" role="presentation" />}
-            href={`//dotacoach.org/Hire/Yasp?matchID=${match.match_id}&userSteamId=${user && user.account_id}`}
+            href={`//dotacoach.org/Hire/OpenDota?matchID=${match.match_id}&userSteamId=${user && user.account_id}`}
             target="_blank"
             rel="noopener noreferrer"
           />
