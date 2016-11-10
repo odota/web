@@ -19,8 +19,6 @@ export default (Table, id = uuid.v4()) => {
             id={id}
             numPages={Math.ceil(data.length / pageLength)}
             currentPage={currentPage}
-            pageLength={pageLength}
-            length={data.length}
             place="top"
           />
           <Table {...rest} data={data.slice(currentPage * pageLength, (currentPage + 1) * pageLength)} />
