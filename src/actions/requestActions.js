@@ -42,8 +42,8 @@ function poll(dispatch, json, matchId) {
     if (json.progress) {
       dispatch(requestProgress(json.progress));
     }
-    if (json.error || json.state === 'failed') {
-      dispatch(requestError(json.error || 'failed'));
+    if (json.err || json.state === 'failed') {
+      dispatch(requestError(json.err || 'failed'));
     } else if (json.state === 'completed') {
       browserHistory.push(`/matches/${matchId}`);
     } else {
@@ -61,8 +61,7 @@ const requestSubmit = matchId => (dispatch) => {
   .then((json) => {
     if (json.job && json.job.jobId) {
       poll(dispatch, json, matchId);
-    }
-    else {
+    } else {
       dispatch(requestError(json.err));
     }
   })
