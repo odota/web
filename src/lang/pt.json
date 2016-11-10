@@ -24,7 +24,7 @@
   "app_discord":"Chat no Discord",
   "app_steam_profile":"Perfil Steam",
   "app_confirmed_as":"Confirmado como",
-  "app_untracked":"Este usuário não visitou o site recentemente, os replays de novas partidas não serão analisados automaticamente.",
+  "app_untracked":"Este usuário não visitou o site recentemente, o replay de novas partidas não serão analisados automaticamente.",
   "app_tracked":"Este usuário visitou o site recentemente, e seus replays de novas partidas serão analisados automáticamente.",
   "app_cheese_bought":"Queijo comprado",
   "app_dotacoach":"Pergunte à um Treinador",
