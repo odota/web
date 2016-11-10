@@ -36,7 +36,7 @@ const getPages = ({
   return pages;
 };
 
-const PaginationBottom = ({
+const Pagination = ({
   currentPage,
   nextPage,
   prevPage,
@@ -98,4 +98,4 @@ const mapDispatchToProps = (dispatch, { id }) => ({
   setCurrentPage: pageNumber => dispatch(setCurrentPage(id, pageNumber)),
 });
 
-export default connect(null, mapDispatchToProps)(PaginationBottom);
+export default connect(null, mapDispatchToProps)(Pagination);
