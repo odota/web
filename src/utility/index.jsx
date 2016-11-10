@@ -1,7 +1,7 @@
 /* global API_HOST */
 import React from 'react';
 import {
-  Link
+  Link,
 } from 'react-router';
 import heroes from 'dotaconstants/json/heroes.json';
 import items from 'dotaconstants/json/items.json';
@@ -15,7 +15,7 @@ import laneRole from 'dotaconstants/json/lane_role.json';
 import xpLevel from 'dotaconstants/json/xp_level.json';
 import styles from 'components/palette.css';
 import {
-  TableLink
+  TableLink,
 } from 'components/Table';
 import {
   KDA,
@@ -166,10 +166,10 @@ const getSubtitle = (row) => {
  **/
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
-    hero_id: (row) => {
-        const heroName = heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero;
-        return (
-            <TableHeroImage
+  hero_id: (row) => {
+    const heroName = heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero;
+    return (
+      <TableHeroImage
         parsed={row.version}
         image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
         title={
