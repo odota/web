@@ -1,12 +1,9 @@
 <!--
-Hi there! Thank you for discovering and submitting an issue.
-Before you submit this please make sure that the existing issues is not describes the same.
-
-If u you are going to tell about the bug is associated with the interface, please, fill the following items.
+Thank you for discovering and submitting an issue!
+The following information would be helpful in determining the cause of the bug and figuring out the correct fix.
 -->
 
-- **OS name**:
-- **Resolution**:
-- **Browser name and version**:
-
-<!-- For any other reason remove template below. -->
+- **OS**:
+- **Screen Resolution**:
+- **Browser/Version**:
+- **Link to page with the issue, or screenshot**:
