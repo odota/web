@@ -6,6 +6,12 @@
   align-items: center;
 }
 
+.containerTop {
+  composes: container;
+  align-items: flex-end;
+  position: relative;
+}
+
 .pagination {
   display: flex;
   flex-direction: row;
@@ -18,6 +24,24 @@
   }
 }
 
+.paginationTop {
+  composes: pagination;
+  position: absolute;
+  right: 0;
+  top: -55px;
+  font-size: var(--fontSizeMedium);
+}
+
+@media only screen and (max-width: 767px) {
+  .containerTop {
+    align-items: center;
+  }
+
+  .paginationTop {
+    position: initial;
+  }
+}
+
 .page {
   /* Override material-ui */
   color: var(--primaryLinkColor) !important;
@@ -26,7 +50,7 @@
   margin: 0 2px !important;
 }
 
-@media only screen and (max-width: 512px) {
+@media only screen and (max-width: 511px) {
   .pagination {
     flex-direction: column;
   }

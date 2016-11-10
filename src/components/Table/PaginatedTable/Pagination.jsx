@@ -36,7 +36,7 @@ const getPages = ({
   return pages;
 };
 
-const Pagination = ({
+const PaginationBottom = ({
   currentPage,
   nextPage,
   prevPage,
@@ -44,9 +44,10 @@ const Pagination = ({
   numPages,
   pageLength,
   length,
-}) => (numPages > 1 ? (
-  <div className={styles.container}>
-    <div className={styles.pagination}>
+  place,
+}) => numPages > 1 && (
+  <div className={place === 'top' ? styles.containerTop : styles.container}>
+    <div className={place === 'top' ? styles.paginationTop : styles.pagination}>
       {currentPage > 0 &&
         <FlatButton className={styles.page} onClick={() => setCurrentPage(0)}>
           {strings.pagination_first}
@@ -81,11 +82,15 @@ const Pagination = ({
         </FlatButton>
       }
     </div>
-    <div className={styles.info}>
-      {pageLength * currentPage} - {Math.min((pageLength * currentPage) + pageLength, length)} {strings.pagination_of} {length}
-    </div>
+    {place === 'bot' &&
+      <div className={styles.info}>
+        {(pageLength * currentPage).toLocaleString('ru-RU')}
+        {' - '}
+        {Math.min((pageLength * currentPage) + pageLength, length).toLocaleString('ru-RU')} {strings.pagination_of} {length.toLocaleString('ru-RU')}
+      </div>
+    }
   </div>
-) : null);
+);
 
 const mapDispatchToProps = (dispatch, { id }) => ({
   nextPage: () => dispatch(nextPage(id)),
@@ -93,4 +98,4 @@ const mapDispatchToProps = (dispatch, { id }) => ({
   setCurrentPage: pageNumber => dispatch(setCurrentPage(id, pageNumber)),
 });
 
-export default connect(null, mapDispatchToProps)(Pagination);
+export default connect(null, mapDispatchToProps)(PaginationBottom);

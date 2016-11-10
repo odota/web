@@ -15,7 +15,14 @@ export default (Table, id = uuid.v4()) => {
       }
       return (
         <div>
-          {/* <Pagination id={id} numPages={Math.ceil(data.length / pageLength)} currentPage={currentPage} /> */}
+          <Pagination
+            id={id}
+            numPages={Math.ceil(data.length / pageLength)}
+            currentPage={currentPage}
+            pageLength={pageLength}
+            length={data.length}
+            place="top"
+          />
           <Table {...rest} data={data.slice(currentPage * pageLength, (currentPage + 1) * pageLength)} />
           <Pagination
             id={id}
@@ -23,6 +30,7 @@ export default (Table, id = uuid.v4()) => {
             currentPage={currentPage}
             pageLength={pageLength}
             length={data.length}
+            place="bot"
           />
         </div>
       );
