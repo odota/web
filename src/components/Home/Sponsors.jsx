@@ -27,7 +27,7 @@ export default () => (
           >
             <img src="/assets/images/loot.svg" role="presentation" />
           </a>
-          <a href="//www.vpgame.com/" target="_blank" rel="noopener noreferrer">
+          <a href="http://www.vpgame.com/" target="_blank" rel="noopener noreferrer">
             <img src="/assets/images/vp-logo.png" role="presentation" />
           </a>
         </div>
