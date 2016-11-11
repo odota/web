@@ -7,6 +7,7 @@ import Container from 'components/Container';
 import { Row, Col } from 'react-flexbox-grid';
 import strings from 'lang';
 import { TableFilterForm } from 'components/Form';
+import { unpackPositionData } from 'utility';
 
 const getData = (props) => {
   props.getPlayerWardmap(props.playerId, props.location.query);
@@ -31,12 +32,12 @@ class RequestLayer extends React.Component {
         <Row>
           <Col md>
             <Container title={strings.th_ward_observer} error={error} loading={loading}>
-              <Heatmap points={data.obs} />
+              <Heatmap points={unpackPositionData(data.obs)} />
             </Container>
           </Col>
           <Col md>
             <Container title={strings.th_ward_sentry} error={error} loading={loading}>
-              <Heatmap points={data.sen} />
+              <Heatmap points={unpackPositionData(data.sen)} />
             </Container>
           </Col>
         </Row>

@@ -1,6 +1,8 @@
 /* global API_HOST */
 import React from 'react';
-import { Link } from 'react-router';
+import {
+  Link,
+} from 'react-router';
 import heroes from 'dotaconstants/json/heroes.json';
 import items from 'dotaconstants/json/items.json';
 import patch from 'dotaconstants/json/patch.json';
@@ -12,7 +14,9 @@ import leaverStatus from 'dotaconstants/json/leaver_status.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import xpLevel from 'dotaconstants/json/xp_level.json';
 import styles from 'components/palette.css';
-import { TableLink } from 'components/Table';
+import {
+  TableLink,
+} from 'components/Table';
 import {
   KDA,
   TableHeroImage,
@@ -334,3 +338,25 @@ export const playerColors = {
   131: '#00771F',
   132: '#956000',
 };
+
+/**
+ * Unpacks position data from hash format to array format
+ * 64 is the offset of x and y values
+ * subtracting y from 127 inverts from bottom/left origin to top/left origin
+ **/
+export function unpackPositionData(input) {
+  if (typeof input === 'object' && !Array.isArray(input)) {
+    const result = [];
+    Object.keys(input).forEach((x) => {
+      Object.keys(input[x]).forEach((y) => {
+        result.push({
+          x: Number(x) - 64,
+          y: 127 - (Number(y) - 64),
+          value: input[x][y],
+        });
+      });
+    });
+    return result;
+  }
+  return input;
+}

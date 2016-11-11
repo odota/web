@@ -5,6 +5,7 @@ import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import {
   isRadiant,
   // transformations,
+  unpackPositionData,
 } from 'utility';
 import Table from 'components/Table';
 import {
@@ -74,8 +75,8 @@ class VisionMap extends React.Component {
     Object.keys(enabledIndex).forEach((index) => {
       if (enabledIndex[index]) {
         if (match && match.players && match.players[index]) {
-          const obs = (match.players[index].posData && match.players[index].posData.obs) || [];
-          const sen = (match.players[index].posData && match.players[index].posData.sen) || [];
+          const obs = unpackPositionData(match.players[index].obs) || [];
+          const sen = unpackPositionData(match.players[index].sen) || [];
           const stroke = isRadiant(match.players[index].player_slot) ? 'green' : 'red';
           obs.forEach(ward => obsIcons.push(obsWard(style(ward), stroke, iconSize)));
           sen.forEach(ward => senIcons.push(senWard(style(ward), stroke, iconSize)));

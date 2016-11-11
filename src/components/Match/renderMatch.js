@@ -2,6 +2,7 @@ import {
   isRadiant,
   isSupport,
   getLevelFromXp,
+  unpackPositionData,
 } from 'utility';
 import heroes from 'dotaconstants/json/heroes.json';
 import specific from 'dotaconstants/json/specific.json';
@@ -51,37 +52,11 @@ function generateGraphData(match) {
   return {};
 }
 
-/**
- * Generates position data for a player
- * keysObject, a hash of keys to process
- * sourceObject, an object containing keys with values as position hashes
- * Returns a new object with the same keys as keysObject and the values as arrays of position data
- **/
-function generatePositionData(keysObject, sourceObject) {
-  // 64 is the offset of x and y values
-  // subtracting y from 127 inverts from bottom/left origin to top/left origin
-  const result = {};
-  Object.keys(keysObject).forEach((key) => {
-    const t = [];
-    Object.keys(sourceObject[key]).forEach((x) => {
-      Object.keys(sourceObject[key][x]).forEach((y) => {
-        t.push({
-          x: Number(x) - 64,
-          y: 127 - (Number(y) - 64),
-          value: sourceObject[key][x][y],
-        });
-      });
-    });
-    result[key] = t;
-  });
-  return result;
-}
-
 function generateTeamfights(match) {
   const computeTfData = (tf) => {
     const newtf = {
       ...tf,
-      posData: [],
+      deaths_pos: [],
       radiant_gold_delta: 0,
       radiant_xp_delta: 0,
       radiant_participation: 0,
@@ -109,9 +84,7 @@ function generateTeamfights(match) {
         participate: tfplayer.deaths > 0 || tfplayer.damage > 0 || tfplayer.healing > 0,
         level_start: getLevelFromXp(tfplayer.xp_start),
         level_end: getLevelFromXp(tfplayer.xp_end),
-        posData: generatePositionData({
-          deaths_pos: 1,
-        }, tfplayer),
+        deaths_pos: unpackPositionData(tfplayer.deaths_pos),
       };
     });
     return newtf;
