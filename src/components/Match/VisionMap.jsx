@@ -18,7 +18,9 @@ import {
 import strings from 'lang';
 import styles from './Match.css';
 import { Fixed } from 'utility/components';
+import Measure from 'react-measure';
 
+// with the actual game size, the width parameters is optional
 const style = (width, iconSize, ward) => {
   const gamePos = gameCoordToUV(ward.x, ward.y);
   return {
@@ -66,27 +68,39 @@ class VisionMap extends React.Component {
     if (newProps.wardsLog.length == this.props.wardsLog.length) return false;
     return true;
   }
+
+  componentDidMount() {
+    window.addEventListener("resize", () => this.forceUpdate());
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", () => this.forceUpdate());
+  }
+
+  renderWardPins(width) {
+    const iconSize = width / 12;
+    return this.props.wardsLog.map(w => <WardLogPin key={w.key} width={width} iconSize={iconSize} log={w} />);
+  }
   
   render() {
-    const width = this.props.width;
-    const iconSize = width / 12;
-    const obsIcons = this.props.wardsLog.map(w => <WardLogPin key={w.key} width={width} iconSize={iconSize} log={w} />);
-    //const senIcons = this.props.wardsLog.map(w => senWard(width)(stroke, iconSize)(w.entered))
     const transition = extractTransitionClasses(styles);
     return (
-      <ReactCSSTransitionGroup component="div"
-                               transitionName={transition("ward-pin")}
-                               transitionEnterTimeout={150}
-                               transitionLeaveTimeout={150}
-                               style={{
-                                 position: 'relative',
-                                 width: this.props.width,
-                                 height: this.props.width,
-                                 background: 'url("/assets/images/map.png")',
-                                 backgroundSize: 'contain',
-                               }}>
-        {obsIcons}
-      </ReactCSSTransitionGroup>
+      <Measure>
+        {dimension => (
+           <ReactCSSTransitionGroup component="div"
+                                    transitionName={transition("ward-pin")}
+                                    transitionEnterTimeout={150}
+                                    transitionLeaveTimeout={150}
+                                    style={{
+                                      position: 'relative',
+                                      height: dimension.width,
+                                      background: 'url("/assets/images/map.png")',
+                                      backgroundSize: 'contain',
+                                    }}>
+             {this.renderWardPins(dimension.width)}
+           </ReactCSSTransitionGroup>
+         )}
+      </Measure>
     );
   }
 }

@@ -19,6 +19,11 @@ import Perf from 'react-addons-perf';
 import strings from 'lang';
 import styles from './Match.css';
 import { heroTd } from './matchColumns';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {
+  grey800 as filterOff,
+  blueGrey700 as filterOn
+} from 'material-ui/styles/colors';
 
 window.Perf = Perf;
 
@@ -35,30 +40,76 @@ const SliderTicks = (props) => (
   </div>
 );
 
-const generateFilterKey = ({ player_slot }, type) => `${player_slot}-${type}`;
 
-const PlayersFilter = ({ activatedFilters, players, onFilterClick }) => (
+class PlayerFilter extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.getObserverCount = () => this.props.player.obs_log.length;
+    this.getSentryCount = () => this.props.player.sen_log.length;
+  }
+  
+  generateFilterKey(type) {
+    return `${this.props.player.player_slot}-${type}`;
+  }
+  
+  getMuiThemeProps() {
+    return {
+      fullWidth: true,
+      backgroundColor: _.sample([filterOn, filterOff]),
+      disabledBackgroundColor: filterOff,
+    };
+  }
+
+  render() {
+    const {
+      player,
+      onFilterClick,
+    } = this.props;
+    const obs_count = this.getObserverCount();
+    const sen_count = this.getSentryCount();
+    const [opacityOn, opacityOff] = [1, .4];
+    return (
+      <Row className={styles['filter-row']}
+           middle="xs"
+           between="xs">
+        <Col xs={12} sm={7}>
+          <Row xs>
+            <Col xs={1}></Col>
+            <Col>{heroTd(player)}</Col>
+          </Row>
+        </Col>
+        <Col xs={12} sm={5}>
+          <Row>
+            <Col xs>
+              <Button {...this.getMuiThemeProps()}
+                      label={obs_count}
+                      disabled={obs_count == 0}
+                      backgroundColor={this.generateFilterKey("observer") in this.props.activeFilters ? filterOff : filterOn}
+                      style={{opacity: obs_count > 0 ? opacityOn : opacityOff}}
+                      onClick={() => onFilterClick(this.generateFilterKey("observer"), player.player_slot, "observer")}
+                      icon={<Avatar size={24} src="http://a19a1164.ngrok.io/apps/dota2/images/items/ward_observer_lg.png" />}
+              />
+            </Col>
+            <Col xs>
+              <Button {...this.getMuiThemeProps()}
+                      label={sen_count}
+                      disabled={sen_count == 0}
+                      backgroundColor={this.generateFilterKey("sentry") in this.props.activeFilters ? filterOff : filterOn}
+                      style={{opacity: sen_count > 0 ? opacityOn : opacityOff}}
+                      onClick={() => onFilterClick(this.generateFilterKey("sentry"), player.player_slot, "sentry")}
+                      icon={<Avatar size={24} src="http://a19a1164.ngrok.io/apps/dota2/images/items/ward_sentry_lg.png" />}
+              />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    );
+  }
+}
+
+const PlayersFilter = ({ activeFilters, players, onFilterClick }) => (
   <Paper className={styles['ward-log-player-filter']}>
-    {players.map((p,i) => (
-       <Row className={styles['filter-row']}
-            middle="xs"
-            between="xs">
-         <Col xs={1}></Col>
-         <Col xs>{heroTd(p)}</Col>
-         <Col xs style={{textAlign: 'right'}}>
-           <Button label={_.random(0,20)}
-                   style={{color: generateFilterKey("observer") in activatedFilters ? 'blue' : 'white'}}
-                   onClick={() => onFilterClick(generateFilterKey(p, "observer"), p.player_slot, "observer")}
-                   icon={<Avatar size={24} src="http://a19a1164.ngrok.io/apps/dota2/images/items/ward_observer_lg.png" />}
-           />
-           &nbsp;
-           <Button label={_.random(0,20)}
-                   onClick={() => onFilterClick(generateFilterKey(p, "sentry"), p.player_slot, "sentry")}
-                   icon={<Avatar size={24} src="http://a19a1164.ngrok.io/apps/dota2/images/items/ward_sentry_lg.png" />}
-           />
-         </Col>
-       </Row>
-     ))}
+    {players.map((p,i) => <PlayerFilter player={p} activeFilters={activeFilters} onFilterClick={onFilterClick} />)}
   </Paper>
 );
 
@@ -138,14 +189,20 @@ class VisionPage extends React.Component {
       <div>
         <Heading title={strings.heading_vision}/>
         <Row center="xs">
-          <Col xs md={6}>
+          <Col sm={12} md={4}>
             <VisionMap wardsLog={visibleWards} />
           </Col>
-          <Col xs md={6}>
-            Radiant
-            {<FixedPlayersFilter activatedFilters={_.keys(this.state.filters)} onFilterClick={playerFilterClick} players={_.take(5, this.props.match.players)} />}
-            Dire
-            {<FixedPlayersFilter activatedFilters={_.keys(this.state.filters)} onFilterClick={playerFilterClick} players={_.takeRight(5, this.props.match.players)} />}
+          <Col sm={12} md={8}>
+            <Row>
+              <Col xs={12} md={6} lg={12}>
+                Radiant
+                {<FixedPlayersFilter activeFilters={this.state.filters} onFilterClick={playerFilterClick} players={_.take(5, this.props.match.players)} />}
+              </Col>
+              <Col xs={12} md={6} lg={12}>
+                Dire
+                {<FixedPlayersFilter activeFilters={this.state.filters} onFilterClick={playerFilterClick} players={_.takeRight(5, this.props.match.players)} />}
+              </Col>
+            </Row>
           </Col>
         </Row>
         <Row>

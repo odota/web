@@ -19,6 +19,9 @@
   --textColorSecondary:   #212020;
   --secondaryTextColor:   #212020;
 
+  --primarySurfaceColor: rgb(46, 47, 64);
+  --secondarySurfaceColor: rgb(39, 39, 58);
+
   --tableHeaderSurfaceColor: rgba(0, 0, 0, .3);
   --tableRowOddSurfaceColor: rgba(255, 255, 255, .019);
   --tableRowEvenSurfaceColor: rgba(0, 0, 0, .019);
@@ -43,7 +46,7 @@
   /* Font -- */
 
   --dividerColor: color(var(--textColorSecondary) lightness(20%));
-  --dividerLightColor: #C3C3C3;
+  --dividerLightColor: color(var(--textColorPrimary) lightness(-20%));
 
   --navDrawerWidth: 256px;
 
@@ -65,7 +68,7 @@
 
   yelor:           var(--colorYelor);
   yellowOrange:    var(--colorYelor);
-
+  
   textColorPrimary:    var(--textColorPrimary);
   primaryTextColor:    var(--textColorPrimary);
   textColorSecondary:  var(--textColorSecondary);
@@ -84,6 +87,10 @@
   fontSizeMedium: var(--fontSizeMedium);
   fontSizeSmall: var(--fontSizeSmall);
   /* Font -- */
+
+  /*- Surfaces --*/
+  primarySurfaceColor: var(--primarySurfaceColor);
+  secondarySurfaceColor: var(--secondarySurfaceColor);
 }
 
 .textSuccess  { color: var(--colorSuccess) }

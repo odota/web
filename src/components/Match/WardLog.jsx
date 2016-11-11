@@ -38,16 +38,16 @@ const RowItem = ({ style, row, match, index }) => {
   return (
     <li>
       <Row component="li" className={styles['ward-log-item']} style={style} middle="xs">
-        <Col md={1}>
+        <Col sm={1}>
           <img height="29" src={`${API_HOST}/apps/dota2/images/items/ward_${row.type}_lg.png`} role="presentation" />
         </Col>
-        <Col md>
+        <Col sm>
           {heroTd(match.players[row.player])}
         </Col>
-        <Col md={1} className={styles.timespan}>{formatSeconds(row.entered.time)}</Col>
-        <Col md={1} className={styles.timespan}>{formatSeconds(row.left && row.left.time) || "-"}</Col>
-        <Col md={1} className={styles.timespan} style={{color: durationColor}}>{formatSeconds(duration)}</Col>
-        <Col md>{wardKiller}</Col>
+        <Col sm={1} className={styles.timespan}>{formatSeconds(row.entered.time)}</Col>
+        <Col sm={1} className={styles.timespan}>{formatSeconds(row.left && row.left.time) || "-"}</Col>
+        <Col sm={1} className={styles.timespan} style={{color: durationColor}}>{formatSeconds(duration)}</Col>
+        <Col sm>{wardKiller}</Col>
       </Row>
     </li>
   );
@@ -70,12 +70,12 @@ class WardLog extends React.Component {
     return (
       <Col className={styles['ward-log']} xs>
         <Row className={styles['ward-log-header']} middle="xs">
-          <Col md={1}>{strings[columns[0]]}</Col>
-          <Col md>{strings[columns[1]]}</Col>
-          <Col className={styles['timespan']} md={1}>{strings[columns[2]]}</Col>
-          <Col className={styles['timespan']} md={1}>{strings[columns[3]]}</Col>
-          <Col className={styles['timespan']} md={1}>{strings[columns[4]]}</Col>
-          <Col md>{strings[columns[5]]}</Col>
+          <Col sm={1}>{strings[columns[0]]}</Col>
+          <Col sm>{strings[columns[1]]}</Col>
+          <Col className={styles['timespan']} sm={1}>{strings[columns[2]]}</Col>
+          <Col className={styles['timespan']} sm={1}>{strings[columns[3]]}</Col>
+          <Col className={styles['timespan']} sm={1}>{strings[columns[4]]}</Col>
+          <Col sm>{strings[columns[5]]}</Col>
         </Row>
         <ReactCSSTransitionGroup className={styles['ward-log-list']} style={{width: '100%'}} component="ul"
                                  transitionName={transition("trans-table-row")}
