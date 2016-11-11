@@ -156,7 +156,8 @@
     padding: 1px 0;
   }
   & section {
-    margin: 0 4px;
+    margin-left: -2px;
+    margin-right: 4px;
     display: inline-block;
   }
 }

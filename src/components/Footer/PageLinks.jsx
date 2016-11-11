@@ -14,13 +14,14 @@ const links = [{
 }, {
   name: strings.app_blog,
   path: '//odota.github.io/blog',
+}, {
+  name: strings.app_translate,
+  path: '//translate.opendota.com/',
 }];
 export default () => (
-  <div>
-    <div className={styles.links}>
-      {links.map(link => (
-        <a href={link.path} key={link.name} target="_blank" rel="noopener noreferrer">{link.name}</a>
-      ))}
-    </div>
+  <div className={styles.pages}>
+    {links.map(link => (
+      <a href={link.path} key={link.name} target="_blank" rel="noopener noreferrer">{link.name}</a>
+    ))}
   </div>
 );
