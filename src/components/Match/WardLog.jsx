@@ -6,6 +6,7 @@ import { isRadiant, formatSeconds, extractTransitionClasses } from 'utility';
 import { Row, Col } from 'react-flexbox-grid';
 // import heroes from 'dotaconstants/json/heroes.json';
 import { heroTd } from './matchColumns';
+import { threshold } from 'utility';
 import { Fixed, Pure } from 'utility/components';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import styles from './Match.css';
@@ -13,16 +14,6 @@ import tableStyle from '../Table/Table.css';
 
 import strings from 'lang';
 import _ from 'lodash/fp';
-import { findLast } from 'lodash';
-
-
-// a simple functor that will call the correct function depending on value 
-const threshold = _.curry((start, limits, values, value) => {
-  if (limits.length != values.length) throw "Limits must be the same as functions.";
-  var limits = limits.slice(0);
-  limits.unshift(start);
-  return findLast(values, (v, i) => _.inRange(limits[i], limits[i+1], value));
-});
 
 const durationObserverColor = threshold(0, [121, 241, 500], [styles.red, styles.yelor, styles.green]);
 

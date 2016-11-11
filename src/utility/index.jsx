@@ -20,6 +20,8 @@ import {
 } from 'components/Visualizations';
 import strings from 'lang';
 import subTextStyle from 'components/Visualizations/Table/subText.css';
+import { findLast } from 'lodash';
+import _ from 'lodash/fp';
 
 // TODO - add in the relevant text invocations of TableHeroImage
 export const isRadiant = playerSlot => playerSlot < 128;
@@ -371,3 +373,11 @@ export function unpackPositionData(input) {
   }
   return input;
 }
+
+export const threshold = _.curry((start, limits, values, value) => {
+  if (limits.length !== values.length) throw "Limits must be the same as functions.";
+  var limits = limits.slice(0);
+  limits.unshift(start);
+  return findLast(values, (v, i) => _.inRange(limits[i], limits[i+1], value));
+});
+

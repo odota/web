@@ -24,7 +24,6 @@ import {
   grey800 as filterOff,
   blueGrey700 as filterOn
 } from 'material-ui/styles/colors';
-import Immutable from 'seamless-immutable'
 
 const SliderTicks = (props) => (
   <div {...props} >
@@ -38,7 +37,6 @@ const SliderTicks = (props) => (
      })}
   </div>
 );
-
 
 class PlayerFilter extends React.PureComponent {
   constructor(props) {
@@ -79,25 +77,25 @@ class PlayerFilter extends React.PureComponent {
         <Col xs={12} sm={5}>
           <Row>
             <Col xs>
-                  <Button {...this.getMuiThemeProps()}
-                        label={obs_count}
-                        disabled={obs_count == 0}
-                        backgroundColor={this.generateFilterKey("observer") in this.props.activeFilters ? filterOff : filterOn}
-                        style={{opacity: obs_count > 0 ? opacityOn : opacityOff}}
-                        onClick={() => onFilterClick(this.generateFilterKey("observer"), player.player_slot, "observer")}
-                        icon={<Avatar size={24} src="http://a19a1164.ngrok.io/apps/dota2/images/items/ward_observer_lg.png" />}
-                />
-              </Col>
-              <Col xs>
-                  <Button {...this.getMuiThemeProps()}
-                        label={sen_count}
-                        disabled={sen_count == 0}
-                        backgroundColor={this.generateFilterKey("sentry") in this.props.activeFilters ? filterOff : filterOn}
-                        style={{opacity: sen_count > 0 ? opacityOn : opacityOff}}
-                        onClick={() => onFilterClick(this.generateFilterKey("sentry"), player.player_slot, "sentry")}
-                        icon={<Avatar size={24} src="http://a19a1164.ngrok.io/apps/dota2/images/items/ward_sentry_lg.png" />}
-                />
-              </Col>
+              <Button {...this.getMuiThemeProps()}
+                      label={obs_count}
+                      disabled={!obs_count}
+                      backgroundColor={this.generateFilterKey("observer") in this.props.activeFilters ? filterOff : filterOn}
+                      style={{opacity: obs_count > 0 ? opacityOn : opacityOff}}
+                      onClick={() => onFilterClick(this.generateFilterKey("observer"), player.player_slot, "observer")}
+                      icon={<Avatar size={24} src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} />}
+              />
+            </Col>
+            <Col xs>
+              <Button {...this.getMuiThemeProps()}
+                      label={sen_count}
+                      disabled={!sen_count}
+                      backgroundColor={this.generateFilterKey("sentry") in this.props.activeFilters ? filterOff : filterOn}
+                      style={{opacity: sen_count > 0 ? opacityOn : opacityOff}}
+                      onClick={() => onFilterClick(this.generateFilterKey("sentry"), player.player_slot, "sentry")}
+                      icon={<Avatar size={24} src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} />}
+              />
+            </Col>
           </Row>
         </Col>
       </Row>
@@ -113,19 +111,14 @@ const PlayersFilter = ({ activeFilters, players, onFilterClick }) => (
 );
 
 const PipelineFilter = (filters, data, iter=Array.prototype.filter) => {
-  const frozenData = Immutable(data);
-  let filtered = filters.map(f => iter.call(frozenData, f))
+  let filtered = filters.map(f => iter.call(data, f))
                         .reduce((o, v) => o.concat(v), []);
-  return _.differenceWith((x, y) => x === y, frozenData, filtered);
+  return _.differenceWith((x, y) => x === y, data, filtered);
 }
 
 const FixedPlayersFilter = PlayersFilter;
 
 class VisionPage extends React.Component {
-  componentWillMount() {
-    Perf.start();
-  }  
-  
   constructor(props) {
     super(props);
     this.state = {
@@ -141,7 +134,7 @@ class VisionPage extends React.Component {
     this.ticks = this.computeTick();
     this.findPivot = (value) => _.flow(_.map(x => x.entered.time),
                                        _.sortedIndex(value))(this.state.wardsLog);
-    this.handleViewportChange = _.debounce(50, this._handleViewportChange);
+    this.handleViewportChange = _.debounce(50, this.viewportChange);
   }
 
   computeTick() {
@@ -149,7 +142,7 @@ class VisionPage extends React.Component {
     return _.rangeStep(interval, 0, this.props.match.duration);
   }
 
-  _handleViewportChange(value) {
+  viewportChange(value) {
     const log = this.state.wardsLog;
     const p = this.state.from;
     

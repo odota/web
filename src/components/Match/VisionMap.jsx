@@ -58,8 +58,7 @@ const WardLogPin = ({ width, iconSize, log }) => {
 // TODO Hero icon on ward circles?
 class VisionMap extends React.Component {
   shouldComponentUpdate(newProps) {
-    if (newProps.wardsLog.length == this.props.wardsLog.length) return false;
-    return true;
+    return newProps.wardsLog.length !== this.props.wardsLog.length;
   }
 
   componentDidMount() {
