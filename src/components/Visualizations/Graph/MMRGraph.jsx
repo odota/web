@@ -2,6 +2,7 @@ import React from 'react';
 import npmColor from 'color';
 import { Graph } from 'components/Visualizations';
 
+// TODO localize strings
 const getXAxis = columns =>
   columns.length > 0 &&
   ({
@@ -13,7 +14,7 @@ const getXAxis = columns =>
 
 const MMRGraph = ({ columns }) => (
   <Graph
-    type="spline"
+    type="line"
     columns={columns}
     name="Solo MMR"
     colors={{
