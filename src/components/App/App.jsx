@@ -26,7 +26,7 @@ const muiTheme = {
   button: { height: 38 },
 };
 
-const App = ({ children, open, params, location }) => (
+const App = ({ children, open, params, location, width }) => (
   <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
     <div
       className={
@@ -39,7 +39,7 @@ const App = ({ children, open, params, location }) => (
       <div className={styles.body}>
         {children}
       </div>
-      <Footer location={location} />
+      <Footer location={location} width={width} />
     </div>
   </MuiThemeProvider>
 );

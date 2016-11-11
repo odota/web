@@ -349,3 +349,25 @@ export const gameCoordToUV = (x, y) => ({
   y: 127 - (Number(y) - 64)
 });
 
+// TODO: refactor this to use gameCoordToUV
+/**
+ * Unpacks position data from hash format to array format
+ * 64 is the offset of x and y values
+ * subtracting y from 127 inverts from bottom/left origin to top/left origin
+ **/
+export function unpackPositionData(input) {
+  if (typeof input === 'object' && !Array.isArray(input)) {
+    const result = [];
+    Object.keys(input).forEach((x) => {
+      Object.keys(input[x]).forEach((y) => {
+        result.push({
+          x: Number(x) - 64,
+          y: 127 - (Number(y) - 64),
+          value: input[x][y],
+        });
+      });
+    });
+    return result;
+  }
+  return input;
+}
