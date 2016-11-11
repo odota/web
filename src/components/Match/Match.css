@@ -256,15 +256,17 @@
 }
 
 .ward-log-player-filter {
-  padding: 0 .5em;
+  padding: 0 .5rem;
   font-size: .8em;
-  background-color: white;
+
+  & .filter-header {
+    padding: .5rem;
+    border-bottom: 1px solid var(--dividerLightColor);
+  }
 
   & .filter-row {
     padding: .5em;
-    border-bottom: 1px solid var(--dividerLightColor);
-
-    &:last-child { border: none; }
+    margin: 0 0;
   }
 }
 

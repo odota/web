@@ -6,7 +6,6 @@ import { isRadiant, formatSeconds, extractTransitionClasses } from 'utility';
 import { Row, Col } from 'react-flexbox-grid';
 // import heroes from 'dotaconstants/json/heroes.json';
 import { heroTd } from './matchColumns';
-import { API_HOST } from 'config';
 import { Fixed, Pure } from 'utility/components';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import styles from './Match.css';

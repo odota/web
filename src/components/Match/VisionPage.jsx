@@ -24,8 +24,7 @@ import {
   grey800 as filterOff,
   blueGrey700 as filterOn
 } from 'material-ui/styles/colors';
-
-window.Perf = Perf;
+import Immutable from 'seamless-immutable'
 
 const SliderTicks = (props) => (
   <div {...props} >
@@ -74,32 +73,31 @@ class PlayerFilter extends React.PureComponent {
            between="xs">
         <Col xs={12} sm={7}>
           <Row xs>
-            <Col xs={1}></Col>
             <Col>{heroTd(player)}</Col>
           </Row>
         </Col>
         <Col xs={12} sm={5}>
           <Row>
             <Col xs>
-              <Button {...this.getMuiThemeProps()}
-                      label={obs_count}
-                      disabled={obs_count == 0}
-                      backgroundColor={this.generateFilterKey("observer") in this.props.activeFilters ? filterOff : filterOn}
-                      style={{opacity: obs_count > 0 ? opacityOn : opacityOff}}
-                      onClick={() => onFilterClick(this.generateFilterKey("observer"), player.player_slot, "observer")}
-                      icon={<Avatar size={24} src="http://a19a1164.ngrok.io/apps/dota2/images/items/ward_observer_lg.png" />}
-              />
-            </Col>
-            <Col xs>
-              <Button {...this.getMuiThemeProps()}
-                      label={sen_count}
-                      disabled={sen_count == 0}
-                      backgroundColor={this.generateFilterKey("sentry") in this.props.activeFilters ? filterOff : filterOn}
-                      style={{opacity: sen_count > 0 ? opacityOn : opacityOff}}
-                      onClick={() => onFilterClick(this.generateFilterKey("sentry"), player.player_slot, "sentry")}
-                      icon={<Avatar size={24} src="http://a19a1164.ngrok.io/apps/dota2/images/items/ward_sentry_lg.png" />}
-              />
-            </Col>
+                  <Button {...this.getMuiThemeProps()}
+                        label={obs_count}
+                        disabled={obs_count == 0}
+                        backgroundColor={this.generateFilterKey("observer") in this.props.activeFilters ? filterOff : filterOn}
+                        style={{opacity: obs_count > 0 ? opacityOn : opacityOff}}
+                        onClick={() => onFilterClick(this.generateFilterKey("observer"), player.player_slot, "observer")}
+                        icon={<Avatar size={24} src="http://a19a1164.ngrok.io/apps/dota2/images/items/ward_observer_lg.png" />}
+                />
+              </Col>
+              <Col xs>
+                  <Button {...this.getMuiThemeProps()}
+                        label={sen_count}
+                        disabled={sen_count == 0}
+                        backgroundColor={this.generateFilterKey("sentry") in this.props.activeFilters ? filterOff : filterOn}
+                        style={{opacity: sen_count > 0 ? opacityOn : opacityOff}}
+                        onClick={() => onFilterClick(this.generateFilterKey("sentry"), player.player_slot, "sentry")}
+                        icon={<Avatar size={24} src="http://a19a1164.ngrok.io/apps/dota2/images/items/ward_sentry_lg.png" />}
+                />
+              </Col>
           </Row>
         </Col>
       </Row>
@@ -107,13 +105,13 @@ class PlayerFilter extends React.PureComponent {
   }
 }
 
+// remove this component
 const PlayersFilter = ({ activeFilters, players, onFilterClick }) => (
-  <Paper className={styles['ward-log-player-filter']}>
+  <Paper>
     {players.map((p,i) => <PlayerFilter player={p} activeFilters={activeFilters} onFilterClick={onFilterClick} />)}
   </Paper>
 );
 
-import Immutable from 'seamless-immutable';
 const PipelineFilter = (filters, data, iter=Array.prototype.filter) => {
   const frozenData = Immutable(data);
   let filtered = filters.map(f => iter.call(frozenData, f))
@@ -188,18 +186,22 @@ class VisionPage extends React.Component {
     return (
       <div>
         <Heading title={strings.heading_vision}/>
-        <Row center="xs">
+        <Row center="md">
           <Col sm={12} md={4}>
             <VisionMap wardsLog={visibleWards} />
           </Col>
           <Col sm={12} md={8}>
             <Row>
-              <Col xs={12} md={6} lg={12}>
-                Radiant
+              <Col xs={12} md={6} lg={12} className={styles['ward-log-player-filter']}>
+                <Col xs className={styles['filter-header']}>
+                  {strings.general_radiant}
+                </Col>
                 {<FixedPlayersFilter activeFilters={this.state.filters} onFilterClick={playerFilterClick} players={_.take(5, this.props.match.players)} />}
               </Col>
-              <Col xs={12} md={6} lg={12}>
-                Dire
+              <Col xs={12} md={6} lg={12} className={styles['ward-log-player-filter']}>
+                <Col xs className={styles['filter-header']}>
+                  {strings.general_dire}
+                </Col>
                 {<FixedPlayersFilter activeFilters={this.state.filters} onFilterClick={playerFilterClick} players={_.takeRight(5, this.props.match.players)} />}
               </Col>
             </Row>

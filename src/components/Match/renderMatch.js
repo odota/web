@@ -8,6 +8,7 @@ import specific from 'dotaconstants/json/specific.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import analysis from './analysis';
 
+import Immutable from 'seamless-immutable'
 import { flow, map, flatten, sortBy } from 'lodash/fp';
 import _ from 'lodash/fp'
 
@@ -285,7 +286,7 @@ function renderMatch(m) {
     graphData: generateGraphData(m),
     teamfights: generateTeamfights(m),
     players: newPlayers,
-    wards_log: generateWardLog(m),
+    wards_log: generateWardLog(Immutable(m)),
   };
 }
 

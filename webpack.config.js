@@ -102,17 +102,22 @@ if (!isProd) {
   config.devtool = 'eval-source-map';
 }
 if (isProd) {
-  config.plugins.push(new webpack.LoaderOptionsPlugin({
-    minimize: true,
-    debug: false,
-  }), new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false,
-    },
-    output: {
-      comments: false,
-    },
-    sourceMap: false,
-  }), new HashBundlePlugin(), new webpack.optimize.DedupePlugin());
+  config.plugins.push(
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false,
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+      },
+      output: {
+        comments: false,
+      },
+      sourceMap: false,
+    }),
+    new HashBundlePlugin(),
+    new webpack.optimize.DedupePlugin()
+  );
 }
 module.exports = config;
