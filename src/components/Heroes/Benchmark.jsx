@@ -22,8 +22,8 @@ const renderBenchmark = (hero, data) => (
 class Benchmark extends Component {
 
   componentDidMount() {
-    if (this.props.routeParams && this.props.routeParams.hero_id) {
-      this.props.getBenchmark(this.props.routeParams.hero_id);
+    if (this.props.routeParams && this.props.routeParams.heroId) {
+      this.props.getBenchmark(this.props.routeParams.heroId);
     }
   }
 

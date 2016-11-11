@@ -8,7 +8,7 @@ import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import {
   responsiveStateReducer,
-  responsiveStoreEnhancer,
+  createResponsiveStoreEnhancer,
 } from 'redux-responsive';
 import {
   routerReducer as routing,
@@ -24,12 +24,14 @@ const reducer = combineReducers({
   routing,
   browser: responsiveStateReducer,
 });
+/* eslint-disable no-underscore-dangle */
+// This enables the redux dev tools extension, or does nothing if not installed
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+/* eslint-enable */
 
-export default createStore(reducer, compose(
-  responsiveStoreEnhancer,
+export default createStore(reducer, composeEnhancers(
+  createResponsiveStoreEnhancer({ performanceMode: true }),
   applyMiddleware(thunkMiddleware),
-  applyMiddleware(loggerMiddleware),
+  process.env.NODE_ENV === 'production' ? f => f : applyMiddleware(loggerMiddleware),
   applyMiddleware(routerMiddleware(browserHistory)),
-  // This enables the redux dev tools extension, or does nothing if not installed
-  window.devToolsExtension ? window.devToolsExtension() : f => f
 ));

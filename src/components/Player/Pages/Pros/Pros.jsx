@@ -4,17 +4,18 @@ import {
   getPlayerPros,
 } from 'actions';
 import { playerPros } from 'reducers';
-import Table, { TableContainer } from 'components/Table';
+import Table from 'components/Table';
+import Container from 'components/Container';
 import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerProsColumns from './playerProsColumns';
 
-const Pros = ({ data, playerId }) => (
+const Pros = ({ data, playerId, error, loading }) => (
   <div>
     <TableFilterForm />
-    <TableContainer title={strings.heading_pros}>
+    <Container title={strings.heading_pros} error={error} loading={loading}>
       <Table paginated columns={playerProsColumns(playerId)} data={data} />
-    </TableContainer>
+    </Container>
   </div>
 );
 
@@ -44,6 +45,8 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = (state, { playerId }) => ({
   data: playerPros.getProsList(state, playerId),
+  error: playerPros.getError(state, playerId),
+  loading: playerPros.getLoading(state, playerId),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

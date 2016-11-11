@@ -32,10 +32,10 @@ export default ({ match, user, loading }) => {
                   {strings.match_radiant_win}
                 </span>
               :
-                <span>
-                  <IconDire />
-                  {strings.match_dire_win}
-                </span>
+              <span>
+                <IconDire />
+                {strings.match_dire_win}
+              </span>
               }
             </div>
           </Col>
@@ -45,7 +45,7 @@ export default ({ match, user, loading }) => {
                 {
                   match.players
                     .map(mapPlayers('kills', true))
-                    .reduce(sum)
+                    .reduce(sum, 0)
                 }
               </Col>
               <Col className={styles.gmde}>
@@ -63,7 +63,7 @@ export default ({ match, user, loading }) => {
                 {
                   match.players
                     .map(mapPlayers('kills', false))
-                    .reduce(sum)
+                    .reduce(sum, 0)
                 }
               </Col>
             </Row>
@@ -114,7 +114,7 @@ export default ({ match, user, loading }) => {
           <FlatButton
             label={strings.app_dotacoach}
             icon={<img src="/assets/images/dotacoach-32x24.png" role="presentation" />}
-            href={`//dotacoach.org/Hire/Yasp?matchID=${match.match_id}&userSteamId=${user && user.account_id}`}
+            href={`//dotacoach.org/Hire/OpenDota?matchID=${match.match_id}&userSteamId=${user && user.account_id}`}
             target="_blank"
             rel="noopener noreferrer"
           />

@@ -2,52 +2,51 @@
 
 .container {
   position: relative;
-  margin: 10px 0;
+  margin: 10px 0 30px;
   border-bottom: 1px solid rgba(255, 255, 255, .19);
-
-  @media only screen and (max-width : 1250px) {
-    height: 48px;
-    overflow-y: hidden;
-  }
+  overflow: hidden;
 }
 
 .subContainer {
-  @media only screen and (max-width : 1250px) {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  & a { /* Tab */
+    text-align: center;
+    font-weight: var(--fontWeightLight);
+    font-size: 15px;
+    color: var(--primaryTextColor);
+    padding: 10px 14px 16px;
+    border-bottom: 2px solid transparent;
+    flex-grow: 1;
+
+    &:hover {
+      color: var(--colorMutedLight);
+    }
+
+    &[disabled] {
+      pointer-events: none;
+      color: var(--colorMuted);
+    }
+
+    @media only screen and (max-width: 768px) {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+
+  & .chosen {
+    display: inline-block;
+    border-color: var(--primaryLinkColor);
+    color: color(var(--colorMuted) lightness(85%));
+  }
+
+  @media only screen and (max-width: 1439px) {
     white-space: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
     -ms-overflow-style: none;
     overflow: -moz-scrollbars-none;
-  }
-}
-
-.tabs {
-  width: 100%;
-
-  @media only screen and (max-width : 1250px) {
-    /* Just make this value large enough that it's never reached */
-    width: 1920px !important;
-  }
-  & > div {
-    background-color: transparent !important;
-  }
-
-}
-
-.tab {
-  color: var(--primaryTextColor) !important;
-  text-transform: none !important;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, .08) !important;
-  }
-}
-.tabDisabled {
-  color: var(--colorMuted) !important;
-  text-transform: none !important;
-  font-weight: var(--fontWeightLight) !important;
-
-  &:hover {
-    cursor: not-allowed !important;
   }
 }

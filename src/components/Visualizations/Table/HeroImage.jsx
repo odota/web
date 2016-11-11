@@ -1,65 +1,70 @@
 import React from 'react';
-import ReactTooltip from 'react-tooltip';
-import uuid from 'node-uuid';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import strings from 'lang';
 import { TableLink } from 'components/Table';
 import { playerColors } from 'utility';
+import { IconTrophy } from 'components/Icons';
 import styles from './HeroImage.css';
-import heroes from 'dotaconstants/json/heroes.json';
-import { API_HOST } from 'config';
 
 const TableHeroImage = ({
   parsed,
-  heroId,
+  image,
   registered,
   title,
   subtitle,
   accountId,
   playerSlot,
   hideText,
-  hideImage,
-}) => {
-  const tooltipId = uuid.v4();
-
-  return (
-    <div className={styles.container}>
-      {parsed !== undefined &&
+  confirmed,
+  party,
+}) => (
+  <div className={styles.container}>
+    {parsed !== undefined &&
       <div
         className={parsed ? styles.parsed : styles.unparsed}
-        data-tip
-        data-for={parsed ? 'parsed' : 'unparsed'}
+        data-hint={parsed && strings.tooltip_parsed}
       >
         <ActionDoneAll />
-        <ReactTooltip id={parsed ? 'parsed' : 'unparsed'} place="right" type="light" effect="solid">
-          {parsed ? strings.tooltip_parsed : strings.tooltip_unparsed}
-        </ReactTooltip>
       </div>
-      }
-      {!hideImage &&
+    }
+    {party &&
+      <div className={styles.party}>
+        {party}
+      </div>
+    }
+    {image &&
       <div className={styles.imageContainer}>
         <img
-          src={heroes[heroId] && API_HOST + heroes[heroId].img}
+          src={image}
           role="presentation"
           className={styles.image}
         />
         {playerSlot !== undefined &&
-        <div
-          className={styles.playerSlot}
-          style={{ backgroundColor: playerColors[playerSlot] }}
-        />
+          <div
+            className={styles.playerSlot}
+            style={{ backgroundColor: playerColors[playerSlot] }}
+          />
         }
       </div>
-      }
-      {!hideText &&
-      <div className={styles.textContainer} style={{ marginLeft: hideImage && 59 }}>
+    }
+    {!hideText &&
+      <div className={styles.textContainer} style={{ marginLeft: !image && 59 }}>
         <span>
           {registered &&
-          <div data-tip data-for={tooltipId} className={styles.registered}>
-            <ReactTooltip id={tooltipId} place="top" type="light" effect="solid">
-              {strings.tooltip_registered_user}
-            </ReactTooltip>
-          </div>
+            <div
+              className={styles.registered}
+              data-hint={strings.tooltip_registered_user}
+              data-hint-position="top"
+            />
+          }
+          {confirmed &&
+            <div
+              className={styles.confirmed}
+              data-hint={`${strings.app_confirmed_as} ${title}`}
+              data-hint-position="top"
+            >
+              <IconTrophy />
+            </div>
           }
           {accountId ?
             <TableLink to={`/players/${accountId}`}>
@@ -68,30 +73,30 @@ const TableHeroImage = ({
           : title}
         </span>
         {subtitle &&
-        <span className={styles.subText}>
-          {subtitle}
-        </span>
+          <span className={styles.subText}>
+            {subtitle}
+          </span>
         }
-      </div>}
-    </div>
-  );
-};
+      </div>
+    }
+  </div>
+);
 
-const { number, string, object, oneOfType, bool } = React.PropTypes;
+const { number, string, oneOfType, bool, node } = React.PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: number,
-  heroId: number,
+  image: string,
   title: string,
   subtitle: oneOfType([
     string,
-    object,
+    node,
   ]),
   registered: string,
   accountId: number,
   playerSlot: number,
   hideText: bool,
-  hideImage: bool,
+  party: node,
 };
 
 export default TableHeroImage;

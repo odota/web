@@ -6,15 +6,14 @@ import {
   CardTitle,
 } from 'material-ui/Card';
 import ActionHelp from 'material-ui/svg-icons/action/help';
-import ReactTooltip from 'react-tooltip';
 import {
   player,
 } from 'reducers';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
+import strings from 'lang';
 import styles from './PlayerStats.css';
 
-// TODO localize strings
 export const PlayerStatsCards = ({
     loading,
     error,
@@ -37,61 +36,58 @@ export const PlayerStatsCards = ({
         <CardTitle
           className={styles.playerStats}
           subtitle={<div className={styles.textSuccess}>{wins}</div>}
-          title="wins"
+          title={strings.th_wins}
         />
         <CardTitle
           className={styles.playerStats}
           subtitle={<div className={styles.textDanger}>{losses}</div>}
-          title="losses"
+          title={strings.th_losses}
         />
         <CardTitle
           className={styles.playerStats}
           subtitle={`${((wins / (wins + losses)) * 100).toFixed(2)}%`}
-          title="winrate"
+          title={strings.th_winrate}
         />
       </div>
       <div className={compact && styles.compactRow}>
-        {(soloRank === 0 || soloRank) && (
+        {soloRank && (
           <CardTitle
             className={styles.playerStats}
             subtitle={soloRank || 'N/A'}
-            title="Solo MMR"
+            title={strings.th_solo_mmr}
           />
         )}
-        {(partyRank === 0 || partyRank) && (
+        {partyRank && (
           <CardTitle
             className={styles.playerStats}
             subtitle={partyRank || 'N/A'}
-            title="Party MMR"
+            title={strings.th_party_mmr}
           />
         )}
-        {(mmrEstimate.estimate === 0 || mmrEstimate.estimate) && (
+        {mmrEstimate.estimate > 0 && (
           <CardTitle
             className={styles.playerStats}
             subtitle={
-              <div>
-                <div data-tip data-for="estimate">
-                  {mmrEstimate.estimate}
-                  <ReactTooltip id="estimate" place="bottom" type="light" effect="float">
-                    Standard deviation: {Math.round(mmrEstimate.stdDev)}
-                    <br />
-                    Matches: {mmrEstimate.n}
-                  </ReactTooltip>
-                </div>
+              <div
+                className={styles.estimatedMMR}
+                data-hint={`
+                  ${strings.general_standard_deviation}: ${Math.round(mmrEstimate.stdDev)},
+                  ${strings.general_matches}: ${mmrEstimate.n}
+                `}
+              >
+                {mmrEstimate.estimate}
               </div>
             }
             title={
               <div>
-                estimated MMR
-                <div data-tip data-for="estimateInfo" style={{ display: 'inline-block' }}>
-                  <ActionHelp className={`${styles.icon} ${styles.mmrEstimateIcon}`} />
+                {strings.th_estimated_mmr}
+                <div
+                  className={styles.estimateHelp}
+                  data-hint={strings.tooltip_estimated_mmr}
+                  data-hint-position="top"
+                >
+                  <ActionHelp className={styles.icon} />
                 </div>
-                <ReactTooltip id="estimateInfo" place="right" type="light" effect="float">
-                  <div style={{ textTransform: 'none', lineHeight: 1.2 }}>
-                    MMR estimate based on data from peer players.
-                    This is the mean visible MMR of the recent matches played by this user.
-                  </div>
-                </ReactTooltip>
               </div>
             }
           />
@@ -101,13 +97,13 @@ export const PlayerStatsCards = ({
   );
 };
 
-const { number, bool } = PropTypes;
+const { number, bool, shape, string } = PropTypes;
 PlayerStatsCards.propTypes = {
   loading: bool,
   error: bool,
-  partyRank: number,
-  soloRank: number,
-  mmrEstimate: number,
+  partyRank: string,
+  soloRank: string,
+  mmrEstimate: shape({}),
   wins: number,
   losses: number,
   compact: bool,
@@ -122,6 +118,5 @@ const mapStateToProps = (state, ownProps) => ({
   wins: player.getWins(state, ownProps.playerId),
   losses: player.getLosses(state, ownProps.playerId),
 });
-
 
 export default connect(mapStateToProps)(PlayerStatsCards);

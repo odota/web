@@ -22,7 +22,7 @@ const getMatches = fieldName =>
 
 const getCumulativeDataByField = fieldName => id => createSelector(
   [getMatches(fieldName)(id)],
-  matches => matches
+  matches => matches,
 );
 
 export default getCumulativeDataByField;

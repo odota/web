@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getSearchResult } from 'actions';
-import Spinner from '../Spinner';
-
-// import SearchForm from './SearchForm';
+import Spinner from 'components/Spinner';
 import SearchResult from './SearchResult';
+// import SearchForm from './SearchForm';
 
 class Search extends React.Component {
   componentDidMount() {

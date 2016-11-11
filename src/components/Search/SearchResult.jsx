@@ -1,24 +1,29 @@
 import React from 'react';
-import { List } from 'material-ui/List';
-import SearchResultItem from './SearchResultItem';
-import style from './search.css';
+import strings from 'lang';
+import {
+  transformations,
+} from 'utility';
+import Table from 'components/Table';
+import Heading from 'components/Heading';
+// import { List } from 'material-ui/List';
+// import SearchResultItem from './SearchResultItem';
+// import style from './search.css';
 
-export default ({ players }) => {
-  const playerResult = players.map((player, idx) => (
-    <SearchResultItem
-      key={idx}
-      name={player.personaname}
-      steamId={player.account_id}
-      avatarFullUrl={player.avatarfull}
-    />
-  ));
-
-  return (
-    <div className={style.searchResult}>
-      <p>
-        <em>There are {players.length} results</em> {/* TODO replace hardcoded text */}
-      </p>
-      <List>{playerResult}</List>
-    </div>
-  );
-};
+const searchColumns = [{
+  displayName: strings.th_name,
+  field: 'personaname',
+  displayFn: (row, col, field) => {
+    const subtitle = row.account_id;
+    return transformations.player({ ...row,
+      subtitle,
+    }, col, field);
+  },
+}];
+export default ({
+  players,
+}) => (
+  <div>
+    <Heading title={`${players.length} ${strings.app_results}`} />
+    <Table paginated data={players} columns={searchColumns} />
+  </div>
+);

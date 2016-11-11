@@ -39,7 +39,7 @@ const App = ({ children, open, params, location }) => (
       <div className={styles.body}>
         {children}
       </div>
-      <Footer />
+      <Footer location={location} />
     </div>
   </MuiThemeProvider>
 );

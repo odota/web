@@ -1,40 +1,29 @@
 import React from 'react';
-import { Tabs, Tab } from 'material-ui/Tabs';
-import { browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import styles from './TabBar.css';
 
-const onActive = (tab) => {
-  browserHistory.push(`${tab.route}${window.location.search}`);
-};
-
-const TabBar = ({ router, tabs, info }) => (
-  <div className={styles.container}>
-    <div className={styles.subContainer}>
-      <Tabs
-        inkBarStyle={{ backgroundColor: styles.blue }}
-        className={styles.tabs}
-        value={info}
-      >
-        {tabs.map((tab, index) => (
-          <Tab
-            key={index}
-            className={tab.disabled ? styles.tabDisabled : styles.tab}
-            value={tab.name.toLowerCase()}
-            label={tab.name}
-            onActive={() => onActive(tab, router)}
-            disabled={tab.disabled}
-          />
-        ))}
-      </Tabs>
-    </div>
-  </div>
+const TabBar = ({ tabs, info, mediaQClass = null }) => (
+  <main className={`${styles.container} ${mediaQClass}`}>
+    <section className={styles.subContainer}>
+      {tabs.map((tab, index) => (
+        <Link
+          key={index}
+          className={tab.key === info && styles.chosen}
+          to={tab.route + window.location.search}
+          disabled={tab.disabled}
+        >
+          {tab.name}
+        </Link>
+      ))}
+    </section>
+  </main>
 );
 
-const { string, shape, array } = React.PropTypes;
+const { string, shape, arrayOf } = React.PropTypes;
 TabBar.propTypes = {
-  router: shape({}),
-  tabs: array,
+  tabs: arrayOf(shape({})),
   info: string,
+  mediaQClass: string,
 };
 
 export default TabBar;

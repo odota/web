@@ -1,11 +1,8 @@
+/* global API_HOST */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-/*
-import { heroes } from 'dotaconstants';
-*/
 import heroes from 'dotaconstants/json/heroes.json';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import { API_HOST } from 'config';
 import HeroList from './HeroList';
 import style from './Heroes.css';
 import Ranking from './Ranking';
@@ -33,9 +30,9 @@ class Heroes extends Component {
     // console.log(this.props);
   }
   render() {
-    if (this.props.routeParams && this.props.routeParams.hero_id) {
+    if (this.props.routeParams && this.props.routeParams.heroId) {
       return (<div>
-        <HeroBadge hero={getSingleHero(this.props.routeParams.hero_id)} />
+        <HeroBadge hero={getSingleHero(this.props.routeParams.heroId)} />
         <Tabs>
           <Tab label="Rankings">
             <Ranking {...this.props} />

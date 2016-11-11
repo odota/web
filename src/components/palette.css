@@ -2,6 +2,7 @@
   /* -- Colors */
   --defaultPrimaryColor:  rgba(0, 0, 0, .4);
   --darkPrimaryColor:  rgba(0, 0, 0, .6);
+  --almostBlack: rgba(0, 0, 0, .9);
 
   --colorSuccess: #66BB6A;
   --colorDanger:  #ff4c4c;
@@ -54,6 +55,10 @@
   --linearTransition: all 450ms linear 0ms;
 }
 
+@custom-media --tiny (width < 400px);
+@custom-media --small (width < 660px);
+@custom-media --medium (width < 900px);
+
 :export {
   /* -- Colors */
   red:      var(--colorDanger);
@@ -102,28 +107,9 @@
   height: 30px;
 }
 
-.tab {
-  margin: 0 10px;
-  text-align: center;
-  font-weight: var(--fontWeightNormal) !important;
-}
-
-.tabContainer {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.verticalAlign {
-  display:flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .iconButton {
-  padding: 0 5px 4px;
+  margin: 0 5px 4px;
+
   & svg {
     width: auto !important;
     height: 16px;

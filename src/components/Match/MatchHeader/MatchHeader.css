@@ -27,7 +27,7 @@
 .winner {
   font-size: 28px;
   padding-top: 10px;
-  filter: drop-shadow(0 0 15px var(--colorYelor));
+  filter: drop-shadow(0 0 20px var(--colorYelor));
 }
 .score {
   font-size: 48px;
@@ -59,7 +59,8 @@
   color: var(--colorSuccess);
 
   & svg {
-    fill: var(--colorSuccess);
+    filter: drop-shadow(0 0 5px green);
+    fill: var(--textColorPrimary) !important;
   }
 }
 .dire {
@@ -67,7 +68,8 @@
   color: var(--colorDanger);
   
   & svg {
-    fill: var(--colorDanger);
+    filter: drop-shadow(0 0 5px var(--colorDanger));
+    fill: black !important;
   }
 }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
-import ReactTooltip from 'react-tooltip';
 import { player } from 'reducers';
 import strings from 'lang';
 import Error from 'components/Error';
@@ -17,18 +16,11 @@ export const HEADER_MD_BREAK = 900;
 const LARGE_IMAGE_SIZE = 124;
 
 const getRegistrationBadge = registered => registered && (
-  <div>
-    <div
-      data-tip data-for="registered"
-      style={{
-        width: 18,
-        height: 18,
-      }}
-    />
-    <ReactTooltip id="registered" place="top" type="light" effect="solid">
-      {strings.tooltip_registered_user}
-    </ReactTooltip>
-  </div>
+  <div
+    className={styles.registered}
+    data-hint={strings.tooltip_registered_user}
+    data-hint-position="top"
+  />
 );
 
 const PlayerHeader = ({ playerName, playerId, picture, registered, loading, error, width, playerSoloCompetitiveRank }) => {
@@ -94,10 +86,10 @@ const PlayerHeader = ({ playerName, playerId, picture, registered, loading, erro
 };
 
 const mapStateToProps = (state, ownProps) => ({
+  playerId: ownProps.playerId,
   loading: player.getLoading(state, ownProps.playerId),
   error: player.getError(state, ownProps.playerId),
   playerName: player.getPlayerName(state, ownProps.playerId),
-  playerId: player.getAccountId(state, ownProps.playerId),
   playerSoloCompetitiveRank: player.getSoloCompetitiveRank(state, ownProps.playerId),
   picture: player.getPictureFull(state, ownProps.playerId),
   registered: player.getLastLogin(state, ownProps.playerId),

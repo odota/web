@@ -14,14 +14,12 @@ export default ({ column, sortClick, sortField, sortState }) => {
         className={column.sortFn ? styles.headerCell : styles.headerCellNoSort}
         onClick={() => column.sortFn && sortClick(column.field, sortState, column.sortFn)}
       >
-        <div data-tip data-for={tooltipId} style={{ color: column.color }}>
+        <div data-tip={column.tooltip && true} data-for={tooltipId} style={{ color: column.color }}>
           {column.displayName}
           {column.sortFn && getSortIcon(sortState, sortField, column.field, { height: 14, width: 14 })}
           {column.tooltip &&
           <ReactTooltip id={tooltipId} place="top" type="light" effect="solid">
-            <div className={styles.headerTooltip}>
-              {column.tooltip}
-            </div>
+            {column.tooltip}
           </ReactTooltip>
           }
         </div>

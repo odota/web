@@ -2,6 +2,7 @@ import React from 'react';
 import {
   connect,
 } from 'react-redux';
+import FlatButton from 'material-ui/FlatButton';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import {
@@ -16,32 +17,25 @@ const getPages = ({
   numPages,
   setCurrentPage,
 }) => {
-  let i = currentPage - 4 > 0 ? currentPage - 4 : 0;
+  // let i = currentPage - 4 > 0 ? currentPage - 4 : 0;
   const pages = [];
-  if (currentPage + 5 >= 10) {
-    pages.push(<span className={styles.page} onClick={() => setCurrentPage(0)}>1...</span>);
+  pages.push(<FlatButton className={styles.page} onClick={() => setCurrentPage(0)}>1...</FlatButton>);
+  const minStart = Math.max(numPages - 5, 0);
+  const minEnd = Math.min(4, numPages - 1);
+  const targetStart = Math.max(currentPage - 2, 0);
+  const targetEnd = Math.min(currentPage + 2, numPages - 1);
+  const start = Math.min(targetStart, minStart);
+  const end = Math.max(targetEnd, minEnd);
+  for (let i = start; i <= end; i += 1) {
+    pages.push(<FlatButton
+      key={i}
+      className={i === currentPage ? styles.currentPage : styles.page}
+      onClick={i === currentPage ? () => {} : () => setCurrentPage(i)}
+    >
+      {i + 1}
+    </FlatButton>);
   }
-  while (i < numPages && pages.length < 9) {
-    const page = i;
-    let PageNumber;
-    if (page === currentPage) {
-      PageNumber = <span className={styles.currentPage}>{page + 1}</span>;
-    } else {
-      PageNumber = (
-        <span
-          className={styles.page}
-          onClick={() => setCurrentPage(page)}
-        >
-          {page + 1}
-        </span>
-      );
-    }
-    pages.push(PageNumber);
-    i += 1;
-  }
-  if (currentPage <= numPages - 5) {
-    pages.push(<span className={styles.page} onClick={() => setCurrentPage(numPages - 1)}>...{numPages}</span>);
-  }
+  pages.push(<FlatButton className={styles.page} onClick={() => setCurrentPage(numPages - 1)}>...{numPages}</FlatButton>);
   return pages;
 };
 
@@ -53,12 +47,12 @@ const Pagination = ({
   numPages,
 }) => (numPages > 1 ? (
   <div className={styles.container}>
-    {currentPage > 0 && <Prev onClick={prevPage} className={styles.arrow} />}
+    <FlatButton className={styles.arrow} onClick={currentPage > 0 ? prevPage : () => {}}><Prev className={styles.arrow} /></FlatButton>
     {getPages({ currentPage, numPages, setCurrentPage })}
-    {currentPage < numPages - 1 && <Next onClick={nextPage} className={styles.arrow} />}
+    <FlatButton className={styles.arrow} onClick={currentPage < (numPages - 1) ? nextPage : () => {}}><Next className={styles.arrow} /></FlatButton>
   </div>
 ) : (
-  <span />
+<span />
 ));
 
 const mapDispatchToProps = (dispatch, {

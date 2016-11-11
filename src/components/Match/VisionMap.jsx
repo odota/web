@@ -17,7 +17,6 @@ import {
 // import heroes from 'dotaconstants/json/heroes.json';
 import strings from 'lang';
 import styles from './Match.css';
-import { Fixed } from 'utility/components';
 import Measure from 'react-measure';
 
 // with the actual game size, the width parameters is optional
@@ -56,11 +55,6 @@ const WardLogPin = ({ width, iconSize, log }) => {
     </svg>
   )
 };
-  
-
-// sen = #0000ff;
-
-const FixedTable = Fixed(Table);
 
 // TODO Hero icon on ward circles?
 class VisionMap extends React.Component {

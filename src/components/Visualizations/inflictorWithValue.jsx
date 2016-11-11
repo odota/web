@@ -1,9 +1,10 @@
+/* global API_HOST */
+/* eslint-disable react/no-danger */
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'node-uuid';
 import items from 'dotaconstants/json/items.json';
 import abilities from 'dotaconstants/json/abilities.json';
-import { API_HOST } from 'config';
 import strings from 'lang';
 import styles from './inflictorWithValue.css';
 
@@ -64,7 +65,7 @@ export default (inflictor, value) => {
       image = `${API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`;
       tooltip = tooltipContainer(item);
     } else {
-      image = `${API_HOST}/public/images/default_attack.png`;
+      image = '/assets/images/default_attack.png';
     }
     return (
       <div className={styles.inflictorWithValue} data-tip={tooltip && true} data-for={ttId}>
@@ -72,7 +73,7 @@ export default (inflictor, value) => {
         <div className={styles.overlay}>{value}</div>
         {tooltip &&
         <div className={styles.tooltip}>
-          <ReactTooltip id={ttId} effect="float">
+          <ReactTooltip id={ttId} effect="solid" place="left">
             {tooltip}
           </ReactTooltip>
         </div>}

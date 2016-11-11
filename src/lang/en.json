@@ -1,6 +1,7 @@
 {
   "abbr_thousand": "k",
-
+  "abbr_million": "m",
+  
   "analysis_eff": "Lane efficiency",
   "analysis_farm_drought": "Lowest GPM in 5 minute interval",
   "analysis_skillshot": "Skillshots landed",
@@ -25,20 +26,31 @@
   "app_discord": "Chat on Discord",
   "app_steam_profile": "Steam Profile",
   "app_confirmed_as": "Confirmed as",
-  "app_untracked": "This user is inactive, and replays of new matches will not be automatically parsed.",
-  "app_tracked": "This user is active, and replays of new matches will be automatically parsed.",
+  "app_untracked": "This user has not visited recently, and replays of new matches will not be automatically parsed.",
+  "app_tracked": "This user has visited recently, and replays of new matches will be automatically parsed.",
   "app_cheese_bought": "Cheese bought",
   "app_dotacoach": "Ask a Coach",
   "app_refresh": "Refresh Match History: Queue a scan to find missing matches due to privacy settings",
   "app_login": "Login",
   "app_logout": "Logout",
+  "app_results": "results",
+  "app_report_bug": "Report bug",
 
   "benchmarks_higher_than": "is equal or higher than",
   "benchmarks_recent_performances": "of recent performances on this hero",
 
-  "distributions_mmr": "Solo MMR",
-  "distributions_country_mmr": "Solo MMR By Country",
-  "distributions_warning_1": "Warning! This data set is limited to players displaying MMR on profile and sharing public match data.",
+  "building_melee_rax": "Melee Barracks",
+  "building_range_rax": "Ranged Barracks",
+  "building_lasthit": "got the last hit",
+  "building_damage": "received damage",
+  "building_hint": "Icons on the map have tooltips",
+  "building_denied": "denied",
+
+  "distributions_heading_mmr": "Solo MMR Distribution",
+  "distributions_heading_country_mmr": "Average Solo MMR by Country",
+  "distributions_tab_mmr": "Solo MMR",
+  "distributions_tab_country_mmr": "Solo MMR by Country",
+  "distributions_warning_1": "This data set is limited to players displaying MMR on profile and sharing public match data.",
   "distributions_warning_2": "Players do not have to sign in, but due to the opt-in nature of the data collected, averages are likely higher than expected.",
 
   "error": "Error",
@@ -75,6 +87,8 @@
   "general_anonymous": "Anonymous",
   "general_radiant": "Radiant",
   "general_dire": "Dire",
+  "general_standard_deviation": "Standard Deviation",
+  "general_matches": "Matches",
 
   "gold_reasons_0": "Other",
   "gold_reasons_1": "Death",
@@ -85,7 +99,7 @@
   "gold_reasons_12": "Hero",
   "gold_reasons_13": "Creep",
   "gold_reasons_14": "Roshan",
-  "gold_reasons_15": "Courier",
+  "NULL_gold_reasons_15": "Courier",
 
   "header_request": "Request",
   "header_distributions": "Distributions",
@@ -147,6 +161,7 @@
   "home_background_by": "Background picture by",
   "home_sponsored_by": "Sponsored by",
   "home_become_sponsor": "Become a Sponsor",
+  "home_jist_button": "Get a match video",
 
   "items_name": "Name of item",
   "items_built": "Number of times this item was built",
@@ -196,6 +211,10 @@
   "rune_5": "Bounty",
   "rune_6": "Arcane",
 
+  "skill_1": "Normal",
+  "skill_2": "High",
+  "skill_3": "Very High",
+  
   "tab_overview": "Overview",
   "tab_matches": "Matches",
   "tab_heroes": "Heroes",
@@ -332,6 +351,12 @@
   "th_casts": "Casts",
   "th_hits": "Hits",
   "th_damage": "Damage",
+  "th_wins": "Wins",
+  "th_losses": "Losses",
+  "th_winrate": "Winrate",
+  "th_solo_mmr": "Solo MMR",
+  "th_party_mmr": "Party MMR",
+  "th_estimated_mmr": "Estimated MMR",
 
   "ward_log_type": "Type",
   "ward_log_owner": "Owner",
@@ -439,6 +464,7 @@
   "tooltip_hits": "Number of damage instances to heroes caused by this ability/item",
   "tooltip_damage": "Amount of damage dealt to heroes by this ability/item",
   "tooltip_autoattack_other": "Auto Attack/Other",
+  "tooltip_estimated_mmr": "MMR estimate based on the mean visible MMR of the recent matches played by this user",
 
   "xp_reasons_0": "Other",
   "xp_reasons_1": "Creep",

@@ -25,7 +25,6 @@ Notes
   * This means you don't have to set up the entire stack (databases, etc.), or worry about getting starter data.
   * By default, the UI points to the production API.
   * You can configure it to point to your own backend (if you are working on a new feature and want to start building the UI before it's deployed to production).
-  * API_HOST is specified in `src/config.js`
 * You can configure the port used by webpack-dev-server in `webpack.config.js`.
 * Discord: https://discord.gg/0o5SQGbXuWCNDcaF
   * Strongly recommended for active developers! We move fast and it's helpful to be up to speed with everything that's happening.

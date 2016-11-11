@@ -2,11 +2,12 @@ import { playerCountsActions } from 'actions';
 import createReducer from 'reducers/reducerFactory';
 
 const initialState = {
-  loading: true,
-  error: false,
-  loaded: false,
   list: [],
-  data: {},
+  data: {
+    loading: true,
+    error: false,
+    loaded: false,
+  },
 };
 
 // Need to have separate actions for each table and then combine them
@@ -24,6 +25,7 @@ export const getPlayerCounts = {
     }
     return state.app.gotPlayer.counts.byId[id];
   },
+  getData: (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data,
   getOnlyData: (state, id) => {
     const data = getPlayerCounts.getPlayerCountsById(state, id).data;
     return Object.keys(data)
@@ -37,9 +39,9 @@ export const getPlayerCounts = {
         return filteredObj;
       }, {});
   },
-  getError: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].error,
-  getLoading: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].loading,
-  isLoaded: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].loaded,
+  getError: (state, id) => getPlayerCounts.getData(state, id).error,
+  getLoading: (state, id) => getPlayerCounts.getData(state, id).loading,
+  isLoaded: (state, id) => getPlayerCounts.getData(state, id).loaded,
   getCountsList: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].list,
   getCountsName: listName => (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data[listName].name,
 };

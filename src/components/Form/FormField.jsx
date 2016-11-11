@@ -19,6 +19,22 @@ const addChip = (name, input, limit) => {
   browserHistory.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
 };
 
+const deleteChip = (name, index) => {
+  const query = querystring.parse(window.location.search.substring(1));
+  const field = [].concat(query[name] || []);
+  const newQuery = {
+    ...query,
+    [name]: [
+      ...field.slice(0, index),
+      ...field.slice(index + 1),
+    ],
+  };
+  if (!newQuery[name].length) {
+    delete newQuery[name];
+  }
+  browserHistory.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
+};
+
 class FormField extends React.Component {
   handleRequest({
     value,
@@ -102,13 +118,13 @@ class FormField extends React.Component {
         underlineFocusStyle={{ borderColor: styles.blue }}
         fullWidth
       />
-      <ChipList name={name} formName={formName} chipList={chipList} />
+      <ChipList name={name} formName={formName} chipList={chipList} deleteChip={deleteChip} />
     </div>);
   }
 }
 
-const mapStateToProps = state => ({
-  currentQueryString: state.routing.locationBeforeTransitions.search,
+const mapStateToProps = () => ({
+  currentQueryString: window.location.search,
 });
 
 const mapDispatchToProps = () => ({});

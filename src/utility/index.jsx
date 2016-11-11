@@ -1,7 +1,7 @@
+/* global API_HOST */
 import React from 'react';
 import { Link } from 'react-router';
 import heroes from 'dotaconstants/json/heroes.json';
-import skill from 'dotaconstants/json/skill.json';
 import items from 'dotaconstants/json/items.json';
 import patch from 'dotaconstants/json/patch.json';
 import region from 'dotaconstants/json/region.json';
@@ -11,7 +11,6 @@ import lobbyType from 'dotaconstants/json/lobby_type.json';
 import leaverStatus from 'dotaconstants/json/leaver_status.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import xpLevel from 'dotaconstants/json/xp_level.json';
-import { API_HOST } from 'config';
 import styles from 'components/palette.css';
 import { TableLink } from 'components/Table';
 import {
@@ -30,7 +29,12 @@ export function pad(n, width, z = '0') {
   return str.length >= width ? str : new Array((width - str.length) + 1).join(z) + n;
 }
 export function abbreviateNumber(num) {
-  return (num < 1000) ? num : `${(num / 1000).toFixed(1)}${strings.abbr_thousand}`;
+  if (num >= 1000 && num < 1000000) {
+    return `${Number((num / 1000).toFixed(1))}${strings.abbr_thousand}`;
+  } else if (num >= 1000000) {
+    return `${Number((num / 1000000).toFixed(1))}${strings.abbr_million}`;
+  }
+  return num.toFixed(0);
 }
 export function formatSeconds(input) {
   if (!isNaN(parseFloat(input)) && isFinite(input)) {
@@ -194,11 +198,10 @@ export const transformations = {
           {getString(field)}
         </span>
         <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
-          <FromNowTooltip timestamp={row.start_time + row.duration} />
+          {strings[`skill_${row.skill}`] || strings.general_unknown} {strings.th_skill}
         </span>
       </div>);
   },
-  skill: (row, col, field) => (skill[field] ? skill[field] : strings.general_unknown),
   game_mode: (row, col, field) => (gameMode[field] ? gameMode[field].name : field),
   match_id_and_game_mode: (row, col, field) => (
     <div>
@@ -210,7 +213,17 @@ export const transformations = {
   ),
   start_time: (row, col, field) => <FromNowTooltip timestamp={field} />,
   last_played: (row, col, field) => <FromNowTooltip timestamp={field} />,
-  duration: (row, col, field) => formatSeconds(field),
+  duration: (row, col, field) => (
+    <div>
+      <span>
+        {formatSeconds(field)}
+      </span>
+      {row &&
+      <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+        <FromNowTooltip timestamp={row.start_time + row.duration} />
+      </span>}
+    </div>
+  ),
   region: (row, col, field) => region[field],
   leaver_status: (row, col, field) => (leaverStatus[field] ? leaverStatus[field].name : field),
   lobby_type: (row, col, field) => (lobbyType[field] ? lobbyType[field].name : field),
@@ -226,9 +239,9 @@ export const transformations = {
   ),
   player: row => (
     <TableHeroImage
-      image={row.avatar}
+      image={row.avatar || row.avatarfull}
       title={row.name || row.personaname}
-      subtitle={row.subtitle || <FromNowTooltip timestamp={row.last_played} />}
+      subtitle={row.subtitle || (row.last_played && <FromNowTooltip timestamp={row.last_played} />)}
       registered={row.last_login}
       accountId={row.account_id}
     />
