@@ -163,7 +163,7 @@
   "match_ended":"Finalizado",
   "match_id":"ID da Partida",
   "match_region":"Região",
-  "match_avg_mmr":"MMR Médio",
+  "match_avg_mmr":"Média de MMR",
   "match_button_parse":"Analisar",
   "match_button_reparse":"Reanalisar",
   "match_button_replay":"Replay",
