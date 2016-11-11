@@ -17,6 +17,7 @@ import {
   transformations,
   percentile,
   sum,
+  unpackPositionData,
 } from 'utility';
 import Heatmap from 'components/Heatmap';
 import {
@@ -313,9 +314,9 @@ export const performanceColumns = [
   }, {
     displayName: strings.th_map,
     tooltip: strings.tooltip_map,
-    field: 'posData',
+    field: 'lane_pos',
     displayFn: (row, col, field) => (field ?
-      <Heatmap width={80} points={field.lane_pos} /> :
+      <Heatmap width={80} points={unpackPositionData(field)} /> :
       <div />),
   }, {
     displayName: strings.th_lane_efficiency,
