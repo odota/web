@@ -49,7 +49,7 @@ const tooltipContainer = thing => (
   </div>
 );
 
-export default (inflictor, value) => {
+export default (inflictor, value, type) => {
   if (inflictor !== undefined) {
     // TODO use abilities if we need the full info immediately
     const ability = abilities[inflictor];
@@ -69,8 +69,21 @@ export default (inflictor, value) => {
     }
     return (
       <div className={styles.inflictorWithValue} data-tip={tooltip && true} data-for={ttId}>
-        <img src={image} role="presentation" />
-        <div className={styles.overlay}>{value}</div>
+        {!type && <img src={image} role="presentation" />}
+        {type === 'buff' &&
+          <div
+            className={styles.buff}
+            style={{
+              backgroundImage: `url(${image})`,
+            }}
+          />
+        }
+        {!type && <div className={styles.overlay}>{value}</div>}
+        {type === 'buff' &&
+          <div className={styles.buffOverlay}>
+            {value > 0 && value}
+          </div>
+        }
         {tooltip &&
         <div className={styles.tooltip}>
           <ReactTooltip id={ttId} effect="solid" place="left">

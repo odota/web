@@ -9,6 +9,7 @@ import abilityIds from 'dotaconstants/json/ability_ids.json';
 import abilityKeys from 'dotaconstants/json/ability_keys.json';
 import heroNames from 'dotaconstants/json/hero_names.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
+import buffs from 'dotaconstants/json/permanent_buffs.json';
 import strings from 'lang';
 import {
   formatSeconds,
@@ -16,7 +17,6 @@ import {
   transformations,
   percentile,
   sum,
-  unpackPositionData,
 } from 'utility';
 import Heatmap from 'components/Heatmap';
 import {
@@ -193,6 +193,15 @@ export const overviewColumns = match => [{
     );
   },
 }, {
+  displayName: 'Buffs',
+  field: 'permanent_buffs',
+  displayFn: row => ( // buff.permanent_buff, buff.stack_count
+    row.permanent_buffs && row.permanent_buffs.length > 0
+      ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff'))
+      : ' - '
+  ),
+  parsed: true,
+}, {
   displayName: (
     <div style={{ marginLeft: 10 }}>
       {strings.th_ability_builds}
@@ -304,9 +313,9 @@ export const performanceColumns = [
   }, {
     displayName: strings.th_map,
     tooltip: strings.tooltip_map,
-    field: 'lane_pos',
+    field: 'posData',
     displayFn: (row, col, field) => (field ?
-      <Heatmap width={80} points={unpackPositionData(field)} /> :
+      <Heatmap width={80} points={field.lane_pos} /> :
       <div />),
   }, {
     displayName: strings.th_lane_efficiency,
