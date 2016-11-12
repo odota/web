@@ -59,7 +59,7 @@ class VisionPage extends React.Component {
       max: props.match.duration,
       from: 0,
       to: this.props.match.wards_log.length,
-      wardsLog: props.match.wards_log.map((e, i) => Object.assign(e, { key: i })),
+      wardsLog: props.match.wards_log,
       filters: {},
     };
 

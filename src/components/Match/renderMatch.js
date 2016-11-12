@@ -120,13 +120,14 @@ function generateWardLog(match) {
     return _.concat(observers, sentries);
   };
 
-
+  const imap = _.map.convert({ cap: false}); // cap: false to keep the index
   const wardLog = _.flow(
-    _.map.convert({ cap: false })(computeWardData),
+    imap(computeWardData),
     _.flatten,
     _.sortBy(xs => xs.entered.time),
+    imap((x, i) => ({...x, key: i})),
   );
-  return wardLog(match.players); // cap: false to keep the index
+  return wardLog(match.players); 
 }
 
 function renderMatch(m) {
