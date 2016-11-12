@@ -26,6 +26,9 @@
   --tableHeaderSurfaceColor: rgba(0, 0, 0, .3);
   --tableRowOddSurfaceColor: rgba(255, 255, 255, .019);
   --tableRowEvenSurfaceColor: rgba(0, 0, 0, .019);
+
+  --sliderTicksColor: #757575;
+  --sliderTicksColorActive: #337AB7;
   /* Colors -- */
 
   /* -- Font */
@@ -44,6 +47,7 @@
   --fontSizeCommon: 16px;
   --fontSizeMedium: 14px;
   --fontSizeSmall:  12px;
+  --fontSizeTiny:   10px;
   /* Font -- */
 
   --dividerColor: color(var(--textColorSecondary) lightness(20%));

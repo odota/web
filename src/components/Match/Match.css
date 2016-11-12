@@ -2,8 +2,6 @@
 
 :root {
   --ward-log-height: 50px;
-  --slider-ticks-color: #757575;
-  --slider-ticks-color-active: #337AB7;
 }
 
 :export {
@@ -161,7 +159,7 @@
 
 .ward-log {
   width: 100%;
-  font-size: .8em;
+  font-size: var(--fontSizeSmall);
 
   & .ward-log-header {
     background-color: var(--tableHeaderSurfaceColor);
@@ -231,9 +229,9 @@
   height: 30px;
   margin-top: 33px;
   margin-bottom: -33px;
-  font-size: 0.66em;
-  border-color: var(--slider-ticks-color);
-  color: var(--slider-ticks-color);
+  font-size: var(--fontSizeTiny);
+  border-color: var(--sliderTicksColor);
+  color: var(--sliderTicksColor);
   
   & .slider-tick {
     position: absolute;
@@ -249,15 +247,15 @@
     transition: color 150ms ease, border-color 150ms ease;
 
     &.active {
-      border-color: var(--slider-ticks-color-active);
-      color: var(--slider-ticks-color-active);
+      border-color: var(--sliderTicksColorActive);
+      color: var(--sliderTicksColorActive);
     }
   }
 }
 
 .ward-log-player-filter {
   padding: 0 .5rem;
-  font-size: .8em;
+  font-size: var(--fontSizeSmall);
 
   & .filter-header {
     padding: .5rem;
