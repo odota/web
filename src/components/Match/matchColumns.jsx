@@ -196,16 +196,15 @@ export const overviewColumns = (match) => {
     },
   }]
   .concat(
-    match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0 &&
-      {
-        displayName: strings.th_permanent_buffs,
-        field: 'permanent_buffs',
-        displayFn: row => (
-          row.permanent_buffs && row.permanent_buffs.length > 0
-            ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff'))
-            : '-'
-        ),
-      },
+    match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0 ? {
+      displayName: strings.th_permanent_buffs,
+      field: 'permanent_buffs',
+      displayFn: row => (
+        row.permanent_buffs && row.permanent_buffs.length > 0
+          ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff'))
+          : '-'
+      ),
+    } : {},
   )
   .concat({
     displayName: (
