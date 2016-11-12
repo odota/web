@@ -1,6 +1,9 @@
 {
   "abbr_thousand":"k",
   "abbr_million":"M",
+  "abbr_billion":"b",
+  "abbr_trillion":"t",
+  "abbr_quadrillion":"q",
   "analysis_eff":"Efficacité en lane",
   "analysis_farm_drought":"Plus faible GPM dans un intervalle de 5 minutes",
   "analysis_skillshot":"Skillshots réussis",
