@@ -1,6 +1,9 @@
 {
   "abbr_thousand":"тис",
   "abbr_million":"міл",
+  "abbr_billion":"b",
+  "abbr_trillion":"t",
+  "abbr_quadrillion":"q",
   "analysis_eff":"Ефективність на лінії",
   "analysis_farm_drought":"Найменше ДВХ за 5 хвилин",
   "analysis_skillshot":"Успішних скілшотів",
