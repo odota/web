@@ -1,6 +1,9 @@
 {
   "abbr_thousand":"k",
   "abbr_million":"m",
+  "abbr_billion":"b",
+  "abbr_trillion":"t",
+  "abbr_quadrillion":"q",
   "analysis_eff":"Kecekapan lorong",
   "analysis_farm_drought":"GPM terendah dalam selang 5 minit",
   "analysis_skillshot":"Skillshot dikenakan",
