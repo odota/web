@@ -204,7 +204,7 @@ export const overviewColumns = (match) => {
           ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff'))
           : '-'
       ),
-    } : {},
+    } : [],
   )
   .concat({
     displayName: (
