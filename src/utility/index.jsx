@@ -338,17 +338,17 @@ export const playerColors = {
 };
 
 export const extractTransitionClasses = styles => name => ({
-  enter: styles[name + '-enter'],
-  enterActive: styles[name + '-enter-active'],
-  leave: styles[name + '-leave'],
-  leaveActive: styles[name + '-leave-active'],
-  appear: styles[name + '-appear'],
-  appearActive: styles[name + '-appear-active']
+  enter: styles[`${name}-enter`],
+  enterActive: styles[`${name}-enter-active`],
+  leave: styles[`${name}-leave`],
+  leaveActive: styles[`${name}-leave-active`],
+  appear: styles[`${name}-appear`],
+  appearActive: styles[`${name}-appear-active`],
 });
 
 export const gameCoordToUV = (x, y) => ({
   x: Number(x) - 64,
-  y: 127 - (Number(y) - 64)
+  y: 127 - (Number(y) - 64),
 });
 
 // TODO: refactor this to use gameCoordToUV
@@ -375,9 +375,10 @@ export function unpackPositionData(input) {
 }
 
 export const threshold = _.curry((start, limits, values, value) => {
-  if (limits.length !== values.length) throw "Limits must be the same as functions.";
-  var limits = limits.slice(0);
-  limits.unshift(start);
-  return findLast(values, (v, i) => _.inRange(limits[i], limits[i+1], value));
+  if (limits.length !== values.length) throw new Error('Limits must be the same as functions.');
+
+  const limitsWithStart = limits.slice(0);
+  limitsWithStart.unshift(start);
+  return findLast(values, (v, i) => _.inRange(limitsWithStart[i], limitsWithStart[i + 1], value));
 });
 

@@ -208,9 +208,9 @@ const matchPages = [{
   key: 'vision',
   parsed: true,
   content: match => (<div>
-    <Heading title={strings.vision} />
+    <Heading title={strings.heading_vision} />
     <VisionPage match={match} />
-    </div>),
+  </div>),
 }, {
   name: strings.tab_actions,
   key: 'actions',

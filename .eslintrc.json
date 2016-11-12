@@ -12,6 +12,9 @@
   "settings": {
     "import/resolver": "webpack"
   },
+  "globals": {
+    "API_HOST": true
+  },
   "extends": "airbnb",
   "rules": {
     "max-len": ["error", 150],

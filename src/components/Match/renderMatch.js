@@ -7,11 +7,11 @@ import {
 import heroes from 'dotaconstants/json/heroes.json';
 import specific from 'dotaconstants/json/specific.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
+import Immutable from 'seamless-immutable';
+import _ from 'lodash/fp';
+
 import analysis from './analysis';
 
-import Immutable from 'seamless-immutable'
-import { flow, map, flatten, sortBy } from 'lodash/fp';
-import _ from 'lodash/fp'
 
 const expanded = {};
 Object.keys(specific).forEach((key) => {
@@ -21,7 +21,7 @@ Object.keys(specific).forEach((key) => {
 });
 
 const getMaxKeyOfObject = field =>
-  (field ? Object.keys(field).sort((a, b) => Number(b) - Number(a))[0] : '');
+ (field ? Object.keys(field).sort((a, b) => Number(b) - Number(a))[0] : '');
 
 /**
  * Generates data for c3 charts in a match
@@ -102,29 +102,29 @@ function generateWardLog(match) {
     const sameWard = _.curry((w1, w2) => w1.ehandle === w2.ehandle);
 
     // let's zip the *_log and the *_left log in a 2-tuples
-    const extractWardLog = (type, entered_log, left_log) => {
-      return entered_log.map((e) => {
-        let wards = [e, left_log.find(sameWard(e))];
-        return {
-          player: i,
-          key: wards[0].ehandle,
-          type: type,
-          entered: wards[0],
-          left: wards[1]
-        };
-      });
-    };
+    const extractWardLog = (type, enteredLog, leftLog) =>
+       enteredLog.map((e) => {
+         const wards = [e, leftLog.find(sameWard(e))];
+         return {
+           player: i,
+           key: wards[0].ehandle,
+           type,
+           entered: wards[0],
+           left: wards[1],
+         };
+       })
+    ;
 
-    var observers = extractWardLog("observer", player.obs_log, player.obs_left_log);
-    var sentries = extractWardLog("sentry", player.sen_log, player.sen_left_log);
+    const observers = extractWardLog('observer', player.obs_log, player.obs_left_log);
+    const sentries = extractWardLog('sentry', player.sen_log, player.sen_left_log);
     return _.concat(observers, sentries);
   };
 
-  
+
   const wardLog = _.flow(
     _.map.convert({ cap: false })(computeWardData),
     _.flatten,
-    _.sortBy(xs => xs['entered']['time']),
+    _.sortBy(xs => xs.entered.time),
   );
   return wardLog(match.players); // cap: false to keep the index
 }
