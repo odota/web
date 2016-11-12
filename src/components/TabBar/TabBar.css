@@ -47,6 +47,5 @@
     overflow-x: auto;
     overflow-y: hidden;
     -ms-overflow-style: none;
-    overflow: -moz-scrollbars-none;
   }
 }
