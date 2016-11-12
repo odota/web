@@ -1,6 +1,9 @@
 {
   "abbr_thousand":"k",
   "abbr_million":"m",
+  "abbr_billion":"b",
+  "abbr_trillion":"t",
+  "abbr_quadrillion":"q",
   "analysis_eff":"Kulvar Verimliliği",
   "analysis_farm_drought":"5 Dakikadaki en düşük DBA",
   "analysis_skillshot":"Tutturulan Büyüler",
