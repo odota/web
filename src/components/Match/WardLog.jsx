@@ -2,7 +2,7 @@ import React from 'react';
 import { threshold, formatSeconds, extractTransitionClasses } from 'utility';
 import { Row, Col } from 'react-flexbox-grid';
 // import heroes from 'dotaconstants/json/heroes.json';
-import { Fixed } from 'utility/components';
+import Fixed from 'utility/components/Fixed';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import strings from 'lang';
 
