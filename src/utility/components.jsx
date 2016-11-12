@@ -10,3 +10,5 @@ export default {
     }
   },
 };
+
+export default Fixed;
