@@ -194,7 +194,20 @@ export const overviewColumns = (match) => {
         </div>
       );
     },
-  }, {
+  }]
+  .concat(
+    match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0 &&
+      {
+        displayName: strings.th_permanent_buffs,
+        field: 'permanent_buffs',
+        displayFn: row => (
+          row.permanent_buffs && row.permanent_buffs.length > 0
+            ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff'))
+            : '-'
+        ),
+      },
+  )
+  .concat({
     displayName: (
       <div style={{ marginLeft: 10 }}>
         {strings.th_ability_builds}
@@ -221,19 +234,7 @@ export const overviewColumns = (match) => {
         </ReactTooltip>
       </div>
     ),
-  }];
-
-  if (match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum) > 0) {
-    cols.splice(cols.length - 1, 0, {
-      displayName: strings.th_permanent_buffs,
-      field: 'permanent_buffs',
-      displayFn: row => (
-        row.permanent_buffs && row.permanent_buffs.length > 0
-          ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff'))
-          : '-'
-      ),
-    });
-  }
+  });
 
   return cols;
 };
