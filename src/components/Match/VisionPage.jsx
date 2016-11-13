@@ -19,7 +19,7 @@ const SliderTicks = props => (
     {props.ticks.map((tick) => {
       const [t, min, max] = [tick, props.min, props.max];
       const percent = 100 * ((t - min) / (max - min));
-      const cls = [styles['slider-tick']];
+      const cls = [styles.sliderTick];
       if (tick <= props.value) { cls.push(styles.active); }
 
       return (
@@ -38,8 +38,8 @@ const PlayersFilter = ({ activeFilters, players, onFilterClick }) => (
   </Paper>
 );
 
-const PipelineFilter = (filters, data, iter = Array.prototype.filter) => {
-  const filtered = filters.map(f => iter.call(data, f))
+const PipelineFilter = (filters, data) => {
+  const filtered = filters.map(f => data.filter(f))
                           .reduce((o, v) => o.concat(v), []);
   return _.differenceWith((x, y) => x === y, data, filtered);
 };
@@ -106,25 +106,25 @@ class VisionPage extends React.Component {
           </Col>
           <Col xs={12} md={8}>
             <Row>
-              <Col xs={12} md={6} lg={12} className={styles['ward-log-player-filter']}>
-                <Col xs className={styles['filter-header']}>
+              <Col xs={12} md={6} lg={12} className={styles.wardLogPlayerFilter}>
+                <Col xs className={styles.filterHeader}>
                   {strings.general_radiant}
                 </Col>
                 {<FixedPlayersFilter
                   activeFilters={this.state.filters}
                   onFilterClick={playerFilterClick}
-                  players={_.take(5, this.props.match.players)}
+                  players={this.props.match.players.slice(0, 5)}
                 />
                 }
               </Col>
-              <Col xs={12} md={6} lg={12} className={styles['ward-log-player-filter']}>
-                <Col xs className={styles['filter-header']}>
+              <Col xs={12} md={6} lg={12} className={styles.wardLogPlayerFilter}>
+                <Col xs className={styles.filterHeader}>
                   {strings.general_dire}
                 </Col>
                 {<FixedPlayersFilter
                   activeFilters={this.state.filters}
                   onFilterClick={playerFilterClick}
-                  players={_.takeRight(5, this.props.match.players)}
+                  players={this.props.match.players.slice(5)}
                 />
                 }
               </Col>
@@ -137,7 +137,7 @@ class VisionPage extends React.Component {
               value={this.state.currentTick}
               min={this.state.min}
               max={this.state.max}
-              className={styles['slider-ticks']}
+              className={styles.sliderTicks}
               onTickClick={tick => this.handleViewportChange(tick)}
               ticks={this.ticks}
             />

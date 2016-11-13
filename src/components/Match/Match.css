@@ -157,18 +157,18 @@
   vertical-align: middle;
 }
 
-.ward-log {
+.wardLog {
   width: 100%;
   font-size: var(--fontSizeSmall);
 
-  & .ward-log-header {
+  & .wardLogHeader {
     background-color: var(--tableHeaderSurfaceColor);
     border-bottom: 1px solid var(--dividerLightColor);
     text-transform: uppercase;
     height: 58px;
   }
 
-  & .ward-log-list {
+  & .wardLogList {
     padding: 0;
     margin: 0;
   }
@@ -178,7 +178,7 @@
   }
 }
 
-.ward-log-item {
+.wardLogItem {
   height: var(--ward-log-height);
   background: rgb(31, 33, 45);
   border-bottom: 1px solid var(--dividerColor);
@@ -224,7 +224,7 @@
   }
 }
 
-.slider-ticks {
+.sliderTicks {
   position: relative;
   height: 30px;
   margin-top: 33px;
@@ -233,7 +233,7 @@
   border-color: var(--sliderTicksColor);
   color: var(--sliderTicksColor);
   
-  & .slider-tick {
+  & .sliderTick {
     position: absolute;
     display: inline-block;
     height: 100%;
@@ -253,16 +253,16 @@
   }
 }
 
-.ward-log-player-filter {
+.wardLogPlayerFilter {
   padding: 0 .5rem;
   font-size: var(--fontSizeSmall);
 
-  & .filter-header {
+  & .filterHeader {
     padding: .5rem;
     border-bottom: 1px solid var(--dividerLightColor);
   }
 
-  & .filter-row {
+  & .filterRow {
     padding: .5em;
     margin: 0 0;
   }

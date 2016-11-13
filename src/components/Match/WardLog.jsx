@@ -23,29 +23,30 @@ const RowItem = ({ style, row, match }) => {
   };
   return (
     <li>
-      <Row component="li" className={styles['ward-log-item']} style={rowStyle} middle="xs">
+      <Row component="li" className={styles.wardLogItem} style={rowStyle} middle="xs">
         <Col xs={1}>
           <img height="29" src={`${API_HOST}/apps/dota2/images/items/ward_${row.type}_lg.png`} role="presentation" />
         </Col>
-        <Col xs>
+        <Col xs={4}>
           {heroTd(match.players[row.player])}
         </Col>
         <Col xs={1} className={styles.timespan}>{formatSeconds(row.entered.time)}</Col>
         <Col xs={1} className={styles.timespan}>{formatSeconds(row.left && row.left.time) || '-'}</Col>
         <Col xs={1} className={styles.timespan} style={{ color: durationColor }}>{formatSeconds(duration)}</Col>
-        <Col xs>{wardKiller}</Col>
+        <Col xs={4}>{wardKiller}</Col>
       </Row>
     </li>
   );
 };
 const PureRowItem = Fixed(RowItem);
 
+// i18n column names
+const columns = ['type', 'owner', 'entered_at', 'left_at', 'duration', 'killed_by'].map(h => `ward_log_${h}`);
 const WardLog = (props) => {
-  const columns = ['type', 'owner', 'entered_at', 'left_at', 'duration', 'killed_by'].map(h => `ward_log_${h}`);
   const transition = extractTransitionClasses(styles);
   return (
-    <Col className={styles['ward-log']} xs>
-      <Row className={styles['ward-log-header']} middle="xs">
+    <Col className={styles.wardLog} xs>
+      <Row className={styles.wardLogHeader} middle="xs">
         <Col xs={1}>{strings[columns[0]]}</Col>
         <Col xs>{strings[columns[1]]}</Col>
         <Col className={styles.timespan} xs={1}>{strings[columns[2]]}</Col>
@@ -54,7 +55,7 @@ const WardLog = (props) => {
         <Col xs>{strings[columns[5]]}</Col>
       </Row>
       <ReactCSSTransitionGroup
-        className={styles['ward-log-list']}
+        className={styles.wardLogList}
         style={{ width: '100%' }}
         component="ul"
         transitionName={transition('trans-table-row')}

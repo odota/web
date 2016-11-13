@@ -39,7 +39,7 @@ export default class PlayerFilter extends React.PureComponent {
     const [opacityOn, opacityOff] = [1, 0.4];
     return (
       <Row
-        className={styles['filter-row']}
+        className={styles.filterRow}
         middle="xs"
         between="xs"
       >
