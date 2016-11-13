@@ -34,7 +34,7 @@ export function pad(n, width, z = '0') {
 }
 export function abbreviateNumber(num) {
   if (!num) {
-    return '';
+    return '-';
   } else if (num >= 1000 && num < 1000000) {
     return `${Number((num / 1000).toFixed(1))}${strings.abbr_thousand}`;
   } else if (num >= 1000000 && num < 1000000000) {
