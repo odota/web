@@ -297,7 +297,7 @@ export const purchaseTimesColumns = (match) => {
 export const lastHitsTimesColumns = (match) => {
   const cols = [heroTdColumn];
   const bucket = 300;
-  for (let i = 0; i <= match.duration; i += bucket) {
+  for (let i = bucket; i <= match.duration; i += bucket) {
     const curTime = i;
     cols.push({
       displayName: `${curTime / 60}'`,
