@@ -92,7 +92,7 @@ export default ({ match }) => {
                       (100 * (obj.time + preHorn)) / (match.duration + preHorn)
                     }%`,
                   }}
-                  title={formatSeconds(obj.time)}
+                  data-time={obj.type === 'teamfight' ? '' : formatSeconds(obj.time)}
                 >
                   {obj.type === 'firstblood' && <IconBloodDrop />}
                   {obj.type === 'roshan' && <IconRoshan />}

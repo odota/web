@@ -2,7 +2,7 @@
 
 .timeline {
   width: 100%;
-  margin-bottom: 30px;
+  margin: 40px 0;
   display: flex;
   align-items: center;
 
@@ -34,57 +34,61 @@
 
   & mark {
     position: absolute;
-    width: 4px;
-    height: 8px;
-    box-shadow: 0 0 3px var(--darkPrimaryColor);
+    background: none;
     
-    /*&::after {
-      content: attr(title);
+    &::after {
+      content: attr(data-time);
       color: var(--colorMutedLight);
       font-size: 10px;
       position: absolute;
-      left: 6px;
-    }*/
+      width: 30px;
+      text-align: center;
+      left: -15px;
+    }
     & svg {
       fill: var(--colorMutedLight);
       width: 18px;
-      height: 18px;
       position: absolute;
-      top: 12px;
-      left: -7px;
+      left: -9px;
     }
   }
 
+  & .radiant, & .dire {
+    border-style: solid;
+  }
   & .radiant {
-    background-color: var(--colorSuccess);
-    bottom: 0;
+    border-width: 0 6px 5px 6px;
+    border-color: transparent transparent var(--colorSuccess) transparent;
+    bottom: 4px;
 
-    /*&::after {
-      bottom: 0;
-    }*/
+    &::after {
+      top: 9px;
+    }
     & svg {
-      top: -22px;
+      bottom: 5px;
     }
   }
   & .dire {
-    background-color: var(--colorDanger);
-    bottom: -4px;
+    top: 0;
+    border-width: 5px 6px 0 6px;
+    border-color: var(--colorDanger) transparent transparent transparent;
+
+    &::after {
+      bottom: 10px;
+    }
+    & svg {
+      top: 5px;
+    }
   }
   & .teamfight {
-    box-shadow: none;
     bottom: 0;
-    background: none;
 
     & svg {
-      top: -4px;
+      width: 14px;
+      top: -10px;
       left: -7px;
       filter: drop-shadow(0 0 3px var(--defaultPrimaryColor));
     }
-
-    /*&::after {
-      top: 4px;
-      left: 0;
-    }*/
   }
   & .battleHorn {
     width: 2px;
