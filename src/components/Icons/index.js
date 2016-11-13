@@ -13,6 +13,9 @@ import IconWand from './Wand';
 import IconRadiant from './Radiant';
 import IconDire from './Dire';
 import IconLightbulb from './Lightbulb';
+import IconBloodDrop from './BloodDrop';
+import IconRoshan from './Roshan';
+import IconBattle from './Battle';
 
 export {
   IconCheese,
@@ -30,4 +33,7 @@ export {
   IconRadiant,
   IconDire,
   IconLightbulb,
+  IconBloodDrop,
+  IconRoshan,
+  IconBattle,
 };

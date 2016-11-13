@@ -7,7 +7,7 @@
   align-items: center;
 
   & time {
-    margin: 0 10px;
+    margin: 0 15px;
   }
 }
 
@@ -35,10 +35,9 @@
   & mark {
     position: absolute;
     width: 4px;
-    height: 4px;
-  }
-
-  & .radiant, & .dire, & .teamfight {
+    height: 8px;
+    box-shadow: 0 0 3px var(--darkPrimaryColor);
+    
     /*&::after {
       content: attr(title);
       color: var(--colorMutedLight);
@@ -51,34 +50,46 @@
       width: 18px;
       height: 18px;
       position: absolute;
-      top: 7px;
+      top: 12px;
       left: -7px;
     }
   }
+
   & .radiant {
     background-color: var(--colorSuccess);
-    bottom: calc(100% + 4px);
+    bottom: 0;
 
     /*&::after {
       bottom: 0;
     }*/
     & svg {
-      top: -17px;
+      top: -22px;
     }
   }
   & .dire {
     background-color: var(--colorDanger);
+    bottom: -4px;
   }
   & .teamfight {
-    background: none;
+    box-shadow: none;
     bottom: 0;
+    background: none;
+
+    & svg {
+      top: -4px;
+      left: -7px;
+      filter: drop-shadow(0 0 3px var(--defaultPrimaryColor));
+    }
 
     /*&::after {
       top: 4px;
       left: 0;
     }*/
-    & svg {
-      top: -7px;
-    }
+  }
+  & .battleHorn {
+    width: 2px;
+    height: 4px;
+    bottom: 0;
+    background-color: var(--colorMutedLight);
   }
 }

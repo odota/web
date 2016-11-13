@@ -3,11 +3,17 @@ import {
   formatSeconds,
   isRadiant,
 } from 'utility';
-import { IconGithub } from 'components/Icons';
+import {
+  IconBloodDrop,
+  IconRoshan,
+  IconBattle,
+} from 'components/Icons';
 
 import styles from './Timeline.css';
 
 export default ({ match }) => {
+  const preHorn = 90; // Seconds before the battle horn
+
   const obj = [];
 
   if (match.objectives) {
@@ -64,8 +70,14 @@ export default ({ match }) => {
           <section style={{ width: '100%' }} />
         </div>
         <div className={styles.events}>
+          <mark
+            className={styles.battleHorn}
+            style={{
+              left: `${(preHorn * 100) / (match.duration + preHorn)}%`,
+            }}
+          />
           {
-            obj[0].map((obj) => {
+            obj[0].map((obj, i) => {
               const side = (
                 obj.player_slot && isRadiant(obj.player_slot))
                   || (obj.team && obj.team === 2
@@ -73,15 +85,18 @@ export default ({ match }) => {
 
               return (obj.type !== 'aegis' &&
                 <mark
+                  key={i}
                   className={obj.type === 'teamfight' ? styles.teamfight : styles[side]}
                   style={{
                     left: obj.time !== undefined && `${
-                      (100 * (obj.time > 0 ? obj.time : (obj.time + 90))) / (match.duration + 90)
-                    }%`, // 90 - pre-creep
+                      (100 * (obj.time + preHorn)) / (match.duration + preHorn)
+                    }%`,
                   }}
                   title={formatSeconds(obj.time)}
                 >
-                  <IconGithub />
+                  {obj.type === 'firstblood' && <IconBloodDrop />}
+                  {obj.type === 'roshan' && <IconRoshan />}
+                  {obj.type === 'teamfight' && <IconBattle />}
                 </mark>
               );
             })
