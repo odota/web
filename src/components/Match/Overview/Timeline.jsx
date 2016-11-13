@@ -1,5 +1,9 @@
 import React from 'react';
-import { formatSeconds } from 'utility';
+import {
+  formatSeconds,
+  isRadiant,
+} from 'utility';
+import { IconGithub } from 'components/Icons';
 
 import styles from './Timeline.css';
 
@@ -47,28 +51,40 @@ export default ({ match }) => {
         type: 'teamfight',
         start: fight.start,
         end: fight.end,
-      })),
+        time: (fight.start + fight.end) / 2,
+      })) || [],
     ));
   }
-
-  const wPreCreep = (90 * 100) / (match.duration + 90); // 90 - pre-creep time
 
   return (
     <main className={styles.timeline}>
       <time>-1:30</time>
       <div className={styles.battle}>
         <div className={styles.line}>
-          <section style={{ width: `${wPreCreep}%` }} />
-          <div />
           <section style={{ width: '100%' }} />
         </div>
         <div className={styles.events}>
           {
-            obj[0].map(obj => (obj.time && obj.type !== 'aegis' &&
-              <mark style={{ left: `${(100 * obj.time) / match.duration}%` }}>
-                {formatSeconds(obj.time)}
-              </mark>
-            ))
+            obj[0].map((obj) => {
+              const side = (
+                obj.player_slot && isRadiant(obj.player_slot))
+                  || (obj.team && obj.team === 2
+              ) ? 'radiant' : 'dire';
+
+              return (obj.type !== 'aegis' &&
+                <mark
+                  className={obj.type === 'teamfight' ? styles.teamfight : styles[side]}
+                  style={{
+                    left: obj.time !== undefined && `${
+                      (100 * (obj.time > 0 ? obj.time : (obj.time + 90))) / (match.duration + 90)
+                    }%`, // 90 - pre-creep
+                  }}
+                  title={formatSeconds(obj.time)}
+                >
+                  <IconGithub />
+                </mark>
+              );
+            })
           }
         </div>
       </div>

@@ -26,18 +26,59 @@
   & section {
     background-color: rgba(255, 255, 255, .19);
   }
-  & div {
-    width: 4px;
-    margin: 0 4px;
-    background-color: var(--colorYelor);
-  }
 }
 
 .events {
   position: relative;
+  width: 100%;
 
   & mark {
     position: absolute;
-    width: 1px;
+    width: 4px;
+    height: 4px;
+  }
+
+  & .radiant, & .dire, & .teamfight {
+    /*&::after {
+      content: attr(title);
+      color: var(--colorMutedLight);
+      font-size: 10px;
+      position: absolute;
+      left: 6px;
+    }*/
+    & svg {
+      fill: var(--colorMutedLight);
+      width: 18px;
+      height: 18px;
+      position: absolute;
+      top: 7px;
+      left: -7px;
+    }
+  }
+  & .radiant {
+    background-color: var(--colorSuccess);
+    bottom: calc(100% + 4px);
+
+    /*&::after {
+      bottom: 0;
+    }*/
+    & svg {
+      top: -17px;
+    }
+  }
+  & .dire {
+    background-color: var(--colorDanger);
+  }
+  & .teamfight {
+    background: none;
+    bottom: 0;
+
+    /*&::after {
+      top: 4px;
+      left: 0;
+    }*/
+    & svg {
+      top: -7px;
+    }
   }
 }
