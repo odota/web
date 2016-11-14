@@ -66,8 +66,9 @@
     }
     & div[data-id="tooltip"] {
       margin-top: 0 !important;
-      padding: 5px 8px !important;
+      padding: 2px 4px !important;
       margin-left: 5px !important;
+      font-weight: var(--fontWeightLight) !important;
     }
   }
 
@@ -114,5 +115,27 @@
     height: 4px;
     bottom: 0;
     background-color: var(--textColorPrimary);
+  }
+}
+
+.vertAlign {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.tipFirstblood {
+  composes: vertAlign;
+
+  & > div {
+    display: inherit;
+    flex-direction: inherit;
+    align-items: inherit;
+  }
+  & img {
+    height: 24px;
+    margin-right: 4px;
+  }
+  & span {
+    margin: 0 4px;
   }
 }

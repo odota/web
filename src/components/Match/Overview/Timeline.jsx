@@ -2,6 +2,7 @@ import React from 'react';
 import {
   formatSeconds,
   isRadiant,
+  playerColors,
 } from 'utility';
 import {
   IconBloodDrop,
@@ -10,6 +11,7 @@ import {
 } from 'components/Icons';
 import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
+import heroes from 'dotaconstants/json/heroes.json';
 
 import styles from './Timeline.css';
 
@@ -120,10 +122,35 @@ export default ({ match }) => {
                   }
                   <ReactTooltip id={`event_${i}`} effect="solid" place="right">
                     {obj.type === 'firstblood' &&
-                      <div>
-                        {obj.player_slot}
-                        drew first blood by killing
-                        {obj.key.split('npc_dota_hero_')[1]}
+                      <div className={styles.tipFirstblood}>
+                        {match.players
+                          .filter(player => player.player_slot === obj.player_slot)
+                          .map(player => (
+                            <div style={{ color: playerColors[obj.player_slot] }}>
+                              <img
+                                src={`${API_HOST}/apps/dota2/images/heroes/${heroes[player.hero_id].name.split('npc_dota_hero_')[1]}_icon.png`}
+                                role="presentation"
+                              />
+                              {player.name || player.personaname}
+                            </div>
+                          ))
+                        }
+                        <span>
+                          drew first blood by killing
+                        </span>
+                        <img
+                          src={`${API_HOST}/apps/dota2/images/heroes/${obj.key.split('npc_dota_hero_')[1]}_icon.png`}
+                          role="presentation"
+                        />
+                        {match.players
+                          .filter(player =>
+                            player.hero_id === heroes[Object.keys(heroes).filter(key => heroes[key].name === obj.key)].id,
+                          ).map(player => (
+                            <div style={{ color: playerColors[player.player_slot] }}>
+                              {player.name || player.personaname}
+                            </div>
+                          ))
+                        }
                       </div>
                     }
                   </ReactTooltip>
