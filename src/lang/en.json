@@ -384,6 +384,10 @@
   "time_plural": "s",
   "time_past": "ago",
 
+  "timeline_firstblood": "drew first blood",
+  "timeline_firstblood_key": "drew first blood by killing",
+  "timeline_picked_up_aegis": "picked up",
+
   "tooltip_mmr": "Solo MMR of the player",
   "tooltip_level": "Level achieved by hero",
   "tooltip_kills": "Number of kills by hero",

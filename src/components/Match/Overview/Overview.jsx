@@ -13,7 +13,7 @@ export default {
   key: 'overview',
   content: match => (
     <div>
-      <Timeline match={match} />
+      {match.objectives && <Timeline match={match} />}
       <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
       <div className={styles.overviewMapGraph}>
         <div className={`${styles.map} ${!match.version && styles.centeredMap}`}>

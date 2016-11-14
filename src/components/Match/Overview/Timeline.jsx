@@ -24,14 +24,15 @@ export default ({ match }) => {
   if (match.objectives) {
     // Firstblood
     const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
+    const fbKey = match.players.map(player =>
+      player.kills_log.filter(kill => kill.time === match.objectives[fbIndex].time),
+    ).filter(String);
+
     obj.push([{
       type: 'firstblood',
       time: match.objectives[fbIndex].time,
       player_slot: match.objectives[fbIndex].player_slot,
-      key: match.players.map(player =>
-        player.kills_log.filter(kill =>
-          kill.time === match.objectives[fbIndex].time,
-        )).filter(String)[0][0].key,
+      key: fbKey && fbKey.length > 0 && fbKey[0][0].key,
     }]
 
     // Roshan kills, team 2 = radiant, 3 = dire
@@ -124,8 +125,13 @@ export default ({ match }) => {
                   }
                   {obj.type === 'teamfight' &&
                     <IconBattle style={{ fill: obj.radiant_gold_delta >= 0 ? styles.green : styles.red }} />
+                    /* TODO: display deaths */
                   }
-                  <ReactTooltip id={`event_${i}`} effect="solid" place="right">
+                  <ReactTooltip
+                    id={`event_${i}`}
+                    effect="solid"
+                    place="right"
+                  >
                     {obj.type === 'firstblood' &&
                       <div>
                         {match.players
@@ -141,20 +147,24 @@ export default ({ match }) => {
                           ))
                         }
                         <span>
-                          drew first blood by killing
+                          {obj.key ? strings.timeline_firstblood_key : strings.timeline_firstblood}
                         </span>
-                        <img
-                          src={`${API_HOST}/apps/dota2/images/heroes/${obj.key.split('npc_dota_hero_')[1]}_icon.png`}
-                          role="presentation"
-                        />
-                        {match.players
-                          .filter(player =>
-                            player.hero_id === heroes[Object.keys(heroes).filter(key => heroes[key].name === obj.key)].id,
-                          ).map(player => (
-                            <aside style={{ color: playerColors[player.player_slot] }}>
-                              {player.name || player.personaname || strings.general_anonymous}
-                            </aside>
-                          ))
+                        {obj.key &&
+                          <aside>
+                            <img
+                              src={`${API_HOST}/apps/dota2/images/heroes/${obj.key.split('npc_dota_hero_')[1]}_icon.png`}
+                              role="presentation"
+                            />
+                            {match.players
+                              .filter(player =>
+                                player.hero_id === heroes[Object.keys(heroes).filter(key => heroes[key].name === obj.key)].id,
+                              ).map(player => (
+                                <div style={{ color: playerColors[player.player_slot] }}>
+                                  {player.name || player.personaname || strings.general_anonymous}
+                                </div>
+                              ))
+                            }
+                          </aside>
                         }
                       </div>
                     }
@@ -162,7 +172,7 @@ export default ({ match }) => {
                       match.players
                         .filter(player => player.player_slot === aegis[0][obj.key].player_slot)
                         .map(player => (
-                          <div>
+                          <div key={i}>
                             <aside style={{ color: playerColors[player.player_slot] }}>
                               <img
                                 src={`${API_HOST}/apps/dota2/images/heroes/${heroes[player.hero_id].name.split('npc_dota_hero_')[1]}_icon.png`}
@@ -170,9 +180,11 @@ export default ({ match }) => {
                               />
                               {player.name || player.personaname || strings.general_anonymous}
                             </aside>
-                            <span>picked up</span>
+                            <span>
+                              {strings.timeline_picked_up_aegis}
+                            </span>
                             <img
-                              src={`${API_HOST}/apps/dota2/images/items/aegis_lg.png`}
+                              src="/assets/images/dota2/aegis_icon.png"
                               role="presentation"
                             />
                           </div>
