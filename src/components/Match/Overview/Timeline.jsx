@@ -19,6 +19,7 @@ export default ({ match }) => {
   const preHorn = 90; // Seconds before the battle horn
 
   const obj = [];
+  const aegis = [];
 
   if (match.objectives) {
     // Firstblood
@@ -37,21 +38,11 @@ export default ({ match }) => {
     .concat(
       match.objectives
         .filter(obj => obj.type === 'CHAT_MESSAGE_ROSHAN_KILL')
-        .map(obj => ({
+        .map((obj, i) => ({
           type: 'roshan',
           time: obj.time,
           team: obj.team,
-        })) || [],
-    )
-
-    // Aegis pickups
-    .concat(
-      match.objectives
-        .filter(obj => obj.type === 'CHAT_MESSAGE_AEGIS')
-        .map(obj => ({
-          type: 'aegis',
-          time: obj.time,
-          player_slot: obj.player_slot,
+          key: i,
         })) || [],
     )
 
@@ -65,6 +56,17 @@ export default ({ match }) => {
         radiant_gold_delta: fight.radiant_gold_delta,
       })) || [],
     ));
+
+    // Aegis pickups
+    aegis.push(
+      match.objectives
+        .filter(obj => obj.type === 'CHAT_MESSAGE_AEGIS')
+        .map(obj => ({
+          type: 'aegis',
+          time: obj.time,
+          player_slot: obj.player_slot,
+        })) || [],
+    );
   }
 
   return (
@@ -94,7 +96,7 @@ export default ({ match }) => {
 
               const wTeamfight = obj.type === 'teamfight' && (100 * (obj.end - obj.start)) / (match.duration + preHorn);
 
-              return (obj.type !== 'aegis' &&
+              return (
                 <mark
                   key={i}
                   className={obj.type === 'teamfight' ? styles.teamfight : styles[side]}
@@ -115,24 +117,27 @@ export default ({ match }) => {
                     />
                   }
                   {obj.type === 'roshan' &&
-                    <IconRoshan />
+                    <IconRoshan
+                      data-tip
+                      data-for={`event_${i}`}
+                    />
                   }
                   {obj.type === 'teamfight' &&
                     <IconBattle style={{ fill: obj.radiant_gold_delta >= 0 ? styles.green : styles.red }} />
                   }
                   <ReactTooltip id={`event_${i}`} effect="solid" place="right">
                     {obj.type === 'firstblood' &&
-                      <div className={styles.tipFirstblood}>
+                      <div>
                         {match.players
                           .filter(player => player.player_slot === obj.player_slot)
                           .map(player => (
-                            <div style={{ color: playerColors[obj.player_slot] }}>
+                            <aside style={{ color: playerColors[obj.player_slot] }}>
                               <img
                                 src={`${API_HOST}/apps/dota2/images/heroes/${heroes[player.hero_id].name.split('npc_dota_hero_')[1]}_icon.png`}
                                 role="presentation"
                               />
-                              {player.name || player.personaname}
-                            </div>
+                              {player.name || player.personaname || strings.general_anonymous}
+                            </aside>
                           ))
                         }
                         <span>
@@ -146,12 +151,32 @@ export default ({ match }) => {
                           .filter(player =>
                             player.hero_id === heroes[Object.keys(heroes).filter(key => heroes[key].name === obj.key)].id,
                           ).map(player => (
-                            <div style={{ color: playerColors[player.player_slot] }}>
-                              {player.name || player.personaname}
-                            </div>
+                            <aside style={{ color: playerColors[player.player_slot] }}>
+                              {player.name || player.personaname || strings.general_anonymous}
+                            </aside>
                           ))
                         }
                       </div>
+                    }
+                    {obj.type === 'roshan' &&
+                      match.players
+                        .filter(player => player.player_slot === aegis[0][obj.key].player_slot)
+                        .map(player => (
+                          <div>
+                            <aside style={{ color: playerColors[player.player_slot] }}>
+                              <img
+                                src={`${API_HOST}/apps/dota2/images/heroes/${heroes[player.hero_id].name.split('npc_dota_hero_')[1]}_icon.png`}
+                                role="presentation"
+                              />
+                              {player.name || player.personaname || strings.general_anonymous}
+                            </aside>
+                            <span>picked up</span>
+                            <img
+                              src={`${API_HOST}/apps/dota2/images/items/aegis_lg.png`}
+                              role="presentation"
+                            />
+                          </div>
+                        ))
                     }
                   </ReactTooltip>
                   <time>

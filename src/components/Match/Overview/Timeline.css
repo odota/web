@@ -69,6 +69,25 @@
       padding: 2px 4px !important;
       margin-left: 5px !important;
       font-weight: var(--fontWeightLight) !important;
+
+      & aside {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-weight: var(--fontWeightMedium);
+      }
+      & img {
+        height: 24px;
+        margin-right: 4px;
+      }
+      & span {
+        margin: 0 4px;
+      }
+      & > div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
     }
   }
 
@@ -115,27 +134,5 @@
     height: 4px;
     bottom: 0;
     background-color: var(--textColorPrimary);
-  }
-}
-
-.vertAlign {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.tipFirstblood {
-  composes: vertAlign;
-
-  & > div {
-    display: inherit;
-    flex-direction: inherit;
-    align-items: inherit;
-  }
-  & img {
-    height: 24px;
-    margin-right: 4px;
-  }
-  & span {
-    margin: 0 4px;
   }
 }
