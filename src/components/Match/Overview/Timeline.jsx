@@ -8,6 +8,8 @@ import {
   IconRoshan,
   IconBattle,
 } from 'components/Icons';
+import strings from 'lang';
+import ReactTooltip from 'react-tooltip';
 
 import styles from './Timeline.css';
 
@@ -65,7 +67,11 @@ export default ({ match }) => {
 
   return (
     <main className={styles.timeline}>
-      <time>-1:30</time>
+      <section>
+        <mark>{strings.general_radiant}</mark>
+        <time>-1:30</time>
+        <mark>{strings.general_dire}</mark>
+      </section>
       <div className={styles.battle}>
         <div className={styles.line}>
           <section style={{ width: '100%' }} />
@@ -86,28 +92,44 @@ export default ({ match }) => {
 
               const wTeamfight = obj.type === 'teamfight' && (100 * (obj.end - obj.start)) / (match.duration + preHorn);
 
-              const markStyle = {
-                left: obj.time && `${
-                  ((100 * (obj.time + preHorn)) / (match.duration + preHorn)) - (wTeamfight / 2)
-                }%`,
-                width: `${wTeamfight}%`,
-                // backgroundColor: obj.type === 'teamfight' && (
-                //   obj.radiant_gold_delta >= 0 ? styles.green : styles.red
-                // ),
-              };
-
               return (obj.type !== 'aegis' &&
                 <mark
                   key={i}
                   className={obj.type === 'teamfight' ? styles.teamfight : styles[side]}
-                  style={markStyle}
-                  data-time={obj.type === 'teamfight' ? '' : formatSeconds(obj.time)}
+                  style={{
+                    left: obj.time && `${
+                      ((100 * (obj.time + preHorn)) / (match.duration + preHorn)) - (wTeamfight / 2)
+                    }%`,
+                    width: `${wTeamfight}%`,
+                    // backgroundColor: obj.type === 'teamfight' && (
+                    //   obj.radiant_gold_delta >= 0 ? styles.green : styles.red
+                    // ),
+                  }}
                 >
-                  {obj.type === 'firstblood' && <IconBloodDrop />}
-                  {obj.type === 'roshan' && <IconRoshan />}
+                  {obj.type === 'firstblood' &&
+                    <IconBloodDrop
+                      data-tip
+                      data-for={`event_${i}`}
+                    />
+                  }
+                  {obj.type === 'roshan' &&
+                    <IconRoshan />
+                  }
                   {obj.type === 'teamfight' &&
                     <IconBattle style={{ fill: obj.radiant_gold_delta >= 0 ? styles.green : styles.red }} />
                   }
+                  <ReactTooltip id={`event_${i}`} effect="solid" place="right">
+                    {obj.type === 'firstblood' &&
+                      <div>
+                        {obj.player_slot}
+                        drew first blood by killing
+                        {obj.key.split('npc_dota_hero_')[1]}
+                      </div>
+                    }
+                  </ReactTooltip>
+                  <time>
+                    {obj.type === 'teamfight' ? '' : formatSeconds(obj.time)}
+                  </time>
                 </mark>
               );
             })
