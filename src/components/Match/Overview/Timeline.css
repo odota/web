@@ -82,6 +82,10 @@
       }
       & span {
         margin: 0 4px;
+
+        & img {
+          height: 8px;
+        }
       }
       & > div {
         display: flex;
@@ -135,4 +139,21 @@
     bottom: 0;
     background-color: var(--textColorPrimary);
   }
+}
+
+.goldGot, .goldLost {
+  &::after {
+    content: '';
+    border-style: solid;
+    display: inline-block;
+    margin-left: 4px;
+  }
+}
+.goldGot::after {
+  border-width: 0 4px 7px 4px;
+  border-color: transparent transparent var(--colorSuccess) transparent;
+}
+.goldLost::after {
+  border-width: 7px 4px 0 4px;
+  border-color: var(--colorDanger) transparent transparent transparent;
 }

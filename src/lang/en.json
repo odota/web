@@ -387,6 +387,8 @@
   "timeline_firstblood": "drew first blood",
   "timeline_firstblood_key": "drew first blood by killing",
   "timeline_picked_up_aegis": "picked up",
+  "timeline_teamfight_died_got": "died, but got",
+  "timeline_teamfight_died_lost": "died and lost",
 
   "tooltip_mmr": "Solo MMR of the player",
   "tooltip_level": "Level achieved by hero",

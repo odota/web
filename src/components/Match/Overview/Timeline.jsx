@@ -55,6 +55,12 @@ export default ({ match }) => {
         end: fight.end,
         time: (fight.start + fight.end) / 2,
         radiant_gold_delta: fight.radiant_gold_delta,
+        deaths: fight.players
+          .map((player, i) => (player.deaths > 0 ? {
+            key: i,
+            gold_delta: player.gold_delta,
+          } : ''))
+          .filter(String),
       })) || [],
     ));
 
@@ -124,8 +130,11 @@ export default ({ match }) => {
                     />
                   }
                   {obj.type === 'teamfight' &&
-                    <IconBattle style={{ fill: obj.radiant_gold_delta >= 0 ? styles.green : styles.red }} />
-                    /* TODO: display deaths */
+                    <IconBattle
+                      data-tip
+                      data-for={`event_${i}`}
+                      style={{ fill: obj.radiant_gold_delta >= 0 ? styles.green : styles.red }}
+                    />
                   }
                   <ReactTooltip
                     id={`event_${i}`}
@@ -190,6 +199,37 @@ export default ({ match }) => {
                           </div>
                         ))
                     }
+                    {obj.type === 'teamfight' && obj.deaths.map((death, i) => (
+                      <div key={i}>
+                        <aside style={{ color: playerColors[match.players[death.key].player_slot] }}>
+                          <img
+                            src={`
+                              ${API_HOST}/apps/dota2/images/heroes/${
+                                heroes[match.players[death.key].hero_id].name.split('npc_dota_hero_')[1]
+                              }_icon.png
+                            `}
+                            role="presentation"
+                          />
+                          {match.players[death.key].name || match.players[death.key].personaname || strings.general_anonymous}
+                        </aside>
+                        <span>
+                          {death.gold_delta > 0 ?
+                            <span className={styles.goldGot}>
+                              {strings.timeline_teamfight_died_got}
+                            </span> :
+                            <span className={styles.goldLost}>
+                              {strings.timeline_teamfight_died_lost}
+                            </span>
+                          }
+                          {/* nothing if === 0 */}
+                          <font color={styles.golden}>{Math.abs(death.gold_delta)} </font>
+                          <img
+                            role="presentation"
+                            src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
+                          />
+                        </span>
+                      </div>
+                    ))}
                   </ReactTooltip>
                   <time>
                     {obj.type === 'teamfight' ? '' : formatSeconds(obj.time)}
