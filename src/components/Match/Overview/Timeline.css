@@ -24,7 +24,7 @@
     height: inherit;
   }
   & section {
-    background-color: rgba(255, 255, 255, .19);
+    background-color: var(--colorMuted);
   }
 }
 
@@ -39,11 +39,11 @@
     &::after {
       content: attr(data-time);
       color: var(--colorMutedLight);
-      font-size: 10px;
+      font-size: var(--fontSizeSmall);
       position: absolute;
-      width: 30px;
+      width: 32px;
       text-align: center;
-      left: -15px;
+      left: -16px;
     }
     & svg {
       fill: var(--colorMutedLight);
@@ -82,12 +82,13 @@
   }
   & .teamfight {
     bottom: 0;
+    height: 4px;
 
     & svg {
       width: 14px;
-      top: -10px;
-      left: -7px;
-      filter: drop-shadow(0 0 3px var(--defaultPrimaryColor));
+      top: -6px;
+      left: calc(50% - 7px);
+      filter: drop-shadow(1px 0 3px var(--defaultPrimaryColor));
     }
   }
   & .battleHorn {

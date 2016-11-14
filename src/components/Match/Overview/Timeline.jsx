@@ -58,6 +58,7 @@ export default ({ match }) => {
         start: fight.start,
         end: fight.end,
         time: (fight.start + fight.end) / 2,
+        radiant_gold_delta: fight.radiant_gold_delta,
       })) || [],
     ));
   }
@@ -83,20 +84,30 @@ export default ({ match }) => {
                   || (obj.team && obj.team === 2
               ) ? 'radiant' : 'dire';
 
+              const wTeamfight = obj.type === 'teamfight' && (100 * (obj.end - obj.start)) / (match.duration + preHorn);
+
+              const markStyle = {
+                left: obj.time && `${
+                  ((100 * (obj.time + preHorn)) / (match.duration + preHorn)) - (wTeamfight / 2)
+                }%`,
+                width: `${wTeamfight}%`,
+                // backgroundColor: obj.type === 'teamfight' && (
+                //   obj.radiant_gold_delta >= 0 ? styles.green : styles.red
+                // ),
+              };
+
               return (obj.type !== 'aegis' &&
                 <mark
                   key={i}
                   className={obj.type === 'teamfight' ? styles.teamfight : styles[side]}
-                  style={{
-                    left: obj.time !== undefined && `${
-                      (100 * (obj.time + preHorn)) / (match.duration + preHorn)
-                    }%`,
-                  }}
+                  style={markStyle}
                   data-time={obj.type === 'teamfight' ? '' : formatSeconds(obj.time)}
                 >
                   {obj.type === 'firstblood' && <IconBloodDrop />}
                   {obj.type === 'roshan' && <IconRoshan />}
-                  {obj.type === 'teamfight' && <IconBattle />}
+                  {obj.type === 'teamfight' &&
+                    <IconBattle style={{ fill: obj.radiant_gold_delta >= 0 ? styles.green : styles.red }} />
+                  }
                 </mark>
               );
             })

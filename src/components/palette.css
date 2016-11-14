@@ -53,6 +53,10 @@
 
 :export {
   /* -- Colors */
+  black4: var(--defaultPrimaryColor);
+  black6: var(--darkPrimaryColor);
+  black9: var(--almostBlack);
+
   red:      var(--colorDanger);
   green:    var(--colorSuccess);
   blue:     var(--colorBlue);
