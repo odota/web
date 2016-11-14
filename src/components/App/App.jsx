@@ -20,6 +20,8 @@ const muiTheme = {
   palette: {
     textColor: palette.textColorPrimary,
     primary1Color: palette.blue,
+    canvasColor: palette.primarySurfaceColor,
+    borderColor: palette.dividerColor,
   },
   button: { height: 38 },
 };
