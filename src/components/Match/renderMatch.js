@@ -98,6 +98,9 @@ function generateTeamfights(match) {
 
 // create a detailed history of each wards
 function generateWardLog(match) {
+  // this should be handled by the Match page component
+  if (!(match.players && match.players[0].obs_log)) return [];
+
   const computeWardData = (player, i) => {
     const sameWard = _.curry((w1, w2) => w1.ehandle === w2.ehandle);
 
