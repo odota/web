@@ -98,28 +98,34 @@ function generateTeamfights(match) {
 
 // create a detailed history of each wards
 function generateWardLog(match) {
-  // this should be handled by the Match page component
-  if (!(match.players && match.players[0].obs_log)) return [];
-
   const computeWardData = (player, i) => {
     const sameWard = _.curry((w1, w2) => w1.ehandle === w2.ehandle);
 
+    // let's coerce some value to be sure the structure is what we expect.
+    const safePlayer = {
+      ...player,
+      obs_log: player.obs_log || [],
+      sen_log: player.sen_log || [],
+      obs_left_log: player.obs_left_log || [],
+      sen_left_log: player.sen_left_log || [],
+    };
+
     // let's zip the *_log and the *_left log in a 2-tuples
     const extractWardLog = (type, enteredLog, leftLog) =>
-       enteredLog.map((e) => {
-         const wards = [e, leftLog.find(sameWard(e))];
-         return {
-           player: i,
-           key: wards[0].ehandle,
-           type,
-           entered: wards[0],
-           left: wards[1],
-         };
-       })
+      enteredLog.map((e) => {
+        const wards = [e, leftLog.find(sameWard(e))];
+        return {
+          player: i,
+          key: wards[0].ehandle,
+          type,
+          entered: wards[0],
+          left: wards[1],
+        };
+      })
     ;
 
-    const observers = extractWardLog('observer', player.obs_log, player.obs_left_log);
-    const sentries = extractWardLog('sentry', player.sen_log, player.sen_left_log);
+    const observers = extractWardLog('observer', safePlayer.obs_log, safePlayer.obs_left_log);
+    const sentries = extractWardLog('sentry', safePlayer.sen_log, safePlayer.sen_left_log);
     return _.concat(observers, sentries);
   };
 
@@ -130,7 +136,7 @@ function generateWardLog(match) {
     _.sortBy(xs => xs.entered.time),
     imap((x, i) => ({ ...x, key: i })),
   );
-  return wardLog(match.players);
+  return wardLog(match.players || []);
 }
 
 function renderMatch(m) {
