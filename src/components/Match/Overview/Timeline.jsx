@@ -199,6 +199,12 @@ export default ({ match }) => {
                           </div>
                         ))
                     }
+                    {obj.type === 'teamfight' &&
+                      <header>
+                        {strings.timeline_teamfight_deaths} &
+                        <span className={styles.subtitle}>gold delta</span>
+                      </header>
+                    }
                     {obj.type === 'teamfight' && obj.deaths.map((death, i) => (
                       <div key={i}>
                         <aside style={{ color: playerColors[match.players[death.key].player_slot] }}>
@@ -213,14 +219,7 @@ export default ({ match }) => {
                           {match.players[death.key].name || match.players[death.key].personaname || strings.general_anonymous}
                         </aside>
                         <span>
-                          {death.gold_delta > 0 ?
-                            <span className={styles.goldGot}>
-                              {strings.timeline_teamfight_died_got}
-                            </span> :
-                            <span className={styles.goldLost}>
-                              {strings.timeline_teamfight_died_lost}
-                            </span>
-                          }
+                          {death.gold_delta > 0 ? <span className={styles.goldGot} /> : <span className={styles.goldLost} />}
                           {/* nothing if === 0 */}
                           <font color={styles.golden}>{Math.abs(death.gold_delta)} </font>
                           <img

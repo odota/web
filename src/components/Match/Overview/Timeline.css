@@ -43,6 +43,19 @@
   position: relative;
   width: 100%;
 
+  & header {
+    margin-left: 3px;
+    margin-bottom: 3px;
+    font-weight: var(--fontWeightNormal);
+
+    & .subtitle {
+      margin-left: 4px;
+      font-size: var(--fontSizeSmall);
+      font-weight: var(--fontWeightLight);
+      color: var(--colorMutedLight);
+    }
+  }
+
   & mark {
     position: absolute;
     background: none;
@@ -146,7 +159,6 @@
     content: '';
     border-style: solid;
     display: inline-block;
-    margin-left: 4px;
   }
 }
 .goldGot::after {
