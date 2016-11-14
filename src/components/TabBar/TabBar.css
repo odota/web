@@ -17,7 +17,7 @@
     font-weight: var(--fontWeightLight);
     font-size: 15px;
     color: var(--primaryTextColor);
-    padding: 10px 14px 16px;
+    padding: 10px 12px 16px;
     border-bottom: 2px solid transparent;
     flex-grow: 1;
 
@@ -47,6 +47,5 @@
     overflow-x: auto;
     overflow-y: hidden;
     -ms-overflow-style: none;
-    overflow: -moz-scrollbars-none;
   }
 }

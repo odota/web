@@ -1,8 +1,6 @@
 /* global API_HOST */
 import React from 'react';
-import {
-  Link,
-} from 'react-router';
+import { Link } from 'react-router';
 import heroes from 'dotaconstants/json/heroes.json';
 import items from 'dotaconstants/json/items.json';
 import patch from 'dotaconstants/json/patch.json';
@@ -14,9 +12,7 @@ import leaverStatus from 'dotaconstants/json/leaver_status.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import xpLevel from 'dotaconstants/json/xp_level.json';
 import styles from 'components/palette.css';
-import {
-  TableLink,
-} from 'components/Table';
+import { TableLink } from 'components/Table';
 import {
   KDA,
   TableHeroImage,
@@ -24,6 +20,8 @@ import {
 } from 'components/Visualizations';
 import strings from 'lang';
 import subTextStyle from 'components/Visualizations/Table/subText.css';
+import { findLast } from 'lodash';
+import _ from 'lodash/fp';
 
 // TODO - add in the relevant text invocations of TableHeroImage
 export const isRadiant = playerSlot => playerSlot < 128;
@@ -33,10 +31,16 @@ export function pad(n, width, z = '0') {
   return str.length >= width ? str : new Array((width - str.length) + 1).join(z) + n;
 }
 export function abbreviateNumber(num) {
-  if (num >= 1000 && num < 1000000) {
+  if (!num) {
+    return '-';
+  } else if (num >= 1000 && num < 1000000) {
     return `${Number((num / 1000).toFixed(1))}${strings.abbr_thousand}`;
-  } else if (num >= 1000000) {
+  } else if (num >= 1000000 && num < 1000000000) {
     return `${Number((num / 1000000).toFixed(1))}${strings.abbr_million}`;
+  } else if (num >= 1000000000 && num < 1000000000000) {
+    return `${Number((num / 1000000000).toFixed(1))}${strings.abbr_billion}`;
+  } else if (num >= 1000000000000) {
+    return `${Number((num / 1000000000000).toFixed(1))}${strings.abbr_trillion}`;
   }
   return num.toFixed(0);
 }
@@ -339,6 +343,21 @@ export const playerColors = {
   132: '#956000',
 };
 
+export const extractTransitionClasses = styles => name => ({
+  enter: styles[`${name}-enter`],
+  enterActive: styles[`${name}-enter-active`],
+  leave: styles[`${name}-leave`],
+  leaveActive: styles[`${name}-leave-active`],
+  appear: styles[`${name}-appear`],
+  appearActive: styles[`${name}-appear-active`],
+});
+
+export const gameCoordToUV = (x, y) => ({
+  x: Number(x) - 64,
+  y: 127 - (Number(y) - 64),
+});
+
+// TODO: refactor this to use gameCoordToUV
 /**
  * Unpacks position data from hash format to array format
  * 64 is the offset of x and y values
@@ -360,3 +379,12 @@ export function unpackPositionData(input) {
   }
   return input;
 }
+
+export const threshold = _.curry((start, limits, values, value) => {
+  if (limits.length !== values.length) throw new Error('Limits must be the same as functions.');
+
+  const limitsWithStart = limits.slice(0);
+  limitsWithStart.unshift(start);
+  return findLast(values, (v, i) => _.inRange(limitsWithStart[i], limitsWithStart[i + 1], value));
+});
+
