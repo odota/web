@@ -49,7 +49,7 @@ export const getPlayerRecords = (playerId, options = {}) => (dispatch, getState)
       match_id: json[key].match_id,
       game_mode: json[key].game_mode,
     }))
-    .filter(key => key.value !== null))
+    .filter(record => Boolean(record.value)))
     .then(json => dispatch(getPlayerRecordsOk(json, playerId)))
     .catch(error => dispatch(getPlayerRecordsError(error, playerId)));
 };
