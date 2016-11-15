@@ -44,7 +44,6 @@
   width: 100%;
 
   & header {
-    margin-left: 3px;
     margin-bottom: 3px;
     font-weight: var(--fontWeightNormal);
 
@@ -79,7 +78,7 @@
     }
     & div[data-id="tooltip"] {
       margin-top: 0 !important;
-      padding: 2px 4px !important;
+      padding: 2px 6px !important;
       margin-left: 5px !important;
       font-weight: var(--fontWeightLight) !important;
 
@@ -100,7 +99,7 @@
           height: 8px;
         }
       }
-      & > div {
+      & section {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -110,6 +109,7 @@
 
   & .radiant, & .dire {
     border-style: solid;
+    margin-left: -6px;
   }
   & .radiant {
     border-width: 0 6px 5px 6px;
