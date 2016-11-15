@@ -2,12 +2,17 @@
 
 .timeline {
   width: 100%;
-  margin: 30px 0;
+  margin: 30px 0 5px 0;
   display: flex;
+  flex-direction: row;
   align-items: center;
 
   & time {
-    margin: 0 15px;
+    margin: 0 5px;
+
+    @media only screen and (max-width: 768px) {
+      font-size: var(--fontSizeMedium);
+    }
   }
   & > section {
     display: flex;
@@ -75,12 +80,19 @@
       width: 18px;
       position: absolute;
       left: -9px;
+
+      @media only screen and (max-width: 768px) {
+        width: 16px;
+        left: -8px;
+      }
     }
     & div[data-id="tooltip"] {
+      /* Override react-tooltip */
       margin-top: 0 !important;
       padding: 2px 6px !important;
       margin-left: 5px !important;
       font-weight: var(--fontWeightLight) !important;
+      white-space: nowrap;
 
       & aside {
         display: flex;
@@ -144,6 +156,12 @@
       top: -5px;
       left: calc(50% - 5px);
       filter: drop-shadow(1px 0 3px var(--darkPrimaryColor));
+
+      @media only screen and (max-width: 768px) {
+        width: 10px;
+        top: -3px;
+         left: calc(50% - 3px);
+      }
     }
   }
   & .battleHorn {
@@ -168,4 +186,36 @@
 .goldLost::after {
   border-width: 7px 4px 0 4px;
   border-color: var(--colorDanger) transparent transparent transparent;
+}
+
+.matchNumbers {
+  text-align: right;
+  margin: 0 5px;
+  
+  & > div {
+    display: inline;
+
+    & span {
+      font-size: var(--fontSizeSmall);
+      color: var(--colorMutedLight);
+      white-space: pre-line;
+
+      &:first-child {
+        margin-left: 20px;
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      font-size: var(--fontSizeMedium);
+    }
+
+    @media only screen and (max-width: 560px) {
+      display: block;
+      line-height: 2;
+
+      & span {
+        margin-left: 0;
+      }
+    }
+  }
 }
