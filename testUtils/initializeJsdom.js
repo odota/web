@@ -1,6 +1,5 @@
 require('babel-register')({
-  extensions: ['.js', '.jsx'],
-  ignore: /node_modules\/(?=(?!kroger-))(?=(?!react-kuic)).*/
+  extensions: ['.js', '.jsx']
 });
 require('css-modules-require-hook')({
   generateScopedName: '[name]_[local]',
