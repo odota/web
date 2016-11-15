@@ -2,7 +2,7 @@ import React from 'react';
 import { threshold, formatSeconds, extractTransitionClasses } from 'utility';
 import { Row, Col } from 'react-flexbox-grid';
 // import heroes from 'dotaconstants/json/heroes.json';
-import Fixed from 'utility/components/Fixed';
+import fixed from 'utility/components/Fixed';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import strings from 'lang';
 
@@ -38,7 +38,7 @@ const RowItem = ({ style, row, match }) => {
     </li>
   );
 };
-const PureRowItem = Fixed(RowItem);
+const PureRowItem = fixed(RowItem);
 
 // i18n column names
 const columns = ['type', 'owner', 'entered_at', 'left_at', 'duration', 'killed_by'].map(h => `ward_log_${h}`);
