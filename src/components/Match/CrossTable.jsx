@@ -16,7 +16,7 @@ const CrossTable = ({
   field1,
   field2,
 }) => (
-  <Table selectable={false}>
+  <Table style={{ overflowY: 'hidden', overflowX: 'auto' }} selectable={false}>
     <TableBody displayRowCheckbox={false}>
       <TableRow>
         <TableRowColumn />

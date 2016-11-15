@@ -618,20 +618,16 @@ export const objectiveDamageColumns = [heroTdColumn]
     })));
 
 
-export const inflictorsColumns = [{
-  displayName: strings.th_damage_received,
-  field: 'damage_inflictor_received',
-  displayFn: (row, col, field) => (field ? Object.keys(field)
-      .sort((a, b) => field[b] - field[a])
-      .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
-}, {
-  displayFn: () => '→',
-},
+export const inflictorsColumns = [
   heroTdColumn, {
-    displayFn: () => '→',
-  }, {
     displayName: strings.th_damage_dealt,
     field: 'damage_inflictor',
+    displayFn: (row, col, field) => (field ? Object.keys(field)
+      .sort((a, b) => field[b] - field[a])
+      .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+  }, {
+    displayName: strings.th_damage_received,
+    field: 'damage_inflictor_received',
     displayFn: (row, col, field) => (field ? Object.keys(field)
       .sort((a, b) => field[b] - field[a])
       .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),

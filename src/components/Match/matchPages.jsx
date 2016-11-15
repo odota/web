@@ -10,7 +10,6 @@ import {
 } from 'material-ui/Tabs';
 import Heading from 'components/Heading';
 import Table from 'components/Table';
-import { Row, Col } from 'react-flexbox-grid';
 import { IconRadiant, IconDire } from 'components/Icons';
 import VisionPage from './VisionPage';
 import CastTable from './CastTable';
@@ -129,31 +128,27 @@ const matchPages = [{
   name: strings.tab_performances,
   key: 'performances',
   parsed: true,
-  content: match => (<Row>
-    <Col md={12}>
-      <TeamTable match={match} columns={performanceColumns} heading={strings.heading_performances} />
-    </Col>
-    <Col md={12}>
-      <TeamTable match={match} columns={supportColumns} heading={strings.heading_support} />
-    </Col>
-  </Row>),
+  content: match => (<div>
+    <TeamTable match={match} columns={performanceColumns} heading={strings.heading_performances} />
+    <TeamTable match={match} columns={supportColumns} heading={strings.heading_support} />
+  </div>),
 }, {
   name: strings.tab_combat,
   key: 'combat',
   parsed: true,
-  content: match => (<Row>
-    <Col md={6}>
-      <Heading title={strings.heading_kills} />
-      <CrossTable match={match} field1="killed" field2="killed_by" />
-    </Col>
-    <Col md={6}>
-      <Heading title={strings.heading_damage} />
-      <CrossTable match={match} field1="damage" field2="damage_taken" />
-    </Col>
-    <Col md={12}>
-      <TeamTable match={match} columns={inflictorsColumns} heading={strings.heading_damage} />
-    </Col>
-  </Row>),
+  content: match => (<div>
+    <div style={{ display: 'flex', flexWrap: 'wrap', overflow: 'auto' }}>
+      <div style={{ flex: 1, marginRight: '5px' }}>
+        <Heading title={strings.heading_kills} />
+        <CrossTable match={match} field1="killed" field2="killed_by" />
+      </div>
+      <div style={{ flex: 1, marginRight: '5px' }}>
+        <Heading title={strings.heading_damage} />
+        <CrossTable match={match} field1="damage" field2="damage_taken" />
+      </div>
+    </div>
+    <TeamTable match={match} columns={inflictorsColumns} heading={strings.heading_damage} />
+  </div>),
 }, {
   name: strings.tab_farm,
   key: 'farm',
@@ -161,14 +156,14 @@ const matchPages = [{
   content: match => (<div>
     <TeamTable match={match} columns={unitKillsColumns} heading={strings.heading_unit_kills} />
     <TeamTable match={match} columns={lastHitsTimesColumns(match)} heading={strings.heading_last_hits} />
-    <Row>
-      <Col md={7}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', overflow: 'auto' }}>
+      <div style={{ flex: 1, marginRight: '5px' }}>
         <TeamTable match={match} columns={goldReasonsColumns} heading={strings.heading_gold_reasons} />
-      </Col>
-      <Col md={5}>
+      </div>
+      <div style={{ flex: 1, marginRight: '5px' }}>
         <TeamTable match={match} columns={xpReasonsColumns} heading={strings.heading_xp_reasons} />
-      </Col>
-    </Row>
+      </div>
+    </div>
   </div>),
 }, {
   name: strings.tab_purchases,
