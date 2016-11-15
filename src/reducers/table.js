@@ -67,6 +67,6 @@ export const getTable = {
       data,
       getTable.getSortState(state, id),
       getTable.getSortField(state, id),
-      getTable.getSortFn(state, id)
+      getTable.getSortFn(state, id),
     )),
 };

@@ -1,7 +1,6 @@
 import React from 'react';
-import {
-  connect,
-} from 'react-redux';
+import { connect } from 'react-redux';
+import FlatButton from 'material-ui/FlatButton';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import {
@@ -9,6 +8,7 @@ import {
   prevPage,
   setCurrentPage,
 } from 'actions';
+import strings from 'lang';
 import styles from './Pagination.css';
 
 const getPages = ({
@@ -16,31 +16,22 @@ const getPages = ({
   numPages,
   setCurrentPage,
 }) => {
-  let i = currentPage - 4 > 0 ? currentPage - 4 : 0;
+  // let i = currentPage - 4 > 0 ? currentPage - 4 : 0;
   const pages = [];
-  if (currentPage + 5 >= 10) {
-    pages.push(<span className={styles.page} onClick={() => setCurrentPage(0)}>1...</span>);
-  }
-  while (i < numPages && pages.length < 9) {
-    const page = i;
-    let PageNumber;
-    if (page === currentPage) {
-      PageNumber = <span className={styles.currentPage}>{page + 1}</span>;
-    } else {
-      PageNumber = (
-        <span
-          className={styles.page}
-          onClick={() => setCurrentPage(page)}
-        >
-          {page + 1}
-        </span>
-      );
-    }
-    pages.push(PageNumber);
-    i += 1;
-  }
-  if (currentPage <= numPages - 5) {
-    pages.push(<span className={styles.page} onClick={() => setCurrentPage(numPages - 1)}>...{numPages}</span>);
+  const minStart = Math.max(numPages - 5, 0);
+  const minEnd = Math.min(4, numPages - 1);
+  const targetStart = Math.max(currentPage - 2, 0);
+  const targetEnd = Math.min(currentPage + 2, numPages - 1);
+  const start = Math.min(targetStart, minStart);
+  const end = Math.max(targetEnd, minEnd);
+  for (let i = start; i <= end; i += 1) {
+    pages.push(<FlatButton
+      key={i}
+      className={i === currentPage ? styles.currentPage : styles.page}
+      onClick={i === currentPage ? () => {} : () => setCurrentPage(i)}
+    >
+      {i + 1}
+    </FlatButton>);
   }
   return pages;
 };
@@ -51,19 +42,57 @@ const Pagination = ({
   prevPage,
   setCurrentPage,
   numPages,
-}) => (numPages > 1 ? (
-  <div className={styles.container}>
-    {currentPage > 0 && <Prev onClick={prevPage} className={styles.arrow} />}
-    {getPages({ currentPage, numPages, setCurrentPage })}
-    {currentPage < numPages - 1 && <Next onClick={nextPage} className={styles.arrow} />}
+  pageLength,
+  length,
+  place,
+}) => numPages > 1 && (
+  <div className={place === 'top' ? styles.containerTop : styles.container}>
+    <div className={place === 'top' ? styles.paginationTop : styles.pagination}>
+      {currentPage > 0 &&
+        <FlatButton className={styles.page} onClick={() => setCurrentPage(0)}>
+          {strings.pagination_first}
+        </FlatButton>
+      }
+      <div className={styles.pages}>
+        {currentPage > 0 &&
+          <FlatButton className={styles.arrow} onClick={currentPage > 0 ? prevPage : () => {}}>
+            <Prev className={styles.arrow} />
+          </FlatButton>
+        }
+        {currentPage > 2 && numPages > 2 &&
+          <FlatButton disabled className={styles.currentPage}>
+            ...
+          </FlatButton>
+        }
+        {getPages({ currentPage, numPages, setCurrentPage })}
+        {numPages > currentPage + 3 &&
+          <FlatButton disabled className={styles.currentPage}>
+            ...
+          </FlatButton>
+        }
+        {currentPage < numPages - 1 &&
+          <FlatButton className={styles.arrow} onClick={currentPage < (numPages - 1) ? nextPage : () => {}}>
+            <Next className={styles.arrow} />
+          </FlatButton>
+        }
+      </div>
+      {currentPage < numPages - 1 &&
+        <FlatButton className={styles.page} onClick={() => setCurrentPage(numPages - 1)}>
+          {strings.pagination_last}
+        </FlatButton>
+      }
+    </div>
+    {place === 'bot' &&
+      <div className={styles.info}>
+        {(pageLength * currentPage).toLocaleString('ru-RU')}
+        {' - '}
+        {Math.min((pageLength * currentPage) + pageLength, length).toLocaleString('ru-RU')} {strings.pagination_of} {length.toLocaleString('ru-RU')}
+      </div>
+    }
   </div>
-) : (
-  <span />
-));
+);
 
-const mapDispatchToProps = (dispatch, {
-  id,
-}) => ({
+const mapDispatchToProps = (dispatch, { id }) => ({
   nextPage: () => dispatch(nextPage(id)),
   prevPage: () => dispatch(prevPage(id)),
   setCurrentPage: pageNumber => dispatch(setCurrentPage(id, pageNumber)),

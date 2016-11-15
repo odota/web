@@ -36,7 +36,7 @@ const getData = (props) => {
   props.getPlayerMatches(
     props.playerId,
     { ...props.location.query, project: [...trendNames, ...defaultPlayerMatchesOptions.project] },
-    true
+    true,
   );
 };
 

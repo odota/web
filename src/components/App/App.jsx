@@ -20,11 +20,13 @@ const muiTheme = {
   palette: {
     textColor: palette.textColorPrimary,
     primary1Color: palette.blue,
+    canvasColor: palette.primarySurfaceColor,
+    borderColor: palette.dividerColor,
   },
   button: { height: 38 },
 };
 
-const App = ({ children, open, params, location }) => (
+const App = ({ children, open, params, location, width }) => (
   <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
     <div
       className={
@@ -37,7 +39,7 @@ const App = ({ children, open, params, location }) => (
       <div className={styles.body}>
         {children}
       </div>
-      <Footer />
+      <Footer location={location} width={width} />
     </div>
   </MuiThemeProvider>
 );

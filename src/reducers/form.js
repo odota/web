@@ -1,7 +1,7 @@
 import { formActions } from 'actions';
 
 const initialFormState = {
-  show: Boolean(window.location.search.substring(1)),
+  show: false,
 };
 
 export default (state = initialFormState, action) => {

@@ -1,9 +1,8 @@
-/* global window */
 import { requestActions } from 'actions';
 
 const initialState = {
   replayBlob: null,
-  matchId: window.location.hash.slice(1),
+  matchId: '',
   progress: 0,
   error: '',
   loading: false,

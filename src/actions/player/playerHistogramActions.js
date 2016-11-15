@@ -1,5 +1,5 @@
+/* global API_HOST */
 import fetch from 'isomorphic-fetch';
-import { API_HOST } from 'config';
 import { playerHistogram } from 'reducers';
 import { getUrl } from 'actions/utility';
 
@@ -54,7 +54,7 @@ export const getPlayerHistogram = (playerId, options = {}, histogramName) => (di
     dispatch(getPlayerHistogramOk(
       list,
       playerId,
-      histogramName
+      histogramName,
     ));
   } else {
     dispatch(getPlayerHistogramRequest(playerId, histogramName));

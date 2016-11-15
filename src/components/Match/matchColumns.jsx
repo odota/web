@@ -1,3 +1,4 @@
+/* global API_HOST */
 import React from 'react';
 import heroes from 'dotaconstants/json/heroes.json';
 import runes from 'dotaconstants/json/runes.json';
@@ -8,13 +9,15 @@ import abilityIds from 'dotaconstants/json/ability_ids.json';
 import abilityKeys from 'dotaconstants/json/ability_keys.json';
 import heroNames from 'dotaconstants/json/hero_names.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
+import buffs from 'dotaconstants/json/permanent_buffs.json';
 import strings from 'lang';
-import { API_HOST } from 'config';
 import {
   formatSeconds,
   abbreviateNumber,
   transformations,
   percentile,
+  sum,
+  unpackPositionData,
 } from 'utility';
 import Heatmap from 'components/Heatmap';
 import {
@@ -24,17 +27,30 @@ import {
 import ReactTooltip from 'react-tooltip';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
+import SocialPerson from 'material-ui/svg-icons/social/person';
 import styles from './Match.css';
 
-export const heroTd = (row, col, field, index, hideName) => (
+export const heroTd = (row, col, field, index, hideName, party) => (
   <TableHeroImage
     image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
-    title={row.account_id ? (row.game_mode === 2 && row.name) || row.personaname : strings.general_anonymous}
+    title={row.name || row.personaname || strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
-    subtitle={`${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`}
+    subtitle={
+      <span>
+        <section
+          data-hint={strings.th_solo_mmr}
+          data-hint-position="bottom"
+        >
+          <SocialPerson />
+        </section>
+        {row.solo_competitive_rank || strings.general_unknown}
+      </span>
+    }
     playerSlot={row.player_slot}
     hideText={hideName}
+    confirmed={row.account_id && row.name}
+    party={party}
   />
 );
 
@@ -45,58 +61,36 @@ export const heroTdColumn = {
   sortFn: true,
 };
 
-export const overviewColumns = match => [{
-  field: '',
-  displayFn: (row) => {
-    if (match.parties) {
-      const i = match.players.findIndex(player => player.player_slot === row.player_slot);
-      const partyPrev = match.parties[(match.players[i - 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
-      const partyNext = match.parties[(match.players[i + 1] || {}).player_slot] === match.parties[match.players[i].player_slot];
-      const parentStyle = {
-        position: 'relative',
-        width: 0,
-        height: '100%',
-      };
-      const style = {
-        position: 'absolute',
-        width: 10,
-        right: -25,
-      };
-      const borderStyle = `2px solid ${styles.lightGray}`;
-      // `row.isRadiant ? styles.green : styles.red` but it have no sense since tables are separated
-      if (!partyPrev && partyNext) {
-        return (
-          <div style={parentStyle}>
-            <div style={{ ...style, borderLeft: borderStyle, height: '55%', top: '50%' }} />
-            <div style={{ ...style, borderTop: borderStyle, height: '50%', top: '50%' }} />
-          </div>
-        );
-      }
-      if (partyPrev && partyNext) {
-        return (
-          <div style={parentStyle}>
-            <div style={{ ...style, borderLeft: borderStyle, height: '120%', top: '-10%' }} />
-            <div style={{ ...style, borderTop: borderStyle, height: 2, top: '50%', marginTop: -1 }} />
-          </div>
-        );
-      }
-      if (partyPrev && !partyNext) {
-        return (
-          <div style={parentStyle}>
-            <div style={{ ...style, borderBottom: borderStyle, height: '50%', top: 0 }} />
-            <div style={{ ...style, borderLeft: borderStyle, height: '56%', top: -1 }} />
-          </div>
-        );
-      }
+const parties = (row, match) => {
+  if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
+    const i = match.players.findIndex(player => player.player_slot === row.player_slot);
+    const partyPrev = (match.players[i - 1] || {}).party_id === row.party_id;
+    const partyNext = (match.players[i + 1] || {}).party_id === row.party_id;
+    if (!partyPrev && partyNext) {
+      return <div data-next />;
     }
-    return null;
-  },
-},
-  heroTdColumn, {
+    if (partyPrev && partyNext) {
+      return <div data-prev-next />;
+    }
+    if (partyPrev && !partyNext) {
+      return <div data-prev />;
+    }
+  }
+  return null;
+};
+
+export const overviewColumns = (match) => {
+  const cols = [{
+    displayName: 'Player',
+    field: 'player_slot',
+    displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, parties(row, match)),
+    sortFn: true,
+  }, {
     displayName: strings.th_level,
     tooltip: strings.tooltip_level,
     field: 'level',
     sortFn: true,
+    maxFn: true,
   }, {
     displayName: strings.th_kills,
     tooltip: strings.tooltip_kills,
@@ -153,7 +147,12 @@ export const overviewColumns = match => [{
     displayFn: row => abbreviateNumber(row.tower_damage),
     sortFn: true,
   }, {
-    displayName: strings.th_gold,
+    displayName: (
+      <span className={styles.thGold}>
+        <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />
+        {strings.th_gold}
+      </span>
+    ),
     tooltip: strings.tooltip_gold,
     field: 'gold_per_min',
     displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
@@ -162,23 +161,57 @@ export const overviewColumns = match => [{
   }, {
     displayName: strings.th_items,
     tooltip: strings.tooltip_items,
-    field: '',
+    field: 'items',
     displayFn: (row) => {
       const itemArray = [];
+      const additionalItemArray = [];
       for (let i = 0; i < 6; i += 1) {
         const itemKey = itemIds[row[`item_${i}`]];
         const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey];
 
         if (items[itemKey]) {
           itemArray.push(
-            inflictorWithValue(itemKey, formatSeconds(firstPurchase))
+            inflictorWithValue(itemKey, formatSeconds(firstPurchase)),
           );
         }
+
+        // Use hero_id because Meepo showing up as an additional unit in some matches http://dev.dota2.com/showthread.php?t=132401
+        if (row.hero_id === 80 && row.additional_units) {
+          const additionalItemKey = itemIds[row.additional_units[0][`item_${i}`]];
+          const additionalFirstPurchase = row.first_purchase_time && row.first_purchase_time[additionalItemKey];
+
+          if (items[additionalItemKey]) {
+            additionalItemArray.push(
+              inflictorWithValue(additionalItemKey, formatSeconds(additionalFirstPurchase)),
+            );
+          }
+        }
       }
-      return itemArray;
+      return (
+        <div className={styles.items}>
+          {itemArray && <div>{itemArray}</div>}
+          {additionalItemArray && <div>{additionalItemArray}</div>}
+        </div>
+      );
     },
-  }, {
-    displayName: strings.th_ability_builds,
+  }]
+  .concat(
+    match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0 ? {
+      displayName: strings.th_permanent_buffs,
+      field: 'permanent_buffs',
+      displayFn: row => (
+        row.permanent_buffs && row.permanent_buffs.length > 0
+          ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff'))
+          : '-'
+      ),
+    } : [],
+  )
+  .concat({
+    displayName: (
+      <div style={{ marginLeft: 10 }}>
+        {strings.th_ability_builds}
+      </div>
+    ),
     tooltip: strings.tooltip_ability_builds,
     displayFn: row => (
       <div data-tip data-for={`au_${row.player_slot}`} className={styles.abilityUpgrades}>
@@ -195,13 +228,15 @@ export const overviewColumns = match => [{
                 );
               }
               return null;
-            }
+            },
           ) : <div style={{ paddingBottom: 5 }}>{strings.tooltip_ability_builds_expired}</div>}
         </ReactTooltip>
       </div>
     ),
-  },
-];
+  });
+
+  return cols;
+};
 
 export const benchmarksColumns = (match) => {
   const cols = [
@@ -244,7 +279,6 @@ export const purchaseTimesColumns = (match) => {
     cols.push({
       displayName: `${curTime / 60}'`,
       field: 'purchase_log',
-
       displayFn: (row, column, field) => (<div>
         {field ? field
         .filter(purchase => (purchase.time >= curTime - bucket && purchase.time < curTime))
@@ -263,7 +297,7 @@ export const purchaseTimesColumns = (match) => {
 export const lastHitsTimesColumns = (match) => {
   const cols = [heroTdColumn];
   const bucket = 300;
-  for (let i = 0; i <= match.duration; i += bucket) {
+  for (let i = bucket; i <= match.duration; i += bucket) {
     const curTime = i;
     cols.push({
       displayName: `${curTime / 60}'`,
@@ -287,10 +321,10 @@ export const performanceColumns = [
   }, {
     displayName: strings.th_map,
     tooltip: strings.tooltip_map,
-    field: 'posData',
+    field: 'lane_pos',
     displayFn: (row, col, field) => (field ?
-      <Heatmap width={80} points={field.lane_pos} /> :
-        <div />),
+      <Heatmap width={80} points={unpackPositionData(field)} /> :
+      <div />),
   }, {
     displayName: strings.th_lane_efficiency,
     tooltip: strings.tooltip_lane_efficiency,
@@ -420,41 +454,49 @@ export const unitKillsColumns = [
     tooltip: strings.farm_heroes,
     field: 'hero_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_creeps,
     tooltip: strings.farm_creeps,
     field: 'lane_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_neutrals,
     tooltip: strings.farm_neutrals,
     field: 'neutral_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_ancients,
     tooltip: strings.farm_ancients,
     field: 'ancient_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_towers,
     tooltip: strings.farm_towers,
     field: 'tower_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_couriers,
     tooltip: strings.farm_couriers,
     field: 'courier_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_roshan,
     tooltip: strings.farm_roshan,
     field: 'roshan_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_necronomicon,
     tooltip: strings.farm_necronomicon,
     field: 'necronomicon_kills',
     sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_other,
     field: 'specific',
@@ -476,14 +518,29 @@ export const actionsColumns = [heroTdColumn, {
     tooltip: strings[`tooltip_${orderTypes[orderType]}`],
     field: orderType,
     sortFn: row => (row.actions ? row.actions[orderType] : 0),
-    displayFn: row => (row.actions ? row.actions[orderType] : ''),
+    displayFn: row => (row.actions ? (row.actions[orderType] || '-') : '-'),
   })));
 
 export const runesColumns = [heroTdColumn]
   .concat(Object.keys(runes).map(runeType => ({
-    displayName: strings[`rune_${runeType}`],
+    displayName: (
+      <div
+        className={styles.runes}
+        data-tip data-for={`rune_${runeType}`}
+      >
+        <img
+          src={`/assets/images/dota2/runes/${runeType}.png`}
+          role="presentation"
+        />
+        <ReactTooltip id={`rune_${runeType}`} effect="solid">
+          <span>
+            {strings[`rune_${runeType}`]}
+          </span>
+        </ReactTooltip>
+      </div>
+    ),
     field: 'runes',
-    displayFn: (row, col, field) => (field ? field[runeType] : ''),
+    displayFn: (row, col, field) => (field ? (field[runeType] || '-') : '-'),
   })));
 
 
@@ -513,7 +570,7 @@ export const cosmeticsColumns = [heroTdColumn, {
         rel="noopener noreferrer"
       >
         <img
-          src={`http://cdn.dota2.com/apps/570/${cosmetic.image_path}`} role="presentation"
+          src={`${API_HOST}/apps/570/${cosmetic.image_path}`} role="presentation"
           style={{
             borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : styles.gray}`,
           }}
@@ -539,7 +596,7 @@ export const goldReasonsColumns = [heroTdColumn]
       displayName: strings[gr],
       field: gr,
       sortFn: row => (row.gold_reasons ? row.gold_reasons[gr.substring('gold_reasons_'.length)] : 0),
-      displayFn: row => (row.gold_reasons ? row.gold_reasons[gr.substring('gold_reasons_'.length)] : ''),
+      displayFn: row => (row.gold_reasons ? (row.gold_reasons[gr.substring('gold_reasons_'.length)] || '-') : '-'),
     })));
 
 export const xpReasonsColumns = [heroTdColumn]
@@ -549,7 +606,7 @@ export const xpReasonsColumns = [heroTdColumn]
       displayName: strings[xpr],
       field: xpr,
       sortFn: row => (row.xp_reasons ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] : 0),
-      displayFn: row => (row.xp_reasons ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] : ''),
+      displayFn: row => (row.xp_reasons ? (row.xp_reasons[xpr.substring('xp_reasons_'.length)] || '-') : '-'),
     })));
 
 export const objectiveDamageColumns = [heroTdColumn]
@@ -557,7 +614,7 @@ export const objectiveDamageColumns = [heroTdColumn]
     .map(obj => ({
       displayName: strings[obj],
       field: 'objective_damage',
-      displayFn: (row, col, field) => (field ? field[obj.substring('objective_'.length)] : '-'),
+      displayFn: (row, col, field) => (field ? (field[obj.substring('objective_'.length)] || '-') : '-'),
     })));
 
 

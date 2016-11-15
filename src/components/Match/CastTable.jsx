@@ -1,3 +1,4 @@
+/* global API_HOST */
 import React from 'react';
 import {
   Tabs,
@@ -8,9 +9,6 @@ import {
 } from 'components/Visualizations';
 import heroes from 'dotaconstants/json/heroes.json';
 // import items from 'dotaconstants/json/items.json';
-import {
-  API_HOST,
-} from 'config';
 import strings from 'lang';
 import Table from '../Table/Table';
 
@@ -25,14 +23,17 @@ const castsColumns = [{
   displayName: strings.th_casts,
   tooltip: strings.tooltip_casts,
   field: 'casts',
+  displayFn: (row, col, field) => field || '-',
 }, {
   displayName: strings.th_hits,
   tooltip: strings.tooltip_hits,
   field: 'hero_hits',
+  displayFn: (row, col, field) => field || '-',
 }, {
   displayName: strings.th_damage,
   tooltip: strings.tooltip_damage,
   field: 'damage_inflictor',
+  displayFn: (row, col, field) => field || '-',
 }];
 
 const getCastArray = (pm) => {

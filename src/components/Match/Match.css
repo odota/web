@@ -1,5 +1,14 @@
 @import "../palette.css";
 
+:root {
+  --ward-log-height: 50px;
+}
+
+:export {
+  wardLogRowOddSurfaceColor: var(--tableRowOddSurfaceColor);
+  wardLogRowEvenSurfaceColor: var(--tableRowEvenSurfaceColor);
+}
+
 .Header {
   text-align: center;
   display: block;
@@ -17,7 +26,7 @@
   & .ability {
     position: relative;
     display: inline-block;
-    margin: 0 3px;
+    margin: 0 2px;
 
     &:first-of-type {
       margin-left: 0;
@@ -43,6 +52,7 @@
   & > div {
     pointer-events: auto !important;
     margin-left: 3px !important;
+    margin-top: 1px !important;
     padding: 6px 12px 2px !important;
 
     &:hover {
@@ -54,6 +64,9 @@
       right: 0 !important;
       top: 0 !important;
     }
+  }
+  & svg {
+    padding-left: 7px;
   }
 }
 
@@ -72,6 +85,22 @@
       margin-top: 14px;
     }
   }
+  & .map {
+    margin: 0 auto;
+  }
+  & .centeredMap {
+    width: 312px !important;
+    display: block;
+  }
+  @media only screen and (max-width: 370px) {
+    & .centeredMap {
+      width: 262px !important;
+      display: block;
+    }
+    & .map {
+      width: 262px !important;
+    }
+  }
 
   @media only screen and (max-width: 1023px) {
     & > div {
@@ -83,22 +112,6 @@
     }
     & .map {
       width: 312px;
-      margin: 0 auto;
-    }
-  }
-  @media only screen and (max-width: 370px) {
-    & .map {
-      width: 250px;
-
-      & div > div:last-of-type {
-        width: 250px;
-        height: 250px;
-
-        & img:first-of-type {
-          width: 250px;
-          height: 250px;
-        }
-      }
     }
   }
 }
@@ -110,10 +123,13 @@
   filter: drop-shadow(0 0 5px var(--colorDanger));
   fill: black !important;
 }
+.iconRadiant, .iconDire {
+  margin-left: 5px;
+}
 
 .matchNumbers {
-  text-align: right;
-  padding-top: 5px;
+  text-align: center;
+  margin-bottom: 5px;
   
   & span {
     font-size: var(--fontSizeSmall);
@@ -121,25 +137,16 @@
     margin-left: 20px;
     white-space: pre-line;
   }
-  & > div {
+  & > div > div {
     display: inline;
-    vertical-align: middle;
+    margin: 5px;
 
-    &:first-of-type {
+    @media only screen and (max-width: 560px) {
+      display: block;
+      line-height: 2;
+
       & span {
         margin-left: 0;
-      }
-    }
-    & > div {
-      display: inline;
-      margin: 5px;
-      @media only screen and (max-width: 560px) {
-        display: block;
-        line-height: 2;
-
-        & span {
-          margin-left: 0;
-        }
       }
     }
   }
@@ -148,6 +155,117 @@
 .unusedItem {
   display: inline-block;
   vertical-align: middle;
+}
+
+.wardLog {
+  width: 100%;
+  font-size: var(--fontSizeSmall);
+
+  & .wardLogHeader {
+    background-color: var(--tableHeaderSurfaceColor);
+    border-bottom: 1px solid var(--dividerLightColor);
+    text-transform: uppercase;
+    height: 58px;
+  }
+
+  & .wardLogList {
+    padding: 0;
+    margin: 0;
+  }
+
+  & .timespan {
+    text-align: right;
+  }
+}
+
+.wardLogItem {
+  height: var(--ward-log-height);
+  background: rgb(31, 33, 45);
+  border-bottom: 1px solid var(--dividerColor);
+}
+
+.trans-table-row-enter {
+  height: 0;
+  opacity: 0;
+
+  &.trans-table-row-enter-active {
+    height: var(--ward-log-height);
+    opacity: 1;
+    transition: height 300ms ease, opacity 300ms ease;
+  }
+}
+
+.trans-table-row-leave {
+  height:  var(--ward-log-height);
+  opacity: 1;
+
+  &.trans-table-row-leave-active {
+    height: 0px;
+    opacity: 0;
+    transition: height 300ms ease, opacity 300ms ease;
+  }
+}
+
+.ward-pin-enter {
+  opacity: 0;
+  
+  &.ward-pin-enter-active {
+    opacity: 1;
+    transition: opacity 150ms ease;
+  }
+}
+
+.ward-pin-leave {
+  opacity: 1;
+  
+  &.ward-pin-leave-active {
+    opacity: 0;
+    transition: opacity 150ms ease;
+  }
+}
+
+.sliderTicks {
+  position: relative;
+  height: 30px;
+  margin-top: 33px;
+  margin-bottom: -33px;
+  font-size: var(--fontSizeTiny);
+  border-color: var(--sliderTicksColor);
+  color: var(--sliderTicksColor);
+  
+  & .sliderTick {
+    position: absolute;
+    display: inline-block;
+    height: 100%;
+    padding: 0 0.4em;
+    border-width: 0px;
+    border-color: inherit;
+    border-style: solid;
+    border-left-width: 1px;
+    cursor: pointer;
+
+    transition: color 150ms ease, border-color 150ms ease;
+
+    &.active {
+      border-color: var(--sliderTicksColorActive);
+      color: var(--sliderTicksColorActive);
+    }
+  }
+}
+
+.wardLogPlayerFilter {
+  padding: 0 .5rem;
+  font-size: var(--fontSizeSmall);
+
+  & .filterHeader {
+    padding: .5rem;
+    border-bottom: 1px solid var(--dividerLightColor);
+  }
+
+  & .filterRow {
+    padding: .5em;
+    margin: 0 0;
+  }
 }
 
 .cosmetics {
@@ -193,3 +311,35 @@
     bottom: 6px;
   }
 }
+
+.thGold img {
+  height: 10px;
+  margin-right: 4px;
+}
+
+.runes {
+  & img {
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 5px;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, .08));
+  }
+  & span {
+    text-transform: none;
+    font-weight: var(--fontWeightNormal);
+  }
+}
+
+.items > div {
+  clear: both;
+}
+
+.tabBar {
+  & a {
+    @media only screen and (max-width: 1439px) {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }
+}
+

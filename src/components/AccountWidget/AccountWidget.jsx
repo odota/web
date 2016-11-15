@@ -1,13 +1,12 @@
+/* global API_HOST */
 import React from 'react';
 import { connect } from 'react-redux';
-import FlatButton from 'material-ui/FlatButton';
-import { API_HOST } from 'config';
 import { getPlayer } from 'actions';
 import strings from 'lang';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import LoggedIn from './LoggedIn';
-import styles from './AccountWidget.css';
+// import styles from './AccountWidget.css';
 // import FontIcon from 'material-ui/FontIcon';
 // import { PlayerPicture } from '../Player';
 
@@ -17,20 +16,20 @@ import styles from './AccountWidget.css';
         <FontIcon style={{ fontSize: 40 }} className="material-icons">
           exit_to_app
         </FontIcon>
+        <FlatButton
+            label={strings.app_login}
+            icon={<IconSteam />}
+            href={`${API_HOST}/login`}
+          />
 */
 const AccountWidget = ({ loading, error, user, style }) => (
-  <div style={style} className={styles.tabContainer}>
+  <div style={style}>
     {loading && !error && <Spinner />}
     {error && <Error />}
     {!error && !loading && user ? (
       <LoggedIn playerId={user.account_id} />
       )
-      :
-        <FlatButton
-          href={`${API_HOST}/login`}
-          label={strings.app_login}
-          hoverColor="#1976D2"
-        />
+      : <a href={`${API_HOST}/login`}>{strings.app_login}</a>
     }
   </div>
 );

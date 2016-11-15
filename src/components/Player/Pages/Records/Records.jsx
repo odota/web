@@ -14,7 +14,7 @@ const Records = ({ data, error, loading }) => (
   <div>
     <TableFilterForm />
     <Container title={strings.heading_records} error={error} loading={loading}>
-      <Table paginated columns={playerRecordsColumns} data={data} />
+      <Table columns={playerRecordsColumns} data={data} />
     </Container>
   </div>
 );

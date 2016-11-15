@@ -3,7 +3,7 @@
 .inflictorWithValue {
   position: relative;
   float: left;
-  margin: 2px;
+  margin: 1px;
   height: 29px;
 
   & .overlay {
@@ -20,9 +20,6 @@
   }
 
   & .tooltip {
-    & > div:matches(::after, ::before) {
-      content: none !important;
-    }
     & > div {
       max-width: 300px;
       
@@ -121,4 +118,22 @@
       margin-top: 5px;
     }
   }
+}
+
+.buff {
+  width: 29px;
+  height: 29px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 0 5px var(--defaultPrimaryColor);
+}
+
+.buffOverlay {
+  position: absolute;
+  bottom: 0;
+  right: 2px;
+  color: var(--textColorPrimary);
+  font-weight: var(--fontWeightMedium);
+  text-shadow: 1px 1px 2px black, -1px -1px 2px black;
 }

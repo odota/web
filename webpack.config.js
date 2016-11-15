@@ -18,7 +18,6 @@ const config = {
     path: 'build/',
     publicPath: 'build/',
   },
-  devTool: '#cheap-eval-module-source-map',
   resolve: {
     extensions: ['', '.jsx', '.js', '.css', '.json'],
     modules: [
@@ -27,7 +26,6 @@ const config = {
       path.resolve('./node_modules'),
     ],
   },
-  devtool: 'eval-source-map',
   module: {
     // We need to load flexboxgrid with css-modules, but others need to be loaded
     // with regular css loader.
@@ -72,6 +70,12 @@ const config = {
         ],
       },
     }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      },
+      API_HOST: JSON.stringify(process.env.API_HOST || '//api.opendota.com'),
+    }),
   ],
   devServer: {
     contentBase: '.',
@@ -82,10 +86,8 @@ const config = {
   },
 };
 
-function HashBundlePlugin() {
-  // Setup the plugin instance with options...
-}
-HashBundlePlugin.prototype.apply = function f(compiler) {
+function HashBundlePlugin() {}
+HashBundlePlugin.prototype.apply = (compiler) => {
   compiler.plugin('done', (statsData) => {
     const stats = statsData.toJson();
     if (!stats.errors.length) {
@@ -96,8 +98,10 @@ HashBundlePlugin.prototype.apply = function f(compiler) {
     }
   });
 };
+if (!isProd) {
+  config.devtool = 'eval-source-map';
+}
 if (isProd) {
-  delete config.devtool;
   config.plugins.push(new webpack.LoaderOptionsPlugin({
     minimize: true,
     debug: false,
@@ -109,10 +113,6 @@ if (isProd) {
       comments: false,
     },
     sourceMap: false,
-  }), new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-    },
   }), new HashBundlePlugin(), new webpack.optimize.DedupePlugin());
 }
 module.exports = config;

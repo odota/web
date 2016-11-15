@@ -23,7 +23,7 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
   // const totalWidth = getTotalWidth(columns);
   <div className={styles.innerContainer}>
     <MaterialTable fixedHeader={false} selectable={false}>
-      <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false} className={styles.header}>
+      <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
         <TableHeader
           columns={columns}
           sortState={sortState}
@@ -34,10 +34,7 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
       </MaterialTableHeader>
       <MaterialTableBody displayRowCheckbox={false} selectable={false}>
         {data.map((row, index) => (
-          <MaterialTableRow
-            key={index}
-            className={styles.row}
-          >
+          <MaterialTableRow key={index}>
             {columns.map((column, colIndex) => {
               const MaterialTableRowColumnStyle = {
                 // width: `${getWidthStyle(column.width, totalWidth)}%`,
@@ -81,11 +78,12 @@ const {
   string,
   func,
   number,
+  shape,
 } = React.PropTypes;
 
 Table.propTypes = {
-  data: arrayOf(),
-  columns: arrayOf(),
+  data: arrayOf(shape({})),
+  columns: arrayOf(shape({})),
   loading: bool,
   error: bool,
   sortState: string,

@@ -10,3 +10,23 @@
 .compact {
   justify-content: space-between;
 }
+
+.refreshButton {
+  position: relative;
+
+  /* Override material-ui */
+  & button {
+    min-width: 50px !important;
+  }
+
+  &[data-hint-position="top"] {
+    &::before {
+      top: -6px;
+      margin-left: 10px;
+    }
+    &::after {
+      margin-bottom: 6px;
+      margin-left: -50px;
+    }
+  }
+}
