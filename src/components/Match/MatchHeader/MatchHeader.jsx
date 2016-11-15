@@ -32,10 +32,10 @@ export default ({ match, user, loading }) => {
                   {strings.match_radiant_win}
                 </span>
               :
-              <span>
-                <IconDire />
-                {strings.match_dire_win}
-              </span>
+                <span>
+                  <IconDire />
+                  {strings.match_dire_win}
+                </span>
               }
             </div>
           </Col>
