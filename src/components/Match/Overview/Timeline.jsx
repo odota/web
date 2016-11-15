@@ -11,6 +11,7 @@ import {
 } from 'components/Icons';
 import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
+
 import heroes from 'dotaconstants/json/heroes.json';
 import barracksValue from 'dotaconstants/json/barracks_value.json';
 
@@ -237,7 +238,9 @@ export default ({ match }) => {
                           <div>
                             <header>
                               {strings.timeline_teamfight_deaths}
-                              <span className={styles.subtitle}>& gold delta</span>
+                              <span className={styles.subtitle}>
+                                & {strings.timeline_teamfight_gold_delta}, {formatSeconds(obj.start)} - {formatSeconds(obj.end)}
+                              </span>
                             </header>
                             {obj.deaths.map(death => (
                               <section key={death.key}>

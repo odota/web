@@ -51,13 +51,13 @@
   & header {
     margin-bottom: 3px;
     font-weight: var(--fontWeightNormal);
+  }
 
-    & .subtitle {
-      margin-left: 4px;
-      font-size: var(--fontSizeSmall);
-      font-weight: var(--fontWeightLight);
-      color: var(--colorMutedLight);
-    }
+  & .subtitle {
+    margin-left: 4px;
+    font-size: var(--fontSizeSmall);
+    font-weight: var(--fontWeightLight);
+    color: var(--colorMutedLight);
   }
 
   & mark {

@@ -390,6 +390,7 @@
   "timeline_aegis_snatched": "snatched",
   "timeline_aegis_denied": "denied",
   "timeline_teamfight_deaths": "Deaths",
+  "timeline_teamfight_gold_delta": "gold delta",
 
   "tooltip_mmr": "Solo MMR of the player",
   "tooltip_level": "Level achieved by hero",
