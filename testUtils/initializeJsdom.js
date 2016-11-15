@@ -1,5 +1,6 @@
 require('babel-register')({
-  extensions: ['.js', '.jsx']
+  extensions: ['.js', '.jsx'],
+  ignore: /node_modules\/.*/
 });
 require('css-modules-require-hook')({
   generateScopedName: '[name]_[local]',

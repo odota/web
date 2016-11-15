@@ -9,7 +9,7 @@
     "build": "NODE_ENV=production npm run lintnofix && npm run webpack",
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx",
-    "test": "NODE_ENV=test mocha --ui bdd --reporter nyan -r testUtils/initializeJsdom.js $(find src -name '*.spec.*')",
+    "test": "NODE_PATH=./src NODE_ENV=test mocha --ui bdd --reporter nyan -r testUtils/initializeJsdom.js $(find src -name '*.spec.*')",
     "test:watch": "npm test -- --watch --watch-extensions jsx,js"
   },
   "repository": {
