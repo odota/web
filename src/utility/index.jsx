@@ -375,4 +375,4 @@ export const threshold = _.curry((start, limits, values, value) => {
   return findLast(values, (v, i) => _.inRange(limitsWithStart[i], limitsWithStart[i + 1], value));
 });
 
-export const splitHeroName = name => name.split('npc_dota_hero_')[1];
+export const getShortHeroName = name => name.split('npc_dota_hero_')[1];

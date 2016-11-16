@@ -266,7 +266,13 @@ function renderMatch(m) {
   });
 
   if (m.objectives && m.objectives.length > 0) {
-    m.objectives.map(obj => obj.slot > 4 && (obj.slot += 123)); /* eslint no-param-reassign: ["error", { "props": false }] */
+    m.objectives.map(obj => (
+      obj.player_slot === undefined && (
+        obj.slot > 4
+          ? Object.defineProperty(obj, 'player_slot', { value: obj.slot + 123 })
+          : obj.slot > 0 && Object.defineProperty(obj, 'player_slot', { value: obj.slot })
+      )
+    ));
   }
 
   return {

@@ -2,7 +2,7 @@ import React from 'react';
 import {
   formatSeconds,
   isRadiant,
-  splitHeroName,
+  getShortHeroName,
 } from 'utility';
 import {
   IconBloodDrop,
@@ -36,7 +36,7 @@ export default ({ match }) => {
     obj.push([{
       type: 'firstblood',
       time: match.objectives[fbIndex].time,
-      player_slot: match.objectives[fbIndex].slot,
+      player_slot: match.objectives[fbIndex].player_slot,
       key: fbKey && fbKey.length > 0 && fbKey[0][0].key,
     }]
 
@@ -84,7 +84,7 @@ export default ({ match }) => {
               (obj.type === 'CHAT_MESSAGE_DENIED_AEGIS' && 'denied')
           ),
           time: obj.time,
-          player_slot: obj.slot,
+          player_slot: obj.player_slot,
         })) || [],
     );
 
@@ -168,7 +168,7 @@ export default ({ match }) => {
                               .map(player => (
                                 <aside style={{ color: playerColors[obj.player_slot] }}>
                                   <img
-                                    src={`${API_HOST}/apps/dota2/images/heroes/${splitHeroName(heroes[player.hero_id].name)}_icon.png`}
+                                    src={`${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(heroes[player.hero_id].name)}_icon.png`}
                                     role="presentation"
                                   />
                                   {player.name || player.personaname || strings.general_anonymous}
@@ -181,7 +181,7 @@ export default ({ match }) => {
                             {obj.key &&
                               <aside>
                                 <img
-                                  src={`${API_HOST}/apps/dota2/images/heroes/${splitHeroName(obj.key)}_icon.png`}
+                                  src={`${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(obj.key)}_icon.png`}
                                   role="presentation"
                                 />
                                 {match.players
@@ -204,7 +204,7 @@ export default ({ match }) => {
                               <section key={i}>
                                 <aside style={{ color: playerColors[player.player_slot] }}>
                                   <img
-                                    src={`${API_HOST}/apps/dota2/images/heroes/${splitHeroName(heroes[player.hero_id].name)}_icon.png`}
+                                    src={`${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(heroes[player.hero_id].name)}_icon.png`}
                                     role="presentation"
                                   />
                                   {player.name || player.personaname || strings.general_anonymous}
@@ -234,7 +234,7 @@ export default ({ match }) => {
                                 <aside style={{ color: playerColors[match.players[death.key].player_slot] }}>
                                   <img
                                     src={`
-                                      ${API_HOST}/apps/dota2/images/heroes/${splitHeroName(heroes[match.players[death.key].hero_id].name)}_icon.png
+                                      ${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(heroes[match.players[death.key].hero_id].name)}_icon.png
                                     `}
                                     role="presentation"
                                   />
