@@ -416,7 +416,7 @@
   "tooltip_DOTA_UNIT_ORDER_MOVE_TO_POSITION":"玩家向某个点移动的次数",
   "tooltip_DOTA_UNIT_ORDER_MOVE_TO_TARGET":"玩家向某个目标移动的次数",
   "tooltip_DOTA_UNIT_ORDER_ATTACK_MOVE":"玩家向某个点攻击的次数（移动攻击）",
-  "tooltip_DOTA_UNIT_ORDER_ATTACK_TARGET":"玩家向某个目的攻击的次数",
+  "tooltip_DOTA_UNIT_ORDER_ATTACK_TARGET":"玩家向某个目标攻击的次数",
   "tooltip_DOTA_UNIT_ORDER_CAST_POSITION":"玩家向某个点释放技能或物品的次数",
   "tooltip_DOTA_UNIT_ORDER_CAST_TARGET":"玩家向某个目标释放技能或物品的次数",
   "tooltip_DOTA_UNIT_ORDER_CAST_NO_TARGET":"玩家释放无目的的技能或物品的次数",
