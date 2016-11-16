@@ -137,12 +137,12 @@ const matchPages = [{
   key: 'combat',
   parsed: true,
   content: match => (<div>
-    <div style={{ display: 'flex', flexWrap: 'wrap', overflow: 'auto' }}>
-      <div style={{ flex: 1, marginRight: '5px' }}>
+    <div className={styles.flexContainer}>
+      <div className={styles.flexElement}>
         <Heading title={strings.heading_kills} />
         <CrossTable match={match} field1="killed" field2="killed_by" />
       </div>
-      <div style={{ flex: 1, marginRight: '5px' }}>
+      <div className={styles.flexElement}>
         <Heading title={strings.heading_damage} />
         <CrossTable match={match} field1="damage" field2="damage_taken" />
       </div>
@@ -156,11 +156,11 @@ const matchPages = [{
   content: match => (<div>
     <TeamTable match={match} columns={unitKillsColumns} heading={strings.heading_unit_kills} />
     <TeamTable match={match} columns={lastHitsTimesColumns(match)} heading={strings.heading_last_hits} />
-    <div style={{ display: 'flex', flexWrap: 'wrap', overflow: 'auto' }}>
-      <div style={{ flex: 1, marginRight: '5px' }}>
+    <div className={styles.flexContainer}>
+      <div className={styles.flexElement}>
         <TeamTable match={match} columns={goldReasonsColumns} heading={strings.heading_gold_reasons} />
       </div>
-      <div style={{ flex: 1, marginRight: '5px' }}>
+      <div className={styles.flexElement}>
         <TeamTable match={match} columns={xpReasonsColumns} heading={strings.heading_xp_reasons} />
       </div>
     </div>
