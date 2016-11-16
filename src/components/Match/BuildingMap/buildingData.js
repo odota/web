@@ -129,11 +129,11 @@ export default [
   },
   {
     id: 'brtd',
-    style: 'position: absolute; top: 4%; left: 74%;',
+    style: 'position: absolute; top: 7.5%; left: 74%;',
   },
   {
     id: 'bmtd',
-    style: 'position: absolute; top: 7.5%; left: 74%;',
+    style: 'position: absolute; top: 4%; left: 74%;',
   },
   {
     id: 'ar',
