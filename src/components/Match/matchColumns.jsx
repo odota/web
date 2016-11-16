@@ -324,7 +324,7 @@ export const performanceColumns = [
     field: 'lane_pos',
     displayFn: (row, col, field) => (field ?
       <Heatmap width={80} points={unpackPositionData(field)} /> :
-        <div />),
+      <div />),
   }, {
     displayName: strings.th_lane_efficiency,
     tooltip: strings.tooltip_lane_efficiency,
