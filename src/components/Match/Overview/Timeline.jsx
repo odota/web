@@ -2,7 +2,7 @@ import React from 'react';
 import {
   formatSeconds,
   isRadiant,
-  playerColors,
+  splitHeroName,
 } from 'utility';
 import {
   IconBloodDrop,
@@ -12,24 +12,11 @@ import {
 import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
 
+import playerColors from 'dotaconstants/json/player_colors.json';
 import heroes from 'dotaconstants/json/heroes.json';
 import barracksValue from 'dotaconstants/json/barracks_value.json';
 
 import styles from './Timeline.css';
-
-// Need this since some old matches have only `slot`, ex: 271008789
-const slotToPlayerSlot = {
-  0: 0,
-  1: 1,
-  2: 2,
-  3: 1,
-  4: 4,
-  5: 128,
-  6: 129,
-  7: 130,
-  8: 131,
-  9: 132,
-};
 
 export default ({ match }) => {
   const preHorn = 90; // Seconds before the battle horn
@@ -49,7 +36,7 @@ export default ({ match }) => {
     obj.push([{
       type: 'firstblood',
       time: match.objectives[fbIndex].time,
-      player_slot: slotToPlayerSlot[match.objectives[fbIndex].slot],
+      player_slot: match.objectives[fbIndex].slot,
       key: fbKey && fbKey.length > 0 && fbKey[0][0].key,
     }]
 
@@ -97,7 +84,7 @@ export default ({ match }) => {
               (obj.type === 'CHAT_MESSAGE_DENIED_AEGIS' && 'denied')
           ),
           time: obj.time,
-          player_slot: slotToPlayerSlot[obj.slot],
+          player_slot: obj.slot,
         })) || [],
     );
 
@@ -181,7 +168,7 @@ export default ({ match }) => {
                               .map(player => (
                                 <aside style={{ color: playerColors[obj.player_slot] }}>
                                   <img
-                                    src={`${API_HOST}/apps/dota2/images/heroes/${heroes[player.hero_id].name.split('npc_dota_hero_')[1]}_icon.png`}
+                                    src={`${API_HOST}/apps/dota2/images/heroes/${splitHeroName(heroes[player.hero_id].name)}_icon.png`}
                                     role="presentation"
                                   />
                                   {player.name || player.personaname || strings.general_anonymous}
@@ -194,7 +181,7 @@ export default ({ match }) => {
                             {obj.key &&
                               <aside>
                                 <img
-                                  src={`${API_HOST}/apps/dota2/images/heroes/${obj.key.split('npc_dota_hero_')[1]}_icon.png`}
+                                  src={`${API_HOST}/apps/dota2/images/heroes/${splitHeroName(obj.key)}_icon.png`}
                                   role="presentation"
                                 />
                                 {match.players
@@ -217,7 +204,7 @@ export default ({ match }) => {
                               <section key={i}>
                                 <aside style={{ color: playerColors[player.player_slot] }}>
                                   <img
-                                    src={`${API_HOST}/apps/dota2/images/heroes/${heroes[player.hero_id].name.split('npc_dota_hero_')[1]}_icon.png`}
+                                    src={`${API_HOST}/apps/dota2/images/heroes/${splitHeroName(heroes[player.hero_id].name)}_icon.png`}
                                     role="presentation"
                                   />
                                   {player.name || player.personaname || strings.general_anonymous}
@@ -247,9 +234,7 @@ export default ({ match }) => {
                                 <aside style={{ color: playerColors[match.players[death.key].player_slot] }}>
                                   <img
                                     src={`
-                                      ${API_HOST}/apps/dota2/images/heroes/${
-                                        heroes[match.players[death.key].hero_id].name.split('npc_dota_hero_')[1]
-                                      }_icon.png
+                                      ${API_HOST}/apps/dota2/images/heroes/${splitHeroName(heroes[match.players[death.key].hero_id].name)}_icon.png
                                     `}
                                     role="presentation"
                                   />

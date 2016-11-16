@@ -264,6 +264,11 @@ function renderMatch(m) {
     }
     return newPlayer;
   });
+
+  if (m.objectives && m.objectives.length > 0) {
+    m.objectives.map(obj => obj.slot > 4 && (obj.slot += 123)); /* eslint no-param-reassign: ["error", { "props": false }] */
+  }
+
   return {
     ...m,
     graphData: generateGraphData(m),
