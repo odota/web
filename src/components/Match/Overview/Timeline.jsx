@@ -168,7 +168,10 @@ export default ({ match }) => {
                               .map(player => (
                                 <aside style={{ color: playerColors[obj.player_slot] }}>
                                   <img
-                                    src={`${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(heroes[player.hero_id].name)}_icon.png`}
+                                    src={heroes[player.hero_id]
+                                      ? `${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(heroes[player.hero_id].name)}_icon.png`
+                                      : '/assets/images/blank-1x1.gif'
+                                    }
                                     role="presentation"
                                   />
                                   {player.name || player.personaname || strings.general_anonymous}
@@ -204,7 +207,10 @@ export default ({ match }) => {
                               <section key={i}>
                                 <aside style={{ color: playerColors[player.player_slot] }}>
                                   <img
-                                    src={`${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(heroes[player.hero_id].name)}_icon.png`}
+                                    src={heroes[player.hero_id]
+                                      ? `${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(heroes[player.hero_id].name)}_icon.png`
+                                      : '/assets/images/blank-1x1.gif'
+                                    }
                                     role="presentation"
                                   />
                                   {player.name || player.personaname || strings.general_anonymous}
@@ -233,9 +239,12 @@ export default ({ match }) => {
                               <section key={death.key}>
                                 <aside style={{ color: playerColors[match.players[death.key].player_slot] }}>
                                   <img
-                                    src={`
-                                      ${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(heroes[match.players[death.key].hero_id].name)}_icon.png
-                                    `}
+                                    src={heroes[match.players[death.key].hero_id]
+                                      ? `${API_HOST}/apps/dota2/images/heroes/${
+                                          getShortHeroName(heroes[match.players[death.key].hero_id].name)
+                                        }_icon.png`
+                                      : '/assets/images/blank-1x1.gif'
+                                    }
                                     role="presentation"
                                   />
                                   {match.players[death.key].name || match.players[death.key].personaname || strings.general_anonymous}
