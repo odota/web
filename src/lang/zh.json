@@ -409,7 +409,7 @@
   "tooltip_loss":"失败的比赛中最大的经济落后",
   "tooltip_items":"购买的物品",
   "tooltip_lane":"根据游戏前期英雄位置推断的分路",
-  "tooltip_map":"根据游戏前期英雄位置推断绘制的热力图",
+  "tooltip_map":"游戏前期玩家热力图",
   "tooltip_lane_efficiency":"前10分钟内这个分路上出现资源的百分比",
   "tooltip_lane_efficiency_pct":"前10分钟内这个分路上出现资源的百分比",
   "tooltip_pings":"在小地图上发信号的次数",
