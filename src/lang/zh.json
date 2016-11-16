@@ -453,6 +453,6 @@
   "subheading_ranking":"根据胜率和比赛中可见的平均天梯分数计算。排名每季度重置。",
   "teamfight_participation":"参战率",
   "teamfight_score":"团战击杀",
-  "teamfight_radiant_gold_adv":"正向为天辉奖励经济",
-  "teamfight_radiant_xp_adv":"正向为天辉奖励经验"
+  "teamfight_radiant_gold_adv":"正向为天辉经济优势",
+  "teamfight_radiant_xp_adv":"正向为天辉经验优势"
 }
