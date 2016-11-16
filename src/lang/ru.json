@@ -344,7 +344,7 @@
   "ward_log_type":"Тип",
   "ward_log_owner":"Владелец",
   "ward_log_entered_at":"Размещение",
-  "ward_log_left_at":"Left",
+  "ward_log_left_at":"Осталось",
   "ward_log_duration":"Продолжительность",
   "ward_log_killed_by":"Уничтожен",
   "time_just_now":"только что",
