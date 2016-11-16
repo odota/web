@@ -50,9 +50,6 @@ const config = {
       test: /\.(js|jsx)$/,
       exclude: /(node_modules)/,
       loader: 'babel', // 'babel-loader' is also a legal name to reference
-      query: {
-        presets: ['stage-3', 'react', 'es2015'],
-      },
     }],
   },
   plugins: [
