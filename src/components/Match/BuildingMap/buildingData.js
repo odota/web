@@ -45,11 +45,11 @@ export default [
   },
   {
     id: 'brbr',
-    style: 'position: absolute; top: 90.3%; left: 19%;',
+    style: 'position: absolute; top: 86.3%; left: 19%;',
   },
   {
     id: 'bmbr',
-    style: 'position: absolute; top: 86.3%; left: 19%;',
+    style: 'position: absolute; top: 90.3%; left: 19%;',
   },
   {
     id: 'brmr',
@@ -129,11 +129,11 @@ export default [
   },
   {
     id: 'brtd',
-    style: 'position: absolute; top: 7.5%; left: 74%;',
+    style: 'position: absolute; top: 4%; left: 74%;',
   },
   {
     id: 'bmtd',
-    style: 'position: absolute; top: 4%; left: 74%;',
+    style: 'position: absolute; top: 7.5%; left: 74%;',
   },
   {
     id: 'ar',
