@@ -87,6 +87,7 @@
     "json-loader": "^0.5.4",
     "mocha": "^3.1.2",
     "react-addons-perf": "^15.3.2",
+    "react-addons-test-utils": "^15.4.0",
     "react-perf-tool": "^0.1.7",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
