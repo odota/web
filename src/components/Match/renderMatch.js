@@ -265,17 +265,17 @@ function renderMatch(m) {
     return newPlayer;
   });
 
-  if (m.objectives && m.objectives.length > 0) {
-    m.objectives.forEach((obj) => {
-      if (obj.slot >= 0 && obj.player_slot === undefined) {
-        if (obj.slot > 4) {
-          Object.defineProperty(obj, 'player_slot', { value: obj.slot + 123 });
-        } else {
-          Object.defineProperty(obj, 'player_slot', { value: obj.slot });
-        }
+  const newObjectives = m.objectives.map((obj) => {
+    if (obj.slot > 0) {
+      return {
+        ...obj,
+        player_slot: obj.slot > 4 ? obj.slot + 123 : obj.slot,
       }
-    });
-  }
+    }
+    return {
+      ...obj,
+    }
+  });
 
   return {
     ...m,
@@ -283,6 +283,7 @@ function renderMatch(m) {
     teamfights: generateTeamfights(m),
     players: newPlayers,
     wards_log: generateWardLog(Immutable(m)),
+    objectives: newObjectives,
   };
 }
 
