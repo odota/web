@@ -343,3 +343,13 @@
   }
 }
 
+.flexContainer {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.flexElement {
+  flex: 1;
+  margin-right: 5px;
+}
