@@ -353,3 +353,12 @@
   flex: 1;
   margin-right: 5px;
 }
+
+.matchCrossTable svg {
+  vertical-align: top;
+  height: 26px !important;
+  width: 26px !important;
+  margin-right: 6px;
+  opacity: .8;
+  fill: var(--textColorPrimary);
+}
