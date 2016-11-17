@@ -270,11 +270,11 @@ function renderMatch(m) {
       return {
         ...obj,
         player_slot: obj.slot > 4 ? obj.slot + 123 : obj.slot,
-      }
+      };
     }
     return {
       ...obj,
-    }
+    };
   });
 
   return {
