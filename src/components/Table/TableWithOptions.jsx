@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import uuid from 'node-uuid';
+import uuid from 'uuid';
 import Table from './Table';
 import withSort from './SortedTable';
 import withPagination from './PaginatedTable';

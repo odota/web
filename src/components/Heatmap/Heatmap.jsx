@@ -1,7 +1,7 @@
 import React, {
   Component,
 } from 'react';
-import uuid from 'node-uuid';
+import uuid from 'uuid';
 import h337 from 'heatmap.js';
 
 /**
