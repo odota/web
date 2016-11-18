@@ -7,7 +7,7 @@ import {
 import heroes from 'dotaconstants/json/heroes.json';
 import specific from 'dotaconstants/json/specific.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
-import Immutable from 'seamless-immutable';
+import immutable from 'seamless-immutable';
 import _ from 'lodash/fp';
 
 import analysis from './analysis';
@@ -269,7 +269,7 @@ function renderMatch(m) {
     graphData: generateGraphData(m),
     teamfights: generateTeamfights(m),
     players: newPlayers,
-    wards_log: generateWardLog(Immutable(m)),
+    wards_log: generateWardLog(immutable(m)),
   };
 }
 
