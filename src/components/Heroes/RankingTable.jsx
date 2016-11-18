@@ -2,6 +2,7 @@ import React from 'react';
 import Table from 'components/Table';
 import strings from 'lang';
 import { transformations } from 'utility';
+import SocialPerson from 'material-ui/svg-icons/social/person';
 
 const rankingColumns = [{
   displayName: '#',
@@ -9,7 +10,17 @@ const rankingColumns = [{
 }, {
   displayName: strings.th_name,
   displayFn: (row, col, field) => {
-    const subtitle = <span>{`${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`}</span>;
+    const subtitle = (
+      <span>
+        <section
+          data-hint={strings.th_solo_mmr}
+          data-hint-position="bottom"
+        >
+          <SocialPerson />
+        </section>
+        {row.solo_competitive_rank || strings.general_unknown}
+      </span>
+    );
     return transformations.player({ ...row, subtitle }, col, field);
   },
 }, {
