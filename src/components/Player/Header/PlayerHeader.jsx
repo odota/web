@@ -23,7 +23,7 @@ const getRegistrationBadge = registered => registered && (
   />
 );
 
-const PlayerHeader = ({ playerName, playerId, picture, registered, loading, error, width, playerSoloCompetitiveRank }) => {
+const PlayerHeader = ({ playerName, officialPlayerName, playerId, picture, registered, loading, error, width, playerSoloCompetitiveRank }) => {
   if (error) {
     return <Error />;
   }
@@ -74,7 +74,7 @@ const PlayerHeader = ({ playerName, playerId, picture, registered, loading, erro
         </div>
         <div className={styles.playerInfo}>
           <div className={styles.titleNameButtons}>
-            <span className={styles.playerName}>{playerName}</span>
+            <span className={styles.playerName}>{officialPlayerName || playerName}</span>
             <PlayerBadges playerId={playerId} />
           </div>
           <PlayerStats playerId={playerId} compact={width <= HEADER_SM_BREAK} />
@@ -90,6 +90,7 @@ const mapStateToProps = (state, ownProps) => ({
   loading: player.getLoading(state, ownProps.playerId),
   error: player.getError(state, ownProps.playerId),
   playerName: player.getPlayerName(state, ownProps.playerId),
+  officialPlayerName: player.getOfficialPlayerName(state, ownProps.playerId),
   playerSoloCompetitiveRank: player.getSoloCompetitiveRank(state, ownProps.playerId),
   picture: player.getPictureFull(state, ownProps.playerId),
   registered: player.getLastLogin(state, ownProps.playerId),
