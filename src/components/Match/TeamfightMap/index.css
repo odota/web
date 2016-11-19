@@ -1,0 +1,54 @@
+@import "../../palette.css";
+
+.teamfightContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tableContainer {
+  flex-grow: 1;
+  overflow-x: hidden;
+}
+
+.map {
+  position: relative;
+  height: 400px;
+  width: 400px;
+  background: url("/assets/images/map.png");
+  background-size: contain;
+  margin: 0 10px 10px 10px;
+}
+
+.teamfightIcon {
+  position: absolute;
+  /*Have to override the widths set by the icon media queries*/
+  width: 32px !important;
+  height: 32px !important;
+  /*Have to override the react-tooltip '?' cursor*/
+  cursor: pointer !important;
+}
+
+.goldChange {
+  color: var(--colorSuccess);
+}
+
+.winner {
+  filter: drop-shadow(0 0 20px #000);
+}
+
+.radiant {
+  composes: radiant from "../MatchHeader/MatchHeader.css";
+  composes: winner;
+}
+.dire {
+  composes: dire from "../MatchHeader/MatchHeader.css";
+  composes: winner;
+}
+
+.selected {
+  & svg {
+    fill: var(--colorGolden) !important;
+  }
+}

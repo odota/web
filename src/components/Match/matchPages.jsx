@@ -1,16 +1,12 @@
 import React from 'react';
 import {
-  formatSeconds,
   isRadiant,
 } from 'utility';
 import strings from 'lang';
-import {
-  Tabs,
-  Tab,
-} from 'material-ui/Tabs';
 import Heading from 'components/Heading';
 import Table from 'components/Table';
 import { IconRadiant, IconDire } from 'components/Icons';
+import TeamfightMap from 'components/Match/TeamfightMap';
 import VisionPage from './VisionPage';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
@@ -32,7 +28,6 @@ import {
   xpReasonsColumns,
   objectiveDamageColumns,
   analysisColumns,
-  teamfightColumns,
   inflictorsColumns,
 } from './matchColumns';
 import Overview from './Overview';
@@ -161,20 +156,10 @@ const matchPages = [Overview, {
   name: strings.tab_teamfights,
   key: 'teamfights',
   parsed: true,
-  content: match => (
+  content: ({ teamfights = [] }) => (
     <div>
       <Heading title={strings.heading_teamfights} />
-      <Tabs>
-        {(match.teamfights || []).map((teamfight, i) => (
-          <Tab
-            key={i}
-            style={{ backgroundColor: teamfight.radiant_gold_delta >= 0 ? '#66BB6A' : '#ff4c4c' }}
-            label={`${formatSeconds(teamfight.start)}, ${teamfight.radiant_gold_delta}`}
-          >
-            <Table data={teamfight.players.filter(p => p.participate)} columns={teamfightColumns} />
-          </Tab>),
-        )}
-      </Tabs>
+      <TeamfightMap teamfights={teamfights} />
     </div>),
 }, {
   name: strings.tab_analysis,
