@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import c3 from 'c3';
-import uuid from 'node-uuid';
+import uuid from 'uuid';
 
 const Graph = ({ id, height = 320 }) => (
   <div style={{ height }} id={id} />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import uuid from 'node-uuid';
+import uuid from 'uuid';
 import { table } from 'reducers';
 import { setCurrentPage } from 'actions';
 import Pagination from './Pagination';

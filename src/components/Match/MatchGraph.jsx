@@ -1,7 +1,7 @@
 import React, {
   Component,
 } from 'react';
-import uuid from 'node-uuid';
+import uuid from 'uuid';
 import c3 from 'c3';
 import {
   formatSeconds,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import wordcloud from 'wordcloud';
-import uuid from 'node-uuid';
+import uuid from 'uuid';
 import styles from './Wordcloud.css';
 
 const stopWords = 'a,am,an,and,are,as,at,be,by,for,from,how,i,im,in,is,it,not,of,on,or,that,the,this,to,was,what,when,where,who,will,with';
