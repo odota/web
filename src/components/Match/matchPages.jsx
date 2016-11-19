@@ -15,10 +15,8 @@ import VisionPage from './VisionPage';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
 import MatchGraph from './MatchGraph';
-import BuildingMap from './BuildingMap';
 import MatchLog from './MatchLog';
 import {
-  overviewColumns,
   // abilityUpgradeColumns,
   benchmarksColumns,
   performanceColumns,
@@ -37,6 +35,7 @@ import {
   teamfightColumns,
   inflictorsColumns,
 } from './matchColumns';
+import Overview from './Overview';
 import styles from './Match.css';
 
 const filterMatchPlayers = (players, team = '') =>
@@ -44,7 +43,7 @@ const filterMatchPlayers = (players, team = '') =>
     ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === ''),
   ).sort((a, b) => a.player_slot - b.player_slot);
 
-const TeamTable = ({
+export const TeamTable = ({
   match,
   columns,
   heading = '',
@@ -63,62 +62,7 @@ const TeamTable = ({
   </div>
 );
 
-const firstNumbers = (match) => {
-  let tower;
-  let barracks;
-  let roshan;
-  if (match.objectives) {
-    tower = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_TOWER_KILL');
-    barracks = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_BARRACKS_KILL');
-    roshan = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_ROSHAN_KILL');
-  }
-  return (
-    <div>
-      {match.first_blood_time !== undefined &&
-      <div>
-        <span>{strings.match_first_blood} </span>
-        {formatSeconds(match.first_blood_time)}
-      </div>}
-      {tower >= 0 &&
-      <div>
-        <span>{strings.match_first_tower} </span>
-        {formatSeconds(match.objectives[tower].time)}
-      </div>}
-      {barracks >= 0 &&
-      <div>
-        <span>{strings.match_first_barracks} </span>
-        {formatSeconds(match.objectives[barracks].time)}
-      </div>}
-      {roshan >= 0 &&
-      <div>
-        <span>{strings.match_first_roshan} </span>
-        {formatSeconds(match.objectives[roshan].time)}
-      </div>}
-    </div>
-  );
-};
-
-const matchPages = [{
-  name: strings.tab_overview,
-  key: 'overview',
-  content: match => (
-    <div>
-      <div className={styles.matchNumbers}>
-        {firstNumbers(match)}
-      </div>
-      <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
-      <div className={styles.overviewMapGraph}>
-        <div className={`${styles.map} ${!match.version && styles.centeredMap}`}>
-          <BuildingMap match={match} />
-        </div>
-        {match.version &&
-        <div className={styles.graph}>
-          <MatchGraph match={match} type="difference" />
-        </div>}
-      </div>
-    </div>
-  ),
-}, {
+const matchPages = [Overview, {
   name: strings.tab_benchmarks,
   key: 'benchmarks',
   content: match => (<div>

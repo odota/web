@@ -186,10 +186,8 @@
   "match_button_reparse": "Re-parse",
   "match_button_replay": "Replay",
   "match_button_video": "Get video",
-  "match_first_blood": "First blood",
   "match_first_tower": "First tower",
   "match_first_barracks": "First barracks",
-  "match_first_roshan": "First roshan",
 
   "objective_tower1_top": "T1 Top",
   "objective_tower1_mid": "T1 Mid",
@@ -383,6 +381,14 @@
   "time_year": "year",
   "time_plural": "s",
   "time_past": "ago",
+
+  "timeline_firstblood": "drew first blood",
+  "timeline_firstblood_key": "drew first blood by killing",
+  "timeline_aegis_picked_up": "picked up",
+  "timeline_aegis_snatched": "snatched",
+  "timeline_aegis_denied": "denied",
+  "timeline_teamfight_deaths": "Deaths",
+  "timeline_teamfight_gold_delta": "gold delta",
 
   "tooltip_mmr": "Solo MMR of the player",
   "tooltip_level": "Level achieved by hero",

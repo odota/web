@@ -2,7 +2,7 @@ import React from 'react';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import strings from 'lang';
 import { TableLink } from 'components/Table';
-import { playerColors } from 'utility';
+import playerColors from 'dotaconstants/json/player_colors.json';
 import { IconTrophy } from 'components/Icons';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import styles from './HeroImage.css';

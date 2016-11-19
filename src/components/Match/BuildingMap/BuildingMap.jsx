@@ -2,10 +2,10 @@
 import React from 'react';
 import {
   pad,
-  playerColors,
   sum,
   isRadiant,
 } from 'utility';
+import playerColors from 'dotaconstants/json/player_colors.json';
 import heroes from 'dotaconstants/json/heroes.json';
 import Heading from 'components/Heading';
 import strings from 'lang';

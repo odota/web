@@ -6,8 +6,8 @@ import c3 from 'c3';
 import {
   formatSeconds,
   getLevelFromXp,
-  playerColors,
 } from 'utility';
+import playerColors from 'dotaconstants/json/player_colors.json';
 import strings from 'lang';
 import Heading from 'components/Heading';
 import styles from './Match.css';

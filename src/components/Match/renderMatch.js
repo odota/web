@@ -205,12 +205,26 @@ function renderMatch(m) {
     }
     return newPlayer;
   });
+
+  const newObjectives = m.objectives.map((obj) => {
+    if (obj.slot > 0) {
+      return {
+        ...obj,
+        player_slot: obj.slot > 4 ? obj.slot + 123 : obj.slot,
+      };
+    }
+    return {
+      ...obj,
+    };
+  });
+
   return {
     ...m,
     graphData: generateGraphData(m),
     teamfights: generateTeamfights(m),
     players: newPlayers,
     wards_log: generateWardLog(immutable(m)),
+    objectives: newObjectives,
   };
 }
 
