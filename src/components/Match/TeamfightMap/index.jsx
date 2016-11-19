@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { formatSeconds } from 'utility';
+import { formatSeconds, calculateDistance, calculateRelativeXY } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import Measure from 'react-measure';
 import { IconRadiant, IconDire } from 'components/Icons';
@@ -8,13 +8,13 @@ import { teamfightColumns } from 'components/Match/matchColumns';
 import styles from './index.css';
 
 const MAP_WIDTH = 400;
-const iconSize = mapWidth => mapWidth / 12;
+const iconSize = mapWidth => (mapWidth / 12 <= 15 ? 15 : mapWidth / 12);
 
-const style = (width, iconSize, location) => ({
-  width: iconSize,
-  height: iconSize,
-  top: ((width / 127) * location.y) - (iconSize / 2),
-  left: ((width / 127) * location.x) - (iconSize / 2),
+const style = (width, position) => ({
+  width: iconSize(width),
+  height: iconSize(width),
+  top: ((width / 127) * position.y) - (iconSize(width) / 2),
+  left: ((width / 127) * position.x) - (iconSize(width) / 2),
 });
 
 const isRadiant = radiantGoldDelta => radiantGoldDelta > 0;
@@ -25,7 +25,7 @@ const TeamfightIcon = ({ isRadiant, position, tooltipKey, onClick, mapWidth = MA
   return (
     <IconType
       className={styles.teamfightIcon}
-      style={style(mapWidth, iconSize(mapWidth), position)}
+      style={style(mapWidth, position)}
       data-tip
       data-for={tooltipKey}
       onClick={onClick}
@@ -95,18 +95,45 @@ class TeamfightMap extends Component {
     super();
     this.selectTeamfight = this.selectTeamfight.bind(this);
     this.isSelected = this.isSelected.bind(this);
+    this.onMapClick = this.onMapClick.bind(this);
     const { teamfights = [] } = props;
     this.state = {
       selectedTeamfight: teamfights.length > 0 ? teamfights[0].start : null,
     };
   }
 
-  selectTeamfight(start) {
-    this.setState({ selectedTeamfight: start });
+  onMapClick(width) {
+    return (event) => {
+      const { x: x1, y: y1 } = calculateRelativeXY(event);
+      const { teamfights } = this.props;
+      const newSelection = teamfights
+        .reduce((cursor, teamfight) => {
+          let newCursor = { ...cursor };
+          const { left: x2, top: y2 } = style(width, avgPosition(teamfight));
+          const distance = calculateDistance(x1, y1, x2 + (iconSize(width) / 2), y2 + (iconSize(width) / 2));
+          if (distance < cursor.distance) {
+            newCursor = {
+              key: teamfight.start,
+              distance,
+            };
+          }
+          return newCursor;
+        }, {
+          key: this.state.selectedTeamfight,
+          distance: Infinity,
+        });
+      this.setState({
+        selectedTeamfight: newSelection.key,
+      });
+    };
   }
 
   isSelected({ start }) {
     return this.state.selectedTeamfight === start;
+  }
+
+  selectTeamfight(start) {
+    this.setState({ selectedTeamfight: start });
   }
 
   render() {
@@ -116,8 +143,7 @@ class TeamfightMap extends Component {
       <Measure>
         {({ width }) => (
           <div className={styles.teamfightContainer}>
-            <div className={styles.map} style={setMapSizeStyle(width)}>
-              {console.log('width, height', width)}
+            <div className={styles.map} onClick={this.onMapClick(bindWidth(width))} style={setMapSizeStyle(width)}>
               {teamfights.map((teamfight, index) => (
                 <Teamfight
                   onClick={this.selectTeamfight}
