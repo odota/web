@@ -56,7 +56,7 @@ function generateGraphData(match) {
   return {};
 }
 
-function generateTeamfights(match) {
+function generateTeamfights({ players, teamfights = [] }) {
   const computeTfData = (tf) => {
     const newtf = {
       ...tf,
@@ -68,7 +68,7 @@ function generateTeamfights(match) {
       dire_participation: 0,
       dire_deaths: 0,
     };
-    newtf.players = match.players.map((player) => {
+    newtf.players = players.map((player) => {
       const tfplayer = tf.players[player.player_slot % (128 - 5)];
       // compute team gold/xp deltas
       if (isRadiant(player.player_slot)) {
@@ -82,18 +82,20 @@ function generateTeamfights(match) {
         newtf.dire_participation += tfplayer.participate ? 1 : 0;
         newtf.dire_deaths += tfplayer.deaths ? 1 : 0;
       }
+      const playerDeathsPos = unpackPositionData(tfplayer.deaths_pos);
+      newtf.deaths_pos = newtf.deaths_pos.concat(playerDeathsPos);
       return {
         ...player,
         ...tfplayer,
         participate: tfplayer.deaths > 0 || tfplayer.damage > 0 || tfplayer.healing > 0,
         level_start: getLevelFromXp(tfplayer.xp_start),
         level_end: getLevelFromXp(tfplayer.xp_end),
-        deaths_pos: unpackPositionData(tfplayer.deaths_pos),
+        deaths_pos: playerDeathsPos,
       };
     });
     return newtf;
   };
-  return (match.teamfights || []).map(tf => computeTfData(tf));
+  return teamfights.map(computeTfData);
 }
 
 // create a detailed history of each wards
