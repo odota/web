@@ -5,29 +5,29 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 0 -5px;
 }
 
 .tableContainer {
   flex-grow: 1;
   overflow-x: hidden;
+  margin: 0 5px;
 }
 
 .map {
   position: relative;
-  height: 400px;
-  width: 400px;
+  max-width: 400px;
+  max-height: 400px;
   background: url("/assets/images/map.png");
   background-size: contain;
-  margin: 0 10px 10px 10px;
+  margin: 0 5px 10px 5px;
 }
 
 .teamfightIcon {
   position: absolute;
-  /*Have to override the widths set by the icon media queries*/
-  width: 32px !important;
-  height: 32px !important;
   /*Have to override the react-tooltip '?' cursor*/
   cursor: pointer !important;
+  margin: 0 !important;
 }
 
 .goldChange {
