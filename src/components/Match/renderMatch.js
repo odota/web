@@ -206,7 +206,7 @@ function renderMatch(m) {
     return newPlayer;
   });
 
-  const newObjectives = m.objectives.map((obj) => {
+  const newObjectives = (m.objectives || []).map((obj) => {
     if (obj.slot > 0) {
       return {
         ...obj,
