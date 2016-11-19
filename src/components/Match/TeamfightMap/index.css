@@ -36,6 +36,7 @@
 
 .winner {
   filter: drop-shadow(0 0 20px #000);
+  padding: 0;
 }
 
 .radiant {

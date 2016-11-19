@@ -48,7 +48,7 @@ const Teamfight = ({ position, tooltipKey, start, end, radiantGoldDelta, selecte
     </div>
     <ReactTooltip
       id={tooltipKey}
-      effect="float"
+      effect="solid"
     >
       <div>{formatSeconds(start)} - {formatSeconds(end)}</div>
       <div>
