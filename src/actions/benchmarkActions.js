@@ -29,7 +29,7 @@ const getBenchmarkError = payload => ({
 
 const getBenchmark = heroId => (dispatch) => {
   dispatch(getBenchmarkStart());
-  return fetch(`${API_HOST}${url}?hero_id=${heroId}`)
+  return fetch(`${API_HOST}${url}?hero_id=${heroId}`, { credentials: 'include' })
     .then(res => res.json())
     .then(json => dispatch(getBenchmarkDone(json)))
     .catch(err => dispatch(getBenchmarkError(err)));

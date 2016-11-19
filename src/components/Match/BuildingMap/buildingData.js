@@ -45,11 +45,11 @@ export default [
   },
   {
     id: 'brbr',
-    style: 'position: absolute; top: 90.3%; left: 19%;',
+    style: 'position: absolute; top: 86.3%; left: 19%;',
   },
   {
     id: 'bmbr',
-    style: 'position: absolute; top: 86.3%; left: 19%;',
+    style: 'position: absolute; top: 90.3%; left: 19%;',
   },
   {
     id: 'brmr',

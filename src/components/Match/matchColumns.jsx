@@ -27,7 +27,7 @@ import {
 import ReactTooltip from 'react-tooltip';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
-import SocialPerson from 'material-ui/svg-icons/social/person';
+import { Mmr } from 'components/Visualizations/Table/HeroImage';
 import styles from './Match.css';
 
 export const heroTd = (row, col, field, index, hideName, party) => (
@@ -36,17 +36,7 @@ export const heroTd = (row, col, field, index, hideName, party) => (
     title={row.name || row.personaname || strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
-    subtitle={
-      <span>
-        <section
-          data-hint={strings.th_solo_mmr}
-          data-hint-position="bottom"
-        >
-          <SocialPerson />
-        </section>
-        {row.solo_competitive_rank || strings.general_unknown}
-      </span>
-    }
+    subtitle={<Mmr number={row.solo_competitive_rank} />}
     playerSlot={row.player_slot}
     hideText={hideName}
     confirmed={row.account_id && row.name}
@@ -618,20 +608,16 @@ export const objectiveDamageColumns = [heroTdColumn]
     })));
 
 
-export const inflictorsColumns = [{
-  displayName: strings.th_damage_received,
-  field: 'damage_inflictor_received',
-  displayFn: (row, col, field) => (field ? Object.keys(field)
-      .sort((a, b) => field[b] - field[a])
-      .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
-}, {
-  displayFn: () => '→',
-},
+export const inflictorsColumns = [
   heroTdColumn, {
-    displayFn: () => '→',
-  }, {
     displayName: strings.th_damage_dealt,
     field: 'damage_inflictor',
+    displayFn: (row, col, field) => (field ? Object.keys(field)
+      .sort((a, b) => field[b] - field[a])
+      .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+  }, {
+    displayName: strings.th_damage_received,
+    field: 'damage_inflictor_received',
     displayFn: (row, col, field) => (field ? Object.keys(field)
       .sort((a, b) => field[b] - field[a])
       .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),

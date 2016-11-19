@@ -1,0 +1,8 @@
+{
+  "presets": [["es2015", { "modules": false }], "stage-3", "react"],
+  "env": {
+    "test": {
+      "presets": ["es2015", "stage-3", "react"]
+    }
+  }
+}

@@ -38,7 +38,7 @@ const PlayersFilter = ({ activeFilters, players, onFilterClick }) => (
   </Paper>
 );
 
-const PipelineFilter = (filters, data) => {
+const pipelineFilter = (filters, data) => {
   const filtered = filters.map(f => data.filter(f))
                           .reduce((o, v) => o.concat(v), []);
   return _.differenceWith((x, y) => x === y, data, filtered);
@@ -79,7 +79,7 @@ class VisionPage extends React.Component {
   }
 
   visibleData() {
-    return PipelineFilter(_.values(this.state.filters),
+    return pipelineFilter(_.values(this.state.filters),
                           this.state.wardsLog.slice(this.state.from));
   }
 

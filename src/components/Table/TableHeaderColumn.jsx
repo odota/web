@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
-import uuid from 'node-uuid';
+import uuid from 'uuid';
 import { TableHeaderColumn as MaterialTableHeaderColumn } from 'material-ui/Table';
 import { getSortIcon } from './tableHelpers';
 import styles from './Table.css';

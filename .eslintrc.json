@@ -4,7 +4,8 @@
   },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "mocha": true
   },
   "plugins": [
     "import"
@@ -22,6 +23,12 @@
     "react/prop-types": 0,
     "import/named": 2,
     "import/no-dynamic-require": 0,
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["**/*.spec.*", "**/testUtils/**/*"]
+      }
+    ],
     "jsx-a11y/no-static-element-interactions": [0],
     "react/forbid-prop-types": [2, { "forbid": ["any"] }]
   }

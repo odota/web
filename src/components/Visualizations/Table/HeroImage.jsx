@@ -4,6 +4,7 @@ import strings from 'lang';
 import { TableLink } from 'components/Table';
 import playerColors from 'dotaconstants/json/player_colors.json';
 import { IconTrophy } from 'components/Icons';
+import SocialPerson from 'material-ui/svg-icons/social/person';
 import styles from './HeroImage.css';
 
 const TableHeroImage = ({
@@ -98,5 +99,18 @@ TableHeroImage.propTypes = {
   hideText: bool,
   party: node,
 };
+
+// If need party or estimated, just add new prop with default val = solo and change icons depending what needs
+export const Mmr = ({ number }) => (
+  <span>
+    <section
+      data-hint={strings.th_solo_mmr}
+      data-hint-position="bottom"
+    >
+      <SocialPerson />
+    </section>
+    {number || strings.general_unknown}
+  </span>
+);
 
 export default TableHeroImage;

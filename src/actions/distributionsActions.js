@@ -29,7 +29,7 @@ const getDistributionsError = payload => ({
 
 const getDistributions = () => (dispatch) => {
   dispatch(getDistributionsRequest());
-  return fetch(`${API_HOST}${url}`)
+  return fetch(`${API_HOST}${url}`, { credentials: 'include' })
     .then(res => res.json())
     .then(json => dispatch(getDistributionsOk(json)))
     .catch(err => dispatch(getDistributionsError(err)));
