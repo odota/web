@@ -19,7 +19,7 @@ const style = (width, position) => ({
 
 const isRadiant = radiantGoldDelta => radiantGoldDelta > 0;
 
-const TeamfightIcon = ({ isRadiant, position, tooltipKey, onClick, mapWidth = MAP_WIDTH }) => {
+const TeamfightIcon = ({ isRadiant, position, tooltipKey, mapWidth = MAP_WIDTH }) => {
   const IconType = isRadiant ? IconRadiant : IconDire;
 
   return (
@@ -28,20 +28,18 @@ const TeamfightIcon = ({ isRadiant, position, tooltipKey, onClick, mapWidth = MA
       style={style(mapWidth, position)}
       data-tip
       data-for={tooltipKey}
-      onClick={onClick}
     />
   );
 };
 
 const getIconStyle = radiantGoldDelta => (isRadiant(radiantGoldDelta) ? styles.radiant : styles.dire);
 
-const Teamfight = ({ position, tooltipKey, start, end, onClick, radiantGoldDelta, selected, mapWidth }) => (
+const Teamfight = ({ position, tooltipKey, start, end, radiantGoldDelta, selected, mapWidth }) => (
   <div>
     <div
       className={`${selected && styles.selected} ${getIconStyle(radiantGoldDelta)}`}
     >
       <TeamfightIcon
-        onClick={() => onClick(start)}
         position={position}
         isRadiant={isRadiant(radiantGoldDelta)}
         tooltipKey={tooltipKey}
@@ -146,7 +144,6 @@ class TeamfightMap extends Component {
             <div className={styles.map} onClick={this.onMapClick(bindWidth(width))} style={setMapSizeStyle(width)}>
               {teamfights.map((teamfight, index) => (
                 <Teamfight
-                  onClick={this.selectTeamfight}
                   selected={this.isSelected(teamfight)}
                   key={index}
                   position={avgPosition(teamfight)}
