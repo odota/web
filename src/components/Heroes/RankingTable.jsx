@@ -2,6 +2,7 @@ import React from 'react';
 import Table from 'components/Table';
 import strings from 'lang';
 import { transformations } from 'utility';
+import { Mmr } from 'components/Visualizations/Table/HeroImage';
 
 const rankingColumns = [{
   displayName: '#',
@@ -9,7 +10,7 @@ const rankingColumns = [{
 }, {
   displayName: strings.th_name,
   displayFn: (row, col, field) => {
-    const subtitle = <span>{`${row.solo_competitive_rank || strings.general_unknown} ${strings.th_mmr}`}</span>;
+    const subtitle = <Mmr number={row.solo_competitive_rank} />;
     return transformations.player({ ...row, subtitle }, col, field);
   },
 }, {
