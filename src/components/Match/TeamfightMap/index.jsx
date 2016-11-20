@@ -50,11 +50,13 @@ const Teamfight = ({ position, tooltipKey, start, end, radiantGoldDelta, selecte
       id={tooltipKey}
       effect="solid"
     >
-      <div>{formatSeconds(start)} - {formatSeconds(end)}</div>
-      <div>
-        <span className={styles.goldChange}>
-          {isRadiant(radiantGoldDelta) ? radiantGoldDelta : radiantGoldDelta * -1}
-        </span> Gold
+      <div className={styles.tooltipContainer}>
+        <div>{formatSeconds(start)} - {formatSeconds(end)}</div>
+        <div>
+          <span className={styles.goldChange}>
+            {isRadiant(radiantGoldDelta) ? radiantGoldDelta : radiantGoldDelta * -1}
+          </span> Gold
+        </div>
       </div>
     </ReactTooltip>
   </div>

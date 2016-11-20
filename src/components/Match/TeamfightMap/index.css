@@ -30,6 +30,12 @@
   margin: 0 !important;
 }
 
+.tooltipContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .goldChange {
   color: var(--colorSuccess);
 }
