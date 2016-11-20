@@ -3,7 +3,6 @@ import {
   isSupport,
   getLevelFromXp,
   unpackPositionData,
-  getShortHeroName,
 } from 'utility';
 import heroes from 'dotaconstants/json/heroes.json';
 import specific from 'dotaconstants/json/specific.json';

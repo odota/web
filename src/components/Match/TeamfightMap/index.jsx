@@ -47,9 +47,7 @@ const getSelectedStyle = radiantGoldDelta =>
   (isRadiant(radiantGoldDelta) ? styles.radiantSelected : styles.direSelected);
 
 // TODO - fix this bug where radiant is always either unstyled or gets the 'both' string here
-const getTombStyle = position => {
-  console.log(position)
-  const test = position.reduce(
+const getTombStyle = position => position.reduce(
   (str, position) => {
     const radStr = position.isRadiant ? 'radiant' : 'dire';
     if (str !== radStr) {
@@ -59,40 +57,35 @@ const getTombStyle = position => {
   },
   position[0].isRadiant ? 'radiant' : 'dire',
 );
- return test;
-};
 
 export const Tombstones = ({ deathPositions, mapWidth, tooltipKey }) => (
   <div>
-    {console.log('deathPositions', deathPositions)}
-    {deathPositions.map((position, index) => {
-      return (
-        <div>
-          <TeamfightIcon
-            key={index}
-            Icon={IconTombstone}
-            position={position[0]}
-            mapWidth={mapWidth}
-            tooltipKey={`${index}_${tooltipKey}`}
-            className={styles[`${getTombStyle(position)}Tombstone`]}
-            style={style(mapWidth, position[0], 17, { noTopAdjustment: true })}
-          />
-          <ReactTooltip
-            id={`${index}_${tooltipKey}`}
-            effect="solid"
-          >
-            {position.map((pos, index) => (
-              <div key={index} className={styles.tooltipContainer}>
-                <div className={styles.tombText}>{strings.tooltip_tombstone_victim}</div>
-                <PlayerThumb {...pos.player} />
-                <div className={styles.tombText}>{strings.tooltip_tombstone_killer}</div>
-                <PlayerThumb {...pos.killer} />
-              </div>
-            ))}
-          </ReactTooltip>
-        </div>
-      );
-    })}
+    {deathPositions.map((position, index) => (
+      <div>
+        <TeamfightIcon
+          key={index}
+          Icon={IconTombstone}
+          position={position[0]}
+          mapWidth={mapWidth}
+          tooltipKey={`${index}_${tooltipKey}`}
+          className={styles[`${getTombStyle(position)}Tombstone`]}
+          style={style(mapWidth, position[0], 17, { noTopAdjustment: true })}
+        />
+        <ReactTooltip
+          id={`${index}_${tooltipKey}`}
+          effect="solid"
+        >
+          {position.map((pos, index) => (
+            <div key={index} className={styles.tooltipContainer}>
+              <div className={styles.tombText}>{strings.tooltip_tombstone_victim}</div>
+              <PlayerThumb {...pos.player} />
+              <div className={styles.tombText}>{strings.tooltip_tombstone_killer}</div>
+              <PlayerThumb {...pos.killer} />
+            </div>
+          ))}
+        </ReactTooltip>
+      </div>
+    ))}
   </div>
 );
 
@@ -108,7 +101,6 @@ export const Teamfight = ({
   deathPositions,
 }) => (
   <div>
-    {console.log('position', position)}
     <div className={getIconStyle(radiantGoldDelta)}>
       <div className={selected && styles.selected}>
         <TeamfightIcon
