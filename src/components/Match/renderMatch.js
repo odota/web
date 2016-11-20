@@ -3,6 +3,7 @@ import {
   isSupport,
   getLevelFromXp,
   unpackPositionData,
+  getShortHeroName,
 } from 'utility';
 import heroes from 'dotaconstants/json/heroes.json';
 import specific from 'dotaconstants/json/specific.json';
@@ -61,7 +62,9 @@ function generateTeamfights({ players, teamfights = [] }) {
     const newtf = {
       ...tf,
       deaths_pos: [],
+      radiant_networth_advantage_delta: 0,
       radiant_gold_delta: 0,
+      dire_gold_delta: 0,
       radiant_xp_delta: 0,
       radiant_participation: 0,
       radiant_deaths: 0,
@@ -72,17 +75,24 @@ function generateTeamfights({ players, teamfights = [] }) {
       const tfplayer = tf.players[player.player_slot % (128 - 5)];
       // compute team gold/xp deltas
       if (isRadiant(player.player_slot)) {
+        newtf.radiant_networth_advantage_delta += tfplayer.gold_delta;
         newtf.radiant_gold_delta += tfplayer.gold_delta;
         newtf.radiant_xp_delta += tfplayer.xp_delta;
         newtf.radiant_participation += tfplayer.participate ? 1 : 0;
         newtf.radiant_deaths += tfplayer.deaths ? 1 : 0;
       } else {
-        newtf.radiant_gold_delta -= tfplayer.gold_delta;
+        newtf.radiant_networth_advantage_delta -= tfplayer.gold_delta;
+        newtf.dire_gold_delta -= tfplayer.gold_delta;
         newtf.radiant_xp_delta -= tfplayer.xp_delta;
         newtf.dire_participation += tfplayer.participate ? 1 : 0;
         newtf.dire_deaths += tfplayer.deaths ? 1 : 0;
       }
-      const playerDeathsPos = unpackPositionData(tfplayer.deaths_pos);
+      const playerDeathsPos = unpackPositionData(tfplayer.deaths_pos)
+        .map(deathPos => ({
+          ...deathPos,
+          isRadiant: isRadiant(player.player_slot),
+          player,
+        }));
       newtf.deaths_pos = newtf.deaths_pos.concat(playerDeathsPos);
       return {
         ...player,
@@ -93,6 +103,31 @@ function generateTeamfights({ players, teamfights = [] }) {
         deaths_pos: playerDeathsPos,
       };
     });
+    // We have to do this after we process the stuff so that we will have the player in
+    // the data instead of just the 'teamfight player' which doesn't have enough data.
+    newtf.deaths_pos = newtf.deaths_pos
+      .map(death => ([{
+        ...death,
+        killer: newtf.players
+          .find(killer => killer.killed[heroes[death.player.hero_id].name]),
+      }]))
+      .reduce(
+        (newDeathsPos, death) => {
+          const copy = [...newDeathsPos];
+          const samePosition = copy
+            .findIndex((deathPos) => {
+              const cursor = deathPos[0];
+              return cursor.x === death[0].x && cursor.y === death[0].y;
+            });
+          if (samePosition !== -1) {
+            copy[samePosition] = copy[samePosition].concat(death);
+          } else {
+            copy.push(death);
+          }
+          return copy;
+        },
+        [],
+      );
     return newtf;
   };
   return (teamfights || []).map(computeTfData);

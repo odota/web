@@ -2,7 +2,7 @@ import React from 'react';
 import {
   formatSeconds,
   isRadiant,
-  getShortHeroName,
+  jsonFn,
 } from 'utility';
 import {
   IconBloodDrop,
@@ -12,11 +12,13 @@ import {
 import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
 
-import playerColors from 'dotaconstants/json/player_colors.json';
 import heroes from 'dotaconstants/json/heroes.json';
 import barracksValue from 'dotaconstants/json/barracks_value.json';
+import PlayerThumb from 'components/Match/PlayerThumb';
 
 import styles from './Timeline.css';
+
+const heroesArr = jsonFn(heroes);
 
 export default ({ match }) => {
   const preHorn = 90; // Seconds before the battle horn
@@ -59,7 +61,7 @@ export default ({ match }) => {
         start: fight.start,
         end: fight.end,
         time: (fight.start + fight.end) / 2,
-        radiant_gold_delta: fight.radiant_gold_delta,
+        radiant_networth_advantage_delta: fight.radiant_networth_advantage_delta,
         deaths: fight.players
           .map((player, i) => (player.deaths > 0 ? {
             key: i,
@@ -133,7 +135,7 @@ export default ({ match }) => {
                         }%`,
                         width: `${wTeamfight}%`,
                         // backgroundColor: obj.type === 'teamfight' && (
-                        //   obj.radiant_gold_delta >= 0 ? styles.green : styles.red
+                        //   obj.radiant_networth_advantage_delta >= 0 ? styles.green : styles.red
                         // ),
                       }}
                     >
@@ -153,7 +155,7 @@ export default ({ match }) => {
                         <IconBattle
                           data-tip
                           data-for={`event_${i}`}
-                          style={{ fill: obj.radiant_gold_delta >= 0 ? styles.green : styles.red }}
+                          style={{ fill: obj.radiant_networth_advantage_delta >= 0 ? styles.green : styles.red }}
                         />
                       }
                       <ReactTooltip
@@ -165,38 +167,16 @@ export default ({ match }) => {
                           <section>
                             {match.players
                               .filter(player => player.player_slot === obj.player_slot)
-                              .map(player => (
-                                <aside style={{ color: playerColors[obj.player_slot] }}>
-                                  <img
-                                    src={heroes[player.hero_id]
-                                      ? `${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(heroes[player.hero_id].name)}_icon.png`
-                                      : '/assets/images/blank-1x1.gif'
-                                    }
-                                    role="presentation"
-                                  />
-                                  {player.name || player.personaname || strings.general_anonymous}
-                                </aside>
-                              ))
+                              .map(player => <PlayerThumb {...player} />)
                             }
                             <span>
                               {obj.key ? strings.timeline_firstblood_key : strings.timeline_firstblood}
                             </span>
                             {obj.key &&
-                              <aside>
-                                <img
-                                  src={`${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(obj.key)}_icon.png`}
-                                  role="presentation"
-                                />
-                                {match.players
-                                  .filter(player =>
-                                    player.hero_id === heroes[Object.keys(heroes).filter(key => heroes[key].name === obj.key)].id,
-                                  ).map(player => (
-                                    <div style={{ color: playerColors[player.player_slot] }}>
-                                      {player.name || player.personaname || strings.general_anonymous}
-                                    </div>
-                                  ))
-                                }
-                              </aside>
+                              <PlayerThumb
+                                {...match.players.find(player =>
+                                  player.hero_id === heroesArr('find')(hero => hero.name === obj.key).id)}
+                              />
                             }
                           </section>
                         }
@@ -205,16 +185,7 @@ export default ({ match }) => {
                             .filter(player => player.player_slot === aegis[0][obj.key].player_slot)
                             .map(player => (
                               <section key={i}>
-                                <aside style={{ color: playerColors[player.player_slot] }}>
-                                  <img
-                                    src={heroes[player.hero_id]
-                                      ? `${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(heroes[player.hero_id].name)}_icon.png`
-                                      : '/assets/images/blank-1x1.gif'
-                                    }
-                                    role="presentation"
-                                  />
-                                  {player.name || player.personaname || strings.general_anonymous}
-                                </aside>
+                                <PlayerThumb {...player} />
                                 <span>
                                   {!aegis[0][obj.key].act && strings.timeline_aegis_picked_up}
                                   {aegis[0][obj.key].act === 'stolen' && strings.timeline_aegis_snatched}
@@ -237,18 +208,7 @@ export default ({ match }) => {
                             </header>
                             {obj.deaths.map(death => (
                               <section key={death.key}>
-                                <aside style={{ color: playerColors[match.players[death.key].player_slot] }}>
-                                  <img
-                                    src={heroes[match.players[death.key].hero_id]
-                                      ? `${API_HOST}/apps/dota2/images/heroes/${
-                                          getShortHeroName(heroes[match.players[death.key].hero_id].name)
-                                        }_icon.png`
-                                      : '/assets/images/blank-1x1.gif'
-                                    }
-                                    role="presentation"
-                                  />
-                                  {match.players[death.key].name || match.players[death.key].personaname || strings.general_anonymous}
-                                </aside>
+                                <PlayerThumb {...match.players[death.key]} />
                                 <span>
                                   {death.gold_delta > 0 ? <span className={styles.goldGot} /> : <span className={styles.goldLost} />}
                                   {/* nothing if === 0 */}

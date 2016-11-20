@@ -27,11 +27,11 @@ const config = {
     ],
   },
   module: {
-    // We need to load flexboxgrid with css-modules, but others need to be loaded
-    // with regular css loader.
+    // We need to load flexboxgrid without css-modules, but others need to be loaded
+    // with css-modules.
     loaders: [{
       test: /\.css$/,
-      loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader',
+      loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!postcss-loader',
       exclude: /node_modules\/(?!flexboxgrid)/,
     }, {
       test: /\.css$/,

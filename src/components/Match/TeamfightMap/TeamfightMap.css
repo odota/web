@@ -57,17 +57,39 @@
   background-size: contain;
 }
 
-.teamfightIcon {
+.mapIcon {
   position: absolute;
-  /*Have to override the react-tooltip '?' cursor*/
-  cursor: pointer !important;
   margin: 0 !important;
 }
 
+.teamfightIcon {
+  composes: overrideHelpIcon from "../../palette.css";
+  composes: mapIcon;
+  cursor: pointer;
+}
+
 .tombstone {
-  composes: teamfightIcon;
+  composes: mapIcon;
   fill: var(--colorMuted);
   opacity: 0.75;
+}
+
+.tombText {
+  margin: 10px 0;
+}
+
+.bothTombstone {
+  composes: tombstone;
+}
+
+.radiantTombstone {
+  composes: tombstone;
+  fill: var(--colorSuccess);
+}
+
+.direTombstone {
+  composes: tombstone;
+  fill: var(--colorDanger);
 }
 
 .tooltipContainer {
@@ -88,6 +110,14 @@
     margin-left: 5px;
       filter: drop-shadow(0 0 5px var(--colorGolden));
   }
+}
+
+.goldGot {
+  composes: goldGot from "../Overview/Timeline.css"
+}
+
+.goldLost {
+  composes: goldLost from "../Overview/Timeline.css"
 }
 
 .radiantSelected {

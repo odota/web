@@ -84,6 +84,11 @@ export const calculateRelativeXY = ({ clientX, clientY, currentTarget }) => {
   return { x, y };
 };
 
+export const jsonFn = json =>
+  arrayFn =>
+    fn =>
+      json[Object.keys(json)[arrayFn]((key, index) => fn(json[key], index))];
+
 const second = 1;
 const minute = second * 60;
 const hour = minute * 60;

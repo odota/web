@@ -130,3 +130,9 @@
     opacity: .6;
   }
 }
+
+.overrideHelpIcon {
+  &[data-tip="true"] {
+    cursor: pointer;
+  }
+}
