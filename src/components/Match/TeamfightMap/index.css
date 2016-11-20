@@ -14,9 +14,8 @@
   color: var(--colorMutedLight);
 }
 
-.numDeaths {
-  composes: muted;
-  margin-left: 25px;
+.headerGold {
+  margin: 0 25px;
 }
 
 .header {

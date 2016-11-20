@@ -231,8 +231,8 @@ class TeamfightMap extends Component {
                     <div className={getIconStyle(teamfight.radiant_gold_delta)}>
                       <Icon style={{ height: iconSize(bindWidth(width)), width: iconSize(bindWidth(width)) }} />
                     </div>
-                    <GoldDelta radiantGoldDelta={teamfight.radiant_gold_delta} />
-                    <div className={styles.numDeaths}>{teamfight.deaths_pos.length} Deaths</div>
+                    <span className={styles.headerGold}><GoldDelta radiantGoldDelta={teamfight.radiant_gold_delta} /></span>
+                    <div className={styles.muted}>{teamfight.deaths_pos.length} Deaths</div>
                   </div>
                 </header>
               </div>
