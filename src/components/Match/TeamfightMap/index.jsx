@@ -21,18 +21,16 @@ const isRadiant = radiantGoldDelta => radiantGoldDelta > 0;
 
 const IconType = isRadiant => (isRadiant ? IconRadiant : IconDire);
 
-const TeamfightIcon = ({ position, tooltipKey, mapWidth = MAP_WIDTH, onClick, Icon, ...props }) => {
-  return (
-    <Icon
-      className={styles.teamfightIcon}
-      style={style(mapWidth, position)}
-      data-tip
-      data-for={tooltipKey}
-      onClick={onClick}
-      {...props}
-    />
-  );
-};
+const TeamfightIcon = ({ position, tooltipKey, mapWidth = MAP_WIDTH, onClick, Icon, ...props }) => (
+  <Icon
+    className={styles.teamfightIcon}
+    style={style(mapWidth, position)}
+    data-tip
+    data-for={tooltipKey}
+    onClick={onClick}
+    {...props}
+  />
+);
 
 const GoldDelta = ({ radiantGoldDelta }) => (
   <div className={styles.goldChange}>
