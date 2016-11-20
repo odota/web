@@ -27,18 +27,24 @@ export default ({ match }) => {
   if (match.objectives && match.objectives.length > 0) {
     // Firstblood
     const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
-    const fbKey = match.players.map(player =>
-      player.kills_log &&
-        player.kills_log.length > 0 &&
-        player.kills_log.filter(kill => kill.time === match.objectives[fbIndex].time),
-    ).filter(String).filter(Boolean);
+    let fbArr = [{ type: 'firstblood', time: 0 }];
 
-    obj.push([{
-      type: 'firstblood',
-      time: match.objectives[fbIndex].time,
-      player_slot: match.objectives[fbIndex].player_slot,
-      key: fbKey && fbKey.length > 0 && fbKey[0][0].key,
-    }]
+    if (fbIndex > -1) {
+      const fbKey = match.players.map(player =>
+        player.kills_log &&
+          player.kills_log.length > 0 &&
+          player.kills_log.filter(kill => kill.time === match.objectives[fbIndex].time),
+      ).filter(String).filter(Boolean);
+
+      fbArr = [{
+        type: 'firstblood',
+        time: match.objectives[fbIndex].time,
+        player_slot: match.objectives[fbIndex].player_slot,
+        key: fbKey && fbKey.length > 0 && fbKey[0][0].key,
+      }];
+    }
+
+    obj.push(fbArr
 
     // Roshan kills, team 2 = radiant, 3 = dire
     .concat(
@@ -67,7 +73,8 @@ export default ({ match }) => {
           } : ''))
           .filter(String),
       })) : [],
-    ));
+    ),
+    );
 
     // Aegis pickups
     aegis.push(
