@@ -95,7 +95,7 @@ function generateTeamfights({ players, teamfights = [] }) {
     });
     return newtf;
   };
-  return teamfights.map(computeTfData);
+  return (teamfights || []).map(computeTfData);
 }
 
 // create a detailed history of each wards
