@@ -3,7 +3,7 @@ import { formatSeconds, calculateDistance, calculateRelativeXY } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import Measure from 'react-measure';
 import { IconRadiant, IconDire, IconTombstone } from 'components/Icons';
-import Table from 'components/Table';
+import { TeamTable } from 'components/Match/matchPages';
 import { teamfightColumns } from 'components/Match/matchColumns';
 import styles from './index.css';
 
@@ -235,8 +235,8 @@ class TeamfightMap extends Component {
                 </header>
               </div>
               <div className={styles.tableContainer}>
-                <Table
-                  data={teamfight.players && teamfight.players.filter(p => p.participate)}
+                <TeamTable
+                  players={teamfight.players && teamfight.players.filter(p => p.participate)}
                   columns={teamfightColumns}
                 />
               </div>

@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react';
 import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
 import styles from './Heading.css';
 
-const Heading = ({ title, icon = <ActionLabelOutline />, subtitle, className }) => (
+const Heading = ({ title = '', icon = <ActionLabelOutline />, subtitle, className }) => (
   <div className={`${styles.tableHeading} ${className}`}>
     {icon}
     <span className={styles.title}>
-      {title}
+      {title.trim()}
     </span>
     <span className={styles.subtitle}>
       {subtitle}
@@ -14,11 +14,13 @@ const Heading = ({ title, icon = <ActionLabelOutline />, subtitle, className }) 
   </div>
 );
 
+const { string, element } = PropTypes;
+
 Heading.propTypes = {
-  title: PropTypes.string,
-  icon: PropTypes.string,
-  subtitle: PropTypes.string,
-  className: PropTypes.string,
+  title: string,
+  icon: element,
+  subtitle: string,
+  className: string,
 };
 
 export default Heading;

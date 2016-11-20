@@ -663,18 +663,23 @@ export const teamfightColumns = [
   heroTdColumn, {
     displayName: strings.th_death,
     field: 'deaths',
+    sortFn: true,
   }, {
     displayName: strings.th_damage,
     field: 'damage',
+    sortFn: true,
   }, {
     displayName: strings.th_healing,
     field: 'healing',
+    sortFn: true,
   }, {
     displayName: strings.th_gold,
     field: 'gold_delta',
+    sortFn: true,
   }, {
     displayName: strings.th_xp,
     field: 'xp_delta',
+    sortFn: true,
   }, {
     displayName: strings.th_abilities,
     field: 'ability_uses',

@@ -19,7 +19,7 @@
 }
 
 .header {
-  margin: 10px 0;
+  margin: 10px 0 66px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,7 +46,7 @@
 .tableContainer {
   flex-grow: 1;
   overflow-x: hidden;
-  margin: 0 5px;
+  margin: -56px 5px 0 5px;
 }
 
 .map {
