@@ -47,7 +47,9 @@ const getSelectedStyle = radiantGoldDelta =>
   (isRadiant(radiantGoldDelta) ? styles.radiantSelected : styles.direSelected);
 
 // TODO - fix this bug where radiant is always either unstyled or gets the 'both' string here
-const getTombStyle = position => position.reduce(
+const getTombStyle = position => {
+  console.log(position)
+  const test = position.reduce(
   (str, position) => {
     const radStr = position.isRadiant ? 'radiant' : 'dire';
     if (str !== radStr) {
@@ -55,8 +57,10 @@ const getTombStyle = position => position.reduce(
     }
     return str;
   },
-  position.isRadiant ? 'radiant' : 'dire',
+  position[0].isRadiant ? 'radiant' : 'dire',
 );
+ return test;
+};
 
 export const Tombstones = ({ deathPositions, mapWidth, tooltipKey }) => (
   <div>
