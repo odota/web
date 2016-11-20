@@ -19,31 +19,42 @@ const style = (width, position) => ({
 
 const isRadiant = radiantGoldDelta => radiantGoldDelta > 0;
 
-const TeamfightIcon = ({ isRadiant, position, tooltipKey, mapWidth = MAP_WIDTH }) => {
-  const IconType = isRadiant ? IconRadiant : IconDire;
+const IconType = isRadiant => (isRadiant ? IconRadiant : IconDire);
+
+const TeamfightIcon = ({ isRadiant, position, tooltipKey, mapWidth = MAP_WIDTH, onClick }) => {
+  const Icon = IconType(isRadiant);
 
   return (
-    <IconType
+    <Icon
       className={styles.teamfightIcon}
       style={style(mapWidth, position)}
       data-tip
       data-for={tooltipKey}
+      onClick={onClick}
     />
   );
 };
 
-const getIconStyle = radiantGoldDelta => (isRadiant(radiantGoldDelta) ? styles.radiant : styles.dire);
+const GoldDelta = ({ radiantGoldDelta }) => (
+  <span className={styles.goldChange}>
+    {isRadiant(radiantGoldDelta) ? radiantGoldDelta : radiantGoldDelta * -1}
+    <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />
+  </span>
+);
 
-const Teamfight = ({ position, tooltipKey, start, end, radiantGoldDelta, selected, mapWidth }) => (
-  <div>
-    <div
-      className={`${selected && styles.selected} ${getIconStyle(radiantGoldDelta)}`}
-    >
+const getIconStyle = radiantGoldDelta => (isRadiant(radiantGoldDelta) ? styles.radiant : styles.dire);
+const getSelectedStyle = radiantGoldDelta =>
+  (isRadiant(radiantGoldDelta) ? styles.radiantSelected : styles.direSelected);
+
+const Teamfight = ({ position, tooltipKey, start, end, radiantGoldDelta, selected, mapWidth, onClick }) => (
+  <div className={getIconStyle(radiantGoldDelta)}>
+    <div className={selected && styles.selected}>
       <TeamfightIcon
         position={position}
         isRadiant={isRadiant(radiantGoldDelta)}
         tooltipKey={tooltipKey}
         mapWidth={mapWidth}
+        onClick={onClick}
       />
     </div>
     <ReactTooltip
@@ -53,9 +64,7 @@ const Teamfight = ({ position, tooltipKey, start, end, radiantGoldDelta, selecte
       <div className={styles.tooltipContainer}>
         <div>{formatSeconds(start)} - {formatSeconds(end)}</div>
         <div>
-          <span className={styles.goldChange}>
-            {isRadiant(radiantGoldDelta) ? radiantGoldDelta : radiantGoldDelta * -1}
-          </span> Gold
+          <GoldDelta radiantGoldDelta={radiantGoldDelta} />
         </div>
       </div>
     </ReactTooltip>
@@ -96,9 +105,24 @@ class TeamfightMap extends Component {
     this.selectTeamfight = this.selectTeamfight.bind(this);
     this.isSelected = this.isSelected.bind(this);
     this.onMapClick = this.onMapClick.bind(this);
+    this.onIconClick = this.onIconClick.bind(this);
     const { teamfights = [] } = props;
+    const teamfight = teamfights.length > 0 ? teamfights[0] : null;
     this.state = {
-      selectedTeamfight: teamfights.length > 0 ? teamfights[0].start : null,
+      selectedTeamfight: teamfight ? teamfight.start : null,
+      teamfight,
+    };
+  }
+
+  onIconClick(teamfight) {
+    return (event) => {
+      // We do this because we need to prevent the map click event from
+      // being executed. That click event is innaccurate if the actual icon is clicked.
+      event.stopPropagation();
+      this.setState({
+        selectedTeamfight: teamfight.start,
+        teamfight,
+      });
     };
   }
 
@@ -114,16 +138,19 @@ class TeamfightMap extends Component {
           if (distance < cursor.distance) {
             newCursor = {
               key: teamfight.start,
+              teamfight,
               distance,
             };
           }
           return newCursor;
         }, {
           key: this.state.selectedTeamfight,
+          teamfight: this.state.teamfight,
           distance: Infinity,
         });
       this.setState({
         selectedTeamfight: newSelection.key,
+        teamfight: newSelection.teamfight,
       });
     };
   }
@@ -132,39 +159,60 @@ class TeamfightMap extends Component {
     return this.state.selectedTeamfight === start;
   }
 
-  selectTeamfight(start) {
-    this.setState({ selectedTeamfight: start });
+  selectTeamfight(start, teamfight) {
+    this.setState({
+      selectedTeamfight: start,
+      teamfight,
+    });
   }
 
   render() {
     const { teamfights = [] } = this.props;
-    const { selectedTeamfight } = this.state;
+    const { teamfight } = this.state;
+    const Icon = IconType(isRadiant(teamfight.radiant_gold_delta));
     return (
       <Measure>
         {({ width }) => (
-          <div className={styles.teamfightContainer}>
-            <div className={styles.map} onClick={this.onMapClick(bindWidth(width))} style={setMapSizeStyle(width)}>
-              {teamfights.map((teamfight, index) => (
-                <Teamfight
-                  selected={this.isSelected(teamfight)}
-                  key={index}
-                  position={avgPosition(teamfight)}
-                  tooltipKey={`${index}_${teamfight.start}`}
-                  start={teamfight.start}
-                  end={teamfight.end}
-                  radiantGoldDelta={teamfight.radiant_gold_delta}
-                  mapWidth={bindWidth(width)}
+          <div className={`${styles.container} ${getSelectedStyle(teamfight.radiant_gold_delta)}`}>
+            <div className={styles.teamfightContainer}>
+              <div className={styles.mapAndInfoContainer}>
+                <div
+                  className={styles.map}
+                  onClick={this.onMapClick(bindWidth(width))}
+                  style={setMapSizeStyle(width)}
+                >
+                  {teamfights.map((teamfight, index) => (
+                    <Teamfight
+                      selected={this.isSelected(teamfight)}
+                      key={index}
+                      onClick={this.onIconClick(teamfight)}
+                      position={avgPosition(teamfight)}
+                      tooltipKey={`${index}_${teamfight.start}`}
+                      start={teamfight.start}
+                      end={teamfight.end}
+                      radiantGoldDelta={teamfight.radiant_gold_delta}
+                      mapWidth={bindWidth(width)}
+                    />
+                  ))}
+                </div>
+                <header className={styles.header}>
+                  <div className={styles.muted}>
+                    {formatSeconds(teamfight.start)} - {formatSeconds(teamfight.end)}
+                  </div>
+                  <div className={styles.headerSubInfo}>
+                    <div className={getIconStyle(teamfight.radiant_gold_delta)}>
+                      <Icon />
+                    </div>
+                    <GoldDelta radiantGoldDelta={teamfight.radiant_gold_delta} />
+                  </div>
+                </header>
+              </div>
+              <div className={styles.tableContainer}>
+                <Table
+                  data={teamfight.players && teamfight.players.filter(p => p.participate)}
+                  columns={teamfightColumns}
                 />
-              ))}
-            </div>
-            <div className={styles.tableContainer}>
-              <Table
-                data={
-                  teamfights.find(teamfight => teamfight.start === selectedTeamfight)
-                  .players.filter(p => p.participate)
-                }
-                columns={teamfightColumns}
-              />
+              </div>
             </div>
           </div>
         )}

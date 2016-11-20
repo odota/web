@@ -67,17 +67,20 @@ export function getLevelFromXp(xp) {
 export const calculateDistance = (x1, y1, x2, y2) =>
   (((x2 - x1) ** 2) + ((y2 - y1) ** 2)) ** 0.5;
 
-export const calculateRelativeXY = ({ clientX, clientY, currentTarget }) => {
-  let x = clientX + document.body.scrollLeft;
-  let y = clientY + document.body.scrollTop;
-  if (currentTarget.offsetParent) {
-    let off = currentTarget.offsetParent;
-    do {
-      x -= off.offsetLeft;
-      y -= off.offsetTop;
-      off = off.offsetParent;
-    } while (off);
-  }
+export const calculateRelativeXY = ({ clientX, clientY, currentTarget, target }) => {
+  const bounds = target.getBoundingClientRect();
+  let x = clientX - bounds.left;
+  let y = clientY - bounds.top;
+  // let x = clientX + document.body.scrollLeft;
+  // let y = clientY + document.body.scrollTop;
+  // if (currentTarget.offsetParent) {
+  //   let off = currentTarget.offsetParent;
+  //   do {
+  //     x -= off.offsetLeft;
+  //     y -= off.offsetTop;
+  //     off = off.offsetParent;
+  //   } while (off);
+  // }
   return { x, y };
 };
 

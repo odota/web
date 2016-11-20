@@ -1,11 +1,41 @@
 @import "../../palette.css";
 
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 -5px;
+}
+
+.mapAndInfoContainer {
+  margin: 0 5px 10px 5px;
+}
+
+.muted {
+  color: var(--colorMutedLight);
+}
+
+.header {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headerSubInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
+  & svg {
+    margin-left: 0;
+  }
+}
+
 .teamfightContainer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 0 -5px;
 }
 
 .tableContainer {
@@ -20,7 +50,6 @@
   max-height: 400px;
   background: url("/assets/images/map.png");
   background-size: contain;
-  margin: 0 5px 10px 5px;
 }
 
 .teamfightIcon {
@@ -36,22 +65,44 @@
   align-items: center;
 }
 
-.goldChange {
-  color: var(--colorSuccess);
-}
-
 .winner {
   filter: drop-shadow(0 0 20px #000);
   padding: 0;
 }
 
+.goldChange {
+  display: flex;
+  align-items: center;
+  & img {
+    margin-left: 5px;
+  }
+}
+
+.radiantSelected {
+  & .header {
+    color: var(--colorSuccess);
+  }
+}
+
+.direSelected {
+  & .header {
+    color: var(--colorDanger);
+  }
+}
+
 .radiant {
   composes: radiant from "../MatchHeader/MatchHeader.css";
   composes: winner;
+  & .goldChange {
+    color: var(--colorSuccess);
+  }
 }
 .dire {
   composes: dire from "../MatchHeader/MatchHeader.css";
   composes: winner;
+  & .goldChange {
+    color: var(--colorDanger);
+  }
 }
 
 .selected {
