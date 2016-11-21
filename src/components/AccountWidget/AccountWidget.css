@@ -1,14 +1,19 @@
 @import "../palette.css";
 
-.account div > span {
-  display: inline-block;
-  max-width: 90px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-transform: none !important;
-  white-space: nowrap;
-  font-size: var(--fontSizeCommon) !important;
-  padding-right: 10px !important;
+.account {
+  min-width: 30px !important;
+
+  & > div > span {
+    display: inline-block;
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: none !important;
+    white-space: nowrap;
+    font-size: var(--fontSizeCommon) !important;
+    padding-right: 10px !important;
+    padding-left: 0 !important;
+  }
 }
 
 .logout {
@@ -20,4 +25,18 @@
   padding: 0 !important;
   height: auto  !important;
   width: auto !important;
+  
+  & svg:hover {
+    opacity: 1;
+  }
+
+  &[data-hint-position="bottom"] {
+    &::before {
+      bottom: -9px;
+      left: 8px;
+    }
+    &::after {
+      margin-top: 9px;
+    }
+  }
 }

@@ -3,33 +3,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getPlayer } from 'actions';
 import strings from 'lang';
+import { IconSteam } from 'components/Icons';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import LoggedIn from './LoggedIn';
-// import styles from './AccountWidget.css';
-// import FontIcon from 'material-ui/FontIcon';
-// import { PlayerPicture } from '../Player';
+import styles from './AccountWidget.css';
 
-// Maybe we can factor out this ternary into a function?
-/*
-        <PlayerPicture noSteamLink link={`/players/${user.account_id}/overview`} playerId={user.account_id} />
-        <FontIcon style={{ fontSize: 40 }} className="material-icons">
-          exit_to_app
-        </FontIcon>
-        <FlatButton
-            label={strings.app_login}
-            icon={<IconSteam />}
-            href={`${API_HOST}/login`}
-          />
-*/
 const AccountWidget = ({ loading, error, user, style }) => (
   <div style={style}>
     {loading && !error && <Spinner />}
     {error && <Error />}
-    {!error && !loading && user ? (
-      <LoggedIn playerId={user.account_id} />
-      )
-      : <a href={`${API_HOST}/login`}>{strings.app_login}</a>
+    {!error && !loading && user
+      ? <LoggedIn playerId={user.account_id} />
+      : <a href={`${API_HOST}/login`} className={styles.iconButton}>
+        <IconSteam />
+        {strings.app_login}
+      </a>
     }
   </div>
 );
