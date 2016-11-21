@@ -30,6 +30,11 @@ const TableHeroImage = ({
         <ActionDoneAll />
       </div>
     }
+    {party &&
+      <div className={styles.party}>
+        {party}
+      </div>
+    }
     {isRadiant !== undefined &&
       <div className={styles.teamIcon}>
         {isRadiant ?
@@ -37,11 +42,6 @@ const TableHeroImage = ({
           <IconDire className={styles.iconDire} />}
       </div>
     } 
-    {party &&
-      <div className={styles.party}>
-        {party}
-      </div>
-    }
     {image &&
       <div className={styles.imageContainer}>
         <img
