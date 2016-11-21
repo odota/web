@@ -248,7 +248,8 @@ class TeamfightMap extends Component {
               <div className={styles.mapAndInfoContainer}>
                 <div
                   className={styles.map}
-                  onClick={this.onMapClick(bindWidth(width))}
+                  // onClick={this.onMapClick(bindWidth(width))}
+                  // commented out because there are some bugs in mobile with it.
                   style={setMapSizeStyle(width)}
                 >
                   {teamfights.map((teamfight, index) => (

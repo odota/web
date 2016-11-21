@@ -96,7 +96,7 @@ function generateTeamfights({ players, teamfights = [] }) {
       return {
         ...player,
         ...tfplayer,
-        participate: tfplayer.deaths > 0 || tfplayer.damage > 0 || tfplayer.healing > 0,
+        participate: tfplayer.deaths > 0 || tfplayer.damage > 0, // || tfplayer.healing > 0,
         level_start: getLevelFromXp(tfplayer.xp_start),
         level_end: getLevelFromXp(tfplayer.xp_end),
         deaths_pos: playerDeathsPos,
@@ -108,7 +108,7 @@ function generateTeamfights({ players, teamfights = [] }) {
       .map(death => ([{
         ...death,
         killer: newtf.players
-          .find(killer => killer.killed[heroes[death.player.hero_id].name]),
+          .find(killer => heroes[death.player.hero_id] && killer.killed[heroes[death.player.hero_id].name]),
       }]))
       .reduce(
         (newDeathsPos, death) => {
