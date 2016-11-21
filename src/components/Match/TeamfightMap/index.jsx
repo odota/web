@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { formatSeconds, calculateDistance, calculateRelativeXY } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import Measure from 'react-measure';
-import { IconRadiant, IconDire, IconTombstone } from 'components/Icons';
+import { IconRadiant, IconDire, IconDot } from 'components/Icons';
 import { TeamTable } from 'components/Match/matchPages';
 import { teamfightColumns } from 'components/Match/matchColumns';
 import PlayerThumb from 'components/Match/PlayerThumb';
@@ -64,22 +64,23 @@ export const Tombstones = ({ deathPositions, mapWidth, tooltipKey }) => (
       <div>
         <TeamfightIcon
           key={index}
-          Icon={IconTombstone}
+          Icon={IconDot}
           position={position[0]}
           mapWidth={mapWidth}
           tooltipKey={`${index}_${tooltipKey}`}
           className={styles[`${getTombStyle(position)}Tombstone`]}
-          style={style(mapWidth, position[0], 17, { noTopAdjustment: true })}
+          style={style(mapWidth, position[0], iconSize(mapWidth, 20))}
         />
         <ReactTooltip
           id={`${index}_${tooltipKey}`}
           effect="solid"
+          border
+          class={styles[`${getTombStyle(position)}TombstoneTooltip`]}
         >
           {position.map((pos, index) => (
-            <div key={index} className={styles.tooltipContainer}>
-              <div className={styles.tombText}>{strings.tooltip_tombstone_victim}</div>
+            <div key={index} className={styles.tombstoneTooltipContainer}>
               <PlayerThumb {...pos.player} />
-              <div className={styles.tombText}>{strings.tooltip_tombstone_killer}</div>
+              <div className={styles.tombTextKiller}>{strings.tooltip_tombstone_killer}</div>
               <PlayerThumb {...pos.killer} />
             </div>
           ))}

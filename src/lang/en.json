@@ -463,7 +463,7 @@
   "tooltip_played_with": "Number of games with this player/hero on the team",
   "tooltip_played_against": "Number of games with this player/hero on the opposing team",
   "tooltip_tombstone_victim": "Here Lies",
-  "tooltip_tombstone_killer": "Killed By",
+  "tooltip_tombstone_killer": "killed by",
   "tooltip_win_pct_as": "Win percentage as this hero",
   "tooltip_win_pct_with": "Win percentage with this player/hero",
   "tooltip_win_pct_against": "Win percentage against this player/hero",

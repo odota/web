@@ -17,6 +17,7 @@ import IconBloodDrop from './BloodDrop';
 import IconRoshan from './Roshan';
 import IconBattle from './Battle';
 import IconTombstone from './Tombstone';
+import IconDot from './Dot';
 
 export {
   IconCheese,
@@ -38,4 +39,5 @@ export {
   IconRoshan,
   IconBattle,
   IconTombstone,
+  IconDot,
 };
