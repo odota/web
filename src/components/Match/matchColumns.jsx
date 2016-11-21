@@ -66,7 +66,7 @@ export const heroTdChat = (row, col, field, index, hideName, party) => (
   />
 );
 
-export const heroTdColumnChat = {
+export const heroTdChatColumn = {
   displayName: 'Player',
   field: 'player_slot',
   displayFn: heroTdChat,
@@ -450,7 +450,7 @@ export const supportColumns = [
 ];
 
 export const chatColumns = [
-  heroTdColumnChat, {
+  heroTdChatColumn, {
     displayName: strings.th_time,
     field: 'time',
     displayFn: (row, col, field) => formatSeconds(field),
