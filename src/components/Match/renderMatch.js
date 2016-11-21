@@ -61,7 +61,7 @@ function generateTeamfights({ players, teamfights = [] }) {
     const newtf = {
       ...tf,
       deaths_pos: [],
-      radiant_networth_advantage_delta: 0,
+      radiant_gold_advantage_delta: 0,
       radiant_gold_delta: 0,
       dire_gold_delta: 0,
       radiant_xp_delta: 0,
@@ -74,13 +74,13 @@ function generateTeamfights({ players, teamfights = [] }) {
       const tfplayer = tf.players[player.player_slot % (128 - 5)];
       // compute team gold/xp deltas
       if (isRadiant(player.player_slot)) {
-        newtf.radiant_networth_advantage_delta += tfplayer.gold_delta;
+        newtf.radiant_gold_advantage_delta += tfplayer.gold_delta;
         newtf.radiant_gold_delta += tfplayer.gold_delta;
         newtf.radiant_xp_delta += tfplayer.xp_delta;
         newtf.radiant_participation += tfplayer.participate ? 1 : 0;
         newtf.radiant_deaths += tfplayer.deaths ? 1 : 0;
       } else {
-        newtf.radiant_networth_advantage_delta -= tfplayer.gold_delta;
+        newtf.radiant_gold_advantage_delta -= tfplayer.gold_delta;
         newtf.dire_gold_delta -= tfplayer.gold_delta;
         newtf.radiant_xp_delta -= tfplayer.xp_delta;
         newtf.dire_participation += tfplayer.participate ? 1 : 0;

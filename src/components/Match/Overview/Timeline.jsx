@@ -61,7 +61,7 @@ export default ({ match }) => {
         start: fight.start,
         end: fight.end,
         time: (fight.start + fight.end) / 2,
-        radiant_networth_advantage_delta: fight.radiant_networth_advantage_delta,
+        radiant_gold_advantage_delta: fight.radiant_gold_advantage_delta,
         deaths: fight.players
           .map((player, i) => (player.deaths > 0 ? {
             key: i,
@@ -135,7 +135,7 @@ export default ({ match }) => {
                         }%`,
                         width: `${wTeamfight}%`,
                         // backgroundColor: obj.type === 'teamfight' && (
-                        //   obj.radiant_networth_advantage_delta >= 0 ? styles.green : styles.red
+                        //   obj.radiant_gold_advantage_delta >= 0 ? styles.green : styles.red
                         // ),
                       }}
                     >
@@ -155,7 +155,7 @@ export default ({ match }) => {
                         <IconBattle
                           data-tip
                           data-for={`event_${i}`}
-                          style={{ fill: obj.radiant_networth_advantage_delta >= 0 ? styles.green : styles.red }}
+                          style={{ fill: obj.radiant_gold_advantage_delta >= 0 ? styles.green : styles.red }}
                         />
                       }
                       <ReactTooltip
@@ -174,8 +174,10 @@ export default ({ match }) => {
                             </span>
                             {obj.key &&
                               <PlayerThumb
-                                {...match.players.find(player =>
-                                  player.hero_id === heroesArr('find')(hero => hero.name === obj.key).id)}
+                                {...match.players.find((player) => {
+                                  const foundHero = heroesArr('find')(hero => hero.name === obj.key);
+                                  return foundHero && player.hero_id === foundHero.id;
+                                })}
                               />
                             }
                           </section>

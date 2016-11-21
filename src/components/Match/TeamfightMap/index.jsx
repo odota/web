@@ -46,7 +46,6 @@ const getIconStyle = radiantGoldDelta => (isRadiant(radiantGoldDelta) ? styles.r
 const getSelectedStyle = radiantGoldDelta =>
   (isRadiant(radiantGoldDelta) ? styles.radiantSelected : styles.direSelected);
 
-// TODO - fix this bug where radiant is always either unstyled or gets the 'both' string here
 const getTombStyle = position => position.reduce(
   (str, position) => {
     const radStr = position.isRadiant ? 'radiant' : 'dire';
@@ -239,11 +238,11 @@ class TeamfightMap extends Component {
   render() {
     const { teamfights = [] } = this.props;
     const { teamfight } = this.state;
-    const Icon = IconType(isRadiant(teamfight.radiant_networth_advantage_delta));
+    const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
     return (
       <Measure>
         {({ width }) => (
-          <div className={`${styles.container} ${getSelectedStyle(teamfight.radiant_networth_advantage_delta)}`}>
+          <div className={`${styles.container} ${getSelectedStyle(teamfight.radiant_gold_advantage_delta)}`}>
             <div className={styles.teamfightContainer}>
               <div className={styles.mapAndInfoContainer}>
                 <div
@@ -261,7 +260,7 @@ class TeamfightMap extends Component {
                       tooltipKey={`${index}_${teamfight.start}`}
                       start={teamfight.start}
                       end={teamfight.end}
-                      radiantGoldDelta={teamfight.radiant_networth_advantage_delta}
+                      radiantGoldDelta={teamfight.radiant_gold_advantage_delta}
                       deathPositions={teamfight.deaths_pos}
                       mapWidth={bindWidth(width)}
                     />
@@ -272,10 +271,10 @@ class TeamfightMap extends Component {
                     {formatSeconds(teamfight.start)} - {formatSeconds(teamfight.end)}
                   </div>
                   <div className={styles.headerSubInfo}>
-                    <div className={getIconStyle(teamfight.radiant_networth_advantage_delta)}>
+                    <div className={getIconStyle(teamfight.radiant_gold_advantage_delta)}>
                       <Icon style={{ height: iconSize(bindWidth(width)), width: iconSize(bindWidth(width)) }} />
                     </div>
-                    <span className={styles.headerGold}><GoldDelta radiantGoldDelta={teamfight.radiant_networth_advantage_delta} /></span>
+                    <span className={styles.headerGold}><GoldDelta radiantGoldDelta={teamfight.radiant_gold_advantage_delta} /></span>
                     <div className={styles.muted}>{teamfight.deaths_pos.length} Deaths</div>
                   </div>
                 </header>

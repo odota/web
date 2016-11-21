@@ -19,7 +19,7 @@ const config = {
     publicPath: 'build/',
   },
   resolve: {
-    extensions: ['', '.jsx', '.js', '.css', '.json'],
+    extensions: ['.jsx', '.js', '.css', '.json'],
     modules: [
       path.resolve('./src'),
       path.resolve('./assets'),
@@ -49,7 +49,8 @@ const config = {
     }, {
       test: /\.(js|jsx)$/,
       exclude: /(node_modules)/,
-      loader: 'babel', // 'babel-loader' is also a legal name to reference
+      loader: 'babel-loader', // It's no longer allowed to omit the '-loader' prefix when using loaders.
+                              // You need to specify 'babel-loader' instead of 'babel'.
     }],
   },
   plugins: [
