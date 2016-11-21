@@ -6,9 +6,11 @@ import playerColors from 'dotaconstants/json/player_colors.json';
 import { IconTrophy } from 'components/Icons';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import styles from './HeroImage.css';
+import { IconDire, IconRadiant } from 'components/Icons'
 
 const TableHeroImage = ({
   parsed,
+  isRadiant,
   image,
   registered,
   title,
@@ -28,6 +30,13 @@ const TableHeroImage = ({
         <ActionDoneAll />
       </div>
     }
+    {isRadiant !== undefined &&
+      <div className={styles.teamIcon}>
+        {isRadiant ?
+          <IconRadiant className={styles.iconRadiant} /> :
+          <IconDire className={styles.iconDire} />}
+      </div>
+    } 
     {party &&
       <div className={styles.party}>
         {party}
@@ -87,6 +96,7 @@ const { number, string, oneOfType, bool, node } = React.PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: number,
+  isRadiant: bool,
   image: string,
   title: string,
   subtitle: oneOfType([

@@ -51,6 +51,28 @@ export const heroTdColumn = {
   sortFn: true,
 };
 
+export const heroTdChat = (row, col, field, index, hideName, party) => (
+  <TableHeroImage
+    isRadiant={row.isRadiant}
+    image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
+    title={row.name || row.personaname || strings.general_anonymous}
+    registered={row.last_login}
+    accountId={row.account_id}
+    subtitle={<Mmr number={row.solo_competitive_rank} />}
+    playerSlot={row.player_slot}
+    hideText={hideName}
+    confirmed={row.account_id && row.name}
+    party={party}
+  />
+);
+
+export const heroTdColumnChat = {
+  displayName: 'Player',
+  field: 'player_slot',
+  displayFn: heroTdChat,
+  sortFn: true,
+};
+
 const parties = (row, match) => {
   if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
     const i = match.players.findIndex(player => player.player_slot === row.player_slot);
@@ -428,7 +450,7 @@ export const supportColumns = [
 ];
 
 export const chatColumns = [
-  heroTdColumn, {
+  heroTdColumnChat, {
     displayName: strings.th_time,
     field: 'time',
     displayFn: (row, col, field) => formatSeconds(field),

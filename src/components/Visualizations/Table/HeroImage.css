@@ -161,3 +161,26 @@
     display: inline-block;
   }
 }
+
+.iconRadiant {
+  filter: drop-shadow(0 0 5px green);
+  fill: var(--textColorPrimary) !important;
+}
+
+.iconDire {
+  filter: drop-shadow(0 0 5px var(--colorDanger));
+  fill: black !important;
+}
+
+.iconRadiant, .iconDire {
+  height: 26px !important;
+  width: 26px !important;
+  margin-right: 6px;
+}
+
+.teamIcon {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+}
