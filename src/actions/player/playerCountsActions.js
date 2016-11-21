@@ -62,9 +62,7 @@ export const getPlayerCounts = (playerId, options = {}) => (dispatch, getState) 
   }
   // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
-  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, {
-    credentials: 'include',
-  })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())
     .then((json) => {
       const data = {};

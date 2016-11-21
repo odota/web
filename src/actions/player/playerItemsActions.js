@@ -45,7 +45,7 @@ export const getPlayerItems = (playerId, options = {}, host = API_HOST) => (disp
   }
 
   // TODO: Actually return Items
-  return fetch(`${host}${getUrl(playerId, options, url)}`, { credentials: 'include' })
+  return fetch(`${host}${getUrl(playerId, options, url)}`)
   //   .then(response => response.json())
   //   .then(json => Object.keys(json).map(key => ({
   //     name: key,

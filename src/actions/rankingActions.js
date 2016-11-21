@@ -29,7 +29,7 @@ const getRankingError = payload => ({
 
 const getRanking = heroId => (dispatch) => {
   dispatch(getRankingStart());
-  return fetch(`${API_HOST}${url}?hero_id=${heroId}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${url}?hero_id=${heroId}`)
     .then(res => res.json())
     .then(json => dispatch(getRankingDone(json)))
     .catch(err => dispatch(getRankingError(err)));

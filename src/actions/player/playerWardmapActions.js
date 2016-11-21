@@ -35,7 +35,7 @@ export const getPlayerWardmap = (playerId, options = {}) => (dispatch, getState)
   } else {
     dispatch(getPlayerWardmapRequest(playerId));
   }
-  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())
     .then(json => dispatch(getPlayerWardmapOk(json, playerId)))
     .catch(error => dispatch(getPlayerWardmapError(error, playerId)));
