@@ -4,8 +4,9 @@ import heroes from 'dotaconstants/json/heroes.json';
 import styles from './PicksBans.css';
 
 // Team 0 - radiant, 1 - dire
-const PicksBans = ({ data }) => {
-  if (data) {
+const PicksBans = ({ data, matchId }) => {
+  const path = location.pathname.split(`/matches/${matchId}`)[1];
+  if (data && (path === '' || path === '/overview')) {
     return (
       <div className={styles.PicksBans}>
         {data.map(pb => (

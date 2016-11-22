@@ -55,13 +55,13 @@ export const TeamTable = ({
       icon={<IconRadiant className={styles.iconRadiant} />}
     />
     <Table data={filterMatchPlayers(match.players, 'radiant')} columns={columns} />
-    <PicksBans data={match.picks_bans && match.picks_bans.filter(pb => pb.team === 0)} />
+    <PicksBans data={match.picks_bans && match.picks_bans.filter(pb => pb.team === 0)} matchId={match.match_id} />
     <Heading
       title={`${strings.general_dire} ${heading}`}
       icon={<IconDire className={styles.iconDire} />}
     />
     <Table data={filterMatchPlayers(match.players, 'dire')} columns={columns} />
-    <PicksBans data={match.picks_bans && match.picks_bans.filter(pb => pb.team === 1)} />
+    <PicksBans data={match.picks_bans && match.picks_bans.filter(pb => pb.team === 1)} matchId={match.match_id} />
   </div>
 );
 
