@@ -84,7 +84,7 @@ const Pagination = ({
     </div>
     {place === 'bot' &&
       <div className={styles.info}>
-        {(pageLength * currentPage).toLocaleString('ru-RU')}
+        {((pageLength * currentPage) + 1).toLocaleString('ru-RU')}
         {' - '}
         {Math.min((pageLength * currentPage) + pageLength, length).toLocaleString('ru-RU')} {strings.pagination_of} {length.toLocaleString('ru-RU')}
       </div>
