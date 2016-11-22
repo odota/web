@@ -42,11 +42,14 @@ const navbarBug = {
   path: '//github.com/odota/ui/issues',
 };
 
+const navbarPagesLength = navbarPages.length;
+
 const LogoGroup = ({ width }) => {
-  if (width < mobile && navbarPages.map(page => page.path === '//github.com/odota/ui/issues').filter(Boolean).length < 1) {
+  if (width < mobile && navbarPagesLength === navbarPages.length) {
     navbarPages.push(navbarBug);
   }
 
+  // If `bug` item in navbar and it's becoming wider, remove `bug` from navbarPages
   const bugIndex = navbarPages.findIndex(page => page.path === navbarBug.path);
   if (width > mobile && bugIndex > -1) {
     navbarPages.splice(bugIndex, 1);
