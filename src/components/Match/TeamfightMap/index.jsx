@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { formatSeconds, calculateDistance, calculateRelativeXY } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import Measure from 'react-measure';
@@ -127,7 +127,7 @@ export const Teamfight = ({
         </div>
       </ReactTooltip>
     </div>
-    {selected && <Tombstones deathPositions={deathPositions} mapWidth={mapWidth} />}
+    {selected && <Tombstones deathPositions={deathPositions} mapWidth={mapWidth} tooltipKey={tooltipKey} />}
   </div>
 );
 
@@ -161,7 +161,10 @@ const avgPosition = ({ deaths_pos: deathPositions }) => {
       length: 0,
     },
   );
-  return avgs;
+  return {
+    x: avgs.x,
+    y: avgs.y,
+  };
 };
 
 const bindWidth = width => (width >= 400 ? 400 : width);
@@ -262,7 +265,7 @@ class TeamfightMap extends Component {
     return (
       <Measure>
         {({ width }) => (
-          <div className={`${styles.container} ${getSelectedStyle(teamfight.radiant_gold_advantage_delta)}`}>
+          <div>
             <div className={styles.timelineContainer}>
               <Timeline
                 match={match}
@@ -271,48 +274,50 @@ class TeamfightMap extends Component {
                 selectedTeamfight={teamfight && teamfight.start}
               />
             </div>
-            <div className={styles.teamfightContainer}>
-              <div className={styles.mapAndInfoContainer}>
-                <div
-                  className={styles.map}
-                  // onClick={this.onMapClick(bindWidth(width))}
-                  // commented out because there are some bugs in mobile with it.
-                  style={setMapSizeStyle(width)}
-                >
-                  {teamfights.map((teamfight, index) => (
-                    <Teamfight
-                      selected={this.isSelected(teamfight)}
-                      hovered={this.isHovered(teamfight)}
-                      key={index}
-                      onClick={this.onIconClick(teamfight)}
-                      position={avgPosition(teamfight)}
-                      tooltipKey={`${index}_${teamfight.start}`}
-                      start={teamfight.start}
-                      end={teamfight.end}
-                      radiantGoldDelta={teamfight.radiant_gold_advantage_delta}
-                      deathPositions={teamfight.deaths_pos}
-                      mapWidth={bindWidth(width)}
-                    />
-                  ))}
-                </div>
-                <header className={styles.header}>
-                  <div className={styles.muted}>
-                    {formatSeconds(teamfight.start)} - {formatSeconds(teamfight.end)}
+            <div className={`${styles.container} ${getSelectedStyle(teamfight.radiant_gold_advantage_delta)}`}>
+              <div className={styles.teamfightContainer}>
+                <div className={styles.mapAndInfoContainer}>
+                  <div
+                    className={styles.map}
+                    // onClick={this.onMapClick(bindWidth(width))}
+                    // commented out because there are some bugs in mobile with it.
+                    style={setMapSizeStyle(width)}
+                  >
+                    {teamfights.map((teamfight, index) => (
+                      <Teamfight
+                        selected={this.isSelected(teamfight)}
+                        hovered={this.isHovered(teamfight)}
+                        key={index}
+                        onClick={this.onIconClick(teamfight)}
+                        position={avgPosition(teamfight)}
+                        tooltipKey={`${index}_${teamfight.start}`}
+                        start={teamfight.start}
+                        end={teamfight.end}
+                        radiantGoldDelta={teamfight.radiant_gold_advantage_delta}
+                        deathPositions={teamfight.deaths_pos}
+                        mapWidth={bindWidth(width)}
+                      />
+                    ))}
                   </div>
-                  <div className={styles.headerSubInfo}>
-                    <div className={getIconStyle(teamfight.radiant_gold_advantage_delta)}>
-                      <Icon style={{ height: iconSize(bindWidth(width)), width: iconSize(bindWidth(width)) }} />
+                  <header className={styles.header}>
+                    <div className={styles.muted}>
+                      {formatSeconds(teamfight.start)} - {formatSeconds(teamfight.end)}
                     </div>
-                    <span className={styles.headerGold}><GoldDelta radiantGoldDelta={teamfight.radiant_gold_advantage_delta} /></span>
-                    <div className={styles.muted}>{teamfight.deaths_pos.length} Deaths</div>
-                  </div>
-                </header>
-              </div>
-              <div className={styles.tableContainer}>
-                <TeamTable
-                  players={teamfight.players && teamfight.players.filter(p => p.participate)}
-                  columns={teamfightColumns}
-                />
+                    <div className={styles.headerSubInfo}>
+                      <div className={getIconStyle(teamfight.radiant_gold_advantage_delta)}>
+                        <Icon style={{ height: iconSize(bindWidth(width)), width: iconSize(bindWidth(width)) }} />
+                      </div>
+                      <span className={styles.headerGold}><GoldDelta radiantGoldDelta={teamfight.radiant_gold_advantage_delta} /></span>
+                      <div className={styles.muted}>{teamfight.deaths_pos.length} Deaths</div>
+                    </div>
+                  </header>
+                </div>
+                <div className={styles.tableContainer}>
+                  <TeamTable
+                    players={teamfight.players && teamfight.players.filter(p => p.participate)}
+                    columns={teamfightColumns}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -321,5 +326,48 @@ class TeamfightMap extends Component {
     );
   }
 }
+
+const { arrayOf, object, shape, number, bool, func, string, array } = PropTypes;
+const positionShape = {
+  x: number.isRequired,
+  y: number.isRequired,
+};
+
+TeamfightIcon.propTypes = {
+  position: shape(positionShape).isRequired,
+  tooltipKey: string.isRequired,
+  mapWidth: number,
+  onClick: func, // not required because tombstone doesn't need click fn
+  Icon: func.isRequired,
+  style: object,
+};
+
+GoldDelta.propTypes = {
+  radiantGoldDelta: number.isRequired,
+};
+
+Tombstones.propTypes = {
+  tooltipKey: string.isRequired,
+  mapWidth: number.isRequired,
+  deathPositions: arrayOf(array).isRequired,
+};
+
+Teamfight.propTypes = {
+  position: shape(positionShape),
+  tooltipKey: string.isRequired,
+  start: number.isRequired,
+  end: number.isRequired,
+  radiantGoldDelta: number.isRequired,
+  selected: bool,
+  hovered: bool,
+  mapWidth: number.isRequired,
+  onClick: func.isRequired,
+  deathPositions: arrayOf(array).isRequired,
+};
+
+TeamfightMap.propTypes = {
+  teamfights: arrayOf(object).isRequired,
+  match: object.isRequired,
+};
 
 export default TeamfightMap;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import playerColors from 'dotaconstants/json/player_colors.json';
 import heroes from 'dotaconstants/json/heroes.json';
 import { getShortHeroName } from 'utility';
@@ -18,5 +18,14 @@ const PlayerThumb = ({ player_slot, hero_id, name, personaname }) => (
     {name || personaname || strings.general_anonymous}
   </aside>
 );
+
+const { string, oneOfType, number } = PropTypes;
+
+PlayerThumb.propTypes = {
+  player_slot: oneOfType([string, number]),
+  hero_id: oneOfType([string, number]),
+  name: string,
+  personaname: string,
+};
 
 export default PlayerThumb;
