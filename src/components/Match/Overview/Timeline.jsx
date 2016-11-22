@@ -27,7 +27,7 @@ export default ({ match }) => {
   if (match.objectives && match.objectives.length > 0) {
     // Firstblood
     const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
-    let fbArr = [{ type: 'firstblood', time: 0 }];
+    let fbArr = [{ type: 'firstblood', time: match.first_blood_time || 0 }];
 
     if (fbIndex > -1) {
       const fbKey = match.players.map(player =>
@@ -165,7 +165,7 @@ export default ({ match }) => {
                         />
                       }
                       <ReactTooltip
-                        id={`event_${i}`}
+                        id={obj.type === 'firstblood' && !obj.key && !obj.player_slot ? 'notthistime' : `event_${i}`}
                         effect="solid"
                         place="right"
                       >
