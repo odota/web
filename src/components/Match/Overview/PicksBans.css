@@ -1,0 +1,47 @@
+@import "../../palette.css";
+
+.PicksBans {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0 24px;
+
+  & > section {
+    position: relative;
+    margin-right: 10px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    & > aside {
+      font-size: 11px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: -5px;
+      background-color: black;
+      line-height: 1.6;
+    }
+  }
+}
+
+.image {
+  margin-right: 0;
+  z-index: 0;
+
+  composes: image from "../../Visualizations/Table/HeroImage.css";
+
+  &[data-isPick="false"] {
+    filter: grayscale(100%);
+  }
+}
+
+.ban {
+  position: absolute;
+  z-index: 1;
+  left: -3px;
+  right: -3px;
+  top: 14px;
+  border-top: 2px solid var(--colorDanger);
+  transform: rotate(-28deg);
+}

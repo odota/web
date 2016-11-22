@@ -37,6 +37,7 @@ import {
 } from './matchColumns';
 import Overview from './Overview';
 import styles from './Match.css';
+import PicksBans from './Overview/PicksBans';
 
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
@@ -54,11 +55,13 @@ export const TeamTable = ({
       icon={<IconRadiant className={styles.iconRadiant} />}
     />
     <Table data={filterMatchPlayers(match.players, 'radiant')} columns={columns} />
+    <PicksBans data={match.picks_bans && match.picks_bans.filter(pb => pb.team === 0)} />
     <Heading
       title={`${strings.general_dire} ${heading}`}
       icon={<IconDire className={styles.iconDire} />}
     />
     <Table data={filterMatchPlayers(match.players, 'dire')} columns={columns} />
+    <PicksBans data={match.picks_bans && match.picks_bans.filter(pb => pb.team === 1)} />
   </div>
 );
 
