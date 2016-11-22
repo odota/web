@@ -189,6 +189,8 @@
   "match_button_video": "Get video",
   "match_first_tower": "First tower",
   "match_first_barracks": "First barracks",
+  "match_pick": "Pick",
+  "match_ban": "Ban",
 
   "objective_tower1_top": "T1 Top",
   "objective_tower1_mid": "T1 Mid",

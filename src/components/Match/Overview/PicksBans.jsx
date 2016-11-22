@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import strings from 'lang';
 import heroes from 'dotaconstants/json/heroes.json';
 
 import styles from './PicksBans.css';
@@ -19,7 +20,7 @@ const PicksBans = ({ data, matchId }) => {
             />
             {!pb.is_pick && <div className={styles.ban} />}
             <aside>
-              {pb.is_pick ? 'Pick' : 'Ban'} <b>{pb.order + 1}</b>
+              {pb.is_pick ? strings.match_pick : strings.match_ban} <b>{pb.order + 1}</b>
             </aside>
           </section>
         ))}
