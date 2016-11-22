@@ -42,26 +42,17 @@ const navbarBug = {
   path: '//github.com/odota/ui/issues',
 };
 
-const navbarPagesLength = navbarPages.length;
+const extendedNavbarPages = [
+  ...navbarPages,
+  navbarBug,
+];
 
-const LogoGroup = ({ width }) => {
-  if (width < mobile && navbarPagesLength === navbarPages.length) {
-    navbarPages.push(navbarBug);
-  }
-
-  // If `bug` item in navbar and it's becoming wider, remove `bug` from navbarPages
-  const bugIndex = navbarPages.findIndex(page => page.path === navbarBug.path);
-  if (width > mobile && bugIndex > -1) {
-    navbarPages.splice(bugIndex, 1);
-  }
-
-  return (
-    <ToolbarGroup className={styles.verticalAlign}>
-      {width < tablet && <BurgerMenu links={navbarPages} top={<AccountWidget />} />}
-      <AppLogo style={{ marginRight: 18 }} size={width < mobile && '14px'} />
-    </ToolbarGroup>
-  );
-};
+const LogoGroup = ({ width }) => (
+  <ToolbarGroup className={styles.verticalAlign}>
+    {width < tablet && <BurgerMenu links={width <= mobile ? extendedNavbarPages : navbarPages} top={<AccountWidget />} />}
+    <AppLogo style={{ marginRight: 18 }} size={width < mobile && '14px'} />
+  </ToolbarGroup>
+);
 
 const LinkGroup = () => (
   <ToolbarGroup className={styles.verticalAlign}>
@@ -92,13 +83,13 @@ const AccountGroup = () => (
 const ReportBug = () => (
   <a
     className={styles.bug}
-    href="https://github.com/odota/ui/issues"
+    href={navbarBug.path}
     target="_blank"
     rel="noopener noreferrer"
   >
     <Bug />
     <span>
-      {strings.app_report_bug}
+      {navbarBug.name}
     </span>
   </a>
 );
