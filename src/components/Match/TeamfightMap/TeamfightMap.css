@@ -6,6 +6,10 @@
   margin: 0 -5px;
 }
 
+.timelineContainer {
+  margin-bottom: 75px;
+}
+
 .mapAndInfoContainer {
   margin: 0 5px 10px 5px;
 }
@@ -190,6 +194,12 @@
     color: var(--colorDanger);
   }
   margin: 0;
+}
+
+.hovered {
+  & svg {
+    fill: var(--colorBlue) !important;
+  }
 }
 
 .selected {

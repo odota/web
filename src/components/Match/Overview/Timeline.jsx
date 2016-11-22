@@ -1,4 +1,6 @@
 import React from 'react';
+import classNames from 'classnames';
+
 import {
   formatSeconds,
   isRadiant,
@@ -20,7 +22,15 @@ import styles from './Timeline.css';
 
 const heroesArr = jsonFn(heroes);
 
-export default ({ match }) => {
+const getWinnerStyle = obj =>
+  (obj && obj.radiant_gold_advantage_delta >= 0 ? styles.radiantWinner : styles.direWinner);
+
+export default ({
+  match,
+  onTeamfightClick,
+  onTeamfightHover,
+  selectedTeamfight,
+}) => {
   const preHorn = 90; // Seconds before the battle horn
 
   const obj = [];
@@ -153,9 +163,15 @@ export default ({ match }) => {
                       }
                       {obj.type === 'teamfight' &&
                         <IconBattle
+                          onClick={onTeamfightClick && onTeamfightClick(obj.start)}
+                          onMouseEnter={onTeamfightHover && onTeamfightHover(obj.start)}
+                          onMouseLeave={onTeamfightHover && onTeamfightHover(null)}
                           data-tip
                           data-for={`event_${i}`}
-                          style={{ fill: obj.radiant_gold_advantage_delta >= 0 ? styles.green : styles.red }}
+                          className={classNames(
+                            (selectedTeamfight === obj.start) ? styles.selectedTeamfight : getWinnerStyle(obj),
+                            (selectedTeamfight || selectedTeamfight === 0) && styles.clickable,
+                          )}
                         />
                       }
                       <ReactTooltip

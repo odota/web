@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { formatSeconds, calculateDistance, calculateRelativeXY } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import Measure from 'react-measure';
+import classNames from 'classnames';
 import { IconRadiant, IconDire, IconDot } from 'components/Icons';
 import { TeamTable } from 'components/Match/matchPages';
 import { teamfightColumns } from 'components/Match/matchColumns';
 import PlayerThumb from 'components/Match/PlayerThumb';
 import strings from 'lang';
+import Timeline from 'components/Match/Overview/Timeline';
 import styles from './TeamfightMap.css';
 
 const MAP_WIDTH = 400;
@@ -96,13 +98,14 @@ export const Teamfight = ({
   end,
   radiantGoldDelta,
   selected,
+  hovered,
   mapWidth,
   onClick,
   deathPositions,
 }) => (
   <div>
     <div className={getIconStyle(radiantGoldDelta)}>
-      <div className={selected && styles.selected}>
+      <div className={classNames(hovered && styles.hovered, selected && styles.selected)}>
         <TeamfightIcon
           position={position}
           isRadiant={isRadiant(radiantGoldDelta)}
@@ -171,25 +174,42 @@ const setMapSizeStyle = width => ({
 class TeamfightMap extends Component {
   constructor(props) {
     super();
-    this.selectTeamfight = this.selectTeamfight.bind(this);
     this.isSelected = this.isSelected.bind(this);
     this.onMapClick = this.onMapClick.bind(this);
     this.onIconClick = this.onIconClick.bind(this);
+    this.onTimelineIconClick = this.onTimelineIconClick.bind(this);
+    this.onTimelineHover = this.onTimelineHover.bind(this);
+    this.onTeamfightHover = this.onTeamfightHover.bind(this);
+    this.curriedTeamfightHandler = this.curriedTeamfightHandler.bind(this);
     const { teamfights = [] } = props;
     const teamfight = teamfights.length > 0 ? teamfights[0] : null;
     this.state = {
-      selectedTeamfight: teamfight ? teamfight.start : null,
       teamfight,
     };
   }
 
+  onTimelineIconClick(start) {
+    return this.curriedTeamfightHandler(this.onIconClick, start);
+  }
+
+  onTimelineHover(start) {
+    return this.curriedTeamfightHandler(this.onTeamfightHover, start);
+  }
+
+  onTeamfightHover(teamfight) {
+    return () => {
+      this.setState({
+        hoveredTeamfight: teamfight,
+      });
+    };
+  }
+
   onIconClick(teamfight) {
-    return (event) => {
+    return () => {
       // We do this because we need to prevent the map click event from
       // being executed. That click event is innaccurate if the actual icon is clicked.
-      event.stopPropagation();
+      // event.stopPropagation();
       this.setState({
-        selectedTeamfight: teamfight.start,
         teamfight,
       });
     };
@@ -206,43 +226,51 @@ class TeamfightMap extends Component {
           const distance = calculateDistance(x1, y1, x2 + (iconSize(width) / 2), y2 + (iconSize(width) / 2));
           if (distance < cursor.distance) {
             newCursor = {
-              key: teamfight.start,
               teamfight,
               distance,
             };
           }
           return newCursor;
         }, {
-          key: this.state.selectedTeamfight,
           teamfight: this.state.teamfight,
           distance: Infinity,
         });
       this.setState({
-        selectedTeamfight: newSelection.key,
         teamfight: newSelection.teamfight,
       });
     };
   }
 
-  isSelected({ start }) {
-    return this.state.selectedTeamfight === start;
+  curriedTeamfightHandler(fn, start) {
+    return (event) => {
+      fn(this.props.teamfights.find(tf => tf.start === start))(event);
+    };
   }
 
-  selectTeamfight(start, teamfight) {
-    this.setState({
-      selectedTeamfight: start,
-      teamfight,
-    });
+  isHovered(teamfight = { start: null }) {
+    return this.state.hoveredTeamfight && this.state.hoveredTeamfight.start === teamfight.start;
+  }
+
+  isSelected(teamfight = { start: null }) {
+    return this.state.teamfight && this.state.teamfight.start === teamfight.start;
   }
 
   render() {
-    const { teamfights = [] } = this.props;
+    const { teamfights = [], match } = this.props;
     const { teamfight } = this.state;
     const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
     return (
       <Measure>
         {({ width }) => (
           <div className={`${styles.container} ${getSelectedStyle(teamfight.radiant_gold_advantage_delta)}`}>
+            <div className={styles.timelineContainer}>
+              <Timeline
+                match={match}
+                onTeamfightClick={this.onTimelineIconClick}
+                onTeamfightHover={this.onTimelineHover}
+                selectedTeamfight={teamfight && teamfight.start}
+              />
+            </div>
             <div className={styles.teamfightContainer}>
               <div className={styles.mapAndInfoContainer}>
                 <div
@@ -254,6 +282,7 @@ class TeamfightMap extends Component {
                   {teamfights.map((teamfight, index) => (
                     <Teamfight
                       selected={this.isSelected(teamfight)}
+                      hovered={this.isHovered(teamfight)}
                       key={index}
                       onClick={this.onIconClick(teamfight)}
                       position={avgPosition(teamfight)}

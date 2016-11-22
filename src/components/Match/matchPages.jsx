@@ -156,10 +156,10 @@ const matchPages = [Overview, {
   name: strings.tab_teamfights,
   key: 'teamfights',
   parsed: true,
-  content: ({ teamfights = [] }) => (
+  content: match => (
     <div>
       <Heading title={strings.heading_teamfights} />
-      <TeamfightMap teamfights={teamfights} />
+      <TeamfightMap teamfights={match.teamfights} match={match} />
     </div>),
 }, {
   name: strings.tab_analysis,
