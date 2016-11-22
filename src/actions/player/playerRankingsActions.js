@@ -39,7 +39,7 @@ export const getPlayerRankings = (playerId, options = {}) => (dispatch, getState
   } else {
     dispatch(getPlayerRankingsRequest(playerId));
   }
-  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())
     // Filter out the rankings where the person is so bad they don't even have a rank for that hero
     .then(json => json.filter(ranking => ranking.rank).sort((a, b) => (b.rank / b.card) - (a.rank / a.card)))

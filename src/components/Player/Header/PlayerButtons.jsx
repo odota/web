@@ -26,7 +26,7 @@ class PlayerButtons extends React.Component {
             icon={<ActionUpdate />}
             disabled={this.state.disableRefresh}
             onClick={() => {
-              fetch(`${API_HOST}/api/players/${playerId}/refresh`, { method: 'POST', credentials: 'include' });
+              fetch(`${API_HOST}/api/players/${playerId}/refresh`, { method: 'POST' });
               this.setState({ disableRefresh: true });
             }}
           />

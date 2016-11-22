@@ -28,7 +28,7 @@ export const getPlayerWinLossError = payload => ({
 
 export const getPlayerWinLoss = (playerId, options = {}) => (dispatch) => {
   dispatch(getPlayerWinLossRequest());
-  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())
     .then(json => dispatch(getPlayerWinLossOk(json)))
     .catch(error => dispatch(getPlayerWinLossError(error)));

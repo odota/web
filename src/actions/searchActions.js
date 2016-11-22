@@ -37,7 +37,7 @@ const getSearchError = payload => ({
 const getSearchResult = query => (dispatch) => {
   dispatch(getSearchRequest());
   dispatch(setSearchQuery(query));
-  return fetch(`${API_HOST}${url}?q=${query}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${url}?q=${query}`)
     .then(res => res.json())
     .then(json => dispatch(getSearchOk(json)))
     .catch(err => dispatch(getSearchError(err)));

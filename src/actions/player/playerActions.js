@@ -35,7 +35,7 @@ export const getPlayer = accountId => (dispatch, getState) => {
   } else {
     dispatch(getPlayerRequest(accountId));
   }
-  return fetch(`${API_HOST}${url}/${accountId}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${url}/${accountId}`)
     .then(response => response.json(accountId))
     .then((json) => {
       dispatch(getPlayerOk(json, accountId));
