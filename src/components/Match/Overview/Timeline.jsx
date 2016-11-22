@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {
   formatSeconds,
   isRadiant,
@@ -18,7 +18,7 @@ import barracksValue from 'dotaconstants/json/barracks_value.json';
 
 import styles from './Timeline.css';
 
-export default ({ match }) => {
+const Timeline = ({ match }) => {
   const preHorn = 90; // Seconds before the battle horn
 
   const obj = [];
@@ -302,3 +302,9 @@ export default ({ match }) => {
 
   return null;
 };
+
+Timeline.PropTypes = {
+  match: PropTypes.object,
+};
+
+export default Timeline;

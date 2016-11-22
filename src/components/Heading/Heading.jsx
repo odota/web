@@ -16,7 +16,7 @@ const Heading = ({ title, icon = <ActionLabelOutline />, subtitle, className }) 
 
 Heading.propTypes = {
   title: PropTypes.string,
-  icon: PropTypes.string,
+  icon: PropTypes.object,
   subtitle: PropTypes.string,
   className: PropTypes.string,
 };

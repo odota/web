@@ -10,7 +10,7 @@ const PicksBans = ({ data, matchId }) => {
     return (
       <div className={styles.PicksBans}>
         {data.map(pb => (
-          <section>
+          <section key={pb.order}>
             <img
               src={`${API_HOST}${heroes[pb.hero_id].img}`}
               role="presentation"
