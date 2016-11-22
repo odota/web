@@ -158,7 +158,6 @@ const matchPages = [Overview, {
   parsed: true,
   content: match => (
     <div>
-      <Heading title={strings.heading_teamfights} />
       <TeamfightMap teamfights={match.teamfights} match={match} />
     </div>),
 }, {
