@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import heroes from 'dotaconstants/json/heroes.json';
+import strings from 'lang';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import TextField from 'material-ui/TextField';
 import HeroList from './HeroList';
@@ -51,10 +52,10 @@ class Heroes extends Component {
       return (<div>
         <HeroBadge hero={getSingleHero(this.props.routeParams.heroId)} />
         <Tabs>
-          <Tab label="Rankings">
+          <Tab label={strings.tab_rankings}>
             <Ranking {...this.props} />
           </Tab>
-          <Tab label="Benchmarks">
+          <Tab label={strings.tab_benchmarks}>
             <Benchmark {...this.props} />
           </Tab>
         </Tabs>
@@ -63,10 +64,10 @@ class Heroes extends Component {
 
     return (
       <div>
-        <h1 className={style.Header}>Heroes</h1>
+        <h1 className={style.Header}>{strings.header_heroes}</h1>
         <div className={style.SearchBar}>
           <TextField
-            hintText={'Filter Heroes'}
+            hintText={strings.placeholder_filter_heroes}
             value={this.state.filter}
             onChange={e => this.setState({ filter: e.target.value })}
             fullWidth
