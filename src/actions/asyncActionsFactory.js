@@ -32,7 +32,7 @@
 //     } else {
 //       dispatch(getPlayerRequest(accountId));
 //     }
-//     return fetch(`${host}${url}/${accountId}`, { credentials: 'include' })
+//     return fetch(`${host}${url}/${accountId}`)
 //       .then(response => response.json(accountId))
 //       .then(json => {
 //         dispatch(getPlayerOk(json, accountId));

@@ -38,7 +38,7 @@ export const getPlayerPros = (playerId, options = {}) => (dispatch, getState) =>
   }
   // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
-  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())
     .then(json => json.filter(pro => Number(playerId) !== pro.account_id))
     .then(json => dispatch(getPlayerProsOk(json, playerId)))
