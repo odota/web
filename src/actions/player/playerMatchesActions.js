@@ -56,7 +56,7 @@ export const getPlayerMatches = (playerId, options = {}, getAllData, forceRefres
     dispatch(getPlayerMatchesRequest(playerId));
   }
 
-  return fetch(`${API_HOST}${getUrl(playerId, modifiedOptions, url)}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, modifiedOptions, url)}`)
     .then(response => response.json())
     .then(json => dispatch(getPlayerMatchesOk(json, playerId, getAllData)))
     .catch(error => dispatch(getPlayerMatchesError(error, playerId)));

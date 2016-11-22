@@ -35,7 +35,7 @@ export const getPlayerMMR = (playerId, options = {}) => (dispatch, getState) => 
     dispatch(getPlayerMMRRequest(playerId));
   }
 
-  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())
     .then(json => json.map(mmr => ({
       value: mmr.solo_competitive_rank,

@@ -60,7 +60,7 @@ export const getPlayerHistogram = (playerId, options = {}, histogramName) => (di
     dispatch(getPlayerHistogramRequest(playerId, histogramName));
   }
 
-  return fetch(`${API_HOST}${getUrl(playerId, options, url(histogramName))}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url(histogramName))}`)
     .then(response => response.json())
     .then(json => json.reduceRight(reduceArray(true), []))
     .then(json => dispatch(getPlayerHistogramOk(json, playerId, histogramName)))

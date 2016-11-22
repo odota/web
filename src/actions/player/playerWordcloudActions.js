@@ -38,7 +38,7 @@ export const getPlayerWordcloud = (playerId, options = {}) => (dispatch, getStat
   }
   // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
-  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())
     .then(json => dispatch(getPlayerWordcloudOk(json, playerId)))
     .catch(error => dispatch(getPlayerWordcloudError(error, playerId)));

@@ -21,38 +21,38 @@ import BurgerMenu from '../BurgerMenu';
 const tablet = 864;
 const mobile = 425;
 
-const navbarPages = [
 // TODO Explorer
 // TODO Matches
-  {
-    name: strings.header_heroes,
-    path: '/heroes',
-  }, {
-    name: strings.header_distributions,
-    path: '/distributions',
-  }, {
-    name: strings.header_ingame,
-    sponsored: true,
-    external: true,
-    path: 'https://dota2.becomethegamer.com/yasp',
-  }];
+const navbarPages = [{
+  name: strings.header_heroes,
+  path: '/heroes',
+}, {
+  name: strings.header_distributions,
+  path: '/distributions',
+}, {
+  name: strings.header_ingame,
+  sponsored: true,
+  external: true,
+  path: '//dota2.becomethegamer.com/yasp',
+}];
 
-const LogoGroup = ({ width }) => {
-  if (width <= mobile) {
-    navbarPages.push({
-      name: strings.app_report_bug,
-      external: true,
-      path: 'https://github.com/odota/ui/issues',
-    });
-  }
-
-  return (
-    <ToolbarGroup className={styles.verticalAlign}>
-      {width < tablet && <BurgerMenu links={navbarPages} top={<AccountWidget />} />}
-      <AppLogo style={{ marginRight: 18 }} size={width < mobile && '14px'} />
-    </ToolbarGroup>
-  );
+const navbarBug = {
+  name: strings.app_report_bug,
+  external: true,
+  path: '//github.com/odota/ui/issues',
 };
+
+const extendedNavbarPages = [
+  ...navbarPages,
+  navbarBug,
+];
+
+const LogoGroup = ({ width }) => (
+  <ToolbarGroup className={styles.verticalAlign}>
+    {width < tablet && <BurgerMenu links={width <= mobile ? extendedNavbarPages : navbarPages} top={<AccountWidget />} />}
+    <AppLogo style={{ marginRight: 18 }} size={width < mobile && '14px'} />
+  </ToolbarGroup>
+);
 
 const LinkGroup = () => (
   <ToolbarGroup className={styles.verticalAlign}>
@@ -83,13 +83,13 @@ const AccountGroup = () => (
 const ReportBug = () => (
   <a
     className={styles.bug}
-    href="https://github.com/odota/ui/issues"
+    href={navbarBug.path}
     target="_blank"
     rel="noopener noreferrer"
   >
     <Bug />
     <span>
-      {strings.app_report_bug}
+      {navbarBug.name}
     </span>
   </a>
 );

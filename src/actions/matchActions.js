@@ -37,7 +37,7 @@ export const setMatchSort = (sortField, sortState, sortFn) => ({
 
 export const getMatch = matchId => (dispatch) => {
   dispatch(getMatchRequest());
-  return fetch(`${API_HOST}${url}${matchId}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${url}${matchId}`)
     .then(response => response.json())
     .then(json => renderMatch(json))
     .then(json => dispatch(getMatchOk(json)))
