@@ -26,15 +26,20 @@ export default ({ match, user, loading }) => {
           <Col xs={12} md={4} className={match.radiant_win ? styles.radiant : styles.dire}>
             <div className={styles.winner}>
               {/* If need to display team info just make condition (logo, name (side))*/}
-              {match.radiant_win ?
-                <span>
+              {match.radiant_win
+                ? <span>
                   <IconRadiant />
-                  {strings.match_radiant_win}
+                  {match.radiant_team
+                    ? `${match.radiant_team.name} ${strings.match_team_win}`
+                    : strings.match_radiant_win
+                  }
                 </span>
-              :
-                <span>
+                : <span>
                   <IconDire />
-                  {strings.match_dire_win}
+                  {match.dire_team
+                    ? `${match.dire_team.name} ${strings.match_team_win}`
+                    : strings.match_dire_win
+                  }
                 </span>
               }
             </div>

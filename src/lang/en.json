@@ -178,6 +178,7 @@
 
   "match_radiant_win": "Radiant Victory",
   "match_dire_win": "Dire Victory",
+  "match_team_win": "Victory",
   "match_ended": "Ended",
   "match_id": "Match ID",
   "match_region": "Region",

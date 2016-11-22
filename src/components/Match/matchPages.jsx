@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  formatSeconds,
-  isRadiant,
-} from 'utility';
+import { formatSeconds } from 'utility';
 import strings from 'lang';
 import {
   Tabs,
@@ -10,7 +7,6 @@ import {
 } from 'material-ui/Tabs';
 import Heading from 'components/Heading';
 import Table from 'components/Table';
-import { IconRadiant, IconDire } from 'components/Icons';
 import VisionPage from './VisionPage';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
@@ -36,34 +32,8 @@ import {
   inflictorsColumns,
 } from './matchColumns';
 import Overview from './Overview';
+import TeamTable from './TeamTable';
 import styles from './Match.css';
-import PicksBans from './Overview/PicksBans';
-
-const filterMatchPlayers = (players, team = '') =>
-  players.filter(player =>
-    ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === ''),
-  ).sort((a, b) => a.player_slot - b.player_slot);
-
-export const TeamTable = ({
-  match,
-  columns,
-  heading = '',
-}) => (
-  <div>
-    <Heading
-      title={`${strings.general_radiant} ${heading}`}
-      icon={<IconRadiant className={styles.iconRadiant} />}
-    />
-    <Table data={filterMatchPlayers(match.players, 'radiant')} columns={columns} />
-    <PicksBans data={match.picks_bans && match.picks_bans.filter(pb => pb.team === 0)} matchId={match.match_id} />
-    <Heading
-      title={`${strings.general_dire} ${heading}`}
-      icon={<IconDire className={styles.iconDire} />}
-    />
-    <Table data={filterMatchPlayers(match.players, 'dire')} columns={columns} />
-    <PicksBans data={match.picks_bans && match.picks_bans.filter(pb => pb.team === 1)} matchId={match.match_id} />
-  </div>
-);
 
 const matchPages = [Overview, {
   name: strings.tab_benchmarks,
