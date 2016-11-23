@@ -52,13 +52,6 @@ export const heroTdColumn = {
   sortFn: true,
 };
 
-export const heroTdChatColumn = {
-  displayName: 'Player',
-  field: 'player_slot',
-  displayFn: heroTd,
-  sortFn: false,
-};
-
 const parties = (row, match) => {
   if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
     const i = match.players.findIndex(player => player.player_slot === row.player_slot);
@@ -438,18 +431,18 @@ export const supportColumns = [
 export const chatColumns = [
   {
     displayName: strings.filter_is_radiant,
-    field: 'team',
-    displayFn: row =>
+    displayFn: row => 
       <div className={styles.chatTeamIcon}>
         {
           row.isRadiant ?
-            <IconRadiant className={styles.iconRadiant} /> :
-            <IconDire className={styles.iconDire} />
+          <IconRadiant className={styles.iconRadiant} /> :
+          <IconDire className={styles.iconDire} />
         }
       </div>
     ,
   },
-  heroTdChatColumn, {
+  Object.assign(heroTdColumn, {sortFn: false}),
+  {
     displayName: strings.th_time,
     field: 'time',
     displayFn: (row, col, field) => formatSeconds(field),
