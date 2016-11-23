@@ -2,30 +2,48 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import heroes from 'dotaconstants/json/heroes.json';
+import strings from 'lang';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import TextField from 'material-ui/TextField';
 import HeroList from './HeroList';
 import style from './Heroes.css';
 import Ranking from './Ranking';
 import Benchmark from './Benchmark';
 import HeroBadge from './HeroBadge';
 
-const createHeroList = (heroes) => {
-  const result = Object.keys(heroes)
-    .map(key => ({ ...heroes[key], img: API_HOST + heroes[key].img }))
-    .sort((a, b) => (a.localized_name.localeCompare(b.localized_name)));
-  return result;
+const createHeroList = (heroes, filter) => {
+  const filteredHeroes = [];
+
+  Object.keys(heroes).forEach((key) => {
+    if (typeof filter === 'undefined' || filter.length === 0) {
+      filteredHeroes[key] = {
+        ...heroes[key],
+        img: API_HOST + heroes[key].img,
+      };
+    }
+
+    if (heroes[key].localized_name.toLowerCase().indexOf(filter.toLowerCase()) !== -1) {
+      // localized name of hero contains the substring of filter
+      filteredHeroes[key] = {
+        ...heroes[key],
+        img: API_HOST + heroes[key].img,
+      };
+    }
+  });
+
+  return filteredHeroes.sort((a, b) => (a.localized_name.localeCompare(b.localized_name)));
 };
 
 const getSingleHero = heroId => ({ ...heroes[heroId], img: API_HOST + heroes[heroId].img });
 
-const HeroesIndex = ({ heroes }) => (
-  <div>
-    <h1 className={style.Header}>Heroes</h1>
-    <HeroList heroes={heroes} />
-  </div>
-);
-
 class Heroes extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filter: '',
+    };
+  }
+
   componentDidMount() {
     // console.log(this.props);
   }
@@ -34,16 +52,32 @@ class Heroes extends Component {
       return (<div>
         <HeroBadge hero={getSingleHero(this.props.routeParams.heroId)} />
         <Tabs>
-          <Tab label="Rankings">
+          <Tab label={strings.tab_rankings}>
             <Ranking {...this.props} />
           </Tab>
-          <Tab label="Benchmarks">
+          <Tab label={strings.tab_benchmarks}>
             <Benchmark {...this.props} />
           </Tab>
         </Tabs>
       </div>);
     }
-    return <HeroesIndex heroes={createHeroList(heroes)} />;
+
+    return (
+      <div>
+        <h1 className={style.Header}>{strings.header_heroes}</h1>
+        <div className={style.SearchBar}>
+          <TextField
+            hintText={strings.placeholder_filter_heroes}
+            value={this.state.filter}
+            onChange={e => this.setState({ filter: e.target.value })}
+            fullWidth
+            underlineFocusStyle={{ borderColor: style.filterBarColor }}
+            underlineStyle={{ borderColor: 'transparent' }}
+          />
+        </div>
+        <HeroList heroes={createHeroList(heroes, this.state.filter)} />
+      </div>
+    );
   }
 }
 

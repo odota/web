@@ -82,3 +82,16 @@
 .BenchmarkRow-0 {
 	background-color: #3b3b3b;
 }
+
+.SearchBar {
+	width: 90%;
+	background: transparent;
+	border: none;
+	display: block;
+	margin: 0 auto 20px;
+	color: #fff;
+
+	&:focus{
+		outline: none;
+	}
+}

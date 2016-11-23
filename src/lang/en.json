@@ -253,6 +253,8 @@
   "tab_log": "Log",
   "tab_chat": "Chat",
 
+  "placeholder_filter_heroes": "Filter Heroes",
+
   "td_win": "Win",
   "td_loss": "Loss",
   "td_no_result": "No Result",
@@ -491,4 +493,5 @@
   "teamfight_score": "Radiant kills/Dire kills",
   "teamfight_radiant_gold_adv": "Net gold advantage for Radiant",
   "teamfight_radiant_xp_adv": "Net XP advantage for Radiant"
+
 }
