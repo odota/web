@@ -46,7 +46,7 @@ export const heroTd = (row, col, field, index, hideName, party) => (
 );
 
 export const heroTdColumn = {
-  displayName: 'Player',
+  displayName: strings.th_avatar,
   field: 'player_slot',
   displayFn: heroTd,
   sortFn: true,
@@ -72,7 +72,7 @@ const parties = (row, match) => {
 
 export const overviewColumns = (match) => {
   const cols = [{
-    displayName: 'Player',
+    displayName: strings.th_avatar,
     field: 'player_slot',
     displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, parties(row, match)),
     sortFn: true,
@@ -441,7 +441,7 @@ export const chatColumns = [
       </div>
     ,
   },
-  Object.assign(heroTdColumn, { sortFn: false }),
+  Object.assign({}, heroTdColumn, { sortFn: false }),
   {
     displayName: strings.th_time,
     field: 'time',
