@@ -3,13 +3,12 @@ import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import strings from 'lang';
 import { TableLink } from 'components/Table';
 import playerColors from 'dotaconstants/json/player_colors.json';
-import { IconTrophy, IconDire, IconRadiant } from 'components/Icons';
+import { IconTrophy } from 'components/Icons';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import styles from './HeroImage.css';
 
 const TableHeroImage = ({
   parsed,
-  isRadiant,
   image,
   registered,
   title,
@@ -32,13 +31,6 @@ const TableHeroImage = ({
     {party &&
       <div className={styles.party}>
         {party}
-      </div>
-    }
-    {isRadiant !== undefined &&
-      <div className={styles.teamIcon}>
-        {isRadiant ?
-          <IconRadiant className={styles.iconRadiant} /> :
-          <IconDire className={styles.iconDire} />}
       </div>
     }
     {image &&
@@ -95,7 +87,6 @@ const { number, string, oneOfType, bool, node } = React.PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: number,
-  isRadiant: bool,
   image: string,
   title: string,
   subtitle: oneOfType([
