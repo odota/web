@@ -296,7 +296,7 @@
   vertical-align: top;
   height: 26px !important;
   width: 26px !important;
-  margin-right: 6px;
+  margin: auto;
   opacity: .8;
   fill: var(--textColorPrimary);
 }
