@@ -357,7 +357,7 @@ export function unpackPositionData(input) {
       Object.keys(input[x]).forEach((y) => {
         result.push({
           x: Number(x) - 64,
-          y: 127 - (Number(y) - 64),
+          y: 128 - (Number(y) - 64),
           value: input[x][y],
         });
       });

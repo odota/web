@@ -30,8 +30,8 @@ const LoggedIn = ({ loading, error, playerId, playerName, playerPicture }) => {
         </Link>
         <IconButton
           href={`${API_HOST}/logout`}
-          tooltip={strings.app_logout}
-          tooltipPosition="bottom-center"
+          data-hint={strings.app_logout}
+          data-hint-position="bottom"
           style={{ zIndex: 3200 }}
           className={styles.iconButton}
         >

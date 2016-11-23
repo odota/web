@@ -35,7 +35,7 @@ export const getPlayerPeers = (playerId, options = {}) => (dispatch, getState) =
   } else {
     dispatch(getPlayerPeersRequest(playerId));
   }
-  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`, { credentials: 'include' })
+  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())
     .then(json => dispatch(getPlayerPeersOk(json, playerId)))
     .catch(error => dispatch(getPlayerPeersError(error, playerId)));

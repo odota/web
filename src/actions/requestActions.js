@@ -36,7 +36,7 @@ const requestProgress = progress => ({
 });
 
 function poll(dispatch, json, matchId) {
-  fetch(`${API_HOST}${url}/${json.job.jobId}`, { credentials: 'include' })
+  fetch(`${API_HOST}${url}/${json.job.jobId}`)
   .then(res => res.json())
   .then((json) => {
     if (json.progress) {
@@ -54,10 +54,7 @@ function poll(dispatch, json, matchId) {
 
 const requestSubmit = matchId => (dispatch) => {
   dispatch(requestRequest());
-  return fetch(`${API_HOST}${url}/${matchId}`, {
-    method: 'post',
-    credentials: 'include',
-  })
+  return fetch(`${API_HOST}${url}/${matchId}`, { method: 'post' })
   .then(res => res.json())
   .then((json) => {
     if (json.job && json.job.jobId) {
