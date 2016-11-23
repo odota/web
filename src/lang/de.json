@@ -232,6 +232,7 @@
   "tab_cosmetics":"HATS",
   "tab_log":"Protokoll",
   "tab_chat":"Chat",
+  "placeholder_filter_heroes":"Filter Heroes",
   "td_win":"Sieg",
   "td_loss":"Niederlage",
   "td_no_result":"Kein Ergebnis",
