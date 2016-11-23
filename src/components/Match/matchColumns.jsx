@@ -439,15 +439,15 @@ export const chatColumns = [
   {
     displayName: strings.filter_is_radiant,
     field: 'team',
-    displayFn: (row) => (
+    displayFn: row =>
       <div className={styles.chatTeamIcon}>
         {
-          row.isRadiant ? 
-          (<IconRadiant className={styles.iconRadiant} />) : 
-          (<IconDire className={styles.iconDire} />)
+          row.isRadiant ?
+            <IconRadiant className={styles.iconRadiant} /> :
+            <IconDire className={styles.iconDire} />
         }
       </div>
-    )
+    ,
   },
   heroTdChatColumn, {
     displayName: strings.th_time,
