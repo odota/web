@@ -28,16 +28,16 @@ export default ({ match, user, loading }) => {
               {match.radiant_win
                 ? <span>
                   <IconRadiant />
-                  {match.radiant_team
-                    ? `${match.radiant_team.name ? `${match.radiant_team.name} ${strings.match_team_win}` : strings.match_radiant_win}`
-                    : strings.match_radiant_win
+                  {match.radiant_team ? `${
+                      match.radiant_team.name ? `${match.radiant_team.name} ${strings.match_team_win}` : strings.match_radiant_win
+                    }` : strings.match_radiant_win
                   }
                 </span>
                 : <span>
                   <IconDire />
-                  {match.dire_team
-                    ? `${match.dire_team.name ? `${match.dire_team.name} ${strings.match_team_win}` : strings.match_dire_win}`
-                    : strings.match_dire_win
+                  {match.dire_team ? `${
+                    match.dire_team.name ? `${match.dire_team.name} ${strings.match_team_win}` : strings.match_dire_win
+                  }` : strings.match_dire_win
                   }
                 </span>
               }

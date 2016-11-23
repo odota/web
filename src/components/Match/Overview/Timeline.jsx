@@ -165,7 +165,8 @@ const Timeline = ({ match }) => {
                         />
                       }
                       <ReactTooltip
-                        id={obj.type === 'firstblood' && !obj.key && !obj.player_slot ? 'notthistime' : `event_${i}`}
+                        // Hide tooltip if it's not in objectives
+                        id={obj.type === 'firstblood' && !obj.key && !obj.player_slot ? '' : `event_${i}`}
                         effect="solid"
                         place="right"
                       >
