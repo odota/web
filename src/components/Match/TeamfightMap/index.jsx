@@ -105,7 +105,7 @@ export const Teamfight = ({
 }) => (
   <div>
     <div className={getIconStyle(radiantGoldDelta)}>
-      <div className={classNames(hovered && styles.hovered, selected && styles.selected)}>
+      <div className={classNames(styles.teamfightIconSvg, hovered && styles.hovered, selected && styles.selected)}>
         <TeamfightIcon
           position={position}
           isRadiant={isRadiant(radiantGoldDelta)}

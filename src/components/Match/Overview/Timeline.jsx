@@ -176,6 +176,7 @@ export default ({
                           data-tip
                           data-for={`event_${i}`}
                           className={classNames(
+                            styles.iconBattle,
                             (selectedTeamfight === obj.start) ? styles.selectedTeamfight : getWinnerStyle(obj),
                             (selectedTeamfight || selectedTeamfight === 0) && styles.clickable,
                           )}

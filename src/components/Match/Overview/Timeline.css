@@ -4,6 +4,10 @@
   composes: overrideHelpIcon from "../../palette.css";
 }
 
+.iconBattle {
+  transition: var(--linearTransition);
+}
+
 .radiantWinner {
   fill: var(--colorSuccess) !important;
 }

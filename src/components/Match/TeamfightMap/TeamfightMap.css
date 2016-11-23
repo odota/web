@@ -196,13 +196,21 @@
   margin: 0;
 }
 
+.teamfightIconSvg {
+  & svg {
+    transition: var(--linearTransition);
+  }
+}
+
 .hovered {
+  composes: teamfightIconSvg;
   & svg {
     fill: var(--colorBlue) !important;
   }
 }
 
 .selected {
+  composes: teamfightIconSvg;
   & svg {
     fill: var(--colorGolden) !important;
   }
