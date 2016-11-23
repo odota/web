@@ -431,17 +431,17 @@ export const supportColumns = [
 export const chatColumns = [
   {
     displayName: strings.filter_is_radiant,
-    displayFn: row => 
+    displayFn: row =>
       <div className={styles.chatTeamIcon}>
         {
           row.isRadiant ?
-          <IconRadiant className={styles.iconRadiant} /> :
-          <IconDire className={styles.iconDire} />
+            <IconRadiant className={styles.iconRadiant} /> :
+            <IconDire className={styles.iconDire} />
         }
       </div>
     ,
   },
-  Object.assign(heroTdColumn, {sortFn: false}),
+  Object.assign(heroTdColumn, { sortFn: false }),
   {
     displayName: strings.th_time,
     field: 'time',
