@@ -28,6 +28,7 @@ import ReactTooltip from 'react-tooltip';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
+import { IconRadiant, IconDire } from 'components/Icons';
 import styles from './Match.css';
 
 export const heroTd = (row, col, field, index, hideName, party) => (
@@ -51,26 +52,11 @@ export const heroTdColumn = {
   sortFn: true,
 };
 
-export const heroTdChat = (row, col, field, index, hideName, party) => (
-  <TableHeroImage
-    isRadiant={row.isRadiant}
-    image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
-    title={row.name || row.personaname || strings.general_anonymous}
-    registered={row.last_login}
-    accountId={row.account_id}
-    subtitle={<Mmr number={row.solo_competitive_rank} />}
-    playerSlot={row.player_slot}
-    hideText={hideName}
-    confirmed={row.account_id && row.name}
-    party={party}
-  />
-);
-
 export const heroTdChatColumn = {
   displayName: 'Player',
   field: 'player_slot',
-  displayFn: heroTdChat,
-  sortFn: true,
+  displayFn: heroTd,
+  sortFn: false,
 };
 
 const parties = (row, match) => {
@@ -450,6 +436,19 @@ export const supportColumns = [
 ];
 
 export const chatColumns = [
+  {
+    displayName: strings.filter_is_radiant,
+    field: 'team',
+    displayFn: (row) => (
+      <div className={styles.chatTeamIcon}>
+        {
+          row.isRadiant ? 
+          (<IconRadiant className={styles.iconRadiant} />) : 
+          (<IconDire className={styles.iconDire} />)
+        }
+      </div>
+    )
+  },
   heroTdChatColumn, {
     displayName: strings.th_time,
     field: 'time',
