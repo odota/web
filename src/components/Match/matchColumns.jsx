@@ -431,6 +431,7 @@ export const supportColumns = [
 export const chatColumns = [
   {
     displayName: strings.filter_is_radiant,
+    field: '',
     displayFn: row =>
       <div className={styles.chatTeamIcon}>
         {
