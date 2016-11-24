@@ -23,6 +23,7 @@
     "react/prop-types": 0,
     "import/named": 2,
     "import/no-dynamic-require": 0,
+    "react/jsx-key": 2,
     "import/no-extraneous-dependencies": [
       "error",
       {
