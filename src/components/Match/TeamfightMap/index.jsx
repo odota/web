@@ -4,11 +4,11 @@ import ReactTooltip from 'react-tooltip';
 import Measure from 'react-measure';
 import classNames from 'classnames';
 import { IconRadiant, IconDire, IconDot } from 'components/Icons';
-import { TeamTable } from 'components/Match/matchPages';
 import { teamfightColumns } from 'components/Match/matchColumns';
 import PlayerThumb from 'components/Match/PlayerThumb';
 import strings from 'lang';
 import Timeline from 'components/Match/Overview/Timeline';
+import TeamTable from '../TeamTable';
 import styles from './TeamfightMap.css';
 
 const MAP_WIDTH = 400;
