@@ -1,7 +1,7 @@
 import React from 'react';
 import strings from 'lang';
 
-import TeamTable from '../TeamTable';
+import { TeamTable } from '../matchPages';
 import { overviewColumns } from '../matchColumns';
 import BuildingMap from '../BuildingMap';
 import MatchGraph from '../MatchGraph';

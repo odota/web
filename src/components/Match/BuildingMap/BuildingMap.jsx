@@ -121,7 +121,6 @@ export default function BuildingMap({ match }) {
                   >
                     {damage.map(player => (
                       <div
-                        key={player.hero_id}
                         style={{
                           width: `${(Number(player.damage) * 100) / buildingsHealth[type === 'tower' ? `tower${tier}` : type]}%`,
                           backgroundColor: playerColors[player.player_slot],
@@ -131,7 +130,7 @@ export default function BuildingMap({ match }) {
                   </div>
                   <div className={styles.damage}>
                     {damage.map(player => (
-                      <div key={player.hero_id}>
+                      <div>
                         <img
                           src={heroes[player.hero_id] && API_HOST + heroes[player.hero_id].img}
                           role="presentation"
