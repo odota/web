@@ -34,8 +34,8 @@ export default class BurgerMenu extends React.Component {
               {this.props.top}
             </MenuItem>
             {
-              this.props.links.map(page => (
-                <MenuItem>
+              this.props.links.map((page, index) => (
+                <MenuItem key={index}>
                   {page.external ?
                     <a href={page.path} className={styles.tab} rel="noopener noreferrer" target="_blank">{page.name}</a> :
                     <Link to={page.path} className={styles.tab}>{page.name}</Link>

@@ -192,7 +192,7 @@ const Timeline = ({
                           <section>
                             {match.players
                               .filter(player => player.player_slot === obj.player_slot)
-                              .map(player => <PlayerThumb {...player} />)
+                              .map((player, index) => <PlayerThumb key={index} {...player} />)
                             }
                             <span>
                               {obj.key ? strings.timeline_firstblood_key : strings.timeline_firstblood}
