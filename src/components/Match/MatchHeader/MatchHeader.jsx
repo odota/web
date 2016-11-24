@@ -25,20 +25,16 @@ export default ({ match, user, loading }) => {
         <Row between="xs">
           <Col xs={12} md={4} className={match.radiant_win ? styles.radiant : styles.dire}>
             <div className={styles.winner}>
-              {match.radiant_win
-                ? <span>
+              {/* If need to display team info just make condition (logo, name (side))*/}
+              {match.radiant_win ?
+                <span>
                   <IconRadiant />
-                  {match.radiant_team && match.radiant_team.name
-                    ? `${match.radiant_team.name} ${strings.match_team_win}`
-                    : strings.match_radiant_win
-                  }
+                  {strings.match_radiant_win}
                 </span>
-                : <span>
+              :
+                <span>
                   <IconDire />
-                  {match.dire_team && match.dire_team.name
-                    ? `${match.dire_team.name} ${strings.match_team_win}`
-                    : strings.match_dire_win
-                  }
+                  {strings.match_dire_win}
                 </span>
               }
             </div>
@@ -74,10 +70,6 @@ export default ({ match, user, loading }) => {
           </Col>
           <Col xs={12} md={4} className={styles.additionalInfo}>
             <ul>
-              {match.league && <li>
-                <span>league</span>
-                {match.league.name}
-              </li>}
               <li>
                 <span>{strings.match_id}</span>
                 {match.match_id}
