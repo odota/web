@@ -1,7 +1,7 @@
 import React from 'react';
 import strings from 'lang';
 
-import { TeamTable } from '../matchPages';
+import TeamTable from '../TeamTable';
 import { overviewColumns } from '../matchColumns';
 import BuildingMap from '../BuildingMap';
 import MatchGraph from '../MatchGraph';
@@ -14,7 +14,12 @@ export default {
   content: match => (
     <div>
       <Timeline match={match} />
-      <TeamTable players={match.players} columns={overviewColumns(match)} heading={strings.heading_overview} />
+      <TeamTable
+        players={match.players}
+        columns={overviewColumns(match)}
+        heading={strings.heading_overview}
+        picksBans={match.picks_bans}
+      />
       <div className={styles.overviewMapGraph}>
         <div className={`${styles.map} ${!match.version && styles.centeredMap}`}>
           <BuildingMap match={match} />
