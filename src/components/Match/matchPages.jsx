@@ -1,16 +1,12 @@
 import React from 'react';
 import {
-  formatSeconds,
   isRadiant,
 } from 'utility';
 import strings from 'lang';
-import {
-  Tabs,
-  Tab,
-} from 'material-ui/Tabs';
 import Heading from 'components/Heading';
 import Table from 'components/Table';
 import { IconRadiant, IconDire } from 'components/Icons';
+import TeamfightMap from 'components/Match/TeamfightMap';
 import VisionPage from './VisionPage';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
@@ -32,7 +28,6 @@ import {
   xpReasonsColumns,
   objectiveDamageColumns,
   analysisColumns,
-  teamfightColumns,
   inflictorsColumns,
 } from './matchColumns';
 import Overview from './Overview';
@@ -44,7 +39,7 @@ const filterMatchPlayers = (players, team = '') =>
   ).sort((a, b) => a.player_slot - b.player_slot);
 
 export const TeamTable = ({
-  match,
+  players = [],
   columns,
   heading = '',
 }) => (
@@ -53,12 +48,12 @@ export const TeamTable = ({
       title={`${strings.general_radiant} ${heading}`}
       icon={<IconRadiant className={styles.iconRadiant} />}
     />
-    <Table data={filterMatchPlayers(match.players, 'radiant')} columns={columns} />
+    <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} />
     <Heading
       title={`${strings.general_dire} ${heading}`}
       icon={<IconDire className={styles.iconDire} />}
     />
-    <Table data={filterMatchPlayers(match.players, 'dire')} columns={columns} />
+    <Table data={filterMatchPlayers(players, 'dire')} columns={columns} />
   </div>
 );
 
@@ -66,15 +61,15 @@ const matchPages = [Overview, {
   name: strings.tab_benchmarks,
   key: 'benchmarks',
   content: match => (<div>
-    <TeamTable match={match} columns={benchmarksColumns(match)} heading={strings.heading_benchmarks} />
+    <TeamTable players={match.players} columns={benchmarksColumns(match)} heading={strings.heading_benchmarks} />
   </div>),
 }, {
   name: strings.tab_performances,
   key: 'performances',
   parsed: true,
   content: match => (<div>
-    <TeamTable match={match} columns={performanceColumns} heading={strings.heading_performances} />
-    <TeamTable match={match} columns={supportColumns} heading={strings.heading_support} />
+    <TeamTable players={match.players} columns={performanceColumns} heading={strings.heading_performances} />
+    <TeamTable players={match.players} columns={supportColumns} heading={strings.heading_support} />
   </div>),
 }, {
   name: strings.tab_combat,
@@ -91,21 +86,21 @@ const matchPages = [Overview, {
         <CrossTable match={match} field1="damage" field2="damage_taken" />
       </div>
     </div>
-    <TeamTable match={match} columns={inflictorsColumns} heading={strings.heading_damage} />
+    <TeamTable players={match.players} columns={inflictorsColumns} heading={strings.heading_damage} />
   </div>),
 }, {
   name: strings.tab_farm,
   key: 'farm',
   parsed: true,
   content: match => (<div>
-    <TeamTable match={match} columns={unitKillsColumns} heading={strings.heading_unit_kills} />
-    <TeamTable match={match} columns={lastHitsTimesColumns(match)} heading={strings.heading_last_hits} />
+    <TeamTable players={match.players} columns={unitKillsColumns} heading={strings.heading_unit_kills} />
+    <TeamTable players={match.players} columns={lastHitsTimesColumns(match)} heading={strings.heading_last_hits} />
     <div className={styles.flexContainer}>
       <div className={styles.flexElement}>
-        <TeamTable match={match} columns={goldReasonsColumns} heading={strings.heading_gold_reasons} />
+        <TeamTable players={match.players} columns={goldReasonsColumns} heading={strings.heading_gold_reasons} />
       </div>
       <div className={styles.flexElement}>
-        <TeamTable match={match} columns={xpReasonsColumns} heading={strings.heading_xp_reasons} />
+        <TeamTable players={match.players} columns={xpReasonsColumns} heading={strings.heading_xp_reasons} />
       </div>
     </div>
   </div>),
@@ -114,7 +109,7 @@ const matchPages = [Overview, {
   key: 'purchases',
   parsed: true,
   content: match => (<div>
-    <TeamTable match={match} columns={purchaseTimesColumns(match)} heading={strings.heading_purchase_log} />
+    <TeamTable players={match.players} columns={purchaseTimesColumns(match)} heading={strings.heading_purchase_log} />
   </div>),
 }, {
   name: strings.tab_graphs,
@@ -139,8 +134,8 @@ const matchPages = [Overview, {
   key: 'objectives',
   parsed: true,
   content: match => (<div>
-    <TeamTable match={match} columns={objectiveDamageColumns} heading={strings.heading_objective_damage} />
-    <TeamTable match={match} columns={runesColumns} heading={strings.heading_runes} />
+    <TeamTable players={match.players} columns={objectiveDamageColumns} heading={strings.heading_objective_damage} />
+    <TeamTable players={match.players} columns={runesColumns} heading={strings.heading_runes} />
   </div>),
 }, {
   name: strings.tab_vision,
@@ -155,7 +150,7 @@ const matchPages = [Overview, {
   key: 'actions',
   parsed: true,
   content: match => (<div>
-    <TeamTable match={match} columns={actionsColumns} heading={strings.heading_actions} />
+    <TeamTable players={match.players} columns={actionsColumns} heading={strings.heading_actions} />
   </div>),
 }, {
   name: strings.tab_teamfights,
@@ -163,25 +158,14 @@ const matchPages = [Overview, {
   parsed: true,
   content: match => (
     <div>
-      <Heading title={strings.heading_teamfights} />
-      <Tabs>
-        {(match.teamfights || []).map((teamfight, i) => (
-          <Tab
-            key={i}
-            style={{ backgroundColor: teamfight.radiant_gold_delta >= 0 ? '#66BB6A' : '#ff4c4c' }}
-            label={`${formatSeconds(teamfight.start)}, ${teamfight.radiant_gold_delta}`}
-          >
-            <Table data={teamfight.players.filter(p => p.participate)} columns={teamfightColumns} />
-          </Tab>),
-        )}
-      </Tabs>
+      <TeamfightMap teamfights={match.teamfights} match={match} />
     </div>),
 }, {
   name: strings.tab_analysis,
   key: 'analysis',
   parsed: true,
   content: match => (<div>
-    <TeamTable match={match} columns={analysisColumns} heading={strings.heading_analysis} />
+    <TeamTable players={match.players} columns={analysisColumns} heading={strings.heading_analysis} />
   </div>),
 }, {
   name: strings.tab_cosmetics,

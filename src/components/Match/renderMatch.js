@@ -56,44 +56,80 @@ function generateGraphData(match) {
   return {};
 }
 
-function generateTeamfights(match) {
+function generateTeamfights({ players, teamfights = [] }) {
   const computeTfData = (tf) => {
     const newtf = {
       ...tf,
       deaths_pos: [],
+      radiant_gold_advantage_delta: 0,
       radiant_gold_delta: 0,
+      dire_gold_delta: 0,
       radiant_xp_delta: 0,
       radiant_participation: 0,
       radiant_deaths: 0,
       dire_participation: 0,
       dire_deaths: 0,
     };
-    newtf.players = match.players.map((player) => {
+    newtf.players = players.map((player) => {
       const tfplayer = tf.players[player.player_slot % (128 - 5)];
       // compute team gold/xp deltas
       if (isRadiant(player.player_slot)) {
+        newtf.radiant_gold_advantage_delta += tfplayer.gold_delta;
         newtf.radiant_gold_delta += tfplayer.gold_delta;
         newtf.radiant_xp_delta += tfplayer.xp_delta;
         newtf.radiant_participation += tfplayer.participate ? 1 : 0;
         newtf.radiant_deaths += tfplayer.deaths ? 1 : 0;
       } else {
-        newtf.radiant_gold_delta -= tfplayer.gold_delta;
+        newtf.radiant_gold_advantage_delta -= tfplayer.gold_delta;
+        newtf.dire_gold_delta -= tfplayer.gold_delta;
         newtf.radiant_xp_delta -= tfplayer.xp_delta;
         newtf.dire_participation += tfplayer.participate ? 1 : 0;
         newtf.dire_deaths += tfplayer.deaths ? 1 : 0;
       }
+      const playerDeathsPos = unpackPositionData(tfplayer.deaths_pos)
+        .map(deathPos => ({
+          ...deathPos,
+          isRadiant: isRadiant(player.player_slot),
+          player,
+        }));
+      newtf.deaths_pos = newtf.deaths_pos.concat(playerDeathsPos);
       return {
         ...player,
         ...tfplayer,
-        participate: tfplayer.deaths > 0 || tfplayer.damage > 0 || tfplayer.healing > 0,
+        participate: tfplayer.deaths > 0 || tfplayer.damage > 0, // || tfplayer.healing > 0,
         level_start: getLevelFromXp(tfplayer.xp_start),
         level_end: getLevelFromXp(tfplayer.xp_end),
-        deaths_pos: unpackPositionData(tfplayer.deaths_pos),
+        deaths_pos: playerDeathsPos,
       };
     });
+    // We have to do this after we process the stuff so that we will have the player in
+    // the data instead of just the 'teamfight player' which doesn't have enough data.
+    newtf.deaths_pos = newtf.deaths_pos
+      .map(death => ([{
+        ...death,
+        killer: newtf.players
+          .find(killer => heroes[death.player.hero_id] && killer.killed[heroes[death.player.hero_id].name]),
+      }]))
+      .reduce(
+        (newDeathsPos, death) => {
+          const copy = [...newDeathsPos];
+          const samePosition = copy
+            .findIndex((deathPos) => {
+              const cursor = deathPos[0];
+              return cursor.x === death[0].x && cursor.y === death[0].y;
+            });
+          if (samePosition !== -1) {
+            copy[samePosition] = copy[samePosition].concat(death);
+          } else {
+            copy.push(death);
+          }
+          return copy;
+        },
+        [],
+      );
     return newtf;
   };
-  return (match.teamfights || []).map(tf => computeTfData(tf));
+  return (teamfights || []).map(computeTfData);
 }
 
 // create a detailed history of each wards

@@ -646,39 +646,47 @@ export const analysisColumns = [heroTdColumn, {
   ),
 }];
 
+const inflictorRow = obj => (row, col, field) => (
+  field ? (
+    <div style={{ maxWidth: '100px' }}>
+      {Object.keys(field).map((inflictor) => {
+        if (obj[inflictor]) {
+          return inflictorWithValue(inflictor, field[inflictor]);
+        }
+        return <div />;
+      })}
+    </div>
+  ) : ''
+);
+
 export const teamfightColumns = [
   heroTdColumn, {
     displayName: strings.th_death,
     field: 'deaths',
+    sortFn: true,
   }, {
     displayName: strings.th_damage,
     field: 'damage',
+    sortFn: true,
   }, {
     displayName: strings.th_healing,
     field: 'healing',
+    sortFn: true,
   }, {
     displayName: strings.th_gold,
     field: 'gold_delta',
+    sortFn: true,
   }, {
     displayName: strings.th_xp,
     field: 'xp_delta',
+    sortFn: true,
   }, {
     displayName: strings.th_abilities,
     field: 'ability_uses',
-    displayFn: (row, col, field) => (field ? Object.keys(field).map((inflictor) => {
-      if (abilityKeys[inflictor]) {
-        return inflictorWithValue(inflictor, field[inflictor]);
-      }
-      return <div />;
-    }) : ''),
+    displayFn: inflictorRow(abilityKeys),
   }, {
     displayName: strings.th_items,
     field: 'item_uses',
-    displayFn: (row, col, field) => (field ? Object.keys(field).map((inflictor) => {
-      if (items[inflictor]) {
-        return inflictorWithValue(inflictor, field[inflictor]);
-      }
-      return <div />;
-    }) : ''),
+    displayFn: inflictorRow(items),
   },
 ];
