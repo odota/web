@@ -62,9 +62,8 @@ const getTombStyle = position => position.reduce(
 export const Tombstones = ({ deathPositions, mapWidth, tooltipKey }) => (
   <div>
     {deathPositions.map((position, index) => (
-      <div>
+      <div key={index}>
         <TeamfightIcon
-          key={index}
           Icon={IconDot}
           position={position[0]}
           mapWidth={mapWidth}
