@@ -4,7 +4,7 @@
   "abbr_billion": "b",
   "abbr_trillion": "t",
   "abbr_quadrillion": "q",
-  
+
   "analysis_eff": "Lane efficiency",
   "analysis_farm_drought": "Lowest GPM in 5 minute interval",
   "analysis_skillshot": "Skillshots landed",
@@ -116,7 +116,7 @@
   "heading_mmr": "MMR History",
   "heading_peers": "Players Played With",
   "heading_pros": "Pro Players Played With",
-  "heading_rankings": "Hero Rankings",
+  "heading_rankings": "Seasonal Hero Rankings",
   "heading_records": "Records",
   "heading_teamfights": "Teamfights",
   "heading_graph_difference": "Radiant Advantage",
@@ -223,7 +223,7 @@
   "skill_1": "Normal",
   "skill_2": "High",
   "skill_3": "Very High",
-  
+
   "tab_overview": "Overview",
   "tab_matches": "Matches",
   "tab_heroes": "Heroes",
@@ -255,6 +255,8 @@
   "tab_cosmetics": "Cosmetics",
   "tab_log": "Log",
   "tab_chat": "Chat",
+
+  "placeholder_filter_heroes": "Filter Heroes",
 
   "td_win": "Win",
   "td_loss": "Loss",
@@ -465,6 +467,8 @@
   "tooltip_played_as": "Number of games played as this hero",
   "tooltip_played_with": "Number of games with this player/hero on the team",
   "tooltip_played_against": "Number of games with this player/hero on the opposing team",
+  "tooltip_tombstone_victim": "Here Lies",
+  "tooltip_tombstone_killer": "killed by",
   "tooltip_win_pct_as": "Win percentage as this hero",
   "tooltip_win_pct_with": "Win percentage with this player/hero",
   "tooltip_win_pct_against": "Win percentage against this player/hero",
@@ -489,9 +493,10 @@
   "xp_reasons_2": "Hero",
   "xp_reasons_3": "Roshan",
 
-  "subheading_ranking": "Based on wins and average visible MMR in matches played. Rankings reset quarterly.",
+  "subheading_ranking": "Based on wins and average visible MMR in matches played",
   "teamfight_participation": "Radiant participation/Dire participation",
   "teamfight_score": "Radiant kills/Dire kills",
   "teamfight_radiant_gold_adv": "Net gold advantage for Radiant",
   "teamfight_radiant_xp_adv": "Net XP advantage for Radiant"
+
 }

@@ -4,5 +4,6 @@
     "test": {
       "presets": ["es2015", "stage-3", "react"]
     }
-  }
+  },
+  "plugins": ["react-hot-loader/babel"]
 }

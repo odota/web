@@ -11,6 +11,7 @@ const postcssR = require('postcss-reporter');
 const postcssCF = require('postcss-color-function');
 
 const isProd = process.env.NODE_ENV === 'production';
+
 const config = {
   entry: ['babel-polyfill', './src'],
   output: {
@@ -19,7 +20,7 @@ const config = {
     publicPath: 'build/',
   },
   resolve: {
-    extensions: ['', '.jsx', '.js', '.css', '.json'],
+    extensions: ['.jsx', '.js', '.css', '.json'],
     modules: [
       path.resolve('./src'),
       path.resolve('./assets'),
@@ -27,11 +28,11 @@ const config = {
     ],
   },
   module: {
-    // We need to load flexboxgrid with css-modules, but others need to be loaded
-    // with regular css loader.
+    // We need to load flexboxgrid without css-modules, but others need to be loaded
+    // with css-modules.
     loaders: [{
       test: /\.css$/,
-      loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader',
+      loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!postcss-loader',
       exclude: /node_modules\/(?!flexboxgrid)/,
     }, {
       test: /\.css$/,
@@ -49,7 +50,8 @@ const config = {
     }, {
       test: /\.(js|jsx)$/,
       exclude: /(node_modules)/,
-      loader: 'babel', // 'babel-loader' is also a legal name to reference
+      loader: 'babel-loader', // It's no longer allowed to omit the '-loader' prefix when using loaders.
+                              // You need to specify 'babel-loader' instead of 'babel'.
     }],
   },
   plugins: [
@@ -95,10 +97,19 @@ HashBundlePlugin.prototype.apply = (compiler) => {
     }
   });
 };
+
 if (!isProd) {
   config.devtool = 'eval-source-map';
-}
-if (isProd) {
+
+  config.entry = [
+    'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
+    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+    'babel-polyfill',
+    './src',
+  ];
+
+  config.plugins.push(new webpack.HotModuleReplacementPlugin());
+} else {
   config.plugins.push(new webpack.LoaderOptionsPlugin({
     minimize: true,
     debug: false,
@@ -112,4 +123,5 @@ if (isProd) {
     sourceMap: false,
   }), new HashBundlePlugin(), new webpack.optimize.DedupePlugin());
 }
+
 module.exports = config;
