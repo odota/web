@@ -28,6 +28,7 @@ import ReactTooltip from 'react-tooltip';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
+import { IconRadiant, IconDire } from 'components/Icons';
 import styles from './Match.css';
 
 export const heroTd = (row, col, field, index, hideName, party) => (
@@ -45,7 +46,7 @@ export const heroTd = (row, col, field, index, hideName, party) => (
 );
 
 export const heroTdColumn = {
-  displayName: 'Player',
+  displayName: strings.th_avatar,
   field: 'player_slot',
   displayFn: heroTd,
   sortFn: true,
@@ -71,7 +72,7 @@ const parties = (row, match) => {
 
 export const overviewColumns = (match) => {
   const cols = [{
-    displayName: 'Player',
+    displayName: strings.th_avatar,
     field: 'player_slot',
     displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, parties(row, match)),
     sortFn: true,
@@ -428,7 +429,21 @@ export const supportColumns = [
 ];
 
 export const chatColumns = [
-  heroTdColumn, {
+  {
+    displayName: strings.filter_is_radiant,
+    field: '',
+    displayFn: row =>
+      <div className={styles.chatTeamIcon}>
+        {
+          row.isRadiant ?
+            <IconRadiant className={styles.iconRadiant} /> :
+            <IconDire className={styles.iconDire} />
+        }
+      </div>
+    ,
+  },
+  Object.assign({}, heroTdColumn, { sortFn: false }),
+  {
     displayName: strings.th_time,
     field: 'time',
     displayFn: (row, col, field) => formatSeconds(field),
