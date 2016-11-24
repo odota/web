@@ -434,6 +434,8 @@
   "tooltip_played_as":"Nombre de parties jouées avec ce héros",
   "tooltip_played_with":"Nombre de parties jouées avec ce joueur/héros dans l'équipe",
   "tooltip_played_against":"Nombre de parties jouées avec ce joueur/héros dans l'équipe adverse",
+  "tooltip_tombstone_victim":"Here Lies",
+  "tooltip_tombstone_killer":"killed by",
   "tooltip_win_pct_as":"Pourcentage de Victoires en utilisant ce héros",
   "tooltip_win_pct_with":"Pourcentage de Victoires avec ce joueur/héros",
   "tooltip_win_pct_against":"Pourcentage de Victoires contre ce joueur/héros",
