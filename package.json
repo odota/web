@@ -10,6 +10,7 @@
     "build": "npm run lintnofix && npm test && npm run webpack",
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx",
+    "lint:css": "stylelint \"src/**/*.css\"",
     "test": "NODE_PATH=./src NODE_ENV=test mocha --ui bdd --reporter nyan -r testUtils/initializeJsdom.js $(find src -name '*.spec.*')",
     "test:watch": "npm test -- --watch --watch-extensions jsx,js"
   },
@@ -87,11 +88,14 @@
     "mocha": "^3.1.2",
     "react-addons-perf": "^15.3.2",
     "react-addons-test-utils": "^15.4.0",
-    "react-perf-tool": "^0.1.7",
     "react-hot-loader": "^3.0.0-beta.6",
+    "react-perf-tool": "^0.1.7",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.1",
+    "stylelint": "^7.6.0",
+    "stylelint-config-css-modules": "^0.1.0",
+    "stylelint-config-standard": "^15.0.0",
     "url-loader": "^0.5.7"
   },
   "moduleRoots": [

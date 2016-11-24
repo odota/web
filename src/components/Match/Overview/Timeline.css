@@ -25,7 +25,7 @@
 
 .timeline {
   width: 100%;
-  margin: 30px 0 15px 0;
+  margin: 30px 0 15px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -37,6 +37,7 @@
       font-size: var(--fontSizeMedium);
     }
   }
+
   & > section {
     display: flex;
     flex-direction: column;
@@ -64,9 +65,11 @@
   display: flex;
   height: 4px;
 
-  & div, & section {
+  & div,
+  & section {
     height: inherit;
   }
+
   & section {
     background-color: var(--colorMuted);
   }
@@ -103,6 +106,7 @@
       left: -16px;
       margin: 0;
     }
+
     & svg {
       fill: var(--colorMutedLight);
       width: 18px;
@@ -114,6 +118,7 @@
         left: -8px;
       }
     }
+
     & div[data-id="tooltip"] {
       /* Override react-tooltip */
       margin-top: 0 !important;
@@ -122,16 +127,11 @@
       font-weight: var(--fontWeightLight) !important;
       white-space: nowrap;
 
-      /*& aside {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        font-weight: var(--fontWeightMedium);
-      }*/
       & img {
         height: 24px;
         margin-right: 4px;
       }
+
       & span {
         margin: 0 4px;
 
@@ -139,6 +139,7 @@
           height: 8px;
         }
       }
+
       & section {
         display: flex;
         flex-direction: row;
@@ -147,22 +148,26 @@
     }
   }
 
-  & .radiant, & .dire {
+  & .radiant,
+  & .dire {
     border-style: solid;
     margin-left: -6px;
   }
+
   & .radiant {
-    border-width: 0 6px 5px 6px;
+    border-width: 0 6px 5px;
     border-color: transparent transparent var(--colorSuccess) transparent;
     bottom: 4px;
 
     & time {
       top: 11px;
     }
+
     & svg {
       bottom: 5px;
     }
   }
+
   & .dire {
     top: 0;
     border-width: 5px 6px 0 6px;
@@ -171,10 +176,12 @@
     & time {
       top: -28px;
     }
+
     & svg {
       top: 5px;
     }
   }
+
   & .teamfight {
     bottom: 0;
     height: 4px;
@@ -192,6 +199,7 @@
       }
     }
   }
+
   & .battleHorn {
     width: 2px;
     height: 4px;
@@ -210,6 +218,7 @@
 
 .goldGot {
   composes: goldChange;
+
   &::after {
     border-width: 0 4px 7px 4px;
     border-color: transparent transparent var(--colorSuccess) transparent;
@@ -218,6 +227,7 @@
 
 .goldLost {
   composes: goldChange;
+
   &::after {
     border-width: 7px 4px 0 4px;
     border-color: var(--colorDanger) transparent transparent transparent;

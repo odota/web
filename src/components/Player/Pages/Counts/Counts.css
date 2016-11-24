@@ -1,6 +1,6 @@
 .countTable {
   flex-grow: 1;
-  overflow-x:auto;
+  overflow-x: auto;
   box-sizing: border-box;
   padding: 15px;
 }

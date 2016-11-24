@@ -8,6 +8,7 @@
 .matchesContainer {
   width: calc(70% - 30px);
   margin-right: 30px;
+
   @media only screen and (max-width: 1224px) {
     width: 100%;
     margin-right: 0;
@@ -16,6 +17,7 @@
 
 .heroesContainer {
   width: 30%;
+
   @media only screen and (max-width: 1224px) {
     width: 100%;
   }

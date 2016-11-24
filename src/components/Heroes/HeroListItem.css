@@ -1,11 +1,9 @@
 @import "../palette.css";
 
-
 .HeroListCol {
 	padding: 0;
 	transition: var(--normalTransition);
 	flex-grow: 1;
-
 	flex-basis: calc(100% / 8);
 	max-width: calc(100% / 8);
 
@@ -35,7 +33,7 @@
   }
 
 	&:hover {
-		opacity: .85;
+		opacity: 0.85;
 
 		& span {
 			box-shadow: inset 0 -2px var(--primaryLinkColor);

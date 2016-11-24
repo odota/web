@@ -35,6 +35,7 @@
   justify-content: center;
   align-items: center;
   margin-top: 10px;
+
   & svg {
     margin: 0;
   }
@@ -80,6 +81,7 @@
 
 .tombText {
   margin: 10px 0;
+
   &:first-child {
     margin-top: 0;
   }
@@ -134,14 +136,17 @@
   flex-direction: row;
   padding: 10px;
   margin: -8px -12px;
+
   & > * {
     margin: 0 5px;
-  }
-  & > *:first-child {
-    margin-left: 0;
-  }
-  & > *:last-child {
-    margin-right: 0;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }
 
@@ -153,6 +158,7 @@
 .goldChange {
   display: flex;
   align-items: center;
+
   & img {
     margin-left: 5px;
       filter: drop-shadow(0 0 5px var(--colorGolden));
@@ -160,11 +166,11 @@
 }
 
 .goldGot {
-  composes: goldGot from "../Overview/Timeline.css"
+  composes: goldGot from "../Overview/Timeline.css";
 }
 
 .goldLost {
-  composes: goldLost from "../Overview/Timeline.css"
+  composes: goldLost from "../Overview/Timeline.css";
 }
 
 .radiantSelected {
@@ -182,17 +188,22 @@
 .radiant {
   composes: radiant from "../MatchHeader/MatchHeader.css";
   composes: winner;
+
   & .goldChange {
     color: var(--colorSuccess);
   }
+
   margin: 0;
 }
+
 .dire {
   composes: dire from "../MatchHeader/MatchHeader.css";
   composes: winner;
+
   & .goldChange {
     color: var(--colorDanger);
   }
+
   margin: 0;
 }
 
@@ -204,6 +215,7 @@
 
 .hovered {
   composes: teamfightIconSvg;
+
   & svg {
     fill: var(--colorBlue) !important;
   }
@@ -211,6 +223,7 @@
 
 .selected {
   composes: teamfightIconSvg;
+
   & svg {
     fill: var(--colorGolden) !important;
   }

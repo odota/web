@@ -23,9 +23,9 @@
 
 .iconButton {
   padding: 0 !important;
-  height: auto  !important;
+  height: auto !important;
   width: auto !important;
-  
+
   & svg:hover {
     opacity: 1;
   }
@@ -35,6 +35,7 @@
       bottom: -9px;
       left: 8px;
     }
+
     &::after {
       margin-top: 9px;
     }

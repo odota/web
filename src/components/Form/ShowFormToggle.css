@@ -5,6 +5,7 @@
   bottom: 50px;
   right: 50px;
   z-index: 1;
+
   @media only screen and (max-width: 900px) {
     bottom: 10px;
     right: 10px;
@@ -13,11 +14,13 @@
 
 .closeButton {
   composes: filterButton;
+
   & button {
     & svg {
       color: var(--primaryTextColor) !important;
       fill: var(--primaryTextColor) !important;
     }
+
     background-color: var(--defaultPrimaryColor) !important;
   }
 }
