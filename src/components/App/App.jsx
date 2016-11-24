@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -44,6 +43,4 @@ const App = ({ children, open, params, location, width }) => (
   </MuiThemeProvider>
 );
 
-const mapStateToProps = () => ({});
-
-export default connect(mapStateToProps)(App);
+export default App;
