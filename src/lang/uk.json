@@ -434,6 +434,8 @@
   "tooltip_played_as":"Кількість матчів зіграних на цьому герої",
   "tooltip_played_with":"Кількість матчів з цим гравцем/героєм в команді",
   "tooltip_played_against":"Кількість матчів з цим гравцем/героєм в команді суперника",
+  "tooltip_tombstone_victim":"Here Lies",
+  "tooltip_tombstone_killer":"killed by",
   "tooltip_win_pct_as":"Відсоток перемог на цьому герої",
   "tooltip_win_pct_with":"Відсоток перемог з цім гравцем/героєм",
   "tooltip_win_pct_against":"Відсоток перемог проти цього гравця/героя",
