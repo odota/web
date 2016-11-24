@@ -4,30 +4,32 @@ import strings from 'lang';
 import Heading from 'components/Heading';
 import { IconRadiant, IconDire } from 'components/Icons';
 import Table from 'components/Table';
-import PicksBans from './Overview/PicksBans';
+import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
 import styles from './Match.css';
 
-const filterMatchPlayers = (players, team = '') => players.filter(player => (
-  (team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === ''),
-).sort((a, b) => a.player_slot - b.player_slot);
+const filterMatchPlayers = (players, team = '') =>
+  players.filter(player =>
+    ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === ''),
+  ).sort((a, b) => a.player_slot - b.player_slot);
 
 export default ({
-  match,
+  players = [],
   columns,
   heading = '',
+  picksBans = [],
 }) => (
   <div>
     <Heading
-      title={match.radiant_team ? match.radiant_team.name : `${strings.general_radiant} ${heading}`}
+      title={`${strings.general_radiant} ${heading}`}
       icon={<IconRadiant className={styles.iconRadiant} />}
     />
-    <Table data={filterMatchPlayers(match.players, 'radiant')} columns={columns} />
-    <PicksBans data={match.picks_bans && match.picks_bans.filter(pb => pb.team === 0)} matchId={match.match_id} />
+    <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} />
+    {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
     <Heading
-      title={match.dire_team ? match.dire_team.name : `${strings.general_dire} ${heading}`}
+      title={`${strings.general_dire} ${heading}`}
       icon={<IconDire className={styles.iconDire} />}
     />
-    <Table data={filterMatchPlayers(match.players, 'dire')} columns={columns} />
-    <PicksBans data={match.picks_bans && match.picks_bans.filter(pb => pb.team === 1)} matchId={match.match_id} />
+    <Table data={filterMatchPlayers(players, 'dire')} columns={columns} />
+    {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
   </div>
 );

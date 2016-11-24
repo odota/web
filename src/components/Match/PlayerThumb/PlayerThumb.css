@@ -1,0 +1,13 @@
+@import "../../palette.css";
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: var(--fontWeightMedium);
+}
+
+.heroThumb {
+  height: 24px;
+  margin-right: 4px;
+}

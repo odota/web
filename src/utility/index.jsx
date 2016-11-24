@@ -64,6 +64,31 @@ export function getLevelFromXp(xp) {
   return xpLevel.length;
 }
 
+export const calculateDistance = (x1, y1, x2, y2) =>
+  (((x2 - x1) ** 2) + ((y2 - y1) ** 2)) ** 0.5;
+
+export const calculateRelativeXY = ({ clientX, clientY, currentTarget }) => {
+  // const bounds = target.getBoundingClientRect();
+  // const x = clientX - bounds.left;
+  // const y = clientY - bounds.top;
+  let x = clientX + document.body.scrollLeft;
+  let y = clientY + document.body.scrollTop;
+  if (currentTarget.offsetParent) {
+    let off = currentTarget.offsetParent;
+    do {
+      x -= off.offsetLeft;
+      y -= off.offsetTop;
+      off = off.offsetParent;
+    } while (off);
+  }
+  return { x, y };
+};
+
+export const jsonFn = json =>
+  arrayFn =>
+    fn =>
+      json[Object.keys(json)[arrayFn]((key, index) => fn(json[key], index))];
+
 const second = 1;
 const minute = second * 60;
 const hour = minute * 60;

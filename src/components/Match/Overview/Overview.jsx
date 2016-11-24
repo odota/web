@@ -14,7 +14,12 @@ export default {
   content: match => (
     <div>
       <Timeline match={match} />
-      <TeamTable match={match} columns={overviewColumns(match)} heading={strings.heading_overview} />
+      <TeamTable
+        players={match.players}
+        columns={overviewColumns(match)}
+        heading={strings.heading_overview}
+        picksBans={match.picks_bans}
+      />
       <div className={styles.overviewMapGraph}>
         <div className={`${styles.map} ${!match.version && styles.centeredMap}`}>
           <BuildingMap match={match} />

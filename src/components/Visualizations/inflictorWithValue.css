@@ -22,7 +22,7 @@
   & .tooltip {
     & > div {
       max-width: 300px;
-      
+
       & .heading {
         font-size: var(--fontSizeCommon);
         text-transform: uppercase;
@@ -51,7 +51,7 @@
         border: 0;
         height: 1px;
         background-color: var(--primaryTextColor);
-        background: linear-gradient(to right, var(--colorMutedLight) , rgba(0, 0, 0, 0)); 
+        background: linear-gradient(to right, var(--colorMutedLight) , rgba(0, 0, 0, 0));
         margin: 4px 0 3px;
       }
 

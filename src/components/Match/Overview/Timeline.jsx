@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
+import classNames from 'classnames';
 import {
   formatSeconds,
   isRadiant,
-  getShortHeroName,
+  jsonFn,
 } from 'utility';
 import {
   IconBloodDrop,
@@ -12,13 +13,23 @@ import {
 import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
 
-import playerColors from 'dotaconstants/json/player_colors.json';
 import heroes from 'dotaconstants/json/heroes.json';
 import barracksValue from 'dotaconstants/json/barracks_value.json';
+import PlayerThumb from 'components/Match/PlayerThumb';
 
 import styles from './Timeline.css';
 
-const Timeline = ({ match }) => {
+const heroesArr = jsonFn(heroes);
+
+const getWinnerStyle = obj =>
+  (obj && obj.radiant_gold_advantage_delta >= 0 ? styles.radiantWinner : styles.direWinner);
+
+const Timeline = ({
+  match,
+  onTeamfightClick,
+  onTeamfightHover,
+  selectedTeamfight,
+}) => {
   const preHorn = 90; // Seconds before the battle horn
 
   const obj = [];
@@ -65,7 +76,7 @@ const Timeline = ({ match }) => {
         start: fight.start,
         end: fight.end,
         time: (fight.start + fight.end) / 2,
-        radiant_gold_delta: fight.radiant_gold_delta,
+        radiant_gold_advantage_delta: fight.radiant_gold_advantage_delta,
         deaths: fight.players
           .map((player, i) => (player.deaths > 0 ? {
             key: i,
@@ -141,7 +152,7 @@ const Timeline = ({ match }) => {
                         }%`,
                         width: `${wTeamfight}%`,
                         // backgroundColor: obj.type === 'teamfight' && (
-                        //   obj.radiant_gold_delta >= 0 ? styles.green : styles.red
+                        //   obj.radiant_gold_advantage_delta >= 0 ? styles.green : styles.red
                         // ),
                       }}
                     >
@@ -159,9 +170,16 @@ const Timeline = ({ match }) => {
                       }
                       {obj.type === 'teamfight' &&
                         <IconBattle
+                          onClick={onTeamfightClick && onTeamfightClick(obj.start)}
+                          onMouseEnter={onTeamfightHover && onTeamfightHover(obj.start)}
+                          onMouseLeave={onTeamfightHover && onTeamfightHover(null)}
                           data-tip
                           data-for={`event_${i}`}
-                          style={{ fill: obj.radiant_gold_delta >= 0 ? styles.green : styles.red }}
+                          className={classNames(
+                            styles.iconBattle,
+                            (selectedTeamfight === obj.start) ? styles.selectedTeamfight : getWinnerStyle(obj),
+                            (selectedTeamfight || selectedTeamfight === 0) && styles.clickable,
+                          )}
                         />
                       }
                       <ReactTooltip
@@ -174,38 +192,18 @@ const Timeline = ({ match }) => {
                           <section>
                             {match.players
                               .filter(player => player.player_slot === obj.player_slot)
-                              .map(player => (
-                                <aside style={{ color: playerColors[obj.player_slot] }}>
-                                  <img
-                                    src={heroes[player.hero_id]
-                                      ? `${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(heroes[player.hero_id].name)}_icon.png`
-                                      : '/assets/images/blank-1x1.gif'
-                                    }
-                                    role="presentation"
-                                  />
-                                  {player.name || player.personaname || strings.general_anonymous}
-                                </aside>
-                              ))
+                              .map(player => <PlayerThumb {...player} />)
                             }
                             <span>
                               {obj.key ? strings.timeline_firstblood_key : strings.timeline_firstblood}
                             </span>
                             {obj.key &&
-                              <aside>
-                                <img
-                                  src={`${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(obj.key)}_icon.png`}
-                                  role="presentation"
-                                />
-                                {match.players
-                                  .filter(player =>
-                                    player.hero_id === heroes[Object.keys(heroes).filter(key => heroes[key].name === obj.key)].id,
-                                  ).map(player => (
-                                    <div style={{ color: playerColors[player.player_slot] }}>
-                                      {player.name || player.personaname || strings.general_anonymous}
-                                    </div>
-                                  ))
-                                }
-                              </aside>
+                              <PlayerThumb
+                                {...match.players.find((player) => {
+                                  const foundHero = heroesArr('find')(hero => hero.name === obj.key);
+                                  return foundHero && player.hero_id === foundHero.id;
+                                })}
+                              />
                             }
                           </section>
                         }
@@ -214,16 +212,7 @@ const Timeline = ({ match }) => {
                             .filter(player => player.player_slot === aegis[0][obj.key].player_slot)
                             .map(player => (
                               <section key={i}>
-                                <aside style={{ color: playerColors[player.player_slot] }}>
-                                  <img
-                                    src={heroes[player.hero_id]
-                                      ? `${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(heroes[player.hero_id].name)}_icon.png`
-                                      : '/assets/images/blank-1x1.gif'
-                                    }
-                                    role="presentation"
-                                  />
-                                  {player.name || player.personaname || strings.general_anonymous}
-                                </aside>
+                                <PlayerThumb {...player} />
                                 <span>
                                   {!aegis[0][obj.key].act && strings.timeline_aegis_picked_up}
                                   {aegis[0][obj.key].act === 'stolen' && strings.timeline_aegis_snatched}
@@ -246,18 +235,7 @@ const Timeline = ({ match }) => {
                             </header>
                             {obj.deaths.map(death => (
                               <section key={death.key}>
-                                <aside style={{ color: playerColors[match.players[death.key].player_slot] }}>
-                                  <img
-                                    src={heroes[match.players[death.key].hero_id]
-                                      ? `${API_HOST}/apps/dota2/images/heroes/${
-                                          getShortHeroName(heroes[match.players[death.key].hero_id].name)
-                                        }_icon.png`
-                                      : '/assets/images/blank-1x1.gif'
-                                    }
-                                    role="presentation"
-                                  />
-                                  {match.players[death.key].name || match.players[death.key].personaname || strings.general_anonymous}
-                                </aside>
+                                <PlayerThumb {...match.players[death.key]} />
                                 <span>
                                   {death.gold_delta > 0 ? <span className={styles.goldGot} /> : <span className={styles.goldLost} />}
                                   {/* nothing if === 0 */}
