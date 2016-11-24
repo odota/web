@@ -383,7 +383,7 @@
   "tooltip_hero_healing":"Amount of health restored to heroes",
   "tooltip_duration":"The length of the match",
   "tooltip_first_blood_time":"The time first blood occurred",
-  "tooltip_kda":"(Kills + Assists) / (Deaths + 1)",
+  "tooltip_kda":"(Mạng giết + Mạng hỗ trợ)/ (Mạng chết + 1)",
   "tooltip_stuns":"Seconds of disable on heroes",
   "tooltip_dead":"Time dead",
   "tooltip_camps_stacked":"Camps stacked",
