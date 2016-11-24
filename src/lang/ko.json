@@ -434,6 +434,8 @@
   "tooltip_played_as":"이 영웅으로 플레이한 횟수",
   "tooltip_played_with":"Number of games with this player/hero on the team",
   "tooltip_played_against":"Number of games with this player/hero on the opposing team",
+  "tooltip_tombstone_victim":"Here Lies",
+  "tooltip_tombstone_killer":"killed by",
   "tooltip_win_pct_as":"이 영웅 승률",
   "tooltip_win_pct_with":"이 유저가 사용한 영웅 승률",
   "tooltip_win_pct_against":"Win percentage against this player/hero",
