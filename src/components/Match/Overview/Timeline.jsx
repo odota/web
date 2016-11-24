@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 
 import {
@@ -25,7 +25,7 @@ const heroesArr = jsonFn(heroes);
 const getWinnerStyle = obj =>
   (obj && obj.radiant_gold_advantage_delta >= 0 ? styles.radiantWinner : styles.direWinner);
 
-export default ({
+const Timeline = ({
   match,
   onTeamfightClick,
   onTeamfightHover,
@@ -39,7 +39,7 @@ export default ({
   if (match.objectives && match.objectives.length > 0) {
     // Firstblood
     const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
-    let fbArr = [{ type: 'firstblood', time: 0 }];
+    let fbArr = [{ type: 'firstblood', time: match.first_blood_time || 0 }];
 
     if (fbIndex > -1) {
       const fbKey = match.players.map(player =>
@@ -114,8 +114,9 @@ export default ({
     fRax = match.objectives[fRax] || null;
 
     return (
-      Math.abs(obj[0].filter(obj => obj.type === 'firstblood')[0].time - match.first_blood_time) <= 10 &&
-      // some old (source1) matches have wrong time in objectives, ex: 271008789. So 10 is just small allowable mismatch
+      Math.abs(obj[0].filter(obj => obj.type === 'firstblood')[0].time - match.first_blood_time) <= preHorn &&
+      // some old (source1) matches have wrong time in objectives, ex: 271008789.
+      // preHorn (90) is just small allowable mismatch. Since first_blood_time always >= 0, ex: 2792706825, fb before battle horn
       <div>
         <main className={styles.timeline}>
           <section>
@@ -183,7 +184,8 @@ export default ({
                         />
                       }
                       <ReactTooltip
-                        id={`event_${i}`}
+                        // Hide tooltip if it's not in objectives
+                        id={obj.type === 'firstblood' && !obj.key && !obj.player_slot ? '' : `event_${i}`}
                         effect="solid"
                         place="right"
                       >
@@ -280,3 +282,9 @@ export default ({
 
   return null;
 };
+
+Timeline.PropTypes = {
+  match: PropTypes.object,
+};
+
+export default Timeline;
