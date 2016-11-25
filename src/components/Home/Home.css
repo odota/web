@@ -20,11 +20,11 @@
   text-shadow: #000 0 0 3px;
 
   @media only screen and (max-width: 425px) {
-     font-size: 60px;
+    font-size: 60px;
   }
 
   @media only screen and (max-width: 375px) {
-     font-size: 42px;
+    font-size: 42px;
   }
 }
 
@@ -35,7 +35,7 @@
   text-shadow: #000 0 0 3px;
 
   @media only screen and (max-width: 768px) {
-     font-size: 25px;
+    font-size: 25px;
   }
 }
 
@@ -50,7 +50,7 @@
     margin: 10px 5px !important;
 
     @media only screen and (max-width: 375px) {
-       line-height: 20px !important;
+      line-height: 20px !important;
     }
 
     &:hover {

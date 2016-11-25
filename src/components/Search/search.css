@@ -3,9 +3,9 @@
 :export { searchBarColor: var(--primaryLinkColor); }
 
 .searchResult {
-	margin-top: 20px;
+  margin-top: 20px;
 }
 
 .loadingWrapper {
-	margin-top: 40px;
+  margin-top: 40px;
 }

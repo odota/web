@@ -9,7 +9,7 @@
       "severity": "warning",
       "ignoreProperties": ["composes"]
     }],
-    "shorthand-property-no-redundant-values": false,
-    "indentation": "tabs"
+    "shorthand-property-no-redundant-values": null,
+    "indentation": 2
   }
 }

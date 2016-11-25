@@ -161,7 +161,7 @@
 
   & img {
     margin-left: 5px;
-      filter: drop-shadow(0 0 5px var(--colorGolden));
+    filter: drop-shadow(0 0 5px var(--colorGolden));
   }
 }
 
