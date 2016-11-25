@@ -4,7 +4,7 @@
   transition: var(--normalTransition);
   position: relative;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   height: 100%;
 }
 
@@ -34,9 +34,10 @@
   font-weight: var(--fontWeightMedium);
   color: var(--textColorPrimary);
   text-transform: uppercase;
+
   &:hover {
     color: var(--textColorPrimary);
-    opacity: .6;
+    opacity: 0.6;
   }
 }
 

@@ -17,12 +17,13 @@
   & > div:nth-child(1) {
     width: var(--tabsWidth) !important;
   }
+
   & > div:nth-child(2) {
     width: var(--tabsWidth) !important;
   }
-  /* -- */
+
   & > div:nth-child(3) {
-    border-top: 1px solid rgba(255, 255, 255, .19);
+    border-top: 1px solid rgba(255, 255, 255, 0.19);
   }
 }
 
@@ -44,6 +45,7 @@
     width: 32px;
     box-shadow: 0 0 5px var(--defaultPrimaryColor);
   }
+
   & span {
     vertical-align: super;
     height: 24px;

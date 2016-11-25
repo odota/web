@@ -31,13 +31,16 @@
     &:first-of-type {
       margin-left: 0;
     }
+
     &:last-of-type {
       margin-right: 0;
     }
+
     & img {
       height: 34px;
       width: 34px;
     }
+
     & > div {
       background-color: var(--darkPrimaryColor);
       height: 34px;
@@ -48,6 +51,7 @@
       font-size: 10px;
     }
   }
+
   /* React-tooltip ability upgrades */
   & > div {
     pointer-events: auto !important;
@@ -59,12 +63,14 @@
       visibility: visible !important;
       opacity: 1 !important;
     }
+
     &::after {
       border-width: 20px !important;
       right: 0 !important;
       top: 0 !important;
     }
   }
+
   & svg {
     padding-left: 7px;
   }
@@ -73,11 +79,14 @@
 .iconRadiant {
   filter: drop-shadow(0 0 5px green);
 }
+
 .iconDire {
   filter: drop-shadow(0 0 5px var(--colorDanger));
   fill: black !important;
 }
-.iconRadiant, .iconDire {
+
+.iconRadiant,
+.iconDire {
   margin-left: 5px;
 }
 
@@ -125,11 +134,11 @@
 }
 
 .trans-table-row-leave {
-  height:  var(--ward-log-height);
+  height: var(--ward-log-height);
   opacity: 1;
 
   &.trans-table-row-leave-active {
-    height: 0px;
+    height: 0;
     opacity: 0;
     transition: height 300ms ease, opacity 300ms ease;
   }
@@ -137,7 +146,7 @@
 
 .ward-pin-enter {
   opacity: 0;
-  
+
   &.ward-pin-enter-active {
     opacity: 1;
     transition: opacity 150ms ease;
@@ -146,7 +155,7 @@
 
 .ward-pin-leave {
   opacity: 1;
-  
+
   &.ward-pin-leave-active {
     opacity: 0;
     transition: opacity 150ms ease;
@@ -161,18 +170,17 @@
   font-size: var(--fontSizeTiny);
   border-color: var(--sliderTicksColor);
   color: var(--sliderTicksColor);
-  
+
   & .sliderTick {
     position: absolute;
     display: inline-block;
     height: 100%;
     padding: 0 0.4em;
-    border-width: 0px;
+    border-width: 0;
     border-color: inherit;
     border-style: solid;
     border-left-width: 1px;
     cursor: pointer;
-
     transition: color 150ms ease, border-color 150ms ease;
 
     &.active {
@@ -183,17 +191,17 @@
 }
 
 .wardLogPlayerFilter {
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
   font-size: var(--fontSizeSmall);
 
   & .filterHeader {
-    padding: .5rem;
+    padding: 0.5rem;
     border-bottom: 1px solid var(--dividerLightColor);
   }
 
   & .filterRow {
-    padding: .5em;
-    margin: 0 0;
+    padding: 0.5em;
+    margin: 0;
   }
 }
 
@@ -204,6 +212,7 @@
   & img {
     height: 42px;
   }
+
   & > div {
     font-size: var(--fontSizeCommon);
 
@@ -214,27 +223,29 @@
       display: block;
     }
   }
+
   & a {
     transition: var(--normalTransition);
     position: relative;
 
     &:hover {
       cursor: pointer;
-      opacity: .8;
+      opacity: 0.8;
 
       & svg {
         display: block !important;
       }
     }
   }
+
   & svg {
     position: absolute;
+
     /* override material-ui */
     fill: var(--primaryLinkColor) !important;
     display: none !important;
     width: 18px !important;
     height: 18px !important;
-    /* -- */
     filter: drop-shadow(0 0 3px var(--darkPrimaryColor));
     right: 2px;
     bottom: 6px;
@@ -251,8 +262,9 @@
     height: 24px;
     vertical-align: middle;
     margin-right: 5px;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, .08));
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.08));
   }
+
   & span {
     text-transform: none;
     font-weight: var(--fontWeightNormal);
@@ -288,7 +300,7 @@
   height: 26px !important;
   width: 26px !important;
   margin-right: 6px;
-  opacity: .8;
+  opacity: 0.8;
   fill: var(--textColorPrimary);
 }
 
@@ -297,6 +309,6 @@
   height: 26px !important;
   width: 26px !important;
   margin: auto;
-  opacity: .8;
+  opacity: 0.8;
   fill: var(--textColorPrimary);
 }

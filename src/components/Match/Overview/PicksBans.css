@@ -27,10 +27,9 @@
 }
 
 .image {
+  composes: image from "../../Visualizations/Table/HeroImage.css";
   margin-right: 0;
   z-index: 0;
-
-  composes: image from "../../Visualizations/Table/HeroImage.css";
 
   &[data-isPick="false"] {
     filter: grayscale(100%);

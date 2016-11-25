@@ -10,13 +10,16 @@
       margin: 0 12px 0 0;
     }
   }
+
   @media only screen and (max-width: 660px) {
     & svg {
       margin: 0 5px;
     }
+
     & svg:first-child {
       margin: 0 5px 0 10px;
     }
+
     & svg:last-child {
       margin: 0 10px 0 5px;
     }
@@ -40,6 +43,7 @@
     & .IconTrophy {
       fill: var(--colorGolden) !important;
     }
+
     & .iconSteam {
       cursor: default;
 
@@ -47,10 +51,12 @@
         cursor: pointer;
       }
     }
+
     &[data-hint-position="top"] {
       &::before {
         margin-left: 8px;
       }
+
       &::after {
         margin-left: -30px;
       }
@@ -62,28 +68,31 @@
       height: 22px;
       margin-top: 4px;
     }
+
     &[data-hint-position="top"] {
       &::before {
         margin-left: 11px;
         top: -1px;
       }
+
       &::after {
         margin-left: -32px;
         margin-bottom: 1px;
       }
     }
   }
+
   & .iconEyeTracked {
     fill: var(--colorSuccess);
   }
 }
 
 .icon {
-  composes: icon from "./PlayerHeader.css"
+  composes: icon from "./PlayerHeader.css";
 }
 
 .cheese {
-  -webkit-filter: drop-shadow(0 0 5px rgba(255, 255, 0, .6));
-  filter: drop-shadow(0 0 5px rgba(255, 255, 0, .6));
-  height: 18
+  -webkit-filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.6));
+  filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.6));
+  height: 18;
 }
