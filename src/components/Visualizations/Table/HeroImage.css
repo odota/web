@@ -6,7 +6,7 @@
   justify-content: center;
   line-height: 1.2;
   width: 120px;
-  
+
   & > span {
     position: relative;
 
@@ -49,6 +49,7 @@
     fill: var(--primaryLinkColor) !important;
   }
 }
+
 .unparsed {
   composes: parsed;
   background-color: var(--colorMuted);
@@ -147,7 +148,7 @@
 
 .subText {
   position: relative;
- 
+
   & svg {
     color: currentcolor !important;
     height: 13px !important;
@@ -155,6 +156,7 @@
     vertical-align: top;
     padding: 1px 0;
   }
+
   & section {
     margin-left: -2px;
     margin-right: 4px;

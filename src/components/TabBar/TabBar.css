@@ -3,7 +3,7 @@
 .container {
   position: relative;
   margin: 10px 0 30px;
-  border-bottom: 1px solid rgba(255, 255, 255, .19);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.19);
 }
 
 .subContainer {
@@ -20,7 +20,7 @@
     padding: 10px 12px 16px;
     border-bottom: 2px solid transparent;
     flex-grow: 1;
-  
+
     &:hover {
       color: var(--colorMutedLight);
     }

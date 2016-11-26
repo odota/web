@@ -277,7 +277,7 @@ export const purchaseTimesColumns = (match) => {
           if (items[purchase.key]) {
             return inflictorWithValue(purchase.key, formatSeconds(purchase.time));
           }
-          return <span />;
+          return null;
         }) : ''}
       </div>),
     });
@@ -507,7 +507,7 @@ export const unitKillsColumns = [
     field: 'specific',
     // TODO make this work for non-english (current names are hardcoded in dotaconstants)
     displayFn: (row, col, field) => (<div>
-      {Object.keys(field).map(unit => (<div>{`${field[unit]} ${unit}`}</div>))}
+      {Object.keys(field).map((unit, index) => (<div key={index}>{`${field[unit]} ${unit}`}</div>))}
     </div>),
   },
 ];
@@ -668,7 +668,7 @@ const inflictorRow = obj => (row, col, field) => (
         if (obj[inflictor]) {
           return inflictorWithValue(inflictor, field[inflictor]);
         }
-        return <div />;
+        return null;
       })}
     </div>
   ) : ''

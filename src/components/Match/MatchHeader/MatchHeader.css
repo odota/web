@@ -2,7 +2,7 @@
 
 .gmde {
   margin: 0 20px;
-  
+
   & span {
     text-transform: uppercase;
     display: block;
@@ -11,13 +11,16 @@
   & .gameMode {
     font-size: var(--fontSizeMedium);
   }
+
   & .duration {
     font-size: 28px;
   }
+
   & .ended {
     font-size: var(--fontSizeSmall);
     color: var(--colorMutedLight);
     margin-top: 3px;
+
     & > div {
       display: inline-block;
     }
@@ -29,6 +32,7 @@
   padding-top: 10px;
   filter: drop-shadow(0 0 20px var(--colorYelor));
 }
+
 .score {
   font-size: 48px;
   text-align: center;
@@ -38,6 +42,7 @@
   composes: score;
   color: var(--colorSuccess);
 }
+
 .killsDire {
   composes: score;
   color: var(--colorDanger);
@@ -63,10 +68,11 @@
     fill: var(--textColorPrimary) !important;
   }
 }
+
 .dire {
   composes: team;
   color: var(--colorDanger);
-  
+
   & svg {
     filter: drop-shadow(0 0 5px var(--colorDanger));
     fill: black !important;
@@ -84,7 +90,7 @@
     & li {
       display: inline-block;
       margin-left: 20px;
-      
+
       & > span {
         display: block;
         text-transform: uppercase;
@@ -92,6 +98,7 @@
         color: var(--colorMutedLight);
       }
     }
+
     & li:first-child {
       margin-left: 0;
     }
@@ -137,6 +144,7 @@
 .matchButtons {
   display: table;
   margin: 10px auto 0;
+
   /* Material-ui buttons */
   & a {
     float: left;
@@ -149,7 +157,7 @@
       min-width: 24px !important;
 
       & span {
-        font-size: 0px !important;
+        font-size: 0 !important;
         padding-left: 0 !important;
         padding-right: 12px !important;
       }

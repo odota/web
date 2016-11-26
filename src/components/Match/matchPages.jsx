@@ -1,11 +1,7 @@
 import React from 'react';
-import {
-  isRadiant,
-} from 'utility';
 import strings from 'lang';
 import Heading from 'components/Heading';
 import Table from 'components/Table';
-import { IconRadiant, IconDire } from 'components/Icons';
 import TeamfightMap from 'components/Match/TeamfightMap';
 import VisionPage from './VisionPage';
 import CastTable from './CastTable';
@@ -31,31 +27,8 @@ import {
   inflictorsColumns,
 } from './matchColumns';
 import Overview from './Overview';
+import TeamTable from './TeamTable';
 import styles from './Match.css';
-
-const filterMatchPlayers = (players, team = '') =>
-  players.filter(player =>
-    ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === ''),
-  ).sort((a, b) => a.player_slot - b.player_slot);
-
-export const TeamTable = ({
-  players = [],
-  columns,
-  heading = '',
-}) => (
-  <div>
-    <Heading
-      title={`${strings.general_radiant} ${heading}`}
-      icon={<IconRadiant className={styles.iconRadiant} />}
-    />
-    <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} />
-    <Heading
-      title={`${strings.general_dire} ${heading}`}
-      icon={<IconDire className={styles.iconDire} />}
-    />
-    <Table data={filterMatchPlayers(players, 'dire')} columns={columns} />
-  </div>
-);
 
 const matchPages = [Overview, {
   name: strings.tab_benchmarks,

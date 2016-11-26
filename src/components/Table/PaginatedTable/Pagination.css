@@ -66,16 +66,19 @@
 .arrow {
   composes: page;
   vertical-align: text-top;
+
   /* Override material-ui */
   color: var(--colorYelor) !important;
   padding: 0 !important;
 }
+
 .arrowDisabled {
   composes: arrow;
   pointer-events: none;
-  
+
   /* Override material-ui */
   color: var(--colorMutedLight) !important;
+
   & svg {
     fill: var(--colorMutedLight) !important;
   }
@@ -83,6 +86,7 @@
 
 .currentPage {
   composes: page;
+
   /* Override material-ui */
   color: var(--colorMutedLight) !important;
   pointer-events: none;

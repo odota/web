@@ -34,7 +34,7 @@ const SliderTicks = props => (
 // remove this component
 const PlayersFilter = ({ activeFilters, players, onFilterClick }) => (
   <Paper>
-    {players.map(p => <PlayerFilter player={p} activeFilters={activeFilters} onFilterClick={onFilterClick} />)}
+    {players.map((p, index) => <PlayerFilter key={index} player={p} activeFilters={activeFilters} onFilterClick={onFilterClick} />)}
   </Paper>
 );
 

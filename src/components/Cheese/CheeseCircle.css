@@ -5,7 +5,8 @@
   width: 90px;
   height: 90px;
 
-  & > div[mode="determinate"], & div.cheese {
+  & > div[mode="determinate"],
+  & div.cheese {
     position: absolute !important;
   }
 
@@ -21,12 +22,15 @@
     }
   }
 }
+
 .front {
   z-index: 1;
 }
+
 .back svg > circle {
-  stroke: rgba(255, 255, 255, .06) !important;
+  stroke: rgba(255, 255, 255, 0.06) !important;
 }
+
 .cheese {
   top: 17px;
   left: 28px;

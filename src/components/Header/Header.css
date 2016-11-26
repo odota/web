@@ -5,9 +5,10 @@
 
   & a {
     color: var(--primaryTextColor);
+
     &:hover {
       color: var(--primaryTextColor);
-      opacity: .6;
+      opacity: 0.6;
     }
   }
 }
@@ -26,14 +27,14 @@
 }
 
 .verticalAlign {
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .emptyTabBarContainer {
   padding: 5px;
-  box-shadow: 0 0 5px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
   background-color: var(--defaultPrimaryColor) !important;
 }
 
@@ -49,6 +50,7 @@
 
   & svg {
     margin-right: 5px;
+
     /* Override material-ui */
     color: currentColor !important;
     width: 18px !important;

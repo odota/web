@@ -15,7 +15,8 @@
       font-size: var(--fontSizeMedium);
     }
 
-    & .links, & .cheese {
+    & .links,
+    & .cheese {
       width: 50%;
     }
 
@@ -33,23 +34,22 @@
         transition: var(--normalTransition);
 
         &:hover {
-          opacity: .6;
+          opacity: 0.6;
         }
       }
 
       & hr {
         border: 0;
         height: 1px;
-        background-color: var(--primaryTextColor);
-        background: linear-gradient(to right, var(--primaryTextColor) , rgba(0, 0, 0, 0)); 
-        opacity: .1;
+        background: linear-gradient(to right, var(--primaryTextColor), rgba(0, 0, 0, 0));
+        opacity: 0.1;
         margin: 10px 0;
       }
 
       & small {
         color: var(--colorMutedLight);
         font-size: var(--fontSizeSmall);
-        
+
         & svg {
           height: 13px;
           margin-left: 8px;
@@ -68,9 +68,10 @@
           &::after {
             content: "•";
             margin: 0 8px;
-            opacity: .6;
+            opacity: 0.6;
             color: var(--primaryTextColor);
           }
+
           &:last-child {
             &::after {
               content: "";
@@ -107,7 +108,8 @@
       padding: 20px 25px 15px;
       flex-direction: column;
 
-      & .links, & .cheese {
+      & .links,
+      & .cheese {
         width: 100%;
       }
 

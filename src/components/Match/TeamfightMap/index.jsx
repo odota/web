@@ -4,7 +4,7 @@ import ReactTooltip from 'react-tooltip';
 import Measure from 'react-measure';
 import classNames from 'classnames';
 import { IconRadiant, IconDire, IconDot } from 'components/Icons';
-import { TeamTable } from 'components/Match/matchPages';
+import TeamTable from 'components/Match/TeamTable';
 import { teamfightColumns } from 'components/Match/matchColumns';
 import PlayerThumb from 'components/Match/PlayerThumb';
 import strings from 'lang';
@@ -62,9 +62,8 @@ const getTombStyle = position => position.reduce(
 export const Tombstones = ({ deathPositions, mapWidth, tooltipKey }) => (
   <div>
     {deathPositions.map((position, index) => (
-      <div>
+      <div key={index}>
         <TeamfightIcon
-          key={index}
           Icon={IconDot}
           position={position[0]}
           mapWidth={mapWidth}

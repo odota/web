@@ -2,8 +2,8 @@
 
 /* Overrides material-ui */
 .drawer > div:last-of-type {
-      background-color: var(--defaultPrimaryColor) !important;
-  }
+  background-color: var(--defaultPrimaryColor) !important;
+}
 
 .menuIcon {
   position: relative;

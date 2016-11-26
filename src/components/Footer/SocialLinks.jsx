@@ -19,8 +19,9 @@ const links = [{
 
 export default () => (
   <div className={styles.SocialLinks}>
-    {links.map(link => (
+    {links.map((link, index) => (
       <a
+        key={index}
         target="_blank"
         rel="noopener noreferrer"
         data-hint-position="top"

@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-css-modules"
+  ],
+  "rules": {
+    "property-case": ["lower", { "severity": "warning" }],
+    "property-no-unknown": [true, {
+      "severity": "warning",
+      "ignoreProperties": ["composes"]
+    }],
+    "shorthand-property-no-redundant-values": null,
+    "indentation": 2
+  }
+}

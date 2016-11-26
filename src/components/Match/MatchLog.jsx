@@ -87,7 +87,7 @@ class MatchLog extends React.Component {
   }
   render() {
     return (<div>
-      {checkboxes.map(checkbox => (<span>
+      {checkboxes.map((checkbox, index) => (<span key={index}>
         <Checkbox defaultChecked label={checkbox.label} onCheck={(event, isChecked) => this.handleCheck(checkbox.label, isChecked)} />
       </span>))}
       <Table data={generateLog(this.props.match, this.state)} columns={logColumns} />

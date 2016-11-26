@@ -1,0 +1,57 @@
+@import "../../palette.css";
+
+.PicksBans {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 24px;
+
+  & > section {
+    position: relative;
+    margin: 5px;
+
+    & > aside {
+      font-size: 11px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: -5px;
+      background-color: black;
+      line-height: 1.6;
+    }
+  }
+
+  @media only screen and (max-width: 716px) {
+    margin: 0;
+  }
+}
+
+.image {
+  composes: image from "../../Visualizations/Table/HeroImage.css";
+  margin-right: 0;
+  z-index: 0;
+
+  &[data-isPick="false"] {
+    filter: grayscale(100%);
+  }
+
+  @media only screen and (max-width: 716px) {
+    width: 42px;
+    object-fit: cover;
+  }
+}
+
+.ban {
+  position: absolute;
+  z-index: 1;
+  left: -3px;
+  right: -3px;
+  top: 14px;
+  border-top: 2px solid var(--colorDanger);
+  transform: rotate(-28deg);
+
+  @media only screen and (max-width: 716px) {
+    transform: rotate(-34deg);
+    top: 13px;
+  }
+}

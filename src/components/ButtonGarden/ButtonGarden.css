@@ -12,8 +12,10 @@
   composes: button;
   background-color: var(--primaryLinkColor) !important;
   color: var(--textColorSecondary) !important;
+
   & > div {
     height: 100%;
+
     & > div {
       display: flex;
       align-items: center;
