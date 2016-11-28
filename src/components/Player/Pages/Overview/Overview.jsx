@@ -59,7 +59,10 @@ const Overview = ({
 );
 
 const getData = (props) => {
-  props.getPlayerMatches(props.playerId, { ...props.location.query, limit: MAX_OVERVIEW_ROWS });
+  props.getPlayerMatches(props.playerId, { ...props.location.query,
+    limit: MAX_OVERVIEW_ROWS,
+    significant: 0,
+  });
   props.getPlayerHeroes(props.playerId, props.location.query);
 };
 
