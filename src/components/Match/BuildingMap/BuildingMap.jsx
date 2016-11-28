@@ -133,7 +133,7 @@ export default function BuildingMap({ match }) {
                     {damage.map(player => (
                       <div key={player.hero_id}>
                         <img
-                          src={heroes[player.hero_id] && API_HOST + heroes[player.hero_id].img}
+                          src={heroes[player.hero_id] && API_HOST + heroes[player.hero_id].icon}
                           role="presentation"
                         />
                         <span className={styles.damageValue}>
