@@ -54,7 +54,8 @@
 
 .damage {
   & > div > img {
-    width: 24px;
+    margin: 0 5px;
+    width: 14px;
     height: 14px;
     vertical-align: sub;
     filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
@@ -92,6 +93,7 @@
     }
 
     & img {
+      margin: 0;
       width: 24px;
       height: 14px;
       display: inline-block;
