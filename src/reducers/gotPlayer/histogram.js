@@ -15,14 +15,7 @@ const initialState = {
 export default createReducer(initialState, playerHistogramActions, true);
 
 export const getPlayerHistogram = {
-  getPlayerHistogramById: (state, id) => {
-    if (!state.app.gotPlayer.histogram.byId[id]) {
-      return {
-        ...initialState,
-      };
-    }
-    return state.app.gotPlayer.histogram.byId[id];
-  },
+  getPlayerHistogramById: (state, id) => state.app.gotPlayer.histogram.byId[id] || { ...initialState },
   getHistogram: histogramName => (state, id) => getPlayerHistogram.getPlayerHistogramById(state, id)[histogramName] || initialHistogramState,
   getError: histogramName => (state, id) => getPlayerHistogram.getHistogram(histogramName)(state, id).error,
   getLoading: histogramName => (state, id) => getPlayerHistogram.getHistogram(histogramName)(state, id).loading,

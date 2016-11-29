@@ -18,6 +18,7 @@ import gotPlayer, {
   playerItems,
   playerWardmap,
   playerWordcloud,
+  playerTrends,
 } from 'reducers/gotPlayer';
 import form, { getForm } from 'reducers/form';
 import request from 'reducers/request';
@@ -39,6 +40,7 @@ export {
   playerItems,
   playerWardmap,
   playerWordcloud,
+  playerTrends,
   getForm as form,
   benchmark,
   ranking,
