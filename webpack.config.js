@@ -121,7 +121,7 @@ if (!isProd) {
       comments: false,
     },
     sourceMap: false,
-  }), new HashBundlePlugin(), new webpack.optimize.DedupePlugin());
+  }), new HashBundlePlugin());
 }
 
 module.exports = config;
