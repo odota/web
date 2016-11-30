@@ -1,7 +1,6 @@
 /* global API_HOST */
 import React from 'react';
 import heroes from 'dotaconstants/json/heroes.json';
-import runes from 'dotaconstants/json/runes.json';
 import items from 'dotaconstants/json/items.json';
 import orderTypes from 'dotaconstants/json/order_types.json';
 import itemIds from 'dotaconstants/json/item_ids.json';
@@ -527,7 +526,10 @@ export const actionsColumns = [heroTdColumn, {
   })));
 
 export const runesColumns = [heroTdColumn]
-  .concat(Object.keys(runes).map(runeType => ({
+  .concat(Object.keys(strings)
+  .filter(str => str.indexOf('rune_') === 0)
+  .map(str => str.split('_')[1])
+  .map(runeType => ({
     displayName: (
       <div
         className={styles.runes}

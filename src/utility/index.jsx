@@ -5,11 +5,7 @@ import heroes from 'dotaconstants/json/heroes.json';
 import items from 'dotaconstants/json/items.json';
 import patch from 'dotaconstants/json/patch.json';
 import region from 'dotaconstants/json/region.json';
-import gameMode from 'dotaconstants/json/game_mode.json';
 import itemIds from 'dotaconstants/json/item_ids.json';
-import lobbyType from 'dotaconstants/json/lobby_type.json';
-import leaverStatus from 'dotaconstants/json/leaver_status.json';
-import laneRole from 'dotaconstants/json/lane_role.json';
 import xpLevel from 'dotaconstants/json/xp_level.json';
 import styles from 'components/palette.css';
 import { TableLink } from 'components/Table';
@@ -235,12 +231,12 @@ export const transformations = {
         </span>
       </div>);
   },
-  game_mode: (row, col, field) => (gameMode[field] ? gameMode[field].name : field),
+  game_mode: (row, col, field) => (strings[`game_mode_${field}`]),
   match_id_and_game_mode: (row, col, field) => (
     <div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
       <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
-        {gameMode[row.game_mode] ? gameMode[row.game_mode].name : row.game_mode}
+        {strings[`game_mode_${row.game_mode}`]}
       </span>
     </div>
   ),
@@ -258,9 +254,9 @@ export const transformations = {
     </div>
   ),
   region: (row, col, field) => region[field],
-  leaver_status: (row, col, field) => (leaverStatus[field] ? leaverStatus[field].name : field),
-  lobby_type: (row, col, field) => (lobbyType[field] ? lobbyType[field].name : field),
-  lane_role: (row, col, field) => (laneRole[field] ? laneRole[field].name : field),
+  leaver_status: (row, col, field) => (strings[`leaver_status_${field}`]),
+  lobby_type: (row, col, field) => (strings[`lobby_type_${field}`]),
+  lane_role: (row, col, field) => (strings[`lane_role_${field}`]),
   patch: (row, col, field) => (patch[field] ? patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
@@ -310,10 +306,6 @@ export const defaultSort = (array, sortState, sortField, sortFn) =>
     const asc = aVal < bVal ? -1 : 1;
     return sortState === 'desc' ? desc : asc;
   });
-
-export const deSnake = str => str.replace(/_(.)/g, ' $1').toUpperCase();
-
-export const prettyPrint = (row, col, field) => deSnake(field);
 
 export const SORT_ENUM = {
   0: 'asc',

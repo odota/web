@@ -5,18 +5,19 @@ import {
   unpackPositionData,
 } from 'utility';
 import heroes from 'dotaconstants/json/heroes.json';
-import specific from 'dotaconstants/json/specific.json';
 import laneRole from 'dotaconstants/json/lane_role.json';
 import immutable from 'seamless-immutable';
 import _ from 'lodash/fp';
-
+import strings from 'lang';
 import analysis from './analysis';
 
-
 const expanded = {};
-Object.keys(specific).forEach((key) => {
+Object.keys(strings)
+  .filter(str => str.indexOf('npc_dota_') === 0)
+  .forEach((key) => {
+  // Currently, no unit goes up higher than 4
   for (let i = 1; i < 5; i += 1) {
-    expanded[key.replace('#', i)] = specific[key];
+    expanded[key.replace('#', i)] = strings[key];
   }
 });
 
