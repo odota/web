@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import playerColors from 'dotaconstants/json/player_colors.json';
 import heroes from 'dotaconstants/json/heroes.json';
-import { getShortHeroName } from 'utility';
 import strings from 'lang';
 import styles from './PlayerThumb.css';
 
