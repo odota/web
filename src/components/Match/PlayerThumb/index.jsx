@@ -10,7 +10,7 @@ const PlayerThumb = ({ player_slot, hero_id, name, personaname }) => (
     <img
       className={styles.heroThumb}
       src={heroes[hero_id]
-        ? `${API_HOST}/apps/dota2/images/heroes/${getShortHeroName(heroes[hero_id].name)}_icon.png`
+        ? `${API_HOST}${heroes[hero_id].icon}`
         : '/assets/images/blank-1x1.gif'
       }
       role="presentation"
