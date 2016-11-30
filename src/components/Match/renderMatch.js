@@ -16,10 +16,10 @@ Object.keys(strings)
   .filter(str => str.indexOf('npc_dota_') === 0)
   .forEach((key) => {
   // Currently, no unit goes up higher than 4
-  for (let i = 1; i < 5; i += 1) {
-    expanded[key.replace('#', i)] = strings[key];
-  }
-});
+    for (let i = 1; i < 5; i += 1) {
+      expanded[key.replace('#', i)] = strings[key];
+    }
+  });
 
 const getMaxKeyOfObject = field =>
  (field ? Object.keys(field).sort((a, b) => Number(b) - Number(a))[0] : '');
