@@ -5,7 +5,6 @@ import {
   unpackPositionData,
 } from 'utility';
 import heroes from 'dotaconstants/json/heroes.json';
-import laneRole from 'dotaconstants/json/lane_role.json';
 import immutable from 'seamless-immutable';
 import _ from 'lodash/fp';
 import strings from 'lang';
@@ -180,7 +179,7 @@ function renderMatch(m) {
   const newPlayers = m.players.map((player) => {
     const newPlayer = {
       ...player,
-      desc: [laneRole[player.lane_role], isSupport(player) ? 'Support' : 'Core'].join('/'),
+      desc: [strings[`lane_role_${player.lane_role}`], isSupport(player) ? 'Support' : 'Core'].join('/'),
       multi_kills_max: getMaxKeyOfObject(player.multi_kills),
       kill_streaks_max: getMaxKeyOfObject(player.kill_streaks),
       analysis: analysis(m, player),
