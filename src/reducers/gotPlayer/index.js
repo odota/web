@@ -13,6 +13,7 @@ import mmr, { getPlayerMMR } from 'reducers/gotPlayer/mmr';
 import items, { getPlayerItems } from 'reducers/gotPlayer/items';
 import wardmap, { getPlayerWardmap } from 'reducers/gotPlayer/wardmap';
 import wordcloud, { getPlayerWordcloud } from 'reducers/gotPlayer/wordcloud';
+import trends, { getPlayerTrends } from 'reducers/gotPlayer/trends';
 
 export default combineReducers({
   playerReducer,
@@ -29,6 +30,7 @@ export default combineReducers({
   items,
   wardmap,
   wordcloud,
+  trends,
 });
 
 const player = {
@@ -50,4 +52,5 @@ export {
   getPlayerItems as playerItems,
   getPlayerWardmap as playerWardmap,
   getPlayerWordcloud as playerWordcloud,
+  getPlayerTrends as playerTrends,
 };

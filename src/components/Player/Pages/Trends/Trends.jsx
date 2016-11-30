@@ -2,11 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { TrendGraph } from 'components/Visualizations';
 import {
-  getPlayerMatches,
-  defaultPlayerMatchesOptions,
+  getPlayerTrends,
 } from 'actions';
-import { playerMatches } from 'reducers';
-import { getCumulativeDataByField } from 'selectors';
+import { playerTrends } from 'reducers';
 import { deSnake } from 'utility';
 import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
@@ -33,10 +31,11 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => (
 );
 
 const getData = (props) => {
-  props.getPlayerMatches(
+  const trendName = props.routeParams.subInfo || trendNames[0];
+  props.getPlayerTrends(
     props.playerId,
-    { ...props.location.query, project: [...trendNames, ...defaultPlayerMatchesOptions.project] },
-    true,
+    { ...props.location.query, limit: 500, project: [trendName, 'hero_id'] },
+    trendName,
   );
 };
 
@@ -46,7 +45,9 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
+    if (this.props.playerId !== nextProps.playerId
+      || this.props.routeParams.subInfo !== nextProps.routeParams.subInfo
+      || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
   }
@@ -56,10 +57,10 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { trendName = trendNames[0], playerId }) => ({
-  columns: getCumulativeDataByField(trendName)(playerId)(state),
-  loading: playerMatches.getLoading(state, playerId),
-  error: playerMatches.getError(state, playerId),
+const mapStateToProps = (state, { playerId }) => ({
+  columns: playerTrends.getPlayerTrends(state, playerId),
+  loading: playerTrends.getLoading(state, playerId),
+  error: playerTrends.getError(state, playerId),
 });
 
-export default connect(mapStateToProps, { getPlayerMatches })(RequestLayer);
+export default connect(mapStateToProps, { getPlayerTrends })(RequestLayer);
