@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 // import ActionSearch from 'material-ui/svg-icons/action/search';
 // import CircularProgress from 'material-ui/CircularProgress';
 import { getSearchResult, setSearchQuery } from 'actions';
+import strings from 'lang';
 import styles from './search.css';
 
 const SearchForm = ({ dispatchSearch, dispatchSetQuery, query }) => {
@@ -18,7 +19,7 @@ const SearchForm = ({ dispatchSearch, dispatchSetQuery, query }) => {
   return (
     <form onSubmit={formSubmit}>
       <TextField
-        hintText={'Player Search'}
+        hintText={strings.header_player_search}
         value={query}
         onChange={e => dispatchSetQuery(e.target.value)}
         fullWidth
