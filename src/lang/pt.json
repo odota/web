@@ -49,7 +49,7 @@
   "distributions_heading_country_mmr":"Média de MMR Individual por País",
   "distributions_tab_mmr":"MMR Individual",
   "distributions_tab_country_mmr":"MMR Individual por País",
-  "distributions_warning_1":"Este tipo de analise é limitada a jogadores exibindo o MMR no perfil e o compartilhamento de dados de partidas públicas ativado.",
+  "distributions_warning_1":"Este tipo de analise é limitada a jogadores exibindo o MMR no perfil e com o compartilhamento de dados de partidas públicas ativado.",
   "distributions_warning_2":"Jogadores não precisam registrar-se, mas devido a natureza dos dados coletados, as médias são maiores do que o esperado.",
   "error":"Erro",
   "error_message":"Oops! Algo deu errado.",
