@@ -401,3 +401,12 @@ export const threshold = _.curry((start, limits, values, value) => {
 });
 
 export const getShortHeroName = name => name.split('npc_dota_hero_')[1];
+
+export const getTeamName = (team, isRadiant) => {
+  if(isRadiant) {
+    return (team && team.name) ? team.name : strings.general_radiant;
+  }
+  else {
+    return (team && team.name) ? team.name : strings.general_dire;  
+  }
+}
