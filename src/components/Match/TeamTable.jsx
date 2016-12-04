@@ -1,6 +1,5 @@
 import React from 'react';
 import { isRadiant, getTeamName } from 'utility';
-import strings from 'lang';
 import Heading from 'components/Heading';
 import { IconRadiant, IconDire } from 'components/Icons';
 import Table from 'components/Table';
@@ -18,10 +17,8 @@ export default ({
   heading = '',
   picksBans = [],
   radiantTeam = {},
-  direTeam = {}
-}) => {
-  console.log('this', this);
-  return (
+  direTeam = {},
+}) => (
   <div>
     <Heading
       title={`${getTeamName(radiantTeam, true)} ${heading}`}
@@ -36,4 +33,4 @@ export default ({
     <Table data={filterMatchPlayers(players, 'dire')} columns={columns} />
     {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
   </div>
-);};
+);

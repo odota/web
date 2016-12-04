@@ -3,17 +3,15 @@ import {
   Row,
   Col,
 } from 'react-flexbox-grid';
-import { formatSeconds } from 'utility';
+import { formatSeconds, getTeamName } from 'utility';
 import Paper from 'material-ui/Paper';
 import Slider from 'material-ui/Slider';
 import _ from 'lodash/fp';
-import strings from 'lang';
 
 import VisionMap from './VisionMap' ;
 import WardLog from './WardLog';
 import PlayerFilter from './Vision/PlayerFilter';
 import styles from './Match.css';
-import { getTeamName } from 'utility';
 
 const SliderTicks = props => (
   <div {...props}>
