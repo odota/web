@@ -4,6 +4,7 @@ import {
   formatSeconds,
   isRadiant,
   jsonFn,
+  getTeamName,
 } from 'utility';
 import {
   IconBloodDrop,
@@ -119,9 +120,9 @@ const Timeline = ({
       <div>
         <main className={styles.timeline}>
           <section>
-            <mark>{strings.general_radiant}</mark>
+            <mark>{getTeamName(match.radiant_team, true)}</mark>
             <time>-1:30</time>
-            <mark>{strings.general_dire}</mark>
+            <mark>{getTeamName(match.dire_team, false)}</mark>
           </section>
           <div className={styles.battle}>
             <div className={styles.line}>

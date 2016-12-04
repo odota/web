@@ -13,6 +13,7 @@ import VisionMap from './VisionMap' ;
 import WardLog from './WardLog';
 import PlayerFilter from './Vision/PlayerFilter';
 import styles from './Match.css';
+import { getTeamName } from 'utility';
 
 const SliderTicks = props => (
   <div {...props}>
@@ -108,7 +109,7 @@ class VisionPage extends React.Component {
             <Row>
               <Col xs={12} md={6} lg={12} className={styles.wardLogPlayerFilter}>
                 <Col xs className={styles.filterHeader}>
-                  {strings.general_radiant}
+                  {getTeamName(this.props.match.radiant_team, true)}
                 </Col>
                 {<FixedPlayersFilter
                   activeFilters={this.state.filters}
@@ -119,7 +120,7 @@ class VisionPage extends React.Component {
               </Col>
               <Col xs={12} md={6} lg={12} className={styles.wardLogPlayerFilter}>
                 <Col xs className={styles.filterHeader}>
-                  {strings.general_dire}
+                  {getTeamName(this.props.match.dire_team, false)}
                 </Col>
                 {<FixedPlayersFilter
                   activeFilters={this.state.filters}
