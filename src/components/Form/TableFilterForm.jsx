@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { toggleShowForm } from 'actions';
 import { form } from 'reducers';
 import strings from 'lang';
 // import { clearForm } from 'actions';
@@ -9,7 +8,6 @@ import FormField from './FormField';
 import FormGroup from './FormGroup';
 // import SubmitButton from './SubmitButton';
 // import ClearButton from './ClearButton';
-import ShowFormToggle from './ShowFormToggle';
 import styles from './TableFilterForm.css';
 import * as data from './TableFilter.config';
 

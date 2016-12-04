@@ -39,6 +39,7 @@ class PlayerButtons extends React.Component {
             }}
           />
         </div>
+        <ShowFormToggle formName={FORM_NAME} showForm={showForm} toggleShowForm={toggleShowForm} />
         <FlatButton
           label={strings.app_dotacoach}
           labelPosition="after"
@@ -46,7 +47,6 @@ class PlayerButtons extends React.Component {
           style={{ marginLeft: 15 }}
           href={`https://dotacoach.org/Hire/OpenDota?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}`}
         />
-        <ShowFormToggle formName={FORM_NAME} showForm={showForm} toggleShowForm={toggleShowForm} />
       </div>);
   }
 }
