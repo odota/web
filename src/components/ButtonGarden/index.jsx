@@ -1,6 +1,6 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import { deSnake } from 'utility';
+import strings from 'lang';
 import styles from './ButtonGarden.css';
 
 const ButtonGarden = ({ buttonNames, selectedButton, onClick }) => (
@@ -11,7 +11,7 @@ const ButtonGarden = ({ buttonNames, selectedButton, onClick }) => (
         className={selectedButton === buttonName ? styles.selectedButton : styles.button}
         key={index}
       >
-        <span className={styles.buttonText}>{deSnake(buttonName)}</span>
+        <span className={styles.buttonText}>{strings[`heading_${buttonName}`]}</span>
       </FlatButton>
     ))}
   </div>

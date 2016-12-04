@@ -5,8 +5,6 @@ import {
   formatSeconds,
 } from 'utility';
 import Table from 'components/Table';
-import objectives from 'dotaconstants/json/objectives.json';
-import barracksValue from 'dotaconstants/json/barracks_value.json';
 import Checkbox from 'material-ui/Checkbox';
 import heroNames from 'dotaconstants/json/hero_names.json';
 import styles from './Match.css';
@@ -14,8 +12,8 @@ import {
   heroTdColumn,
 } from './matchColumns';
 
-const getObjectiveDesc = objective => (objective.key ? barracksValue[objective.key] : '');
-const getObjectiveBase = objective => objectives[objective.subtype || objective.type] || objective.subtype || objective.type;
+const getObjectiveDesc = objective => (objective.key ? strings[`barracks_value_${objective.key}`] : '');
+const getObjectiveBase = objective => strings[objective.subtype || objective.type] || objective.subtype || objective.type;
 const generateLog = (match, selectedTypes) => {
   let log = [];
   if (selectedTypes.objectives) {
