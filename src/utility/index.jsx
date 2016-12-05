@@ -18,6 +18,7 @@ import strings from 'lang';
 import subTextStyle from 'components/Visualizations/Table/subText.css';
 import { findLast } from 'lodash';
 import _ from 'lodash/fp';
+import util from 'util';
 
 // TODO - add in the relevant text invocations of TableHeroImage
 export const isRadiant = playerSlot => playerSlot < 128;
@@ -93,27 +94,33 @@ const month = day * 30;
 const year = month * 12;
 
 const units = [{
-  name: strings.time_second,
+  name: strings.time_s,
+  plural: strings.time_ss,
   limit: minute,
   in_seconds: second,
 }, {
-  name: strings.time_minute,
+  name: strings.time_m,
+  plural: strings.time_mm,
   limit: hour,
   in_seconds: minute,
 }, {
-  name: strings.time_hour,
+  name: strings.time_h,
+  plural: strings.time_hh,
   limit: day,
   in_seconds: hour,
 }, {
-  name: strings.time_day,
+  name: strings.time_d,
+  plural: strings.time_dd,
   limit: month,
   in_seconds: day,
 }, {
-  name: strings.time_month,
+  name: strings.time_M,
+  plural: strings.time_MM,
   limit: year,
   in_seconds: month,
 }, {
-  name: strings.time_year,
+  name: strings.time_y,
+  plural: strings.time_yy,
   limit: null,
   in_seconds: year,
 }];
@@ -127,7 +134,7 @@ export function fromNow(time) {
     const unit = units[i];
     if (diff < unit.limit || !unit.limit) {
       const val = Math.floor(diff / unit.in_seconds);
-      return `${val} ${unit.name}${val > 1 ? strings.time_plural : ''} ${strings.time_past}`;
+      return util.format(strings.time_past, val > 1 ? util.format(unit.plural, val) : unit.name);
     }
   }
   return '';
