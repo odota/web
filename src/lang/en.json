@@ -94,8 +94,8 @@
   "farm_roshan": "Roshans killed",
   "farm_necronomicon": "Necronomicon units killed",
 
-  "filter_button_text_open": "FILTER",
-  "filter_button_text_close": "CLOSE",
+  "filter_button_text_open": "Filter",
+  "filter_button_text_close": "Close",
   "filter_hero_id": "Hero",
   "filter_is_radiant": "Team",
   "filter_win": "Result",
