@@ -5,7 +5,7 @@ OpenDota UI: A web interface to OpenDota.
 Quickstart
 ----
 * Install Node.js (6.0.0 or greater) (on Ubuntu, `curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && sudo apt-get install -y nodejs`)
-* `npm run build`
+* `npm install`
 * `npm start`
 * Visit port 8080 on your development machine.
 * Make some changes
