@@ -28,7 +28,7 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["**/*.spec.*", "**/testUtils/**/*", "webpack.config.js"]
+        "devDependencies": ["**/*.spec.*", "**/test/**/*", "webpack.config.js"]
       }
     ],
     "jsx-a11y/no-static-element-interactions": [0],
