@@ -447,7 +447,8 @@ export const chatColumns = [
     displayFn: (row, col, field) => formatSeconds(field),
   }, {
     displayName: strings.th_message,
-    field: 'key',
+    field: '',
+    displayFn: row => row.key || row.text,
   },
 ];
 
