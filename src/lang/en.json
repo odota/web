@@ -52,7 +52,7 @@
   "barracks_value_512": "Radiant Mid Ranged",
   "barracks_value_1024": "Radiant Top Melee",
   "barracks_value_2048": "Radiant Top Ranged",
-  
+
   "benchmarks_higher_than": "is equal or higher than",
   "benchmarks_recent_performances": "of recent performances on this hero",
 
@@ -62,7 +62,7 @@
   "building_damage": "received damage",
   "building_hint": "Icons on the map have tooltips",
   "building_denied": "denied",
-  
+
   "CHAT_MESSAGE_TOWER_KILL": "Tower",
   "CHAT_MESSAGE_BARRACKS_KILL": "Barracks",
   "CHAT_MESSAGE_ROSHAN_KILL": "Roshan",
@@ -71,7 +71,7 @@
   "CHAT_MESSAGE_TOWER_DENY": "Tower Deny",
   "CHAT_MESSAGE_AEGIS_STOLEN": "Stole the Aegis",
   "CHAT_MESSAGE_DENIED_AEGIS": "Denied the Aegis",
-  
+
   "distributions_heading_mmr": "Solo MMR Distribution",
   "distributions_heading_country_mmr": "Average Solo MMR by Country",
   "distributions_tab_mmr": "Solo MMR",
@@ -93,7 +93,7 @@
   "farm_sentries": "Sentries killed",
   "farm_roshan": "Roshans killed",
   "farm_necronomicon": "Necronomicon units killed",
-    
+
   "filter_hero_id": "Hero",
   "filter_is_radiant": "Team",
   "filter_win": "Result",
@@ -107,7 +107,7 @@
   "filter_against_hero_id":"Opposing Heroes",
   "filter_included_account_id":"Included Players",
   "filter_excluded_hero_id":"Excluded Players",
-  
+
   "game_mode_0": "Unknown",
   "game_mode_1": "All Pick",
   "game_mode_2": "Captains Mode",
@@ -131,7 +131,7 @@
   "game_mode_20": "All Random Death Match",
   "game_mode_21": "1v1 Mid",
   "game_mode_22": "Ranked All Pick",
-  
+
   "general_unknown": "Unknown",
   "general_no_hero": "No hero",
   "general_anonymous": "Anonymous",
@@ -229,7 +229,7 @@
   "heading_lane_role": "Lane Role",
   "heading_region": "Region",
   "heading_patch": "Patch",
-  
+
   "home_login": "Login",
   "home_login_desc": "for automatic replay parsing",
   "home_parse": "Request",
@@ -254,13 +254,13 @@
   "items_timing": "Mean time this item was built at",
   "items_build_pct": "Percentage of matches this item was built in",
   "items_win_pct": "Percentage of matches won where this item was built",
-  
+
   "lane_role_0": "Unknown",
   "lane_role_1": "Safe",
   "lane_role_2": "Mid",
   "lane_role_3": "Off",
   "lane_role_4": "Jungle",
-  
+
   "leaver_status_0": "None",
   "leaver_status_1": "Left Safely",
   "leaver_status_2": "Abandoned (DC)",
@@ -268,7 +268,7 @@
   "leaver_status_4": "Abandoned (AFK)",
   "leaver_status_5": "Never Connected",
   "leaver_status_6": "Never Connected (Timeout)",
-  
+
   "lobby_type_0": "Normal",
   "lobby_type_1": "Practice",
   "lobby_type_2": "Tournament",
@@ -334,7 +334,7 @@
   "npc_dota_treant_eyes": "Eyes in the Forest",
   "npc_dota_gyrocopter_homing_missile": "Homing Missile",
   "npc_dota_weaver_swarm": "The Swarm",
-    
+
   "objective_tower1_top": "T1 Top",
   "objective_tower1_mid": "T1 Mid",
   "objective_tower1_bot": "T1 Bot",
@@ -354,6 +354,8 @@
   "pagination_first": "First",
   "pagination_last": "Last",
   "pagination_of": "of",
+
+  "pro_players": "Pro Players",
 
   "rune_0": "Double Damage",
   "rune_1": "Haste",
@@ -501,6 +503,7 @@
   "th_count": "Count",
   "th_average": "Average",
   "th_name": "Name",
+  "th_team_name": "Team Name",
   "th_score": "Score",
   "th_casts": "Casts",
   "th_hits": "Hits",
