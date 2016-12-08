@@ -48,6 +48,7 @@ export default ({
       loading={prosLoading}
       error={prosError}
       title={strings.pro_players}
+      hide={!pros || pros.length === 0}
     >
       <Table
         paginated
