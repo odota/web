@@ -22,3 +22,4 @@ export * from './benchmarkActions';
 export * from './searchActions';
 export * from './requestActions';
 export * from './distributionsActions';
+export * from './proPlayersActions';

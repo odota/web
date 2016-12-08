@@ -1,5 +1,6 @@
 /* global API_HOST */
 import fetch from 'isomorphic-fetch';
+import { getProPlayers } from 'actions/proPlayersActions';
 
 const url = '/api/search';
 
@@ -42,6 +43,12 @@ const getSearchResult = query => (dispatch) => {
     .then(json => dispatch(getSearchOk(json)))
     .catch(err => dispatch(getSearchError(err)));
 };
+
+export const getSearchResultAndPros = query =>
+  dispatch => Promise.all([
+    dispatch(getSearchResult(query)),
+    dispatch(getProPlayers()),
+  ]);
 
 export {
   getSearchResult,
