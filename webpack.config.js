@@ -11,12 +11,11 @@ const postcssR = require('postcss-reporter');
 const postcssCF = require('postcss-color-function');
 
 const isProd = process.env.NODE_ENV === 'production';
-const isDevDeploy = process.env.DEPLOY_ENVIRONMENT === 'dev';
 
 const config = {
   entry: ['babel-polyfill', './src'],
   output: {
-    filename: `${isProd && !isDevDeploy ? '[hash].' : ''}bundle.js`,
+    filename: `${isProd ? '[hash].' : ''}bundle.js`,
     path: 'build/',
     publicPath: 'build/',
   },
