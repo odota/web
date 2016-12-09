@@ -39,6 +39,7 @@
   "app_logout": "Logout",
   "app_results": "results",
   "app_report_bug": "Report bug",
+  "app_pro_players": "Pro Players",
 
   "barracks_value_1": "Dire Bot Melee",
   "barracks_value_2": "Dire Bot Ranged",
@@ -356,8 +357,6 @@
   "pagination_first": "First",
   "pagination_last": "Last",
   "pagination_of": "of",
-
-  "pro_players": "Pro Players",
 
   "rune_0": "Double Damage",
   "rune_1": "Haste",

@@ -47,7 +47,7 @@ export default ({
     <Container
       loading={prosLoading}
       error={prosError}
-      title={strings.pro_players}
+      title={strings.app_pro_players}
       hide={!pros || pros.length === 0}
     >
       <Table
