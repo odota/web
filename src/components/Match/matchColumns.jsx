@@ -1,14 +1,12 @@
 /* global API_HOST */
 import React from 'react';
 import heroes from 'dotaconstants/json/heroes.json';
-import runes from 'dotaconstants/json/runes.json';
 import items from 'dotaconstants/json/items.json';
 import orderTypes from 'dotaconstants/json/order_types.json';
 import itemIds from 'dotaconstants/json/item_ids.json';
 import abilityIds from 'dotaconstants/json/ability_ids.json';
 import abilityKeys from 'dotaconstants/json/ability_keys.json';
 import heroNames from 'dotaconstants/json/hero_names.json';
-import laneRole from 'dotaconstants/json/lane_role.json';
 import buffs from 'dotaconstants/json/permanent_buffs.json';
 import strings from 'lang';
 import {
@@ -308,7 +306,7 @@ export const performanceColumns = [
     tooltip: strings.tooltip_lane,
     field: 'lane_role',
     sortFn: true,
-    displayFn: (row, col, field) => laneRole[field],
+    displayFn: (row, col, field) => strings[`lane_role_${field}`],
   }, {
     displayName: strings.th_map,
     tooltip: strings.tooltip_map,
@@ -449,7 +447,8 @@ export const chatColumns = [
     displayFn: (row, col, field) => formatSeconds(field),
   }, {
     displayName: strings.th_message,
-    field: 'key',
+    field: '',
+    displayFn: row => row.key || row.text,
   },
 ];
 
@@ -527,7 +526,10 @@ export const actionsColumns = [heroTdColumn, {
   })));
 
 export const runesColumns = [heroTdColumn]
-  .concat(Object.keys(runes).map(runeType => ({
+  .concat(Object.keys(strings)
+  .filter(str => str.indexOf('rune_') === 0)
+  .map(str => str.split('_')[1])
+  .map(runeType => ({
     displayName: (
       <div
         className={styles.runes}
