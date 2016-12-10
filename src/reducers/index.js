@@ -4,6 +4,7 @@ import match from 'reducers/match';
 import heroRanking, { ranking } from 'reducers/heroRanking';
 import heroBenchmark, { benchmark } from 'reducers/heroBenchmark';
 import search from 'reducers/search';
+import pros, { proPlayers } from 'reducers/proPlayers';
 import gotPlayer, {
   player,
   playerMatches,
@@ -41,6 +42,7 @@ export {
   playerWardmap,
   playerWordcloud,
   playerTrends,
+  proPlayers,
   getForm as form,
   benchmark,
   ranking,
@@ -58,4 +60,5 @@ export default combineReducers({
   request,
   distributions,
   table,
+  proPlayers: pros,
 });
