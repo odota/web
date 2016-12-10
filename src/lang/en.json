@@ -142,6 +142,7 @@
   "general_dire": "Dire",
   "general_standard_deviation": "Standard Deviation",
   "general_matches": "Matches",
+  "general_league": "League",
 
   "gold_reasons_0": "Other",
   "gold_reasons_1": "Death",
@@ -159,6 +160,7 @@
   "header_heroes": "Heroes",
   "header_blog": "Blog",
   "header_ingame": "Ingame",
+  "header_matches": "Matches",
 
   "heading_matches": "Recent Matches",
   "heading_heroes": "Heroes Played",

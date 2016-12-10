@@ -58,10 +58,10 @@ export default (state = initialState, action) => {
   }
 };
 
-export const benchmark = {
+export const getHeroBenchmark = {
   getReducer: state => state.app.heroBenchmark,
-  getHeroId: state => benchmark.getReducer(state).hero_id,
-  getBenchmarks: state => benchmark.getReducer(state).result,
-  getLoading: state => benchmark.getReducer(state).loading,
-  getError: state => benchmark.getReducer(state).error,
+  getHeroId: state => getHeroBenchmark.getReducer(state).hero_id,
+  getBenchmarks: state => getHeroBenchmark.getReducer(state).result,
+  getLoading: state => getHeroBenchmark.getReducer(state).loading,
+  getError: state => getHeroBenchmark.getReducer(state).error,
 };
