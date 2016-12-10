@@ -41,7 +41,7 @@
     "postcss-import": "9.0.0",
     "postcss-loader": "^1.1.1",
     "postcss-reporter": "^2.0.0",
-    "react": "^15.3.2",
+    "react": "^15.4.0",
     "react-addons-css-transition-group": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-flexbox-grid": "^0.10.2",
