@@ -1,6 +1,5 @@
 import React from 'react';
-import { isRadiant } from 'utility';
-import strings from 'lang';
+import { isRadiant, getTeamName } from 'utility';
 import Heading from 'components/Heading';
 import { IconRadiant, IconDire } from 'components/Icons';
 import Table from 'components/Table';
@@ -17,16 +16,18 @@ export default ({
   columns,
   heading = '',
   picksBans = [],
+  radiantTeam = {},
+  direTeam = {},
 }) => (
   <div>
     <Heading
-      title={`${strings.general_radiant} ${heading}`}
+      title={`${getTeamName(radiantTeam, true)} ${heading}`}
       icon={<IconRadiant className={styles.iconRadiant} />}
     />
     <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} />
     {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
     <Heading
-      title={`${strings.general_dire} ${heading}`}
+      title={`${getTeamName(direTeam, false)} ${heading}`}
       icon={<IconDire className={styles.iconDire} />}
     />
     <Table data={filterMatchPlayers(players, 'dire')} columns={columns} />

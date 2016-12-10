@@ -398,3 +398,10 @@ export const threshold = _.curry((start, limits, values, value) => {
   limitsWithStart.unshift(start);
   return findLast(values, (v, i) => _.inRange(limitsWithStart[i], limitsWithStart[i + 1], value));
 });
+
+export const getTeamName = (team, isRadiant) => {
+  if (isRadiant) {
+    return (team && team.name) ? team.name : strings.general_radiant;
+  }
+  return (team && team.name) ? team.name : strings.general_dire;
+};
