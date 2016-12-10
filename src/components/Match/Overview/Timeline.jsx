@@ -14,7 +14,6 @@ import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
 
 import heroes from 'dotaconstants/json/heroes.json';
-import barracksValue from 'dotaconstants/json/barracks_value.json';
 import PlayerThumb from 'components/Match/PlayerThumb';
 
 import styles from './Timeline.css';
@@ -270,7 +269,7 @@ const Timeline = ({
           }
           {fRax &&
             <div>
-              <span>{strings.match_first_barracks} ({barracksValue[fRax.key]}) </span>
+              <span>{strings.match_first_barracks} ({strings[`barracks_value_${fRax.key}`]}) </span>
               {formatSeconds(fRax.time)}
             </div>
           }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { toggleShowForm } from 'actions';
 import { form } from 'reducers';
 import strings from 'lang';
 // import { clearForm } from 'actions';
@@ -9,11 +8,10 @@ import FormField from './FormField';
 import FormGroup from './FormGroup';
 // import SubmitButton from './SubmitButton';
 // import ClearButton from './ClearButton';
-import ShowFormToggle from './ShowFormToggle';
 import styles from './TableFilterForm.css';
 import * as data from './TableFilter.config';
 
-const FORM_NAME = 'tableFilter';
+export const FORM_NAME = 'tableFilter';
 
 const setFormShow = (props) => {
   // If query string state doesn't match form show state, toggle it
@@ -27,10 +25,9 @@ class TableFilterForm extends React.Component {
     setFormShow(this.props);
   }
   render() {
-    const { page, showForm, toggleShowForm } = this.props;
+    const { showForm } = this.props;
     return (
       <div>
-        <ShowFormToggle page={page} formName={FORM_NAME} showForm={showForm} toggleShowForm={toggleShowForm} />
         <div className={showForm ? styles.showForm : styles.hideForm}>
           <Form name={FORM_NAME} className={styles.form}>
             <FormGroup className={styles.formGroup}>
@@ -146,8 +143,4 @@ const mapStateToProps = state => ({
   showForm: form.getFormShow(state, 'tableFilter'),
 });
 
-const mapDispatchToProps = dispatch => ({
-  toggleShowForm: () => dispatch(toggleShowForm('tableFilter')),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TableFilterForm);
+export default connect(mapStateToProps)(TableFilterForm);

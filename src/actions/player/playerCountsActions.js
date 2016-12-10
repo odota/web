@@ -2,10 +2,6 @@
 import fetch from 'isomorphic-fetch';
 import patch from 'dotaconstants/json/patch.json';
 import region from 'dotaconstants/json/region.json';
-import gameMode from 'dotaconstants/json/game_mode.json';
-import lobbyType from 'dotaconstants/json/lobby_type.json';
-import leaverStatus from 'dotaconstants/json/leaver_status.json';
-import laneRole from 'dotaconstants/json/lane_role.json';
 import {
   playerCounts,
 } from 'reducers';
@@ -15,6 +11,7 @@ import {
 import {
   getPercentWin,
 } from 'utility';
+import strings from 'lang';
 
 const url = playerId => `/api/players/${playerId}/counts`;
 
@@ -45,13 +42,14 @@ export const getPlayerCountsError = (payload, id) => ({
   id,
 });
 
+const patchLookup = {};
+patch.forEach((patchElement, index) => {
+  patchLookup[index] = patchElement.name;
+});
+
 const countTypes = {
-  leaver_status: leaverStatus,
-  game_mode: gameMode,
-  lobby_type: lobbyType,
-  lane_role: laneRole,
+  patch: patchLookup,
   region,
-  patch,
 };
 
 export const getPlayerCounts = (playerId, options = {}) => (dispatch, getState) => {
@@ -67,13 +65,12 @@ export const getPlayerCounts = (playerId, options = {}) => (dispatch, getState) 
     .then((json) => {
       const data = {};
       Object.keys(json).forEach((key) => {
-        // We need to map each inner object to something we can understand
+        // Translate each ID to a string
         data[key] = {
           name: key,
           list: Object.keys(json[key])
-            .filter(innerKey => countTypes[key][innerKey])
             .map(innerKey => ({
-              category: (countTypes[key][innerKey] && countTypes[key][innerKey].name) || countTypes[key][innerKey],
+              category: strings[`${key}_${innerKey}`] || (countTypes[key] && countTypes[key][innerKey]) || innerKey,
               matches: json[key][innerKey].games,
               winPercent: getPercentWin(json[key][innerKey].win, json[key][innerKey].games),
             })),

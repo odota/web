@@ -1,10 +1,10 @@
-import { transformations, prettyPrint } from 'utility';
+import { transformations } from 'utility';
 import strings from 'lang';
 
 export default [{
   displayName: strings.th_title,
   field: 'name',
-  displayFn: prettyPrint,
+  displayFn: (row, col, field) => strings[`heading_${field}`],
 }, {
   displayName: strings.th_record,
   field: 'value',

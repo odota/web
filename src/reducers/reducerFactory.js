@@ -72,7 +72,7 @@ const objectData = (initialState, actions) =>
     }
   };
 
-const listData = (initialState, actions) => (state = initialState, action) => {
+export const listData = (initialState, actions) => (state = initialState, action) => {
   switch (action.type) {
     case actions.REQUEST:
       return {
@@ -110,3 +110,10 @@ export default (initialState, actions, isObject) => {
     ...idReducers,
   });
 };
+
+export const selectors = getPath => ({
+  getLoading: state => getPath(state).loading,
+  getLoaded: state => getPath(state).loaded,
+  getError: state => getPath(state).error,
+  getList: state => getPath(state).list,
+});

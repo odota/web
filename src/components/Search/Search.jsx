@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getSearchResult } from 'actions';
-import Spinner from 'components/Spinner';
+import { getSearchResultAndPros } from 'actions';
+import { proPlayers } from 'reducers';
 import SearchResult from './SearchResult';
 // import SearchForm from './SearchForm';
 
@@ -12,22 +12,26 @@ class Search extends React.Component {
     }
   }
   render() {
-    return this.props.loading ? <Spinner /> : <SearchResult players={this.props.data || []} />;
+    const { data, pros, ...rest } = this.props;
+    return <SearchResult {...rest} players={data || []} pros={pros || []} />;
   }
 }
 
 const mapStateToProps = (state) => {
-  const { error, loading, done, searchResults } = state.app.search;
+  const { error, loading, done, searchResults, query } = state.app.search;
   return {
-    loading,
-    error,
+    playersLoading: loading,
+    playersError: error,
     done,
     data: searchResults,
+    pros: proPlayers.getFilteredList(state, query),
+    prosLoading: proPlayers.getLoading(state),
+    prosError: proPlayers.getError(state),
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  dispatchSearch: query => dispatch(getSearchResult(query)),
+  dispatchSearch: query => dispatch(getSearchResultAndPros(query)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
