@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { form } from 'reducers';
 import strings from 'lang';
+import { toggleShowForm } from 'actions/formActions';
 // import { clearForm } from 'actions';
 import Form from './Form';
 import FormField from './FormField';
@@ -13,16 +14,12 @@ import * as data from './TableFilter.config';
 
 export const FORM_NAME = 'tableFilter';
 
-const setFormShow = (props) => {
-  // If query string state doesn't match form show state, toggle it
-  if (Boolean(window.location.search.substring(1)) !== props.showForm) {
-    props.toggleShowForm();
-  }
-};
-
 class TableFilterForm extends React.Component {
   componentWillMount() {
-    setFormShow(this.props);
+    if (Boolean(window.location.search.substring(1)) !== this.props.showForm) {
+      // If query string state doesn't match form show state, toggle it
+      this.props.toggleShowForm();
+    }
   }
   render() {
     const { showForm } = this.props;
@@ -143,4 +140,8 @@ const mapStateToProps = state => ({
   showForm: form.getFormShow(state, 'tableFilter'),
 });
 
-export default connect(mapStateToProps)(TableFilterForm);
+const mapDispatchToProps = dispatch => ({
+  toggleShowForm: () => dispatch(toggleShowForm('tableFilter')),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TableFilterForm);
