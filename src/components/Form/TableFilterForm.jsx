@@ -17,6 +17,7 @@ export const FORM_NAME = 'tableFilter';
 class TableFilterForm extends React.Component {
   componentWillMount() {
     if (Boolean(window.location.search.substring(1)) !== this.props.showForm) {
+      // If query string state doesn't match form show state, toggle it
       this.props.toggleShowForm();
     }
   }
