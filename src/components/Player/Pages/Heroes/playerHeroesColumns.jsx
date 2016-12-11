@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { transformations, getPercentWin } from 'utility';
 import { TablePercent } from 'components/Visualizations';
 import strings from 'lang';
 
-export const playerHeroesOverviewColumns = [{
+export const playerHeroesOverviewColumns = playerId => [{
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
-  displayFn: transformations.hero_id,
+  displayFn: row => <Link to={`/players/${playerId}/matches?hero_id=${row.hero_id}`}>{transformations.hero_id(row)}</Link>,
   sortFn: row => row.last_played,
 }, {
   displayName: strings.th_games,
@@ -46,7 +47,7 @@ const restColumns = [{
   sortFn: row => row.against_win / row.against_games,
 }];
 
-export const playerHeroesColumns = [
-  ...playerHeroesOverviewColumns,
+export const playerHeroesColumns = playerId => [
+  ...playerHeroesOverviewColumns(playerId),
   ...restColumns,
 ];
