@@ -63,33 +63,38 @@ const Table = ({
   sortState,
   sortField,
   sortClick,
-  numRows,
 }) => (
   <div className={styles.container}>
     {loading && <Spinner />}
     {!loading && error && <Error />}
-    {!loading && !error && data && getTable(data, columns, sortState, sortField, sortClick, numRows)}
+    {!loading && !error && data && getTable(data, columns, sortState, sortField, sortClick)}
   </div>
 );
 
 const {
   arrayOf,
   bool,
+  oneOfType,
   string,
   func,
-  number,
+  object,
   shape,
 } = React.PropTypes;
 
 Table.propTypes = {
-  data: arrayOf(shape({})),
-  columns: arrayOf(shape({})),
+  data: arrayOf(object).isRequired,
+  columns: arrayOf(shape({
+    displayFn: func,
+    sortFn: oneOfType([func, bool]),
+    field: string.isRequired,
+    tooltip: string,
+    displayName: string,
+  })).isRequired,
   loading: bool,
   error: bool,
   sortState: string,
   sortField: string,
   sortClick: func,
-  numRows: number,
 };
 
 export default Table;
