@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { form } from 'reducers';
 import strings from 'lang';
+import { toggleShowForm } from 'actions/formActions';
 // import { clearForm } from 'actions';
 import Form from './Form';
 import FormField from './FormField';
@@ -10,7 +11,6 @@ import FormGroup from './FormGroup';
 // import ClearButton from './ClearButton';
 import styles from './TableFilterForm.css';
 import * as data from './TableFilter.config';
-import { toggleShowForm } from 'actions/formActions';
 
 export const FORM_NAME = 'tableFilter';
 
