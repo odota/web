@@ -16,6 +16,7 @@ const generateGraph = ({
   colors,
   formatFn,
   xAxis,
+  yAxis,
   hidePoints,
   otherColumnNames,
   noX,
@@ -35,6 +36,7 @@ const generateGraph = ({
       },
       axis: {
         x: xAxis,
+        y: yAxis,
       },
       point: {
         show: !hidePoints,
