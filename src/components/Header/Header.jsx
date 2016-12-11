@@ -29,11 +29,6 @@ const navbarPages = [{
 }, {
   name: strings.header_distributions,
   path: '/distributions',
-}, {
-  name: strings.header_ingame,
-  sponsored: true,
-  external: true,
-  path: '//dota2.becomethegamer.com/yasp',
 }];
 
 const navbarBug = {
