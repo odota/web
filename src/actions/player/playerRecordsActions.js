@@ -31,13 +31,7 @@ export const getPlayerRecordsError = (payload, id) => ({
 });
 
 export const getPlayerRecords = (playerId, options = {}) => (dispatch, getState) => {
-  if (playerRecords.isLoaded(getState(), playerId)) {
-    dispatch(getPlayerRecordsOk(playerRecords.getRecordsList(getState(), playerId), playerId));
-  } else {
-    dispatch(getPlayerRecordsRequest(playerId));
-  }
-  // const modifiedOptions = getModifiedOptions(options, excludedOptions);
-
+  dispatch(getPlayerRecordsRequest(playerId));
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())
     .then(json => Object.keys(json)

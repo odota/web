@@ -10,19 +10,15 @@ import FormGroup from './FormGroup';
 // import ClearButton from './ClearButton';
 import styles from './TableFilterForm.css';
 import * as data from './TableFilter.config';
+import { toggleShowForm } from 'actions/formActions';
 
 export const FORM_NAME = 'tableFilter';
 
-const setFormShow = (props) => {
-  // If query string state doesn't match form show state, toggle it
-  if (Boolean(window.location.search.substring(1)) !== props.showForm) {
-    props.toggleShowForm();
-  }
-};
-
 class TableFilterForm extends React.Component {
   componentWillMount() {
-    setFormShow(this.props);
+    if (Boolean(window.location.search.substring(1)) !== this.props.showForm) {
+      this.props.toggleShowForm();
+    }
   }
   render() {
     const { showForm } = this.props;
@@ -143,4 +139,8 @@ const mapStateToProps = state => ({
   showForm: form.getFormShow(state, 'tableFilter'),
 });
 
-export default connect(mapStateToProps)(TableFilterForm);
+const mapDispatchToProps = dispatch => ({
+  toggleShowForm: () => dispatch(toggleShowForm('tableFilter')),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TableFilterForm);

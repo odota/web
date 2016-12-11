@@ -90,5 +90,5 @@ const playerPages = [{
 
 export default playerId => playerPages.map(page => ({
   ...page,
-  route: `/players/${playerId}/${page.name.toLowerCase()}`,
+  route: `/players/${playerId}/${page.key}`,
 }));
