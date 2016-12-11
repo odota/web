@@ -22,8 +22,10 @@ const tablet = 864;
 const mobile = 425;
 
 // TODO Explorer
-// TODO Matches
 const navbarPages = [{
+  name: strings.header_matches,
+  path: '/matches',
+}, {
   name: strings.header_heroes,
   path: '/heroes',
 }, {

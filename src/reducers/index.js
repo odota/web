@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 import metadata from 'reducers/metadata';
 import match from 'reducers/match';
-import heroRanking, { ranking } from 'reducers/heroRanking';
-import heroBenchmark, { benchmark } from 'reducers/heroBenchmark';
+import heroRanking, { getHeroRanking } from 'reducers/heroRanking';
+import heroBenchmark, { getHeroBenchmark } from 'reducers/heroBenchmark';
 import search from 'reducers/search';
-import pros, { proPlayers } from 'reducers/proPlayers';
+import proPlayers, { getProPlayers } from 'reducers/proPlayers';
+import proMatches, { getProMatches } from 'reducers/proMatches';
 import gotPlayer, {
   player,
   playerMatches,
@@ -42,10 +43,11 @@ export {
   playerWardmap,
   playerWordcloud,
   playerTrends,
-  proPlayers,
+  getProPlayers as proPlayers,
+  getProMatches as proMatches,
   getForm as form,
-  benchmark,
-  ranking,
+  getHeroBenchmark as benchmark,
+  getHeroRanking as ranking,
   getTable as table,
 };
 
@@ -60,5 +62,6 @@ export default combineReducers({
   request,
   distributions,
   table,
-  proPlayers: pros,
+  proPlayers,
+  proMatches,
 });

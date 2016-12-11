@@ -18,6 +18,7 @@ import Heroes from 'components/Heroes';
 import Request from 'components/Request';
 import Distributions from 'components/Distributions';
 import Status from 'components/Status';
+import Matches from 'components/Matches';
 import store from 'store';
 import { getMetadata } from 'actions';
 
@@ -32,6 +33,7 @@ export default () => (
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
+        <Route path="matches" component={Matches} />
         <Route path="matches/:matchId(/:info)" component={Match} />
         <Route path="players/:playerId(/:info)(/:subInfo)" component={Player} />
         <Route path="heroes(/:heroId)(/:info)" component={Heroes} />
