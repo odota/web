@@ -156,7 +156,7 @@
   "NULL_gold_reasons_15": "Courier",
 
   "header_request": "Request",
-  "header_distributions": "Distributions",
+  "header_distributions": "MMR",
   "header_heroes": "Heroes",
   "header_blog": "Blog",
   "header_ingame": "Ingame",
