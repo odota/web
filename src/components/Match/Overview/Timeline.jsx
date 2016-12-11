@@ -4,6 +4,7 @@ import {
   formatSeconds,
   isRadiant,
   jsonFn,
+  getTeamName,
 } from 'utility';
 import {
   IconBloodDrop,
@@ -14,7 +15,6 @@ import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
 
 import heroes from 'dotaconstants/json/heroes.json';
-import barracksValue from 'dotaconstants/json/barracks_value.json';
 import PlayerThumb from 'components/Match/PlayerThumb';
 
 import styles from './Timeline.css';
@@ -119,9 +119,9 @@ const Timeline = ({
       <div>
         <main className={styles.timeline}>
           <section>
-            <mark>{strings.general_radiant}</mark>
+            <mark>{getTeamName(match.radiant_team, true)}</mark>
             <time>-1:30</time>
-            <mark>{strings.general_dire}</mark>
+            <mark>{getTeamName(match.dire_team, false)}</mark>
           </section>
           <div className={styles.battle}>
             <div className={styles.line}>
@@ -270,7 +270,7 @@ const Timeline = ({
           }
           {fRax &&
             <div>
-              <span>{strings.match_first_barracks} ({barracksValue[fRax.key]}) </span>
+              <span>{strings.match_first_barracks} ({strings[`barracks_value_${fRax.key}`]}) </span>
               {formatSeconds(fRax.time)}
             </div>
           }

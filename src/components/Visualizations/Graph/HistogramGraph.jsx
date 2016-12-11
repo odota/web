@@ -14,7 +14,7 @@ const colorFn = columns => (color, data) => {
     const adjustedVal = percent >= 0.5 ?
       percent + ((1 - percent) / 5) :
       percent - (percent / 5);
-    return npmColor().hsv((percent === 0.5 ? percent : adjustedVal) * 120, 90, 90).rgbString();
+    return npmColor().hsv((percent === 0.5 ? percent : adjustedVal) * 120, 90, 90).string();
   }
   return color;
 };

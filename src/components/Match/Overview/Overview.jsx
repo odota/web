@@ -19,6 +19,8 @@ export default {
         columns={overviewColumns(match)}
         heading={strings.heading_overview}
         picksBans={match.picks_bans}
+        radiantTeam={match.radiant_team}
+        direTeam={match.dire_team}
       />
       <div className={styles.overviewMapGraph}>
         <div className={`${styles.map} ${!match.version && styles.centeredMap}`}>

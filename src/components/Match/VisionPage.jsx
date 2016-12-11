@@ -3,11 +3,10 @@ import {
   Row,
   Col,
 } from 'react-flexbox-grid';
-import { formatSeconds } from 'utility';
+import { formatSeconds, getTeamName } from 'utility';
 import Paper from 'material-ui/Paper';
 import Slider from 'material-ui/Slider';
 import _ from 'lodash/fp';
-import strings from 'lang';
 
 import VisionMap from './VisionMap' ;
 import WardLog from './WardLog';
@@ -108,7 +107,7 @@ class VisionPage extends React.Component {
             <Row>
               <Col xs={12} md={6} lg={12} className={styles.wardLogPlayerFilter}>
                 <Col xs className={styles.filterHeader}>
-                  {strings.general_radiant}
+                  {getTeamName(this.props.match.radiant_team, true)}
                 </Col>
                 {<FixedPlayersFilter
                   activeFilters={this.state.filters}
@@ -119,7 +118,7 @@ class VisionPage extends React.Component {
               </Col>
               <Col xs={12} md={6} lg={12} className={styles.wardLogPlayerFilter}>
                 <Col xs className={styles.filterHeader}>
-                  {strings.general_dire}
+                  {getTeamName(this.props.match.dire_team, false)}
                 </Col>
                 {<FixedPlayersFilter
                   activeFilters={this.state.filters}

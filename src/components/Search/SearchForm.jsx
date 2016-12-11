@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 // import RaisedButton from 'material-ui/RaisedButton';
 // import ActionSearch from 'material-ui/svg-icons/action/search';
 // import CircularProgress from 'material-ui/CircularProgress';
-import { getSearchResult, setSearchQuery } from 'actions';
+import { getSearchResultAndPros, setSearchQuery } from 'actions';
 import styles from './search.css';
 
 const SearchForm = ({ dispatchSearch, dispatchSetQuery, query }) => {
@@ -46,7 +46,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  dispatchSearch: query => dispatch(getSearchResult(query)),
+  dispatchSearch: query => dispatch(getSearchResultAndPros(query)),
   dispatchSetQuery: query => dispatch(setSearchQuery(query)),
 });
 

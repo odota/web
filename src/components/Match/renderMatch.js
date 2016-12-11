@@ -5,20 +5,20 @@ import {
   unpackPositionData,
 } from 'utility';
 import heroes from 'dotaconstants/json/heroes.json';
-import specific from 'dotaconstants/json/specific.json';
-import laneRole from 'dotaconstants/json/lane_role.json';
 import immutable from 'seamless-immutable';
 import _ from 'lodash/fp';
-
+import strings from 'lang';
 import analysis from './analysis';
 
-
 const expanded = {};
-Object.keys(specific).forEach((key) => {
-  for (let i = 1; i < 5; i += 1) {
-    expanded[key.replace('#', i)] = specific[key];
-  }
-});
+Object.keys(strings)
+  .filter(str => str.indexOf('npc_dota_') === 0)
+  .forEach((key) => {
+  // Currently, no unit goes up higher than 4
+    for (let i = 1; i < 5; i += 1) {
+      expanded[key.replace('#', i)] = strings[key];
+    }
+  });
 
 const getMaxKeyOfObject = field =>
  (field ? Object.keys(field).sort((a, b) => Number(b) - Number(a))[0] : '');
@@ -179,7 +179,7 @@ function renderMatch(m) {
   const newPlayers = m.players.map((player) => {
     const newPlayer = {
       ...player,
-      desc: [laneRole[player.lane_role], isSupport(player) ? 'Support' : 'Core'].join('/'),
+      desc: [strings[`lane_role_${player.lane_role}`], isSupport(player) ? 'Support' : 'Core'].join('/'),
       multi_kills_max: getMaxKeyOfObject(player.multi_kills),
       kill_streaks_max: getMaxKeyOfObject(player.kill_streaks),
       analysis: analysis(m, player),
