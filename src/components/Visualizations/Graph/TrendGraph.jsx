@@ -12,8 +12,8 @@ const TrendGraph = ({ columns, name }) => (
     hidePoints
     yAxis={{
       tick: {
-          format: (d) => Number(d.toFixed(2))
-      }
+        format: d => Number(d.toFixed(2)),
+      },
     }}
   />
 );
