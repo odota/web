@@ -4,9 +4,11 @@ import { getProMatches } from 'actions';
 import strings from 'lang';
 import Table, { TableLink } from 'components/Table';
 // import Heading from 'components/Heading';
-import Spinner from 'components/Spinner';
 import { transformations } from 'utility';
 import subTextStyle from 'components/Visualizations/Table/subText.css';
+import { IconRadiant, IconDire } from 'components/Icons';
+import matchStyles from 'components/Match/Match.css';
+import Container from 'components/Container';
 
 const matchesColumns = [{
   displayName: strings.th_match_id,
@@ -25,11 +27,13 @@ const matchesColumns = [{
   sortFn: true,
   displayFn: transformations.duration,
 }, {
-  displayName: strings.general_radiant,
+  displayName: <span className={matchStyles.teamIconContainer} ><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>,
   field: 'radiant_name',
+  color: matchStyles.green,
 }, {
-  displayName: strings.general_dire,
+  displayName: <span className={matchStyles.teamIconContainer} ><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>,
   field: 'dire_name',
+  color: matchStyles.red,
 }];
 
 class RequestLayer extends React.Component {
@@ -37,12 +41,9 @@ class RequestLayer extends React.Component {
     this.props.dispatchProMatches();
   }
   render() {
-    const loading = this.props.loading;
-    return loading
-      ? <Spinner />
-      : (<div>
-        <Table data={this.props.data} columns={matchesColumns} />
-      </div>);
+    return (<Container>
+      <Table data={this.props.data} columns={matchesColumns} />
+    </Container>);
   }
 }
 

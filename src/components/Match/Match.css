@@ -295,20 +295,11 @@
   margin-right: 5px;
 }
 
-.matchCrossTable svg {
+.teamIconContainer svg {
   vertical-align: top;
   height: 26px !important;
   width: 26px !important;
   margin-right: 6px;
-  opacity: 0.8;
-  fill: var(--textColorPrimary);
-}
-
-.chatTeamIcon svg {
-  vertical-align: top;
-  height: 26px !important;
-  width: 26px !important;
-  margin: auto;
   opacity: 0.8;
   fill: var(--textColorPrimary);
 }
