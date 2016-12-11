@@ -188,18 +188,6 @@ const getSubtitle = (row) => {
   return null;
 };
 
-const getHeroTitle = (row) => {
-  const heroName = heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero;
-
-  if (row.rank !== undefined) {
-    return <TableLink to={`/heroes/${row.hero_id}`}>{heroName}</TableLink>;
-  }
-  if (row.games !== undefined && row.win !== undefined) {
-    return <TableLink to={`/players/${location.pathname.replace(/\D/g, '')}/matches?hero_id=${row.hero_id}`}>{heroName}</TableLink>;
-  }
-  return heroName;
-};
-
 /**
  * Transformations of table cell data to display values.
  * These functions are intended to be used as the displayFn property in table columns.
@@ -207,14 +195,21 @@ const getHeroTitle = (row) => {
  **/
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
-  hero_id: row => (
-    <TableHeroImage
-      parsed={row.version}
-      image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
-      title={getHeroTitle(row)}
-      subtitle={getSubtitle(row)}
-    />
-  ),
+  hero_id: (row) => {
+    const heroName = heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero;
+    return (
+      <TableHeroImage
+        parsed={row.version}
+        image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
+        title={
+          row.rank !== undefined ?
+            <TableLink to={`/heroes/${row.hero_id}`}>{heroName}</TableLink>
+          : heroName
+        }
+        subtitle={getSubtitle(row)}
+      />
+    );
+  },
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
   radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
