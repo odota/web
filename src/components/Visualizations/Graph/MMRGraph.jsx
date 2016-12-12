@@ -1,12 +1,11 @@
 import React from 'react';
-import npmColor from 'color';
 import { Graph } from 'components/Visualizations';
+import strings from 'lang';
 
-// TODO localize strings
 const getXAxis = columns =>
   columns.length > 0 &&
   ({
-    label: 'Date',
+    label: strings.th_filter_date,
     tick: {
       format: x => columns[x].x.toDateString(),
     },
@@ -16,15 +15,15 @@ const MMRGraph = ({ columns }) => (
   <Graph
     type="line"
     columns={columns}
-    name="Solo MMR"
+    name={strings.th_solo_mmr}
     colors={{
-      'Solo MMR': npmColor().rgb(102, 187, 255).rgbString(),
-      'Party MMR': npmColor().rgb(255, 76, 76).rgbString(),
+      [strings.th_solo_mmr]: '#66BBFF',
+      [strings.th_party_mmr]: '#FF4C4C',
     }}
     noX
     hidePoints
     xAxis={getXAxis(columns)}
-    otherColumnNames={[{ name: 'Party MMR', property: 'competitiveRank' }]}
+    otherColumnNames={[{ name: strings.th_party_mmr, property: 'competitiveRank' }]}
   />
 );
 
