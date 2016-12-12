@@ -19,13 +19,20 @@ Tech Stack
 * State Management: Redux
 * CSS: css-modules/postcss
 
+Workflow
+----
+* If you're interested in contributing regularly, let us know and we'll add you to the organization.
+* Development/pull requests should target the `master` branch.
+* The `master` branch is automatically deployed to the staging environment: `https://odota.herokuapp.com`
+* Admins will periodically drive releases by making a pull request from `master` to `production`.
+* The `production` branch is automatically built by Travis CI and pushed to the production repository: `odota.github.io`.
+  
 Notes
 ----
-* You can develop the UI independently of the backend.
-  * This means you don't have to set up the entire stack (databases, etc.), or worry about getting starter data.
-  * By default, the UI points to the production API.
-  * You can configure it to point to your own backend (if you are working on a new feature and want to start building the UI before it's deployed to production).
-* You can configure the port used by webpack-dev-server in `webpack.config.js`.
+* The UI is standalone, so you don't have to set up the entire stack (databases, etc.), or worry about getting starter data.
+* By default, the UI points to the production API.
+* You can configure it to point to your own backend (if you are working on a new feature and want to start building the UI before it's deployed to production).
+* You can also configure the port used by webpack-dev-server in `webpack.config.js`.
 * Discord: https://discord.gg/0o5SQGbXuWCNDcaF
   * Strongly recommended for active developers! We move fast and it's helpful to be up to speed with everything that's happening.
 
