@@ -23,7 +23,7 @@ Workflow
 ----
 * If you're interested in contributing regularly, let us know and we'll add you to the organization.
 * Development/pull requests should target the `master` branch.
-* The `master` branch is automatically deployed to the stage environment: https:/stage.opendota.com
+* The `master` branch is automatically deployed to the stage environment: https://stage.opendota.com
 * Admins will periodically drive releases by making a pull request from `master` to `production`.
 * The `production` branch is automatically built by Travis CI and pushed to the production repository: `odota.github.io`.
   
