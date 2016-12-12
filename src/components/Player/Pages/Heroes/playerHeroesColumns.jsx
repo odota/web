@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { TableLink } from 'components/Table';
 import { transformations, getPercentWin } from 'utility';
 import { TablePercent } from 'components/Visualizations';
 import strings from 'lang';
@@ -8,12 +8,13 @@ export const playerHeroesOverviewColumns = playerId => [{
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
-  displayFn: row => <Link to={`/players/${playerId}/matches?hero_id=${row.hero_id}`}>{transformations.hero_id(row)}</Link>,
+  displayFn: transformations.hero_id,
   sortFn: row => row.last_played,
 }, {
   displayName: strings.th_games,
   tooltip: strings.tooltip_played_as,
   field: 'games',
+  displayFn: row => <TableLink to={`/players/${playerId}/matches?hero_id=${row.hero_id}`}>{row.games}</TableLink>,
   sortFn: true,
 }, {
   displayName: strings.th_win,
