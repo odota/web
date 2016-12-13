@@ -25,6 +25,7 @@ const Overview = ({
   heroesData,
   heroesLoading,
   heroesError,
+  playerId,
 }) => (
   <div>
     <TableFilterForm />
@@ -49,7 +50,7 @@ const Overview = ({
         error={heroesError}
       >
         <Table
-          columns={playerHeroesOverviewColumns}
+          columns={playerHeroesOverviewColumns(playerId)}
           data={heroesData}
           maxRows={MAX_OVERVIEW_ROWS}
         />

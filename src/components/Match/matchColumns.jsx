@@ -208,7 +208,7 @@ export const overviewColumns = (match) => {
         <ReactTooltip id={`au_${row.player_slot}`} place="left" effect="solid">
           {row.ability_upgrades_arr ? row.ability_upgrades_arr.map(
             (ab, i) => {
-              if (ab && !abilityIds[ab].includes('attribute_bonus')) {
+              if (ab && abilityIds[ab] && !abilityIds[ab].includes('attribute_bonus')) {
                 // Here I hide stat upgrades, if necessary it can be displayed
                 return (
                   <div className={styles.ability}>
