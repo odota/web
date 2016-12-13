@@ -59,8 +59,8 @@ export default (inflictor, value, type) => {
     const ttId = uuid.v4();
 
     if (ability) {
-      image = inflictor.indexOf('bonus') !== -1 
-        ? '/assets/images/stats.png' 
+      image = inflictor.indexOf('bonus') !== -1
+        ? '/assets/images/stats.png'
         : `${API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
       tooltip = tooltipContainer(ability);
     } else if (item) {
