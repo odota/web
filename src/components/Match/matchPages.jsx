@@ -147,10 +147,7 @@ const matchPages = [Overview, {
   name: strings.tab_vision,
   key: 'vision',
   parsed: true,
-  content: match => (<div>
-    <Heading title={strings.heading_vision} />
-    <VisionPage match={match} />
-  </div>),
+  content: match => <VisionPage match={match} />,
 }, {
   name: strings.tab_actions,
   key: 'actions',
