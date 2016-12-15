@@ -34,4 +34,4 @@ global.navigator = {
 
 chai.use(sinonChai);
 chai.use(chaiEnzyme());
-chai.use(dirtyChai);
+// chai.use(dirtyChai);

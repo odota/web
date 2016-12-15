@@ -28,9 +28,10 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["**/*.spec.*", "**/test/**/*", "webpack.config.js"]
+        "devDependencies": ["**/*.spec.*", "**/test/**/*", "webpack.config.js", "src/test/**/*"]
       }
     ],
+    "import/prefer-default-export": 0,
     "jsx-a11y/no-static-element-interactions": [0],
     "react/prop-types": 0,
     "react/jsx-key": 2,

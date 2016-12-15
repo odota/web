@@ -7,12 +7,16 @@ import styles from './Table.css';
 
 const TableHeaderColumn = ({ column, sortClick, sortField, sortState }) => {
   const tooltipId = uuid.v4();
+  if (!column) {
+    return null;
+  }
 
   return (
-    <MaterialTableHeaderColumn>
+    <MaterialTableHeaderColumn
+      onClick={() => column.sortFn && sortClick(column.field, sortState, column.sortFn)}
+    >
       <div
         className={column.sortFn ? styles.headerCell : styles.headerCellNoSort}
-        onClick={() => column.sortFn && sortClick(column.field, sortState, column.sortFn)}
       >
         <div data-tip={column.tooltip && true} data-for={tooltipId} style={{ color: column.color }}>
           {column.displayName}
