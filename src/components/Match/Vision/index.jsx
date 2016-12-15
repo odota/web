@@ -10,8 +10,8 @@ import _ from 'lodash/fp';
 
 import VisionMap from './VisionMap' ;
 import WardLog from './WardLog';
-import PlayerFilter from './Vision/PlayerFilter';
-import styles from './Match.css';
+import PlayerFilter from './PlayerFilter';
+import styles from './Vision.css';
 
 const SliderTicks = props => (
   <div {...props}>
@@ -45,7 +45,7 @@ const pipelineFilter = (filters, data) => {
 
 const FixedPlayersFilter = PlayersFilter;
 
-class VisionPage extends React.Component {
+class Vision extends React.Component {
   static hideWardLog(playerSlot, type) {
     return l => l.entered.player_slot === playerSlot && l.type === type;
   }
@@ -99,55 +99,45 @@ class VisionPage extends React.Component {
     const playerFilterClick = (filterKey, playerSlot, type) => this.togglePlayerFilter(filterKey, VisionPage.hideWardLog(playerSlot, type));
     return (
       <div>
-        <Row center="md">
-          <Col xs={12} md={4}>
-            <VisionMap wardsLog={visibleWards} />
-          </Col>
-          <Col xs={12} md={8}>
-            <Row>
-              <Col xs={12} md={6} lg={12} className={styles.wardLogPlayerFilter}>
-                <Col xs className={styles.filterHeader}>
-                  {getTeamName(this.props.match.radiant_team, true)}
-                </Col>
-                {<FixedPlayersFilter
-                  activeFilters={this.state.filters}
-                  onFilterClick={playerFilterClick}
-                  players={this.props.match.players.slice(0, 5)}
-                />
-                }
-              </Col>
-              <Col xs={12} md={6} lg={12} className={styles.wardLogPlayerFilter}>
-                <Col xs className={styles.filterHeader}>
-                  {getTeamName(this.props.match.dire_team, false)}
-                </Col>
-                {<FixedPlayersFilter
-                  activeFilters={this.state.filters}
-                  onFilterClick={playerFilterClick}
-                  players={this.props.match.players.slice(5)}
-                />
-                }
-              </Col>
-            </Row>
-          </Col>
-        </Row>
+        <VisionMap wardsLog={visibleWards} />
+        <SliderTicks
+          value={this.state.currentTick}
+          min={this.state.min}
+          max={this.state.max}
+          className={styles.sliderTicks}
+          onTickClick={tick => this.handleViewportChange(tick)}
+          ticks={this.ticks}
+        />
+        <Slider
+          min={this.state.min}
+          max={this.state.max}
+          value={this.state.currentTick}
+          step={5}
+          disableFocusRipple
+          onChange={(e, value) => this.handleViewportChange(value)}
+        />
         <Row>
-          <Col xs>
-            <SliderTicks
-              value={this.state.currentTick}
-              min={this.state.min}
-              max={this.state.max}
-              className={styles.sliderTicks}
-              onTickClick={tick => this.handleViewportChange(tick)}
-              ticks={this.ticks}
+          <Col xs={12} md={6} lg={6} className={styles.wardLogPlayerFilter}>
+            <Col xs className={styles.filterHeader}>
+              {getTeamName(this.props.match.radiant_team, true)}
+            </Col>
+            {<FixedPlayersFilter
+              activeFilters={this.state.filters}
+              onFilterClick={playerFilterClick}
+              players={this.props.match.players.slice(0, 5)}
             />
-            <Slider
-              min={this.state.min}
-              max={this.state.max}
-              value={this.state.currentTick}
-              step={5}
-              disableFocusRipple
-              onChange={(e, value) => this.handleViewportChange(value)}
+            }
+          </Col>
+          <Col xs={12} md={6} lg={6} className={styles.wardLogPlayerFilter}>
+            <Col xs className={styles.filterHeader}>
+              {getTeamName(this.props.match.dire_team, false)}
+            </Col>
+            {<FixedPlayersFilter
+              activeFilters={this.state.filters}
+              onFilterClick={playerFilterClick}
+              players={this.props.match.players.slice(5)}
             />
+            }
           </Col>
         </Row>
         <WardLog
@@ -159,4 +149,4 @@ class VisionPage extends React.Component {
   }
 }
 
-export default VisionPage;
+export default Vision;

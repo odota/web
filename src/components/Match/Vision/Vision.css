@@ -1,0 +1,121 @@
+@import "../../palette.css";
+
+:root {
+  --ward-log-height: 50px;
+}
+
+:export {
+  wardLogRowOddSurfaceColor: var(--tableRowOddSurfaceColor);
+  wardLogRowEvenSurfaceColor: var(--tableRowEvenSurfaceColor);
+}
+
+.wardLog {
+  width: 100%;
+  font-size: var(--fontSizeSmall);
+
+  & .wardLogHeader {
+    background-color: var(--tableHeaderSurfaceColor);
+    border-bottom: 1px solid var(--dividerLightColor);
+    text-transform: uppercase;
+    height: 58px;
+  }
+
+  & .wardLogList {
+    padding: 0;
+    margin: 0;
+  }
+
+  & .timespan {
+    text-align: right;
+  }
+}
+
+.wardLogItem {
+  height: var(--ward-log-height);
+  background: rgb(31, 33, 45);
+  border-bottom: 1px solid var(--dividerColor);
+}
+
+
+.trans-table-row-enter {
+  height: 0;
+  opacity: 0;
+
+  &.trans-table-row-enter-active {
+    height: var(--ward-log-height);
+    opacity: 1;
+    transition: height 300ms ease, opacity 300ms ease;
+  }
+}
+
+.trans-table-row-leave {
+  height: var(--ward-log-height);
+  opacity: 1;
+
+  &.trans-table-row-leave-active {
+    height: 0;
+    opacity: 0;
+    transition: height 300ms ease, opacity 300ms ease;
+  }
+}
+
+.ward-pin-enter {
+  opacity: 0;
+
+  &.ward-pin-enter-active {
+    opacity: 1;
+    transition: opacity 150ms ease;
+  }
+}
+
+.ward-pin-leave {
+  opacity: 1;
+
+  &.ward-pin-leave-active {
+    opacity: 0;
+    transition: opacity 150ms ease;
+  }
+}
+
+.sliderTicks {
+  position: relative;
+  height: 30px;
+  margin-top: 33px;
+  margin-bottom: -33px;
+  font-size: var(--fontSizeTiny);
+  border-color: var(--sliderTicksColor);
+  color: var(--sliderTicksColor);
+
+  & .sliderTick {
+    position: absolute;
+    display: inline-block;
+    height: 100%;
+    padding: 0 0.4em;
+    border-width: 0;
+    border-color: inherit;
+    border-style: solid;
+    border-left-width: 1px;
+    cursor: pointer;
+    transition: color 150ms ease, border-color 150ms ease;
+
+    &.active {
+      border-color: var(--sliderTicksColorActive);
+      color: var(--sliderTicksColorActive);
+    }
+  }
+}
+
+.wardLogPlayerFilter {
+  padding: 0 0.5rem;
+  font-size: var(--fontSizeSmall);
+
+  & .filterHeader {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--dividerLightColor);
+  }
+
+  & .filterRow {
+    padding: 0.5em;
+    margin: 0;
+  }
+}

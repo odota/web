@@ -4,9 +4,10 @@ import {
   gameCoordToUV,
   extractTransitionClasses,
 } from 'utility';
+import ReactTooltip from 'react-tooltip';
 import Measure from 'react-measure';
 import strings from 'lang';
-import styles from './Match.css';
+import styles from './Vision.css';
 
 // with the actual game size, the width parameters is optional
 const style = (width, iconSize, ward) => {
@@ -24,32 +25,45 @@ const WardLogPin = ({ width, iconSize, log }) => {
 
   const strokeWidth = log.type === 'observer' ? '2.5' : '2';
   const wardSize = log.type === 'observer' ? iconSize * (1600 / 850) : iconSize;
+  console.log(log);
+
+  const id = `${log.entered.player_slot}${log.entered.time}`;
 
   return (
-    <svg
-      style={style(width, wardSize, log.entered)}
-      width={wardSize}
-      height={wardSize}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g>
-        <title>{log.type === 'observer' ? strings.th_ward_observer : strings.th_ward_sentry}</title>
-        <circle
-          fill={fill}
-          strokeWidth={strokeWidth}
-          stroke={stroke}
-          r={wardSize * 0.4}
-          cy={wardSize / 2}
-          cx={wardSize / 2}
-          fillOpacity="0.3"
-        />
-      </g>
-      <defs>
-        <filter id="_blur">
-          <feGaussianBlur stdDeviation="0.1" in="SourceGraphic" />
-        </filter>
-      </defs>
-    </svg>
+    <div>
+      <svg
+        style={style(width, wardSize, log.entered)}
+        width={wardSize}
+        height={wardSize}
+        data-tip
+        data-for={id}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g>
+          <circle
+            fill={fill}
+            strokeWidth={strokeWidth}
+            stroke={stroke}
+            r={wardSize * 0.4}
+            cy={wardSize / 2}
+            cx={wardSize / 2}
+            fillOpacity="0.3"
+          />
+        </g>
+        <defs>
+          <filter id="_blur">
+            <feGaussianBlur stdDeviation="0.1" in="SourceGraphic" />
+          </filter>
+        </defs>
+      </svg>
+      <ReactTooltip
+        id={id}
+        effect="solid"
+        border
+      >
+        {log.type === 'observer' ? strings.th_ward_observer : strings.th_ward_sentry} planted at {log.entered.time} by {log.entered.player_slot}
+      </ReactTooltip>
+    </div>
   );
 };
 

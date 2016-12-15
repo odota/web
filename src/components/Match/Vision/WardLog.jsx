@@ -6,8 +6,8 @@ import fixed from 'utility/components/Fixed';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import strings from 'lang';
 
-import { heroTd } from './matchColumns';
-import styles from './Match.css';
+import { heroTd } from '../matchColumns';
+import styles from './Vision.css';
 
 
 const durationObserverColor = threshold(0, [121, 241, 500], [styles.red, styles.yelor, styles.green]);
