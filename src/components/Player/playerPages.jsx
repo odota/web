@@ -63,14 +63,7 @@ const playerPages = [{
     location={location}
     trendName={routeParams.subInfo}
   />),
-},
-/* {
-  name: strings.tab_items,
-  key: 'items',
-  content: (playerId, routeParams, location) => (<ItemsPage playerId={playerId} routeParams={routeParams} location={location} />),
-},
-*/
-{
+}, {
   name: strings.tab_wardmap,
   key: 'wardmap',
   content: (playerId, routeParams, location) => (<WardmapPage playerId={playerId} routeParams={routeParams} location={location} />),
