@@ -1,4 +1,10 @@
-// TODO read/write language setting to local cookie
-import en from './en.json';
+const savedLang = localStorage.getItem('localization');
+const lang = require(`./${savedLang || 'en'}.json`);
 
-export default en;
+export const langs = [
+  'en',
+  'de',
+  'ru',
+];
+
+export default lang;

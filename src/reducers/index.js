@@ -26,6 +26,7 @@ import form, { getForm } from 'reducers/form';
 import request from 'reducers/request';
 import distributions from 'reducers/distributions';
 import table, { getTable } from 'reducers/table';
+import localization, { getLocalization } from 'reducers/localization';
 
 // This is where we will export all our state retrieval functions (better encapsulation)
 export {
@@ -49,6 +50,7 @@ export {
   getHeroBenchmark as benchmark,
   getHeroRanking as ranking,
   getTable as table,
+  getLocalization as localization,
 };
 
 export default combineReducers({
@@ -64,4 +66,5 @@ export default combineReducers({
   table,
   proPlayers,
   proMatches,
+  localization,
 });
