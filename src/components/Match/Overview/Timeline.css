@@ -16,13 +16,6 @@
   fill: var(--colorDanger) !important;
 }
 
-.selectedTeamfight {
-  fill: var(--colorGolden) !important;
-  width: 20px !important;
-  top: -8px !important;
-  left: calc(50% - 8px) !important;
-}
-
 .timeline {
   width: 100%;
   margin: 30px 0 15px;
@@ -264,4 +257,9 @@
       }
     }
   }
+}
+
+.selectedTeamfight {
+  fill: var(--colorGolden) !important;
+  transform: scale(1.66, 1.66);
 }
