@@ -42,6 +42,11 @@
 .Buttons {
   margin-bottom: 30px;
 
+  & .row {
+    display: flex;
+    justify-content: space-around;
+  }
+
   & a {
     background-color: color(var(--defaultPrimaryColor) 0.7) !important;
     border: 2px solid var(--textColorPrimary) !important;
