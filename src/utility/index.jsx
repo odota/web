@@ -26,7 +26,8 @@ export const isRadiant = playerSlot => playerSlot < 128;
 export function pad(n, width, z = '0') {
   const str = `${n}`;
   return str.length >= width ? str : new Array((width - str.length) + 1).join(z) + n;
-}
+};
+
 export function abbreviateNumber(num) {
   if (!num) {
     return '-';
@@ -39,27 +40,34 @@ export function abbreviateNumber(num) {
   } else if (num >= 1000000000000) {
     return `${Number((num / 1000000000000).toFixed(1))}${strings.abbr_trillion}`;
   }
+
   return num.toFixed(0);
-}
+};
+
 export function formatSeconds(input) {
   if (!isNaN(parseFloat(input)) && isFinite(input)) {
     const absTime = Math.abs(input);
     const minutes = Math.floor(absTime / 60);
     const seconds = pad(Math.floor(absTime % 60), 2);
+
     let time = ((input < 0) ? '-' : '');
     time += `${minutes}:${seconds}`;
+
     return time;
   }
+
   return null;
-}
+};
+
 export function getLevelFromXp(xp) {
   for (let i = 0; i < xpLevel.length; i += 1) {
     if (xpLevel[i] > xp) {
       return i;
     }
   }
+
   return xpLevel.length;
-}
+};
 
 export const calculateDistance = (x1, y1, x2, y2) =>
   (((x2 - x1) ** 2) + ((y2 - y1) ** 2)) ** 0.5;
@@ -70,14 +78,17 @@ export const calculateRelativeXY = ({ clientX, clientY, currentTarget }) => {
   // const y = clientY - bounds.top;
   let x = clientX + document.body.scrollLeft;
   let y = clientY + document.body.scrollTop;
+
   if (currentTarget.offsetParent) {
     let off = currentTarget.offsetParent;
+
     do {
       x -= off.offsetLeft;
       y -= off.offsetTop;
       off = off.offsetParent;
     } while (off);
   }
+
   return { x, y };
 };
 
@@ -127,16 +138,20 @@ const units = [{
 
 export function fromNow(time) {
   const diff = (new Date() - new Date(time * 1000)) / 1000;
+
   if (diff < 5) {
     return strings.time_just_now;
   }
+
   for (let i = 0; i < units.length; i += 1) {
     const unit = units[i];
+
     if (diff < unit.limit || !unit.limit) {
       const val = Math.floor(diff / unit.in_seconds);
       return util.format(strings.time_past, val > 1 ? util.format(unit.plural, val) : unit.name);
     }
   }
+
   return '';
 }
 
@@ -188,6 +203,7 @@ const getSubtitle = (row) => {
   } else if (row.start_time) {
     return <FromNowTooltip timestamp={row.start_time} />;
   }
+
   return null;
 };
 
@@ -326,12 +342,13 @@ export function getObsWardsPlaced(pm) {
   if (!pm.obs_log) {
     return 0;
   }
+
   return pm.obs_log.filter(l => !l.entityleft).length;
-}
+};
 
 export function isSupport(pm) {
   return getObsWardsPlaced(pm) >= 2 && pm.lh_t && pm.lh_t[10] < 20;
-}
+};
 
 export function isRoshHero(pm) {
   const roshHeroes = {
@@ -339,8 +356,9 @@ export function isRoshHero(pm) {
     npc_dota_hero_ursa: 1,
     npc_dota_hero_troll_warlord: 1,
   };
+
   return heroes[pm.hero_id] && (heroes[pm.hero_id].name in roshHeroes);
-}
+};
 
 export function isActiveItem(key) {
   const whitelist = {
@@ -348,9 +366,10 @@ export function isActiveItem(key) {
     bloodstone: 1,
     radiance: 1,
   };
+
   // TODO this will only work for english data files
   return (items[key].desc.indexOf('Active: ') > -1 && !(key in whitelist));
-}
+};
 
 export const sum = (a, b) => a + b;
 
@@ -377,6 +396,7 @@ export const gameCoordToUV = (x, y) => ({
 export function unpackPositionData(input) {
   if (typeof input === 'object' && !Array.isArray(input)) {
     const result = [];
+
     Object.keys(input).forEach((x) => {
       Object.keys(input[x]).forEach((y) => {
         result.push({
@@ -386,16 +406,19 @@ export function unpackPositionData(input) {
         });
       });
     });
+
     return result;
   }
+
   return input;
-}
+};
 
 export const threshold = _.curry((start, limits, values, value) => {
   if (limits.length !== values.length) throw new Error('Limits must be the same as functions.');
 
   const limitsWithStart = limits.slice(0);
   limitsWithStart.unshift(start);
+
   return findLast(values, (v, i) => _.inRange(limitsWithStart[i], limitsWithStart[i + 1], value));
 });
 
@@ -403,6 +426,7 @@ export const getTeamName = (team, isRadiant) => {
   if (isRadiant) {
     return (team && team.name) ? team.name : strings.general_radiant;
   }
+
   return (team && team.name) ? team.name : strings.general_dire;
 };
 
@@ -417,7 +441,7 @@ export const getTeamName = (team, isRadiant) => {
  * @param   Number  v       The value
  * @return  Array           The RGB representation
  */
-export function hsvToRgb(h, s, v) {
+export const hsvToRgb = (h, s, v) => {
   let r;
   let g;
   let b;
@@ -439,4 +463,4 @@ export function hsvToRgb(h, s, v) {
   }
 
   return [r * 255, g * 255, b * 255];
-}
+};

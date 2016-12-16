@@ -14,7 +14,7 @@ import PlayerFilter from './PlayerFilter';
 import styles from './Vision.css';
 
 const SliderTicks = props => (
-  <div {...props}>
+  <div className={styles.sliderTicks}>
     {props.ticks.map((tick) => {
       const [t, min, max] = [tick, props.min, props.max];
       const percent = 100 * ((t - min) / (max - min));
@@ -52,12 +52,13 @@ class Vision extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       currentTick: -90,
       min: -90,
       max: props.match.duration,
       from: 0,
-      to: this.props.match.wards_log.length,
+      to: props.match.wards_log.length,
       wardsLog: props.match.wards_log,
       filters: {},
     };
@@ -85,10 +86,12 @@ class Vision extends React.Component {
   togglePlayerFilter(name, filter) {
     if (name in this.state.filters) {
       const oldFilters = Object.assign({}, this.state.filters);
+
       delete oldFilters[name];
       this.setState({ filters: oldFilters });
     } else {
       const newFilter = {};
+
       newFilter[name] = filter;
       this.setState({ filters: Object.assign({}, this.state.filters, newFilter) });
     }
@@ -97,14 +100,14 @@ class Vision extends React.Component {
   render() {
     const visibleWards = this.visibleData();
     const playerFilterClick = (filterKey, playerSlot, type) => this.togglePlayerFilter(filterKey, VisionPage.hideWardLog(playerSlot, type));
+
     return (
       <div>
-        <VisionMap wardsLog={visibleWards} />
+        <VisionMap match={this.props.match} wardsLog={visibleWards} />
         <SliderTicks
           value={this.state.currentTick}
           min={this.state.min}
           max={this.state.max}
-          className={styles.sliderTicks}
           onTickClick={tick => this.handleViewportChange(tick)}
           ticks={this.ticks}
         />

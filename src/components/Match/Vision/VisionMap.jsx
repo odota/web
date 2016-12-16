@@ -3,15 +3,18 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {
   gameCoordToUV,
   extractTransitionClasses,
+  formatSeconds,
 } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import Measure from 'react-measure';
 import strings from 'lang';
+import PlayerThumb from 'components/Match/PlayerThumb';
 import styles from './Vision.css';
 
 // with the actual game size, the width parameters is optional
 const style = (width, iconSize, ward) => {
   const gamePos = gameCoordToUV(ward.x, ward.y);
+
   return {
     position: 'absolute',
     top: ((width / 127) * gamePos.y) - (iconSize / 2),
@@ -19,15 +22,47 @@ const style = (width, iconSize, ward) => {
   };
 };
 
-const WardLogPin = ({ width, iconSize, log }) => {
+const WardTooltipEnter = ({ player, log }) => {
+  return (
+    <div className={styles.tooltipContainer}>
+      <PlayerThumb {...player} />
+      <div>placed </div>
+      <div>{log.type === 'observer' ? strings.th_ward_observer : strings.th_ward_sentry} </div>
+      <div>at </div>
+      <div>{formatSeconds(log.entered.time)}</div>
+    </div>
+  );
+};
+
+const WardTooltipLeft = ({ match, log }) => {
+  let expired;
+  const age = log.left.time - log.entered.time;
+
+  if (log.type === 'observer') {
+    expired = (age > 360) ? true : false;
+  }
+  else {
+    expired = (age > 240) ? true : false;
+  }
+
+  return (
+    <div className={styles.tooltipContainer}>
+      <div>{expired ? 'Expired after ' : 'Destroyed after '}</div>
+      <div>{formatSeconds(age)}</div>
+    </div>
+  );
+};
+
+const WardLogPin = ({ match, width, iconSize, log }) => {
   const stroke = log.entered.player_slot < 5 ? styles.green : styles.red;
   const fill = log.type === 'observer' ? styles.yelor : styles.blue;
 
   const strokeWidth = log.type === 'observer' ? '2.5' : '2';
   const wardSize = log.type === 'observer' ? iconSize * (1600 / 850) : iconSize;
-  console.log(log);
 
-  const id = `${log.entered.player_slot}${log.entered.time}`;
+  const id = `ward-${log.entered.player_slot}-${log.entered.time}`;
+
+  const sideName = log.entered.player_slot < 5 ? 'radiant' : 'dire';
 
   return (
     <div>
@@ -60,8 +95,10 @@ const WardLogPin = ({ width, iconSize, log }) => {
         id={id}
         effect="solid"
         border
+        class={styles[`${sideName}WardTooltip`]}
       >
-        {log.type === 'observer' ? strings.th_ward_observer : strings.th_ward_sentry} planted at {log.entered.time} by {log.entered.player_slot}
+        <WardTooltipEnter player={match.players[log.player]} log={log} />
+        {log.left && <WardTooltipLeft match={match} log={log} />}
       </ReactTooltip>
     </div>
   );
@@ -83,11 +120,12 @@ class VisionMap extends React.Component {
 
   renderWardPins(width) {
     const iconSize = width / 12;
-    return this.props.wardsLog.map(w => <WardLogPin key={w.key} width={width} iconSize={iconSize} log={w} />);
+    return this.props.wardsLog.map(w => <WardLogPin match={this.props.match} key={w.key} width={width} iconSize={iconSize} log={w} />);
   }
 
   render() {
     const transition = extractTransitionClasses(styles);
+
     return (
       <Measure>
         {dimension => (

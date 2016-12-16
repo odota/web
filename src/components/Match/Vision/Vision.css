@@ -9,6 +9,20 @@
   wardLogRowEvenSurfaceColor: var(--tableRowEvenSurfaceColor);
 }
 
+.wardTooltip {
+  border-width: 2px !important;
+}
+
+.radiantWardTooltip {
+  composes: wardTooltip;
+  border-color: var(--colorSuccess) !important;
+}
+
+.direWardTooltip {
+  composes: wardTooltip;
+  border-color: var(--colorDanger) !important;
+}
+
 .wardLog {
   width: 100%;
   font-size: var(--fontSizeSmall);

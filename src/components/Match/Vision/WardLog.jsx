@@ -21,6 +21,7 @@ const RowItem = ({ style, row, match }) => {
                    ? styles.wardLogRowEvenSurfaceColor
                    : styles.wardLogRowOddSurfaceColor,
   };
+
   return (
     <li>
       <Row component="li" className={styles.wardLogItem} style={rowStyle} middle="xs">
@@ -38,12 +39,15 @@ const RowItem = ({ style, row, match }) => {
     </li>
   );
 };
+
 const PureRowItem = fixed(RowItem);
 
 // i18n column names
 const columns = ['type', 'owner', 'entered_at', 'left_at', 'duration', 'killed_by'].map(h => `ward_log_${h}`);
+
 const WardLog = (props) => {
   const transition = extractTransitionClasses(styles);
+
   return (
     <Col className={styles.wardLog} xs>
       <Row className={styles.wardLogHeader} middle="xs">
@@ -64,7 +68,7 @@ const WardLog = (props) => {
       >
         {props.wardsLog.map((log, index) =>
           <PureRowItem key={log.key} row={log} match={props.match} index={index} />,
-         )}
+        )}
       </ReactCSSTransitionGroup>
     </Col>
   );
