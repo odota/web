@@ -1,8 +1,8 @@
 {
-  "abbr_thousand":"k",
-  "abbr_million":"m",
-  "abbr_billion":"b",
-  "abbr_trillion":"t",
+  "abbr_thousand":"tyś.",
+  "abbr_million":"mln",
+  "abbr_billion":"mld",
+  "abbr_trillion":"tln",
   "abbr_quadrillion":"q",
   "analysis_eff":"Lane efficiency",
   "analysis_farm_drought":"Lowest GPM in 5 minute interval",
