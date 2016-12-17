@@ -1,4 +1,4 @@
-const savedLang = localStorage.getItem('localization');
+const savedLang = window.localStorage && window.localStorage.getItem('localization');
 const lang = require(`./${savedLang || 'en'}.json`);
 
 export const langs = [

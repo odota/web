@@ -5,4 +5,4 @@ export default (state = 'en', action) => {
   }
 };
 
-export const getLocalization = state => state.app.localization;
+export const getLocalization = state => state && state.app && state.app.localization;
