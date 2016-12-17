@@ -8,7 +8,8 @@ const VisionItems = ({ match }) => (
     players={match.players}
     heading={strings.heading_vision}
     columns={visionColumns}
-    radiantTeam={match.radiant_team} direTeam={match.dire_team}
+    radiantTeam={match.radiant_team}
+    direTeam={match.dire_team}
   />
  );
 

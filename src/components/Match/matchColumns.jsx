@@ -661,20 +661,78 @@ export const teamfightColumns = [
   },
 ];
 
+const purchaseObserverColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} role="presentation" />
+      &nbsp;{strings.th_purchase_shorthand}
+    </div>
+  ),
+  tooltip: strings.tooltip_purchase_ward_observer,
+  field: 'purchase_ward_observer',
+  sortFn: true,
+  displayFn: (row, col, field) => field || '-',
+};
+
+const purchaseSentryColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} role="presentation" />
+      &nbsp;{strings.th_purchase_shorthand}
+    </div>
+  ),
+  tooltip: strings.tooltip_purchase_ward_sentry,
+  field: 'purchase_ward_sentry',
+  sortFn: true,
+  displayFn: (row, col, field) => field || '-',
+};
+
+const purchaseDustColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${API_HOST}/apps/dota2/images/items/dust_lg.png`} role="presentation" />
+      &nbsp;{strings.th_purchase_shorthand}
+    </div>
+  ),
+  tooltip: strings.tooltip_purchase_dust,
+  field: 'purchase_dust',
+  sortFn: true,
+  displayFn: (row, col, field) => field || '-',
+};
+
+const purchaseSmokeColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} role="presentation" />
+      &nbsp;{strings.th_purchase_shorthand}
+    </div>
+  ),
+  tooltip: strings.tooltip_purchase_smoke_of_deceit,
+  field: 'purchase_smoke_of_deceit',
+  sortFn: true,
+  displayFn: (row, col, field) => field || '-',
+};
+
+const purchaseGemColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${API_HOST}/apps/dota2/images/items/gem_lg.png`} role="presentation" />
+    </div>
+  ),
+  tooltip: strings.tooltip_purchase_gem,
+  field: 'purchase_gem',
+  sortFn: true,
+  displayFn: (row, col, field) => field || '-',
+};
+
 export const visionColumns = [
-  heroTdColumn, {
-    center: true,
-    displayName: (
-      <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} role="presentation" />
-        &nbsp;{strings.th_purchase_shorthand}
-      </div>
-    ),
-    tooltip: strings.tooltip_purchase_ward_observer,
-    field: 'purchase_ward_observer',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
+  heroTdColumn,
+  purchaseObserverColumn, {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
@@ -684,20 +742,9 @@ export const visionColumns = [
     ),
     tooltip: strings.tooltip_used_ward_observer,
     sortFn: true,
-    displayFn: row => row.item_uses.ward_observer || '-',
-  }, {
-    center: true,
-    displayName: (
-      <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} role="presentation" />
-        &nbsp;{strings.th_purchase_shorthand}
-      </div>
-    ),
-    tooltip: strings.tooltip_purchase_ward_sentry,
-    field: 'purchase_ward_sentry',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
+    displayFn: row => (row.item_uses && row.item_uses.ward_observer) || '-',
+  },
+  purchaseSentryColumn, {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
@@ -707,20 +754,9 @@ export const visionColumns = [
     ),
     tooltip: strings.tooltip_used_ward_sentry,
     sortFn: true,
-    displayFn: row => row.item_uses.ward_sentry || '-',
-  }, {
-    center: true,
-    displayName: (
-      <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${API_HOST}/apps/dota2/images/items/dust_lg.png`} role="presentation" />
-        &nbsp;{strings.th_purchase_shorthand}
-      </div>
-    ),
-    tooltip: strings.tooltip_purchase_dust,
-    field: 'purchase_dust',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
+    displayFn: row => (row.item_uses && row.item_uses.ward_sentry) || '-',
+  },
+  purchaseDustColumn, {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
@@ -730,20 +766,9 @@ export const visionColumns = [
     ),
     tooltip: strings.tooltip_used_dust,
     sortFn: true,
-    displayFn: row => row.item_uses.dust || '-',
-  }, {
-    center: true,
-    displayName: (
-      <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} role="presentation" />
-        &nbsp;{strings.th_purchase_shorthand}
-      </div>
-    ),
-    tooltip: strings.tooltip_purchase_smoke_of_deceit,
-    field: 'purchase_smoke_of_deceit',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
+    displayFn: row => (row.item_uses && row.item_uses.dust) || '-',
+  },
+  purchaseSmokeColumn, {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
@@ -753,19 +778,9 @@ export const visionColumns = [
     ),
     tooltip: strings.tooltip_used_smoke_of_deceit,
     sortFn: true,
-    displayFn: row => row.item_uses.smoke_of_deceit || '-',
-  }, {
-    center: true,
-    displayName: (
-      <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${API_HOST}/apps/dota2/images/items/gem_lg.png`} role="presentation" />
-      </div>
-    ),
-    tooltip: strings.tooltip_purchase_gem,
-    field: 'purchase_gem',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
+    displayFn: row => (row.item_uses && row.item_uses.smoke_of_deceit) || '-',
   },
+  purchaseGemColumn,
 ];
 
 export const supportColumns = [
@@ -784,8 +799,9 @@ export const supportColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
   },
-  visionColumns[1],
-  visionColumns[3],
-  visionColumns[5],
-  visionColumns[7],
+  purchaseObserverColumn,
+  purchaseSentryColumn,
+  purchaseDustColumn,
+  purchaseSmokeColumn,
+  purchaseGemColumn,
 ];

@@ -16,7 +16,7 @@ export default ({ column, sortClick, sortField, sortState }) => {
   return (
     <MaterialTableHeaderColumn>
       <div
-        className={column.sortFn ? styles.headerCell : styles.headerCellNoSort}
+        className={styles.headerCell}
         onClick={() => column.sortFn && sortClick(column.field, sortState, column.sortFn)}
         style={style}
       >

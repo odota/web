@@ -13,16 +13,16 @@ import styles from './Vision.css';
 const SliderTicks = props => (
   <div className={styles.sliderTicks}>
     {props.ticks.map((tick) => {
-      const [t, min, max] = [tick, props.min, props.max];
-      const percent = 100 * ((t - min) / (max - min));
-      const cls = [styles.sliderTick];
+      const { min, max } = props;
+      const percent = 100 * ((tick - min) / (max - min));
+      const classNames = [styles.sliderTick];
 
       if (tick <= props.value) {
-        cls.push(styles.active);
+        classNames.push(styles.active);
       }
 
       return (
-        <a key={tick} onClick={() => props.onTickClick(tick)} className={cls.join(' ')} style={{ left: `${percent}%` }}>
+        <a key={tick} onClick={() => props.onTickClick(tick)} className={classNames.join(' ')} style={{ left: `${percent}%` }}>
           {formatSeconds(tick)}
         </a>
       );
@@ -62,6 +62,10 @@ class Vision extends React.Component {
     this.handleViewportChange = _.debounce(50, this.viewportChange);
   }
 
+  componentWillReceiveProps(props) {
+    this.sliderMax = props.match.duration;
+  }
+
   setPlayer(player, type, value) {
     this.state.players[type][player] = value;
     this.setState(this.state);
@@ -91,11 +95,12 @@ class Vision extends React.Component {
 
   render() {
     const visibleWards = this.visibleData();
+    const { match } = this.props;
 
     return (
       <div>
-        <VisionMap match={this.props.match} wards={visibleWards} />
-        <VisionFilter match={this.props.match} parent={this} />
+        <VisionMap match={match} wards={visibleWards} />
+        <VisionFilter match={match} parent={this} />
         <div className={styles.visionSliderText}>
           {this.state.currentTick === -90 ? strings.vision_all_time : formatSeconds(this.state.currentTick)}
         </div>
@@ -114,8 +119,8 @@ class Vision extends React.Component {
           disableFocusRipple
           onChange={(e, value) => this.handleViewportChange(value)}
         />
-        <VisionItems match={this.props.match} />
-        <VisionLog match={this.props.match} wards={visibleWards} />
+        <VisionItems match={match} />
+        <VisionLog match={match} wards={visibleWards} />
       </div>
     );
   }

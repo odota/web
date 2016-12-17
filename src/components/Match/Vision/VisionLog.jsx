@@ -56,22 +56,10 @@ const generateData = match => (log) => {
   };
 };
 
-export default class VisionLog extends React.Component {
-  constructor(props) {
-    super(props);
+const VisionLog = ({ match, wards }) => (
+  <div className={styles.visionLog}>
+    <Table data={wards.map(generateData(match))} columns={columns} />
+  </div>
+);
 
-    this.generator = generateData(this.props.match);
-  }
-
-  render() {
-    return (
-      <div className={styles.visionLog}>
-        <Table data={this.props.wards.map(this.generator)} columns={columns} />
-      </div>
-    );
-  }
-}
-
-VisionLog.defaulProps = {
-  width: 600,
-};
+export default VisionLog;

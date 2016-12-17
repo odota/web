@@ -90,16 +90,8 @@ const WardPin = ({ match, width, log }) => {
 };
 
 class VisionMap extends React.Component {
-  componentDidMount() {
-    window.addEventListener('resize', () => this.forceUpdate());
-  }
-
   shouldComponentUpdate(newProps) {
     return newProps.wards.length !== this.props.wards.length;
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', () => this.forceUpdate());
   }
 
   render() {
