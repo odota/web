@@ -4,7 +4,6 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
-import { Link } from 'react-router';
 import styles from './BurgerMenu.css';
 
 export default class BurgerMenu extends React.Component {
