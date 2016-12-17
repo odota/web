@@ -14,6 +14,7 @@
   "analysis_unused_item":"Käyttämättömät aktiiviset esineet",
   "analysis_expected":"of",
   "app_name":"OpenDota",
+  "app_language": "Language",
   "app_description":"Avoimen lähdekoodin Dota 2 tietojen työkaluja",
   "app_about":"Tietoja meistä",
   "app_privacy_terms":"Yksityisyys ja Tietosuojaehtoja",

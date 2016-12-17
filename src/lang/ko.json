@@ -14,6 +14,7 @@
   "analysis_unused_item":"사용하지않은 활성화 아이템 수",
   "analysis_expected":"의",
   "app_name":"오픈도타",
+  "app_language": "Language",
   "app_description":"Open source Dota 2 data tools",
   "app_about":"대하여",
   "app_privacy_terms":"개인정보보호 및 약관",

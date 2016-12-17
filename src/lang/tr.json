@@ -14,6 +14,7 @@
   "analysis_unused_item":"Kullanılmayan aktif eşyalar",
   "analysis_expected":"of",
   "app_name":"AçıkDota",
+  "app_language": "Language",
   "app_description":"Açık-kaynaklı Dota 2 veri aracı",
   "app_about":"Hakkında",
   "app_privacy_terms":"Gizlilik & Şartlar",

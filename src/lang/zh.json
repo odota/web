@@ -14,6 +14,7 @@
   "analysis_unused_item":"未使用的主动道具",
   "analysis_expected":"of",
   "app_name":"OpenDota",
+  "app_language": "Language",
   "app_description":"开源的Dota 2数据分析工具",
   "app_about":"关于",
   "app_privacy_terms":"隐私政策",

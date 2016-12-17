@@ -14,6 +14,7 @@
   "analysis_unused_item":"Ongebruikte actieve voorwerpen",
   "analysis_expected":"van",
   "app_name":"OpenDota",
+  "app_language": "Language",
   "app_description":"Opensource-Dota-2-data-tools",
   "app_about":"Over",
   "app_privacy_terms":"Privacy & voorwaarden",

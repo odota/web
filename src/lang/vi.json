@@ -14,6 +14,7 @@
   "analysis_unused_item":"Trang bị chưa dùng đang có hiệu lực",
   "analysis_expected":"của",
   "app_name":"OpenDota",
+  "app_language": "Language",
   "app_description":"Công cụ thông tin mã nguồn mở cho Dota 2",
   "app_about":"Về ứng dụng",
   "app_privacy_terms":"Điều khoản và chính sách",

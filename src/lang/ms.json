@@ -14,6 +14,7 @@
   "analysis_unused_item":"Item aktif tidak digunakan",
   "analysis_expected":"dari",
   "app_name":"OpenDota",
+  "app_language": "Language",
   "app_description":"Alat pendataan Dota 2 dalam sumber terbuka",
   "app_about":"Tentang",
   "app_privacy_terms":"Privasi & Syarat",

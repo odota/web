@@ -14,6 +14,7 @@
   "analysis_unused_item":"Unused active items",
   "analysis_expected":"of",
   "app_name":"OpenDota",
+  "app_language": "Language",
   "app_description":"Open source Dota 2 data tools",
   "app_about":"Om",
   "app_privacy_terms":"Privacy & Terms",

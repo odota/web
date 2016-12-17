@@ -6,13 +6,13 @@ import MenuItem from 'material-ui/MenuItem';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import { localization } from 'reducers';
 import { setLocalization } from 'actions';
-import lang, { langs } from 'lang';
+import strings, { langs } from 'lang';
 import styles from './Localization.css';
 
 const Localization = ({ localization, setLocalization }) => (
   <div>
     <SelectField
-      floatingLabelText={lang.app_localization}
+      floatingLabelText={strings.app_localization}
       value={localization}
       onChange={setLocalization}
     >
@@ -48,16 +48,16 @@ class LocalizationMenuItems extends Component {
           className={classNames(styles.clickable, open && styles.open)}
           onClick={this.handleOnClick}
         >
-          Language <Next />
+          {strings.app_language} <Next />
         </div>
         <div className={styles.languageContainer}>
           {open && langs.map(lang => <MenuItem
             style={{
               color: lang.value === localization && styles.selected,
             }}
-            key={lang.en}
+            key={lang.translated}
             value={lang.value}
-            primaryText={`${lang.en}${lang.native ? ` - ${lang.native}` : ''}`}
+            primaryText={`${lang.native} - ${lang.translated}`}
             onTouchTap={() => setLocalization(null, null, lang)}
           />)}
         </div>

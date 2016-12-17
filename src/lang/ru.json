@@ -14,6 +14,7 @@
   "analysis_unused_item":"Неиспользованных активных вещей",
   "analysis_expected":"из",
   "app_name":"OpenDota",
+  "app_language": "Language",
   "app_description":"Инструментарий для данных Dota 2 с открытым исходным кодом",
   "app_about":"О проекте",
   "app_privacy_terms":"Конфиденциальность и условия",
