@@ -11,14 +11,32 @@ import strings from 'lang';
 import PlayerThumb from 'components/Match/PlayerThumb';
 import styles from './Vision.css';
 
-// with the actual game size, the width parameters is optional
-const style = (width, iconSize, ward) => {
-  const gamePos = gameCoordToUV(ward.x, ward.y);
+const wardStyle = (width, log) => {
+  const gamePos = gameCoordToUV(log.entered.x, log.entered.y);
+  const stroke = log.entered.player_slot < 5 ? styles.green : styles.red;
+
+  let fill, strokeWidth, wardSize;
+
+  if (log.type === 'observer') {
+    wardSize = (width / 12) * (1600 / 850);
+    fill = styles.yelorMuted;
+    strokeWidth = 2.5;
+  }
+  else {
+    wardSize = (width / 12);
+    fill = styles.blueMuted;
+    strokeWidth = 2;
+  }
 
   return {
     position: 'absolute',
-    top: ((width / 127) * gamePos.y) - (iconSize / 2),
-    left: ((width / 127) * gamePos.x) - (iconSize / 2),
+    width: wardSize,
+    height: wardSize,
+    top: ((width / 127) * gamePos.y) - (wardSize / 2),
+    left: ((width / 127) * gamePos.x) - (wardSize / 2),
+    background: fill,
+    borderRadius: '50%',
+    border: `${strokeWidth}px solid ${stroke}`,
   };
 };
 
@@ -34,7 +52,7 @@ const WardTooltipEnter = ({ player, log }) => {
   );
 };
 
-const WardTooltipLeft = ({ match, log }) => {
+const WardTooltipLeft = ({ log }) => {
   let expired;
   const age = log.left.time - log.entered.time;
 
@@ -53,44 +71,18 @@ const WardTooltipLeft = ({ match, log }) => {
   );
 };
 
-const WardLogPin = ({ match, width, iconSize, log }) => {
-  const stroke = log.entered.player_slot < 5 ? styles.green : styles.red;
-  const fill = log.type === 'observer' ? styles.yelor : styles.blue;
-
-  const strokeWidth = log.type === 'observer' ? '2.5' : '2';
-  const wardSize = log.type === 'observer' ? iconSize * (1600 / 850) : iconSize;
-
+const WardLogPin = ({ match, width, log }) => {
   const id = `ward-${log.entered.player_slot}-${log.entered.time}`;
-
   const sideName = log.entered.player_slot < 5 ? 'radiant' : 'dire';
 
   return (
     <div>
-      <svg
-        style={style(width, wardSize, log.entered)}
-        width={wardSize}
-        height={wardSize}
+      <div
+        style={wardStyle(width, log)}
         data-tip
         data-for={id}
-        xmlns="http://www.w3.org/2000/svg"
       >
-        <g>
-          <circle
-            fill={fill}
-            strokeWidth={strokeWidth}
-            stroke={stroke}
-            r={wardSize * 0.4}
-            cy={wardSize / 2}
-            cx={wardSize / 2}
-            fillOpacity="0.3"
-          />
-        </g>
-        <defs>
-          <filter id="_blur">
-            <feGaussianBlur stdDeviation="0.1" in="SourceGraphic" />
-          </filter>
-        </defs>
-      </svg>
+      </div>
       <ReactTooltip
         id={id}
         effect="solid"
@@ -98,13 +90,12 @@ const WardLogPin = ({ match, width, iconSize, log }) => {
         class={styles[`${sideName}WardTooltip`]}
       >
         <WardTooltipEnter player={match.players[log.player]} log={log} />
-        {log.left && <WardTooltipLeft match={match} log={log} />}
+        {log.left && <WardTooltipLeft log={log} />}
       </ReactTooltip>
     </div>
   );
 };
 
-// TODO Hero icon on ward circles?
 class VisionMap extends React.Component {
   componentDidMount() {
     window.addEventListener('resize', () => this.forceUpdate());
@@ -118,14 +109,7 @@ class VisionMap extends React.Component {
     window.removeEventListener('resize', () => this.forceUpdate());
   }
 
-  renderWardPins(width) {
-    const iconSize = width / 12;
-    return this.props.wards.map(w => <WardLogPin match={this.props.match} key={w.key} width={width} iconSize={iconSize} log={w} />);
-  }
-
   render() {
-    const transition = extractTransitionClasses(styles);
-
     return (
       <Measure>
         {dimension => (
@@ -137,9 +121,9 @@ class VisionMap extends React.Component {
               backgroundSize: 'contain',
             }}
           >
-            {this.renderWardPins(dimension.width)}
+            {this.props.wards.map(w => <WardLogPin match={this.props.match} key={w.key} width={dimension.width} log={w} />)}
           </div>
-         )}
+        )}
       </Measure>
     );
   }

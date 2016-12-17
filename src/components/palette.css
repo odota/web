@@ -12,6 +12,9 @@
   --colorYelor:   #FFAB40; /* Yelor = YellowOrange */
   --colorGolden:  #e5c100;
 
+  --colorBlueMuted: rgba(102, 187, 255, 0.3);
+  --colorYelorMuted: rgba(255, 171, 64, 0.3);
+
   --colorMutedLight:   color(var(--colorMuted) lightness(70%));
 
   --primaryLinkColor: var(--colorBlue);
@@ -82,6 +85,9 @@
 
   yelor:           var(--colorYelor);
   yellowOrange:    var(--colorYelor);
+
+  blueMuted:  var(--colorBlueMuted);
+  yelorMuted: var(--colorYelorMuted);
 
   textColorPrimary:    var(--textColorPrimary);
   primaryTextColor:    var(--textColorPrimary);
