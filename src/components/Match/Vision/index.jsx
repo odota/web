@@ -7,6 +7,7 @@ import { formatSeconds, getTeamName } from 'utility';
 import Slider from 'material-ui/Slider';
 import _ from 'lodash/fp';
 
+import VisionFilter from './VisionFilter';
 import VisionItems from './VisionItems';
 import VisionMap from './VisionMap' ;
 import WardLog from './WardLog';
@@ -105,6 +106,7 @@ class Vision extends React.Component {
     return (
       <div>
         <VisionMap match={this.props.match} wards={visibleWards} />
+        <VisionFilter match={this.props.match} />
         <div className={styles.wardSliderText}>{this.state.currentTick == -90 ? "all time" : formatSeconds(this.state.currentTick)}</div>
         <SliderTicks
           value={this.state.currentTick}

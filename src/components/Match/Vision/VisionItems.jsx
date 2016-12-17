@@ -4,7 +4,6 @@ import { visionColumns } from 'components/Match/matchColumns';
 import strings from 'lang';
 
 const VisionItems = ({ match }) => {
-  console.log(JSON.stringify(match.players[1], null, 2));
   return (
     <TeamTable
       players={match.players}

@@ -379,52 +379,6 @@ export const performanceColumns = [
   },
 ];
 
-export const supportColumns = [
-  heroTdColumn, {
-    displayName: strings.th_stacked,
-    tooltip: strings.tooltip_camps_stacked,
-    field: 'camps_stacked',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
-    displayName: strings.th_tpscroll,
-    tooltip: strings.tooltip_purchase_tpscroll,
-    field: 'purchase_tpscroll',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
-    displayName: strings.th_ward_observer,
-    tooltip: strings.tooltip_purchase_ward_observer,
-    field: 'purchase_ward_observer',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
-    displayName: strings.th_ward_sentry,
-    tooltip: strings.tooltip_purchase_ward_sentry,
-    field: 'purchase_ward_sentry',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
-    displayName: strings.th_smoke_of_deceit,
-    tooltip: strings.tooltip_purchase_smoke_of_deceit,
-    field: 'purchase_smoke_of_deceit',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
-    displayName: strings.th_dust,
-    tooltip: strings.tooltip_purchase_dust,
-    field: 'purchase_dust',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
-    displayName: strings.th_gem,
-    tooltip: strings.tooltip_purchase_gem,
-    field: 'purchase_gem',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  },
-];
-
 export const chatColumns = [
   {
     displayName: strings.filter_is_radiant,
@@ -812,4 +766,26 @@ export const visionColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
   },
+];
+
+export const supportColumns = [
+  heroTdColumn, {
+    center: true,
+    displayName: strings.th_stacked,
+    tooltip: strings.tooltip_camps_stacked,
+    field: 'camps_stacked',
+    sortFn: true,
+    displayFn: (row, col, field) => field || '-',
+  }, {
+    center: true,
+    displayName: strings.th_tpscroll,
+    tooltip: strings.tooltip_purchase_tpscroll,
+    field: 'purchase_tpscroll',
+    sortFn: true,
+    displayFn: (row, col, field) => field || '-',
+  },
+  visionColumns[1],
+  visionColumns[3],
+  visionColumns[5],
+  visionColumns[7],
 ];

@@ -111,17 +111,14 @@
   }
 }
 
-.wardLogPlayerFilter {
-  padding: 0 0.5rem;
-  font-size: var(--fontSizeSmall);
+.visionFilter {
+  margin-top: 50px;
 
-  & .filterHeader {
-    padding: 0.5rem;
-    border-bottom: 1px solid var(--dividerLightColor);
+  & table th > div {
+    text-align: left !important;
   }
 
-  & .filterRow {
-    padding: 0.5em;
-    margin: 0;
+  & table td > img {
+    margin-left: -2px;
   }
 }
