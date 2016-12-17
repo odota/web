@@ -23,7 +23,7 @@ export default class BurgerMenu extends React.Component {
         </IconButton>
         <Drawer
           docked={false}
-          width={224}
+          width={260}
           open={this.state.open}
           onRequestChange={open => this.setState({ open })}
           className={styles.drawer}
