@@ -13,8 +13,7 @@ import Warning from 'components/Alerts';
 import styles from './MatchHeader.css';
 
 const getWinnerStyle = (radiantWin) => {
-  if (radiantWin === null || radiantWin === undefined)
-  {
+  if (radiantWin === null || radiantWin === undefined) {
     return styles.textMuted;
   }
   return radiantWin ? styles.radiant : styles.dire;
@@ -29,20 +28,20 @@ export default ({ match, user, loading }) => {
     const mmrPlayers = match.players.map(mapPlayers('solo_competitive_rank')).filter(Boolean);
 
     const victorySection = match.radiant_win
-      ? <span>
+      ? (<span>
         <IconRadiant />
         {match.radiant_team && match.radiant_team.name
           ? `${match.radiant_team.name} ${strings.match_team_win}`
           : strings.match_radiant_win
         }
-      </span>
-      : <span>
+      </span>)
+      : (<span>
         <IconDire />
         {match.dire_team && match.dire_team.name
           ? `${match.dire_team.name} ${strings.match_team_win}`
           : strings.match_dire_win
         }
-      </span>;
+      </span>);
     return (
       <header className={styles.header}>
         <Row between="xs">
