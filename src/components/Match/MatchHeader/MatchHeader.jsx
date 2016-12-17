@@ -12,6 +12,14 @@ import FileFileDownload from 'material-ui/svg-icons/file/file-download';
 import Warning from 'components/Alerts';
 import styles from './MatchHeader.css';
 
+const getWinnerStyle = (radiantWin) => {
+  if (radiantWin === null || radiantWin === undefined)
+  {
+    return styles.textMuted;
+  }
+  return radiantWin ? styles.radiant : styles.dire;
+};
+
 export default ({ match, user, loading }) => {
   if (!loading) {
     const mapPlayers = (key, radiant) =>
@@ -20,27 +28,27 @@ export default ({ match, user, loading }) => {
 
     const mmrPlayers = match.players.map(mapPlayers('solo_competitive_rank')).filter(Boolean);
 
+    const victorySection = match.radiant_win
+      ? <span>
+        <IconRadiant />
+        {match.radiant_team && match.radiant_team.name
+          ? `${match.radiant_team.name} ${strings.match_team_win}`
+          : strings.match_radiant_win
+        }
+      </span>
+      : <span>
+        <IconDire />
+        {match.dire_team && match.dire_team.name
+          ? `${match.dire_team.name} ${strings.match_team_win}`
+          : strings.match_dire_win
+        }
+      </span>;
     return (
       <header className={styles.header}>
         <Row between="xs">
-          <Col xs={12} md={4} className={match.radiant_win ? styles.radiant : styles.dire}>
+          <Col xs={12} md={4} className={getWinnerStyle(match.radiant_win)}>
             <div className={styles.winner}>
-              {match.radiant_win
-                ? <span>
-                  <IconRadiant />
-                  {match.radiant_team && match.radiant_team.name
-                    ? `${match.radiant_team.name} ${strings.match_team_win}`
-                    : strings.match_radiant_win
-                  }
-                </span>
-                : <span>
-                  <IconDire />
-                  {match.dire_team && match.dire_team.name
-                    ? `${match.dire_team.name} ${strings.match_team_win}`
-                    : strings.match_dire_win
-                  }
-                </span>
-              }
+              {match.radiant_win === null || match.radiant_win === undefined ? strings.td_no_result : victorySection}
             </div>
           </Col>
           <Col xs={12} md={4}>

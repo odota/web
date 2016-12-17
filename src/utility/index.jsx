@@ -217,13 +217,13 @@ export const transformations = {
   radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
     const getColor = (result) => {
-      if (result === undefined) {
+      if (result === null || result === undefined) {
         return styles.textMuted;
       }
       return won ? styles.textSuccess : styles.textDanger;
     };
     const getString = (result) => {
-      if (result === undefined) {
+      if (result === null || result === undefined) {
         return strings.td_no_result;
       }
       return won ? strings.td_win : strings.td_loss;
