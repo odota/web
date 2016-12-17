@@ -32,7 +32,7 @@ class RequestLayer extends React.Component {
   render() {
     const { playerId, location, routeParams } = this.props;
     const info = routeParams.info || 'overview';
-    const page = playerPages(playerId).find(page => page.name.toLowerCase() === info);
+    const page = playerPages(playerId).find(page => page.key === info);
     return (
       <div>
         <div>
