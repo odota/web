@@ -26,7 +26,7 @@ export const isRadiant = playerSlot => playerSlot < 128;
 export function pad(n, width, z = '0') {
   const str = `${n}`;
   return str.length >= width ? str : new Array((width - str.length) + 1).join(z) + n;
-};
+}
 
 export function abbreviateNumber(num) {
   if (!num) {
@@ -42,7 +42,7 @@ export function abbreviateNumber(num) {
   }
 
   return num.toFixed(0);
-};
+}
 
 export function formatSeconds(input) {
   if (!isNaN(parseFloat(input)) && isFinite(input)) {
@@ -57,7 +57,7 @@ export function formatSeconds(input) {
   }
 
   return null;
-};
+}
 
 export function getLevelFromXp(xp) {
   for (let i = 0; i < xpLevel.length; i += 1) {
@@ -67,7 +67,7 @@ export function getLevelFromXp(xp) {
   }
 
   return xpLevel.length;
-};
+}
 
 export const calculateDistance = (x1, y1, x2, y2) =>
   (((x2 - x1) ** 2) + ((y2 - y1) ** 2)) ** 0.5;
@@ -344,11 +344,11 @@ export function getObsWardsPlaced(pm) {
   }
 
   return pm.obs_log.filter(l => !l.entityleft).length;
-};
+}
 
 export function isSupport(pm) {
   return getObsWardsPlaced(pm) >= 2 && pm.lh_t && pm.lh_t[10] < 20;
-};
+}
 
 export function isRoshHero(pm) {
   const roshHeroes = {
@@ -358,7 +358,7 @@ export function isRoshHero(pm) {
   };
 
   return heroes[pm.hero_id] && (heroes[pm.hero_id].name in roshHeroes);
-};
+}
 
 export function isActiveItem(key) {
   const whitelist = {
@@ -369,7 +369,7 @@ export function isActiveItem(key) {
 
   // TODO this will only work for english data files
   return (items[key].desc.indexOf('Active: ') > -1 && !(key in whitelist));
-};
+}
 
 export const sum = (a, b) => a + b;
 
@@ -411,7 +411,7 @@ export function unpackPositionData(input) {
   }
 
   return input;
-};
+}
 
 export const threshold = _.curry((start, limits, values, value) => {
   if (limits.length !== values.length) throw new Error('Limits must be the same as functions.');

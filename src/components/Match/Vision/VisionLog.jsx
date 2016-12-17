@@ -1,6 +1,5 @@
 import React from 'react';
-import { threshold, formatSeconds, extractTransitionClasses } from 'utility';
-import { Row, Col } from 'react-flexbox-grid';
+import { threshold, formatSeconds } from 'utility';
 import Table from 'components/Table';
 import strings from 'lang';
 
@@ -38,22 +37,22 @@ const columns = [
   {
     displayName: strings.ward_log_killed_by,
     field: 'killer',
-  }
+  },
 ];
 
-const generateData = match => log => {
+const generateData = match => (log) => {
   const wardKiller = (log.left && log.left.player1) ? heroTd(match.players[log.left.player1]) : '';
   const duration = log.left ? log.left.time - log.entered.time : '';
-  
+
   const durationColor = log.type === 'observer' ? durationObserverColor(duration) : durationSentryColor(duration);
-  
+
   return {
     ...match.players[log.player],
     type: <img height="29" src={`${API_HOST}/apps/dota2/images/items/ward_${log.type}_lg.png`} role="presentation" />,
     enter_time: formatSeconds(log.entered.time),
     left_time: formatSeconds(log.left && log.left.time) || '-',
     duration: <span style={{ color: durationColor }}>{formatSeconds(duration)}</span>,
-    killer: wardKiller
+    killer: wardKiller,
   };
 };
 
@@ -71,8 +70,8 @@ export default class VisionLog extends React.Component {
       </div>
     );
   }
-};
+}
 
 VisionLog.defaulProps = {
-  width: 600
+  width: 600,
 };

@@ -1,11 +1,8 @@
 import React from 'react';
-import {
-  Row,
-  Col,
-} from 'react-flexbox-grid';
-import { formatSeconds, getTeamName } from 'utility';
+import { formatSeconds } from 'utility';
 import Slider from 'material-ui/Slider';
 import _ from 'lodash/fp';
+import strings from 'lang';
 
 import VisionFilter from './VisionFilter';
 import VisionItems from './VisionItems';
@@ -33,7 +30,7 @@ const SliderTicks = props => (
   </div>
 );
 
-const alive = (ward, time) => time == -90 || (time > ward.entered.time && (!ward.left || time < ward.left.time));
+const alive = (ward, time) => time === -90 || (time > ward.entered.time && (!ward.left || time < ward.left.time));
 const team = (ward, teams) => (teams.radiant && ward.player < 5) || (teams.dire && ward.player > 4);
 
 class Vision extends React.Component {
@@ -57,7 +54,7 @@ class Vision extends React.Component {
         sentry: [
           true, true, true, true, true,
           true, true, true, true, true,
-        ]
+        ],
       },
     };
 
@@ -65,14 +62,14 @@ class Vision extends React.Component {
     this.handleViewportChange = _.debounce(50, this.viewportChange);
   }
 
-  setPlayer(parent, player, type, value) {
-    parent.state.players[type][player] = value;
-    parent.setState(parent.state);
+  setPlayer(player, type, value) {
+    this.state.players[type][player] = value;
+    this.setState(this.state);
   }
 
-  setTeam(parent, team, value) {
-    parent.state.teams[team] = value;
-    parent.setState(parent.state);
+  setTeam(team, value) {
+    this.state.teams[team] = value;
+    this.setState(this.state);
   }
 
   computeTick() {
@@ -87,10 +84,9 @@ class Vision extends React.Component {
 
   visibleData() {
     const self = this;
+    const filter = ward => alive(ward, self.state.currentTick) && team(ward, self.state.teams) && self.state.players[ward.type][ward.player];
 
-    return this.props.match.wards_log.filter(ward => {
-      return alive(ward, self.state.currentTick) && team(ward, self.state.teams) && self.state.players[ward.type][ward.player];
-    });
+    return this.props.match.wards_log.filter(filter);
   }
 
   render() {
@@ -100,7 +96,9 @@ class Vision extends React.Component {
       <div>
         <VisionMap match={this.props.match} wards={visibleWards} />
         <VisionFilter match={this.props.match} parent={this} />
-        <div className={styles.visionSliderText}>{this.state.currentTick == -90 ? "all time" : formatSeconds(this.state.currentTick)}</div>
+        <div className={styles.visionSliderText}>
+          {this.state.currentTick === -90 ? strings.vision_all_time : formatSeconds(this.state.currentTick)}
+        </div>
         <SliderTicks
           value={this.state.currentTick}
           min={this.sliderMin}

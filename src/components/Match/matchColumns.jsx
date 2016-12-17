@@ -667,7 +667,7 @@ export const visionColumns = [
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} role="presentation" />
-        &nbsp;PUR
+        &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
     tooltip: strings.tooltip_purchase_ward_observer,
@@ -679,18 +679,18 @@ export const visionColumns = [
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} role="presentation" />
-        &nbsp;USE
+        &nbsp;{strings.th_use_shorthand}
       </div>
     ),
     tooltip: strings.tooltip_used_ward_observer,
     sortFn: true,
-    displayFn: (row, col, field) => row.item_uses.ward_observer || '-',
+    displayFn: row => row.item_uses.ward_observer || '-',
   }, {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} role="presentation" />
-        &nbsp;PUR
+        &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
     tooltip: strings.tooltip_purchase_ward_sentry,
@@ -702,18 +702,18 @@ export const visionColumns = [
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} role="presentation" />
-        &nbsp;USE
+        &nbsp;{strings.th_use_shorthand}
       </div>
     ),
     tooltip: strings.tooltip_used_ward_sentry,
     sortFn: true,
-    displayFn: (row, col) => row.item_uses.ward_sentry || '-',
+    displayFn: row => row.item_uses.ward_sentry || '-',
   }, {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img height="15" src={`${API_HOST}/apps/dota2/images/items/dust_lg.png`} role="presentation" />
-        &nbsp;PUR
+        &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
     tooltip: strings.tooltip_purchase_dust,
@@ -725,18 +725,18 @@ export const visionColumns = [
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img height="15" src={`${API_HOST}/apps/dota2/images/items/dust_lg.png`} role="presentation" />
-        &nbsp;USE
+        &nbsp;{strings.th_use_shorthand}
       </div>
     ),
     tooltip: strings.tooltip_used_dust,
     sortFn: true,
-    displayFn: (row, col, field) => row.item_uses.dust || '-',
+    displayFn: row => row.item_uses.dust || '-',
   }, {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img height="15" src={`${API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} role="presentation" />
-        &nbsp;PUR
+        &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
     tooltip: strings.tooltip_purchase_smoke_of_deceit,
@@ -748,12 +748,12 @@ export const visionColumns = [
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img height="15" src={`${API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} role="presentation" />
-        &nbsp;USE
+        &nbsp;{strings.th_use_shorthand}
       </div>
     ),
     tooltip: strings.tooltip_used_smoke_of_deceit,
     sortFn: true,
-    displayFn: (row, col, field) => row.item_uses.smoke_of_deceit || '-',
+    displayFn: row => row.item_uses.smoke_of_deceit || '-',
   }, {
     center: true,
     displayName: (
