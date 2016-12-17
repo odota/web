@@ -33,6 +33,7 @@ class Dropdown extends Component {
       <div className={className}>
         <Button onTouchTap={this.handleTouchTap} {...buttonProps} />
         <Popover
+          autoCloseWhenOffScreen={false}
           open={this.state.open}
           anchorEl={this.state.anchorEl}
           anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}

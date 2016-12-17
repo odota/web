@@ -80,7 +80,6 @@ const SearchGroup = ({ location }) => (
   </ToolbarGroup>
 );
 
-// TODO - add the localization to the burger menu
 const AccountGroup = () => (
   <ToolbarGroup className={styles.verticalAlign}>
     <AccountWidget />

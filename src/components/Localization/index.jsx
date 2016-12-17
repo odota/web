@@ -50,13 +50,17 @@ class LocalizationMenuItems extends Component {
         >
           Language <Next />
         </div>
-        {open && langs.map(lang => <MenuItem
-          style={{ color: lang.value === localization && styles.selected }}
-          key={lang.en}
-          value={lang.value}
-          primaryText={`${lang.en}${lang.native ? ` - ${lang.native}` : ''}`}
-          onTouchTap={() => setLocalization(null, null, lang)}
-        />)}
+        <div className={styles.languageContainer}>
+          {open && langs.map(lang => <MenuItem
+            style={{
+              color: lang.value === localization && styles.selected,
+            }}
+            key={lang.en}
+            value={lang.value}
+            primaryText={`${lang.en}${lang.native ? ` - ${lang.native}` : ''}`}
+            onTouchTap={() => setLocalization(null, null, lang)}
+          />)}
+        </div>
       </div>
     );
   }
