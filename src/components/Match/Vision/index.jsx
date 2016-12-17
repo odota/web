@@ -10,7 +10,7 @@ import _ from 'lodash/fp';
 import VisionFilter from './VisionFilter';
 import VisionItems from './VisionItems';
 import VisionMap from './VisionMap' ;
-import WardLog from './WardLog';
+import VisionLog from './VisionLog';
 import PlayerFilter from './PlayerFilter';
 import styles from './Vision.css';
 
@@ -51,7 +51,7 @@ const pipelineFilter = (filters, data) => {
 const FixedPlayersFilter = PlayersFilter;
 
 class Vision extends React.Component {
-  static hideWardLog(playerSlot, type) {
+  static hideVisionLog(playerSlot, type) {
     return l => l.entered.player_slot === playerSlot && l.type === type;
   }
 
@@ -101,7 +101,7 @@ class Vision extends React.Component {
 
   render() {
     const visibleWards = this.visibleData();
-    const playerFilterClick = (filterKey, playerSlot, type) => this.togglePlayerFilter(filterKey, Vision.hideWardLog(playerSlot, type));
+    const playerFilterClick = (filterKey, playerSlot, type) => this.togglePlayerFilter(filterKey, Vision.hideVisionLog(playerSlot, type));
 
     return (
       <div>
@@ -124,7 +124,7 @@ class Vision extends React.Component {
           onChange={(e, value) => this.handleViewportChange(value)}
         />
         <VisionItems match={this.props.match} />
-        <WardLog match={this.props.match} wards={visibleWards} />
+        <VisionLog match={this.props.match} wards={visibleWards} />
       </div>
     );
   }

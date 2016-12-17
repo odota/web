@@ -4,11 +4,6 @@
   --ward-log-height: 50px;
 }
 
-:export {
-  wardLogRowOddSurfaceColor: var(--tableRowOddSurfaceColor);
-  wardLogRowEvenSurfaceColor: var(--tableRowEvenSurfaceColor);
-}
-
 .wardTooltip {
   border-width: 2px !important;
 }
@@ -23,56 +18,8 @@
   border-color: var(--colorDanger) !important;
 }
 
-.wardLog {
-  width: 100%;
+.visionLog {
   margin-top: 30px;
-  font-size: var(--fontSizeSmall);
-
-  & .wardLogHeader {
-    background-color: var(--tableHeaderSurfaceColor);
-    border-bottom: 1px solid var(--dividerLightColor);
-    text-transform: uppercase;
-    height: 58px;
-    padding: 0 20px;
-  }
-
-  & .wardLogList {
-    padding: 0;
-    margin: 0;
-  }
-
-  & .timespan {
-    text-align: right;
-  }
-}
-
-.wardLogItem {
-  height: var(--ward-log-height);
-  background: rgb(31, 33, 45);
-  border-bottom: 1px solid var(--dividerColor);
-  padding: 0 20px;
-}
-
-.trans-table-row-enter {
-  height: 0;
-  opacity: 0;
-
-  &.trans-table-row-enter-active {
-    height: var(--ward-log-height);
-    opacity: 1;
-    transition: height 300ms ease, opacity 300ms ease;
-  }
-}
-
-.trans-table-row-leave {
-  height: var(--ward-log-height);
-  opacity: 1;
-
-  &.trans-table-row-leave-active {
-    height: 0;
-    opacity: 0;
-    transition: height 300ms ease, opacity 300ms ease;
-  }
 }
 
 .wardSliderText {

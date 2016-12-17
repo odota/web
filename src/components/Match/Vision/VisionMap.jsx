@@ -69,7 +69,7 @@ const WardTooltipLeft = ({ log }) => {
   );
 };
 
-const WardLogPin = ({ match, width, log }) => {
+const WardPin = ({ match, width, log }) => {
   const id = `ward-${log.entered.player_slot}-${log.entered.time}`;
   const sideName = log.entered.player_slot < 5 ? 'radiant' : 'dire';
 
@@ -119,7 +119,7 @@ class VisionMap extends React.Component {
               backgroundSize: 'contain',
             }}
           >
-            {this.props.wards.map(w => <WardLogPin match={this.props.match} key={w.key} width={dimension.width} log={w} />)}
+            {this.props.wards.map(w => <WardPin match={this.props.match} key={w.key} width={dimension.width} log={w} />)}
           </div>
         )}
       </Measure>

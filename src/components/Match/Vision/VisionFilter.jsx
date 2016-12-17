@@ -4,9 +4,9 @@ import {
   Col,
 } from 'react-flexbox-grid';
 import Checkbox from 'material-ui/Checkbox';
-
-import Table from '../../Table';
+import Table from 'components/Table';
 import { IconRadiant, IconDire } from 'components/Icons';
+
 import PlayerThumb from '../PlayerThumb';
 import styles from './Vision.css';
 
