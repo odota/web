@@ -21,20 +21,24 @@ const data = [
   }
 ];
 
-const handleCheckGenerator = (index, type) => event => {
-  console.log(index, type, event.target.checked);
-};
-
-const handleCheckGeneratorTeam = index => event => {
-  console.log(index, event.target.checked);
-};
-
 export default class VisionFilter extends React.PureComponent {
+  handleCheckGenerator(player, type) {
+    const parent = this.props.parent;
+
+    return event => parent.setPlayer(parent, player, type, event.target.checked);
+  }
+
+  handleCheckGeneratorTeam(index) {
+    const parent = this.props.parent;
+
+    return event => parent.setTeam(parent, index == 0 ? 'radiant' : 'dire', event.target.checked);
+  }
+
   columns(index) {
     return [
       {
         displayName: (
-          <Checkbox defaultChecked={true} onCheck={handleCheckGeneratorTeam(index)} />
+          <Checkbox defaultChecked={true} onCheck={this.handleCheckGeneratorTeam(index)} />
         ),
         displayFn: (row) => row.image
       },
@@ -43,7 +47,7 @@ export default class VisionFilter extends React.PureComponent {
           <PlayerThumb {...this.props.match.players[0 + index]} hideText={true}/>
         ),
         displayFn: (row) => (
-          <Checkbox defaultChecked={true} onCheck={handleCheckGenerator(0 + index, row.type)} />
+          <Checkbox defaultChecked={true} onCheck={this.handleCheckGenerator(0 + index, row.type)} />
         )
       },
       {
@@ -51,7 +55,7 @@ export default class VisionFilter extends React.PureComponent {
           <PlayerThumb {...this.props.match.players[1 + index]} hideText={true}/>
         ),
         displayFn: (row) => (
-          <Checkbox defaultChecked={true} onCheck={handleCheckGenerator(1 + index, row.type)} />
+          <Checkbox defaultChecked={true} onCheck={this.handleCheckGenerator(1 + index, row.type)} />
         )
       },
       {
@@ -59,7 +63,7 @@ export default class VisionFilter extends React.PureComponent {
           <PlayerThumb {...this.props.match.players[2 + index]} hideText={true}/>
         ),
         displayFn: (row) => (
-          <Checkbox defaultChecked={true} onCheck={handleCheckGenerator(2 + index, row.type)} />
+          <Checkbox defaultChecked={true} onCheck={this.handleCheckGenerator(2 + index, row.type)} />
         )
       },
       {
@@ -67,7 +71,7 @@ export default class VisionFilter extends React.PureComponent {
           <PlayerThumb {...this.props.match.players[3 + index]} hideText={true}/>
         ),
         displayFn: (row) => (
-          <Checkbox defaultChecked={true} onCheck={handleCheckGenerator(3 + index, row.type)} />
+          <Checkbox defaultChecked={true} onCheck={this.handleCheckGenerator(3 + index, row.type)} />
         )
       },
       {
@@ -75,7 +79,7 @@ export default class VisionFilter extends React.PureComponent {
           <PlayerThumb {...this.props.match.players[4 + index]} hideText={true}/>
         ),
         displayFn: (row) => (
-          <Checkbox defaultChecked={true} onCheck={handleCheckGenerator(4 + index, row.type)} />
+          <Checkbox defaultChecked={true} onCheck={this.handleCheckGenerator(4 + index, row.type)} />
         )
       }
     ];

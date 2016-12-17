@@ -11,7 +11,6 @@ import VisionFilter from './VisionFilter';
 import VisionItems from './VisionItems';
 import VisionMap from './VisionMap' ;
 import VisionLog from './VisionLog';
-import PlayerFilter from './PlayerFilter';
 import styles from './Vision.css';
 
 const SliderTicks = props => (
@@ -34,27 +33,10 @@ const SliderTicks = props => (
   </div>
 );
 
-// remove this component
-const PlayersFilter = ({ activeFilters, players, onFilterClick }) => (
-  <div>
-    {players.map((p, index) => <PlayerFilter key={index} player={p} activeFilters={activeFilters} onFilterClick={onFilterClick} />)}
-  </div>
-);
-
-const pipelineFilter = (filters, data) => {
-  const filtered = filters.map(f => data.filter(f))
-                          .reduce((o, v) => o.concat(v), []);
-
-  return _.differenceWith((x, y) => x === y, data, filtered);
-};
-
-const FixedPlayersFilter = PlayersFilter;
+const alive = (ward, time) => time == -90 || (time > ward.entered.time && (!ward.left || time < ward.left.time));
+const team = (ward, teams) => (teams.radiant && ward.player < 5) || (teams.dire && ward.player > 4);
 
 class Vision extends React.Component {
-  static hideVisionLog(playerSlot, type) {
-    return l => l.entered.player_slot === playerSlot && l.type === type;
-  }
-
   constructor(props) {
     super(props);
 
@@ -63,11 +45,34 @@ class Vision extends React.Component {
 
     this.state = {
       currentTick: -90,
-      filters: {},
+      teams: {
+        radiant: true,
+        dire: true,
+      },
+      players: {
+        observer: [
+          true, true, true, true, true,
+          true, true, true, true, true,
+        ],
+        sentry: [
+          true, true, true, true, true,
+          true, true, true, true, true,
+        ]
+      },
     };
 
     this.ticks = this.computeTick();
     this.handleViewportChange = _.debounce(50, this.viewportChange);
+  }
+
+  setPlayer(parent, player, type, value) {
+    parent.state.players[type][player] = value;
+    parent.setState(parent.state);
+  }
+
+  setTeam(parent, team, value) {
+    parent.state.teams[team] = value;
+    parent.setState(parent.state);
   }
 
   computeTick() {
@@ -76,38 +81,26 @@ class Vision extends React.Component {
   }
 
   viewportChange(value) {
-    this.setState({ currentTick: value });
+    this.state.currentTick = value;
+    this.setState(this.state);
   }
 
   visibleData() {
-    const time = this.state.currentTick;
+    const self = this;
 
-    return this.props.match.wards_log.filter(ward => time == -90 || (time > ward.entered.time && (!ward.left || time < ward.left.time)));
-  }
-
-  togglePlayerFilter(name, filter) {
-    if (name in this.state.filters) {
-      const oldFilters = Object.assign({}, this.state.filters);
-
-      delete oldFilters[name];
-      this.setState({ filters: oldFilters });
-    } else {
-      const newFilter = {};
-
-      newFilter[name] = filter;
-      this.setState({ filters: Object.assign({}, this.state.filters, newFilter) });
-    }
+    return this.props.match.wards_log.filter(ward => {
+      return alive(ward, self.state.currentTick) && team(ward, self.state.teams) && self.state.players[ward.type][ward.player];
+    });
   }
 
   render() {
     const visibleWards = this.visibleData();
-    const playerFilterClick = (filterKey, playerSlot, type) => this.togglePlayerFilter(filterKey, Vision.hideVisionLog(playerSlot, type));
 
     return (
       <div>
         <VisionMap match={this.props.match} wards={visibleWards} />
-        <VisionFilter match={this.props.match} />
-        <div className={styles.wardSliderText}>{this.state.currentTick == -90 ? "all time" : formatSeconds(this.state.currentTick)}</div>
+        <VisionFilter match={this.props.match} parent={this} />
+        <div className={styles.visionSliderText}>{this.state.currentTick == -90 ? "all time" : formatSeconds(this.state.currentTick)}</div>
         <SliderTicks
           value={this.state.currentTick}
           min={this.sliderMin}
