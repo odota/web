@@ -7,12 +7,18 @@ import styles from './Table.css';
 
 export default ({ column, sortClick, sortField, sortState }) => {
   const tooltipId = uuid.v4();
+  const style = {};
+
+  if (column.center) {
+    style.justifyContent = 'center';
+  }
 
   return (
     <MaterialTableHeaderColumn>
       <div
         className={column.sortFn ? styles.headerCell : styles.headerCellNoSort}
         onClick={() => column.sortFn && sortClick(column.field, sortState, column.sortFn)}
+        style={style}
       >
         <div data-tip={column.tooltip && true} data-for={tooltipId} style={{ color: column.color }}>
           {column.displayName}

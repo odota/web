@@ -25,6 +25,7 @@
 
 .wardLog {
   width: 100%;
+  margin-top: 30px;
   font-size: var(--fontSizeSmall);
 
   & .wardLogHeader {
@@ -32,6 +33,7 @@
     border-bottom: 1px solid var(--dividerLightColor);
     text-transform: uppercase;
     height: 58px;
+    padding: 0 20px;
   }
 
   & .wardLogList {
@@ -48,8 +50,8 @@
   height: var(--ward-log-height);
   background: rgb(31, 33, 45);
   border-bottom: 1px solid var(--dividerColor);
+  padding: 0 20px;
 }
-
 
 .trans-table-row-enter {
   height: 0;
@@ -70,24 +72,6 @@
     height: 0;
     opacity: 0;
     transition: height 300ms ease, opacity 300ms ease;
-  }
-}
-
-.ward-pin-enter {
-  opacity: 0;
-
-  &.ward-pin-enter-active {
-    opacity: 1;
-    transition: opacity 150ms ease;
-  }
-}
-
-.ward-pin-leave {
-  opacity: 1;
-
-  &.ward-pin-leave-active {
-    opacity: 0;
-    transition: opacity 150ms ease;
   }
 }
 

@@ -4,10 +4,10 @@ import {
   Col,
 } from 'react-flexbox-grid';
 import { formatSeconds, getTeamName } from 'utility';
-import Paper from 'material-ui/Paper';
 import Slider from 'material-ui/Slider';
 import _ from 'lodash/fp';
 
+import VisionItems from './VisionItems';
 import VisionMap from './VisionMap' ;
 import WardLog from './WardLog';
 import PlayerFilter from './PlayerFilter';
@@ -35,9 +35,9 @@ const SliderTicks = props => (
 
 // remove this component
 const PlayersFilter = ({ activeFilters, players, onFilterClick }) => (
-  <Paper>
+  <div>
     {players.map((p, index) => <PlayerFilter key={index} player={p} activeFilters={activeFilters} onFilterClick={onFilterClick} />)}
-  </Paper>
+  </div>
 );
 
 const pipelineFilter = (filters, data) => {
@@ -121,30 +121,7 @@ class Vision extends React.Component {
           disableFocusRipple
           onChange={(e, value) => this.handleViewportChange(value)}
         />
-        <Row>
-          <Col xs={12} md={6} lg={6} className={styles.wardLogPlayerFilter}>
-            <Col xs className={styles.filterHeader}>
-              {getTeamName(this.props.match.radiant_team, true)}
-            </Col>
-            {<FixedPlayersFilter
-              activeFilters={this.state.filters}
-              onFilterClick={playerFilterClick}
-              players={this.props.match.players.slice(0, 5)}
-            />
-            }
-          </Col>
-          <Col xs={12} md={6} lg={6} className={styles.wardLogPlayerFilter}>
-            <Col xs className={styles.filterHeader}>
-              {getTeamName(this.props.match.dire_team, false)}
-            </Col>
-            {<FixedPlayersFilter
-              activeFilters={this.state.filters}
-              onFilterClick={playerFilterClick}
-              players={this.props.match.players.slice(5)}
-            />
-            }
-          </Col>
-        </Row>
+        <VisionItems match={this.props.match} />
         <WardLog match={this.props.match} wards={visibleWards} />
       </div>
     );
