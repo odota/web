@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import { localization } from 'reducers';
 import { setLocalization } from 'actions';
 import lang, { langs } from 'lang';
+import styles from './Localization.css';
 
 const Localization = ({ localization, setLocalization }) => (
   <div>
@@ -19,6 +22,46 @@ const Localization = ({ localization, setLocalization }) => (
   </div>
 );
 
+class LocalizationMenuItems extends Component {
+  constructor() {
+    super();
+    this.state = {
+      open: false,
+    };
+    this.handleOnClick = this.handleOnClick.bind(this);
+  }
+
+  handleOnClick(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.setState({
+      open: !this.state.open,
+    });
+  }
+
+  render() {
+    const { setLocalization, localization } = this.props;
+    const { open } = this.state;
+    return (
+      <div className={styles.container}>
+        <div
+          className={classNames(styles.clickable, open && styles.open)}
+          onClick={this.handleOnClick}
+        >
+          Language <Next />
+        </div>
+        {open && langs.map(lang => <MenuItem
+          style={{ color: lang.value === localization && styles.selected }}
+          key={lang.en}
+          value={lang.value}
+          primaryText={`${lang.en}${lang.native ? ` - ${lang.native}` : ''}`}
+          onTouchTap={() => setLocalization(null, null, lang)}
+        />)}
+      </div>
+    );
+  }
+}
+
 const mapStateToProps = state => ({
   localization: localization(state),
 });
@@ -28,3 +71,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Localization);
+
+export const LocalizationMenu = connect(mapStateToProps, mapDispatchToProps)(LocalizationMenuItems);

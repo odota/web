@@ -29,20 +29,12 @@ export default class BurgerMenu extends React.Component {
           onRequestChange={open => this.setState({ open })}
           className={styles.drawer}
         >
-          <Menu onTouchTap={this.handleClose}>
-            <MenuItem>
-              {this.props.top}
-            </MenuItem>
-            {
-              this.props.links.map((page, index) => (
-                <MenuItem key={index}>
-                  {page.external ?
-                    <a href={page.path} className={styles.tab} rel="noopener noreferrer" target="_blank">{page.name}</a> :
-                    <Link to={page.path} className={styles.tab}>{page.name}</Link>
-                  }
-                </MenuItem>
-              ))
-            }
+          <Menu>
+            {this.props.menuItems.map((item, index) => (
+              <MenuItem key={index} onTouchTap={item.close && this.handleClose}>
+                {item.component}
+              </MenuItem>
+            ))}
           </Menu>
         </Drawer>
       </div>
