@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {
   gameCoordToUV,
-  extractTransitionClasses,
   formatSeconds,
 } from 'utility';
 import ReactTooltip from 'react-tooltip';

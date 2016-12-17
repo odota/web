@@ -10,21 +10,22 @@ import { heroTd } from '../matchColumns';
 import styles from './Vision.css';
 
 
-const durationObserverColor = threshold(0, [121, 241, 500], [styles.red, styles.yelor, styles.green]);
+const durationObserverColor = threshold(0, [121, 241, 370], [styles.red, styles.yelor, styles.green]);
+const durationSentryColor = threshold(0, [81, 161, 250], [styles.red, styles.yelor, styles.green]);
 
 const RowItem = ({ style, log, match }) => {
-  const wardKiller = (log.left && log.left.player1) ? heroTd(match.players[log.left.player1]) : '-';
-  const duration = log.left ? log.left.time - log.entered.time : '-';
-  const durationColor = log.type === 'observer' ? durationObserverColor(duration) : 'inherit';
+  const wardKiller = (log.left && log.left.player1) ? heroTd(match.players[log.left.player1]) : '';
+  const duration = log.left ? log.left.time - log.entered.time : '';
+
+  const durationColor = log.type === 'observer' ? durationObserverColor(duration) : durationSentryColor(duration);
+
   const rowStyle = { ...style,
-    backgroundColor: log.key % 2 === 0
-                   ? styles.wardLogRowEvenSurfaceColor
-                   : styles.wardLogRowOddSurfaceColor,
+    backgroundColor: log.key % 2 === 0 ? styles.wardLogRowEvenSurfaceColor : styles.wardLogRowOddSurfaceColor,
   };
 
   return (
     <li>
-      <Row component="li" className={styles.wardLogItem} style={rowStyle} middle="xs">
+      <Row className={styles.wardLogItem} style={rowStyle} middle="xs">
         <Col xs={1}>
           <img height="29" src={`${API_HOST}/apps/dota2/images/items/ward_${log.type}_lg.png`} role="presentation" />
         </Col>
@@ -34,7 +35,7 @@ const RowItem = ({ style, log, match }) => {
         <Col xs={1} className={styles.timespan}>{formatSeconds(log.entered.time)}</Col>
         <Col xs={1} className={styles.timespan}>{formatSeconds(log.left && log.left.time) || '-'}</Col>
         <Col xs={1} className={styles.timespan} style={{ color: durationColor }}>{formatSeconds(duration)}</Col>
-        <Col xs={4}>{wardKiller}</Col>
+        <Col xs={4} style={{ paddingLeft: '38px' }}>{wardKiller}</Col>
       </Row>
     </li>
   );
@@ -49,14 +50,14 @@ const WardLog = (props) => {
   const transition = extractTransitionClasses(styles);
 
   return (
-    <Col className={styles.wardLog} xs>
+    <div className={styles.wardLog}>
       <Row className={styles.wardLogHeader} middle="xs">
         <Col xs={1}>{strings[columns[0]]}</Col>
-        <Col xs>{strings[columns[1]]}</Col>
+        <Col xs={4}>{strings[columns[1]]}</Col>
         <Col className={styles.timespan} xs={1}>{strings[columns[2]]}</Col>
         <Col className={styles.timespan} xs={1}>{strings[columns[3]]}</Col>
         <Col className={styles.timespan} xs={1}>{strings[columns[4]]}</Col>
-        <Col xs>{strings[columns[5]]}</Col>
+        <Col xs={4} style={{ paddingLeft: '38px' }}>{strings[columns[5]]}</Col>
       </Row>
       <ReactCSSTransitionGroup
         className={styles.wardLogList}
@@ -70,7 +71,7 @@ const WardLog = (props) => {
           <PureRowItem key={log.key} log={log} match={props.match} index={index} />,
         )}
       </ReactCSSTransitionGroup>
-    </Col>
+    </div>
   );
 };
 
