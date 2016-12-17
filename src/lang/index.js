@@ -4,70 +4,71 @@ const lang = require(`./${savedLang || 'en'}.json`);
 export const langs = [
   {
     value: 'en',
-    en: 'English',
+    en: lang.language_en,
+    native: 'English',
   }, {
     value: 'de',
-    en: 'German',
+    en: lang.language_de,
     native: 'Deutsch',
   }, {
     value: 'es',
-    en: 'Spanish',
+    en: lang.language_es,
     native: 'Español',
   }, {
     value: 'fi',
-    en: 'Finnish',
+    en: lang.language_fi,
     native: 'Suomi',
   }, {
     value: 'fr',
-    en: 'French',
+    en: lang.language_fr,
     native: 'Français',
   }, {
     value: 'it',
-    en: 'Italian',
+    en: lang.language_it,
     native: 'Italiano',
   }, {
     value: 'ko',
-    en: 'Korean',
+    en: lang.language_ko,
     native: '한국어',
   }, {
     value: 'ms',
-    en: 'Malay',
+    en: lang.language_ms,
     native: 'Malay',
   }, {
     value: 'nl',
-    en: 'Dutch',
+    en: lang.language_nl,
     native: 'Nederlands',
   }, {
     value: 'pl',
-    en: 'Polish',
+    en: lang.language_pl,
     native: 'Polszczyzna',
   }, {
     value: 'pt',
-    en: 'Portuguese',
+    en: lang.language_pt,
     native: 'Português',
   }, {
     value: 'ru',
-    en: 'Russian',
+    en: lang.language_ru,
     native: 'ру́сский',
   }, {
     value: 'sv',
-    en: 'Swedish',
+    en: lang.language_sv,
     native: 'Svenska',
   }, {
     value: 'tr',
-    en: 'Turkish',
+    en: lang.language_tr,
     native: 'Türkçe',
   }, {
     value: 'uk',
-    en: 'Ukranian',
+    en: lang.language_uk,
     native: 'Українська',
   }, {
     value: 'vi',
-    en: 'Vietnamese',
+    en: lang.language_vi,
     native: 'Tiếng Việt',
   }, {
     value: 'zh',
-    en: 'Chinese',
+    en: lang.language_zh,
     native: '汉语/漢語',
   },
 ];
