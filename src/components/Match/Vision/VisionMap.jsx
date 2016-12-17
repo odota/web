@@ -111,7 +111,7 @@ class VisionMap extends React.Component {
   }
 
   shouldComponentUpdate(newProps) {
-    return newProps.wardsLog.length !== this.props.wardsLog.length;
+    return newProps.wards.length !== this.props.wards.length;
   }
 
   componentWillUnmount() {
@@ -120,7 +120,7 @@ class VisionMap extends React.Component {
 
   renderWardPins(width) {
     const iconSize = width / 12;
-    return this.props.wardsLog.map(w => <WardLogPin match={this.props.match} key={w.key} width={width} iconSize={iconSize} log={w} />);
+    return this.props.wards.map(w => <WardLogPin match={this.props.match} key={w.key} width={width} iconSize={iconSize} log={w} />);
   }
 
   render() {
@@ -129,11 +129,7 @@ class VisionMap extends React.Component {
     return (
       <Measure>
         {dimension => (
-          <ReactCSSTransitionGroup
-            component="div"
-            transitionName={transition('ward-pin')}
-            transitionEnterTimeout={150}
-            transitionLeaveTimeout={150}
+          <div
             style={{
               position: 'relative',
               height: dimension.width,
@@ -142,7 +138,7 @@ class VisionMap extends React.Component {
             }}
           >
             {this.renderWardPins(dimension.width)}
-          </ReactCSSTransitionGroup>
+          </div>
          )}
       </Measure>
     );

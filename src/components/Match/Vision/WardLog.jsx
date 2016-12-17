@@ -12,12 +12,12 @@ import styles from './Vision.css';
 
 const durationObserverColor = threshold(0, [121, 241, 500], [styles.red, styles.yelor, styles.green]);
 
-const RowItem = ({ style, row, match }) => {
-  const wardKiller = (row.left && row.left.player1) ? heroTd(match.players[row.left.player1]) : '-';
-  const duration = row.left ? row.left.time - row.entered.time : '-';
-  const durationColor = row.type === 'observer' ? durationObserverColor(duration) : 'inherit';
+const RowItem = ({ style, log, match }) => {
+  const wardKiller = (log.left && log.left.player1) ? heroTd(match.players[log.left.player1]) : '-';
+  const duration = log.left ? log.left.time - log.entered.time : '-';
+  const durationColor = log.type === 'observer' ? durationObserverColor(duration) : 'inherit';
   const rowStyle = { ...style,
-    backgroundColor: row.key % 2 === 0
+    backgroundColor: log.key % 2 === 0
                    ? styles.wardLogRowEvenSurfaceColor
                    : styles.wardLogRowOddSurfaceColor,
   };
@@ -26,13 +26,13 @@ const RowItem = ({ style, row, match }) => {
     <li>
       <Row component="li" className={styles.wardLogItem} style={rowStyle} middle="xs">
         <Col xs={1}>
-          <img height="29" src={`${API_HOST}/apps/dota2/images/items/ward_${row.type}_lg.png`} role="presentation" />
+          <img height="29" src={`${API_HOST}/apps/dota2/images/items/ward_${log.type}_lg.png`} role="presentation" />
         </Col>
         <Col xs={4}>
-          {heroTd(match.players[row.player])}
+          {heroTd(match.players[log.player])}
         </Col>
-        <Col xs={1} className={styles.timespan}>{formatSeconds(row.entered.time)}</Col>
-        <Col xs={1} className={styles.timespan}>{formatSeconds(row.left && row.left.time) || '-'}</Col>
+        <Col xs={1} className={styles.timespan}>{formatSeconds(log.entered.time)}</Col>
+        <Col xs={1} className={styles.timespan}>{formatSeconds(log.left && log.left.time) || '-'}</Col>
         <Col xs={1} className={styles.timespan} style={{ color: durationColor }}>{formatSeconds(duration)}</Col>
         <Col xs={4}>{wardKiller}</Col>
       </Row>
@@ -66,8 +66,8 @@ const WardLog = (props) => {
         transitionEnterTimeout={300}
         transitionLeaveTimeout={300}
       >
-        {props.wardsLog.map((log, index) =>
-          <PureRowItem key={log.key} row={log} match={props.match} index={index} />,
+        {props.wards.map((log, index) =>
+          <PureRowItem key={log.key} log={log} match={props.match} index={index} />,
         )}
       </ReactCSSTransitionGroup>
     </Col>
@@ -78,8 +78,8 @@ const WardLog = (props) => {
 // TODO use defaultprops and export directly
 export default function ({
   match,
-  wardsLog,
+  wards,
   width = 600,
 }) {
-  return <WardLog match={match} wardsLog={wardsLog} width={width} />;
+  return <WardLog match={match} wards={wards} width={width} />;
 }

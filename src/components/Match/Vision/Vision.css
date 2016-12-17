@@ -91,6 +91,14 @@
   }
 }
 
+.wardSliderText {
+  text-align: center;
+  width: 200px;
+  margin: 50px auto;
+  text-transform: uppercase;
+  color: var(--colorMutedLight);
+}
+
 .sliderTicks {
   position: relative;
   height: 30px;

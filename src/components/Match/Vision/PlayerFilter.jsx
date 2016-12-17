@@ -17,8 +17,10 @@ import { heroTd } from '../matchColumns';
 export default class PlayerFilter extends React.PureComponent {
   constructor(props) {
     super(props);
+
     this.getObserverCount = () => this.props.player.obs_log.length;
     this.getSentryCount = () => this.props.player.sen_log.length;
+
     this.getMuiThemeProps = () => ({
       fullWidth: true,
       disabledBackgroundColor: filterOff,
@@ -34,9 +36,11 @@ export default class PlayerFilter extends React.PureComponent {
       player,
       onFilterClick,
     } = this.props;
+
     const obsCount = this.getObserverCount();
     const senCount = this.getSentryCount();
     const [opacityOn, opacityOff] = [1, 0.4];
+
     return (
       <Row
         className={styles.filterRow}

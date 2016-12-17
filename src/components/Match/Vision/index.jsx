@@ -19,7 +19,10 @@ const SliderTicks = props => (
       const [t, min, max] = [tick, props.min, props.max];
       const percent = 100 * ((t - min) / (max - min));
       const cls = [styles.sliderTick];
-      if (tick <= props.value) { cls.push(styles.active); }
+
+      if (tick <= props.value) {
+        cls.push(styles.active);
+      }
 
       return (
         <a key={tick} onClick={() => props.onTickClick(tick)} className={cls.join(' ')} style={{ left: `${percent}%` }}>
@@ -40,6 +43,7 @@ const PlayersFilter = ({ activeFilters, players, onFilterClick }) => (
 const pipelineFilter = (filters, data) => {
   const filtered = filters.map(f => data.filter(f))
                           .reduce((o, v) => o.concat(v), []);
+
   return _.differenceWith((x, y) => x === y, data, filtered);
 };
 
@@ -53,34 +57,31 @@ class Vision extends React.Component {
   constructor(props) {
     super(props);
 
+    this.sliderMin = -90;
+    this.sliderMax = props.match.duration;
+
     this.state = {
       currentTick: -90,
-      min: -90,
-      max: props.match.duration,
-      from: 0,
-      to: props.match.wards_log.length,
-      wardsLog: props.match.wards_log,
       filters: {},
     };
 
     this.ticks = this.computeTick();
-    this.findPivot = value => _.flow(_.map(x => x.entered.time),
-                                     _.sortedIndex(value))(this.state.wardsLog);
     this.handleViewportChange = _.debounce(50, this.viewportChange);
   }
 
   computeTick() {
     const interval = 10 * 60; // every 10 minutes interval
-    return _.rangeStep(interval, 0, this.props.match.duration);
+    return _.rangeStep(interval, 0, this.sliderMax);
   }
 
   viewportChange(value) {
-    this.setState({ currentTick: value, from: this.findPivot(value) });
+    this.setState({ currentTick: value });
   }
 
   visibleData() {
-    return pipelineFilter(_.values(this.state.filters),
-                          this.state.wardsLog.slice(this.state.from));
+    const time = this.state.currentTick;
+
+    return this.props.match.wards_log.filter(ward => time == -90 || (time > ward.entered.time && (!ward.left || time < ward.left.time)));
   }
 
   togglePlayerFilter(name, filter) {
@@ -99,22 +100,23 @@ class Vision extends React.Component {
 
   render() {
     const visibleWards = this.visibleData();
-    const playerFilterClick = (filterKey, playerSlot, type) => this.togglePlayerFilter(filterKey, VisionPage.hideWardLog(playerSlot, type));
+    const playerFilterClick = (filterKey, playerSlot, type) => this.togglePlayerFilter(filterKey, Vision.hideWardLog(playerSlot, type));
 
     return (
       <div>
-        <VisionMap match={this.props.match} wardsLog={visibleWards} />
+        <VisionMap match={this.props.match} wards={visibleWards} />
+        <div className={styles.wardSliderText}>{this.state.currentTick == -90 ? "all time" : formatSeconds(this.state.currentTick)}</div>
         <SliderTicks
           value={this.state.currentTick}
-          min={this.state.min}
-          max={this.state.max}
+          min={this.sliderMin}
+          max={this.sliderMax}
           onTickClick={tick => this.handleViewportChange(tick)}
           ticks={this.ticks}
         />
         <Slider
-          min={this.state.min}
-          max={this.state.max}
           value={this.state.currentTick}
+          min={this.sliderMin}
+          max={this.sliderMax}
           step={5}
           disableFocusRipple
           onChange={(e, value) => this.handleViewportChange(value)}
@@ -143,10 +145,7 @@ class Vision extends React.Component {
             }
           </Col>
         </Row>
-        <WardLog
-          match={this.props.match}
-          wardsLog={visibleWards}
-        />
+        <WardLog match={this.props.match} wards={visibleWards} />
       </div>
     );
   }
