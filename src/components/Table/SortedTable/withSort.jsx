@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import uuid from 'uuid';
 import { table } from 'reducers';
 import { sortTable } from 'actions';
+
 // We have to give the table an id so we can hold all tables currentPage in memory.
 export default (Table, id = uuid.v4()) => {
   const SortedTable = ({ data, sortState, sortField, sortTable, ...rest }) => {

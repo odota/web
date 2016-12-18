@@ -1,0 +1,71 @@
+@import "../../palette.css";
+
+:root {
+  --ward-log-height: 50px;
+}
+
+.wardTooltip {
+  border-width: 2px !important;
+}
+
+.radiantWardTooltip {
+  composes: wardTooltip;
+  border-color: var(--colorSuccess) !important;
+}
+
+.direWardTooltip {
+  composes: wardTooltip;
+  border-color: var(--colorDanger) !important;
+}
+
+.visionLog {
+  margin-top: 30px;
+}
+
+.visionSliderText {
+  text-align: center;
+  width: 200px;
+  margin: 50px auto;
+  text-transform: uppercase;
+  color: var(--colorMutedLight);
+}
+
+.sliderTicks {
+  position: relative;
+  height: 30px;
+  margin-top: 33px;
+  margin-bottom: -33px;
+  font-size: var(--fontSizeTiny);
+  border-color: var(--sliderTicksColor);
+  color: var(--sliderTicksColor);
+
+  & .sliderTick {
+    position: absolute;
+    display: inline-block;
+    height: 100%;
+    padding: 0 0.4em;
+    border-width: 0;
+    border-color: inherit;
+    border-style: solid;
+    border-left-width: 1px;
+    cursor: pointer;
+    transition: color 150ms ease, border-color 150ms ease;
+
+    &.active {
+      border-color: var(--sliderTicksColorActive);
+      color: var(--sliderTicksColorActive);
+    }
+  }
+}
+
+.visionFilter {
+  margin-top: 50px;
+
+  & table th > div {
+    text-align: left !important;
+  }
+
+  & table td > img {
+    margin-left: -2px;
+  }
+}

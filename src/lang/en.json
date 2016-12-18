@@ -502,6 +502,8 @@
   "th_DOTA_UNIT_ORDER_GLYPH": "GLYPH",
   "th_DOTA_UNIT_ORDER_RADAR": "SCN",
   "th_ability_builds": "AB",
+  "th_purchase_shorthand": "PUR",
+  "th_use_shorthand": "USE",
   "th_country": "Country",
   "th_count": "Count",
   "th_average": "Average",
@@ -587,6 +589,8 @@
   "tooltip_purchase_buyback": "Buyback purchases",
   "tooltip_used_ward_observer": "Number of Observer Wards placed during the game",
   "tooltip_used_ward_sentry": "Number of Sentry Wards placed during the game",
+  "tooltip_used_dust": "Number of times Dust of Appearance was used during the game",
+  "tooltip_used_smoke_of_deceit": "Number of times Smoke of Deceit was used during the game",
   "tooltip_parsed": "Replay has been parsed for additional data",
   "tooltip_unparsed": "The replay for this match has not yet been parsed. Not all data may be available.",
   "tooltip_hero_id": "The hero played by player",
@@ -651,6 +655,11 @@
   "teamfight_participation": "Radiant participation/Dire participation",
   "teamfight_score": "Radiant kills/Dire kills",
   "teamfight_radiant_gold_adv": "Net gold advantage for Radiant",
-  "teamfight_radiant_xp_adv": "Net XP advantage for Radiant"
+  "teamfight_radiant_xp_adv": "Net XP advantage for Radiant",
 
+  "vision_expired": "Expired after",
+  "vision_destroyed": "Destroyed after",
+  "vision_all_time": "All time",
+  "vision_placed_observer": "placed Observer at",
+  "vision_placed_sentry": "placed Sentry at"
 }
