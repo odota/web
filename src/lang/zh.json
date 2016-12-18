@@ -470,6 +470,8 @@
   "th_DOTA_UNIT_ORDER_GLYPH":"标记",
   "th_DOTA_UNIT_ORDER_RADAR":"扫描",
   "th_ability_builds":"加点",
+  "th_purchase_shorthand":"PUR",
+  "th_use_shorthand":"USE",
   "th_country":"国家/地区",
   "th_count":"总计",
   "th_average":"平均",
@@ -550,6 +552,8 @@
   "tooltip_purchase_buyback":"买活次数",
   "tooltip_used_ward_observer":"游戏期间放置侦查守卫（假眼）次数",
   "tooltip_used_ward_sentry":"游戏期间放置岗哨守卫（真眼）次数",
+  "tooltip_used_dust":"Number of times Dust of Appearance was used during the game",
+  "tooltip_used_smoke_of_deceit":"Number of times Smoke of Deceit was used during the game",
   "tooltip_parsed":"录像已分析，将能看到更多的数据。",
   "tooltip_unparsed":"此录像暂未分析，有些数据暂时无法获取。",
   "tooltip_hero_id":"玩家使用的英雄",
@@ -612,5 +616,10 @@
   "teamfight_participation":"参战率",
   "teamfight_score":"团战击杀",
   "teamfight_radiant_gold_adv":"正向为天辉经济优势",
-  "teamfight_radiant_xp_adv":"正向为天辉经验优势"
+  "teamfight_radiant_xp_adv":"正向为天辉经验优势",
+  "vision_expired":"Expired after",
+  "vision_destroyed":"Destroyed after",
+  "vision_all_time":"All time",
+  "vision_placed_observer":"placed Observer at",
+  "vision_placed_sentry":"placed Sentry at"
 }
