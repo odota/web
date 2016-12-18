@@ -46,6 +46,7 @@ class Dropdown extends Component {
           anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
           targetOrigin={{ horizontal: 'left', vertical: 'top' }}
           onRequestClose={this.handleRequestClose}
+          className={styles.popoverContainer}
         >
           <Menu>
             {React.Children.map(children, child => (
