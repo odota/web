@@ -470,6 +470,8 @@
   "th_DOTA_UNIT_ORDER_GLYPH":"문양 활성화",
   "th_DOTA_UNIT_ORDER_RADAR":"스캔",
   "th_ability_builds":"능력 빌드",
+  "th_purchase_shorthand":"PUR",
+  "th_use_shorthand":"USE",
   "th_country":"지역",
   "th_count":"Count",
   "th_average":"평균",
@@ -550,6 +552,8 @@
   "tooltip_purchase_buyback":"골드 부활 사용 횟수",
   "tooltip_used_ward_observer":"게임 동안 관찰 와드가 박힌 수",
   "tooltip_used_ward_sentry":"게임 동안 감시 와드가 박힌 수",
+  "tooltip_used_dust":"Number of times Dust of Appearance was used during the game",
+  "tooltip_used_smoke_of_deceit":"Number of times Smoke of Deceit was used during the game",
   "tooltip_parsed":"Replay has been parsed for additional data",
   "tooltip_unparsed":"이 매치에 관한 리플레이는 분석되지 않았습니다. 모든 데이터가 사용 가능하지 않습니다.",
   "tooltip_hero_id":"플레리어에 의해 사용된 영웅",
@@ -612,5 +616,10 @@
   "teamfight_participation":"Radiant participation/Dire participation",
   "teamfight_score":"Radiant kills/Dire kills",
   "teamfight_radiant_gold_adv":"Net gold advantage for Radiant",
-  "teamfight_radiant_xp_adv":"Net XP advantage for Radiant"
+  "teamfight_radiant_xp_adv":"Net XP advantage for Radiant",
+  "vision_expired":"Expired after",
+  "vision_destroyed":"Destroyed after",
+  "vision_all_time":"All time",
+  "vision_placed_observer":"placed Observer at",
+  "vision_placed_sentry":"placed Sentry at"
 }
