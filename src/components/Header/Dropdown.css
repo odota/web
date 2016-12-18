@@ -1,0 +1,14 @@
+@import "../palette.css";
+
+.settingsButton {
+  & svg {
+    transition: var(--linearTransition);
+  }
+}
+
+.open {
+  & svg {
+    transform: rotate(90deg);
+    fill: var(--colorGolden) !important;
+  }
+}

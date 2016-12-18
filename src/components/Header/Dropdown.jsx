@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Popover from 'material-ui/Popover';
+import classNames from 'classnames';
+import styles from './Dropdown.css';
 
 class Dropdown extends Component {
   constructor() {
@@ -29,12 +31,17 @@ class Dropdown extends Component {
 
   render() {
     const { Button, buttonProps, className, children } = this.props;
+    const { open } = this.state;
     return (
       <div className={className}>
-        <Button onTouchTap={this.handleTouchTap} {...buttonProps} />
+        <Button
+          onTouchTap={this.handleTouchTap}
+          className={classNames(styles.dropButton, open && styles.open)}
+          {...buttonProps}
+        />
         <Popover
           autoCloseWhenOffScreen={false}
-          open={this.state.open}
+          open={open}
           anchorEl={this.state.anchorEl}
           anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
           targetOrigin={{ horizontal: 'left', vertical: 'top' }}
