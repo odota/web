@@ -1,0 +1,27 @@
+@import "../palette.css";
+
+:export {
+  selected: var(--colorGolden);
+}
+
+.container {
+  min-width: 200px;
+}
+
+.languageContainer {
+  max-height: 300px;
+  overflow: auto;
+}
+
+.clickable {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  transition: var(--linearTransition);
+  padding-right: 10px;
+}
+
+.open svg {
+  transform: rotate(90deg);
+}

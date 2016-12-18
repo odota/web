@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import IconButton from 'material-ui/IconButton';
+import ActionSettings from 'material-ui/svg-icons/action/settings';
 import { Row, Col } from 'react-flexbox-grid';
 // import FlatButton from 'material-ui/FlatButton';
 // import IconButton from 'material-ui/IconButton/IconButton';
@@ -12,6 +14,8 @@ import { Row, Col } from 'react-flexbox-grid';
 // import AppBar from 'material-ui/AppBar';
 import Bug from 'material-ui/svg-icons/action/bug-report';
 import strings from 'lang';
+import { LocalizationMenu } from 'components/Localization';
+import Dropdown from 'components/Header/Dropdown';
 import AccountWidget from '../AccountWidget';
 import styles from './Header.css';
 import SearchForm from '../Search/SearchForm';
@@ -21,32 +25,40 @@ import BurgerMenu from '../BurgerMenu';
 const tablet = 864;
 const mobile = 425;
 
+const REPORT_BUG_PATH = '//github.com/odota/ui/issues';
+
 // TODO Explorer
-const navbarPages = [{
-  name: strings.header_matches,
-  path: '/matches',
-}, {
-  name: strings.header_heroes,
-  path: '/heroes',
-}, {
-  name: strings.header_distributions,
-  path: '/distributions',
-}];
-
-const navbarBug = {
-  name: strings.app_report_bug,
-  external: true,
-  path: '//github.com/odota/ui/issues',
-};
-
-const extendedNavbarPages = [
-  ...navbarPages,
-  navbarBug,
+const navbarPages = [
+  <Link key={strings.header_matches} to="/matches">{strings.header_matches}</Link>,
+  <Link key={strings.header_heroes} to="/heroes">{strings.header_heroes}</Link>,
+  <Link key={strings.header_distributions} to="/distributions">{strings.header_distributions}</Link>,
 ];
+
+const burgerItems = width => [
+  {
+    component: <AccountWidget key={0} />,
+    close: true,
+  },
+  {
+    component: width <= mobile ? <LocalizationMenu /> : null,
+  },
+  ...navbarPages.map(item => ({
+    component: item,
+    close: true,
+  })),
+  {
+    component: <Link key={strings.app_report_bug} to={REPORT_BUG_PATH}>{strings.app_report_bug}</Link>,
+    close: true,
+  },
+];
+
+const buttonProps = {
+  children: <ActionSettings />,
+};
 
 const LogoGroup = ({ width }) => (
   <ToolbarGroup className={styles.verticalAlign}>
-    {width < tablet && <BurgerMenu links={width <= mobile ? extendedNavbarPages : navbarPages} top={<AccountWidget />} />}
+    {width < tablet && <BurgerMenu menuItems={burgerItems(width)} />}
     <AppLogo style={{ marginRight: 18 }} size={width < mobile && '14px'} />
   </ToolbarGroup>
 );
@@ -55,10 +67,7 @@ const LinkGroup = () => (
   <ToolbarGroup className={styles.verticalAlign}>
     {navbarPages.map(page => (
       <div key={page.name} className={styles.tabContainer}>
-        {page.external ?
-          <a href={page.path} className={styles.tab} rel="noopener noreferrer" target="_blank">{page.name}</a>
-          : <Link to={page.path} className={styles.tab}>{page.name}</Link>
-        }
+        {React.cloneElement(page, { className: styles.tab })}
       </div>
     ))}
   </ToolbarGroup>
@@ -77,16 +86,27 @@ const AccountGroup = () => (
   </ToolbarGroup>
 );
 
+const SettingsGroup = ({ width }) => width > mobile && (
+  <Dropdown
+    Button={IconButton}
+    buttonProps={buttonProps}
+    className={styles.verticalAlign}
+  >
+    <LocalizationMenu />
+    <ReportBug />
+  </Dropdown>
+);
+
 const ReportBug = () => (
   <a
     className={styles.bug}
-    href={navbarBug.path}
+    href={REPORT_BUG_PATH}
     target="_blank"
     rel="noopener noreferrer"
   >
     <Bug />
     <span>
-      {navbarBug.name}
+      {strings.app_report_bug}
     </span>
   </a>
 );
@@ -94,11 +114,15 @@ const ReportBug = () => (
 const Header = ({ location, width }) => (
   <div>
     <Toolbar style={{ padding: width < mobile ? '8px' : '20px' }} className={styles.header}>
-      <LogoGroup width={width} />
-      {width > tablet && <LinkGroup />}
-      <SearchGroup location={location} />
-      {width > mobile && <ReportBug />}
-      {width > tablet && <AccountGroup />}
+      <div className={styles.verticalAlign}>
+        <LogoGroup width={width} />
+        {width > tablet && <LinkGroup />}
+        <SearchGroup location={location} />
+      </div>
+      <div className={styles.accountGroup}>
+        {width > tablet && <AccountGroup />}
+        {<SettingsGroup width={width} />}
+      </div>
     </Toolbar>
     <Row center="xs">
       <Col xs>

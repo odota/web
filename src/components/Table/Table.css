@@ -11,7 +11,7 @@
   overflow-x: auto !important;
 }
 
-.headerCellNoSort {
+.headerCell {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -19,10 +19,6 @@
   text-transform: uppercase;
   color: var(--primaryTextColor) !important;
   font-weight: 500;
-}
-
-.headerCell {
-  composes: headerCellNoSort;
 }
 
 /* Override material-ui style */

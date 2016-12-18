@@ -78,9 +78,9 @@ export const Tombstones = ({ deathPositions, mapWidth, tooltipKey }) => (
           class={styles[`${getTombStyle(position)}TombstoneTooltip`]}
         >
           {position.map((pos, index) => (
-            <div key={index} className={styles.tombstoneTooltipContainer}>
+            <div key={index} className={styles.tooltipContainer}>
               <PlayerThumb {...pos.player} />
-              <div className={styles.tombTextKiller}>{strings.tooltip_tombstone_killer}</div>
+              <div>{strings.tooltip_tombstone_killer}</div>
               <PlayerThumb {...pos.killer} />
             </div>
           ))}
@@ -118,7 +118,7 @@ export const Teamfight = ({
         id={tooltipKey}
         effect="solid"
       >
-        <div className={styles.tooltipContainer}>
+        <div className={styles.teamfightTooltipContainer}>
           <div>{formatSeconds(start)} - {formatSeconds(end)}</div>
           <div>
             <GoldDelta radiantGoldDelta={radiantGoldDelta} />

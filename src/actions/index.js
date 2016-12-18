@@ -24,3 +24,4 @@ export * from './requestActions';
 export * from './distributionsActions';
 export * from './proPlayersActions';
 export * from './proMatchesActions';
+export * from './localizationActions';

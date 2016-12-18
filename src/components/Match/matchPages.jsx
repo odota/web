@@ -3,7 +3,7 @@ import strings from 'lang';
 import Heading from 'components/Heading';
 import Table from 'components/Table';
 import TeamfightMap from 'components/Match/TeamfightMap';
-import VisionPage from './VisionPage';
+import Vision from './Vision';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
 import MatchGraph from './MatchGraph';
@@ -147,7 +147,7 @@ const matchPages = [Overview, {
   name: strings.tab_vision,
   key: 'vision',
   parsed: true,
-  content: match => <VisionPage match={match} />,
+  content: match => <Vision match={match} />,
 }, {
   name: strings.tab_actions,
   key: 'actions',
@@ -206,6 +206,6 @@ const matchPages = [Overview, {
 
 export default (matchId, match) => matchPages.map(page => ({
   ...page,
-  route: `/matches/${matchId}/${page.name.toLowerCase()}`,
+  route: `/matches/${matchId}/${page.key.toLowerCase()}`,
   disabled: match && !match.version && page.parsed,
 }));

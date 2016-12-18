@@ -32,6 +32,11 @@
   justify-content: center;
 }
 
+.accountGroup {
+  composes: verticalAlign;
+  margin-left: auto;
+}
+
 .emptyTabBarContainer {
   padding: 5px;
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
@@ -39,7 +44,6 @@
 }
 
 .bug {
-  margin-left: auto;
   font-size: var(--fontSizeMedium);
   font-weight: var(--fontWeightLight);
   color: var(--colorMutedLight) !important;

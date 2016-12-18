@@ -4,7 +4,6 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
-import { Link } from 'react-router';
 import styles from './BurgerMenu.css';
 
 export default class BurgerMenu extends React.Component {
@@ -24,25 +23,17 @@ export default class BurgerMenu extends React.Component {
         </IconButton>
         <Drawer
           docked={false}
-          width={200}
+          width={260}
           open={this.state.open}
           onRequestChange={open => this.setState({ open })}
           className={styles.drawer}
         >
-          <Menu onTouchTap={this.handleClose}>
-            <MenuItem>
-              {this.props.top}
-            </MenuItem>
-            {
-              this.props.links.map((page, index) => (
-                <MenuItem key={index}>
-                  {page.external ?
-                    <a href={page.path} className={styles.tab} rel="noopener noreferrer" target="_blank">{page.name}</a> :
-                    <Link to={page.path} className={styles.tab}>{page.name}</Link>
-                  }
-                </MenuItem>
-              ))
-            }
+          <Menu>
+            {this.props.menuItems.map((item, index) => (
+              <MenuItem key={index} onTouchTap={item.close && this.handleClose}>
+                {item.component}
+              </MenuItem>
+            ))}
           </Menu>
         </Drawer>
       </div>

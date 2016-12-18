@@ -1,5 +1,11 @@
 @import "../palette.css";
 
+.group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .account {
   min-width: 30px !important;
 

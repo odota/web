@@ -14,10 +14,6 @@
   margin: 0 5px 10px 5px;
 }
 
-.muted {
-  color: var(--colorMutedLight);
-}
-
 .headerGold {
   margin: 0 25px;
 }
@@ -79,19 +75,6 @@
   opacity: 0.75;
 }
 
-.tombText {
-  margin: 10px 0;
-
-  &:first-child {
-    margin-top: 0;
-  }
-}
-
-.tombTextKiller {
-  composes: tombText;
-  composes: muted;
-}
-
 .bothTombstone {
   composes: tombstone;
 }
@@ -104,12 +87,6 @@
 .direTombstone {
   composes: tombstone;
   fill: var(--colorDanger);
-}
-
-.tooltipContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .tombstoneTooltip {
@@ -131,23 +108,9 @@
   border-color: var(--colorGolden) !important;
 }
 
-.tombstoneTooltipContainer {
+.teamfightTooltipContainer {
   composes: tooltipContainer;
-  flex-direction: row;
-  padding: 10px;
-  margin: -8px -12px;
-
-  & > * {
-    margin: 0 5px;
-
-    &:first-child {
-      margin-left: 0;
-    }
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
+  flex-direction: column;
 }
 
 .winner {

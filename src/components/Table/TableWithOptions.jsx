@@ -12,19 +12,24 @@ class TableWithOptions extends Component {
   render() {
     const { paginated, maxRows, data, ...rest } = this.props;
     let TableWithOptions = Table;
+
     if (paginated) {
       TableWithOptions = withPagination(TableWithOptions, this.id);
     }
+
     TableWithOptions = withSort(TableWithOptions, this.id);
+
     // we don't care about 0 row tables right?
     const modifiedData = maxRows && maxRows <= data.length ?
       data.slice(0, maxRows) :
       data;
+
     return <TableWithOptions data={modifiedData} {...rest} />;
   }
 }
 
 const { bool, number, arrayOf, object } = PropTypes;
+
 TableWithOptions.propTypes = {
   paginated: bool,
   maxRows: number,
