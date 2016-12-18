@@ -16,9 +16,8 @@ const LoggedIn = ({ loading, error, playerId, playerName, playerPicture }) => {
   const getPlayerWidget = () => {
     if (error) return <Error />;
     if (loading) return <Spinner color="#fff" size={0.5} />;
-
     return (
-      <div className={styles.verticalAlign}>
+      <div className={styles.group}>
         <Link to={`/players/${playerId}`}>
           <FlatButton
             label={playerName}

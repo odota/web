@@ -206,6 +206,6 @@ const matchPages = [Overview, {
 
 export default (matchId, match) => matchPages.map(page => ({
   ...page,
-  route: `/matches/${matchId}/${page.name.toLowerCase()}`,
+  route: `/matches/${matchId}/${page.key.toLowerCase()}`,
   disabled: match && !match.version && page.parsed,
 }));
