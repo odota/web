@@ -470,6 +470,8 @@
   "th_DOTA_UNIT_ORDER_GLYPH":"УКРЕП",
   "th_DOTA_UNIT_ORDER_RADAR":"СКН",
   "th_ability_builds":"ПС",
+  "th_purchase_shorthand":"PUR",
+  "th_use_shorthand":"USE",
   "th_country":"Страна",
   "th_count":"Кол-во",
   "th_average":"Среднее",
@@ -550,6 +552,8 @@
   "tooltip_purchase_buyback":"Использовано выкупов",
   "tooltip_used_ward_observer":"Количество установленных Observer Ward",
   "tooltip_used_ward_sentry":"Количество установленных Sentry Ward",
+  "tooltip_used_dust":"Number of times Dust of Appearance was used during the game",
+  "tooltip_used_smoke_of_deceit":"Number of times Smoke of Deceit was used during the game",
   "tooltip_parsed":"Запись матча была обработана для получения дополнительных данных",
   "tooltip_unparsed":"Повтор ещё не обработан. Не все данные могут быть доступны.",
   "tooltip_hero_id":"Герой, на котором играл игрок",
@@ -612,5 +616,10 @@
   "teamfight_participation":"Участие Radiant/Dire",
   "teamfight_score":"Убийства Radiant/Dire",
   "teamfight_radiant_gold_adv":"Преимущество Radiant по чистому золоту",
-  "teamfight_radiant_xp_adv":"Преимущество Radiant по чистому опыту"
+  "teamfight_radiant_xp_adv":"Преимущество Radiant по чистому опыту",
+  "vision_expired":"Expired after",
+  "vision_destroyed":"Destroyed after",
+  "vision_all_time":"All time",
+  "vision_placed_observer":"placed Observer at",
+  "vision_placed_sentry":"placed Sentry at"
 }
