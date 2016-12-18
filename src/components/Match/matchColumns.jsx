@@ -207,7 +207,7 @@ export const overviewColumns = (match) => {
         {row.ability_upgrades_arr ? <NavigationMoreHoriz /> : <NavigationMoreHoriz style={{ opacity: 0.4 }} />}
         <ReactTooltip id={`au_${row.player_slot}`} place="left" effect="solid">
           {row.ability_upgrades_arr ? row.ability_upgrades_arr.map(
-            (ab, i) => {
+            (ab) => {
               if (ab && abilityIds[ab]) {
                 return (
                   <div className={styles.ability}>
