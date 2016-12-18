@@ -69,7 +69,7 @@ export const langs = [
   }, {
     value: 'zh',
     translated: lang.language_zh,
-    native: '汉语/漢語',
+    native: '汉语',
   },
 ];
 
