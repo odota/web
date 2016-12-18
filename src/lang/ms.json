@@ -470,6 +470,8 @@
   "th_DOTA_UNIT_ORDER_GLYPH":"GLIF",
   "th_DOTA_UNIT_ORDER_RADAR":"IMB",
   "th_ability_builds":"PK",
+  "th_purchase_shorthand":"PUR",
+  "th_use_shorthand":"USE",
   "th_country":"Negara",
   "th_count":"Jumlah",
   "th_average":"Purata",
@@ -550,6 +552,8 @@
   "tooltip_purchase_buyback":"Buyback digunakan",
   "tooltip_used_ward_observer":"Jumlah Ward pemerhati diletakkan sepanjang permainan",
   "tooltip_used_ward_sentry":"Jumlah Ward Sentri diletakkan sepanjang permainan",
+  "tooltip_used_dust":"Number of times Dust of Appearance was used during the game",
+  "tooltip_used_smoke_of_deceit":"Number of times Smoke of Deceit was used during the game",
   "tooltip_parsed":"Replay telah dihuraikan bagi data tambahan",
   "tooltip_unparsed":"Replay perlawanan ini belum dihuraikan. Mungkin tidak semua data boleh didapati.",
   "tooltip_hero_id":"Hero yang dimainkan oleh pemain",
@@ -612,5 +616,10 @@
   "teamfight_participation":"Penglibatan Radiant/Penglibatan Dire",
   "teamfight_score":"Pembunuhan Radiant/Pembunuhan Dire",
   "teamfight_radiant_gold_adv":"Kelebihan Jaringan Emas bagi Radiant",
-  "teamfight_radiant_xp_adv":"Kelebihan Jaringan XP bagi Radiant"
+  "teamfight_radiant_xp_adv":"Kelebihan Jaringan XP bagi Radiant",
+  "vision_expired":"Expired after",
+  "vision_destroyed":"Destroyed after",
+  "vision_all_time":"All time",
+  "vision_placed_observer":"placed Observer at",
+  "vision_placed_sentry":"placed Sentry at"
 }
