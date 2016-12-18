@@ -9,10 +9,8 @@ import CrossTable from './CrossTable';
 import MatchGraph from './MatchGraph';
 import MatchLog from './MatchLog';
 import {
-  // abilityUpgradeColumns,
   benchmarksColumns,
   performanceColumns,
-  supportColumns,
   chatColumns,
   purchaseTimesColumns,
   lastHitsTimesColumns,
@@ -46,10 +44,6 @@ const matchPages = [Overview, {
   content: match => (<div>
     <TeamTable
       players={match.players} columns={performanceColumns} heading={strings.heading_performances}
-      radiantTeam={match.radiant_team} direTeam={match.dire_team}
-    />
-    <TeamTable
-      players={match.players} columns={supportColumns} heading={strings.heading_support}
       radiantTeam={match.radiant_team} direTeam={match.dire_team}
     />
   </div>),

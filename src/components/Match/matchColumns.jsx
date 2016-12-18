@@ -211,7 +211,7 @@ export const overviewColumns = (match) => {
               if (ab && abilityIds[ab]) {
                 return (
                   <div className={styles.ability}>
-                    {inflictorWithValue(abilityIds[ab], `${strings.th_level} ${i + 1}`)}
+                    {inflictorWithValue(abilityIds[ab])}
                   </div>
                 );
               }
@@ -349,6 +349,12 @@ export const performanceColumns = [
     field: 'stuns',
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.toFixed(2) : '-'),
+  }, {
+    displayName: strings.th_stacked,
+    tooltip: strings.tooltip_camps_stacked,
+    field: 'camps_stacked',
+    sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_dead,
     tooltip: strings.tooltip_dead,
@@ -780,28 +786,5 @@ export const visionColumns = [
     sortFn: true,
     displayFn: row => (row.item_uses && row.item_uses.smoke_of_deceit) || '-',
   },
-  purchaseGemColumn,
-];
-
-export const supportColumns = [
-  heroTdColumn, {
-    center: true,
-    displayName: strings.th_stacked,
-    tooltip: strings.tooltip_camps_stacked,
-    field: 'camps_stacked',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
-    center: true,
-    displayName: strings.th_tpscroll,
-    tooltip: strings.tooltip_purchase_tpscroll,
-    field: 'purchase_tpscroll',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  },
-  purchaseObserverColumn,
-  purchaseSentryColumn,
-  purchaseDustColumn,
-  purchaseSmokeColumn,
   purchaseGemColumn,
 ];
