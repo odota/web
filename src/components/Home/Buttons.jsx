@@ -13,12 +13,8 @@ export default () => (
       <FlatButton
         label={
           <span className={styles.label}>
-            <span>
-              {strings.home_login}
-            </span>
-            <span>
-              {strings.home_login_desc}
-            </span>
+            <span>{strings.home_login} </span>
+            <span>{strings.home_login_desc}</span>
           </span>
         }
         icon={<IconSteam />}
@@ -30,12 +26,8 @@ export default () => (
         <FlatButton
           label={
             <span className={styles.label}>
-              <span>
-                {strings.home_parse}
-              </span>
-              <span>
-                {strings.home_parse_desc}
-              </span>
+              <span>{strings.home_parse} </span>
+              <span>{strings.home_parse_desc}</span>
             </span>
           }
           containerElement={<Link to="/request">{strings.home_parse}</Link>}
