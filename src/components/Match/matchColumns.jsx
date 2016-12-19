@@ -26,7 +26,7 @@ import ReactTooltip from 'react-tooltip';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
-import { IconRadiant, IconDire } from 'components/Icons';
+import { IconRadiant, IconDire, IconBackpack } from 'components/Icons';
 import styles from './Match.css';
 
 export const heroTd = (row, col, field, index, hideName, party) => (
@@ -192,7 +192,15 @@ export const overviewColumns = (match) => {
         <div className={styles.items}>
           {itemArray && <div>{itemArray}</div>}
           {additionalItemArray && <div>{additionalItemArray}</div>}
-          {backpackItemArray && <div>{backpackItemArray}</div>}
+          {backpackItemArray && backpackItemArray.length > 0 &&
+            <div className={styles.backpack}>
+              <div
+                data-hint="backpack items"
+                data-hint-position="bottom"
+              ><IconBackpack /></div>
+              {backpackItemArray}
+            </div>
+          }
         </div>
       );
     },

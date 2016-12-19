@@ -184,3 +184,27 @@
   opacity: 0.8;
   fill: var(--textColorPrimary);
 }
+
+.backpack {
+  display: flex;
+  align-items: center;
+
+  & > div {
+    position: relative;
+
+    &[data-hint] {
+      &::before {
+        left: 14px;
+      }
+      &::after {
+        margin-left: -34px;
+      }
+    }
+  }
+  & svg {
+    width: 21px;
+    height: 20px;
+    fill: var(--colorMutedLight);
+    margin: 0 10px;
+  }
+}
