@@ -196,11 +196,13 @@
       &::before {
         left: 14px;
       }
+
       &::after {
         margin-left: -34px;
       }
     }
   }
+
   & svg {
     width: 21px;
     height: 20px;
