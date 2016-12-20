@@ -627,6 +627,7 @@
   "tooltip_damage":"Ammontare di danno inflitto agli eroi da questo item/abilità",
   "tooltip_autoattack_other":"Auto attacco/Altro",
   "tooltip_estimated_mmr":"MMR stimato basato sugli MMR visibili delle partite recenti giocate da questo giocatore",
+  "tooltip_backpack":"Backpack",
   "xp_reasons_0":"Altro",
   "xp_reasons_1":"Creep",
   "xp_reasons_2":"Eroe",
