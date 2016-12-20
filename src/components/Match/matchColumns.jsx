@@ -195,7 +195,7 @@ export const overviewColumns = (match) => {
           {backpackItemArray && backpackItemArray.length > 0 &&
             <div className={styles.backpack}>
               <div
-                data-hint="backpack items"
+                data-hint={strings.tooltip_backpack}
                 data-hint-position="bottom"
               ><IconBackpack /></div>
               {backpackItemArray}
