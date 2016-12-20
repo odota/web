@@ -26,7 +26,7 @@ import ReactTooltip from 'react-tooltip';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
-import { IconRadiant, IconDire } from 'components/Icons';
+import { IconRadiant, IconDire, IconBackpack } from 'components/Icons';
 import styles from './Match.css';
 
 export const heroTd = (row, col, field, index, hideName, party) => (
@@ -154,6 +154,8 @@ export const overviewColumns = (match) => {
     displayFn: (row) => {
       const itemArray = [];
       const additionalItemArray = [];
+      const backpackItemArray = [];
+
       for (let i = 0; i < 6; i += 1) {
         const itemKey = itemIds[row[`item_${i}`]];
         const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey];
@@ -175,11 +177,30 @@ export const overviewColumns = (match) => {
             );
           }
         }
+
+        const backpackItemKey = itemIds[row[`backpack_${i}`]];
+        const backpackfirstPurchase = row.first_purchase_time && row.first_purchase_time[backpackItemKey];
+
+        if (items[backpackItemKey]) {
+          backpackItemArray.push(
+            inflictorWithValue(backpackItemKey, formatSeconds(backpackfirstPurchase)),
+          );
+        }
       }
+
       return (
         <div className={styles.items}>
           {itemArray && <div>{itemArray}</div>}
           {additionalItemArray && <div>{additionalItemArray}</div>}
+          {backpackItemArray && backpackItemArray.length > 0 &&
+            <div className={styles.backpack}>
+              <div
+                data-hint="backpack items"
+                data-hint-position="bottom"
+              ><IconBackpack /></div>
+              {backpackItemArray}
+            </div>
+          }
         </div>
       );
     },
