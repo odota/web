@@ -627,6 +627,7 @@
   "tooltip_damage":"Höhe des Schadens gegen Helden durch diese/s Fähigkeit/Item",
   "tooltip_autoattack_other":"Auto-Angriff / Sonstiges",
   "tooltip_estimated_mmr":"MMR-Schätzung anhand der durchschnittlichen sichtbaren MMR der letzten Spiele von diesem Benutzer",
+  "tooltip_backpack":"Backpack",
   "xp_reasons_0":"Sonstiges",
   "xp_reasons_1":"Creep",
   "xp_reasons_2":"Held",
