@@ -627,6 +627,7 @@
   "tooltip_damage":"Amount of damage dealt to heroes by this ability/item",
   "tooltip_autoattack_other":"Otomatik saldırı/Diğer",
   "tooltip_estimated_mmr":"Ölçülmüş ED, en son bu kullanıcının oynanan maçlardaki görünen ED ortalamasıdır",
+  "tooltip_backpack":"Backpack",
   "xp_reasons_0":"Diğer",
   "xp_reasons_1":"Yaratık",
   "xp_reasons_2":"Kahraman",
