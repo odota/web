@@ -636,8 +636,8 @@
   "teamfight_score":"Убийства Radiant/Dire",
   "teamfight_radiant_gold_adv":"Преимущество Radiant по чистому золоту",
   "teamfight_radiant_xp_adv":"Преимущество Radiant по чистому опыту",
-  "vision_expired":"Expired after",
-  "vision_destroyed":"Destroyed after",
+  "vision_expired":"Истекло после",
+  "vision_destroyed":"Уничтожено после",
   "vision_all_time":"За всё время",
   "vision_placed_observer":"установлено Observer Ward",
   "vision_placed_sentry":"установлено Sentry Ward"
