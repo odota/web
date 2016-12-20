@@ -627,6 +627,7 @@
   "tooltip_damage":"Jumlah Damage dilakukan ke atas Hero dengan kebolehan/item ini",
   "tooltip_autoattack_other":"Auto Serang/Lain",
   "tooltip_estimated_mmr":"Anggaran MMR adalah berdasarkan purata MMR nyata perlawanan terkini dimainkan oleh pengguna ini",
+  "tooltip_backpack":"Backpack",
   "xp_reasons_0":"Lain-lain",
   "xp_reasons_1":"Creep",
   "xp_reasons_2":"Hero",
