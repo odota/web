@@ -627,6 +627,7 @@
   "tooltip_damage":"Кількість пошкоджень викликаних цією здатністю/речью",
   "tooltip_autoattack_other":"Авто напад / інше",
   "tooltip_estimated_mmr":"MMR приблизно засновано на середньому MMR цього гравця з останніх матчів",
+  "tooltip_backpack":"Backpack",
   "xp_reasons_0":"Інші",
   "xp_reasons_1":"Кріп",
   "xp_reasons_2":"Герой",
