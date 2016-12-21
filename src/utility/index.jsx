@@ -464,3 +464,7 @@ export const hsvToRgb = (h, s, v) => {
 
   return [r * 255, g * 255, b * 255];
 };
+
+
+// 12/13/2016 @ 5:00pm (UTC)
+export const isPost700 = unixDate => unixDate > 1481648400;
