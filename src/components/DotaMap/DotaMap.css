@@ -1,0 +1,23 @@
+.map {
+  position: relative;
+  background: url("/assets/images/dota2/map/detailed.png");
+  background-size: contain;
+}
+
+.mapSimple {
+  composes: map;
+  background: url("/assets/images/dota2/map/simple.png");
+  background-size: contain;
+}
+
+.map700 {
+  composes: map;
+  background: url("/assets/images/dota2/map/detailed_700.png");
+  background-size: contain;
+}
+
+.map700Simple {
+  composes: map;
+  background: url("/assets/images/dota2/map/simple_700.png");
+  background-size: contain;
+}
