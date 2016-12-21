@@ -15,7 +15,7 @@
   "analysis_expected":"of",
   "app_name":"OpenDota",
   "app_language":"语言",
-  "app_localization":"Localization",
+  "app_localization":"本地化",
   "app_description":"开源的Dota 2数据分析工具",
   "app_about":"关于",
   "app_privacy_terms":"隐私政策",
@@ -638,8 +638,8 @@
   "teamfight_radiant_gold_adv":"正向为天辉经济优势",
   "teamfight_radiant_xp_adv":"正向为天辉经验优势",
   "vision_expired":"Expired after",
-  "vision_destroyed":"Destroyed after",
+  "vision_destroyed":"已被摧毁",
   "vision_all_time":"全部时间",
-  "vision_placed_observer":"placed Observer at",
-  "vision_placed_sentry":"placed Sentry at"
+  "vision_placed_observer":"放置侦查守卫",
+  "vision_placed_sentry":"放置岗哨守卫"
 }
