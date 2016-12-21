@@ -5,6 +5,7 @@ import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
 import items from 'dotaconstants/json/items.json';
 import abilities from 'dotaconstants/json/abilities.json';
+import neutralAbilities from 'dotaconstants/json/neutral_abilities.json';
 import strings from 'lang';
 import styles from './inflictorWithValue.css';
 
@@ -53,17 +54,23 @@ export default (inflictor, value, type) => {
   if (inflictor !== undefined) {
     // TODO use abilities if we need the full info immediately
     const ability = abilities[inflictor];
+    const neutralAbility = neutralAbilities[inflictor];
     const item = items[inflictor];
     let image;
     let tooltip = strings.tooltip_autoattack_other;
     const ttId = uuid.v4();
 
     if (ability) {
-      image = `${API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
+      image = inflictor.indexOf('bonus') !== -1
+        ? '/assets/images/stats.png'
+        : `${API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
       tooltip = tooltipContainer(ability);
     } else if (item) {
       image = `${API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`;
       tooltip = tooltipContainer(item);
+    } else if (neutralAbility) {
+      image = neutralAbility.img;
+      tooltip = tooltipContainer(neutralAbility);
     } else {
       image = '/assets/images/default_attack.png';
     }

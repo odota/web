@@ -207,12 +207,11 @@ export const overviewColumns = (match) => {
         {row.ability_upgrades_arr ? <NavigationMoreHoriz /> : <NavigationMoreHoriz style={{ opacity: 0.4 }} />}
         <ReactTooltip id={`au_${row.player_slot}`} place="left" effect="solid">
           {row.ability_upgrades_arr ? row.ability_upgrades_arr.map(
-            (ab, i) => {
-              if (ab && !abilityIds[ab].includes('attribute_bonus')) {
-                // Here I hide stat upgrades, if necessary it can be displayed
+            (ab) => {
+              if (ab && abilityIds[ab]) {
                 return (
                   <div className={styles.ability}>
-                    {inflictorWithValue(abilityIds[ab], `${strings.th_level} ${i + 1}`)}
+                    {inflictorWithValue(abilityIds[ab])}
                   </div>
                 );
               }
@@ -351,6 +350,12 @@ export const performanceColumns = [
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.toFixed(2) : '-'),
   }, {
+    displayName: strings.th_stacked,
+    tooltip: strings.tooltip_camps_stacked,
+    field: 'camps_stacked',
+    sortFn: true,
+    displayFn: (row, col, field) => field || '-',
+  }, {
     displayName: strings.th_dead,
     tooltip: strings.tooltip_dead,
     field: 'life_state_dead',
@@ -380,58 +385,12 @@ export const performanceColumns = [
   },
 ];
 
-export const supportColumns = [
-  heroTdColumn, {
-    displayName: strings.th_stacked,
-    tooltip: strings.tooltip_camps_stacked,
-    field: 'camps_stacked',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
-    displayName: strings.th_tpscroll,
-    tooltip: strings.tooltip_purchase_tpscroll,
-    field: 'purchase_tpscroll',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
-    displayName: strings.th_ward_observer,
-    tooltip: strings.tooltip_purchase_ward_observer,
-    field: 'purchase_ward_observer',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
-    displayName: strings.th_ward_sentry,
-    tooltip: strings.tooltip_purchase_ward_sentry,
-    field: 'purchase_ward_sentry',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
-    displayName: strings.th_smoke_of_deceit,
-    tooltip: strings.tooltip_purchase_smoke_of_deceit,
-    field: 'purchase_smoke_of_deceit',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
-    displayName: strings.th_dust,
-    tooltip: strings.tooltip_purchase_dust,
-    field: 'purchase_dust',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
-    displayName: strings.th_gem,
-    tooltip: strings.tooltip_purchase_gem,
-    field: 'purchase_gem',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  },
-];
-
 export const chatColumns = [
   {
     displayName: strings.filter_is_radiant,
     field: '',
     displayFn: row =>
-      <div className={styles.chatTeamIcon}>
+      <div className={styles.teamIconContainer}>
         {
           row.isRadiant ?
             <IconRadiant className={styles.iconRadiant} /> :
@@ -706,4 +665,126 @@ export const teamfightColumns = [
     field: 'item_uses',
     displayFn: inflictorRow(items),
   },
+];
+
+const purchaseObserverColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} role="presentation" />
+      &nbsp;{strings.th_purchase_shorthand}
+    </div>
+  ),
+  tooltip: strings.tooltip_purchase_ward_observer,
+  field: 'purchase_ward_observer',
+  sortFn: true,
+  displayFn: (row, col, field) => field || '-',
+};
+
+const purchaseSentryColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} role="presentation" />
+      &nbsp;{strings.th_purchase_shorthand}
+    </div>
+  ),
+  tooltip: strings.tooltip_purchase_ward_sentry,
+  field: 'purchase_ward_sentry',
+  sortFn: true,
+  displayFn: (row, col, field) => field || '-',
+};
+
+const purchaseDustColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${API_HOST}/apps/dota2/images/items/dust_lg.png`} role="presentation" />
+      &nbsp;{strings.th_purchase_shorthand}
+    </div>
+  ),
+  tooltip: strings.tooltip_purchase_dust,
+  field: 'purchase_dust',
+  sortFn: true,
+  displayFn: (row, col, field) => field || '-',
+};
+
+const purchaseSmokeColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} role="presentation" />
+      &nbsp;{strings.th_purchase_shorthand}
+    </div>
+  ),
+  tooltip: strings.tooltip_purchase_smoke_of_deceit,
+  field: 'purchase_smoke_of_deceit',
+  sortFn: true,
+  displayFn: (row, col, field) => field || '-',
+};
+
+const purchaseGemColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${API_HOST}/apps/dota2/images/items/gem_lg.png`} role="presentation" />
+    </div>
+  ),
+  tooltip: strings.tooltip_purchase_gem,
+  field: 'purchase_gem',
+  sortFn: true,
+  displayFn: (row, col, field) => field || '-',
+};
+
+export const visionColumns = [
+  heroTdColumn,
+  purchaseObserverColumn, {
+    center: true,
+    displayName: (
+      <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+        <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} role="presentation" />
+        &nbsp;{strings.th_use_shorthand}
+      </div>
+    ),
+    tooltip: strings.tooltip_used_ward_observer,
+    sortFn: true,
+    displayFn: row => (row.item_uses && row.item_uses.ward_observer) || '-',
+  },
+  purchaseSentryColumn, {
+    center: true,
+    displayName: (
+      <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+        <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} role="presentation" />
+        &nbsp;{strings.th_use_shorthand}
+      </div>
+    ),
+    tooltip: strings.tooltip_used_ward_sentry,
+    sortFn: true,
+    displayFn: row => (row.item_uses && row.item_uses.ward_sentry) || '-',
+  },
+  purchaseDustColumn, {
+    center: true,
+    displayName: (
+      <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+        <img height="15" src={`${API_HOST}/apps/dota2/images/items/dust_lg.png`} role="presentation" />
+        &nbsp;{strings.th_use_shorthand}
+      </div>
+    ),
+    tooltip: strings.tooltip_used_dust,
+    sortFn: true,
+    displayFn: row => (row.item_uses && row.item_uses.dust) || '-',
+  },
+  purchaseSmokeColumn, {
+    center: true,
+    displayName: (
+      <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+        <img height="15" src={`${API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} role="presentation" />
+        &nbsp;{strings.th_use_shorthand}
+      </div>
+    ),
+    tooltip: strings.tooltip_used_smoke_of_deceit,
+    sortFn: true,
+    displayFn: row => (row.item_uses && row.item_uses.smoke_of_deceit) || '-',
+  },
+  purchaseGemColumn,
 ];

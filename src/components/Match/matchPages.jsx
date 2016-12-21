@@ -3,16 +3,14 @@ import strings from 'lang';
 import Heading from 'components/Heading';
 import Table from 'components/Table';
 import TeamfightMap from 'components/Match/TeamfightMap';
-import VisionPage from './VisionPage';
+import Vision from './Vision';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
 import MatchGraph from './MatchGraph';
 import MatchLog from './MatchLog';
 import {
-  // abilityUpgradeColumns,
   benchmarksColumns,
   performanceColumns,
-  supportColumns,
   chatColumns,
   purchaseTimesColumns,
   lastHitsTimesColumns,
@@ -46,10 +44,6 @@ const matchPages = [Overview, {
   content: match => (<div>
     <TeamTable
       players={match.players} columns={performanceColumns} heading={strings.heading_performances}
-      radiantTeam={match.radiant_team} direTeam={match.dire_team}
-    />
-    <TeamTable
-      players={match.players} columns={supportColumns} heading={strings.heading_support}
       radiantTeam={match.radiant_team} direTeam={match.dire_team}
     />
   </div>),
@@ -147,10 +141,7 @@ const matchPages = [Overview, {
   name: strings.tab_vision,
   key: 'vision',
   parsed: true,
-  content: match => (<div>
-    <Heading title={strings.heading_vision} />
-    <VisionPage match={match} />
-  </div>),
+  content: match => <Vision match={match} />,
 }, {
   name: strings.tab_actions,
   key: 'actions',
@@ -209,6 +200,6 @@ const matchPages = [Overview, {
 
 export default (matchId, match) => matchPages.map(page => ({
   ...page,
-  route: `/matches/${matchId}/${page.name.toLowerCase()}`,
+  route: `/matches/${matchId}/${page.key.toLowerCase()}`,
   disabled: match && !match.version && page.parsed,
 }));

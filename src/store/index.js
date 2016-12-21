@@ -29,9 +29,14 @@ const reducer = combineReducers({
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /* eslint-enable */
 
-export default createStore(reducer, composeEnhancers(
-  createResponsiveStoreEnhancer({ performanceMode: true }),
-  applyMiddleware(thunkMiddleware),
-  process.env.NODE_ENV === 'production' ? f => f : applyMiddleware(loggerMiddleware),
-  applyMiddleware(routerMiddleware(browserHistory)),
-));
+const localization = localStorage.getItem('localization');
+
+export default createStore(
+  reducer,
+  { app: { localization } },
+  composeEnhancers(
+    createResponsiveStoreEnhancer({ performanceMode: true }),
+    applyMiddleware(thunkMiddleware),
+    process.env.NODE_ENV === 'production' ? f => f : applyMiddleware(loggerMiddleware),
+    applyMiddleware(routerMiddleware(browserHistory)),
+  ));

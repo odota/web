@@ -133,7 +133,7 @@ function generateTeamfights({ players, teamfights = [] }) {
 }
 
 // create a detailed history of each wards
-function generateWardLog(match) {
+function generateVisionLog(match) {
   const computeWardData = (player, i) => {
     const sameWard = _.curry((w1, w2) => w1.ehandle === w2.ehandle);
 
@@ -147,7 +147,7 @@ function generateWardLog(match) {
     };
 
     // let's zip the *_log and the *_left log in a 2-tuples
-    const extractWardLog = (type, enteredLog, leftLog) =>
+    const extractVisionLog = (type, enteredLog, leftLog) =>
       enteredLog.map((e) => {
         const wards = [e, leftLog.find(sameWard(e))];
         return {
@@ -160,19 +160,20 @@ function generateWardLog(match) {
       })
     ;
 
-    const observers = extractWardLog('observer', safePlayer.obs_log, safePlayer.obs_left_log);
-    const sentries = extractWardLog('sentry', safePlayer.sen_log, safePlayer.sen_left_log);
+    const observers = extractVisionLog('observer', safePlayer.obs_log, safePlayer.obs_left_log);
+    const sentries = extractVisionLog('sentry', safePlayer.sen_log, safePlayer.sen_left_log);
     return _.concat(observers, sentries);
   };
 
   const imap = _.map.convert({ cap: false }); // cap: false to keep the index
-  const wardLog = _.flow(
+  const visionLog = _.flow(
     imap(computeWardData),
     _.flatten,
     _.sortBy(xs => xs.entered.time),
     imap((x, i) => ({ ...x, key: i })),
   );
-  return wardLog(match.players || []);
+
+  return visionLog(match.players || []);
 }
 
 function renderMatch(m) {
@@ -259,7 +260,7 @@ function renderMatch(m) {
     graphData: generateGraphData(m),
     teamfights: generateTeamfights(m),
     players: newPlayers,
-    wards_log: generateWardLog(immutable(m)),
+    wards_log: generateVisionLog(immutable(m)),
     objectives: newObjectives,
   };
 }

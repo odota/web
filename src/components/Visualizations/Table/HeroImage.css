@@ -6,16 +6,17 @@
   justify-content: center;
   line-height: 1.2;
   width: 120px;
+  text-align: left;
 
   & > span {
     position: relative;
+    white-space: nowrap;
 
     & a {
       display: inline-block;
       width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
       vertical-align: sub;
     }
   }

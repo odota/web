@@ -13,8 +13,8 @@ export default listData(initialState, proPlayersActions);
 
 const extract = item => `${item.name}${item.team_name}`;
 
-export const proPlayers = {
+export const getProPlayers = {
   ...selectors(state => state.app.proPlayers),
-  getFilteredList: (state, query) => fuzzy.filter(query, proPlayers.getList(state), { extract })
+  getFilteredList: (state, query) => fuzzy.filter(query, getProPlayers.getList(state), { extract })
     .map(item => ({ ...item.original })),
 };

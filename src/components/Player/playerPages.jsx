@@ -63,32 +63,25 @@ const playerPages = [{
     location={location}
     trendName={routeParams.subInfo}
   />),
-},
-/* {
-  name: strings.tab_items,
-  key: 'items',
-  content: (playerId, routeParams, location) => (<ItemsPage playerId={playerId} routeParams={routeParams} location={location} />),
-},
-*/
-  {
-    name: strings.tab_wardmap,
-    key: 'wardmap',
-    content: (playerId, routeParams, location) => (<WardmapPage playerId={playerId} routeParams={routeParams} location={location} />),
-  }, {
-    name: strings.tab_wordcloud,
-    key: 'wordcloud',
-    content: (playerId, routeParams, location) => (<WordcloudPage playerId={playerId} routeParams={routeParams} location={location} />),
-  }, {
-    name: strings.tab_mmr,
-    key: 'mmr',
-    content: (playerId, routeParams, location) => (<MMRPage playerId={playerId} routeParams={routeParams} location={location} />),
-  }, {
-    name: strings.tab_rankings,
-    key: 'rankings',
-    content: (playerId, routeParams, location) => (<RankingsPage playerId={playerId} routeParams={routeParams} location={location} />),
-  }];
+}, {
+  name: strings.tab_wardmap,
+  key: 'wardmap',
+  content: (playerId, routeParams, location) => (<WardmapPage playerId={playerId} routeParams={routeParams} location={location} />),
+}, {
+  name: strings.tab_wordcloud,
+  key: 'wordcloud',
+  content: (playerId, routeParams, location) => (<WordcloudPage playerId={playerId} routeParams={routeParams} location={location} />),
+}, {
+  name: strings.tab_mmr,
+  key: 'mmr',
+  content: (playerId, routeParams, location) => (<MMRPage playerId={playerId} routeParams={routeParams} location={location} />),
+}, {
+  name: strings.tab_rankings,
+  key: 'rankings',
+  content: (playerId, routeParams, location) => (<RankingsPage playerId={playerId} routeParams={routeParams} location={location} />),
+}];
 
 export default playerId => playerPages.map(page => ({
   ...page,
-  route: `/players/${playerId}/${page.name.toLowerCase()}`,
+  route: `/players/${playerId}/${page.key}`,
 }));

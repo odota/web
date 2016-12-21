@@ -1,20 +1,24 @@
 import React from 'react';
-import npmColor from 'color';
 import { Graph } from 'components/Visualizations';
 import strings from 'lang';
+import { hsvToRgb } from 'utility';
 
 const colorFn = columns => (color, data) => {
   if (data.index || data.index === 0) {
-    const { index, value } = data;
+    const {
+      index,
+      value,
+    } = data;
     const wins = columns[index] && columns[index].win;
     if (!value) {
-      return npmColor().rgb(255, 255, 255);
+      return '#FFFFFF';
     }
     const percent = wins / value;
     const adjustedVal = percent >= 0.5 ?
       percent + ((1 - percent) / 5) :
       percent - (percent / 5);
-    return npmColor().hsv((percent === 0.5 ? percent : adjustedVal) * 120, 90, 90).string();
+    const rgb = hsvToRgb(adjustedVal * (1 / 3), 0.9, 0.9);
+    return `rgb(${Math.floor(rgb[0])}, ${Math.floor(rgb[1])}, ${Math.floor(rgb[2])})`;
   }
   return color;
 };
@@ -28,7 +32,9 @@ const formatFn = columns => (value, id, index) => {
   return `${newValue}%`;
 };
 
-const HistogramGraph = ({ columns }) => (
+const HistogramGraph = ({
+  columns,
+}) => (
   <Graph
     type="bar"
     columns={columns.map(column => ({

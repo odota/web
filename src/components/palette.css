@@ -12,6 +12,9 @@
   --colorYelor:   #FFAB40; /* Yelor = YellowOrange */
   --colorGolden:  #e5c100;
 
+  --colorBlueMuted: rgba(102, 187, 255, 0.3);
+  --colorYelorMuted: rgba(255, 171, 64, 0.3);
+
   --colorMutedLight:   color(var(--colorMuted) lightness(70%));
 
   --primaryLinkColor: var(--colorBlue);
@@ -83,6 +86,9 @@
   yelor:           var(--colorYelor);
   yellowOrange:    var(--colorYelor);
 
+  blueMuted:  var(--colorBlueMuted);
+  yelorMuted: var(--colorYelorMuted);
+
   textColorPrimary:    var(--textColorPrimary);
   primaryTextColor:    var(--textColorPrimary);
   textColorSecondary:  var(--textColorSecondary);
@@ -138,4 +144,30 @@
     cursor: pointer;
   }
 }
+
+.tooltipContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 10px;
+  margin: -8px -12px;
+
+  & > * {
+    margin: 0 5px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  & > div {
+    margin: 0;
+    color: var(--colorMutedLight);
+  }
+}
+
 /* stylelint-enable */

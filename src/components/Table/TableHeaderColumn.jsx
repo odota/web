@@ -10,6 +10,11 @@ const TableHeaderColumn = ({ column, sortClick, sortField, sortState }) => {
   if (!column) {
     return null;
   }
+  const style = {};
+
+  if (column.center) {
+    style.justifyContent = 'center';
+  }
 
   return (
     <MaterialTableHeaderColumn
@@ -17,6 +22,9 @@ const TableHeaderColumn = ({ column, sortClick, sortField, sortState }) => {
     >
       <div
         className={column.sortFn ? styles.headerCell : styles.headerCellNoSort}
+        className={styles.headerCell}
+        onClick={() => column.sortFn && sortClick(column.field, sortState, column.sortFn)}
+        style={style}
       >
         <div data-tip={column.tooltip && true} data-for={tooltipId} style={{ color: column.color }}>
           {column.displayName}

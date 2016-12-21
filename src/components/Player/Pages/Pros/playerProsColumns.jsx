@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { TableLink } from 'components/Table';
 import { getPercentWin, transformations } from 'utility';
 import { TablePercent } from 'components/Visualizations';
 import strings from 'lang';
@@ -14,9 +14,9 @@ export default playerId => [{
   tooltip: strings.tooltip_matches,
   field: '',
   sortFn: row => row.with_games + row.against_games,
-  displayFn: row => (<div>
-    <Link to={`/players/${playerId}/matches?included_account_id=${row.account_id}`}>{row.with_games + row.against_games}</Link>
-  </div>),
+  displayFn: row => (
+    <TableLink to={`/players/${playerId}/matches?included_account_id=${row.account_id}`}>{row.with_games + row.against_games}</TableLink>
+  ),
 }, {
   displayName: strings.th_with_games,
   tooltip: strings.tooltip_played_with,

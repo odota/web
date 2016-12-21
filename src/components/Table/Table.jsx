@@ -36,13 +36,18 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
         {data.map((row, index) => (
           <MaterialTableRow key={index}>
             {columns.map((column, colIndex) => {
-              const MaterialTableRowColumnStyle = {
+              const style = {
                 // width: `${getWidthStyle(column.width, totalWidth)}%`,
                 overflow: `${column.field === 'kills' ? 'visible' : null}`,
                 color: column.color,
               };
+
+              if (column.center) {
+                style.textAlign = 'center';
+              }
+
               return (
-                <MaterialTableRowColumn key={colIndex} style={MaterialTableRowColumnStyle}>
+                <MaterialTableRowColumn key={colIndex} style={style}>
                   {row && column.displayFn && column.displayFn(row, column, row[column.field], index)}
                   {row && !column.displayFn && row[column.field]}
                 </MaterialTableRowColumn>

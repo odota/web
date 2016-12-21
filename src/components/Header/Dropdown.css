@@ -1,0 +1,24 @@
+@import "../palette.css";
+
+.popoverContainer {
+  /*
+  This overrides a material-ui style. I don't know of a better way to target the part of the
+  component we need to.
+  */
+  & > div > div > div {
+    overflow-y: hidden;
+  }
+}
+
+.settingsButton {
+  & svg {
+    transition: var(--linearTransition);
+  }
+}
+
+.open {
+  & svg {
+    transform: rotate(90deg);
+    fill: var(--colorGolden) !important;
+  }
+}
