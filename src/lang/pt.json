@@ -627,7 +627,7 @@
   "tooltip_damage":"Quantidade de dano causado em heróis por este item/habilidade",
   "tooltip_autoattack_other":"Auto Ataque/Outros",
   "tooltip_estimated_mmr":"Estimativa de MMR baseada na média visível de MMR dos jogos mais recentes deste usuário",
-  "tooltip_backpack":"Backpack",
+  "tooltip_backpack":"Mochila",
   "xp_reasons_0":"Outro",
   "xp_reasons_1":"Creep",
   "xp_reasons_2":"Herói",
