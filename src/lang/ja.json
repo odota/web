@@ -604,7 +604,7 @@
   "tooltip_DOTA_UNIT_ORDER_RADAR":"プレイヤーがスキャンを使用した回数",
   "tooltip_last_played":"このプレイヤーと一緒にプレイした試合数",
   "tooltip_matches":"このプレイヤーと味方として一緒にプレイした試合数",
-  "tooltip_played_as":"Number of games played as this hero",
+  "tooltip_played_as":"このヒーローでプレイしたゲーム数",
   "tooltip_played_with":"Number of games with this player/hero on the team",
   "tooltip_played_against":"Number of games with this player/hero on the opposing team",
   "tooltip_tombstone_victim":"Here Lies",
