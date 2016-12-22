@@ -56,8 +56,7 @@
   "barracks_value_1024": "Radiant Top Melee",
   "barracks_value_2048": "Radiant Top Ranged",
 
-  "benchmarks_higher_than": "is equal or higher than",
-  "benchmarks_recent_performances": "of recent performances on this hero",
+  "benchmarks_description": "%d %s is equal or higher than %d% of recent performances on this hero",
 
   "building_melee_rax": "Melee Barracks",
   "building_range_rax": "Ranged Barracks",
