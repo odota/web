@@ -8,6 +8,7 @@ import abilityIds from 'dotaconstants/json/ability_ids.json';
 import abilityKeys from 'dotaconstants/json/ability_keys.json';
 import heroNames from 'dotaconstants/json/hero_names.json';
 import buffs from 'dotaconstants/json/permanent_buffs.json';
+import util from 'util';
 import strings from 'lang';
 import {
   formatSeconds,
@@ -26,7 +27,7 @@ import ReactTooltip from 'react-tooltip';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
-import { IconRadiant, IconDire } from 'components/Icons';
+import { IconRadiant, IconDire, IconBackpack } from 'components/Icons';
 import styles from './Match.css';
 
 export const heroTd = (row, col, field, index, hideName, party) => (
@@ -154,6 +155,8 @@ export const overviewColumns = (match) => {
     displayFn: (row) => {
       const itemArray = [];
       const additionalItemArray = [];
+      const backpackItemArray = [];
+
       for (let i = 0; i < 6; i += 1) {
         const itemKey = itemIds[row[`item_${i}`]];
         const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey];
@@ -175,11 +178,30 @@ export const overviewColumns = (match) => {
             );
           }
         }
+
+        const backpackItemKey = itemIds[row[`backpack_${i}`]];
+        const backpackfirstPurchase = row.first_purchase_time && row.first_purchase_time[backpackItemKey];
+
+        if (items[backpackItemKey]) {
+          backpackItemArray.push(
+            inflictorWithValue(backpackItemKey, formatSeconds(backpackfirstPurchase)),
+          );
+        }
       }
+
       return (
         <div className={styles.items}>
           {itemArray && <div>{itemArray}</div>}
           {additionalItemArray && <div>{additionalItemArray}</div>}
+          {backpackItemArray && backpackItemArray.length > 0 &&
+            <div className={styles.backpack}>
+              <div
+                data-hint={strings.tooltip_backpack}
+                data-hint-position="bottom"
+              ><IconBackpack /></div>
+              {backpackItemArray}
+            </div>
+          }
         </div>
       );
     },
@@ -207,11 +229,11 @@ export const overviewColumns = (match) => {
         {row.ability_upgrades_arr ? <NavigationMoreHoriz /> : <NavigationMoreHoriz style={{ opacity: 0.4 }} />}
         <ReactTooltip id={`au_${row.player_slot}`} place="left" effect="solid">
           {row.ability_upgrades_arr ? row.ability_upgrades_arr.map(
-            (ab, i) => {
+            (ab) => {
               if (ab && abilityIds[ab]) {
                 return (
                   <div className={styles.ability}>
-                    {inflictorWithValue(abilityIds[ab], `${strings.th_level} ${i + 1}`)}
+                    {inflictorWithValue(abilityIds[ab])}
                   </div>
                 );
               }
@@ -247,7 +269,7 @@ export const benchmarksColumns = (match) => {
               <span style={{ color: styles[bucket.color] }}>{`${percent}%`}</span>
               <small style={{ margin: '3px' }}>{value}</small>
               <ReactTooltip id={`benchmarks_${row.player_slot}_${key}`} place="top" effect="solid">
-                {`${value} ${strings[`th_${key}`]} ${strings.benchmarks_higher_than} ${percent}% ${strings.benchmarks_recent_performances}`}
+                {util.format(strings.benchmarks_description, value, strings[`th_${key}`], percent)}
               </ReactTooltip>
             </div>);
           }
@@ -349,6 +371,12 @@ export const performanceColumns = [
     field: 'stuns',
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.toFixed(2) : '-'),
+  }, {
+    displayName: strings.th_stacked,
+    tooltip: strings.tooltip_camps_stacked,
+    field: 'camps_stacked',
+    sortFn: true,
+    displayFn: (row, col, field) => field || '-',
   }, {
     displayName: strings.th_dead,
     tooltip: strings.tooltip_dead,
@@ -780,28 +808,5 @@ export const visionColumns = [
     sortFn: true,
     displayFn: row => (row.item_uses && row.item_uses.smoke_of_deceit) || '-',
   },
-  purchaseGemColumn,
-];
-
-export const supportColumns = [
-  heroTdColumn, {
-    center: true,
-    displayName: strings.th_stacked,
-    tooltip: strings.tooltip_camps_stacked,
-    field: 'camps_stacked',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  }, {
-    center: true,
-    displayName: strings.th_tpscroll,
-    tooltip: strings.tooltip_purchase_tpscroll,
-    field: 'purchase_tpscroll',
-    sortFn: true,
-    displayFn: (row, col, field) => field || '-',
-  },
-  purchaseObserverColumn,
-  purchaseSentryColumn,
-  purchaseDustColumn,
-  purchaseSmokeColumn,
   purchaseGemColumn,
 ];

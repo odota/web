@@ -4,6 +4,7 @@ import strings from 'lang';
 import {
   formatSeconds,
 } from 'utility';
+import ReactTooltip from 'react-tooltip';
 import Table from 'components/Table';
 import Checkbox from 'material-ui/Checkbox';
 import heroNames from 'dotaconstants/json/hero_names.json';
@@ -34,6 +35,14 @@ const generateLog = (match, selectedTypes) => {
         detail: `${entry.key}`,
       })));
     }
+    if (selectedTypes.runes) {
+      log = log.concat((player.runes_log || []).map(entry => ({
+        ...entry,
+        ...player,
+        type: 'runes',
+        detail: `${entry.key}`,
+      })));
+    }
     /*
     log = log.concat((player.obs_log || []).map(entry => ({
       ...entry,
@@ -59,14 +68,34 @@ const logColumns = [heroTdColumn, {
   displayName: 'Detail',
   field: 'detail',
   displayFn: (row) => {
-    const hero = heroNames[row.detail] || {};
-    return row.type === 'kills' ? <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} role="presentation" /> : row.detail;
+    switch (row.type) {
+      case 'kills': {
+        const hero = heroNames[row.detail] || {};
+        return <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} role="presentation" />;
+      }
+      case 'runes': {
+        const runeType = row.detail;
+        const runeString = strings[`rune_${runeType}`];
+        return (
+          <img
+            src={`/assets/images/dota2/runes/${runeType}.png`}
+            role="presentation"
+            className={styles.imgSmall}
+            data-tip
+            data-for={runeString}
+          />
+        );
+      }
+      default:
+        return row.detail;
+    }
   },
 }];
 const checkboxes = [
   { label: 'kills' },
   // {label:"obs_ward"},
   { label: 'objectives' },
+  { label: 'runes' },
 ];
 class MatchLog extends React.Component {
   constructor() {
@@ -89,6 +118,13 @@ class MatchLog extends React.Component {
         <Checkbox defaultChecked label={checkbox.label} onCheck={(event, isChecked) => this.handleCheck(checkbox.label, isChecked)} />
       </span>))}
       <Table data={generateLog(this.props.match, this.state)} columns={logColumns} />
+      <div>{Object.keys(strings)
+        .filter(str => str.indexOf('rune_') === 0)
+        .map((runeKey) => {
+          const runeString = strings[runeKey];
+          return <ReactTooltip id={runeString} key={runeString}><span>{runeString}</span></ReactTooltip>;
+        })}
+      </div>
     </div>);
   }
 }
