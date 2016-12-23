@@ -52,7 +52,7 @@
   "barracks_value_512":"Barraca de baixo dos magos dos Iluminados",
   "barracks_value_1024":"Barraca de cima dos guerreiros dos Iluminados",
   "barracks_value_2048":"Barraca de cima dos magos dos Iluminados",
-  "benchmarks_description":"%d %s is equal or higher than %d% of recent performances on this hero",
+  "benchmarks_description":"%d %s é igual ou superior a %d% dos desempenhos recentes com este herói",
   "building_melee_rax":"Barraca dos Guerreiros",
   "building_range_rax":"Barraca dos magos",
   "building_lasthit":"obteve o último golpe",
