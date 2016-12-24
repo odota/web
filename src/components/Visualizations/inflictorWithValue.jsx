@@ -61,9 +61,13 @@ export default (inflictor, value, type) => {
     const ttId = uuid.v4();
 
     if (ability) {
-      image = inflictor.indexOf('bonus') !== -1
-        ? '/assets/images/stats.png'
-        : `${API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
+      if (inflictor.includes('attribute_bonus')) {
+        image = '/assets/images/stats.png';
+      } else if (inflictor.includes('special_bonus')) {
+        image = '/assets/images/dota2/talent_tree.svg';
+      } else {
+        image = `${API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
+      }
       tooltip = tooltipContainer(ability);
     } else if (item) {
       image = `${API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`;
