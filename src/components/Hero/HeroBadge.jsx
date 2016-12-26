@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
-import style from './Heroes.css';
+import style from './Hero.css';
 
 export default ({ hero }) => (
   <div style={{ height: '170px' }}>

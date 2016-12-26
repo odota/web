@@ -221,9 +221,7 @@ export const transformations = {
         parsed={row.version}
         image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
         title={
-          row.rank !== undefined ?
-            <TableLink to={`/heroes/${row.hero_id}`}>{heroName}</TableLink>
-          : heroName
+          <TableLink to={`/heroes/${row.hero_id}`}>{heroName}</TableLink>
         }
         subtitle={getSubtitle(row)}
       />
