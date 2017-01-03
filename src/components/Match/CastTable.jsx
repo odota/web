@@ -10,9 +10,7 @@ import {
 import heroes from 'dotaconstants/json/heroes.json';
 // import items from 'dotaconstants/json/items.json';
 import strings from 'lang';
-import palette from 'components/palette.css';
 import Table from '../Table/Table';
-
 
 const castsColumns = [{
   displayName: strings.th_name,
@@ -62,13 +60,10 @@ const getCastArray = (pm) => {
 const CastTable = ({
   match,
 }) => (
-  <Tabs inkBarStyle={{ backgroundColor: palette.blue }}>
+  <Tabs>
     {match.players.map(p =>
       (
-        <Tab
-          style={{ backgroundColor: palette.primarySurfaceColor }} key={p.player_slot}
-          icon={<img src={`${API_HOST}${heroes[p.hero_id].img}`} height={30} role="presentation" />}
-        >
+        <Tab key={p.player_slot} icon={<img src={`${API_HOST}${heroes[p.hero_id].img}`} height={30} role="presentation" />}>
           <Table
             data={getCastArray(p)}
             columns={castsColumns}
