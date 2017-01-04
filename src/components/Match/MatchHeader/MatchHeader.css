@@ -11,7 +11,7 @@
   flex-basis: 33.33%;
   max-width: 33.33%;
 
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (max-width: 1023px) {
     flex-basis: 100%;
     max-width: 100%;
   }
@@ -23,11 +23,23 @@
   font-size: 28px;
   filter: drop-shadow(0 0 20px var(--colorYelor));
 
+  @media only screen and (max-width: 1023px) {
+    text-align: center;
+    margin: 10px 0;
+  }
+
   & svg {
     width: 32px;
     height: 32px;
     margin: 0 15px;
     vertical-align: sub;
+
+    @media only screen and (max-width: 1023px) {
+      display: block;
+      margin: 0 auto;
+      width: 48px;
+      height: 48px;
+    }
   }
 }
 
@@ -60,6 +72,10 @@
 
 .gmde {
   margin: 0 20px;
+  
+  @media only screen and (max-width: 400px) {
+    margin: 0 10px;
+  }
 
   & span {
     text-transform: uppercase;
@@ -72,6 +88,10 @@
 
   & .duration {
     font-size: 28px;
+
+    @media only screen and (max-width: 400px) {
+      font-size: 24px;
+    }
   }
 
   & .ended {
@@ -88,6 +108,10 @@
 .score {
   font-size: 48px;
   text-align: center;
+
+  @media only screen and (max-width: 400px) {
+    font-size: 40px;
+  }
 }
 
 .killsRadiant {
@@ -104,6 +128,14 @@
   composes: infoItem;
   text-align: right;
   padding-top: 20px;
+
+  @media only screen and (max-width: 1023px) {
+    text-align: center;
+
+    & span {
+      margin-bottom: 5px;
+    }
+  }
 
   & ul {
     padding: 0;
@@ -123,42 +155,6 @@
 
     & li:first-child {
       margin-left: 0;
-    }
-  }
-}
-
-@media only screen and (max-width: 1023px) {
-  .team {
-    text-align: center;
-    margin: 10px 0;
-
-    & svg {
-      display: block;
-      margin: 0 auto;
-      width: 48px;
-      height: 48px;
-    }
-  }
-
-  .additionalInfo {
-    text-align: center;
-
-    & span {
-      margin-bottom: 5px;
-    }
-  }
-}
-
-@media only screen and (max-width: 400px) {
-  .score {
-    font-size: 40px;
-  }
-
-  .gmde {
-    margin: 0 10px;
-
-    & .duration {
-      font-size: 24px;
     }
   }
 }
