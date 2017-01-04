@@ -10,7 +10,7 @@ import HeroBadge from './HeroBadge';
 
 const getSingleHero = heroId => ({ ...heroes[heroId], img: API_HOST + heroes[heroId].img });
 
-const Hero = (props) => (<div>
+const Hero = props => (<div>
   <HeroBadge hero={getSingleHero(props.routeParams.heroId)} />
   <Tabs>
     <Tab label={strings.tab_rankings}>
