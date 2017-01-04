@@ -45,16 +45,9 @@ const config = {
   },
   context: __dirname,
   module: {
-    // We need to load flexboxgrid without css-modules, but others need to be loaded
-    // with css-modules.
     rules: [{
       test: /\.css$/,
       loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!postcss-loader',
-      exclude: /node_modules\/(?!flexboxgrid)/,
-    }, {
-      test: /\.css$/,
-      loader: 'style-loader!css-loader',
-      include: /node_modules\/(?!flexboxgrid)/,
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: 'url-loader?limit=10000&minetype=application/font-woff&name=[hash].[ext]',
