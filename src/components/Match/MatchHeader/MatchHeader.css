@@ -1,55 +1,27 @@
 @import "../../palette.css";
 
-.gmde {
-  margin: 0 20px;
-
-  & span {
-    text-transform: uppercase;
-    display: block;
-  }
-
-  & .gameMode {
-    font-size: var(--fontSizeMedium);
-  }
-
-  & .duration {
-    font-size: 28px;
-  }
-
-  & .ended {
-    font-size: var(--fontSizeSmall);
-    color: var(--colorMutedLight);
-    margin-top: 3px;
-
-    & > div {
-      display: inline-block;
-    }
-  }
+.matchInfo {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-.winner {
-  font-size: 28px;
-  padding-top: 10px;
-  filter: drop-shadow(0 0 20px var(--colorYelor));
-}
+.infoItem {
+  box-sizing: border-box;
+  flex-basis: 33.33%;
+  max-width: 33.33%;
 
-.score {
-  font-size: 48px;
-  text-align: center;
-}
-
-.killsRadiant {
-  composes: score;
-  color: var(--colorSuccess);
-}
-
-.killsDire {
-  composes: score;
-  color: var(--colorDanger);
+  @media only screen and (max-width: 1024px) {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
 }
 
 .team {
-  padding: 10px;
+  composes: infoItem;
+  padding: 20px 10px 10px;
+  font-size: 28px;
+  filter: drop-shadow(0 0 20px var(--colorYelor));
 
   & svg {
     width: 32px;
@@ -79,7 +51,57 @@
   }
 }
 
+.mainInfo {
+  composes: infoItem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.gmde {
+  margin: 0 20px;
+
+  & span {
+    text-transform: uppercase;
+    display: block;
+  }
+
+  & .gameMode {
+    font-size: var(--fontSizeMedium);
+  }
+
+  & .duration {
+    font-size: 28px;
+  }
+
+  & .ended {
+    font-size: var(--fontSizeSmall);
+    color: var(--colorMutedLight);
+    margin-top: 3px;
+
+    & > div {
+      display: inline-block;
+    }
+  }
+}
+
+.score {
+  font-size: 48px;
+  text-align: center;
+}
+
+.killsRadiant {
+  composes: score;
+  color: var(--colorSuccess);
+}
+
+.killsDire {
+  composes: score;
+  color: var(--colorDanger);
+}
+
 .additionalInfo {
+  composes: infoItem;
   text-align: right;
   padding-top: 20px;
 
