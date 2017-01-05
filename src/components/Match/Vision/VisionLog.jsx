@@ -6,8 +6,8 @@ import strings from 'lang';
 import { heroTd, heroTdColumn } from '../matchColumns';
 import styles from './Vision.css';
 
-const durationObserverColor = threshold(0, [121, 241, 370], [styles.red, styles.yelor, styles.green]);
-const durationSentryColor = threshold(0, [81, 161, 250], [styles.red, styles.yelor, styles.green]);
+const durationObserverColor = threshold(0, [121, 241, 371], [styles.red, styles.yelor, styles.green]);
+const durationSentryColor = threshold(0, [81, 161, 251], [styles.red, styles.yelor, styles.green]);
 
 const columns = [
   {

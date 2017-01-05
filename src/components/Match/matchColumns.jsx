@@ -8,6 +8,7 @@ import abilityIds from 'dotaconstants/json/ability_ids.json';
 import abilityKeys from 'dotaconstants/json/ability_keys.json';
 import heroNames from 'dotaconstants/json/hero_names.json';
 import buffs from 'dotaconstants/json/permanent_buffs.json';
+import util from 'util';
 import strings from 'lang';
 import {
   formatSeconds,
@@ -268,7 +269,7 @@ export const benchmarksColumns = (match) => {
               <span style={{ color: styles[bucket.color] }}>{`${percent}%`}</span>
               <small style={{ margin: '3px' }}>{value}</small>
               <ReactTooltip id={`benchmarks_${row.player_slot}_${key}`} place="top" effect="solid">
-                {`${value} ${strings[`th_${key}`]} ${strings.benchmarks_higher_than} ${percent}% ${strings.benchmarks_recent_performances}`}
+                {util.format(strings.benchmarks_description, value, strings[`th_${key}`], percent)}
               </ReactTooltip>
             </div>);
           }

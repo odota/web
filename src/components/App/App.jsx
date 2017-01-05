@@ -16,11 +16,19 @@ const muiTheme = {
   subheader: { fontWeight: palette.fontWeightNormal },
   raisedButton: { fontWeight: palette.fontWeightNormal },
   flatButton: { fontWeight: palette.fontWeightNormal }, // color: 'background color'
+  inkBar: {
+    backgroundColor: palette.blue,
+  },
   palette: {
     textColor: palette.textColorPrimary,
     primary1Color: palette.blue,
     canvasColor: palette.primarySurfaceColor,
     borderColor: palette.dividerColor,
+  },
+  tabs: {
+    backgroundColor: palette.primarySurfaceColor,
+    textColor: palette.textColorPrimary,
+    selectedTextColor: palette.textColorPrimary,
   },
   button: { height: 38 },
 };
