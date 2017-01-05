@@ -37,6 +37,6 @@ export default createStore(
   composeEnhancers(
     createResponsiveStoreEnhancer({ performanceMode: true }),
     applyMiddleware(thunkMiddleware),
-    // process.env.NODE_ENV === 'production' ? f => f : applyMiddleware(loggerMiddleware),
+    process.env.NODE_ENV === 'production' ? f => f : applyMiddleware(loggerMiddleware),
     applyMiddleware(routerMiddleware(browserHistory)),
   ));

@@ -1,6 +1,5 @@
 /* global API_HOST */
 import React from 'react';
-import Measure from 'react-measure';
 import {
   pad,
   sum,
