@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { formatSeconds, calculateDistance, calculateRelativeXY } from 'utility';
+import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import Measure from 'react-measure';
 import classNames from 'classnames';
@@ -270,7 +270,11 @@ class TeamfightMap extends Component {
             <div className={`${styles.container} ${getSelectedStyle(teamfight.radiant_gold_advantage_delta)}`}>
               <div className={styles.teamfightContainer}>
                 <div className={styles.mapAndInfoContainer}>
-                  <DotaMap width={width} startTime={match.start_time}>
+                  <DotaMap
+                    width={width}
+                    maxWidth={400}
+                    startTime={match.start_time}
+                  >
                     {teamfights.map((teamfight, index) => (
                       <Teamfight
                         selected={this.isSelected(teamfight)}
@@ -283,7 +287,7 @@ class TeamfightMap extends Component {
                         end={teamfight.end}
                         radiantGoldDelta={teamfight.radiant_gold_advantage_delta}
                         deathPositions={teamfight.deaths_pos}
-                        mapWidth={bindWidth(width)}
+                        mapWidth={bindWidth(width, 400)}
                       />
                     ))}
                   </DotaMap>
@@ -293,7 +297,7 @@ class TeamfightMap extends Component {
                     </div>
                     <div className={styles.headerSubInfo}>
                       <div className={getIconStyle(teamfight.radiant_gold_advantage_delta)}>
-                        <Icon style={{ height: iconSize(bindWidth(width)), width: iconSize(bindWidth(width)) }} />
+                        <Icon style={{ height: iconSize(bindWidth(width, 400)), width: iconSize(bindWidth(width, 400)) }} />
                       </div>
                       <span className={styles.headerGold}><GoldDelta radiantGoldDelta={teamfight.radiant_gold_advantage_delta} /></span>
                       <div className={styles.muted}>{teamfight.deaths_pos.length} Deaths</div>

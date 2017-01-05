@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
+import classnames from 'classnames';
 
 import { isPost700 } from 'utility';
 import styles from './DotaMap.css';
 
-const bindWidth = (width, maxWidth) => (width >= maxWidth ? maxWidth : width);
 
 const setMapSizeStyle = (width, maxWidth) => ({
-  width: bindWidth(width, maxWidth),
-  height: bindWidth(width, maxWidth),
+  width,
+  height: width,
   maxWidth,
   maxHeight: maxWidth,
 });
@@ -24,9 +24,17 @@ const getClassName = (startTime, pre700, type) => {
   return styles[className];
 };
 
-const DotaMap = ({ type = 'detailed', startTime = null, pre700, maxWidth = 400, width = 400, children }) => (
+const DotaMap = ({
+  className,
+  type = 'detailed',
+  startTime = null,
+  pre700,
+  maxWidth = 400,
+  width = 400,
+  children,
+}) => (
   <div
-    className={getClassName(startTime, pre700, type)}
+    className={classnames(getClassName(startTime, pre700, type), className)}
     style={setMapSizeStyle(width, maxWidth)}
   >
     {children}
@@ -39,9 +47,10 @@ DotaMap.propTypes = {
   type: oneOf(['detailed', 'simple']),
   pre700: bool,
   startTime: number,
-  maxWidth: number,
-  width: number,
+  maxWidth: oneOfType([number, string]),
+  width: oneOfType([number, string]),
   children: oneOfType([node, string]),
+  className: string,
 };
 
 export default DotaMap;

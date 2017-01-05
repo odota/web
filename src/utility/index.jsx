@@ -468,3 +468,5 @@ export const hsvToRgb = (h, s, v) => {
 
 // 12/13/2016 @ 5:00pm (UTC)
 export const isPost700 = unixDate => unixDate > 1481648400;
+
+export const bindWidth = (width, maxWidth) => (width >= maxWidth ? maxWidth : width);
