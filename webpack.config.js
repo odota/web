@@ -12,25 +12,42 @@ const postcssCF = require('postcss-color-function');
 
 const isProd = process.env.NODE_ENV === 'production';
 
+function HashBundlePlugin() {}
+
+HashBundlePlugin.prototype.apply = (compiler) => {
+  compiler.plugin('done', (statsData) => {
+    const stats = statsData.toJson();
+
+    if (!stats.errors.length) {
+      const htmlFileName = 'index.html';
+      const html = fs.readFileSync(path.join(__dirname, htmlFileName), 'utf8');
+      const htmlOutput = html.replace(/\/build\/.?bundle\.js/, `${'/build/'}${stats.hash}${'.bundle.js'}`);
+
+      fs.writeFileSync(path.join(__dirname, htmlFileName), htmlOutput);
+    }
+  });
+};
+
 const config = {
-  entry: ['babel-polyfill', './src'],
+  entry: ['babel-polyfill', path.resolve(__dirname, 'src')],
   output: {
     filename: `${isProd ? '[hash].' : ''}bundle.js`,
-    path: 'build/',
+    path: path.resolve(__dirname, 'build'),
     publicPath: 'build/',
   },
   resolve: {
     extensions: ['.jsx', '.js', '.css', '.json'],
     modules: [
-      path.resolve('./src'),
-      path.resolve('./assets'),
-      path.resolve('./node_modules'),
+      path.resolve(__dirname, 'src'),
+      path.resolve(__dirname, 'assets'),
+      path.resolve(__dirname, 'node_modules'),
     ],
   },
+  context: __dirname,
   module: {
     // We need to load flexboxgrid without css-modules, but others need to be loaded
     // with css-modules.
-    loaders: [{
+    rules: [{
       test: /\.css$/,
       loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!postcss-loader',
       exclude: /node_modules\/(?!flexboxgrid)/,
@@ -45,18 +62,13 @@ const config = {
       test: /\.(ttf|eot|svg|jpg|gif|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: 'file-loader?name=[hash].[ext]',
     }, {
-      test: /\.(json)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      loader: 'json-loader',
-    }, {
       test: /\.(js|jsx)$/,
       exclude: /(node_modules)/,
-      loader: 'babel-loader', // It's no longer allowed to omit the '-loader' prefix when using loaders.
-                              // You need to specify 'babel-loader' instead of 'babel'.
+      loader: 'babel-loader',
     }],
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({
-      // test: /\.xxx$/, // may apply this only for some modules
       options: {
         postcss: [
           postcssImport({
@@ -77,43 +89,34 @@ const config = {
     }),
   ],
   devServer: {
-    contentBase: '.',
-    progress: true,
+    contentBase: __dirname,
     host: '0.0.0.0',
     port: process.env.PORT || 8080,
     historyApiFallback: true,
   },
 };
 
-function HashBundlePlugin() {}
-HashBundlePlugin.prototype.apply = (compiler) => {
-  compiler.plugin('done', (statsData) => {
-    const stats = statsData.toJson();
-    if (!stats.errors.length) {
-      const htmlFileName = 'index.html';
-      const html = fs.readFileSync(path.join(__dirname, htmlFileName), 'utf8');
-      const htmlOutput = html.replace(/\/build\/.?bundle\.js/, `${'/build/'}${stats.hash}${'.bundle.js'}`);
-      fs.writeFileSync(path.join(__dirname, htmlFileName), htmlOutput);
-    }
-  });
-};
-
 if (!isProd) {
   config.devtool = 'eval-source-map';
+  config.devServer.hot = true;
 
   config.entry = [
-    'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
+    'react-hot-loader/patch',
+    `webpack-dev-server/client?http://${config.devServer.host}:${config.devServer.port}`,
     'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     'babel-polyfill',
-    './src',
+    path.resolve(__dirname, 'src'),
   ];
 
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
+  config.plugins.push(new webpack.NamedModulesPlugin());
 } else {
   config.plugins.push(new webpack.LoaderOptionsPlugin({
     minimize: true,
     debug: false,
-  }), new webpack.optimize.UglifyJsPlugin({
+  }));
+
+  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
     compress: {
       warnings: false,
     },
@@ -121,7 +124,9 @@ if (!isProd) {
       comments: false,
     },
     sourceMap: false,
-  }), new HashBundlePlugin());
+  }));
+
+  config.plugins.push(new HashBundlePlugin());
 }
 
 module.exports = config;
