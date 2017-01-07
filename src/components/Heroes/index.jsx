@@ -27,6 +27,7 @@ const percentileDisplay = (row, col, decimal, total) => {
   </div>);
 };
 
+// TODO localize
 const heroesColumns = [{
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
@@ -98,6 +99,9 @@ class RequestLayer extends React.Component {
         pubMatchCount,
       };
     });
+    processedData.sort((a, b) => b.pickBanRate - a.pickBanRate);
+    // TODO add last N days filter
+    // TODO add mmr filter
     return (<Container>
       <Table data={processedData} columns={heroesColumns} />
     </Container>);
@@ -110,6 +114,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  // TODO default option last 30 days
   dispatchHeroStats: () => dispatch(getHeroStats()),
 });
 
