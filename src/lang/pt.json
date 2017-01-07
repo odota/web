@@ -14,7 +14,7 @@
   "analysis_unused_item":"Itens com habilidade ativa não utilizados",
   "analysis_expected":"do/da/de\n(male/female/overall)",
   "app_name":"OpenDota",
-  "app_language":"Linguagem",
+  "app_language":"Idioma",
   "app_localization":"Localização",
   "app_description":"Ferramenta de código aberto para dados de Dota2",
   "app_about":"Sobre",
