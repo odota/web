@@ -4,7 +4,7 @@ import { getPercentWin, transformations } from 'utility';
 import { TablePercent } from 'components/Visualizations';
 import strings from 'lang';
 
-export const playerPeersOverviewColumns = playerId => [{
+const avatarMatches = playerId => [{
   displayName: strings.th_avatar,
   field: 'last_played',
   displayFn: transformations.player,
@@ -17,12 +17,6 @@ export const playerPeersOverviewColumns = playerId => [{
   displayFn: row => (
     <TableLink to={`/players/${playerId}/matches?included_account_id=${row.account_id}`}>{row.with_games + row.against_games}</TableLink>
   ),
-}, {
-  displayName: strings.th_with_win,
-  tooltip: strings.tooltip_win_pct_with,
-  field: 'with_win',
-  displayFn: row => <TablePercent val={getPercentWin(row.with_win, row.with_games)} />,
-  sortFn: row => row.with_win / row.with_games,
 }];
 
 const matchesWith = [{
@@ -30,6 +24,14 @@ const matchesWith = [{
   tooltip: strings.tooltip_played_with,
   field: 'with_games',
   sortFn: true,
+}];
+
+const winsWith = [{
+  displayName: strings.th_with_win,
+  tooltip: strings.tooltip_win_pct_with,
+  field: 'with_win',
+  displayFn: row => <TablePercent val={getPercentWin(row.with_win, row.with_games)} />,
+  sortFn: row => row.with_win / row.with_games,
 }];
 
 const restColumns = [{
@@ -45,9 +47,14 @@ const restColumns = [{
   sortFn: row => row.against_win / row.against_games,
 }];
 
-export const playerPeersColumns = (playerId) => {
-  const columns = playerPeersOverviewColumns(playerId);
-  columns.splice(2, 0, ...matchesWith);
-  columns.push(...restColumns);
-  return columns;
-};
+export const playerPeersOverviewColumns = playerId => [
+  ...avatarMatches(playerId),
+  ...winsWith,
+];
+
+export const playerPeersColumns = playerId => [
+  ...avatarMatches(playerId),
+  ...matchesWith,
+  ...winsWith,
+  ...restColumns,
+];
