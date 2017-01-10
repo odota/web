@@ -8,7 +8,7 @@ import Table from 'components/Table';
 import Container from 'components/Container';
 import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
-import playerPeersColumns from './playerPeersColumns';
+import { playerPeersColumns } from './playerPeersColumns';
 
 const Peers = ({ data, playerId, error, loading }) => (
   <div>
