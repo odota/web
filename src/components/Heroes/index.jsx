@@ -27,39 +27,38 @@ const percentileDisplay = (row, col, decimal, total) => {
   </div>);
 };
 
-// TODO localize
 const heroesColumns = [{
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
   displayFn: transformations.hero_id,
 }, {
-  displayName: 'pick_ban_rate',
+  displayName: strings.hero_pick_ban_rate,
   field: 'pickBanRate',
   sortFn: true,
   displayFn: (row, col, field) => percentileDisplay(row, col, field, row.proMatchCount),
 }, {
-  displayName: 'pick_rate',
+  displayName: strings.hero_pick_rate,
   field: 'pickRate',
   sortFn: true,
   displayFn: (row, col, field) => percentileDisplay(row, col, field, row.proMatchCount),
 }, {
-  displayName: 'ban_rate',
+  displayName: strings.hero_ban_rate,
   field: 'banRate',
   sortFn: true,
   displayFn: (row, col, field) => percentileDisplay(row, col, field, row.proMatchCount),
 }, {
-  displayName: 'win_rate',
+  displayName: strings.hero_win_rate,
   field: 'winRate',
   sortFn: true,
   displayFn: (row, col, field) => percentileDisplay(row, col, field, row.pro_pick),
 }, {
-  displayName: 'public_pick_rate',
+  displayName: strings.hero_public_pick_rate,
   field: 'publicPickRate',
   sortFn: true,
   displayFn: (row, col, field) => percentileDisplay(row, col, field, row.pubMatchCount),
 }, {
-  displayName: 'public_win_rate',
+  displayName: strings.hero_public_win_rate,
   field: 'publicWinRate',
   sortFn: true,
   displayFn: (row, col, field) => percentileDisplay(row, col, field, row.public_pick),
@@ -114,8 +113,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // TODO default option last 30 days
-  dispatchHeroStats: () => dispatch(getHeroStats()),
+  dispatchHeroStats: () => dispatch(getHeroStats({ min_time: (Math.floor(new Date() / 1000)) - (60 * 60 * 24 * 30)})),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
