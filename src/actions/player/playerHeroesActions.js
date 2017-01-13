@@ -36,7 +36,7 @@ export const getPlayerHeroes = (playerId, options = {}) => (dispatch, getState) 
   } else {
     dispatch(getPlayerHeroesRequest(playerId));
   }
-  
+
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())
     .then(json => dispatch(getPlayerHeroesOk(json, playerId)))
