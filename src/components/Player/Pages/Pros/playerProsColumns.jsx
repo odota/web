@@ -12,7 +12,7 @@ export default playerId => [{
 }, {
   displayName: strings.th_matches,
   tooltip: strings.tooltip_matches,
-  field: '',
+  field: 'with_games',
   sortFn: row => row.with_games + row.against_games,
   displayFn: row => (
     <TableLink to={`/players/${playerId}/matches?included_account_id=${row.account_id}`}>{row.with_games + row.against_games}</TableLink>
