@@ -622,6 +622,12 @@ export const inflictorsColumns = [
   },
 ];
 
+const colorizeDeaths = obj => (row, col, field) => (
+  field !== 0 && (<span>
+    {field && <img src="/assets/images/player_death.png" role="presentation" />} x{field}
+  </span>)
+);
+
 export const analysisColumns = [heroTdColumn, {
   displayName: strings.th_analysis,
   field: 'analysis',
@@ -662,6 +668,7 @@ export const teamfightColumns = [
     displayName: strings.th_death,
     field: 'deaths',
     sortFn: true,
+    displayFn: colorizeDeaths()
   }, {
     displayName: strings.th_damage,
     field: 'damage',
