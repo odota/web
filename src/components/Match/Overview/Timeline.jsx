@@ -32,6 +32,9 @@ const Timeline = ({
 }) => {
   const preHorn = 90; // Seconds before the battle horn
 
+  const obj = [];
+  const aegis = [];
+
   if (match.objectives && match.objectives.length > 0) {
     // Firstblood
     const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
@@ -52,7 +55,7 @@ const Timeline = ({
       }];
     }
 
-    const events = fbArr
+    obj.push(fbArr
 
     // Roshan kills, team 2 = radiant, 3 = dire
     .concat(
@@ -81,10 +84,12 @@ const Timeline = ({
           } : ''))
           .filter(String),
       })) : [],
+    ),
     );
 
     // Aegis pickups
-    const aegis = (match.objectives || [])
+    aegis.push(
+      match.objectives
         .filter(obj => (
           obj.type === 'CHAT_MESSAGE_AEGIS' ||
             obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' ||
@@ -98,7 +103,8 @@ const Timeline = ({
           ),
           time: obj.time,
           player_slot: obj.player_slot,
-        }));
+        })) || [],
+    );
 
     let fTower = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_TOWER_KILL' || o.type === 'CHAT_MESSAGE_TOWER_DENY');
     fTower = match.objectives[fTower] ? match.objectives[fTower].time : null;
@@ -107,7 +113,7 @@ const Timeline = ({
     fRax = match.objectives[fRax] || null;
 
     return (
-      Math.abs(events.filter(obj => obj.type === 'firstblood')[0].time - match.first_blood_time) <= preHorn &&
+      Math.abs(obj[0].filter(obj => obj.type === 'firstblood')[0].time - match.first_blood_time) <= preHorn &&
       // some old (source1) matches have wrong time in objectives, ex: 271008789.
       // preHorn (90) is just small allowable mismatch. Since first_blood_time always >= 0, ex: 2792706825, fb before battle horn
       <div>
@@ -129,7 +135,7 @@ const Timeline = ({
                 }}
               />
               {
-                events.map((obj, i) => {
+                obj[0].map((obj, i) => {
                   const side = (
                     obj.player_slot && isRadiant(obj.player_slot))
                       || (obj.team && obj.team === 2
@@ -201,16 +207,16 @@ const Timeline = ({
                             }
                           </section>
                         }
-                        {obj.type === 'roshan' && aegis[obj.key] &&
+                        {obj.type === 'roshan' &&
                           match.players
-                            .filter(player => player.player_slot === aegis[obj.key].player_slot)
+                            .filter(player => player.player_slot === aegis[0][obj.key].player_slot)
                             .map(player => (
                               <section key={i}>
                                 <PlayerThumb {...player} />
                                 <span>
-                                  {!aegis[obj.key].act && strings.timeline_aegis_picked_up}
-                                  {aegis[obj.key].act === 'stolen' && strings.timeline_aegis_snatched}
-                                  {aegis[obj.key].act === 'denied' && strings.timeline_aegis_denied}
+                                  {!aegis[0][obj.key].act && strings.timeline_aegis_picked_up}
+                                  {aegis[0][obj.key].act === 'stolen' && strings.timeline_aegis_snatched}
+                                  {aegis[0][obj.key].act === 'denied' && strings.timeline_aegis_denied}
                                 </span>
                                 <img
                                   src="/assets/images/dota2/aegis_icon.png"
