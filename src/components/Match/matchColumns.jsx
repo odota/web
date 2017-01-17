@@ -622,12 +622,6 @@ export const inflictorsColumns = [
   },
 ];
 
-const colorizeDeaths = obj => (row, col, field) => (
-  field !== 0 && (<span>
-    {field && <img src="/assets/images/player_death.png" role="presentation" />} x{field}
-  </span>)
-);
-
 export const analysisColumns = [heroTdColumn, {
   displayName: strings.th_analysis,
   field: 'analysis',
@@ -650,6 +644,13 @@ export const analysisColumns = [heroTdColumn, {
   ),
 }];
 
+const playerDeaths = (row, col, field) => (
+  field > 0 && <div className={styles.playerDeath}>
+    <img src="/assets/images/player_death.png" role="presentation" />
+    {field > 1 && <img src="/assets/images/player_death.png" role="presentation" />}
+  </div>
+);
+
 const inflictorRow = obj => (row, col, field) => (
   field ? (
     <div style={{ maxWidth: '100px' }}>
@@ -668,7 +669,7 @@ export const teamfightColumns = [
     displayName: strings.th_death,
     field: 'deaths',
     sortFn: true,
-    displayFn: colorizeDeaths()
+    displayFn: playerDeaths,
   }, {
     displayName: strings.th_damage,
     field: 'damage',
