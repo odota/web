@@ -93,7 +93,7 @@
   "filter_win":"Wynik",
   "filter_lane_role":"Linia",
   "filter_patch":"Patch",
-  "benchmarks_higher_than":"jest równe lub wyższe niż",
+  "benchmarks_higher_than":"to minimalny wynik w",
   "benchmarks_recent_performances":"ostatnich rozgrywek z udziałem tego bohatera",
   "filter_game_mode":"Tryb gry",
   "filter_lobby_type":"Typ poczekalni",
