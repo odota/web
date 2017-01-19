@@ -644,12 +644,17 @@ export const analysisColumns = [heroTdColumn, {
   ),
 }];
 
-const playerDeaths = (row, col, field) => (
-  field > 0 && <div className={styles.playerDeath}>
-    <img src="/assets/images/player_death.png" role="presentation" />
-    {field > 1 && <img src="/assets/images/player_death.png" role="presentation" />}
-  </div>
-);
+const playerDeaths = (row, col, field) => {
+  let deaths = [];
+  for(let i = 0; i < field; i++) {
+    deaths.push(<img src="/assets/images/player_death.png" role="presentation" />);
+  }
+  return (
+    field > 0 && <div className={styles.playerDeath}>
+      {deaths}
+    </div>
+  );
+};
 
 const inflictorRow = obj => (row, col, field) => (
   field ? (
