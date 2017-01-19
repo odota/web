@@ -644,6 +644,18 @@ export const analysisColumns = [heroTdColumn, {
   ),
 }];
 
+const playerDeaths = (row, col, field) => {
+  const deaths = [];
+  for (let i = 0; i < field; i += 1) {
+    deaths.push(<img src="/assets/images/player_death.png" role="presentation" />);
+  }
+  return (
+    field > 0 && <div className={styles.playerDeath}>
+      {deaths}
+    </div>
+  );
+};
+
 const inflictorRow = obj => (row, col, field) => (
   field ? (
     <div style={{ maxWidth: '100px' }}>
@@ -662,6 +674,7 @@ export const teamfightColumns = [
     displayName: strings.th_death,
     field: 'deaths',
     sortFn: true,
+    displayFn: playerDeaths,
   }, {
     displayName: strings.th_damage,
     field: 'damage',
