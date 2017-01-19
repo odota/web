@@ -645,8 +645,8 @@ export const analysisColumns = [heroTdColumn, {
 }];
 
 const playerDeaths = (row, col, field) => {
-  let deaths = [];
-  for(let i = 0; i < field; i++) {
+  const deaths = [];
+  for (let i = 0; i < field; i += 1) {
     deaths.push(<img src="/assets/images/player_death.png" role="presentation" />);
   }
   return (
