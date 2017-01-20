@@ -1,6 +1,7 @@
 import React from 'react';
 import c3 from 'c3';
 import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
 import { getDistributions } from 'actions';
 import strings from 'lang';
 import Table from 'components/Table';
@@ -163,6 +164,7 @@ class RequestLayer extends React.Component {
     return loading
       ? <Spinner />
       : (<div>
+        <Helmet title={page ? page.name : strings.distributions_tab_mmr} />
         <Warning className={styles.Warning}>
           {strings.distributions_warning_1}
           <br />
