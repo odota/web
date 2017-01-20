@@ -19,7 +19,7 @@
 
 .team {
   composes: infoItem;
-  padding: 20px 10px 10px;
+  padding: 20px 0px 10px;
   font-size: 28px;
   filter: drop-shadow(0 0 20px var(--colorYelor));
 
