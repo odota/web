@@ -12,6 +12,7 @@ import PlayerHeader from './Header/PlayerHeader';
 // import Error from '../Error';
 import styles from './Player.css';
 import playerPages from './playerPages';
+import strings from 'lang';
 
 const getData = (props) => {
   props.getPlayer(props.playerId);
@@ -33,7 +34,7 @@ class RequestLayer extends React.Component {
     const { playerId, location, routeParams } = this.props;
     const info = routeParams.info || 'overview';
     const page = playerPages(playerId).find(page => page.key === info);
-    const playerName = this.props.officialPlayerName || this.props.playerName || 'Anonymous';
+    const playerName = this.props.officialPlayerName || this.props.playerName || strings.general_anonymous;
     const title = page ? `${playerName} - ${page.name}` : playerName;
     return (
       <div>
