@@ -61,7 +61,7 @@
     &:hover {
       background-color: var(--colorSuccess) !important;
     }
-  
+
     & .label {
       font-weight: var(--fontWeightLight);
       font-size: var(--fontSizeCommon);
