@@ -1,7 +1,7 @@
 import React from 'react';
-import {
-  connect,
-} from 'react-redux';
+import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
+import { player } from 'reducers';
 import {
   getPlayer,
   getPlayerWinLoss,
@@ -33,8 +33,11 @@ class RequestLayer extends React.Component {
     const { playerId, location, routeParams } = this.props;
     const info = routeParams.info || 'overview';
     const page = playerPages(playerId).find(page => page.key === info);
+    const playerName = this.props.officialPlayerName || this.props.playerName || 'Anonymous';
+    const title = page ? `${playerName} - ${page.name}` : playerName;
     return (
       <div>
+        <Helmet title={title} />
         <div>
           <PlayerHeader playerId={playerId} location={location} />
           <TabBar info={info} tabs={playerPages(playerId)} />
@@ -50,6 +53,8 @@ class RequestLayer extends React.Component {
 const mapStateToProps = (state, ownProps) => ({
   // Passed from react-router
   playerId: ownProps.params.playerId,
+  playerName: player.getPlayerName(state, ownProps.params.playerId),
+  officialPlayerName: player.getOfficialPlayerName(state, ownProps.params.playerId),
 });
 
 const mapDispatchToProps = dispatch => ({
