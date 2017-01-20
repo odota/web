@@ -22,7 +22,7 @@ class Request extends React.Component {
       <CircularProgress value={progress} mode="determinate" /> :
       <CircularProgress value={progress} mode="indeterminate" />);
     return (
-      <div style={{ textAlign: 'center' }}>r
+      <div style={{ textAlign: 'center' }}>
         <Helmet title="Request a Parse" />
         <h1>Request a Parse</h1>
         <TextField

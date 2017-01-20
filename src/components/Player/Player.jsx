@@ -6,13 +6,13 @@ import {
   getPlayer,
   getPlayerWinLoss,
 } from 'actions';
+import strings from 'lang';
 import TabBar from 'components/TabBar';
 import Spinner from 'components/Spinner';
 import PlayerHeader from './Header/PlayerHeader';
 // import Error from '../Error';
 import styles from './Player.css';
 import playerPages from './playerPages';
-import strings from 'lang';
 
 const getData = (props) => {
   props.getPlayer(props.playerId);
