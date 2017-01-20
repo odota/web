@@ -2,6 +2,7 @@
 import React from 'react';
 import fetch from 'isomorphic-fetch';
 import { fromNow, abbreviateNumber } from 'utility';
+import Helmet from 'react-helmet';
 import Table from 'components/Table';
 
 function jsonResponse(response) {
@@ -26,6 +27,7 @@ class Status extends React.Component
   }
   render() {
     return (<div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+      <Helmet title="Status" />
       <Table
         style={tableStyle}
         data={Object.keys(this.state.result)
