@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
 import { getProMatches } from 'actions';
 import strings from 'lang';
 import Table, { TableLink } from 'components/Table';
@@ -41,9 +42,12 @@ class RequestLayer extends React.Component {
     this.props.dispatchProMatches();
   }
   render() {
-    return (<Container>
-      <Table data={this.props.data} columns={matchesColumns} />
-    </Container>);
+    return (<div>
+      <Helmet title="Professional Matches" />
+      <Container>
+        <Table data={this.props.data} columns={matchesColumns} />
+      </Container>
+    </div>);
   }
 }
 
