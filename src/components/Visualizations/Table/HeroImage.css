@@ -166,10 +166,7 @@
 }
 
 .pvgnaGuideContainer {
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-left: 20px;
-  margin-right: -15px;
+  margin: auto 20px auto -15px;
 }
 
 .pvgnaGuideIcon {
