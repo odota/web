@@ -16,7 +16,7 @@ class Search extends React.Component {
   render() {
     const { data, pros, ...rest } = this.props;
     return (<div>
-      <Helmet title={`${strings.title_search} ${this.props.location.query.q}`} />
+      <Helmet title={`${this.props.location.query.q} - ${strings.title_search}`} />
       <SearchResult {...rest} players={data || []} pros={pros || []} />
     </div>
     );

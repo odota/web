@@ -17,8 +17,7 @@ const columns = [
 
 const tableStyle = { flexGrow: 1, overflowX: 'auto', boxSizing: 'border-box', padding: '15px' };
 
-class Status extends React.Component
-{
+class Status extends React.Component {
   componentWillMount() {
     this.setState({
       loading: false,
