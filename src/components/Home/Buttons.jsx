@@ -15,7 +15,7 @@ export default () => (
         href={`${API_HOST}/login`}
       />
     </div>
-    <div className={styles.row}>
+    <div className={styles.bottomButtons}>
       <div>
         <FlatButton
           label={<span className={styles.label}><b>{strings.home_parse}</b> {strings.home_parse_desc}</span>}

@@ -42,9 +42,10 @@
 .Buttons {
   margin-bottom: 30px;
 
-  & .row {
+  & .bottomButtons {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
   }
 
   & a {
@@ -136,6 +137,7 @@
   align-items: center;
   margin-top: 30px;
   margin-bottom: 20px;
+  text-align: center;
 
   & .headline {
     text-transform: uppercase;
