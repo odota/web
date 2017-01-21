@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { getSearchResultAndPros } from 'actions';
 import { proPlayers } from 'reducers';
+import strings from 'lang';
 import SearchResult from './SearchResult';
 // import SearchForm from './SearchForm';
 
@@ -15,7 +16,7 @@ class Search extends React.Component {
   render() {
     const { data, pros, ...rest } = this.props;
     return (<div>
-      <Helmet title={`Search Results for ${this.props.location.query.q}`} />
+      <Helmet title={`${strings.title_search} ${this.props.location.query.q}`} />
       <SearchResult {...rest} players={data || []} pros={pros || []} />
     </div>
     );

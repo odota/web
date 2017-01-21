@@ -5,6 +5,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { requestSubmit, setMatchId } from 'actions';
+import strings from 'lang';
 
 // TODO localize strings
 class Request extends React.Component {
@@ -23,7 +24,7 @@ class Request extends React.Component {
       <CircularProgress value={progress} mode="indeterminate" />);
     return (
       <div style={{ textAlign: 'center' }}>
-        <Helmet title="Request a Parse" />
+        <Helmet title={strings.title_request} />
         <h1>Request a Parse</h1>
         <TextField
           id="match_id"

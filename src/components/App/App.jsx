@@ -7,6 +7,7 @@ import Helmet from 'react-helmet';
 import palette from 'components/palette.css';
 // For some reason, if reducers are not imported here, the app doesn't work
 import 'reducers';
+import strings from 'lang';
 import Header from '../Header';
 import Footer from '../Footer';
 import styles from './App.css';
@@ -46,8 +47,8 @@ const App = ({ children, open, params, location, width, localization }) => (
     >
       <Helmet
         htmlAttributes={{ lang: localization }}
-        defaultTitle="OpenDota - Dota 2 Statistics"
-        titleTemplate="%s - OpenDota - Dota 2 Statistics"
+        defaultTitle={strings.default_title}
+        titleTemplate={strings.title_template}
       />
       <Header params={params} location={location} />
       <div className={styles.body}>

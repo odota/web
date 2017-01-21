@@ -43,7 +43,7 @@ class RequestLayer extends React.Component {
   }
   render() {
     return (<div>
-      <Helmet title="Professional Matches" />
+      <Helmet title={strings.title_matches} />
       <Container>
         <Table data={this.props.data} columns={matchesColumns} />
       </Container>
