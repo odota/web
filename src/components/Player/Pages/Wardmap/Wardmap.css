@@ -1,0 +1,15 @@
+.wardmaps {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+}
+
+.wardmapContainer {
+  flex-grow: 1;
+  flex-basis: 0;
+  max-width: 100%;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}

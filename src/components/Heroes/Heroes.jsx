@@ -9,7 +9,6 @@ import HeroList from './HeroList';
 import style from './Heroes.css';
 import Ranking from './Ranking';
 import Benchmark from './Benchmark';
-import HeroBadge from './HeroBadge';
 
 const createHeroList = (heroes, filter) => {
   const filteredHeroes = [];
@@ -49,17 +48,24 @@ class Heroes extends Component {
   }
   render() {
     if (this.props.routeParams && this.props.routeParams.heroId) {
-      return (<div>
-        <HeroBadge hero={getSingleHero(this.props.routeParams.heroId)} />
-        <Tabs>
-          <Tab label={strings.tab_rankings}>
-            <Ranking {...this.props} />
-          </Tab>
-          <Tab label={strings.tab_benchmarks}>
-            <Benchmark {...this.props} />
-          </Tab>
-        </Tabs>
-      </div>);
+      const hero = getSingleHero(this.props.routeParams.heroId);
+
+      return (
+        <div>
+          <div className={style.HeroBadge}>
+            <img role="presentation" src={hero.img} />
+            <h2>{hero.localized_name}</h2>
+          </div>
+          <Tabs>
+            <Tab label={strings.tab_rankings}>
+              <Ranking {...this.props} />
+            </Tab>
+            <Tab label={strings.tab_benchmarks}>
+              <Benchmark {...this.props} />
+            </Tab>
+          </Tabs>
+        </div>
+      );
     }
 
     return (

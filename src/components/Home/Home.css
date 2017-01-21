@@ -42,6 +42,12 @@
 .Buttons {
   margin-bottom: 30px;
 
+  & .bottomButtons {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
   & a {
     background-color: color(var(--defaultPrimaryColor) 0.7) !important;
     border: 2px solid var(--textColorPrimary) !important;
@@ -80,46 +86,58 @@
   }
 }
 
-.why {
-  font-size: 28px;
-  margin-bottom: 40px;
-  text-transform: uppercase;
-}
-
-.xsWhyElement {
-  @media only screen and (max-width: 768px) {
-    margin-bottom: 30px;
-  }
-}
-
-.AwesomeContainer {
+.WhyContainer {
   margin: 50px auto 0;
   text-align: center;
   max-width: 1920px;
   padding-bottom: 30px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
-  & svg {
-    width: 85px;
-    height: 85px;
-    fill: var(--colorBlue);
-  }
+  & .whyList {
+    display: flex;
+    justify-content: space-around;
 
-  & .headline {
-    font-size: 24px;
-    line-height: 2;
-  }
+    @media only screen and (max-width: 768px) {
+      flex-direction: column;
+    }
 
-  & .description {
-    font-weight: var(--fontWeightLight);
-    line-height: 1.5;
-    color: color(var(--textColorPrimary) blackness(33%));
+    & .whyElement {
+      max-width: 25%;
+      box-sizing: border-box;
+      padding: 0 0.5rem;
+
+      @media only screen and (max-width: 768px) {
+        max-width: 100%;
+        margin-bottom: 30px;
+      }
+
+      & svg {
+        width: 85px;
+        height: 85px;
+        fill: var(--colorBlue);
+      }
+
+      & .headline {
+        font-size: 24px;
+        line-height: 2;
+      }
+
+      & .description {
+        font-weight: var(--fontWeightLight);
+        line-height: 1.5;
+        color: color(var(--textColorPrimary) blackness(33%));
+      }
+    }
   }
 }
 
 .SponsorsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 30px;
   margin-bottom: 20px;
+  text-align: center;
 
   & .headline {
     text-transform: uppercase;

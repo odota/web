@@ -5,7 +5,6 @@ import ActionSearch from 'material-ui/svg-icons/action/search';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
-import { Row, Col } from 'react-flexbox-grid';
 // import FlatButton from 'material-ui/FlatButton';
 // import IconButton from 'material-ui/IconButton/IconButton';
 // import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
@@ -124,15 +123,13 @@ const Header = ({ location, width }) => (
         {<SettingsGroup width={width} />}
       </div>
     </Toolbar>
-    <Row center="xs">
-      <Col xs>
-        { location.pathname !== '/' &&
-          <a href="http://www.vpgame.com/?lang=en_us">
-            <img src="/assets/images/vp-banner.jpg" role="presentation" style={{ marginTop: 10, maxWidth: '100%' }} />
-          </a>
-        }
-      </Col>
-    </Row>
+    <div className={styles.adBanner}>
+      { location.pathname !== '/' &&
+        <a href="http://www.vpgame.com/?lang=en_us">
+          <img src="/assets/images/vp-banner.jpg" role="presentation" />
+        </a>
+      }
+    </div>
   </div>
 );
 

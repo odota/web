@@ -1,8 +1,4 @@
 import React from 'react';
-import {
-  Row,
-  Col,
-} from 'react-flexbox-grid';
 import Checkbox from 'material-ui/Checkbox';
 import Table from 'components/Table';
 
@@ -56,14 +52,14 @@ export default class VisionFilter extends React.PureComponent {
 
   render() {
     return (
-      <Row className={styles.visionFilter}>
-        <Col xs={12} md={6}>
+      <div className={styles.visionFilter}>
+        <div className={styles.tableWrapper}>
           <Table data={data} columns={this.columns(0)} />
-        </Col>
-        <Col xs={12} md={6}>
+        </div>
+        <div className={styles.tableWrapper}>
           <Table data={data} columns={this.columns(5)} />
-        </Col>
-      </Row>
+        </div>
+      </div>
     );
   }
 }
