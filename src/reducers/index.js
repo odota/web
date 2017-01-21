@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import metadata from 'reducers/metadata';
 import match from 'reducers/match';
+import pvgnaGuides from 'reducers/pvgnaGuides';
 import heroRanking, { getHeroRanking } from 'reducers/heroRanking';
 import heroBenchmark, { getHeroBenchmark } from 'reducers/heroBenchmark';
 import search from 'reducers/search';
@@ -51,6 +52,7 @@ export {
   getHeroRanking as ranking,
   getTable as table,
   getLocalization as localization,
+  pvgnaGuides,
 };
 
 export default combineReducers({
@@ -67,4 +69,5 @@ export default combineReducers({
   proPlayers,
   proMatches,
   localization,
+  pvgnaGuides,
 });

@@ -33,6 +33,7 @@
   "app_tracked":"This user has visited recently, and replays of new matches will be automatically parsed.",
   "app_cheese_bought":"Cheese bought",
   "app_dotacoach":"Ask a Coach",
+  "app_pvgna":"Find a Guide",
   "app_refresh":"Refresh Match History: Queue a scan to find missing matches due to privacy settings",
   "app_login":"Innlogging",
   "app_logout":"Logg ut",

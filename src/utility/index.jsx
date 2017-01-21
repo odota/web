@@ -214,7 +214,7 @@ const getSubtitle = (row) => {
  **/
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
-  hero_id: (row) => {
+  hero_id: (row, col, field, showPvgnaGuide = false) => {
     const heroName = heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero;
     return (
       <TableHeroImage
@@ -226,9 +226,13 @@ export const transformations = {
           : heroName
         }
         subtitle={getSubtitle(row)}
+        heroName={heroName}
+        showPvgnaGuide={showPvgnaGuide}
+        pvgnaGuideInfo={row.pvgnaGuide}
       />
     );
   },
+  hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true),
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
   radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
