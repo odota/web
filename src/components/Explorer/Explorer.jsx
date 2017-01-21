@@ -72,8 +72,7 @@ LIMIT ${}
 */
 
 
-class Explorer extends React.Component
-{
+class Explorer extends React.Component {
   constructor() {
     super();
     this.state = {
