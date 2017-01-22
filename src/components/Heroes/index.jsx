@@ -99,8 +99,8 @@ class RequestLayer extends React.Component {
       };
     });
     processedData.sort((a, b) => b.pickBanRate - a.pickBanRate);
-    // TODO add last N days filter
-    // TODO add mmr filter
+    // TODO add last N days filter (currently locked to 30 days)
+    // TODO add mmr filter (brackets of 1k)
     return (<Container>
       <Table data={processedData} columns={heroesColumns} />
     </Container>);
@@ -113,7 +113,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  dispatchHeroStats: () => dispatch(getHeroStats({ min_time: (Math.floor(new Date() / 1000)) - (60 * 60 * 24 * 30) })),
+  dispatchHeroStats: () => dispatch(getHeroStats({ min_time: (Math.floor(new Date() / 1000)) - (60 * 60 * 24 * 30)})),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
