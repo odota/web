@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import Helmet from 'react-helmet';
 import {
   connect,
 }
@@ -102,6 +103,7 @@ class RequestLayer extends React.Component {
     // TODO add last N days filter (currently locked to 30 days)
     // TODO add mmr filter (brackets of 1k)
     return (<Container>
+      <Helmet title={strings.header_heroes} />
       <Table data={processedData} columns={heroesColumns} />
     </Container>);
   }

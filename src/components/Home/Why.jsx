@@ -1,16 +1,12 @@
 import React from 'react';
-import { Row, Col } from 'react-flexbox-grid';
 import strings from 'lang';
 import { IconOpenSource, IconStatsBars, IconWand } from 'components/Icons';
 import styles from './Home.css';
 
 export default () => (
-  <div className={styles.AwesomeContainer}>
-    <div className={styles.why}>
-      {strings.home_why}
-    </div>
-    <Row around="xs">
-      <Col xs={12} sm={3} className={styles.xsWhyElement}>
+  <div className={styles.WhyContainer}>
+    <div className={styles.whyList}>
+      <div className={styles.whyElement}>
         <IconOpenSource />
         <div className={styles.headline}>
           {strings.home_opensource_title}
@@ -18,8 +14,8 @@ export default () => (
         <div className={styles.description}>
           {strings.home_opensource_desc}
         </div>
-      </Col>
-      <Col xs={12} sm={3} className={styles.xsWhyElement}>
+      </div>
+      <div className={styles.whyElement}>
         <IconStatsBars />
         <div className={styles.headline}>
           {strings.home_indepth_title}
@@ -27,8 +23,8 @@ export default () => (
         <div className={styles.description}>
           {strings.home_indepth_desc}
         </div>
-      </Col>
-      <Col xs={12} sm={3} className={styles.xsWhyElement}>
+      </div>
+      <div className={styles.whyElement}>
         <IconWand />
         <div className={styles.headline}>
           {strings.home_free_title}
@@ -36,7 +32,7 @@ export default () => (
         <div className={styles.description}>
           {strings.home_free_desc}
         </div>
-      </Col>
-    </Row>
+      </div>
+    </div>
   </div>
 );

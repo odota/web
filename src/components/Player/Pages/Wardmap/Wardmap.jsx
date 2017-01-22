@@ -4,10 +4,10 @@ import { getPlayerWardmap } from 'actions';
 import { playerWardmap } from 'reducers';
 import Heatmap from 'components/Heatmap';
 import Container from 'components/Container';
-import { Row, Col } from 'react-flexbox-grid';
 import strings from 'lang';
 import { TableFilterForm } from 'components/Form';
 import { unpackPositionData } from 'utility';
+import styles from './Wardmap.css';
 
 const getData = (props) => {
   props.getPlayerWardmap(props.playerId, props.location.query);
@@ -29,18 +29,24 @@ class RequestLayer extends React.Component {
     return (
       <div>
         <TableFilterForm />
-        <Row>
-          <Col md>
-            <Container title={strings.th_ward_observer} error={error} loading={loading}>
-              <Heatmap points={unpackPositionData(data.obs)} />
-            </Container>
-          </Col>
-          <Col md>
-            <Container title={strings.th_ward_sentry} error={error} loading={loading}>
-              <Heatmap points={unpackPositionData(data.sen)} />
-            </Container>
-          </Col>
-        </Row>
+        <div className={styles.wardmaps}>
+          <Container
+            title={strings.th_ward_observer}
+            className={styles.wardmapContainer}
+            error={error}
+            loading={loading}
+          >
+            <Heatmap points={unpackPositionData(data.obs)} />
+          </Container>
+          <Container
+            title={strings.th_ward_sentry}
+            className={styles.wardmapContainer}
+            error={error}
+            loading={loading}
+          >
+            <Heatmap points={unpackPositionData(data.sen)} />
+          </Container>
+        </div>
       </div>
     );
   }

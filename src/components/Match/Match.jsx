@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
 import Spinner from 'components/Spinner';
 import TabBar from 'components/TabBar';
 import { getMatch } from 'actions';
@@ -29,9 +30,11 @@ class RequestLayer extends React.Component {
     const matchId = this.props.matchId;
     const info = this.props.routeParams.info || 'overview';
     const page = matchPages(matchId).find(page => page.key.toLowerCase() === info);
+    const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
     return (
       loading ? <Spinner /> :
       <div>
+        <Helmet title={pageTitle} />
         <MatchHeader
           match={match}
           user={this.props.user}

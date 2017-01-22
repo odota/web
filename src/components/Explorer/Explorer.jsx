@@ -4,6 +4,8 @@ import fetch from 'isomorphic-fetch';
 import Spinner from 'components/Spinner';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
+import Helmet from 'react-helmet';
+import strings from 'lang';
 // import { Tabs, Tab } from 'material-ui/Tabs';
 /*
 import Popover from 'material-ui/Popover';
@@ -72,8 +74,7 @@ LIMIT ${}
 */
 
 
-class Explorer extends React.Component
-{
+class Explorer extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -137,6 +138,7 @@ class Explorer extends React.Component
   */
   render() {
     return (<div>
+      <Helmet title={strings.title_explorer} />
       <Heading title="Data Explorer" subtitle="Explore data from Dota 2 matches" />
       <ul>
         <li><a href="https://github.com/odota/core/blob/master/sql/create_tables.sql">Table Schema</a></li>
