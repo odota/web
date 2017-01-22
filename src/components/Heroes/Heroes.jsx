@@ -10,7 +10,6 @@ import HeroList from './HeroList';
 import style from './Heroes.css';
 import Ranking from './Ranking';
 import Benchmark from './Benchmark';
-import HeroBadge from './HeroBadge';
 
 const createHeroList = (heroes, filter) => {
   const filteredHeroes = [];

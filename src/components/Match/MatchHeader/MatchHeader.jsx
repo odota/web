@@ -1,5 +1,4 @@
 import React from 'react';
-import { Row, Col } from 'react-flexbox-grid';
 import { transformations, isRadiant, sum } from 'utility';
 import strings from 'lang';
 import Spinner from 'components/Spinner';
@@ -44,42 +43,38 @@ export default ({ match, user, loading }) => {
       </span>);
     return (
       <header className={styles.header}>
-        <Row between="xs">
-          <Col xs={12} md={4} className={getWinnerStyle(match.radiant_win)}>
-            <div className={styles.winner}>
-              {match.radiant_win === null || match.radiant_win === undefined ? strings.td_no_result : victorySection}
+        <div className={styles.matchInfo}>
+          <div className={getWinnerStyle(match.radiant_win)}>
+            {match.radiant_win === null || match.radiant_win === undefined ? strings.td_no_result : victorySection}
+          </div>
+          <div className={styles.mainInfo}>
+            <div className={styles.killsRadiant}>
+              {
+                match.players
+                  .map(mapPlayers('kills', true))
+                  .reduce(sum, 0)
+              }
             </div>
-          </Col>
-          <Col xs={12} md={4}>
-            <Row center="xs">
-              <Col className={styles.killsRadiant}>
-                {
-                  match.players
-                    .map(mapPlayers('kills', true))
-                    .reduce(sum, 0)
-                }
-              </Col>
-              <Col className={styles.gmde}>
-                <span className={styles.gameMode}>
-                  {transformations.game_mode(null, null, match.game_mode)}
-                </span>
-                <span className={styles.duration}>
-                  {transformations.duration(null, null, match.duration)}
-                </span>
-                <span className={styles.ended}>
-                  {strings.match_ended} {transformations.start_time(null, null, match.start_time + match.duration)}
-                </span>
-              </Col>
-              <Col className={styles.killsDire}>
-                {
-                  match.players
-                    .map(mapPlayers('kills', false))
-                    .reduce(sum, 0)
-                }
-              </Col>
-            </Row>
-          </Col>
-          <Col xs={12} md={4} className={styles.additionalInfo}>
+            <div className={styles.gmde}>
+              <span className={styles.gameMode}>
+                {transformations.game_mode(null, null, match.game_mode)}
+              </span>
+              <span className={styles.duration}>
+                {transformations.duration(null, null, match.duration)}
+              </span>
+              <span className={styles.ended}>
+                {strings.match_ended} {transformations.start_time(null, null, match.start_time + match.duration)}
+              </span>
+            </div>
+            <div className={styles.killsDire}>
+              {
+                match.players
+                  .map(mapPlayers('kills', false))
+                  .reduce(sum, 0)
+              }
+            </div>
+          </div>
+          <div className={styles.additionalInfo}>
             <ul>
               {match.league && <li>
                 <span>league</span>
@@ -98,8 +93,8 @@ export default ({ match, user, loading }) => {
                 {(mmrPlayers.length) ? (mmrPlayers.reduce(sum, 0) / mmrPlayers.length).toFixed(0) : strings.general_unknown}
               </li>
             </ul>
-          </Col>
-        </Row>
+          </div>
+        </div>
         {!match.version &&
         <Warning className={styles.unparsed}>
           {strings.tooltip_unparsed}
