@@ -49,8 +49,11 @@ class Heroes extends Component {
       const hero = getSingleHero(this.props.routeParams.heroId);
       return (<div>
         <Helmet title={hero.localized_name} />
-        <HeroBadge hero={hero} />
-        <Tabs>
+        <div className={style.HeroBadge}>
+          <img role="presentation" src={hero.img} />
+          <h2>{hero.localized_name}</h2>
+        </div>
+         <Tabs>
           <Tab label={strings.tab_rankings}>
             <Ranking {...this.props} />
           </Tab>
