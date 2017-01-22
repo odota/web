@@ -47,7 +47,7 @@ const App = ({ children, open, params, location, width, localization }) => (
     >
       <Helmet
         htmlAttributes={{ lang: localization }}
-        defaultTitle={strings.default_title}
+        defaultTitle={strings.title_default}
         titleTemplate={strings.title_template}
       />
       <Header params={params} location={location} />
