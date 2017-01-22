@@ -115,7 +115,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  dispatchHeroStats: () => dispatch(getHeroStats({ min_time: (Math.floor(new Date() / 1000)) - (60 * 60 * 24 * 30)})),
+  dispatchHeroStats: () => dispatch(getHeroStats({ min_time: (Math.floor(new Date() / 1000)) - (60 * 60 * 24 * 30) })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
