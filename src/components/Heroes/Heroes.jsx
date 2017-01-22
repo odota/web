@@ -53,7 +53,7 @@ class Heroes extends Component {
           <img role="presentation" src={hero.img} />
           <h2>{hero.localized_name}</h2>
         </div>
-         <Tabs>
+        <Tabs>
           <Tab label={strings.tab_rankings}>
             <Ranking {...this.props} />
           </Tab>
