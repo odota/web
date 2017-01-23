@@ -464,3 +464,33 @@ export const hsvToRgb = (h, s, v) => {
 
   return [r * 255, g * 255, b * 255];
 };
+
+// Pretty much jQuery.getScript https://goo.gl/PBD7ml
+export const getScript = (url, callback) => {
+  // Create script
+  let script = document.createElement('script');
+  script.async = 1;
+  script.src = url;
+
+  // Insert before first <script>
+  const firstScript = document.getElementsByTagName('script')[0];
+  firstScript.parentNode.insertBefore(script, firstScript);
+
+  // Attach handlers
+  script.onload = script.onreadystatechange = (_, isAbort) => {
+    if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
+      // Handle IE memory leak
+      script.onload = script.onreadystatechange = null;
+
+      // Keep for dev-debugging, see https://goo.gl/MbNOCv
+      if (process.env.NODE_ENV === 'production') {
+        script.parentNode.removeChild(script);
+      }
+      script = undefined;
+
+      if (!isAbort && callback) {
+        callback();
+      }
+    }
+  };
+};
