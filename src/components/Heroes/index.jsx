@@ -19,7 +19,7 @@ import Container from 'components/Container';
 import Table from 'components/Table';
 import styles from 'components/Match/Match.css';
 
-const percentileDisplay = (row, col, decimal, total) => {
+const percentileDisplay = (decimal, total) => {
   const bucket = percentile(decimal);
   const percent = Number(decimal * 100).toFixed(2);
   return (<div>
@@ -37,27 +37,27 @@ const heroesColumns = [{
   displayName: strings.hero_pick_ban_rate,
   field: 'pickBanRate',
   sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(row, col, field, row.proMatchCount),
+  displayFn: (row, col, field) => percentileDisplay(field, row.proMatchCount),
 }, {
   displayName: strings.hero_pick_rate,
   field: 'pickRate',
   sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(row, col, field, row.proMatchCount),
+  displayFn: (row, col, field) => percentileDisplay(field, row.proMatchCount),
 }, {
   displayName: strings.hero_ban_rate,
   field: 'banRate',
   sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(row, col, field, row.proMatchCount),
+  displayFn: (row, col, field) => percentileDisplay(field, row.proMatchCount),
 }, {
   displayName: strings.hero_win_rate,
   field: 'winRate',
   sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(row, col, field, row.pro_pick),
+  displayFn: (row, col, field) => percentileDisplay(field, row.pro_pick),
 }, {
   displayName: strings.hero_public_pick_rate,
   field: 'publicPickRate',
   sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(row, col, field, row.pubMatchCount),
+  displayFn: (row, col, field) => percentileDisplay(field, row.pubMatchCount),
 }, {
   displayName: strings.hero_public_win_rate,
   field: 'publicWinRate',
@@ -102,10 +102,12 @@ class RequestLayer extends React.Component {
     processedData.sort((a, b) => b.pickBanRate - a.pickBanRate);
     // TODO add last N days filter (currently locked to 30 days)
     // TODO add mmr filter (brackets of 1k)
-    return (<Container>
+    return (<div>
       <Helmet title={strings.header_heroes} />
-      <Table data={processedData} columns={heroesColumns} />
-    </Container>);
+      <Container>
+        <Table data={processedData} columns={heroesColumns} />
+      </Container>
+    </div>);
   }
 }
 
