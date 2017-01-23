@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
 import Helmet from 'react-helmet';
 import strings from 'lang';
+import { getScript } from 'utility';
 // import { Tabs, Tab } from 'material-ui/Tabs';
 /*
 import Popover from 'material-ui/Popover';
@@ -78,9 +79,11 @@ class Explorer extends React.Component {
   constructor() {
     super();
     this.state = {
-      loading: false,
+      loadingEditor: true,
+      querying: false,
       result: {},
     };
+    this.instantiateEditor = this.instantiateEditor.bind(this);
     this.handleQuery = this.handleQuery.bind(this);
     this.handleResponse = this.handleResponse.bind(this);
     /*
@@ -90,6 +93,9 @@ class Explorer extends React.Component {
     */
   }
   componentDidMount() {
+    getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js', this.instantiateEditor);
+  }
+  instantiateEditor() {
     const editor = ace.edit('editor');
     editor.setTheme('ace/theme/monokai');
     editor.getSession().setMode('ace/mode/sql');
@@ -106,16 +112,20 @@ class Explorer extends React.Component {
     } else {
       editor.setValue('select count(*) from matches;');
     }
+    this.setState(Object.assign({}, this.state, { loadingEditor: false }));
   }
   handleQuery() {
-    this.setState(Object.assign({}, this.state, { loading: true }));
+    if (this.state.loadingEditor === true) {
+      return;
+    }
+    this.setState(Object.assign({}, this.state, { querying: true }));
     const queryString = `?sql=${encodeURIComponent(this.editor.getSelectedText() || this.editor.getValue())}`;
     window.history.pushState('', '', queryString);
     fetch(`${API_HOST}/api/explorer${queryString}`).then(jsonResponse).then(this.handleResponse);
   }
   handleResponse(json) {
     this.setState(Object.assign({}, this.state, {
-      loading: false,
+      querying: false,
       open: false,
       result: json,
     }));
@@ -169,15 +179,24 @@ class Explorer extends React.Component {
       */
       }
       <Heading title="SQL Query" />
-      <div id={'editor'} style={{ width: '100%', height: 200 }} />
+      {this.state.loadingEditor && <Spinner />}
+      <div
+        id={'editor'}
+        style={{
+          width: '100%',
+          height: 200,
+          display: this.state.loadingEditor ? 'none' : 'block',
+        }}
+      />
       <RaisedButton
         style={{ margin: '5px' }}
         label={'Query'}
         onClick={this.handleQuery}
+        disabled={this.state.loadingEditor}
       />
       <Heading title="Results" />
       <pre style={{ color: 'red' }}>{this.state.result.err}</pre>
-      {!this.state.loading ?
+      {!this.state.querying ?
         <Table
           data={this.state.result.rows || []}
           columns={(this.state.result.fields || []).map(column => ({
