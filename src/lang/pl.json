@@ -57,7 +57,7 @@
   "building_range_rax":"Baraki - walka dystansowa",
   "building_lasthit":"zadał/a ostatnie uderzenie",
   "building_damage":"otrzymane obrażenia",
-  "building_hint":"Ikony na mapie zawierają wskazówki",
+  "building_hint":"Ikony na mapie zawierają tooltipy",
   "building_denied":"zanegował/a",
   "CHAT_MESSAGE_TOWER_KILL":"Wieża",
   "CHAT_MESSAGE_BARRACKS_KILL":"Baraki",
