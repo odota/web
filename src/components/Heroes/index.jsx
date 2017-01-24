@@ -62,7 +62,7 @@ const heroesColumns = [{
   displayName: strings.hero_public_win_rate,
   field: 'publicWinRate',
   sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(row, col, field, row.public_pick),
+  displayFn: (row, col, field) => percentileDisplay(field, row.public_pick),
 }];
 
 class RequestLayer extends React.Component {
