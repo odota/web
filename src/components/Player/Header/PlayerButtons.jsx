@@ -37,6 +37,7 @@ class PlayerButtons extends React.Component {
               fetch(`${API_HOST}/api/players/${playerId}/refresh`, { method: 'POST' });
               this.setState({ disableRefresh: true });
             }}
+            label={strings.app_refresh_label}
           />
         </div>
         <ShowFormToggle formName={FORM_NAME} showForm={showForm} toggleShowForm={toggleShowForm} />
