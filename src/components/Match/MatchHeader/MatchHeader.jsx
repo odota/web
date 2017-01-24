@@ -128,6 +128,13 @@ export default ({ match, user, loading }) => {
             target="_blank"
             rel="noopener noreferrer"
           />
+          <FlatButton
+            label={strings.app_pvgna}
+            icon={<img src="/assets/images/pvgna-guide-icon.png" alt="Pvgna" height="24px" role="presentation" />}
+            href={`https://pvgna.com/?userSteamId=${user && user.account_id}&ref=yasp`}
+            target="_blank"
+            rel="noopener noreferrer"
+          />
         </div>
       </header>
     );
