@@ -84,15 +84,15 @@ const TableHeroImage = ({
         }
       </div>
     }
-    { showPvgnaGuide && pvgnaGuideInfo && heroName &&
-    <div className={styles.pvgnaGuideContainer} data-tip data-for={heroName}>
-      <a href={pvgnaGuideInfo.url}>
-        <img className={styles.pvgnaGuideIcon} src="/assets/images/pvgna-guide-icon.png" alt="Pvgna" />
-      </a>
-      <ReactTooltip id={heroName} place="top" type="light" effect="solid">
-        {`Learn ${heroName} on Pvgna`}
-      </ReactTooltip>
-    </div>
+    { !!showPvgnaGuide && pvgnaGuideInfo && heroName &&
+      <div className={styles.pvgnaGuideContainer} data-tip data-for={heroName}>
+        <a href={pvgnaGuideInfo.url}>
+          <img className={styles.pvgnaGuideIcon} src="/assets/images/pvgna-guide-icon.png" alt="Pvgna" />
+        </a>
+        <ReactTooltip id={heroName} place="top" type="light" effect="solid">
+          {`Learn ${heroName} on Pvgna`}
+        </ReactTooltip>
+      </div>
     }
   </div>
 );
