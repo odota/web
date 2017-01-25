@@ -48,6 +48,11 @@ const config = {
     rules: [{
       test: /\.css$/,
       loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!postcss-loader',
+      exclude: /node_modules\/c3/,
+    }, {
+      test: /\.css$/,
+      loader: 'style-loader!css-loader',
+      include: /node_modules\/c3/,
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: 'url-loader?limit=10000&minetype=application/font-woff&name=[hash].[ext]',
