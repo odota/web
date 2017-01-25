@@ -100,8 +100,9 @@ class RequestLayer extends React.Component {
       };
     });
     processedData.sort((a, b) => b.pickBanRate - a.pickBanRate);
-    // TODO add last N days filter (currently locked to 30 days)
+    // TODO add filter by month
     // TODO add mmr filter (brackets of 1k)
+    // TODO lighter blue color for mid percentages
     return (<div>
       <Helmet title={strings.header_heroes} />
       <Container>
