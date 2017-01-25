@@ -139,6 +139,7 @@
   "app_tracked":"This user has visited recently, and replays of new matches will be automatically parsed.",
   "app_cheese_bought":"Cheese bought",
   "app_dotacoach":"Ask a Coach",
+  "app_pvgna":"Find a Guide",
   "app_refresh":"Refresh Match History: Queue a scan to find missing matches due to privacy settings",
   "app_login":"Login",
   "app_logout":"Logout",
@@ -665,6 +666,14 @@
   "timeline_aegis_denied": "denied",
   "timeline_teamfight_deaths": "Deaths",
   "timeline_teamfight_gold_delta": "gold delta",
+
+  "title_default": "OpenDota - Dota 2 Statistics",
+  "title_template": "%s - OpenDota - Dota 2 Statistics",
+  "title_matches": "Professional Matches",
+  "title_request": "Request a Parse",
+  "title_search": "Search",
+  "title_status": "Status",
+  "title_explorer": "Data Explorer",
 
   "tooltip_mmr": "Solo MMR of the player",
   "tooltip_level": "Level achieved by hero",

@@ -12,7 +12,6 @@ import Container from 'components/Container';
 import Wordcloud from 'components/Wordcloud';
 import strings from 'lang';
 import { TableFilterForm } from 'components/Form';
-// import { Row, Col } from 'react-flexbox-grid';
 
 const getData = (props) => {
   props.getPlayerWordcloud(props.playerId, props.location.query);

@@ -30,8 +30,8 @@ import { Mmr } from 'components/Visualizations/Table/HeroImage';
 import { IconRadiant, IconDire, IconBackpack } from 'components/Icons';
 import styles from './Match.css';
 
-export const heroTd = (row, col, field, index, hideName, party) => (
-  <TableHeroImage
+export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide = false) =>
+  (<TableHeroImage
     image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
     title={row.name || row.personaname || strings.general_anonymous}
     registered={row.last_login}
@@ -41,6 +41,9 @@ export const heroTd = (row, col, field, index, hideName, party) => (
     hideText={hideName}
     confirmed={row.account_id && row.name}
     party={party}
+    heroName={heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero}
+    showPvgnaGuide={showPvgnaGuide}
+    pvgnaGuideInfo={row.pvgnaGuide}
   />
 );
 
@@ -73,7 +76,7 @@ export const overviewColumns = (match) => {
   const cols = [{
     displayName: strings.th_avatar,
     field: 'player_slot',
-    displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, parties(row, match)),
+    displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, parties(row, match), true),
     sortFn: true,
   }, {
     displayName: strings.th_level,
@@ -644,6 +647,18 @@ export const analysisColumns = [heroTdColumn, {
   ),
 }];
 
+const playerDeaths = (row, col, field) => {
+  const deaths = [];
+  for (let i = 0; i < field; i += 1) {
+    deaths.push(<img src="/assets/images/player_death.png" role="presentation" />);
+  }
+  return (
+    field > 0 && <div className={styles.playerDeath}>
+      {deaths}
+    </div>
+  );
+};
+
 const inflictorRow = obj => (row, col, field) => (
   field ? (
     <div style={{ maxWidth: '100px' }}>
@@ -662,6 +677,7 @@ export const teamfightColumns = [
     displayName: strings.th_death,
     field: 'deaths',
     sortFn: true,
+    displayFn: playerDeaths,
   }, {
     displayName: strings.th_damage,
     field: 'damage',

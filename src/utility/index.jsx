@@ -214,7 +214,7 @@ const getSubtitle = (row) => {
  **/
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
-  hero_id: (row) => {
+  hero_id: (row, col, field, showPvgnaGuide = false) => {
     const heroName = heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero;
     return (
       <TableHeroImage
@@ -226,9 +226,13 @@ export const transformations = {
           : heroName
         }
         subtitle={getSubtitle(row)}
+        heroName={heroName}
+        showPvgnaGuide={showPvgnaGuide}
+        pvgnaGuideInfo={row.pvgnaGuide}
       />
     );
   },
+  hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true),
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
   radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
@@ -463,4 +467,34 @@ export const hsvToRgb = (h, s, v) => {
   }
 
   return [r * 255, g * 255, b * 255];
+};
+
+// Pretty much jQuery.getScript https://goo.gl/PBD7ml
+export const getScript = (url, callback) => {
+  // Create script
+  let script = document.createElement('script');
+  script.async = 1;
+  script.src = url;
+
+  // Insert before first <script>
+  const firstScript = document.getElementsByTagName('script')[0];
+  firstScript.parentNode.insertBefore(script, firstScript);
+
+  // Attach handlers
+  script.onload = script.onreadystatechange = (_, isAbort) => {
+    if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
+      // Handle IE memory leak
+      script.onload = script.onreadystatechange = null;
+
+      // Keep for dev-debugging, see https://goo.gl/MbNOCv
+      if (process.env.NODE_ENV === 'production') {
+        script.parentNode.removeChild(script);
+      }
+      script = undefined;
+
+      if (!isAbort && callback) {
+        callback();
+      }
+    }
+  };
 };

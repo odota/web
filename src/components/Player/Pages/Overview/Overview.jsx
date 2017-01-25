@@ -5,12 +5,16 @@ import {
   getPlayerMatches,
   getPlayerHeroes,
   getPlayerPeers,
+  getPvgnaHeroGuides,
 } from 'actions';
 import {
   playerMatches,
   playerHeroes,
   playerPeers,
 } from 'reducers';
+import {
+  getPvgnaGuides,
+} from 'reducers/pvgnaGuides';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import { TableFilterForm } from 'components/Form';
@@ -87,6 +91,7 @@ const getData = (props) => {
   });
   props.getPlayerHeroes(props.playerId, props.location.query);
   props.getPlayerPeers(props.playerId, props.location.query);
+  props.getPvgnaHeroGuides();
 };
 
 class RequestLayer extends React.Component {
@@ -105,11 +110,16 @@ class RequestLayer extends React.Component {
   }
 }
 
+const mergeHeroGuides = (heroes, heroGuides) => heroes.map(hero => ({
+  ...hero,
+  pvgnaGuide: heroGuides[hero.hero_id],
+}));
+
 const mapStateToProps = (state, { playerId }) => ({
   matchesData: playerMatches.getMatchList(state, playerId),
   matchesLoading: playerMatches.getLoading(state, playerId),
   matchesError: playerMatches.getError(state, playerId),
-  heroesData: playerHeroes.getHeroList(state, playerId),
+  heroesData: mergeHeroGuides(playerHeroes.getHeroList(state, playerId), getPvgnaGuides(state)),
   heroesLoading: playerHeroes.getLoading(state, playerId),
   heroesError: playerHeroes.getError(state, playerId),
   peersData: playerPeers.getPeerList(state, playerId),
@@ -121,6 +131,7 @@ const mapDispatchToProps = dispatch => ({
   getPlayerMatches: (playerId, options) => dispatch(getPlayerMatches(playerId, options)),
   getPlayerHeroes: (playerId, options) => dispatch(getPlayerHeroes(playerId, options)),
   getPlayerPeers: (playerId, options) => dispatch(getPlayerPeers(playerId, options)),
+  getPvgnaHeroGuides: () => dispatch(getPvgnaHeroGuides()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

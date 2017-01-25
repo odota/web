@@ -1,6 +1,7 @@
 /* global API_HOST */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
 import heroes from 'dotaconstants/json/heroes.json';
 import strings from 'lang';
 import { Tabs, Tab } from 'material-ui/Tabs';
@@ -9,7 +10,6 @@ import HeroList from './HeroList';
 import style from './Heroes.css';
 import Ranking from './Ranking';
 import Benchmark from './Benchmark';
-import HeroBadge from './HeroBadge';
 
 const createHeroList = (heroes, filter) => {
   const filteredHeroes = [];
@@ -44,13 +44,15 @@ class Heroes extends Component {
     };
   }
 
-  componentDidMount() {
-    // console.log(this.props);
-  }
   render() {
     if (this.props.routeParams && this.props.routeParams.heroId) {
+      const hero = getSingleHero(this.props.routeParams.heroId);
       return (<div>
-        <HeroBadge hero={getSingleHero(this.props.routeParams.heroId)} />
+        <Helmet title={hero.localized_name} />
+        <div className={style.HeroBadge}>
+          <img role="presentation" src={hero.img} />
+          <h2>{hero.localized_name}</h2>
+        </div>
         <Tabs>
           <Tab label={strings.tab_rankings}>
             <Ranking {...this.props} />
@@ -64,6 +66,7 @@ class Heroes extends Component {
 
     return (
       <div>
+        <Helmet title={strings.header_heroes} />
         <h1 className={style.Header}>{strings.header_heroes}</h1>
         <div className={style.SearchBar}>
           <TextField
