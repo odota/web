@@ -37,6 +37,7 @@ class PlayerButtons extends React.Component {
               fetch(`${API_HOST}/api/players/${playerId}/refresh`, { method: 'POST' });
               this.setState({ disableRefresh: true });
             }}
+            label={strings.app_refresh_label}
           />
         </div>
         <ShowFormToggle formName={FORM_NAME} showForm={showForm} toggleShowForm={toggleShowForm} />
@@ -46,6 +47,13 @@ class PlayerButtons extends React.Component {
           icon={<img src="/assets/images/dotacoach-32x24.png" alt="DotaCoach" />}
           style={{ marginLeft: 15 }}
           href={`https://dotacoach.org/Hire/OpenDota?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}`}
+        />
+        <FlatButton
+          label={strings.app_pvgna}
+          labelPosition="after"
+          icon={<img src="/assets/images/pvgna-guide-icon.png" alt="Pvgna" height="24px" />}
+          style={{ marginLeft: 15 }}
+          href={`https://pvgna.com/?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}&ref=yasp`}
         />
       </div>);
   }

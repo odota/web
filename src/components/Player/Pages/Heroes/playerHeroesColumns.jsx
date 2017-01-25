@@ -8,7 +8,7 @@ export const playerHeroesOverviewColumns = playerId => [{
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
-  displayFn: transformations.hero_id,
+  displayFn: transformations.hero_id_with_pvgna_guide,
   sortFn: row => row.last_played,
 }, {
   displayName: strings.th_games,

@@ -3,11 +3,16 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Spinner from 'components/Spinner';
 import TabBar from 'components/TabBar';
-import { getMatch } from 'actions';
+import {
+  getMatch, getPvgnaHeroGuides,
+} from 'actions';
 import {
   getMatchData,
   getMatchLoading,
 } from 'reducers/match';
+import {
+  getPvgnaGuides,
+} from 'reducers/pvgnaGuides';
 import { getMetadataUser } from 'reducers/metadata';
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
@@ -16,6 +21,7 @@ import styles from './Match.css';
 class RequestLayer extends React.Component {
   componentDidMount() {
     this.props.getMatch(this.props.routeParams.matchId);
+    this.props.getPvgnaHeroGuides();
   }
 
   componentWillUpdate(nextProps) {
@@ -50,15 +56,24 @@ class RequestLayer extends React.Component {
   }
 }
 
+const mergeHeroGuides = (match, heroGuides) => ({
+  ...match,
+  players: match.players.map(player => ({
+    ...player,
+    pvgnaGuide: heroGuides[player.hero_id],
+  })),
+});
+
 const mapStateToProps = (state, ownProps) => ({
   matchId: ownProps.params.matchId,
-  match: getMatchData(state),
+  match: mergeHeroGuides(getMatchData(state), getPvgnaGuides(state)),
   loading: getMatchLoading(state),
   user: getMetadataUser(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   getMatch: matchId => dispatch(getMatch(matchId)),
+  getPvgnaHeroGuides: () => dispatch(getPvgnaHeroGuides()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

@@ -1,4 +1,3 @@
 files:
-  - 
-    source: /src/lang/en.json
-    translation: /src/lang/%two_letters_code%.json
+  - source: /src/lang/en.json
+    translation: /src/lang/%locale%-%two_letters_code%.json

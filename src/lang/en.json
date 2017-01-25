@@ -37,6 +37,7 @@
   "app_cheese_bought": "Cheese bought",
   "app_dotacoach": "Ask a Coach",
   "app_refresh": "Refresh Match History: Queue a scan to find missing matches due to privacy settings",
+  "app_refresh_label": "Refresh",
   "app_login": "Login",
   "app_logout": "Logout",
   "app_results": "results",
