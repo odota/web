@@ -7,7 +7,7 @@ import {
   formatSeconds,
   getLevelFromXp,
 } from 'utility';
-import playerColors from 'dotaconstants/json/player_colors.json';
+import playerColors from 'dotaconstants/build/player_colors.json';
 import strings from 'lang';
 import Heading from 'components/Heading';
 import styles from './Match.css';

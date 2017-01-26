@@ -5,7 +5,7 @@ import {
   TableRowColumn,
   TableBody,
 } from 'material-ui/Table';
-import heroes from 'dotaconstants/json/heroes.json';
+import heroes from 'dotaconstants/build/heroes.json';
 import ReactTooltip from 'react-tooltip';
 import { abbreviateNumber } from 'utility';
 import strings from 'lang';
