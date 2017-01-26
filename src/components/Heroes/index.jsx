@@ -24,7 +24,7 @@ const percentileDisplay = (decimal, total) => {
   const percent = Number(decimal * 100).toFixed(2);
   return (<div>
     <span style={{ color: styles[bucket.color] }}>{`${percent}%`}</span>
-    <small style={{ margin: '3px' }}>{Math.floor(total * decimal)}</small>
+    {total && <small style={{ margin: '3px' }}>{Math.floor(total * decimal)}</small>}
   </div>);
 };
 
@@ -57,12 +57,12 @@ const heroesColumns = [{
   displayName: strings.hero_public_pick_rate,
   field: 'publicPickRate',
   sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field, row.pubMatchCount),
+  displayFn: (row, col, field) => percentileDisplay(field),
 }, {
   displayName: strings.hero_public_win_rate,
   field: 'publicWinRate',
   sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field, row.public_pick),
+  displayFn: (row, col, field) => percentileDisplay(field),
 }];
 
 class RequestLayer extends React.Component {
@@ -101,7 +101,6 @@ class RequestLayer extends React.Component {
     });
     processedData.sort((a, b) => b.pickBanRate - a.pickBanRate);
     // TODO add filter by month
-    // TODO add mmr filter (brackets of 1k)
     // TODO lighter blue color for mid percentages
     return (<div>
       <Helmet title={strings.header_heroes} />
