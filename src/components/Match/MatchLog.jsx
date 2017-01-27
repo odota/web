@@ -7,7 +7,7 @@ import {
 import ReactTooltip from 'react-tooltip';
 import Table from 'components/Table';
 import Checkbox from 'material-ui/Checkbox';
-import heroNames from 'dotaconstants/json/hero_names.json';
+import heroNames from 'dotaconstants/build/hero_names.json';
 import styles from './Match.css';
 import {
   heroTdColumn,

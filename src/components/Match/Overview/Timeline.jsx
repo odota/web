@@ -14,7 +14,7 @@ import {
 import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
 
-import heroes from 'dotaconstants/json/heroes.json';
+import heroes from 'dotaconstants/build/heroes.json';
 import PlayerThumb from 'components/Match/PlayerThumb';
 
 import styles from './Timeline.css';
