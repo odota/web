@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import strings from 'lang';
-import heroes from 'dotaconstants/json/heroes.json';
+import heroes from 'dotaconstants/build/heroes.json';
 
 import styles from './PicksBans.css';
 

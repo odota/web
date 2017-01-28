@@ -1,12 +1,12 @@
 /* global API_HOST */
 import React from 'react';
 import { Link } from 'react-router';
-import heroes from 'dotaconstants/json/heroes.json';
-import items from 'dotaconstants/json/items.json';
-import patch from 'dotaconstants/json/patch.json';
-import region from 'dotaconstants/json/region.json';
-import itemIds from 'dotaconstants/json/item_ids.json';
-import xpLevel from 'dotaconstants/json/xp_level.json';
+import heroes from 'dotaconstants/build/heroes.json';
+import items from 'dotaconstants/build/items.json';
+import patch from 'dotaconstants/build/patch.json';
+import region from 'dotaconstants/build/region.json';
+import itemIds from 'dotaconstants/build/item_ids.json';
+import xpLevel from 'dotaconstants/build/xp_level.json';
 import styles from 'components/palette.css';
 import { TableLink } from 'components/Table';
 import {

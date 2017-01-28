@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import heroes from 'dotaconstants/json/heroes.json';
+import heroes from 'dotaconstants/build/heroes.json';
 import strings from 'lang';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import TextField from 'material-ui/TextField';

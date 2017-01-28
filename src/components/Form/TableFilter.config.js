@@ -1,6 +1,6 @@
-import heroes from 'dotaconstants/json/heroes.json';
-import patch from 'dotaconstants/json/patch.json';
-import region from 'dotaconstants/json/region.json';
+import heroes from 'dotaconstants/build/heroes.json';
+import patch from 'dotaconstants/build/patch.json';
+import region from 'dotaconstants/build/region.json';
 import strings from 'lang';
 
 // This has to be a list in order to pass it in.

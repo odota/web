@@ -7,8 +7,7 @@ import {
 import {
   inflictorWithValue,
 } from 'components/Visualizations';
-import heroes from 'dotaconstants/json/heroes.json';
-// import items from 'dotaconstants/json/items.json';
+import heroes from 'dotaconstants/build/heroes.json';
 import strings from 'lang';
 import Table from '../Table/Table';
 

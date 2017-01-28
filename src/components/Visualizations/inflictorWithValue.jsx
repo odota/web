@@ -3,9 +3,9 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
-import items from 'dotaconstants/json/items.json';
-import abilities from 'dotaconstants/json/abilities.json';
-import neutralAbilities from 'dotaconstants/json/neutral_abilities.json';
+import items from 'dotaconstants/build/items.json';
+import abilities from 'dotaconstants/build/abilities.json';
+import neutralAbilities from 'dotaconstants/build/neutral_abilities.json';
 import strings from 'lang';
 import styles from './inflictorWithValue.css';
 

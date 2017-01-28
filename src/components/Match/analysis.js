@@ -1,6 +1,6 @@
-import items from 'dotaconstants/json/items.json';
-import itemGroups from 'dotaconstants/json/item_groups.json';
-import skillshots from 'dotaconstants/json/skillshots.json';
+import items from 'dotaconstants/build/items.json';
+import itemGroups from 'dotaconstants/build/item_groups.json';
+import skillshots from 'dotaconstants/build/skillshots.json';
 import strings from 'lang';
 import {
   isSupport,
