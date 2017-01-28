@@ -82,7 +82,7 @@ export const langs = [
     value: 'vi-VN',
     translated: lang.language_vi,
     native: 'Tiếng Việt',
-  },{
+  }, {
     value: 'zh-CN',
     translated: lang.language_zh_cn,
     native: '简化字',
