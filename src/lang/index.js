@@ -1,75 +1,95 @@
 const savedLang = window.localStorage && window.localStorage.getItem('localization');
-const lang = require(`./${savedLang || 'en'}.json`);
+const lang = require(`./${savedLang || 'en-US'}.json`);
 
 export const langs = [
   {
-    value: 'en',
-    translated: lang.language_en,
-    native: 'English',
+    value: 'en-US',
+    translated: lang.language_en_us,
+    native: 'English (US)',
   }, {
-    value: 'de',
+    value: 'bg-BG',
+    translated: lang.language_bg,
+    native: 'български bǎlgarski',
+  }, {
+    value: 'cs-CZ',
+    translated: lang.language_cs,
+    native: 'Čeština',
+  }, {
+    value: 'de-DE',
     translated: lang.language_de,
     native: 'Deutsch',
   }, {
-    value: 'es',
-    translated: lang.language_es,
-    native: 'Español',
+    value: 'es-ES',
+    translated: lang.language_es_419,
+    native: 'Español (América Latina)',
   }, {
-    value: 'fi',
+    value: 'es-PE',
+    translated: lang.language_es_419,
+    native: 'Español (América Latina)',
+  }, {
+    value: 'fi-FI',
     translated: lang.language_fi,
     native: 'Suomi',
   }, {
-    value: 'fr',
+    value: 'fr-FR',
     translated: lang.language_fr,
     native: 'Français',
   }, {
-    value: 'it',
+    value: 'it-IT',
     translated: lang.language_it,
     native: 'Italiano',
   }, {
-    value: 'ko',
+    value: 'ja-JP',
+    translated: lang.language_ja,
+    native: '日本語',
+  }, {
+    value: 'ko-KR',
     translated: lang.language_ko,
     native: '한국어',
   }, {
-    value: 'ms',
+    value: 'ms-MY',
     translated: lang.language_ms,
-    native: 'Malay',
+    native: 'Bahasa Melayu',
   }, {
-    value: 'nl',
+    value: 'nl-NL',
     translated: lang.language_nl,
     native: 'Nederlands',
   }, {
-    value: 'pl',
+    value: 'pl_PL',
     translated: lang.language_pl,
     native: 'Polszczyzna',
   }, {
-    value: 'pt',
-    translated: lang.language_pt,
-    native: 'Português',
+    value: 'pt_BR',
+    translated: lang.language_pt_br,
+    native: 'Português Brasileiro',
   }, {
-    value: 'ru',
+    value: 'ru-RU',
     translated: lang.language_ru,
-    native: 'ру́сский',
+    native: 'Русский',
   }, {
-    value: 'sv',
+    value: 'sv-SE',
     translated: lang.language_sv,
     native: 'Svenska',
   }, {
-    value: 'tr',
+    value: 'tr-TR',
     translated: lang.language_tr,
     native: 'Türkçe',
   }, {
-    value: 'uk',
+    value: 'uk-UA',
     translated: lang.language_uk,
     native: 'Українська',
   }, {
-    value: 'vi',
+    value: 'vi-VN',
     translated: lang.language_vi,
     native: 'Tiếng Việt',
+  },{
+    value: 'zh-CN',
+    translated: lang.language_zh_cn,
+    native: '简化字',
   }, {
-    value: 'zh',
-    translated: lang.language_zh,
-    native: '汉语',
+    value: 'zh-TW',
+    translated: lang.language_zh_tw,
+    native: '繁體字',
   },
 ];
 
