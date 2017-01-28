@@ -20,8 +20,8 @@ export const langs = [
     native: 'Deutsch',
   }, {
     value: 'es-ES',
-    translated: lang.language_es_419,
-    native: 'Español (América Latina)',
+    translated: lang.language_es_es,
+    native: 'Español (España)',
   }, {
     value: 'es-PE',
     translated: lang.language_es_419,
