@@ -180,7 +180,7 @@ export const percentile = (pct) => {
     };
   } else if (pct >= 0.4) {
     return {
-      color: 'darkBlue',
+      color: 'golden',
       grade: 'C',
     };
   } else if (pct >= 0.2) {
