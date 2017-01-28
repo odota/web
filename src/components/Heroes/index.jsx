@@ -104,16 +104,6 @@ const heroesColumns = [{
   field: 'winRate1000',
   sortFn: true,
   displayFn: (row, col, field) => percentileDisplay(field),
-}, {
-  displayName: strings.hero_0000_pick_rate,
-  field: 'pickRate0000',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field),
-}, {
-  displayName: strings.hero_0000_win_rate,
-  field: 'winRate0000',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field),
 }];
 
 class RequestLayer extends React.Component {
@@ -129,7 +119,6 @@ class RequestLayer extends React.Component {
     const matchCount3000 = json.map(heroStat => heroStat['3000_pick'] || 0).reduce((a, b) => a + b, 0) / 10;
     const matchCount2000 = json.map(heroStat => heroStat['2000_pick'] || 0).reduce((a, b) => a + b, 0) / 10;
     const matchCount1000 = json.map(heroStat => heroStat['1000_pick'] || 0).reduce((a, b) => a + b, 0) / 10;
-    const matchCount0000 = json.map(heroStat => heroStat['0_pick'] || 0).reduce((a, b) => a + b, 0) / 10;
 
     const processedData = json.map((heroStat) => {
       const pickRatePro = (heroStat.pro_pick || 0) / matchCountPro;
@@ -143,7 +132,6 @@ class RequestLayer extends React.Component {
         matchCount3000,
         matchCount2000,
         matchCount1000,
-        matchCount0000,
         pickBanRatePro: pickRatePro + banRatePro,
         pickRatePro,
         banRatePro,
@@ -153,13 +141,11 @@ class RequestLayer extends React.Component {
         pickRate3000: (heroStat['3000_pick'] || 0) / matchCount3000,
         pickRate2000: (heroStat['2000_pick'] || 0) / matchCount2000,
         pickRate1000: (heroStat['1000_pick'] || 0) / matchCount1000,
-        pickRate0000: (heroStat['0_pick'] || 0) / matchCount0000,
         winRate5000: (heroStat['5000_win'] || 0) / heroStat['5000_pick'],
         winRate4000: (heroStat['4000_win'] || 0) / heroStat['4000_pick'],
         winRate3000: (heroStat['3000_win'] || 0) / heroStat['3000_pick'],
         winRate2000: (heroStat['2000_win'] || 0) / heroStat['2000_pick'],
         winRate1000: (heroStat['1000_win'] || 0) / heroStat['1000_pick'],
-        winRate0000: (heroStat['0_win'] || 0) / heroStat['0_pick'],
       };
     });
     processedData.sort((a, b) => b.pickBanRatePro - a.pickBanRatePro);
