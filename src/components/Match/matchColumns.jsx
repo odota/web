@@ -387,6 +387,12 @@ export const performanceColumns = [
     sortFn: true,
     displayFn: (row, col, field) => formatSeconds(field) || '-',
   }, {
+    displayName: strings.th_buybacks,
+    tooltip: strings.tooltip_buybacks,
+    field: 'buybacks',
+    sortFn: true,
+    displayFn: (row, col, field) => field || '-',
+  }, {
     displayName: strings.th_pings,
     tooltip: strings.tooltip_pings,
     field: 'pings',

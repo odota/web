@@ -240,6 +240,7 @@ function renderMatch(m) {
       newPlayer.purchase_dust = player.purchase.dust;
       newPlayer.purchase_gem = player.purchase.gem;
     }
+    newPlayer.buybacks = (player.buyback_log || []).length;
     return newPlayer;
   });
 
