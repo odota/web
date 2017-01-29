@@ -21,13 +21,13 @@ export default ({
 }) => (
   <div>
     <Heading
-      title={`${getTeamName(radiantTeam, true)} ${heading}`}
+      title={`${getTeamName(radiantTeam, true)} - ${heading}`}
       icon={<IconRadiant className={styles.iconRadiant} />}
     />
     <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} />
     {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
     <Heading
-      title={`${getTeamName(direTeam, false)} ${heading}`}
+      title={`${getTeamName(direTeam, false)} - ${heading}`}
       icon={<IconDire className={styles.iconDire} />}
     />
     <Table data={filterMatchPlayers(players, 'dire')} columns={columns} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import c3 from 'c3';
 import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
 import { getDistributions } from 'actions';
 import strings from 'lang';
 import Table from 'components/Table';
@@ -25,36 +26,26 @@ const countryMmrColumns = [{
   sortFn: true,
   displayFn: (row) => {
     const code = row.loccountrycode.toLowerCase();
-    let image;
-    let name;
+    let image = `/assets/images/flags/${code}.svg`;
+    let name = row.common;
 
     // Fill missed flags and country names
-    switch (code) {
-      case 'yu':
-        image = '//upload.wikimedia.org/wikipedia/commons/6/6e/Pan-Slavic_flag.svg';
-        name = 'Yugoslavia';
-        break;
-      case 'fx':
-        image = '//upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg';
-        name = 'Metropolitan France';
-        break;
-      case 'tp':
-        image = '//upload.wikimedia.org/wikipedia/commons/2/26/Flag_of_East_Timor.svg';
-        name = 'East Timor';
-        break;
-      case 'zr':
-        image = '//upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Zaire.svg';
-        name = 'Zaire';
-        break;
-      default:
-        image = `/${require(`flag-icon-css/flags/4x3/${code}.svg`)}`; // eslint-disable-line global-require
-        name = row.common;
-    }
-    if (code === 'bq') {
-      name = 'Caribbean Netherlands';
-    }
-    if (code === 'sh') {
-      name = 'Saint Helena, Ascension and Tristan da Cunha';
+    if (code === 'yu') {
+      name = 'Yugoslavia';
+    } else if (code === 'fx') {
+      name = 'Metropolitan France';
+    } else if (code === 'tp') {
+      name = 'East Timor';
+    } else if (code === 'zr') {
+      name = 'Zaire';
+    } else {
+      image = `/${require(`flag-icon-css/flags/4x3/${code}.svg`)}`; // eslint-disable-line global-require
+
+      if (code === 'bq') {
+        name = 'Caribbean Netherlands';
+      } else if (code === 'sh') {
+        name = 'Saint Helena, Ascension and Tristan da Cunha';
+      }
     }
 
     return (
@@ -97,7 +88,7 @@ const getPage = (data, key) => (
 
 const distributionsPages = [
   { name: strings.distributions_tab_mmr, key: 'mmr', content: getPage, route: '/distributions/mmr' },
-  { name: strings.distributions_tab_country_mmr, key: 'country_mmr', content: getPage, route: '/distributions/country_mmr' },
+  { name: strings.distributions_tab_country_mmr, key: 'country_mmr', content: getPage, route: '/distributions/countryMmr' },
 ];
 
 class RequestLayer extends React.Component {
@@ -173,6 +164,7 @@ class RequestLayer extends React.Component {
     return loading
       ? <Spinner />
       : (<div>
+        <Helmet title={page ? page.name : strings.distributions_tab_mmr} />
         <Warning className={styles.Warning}>
           {strings.distributions_warning_1}
           <br />

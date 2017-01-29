@@ -4,7 +4,7 @@ import {
   getLevelFromXp,
   unpackPositionData,
 } from 'utility';
-import heroes from 'dotaconstants/json/heroes.json';
+import heroes from 'dotaconstants/build/heroes.json';
 import immutable from 'seamless-immutable';
 import _ from 'lodash/fp';
 import strings from 'lang';

@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
 import { getSearchResultAndPros } from 'actions';
 import { proPlayers } from 'reducers';
+import strings from 'lang';
 import SearchResult from './SearchResult';
 // import SearchForm from './SearchForm';
 
@@ -13,7 +15,11 @@ class Search extends React.Component {
   }
   render() {
     const { data, pros, ...rest } = this.props;
-    return <SearchResult {...rest} players={data || []} pros={pros || []} />;
+    return (<div>
+      <Helmet title={`${this.props.location.query.q} - ${strings.title_search}`} />
+      <SearchResult {...rest} players={data || []} pros={pros || []} />
+    </div>
+    );
   }
 }
 

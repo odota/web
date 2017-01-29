@@ -1,8 +1,9 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import strings from 'lang';
 import { TableLink } from 'components/Table';
-import playerColors from 'dotaconstants/json/player_colors.json';
+import playerColors from 'dotaconstants/build/player_colors.json';
 import { IconTrophy } from 'components/Icons';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import styles from './HeroImage.css';
@@ -18,6 +19,9 @@ const TableHeroImage = ({
   hideText,
   confirmed,
   party,
+  heroName,
+  showPvgnaGuide,
+  pvgnaGuideInfo,
 }) => (
   <div className={styles.container}>
     {parsed !== undefined &&
@@ -78,6 +82,16 @@ const TableHeroImage = ({
             {subtitle}
           </span>
         }
+      </div>
+    }
+    { !!showPvgnaGuide && pvgnaGuideInfo && heroName &&
+      <div className={styles.pvgnaGuideContainer} data-tip data-for={heroName}>
+        <a href={pvgnaGuideInfo.url}>
+          <img className={styles.pvgnaGuideIcon} src="/assets/images/pvgna-guide-icon.png" alt="Pvgna" />
+        </a>
+        <ReactTooltip id={heroName} place="top" type="light" effect="solid">
+          {`Learn ${heroName} on Pvgna`}
+        </ReactTooltip>
       </div>
     }
   </div>

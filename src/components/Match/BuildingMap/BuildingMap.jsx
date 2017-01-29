@@ -5,8 +5,8 @@ import {
   sum,
   isRadiant,
 } from 'utility';
-import playerColors from 'dotaconstants/json/player_colors.json';
-import heroes from 'dotaconstants/json/heroes.json';
+import playerColors from 'dotaconstants/build/player_colors.json';
+import heroes from 'dotaconstants/build/heroes.json';
 import Heading from 'components/Heading';
 import DotaMap from 'components/DotaMap';
 import strings from 'lang';
@@ -201,7 +201,6 @@ export default function BuildingMap({ match }) {
         <Heading title={strings.heading_buildings} />
         <DotaMap
           startTime={match.start_time}
-          type="simple"
           maxWidth={300}
           className={styles.map}
         >

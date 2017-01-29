@@ -1,12 +1,12 @@
 /* global API_HOST */
 import React from 'react';
 import { Link } from 'react-router';
-import heroes from 'dotaconstants/json/heroes.json';
-import items from 'dotaconstants/json/items.json';
-import patch from 'dotaconstants/json/patch.json';
-import region from 'dotaconstants/json/region.json';
-import itemIds from 'dotaconstants/json/item_ids.json';
-import xpLevel from 'dotaconstants/json/xp_level.json';
+import heroes from 'dotaconstants/build/heroes.json';
+import items from 'dotaconstants/build/items.json';
+import patch from 'dotaconstants/build/patch.json';
+import region from 'dotaconstants/build/region.json';
+import itemIds from 'dotaconstants/build/item_ids.json';
+import xpLevel from 'dotaconstants/build/xp_level.json';
 import styles from 'components/palette.css';
 import { TableLink } from 'components/Table';
 import {
@@ -180,7 +180,7 @@ export const percentile = (pct) => {
     };
   } else if (pct >= 0.4) {
     return {
-      color: 'darkBlue',
+      color: 'golden',
       grade: 'C',
     };
   } else if (pct >= 0.2) {
@@ -214,21 +214,23 @@ const getSubtitle = (row) => {
  **/
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
-  hero_id: (row) => {
+  hero_id: (row, col, field, showPvgnaGuide = false) => {
     const heroName = heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero;
     return (
       <TableHeroImage
         parsed={row.version}
         image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
         title={
-          row.rank !== undefined ?
-            <TableLink to={`/heroes/${row.hero_id}`}>{heroName}</TableLink>
-          : heroName
+          <TableLink to={`/heroes/${row.hero_id}`}>{heroName}</TableLink>
         }
         subtitle={getSubtitle(row)}
+        heroName={heroName}
+        showPvgnaGuide={showPvgnaGuide}
+        pvgnaGuideInfo={row.pvgnaGuide}
       />
     );
   },
+  hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true),
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
   radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
@@ -465,8 +467,34 @@ export const hsvToRgb = (h, s, v) => {
   return [r * 255, g * 255, b * 255];
 };
 
-
-// 12/13/2016 @ 5:00pm (UTC)
-export const isPost700 = unixDate => unixDate > 1481648400;
-
 export const bindWidth = (width, maxWidth) => Math.min(width, maxWidth);
+
+// Pretty much jQuery.getScript https://goo.gl/PBD7ml
+export const getScript = (url, callback) => {
+  // Create script
+  let script = document.createElement('script');
+  script.async = 1;
+  script.src = url;
+
+  // Insert before first <script>
+  const firstScript = document.getElementsByTagName('script')[0];
+  firstScript.parentNode.insertBefore(script, firstScript);
+
+  // Attach handlers
+  script.onload = script.onreadystatechange = (_, isAbort) => {
+    if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
+      // Handle IE memory leak
+      script.onload = script.onreadystatechange = null;
+
+      // Keep for dev-debugging, see https://goo.gl/MbNOCv
+      if (process.env.NODE_ENV === 'production') {
+        script.parentNode.removeChild(script);
+      }
+      script = undefined;
+
+      if (!isAbort && callback) {
+        callback();
+      }
+    }
+  };
+};

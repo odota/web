@@ -1,7 +1,7 @@
 /* global API_HOST */
 import fetch from 'isomorphic-fetch';
-import patch from 'dotaconstants/json/patch.json';
-import region from 'dotaconstants/json/region.json';
+import patch from 'dotaconstants/build/patch.json';
+import region from 'dotaconstants/build/region.json';
 import {
   playerCounts,
 } from 'reducers';
@@ -58,7 +58,6 @@ export const getPlayerCounts = (playerId, options = {}) => (dispatch, getState) 
   } else {
     dispatch(getPlayerCountsRequest(playerId));
   }
-  // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())

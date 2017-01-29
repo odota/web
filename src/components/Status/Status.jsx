@@ -2,7 +2,9 @@
 import React from 'react';
 import fetch from 'isomorphic-fetch';
 import { fromNow, abbreviateNumber } from 'utility';
+import Helmet from 'react-helmet';
 import Table from 'components/Table';
+import strings from 'lang';
 
 function jsonResponse(response) {
   return response.json();
@@ -15,8 +17,7 @@ const columns = [
 
 const tableStyle = { flexGrow: 1, overflowX: 'auto', boxSizing: 'border-box', padding: '15px' };
 
-class Status extends React.Component
-{
+class Status extends React.Component {
   componentWillMount() {
     this.setState({
       loading: false,
@@ -26,6 +27,7 @@ class Status extends React.Component
   }
   render() {
     return (<div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+      <Helmet title={strings.title_status} />
       <Table
         style={tableStyle}
         data={Object.keys(this.state.result)
