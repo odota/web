@@ -467,6 +467,8 @@ export const hsvToRgb = (h, s, v) => {
   return [r * 255, g * 255, b * 255];
 };
 
+export const bindWidth = (width, maxWidth) => Math.min(width, maxWidth);
+
 // Pretty much jQuery.getScript https://goo.gl/PBD7ml
 export const getScript = (url, callback) => {
   // Create script

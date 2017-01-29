@@ -7,6 +7,7 @@ import ReactTooltip from 'react-tooltip';
 import Measure from 'react-measure';
 import strings from 'lang';
 import PlayerThumb from 'components/Match/PlayerThumb';
+import DotaMap from 'components/DotaMap';
 import styles from './Vision.css';
 
 const wardStyle = (width, log) => {
@@ -97,16 +98,15 @@ class VisionMap extends React.Component {
   render() {
     return (
       <Measure>
-        {dimension => (
-          <div
-            style={{
-              position: 'relative',
-              height: dimension.width,
-              background: 'url("/assets/images/map.png")',
-              backgroundSize: 'contain',
-            }}
-          >
-            {this.props.wards.map(w => <WardPin match={this.props.match} key={w.key} width={dimension.width} log={w} />)}
+        {({ width }) => (
+          <div style={{ height: width }}>
+            <DotaMap
+              startTime={this.props.match.start_time}
+              maxWidth="100%"
+              width="100%"
+            >
+              {this.props.wards.map(w => <WardPin match={this.props.match} key={w.key} width={width} log={w} />)}
+            </DotaMap>
           </div>
         )}
       </Measure>

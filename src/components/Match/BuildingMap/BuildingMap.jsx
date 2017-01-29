@@ -8,6 +8,7 @@ import {
 import playerColors from 'dotaconstants/build/player_colors.json';
 import heroes from 'dotaconstants/build/heroes.json';
 import Heading from 'components/Heading';
+import DotaMap from 'components/DotaMap';
 import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
 import { IconLightbulb } from 'components/Icons';
@@ -78,8 +79,8 @@ export default function BuildingMap({ match }) {
         src: `/assets/images/dota2/map/${side}guys_${type.includes('rax') ? 'rax' : type}${lane === 'mid' ? '_angle' : ''}.png`,
         style: {
           span: {
-            top: buildingData[i].style.split(';')[1].split(':')[1],
-            left: buildingData[i].style.split(';')[2].split(':')[1],
+            ...buildingData[i].style,
+            position: 'absolute',
             width: 0,
             height: 0,
           },
@@ -198,14 +199,21 @@ export default function BuildingMap({ match }) {
     return (
       <div>
         <Heading title={strings.heading_buildings} />
-        <div className={styles.buildingMap}>
+        <DotaMap
+          startTime={match.start_time}
+          maxWidth={300}
+          className={styles.map}
+        >
+          {icons}
+        </DotaMap>
+        {/* <div className={styles.buildingMap}>
           <img
             src="/assets/images/dota2/map/minimap.jpg"
             role="presentation"
             className={styles.buildingMapImage}
           />
           {icons}
-        </div>
+        </div> */}
         {match.version &&
           <div className={styles.hint}>
             <IconLightbulb />
