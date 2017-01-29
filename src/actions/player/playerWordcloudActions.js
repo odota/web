@@ -3,7 +3,6 @@ import fetch from 'isomorphic-fetch';
 import { playerWordcloud } from 'reducers';
 import { getUrl } from 'actions/utility';
 
-// const excludedOptions = ['limit'];
 const url = playerId => `/api/players/${playerId}/wordcloud`;
 
 const REQUEST = 'playerWordcloud/REQUEST';
@@ -36,7 +35,6 @@ export const getPlayerWordcloud = (playerId, options = {}) => (dispatch, getStat
   } else {
     dispatch(getPlayerWordcloudRequest(playerId));
   }
-  // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())

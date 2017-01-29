@@ -28,6 +28,7 @@ import request from 'reducers/request';
 import distributions from 'reducers/distributions';
 import table, { getTable } from 'reducers/table';
 import localization, { getLocalization } from 'reducers/localization';
+import heroStats, { getHeroStats } from 'reducers/heroStats';
 
 // This is where we will export all our state retrieval functions (better encapsulation)
 export {
@@ -53,6 +54,7 @@ export {
   getTable as table,
   getLocalization as localization,
   pvgnaGuides,
+  getHeroStats as heroStats,
 };
 
 export default combineReducers({
@@ -70,4 +72,5 @@ export default combineReducers({
   proMatches,
   localization,
   pvgnaGuides,
+  heroStats,
 });

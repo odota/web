@@ -76,7 +76,6 @@
   red:      var(--colorDanger);
   green:    var(--colorSuccess);
   blue:     var(--colorBlue);
-  darkBlue: color(var(--colorBlue) lightness(-33%));
   golden:   var(--colorGolden);
 
   gray:      var(--colorMuted);
