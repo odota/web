@@ -393,6 +393,12 @@ export const performanceColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
   }, {
+    displayName: strings.th_pings,
+    tooltip: strings.tooltip_pings,
+    field: 'pings',
+    sortFn: true,
+    displayFn: (row, col, field) => field || '-',
+  }, {
     displayName: strings.th_biggest_hit,
     tooltip: strings.tooltip_biggest_hit,
     field: 'max_hero_hit',
