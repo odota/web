@@ -1,4 +1,4 @@
-const savedLang = window.localStorage && window.localStorage.getItem('localization');
+let savedLang = window.localStorage && window.localStorage.getItem('localization');
 // savedLang needs to be 5 characters, since @albertcui updated the language file names
 if (savedLang.length !== 5) {
   savedLang = null;
