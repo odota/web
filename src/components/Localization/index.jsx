@@ -57,7 +57,7 @@ class LocalizationMenuItems extends Component {
             }}
             key={lang.translated}
             value={lang.value}
-            primaryText={`${lang.native}${lang.value !== localization ? ` - ${lang.translated}` : ''}`}
+            primaryText={lang.native}
             onTouchTap={() => setLocalization(null, null, lang)}
           />)}
         </div>
