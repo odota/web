@@ -1,10 +1,3 @@
-let savedLang = window.localStorage && window.localStorage.getItem('localization');
-// savedLang needs to be 5 characters, since @albertcui updated the language file names
-if (savedLang && savedLang.length !== 5) {
-  savedLang = null;
-}
-const lang = require(`./${savedLang || 'en-US'}.json`);
-
 export const langs = [
   {
     value: 'en-US',
@@ -46,10 +39,10 @@ export const langs = [
     value: 'nl-NL',
     native: 'Nederlands',
   }, {
-    value: 'pl_PL',
+    value: 'pl-PL',
     native: 'Polszczyzna',
   }, {
-    value: 'pt_BR',
+    value: 'pt-BR',
     native: 'Português Brasileiro',
   }, {
     value: 'ru-RU',
@@ -74,5 +67,7 @@ export const langs = [
     native: '繁體字',
   },
 ];
-
+const savedLang = window.localStorage && window.localStorage.getItem('localization');
+const langToUse = langs.map(lang => lang.value).includes(savedLang) ? savedLang : 'en-US';
+const lang = require(`./${langToUse}.json`);
 export default lang;
