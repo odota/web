@@ -34,7 +34,7 @@
     "lodash": "^4.16.4",
     "material-ui": "^0.16.2",
     "postcss-browser-reporter": "^0.5.0",
-    "postcss-color-function": "^2.0.1",
+    "postcss-color-function": "^3.0.0",
     "postcss-cssnext": "^2.8.0",
     "postcss-import": "9.1.0",
     "postcss-loader": "^1.1.1",
