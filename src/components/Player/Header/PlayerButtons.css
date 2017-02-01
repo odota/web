@@ -6,6 +6,24 @@
 
   @media only screen and (max-width: 660px) {
     justify-content: center;
+
+    & a {
+      min-width: 50px !important;
+    }
+
+    & button {
+      min-width: 50px !important;
+    }
+
+    & * {
+      font-size: 0 !important;
+      padding: 0 !important;
+      margin: auto !important;
+    }
+
+    & span {
+      margin: 0 !important;
+    }
   }
 }
 
@@ -31,5 +49,9 @@
       margin-bottom: 6px;
       margin-left: -50px;
     }
+  }
+
+  @media only screen and (max-width: 660px) {
+    padding-right: 0 !important;
   }
 }
