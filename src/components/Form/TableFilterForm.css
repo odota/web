@@ -6,9 +6,6 @@
   flex-wrap: wrap;
 }
 
-.form {
-}
-
 .formContainer {
   overflow: hidden;
   transition: max-height 1s;
