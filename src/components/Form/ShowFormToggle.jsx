@@ -21,7 +21,7 @@ const ShowFormToggle = ({ toggleShowForm, showForm }) => (
   <FlatButton onClick={() => toggleShowForm()}>
     <div className={styles.container}>
       {getIcon(showForm)}
-      {showForm ? strings.filter_button_text_close : strings.filter_button_text_open}
+      <span>{showForm ? strings.filter_button_text_close : strings.filter_button_text_open}</span>
     </div>
   </FlatButton>
 );
