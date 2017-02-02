@@ -1,14 +1,12 @@
 .formGroup {
-  width: 25%;
   padding: 0 15px;
   box-sizing: border-box;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .form {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-bottom: 50px;
 }
 
 .formContainer {
