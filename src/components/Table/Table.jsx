@@ -9,11 +9,11 @@ import {
   TableRow as MaterialTableRow,
   TableRowColumn as MaterialTableRowColumn,
 } from 'material-ui/Table';
+import { abbreviateNumber } from 'utility';
 import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import styles from './Table.css';
-import { abbreviateNumber } from 'utility';
 import {
   // getTotalWidth,
   // getWidthStyle,
@@ -48,7 +48,7 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
               }
 
               return (
-                <MaterialTableRowColumn key={index+'_'+colIndex} style={style}>
+                <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style}>
                   {row && column.displayFn && column.displayFn(row, column, row[column.field], index)}
                   {row && !column.displayFn && row[column.field]}
                 </MaterialTableRowColumn>
@@ -57,11 +57,9 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
           </MaterialTableRow>
         ))}
         <MaterialTableRow>
-          {columns.map((column, colIndex) => {
-            return (<MaterialTableRowColumn key={colIndex + '_sum'}>
-              {column.sumFn && abbreviateNumber(data.map(row => row[column.field]).reduce((a, b) => a + b, 0))}
-            </MaterialTableRowColumn>);
-          })}
+          {columns.map((column, colIndex) => (<MaterialTableRowColumn key={`${colIndex}_sum`}>
+            {column.sumFn && abbreviateNumber(data.map(row => row[column.field]).reduce((a, b) => a + b, 0))}
+          </MaterialTableRowColumn>))}
         </MaterialTableRow>
       </MaterialTableBody>
     </MaterialTable>
