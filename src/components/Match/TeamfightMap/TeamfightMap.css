@@ -54,7 +54,6 @@
   position: relative;
   max-width: 400px;
   max-height: 400px;
-  background: url("/assets/images/map.png");
   background-size: contain;
 }
 
