@@ -158,8 +158,8 @@ export const overviewColumns = (match) => {
       </span>
     ),
     tooltip: strings.tooltip_gold,
-    field: 'gold_per_min',
-    displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
+    field: 'total_gold',
+    displayFn: row => abbreviateNumber(row.total_gold),
     sortFn: true,
     color: styles.golden,
     sumFn: true,

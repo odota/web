@@ -241,6 +241,7 @@ function renderMatch(m) {
       newPlayer.purchase_gem = player.purchase.gem;
     }
     newPlayer.buybacks = (player.buyback_log || []).length;
+    newPlayer.total_gold = (player.gold_per_min * m.duration) / 60
     return newPlayer;
   });
 
