@@ -113,7 +113,7 @@
   "filter_against_hero_id": "Opposing Heroes",
   "filter_included_account_id": "Included Account ID",
   "filter_excluded_account_id": "Excluded Account ID",
-  "filter_significant": "Include Insignificant",
+  "filter_significant": "Insignificant",
   "filter_significant_include": "Include",
   "filter_last_week": "Last week",
   "filter_last_month": "Last month",
