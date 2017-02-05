@@ -244,7 +244,7 @@
   "heading_region": "Region",
   "heading_patch": "Patch",
   
-  "hero_this_month": "This month",
+  "hero_this_month": "Last 30 days",
   "hero_pick_ban_rate": "Pro P+B%",
   "hero_pick_rate": "Pro Pick%",
   "hero_ban_rate": "Pro Ban%",
