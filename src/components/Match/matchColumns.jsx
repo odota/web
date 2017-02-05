@@ -84,61 +84,72 @@ export const overviewColumns = (match) => {
     field: 'level',
     sortFn: true,
     maxFn: true,
+    sumFn: true,
   }, {
     displayName: strings.th_kills,
     tooltip: strings.tooltip_kills,
     field: 'kills',
     sortFn: true,
     displayFn: transformations.kda,
+    sumFn: true,
   }, {
     displayName: strings.th_deaths,
     tooltip: strings.tooltip_deaths,
     field: 'deaths',
     sortFn: true,
+    sumFn: true,
   }, {
     displayName: strings.th_assists,
     tooltip: strings.tooltip_assists,
     field: 'assists',
     sortFn: true,
+    sumFn: true,
   }, {
     displayName: strings.th_gold_per_min,
     tooltip: strings.tooltip_gold_per_min,
     field: 'gold_per_min',
     sortFn: true,
     color: styles.golden,
+    sumFn: true,
   }, {
     displayName: strings.th_xp_per_min,
     tooltip: strings.tooltip_xp_per_min,
     field: 'xp_per_min',
     sortFn: true,
+    sumFn: true,
   }, {
     displayName: strings.th_last_hits,
     tooltip: strings.tooltip_last_hits,
     field: 'last_hits',
     sortFn: true,
+    sumFn: true,
   }, {
     displayName: strings.th_denies,
     tooltip: strings.tooltip_denies,
     field: 'denies',
     sortFn: true,
+    sumFn: true,
   }, {
     displayName: strings.th_hero_damage,
     tooltip: strings.tooltip_hero_damage,
     field: 'hero_damage',
     displayFn: row => abbreviateNumber(row.hero_damage),
     sortFn: true,
+    sumFn: true,
   }, {
     displayName: strings.th_hero_healing,
     tooltip: strings.tooltip_hero_healing,
     field: 'hero_healing',
     displayFn: row => abbreviateNumber(row.hero_healing),
     sortFn: true,
+    sumFn: true,
   }, {
     displayName: strings.th_tower_damage,
     tooltip: strings.tooltip_tower_damage,
     field: 'tower_damage',
     displayFn: row => abbreviateNumber(row.tower_damage),
     sortFn: true,
+    sumFn: true,
   }, {
     displayName: (
       <span className={styles.thGold}>
@@ -151,6 +162,7 @@ export const overviewColumns = (match) => {
     displayFn: row => abbreviateNumber((row.gold_per_min * row.duration) / 60),
     sortFn: true,
     color: styles.golden,
+    sumFn: true,
   }, {
     displayName: strings.th_items,
     tooltip: strings.tooltip_items,
