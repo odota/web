@@ -9,15 +9,11 @@ import {
   TableRow as MaterialTableRow,
   TableRowColumn as MaterialTableRowColumn,
 } from 'material-ui/Table';
-import { abbreviateNumber } from 'utility';
+import { abbreviateNumber, sum } from 'utility';
 import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import styles from './Table.css';
-import {
-  // getTotalWidth,
-  // getWidthStyle,
-} from './tableHelpers';
 
 const getTable = (data, columns, sortState, sortField, sortClick) => (
   // Not currently using totalWidth (default auto width)
@@ -57,8 +53,8 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
           </MaterialTableRow>
         ))}
         <MaterialTableRow>
-          {columns.map((column, colIndex) => (<MaterialTableRowColumn key={`${colIndex}_sum`}>
-            {column.sumFn && abbreviateNumber(data.map(row => row[column.field]).reduce((a, b) => a + b, 0))}
+          {columns.map((column, colIndex) => (<MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
+            {column.sumFn && abbreviateNumber(data.map(row => row[column.field]).reduce(sum, 0))}
           </MaterialTableRowColumn>))}
         </MaterialTableRow>
       </MaterialTableBody>
