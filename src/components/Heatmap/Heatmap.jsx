@@ -1,6 +1,7 @@
 import React, {
   Component,
 } from 'react';
+import DotaMap from 'components/DotaMap';
 import uuid from 'uuid';
 import h337 from 'heatmap.js';
 
@@ -60,14 +61,7 @@ class Heatmap extends Component {
         }}
         id={this.id}
       >
-        <img
-          style={{
-            width: this.props.width,
-            opacity: 0.7,
-          }}
-          src="/assets/images/map.png"
-          role="presentation"
-        />
+        <DotaMap width={this.props.width} maxWidth={this.props.width} />
       </div>);
   }
 }
