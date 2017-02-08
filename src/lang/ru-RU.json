@@ -101,7 +101,7 @@
   "filter_region":"Регион",
   "filter_with_hero_id":"Герои союзников",
   "filter_against_hero_id":"Герои противников",
-  "filter_included_account_id":"Included Account ID",
+  "filter_included_account_id":"https://www.opendota.com/players/404683348",
   "filter_excluded_account_id":"Excluded Account ID",
   "filter_significant":"Insignificant",
   "filter_significant_include":"Include",
