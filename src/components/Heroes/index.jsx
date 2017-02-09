@@ -1,116 +1,114 @@
 /* global API_HOST */
 import React from 'react';
 import Helmet from 'react-helmet';
-import {
-  connect,
-}
-from 'react-redux';
+import { connect } from 'react-redux';
 import strings from 'lang';
-import {
-  getHeroStats,
-}
-from 'actions';
-import {
-  transformations,
-  percentile,
-}
-from 'utility';
+import { getHeroStats } from 'actions';
+import { transformations } from 'utility';
 import Heading from 'components/Heading';
-import Container from 'components/Container';
 import Table from 'components/Table';
-import styles from 'components/Match/Match.css';
+import { TablePercent } from 'components/Visualizations';
+import TabBar from 'components/TabBar';
+import Hero from 'components/Hero';
 
-const percentileDisplay = (decimal, total) => {
-  const bucket = percentile(decimal);
-  const percent = Number(decimal * 100).toFixed(2);
-  return (<div>
-    <span style={{ color: styles[bucket.color] }}>{`${percent}%`}</span>
-    {total && <small style={{ margin: '3px' }}>{Math.floor(total * decimal)}</small>}
-  </div>);
-};
+const percentileDisplay = (decimal, total) => <TablePercent
+  val={decimal >= 0 ? Number((decimal * 100).toFixed(2)) : 0}
+  total={total && decimal > 0 && Math.floor(total * decimal)}
+/>;
 
-const heroesColumns = [{
+const heroColumn = {
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
   displayFn: transformations.hero_id,
-}, {
-  displayName: strings.hero_pick_ban_rate,
-  field: 'pickBanRatePro',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field, row.matchCountPro),
-}, {
-  displayName: strings.hero_pick_rate,
-  field: 'pickRatePro',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field, row.matchCountPro),
-}, {
-  displayName: strings.hero_ban_rate,
-  field: 'banRatePro',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field, row.matchCountPro),
-}, {
-  displayName: strings.hero_win_rate,
-  field: 'winRatePro',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field, row.pro_pick),
-}, {
-  displayName: strings.hero_5000_pick_rate,
-  field: 'pickRate5000',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field),
-}, {
-  displayName: strings.hero_5000_win_rate,
-  field: 'winRate5000',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field),
-}, {
-  displayName: strings.hero_4000_pick_rate,
-  field: 'pickRate4000',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field),
-}, {
-  displayName: strings.hero_4000_win_rate,
-  field: 'winRate4000',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field),
-}, {
-  displayName: strings.hero_3000_pick_rate,
-  field: 'pickRate3000',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field),
-}, {
-  displayName: strings.hero_3000_win_rate,
-  field: 'winRate3000',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field),
-}, {
-  displayName: strings.hero_2000_pick_rate,
-  field: 'pickRate2000',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field),
-}, {
-  displayName: strings.hero_2000_win_rate,
-  field: 'winRate2000',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field),
-}, {
-  displayName: strings.hero_1000_pick_rate,
-  field: 'pickRate1000',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field),
-}, {
-  displayName: strings.hero_1000_win_rate,
-  field: 'winRate1000',
-  sortFn: true,
-  displayFn: (row, col, field) => percentileDisplay(field),
-}];
+};
+
+const columns = {
+  pro: [heroColumn, {
+    displayName: strings.hero_pick_ban_rate,
+    field: 'pickBanRatePro',
+    sortFn: true,
+    displayFn: (row, col, field) => percentileDisplay(field, row.matchCountPro),
+  }, {
+    displayName: strings.hero_pick_rate,
+    field: 'pickRatePro',
+    sortFn: true,
+    displayFn: (row, col, field) => percentileDisplay(field, row.matchCountPro),
+  }, {
+    displayName: strings.hero_ban_rate,
+    field: 'banRatePro',
+    sortFn: true,
+    displayFn: (row, col, field) => percentileDisplay(field, row.matchCountPro),
+  }, {
+    displayName: strings.hero_win_rate,
+    field: 'winRatePro',
+    sortFn: true,
+    displayFn: (row, col, field) => percentileDisplay(field, row.pro_pick),
+  }],
+  pub: [heroColumn, {
+    displayName: strings.hero_5000_pick_rate,
+    field: 'pickRate5000',
+    sortFn: true,
+    displayFn: (row, col, field) => percentileDisplay(field),
+  }, {
+    displayName: strings.hero_5000_win_rate,
+    field: 'winRate5000',
+    sortFn: true,
+    displayFn: (row, col, field) => percentileDisplay(field),
+  }, {
+    displayName: strings.hero_4000_pick_rate,
+    field: 'pickRate4000',
+    sortFn: true,
+    displayFn: (row, col, field) => percentileDisplay(field),
+  }, {
+    displayName: strings.hero_4000_win_rate,
+    field: 'winRate4000',
+    sortFn: true,
+    displayFn: (row, col, field) => percentileDisplay(field),
+  }, {
+    displayName: strings.hero_3000_pick_rate,
+    field: 'pickRate3000',
+    sortFn: true,
+    displayFn: (row, col, field) => percentileDisplay(field),
+  }, {
+    displayName: strings.hero_3000_win_rate,
+    field: 'winRate3000',
+    sortFn: true,
+    displayFn: (row, col, field) => percentileDisplay(field),
+  }, {
+    displayName: strings.hero_2000_pick_rate,
+    field: 'pickRate2000',
+    sortFn: true,
+    displayFn: (row, col, field) => percentileDisplay(field),
+  }, {
+    displayName: strings.hero_2000_win_rate,
+    field: 'winRate2000',
+    sortFn: true,
+    displayFn: (row, col, field) => percentileDisplay(field),
+  }, {
+    displayName: strings.hero_1000_pick_rate,
+    field: 'pickRate1000',
+    sortFn: true,
+    displayFn: (row, col, field) => percentileDisplay(field),
+  }, {
+    displayName: strings.hero_1000_win_rate,
+    field: 'winRate1000',
+    sortFn: true,
+    displayFn: (row, col, field) => percentileDisplay(field),
+  }],
+};
 
 class RequestLayer extends React.Component {
   componentDidMount() {
     this.props.dispatchHeroStats();
   }
   render() {
+    const route = this.props.routeParams.heroId || 'pro';
+
+    if (Number.isInteger(Number(route))) {
+      return <Hero props={this.props} />;
+    }
+
     const json = this.props.data;
     // Assemble the result data array
     const matchCountPro = json.map(heroStat => heroStat.pro_pick || 0).reduce((a, b) => a + b, 0) / 10;
@@ -150,12 +148,30 @@ class RequestLayer extends React.Component {
     });
     processedData.sort((a, b) => b.pickBanRatePro - a.pickBanRatePro);
     // TODO add filter by month
+    const heroTabs = [{
+      name: 'Hero Statistics in professional matches',
+      key: 'pro',
+      content: (data, columns) => <Table data={data} columns={columns} />,
+      route: '/heroes/pro',
+    }, {
+      name: 'Hero Statistics in public matches',
+      key: 'pub',
+      content: (data, columns) => <Table data={data} columns={columns} />,
+      route: '/heroes/pub',
+    }];
+
+    const tab = heroTabs.find(tab => tab.key.toLowerCase() === route);
+    const loading = this.props.loading;
+
     return (<div>
       <Helmet title={strings.header_heroes} />
       <Heading title={strings.header_heroes} subtitle={strings.hero_this_month} />
-      <Container>
-        <Table data={processedData} columns={heroesColumns} />
-      </Container>
+      {!loading && <TabBar
+        info={route}
+        tabs={heroTabs}
+      />}
+      {console.log(this.props)}
+      {heroTabs && tab.content(processedData, columns[route])}
     </div>);
   }
 }

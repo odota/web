@@ -11,7 +11,7 @@ import style from './Hero.css';
 
 const getSingleHero = heroId => ({ ...heroes[heroId], img: API_HOST + heroes[heroId].img });
 
-const Hero = props => (<div>
+const Hero = ({ props }) => (<div>
   <Helmet title={getSingleHero(props.routeParams.heroId).localized_name} />
   <div className={style.HeroBadge}>
     <img role="presentation" src={getSingleHero(props.routeParams.heroId).img} />
