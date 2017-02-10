@@ -52,11 +52,12 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
             })}
           </MaterialTableRow>
         ))}
-        <MaterialTableRow>
-          {columns.map((column, colIndex) => (<MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
-            {column.sumFn && abbreviateNumber(data.map(row => row[column.field]).reduce(sum, 0))}
-          </MaterialTableRowColumn>))}
-        </MaterialTableRow>
+        {columns.some(column => column.sumFn === true) &&
+          <MaterialTableRow>
+            {columns.map((column, colIndex) => (<MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
+              {column.sumFn && abbreviateNumber(data.map(row => row[column.field]).reduce(sum, 0))}
+            </MaterialTableRowColumn>))}
+          </MaterialTableRow>}
       </MaterialTableBody>
     </MaterialTable>
   </div>
