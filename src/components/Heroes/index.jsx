@@ -34,7 +34,7 @@ class RequestLayer extends React.Component {
     const matchCount3000 = json.map(heroStat => heroStat['3000_pick'] || 0).reduce(sum, 0) / 10;
     const matchCount2000 = json.map(heroStat => heroStat['2000_pick'] || 0).reduce(sum, 0) / 10;
     const matchCount1000 = json.map(heroStat => heroStat['1000_pick'] || 0).reduce(sum, 0) / 10;
-    const matchCountRanked = matchCount5000 + matchCount4000 + matchCount3000 + matchCount2000 + matchCount1000;
+    const matchCountPublic = matchCount5000 + matchCount4000 + matchCount3000 + matchCount2000 + matchCount1000;
 
     const processedData = json.map((heroStat) => {
       const pickRatePro = (heroStat.pro_pick || 0) / matchCountPro;
@@ -67,7 +67,7 @@ class RequestLayer extends React.Component {
     processedData.sort((a, b) => b.pickBanRatePro - a.pickBanRatePro);
     // TODO add filter by month
     const heroTabs = [{
-      name: 'Professional',
+      name: strings.hero_pro_tab,
       key: 'pro',
       content: (data, columns) => <div>
         <Heading
@@ -80,18 +80,18 @@ class RequestLayer extends React.Component {
       </div>,
       route: '/heroes/pro',
     }, {
-      name: 'Ranked',
-      key: 'ranked',
+      name: strings.hero_public_tab,
+      key: 'public',
       content: (data, columns) => <div>
         <Heading
-          title={strings.hero_ranked_heading}
-          subtitle={`${abbreviateNumber(matchCountRanked)} ${strings.hero_this_month}`}
+          title={strings.hero_public_heading}
+          subtitle={`${abbreviateNumber(matchCountPublic)} ${strings.hero_this_month}`}
           className={styles.Heading}
           icon=""
         />
         <Table data={data} columns={columns} />
       </div>,
-      route: '/heroes/ranked',
+      route: '/heroes/public',
     }];
 
     const tab = heroTabs.find(tab => tab.key.toLowerCase() === route);
