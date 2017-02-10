@@ -41,6 +41,9 @@ function jsonResponse(response) {
 // TODO keyboard hotkey to execute (F5?)
 // TODO graphical query builder
 // TODO JSON download/curl?
+// TODO row count
+// TODO query history
+// TODO presaved queries
 // hero_id,
 // picks/bans,
 // tower damage,
