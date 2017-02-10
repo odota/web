@@ -21,6 +21,7 @@ export default {
         picksBans={match.picks_bans}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        summable={true}
       />
       <div className={styles.overviewMapGraph}>
         <div className={`${styles.map} ${!match.version && styles.centeredMap}`}>

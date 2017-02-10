@@ -15,7 +15,7 @@ import Spinner from '../Spinner';
 import Error from '../Error';
 import styles from './Table.css';
 
-const getTable = (data, columns, sortState, sortField, sortClick) => (
+const getTable = (data, columns, sortState, sortField, sortClick, numRows, summable) => (
   // Not currently using totalWidth (default auto width)
   // const totalWidth = getTotalWidth(columns);
   <div className={styles.innerContainer}>
@@ -52,11 +52,11 @@ const getTable = (data, columns, sortState, sortField, sortClick) => (
             })}
           </MaterialTableRow>
         ))}
-        <MaterialTableRow>
+        {summable && <MaterialTableRow>
           {columns.map((column, colIndex) => (<MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
             {column.sumFn && abbreviateNumber(data.map(row => row[column.field]).reduce(sum, 0))}
           </MaterialTableRowColumn>))}
-        </MaterialTableRow>
+        </MaterialTableRow>}
       </MaterialTableBody>
     </MaterialTable>
   </div>
@@ -71,11 +71,12 @@ const Table = ({
   sortField,
   sortClick,
   numRows,
+  summable,
 }) => (
   <div className={styles.container}>
     {loading && <Spinner />}
     {!loading && error && <Error />}
-    {!loading && !error && data && getTable(data, columns, sortState, sortField, sortClick, numRows)}
+    {!loading && !error && data && getTable(data, columns, sortState, sortField, sortClick, numRows, summable)}
   </div>
 );
 
@@ -97,6 +98,7 @@ Table.propTypes = {
   sortField: string,
   sortClick: func,
   numRows: number,
+  summable: bool,
 };
 
 export default Table;
