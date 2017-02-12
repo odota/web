@@ -14,7 +14,6 @@ import Home from 'components/Home';
 import Search from 'components/Search';
 import Explorer from 'components/Explorer';
 import FourOhFour from 'components/FourOhFour';
-import Hero from 'components/Hero';
 import Heroes from 'components/Heroes';
 import Request from 'components/Request';
 import Distributions from 'components/Distributions';
@@ -37,8 +36,7 @@ export default () => (
         <Route path="matches" component={Matches} />
         <Route path="matches/:matchId(/:info)" component={Match} />
         <Route path="players/:playerId(/:info)(/:subInfo)" component={Player} />
-        <Route path="heroes" component={Heroes} />
-        <Route path="heroes(/:heroId)(/:info)" component={Hero} />
+        <Route path="heroes(/:heroId)(/:info)" component={Heroes} />
         <Route path="distributions(/:info)" component={Distributions} />
         <Route path="request" component={Request} />
         <Route path="status" component={Status} />
