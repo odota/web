@@ -18,19 +18,20 @@ export default ({
   picksBans = [],
   radiantTeam = {},
   direTeam = {},
+  summable = false,
 }) => (
   <div>
     <Heading
       title={`${getTeamName(radiantTeam, true)} - ${heading}`}
       icon={<IconRadiant className={styles.iconRadiant} />}
     />
-    <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} />
+    <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} />
     {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
     <Heading
       title={`${getTeamName(direTeam, false)} - ${heading}`}
       icon={<IconDire className={styles.iconDire} />}
     />
-    <Table data={filterMatchPlayers(players, 'dire')} columns={columns} />
+    <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} />
     {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
   </div>
 );

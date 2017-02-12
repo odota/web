@@ -9,6 +9,10 @@
 .title {
   align-self: center;
   line-height: 0;
+
+  & small {
+    color: var(--colorMutedLight);
+  }
 }
 
 .percent {
