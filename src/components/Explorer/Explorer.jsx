@@ -7,43 +7,26 @@ import { Link } from 'react-router';
 import Helmet from 'react-helmet';
 import strings from 'lang';
 import { getScript } from 'utility';
+import Table from 'components/Table';
+import Heading from 'components/Heading';
 // import { Tabs, Tab } from 'material-ui/Tabs';
 /*
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 */
-/*
-import {
-    Table,
-    TableBody,
-    TableHeader,
-    TableHeaderColumn,
-    TableRow,
-    TableRowColumn,
-} from 'material-ui/Table';
-*/
-import Table from 'components/Table';
-import Heading from 'components/Heading';
 // import queries from './queries';
 // import {blue300} from 'material-ui/styles/colors';
-
-/*
-const ace = require('brace');
-require('brace/mode/sql');
-require('brace/theme/monokai');
-*/
 
 function jsonResponse(response) {
   return response.json();
 }
-// TODO autocompletion?
-// TODO keyboard hotkey to execute (F5?)
 // TODO graphical query builder
 // TODO JSON download/curl?
 // TODO row count
 // TODO query history
 // TODO presaved queries
+// TODO localize strings
 // hero_id,
 // picks/bans,
 // tower damage,
@@ -119,7 +102,7 @@ class Explorer extends React.Component {
   }
   handleQuery() {
     if (this.state.loadingEditor === true) {
-      return;
+      return setTimeout(this.handleQuery, 1000);
     }
     this.setState(Object.assign({}, this.state, { querying: true }));
     const queryString = `?sql=${encodeURIComponent(this.editor.getSelectedText() || this.editor.getValue())}`;
