@@ -246,9 +246,9 @@
   
   "hero_pro_tab": "Professional",
   "hero_public_tab": "Public",
-  "hero_pro_heading": "Picks & Bans in Professional Matches",
-  "hero_public_heading": "Picks & Bans in Public Matches",
-  "hero_this_month": "matches last 30 days",
+  "hero_pro_heading": "Heroes in Professional Matches",
+  "hero_public_heading": "Heroes in Public Matches (Sampled)",
+  "hero_this_month": "matches in last 30 days",
   "hero_pick_ban_rate": "Pro P+B%",
   "hero_pick_rate": "Pro Pick%",
   "hero_ban_rate": "Pro Ban%",
