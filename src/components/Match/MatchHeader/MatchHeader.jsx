@@ -50,7 +50,7 @@ export default ({ match, user, loading }) => {
           <div className={styles.mainInfo}>
             <div className={styles.killsRadiant}>
               {
-                match.players
+                match.radiant_score || match.players
                   .map(mapPlayers('kills', true))
                   .reduce(sum, 0)
               }
@@ -68,7 +68,7 @@ export default ({ match, user, loading }) => {
             </div>
             <div className={styles.killsDire}>
               {
-                match.players
+                match.dire_score || match.players
                   .map(mapPlayers('kills', false))
                   .reduce(sum, 0)
               }
