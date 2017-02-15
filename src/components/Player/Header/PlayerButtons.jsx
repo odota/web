@@ -51,7 +51,7 @@ class PlayerButtons extends React.Component {
         <FlatButton
           label={strings.app_pvgna}
           labelPosition="after"
-          icon={<img src="/assets/images/pvgna-guide-icon.png" alt="Pvgna" height="24px" />}
+          icon={<img src="/assets/images/pvgna-guide-icon.png" alt={strings.app_pvgna_alt} height="24px" />}
           style={{ marginLeft: 15 }}
           href={`https://pvgna.com/?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}&ref=yasp`}
         />
