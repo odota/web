@@ -35,6 +35,7 @@
   "app_cheese_bought":"Закупени сирена",
   "app_dotacoach":"Попитай треньор",
   "app_pvgna":"Find a Guide",
+  "app_pvgna_alt":"Find a Dota 2 Guide on Pvgna",
   "app_refresh":"Refresh Match History: Queue a scan to find missing matches due to privacy settings",
   "app_refresh_label":"Refresh",
   "app_login":"Вход",
