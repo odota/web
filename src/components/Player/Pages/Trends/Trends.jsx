@@ -7,7 +7,7 @@ import {
 import { playerTrends } from 'reducers';
 import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
-// import Heading from 'components/Heading';
+import Heading from 'components/Heading';
 import { TableFilterForm } from 'components/Form';
 import Container from 'components/Container';
 import { browserHistory } from 'react-router';
@@ -15,6 +15,7 @@ import strings from 'lang';
 
 const Trend = ({ routeParams, columns, playerId, error, loading }) => (
   <div style={{ fontSize: 10 }}>
+    <Heading title={strings.trends_name} subtitle={strings.trends_description} />
     <TableFilterForm />
     <ButtonGarden
       onClick={buttonName => browserHistory.push(`/players/${playerId}/trends/${buttonName}${window.location.search}`)}

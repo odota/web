@@ -87,7 +87,7 @@ const TableHeroImage = ({
     { !!showPvgnaGuide && pvgnaGuideInfo && heroName &&
       <div className={styles.pvgnaGuideContainer} data-tip data-for={heroName}>
         <a href={pvgnaGuideInfo.url}>
-          <img className={styles.pvgnaGuideIcon} src="/assets/images/pvgna-guide-icon.png" alt="Pvgna" />
+          <img className={styles.pvgnaGuideIcon} src="/assets/images/pvgna-guide-icon.png" alt={`Learn ${heroName} on Pvgna`} />
         </a>
         <ReactTooltip id={heroName} place="top" type="light" effect="solid">
           {`Learn ${heroName} on Pvgna`}

@@ -50,7 +50,7 @@ export default ({ match, user, loading }) => {
           <div className={styles.mainInfo}>
             <div className={styles.killsRadiant}>
               {
-                match.players
+                match.radiant_score || match.players
                   .map(mapPlayers('kills', true))
                   .reduce(sum, 0)
               }
@@ -68,7 +68,7 @@ export default ({ match, user, loading }) => {
             </div>
             <div className={styles.killsDire}>
               {
-                match.players
+                match.dire_score || match.players
                   .map(mapPlayers('kills', false))
                   .reduce(sum, 0)
               }
@@ -130,7 +130,7 @@ export default ({ match, user, loading }) => {
           />
           <FlatButton
             label={strings.app_pvgna}
-            icon={<img src="/assets/images/pvgna-guide-icon.png" alt="Pvgna" height="24px" role="presentation" />}
+            icon={<img src="/assets/images/pvgna-guide-icon.png" alt={strings.app_pvgna_alt} height="24px" role="presentation" />}
             href={`https://pvgna.com/?userSteamId=${user && user.account_id}&ref=yasp`}
             target="_blank"
             rel="noopener noreferrer"

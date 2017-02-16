@@ -2,16 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getPlayerHistogram } from 'actions';
 import { playerHistogram } from 'reducers';
-// import Heading from 'components/Heading';
+import Heading from 'components/Heading';
 import { HistogramGraph } from 'components/Visualizations';
 import ButtonGarden from 'components/ButtonGarden';
 import histogramNames from 'components/Player/Pages/matchDataColumns';
 import { TableFilterForm } from 'components/Form';
 import Container from 'components/Container';
 import { browserHistory } from 'react-router';
+import strings from 'lang';
 
 const Histogram = ({ routeParams, columns, playerId, error, loading }) => (
   <div style={{ fontSize: 10 }}>
+    <Heading title={strings.histograms_name} subtitle={strings.histograms_description} />
     <TableFilterForm />
     <ButtonGarden
       onClick={buttonName => browserHistory.push(`/players/${playerId}/histograms/${buttonName}${window.location.search}`)}
