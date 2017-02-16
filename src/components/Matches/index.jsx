@@ -7,10 +7,11 @@ import Table, { TableLink } from 'components/Table';
 // import Heading from 'components/Heading';
 import { transformations } from 'utility';
 import subTextStyle from 'components/Visualizations/Table/subText.css';
-import { IconRadiant, IconDire } from 'components/Icons';
+import { IconRadiant, IconDire, IconTrophy } from 'components/Icons';
 import matchStyles from 'components/Match/Match.css';
 import Match from 'components/Match';
 import TabBar from 'components/TabBar';
+import styles from './Matches.css';
 
 const matchesColumns = [{
   displayName: strings.th_match_id,
@@ -32,10 +33,12 @@ const matchesColumns = [{
   displayName: <span className={matchStyles.teamIconContainer} ><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>,
   field: 'radiant_name',
   color: matchStyles.green,
+  displayFn: (row, col, field) => <div>{row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>
 }, {
   displayName: <span className={matchStyles.teamIconContainer} ><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>,
   field: 'dire_name',
   color: matchStyles.red,
+  displayFn: (row, col, field) => <div>{!row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>
 }];
 
 const publicMatchesColumns = [
@@ -83,7 +86,7 @@ const matchTabs = [{
 
 const getData = (props) => {
   props.dispatchProMatches();
-  props.dispatchPublicMatches({ mmr_ascending: Number(props.routeParams.matchId === 'lowMmr') });
+  props.dispatchPublicMatches({ mmr_ascending: props.routeParams.matchId === 'lowMmr' ? '1' : '' });
 };
 
 class RequestLayer extends React.Component {
