@@ -94,7 +94,7 @@ class RequestLayer extends React.Component {
       route: '/heroes/public',
     }];
 
-    const tab = heroTabs.find(tab => tab.key.toLowerCase() === route);
+    const tab = heroTabs.find(tab => tab.key === route);
     const loading = this.props.loading;
 
     return (<div>
@@ -104,7 +104,7 @@ class RequestLayer extends React.Component {
           info={route}
           tabs={heroTabs}
         />
-        {heroTabs && tab.content(processedData, columns[route])}
+        {tab && tab.content(processedData, columns[route])}
       </div>}
     </div>);
   }

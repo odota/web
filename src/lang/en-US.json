@@ -330,6 +330,9 @@
   "match_first_barracks": "First barracks",
   "match_pick": "Pick",
   "match_ban": "Ban",
+  
+  "matches_highest_mmr": "High MMR",
+  "matches_lowest_mmr": "Low MMR",
 
   "npc_dota_beastmaster_boar_#": "Boar",
   "npc_dota_lesser_eidolon": "Eidolon",
@@ -551,6 +554,7 @@
   "th_party_mmr": "Party MMR",
   "th_estimated_mmr": "Estimated MMR",
   "th_permanent_buffs": "Buffs",
+  "th_avg_mmr": "Average MMR",
 
   "ward_log_type": "Type",
   "ward_log_owner": "Owner",
@@ -584,7 +588,7 @@
 
   "title_default": "OpenDota - Dota 2 Statistics",
   "title_template": "%s - OpenDota - Dota 2 Statistics",
-  "title_matches": "Professional Matches",
+  "title_matches": "Matches",
   "title_request": "Request a Parse",
   "title_search": "Search",
   "title_status": "Status",

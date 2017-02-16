@@ -27,3 +27,4 @@ export * from './proMatchesActions';
 export * from './localizationActions';
 export * from './pvgnaActions';
 export * from './heroStatsActions';
+export * from './publicMatchesActions';
