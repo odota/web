@@ -33,12 +33,12 @@ const matchesColumns = [{
   displayName: <span className={matchStyles.teamIconContainer} ><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>,
   field: 'radiant_name',
   color: matchStyles.green,
-  displayFn: (row, col, field) => <div>{row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>
+  displayFn: (row, col, field) => <div>{row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>,
 }, {
   displayName: <span className={matchStyles.teamIconContainer} ><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>,
   field: 'dire_name',
   color: matchStyles.red,
-  displayFn: (row, col, field) => <div>{!row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>
+  displayFn: (row, col, field) => <div>{!row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>,
 }];
 
 const publicMatchesColumns = [

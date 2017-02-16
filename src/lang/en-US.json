@@ -419,7 +419,7 @@
   "tab_wardmap": "Wardmap",
   "tab_wordcloud": "Wordcloud",
   "tab_mmr": "MMR",
-  "tab_rankings": "Seasonal Rankings",
+  "tab_rankings": "Rankings",
   "tab_benchmarks": "Benchmarks",
   "tab_performances": "Performances",
   "tab_damage": "Damage",
@@ -701,11 +701,7 @@
   "xp_reasons_2": "Hero",
   "xp_reasons_3": "Roshan",
 
-  "subheading_ranking": "Based on wins and average visible MMR in matches played",
-  "teamfight_participation": "Radiant participation/Dire participation",
-  "teamfight_score": "Radiant kills/Dire kills",
-  "teamfight_radiant_gold_adv": "Net gold advantage for Radiant",
-  "teamfight_radiant_xp_adv": "Net XP advantage for Radiant",
+  "rankings_description": "Based on visible MMR in matches won. Resets each quarter.",
 
   "vision_expired": "Expired after",
   "vision_destroyed": "Destroyed after",
