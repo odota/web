@@ -1,3 +1,4 @@
+/* global API_HOST */
 import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
@@ -12,6 +13,7 @@ import matchStyles from 'components/Match/Match.css';
 import Match from 'components/Match';
 import TabBar from 'components/TabBar';
 import styles from './Matches.css';
+import heroes from 'dotaconstants/build/heroes.json';
 
 const matchesColumns = [{
   displayName: strings.th_match_id,
@@ -59,6 +61,16 @@ const publicMatchesColumns = [
     sortFn: true,
     displayFn: transformations.duration,
   },
+  {
+  displayName: <span className={matchStyles.teamIconContainer} ><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>,
+    field: 'radiant_team',
+    displayFn: (row, col, field) => (field || '').split(',').map(heroId => <img style={{ width: '50px' }} src={`${API_HOST}${heroes[heroId].img}`} />),
+  },
+    {
+  displayName: <span className={matchStyles.teamIconContainer} ><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>,
+    field: 'dire_team',
+    displayFn: (row, col, field) => (field || '').split(',').map(heroId => <img style={{ width: '50px' }} src={`${API_HOST}${heroes[heroId].img}`} />),
+  }
 ];
 
 const matchTabs = [{
