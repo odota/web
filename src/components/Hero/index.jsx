@@ -11,17 +11,19 @@ import styles from './Hero.css';
 
 const getSingleHero = heroId => ({ ...heroes[heroId], img: API_HOST + heroes[heroId].img });
 
-const Hero = ({ props }) => (<div className={styles.Header}>
+const Hero = ({ props }) => (<div>
   <Helmet title={getSingleHero(props.routeParams.heroId).localized_name} />
-  <Heading
-    title={getSingleHero(props.routeParams.heroId).localized_name}
-    className={styles.Heading}
-    icon=""
-  />
-  <img role="presentation" src={getSingleHero(props.routeParams.heroId).img} className={styles.image} />
+  <div className={styles.Header}>
+    <Heading
+      title={getSingleHero(props.routeParams.heroId).localized_name}
+      className={styles.Heading}
+      icon=""
+    />
+    <img role="presentation" src={getSingleHero(props.routeParams.heroId).img} className={styles.image} />
+  </div>
   <div style={{ display: 'flex' }}>
     <div style={{ width: '50%', padding: '15px' }}>
-      <Heading title={strings.tab_rankings} />
+      <Heading title={strings.tab_rankings} subtitle={strings.rankings_description} />
       <Ranking {...props} />
     </div>
     <div style={{ width: '50%', padding: '15px' }}>

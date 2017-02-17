@@ -345,6 +345,9 @@
   "match_first_barracks": "First barracks",
   "match_pick": "Pick",
   "match_ban": "Ban",
+  
+  "matches_highest_mmr": "High MMR",
+  "matches_lowest_mmr": "Low MMR",
 
   "npc_dota_beastmaster_boar_#": "Boar",
   "npc_dota_lesser_eidolon": "Eidolon",
@@ -431,7 +434,7 @@
   "tab_wardmap": "Wardmap",
   "tab_wordcloud": "Wordcloud",
   "tab_mmr": "MMR",
-  "tab_rankings": "Seasonal Rankings",
+  "tab_rankings": "Rankings",
   "tab_benchmarks": "Benchmarks",
   "tab_performances": "Performances",
   "tab_damage": "Damage",
@@ -566,6 +569,7 @@
   "th_party_mmr": "Party MMR",
   "th_estimated_mmr": "Estimated MMR",
   "th_permanent_buffs": "Buffs",
+  "th_winner": "Winner",
 
   "ward_log_type": "Type",
   "ward_log_owner": "Owner",
@@ -599,7 +603,7 @@
 
   "title_default": "OpenDota - Dota 2 Statistics",
   "title_template": "%s - OpenDota - Dota 2 Statistics",
-  "title_matches": "Professional Matches",
+  "title_matches": "Matches",
   "title_request": "Request a Parse",
   "title_search": "Search",
   "title_status": "Status",
@@ -713,11 +717,7 @@
   "xp_reasons_2": "Hero",
   "xp_reasons_3": "Roshan",
 
-  "subheading_ranking": "Based on wins and average visible MMR in matches played",
-  "teamfight_participation": "Radiant participation/Dire participation",
-  "teamfight_score": "Radiant kills/Dire kills",
-  "teamfight_radiant_gold_adv": "Net gold advantage for Radiant",
-  "teamfight_radiant_xp_adv": "Net XP advantage for Radiant",
+  "rankings_description": "Based on visible MMR in matches won. Resets each quarter.",
 
   "vision_expired": "Expired after",
   "vision_destroyed": "Destroyed after",
