@@ -6,6 +6,7 @@ import heroRanking, { getHeroRanking } from 'reducers/heroRanking';
 import heroBenchmark, { getHeroBenchmark } from 'reducers/heroBenchmark';
 import search from 'reducers/search';
 import proPlayers, { getProPlayers } from 'reducers/proPlayers';
+import publicMatches, { getPublicMatches } from 'reducers/publicMatches';
 import proMatches, { getProMatches } from 'reducers/proMatches';
 import gotPlayer, {
   player,
@@ -55,6 +56,7 @@ export {
   getLocalization as localization,
   pvgnaGuides,
   getHeroStats as heroStats,
+  getPublicMatches as publicMatches,
 };
 
 export default combineReducers({
@@ -73,4 +75,5 @@ export default combineReducers({
   localization,
   pvgnaGuides,
   heroStats,
+  publicMatches,
 });

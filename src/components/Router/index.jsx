@@ -8,7 +8,6 @@ import {
 } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import App from 'components/App';
-import Match from 'components/Match';
 import Player from 'components/Player';
 import Home from 'components/Home';
 import Search from 'components/Search';
@@ -33,8 +32,7 @@ export default () => (
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
-        <Route path="matches" component={Matches} />
-        <Route path="matches/:matchId(/:info)" component={Match} />
+        <Route path="matches(/:matchId)(/:info)" component={Matches} />
         <Route path="players/:playerId(/:info)(/:subInfo)" component={Player} />
         <Route path="heroes(/:heroId)(/:info)" component={Heroes} />
         <Route path="distributions(/:info)" component={Distributions} />

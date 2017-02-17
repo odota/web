@@ -11,7 +11,7 @@ import playerRankingsColumns from './playerRankingsColumns';
 
 const Rankings = ({ data, error, loading }) => (
   <div>
-    <Container title={strings.heading_rankings} error={error} loading={loading}>
+    <Container title={strings.heading_rankings} subtitle={strings.rankings_description} error={error} loading={loading}>
       <Table paginated columns={playerRankingsColumns} data={data} />
     </Container>
   </div>
