@@ -15,6 +15,9 @@
   "analysis_unused_item": "Unused active items",
   "analysis_expected": "of",
 
+  "announce_blogpost": "Learn more",
+  "announce_path": "View notes",
+
   "app_name": "OpenDota",
   "app_language": "Language",
   "app_localization": "Localization",

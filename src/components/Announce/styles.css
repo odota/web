@@ -1,0 +1,38 @@
+@import '../palette.css';
+
+.announce {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  background-color: color(color(var(--colorBlue) whiteness(-12%)) a(80%));
+
+  & main,
+  & aside {
+    padding: 8px 20px;
+  }
+
+  & main {
+    flex-grow: 1;
+    padding-bottom: 0;
+
+    & p {
+      &:first-of-type {
+        font-weight: var(--fontWeightMedium);
+        font-size: var(--fontSizeCommon);
+        line-height: var(--fontSizeCommon);
+        margin: 0 0 2px;
+      }
+
+      &:last-of-type {
+        font-size: calc(var(--fontSizeMedium) - 1);
+        margin: 0;
+        opacity: 0.85;
+      }
+    }
+  }
+
+  & aside {
+    flex-shrink: 0;
+  }
+}
