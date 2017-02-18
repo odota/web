@@ -27,6 +27,7 @@ import gotPlayer, {
 import form, { getForm } from 'reducers/form';
 import request from 'reducers/request';
 import distributions from 'reducers/distributions';
+import ghPulls from 'reducers/githubPulls';
 import table, { getTable } from 'reducers/table';
 import localization, { getLocalization } from 'reducers/localization';
 import heroStats, { getHeroStats } from 'reducers/heroStats';
@@ -76,4 +77,5 @@ export default combineReducers({
   pvgnaGuides,
   heroStats,
   publicMatches,
+  ghPulls,
 });

@@ -1,45 +1,95 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import strings from 'lang';
+import { connect } from 'react-redux';
+import { getGithubPulls } from 'actions/githubPulls';
 
-import blogpost from './blogpost';
 import styles from './styles.css';
 
-const BlogpostAnnounce = () => {
-  const dismiss = link => localStorage && localStorage.setItem('dismiss', link);
-
-  return (
-    <div className={styles.announce}>
-      <main>
-        <p>{ blogpost.title }</p>
-        <p>{ blogpost.message }</p>
-      </main>
-      <aside>
-        <RaisedButton
-          onClick={() => dismiss(blogpost.link)}
-          href={blogpost.link}
-          label={strings.announce_blogpost}
-          backgroundColor={styles.blue}
-        />
-      </aside>
-    </div>
-  );
+const dismiss = (value) => {
+  if (value && localStorage) {
+    localStorage.setItem('dismiss', value);
+  }
 };
 
-const Announce = () => {
-  if (Object.values(blogpost).length === Object.keys(blogpost).length) {
-    // days
-    const sinceBlogpost = Math.round((new Date() - new Date(blogpost.date)) / (1000 * 60 * 60 * 24));
-    const ttl = 7;
+const Announce = ({ title, message, label, link }) => (
+  <div className={styles.announce}>
+    <main>
+      <p>{ title }</p>
+      <p>{ message }</p>
+    </main>
+    <aside>
+      <RaisedButton
+        backgroundColor={styles.blue}
+        onClick={() => dismiss(link)} // I think only link is quite enough, since link for different pc's can not be the same
+        href={link}
+        label={label}
+      />
+    </aside>
+  </div>
+);
 
-    const isDismissed = localStorage && localStorage.getItem('dismiss') === blogpost.link;
+const firstPrio = 'blog';
+const secondPrio = 'ui';
 
-    if (sinceBlogpost < ttl && !isDismissed) {
-      return <BlogpostAnnounce />;
+class RequestLayer extends React.Component {
+  componentWillMount() {
+    this.setState({ repo: firstPrio });
+  }
+
+  componentDidMount() {
+    this.props.getData(this.state.repo);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (this.state.repo !== nextState.repo) {
+      this.props.getData(nextState.repo);
     }
   }
 
-  return null;
-};
+  render() {
+    const { error, loading, data } = this.props;
 
-export default Announce;
+    if (!error && !loading && data && data.length) {
+      const {
+        merged_at: mergedAt,
+        title,
+        body,
+        html_url: link,
+      } = data[0];
+
+      if (mergedAt) {
+        // Fetch ui if blog's pr was merged more than 7 days ago
+        if (new Date().getDate() - new Date(mergedAt).getDate() >= 7 && this.state.repo === firstPrio) {
+          this.setState({ repo: secondPrio });
+        }
+
+        if (localStorage.getItem('dismiss') !== link) {
+          return (<Announce
+            title={title}
+            message={body || ''}
+            label={this.state.repo === 'blog' ? strings.announce_blogpost : strings.announce_patch}
+            link={link}
+          />);
+        }
+      }
+    }
+
+    return null;
+  }
+}
+
+export default connect(
+  (state) => {
+    const { error, loading, data } = state.app.ghPulls;
+
+    return {
+      error,
+      loading,
+      data,
+    };
+  },
+  dispatch => ({
+    getData: repo => dispatch(getGithubPulls(repo)),
+  }),
+)(RequestLayer);
