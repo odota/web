@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
   background-color: color(color(var(--colorBlue) whiteness(-12%)) a(80%));
 
   & main,
@@ -14,7 +14,6 @@
 
   & main {
     flex-grow: 1;
-    padding-bottom: 0;
 
     & p {
       &:first-of-type {
@@ -28,6 +27,19 @@
         font-size: calc(var(--fontSizeMedium) - 1);
         margin: 0;
         opacity: 0.85;
+      }
+    }
+
+    & ul {
+      margin: 2px 0;
+      padding-left: 20px;
+
+      & li {
+        list-style-type: circle;
+
+        &::first-letter {
+          text-transform: capitalize;
+        }
       }
     }
   }
