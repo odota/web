@@ -15,23 +15,31 @@
   & main {
     flex-grow: 1;
 
+    & > div,
+    & a,
     & p {
-      &:first-of-type {
-        font-weight: var(--fontWeightMedium);
-        font-size: var(--fontSizeCommon);
-        line-height: var(--fontSizeCommon);
-        margin: 0 0 2px;
-      }
+      font-size: calc(var(--fontSizeMedium) - 1);
+      margin: 0;
+      opacity: 0.85;
+    }
 
-      &:last-of-type {
-        font-size: calc(var(--fontSizeMedium) - 1);
-        margin: 0;
-        opacity: 0.85;
+    & a {
+      color: var(--textColorPrimary);
+
+      &:hover {
+        text-decoration: underline;
       }
     }
 
+    & h4 {
+      font-weight: var(--fontWeightMedium);
+      font-size: var(--fontSizeCommon);
+      line-height: var(--fontSizeCommon);
+      margin: 0 0 2px;
+    }
+
     & ul {
-      margin: 2px 0;
+      margin: 2px 0 0;
       padding-left: 20px;
 
       & li {

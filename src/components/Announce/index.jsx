@@ -46,11 +46,12 @@ class RequestLayer extends React.Component {
         merged_at: mergedAt,
         title,
         body,
+        html_url: link,
       } = data[0];
 
       if (mergedAt) {
         // Fetch ui if blog's pr was merged more than 7 days ago
-        if (new Date().getDate() - new Date(mergedAt).getDate() <= 7 && this.state.repo === firstPrio) {
+        if (new Date().getDate() - new Date(mergedAt).getDate() >= 7 && this.state.repo === firstPrio) {
           this.setState({ repo: secondPrio });
         }
 
@@ -58,8 +59,16 @@ class RequestLayer extends React.Component {
           return (
             <div className={styles.announce}>
               <main>
-                <p>{ title }</p>
-                <p><ReactMarkdown source={body} /></p>
+                <h4>{ title }</h4>
+                <ReactMarkdown source={body} />
+                {this.state.repo === secondPrio &&
+                  <a
+                    href={link}
+                    onClick={() => this.dismiss(mergedAt)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >{strings.announce_release_more}</a>
+                }
               </main>
               <aside>
                 <RaisedButton
