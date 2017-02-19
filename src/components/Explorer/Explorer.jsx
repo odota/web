@@ -25,6 +25,7 @@ function jsonResponse(response) {
 // TODO special queries: mega creep wins, bans, log queries
 // TODO hero combos
 // TODO lane positions
+// TODO item timings
 const player = { text: 'Player', value: 'notable_players.name', alias: 'playername' };
 const hero = { text: strings.th_hero_id, value: 'hero_id' };
 const league = { text: 'League', value: 'leagues.name', alias: 'leaguename' };
@@ -192,9 +193,9 @@ class Explorer extends React.Component {
               } else if (column.name === 'hero_id') {
                 return transformations.hero_id(row, col, field);
               } else if (column.name === 'winrate') {
-                return (<TablePercent
-                  val={field >= 0 ? Number((field * 100).toFixed(2)) : 0}
-                />);
+                return (field >= 0 && field <= 1 ? <TablePercent
+                  val={Number((field * 100).toFixed(2))}
+                /> : null);
               } else if (column.name === 'rune_id') {
                 return strings[`rune_${field}`];
               } else if (column.name === 'item_name') {
