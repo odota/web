@@ -199,6 +199,8 @@
   "heading_item_used": "Item Used",
   "heading_damage_inflictor": "Damage Inflictor",
   "heading_damage_inflictor_received": "Damage Inflictor Received",
+  "heading_damage_instances": "Damage Instances",
+  "heading_camps_stacked": "Camps Stacked",
   "heading_matches": "Recent Matches",
   "heading_heroes": "Heroes Played",
   "heading_mmr": "MMR History",

@@ -30,7 +30,7 @@ class ExplorerFormField extends React.Component {
         filter={AutoComplete.fuzzyFilter}
         floatingLabelText={label}
         dataSource={dataSource}
-        maxSearchResults={20}
+        maxSearchResults={50}
         onClick={this.resetField}
         onNewRequest={(value, index) => {
           builderContext.setState({

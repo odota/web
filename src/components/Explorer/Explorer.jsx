@@ -43,6 +43,7 @@ const selects = [
   { text: strings.heading_hero_healing, value: 'hero_healing' },
   { text: strings.heading_level, value: 'level' },
   { text: strings.heading_stuns, value: 'stuns' },
+  { text: strings.heading_camps_stacked, value: 'camps_stacked' },
   { text: strings.heading_lhten, value: 'lh_t[10]' },
   { text: strings.heading_lhtwenty, value: 'lh_t[20]' },
   { text: strings.heading_lhthirty, value: 'lh_t[30]' },
@@ -55,8 +56,7 @@ const selects = [
   { ...jsonSelect, text: strings.heading_damage_inflictor_received, cartesian: 'json_each(player_matches.damage_inflictor_received)' },
   { ...jsonSelect, text: strings.heading_runes, alias: 'rune_id', cartesian: 'json_each(player_matches.runes)' },
   { ...jsonSelect, text: strings.heading_unit_kills, cartesian: 'json_each(player_matches.killed)' },
-  // TODO hero_hits
-  // TODO camps stacked
+  { ...jsonSelect, text: strings.heading_damage_instances, cartesian: 'json_each(player_matches.hero_hits)' },
 ];
 const groups = [
   player,
