@@ -3,7 +3,7 @@ import { Graph } from 'components/Visualizations';
 
 // const getXAxis = columns => columns.length > 0 && ({ tick: { values: [columns[0].x, columns[columns.length - 1].x] } });
 
-const TrendGraph = ({ columns, name }) => (
+const TrendGraph = ({ columns, name, tooltip, onClick }) => (
   <Graph
     type="spline"
     columns={columns}
@@ -15,6 +15,8 @@ const TrendGraph = ({ columns, name }) => (
         format: d => Number(d.toFixed(2)),
       },
     }}
+    tooltip={tooltip}
+    onClick={onClick}
   />
 );
 

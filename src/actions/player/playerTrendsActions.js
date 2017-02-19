@@ -51,12 +51,19 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
         return cumulativeList;
       }, []);
 
-      return cumulativeSums.map((value, index) => ({
-        x: index + 1,
-        value: Number((value / (index + 1)).toFixed(2)),
-        match_id: matches[index].match_id,
-        hero_id: matches[index].hero_id,
-      }));
+      return cumulativeSums.map((value, index) => {
+        const match = matches[index];
+        return {
+          x: index + 1,
+          value: Number((value / (index + 1)).toFixed(2)),
+          independent_value: match[fieldName],
+          match_id: match.match_id,
+          hero_id: match.hero_id,
+          win: match.player_slot < 128 && match.radiant_win,
+          game_mode: match.game_mode,
+          duration: match.duration,
+        };
+      });
     })
     .then(json => dispatch(getPlayerTrendsOk(json, playerId)))
     .catch(error => dispatch(getPlayerTrendsError(error, playerId)));

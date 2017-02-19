@@ -20,6 +20,8 @@ const generateGraph = ({
   hidePoints,
   otherColumnNames,
   noX,
+  tooltip,
+  onClick,
 }, id) => {
   if (columns && columns.length > 0) {
     const columnVals = columns.map(column => column.value);
@@ -71,6 +73,19 @@ const generateGraph = ({
       configObject.data.colors = colors;
     } else if (colorFn || color) {
       configObject.data.color = colorFn || (() => color);
+    }
+    if (tooltip) {
+      configObject.tooltip = tooltip;
+    }
+    if (onClick) {
+      configObject.data = {
+        ...configObject.data,
+        selection: {
+          // sets `cursor: pointer` on point
+          enabled: true,
+        },
+        onclick: onClick,
+      };
     }
     c3.generate(configObject);
   }
