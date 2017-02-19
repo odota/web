@@ -12,15 +12,21 @@ class ExplorerFormField extends React.Component {
     this.autocomplete.setState({
       searchText: '',
     });
-    builderContext.setState({ ...builderContext.state, builder: { ...builderContext.state.builder, [builderField]: '' } }, builderContext.buildQuery);
+    builderContext.setState({
+      ...builderContext.state,
+      builder: {
+        ...builderContext.state.builder,
+        [builderField]: undefined,
+      },
+    }, builderContext.buildQuery);
   }
   render() {
     const { dataSource, label, builderField, builderContext } = this.props;
-    return (<div style={{ width: '128px' }}>
+    return (<span>
       <AutoComplete
         ref={ref => (this.autocomplete = ref)}
         openOnFocus
-        fullwidth
+        // fullwidth
         filter={AutoComplete.fuzzyFilter}
         floatingLabelText={label}
         dataSource={dataSource}
@@ -36,7 +42,7 @@ class ExplorerFormField extends React.Component {
           }, builderContext.buildQuery);
         }}
       />
-    </div>);
+    </span>);
   }
 }
 

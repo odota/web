@@ -7,43 +7,35 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
 import Helmet from 'react-helmet';
 import strings from 'lang';
-import { getScript } from 'utility';
+import { getScript, transformations } from 'utility';
 import Table from 'components/Table';
 import Heading from 'components/Heading';
 import heroData from 'dotaconstants/build/heroes.json';
 import patchData from 'dotaconstants/build/patch.json';
 import itemData from 'dotaconstants/build/items.json';
 import { getProPlayers, getLeagues } from 'actions';
+import { TablePercent } from 'components/Visualizations';
+import util from 'util';
 import queryTemplate from './queryTemplate';
 import ExplorerFormField from './ExplorerFormField';
 
 function jsonResponse(response) {
   return response.json();
 }
-/*
-What patch has the highest pro winrate for Tiny+Io?
-What hero was banned the most at TI4?
-What was the winrate of players picking up Hand of Midas in 6.84 pro play? How many people lost with it?
-What items does DKPhobos buy on Zeus?
-How many times has Night Stalker been played in a dual mid lane over all time in pro play?
-What % of the time did pro teams down by 4 towers at 25 minutes end up winning in 6.84?
-Which pro player has the 5th highest last hits on Venomancer at 40 minutes across all patches?
-Who has the earliest courier kill in 6.85, what time did it happen at, and on what hero?
-*/
 // TODO special queries: mega creep wins, bans, log queries
-// TODO hero duos
+// TODO hero combos
 // TODO lane positions
 const player = { text: 'Player', value: 'notable_players.name', alias: 'playername' };
 const hero = { text: strings.th_hero_id, value: 'hero_id' };
 const league = { text: 'League', value: 'leagues.name', alias: 'leaguename' };
 const patch = { text: 'Patch', value: 'patch' };
-// const match = { text: 'Match', value: 'match_id' };
+const jsonSelect = { value: 'key', groupValue: 'value::text::int', groupKey: 'key' };
 const selects = [
-  { text: strings.heading_gold_per_min, value: 'gold_per_min' },
-  { text: strings.heading_xp_per_min, value: 'xp_per_min' },
   { text: strings.heading_kills, value: 'kills' },
   { text: strings.heading_deaths, value: 'deaths' },
   { text: strings.heading_assists, value: 'assists' },
+  { text: strings.heading_gold_per_min, value: 'gold_per_min' },
+  { text: strings.heading_xp_per_min, value: 'xp_per_min' },
   { text: strings.heading_last_hits, value: 'last_hits' },
   { text: strings.heading_denies, value: 'denies' },
   { text: strings.heading_hero_damage, value: 'hero_damage' },
@@ -51,29 +43,31 @@ const selects = [
   { text: strings.heading_hero_healing, value: 'hero_healing' },
   { text: strings.heading_level, value: 'level' },
   { text: strings.heading_stuns, value: 'stuns' },
-  // TODO expand to 10, 20, 30, 40, 50
   { text: strings.heading_lhten, value: 'lh_t[10]' },
-  { text: 'Gold@10', value: 'gold_t[10]' },
-  // TODO purchase->>item
-  // TODO ability_uses->>ability
-  // TODO item uses->item
-  // TODO damage_inflictor
-  // TODO damage_inflictor_received
-  // TODO runes
-  // TODO kills->>unit
+  { text: strings.heading_lhtwenty, value: 'lh_t[20]' },
+  { text: strings.heading_lhthirty, value: 'lh_t[30]' },
+  { text: strings.heading_lhforty, value: 'lh_t[40]' },
+  { text: strings.heading_lhfifty, value: 'lh_t[50]' },
+  { ...jsonSelect, text: strings.heading_item_purchased, alias: 'item_name', cartesian: 'json_each(player_matches.purchase)' },
+  { ...jsonSelect, text: strings.heading_ability_used, alias: 'ability_name', cartesian: 'json_each(player_matches.ability_uses)' },
+  { ...jsonSelect, text: strings.heading_item_used, alias: 'item_name', cartesian: 'json_each(player_matches.item_uses)' },
+  { ...jsonSelect, text: strings.heading_damage_inflictor, cartesian: 'json_each(player_matches.damage_inflictor)' },
+  { ...jsonSelect, text: strings.heading_damage_inflictor_received, cartesian: 'json_each(player_matches.damage_inflictor_received)' },
+  { ...jsonSelect, text: strings.heading_runes, alias: 'rune_id', cartesian: 'json_each(player_matches.runes)' },
+  { ...jsonSelect, text: strings.heading_unit_kills, cartesian: 'json_each(player_matches.killed)' },
+  // TODO hero_hits
+  // TODO camps stacked
 ];
 const groups = [
   player,
   hero,
   league,
   patch,
-// TODO damage inflictor
-// TODO damage inflictor received
-// TODO kills->>unit
 ];
 const patches = patchData.reverse().map(patch => ({ text: patch.name, value: patch.name }));
 const heroes = Object.keys(heroData).map(heroId => ({ text: heroData[heroId].localized_name, value: heroData[heroId].id }));
 const items = Object.keys(itemData).map(itemName => ({ text: itemData[itemName].dname, value: itemName }));
+const durations = [10, 20, 30, 40, 50].map(duration => ({ text: `>${util.format(strings.time_mm, duration)}`, value: duration * 60 }));
 
 class Explorer extends React.Component {
   constructor() {
@@ -138,6 +132,7 @@ class Explorer extends React.Component {
     }));
   }
   buildQuery() {
+    console.log(this.state.builder);
     this.editor.setValue(queryTemplate(this.state.builder));
   }
   render() {
@@ -146,23 +141,20 @@ class Explorer extends React.Component {
     return (<div>
       <Helmet title={strings.title_explorer} />
       <Heading title={strings.explorer_title} subtitle={strings.explorer_description} />
-      <div>
+      {/*
         <a href="https://github.com/odota/core/blob/master/sql/create_tables.sql">{strings.explorer_schema}</a>
+      */}
+      <div>
+        <ExplorerFormField label={strings.explorer_select} dataSource={selects} builderField="select" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_group_by} dataSource={groups} builderField="group" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_hero} dataSource={heroes} builderField="hero" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_patch} dataSource={patches} builderField="patch" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_player} dataSource={proPlayers} builderField="player" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_league} dataSource={leagues} builderField="league" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_item} dataSource={items} builderField="item" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_duration} dataSource={durations} builderField="duration" builderContext={this} />
       </div>
       <div>
-        <Heading title={strings.explorer_builder} subtitle={strings.explorer_builder_description} />
-        <div style={{ display: 'flex' }}>
-          <ExplorerFormField label="Select" dataSource={selects} builderField="select" builderContext={this} />
-          <ExplorerFormField label="Group By" dataSource={groups} builderField="group" builderContext={this} />
-          <ExplorerFormField label="Hero" dataSource={heroes} builderField="hero" builderContext={this} />
-          <ExplorerFormField label="Patch" dataSource={patches} builderField="patch" builderContext={this} />
-          <ExplorerFormField label="Player" dataSource={proPlayers} builderField="player" builderContext={this} />
-          <ExplorerFormField label="League" dataSource={leagues} builderField="league" builderContext={this} />
-          <ExplorerFormField label="Item" dataSource={items} builderField="item" builderContext={this} />
-        </div>
-      </div>
-      <div>
-        <Heading title={strings.explorer_query} subtitle={strings.explorer_query_description} />
         {this.state.loadingEditor && <Spinner />}
         <div
           id={'editor'}
@@ -198,8 +190,16 @@ class Explorer extends React.Component {
               if (column.name === 'match_id') {
                 return <Link to={`/matches/${field}`}>{field}</Link>;
               } else if (column.name === 'hero_id') {
-                return <Link to={`/heroes/${field}`}>{heroData[field] ? heroData[field].localized_name : field}</Link>;
+                return transformations.hero_id(row, col, field);
+              } else if (column.name === 'winrate') {
+                return (<TablePercent
+                  val={field >= 0 ? Number((field * 100).toFixed(2)) : 0}
+                />);
+              } else if (column.name === 'rune_id') {
+                return strings[`rune_${field}`];
               }
+              // TODO images for heroes
+              // TODO translate item_name
               return typeof field === 'string' ? field : JSON.stringify(field);
             },
             sortFn: true,
