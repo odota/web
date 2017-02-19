@@ -197,9 +197,9 @@ class Explorer extends React.Component {
                 />);
               } else if (column.name === 'rune_id') {
                 return strings[`rune_${field}`];
+              } else if (column.name === 'item_name') {
+                return itemData[field] ? itemData[field].dname : field;
               }
-              // TODO images for heroes
-              // TODO translate item_name
               return typeof field === 'string' ? field : JSON.stringify(field);
             },
             sortFn: true,
