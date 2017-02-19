@@ -8,6 +8,7 @@ sum(${select.value}) sum,
 sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(${select.value}) winrate`
 : `
 match_id,
+hero_id,
 notable_players.name,
 ${select && select.value} ${(select && select.alias) || ''}`,
 ].filter(Boolean).join(',')}
