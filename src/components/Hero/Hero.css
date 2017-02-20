@@ -1,0 +1,28 @@
+@import "../palette.css";
+
+.Heading {
+  composes: Heading from "../Distributions/Distributions.css";
+}
+
+.Header {
+  text-align: center;
+}
+
+.image {
+  border: solid 1px rgba(255, 255, 255, 0.3);
+  margin: 0 auto;
+  height: 100%;
+}
+
+.SearchBar {
+  width: 90%;
+  background: transparent;
+  border: none;
+  display: block;
+  margin: 0 auto 20px;
+  color: #fff;
+
+  &:focus {
+    outline: none;
+  }
+}

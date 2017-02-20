@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { formatSeconds, calculateDistance, calculateRelativeXY } from 'utility';
+import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import Measure from 'react-measure';
 import classNames from 'classnames';
@@ -9,6 +9,7 @@ import { teamfightColumns } from 'components/Match/matchColumns';
 import PlayerThumb from 'components/Match/PlayerThumb';
 import strings from 'lang';
 import Timeline from 'components/Match/Overview/Timeline';
+import DotaMap from 'components/DotaMap';
 import styles from './TeamfightMap.css';
 
 const MAP_WIDTH = 400;
@@ -166,13 +167,6 @@ const avgPosition = ({ deaths_pos: deathPositions }) => {
   };
 };
 
-const bindWidth = width => (width >= 400 ? 400 : width);
-
-const setMapSizeStyle = width => ({
-  width: bindWidth(width),
-  height: bindWidth(width),
-});
-
 class TeamfightMap extends Component {
   constructor(props) {
     super();
@@ -276,11 +270,10 @@ class TeamfightMap extends Component {
             <div className={`${styles.container} ${getSelectedStyle(teamfight.radiant_gold_advantage_delta)}`}>
               <div className={styles.teamfightContainer}>
                 <div className={styles.mapAndInfoContainer}>
-                  <div
-                    className={styles.map}
-                    // onClick={this.onMapClick(bindWidth(width))}
-                    // commented out because there are some bugs in mobile with it.
-                    style={setMapSizeStyle(width)}
+                  <DotaMap
+                    width={width}
+                    maxWidth={400}
+                    startTime={match.start_time}
                   >
                     {teamfights.map((teamfight, index) => (
                       <Teamfight
@@ -294,17 +287,17 @@ class TeamfightMap extends Component {
                         end={teamfight.end}
                         radiantGoldDelta={teamfight.radiant_gold_advantage_delta}
                         deathPositions={teamfight.deaths_pos}
-                        mapWidth={bindWidth(width)}
+                        mapWidth={bindWidth(width, 400)}
                       />
                     ))}
-                  </div>
+                  </DotaMap>
                   <header className={styles.header}>
                     <div className={styles.muted}>
                       {formatSeconds(teamfight.start)} - {formatSeconds(teamfight.end)}
                     </div>
                     <div className={styles.headerSubInfo}>
                       <div className={getIconStyle(teamfight.radiant_gold_advantage_delta)}>
-                        <Icon style={{ height: iconSize(bindWidth(width)), width: iconSize(bindWidth(width)) }} />
+                        <Icon style={{ height: iconSize(bindWidth(width, 400)), width: iconSize(bindWidth(width, 400)) }} />
                       </div>
                       <span className={styles.headerGold}><GoldDelta radiantGoldDelta={teamfight.radiant_gold_advantage_delta} /></span>
                       <div className={styles.muted}>{teamfight.deaths_pos.length} Deaths</div>

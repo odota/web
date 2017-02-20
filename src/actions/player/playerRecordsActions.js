@@ -3,7 +3,6 @@ import fetch from 'isomorphic-fetch';
 import { playerRecords } from 'reducers';
 import { getUrl } from 'actions/utility';
 
-// const excludedOptions = ['limit'];
 const url = playerId => `/api/players/${playerId}/records`;
 
 const REQUEST = 'playerRecords/REQUEST';
@@ -36,7 +35,6 @@ export const getPlayerRecords = (playerId, options = {}) => (dispatch, getState)
   } else {
     dispatch(getPlayerRecordsRequest(playerId));
   }
-  // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())

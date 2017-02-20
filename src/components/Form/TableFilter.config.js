@@ -42,29 +42,33 @@ export const regionList = Object.keys(region).map(id => ({
 }));
 
 export const factionList = [{
-  text: 'dire',
-  value: 0,
-}, {
-  text: 'radiant',
+  text: strings.general_radiant,
   value: 1,
+}, {
+  text: strings.general_dire,
+  value: 0,
 }];
 export const resultList = [{
-  text: 'loss',
-  value: 0,
-}, {
-  text: 'win',
+  text: strings.td_win,
   value: 1,
+}, {
+  text: strings.td_loss,
+  value: 0,
 }];
 export const dateList = [{
-  text: 'last week',
+  text: strings.filter_last_week,
   value: 7,
 }, {
-  text: 'last month',
+  text: strings.filter_last_month,
   value: 30,
 }, {
-  text: 'last 3 months',
+  text: strings.filter_last_3_months,
   value: 90,
 }, {
-  text: 'last 6 months',
+  text: strings.filter_last_6_months,
   value: 180,
+}];
+export const significantList = [{
+  text: strings.filter_significant_include,
+  value: 0,
 }];

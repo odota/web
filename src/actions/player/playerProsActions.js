@@ -36,7 +36,6 @@ export const getPlayerPros = (playerId, options = {}) => (dispatch, getState) =>
   } else {
     dispatch(getPlayerProsRequest(playerId));
   }
-  // const modifiedOptions = getModifiedOptions(options, excludedOptions);
 
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())

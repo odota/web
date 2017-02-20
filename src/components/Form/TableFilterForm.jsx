@@ -56,8 +56,6 @@ class TableFilterForm extends React.Component {
                 strict
                 limit={1}
               />
-            </FormGroup>
-            <FormGroup className={styles.formGroup}>
               <FormField
                 name="patch"
                 label={strings.filter_patch}
@@ -93,8 +91,6 @@ class TableFilterForm extends React.Component {
                 strict
                 limit={1}
               />
-            </FormGroup>
-            <FormGroup className={styles.formGroup}>
               <FormField
                 name="with_hero_id"
                 label={strings.filter_with_hero_id}
@@ -116,7 +112,14 @@ class TableFilterForm extends React.Component {
               />
               <FormField
                 name="excluded_account_id"
-                label={strings.filter_excluded_hero_id}
+                label={strings.filter_excluded_account_id}
+              />
+              <FormField
+                name="significant"
+                label={strings.filter_significant}
+                dataSource={data.significantList}
+                strict
+                limit={1}
               />
             </FormGroup>
             {/*

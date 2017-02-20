@@ -1,5 +1,12 @@
 @import "../../palette.css";
 
+.map {
+  @media only screen and (max-width: 370px) {
+    max-height: 250px !important;
+    max-width: 250px !important;
+  }
+}
+
 .buildingMap {
   position: relative;
   width: 300px;

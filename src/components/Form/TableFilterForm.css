@@ -1,14 +1,9 @@
 .formGroup {
-  width: 25%;
   padding: 0 15px;
   box-sizing: border-box;
-}
-
-.form {
-  display: flex;
   flex-direction: row;
+  display: flex;
   flex-wrap: wrap;
-  margin-bottom: 50px;
 }
 
 .formContainer {

@@ -7,9 +7,10 @@ import SocialLinks from './SocialLinks';
 import styles from './Footer.css';
 import { IconSteam } from '../Icons';
 
-export default ({ location }) => (
+export default () => (
   <footer className={styles.footer}>
     {
+      /*
       location.pathname !== '/' &&
       <section className={styles.stanza}>
         <iframe
@@ -17,6 +18,7 @@ export default ({ location }) => (
           src="https://www.stanza.co/@dota2?embed=true&banner=true&site=opendota"
         />
       </section>
+      */
     }
     <main>
       <div className={styles.links}>

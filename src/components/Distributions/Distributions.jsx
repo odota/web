@@ -88,7 +88,12 @@ const getPage = (data, key) => (
 
 const distributionsPages = [
   { name: strings.distributions_tab_mmr, key: 'mmr', content: getPage, route: '/distributions/mmr' },
-  { name: strings.distributions_tab_country_mmr, key: 'country_mmr', content: getPage, route: '/distributions/country_mmr' },
+  {
+    name: strings.distributions_tab_country_mmr,
+    key: 'countryMmr',
+    content: data => getPage(data, 'country_mmr'),
+    route: '/distributions/countryMmr',
+  },
 ];
 
 class RequestLayer extends React.Component {
