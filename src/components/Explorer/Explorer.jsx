@@ -49,6 +49,8 @@ function getItemSuffix(itemKey) {
 // TODO hero combos
 // TODO lane positions
 // TODO match level selects (duration), right now these get 10 rows per match
+// TODO externalize strings
+// TODO helplink
 const player = {
   text: 'Player',
   value: 'notable_players.name',
