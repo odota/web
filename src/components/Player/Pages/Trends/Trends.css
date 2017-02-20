@@ -1,5 +1,9 @@
 @import "../../../palette.css";
 
+.container {
+  min-height: 320px;
+}
+
 .tooltipWrapper {
   background-color: var(--defaultPrimaryColor);
   color: var(--textColorPrimary) !important; /* override c3 */
@@ -46,4 +50,10 @@
 
 .heroImg {
   height: 100%;
+}
+
+.noData {
+  text-align: center;
+  padding-top: 30px;
+  font-size: var(--fontSizeCommon);
 }

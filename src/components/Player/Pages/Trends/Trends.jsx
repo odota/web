@@ -26,48 +26,53 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => (
       buttonNames={trendNames}
       selectedButton={routeParams.subInfo || trendNames[0]}
     />
-    <Container error={error} loading={loading}>
-      <TrendGraph
-        columns={columns}
-        name={strings[`heading_${routeParams.subInfo || trendNames[0]}`]}
-        tooltip={{
-          contents: (d) => {
-            const data = columns[d[0].index];
-            const trendStr = strings[`heading_${routeParams.subInfo || trendNames[0]}`];
-            return `<div class="${styles.tooltipWrapper}">
-              <div class="${styles.value}">${strings.trends_tooltip_average} ${trendStr}: ${data.value}</div>
-              <div class="${styles.match}">
-                <div>
+    <Container className={styles.container} error={error} loading={loading}>
+      {!columns.length ?
+        <div className={styles.noData}>
+          Sorry, no data for this trend
+        </div> :
+        <TrendGraph
+          columns={columns}
+          name={strings[`heading_${routeParams.subInfo || trendNames[0]}`]}
+          tooltip={{
+            contents: (d) => {
+              const data = columns[d[0].index];
+              const trendStr = strings[`heading_${routeParams.subInfo || trendNames[0]}`];
+              return `<div class="${styles.tooltipWrapper}">
+                <div class="${styles.value}">${strings.trends_tooltip_average} ${trendStr}: ${data.value}</div>
+                <div class="${styles.match}">
                   <div>
-                    <span class="${data.win ? styles.win : styles.loss}">
-                      ${data.win ? strings.td_win : strings.td_loss}
-                    </span>
-                    <span class="${styles.time}">
-                      ${fromNow(data.start_time)}
-                    </span>
+                    <div>
+                      <span class="${data.win ? styles.win : styles.loss}">
+                        ${data.win ? strings.td_win : strings.td_loss}
+                      </span>
+                      <span class="${styles.time}">
+                        ${fromNow(data.start_time)}
+                      </span>
+                    </div>
+                    <div>
+                      ${strings[`game_mode_${data.game_mode}`]}
+                    </div>
+                    <div>
+                      ${formatSeconds(data.duration)}
+                    </div>
+                    <div class="${styles.matchValue}">
+                      ${trendStr}: ${data.independent_value}
+                    </div>
                   </div>
-                  <div>
-                    ${strings[`game_mode_${data.game_mode}`]}
-                  </div>
-                  <div>
-                    ${formatSeconds(data.duration)}
-                  </div>
-                  <div class="${styles.matchValue}">
-                    ${trendStr}: ${data.independent_value}
+                  <div class="${styles.hero}">
+                    <img class="${styles.heroImg}" src="${API_HOST}${heroes[data.hero_id].img}" />
                   </div>
                 </div>
-                <div class="${styles.hero}">
-                  <img class="${styles.heroImg}" src="${API_HOST}${heroes[data.hero_id].img}" />
-                </div>
-              </div>
-            </div>`;
-          },
-        }}
-        onClick={(p) => {
-          const matchId = columns[p.index].match_id;
-          browserHistory.push(`/matches/${matchId}`);
-        }}
-      />
+              </div>`;
+            },
+          }}
+          onClick={(p) => {
+            const matchId = columns[p.index].match_id;
+            browserHistory.push(`/matches/${matchId}`);
+          }}
+        />
+      }
     </Container>
   </div>
 );
