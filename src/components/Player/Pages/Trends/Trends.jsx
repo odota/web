@@ -100,7 +100,7 @@ class RequestLayer extends React.Component {
 }
 
 const mapStateToProps = (state, { playerId }) => ({
-  columns: playerTrends.getPlayerTrends(state, playerId),
+  columns: playerTrends.getTrendsList(state, playerId),
   loading: playerTrends.getLoading(state, playerId),
   error: playerTrends.getError(state, playerId),
 });
