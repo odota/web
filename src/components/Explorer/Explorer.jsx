@@ -49,10 +49,9 @@ function getItemSuffix(itemKey) {
 // TODO hero combos
 // TODO lane positions
 // TODO match level selects (duration), right now these get 10 rows per match
-// TODO externalize strings
 // TODO helplink
 const player = {
-  text: 'Player',
+  text: strings.explorer_player,
   value: 'notable_players.name',
   alias: 'playername',
 };
@@ -61,12 +60,12 @@ const hero = {
   value: 'player_matches.hero_id',
 };
 const league = {
-  text: 'League',
+  text: strings.explorer_league,
   value: 'leagues.name',
   alias: 'leaguename',
 };
 const patch = {
-  text: 'Patch',
+  text: strings.explorer_patch,
   value: 'patch',
 };
 const jsonSelect = {
@@ -75,7 +74,7 @@ const jsonSelect = {
   groupKey: 'key',
 };
 const timingSelect = itemKey => ({
-  text: `Timing - ${itemData[itemKey].dname} ${getItemSuffix(itemKey)}`,
+  text: `${strings.explorer_timing} - ${itemData[itemKey].dname} ${getItemSuffix(itemKey)}`,
   value: 'match_logs.time',
   order: 'ASC',
   join: `JOIN match_logs 
@@ -88,7 +87,7 @@ const killSelect = ({
   text,
   key,
 }) => ({
-  text: `Kill - ${text}`,
+  text: `${strings.explorer_kill} - ${text}`,
   value: 'match_logs.time',
   order: 'ASC',
   join: `JOIN match_logs 
