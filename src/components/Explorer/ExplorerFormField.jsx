@@ -1,6 +1,5 @@
 import React from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
-
 class ExplorerFormField extends React.Component {
   constructor() {
     super();
@@ -25,12 +24,14 @@ class ExplorerFormField extends React.Component {
     return (<span>
       <AutoComplete
         ref={ref => (this.autocomplete = ref)}
+        searchText={builderContext.state.builder[builderField] && builderContext.state.builder[builderField].text}
         openOnFocus
+        listStyle={{ maxHeight: 400, overflow: 'auto' }}
         // fullwidth
         filter={AutoComplete.fuzzyFilter}
         floatingLabelText={label}
         dataSource={dataSource}
-        maxSearchResults={50}
+        maxSearchResults={100}
         onClick={this.resetField}
         onNewRequest={(value, index) => {
           builderContext.setState({
