@@ -11,7 +11,7 @@ import styles from './styles.css';
 const Announce = ({ title, body, onClick, link }) => (
   <div className={styles.announce}>
     <main>
-      <h4><a href={link}><IconGithub /></a> {title}</h4>
+      <h4><a href={link} title={strings.announce_github_more}><IconGithub /></a> {title}</h4>
       {body && <ReactMarkdown source={body} />}
     </main>
     <aside>
