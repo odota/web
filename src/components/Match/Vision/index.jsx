@@ -6,7 +6,7 @@ import strings from 'lang';
 
 import VisionFilter from './VisionFilter';
 import VisionItems from './VisionItems';
-import VisionMap from './VisionMap' ;
+import VisionMap from './VisionMap';
 import VisionLog from './VisionLog';
 import styles from './Vision.css';
 
