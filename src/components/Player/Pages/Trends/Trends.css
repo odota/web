@@ -34,7 +34,7 @@
 }
 
 .time {
-  color: var(--textColorPrimary);
+  color: var(--colorMutedLight);
   font-size: var(--fontSizeTiny);
 }
 
