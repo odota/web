@@ -36,6 +36,12 @@
       font-size: var(--fontSizeCommon);
       line-height: var(--fontSizeCommon);
       margin: 0 0 2px;
+
+      & svg {
+        height: 16px;
+        fill: var(--textColorPrimary);
+        vertical-align: sub;
+      }
     }
 
     & ul {

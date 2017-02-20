@@ -25,19 +25,17 @@ const getGithubPullsError = payload => ({
   payload,
 });
 
-const getGithubPulls = repo => (dispatch) => {
+const getGithubPulls = merged => (dispatch) => {
   const host = 'https://api.github.com';
-
   const params = querystring.stringify({
-    base: repo === 'ui' ? 'production' : 'master',
-    head: repo === 'ui' ? 'master' : '',
-    state: 'closed',
-    direction: 'desc',
+    q: `repo:odota/ui type:pr base:production label:release merged:>${merged}`,
+    order: 'desc',
+    page: 1,
     per_page: 1,
   });
 
   dispatch(getGithubPullsRequest());
-  return fetch(`${host}/repos/odota/${repo}/pulls?${params}`)
+  return fetch(`${host}/search/issues?${params}`)
     .then(res => res.json())
     .then(json => dispatch(getGithubPullsOk(json)))
     .catch(err => dispatch(getGithubPullsError(err)));
