@@ -1,5 +1,6 @@
 import React from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
+
 class ExplorerFormField extends React.Component {
   constructor() {
     super();

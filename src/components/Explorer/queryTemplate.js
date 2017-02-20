@@ -20,7 +20,7 @@ ${select ? `${select.value} ${select.alias || ''}` : ''},
 matches.match_id,
 player_matches.hero_id,
 notable_players.name playername,
-leagues.name leaguename`
+leagues.name leaguename`,
 ].filter(Boolean).join(',')}
 FROM player_matches
 LEFT JOIN notable_players
@@ -43,8 +43,8 @@ ${league ? `AND leagueid = ${league.value}` : ''}
 ${playerPurchased ? `AND (player_matches.purchase->>'${playerPurchased.value}')::int > 0` : ''}
 ${duration ? `AND duration > ${duration.value}` : ''}
 ${group ? `GROUP BY ${group.value}` : ''}
-${group ? `HAVING count(distinct matches.match_id) > 1` : ''}
-ORDER BY ${group ? 'avg' : select && select.value} ${select && select.order || 'DESC'} NULLS LAST
+${group ? 'HAVING count(distinct matches.match_id) > 1' : ''}
+ORDER BY ${group ? 'avg' : select && select.value} ${(select && select.order) || 'DESC'} NULLS LAST
 LIMIT 150`;
 
 export default queryTemplate;
