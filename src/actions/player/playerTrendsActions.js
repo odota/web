@@ -62,6 +62,7 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
           win: match.player_slot < 128 && match.radiant_win,
           game_mode: match.game_mode,
           duration: match.duration,
+          start_time: match.start_time,
         };
       });
     })

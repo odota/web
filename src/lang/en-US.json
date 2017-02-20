@@ -696,7 +696,8 @@
   
   "trends_name": "Trends",
   "trends_description": "Cumulative average over last 500 games",
-  
+  "trends_tooltip_average": "Avg.",
+
   "xp_reasons_0": "Other",
   "xp_reasons_1": "Creep",
   "xp_reasons_2": "Hero",

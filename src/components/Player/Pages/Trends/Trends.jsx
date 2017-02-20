@@ -14,7 +14,7 @@ import Container from 'components/Container';
 import { browserHistory } from 'react-router';
 import strings from 'lang';
 import heroes from 'dotaconstants/build/heroes.json';
-import { formatSeconds } from 'utility';
+import { formatSeconds, fromNow } from 'utility';
 import styles from './Trends.css';
 
 const Trend = ({ routeParams, columns, playerId, error, loading }) => (
@@ -35,11 +35,16 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => (
             const data = columns[d[0].index];
             const trendStr = strings[`heading_${routeParams.subInfo || trendNames[0]}`];
             return `<div class="${styles.tooltipWrapper}">
-              <div class="${styles.value}">Avg. ${trendStr}: ${data.value}</div>
+              <div class="${styles.value}">${strings.trends_tooltip_average} ${trendStr}: ${data.value}</div>
               <div class="${styles.match}">
                 <div>
-                  <div class="${data.win ? styles.win : styles.loss}">
-                    ${data.win ? 'Win' : 'Loss'}
+                  <div>
+                    <span class="${data.win ? styles.win : styles.loss}">
+                      ${data.win ? strings.td_win : strings.td_loss}
+                    </span>
+                    <span class="${styles.time}">
+                      ${fromNow(data.start_time)}
+                    </span>
                   </div>
                   <div>
                     ${strings[`game_mode_${data.game_mode}`]}
@@ -71,7 +76,7 @@ const getData = (props) => {
   const trendName = props.routeParams.subInfo || trendNames[0];
   props.getPlayerTrends(
     props.playerId,
-    { ...props.location.query, limit: 500, project: [trendName, 'hero_id'] },
+    { ...props.location.query, limit: 500, project: [trendName, 'hero_id', 'start_time'] },
     trendName,
   );
 };

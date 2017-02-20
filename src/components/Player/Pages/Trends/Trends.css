@@ -29,6 +29,11 @@
   color: var(--colorDanger);
 }
 
+.time {
+  color: var(--textColorPrimary);
+  font-size: var(--fontSizeTiny);
+}
+
 .matchValue {
   font-weight: bold;
 }
