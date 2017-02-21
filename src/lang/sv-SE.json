@@ -693,6 +693,8 @@
   "histograms_description":"Percentages indicate win rates for the labeled bin",
   "trends_name":"Trends",
   "trends_description":"Cumulative average over last 500 games",
+  "trends_tooltip_average":"Avg.",
+  "trends_no_data":"Sorry, no data for this trend",
   "xp_reasons_0":"Övrigt",
   "xp_reasons_1":"Creep",
   "xp_reasons_2":"Hjälte",
