@@ -693,6 +693,8 @@
   "histograms_description":"百分比表示当前标签下的胜率",
   "trends_name":"趋势",
   "trends_description":"近500场比赛累计平均值",
+  "trends_tooltip_average":"Avg.",
+  "trends_no_data":"Sorry, no data for this trend",
   "xp_reasons_0":"其它",
   "xp_reasons_1":"补兵",
   "xp_reasons_2":"英雄",
