@@ -49,9 +49,9 @@ function getItemSuffix(itemKey) {
 // TODO bans
 // TODO hero combos
 // TODO lane positions
-// TODO match level selects (duration), right now these get 10 rows per match
 // TODO helplink
 // TODO num wards placed?
+// TODO group by + time data should be formatted
 const player = {
   text: strings.explorer_player,
   value: 'notable_players.name',
@@ -156,6 +156,8 @@ const fields = {
   }, {
     text: strings.heading_duration,
     value: 'duration',
+    alias: 'as time',
+    excludePlayer: true,
   }, { ...jsonSelect,
     text: strings.heading_item_purchased,
     alias: 'item_name',
