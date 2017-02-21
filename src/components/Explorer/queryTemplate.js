@@ -13,8 +13,8 @@ const queryTemplate = ({
   (group && select) ? `
 round(sum(${select.groupValue || select.value})::numeric/count(distinct matches.match_id), 2) avg, 
 count(distinct matches.match_id) count, 
-sum(${select.groupValue || select.value}) sum,
-sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate`
+sum(${select.groupValue || select.value}) sum
+${select.groupValue ? '' : ', sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate'}`
 :
 `
 ${select ? `${select.value} ${select.alias || ''},` : ''}

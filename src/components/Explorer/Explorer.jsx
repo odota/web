@@ -44,12 +44,14 @@ function jsonResponse(response) {
 function getItemSuffix(itemKey) {
   return ['_2', '_3', '_4', '_5'].some(suffix => itemKey.indexOf(suffix) !== -1) ? itemKey[itemKey.length - 1] : '';
 }
+// TODO input string parsing
 // TODO mega creep wins
 // TODO bans
 // TODO hero combos
 // TODO lane positions
 // TODO match level selects (duration), right now these get 10 rows per match
 // TODO helplink
+// TODO num wards placed?
 const player = {
   text: strings.explorer_player,
   value: 'notable_players.name',
@@ -212,6 +214,10 @@ const fields = {
       text: strings.heading_duration,
       value: 'duration/300*5',
       alias: 'minutes',
+    }, {
+      text: strings.explorer_side,
+      value: '(player_matches.player_slot < 128)',
+      alias: 'is_radiant',
     },
   ],
   patch: patchData.reverse().map(patch => ({
@@ -227,7 +233,7 @@ const fields = {
     value: itemName,
   })),
   duration: [10, 20, 30, 40, 50].map(duration => ({
-    text: `>${util.format(strings.time_mm, duration)}`,
+    text: `> ${util.format(strings.time_mm, duration)}`,
     value: duration * 60,
   })),
   side: [{ text: strings.general_radiant, value: true }, { text: strings.general_dire, value: false }],
@@ -240,11 +246,13 @@ class Explorer extends React.Component {
 
     this.state = {
       loadingEditor: true,
+      showEditor: false,
       querying: false,
       result: {},
       builder: urlBuilderState.builder ? JSON.parse(urlBuilderState.builder) : {},
     };
     this.instantiateEditor = this.instantiateEditor.bind(this);
+    this.toggleEditor = this.toggleEditor.bind(this);
     this.handleQuery = this.handleQuery.bind(this);
     this.handleResponse = this.handleResponse.bind(this);
     this.getQueryString = this.getQueryString.bind(this);
@@ -278,17 +286,21 @@ class Explorer extends React.Component {
     } else {
       editor.setValue('select count(*) from matches;');
     }
-    this.setState(Object.assign({}, this.state, {
+    this.setState({ ...this.state,
       loadingEditor: false,
-    }));
+    });
+  }
+  toggleEditor() {
+    this.setState({ ...this.state, showEditor: !this.state.showEditor });
+    this.editor.renderer.updateFull();
   }
   handleQuery() {
     if (this.state.loadingEditor === true) {
       return setTimeout(this.handleQuery, 1000);
     }
-    this.setState(Object.assign({}, this.state, {
+    this.setState({ ...this.state,
       querying: true,
-    }));
+    });
     const queryString = this.getQueryString();
     window.history.pushState('', '', queryString);
     return fetch(`${API_HOST}/api/explorer${queryString}`).then(jsonResponse).then(this.handleResponse);
@@ -297,11 +309,11 @@ class Explorer extends React.Component {
     window.open(`${API_HOST}/api/explorer${this.getQueryString()}`, '_blank');
   }
   handleResponse(json) {
-    this.setState(Object.assign({}, this.state, {
+    this.setState({ ...this.state,
       querying: false,
       open: false,
       result: json,
-    }));
+    });
   }
   buildQuery() {
     console.log(this.state.builder);
@@ -327,9 +339,9 @@ class Explorer extends React.Component {
         <ExplorerFormField label={strings.explorer_select} dataSource={fields.select} builderField="select" builderContext={this} />
         <ExplorerFormField label={strings.explorer_group_by} dataSource={fields.group} builderField="group" builderContext={this} />
         <ExplorerFormField label={strings.explorer_hero} dataSource={fields.hero} builderField="hero" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_patch} dataSource={fields.patch} builderField="patch" builderContext={this} />
         <ExplorerFormField label={strings.explorer_player} dataSource={proPlayers} builderField="player" builderContext={this} />
         <ExplorerFormField label={strings.explorer_league} dataSource={leagues} builderField="league" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_patch} dataSource={fields.patch} builderField="patch" builderContext={this} />
         <ExplorerFormField
           label={strings.explorer_player_purchased}
           dataSource={fields.playerPurchased}
@@ -339,13 +351,13 @@ class Explorer extends React.Component {
         <ExplorerFormField label={strings.explorer_duration} dataSource={fields.duration} builderField="duration" builderContext={this} />
         <ExplorerFormField label={strings.explorer_side} dataSource={fields.side} builderField="side" builderContext={this} />
       </div>
-      <div>
+      <div style={{ display: this.state.showEditor ? 'block' : 'none' }}>
         {this.state.loadingEditor && <Spinner />}
         <div
           id={'editor'}
           style={{
+            height: 100,
             width: '100%',
-            height: 200,
           }}
         />
       </div>
@@ -354,13 +366,16 @@ class Explorer extends React.Component {
           style={{ margin: '5px' }}
           label={strings.explorer_query_button}
           onClick={this.handleQuery}
-          disabled={this.state.loadingEditor}
         />
         <RaisedButton
           style={{ margin: '5px' }}
           label={strings.explorer_json_button}
           onClick={this.handleJson}
-          disabled={this.state.loadingEditor}
+        />
+        <RaisedButton
+          style={{ margin: '5px' }}
+          label={strings.explorer_toggle_sql}
+          onClick={this.toggleEditor}
         />
       </div>
       <Heading title={strings.explorer_results} subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`} />
