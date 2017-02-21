@@ -693,6 +693,8 @@
   "histograms_description":"Procenty oznaczają średnią wygranych dla oznaczonych przedziałów",
   "trends_name":"Trendy",
   "trends_description":"Zbiorcza średnia ostatnich 500 gier",
+  "trends_tooltip_average":"Avg.",
+  "trends_no_data":"Sorry, no data for this trend",
   "xp_reasons_0":"Inne",
   "xp_reasons_1":"Creep",
   "xp_reasons_2":"Bohater",
