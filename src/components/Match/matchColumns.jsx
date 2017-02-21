@@ -308,12 +308,14 @@ export const purchaseTimesColumns = (match) => {
         {field ? field
         .filter(purchase => (purchase.time >= curTime - bucket && purchase.time < curTime))
         .sort((p1, p2) => {
-          if (p1.time !== p2.time) {
+          const item1 = items[p1.key];
+          const item2 = items[p2.key];
+          if (item1 && item2 && p1.time === p2.time) {
             // We're only concerned with sorting by value
             // if items are bought at the same time, time is presorted
-            return 0;
+            return item1.cost - item2.cost;
           }
-          return items[p1.key].cost - items[p2.key].cost;
+          return 0;
         })
         .map((purchase) => {
           if (items[purchase.key]) {
