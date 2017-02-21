@@ -14,8 +14,9 @@ export default createReducer(initialState, playerTrendsActions);
 
 export const getPlayerTrends = {
   getPlayerTrendsById: (state, id) => state.app.gotPlayer.trends.byId[id] || { ...initialState },
-  getPlayerTrends: (state, id) => getPlayerTrends.getPlayerTrendsById(state, id).list,
+  getPlayerTrends: (state, id) => getPlayerTrends.getPlayerTrendsById(state, id),
   getError: (state, id) => getPlayerTrends.getPlayerTrends(state, id).error,
   getLoading: (state, id) => getPlayerTrends.getPlayerTrends(state, id).loading,
   isLoaded: (state, id) => getPlayerTrends.getPlayerTrends(state, id).loaded,
+  getTrendsList: (state, id) => getPlayerTrends.getPlayerTrends(state, id).list,
 };
