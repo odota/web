@@ -29,7 +29,7 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => (
     <Container className={styles.container} error={error} loading={loading}>
       {!columns.length ?
         <div className={styles.noData}>
-          Sorry, no data for this trend
+          {strings.trends_no_data}
         </div> :
         <TrendGraph
           columns={columns}
