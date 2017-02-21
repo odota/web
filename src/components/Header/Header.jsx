@@ -15,6 +15,7 @@ import Bug from 'material-ui/svg-icons/action/bug-report';
 import strings from 'lang';
 import { LocalizationMenu } from 'components/Localization';
 import Dropdown from 'components/Header/Dropdown';
+import Announce from 'components/Announce';
 import AccountWidget from '../AccountWidget';
 import styles from './Header.css';
 import SearchForm from '../Search/SearchForm';
@@ -124,6 +125,7 @@ const Header = ({ location, width }) => (
         {<SettingsGroup width={width} />}
       </div>
     </Toolbar>
+    <Announce />
     <div className={styles.adBanner}>
       { location.pathname !== '/' &&
         <a href="http://www.vpgame.com/?lang=en_us">

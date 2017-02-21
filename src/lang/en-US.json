@@ -15,6 +15,9 @@
   "analysis_unused_item": "Unused active items",
   "analysis_expected": "of",
 
+  "announce_dismiss": "Dismiss",
+  "announce_github_more": "View more on GitHub",
+
   "app_name": "OpenDota",
   "app_language": "Language",
   "app_localization": "Localization",
@@ -104,7 +107,9 @@
   "explorer_player_purchased": "Player Purchased",
   "explorer_duration": "Duration",
   "explorer_timing": "Timing",
-  "explorer_kill": "Kill",
+  "explorer_kill": "Kill Time",
+  "explorer_side": "Side",
+  "explorer_toggle_sql": "Toggle SQL",
 
   "farm_heroes": "Heroes killed",
   "farm_creeps": "Lane creeps killed",
