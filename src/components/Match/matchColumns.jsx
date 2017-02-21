@@ -307,6 +307,16 @@ export const purchaseTimesColumns = (match) => {
       displayFn: (row, column, field) => (<div>
         {field ? field
         .filter(purchase => (purchase.time >= curTime - bucket && purchase.time < curTime))
+        .sort((p1, p2) => {
+          const item1 = items[p1.key];
+          const item2 = items[p2.key];
+          if (item1 && item2 && p1.time === p2.time) {
+            // We're only concerned with sorting by value
+            // if items are bought at the same time, time is presorted
+            return item1.cost - item2.cost;
+          }
+          return 0;
+        })
         .map((purchase) => {
           if (items[purchase.key]) {
             return inflictorWithValue(purchase.key, formatSeconds(purchase.time));
