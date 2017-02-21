@@ -16,7 +16,7 @@ sum(${select.groupValue || select.value}) sum,
 sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(distinct matches.match_id) winrate`
 :
 `
-${select ? `${select.value} ${select.alias || ''}` : ''},
+${select ? `${select.value} ${select.alias || ''},` : ''}
 matches.match_id,
 player_matches.hero_id,
 notable_players.name playername,
@@ -44,7 +44,7 @@ ${playerPurchased ? `AND (player_matches.purchase->>'${playerPurchased.value}'):
 ${duration ? `AND duration > ${duration.value}` : ''}
 ${group ? `GROUP BY ${group.value}` : ''}
 ${group ? 'HAVING count(distinct matches.match_id) > 1' : ''}
-ORDER BY ${group ? 'avg' : select && select.value} ${(select && select.order) || 'DESC'} NULLS LAST
+ORDER BY ${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(select && select.order) || 'DESC'} NULLS LAST
 LIMIT 150`;
 
 export default queryTemplate;

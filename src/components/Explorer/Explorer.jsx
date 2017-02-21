@@ -322,9 +322,6 @@ class Explorer extends React.Component {
     return (<div>
       <Helmet title={strings.title_explorer} />
       <Heading title={strings.explorer_title} subtitle={strings.explorer_description} />
-      {/*
-        <a href="https://github.com/odota/core/blob/master/sql/create_tables.sql">{strings.explorer_schema}</a>
-      */}
       <div>
         <ExplorerFormField label={strings.explorer_select} dataSource={fields.select} builderField="select" builderContext={this} />
         <ExplorerFormField label={strings.explorer_group_by} dataSource={fields.group} builderField="group" builderContext={this} />
