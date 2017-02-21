@@ -230,7 +230,7 @@ const fields = {
     text: `>${util.format(strings.time_mm, duration)}`,
     value: duration * 60,
   })),
-  side: [{ text: strings.general_radiant, value: true}, {text: strings.general_dire, value: false}]
+  side: [{ text: strings.general_radiant, value: true }, { text: strings.general_dire, value: false }],
 };
 
 class Explorer extends React.Component {

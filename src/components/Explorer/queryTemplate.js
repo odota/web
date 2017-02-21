@@ -43,7 +43,7 @@ ${player ? `AND account_id = ${player.value}` : ''}
 ${league ? `AND leagueid = ${league.value}` : ''}
 ${playerPurchased ? `AND (player_matches.purchase->>'${playerPurchased.value}')::int > 0` : ''}
 ${duration ? `AND duration > ${duration.value}` : ''}
-${side ? `AND (player_matches.player_slot < 128) = ${side.value}` : '' }
+${side ? `AND (player_matches.player_slot < 128) = ${side.value}` : ''}
 ${group ? `GROUP BY ${group.value}` : ''}
 ${group ? 'HAVING count(distinct matches.match_id) > 1' : ''}
 ORDER BY ${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(select && select.order) || 'DESC'} NULLS LAST
