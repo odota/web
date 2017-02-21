@@ -1,3 +1,4 @@
+/* global localStorage */
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import strings from 'lang';
@@ -11,7 +12,7 @@ import styles from './styles.css';
 const Announce = ({ title, body, onClick, link }) => (
   <div className={styles.announce}>
     <main>
-      <h4><a href={link} title={strings.announce_github_more}><IconGithub /></a> {title}</h4>
+      <h4><a href={link} title={strings.announce_github_more}><IconGithub /> {title}</a></h4>
       {body && <ReactMarkdown source={body} />}
     </main>
     <aside>
@@ -46,13 +47,7 @@ class RequestLayer extends React.Component {
 
       const date = new Date(new Date() - (msPerDay * days));
 
-      // Date formatting must follow the ISO8601 standard, which is YYYY-MM-DD--that's year-month-day
-      // https://help.github.com/articles/searching-issues/#search-based-on-when-a-pull-request-was-merged
-      const YYYY = date.getFullYear();
-      const MM = ((0).toString() + (date.getMonth() + 1)).slice(-2);
-      const DD = ((0).toString() + date.getDate()).slice(-2);
-
-      return `${YYYY}-${MM}-${DD}`;
+      return date.toISOString().split('T')[0];
     };
   }
 
