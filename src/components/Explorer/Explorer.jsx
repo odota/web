@@ -230,6 +230,7 @@ const fields = {
     text: `>${util.format(strings.time_mm, duration)}`,
     value: duration * 60,
   })),
+  side: [{ text: strings.general_radiant, value: true}, {text: strings.general_dire, value: false}]
 };
 
 class Explorer extends React.Component {
@@ -336,6 +337,7 @@ class Explorer extends React.Component {
           builderContext={this}
         />
         <ExplorerFormField label={strings.explorer_duration} dataSource={fields.duration} builderField="duration" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_side} dataSource={fields.side} builderField="side" builderContext={this} />
       </div>
       <div>
         {this.state.loadingEditor && <Spinner />}

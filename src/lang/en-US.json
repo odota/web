@@ -108,6 +108,7 @@
   "explorer_duration": "Duration",
   "explorer_timing": "Timing",
   "explorer_kill": "Kill",
+  "explorer_side": "Side",
 
   "farm_heroes": "Heroes killed",
   "farm_creeps": "Lane creeps killed",
