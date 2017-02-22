@@ -5,12 +5,9 @@ import { browserHistory } from 'react-router';
 import { form } from 'reducers';
 import strings from 'lang';
 import { toggleShowForm } from 'actions/formActions';
-// import { clearForm } from 'actions';
-import Form from './Form';
-import FormField from './FormField';
-import FormGroup from './FormGroup';
-// import SubmitButton from './SubmitButton';
-// import ClearButton from './ClearButton';
+import Form from 'components/Form/Form';
+import FormField from 'components/Form/FormField';
+import FormGroup from 'components/Form/FormGroup';
 import styles from './TableFilterForm.css';
 import * as data from './TableFilter.config';
 

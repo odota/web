@@ -9,7 +9,7 @@ import {
 import strings from 'lang';
 import TabBar from 'components/TabBar';
 import Spinner from 'components/Spinner';
-import TableFilterForm from 'components/Form/TableFilterForm';
+import TableFilterForm from './TableFilterForm';
 import PlayerHeader from './Header/PlayerHeader';
 // import Error from '../Error';
 import styles from './Player.css';

@@ -17,31 +17,13 @@ class FormField extends React.Component {
     if (index > -1) {
       // User selected an element
       input = dataSource[index];
-    }
-    if (!strict && index === -1) {
+    } else if (!strict && index === -1) {
       // Direct free input
       input = {
         text: value,
         value,
       };
     }
-    /*
-    if (strict && index === -1) {
-      // No match found, try to select closest
-      // I'm not sure we need this, the fuzzy search already automatically helps the user. It's their responsibility to select one.
-      const closestMatch = getClosestMatch(
-        dataSource, dataSourceConfig,
-        AutoComplete.fuzzyFilter, value[dataSourceConfig.text] || value
-      );
-      // We can't just do truthy check here because the value could be 0
-      if (closestMatch.value || closestMatch.value === 0) {
-        input = {
-          text: closestMatch.text,
-          value: closestMatch.value,
-        };
-      }
-    }
-    */
     if (input) {
       this.props.addChip(name, input, limit);
     }
@@ -56,7 +38,6 @@ class FormField extends React.Component {
       name,
       label,
       dataSource = [],
-      dataSourceConfig,
       className,
       strict,
       maxSearchResults = 10,
@@ -76,12 +57,11 @@ class FormField extends React.Component {
         ref={ref => (this.autocomplete = ref)}
         openOnFocus
         dataSource={dataSource}
-        dataSourceConfig={dataSourceConfig}
         floatingLabelText={label}
         filter={AutoComplete.fuzzyFilter}
         maxSearchResults={maxSearchResults}
         onNewRequest={(value, index) =>
-          this.handleRequest({ value, index, name, dataSourceConfig, dataSource, strict, limit })
+          this.handleRequest({ value, index, name, dataSource, strict, limit })
         }
         listStyle={{ textTransform: 'uppercase' }}
         floatingLabelFocusStyle={{ color: styles.blue }}
