@@ -57,6 +57,7 @@ function getItemSuffix(itemKey) {
 // TODO group by + time data should be formatted
 // TODO team filtering (by current team or team that played in match?)
 // TODO graphing buttons (pie, timeseries, bar)
+// TODO save sql string
 const player = {
   text: strings.explorer_player,
   value: 'notable_players.name',
@@ -257,15 +258,19 @@ class Explorer extends React.Component {
   constructor() {
     super();
     let savedBuilderState = {};
+    let savedSqlState = '';
     try {
-      const urlBuilderState = querystring.parse(window.location.search.substring(1));
-      savedBuilderState = JSON.parse(urlBuilderState.builder);
+      const urlState = querystring.parse(window.location.search.substring(1));
+      savedSqlState = urlState.sql;
+      if (urlState.builder) {
+        savedBuilderState = JSON.parse(urlState.builder);
+      }
     } catch (e) {
       console.error(e);
     }
     this.state = {
       loadingEditor: true,
-      showEditor: false,
+      showEditor: Boolean(savedSqlState),
       querying: false,
       result: {},
       builder: savedBuilderState,
@@ -324,7 +329,7 @@ class Explorer extends React.Component {
     });
     const queryString = this.getQueryString();
     // Only serialize the builder state to window history
-    window.history.pushState('', '', `?builder=${encodeURIComponent(JSON.stringify(this.state.builder))}`);
+    window.history.pushState('', '', this.state.showEditor ? queryString : `?builder=${encodeURIComponent(JSON.stringify(this.state.builder))}`);
     return fetch(`${API_HOST}/api/explorer${queryString}`).then(jsonResponse).then(this.handleResponse);
   }
   handleJson() {
