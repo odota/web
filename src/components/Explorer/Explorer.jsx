@@ -44,14 +44,18 @@ function jsonResponse(response) {
 function getItemSuffix(itemKey) {
   return ['_2', '_3', '_4', '_5'].some(suffix => itemKey.indexOf(suffix) !== -1) ? itemKey[itemKey.length - 1] : '';
 }
-// TODO input string parsing
+// TODO omnibox search
 // TODO mega creep wins
 // TODO bans
 // TODO hero combos
 // TODO lane positions
 // TODO helplink
 // TODO num wards placed?
+// TODO inflictorwithvalue for damage inflictor, received, item_name
+// TODO item build rates?
 // TODO group by + time data should be formatted
+// TODO team filtering (by current team or team that played in match?)
+// TODO graphing buttons (pie, timeseries, bar)
 const player = {
   text: strings.explorer_player,
   value: 'notable_players.name',
@@ -157,7 +161,7 @@ const fields = {
     text: strings.heading_duration,
     value: 'duration',
     alias: 'as time',
-    excludePlayer: true,
+    distinct: true,
   }, { ...jsonSelect,
     text: strings.heading_item_purchased,
     alias: 'item_name',
@@ -220,6 +224,10 @@ const fields = {
       text: strings.explorer_side,
       value: '(player_matches.player_slot < 128)',
       alias: 'is_radiant',
+    }, {
+      text: strings.th_result,
+      value: '((player_matches.player_slot < 128) = matches.radiant_win)',
+      alias: 'win',
     },
   ],
   patch: patchData.reverse().map(patch => ({
@@ -239,19 +247,25 @@ const fields = {
     value: duration * 60,
   })),
   side: [{ text: strings.general_radiant, value: true }, { text: strings.general_dire, value: false }],
+  result: [{ text: strings.td_win, value: true }, { text: strings.td_loss, value: false }],
 };
 
 class Explorer extends React.Component {
   constructor() {
     super();
-    const urlBuilderState = querystring.parse(window.location.search.substring(1));
-
+    let savedBuilderState = {};
+    try {
+      const urlBuilderState = querystring.parse(window.location.search.substring(1));
+      savedBuilderState = JSON.parse(urlBuilderState.builder);
+    } catch (e) {
+      console.error(e);
+    }
     this.state = {
       loadingEditor: true,
       showEditor: false,
       querying: false,
       result: {},
-      builder: urlBuilderState.builder ? JSON.parse(urlBuilderState.builder) : {},
+      builder: savedBuilderState,
     };
     this.instantiateEditor = this.instantiateEditor.bind(this);
     this.toggleEditor = this.toggleEditor.bind(this);
@@ -267,9 +281,8 @@ class Explorer extends React.Component {
     getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js', this.instantiateEditor);
   }
   getQueryString() {
-    const builder = encodeURIComponent(JSON.stringify(this.state.builder));
     const sql = encodeURIComponent(this.editor.getSelectedText() || this.editor.getValue());
-    return `?builder=${builder}&sql=${sql}`;
+    return `?sql=${sql}`;
   }
   instantiateEditor() {
     const editor = ace.edit('editor');
@@ -285,6 +298,8 @@ class Explorer extends React.Component {
     if (sql) {
       editor.setValue(decodeURIComponent(sql));
       this.handleQuery();
+    } else if (Object.keys(this.state.builder).length) {
+      this.buildQuery();
     } else {
       editor.setValue('select count(*) from matches;');
     }
@@ -304,7 +319,8 @@ class Explorer extends React.Component {
       querying: true,
     });
     const queryString = this.getQueryString();
-    window.history.pushState('', '', queryString);
+    // Only serialize the builder state to window history
+    window.history.pushState('', '', `?builder=${encodeURIComponent(JSON.stringify(this.state.builder))}`);
     return fetch(`${API_HOST}/api/explorer${queryString}`).then(jsonResponse).then(this.handleResponse);
   }
   handleJson() {
@@ -352,6 +368,7 @@ class Explorer extends React.Component {
         />
         <ExplorerFormField label={strings.explorer_duration} dataSource={fields.duration} builderField="duration" builderContext={this} />
         <ExplorerFormField label={strings.explorer_side} dataSource={fields.side} builderField="side" builderContext={this} />
+        <ExplorerFormField label={strings.th_result} dataSource={fields.result} builderField="result" builderContext={this} />
       </div>
       <div style={{ display: this.state.showEditor ? 'block' : 'none' }}>
         {this.state.loadingEditor && <Spinner />}
