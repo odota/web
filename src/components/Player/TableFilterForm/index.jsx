@@ -6,7 +6,6 @@ import { form } from 'reducers';
 import strings from 'lang';
 import { toggleShowForm } from 'actions/formActions';
 import Form from 'components/Form/Form';
-import FormField from 'components/Form/FormField';
 import FormGroup from 'components/Form/FormGroup';
 import styles from './TableFilterForm.css';
 import * as data from './TableFilter.config';
@@ -49,121 +48,114 @@ class TableFilterForm extends React.Component {
 
   render() {
     const { showForm, currentQueryString } = this.props;
-    const allSelectedElements = querystring.parse(currentQueryString.substring(1));
+    const formSelectionState = querystring.parse(currentQueryString.substring(1));
     return (
       <div>
         <div className={showForm ? styles.showForm : styles.hideForm}>
           <Form name={FORM_NAME} className={styles.form}>
             <FormGroup
-              className={styles.formGroup}
-              allSelectedElements={allSelectedElements}
+              formSelectionState={formSelectionState}
               addChip={addChip}
               deleteChip={deleteChip}
             >
-              <FormField
-                name="hero_id"
-                label={strings.filter_hero_id}
-                dataSource={data.heroList}
-                strict
-                limit={1}
-              />
-              <FormField
-                name="is_radiant"
-                label={strings.filter_is_radiant}
-                dataSource={data.factionList}
-                strict
-                limit={1}
-              />
-              <FormField
-                name="win"
-                label={strings.filter_win}
-                dataSource={data.resultList}
-                strict
-                limit={1}
-              />
-              <FormField
-                name="lane_role"
-                label={strings.filter_lane_role}
-                dataSource={data.laneList}
-                strict
-                limit={1}
-              />
-              <FormField
-                name="patch"
-                label={strings.filter_patch}
-                dataSource={data.patchList}
-                strict
-                limit={1}
-              />
-              <FormField
-                name="game_mode"
-                label={strings.filter_game_mode}
-                dataSource={data.modeList}
-                strict
-                limit={1}
-              />
-              <FormField
-                name="lobby_type"
-                label={strings.filter_lobby_type}
-                dataSource={data.lobbyTypeList}
-                strict
-                limit={1}
-              />
-              <FormField
-                name="date"
-                label={strings.filter_date}
-                dataSource={data.dateList}
-                strict
-                limit={1}
-              />
-              <FormField
-                name="region"
-                label={strings.filter_region}
-                dataSource={data.regionList}
-                strict
-                limit={1}
-              />
-              <FormField
-                name="with_hero_id"
-                label={strings.filter_with_hero_id}
-                dataSource={data.heroList}
-                strict
-                limit={5}
-              />
-              <FormField
-                name="against_hero_id"
-                label={strings.filter_against_hero_id}
-                dataSource={data.heroList}
-                strict
-                limit={5}
-              />
-              <FormField
-                name="included_account_id"
-                label={strings.filter_included_account_id}
-                limit={10}
-              />
-              <FormField
-                name="excluded_account_id"
-                label={strings.filter_excluded_account_id}
-              />
-              <FormField
-                name="significant"
-                label={strings.filter_significant}
-                dataSource={data.significantList}
-                strict
-                limit={1}
-              />
+              {Field => (
+                <div className={styles.formGroup}>
+                  <Field
+                    name="hero_id"
+                    label={strings.filter_hero_id}
+                    dataSource={data.heroList}
+                    strict
+                    limit={1}
+                  />
+                  <Field
+                    name="is_radiant"
+                    label={strings.filter_is_radiant}
+                    dataSource={data.factionList}
+                    strict
+                    limit={1}
+                  />
+                  <Field
+                    name="win"
+                    label={strings.filter_win}
+                    dataSource={data.resultList}
+                    strict
+                    limit={1}
+                  />
+                  <Field
+                    name="lane_role"
+                    label={strings.filter_lane_role}
+                    dataSource={data.laneList}
+                    strict
+                    limit={1}
+                  />
+                  <Field
+                    name="patch"
+                    label={strings.filter_patch}
+                    dataSource={data.patchList}
+                    strict
+                    limit={1}
+                  />
+                  <Field
+                    name="game_mode"
+                    label={strings.filter_game_mode}
+                    dataSource={data.modeList}
+                    strict
+                    limit={1}
+                  />
+                  <Field
+                    name="lobby_type"
+                    label={strings.filter_lobby_type}
+                    dataSource={data.lobbyTypeList}
+                    strict
+                    limit={1}
+                  />
+                  <Field
+                    name="date"
+                    label={strings.filter_date}
+                    dataSource={data.dateList}
+                    strict
+                    limit={1}
+                  />
+                  <Field
+                    name="region"
+                    label={strings.filter_region}
+                    dataSource={data.regionList}
+                    strict
+                    limit={1}
+                  />
+                  <Field
+                    name="with_hero_id"
+                    label={strings.filter_with_hero_id}
+                    dataSource={data.heroList}
+                    strict
+                    limit={5}
+                  />
+                  <Field
+                    name="against_hero_id"
+                    label={strings.filter_against_hero_id}
+                    dataSource={data.heroList}
+                    strict
+                    limit={5}
+                  />
+                  <Field
+                    name="included_account_id"
+                    label={strings.filter_included_account_id}
+                    limit={10}
+                  />
+                  <Field
+                    name="excluded_account_id"
+                    label={strings.filter_excluded_account_id}
+                  />
+                  <Field
+                    name="significant"
+                    label={strings.filter_significant}
+                    dataSource={data.significantList}
+                    strict
+                    limit={1}
+                  />
+                </div>
+              )}
             </FormGroup>
-            {/*
-        <FormGroup className={styles.formGroup}>
-          <FormField
-            name="limit"
-            label="number of matches"
-            limit={1}
-          />
-        </FormGroup>
-        // TODO sort (order by descending, might be tricky due to being a string input)
-        */}
           </Form>
         </div>
       </div>
