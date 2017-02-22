@@ -59,7 +59,7 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
           independent_value: match[fieldName],
           match_id: match.match_id,
           hero_id: match.hero_id,
-          win: match.player_slot < 128 && match.radiant_win,
+          win: (match.player_slot < 128) === match.radiant_win,
           game_mode: match.game_mode,
           duration: match.duration,
           start_time: match.start_time,
