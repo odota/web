@@ -54,7 +54,6 @@ class FormField extends React.Component {
   render() {
     const {
       name,
-      formName,
       label,
       dataSource = [],
       dataSourceConfig,
@@ -82,14 +81,14 @@ class FormField extends React.Component {
         filter={AutoComplete.fuzzyFilter}
         maxSearchResults={maxSearchResults}
         onNewRequest={(value, index) =>
-          this.handleRequest({ value, index, formName, name, dataSourceConfig, dataSource, strict, limit })
+          this.handleRequest({ value, index, name, dataSourceConfig, dataSource, strict, limit })
         }
         listStyle={{ textTransform: 'uppercase' }}
         floatingLabelFocusStyle={{ color: styles.blue }}
         underlineFocusStyle={{ borderColor: styles.blue }}
         fullWidth
       />
-      <ChipList name={name} formName={formName} chipList={chipList} deleteChip={deleteChip} />
+      <ChipList name={name} chipList={chipList} deleteChip={deleteChip} />
     </div>);
   }
 }
