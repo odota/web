@@ -17,7 +17,6 @@ import {
 } from 'reducers/pvgnaGuides';
 import Table from 'components/Table';
 import Container from 'components/Container';
-import { TableFilterForm } from 'components/Form';
 import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesColumns';
 import { playerHeroesOverviewColumns } from 'components/Player/Pages/Heroes/playerHeroesColumns';
 import { playerPeersOverviewColumns } from 'components/Player/Pages/Peers/playerPeersColumns';
@@ -39,47 +38,44 @@ const Overview = ({
   peersError,
   playerId,
 }) => (
-  <div>
-    <TableFilterForm />
-    <div className={styles.overviewContainer}>
+  <div className={styles.overviewContainer}>
+    <Container
+      title={strings.heading_matches}
+      className={styles.matchesContainer}
+      loading={matchesLoading}
+      error={matchesError}
+    >
+      <Table
+        columns={playerMatchesColumns}
+        data={matchesData}
+        maxRows={MAX_MATCHES_ROWS}
+      />
+    </Container>
+
+    <div className={styles.heroesContainer}>
       <Container
-        title={strings.heading_matches}
-        className={styles.matchesContainer}
-        loading={matchesLoading}
-        error={matchesError}
+        title={strings.heading_peers}
+        loading={peersLoading}
+        error={peersError}
       >
         <Table
-          columns={playerMatchesColumns}
-          data={matchesData}
-          maxRows={MAX_MATCHES_ROWS}
+          columns={playerPeersOverviewColumns(playerId)}
+          data={peersData}
+          maxRows={MAX_PEERS_ROWS}
         />
       </Container>
 
-      <div className={styles.heroesContainer}>
-        <Container
-          title={strings.heading_peers}
-          loading={peersLoading}
-          error={peersError}
-        >
-          <Table
-            columns={playerPeersOverviewColumns(playerId)}
-            data={peersData}
-            maxRows={MAX_PEERS_ROWS}
-          />
-        </Container>
-
-        <Container
-          title={strings.heading_heroes}
-          loading={heroesLoading}
-          error={heroesError}
-        >
-          <Table
-            columns={playerHeroesOverviewColumns(playerId)}
-            data={heroesData}
-            maxRows={MAX_HEROES_ROWS}
-          />
-        </Container>
-      </div>
+      <Container
+        title={strings.heading_heroes}
+        loading={heroesLoading}
+        error={heroesError}
+      >
+        <Table
+          columns={playerHeroesOverviewColumns(playerId)}
+          data={heroesData}
+          maxRows={MAX_HEROES_ROWS}
+        />
+      </Container>
     </div>
   </div>
 );

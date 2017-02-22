@@ -6,17 +6,13 @@ import {
 import { playerRecords } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
-import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerRecordsColumns from './playerRecordsColumns';
 
 const Records = ({ data, error, loading }) => (
-  <div>
-    <TableFilterForm />
-    <Container title={strings.heading_records} error={error} loading={loading}>
-      <Table columns={playerRecordsColumns} data={data} />
-    </Container>
-  </div>
+  <Container title={strings.heading_records} error={error} loading={loading}>
+    <Table columns={playerRecordsColumns} data={data} />
+  </Container>
 );
 
 const getData = (props) => {
