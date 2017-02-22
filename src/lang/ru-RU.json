@@ -694,7 +694,7 @@
   "trends_name":"Графики",
   "trends_description":"Совокупное среднее за последние 500 игр",
   "trends_tooltip_average":"Сред.",
-  "trends_no_data":"Sorry, no data for this trend",
+  "trends_no_data":"Извините, для данного запроса нет данных",
   "xp_reasons_0":"Другие",
   "xp_reasons_1":"Крипы",
   "xp_reasons_2":"Герой",
