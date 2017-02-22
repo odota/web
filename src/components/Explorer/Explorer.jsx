@@ -31,6 +31,7 @@ import {
 from 'actions';
 import {
   TablePercent,
+  inflictorWithValue,
 }
 from 'components/Visualizations';
 import util from 'util';
@@ -51,7 +52,7 @@ function getItemSuffix(itemKey) {
 // TODO lane positions
 // TODO helplink
 // TODO num wards placed?
-// TODO inflictorwithvalue for damage inflictor, received, item_name
+// TODO num roshans killed?
 // TODO item build rates?
 // TODO group by + time data should be formatted
 // TODO team filtering (by current team or team that played in match?)
@@ -176,9 +177,11 @@ const fields = {
     join: ', json_each(player_matches.item_uses)',
   }, { ...jsonSelect,
     text: strings.heading_damage_inflictor,
+    alias: 'inflictor',
     join: ', json_each(player_matches.damage_inflictor)',
   }, { ...jsonSelect,
     text: strings.heading_damage_inflictor_received,
+    alias: 'inflictor',
     join: ', json_each(player_matches.damage_inflictor_received)',
   }, { ...jsonSelect,
     text: strings.heading_runes,
@@ -300,6 +303,7 @@ class Explorer extends React.Component {
       this.handleQuery();
     } else if (Object.keys(this.state.builder).length) {
       this.buildQuery();
+      this.handleQuery();
     } else {
       editor.setValue('select count(*) from matches;');
     }
@@ -422,6 +426,8 @@ class Explorer extends React.Component {
                 return <Link to={`/players/${proPlayerMapping[field]}`}>{field}</Link>;
               } else if (column.name === 'time') {
                 return formatSeconds(field);
+              } else if (column.name === 'inflictor') {
+                return <span>{inflictorWithValue(field)} {field}</span>;
               }
               return typeof field === 'string' ? field : JSON.stringify(field);
             },
