@@ -1,39 +1,8 @@
 import React from 'react';
-import {
-  connect,
-} from 'react-redux';
 import AutoComplete from 'material-ui/AutoComplete';
-import querystring from 'querystring';
-import { browserHistory } from 'react-router';
 // import getClosestMatch from './utility';
 import ChipList from './ChipList';
 import styles from '../palette.css';
-
-const addChip = (name, input, limit) => {
-  const query = querystring.parse(window.location.search.substring(1));
-  const field = [input.value].concat(query[name] || []).slice(0, limit);
-  const newQuery = {
-    ...query,
-    [name]: field,
-  };
-  browserHistory.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
-};
-
-const deleteChip = (name, index) => {
-  const query = querystring.parse(window.location.search.substring(1));
-  const field = [].concat(query[name] || []);
-  const newQuery = {
-    ...query,
-    [name]: [
-      ...field.slice(0, index),
-      ...field.slice(index + 1),
-    ],
-  };
-  if (!newQuery[name].length) {
-    delete newQuery[name];
-  }
-  browserHistory.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
-};
 
 class FormField extends React.Component {
   handleRequest({
@@ -74,7 +43,7 @@ class FormField extends React.Component {
     }
     */
     if (input) {
-      addChip(name, input, limit);
+      this.props.addChip(name, input, limit);
     }
     // Set state on the ref'd component to clear it
     this.autocomplete.setState({
@@ -93,13 +62,15 @@ class FormField extends React.Component {
       strict,
       maxSearchResults = 10,
       limit,
-      currentQueryString,
+      selectedElements,
+      deleteChip,
     } = this.props;
 
-    // Use dataSource on current querystring to hydrate the chipList
-    const query = querystring.parse(currentQueryString.substring(1));
-    const field = [].concat(query[name] || []);
-    const chipList = field.map(element => dataSource.find(data => Number(data.value) === Number(element)) || { text: element, value: element });
+    // Use dataSource on selectedElements to hydrate the chipList
+    const chipList = selectedElements.map((element) => {
+      const fromSource = dataSource.find(data => Number(data.value) === Number(element));
+      return fromSource || { text: element, value: element };
+    });
 
     return (<div className={className}>
       <AutoComplete
@@ -123,10 +94,4 @@ class FormField extends React.Component {
   }
 }
 
-const mapStateToProps = () => ({
-  currentQueryString: window.location.search,
-});
-
-const mapDispatchToProps = () => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FormField);
+export default FormField;

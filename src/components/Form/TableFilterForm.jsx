@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import querystring from 'querystring';
+import { browserHistory } from 'react-router';
 import { form } from 'reducers';
 import strings from 'lang';
 import { toggleShowForm } from 'actions/formActions';
@@ -14,20 +16,53 @@ import * as data from './TableFilter.config';
 
 export const FORM_NAME = 'tableFilter';
 
+const addChip = (name, input, limit) => {
+  const query = querystring.parse(window.location.search.substring(1));
+  const field = [input.value].concat(query[name] || []).slice(0, limit);
+  const newQuery = {
+    ...query,
+    [name]: field,
+  };
+  browserHistory.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
+};
+
+const deleteChip = (name, index) => {
+  const query = querystring.parse(window.location.search.substring(1));
+  const field = [].concat(query[name] || []);
+  const newQuery = {
+    ...query,
+    [name]: [
+      ...field.slice(0, index),
+      ...field.slice(index + 1),
+    ],
+  };
+  if (!newQuery[name].length) {
+    delete newQuery[name];
+  }
+  browserHistory.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
+};
+
 class TableFilterForm extends React.Component {
   componentWillMount() {
-    if (Boolean(window.location.search.substring(1)) !== this.props.showForm) {
+    if (Boolean(this.props.currentQueryString.substring(1)) !== this.props.showForm) {
       // If query string state doesn't match form show state, toggle it
       this.props.toggleShowForm();
     }
   }
+
   render() {
-    const { showForm } = this.props;
+    const { showForm, currentQueryString } = this.props;
+    const allSelectedElements = querystring.parse(currentQueryString.substring(1));
     return (
       <div>
         <div className={showForm ? styles.showForm : styles.hideForm}>
           <Form name={FORM_NAME} className={styles.form}>
-            <FormGroup className={styles.formGroup}>
+            <FormGroup
+              className={styles.formGroup}
+              allSelectedElements={allSelectedElements}
+              addChip={addChip}
+              deleteChip={deleteChip}
+            >
               <FormField
                 name="hero_id"
                 label={strings.filter_hero_id}
@@ -141,6 +176,7 @@ class TableFilterForm extends React.Component {
 
 const mapStateToProps = state => ({
   showForm: form.getFormShow(state, 'tableFilter'),
+  currentQueryString: window.location.search,
 });
 
 const mapDispatchToProps = dispatch => ({
