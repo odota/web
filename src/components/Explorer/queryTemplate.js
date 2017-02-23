@@ -61,7 +61,7 @@ ${group ? `GROUP BY ${group.value}` : ''}
 ${group ? 'HAVING count(distinct matches.match_id) > 1' : ''}
 ORDER BY ${
 [`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(select && select.order) || 'DESC'}`,
-group ? 'count DESC' : ''
+  group ? 'count DESC' : '',
 ].filter(Boolean).join(',')}
 NULLS LAST
 LIMIT 150`;
