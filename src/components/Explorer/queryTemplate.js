@@ -9,24 +9,22 @@ const queryTemplate = ({
   duration,
   side,
   result,
-}) => `SELECT ${[
-  group ? `${group.value} ${group.alias || ''}` : '',
-  (group && select) ? `
-round(sum(${select.groupValue || select.value})::numeric/count(distinct matches.match_id), 2) avg, 
-count(distinct matches.match_id) count, 
-sum(${select.groupValue || select.value}) sum
-${select.groupValue
-? ''
-: ', sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate'}`
+}) => `SELECT
+${(group && select) ? 
+[`${group.value} ${group.alias || ''}`,
+`round(sum(${select.groupValue || select.value})::numeric/count(distinct matches.match_id), 2) avg`,
+`count(distinct matches.match_id) count`,
+`sum(${select.groupValue || select.value}) sum`,
+select.groupValue ? '' : 'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate'
+].filter(Boolean).join(',\n')
 :
-`
-${select ? `${select.value} ${select.alias || ''},` : ''}
-matches.match_id,
-player_matches.hero_id,
-notable_players.name playername,
-leagues.name leaguename,
-((player_matches.player_slot < 128) = matches.radiant_win) win`,
-].filter(Boolean).join(',')}
+[select ? `${select.value} ${select.alias || ''}` : '',
+'matches.match_id',
+'((player_matches.player_slot < 128) = matches.radiant_win) win',
+'player_matches.hero_id',
+'notable_players.name playername',
+'leagues.name leaguename',
+].filter(Boolean).join(',\n')}
 FROM matches
 JOIN match_patch
 USING (match_id)

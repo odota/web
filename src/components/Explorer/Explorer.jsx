@@ -56,7 +56,7 @@ function getItemSuffix(itemKey) {
 // TODO group by + time data should be formatted
 // TODO format win columns
 // TODO team filtering (by current team or team that played in match?)
-// TODO min date filter
+// TODO min/max date filter
 // TODO lane positions
 const player = {
   text: strings.explorer_player,
