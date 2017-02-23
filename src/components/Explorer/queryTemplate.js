@@ -14,12 +14,12 @@ const queryTemplate = ({
   minDate,
   maxDate,
 }) => `SELECT
-${(group && select) ?
+${(group) ?
 [`${group.value} ${group.alias || ''}`,
-  `round(sum(${select.groupValue || select.value})::numeric/count(distinct matches.match_id), 2) avg`,
+  `round(sum(${(select || {}).groupValue || (select || {}).value || 1})::numeric/count(distinct matches.match_id), 2) avg`,
   'count(distinct matches.match_id) count',
-  `sum(${select.groupValue || select.value}) sum`,
-  select.groupValue ? '' : 'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
+  `sum(${(select || {}).groupValue || (select || {}).value || 1}) sum`,
+  (select || {}).groupValue ? '' : 'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
 ].filter(Boolean).join(',\n')
 :
 [select ? `${select.value} ${select.alias || ''}` : '',
@@ -59,7 +59,11 @@ ${minDate ? `AND start_time >= ${Math.round(new Date(minDate.value) / 1000)}` : 
 ${maxDate ? `AND start_time <= ${Math.round(new Date(maxDate.value) / 1000)}` : ''}
 ${group ? `GROUP BY ${group.value}` : ''}
 ${group ? 'HAVING count(distinct matches.match_id) > 1' : ''}
-ORDER BY ${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(select && select.order) || 'DESC'} NULLS LAST
+ORDER BY ${
+[`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(select && select.order) || 'DESC'}`,
+group ? 'count DESC' : ''
+].filter(Boolean).join(',')}
+NULLS LAST
 LIMIT 150`;
 
 export default queryTemplate;
