@@ -25,7 +25,7 @@ matches.match_id,
 player_matches.hero_id,
 notable_players.name playername,
 leagues.name leaguename,
-((player_matches.player_slot < 128) = matches.radiant_win) won`,
+((player_matches.player_slot < 128) = matches.radiant_win) win`,
 ].filter(Boolean).join(',')}
 FROM matches
 JOIN match_patch

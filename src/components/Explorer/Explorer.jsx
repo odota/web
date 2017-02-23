@@ -49,15 +49,15 @@ function getItemSuffix(itemKey) {
 // TODO mega creep wins
 // TODO bans
 // TODO hero combos
-// TODO lane positions
-// TODO helplink
 // TODO num wards placed?
 // TODO num roshans killed?
 // TODO item build rates?
-// TODO group by + time data should be formatted
-// TODO team filtering (by current team or team that played in match?)
 // TODO graphing buttons (pie, timeseries, bar)
-// TODO save sql string
+// TODO group by + time data should be formatted
+// TODO format win columns
+// TODO team filtering (by current team or team that played in match?)
+// TODO min date filter
+// TODO lane positions
 const player = {
   text: strings.explorer_player,
   value: 'notable_players.name',

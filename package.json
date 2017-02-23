@@ -24,7 +24,6 @@
   },
   "dependencies": {
     "abcolor": "^0.5.5",
-    "brace": "^0.9.0",
     "c3": "^0.4.11",
     "classnames": "^2.2.5",
     "dotaconstants": "^4.5.0",
