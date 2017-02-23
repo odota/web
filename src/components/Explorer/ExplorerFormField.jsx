@@ -1,5 +1,6 @@
 import React from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
+import DatePicker from 'material-ui/DatePicker';
 
 class ExplorerFormField extends React.Component {
   constructor() {
@@ -9,9 +10,14 @@ class ExplorerFormField extends React.Component {
   resetField() {
     const { builderField, builderContext } = this.props;
     // Set state on the ref'd component to clear it
-    this.autocomplete.setState({
-      searchText: '',
-    });
+    if (this.autocomplete) {
+      this.autocomplete.setState({
+        searchText: '',
+      });
+    }
+    if (this.datepicker) {
+      this.datepicker.setState({ date: undefined });
+    }
     builderContext.setState({
       ...builderContext.state,
       builder: {
@@ -21,14 +27,33 @@ class ExplorerFormField extends React.Component {
     }, builderContext.buildQuery);
   }
   render() {
-    const { dataSource, label, builderField, builderContext } = this.props;
+    const { dataSource, label, builderField, builderContext, isDateField } = this.props;
+    if (isDateField) {
+      return (<DatePicker
+        ref={ref => (this.datepicker = ref)}
+        floatingLabelText={label}
+        container="inline"
+        autoOk
+        defaultDate={builderContext.state.builder[builderField] ? new Date(builderContext.state.builder[builderField].value) : undefined}
+        onShow={this.resetField}
+        onChange={(event, date) => {
+          builderContext.setState({
+            ...builderContext.state,
+            builder: {
+              ...builderContext.state.builder,
+              [builderField]: { value: date },
+            },
+          }, builderContext.buildQuery);
+        }}
+      />);
+    }
     return (<span>
       <AutoComplete
         ref={ref => (this.autocomplete = ref)}
         searchText={builderContext.state.builder[builderField] && builderContext.state.builder[builderField].text}
         openOnFocus
         listStyle={{ maxHeight: 400, overflow: 'auto' }}
-        // fullwidth
+        // fullWidth
         filter={AutoComplete.fuzzyFilter}
         floatingLabelText={label}
         dataSource={dataSource}

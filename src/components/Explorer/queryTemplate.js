@@ -9,6 +9,10 @@ const queryTemplate = ({
   duration,
   side,
   result,
+  team,
+  lanePos,
+  minDate,
+  maxDate,
 }) => `SELECT
 ${(group && select) ?
 [`${group.value} ${group.alias || ''}`,
@@ -34,6 +38,8 @@ JOIN player_matches
 USING(match_id)
 LEFT JOIN notable_players
 USING(account_id)
+LEFT JOIN teams
+USING(team_id)
 JOIN heroes
 ON player_matches.hero_id = heroes.id
 ${(select && select.join) ? select.join : ''}
@@ -47,6 +53,10 @@ ${playerPurchased ? `AND (player_matches.purchase->>'${playerPurchased.value}'):
 ${duration ? `AND duration > ${duration.value}` : ''}
 ${side ? `AND (player_matches.player_slot < 128) = ${side.value}` : ''}
 ${result ? `AND ((player_matches.player_slot < 128) = matches.radiant_win) = ${result.value}` : ''}
+${team ? `AND team_id = ${team.value}` : ''}
+${lanePos ? `AND lane_pos = ${lanePos.value}` : ''}
+${minDate ? `AND start_time >= ${Math.round(new Date(minDate.value) / 1000)}` : ''}
+${maxDate ? `AND start_time <= ${Math.round(new Date(maxDate.value) / 1000)}` : ''}
 ${group ? `GROUP BY ${group.value}` : ''}
 ${group ? 'HAVING count(distinct matches.match_id) > 1' : ''}
 ORDER BY ${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(select && select.order) || 'DESC'} NULLS LAST

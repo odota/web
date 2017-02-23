@@ -27,6 +27,7 @@ import itemData from 'dotaconstants/build/items.json';
 import {
   getProPlayers,
   getLeagues,
+  getTeams,
 }
 from 'actions';
 import {
@@ -50,14 +51,13 @@ function getItemSuffix(itemKey) {
 // TODO mega creep wins
 // TODO bans
 // TODO hero combos
+// TODO lane positions
 // TODO num wards placed?
 // TODO num roshans killed?
+// TODO num matches played by team?
 // TODO item build rates?
 // TODO graphing buttons (pie, timeseries, bar)
 // TODO group by + time data should be formatted
-// TODO team filtering (by current team or team that played in match?)
-// TODO min/max date filter
-// TODO lane positions
 const player = {
   text: strings.explorer_player,
   value: 'notable_players.name',
@@ -232,6 +232,9 @@ const fields = {
       text: strings.th_result,
       value: '((player_matches.player_slot < 128) = matches.radiant_win)',
       alias: 'win',
+    }, {
+      text: strings.explorer_team,
+      value: 'teams.name',
     },
   ],
   patch: patchData.reverse().map(patch => ({
@@ -252,6 +255,12 @@ const fields = {
   })),
   side: [{ text: strings.general_radiant, value: true }, { text: strings.general_dire, value: false }],
   result: [{ text: strings.td_win, value: true }, { text: strings.td_loss, value: false }],
+  /*
+  lanePos: Object.keys(strings).filter(str => str.indexOf('lane_pos_') === 0).map(str => {
+    const lanePosId = Number(str.substring('lane_pos_'.length));
+    return { text: strings[str], value: lanePosId };
+  }),
+  */
 };
 
 class Explorer extends React.Component {
@@ -286,6 +295,7 @@ class Explorer extends React.Component {
   componentDidMount() {
     this.props.dispatchProPlayers();
     this.props.dispatchLeagues();
+    this.props.dispatchTeams();
     getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js', this.instantiateEditor);
   }
   getQueryString() {
@@ -355,6 +365,10 @@ class Explorer extends React.Component {
       text: league.name,
       value: league.leagueid,
     }));
+    const teams = this.props.teams.map(team => ({
+      text: team.name,
+      value: team.team_id,
+    }));
     const proPlayerMapping = {};
     proPlayers.forEach((player) => {
       proPlayerMapping[player.text] = player.value;
@@ -362,7 +376,7 @@ class Explorer extends React.Component {
     return (<div>
       <Helmet title={strings.title_explorer} />
       <Heading title={strings.explorer_title} subtitle={strings.explorer_description} />
-      <div>
+      <div className={styles.formGroup}>
         <ExplorerFormField label={strings.explorer_select} dataSource={fields.select} builderField="select" builderContext={this} />
         <ExplorerFormField label={strings.explorer_group_by} dataSource={fields.group} builderField="group" builderContext={this} />
         <ExplorerFormField label={strings.explorer_hero} dataSource={fields.hero} builderField="hero" builderContext={this} />
@@ -378,6 +392,10 @@ class Explorer extends React.Component {
         <ExplorerFormField label={strings.explorer_duration} dataSource={fields.duration} builderField="duration" builderContext={this} />
         <ExplorerFormField label={strings.explorer_side} dataSource={fields.side} builderField="side" builderContext={this} />
         <ExplorerFormField label={strings.th_result} dataSource={fields.result} builderField="result" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_team} dataSource={teams} builderField="team" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_min_date} builderField="minDate" builderContext={this} isDateField />
+        <ExplorerFormField label={strings.explorer_max_date} builderField="maxDate" builderContext={this} isDateField />
+        {/* <ExplorerFormField label={strings.explorer_lane_pos} dataSource={fields.lanePos} builderField="lanePos" builderContext={this} />*/}
       </div>
       <div style={{ display: this.state.showEditor ? 'block' : 'none' }}>
         {this.state.loadingEditor && <Spinner />}
@@ -450,11 +468,13 @@ class Explorer extends React.Component {
 const mapStateToProps = state => ({
   proPlayers: state.app.proPlayers.list,
   leagues: state.app.leagues.list,
+  teams: state.app.teams.list,
 });
 
 const mapDispatchToProps = dispatch => ({
   dispatchProPlayers: () => dispatch(getProPlayers()),
   dispatchLeagues: () => dispatch(getLeagues()),
+  dispatchTeams: () => dispatch(getTeams()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Explorer);
