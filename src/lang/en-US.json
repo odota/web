@@ -615,6 +615,9 @@
   "ward_log_duration": "Lifespan",
   "ward_log_killed_by": "Killed by",
 
+  "log_detail": "Detail",
+  "log_heroes": "Specify Heroes",
+
   "time_past": "%s ago",
   "time_just_now": "just now",
   "time_s": "a second",
