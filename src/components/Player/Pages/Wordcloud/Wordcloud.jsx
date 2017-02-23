@@ -11,7 +11,6 @@ import {
 import Container from 'components/Container';
 import Wordcloud from 'components/Wordcloud';
 import strings from 'lang';
-import { TableFilterForm } from 'components/Form';
 
 const getData = (props) => {
   props.getPlayerWordcloud(props.playerId, props.location.query);
@@ -32,7 +31,6 @@ class RequestLayer extends React.Component {
     const { error, loading, data } = this.props;
     return (
       <div>
-        <TableFilterForm />
         <Container title={strings.heading_wordcloud_said} error={error} loading={loading}>
           <Wordcloud counts={data.my_word_counts} />
         </Container>
