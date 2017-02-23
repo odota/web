@@ -250,6 +250,7 @@
   "heading_cosmetics": "Cosmetics",
   "heading_log": "Log",
   "heading_chat": "Chat",
+  "heading_story": "Story",
   "heading_wardmap": "Wardmap",
   "heading_wordcloud": "Wordcloud",
   "heading_wordcloud_said": "Words said (all chat)",
@@ -477,6 +478,7 @@
   "tab_cosmetics": "Cosmetics",
   "tab_log": "Log",
   "tab_chat": "Chat",
+  "tab_story": "Story",
 
   "placeholder_filter_heroes": "Filter Heroes",
 
