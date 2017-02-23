@@ -131,6 +131,7 @@
   "filter_last_month":"Letzter Monat",
   "filter_last_3_months":"Letzte 3 Monate",
   "filter_last_6_months":"Letzte 6 Monate",
+  "filter_error":"Please select an item from the dropdown",
   "game_mode_0":"Unbekannt",
   "game_mode_1":"All Pick",
   "game_mode_2":"Captains Mode",
