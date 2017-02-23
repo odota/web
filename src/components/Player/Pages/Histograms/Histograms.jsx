@@ -6,24 +6,20 @@ import Heading from 'components/Heading';
 import { HistogramGraph } from 'components/Visualizations';
 import ButtonGarden from 'components/ButtonGarden';
 import histogramNames from 'components/Player/Pages/matchDataColumns';
-import { TableFilterForm } from 'components/Form';
 import Container from 'components/Container';
 import { browserHistory } from 'react-router';
 import strings from 'lang';
 
 const Histogram = ({ routeParams, columns, playerId, error, loading }) => (
-  <div style={{ fontSize: 10 }}>
+  <Container style={{ fontSize: 10 }} error={error} loading={loading}>
     <Heading title={strings.histograms_name} subtitle={strings.histograms_description} />
-    <TableFilterForm />
     <ButtonGarden
       onClick={buttonName => browserHistory.push(`/players/${playerId}/histograms/${buttonName}${window.location.search}`)}
       buttonNames={histogramNames}
       selectedButton={routeParams.subInfo || histogramNames[0]}
     />
-    <Container error={error} loading={loading}>
-      <HistogramGraph columns={columns || []} />
-    </Container>
-  </div>
+    <HistogramGraph columns={columns || []} />
+  </Container>
 );
 
 const getData = (props) => {
