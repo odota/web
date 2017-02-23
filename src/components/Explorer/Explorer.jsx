@@ -38,6 +38,7 @@ import util from 'util';
 import querystring from 'querystring';
 import queryTemplate from './queryTemplate';
 import ExplorerFormField from './ExplorerFormField';
+import styles from './Explorer.css';
 
 function jsonResponse(response) {
   return response.json();
@@ -54,7 +55,6 @@ function getItemSuffix(itemKey) {
 // TODO item build rates?
 // TODO graphing buttons (pie, timeseries, bar)
 // TODO group by + time data should be formatted
-// TODO format win columns
 // TODO team filtering (by current team or team that played in match?)
 // TODO min/max date filter
 // TODO lane positions
@@ -433,6 +433,8 @@ class Explorer extends React.Component {
                 return formatSeconds(field);
               } else if (column.name === 'inflictor') {
                 return <span>{inflictorWithValue(field)} {field}</span>;
+              } else if (column.name === 'win') {
+                return <span className={field ? styles.textSuccess : styles.textDanger}>{field ? strings.td_win : strings.td_loss}</span>;
               }
               return typeof field === 'string' ? field : JSON.stringify(field);
             },
