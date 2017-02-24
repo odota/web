@@ -11,15 +11,17 @@ import { browserHistory } from 'react-router';
 import strings from 'lang';
 
 const Histogram = ({ routeParams, columns, playerId, error, loading }) => (
-  <Container style={{ fontSize: 10 }} error={error} loading={loading}>
+  <div style={{ fontSize: 10 }}>
     <Heading title={strings.histograms_name} subtitle={strings.histograms_description} />
     <ButtonGarden
       onClick={buttonName => browserHistory.push(`/players/${playerId}/histograms/${buttonName}${window.location.search}`)}
       buttonNames={histogramNames}
       selectedButton={routeParams.subInfo || histogramNames[0]}
     />
-    <HistogramGraph columns={columns || []} />
-  </Container>
+    <Container style={{ fontSize: 10 }} error={error} loading={loading}>
+      <HistogramGraph columns={columns || []} />
+    </Container>
+  </div>
 );
 
 const getData = (props) => {
