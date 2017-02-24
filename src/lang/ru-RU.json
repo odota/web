@@ -599,7 +599,7 @@
   "title_default":"OpenDota - статистика по Dota 2",
   "title_template":"%s - OpenDota - статистика Dota 2",
   "title_matches":"Матчи",
-  "title_request":"Запросить обработке",
+  "title_request":"Обработать матч",
   "title_search":"Поиск",
   "title_status":"Статус",
   "title_explorer":"Data Explorer",
