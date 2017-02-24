@@ -60,8 +60,7 @@ function getItemSuffix(itemKey) {
 // TODO group by + time data should be formatted
 const player = {
   text: strings.explorer_player,
-  value: 'notable_players.name',
-  alias: 'playername',
+  value: 'notable_players.account_id',
 };
 const hero = {
   text: strings.th_hero_id,
@@ -371,7 +370,11 @@ class Explorer extends React.Component {
     }));
     const proPlayerMapping = {};
     proPlayers.forEach((player) => {
-      proPlayerMapping[player.text] = player.value;
+      proPlayerMapping[player.value] = player.text;
+    });
+    const teamMapping = {};
+    teams.forEach((team) => {
+      teamMapping[team.value] = team.text;
     });
     return (<div>
       <Helmet title={strings.title_explorer} />
@@ -435,7 +438,7 @@ class Explorer extends React.Component {
             displayFn: (row, col, field) => {
               if (column.name === 'match_id') {
                 return <Link to={`/matches/${field}`}>{field}</Link>;
-              } else if (column.name === 'hero_id') {
+              } else if (column.name.indexOf('hero_id') === 0) {
                 return transformations.hero_id(row, col, field);
               } else if (column.name === 'winrate') {
                 return (field >= 0 && field <= 1 ? <TablePercent
@@ -445,8 +448,10 @@ class Explorer extends React.Component {
                 return strings[`rune_${field}`];
               } else if (column.name === 'item_name') {
                 return itemData[field] ? itemData[field].dname : field;
-              } else if (column.name === 'playername') {
-                return <Link to={`/players/${proPlayerMapping[field]}`}>{field}</Link>;
+              } else if (column.name === 'account_id') {
+                return <Link to={`/players/${field}`}>{proPlayerMapping[field] || field}</Link>;
+              } else if (column.name === 'team_id') {
+                return teamMapping[field] || field;
               } else if (column.name === 'time') {
                 return formatSeconds(field);
               } else if (column.name === 'inflictor') {
