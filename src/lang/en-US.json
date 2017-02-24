@@ -447,6 +447,8 @@
   "skill_2": "High",
   "skill_3": "Very High",
 
+  "story_firstblood": "First blood was drawn when {killer} killed {victim} at {time}",
+
   "tab_overview": "Overview",
   "tab_matches": "Matches",
   "tab_heroes": "Heroes",

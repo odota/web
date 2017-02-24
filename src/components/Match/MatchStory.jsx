@@ -1,23 +1,72 @@
 /* global API_HOST */
 import React from 'react';
+import ReactDOMServer from 'react-dom/server'
 import strings from 'lang';
+import classNames from 'classnames';
 import {
   formatSeconds,
+  jsonFn,
 } from 'utility';
 import ReactTooltip from 'react-tooltip';
-import heroNames from 'dotaconstants/build/hero_names.json';
+import heroes from 'dotaconstants/build/heroes.json';
 import styles from './Match.css';
 
+const heroesArr = jsonFn(heroes);
 
-const renderEvent = (event) => {
-  return (<div>{event.type}</div>);
+// Modified version of PlayerThumb
+const playerSpan = ({ hero_id, name, personaname, hideText, isRadiant }) => (
+  <span style={{ color: (isRadiant ? "green" : "red") }} className={styles.container}>
+    <img
+      className={styles.heroThumb}
+      src={heroes[hero_id]
+        ? `${API_HOST}${heroes[hero_id].icon}`
+        : '/assets/images/blank-1x1.gif'
+      }
+      role="presentation"
+      height="24px"
+      width="24px"
+      style={{ "vertical-align": "middle" }}
+    />
+    {!hideText && (name || personaname || strings.general_anonymous)}
+  </span>
+);
+
+const renderTemplate = (template, dict) => {
+  var pattern = /(\{[^}]+\})/g;
+  var result = template.split(pattern);
+  for (var i = 0; i < result.length; i++) {
+    if (result[i].match(pattern) && result[i].slice(1, -1) in dict) {
+      result[i] = dict[result[i].slice(1, -1)];
+    }
+  }
+  return result;
+}
+
+const renderEvent = (event, match) => {
+  switch(event.type){
+    case "firstblood":
+      let vars_dict = {
+        time: formatSeconds(event.time),
+        killer: match.players
+                    .filter(player => player.player_slot === event.player_slot)
+                    .map(player => playerSpan({...player})),
+        victim: playerSpan({...match.players.find((player) => {
+                    const foundHero = heroesArr('find')(hero => hero.name === event.key);
+                    return foundHero && player.hero_id === foundHero.id;
+                  })})
+      }
+      return (<div>{renderTemplate(strings.story_firstblood, vars_dict)}</div>)
+    default:
+      return (<div>{`unknown type: ${event.type}`}</div>);
+  }
 }
 
 const renderStory = (match) => {
   var events = generateStory(match);
-  return (<div>{events.map(renderEvent)}</div>);
+  return (<div>{events.map(event => {return renderEvent(event, match)})}</div>);
 }
 
+// Modified version of timeline data
 const generateStory = (match) => {
   // Firstblood
   const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
@@ -76,6 +125,7 @@ const generateStory = (match) => {
 class MatchStory extends React.Component {
   constructor() {
     super();
+
   }
   render() {
     return (<div>
