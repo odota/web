@@ -447,7 +447,14 @@
   "skill_2": "High",
   "skill_3": "Very High",
 
+  "story_conjunctive": "and",
   "story_firstblood": "First blood was drawn when {killer} killed {victim} at {time}",
+  "story_teamfight": "The {winning_team} won a teamfight by trading {win_dead} for {lose_dead}, resulting in a net worth increase of {net_change}",
+  "story_teamfight_none_dead": "The {winning_team} won a teamfight by killing {lose_dead} without losing any heroes, resulting in a net worth increase of {net_change}",
+  "story_lane_radiant_win": "{radiant_players} won {lane} against {dire_players}",
+  "story_lane_radiant_lose": "{radiant_players} lost {lane} to {dire_players}",
+  "story_roshan": "The {team} killed Roshan",
+  "story_aegis": "{player} {action} the aegis",
 
   "tab_overview": "Overview",
   "tab_matches": "Matches",
