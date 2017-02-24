@@ -575,6 +575,8 @@
   "ward_log_left_at":"Verließ",
   "ward_log_duration":"Lebenslänge",
   "ward_log_killed_by":"Getötet durch",
+  "log_detail":"Detail",
+  "log_heroes":"Specify Heroes",
   "time_past":"vor %s",
   "time_just_now":"gerade eben",
   "time_s":"eine Sekunde",
