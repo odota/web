@@ -575,6 +575,8 @@
   "ward_log_left_at":"Sol",
   "ward_log_duration":"Ömrü",
   "ward_log_killed_by":"Tarafından öldürüldü",
+  "log_detail":"Detail",
+  "log_heroes":"Specify Heroes",
   "time_past":"%s önce",
   "time_just_now":"az önce",
   "time_s":"bir saniye",
