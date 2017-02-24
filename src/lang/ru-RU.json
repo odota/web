@@ -575,6 +575,8 @@
   "ward_log_left_at":"Осталось",
   "ward_log_duration":"Продолжительность",
   "ward_log_killed_by":"Уничтожен",
+  "log_detail":"Detail",
+  "log_heroes":"Specify Heroes",
   "time_past":"%s назад",
   "time_just_now":"только что",
   "time_s":"секунда",
