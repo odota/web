@@ -26,7 +26,7 @@ ${(group) ?
   'matches.match_id',
   '((player_matches.player_slot < 128) = matches.radiant_win) win',
   'player_matches.hero_id',
-  'notable_players.name playername',
+  'player_matches.account_id',
   'leagues.name leaguename',
 ].filter(Boolean).join(',\n')}
 FROM matches
