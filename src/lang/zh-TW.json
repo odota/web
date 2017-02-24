@@ -575,6 +575,8 @@
   "ward_log_left_at":"左：",
   "ward_log_duration":"持续时间",
   "ward_log_killed_by":"被此英雄摧毁：",
+  "log_detail":"Detail",
+  "log_heroes":"Specify Heroes",
   "time_past":"%s 前",
   "time_just_now":"刚刚",
   "time_s":"1 秒",
