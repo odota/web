@@ -575,6 +575,8 @@
   "ward_log_left_at":"消失時間",
   "ward_log_duration":"寿命",
   "ward_log_killed_by":"破壊者",
+  "log_detail":"Detail",
+  "log_heroes":"Specify Heroes",
   "time_past":"%s前",
   "time_just_now":"たった今",
   "time_s":"1秒",
