@@ -221,3 +221,10 @@
     height: 29px;
   }
 }
+
+.logFilterForm {
+  max-width: 600px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

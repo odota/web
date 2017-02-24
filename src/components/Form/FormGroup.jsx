@@ -24,6 +24,16 @@ function formField({ formSelectionState, addChip, deleteChip }) {
         strict,
         limit,
       } = this.props;
+      const selectedElements = formSelectionState[name];
+      const isSelected = index > -1
+                          ? selectedElements.includes(value.value)
+                          : selectedElements.includes(value);
+      if (isSelected) {
+        // Handle inputs that are already selected
+        this.handleUpdateInput('');
+        return;
+      }
+
       let input = null;
 
       if (index > -1) {
@@ -87,6 +97,7 @@ function formField({ formSelectionState, addChip, deleteChip }) {
           onUpdateInput={this.handleUpdateInput}
           searchText={searchText}
           errorText={errorText}
+          style={{ flex: '1 0 0' }}
           listStyle={{ textTransform: 'uppercase' }}
           floatingLabelFocusStyle={{ color: errorText ? red : blue }}
           underlineFocusStyle={{ borderColor: blue }}
