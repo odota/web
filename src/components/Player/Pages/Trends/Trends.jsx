@@ -17,7 +17,7 @@ import { formatSeconds, fromNow } from 'utility';
 import styles from './Trends.css';
 
 const Trend = ({ routeParams, columns, playerId, error, loading }) => (
-  <Container className={styles.container} style={{ fontSize: 10 }} error={error} loading={loading}>
+  <div style={{ fontSize: 10 }}>
     <Heading title={strings.trends_name} subtitle={strings.trends_description} />
     <ButtonGarden
       onClick={buttonName => browserHistory.push(`/players/${playerId}/trends/${buttonName}${window.location.search}`)}
@@ -28,14 +28,15 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => (
       <div className={styles.noData}>
         {strings.trends_no_data}
       </div> :
-      <TrendGraph
-        columns={columns}
-        name={strings[`heading_${routeParams.subInfo || trendNames[0]}`]}
-        tooltip={{
-          contents: (d) => {
-            const data = columns[d[0].index];
-            const trendStr = strings[`heading_${routeParams.subInfo || trendNames[0]}`];
-            return `<div class="${styles.tooltipWrapper}">
+      <Container className={styles.container} style={{ fontSize: 10 }} error={error} loading={loading}>
+        <TrendGraph
+          columns={columns}
+          name={strings[`heading_${routeParams.subInfo || trendNames[0]}`]}
+          tooltip={{
+            contents: (d) => {
+              const data = columns[d[0].index];
+              const trendStr = strings[`heading_${routeParams.subInfo || trendNames[0]}`];
+              return `<div class="${styles.tooltipWrapper}">
               <div class="${styles.value}">${strings.trends_tooltip_average} ${trendStr}: ${data.value}</div>
               <div class="${styles.match}">
                 <div>
@@ -62,15 +63,16 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => (
                 </div>
               </div>
             </div>`;
-          },
-        }}
-        onClick={(p) => {
-          const matchId = columns[p.index].match_id;
-          browserHistory.push(`/matches/${matchId}`);
-        }}
-      />
+            },
+          }}
+          onClick={(p) => {
+            const matchId = columns[p.index].match_id;
+            browserHistory.push(`/matches/${matchId}`);
+          }}
+        />
+      </Container>
     }
-  </Container>
+  </div>
 );
 
 const getData = (props) => {
