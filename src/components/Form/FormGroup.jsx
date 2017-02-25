@@ -24,17 +24,18 @@ function formField({ formSelectionState, addChip, deleteChip }) {
         strict,
         limit,
       } = this.props;
-      /*
+
       const selectedElements = formSelectionState[name];
-      const isSelected = index > -1
-                          ? selectedElements.includes(value.value)
-                          : selectedElements.includes(value);
-      if (isSelected) {
-        // Handle inputs that are already selected
-        this.handleUpdateInput('');
-        return;
+      if (selectedElements && Array.isArray(selectedElements)) {
+        const isSelected = index > -1
+                            ? selectedElements.includes(value.value)
+                            : selectedElements.includes(value);
+        if (isSelected) {
+          // Handle inputs that are already selected
+          this.handleUpdateInput('');
+          return;
+        }
       }
-      */
 
       let input = null;
 
