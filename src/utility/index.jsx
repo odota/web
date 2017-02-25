@@ -215,13 +215,13 @@ const getSubtitle = (row) => {
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
   hero_id: (row, col, field, showPvgnaGuide = false) => {
-    const heroName = heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero;
+    const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
     return (
       <TableHeroImage
         parsed={row.version}
-        image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
+        image={heroes[row[col.field]] && API_HOST + heroes[row[col.field]].img}
         title={
-          <TableLink to={`/heroes/${row.hero_id}`}>{heroName}</TableLink>
+          <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>
         }
         subtitle={getSubtitle(row)}
         heroName={heroName}

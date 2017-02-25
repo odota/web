@@ -204,6 +204,17 @@ const fields = {
     value: 'json_array_length(array_to_json(buyback_log))',
     alias: 'buybacks',
   },
+  {
+    text: strings.explorer_hero_combos,
+    value: 1,
+    groupValue: 1,
+    groupKeySelect: 'player_matches.hero_id, player_matches2.hero_id hero_id2',
+    groupKey: 'player_matches.hero_id, player_matches2.hero_id',
+    join: `JOIN player_matches player_matches2
+ON player_matches.match_id = player_matches2.match_id
+AND player_matches.hero_id != player_matches2.hero_id 
+AND abs(player_matches.player_slot - player_matches2.player_slot) < 10`
+  },
   ]
     .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect)),
   group: [{
@@ -435,33 +446,35 @@ class Explorer extends React.Component {
           columns={(this.state.result.fields || []).map(column => ({
             displayName: column.name,
             field: column.name,
+          })).map(column => ({
+            ...column,
             displayFn: (row, col, field) => {
-              if (column.name === 'match_id') {
+              if (column.field === 'match_id') {
                 return <Link to={`/matches/${field}`}>{field}</Link>;
-              } else if (column.name.indexOf('hero_id') === 0) {
+              } else if (column.field.indexOf('hero_id') === 0) {
                 return transformations.hero_id(row, col, field);
-              } else if (column.name.indexOf('account_id') === 0) {
+              } else if (column.field.indexOf('account_id') === 0) {
                 return <Link to={`/players/${field}`}>{proPlayerMapping[field] || field}</Link>;
-              } else if (column.name === 'winrate') {
+              } else if (column.field === 'winrate') {
                 return (field >= 0 && field <= 1 ? <TablePercent
                   val={Number((field * 100).toFixed(2))}
                 /> : null);
-              } else if (column.name === 'rune_id') {
+              } else if (column.field === 'rune_id') {
                 return strings[`rune_${field}`];
-              } else if (column.name === 'item_name') {
+              } else if (column.field === 'item_name') {
                 return itemData[field] ? itemData[field].dname : field;
-              } else if (column.name === 'team_id') {
+              } else if (column.field === 'team_id') {
                 return teamMapping[field] || field;
-              } else if (column.name === 'time') {
+              } else if (column.field === 'time') {
                 return formatSeconds(field);
-              } else if (column.name === 'inflictor') {
+              } else if (column.field === 'inflictor') {
                 return <span>{inflictorWithValue(field)} {field}</span>;
-              } else if (column.name === 'win') {
+              } else if (column.field === 'win') {
                 return <span className={field ? styles.textSuccess : styles.textDanger}>{field ? strings.td_win : strings.td_loss}</span>;
               }
               return typeof field === 'string' ? field : JSON.stringify(field);
             },
-            sortFn: row => (isNaN(Number(row[column.name])) ? row[column.name] : Number(row[column.name])),
+            sortFn: row => (isNaN(Number(row[column.field])) ? row[column.field] : Number(row[column.field])),
           }))}
         />
         : <Spinner />

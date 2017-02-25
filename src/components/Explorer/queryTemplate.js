@@ -1,6 +1,6 @@
 const queryTemplate = ({
   select,
-  group = select && select.groupValue ? { value: select.groupKey, alias: select.alias } : null,
+  group = select && select.groupValue ? { value: select.groupKey, groupKeySelect: select.groupKeySelect, alias: select.alias } : null,
   patch,
   hero,
   player,
@@ -15,10 +15,10 @@ const queryTemplate = ({
   maxDate,
 }) => `SELECT
 ${(group) ?
-[`${group.value} ${group.alias || ''}`,
+[`${group.groupKeySelect || group.value} ${group.alias || ''}`,
   `round(sum(${(select || {}).groupValue || (select || {}).value || 1})::numeric/count(distinct matches.match_id), 2) avg`,
   'count(distinct matches.match_id) count',
-  (select || {}).groupValue ? '' : 'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
+  'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
   `sum(${(select || {}).groupValue || (select || {}).value || 1}) sum`,
   `min(${(select || {}).groupValue || (select || {}).value || 1}) min`,
   `max(${(select || {}).groupValue || (select || {}).value || 1}) max`,
