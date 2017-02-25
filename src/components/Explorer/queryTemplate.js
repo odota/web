@@ -18,8 +18,11 @@ ${(group) ?
 [`${group.value} ${group.alias || ''}`,
   `round(sum(${(select || {}).groupValue || (select || {}).value || 1})::numeric/count(distinct matches.match_id), 2) avg`,
   'count(distinct matches.match_id) count',
-  `sum(${(select || {}).groupValue || (select || {}).value || 1}) sum`,
   (select || {}).groupValue ? '' : 'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
+  `sum(${(select || {}).groupValue || (select || {}).value || 1}) sum`,
+  `min(${(select || {}).groupValue || (select || {}).value || 1}) min`,
+  `max(${(select || {}).groupValue || (select || {}).value || 1}) max`,
+  `round(stddev(${(select || {}).groupValue || (select || {}).value || 1}), 2) stddev`,
 ].filter(Boolean).join(',\n')
 :
 [select ? `${select.value} ${select.alias || ''}` : '',

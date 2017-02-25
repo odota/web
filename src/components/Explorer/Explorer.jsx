@@ -441,6 +441,8 @@ class Explorer extends React.Component {
                 return <Link to={`/matches/${field}`}>{field}</Link>;
               } else if (column.name.indexOf('hero_id') === 0) {
                 return transformations.hero_id(row, col, field);
+              } else if (column.name.indexOf('account_id') === 0) {
+                return <Link to={`/players/${field}`}>{proPlayerMapping[field] || field}</Link>;
               } else if (column.name === 'winrate') {
                 return (field >= 0 && field <= 1 ? <TablePercent
                   val={Number((field * 100).toFixed(2))}
@@ -449,8 +451,6 @@ class Explorer extends React.Component {
                 return strings[`rune_${field}`];
               } else if (column.name === 'item_name') {
                 return itemData[field] ? itemData[field].dname : field;
-              } else if (column.name === 'account_id') {
-                return <Link to={`/players/${field}`}>{proPlayerMapping[field] || field}</Link>;
               } else if (column.name === 'team_id') {
                 return teamMapping[field] || field;
               } else if (column.name === 'time') {
