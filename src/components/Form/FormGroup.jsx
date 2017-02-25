@@ -24,6 +24,7 @@ function formField({ formSelectionState, addChip, deleteChip }) {
         strict,
         limit,
       } = this.props;
+      /*
       const selectedElements = formSelectionState[name];
       const isSelected = index > -1
                           ? selectedElements.includes(value.value)
@@ -33,6 +34,7 @@ function formField({ formSelectionState, addChip, deleteChip }) {
         this.handleUpdateInput('');
         return;
       }
+      */
 
       let input = null;
 

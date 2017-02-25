@@ -58,6 +58,7 @@ function getItemSuffix(itemKey) {
 // TODO item build rates?
 // TODO graphing buttons (pie, timeseries, bar)
 // TODO group by + time data should be formatted
+// TODO filter out team 2889074 (not really navi)
 const player = {
   text: strings.explorer_player,
   value: 'notable_players.account_id',
