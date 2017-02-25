@@ -104,6 +104,7 @@
   "explorer_lane_pos":"Lane Position",
   "explorer_min_date":"Min Date",
   "explorer_max_date":"Max Date",
+  "explorer_hero_combos":"Hero Combos",
   "farm_heroes":"ヒーローキル数",
   "farm_creeps":"レーンクリープキル数",
   "farm_neutrals":"中立クリープキル数 (Ancientsを含む)",
