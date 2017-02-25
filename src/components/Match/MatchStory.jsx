@@ -7,6 +7,7 @@ import {
   formatSeconds,
   jsonFn,
 } from 'utility';
+import { IconRadiant, IconDire } from 'components/Icons';
 import ReactTooltip from 'react-tooltip';
 import heroes from 'dotaconstants/build/heroes.json';
 import styles from './Match.css';
@@ -44,8 +45,15 @@ const GoldSpan = (amount) => (
   </span>
 );
 
+const TeamSpan = (is_radiant) => (
+  <span style={{ color: (is_radiant ? radiantColor : direColor) }} className={styles.teamIconContainer}>
+    {is_radiant ? <IconRadiant className={styles.iconRadiant} /> : <IconDire className={styles.iconDire} />}
+    {is_radiant ? strings.general_radiant : strings.general_dire}
+  </span>
+);
+
 // Modified version of PlayerThumb
-const PlayerSpan = ({ hero_id, name, personaname, hideText, isRadiant }) => (
+const PlayerSpan = ({ hero_id, personaname, isRadiant }) => (
   <span style={{ color: (isRadiant ? radiantColor : direColor) }} className={styles.container}>
     <img
       className={styles.heroThumb}
@@ -58,7 +66,7 @@ const PlayerSpan = ({ hero_id, name, personaname, hideText, isRadiant }) => (
       width="24px"
       style={{ "verticalAlign": "middle" }}
     />
-    {!hideText && (name || personaname || strings.general_anonymous)}
+    {heroes[hero_id].localized_name}
   </span>
 );
 
@@ -91,7 +99,7 @@ const renderEvent = (event, match) => {
     case "teamfight":
       let radiant_win = event.radiant_gold_advantage_delta >= 0;
       vars_dict = {
-        winning_team: radiant_win ? strings.general_radiant : strings.general_dire,
+        winning_team: TeamSpan(radiant_win),
         net_change: GoldSpan(Math.abs(event.radiant_gold_advantage_delta)),
         win_dead: formatList(event.deaths
           .filter(death => match.players[death.key].isRadiant == radiant_win)
@@ -102,7 +110,7 @@ const renderEvent = (event, match) => {
       }
       return renderTemplate(vars_dict['win_dead'].length > 0 ? strings.story_teamfight : strings.story_teamfight_none_dead, vars_dict);
     case "roshan":
-      vars_dict = { team: event.team == 2 ? strings.general_radiant : strings.general_dire }
+      vars_dict = { team: TeamSpan(event.team == 2) }
       if(event.aegis != null){
         let aegis_vars_dict = {
           action: ((event.aegis.action === 'CHAT_MESSAGE_AEGIS' && strings.timeline_aegis_picked_up) ||
@@ -132,7 +140,7 @@ const renderEvent = (event, match) => {
     case "gameover":
       vars_dict = {
         duration: formatSeconds(match.duration),
-        winning_team: match.radiant_win ? strings.general_radiant : strings.general_dire,
+        winning_team: TeamSpan(match.radiant_win),
         radiant_score: <font color={radiantColor}>{match.radiant_score}</font>,
         dire_score: <font color={direColor}>{match.dire_score}</font>
       }
