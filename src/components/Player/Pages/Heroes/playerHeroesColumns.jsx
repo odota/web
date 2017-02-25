@@ -24,10 +24,11 @@ export const playerHeroesOverviewColumns = playerId => [{
   sortFn: row => row.win / row.games,
 }];
 
-const restColumns = [{
+const restColumns = playerId => [{
   displayName: strings.th_with_games,
   tooltip: strings.tooltip_played_with,
   field: 'with_games',
+  displayFn: row => <TableLink to={`/players/${playerId}/matches?with_hero_id=${row.hero_id}`}>{row.with_games}</TableLink>,
   sortFn: true,
 }, {
   displayName: strings.th_with_win,
@@ -39,6 +40,7 @@ const restColumns = [{
   displayName: strings.th_against_games,
   tooltip: strings.tooltip_played_against,
   field: 'against_games',
+  displayFn: row => <TableLink to={`/players/${playerId}/matches?against_hero_id=${row.hero_id}`}>{row.against_games}</TableLink>,
   sortFn: true,
 }, {
   displayName: strings.th_against_win,
@@ -50,5 +52,5 @@ const restColumns = [{
 
 export const playerHeroesColumns = playerId => [
   ...playerHeroesOverviewColumns(playerId),
-  ...restColumns,
+  ...restColumns(playerId),
 ];
