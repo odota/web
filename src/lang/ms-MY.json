@@ -575,6 +575,8 @@
   "ward_log_left_at":"Kiri",
   "ward_log_duration":"Jangka Hayat",
   "ward_log_killed_by":"Dibunuh oleh",
+  "log_detail":"Detail",
+  "log_heroes":"Specify Heroes",
   "time_past":"%s lalu",
   "time_just_now":"tadi",
   "time_s":"1 saat",
