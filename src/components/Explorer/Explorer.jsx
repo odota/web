@@ -59,23 +59,8 @@ function getItemSuffix(itemKey) {
 // TODO graphing buttons (pie, timeseries, bar)
 // TODO group by + time data should be formatted
 // TODO filter out team 2889074 (not really navi)
-const player = {
-  text: strings.explorer_player,
-  value: 'notable_players.account_id',
-};
-const hero = {
-  text: strings.th_hero_id,
-  value: 'player_matches.hero_id',
-};
-const league = {
-  text: strings.explorer_league,
-  value: 'leagues.name',
-  alias: 'leaguename',
-};
-const patch = {
-  text: strings.explorer_patch,
-  value: 'patch',
-};
+// TODO AEGIS_STOLEN, AEGIS, DENIED_AEGIS, FIRSTBLOOD, PAUSED (requires player1_slot fix)
+// TODO scan/glyph action (use action rather than CHAT_MESSAGE_SCAN/CHAT_MESSAGE_GLYPH_USED)
 const jsonSelect = {
   value: 'key',
   groupValue: 'value::text::int',
@@ -214,28 +199,42 @@ const fields = {
       text: strings.heading_shrine,
       key: '%healers%',
     }),
+  {
+    text: strings.th_buybacks,
+    value: 'json_array_length(array_to_json(buyback_log))',
+    alias: 'buybacks',
+  },
   ]
     .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect)),
-  group: [
-    hero,
-    player,
-    league,
-    patch, {
-      text: strings.heading_duration,
-      value: 'duration/300*5',
-      alias: 'minutes',
-    }, {
-      text: strings.explorer_side,
-      value: '(player_matches.player_slot < 128)',
-      alias: 'is_radiant',
-    }, {
-      text: strings.th_result,
-      value: '((player_matches.player_slot < 128) = matches.radiant_win)',
-      alias: 'win',
-    }, {
-      text: strings.explorer_team,
-      value: 'teams.name',
-    },
+  group: [{
+    text: strings.explorer_player,
+    value: 'notable_players.account_id',
+  }, {
+    text: strings.th_hero_id,
+    value: 'player_matches.hero_id',
+  }, {
+    text: strings.explorer_league,
+    value: 'leagues.name',
+    alias: 'leaguename',
+  }, {
+    text: strings.explorer_patch,
+    value: 'patch',
+  }, {
+    text: strings.heading_duration,
+    value: 'duration/300*5',
+    alias: 'minutes',
+  }, {
+    text: strings.explorer_side,
+    value: '(player_matches.player_slot < 128)',
+    alias: 'is_radiant',
+  }, {
+    text: strings.th_result,
+    value: '((player_matches.player_slot < 128) = matches.radiant_win)',
+    alias: 'win',
+  }, {
+    text: strings.explorer_team,
+    value: 'teams.name',
+  },
   ],
   patch: patchData.reverse().map(patch => ({
     text: patch.name,
