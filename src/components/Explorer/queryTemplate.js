@@ -67,6 +67,6 @@ ORDER BY ${
   group ? 'count DESC' : '',
 ].filter(Boolean).join(',')}
 NULLS LAST
-LIMIT 150`;
+LIMIT 150`.replace(/\n{2,}/g, '\n');
 
 export default queryTemplate;
