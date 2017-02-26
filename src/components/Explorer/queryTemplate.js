@@ -61,7 +61,7 @@ ${lanePos ? `AND lane_pos = ${lanePos.value}` : ''}
 ${minDate ? `AND start_time >= ${Math.round(new Date(minDate.value) / 1000)}` : ''}
 ${maxDate ? `AND start_time <= ${Math.round(new Date(maxDate.value) / 1000)}` : ''}
 ${group ? `GROUP BY ${group.value}` : ''}
-${group ? 'HAVING count(distinct matches.match_id) > 1' : ''}
+${group ? 'HAVING count(distinct matches.match_id) > 0' : ''}
 ORDER BY ${
 [`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(select && select.order) || 'DESC'}`,
   group ? 'count DESC' : '',

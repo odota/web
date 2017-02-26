@@ -34,14 +34,14 @@ class ExplorerFormField extends React.Component {
         floatingLabelText={label}
         container="inline"
         autoOk
-        defaultDate={builderContext.state.builder[builderField] ? new Date(builderContext.state.builder[builderField].value) : undefined}
+        defaultDate={builderContext.state.builder[builderField] ? new Date(builderContext.state.builder[builderField]) : undefined}
         onShow={this.resetField}
         onChange={(event, date) => {
           builderContext.setState({
             ...builderContext.state,
             builder: {
               ...builderContext.state.builder,
-              [builderField]: { value: date },
+              [builderField]: date.toISOString(),
             },
           }, builderContext.buildQuery);
         }}
@@ -50,7 +50,10 @@ class ExplorerFormField extends React.Component {
     return (<span>
       <AutoComplete
         ref={ref => (this.autocomplete = ref)}
-        searchText={builderContext.state.builder[builderField] && builderContext.state.builder[builderField].text}
+        searchText={builderContext.state.builder[builderField]
+          ? (dataSource.find(element => element.key === builderContext.state.builder[builderField]) || {}).text
+          : undefined
+        }
         openOnFocus
         listStyle={{ maxHeight: 400, overflow: 'auto' }}
         // fullWidth
@@ -64,7 +67,7 @@ class ExplorerFormField extends React.Component {
             ...builderContext.state,
             builder: {
               ...builderContext.state.builder,
-              [builderField]: index > -1 ? value : '',
+              [builderField]: index > -1 ? value.key : '',
             },
           }, builderContext.buildQuery);
         }}
