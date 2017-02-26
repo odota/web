@@ -104,6 +104,7 @@
   "explorer_lane_pos":"Lane Position",
   "explorer_min_date":"Min Date",
   "explorer_max_date":"Max Date",
+  "explorer_hero_combos":"Hero Combos",
   "farm_heroes":"Héros tués",
   "farm_creeps":"Creeps de lane tués",
   "farm_neutrals":"Creeps neutres tués (incluant les Anciens)",
