@@ -1,38 +1,64 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import { debounce } from 'lodash';
 import TextField from 'material-ui/TextField';
-// import RaisedButton from 'material-ui/RaisedButton';
-// import ActionSearch from 'material-ui/svg-icons/action/search';
-// import CircularProgress from 'material-ui/CircularProgress';
 import { getSearchResultAndPros, setSearchQuery } from 'actions';
 import styles from './search.css';
 
-const SearchForm = ({ dispatchSearch, dispatchSetQuery, query }) => {
-  const formSubmit = (e) => {
+class SearchForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const { query } = browserHistory.getCurrentLocation();
+    this.state = { query: query.q };
+
+    this.formSubmit = this.formSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.debouncedSetQuery = debounce(this.props.dispatchSetQuery, 100);
+  }
+
+  formSubmit(e) {
+    const { query } = this.state;
+
     e.preventDefault();
     browserHistory.push(`/search?q=${query}`);
-    dispatchSearch(query);
-  };
+    this.props.dispatchSearch(query);
+  }
 
-  return (
-    <form onSubmit={formSubmit}>
-      <TextField
-        hintText={'Player Search'}
-        value={query}
-        onChange={e => dispatchSetQuery(e.target.value)}
-        fullWidth
-        underlineFocusStyle={{
-          borderColor: styles.searchBarColor,
-          bottom: '-4px',
-          left: '-40px',
-          width: 'calc(100% + 40px)',
-        }}
-        underlineStyle={{ borderColor: 'transparent' }}
-      />
-    </form>
-  );
-};
+  handleChange(e) {
+    const { pathname } = browserHistory.getCurrentLocation();
+    const { value } = e.target;
+
+    this.setState({
+      query: value,
+    });
+
+    if (pathname === '/search') {
+      this.debouncedSetQuery(value);
+    }
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.formSubmit}>
+        <TextField
+          hintText={'Player Search'}
+          value={this.state.query}
+          onChange={this.handleChange}
+          fullWidth
+          underlineFocusStyle={{
+            borderColor: styles.searchBarColor,
+            bottom: '-4px',
+            left: '-40px',
+            width: 'calc(100% + 40px)',
+          }}
+          underlineStyle={{ borderColor: 'transparent' }}
+        />
+      </form>
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
   const { error, loading, done, query, searchResults } = state.app.search;
