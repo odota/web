@@ -59,14 +59,14 @@ function jsonResponse(response) {
 
 function expandBuilderState(builder) {
   const expandedBuilder = {};
-      Object.keys(builder).forEach((key) => {
-      if (builder[key]) {
-        expandedBuilder[key] = fields[key]
+  Object.keys(builder).forEach((key) => {
+    if (builder[key]) {
+      expandedBuilder[key] = fields[key]
         ? fields[key].find(element => element.key === builder[key])
         : { value: builder[key] };
-      }
-    });
-    return expandedBuilder;
+    }
+  });
+  return expandedBuilder;
 }
 
 class Explorer extends React.Component {
