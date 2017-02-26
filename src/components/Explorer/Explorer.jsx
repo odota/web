@@ -39,24 +39,35 @@ import ExplorerFormField from './ExplorerFormField';
 import fields from './fields';
 import styles from './Explorer.css';
 
+// TODO omnibox search
+// TODO mega creep wins (matches table only)
+// TODO bans (picks_bans table)
+// TODO num matches played by team (team_match table)
+// TODO hero combos (more than 2)
+// TODO lane positions
+// TODO num wards placed?
+// TODO num roshans killed?
+// TODO item build rates?
+// TODO graphing buttons (pie, timeseries, bar)
+// TODO filter out team 2889074 (not really navi)
+// TODO AEGIS_STOLEN, AEGIS, DENIED_AEGIS, FIRSTBLOOD, PAUSED (requires player1_slot fix)
+// TODO scan/glyph action (use action rather than CHAT_MESSAGE_SCAN/CHAT_MESSAGE_GLYPH_USED)
+
 function jsonResponse(response) {
   return response.json();
 }
 
-// TODO omnibox search
-// TODO mega creep wins
-// TODO bans
-// TODO hero combos
-// TODO lane positions
-// TODO num wards placed?
-// TODO num roshans killed?
-// TODO num matches played by team?
-// TODO item build rates?
-// TODO graphing buttons (pie, timeseries, bar)
-// TODO group by + time data should be formatted
-// TODO filter out team 2889074 (not really navi)
-// TODO AEGIS_STOLEN, AEGIS, DENIED_AEGIS, FIRSTBLOOD, PAUSED (requires player1_slot fix)
-// TODO scan/glyph action (use action rather than CHAT_MESSAGE_SCAN/CHAT_MESSAGE_GLYPH_USED)
+function expandBuilderState(builder) {
+  const expandedBuilder = {};
+      Object.keys(builder).forEach((key) => {
+      if (builder[key]) {
+        expandedBuilder[key] = fields[key]
+        ? fields[key].find(element => element.key === builder[key])
+        : { value: builder[key] };
+      }
+    });
+    return expandedBuilder;
+}
 
 class Explorer extends React.Component {
   constructor() {
@@ -146,14 +157,7 @@ class Explorer extends React.Component {
     });
   }
   buildQuery() {
-    const expandedBuilder = {};
-    Object.keys(this.state.builder).forEach((key) => {
-      if (this.state.builder[key]) {
-        expandedBuilder[key] = fields[key]
-        ? fields[key].find(element => element.key === this.state.builder[key])
-        : { value: this.state.builder[key] };
-      }
-    });
+    const expandedBuilder = expandBuilderState(this.state.builder);
     // console.log(this.state.builder, expandedBuilder);
     this.editor.setValue(queryTemplate(expandedBuilder));
   }
@@ -181,6 +185,7 @@ class Explorer extends React.Component {
     teams.forEach((team) => {
       teamMapping[team.value] = team.text;
     });
+    const expandedBuilder = expandBuilderState(this.state.builder);
     return (<div>
       <Helmet title={strings.title_explorer} />
       <Heading title={strings.explorer_title} subtitle={strings.explorer_description} />
@@ -259,7 +264,7 @@ class Explorer extends React.Component {
                 return itemData[field] ? itemData[field].dname : field;
               } else if (column.field === 'team_id') {
                 return teamMapping[field] || field;
-              } else if (column.field === 'time') {
+              } else if (column.field === 'time' || (column.field === 'avg' && expandedBuilder.select && expandedBuilder.select.formatSeconds)) {
                 return formatSeconds(field);
               } else if (column.field === 'inflictor') {
                 return <span>{inflictorWithValue(field)} {field}</span>;

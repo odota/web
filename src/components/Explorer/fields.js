@@ -22,6 +22,7 @@ AND player_matches.player_slot = match_logs.targetname_slot
 AND match_logs.type = 'DOTA_COMBATLOG_PURCHASE'
 AND match_logs.valuename = 'item_${itemKey}'`,
   key: `timing_${itemKey}`,
+  formatSeconds: true,
 });
 
 const killSelect = ({
