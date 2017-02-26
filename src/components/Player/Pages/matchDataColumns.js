@@ -3,6 +3,7 @@ export default [
   'deaths',
   'assists',
   'kda',
+  'win_rate',
   'gold_per_min',
   'xp_per_min',
   'last_hits',
