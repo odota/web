@@ -213,7 +213,7 @@ const fields = {
     join: `JOIN player_matches player_matches2
 ON player_matches.match_id = player_matches2.match_id
 AND player_matches.hero_id != player_matches2.hero_id 
-AND abs(player_matches.player_slot - player_matches2.player_slot) < 10`
+AND abs(player_matches.player_slot - player_matches2.player_slot) < 10`,
   },
   ]
     .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect)),
