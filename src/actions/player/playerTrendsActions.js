@@ -3,9 +3,6 @@ import fetch from 'isomorphic-fetch';
 import {
   getUrl,
 } from 'actions/utility';
-import {
-  isRadiant,
-} from 'utility';
 
 const url = playerId => `/api/players/${playerId}/matches`;
 
@@ -36,65 +33,39 @@ export const getPlayerTrendsError = (payload, id) => ({
   id,
 });
 
-const getCumalativeSums = (matches, fieldName) =>
-  matches.reduce((cumulativeList, match, index) => {
-    if (cumulativeList.length > 0) {
-      const prevTotal = cumulativeList[index - 1];
-      cumulativeList.push(prevTotal + match[fieldName]);
-    } else {
-      cumulativeList.push(match[fieldName]);
-    }
-    return cumulativeList;
-  }, []);
-
-const getWinRateCumlativeSums = matches =>
-  matches.reduce((cumulativeList, match, index) => {
-    // 1 for win 0 for loss
-    const winInt = match.radiant_win === isRadiant(match.player_slot) ? 1 : 0;
-    if (index === 0) {
-      cumulativeList.push(winInt);
-    } else {
-      const prevRate = cumulativeList[index - 1];
-      const newRate = ((prevRate * index) + winInt) / (index + 1);
-      cumulativeList.push(newRate);
-    }
-
-    return cumulativeList;
-  }, []);
-
 export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch) => {
   dispatch(getPlayerTrendsRequest(playerId));
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())
     .then((response) => {
-      const winRateTrend = fieldName === 'win_rate'; // Special case
-      const matches = winRateTrend
-        ? response.reverse()
-        : response.filter(match => match[fieldName] !== undefined && match[fieldName] !== null)
-          .reverse();
+      let cumulativeSum = 0;
+      return response.reverse().reduce((dataList, match, index) => {
+        const win = (match.player_slot < 128) === match.radiant_win;
+        const currentValue = fieldName === 'win_rate'
+          ? Number(win) * 100 // true -> 100 false -> 0
+          : match[fieldName];
 
-      const cumulativeSums = winRateTrend
-        ? getWinRateCumlativeSums(matches)
-        : getCumalativeSums(matches, fieldName);
+        if (currentValue === undefined || currentValue === null) {
+          // filter
+          return dataList;
+        }
 
-      return cumulativeSums.map((value, index) => {
-        const match = matches[index];
-        return {
-          x: index + 1,
-          value: winRateTrend
-            ? (value * 100).toFixed(2)
-            : Number((value / (index + 1)).toFixed(2)),
-          independent_value: winRateTrend
-            ? (value * 100).toFixed(2)
-            : match[fieldName],
+        cumulativeSum += currentValue;
+        const nextIndex = index + 1;
+        dataList.push({
+          x: nextIndex,
+          value: Number(cumulativeSum / nextIndex).toFixed(2),
+          independent_value: currentValue,
           match_id: match.match_id,
           hero_id: match.hero_id,
-          win: isRadiant(match.player_slot) === match.radiant_win,
           game_mode: match.game_mode,
           duration: match.duration,
           start_time: match.start_time,
-        };
-      });
+          win,
+        });
+
+        return dataList;
+      }, []);
     })
     .then(json => dispatch(getPlayerTrendsOk(json, playerId)))
     .catch(error => dispatch(getPlayerTrendsError(error, playerId)));

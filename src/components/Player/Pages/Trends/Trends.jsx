@@ -65,9 +65,11 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => {
                     <div>
                       ${formatSeconds(data.duration)}
                     </div>
-                    <div class="${styles.matchValue}">
-                      ${trendStr}: ${data.independent_value}${unit}
-                    </div>
+                    ${selectedTrend === 'win_rate'
+                      ? ''
+                      : `<div class="${styles.matchValue}">
+                          ${trendStr}: ${data.independent_value}${unit}
+                        </div>`}
                   </div>
                   <div class="${styles.hero}">
                     <img class="${styles.heroImg}" src="${API_HOST}${heroes[data.hero_id].img}" />
