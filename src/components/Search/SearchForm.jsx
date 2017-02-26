@@ -10,8 +10,13 @@ class SearchForm extends React.Component {
   constructor(props) {
     super(props);
 
-    const { query } = browserHistory.getCurrentLocation();
-    this.state = { query: query.q };
+    let query = '';
+    const location = browserHistory.getCurrentLocation();
+    if (location.pathname === '/search') {
+      // Avoid getting ?q= from other paths
+      query = location.query.q;
+    }
+    this.state = { query };
 
     this.formSubmit = this.formSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
