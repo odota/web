@@ -118,6 +118,7 @@ const fields = {
     value: 'duration',
     alias: 'as time',
     key: 'duration',
+    formatSeconds: true,
   }, { ...jsonSelect,
     text: strings.heading_item_purchased,
     alias: 'item_name',
