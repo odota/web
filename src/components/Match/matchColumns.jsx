@@ -111,24 +111,28 @@ export const overviewColumns = (match) => {
     sortFn: true,
     color: styles.golden,
     sumFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_xp_per_min,
     tooltip: strings.tooltip_xp_per_min,
     field: 'xp_per_min',
     sortFn: true,
     sumFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_last_hits,
     tooltip: strings.tooltip_last_hits,
     field: 'last_hits',
     sortFn: true,
     sumFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_denies,
     tooltip: strings.tooltip_denies,
     field: 'denies',
     sortFn: true,
     sumFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_hero_damage,
     tooltip: strings.tooltip_hero_damage,
@@ -136,6 +140,7 @@ export const overviewColumns = (match) => {
     displayFn: row => abbreviateNumber(row.hero_damage),
     sortFn: true,
     sumFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_hero_healing,
     tooltip: strings.tooltip_hero_healing,
@@ -143,6 +148,7 @@ export const overviewColumns = (match) => {
     displayFn: row => abbreviateNumber(row.hero_healing),
     sortFn: true,
     sumFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_tower_damage,
     tooltip: strings.tooltip_tower_damage,
@@ -150,6 +156,7 @@ export const overviewColumns = (match) => {
     displayFn: row => abbreviateNumber(row.tower_damage),
     sortFn: true,
     sumFn: true,
+    relativeBars: true,
   }, {
     displayName: (
       <span className={styles.thGold}>
@@ -163,6 +170,7 @@ export const overviewColumns = (match) => {
     sortFn: true,
     color: styles.golden,
     sumFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_items,
     tooltip: strings.tooltip_items,

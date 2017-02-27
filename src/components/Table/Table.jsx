@@ -9,6 +9,7 @@ import {
   TableRow as MaterialTableRow,
   TableRowColumn as MaterialTableRowColumn,
 } from 'material-ui/Table';
+import { TablePercent } from 'components/Visualizations';
 import { abbreviateNumber, sum } from 'utility';
 import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
@@ -33,20 +34,48 @@ const getTable = (data, columns, sortState, sortField, sortClick, numRows, summa
         {data.map((row, index) => (
           <MaterialTableRow key={index}>
             {columns.map((column, colIndex) => {
+              const { field, color, center, displayFn, relativeBars } = column;
+              const value = row[field];
               const style = {
                 // width: `${getWidthStyle(column.width, totalWidth)}%`,
-                overflow: `${column.field === 'kills' ? 'visible' : null}`,
-                color: column.color,
+                overflow: `${field === 'kills' ? 'visible' : null}`,
+                color,
               };
 
-              if (column.center) {
+              if (center) {
                 style.textAlign = 'center';
+              }
+              if (!row) {
+                return (
+                  <MaterialTableRowColumn
+                    key={`${index}_${colIndex}`}
+                    style={style}
+                  />
+                );
+              }
+
+              let fieldEl = null;
+              if (displayFn) {
+                fieldEl = displayFn(row, column, value, index);
+              } else if (!displayFn) {
+                fieldEl = value;
+              }
+              if (relativeBars) {
+                // TODO masad-frost memoize max or something
+                const maxVal = Math.max(...data.map(row => Number(row[column.field])));
+                const relativeValue = (Number(value) >= 0 && maxVal !== 0)
+                  ? Number((value * 100 / maxVal).toFixed(2))
+                  : 0;
+                fieldEl = (<TablePercent
+                  valEl={fieldEl}
+                  val={relativeValue}
+                  total={null} // TODO
+                />);
               }
 
               return (
                 <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style}>
-                  {row && column.displayFn && column.displayFn(row, column, row[column.field], index)}
-                  {row && !column.displayFn && row[column.field]}
+                  {fieldEl}
                 </MaterialTableRowColumn>
               );
             })}

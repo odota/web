@@ -2,10 +2,10 @@ import React from 'react';
 import { gradient } from 'abcolor';
 import styles from './Percent.css';
 
-const percent = ({ val, total }) => (
+const percent = ({ val, total, valEl }) => (
   <div className={styles.container}>
     <div className={styles.title}>
-      {val}% {total && <small>{total}</small>}
+      {valEl || val} {total && <small>{total}</small>}
     </div>
     <div className={styles.percent}>
       <div
@@ -22,7 +22,7 @@ const percent = ({ val, total }) => (
   </div>
 );
 
-const { number, oneOfType, string } = React.PropTypes;
+const { number, oneOfType, string, node } = React.PropTypes;
 
 percent.propTypes = {
   val: number,
@@ -30,6 +30,7 @@ percent.propTypes = {
     string,
     number,
   ]),
+  valEl: node,
 };
 
 export default percent;
