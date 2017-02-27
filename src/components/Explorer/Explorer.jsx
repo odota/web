@@ -33,6 +33,8 @@ import {
   inflictorWithValue,
 }
 from 'components/Visualizations';
+import { IconRadiant, IconDire } from 'components/Icons';
+import matchStyles from 'components/Match/Match.css';
 import querystring from 'querystring';
 import queryTemplate from './queryTemplate';
 import ExplorerFormField from './ExplorerFormField';
@@ -270,6 +272,10 @@ class Explorer extends React.Component {
                 return <span>{inflictorWithValue(field)} {field}</span>;
               } else if (column.field === 'win') {
                 return <span className={field ? styles.textSuccess : styles.textDanger}>{field ? strings.td_win : strings.td_loss}</span>;
+              } else if (column.field === 'is_radiant') {
+                return field
+                ? <span className={matchStyles.teamIconContainer}><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>
+                : <span className={matchStyles.teamIconContainer}><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>;
               }
               return typeof field === 'string' ? field : JSON.stringify(field);
             },
