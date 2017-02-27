@@ -48,18 +48,18 @@ ON player_matches.hero_id = heroes.id
 ${(select && select.join) ? select.join : ''}
 WHERE TRUE
 ${select ? `AND ${select.value} IS NOT NULL` : ''}
-${patch ? `AND patch = '${patch.value}'` : ''}
+${patch ? `AND match_patch.patch = '${patch.value}'` : ''}
 ${hero ? `AND player_matches.hero_id = ${hero.value}` : ''}
-${player ? `AND account_id = ${player.value}` : ''}
-${league ? `AND leagueid = ${league.value}` : ''}
+${player ? `AND player_matches.account_id = ${player.value}` : ''}
+${league ? `AND matches.leagueid = ${league.value}` : ''}
 ${playerPurchased ? `AND (player_matches.purchase->>'${playerPurchased.value}')::int > 0` : ''}
-${duration ? `AND duration > ${duration.value}` : ''}
+${duration ? `AND matches.duration > ${duration.value}` : ''}
 ${side ? `AND (player_matches.player_slot < 128) = ${side.value}` : ''}
 ${result ? `AND ((player_matches.player_slot < 128) = matches.radiant_win) = ${result.value}` : ''}
-${team ? `AND team_id = ${team.value}` : ''}
-${lanePos ? `AND lane_pos = ${lanePos.value}` : ''}
-${minDate ? `AND start_time >= ${Math.round(new Date(minDate.value) / 1000)}` : ''}
-${maxDate ? `AND start_time <= ${Math.round(new Date(maxDate.value) / 1000)}` : ''}
+${team ? `AND notable_players.team_id = ${team.value}` : ''}
+${lanePos ? `AND player_matches.lane_pos = ${lanePos.value}` : ''}
+${minDate ? `AND matches.start_time >= ${Math.round(new Date(minDate.value) / 1000)}` : ''}
+${maxDate ? `AND matches.start_time <= ${Math.round(new Date(maxDate.value) / 1000)}` : ''}
 ${group ? `GROUP BY ${group.value}` : ''}
 ${group ? 'HAVING count(distinct matches.match_id) > 0' : ''}
 ORDER BY ${
