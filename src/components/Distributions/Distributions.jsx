@@ -1,4 +1,4 @@
-/* eslint-disable import/no-dynamic-require */
+/* eslint-disable import/no-dynamic-require,global-require */
 import React from 'react';
 import c3 from 'c3';
 import { connect } from 'react-redux';
