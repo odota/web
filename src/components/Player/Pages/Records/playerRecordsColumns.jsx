@@ -12,7 +12,7 @@ export default [{
 }, {
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
-  field: 'start_time',
+  field: 'hero_id',
   sortFn: true,
   displayFn: transformations.hero_id,
 }, {
