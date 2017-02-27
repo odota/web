@@ -65,8 +65,7 @@ ${group ? 'HAVING count(distinct matches.match_id) > 0' : ''}
 ORDER BY ${
 [`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(select && select.order) || 'DESC'}`,
   group ? 'count DESC' : '',
-].filter(Boolean).join(',')}
-NULLS LAST
+].filter(Boolean).join(',')} NULLS LAST
 LIMIT 150`.replace(/\n{2,}/g, '\n');
 
 export default queryTemplate;

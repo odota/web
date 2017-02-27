@@ -27,7 +27,8 @@ class ExplorerFormField extends React.Component {
     }, builderContext.buildQuery);
   }
   render() {
-    const { dataSource, label, builderField, builderContext, isDateField } = this.props;
+    const { fields, label, builderField, builderContext, isDateField } = this.props;
+    const dataSource = fields && fields[builderField];
     if (isDateField) {
       return (<DatePicker
         ref={ref => (this.datepicker = ref)}

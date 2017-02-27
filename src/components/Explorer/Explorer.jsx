@@ -7,6 +7,8 @@ from 'react-redux';
 import fetch from 'isomorphic-fetch';
 import Spinner from 'components/Spinner';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import AutoComplete from 'material-ui/AutoComplete';
 import {
   Link,
 }
@@ -59,7 +61,7 @@ function jsonResponse(response) {
   return response.json();
 }
 
-function expandBuilderState(builder) {
+function expandBuilderState(builder, fields) {
   const expandedBuilder = {};
   Object.keys(builder).forEach((key) => {
     if (builder[key]) {
@@ -159,58 +161,76 @@ class Explorer extends React.Component {
     });
   }
   buildQuery() {
-    const expandedBuilder = expandBuilderState(this.state.builder);
+    // Note that this will not get expanded data for API-dependent fields (player/league/team)
+    // This is ok if we only need the value prop.
+    const expandedBuilder = expandBuilderState(this.state.builder, fields);
     // console.log(this.state.builder, expandedBuilder);
     this.editor.setValue(queryTemplate(expandedBuilder));
   }
   render() {
-    const proPlayers = this.props.proPlayers.map(player => ({
+    const player = this.props.proPlayers.map(player => ({
       text: player.name,
       value: player.account_id,
       key: String(player.account_id),
     }));
-    const leagues = this.props.leagues.map(league => ({
+    const league = this.props.leagues.map(league => ({
       text: league.name,
       value: league.leagueid,
       key: String(league.leagueid),
     }));
-    const teams = this.props.teams.map(team => ({
+    const team = this.props.teams.map(team => ({
       text: team.name,
       value: team.team_id,
       key: String(team.team_id),
     }));
-    const proPlayerMapping = {};
-    proPlayers.forEach((player) => {
-      proPlayerMapping[player.value] = player.text;
+    const playerMapping = {};
+    player.forEach((player) => {
+      playerMapping[player.value] = player.text;
     });
     const teamMapping = {};
-    teams.forEach((team) => {
+    team.forEach((team) => {
       teamMapping[team.value] = team.text;
     });
-    const expandedBuilder = expandBuilderState(this.state.builder);
+    const expandedFields = { ...fields, player, league, team };
+    const expandedBuilder = expandBuilderState(this.state.builder, expandedFields);
     return (<div>
       <Helmet title={strings.title_explorer} />
       <Heading title={strings.explorer_title} subtitle={strings.explorer_description} />
+      {<TextField
+        style={{ display: 'none' }} floatingLabelText="Omnibox" onChange={(event, value) => {
+          console.log(value, expandedFields);
+        // Fuzzy match against all inputs
+        // TODO tokenize the input string by space
+        // TODO order the keys for precedence
+        // TODO set min threshold on fuzziness (levenshtein)
+          Object.keys(expandedFields).some((key) => {
+            const match = expandedFields[key].find(element => AutoComplete.fuzzyFilter(value, element.text));
+          // Apply state update with match
+            this.setState({ ...this.state, builder: { ...this.state.builder, [key]: match.key } });
+            return Boolean(match);
+          });
+        }}
+      />}
       <div className={styles.formGroup}>
-        <ExplorerFormField label={strings.explorer_select} dataSource={fields.select} builderField="select" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_group_by} dataSource={fields.group} builderField="group" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_hero} dataSource={fields.hero} builderField="hero" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_player} dataSource={proPlayers} builderField="player" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_league} dataSource={leagues} builderField="league" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_patch} dataSource={fields.patch} builderField="patch" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_select} fields={expandedFields} builderField="select" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_group_by} fields={expandedFields} builderField="group" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_hero} fields={expandedFields} builderField="hero" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_player} fields={expandedFields} builderField="player" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_league} fields={expandedFields} builderField="league" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_patch} fields={expandedFields} builderField="patch" builderContext={this} />
         <ExplorerFormField
           label={strings.explorer_player_purchased}
-          dataSource={fields.playerPurchased}
+          fields={expandedFields}
           builderField="playerPurchased"
           builderContext={this}
         />
-        <ExplorerFormField label={strings.explorer_duration} dataSource={fields.duration} builderField="duration" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_side} dataSource={fields.side} builderField="side" builderContext={this} />
-        <ExplorerFormField label={strings.th_result} dataSource={fields.result} builderField="result" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_team} dataSource={teams} builderField="team" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_duration} fields={expandedFields} builderField="duration" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_side} fields={expandedFields} builderField="side" builderContext={this} />
+        <ExplorerFormField label={strings.th_result} fields={expandedFields} builderField="result" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_team} fields={expandedFields} builderField="team" builderContext={this} />
+        {/* <ExplorerFormField label={strings.explorer_lane_pos} fields={expandedFields} builderField="lanePos" builderContext={this} />*/}
         <ExplorerFormField label={strings.explorer_min_date} builderField="minDate" builderContext={this} isDateField />
         <ExplorerFormField label={strings.explorer_max_date} builderField="maxDate" builderContext={this} isDateField />
-        {/* <ExplorerFormField label={strings.explorer_lane_pos} dataSource={fields.lanePos} builderField="lanePos" builderContext={this} />*/}
       </div>
       <div style={{ display: this.state.showEditor ? 'block' : 'none' }}>
         {this.state.loadingEditor && <Spinner />}
@@ -255,7 +275,7 @@ class Explorer extends React.Component {
               } else if (column.field.indexOf('hero_id') === 0) {
                 return transformations.hero_id(row, col, field);
               } else if (column.field.indexOf('account_id') === 0) {
-                return <Link to={`/players/${field}`}>{proPlayerMapping[field] || field}</Link>;
+                return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
               } else if (column.field === 'winrate') {
                 return (field >= 0 && field <= 1 ? <TablePercent
                   val={Number((field * 100).toFixed(2))}
