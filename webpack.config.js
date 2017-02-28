@@ -8,7 +8,6 @@ const postcssImport = require('postcss-import');
 const postcssCssNext = require('postcss-cssnext');
 const postcssBR = require('postcss-browser-reporter');
 const postcssR = require('postcss-reporter');
-const postcssCF = require('postcss-color-function');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -75,7 +74,6 @@ const config = {
           postcssCssNext(),
           postcssBR(),
           postcssR(),
-          postcssCF(),
         ],
       },
     }),
