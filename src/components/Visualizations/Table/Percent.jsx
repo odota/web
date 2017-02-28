@@ -2,10 +2,10 @@ import React from 'react';
 import { gradient } from 'abcolor';
 import styles from './Percent.css';
 
-const percent = ({ val, total, valEl }) => (
+const percent = ({ val, altValue, valEl }) => (
   <div className={styles.container}>
     <div className={styles.title}>
-      {valEl || val} {total && <small>{total}</small>}
+      {valEl || val} {altValue && <small>{altValue}</small>}
     </div>
     <div className={styles.percent}>
       <div

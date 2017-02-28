@@ -1,7 +1,6 @@
 import React from 'react';
 import { TableLink } from 'components/Table';
-import { transformations, getPercentWin } from 'utility';
-import { TablePercent } from 'components/Visualizations';
+import { transformations } from 'utility';
 import strings from 'lang';
 
 export const playerHeroesOverviewColumns = playerId => [{
@@ -20,8 +19,8 @@ export const playerHeroesOverviewColumns = playerId => [{
   displayName: strings.th_win,
   tooltip: strings.tooltip_win_pct_as,
   field: 'win',
-  displayFn: row => <TablePercent val={getPercentWin(row.win, row.games)} />,
   sortFn: row => row.win / row.games,
+  relativeBars: { getDivisor: row => row.games },
 }];
 
 const restColumns = playerId => [{
@@ -34,8 +33,8 @@ const restColumns = playerId => [{
   displayName: strings.th_with_win,
   tooltip: strings.tooltip_win_pct_with,
   field: 'with_win',
-  displayFn: row => <TablePercent val={getPercentWin(row.with_win, row.with_games)} />,
   sortFn: row => row.with_win / row.with_games,
+  relativeBars: { getDivisor: row => row.with_games },
 }, {
   displayName: strings.th_against_games,
   tooltip: strings.tooltip_played_against,
@@ -46,8 +45,8 @@ const restColumns = playerId => [{
   displayName: strings.th_against_win,
   tooltip: strings.tooltip_win_pct_against,
   field: 'against_win',
-  displayFn: row => <TablePercent val={getPercentWin(row.against_win, row.against_games)} />,
   sortFn: row => row.against_win / row.against_games,
+  relativeBars: { getDivisor: row => row.against_games },
 }];
 
 export const playerHeroesColumns = playerId => [

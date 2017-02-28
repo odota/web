@@ -55,22 +55,37 @@ const getTable = (data, columns, sortState, sortField, sortClick, numRows, summa
               }
 
               let fieldEl = null;
-              if (displayFn) {
-                fieldEl = displayFn(row, column, value, index);
-              } else if (!displayFn) {
-                fieldEl = value;
-              }
               if (relativeBars) {
-                // TODO masad-frost memoize max or something
-                const maxVal = Math.max(...data.map(row => Number(row[column.field])));
-                const relativeValue = (Number(value) >= 0 && maxVal !== 0)
-                  ? Number((value * 100 / maxVal).toFixed(2))
+                const {
+                  type,
+                  getDivisor,
+                  getAltValue,
+                } = relativeBars;
+
+                let divisor = 1;
+                if (getDivisor) {
+                  divisor = getDivisor(row);
+                } else if (type === 'max') {
+                  // TODO masad-frost memoize or something
+                  divisor = Math.max(...data.map(row => Number(row[column.field])));
+                } else if (type === 'total') {
+                  divisor = data.reduce((sum, row) => sum + row[column.field], 0);
+                }
+
+                const relativeValue = (Number(value) > 0 && divisor !== 0)
+                  ? Number((value * 100 / divisor).toFixed(2))
                   : 0;
+
+
                 fieldEl = (<TablePercent
-                  valEl={fieldEl}
+                  valEl={displayFn && displayFn(row, column, value, index, relativeValue)}
                   val={relativeValue}
-                  total={null} // TODO
+                  altValue={getAltValue && getAltValue(row)}
                 />);
+              } else if (displayFn) {
+                fieldEl = displayFn(row, column, value, index);
+              } else {
+                fieldEl = value;
               }
 
               return (
