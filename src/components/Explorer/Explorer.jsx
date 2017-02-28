@@ -53,7 +53,6 @@ import styles from './Explorer.css';
 // TODO num roshans killed?
 // TODO item build rates?
 // TODO graphing buttons (pie, timeseries, bar)
-// TODO filter out team 2889074 (not really navi)
 // TODO AEGIS_STOLEN, AEGIS, DENIED_AEGIS, FIRSTBLOOD, PAUSED (requires player1_slot fix)
 // TODO scan/glyph action (use action rather than CHAT_MESSAGE_SCAN/CHAT_MESSAGE_GLYPH_USED)
 
@@ -169,7 +168,7 @@ class Explorer extends React.Component {
   }
   render() {
     const player = this.props.proPlayers.map(player => ({
-      text: player.name,
+      text: player.account_id === 84772440 ? 'iceiceice' : player.name,
       value: player.account_id,
       key: String(player.account_id),
     }));
