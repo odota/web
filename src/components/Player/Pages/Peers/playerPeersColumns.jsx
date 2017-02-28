@@ -10,7 +10,7 @@ const avatarMatches = playerId => [{
   displayFn: transformations.player,
   sortFn: true,
 }, {
-  displayName: strings.th_matches,
+  displayName: strings.th_games,
   tooltip: strings.tooltip_matches,
   field: 'matches',
   sortFn: row => row.with_games + row.against_games,

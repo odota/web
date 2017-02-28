@@ -20,11 +20,123 @@ import Container from 'components/Container';
 import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesColumns';
 import { playerHeroesOverviewColumns } from 'components/Player/Pages/Heroes/playerHeroesColumns';
 import { playerPeersOverviewColumns } from 'components/Player/Pages/Peers/playerPeersColumns';
+import {
+  isRadiant,
+  sum,
+  formatSeconds,
+  abbreviateNumber,
+} from 'utility';
+import { defaultPlayerMatchesOptions } from 'actions/player/playerMatchesActions';
 import styles from './Overview.css';
 
 const MAX_MATCHES_ROWS = 20;
 const MAX_HEROES_ROWS = 10;
 const MAX_PEERS_ROWS = 5;
+
+const SummOfRecMatches = ({ matchesLoading, matchesError, matchesData }) => {
+  // initial values
+  const data = {
+    duration: [],
+    kills: [],
+    deaths: [],
+    assists: [],
+    xp_per_min: [],
+    gold_per_min: [],
+    hero_damage: [],
+    hero_healing: [],
+    last_hits: [],
+
+    wins: [],
+  };
+
+  const computed = {};
+
+  if (!matchesLoading && !matchesError) {
+    const dataKeys = Object.keys(data);
+
+    for (let i = 0; i < MAX_MATCHES_ROWS; i += 1) {
+      dataKeys.map((key) => {
+        if (key === 'wins') {
+          data.wins.push(matchesData[i].radiant_win === isRadiant(matchesData[i].player_slot));
+        } else {
+          data[key].push(matchesData[i][key]);
+        }
+
+        return null;
+      });
+    }
+
+    dataKeys.map((key) => {
+      if (key !== 'wins') {
+        const avg = data[key].reduce(sum, 0) / MAX_MATCHES_ROWS;
+        const max = Math.max(...data[key]);
+        const maxMatch = matchesData.find(match => match[key] === max);
+
+        let color;
+
+        switch (key) {
+          case 'kills':
+            color = 'green';
+            break;
+          case 'deaths':
+            color = 'red';
+            break;
+          case 'assists':
+            color = 'lightGray';
+            break;
+          case 'gold_per_min':
+            color = 'golden';
+            break;
+          default:
+            color = false;
+        }
+
+        computed[key] = {
+          avg,
+          color,
+          max: {
+            value: max,
+            matchId: maxMatch.match_id,
+            heroId: maxMatch.hero_id,
+            // ended: maxMatch.start_time + maxMatch.duration,
+          },
+        };
+      }
+
+      return null;
+    });
+  }
+
+  return (
+    <Container
+      title="Summary of Recent Matches"
+      className={styles.summaryContainer}
+      loading={matchesLoading}
+      error={matchesError}
+    >
+      <div>
+        <ul>
+          {Object.keys(computed).map((key) => {
+            const c = computed[key];
+
+            return (
+              <li key={key}>
+                <span>{key}</span>
+                <p style={{ color: styles[c.color] }}>
+                  {key === 'duration' ? formatSeconds(c.avg) : abbreviateNumber(c.avg)}
+                  &nbsp;
+                  <span>
+                    {key === 'duration' ? formatSeconds(c.max.value) : abbreviateNumber(c.max.value)}
+                  </span>
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </Container>
+  );
+};
 
 const Overview = ({
   matchesData,
@@ -39,6 +151,11 @@ const Overview = ({
   playerId,
 }) => (
   <div className={styles.overviewContainer}>
+    <SummOfRecMatches
+      matchesLoading={matchesLoading}
+      matchesError={matchesError}
+      matchesData={matchesData}
+    />
     <Container
       title={strings.heading_matches}
       className={styles.matchesContainer}
@@ -84,6 +201,14 @@ const getData = (props) => {
   props.getPlayerMatches(props.playerId, { ...props.location.query,
     limit: MAX_MATCHES_ROWS,
     significant: 0,
+    project: defaultPlayerMatchesOptions.project
+      .concat([
+        'xp_per_min',
+        'gold_per_min',
+        'hero_damage',
+        'hero_healing',
+        'last_hits',
+      ]),
   });
   props.getPlayerHeroes(props.playerId, props.location.query);
   props.getPlayerPeers(props.playerId, props.location.query);

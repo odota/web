@@ -22,3 +22,34 @@
     width: 100%;
   }
 }
+
+.summaryContainer {
+  width: 100%;
+
+  & ul {
+    margin: 0;
+    padding: 0;
+
+    & li {
+      list-style: none;
+      display: inline-block;
+      margin-bottom: 20px;
+
+      &:not(:last-child) {
+        margin-right: 25px;
+      }
+
+      & p {
+        margin: 0;
+        padding: 0;
+        font-size: 24px;
+      }
+
+      & span {
+        font-size: var(--fontSizeSmall);
+        color: var(--colorMutedLight);
+        text-transform: uppercase;
+      }
+    }
+  }
+}
