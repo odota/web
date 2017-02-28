@@ -137,6 +137,28 @@ const renderEvent = (event, match) => {
         return renderTemplate(event.radiant_win ? strings.story_lane_radiant_win : strings.story_lane_radiant_lose, vars_dict);
       });
       return [ strings.story_lane_intro, <ul>{lanes.map(lane => <li>{lane}</li>)}</ul> ];
+    case "building":
+      vars_dict = {
+        building: event.is_tower ? strings.CHAT_MESSAGE_TOWER_KILL : strings[`barracks_value_${event.key}`],
+        player: match.players
+                  .filter(player => player.player_slot == event.player_slot)
+                  .map(player => PlayerSpan({...player})) || null,
+        is_deny: event.is_deny,
+        team: TeamSpan(event.team == 2)
+      }
+      // barracks_value_{key}
+      // objective_tower1_top
+      if(vars_dict.player.length == 0){
+        return renderTemplate(strings.story_building_destroy, vars_dict);
+      }
+      else{
+        if(vars_dict.is_deny){
+          return renderTemplate(strings.story_building_deny_player, vars_dict);
+        }
+        else{
+          return renderTemplate(strings.story_building_destroy_player, vars_dict);
+        }
+      }
     case "gameover":
       vars_dict = {
         duration: formatSeconds(match.duration),
@@ -237,6 +259,21 @@ const generateStory = (match) => {
         })
     });
   }
+
+  // Towers & Barracks
+  events = events.concat(
+    match.objectives
+      .filter(obj => obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY' || obj.type === 'CHAT_MESSAGE_BARRACKS_KILL')
+      .map((obj, i) => ({
+        type: 'building',
+        time: obj.time,
+        team: obj.team,
+        is_tower: obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY',
+        is_deny: obj.type === 'CHAT_MESSAGE_TOWER_DENY',
+        key: obj.key < 64 ? obj.key : obj.key << 6,
+        player_slot: obj.player_slot || null,
+      })) || [],
+  )
 
   // Gameover
   events.push({
