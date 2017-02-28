@@ -48,7 +48,21 @@
       & span {
         font-size: var(--fontSizeSmall);
         color: var(--colorMutedLight);
-        text-transform: uppercase;
+
+        &:first-child {
+          text-transform: uppercase;
+        }
+      }
+
+      & img {
+        height: 20px;
+        width: auto;
+        vertical-align: text-bottom;
+        transition: var(--normalTransition);
+
+        &:hover {
+          opacity: 0.7;
+        }
       }
     }
   }

@@ -27,6 +27,8 @@ import {
   abbreviateNumber,
 } from 'utility';
 import { defaultPlayerMatchesOptions } from 'actions/player/playerMatchesActions';
+import { Link } from 'react-router';
+import heroes from 'dotaconstants/build/heroes.json';
 import styles from './Overview.css';
 
 const MAX_MATCHES_ROWS = 20;
@@ -36,7 +38,6 @@ const MAX_PEERS_ROWS = 5;
 const SummOfRecMatches = ({ matchesLoading, matchesError, matchesData }) => {
   // initial values
   const data = {
-    duration: [],
     kills: [],
     deaths: [],
     assists: [],
@@ -45,11 +46,14 @@ const SummOfRecMatches = ({ matchesLoading, matchesError, matchesData }) => {
     hero_damage: [],
     hero_healing: [],
     last_hits: [],
+    duration: [],
 
     wins: [],
   };
-
   const computed = {};
+
+  let winrate = 0;
+  let kla = 0;
 
   if (!matchesLoading && !matchesError) {
     const dataKeys = Object.keys(data);
@@ -105,6 +109,12 @@ const SummOfRecMatches = ({ matchesLoading, matchesError, matchesData }) => {
 
       return null;
     });
+
+    winrate = Number((data.wins
+    .filter(Boolean)
+    .reduce(sum, 0) * 100 / MAX_MATCHES_ROWS)
+      .toFixed(2));
+    kla = Number(((computed.kills.avg + computed.assists.avg) / (computed.deaths.avg + 1)).toFixed(2));
   }
 
   return (
@@ -116,6 +126,14 @@ const SummOfRecMatches = ({ matchesLoading, matchesError, matchesData }) => {
     >
       <div>
         <ul>
+          <li>
+            <span>winrate</span>
+            <p>{winrate}%</p>
+          </li>
+          <li>
+            <span>kla</span>
+            <p>{kla}</p>
+          </li>
           {Object.keys(computed).map((key) => {
             const c = computed[key];
 
@@ -125,8 +143,11 @@ const SummOfRecMatches = ({ matchesLoading, matchesError, matchesData }) => {
                 <p style={{ color: styles[c.color] }}>
                   {key === 'duration' ? formatSeconds(c.avg) : abbreviateNumber(c.avg)}
                   &nbsp;
-                  <span>
-                    {key === 'duration' ? formatSeconds(c.max.value) : abbreviateNumber(c.max.value)}
+                  <span>{key === 'duration' ? formatSeconds(c.max.value) : abbreviateNumber(c.max.value)}
+                    &nbsp;
+                    <Link to={`matches/${c.max.matchId}`}>
+                      <img src={`${API_HOST}${heroes[c.max.heroId].icon}`} alt={heroes[c.max.heroId].localized_name} />
+                    </Link>
                   </span>
                 </p>
               </li>
