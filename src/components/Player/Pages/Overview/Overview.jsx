@@ -20,9 +20,12 @@ import Container from 'components/Container';
 import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesColumns';
 import { playerHeroesOverviewColumns } from 'components/Player/Pages/Heroes/playerHeroesColumns';
 import { playerPeersOverviewColumns } from 'components/Player/Pages/Peers/playerPeersColumns';
+import { defaultPlayerMatchesOptions } from 'actions/player/playerMatchesActions';
+import util from 'util';
 import styles from './Overview.css';
+import SummOfRecMatches from './Summary';
 
-const MAX_MATCHES_ROWS = 20;
+export const MAX_MATCHES_ROWS = 20;
 const MAX_HEROES_ROWS = 10;
 const MAX_PEERS_ROWS = 5;
 
@@ -39,6 +42,14 @@ const Overview = ({
   playerId,
 }) => (
   <div className={styles.overviewContainer}>
+    <Container
+      title={strings.heading_avg_and_max}
+      subtitle={util.format(strings.subheading_avg_and_max, MAX_MATCHES_ROWS)}
+      loading={matchesLoading}
+      error={matchesError}
+    >
+      <SummOfRecMatches matchesData={matchesData} />
+    </Container>
     <Container
       title={strings.heading_matches}
       className={styles.matchesContainer}
@@ -84,6 +95,15 @@ const getData = (props) => {
   props.getPlayerMatches(props.playerId, { ...props.location.query,
     limit: MAX_MATCHES_ROWS,
     significant: 0,
+    project: defaultPlayerMatchesOptions.project
+      .concat([
+        'xp_per_min',
+        'gold_per_min',
+        'hero_damage',
+        'tower_damage',
+        'hero_healing',
+        'last_hits',
+      ]),
   });
   props.getPlayerHeroes(props.playerId, props.location.query);
   props.getPlayerPeers(props.playerId, props.location.query);
