@@ -17,13 +17,13 @@ const SummOfRecMatches = ({ matchesData }) => {
     kills: [],
     deaths: [],
     assists: [],
-    xp_per_min: [],
     gold_per_min: [],
+    xp_per_min: [],
+    last_hits: [],
     hero_damage: [],
     hero_healing: [],
-    last_hits: [],
+    tower_damage: [],
     duration: [],
-
     wins: [],
   };
   const computed = {};

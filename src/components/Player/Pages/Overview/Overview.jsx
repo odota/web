@@ -100,6 +100,7 @@ const getData = (props) => {
         'xp_per_min',
         'gold_per_min',
         'hero_damage',
+        'tower_damage',
         'hero_healing',
         'last_hits',
       ]),
