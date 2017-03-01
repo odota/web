@@ -21,6 +21,7 @@ import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesC
 import { playerHeroesOverviewColumns } from 'components/Player/Pages/Heroes/playerHeroesColumns';
 import { playerPeersOverviewColumns } from 'components/Player/Pages/Peers/playerPeersColumns';
 import { defaultPlayerMatchesOptions } from 'actions/player/playerMatchesActions';
+import util from 'util';
 import styles from './Overview.css';
 import SummOfRecMatches from './Summary';
 
@@ -41,11 +42,14 @@ const Overview = ({
   playerId,
 }) => (
   <div className={styles.overviewContainer}>
-    <SummOfRecMatches
-      matchesLoading={matchesLoading}
-      matchesError={matchesError}
-      matchesData={matchesData}
-    />
+    <Container
+      title={strings.heading_avg_and_max}
+      subtitle={util.format(strings.subheading_avg_and_max, MAX_MATCHES_ROWS)}
+      loading={matchesLoading}
+      error={matchesError}
+    >
+      <SummOfRecMatches matchesData={matchesData} />
+    </Container>
     <Container
       title={strings.heading_matches}
       className={styles.matchesContainer}
