@@ -163,7 +163,7 @@ const fields = {
   }),
     killSelect({
       text: strings.heading_roshan,
-      unitLey: 'npc_dota_roshan',
+      unitKey: 'npc_dota_roshan',
     }),
     killSelect({
       text: strings.heading_tower,

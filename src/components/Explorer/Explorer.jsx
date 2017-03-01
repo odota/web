@@ -167,8 +167,11 @@ class Explorer extends React.Component {
     this.editor.setValue(queryTemplate(expandedBuilder));
   }
   render() {
+    const specials = {
+      84772440: 'iceiceice',
+    };
     const player = this.props.proPlayers.map(player => ({
-      text: player.account_id === 84772440 ? 'iceiceice' : player.name,
+      text: specials[player.account_id] || player.name,
       value: player.account_id,
       key: String(player.account_id),
     }));
