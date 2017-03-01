@@ -275,6 +275,8 @@
   "heading_region":"Region",
   "heading_patch":"Patch",
   "heading_win_rate":"Win Rate",
+  "heading_avg_and_max":"Averages/Maximums",
+  "subheading_avg_and_max":"in last %d matches",
   "hero_pro_tab":"Professional",
   "hero_public_tab":"Public",
   "hero_pro_heading":"Heroes in Professional Matches",
