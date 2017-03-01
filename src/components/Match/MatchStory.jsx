@@ -41,7 +41,7 @@ const formatList = (items, none_value = []) => {
 }
 
 const GoldSpan = (amount) => (
-  <span className={styles.container}>
+  <span className={styles.storySpan}>
     <font color={styles.golden}>{amount} </font>
     <img
       role="presentation"
@@ -52,7 +52,7 @@ const GoldSpan = (amount) => (
 );
 
 const TeamSpan = (is_radiant) => (
-  <span style={{ color: (is_radiant ? radiantColor : direColor) }} className={styles.teamIconContainer}>
+  <span style={{ color: (is_radiant ? radiantColor : direColor) }} className={styles.storySpan}>
     {is_radiant ? <IconRadiant className={styles.iconRadiant} /> : <IconDire className={styles.iconDire} />}
     {is_radiant ? strings.general_radiant : strings.general_dire}
   </span>
@@ -60,7 +60,7 @@ const TeamSpan = (is_radiant) => (
 
 // Modified version of PlayerThumb
 const PlayerSpan = ({ hero_id, personaname, isRadiant }) => (
-  <span style={{ color: (isRadiant ? radiantColor : direColor) }} className={styles.container}>
+  <span style={{ color: (isRadiant ? radiantColor : direColor) }} className={styles.storySpan}>
     <img
       className={styles.heroThumb}
       src={heroes[hero_id]
@@ -68,9 +68,6 @@ const PlayerSpan = ({ hero_id, personaname, isRadiant }) => (
         : '/assets/images/blank-1x1.gif'
       }
       role="presentation"
-      height="24px"
-      width="24px"
-      style={{ "verticalAlign": "middle" }}
     />
     {heroes[hero_id].localized_name}
   </span>
@@ -94,7 +91,7 @@ class StoryEvent extends React.Component{
     this.time = time;
   }
   render() {
-    return <div style={{ "marginBottom": "24px" }}>{this.format()}</div>;
+    return <p>{this.format()}</p>;
   }
 }
 
@@ -106,10 +103,10 @@ class TeamfightEvent extends StoryEvent {
     this.winning_team = fight.radiant_gold_advantage_delta >= 0; // is_radiant value basically
     this.gold_delta = Math.abs(fight.radiant_gold_advantage_delta);
     let deaths = fight.players
-        .map((player, i) => (player.deaths > 0 ? {key: i, count: player.deaths} : ''))
-        .map(death => match.players[death.key]).filter(p => p);
-    this.win_dead = deaths.filter(player => player.isRadiant == this.winning_team);
-    this.lose_dead = deaths.filter(player => player.isRadiant != this.winning_team);
+        .map((player, i) => ({player: match.players[i], count: player.deaths}))
+        .filter(death => death.count > 0);
+    this.win_dead = deaths.filter(death => death.player.isRadiant == this.winning_team);
+    this.lose_dead = deaths.filter(death => death.player.isRadiant != this.winning_team);
     this.during_events = [];
     this.after_events = [];
   }
@@ -117,8 +114,10 @@ class TeamfightEvent extends StoryEvent {
     var formatted = [ renderTemplate(this.win_dead.length > 0 ? strings.story_teamfight : strings.story_teamfight_none_dead, {
       winning_team: TeamSpan(this.winning_team),
       net_change: GoldSpan(this.gold_delta),
-      win_dead: formatList(this.win_dead.map(PlayerSpan)),
-      lose_dead: formatList(this.lose_dead.map(PlayerSpan))
+      win_dead: formatList(this.win_dead.map(death => 
+        death.count == 1 ? new PlayerSpan(death.player) : [ new PlayerSpan(death.player), `(x${death.count})` ])),
+      lose_dead: formatList(this.lose_dead.map(death => 
+        death.count == 1 ? new PlayerSpan(death.player) : [ new PlayerSpan(death.player), `(x${death.count})` ]))
     }) ];
     if(this.during_events.length > 0){
       formatted = formatted.concat(renderTemplate(strings.story_during_teamfight, 
@@ -217,7 +216,7 @@ class LanesEvent extends StoryEvent {
 class BuildingEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
-    this.team = obj.team == 2;
+    this.team = !(obj.team == 2); // We want the team that the tower belongs to, so get the opposite
     this.is_tower = obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY';
     this.is_deny = obj.type === 'CHAT_MESSAGE_TOWER_DENY';
     this.key = obj.key < 64 ? obj.key : obj.key << 6;
@@ -230,7 +229,7 @@ class BuildingEvent extends StoryEvent {
     return renderTemplate(!this.player ? strings.story_building_destroy : (this.is_deny ? strings.story_building_deny_player : strings.story_building_destroy_player), {
       building: this.localized_building,
       player: this.player ? PlayerSpan(this.player) : null,
-      team: TeamSpan(this.player)
+      team: TeamSpan(this.team)
     });
   }
 }
