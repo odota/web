@@ -46,7 +46,7 @@ const GoldSpan = (amount) => (
     <img
       role="presentation"
       src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
-      style={{ "vertical-align": "middle" }}
+      style={{ "verticalAlign": "middle" }}
     />
   </span>
 );
@@ -100,32 +100,41 @@ class StoryEvent extends React.Component{
 
 class TeamfightEvent extends StoryEvent {
   constructor(match, fight) {
-    super();
-    this.time = fight.start;
+    super(fight.start);
     this.time_end = fight.end;
 
-    this.winning_team = fight.radiant_gold_advantage_delt >= 0 // is_radiant value basically
-    this.gold_delta = Math.abs(fight.radiant_gold_advantage_delta)
+    this.winning_team = fight.radiant_gold_advantage_delta >= 0; // is_radiant value basically
+    this.gold_delta = Math.abs(fight.radiant_gold_advantage_delta);
     let deaths = fight.players
         .map((player, i) => (player.deaths > 0 ? {key: i, count: player.deaths} : ''))
         .map(death => match.players[death.key]).filter(p => p);
     this.win_dead = deaths.filter(player => player.isRadiant == this.winning_team);
     this.lose_dead = deaths.filter(player => player.isRadiant != this.winning_team);
+    this.during_events = [];
+    this.after_events = [];
   }
   format() {
-    return renderTemplate(this.win_dead.length > 0 ? strings.story_teamfight : strings.story_teamfight_none_dead, {
+    var formatted = [ renderTemplate(this.win_dead.length > 0 ? strings.story_teamfight : strings.story_teamfight_none_dead, {
       winning_team: TeamSpan(this.winning_team),
       net_change: GoldSpan(this.gold_delta),
       win_dead: formatList(this.win_dead.map(PlayerSpan)),
       lose_dead: formatList(this.lose_dead.map(PlayerSpan))
-    });
+    }) ];
+    if(this.during_events.length > 0){
+      formatted = formatted.concat(renderTemplate(strings.story_during_teamfight, 
+        { events: formatList(this.during_events.map(event => event.format())) }));
+    }
+    if(this.after_events.length > 0){
+      formatted = formatted.concat(renderTemplate(strings.story_after_teamfight, 
+        { events: formatList(this.after_events.map(event => event.format())) }));
+    }
+    return formatted;
   }
 }
 
 class FirstbloodEvent extends StoryEvent {
   constructor(match, time, player_slot, key) {
-    super();
-    this.time = time;
+    super(time);
     this.killer = match.players.find(player => player.player_slot === player_slot);
     this.victim = match.players.find(player => {
       const foundHero = heroesArr('find')(hero => hero.name === key);
@@ -143,8 +152,7 @@ class FirstbloodEvent extends StoryEvent {
 
 class AegisEvent extends StoryEvent {
   constructor(match, obj, index) {
-    super();
-    this.time = obj.time;
+    super(obj.time);
     this.action = obj.type;
     this.index = index;
     this.player = match.players.find(player => player.player_slot == obj.player_slot);
@@ -163,11 +171,10 @@ class AegisEvent extends StoryEvent {
 }
 
 class RoshanEvent extends StoryEvent {
-  constructor(match, obj, index) {
-    super();
-    this.time = obj.time;
+  constructor(match, obj, index, aegis_events) {
+    super(obj.time);
     this.team = obj.team == 2;
-    this.index = index;
+    this.aegis = aegis_events.find(aegis => aegis.index == index);
   }
   format() {
     let formatted = renderTemplate(strings.story_roshan, { team: TeamSpan(this.team) });
@@ -199,8 +206,7 @@ class LaneStory {
 
 class LanesEvent extends StoryEvent {
   constructor(match) {
-    super();
-    this.time = 10 * 60;
+    super(10 * 60);
     this.lanes = [ 1, 2, 3 ].map(lane => new LaneStory(match, lane));
   }
   format() {
@@ -210,17 +216,19 @@ class LanesEvent extends StoryEvent {
 
 class BuildingEvent extends StoryEvent {
   constructor(match, obj) {
-    super();
-    this.time = obj.time;
+    super(obj.time);
     this.team = obj.team == 2;
     this.is_tower = obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY';
     this.is_deny = obj.type === 'CHAT_MESSAGE_TOWER_DENY';
     this.key = obj.key < 64 ? obj.key : obj.key << 6;
     this.player = match.players.find(player => player.player_slot == obj.player_slot);
   }
+  get localized_building() {
+    return this.is_tower ? strings.CHAT_MESSAGE_TOWER_KILL : strings[`story_barracks_value_${this.key}`];
+  }
   format() {
     return renderTemplate(!this.player ? strings.story_building_destroy : (this.is_deny ? strings.story_building_deny_player : strings.story_building_destroy_player), {
-      building: this.is_tower ? strings.CHAT_MESSAGE_TOWER_KILL : strings[`story_barracks_value_${this.key}`],
+      building: this.localized_building,
       player: this.player ? PlayerSpan(this.player) : null,
       team: TeamSpan(this.player)
     });
@@ -229,8 +237,7 @@ class BuildingEvent extends StoryEvent {
 
 class GameoverEvent extends StoryEvent {
   constructor(match) {
-    super();
-    this.time = match.duration;
+    super(match.duration);
     this.winning_team = match.radiant_win;
     this.radiant_score = match.radiant_score;
     this.dire_score = match.dire_score;
@@ -266,16 +273,16 @@ const generateStory = (match) => {
 
 
   // Aegis pickups
-  events = events.concat(match.objectives
+  let aegis_events = match.objectives
     .filter(obj => obj.type === 'CHAT_MESSAGE_AEGIS' ||
                    obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' ||
                    obj.type === 'CHAT_MESSAGE_DENIED_AEGIS')
-    .map((obj, index) => new AegisEvent(match, obj, index)))
+    .map((obj, index) => new AegisEvent(match, obj, index));
 
   // Roshan kills, team 2 = radiant, 3 = dire
   events = events.concat(match.objectives
     .filter(obj => obj.type == 'CHAT_MESSAGE_ROSHAN_KILL')
-    .map((obj, index) => new RoshanEvent(match, obj, index)))
+    .map((obj, index) => new RoshanEvent(match, obj, index, aegis_events)))
 
   // Teamfights
   events = events.concat(match.teamfights && match.teamfights.length > 0 ? match.teamfights.map(fight => new TeamfightEvent(match, fight)) : []);
@@ -295,6 +302,31 @@ const generateStory = (match) => {
 
   // Sort by time
   events.sort((a, b) => {return a.time - b.time});
+
+  //////// Group events together now
+
+  // Group during events for teamfights
+
+  var last_fight = null;
+  for(var i = 0; i < events.length; i++) {
+    if(events[i] instanceof TeamfightEvent){
+      last_fight = events[i];
+      continue;
+    }
+    if(last_fight == null) { continue; }
+    if(events[i] instanceof RoshanEvent || events[i] instanceof BuildingEvent) {
+      if(events[i].time < last_fight.time_end){ // During
+        last_fight.during_events.push(events[i]);
+        events.splice(i, 1);
+        i--;
+      }
+      else if(events[i].time < last_fight.time_end + (60 * 2)){ // After (within 2 minutes)
+        last_fight.after_events.push(events[i]);
+        events.splice(i, 1);
+        i--;
+      }
+    }
+  }
 
   return events;
 };

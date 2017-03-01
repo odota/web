@@ -465,6 +465,8 @@
   "story_building_destroy": "{team}'s {building} was destroyed",
   "story_building_destroy_player": "{player} destroyed {team}'s {building}",
   "story_building_deny_player": "{player} denied {team}'s {building}",
+  "story_during_teamfight": ". During the fight, {events}",
+  "story_after_teamfight": ". After the fight, {events}",
 
   "story_barracks_value_1": "Bot Melee Barracks",
   "story_barracks_value_2": "Bot Ranged Barracks",
