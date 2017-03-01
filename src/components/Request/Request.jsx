@@ -7,7 +7,6 @@ import TextField from 'material-ui/TextField';
 import { requestSubmit, setMatchId } from 'actions';
 import strings from 'lang';
 
-// TODO localize strings
 class Request extends React.Component {
   componentWillMount() {
     this.props.dispatchMatchId(window.location.hash.slice(1));
@@ -25,15 +24,15 @@ class Request extends React.Component {
     return (
       <div style={{ textAlign: 'center' }}>
         <Helmet title={strings.title_request} />
-        <h1>Request a Parse</h1>
+        <h1>{strings.request_title}</h1>
         <TextField
           id="match_id"
-          floatingLabelText="Match ID"
-          errorText={error ? 'Failed to get match data' : false}
+          floatingLabelText={strings.request_match_id}
+          errorText={error ? strings.request_error : false}
           value={matchId}
           onChange={e => dispatchMatchId(e.target.value)}
         />
-        <div>{loading ? progressIndicator : <RaisedButton style={{ }} label="Submit" onClick={submit} />}</div>
+        <div>{loading ? progressIndicator : <RaisedButton label={strings.request_submit} onClick={submit} />}</div>
       </div>
     );
   }

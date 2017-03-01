@@ -16,7 +16,7 @@ import {
 } from 'components/Visualizations';
 import strings from 'lang';
 import subTextStyle from 'components/Visualizations/Table/subText.css';
-import { findLast } from 'lodash';
+import findLast from 'lodash.findlast';
 import _ from 'lodash/fp';
 import util from 'util';
 

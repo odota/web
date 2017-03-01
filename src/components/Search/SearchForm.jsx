@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import { debounce } from 'lodash';
+import debounce from 'lodash.debounce';
 import TextField from 'material-ui/TextField';
 import { getSearchResultAndPros, setSearchQuery } from 'actions';
+import strings from 'lang';
 import styles from './search.css';
 
 class SearchForm extends React.Component {
@@ -48,7 +49,7 @@ class SearchForm extends React.Component {
     return (
       <form onSubmit={this.formSubmit}>
         <TextField
-          hintText={'Player Search'}
+          hintText={strings.search_title}
           value={this.state.query}
           onChange={this.handleChange}
           fullWidth

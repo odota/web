@@ -52,7 +52,7 @@ import styles from './Explorer.css';
 // TODO num wards placed?
 // TODO num roshans killed?
 // TODO item build rates?
-// TODO graphing buttons (pie, timeseries, bar)
+// TODO graphing buttons (pie for count, bar for avg, timeseries for group by patch)
 // TODO AEGIS_STOLEN, AEGIS, DENIED_AEGIS, FIRSTBLOOD, PAUSED (requires player1_slot fix)
 // TODO scan/glyph action (use action rather than CHAT_MESSAGE_SCAN/CHAT_MESSAGE_GLYPH_USED)
 
@@ -70,6 +70,49 @@ function expandBuilderState(builder, fields) {
     }
   });
   return expandedBuilder;
+}
+
+function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping }) {
+  return (<Table
+    data={rows || []}
+    columns={(fields || []).map(column => ({
+      displayName: column.name,
+      field: column.name,
+    })).map(column => ({
+      ...column,
+      displayFn: (row, col, field) => {
+        if (column.field === 'match_id') {
+          return <Link to={`/matches/${field}`}>{field}</Link>;
+        } else if (column.field.indexOf('hero_id') === 0) {
+          return transformations.hero_id(row, col, field);
+        } else if (column.field.indexOf('account_id') === 0) {
+          return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
+        } else if (column.field === 'winrate') {
+          return (field >= 0 && field <= 1 ? <TablePercent
+            val={Number((field * 100).toFixed(2))}
+          /> : null);
+        } else if (column.field === 'rune_id') {
+          return strings[`rune_${field}`];
+        } else if (column.field === 'item_name') {
+          return itemData[field] ? itemData[field].dname : field;
+        } else if (column.field === 'team_id') {
+          return teamMapping[field] || field;
+        } else if (column.field === 'time' || (column.field === 'avg' && expandedBuilder.select && expandedBuilder.select.formatSeconds)) {
+          return formatSeconds(field);
+        } else if (column.field === 'inflictor') {
+          return <span>{inflictorWithValue(field)} {field}</span>;
+        } else if (column.field === 'win') {
+          return <span className={field ? styles.textSuccess : styles.textDanger}>{field ? strings.td_win : strings.td_loss}</span>;
+        } else if (column.field === 'is_radiant') {
+          return field
+          ? <span className={matchStyles.teamIconContainer}><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>
+          : <span className={matchStyles.teamIconContainer}><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>;
+        }
+        return typeof field === 'string' ? field : JSON.stringify(field);
+      },
+      sortFn: row => (isNaN(Number(row[column.field])) ? row[column.field] : Number(row[column.field])),
+    }))}
+  />);
 }
 
 class Explorer extends React.Component {
@@ -155,7 +198,6 @@ class Explorer extends React.Component {
   handleResponse(json) {
     this.setState({ ...this.state,
       querying: false,
-      open: false,
       result: json,
     });
   }
@@ -263,49 +305,13 @@ class Explorer extends React.Component {
       </div>
       <Heading title={strings.explorer_results} subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`} />
       <pre style={{ color: 'red' }}>{this.state.result.err}</pre>
-      {!this.state.querying ?
-        <Table
-          data={this.state.result.rows || []}
-          columns={(this.state.result.fields || []).map(column => ({
-            displayName: column.name,
-            field: column.name,
-          })).map(column => ({
-            ...column,
-            displayFn: (row, col, field) => {
-              if (column.field === 'match_id') {
-                return <Link to={`/matches/${field}`}>{field}</Link>;
-              } else if (column.field.indexOf('hero_id') === 0) {
-                return transformations.hero_id(row, col, field);
-              } else if (column.field.indexOf('account_id') === 0) {
-                return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
-              } else if (column.field === 'winrate') {
-                return (field >= 0 && field <= 1 ? <TablePercent
-                  val={Number((field * 100).toFixed(2))}
-                /> : null);
-              } else if (column.field === 'rune_id') {
-                return strings[`rune_${field}`];
-              } else if (column.field === 'item_name') {
-                return itemData[field] ? itemData[field].dname : field;
-              } else if (column.field === 'team_id') {
-                return teamMapping[field] || field;
-              } else if (column.field === 'time' || (column.field === 'avg' && expandedBuilder.select && expandedBuilder.select.formatSeconds)) {
-                return formatSeconds(field);
-              } else if (column.field === 'inflictor') {
-                return <span>{inflictorWithValue(field)} {field}</span>;
-              } else if (column.field === 'win') {
-                return <span className={field ? styles.textSuccess : styles.textDanger}>{field ? strings.td_win : strings.td_loss}</span>;
-              } else if (column.field === 'is_radiant') {
-                return field
-                ? <span className={matchStyles.teamIconContainer}><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>
-                : <span className={matchStyles.teamIconContainer}><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>;
-              }
-              return typeof field === 'string' ? field : JSON.stringify(field);
-            },
-            sortFn: row => (isNaN(Number(row[column.field])) ? row[column.field] : Number(row[column.field])),
-          }))}
-        />
-        : <Spinner />
-      }
+      {!this.state.querying ? drawOutput({
+        rows: this.state.result.rows,
+        fields: this.state.result.fields,
+        expandedBuilder,
+        playerMapping,
+        teamMapping,
+      }) : <Spinner />}
     </div>);
   }
 }
