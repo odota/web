@@ -1,0 +1,139 @@
+import React from 'react';
+import { Link } from 'react-router';
+import {
+  isRadiant,
+  sum,
+  formatSeconds,
+  abbreviateNumber,
+} from 'utility';
+import Container from 'components/Container';
+import heroes from 'dotaconstants/build/heroes.json';
+import strings from 'lang';
+import util from 'util';
+import { MAX_MATCHES_ROWS } from './Overview';
+import styles from './Summary.css';
+
+const SummOfRecMatches = ({ matchesLoading, matchesError, matchesData }) => {
+  // initial values
+  const data = {
+    kills: [],
+    deaths: [],
+    assists: [],
+    xp_per_min: [],
+    gold_per_min: [],
+    hero_damage: [],
+    hero_healing: [],
+    last_hits: [],
+    duration: [],
+
+    wins: [],
+  };
+  const computed = {};
+
+  let winrate = 0;
+
+  if (!matchesLoading && !matchesError) {
+    const dataKeys = Object.keys(data);
+
+    for (let i = 0; i < MAX_MATCHES_ROWS; i += 1) {
+      dataKeys.map((key) => {
+        if (key === 'wins') {
+          data.wins.push(matchesData[i].radiant_win === isRadiant(matchesData[i].player_slot));
+        } else {
+          data[key].push(matchesData[i][key]);
+        }
+
+        return null;
+      });
+    }
+
+    dataKeys.map((key) => {
+      if (key !== 'wins') {
+        const avg = data[key].reduce(sum, 0) / MAX_MATCHES_ROWS;
+        const max = Math.max(...data[key]);
+        const maxMatch = matchesData.find(match => match[key] === max);
+
+        let color;
+
+        switch (key) {
+          case 'kills':
+            color = 'green';
+            break;
+          case 'deaths':
+            color = 'red';
+            break;
+          case 'assists':
+            color = 'lightGray';
+            break;
+          case 'gold_per_min':
+            color = 'golden';
+            break;
+          default:
+            color = false;
+        }
+
+        computed[key] = {
+          avg,
+          color,
+          max: {
+            value: max,
+            matchId: maxMatch.match_id,
+            heroId: maxMatch.hero_id,
+          },
+        };
+      }
+
+      return null;
+    });
+
+    winrate = Number((data.wins
+    .filter(Boolean)
+    .reduce(sum, 0) * 100 / MAX_MATCHES_ROWS)
+      .toFixed(2));
+
+    return (
+      <Container
+        title={strings.heading_avg_and_max}
+        subtitle={util.format(strings.subheading_avg_and_max, MAX_MATCHES_ROWS)}
+        className={styles.summaryContainer}
+        loading={matchesLoading}
+        error={matchesError}
+      >
+        <div>
+          <ul>
+            <li>
+              <span>{strings.th_winrate}</span>
+              <p>{winrate}%</p>
+            </li>
+            {Object.keys(computed).map((key) => {
+              const c = computed[key];
+
+              if (c.avg) {
+                return (
+                  <li key={key}>
+                    <span>{strings[`heading_${key}`]}</span>
+                    <p style={{ color: styles[c.color] }}>
+                      {key === 'duration' ? formatSeconds(c.avg) : abbreviateNumber(c.avg)}
+                      &nbsp;
+                      <span>{key === 'duration' ? formatSeconds(c.max.value) : abbreviateNumber(c.max.value)}
+                        <Link to={`matches/${c.max.matchId}`}>
+                          <img src={`${API_HOST}${heroes[c.max.heroId].icon}`} alt={heroes[c.max.heroId].localized_name} />
+                        </Link>
+                      </span>
+                    </p>
+                  </li>
+                );
+              }
+
+              return null;
+            })}
+          </ul>
+        </div>
+      </Container>
+    );
+  }
+
+  return null;
+};
+
+export default SummOfRecMatches;
