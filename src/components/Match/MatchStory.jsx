@@ -16,6 +16,12 @@ const heroesArr = jsonFn(heroes);
 const radiantColor = "#66bb6a";
 const direColor = "#ff4c4c"
 
+// can be used in conjunction with is_radiant
+const TEAM = {
+  radiant: true,
+  dire: false
+}
+
 const formatList = (items, none_value = []) => {
   switch(items.length){
     case 0:
@@ -81,102 +87,162 @@ const renderTemplate = (template, dict) => {
   return result;
 }
 
-const renderEvent = (event, match) => {
-  let vars_dict = {}
-  switch(event.type){
-    case "firstblood":
-      vars_dict = {
-        time: formatSeconds(event.time),
-        killer: match.players
-                    .filter(player => player.player_slot === event.player_slot)
-                    .map(player => PlayerSpan({...player})),
-        victim: PlayerSpan({...match.players.find((player) => {
-                    const foundHero = heroesArr('find')(hero => hero.name === event.key);
-                    return foundHero && player.hero_id === foundHero.id;
-                  })})
-      }
-      return renderTemplate(strings.story_firstblood, vars_dict);
-    case "teamfight":
-      let radiant_win = event.radiant_gold_advantage_delta >= 0;
-      vars_dict = {
-        winning_team: TeamSpan(radiant_win),
-        net_change: GoldSpan(Math.abs(event.radiant_gold_advantage_delta)),
-        win_dead: formatList(event.deaths
-          .filter(death => match.players[death.key].isRadiant == radiant_win)
-          .map(death => PlayerSpan(match.players[death.key]))),
-        lose_dead: formatList(event.deaths
-          .filter(death => match.players[death.key].isRadiant != radiant_win)
-          .map(death => PlayerSpan(match.players[death.key])))
-      }
-      return renderTemplate(vars_dict['win_dead'].length > 0 ? strings.story_teamfight : strings.story_teamfight_none_dead, vars_dict);
-    case "roshan":
-      vars_dict = { team: TeamSpan(event.team == 2) }
-      if(event.aegis != null){
-        let aegis_vars_dict = {
-          action: ((event.aegis.action === 'CHAT_MESSAGE_AEGIS' && strings.timeline_aegis_picked_up) ||
-                  (event.aegis.action === 'CHAT_MESSAGE_AEGIS_STOLEN' && strings.timeline_aegis_snatched) ||
-                  (event.aegis.action === 'CHAT_MESSAGE_DENIED_AEGIS' && strings.timeline_aegis_denied)),
-          player: match.players
-                    .filter(player => player.player_slot === event.aegis.player_slot)
-                    .map(player => PlayerSpan({...player})),
-        }
-        return formatList([ renderTemplate(strings.story_roshan, vars_dict), renderTemplate(strings.story_aegis, aegis_vars_dict) ]);
-      }
-      else{
-        return renderTemplate(strings.story_roshan, vars_dict);
-      }
-    case "lanes":
-      var lanes = event.lanes.map(lane => {
-        vars_dict = {
-          radiant_players: formatList(lane.radiant_players.map(player => PlayerSpan({...player})), strings.story_lane_empty),
-          dire_players: formatList(lane.dire_players.map(player => PlayerSpan({...player})), strings.story_lane_empty),
-          lane: ((lane.lane === 1 && strings.lane_1) ||
-                (lane.lane === 2 && strings.lane_2) ||
-                (lane.lane === 3 && strings.lane_3)),
-        }
-        return renderTemplate(event.radiant_win ? strings.story_lane_radiant_win : strings.story_lane_radiant_lose, vars_dict);
-      });
-      return [ strings.story_lane_intro, <ul>{lanes.map(lane => <li>{lane}</li>)}</ul> ];
-    case "building":
-      vars_dict = {
-        building: event.is_tower ? strings.CHAT_MESSAGE_TOWER_KILL : strings[`barracks_value_${event.key}`],
-        player: match.players
-                  .filter(player => player.player_slot == event.player_slot)
-                  .map(player => PlayerSpan({...player})) || null,
-        is_deny: event.is_deny,
-        team: TeamSpan(event.team == 2)
-      }
-      // barracks_value_{key}
-      // objective_tower1_top
-      if(vars_dict.player.length == 0){
-        return renderTemplate(strings.story_building_destroy, vars_dict);
-      }
-      else{
-        if(vars_dict.is_deny){
-          return renderTemplate(strings.story_building_deny_player, vars_dict);
-        }
-        else{
-          return renderTemplate(strings.story_building_destroy_player, vars_dict);
-        }
-      }
-    case "gameover":
-      vars_dict = {
-        duration: formatSeconds(match.duration),
-        winning_team: TeamSpan(match.radiant_win),
-        radiant_score: <font color={radiantColor}>{match.radiant_score}</font>,
-        dire_score: <font color={direColor}>{match.dire_score}</font>
-      }
-      return renderTemplate(strings.story_gameover, vars_dict);
-    default:
-      return `unknown type: ${event.type}`;
+// Abstract class
+class StoryEvent extends React.Component{
+  constructor(time) {
+    super();
+    this.time = time;
+  }
+  render() {
+    return <div style={{ "marginBottom": "24px" }}>{this.format()}</div>;
   }
 }
 
-const renderStory = (match) => {
-  var events = generateStory(match);
-  return (<div>
-      {events.map(event => (<div style={{ "marginBottom": "24px" }}>{renderEvent(event, match)}</div>))}
-    </div>);
+class TeamfightEvent extends StoryEvent {
+  constructor(match, fight) {
+    super();
+    this.time = fight.start;
+    this.time_end = fight.end;
+
+    this.winning_team = fight.radiant_gold_advantage_delt >= 0 // is_radiant value basically
+    this.gold_delta = Math.abs(fight.radiant_gold_advantage_delta)
+    let deaths = fight.players
+        .map((player, i) => (player.deaths > 0 ? {key: i, count: player.deaths} : ''))
+        .map(death => match.players[death.key]).filter(p => p);
+    this.win_dead = deaths.filter(player => player.isRadiant == this.winning_team);
+    this.lose_dead = deaths.filter(player => player.isRadiant != this.winning_team);
+  }
+  format() {
+    return renderTemplate(this.win_dead.length > 0 ? strings.story_teamfight : strings.story_teamfight_none_dead, {
+      winning_team: TeamSpan(this.winning_team),
+      net_change: GoldSpan(this.gold_delta),
+      win_dead: formatList(this.win_dead.map(PlayerSpan)),
+      lose_dead: formatList(this.lose_dead.map(PlayerSpan))
+    });
+  }
+}
+
+class FirstbloodEvent extends StoryEvent {
+  constructor(match, time, player_slot, key) {
+    super();
+    this.time = time;
+    this.killer = match.players.find(player => player.player_slot === player_slot);
+    this.victim = match.players.find(player => {
+      const foundHero = heroesArr('find')(hero => hero.name === key);
+      return foundHero && player.hero_id === foundHero.id;
+    });
+  }
+  format() {
+    return renderTemplate(strings.story_firstblood, {
+      time: formatSeconds(this.time),
+      killer: PlayerSpan(this.killer),
+      victim: PlayerSpan(this.victim)
+    });
+  }
+}
+
+class AegisEvent extends StoryEvent {
+  constructor(match, obj, index) {
+    super();
+    this.time = obj.time;
+    this.action = obj.type;
+    this.index = index;
+    this.player = match.players.find(player => player.player_slot == obj.player_slot);
+  }
+  get localized_action() {
+    return ((this.action === 'CHAT_MESSAGE_AEGIS' && strings.timeline_aegis_picked_up) ||
+            (this.action === 'CHAT_MESSAGE_AEGIS_STOLEN' && strings.timeline_aegis_snatched) ||
+            (this.action === 'CHAT_MESSAGE_DENIED_AEGIS' && strings.timeline_aegis_denied));
+  }
+  format() {
+    return renderTemplate(strings.story_aegis, {
+      action: this.localized_action,
+      player: PlayerSpan(this.player)
+    });
+  }
+}
+
+class RoshanEvent extends StoryEvent {
+  constructor(match, obj, index) {
+    super();
+    this.time = obj.time;
+    this.team = obj.team == 2;
+    this.index = index;
+  }
+  format() {
+    let formatted = renderTemplate(strings.story_roshan, { team: TeamSpan(this.team) });
+    return this.aegis ? formatList([ formatted, this.aegis.format() ]) : formatted;
+  }
+}
+
+class LaneStory {
+  constructor(match, lane) {
+    this.radiant_players = match.players.filter(player => player.lane == lane && player.isRadiant);
+    this.dire_players = match.players.filter(player => player.lane == lane && !player.isRadiant);
+    this.lane = lane;
+    this.winning_team = (Math.max(this.radiant_players.map(player => player.lane_efficiency)) || 0) >
+                (Math.max(this.dire_players.map(player => player.lane_efficiency)) || 0);
+  }
+  get localized_lane() {
+    return ((this.lane === 1 && strings.lane_1) ||
+            (this.lane === 2 && strings.lane_2) ||
+            (this.lane === 3 && strings.lane_3));
+  }
+  format() {
+    return renderTemplate(this.winning_team ? strings.story_lane_radiant_win : strings.story_lane_radiant_lose, {
+      radiant_players: formatList(this.radiant_players.map(PlayerSpan), strings.story_lane_empty),
+      dire_players: formatList(this.dire_players.map(PlayerSpan), strings.story_lane_empty),
+      lane: this.localized_lane
+    })
+  }
+}
+
+class LanesEvent extends StoryEvent {
+  constructor(match) {
+    super();
+    this.time = 10 * 60;
+    this.lanes = [ 1, 2, 3 ].map(lane => new LaneStory(match, lane));
+  }
+  format() {
+    return [ strings.story_lane_intro, <ul>{this.lanes.map(lane => <li>{lane.format()}</li>)}</ul> ];
+  }
+}
+
+class BuildingEvent extends StoryEvent {
+  constructor(match, obj) {
+    super();
+    this.time = obj.time;
+    this.team = obj.team == 2;
+    this.is_tower = obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY';
+    this.is_deny = obj.type === 'CHAT_MESSAGE_TOWER_DENY';
+    this.key = obj.key < 64 ? obj.key : obj.key << 6;
+    this.player = match.players.find(player => player.player_slot == obj.player_slot);
+  }
+  format() {
+    return renderTemplate(!this.player ? strings.story_building_destroy : (this.is_deny ? strings.story_building_deny_player : strings.story_building_destroy_player), {
+      building: this.is_tower ? strings.CHAT_MESSAGE_TOWER_KILL : strings[`story_barracks_value_${this.key}`],
+      player: this.player ? PlayerSpan(this.player) : null,
+      team: TeamSpan(this.player)
+    });
+  }
+}
+
+class GameoverEvent extends StoryEvent {
+  constructor(match) {
+    super();
+    this.time = match.duration;
+    this.winning_team = match.radiant_win;
+    this.radiant_score = match.radiant_score;
+    this.dire_score = match.dire_score;
+  }
+  format() {
+    return renderTemplate(strings.story_gameover, {
+      duration: formatSeconds(this.time),
+      winning_team: TeamSpan(this.winning_team),
+      radiant_score: <font color={radiantColor}>{this.radiant_score}</font>,
+      dire_score: <font color={direColor}>{this.dire_score}</font>
+    });
+  }
 }
 
 // Modified version of timeline data
@@ -192,97 +258,42 @@ const generateStory = (match) => {
         player.kills_log.filter(kill => kill.time === match.objectives[fbIndex].time),
     ).filter(String).filter(Boolean);
 
-    events.push({
-      type: 'firstblood',
-      time: match.objectives[fbIndex].time,
-      player_slot: match.objectives[fbIndex].player_slot,
-      key: fbKey && fbKey.length > 0 && fbKey[0][0].key,
-    });
+    events.push(new FirstbloodEvent(match,
+      match.objectives[fbIndex].time,
+      match.objectives[fbIndex].player_slot,
+      fbKey && fbKey.length > 0 && fbKey[0][0].key));
   }
 
 
   // Aegis pickups
-  const aegis = (match.objectives || [])
-    .filter(obj => (
-      obj.type === 'CHAT_MESSAGE_AEGIS' ||
-        obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' ||
-        obj.type === 'CHAT_MESSAGE_DENIED_AEGIS'
-    ))
-    .map(obj => ({
-      type: 'aegis',
-      action: obj.type,
-      player_slot: obj.player_slot,
-  }));
+  events = events.concat(match.objectives
+    .filter(obj => obj.type === 'CHAT_MESSAGE_AEGIS' ||
+                   obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' ||
+                   obj.type === 'CHAT_MESSAGE_DENIED_AEGIS')
+    .map((obj, index) => new AegisEvent(match, obj, index)))
 
-    // Roshan kills, team 2 = radiant, 3 = dire
-  events = events.concat(
-    match.objectives
-      .filter(obj => obj.type === 'CHAT_MESSAGE_ROSHAN_KILL')
-      .map((obj, i) => ({
-        type: 'roshan',
-        time: obj.time,
-        team: obj.team,
-        key: i,
-        aegis: i < aegis.length ? aegis[i] : null,
-      })) || [],
-  )
+  // Roshan kills, team 2 = radiant, 3 = dire
+  events = events.concat(match.objectives
+    .filter(obj => obj.type == 'CHAT_MESSAGE_ROSHAN_KILL')
+    .map((obj, index) => new RoshanEvent(match, obj, index)))
 
   // Teamfights
-  events = events.concat(match.teamfights && match.teamfights.length > 0 ?
-    match.teamfights.map(fight => ({
-      type: 'teamfight',
-      time: fight.start,
-      time_end: fight.end,
-      duration: (fight.start + fight.end) / 2,
-      radiant_gold_advantage_delta: fight.radiant_gold_advantage_delta,
-      deaths: fight.players
-        .map((player, i) => (player.deaths > 0 ? {key: i, count: player.deaths} : ''))
-        .filter(String),
-    })) : [],
-  );
+  events = events.concat(match.teamfights && match.teamfights.length > 0 ? match.teamfights.map(fight => new TeamfightEvent(match, fight)) : []);
 
   // Lanes (1=Bottom, 2=Middle, 3=Top) (jungle/roaming not considered a lane here)
   if(match.duration > 10 * 60) {
-    events.push({
-      type: "lanes",
-      time: 10 * 60, // analysis at 10 minutes in
-      lanes: [ 1, 2, 3 ].map(lane => {
-          let radiant_players = match.players.filter(player => player.lane == lane && player.isRadiant) || [];
-          let dire_players = match.players.filter(player => player.lane == lane && !player.isRadiant) || [];
-          return {
-            lane: lane,
-            radiant_players: radiant_players,
-            dire_players: dire_players,
-            radiant_win: (Math.max(radiant_players.map(player => player.lane_efficiency)) || 0) >
-                      (Math.max(dire_players.map(player => player.lane_efficiency)) || 0) // Which carry got more farm in lane
-          };
-        })
-    });
+    events.push(new LanesEvent(match));
   }
 
   // Towers & Barracks
-  events = events.concat(
-    match.objectives
+  events = events.concat(match.objectives
       .filter(obj => obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY' || obj.type === 'CHAT_MESSAGE_BARRACKS_KILL')
-      .map((obj, i) => ({
-        type: 'building',
-        time: obj.time,
-        team: obj.team,
-        is_tower: obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY',
-        is_deny: obj.type === 'CHAT_MESSAGE_TOWER_DENY',
-        key: obj.key < 64 ? obj.key : obj.key << 6,
-        player_slot: obj.player_slot || null,
-      })) || [],
-  )
+      .map(obj => new BuildingEvent(match, obj)));
 
   // Gameover
-  events.push({
-    type: "gameover",
-    time: match.duration
-  })
+  events.push(new GameoverEvent(match));
 
   // Sort by time
-  console.log(events);
   events.sort((a, b) => {return a.time - b.time});
 
   return events;
@@ -291,13 +302,11 @@ const generateStory = (match) => {
 class MatchStory extends React.Component {
   constructor() {
     super();
-
   }
   render() {
     try {
-      return (<div>
-            {renderStory(this.props.match)}
-      </div>);
+      var events = generateStory(this.props.match);
+      return (<div>{events.map(event => event.render())}</div>);
     }
     catch(e) {
       var exmsg = "";
