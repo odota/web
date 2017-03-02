@@ -22,21 +22,6 @@ const TEAM = {
   dire: false
 }
 
-const formatList = (items, none_value = []) => {
-  switch(items.length){
-    case 0:
-      return none_value;
-    case 1:
-      return items;
-    case 2:
-      return renderTemplate(strings.story_list_2, { 1: items[0], 2: items[1] });
-    case 3:
-      return renderTemplate(strings.story_list_3, { 1: items[0], 2: items[1], 3: items[2] });
-    default:
-      return renderTemplate(strings.story_list_n, { i: items.shift(), rest: formatList(items) });
-  }
-}
-
 const GoldSpan = (amount) => (
   <span className={styles.storySpan}>
     <font color={styles.golden}>{amount} </font>
@@ -70,6 +55,23 @@ const PlayerSpan = ({ hero_id, personaname, isRadiant }) => (
   </span>
 );
 
+// Enumerates a list of items using the correct language syntax
+const formatList = (items, none_value = []) => {
+  switch(items.length){
+    case 0:
+      return none_value;
+    case 1:
+      return items;
+    case 2:
+      return renderTemplate(strings.story_list_2, { 1: items[0], 2: items[1] });
+    case 3:
+      return renderTemplate(strings.story_list_3, { 1: items[0], 2: items[1], 3: items[2] });
+    default:
+      return renderTemplate(strings.story_list_n, { i: items.shift(), rest: formatList(items) });
+  }
+}
+
+// Fills in a template with the vars provided in the dict
 const renderTemplate = (template, dict) => {
   var pattern = /(\{[^}]+\})/g;
   var result = template.split(pattern);
@@ -90,6 +92,36 @@ class StoryEvent extends React.Component{
   render() {
     return <p>{this.format()}</p>;
   }
+}
+
+class FirstbloodEvent extends StoryEvent {
+  constructor(match, time, player_slot, key) {
+    super(time);
+    this.killer = match.players.find(player => player.player_slot === player_slot);
+    this.victim = match.players.find(player => {
+      const foundHero = heroesArr('find')(hero => hero.name === key);
+      return foundHero && player.hero_id === foundHero.id;
+    });
+  }
+  format() {
+    return renderTemplate(strings.story_firstblood, {
+      time: formatSeconds(this.time),
+      killer: PlayerSpan(this.killer),
+      victim: PlayerSpan(this.victim)
+    });
+  }
+}
+
+const format_objective_events = (events) => {
+  var formatted = events.filter(event => !(event instanceof BuildingEvent));
+  var buildings = events.filter(event => event instanceof BuildingEvent);
+  if(buildings.length <= 1){
+    formatted = formatted.concat(buildings);
+  }
+  else{
+    formatted.push(new BuildingListEvent(buildings));
+  }
+  return formatList(formatted.map(event => event.format()));
 }
 
 class TeamfightEvent extends StoryEvent {
@@ -118,31 +150,13 @@ class TeamfightEvent extends StoryEvent {
     }) ];
     if(this.during_events.length > 0){
       formatted = formatted.concat(renderTemplate(strings.story_during_teamfight, 
-        { events: formatList(this.during_events.map(event => event.format())) }));
+        { events: format_objective_events(this.during_events) }));
     }
     if(this.after_events.length > 0){
       formatted = formatted.concat(renderTemplate(strings.story_after_teamfight, 
-        { events: formatList(this.after_events.map(event => event.format())) }));
+        { events: format_objective_events(this.after_events) }));
     }
     return formatted;
-  }
-}
-
-class FirstbloodEvent extends StoryEvent {
-  constructor(match, time, player_slot, key) {
-    super(time);
-    this.killer = match.players.find(player => player.player_slot === player_slot);
-    this.victim = match.players.find(player => {
-      const foundHero = heroesArr('find')(hero => hero.name === key);
-      return foundHero && player.hero_id === foundHero.id;
-    });
-  }
-  format() {
-    return renderTemplate(strings.story_firstblood, {
-      time: formatSeconds(this.time),
-      killer: PlayerSpan(this.killer),
-      victim: PlayerSpan(this.victim)
-    });
   }
 }
 
@@ -178,6 +192,12 @@ class RoshanEvent extends StoryEvent {
   }
 }
 
+var localized_lane = {
+  1: strings.lane_1,
+  2: strings.lane_2,
+  3: strings.lane_3,
+}
+
 class LaneStory {
   constructor(match, lane) {
     this.radiant_players = match.players.filter(player => player.lane == lane && player.isRadiant);
@@ -186,16 +206,11 @@ class LaneStory {
     this.winning_team = (Math.max(this.radiant_players.map(player => player.lane_efficiency)) || 0) >
                 (Math.max(this.dire_players.map(player => player.lane_efficiency)) || 0);
   }
-  get localized_lane() {
-    return ((this.lane === 1 && strings.lane_1) ||
-            (this.lane === 2 && strings.lane_2) ||
-            (this.lane === 3 && strings.lane_3));
-  }
   format() {
     return renderTemplate(this.winning_team ? strings.story_lane_radiant_win : strings.story_lane_radiant_lose, {
       radiant_players: formatList(this.radiant_players.map(PlayerSpan), strings.story_lane_empty),
       dire_players: formatList(this.dire_players.map(PlayerSpan), strings.story_lane_empty),
-      lane: this.localized_lane
+      lane: localized_lane[this.lane]
     })
   }
 }
@@ -203,7 +218,7 @@ class LaneStory {
 class LanesEvent extends StoryEvent {
   constructor(match) {
     super(10 * 60);
-    this.lanes = [ 1, 2, 3 ].map(lane => new LaneStory(match, lane));
+    this.lanes = Object.keys(localized_lane).map(lane => new LaneStory(match, lane));
   }
   format() {
     return [ strings.story_lane_intro, <ul>{this.lanes.map(lane => <li>{lane.format()}</li>)}</ul> ];
@@ -213,7 +228,7 @@ class LanesEvent extends StoryEvent {
 class BuildingEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
-    this.team = !(obj.team == 2); // We want the team that the tower belongs to, so get the opposite
+    this.team = obj.team ? !(obj.team == 2) : obj.key >= 64; // We want the team that the tower belongs to, so get the opposite
     this.is_tower = obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY';
     this.is_deny = obj.type === 'CHAT_MESSAGE_TOWER_DENY';
     this.key = obj.key < 64 ? obj.key : obj.key << 6;
@@ -222,12 +237,60 @@ class BuildingEvent extends StoryEvent {
   get localized_building() {
     return this.is_tower ? strings.CHAT_MESSAGE_TOWER_KILL : strings[`story_barracks_value_${this.key}`];
   }
+  get template(){
+    return !this.player ? strings.story_building_destroy : (this.is_deny ? strings.story_building_deny_player : strings.story_building_destroy_player);
+  }
   format() {
-    return renderTemplate(!this.player ? strings.story_building_destroy : (this.is_deny ? strings.story_building_deny_player : strings.story_building_destroy_player), {
-      building: this.localized_building,
-      player: this.player ? PlayerSpan(this.player) : null,
-      team: TeamSpan(this.team)
+    return renderTemplate(this.template, {
+      building: renderTemplate(strings.story_building, { building: this.localized_building, team: TeamSpan(this.team) }),
+      player: this.player ? PlayerSpan(this.player) : null
     });
+  }
+}
+
+const is_rax_lane = (barracks, lane) => {
+  var exp = (lane - 1) * 2;
+  return barracks.key == Math.pow(2, exp) || barracks.key == Math.pow(2, exp + 1);
+};
+
+class BuildingListEvent extends StoryEvent {
+  constructor(building_events) {
+    super(building_events[0].time);
+    this.buildings = building_events;
+  }
+  format() {
+    var building_list = [];
+    for(var team of [ TEAM.radiant, TEAM.dire ]){
+      var towers = this.buildings.filter(building => building.team == team && building.is_tower);
+      if(towers.length == 1) {
+        building_list.push(renderTemplate(strings.story_building, {
+          team: TeamSpan(team),
+          building: towers[0].localized_building
+        }));
+      }
+      else if(towers.length > 1) {
+        building_list.push(renderTemplate(strings.story_towers_n, {
+          team: TeamSpan(team),
+          n: towers.length
+        }))
+      }
+      for(var lane of Object.keys(localized_lane)){
+        var barracks = this.buildings.filter(building => building.team == team && !building.is_tower && is_rax_lane(building, lane));
+        if(barracks.length == 1) {
+          building_list.push(renderTemplate(strings.story_building, {
+            team: TeamSpan(team),
+            building: barracks[0].localized_building
+          }));
+        }
+        else if(barracks.length == 2) {
+          building_list.push(renderTemplate(strings.story_barracks_both, {
+            team: TeamSpan(team),
+            lane: localized_lane[lane]
+          }))
+        }
+      }
+    }
+    return renderTemplate(strings.story_building_list_destroy, { buildings: formatList(building_list) });
   }
 }
 
