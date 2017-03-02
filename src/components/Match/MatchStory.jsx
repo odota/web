@@ -29,14 +29,11 @@ const formatList = (items, none_value = []) => {
     case 1:
       return items;
     case 2:
-      items.splice(1, 0, ` ${strings.story_conjunctive} `);
-      return items;
+      return renderTemplate(strings.story_list_2, { 1: items[0], 2: items[1] });
+    case 3:
+      return renderTemplate(strings.story_list_3, { 1: items[0], 2: items[1], 3: items[2] });
     default:
-      for(var i = 1; i < items.length; i += 2){
-        items.splice(i, 0, ", ");
-      }
-      items.splice(items.length - 1, 0, `${strings.story_conjunctive} `);
-      return items;
+      return renderTemplate(strings.story_list_n, { i: items.shift(), rest: formatList(items) });
   }
 }
 
