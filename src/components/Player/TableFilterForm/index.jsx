@@ -45,7 +45,7 @@ class TableFilterForm extends React.Component {
       this.props.toggleShowForm();
     }
   }
-  
+
   componentWillUpdate(nextProps) {
     if (Boolean(nextProps.currentQueryString.substring(1)) !== nextProps.showForm && !nextProps.showForm) {
       // If query string state has a filter, turn on the form
