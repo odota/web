@@ -48,7 +48,7 @@ const SummOfRecMatches = ({ matchesData }) => {
     if (key !== 'wins') {
       const avg = data[key].reduce(sum, 0) / MAX_MATCHES_ROWS;
       const max = Math.max(...data[key]);
-      const maxMatch = matchesData.find(match => match[key] === max);
+      const maxMatch = matchesData.find(match => match[key] === max) || {};
 
       let color;
 

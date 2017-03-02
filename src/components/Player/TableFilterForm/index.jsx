@@ -39,10 +39,17 @@ const deleteChip = (name, index) => {
 };
 
 class TableFilterForm extends React.Component {
-  componentWillMount() {
-    if (Boolean(this.props.currentQueryString.substring(1)) !== this.props.showForm) {
-      // If query string state doesn't match form show state, toggle it
+  componentDidMount() {
+    if (Boolean(this.props.currentQueryString.substring(1)) !== this.props.showForm && !this.props.showForm) {
+      // If query string state has a filter, turn on the form
       this.props.toggleShowForm();
+    }
+  }
+  
+  componentWillUpdate(nextProps) {
+    if (Boolean(nextProps.currentQueryString.substring(1)) !== nextProps.showForm && !nextProps.showForm) {
+      // If query string state has a filter, turn on the form
+      nextProps.toggleShowForm();
     }
   }
 
