@@ -294,6 +294,8 @@
   "heading_win_rate": "Win Rate",
   "heading_avg_and_max": "Averages/Maximums",
   "subheading_avg_and_max": "in last %d matches",
+  "heading_total_matches": "Total Matches",
+  "heading_median": "Median",
   
   "hero_pro_tab": "Professional",
   "hero_public_tab": "Public",
