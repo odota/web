@@ -76,7 +76,7 @@ class RequestLayer extends React.Component {
           className={styles.Heading}
           icon=""
         />
-        <Table data={data} columns={columns} />
+        <Table data={data} columns={columns} paginated pageLength={10} />
       </div>,
       route: '/heroes/pro',
     }, {
@@ -89,7 +89,7 @@ class RequestLayer extends React.Component {
           className={styles.Heading}
           icon=""
         />
-        <Table data={data} columns={columns} />
+        <Table data={data} columns={columns} paginated pageLength={10} />
       </div>,
       route: '/heroes/public',
     }];
