@@ -5,7 +5,7 @@ import styles from './Percent.css';
 const percent = ({ val, total }) => (
   <div className={styles.container}>
     <div className={styles.title}>
-      {val} {total && <small>{total}</small>}
+      {val}% {total && <small>{total}</small>}
     </div>
     <div className={styles.percent}>
       <div
