@@ -451,6 +451,7 @@
   "skill_2": "High",
   "skill_3": "Very High",
 
+  "story_fullstop": ".",
   "story_list_2": "{1} and {2}",
   "story_list_3": "{1}, {2}, and {3}",
   "story_list_n": "{i}, {rest}",
@@ -469,8 +470,8 @@
   "story_building_destroy_player": "{player} destroyed {building}",
   "story_building_deny_player": "{player} denied {building}",
   "story_building_list_destroy": "{buildings} were destroyed",
-  "story_during_teamfight": ". During the fight, {events}",
-  "story_after_teamfight": ". After the fight, {events}",
+  "story_during_teamfight": "during the fight, {events}",
+  "story_after_teamfight": "after the fight, {events}",
 
   "story_towers_n": "{n} of {team}'s Towers",
   "story_barracks_both": "both of {team}'s {lane} Barracks",

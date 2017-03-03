@@ -28,7 +28,7 @@ const GoldSpan = (amount) => (
     <img
       role="presentation"
       src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
-      style={{ "verticalAlign": "middle" }}
+      style={{ verticalAlign: "middle" }}
     />
   </span>
 );
@@ -71,14 +71,33 @@ const formatList = (items, none_value = []) => {
   }
 }
 
+const capitalizeFirst = (list) => {
+  if(typeof list[0] === 'string' || list[0] instanceof String){
+    if(list[0].length > 0){// MORE STUFF HERE
+      list[0] = list[0][0].toUpperCase() + list[0].slice(1);
+    }
+  }
+  else if(list[0] instanceof Array){
+    if(list[0].length > 0){
+      capitalizeFirst(list[0]);
+    }
+  }
+}
+
 // Fills in a template with the vars provided in the dict
-const renderTemplate = (template, dict) => {
+// Adds a fullstop if it's indicated that this is a sentance
+const renderTemplate = (template, dict, sentance = false) => {
   var pattern = /(\{[^}]+\})/g;
   var result = template.split(pattern);
   for (var i = 0; i < result.length; i++) {
     if (result[i].match(pattern) && result[i].slice(1, -1) in dict) {
       result[i] = dict[result[i].slice(1, -1)];
     }
+  }
+  result = result.filter(part => part != "");
+  if(sentance) {
+    result.push(`${strings.story_fullstop} `);
+    capitalizeFirst(result);
   }
   return result;
 }
@@ -90,7 +109,7 @@ class StoryEvent extends React.Component{
     this.time = time;
   }
   render() {
-    return <p>{this.format()}</p>;
+    return <div style={{ marginBottom: 20 }}>{this.format()}</div>;
   }
 }
 
@@ -108,7 +127,7 @@ class FirstbloodEvent extends StoryEvent {
       time: formatSeconds(this.time),
       killer: PlayerSpan(this.killer),
       victim: PlayerSpan(this.victim)
-    });
+    }, true);
   }
 }
 
@@ -147,14 +166,14 @@ class TeamfightEvent extends StoryEvent {
         death.count == 1 ? new PlayerSpan(death.player) : [ new PlayerSpan(death.player), `(x${death.count})` ])),
       lose_dead: formatList(this.lose_dead.map(death => 
         death.count == 1 ? new PlayerSpan(death.player) : [ new PlayerSpan(death.player), `(x${death.count})` ]))
-    }) ];
+    }, true) ];
     if(this.during_events.length > 0){
       formatted = formatted.concat(renderTemplate(strings.story_during_teamfight, 
-        { events: format_objective_events(this.during_events) }));
+        { events: format_objective_events(this.during_events) }, true));
     }
     if(this.after_events.length > 0){
       formatted = formatted.concat(renderTemplate(strings.story_after_teamfight, 
-        { events: format_objective_events(this.after_events) }));
+        { events: format_objective_events(this.after_events) }, true));
     }
     return formatted;
   }
@@ -211,7 +230,7 @@ class LaneStory {
       radiant_players: formatList(this.radiant_players.map(PlayerSpan), strings.story_lane_empty),
       dire_players: formatList(this.dire_players.map(PlayerSpan), strings.story_lane_empty),
       lane: localized_lane[this.lane]
-    })
+    }, true);
   }
 }
 
@@ -307,7 +326,7 @@ class GameoverEvent extends StoryEvent {
       winning_team: TeamSpan(this.winning_team),
       radiant_score: <font color={radiantColor}>{this.radiant_score}</font>,
       dire_score: <font color={direColor}>{this.dire_score}</font>
-    });
+    }, true);
   }
 }
 
