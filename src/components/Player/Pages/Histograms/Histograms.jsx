@@ -5,7 +5,7 @@ import { playerHistogram } from 'reducers';
 import Heading from 'components/Heading';
 import { HistogramGraph } from 'components/Visualizations';
 import ButtonGarden from 'components/ButtonGarden';
-import histogramNames from 'components/Player/Pages/matchDataColumns';
+import dataColumns from 'components/Player/Pages/matchDataColumns';
 import Container from 'components/Container';
 import { browserHistory } from 'react-router';
 import strings from 'lang';
@@ -28,6 +28,8 @@ const getSubtitleStats = (columns) => {
   }
   return str;
 };
+
+const histogramNames = dataColumns.filter(col => col !== 'win_rate');
 
 const Histogram = ({ routeParams, columns, playerId, error, loading, histogramName }) => (
   <div style={{ fontSize: 10 }}>
