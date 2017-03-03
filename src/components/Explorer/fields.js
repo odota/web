@@ -116,6 +116,7 @@ const fields = {
   }, {
     text: strings.heading_duration,
     value: 'duration',
+    avgCountValue: 1,
     alias: 'as time',
     key: 'duration',
     formatSeconds: true,
