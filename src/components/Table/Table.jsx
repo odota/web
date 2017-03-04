@@ -16,7 +16,40 @@ import Spinner from '../Spinner';
 import Error from '../Error';
 import styles from './Table.css';
 
-const getTable = (data, columns, sortState, sortField, sortClick, numRows, summable) => (
+const getColumnMax = (data, field, getValue) => {
+  const valuesArr = data.reduce((arr, row) => {
+    const value = getValue ? getValue(row) : row[field];
+    const num = Number(value);
+    if (isNaN(num)) {
+      return arr;
+    }
+    arr.push(value);
+    return arr;
+  }, []);
+  return Math.max(...valuesArr);
+};
+
+const getColumnMin = (data, field, getValue) => {
+  const valuesArr = data.reduce((arr, row) => {
+    const value = getValue ? getValue(row) : row[field];
+    const num = Number(value);
+    if (isNaN(num)) {
+      return arr;
+    }
+    arr.push(value);
+    return arr;
+  }, []);
+  return Math.min(...valuesArr);
+};
+
+const TableCreator = ({
+  data,
+  columns,
+  sortState,
+  sortField,
+  sortClick,
+  summable,
+}) => (
   // Not currently using totalWidth (default auto width)
   // const totalWidth = getTotalWidth(columns);
   <div className={styles.innerContainer}>
@@ -35,7 +68,6 @@ const getTable = (data, columns, sortState, sortField, sortClick, numRows, summa
           <MaterialTableRow key={index}>
             {columns.map((column, colIndex) => {
               const { field, color, center, displayFn, relativeBars } = column;
-              const value = row[field];
               const style = {
                 // width: `${getWidthStyle(column.width, totalWidth)}%`,
                 overflow: `${field === 'kills' ? 'visible' : null}`,
@@ -57,35 +89,44 @@ const getTable = (data, columns, sortState, sortField, sortClick, numRows, summa
               let fieldEl = null;
               if (relativeBars) {
                 const {
-                  type,
                   getDivisor,
-                  getAltValue,
+                  getValue,
+                  getSmallValue,
                 } = relativeBars;
+                const value = getValue ? getValue(row) : row[field];
 
                 let divisor = 1;
+                let valueWithOffset = Number(value);
                 if (getDivisor) {
                   divisor = getDivisor(row);
-                } else if (type === 'max') {
+                } else {
                   // TODO masad-frost memoize or something
-                  divisor = Math.max(...data.map(row => Number(row[column.field])));
-                } else if (type === 'total') {
-                  divisor = data.reduce((sum, row) => sum + row[column.field], 0);
+                  const offset = getColumnMin(data, field, getValue);
+                  divisor = getColumnMax(data, field, getValue);
+                  if (!isNaN(offset) && offset < 0) {
+                    // Rescale to cater for columns with negatives
+                    divisor -= offset;
+                    valueWithOffset -= offset;
+                  }
                 }
-
-                const relativeValue = (Number(value) > 0 && divisor !== 0)
-                  ? Number((value * 100 / divisor).toFixed(2))
+                const isValidNumber = !isNaN(valueWithOffset); // same sign
+                const relativeValue = divisor !== 0 && isValidNumber
+                  ? Number((valueWithOffset * 100 / divisor).toFixed(2))
                   : 0;
 
-
+                const displayValue = displayFn
+                  ? displayFn(row, column, value, index, relativeValue)
+                  : <span>{value}</span>;
+                const smallValue = getSmallValue && getSmallValue(row);
                 fieldEl = (<TablePercent
-                  valEl={displayFn && displayFn(row, column, value, index, relativeValue)}
+                  valEl={displayValue}
                   val={relativeValue}
-                  altValue={getAltValue && getAltValue(row)}
+                  smallValue={smallValue}
                 />);
               } else if (displayFn) {
-                fieldEl = displayFn(row, column, value, index);
+                fieldEl = displayFn(row, column, row[field], index);
               } else {
-                fieldEl = value;
+                fieldEl = row[field];
               }
 
               return (
@@ -114,13 +155,19 @@ const Table = ({
   sortState,
   sortField,
   sortClick,
-  numRows,
   summable,
 }) => (
   <div className={styles.container}>
     {loading && <Spinner />}
     {!loading && error && <Error />}
-    {!loading && !error && data && getTable(data, columns, sortState, sortField, sortClick, numRows, summable)}
+    {!loading && !error && data && TableCreator({
+      data,
+      columns,
+      sortState,
+      sortField,
+      sortClick,
+      summable,
+    })}
   </div>
 );
 
@@ -129,19 +176,26 @@ const {
   bool,
   string,
   func,
-  number,
   shape,
 } = React.PropTypes;
 
-Table.propTypes = {
-  data: arrayOf(shape({})),
-  columns: arrayOf(shape({})),
-  loading: bool,
-  error: bool,
+TableCreator.propTypes = {
+  data: arrayOf(shape({})).isRequired,
+  columns: arrayOf(shape({})).isRequired,
   sortState: string,
   sortField: string,
   sortClick: func,
-  numRows: number,
+  summable: bool,
+};
+
+Table.propTypes = {
+  data: arrayOf(shape({})).isRequired,
+  columns: arrayOf(shape({})).isRequired,
+  loading: bool.isRequired,
+  error: bool.isRequired,
+  sortState: string,
+  sortField: string,
+  sortClick: func,
   summable: bool,
 };
 

@@ -2,10 +2,10 @@ import React from 'react';
 import { gradient } from 'abcolor';
 import styles from './Percent.css';
 
-const percent = ({ val, altValue, valEl }) => (
+const percent = ({ val, smallValue, valEl }) => (
   <div className={styles.container}>
     <div className={styles.title}>
-      {valEl || val} {altValue && <small>{altValue}</small>}
+      {valEl || val} {smallValue && <small>{smallValue}</small>}
     </div>
     <div className={styles.percent}>
       <div
@@ -26,7 +26,7 @@ const { number, oneOfType, string, node } = React.PropTypes;
 
 percent.propTypes = {
   val: number,
-  total: oneOfType([
+  smallValue: oneOfType([
     string,
     number,
   ]),

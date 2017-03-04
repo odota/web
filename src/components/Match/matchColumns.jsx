@@ -111,32 +111,28 @@ export const overviewColumns = (match) => {
     sortFn: true,
     color: styles.golden,
     sumFn: true,
-    displayFn: (row, column, value) => value,
-    relativeBars: { type: 'max' },
+    relativeBars: true,
   }, {
     displayName: strings.th_xp_per_min,
     tooltip: strings.tooltip_xp_per_min,
     field: 'xp_per_min',
     sortFn: true,
     sumFn: true,
-    displayFn: (row, column, value) => value,
-    relativeBars: { type: 'max' },
+    relativeBars: true,
   }, {
     displayName: strings.th_last_hits,
     tooltip: strings.tooltip_last_hits,
     field: 'last_hits',
     sortFn: true,
     sumFn: true,
-    displayFn: (row, column, value) => value,
-    relativeBars: { type: 'max' },
+    relativeBars: true,
   }, {
     displayName: strings.th_denies,
     tooltip: strings.tooltip_denies,
     field: 'denies',
     sortFn: true,
     sumFn: true,
-    displayFn: (row, column, value) => value,
-    relativeBars: { type: 'max' },
+    relativeBars: true,
   }, {
     displayName: strings.th_hero_damage,
     tooltip: strings.tooltip_hero_damage,
@@ -144,7 +140,7 @@ export const overviewColumns = (match) => {
     sortFn: true,
     sumFn: true,
     displayFn: row => abbreviateNumber(row.hero_damage),
-    relativeBars: { type: 'max' },
+    relativeBars: true,
   }, {
     displayName: strings.th_hero_healing,
     tooltip: strings.tooltip_hero_healing,
@@ -152,7 +148,7 @@ export const overviewColumns = (match) => {
     sortFn: true,
     sumFn: true,
     displayFn: row => abbreviateNumber(row.hero_healing),
-    relativeBars: { type: 'max' },
+    relativeBars: true,
   }, {
     displayName: strings.th_tower_damage,
     tooltip: strings.tooltip_tower_damage,
@@ -160,7 +156,7 @@ export const overviewColumns = (match) => {
     displayFn: row => abbreviateNumber(row.tower_damage),
     sortFn: true,
     sumFn: true,
-    relativeBars: { type: 'max' },
+    relativeBars: true,
   }, {
     displayName: (
       <span className={styles.thGold}>
@@ -174,7 +170,7 @@ export const overviewColumns = (match) => {
     color: styles.golden,
     sumFn: true,
     displayFn: row => abbreviateNumber(row.total_gold),
-    relativeBars: { type: 'max' },
+    relativeBars: true,
   }, {
     displayName: strings.th_items,
     tooltip: strings.tooltip_items,
@@ -346,13 +342,17 @@ export const lastHitsTimesColumns = (match) => {
   const bucket = 300;
   for (let i = bucket; i <= match.duration; i += bucket) {
     const curTime = i;
+    const minutes = curTime / 60;
     cols.push({
-      displayName: `${curTime / 60}'`,
+      displayName: `${minutes}'`,
       field: i,
       sortFn: row => (row.lh_t ? row.lh_t[curTime / 60] : 0),
-      displayFn: row => (<div>
-        {row.lh_t ? row.lh_t[curTime / 60] : ''}
-      </div>),
+      relativeBars: {
+        getValue: (row) => {
+          const value = row.lh_t ? row.lh_t[minutes] : '';
+          return value;
+        },
+      },
     });
   }
   return cols;
@@ -378,60 +378,70 @@ export const performanceColumns = [
     field: 'lane_efficiency',
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.toFixed(2) : '-'),
+    relativeBars: true,
   }, {
     displayName: strings.th_lhten,
     tooltip: strings.tooltip_lhten,
     field: 'lh_t',
     sortFn: true,
     displayFn: (row, col, field) => (field ? field[10] : '-'),
+    relativeBars: true,
   }, {
     displayName: strings.th_dnten,
     tooltip: strings.tooltip_dnten,
     field: 'dn_t',
     sortFn: true,
     displayFn: (row, col, field) => (field ? field[10] : '-'),
+    relativeBars: true,
   }, {
     displayName: strings.th_multikill,
     tooltip: strings.tooltip_multikill,
     field: 'multi_kills_max',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_killstreak,
     tooltip: strings.tooltip_killstreak,
     field: 'kill_streaks_max',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_stuns,
     tooltip: strings.tooltip_stuns,
     field: 'stuns',
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.toFixed(2) : '-'),
+    relativeBars: true,
   }, {
     displayName: strings.th_stacked,
     tooltip: strings.tooltip_camps_stacked,
     field: 'camps_stacked',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_dead,
     tooltip: strings.tooltip_dead,
     field: 'life_state_dead',
     sortFn: true,
     displayFn: (row, col, field) => formatSeconds(field) || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_buybacks,
     tooltip: strings.tooltip_buybacks,
     field: 'buybacks',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_pings,
     tooltip: strings.tooltip_pings,
     field: 'pings',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_biggest_hit,
     tooltip: strings.tooltip_biggest_hit,
@@ -483,48 +493,56 @@ export const unitKillsColumns = [
     field: 'hero_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_creeps,
     tooltip: strings.farm_creeps,
     field: 'lane_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_neutrals,
     tooltip: strings.farm_neutrals,
     field: 'neutral_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_ancients,
     tooltip: strings.farm_ancients,
     field: 'ancient_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_towers,
     tooltip: strings.farm_towers,
     field: 'tower_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_couriers,
     tooltip: strings.farm_couriers,
     field: 'courier_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_roshan,
     tooltip: strings.farm_roshan,
     field: 'roshan_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_necronomicon,
     tooltip: strings.farm_necronomicon,
     field: 'necronomicon_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_other,
     field: 'specific',
@@ -546,7 +564,10 @@ export const actionsColumns = [heroTdColumn, {
     tooltip: strings[`tooltip_${orderTypes[orderType]}`],
     field: orderType,
     sortFn: row => (row.actions ? row.actions[orderType] : 0),
-    displayFn: row => (row.actions ? (row.actions[orderType] || '-') : '-'),
+    displayFn: (row, column, value) => value || '-',
+    relativeBars: {
+      getValue: row => (row.actions && row.actions[orderType]),
+    },
   })));
 
 export const runesColumns = [heroTdColumn]
@@ -620,6 +641,7 @@ export const cosmeticsColumns = [heroTdColumn, {
   )),
 }];
 
+
 export const goldReasonsColumns = [heroTdColumn]
   .concat(Object.keys(strings)
     .filter(str => str.indexOf('gold_reasons_') === 0)
@@ -627,7 +649,10 @@ export const goldReasonsColumns = [heroTdColumn]
       displayName: strings[gr],
       field: gr,
       sortFn: row => (row.gold_reasons ? row.gold_reasons[gr.substring('gold_reasons_'.length)] : 0),
-      displayFn: row => (row.gold_reasons ? (row.gold_reasons[gr.substring('gold_reasons_'.length)] || '-') : '-'),
+      displayFn: (row, column, value) => value || '-',
+      relativeBars: {
+        getValue: row => (row.gold_reasons && row.gold_reasons[gr.substring('gold_reasons_'.length)]),
+      },
     })));
 
 export const xpReasonsColumns = [heroTdColumn]
@@ -637,7 +662,10 @@ export const xpReasonsColumns = [heroTdColumn]
       displayName: strings[xpr],
       field: xpr,
       sortFn: row => (row.xp_reasons ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] : 0),
-      displayFn: row => (row.xp_reasons ? (row.xp_reasons[xpr.substring('xp_reasons_'.length)] || '-') : '-'),
+      displayFn: (row, column, value) => value || '-',
+      relativeBars: {
+        getValue: row => (row.xp_reasons && row.xp_reasons[xpr.substring('xp_reasons_'.length)]),
+      },
     })));
 
 export const objectiveDamageColumns = [heroTdColumn]
@@ -645,7 +673,10 @@ export const objectiveDamageColumns = [heroTdColumn]
     .map(obj => ({
       displayName: strings[obj],
       field: 'objective_damage',
-      displayFn: (row, col, field) => (field ? (field[obj.substring('objective_'.length)] || '-') : '-'),
+      displayFn: (row, col, value) => value || '-',
+      relativeBars: {
+        getValue: row => (row.objective_damage && row.objective_damage[obj.substring('objective_'.length)]),
+      },
     })));
 
 
@@ -722,18 +753,22 @@ export const teamfightColumns = [
     displayName: strings.th_damage,
     field: 'damage',
     sortFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_healing,
     field: 'healing',
     sortFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_gold,
     field: 'gold_delta',
     sortFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_xp,
     field: 'xp_delta',
     sortFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_abilities,
     field: 'ability_uses',
@@ -757,6 +792,7 @@ const purchaseObserverColumn = {
   field: 'purchase_ward_observer',
   sortFn: true,
   displayFn: (row, col, field) => field || '-',
+  relativeBars: true,
 };
 
 const purchaseSentryColumn = {
@@ -771,6 +807,7 @@ const purchaseSentryColumn = {
   field: 'purchase_ward_sentry',
   sortFn: true,
   displayFn: (row, col, field) => field || '-',
+  relativeBars: true,
 };
 
 const purchaseDustColumn = {
@@ -785,6 +822,7 @@ const purchaseDustColumn = {
   field: 'purchase_dust',
   sortFn: true,
   displayFn: (row, col, field) => field || '-',
+  relativeBars: true,
 };
 
 const purchaseSmokeColumn = {
@@ -799,6 +837,7 @@ const purchaseSmokeColumn = {
   field: 'purchase_smoke_of_deceit',
   sortFn: true,
   displayFn: (row, col, field) => field || '-',
+  relativeBars: true,
 };
 
 const purchaseGemColumn = {
@@ -812,6 +851,7 @@ const purchaseGemColumn = {
   field: 'purchase_gem',
   sortFn: true,
   displayFn: (row, col, field) => field || '-',
+  relativeBars: true,
 };
 
 export const visionColumns = [
@@ -826,7 +866,10 @@ export const visionColumns = [
     ),
     tooltip: strings.tooltip_used_ward_observer,
     sortFn: true,
-    displayFn: row => (row.item_uses && row.item_uses.ward_observer) || '-',
+    displayFn: (row, column, value) => value || '-',
+    relativeBars: {
+      getValue: row => (row.item_uses ? row.item_uses.ward_observer : 0),
+    },
   },
   purchaseSentryColumn, {
     center: true,
@@ -838,7 +881,10 @@ export const visionColumns = [
     ),
     tooltip: strings.tooltip_used_ward_sentry,
     sortFn: true,
-    displayFn: row => (row.item_uses && row.item_uses.ward_sentry) || '-',
+    displayFn: (row, column, value) => value || '-',
+    relativeBars: {
+      getValue: row => (row.item_uses ? row.item_uses.ward_sentry : 0),
+    },
   },
   purchaseDustColumn, {
     center: true,
@@ -850,7 +896,10 @@ export const visionColumns = [
     ),
     tooltip: strings.tooltip_used_dust,
     sortFn: true,
-    displayFn: row => (row.item_uses && row.item_uses.dust) || '-',
+    displayFn: (row, column, value) => value || '-',
+    relativeBars: {
+      getValue: row => (row.item_uses ? row.item_uses.dust : 0),
+    },
   },
   purchaseSmokeColumn, {
     center: true,
@@ -862,7 +911,10 @@ export const visionColumns = [
     ),
     tooltip: strings.tooltip_used_smoke_of_deceit,
     sortFn: true,
-    displayFn: row => (row.item_uses && row.item_uses.smoke_of_deceit) || '-',
+    displayFn: (row, column, value) => value || '-',
+    relativeBars: {
+      getValue: row => (row.item_uses ? row.item_uses.smoke_of_deceit : 0),
+    },
   },
   purchaseGemColumn,
 ];
