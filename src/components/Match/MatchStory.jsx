@@ -10,6 +10,7 @@ import {
 import { IconRadiant, IconDire } from 'components/Icons';
 import ReactTooltip from 'react-tooltip';
 import heroes from 'dotaconstants/build/heroes.json';
+import items from 'dotaconstants/build/items.json';
 import styles from './Match.css';
 
 const heroesArr = jsonFn(heroes);
@@ -28,7 +29,6 @@ const GoldSpan = (amount) => (
     <img
       role="presentation"
       src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
-      style={{ verticalAlign: "middle" }}
     />
   </span>
 );
@@ -44,7 +44,6 @@ const TeamSpan = (is_radiant) => (
 const PlayerSpan = ({ hero_id, personaname, isRadiant, player_slot }) => (
   <span key={`player_${player_slot}`} style={{ color: (isRadiant ? radiantColor : direColor) }} className={styles.storySpan}>
     <img
-      className={styles.heroThumb}
       src={heroes[hero_id]
         ? `${API_HOST}${heroes[hero_id].icon}`
         : '/assets/images/blank-1x1.gif'
@@ -52,6 +51,20 @@ const PlayerSpan = ({ hero_id, personaname, isRadiant, player_slot }) => (
       role="presentation"
     />
     {heroes[hero_id].localized_name}
+  </span>
+);
+
+// Modified version of PlayerThumb
+const ItemSpan = (item) => (
+  <span key={`item_${item}`} className={styles.storySpan}>
+    <img
+      src={items[item]
+        ? `${API_HOST}${items[item].img}`
+        : '/assets/images/blank-1x1.gif'
+      }
+      role="presentation"
+    />
+    {items[item].dname}
   </span>
 );
 
@@ -370,6 +383,42 @@ class BuildingListEvent extends StoryEvent {
   }
 }
 
+class ExpensiveItemEvent extends StoryEvent {
+  constructor(match, price) {
+    super(match.duration);
+    this.price_limit = price;
+    match.players.forEach(player => {
+      Object.entries(player.first_purchase_time).forEach(([item, time]) => {
+        if(items[item].cost >= price && time < this.time){
+          this.time = time;
+          this.item = item;
+          this.player = player;
+        }
+      });
+    });
+  }
+  static exists(match, price) {
+    var found = false;
+    match.players.forEach(player => {
+      Object.entries(player.first_purchase_time).forEach(([item, time]) => {
+        if(items[item].cost >= price){
+          found = true;
+          return true;
+        }
+      });
+    });
+    return found;
+  }
+  format() {
+    return renderTemplate(strings.story_expensive_item, {
+      time: formatSeconds(this.time),
+      player: PlayerSpan(this.player),
+      item: ItemSpan(this.item),
+      price_limit: GoldSpan(this.price_limit),
+    }, true);
+  }
+}
+
 class GameoverEvent extends StoryEvent {
   constructor(match) {
     super(match.duration);
@@ -436,6 +485,11 @@ const generateStory = (match) => {
   events = events.concat(match.objectives
       .filter(obj => obj.type === 'CHAT_MESSAGE_BARRACKS_KILL')
       .map(obj => new BarracksEvent(match, obj)));
+
+  // Expensive Item
+  if(ExpensiveItemEvent.exists(match, 4000)){
+    events = events.concat(new ExpensiveItemEvent(match, 4000));
+  }
 
   // Gameover
   events.push(new GameoverEvent(match));

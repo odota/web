@@ -229,7 +229,6 @@
 .storySpan svg, .storySpan img {
   vertical-align: middle;
   height: 20px !important;
-  width: 20px !important;
   margin-right: 2px;
   opacity: 0.8;
   fill: var(--textColorPrimary);
