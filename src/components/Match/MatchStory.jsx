@@ -23,7 +23,7 @@ const TEAM = {
 }
 
 const GoldSpan = (amount) => (
-  <span className={styles.storySpan}>
+  <span key={`gold_${amount}`} className={styles.storySpan}>
     <font color={styles.golden}>{amount} </font>
     <img
       role="presentation"
@@ -34,15 +34,15 @@ const GoldSpan = (amount) => (
 );
 
 const TeamSpan = (is_radiant) => (
-  <span style={{ color: (is_radiant ? radiantColor : direColor) }} className={styles.storySpan}>
+  <span key={`team_${is_radiant ? "radiant" : "dire"}`} style={{ color: (is_radiant ? radiantColor : direColor) }} className={styles.storySpan}>
     {is_radiant ? <IconRadiant className={styles.iconRadiant} /> : <IconDire className={styles.iconDire} />}
     {is_radiant ? strings.general_radiant : strings.general_dire}
   </span>
 );
 
 // Modified version of PlayerThumb
-const PlayerSpan = ({ hero_id, personaname, isRadiant }) => (
-  <span style={{ color: (isRadiant ? radiantColor : direColor) }} className={styles.storySpan}>
+const PlayerSpan = ({ hero_id, personaname, isRadiant, player_slot }) => (
+  <span key={`player_${player_slot}`} style={{ color: (isRadiant ? radiantColor : direColor) }} className={styles.storySpan}>
     <img
       className={styles.heroThumb}
       src={heroes[hero_id]
@@ -109,7 +109,7 @@ class StoryEvent extends React.Component{
     this.time = time;
   }
   render() {
-    return <div style={{ marginBottom: 20 }}>{this.format()}</div>;
+    return <div key={`event_at_${this.time}`} style={{ marginBottom: 20 }}>{this.format()}</div>;
   }
 }
 
@@ -132,8 +132,8 @@ class FirstbloodEvent extends StoryEvent {
 }
 
 const format_objective_events = (events) => {
-  var formatted = events.filter(event => !(event instanceof BuildingEvent));
-  var buildings = events.filter(event => event instanceof BuildingEvent);
+  var formatted = events.filter(event => !(event instanceof TowerEvent || event instanceof BarracksEvent));
+  var buildings = events.filter(event => event instanceof TowerEvent || event instanceof BarracksEvent);
   if(buildings.length <= 1){
     formatted = formatted.concat(buildings);
   }
@@ -252,6 +252,7 @@ class LaneStory {
 class JungleStory {
   constructor(match) {
     this.players = match.players.filter(player => (player.lane == 4 || player.lane == 5) && !player.is_roaming);
+    this.lane = 4;
   }
   static exists(match) {
     return match.players.filter(player => (player.lane == 4 || player.lane == 5) && !player.is_roaming).length > 0;
@@ -266,6 +267,7 @@ class JungleStory {
 class RoamStory {
   constructor(match) {
     this.players = match.players.filter(player => player.is_roaming);
+    this.lane = 6;
   }
   static exists(match) {
     return match.players.filter(player => player.is_roaming).length > 0;
@@ -289,37 +291,49 @@ class LanesEvent extends StoryEvent {
     }
   }
   format() {
-    return [ strings.story_lane_intro, <ul>{this.lanes.map(lane => <li>{lane.format()}</li>)}</ul> ];
+    return [ strings.story_lane_intro, <ul key="lanestory">{this.lanes.map(lane => <li key={lane.lane}>{lane.format()}</li>)}</ul> ];
   }
 }
 
-class BuildingEvent extends StoryEvent {
+class TowerEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
-    this.team = obj.team ? !(obj.team == 2) : obj.key >= 64; // We want the team that the tower belongs to, so get the opposite
-    this.is_tower = obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY';
     this.is_deny = obj.type === 'CHAT_MESSAGE_TOWER_DENY';
-    this.key = obj.key < 64 ? obj.key : obj.key << 6;
+    this.team = !(obj.team == 2); // We want the team that the tower belongs to, so get the opposite
     this.player = match.players.find(player => player.player_slot == obj.player_slot);
+    this.template = !this.player ? strings.story_building_destroy : (this.is_deny ? strings.story_building_deny_player : strings.story_building_destroy_player);
   }
   get localized_building() {
-    return this.is_tower ? strings.CHAT_MESSAGE_TOWER_KILL : strings[`story_barracks_value_${this.key}`];
-  }
-  get template(){
-    return !this.player ? strings.story_building_destroy : (this.is_deny ? strings.story_building_deny_player : strings.story_building_destroy_player);
+    return renderTemplate(strings.story_tower, { team: TeamSpan(this.team) });
   }
   format() {
     return renderTemplate(this.template, {
-      building: renderTemplate(strings.story_building, { building: this.localized_building, team: TeamSpan(this.team) }),
+      building: this.localized_building,
       player: this.player ? PlayerSpan(this.player) : null
     });
   }
 }
 
-const is_rax_lane = (barracks, lane) => {
-  var exp = (lane - 1) * 2;
-  return barracks.key == Math.pow(2, exp) || barracks.key == Math.pow(2, exp + 1);
-};
+class BarracksEvent extends StoryEvent {
+  constructor(match, obj) {
+    super(obj.time);
+    this.team = obj.key >= 64;
+    this.key = obj.key < 64 ? obj.key : obj.key << 6;
+    let power = Math.log2(this.key);
+    this.is_melee = (power % 2) == 0;
+    this.lane = Math.floor(power / 2) + 1;
+  }
+  get localized_building() {
+    return renderTemplate(strings.story_barracks, {
+      team: TeamSpan(this.team),
+      lane: localized_lane[this.lane],
+      rax_type: this.is_melee ? strings.building_melee_rax : strings.building_range_rax
+    });
+  }
+  format() {
+    return renderTemplate(strings.story_building_destroy, { building: this.localized_building });
+  }
+}
 
 class BuildingListEvent extends StoryEvent {
   constructor(building_events) {
@@ -329,12 +343,9 @@ class BuildingListEvent extends StoryEvent {
   format() {
     var building_list = [];
     for(var team of [ TEAM.radiant, TEAM.dire ]){
-      var towers = this.buildings.filter(building => building.team == team && building.is_tower);
+      var towers = this.buildings.filter(building => building.team == team && building instanceof TowerEvent);
       if(towers.length == 1) {
-        building_list.push(renderTemplate(strings.story_building, {
-          team: TeamSpan(team),
-          building: towers[0].localized_building
-        }));
+        building_list.push(towers[0].localized_building);
       }
       else if(towers.length > 1) {
         building_list.push(renderTemplate(strings.story_towers_n, {
@@ -343,12 +354,9 @@ class BuildingListEvent extends StoryEvent {
         }))
       }
       for(var lane of Object.keys(localized_lane)){
-        var barracks = this.buildings.filter(building => building.team == team && !building.is_tower && is_rax_lane(building, lane));
+        var barracks = this.buildings.filter(building => building.team == team && building instanceof BarracksEvent && building.lane == lane);
         if(barracks.length == 1) {
-          building_list.push(renderTemplate(strings.story_building, {
-            team: TeamSpan(team),
-            building: barracks[0].localized_building
-          }));
+          building_list.push(barracks[0].localized_building);
         }
         else if(barracks.length == 2) {
           building_list.push(renderTemplate(strings.story_barracks_both, {
@@ -373,8 +381,8 @@ class GameoverEvent extends StoryEvent {
     return renderTemplate(strings.story_gameover, {
       duration: formatSeconds(this.time),
       winning_team: TeamSpan(this.winning_team),
-      radiant_score: <font color={radiantColor}>{this.radiant_score}</font>,
-      dire_score: <font color={direColor}>{this.dire_score}</font>
+      radiant_score: <font key="radiant_score" color={radiantColor}>{this.radiant_score}</font>,
+      dire_score: <font key="dire_score" color={direColor}>{this.dire_score}</font>
     }, true);
   }
 }
@@ -419,10 +427,15 @@ const generateStory = (match) => {
     events.push(new LanesEvent(match));
   }
 
-  // Towers & Barracks
+  // Towers
   events = events.concat(match.objectives
-      .filter(obj => obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY' || obj.type === 'CHAT_MESSAGE_BARRACKS_KILL')
-      .map(obj => new BuildingEvent(match, obj)));
+      .filter(obj => obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY')
+      .map(obj => new TowerEvent(match, obj)));
+
+  // Barracks
+  events = events.concat(match.objectives
+      .filter(obj => obj.type === 'CHAT_MESSAGE_BARRACKS_KILL')
+      .map(obj => new BarracksEvent(match, obj)));
 
   // Gameover
   events.push(new GameoverEvent(match));
@@ -441,7 +454,7 @@ const generateStory = (match) => {
       continue;
     }
     if(last_fight == null) { continue; }
-    if(events[i] instanceof RoshanEvent || events[i] instanceof BuildingEvent) {
+    if(events[i] instanceof RoshanEvent || events[i] instanceof TowerEvent || events[i] instanceof BarracksEvent) {
       if(events[i].time < last_fight.time_end){ // During
         last_fight.during_events.push(events[i]);
         events.splice(i, 1);
@@ -465,7 +478,7 @@ class MatchStory extends React.Component {
   render() {
     try {
       var events = generateStory(this.props.match);
-      return (<div>{events.map(event => event.render())}</div>);
+      return (<div key="matchstory">{events.map(event => event.render())}</div>);
     }
     catch(e) {
       var exmsg = "";
