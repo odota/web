@@ -3,7 +3,7 @@ import { TableLink } from 'components/Table';
 import { transformations } from 'utility';
 import strings from 'lang';
 
-const displayFn = (...args) => `${args[4]}%`
+const displayFn = (...args) => `${args[4]}%`;
 
 export const playerHeroesOverviewColumns = playerId => [{
   displayName: strings.th_hero_id,
