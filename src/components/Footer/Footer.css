@@ -28,7 +28,7 @@
       }
 
       & svg {
-        height: 14px;
+        height: 18px;
         margin-left: 15px;
         fill: var(--textColorPrimary);
         transition: var(--normalTransition);
