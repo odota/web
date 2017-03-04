@@ -377,22 +377,28 @@ export const performanceColumns = [
     tooltip: strings.tooltip_lane_efficiency,
     field: 'lane_efficiency',
     sortFn: true,
-    displayFn: (row, col, field) => (field ? field.toFixed(2) : '-'),
-    relativeBars: true,
+    displayFn: (row, col, field) => (field ? `${(field * 100).toFixed(2)}%` : '-'),
+    relativeBars: {
+      getDivisor: () => 1,
+    },
   }, {
     displayName: strings.th_lhten,
     tooltip: strings.tooltip_lhten,
     field: 'lh_t',
     sortFn: true,
-    displayFn: (row, col, field) => (field ? field[10] : '-'),
-    relativeBars: true,
+    displayFn: (row, col, field) => (field || '-'),
+    relativeBars: {
+      getValue: row => row.lh_t && row.lh_t[10],
+    },
   }, {
     displayName: strings.th_dnten,
     tooltip: strings.tooltip_dnten,
     field: 'dn_t',
     sortFn: true,
-    displayFn: (row, col, field) => (field ? field[10] : '-'),
-    relativeBars: true,
+    displayFn: (row, col, field) => (field || '-'),
+    relativeBars: {
+      getValue: row => row.dn_t && row.dn_t[10],
+    },
   }, {
     displayName: strings.th_multikill,
     tooltip: strings.tooltip_multikill,
