@@ -217,15 +217,30 @@ var localized_lane = {
   3: strings.lane_3,
 }
 
+const get_lane_score = (players) => (Math.max(players.map(player => player.lane_efficiency)) || 0);
+
 class LaneStory {
   constructor(match, lane) {
-    this.radiant_players = match.players.filter(player => player.lane == lane && player.isRadiant);
-    this.dire_players = match.players.filter(player => player.lane == lane && !player.isRadiant);
+    this.radiant_players = match.players.filter(player => player.lane == lane && player.isRadiant && (!player.is_roaming));
+    this.dire_players = match.players.filter(player => player.lane == lane && !player.isRadiant && (!player.is_roaming));
     this.lane = lane;
-    this.winning_team = (Math.max(this.radiant_players.map(player => player.lane_efficiency)) || 0) >
-                (Math.max(this.dire_players.map(player => player.lane_efficiency)) || 0);
+    this.winning_team = get_lane_score(this.radiant_players) > get_lane_score(this.dire_players);
   }
   format() {
+    // If there is nobody in this lane
+    if(this.radiant_players.length == 0 && this.dire_players.length == 0){
+      return renderTemplate(strings.story_lane_empty, {
+        lane: localized_lane[this.lane]
+      }, true);
+    }
+    // If only one team is in this lane
+    if(this.radiant_players.length == 0 || this.dire_players.length == 0){
+      return renderTemplate(strings.story_lane_free, {
+        players: this.radiant_players.concat(this.dire_players),
+        lane: localized_lane[this.lane]
+      }, true);
+    }
+    // If both teams are in this lane
     return renderTemplate(this.winning_team ? strings.story_lane_radiant_win : strings.story_lane_radiant_lose, {
       radiant_players: formatList(this.radiant_players.map(PlayerSpan), strings.story_lane_empty),
       dire_players: formatList(this.dire_players.map(PlayerSpan), strings.story_lane_empty),
@@ -234,10 +249,44 @@ class LaneStory {
   }
 }
 
+class JungleStory {
+  constructor(match) {
+    this.players = match.players.filter(player => (player.lane == 4 || player.lane == 5) && !player.is_roaming);
+  }
+  static exists(match) {
+    return match.players.filter(player => (player.lane == 4 || player.lane == 5) && !player.is_roaming).length > 0;
+  }
+  format() {
+    return renderTemplate(strings.story_lane_jungle, {
+      players: formatList(this.players.map(PlayerSpan))
+    }, true);
+  }
+}
+
+class RoamStory {
+  constructor(match) {
+    this.players = match.players.filter(player => player.is_roaming);
+  }
+  static exists(match) {
+    return match.players.filter(player => player.is_roaming).length > 0;
+  }
+  format() {
+    return renderTemplate(strings.story_lane_roam, {
+      players: formatList(this.players.map(PlayerSpan))
+    }, true);
+  }
+}
+
 class LanesEvent extends StoryEvent {
   constructor(match) {
     super(10 * 60);
     this.lanes = Object.keys(localized_lane).map(lane => new LaneStory(match, lane));
+    if(JungleStory.exists(match)){
+      this.lanes.push(new JungleStory(match));
+    }
+    if(RoamStory.exists(match)){
+      this.lanes.push(new RoamStory(match));
+    }
   }
   format() {
     return [ strings.story_lane_intro, <ul>{this.lanes.map(lane => <li>{lane.format()}</li>)}</ul> ];
