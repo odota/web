@@ -3,8 +3,6 @@ import { TableLink } from 'components/Table';
 import { transformations } from 'utility';
 import strings from 'lang';
 
-const displayFn = (...args) => `${args[4]}%`;
-
 export const playerHeroesOverviewColumns = playerId => [{
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
@@ -22,8 +20,7 @@ export const playerHeroesOverviewColumns = playerId => [{
   tooltip: strings.tooltip_win_pct_as,
   field: 'win',
   sortFn: row => row.win / row.games,
-  displayFn,
-  relativeBars: { getDivisor: row => row.games },
+  percentBars: { getDivisor: row => row.games },
 }];
 
 const restColumns = playerId => [{
@@ -37,8 +34,7 @@ const restColumns = playerId => [{
   tooltip: strings.tooltip_win_pct_with,
   field: 'with_win',
   sortFn: row => row.with_win / row.with_games,
-  displayFn,
-  relativeBars: { getDivisor: row => row.with_games },
+  percentBars: true,
 }, {
   displayName: strings.th_against_games,
   tooltip: strings.tooltip_played_against,
@@ -50,8 +46,7 @@ const restColumns = playerId => [{
   tooltip: strings.tooltip_win_pct_against,
   field: 'against_win',
   sortFn: row => row.against_win / row.against_games,
-  displayFn,
-  relativeBars: { getDivisor: row => row.against_games },
+  percentBars: true,
 }];
 
 export const playerHeroesColumns = playerId => [

@@ -373,9 +373,7 @@ export const performanceColumns = [
     field: 'lane_efficiency',
     sortFn: true,
     displayFn: (row, col, field) => (field ? `${(field * 100).toFixed(2)}%` : '-'),
-    relativeBars: {
-      getDivisor: () => 1,
-    },
+    relativeBars: true,
   }, {
     displayName: strings.th_lhten,
     tooltip: strings.tooltip_lhten,

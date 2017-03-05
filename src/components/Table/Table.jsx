@@ -67,7 +67,9 @@ const TableCreator = ({
         {data.map((row, index) => (
           <MaterialTableRow key={index}>
             {columns.map((column, colIndex) => {
-              const { field, color, center, displayFn, relativeBars, sortFn } = column;
+              const { field, color, center, displayFn, relativeBars, percentBars, sortFn } = column;
+              const getValue = typeof sortFn === 'function' ? sortFn : null;
+              const value = getValue ? getValue(row) : row[field];
               const style = {
                 // width: `${getWidthStyle(column.width, totalWidth)}%`,
                 overflow: `${field === 'kills' ? 'visible' : null}`,
@@ -87,46 +89,48 @@ const TableCreator = ({
               }
 
               let fieldEl = null;
-              if (relativeBars) {
-                const {
-                  getDivisor,
-                  getSmallValue,
-                } = relativeBars;
-                const getValue = typeof sortFn === 'function' ? sortFn : null;
-                const value = getValue ? getValue(row) : row[field];
-
-                let divisor = 1;
-                let valueWithOffset = Number(value);
-                if (getDivisor) {
-                  divisor = getDivisor(row);
-                } else {
+              const bars = relativeBars || percentBars;
+              if (bars) {
+                const smallValue = typeof bars === 'function' ? bars(row) : null;
+                let valEl = null;
+                let barPercentValue = 0;
+                if (relativeBars) {
+                  // Relative bars calculates the max for the column
+                  // and gets the percentage of value/max
                   // TODO masad-frost memoize or something
-                  const offset = getColumnMin(data, field, getValue);
-                  divisor = getColumnMax(data, field, getValue);
-                  if (!isNaN(offset) && offset < 0) {
+                  const min = getColumnMin(data, field, getValue);
+                  let max = getColumnMax(data, field, getValue);
+                  let valueWithOffset = value;
+                  if (!isNaN(min) && min < 0) {
                     // Rescale to cater for columns with negatives
-                    divisor -= offset;
-                    valueWithOffset -= offset;
+                    max -= min;
+                    valueWithOffset -= min;
                   }
-                }
-                const isValidNumber = !isNaN(valueWithOffset); // same sign
-                const relativeValue = divisor !== 0 && isValidNumber
-                  ? Number((valueWithOffset * 100 / divisor).toFixed(2))
-                  : 0;
 
-                const displayValue = displayFn
-                  ? displayFn(row, column, value, index, relativeValue)
-                  : <span>{value}</span>;
-                const smallValue = getSmallValue && getSmallValue(row);
+                  const isValidNumber = !isNaN(valueWithOffset);
+                  barPercentValue = max !== 0 && isValidNumber
+                    ? Number((valueWithOffset * 100 / max).toFixed(2))
+                    : 0;
+                  valEl = displayFn
+                    ? displayFn(row, column, value, index, barPercentValue)
+                    : <span>{value}</span>;
+                } else {
+                  // Percent bars assumes that the value is in decimal
+                  barPercentValue = Number((value * 100).toFixed(2));
+                  valEl = displayFn
+                    ? displayFn(row, column, value, index, barPercentValue)
+                    : <span>{barPercentValue}%</span>;
+                }
+
                 fieldEl = (<TablePercent
-                  valEl={displayValue}
-                  val={relativeValue}
+                  valEl={valEl}
+                  val={barPercentValue}
                   smallValue={smallValue}
                 />);
               } else if (displayFn) {
-                fieldEl = displayFn(row, column, row[field], index);
+                fieldEl = displayFn(row, column, value, index);
               } else {
-                fieldEl = row[field];
+                fieldEl = value;
               }
 
               return (
