@@ -10,18 +10,39 @@ import Container from 'components/Container';
 import { browserHistory } from 'react-router';
 import strings from 'lang';
 
+const getMedian = (columns, midpoint) => {
+  let sum = 0;
+  const medianCol = columns.find((col) => {
+    sum += col.games;
+    return (sum >= midpoint);
+  });
+  return medianCol && medianCol.x;
+};
+
+const getSubtitleStats = (columns) => {
+  const total = columns.reduce((sum, col) => (sum + col.games), 0);
+  const median = getMedian(columns, total / 2);
+  return `${strings.heading_total_matches}: ${total}${(median !== undefined) ? `, ${strings.heading_median}: ${median}` : ''}`;
+};
+
 const histogramNames = dataColumns.filter(col => col !== 'win_rate');
 
-const Histogram = ({ routeParams, columns, playerId, error, loading }) => (
+const Histogram = ({ routeParams, columns, playerId, error, loading, histogramName }) => (
   <div style={{ fontSize: 10 }}>
     <Heading title={strings.histograms_name} subtitle={strings.histograms_description} />
     <ButtonGarden
-      onClick={buttonName => browserHistory.push(`/players/${playerId}/histograms/${buttonName}${window.location.search}`)}
+      onClick={(buttonName) => {
+        this.histogramName = buttonName;
+        browserHistory.push(`/players/${playerId}/histograms/${buttonName}${window.location.search}`);
+      }}
       buttonNames={histogramNames}
       selectedButton={routeParams.subInfo || histogramNames[0]}
     />
     <Container style={{ fontSize: 10 }} error={error} loading={loading}>
-      <HistogramGraph columns={columns || []} />
+      <div>
+        <Heading title={strings[`heading_${histogramName}`]} subtitle={loading ? '' : getSubtitleStats(columns)} />
+        <HistogramGraph columns={columns || []} />
+      </div>
     </Container>
   </div>
 );
@@ -49,6 +70,7 @@ class RequestLayer extends React.Component {
 }
 
 const mapStateToProps = (state, { histogramName = histogramNames[0], playerId }) => ({
+  histogramName,
   histograms: playerHistogram.getPlayerHistogramById(state, playerId),
   columns: playerHistogram.getHistogramList(histogramName)(state, playerId),
   loading: playerHistogram.getLoading(histogramName)(state, playerId),
