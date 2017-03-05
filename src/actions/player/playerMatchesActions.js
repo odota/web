@@ -38,7 +38,20 @@ export const getPlayerMatchesError = (payload, id) => ({
 });
 
 export const defaultPlayerMatchesOptions = {
-  project: ['hero_id', 'start_time', 'duration', 'player_slot', 'radiant_win', 'game_mode', 'version', 'kills', 'deaths', 'assists', 'skill'],
+  project: [
+    'hero_id',
+    'start_time',
+    'duration',
+    'player_slot',
+    'radiant_win',
+    'game_mode',
+    'lobby_type',
+    'version',
+    'kills',
+    'deaths',
+    'assists',
+    'skill',
+  ],
 };
 
 export const getPlayerMatches = (playerId, options = {}, getAllData, forceRefresh) => (dispatch, getState) => {
