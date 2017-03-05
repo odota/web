@@ -91,7 +91,7 @@ const TableCreator = ({
               let fieldEl = null;
               const bars = relativeBars || percentBars;
               if (bars) {
-                const smallValue = typeof bars === 'function' ? bars(row) : null;
+                const altValue = typeof bars === 'function' ? bars(row) : null;
                 let valEl = null;
                 let barPercentValue = 0;
                 if (relativeBars) {
@@ -124,8 +124,8 @@ const TableCreator = ({
 
                 fieldEl = (<TablePercent
                   valEl={valEl}
-                  val={barPercentValue}
-                  smallValue={smallValue}
+                  percent={barPercentValue}
+                  altValue={altValue}
                 />);
               } else if (displayFn) {
                 fieldEl = displayFn(row, column, value, index);

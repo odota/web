@@ -90,7 +90,7 @@ function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping 
           return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
         } else if (column.field === 'winrate') {
           return (field >= 0 && field <= 1 ? <TablePercent
-            val={Number((field * 100).toFixed(2))}
+            percent={Number((field * 100).toFixed(2))}
           /> : null);
         } else if (column.field === 'rune_id') {
           return strings[`rune_${field}`];
