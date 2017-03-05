@@ -9,8 +9,9 @@ export default [{
 }, {
   displayName: strings.th_matches,
   field: 'matches',
-  sortFn: 1,
+  sortFn: true,
   displayFn: transformations.matches,
+  relativeBars: true,
 }, {
   displayName: strings.th_win,
   field: 'winPercent',

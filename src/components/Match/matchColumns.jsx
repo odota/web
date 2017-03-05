@@ -553,6 +553,7 @@ export const actionsColumns = [heroTdColumn, {
   tooltip: strings.tooltip_actions_per_min,
   field: 'actions_per_min',
   sortFn: true,
+  relativeBars: true,
 }]
   .concat(Object.keys(orderTypes).filter(orderType => `th_${orderTypes[orderType]}` in strings).map(orderType => ({
     displayName: strings[`th_${orderTypes[orderType]}`],
@@ -584,8 +585,10 @@ export const runesColumns = [heroTdColumn]
         </ReactTooltip>
       </div>
     ),
-    field: 'runes',
-    displayFn: (row, col, field) => (field ? (field[runeType] || '-') : '-'),
+    field: `rune_${runeType}`,
+    displayFn: (row, col, value) => (value || '-'),
+    sortFn: row => row.runes && row.runes[runeType],
+    relativeBars: true,
   })));
 
 
