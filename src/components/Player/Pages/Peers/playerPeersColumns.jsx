@@ -45,6 +45,16 @@ const restColumns = [{
   field: 'against_win',
   displayFn: row => <TablePercent val={getPercentWin(row.against_win, row.against_games)} />,
   sortFn: row => row.against_win / row.against_games,
+}, {
+  displayName: strings.th_gpm_with,
+  field: 'with_gpm_sum',
+  displayFn: row => (row.with_gpm_sum / row.with_games).toFixed(0),
+  sortFn: row => row.with_gpm_sum / row.with_games,
+}, {
+  displayName: strings.th_xpm_with,
+  field: 'with_xpm_sum',
+  displayFn: row => (row.with_xpm_sum / row.with_games).toFixed(0),
+  sortFn: row => row.with_xpm_sum / row.with_games,
 }];
 
 export const playerPeersOverviewColumns = playerId => [

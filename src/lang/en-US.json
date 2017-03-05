@@ -518,6 +518,8 @@
   "th_with_win": "Win with %",
   "th_against_games": "Against",
   "th_against_win": "Win against %",
+  "th_gpm_with": "GPM With",
+  "th_xpm_with": "XPM With",
   "th_avatar": "Player",
   "th_last_played": "Last",
   "th_record": "Record",

@@ -51,9 +51,9 @@ const countTypes = {
   patch: patchLookup,
   region,
   is_radiant: {
-    '0': strings.general_dire,
-    '1': strings.general_radiant,
-  }
+    0: strings.general_dire,
+    1: strings.general_radiant,
+  },
 };
 
 export const getPlayerCounts = (playerId, options = {}) => (dispatch, getState) => {
