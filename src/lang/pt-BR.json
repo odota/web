@@ -277,6 +277,8 @@
   "heading_win_rate":"% Vitórias",
   "heading_avg_and_max":"Médias/Melhores",
   "subheading_avg_and_max":"nas últimas %d partidas",
+  "heading_total_matches":"Total Matches",
+  "heading_median":"Median",
   "hero_pro_tab":"Profissional",
   "hero_public_tab":"Público",
   "hero_pro_heading":"Heróis em partidas profissionais",
