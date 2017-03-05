@@ -720,7 +720,7 @@
   "trends_name":"Tendências",
   "trends_description":"Média acumulada dos últimos 500 jogos",
   "trends_tooltip_average":"Méd.",
-  "trends_no_data":"Desculpe, não há dados para esta tendência",
+  "trends_no_data":"Sorry, no data for this graph",
   "xp_reasons_0":"Outro",
   "xp_reasons_1":"Creep",
   "xp_reasons_2":"Herói",
