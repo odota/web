@@ -1,3 +1,4 @@
+/* global API_HOST */
 import React from 'react';
 import { Link } from 'react-router';
 import {
@@ -99,6 +100,7 @@ const SummOfRecMatches = ({ matchesData }) => {
           const c = computed[key];
 
           if (c.avg) {
+            const hero = heroes[c.max.heroId] || {};
             return (
               <li key={key}>
                 <span>{strings[`heading_${key}`]}</span>
@@ -107,7 +109,7 @@ const SummOfRecMatches = ({ matchesData }) => {
                   &nbsp;
                   <span>{key === 'duration' ? formatSeconds(c.max.value) : abbreviateNumber(c.max.value)}
                     <Link to={`matches/${c.max.matchId}`}>
-                      <img src={`${API_HOST}${heroes[c.max.heroId].icon}`} alt={heroes[c.max.heroId].localized_name} />
+                      <img src={`${API_HOST}${hero.icon}`} alt={hero.localized_name} />
                     </Link>
                   </span>
                 </p>
