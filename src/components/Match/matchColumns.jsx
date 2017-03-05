@@ -346,13 +346,8 @@ export const lastHitsTimesColumns = (match) => {
     cols.push({
       displayName: `${minutes}'`,
       field: i,
-      sortFn: row => (row.lh_t ? row.lh_t[curTime / 60] : 0),
-      relativeBars: {
-        getValue: (row) => {
-          const value = row.lh_t ? row.lh_t[minutes] : '';
-          return value;
-        },
-      },
+      sortFn: row => (row.lh_t && row.lh_t[minutes]),
+      relativeBars: true,
     });
   }
   return cols;
@@ -385,20 +380,16 @@ export const performanceColumns = [
     displayName: strings.th_lhten,
     tooltip: strings.tooltip_lhten,
     field: 'lh_t',
-    sortFn: true,
+    sortFn: row => row.dn_t && row.dn_t[10],
     displayFn: (row, col, field) => (field || '-'),
-    relativeBars: {
-      getValue: row => row.lh_t && row.lh_t[10],
-    },
+    relativeBars: true,
   }, {
     displayName: strings.th_dnten,
     tooltip: strings.tooltip_dnten,
     field: 'dn_t',
-    sortFn: true,
+    sortFn: row => row.dn_t && row.dn_t[10],
     displayFn: (row, col, field) => (field || '-'),
-    relativeBars: {
-      getValue: row => row.dn_t && row.dn_t[10],
-    },
+    relativeBars: true,
   }, {
     displayName: strings.th_multikill,
     tooltip: strings.tooltip_multikill,
@@ -571,9 +562,7 @@ export const actionsColumns = [heroTdColumn, {
     field: orderType,
     sortFn: row => (row.actions ? row.actions[orderType] : 0),
     displayFn: (row, column, value) => value || '-',
-    relativeBars: {
-      getValue: row => (row.actions && row.actions[orderType]),
-    },
+    relativeBars: true,
   })));
 
 export const runesColumns = [heroTdColumn]
@@ -656,9 +645,7 @@ export const goldReasonsColumns = [heroTdColumn]
       field: gr,
       sortFn: row => (row.gold_reasons ? row.gold_reasons[gr.substring('gold_reasons_'.length)] : 0),
       displayFn: (row, column, value) => value || '-',
-      relativeBars: {
-        getValue: row => (row.gold_reasons && row.gold_reasons[gr.substring('gold_reasons_'.length)]),
-      },
+      relativeBars: true,
     })));
 
 export const xpReasonsColumns = [heroTdColumn]
@@ -669,20 +656,17 @@ export const xpReasonsColumns = [heroTdColumn]
       field: xpr,
       sortFn: row => (row.xp_reasons ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] : 0),
       displayFn: (row, column, value) => value || '-',
-      relativeBars: {
-        getValue: row => (row.xp_reasons && row.xp_reasons[xpr.substring('xp_reasons_'.length)]),
-      },
+      relativeBars: true,
     })));
 
 export const objectiveDamageColumns = [heroTdColumn]
   .concat(Object.keys(strings).filter(str => str.indexOf('objective_') === 0)
     .map(obj => ({
       displayName: strings[obj],
-      field: 'objective_damage',
+      field: obj,
+      sortFn: row => (row.objective_damage && row.objective_damage[obj.substring('objective_'.length)]),
       displayFn: (row, col, value) => value || '-',
-      relativeBars: {
-        getValue: row => (row.objective_damage && row.objective_damage[obj.substring('objective_'.length)]),
-      },
+      relativeBars: true,
     })));
 
 
@@ -871,11 +855,10 @@ export const visionColumns = [
       </div>
     ),
     tooltip: strings.tooltip_used_ward_observer,
-    sortFn: true,
+    field: 'uses_ward_observer',
+    sortFn: row => (row.item_uses && row.item_uses.ward_observer),
     displayFn: (row, column, value) => value || '-',
-    relativeBars: {
-      getValue: row => (row.item_uses ? row.item_uses.ward_observer : 0),
-    },
+    relativeBars: true,
   },
   purchaseSentryColumn, {
     center: true,
@@ -886,11 +869,10 @@ export const visionColumns = [
       </div>
     ),
     tooltip: strings.tooltip_used_ward_sentry,
-    sortFn: true,
+    field: 'uses_ward_sentry',
+    sortFn: row => (row.item_uses && row.item_uses.ward_sentry),
     displayFn: (row, column, value) => value || '-',
-    relativeBars: {
-      getValue: row => (row.item_uses ? row.item_uses.ward_sentry : 0),
-    },
+    relativeBars: true,
   },
   purchaseDustColumn, {
     center: true,
@@ -901,11 +883,10 @@ export const visionColumns = [
       </div>
     ),
     tooltip: strings.tooltip_used_dust,
-    sortFn: true,
+    field: 'uses_dust',
+    sortFn: row => (row.item_uses && row.item_uses.dust),
     displayFn: (row, column, value) => value || '-',
-    relativeBars: {
-      getValue: row => (row.item_uses ? row.item_uses.dust : 0),
-    },
+    relativeBars: true,
   },
   purchaseSmokeColumn, {
     center: true,
@@ -916,11 +897,10 @@ export const visionColumns = [
       </div>
     ),
     tooltip: strings.tooltip_used_smoke_of_deceit,
-    sortFn: true,
+    field: 'uses_smoke',
+    sortFn: row => (row.item_uses && row.item_uses.smoke_of_deceit),
     displayFn: (row, column, value) => value || '-',
-    relativeBars: {
-      getValue: row => (row.item_uses ? row.item_uses.smoke_of_deceit : 0),
-    },
+    relativeBars: true,
   },
   purchaseGemColumn,
 ];

@@ -67,7 +67,7 @@ const TableCreator = ({
         {data.map((row, index) => (
           <MaterialTableRow key={index}>
             {columns.map((column, colIndex) => {
-              const { field, color, center, displayFn, relativeBars } = column;
+              const { field, color, center, displayFn, relativeBars, sortFn } = column;
               const style = {
                 // width: `${getWidthStyle(column.width, totalWidth)}%`,
                 overflow: `${field === 'kills' ? 'visible' : null}`,
@@ -90,9 +90,9 @@ const TableCreator = ({
               if (relativeBars) {
                 const {
                   getDivisor,
-                  getValue,
                   getSmallValue,
                 } = relativeBars;
+                const getValue = typeof sortFn === 'function' ? sortFn : null;
                 const value = getValue ? getValue(row) : row[field];
 
                 let divisor = 1;
