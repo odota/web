@@ -720,7 +720,7 @@
   "trends_name":"Trendy",
   "trends_description":"Zbiorcza średnia ostatnich 500 gier",
   "trends_tooltip_average":"Śr.",
-  "trends_no_data":"Przykro nam, nie ma danych dla tego trendu",
+  "trends_no_data":"Sorry, no data for this graph",
   "xp_reasons_0":"Inne",
   "xp_reasons_1":"Creep",
   "xp_reasons_2":"Bohater",
