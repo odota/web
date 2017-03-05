@@ -720,7 +720,7 @@
   "trends_name":"Trends",
   "trends_description":"Cumulative average over last 500 games",
   "trends_tooltip_average":"Avg.",
-  "trends_no_data":"Sorry, no data for this trend",
+  "trends_no_data":"Sorry, no data for this graph",
   "xp_reasons_0":"Autre",
   "xp_reasons_1":"Creep",
   "xp_reasons_2":"Héros",
