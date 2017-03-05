@@ -23,7 +23,7 @@ const generateGraph = ({
   tooltip,
   onClick,
 }, id) => {
-  if (columns && columns.length > 0) {
+  if (columns) {
     const columnVals = columns.map(column => column.value);
     const configObject = {
       bindto: `#${id}`,
