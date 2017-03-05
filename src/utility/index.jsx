@@ -261,7 +261,7 @@ export const transformations = {
     <div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
       <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
-        {strings[`game_mode_${row.game_mode}`]} - {strings[`lobby_type_${row.lobby_type}`]}
+        {strings[`game_mode_${row.game_mode}`]} / {strings[`lobby_type_${row.lobby_type}`]}
       </span>
     </div>
   ),
