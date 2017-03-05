@@ -19,28 +19,10 @@ const getMedian = (columns, midpoint) => {
   return medianCol && medianCol.x;
 };
 
-const getMax = (columns) => {
-  let max = 0;
-  let maxColumn;
-  columns.forEach((col) => {
-    max = Math.max(max, col.games);
-    if (max === col.games) {
-      maxColumn = col.x;
-    }
-  });
-  return maxColumn;
-};
-
 const getSubtitleStats = (columns) => {
   const total = columns.reduce((sum, col) => (sum + col.games), 0);
-  const stats = [
-    [strings.heading_total_matches, total],
-    [strings.heading_median, getMedian(columns, total / 2)],
-    [strings.heading_max, getMax(columns)],
-  ];
-  return stats.filter(stat => stat[1] !== undefined)
-              .map(stat => `${stat[0]}: ${stat[1]}`)
-              .join(', ');
+  const median = getMedian(columns, total / 2);
+  return `${strings.heading_total_matches}: ${total}${(median !== undefined) ? `, ${strings.heading_median}: ${median}` : ''}`;
 };
 
 const histogramNames = dataColumns.filter(col => col !== 'win_rate');
