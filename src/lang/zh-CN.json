@@ -277,6 +277,8 @@
   "heading_win_rate":"胜率",
   "heading_avg_and_max":"Averages/Maximums",
   "subheading_avg_and_max":"in last %d matches",
+  "heading_total_matches":"Total Matches",
+  "heading_median":"Median",
   "hero_pro_tab":"职业",
   "hero_public_tab":"公开",
   "hero_pro_heading":"职业比赛中的英雄",
