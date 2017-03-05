@@ -28,23 +28,19 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => {
         buttonNames={trendNames}
         selectedButton={selectedTrend}
       />
-      {!columns.length ?
-        <div className={styles.noData}>
-          {strings.trends_no_data}
-        </div> :
-        <Container
-          className={styles.container}
-          style={{ fontSize: 10 }}
-          error={error}
-          loading={loading}
-        >
-          <TrendGraph
-            columns={columns}
-            name={selectedTrend}
-            tooltip={{
-              contents: (d) => {
-                const data = columns[d[0].index];
-                return `<div class="${styles.tooltipWrapper}">
+      <Container
+        className={styles.container}
+        style={{ fontSize: 10 }}
+        error={error}
+        loading={loading}
+      >
+        <TrendGraph
+          columns={columns}
+          name={selectedTrend}
+          tooltip={{
+            contents: (d) => {
+              const data = columns[d[0].index];
+              return `<div class="${styles.tooltipWrapper}">
                 <div class="${styles.value}">
                   ${selectedTrend === 'win_rate' ? '' : strings.trends_tooltip_average}
                   ${' '}${trendStr}: ${data.value}${unit}
@@ -76,15 +72,14 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => {
                   </div>
                 </div>
               </div>`;
-              },
-            }}
-            onClick={(p) => {
-              const matchId = columns[p.index].match_id;
-              browserHistory.push(`/matches/${matchId}`);
-            }}
-          />
-        </Container>
-      }
+            },
+          }}
+          onClick={(p) => {
+            const matchId = columns[p.index].match_id;
+            browserHistory.push(`/matches/${matchId}`);
+          }}
+        />
+      </Container>
     </div>
   );
 };
