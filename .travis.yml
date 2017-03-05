@@ -17,4 +17,4 @@ deploy:
 # blocklist
 branches:
   except:
-  - l10_master
+  - l10n_master
