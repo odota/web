@@ -26,8 +26,7 @@ export default playerId => [{
   tooltip: strings.tooltip_win_pct_with,
   field: 'with_win',
   sortFn: row => row.with_win / row.with_games,
-  displayFn: (...args) => `${args[4]}%`,
-  relativeBars: { getDivisor: row => row.with_games },
+  percentBars: true,
 }, {
   displayName: strings.th_against_games,
   tooltip: strings.tooltip_played_against,
@@ -38,6 +37,5 @@ export default playerId => [{
   tooltip: strings.tooltip_win_pct_against,
   field: 'against_win',
   sortFn: row => row.against_win / row.against_games,
-  displayFn: (...args) => `${args[4]}%`,
-  relativeBars: { getDivisor: row => row.against_games },
+  percentBars: true,
 }];

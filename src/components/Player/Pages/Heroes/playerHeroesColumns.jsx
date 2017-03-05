@@ -20,7 +20,7 @@ export const playerHeroesOverviewColumns = playerId => [{
   tooltip: strings.tooltip_win_pct_as,
   field: 'win',
   sortFn: row => row.win / row.games,
-  percentBars: { getDivisor: row => row.games },
+  percentBars: true,
 }];
 
 const restColumns = playerId => [{

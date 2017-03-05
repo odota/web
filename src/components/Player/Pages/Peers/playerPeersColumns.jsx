@@ -30,8 +30,7 @@ const winsWith = [{
   tooltip: strings.tooltip_win_pct_with,
   field: 'with_win',
   sortFn: row => row.with_win / row.with_games,
-  displayFn: (...args) => `${args[4]}%`,
-  relativeBars: { getDivisor: row => row.with_games },
+  percentBars: true,
 }];
 
 const restColumns = [{

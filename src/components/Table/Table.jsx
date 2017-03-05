@@ -116,7 +116,7 @@ const TableCreator = ({
                     : <span>{value}</span>;
                 } else {
                   // Percent bars assumes that the value is in decimal
-                  barPercentValue = Number((value * 100).toFixed(2));
+                  barPercentValue = Number((value * 100).toFixed(2)) || 0;
                   valEl = displayFn
                     ? displayFn(row, column, value, index, barPercentValue)
                     : <span>{barPercentValue}%</span>;
