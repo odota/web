@@ -108,7 +108,7 @@ const SummOfRecMatches = ({ matchesData }) => {
                   {key === 'duration' ? formatSeconds(c.avg) : abbreviateNumber(c.avg)}
                   &nbsp;
                   <span>{key === 'duration' ? formatSeconds(c.max.value) : abbreviateNumber(c.max.value)}
-                    <Link to={`matches/${c.max.matchId}`}>
+                    <Link to={`/matches/${c.max.matchId}`}>
                       <img src={`${API_HOST}${hero.icon}`} alt={hero.localized_name} />
                     </Link>
                   </span>
