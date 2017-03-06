@@ -40,7 +40,7 @@ const TeamSpan = isRadiant => (
 // Modified version of PlayerThumb
 const PlayerSpan = (player) => {
   if (!player || !heroes[player.hero_id]) {
-    return 'Unrecognized Hero';
+    return strings.story_invalid_hero;
   }
   return (<span key={`player_${player.player_slot}`} style={{ color: (player.isRadiant ? radiantColor : direColor) }} className={styles.storySpan}>
     <img
@@ -98,7 +98,7 @@ const renderTemplate = (template, dict) => {
 };
 
 // Adds a fullstop to the end of a sentance, and capitalizes the first letter if it can
-const renderSentance = (template, dict) => {
+const renderSentence = (template, dict) => {
   const result = renderTemplate(template, dict);
   result.push(`${strings.story_fullstop} `);
   capitalizeFirst(result);
@@ -141,7 +141,7 @@ class FirstbloodEvent extends StoryEvent {
     });
   }
   format() {
-    return renderSentance(strings.story_firstblood, {
+    return renderSentence(strings.story_firstblood, {
       time: formatSeconds(this.time),
       killer: PlayerSpan(this.killer),
       victim: PlayerSpan(this.victim),
@@ -199,19 +199,19 @@ class LaneStory {
   format() {
     // If there is nobody in this lane
     if (this.radiant_players.length === 0 && this.dire_players.length === 0) {
-      return renderSentance(strings.story_lane_empty, {
+      return renderSentence(strings.story_lane_empty, {
         lane: localizedLane[this.lane],
       });
     }
     // If only one team is in this lane
     if (this.radiant_players.length === 0 || this.dire_players.length === 0) {
-      return renderSentance(strings.story_lane_free, {
+      return renderSentence(strings.story_lane_free, {
         players: this.radiant_players.concat(this.dire_players),
         lane: localizedLane[this.lane],
       });
     }
     // If both teams are in this lane
-    return renderSentance(this.winning_team ? strings.story_lane_radiant_win : strings.story_lane_radiant_lose, {
+    return renderSentence(this.winning_team ? strings.story_lane_radiant_win : strings.story_lane_radiant_lose, {
       radiant_players: formatList(this.radiant_players.map(PlayerSpan), strings.story_lane_empty),
       dire_players: formatList(this.dire_players.map(PlayerSpan), strings.story_lane_empty),
       lane: localizedLane[this.lane],
@@ -228,7 +228,7 @@ class JungleStory {
     return match.players.filter(player => (player.lane === 4 || player.lane === 5) && !player.is_roaming).length > 0;
   }
   format() {
-    return renderSentance(strings.story_lane_jungle, {
+    return renderSentence(strings.story_lane_jungle, {
       players: formatList(this.players.map(PlayerSpan)),
     });
   }
@@ -243,7 +243,7 @@ class RoamStory {
     return match.players.filter(player => player.is_roaming).length > 0;
   }
   format() {
-    return renderSentance(strings.story_lane_roam, {
+    return renderSentence(strings.story_lane_roam, {
       players: formatList(this.players.map(PlayerSpan)),
     });
   }
@@ -269,7 +269,7 @@ class TowerEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
     this.is_deny = obj.type === 'CHAT_MESSAGE_TOWER_DENY';
-    this.team = !(obj.team === 2); // We want the team that the tower belongs to, so get the opposite
+    this.team = obj.team !== 2; // We want the team that the tower belongs to, so get the opposite
     this.player = match.players.find(player => player.player_slot === obj.player_slot);
     if (!this.player) {
       this.template = strings.story_building_destroy;
@@ -371,7 +371,7 @@ class TeamfightEvent extends StoryEvent {
     this.after_events = [];
   }
   format() {
-    let formatted = [renderSentance(this.win_dead.length > 0 ? strings.story_teamfight : strings.story_teamfight_none_dead, {
+    let formatted = [renderSentence(this.win_dead.length > 0 ? strings.story_teamfight : strings.story_teamfight_none_dead, {
       winning_team: TeamSpan(this.winning_team),
       net_change: GoldSpan(this.gold_delta),
       win_dead: formatList(this.win_dead.map(death => (
@@ -380,11 +380,11 @@ class TeamfightEvent extends StoryEvent {
         death.count === 1 ? new PlayerSpan(death.player) : [new PlayerSpan(death.player), `(x${death.count})`]))),
     })];
     if (this.during_events.length > 0) {
-      formatted = formatted.concat(renderSentance(strings.story_during_teamfight,
+      formatted = formatted.concat(renderSentence(strings.story_during_teamfight,
         { events: formatObjectiveEvents(this.during_events) }));
     }
     if (this.after_events.length > 0) {
-      formatted = formatted.concat(renderSentance(strings.story_after_teamfight,
+      formatted = formatted.concat(renderSentence(strings.story_after_teamfight,
         { events: formatObjectiveEvents(this.after_events) }));
     }
     return formatted;
@@ -417,7 +417,7 @@ class ExpensiveItemEvent extends StoryEvent {
     return found;
   }
   format() {
-    return renderSentance(strings.story_expensive_item, {
+    return renderSentence(strings.story_expensive_item, {
       time: formatSeconds(this.time),
       player: PlayerSpan(this.player),
       item: ItemSpan(this.item),
@@ -434,7 +434,7 @@ class GameoverEvent extends StoryEvent {
     this.dire_score = match.dire_score;
   }
   format() {
-    return renderSentance(strings.story_gameover, {
+    return renderSentence(strings.story_gameover, {
       duration: formatSeconds(this.time),
       winning_team: TeamSpan(this.winning_team),
       radiant_score: <font key="radiant_score" color={radiantColor}>{this.radiant_score}</font>,
@@ -537,7 +537,15 @@ class MatchStory extends React.Component {
     try {
       return this.renderEvents();
     } catch (e) {
-      return (<div>An error occured while compiling the story for this match</div>);
+      let exmsg = '';
+      if (e.message) {
+        exmsg += e.message;
+      }
+      if (e.stack) {
+        exmsg += ` | stack: ${e.stack}`;
+      }
+      return (<div>{exmsg}</div>)
+      // return (<div>{strings.story_error}</div>);
     }
   }
 }
