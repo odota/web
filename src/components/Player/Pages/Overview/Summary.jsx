@@ -33,7 +33,7 @@ const SummOfRecMatches = ({ matchesData }) => {
 
   const dataKeys = Object.keys(data);
 
-  for (let i = 0; i < MAX_MATCHES_ROWS; i += 1) {
+  for (let i = 0; i < Math.min(MAX_MATCHES_ROWS, matchesData.length); i += 1) {
     dataKeys.map((key) => {
       if (key === 'wins') {
         data.wins.push(matchesData[i].radiant_win === isRadiant(matchesData[i].player_slot));
