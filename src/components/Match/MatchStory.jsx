@@ -78,7 +78,7 @@ const capitalizeFirst = (list) => {
       return [capitalizeFirst(list[0])].concat(list.slice(1));
     }
   }
-  return list;
+  return list.slice(0);
 };
 
 // Fills in a template with the vars provided in the dict
