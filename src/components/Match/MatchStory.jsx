@@ -85,7 +85,7 @@ const capitalizeFirst = (list) => {
 
 // Fills in a template with the vars provided in the dict
 // Adds a fullstop if it's indicated that this is a sentance
-const renderTemplate = (template, dict, sentance = false) => {
+const renderTemplate = (template, dict) => {
   const pattern = /(\{[^}]+\})/g;
   let result = template.split(pattern);
   for (let i = 0; i < result.length; i += 1) {
@@ -94,10 +94,14 @@ const renderTemplate = (template, dict, sentance = false) => {
     }
   }
   result = result.filter(part => part !== '');
-  if (sentance) {
-    result.push(`${strings.story_fullstop} `);
-    capitalizeFirst(result);
-  }
+  return result;
+};
+
+// Adds a fullstop to the end of a sentance, and capitalizes the first letter if it can
+const renderSentance = (template, dict) => {
+  const result = renderTemplate(template, dict);
+  result.push(`${strings.story_fullstop} `);
+  capitalizeFirst(result);
   return result;
 };
 
@@ -137,11 +141,11 @@ class FirstbloodEvent extends StoryEvent {
     });
   }
   format() {
-    return renderTemplate(strings.story_firstblood, {
+    return renderSentance(strings.story_firstblood, {
       time: formatSeconds(this.time),
       killer: PlayerSpan(this.killer),
       victim: PlayerSpan(this.victim),
-    }, true);
+    });
   }
 }
 
@@ -195,23 +199,23 @@ class LaneStory {
   format() {
     // If there is nobody in this lane
     if (this.radiant_players.length === 0 && this.dire_players.length === 0) {
-      return renderTemplate(strings.story_lane_empty, {
+      return renderSentance(strings.story_lane_empty, {
         lane: localizedLane[this.lane],
-      }, true);
+      });
     }
     // If only one team is in this lane
     if (this.radiant_players.length === 0 || this.dire_players.length === 0) {
-      return renderTemplate(strings.story_lane_free, {
+      return renderSentance(strings.story_lane_free, {
         players: this.radiant_players.concat(this.dire_players),
         lane: localizedLane[this.lane],
-      }, true);
+      });
     }
     // If both teams are in this lane
-    return renderTemplate(this.winning_team ? strings.story_lane_radiant_win : strings.story_lane_radiant_lose, {
+    return renderSentance(this.winning_team ? strings.story_lane_radiant_win : strings.story_lane_radiant_lose, {
       radiant_players: formatList(this.radiant_players.map(PlayerSpan), strings.story_lane_empty),
       dire_players: formatList(this.dire_players.map(PlayerSpan), strings.story_lane_empty),
       lane: localizedLane[this.lane],
-    }, true);
+    });
   }
 }
 
@@ -224,9 +228,9 @@ class JungleStory {
     return match.players.filter(player => (player.lane === 4 || player.lane === 5) && !player.is_roaming).length > 0;
   }
   format() {
-    return renderTemplate(strings.story_lane_jungle, {
+    return renderSentance(strings.story_lane_jungle, {
       players: formatList(this.players.map(PlayerSpan)),
-    }, true);
+    });
   }
 }
 
@@ -239,9 +243,9 @@ class RoamStory {
     return match.players.filter(player => player.is_roaming).length > 0;
   }
   format() {
-    return renderTemplate(strings.story_lane_roam, {
+    return renderSentance(strings.story_lane_roam, {
       players: formatList(this.players.map(PlayerSpan)),
-    }, true);
+    });
   }
 }
 
@@ -367,21 +371,21 @@ class TeamfightEvent extends StoryEvent {
     this.after_events = [];
   }
   format() {
-    let formatted = [renderTemplate(this.win_dead.length > 0 ? strings.story_teamfight : strings.story_teamfight_none_dead, {
+    let formatted = [renderSentance(this.win_dead.length > 0 ? strings.story_teamfight : strings.story_teamfight_none_dead, {
       winning_team: TeamSpan(this.winning_team),
       net_change: GoldSpan(this.gold_delta),
       win_dead: formatList(this.win_dead.map(death => (
         death.count === 1 ? new PlayerSpan(death.player) : [new PlayerSpan(death.player), `(x${death.count})`]))),
       lose_dead: formatList(this.lose_dead.map(death => (
         death.count === 1 ? new PlayerSpan(death.player) : [new PlayerSpan(death.player), `(x${death.count})`]))),
-    }, true)];
+    })];
     if (this.during_events.length > 0) {
-      formatted = formatted.concat(renderTemplate(strings.story_during_teamfight,
-        { events: formatObjectiveEvents(this.during_events) }, true));
+      formatted = formatted.concat(renderSentance(strings.story_during_teamfight,
+        { events: formatObjectiveEvents(this.during_events) }));
     }
     if (this.after_events.length > 0) {
-      formatted = formatted.concat(renderTemplate(strings.story_after_teamfight,
-        { events: formatObjectiveEvents(this.after_events) }, true));
+      formatted = formatted.concat(renderSentance(strings.story_after_teamfight,
+        { events: formatObjectiveEvents(this.after_events) }));
     }
     return formatted;
   }
@@ -413,12 +417,12 @@ class ExpensiveItemEvent extends StoryEvent {
     return found;
   }
   format() {
-    return renderTemplate(strings.story_expensive_item, {
+    return renderSentance(strings.story_expensive_item, {
       time: formatSeconds(this.time),
       player: PlayerSpan(this.player),
       item: ItemSpan(this.item),
       price_limit: GoldSpan(this.price_limit),
-    }, true);
+    });
   }
 }
 
@@ -430,12 +434,12 @@ class GameoverEvent extends StoryEvent {
     this.dire_score = match.dire_score;
   }
   format() {
-    return renderTemplate(strings.story_gameover, {
+    return renderSentance(strings.story_gameover, {
       duration: formatSeconds(this.time),
       winning_team: TeamSpan(this.winning_team),
       radiant_score: <font key="radiant_score" color={radiantColor}>{this.radiant_score}</font>,
       dire_score: <font key="dire_score" color={direColor}>{this.dire_score}</font>,
-    }, true);
+    });
   }
 }
 
@@ -533,14 +537,6 @@ class MatchStory extends React.Component {
     try {
       return this.renderEvents();
     } catch (e) {
-      let exmsg = '';
-      if (e.message) {
-        exmsg += e.message;
-      }
-      if (e.stack) {
-        exmsg += ` | stack: ${e.stack}`;
-      }
-      // console.log(exmsg);
       return (<div>An error occured while compiling the story for this match</div>);
     }
   }
