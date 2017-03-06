@@ -338,9 +338,9 @@
   "lane_role_3": "Off",
   "lane_role_4": "Jungle",
 
-  "lane_1": "Bot",
-  "lane_2": "Mid",
-  "lane_3": "Top",
+  "lane_pos_1": "Bot",
+  "lane_pos_2": "Mid",
+  "lane_pos_3": "Top",
 
   "leaver_status_0": "None",
   "leaver_status_1": "Left Safely",

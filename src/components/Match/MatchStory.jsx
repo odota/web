@@ -71,16 +71,14 @@ const ItemSpan = item => (
 const capitalizeFirst = (list) => {
   if (typeof list[0] === 'string' || list[0] instanceof String) {
     if (list[0].length > 0) { // MORE STUFF HERE
-      // Linting prevents us from assigning to list, so this is more complicated
-      let str = list.shift();
-      str = str[0].toUpperCase() + str.slice(1);
-      list.unshift(str);
+      return [list[0][0].toUpperCase() + list[0].slice(1)].concat(list.slice(1));
     }
   } else if (list[0] instanceof Array) {
     if (list[0].length > 0) {
-      capitalizeFirst(list[0]);
+      return [capitalizeFirst(list[0])].concat(list.slice(1));
     }
   }
+  return list;
 };
 
 // Fills in a template with the vars provided in the dict
@@ -99,9 +97,9 @@ const renderTemplate = (template, dict) => {
 
 // Adds a fullstop to the end of a sentance, and capitalizes the first letter if it can
 const renderSentence = (template, dict) => {
-  const result = renderTemplate(template, dict);
+  let result = renderTemplate(template, dict);
   result.push(`${strings.story_fullstop} `);
-  capitalizeFirst(result);
+  result = capitalizeFirst(result);
   return result;
 };
 
@@ -182,9 +180,9 @@ class RoshanEvent extends StoryEvent {
 }
 
 const localizedLane = {
-  1: strings.lane_1,
-  2: strings.lane_2,
-  3: strings.lane_3,
+  1: strings.lane_pos_1,
+  2: strings.lane_pos_2,
+  3: strings.lane_pos_3,
 };
 
 const getLaneScore = players => (Math.max(players.map(player => player.lane_efficiency)) || 0);
@@ -544,7 +542,7 @@ class MatchStory extends React.Component {
       if (e.stack) {
         exmsg += ` | stack: ${e.stack}`;
       }
-      return (<div>{exmsg}</div>)
+      return (<div>{exmsg}</div>);
       // return (<div>{strings.story_error}</div>);
     }
   }
