@@ -1,5 +1,5 @@
 /* global API_HOST */
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import {
   isRadiant,
@@ -90,13 +90,15 @@ const SummOfRecMatches = ({ matchesData }) => {
     .toFixed(2));
 
   return (
-    <div className={styles.summaryContainer}>
+    <div>
       <ul>
-        <li>
-          <span>{strings.th_winrate}</span>
-          <p>{winrate}%</p>
-        </li>
-        {Object.keys(computed).map((key) => {
+        {winrate
+          ? <li>
+            <span>{strings.th_winrate}</span>
+            <p>{winrate}%</p>
+          </li>
+          : ''
+        } {Object.keys(computed).map((key) => {
           const c = computed[key];
 
           if (c.avg) {
@@ -122,6 +124,10 @@ const SummOfRecMatches = ({ matchesData }) => {
       </ul>
     </div>
   );
+};
+
+SummOfRecMatches.PropTypes = {
+  matchesData: PropTypes.object,
 };
 
 export default SummOfRecMatches;
