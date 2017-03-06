@@ -46,8 +46,8 @@ Resources
 
 Testing
 ----
-<img src="/.github/browserstack_logo.png?raw=true" width="350">
+<img src="/.github/browserstack_logo.png?raw=true" width="350" align="left">
 
-[Browserstack](browser) have been kind enough to provide us with a free account for Live and Automate. We will be using automate in the future to run automatic end-to-end testing. [Join the discussion on testing](https://github.com/odota/ui/issues/144 widht)
+[Browserstack](browser) have been kind enough to provide us with a free account for Live and Automate. We will be using automate in the future to run automatic end-to-end testing. [Join the discussion on testing](https://github.com/odota/ui/issues/144)
 
 BrowserStack is a cloud-based cross-browser testing tool that enables developers to test their websites across various browsers on different operating systems and mobile devices, without requiring users to install virtual machines, devices or emulators.
