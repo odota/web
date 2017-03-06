@@ -23,6 +23,7 @@ import { playerPeersOverviewColumns } from 'components/Player/Pages/Peers/player
 import { defaultPlayerMatchesOptions } from 'actions/player/playerMatchesActions';
 import util from 'util';
 import styles from './Overview.css';
+import sumStyles from './Summary.css';
 import SummOfRecMatches from './Summary';
 
 export const MAX_MATCHES_ROWS = 20;
@@ -45,6 +46,7 @@ const Overview = ({
     <Container
       title={strings.heading_avg_and_max}
       subtitle={util.format(strings.subheading_avg_and_max, MAX_MATCHES_ROWS)}
+      className={sumStyles.summaryContainer}
       loading={matchesLoading}
       error={matchesError}
     >
