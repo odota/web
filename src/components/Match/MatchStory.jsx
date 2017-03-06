@@ -535,15 +535,7 @@ class MatchStory extends React.Component {
     try {
       return this.renderEvents();
     } catch (e) {
-      let exmsg = '';
-      if (e.message) {
-        exmsg += e.message;
-      }
-      if (e.stack) {
-        exmsg += ` | stack: ${e.stack}`;
-      }
-      return (<div>{exmsg}</div>);
-      // return (<div>{strings.story_error}</div>);
+      return (<div>{strings.story_error}</div>);
     }
   }
 }
