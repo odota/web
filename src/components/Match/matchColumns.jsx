@@ -378,7 +378,7 @@ export const performanceColumns = [
     displayName: strings.th_lhten,
     tooltip: strings.tooltip_lhten,
     field: 'lh_t',
-    sortFn: row => row.dn_t && row.dn_t[10],
+    sortFn: row => row.lh_t && row.lh_t[10],
     displayFn: (row, col, field) => (field || '-'),
     relativeBars: true,
   }, {
