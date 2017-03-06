@@ -38,18 +38,21 @@ const TeamSpan = isRadiant => (
 );
 
 // Modified version of PlayerThumb
-const PlayerSpan = ({ hero_id, isRadiant, player_slot }) => (
-  <span key={`player_${player_slot}`} style={{ color: (isRadiant ? radiantColor : direColor) }} className={styles.storySpan}>
+const PlayerSpan = (player) => {
+  if (!player || !heroes[player.hero_id]) {
+    return 'Unrecognized Hero';
+  }
+  return (<span key={`player_${player.player_slot}`} style={{ color: (player.isRadiant ? radiantColor : direColor) }} className={styles.storySpan}>
     <img
-      src={heroes[hero_id]
-        ? `${API_HOST}${heroes[hero_id].icon}`
+      src={heroes[player.hero_id]
+        ? `${API_HOST}${heroes[player.hero_id].icon}`
         : '/assets/images/blank-1x1.gif'
       }
       role="presentation"
     />
-    {heroes[hero_id].localized_name}
-  </span>
-);
+    {heroes[player.hero_id] ? heroes[player.hero_id].localized_name : 'Unrecognized Hero'}
+  </span>);
+};
 
 // Modified version of PlayerThumb
 const ItemSpan = item => (
@@ -68,7 +71,10 @@ const ItemSpan = item => (
 const capitalizeFirst = (list) => {
   if (typeof list[0] === 'string' || list[0] instanceof String) {
     if (list[0].length > 0) { // MORE STUFF HERE
-      list[0] = list[0][0].toUpperCase() + list[0].slice(1);
+      // Linting prevents us from assigning to list, so this is more complicated
+      let str = list.shift();
+      str = str[0].toUpperCase() + str.slice(1);
+      list.unshift(str);
     }
   } else if (list[0] instanceof Array) {
     if (list[0].length > 0) {
@@ -181,8 +187,8 @@ const getLaneScore = players => (Math.max(players.map(player => player.lane_effi
 
 class LaneStory {
   constructor(match, lane) {
-    this.radiant_players = match.players.filter(player => player.lane == lane && player.isRadiant && (!player.is_roaming));
-    this.dire_players = match.players.filter(player => player.lane == lane && !player.isRadiant && (!player.is_roaming));
+    this.radiant_players = match.players.filter(player => player.lane === parseInt(lane, 10) && player.isRadiant && (!player.is_roaming));
+    this.dire_players = match.players.filter(player => player.lane === parseInt(lane, 10) && !player.isRadiant && (!player.is_roaming));
     this.lane = lane;
     this.winning_team = getLaneScore(this.radiant_players) > getLaneScore(this.dire_players);
   }
@@ -317,7 +323,8 @@ class BuildingListEvent extends StoryEvent {
         }));
       }
       Object.keys(localizedLane).forEach((lane) => {
-        const barracks = this.buildings.filter(building => building.team === team && building instanceof BarracksEvent && building.lane === lane);
+        const barracks = this.buildings.filter(building => (
+          building.team === team && building instanceof BarracksEvent && building.lane === parseInt(lane, 10)));
         if (barracks.length === 1) {
           buildingList.push(barracks[0].localizedBuilding);
         } else if (barracks.length === 2) {
@@ -518,10 +525,13 @@ const generateStory = (match) => {
 };
 
 class MatchStory extends React.Component {
+  renderEvents() {
+    const events = generateStory(this.props.match);
+    return (<div key="matchstory">{events.map(event => event.render())}</div>);
+  }
   render() {
     try {
-      const events = generateStory(this.props.match);
-      return (<div key="matchstory">{events.map(event => event.render())}</div>);
+      return this.renderEvents();
     } catch (e) {
       let exmsg = '';
       if (e.message) {
@@ -530,8 +540,8 @@ class MatchStory extends React.Component {
       if (e.stack) {
         exmsg += ` | stack: ${e.stack}`;
       }
-      console.log(exmsg);
-      return (<div>{exmsg}</div>);
+      // console.log(exmsg);
+      return (<div>An error occured while compiling the story for this match</div>);
     }
   }
 }
