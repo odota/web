@@ -8,6 +8,7 @@ import {
 import { IconRadiant, IconDire } from 'components/Icons';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
+import ReactTooltip from 'react-tooltip';
 import styles from './Match.css';
 
 const heroesArr = jsonFn(heroes);
@@ -41,16 +42,28 @@ const PlayerSpan = (player) => {
   if (!player || !heroes[player.hero_id]) {
     return strings.story_invalid_hero;
   }
-  return (<span key={`player_${player.player_slot}`} style={{ color: (player.isRadiant ? styles.green : styles.red) }} className={styles.storySpan}>
-    <img
-      src={heroes[player.hero_id]
-        ? `${API_HOST}${heroes[player.hero_id].icon}`
-        : '/assets/images/blank-1x1.gif'
-      }
-      role="presentation"
-    />
-    {heroes[player.hero_id] ? heroes[player.hero_id].localized_name : strings.story_invalid_hero}
-  </span>);
+  return (
+    <span>
+      <span
+        data-tip
+        data-for={`player_${player.account_id}`}
+        key={`player_${player.player_slot}`}
+        style={{ color: (player.isRadiant ? styles.green : styles.red) }}
+        className={styles.storySpan}
+      >
+        <img
+          src={heroes[player.hero_id]
+            ? `${API_HOST}${heroes[player.hero_id].icon}`
+            : '/assets/images/blank-1x1.gif'
+          }
+          role="presentation"
+        />
+        {heroes[player.hero_id] ? heroes[player.hero_id].localized_name : strings.story_invalid_hero}
+      </span>
+      <ReactTooltip id={`player_${player.account_id}`} place="left" effect="solid">
+        {player.account_id ? player.personaname : strings.general_anonymous}
+      </ReactTooltip>
+    </span>);
 };
 
 // Modified version of PlayerThumb
@@ -535,7 +548,15 @@ class MatchStory extends React.Component {
     try {
       return this.renderEvents();
     } catch (e) {
-      return (<div>{strings.story_error}</div>);
+      let exmsg = '';
+      if (e.message) {
+        exmsg += e.message;
+      }
+      if (e.stack) {
+        exmsg += ` | stack: ${e.stack}`;
+      }
+      return (<div>{exmsg}</div>);
+      // return (<div>{strings.story_error}</div>);
     }
   }
 }
