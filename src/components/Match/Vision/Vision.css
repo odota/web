@@ -25,7 +25,7 @@
 .visionSliderText {
   text-align: center;
   width: 200px;
-  margin: 50px auto;
+  margin: 5px auto;
   text-transform: uppercase;
   color: var(--colorMutedLight);
 }

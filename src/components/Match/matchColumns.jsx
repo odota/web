@@ -770,7 +770,7 @@ export const teamfightColumns = [
     displayFn: inflictorRow(items),
   },
 ];
-
+/*
 const purchaseObserverColumn = {
   center: true,
   displayName: (
@@ -830,12 +830,14 @@ const purchaseSmokeColumn = {
   displayFn: (row, col, field) => field || '-',
   relativeBars: true,
 };
+*/
 
 const purchaseGemColumn = {
   center: true,
   displayName: (
     <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
       <img height="15" src={`${API_HOST}/apps/dota2/images/items/gem_lg.png`} role="presentation" />
+      &nbsp;{strings.th_purchase_shorthand}
     </div>
   ),
   tooltip: strings.tooltip_purchase_gem,
@@ -844,10 +846,10 @@ const purchaseGemColumn = {
   displayFn: (row, col, field) => field || '-',
   relativeBars: true,
 };
-
 export const visionColumns = [
   heroTdColumn,
-  purchaseObserverColumn, {
+  // purchaseObserverColumn,
+  {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
@@ -861,7 +863,8 @@ export const visionColumns = [
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },
-  purchaseSentryColumn, {
+  // purchaseSentryColumn,
+  {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
@@ -875,7 +878,8 @@ export const visionColumns = [
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },
-  purchaseDustColumn, {
+  // purchaseDustColumn,
+  {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
@@ -889,7 +893,8 @@ export const visionColumns = [
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },
-  purchaseSmokeColumn, {
+  // purchaseSmokeColumn,
+  {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
