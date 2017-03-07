@@ -11,8 +11,6 @@ import items from 'dotaconstants/build/items.json';
 import styles from './Match.css';
 
 const heroesArr = jsonFn(heroes);
-const radiantColor = '#66bb6a';
-const direColor = '#ff4c4c';
 
 // can be used in conjunction with is_radiant
 const TEAM = {
@@ -24,6 +22,7 @@ const GoldSpan = amount => (
   <span key={`gold_${amount}`} className={styles.storySpan}>
     <font color={styles.golden}>{amount} </font>
     <img
+      width="30px"
       role="presentation"
       src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
     />
@@ -31,7 +30,7 @@ const GoldSpan = amount => (
 );
 
 const TeamSpan = isRadiant => (
-  <span key={`team_${isRadiant ? 'radiant' : 'dire'}`} style={{ color: (isRadiant ? radiantColor : direColor) }} className={styles.storySpan}>
+  <span key={`team_${isRadiant ? 'radiant' : 'dire'}`} style={{ color: (isRadiant ? styles.green : styles.red) }} className={styles.storySpan}>
     {isRadiant ? <IconRadiant className={styles.iconRadiant} /> : <IconDire className={styles.iconDire} />}
     {isRadiant ? strings.general_radiant : strings.general_dire}
   </span>
@@ -42,7 +41,7 @@ const PlayerSpan = (player) => {
   if (!player || !heroes[player.hero_id]) {
     return strings.story_invalid_hero;
   }
-  return (<span key={`player_${player.player_slot}`} style={{ color: (player.isRadiant ? radiantColor : direColor) }} className={styles.storySpan}>
+  return (<span key={`player_${player.player_slot}`} style={{ color: (player.isRadiant ? styles.green : styles.red) }} className={styles.storySpan}>
     <img
       src={heroes[player.hero_id]
         ? `${API_HOST}${heroes[player.hero_id].icon}`
@@ -50,7 +49,7 @@ const PlayerSpan = (player) => {
       }
       role="presentation"
     />
-    {heroes[player.hero_id] ? heroes[player.hero_id].localized_name : 'Unrecognized Hero'}
+    {heroes[player.hero_id] ? heroes[player.hero_id].localized_name : strings.story_invalid_hero}
   </span>);
 };
 
@@ -58,6 +57,7 @@ const PlayerSpan = (player) => {
 const ItemSpan = item => (
   <span key={`item_${item}`} className={styles.storySpan}>
     <img
+      width="26px"
       src={items[item]
         ? `${API_HOST}${items[item].img}`
         : '/assets/images/blank-1x1.gif'
@@ -435,8 +435,8 @@ class GameoverEvent extends StoryEvent {
     return renderSentence(strings.story_gameover, {
       duration: formatSeconds(this.time),
       winning_team: TeamSpan(this.winning_team),
-      radiant_score: <font key="radiant_score" color={radiantColor}>{this.radiant_score}</font>,
-      dire_score: <font key="dire_score" color={direColor}>{this.dire_score}</font>,
+      radiant_score: <font key="radiant_score" color={styles.green}>{this.radiant_score}</font>,
+      dire_score: <font key="dire_score" color={styles.red}>{this.dire_score}</font>,
     });
   }
 }

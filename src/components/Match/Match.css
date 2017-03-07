@@ -230,6 +230,10 @@
   vertical-align: middle;
   height: 20px !important;
   margin-right: 2px;
-  opacity: 0.8;
   fill: var(--textColorPrimary);
+}
+
+
+.storySpan svg {
+  opacity: 0.8;
 }
