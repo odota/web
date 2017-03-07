@@ -59,7 +59,7 @@ const generateData = match => (log) => {
 };
 
 const VisionLog = ({ match, wards }) => (
-  <div className={styles.visionLog}>
+  <div>
     <Heading title={strings.vision_ward_log} />
     <Table data={wards.map(generateData(match))} columns={columns} />
   </div>
