@@ -99,8 +99,11 @@ const matchTabs = [{
 }];
 
 const getData = (props) => {
-  props.dispatchProMatches();
-  props.dispatchPublicMatches({ mmr_ascending: props.routeParams.matchId === 'lowMmr' ? '1' : '' });
+  const route = props.routeParams.matchId || 'pro';
+  if (!Number.isInteger(Number(route))) {
+    props.dispatchProMatches();
+    props.dispatchPublicMatches({ mmr_ascending: props.routeParams.matchId === 'lowMmr' ? '1' : '' });
+  }
 };
 
 class RequestLayer extends React.Component {
