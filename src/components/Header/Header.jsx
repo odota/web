@@ -124,7 +124,7 @@ const Header = ({ location, width }) => (
         {<SettingsGroup width={width} />}
       </div>
     </Toolbar>
-    <Announce />
+    <Announce location={location} />
     <div className={styles.adBanner}>
       { location.pathname !== '/' &&
         <a href="http://www.vpgame.com/?lang=en_us">
