@@ -252,7 +252,7 @@ export const transformations = {
           {getString(field)}
         </span>
         <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
-          {strings[`skill_${row.skill}`] || strings.general_unknown} {strings.th_skill}
+          {row.skill ? `${strings[`skill_${row.skill}`]} ${strings.th_skill}` : ''}
         </span>
       </div>);
   },

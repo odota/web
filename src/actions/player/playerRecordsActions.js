@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch';
 import { playerRecords } from 'reducers';
 import { getUrl } from 'actions/utility';
 
-const url = playerId => `/api/players/${playerId}/records`;
+const url = playerId => `/api/players/${playerId}/matches`;
 
 const REQUEST = 'playerRecords/REQUEST';
 const OK = 'playerRecords/OK';
@@ -29,25 +29,16 @@ export const getPlayerRecordsError = (payload, id) => ({
   id,
 });
 
-export const getPlayerRecords = (playerId, options = {}) => (dispatch, getState) => {
+export const getPlayerRecords = (playerId, options = {}, subInfo) => (dispatch, getState) => {
+  const modifiedOptions = { ...options, sort: subInfo, limit: 10 };
   if (playerRecords.isLoaded(getState(), playerId)) {
     dispatch(getPlayerRecordsOk(playerRecords.getRecordsList(getState(), playerId), playerId));
   } else {
     dispatch(getPlayerRecordsRequest(playerId));
   }
 
-  return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
+  return fetch(`${API_HOST}${getUrl(playerId, modifiedOptions, url)}`)
     .then(response => response.json())
-    .then(json => Object.keys(json)
-    .map(key => ({
-      name: key,
-      value: json[key][key],
-      hero_id: json[key].hero_id,
-      start_time: json[key].start_time,
-      match_id: json[key].match_id,
-      game_mode: json[key].game_mode,
-    }))
-    .filter(record => Boolean(record.value)))
     .then(json => dispatch(getPlayerRecordsOk(json, playerId)))
     .catch(error => dispatch(getPlayerRecordsError(error, playerId)));
 };
