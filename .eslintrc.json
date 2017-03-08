@@ -18,13 +18,12 @@
   },
   "extends": "airbnb",
   "rules": {
-    "max-len": ["error", 150],
+    "max-len": ["error", { "code": 150, "ignoreTemplateLiterals": true }],
     "no-shadow": 0,
     "no-mixed-operators": ["error", {
       "allowSamePrecedence": true
     }],
     "import/named": 2,
-    "import/no-dynamic-require": 0,
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -33,7 +32,7 @@
     ],
     "import/prefer-default-export": 0,
     "jsx-a11y/no-static-element-interactions": [0],
-    "react/prop-types": 0,
+    "react/prop-types": 1,
     "react/jsx-key": 2,
     "react/forbid-prop-types": [2, { "forbid": ["any"] }]
   }

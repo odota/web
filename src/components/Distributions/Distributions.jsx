@@ -1,3 +1,4 @@
+/* eslint-disable import/no-dynamic-require,global-require */
 import React from 'react';
 import c3 from 'c3';
 import { connect } from 'react-redux';
@@ -39,8 +40,7 @@ const countryMmrColumns = [{
     } else if (code === 'zr') {
       name = 'Zaire';
     } else {
-      image = `/${require(`flag-icon-css/flags/4x3/${code}.svg`)}`; // eslint-disable-line global-require
-
+      image = `/${require(`flag-icon-css/flags/4x3/${code}.svg`)}`;
       if (code === 'bq') {
         name = 'Caribbean Netherlands';
       } else if (code === 'sh') {

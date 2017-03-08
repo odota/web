@@ -7,10 +7,10 @@ import { getGithubPulls } from 'actions/githubPulls';
 import ReactMarkdown from 'react-markdown';
 import { IconGithub } from 'components/Icons';
 
-import styles from './styles.css';
+import styles from './Announce.css';
 
-const Announce = ({ title, body, onClick, link }) => (
-  <div className={styles.announce}>
+const Announce = ({ title, body, onClick, link, location }) => (
+  <div className={`${styles.announce} ${location.pathname === '/' ? styles.home : ''}`}>
     <main>
       <h4><a href={link} title={strings.announce_github_more}><IconGithub /> {title}</a></h4>
       {body && <ReactMarkdown source={body} />}
@@ -67,8 +67,8 @@ class RequestLayer extends React.Component {
           html_url: link,
         } = data.items[0];
 
-        if (localStorage && Number(localStorage.getItem('dismiss')) !== number) {
-          return <Announce title={title} body={body} onClick={() => this.dismiss(number)} link={link} />;
+        if (localStorage && Number(localStorage.getItem('dismiss')) < number) {
+          return <Announce title={title} body={body} onClick={() => this.dismiss(number)} link={link} location={location} />;
         }
       }
     }

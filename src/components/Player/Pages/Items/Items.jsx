@@ -10,9 +10,6 @@ import {
 } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
-import {
-  TableFilterForm,
-} from 'components/Form';
 import playerItemsColumns from './playerItemsColumns';
 
 const Items = ({
@@ -20,12 +17,9 @@ const Items = ({
   error,
   loading,
 }) => (
-  <div>
-    <TableFilterForm />
-    <Container title="Items" error={error} loading={loading}>
-      <Table paginated columns={playerItemsColumns} data={data} />
-    </Container>
-  </div>
+  <Container title="Items" error={error} loading={loading}>
+    <Table paginated columns={playerItemsColumns} data={data} />
+  </Container>
 );
 
 const getData = (props) => {

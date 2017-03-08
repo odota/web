@@ -14,3 +14,7 @@ deploy:
   on:
     branch: production
   script: bash scripts/deploy.sh
+# blocklist
+branches:
+  except:
+  - l10n_master

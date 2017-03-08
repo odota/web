@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import c3 from 'c3';
 import uuid from 'uuid';
+import strings from 'lang';
 
 const Graph = ({ id, height = 320 }) => (
   <div style={{ height }} id={id} />
 );
 
 const generateGraph = ({
-  columns,
+  columns = [],
   type,
   name,
   height = 320,
@@ -23,7 +24,7 @@ const generateGraph = ({
   tooltip,
   onClick,
 }, id) => {
-  if (columns && columns.length > 0) {
+  if (columns) {
     const columnVals = columns.map(column => column.value);
     const configObject = {
       bindto: `#${id}`,
@@ -35,6 +36,7 @@ const generateGraph = ({
         size: {
           height,
         },
+        empty: { label: { text: strings.trends_no_data } },
       },
       axis: {
         x: xAxis,

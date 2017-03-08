@@ -7,16 +7,12 @@ import {
 import { playerHeroes } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
-import { TableFilterForm } from 'components/Form';
 import { playerHeroesColumns } from './playerHeroesColumns';
 
 const Heroes = ({ data, playerId, error, loading }) => (
-  <div>
-    <TableFilterForm />
-    <Container title={strings.heading_heroes} error={error} loading={loading}>
-      <Table paginated columns={playerHeroesColumns(playerId)} data={data} />
-    </Container>
-  </div>
+  <Container title={strings.heading_heroes} error={error} loading={loading}>
+    <Table paginated columns={playerHeroesColumns(playerId)} data={data} />
+  </Container>
 );
 
 const getData = (props) => {

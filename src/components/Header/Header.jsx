@@ -27,7 +27,6 @@ const mobile = 425;
 
 const REPORT_BUG_PATH = '//github.com/odota/ui/issues';
 
-// TODO Explorer
 const navbarPages = [
   <Link key={strings.header_matches} to="/matches">{strings.header_matches}</Link>,
   <Link key={strings.header_heroes} to="/heroes">{strings.header_heroes}</Link>,
@@ -48,7 +47,7 @@ const burgerItems = width => [
     close: true,
   })),
   {
-    component: <Link key={strings.app_report_bug} to={REPORT_BUG_PATH}>{strings.app_report_bug}</Link>,
+    component: <a key={strings.app_report_bug} href={REPORT_BUG_PATH}>{strings.app_report_bug}</a>,
     close: true,
   },
 ];
@@ -125,7 +124,7 @@ const Header = ({ location, width }) => (
         {<SettingsGroup width={width} />}
       </div>
     </Toolbar>
-    <Announce />
+    <Announce location={location} />
     <div className={styles.adBanner}>
       { location.pathname !== '/' &&
         <a href="http://www.vpgame.com/?lang=en_us">

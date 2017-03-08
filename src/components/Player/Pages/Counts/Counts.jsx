@@ -6,23 +6,19 @@ import {
 import { playerCounts } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
-import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerCountsColumns from './playerCountsColumns';
 import styles from './Counts.css';
 
 const Counts = ({ counts, error, loading }) => (
-  <div>
-    <TableFilterForm />
-    <div className={styles.countsContainer}>
-      {Object.keys(counts).map((key, index) => (
-        <div key={index} className={styles.countTable}>
-          <Container title={strings[`heading_${key}`]} error={error} loading={loading}>
-            <Table paginated columns={playerCountsColumns} data={counts[key].list} />
-          </Container>
-        </div>
-      ))}
-    </div>
+  <div className={styles.countsContainer}>
+    {Object.keys(counts).map((key, index) => (
+      <div key={index} className={styles.countTable}>
+        <Container title={strings[`heading_${key}`]} error={error} loading={loading}>
+          <Table paginated columns={playerCountsColumns} data={counts[key].list} />
+        </Container>
+      </div>
+    ))}
   </div>
 );
 

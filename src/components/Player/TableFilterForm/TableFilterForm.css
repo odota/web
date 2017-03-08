@@ -1,8 +1,8 @@
 .formGroup {
   padding: 0 15px;
   box-sizing: border-box;
-  flex-direction: row;
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
 }
 

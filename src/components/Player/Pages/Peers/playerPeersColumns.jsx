@@ -1,7 +1,6 @@
 import React from 'react';
 import { TableLink } from 'components/Table';
-import { getPercentWin, transformations } from 'utility';
-import { TablePercent } from 'components/Visualizations';
+import { transformations } from 'utility';
 import strings from 'lang';
 
 const avatarMatches = playerId => [{
@@ -10,7 +9,7 @@ const avatarMatches = playerId => [{
   displayFn: transformations.player,
   sortFn: true,
 }, {
-  displayName: strings.th_matches,
+  displayName: strings.th_games,
   tooltip: strings.tooltip_matches,
   field: 'matches',
   sortFn: row => row.with_games + row.against_games,
@@ -30,8 +29,8 @@ const winsWith = [{
   displayName: strings.th_with_win,
   tooltip: strings.tooltip_win_pct_with,
   field: 'with_win',
-  displayFn: row => <TablePercent val={getPercentWin(row.with_win, row.with_games)} />,
   sortFn: row => row.with_win / row.with_games,
+  percentBars: true,
 }];
 
 const restColumns = [{
@@ -43,8 +42,20 @@ const restColumns = [{
   displayName: strings.th_against_win,
   tooltip: strings.tooltip_win_pct_against,
   field: 'against_win',
-  displayFn: row => <TablePercent val={getPercentWin(row.against_win, row.against_games)} />,
   sortFn: row => row.against_win / row.against_games,
+  percentBars: true,
+}, {
+  displayName: strings.th_gpm_with,
+  field: 'with_gpm_sum',
+  displayFn: row => (row.with_gpm_sum / row.with_games).toFixed(0),
+  sortFn: row => row.with_gpm_sum / row.with_games,
+  relativeBars: true,
+}, {
+  displayName: strings.th_xpm_with,
+  field: 'with_xpm_sum',
+  displayFn: row => (row.with_xpm_sum / row.with_games).toFixed(0),
+  sortFn: row => row.with_xpm_sum / row.with_games,
+  relativeBars: true,
 }];
 
 export const playerPeersOverviewColumns = playerId => [

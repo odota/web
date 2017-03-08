@@ -5,7 +5,6 @@ import { playerWardmap } from 'reducers';
 import Heatmap from 'components/Heatmap';
 import Container from 'components/Container';
 import strings from 'lang';
-import { TableFilterForm } from 'components/Form';
 import { unpackPositionData } from 'utility';
 import styles from './Wardmap.css';
 
@@ -27,26 +26,23 @@ class RequestLayer extends React.Component {
   render() {
     const { error, loading, data } = this.props;
     return (
-      <div>
-        <TableFilterForm />
-        <div className={styles.wardmaps}>
-          <Container
-            title={strings.th_ward_observer}
-            className={styles.wardmapContainer}
-            error={error}
-            loading={loading}
-          >
-            <Heatmap points={unpackPositionData(data.obs)} />
-          </Container>
-          <Container
-            title={strings.th_ward_sentry}
-            className={styles.wardmapContainer}
-            error={error}
-            loading={loading}
-          >
-            <Heatmap points={unpackPositionData(data.sen)} />
-          </Container>
-        </div>
+      <div className={styles.wardmaps}>
+        <Container
+          title={strings.th_ward_observer}
+          className={styles.wardmapContainer}
+          error={error}
+          loading={loading}
+        >
+          <Heatmap points={unpackPositionData(data.obs)} />
+        </Container>
+        <Container
+          title={strings.th_ward_sentry}
+          className={styles.wardmapContainer}
+          error={error}
+          loading={loading}
+        >
+          <Heatmap points={unpackPositionData(data.sen)} />
+        </Container>
       </div>
     );
   }

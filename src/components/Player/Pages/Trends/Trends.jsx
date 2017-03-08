@@ -9,7 +9,6 @@ import { playerTrends } from 'reducers';
 import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
 import Heading from 'components/Heading';
-import { TableFilterForm } from 'components/Form';
 import Container from 'components/Container';
 import { browserHistory } from 'react-router';
 import strings from 'lang';
@@ -17,29 +16,35 @@ import heroes from 'dotaconstants/build/heroes.json';
 import { formatSeconds, fromNow } from 'utility';
 import styles from './Trends.css';
 
-const Trend = ({ routeParams, columns, playerId, error, loading }) => (
-  <div style={{ fontSize: 10 }}>
-    <Heading title={strings.trends_name} subtitle={strings.trends_description} />
-    <TableFilterForm />
-    <ButtonGarden
-      onClick={buttonName => browserHistory.push(`/players/${playerId}/trends/${buttonName}${window.location.search}`)}
-      buttonNames={trendNames}
-      selectedButton={routeParams.subInfo || trendNames[0]}
-    />
-    <Container className={styles.container} error={error} loading={loading}>
-      {!columns.length ?
-        <div className={styles.noData}>
-          {strings.trends_no_data}
-        </div> :
+const Trend = ({ routeParams, columns, playerId, error, loading }) => {
+  const selectedTrend = routeParams.subInfo || trendNames[0];
+  const trendStr = strings[`heading_${selectedTrend}`];
+  const unit = selectedTrend === 'win_rate' ? '%' : '';
+  return (
+    <div style={{ fontSize: 10 }}>
+      <Heading title={strings.trends_name} subtitle={strings.trends_description} />
+      <ButtonGarden
+        onClick={buttonName => browserHistory.push(`/players/${playerId}/trends/${buttonName}${window.location.search}`)}
+        buttonNames={trendNames}
+        selectedButton={selectedTrend}
+      />
+      <Container
+        className={styles.container}
+        style={{ fontSize: 10 }}
+        error={error}
+        loading={loading}
+      >
         <TrendGraph
           columns={columns}
-          name={strings[`heading_${routeParams.subInfo || trendNames[0]}`]}
+          name={selectedTrend}
           tooltip={{
             contents: (d) => {
               const data = columns[d[0].index];
-              const trendStr = strings[`heading_${routeParams.subInfo || trendNames[0]}`];
               return `<div class="${styles.tooltipWrapper}">
-                <div class="${styles.value}">${strings.trends_tooltip_average} ${trendStr}: ${data.value}</div>
+                <div class="${styles.value}">
+                  ${selectedTrend === 'win_rate' ? '' : strings.trends_tooltip_average}
+                  ${' '}${trendStr}: ${data.value}${unit}
+                </div>
                 <div class="${styles.match}">
                   <div>
                     <div>
@@ -56,9 +61,11 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => (
                     <div>
                       ${formatSeconds(data.duration)}
                     </div>
-                    <div class="${styles.matchValue}">
-                      ${trendStr}: ${data.independent_value}
-                    </div>
+                    ${selectedTrend === 'win_rate'
+                      ? ''
+                      : `<div class="${styles.matchValue}">
+                          ${trendStr}: ${data.independent_value}${unit}
+                        </div>`}
                   </div>
                   <div class="${styles.hero}">
                     <img class="${styles.heroImg}" src="${API_HOST}${heroes[data.hero_id].img}" />
@@ -72,10 +79,10 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => (
             browserHistory.push(`/matches/${matchId}`);
           }}
         />
-      }
-    </Container>
-  </div>
-);
+      </Container>
+    </div>
+  );
+};
 
 const getData = (props) => {
   const trendName = props.routeParams.subInfo || trendNames[0];

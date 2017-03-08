@@ -20,41 +20,6 @@ const TrendGraph = ({ columns, name, tooltip, onClick }) => (
   />
 );
 
-// TODO tooltips with match/hero details
-/*
-title: function(d){return moment.unix(avgs[d].start_time).format("dddd YYYY MMM DD");},
-value: function(value, ratio, id, ind){
-console.log(value, ratio, id, ind);
-var table = document.createElement('table');
-var tr1 = document.createElement('tr');
-var td1 = document.createElement('td');
-td1.innerHTML = "Hero";
-var td2 = document.createElement('td');
-td2.innerHTML = "Match";
-var td3 = document.createElement('td');
-td3.innerHTML = "Average";
-tr1.appendChild(td1);
-tr1.appendChild(td2);
-tr1.appendChild(td3);
-table.appendChild(tr1);
-var tr2 = document.createElement('tr');
-table.appendChild(tr2);
-var hero = document.createElement('td');
-var value = document.createElement('td');
-var avg = document.createElement('td');
-var img = document.createElement('img');
-img.src = heroes[avgs[ind].hero_id].img;
-img.class = "img-sm";
-hero.innerHTML = img.outerHTML;
-value.innerHTML = avgs[ind].val;
-avg.innerHTML = avgs[ind].avg;
-tr2.appendChild(hero);
-tr2.appendChild(value);
-tr2.appendChild(avg);
-return table.outerHTML;
-}
-*/
-
 TrendGraph.propTypes = {
   columns: React.PropTypes.arrayOf(),
 };

@@ -110,6 +110,11 @@
   "explorer_kill": "Kill Time",
   "explorer_side": "Side",
   "explorer_toggle_sql": "Toggle SQL",
+  "explorer_team": "Team",
+  "explorer_lane_pos": "Lane Position",
+  "explorer_min_date": "Min Date",
+  "explorer_max_date": "Max Date",
+  "explorer_hero_combos": "Hero Combos",
 
   "farm_heroes": "Heroes killed",
   "farm_creeps": "Lane creeps killed",
@@ -125,7 +130,7 @@
   "filter_button_text_open": "Filter",
   "filter_button_text_close": "Close",
   "filter_hero_id": "Hero",
-  "filter_is_radiant": "Team",
+  "filter_is_radiant": "Side",
   "filter_win": "Result",
   "filter_lane_role": "Lane",
   "filter_patch": "Patch",
@@ -143,6 +148,7 @@
   "filter_last_month": "Last month",
   "filter_last_3_months": "Last 3 months",
   "filter_last_6_months": "Last 6 months",
+  "filter_error": "Please select an item from the dropdown",
 
   "game_mode_0": "Unknown",
   "game_mode_1": "All Pick",
@@ -166,7 +172,7 @@
   "game_mode_19": "Event",
   "game_mode_20": "All Random Death Match",
   "game_mode_21": "1v1 Mid",
-  "game_mode_22": "Ranked All Pick",
+  "game_mode_22": "All Draft",
 
   "general_unknown": "Unknown",
   "general_no_hero": "No hero",
@@ -286,6 +292,12 @@
   "heading_lane_role": "Lane Role",
   "heading_region": "Region",
   "heading_patch": "Patch",
+  "heading_win_rate": "Win Rate",
+  "heading_is_radiant": "Side",
+  "heading_avg_and_max": "Averages/Maximums",
+  "subheading_avg_and_max": "in last %d matches",
+  "heading_total_matches": "Total Matches",
+  "heading_median": "Median",
   
   "hero_pro_tab": "Professional",
   "hero_public_tab": "Public",
@@ -337,6 +349,12 @@
   "lane_role_2": "Mid",
   "lane_role_3": "Off",
   "lane_role_4": "Jungle",
+  
+  "lane_pos_1": "Bot",
+  "lane_pos_2": "Mid",
+  "lane_pos_3": "Top",
+  "lane_pos_4": "Radiant Jungle",
+  "lane_pos_5": "Dire Jungle",
 
   "lane_pos_1": "Bot",
   "lane_pos_2": "Mid",
@@ -438,6 +456,11 @@
   "pagination_first": "First",
   "pagination_last": "Last",
   "pagination_of": "of",
+  
+  "request_title": "Request a Parse",
+  "request_match_id": "Match ID",
+  "request_error": "Failed to get match data",
+  "request_submit": "Submit",
 
   "rune_0": "Double Damage",
   "rune_1": "Haste",
@@ -446,6 +469,8 @@
   "rune_4": "Regeneration",
   "rune_5": "Bounty",
   "rune_6": "Arcane",
+  
+  "search_title": "Player Search",
 
   "skill_1": "Normal",
   "skill_2": "High",
@@ -532,6 +557,8 @@
   "th_with_win": "Win with %",
   "th_against_games": "Against",
   "th_against_win": "Win against %",
+  "th_gpm_with": "GPM With",
+  "th_xpm_with": "XPM With",
   "th_avatar": "Player",
   "th_last_played": "Last",
   "th_record": "Record",
@@ -640,6 +667,9 @@
   "ward_log_left_at": "Left",
   "ward_log_duration": "Lifespan",
   "ward_log_killed_by": "Killed by",
+
+  "log_detail": "Detail",
+  "log_heroes": "Specify Heroes",
 
   "time_past": "%s ago",
   "time_just_now": "just now",
@@ -775,7 +805,7 @@
   "trends_name": "Trends",
   "trends_description": "Cumulative average over last 500 games",
   "trends_tooltip_average": "Avg.",
-  "trends_no_data": "Sorry, no data for this trend",
+  "trends_no_data": "Sorry, no data for this graph",
 
   "xp_reasons_0": "Other",
   "xp_reasons_1": "Creep",
