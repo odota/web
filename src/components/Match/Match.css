@@ -224,19 +224,29 @@
   }
 }
 
+.storyWrapper {
+  line-height: 30px;
+}
+
+.storyWrapper > div {
+  margin-bottom: 15px;
+}
+
 .storySpan {
   white-space: nowrap;
 }
 
-.storySpan svg, .storySpan img {
+.storySpan svg,
+.storySpan img {
   vertical-align: middle;
-  height: 20px !important;
+  max-height: 20px;
   margin-right: 2px;
   fill: var(--textColorPrimary);
 }
 
 .storySpan svg {
   opacity: 0.8;
+  height: 20px;
 }
 
 .logFilterForm {

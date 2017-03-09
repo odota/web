@@ -23,7 +23,8 @@ const GoldSpan = amount => (
   <span key={`gold_${amount}`} className={styles.storySpan}>
     <font color={styles.golden}>{amount} </font>
     <img
-      width="30px"
+      width="25px"
+      height="17px"
       role="presentation"
       src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
     />
@@ -138,7 +139,7 @@ class StoryEvent {
     this.time = time;
   }
   render() {
-    return <div key={`event_at_${this.time}`} style={{ marginBottom: 20 }}>{this.format()}</div>;
+    return <div key={`event_at_${this.time}`}>{this.format()}</div>;
   }
 }
 
@@ -542,7 +543,7 @@ const generateStory = (match) => {
 class MatchStory extends React.Component {
   renderEvents() {
     const events = generateStory(this.props.match);
-    return (<div key="matchstory">{events.map(event => event.render())}</div>);
+    return (<div className={styles.storyWrapper} key="matchstory">{events.map(event => event.render())}</div>);
   }
   render() {
     try {
