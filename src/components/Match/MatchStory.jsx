@@ -96,7 +96,7 @@ const capitalizeFirst = (list) => {
 };
 
 // Fills in a template with the vars provided in the dict
-// Adds a fullstop if it's indicated that this is a sentance
+// Adds a fullstop if it's indicated that this is a sentence
 const renderTemplate = (template, dict) => {
   const pattern = /(\{[^}]+\})/g;
   let result = template.split(pattern);
@@ -109,13 +109,14 @@ const renderTemplate = (template, dict) => {
   return result;
 };
 
-// Adds a fullstop to the end of a sentance, and capitalizes the first letter if it can
-const renderSentence = (template, dict) => {
-  let result = renderTemplate(template, dict);
+// Adds a fullstop to the end of a sentence, and capitalizes the first letter if it can
+const toSentence = (content) => {
+  const result = capitalizeFirst(content);
   result.push(`${strings.story_fullstop} `);
-  result = capitalizeFirst(result);
   return result;
 };
+
+const renderSentence = (template, dict) => toSentence(renderTemplate(template, dict));
 
 // Enumerates a list of items using the correct language syntax
 const formatList = (items, noneValue = []) => {
@@ -138,8 +139,11 @@ class StoryEvent {
   constructor(time) {
     this.time = time;
   }
+  formatSentence() {
+    return toSentence(this.format());
+  }
   render() {
-    return <div key={`event_at_${this.time}`}>{this.format()}</div>;
+    return <div key={`event_at_${this.time}`}>{this.formatSentence()}</div>;
   }
 }
 
@@ -153,7 +157,7 @@ class FirstbloodEvent extends StoryEvent {
     });
   }
   format() {
-    return renderSentence(strings.story_firstblood, {
+    return renderTemplate(strings.story_firstblood, {
       time: formatSeconds(this.time),
       killer: PlayerSpan(this.killer),
       victim: PlayerSpan(this.victim),
@@ -272,6 +276,9 @@ class LanesEvent extends StoryEvent {
       this.lanes.push(new RoamStory(match));
     }
   }
+  formatSentence() {
+    return this.format();
+  }
   format() {
     return [strings.story_lane_intro, <ul key="lanestory">{this.lanes.map(lane => <li key={lane.lane}>{lane.format()}</li>)}</ul>];
   }
@@ -382,6 +389,9 @@ class TeamfightEvent extends StoryEvent {
     this.during_events = [];
     this.after_events = [];
   }
+  formatSentence() {
+    return this.format();
+  }
   format() {
     let formatted = [renderSentence(this.win_dead.length > 0 ? strings.story_teamfight : strings.story_teamfight_none_dead, {
       winning_team: TeamSpan(this.winning_team),
@@ -429,7 +439,7 @@ class ExpensiveItemEvent extends StoryEvent {
     return found;
   }
   format() {
-    return renderSentence(strings.story_expensive_item, {
+    return renderTemplate(strings.story_expensive_item, {
       time: formatSeconds(this.time),
       player: PlayerSpan(this.player),
       item: ItemSpan(this.item),
@@ -446,7 +456,7 @@ class GameoverEvent extends StoryEvent {
     this.dire_score = match.dire_score;
   }
   format() {
-    return renderSentence(strings.story_gameover, {
+    return renderTemplate(strings.story_gameover, {
       duration: formatSeconds(this.time),
       winning_team: TeamSpan(this.winning_team),
       radiant_score: <font key="radiant_score" color={styles.green}>{this.radiant_score}</font>,
@@ -549,15 +559,7 @@ class MatchStory extends React.Component {
     try {
       return this.renderEvents();
     } catch (e) {
-      let exmsg = '';
-      if (e.message) {
-        exmsg += e.message;
-      }
-      if (e.stack) {
-        exmsg += ` | stack: ${e.stack}`;
-      }
-      return (<div>{exmsg}</div>);
-      // return (<div>{strings.story_error}</div>);
+      return (<div>{strings.story_error}</div>);
     }
   }
 }
