@@ -52,7 +52,7 @@ import styles from './Explorer.css';
 // TODO num wards placed?
 // TODO num roshans killed?
 // TODO item build rates?
-// TODO graphing buttons (pie for count, bar for avg, timeseries for group by patch)
+// TODO graphing buttons (pie for count, bar for avg, timeseries for group by patch, histogram for raw values)
 // TODO AEGIS_STOLEN, AEGIS, DENIED_AEGIS, FIRSTBLOOD, PAUSED (requires player1_slot fix)
 // TODO scan/glyph action (use action rather than CHAT_MESSAGE_SCAN/CHAT_MESSAGE_GLYPH_USED)
 // TODO autostat (combine with GetLiveLeagueGames)
