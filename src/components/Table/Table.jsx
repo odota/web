@@ -67,7 +67,7 @@ const TableCreator = ({
         {data.map((row, index) => (
           <MaterialTableRow key={index}>
             {columns.map((column, colIndex) => {
-              const { field, color, center, displayFn, relativeBars, percentBars, sortFn } = column;
+              const { field, color, center, displayFn, relativeBars, percentBars, percentBarsWithValue, sortFn } = column;
               const getValue = typeof sortFn === 'function' ? sortFn : null;
               const value = getValue ? getValue(row) : row[field];
               const style = {
@@ -89,9 +89,9 @@ const TableCreator = ({
               }
 
               let fieldEl = null;
-              const bars = relativeBars || percentBars;
+              const bars = relativeBars || percentBars || percentBarsWithValue;
               if (bars) {
-                const altValue = typeof bars === 'function' ? bars(row) : null;
+                const altValue = typeof bars === 'function' && percentBarsWithValue ? bars(row) : null;
                 let valEl = null;
                 let barPercentValue = 0;
                 if (relativeBars) {
