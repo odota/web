@@ -119,8 +119,8 @@ class Vision extends React.Component {
             <VisionFilter match={match} parent={this} />
           </div>
         </div>
-            <VisionItems match={match} />
-            <VisionLog match={match} wards={visibleWards} />
+        <VisionItems match={match} />
+        <VisionLog match={match} wards={visibleWards} />
       </div>
     );
   }
