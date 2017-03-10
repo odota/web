@@ -770,7 +770,7 @@ export const teamfightColumns = [
     displayFn: inflictorRow(items),
   },
 ];
-/*
+
 const purchaseObserverColumn = {
   center: true,
   displayName: (
@@ -830,7 +830,6 @@ const purchaseSmokeColumn = {
   displayFn: (row, col, field) => field || '-',
   relativeBars: true,
 };
-*/
 
 const purchaseGemColumn = {
   center: true,
@@ -848,7 +847,7 @@ const purchaseGemColumn = {
 };
 export const visionColumns = [
   heroTdColumn,
-  // purchaseObserverColumn,
+  purchaseObserverColumn,
   {
     center: true,
     displayName: (
@@ -863,7 +862,7 @@ export const visionColumns = [
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },
-  // purchaseSentryColumn,
+  purchaseSentryColumn,
   {
     center: true,
     displayName: (
@@ -878,7 +877,7 @@ export const visionColumns = [
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },
-  // purchaseDustColumn,
+  purchaseDustColumn,
   {
     center: true,
     displayName: (
@@ -893,7 +892,7 @@ export const visionColumns = [
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },
-  // purchaseSmokeColumn,
+  purchaseSmokeColumn,
   {
     center: true,
     displayName: (

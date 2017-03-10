@@ -119,14 +119,8 @@ class Vision extends React.Component {
             <VisionFilter match={match} parent={this} />
           </div>
         </div>
-        <div style={{ display: 'flex' }}>
-          <div style={{ width: '50%', margin: '10px' }}>
             <VisionItems match={match} />
-          </div>
-          <div style={{ width: '50%', margin: '10px' }}>
             <VisionLog match={match} wards={visibleWards} />
-          </div>
-        </div>
       </div>
     );
   }
