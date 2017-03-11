@@ -26,7 +26,14 @@ const Records = ({ routeParams, data, error, loading, playerId }) => {
       selectedButton={selected}
     />
     <Container title={strings.heading_records} error={error} loading={loading}>
-      <Table columns={playerRecordsColumns.concat({ displayName: strings[`th_${selected}`], field: selected })} data={data} />
+      <Table
+        columns={playerRecordsColumns.concat({
+          displayName: strings[`th_${selected}`] || strings.th_record,
+          displayFn: (row, col, field) => (field && field.toFixed ? Number(field.toFixed(2)) : ''),
+          field: selected,
+          relativeBars: true,
+        })} data={data}
+      />
     </Container>
   </div>);
 };
