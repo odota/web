@@ -15,6 +15,7 @@ export const playerHeroesOverviewColumns = playerId => [{
   field: 'games',
   displayFn: row => <TableLink to={`/players/${playerId}/matches?hero_id=${row.hero_id}`}>{row.games}</TableLink>,
   sortFn: true,
+  relativeBars: true,
 }, {
   displayName: strings.th_win,
   tooltip: strings.tooltip_win_pct_as,
@@ -29,6 +30,7 @@ const restColumns = playerId => [{
   field: 'with_games',
   displayFn: row => <TableLink to={`/players/${playerId}/matches?with_hero_id=${row.hero_id}`}>{row.with_games}</TableLink>,
   sortFn: true,
+  relativeBars: true,
 }, {
   displayName: strings.th_with_win,
   tooltip: strings.tooltip_win_pct_with,
@@ -41,6 +43,7 @@ const restColumns = playerId => [{
   field: 'against_games',
   displayFn: row => <TableLink to={`/players/${playerId}/matches?against_hero_id=${row.hero_id}`}>{row.against_games}</TableLink>,
   sortFn: true,
+  relativeBars: true,
 }, {
   displayName: strings.th_against_win,
   tooltip: strings.tooltip_win_pct_against,
