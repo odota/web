@@ -1087,7 +1087,7 @@ const sqlfs = ['SELECT', 'WHERE', 'GROUP BY', 'ORDER BY', 'USING()'];
 const sqlts = ['FROM', 'JOIN', 'LEFT JOIN'];
 const tables = ['matches', 'player_matches', 'teams', 'match_logs', 'public_matches', 'public_player_matches'];
 const sqlks = ['OFFSET', 'LIMIT', 'DISTINCT', 'IN'];
-const sqlfuncs = ['to_timestamp()', 'count()', 'avg()', 'sum()', 'stddev()'];
+const sqlfuncs = ['to_timestamp()', 'count()', 'avg()', 'sum()', 'stddev()', 'min()', 'max()'];
 /*
 select table_name, column_name, data_type
 from INFORMATION_SCHEMA.COLUMNS
