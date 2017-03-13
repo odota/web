@@ -356,10 +356,6 @@
   "lane_pos_4": "Radiant Jungle",
   "lane_pos_5": "Dire Jungle",
 
-  "lane_pos_1": "Bot",
-  "lane_pos_2": "Mid",
-  "lane_pos_3": "Top",
-
   "leaver_status_0": "None",
   "leaver_status_1": "Left Safely",
   "leaver_status_2": "Abandoned (DC)",
