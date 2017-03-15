@@ -2,11 +2,22 @@
 
 .Performances {
   display: flex;
-  flex-wrap: row;
+  flex-direction: row;
 
   & .data {
     flex-grow: 1;
     margin-left: 20px;
+  }
+
+  @media only screen and (max-width: 1300px) {
+    flex-direction: column;
+    align-items: center;
+
+    & .data {
+      margin-left: 0;
+      margin-top: 20px;
+      width: 100%;
+    }
   }
 }
 
@@ -36,4 +47,8 @@
   & > img {
     height: 24px;
   }
+}
+
+.mapHeading {
+  margin-top: 0;
 }

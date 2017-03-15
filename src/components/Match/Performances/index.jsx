@@ -6,7 +6,7 @@ const Performances = ({ match, routeParams }) => {
   const playerTabs = [];
   const route = Number(routeParams.subInfo) || match.players[0].hero_id;
 
-  match.players.map((player, i) => playerTabs.push(playerTab(player, i, routeParams)));
+  match.players.map((player, i) => playerTabs.push(playerTab(player, i, routeParams, match.duration)));
 
   const tab = match && playerTabs.find(tab => tab.key === route);
 

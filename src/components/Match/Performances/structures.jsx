@@ -8,8 +8,10 @@ import {
 } from 'utility';
 import { TablePercent, inflictorWithValue } from 'components/Visualizations';
 import heroNames from 'dotaconstants/build/hero_names.json';
+import heroes from 'dotaconstants/build/heroes.json';
 import Table from 'components/Table';
 import Heatmap from 'components/Heatmap';
+import Heading from 'components/Heading';
 import { heroTd } from '../matchColumns';
 import styles from './styles.css';
 
@@ -27,7 +29,7 @@ DisplayName.propTypes = {
   name: PropTypes.string,
 };
 
-const data = player => [{
+const data = (player, duration) => [{
   name: <DisplayName name="lane" />,
   value: strings[`lane_role_${player.lane_role}`],
 }, {
@@ -61,7 +63,10 @@ const data = player => [{
 }, {
   name: <DisplayName name="dead" />,
   value: player.life_state_dead
-    ? formatSeconds(player.life_state_dead)
+    ? <TablePercent
+      percent={(player.life_state_dead * 100 / duration).toFixed(2)}
+      valEl={formatSeconds(player.life_state_dead)}
+    />
     : '-',
 }, {
   name: <DisplayName name="buybacks" />,
@@ -85,38 +90,52 @@ const data = player => [{
 }];
 
 const columns = [{
-  displayName: 'name',
+  displayName: strings.th_field,
   field: 'name',
 }, {
-  displayName: 'value',
+  displayName: strings.th_value,
   field: 'value',
 }];
 
-export const playerTab = (player, i, routeParams) => ({
-  key: player.hero_id,
-  name: <div>
-    {heroTd(player, 'hero_id', player.hero_id, i, true)}
-    <div
-      style={{
-        marginTop: 5,
-        fontSize: 14,
-        fontWeight: 400,
-        color: isRadiant(player.player_slot)
-          ? styles.green
-          : styles.red,
-      }}
-    >
-      {player.name || player.personaname || strings.general_anonymous}
-    </div>
-  </div>,
-  route: `/matches/${routeParams.matchId}/${routeParams.info}/${player.hero_id}`,
-  content: () => <div className={styles.Performances}>
-    <Heatmap points={unpackPositionData(player.lane_pos)} />
-    <div className={styles.data}>
-      <Table
-        data={data(player)}
-        columns={columns}
-      />
-    </div>
-  </div>,
-});
+export const playerTab = (player, i, routeParams, duration) => {
+  const playerName = player.name || player.personaname || strings.general_anonymous;
+
+  return {
+    key: player.hero_id,
+    name: <div>
+      {heroTd(player, 'hero_id', player.hero_id, i, true)}
+      <div
+        style={{
+          marginTop: 5,
+          fontSize: 14,
+          fontWeight: 400,
+          color: isRadiant(player.player_slot)
+            ? styles.green
+            : styles.red,
+        }}
+      >
+        {playerName}
+      </div>
+    </div>,
+    route: `/matches/${routeParams.matchId}/${routeParams.info}/${player.hero_id}`,
+    content: () => <div className={styles.Performances}>
+      <div>
+        <Heading
+          title={strings.tooltip_map}
+          className={styles.mapHeading}
+        />
+        <Heatmap points={unpackPositionData(player.lane_pos)} />
+      </div>
+      <div className={styles.data}>
+        <Heading
+          title={strings.heading_performances}
+          className={styles.mapHeading}
+        />
+        <Table
+          data={data(player, duration)}
+          columns={columns}
+        />
+      </div>
+    </div>,
+  };
+};

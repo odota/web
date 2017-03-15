@@ -624,6 +624,8 @@
   "th_estimated_mmr": "Estimated MMR",
   "th_permanent_buffs": "Buffs",
   "th_winner": "Winner",
+  "th_field": "Field",
+  "th_value": "Value",
 
   "ward_log_type": "Type",
   "ward_log_owner": "Owner",
