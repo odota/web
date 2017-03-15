@@ -41,6 +41,7 @@ import querystring from 'querystring';
 import queryTemplate from './queryTemplate';
 import ExplorerFormField from './ExplorerFormField';
 import fields from './fields';
+import autocomplete from './autocomplete';
 import styles from './Explorer.css';
 
 // TODO omnibox search
@@ -147,7 +148,9 @@ class Explorer extends React.Component {
     this.props.dispatchProPlayers();
     this.props.dispatchLeagues();
     this.props.dispatchTeams();
-    getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js', this.instantiateEditor);
+    getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js', () => {
+      getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js', this.instantiateEditor);
+    });
   }
   getQueryString() {
     const sql = encodeURIComponent(this.editor.getSelectedText() || this.editor.getValue());
@@ -161,7 +164,9 @@ class Explorer extends React.Component {
     editor.setOptions({
       minLines: 10,
       maxLines: Infinity,
+      enableLiveAutocompletion: true,
     });
+    editor.completers = [autocomplete];
     this.editor = editor;
     const sql = this.props && this.props.location && this.props.location.query && this.props.location.query.sql;
     if (sql) {
