@@ -90,7 +90,7 @@
     "react-addons-test-utils": "^15.4.0",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-perf-tool": "^0.1.7",
-    "sinon": "^1.17.6",
+    "sinon": "^2.0.0",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.14.0",
     "stylelint": "^7.6.0",
