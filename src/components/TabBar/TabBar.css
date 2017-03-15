@@ -30,6 +30,7 @@
       color: var(--colorMuted);
     }
 
+    /* match/performances hero images with player names */
     & > div > div {
       width: 100%;
 

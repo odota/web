@@ -17,3 +17,23 @@
     display: block;
   }
 }
+
+.biggest_hit {
+  display: flex;
+  align-items: center;
+
+  & > span {
+    margin: 0 5px;
+  }
+}
+
+.tab {
+  & > div {
+    font-size: var(--fontSizeMedium);
+    font-weight: var(--fontWeightNormal);
+  }
+
+  & > img {
+    height: 24px;
+  }
+}
