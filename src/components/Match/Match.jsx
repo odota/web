@@ -50,7 +50,7 @@ class RequestLayer extends React.Component {
           tabs={matchPages(matchId, match)}
           mediaQClass={styles.tabBar}
         />
-        {page && page.content(match)}
+        {page && page.content(match, this.props.routeParams)}
       </div>
     );
   }

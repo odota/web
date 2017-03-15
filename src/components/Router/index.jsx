@@ -32,7 +32,7 @@ export default () => (
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
-        <Route path="matches(/:matchId)(/:info)" component={Matches} />
+        <Route path="matches(/:matchId)(/:info)(/:subInfo)" component={Matches} />
         <Route path="players/:playerId(/:info)(/:subInfo)" component={Player} />
         <Route path="heroes(/:heroId)(/:info)" component={Heroes} />
         <Route path="distributions(/:info)" component={Distributions} />

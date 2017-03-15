@@ -30,7 +30,10 @@ percent.propTypes = {
     string,
     number,
   ]),
-  valEl: node,
+  valEl: oneOfType([
+    string,
+    node,
+  ]),
 };
 
 export default percent;

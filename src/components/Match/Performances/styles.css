@@ -1,0 +1,19 @@
+@import "../../palette.css";
+
+.Performances {
+  display: flex;
+  flex-wrap: row;
+
+  & .data {
+    flex-grow: 1;
+    margin-left: 20px;
+  }
+}
+
+.DisplayName {
+  & > span {
+    color: var(--colorMutedLight);
+    font-size: var(--fontSizeSmall);
+    display: block;
+  }
+}

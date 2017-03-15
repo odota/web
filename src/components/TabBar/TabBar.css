@@ -30,6 +30,18 @@
       color: var(--colorMuted);
     }
 
+    & > div > div {
+      width: 100%;
+
+      & > div {
+        margin: 0 auto;
+
+        & > img {
+          margin-right: 0;
+        }
+      }
+    }
+
     @media only screen and (max-width: 768px) {
       padding-left: 10px;
       padding-right: 10px;
