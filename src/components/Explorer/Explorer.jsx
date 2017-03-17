@@ -95,10 +95,13 @@ function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping 
             percent={Number((field * 100).toFixed(2))}
           /> : null);
         } else if (column.field === 'adj_winrate') {
+          /*
           const phat = field;
           const z = 1.96;
           const n = row.count;
-          return ((phat + z*z/(2*n) - z * Math.sqrt((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n)).toFixed(2);
+          return ((phat + z * z / (2 * n) - z * Math.sqrt((phat * (1 - phat) + z * z / (4 * n)) / n)) / (1 + z * z / n)).toFixed(2);
+          */
+          return field;
         } else if (column.field === 'rune_id') {
           return strings[`rune_${field}`];
         } else if (column.field === 'item_name') {
@@ -313,10 +316,11 @@ class Explorer extends React.Component {
           style={{ margin: '5px' }}
           label={strings.explorer_csv_button}
           href={`data:application/octet-stream,${encodeURIComponent(json2csv({
-          data: this.state.result.rows || [], 
-          fields: (this.state.result.fields|| []).map(field => field.name) 
-          }))}`} 
-          download="data.csv" />
+            data: this.state.result.rows || [],
+            fields: (this.state.result.fields || []).map(field => field.name),
+          }))}`}
+          download="data.csv"
+        />
         <RaisedButton
           style={{ margin: '5px' }}
           label={strings.explorer_toggle_sql}
