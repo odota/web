@@ -119,6 +119,7 @@
   "explorer_postgresql_function": "PostgreSQL Function",
   "explorer_table": "Table",
   "explorer_column": "Column",
+  "explorer_csv_button": "CSV",
 
   "farm_heroes": "Heroes killed",
   "farm_creeps": "Lane creeps killed",

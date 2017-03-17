@@ -38,6 +38,7 @@ from 'components/Visualizations';
 import { IconRadiant, IconDire } from 'components/Icons';
 import matchStyles from 'components/Match/Match.css';
 import querystring from 'querystring';
+import json2csv from 'json2csv';
 import queryTemplate from './queryTemplate';
 import ExplorerFormField from './ExplorerFormField';
 import fields from './fields';
@@ -93,6 +94,11 @@ function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping 
           return (field >= 0 && field <= 1 ? <TablePercent
             percent={Number((field * 100).toFixed(2))}
           /> : null);
+        } else if (column.field === 'adj_winrate') {
+          const phat = field;
+          const z = 1.96;
+          const n = row.count;
+          return ((phat + z*z/(2*n) - z * Math.sqrt((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n)).toFixed(2);
         } else if (column.field === 'rune_id') {
           return strings[`rune_${field}`];
         } else if (column.field === 'item_name') {
@@ -303,6 +309,14 @@ class Explorer extends React.Component {
           label={strings.explorer_json_button}
           onClick={this.handleJson}
         />
+        <RaisedButton
+          style={{ margin: '5px' }}
+          label={strings.explorer_csv_button}
+          href={`data:application/octet-stream,${encodeURIComponent(json2csv({
+          data: this.state.result.rows || [], 
+          fields: (this.state.result.fields|| []).map(field => field.name) 
+          }))}`} 
+          download="data.csv" />
         <RaisedButton
           style={{ margin: '5px' }}
           label={strings.explorer_toggle_sql}
