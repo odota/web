@@ -81,19 +81,18 @@ function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping,
     setTimeout(() => {
       const firstCol = fields[0].name;
       c3.generate({
-      bindto: '#donut',
-      data: {
-        type: 'donut',
-        columns: rows.map(row => [row[firstCol], row.count]),
-      },
-      donut: {
-        title: strings.th_count,
-      }
-    });
+        bindto: '#donut',
+        data: {
+          type: 'donut',
+          columns: rows.map(row => [row[firstCol], row.count]),
+        },
+        donut: {
+          title: strings.th_count,
+        },
+      });
     }, 100);
     return <div id="donut" />;
-  }
-  else if (format === 'bar') {
+  } else if (format === 'bar') {
     setTimeout(() => {
       const firstCol = fields[0].name;
       rows.sort((a, b) => b.avg - a.avg);
