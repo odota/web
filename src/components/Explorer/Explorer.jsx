@@ -39,6 +39,7 @@ import { IconRadiant, IconDire } from 'components/Icons';
 import matchStyles from 'components/Match/Match.css';
 import querystring from 'querystring';
 import json2csv from 'json2csv';
+import c3 from 'c3';
 import queryTemplate from './queryTemplate';
 import ExplorerFormField from './ExplorerFormField';
 import fields from './fields';
@@ -54,7 +55,6 @@ import styles from './Explorer.css';
 // TODO num wards placed?
 // TODO num roshans killed?
 // TODO item build rates?
-// TODO graphing buttons (pie for count, bar for avg, timeseries for group by patch, histogram for raw values)
 // TODO AEGIS_STOLEN, AEGIS, DENIED_AEGIS, FIRSTBLOOD, PAUSED (requires player1_slot fix)
 // TODO scan/glyph action (use action rather than CHAT_MESSAGE_SCAN/CHAT_MESSAGE_GLYPH_USED)
 // TODO autostat (combine with GetLiveLeagueGames)
@@ -75,7 +75,67 @@ function expandBuilderState(builder, fields) {
   return expandedBuilder;
 }
 
-function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping }) {
+function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping, format }) {
+  // TODO resolve ids to strings
+  if (format === 'donut') {
+    setTimeout(() => {
+      const firstCol = fields[0].name;
+      c3.generate({
+      bindto: '#donut',
+      data: {
+        type: 'donut',
+        columns: rows.map(row => [row[firstCol], row.count]),
+      },
+      donut: {
+        title: strings.th_count,
+      }
+    });
+    }, 100);
+    return <div id="donut" />;
+  }
+  else if (format === 'bar') {
+    setTimeout(() => {
+      const firstCol = fields[0].name;
+      rows.sort((a, b) => b.avg - a.avg);
+      c3.generate({
+        bindto: '#bar',
+        data: {
+          type: 'bar',
+          columns: [
+            [strings.th_average].concat(rows.map(row => row.avg)),
+          ],
+        },
+        axis: {
+          x: {
+            type: 'category',
+            categories: rows.map(row => row[firstCol]),
+          },
+        },
+      });
+    }, 100);
+    return <div id="bar" />;
+  } else if (format === 'timeseries') {
+    setTimeout(() => {
+      const firstCol = fields[0].name;
+      rows.sort((a, b) => a[firstCol] - b[firstCol]);
+      c3.generate({
+        bindto: '#timeseries',
+        data: {
+          type: 'spline',
+          columns: [
+            [firstCol].concat(rows.map(row => row.avg)),
+          ],
+        },
+        axis: {
+          x: {
+            type: 'category',
+            categories: rows.map(row => row[firstCol]),
+          },
+        },
+      });
+    }, 100);
+    return <div id="timeseries" />;
+  }
   return (<Table
     data={rows || []}
     columns={(fields || []).map(column => ({
@@ -204,7 +264,8 @@ class Explorer extends React.Component {
     });
     const queryString = this.getQueryString();
     // Only serialize the builder state to window history
-    window.history.pushState('', '', this.state.showEditor ? queryString : `?${querystring.stringify(this.state.builder)}`);
+    const stringToSerialize = this.state.showEditor ? queryString : `?${querystring.stringify(this.state.builder)}`;
+    window.history.pushState('', '', stringToSerialize);
     return fetch(`${API_HOST}/api/explorer${queryString}`).then(jsonResponse).then(this.handleResponse);
   }
   handleJson() {
@@ -305,7 +366,29 @@ class Explorer extends React.Component {
         <RaisedButton
           style={{ margin: '5px' }}
           label={strings.explorer_query_button}
-          onClick={this.handleQuery}
+          onClick={() => {
+            this.setState({ ...this.state, builder: { ...this.state.builder, format: 'table' } }, this.handleQuery);
+          }}
+        />
+        <RaisedButton
+          style={{ margin: '5px' }}
+          label={strings.explorer_donut_button}
+          onClick={() => {
+            this.setState({ ...this.state, builder: { ...this.state.builder, format: 'donut' } }, this.handleQuery);
+          }}
+        />
+        <RaisedButton
+          style={{ margin: '5px' }}
+          label={strings.explorer_bar_button}
+          onClick={() => {
+            this.setState({ ...this.state, builder: { ...this.state.builder, format: 'bar' } }, this.handleQuery);
+          }}
+        />
+        <RaisedButton
+          style={{ margin: '5px' }}
+          label={strings.explorer_timeseries_button}
+          onClick={() => {
+          }}
         />
         <RaisedButton
           style={{ margin: '5px' }}
@@ -335,6 +418,7 @@ class Explorer extends React.Component {
         expandedBuilder,
         playerMapping,
         teamMapping,
+        format: this.state.builder.format,
       }) : <Spinner />}
     </div>);
   }

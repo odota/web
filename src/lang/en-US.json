@@ -120,6 +120,9 @@
   "explorer_table": "Table",
   "explorer_column": "Column",
   "explorer_csv_button": "CSV",
+  "explorer_donut_button": "Donut",
+  "explorer_bar_button": "Bar",
+  "explorer_timeseries_button": "Timeseries",
 
   "farm_heroes": "Heroes killed",
   "farm_creeps": "Lane creeps killed",
