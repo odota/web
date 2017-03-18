@@ -9,6 +9,7 @@ import Spinner from 'components/Spinner';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import AutoComplete from 'material-ui/AutoComplete';
+import Toggle from 'material-ui/Toggle';
 import {
   Link,
 }
@@ -46,7 +47,6 @@ import fields from './fields';
 import autocomplete from './autocomplete';
 import styles from './Explorer.css';
 
-// TODO omnibox search
 // TODO mega creep wins (matches table only)
 // TODO bans (picks_bans table)
 // TODO num matches played by team (team_match table)
@@ -75,114 +75,116 @@ function expandBuilderState(builder, fields) {
   return expandedBuilder;
 }
 
+function redrawGraphs(rows, fields) {
+  setTimeout(() => {
+    const firstCol = fields[0].name;
+    c3.generate({
+      bindto: '#donut',
+      data: {
+        type: 'donut',
+        columns: rows.map(row => [row[firstCol], row.sum]),
+      },
+      donut: {
+        title: strings.th_sum,
+      },
+    });
+    rows.sort((a, b) => b.avg - a.avg);
+    c3.generate({
+      bindto: '#bar',
+      data: {
+        type: 'bar',
+        columns: [
+          [strings.th_average].concat(rows.map(row => row.avg)),
+          [strings.th_sum].concat(rows.map(row => row.sum)),
+        ],
+      },
+      axis: {
+        x: {
+          type: 'category',
+          categories: rows.map(row => row[firstCol]),
+        },
+      },
+    });
+    rows.sort((a, b) => a[firstCol] - b[firstCol]);
+    c3.generate({
+      bindto: '#timeseries',
+      data: {
+        type: 'spline',
+        columns: [
+          [firstCol].concat(rows.map(row => row.avg)),
+        ],
+      },
+      axis: {
+        x: {
+          type: 'category',
+          categories: rows.map(row => row[firstCol]),
+        },
+      },
+    });
+  }, 100);
+}
+
 function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping, format }) {
   // TODO resolve ids to strings
+  // TODO axis labels
+  // TODO don't redraw graphs unless a new query is made
+  redrawGraphs(JSON.parse(JSON.stringify(rows || [])), fields);
   if (format === 'donut') {
-    setTimeout(() => {
-      const firstCol = fields[0].name;
-      c3.generate({
-        bindto: '#donut',
-        data: {
-          type: 'donut',
-          columns: rows.map(row => [row[firstCol], row.count]),
-        },
-        donut: {
-          title: strings.th_count,
-        },
-      });
-    }, 100);
     return <div id="donut" />;
   } else if (format === 'bar') {
-    setTimeout(() => {
-      const firstCol = fields[0].name;
-      rows.sort((a, b) => b.avg - a.avg);
-      c3.generate({
-        bindto: '#bar',
-        data: {
-          type: 'bar',
-          columns: [
-            [strings.th_average].concat(rows.map(row => row.avg)),
-          ],
-        },
-        axis: {
-          x: {
-            type: 'category',
-            categories: rows.map(row => row[firstCol]),
-          },
-        },
-      });
-    }, 100);
     return <div id="bar" />;
   } else if (format === 'timeseries') {
-    setTimeout(() => {
-      const firstCol = fields[0].name;
-      rows.sort((a, b) => a[firstCol] - b[firstCol]);
-      c3.generate({
-        bindto: '#timeseries',
-        data: {
-          type: 'spline',
-          columns: [
-            [firstCol].concat(rows.map(row => row.avg)),
-          ],
-        },
-        axis: {
-          x: {
-            type: 'category',
-            categories: rows.map(row => row[firstCol]),
-          },
-        },
-      });
-    }, 100);
     return <div id="timeseries" />;
   }
-  return (<Table
-    data={rows || []}
-    columns={(fields || []).map(column => ({
-      displayName: column.name,
-      field: column.name,
-    })).map(column => ({
-      ...column,
-      displayFn: (row, col, field) => {
-        if (column.field === 'match_id') {
-          return <Link to={`/matches/${field}`}>{field}</Link>;
-        } else if (column.field.indexOf('hero_id') === 0) {
-          return transformations.hero_id(row, col, field);
-        } else if (column.field.indexOf('account_id') === 0) {
-          return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
-        } else if (column.field === 'winrate') {
-          return (field >= 0 && field <= 1 ? <TablePercent
-            percent={Number((field * 100).toFixed(2))}
-          /> : null);
-        } else if (column.field === 'adj_winrate') {
+  return (
+    <Table
+      data={rows || []}
+      columns={(fields || []).map(column => ({
+        displayName: column.name,
+        field: column.name,
+      })).map(column => ({
+        ...column,
+        displayFn: (row, col, field) => {
+          if (column.field === 'match_id') {
+            return <Link to={`/matches/${field}`}>{field}</Link>;
+          } else if (column.field.indexOf('hero_id') === 0) {
+            return transformations.hero_id(row, col, field);
+          } else if (column.field.indexOf('account_id') === 0) {
+            return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
+          } else if (column.field === 'winrate') {
+            return (field >= 0 && field <= 1 ? <TablePercent
+              percent={Number((field * 100).toFixed(2))}
+            /> : null);
+          } else if (column.field === 'adj_winrate') {
           /*
           const phat = field;
           const z = 1.96;
           const n = row.count;
           return ((phat + z * z / (2 * n) - z * Math.sqrt((phat * (1 - phat) + z * z / (4 * n)) / n)) / (1 + z * z / n)).toFixed(2);
           */
-          return field;
-        } else if (column.field === 'rune_id') {
-          return strings[`rune_${field}`];
-        } else if (column.field === 'item_name') {
-          return itemData[field] ? itemData[field].dname : field;
-        } else if (column.field === 'team_id') {
-          return teamMapping[field] || field;
-        } else if (column.field === 'time' || (column.field === 'avg' && expandedBuilder.select && expandedBuilder.select.formatSeconds)) {
-          return formatSeconds(field);
-        } else if (column.field === 'inflictor') {
-          return <span>{inflictorWithValue(field)} {field}</span>;
-        } else if (column.field === 'win') {
-          return <span className={field ? styles.textSuccess : styles.textDanger}>{field ? strings.td_win : strings.td_loss}</span>;
-        } else if (column.field === 'is_radiant') {
-          return field
-          ? <span className={matchStyles.teamIconContainer}><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>
-          : <span className={matchStyles.teamIconContainer}><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>;
-        }
-        return typeof field === 'string' ? field : JSON.stringify(field);
-      },
-      sortFn: row => (isNaN(Number(row[column.field])) ? row[column.field] : Number(row[column.field])),
-    }))}
-  />);
+            return field;
+          } else if (column.field === 'rune_id') {
+            return strings[`rune_${field}`];
+          } else if (column.field === 'item_name') {
+            return itemData[field] ? itemData[field].dname : field;
+          } else if (column.field === 'team_id') {
+            return teamMapping[field] || field;
+          } else if (column.field === 'time' || (column.field === 'avg' && expandedBuilder.select && expandedBuilder.select.formatSeconds)) {
+            return formatSeconds(field);
+          } else if (column.field === 'inflictor') {
+            return <span>{inflictorWithValue(field)} {field}</span>;
+          } else if (column.field === 'win') {
+            return <span className={field ? styles.textSuccess : styles.textDanger}>{field ? strings.td_win : strings.td_loss}</span>;
+          } else if (column.field === 'is_radiant') {
+            return field
+            ? <span className={matchStyles.teamIconContainer}><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>
+            : <span className={matchStyles.teamIconContainer}><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>;
+          }
+          return typeof field === 'string' ? field : JSON.stringify(field);
+        },
+        sortFn: row => (isNaN(Number(row[column.field])) ? row[column.field] : Number(row[column.field])),
+      }))}
+    />);
 }
 
 class Explorer extends React.Component {
@@ -208,23 +210,24 @@ class Explorer extends React.Component {
     this.toggleEditor = this.toggleEditor.bind(this);
     this.handleQuery = this.handleQuery.bind(this);
     this.handleResponse = this.handleResponse.bind(this);
-    this.getQueryString = this.getQueryString.bind(this);
-    this.handleJson = this.handleJson.bind(this);
+    this.getSqlString = this.getSqlString.bind(this);
     this.buildQuery = this.buildQuery.bind(this);
+    this.syncWindowHistory = this.syncWindowHistory.bind(this);
   }
   componentDidMount() {
     this.props.dispatchProPlayers();
     this.props.dispatchLeagues();
     this.props.dispatchTeams();
     getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js', () => {
-      getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js', this.instantiateEditor);
+      getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js', () => {
+        fetch(`${API_HOST}/api/schema`).then(jsonResponse).then(this.instantiateEditor);
+      });
     });
   }
-  getQueryString() {
-    const sql = encodeURIComponent(this.editor.getSelectedText() || this.editor.getValue());
-    return `?sql=${sql}`;
+  getSqlString() {
+    return this.editor.getSelectedText() || this.editor.getValue();
   }
-  instantiateEditor() {
+  instantiateEditor(schema) {
     const editor = ace.edit('editor');
     editor.setTheme('ace/theme/monokai');
     editor.getSession().setMode('ace/mode/sql');
@@ -234,17 +237,15 @@ class Explorer extends React.Component {
       maxLines: Infinity,
       enableLiveAutocompletion: true,
     });
-    editor.completers = [autocomplete];
+    editor.completers = [autocomplete(schema)];
     this.editor = editor;
     const sql = this.props && this.props.location && this.props.location.query && this.props.location.query.sql;
     if (sql) {
       editor.setValue(decodeURIComponent(sql));
       this.handleQuery();
-    } else if (Object.keys(this.state.builder).length) {
+    } else {
       this.buildQuery();
       this.handleQuery();
-    } else {
-      editor.setValue('select count(*) from matches;');
     }
     this.setState({ ...this.state,
       loadingEditor: false,
@@ -254,6 +255,12 @@ class Explorer extends React.Component {
     this.setState({ ...this.state, showEditor: !this.state.showEditor });
     this.editor.renderer.updateFull();
   }
+  syncWindowHistory() {
+    const sqlString = this.getSqlString();
+    const objectToSerialize = this.state.showEditor ? { sql: sqlString, format: this.state.builder.format } : this.state.builder;
+    const stringToSerialize = `?${querystring.stringify(objectToSerialize)}`;
+    window.history.pushState('', '', stringToSerialize);
+  }
   handleQuery() {
     if (this.state.loadingEditor === true) {
       return setTimeout(this.handleQuery, 1000);
@@ -261,14 +268,9 @@ class Explorer extends React.Component {
     this.setState({ ...this.state,
       querying: true,
     });
-    const queryString = this.getQueryString();
-    // Only serialize the builder state to window history
-    const stringToSerialize = this.state.showEditor ? queryString : `?${querystring.stringify(this.state.builder)}`;
-    window.history.pushState('', '', stringToSerialize);
-    return fetch(`${API_HOST}/api/explorer${queryString}`).then(jsonResponse).then(this.handleResponse);
-  }
-  handleJson() {
-    window.open(`${API_HOST}/api/explorer${this.getQueryString()}`, '_blank');
+    this.syncWindowHistory();
+    const sqlString = this.getSqlString();
+    return fetch(`${API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
   }
   handleResponse(json) {
     this.setState({ ...this.state,
@@ -350,6 +352,12 @@ class Explorer extends React.Component {
         {/* <ExplorerFormField label={strings.explorer_lane_pos} fields={expandedFields} builderField="lanePos" builderContext={this} />*/}
         <ExplorerFormField label={strings.explorer_min_date} builderField="minDate" builderContext={this} isDateField />
         <ExplorerFormField label={strings.explorer_max_date} builderField="maxDate" builderContext={this} isDateField />
+        <span style={{ width: '180px', marginTop: '20px' }}>
+          <Toggle
+            label={strings.explorer_toggle_sql}
+            onToggle={this.toggleEditor}
+          />
+        </span>
       </div>
       <div style={{ display: this.state.showEditor ? 'block' : 'none' }}>
         {this.state.loadingEditor && <Spinner />}
@@ -361,38 +369,44 @@ class Explorer extends React.Component {
           }}
         />
       </div>
-      <div style={{ textAlign: 'center' }}>
+      <RaisedButton
+        primary
+        style={{ margin: '5px' }}
+        label={strings.explorer_query_button}
+        onClick={this.handleQuery}
+      />
+      <span style={{ float: 'right' }}>
         <RaisedButton
+          secondary={this.state.builder.format === 'table'}
           style={{ margin: '5px' }}
-          label={strings.explorer_query_button}
+          label={strings.explorer_table_button}
           onClick={() => {
-            this.setState({ ...this.state, builder: { ...this.state.builder, format: 'table' } }, this.handleQuery);
+            this.setState({ ...this.state, builder: { ...this.state.builder, format: 'table' } }, this.syncWindowHistory);
           }}
         />
         <RaisedButton
+          secondary={this.state.builder.format === 'donut'}
           style={{ margin: '5px' }}
           label={strings.explorer_donut_button}
           onClick={() => {
-            this.setState({ ...this.state, builder: { ...this.state.builder, format: 'donut' } }, this.handleQuery);
+            this.setState({ ...this.state, builder: { ...this.state.builder, format: 'donut' } }, this.syncWindowHistory);
           }}
         />
         <RaisedButton
+          secondary={this.state.builder.format === 'bar'}
           style={{ margin: '5px' }}
           label={strings.explorer_bar_button}
           onClick={() => {
-            this.setState({ ...this.state, builder: { ...this.state.builder, format: 'bar' } }, this.handleQuery);
+            this.setState({ ...this.state, builder: { ...this.state.builder, format: 'bar' } }, this.syncWindowHistory);
           }}
         />
         <RaisedButton
+          secondary={this.state.builder.format === 'timeseries'}
           style={{ margin: '5px' }}
           label={strings.explorer_timeseries_button}
           onClick={() => {
+            this.setState({ ...this.state, builder: { ...this.state.builder, format: 'timeseries' } }, this.syncWindowHistory);
           }}
-        />
-        <RaisedButton
-          style={{ margin: '5px' }}
-          label={strings.explorer_json_button}
-          onClick={this.handleJson}
         />
         <RaisedButton
           style={{ margin: '5px' }}
@@ -405,10 +419,16 @@ class Explorer extends React.Component {
         />
         <RaisedButton
           style={{ margin: '5px' }}
-          label={strings.explorer_toggle_sql}
-          onClick={this.toggleEditor}
+          label={strings.explorer_json_button}
+          href={`data:application/octet-stream,${encodeURIComponent(JSON.stringify(this.state.result.rows, null, 2))}`}
+          download="data.json"
         />
-      </div>
+        <RaisedButton
+          style={{ margin: '5px' }}
+          label={strings.explorer_api_button}
+          onClick={() => window.open(`${API_HOST}/api/explorer?sql=${encodeURIComponent(this.getSqlString())}`, '_blank')}
+        />
+      </span>
       <Heading title={strings.explorer_results} subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`} />
       <pre style={{ color: 'red' }}>{this.state.result.err}</pre>
       {!this.state.querying ? drawOutput({
