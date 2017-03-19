@@ -735,5 +735,6 @@
   "vision_destroyed":"Destruido después de",
   "vision_all_time":"Todo el rato",
   "vision_placed_observer":"colocó un Guardián Observador en",
-  "vision_placed_sentry":"colocó un Guardián Centinela en"
+  "vision_placed_sentry":"colocó un Guardián Centinela en",
+  "vision_ward_log":"Ward Log"
 }
