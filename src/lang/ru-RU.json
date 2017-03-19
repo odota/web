@@ -735,5 +735,6 @@
   "vision_destroyed":"Уничтожен после",
   "vision_all_time":"За всё время",
   "vision_placed_observer":"установил Observer Ward на",
-  "vision_placed_sentry":"установил Sentry Ward на"
+  "vision_placed_sentry":"установил Sentry Ward на",
+  "vision_ward_log":"Ward Log"
 }
