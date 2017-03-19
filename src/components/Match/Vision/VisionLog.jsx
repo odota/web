@@ -1,7 +1,9 @@
+/* global API_HOST */
 import React from 'react';
 import { threshold, formatSeconds } from 'utility';
 import Table from 'components/Table';
 import strings from 'lang';
+import Heading from 'components/Heading';
 
 import { heroTd, heroTdColumn } from '../matchColumns';
 import styles from './Vision.css';
@@ -57,7 +59,8 @@ const generateData = match => (log) => {
 };
 
 const VisionLog = ({ match, wards }) => (
-  <div className={styles.visionLog}>
+  <div>
+    <Heading title={strings.vision_ward_log} />
     <Table data={wards.map(generateData(match))} columns={columns} />
   </div>
 );
