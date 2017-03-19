@@ -105,6 +105,10 @@
   "explorer_min_date":"Minimalna data",
   "explorer_max_date":"Maksymalna data",
   "explorer_hero_combos":"Combo bohaterów",
+  "explorer_sql":"SQL",
+  "explorer_postgresql_function":"Funkcja PostgreSQL",
+  "explorer_table":"Tabela",
+  "explorer_column":"Kolumna",
   "farm_heroes":"Zabici bohaterowie",
   "farm_creeps":"Zabite creepy liniowe",
   "farm_neutrals":"Zabite neutralne creepy (w tym starożytne)",
@@ -731,5 +735,6 @@
   "vision_destroyed":"Zniszczone po",
   "vision_all_time":"Łączny czas",
   "vision_placed_observer":"umieścił obserwatora w",
-  "vision_placed_sentry":"umieścił wartownika w"
+  "vision_placed_sentry":"umieścił wartownika w",
+  "vision_ward_log":"Ward Log"
 }
