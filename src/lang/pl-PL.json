@@ -735,5 +735,6 @@
   "vision_destroyed":"Zniszczone po",
   "vision_all_time":"Łączny czas",
   "vision_placed_observer":"umieścił obserwatora w",
-  "vision_placed_sentry":"umieścił wartownika w"
+  "vision_placed_sentry":"umieścił wartownika w",
+  "vision_ward_log":"Ward Log"
 }
