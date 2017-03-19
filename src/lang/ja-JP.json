@@ -735,5 +735,6 @@
   "vision_destroyed":"破壊時間: ",
   "vision_all_time":"全期間",
   "vision_placed_observer":"がObserverを設置:",
-  "vision_placed_sentry":"がSentryを設置:"
+  "vision_placed_sentry":"がSentryを設置:",
+  "vision_ward_log":"Ward Log"
 }
