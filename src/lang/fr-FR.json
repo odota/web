@@ -735,5 +735,6 @@
   "vision_destroyed":"Détruit(e) après",
   "vision_all_time":"Depuis toujours",
   "vision_placed_observer":"Observateur placé à",
-  "vision_placed_sentry":"Sentinelle posée à"
+  "vision_placed_sentry":"Sentinelle posée à",
+  "vision_ward_log":"Ward Log"
 }
