@@ -735,5 +735,6 @@
   "vision_destroyed":"已被摧毁",
   "vision_all_time":"全部时间",
   "vision_placed_observer":"放置侦查守卫",
-  "vision_placed_sentry":"放置岗哨守卫"
+  "vision_placed_sentry":"放置岗哨守卫",
+  "vision_ward_log":"Ward Log"
 }
