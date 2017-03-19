@@ -735,5 +735,6 @@
   "vision_destroyed":"Destroyed after",
   "vision_all_time":"All time",
   "vision_placed_observer":"placed Observer at",
-  "vision_placed_sentry":"placed Sentry at"
+  "vision_placed_sentry":"placed Sentry at",
+  "vision_ward_log":"Ward Log"
 }
