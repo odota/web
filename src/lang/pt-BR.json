@@ -735,5 +735,6 @@
   "vision_destroyed":"Destruído em",
   "vision_all_time":"Todo o Tempo",
   "vision_placed_observer":"Observador colocado em",
-  "vision_placed_sentry":"Reveladora colocada em"
+  "vision_placed_sentry":"Reveladora colocada em",
+  "vision_ward_log":"Ward Log"
 }
