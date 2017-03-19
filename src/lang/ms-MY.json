@@ -735,5 +735,6 @@
   "vision_destroyed":"Dimusnahkan selepas",
   "vision_all_time":"Sepanjang masa",
   "vision_placed_observer":"meletakkan Observer pada",
-  "vision_placed_sentry":"meletakkan Sentry pada"
+  "vision_placed_sentry":"meletakkan Sentry pada",
+  "vision_ward_log":"Ward Log"
 }
