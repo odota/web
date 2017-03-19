@@ -735,5 +735,6 @@
   "vision_destroyed":"Zerstört nach­dem",
   "vision_all_time":"Die ganze Zeit",
   "vision_placed_observer":"plazierte Observers auf",
-  "vision_placed_sentry":"plazierte Sentries auf"
+  "vision_placed_sentry":"plazierte Sentries auf",
+  "vision_ward_log":"Ward Log"
 }
