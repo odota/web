@@ -80,7 +80,7 @@
     "eslint-import-resolver-webpack": "^0.8.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "6.7.1",
+    "eslint-plugin-react": "6.10.2",
     "file-loader": "^0.10.0",
     "ignore-styles": "^5.0.1",
     "jsdom": "^9.8.3",
