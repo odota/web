@@ -203,7 +203,7 @@ const localizedLane = {
   3: strings.lane_pos_3,
 };
 
-const getLaneScore = players => (Math.max(players.map(player => player.lane_efficiency)) || 0);
+const getLaneScore = players => (Math.max(...players.map(player => player.lane_efficiency)) || 0);
 
 class LaneStory {
   constructor(match, lane) {
