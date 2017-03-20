@@ -105,6 +105,10 @@
   "explorer_min_date":"Data Min",
   "explorer_max_date":"Data Max",
   "explorer_hero_combos":"Combo de Heróis",
+  "explorer_sql":"SQL",
+  "explorer_postgresql_function":"PostgreSQL Function",
+  "explorer_table":"Table",
+  "explorer_column":"Column",
   "farm_heroes":"Heróis mortos",
   "farm_creeps":"Creeps das lanes mortos",
   "farm_neutrals":"Creeps neutros mortos (incluindo Anciões)",
@@ -731,5 +735,6 @@
   "vision_destroyed":"Destruído em",
   "vision_all_time":"Todo o Tempo",
   "vision_placed_observer":"Observador colocado em",
-  "vision_placed_sentry":"Reveladora colocada em"
+  "vision_placed_sentry":"Reveladora colocada em",
+  "vision_ward_log":"Ward Log"
 }

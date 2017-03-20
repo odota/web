@@ -105,6 +105,10 @@
   "explorer_min_date":"Min Date",
   "explorer_max_date":"Max Date",
   "explorer_hero_combos":"Hero Combos",
+  "explorer_sql":"SQL",
+  "explorer_postgresql_function":"PostgreSQL Function",
+  "explorer_table":"Table",
+  "explorer_column":"Column",
   "farm_heroes":"Heroes asesinados",
   "farm_creeps":"Creeps de línea asesinados",
   "farm_neutrals":"Creeps neutrales asesinados (incluye Ancients)",
@@ -731,5 +735,6 @@
   "vision_destroyed":"Destroyed after",
   "vision_all_time":"All time",
   "vision_placed_observer":"placed Observer at",
-  "vision_placed_sentry":"placed Sentry at"
+  "vision_placed_sentry":"placed Sentry at",
+  "vision_ward_log":"Ward Log"
 }

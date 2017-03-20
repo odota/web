@@ -47,14 +47,8 @@ class Vision extends React.Component {
         dire: true,
       },
       players: {
-        observer: [
-          true, true, true, true, true,
-          true, true, true, true, true,
-        ],
-        sentry: [
-          true, true, true, true, true,
-          true, true, true, true, true,
-        ],
+        observer: Array(...new Array(10)).map(() => true),
+        sentry: Array(...new Array(10)).map(() => true),
       },
     };
 
@@ -99,26 +93,32 @@ class Vision extends React.Component {
 
     return (
       <div>
-        <VisionMap match={match} wards={visibleWards} />
-        <VisionFilter match={match} parent={this} />
-        <div className={styles.visionSliderText}>
-          {this.state.currentTick === -90 ? strings.vision_all_time : formatSeconds(this.state.currentTick)}
+        <div style={{ display: 'flex' }}>
+          <div style={{ width: '50%', margin: '10px' }}>
+            <VisionMap match={match} wards={visibleWards} />
+          </div>
+          <div style={{ width: '50%', margin: '10px' }}>
+            <div className={styles.visionSliderText}>
+              {this.state.currentTick === -90 ? strings.vision_all_time : formatSeconds(this.state.currentTick)}
+            </div>
+            <SliderTicks
+              value={this.state.currentTick}
+              min={this.sliderMin}
+              max={this.sliderMax}
+              onTickClick={tick => this.handleViewportChange(tick)}
+              ticks={this.ticks}
+            />
+            <Slider
+              value={this.state.currentTick}
+              min={this.sliderMin}
+              max={this.sliderMax}
+              step={5}
+              disableFocusRipple
+              onChange={(e, value) => this.handleViewportChange(value)}
+            />
+            <VisionFilter match={match} parent={this} />
+          </div>
         </div>
-        <SliderTicks
-          value={this.state.currentTick}
-          min={this.sliderMin}
-          max={this.sliderMax}
-          onTickClick={tick => this.handleViewportChange(tick)}
-          ticks={this.ticks}
-        />
-        <Slider
-          value={this.state.currentTick}
-          min={this.sliderMin}
-          max={this.sliderMax}
-          step={5}
-          disableFocusRipple
-          onChange={(e, value) => this.handleViewportChange(value)}
-        />
         <VisionItems match={match} />
         <VisionLog match={match} wards={visibleWards} />
       </div>

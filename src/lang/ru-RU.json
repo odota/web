@@ -105,6 +105,10 @@
   "explorer_min_date":"От",
   "explorer_max_date":"До",
   "explorer_hero_combos":"Герой Комбо",
+  "explorer_sql":"SQL",
+  "explorer_postgresql_function":"PostgreSQL Function",
+  "explorer_table":"Table",
+  "explorer_column":"Column",
   "farm_heroes":"Героев убито",
   "farm_creeps":"Убито крипов на линии",
   "farm_neutrals":"Убито нейтралов (в том числе древних)",
@@ -731,5 +735,6 @@
   "vision_destroyed":"Уничтожен после",
   "vision_all_time":"За всё время",
   "vision_placed_observer":"установил Observer Ward на",
-  "vision_placed_sentry":"установил Sentry Ward на"
+  "vision_placed_sentry":"установил Sentry Ward на",
+  "vision_ward_log":"Ward Log"
 }
