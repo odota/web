@@ -6,17 +6,13 @@ import {
 import { playerPros } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
-import { TableFilterForm } from 'components/Form';
 import strings from 'lang';
 import playerProsColumns from './playerProsColumns';
 
 const Pros = ({ data, playerId, error, loading }) => (
-  <div>
-    <TableFilterForm />
-    <Container title={strings.heading_pros} error={error} loading={loading}>
-      <Table paginated columns={playerProsColumns(playerId)} data={data} />
-    </Container>
-  </div>
+  <Container title={strings.heading_pros} error={error} loading={loading}>
+    <Table paginated columns={playerProsColumns(playerId)} data={data} />
+  </Container>
 );
 
 const getData = (props) => {

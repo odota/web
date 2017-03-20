@@ -1,0 +1,44 @@
+@import "../../../palette.css";
+
+.summaryContainer {
+  width: 100%;
+
+  & ul {
+    margin: 0;
+    padding: 0;
+
+    & li {
+      list-style: none;
+      display: inline-block;
+      margin-bottom: 10px;
+      margin-right: 25px;
+
+      & p {
+        margin: 0;
+        padding: 0;
+        font-size: 24px;
+      }
+
+      & span {
+        font-size: var(--fontSizeSmall);
+        color: var(--colorMutedLight);
+
+        &:first-child {
+          text-transform: uppercase;
+        }
+      }
+
+      & img {
+        height: 20px;
+        width: auto;
+        vertical-align: text-bottom;
+        transition: var(--normalTransition);
+        margin-left: 6px;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+}

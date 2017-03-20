@@ -1,0 +1,59 @@
+@import "../../../palette.css";
+
+.container {
+  min-height: 320px;
+}
+
+.tooltipWrapper {
+  background-color: var(--defaultPrimaryColor);
+  color: var(--textColorPrimary) !important; /* override c3 */
+  font-size: var(--fontSizeMedium);
+  min-width: 250px;
+}
+
+.value {
+  text-align: center;
+  background-color: var(--colorBlueMuted);
+  height: 30px;
+  line-height: 30px;
+  font-size: var(--fontSizeCommon);
+}
+
+.match {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.win {
+  color: var(--colorSuccess);
+}
+
+.loss {
+  color: var(--colorDanger);
+}
+
+.time {
+  color: var(--colorMutedLight);
+  font-size: var(--fontSizeTiny);
+}
+
+.matchValue {
+  font-weight: bold;
+}
+
+.hero {
+  height: 50px;
+  width: 88.88px; /* ratio */
+  background-color: var(--almostBlack);
+}
+
+.heroImg {
+  height: 100%;
+}
+
+.noData {
+  text-align: center;
+  padding-top: 30px;
+  font-size: var(--fontSizeCommon);
+}

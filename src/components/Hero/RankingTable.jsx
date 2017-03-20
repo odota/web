@@ -15,7 +15,9 @@ const rankingColumns = [{
   },
 }, {
   displayName: strings.th_score,
+  field: 'score',
   displayFn: row => parseFloat(row.score).toFixed(),
+  relativeBars: true,
 }];
 export default ({
   rankings,

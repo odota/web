@@ -7,8 +7,8 @@ import strings from 'lang';
 import fetch from 'isomorphic-fetch';
 import { form } from 'reducers';
 import { toggleShowForm } from 'actions/formActions';
-import { FORM_NAME } from 'components/Form/TableFilterForm';
 import ShowFormToggle from 'components/Form/ShowFormToggle';
+import { FORM_NAME } from '../TableFilterForm';
 import styles from './PlayerButtons.css';
 
 class PlayerButtons extends React.Component {

@@ -111,38 +111,44 @@ export const overviewColumns = (match) => {
     sortFn: true,
     color: styles.golden,
     sumFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_xp_per_min,
     tooltip: strings.tooltip_xp_per_min,
     field: 'xp_per_min',
     sortFn: true,
     sumFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_last_hits,
     tooltip: strings.tooltip_last_hits,
     field: 'last_hits',
     sortFn: true,
     sumFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_denies,
     tooltip: strings.tooltip_denies,
     field: 'denies',
     sortFn: true,
     sumFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_hero_damage,
     tooltip: strings.tooltip_hero_damage,
     field: 'hero_damage',
-    displayFn: row => abbreviateNumber(row.hero_damage),
     sortFn: true,
     sumFn: true,
+    displayFn: row => abbreviateNumber(row.hero_damage),
+    relativeBars: true,
   }, {
     displayName: strings.th_hero_healing,
     tooltip: strings.tooltip_hero_healing,
     field: 'hero_healing',
-    displayFn: row => abbreviateNumber(row.hero_healing),
     sortFn: true,
     sumFn: true,
+    displayFn: row => abbreviateNumber(row.hero_healing),
+    relativeBars: true,
   }, {
     displayName: strings.th_tower_damage,
     tooltip: strings.tooltip_tower_damage,
@@ -150,6 +156,7 @@ export const overviewColumns = (match) => {
     displayFn: row => abbreviateNumber(row.tower_damage),
     sortFn: true,
     sumFn: true,
+    relativeBars: true,
   }, {
     displayName: (
       <span className={styles.thGold}>
@@ -159,10 +166,11 @@ export const overviewColumns = (match) => {
     ),
     tooltip: strings.tooltip_gold,
     field: 'total_gold',
-    displayFn: row => abbreviateNumber(row.total_gold),
     sortFn: true,
     color: styles.golden,
     sumFn: true,
+    displayFn: row => abbreviateNumber(row.total_gold),
+    relativeBars: true,
   }, {
     displayName: strings.th_items,
     tooltip: strings.tooltip_items,
@@ -307,6 +315,16 @@ export const purchaseTimesColumns = (match) => {
       displayFn: (row, column, field) => (<div>
         {field ? field
         .filter(purchase => (purchase.time >= curTime - bucket && purchase.time < curTime))
+        .sort((p1, p2) => {
+          const item1 = items[p1.key];
+          const item2 = items[p2.key];
+          if (item1 && item2 && p1.time === p2.time) {
+            // We're only concerned with sorting by value
+            // if items are bought at the same time, time is presorted
+            return item1.cost - item2.cost;
+          }
+          return 0;
+        })
         .map((purchase) => {
           if (items[purchase.key]) {
             return inflictorWithValue(purchase.key, formatSeconds(purchase.time));
@@ -324,13 +342,12 @@ export const lastHitsTimesColumns = (match) => {
   const bucket = 300;
   for (let i = bucket; i <= match.duration; i += bucket) {
     const curTime = i;
+    const minutes = curTime / 60;
     cols.push({
-      displayName: `${curTime / 60}'`,
+      displayName: `${minutes}'`,
       field: i,
-      sortFn: row => (row.lh_t ? row.lh_t[curTime / 60] : 0),
-      displayFn: row => (<div>
-        {row.lh_t ? row.lh_t[curTime / 60] : ''}
-      </div>),
+      sortFn: row => (row.lh_t && row.lh_t[minutes]),
+      relativeBars: true,
     });
   }
   return cols;
@@ -355,61 +372,71 @@ export const performanceColumns = [
     tooltip: strings.tooltip_lane_efficiency,
     field: 'lane_efficiency',
     sortFn: true,
-    displayFn: (row, col, field) => (field ? field.toFixed(2) : '-'),
+    displayFn: (row, col, field) => (field ? `${(field * 100).toFixed(2)}%` : '-'),
+    relativeBars: true,
   }, {
     displayName: strings.th_lhten,
     tooltip: strings.tooltip_lhten,
     field: 'lh_t',
-    sortFn: true,
-    displayFn: (row, col, field) => (field ? field[10] : '-'),
+    sortFn: row => row.lh_t && row.lh_t[10],
+    displayFn: (row, col, field) => (field || '-'),
+    relativeBars: true,
   }, {
     displayName: strings.th_dnten,
     tooltip: strings.tooltip_dnten,
     field: 'dn_t',
-    sortFn: true,
-    displayFn: (row, col, field) => (field ? field[10] : '-'),
+    sortFn: row => row.dn_t && row.dn_t[10],
+    displayFn: (row, col, field) => (field || '-'),
+    relativeBars: true,
   }, {
     displayName: strings.th_multikill,
     tooltip: strings.tooltip_multikill,
     field: 'multi_kills_max',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_killstreak,
     tooltip: strings.tooltip_killstreak,
     field: 'kill_streaks_max',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_stuns,
     tooltip: strings.tooltip_stuns,
     field: 'stuns',
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.toFixed(2) : '-'),
+    relativeBars: true,
   }, {
     displayName: strings.th_stacked,
     tooltip: strings.tooltip_camps_stacked,
     field: 'camps_stacked',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_dead,
     tooltip: strings.tooltip_dead,
     field: 'life_state_dead',
     sortFn: true,
     displayFn: (row, col, field) => formatSeconds(field) || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_buybacks,
     tooltip: strings.tooltip_buybacks,
     field: 'buybacks',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_pings,
     tooltip: strings.tooltip_pings,
     field: 'pings',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_biggest_hit,
     tooltip: strings.tooltip_biggest_hit,
@@ -461,48 +488,56 @@ export const unitKillsColumns = [
     field: 'hero_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_creeps,
     tooltip: strings.farm_creeps,
     field: 'lane_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_neutrals,
     tooltip: strings.farm_neutrals,
     field: 'neutral_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_ancients,
     tooltip: strings.farm_ancients,
     field: 'ancient_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_towers,
     tooltip: strings.farm_towers,
     field: 'tower_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_couriers,
     tooltip: strings.farm_couriers,
     field: 'courier_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_roshan,
     tooltip: strings.farm_roshan,
     field: 'roshan_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_necronomicon,
     tooltip: strings.farm_necronomicon,
     field: 'necronomicon_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
   }, {
     displayName: strings.th_other,
     field: 'specific',
@@ -518,13 +553,15 @@ export const actionsColumns = [heroTdColumn, {
   tooltip: strings.tooltip_actions_per_min,
   field: 'actions_per_min',
   sortFn: true,
+  relativeBars: true,
 }]
   .concat(Object.keys(orderTypes).filter(orderType => `th_${orderTypes[orderType]}` in strings).map(orderType => ({
     displayName: strings[`th_${orderTypes[orderType]}`],
     tooltip: strings[`tooltip_${orderTypes[orderType]}`],
     field: orderType,
     sortFn: row => (row.actions ? row.actions[orderType] : 0),
-    displayFn: row => (row.actions ? (row.actions[orderType] || '-') : '-'),
+    displayFn: (row, column, value) => value || '-',
+    relativeBars: true,
   })));
 
 export const runesColumns = [heroTdColumn]
@@ -548,8 +585,10 @@ export const runesColumns = [heroTdColumn]
         </ReactTooltip>
       </div>
     ),
-    field: 'runes',
-    displayFn: (row, col, field) => (field ? (field[runeType] || '-') : '-'),
+    field: `rune_${runeType}`,
+    displayFn: (row, col, value) => (value || '-'),
+    sortFn: row => row.runes && row.runes[runeType],
+    relativeBars: true,
   })));
 
 
@@ -598,6 +637,7 @@ export const cosmeticsColumns = [heroTdColumn, {
   )),
 }];
 
+
 export const goldReasonsColumns = [heroTdColumn]
   .concat(Object.keys(strings)
     .filter(str => str.indexOf('gold_reasons_') === 0)
@@ -605,7 +645,8 @@ export const goldReasonsColumns = [heroTdColumn]
       displayName: strings[gr],
       field: gr,
       sortFn: row => (row.gold_reasons ? row.gold_reasons[gr.substring('gold_reasons_'.length)] : 0),
-      displayFn: row => (row.gold_reasons ? (row.gold_reasons[gr.substring('gold_reasons_'.length)] || '-') : '-'),
+      displayFn: (row, column, value) => value || '-',
+      relativeBars: true,
     })));
 
 export const xpReasonsColumns = [heroTdColumn]
@@ -615,15 +656,18 @@ export const xpReasonsColumns = [heroTdColumn]
       displayName: strings[xpr],
       field: xpr,
       sortFn: row => (row.xp_reasons ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] : 0),
-      displayFn: row => (row.xp_reasons ? (row.xp_reasons[xpr.substring('xp_reasons_'.length)] || '-') : '-'),
+      displayFn: (row, column, value) => value || '-',
+      relativeBars: true,
     })));
 
 export const objectiveDamageColumns = [heroTdColumn]
   .concat(Object.keys(strings).filter(str => str.indexOf('objective_') === 0)
     .map(obj => ({
       displayName: strings[obj],
-      field: 'objective_damage',
-      displayFn: (row, col, field) => (field ? (field[obj.substring('objective_'.length)] || '-') : '-'),
+      field: obj,
+      sortFn: row => (row.objective_damage && row.objective_damage[obj.substring('objective_'.length)]),
+      displayFn: (row, col, value) => value || '-',
+      relativeBars: true,
     })));
 
 
@@ -700,18 +744,22 @@ export const teamfightColumns = [
     displayName: strings.th_damage,
     field: 'damage',
     sortFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_healing,
     field: 'healing',
     sortFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_gold,
     field: 'gold_delta',
     sortFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_xp,
     field: 'xp_delta',
     sortFn: true,
+    relativeBars: true,
   }, {
     displayName: strings.th_abilities,
     field: 'ability_uses',
@@ -735,6 +783,7 @@ const purchaseObserverColumn = {
   field: 'purchase_ward_observer',
   sortFn: true,
   displayFn: (row, col, field) => field || '-',
+  relativeBars: true,
 };
 
 const purchaseSentryColumn = {
@@ -749,6 +798,7 @@ const purchaseSentryColumn = {
   field: 'purchase_ward_sentry',
   sortFn: true,
   displayFn: (row, col, field) => field || '-',
+  relativeBars: true,
 };
 
 const purchaseDustColumn = {
@@ -763,6 +813,7 @@ const purchaseDustColumn = {
   field: 'purchase_dust',
   sortFn: true,
   displayFn: (row, col, field) => field || '-',
+  relativeBars: true,
 };
 
 const purchaseSmokeColumn = {
@@ -777,6 +828,7 @@ const purchaseSmokeColumn = {
   field: 'purchase_smoke_of_deceit',
   sortFn: true,
   displayFn: (row, col, field) => field || '-',
+  relativeBars: true,
 };
 
 const purchaseGemColumn = {
@@ -784,17 +836,19 @@ const purchaseGemColumn = {
   displayName: (
     <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
       <img height="15" src={`${API_HOST}/apps/dota2/images/items/gem_lg.png`} role="presentation" />
+      &nbsp;{strings.th_purchase_shorthand}
     </div>
   ),
   tooltip: strings.tooltip_purchase_gem,
   field: 'purchase_gem',
   sortFn: true,
   displayFn: (row, col, field) => field || '-',
+  relativeBars: true,
 };
-
 export const visionColumns = [
   heroTdColumn,
-  purchaseObserverColumn, {
+  purchaseObserverColumn,
+  {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
@@ -803,10 +857,13 @@ export const visionColumns = [
       </div>
     ),
     tooltip: strings.tooltip_used_ward_observer,
-    sortFn: true,
-    displayFn: row => (row.item_uses && row.item_uses.ward_observer) || '-',
+    field: 'uses_ward_observer',
+    sortFn: row => (row.item_uses && row.item_uses.ward_observer),
+    displayFn: (row, column, value) => value || '-',
+    relativeBars: true,
   },
-  purchaseSentryColumn, {
+  purchaseSentryColumn,
+  {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
@@ -815,10 +872,13 @@ export const visionColumns = [
       </div>
     ),
     tooltip: strings.tooltip_used_ward_sentry,
-    sortFn: true,
-    displayFn: row => (row.item_uses && row.item_uses.ward_sentry) || '-',
+    field: 'uses_ward_sentry',
+    sortFn: row => (row.item_uses && row.item_uses.ward_sentry),
+    displayFn: (row, column, value) => value || '-',
+    relativeBars: true,
   },
-  purchaseDustColumn, {
+  purchaseDustColumn,
+  {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
@@ -827,10 +887,13 @@ export const visionColumns = [
       </div>
     ),
     tooltip: strings.tooltip_used_dust,
-    sortFn: true,
-    displayFn: row => (row.item_uses && row.item_uses.dust) || '-',
+    field: 'uses_dust',
+    sortFn: row => (row.item_uses && row.item_uses.dust),
+    displayFn: (row, column, value) => value || '-',
+    relativeBars: true,
   },
-  purchaseSmokeColumn, {
+  purchaseSmokeColumn,
+  {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
@@ -839,8 +902,10 @@ export const visionColumns = [
       </div>
     ),
     tooltip: strings.tooltip_used_smoke_of_deceit,
-    sortFn: true,
-    displayFn: row => (row.item_uses && row.item_uses.smoke_of_deceit) || '-',
+    field: 'uses_smoke',
+    sortFn: row => (row.item_uses && row.item_uses.smoke_of_deceit),
+    displayFn: (row, column, value) => value || '-',
+    relativeBars: true,
   },
   purchaseGemColumn,
 ];

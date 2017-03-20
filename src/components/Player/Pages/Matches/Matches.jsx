@@ -10,9 +10,6 @@ import {
 } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
-import {
-  TableFilterForm,
-} from 'components/Form';
 import strings from 'lang';
 import playerMatchesColumns from './playerMatchesColumns';
 
@@ -21,12 +18,9 @@ const Matches = ({
   error,
   loading,
 }) => (
-  <div>
-    <TableFilterForm />
-    <Container title={strings.heading_matches} error={error} loading={loading}>
-      <Table paginated columns={playerMatchesColumns} data={data} />
-    </Container>
-  </div>
+  <Container title={strings.heading_matches} error={error} loading={loading}>
+    <Table paginated columns={playerMatchesColumns} data={data} />
+  </Container>
 );
 
 const getData = (props) => {

@@ -3,7 +3,6 @@ import { Graph } from 'components/Visualizations';
 import strings from 'lang';
 
 const getXAxis = columns =>
-  columns.length > 0 &&
   ({
     label: strings.th_filter_date,
     tick: {

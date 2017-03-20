@@ -10,7 +10,8 @@ export default [{
   displayName: strings.th_percentile,
   field: 'card',
   sortFn: row => row.rank / row.card,
-  displayFn: transformations.rank_percentile,
+  percentBars: row => row.rank / row.card,
+  // displayFn: transformations.rank_percentile,
 }, {
   displayName: strings.th_rank,
   field: 'rank',

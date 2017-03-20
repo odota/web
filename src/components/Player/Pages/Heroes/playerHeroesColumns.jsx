@@ -1,7 +1,6 @@
 import React from 'react';
 import { TableLink } from 'components/Table';
-import { transformations, getPercentWin } from 'utility';
-import { TablePercent } from 'components/Visualizations';
+import { transformations } from 'utility';
 import strings from 'lang';
 
 export const playerHeroesOverviewColumns = playerId => [{
@@ -16,39 +15,44 @@ export const playerHeroesOverviewColumns = playerId => [{
   field: 'games',
   displayFn: row => <TableLink to={`/players/${playerId}/matches?hero_id=${row.hero_id}`}>{row.games}</TableLink>,
   sortFn: true,
+  relativeBars: true,
 }, {
   displayName: strings.th_win,
   tooltip: strings.tooltip_win_pct_as,
   field: 'win',
-  displayFn: row => <TablePercent val={getPercentWin(row.win, row.games)} />,
   sortFn: row => row.win / row.games,
+  percentBars: true,
 }];
 
-const restColumns = [{
+const restColumns = playerId => [{
   displayName: strings.th_with_games,
   tooltip: strings.tooltip_played_with,
   field: 'with_games',
+  displayFn: row => <TableLink to={`/players/${playerId}/matches?with_hero_id=${row.hero_id}`}>{row.with_games}</TableLink>,
   sortFn: true,
+  relativeBars: true,
 }, {
   displayName: strings.th_with_win,
   tooltip: strings.tooltip_win_pct_with,
   field: 'with_win',
-  displayFn: row => <TablePercent val={getPercentWin(row.with_win, row.with_games)} />,
   sortFn: row => row.with_win / row.with_games,
+  percentBars: true,
 }, {
   displayName: strings.th_against_games,
   tooltip: strings.tooltip_played_against,
   field: 'against_games',
+  displayFn: row => <TableLink to={`/players/${playerId}/matches?against_hero_id=${row.hero_id}`}>{row.against_games}</TableLink>,
   sortFn: true,
+  relativeBars: true,
 }, {
   displayName: strings.th_against_win,
   tooltip: strings.tooltip_win_pct_against,
   field: 'against_win',
-  displayFn: row => <TablePercent val={getPercentWin(row.against_win, row.against_games)} />,
   sortFn: row => row.against_win / row.against_games,
+  percentBars: true,
 }];
 
 export const playerHeroesColumns = playerId => [
   ...playerHeroesOverviewColumns(playerId),
-  ...restColumns,
+  ...restColumns(playerId),
 ];

@@ -38,25 +38,34 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())
     .then((response) => {
-      const matches = response.filter(match => match[fieldName] !== undefined && match[fieldName] !== null)
-      .reverse();
+      let cumulativeSum = 0;
+      return response.reverse().reduce((dataList, match, index) => {
+        const win = (match.player_slot < 128) === match.radiant_win;
+        const currentValue = fieldName === 'win_rate'
+          ? Number(win) * 100 // true -> 100 false -> 0
+          : match[fieldName];
 
-      const cumulativeSums = matches.reduce((cumulativeList, match, index) => {
-        if (cumulativeList.length > 0) {
-          const prevTotal = cumulativeList[index - 1];
-          cumulativeList.push(prevTotal + match[fieldName]);
-        } else {
-          cumulativeList.push(match[fieldName]);
+        if (currentValue === undefined || currentValue === null) {
+          // filter
+          return dataList;
         }
-        return cumulativeList;
-      }, []);
 
-      return cumulativeSums.map((value, index) => ({
-        x: index + 1,
-        value: Number((value / (index + 1)).toFixed(2)),
-        match_id: matches[index].match_id,
-        hero_id: matches[index].hero_id,
-      }));
+        cumulativeSum += currentValue;
+        const nextIndex = index + 1;
+        dataList.push({
+          x: nextIndex,
+          value: Number(cumulativeSum / nextIndex).toFixed(2),
+          independent_value: currentValue,
+          match_id: match.match_id,
+          hero_id: match.hero_id,
+          game_mode: match.game_mode,
+          duration: match.duration,
+          start_time: match.start_time,
+          win,
+        });
+
+        return dataList;
+      }, []);
     })
     .then(json => dispatch(getPlayerTrendsOk(json, playerId)))
     .catch(error => dispatch(getPlayerTrendsError(error, playerId)));

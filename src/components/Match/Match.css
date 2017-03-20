@@ -139,6 +139,8 @@
 }
 
 .runes {
+  display: inline-block;
+
   & img {
     height: 24px;
     vertical-align: middle;
@@ -220,4 +222,36 @@
   & img {
     height: 29px;
   }
+}
+
+.storyWrapper {
+  line-height: 30px;
+}
+
+.storyWrapper > div {
+  margin-bottom: 20px;
+}
+
+.storySpan {
+  white-space: nowrap;
+}
+
+.storySpan svg,
+.storySpan img {
+  vertical-align: middle;
+  max-height: 20px;
+  margin-right: 2px;
+  fill: var(--textColorPrimary);
+}
+
+.storySpan svg {
+  opacity: 0.8;
+  height: 20px;
+}
+
+.logFilterForm {
+  max-width: 600px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

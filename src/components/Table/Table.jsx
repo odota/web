@@ -9,13 +9,47 @@ import {
   TableRow as MaterialTableRow,
   TableRowColumn as MaterialTableRowColumn,
 } from 'material-ui/Table';
+import { TablePercent } from 'components/Visualizations';
 import { abbreviateNumber, sum } from 'utility';
 import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import styles from './Table.css';
 
-const getTable = (data, columns, sortState, sortField, sortClick, numRows, summable) => (
+const getColumnMax = (data, field, getValue) => {
+  const valuesArr = data.reduce((arr, row) => {
+    const value = getValue ? getValue(row) : row[field];
+    const num = Number(value);
+    if (isNaN(num)) {
+      return arr;
+    }
+    arr.push(value);
+    return arr;
+  }, []);
+  return Math.max(...valuesArr);
+};
+
+const getColumnMin = (data, field, getValue) => {
+  const valuesArr = data.reduce((arr, row) => {
+    const value = getValue ? getValue(row) : row[field];
+    const num = Number(value);
+    if (isNaN(num)) {
+      return arr;
+    }
+    arr.push(value);
+    return arr;
+  }, []);
+  return Math.min(...valuesArr);
+};
+
+const TableCreator = ({
+  data,
+  columns,
+  sortState,
+  sortField,
+  sortClick,
+  summable,
+}) => (
   // Not currently using totalWidth (default auto width)
   // const totalWidth = getTotalWidth(columns);
   <div className={styles.innerContainer}>
@@ -33,20 +67,75 @@ const getTable = (data, columns, sortState, sortField, sortClick, numRows, summa
         {data.map((row, index) => (
           <MaterialTableRow key={index}>
             {columns.map((column, colIndex) => {
+              const { field, color, center, displayFn, relativeBars, percentBars, percentBarsWithValue, sortFn } = column;
+              const getValue = typeof sortFn === 'function' ? sortFn : null;
+              const value = getValue ? getValue(row) : row[field];
               const style = {
                 // width: `${getWidthStyle(column.width, totalWidth)}%`,
-                overflow: `${column.field === 'kills' ? 'visible' : null}`,
-                color: column.color,
+                overflow: `${field === 'kills' ? 'visible' : null}`,
+                color,
               };
 
-              if (column.center) {
+              if (center) {
                 style.textAlign = 'center';
+              }
+              if (!row) {
+                return (
+                  <MaterialTableRowColumn
+                    key={`${index}_${colIndex}`}
+                    style={style}
+                  />
+                );
+              }
+
+              let fieldEl = null;
+              const bars = relativeBars || percentBars || percentBarsWithValue;
+              if (bars) {
+                const altValue = typeof bars === 'function' && percentBarsWithValue ? bars(row) : null;
+                let valEl = null;
+                let barPercentValue = 0;
+                if (relativeBars) {
+                  // Relative bars calculates the max for the column
+                  // and gets the percentage of value/max
+                  // TODO masad-frost memoize or something
+                  const min = getColumnMin(data, field, getValue);
+                  let max = getColumnMax(data, field, getValue);
+                  let valueWithOffset = value;
+                  if (!isNaN(min) && min < 0) {
+                    // Rescale to cater for columns with negatives
+                    max -= min;
+                    valueWithOffset -= min;
+                  }
+
+                  const isValidNumber = !isNaN(valueWithOffset);
+                  barPercentValue = max !== 0 && isValidNumber
+                    ? Number((valueWithOffset * 100 / max).toFixed(2))
+                    : 0;
+                  valEl = displayFn
+                    ? displayFn(row, column, value, index, barPercentValue)
+                    : <span>{value}</span>;
+                } else {
+                  // Percent bars assumes that the value is in decimal
+                  barPercentValue = Number((value * 100).toFixed(2)) || 0;
+                  valEl = displayFn
+                    ? displayFn(row, column, value, index, barPercentValue)
+                    : <span>{barPercentValue}%</span>;
+                }
+
+                fieldEl = (<TablePercent
+                  valEl={valEl}
+                  percent={barPercentValue}
+                  altValue={altValue}
+                />);
+              } else if (displayFn) {
+                fieldEl = displayFn(row, column, value, index);
+              } else {
+                fieldEl = value;
               }
 
               return (
                 <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style}>
-                  {row && column.displayFn && column.displayFn(row, column, row[column.field], index)}
-                  {row && !column.displayFn && row[column.field]}
+                  {fieldEl}
                 </MaterialTableRowColumn>
               );
             })}
@@ -70,13 +159,19 @@ const Table = ({
   sortState,
   sortField,
   sortClick,
-  numRows,
   summable,
 }) => (
   <div className={styles.container}>
     {loading && <Spinner />}
     {!loading && error && <Error />}
-    {!loading && !error && data && getTable(data, columns, sortState, sortField, sortClick, numRows, summable)}
+    {!loading && !error && data && TableCreator({
+      data,
+      columns,
+      sortState,
+      sortField,
+      sortClick,
+      summable,
+    })}
   </div>
 );
 
@@ -85,19 +180,26 @@ const {
   bool,
   string,
   func,
-  number,
   shape,
 } = React.PropTypes;
 
-Table.propTypes = {
-  data: arrayOf(shape({})),
-  columns: arrayOf(shape({})),
-  loading: bool,
-  error: bool,
+TableCreator.propTypes = {
+  data: arrayOf(shape({})).isRequired,
+  columns: arrayOf(shape({})).isRequired,
   sortState: string,
   sortField: string,
   sortClick: func,
-  numRows: number,
+  summable: bool,
+};
+
+Table.propTypes = {
+  data: arrayOf(shape({})).isRequired,
+  columns: arrayOf(shape({})).isRequired,
+  loading: bool.isRequired,
+  error: bool.isRequired,
+  sortState: string,
+  sortField: string,
+  sortClick: func,
   summable: bool,
 };
 

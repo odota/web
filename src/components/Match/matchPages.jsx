@@ -8,6 +8,7 @@ import CastTable from './CastTable';
 import CrossTable from './CrossTable';
 import MatchGraph from './MatchGraph';
 import MatchLog from './MatchLog';
+import MatchStory from './MatchStory';
 import {
   benchmarksColumns,
   performanceColumns,
@@ -195,6 +196,14 @@ const matchPages = [Overview, {
   content: match => (<div>
     <Heading title={strings.heading_chat} />
     <Table data={(match.chat || []).map(c => Object.assign({}, c, match.players[c.slot]))} columns={chatColumns} />
+  </div>),
+}, {
+  name: strings.tab_story,
+  key: 'story',
+  parsed: true,
+  content: match => (<div>
+    <Heading title={strings.heading_story} />
+    <MatchStory match={match} />
   </div>),
 }];
 

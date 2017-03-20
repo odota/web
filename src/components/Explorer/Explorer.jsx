@@ -7,6 +7,8 @@ from 'react-redux';
 import fetch from 'isomorphic-fetch';
 import Spinner from 'components/Spinner';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import AutoComplete from 'material-ui/AutoComplete';
 import {
   Link,
 }
@@ -21,237 +23,118 @@ import {
 from 'utility';
 import Table from 'components/Table';
 import Heading from 'components/Heading';
-import heroData from 'dotaconstants/build/heroes.json';
-import patchData from 'dotaconstants/build/patch.json';
 import itemData from 'dotaconstants/build/items.json';
 import {
   getProPlayers,
   getLeagues,
+  getTeams,
 }
 from 'actions';
 import {
   TablePercent,
+  inflictorWithValue,
 }
 from 'components/Visualizations';
-import util from 'util';
+import { IconRadiant, IconDire } from 'components/Icons';
+import matchStyles from 'components/Match/Match.css';
 import querystring from 'querystring';
 import queryTemplate from './queryTemplate';
 import ExplorerFormField from './ExplorerFormField';
+import fields from './fields';
+import autocomplete from './autocomplete';
+import styles from './Explorer.css';
+
+// TODO omnibox search
+// TODO mega creep wins (matches table only)
+// TODO bans (picks_bans table)
+// TODO num matches played by team (team_match table)
+// TODO hero combos (more than 2)
+// TODO lane positions
+// TODO num wards placed?
+// TODO num roshans killed?
+// TODO item build rates?
+// TODO graphing buttons (pie for count, bar for avg, timeseries for group by patch, histogram for raw values)
+// TODO AEGIS_STOLEN, AEGIS, DENIED_AEGIS, FIRSTBLOOD, PAUSED (requires player1_slot fix)
+// TODO scan/glyph action (use action rather than CHAT_MESSAGE_SCAN/CHAT_MESSAGE_GLYPH_USED)
+// TODO autostat (combine with GetLiveLeagueGames)
 
 function jsonResponse(response) {
   return response.json();
 }
-function getItemSuffix(itemKey) {
-  return ['_2', '_3', '_4', '_5'].some(suffix => itemKey.indexOf(suffix) !== -1) ? itemKey[itemKey.length - 1] : '';
+
+function expandBuilderState(builder, fields) {
+  const expandedBuilder = {};
+  Object.keys(builder).forEach((key) => {
+    if (builder[key]) {
+      expandedBuilder[key] = fields[key]
+        ? fields[key].find(element => element.key === builder[key])
+        : { value: builder[key] };
+    }
+  });
+  return expandedBuilder;
 }
-// TODO input string parsing
-// TODO mega creep wins
-// TODO bans
-// TODO hero combos
-// TODO lane positions
-// TODO helplink
-// TODO num wards placed?
-// TODO group by + time data should be formatted
-const player = {
-  text: strings.explorer_player,
-  value: 'notable_players.name',
-  alias: 'playername',
-};
-const hero = {
-  text: strings.th_hero_id,
-  value: 'player_matches.hero_id',
-};
-const league = {
-  text: strings.explorer_league,
-  value: 'leagues.name',
-  alias: 'leaguename',
-};
-const patch = {
-  text: strings.explorer_patch,
-  value: 'patch',
-};
-const jsonSelect = {
-  value: 'key',
-  groupValue: 'value::text::int',
-  groupKey: 'key',
-};
-const timingSelect = itemKey => ({
-  text: `${strings.explorer_timing} - ${itemData[itemKey].dname} ${getItemSuffix(itemKey)}`,
-  value: 'match_logs.time',
-  order: 'ASC',
-  join: `JOIN match_logs 
-ON match_logs.match_id = matches.match_id 
-AND player_matches.player_slot = match_logs.targetname_slot 
-AND match_logs.type = 'DOTA_COMBATLOG_PURCHASE'
-AND match_logs.valuename = 'item_${itemKey}'`,
-});
-const killSelect = ({
-  text,
-  key,
-}) => ({
-  text: `${strings.explorer_kill} - ${text}`,
-  value: 'match_logs.time',
-  order: 'ASC',
-  join: `JOIN match_logs 
-ON match_logs.match_id = matches.match_id 
-AND player_matches.player_slot = match_logs.sourcename_slot 
-AND match_logs.type = 'DOTA_COMBATLOG_DEATH'
-AND match_logs.targetname LIKE '${key}'`,
-});
-const fields = {
-  select: [{
-    text: strings.heading_kills,
-    value: 'kills',
-  }, {
-    text: strings.heading_deaths,
-    value: 'deaths',
-  }, {
-    text: strings.heading_assists,
-    value: 'assists',
-  }, {
-    text: strings.heading_gold_per_min,
-    value: 'gold_per_min',
-  }, {
-    text: strings.heading_xp_per_min,
-    value: 'xp_per_min',
-  }, {
-    text: strings.heading_last_hits,
-    value: 'last_hits',
-  }, {
-    text: strings.heading_denies,
-    value: 'denies',
-  }, {
-    text: strings.heading_hero_damage,
-    value: 'hero_damage',
-  }, {
-    text: strings.heading_tower_damage,
-    value: 'tower_damage',
-  }, {
-    text: strings.heading_hero_healing,
-    value: 'hero_healing',
-  }, {
-    text: strings.heading_level,
-    value: 'level',
-  }, {
-    text: strings.heading_stuns,
-    value: 'stuns',
-  }, {
-    text: strings.heading_camps_stacked,
-    value: 'camps_stacked',
-  }, {
-    text: strings.heading_lhten,
-    value: 'lh_t[10]',
-  }, {
-    text: strings.heading_lhtwenty,
-    value: 'lh_t[20]',
-  }, {
-    text: strings.heading_lhthirty,
-    value: 'lh_t[30]',
-  }, {
-    text: strings.heading_lhforty,
-    value: 'lh_t[40]',
-  }, {
-    text: strings.heading_lhfifty,
-    value: 'lh_t[50]',
-  }, {
-    text: strings.heading_duration,
-    value: 'duration',
-    alias: 'as time',
-    excludePlayer: true,
-  }, { ...jsonSelect,
-    text: strings.heading_item_purchased,
-    alias: 'item_name',
-    join: ', json_each(player_matches.purchase)',
-  }, { ...jsonSelect,
-    text: strings.heading_ability_used,
-    alias: 'ability_name',
-    join: ', json_each(player_matches.ability_uses)',
-  }, { ...jsonSelect,
-    text: strings.heading_item_used,
-    alias: 'item_name',
-    join: ', json_each(player_matches.item_uses)',
-  }, { ...jsonSelect,
-    text: strings.heading_damage_inflictor,
-    join: ', json_each(player_matches.damage_inflictor)',
-  }, { ...jsonSelect,
-    text: strings.heading_damage_inflictor_received,
-    join: ', json_each(player_matches.damage_inflictor_received)',
-  }, { ...jsonSelect,
-    text: strings.heading_runes,
-    alias: 'rune_id',
-    join: ', json_each(player_matches.runes)',
-  }, { ...jsonSelect,
-    text: strings.heading_unit_kills,
-    join: ', json_each(player_matches.killed)',
-  }, { ...jsonSelect,
-    text: strings.heading_damage_instances,
-    join: ', json_each(player_matches.hero_hits)',
-  }, killSelect({
-    text: strings.heading_courier,
-    key: 'npc_dota_courier',
-  }),
-    killSelect({
-      text: strings.heading_roshan,
-      key: 'npc_dota_roshan',
-    }),
-    killSelect({
-      text: strings.heading_tower,
-      key: '%tower%',
-    }),
-    killSelect({
-      text: strings.heading_barracks,
-      key: '%rax%',
-    }),
-    killSelect({
-      text: strings.heading_shrine,
-      key: '%healers%',
-    }),
-  ]
-    .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect)),
-  group: [
-    hero,
-    player,
-    league,
-    patch, {
-      text: strings.heading_duration,
-      value: 'duration/300*5',
-      alias: 'minutes',
-    }, {
-      text: strings.explorer_side,
-      value: '(player_matches.player_slot < 128)',
-      alias: 'is_radiant',
-    },
-  ],
-  patch: patchData.reverse().map(patch => ({
-    text: patch.name,
-    value: patch.name,
-  })),
-  hero: Object.keys(heroData).map(heroId => ({
-    text: heroData[heroId].localized_name,
-    value: heroData[heroId].id,
-  })),
-  playerPurchased: Object.keys(itemData).map(itemName => ({
-    text: itemData[itemName].dname,
-    value: itemName,
-  })),
-  duration: [10, 20, 30, 40, 50].map(duration => ({
-    text: `> ${util.format(strings.time_mm, duration)}`,
-    value: duration * 60,
-  })),
-  side: [{ text: strings.general_radiant, value: true }, { text: strings.general_dire, value: false }],
-};
+
+function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping }) {
+  return (<Table
+    data={rows || []}
+    columns={(fields || []).map(column => ({
+      displayName: column.name,
+      field: column.name,
+    })).map(column => ({
+      ...column,
+      displayFn: (row, col, field) => {
+        if (column.field === 'match_id') {
+          return <Link to={`/matches/${field}`}>{field}</Link>;
+        } else if (column.field.indexOf('hero_id') === 0) {
+          return transformations.hero_id(row, col, field);
+        } else if (column.field.indexOf('account_id') === 0) {
+          return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
+        } else if (column.field === 'winrate') {
+          return (field >= 0 && field <= 1 ? <TablePercent
+            percent={Number((field * 100).toFixed(2))}
+          /> : null);
+        } else if (column.field === 'rune_id') {
+          return strings[`rune_${field}`];
+        } else if (column.field === 'item_name') {
+          return itemData[field] ? itemData[field].dname : field;
+        } else if (column.field === 'team_id') {
+          return teamMapping[field] || field;
+        } else if (column.field === 'time' || (column.field === 'avg' && expandedBuilder.select && expandedBuilder.select.formatSeconds)) {
+          return formatSeconds(field);
+        } else if (column.field === 'inflictor') {
+          return <span>{inflictorWithValue(field)} {field}</span>;
+        } else if (column.field === 'win') {
+          return <span className={field ? styles.textSuccess : styles.textDanger}>{field ? strings.td_win : strings.td_loss}</span>;
+        } else if (column.field === 'is_radiant') {
+          return field
+          ? <span className={matchStyles.teamIconContainer}><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>
+          : <span className={matchStyles.teamIconContainer}><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>;
+        }
+        return typeof field === 'string' ? field : JSON.stringify(field);
+      },
+      sortFn: row => (isNaN(Number(row[column.field])) ? row[column.field] : Number(row[column.field])),
+    }))}
+  />);
+}
 
 class Explorer extends React.Component {
   constructor() {
     super();
-    const urlBuilderState = querystring.parse(window.location.search.substring(1));
-
+    let urlState = {};
+    let sqlState = '';
+    try {
+      urlState = querystring.parse(window.location.search.substring(1));
+      sqlState = urlState.sql;
+      delete urlState.sql;
+    } catch (e) {
+      console.error(e);
+    }
     this.state = {
       loadingEditor: true,
-      showEditor: false,
+      showEditor: Boolean(sqlState),
       querying: false,
       result: {},
-      builder: urlBuilderState.builder ? JSON.parse(urlBuilderState.builder) : {},
+      builder: urlState,
     };
     this.instantiateEditor = this.instantiateEditor.bind(this);
     this.toggleEditor = this.toggleEditor.bind(this);
@@ -264,12 +147,14 @@ class Explorer extends React.Component {
   componentDidMount() {
     this.props.dispatchProPlayers();
     this.props.dispatchLeagues();
-    getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js', this.instantiateEditor);
+    this.props.dispatchTeams();
+    getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js', () => {
+      getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js', this.instantiateEditor);
+    });
   }
   getQueryString() {
-    const builder = encodeURIComponent(JSON.stringify(this.state.builder));
     const sql = encodeURIComponent(this.editor.getSelectedText() || this.editor.getValue());
-    return `?builder=${builder}&sql=${sql}`;
+    return `?sql=${sql}`;
   }
   instantiateEditor() {
     const editor = ace.edit('editor');
@@ -279,11 +164,16 @@ class Explorer extends React.Component {
     editor.setOptions({
       minLines: 10,
       maxLines: Infinity,
+      enableLiveAutocompletion: true,
     });
+    editor.completers = [autocomplete];
     this.editor = editor;
     const sql = this.props && this.props.location && this.props.location.query && this.props.location.query.sql;
     if (sql) {
       editor.setValue(decodeURIComponent(sql));
+      this.handleQuery();
+    } else if (Object.keys(this.state.builder).length) {
+      this.buildQuery();
       this.handleQuery();
     } else {
       editor.setValue('select count(*) from matches;');
@@ -304,7 +194,8 @@ class Explorer extends React.Component {
       querying: true,
     });
     const queryString = this.getQueryString();
-    window.history.pushState('', '', queryString);
+    // Only serialize the builder state to window history
+    window.history.pushState('', '', this.state.showEditor ? queryString : `?${querystring.stringify(this.state.builder)}`);
     return fetch(`${API_HOST}/api/explorer${queryString}`).then(jsonResponse).then(this.handleResponse);
   }
   handleJson() {
@@ -313,45 +204,83 @@ class Explorer extends React.Component {
   handleResponse(json) {
     this.setState({ ...this.state,
       querying: false,
-      open: false,
       result: json,
     });
   }
   buildQuery() {
-    console.log(this.state.builder);
-    this.editor.setValue(queryTemplate(this.state.builder));
+    // Note that this will not get expanded data for API-dependent fields (player/league/team)
+    // This is ok if we only need the value prop.
+    const expandedBuilder = expandBuilderState(this.state.builder, fields);
+    // console.log(this.state.builder, expandedBuilder);
+    this.editor.setValue(queryTemplate(expandedBuilder));
   }
   render() {
-    const proPlayers = this.props.proPlayers.map(player => ({
-      text: player.name,
+    const specials = {
+      84772440: 'iceiceice',
+    };
+    const player = this.props.proPlayers.map(player => ({
+      text: specials[player.account_id] || player.name,
       value: player.account_id,
+      key: String(player.account_id),
     }));
-    const leagues = this.props.leagues.map(league => ({
+    const league = this.props.leagues.map(league => ({
       text: league.name,
       value: league.leagueid,
+      key: String(league.leagueid),
     }));
-    const proPlayerMapping = {};
-    proPlayers.forEach((player) => {
-      proPlayerMapping[player.text] = player.value;
+    const team = this.props.teams.map(team => ({
+      text: team.name,
+      value: team.team_id,
+      key: String(team.team_id),
+    }));
+    const playerMapping = {};
+    player.forEach((player) => {
+      playerMapping[player.value] = player.text;
     });
+    const teamMapping = {};
+    team.forEach((team) => {
+      teamMapping[team.value] = team.text;
+    });
+    const expandedFields = { ...fields, player, league, team };
+    const expandedBuilder = expandBuilderState(this.state.builder, expandedFields);
     return (<div>
       <Helmet title={strings.title_explorer} />
       <Heading title={strings.explorer_title} subtitle={strings.explorer_description} />
-      <div>
-        <ExplorerFormField label={strings.explorer_select} dataSource={fields.select} builderField="select" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_group_by} dataSource={fields.group} builderField="group" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_hero} dataSource={fields.hero} builderField="hero" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_player} dataSource={proPlayers} builderField="player" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_league} dataSource={leagues} builderField="league" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_patch} dataSource={fields.patch} builderField="patch" builderContext={this} />
+      {<TextField
+        style={{ display: 'none' }} floatingLabelText="Omnibox" onChange={(event, value) => {
+          console.log(value, expandedFields);
+        // Fuzzy match against all inputs
+        // TODO tokenize the input string by space
+        // TODO order the keys for precedence
+        // TODO set min threshold on fuzziness (levenshtein)
+          Object.keys(expandedFields).some((key) => {
+            const match = expandedFields[key].find(element => AutoComplete.fuzzyFilter(value, element.text));
+          // Apply state update with match
+            this.setState({ ...this.state, builder: { ...this.state.builder, [key]: match.key } });
+            return Boolean(match);
+          });
+        }}
+      />}
+      <div className={styles.formGroup}>
+        <ExplorerFormField label={strings.explorer_select} fields={expandedFields} builderField="select" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_group_by} fields={expandedFields} builderField="group" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_hero} fields={expandedFields} builderField="hero" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_player} fields={expandedFields} builderField="player" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_league} fields={expandedFields} builderField="league" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_patch} fields={expandedFields} builderField="patch" builderContext={this} />
         <ExplorerFormField
           label={strings.explorer_player_purchased}
-          dataSource={fields.playerPurchased}
+          fields={expandedFields}
           builderField="playerPurchased"
           builderContext={this}
         />
-        <ExplorerFormField label={strings.explorer_duration} dataSource={fields.duration} builderField="duration" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_side} dataSource={fields.side} builderField="side" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_duration} fields={expandedFields} builderField="duration" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_side} fields={expandedFields} builderField="side" builderContext={this} />
+        <ExplorerFormField label={strings.th_result} fields={expandedFields} builderField="result" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_team} fields={expandedFields} builderField="team" builderContext={this} />
+        {/* <ExplorerFormField label={strings.explorer_lane_pos} fields={expandedFields} builderField="lanePos" builderContext={this} />*/}
+        <ExplorerFormField label={strings.explorer_min_date} builderField="minDate" builderContext={this} isDateField />
+        <ExplorerFormField label={strings.explorer_max_date} builderField="maxDate" builderContext={this} isDateField />
       </div>
       <div style={{ display: this.state.showEditor ? 'block' : 'none' }}>
         {this.state.loadingEditor && <Spinner />}
@@ -382,37 +311,13 @@ class Explorer extends React.Component {
       </div>
       <Heading title={strings.explorer_results} subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`} />
       <pre style={{ color: 'red' }}>{this.state.result.err}</pre>
-      {!this.state.querying ?
-        <Table
-          data={this.state.result.rows || []}
-          columns={(this.state.result.fields || []).map(column => ({
-            displayName: column.name,
-            field: column.name,
-            displayFn: (row, col, field) => {
-              if (column.name === 'match_id') {
-                return <Link to={`/matches/${field}`}>{field}</Link>;
-              } else if (column.name === 'hero_id') {
-                return transformations.hero_id(row, col, field);
-              } else if (column.name === 'winrate') {
-                return (field >= 0 && field <= 1 ? <TablePercent
-                  val={Number((field * 100).toFixed(2))}
-                /> : null);
-              } else if (column.name === 'rune_id') {
-                return strings[`rune_${field}`];
-              } else if (column.name === 'item_name') {
-                return itemData[field] ? itemData[field].dname : field;
-              } else if (column.name === 'playername') {
-                return <Link to={`/players/${proPlayerMapping[field]}`}>{field}</Link>;
-              } else if (column.name === 'time') {
-                return formatSeconds(field);
-              }
-              return typeof field === 'string' ? field : JSON.stringify(field);
-            },
-            sortFn: row => (isNaN(Number(row[column.name])) ? row[column.name] : Number(row[column.name])),
-          }))}
-        />
-        : <Spinner />
-      }
+      {!this.state.querying ? drawOutput({
+        rows: this.state.result.rows,
+        fields: this.state.result.fields,
+        expandedBuilder,
+        playerMapping,
+        teamMapping,
+      }) : <Spinner />}
     </div>);
   }
 }
@@ -420,11 +325,13 @@ class Explorer extends React.Component {
 const mapStateToProps = state => ({
   proPlayers: state.app.proPlayers.list,
   leagues: state.app.leagues.list,
+  teams: state.app.teams.list,
 });
 
 const mapDispatchToProps = dispatch => ({
   dispatchProPlayers: () => dispatch(getProPlayers()),
   dispatchLeagues: () => dispatch(getLeagues()),
+  dispatchTeams: () => dispatch(getTeams()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Explorer);
