@@ -13,7 +13,7 @@
   "analysis_rune_control":"ルーン確保",
   "analysis_unused_item":"未使用のアクティブアイテム",
   "analysis_expected":"の",
-  "announce_dismiss":"Dismiss",
+  "announce_dismiss":"閉じる",
   "announce_github_more":"GitHubで見る",
   "app_name":"OpenDota",
   "app_language":"言語",
@@ -504,7 +504,7 @@
   "tab_cosmetics":"コスメティック",
   "tab_log":"ログ",
   "tab_chat":"チャット",
-  "tab_story":"Story",
+  "tab_story":"物語",
   "placeholder_filter_heroes":"フィルターヒーロー",
   "td_win":"勝利",
   "td_loss":"敗北",
@@ -768,5 +768,5 @@
   "vision_all_time":"全期間",
   "vision_placed_observer":"がObserverを設置:",
   "vision_placed_sentry":"がSentryを設置:",
-  "vision_ward_log":"Ward Log"
+  "vision_ward_log":"ワードログ"
 }
