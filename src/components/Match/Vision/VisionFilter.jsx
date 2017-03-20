@@ -1,9 +1,12 @@
+/* global API_HOST */
 import React from 'react';
 import Checkbox from 'material-ui/Checkbox';
 import Table from 'components/Table';
+import strings from 'lang';
+import Heading from 'components/Heading';
 
 import PlayerThumb from '../PlayerThumb';
-import styles from './Vision.css';
+// import styles from './Vision.css';
 
 const data = [
   {
@@ -52,13 +55,12 @@ export default class VisionFilter extends React.PureComponent {
 
   render() {
     return (
-      <div className={styles.visionFilter}>
-        <div className={styles.tableWrapper}>
-          <Table data={data} columns={this.columns(0)} />
-        </div>
-        <div className={styles.tableWrapper}>
-          <Table data={data} columns={this.columns(5)} />
-        </div>
+      <div>
+        <Heading title={strings.general_radiant} />
+        <Table data={data} columns={this.columns(0)} />
+        <Heading title={strings.general_dire} />
+
+        <Table data={data} columns={this.columns(5)} />
       </div>
     );
   }

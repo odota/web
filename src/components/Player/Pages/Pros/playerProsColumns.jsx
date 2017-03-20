@@ -13,6 +13,7 @@ export default playerId => [{
   tooltip: strings.tooltip_matches,
   field: 'with_games',
   sortFn: row => row.with_games + row.against_games,
+  relativeBars: true,
   displayFn: row => (
     <TableLink to={`/players/${playerId}/matches?included_account_id=${row.account_id}`}>{row.with_games + row.against_games}</TableLink>
   ),
@@ -21,6 +22,7 @@ export default playerId => [{
   tooltip: strings.tooltip_played_with,
   field: 'with_games',
   sortFn: true,
+  relativeBars: true,
 }, {
   displayName: strings.th_with_win,
   tooltip: strings.tooltip_win_pct_with,
@@ -32,6 +34,7 @@ export default playerId => [{
   tooltip: strings.tooltip_played_against,
   field: 'against_games',
   sortFn: true,
+  relativeBars: true,
 }, {
   displayName: strings.th_against_win,
   tooltip: strings.tooltip_win_pct_against,

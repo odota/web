@@ -214,6 +214,9 @@ function renderMatch(m) {
         if (key.indexOf('fort') !== -1) {
           identifier = 'fort';
         }
+        if (key.indexOf('healers') !== -1) {
+          identifier = 'shrine';
+        }
         newPlayer.objective_damage[identifier] = newPlayer.objective_damage[identifier] ?
                                                  newPlayer.objective_damage[identifier] + player.damage[key] :
                                                  player.damage[key];
