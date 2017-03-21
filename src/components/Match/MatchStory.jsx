@@ -288,8 +288,12 @@ class TowerEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
     this.is_deny = obj.type === 'CHAT_MESSAGE_TOWER_DENY';
-    this.team = obj.team !== 2; // We want the team that the tower belongs to, so get the opposite
     this.player = match.players.find(player => player.player_slot === obj.player_slot);
+    if (this.is_deny) {
+      this.team = this.player.isRadiant;
+    } else {
+      this.team = obj.team !== 2;
+    }
     if (!this.player) {
       this.template = strings.story_building_destroy;
     } else {
