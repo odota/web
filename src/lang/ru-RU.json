@@ -460,7 +460,7 @@
   "story_lane_jungle":"{players} фармили в лесу",
   "story_lane_roam":"{players} передвигались по карте",
   "story_roshan":"{team} убивает Рошана",
-  "story_aegis":"{player} {action} the aegis",
+  "story_aegis":"{player}{action} the aegis",
   "story_gameover":"Матч закончен победой {winning_team} за {duration} со счетом {radiant_score} к {dire_score}",
   "story_during_teamfight":"во время боя, {events}",
   "story_after_teamfight":"после боя, {events}",
