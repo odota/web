@@ -203,7 +203,7 @@ const localizedLane = {
   3: strings.lane_pos_3,
 };
 
-const getLaneScore = players => (Math.max(players.map(player => player.lane_efficiency)) || 0);
+const getLaneScore = players => (Math.max(...players.map(player => player.lane_efficiency)) || 0);
 
 class LaneStory {
   constructor(match, lane) {
@@ -222,7 +222,7 @@ class LaneStory {
     // If only one team is in this lane
     if (this.radiant_players.length === 0 || this.dire_players.length === 0) {
       return renderSentence(strings.story_lane_free, {
-        players: this.radiant_players.concat(this.dire_players),
+        players: formatList(this.radiant_players.concat(this.dire_players).map(PlayerSpan)),
         lane: localizedLane[this.lane],
       });
     }
@@ -288,8 +288,12 @@ class TowerEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
     this.is_deny = obj.type === 'CHAT_MESSAGE_TOWER_DENY';
-    this.team = obj.team !== 2; // We want the team that the tower belongs to, so get the opposite
     this.player = match.players.find(player => player.player_slot === obj.player_slot);
+    if (this.is_deny) {
+      this.team = this.player.isRadiant;
+    } else {
+      this.team = obj.team !== 2;
+    }
     if (!this.player) {
       this.template = strings.story_building_destroy;
     } else {

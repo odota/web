@@ -495,7 +495,7 @@
   "story_lane_intro": "At 10 minutes into the game, the lanes had gone as follows:",
   "story_lane_radiant_win": "{radiant_players} won {lane} Lane against {dire_players}",
   "story_lane_radiant_lose": "{radiant_players} lost {lane} Lane to {dire_players}",
-  "story_lane_free": "{players} were against nobody in the {lane} lane",
+  "story_lane_free": "{players} had a free {lane} lane",
   "story_lane_empty": "there was nobody in {lane} lane",
   "story_lane_jungle": "{players} farmed the jungle",
   "story_lane_roam": "{players} roamed",
