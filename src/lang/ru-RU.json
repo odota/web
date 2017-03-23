@@ -455,7 +455,7 @@
   "story_lane_intro":"At 10 minutes into the game, the lanes had gone as follows:",
   "story_lane_radiant_win":"{radiant_players} выиграли {lane} против {dire_players}",
   "story_lane_radiant_lose":"{radiant_players} проиграли {lane} против {dire_players}",
-  "story_lane_free":"{players} не имели соперников на {lane} линии",
+  "story_lane_free":"{players} had a free {lane} lane",
   "story_lane_empty":"на линии {lane} никого не было",
   "story_lane_jungle":"{players} фармили в лесу",
   "story_lane_roam":"{players} передвигались по карте",
