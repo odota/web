@@ -128,6 +128,7 @@ function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping,
   // TODO resolve ids to strings
   // TODO axis labels
   // TODO don't redraw graphs unless a new query is made
+  // TODO handle ungraphable queries and display error message
   redrawGraphs(JSON.parse(JSON.stringify(rows || [])), fields);
   if (format === 'donut') {
     return <div id="donut" />;
@@ -377,7 +378,7 @@ class Explorer extends React.Component {
       />
       <span style={{ float: 'right' }}>
         <RaisedButton
-          secondary={this.state.builder.format === 'table'}
+          secondary={!this.state.builder.format || this.state.builder.format === 'table'}
           style={{ margin: '5px' }}
           label={strings.explorer_table_button}
           onClick={() => {
