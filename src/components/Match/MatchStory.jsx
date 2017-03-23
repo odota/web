@@ -222,7 +222,7 @@ class LaneStory {
     // If only one team is in this lane
     if (this.radiant_players.length === 0 || this.dire_players.length === 0) {
       return renderSentence(strings.story_lane_free, {
-        players: this.radiant_players.concat(this.dire_players),
+        players: formatList(this.radiant_players.concat(this.dire_players).map(PlayerSpan)),
         lane: localizedLane[this.lane],
       });
     }
