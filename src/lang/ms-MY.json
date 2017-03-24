@@ -455,7 +455,7 @@
   "story_lane_intro":"Pada 10 minit dalah perlawanan, lane telah hilang seperti berikut:",
   "story_lane_radiant_win":"{radiant_players} menang {lane} Lane mengatasi {dire_players}",
   "story_lane_radiant_lose":"{radiant_players} kehilangan {lane} Lane mengatasi {dire_players}",
-  "story_lane_free":"{players} had a free {lane} lane",
+  "story_lane_free":"{players} free farm di {lane} lane",
   "story_lane_empty":"tiada sesiapa di {lane} lane",
   "story_lane_jungle":"{players} farm di hutan",
   "story_lane_roam":"{players} roam",
