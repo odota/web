@@ -125,6 +125,7 @@
   "explorer_donut_button": "Donut",
   "explorer_bar_button": "Bar",
   "explorer_timeseries_button": "Timeseries",
+  "explorer_chart_unavailable": "Chart is not available for this query (try adding a GROUP BY)",
 
   "farm_heroes": "Heroes killed",
   "farm_creeps": "Lane creeps killed",

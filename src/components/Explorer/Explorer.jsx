@@ -76,60 +76,64 @@ function expandBuilderState(builder, fields) {
 }
 
 function redrawGraphs(rows, fields) {
-  setTimeout(() => {
-    const firstCol = fields[0].name;
-    c3.generate({
-      bindto: '#donut',
-      data: {
-        type: 'donut',
-        columns: rows.map(row => [row[firstCol], row.sum]),
+  const firstCol = fields[0].name;
+  const hasSum = rows[0] && rows[0].sum;
+  const hasAvg = rows[0] && rows[0].avg;
+  c3.generate({
+    bindto: '#donut',
+    data: {
+      type: 'donut',
+      columns: hasSum ? rows.map(row => [row[firstCol], row.sum]) : [],
+      empty: { label: { text: strings.explorer_chart_unavailable } },
+    },
+    donut: {
+      title: hasSum ? strings.th_sum : '',
+    },
+  });
+  rows.sort((a, b) => b.sum - a.sum);
+  c3.generate({
+    bindto: '#bar',
+    data: {
+      type: 'bar',
+      columns: [
+        hasSum ? [strings.th_sum].concat(rows.map(row => row.sum)) : null,
+        hasAvg ? [strings.th_average].concat(rows.map(row => row.avg)) : null,
+      ].filter(Boolean),
+      empty: { label: { text: strings.explorer_chart_unavailable } },
+    },
+    axis: {
+      x: {
+        type: 'category',
+        categories: rows.map(row => row[firstCol]),
       },
-      donut: {
-        title: strings.th_sum,
+    },
+  });
+  rows.sort((a, b) => a[firstCol] - b[firstCol]);
+  c3.generate({
+    bindto: '#timeseries',
+    data: {
+      type: 'spline',
+      columns: [
+        hasAvg ? [firstCol].concat(rows.map(row => row.avg)) : null,
+      ].filter(Boolean),
+      empty: { label: { text: strings.explorer_chart_unavailable } },
+    },
+    axis: {
+      x: {
+        type: 'category',
+        categories: rows.map(row => row[firstCol]),
       },
-    });
-    rows.sort((a, b) => b.avg - a.avg);
-    c3.generate({
-      bindto: '#bar',
-      data: {
-        type: 'bar',
-        columns: [
-          [strings.th_average].concat(rows.map(row => row.avg)),
-          [strings.th_sum].concat(rows.map(row => row.sum)),
-        ],
-      },
-      axis: {
-        x: {
-          type: 'category',
-          categories: rows.map(row => row[firstCol]),
-        },
-      },
-    });
-    rows.sort((a, b) => a[firstCol] - b[firstCol]);
-    c3.generate({
-      bindto: '#timeseries',
-      data: {
-        type: 'spline',
-        columns: [
-          [firstCol].concat(rows.map(row => row.avg)),
-        ],
-      },
-      axis: {
-        x: {
-          type: 'category',
-          categories: rows.map(row => row[firstCol]),
-        },
-      },
-    });
-  }, 100);
+    },
+  });
 }
 
 function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping, format }) {
   // TODO resolve ids to strings
   // TODO axis labels
   // TODO don't redraw graphs unless a new query is made
-  // TODO handle ungraphable queries and display error message
-  redrawGraphs(JSON.parse(JSON.stringify(rows || [])), fields);
+  setTimeout(() => {
+    redrawGraphs(JSON.parse(JSON.stringify(rows || [])), fields);
+  }, 100);
   if (format === 'donut') {
     return <div id="donut" />;
   } else if (format === 'bar') {
