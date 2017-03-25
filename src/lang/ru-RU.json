@@ -764,7 +764,7 @@
   "xp_reasons_3":"Рошан",
   "rankings_description":"На основании видимого MMR в выигранных матчах. Сбрасывается каждый квартал.",
   "vision_expired":"Истек после",
-  "vision_destroyed":"Уничтожен после",
+  "vision_destroyed":"Уничтожен через",
   "vision_all_time":"За всё время",
   "vision_placed_observer":"установил Observer Ward на",
   "vision_placed_sentry":"установил Sentry Ward на",
