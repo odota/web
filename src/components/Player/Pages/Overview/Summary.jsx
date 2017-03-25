@@ -33,7 +33,9 @@ const SummOfRecMatches = ({ matchesData }) => {
 
   const dataKeys = Object.keys(data);
 
-  for (let i = 0; i < Math.min(MAX_MATCHES_ROWS, matchesData.length); i += 1) {
+  const numRows = Math.min(MAX_MATCHES_ROWS, matchesData.length);
+
+  for (let i = 0; i < numRows; i += 1) {
     dataKeys.map((key) => {
       if (key === 'wins') {
         data.wins.push(matchesData[i].radiant_win === isRadiant(matchesData[i].player_slot));
@@ -47,7 +49,7 @@ const SummOfRecMatches = ({ matchesData }) => {
 
   dataKeys.map((key) => {
     if (key !== 'wins') {
-      const avg = data[key].reduce(sum, 0) / MAX_MATCHES_ROWS;
+      const avg = data[key].reduce(sum, 0) / numRows;
       const max = Math.max(...data[key]);
       const maxMatch = matchesData.find(match => match[key] === max) || {};
 
@@ -86,7 +88,7 @@ const SummOfRecMatches = ({ matchesData }) => {
 
   winrate = Number((data.wins
   .filter(Boolean)
-  .reduce(sum, 0) * 100 / MAX_MATCHES_ROWS)
+  .reduce(sum, 0) * 100 / numRows)
     .toFixed(2));
 
   return (
