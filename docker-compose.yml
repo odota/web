@@ -6,7 +6,6 @@ services:
   ui:
     build:
       context: .
-      dockerfile: Dockerfile
     image: odota/ui
     entrypoint: "./scripts/docker.sh"
     ports:
