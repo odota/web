@@ -47,6 +47,7 @@ import fields from './fields';
 import autocomplete from './autocomplete';
 import styles from './Explorer.css';
 
+// TODO add region selector
 // TODO mega creep wins (matches table only)
 // TODO bans (picks_bans table)
 // TODO num matches played by team (team_match table)
@@ -127,12 +128,18 @@ function redrawGraphs(rows, fields) {
   });
 }
 
+let currRows = null;
+let currFormat = null;
+
 function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping, format }) {
   // TODO resolve ids to strings
   // TODO axis labels
-  // TODO don't redraw graphs unless a new query is made
   setTimeout(() => {
-    redrawGraphs(JSON.parse(JSON.stringify(rows || [])), fields);
+    if (currRows !== rows || currFormat !== format) {
+      redrawGraphs(JSON.parse(JSON.stringify(rows || [])), fields);
+      currRows = rows;
+      currFormat = format;
+    }
   }, 100);
   if (format === 'donut') {
     return <div id="donut" />;
