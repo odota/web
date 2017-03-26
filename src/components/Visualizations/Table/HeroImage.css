@@ -33,14 +33,14 @@
   display: flex;
   position: relative;
   height: 100%;
+  align-items: center;
 }
 
 .parsed {
-  position: absolute;
+  position: relative;
   left: -24px;
   width: 2px;
   height: 29px;
-  align-self: center;
   background-color: var(--primaryLinkColor);
 
   /* Material-ui icon */
@@ -84,7 +84,6 @@
 .imageContainer {
   position: relative;
   display: flex;
-  flex-direction: column-reverse;
   justify-content: center;
 }
 
@@ -110,6 +109,7 @@
 
 .party {
   position: absolute;
+  top: 0;
   width: 11px;
   height: 93%;
   left: -11px;
