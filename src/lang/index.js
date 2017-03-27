@@ -82,7 +82,7 @@ export const langs = [
     data: require('./vi-VN.json'),
   }, {
     value: 'zh-CN',
-    native: '简化字',
+    native: '简体字',
     data: require('./zh-CN.json'),
   }, {
     value: 'zh-TW',
