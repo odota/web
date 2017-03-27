@@ -43,7 +43,7 @@
     "react": "^15.3.2",
     "react-addons-css-transition-group": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-helmet": "^4.0.0",
+    "react-helmet": "^5.0.1",
     "react-markdown": "^2.4.4",
     "react-measure": "1.4.6",
     "react-redux": "^5.0.0",
