@@ -203,7 +203,8 @@ const localizedLane = {
   3: strings.lane_pos_3,
 };
 
-const getLaneScore = players => (Math.max(...players.map(player => player.lane_efficiency)) || 0);
+const getLaneScore = players => (Math.max(...players.map(player => player.gold_t[10] || 0)) || 0);
+const laneScoreDraw = 350;
 
 class LaneStory {
   constructor(match, lane) {
@@ -211,6 +212,7 @@ class LaneStory {
     this.dire_players = match.players.filter(player => player.lane === parseInt(lane, 10) && !player.isRadiant && (!player.is_roaming));
     this.lane = lane;
     this.winning_team = getLaneScore(this.radiant_players) > getLaneScore(this.dire_players);
+    this.is_draw = getLaneScore(this.radiant_players) - getLaneScore(this.dire_players) <= laneScoreDraw;
   }
   format() {
     // If there is nobody in this lane
@@ -227,6 +229,17 @@ class LaneStory {
       });
     }
     // If both teams are in this lane
+
+    // If it's close enough to be a draw
+    if (this.is_draw){
+      return renderSentence(strings.story_lane_draw, {
+        radiant_players: formatList(this.radiant_players.map(PlayerSpan), strings.story_lane_empty),
+        dire_players: formatList(this.dire_players.map(PlayerSpan), strings.story_lane_empty),
+        lane: localizedLane[this.lane],
+      });
+    }
+
+    // If one team won
     return renderSentence(this.winning_team ? strings.story_lane_radiant_win : strings.story_lane_radiant_lose, {
       radiant_players: formatList(this.radiant_players.map(PlayerSpan), strings.story_lane_empty),
       dire_players: formatList(this.dire_players.map(PlayerSpan), strings.story_lane_empty),
