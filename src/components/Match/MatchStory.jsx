@@ -231,7 +231,7 @@ class LaneStory {
     // If both teams are in this lane
 
     // If it's close enough to be a draw
-    if (this.is_draw){
+    if (this.is_draw) {
       return renderSentence(strings.story_lane_draw, {
         radiant_players: formatList(this.radiant_players.map(PlayerSpan), strings.story_lane_empty),
         dire_players: formatList(this.dire_players.map(PlayerSpan), strings.story_lane_empty),
@@ -489,16 +489,14 @@ const generateStory = (match) => {
   let events = [];
 
   if (fbIndex > -1) {
-    const fbKey = match.players.map(player =>
-        player.kills_log &&
-        player.kills_log.length > 0 &&
-        player.kills_log.filter(kill => kill.time === match.objectives[fbIndex].time),
-    ).filter(String).filter(Boolean);
+    const killerLog = match.players.find(player =>
+      player.player_slot === match.objectives[fbIndex].player_slot,
+    ).kills_log;
 
     events.push(new FirstbloodEvent(match,
       match.objectives[fbIndex].time,
       match.objectives[fbIndex].player_slot,
-      fbKey && fbKey.length > 0 && fbKey[0][0].key));
+      killerLog ? killerLog[0].key : null));
   }
 
 
