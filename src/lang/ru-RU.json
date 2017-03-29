@@ -63,7 +63,7 @@
   "building_lasthit":"добито",
   "building_damage":"полученный урон",
   "building_hint":"У иконок на карте есть подсказки",
-  "building_denied":"заденаено",
+  "building_denied":"не отдано",
   "CHAT_MESSAGE_TOWER_KILL":"Башня",
   "CHAT_MESSAGE_BARRACKS_KILL":"Казармы",
   "CHAT_MESSAGE_ROSHAN_KILL":"Рошан",
