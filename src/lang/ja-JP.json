@@ -455,6 +455,7 @@
   "story_lane_intro":"試合開始後10分間のレーン状況は以下の通りでした。",
   "story_lane_radiant_win":"{radiant_players} won {lane} Lane against {dire_players}",
   "story_lane_radiant_lose":"{radiant_players} lost {lane} Lane to {dire_players}",
+  "story_lane_draw":"{radiant_players} drew even in {lane} Lane with {dire_players}",
   "story_lane_free":"{players} は {lane} レーンでフリーファームをしてました。",
   "story_lane_empty":"{lane} レーンには誰もいませんでした",
   "story_lane_jungle":"{players} はジャングルでファームしてました",
