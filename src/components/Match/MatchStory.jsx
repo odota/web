@@ -212,7 +212,7 @@ class LaneStory {
     this.dire_players = match.players.filter(player => player.lane === parseInt(lane, 10) && !player.isRadiant && (!player.is_roaming));
     this.lane = lane;
     this.winning_team = getLaneScore(this.radiant_players) > getLaneScore(this.dire_players);
-    this.is_draw = getLaneScore(this.radiant_players) - getLaneScore(this.dire_players) <= laneScoreDraw;
+    this.is_draw = Math.abs(getLaneScore(this.radiant_players) - getLaneScore(this.dire_players)) <= laneScoreDraw;
   }
   format() {
     // If there is nobody in this lane
