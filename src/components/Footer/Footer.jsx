@@ -30,7 +30,7 @@ export default () => (
           {strings.app_description}
           {' - '}
           {strings.app_powered_by}
-          <a href="//steampowered.com" target="_blank" rel="noopener noreferrer">
+          <a href="http://steampowered.com" target="_blank" rel="noopener noreferrer">
             <IconSteam />
           </a>
         </small>

@@ -20,7 +20,7 @@ const typeConfig = {
   objectives: 1,
   runes: 2,
 };
-const getObjectiveDesc = objective => (objective.key ? strings[`barracks_value_${objective.key}`] : '');
+const getObjectiveDesc = objective => (objective.key && objective.type === 'CHAT_MESSAGE_BARRACKS_KILL' ? strings[`barracks_value_${objective.key}`] : '');
 const getObjectiveBase = objective => strings[objective.subtype || objective.type] || objective.subtype || objective.type;
 const generateLog = (match, { types, players }) => {
   let log = [];

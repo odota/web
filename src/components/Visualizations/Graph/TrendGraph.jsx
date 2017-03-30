@@ -5,7 +5,7 @@ import { Graph } from 'components/Visualizations';
 
 const TrendGraph = ({ columns, name, tooltip, onClick }) => (
   <Graph
-    type="spline"
+    type="line"
     columns={columns}
     name={name}
     color="#66bbff"
