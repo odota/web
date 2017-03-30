@@ -204,7 +204,7 @@ const localizedLane = {
 };
 
 const getLaneScore = players => (Math.max(...players.map(player => player.gold_t[10] || 0)) || 0);
-const laneScoreDraw = 350;
+const laneScoreDraw = 500;
 
 class LaneStory {
   constructor(match, lane) {
