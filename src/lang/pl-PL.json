@@ -455,6 +455,7 @@
   "story_lane_intro":"W 10 minucie gry, linie rozegrano następująco:",
   "story_lane_radiant_win":"{radiant_players} wygrali linię {lane} przeciwko {dire_players}",
   "story_lane_radiant_lose":"{radiant_players} stracili linię {lane} przeciwko {dire_players}",
+  "story_lane_draw":"{radiant_players} drew even in {lane} Lane with {dire_players}",
   "story_lane_free":"{players} mieli darmową linię {lane}",
   "story_lane_empty":"nie było nikogo na linii {lane}",
   "story_lane_jungle":"w dżungli przebywali {players}",
