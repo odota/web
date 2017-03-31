@@ -128,6 +128,7 @@
   "explorer_chart_unavailable": "Chart is not available for this query (try adding a GROUP BY)",
   "explorer_value": "Value",
   "explorer_category": "Category",
+  "explorer_count": "Count",
 
   "farm_heroes": "Heroes killed",
   "farm_creeps": "Lane creeps killed",

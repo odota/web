@@ -51,7 +51,7 @@ import styles from './Explorer.css';
 // TODO add region selector
 // TODO hero-player pairs
 // TODO player-player pairs
-// TODO prevent duplication if no filter applied in pair queries
+// TODO prevent duplication if no filter applied in self-join queries
 // TODO mega creep wins (matches table only)
 // TODO bans (picks_bans table)
 // TODO num matches played by team (team_match table)
@@ -80,7 +80,7 @@ function expandBuilderState(builder, fields) {
   return expandedBuilder;
 }
 
-function redrawGraphs(rows, field) {
+function redrawGraphs(rows, field, yAxis) {
   const hasSum = rows[0] && rows[0].sum;
   const hasAvg = rows[0] && rows[0].avg;
   c3.generate({
@@ -91,7 +91,7 @@ function redrawGraphs(rows, field) {
       empty: { label: { text: strings.explorer_chart_unavailable } },
     },
     donut: {
-      title: hasSum ? `${strings.th_sum} - ${field}` : '',
+      title: hasSum ? `${strings.th_sum} - ${yAxis} - ${field}` : '',
     },
     legend: {
       show: false,
@@ -115,10 +115,10 @@ function redrawGraphs(rows, field) {
         tick: {
           // format: i => i,
         },
-        label: strings.explorer_category,
+        label: field,
       },
       y: {
-        label: strings.explorer_value,
+        label: yAxis || strings.explorer_count,
       },
     },
     tooltip: {
@@ -133,7 +133,7 @@ function redrawGraphs(rows, field) {
     data: {
       type: 'spline',
       columns: [
-        hasAvg ? [field].concat(rows.map(row => row.avg)) : null,
+        hasAvg ? [strings.th_average].concat(rows.map(row => row.avg)) : null,
       ].filter(Boolean),
       empty: { label: { text: strings.explorer_chart_unavailable } },
     },
@@ -141,10 +141,10 @@ function redrawGraphs(rows, field) {
       x: {
         type: 'category',
         categories: rows.map(row => row[field]),
-        label: strings.explorer_category,
+        label: field,
       },
       y: {
-        label: strings.explorer_value,
+        label: yAxis || strings.explorer_count,
       },
     },
   });
@@ -171,7 +171,7 @@ function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping,
       redrawGraphs(rows.map(row => ({
         ...row,
         [firstCol]: resolveId(firstCol, row[firstCol], { teamMapping, playerMapping }) }
-      )), firstCol);
+      )), firstCol, expandedBuilder.select && expandedBuilder.select.key);
       currRows = rows;
       currFormat = format;
     }
