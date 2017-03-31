@@ -15,7 +15,7 @@ const autocomplete = cols => ({
     .concat(sqlts.map(e => ({ value: e, meta: strings.explorer_sql })))
     .concat(sqlks.map(e => ({ value: e, meta: strings.explorer_sql })))
     .concat(tables.map(e => ({ value: e, meta: strings.explorer_table })))
-    .concat(cols.map(e => ({ value: `${e.table_name}.${e.column_name}`, meta: e.data_type }))),
+    .concat(cols.map(e => ({ value: `${e.column_name}`, meta: `${e.table_name} - ${e.data_type}` }))),
     );
   },
 });

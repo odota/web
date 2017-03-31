@@ -41,6 +41,7 @@ import matchStyles from 'components/Match/Match.css';
 import querystring from 'querystring';
 import json2csv from 'json2csv';
 import c3 from 'c3';
+import heroes from 'dotaconstants/build/heroes.json';
 import queryTemplate from './queryTemplate';
 import ExplorerFormField from './ExplorerFormField';
 import fields from './fields';
@@ -48,10 +49,13 @@ import autocomplete from './autocomplete';
 import styles from './Explorer.css';
 
 // TODO add region selector
+// TODO hero-player pairs
+// TODO player-player pairs
+// TODO prevent duplication if no filter applied in pair queries
 // TODO mega creep wins (matches table only)
 // TODO bans (picks_bans table)
 // TODO num matches played by team (team_match table)
-// TODO hero combos (more than 2)
+// TODO hero combos (3+)
 // TODO lane positions
 // TODO num wards placed?
 // TODO num roshans killed?
@@ -76,19 +80,21 @@ function expandBuilderState(builder, fields) {
   return expandedBuilder;
 }
 
-function redrawGraphs(rows, fields) {
-  const firstCol = fields[0].name;
+function redrawGraphs(rows, field) {
   const hasSum = rows[0] && rows[0].sum;
   const hasAvg = rows[0] && rows[0].avg;
   c3.generate({
     bindto: '#donut',
     data: {
       type: 'donut',
-      columns: hasSum ? rows.map(row => [row[firstCol], row.sum]) : [],
+      columns: hasSum ? rows.map(row => [row[field], row.sum]) : [],
       empty: { label: { text: strings.explorer_chart_unavailable } },
     },
     donut: {
-      title: hasSum ? strings.th_sum : '',
+      title: hasSum ? `${strings.th_sum} - ${field}` : '',
+    },
+    legend: {
+      show: false,
     },
   });
   rows.sort((a, b) => b.sum - a.sum);
@@ -105,24 +111,40 @@ function redrawGraphs(rows, fields) {
     axis: {
       x: {
         type: 'category',
-        categories: rows.map(row => row[firstCol]),
+        categories: rows.map(row => row[field]),
+        tick: {
+          // format: i => i,
+        },
+        label: strings.explorer_category,
+      },
+      y: {
+        label: strings.explorer_value,
+      },
+    },
+    tooltip: {
+      format: {
+          // title: i => i,
       },
     },
   });
-  rows.sort((a, b) => a[firstCol] - b[firstCol]);
+  rows.sort((a, b) => a[field] - b[field]);
   c3.generate({
     bindto: '#timeseries',
     data: {
       type: 'spline',
       columns: [
-        hasAvg ? [firstCol].concat(rows.map(row => row.avg)) : null,
+        hasAvg ? [field].concat(rows.map(row => row.avg)) : null,
       ].filter(Boolean),
       empty: { label: { text: strings.explorer_chart_unavailable } },
     },
     axis: {
       x: {
         type: 'category',
-        categories: rows.map(row => row[firstCol]),
+        categories: rows.map(row => row[field]),
+        label: strings.explorer_category,
+      },
+      y: {
+        label: strings.explorer_value,
       },
     },
   });
@@ -131,12 +153,25 @@ function redrawGraphs(rows, fields) {
 let currRows = null;
 let currFormat = null;
 
+function resolveId(key, value, mappings) {
+  if (key === 'hero_id') {
+    return (heroes[value] || {}).localized_name;
+  } else if (key === 'account_id') {
+    return mappings.playerMapping[value];
+  } else if (key === 'team_id') {
+    return mappings.teamMapping[value];
+  }
+  return value;
+}
+
 function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping, format }) {
-  // TODO resolve ids to strings
-  // TODO axis labels
   setTimeout(() => {
     if (currRows !== rows || currFormat !== format) {
-      redrawGraphs(JSON.parse(JSON.stringify(rows || [])), fields);
+      const firstCol = fields[0].name;
+      redrawGraphs(rows.map(row => ({
+        ...row,
+        [firstCol]: resolveId(firstCol, row[firstCol], { teamMapping, playerMapping }) }
+      )), firstCol);
       currRows = rows;
       currFormat = format;
     }
@@ -367,6 +402,7 @@ class Explorer extends React.Component {
         <span style={{ width: '180px', marginTop: '20px' }}>
           <Toggle
             label={strings.explorer_toggle_sql}
+            defaultToggled={this.state.showEditor}
             onToggle={this.toggleEditor}
           />
         </span>
