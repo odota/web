@@ -53,10 +53,10 @@ const responses = [
   'From the Ghastly Eyrie I can see to the ends of the world, and from this vantage point I declare with utter certainty that this one is in the bag!',
   'KA LE',
   'Sorry, not finished farming yet.',
-//'They storm up the river, patience from Zhou, waiting in the wings, NaVi\'s about to be caught. 
-//Oh there\'s the sleep, the surge, he catches everyone! Oh this could be a total disaster! 
-//Vacuum in, ravage on everyone, here\'s the Black Hole as well. LightOfHeaven, he turns it around, ravage as well, stolen by Dendi. 
-//ARE YOU KIDDING ME, THEY TURNED IT AROUND. 4 heroes dead, 5 heroes dead, Chuan trying to survive, Chuan\'s gonna go down. 
+//'They storm up the river, patience from Zhou, waiting in the wings, NaVi\'s about to be caught.
+//Oh there\'s the sleep, the surge, he catches everyone! Oh this could be a total disaster!
+//Vacuum in, ravage on everyone, here\'s the Black Hole as well. LightOfHeaven, he turns it around, ravage as well, stolen by Dendi.
+//ARE YOU KIDDING ME, THEY TURNED IT AROUND. 4 heroes dead, 5 heroes dead, Chuan trying to survive, Chuan\'s gonna go down.
 //Puppey talked about the naga counter, it\'s LightOfHeaven with his BKB. They turned it around. Standing ovation from the crowd.',
 // Maelk Award
 // IT'S A DISASTER!
