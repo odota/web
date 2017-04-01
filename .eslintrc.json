@@ -18,7 +18,7 @@
   },
   "extends": "airbnb",
   "rules": {
-    "max-len": ["error", { "code": 150, "ignoreTemplateLiterals": true }],
+    "max-len": ["error", { "code": 150, "ignoreTemplateLiterals": true, "ignoreStrings": true }],
     "no-shadow": 0,
     "no-mixed-operators": ["error", {
       "allowSamePrecedence": true

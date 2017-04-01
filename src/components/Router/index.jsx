@@ -18,6 +18,7 @@ import Request from 'components/Request';
 import Distributions from 'components/Distributions';
 import Status from 'components/Status';
 import Matches from 'components/Matches';
+import Assistant from 'components/Assistant';
 import store from 'store';
 import { getMetadata } from 'actions';
 
@@ -40,6 +41,7 @@ export default () => (
         <Route path="status" component={Status} />
         <Route path="explorer" component={Explorer} />
         <Route path="search" component={Search} />
+        <Route path="assistant" component={Assistant} />
         <Route path="*" component={FourOhFour} />
       </Route>
     </Router>
