@@ -336,28 +336,28 @@ class Explorer extends React.Component {
     const specials = {
       84772440: 'iceiceice',
     };
-    const player = this.props.proPlayers.map(player => ({
-      text: specials[player.account_id] || player.name,
-      value: player.account_id,
-      key: String(player.account_id),
-    }));
     const league = this.props.leagues.map(league => ({
-      text: league.name,
+      text: `[${league.leagueid}] ${league.name}`,
       value: league.leagueid,
       key: String(league.leagueid),
     }));
     const team = this.props.teams.map(team => ({
-      text: team.name,
+      text: `[${team.team_id}] ${team.name}`,
       value: team.team_id,
       key: String(team.team_id),
     }));
+    const player = this.props.proPlayers.map(player => ({
+      text: `[${player.account_id}] ${specials[player.account_id] || player.name}`,
+      value: player.account_id,
+      key: String(player.account_id),
+    }));
     const playerMapping = {};
-    player.forEach((player) => {
-      playerMapping[player.value] = player.text;
+    this.props.proPlayers.forEach((player) => {
+      playerMapping[player.account_id] = specials[player.account_id] || player.name;
     });
     const teamMapping = {};
-    team.forEach((team) => {
-      teamMapping[team.value] = team.text;
+    this.props.teams.forEach((team) => {
+      teamMapping[team.team_id] = team.name;
     });
     const expandedFields = { ...fields, player, league, team };
     const expandedBuilder = expandBuilderState(this.state.builder, expandedFields);

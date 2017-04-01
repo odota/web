@@ -48,7 +48,7 @@ class ExplorerFormField extends React.Component {
         }}
       />);
     }
-    return (<span>
+    return (<span style={{ width: 400 }}>
       <AutoComplete
         ref={ref => (this.autocomplete = ref)}
         searchText={builderContext.state.builder[builderField]
@@ -57,7 +57,7 @@ class ExplorerFormField extends React.Component {
         }
         openOnFocus
         listStyle={{ maxHeight: 400, overflow: 'auto' }}
-        // fullWidth
+        fullWidth
         filter={AutoComplete.fuzzyFilter}
         floatingLabelText={label}
         dataSource={dataSource}
