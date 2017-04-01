@@ -8,3 +8,7 @@
 .menuIcon {
   position: relative;
 }
+
+.menuItem a {
+  display: block;
+}
