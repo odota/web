@@ -19,7 +19,7 @@ const responses = [
   'Sorry, I am still in beta. The technology is not there yet.',
   'The song is Sand King - Sandstorm',
   '༼ つ ◕_◕ ༽つ Give DIRETIDE',
-  'I only has 13 mana right now and cannot service your request.',
+  'I only have 13 mana right now and cannot service your request.',
   'Sylar to fall, Liquid are doing it',
   'Improve your Michael skills to increase your level of play.',
   'pls no copy pasterino',
