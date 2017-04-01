@@ -9,7 +9,21 @@ const responses = [
   'furion can you tp top',
   'Unfortunately, this voice assistant is an ass, and we won\'t be working with it again.',
   'Sorry, we are currently busy placing a bet of $322 on a professional game.',
-
+  'There are 3154 responses to that.',
+  'Despite the odds, this assistant was hit by a Sheever ravage and is currently unavailable',
+  'Currently stuck in a PGG Black Hole.  Please try again later.',
+  'Lina respawned instantly and destroyed the assistant.',
+  'This will start working soon, it will!  Wow!',
+  'wwwwwwwwwwwww',
+//Maelk Award
+//IT'S A DISASTER!
+//He's gonna use it soon, he will! Waow!
+//The Play; Patience from Zhou
+//Bruno's No Legs Strat
+//ASSFAGGOTS
+//No one has ever done that in the history of Dota!
+//Cancer Lancer
+//Sheever Ravage
 ];
 const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
 recognition.lang = 'en-US';
