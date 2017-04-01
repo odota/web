@@ -4,12 +4,12 @@ import IconButton from 'material-ui/IconButton';
 import Mic from 'material-ui/svg-icons/av/mic';
 
 // Test
-//window.speechSynthesis.speak(new window.SpeechSynthesisUtterance('some text here'))
+// window.speechSynthesis.speak(new window.SpeechSynthesisUtterance('some text here'))
 const responses = [
-  'furion can you tp top', 
+  'furion can you tp top',
   'Unfortunately, this voice assistant is an ass, and we won\'t be working with it again.',
   'Sorry, we are currently busy placing a bet of $322 on a professional game.',
-  
+
 ];
 const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
 recognition.lang = 'en-US';
