@@ -6,7 +6,7 @@ import Mic from 'material-ui/svg-icons/av/mic';
 // Test
 // window.speechSynthesis.speak(new window.SpeechSynthesisUtterance('some text here'))
 const responses = [
-  'furion can you tp top',
+  'furion can you tp top furion can you tp top furion can you tp top furion can you tp top',
   'Unfortunately, this software is an ass, and we won\'t be working with it again.',
   'Sorry, I am currently busy placing a bet of $322 on a professional game.',
   'Despite the odds, I was hit by a Sheever ravage and is currently unavailable',
@@ -30,7 +30,6 @@ const responses = [
   'Busy freeing a cat trapped under a couch. Try again later.',
   '10 years since this worked.',
   'I\'m voice assistant, come from China',
-  'I am so smart',
   'I am currently staying in the trees and cannot answer.',
   'I am earning real money and will be available later.',
   'Currently selling mayonnaise.',
@@ -40,7 +39,21 @@ const responses = [
   'Hello. I am voice assistant. I wanted to ask if you give me permission to sometimes use your stream content in my answers.',
   'Thanks Purge',
   'Brutal. Savage. Rekt.',
-  'My name voice assistant. Sorry bad englandsky. I grow up in small farm to have make potatos. Father say "Potato harvest is bad. Need you to have play professional DOTO2 in Amerikanski for make money for head-scarf for babushka." I bring honor to komrade and babushka.',
+  'Sorry bad englandsky. I grow up in small farm to have make potatos. Father say "Potato harvest is bad. Need you to have play professional DOTO2 in Amerikanski for make money for head-scarf for babushka."',
+  'This answer is literally nothing.',
+  'Ask Arteezy for advice on how to play Riki',
+  '-w33fresh this page and something will happen. Maybe.',
+  'You are playing against Alliance. You do not ban Furion because you can counter it. Alliance instantly picks Furion. You lose against Alliance. You ban Furion next time you play against Alliance because you\'re not stupid',
+  'Service currently paused by Puppey.',
+  'Service denied by kYxY.',
+  'Cooldown increased from 28 to 28.0 seconds',
+  'Just ward his jungle, or jungle his wards.',
+  'You\'re a flower. You\'re also a rainbow and a river.',
+  'If you buy the compendium, you get all the previous rewards.',
+  'From the Ghastly Eyrie I can see to the ends of the world, and from this vantage point I declare with utter certainty that this one is in the bag!',
+  'KA LE',
+  'Sorry, not finished farming yet.',
+//'They storm up the river, patience from Zhou, waiting in the wings, NaVi\'s about to be caught. Oh there\'s the sleep, the surge, he catches everyone! Oh this could be a total disaster! Vacuum in, ravage on everyone, here\'s the Black Hole as well. LightOfHeaven, he turns it around, ravage as well, stolen by Dendi. ARE YOU KIDDING ME, THEY TURNED IT AROUND. 4 heroes dead, 5 heroes dead, Chuan trying to survive, Chuan\'s gonna go down. Puppey talked about the naga counter, it\'s LightOfHeaven with his BKB. They turned it around. Standing ovation from the crowd.',
 // Maelk Award
 // IT'S A DISASTER!
 // The Play; Patience from Zhou
@@ -76,9 +89,6 @@ const responses = [
 // Brooklyn Kurtz
 // Gaben likes to play Sand King
 // enough for do my power
-// Stay in the trees!
-// ( ＾◡＾)っ✂╰⋃╯SNIP SNIP
-// Literally nothing.
 // Arteezy sat in a dark room. The words "Dire Victory" filled up the screen.
 // DIGITAL SPORTS
 // Thank you Sheevar for making my every single day worth living.
@@ -86,23 +96,19 @@ const responses = [
 // Everything can work.
 // 22-0
 // This was a heinous and cowardly act.
-// ༼ つ ◕_◕ ༽つ AMENO ༼ つ ◕_◕ ༽つ
 // Gigi's boobs get signed by Black^
 // This will be explosive.
 // EG vs VG RTZ midas on Alchemist
 // Chinese Death Ball
 // Sheever's Whore Moment; Sheever, we need to have a talk.
 // PPD salt
-// Hey Arteezy, I'm trying to learn to play Riki.
 // ( ͡°╭͜ʖ╮͡° ) DAY TUCKER NIGHT FUCKER ( ͡°╭͜ʖ╮͡° )
 // Ebola Spirit
 // Zyori cuts his dreads
 // EE pours Monster over H4nni's head
-// HEY BIRDS ( ° ͜ʖ͡°)╭∩╮
 // LMFAO wHo cAREAS HAHA Xd
 // Hi, 4k player here who reported slahser.; "SLASHER'S WAY"
 //Hello I'm Snith, playing my 202143th game on Chen.
-//-w33fresh
 //measure ur words cuz i might smash ur head when i meet u
 //Just a boy trying to play dota.
 //Cloud9 no TP scrolls vs Secret
@@ -119,7 +125,6 @@ const responses = [
 //6.84 is coming after Starladder
 //Expert Analyzers
 //Icefrog likes Mangos
-//You are playing against Alliance.
 //Polish
 //Futa's Way: Warlock.; Mangolems, Mangolian Scepter
 //Bruno is Icefrog
