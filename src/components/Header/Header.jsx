@@ -32,6 +32,7 @@ const navbarPages = [
   <Link key={strings.header_heroes} to="/heroes">{strings.header_heroes}</Link>,
   <Link key={strings.header_distributions} to="/distributions">{strings.header_distributions}</Link>,
   <Link key={strings.header_explorer} to="/explorer">{strings.header_explorer}</Link>,
+  <Link key="Assistant" to="/assistant">Assistant</Link>,
 ];
 
 const burgerItems = width => [
