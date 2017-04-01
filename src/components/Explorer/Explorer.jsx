@@ -64,6 +64,11 @@ import styles from './Explorer.css';
 // TODO scan/glyph action (use action rather than CHAT_MESSAGE_SCAN/CHAT_MESSAGE_GLYPH_USED)
 // TODO autostat (combine with GetLiveLeagueGames)
 
+const playerMapping = {};
+const teamMapping = {};
+let currRows = null;
+let currFormat = null;
+
 function jsonResponse(response) {
   return response.json();
 }
@@ -72,9 +77,7 @@ function expandBuilderState(builder, fields) {
   const expandedBuilder = {};
   Object.keys(builder).forEach((key) => {
     if (builder[key]) {
-      expandedBuilder[key] = fields[key]
-        ? fields[key].find(element => element.key === builder[key])
-        : { value: builder[key] };
+      expandedBuilder[key] = (fields[key] || []).find(element => element.key === builder[key]) || { value: builder[key] };
     }
   });
   return expandedBuilder;
@@ -150,9 +153,6 @@ function redrawGraphs(rows, field, yAxis) {
   });
 }
 
-let currRows = null;
-let currFormat = null;
-
 function resolveId(key, value, mappings) {
   if (key === 'hero_id') {
     return (heroes[value] || {}).localized_name;
@@ -166,7 +166,7 @@ function resolveId(key, value, mappings) {
 
 function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping, format }) {
   setTimeout(() => {
-    if (currRows !== rows || currFormat !== format) {
+    if ((currRows !== rows || currFormat !== format) && fields) {
       const firstCol = fields[0].name;
       redrawGraphs(rows.map(row => ({
         ...row,
@@ -328,38 +328,23 @@ class Explorer extends React.Component {
   buildQuery() {
     // Note that this will not get expanded data for API-dependent fields (player/league/team)
     // This is ok if we only need the value prop.
-    const expandedBuilder = expandBuilderState(this.state.builder, fields);
+    const expandedBuilder = expandBuilderState(this.state.builder, fields());
+    console.log(this.state.builder, expandedBuilder);
     // console.log(this.state.builder, expandedBuilder);
     this.editor.setValue(queryTemplate(expandedBuilder));
   }
   render() {
-    const specials = {
-      84772440: 'iceiceice',
-    };
-    const league = this.props.leagues.map(league => ({
-      text: `[${league.leagueid}] ${league.name}`,
-      value: league.leagueid,
-      key: String(league.leagueid),
-    }));
-    const team = this.props.teams.map(team => ({
-      text: `[${team.team_id}] ${team.name}`,
-      value: team.team_id,
-      key: String(team.team_id),
-    }));
-    const player = this.props.proPlayers.map(player => ({
-      text: `[${player.account_id}] ${specials[player.account_id] || player.name}`,
-      value: player.account_id,
-      key: String(player.account_id),
-    }));
-    const playerMapping = {};
-    this.props.proPlayers.forEach((player) => {
-      playerMapping[player.account_id] = specials[player.account_id] || player.name;
-    });
-    const teamMapping = {};
-    this.props.teams.forEach((team) => {
-      teamMapping[team.team_id] = team.name;
-    });
-    const expandedFields = { ...fields, player, league, team };
+    if (!Object.keys(playerMapping).length) {
+      this.props.proPlayers.forEach((player) => {
+        playerMapping[player.account_id] = player.name;
+      });
+    }
+    if (!Object.keys(teamMapping).length) {
+      this.props.teams.forEach((team) => {
+        teamMapping[team.team_id] = team.name;
+      });
+    }
+    const expandedFields = fields(this.props.proPlayers, this.props.leagues, this.props.teams);
     const expandedBuilder = expandBuilderState(this.state.builder, expandedFields);
     return (<div>
       <Helmet title={strings.title_explorer} />
@@ -384,18 +369,18 @@ class Explorer extends React.Component {
         <ExplorerFormField label={strings.explorer_group_by} fields={expandedFields} builderField="group" builderContext={this} />
         <ExplorerFormField label={strings.explorer_hero} fields={expandedFields} builderField="hero" builderContext={this} />
         <ExplorerFormField label={strings.explorer_player} fields={expandedFields} builderField="player" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_team} fields={expandedFields} builderField="team" builderContext={this} />
         <ExplorerFormField label={strings.explorer_league} fields={expandedFields} builderField="league" builderContext={this} />
         <ExplorerFormField label={strings.explorer_patch} fields={expandedFields} builderField="patch" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_duration} fields={expandedFields} builderField="duration" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_side} fields={expandedFields} builderField="side" builderContext={this} />
+        <ExplorerFormField label={strings.th_result} fields={expandedFields} builderField="result" builderContext={this} />
         <ExplorerFormField
           label={strings.explorer_player_purchased}
           fields={expandedFields}
           builderField="playerPurchased"
           builderContext={this}
         />
-        <ExplorerFormField label={strings.explorer_duration} fields={expandedFields} builderField="duration" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_side} fields={expandedFields} builderField="side" builderContext={this} />
-        <ExplorerFormField label={strings.th_result} fields={expandedFields} builderField="result" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_team} fields={expandedFields} builderField="team" builderContext={this} />
         {/* <ExplorerFormField label={strings.explorer_lane_pos} fields={expandedFields} builderField="lanePos" builderContext={this} />*/}
         <ExplorerFormField label={strings.explorer_min_date} builderField="minDate" builderContext={this} isDateField />
         <ExplorerFormField label={strings.explorer_max_date} builderField="maxDate" builderContext={this} isDateField />

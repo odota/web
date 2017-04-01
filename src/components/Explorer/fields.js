@@ -40,7 +40,7 @@ AND match_logs.targetname LIKE '${unitKey}'`,
   key: `kill_${unitKey}`,
 });
 
-const fields = {
+const fields = (players = [], leagues = [], teams = []) => ({
   select: [{
     text: strings.heading_kills,
     value: 'kills',
@@ -258,12 +258,27 @@ AND abs(player_matches.player_slot - player_matches2.player_slot) < 10`,
   })),
   side: [{ text: strings.general_radiant, value: true, key: 'radiant' }, { text: strings.general_dire, value: false, key: 'dire' }],
   result: [{ text: strings.td_win, value: true, key: 'win' }, { text: strings.td_loss, value: false, key: 'loss' }],
+  league: leagues.map(league => ({
+    text: `[${league.leagueid}] ${league.name}`,
+    value: league.leagueid,
+    key: String(league.leagueid),
+  })),
+  team: teams.map(team => ({
+    text: `[${team.team_id}] ${team.name}`,
+    value: team.team_id,
+    key: String(team.team_id),
+  })),
+  player: players.map(player => ({
+    text: `[${player.account_id}] ${player.name}`,
+    value: player.account_id,
+    key: String(player.account_id),
+  })),
   /*
   lanePos: Object.keys(strings).filter(str => str.indexOf('lane_pos_') === 0).map(str => {
     const lanePosId = Number(str.substring('lane_pos_'.length));
     return { text: strings[str], value: lanePosId, key: lanePosId };
   }),
   */
-};
+});
 
 export default fields;
