@@ -40,6 +40,7 @@ const responses = [
   'Hello. I am voice assistant. I wanted to ask if you give me permission to sometimes use your stream content in my answers.',
   'Thanks Purge',
   'Brutal. Savage. Rekt.',
+  'My name voice assistant. Sorry bad englandsky. I grow up in small farm to have make potatos. Father say "Potato harvest is bad. Need you to have play professional DOTO2 in Amerikanski for make money for head-scarf for babushka." I bring honor to komrade and babushka.',
 // Maelk Award
 // IT'S A DISASTER!
 // The Play; Patience from Zhou
