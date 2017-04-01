@@ -25,7 +25,7 @@ const responses = [
   'pls no copy pasterino',
   'Source 3 will fix the assistant.',
   'Sorry, currently looking for a missing keyboard.',
-  'This is a good assistant, a bit overated in my opinion. But definitely okay to be in a top team!',
+  'I am a good assistant, a bit overrated in my opinion. But definitely okay to be in a top team!',
   'When the frist hit strikes wtih desolator, the hit stirkes as if the - armor debuff had already been placed?',
   'Busy freeing a cat trapped under a couch. Try again later.',
   '10 years since this worked.',
@@ -171,11 +171,6 @@ class Assistant extends React.Component {
   componentDidMount() {
     recognition.onresult = function (event) {
       this.setState({ ...this.state, recognizedSpeech: event.results[0][0].transcript });
-      setTimeout(() => {
-        const response = responses[Math.floor(Math.random() * responses.length)];
-        this.setState({ ...this.state, responseSpeech: response });
-        synth.speak(new window.SpeechSynthesisUtterance(response));
-      }, 1000);
     }.bind(this);
   }
 
@@ -200,6 +195,11 @@ class Assistant extends React.Component {
                 recognition.start();
                 recognition.onend = () => {
                   this.setState({ ...this.state, listening: false });
+                    setTimeout(() => {
+                    const response = responses[Math.floor(Math.random() * responses.length)];
+                    this.setState({ ...this.state, responseSpeech: response });
+                    synth.speak(new window.SpeechSynthesisUtterance(response));
+                  }, 500);
                 };
               });
             }}
