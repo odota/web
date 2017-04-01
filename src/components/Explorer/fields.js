@@ -242,7 +242,7 @@ AND abs(player_matches.player_slot - player_matches2.player_slot) < 10`,
     key: patch.name,
   })),
   hero: Object.keys(heroData).map(heroId => ({
-    text: heroData[heroId].localized_name,
+    text: `[${heroId}] ${heroData[heroId].localized_name}`,
     value: heroData[heroId].id,
     key: String(heroData[heroId].id),
   })),
