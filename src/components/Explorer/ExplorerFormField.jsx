@@ -29,26 +29,28 @@ class ExplorerFormField extends React.Component {
   render() {
     const { fields, label, builderField, builderContext, isDateField } = this.props;
     const dataSource = fields && fields[builderField];
+    const fieldWidth = 400;
     if (isDateField) {
-      return (<DatePicker
-        ref={ref => (this.datepicker = ref)}
-        floatingLabelText={label}
-        container="inline"
-        autoOk
-        defaultDate={builderContext.state.builder[builderField] ? new Date(builderContext.state.builder[builderField]) : undefined}
-        onShow={this.resetField}
-        onChange={(event, date) => {
-          builderContext.setState({
-            ...builderContext.state,
-            builder: {
-              ...builderContext.state.builder,
-              [builderField]: date.toISOString(),
-            },
-          }, builderContext.buildQuery);
-        }}
-      />);
+      return (<span style={{ width: fieldWidth }}>
+        <DatePicker
+          ref={ref => (this.datepicker = ref)}
+          floatingLabelText={label}
+          container="inline"
+          autoOk
+          defaultDate={builderContext.state.builder[builderField] ? new Date(builderContext.state.builder[builderField]) : undefined}
+          onShow={this.resetField}
+          onChange={(event, date) => {
+            builderContext.setState({
+              ...builderContext.state,
+              builder: {
+                ...builderContext.state.builder,
+                [builderField]: date.toISOString(),
+              },
+            }, builderContext.buildQuery);
+          }}
+        /></span>);
     }
-    return (<span style={{ width: 400 }}>
+    return (<span style={{ width: fieldWidth }}>
       <AutoComplete
         ref={ref => (this.autocomplete = ref)}
         searchText={builderContext.state.builder[builderField]

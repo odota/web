@@ -3,6 +3,8 @@ import strings from 'lang';
 import heroData from 'dotaconstants/build/heroes.json';
 import patchData from 'dotaconstants/build/patch.json';
 import itemData from 'dotaconstants/build/items.json';
+import regionData from 'dotaconstants/build/region.json';
+import clusterData from 'dotaconstants/build/cluster.json';
 
 const getItemSuffix = itemKey => (['_2', '_3', '_4', '_5'].some(suffix => itemKey.indexOf(suffix) !== -1) ? itemKey[itemKey.length - 1] : '');
 
@@ -258,6 +260,11 @@ AND abs(player_matches.player_slot - player_matches2.player_slot) < 10`,
   })),
   side: [{ text: strings.general_radiant, value: true, key: 'radiant' }, { text: strings.general_dire, value: false, key: 'dire' }],
   result: [{ text: strings.td_win, value: true, key: 'win' }, { text: strings.td_loss, value: false, key: 'loss' }],
+  region: Object.keys(regionData).map(regionKey => ({
+    text: regionData[regionKey],
+    value: Object.keys(clusterData).filter(key => String(clusterData[key]) === regionKey),
+    key: String(regionKey),
+  })),
   league: leagues.map(league => ({
     text: `[${league.leagueid}] ${league.name}`,
     value: league.leagueid,

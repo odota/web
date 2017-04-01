@@ -11,6 +11,7 @@ const queryTemplate = ({
   result,
   team,
   lanePos,
+  region,
   minDate,
   maxDate,
 }) => `SELECT
@@ -58,6 +59,7 @@ ${side ? `AND (player_matches.player_slot < 128) = ${side.value}` : ''}
 ${result ? `AND ((player_matches.player_slot < 128) = matches.radiant_win) = ${result.value}` : ''}
 ${team ? `AND notable_players.team_id = ${team.value}` : ''}
 ${lanePos ? `AND player_matches.lane_pos = ${lanePos.value}` : ''}
+${region ? `AND cluster IN (${region.value.join(',')})` : ''}
 ${minDate ? `AND matches.start_time >= ${Math.round(new Date(minDate.value) / 1000)}` : ''}
 ${maxDate ? `AND matches.start_time <= ${Math.round(new Date(maxDate.value) / 1000)}` : ''}
 ${group ? `GROUP BY ${group.value}` : ''}
@@ -66,6 +68,8 @@ ORDER BY ${
 [`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(select && select.order) || 'DESC'}`,
   group ? 'count DESC' : '',
 ].filter(Boolean).join(',')} NULLS LAST
-LIMIT 150`.replace(/\n{2,}/g, '\n');
+LIMIT 150`
+// Remove extra newlines
+.replace(/\n{2,}/g, '\n');
 
 export default queryTemplate;

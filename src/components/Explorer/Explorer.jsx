@@ -48,15 +48,14 @@ import fields from './fields';
 import autocomplete from './autocomplete';
 import styles from './Explorer.css';
 
-// TODO add region selector
 // TODO hero-player pairs
 // TODO player-player pairs
 // TODO prevent duplication if no filter applied in self-join queries
+// TODO picks/bans (picks_bans table)
 // TODO mega creep wins (matches table only)
-// TODO bans (picks_bans table)
 // TODO num matches played by team (team_match table)
 // TODO hero combos (3+)
-// TODO lane positions
+// TODO lane positions/lane roles
 // TODO num wards placed?
 // TODO num roshans killed?
 // TODO item build rates?
@@ -364,13 +363,21 @@ class Explorer extends React.Component {
           });
         }}
       />}
-      <div className={styles.formGroup}>
+      <div style={{ width: '180px', margin: '10px' }}>
+        <Toggle
+          label={strings.explorer_toggle_sql}
+          defaultToggled={this.state.showEditor}
+          onToggle={this.toggleEditor}
+        />
+      </div>
+      <div style={{ display: this.state.showEditor ? 'none' : 'flex' }} className={styles.formGroup}>
         <ExplorerFormField label={strings.explorer_select} fields={expandedFields} builderField="select" builderContext={this} />
         <ExplorerFormField label={strings.explorer_group_by} fields={expandedFields} builderField="group" builderContext={this} />
         <ExplorerFormField label={strings.explorer_hero} fields={expandedFields} builderField="hero" builderContext={this} />
         <ExplorerFormField label={strings.explorer_player} fields={expandedFields} builderField="player" builderContext={this} />
         <ExplorerFormField label={strings.explorer_team} fields={expandedFields} builderField="team" builderContext={this} />
         <ExplorerFormField label={strings.explorer_league} fields={expandedFields} builderField="league" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_region} fields={expandedFields} builderField="region" builderContext={this} />
         <ExplorerFormField label={strings.explorer_patch} fields={expandedFields} builderField="patch" builderContext={this} />
         <ExplorerFormField label={strings.explorer_duration} fields={expandedFields} builderField="duration" builderContext={this} />
         <ExplorerFormField label={strings.explorer_side} fields={expandedFields} builderField="side" builderContext={this} />
@@ -384,13 +391,6 @@ class Explorer extends React.Component {
         {/* <ExplorerFormField label={strings.explorer_lane_pos} fields={expandedFields} builderField="lanePos" builderContext={this} />*/}
         <ExplorerFormField label={strings.explorer_min_date} builderField="minDate" builderContext={this} isDateField />
         <ExplorerFormField label={strings.explorer_max_date} builderField="maxDate" builderContext={this} isDateField />
-        <span style={{ width: '180px', marginTop: '20px' }}>
-          <Toggle
-            label={strings.explorer_toggle_sql}
-            defaultToggled={this.state.showEditor}
-            onToggle={this.toggleEditor}
-          />
-        </span>
       </div>
       <div style={{ display: this.state.showEditor ? 'block' : 'none' }}>
         {this.state.loadingEditor && <Spinner />}

@@ -129,6 +129,7 @@
   "explorer_value": "Value",
   "explorer_category": "Category",
   "explorer_count": "Count",
+  "explorer_region": "Region",
 
   "farm_heroes": "Heroes killed",
   "farm_creeps": "Lane creeps killed",
