@@ -48,10 +48,7 @@ import fields from './fields';
 import autocomplete from './autocomplete';
 import styles from './Explorer.css';
 
-// TODO hero-player pairs
-// TODO player-player pairs
-// TODO prevent duplication if no filter applied in self-join queries
-// TODO picks/bans (picks_bans table)
+// TODO split picks/bans by phase
 // TODO mega creep wins (matches table only)
 // TODO num matches played by team (team_match table)
 // TODO hero combos (3+)

@@ -192,11 +192,47 @@ const fields = (players = [], leagues = [], teams = []) => ({
     groupValue: 1,
     groupKeySelect: 'player_matches.hero_id, player_matches2.hero_id hero_id2',
     groupKey: 'player_matches.hero_id, player_matches2.hero_id',
-    join: `JOIN player_matches player_matches2
+    joinFn: props => `JOIN player_matches player_matches2
 ON player_matches.match_id = player_matches2.match_id
 AND player_matches.hero_id != player_matches2.hero_id 
-AND abs(player_matches.player_slot - player_matches2.player_slot) < 10`,
+AND abs(player_matches.player_slot - player_matches2.player_slot) < 10
+${props.hero && props.hero.value ? '' : 'AND player_matches.hero_id < player_matches2.hero_id'}`,
     key: 'hero_combos',
+  },
+  {
+    text: strings.explorer_hero_player,
+    value: 1,
+    groupValue: 1,
+    groupKey: 'player_matches.hero_id, player_matches.account_id',
+    key: 'hero_player',
+  },
+  {
+    text: strings.explorer_player_player,
+    value: 1,
+    groupValue: 1,
+    groupKeySelect: 'player_matches.account_id, player_matches2.account_id account_id2',
+    groupKey: 'player_matches.account_id, player_matches2.account_id',
+    joinFn: props => `JOIN player_matches player_matches2
+ON player_matches.match_id = player_matches2.match_id
+AND player_matches.account_id != player_matches2.account_id 
+AND abs(player_matches.player_slot - player_matches2.player_slot) < 10
+${props.player && props.player.value ? '' : 'AND player_matches.account_id < player_matches2.account_id'}`,
+    key: 'player_player',
+  },
+  {
+    text: strings.explorer_picks_bans,
+    template: 'picks_bans',
+    key: 'picks_bans',
+    // picks_bans.team is 0 for radiant, 1 for dire
+    where: 'AND team_match.radiant::int != picks_bans.team',
+    value: 1,
+  },
+  {
+    text: strings.explorer_counter_picks_bans,
+    template: 'picks_bans',
+    key: 'counter_picks_bans',
+    where: 'AND team_match.radiant::int = picks_bans.team',
+    value: 1,
   },
   ]
     .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect)),
