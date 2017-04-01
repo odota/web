@@ -3,7 +3,10 @@ import Heading from 'components/Heading';
 import IconButton from 'material-ui/IconButton';
 import Mic from 'material-ui/svg-icons/av/mic';
 
-const responses = ['furion can you tp top'];
+const responses = [
+  'furion can you tp top', 
+  'Unfortunately, this voice assistant is an ass, and we won\'t be working with it again.'
+];
 const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
 recognition.lang = 'en-US';
 recognition.interimResults = false;
