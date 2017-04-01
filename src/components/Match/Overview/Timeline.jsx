@@ -38,17 +38,15 @@ const Timeline = ({
     let fbArr = [{ type: 'firstblood', time: match.first_blood_time || 0 }];
 
     if (fbIndex > -1) {
-      const fbKey = match.players.map(player =>
-        player.kills_log &&
-          player.kills_log.length > 0 &&
-          player.kills_log.filter(kill => kill.time === match.objectives[fbIndex].time),
-      ).filter(String).filter(Boolean);
+      const killerLog = match.players.find(player =>
+        player.player_slot === match.objectives[fbIndex].player_slot,
+      ).kills_log;
 
       fbArr = [{
         type: 'firstblood',
         time: match.objectives[fbIndex].time,
         player_slot: match.objectives[fbIndex].player_slot,
-        key: fbKey && fbKey.length > 0 && fbKey[0][0].key,
+        key: killerLog ? killerLog[0].key : null,
       }];
     }
 

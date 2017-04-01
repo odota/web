@@ -203,7 +203,8 @@ const localizedLane = {
   3: strings.lane_pos_3,
 };
 
-const getLaneScore = players => (Math.max(players.map(player => player.lane_efficiency)) || 0);
+const getLaneScore = players => (Math.max(...players.map(player => player.gold_t[10] || 0)) || 0);
+const laneScoreDraw = 500;
 
 class LaneStory {
   constructor(match, lane) {
@@ -211,6 +212,7 @@ class LaneStory {
     this.dire_players = match.players.filter(player => player.lane === parseInt(lane, 10) && !player.isRadiant && (!player.is_roaming));
     this.lane = lane;
     this.winning_team = getLaneScore(this.radiant_players) > getLaneScore(this.dire_players);
+    this.is_draw = Math.abs(getLaneScore(this.radiant_players) - getLaneScore(this.dire_players)) <= laneScoreDraw;
   }
   format() {
     // If there is nobody in this lane
@@ -222,11 +224,22 @@ class LaneStory {
     // If only one team is in this lane
     if (this.radiant_players.length === 0 || this.dire_players.length === 0) {
       return renderSentence(strings.story_lane_free, {
-        players: this.radiant_players.concat(this.dire_players),
+        players: formatList(this.radiant_players.concat(this.dire_players).map(PlayerSpan)),
         lane: localizedLane[this.lane],
       });
     }
     // If both teams are in this lane
+
+    // If it's close enough to be a draw
+    if (this.is_draw) {
+      return renderSentence(strings.story_lane_draw, {
+        radiant_players: formatList(this.radiant_players.map(PlayerSpan), strings.story_lane_empty),
+        dire_players: formatList(this.dire_players.map(PlayerSpan), strings.story_lane_empty),
+        lane: localizedLane[this.lane],
+      });
+    }
+
+    // If one team won
     return renderSentence(this.winning_team ? strings.story_lane_radiant_win : strings.story_lane_radiant_lose, {
       radiant_players: formatList(this.radiant_players.map(PlayerSpan), strings.story_lane_empty),
       dire_players: formatList(this.dire_players.map(PlayerSpan), strings.story_lane_empty),
@@ -288,8 +301,12 @@ class TowerEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
     this.is_deny = obj.type === 'CHAT_MESSAGE_TOWER_DENY';
-    this.team = obj.team !== 2; // We want the team that the tower belongs to, so get the opposite
     this.player = match.players.find(player => player.player_slot === obj.player_slot);
+    if (this.is_deny) {
+      this.team = this.player.isRadiant;
+    } else {
+      this.team = obj.team !== 2;
+    }
     if (!this.player) {
       this.template = strings.story_building_destroy;
     } else {
@@ -472,16 +489,14 @@ const generateStory = (match) => {
   let events = [];
 
   if (fbIndex > -1) {
-    const fbKey = match.players.map(player =>
-        player.kills_log &&
-        player.kills_log.length > 0 &&
-        player.kills_log.filter(kill => kill.time === match.objectives[fbIndex].time),
-    ).filter(String).filter(Boolean);
+    const killerLog = match.players.find(player =>
+      player.player_slot === match.objectives[fbIndex].player_slot,
+    ).kills_log;
 
     events.push(new FirstbloodEvent(match,
       match.objectives[fbIndex].time,
       match.objectives[fbIndex].player_slot,
-      fbKey && fbKey.length > 0 && fbKey[0][0].key));
+      killerLog ? killerLog[0].key : null));
   }
 
 
