@@ -6,14 +6,14 @@ import Mic from 'material-ui/svg-icons/av/mic';
 // Test
 // window.speechSynthesis.speak(new window.SpeechSynthesisUtterance('some text here'))
 const responses = [
-  'furion can you tp top furion can you tp top furion can you tp top furion can you tp top',
+  'Did you say furion can you tp top furion can you tp top furion can you tp top furion can you tp top',
   'Unfortunately, this software is an ass, and we won\'t be working with it again.',
   'Sorry, I am currently busy placing a bet of $322 on a professional game.',
   'Despite the odds, I was hit by a Sheever ravage and is currently unavailable',
   'Currently stuck in a PGG Black Hole.  Please try again later.',
   'This will start working soon, it will!  Wow!',
   'wwwwwwwwwwwww',
-  'Nobody has ever said that in the history of Dota',
+  'No one has ever said that in the history of Dota',
   '10% of capacity was diverted and your request cannot be served at this time.',
   'I am currently unavailable for pressing ceremonial reasons.',
   'Sorry, I am still in beta. The technology is not there yet.',
@@ -53,6 +53,13 @@ const responses = [
   'From the Ghastly Eyrie I can see to the ends of the world, and from this vantage point I declare with utter certainty that this one is in the bag!',
   'KA LE',
   'Sorry, not finished farming yet.',
+  'we lost',
+  'LMFAO wHo cAREAS HAHA Xd.',
+  'Don\'t questionmark me',
+  'Delete your lies and apologize',
+  'Your stick your stick your stick, drop your stick',
+  'nice la',
+  'It\'s a disastah',
 //'They storm up the river, patience from Zhou, waiting in the wings, NaVi\'s about to be caught.
 //Oh there\'s the sleep, the surge, he catches everyone! Oh this could be a total disaster!
 //Vacuum in, ravage on everyone, here\'s the Black Hole as well. LightOfHeaven, he turns it around, ravage as well, stolen by Dendi.
