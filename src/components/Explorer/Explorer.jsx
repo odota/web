@@ -181,7 +181,7 @@ function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping,
   }
   return (
     <Table
-      data={rows || []}
+      data={(rows || []).slice(0, 1000)}
       columns={(fields || []).map(column => ({
         displayName: column.name,
         field: column.name,
