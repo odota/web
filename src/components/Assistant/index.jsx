@@ -195,7 +195,7 @@ class Assistant extends React.Component {
                 recognition.start();
                 recognition.onend = () => {
                   this.setState({ ...this.state, listening: false });
-                    setTimeout(() => {
+                  setTimeout(() => {
                     const response = responses[Math.floor(Math.random() * responses.length)];
                     this.setState({ ...this.state, responseSpeech: response });
                     synth.speak(new window.SpeechSynthesisUtterance(response));
