@@ -281,6 +281,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
   })),
   hero: Object.keys(heroData).map(heroId => ({
     text: `[${heroId}] ${heroData[heroId].localized_name}`,
+    searchText: heroData[heroId].localized_name,
     value: heroData[heroId].id,
     key: String(heroData[heroId].id),
   })),
@@ -291,11 +292,28 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
   })),
   duration: [10, 20, 30, 40, 50].map(duration => ({
     text: `> ${util.format(strings.time_mm, duration)}`,
+    searchText: util.format(strings.time_mm, duration),
     value: duration * 60,
     key: String(duration),
   })),
-  side: [{ text: strings.general_radiant, value: true, key: 'radiant' }, { text: strings.general_dire, value: false, key: 'dire' }],
-  result: [{ text: strings.td_win, value: true, key: 'win' }, { text: strings.td_loss, value: false, key: 'loss' }],
+  side: [{
+    text: strings.general_radiant,
+    value: true,
+    key: 'radiant',
+  }, {
+    text: strings.general_dire,
+    value: false,
+    key: 'dire',
+  }],
+  result: [{
+    text: strings.td_win,
+    value: true,
+    key: 'win',
+  }, {
+    text: strings.td_loss,
+    value: false,
+    key: 'loss',
+  }],
   region: Object.keys(regionData).map(regionKey => ({
     text: regionData[regionKey],
     value: Object.keys(clusterData).filter(key => String(clusterData[key]) === regionKey),
@@ -303,16 +321,19 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
   })),
   league: leagues.map(league => ({
     text: `[${league.leagueid}] ${league.name}`,
+    searchText: league.name,
     value: league.leagueid,
     key: String(league.leagueid),
   })),
   team: teams.map(team => ({
     text: `[${team.team_id}] ${team.name}`,
+    searchText: team.name,
     value: team.team_id,
     key: String(team.team_id),
   })),
   player: players.map(player => ({
     text: `[${player.account_id}] ${player.name}`,
+    searchText: player.name,
     value: player.account_id,
     key: String(player.account_id),
   })),

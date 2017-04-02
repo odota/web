@@ -8,7 +8,6 @@ import fetch from 'isomorphic-fetch';
 import Spinner from 'components/Spinner';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import AutoComplete from 'material-ui/AutoComplete';
 import Toggle from 'material-ui/Toggle';
 import {
   Link,
@@ -41,12 +40,14 @@ import matchStyles from 'components/Match/Match.css';
 import querystring from 'querystring';
 import json2csv from 'json2csv';
 import heroes from 'dotaconstants/build/heroes.json';
+import debounce from 'lodash.debounce';
 import queryTemplate from './queryTemplate';
 import ExplorerFormField from './ExplorerFormField';
 import ExplorerOutputButton from './ExplorerOutputButton';
 import fields from './fields';
 import autocomplete from './autocomplete';
 import redrawGraphs from './redrawGraphs';
+import editDistance from './editDistance';
 import styles from './Explorer.css';
 
 // TODO split picks/bans by phase
@@ -161,6 +162,56 @@ function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping,
     />);
 }
 
+function drawOmnibox(context, expandedFields) {
+  return (<TextField
+    style={{ display: 'block' }}
+    floatingLabelText="Omnibox"
+    onChange={debounce((event, value) => {
+      // Sample input 'dendi antimage'
+      // Iterate over the fields and phrase tokens
+      // Keep track of the best match for each field + token
+      // TODO handle multi-word phrases like 'evil geniuses', 'gold per min'
+      const result = [];
+      Object.keys(expandedFields).forEach((field) => {
+        value.split(' ').forEach((token) => {
+          const distances = expandedFields[field].map(element => ({
+            field,
+            token,
+            searchText: element.searchText,
+            key: element.key,
+            editDistance: editDistance(token.toLowerCase(), (element.searchText || element.text).toLowerCase()),
+          }));
+          distances.sort((a, b) => a.editDistance - b.editDistance);
+          const bestMatch = distances[0];
+          result.push(bestMatch);
+        });
+      });
+      // TODO order by field keys for precedence (e.g. hero should match before player, use as tiebreak for equal distance)
+      result.sort((a, b) => a.editDistance - b.editDistance);
+      // For each field, pick the best token. A token can't be used more than once.
+      // Minimizing the total is N*M time where N is the number of fields and M is the number of words
+      // Apply state update with best fit (matchedBuilder)
+      console.log(result);
+      const alreadyUsedTokens = {};
+      const alreadyUsedFields = {};
+      const matchedBuilder = {};
+      Object.keys(expandedFields).forEach(() => {
+        for (let i = 0; i < result.length; i += 1) {
+          const element = result[i];
+          if (!alreadyUsedTokens[element.token] && !alreadyUsedFields[element.field]) {
+            matchedBuilder[element.field] = element.key;
+            alreadyUsedTokens[element.token] = true;
+            alreadyUsedFields[element.field] = true;
+            break;
+          }
+        }
+      });
+      console.log(matchedBuilder);
+      context.setState({ ...context.state, builder: { ...matchedBuilder } });
+    }, 1000)}
+  />);
+}
+
 class Explorer extends React.Component {
   constructor() {
     super();
@@ -273,22 +324,8 @@ class Explorer extends React.Component {
     return (<div>
       <Helmet title={strings.title_explorer} />
       <Heading title={strings.explorer_title} subtitle={strings.explorer_description} />
-      {<TextField
-        style={{ display: 'none' }} floatingLabelText="Omnibox" onChange={(event, value) => {
-          console.log(value, expandedFields);
-        // Fuzzy match against all inputs
-        // TODO tokenize the input string by space
-        // TODO order the keys for precedence
-        // TODO set min threshold on fuzziness (levenshtein)
-          Object.keys(expandedFields).some((key) => {
-            const match = expandedFields[key].find(element => AutoComplete.fuzzyFilter(value, element.text));
-          // Apply state update with match
-            this.setState({ ...this.state, builder: { ...this.state.builder, [key]: match.key } });
-            return Boolean(match);
-          });
-        }}
-      />}
       <div style={{ width: '180px', margin: '10px' }}>
+        <div>{drawOmnibox(this, expandedFields)}</div>
         <Toggle
           label={strings.explorer_toggle_sql}
           defaultToggled={this.state.showEditor}
@@ -318,7 +355,6 @@ class Explorer extends React.Component {
         <ExplorerFormField label={strings.explorer_max_date} builderField="maxDate" context={this} isDateField />
       </div>
       <div style={{ display: this.state.showEditor ? 'block' : 'none' }}>
-        {this.state.loadingEditor && <Spinner />}
         <div
           id={'editor'}
           style={{
@@ -334,30 +370,10 @@ class Explorer extends React.Component {
         onClick={this.handleQuery}
       />
       <span style={{ float: 'right' }}>
-        <ExplorerOutputButton
-          secondary={!this.state.builder.format || this.state.builder.format === 'table'}
-          label={strings.explorer_table_button}
-          format="table"
-          context={this}
-        />
-        <ExplorerOutputButton
-          secondary={this.state.builder.format === 'donut'}
-          label={strings.explorer_donut_button}
-          format="donut"
-          context={this}
-        />
-        <ExplorerOutputButton
-          secondary={this.state.builder.format === 'bar'}
-          label={strings.explorer_bar_button}
-          format="bar"
-          context={this}
-        />
-        <ExplorerOutputButton
-          secondary={this.state.builder.format === 'timeseries'}
-          label={strings.explorer_timeseries_button}
-          format="timeseries"
-          context={this}
-        />
+        <ExplorerOutputButton defaultSelected label={strings.explorer_table_button} format="table" context={this} />
+        <ExplorerOutputButton label={strings.explorer_donut_button} format="donut" context={this} />
+        <ExplorerOutputButton label={strings.explorer_bar_button} format="bar" context={this} />
+        <ExplorerOutputButton label={strings.explorer_timeseries_button} format="timeseries" context={this} />
         <ExplorerOutputButton
           label={strings.explorer_csv_button}
           href={`data:application/octet-stream,${encodeURIComponent(json2csv({
@@ -365,15 +381,18 @@ class Explorer extends React.Component {
             fields: (this.state.result.fields || []).map(field => field.name),
           }))}`}
           download="data.csv"
+          context={this}
         />
         <ExplorerOutputButton
           label={strings.explorer_json_button}
           href={`data:application/octet-stream,${encodeURIComponent(JSON.stringify(this.state.result.rows, null, 2))}`}
           download="data.json"
+          context={this}
         />
         <ExplorerOutputButton
           label={strings.explorer_api_button}
           onClick={() => window.open(`${API_HOST}/api/explorer?sql=${encodeURIComponent(this.getSqlString())}`, '_blank')}
+          context={this}
         />
       </span>
       <Heading title={strings.explorer_results} subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`} />

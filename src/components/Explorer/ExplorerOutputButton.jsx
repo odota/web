@@ -1,17 +1,24 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const ExplorerOutputButton = ({ secondary, label, format, href, download, onClick, context }) => {
-  const defaultClickFn = () => {
-    context.setState({ ...context.state, builder: { ...context.state.builder, format } }, context.syncWindowHistory);
-  };
+const ExplorerOutputButton = ({ defaultSelected, label, format, href, download, onClick, context }) => {
+  let clickFn;
+  if (onClick) {
+    clickFn = onClick;
+  } else if (format) {
+    clickFn = () => {
+      context.setState({ ...context.state, builder: { ...context.state.builder, format } }, context.syncWindowHistory);
+    };
+  } else {
+    clickFn = noOp => noOp;
+  }
   return (<RaisedButton
-    secondary={secondary}
+    secondary={format && ((defaultSelected && !context.state.builder.format) || context.state.builder.format === format)}
     style={{ margin: '5px' }}
     label={label}
     href={href}
     download={download}
-    onClick={onClick || defaultClickFn}
+    onClick={clickFn}
   />);
 };
 
