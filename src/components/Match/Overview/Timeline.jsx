@@ -46,7 +46,7 @@ const Timeline = ({
         type: 'firstblood',
         time: match.objectives[fbIndex].time,
         player_slot: match.objectives[fbIndex].player_slot,
-        key: killerLog ? killerLog[0].key : null,
+        key: killerLog && killerLog[0] ? killerLog[0].key : null,
       }];
     }
 
