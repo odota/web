@@ -40,12 +40,13 @@ import { IconRadiant, IconDire } from 'components/Icons';
 import matchStyles from 'components/Match/Match.css';
 import querystring from 'querystring';
 import json2csv from 'json2csv';
-import c3 from 'c3';
 import heroes from 'dotaconstants/build/heroes.json';
 import queryTemplate from './queryTemplate';
 import ExplorerFormField from './ExplorerFormField';
+import ExplorerOutputButton from './ExplorerOutputButton';
 import fields from './fields';
 import autocomplete from './autocomplete';
+import redrawGraphs from './redrawGraphs';
 import styles from './Explorer.css';
 
 // TODO split picks/bans by phase
@@ -79,76 +80,6 @@ function expandBuilderState(builder, fields) {
   return expandedBuilder;
 }
 
-function redrawGraphs(rows, field, yAxis) {
-  const hasSum = rows[0] && rows[0].sum;
-  const hasAvg = rows[0] && rows[0].avg;
-  c3.generate({
-    bindto: '#donut',
-    data: {
-      type: 'donut',
-      columns: hasSum ? rows.map(row => [row[field], row.sum]) : [],
-      empty: { label: { text: strings.explorer_chart_unavailable } },
-    },
-    donut: {
-      title: hasSum ? `${strings.th_sum} - ${yAxis} - ${field}` : '',
-    },
-    legend: {
-      show: false,
-    },
-  });
-  rows.sort((a, b) => b.sum - a.sum);
-  c3.generate({
-    bindto: '#bar',
-    data: {
-      type: 'bar',
-      columns: [
-        hasSum ? [strings.th_sum].concat(rows.map(row => row.sum)) : null,
-        hasAvg ? [strings.th_average].concat(rows.map(row => row.avg)) : null,
-      ].filter(Boolean),
-      empty: { label: { text: strings.explorer_chart_unavailable } },
-    },
-    axis: {
-      x: {
-        type: 'category',
-        categories: rows.map(row => row[field]),
-        tick: {
-          // format: i => i,
-        },
-        label: field,
-      },
-      y: {
-        label: yAxis || strings.explorer_count,
-      },
-    },
-    tooltip: {
-      format: {
-          // title: i => i,
-      },
-    },
-  });
-  rows.sort((a, b) => a[field] - b[field]);
-  c3.generate({
-    bindto: '#timeseries',
-    data: {
-      type: 'spline',
-      columns: [
-        hasAvg ? [strings.th_average].concat(rows.map(row => row.avg)) : null,
-      ].filter(Boolean),
-      empty: { label: { text: strings.explorer_chart_unavailable } },
-    },
-    axis: {
-      x: {
-        type: 'category',
-        categories: rows.map(row => row[field]),
-        label: field,
-      },
-      y: {
-        label: yAxis || strings.explorer_count,
-      },
-    },
-  });
-}
-
 function resolveId(key, value, mappings) {
   if (key === 'hero_id') {
     return (heroes[value] || {}).localized_name;
@@ -167,7 +98,7 @@ function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping,
       redrawGraphs(rows.map(row => ({
         ...row,
         [firstCol]: resolveId(firstCol, row[firstCol], { teamMapping, playerMapping }) }
-      )), firstCol, expandedBuilder.select && expandedBuilder.select.key);
+      )), firstCol, (expandedBuilder.select && expandedBuilder.select.key) || strings.th_count);
       currRows = rows;
       currFormat = format;
     }
@@ -262,15 +193,13 @@ class Explorer extends React.Component {
     this.props.dispatchLeagues();
     this.props.dispatchTeams();
     getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js', () => {
-      getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js', () => {
-        fetch(`${API_HOST}/api/schema`).then(jsonResponse).then(this.instantiateEditor);
-      });
+      getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js', this.instantiateEditor);
     });
   }
   getSqlString() {
     return this.editor.getSelectedText() || this.editor.getValue();
   }
-  instantiateEditor(schema) {
+  instantiateEditor() {
     const editor = ace.edit('editor');
     editor.setTheme('ace/theme/monokai');
     editor.getSession().setMode('ace/mode/sql');
@@ -280,16 +209,17 @@ class Explorer extends React.Component {
       maxLines: Infinity,
       enableLiveAutocompletion: true,
     });
-    editor.completers = [autocomplete(schema)];
+    fetch(`${API_HOST}/api/schema`).then(jsonResponse).then((schema) => {
+      editor.completers = [autocomplete(schema)];
+    });
     this.editor = editor;
     const sql = this.props && this.props.location && this.props.location.query && this.props.location.query.sql;
     if (sql) {
       editor.setValue(decodeURIComponent(sql));
-      this.handleQuery();
     } else {
       this.buildQuery();
-      this.handleQuery();
     }
+    this.handleQuery();
     this.setState({ ...this.state,
       loadingEditor: false,
     });
@@ -323,10 +253,8 @@ class Explorer extends React.Component {
   }
   buildQuery() {
     // Note that this will not get expanded data for API-dependent fields (player/league/team)
-    // This is ok if we only need the value prop.
+    // This is ok if we only need the value prop (e.g. an id to build the query with)
     const expandedBuilder = expandBuilderState(this.state.builder, fields());
-    console.log(this.state.builder, expandedBuilder);
-    // console.log(this.state.builder, expandedBuilder);
     this.editor.setValue(queryTemplate(expandedBuilder));
   }
   render() {
@@ -368,26 +296,26 @@ class Explorer extends React.Component {
         />
       </div>
       <div style={{ display: this.state.showEditor ? 'none' : 'flex' }} className={styles.formGroup}>
-        <ExplorerFormField label={strings.explorer_select} fields={expandedFields} builderField="select" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_group_by} fields={expandedFields} builderField="group" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_hero} fields={expandedFields} builderField="hero" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_player} fields={expandedFields} builderField="player" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_team} fields={expandedFields} builderField="team" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_league} fields={expandedFields} builderField="league" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_region} fields={expandedFields} builderField="region" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_patch} fields={expandedFields} builderField="patch" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_duration} fields={expandedFields} builderField="duration" builderContext={this} />
-        <ExplorerFormField label={strings.explorer_side} fields={expandedFields} builderField="side" builderContext={this} />
-        <ExplorerFormField label={strings.th_result} fields={expandedFields} builderField="result" builderContext={this} />
+        <ExplorerFormField label={strings.explorer_select} fields={expandedFields} builderField="select" context={this} />
+        <ExplorerFormField label={strings.explorer_group_by} fields={expandedFields} builderField="group" context={this} />
+        <ExplorerFormField label={strings.explorer_hero} fields={expandedFields} builderField="hero" context={this} />
+        <ExplorerFormField label={strings.explorer_player} fields={expandedFields} builderField="player" context={this} />
+        <ExplorerFormField label={strings.explorer_team} fields={expandedFields} builderField="team" context={this} />
+        <ExplorerFormField label={strings.explorer_league} fields={expandedFields} builderField="league" context={this} />
+        <ExplorerFormField label={strings.explorer_region} fields={expandedFields} builderField="region" context={this} />
+        <ExplorerFormField label={strings.explorer_patch} fields={expandedFields} builderField="patch" context={this} />
+        <ExplorerFormField label={strings.explorer_duration} fields={expandedFields} builderField="duration" context={this} />
+        <ExplorerFormField label={strings.explorer_side} fields={expandedFields} builderField="side" context={this} />
+        <ExplorerFormField label={strings.th_result} fields={expandedFields} builderField="result" context={this} />
         <ExplorerFormField
           label={strings.explorer_player_purchased}
           fields={expandedFields}
           builderField="playerPurchased"
-          builderContext={this}
+          context={this}
         />
-        {/* <ExplorerFormField label={strings.explorer_lane_pos} fields={expandedFields} builderField="lanePos" builderContext={this} />*/}
-        <ExplorerFormField label={strings.explorer_min_date} builderField="minDate" builderContext={this} isDateField />
-        <ExplorerFormField label={strings.explorer_max_date} builderField="maxDate" builderContext={this} isDateField />
+        {/* <ExplorerFormField label={strings.explorer_lane_pos} fields={expandedFields} builderField="lanePos" context={this} />*/}
+        <ExplorerFormField label={strings.explorer_min_date} builderField="minDate" context={this} isDateField />
+        <ExplorerFormField label={strings.explorer_max_date} builderField="maxDate" context={this} isDateField />
       </div>
       <div style={{ display: this.state.showEditor ? 'block' : 'none' }}>
         {this.state.loadingEditor && <Spinner />}
@@ -406,40 +334,31 @@ class Explorer extends React.Component {
         onClick={this.handleQuery}
       />
       <span style={{ float: 'right' }}>
-        <RaisedButton
+        <ExplorerOutputButton
           secondary={!this.state.builder.format || this.state.builder.format === 'table'}
-          style={{ margin: '5px' }}
           label={strings.explorer_table_button}
-          onClick={() => {
-            this.setState({ ...this.state, builder: { ...this.state.builder, format: 'table' } }, this.syncWindowHistory);
-          }}
+          format="table"
+          context={this}
         />
-        <RaisedButton
+        <ExplorerOutputButton
           secondary={this.state.builder.format === 'donut'}
-          style={{ margin: '5px' }}
           label={strings.explorer_donut_button}
-          onClick={() => {
-            this.setState({ ...this.state, builder: { ...this.state.builder, format: 'donut' } }, this.syncWindowHistory);
-          }}
+          format="donut"
+          context={this}
         />
-        <RaisedButton
+        <ExplorerOutputButton
           secondary={this.state.builder.format === 'bar'}
-          style={{ margin: '5px' }}
           label={strings.explorer_bar_button}
-          onClick={() => {
-            this.setState({ ...this.state, builder: { ...this.state.builder, format: 'bar' } }, this.syncWindowHistory);
-          }}
+          format="bar"
+          context={this}
         />
-        <RaisedButton
+        <ExplorerOutputButton
           secondary={this.state.builder.format === 'timeseries'}
-          style={{ margin: '5px' }}
           label={strings.explorer_timeseries_button}
-          onClick={() => {
-            this.setState({ ...this.state, builder: { ...this.state.builder, format: 'timeseries' } }, this.syncWindowHistory);
-          }}
+          format="timeseries"
+          context={this}
         />
-        <RaisedButton
-          style={{ margin: '5px' }}
+        <ExplorerOutputButton
           label={strings.explorer_csv_button}
           href={`data:application/octet-stream,${encodeURIComponent(json2csv({
             data: this.state.result.rows || [],
@@ -447,14 +366,12 @@ class Explorer extends React.Component {
           }))}`}
           download="data.csv"
         />
-        <RaisedButton
-          style={{ margin: '5px' }}
+        <ExplorerOutputButton
           label={strings.explorer_json_button}
           href={`data:application/octet-stream,${encodeURIComponent(JSON.stringify(this.state.result.rows, null, 2))}`}
           download="data.json"
         />
-        <RaisedButton
-          style={{ margin: '5px' }}
+        <ExplorerOutputButton
           label={strings.explorer_api_button}
           onClick={() => window.open(`${API_HOST}/api/explorer?sql=${encodeURIComponent(this.getSqlString())}`, '_blank')}
         />
