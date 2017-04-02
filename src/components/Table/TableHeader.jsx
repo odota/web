@@ -17,4 +17,12 @@ const TableHeader = ({ columns, sortState, sortField, sortClick, totalWidth }) =
   </MaterialTableRow>
 );
 
+TableHeader.propTypes = {
+  columns: React.PropTypes.array,
+  sortState: React.PropTypes.string,
+  sortField: React.PropTypes.string,
+  sortClick: React.PropTypes.string,
+  totalWidth: React.PropTypes.number,
+};
+
 export default TableHeader;
