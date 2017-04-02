@@ -164,7 +164,7 @@ function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping,
 
 function drawOmnibox(context, expandedFields) {
   return (<TextField
-    style={{ display: 'block' }}
+    style={{ display: 'none' }}
     floatingLabelText="Omnibox"
     onChange={debounce((event, value) => {
       // Sample input 'dendi antimage'
