@@ -12,7 +12,7 @@ export default function editDistance(a, b) {
 
   // increment each column in the first row
   let j;
-  for (j = 0; j <= a.length; j++) {
+  for (j = 0; j <= a.length; j += 1) {
     matrix[0][j] = j;
   }
 
