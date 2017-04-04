@@ -91,7 +91,7 @@ ORDER BY ${
 [`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(select && select.order) || 'DESC'}`,
   group ? 'count DESC' : '',
 ].filter(Boolean).join(',')} NULLS LAST
-LIMIT 150`;
+LIMIT 200`;
   }
   return query
   // Remove extra newlines
