@@ -50,7 +50,7 @@ export const defaultPlayerMatchesOptions = {
   ],
 };
 
-export const getPlayerMatches = (playerId, options = {}) => (dispatch, getState) => {
+export const getPlayerMatches = (playerId, options = {}) => (dispatch) => {
   const modifiedOptions = {
     ...defaultPlayerMatchesOptions,
     ...options,

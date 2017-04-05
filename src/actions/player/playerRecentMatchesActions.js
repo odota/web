@@ -33,7 +33,7 @@ export const getPlayerRecentMatchesError = (payload, id) => ({
   id,
 });
 
-export const getPlayerRecentMatches = (playerId, options = {}) => (dispatch, getState) => {
+export const getPlayerRecentMatches = (playerId, options = {}) => (dispatch) => {
   dispatch(getPlayerRecentMatchesRequest(playerId));
   return fetch(`${API_HOST}${getUrl(playerId, options, url)}`)
     .then(response => response.json())
