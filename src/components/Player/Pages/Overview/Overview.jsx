@@ -2,12 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import strings from 'lang';
 import {
+  getPlayerCounts,
   getPlayerMatches,
   getPlayerHeroes,
   getPlayerPeers,
   getPvgnaHeroGuides,
 } from 'actions';
 import {
+  playerCounts,
   playerMatches,
   playerHeroes,
   playerPeers,
@@ -17,6 +19,7 @@ import {
 } from 'reducers/pvgnaGuides';
 import Table from 'components/Table';
 import Container from 'components/Container';
+import { playerCountsOverviewColumns } from 'components/Player/Pages/Counts/playerCountsColumns';
 import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesColumns';
 import { playerHeroesOverviewColumns } from 'components/Player/Pages/Heroes/playerHeroesColumns';
 import { playerPeersOverviewColumns } from 'components/Player/Pages/Peers/playerPeersColumns';
@@ -26,11 +29,14 @@ import styles from './Overview.css';
 import sumStyles from './Summary.css';
 import SummOfRecMatches from './Summary';
 
-export const MAX_MATCHES_ROWS = 20;
+export const MAX_MATCHES_ROWS = 25;
 const MAX_HEROES_ROWS = 10;
 const MAX_PEERS_ROWS = 5;
 
 const Overview = ({
+  countsData,
+  countsLoading,
+  countsError,
   matchesData,
   matchesLoading,
   matchesError,
@@ -52,6 +58,7 @@ const Overview = ({
     >
       <SummOfRecMatches matchesData={matchesData} />
     </Container>
+
     <Container
       title={strings.heading_matches}
       className={styles.matchesContainer}
@@ -89,11 +96,23 @@ const Overview = ({
           maxRows={MAX_HEROES_ROWS}
         />
       </Container>
+
+      <Container
+        title={strings.tab_counts}
+        loading={countsLoading}
+        error={countsError}
+      >
+        <Table
+          columns={playerCountsOverviewColumns}
+          data={countsData}
+        />
+      </Container>
     </div>
   </div>
 );
 
 const getData = (props) => {
+  props.getPlayerCounts(props.playerId, props.location.query);
   props.getPlayerMatches(props.playerId, { ...props.location.query,
     limit: MAX_MATCHES_ROWS,
     significant: 0,
@@ -133,7 +152,54 @@ const mergeHeroGuides = (heroes, heroGuides) => heroes.map(hero => ({
   pvgnaGuide: heroGuides[hero.hero_id],
 }));
 
+const filterCounts = (counts) => {
+  const countMap = {
+    is_radiant: [],
+    game_mode: [],
+    patch: [],
+    region: [],
+  };
+
+  const limitCount = (key, field, lim) =>
+    counts[key].list.sort((a, b) => (
+      a[field] <= b[field] ? 1 : -1
+    )).slice(0, lim);
+
+  Object.keys(counts).forEach((key) => {
+    switch (key) {
+      case 'is_radiant':
+        countMap[key] = counts[key].list;
+        break;
+
+      case 'game_mode':
+        countMap[key] = limitCount(key, 'matches', 1);
+        break;
+
+      case 'patch':
+        countMap[key] = limitCount(key, 'category', 1);
+        break;
+
+      case 'region':
+        countMap[key] = limitCount(key, 'matches', 3);
+        break;
+
+      default:
+        break;
+    }
+  });
+
+  return [
+    ...countMap.is_radiant,
+    ...countMap.game_mode,
+    ...countMap.patch,
+    ...countMap.region,
+  ];
+};
+
 const mapStateToProps = (state, { playerId }) => ({
+  countsData: filterCounts(playerCounts.getOnlyData(state, playerId)),
+  countsLoading: playerCounts.getLoading(state, playerId),
+  countsError: playerCounts.getError(state, playerId),
   matchesData: playerMatches.getMatchList(state, playerId),
   matchesLoading: playerMatches.getLoading(state, playerId),
   matchesError: playerMatches.getError(state, playerId),
@@ -146,6 +212,7 @@ const mapStateToProps = (state, { playerId }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  getPlayerCounts: (playerId, options) => dispatch(getPlayerCounts(playerId, options)),
   getPlayerMatches: (playerId, options) => dispatch(getPlayerMatches(playerId, options)),
   getPlayerHeroes: (playerId, options) => dispatch(getPlayerHeroes(playerId, options)),
   getPlayerPeers: (playerId, options) => dispatch(getPlayerPeers(playerId, options)),
