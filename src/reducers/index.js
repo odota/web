@@ -23,6 +23,7 @@ import gotPlayer, {
   playerWardmap,
   playerWordcloud,
   playerTrends,
+  playerRecentMatches,
 } from 'reducers/gotPlayer';
 import form, { getForm } from 'reducers/form';
 import request from 'reducers/request';
@@ -50,6 +51,7 @@ export {
   playerWardmap,
   playerWordcloud,
   playerTrends,
+  playerRecentMatches,
   getProPlayers as proPlayers,
   getProMatches as proMatches,
   getForm as form,

@@ -1,9 +1,6 @@
 /* global API_HOST */
 import fetch from 'isomorphic-fetch';
 import {
-  playerMatches,
-} from 'reducers';
-import {
   getUrl,
 } from 'actions/utility';
 
@@ -24,11 +21,10 @@ export const getPlayerMatchesRequest = id => ({
   id,
 });
 
-export const getPlayerMatchesOk = (payload, id, maxSize) => ({
+export const getPlayerMatchesOk = (payload, id) => ({
   type: OK,
   payload,
   id,
-  maxSize,
 });
 
 export const getPlayerMatchesError = (payload, id) => ({
@@ -54,23 +50,14 @@ export const defaultPlayerMatchesOptions = {
   ],
 };
 
-export const getPlayerMatches = (playerId, options = {}, getAllData, forceRefresh) => (dispatch, getState) => {
+export const getPlayerMatches = (playerId, options = {}) => (dispatch, getState) => {
   const modifiedOptions = {
     ...defaultPlayerMatchesOptions,
     ...options,
   };
-
-  if (playerMatches.isLoaded(getState(), playerId)) {
-    if (playerMatches.isMaxSize(getState(), playerId) && !forceRefresh) {
-      return dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId, getAllData));
-    }
-    dispatch(getPlayerMatchesOk(playerMatches.getMatchList(getState(), playerId), playerId, false));
-  } else {
-    dispatch(getPlayerMatchesRequest(playerId));
-  }
-
+  dispatch(getPlayerMatchesRequest(playerId));
   return fetch(`${API_HOST}${getUrl(playerId, modifiedOptions, url)}`)
     .then(response => response.json())
-    .then(json => dispatch(getPlayerMatchesOk(json, playerId, getAllData)))
+    .then(json => dispatch(getPlayerMatchesOk(json, playerId)))
     .catch(error => dispatch(getPlayerMatchesError(error, playerId)));
 };
