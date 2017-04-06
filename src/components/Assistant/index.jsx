@@ -2,6 +2,9 @@ import React from 'react';
 import Heading from 'components/Heading';
 import IconButton from 'material-ui/IconButton';
 import Mic from 'material-ui/svg-icons/av/mic';
+import { browserHistory } from 'react-router';
+import { getSearchResultAndPros } from 'actions';
+import { connect } from 'react-redux';
 
 // Test
 // window.speechSynthesis.speak(new window.SpeechSynthesisUtterance('some text here'))
@@ -177,6 +180,8 @@ const responses = [
 
 let recognition;
 let synth;
+const subtitle = 'Your personal voice assistant to the world of Dota 2. Click the microphone and start speaking.' +
+    ' You can search players by saying "Search [player name]" e.g. "Search Arteezy".';
 
 class Assistant extends React.Component {
   constructor() {
@@ -194,9 +199,17 @@ class Assistant extends React.Component {
     }.bind(this);
   }
 
+  formSubmit(e) {
+    const { query } = this.state;
+
+    e.preventDefault();
+    browserHistory.push(`/search?q=${query}`);
+    this.props.dispatchSearch(query);
+  }
+
   render() {
     return (<div>
-      <Heading title="Voice Assistant" subtitle="Your personal voice assistant to the world of Dota 2. Click the microphone and start speaking." />
+      <Heading title="Voice Assistant" subtitle={subtitle} />
       <div style={{ textAlign: 'center' }}>
         <div>
           <IconButton
@@ -216,9 +229,17 @@ class Assistant extends React.Component {
                 recognition.onend = () => {
                   this.setState({ ...this.state, listening: false });
                   setTimeout(() => {
-                    const response = responses[Math.floor(Math.random() * responses.length)];
-                    this.setState({ ...this.state, responseSpeech: response });
-                    synth.speak(new window.SpeechSynthesisUtterance(response));
+                    const regText = this.state.recognizedSpeech.split(' ');
+                    if (regText.length !== 0 && regText[0].toLowerCase() === 'search') {
+                      regText.splice(0, 1);
+                      const query = regText.join(' ');
+                      browserHistory.push(`/search?q=${query}`);
+                      this.props.dispatchSearch(query);
+                    } else {
+                      const response = responses[Math.floor(Math.random() * responses.length)];
+                      this.setState({ ...this.state, responseSpeech: response });
+                      synth.speak(new window.SpeechSynthesisUtterance(response));
+                    }
                   }, 500);
                 };
               });
@@ -234,4 +255,7 @@ class Assistant extends React.Component {
   }
 }
 
-export default Assistant;
+const mapDispatchToProps = dispatch => ({
+  dispatchSearch: query => dispatch(getSearchResultAndPros(query)),
+});
+export default connect(null, mapDispatchToProps)(Assistant);
