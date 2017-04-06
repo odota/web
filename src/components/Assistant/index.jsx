@@ -199,14 +199,6 @@ class Assistant extends React.Component {
     }.bind(this);
   }
 
-  formSubmit(e) {
-    const { query } = this.state;
-
-    e.preventDefault();
-    browserHistory.push(`/search?q=${query}`);
-    this.props.dispatchSearch(query);
-  }
-
   render() {
     return (<div>
       <Heading title="Voice Assistant" subtitle={subtitle} />
