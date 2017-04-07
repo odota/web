@@ -56,6 +56,7 @@ ${(group) ?
 :
 [select ? `${select.value} ${select.alias || ''}` : '',
   'matches.match_id',
+  'matches.start_time',
   '((player_matches.player_slot < 128) = matches.radiant_win) win',
   'player_matches.hero_id',
   'player_matches.account_id',

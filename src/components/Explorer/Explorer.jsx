@@ -154,6 +154,12 @@ function drawOutput({ rows, fields, expandedBuilder, teamMapping, playerMapping,
             return field
             ? <span className={matchStyles.teamIconContainer}><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>
             : <span className={matchStyles.teamIconContainer}><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>;
+          } else if (column.field === 'start_time') {
+            return (new Date(field * 1000)).toLocaleDateString('en-US', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+            });
           }
           return typeof field === 'string' ? field : JSON.stringify(field);
         },
