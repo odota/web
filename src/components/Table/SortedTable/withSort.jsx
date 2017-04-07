@@ -23,6 +23,13 @@ export default (Table, id = uuid.v4()) => {
     return <span />;
   };
 
+  SortedTable.propTypes = {
+    data: React.PropTypes.array,
+    sortState: React.PropTypes.string,
+    sortField: React.PropTypes.string,
+    sortTable: React.PropTypes.func,
+  };
+
   const mapStateToProps = (state, { data }) => ({
     sortState: table.getSortState(state, id),
     sortField: table.getSortField(state, id),

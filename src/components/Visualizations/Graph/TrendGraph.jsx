@@ -22,6 +22,9 @@ const TrendGraph = ({ columns, name, tooltip, onClick }) => (
 
 TrendGraph.propTypes = {
   columns: React.PropTypes.arrayOf(),
+  name: React.PropTypes.string,
+  tooltip: React.PropTypes.string,
+  onClick: React.PropTypes.func,
 };
 
 export default TrendGraph;

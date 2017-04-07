@@ -7,6 +7,11 @@ const Graph = ({ id, height = 320 }) => (
   <div style={{ height }} id={id} />
 );
 
+Graph.propTypes = {
+  id: React.PropTypes.string,
+  height: React.PropTypes.number,
+};
+
 const generateGraph = ({
   columns = [],
   type,
@@ -110,6 +115,9 @@ class GraphWrapper extends Component {
     return <Graph id={this.id} height={this.props.height} />;
   }
 }
+GraphWrapper.propTypes = {
+  height: React.PropTypes.number,
+};
 
 /*
 const { string, number, arrayOf, shape, func, bool } = React.PropTypes;
