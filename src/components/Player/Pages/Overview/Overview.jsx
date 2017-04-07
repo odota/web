@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import strings from 'lang';
 import {
-  getPlayerMatches,
+  getPlayerRecentMatches,
   getPlayerHeroes,
   getPlayerPeers,
   getPvgnaHeroGuides,
 } from 'actions';
 import {
-  playerMatches,
+  playerRecentMatches,
   playerHeroes,
   playerPeers,
 } from 'reducers';
@@ -20,7 +20,6 @@ import Container from 'components/Container';
 import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesColumns';
 import { playerHeroesOverviewColumns } from 'components/Player/Pages/Heroes/playerHeroesColumns';
 import { playerPeersOverviewColumns } from 'components/Player/Pages/Peers/playerPeersColumns';
-import { defaultPlayerMatchesOptions } from 'actions/player/playerMatchesActions';
 import util from 'util';
 import styles from './Overview.css';
 import sumStyles from './Summary.css';
@@ -94,19 +93,7 @@ const Overview = ({
 );
 
 const getData = (props) => {
-  props.getPlayerMatches(props.playerId, { ...props.location.query,
-    limit: MAX_MATCHES_ROWS,
-    significant: 0,
-    project: defaultPlayerMatchesOptions.project
-      .concat([
-        'xp_per_min',
-        'gold_per_min',
-        'hero_damage',
-        'tower_damage',
-        'hero_healing',
-        'last_hits',
-      ]),
-  });
+  props.getPlayerRecentMatches(props.playerId);
   props.getPlayerHeroes(props.playerId, props.location.query);
   props.getPlayerPeers(props.playerId, props.location.query);
   props.getPvgnaHeroGuides();
@@ -134,9 +121,9 @@ const mergeHeroGuides = (heroes, heroGuides) => heroes.map(hero => ({
 }));
 
 const mapStateToProps = (state, { playerId }) => ({
-  matchesData: playerMatches.getMatchList(state, playerId),
-  matchesLoading: playerMatches.getLoading(state, playerId),
-  matchesError: playerMatches.getError(state, playerId),
+  matchesData: playerRecentMatches.getMatchList(state, playerId),
+  matchesLoading: playerRecentMatches.getLoading(state, playerId),
+  matchesError: playerRecentMatches.getError(state, playerId),
   heroesData: mergeHeroGuides(playerHeroes.getHeroList(state, playerId), getPvgnaGuides(state)),
   heroesLoading: playerHeroes.getLoading(state, playerId),
   heroesError: playerHeroes.getError(state, playerId),
@@ -146,7 +133,7 @@ const mapStateToProps = (state, { playerId }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getPlayerMatches: (playerId, options) => dispatch(getPlayerMatches(playerId, options)),
+  getPlayerRecentMatches: (playerId, options) => dispatch(getPlayerRecentMatches(playerId, options)),
   getPlayerHeroes: (playerId, options) => dispatch(getPlayerHeroes(playerId, options)),
   getPlayerPeers: (playerId, options) => dispatch(getPlayerPeers(playerId, options)),
   getPvgnaHeroGuides: () => dispatch(getPvgnaHeroGuides()),
