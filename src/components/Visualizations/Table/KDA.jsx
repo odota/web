@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import palette from 'components/palette.css';
 import strings from 'lang';
 import styles from './KDA.css';
@@ -23,7 +24,7 @@ const KDA = ({ kills, deaths, assists }) => {
   );
 };
 
-const { number } = React.PropTypes;
+const { number } = PropTypes;
 
 KDA.propTypes = {
   kills: number,

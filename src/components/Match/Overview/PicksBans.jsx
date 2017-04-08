@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import strings from 'lang';
 import heroes from 'dotaconstants/build/heroes.json';
 
@@ -23,8 +24,8 @@ const PicksBans = ({ data }) => (
   </div>
 );
 
-PicksBans.PropTypes = {
-  match: PropTypes.object,
+PicksBans.propTypes = {
+  data: PropTypes.object,
 };
 
 export default PicksBans;

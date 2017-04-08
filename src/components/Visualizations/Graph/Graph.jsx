@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import c3 from 'c3';
 import uuid from 'uuid';
 import strings from 'lang';
@@ -6,6 +7,11 @@ import strings from 'lang';
 const Graph = ({ id, height = 320 }) => (
   <div style={{ height }} id={id} />
 );
+
+Graph.propTypes = {
+  id: PropTypes.string,
+  height: PropTypes.number,
+};
 
 const generateGraph = ({
   columns = [],
@@ -110,9 +116,12 @@ class GraphWrapper extends Component {
     return <Graph id={this.id} height={this.props.height} />;
   }
 }
+GraphWrapper.propTypes = {
+  height: PropTypes.number,
+};
 
 /*
-const { string, number, arrayOf, shape, func, bool } = React.PropTypes;
+const { string, number, arrayOf, shape, func, bool } = PropTypes;
 GraphWrapper.propTypes = {
   columns: arrayOf(shape({
     x: number,

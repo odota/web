@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import Avatar from 'material-ui/Avatar';
+// import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import strings from 'lang';
@@ -12,7 +12,7 @@ import Error from '../Error';
 import styles from './AccountWidget.css';
 import { IconLogout } from '../Icons';
 
-const LoggedIn = ({ loading, error, playerId, playerName, playerPicture }) => {
+const LoggedIn = ({ loading, error, playerId, playerName }) => {
   const getPlayerWidget = () => {
     if (error) return <Error />;
     if (loading) return <Spinner color="#fff" size={0.5} />;
@@ -21,10 +21,10 @@ const LoggedIn = ({ loading, error, playerId, playerName, playerPicture }) => {
         <Link to={`/players/${playerId}`}>
           <FlatButton
             label={playerName}
-            labelPosition="before"
+            // labelPosition="before"
             className={styles.account}
             hoverColor="transparent"
-            icon={<Avatar src={playerPicture} size={30} />}
+            // icon={<Avatar src={playerPicture} size={30} />}
           />
         </Link>
         <IconButton

@@ -3,6 +3,8 @@ import strings from 'lang';
 import heroData from 'dotaconstants/build/heroes.json';
 import patchData from 'dotaconstants/build/patch.json';
 import itemData from 'dotaconstants/build/items.json';
+import regionData from 'dotaconstants/build/region.json';
+import clusterData from 'dotaconstants/build/cluster.json';
 
 const getItemSuffix = itemKey => (['_2', '_3', '_4', '_5'].some(suffix => itemKey.indexOf(suffix) !== -1) ? itemKey[itemKey.length - 1] : '');
 
@@ -40,7 +42,7 @@ AND match_logs.targetname LIKE '${unitKey}'`,
   key: `kill_${unitKey}`,
 });
 
-const fields = {
+const fields = (players = [], leagues = [], teams = []) => ({
   select: [{
     text: strings.heading_kills,
     value: 'kills',
@@ -190,11 +192,47 @@ const fields = {
     groupValue: 1,
     groupKeySelect: 'player_matches.hero_id, player_matches2.hero_id hero_id2',
     groupKey: 'player_matches.hero_id, player_matches2.hero_id',
-    join: `JOIN player_matches player_matches2
+    joinFn: props => `JOIN player_matches player_matches2
 ON player_matches.match_id = player_matches2.match_id
 AND player_matches.hero_id != player_matches2.hero_id 
-AND abs(player_matches.player_slot - player_matches2.player_slot) < 10`,
+AND abs(player_matches.player_slot - player_matches2.player_slot) < 10
+${props.hero && props.hero.value ? '' : 'AND player_matches.hero_id < player_matches2.hero_id'}`,
     key: 'hero_combos',
+  },
+  {
+    text: strings.explorer_hero_player,
+    value: 1,
+    groupValue: 1,
+    groupKey: 'player_matches.hero_id, player_matches.account_id',
+    key: 'hero_player',
+  },
+  {
+    text: strings.explorer_player_player,
+    value: 1,
+    groupValue: 1,
+    groupKeySelect: 'player_matches.account_id, player_matches2.account_id account_id2',
+    groupKey: 'player_matches.account_id, player_matches2.account_id',
+    joinFn: props => `JOIN player_matches player_matches2
+ON player_matches.match_id = player_matches2.match_id
+AND player_matches.account_id != player_matches2.account_id 
+AND abs(player_matches.player_slot - player_matches2.player_slot) < 10
+${props.player && props.player.value ? '' : 'AND player_matches.account_id < player_matches2.account_id'}`,
+    key: 'player_player',
+  },
+  {
+    text: strings.explorer_picks_bans,
+    template: 'picks_bans',
+    key: 'picks_bans',
+    // picks_bans.team is 0 for radiant, 1 for dire
+    where: 'AND team_match.radiant::int != picks_bans.team',
+    value: 1,
+  },
+  {
+    text: strings.explorer_counter_picks_bans,
+    template: 'picks_bans',
+    key: 'counter_picks_bans',
+    where: 'AND team_match.radiant::int = picks_bans.team',
+    value: 1,
   },
   ]
     .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect)),
@@ -242,7 +280,8 @@ AND abs(player_matches.player_slot - player_matches2.player_slot) < 10`,
     key: patch.name,
   })),
   hero: Object.keys(heroData).map(heroId => ({
-    text: heroData[heroId].localized_name,
+    text: `[${heroId}] ${heroData[heroId].localized_name}`,
+    searchText: heroData[heroId].localized_name,
     value: heroData[heroId].id,
     key: String(heroData[heroId].id),
   })),
@@ -253,17 +292,57 @@ AND abs(player_matches.player_slot - player_matches2.player_slot) < 10`,
   })),
   duration: [10, 20, 30, 40, 50].map(duration => ({
     text: `> ${util.format(strings.time_mm, duration)}`,
+    searchText: util.format(strings.time_mm, duration),
     value: duration * 60,
     key: String(duration),
   })),
-  side: [{ text: strings.general_radiant, value: true, key: 'radiant' }, { text: strings.general_dire, value: false, key: 'dire' }],
-  result: [{ text: strings.td_win, value: true, key: 'win' }, { text: strings.td_loss, value: false, key: 'loss' }],
+  side: [{
+    text: strings.general_radiant,
+    value: true,
+    key: 'radiant',
+  }, {
+    text: strings.general_dire,
+    value: false,
+    key: 'dire',
+  }],
+  result: [{
+    text: strings.td_win,
+    value: true,
+    key: 'win',
+  }, {
+    text: strings.td_loss,
+    value: false,
+    key: 'loss',
+  }],
+  region: Object.keys(regionData).map(regionKey => ({
+    text: regionData[regionKey],
+    value: Object.keys(clusterData).filter(key => String(clusterData[key]) === regionKey),
+    key: String(regionKey),
+  })),
+  league: leagues.map(league => ({
+    text: `[${league.leagueid}] ${league.name}`,
+    searchText: league.name,
+    value: league.leagueid,
+    key: String(league.leagueid),
+  })),
+  team: teams.map(team => ({
+    text: `[${team.team_id}] ${team.name}`,
+    searchText: team.name,
+    value: team.team_id,
+    key: String(team.team_id),
+  })),
+  player: players.map(player => ({
+    text: `[${player.account_id}] ${player.name}`,
+    searchText: player.name,
+    value: player.account_id,
+    key: String(player.account_id),
+  })),
   /*
   lanePos: Object.keys(strings).filter(str => str.indexOf('lane_pos_') === 0).map(str => {
     const lanePosId = Number(str.substring('lane_pos_'.length));
     return { text: strings[str], value: lanePosId, key: lanePosId };
   }),
   */
-};
+});
 
 export default fields;

@@ -30,7 +30,7 @@ export default class BurgerMenu extends React.Component {
         >
           <Menu>
             {this.props.menuItems.map((item, index) => (
-              <MenuItem key={index} onTouchTap={item.close && this.handleClose}>
+              <MenuItem className={styles.menuItem} key={index} onTouchTap={item.close && this.handleClose}>
                 {item.component}
               </MenuItem>
             ))}

@@ -40,7 +40,11 @@ const countryMmrColumns = [{
     } else if (code === 'zr') {
       name = 'Zaire';
     } else {
-      image = `/${require(`flag-icon-css/flags/4x3/${code}.svg`)}`;
+      try {
+        image = `/${require(`flag-icon-css/flags/4x3/${code}.svg`)}`;
+      } catch (e) {
+        console.error(e);
+      }
       if (code === 'bq') {
         name = 'Caribbean Netherlands';
       } else if (code === 'sh') {

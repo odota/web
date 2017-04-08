@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import wordcloud from 'wordcloud';
 import uuid from 'uuid';
@@ -85,6 +86,12 @@ class Wordcloud extends React.Component {
 Wordcloud.defaultProps = {
   counts: {},
   height: 600,
+};
+const { string, number } = PropTypes;
+Wordcloud.propTypes = {
+  counts: string,
+  width: number,
+  height: number,
 };
 
 const mapStateToProps = state => ({

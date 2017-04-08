@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import strings from 'lang';
@@ -97,7 +98,7 @@ const TableHeroImage = ({
   </div>
 );
 
-const { number, string, oneOfType, bool, node } = React.PropTypes;
+const { number, string, oneOfType, bool, node, object } = PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: number,
@@ -112,6 +113,11 @@ TableHeroImage.propTypes = {
   playerSlot: number,
   hideText: bool,
   party: node,
+  confirmed: bool,
+  heroName: string,
+  showPvgnaGuide: bool,
+  pvgnaGuideInfo: object,
+
 };
 
 // If need party or estimated, just add new prop with default val = solo and change icons depending what needs
@@ -126,5 +132,8 @@ export const Mmr = ({ number }) => (
     {number || strings.general_unknown}
   </span>
 );
+Mmr.propTypes = {
+  number: PropTypes.number,
+};
 
 export default TableHeroImage;

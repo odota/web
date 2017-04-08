@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import Measure from 'react-measure';

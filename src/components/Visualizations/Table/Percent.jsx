@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { gradient } from 'abcolor';
 import styles from './Percent.css';
 
@@ -22,7 +23,7 @@ const percent = ({ percent, altValue, valEl }) => (
   </div>
 );
 
-const { number, oneOfType, string, node } = React.PropTypes;
+const { number, oneOfType, string, node } = PropTypes;
 
 percent.propTypes = {
   percent: number,

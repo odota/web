@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import AlertWarning from 'material-ui/svg-icons/alert/warning';
 import styles from './Warning.css';
 

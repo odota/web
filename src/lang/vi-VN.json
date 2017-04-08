@@ -455,6 +455,7 @@
   "story_lane_intro":"Tại thời điểm 10 phút trong game, lanes có diễn biến như sau:",
   "story_lane_radiant_win":"{radiant_players} thắng {lane} Lane trước {dire_players}",
   "story_lane_radiant_lose":"{radiant_players} thua {lane} Lane trước {dire_players}",
+  "story_lane_draw":"{radiant_players} drew even in {lane} Lane with {dire_players}",
   "story_lane_free":"{players} had a free {lane} lane",
   "story_lane_empty":"không có hero nào ở {lane} lane",
   "story_lane_jungle":"{players} farmed ở rừng",
