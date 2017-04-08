@@ -78,7 +78,7 @@
     "css-modules-require-hook": "^4.0.5",
     "dirty-chai": "^1.2.2",
     "enzyme": "^2.6.0",
-    "eslint": "^3.14.0",
+    "eslint": "^3.16.0",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-import-resolver-webpack": "^0.8.0",
     "eslint-plugin-import": "^2.2.0",
