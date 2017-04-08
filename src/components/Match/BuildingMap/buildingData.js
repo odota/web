@@ -10,64 +10,64 @@ export default [
   },
   {
     id: 't3br',
-    style: { top: '85%', left: '21.6%' },
+    style: { top: '83.5%', left: '23%' },
   },
   {
     id: 't2br',
-    style: { top: '85%', left: '45%' },
+    style: { top: '85%', left: '46%' },
   },
   {
     id: 't1br',
-    style: { top: '85%', left: '80%' },
+    style: { top: '83%', left: '78%' },
   },
   {
     id: 't3mr',
-    style: { top: '75%', left: '16.1%' },
+    style: { top: '71%', left: '18%' },
   },
   {
     id: 't2mr',
-    style: { top: '67%', left: '23%' },
+    style: { top: '63%', left: '27%' },
   },
   {
     id: 't1mr',
-    style: { top: '56%', left: '38%' },
+    style: { top: '54%', left: '38%' },
   },
   {
     id: 't3tr',
-    style: { top: '70%', left: '7%' },
+    style: { top: '68%', left: '7%' },
   },
   {
     id: 't2tr',
-    style: { top: '52%', left: '7%' },
+    style: { top: '51%', left: '8%' },
   },
   {
     id: 't1tr',
-    style: { top: '35%', left: '7%' },
+    style: { top: '35%', left: '8%' },
   },
   // Barracks
   {
     id: 'brbr',
-    style: { top: '83%', left: '19%' },
+    style: { top: '80.5%', left: '20%' },
   },
   {
     id: 'bmbr',
-    style: { top: '87%', left: '19%' },
+    style: { top: '84.5%', left: '20%' },
   },
   {
     id: 'brmr',
-    style: { top: '74.5%', left: '12.5%' },
+    style: { top: '70.5%', left: '15%' },
   },
   {
     id: 'bmmr',
-    style: { top: '77%', left: '16%' },
+    style: { top: '73%', left: '18%' },
   },
   {
     id: 'brtr',
-    style: { top: '72.5%', left: '5%' },
+    style: { top: '70.5%', left: '5.5%' },
   },
   {
     id: 'bmtr',
-    style: { top: '72.5%', left: '9%' },
+    style: { top: '70.5%', left: '9.5%' },
   },
   // Dire
   {
@@ -80,19 +80,19 @@ export default [
   },
   {
     id: 't3bd',
-    style: { top: '27.6%', left: '87%' },
+    style: { top: '28%', left: '86%' },
   },
   {
     id: 't2bd',
-    style: { top: '45%', left: '87%' },
+    style: { top: '45%', left: '86%' },
   },
   {
     id: 't1bd',
-    style: { top: '60%', left: '87%' },
+    style: { top: '60%', left: '86%' },
   },
   {
     id: 't3md',
-    style: { top: '22%', left: '75%' },
+    style: { top: '24%', left: '73%' },
   },
   {
     id: 't2md',
@@ -100,36 +100,36 @@ export default [
   },
   {
     id: 't1md',
-    style: { top: '45%', left: '53%' },
+    style: { top: '44%', left: '53%' },
   },
   {
     id: 't3td',
-    style: { top: '10%', left: '70%' },
+    style: { top: '11%', left: '70%' },
   },
   {
     id: 't2td',
-    style: { top: '10%', left: '47%' },
+    style: { top: '10%', left: '44%' },
   },
   {
     id: 't1td',
-    style: { top: '10%', left: '13%' },
+    style: { top: '10%', left: '15%' },
   },
   // Barracks
   {
     id: 'brbd',
-    style: { top: '24%', left: '85%' },
+    style: { top: '24%', left: '84.5%' },
   },
   {
     id: 'bmbd',
-    style: { top: '24%', left: '89%' },
+    style: { top: '24%', left: '88.5%' },
   },
   {
     id: 'brmd',
-    style: { top: '18%', left: '76%' },
+    style: { top: '19.5%', left: '74.5%' },
   },
   {
     id: 'bmmd',
-    style: { top: '21%', left: '79%' },
+    style: { top: '22%', left: '77.5%' },
   },
   {
     id: 'brtd',
