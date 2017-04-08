@@ -481,10 +481,11 @@ export const getScript = (url, callback) => {
   firstScript.parentNode.insertBefore(script, firstScript);
 
   // Attach handlers
-  script.onload = script.onreadystatechange = (_, isAbort) => {
+  script.onreadystatechange = (_, isAbort) => {
     if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
       // Handle IE memory leak
-      script.onload = script.onreadystatechange = null;
+      script.onreadystatechange = null;
+      script.onload = null;
 
       // Keep for dev-debugging, see https://goo.gl/MbNOCv
       if (process.env.NODE_ENV === 'production') {
@@ -497,4 +498,5 @@ export const getScript = (url, callback) => {
       }
     }
   };
+  script.onload = script.onreadystatechange;
 };
