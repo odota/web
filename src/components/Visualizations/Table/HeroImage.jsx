@@ -5,8 +5,8 @@ import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import strings from 'lang';
 import { TableLink } from 'components/Table';
 import playerColors from 'dotaconstants/build/player_colors.json';
-import { IconTrophy } from 'components/Icons';
 import SocialPerson from 'material-ui/svg-icons/social/person';
+import CheckCircle from 'material-ui/svg-icons/action/check-circle';
 import styles from './HeroImage.css';
 
 const TableHeroImage = ({
@@ -69,7 +69,7 @@ const TableHeroImage = ({
               data-hint={`${strings.app_confirmed_as} ${title}`}
               data-hint-position="top"
             >
-              <IconTrophy />
+              <CheckCircle className={styles.golden} />
             </div>
           }
           {accountId ?
