@@ -1,5 +1,6 @@
 /* global API_HOST */
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import {
   isRadiant,
@@ -128,7 +129,7 @@ const SummOfRecMatches = ({ matchesData }) => {
   );
 };
 
-SummOfRecMatches.PropTypes = {
+SummOfRecMatches.propTypes = {
   matchesData: PropTypes.object,
 };
 

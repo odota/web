@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import heroes from 'dotaconstants/build/heroes.json';
 import strings from 'lang';

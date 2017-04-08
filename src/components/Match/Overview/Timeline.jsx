@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
   formatSeconds,
@@ -274,7 +275,7 @@ const Timeline = ({
   return null;
 };
 
-Timeline.PropTypes = {
+Timeline.propTypes = {
   match: PropTypes.object,
 };
 

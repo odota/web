@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Graph } from 'components/Visualizations';
 import strings from 'lang';
 import { hsvToRgb } from 'utility';
@@ -48,7 +49,7 @@ const HistogramGraph = ({
 );
 
 HistogramGraph.propTypes = {
-  columns: React.PropTypes.arrayOf(),
+  columns: PropTypes.arrayOf(),
 };
 
 export default HistogramGraph;

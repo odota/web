@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TableRow as MaterialTableRow } from 'material-ui/Table';
 import TableHeaderColumn from './TableHeaderColumn';
 
@@ -18,11 +19,11 @@ const TableHeader = ({ columns, sortState, sortField, sortClick, totalWidth }) =
 );
 
 TableHeader.propTypes = {
-  columns: React.PropTypes.array,
-  sortState: React.PropTypes.string,
-  sortField: React.PropTypes.string,
-  sortClick: React.PropTypes.string,
-  totalWidth: React.PropTypes.number,
+  columns: PropTypes.array,
+  sortState: PropTypes.string,
+  sortField: PropTypes.string,
+  sortClick: PropTypes.string,
+  totalWidth: PropTypes.number,
 };
 
 export default TableHeader;

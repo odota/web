@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { fromNow } from 'utility';
 import styles from './FromNowTooltip.css';
 
@@ -20,7 +21,7 @@ const FromNowTooltip = ({ timestamp }) => (
 );
 
 FromNowTooltip.propTypes = {
-  timestamp: React.PropTypes.number,
+  timestamp: PropTypes.number,
 };
 
 export default FromNowTooltip;

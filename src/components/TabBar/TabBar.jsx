@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import styles from './TabBar.css';
 
@@ -19,7 +20,7 @@ const TabBar = ({ tabs, info, mediaQClass = null }) => (
   </main>
 );
 
-const { string, shape, arrayOf } = React.PropTypes;
+const { string, shape, arrayOf } = PropTypes;
 TabBar.propTypes = {
   tabs: arrayOf(shape({})),
   info: string,

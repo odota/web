@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import HardwareKeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import styles from '../palette.css';
@@ -18,7 +19,7 @@ const TableLink = ({ to, children }) => (
   </Link>
 );
 
-const { string, node } = React.PropTypes;
+const { string, node } = PropTypes;
 
 TableLink.propTypes = {
   to: string,

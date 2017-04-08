@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import strings from 'lang';
@@ -97,7 +98,7 @@ const TableHeroImage = ({
   </div>
 );
 
-const { number, string, oneOfType, bool, node, object } = React.PropTypes;
+const { number, string, oneOfType, bool, node, object } = PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: number,
@@ -132,7 +133,7 @@ export const Mmr = ({ number }) => (
   </span>
 );
 Mmr.propTypes = {
-  number: React.PropTypes.number,
+  number: PropTypes.number,
 };
 
 export default TableHeroImage;

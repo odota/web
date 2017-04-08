@@ -41,6 +41,7 @@
     "postcss-import": "9.1.0",
     "postcss-loader": "^1.1.1",
     "postcss-reporter": "^3.0.0",
+    "prop-types": "^15.5.4",
     "react": "^15.3.2",
     "react-addons-css-transition-group": "^15.3.2",
     "react-dom": "^15.3.2",

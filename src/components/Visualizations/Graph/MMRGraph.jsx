@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Graph } from 'components/Visualizations';
 import strings from 'lang';
 
@@ -27,7 +28,7 @@ const MMRGraph = ({ columns }) => (
 );
 
 MMRGraph.propTypes = {
-  columns: React.PropTypes.arrayOf().isRequired,
+  columns: PropTypes.arrayOf().isRequired,
 };
 
 export default MMRGraph;

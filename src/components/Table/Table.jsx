@@ -1,7 +1,5 @@
-// TODO - consume the new action, read it in mstp of table, pass down the sort fn action and the
-// sorted state through mstp/mdtp, and add the sorting functions to the column definition
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Table as MaterialTable,
   TableBody as MaterialTableBody,
@@ -181,7 +179,7 @@ const {
   string,
   func,
   shape,
-} = React.PropTypes;
+} = PropTypes;
 
 TableCreator.propTypes = {
   data: arrayOf(shape({})).isRequired,

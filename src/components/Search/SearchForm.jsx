@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import debounce from 'lodash.debounce';
@@ -65,6 +66,10 @@ class SearchForm extends React.Component {
     );
   }
 }
+SearchForm.propTypes = {
+  dispatchSearch: PropTypes.func,
+  dispatchSetQuery: PropTypes.func,
+};
 
 // const mapStateToProps = (state) => {
 //   const { error, loading, done } = state.app.search;
