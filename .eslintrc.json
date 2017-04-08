@@ -32,7 +32,10 @@
     ],
     "import/prefer-default-export": 0,
     "jsx-a11y/no-static-element-interactions": [0],
+    "jsx-a11y/img-has-alt": 1,
+    "react/no-array-index-key": 1,
     "react/prop-types": 1,
+    "react/require-default-props": 1,
     "react/jsx-key": 2,
     "react/forbid-prop-types": [2, { "forbid": ["any"] }]
   }
