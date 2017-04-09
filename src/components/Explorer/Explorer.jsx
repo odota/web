@@ -90,9 +90,7 @@ function resolveId(key, value, mappings) {
   return value;
 }
 
-class ExplorerControlSection extends React.Component {
-  render() {
-    const { showEditor, toggleEditor, expandedFields, handleFieldUpdate, builder } = this.props;
+const ExplorerControlSection = ({ showEditor, toggleEditor, expandedFields, handleFieldUpdate, builder }) => {
     return (<div>
       <div style={{ width: '180px', margin: '10px' }}>
         <div>{/* drawOmnibox(this, expandedFields)*/}</div>
@@ -134,12 +132,10 @@ class ExplorerControlSection extends React.Component {
         />
       </div>
     </div>);
-  }
-}
+  };
 
-class ExplorerOutputSection extends React.Component {
-  render() {
-    const { rows, fields, expandedBuilder, teamMapping, playerMapping, format } = this.props;
+const ExplorerOutputSection = ({ rows, fields, expandedBuilder, teamMapping, playerMapping, format }) => {
+  console.log('redrawoutput');
     setTimeout(() => {
       if ((currRows !== rows || currFormat !== format) && fields) {
         const firstCol = fields[0].name;
@@ -213,8 +209,7 @@ class ExplorerOutputSection extends React.Component {
           sortFn: row => (isNaN(Number(row[column.field])) ? row[column.field] : Number(row[column.field])),
         }))}
       />);
-  }
-}
+  };
 
 class Explorer extends React.Component {
   constructor() {
