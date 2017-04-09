@@ -20,6 +20,8 @@ const tooltipContainer = thing => (
       </span>}
       {thing.lore &&
       <span className={styles.lore}>{thing.lore}</span>}
+      {thing.desc &&
+      <span className={styles.lore}>{thing.desc}</span>}
       {(thing.attrib || thing.affects || thing.dmg) && <hr />}
     </div>
     <div dangerouslySetInnerHTML={{ __html: thing.affects }} />
