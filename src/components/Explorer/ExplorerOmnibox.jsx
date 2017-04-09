@@ -1,3 +1,4 @@
+import React from 'react';
 import TextField from 'material-ui/TextField';
 import debounce from 'lodash.debounce';
 import editDistance from './editDistance';
