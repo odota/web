@@ -8,7 +8,7 @@ class ExplorerFormField extends React.Component {
     this.resetField = this.resetField.bind(this);
   }
   resetField() {
-    const { builderField, context } = this.props;
+    const { builderField, handleFieldUpdate } = this.props;
     // Set state on the ref'd component to clear it
     if (this.autocomplete) {
       this.autocomplete.setState({
@@ -18,16 +18,10 @@ class ExplorerFormField extends React.Component {
     if (this.datepicker) {
       this.datepicker.setState({ date: undefined });
     }
-    context.setState({
-      ...context.state,
-      builder: {
-        ...context.state.builder,
-        [builderField]: undefined,
-      },
-    }, context.buildQuery);
+    handleFieldUpdate(builderField, undefined);
   }
   render() {
-    const { fields, label, builderField, context, isDateField } = this.props;
+    const { fields, label, builderField, handleFieldUpdate, isDateField, builder } = this.props;
     const dataSource = fields && fields[builderField];
     const fieldWidth = 400;
     if (isDateField) {
@@ -37,24 +31,18 @@ class ExplorerFormField extends React.Component {
           floatingLabelText={label}
           container="inline"
           autoOk
-          defaultDate={context.state.builder[builderField] ? new Date(context.state.builder[builderField]) : undefined}
+          defaultDate={builder[builderField] ? new Date(builder[builderField]) : undefined}
           onShow={this.resetField}
           onChange={(event, date) => {
-            context.setState({
-              ...context.state,
-              builder: {
-                ...context.state.builder,
-                [builderField]: date.toISOString(),
-              },
-            }, context.buildQuery);
+            handleFieldUpdate(builderField, date.toISOString());
           }}
         /></span>);
     }
     return (<span style={{ width: fieldWidth }}>
       <AutoComplete
         ref={ref => (this.autocomplete = ref)}
-        searchText={context.state.builder[builderField]
-          ? (dataSource.find(element => element.key === context.state.builder[builderField]) || {}).text
+        searchText={builder[builderField]
+          ? (dataSource.find(element => element.key === builder[builderField]) || {}).text
           : undefined
         }
         openOnFocus
@@ -66,13 +54,7 @@ class ExplorerFormField extends React.Component {
         maxSearchResults={100}
         onClick={this.resetField}
         onNewRequest={(value, index) => {
-          context.setState({
-            ...context.state,
-            builder: {
-              ...context.state.builder,
-              [builderField]: index > -1 ? value.key : '',
-            },
-          }, context.buildQuery);
+          handleFieldUpdate(builderField, index > -1 ? value.key : '');
         }}
       />
     </span>);
