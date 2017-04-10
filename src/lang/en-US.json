@@ -92,6 +92,7 @@
   "error_four_oh_four_message": "The page you are looking for cannot be found.",
   
   "explorer_title": "Data Explorer",
+  "explorer_subtitle": "Professional Dota 2 Stats",
   "explorer_description": "Stats from professional Dota 2 matches. Amateur leagues are not included.",
   "explorer_schema": "Schema",
   "explorer_results": "Results",

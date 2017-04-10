@@ -227,7 +227,7 @@ class Explorer extends React.Component {
     const getSqlString = this.getSqlString;
     const explorer = this;
     return (<div>
-      <Helmet title={strings.title_explorer} />
+      <Helmet title={`${strings.title_explorer} - ${strings.explorer_subtitle}`} />
       <Heading title={strings.explorer_title} subtitle={strings.explorer_description} />
       <ExplorerControlSection
         showEditor={this.state.showEditor}
