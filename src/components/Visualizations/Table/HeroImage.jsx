@@ -4,7 +4,7 @@ import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import strings from 'lang';
 import { TableLink } from 'components/Table';
 import playerColors from 'dotaconstants/build/player_colors.json';
-import { IconTrophy } from 'components/Icons';
+import { IconTrophy, IconDice } from 'components/Icons';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import styles from './HeroImage.css';
 
@@ -22,6 +22,7 @@ const TableHeroImage = ({
   heroName,
   showPvgnaGuide,
   pvgnaGuideInfo,
+  randomed,
 }) => (
   <div className={styles.container}>
     {parsed !== undefined &&
@@ -80,6 +81,17 @@ const TableHeroImage = ({
         {subtitle &&
           <span className={styles.subText}>
             {subtitle}
+            {randomed &&
+              <span
+                style={{ marginLeft: 8 }}
+                data-tip data-for="randomed"
+              >
+                <IconDice fill="currentcolor" />
+                <ReactTooltip id="randomed" place="top" type="light" effect="solid">
+                  {strings.general_randomed}
+                </ReactTooltip>
+              </span>
+            }
           </span>
         }
       </div>

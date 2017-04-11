@@ -44,6 +44,7 @@ export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide =
     heroName={heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero}
     showPvgnaGuide={showPvgnaGuide}
     pvgnaGuideInfo={row.pvgnaGuide}
+    randomed={row.randomed}
   />
 );
 
