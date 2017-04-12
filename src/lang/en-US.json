@@ -187,6 +187,8 @@
   "general_matches": "Matches",
   "general_league": "League",
   "general_randomed": "Randomed",
+  "general_repicked": "Repicked",
+  "general_predicted_victory": "Predicted Victory",
 
   "gold_reasons_0": "Other",
   "gold_reasons_1": "Death",

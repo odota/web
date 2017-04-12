@@ -6,6 +6,8 @@ import { TableLink } from 'components/Table';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import { IconTrophy, IconDice } from 'components/Icons';
 import SocialPerson from 'material-ui/svg-icons/social/person';
+import NotificationSync from 'material-ui/svg-icons/notification/sync';
+import DeviceGpsFixed from 'material-ui/svg-icons/device/gps-fixed';
 import styles from './HeroImage.css';
 
 const TableHeroImage = ({
@@ -23,6 +25,8 @@ const TableHeroImage = ({
   showPvgnaGuide,
   pvgnaGuideInfo,
   randomed,
+  repicked,
+  predictedVictory,
 }) => (
   <div className={styles.container}>
     {parsed !== undefined &&
@@ -81,17 +85,32 @@ const TableHeroImage = ({
         {subtitle &&
           <span className={styles.subText}>
             {subtitle}
-            {randomed &&
-              <span
-                style={{ marginLeft: 8 }}
-                data-tip data-for="randomed"
-              >
-                <IconDice fill="currentcolor" />
-                <ReactTooltip id="randomed" place="top" type="light" effect="solid">
-                  {strings.general_randomed}
-                </ReactTooltip>
-              </span>
-            }
+            <span className={styles.iconBox}>
+              {randomed &&
+                <span data-tip data-for="randomed">
+                  <IconDice fill="currentcolor" />
+                  <ReactTooltip id="randomed" place="top" type="light" effect="solid">
+                    {strings.general_randomed}
+                  </ReactTooltip>
+                </span>
+              }
+              {repicked &&
+                <span data-tip data-for="repicked">
+                  <NotificationSync />
+                  <ReactTooltip id="repicked" place="top" type="light" effect="solid">
+                    {strings.general_repicked}
+                  </ReactTooltip>
+                </span>
+              }
+              {predictedVictory &&
+                <span data-tip data-for="predicted_victory">
+                  <DeviceGpsFixed />
+                  <ReactTooltip id="predicted_victory" place="top" type="light" effect="solid">
+                    {strings.general_predicted_victory}
+                  </ReactTooltip>
+                </span>
+              }
+            </span>
           </span>
         }
       </div>
