@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
 import { TableHeaderColumn as MaterialTableHeaderColumn } from 'material-ui/Table';
 import { getSortIcon } from './tableHelpers';
 import styles from './Table.css';
 
-export default ({ column, sortClick, sortField, sortState }) => {
+const TableHeaderColumn = ({ column, sortClick, sortField, sortState }) => {
   const tooltipId = uuid.v4();
   const style = {};
 
@@ -33,3 +34,12 @@ export default ({ column, sortClick, sortField, sortState }) => {
     </MaterialTableHeaderColumn>
   );
 };
+
+TableHeaderColumn.propTypes = {
+  column: PropTypes.object,
+  sortClick: PropTypes.func,
+  sortField: PropTypes.string,
+  sortState: PropTypes.string,
+};
+
+export default TableHeaderColumn;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
 import strings from 'lang';
 import styles from './ButtonGarden.css';
@@ -17,7 +18,7 @@ const ButtonGarden = ({ buttonNames, selectedButton, onClick }) => (
   </div>
 );
 
-const { arrayOf, string, func } = React.PropTypes;
+const { arrayOf, string, func } = PropTypes;
 
 ButtonGarden.propTypes = {
   buttonNames: arrayOf(string),

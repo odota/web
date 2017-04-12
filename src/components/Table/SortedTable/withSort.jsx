@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import uuid from 'uuid';
 import { table } from 'reducers';
@@ -21,6 +22,13 @@ export default (Table, id = uuid.v4()) => {
       );
     }
     return <span />;
+  };
+
+  SortedTable.propTypes = {
+    data: PropTypes.array,
+    sortState: PropTypes.string,
+    sortField: PropTypes.string,
+    sortTable: PropTypes.func,
   };
 
   const mapStateToProps = (state, { data }) => ({

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { player } from 'reducers';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
-import { IconCheese, IconSteam, IconEye, IconEyeInactive, IconTrophy } from 'components/Icons';
+import { IconCheese, IconSteam, IconEye, IconEyeInactive } from 'components/Icons';
+import CheckCircle from 'material-ui/svg-icons/action/check-circle';
 import strings from 'lang';
 import styles from './PlayerBadges.css';
 
@@ -19,7 +20,7 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
             data-hint={`${strings.app_confirmed_as} ${officialPlayerName}`}
             data-hint-position="top"
           >
-            <IconTrophy className={`${styles.icon} ${styles.IconTrophy}`} />
+            <CheckCircle className={`${styles.icon} ${styles.IconTrophy}`} />
           </div>
         )}
         <div

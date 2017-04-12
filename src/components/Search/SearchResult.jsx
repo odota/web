@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import strings from 'lang';
 import {
   transformations,
@@ -35,7 +36,7 @@ const proColumns = [{
   field: 'team_name',
 }];
 
-export default ({
+const Search = ({
   players,
   playersLoading,
   playersError,
@@ -70,3 +71,14 @@ export default ({
     </Container>
   </div>
 );
+
+Search.propTypes = {
+  players: PropTypes.array,
+  playersLoading: PropTypes.bool,
+  playersError: PropTypes.string,
+  pros: PropTypes.array,
+  prosLoading: PropTypes.bool,
+  prosError: PropTypes.string,
+};
+
+export default Search;

@@ -8,7 +8,7 @@ class ExplorerFormField extends React.Component {
     this.resetField = this.resetField.bind(this);
   }
   resetField() {
-    const { builderField, builderContext } = this.props;
+    const { builderField, handleFieldUpdate } = this.props;
     // Set state on the ref'd component to clear it
     if (this.autocomplete) {
       this.autocomplete.setState({
@@ -18,59 +18,43 @@ class ExplorerFormField extends React.Component {
     if (this.datepicker) {
       this.datepicker.setState({ date: undefined });
     }
-    builderContext.setState({
-      ...builderContext.state,
-      builder: {
-        ...builderContext.state.builder,
-        [builderField]: undefined,
-      },
-    }, builderContext.buildQuery);
+    handleFieldUpdate(builderField, undefined);
   }
   render() {
-    const { fields, label, builderField, builderContext, isDateField } = this.props;
+    const { fields, label, builderField, handleFieldUpdate, isDateField, builder } = this.props;
     const dataSource = fields && fields[builderField];
+    const fieldWidth = 400;
     if (isDateField) {
-      return (<DatePicker
-        ref={ref => (this.datepicker = ref)}
-        floatingLabelText={label}
-        container="inline"
-        autoOk
-        defaultDate={builderContext.state.builder[builderField] ? new Date(builderContext.state.builder[builderField]) : undefined}
-        onShow={this.resetField}
-        onChange={(event, date) => {
-          builderContext.setState({
-            ...builderContext.state,
-            builder: {
-              ...builderContext.state.builder,
-              [builderField]: date.toISOString(),
-            },
-          }, builderContext.buildQuery);
-        }}
-      />);
+      return (<span style={{ width: fieldWidth }}>
+        <DatePicker
+          ref={ref => (this.datepicker = ref)}
+          floatingLabelText={label}
+          container="inline"
+          autoOk
+          defaultDate={builder[builderField] ? new Date(builder[builderField]) : undefined}
+          onShow={this.resetField}
+          onChange={(event, date) => {
+            handleFieldUpdate(builderField, date.toISOString());
+          }}
+        /></span>);
     }
-    return (<span>
+    return (<span style={{ width: fieldWidth }}>
       <AutoComplete
         ref={ref => (this.autocomplete = ref)}
-        searchText={builderContext.state.builder[builderField]
-          ? (dataSource.find(element => element.key === builderContext.state.builder[builderField]) || {}).text
+        searchText={builder[builderField]
+          ? (dataSource.find(element => element.key === builder[builderField]) || {}).text
           : undefined
         }
         openOnFocus
         listStyle={{ maxHeight: 400, overflow: 'auto' }}
-        // fullWidth
+        fullWidth
         filter={AutoComplete.fuzzyFilter}
         floatingLabelText={label}
         dataSource={dataSource}
         maxSearchResults={100}
         onClick={this.resetField}
         onNewRequest={(value, index) => {
-          builderContext.setState({
-            ...builderContext.state,
-            builder: {
-              ...builderContext.state.builder,
-              [builderField]: index > -1 ? value.key : '',
-            },
-          }, builderContext.buildQuery);
+          handleFieldUpdate(builderField, index > -1 ? value.key : '');
         }}
       />
     </span>);

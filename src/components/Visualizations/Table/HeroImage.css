@@ -97,10 +97,10 @@
 
 .confirmed {
   composes: badge;
+}
 
-  & svg {
-    fill: var(--colorGolden);
-  }
+.golden {
+  fill: var(--colorGolden) !important;
 }
 
 :root {

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
   formatSeconds,
@@ -46,7 +47,7 @@ const Timeline = ({
         type: 'firstblood',
         time: match.objectives[fbIndex].time,
         player_slot: match.objectives[fbIndex].player_slot,
-        key: killerLog ? killerLog[0].key : null,
+        key: killerLog && killerLog[0] ? killerLog[0].key : null,
       }];
     }
 
@@ -274,7 +275,7 @@ const Timeline = ({
   return null;
 };
 
-Timeline.PropTypes = {
+Timeline.propTypes = {
   match: PropTypes.object,
 };
 
