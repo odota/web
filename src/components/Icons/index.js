@@ -19,6 +19,7 @@ import IconBattle from './Battle';
 import IconDot from './Dot';
 import IconBackpack from './Backpack';
 import IconDice from './Dice';
+import IconCrystalBall from './CrystalBall';
 
 export {
   IconCheese,
@@ -42,4 +43,5 @@ export {
   IconDot,
   IconBackpack,
   IconDice,
+  IconCrystalBall,
 };

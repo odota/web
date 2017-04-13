@@ -5,11 +5,10 @@ import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import strings from 'lang';
 import { TableLink } from 'components/Table';
 import playerColors from 'dotaconstants/build/player_colors.json';
-import { IconTrophy, IconDice } from 'components/Icons';
+import { IconDice, IconCrystalBall } from 'components/Icons';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import CheckCircle from 'material-ui/svg-icons/action/check-circle';
 import NotificationSync from 'material-ui/svg-icons/notification/sync';
-import DeviceGpsFixed from 'material-ui/svg-icons/device/gps-fixed';
 import styles from './HeroImage.css';
 
 const TableHeroImage = ({
@@ -104,9 +103,9 @@ const TableHeroImage = ({
                   </ReactTooltip>
                 </span>
               }
-              {predictedVictory &&
+              {!predictedVictory &&
                 <span data-tip data-for="predicted_victory">
-                  <DeviceGpsFixed />
+                  <IconCrystalBall fill="currentcolor" />
                   <ReactTooltip id="predicted_victory" place="top" type="light" effect="solid">
                     {strings.general_predicted_victory}
                   </ReactTooltip>
