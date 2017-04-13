@@ -103,7 +103,7 @@ const TableHeroImage = ({
                   </ReactTooltip>
                 </span>
               }
-              {!predictedVictory &&
+              {predictedVictory &&
                 <span data-tip data-for="predicted_victory">
                   <IconCrystalBall fill="currentcolor" />
                   <ReactTooltip id="predicted_victory" place="top" type="light" effect="solid">
