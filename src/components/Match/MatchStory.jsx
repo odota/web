@@ -465,6 +465,26 @@ class ExpensiveItemEvent extends StoryEvent {
   }
 }
 
+class TimeMarkerEvent extends StoryEvent {
+  constructor(minutes) {
+    super(minutes * 60);
+  }
+  formatSentence() {
+    return this.format();
+  }
+  get minutes() {
+    return this.time / 60;
+  }
+  format() {
+    return [
+      <h3 key={`minute_${this.minutes}_subheading`}>
+        {renderTemplate(strings.story_time_marker, { minutes: this.minutes })}
+      </h3>,
+      <hr key={`minute_${this.minutes}_hr`} />,
+    ];
+  }
+}
+
 class GameoverEvent extends StoryEvent {
   constructor(match) {
     super(match.duration);
@@ -535,6 +555,11 @@ const generateStory = (match) => {
     events = events.concat(new ExpensiveItemEvent(match, 4000));
   }
 
+  // Time Markers
+  for (let min = 20; min < (match.duration / 60); min += 10) {
+    events.push(new TimeMarkerEvent(min));
+  }
+
   // Gameover
   events.push(new GameoverEvent(match));
 
@@ -561,6 +586,21 @@ const generateStory = (match) => {
       }
     }
   }
+
+  // Remove any unneeded Time Markers
+  let marked = false;
+  for (let i = 0; i < events.length; i += 1) {
+    if (events[i] instanceof TimeMarkerEvent) {
+      if (marked) {
+        events.splice(i - 1, 1);
+        i -= 1;
+      }
+      marked = true;
+    } else {
+      marked = false;
+    }
+  }
+
 
   return events;
 };

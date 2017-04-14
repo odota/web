@@ -523,6 +523,7 @@
   "story_towers_n": "{n} of {team}'s Towers",
   "story_barracks": "{team}'s {lane} {rax_type}",
   "story_barracks_both": "both of {team}'s {lane} Barracks",
+  "story_time_marker": "{minutes} Minutes In",
 
   "tab_overview": "Overview",
   "tab_matches": "Matches",
