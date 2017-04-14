@@ -88,27 +88,27 @@ const TableHeroImage = ({
             {subtitle}
             <span className={styles.iconBox}>
               {randomed &&
-                <span data-tip data-for="randomed">
+                <span
+                  data-hint={strings.general_randomed}
+                  data-hint-position="top"
+                >
                   <IconDice fill="currentcolor" />
-                  <ReactTooltip id="randomed" place="top" type="light" effect="solid">
-                    {strings.general_randomed}
-                  </ReactTooltip>
                 </span>
               }
               {repicked &&
-                <span data-tip data-for="repicked">
+                <span
+                  data-hint={strings.general_repicked}
+                  data-hint-position="top"
+                >
                   <NotificationSync />
-                  <ReactTooltip id="repicked" place="top" type="light" effect="solid">
-                    {strings.general_repicked}
-                  </ReactTooltip>
                 </span>
               }
               {predictedVictory &&
-                <span data-tip data-for="predicted_victory">
+                <span
+                  data-hint={strings.general_predicted_victory}
+                  data-hint-position="top"
+                >
                   <IconCrystalBall fill="currentcolor" />
-                  <ReactTooltip id="predicted_victory" place="top" type="light" effect="solid">
-                    {strings.general_predicted_victory}
-                  </ReactTooltip>
                 </span>
               }
             </span>
