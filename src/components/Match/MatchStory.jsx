@@ -465,6 +465,21 @@ class ExpensiveItemEvent extends StoryEvent {
   }
 }
 
+class ItemPurchaseEvent extends StoryEvent {
+  constructor(player, purchase) {
+    super(purchase.time);
+    this.player = player;
+    this.item = purchase.key;
+  }
+  format() {
+    return renderTemplate(strings.story_item_purchase, {
+      time: formatSeconds(this.time),
+      player: PlayerSpan(this.player),
+      item: ItemSpan(this.item),
+    });
+  }
+}
+
 class TimeMarkerEvent extends StoryEvent {
   constructor(minutes) {
     super(minutes * 60);
@@ -554,6 +569,15 @@ const generateStory = (match) => {
   if (ExpensiveItemEvent.exists(match, 4000)) {
     events = events.concat(new ExpensiveItemEvent(match, 4000));
   }
+
+  // Rapiers
+  match.players.forEach((player) => {
+    player.purchase_log.forEach((purchase) => {
+      if (purchase.key === 'rapier') {
+        events.push(new ItemPurchaseEvent(player, purchase));
+      }
+    });
+  });
 
   // Time Markers
   for (let min = 20; min < (match.duration / 60); min += 10) {

@@ -524,6 +524,7 @@
   "story_barracks": "{team}'s {lane} {rax_type}",
   "story_barracks_both": "both of {team}'s {lane} Barracks",
   "story_time_marker": "{minutes} Minutes In",
+  "story_item_purchase": "{player} purchased a {item} at {time}",
 
   "tab_overview": "Overview",
   "tab_matches": "Matches",
