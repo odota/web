@@ -13,6 +13,16 @@ import styles from './Match.css';
 
 const heroesArr = jsonFn(heroes);
 
+const itemQualityColor = {
+  rare: '#1a87f9',
+  artifact: '#e29b01',
+  secret_shop: '#ffffff',
+  consumable: '#1d80e7',
+  common: '#2bab01',
+  epic: '#b812f9',
+  component: '#ffffff',
+};
+
 // can be used in conjunction with is_radiant
 const TEAM = {
   radiant: true,
@@ -69,7 +79,11 @@ const PlayerSpan = (player) => {
 
 // Modified version of PlayerThumb
 const ItemSpan = item => (
-  <span key={`item_${item}`} className={styles.storySpan}>
+  <span
+    key={`item_${item}`}
+    className={styles.storySpan}
+    style={{ color: itemQualityColor[items[item].qual] }}
+  >
     <img
       width="26px"
       src={items[item]
