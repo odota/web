@@ -8,6 +8,7 @@ import {
 import { IconRadiant, IconDire } from 'components/Icons';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
+import itemColors from 'dotaconstants/build/item_colors.json';
 import ReactTooltip from 'react-tooltip';
 import styles from './Match.css';
 
@@ -69,7 +70,11 @@ const PlayerSpan = (player) => {
 
 // Modified version of PlayerThumb
 const ItemSpan = item => (
-  <span key={`item_${item}`} className={styles.storySpan}>
+  <span
+    key={`item_${item}`}
+    className={styles.storySpan}
+    style={{ color: itemColors[(items[item] || {}).qual] }}
+  >
     <img
       width="26px"
       src={items[item]
@@ -78,7 +83,7 @@ const ItemSpan = item => (
       }
       role="presentation"
     />
-    {items[item].dname}
+    {(items[item] || {}).dname}
   </span>
 );
 
@@ -465,6 +470,41 @@ class ExpensiveItemEvent extends StoryEvent {
   }
 }
 
+class ItemPurchaseEvent extends StoryEvent {
+  constructor(player, purchase) {
+    super(purchase.time);
+    this.player = player;
+    this.item = purchase.key;
+  }
+  format() {
+    return renderTemplate(strings.story_item_purchase, {
+      time: formatSeconds(this.time),
+      player: PlayerSpan(this.player),
+      item: ItemSpan(this.item),
+    });
+  }
+}
+
+class TimeMarkerEvent extends StoryEvent {
+  constructor(minutes) {
+    super(minutes * 60);
+  }
+  formatSentence() {
+    return this.format();
+  }
+  get minutes() {
+    return this.time / 60;
+  }
+  format() {
+    return [
+      <h3 key={`minute_${this.minutes}_subheading`}>
+        {renderTemplate(strings.story_time_marker, { minutes: this.minutes })}
+      </h3>,
+      <hr key={`minute_${this.minutes}_hr`} />,
+    ];
+  }
+}
+
 class GameoverEvent extends StoryEvent {
   constructor(match) {
     super(match.duration);
@@ -535,6 +575,20 @@ const generateStory = (match) => {
     events = events.concat(new ExpensiveItemEvent(match, 4000));
   }
 
+  // Rapiers
+  match.players.forEach((player) => {
+    player.purchase_log.forEach((purchase) => {
+      if (purchase.key === 'rapier') {
+        events.push(new ItemPurchaseEvent(player, purchase));
+      }
+    });
+  });
+
+  // Time Markers
+  for (let min = 20; min < (match.duration / 60); min += 10) {
+    events.push(new TimeMarkerEvent(min));
+  }
+
   // Gameover
   events.push(new GameoverEvent(match));
 
@@ -561,6 +615,9 @@ const generateStory = (match) => {
       }
     }
   }
+
+  // Remove any unneeded Time Markers
+  events = events.filter((event, i, list) => i === (list.length - 1) || !(event instanceof TimeMarkerEvent && list[i + 1] instanceof TimeMarkerEvent));
 
   return events;
 };
