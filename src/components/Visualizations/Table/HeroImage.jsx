@@ -5,8 +5,10 @@ import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import strings from 'lang';
 import { TableLink } from 'components/Table';
 import playerColors from 'dotaconstants/build/player_colors.json';
+import { IconDice, IconCrystalBall } from 'components/Icons';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import CheckCircle from 'material-ui/svg-icons/action/check-circle';
+import NotificationSync from 'material-ui/svg-icons/notification/sync';
 import styles from './HeroImage.css';
 
 const TableHeroImage = ({
@@ -23,6 +25,9 @@ const TableHeroImage = ({
   heroName,
   showPvgnaGuide,
   pvgnaGuideInfo,
+  randomed,
+  repicked,
+  predictedVictory,
 }) => (
   <div className={styles.container}>
     {parsed !== undefined &&
@@ -81,6 +86,32 @@ const TableHeroImage = ({
         {subtitle &&
           <span className={styles.subText}>
             {subtitle}
+            <span className={styles.iconBox}>
+              {randomed &&
+                <span
+                  data-hint={strings.general_randomed}
+                  data-hint-position="top"
+                >
+                  <IconDice fill="currentcolor" />
+                </span>
+              }
+              {repicked &&
+                <span
+                  data-hint={strings.general_repicked}
+                  data-hint-position="top"
+                >
+                  <NotificationSync />
+                </span>
+              }
+              {predictedVictory &&
+                <span
+                  data-hint={strings.general_predicted_victory}
+                  data-hint-position="top"
+                >
+                  <IconCrystalBall fill="currentcolor" />
+                </span>
+              }
+            </span>
           </span>
         }
       </div>
