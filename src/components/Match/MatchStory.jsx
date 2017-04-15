@@ -626,19 +626,7 @@ const generateStory = (match) => {
   }
 
   // Remove any unneeded Time Markers
-  let marked = false;
-  for (let i = 0; i < events.length; i += 1) {
-    if (events[i] instanceof TimeMarkerEvent) {
-      if (marked) {
-        events.splice(i - 1, 1);
-        i -= 1;
-      }
-      marked = true;
-    } else {
-      marked = false;
-    }
-  }
-
+  events = events.filter((event, i, list) => i === (list.length - 1) || !(event instanceof TimeMarkerEvent && list[i + 1] instanceof TimeMarkerEvent));
 
   return events;
 };
