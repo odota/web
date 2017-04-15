@@ -73,7 +73,7 @@ const ItemSpan = item => (
   <span
     key={`item_${item}`}
     className={styles.storySpan}
-    style={{ color: itemColors[items[item].qual] }}
+    style={{ color: itemColors[(items[item] || {}).qual] }}
   >
     <img
       width="26px"
@@ -83,7 +83,7 @@ const ItemSpan = item => (
       }
       role="presentation"
     />
-    {items[item].dname}
+    {(items[item] || {}).dname}
   </span>
 );
 
