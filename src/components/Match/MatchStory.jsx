@@ -8,7 +8,7 @@ import {
 import { IconRadiant, IconDire } from 'components/Icons';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
-import itemColors from 'dotaconstants/json/item_colors.json';
+import itemColors from 'dotaconstants/build/item_colors.json';
 import ReactTooltip from 'react-tooltip';
 import styles from './Match.css';
 
