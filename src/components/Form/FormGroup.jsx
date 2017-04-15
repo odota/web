@@ -17,7 +17,6 @@ function formField({ formSelectionState, addChip, deleteChip }) {
     }
 
     handleSelect(value, index) {
-      // TODO? match closest
       const {
         name,
         dataSource,
@@ -106,7 +105,6 @@ function formField({ formSelectionState, addChip, deleteChip }) {
           underlineFocusStyle={{ borderColor: blue }}
           errorStyle={{ color: red }}
           onClose={() => this.setState({ errorText: '' })}
-          fullWidth
         />
         <ChipList name={name} chipList={chipList} deleteChip={deleteChip} />
       </div>);
