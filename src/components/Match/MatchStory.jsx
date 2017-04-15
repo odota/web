@@ -8,20 +8,11 @@ import {
 import { IconRadiant, IconDire } from 'components/Icons';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
+import itemColors from 'dotaconstants/json/item_colors.json';
 import ReactTooltip from 'react-tooltip';
 import styles from './Match.css';
 
 const heroesArr = jsonFn(heroes);
-
-const itemQualityColor = {
-  rare: '#1a87f9',
-  artifact: '#e29b01',
-  secret_shop: '#ffffff',
-  consumable: '#1d80e7',
-  common: '#2bab01',
-  epic: '#b812f9',
-  component: '#ffffff',
-};
 
 // can be used in conjunction with is_radiant
 const TEAM = {
@@ -82,7 +73,7 @@ const ItemSpan = item => (
   <span
     key={`item_${item}`}
     className={styles.storySpan}
-    style={{ color: itemQualityColor[items[item].qual] }}
+    style={{ color: itemColors[items[item].qual] }}
   >
     <img
       width="26px"
