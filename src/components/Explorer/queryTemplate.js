@@ -22,7 +22,8 @@ const queryTemplate = (props) => {
 hero_id, 
 count(1) total,
 sum(case WHEN is_pick IS TRUE THEN 1 ELSE 0 END) picks, 
-sum(case WHEN is_pick IS FALSE THEN 1 ELSE 0 END) bans
+sum(case WHEN is_pick IS FALSE THEN 1 ELSE 0 END) bans,
+sum(case WHEN radiant = radiant_win THEN 1 ELSE 0 END)::float/count(1) winrate
 FROM picks_bans
 JOIN matches using(match_id)
 JOIN match_patch using(match_id)
