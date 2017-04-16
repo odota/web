@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from 'material-ui/Card';
 import playerStatsStyles from 'components/Player/Header/PlayerStats.css';
+//import util from 'util';
 
 const totalsToShow = {
   kills: 1,
@@ -27,24 +28,44 @@ const totalsToShow = {
   neutral_kills: 'parsed',
   courier_kills: 'parsed',
   purchase_tpscroll: 'parsed',
-  purchase_observer: 'parsed',
-  purchase_sentry: 'parsed',
+  purchase_ward_observer: 'parsed',
+  purchase_ward_sentry: 'parsed',
   purchase_gem: 'parsed',
   purchase_rapier: 'parsed',
   pings: 'parsed',
 };
 
-// TODO format duration more nicely
-// TODO indicate if data is incomplete (for parsed fields)
+// Strings are in format e.g. '%d seconds'
+const getAbbrTime = str => str.slice(3, 4);
+
+const formatDurationString = (sec) => {
+  const days = Math.floor(sec / 86400);
+  const hours = Math.floor((sec - (days * 86400)) / 3600);
+  const minutes = Math.floor((sec - (days * 86400) - (hours * 3600)) / 60);
+  const seconds = Math.floor((sec - (days * 86400) - (hours * 3600) - (minutes * 60)));
+  return `${days}${getAbbrTime(strings.time_dd)} ${hours}${getAbbrTime(strings.time_hh)} ${minutes}${getAbbrTime(strings.time_mm)} ${seconds}${getAbbrTime(strings.time_ss)}`;
+};
+
+const drawElement = (element, type) => {
+  if (totalsToShow[element.field] === type) {
+    return (<CardTitle
+      className={playerStatsStyles.playerStats}
+      subtitle={<div>{element.field === 'duration' ? formatDurationString(element.sum) : Math.floor(element.sum).toLocaleString()}</div>}
+      title={strings[`heading_${element.field}`]}
+    />);
+  }
+  return null;
+};
 
 const Totals = ({ data, error, loading }) => (<div>
-  <Container title={strings.heading_totals} error={error} loading={loading}>
+  <Container title={strings.heading_all_matches} error={error} loading={loading}>
     <div>
-      {data.map(element => ((element.field in totalsToShow) ? <CardTitle
-        className={playerStatsStyles.playerStats}
-        subtitle={<div>{Math.floor(element.sum).toLocaleString()}</div>}
-        title={strings[`heading_${element.field}`]}
-      /> : null))}
+      {data.map(element => drawElement(element, 1))}
+    </div>
+  </Container>
+  <Container title={strings.heading_parsed_matches} error={error} loading={loading}>
+    <div>
+      {data.map(element => drawElement(element, 'parsed'))}
     </div>
   </Container>
 </div>);
