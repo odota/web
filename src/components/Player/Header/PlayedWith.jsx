@@ -43,7 +43,7 @@ class PlayedWith extends React.Component {
             <div style={inlineStyle} className={playerStatsStyles.textDanger}>{this.state.lose}</div>
           </div>
         }
-        title={<Link to={`/players/${this.props.playerId}/matches?included_account_id=${this.props.loggedInId}`}>{strings.th_played_with}</Link>}
+        title={<Link to={`/players/${this.props.loggedInId}/matches?included_account_id=${this.props.playerId}`}>{strings.th_played_with}</Link>}
       />
     </div>);
   }
