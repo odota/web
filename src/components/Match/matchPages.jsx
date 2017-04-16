@@ -34,8 +34,11 @@ const matchPages = [Overview, {
   key: 'benchmarks',
   content: match => (<div>
     <TeamTable
-      players={match.players} columns={benchmarksColumns(match)} heading={strings.heading_benchmarks}
-      radiantTeam={match.radiant_team} direTeam={match.dire_team}
+      players={match.players}
+      columns={benchmarksColumns(match)}
+      heading={strings.heading_benchmarks}
+      radiantTeam={match.radiant_team}
+      direTeam={match.dire_team}
     />
   </div>),
 }, {
@@ -44,8 +47,12 @@ const matchPages = [Overview, {
   parsed: true,
   content: match => (<div>
     <TeamTable
-      players={match.players} columns={performanceColumns} heading={strings.heading_performances}
-      radiantTeam={match.radiant_team} direTeam={match.dire_team}
+      players={match.players}
+      columns={performanceColumns}
+      heading={strings.heading_performances}
+      radiantTeam={match.radiant_team}
+      direTeam={match.dire_team}
+      summable
     />
   </div>),
 }, {
