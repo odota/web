@@ -1,0 +1,54 @@
+@import "../../palette.css";
+
+.Performances {
+  display: flex;
+  flex-direction: row;
+
+  & .data {
+    flex-grow: 1;
+    margin-left: 20px;
+  }
+
+  @media only screen and (max-width: 1300px) {
+    flex-direction: column;
+    align-items: center;
+
+    & .data {
+      margin-left: 0;
+      margin-top: 20px;
+      width: 100%;
+    }
+  }
+}
+
+.DisplayName {
+  & > span {
+    color: var(--colorMutedLight);
+    font-size: var(--fontSizeSmall);
+    display: block;
+  }
+}
+
+.biggest_hit {
+  display: flex;
+  align-items: center;
+
+  & > span {
+    margin: 0 5px;
+  }
+}
+
+.tab {
+  & > div {
+    font-size: var(--fontSizeMedium);
+    font-weight: var(--fontWeightNormal);
+  }
+
+  & > img {
+    height: 24px;
+  }
+}
+
+.mapHeading {
+  margin-top: 0;
+}

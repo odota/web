@@ -11,7 +11,6 @@ import MatchLog from './MatchLog';
 import MatchStory from './MatchStory';
 import {
   benchmarksColumns,
-  performanceColumns,
   chatColumns,
   purchaseTimesColumns,
   lastHitsTimesColumns,
@@ -27,6 +26,7 @@ import {
 } from './matchColumns';
 import Overview from './Overview';
 import TeamTable from './TeamTable';
+import Performances from './Performances';
 import styles from './Match.css';
 
 const matchPages = [Overview, {
@@ -42,12 +42,7 @@ const matchPages = [Overview, {
   name: strings.tab_performances,
   key: 'performances',
   parsed: true,
-  content: match => (<div>
-    <TeamTable
-      players={match.players} columns={performanceColumns} heading={strings.heading_performances}
-      radiantTeam={match.radiant_team} direTeam={match.dire_team}
-    />
-  </div>),
+  content: (match, routeParams) => <Performances match={match} routeParams={routeParams} />,
 }, {
   name: strings.tab_combat,
   key: 'combat',
