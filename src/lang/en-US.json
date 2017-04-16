@@ -222,6 +222,7 @@
   "header_blog": "Blog",
   "header_ingame": "Ingame",
   "header_matches": "Matches",
+  "header_records": "Records",
   "header_explorer": "Explorer",
 
   "heading_lhten": "Last Hits @ 10",
@@ -319,9 +320,11 @@
   "heading_win_rate": "Win Rate",
   "heading_is_radiant": "Side",
   "heading_avg_and_max": "Averages/Maximums",
-  "subheading_avg_and_max": "in last %d matches",
   "heading_total_matches": "Total Matches",
   "heading_median": "Median",
+  
+  "subheading_avg_and_max": "in last %d matches",
+  "subheading_records": "In ranked matches. Records reset monthly.",
   
   "hero_pro_tab": "Professional",
   "hero_public_tab": "Public",
@@ -728,6 +731,7 @@
   "title_search": "Search",
   "title_status": "Status",
   "title_explorer": "Data Explorer",
+  "title_records": "Records",
 
   "tooltip_mmr": "Solo MMR of the player",
   "tooltip_level": "Level achieved by hero",

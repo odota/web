@@ -232,6 +232,12 @@ export const transformations = {
   },
   hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true),
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
+  match_id_with_time: (row, col, field) => (<div>
+    <TableLink to={`/matches/${field}`}>{field}</TableLink>
+    <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+      {fromNow(row.start_time)}
+    </span>
+  </div>),
   radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
     const getColor = (result) => {

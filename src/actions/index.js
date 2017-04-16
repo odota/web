@@ -32,3 +32,4 @@ export * from './heroStatsActions';
 export * from './publicMatchesActions';
 export * from './leaguesActions';
 export * from './teamsActions';
+export * from './recordsActions';
