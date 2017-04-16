@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from 'material-ui/Card';
 import playerStatsStyles from 'components/Player/Header/PlayerStats.css';
-//import util from 'util';
+// import util from 'util';
 
 const totalsToShow = {
   kills: 1,
