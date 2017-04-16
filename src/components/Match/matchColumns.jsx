@@ -377,20 +377,23 @@ export const performanceColumns = [
     sortFn: true,
     displayFn: (row, col, field) => (field ? `${(field * 100).toFixed(2)}%` : '-'),
     relativeBars: true,
+    sumFn: true,
   }, {
     displayName: strings.th_lhten,
     tooltip: strings.tooltip_lhten,
-    field: 'lh_t',
-    sortFn: row => row.lh_t && row.lh_t[10],
+    field: 'lh_ten',
+    sortFn: true,
     displayFn: (row, col, field) => (field || '-'),
     relativeBars: true,
+    sumFn: true,
   }, {
     displayName: strings.th_dnten,
     tooltip: strings.tooltip_dnten,
-    field: 'dn_t',
-    sortFn: row => row.dn_t && row.dn_t[10],
+    field: 'dn_ten',
+    sortFn: true,
     displayFn: (row, col, field) => (field || '-'),
     relativeBars: true,
+    sumFn: true,
   }, {
     displayName: strings.th_multikill,
     tooltip: strings.tooltip_multikill,
@@ -398,6 +401,7 @@ export const performanceColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
+    sumFn: true,
   }, {
     displayName: strings.th_killstreak,
     tooltip: strings.tooltip_killstreak,
@@ -405,6 +409,7 @@ export const performanceColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
+    sumFn: true,
   }, {
     displayName: strings.th_stuns,
     tooltip: strings.tooltip_stuns,
@@ -412,6 +417,7 @@ export const performanceColumns = [
     sortFn: true,
     displayFn: (row, col, field) => (field ? field.toFixed(2) : '-'),
     relativeBars: true,
+    sumFn: true,
   }, {
     displayName: strings.th_stacked,
     tooltip: strings.tooltip_camps_stacked,
@@ -419,6 +425,7 @@ export const performanceColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
+    sumFn: true,
   }, {
     displayName: strings.th_dead,
     tooltip: strings.tooltip_dead,
@@ -426,6 +433,7 @@ export const performanceColumns = [
     sortFn: true,
     displayFn: (row, col, field) => formatSeconds(field) || '-',
     relativeBars: true,
+    sumFn: true,
   }, {
     displayName: strings.th_buybacks,
     tooltip: strings.tooltip_buybacks,
@@ -433,6 +441,7 @@ export const performanceColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
+    sumFn: true,
   }, {
     displayName: strings.th_pings,
     tooltip: strings.tooltip_pings,
@@ -440,6 +449,7 @@ export const performanceColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
+    sumFn: true,
   }, {
     displayName: strings.th_biggest_hit,
     tooltip: strings.tooltip_biggest_hit,

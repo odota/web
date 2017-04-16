@@ -11,14 +11,7 @@ const initialState = {
 export default createReducer(initialState, playerPeersActions);
 
 export const getPlayerPeers = {
-  getPlayerPeersById: (state, id) => {
-    if (!state.app.gotPlayer.peers.byId[id]) {
-      return {
-        ...initialState,
-      };
-    }
-    return state.app.gotPlayer.peers.byId[id];
-  },
+  getPlayerPeersById: (state, id) => state.app.gotPlayer.peers.byId[id] || { ...initialState },
   getError: (state, id) => getPlayerPeers.getPlayerPeersById(state, id).error,
   getLoading: (state, id) => getPlayerPeers.getPlayerPeersById(state, id).loading,
   isLoaded: (state, id) => getPlayerPeers.getPlayerPeersById(state, id).loaded,

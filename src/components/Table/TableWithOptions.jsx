@@ -11,7 +11,7 @@ class TableWithOptions extends Component {
   }
 
   render() {
-    const { paginated, maxRows, data, ...rest } = this.props;
+    const { paginated, maxRows, data = [], ...rest } = this.props;
     let TableWithOptions = Table;
 
     if (paginated) {

@@ -11,14 +11,7 @@ const initialState = {
 export default createReducer(initialState, playerProsActions);
 
 export const getPlayerPros = {
-  getPlayerProsById: (state, id) => {
-    if (!state.app.gotPlayer.pros.byId[id]) {
-      return {
-        ...initialState,
-      };
-    }
-    return state.app.gotPlayer.pros.byId[id];
-  },
+  getPlayerProsById: (state, id) => state.app.gotPlayer.pros.byId[id] || { ...initialState },
   getError: (state, id) => getPlayerPros.getPlayerProsById(state, id).error,
   getLoading: (state, id) => getPlayerPros.getPlayerProsById(state, id).loading,
   isLoaded: (state, id) => getPlayerPros.getPlayerProsById(state, id).loaded,
