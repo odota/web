@@ -11,14 +11,7 @@ const initialState = {
 export default createReducer(initialState, playerHeroesActions);
 
 export const getPlayerHeroes = {
-  getPlayerHeroesById: (state, id) => {
-    if (!state.app.gotPlayer.heroes.byId[id]) {
-      return {
-        ...initialState,
-      };
-    }
-    return state.app.gotPlayer.heroes.byId[id];
-  },
+  getPlayerHeroesById: (state, id) => state.app.gotPlayer.heroes.byId[id] || { ...initialState },
   getError: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).error,
   getLoading: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).loading,
   isLoaded: (state, id) => getPlayerHeroes.getPlayerHeroesById(state, id).loaded,

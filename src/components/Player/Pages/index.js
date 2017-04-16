@@ -12,3 +12,4 @@ export { default as MMRPage } from './MMR/MMR';
 export { default as ItemsPage } from './Items/Items';
 export { default as WardmapPage } from './Wardmap/Wardmap';
 export { default as WordcloudPage } from './Wordcloud/Wordcloud';
+export { default as TotalsPage } from './Totals/Totals';

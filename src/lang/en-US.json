@@ -247,6 +247,7 @@
   "heading_peers": "Players Played With",
   "heading_pros": "Pro Players Played With",
   "heading_rankings": "Seasonal Hero Rankings",
+  "heading_totals": "Totals",
   "heading_records": "Records",
   "heading_teamfights": "Teamfights",
   "heading_graph_difference": "Radiant Advantage",
@@ -536,6 +537,7 @@
   "tab_pros": "Pros",
   "tab_activity": "Activity",
   "tab_records": "Records",
+  "tab_totals": "Totals",
   "tab_counts": "Counts",
   "tab_histograms": "Histograms",
   "tab_trends": "Trends",
@@ -683,6 +685,7 @@
   "th_estimated_mmr": "Estimated MMR",
   "th_permanent_buffs": "Buffs",
   "th_winner": "Winner",
+  "th_played_with": "My Record With",
 
   "ward_log_type": "Type",
   "ward_log_owner": "Owner",

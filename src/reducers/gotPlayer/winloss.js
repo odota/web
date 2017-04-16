@@ -34,7 +34,7 @@ export default (state = initialState, action) => {
   }
 };
 
-export const getWinLoss = {
+export const getPlayerWinLoss = {
   getWins: state => state.app.gotPlayer.winloss.win,
   getLosses: state => state.app.gotPlayer.winloss.lose,
 };

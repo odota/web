@@ -1,5 +1,11 @@
 /* global API_HOST fetch */
 import React from 'react';
+import strings from 'lang';
+import {
+  CardTitle,
+} from 'material-ui/Card';
+import { Link } from 'react-router';
+import playerStatsStyles from 'components/Player/Header/PlayerStats.css';
 
 const shouldShow = props => props.loggedInId && props.loggedInId !== props.playerId;
 
@@ -10,6 +16,8 @@ const getData = (props, context) => {
     .then(json => context.setState({ ...context.state, ...json }));
   }
 };
+
+const inlineStyle = { display: 'inline' };
 
 class PlayedWith extends React.Component {
   constructor() {
@@ -26,10 +34,17 @@ class PlayedWith extends React.Component {
   }
   render() {
     return (<div style={{ display: shouldShow(this.props) ? 'block' : 'none' }}>
-      <span>MY RECORD IN GAMES WITH THIS PLAYER: </span>
-      <span>{this.state.win}</span>
-      <span>-</span>
-      <span>{this.state.lose}</span>
+      <CardTitle
+        className={playerStatsStyles.playerStats}
+        subtitle={
+          <div>
+            <div style={inlineStyle} className={playerStatsStyles.textSuccess}>{this.state.win}</div>
+            <div style={inlineStyle} > - </div>
+            <div style={inlineStyle} className={playerStatsStyles.textDanger}>{this.state.lose}</div>
+          </div>
+        }
+        title={<Link to={`/players/${this.props.playerId}/matches?included_account_id=${this.props.loggedInId}`}>{strings.th_played_with}</Link>}
+      />
     </div>);
   }
 }

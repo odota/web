@@ -70,7 +70,7 @@ export default combineReducers({
 
 
 export const getPlayer = {
-  getPlayerById: (state, id) => state.app.gotPlayer.playerReducer.byId[id] || { ...initialState },
+  getPlayerById: (state, id) => state.app.gotPlayer.player.byId[id] || { ...initialState },
   getError: (state, id) => getPlayer.getPlayerById(state, id).error,
   getLoading: (state, id) => getPlayer.getPlayerById(state, id).loading,
   isLoaded: (state, id) => getPlayer.getPlayerById(state, id).loaded,

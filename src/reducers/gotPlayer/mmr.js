@@ -11,14 +11,7 @@ const initialState = {
 export default createReducer(initialState, playerMMRActions);
 
 export const getPlayerMMR = {
-  getPlayerMMRById: (state, id) => {
-    if (!state.app.gotPlayer.mmr.byId[id]) {
-      return {
-        ...initialState,
-      };
-    }
-    return state.app.gotPlayer.mmr.byId[id];
-  },
+  getPlayerMMRById: (state, id) => state.app.gotPlayer.mmr.byId[id] || { ...initialState },
   getError: (state, id) => getPlayerMMR.getPlayerMMRById(state, id).error,
   getLoading: (state, id) => getPlayerMMR.getPlayerMMRById(state, id).loading,
   isLoaded: (state, id) => getPlayerMMR.getPlayerMMRById(state, id).loaded,

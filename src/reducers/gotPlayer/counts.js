@@ -17,14 +17,7 @@ const countsReducer = createReducer(initialState, playerCountsActions, true);
 export default countsReducer;
 
 export const getPlayerCounts = {
-  getPlayerCountsById: (state, id) => {
-    if (!state.app.gotPlayer.counts.byId[id]) {
-      return {
-        ...initialState,
-      };
-    }
-    return state.app.gotPlayer.counts.byId[id];
-  },
+  getPlayerCountsById: (state, id) => state.app.gotPlayer.counts.byId[id] || { ...initialState },
   getData: (state, id) => getPlayerCounts.getPlayerCountsById(state, id).data,
   getOnlyData: (state, id) => {
     const data = getPlayerCounts.getPlayerCountsById(state, id).data;

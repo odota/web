@@ -17,6 +17,7 @@ export * from './player/playerWardmapActions';
 export * from './player/playerWordcloudActions';
 export * from './player/playerTrendsActions';
 export * from './player/playerRecentMatchesActions';
+export * from './player/playerTotalsActions';
 export * from './formActions';
 export * from './rankingActions';
 export * from './benchmarkActions';

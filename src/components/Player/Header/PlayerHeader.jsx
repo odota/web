@@ -11,7 +11,6 @@ import styles from './PlayerHeader.css';
 import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';
-import PlayedWith from './PlayedWith';
 
 export const HEADER_SM_BREAK = 660;
 export const HEADER_MD_BREAK = 900;
@@ -79,8 +78,7 @@ const PlayerHeader = ({ playerName, officialPlayerName, playerId, picture, regis
             <span className={styles.playerName}>{officialPlayerName || playerName}</span>
             <PlayerBadges playerId={playerId} />
           </div>
-          <PlayerStats playerId={playerId} compact={width <= HEADER_SM_BREAK} />
-          <PlayedWith loggedInId={loggedInUser && String(loggedInUser.account_id)} playerId={playerId} />
+          <PlayerStats playerId={playerId} loggedInId={loggedInUser && String(loggedInUser.account_id)} compact={width <= HEADER_SM_BREAK} />
           <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={width <= HEADER_SM_BREAK} />
         </div>
       </div>
