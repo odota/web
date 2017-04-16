@@ -15,7 +15,7 @@ const Counts = ({ counts, error, loading }) => (
     {Object.keys(counts).map((key, index) => (
       <div key={index} className={styles.countTable}>
         <Container title={strings[`heading_${key}`]} error={error} loading={loading}>
-          <Table paginated columns={playerCountsColumns} data={counts[key].list} />
+          <Table columns={playerCountsColumns} data={counts[key].list} />
         </Container>
       </div>
     ))}

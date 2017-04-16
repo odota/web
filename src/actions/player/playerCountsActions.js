@@ -76,7 +76,7 @@ export const getPlayerCounts = (playerId, options = {}) => (dispatch, getState) 
               category: strings[`${key}_${innerKey}`] || (countTypes[key] && countTypes[key][innerKey]) || innerKey,
               matches: json[key][innerKey].games,
               winPercent: getPercentWin(json[key][innerKey].win, json[key][innerKey].games),
-            })),
+            })).sort((a,b) => b.category - a.category),
         };
       });
       return data;
