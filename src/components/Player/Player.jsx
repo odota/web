@@ -45,7 +45,7 @@ class RequestLayer extends React.Component {
           <TabBar info={info} tabs={playerPages(playerId)} />
         </div>
         <div className={styles.page}>
-          <TableFilterForm />
+          <TableFilterForm playerId={playerId} />
           {page ? page.content(playerId, routeParams, location) : <Spinner />}
         </div>
       </div>
