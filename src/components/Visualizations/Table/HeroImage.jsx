@@ -56,6 +56,8 @@ const TableHeroImage = ({
             src="/assets/images/dota2/disconnect_icon.png"
             role="presentation"
             className={styles.abandoned}
+            data-hint={strings[`leaver_status_${leaverStatus}`]}
+            data-hint-position="top"
           />
         }
         {playerSlot !== undefined &&
