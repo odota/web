@@ -10,8 +10,11 @@ import { transformations, formatSeconds } from 'utility';
 // import { IconRadiant, IconDire, IconTrophy } from 'components/Icons';
 import TabBar from 'components/TabBar';
 
-const matchesColumns = [{
-  displayName: strings.th_record,
+const matchesColumns = field => [{
+  displayName: '#',
+  field: 'rank',
+}, {
+  displayName: strings[`th_${field}`],
   field: 'score',
   displayFn: (row, col, field) => (row.hero_id === '' ? formatSeconds(field) : field),
 }, {
@@ -30,7 +33,7 @@ const tabs = fields.map(field => ({
   name: strings[`th_${field}`],
   key: field,
   content: props => (<div>
-    <Table data={props.data} columns={matchesColumns} />
+    <Table data={props.data.map((element, index) => ({ ...element, rank: index + 1 }))} columns={matchesColumns(field)} />
   </div>),
   route: `/records/${field}`,
 }));
