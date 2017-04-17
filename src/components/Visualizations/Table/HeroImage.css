@@ -36,6 +36,13 @@
   align-items: center;
 }
 
+.abandoned {
+  right: 7px;
+  position: absolute;
+  bottom: 0;
+  width: 51px;
+}
+
 .parsed {
   position: relative;
   left: -24px;

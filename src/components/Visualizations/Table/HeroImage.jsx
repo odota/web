@@ -28,6 +28,7 @@ const TableHeroImage = ({
   randomed,
   repicked,
   predictedVictory,
+  leaverStatus,
 }) => (
   <div className={styles.container}>
     {parsed !== undefined &&
@@ -50,6 +51,13 @@ const TableHeroImage = ({
           role="presentation"
           className={styles.image}
         />
+        {leaverStatus !== undefined && leaverStatus > 1 &&
+          <img
+            src="/assets/images/dota2/disconnect_icon.png"
+            role="presentation"
+            className={styles.abandoned}
+          />
+        }
         {playerSlot !== undefined &&
           <div
             className={styles.playerSlot}
