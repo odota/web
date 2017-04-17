@@ -1,7 +1,6 @@
 /* global API_HOST */
 import React from 'react';
 import strings from 'lang';
-import moment from 'moment';
 import {
   formatSeconds,
   jsonFn,
@@ -159,7 +158,7 @@ class IntroEvent extends StoryEvent {
     super(-90);
     this.game_mode = match.game_mode;
     this.region = match.region;
-    this.date = moment.unix(match.start_time);
+    this.date = new Date(match.start_time * 1000);
   }
   get localizedRegion() {
     let words = transformations.region(null, null, this.region).split(' ');
@@ -169,7 +168,9 @@ class IntroEvent extends StoryEvent {
   format() {
     return renderTemplate(strings.story_intro, {
       game_mode: strings[`game_mode_${this.game_mode}`],
-      date: this.date.format('LL'),
+      date: this.date.toLocaleDateString(
+        window.localStorage && window.localStorage.getItem('localization') || 'en-US',
+        { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
       region: this.localizedRegion,
     });
   }
@@ -658,6 +659,14 @@ class MatchStory extends React.Component {
     try {
       return this.renderEvents();
     } catch (e) {
+      let exmsg = 'Story Tab Error:\n';
+      if (e.message) {
+        exmsg += e.message;
+      }
+      if (e.stack) {
+        exmsg += ` | stack: ${e.stack}`;
+      }
+      console.log(exmsg);
       return (<div>{strings.story_error}</div>);
     }
   }
