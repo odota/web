@@ -46,7 +46,7 @@ export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide =
     pvgnaGuideInfo={row.pvgnaGuide}
     randomed={row.randomed}
     repicked={row.repicked}
-    predictedVictory={row.predicted_victory}
+    predictedVictory={row.pred_vict}
   />
 );
 
