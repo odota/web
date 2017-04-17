@@ -45,6 +45,13 @@ const getPeers = (props, context) => {
   .then(json => context.setState({ peers: json }));
 };
 
+const setShowFormState = (props) => {
+  if (Boolean(props.currentQueryString.substring(1)) !== props.showForm) {
+    // If query string state has a filter, turn on the form
+    props.toggleShowForm();
+  }
+};
+
 class TableFilterForm extends React.Component {
   constructor() {
     super();
@@ -54,19 +61,13 @@ class TableFilterForm extends React.Component {
   }
 
   componentDidMount() {
-    if (Boolean(this.props.currentQueryString.substring(1)) !== this.props.showForm && !this.props.showForm) {
-      // If query string state has a filter, turn on the form
-      this.props.toggleShowForm();
-    }
+    setShowFormState(this.props);
     getPeers(this.props, this);
   }
 
   componentWillUpdate(nextProps) {
-    if (Boolean(nextProps.currentQueryString.substring(1)) !== nextProps.showForm && !nextProps.showForm) {
-      // If query string state has a filter, turn on the form
-      nextProps.toggleShowForm();
-    }
     if (nextProps.playerId !== this.props.playerId) {
+      setShowFormState(nextProps);
       getPeers(nextProps, this);
     }
   }
