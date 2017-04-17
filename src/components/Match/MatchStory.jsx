@@ -161,11 +161,16 @@ class IntroEvent extends StoryEvent {
     this.region = match.region;
     this.date = moment.unix(match.start_time);
   }
+  get localizedRegion() {
+    let words = transformations.region(null, null, this.region).split(' ');
+    words = words.map(word => (word.length <= 2 ? word : word[0] + word.slice(1).toLowerCase()));
+    return words.join(' ');
+  }
   format() {
     return renderTemplate(strings.story_intro, {
       game_mode: strings[`game_mode_${this.game_mode}`],
       date: this.date.format('LL'),
-      region: transformations.region(null, null, this.region),
+      region: this.localizedRegion,
     });
   }
 }
@@ -653,16 +658,7 @@ class MatchStory extends React.Component {
     try {
       return this.renderEvents();
     } catch (e) {
-      let exmsg = '';
-      if (e.message) {
-        exmsg += e.message;
-      }
-      if (e.stack) {
-        exmsg += ` | stack: ${e.stack}`;
-      }
-      console.log(exmsg);
-      return (<div>{exmsg}</div>)
-      //return (<div>{strings.story_error}</div>);
+      return (<div>{strings.story_error}</div>);
     }
   }
 }
