@@ -16,7 +16,7 @@ const matchesColumns = field => [{
 }, {
   displayName: strings[`th_${field}`],
   field: 'score',
-  displayFn: (row, col, field) => (row.hero_id === '' ? formatSeconds(field) : field),
+  displayFn: (row, col, field) => (row.hero_id === '' ? formatSeconds(field) : Number(field).toLocaleString()),
 }, {
   displayName: strings.th_match_id,
   field: 'match_id',
