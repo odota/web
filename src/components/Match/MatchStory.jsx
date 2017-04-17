@@ -1,9 +1,11 @@
 /* global API_HOST */
 import React from 'react';
 import strings from 'lang';
+import moment from 'moment';
 import {
   formatSeconds,
   jsonFn,
+  transformations,
 } from 'utility';
 import { IconRadiant, IconDire } from 'components/Icons';
 import heroes from 'dotaconstants/build/heroes.json';
@@ -149,6 +151,22 @@ class StoryEvent {
   }
   render() {
     return <div key={`event_at_${this.time}`}>{this.formatSentence()}</div>;
+  }
+}
+
+class IntroEvent extends StoryEvent {
+  constructor(match) {
+    super(-90);
+    this.game_mode = match.game_mode;
+    this.region = match.region;
+    this.date = moment.unix(match.start_time);
+  }
+  format() {
+    return renderTemplate(strings.story_intro, {
+      game_mode: strings[`game_mode_${this.game_mode}`],
+      date: this.date.format('LL'),
+      region: transformations.region(null, null, this.region),
+    });
   }
 }
 
@@ -524,9 +542,13 @@ class GameoverEvent extends StoryEvent {
 
 // Modified version of timeline data
 const generateStory = (match) => {
+  let events = [];
+
+  // Intro
+  events.push(new IntroEvent(match));
+
   // Firstblood
   const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
-  let events = [];
 
   if (fbIndex > -1) {
     const killerLog = match.players.find(player =>
@@ -631,7 +653,16 @@ class MatchStory extends React.Component {
     try {
       return this.renderEvents();
     } catch (e) {
-      return (<div>{strings.story_error}</div>);
+      let exmsg = '';
+      if (e.message) {
+        exmsg += e.message;
+      }
+      if (e.stack) {
+        exmsg += ` | stack: ${e.stack}`;
+      }
+      console.log(exmsg);
+      return (<div>{exmsg}</div>)
+      //return (<div>{strings.story_error}</div>);
     }
   }
 }
