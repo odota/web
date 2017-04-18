@@ -5,6 +5,7 @@ import {
   formatSeconds,
   jsonFn,
   transformations,
+  formatTemplate,
 } from 'utility';
 import { IconRadiant, IconDire } from 'components/Icons';
 import heroes from 'dotaconstants/build/heroes.json';
@@ -101,20 +102,6 @@ const capitalizeFirst = (list) => {
   return list.slice(0);
 };
 
-// Fills in a template with the vars provided in the dict
-// Adds a fullstop if it's indicated that this is a sentence
-const renderTemplate = (template, dict) => {
-  const pattern = /(\{[^}]+\})/g;
-  let result = template.split(pattern);
-  for (let i = 0; i < result.length; i += 1) {
-    if (result[i].match(pattern) && result[i].slice(1, -1) in dict) {
-      result[i] = dict[result[i].slice(1, -1)];
-    }
-  }
-  result = result.filter(part => part !== '');
-  return result;
-};
-
 // Adds a fullstop to the end of a sentence, and capitalizes the first letter if it can
 const toSentence = (content) => {
   const result = capitalizeFirst(content);
@@ -122,7 +109,7 @@ const toSentence = (content) => {
   return result;
 };
 
-const renderSentence = (template, dict) => toSentence(renderTemplate(template, dict));
+const renderSentence = (template, dict) => toSentence(formatTemplate(template, dict));
 
 // Enumerates a list of items using the correct language syntax
 const formatList = (items, noneValue = []) => {
@@ -132,11 +119,11 @@ const formatList = (items, noneValue = []) => {
     case 1:
       return items;
     case 2:
-      return renderTemplate(strings.story_list_2, { 1: items[0], 2: items[1] });
+      return formatTemplate(strings.story_list_2, { 1: items[0], 2: items[1] });
     case 3:
-      return renderTemplate(strings.story_list_3, { 1: items[0], 2: items[1], 3: items[2] });
+      return formatTemplate(strings.story_list_3, { 1: items[0], 2: items[1], 3: items[2] });
     default:
-      return renderTemplate(strings.story_list_n, { i: items.shift(), rest: formatList(items) });
+      return formatTemplate(strings.story_list_n, { i: items.shift(), rest: formatList(items) });
   }
 };
 
@@ -166,10 +153,10 @@ class IntroEvent extends StoryEvent {
     return words.join(' ');
   }
   format() {
-    return renderTemplate(strings.story_intro, {
+    return formatTemplate(strings.story_intro, {
       game_mode: strings[`game_mode_${this.game_mode}`],
       date: this.date.toLocaleDateString(
-        window.localStorage && window.localStorage.getItem('localization') || 'en-US',
+        (window.localStorage && window.localStorage.getItem('localization')) || 'en-US',
         { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
       region: this.localizedRegion,
     });
@@ -186,7 +173,7 @@ class FirstbloodEvent extends StoryEvent {
     });
   }
   format() {
-    return renderTemplate(strings.story_firstblood, {
+    return formatTemplate(strings.story_firstblood, {
       time: formatSeconds(this.time),
       killer: PlayerSpan(this.killer),
       victim: PlayerSpan(this.victim),
@@ -207,7 +194,7 @@ class AegisEvent extends StoryEvent {
             (this.action === 'CHAT_MESSAGE_DENIED_AEGIS' && strings.timeline_aegis_denied));
   }
   format() {
-    return renderTemplate(strings.story_aegis, {
+    return formatTemplate(strings.story_aegis, {
       action: this.localizedAction,
       player: PlayerSpan(this.player),
     });
@@ -221,7 +208,7 @@ class RoshanEvent extends StoryEvent {
     this.aegis = aegisEvents.find(aegis => aegis.index === index);
   }
   format() {
-    const formatted = renderTemplate(strings.story_roshan, { team: TeamSpan(this.team) });
+    const formatted = formatTemplate(strings.story_roshan, { team: TeamSpan(this.team) });
     return this.aegis ? formatList([formatted, this.aegis.format()]) : formatted;
   }
 }
@@ -343,10 +330,10 @@ class TowerEvent extends StoryEvent {
     }
   }
   get localizedBuilding() {
-    return renderTemplate(strings.story_tower, { team: TeamSpan(this.team) });
+    return formatTemplate(strings.story_tower, { team: TeamSpan(this.team) });
   }
   format() {
-    return renderTemplate(this.template, {
+    return formatTemplate(this.template, {
       building: this.localizedBuilding,
       player: this.player ? PlayerSpan(this.player) : null,
     });
@@ -363,14 +350,14 @@ class BarracksEvent extends StoryEvent {
     this.lane = Math.floor(power / 2) + 1;
   }
   get localizedBuilding() {
-    return renderTemplate(strings.story_barracks, {
+    return formatTemplate(strings.story_barracks, {
       team: TeamSpan(this.team),
       lane: localizedLane[this.lane],
       rax_type: this.is_melee ? strings.building_melee_rax : strings.building_range_rax,
     });
   }
   format() {
-    return renderTemplate(strings.story_building_destroy, { building: this.localizedBuilding });
+    return formatTemplate(strings.story_building_destroy, { building: this.localizedBuilding });
   }
 }
 
@@ -386,7 +373,7 @@ class BuildingListEvent extends StoryEvent {
       if (towers.length === 1) {
         buildingList.push(towers[0].localizedBuilding);
       } else if (towers.length > 1) {
-        buildingList.push(renderTemplate(strings.story_towers_n, {
+        buildingList.push(formatTemplate(strings.story_towers_n, {
           team: TeamSpan(team),
           n: towers.length,
         }));
@@ -397,14 +384,14 @@ class BuildingListEvent extends StoryEvent {
         if (barracks.length === 1) {
           buildingList.push(barracks[0].localizedBuilding);
         } else if (barracks.length === 2) {
-          buildingList.push(renderTemplate(strings.story_barracks_both, {
+          buildingList.push(formatTemplate(strings.story_barracks_both, {
             team: TeamSpan(team),
             lane: localizedLane[lane],
           }));
         }
       });
     });
-    return renderTemplate(strings.story_building_list_destroy, { buildings: formatList(buildingList) });
+    return formatTemplate(strings.story_building_list_destroy, { buildings: formatList(buildingList) });
   }
 }
 
@@ -485,7 +472,7 @@ class ExpensiveItemEvent extends StoryEvent {
     return found;
   }
   format() {
-    return renderTemplate(strings.story_expensive_item, {
+    return formatTemplate(strings.story_expensive_item, {
       time: formatSeconds(this.time),
       player: PlayerSpan(this.player),
       item: ItemSpan(this.item),
@@ -501,7 +488,7 @@ class ItemPurchaseEvent extends StoryEvent {
     this.item = purchase.key;
   }
   format() {
-    return renderTemplate(strings.story_item_purchase, {
+    return formatTemplate(strings.story_item_purchase, {
       time: formatSeconds(this.time),
       player: PlayerSpan(this.player),
       item: ItemSpan(this.item),
@@ -522,7 +509,7 @@ class TimeMarkerEvent extends StoryEvent {
   format() {
     return [
       <h3 key={`minute_${this.minutes}_subheading`}>
-        {renderTemplate(strings.story_time_marker, { minutes: this.minutes })}
+        {formatTemplate(strings.story_time_marker, { minutes: this.minutes })}
       </h3>,
       <hr key={`minute_${this.minutes}_hr`} />,
     ];
@@ -537,7 +524,7 @@ class GameoverEvent extends StoryEvent {
     this.dire_score = match.dire_score;
   }
   format() {
-    return renderTemplate(strings.story_gameover, {
+    return formatTemplate(strings.story_gameover, {
       duration: formatSeconds(this.time),
       winning_team: TeamSpan(this.winning_team),
       radiant_score: <font key="radiant_score" color={styles.green}>{this.radiant_score}</font>,

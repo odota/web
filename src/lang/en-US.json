@@ -497,6 +497,7 @@
   "skill_2": "High",
   "skill_3": "Very High",
 
+  "story_invalid_template": "(invalid template)",
   "story_error": "An error occured while compiling the story for this match",
   "story_intro": "on {date}, two teams decided to play a {game_mode} game of Dota 2 in {region}",
   "story_invalid_hero": "Unrecognized Hero",
