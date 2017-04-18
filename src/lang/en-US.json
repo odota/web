@@ -45,9 +45,10 @@
   "app_refresh_label": "Refresh",
   "app_login": "Login",
   "app_logout": "Logout",
-  "app_results": "results",
+  "app_results": "result(s)",
   "app_report_bug": "Report Bug",
   "app_pro_players": "Pro Players",
+  "app_public_players": "Public Players",
 
   "barracks_value_1": "Dire Bot Melee",
   "barracks_value_2": "Dire Bot Ranged",

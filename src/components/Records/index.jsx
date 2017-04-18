@@ -8,6 +8,7 @@ import Table from 'components/Table';
 import Heading from 'components/Heading';
 import { transformations, formatSeconds } from 'utility';
 // import { IconRadiant, IconDire, IconTrophy } from 'components/Icons';
+import Container from 'components/Container';
 import TabBar from 'components/TabBar';
 
 const matchesColumns = field => [{
@@ -32,9 +33,9 @@ const fields = ['duration', 'kills', 'deaths', 'assists', 'gold_per_min', 'xp_pe
 const tabs = fields.map(field => ({
   name: strings[`th_${field}`],
   key: field,
-  content: props => (<div>
+  content: props => (<Container>
     <Table data={props.data.map((element, index) => ({ ...element, rank: index + 1 }))} columns={matchesColumns(field)} />
-  </div>),
+  </Container>),
   route: `/records/${field}`,
 }));
 

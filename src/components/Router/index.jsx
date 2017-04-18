@@ -31,7 +31,7 @@ store.dispatch(getMetadata());
 
 export default () => (
   <Provider store={store}>
-    <Router history={history}>
+    <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="matches(/:matchId)(/:info)" component={Matches} />
