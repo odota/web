@@ -24,11 +24,9 @@ const searchColumns = [{
 const proColumns = [{
   displayName: strings.th_name,
   field: 'name',
-  displayFn: (row, col, field) => {
-    return transformations.player({
-      ...row
-    }, col, field);
-  },
+  displayFn: (row, col, field) => transformations.player({
+    ...row,
+  }, col, field),
 }, {
   displayName: strings.th_team_name,
   field: 'team_name',
