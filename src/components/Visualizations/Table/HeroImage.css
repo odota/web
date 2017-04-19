@@ -37,9 +37,19 @@
 }
 
 .abandoned {
-  right: 7px;
   position: absolute;
-  bottom: 0;
+  right: 7px;
+  bottom: 8px;
+  height: 15px;
+
+  &[data-hint] {
+    &::before, &::after {
+      left: 40%;
+    }
+  }
+}
+
+.abandoned img {
   width: 51px;
 }
 
