@@ -2,7 +2,7 @@
   "name": "opendota-ui",
   "description": "Dota 2 Data Web UI",
   "version": "1.0.1",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "scripts": {
     "webpack": "NODE_ENV=production webpack -p --bail",
     "start": "webpack-dev-server --inline --compress",
