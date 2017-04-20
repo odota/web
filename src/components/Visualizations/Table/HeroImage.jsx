@@ -86,7 +86,7 @@ const TableHeroImage = ({
         {subtitle &&
           <span className={styles.subText}>
             {subtitle}
-            <span className={styles.iconBox}>
+            <span>
               {randomed &&
                 <span
                   data-hint={strings.general_randomed}

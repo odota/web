@@ -165,14 +165,6 @@
   }
 }
 
-.iconBox {
-  margin-left: 4px;
-
-  & span {
-    margin-left: 4px;
-  }
-}
-
 .pvgnaGuideContainer {
   margin: auto;
 }
