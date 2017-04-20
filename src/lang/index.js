@@ -54,7 +54,7 @@ export const langs = [
     data: require('./nl-NL.json'),
   },*/ {
     value: 'pl-PL',
-    native: 'Polszczyzna',
+    native: 'Polski',
     data: require('./pl-PL.json'),
   }, {
     value: 'pt-BR',
