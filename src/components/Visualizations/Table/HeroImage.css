@@ -43,7 +43,8 @@
   height: 15px;
 
   &[data-hint] {
-    &::before, &::after {
+    &::before,
+    &::after {
       left: 40%;
     }
   }
