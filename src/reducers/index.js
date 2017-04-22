@@ -34,6 +34,7 @@ import localization, { getLocalization } from 'reducers/localization';
 import heroStats, { getHeroStats } from 'reducers/heroStats';
 import leagues, { getLeagues } from 'reducers/leagues';
 import teams, { getTeams } from 'reducers/teams';
+import globalRecords, { getGlobalRecords } from 'reducers/records';
 
 
 // This is where we will export all our state retrieval functions (better encapsulation)
@@ -68,6 +69,7 @@ export {
   getPublicMatches as publicMatches,
   getLeagues as leagues,
   getTeams as teams,
+  getGlobalRecords as records,
 };
 
 export default combineReducers({
@@ -108,4 +110,5 @@ export default combineReducers({
   leagues,
   ghPulls,
   teams,
+  records: globalRecords,
 });

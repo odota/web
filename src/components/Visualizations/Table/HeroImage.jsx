@@ -99,9 +99,10 @@ const TableHeroImage = ({
         {subtitle &&
           <span className={styles.subText}>
             {subtitle}
-            <span className={styles.iconBox}>
+            <span>
               {randomed &&
                 <span
+                  className={styles.hoverIcon}
                   data-hint={strings.general_randomed}
                   data-hint-position="top"
                 >
@@ -110,6 +111,7 @@ const TableHeroImage = ({
               }
               {repicked &&
                 <span
+                  className={styles.hoverIcon}
                   data-hint={strings.general_repicked}
                   data-hint-position="top"
                 >
@@ -118,6 +120,7 @@ const TableHeroImage = ({
               }
               {predictedVictory &&
                 <span
+                  className={styles.hoverIcon}
                   data-hint={strings.general_predicted_victory}
                   data-hint-position="top"
                 >

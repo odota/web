@@ -183,12 +183,12 @@
   }
 }
 
-.iconBox {
+.hoverIcon {
   margin-left: 4px;
+}
 
-  & span {
-    margin-left: 4px;
-  }
+.hoverIcon:first-child {
+  margin-left: 8px;
 }
 
 .pvgnaGuideContainer {

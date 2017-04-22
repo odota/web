@@ -31,6 +31,7 @@ const navbarPages = [
   <Link key={strings.header_matches} to="/matches">{strings.header_matches}</Link>,
   <Link key={strings.header_heroes} to="/heroes">{strings.header_heroes}</Link>,
   <Link key={strings.header_distributions} to="/distributions">{strings.header_distributions}</Link>,
+  <Link key={strings.header_records} to="/records">{strings.header_records}</Link>,
   <Link key={strings.header_explorer} to="/explorer">{strings.header_explorer}</Link>,
   //<Link key="Assistant" to="/assistant">Assistant</Link>,
 ];
