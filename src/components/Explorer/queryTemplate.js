@@ -84,7 +84,7 @@ ${duration ? `AND matches.duration > ${duration.value}` : ''}
 ${side ? `AND (player_matches.player_slot < 128) = ${side.value}` : ''}
 ${result ? `AND ((player_matches.player_slot < 128) = matches.radiant_win) = ${result.value}` : ''}
 ${team ? `AND notable_players.team_id = ${team.value}` : ''}
-${organization ? `AND team_match.team_id = ${organization.value}` : ''}
+${organization ? `AND team_match.team_id = ${organization.value} AND (player_matches.player_slot < 128) = team_match.radiant` : ''}
 ${lanePos ? `AND player_matches.lane_pos = ${lanePos.value}` : ''}
 ${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
 ${minDate ? `AND matches.start_time >= ${Math.round(new Date(minDate.value) / 1000)}` : ''}
