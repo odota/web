@@ -60,7 +60,7 @@
     "seamless-immutable": "^7.0.0",
     "uuid": "^3.0.0",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.2.0-rc.0",
+    "webpack-dev-server": "2.4.2",
     "wordcloud": "^1.0.5"
   },
   "devDependencies": {
