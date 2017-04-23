@@ -40,7 +40,7 @@ class ExplorerOutputSection extends React.Component {
   render() {
     const { rows, fields, expandedBuilder, teamMapping, playerMapping, format } = this.props;
     setTimeout(() => {
-      const firstCol = fields[0].name;
+      const firstCol = fields && fields[0].name;
       redrawGraphs(rows.map(row => ({
         ...row,
         [firstCol]: resolveId(firstCol, row[firstCol], { teamMapping, playerMapping }) }

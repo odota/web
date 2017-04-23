@@ -48,7 +48,7 @@ class ExplorerFormField extends React.Component {
         openOnFocus
         listStyle={{ maxHeight: 400, overflow: 'auto' }}
         fullWidth
-        filter={AutoComplete.fuzzyFilter}
+        filter={AutoComplete.caseInsensitiveFilter}
         floatingLabelText={label}
         dataSource={dataSource}
         maxSearchResults={100}
