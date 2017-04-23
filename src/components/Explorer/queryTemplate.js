@@ -11,6 +11,7 @@ const queryTemplate = (props) => {
     side,
     result,
     team,
+    organization,
     lanePos,
     region,
     minDate,
@@ -69,7 +70,7 @@ JOIN leagues using(leagueid)
 JOIN player_matches using(match_id)
 LEFT JOIN notable_players using(account_id)
 LEFT JOIN teams using(team_id)
-JOIN heroes ON player_matches.hero_id = heroes.id
+${organization || (group && group.key === 'organization') ? 'JOIN team_match using(match_id)' : ''}
 ${(select && select.join) ? select.join : ''}
 ${(select && select.joinFn) ? select.joinFn(props) : ''}
 WHERE TRUE
@@ -83,6 +84,7 @@ ${duration ? `AND matches.duration > ${duration.value}` : ''}
 ${side ? `AND (player_matches.player_slot < 128) = ${side.value}` : ''}
 ${result ? `AND ((player_matches.player_slot < 128) = matches.radiant_win) = ${result.value}` : ''}
 ${team ? `AND notable_players.team_id = ${team.value}` : ''}
+${organization ? `AND team_match.team_id = ${organization.value}` : ''}
 ${lanePos ? `AND player_matches.lane_pos = ${lanePos.value}` : ''}
 ${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
 ${minDate ? `AND matches.start_time >= ${Math.round(new Date(minDate.value) / 1000)}` : ''}

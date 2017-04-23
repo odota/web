@@ -272,6 +272,10 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     text: strings.explorer_team,
     value: 'teams.name',
     key: 'team',
+  }, {
+    text: strings.explorer_organization,
+    value: 'team_match.team_id',
+    key: 'organization',
   },
   ],
   patch: patchData.reverse().map(patch => ({
@@ -326,6 +330,12 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     key: String(league.leagueid),
   })),
   team: teams.map(team => ({
+    text: `[${team.team_id}] ${team.name}`,
+    searchText: team.name,
+    value: team.team_id,
+    key: String(team.team_id),
+  })),
+  organization: teams.map(team => ({
     text: `[${team.team_id}] ${team.name}`,
     searchText: team.name,
     value: team.team_id,
