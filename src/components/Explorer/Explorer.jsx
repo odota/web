@@ -35,15 +35,13 @@ import styles from './Explorer.css';
 // TODO split picks/bans by phase
 // TODO mega creep wins (matches table only)
 // TODO gold/kill differential
-// TODO num matches played by team (team_match table)
 // TODO hero combos (3+)
-// TODO lane positions/lane roles
 // TODO num wards placed?
 // TODO num roshans killed?
 // TODO item build rates?
+// TODO lane positions/lane roles (requires storing lane number)
 // TODO AEGIS_STOLEN, AEGIS, DENIED_AEGIS, FIRSTBLOOD, PAUSED (requires player1_slot fix)
 // TODO scan/glyph action (use action rather than CHAT_MESSAGE_SCAN/CHAT_MESSAGE_GLYPH_USED)
-// TODO autostat (combine with GetLiveLeagueGames)
 
 const playerMapping = {};
 const teamMapping = {};

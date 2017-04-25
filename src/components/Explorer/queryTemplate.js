@@ -53,7 +53,7 @@ ${(group) ?
   `sum(${(select || {}).groupValue || (select || {}).value || 1}) sum`,
   `min(${(select || {}).groupValue || (select || {}).value || 1}) min`,
   `max(${(select || {}).groupValue || (select || {}).value || 1}) max`,
-  `round(stddev(${(select || {}).groupValue || (select || {}).value || 1}), 2) stddev`,
+  `round(stddev(${(select || {}).groupValue || (select || {}).value || 1}::numeric), 2) stddev`,
 ].filter(Boolean).join(',\n')
 :
 [select ? `${select.value} ${select.alias || ''}` : '',
