@@ -29,7 +29,7 @@ function updateWordCloud(wordCounts, width, cloudDomId) {
     }
   });
 
-  const maxSize = width / 8;
+  const maxSize = width / 10;
   const minSize = 9;
 
   // @howardchung implementation of scaling
@@ -59,6 +59,7 @@ function updateWordCloud(wordCounts, width, cloudDomId) {
     list: wordList,
     backgroundColor: 'transparent',
     color: 'random-light',
+    wait: 1,
   });
 }
 
