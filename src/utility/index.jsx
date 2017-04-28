@@ -506,3 +506,27 @@ export const getScript = (url, callback) => {
   };
   script.onload = script.onreadystatechange;
 };
+
+// Fills in a template with the values provided in the dict
+// returns a list, so react object don't have to be converted to a string
+// Any keys not found in the given dictionary are simply left untouched
+// brackets can be escaped with \
+// Examples:
+// formatTemplate("{person} name is {name}", { person: "My", name: "Gaben" });
+// returns [ "My", " name is ", "Gaben" ]
+// formatTemplate("{person} name is {name}", { name: <font color={styles.golden}>{"Gaben"}</font> });
+// returns [ "{person} name is ", <font color={styles.golden}>{"Gaben"}</font> ]
+export const formatTemplate = (template, dict) => {
+  if (!template) {
+    return [strings.story_invalid_template];
+  }
+  const pattern = /(\{[^}]+\})/g;
+  let result = template.split(pattern);
+  for (let i = 0; i < result.length; i += 1) {
+    if (result[i].match(pattern) && result[i].slice(1, -1) in dict) {
+      result[i] = dict[result[i].slice(1, -1)];
+    }
+  }
+  result = result.filter(part => part !== '');
+  return result;
+};
