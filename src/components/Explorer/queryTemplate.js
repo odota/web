@@ -2,12 +2,14 @@ const queryTemplate = (props) => {
   const {
     select,
     group = select && select.groupValue ? { value: select.groupKey, groupKeySelect: select.groupKeySelect, alias: select.alias } : null,
-    patch,
+    minPatch,
+    maxPatch,
     hero,
     player,
     league,
     playerPurchased,
-    duration,
+    minDuration,
+    maxDuration,
     side,
     result,
     team,
@@ -33,9 +35,11 @@ JOIN team_match using(match_id)
 WHERE TRUE
 ${select && select.where ? select.where : ''}
 ${team ? `AND team_id = ${team.value}` : ''}
-${patch ? `AND match_patch.patch = '${patch.value}'` : ''}
+${minPatch ? `AND match_patch.patch >= '${minPatch.value}'` : ''}
+${maxPatch ? `AND match_patch.patch <= '${maxPatch.value}'` : ''}
 ${league ? `AND matches.leagueid = ${league.value}` : ''}
-${duration ? `AND matches.duration > ${duration.value}` : ''}
+${minDuration ? `AND matches.duration >= ${minDuration.value}` : ''}
+${maxDuration ? `AND matches.duration <= ${maxDuration.value}` : ''}
 ${side ? `AND team_match.radiant = ${side.value}` : ''}
 ${result ? `AND (team_match.radiant = matches.radiant_win) = ${result.value}` : ''}
 ${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
@@ -75,12 +79,14 @@ ${(select && select.join) ? select.join : ''}
 ${(select && select.joinFn) ? select.joinFn(props) : ''}
 WHERE TRUE
 ${select ? `AND ${select.value} IS NOT NULL` : ''}
-${patch ? `AND match_patch.patch = '${patch.value}'` : ''}
+${minPatch ? `AND match_patch.patch >= '${minPatch.value}'` : ''}
+${maxPatch ? `AND match_patch.patch <= '${maxPatch.value}'` : ''}
 ${hero ? `AND player_matches.hero_id = ${hero.value}` : ''}
 ${player ? `AND player_matches.account_id = ${player.value}` : ''}
 ${league ? `AND matches.leagueid = ${league.value}` : ''}
 ${playerPurchased ? `AND (player_matches.purchase->>'${playerPurchased.value}')::int > 0` : ''}
-${duration ? `AND matches.duration > ${duration.value}` : ''}
+${minDuration ? `AND matches.duration >= ${minDuration.value}` : ''}
+${maxDuration ? `AND matches.duration <= ${maxDuration.value}` : ''}
 ${side ? `AND (player_matches.player_slot < 128) = ${side.value}` : ''}
 ${result ? `AND ((player_matches.player_slot < 128) = matches.radiant_win) = ${result.value}` : ''}
 ${team ? `AND notable_players.team_id = ${team.value}` : ''}

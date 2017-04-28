@@ -23,7 +23,7 @@ class ExplorerFormField extends React.Component {
   render() {
     const { fields, label, builderField, handleFieldUpdate, isDateField, builder } = this.props;
     const dataSource = fields && fields[builderField];
-    const fieldWidth = 400;
+    const fieldWidth = 300;
     if (isDateField) {
       return (<span style={{ width: fieldWidth }}>
         <DatePicker

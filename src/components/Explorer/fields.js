@@ -42,6 +42,19 @@ AND match_logs.targetname LIKE '${unitKey}'`,
   key: `kill_${unitKey}`,
 });
 
+const patches = patchData.reverse().map(patch => ({
+  text: patch.name,
+  value: patch.name,
+  key: patch.name,
+}));
+
+const durations = Array(10).fill().map((e, i) => i * 10).map(duration => ({
+  text: `${util.format(strings.time_mm, duration)}`,
+  searchText: util.format(strings.time_mm, duration),
+  value: duration * 60,
+  key: String(duration),
+}));
+
 const fields = (players = [], leagues = [], teams = []) => ({
   select: [{
     text: strings.heading_kills,
@@ -278,11 +291,8 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     key: 'organization',
   },
   ],
-  patch: patchData.reverse().map(patch => ({
-    text: patch.name,
-    value: patch.name,
-    key: patch.name,
-  })),
+  minPatch: patches,
+  maxPatch: patches,
   hero: Object.keys(heroData).map(heroId => ({
     text: `[${heroId}] ${heroData[heroId].localized_name}`,
     searchText: heroData[heroId].localized_name,
@@ -294,12 +304,8 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     value: itemName,
     key: itemName,
   })),
-  duration: [10, 20, 30, 40, 50].map(duration => ({
-    text: `> ${util.format(strings.time_mm, duration)}`,
-    searchText: util.format(strings.time_mm, duration),
-    value: duration * 60,
-    key: String(duration),
-  })),
+  minDuration: durations,
+  maxDuration: durations,
   side: [{
     text: strings.general_radiant,
     value: true,
