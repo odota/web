@@ -18,6 +18,7 @@ const queryTemplate = (props) => {
     region,
     minDate,
     maxDate,
+    order,
   } = props;
   let query;
   if (select && select.template === 'picks_bans') {
@@ -46,7 +47,7 @@ ${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
 ${minDate ? `AND matches.start_time >= ${Math.round(new Date(minDate.value) / 1000)}` : ''}
 ${maxDate ? `AND matches.start_time <= ${Math.round(new Date(maxDate.value) / 1000)}` : ''}
 GROUP BY hero_id
-ORDER BY total DESC`;
+ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
     query = `SELECT
 ${(group) ?
@@ -98,7 +99,7 @@ ${maxDate ? `AND matches.start_time <= ${Math.round(new Date(maxDate.value) / 10
 ${group ? `GROUP BY ${group.value}` : ''}
 ${group ? 'HAVING count(distinct matches.match_id) > 0' : ''}
 ORDER BY ${
-[`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(select && select.order) || 'DESC'}`,
+[`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(order && order.value) || (select && select.order) || 'DESC'}`,
   group ? 'count DESC' : '',
 ].filter(Boolean).join(',')} NULLS LAST
 LIMIT 200`;

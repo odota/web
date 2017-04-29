@@ -353,6 +353,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     value: player.account_id,
     key: String(player.account_id),
   })),
+  order: [{ text: strings.explorer_asc, value: 'ASC', key: 'asc' }, { text: strings.explorer_desc, value: 'DESC', key: 'desc' }],
   /*
   lanePos: Object.keys(strings).filter(str => str.indexOf('lane_pos_') === 0).map(str => {
     const lanePosId = Number(str.substring('lane_pos_'.length));
