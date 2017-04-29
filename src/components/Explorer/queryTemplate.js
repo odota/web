@@ -34,7 +34,7 @@ JOIN leagues using(leagueid)
 JOIN team_match using(match_id)
 WHERE TRUE
 ${select && select.where ? select.where : ''}
-${team ? `AND team_id = ${team.value}` : ''}
+${organization ? `AND team_id = ${organization.value}` : ''}
 ${minPatch ? `AND match_patch.patch >= '${minPatch.value}'` : ''}
 ${maxPatch ? `AND match_patch.patch <= '${maxPatch.value}'` : ''}
 ${league ? `AND matches.leagueid = ${league.value}` : ''}
