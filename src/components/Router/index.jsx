@@ -18,6 +18,7 @@ import Request from 'components/Request';
 import Distributions from 'components/Distributions';
 import Status from 'components/Status';
 import Matches from 'components/Matches';
+import Combos from 'components/Explorer/Combos';
 // import Assistant from 'components/Assistant';
 import Records from 'components/Records';
 import store from 'store';
@@ -43,6 +44,7 @@ export default () => (
         <Route path="explorer" component={Explorer} />
         <Route path="search" component={Search} />
         <Route path="records(/:info)" component={Records} />
+        <Route path="combos" component={Combos} />
         {/* <Route path="assistant" component={Assistant} />*/}
         <Route path="*" component={FourOhFour} />
       </Route>
