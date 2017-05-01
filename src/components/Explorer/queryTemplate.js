@@ -52,6 +52,7 @@ ORDER BY total ${(order && order.value) || 'DESC'}`;
     query = `SELECT
 ${(group) ?
 [`${group.groupKeySelect || group.value} ${group.alias || ''}`,
+  (select || {}).countValue || '',
   `round(sum(${(select || {}).groupValue || (select || {}).value || 1})::numeric/count(${(select || {}).avgCountValue || 'distinct matches.match_id'}), 2) avg`,
   'count(distinct matches.match_id) count',
   'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
@@ -75,11 +76,12 @@ JOIN leagues using(leagueid)
 JOIN player_matches using(match_id)
 LEFT JOIN notable_players using(account_id)
 LEFT JOIN teams using(team_id)
-${organization || (group && group.key === 'organization') ? 'JOIN team_match using(match_id)' : ''}
+${organization || (group && group.key === 'organization') ? 'JOIN team_match ON matches.match_id = team_match.match_id AND (player_matches.player_slot < 128) = team_match.radiant' : ''}
 ${(select && select.join) ? select.join : ''}
 ${(select && select.joinFn) ? select.joinFn(props) : ''}
 WHERE TRUE
 ${select ? `AND ${select.value} IS NOT NULL` : ''}
+${group ? `AND ${group.value} IS NOT NULL` : ''}
 ${minPatch ? `AND match_patch.patch >= '${minPatch.value}'` : ''}
 ${maxPatch ? `AND match_patch.patch <= '${maxPatch.value}'` : ''}
 ${hero ? `AND player_matches.hero_id = ${hero.value}` : ''}

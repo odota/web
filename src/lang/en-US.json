@@ -331,6 +331,7 @@
   "heading_avg_and_max": "Averages/Maximums",
   "heading_total_matches": "Total Matches",
   "heading_median": "Median",
+  "heading_distinct_heroes": "Distinct Heroes",
   
   "subheading_avg_and_max": "in last %d matches",
   "subheading_records": "In ranked matches. Records reset monthly.",

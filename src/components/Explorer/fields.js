@@ -200,6 +200,12 @@ const fields = (players = [], leagues = [], teams = []) => ({
     key: 'buybacks',
   },
   {
+    text: strings.heading_distinct_heroes,
+    value: 1,
+    countValue: 'count(distinct player_matches.hero_id) distinct_heroes',
+    key: 'distinct_heroes',
+  },
+  {
     text: strings.explorer_hero_combos,
     value: 1,
     groupValue: 1,
