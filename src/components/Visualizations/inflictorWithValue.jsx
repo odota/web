@@ -1,5 +1,4 @@
 /* global API_HOST */
-/* eslint-disable react/no-danger */
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
@@ -22,12 +21,9 @@ const tooltipContainer = thing => (
       <span className={styles.lore}>{thing.lore}</span>}
       {thing.desc &&
       <span className={styles.lore}>{thing.desc}</span>}
-      {(thing.attrib || thing.affects || thing.dmg) && <hr />}
     </div>
-    <div dangerouslySetInnerHTML={{ __html: thing.affects }} />
-    <div dangerouslySetInnerHTML={{ __html: thing.attrib }} className={styles.noBr} />
-    <div dangerouslySetInnerHTML={{ __html: thing.dmg }} />
-    {(thing.cd || thing.mc || thing.cmb) && !thing.lore && !thing.attrib && <hr />}
+    <hr />
+    {(thing.attrib || []).map(attrib => <div key={attrib.key}>{`${attrib.header} ${attrib.value} ${attrib.footer || ''}`}</div>)}
     {(thing.cd || thing.mc || thing.cmb) &&
     <div className={styles.cost}>
       {thing.mc > 0 &&
@@ -40,21 +36,12 @@ const tooltipContainer = thing => (
         <img src={`${API_HOST}/apps/dota2/images/tooltips/cooldown.png`} role="presentation" />
         {thing.cd}
       </span>}
-      {thing.cmb &&
-      <div
-        dangerouslySetInnerHTML={{
-          __html: thing.cmb
-            .replace(/http:\/\/cdn\.dota2\.com/g, API_HOST),
-        }}
-        className={`${styles.noBr} ${styles.cmb}`}
-      />}
     </div>}
   </div>
 );
 
 export default (inflictor, value, type) => {
   if (inflictor !== undefined) {
-    // TODO use abilities if we need the full info immediately
     const ability = abilities[inflictor];
     const neutralAbility = neutralAbilities[inflictor];
     const item = items[inflictor];
@@ -67,6 +54,8 @@ export default (inflictor, value, type) => {
         image = '/assets/images/stats.png';
       } else if (inflictor.includes('special_bonus')) {
         image = '/assets/images/dota2/talent_tree.svg';
+      } else if (neutralAbility) {
+        image = neutralAbility.img;
       } else {
         image = `${API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
       }
@@ -74,9 +63,6 @@ export default (inflictor, value, type) => {
     } else if (item) {
       image = `${API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`;
       tooltip = tooltipContainer(item);
-    } else if (neutralAbility) {
-      image = neutralAbility.img;
-      tooltip = tooltipContainer(neutralAbility);
     } else {
       image = '/assets/images/default_attack.png';
     }
