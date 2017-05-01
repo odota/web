@@ -51,7 +51,6 @@ try {
 
 
 // Build Replacements
-// game modes
 var replacements = {
   rune_0: "DOTA_Tooltip_rune_doubledamage",
   rune_1: "DOTA_Tooltip_rune_haste",
@@ -61,10 +60,12 @@ var replacements = {
   rune_5: "DOTA_Tooltip_rune_bounty",
   rune_6: "DOTA_Tooltip_rune_arcane"
 };
+// game modes
 for(var i = 0; `game_mode_${i}` in english_lang; i++) {
   replacements[`game_mode_${i}`] = `game_mode_lobby_name_${i}`;
 }
-// regions
+
+// regions & call update
 request("https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/regions.json", (err, resp, body) => {
   if (err || resp.statusCode !== 200) {
     console.log(`Error ${resp.statusCode} when getting ${lang_name}: ${err}`);
@@ -74,10 +75,12 @@ request("https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/r
   for (const key in regions) {
     replacements[`region_${regions[key].region}`] = regions[key].display_name.replace(/^#/, '');
   }
+
+  console.log("Updating lang files...");
+
+  Object.keys(lang_tag_names).forEach(tag => updateLang(tag, lang_tag_names[tag]));
 });
 
-
-console.log("Updating lang files...");
 
 const updateLang = (lang_tag, lang_name) => {
   if(!lang_name){
@@ -115,6 +118,5 @@ const updateLang = (lang_tag, lang_name) => {
   });
 };
 
-Object.keys(lang_tag_names).forEach(tag => updateLang(tag, lang_tag_names[tag]));
 
 
