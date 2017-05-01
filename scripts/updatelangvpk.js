@@ -65,6 +65,10 @@ for(var i = 0; `game_mode_${i}` in english_lang; i++) {
   replacements[`game_mode_${i}`] = `game_mode_lobby_name_${i}`;
 }
 
+// npc_dota_(unitstrings)
+Object.keys(english_lang).filter(k => k.match(/^npc_dota_/)).forEach(key => {
+  replacements[key] = key.replace('#', '1');
+});
 // regions & call update
 request("https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/regions.json", (err, resp, body) => {
   if (err || resp.statusCode !== 200) {
