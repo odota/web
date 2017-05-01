@@ -44,8 +44,8 @@ ${maxDuration ? `AND matches.duration <= ${maxDuration.value}` : ''}
 ${side ? `AND team_match.radiant = ${side.value}` : ''}
 ${result ? `AND (team_match.radiant = matches.radiant_win) = ${result.value}` : ''}
 ${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
-${minDate ? `AND matches.start_time >= ${Math.round(new Date(minDate.value) / 1000)}` : ''}
-${maxDate ? `AND matches.start_time <= ${Math.round(new Date(maxDate.value) / 1000)}` : ''}
+${minDate ? `AND matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
+${maxDate ? `AND matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 GROUP BY hero_id
 ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
@@ -96,8 +96,8 @@ ${team ? `AND notable_players.team_id = ${team.value}` : ''}
 ${organization ? `AND team_match.team_id = ${organization.value} AND (player_matches.player_slot < 128) = team_match.radiant` : ''}
 ${lanePos ? `AND player_matches.lane_pos = ${lanePos.value}` : ''}
 ${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
-${minDate ? `AND matches.start_time >= ${Math.round(new Date(minDate.value) / 1000)}` : ''}
-${maxDate ? `AND matches.start_time <= ${Math.round(new Date(maxDate.value) / 1000)}` : ''}
+${minDate ? `AND matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
+${maxDate ? `AND matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${group ? `GROUP BY ${group.value}` : ''}
 ${group ? 'HAVING count(distinct matches.match_id) > 0' : ''}
 ORDER BY ${
