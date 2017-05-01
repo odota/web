@@ -769,5 +769,20 @@
   "vision_all_time":"All time",
   "vision_placed_observer":"placed Observer at",
   "vision_placed_sentry":"placed Sentry at",
-  "vision_ward_log":"Ward Log"
+  "vision_ward_log":"Ward Log",
+  "region_0":"Automatica",
+  "region_1":"Stati Uniti ovest",
+  "region_2":"Stati Uniti est",
+  "region_3":"Lussemburgo",
+  "region_5":"Singapore",
+  "region_6":"Dubai",
+  "region_8":"Stoccolma",
+  "region_10":"Brasile",
+  "region_9":"Austria",
+  "region_7":"Australia",
+  "region_11":"Sud Africa",
+  "region_14":"Cile",
+  "region_15":"Perù",
+  "region_16":"India",
+  "region_19":"Giappone"
 }

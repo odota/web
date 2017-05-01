@@ -769,5 +769,20 @@
   "vision_all_time":"All time",
   "vision_placed_observer":"placed Observer at",
   "vision_placed_sentry":"placed Sentry at",
-  "vision_ward_log":"Ward Log"
+  "vision_ward_log":"Ward Log",
+  "region_0":"Automatisk",
+  "region_1":"Vest-USA",
+  "region_2":"Øst-USA",
+  "region_3":"Luxembourg",
+  "region_5":"Singapore",
+  "region_6":"Dubai",
+  "region_8":"Stockholm",
+  "region_10":"Brasilien",
+  "region_9":"Østrig",
+  "region_7":"Australien",
+  "region_11":"Sydafrika",
+  "region_14":"Chile",
+  "region_15":"Peru",
+  "region_16":"Indien",
+  "region_19":"Japan"
 }

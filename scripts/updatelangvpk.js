@@ -64,6 +64,17 @@ var replacements = {
 for(var i = 0; `game_mode_${i}` in english_lang; i++) {
   replacements[`game_mode_${i}`] = `game_mode_lobby_name_${i}`;
 }
+// regions
+request("https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/regions.json", (err, resp, body) => {
+  if (err || resp.statusCode !== 200) {
+    console.log(`Error ${resp.statusCode} when getting ${lang_name}: ${err}`);
+    process.exit(1);
+  }
+  var regions = JSON.parse(body).regions;
+  for (const key in regions) {
+    replacements[`region_${regions[key].region}`] = regions[key].display_name.replace(/^#/, '');
+  }
+});
 
 
 console.log("Updating lang files...");
@@ -91,7 +102,7 @@ const updateLang = (lang_tag, lang_name) => {
     }
 
     Object.keys(replacements).forEach(key => {
-      if((!english_lang[key] || lang[key] === english_lang[key]) && (replacements[key] in strings)) {
+      if((!lang[key] || lang[key] === english_lang[key]) && (replacements[key] in strings)) {
         lang[key] = strings[replacements[key]];
       }
     });
