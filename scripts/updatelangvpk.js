@@ -61,7 +61,9 @@ var replacements = {
   rune_5: "DOTA_Tooltip_rune_bounty",
   rune_6: "DOTA_Tooltip_rune_arcane"
 };
-
+for(var i = 0; `game_mode_${i}` in english_lang; i++) {
+  replacements[`game_mode_${i}`] = `game_mode_lobby_name_${i}`;
+}
 
 
 console.log("Updating lang files...");
