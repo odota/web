@@ -81,7 +81,6 @@ ${(select && select.join) ? select.join : ''}
 ${(select && select.joinFn) ? select.joinFn(props) : ''}
 WHERE TRUE
 ${select ? `AND ${select.value} IS NOT NULL` : ''}
-${group ? `AND ${group.value} IS NOT NULL` : ''}
 ${minPatch ? `AND match_patch.patch >= '${minPatch.value}'` : ''}
 ${maxPatch ? `AND match_patch.patch <= '${maxPatch.value}'` : ''}
 ${hero ? `AND player_matches.hero_id = ${hero.value}` : ''}
