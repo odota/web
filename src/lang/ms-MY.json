@@ -314,6 +314,7 @@
   "heading_avg_and_max":"Purata/Maksimum",
   "heading_total_matches":"Jumlah Perlawanan",
   "heading_median":"Median",
+  "heading_distinct_heroes":"Distinct Heroes",
   "subheading_avg_and_max":"dalam %d perlawanan terakhir",
   "subheading_records":"Dalam perlawanan ranked. Rekod ditetapkan semula setiap bulan.",
   "hero_pro_tab":"Profesional",

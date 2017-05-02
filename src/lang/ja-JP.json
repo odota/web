@@ -314,6 +314,7 @@
   "heading_avg_and_max":"平均 / 最高",
   "heading_total_matches":"総試合数",
   "heading_median":"中央値",
+  "heading_distinct_heroes":"Distinct Heroes",
   "subheading_avg_and_max":"最近の%d試合で",
   "subheading_records":"In ranked matches. Records reset monthly.",
   "hero_pro_tab":"プロ",
