@@ -106,7 +106,14 @@ for (let i = 0; `game_mode_${i}` in englishLang; i += 1) {
   replacements[`game_mode_${i}`] = `game_mode_lobby_name_${i}`;
 }
 // npc_dota_(unitstrings)
-Object.keys(englishLang).filter(k => k.match(/^npc_dota_/)).forEach((key) => {
+const dontReplace = [
+  'npc_dota_brewmaster_earth_#',
+  'npc_dota_brewmaster_fire_#',
+  'npc_dota_brewmaster_storm_#',
+  'npc_dota_phoenix_sun',
+  'npc_dota_weaver_swarm',
+];
+Object.keys(englishLang).filter(k => k.match(/^npc_dota_/) && !dontReplace.includes(k)).forEach((key) => {
   replacements[key] = key.replace('#', '1');
 });
 // regions & call update
@@ -116,6 +123,7 @@ request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/r
     process.exit(1);
   }
   const regions = JSON.parse(body).regions;
+
   Object.keys(regions).forEach((key) => {
     replacements[`region_${regions[key].region}`] = regions[key].display_name.replace(/^#/, '');
   });
