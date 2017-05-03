@@ -18,6 +18,7 @@ const queryTemplate = (props) => {
     region,
     minDate,
     maxDate,
+    order,
   } = props;
   let query;
   if (select && select.template === 'picks_bans') {
@@ -34,7 +35,7 @@ JOIN leagues using(leagueid)
 JOIN team_match using(match_id)
 WHERE TRUE
 ${select && select.where ? select.where : ''}
-${team ? `AND team_id = ${team.value}` : ''}
+${organization ? `AND team_id = ${organization.value}` : ''}
 ${minPatch ? `AND match_patch.patch >= '${minPatch.value}'` : ''}
 ${maxPatch ? `AND match_patch.patch <= '${maxPatch.value}'` : ''}
 ${league ? `AND matches.leagueid = ${league.value}` : ''}
@@ -43,14 +44,15 @@ ${maxDuration ? `AND matches.duration <= ${maxDuration.value}` : ''}
 ${side ? `AND team_match.radiant = ${side.value}` : ''}
 ${result ? `AND (team_match.radiant = matches.radiant_win) = ${result.value}` : ''}
 ${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
-${minDate ? `AND matches.start_time >= ${Math.round(new Date(minDate.value) / 1000)}` : ''}
-${maxDate ? `AND matches.start_time <= ${Math.round(new Date(maxDate.value) / 1000)}` : ''}
+${minDate ? `AND matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
+${maxDate ? `AND matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 GROUP BY hero_id
-ORDER BY total DESC`;
+ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
     query = `SELECT
 ${(group) ?
 [`${group.groupKeySelect || group.value} ${group.alias || ''}`,
+  (select || {}).countValue || '',
   `round(sum(${(select || {}).groupValue || (select || {}).value || 1})::numeric/count(${(select || {}).avgCountValue || 'distinct matches.match_id'}), 2) avg`,
   'count(distinct matches.match_id) count',
   'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
@@ -74,11 +76,12 @@ JOIN leagues using(leagueid)
 JOIN player_matches using(match_id)
 LEFT JOIN notable_players using(account_id)
 LEFT JOIN teams using(team_id)
-${organization || (group && group.key === 'organization') ? 'JOIN team_match using(match_id)' : ''}
+${organization || (group && group.key === 'organization') ? 'JOIN team_match ON matches.match_id = team_match.match_id AND (player_matches.player_slot < 128) = team_match.radiant' : ''}
 ${(select && select.join) ? select.join : ''}
 ${(select && select.joinFn) ? select.joinFn(props) : ''}
 WHERE TRUE
 ${select ? `AND ${select.value} IS NOT NULL` : ''}
+${group ? `AND ${group.value} IS NOT NULL` : ''}
 ${minPatch ? `AND match_patch.patch >= '${minPatch.value}'` : ''}
 ${maxPatch ? `AND match_patch.patch <= '${maxPatch.value}'` : ''}
 ${hero ? `AND player_matches.hero_id = ${hero.value}` : ''}
@@ -93,12 +96,12 @@ ${team ? `AND notable_players.team_id = ${team.value}` : ''}
 ${organization ? `AND team_match.team_id = ${organization.value} AND (player_matches.player_slot < 128) = team_match.radiant` : ''}
 ${lanePos ? `AND player_matches.lane_pos = ${lanePos.value}` : ''}
 ${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
-${minDate ? `AND matches.start_time >= ${Math.round(new Date(minDate.value) / 1000)}` : ''}
-${maxDate ? `AND matches.start_time <= ${Math.round(new Date(maxDate.value) / 1000)}` : ''}
+${minDate ? `AND matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
+${maxDate ? `AND matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${group ? `GROUP BY ${group.value}` : ''}
 ${group ? 'HAVING count(distinct matches.match_id) > 0' : ''}
 ORDER BY ${
-[`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(select && select.order) || 'DESC'}`,
+[`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(order && order.value) || (select && select.order) || 'DESC'}`,
   group ? 'count DESC' : '',
 ].filter(Boolean).join(',')} NULLS LAST
 LIMIT 200`;
