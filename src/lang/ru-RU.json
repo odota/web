@@ -314,6 +314,7 @@
   "heading_avg_and_max":"Средние/максимальные",
   "heading_total_matches":"Всего матчей",
   "heading_median":"Медиана",
+  "heading_distinct_heroes":"Distinct Heroes",
   "subheading_avg_and_max":"в последних %d матчах",
   "subheading_records":"В рейтинге. Записи обновляются ежемеясчно.",
   "hero_pro_tab":"Профессионал",

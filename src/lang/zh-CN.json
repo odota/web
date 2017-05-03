@@ -314,6 +314,7 @@
   "heading_avg_and_max":"平均/最大值",
   "heading_total_matches":"所有比赛",
   "heading_median":"中路",
+  "heading_distinct_heroes":"Distinct Heroes",
   "subheading_avg_and_max":"在最近的 %d 比赛里",
   "subheading_records":"In ranked matches. Records reset monthly.",
   "hero_pro_tab":"职业",

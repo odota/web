@@ -314,6 +314,7 @@
   "heading_avg_and_max":"Średnie/Maksymalne",
   "heading_total_matches":"Łącznie meczy",
   "heading_median":"Mediana",
+  "heading_distinct_heroes":"Distinct Heroes",
   "subheading_avg_and_max":"w ostatnich %d meczach",
   "subheading_records":"W meczach rankingowych. Wpisy resetują się co miesiąc.",
   "hero_pro_tab":"Profesjonalne rozgrywki",

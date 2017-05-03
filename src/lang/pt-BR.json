@@ -314,6 +314,7 @@
   "heading_avg_and_max":"Médias/Melhores",
   "heading_total_matches":"Todas as partidas",
   "heading_median":"Mediana",
+  "heading_distinct_heroes":"Distinct Heroes",
   "subheading_avg_and_max":"nas últimas %d partidas",
   "subheading_records":"Em partidas ranqueadas. Recordes reiniciam mensalmente.",
   "hero_pro_tab":"Profissional",

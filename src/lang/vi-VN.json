@@ -314,6 +314,7 @@
   "heading_avg_and_max":"Trung bình/Tối đa",
   "heading_total_matches":"Tổng số trận đấu",
   "heading_median":"Trung bình",
+  "heading_distinct_heroes":"Distinct Heroes",
   "subheading_avg_and_max":"trong %d các trận gần đây",
   "subheading_records":"Trong các trận đấu hạng. Các ghi chép được làm lại hằng tháng.",
   "hero_pro_tab":"Chuyên nghiệp",
