@@ -114,8 +114,8 @@ const dontReplace = [
 Object.keys(englishLang).filter(k => k.match(/^npc_dota_/) && !dontReplace.includes(k)).forEach((key) => {
   replacements[key] = key.replace('#', '1');
 });
-replacements['npc_dota_phoenix_sun'] = 'DOTA_Tooltip_ability_phoenix_supernova';
-replacements['npc_dota_weaver_swarm'] = 'DOTA_Tooltip_ability_weaver_the_swarm';
+replacements.npc_dota_phoenix_sun = 'DOTA_Tooltip_ability_phoenix_supernova';
+replacements.npc_dota_weaver_swarm = 'DOTA_Tooltip_ability_weaver_the_swarm';
 // regions & call update
 request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/regions.json', (err, resp, body) => {
   if (err || resp.statusCode !== 200) {
