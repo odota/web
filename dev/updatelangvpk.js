@@ -130,7 +130,7 @@ request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/r
   });
 
   // Remove ones we don't want to replace
-  dontReplace.forEach(key => {
+  dontReplace.forEach((key) => {
     delete replacements[key];
   });
 
