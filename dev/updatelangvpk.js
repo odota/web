@@ -3,6 +3,12 @@ const request = require('request');
 const fs = require('fs');
 // For updating the opendota-ui lang files with data from the vpk
 
+const dontReplace = [
+  'npc_dota_brewmaster_earth_#',
+  'npc_dota_brewmaster_fire_#',
+  'npc_dota_brewmaster_storm_#',
+  'game_mode_22',
+];
 
 // links langTag to the language file in the vpk
 // null indicates that dota does not support this language
@@ -106,12 +112,7 @@ for (let i = 0; `game_mode_${i}` in englishLang; i += 1) {
   replacements[`game_mode_${i}`] = `game_mode_lobby_name_${i}`;
 }
 // npc_dota_(unitstrings)
-const dontReplace = [
-  'npc_dota_brewmaster_earth_#',
-  'npc_dota_brewmaster_fire_#',
-  'npc_dota_brewmaster_storm_#',
-];
-Object.keys(englishLang).filter(k => k.match(/^npc_dota_/) && !dontReplace.includes(k)).forEach((key) => {
+Object.keys(englishLang).filter(k => k.match(/^npc_dota_/)).forEach((key) => {
   replacements[key] = key.replace('#', '1');
 });
 replacements.npc_dota_phoenix_sun = 'DOTA_Tooltip_ability_phoenix_supernova';
@@ -126,6 +127,11 @@ request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/r
 
   Object.keys(regions).forEach((key) => {
     replacements[`region_${regions[key].region}`] = regions[key].display_name.replace(/^#/, '');
+  });
+
+  // Remove ones we don't want to replace
+  dontReplace.forEach(key => {
+    delete replacements[key];
   });
 
   console.log('Updating lang files...');
