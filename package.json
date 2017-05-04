@@ -4,7 +4,7 @@
   "version": "1.0.1",
   "license": "MIT",
   "scripts": {
-    "webpack": "NODE_ENV=production webpack -p --bail",
+    "webpack": "NODE_ENV=production webpack",
     "start": "webpack-dev-server --inline --compress",
     "start:noc": "webpack-dev-server --inline",
     "startstage": "API_HOST=http://hchung.westus.cloudapp.azure.com:5000 webpack-dev-server --compress",
