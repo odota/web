@@ -466,6 +466,28 @@ export const performanceColumns = [
       }
       return <div />;
     },
+  }, {
+    displayName: strings.th_other,
+    field: 'performance_others',
+    sortFn: true,
+    displayFn: (row, col, field) => {
+      const comp = [];
+      if (field) {
+        if (field.tracked_deaths) {
+          const tooltip = [
+            `${field.tracked_deaths} ${strings.tooltip_others_tracked_deaths}`,
+            `${field.track_gold} ${strings.tooltip_others_track_gold}`,
+          ];
+          comp.push(inflictorWithValue('bounty_hunter_track', abbreviateNumber(field.tracked_deaths), '', tooltip.join('\n')));
+        }
+        if (field.greevils_greed_gold) {
+          const tooltip = `${field.greevils_greed_gold} ${strings.tooltip_others_greevils_gold}`;
+          comp.push(inflictorWithValue('alchemist_goblins_greed', abbreviateNumber(field.greevils_greed_gold), '', tooltip));
+        }
+        return comp;
+      }
+      return '-';
+    },
   },
 ];
 

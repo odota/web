@@ -40,7 +40,7 @@ const tooltipContainer = thing => (
   </div>
 );
 
-export default (inflictor, value, type) => {
+export default (inflictor, value, type, ptooltip) => {
   if (inflictor !== undefined) {
     const ability = abilities[inflictor];
     const neutralAbility = neutralAbilities[inflictor];
@@ -66,6 +66,10 @@ export default (inflictor, value, type) => {
     } else {
       image = '/assets/images/default_attack.png';
     }
+    if (ptooltip) {
+      tooltip = ptooltip;
+    }
+
     return (
       <div className={styles.inflictorWithValue} data-tip={tooltip && true} data-for={ttId}>
         {!type && <img src={image} role="presentation" />}
