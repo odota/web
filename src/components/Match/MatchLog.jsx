@@ -96,11 +96,7 @@ const logColumns = [heroTdColumn, {
     switch (row.type) {
       case 'kills': {
         const hero = heroNames[row.detail] || {};
-        const comp = [<img key="hero" src={`${API_HOST}${hero.img}`} className={styles.imgSmall} role="presentation" />];
-        if (row.tracked_death) {
-          comp.push('Tracked');
-        }
-        return <div>{ comp }</div>;
+        return <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} role="presentation" />;
       }
       case 'runes': {
         const runeType = row.detail;
