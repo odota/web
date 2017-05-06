@@ -24,7 +24,17 @@ AsyncContainer.propTypes = {
 
 
 const Container = ({ title, subtitle, style, className, children, error, loading, hide }) => (!hide ? (
-  <div className={className} style={{ ...style }}>
+  <div
+    className={className} style={{ ...style,
+      boxShadow: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
+      border: '1px solid',
+      borderColor: '#4b4c5a',
+    // borderRadius: '10px',
+      margin: '6px',
+      padding: '4px',
+      backgroundColor: '#2f3041',
+    }}
+  >
     {title && <Heading title={title} subtitle={subtitle} />}
     <AsyncContainer error={error} loading={loading}>
       {children}

@@ -9,6 +9,7 @@ import playerColors from 'dotaconstants/build/player_colors.json';
 import heroes from 'dotaconstants/build/heroes.json';
 import Heading from 'components/Heading';
 import DotaMap from 'components/DotaMap';
+import Container from 'components/Container';
 import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
 import { IconLightbulb } from 'components/Icons';
@@ -197,16 +198,17 @@ export default function BuildingMap({ match }) {
       );
     }
     return (
-      <div>
-        <Heading title={strings.heading_buildings} />
-        <DotaMap
-          startTime={match.start_time}
-          maxWidth={300}
-          className={styles.map}
-        >
-          {icons}
-        </DotaMap>
-        {/* <div className={styles.buildingMap}>
+      <Container>
+        <div>
+          <Heading title={strings.heading_buildings} />
+          <DotaMap
+            startTime={match.start_time}
+            maxWidth={300}
+            className={styles.map}
+          >
+            {icons}
+          </DotaMap>
+          {/* <div className={styles.buildingMap}>
           <img
             src="/assets/images/dota2/map/minimap.jpg"
             role="presentation"
@@ -214,13 +216,14 @@ export default function BuildingMap({ match }) {
           />
           {icons}
         </div> */}
-        {match.version &&
+          {match.version &&
           <div className={styles.hint}>
             <IconLightbulb />
             {strings.building_hint}
           </div>
         }
-      </div>
+        </div>
+      </Container>
     );
   }
   return <div />;

@@ -1,8 +1,8 @@
 @import "../palette.css";
 
 .tableHeading {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 0px;
+  margin-bottom: 10px;
 
   & svg {
     vertical-align: top;
