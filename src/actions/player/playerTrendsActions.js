@@ -39,7 +39,7 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
     .then(response => response.json())
     .then((response) => {
       let cumulativeSum = 0;
-      return response.reverse().reduce((dataList, match, index) => {
+      const trends = response.reverse().reduce((dataList, match) => {
         const win = (match.player_slot < 128) === match.radiant_win;
         const currentValue = fieldName === 'win_rate'
           ? Number(win) * 100 // true -> 100 false -> 0
@@ -51,7 +51,7 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
         }
 
         cumulativeSum += currentValue;
-        const nextIndex = index + 1;
+        const nextIndex = dataList.length + 1;
         dataList.push({
           x: nextIndex,
           value: Number(cumulativeSum / nextIndex).toFixed(2),
@@ -66,6 +66,7 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
 
         return dataList;
       }, []);
+      return trends;
     })
     .then(json => dispatch(getPlayerTrendsOk(json, playerId)))
     .catch(error => dispatch(getPlayerTrendsError(error, playerId)));
