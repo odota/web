@@ -19,6 +19,8 @@ const queryTemplate = (props) => {
     minDate,
     maxDate,
     order,
+    tier,
+    having,
   } = props;
   let query;
   if (select && select.template === 'picks_bans') {
@@ -46,6 +48,7 @@ ${result ? `AND (team_match.radiant = matches.radiant_win) = ${result.value}` : 
 ${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
 ${minDate ? `AND matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
 ${maxDate ? `AND matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
+${tier ? `AND leagues.tier = '${tier.value}'` : ''}
 GROUP BY hero_id
 ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
@@ -97,8 +100,9 @@ ${lanePos ? `AND player_matches.lane_pos = ${lanePos.value}` : ''}
 ${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
 ${minDate ? `AND matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
 ${maxDate ? `AND matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
+${tier ? `AND leagues.tier = '${tier.value}'` : ''}
 ${group ? `GROUP BY ${group.value}` : ''}
-${group ? 'HAVING count(distinct matches.match_id) > 0' : ''}
+${group ? `HAVING count(distinct matches.match_id) >= ${having ? having.value : '1'}` : ''}
 ORDER BY ${
 [`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(order && order.value) || (select && select.order) || 'DESC'}`,
   group ? 'count DESC' : '',
