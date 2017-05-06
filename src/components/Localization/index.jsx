@@ -51,7 +51,7 @@ class LocalizationMenuItems extends Component {
           {strings.app_language} <Next />
         </div>
         <div className={styles.languageContainer}>
-          {open && langs.map(lang => <MenuItem
+          {open && langs.map(lang => (<MenuItem
             style={{
               color: lang.value === localization && styles.selected,
             }}
@@ -59,7 +59,7 @@ class LocalizationMenuItems extends Component {
             value={lang.value}
             primaryText={lang.native}
             onTouchTap={() => setLocalization(null, null, lang)}
-          />)}
+          />))}
         </div>
       </div>
     );

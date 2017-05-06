@@ -19,12 +19,12 @@ const matchesColumns = [{
   displayName: strings.th_match_id,
   field: 'match_id',
   sortFn: true,
-  displayFn: (row, col, field) => <div>
+  displayFn: (row, col, field) => (<div>
     <TableLink to={`/matches/${field}`}>{field}</TableLink>
     <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
       {row.league_name}
     </span>
-  </div>,
+  </div>),
 }, {
   displayName: strings.th_duration,
   tooltip: strings.tooltip_duration,
@@ -48,12 +48,12 @@ const publicMatchesColumns = [
     displayName: strings.th_match_id,
     field: 'match_id',
     sortFn: true,
-    displayFn: (row, col, field) => <div>
+    displayFn: (row, col, field) => (<div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
       <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
         {row.avg_mmr} {strings.th_mmr}
       </span>
-    </div>,
+    </div>),
   }, {
     displayName: strings.th_duration,
     tooltip: strings.tooltip_duration,

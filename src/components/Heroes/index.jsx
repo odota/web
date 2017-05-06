@@ -69,7 +69,7 @@ class RequestLayer extends React.Component {
     const heroTabs = [{
       name: strings.hero_pro_tab,
       key: 'pro',
-      content: (data, columns) => <div>
+      content: (data, columns) => (<div>
         <Heading
           title={strings.hero_pro_heading}
           subtitle={`${abbreviateNumber(matchCountPro)} ${strings.hero_this_month}`}
@@ -77,12 +77,12 @@ class RequestLayer extends React.Component {
           icon=""
         />
         <Table data={data} columns={columns} />
-      </div>,
+      </div>),
       route: '/heroes/pro',
     }, {
       name: strings.hero_public_tab,
       key: 'public',
-      content: (data, columns) => <div>
+      content: (data, columns) => (<div>
         <Heading
           title={strings.hero_public_heading}
           subtitle={`${abbreviateNumber(matchCountPublic)} ${strings.hero_this_month}`}
@@ -90,7 +90,7 @@ class RequestLayer extends React.Component {
           icon=""
         />
         <Table data={data} columns={columns} />
-      </div>,
+      </div>),
       route: '/heroes/public',
     }];
 

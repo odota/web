@@ -496,13 +496,13 @@ export const chatColumns = [
     displayName: strings.filter_is_radiant,
     field: '',
     displayFn: row =>
-      <div className={styles.teamIconContainer}>
+      (<div className={styles.teamIconContainer}>
         {
           row.isRadiant ?
             <IconRadiant className={styles.iconRadiant} /> :
             <IconDire className={styles.iconDire} />
         }
-      </div>
+      </div>)
     ,
   },
   Object.assign({}, heroTdColumn, { sortFn: false }),
