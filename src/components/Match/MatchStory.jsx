@@ -222,10 +222,10 @@ class PredictionEvent extends StoryEvent {
   format() {
     return formatTemplate(strings.story_predicted_victory, {
       player: PlayerSpan(this.predictor),
-      team: TeamSpan(this.predicted_team)
+      team: TeamSpan(this.predicted_team),
     });
   }
-};
+}
 
 const localizedLane = {
   1: strings.lane_pos_1,
@@ -557,7 +557,7 @@ const generateStory = (match) => {
   // Prediction
   match.players.forEach((player) => {
     if (player.pred_vict === true) {
-      let order = player.player_slot < 5 ? player.player_slot - 89 : player.player_slot - 212;
+      const order = player.player_slot < 5 ? player.player_slot - 89 : player.player_slot - 212;
       events.push(new PredictionEvent(player, order));
     }
   });
