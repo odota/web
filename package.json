@@ -41,7 +41,7 @@
     "postcss-browser-reporter": "^0.5.0",
     "postcss-cssnext": "^2.8.0",
     "postcss-import": "9.1.0",
-    "postcss-loader": "^1.1.1",
+    "postcss-loader": "^2.0.0",
     "postcss-reporter": "^3.0.0",
     "prop-types": "^15.5.4",
     "react": "^15.3.2",
