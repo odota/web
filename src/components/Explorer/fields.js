@@ -331,7 +331,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     key: 'loss',
   }],
   region: Object.keys(regionData).map(regionKey => ({
-    text: regionData[regionKey],
+    text: strings[`region_${regionKey}`],
     value: Object.keys(clusterData).filter(key => String(clusterData[key]) === regionKey),
     key: String(regionKey),
   })),
