@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import findLast from 'lodash/findLast';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';
@@ -74,6 +75,29 @@ const parties = (row, match) => {
     }
   }
   return null;
+};
+
+const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
+  let skipped = 0;
+  let itemSkipCount = _itemSkipCount || 0;
+  const purchaseEvent = findLast(purchaseLog, (item) => {
+    if (item.key !== itemKey) {
+      return false;
+    }
+
+    if (!itemSkipCount || itemSkipCount <= skipped) {
+      itemSkipCount += 1;
+      return true;
+    }
+
+    skipped += 1;
+    return false;
+  });
+
+  return {
+    itemSkipCount,
+    purchaseEvent,
+  };
 };
 
 export const overviewColumns = (match) => {
@@ -184,13 +208,16 @@ export const overviewColumns = (match) => {
       const additionalItemArray = [];
       const backpackItemArray = [];
 
+      const visitedItemsCount = {};
+
       for (let i = 0; i < 6; i += 1) {
         const itemKey = itemIds[row[`item_${i}`]];
-        const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey];
+        const { itemSkipCount, purchaseEvent } = findBuyTime(row.purchase_log, itemKey, visitedItemsCount[itemKey]);
+        visitedItemsCount[itemKey] = itemSkipCount;
 
         if (items[itemKey]) {
           itemArray.push(
-            inflictorWithValue(itemKey, formatSeconds(firstPurchase)),
+            inflictorWithValue(itemKey, formatSeconds(purchaseEvent && purchaseEvent.time)),
           );
         }
 
