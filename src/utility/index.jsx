@@ -284,7 +284,7 @@ export const transformations = {
       </span>}
     </div>
   ),
-  region: (row, col, field) => region[field],
+  region: (row, col, field) => (strings[`region_${field}`]),
   leaver_status: (row, col, field) => (strings[`leaver_status_${field}`]),
   lobby_type: (row, col, field) => (strings[`lobby_type_${field}`]),
   lane_role: (row, col, field) => (strings[`lane_role_${field}`]),
