@@ -30,7 +30,7 @@ export default () => (
             style={{ width: 75, verticalAlign: 'middle' }}
           />}
           label={<span className={styles.label}>{strings.home_jist_button}</span>}
-          href="https://www.jist.tv/create.php?source=dota2"
+          href="https://www.jist.tv/create.php?opendota-welcome=1"
           target="_blank" rel="noopener noreferrer"
         />
       </div>
