@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import Long from 'long';
 import { player } from 'reducers';
 import {
   getPlayer,
@@ -33,6 +34,9 @@ class RequestLayer extends React.Component {
 
   render() {
     const { playerId, location, routeParams } = this.props;
+    if (Long.fromString(playerId).greaterThan('76561197960265728')) {
+      window.history.replaceState('', '', `/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
+    }
     const info = routeParams.info || 'overview';
     const page = playerPages(playerId).find(page => page.key === info);
     const playerName = this.props.officialPlayerName || this.props.playerName || strings.general_anonymous;
