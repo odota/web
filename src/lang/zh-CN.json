@@ -484,7 +484,7 @@
   "story_list_3":"{1}、{2} 和 {3}",
   "story_list_n":"{i}、{rest}",
   "story_firstblood":"{killer} 在 {time} 击杀了 {victim}，获得了第一滴血",
-  "story_teamfight":"{winning_team} 获得了团战胜利， 死亡 {win_dead} 人击杀 {lose_dead} 人，带来了 {net_change} 的经济差",
+  "story_teamfight":"{winning_team} 获得了团战胜利， 牺牲了 {win_dead} 并击杀了 {lose_dead} ，获得了 {net_change} 的经济",
   "story_teamfight_none_dead":"{winning_team} 以 0 换 {lose_dead} 的战绩获得了团战胜利，带来了 {net_change} 的经济收入",
   "story_lane_intro":"比赛前 10 分钟三路战况如下：",
   "story_lane_radiant_win":"{radiant_players} 在 {lane}路 压制了 {dire_players}",
