@@ -214,18 +214,24 @@ class RoshanEvent extends StoryEvent {
 }
 
 class PredictionEvent extends StoryEvent {
-  constructor(player, order) {
-    super(order);
-    this.predictor = player;
-    this.predicted_team = this.predictor.isRadiant;
+  constructor(match, team) {
+    super(team);
+    if (team === -89) {
+      this.team = true; // radiant
+      this.players = match.players.filter(player => player.isRadiant && player.pred_vict);
+    }
+    else {
+      this.team = false; // dire
+      this.players = match.players.filter(player => !player.isRadiant && player.pred_vict);
+    }
   }
   format() {
     return formatTemplate(strings.story_predicted_victory, {
-      player: PlayerSpan(this.predictor),
-      team: TeamSpan(this.predicted_team)
+      players: formatList(this.players.map(PlayerSpan), strings.story_predicted_victory_empty),
+      team: TeamSpan(this.team)
     });
   }
-};
+}
 
 const localizedLane = {
   1: strings.lane_pos_1,
@@ -555,12 +561,16 @@ const generateStory = (match) => {
   events.push(new IntroEvent(match));
 
   // Prediction
-  match.players.forEach((player) => {
+  let pred_exists = false;
+  match.players.forEach(player => {
     if (player.pred_vict === true) {
-      let order = player.player_slot < 5 ? player.player_slot - 89 : player.player_slot - 212;
-      events.push(new PredictionEvent(player, order));
+      pred_exists = true;
     }
   });
+  if (pred_exists === true) {
+    events.push(new PredictionEvent(match, -89));
+    events.push(new PredictionEvent(match, -88));
+  }
 
   // Firstblood
   const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
