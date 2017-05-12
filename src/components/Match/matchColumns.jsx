@@ -28,8 +28,8 @@ import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
 import { IconRadiant, IconDire, IconBackpack } from 'components/Icons';
-import styles from './Match.css';
 import subtextStyle from 'components/Visualizations/Table/subText.css';
+import styles from './Match.css';
 
 export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide = false) =>
   (<TableHeroImage
