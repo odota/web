@@ -4,7 +4,6 @@ import strings from 'lang';
 import {
   formatSeconds,
   jsonFn,
-  transformations,
   formatTemplate,
 } from 'utility';
 import { IconRadiant, IconDire } from 'components/Icons';
@@ -147,18 +146,13 @@ class IntroEvent extends StoryEvent {
     this.region = match.region;
     this.date = new Date(match.start_time * 1000);
   }
-  get localizedRegion() {
-    let words = transformations.region(null, null, this.region).split(' ');
-    words = words.map(word => (word.length <= 2 ? word : word[0] + word.slice(1).toLowerCase()));
-    return words.join(' ');
-  }
   format() {
     return formatTemplate(strings.story_intro, {
       game_mode: strings[`game_mode_${this.game_mode}`],
       date: this.date.toLocaleDateString(
         (window.localStorage && window.localStorage.getItem('localization')) || 'en-US',
         { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
-      region: this.localizedRegion,
+      region: strings[`region_${this.region}`],
     });
   }
 }
