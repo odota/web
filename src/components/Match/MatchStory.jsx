@@ -226,7 +226,7 @@ class PredictionEvent extends StoryEvent {
   }
   format() {
     return formatTemplate(strings.story_predicted_victory,
-      { players: formatList(this.players.map(PlayerSpan), strings.story_predicted_victory_empty), team: TeamSpan(this.team) }
+      { players: formatList(this.players.map(PlayerSpan), strings.story_predicted_victory_empty), team: TeamSpan(this.team), }
     );
   }
 }
