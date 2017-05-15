@@ -207,6 +207,25 @@ class RoshanEvent extends StoryEvent {
   }
 }
 
+class PredictionEvent extends StoryEvent {
+  constructor(match, team) {
+    super(team);
+    if (team === -89) {
+      this.team = true; // radiant
+      this.players = match.players.filter(player => player.isRadiant && player.pred_vict);
+    } else {
+      this.team = false; // dire
+      this.players = match.players.filter(player => !player.isRadiant && player.pred_vict);
+    }
+  }
+  format() {
+    return formatTemplate(strings.story_predicted_victory, {
+      players: formatList(this.players.map(PlayerSpan), strings.story_predicted_victory_empty),
+      team: TeamSpan(this.team),
+    });
+  }
+}
+
 const localizedLane = {
   1: strings.lane_pos_1,
   2: strings.lane_pos_2,
@@ -533,6 +552,18 @@ const generateStory = (match) => {
 
   // Intro
   events.push(new IntroEvent(match));
+
+  // Prediction
+  let predExists = false;
+  match.players.forEach((player) => {
+    if (player.pred_vict === true) {
+      predExists = true;
+    }
+  });
+  if (predExists === true) {
+    events.push(new PredictionEvent(match, -89));
+    events.push(new PredictionEvent(match, -88));
+  }
 
   // Firstblood
   const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
