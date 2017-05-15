@@ -466,6 +466,7 @@
   "request_match_id":"比赛 ID",
   "request_error":"获取比赛数据失败",
   "request_submit":"提交",
+  "roaming":"Roaming",
   "rune_0":"双倍伤害",
   "rune_1":"极速",
   "rune_2":"幻象",
