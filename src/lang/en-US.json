@@ -496,6 +496,8 @@
   "request_error": "Failed to get match data",
   "request_submit": "Submit",
 
+  "roaming": "Roaming",
+
   "rune_0": "Double Damage",
   "rune_1": "Haste",
   "rune_2": "Illusion",

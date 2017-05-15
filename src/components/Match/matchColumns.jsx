@@ -364,12 +364,10 @@ export const performanceColumns = [
     tooltip: strings.tooltip_lane,
     field: 'lane_role',
     sortFn: true,
-    displayFn: (row, col, field) => (row.is_roaming ?
-      <div>
-        <span>{strings[`lane_role_${field}`]}</span>
-        <span className={subtextStyle.subText}>Roaming</span>
-      </div> :
-      `${strings[`lane_role_${field}`]}`),
+    displayFn: (row, col, field) => (<div>
+      <span>{strings[`lane_role_${field}`]}</span>
+      {row.is_roaming && <span className={subtextStyle.subText}>{strings.roaming}</span>}
+    </div>),
   }, {
     displayName: strings.th_map,
     tooltip: strings.tooltip_map,
