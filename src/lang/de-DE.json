@@ -466,6 +466,7 @@
   "request_match_id":"Match-ID",
   "request_error":"Fehler beim Abrufen der Match-Daten",
   "request_submit":"Submit",
+  "roaming":"Roaming",
   "rune_0":"Doppelter Schaden",
   "rune_1":"Hast",
   "rune_2":"Illusion",
