@@ -29,6 +29,7 @@ import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
 import { IconRadiant, IconDire, IconBackpack } from 'components/Icons';
+import subtextStyle from 'components/Visualizations/Table/subText.css';
 import styles from './Match.css';
 
 export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide = false) =>
@@ -390,7 +391,10 @@ export const performanceColumns = [
     tooltip: strings.tooltip_lane,
     field: 'lane_role',
     sortFn: true,
-    displayFn: (row, col, field) => strings[`lane_role_${field}`],
+    displayFn: (row, col, field) => (<div>
+      <span>{strings[`lane_role_${field}`]}</span>
+      {row.is_roaming && <span className={subtextStyle.subText}>{strings.roaming}</span>}
+    </div>),
   }, {
     displayName: strings.th_map,
     tooltip: strings.tooltip_map,
