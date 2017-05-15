@@ -466,6 +466,7 @@
   "request_match_id":"Номер матча",
   "request_error":"Не удалось получить данные о матче",
   "request_submit":"Подтвердить",
+  "roaming":"Roaming",
   "rune_0":"Двойной Урон",
   "rune_1":"Ускорение",
   "rune_2":"Иллюзия",
