@@ -466,6 +466,7 @@
   "request_match_id":"Match ID",
   "request_error":"Failed to get match data",
   "request_submit":"Submit",
+  "roaming":"Roaming",
   "rune_0":"더블 데미지",
   "rune_1":"신속화",
   "rune_2":"환영",
