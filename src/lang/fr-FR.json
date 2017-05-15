@@ -512,6 +512,8 @@
   "story_barracks_both":"both of {team}'s {lane} Barracks",
   "story_time_marker":"{minutes} Minutes In",
   "story_item_purchase":"{player} purchased a {item} at {time}",
+  "story_predicted_victory":"{players} predicted {team} would win",
+  "story_predicted_victory_empty":"No one",
   "tab_overview":"Résumé",
   "tab_matches":"Parties",
   "tab_heroes":"Héros",
