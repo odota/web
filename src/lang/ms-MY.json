@@ -512,6 +512,8 @@
   "story_barracks_both":"kedua-dua daripada Barrack {lane} {team}",
   "story_time_marker":"{minutes} Minit Dalam",
   "story_item_purchase":"{player} membeli {item} pada {time}",
+  "story_predicted_victory":"{players} predicted {team} would win",
+  "story_predicted_victory_empty":"No one",
   "tab_overview":"Gambaran Keseluruhan",
   "tab_matches":"Perlawanan",
   "tab_heroes":"Hero",
