@@ -466,6 +466,7 @@
   "request_match_id":"マッチID",
   "request_error":"試合データの取得に失敗しました",
   "request_submit":"送信",
+  "roaming":"Roaming",
   "rune_0":"ダブルダメージ",
   "rune_1":"ヘイスト",
   "rune_2":"イリュージョン",
