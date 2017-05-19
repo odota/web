@@ -5,9 +5,8 @@
   "license": "MIT",
   "scripts": {
     "webpack": "NODE_ENV=production webpack",
-    "start": "webpack-dev-server --inline --compress",
-    "start:noc": "webpack-dev-server --inline",
-    "startstage": "API_HOST=http://hchung.westus.cloudapp.azure.com:5000 webpack-dev-server --compress",
+    "start": "webpack-dev-server --hot --inline --compress",
+    "start:noc": "webpack-dev-server --hot --inline",
     "build": "npm install && npm run lintnofix && npm run lint:css && npm run webpack",
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx",
