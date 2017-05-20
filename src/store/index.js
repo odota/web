@@ -5,7 +5,6 @@ import {
   compose,
 } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import { createLogger } from 'redux-logger';
 import {
   responsiveStateReducer,
   createResponsiveStoreEnhancer,
@@ -16,8 +15,6 @@ import {
 } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 import app from 'reducers';
-
-const loggerMiddleware = createLogger();
 
 const reducer = combineReducers({
   app,
@@ -35,8 +32,7 @@ export default createStore(
   reducer,
   { app: { localization } },
   composeEnhancers(
-    createResponsiveStoreEnhancer({ performanceMode: true }),
+    createResponsiveStoreEnhancer(),
     applyMiddleware(thunkMiddleware),
-    process.env.NODE_ENV === 'production' ? f => f : applyMiddleware(loggerMiddleware),
     applyMiddleware(routerMiddleware(browserHistory)),
   ));

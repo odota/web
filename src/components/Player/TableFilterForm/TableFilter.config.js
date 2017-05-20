@@ -37,7 +37,7 @@ export const lobbyTypeList = Object.keys(strings)
   value: id,
 }));
 export const regionList = Object.keys(region).map(id => ({
-  text: region[id],
+  text: strings[`region_${id}`],
   value: Number(id),
 }));
 

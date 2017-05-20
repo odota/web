@@ -93,7 +93,6 @@ const config = {
 
 if (!isProd) {
   config.devtool = 'eval-source-map';
-  config.devServer.hot = true;
   config.entry = [
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://${config.devServer.host}:${config.devServer.port}`,
@@ -101,7 +100,6 @@ if (!isProd) {
     'babel-polyfill',
     path.resolve(__dirname, 'src'),
   ];
-  config.plugins.push(new webpack.HotModuleReplacementPlugin());
   config.plugins.push(new webpack.NamedModulesPlugin());
 } else {
   config.plugins.push(new webpack.optimize.UglifyJsPlugin());

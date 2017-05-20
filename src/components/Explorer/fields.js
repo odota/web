@@ -55,6 +55,12 @@ const durations = Array(10).fill().map((e, i) => i * 10).map(duration => ({
   key: String(duration),
 }));
 
+const having = Array(10).fill().map((e, i) => i).map(element => ({
+  text: String(element + 1),
+  value: element + 1,
+  key: String(element + 1),
+}));
+
 const fields = (players = [], leagues = [], teams = []) => ({
   select: [{
     text: strings.heading_kills,
@@ -200,6 +206,30 @@ const fields = (players = [], leagues = [], teams = []) => ({
     key: 'buybacks',
   },
   {
+    text: strings.th_scans_used,
+    value: '(actions->>\'31\')::int',
+    alias: 'scans_used',
+    key: 'scans_used',
+  },
+  {
+    text: strings.th_glyphs_used,
+    value: '(actions->>\'24\')::int',
+    alias: 'glyphs_used',
+    key: 'glyphs_used',
+  },
+  {
+    text: strings.th_obs_placed,
+    value: 'json_array_length(array_to_json(obs_log))',
+    alias: 'obs_placed',
+    key: 'obs_placed',
+  },
+  {
+    text: strings.th_sen_placed,
+    value: 'json_array_length(array_to_json(sen_log))',
+    alias: 'sen_placed',
+    key: 'sen_placed',
+  },
+  {
     text: strings.heading_distinct_heroes,
     value: 1,
     countValue: 'count(distinct player_matches.hero_id) distinct_heroes',
@@ -331,7 +361,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     key: 'loss',
   }],
   region: Object.keys(regionData).map(regionKey => ({
-    text: regionData[regionKey],
+    text: strings[`region_${regionKey}`],
     value: Object.keys(clusterData).filter(key => String(clusterData[key]) === regionKey),
     key: String(regionKey),
   })),
@@ -359,7 +389,13 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     value: player.account_id,
     key: String(player.account_id),
   })),
+  tier: ['premium', 'professional'].map(tier => ({
+    text: strings[`tier_${tier}`],
+    value: tier,
+    key: tier,
+  })),
   order: [{ text: strings.explorer_asc, value: 'ASC', key: 'asc' }, { text: strings.explorer_desc, value: 'DESC', key: 'desc' }],
+  having,
   /*
   lanePos: Object.keys(strings).filter(str => str.indexOf('lane_pos_') === 0).map(str => {
     const lanePosId = Number(str.substring('lane_pos_'.length));

@@ -86,7 +86,7 @@ export default ({ match, user, loading }) => {
               </li>
               <li>
                 <span>{strings.match_region}</span>
-                {transformations.region(null, null, match.region)}
+                {strings[`region_${match.region}`]}
               </li>
               <li>
                 <span>{strings.match_avg_mmr}</span>

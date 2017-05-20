@@ -143,6 +143,8 @@
   "explorer_order": "Order",
   "explorer_asc": "Ascending",
   "explorer_desc": "Descending",
+  "explorer_tier": "Tier",
+  "explorer_having": "At Least This Many Matches",
 
   "farm_heroes": "Heroes killed",
   "farm_creeps": "Lane creeps killed",
@@ -370,7 +372,7 @@
   "home_background_by": "Background picture by",
   "home_sponsored_by": "Sponsored by",
   "home_become_sponsor": "Become a Sponsor",
-  "home_jist_button": "Get a match video",
+  "home_jist_button": "New: AutoMagic highlights!",
 
   "items_name": "Name of item",
   "items_built": "Number of times this item was built",
@@ -496,6 +498,8 @@
   "request_error": "Failed to get match data",
   "request_submit": "Submit",
 
+  "roaming": "Roaming",
+
   "rune_0": "Double Damage",
   "rune_1": "Haste",
   "rune_2": "Illusion",
@@ -545,6 +549,8 @@
   "story_barracks_both": "both of {team}'s {lane} Barracks",
   "story_time_marker": "{minutes} Minutes In",
   "story_item_purchase": "{player} purchased a {item} at {time}",
+  "story_predicted_victory": "{players} predicted {team} would win",
+  "story_predicted_victory_empty": "No one",
 
   "tab_overview": "Overview",
   "tab_matches": "Matches",
@@ -700,6 +706,10 @@
   "th_winner": "Winner",
   "th_played_with": "My Record With",
   "th_other": "Other",
+  "th_obs_placed": "Observer Wards Placed",
+  "th_sen_placed": "Sentry Wards Placed",
+  "th_scans_used": "Scans Used",
+  "th_glyphs_used": "Glyphs Used",
 
   "ward_log_type": "Type",
   "ward_log_owner": "Owner",
@@ -711,6 +721,9 @@
   "log_detail": "Detail",
   "log_heroes": "Specify Heroes",
 
+  "tier_professional": "Professional",
+  "tier_premium": "Premium",
+  
   "time_past": "%s ago",
   "time_just_now": "just now",
   "time_s": "a second",
