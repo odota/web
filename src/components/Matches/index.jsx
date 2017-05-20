@@ -102,7 +102,7 @@ const getData = (props) => {
   const route = props.routeParams.matchId || 'pro';
   if (!Number.isInteger(Number(route))) {
     props.dispatchProMatches();
-    props.dispatchPublicMatches({ mmr_ascending: props.routeParams.matchId === 'lowMmr' ? '1' : '' });
+    props.dispatchPublicMatches({ [props.routeParams.matchId === 'lowMmr' ? 'mmr_ascending' : 'mmr_descending']: 1 });
   }
 };
 
