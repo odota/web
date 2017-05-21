@@ -4,7 +4,7 @@ export const langs = [
     value: 'en-US',
     native: 'English (US)',
     data: require('./en-US.json'),
-  }, {
+  }, /* {
     value: 'bg-BG',
     native: 'български bǎlgarski',
     data: require('./bg-BG.json'),
@@ -12,7 +12,7 @@ export const langs = [
     value: 'cs-CZ',
     native: 'Čeština',
     data: require('./cs-CZ.json'),
-  }, {
+  }, */ {
     value: 'de-DE',
     native: 'Deutsch',
     data: require('./de-DE.json'),
@@ -24,11 +24,11 @@ export const langs = [
     value: 'es-PE',
     native: 'Español (América Latina)',
     data: require('./es-PE.json'),
-  }, {
+  }, /* {
     value: 'fi-FI',
     native: 'Suomi',
     data: require('./fi-FI.json'),
-  }, {
+  }, */ {
     value: 'fr-FR',
     native: 'Français',
     data: require('./fr-FR.json'),
@@ -48,13 +48,13 @@ export const langs = [
     value: 'ms-MY',
     native: 'Bahasa Melayu',
     data: require('./ms-MY.json'),
-  }, {
+  }, /* {
     value: 'nl-NL',
     native: 'Nederlands',
     data: require('./nl-NL.json'),
-  }, {
+  },*/ {
     value: 'pl-PL',
-    native: 'Polszczyzna',
+    native: 'Polski',
     data: require('./pl-PL.json'),
   }, {
     value: 'pt-BR',

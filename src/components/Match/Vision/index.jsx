@@ -31,7 +31,9 @@ const SliderTicks = props => (
 );
 
 const alive = (ward, time) => time === -90 || (time > ward.entered.time && (!ward.left || time < ward.left.time));
-const team = (ward, teams) => (teams.radiant && ward.player < 5) || (teams.dire && ward.player > 4);
+// const team = (ward, teams) => (teams.radiant && ward.player < 5) || (teams.dire && ward.player > 4);
+// Currently always return true for team since we're just using it as a mass select-deselect
+const team = () => true;
 
 class Vision extends React.Component {
   constructor(props) {
@@ -67,6 +69,12 @@ class Vision extends React.Component {
 
   setTeam(team, value) {
     this.state.teams[team] = value;
+    const start = team === 'radiant' ? 0 : 5;
+    const end = start + 5;
+    for (let i = start; i < end; i += 1) {
+      this.state.players.observer[i] = value;
+      this.state.players.sentry[i] = value;
+    }
     this.setState(this.state);
   }
 

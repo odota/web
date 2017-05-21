@@ -9,10 +9,12 @@ import {
 import ActionHelp from 'material-ui/svg-icons/action/help';
 import {
   player,
+  playerWinLoss,
 } from 'reducers';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
 import strings from 'lang';
+import PlayedWith from './PlayedWith';
 import styles from './PlayerStats.css';
 
 export const PlayerStatsCards = ({
@@ -24,6 +26,8 @@ export const PlayerStatsCards = ({
     wins,
     losses,
     compact,
+    playerId,
+    loggedInId,
   }) => {
   if (error) {
     return <Error />;
@@ -94,6 +98,7 @@ export const PlayerStatsCards = ({
           />
         )}
       </div>
+      <PlayedWith loggedInId={loggedInId} playerId={playerId} />
     </div>
   );
 };
@@ -116,8 +121,8 @@ const mapStateToProps = (state, ownProps) => ({
   partyRank: player.getCompetitiveRank(state, ownProps.playerId),
   soloRank: player.getSoloCompetitiveRank(state, ownProps.playerId),
   mmrEstimate: player.getMmrEstimate(state, ownProps.playerId),
-  wins: player.getWins(state, ownProps.playerId),
-  losses: player.getLosses(state, ownProps.playerId),
+  wins: playerWinLoss.getWins(state, ownProps.playerId),
+  losses: playerWinLoss.getLosses(state, ownProps.playerId),
 });
 
 export default connect(mapStateToProps)(PlayerStatsCards);

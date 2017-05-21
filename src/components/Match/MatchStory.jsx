@@ -4,10 +4,12 @@ import strings from 'lang';
 import {
   formatSeconds,
   jsonFn,
+  formatTemplate,
 } from 'utility';
 import { IconRadiant, IconDire } from 'components/Icons';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
+import itemColors from 'dotaconstants/build/item_colors.json';
 import ReactTooltip from 'react-tooltip';
 import styles from './Match.css';
 
@@ -69,7 +71,11 @@ const PlayerSpan = (player) => {
 
 // Modified version of PlayerThumb
 const ItemSpan = item => (
-  <span key={`item_${item}`} className={styles.storySpan}>
+  <span
+    key={`item_${item}`}
+    className={styles.storySpan}
+    style={{ color: itemColors[(items[item] || {}).qual] }}
+  >
     <img
       width="26px"
       src={items[item]
@@ -78,7 +84,7 @@ const ItemSpan = item => (
       }
       role="presentation"
     />
-    {items[item].dname}
+    {(items[item] || {}).dname}
   </span>
 );
 
@@ -95,20 +101,6 @@ const capitalizeFirst = (list) => {
   return list.slice(0);
 };
 
-// Fills in a template with the vars provided in the dict
-// Adds a fullstop if it's indicated that this is a sentence
-const renderTemplate = (template, dict) => {
-  const pattern = /(\{[^}]+\})/g;
-  let result = template.split(pattern);
-  for (let i = 0; i < result.length; i += 1) {
-    if (result[i].match(pattern) && result[i].slice(1, -1) in dict) {
-      result[i] = dict[result[i].slice(1, -1)];
-    }
-  }
-  result = result.filter(part => part !== '');
-  return result;
-};
-
 // Adds a fullstop to the end of a sentence, and capitalizes the first letter if it can
 const toSentence = (content) => {
   const result = capitalizeFirst(content);
@@ -116,7 +108,7 @@ const toSentence = (content) => {
   return result;
 };
 
-const renderSentence = (template, dict) => toSentence(renderTemplate(template, dict));
+const renderSentence = (template, dict) => toSentence(formatTemplate(template, dict));
 
 // Enumerates a list of items using the correct language syntax
 const formatList = (items, noneValue = []) => {
@@ -126,11 +118,11 @@ const formatList = (items, noneValue = []) => {
     case 1:
       return items;
     case 2:
-      return renderTemplate(strings.story_list_2, { 1: items[0], 2: items[1] });
+      return formatTemplate(strings.story_list_2, { 1: items[0], 2: items[1] });
     case 3:
-      return renderTemplate(strings.story_list_3, { 1: items[0], 2: items[1], 3: items[2] });
+      return formatTemplate(strings.story_list_3, { 1: items[0], 2: items[1], 3: items[2] });
     default:
-      return renderTemplate(strings.story_list_n, { i: items.shift(), rest: formatList(items) });
+      return formatTemplate(strings.story_list_n, { i: items.shift(), rest: formatList(items) });
   }
 };
 
@@ -147,6 +139,24 @@ class StoryEvent {
   }
 }
 
+class IntroEvent extends StoryEvent {
+  constructor(match) {
+    super(-90);
+    this.game_mode = match.game_mode;
+    this.region = match.region;
+    this.date = new Date(match.start_time * 1000);
+  }
+  format() {
+    return formatTemplate(strings.story_intro, {
+      game_mode: strings[`game_mode_${this.game_mode}`],
+      date: this.date.toLocaleDateString(
+        (window.localStorage && window.localStorage.getItem('localization')) || 'en-US',
+        { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
+      region: strings[`region_${this.region}`],
+    });
+  }
+}
+
 class FirstbloodEvent extends StoryEvent {
   constructor(match, time, playerSlot, key) {
     super(time);
@@ -157,7 +167,7 @@ class FirstbloodEvent extends StoryEvent {
     });
   }
   format() {
-    return renderTemplate(strings.story_firstblood, {
+    return formatTemplate(strings.story_firstblood, {
       time: formatSeconds(this.time),
       killer: PlayerSpan(this.killer),
       victim: PlayerSpan(this.victim),
@@ -178,7 +188,7 @@ class AegisEvent extends StoryEvent {
             (this.action === 'CHAT_MESSAGE_DENIED_AEGIS' && strings.timeline_aegis_denied));
   }
   format() {
-    return renderTemplate(strings.story_aegis, {
+    return formatTemplate(strings.story_aegis, {
       action: this.localizedAction,
       player: PlayerSpan(this.player),
     });
@@ -192,8 +202,27 @@ class RoshanEvent extends StoryEvent {
     this.aegis = aegisEvents.find(aegis => aegis.index === index);
   }
   format() {
-    const formatted = renderTemplate(strings.story_roshan, { team: TeamSpan(this.team) });
+    const formatted = formatTemplate(strings.story_roshan, { team: TeamSpan(this.team) });
     return this.aegis ? formatList([formatted, this.aegis.format()]) : formatted;
+  }
+}
+
+class PredictionEvent extends StoryEvent {
+  constructor(match, team) {
+    super(team);
+    if (team === -89) {
+      this.team = true; // radiant
+      this.players = match.players.filter(player => player.isRadiant && player.pred_vict);
+    } else {
+      this.team = false; // dire
+      this.players = match.players.filter(player => !player.isRadiant && player.pred_vict);
+    }
+  }
+  format() {
+    return formatTemplate(strings.story_predicted_victory, {
+      players: formatList(this.players.map(PlayerSpan), strings.story_predicted_victory_empty),
+      team: TeamSpan(this.team),
+    });
   }
 }
 
@@ -314,10 +343,10 @@ class TowerEvent extends StoryEvent {
     }
   }
   get localizedBuilding() {
-    return renderTemplate(strings.story_tower, { team: TeamSpan(this.team) });
+    return formatTemplate(strings.story_tower, { team: TeamSpan(this.team) });
   }
   format() {
-    return renderTemplate(this.template, {
+    return formatTemplate(this.template, {
       building: this.localizedBuilding,
       player: this.player ? PlayerSpan(this.player) : null,
     });
@@ -334,14 +363,14 @@ class BarracksEvent extends StoryEvent {
     this.lane = Math.floor(power / 2) + 1;
   }
   get localizedBuilding() {
-    return renderTemplate(strings.story_barracks, {
+    return formatTemplate(strings.story_barracks, {
       team: TeamSpan(this.team),
       lane: localizedLane[this.lane],
       rax_type: this.is_melee ? strings.building_melee_rax : strings.building_range_rax,
     });
   }
   format() {
-    return renderTemplate(strings.story_building_destroy, { building: this.localizedBuilding });
+    return formatTemplate(strings.story_building_destroy, { building: this.localizedBuilding });
   }
 }
 
@@ -357,7 +386,7 @@ class BuildingListEvent extends StoryEvent {
       if (towers.length === 1) {
         buildingList.push(towers[0].localizedBuilding);
       } else if (towers.length > 1) {
-        buildingList.push(renderTemplate(strings.story_towers_n, {
+        buildingList.push(formatTemplate(strings.story_towers_n, {
           team: TeamSpan(team),
           n: towers.length,
         }));
@@ -368,14 +397,14 @@ class BuildingListEvent extends StoryEvent {
         if (barracks.length === 1) {
           buildingList.push(barracks[0].localizedBuilding);
         } else if (barracks.length === 2) {
-          buildingList.push(renderTemplate(strings.story_barracks_both, {
+          buildingList.push(formatTemplate(strings.story_barracks_both, {
             team: TeamSpan(team),
             lane: localizedLane[lane],
           }));
         }
       });
     });
-    return renderTemplate(strings.story_building_list_destroy, { buildings: formatList(buildingList) });
+    return formatTemplate(strings.story_building_list_destroy, { buildings: formatList(buildingList) });
   }
 }
 
@@ -456,12 +485,47 @@ class ExpensiveItemEvent extends StoryEvent {
     return found;
   }
   format() {
-    return renderTemplate(strings.story_expensive_item, {
+    return formatTemplate(strings.story_expensive_item, {
       time: formatSeconds(this.time),
       player: PlayerSpan(this.player),
       item: ItemSpan(this.item),
       price_limit: GoldSpan(this.price_limit),
     });
+  }
+}
+
+class ItemPurchaseEvent extends StoryEvent {
+  constructor(player, purchase) {
+    super(purchase.time);
+    this.player = player;
+    this.item = purchase.key;
+  }
+  format() {
+    return formatTemplate(strings.story_item_purchase, {
+      time: formatSeconds(this.time),
+      player: PlayerSpan(this.player),
+      item: ItemSpan(this.item),
+    });
+  }
+}
+
+class TimeMarkerEvent extends StoryEvent {
+  constructor(minutes) {
+    super(minutes * 60);
+  }
+  formatSentence() {
+    return this.format();
+  }
+  get minutes() {
+    return this.time / 60;
+  }
+  format() {
+    return [
+      <h3 key={`minute_${this.minutes}_subheading`}>
+        {formatTemplate(strings.story_time_marker, { minutes: this.minutes })}
+      </h3>,
+      <hr key={`minute_${this.minutes}_hr`} />,
+    ];
   }
 }
 
@@ -473,7 +537,7 @@ class GameoverEvent extends StoryEvent {
     this.dire_score = match.dire_score;
   }
   format() {
-    return renderTemplate(strings.story_gameover, {
+    return formatTemplate(strings.story_gameover, {
       duration: formatSeconds(this.time),
       winning_team: TeamSpan(this.winning_team),
       radiant_score: <font key="radiant_score" color={styles.green}>{this.radiant_score}</font>,
@@ -484,9 +548,25 @@ class GameoverEvent extends StoryEvent {
 
 // Modified version of timeline data
 const generateStory = (match) => {
+  let events = [];
+
+  // Intro
+  events.push(new IntroEvent(match));
+
+  // Prediction
+  let predExists = false;
+  match.players.forEach((player) => {
+    if (player.pred_vict === true) {
+      predExists = true;
+    }
+  });
+  if (predExists === true) {
+    events.push(new PredictionEvent(match, -89));
+    events.push(new PredictionEvent(match, -88));
+  }
+
   // Firstblood
   const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
-  let events = [];
 
   if (fbIndex > -1) {
     const killerLog = match.players.find(player =>
@@ -535,6 +615,20 @@ const generateStory = (match) => {
     events = events.concat(new ExpensiveItemEvent(match, 4000));
   }
 
+  // Rapiers
+  match.players.forEach((player) => {
+    player.purchase_log.forEach((purchase) => {
+      if (purchase.key === 'rapier') {
+        events.push(new ItemPurchaseEvent(player, purchase));
+      }
+    });
+  });
+
+  // Time Markers
+  for (let min = 20; min < (match.duration / 60); min += 10) {
+    events.push(new TimeMarkerEvent(min));
+  }
+
   // Gameover
   events.push(new GameoverEvent(match));
 
@@ -562,6 +656,9 @@ const generateStory = (match) => {
     }
   }
 
+  // Remove any unneeded Time Markers
+  events = events.filter((event, i, list) => i === (list.length - 1) || !(event instanceof TimeMarkerEvent && list[i + 1] instanceof TimeMarkerEvent));
+
   return events;
 };
 
@@ -574,6 +671,14 @@ class MatchStory extends React.Component {
     try {
       return this.renderEvents();
     } catch (e) {
+      let exmsg = 'Story Tab Error:\n';
+      if (e.message) {
+        exmsg += e.message;
+      }
+      if (e.stack) {
+        exmsg += ` | stack: ${e.stack}`;
+      }
+      console.log(exmsg);
       return (<div>{strings.story_error}</div>);
     }
   }

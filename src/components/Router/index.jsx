@@ -18,7 +18,8 @@ import Request from 'components/Request';
 import Distributions from 'components/Distributions';
 import Status from 'components/Status';
 import Matches from 'components/Matches';
-import Assistant from 'components/Assistant';
+// import Assistant from 'components/Assistant';
+import Records from 'components/Records';
 import store from 'store';
 import { getMetadata } from 'actions';
 
@@ -30,7 +31,7 @@ store.dispatch(getMetadata());
 
 export default () => (
   <Provider store={store}>
-    <Router history={history}>
+    <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="matches(/:matchId)(/:info)" component={Matches} />
@@ -41,7 +42,8 @@ export default () => (
         <Route path="status" component={Status} />
         <Route path="explorer" component={Explorer} />
         <Route path="search" component={Search} />
-        <Route path="assistant" component={Assistant} />
+        <Route path="records(/:info)" component={Records} />
+        {/* <Route path="assistant" component={Assistant} />*/}
         <Route path="*" component={FourOhFour} />
       </Route>
     </Router>

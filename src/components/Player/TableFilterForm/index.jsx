@@ -1,3 +1,4 @@
+/* global API_HOST fetch */
 import React from 'react';
 import { connect } from 'react-redux';
 import querystring from 'querystring';
@@ -38,18 +39,36 @@ const deleteChip = (name, index) => {
   browserHistory.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
 };
 
+const getPeers = (props, context) => {
+  fetch(`${API_HOST}/api/players/${props.playerId}/peers`)
+  .then(resp => resp.json())
+  .then(json => context.setState({ peers: json }));
+};
+
+const setShowFormState = (props) => {
+  if (Boolean(props.currentQueryString.substring(1)) !== props.showForm) {
+    // If query string state has a filter, turn on the form
+    props.toggleShowForm();
+  }
+};
+
 class TableFilterForm extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      peers: [],
+    };
+  }
+
   componentDidMount() {
-    if (Boolean(this.props.currentQueryString.substring(1)) !== this.props.showForm && !this.props.showForm) {
-      // If query string state has a filter, turn on the form
-      this.props.toggleShowForm();
-    }
+    setShowFormState(this.props);
+    getPeers(this.props, this);
   }
 
   componentWillUpdate(nextProps) {
-    if (Boolean(nextProps.currentQueryString.substring(1)) !== nextProps.showForm && !nextProps.showForm) {
-      // If query string state has a filter, turn on the form
-      nextProps.toggleShowForm();
+    if (nextProps.playerId !== this.props.playerId) {
+      setShowFormState(nextProps);
+      getPeers(nextProps, this);
     }
   }
 
@@ -147,11 +166,13 @@ class TableFilterForm extends React.Component {
                   <Field
                     name="included_account_id"
                     label={strings.filter_included_account_id}
+                    dataSource={this.state.peers.map(peer => ({ text: `${peer.personaname}`, value: peer.account_id }))}
                     limit={10}
                   />
                   <Field
                     name="excluded_account_id"
                     label={strings.filter_excluded_account_id}
+                    dataSource={this.state.peers.map(peer => ({ text: `${peer.personaname}`, value: peer.account_id }))}
                   />
                   <Field
                     name="significant"

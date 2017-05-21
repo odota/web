@@ -6,6 +6,7 @@ import { player } from 'reducers';
 import strings from 'lang';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
+import { getMetadataUser } from 'reducers/metadata';
 import styles from './PlayerHeader.css';
 import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
@@ -23,7 +24,7 @@ const getRegistrationBadge = registered => registered && (
   />
 );
 
-const PlayerHeader = ({ playerName, officialPlayerName, playerId, picture, registered, loading, error, width, playerSoloCompetitiveRank }) => {
+const PlayerHeader = ({ playerName, officialPlayerName, playerId, picture, registered, loading, error, width, playerSoloCompetitiveRank, loggedInUser }) => {
   if (error) {
     return <Error />;
   }
@@ -77,7 +78,7 @@ const PlayerHeader = ({ playerName, officialPlayerName, playerId, picture, regis
             <span className={styles.playerName}>{officialPlayerName || playerName}</span>
             <PlayerBadges playerId={playerId} />
           </div>
-          <PlayerStats playerId={playerId} compact={width <= HEADER_SM_BREAK} />
+          <PlayerStats playerId={playerId} loggedInId={loggedInUser && String(loggedInUser.account_id)} compact={width <= HEADER_SM_BREAK} />
           <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={width <= HEADER_SM_BREAK} />
         </div>
       </div>
@@ -95,6 +96,7 @@ const mapStateToProps = (state, ownProps) => ({
   picture: player.getPictureFull(state, ownProps.playerId),
   registered: player.getLastLogin(state, ownProps.playerId),
   width: state.browser.width,
+  loggedInUser: getMetadataUser(state),
 });
 
 export default connect(mapStateToProps)(PlayerHeader);

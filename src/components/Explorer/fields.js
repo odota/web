@@ -42,6 +42,25 @@ AND match_logs.targetname LIKE '${unitKey}'`,
   key: `kill_${unitKey}`,
 });
 
+const patches = patchData.reverse().map(patch => ({
+  text: patch.name,
+  value: patch.name,
+  key: patch.name,
+}));
+
+const durations = Array(10).fill().map((e, i) => i * 10).map(duration => ({
+  text: `${util.format(strings.time_mm, duration)}`,
+  searchText: util.format(strings.time_mm, duration),
+  value: duration * 60,
+  key: String(duration),
+}));
+
+const having = Array(10).fill().map((e, i) => i).map(element => ({
+  text: String(element + 1),
+  value: element + 1,
+  key: String(element + 1),
+}));
+
 const fields = (players = [], leagues = [], teams = []) => ({
   select: [{
     text: strings.heading_kills,
@@ -187,6 +206,36 @@ const fields = (players = [], leagues = [], teams = []) => ({
     key: 'buybacks',
   },
   {
+    text: strings.th_scans_used,
+    value: '(actions->>\'31\')::int',
+    alias: 'scans_used',
+    key: 'scans_used',
+  },
+  {
+    text: strings.th_glyphs_used,
+    value: '(actions->>\'24\')::int',
+    alias: 'glyphs_used',
+    key: 'glyphs_used',
+  },
+  {
+    text: strings.th_obs_placed,
+    value: 'json_array_length(array_to_json(obs_log))',
+    alias: 'obs_placed',
+    key: 'obs_placed',
+  },
+  {
+    text: strings.th_sen_placed,
+    value: 'json_array_length(array_to_json(sen_log))',
+    alias: 'sen_placed',
+    key: 'sen_placed',
+  },
+  {
+    text: strings.heading_distinct_heroes,
+    value: 1,
+    countValue: 'count(distinct player_matches.hero_id) distinct_heroes',
+    key: 'distinct_heroes',
+  },
+  {
     text: strings.explorer_hero_combos,
     value: 1,
     groupValue: 1,
@@ -272,13 +321,14 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     text: strings.explorer_team,
     value: 'teams.name',
     key: 'team',
+  }, {
+    text: strings.explorer_organization,
+    value: 'team_match.team_id',
+    key: 'organization',
   },
   ],
-  patch: patchData.reverse().map(patch => ({
-    text: patch.name,
-    value: patch.name,
-    key: patch.name,
-  })),
+  minPatch: patches,
+  maxPatch: patches,
   hero: Object.keys(heroData).map(heroId => ({
     text: `[${heroId}] ${heroData[heroId].localized_name}`,
     searchText: heroData[heroId].localized_name,
@@ -290,12 +340,8 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     value: itemName,
     key: itemName,
   })),
-  duration: [10, 20, 30, 40, 50].map(duration => ({
-    text: `> ${util.format(strings.time_mm, duration)}`,
-    searchText: util.format(strings.time_mm, duration),
-    value: duration * 60,
-    key: String(duration),
-  })),
+  minDuration: durations,
+  maxDuration: durations,
   side: [{
     text: strings.general_radiant,
     value: true,
@@ -315,7 +361,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     key: 'loss',
   }],
   region: Object.keys(regionData).map(regionKey => ({
-    text: regionData[regionKey],
+    text: strings[`region_${regionKey}`],
     value: Object.keys(clusterData).filter(key => String(clusterData[key]) === regionKey),
     key: String(regionKey),
   })),
@@ -331,12 +377,25 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     value: team.team_id,
     key: String(team.team_id),
   })),
+  organization: teams.map(team => ({
+    text: `[${team.team_id}] ${team.name}`,
+    searchText: team.name,
+    value: team.team_id,
+    key: String(team.team_id),
+  })),
   player: players.map(player => ({
     text: `[${player.account_id}] ${player.name}`,
     searchText: player.name,
     value: player.account_id,
     key: String(player.account_id),
   })),
+  tier: ['premium', 'professional'].map(tier => ({
+    text: strings[`tier_${tier}`],
+    value: tier,
+    key: tier,
+  })),
+  order: [{ text: strings.explorer_asc, value: 'ASC', key: 'asc' }, { text: strings.explorer_desc, value: 'DESC', key: 'desc' }],
+  having,
   /*
   lanePos: Object.keys(strings).filter(str => str.indexOf('lane_pos_') === 0).map(str => {
     const lanePosId = Number(str.substring('lane_pos_'.length));

@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import strings from 'lang';
 import {
   transformations,
+  fromNow,
 } from 'utility';
 import Table from 'components/Table';
 import Container from 'components/Container';
 // import { List } from 'material-ui/List';
-// import SearchResultItem from './SearchResultItem';
 // import style from './search.css';
 
 const searchColumns = [{
   displayName: strings.th_name,
   field: 'personaname',
   displayFn: (row, col, field) => {
-    const subtitle = row.account_id;
+    const subtitle = row.last_match_time ? fromNow(new Date(row.last_match_time) / 1000) : '';
     return transformations.player({ ...row,
       subtitle,
     }, col, field);
@@ -24,13 +24,9 @@ const searchColumns = [{
 const proColumns = [{
   displayName: strings.th_name,
   field: 'name',
-  displayFn: (row, col, field) => {
-    const subtitle = row.account_id;
-    return transformations.player({
-      ...row,
-      subtitle,
-    }, col, field);
-  },
+  displayFn: (row, col, field) => transformations.player({
+    ...row,
+  }, col, field),
 }, {
   displayName: strings.th_team_name,
   field: 'team_name',
@@ -61,7 +57,8 @@ const Search = ({
     <Container
       loading={playersLoading}
       error={playersError}
-      title={`${players.length} ${strings.app_results}`}
+      title={strings.app_public_players}
+      subtitle={`${players.length} ${strings.app_results}`}
     >
       <Table
         paginated

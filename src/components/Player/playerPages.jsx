@@ -15,6 +15,7 @@ import {
   // ItemsPage,
   WardmapPage,
   WordcloudPage,
+  TotalsPage,
 } from './Pages';
 
 const playerPages = [{
@@ -41,6 +42,10 @@ const playerPages = [{
   name: strings.tab_records,
   key: 'records',
   content: (playerId, routeParams, location) => (<RecordsPage playerId={playerId} routeParams={routeParams} location={location} />),
+}, {
+  name: strings.tab_totals,
+  key: 'totals',
+  content: (playerId, routeParams, location) => (<TotalsPage playerId={playerId} routeParams={routeParams} location={location} />),
 }, {
   name: strings.tab_counts,
   key: 'counts',

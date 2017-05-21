@@ -19,30 +19,30 @@ const data = [
   },
 ];
 
-export default class VisionFilter extends React.PureComponent {
-  handleCheckGenerator(player, type) {
-    const parent = this.props.parent;
-
-    return event => parent.setPlayer(player, type, event.target.checked);
-  }
-
-  handleCheckGeneratorTeam(index) {
-    const parent = this.props.parent;
-
-    return event => parent.setTeam(index === 0 ? 'radiant' : 'dire', event.target.checked);
-  }
-
+export default class VisionFilter extends React.Component {
   playerColumn(playerNumber) {
     return {
       displayName: <PlayerThumb {...this.props.match.players[playerNumber]} hideText />,
-      displayFn: row => <Checkbox defaultChecked onCheck={this.handleCheckGenerator(playerNumber, row.type)} />,
+      displayFn: row => (<Checkbox
+        checked={this.props.parent.state.players[row.type][playerNumber]}
+        onCheck={(event, checked) => {
+          this.props.parent.setPlayer(playerNumber, row.type, checked);
+        }
+      }
+      />),
     };
   }
 
   columns(index) {
     return [
       {
-        displayName: <Checkbox defaultChecked onCheck={this.handleCheckGeneratorTeam(index)} />,
+        displayName: <Checkbox
+          checked={this.props.parent.state.teams[index === 0 ? 'radiant' : 'dire']}
+          onCheck={(event, checked) => {
+            this.props.parent.setTeam(index === 0 ? 'radiant' : 'dire', checked);
+          }
+          }
+        />,
         displayFn: row => row.image,
       },
       this.playerColumn(0 + index),
@@ -59,7 +59,6 @@ export default class VisionFilter extends React.PureComponent {
         <Heading title={strings.general_radiant} />
         <Table data={data} columns={this.columns(0)} />
         <Heading title={strings.general_dire} />
-
         <Table data={data} columns={this.columns(5)} />
       </div>
     );

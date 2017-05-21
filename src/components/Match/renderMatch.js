@@ -20,8 +20,7 @@ Object.keys(strings)
     }
   });
 
-const getMaxKeyOfObject = field =>
- (field ? Object.keys(field).sort((a, b) => Number(b) - Number(a))[0] : '');
+const getMaxKeyOfObject = field => Number(Object.keys(field || {}).sort((a, b) => Number(b) - Number(a))[0]) || 0;
 
 /**
  * Generates data for c3 charts in a match
@@ -183,6 +182,8 @@ function renderMatch(m) {
       desc: [strings[`lane_role_${player.lane_role}`], isSupport(player) ? 'Support' : 'Core'].join('/'),
       multi_kills_max: getMaxKeyOfObject(player.multi_kills),
       kill_streaks_max: getMaxKeyOfObject(player.kill_streaks),
+      lh_ten: (player.lh_t || [])[10],
+      dn_ten: (player.dn_t || [])[10],
       analysis: analysis(m, player),
     };
     // filter interval data to only be >= 0

@@ -430,7 +430,7 @@
   "npc_dota_witch_doctor_death_ward":"Death Ward",
   "npc_dota_tusk_frozen_sigil#":"Frozen Sigil",
   "npc_dota_juggernaut_healing_ward":"Healing Ward",
-  "npc_dota_techies_land_mine":"Proximity Mine",
+  "npc_dota_techies_land_mine":"Land Mine",
   "npc_dota_shadow_shaman_ward_#":"Serpent Ward",
   "npc_dota_pugna_nether_ward_#":"Nether Ward",
   "npc_dota_venomancer_plague_ward_#":"Plague Ward",
@@ -844,5 +844,18 @@
   "vision_all_time":"All time",
   "vision_placed_observer":"placed Observer at",
   "vision_placed_sentry":"placed Sentry at",
-  "vision_ward_log":"Ward Log"
+  "vision_ward_log":"Ward Log",
+  "region_0":"Automatisk",
+  "region_1":"Vest-US",
+  "region_2":"Øst-US",
+  "region_3":"Luxemburg",
+  "region_5":"Singapore",
+  "region_8":"Stockholm",
+  "region_10":"Brasil",
+  "region_9":"Østerrike",
+  "region_7":"Australia",
+  "region_14":"Chile",
+  "region_15":"Peru",
+  "region_16":"India",
+  "region_19":"Japan"
 }

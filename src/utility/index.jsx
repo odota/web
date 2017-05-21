@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import patch from 'dotaconstants/build/patch.json';
-import region from 'dotaconstants/build/region.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
 import xpLevel from 'dotaconstants/build/xp_level.json';
 import styles from 'components/palette.css';
@@ -232,6 +231,12 @@ export const transformations = {
   },
   hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true),
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
+  match_id_with_time: (row, col, field) => (<div>
+    <TableLink to={`/matches/${field}`}>{field}</TableLink>
+    <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+      {fromNow(row.start_time)}
+    </span>
+  </div>),
   radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
     const getColor = (result) => {
@@ -278,7 +283,7 @@ export const transformations = {
       </span>}
     </div>
   ),
-  region: (row, col, field) => region[field],
+  region: (row, col, field) => (strings[`region_${field}`]),
   leaver_status: (row, col, field) => (strings[`leaver_status_${field}`]),
   lobby_type: (row, col, field) => (strings[`lobby_type_${field}`]),
   lane_role: (row, col, field) => (strings[`lane_role_${field}`]),
@@ -499,4 +504,28 @@ export const getScript = (url, callback) => {
     }
   };
   script.onload = script.onreadystatechange;
+};
+
+// Fills in a template with the values provided in the dict
+// returns a list, so react object don't have to be converted to a string
+// Any keys not found in the given dictionary are simply left untouched
+// brackets can be escaped with \
+// Examples:
+// formatTemplate("{person} name is {name}", { person: "My", name: "Gaben" });
+// returns [ "My", " name is ", "Gaben" ]
+// formatTemplate("{person} name is {name}", { name: <font color={styles.golden}>{"Gaben"}</font> });
+// returns [ "{person} name is ", <font color={styles.golden}>{"Gaben"}</font> ]
+export const formatTemplate = (template, dict) => {
+  if (!template) {
+    return [strings.story_invalid_template];
+  }
+  const pattern = /(\{[^}]+\})/g;
+  let result = template.split(pattern);
+  for (let i = 0; i < result.length; i += 1) {
+    if (result[i].match(pattern) && result[i].slice(1, -1) in dict) {
+      result[i] = dict[result[i].slice(1, -1)];
+    }
+  }
+  result = result.filter(part => part !== '');
+  return result;
 };

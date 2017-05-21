@@ -1,8 +1,8 @@
 <!--
-Thank you for submitting an issue!
-The following information might help us diagnose and fix the prohlem.
+If reporting a bug, the following information would be helpful:
 - **OS**:
 - **Screen Resolution**:
 - **Browser/Version**:
-- **Link to page with the issue, or screenshot**:
+- **Link to page with the issue**:
+- **Screenshot**:
 -->

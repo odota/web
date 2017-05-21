@@ -60,7 +60,7 @@ class RequestLayer extends React.Component {
   }
 
   componentWillMount() {
-    this.props.getPulls(this.getDate(10));
+    this.props.getPulls(this.getDate(5));
   }
 
   render() {
