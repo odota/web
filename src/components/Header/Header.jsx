@@ -12,6 +12,7 @@ import ActionSettings from 'material-ui/svg-icons/action/settings';
 // import IconMenu from 'material-ui/IconMenu';
 // import AppBar from 'material-ui/AppBar';
 import Bug from 'material-ui/svg-icons/action/bug-report';
+import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
 import strings from 'lang';
 import { LocalizationMenu } from 'components/Localization';
 import Dropdown from 'components/Header/Dropdown';
@@ -96,6 +97,7 @@ const SettingsGroup = ({ width }) => width > mobile && (
   >
     <LocalizationMenu />
     <ReportBug />
+    <LogOut />
   </Dropdown>
 );
 
@@ -109,6 +111,19 @@ const ReportBug = () => (
     <Bug />
     <span>
       {strings.app_report_bug}
+    </span>
+  </a>
+);
+
+const LogOut = () => (
+  <a
+    className={styles.bug}
+    href={`${API_HOST}/logout`}
+    rel="noopener noreferrer"
+  >
+    <LogOutButton />
+    <span>
+      {strings.app_logout}
     </span>
   </a>
 );

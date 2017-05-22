@@ -27,15 +27,6 @@ const LoggedIn = ({ loading, error, playerId, playerName }) => {
             // icon={<Avatar src={playerPicture} size={30} />}
           />
         </Link>
-        <IconButton
-          href={`${API_HOST}/logout`}
-          data-hint={strings.app_logout}
-          data-hint-position="bottom"
-          style={{ zIndex: 3200 }}
-          className={styles.iconButton}
-        >
-          <IconLogout />
-        </IconButton>
       </div>
     );
   };
