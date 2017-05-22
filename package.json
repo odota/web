@@ -71,7 +71,7 @@
     "babel-preset-stage-3": "^6.17.0",
     "babel-register": "^6.18.0",
     "chai": "^3.5.0",
-    "chai-enzyme": "^0.6.0",
+    "chai-enzyme": "^0.7.0",
     "css-loader": "^0.28.0",
     "css-modules-require-hook": "^4.0.5",
     "dirty-chai": "^1.2.2",
