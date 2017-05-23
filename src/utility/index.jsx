@@ -196,8 +196,9 @@ export const percentile = (pct) => {
 
 const getSubtitle = (row) => {
   if (row.match_id && row.player_slot !== undefined) {
-    return isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire;
-  } else if (row.last_played) {
+    return (isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire) + 
+           (row.is_roaming ? ' / ' + strings.roaming : (row.lane_role ? ' / ' + strings[`lane_role_${row.lane_role}`] : ''));
+  } else if (row.last_played) { 
     return <FromNowTooltip timestamp={row.last_played} />;
   } else if (row.start_time) {
     return <FromNowTooltip timestamp={row.start_time} />;
