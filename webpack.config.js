@@ -85,6 +85,7 @@ const config = {
   devServer: {
     contentBase: __dirname,
     host: '0.0.0.0',
+    disableHostCheck: true,
     port: Number(process.env.PORT) || 8080,
     historyApiFallback: true,
     hot: true,
