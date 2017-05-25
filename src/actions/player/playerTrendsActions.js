@@ -50,11 +50,12 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
           return dataList;
         }
 
-        cumulativeSum += currentValue;
+        
+        cumulativeSum = cumulativeSum * 0.95 + currentValue * 0.05;
         const nextIndex = dataList.length + 1;
         dataList.push({
           x: nextIndex,
-          value: Number(cumulativeSum / nextIndex).toFixed(2),
+          value: Number(cumulativeSum).toFixed(2),
           independent_value: currentValue,
           match_id: match.match_id,
           hero_id: match.hero_id,
