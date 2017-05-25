@@ -84,8 +84,6 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
         }
       }
 
-      console.log(trends);
-
       return trends;
     })
     .then(json => dispatch(getPlayerTrendsOk(json, playerId)))
