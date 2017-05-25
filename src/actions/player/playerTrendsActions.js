@@ -39,7 +39,10 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
     .then(response => response.json())
     .then((response) => {
       let cumulativeSum = 0;
-      const smoothingFactor = 0.05;
+      const chunkSize = 20;
+
+      // Compute sum of data (to act as in integral over data field)
+      // trends[i].value = sum(0 -> i, attribute)
       const trends = response.reverse().reduce((dataList, match) => {
         const win = (match.player_slot < 128) === match.radiant_win;
         const currentValue = fieldName === 'win_rate'
@@ -51,7 +54,7 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
           return dataList;
         }
 
-        cumulativeSum = (cumulativeSum * (1 - smoothingFactor)) + (currentValue * smoothingFactor);
+        cumulativeSum += currentValue;
 
         const nextIndex = dataList.length + 1;
         dataList.push({
@@ -65,9 +68,24 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
           start_time: match.start_time,
           win,
         });
-
         return dataList;
       }, []);
+
+      // Apply mean-smoothing by taking differences of the previously computed integral
+      for (let i = 0; i < trends.length; i += 1) {
+        if (i < trends.length - chunkSize) {
+          trends[i].value = (trends[i + chunkSize].value - trends[i].value) / chunkSize;
+        } else {
+          trends[i].value = trends[i].independent_value;
+          for (let j = 1; j < chunkSize; j += 1) {
+            trends[i].value += trends[i - j].independent_value;
+          }
+          trends[i].value /= chunkSize;
+        }
+      }
+
+      console.log(trends);
+
       return trends;
     })
     .then(json => dispatch(getPlayerTrendsOk(json, playerId)))
