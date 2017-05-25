@@ -39,6 +39,7 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
     .then(response => response.json())
     .then((response) => {
       let cumulativeSum = 0;
+      let smoothingFactor = 0.05;
       const trends = response.reverse().reduce((dataList, match) => {
         const win = (match.player_slot < 128) === match.radiant_win;
         const currentValue = fieldName === 'win_rate'
@@ -51,7 +52,7 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
         }
 
         
-        cumulativeSum = cumulativeSum * 0.95 + currentValue * 0.05;
+        cumulativeSum = cumulativeSum * (1 - smoothingFactor) + currentValue * smoothingFactor;
         const nextIndex = dataList.length + 1;
         dataList.push({
           x: nextIndex,
