@@ -74,7 +74,7 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
       // Compute in reverse order so that first n can be discarded
       for (let i = trends.length - 1; i > chunkSize - 1; i -= 1) {
         trends[i].value = (trends[i].value - trends[i - chunkSize].value) / chunkSize;
-        
+
         // Update graph index so it starts at 1 (since we only display 480 at a time)
         trends[i].x -= chunkSize;
       }
