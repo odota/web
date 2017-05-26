@@ -810,7 +810,7 @@
   "histograms_name":"Histograms",
   "histograms_description":"Percentages indicate win rates for the labeled bin",
   "trends_name":"Trends",
-  "trends_description":"Cumulative average over last 500 games",
+  "trends_description":"Moving average of 20 games over last 480 games",
   "trends_tooltip_average":"Avg.",
   "trends_no_data":"Sorry, no data for this graph",
   "xp_reasons_0":"Друго",
