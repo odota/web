@@ -71,19 +71,18 @@ export const getPlayerTrends = (playerId, options = {}, fieldName) => (dispatch)
         return dataList;
       }, []);
 
-      // Apply mean-smoothing by taking differences of the previously computed integral
-      for (let i = 0; i < trends.length; i += 1) {
-        if (i < trends.length - chunkSize) {
-          trends[i].value = (trends[i + chunkSize].value - trends[i].value) / chunkSize;
-        } else {
-          trends[i].value = trends[i].independent_value;
-          for (let j = 1; j < chunkSize; j += 1) {
-            trends[i].value += trends[i - j].independent_value;
-          }
-          trends[i].value /= chunkSize;
-        }
+      // Compute in reverse order so that first n can be discarded
+      for (let i = trends.length - 1; i > chunkSize - 1; i -= 1) {
+        trends[i].value = (trends[i].value - trends[i - chunkSize].value) / chunkSize;
+        
+        // Update graph index so it starts at 1 (since we only display 480 at a time)
+        trends[i].x -= chunkSize;
       }
 
+      // Discard first 20 elements
+      trends.splice(0, chunkSize);
+
+      // Return 480 elements
       return trends;
     })
     .then(json => dispatch(getPlayerTrendsOk(json, playerId)))
