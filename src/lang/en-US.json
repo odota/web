@@ -860,7 +860,7 @@
   "histograms_description": "Percentages indicate win rates for the labeled bin",
   
   "trends_name": "Trends",
-  "trends_description": "Moving average of 20 games over last 480 games",
+  "trends_description": "Moving mean of last 20 games",
   "trends_tooltip_average": "Avg.",
   "trends_no_data": "Sorry, no data for this graph",
 
