@@ -47,6 +47,8 @@ export const defaultPlayerMatchesOptions = {
     'deaths',
     'assists',
     'skill',
+    'lane_role',
+    'is_roaming',
   ],
 };
 
