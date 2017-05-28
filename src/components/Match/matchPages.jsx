@@ -3,6 +3,7 @@ import strings from 'lang';
 import Heading from 'components/Heading';
 import Table from 'components/Table';
 import TeamfightMap from 'components/Match/TeamfightMap';
+import Container from 'components/Container';
 import Vision from './Vision';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
@@ -61,14 +62,18 @@ const matchPages = [Overview, {
   parsed: true,
   content: match => (<div>
     <div className={styles.flexContainer}>
-      <div className={styles.flexElement}>
-        <Heading title={strings.heading_kills} />
-        <CrossTable match={match} field1="killed" field2="killed_by" />
-      </div>
-      <div className={styles.flexElement}>
-        <Heading title={strings.heading_damage} />
-        <CrossTable match={match} field1="damage" field2="damage_taken" />
-      </div>
+      <Container>
+        <div className={styles.flexElement}>
+          <Heading title={strings.heading_kills} />
+          <CrossTable match={match} field1="killed" field2="killed_by" />
+        </div>
+      </Container>
+      <Container>
+        <div className={styles.flexElement}>
+          <Heading title={strings.heading_damage} />
+          <CrossTable match={match} field1="damage" field2="damage_taken" />
+        </div>
+      </Container>
     </div>
     <TeamTable
       players={match.players} columns={inflictorsColumns} heading={strings.heading_damage}
@@ -183,35 +188,43 @@ const matchPages = [Overview, {
   key: 'cosmetics',
   parsed: true,
   content: match => (
-    <div>
-      <Heading title={strings.heading_cosmetics} />
-      <Table data={match.players.filter(obj => obj.cosmetics.length > 0)} columns={cosmeticsColumns} />
-    </div>
+    <Container>
+      <div>
+        <Heading title={strings.heading_cosmetics} />
+        <Table data={match.players.filter(obj => obj.cosmetics.length > 0)} columns={cosmeticsColumns} />
+      </div>
+    </Container>
   ),
 }, {
   name: strings.tab_log,
   key: 'log',
   parsed: true,
-  content: match => (<div>
-    <Heading title={strings.heading_log} />
-    <MatchLog match={match} />
-  </div>),
+  content: match => (<Container>
+    <div>
+      <Heading title={strings.heading_log} />
+      <MatchLog match={match} />
+    </div>
+  </Container>),
 }, {
   name: strings.tab_chat,
   key: 'chat',
   parsed: true,
-  content: match => (<div>
-    <Heading title={strings.heading_chat} />
-    <Table data={(match.chat || []).map(c => Object.assign({}, c, match.players[c.slot]))} columns={chatColumns} />
-  </div>),
+  content: match => (<Container>
+    <div>
+      <Heading title={strings.heading_chat} />
+      <Table data={(match.chat || []).map(c => Object.assign({}, c, match.players[c.slot]))} columns={chatColumns} />
+    </div>
+  </Container>),
 }, {
   name: strings.tab_story,
   key: 'story',
   parsed: true,
-  content: match => (<div>
-    <Heading title={strings.heading_story} />
-    <MatchStory match={match} />
-  </div>),
+  content: match => (<Container>
+    <div>
+      <Heading title={strings.heading_story} />
+      <MatchStory match={match} />
+    </div>
+  </Container>),
 }];
 
 export default (matchId, match) => matchPages.map(page => ({

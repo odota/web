@@ -7,6 +7,7 @@ import {
 import {
   inflictorWithValue,
 } from 'components/Visualizations';
+import Container from 'components/Container';
 import heroes from 'dotaconstants/build/heroes.json';
 import strings from 'lang';
 import Table from '../Table/Table';
@@ -59,8 +60,9 @@ const getCastArray = (pm) => {
 const CastTable = ({
   match,
 }) => (
-  <Tabs>
-    {match.players.map(p =>
+  <Container>
+    <Tabs>
+      {match.players.map(p =>
       (
         <Tab key={p.player_slot} icon={<img src={`${API_HOST}${heroes[p.hero_id].img}`} height={30} role="presentation" />}>
           <Table
@@ -70,6 +72,7 @@ const CastTable = ({
         </Tab>
       ))
     }
-  </Tabs>);
+    </Tabs>
+  </Container>);
 
 export default CastTable;

@@ -10,6 +10,7 @@ import {
 import playerColors from 'dotaconstants/build/player_colors.json';
 import strings from 'lang';
 import Heading from 'components/Heading';
+import Container from 'components/Container';
 import styles from './Match.css';
 
 const colorArray = Object.keys(playerColors).map(k => playerColors[k]);
@@ -69,10 +70,12 @@ class MatchGraph extends Component {
   }
 
   render() {
-    return (<div>
-      <Heading title={strings[`heading_graph_${this.props.type}`]} />
-      <div className={styles.matchGraph} id={this.id} />
-    </div>);
+    return (<Container>
+      <div>
+        <Heading title={strings[`heading_graph_${this.props.type}`]} />
+        <div className={styles.matchGraph} id={this.id} />
+      </div>
+    </Container>);
   }
 }
 
