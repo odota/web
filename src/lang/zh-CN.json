@@ -810,7 +810,7 @@
   "histograms_name":"直方图",
   "histograms_description":"百分比表示当前标签下的胜率",
   "trends_name":"趋势",
-  "trends_description":"近500场比赛累计平均值",
+  "trends_description":"Moving mean of last 20 games",
   "trends_tooltip_average":"平均",
   "trends_no_data":"抱歉, 没有所需要的数据",
   "xp_reasons_0":"其它",
