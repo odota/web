@@ -810,7 +810,7 @@
   "histograms_name":"Histogram",
   "histograms_description":"Peratusan menunjukkan kadar menang bagi bin berlabel",
   "trends_name":"Trend",
-  "trends_description":"Purata lebih 500 perlawanan terakhir",
+  "trends_description":"Moving mean of last 20 games",
   "trends_tooltip_average":"Avg.",
   "trends_no_data":"Maaf, tiada data untuk graf ini",
   "xp_reasons_0":"Lain-lain",
