@@ -810,7 +810,7 @@
   "histograms_name":"Гистограммы",
   "histograms_description":"Процентаж указывает на процент побед для этого столбца",
   "trends_name":"Графики",
-  "trends_description":"Совокупное среднее за последние 500 игр",
+  "trends_description":"Moving mean of last 20 games",
   "trends_tooltip_average":"Сред.",
   "trends_no_data":"К сожалению, данные для диаграммы отсутствуют",
   "xp_reasons_0":"Другие",
