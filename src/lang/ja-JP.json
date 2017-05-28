@@ -810,7 +810,7 @@
   "histograms_name":"ヒストグラム",
   "histograms_description":"Percentages indicate win rates for the labeled bin",
   "trends_name":"トレンド",
-  "trends_description":"過去500試合の累積平均",
+  "trends_description":"Moving mean of last 20 games",
   "trends_tooltip_average":"平均",
   "trends_no_data":"申し訳ありませんが、このグラフのデータがありません",
   "xp_reasons_0":"その他",
