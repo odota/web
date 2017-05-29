@@ -810,7 +810,7 @@
   "histograms_name":"Histogramy",
   "histograms_description":"Procenty oznaczają średnią wygranych dla oznaczonych przedziałów",
   "trends_name":"Trendy",
-  "trends_description":"Moving mean of last 20 games",
+  "trends_description":"Ruchoma średnia ostatnich 20 gier",
   "trends_tooltip_average":"Śr.",
   "trends_no_data":"Przykro nam, nie ma danych dla tego wykresu",
   "xp_reasons_0":"Inne",
