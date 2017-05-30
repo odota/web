@@ -47,7 +47,7 @@
     "react-dom": "^15.3.2",
     "react-helmet": "^5.0.1",
     "react-markdown": "^2.4.4",
-    "react-measure": "1.4.7",
+    "react-measure": "2.0.0",
     "react-redux": "^5.0.0",
     "react-router": "^3.0.0",
     "react-router-redux": "^4.0.7",
