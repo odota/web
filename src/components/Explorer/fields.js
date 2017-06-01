@@ -402,7 +402,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
   })),
   order: [{ text: strings.explorer_asc, value: 'ASC', key: 'asc' }, { text: strings.explorer_desc, value: 'DESC', key: 'desc' }],
   having,
-  laneRole: Object.keys(strings).filter(str => str.indexOf('lane_role_') === 0).map(str => {
+  laneRole: Object.keys(strings).filter(str => str.indexOf('lane_role_') === 0).map((str) => {
     const laneRoleId = Number(str.substring('lane_role_'.length));
     return { text: strings[str], value: laneRoleId, key: String(laneRoleId) };
   }),
