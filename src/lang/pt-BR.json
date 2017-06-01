@@ -810,7 +810,7 @@
   "histograms_name":"Histograma",
   "histograms_description":"Percentagens indicam taxas de vitórias para o intervalo rotulado",
   "trends_name":"Tendências",
-  "trends_description":"Moving mean of last 20 games",
+  "trends_description":"Média dinâmica dos últimos 20 jogos",
   "trends_tooltip_average":"Méd.",
   "trends_no_data":"Desculpe, não há dados para este gráfico",
   "xp_reasons_0":"Outro",
