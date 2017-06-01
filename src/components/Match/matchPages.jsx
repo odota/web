@@ -3,6 +3,7 @@ import strings from 'lang';
 import Heading from 'components/Heading';
 import Table from 'components/Table';
 import TeamfightMap from 'components/Match/TeamfightMap';
+import Timeline from 'components/Match/Overview/Timeline';
 import Vision from './Vision';
 import CastTable from './CastTable';
 import CrossTable from './CrossTable';
@@ -118,6 +119,7 @@ const matchPages = [Overview, {
   key: 'graphs',
   parsed: true,
   content: match => (<div>
+    <Timeline match={match} />
     <MatchGraph match={match} type="difference" />
     <MatchGraph match={match} type="gold" />
     <MatchGraph match={match} type="xp" />
