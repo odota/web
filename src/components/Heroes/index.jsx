@@ -65,7 +65,6 @@ class RequestLayer extends React.Component {
       };
     });
     processedData.sort((a, b) => b.pickBanRatePro - a.pickBanRatePro);
-    // TODO add filter by month
     const heroTabs = [{
       name: strings.hero_pro_tab,
       key: 'pro',

@@ -32,18 +32,6 @@ import fields from './fields';
 import autocomplete from './autocomplete';
 import styles from './Explorer.css';
 
-// TODO link to schema
-// TODO split picks/bans by phase
-// TODO mega creep wins query (matches table only)
-// TODO gold/kill differential
-// TODO hero combos (3+)
-// TODO projection of multiple columns (multiple selects)
-// TODO OR multiple where queries (e.g. select two leagues)
-// TODO num roshans killed?
-// TODO item build rates?
-// TODO lane positions/lane roles (requires storing lane number)
-// TODO AEGIS_STOLEN, AEGIS, DENIED_AEGIS, FIRSTBLOOD, PAUSED (requires player1_slot fix/reparse)
-
 const playerMapping = {};
 const teamMapping = {};
 
