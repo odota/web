@@ -24,11 +24,11 @@ const AccountWidget = ({ loading, error, user, style }) => (
 );
 
 const mapStateToProps = (state) => {
-  const { error, loading } = state.app.metadata;
+  const { error, loading, data } = state.app.metadata;
   return {
     loading,
     error,
-    user: state.app.metadata.data.user,
+    user: data.user,
   };
 };
 

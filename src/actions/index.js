@@ -1,31 +1,32 @@
 import querystring from 'querystring';
 import fetch from 'isomorphic-fetch';
+import renderMatch from 'components/Match/renderMatch';
 
-function createAction(host, path, params = {}) {
-    return (dispatch) => {
+function createAction(type, host, path, params = {}, transform) {
+  return (dispatch) => {
+    const url = `${host}/${path}?${querystring.stringify(params)}`;
     const getDataStart = () => ({
-    type: 'REQUEST ' + path,
+      type: `REQUEST/${type}`,
     });
     const getDataOk = payload => ({
-    type: 'OK ' + path,
-    payload,
+      type: `OK/${type}`,
+      payload,
     });
-  dispatch(getDataStart());
-  return fetch(`${host}/${path}?${querystring.stringify(params)}`, { credentials: 'include' })
+    dispatch(getDataStart());
+    return fetch(url, { credentials: 'include' })
   .then(response => response.json())
+  .then(transform || (json => json))
   .then(json => dispatch(getDataOk(json)))
   .catch((error) => {
     console.error(error);
     // TODO transparently retry with backoff
   });
-}
-}
-
-export function getMetadata() {
-    return createAction(API_HOST, 'api/metadata')
+  };
 }
 
-export * from './matchActions';
+export const getMetadata = () => createAction('metadata', API_HOST, 'api/metadata');
+export const getMatch = matchId => createAction('match', API_HOST, `api/matches/${matchId}`, {}, renderMatch);
+
 export * from './tableActions';
 export * from './player/playerActions';
 export * from './player/playerMatchesActions';

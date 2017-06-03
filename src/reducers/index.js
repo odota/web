@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
-import reducer from './reducer';
-import match from 'reducers/match';
+import reducer from 'reducers/reducer';
 import pvgnaGuides from 'reducers/pvgnaGuides';
 import heroRanking, { getHeroRanking } from 'reducers/heroRanking';
 import heroBenchmark, { getHeroBenchmark } from 'reducers/heroBenchmark';
@@ -92,8 +91,10 @@ export default combineReducers({
     recentMatches,
     totals,
   }),
-  metadata: reducer,
-  match,
+  metadata: reducer('metadata'),
+  match: reducer('match', {
+    players: [],
+  }),
   heroRanking,
   heroBenchmark,
   search,

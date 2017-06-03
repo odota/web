@@ -1,16 +1,14 @@
-const initialState = {
+export default (type, initialData) => (state = {
   loading: true,
-  data: [],
-};
-
-export default (state = initialState, action) => {
-  switch (action.type.split(' ')[0]) {
-    case 'REQUEST':
+  data: initialData || [],
+}, action) => {
+  switch (action.type) {
+    case `REQUEST/${type}`:
       return {
         ...state,
         loading: true,
       };
-    case 'OK':
+    case `OK/${type}`:
       return {
         ...state,
         loading: false,

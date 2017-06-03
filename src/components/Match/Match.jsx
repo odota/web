@@ -7,10 +7,6 @@ import {
   getMatch, getPvgnaHeroGuides,
 } from 'actions';
 import {
-  getMatchData,
-  getMatchLoading,
-} from 'reducers/match';
-import {
   getPvgnaGuides,
 } from 'reducers/pvgnaGuides';
 import MatchHeader from './MatchHeader';
@@ -65,8 +61,8 @@ const mergeHeroGuides = (match, heroGuides) => ({
 
 const mapStateToProps = (state, ownProps) => ({
   matchId: ownProps.params.matchId,
-  match: mergeHeroGuides(getMatchData(state), getPvgnaGuides(state)),
-  loading: getMatchLoading(state),
+  match: mergeHeroGuides(state.app.match.data, getPvgnaGuides(state)),
+  loading: state.app.match.loading,
   user: state.app.metadata.data.user,
 });
 
