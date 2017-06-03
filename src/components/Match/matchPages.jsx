@@ -71,8 +71,11 @@ const matchPages = [Overview, {
       </div>
     </div>
     <TeamTable
-      players={match.players} columns={inflictorsColumns} heading={strings.heading_damage}
-      radiantTeam={match.radiant_team} direTeam={match.dire_team}
+      players={match.players}
+      columns={inflictorsColumns}
+      heading={strings.heading_damage}
+      radiantTeam={match.radiant_team}
+      direTeam={match.dire_team}
     />
   </div>),
 }, {
@@ -81,24 +84,36 @@ const matchPages = [Overview, {
   parsed: true,
   content: match => (<div>
     <TeamTable
-      players={match.players} columns={unitKillsColumns} heading={strings.heading_unit_kills}
-      radiantTeam={match.radiant_team} direTeam={match.dire_team}
+      players={match.players}
+      columns={unitKillsColumns}
+      heading={strings.heading_unit_kills}
+      radiantTeam={match.radiant_team}
+      direTeam={match.dire_team}
     />
     <TeamTable
-      players={match.players} columns={lastHitsTimesColumns(match)} heading={strings.heading_last_hits}
-      radiantTeam={match.radiant_team} direTeam={match.dire_team}
+      players={match.players}
+      columns={lastHitsTimesColumns(match)}
+      heading={strings.heading_last_hits}
+      radiantTeam={match.radiant_team}
+      direTeam={match.dire_team}
     />
     <div className={styles.flexContainer}>
       <div className={styles.flexElement}>
         <TeamTable
-          players={match.players} columns={goldReasonsColumns} heading={strings.heading_gold_reasons}
-          radiantTeam={match.radiant_team} direTeam={match.dire_team}
+          players={match.players}
+          columns={goldReasonsColumns}
+          heading={strings.heading_gold_reasons}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
         />
       </div>
       <div className={styles.flexElement}>
         <TeamTable
-          players={match.players} columns={xpReasonsColumns} heading={strings.heading_xp_reasons}
-          radiantTeam={match.radiant_team} direTeam={match.dire_team}
+          players={match.players}
+          columns={xpReasonsColumns}
+          heading={strings.heading_xp_reasons}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
         />
       </div>
     </div>
@@ -109,8 +124,11 @@ const matchPages = [Overview, {
   parsed: true,
   content: match => (<div>
     <TeamTable
-      players={match.players} columns={purchaseTimesColumns(match)} heading={strings.heading_purchase_log}
-      radiantTeam={match.radiant_team} direTeam={match.dire_team}
+      players={match.players}
+      columns={purchaseTimesColumns(match)}
+      heading={strings.heading_purchase_log}
+      radiantTeam={match.radiant_team}
+      direTeam={match.dire_team}
     />
   </div>),
 }, {
@@ -137,12 +155,18 @@ const matchPages = [Overview, {
   parsed: true,
   content: match => (<div>
     <TeamTable
-      players={match.players} columns={objectiveDamageColumns} heading={strings.heading_objective_damage}
-      radiantTeam={match.radiant_team} direTeam={match.dire_team}
+      players={match.players}
+      columns={objectiveDamageColumns}
+      heading={strings.heading_objective_damage}
+      radiantTeam={match.radiant_team}
+      direTeam={match.dire_team}
     />
     <TeamTable
-      players={match.players} columns={runesColumns} heading={strings.heading_runes}
-      radiantTeam={match.radiant_team} direTeam={match.dire_team}
+      players={match.players}
+      columns={runesColumns}
+      heading={strings.heading_runes}
+      radiantTeam={match.radiant_team}
+      direTeam={match.dire_team}
     />
   </div>),
 }, {
@@ -156,8 +180,11 @@ const matchPages = [Overview, {
   parsed: true,
   content: match => (<div>
     <TeamTable
-      players={match.players} columns={actionsColumns} heading={strings.heading_actions}
-      radiantTeam={match.radiant_team} direTeam={match.dire_team}
+      players={match.players}
+      columns={actionsColumns}
+      heading={strings.heading_actions}
+      radiantTeam={match.radiant_team}
+      direTeam={match.dire_team}
     />
   </div>),
 }, {
@@ -174,8 +201,11 @@ const matchPages = [Overview, {
   parsed: true,
   content: match => (<div>
     <TeamTable
-      players={match.players} columns={analysisColumns} heading={strings.heading_analysis}
-      radiantTeam={match.radiant_team} direTeam={match.dire_team}
+      players={match.players}
+      columns={analysisColumns}
+      heading={strings.heading_analysis}
+      radiantTeam={match.radiant_team}
+      direTeam={match.dire_team}
     />
   </div>),
 }, {

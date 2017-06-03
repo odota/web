@@ -74,7 +74,8 @@ const ExplorerControlSection = ({ showEditor, toggleEditor, expandedFields, hand
       label={strings.explorer_player_purchased}
       fields={expandedFields}
       builderField="playerPurchased"
-      handleFieldUpdate={handleFieldUpdate} builder={builder}
+      handleFieldUpdate={handleFieldUpdate}
+      builder={builder}
     />
     <ExplorerFormField label={strings.explorer_lane_role} fields={expandedFields} builderField="laneRole" handleFieldUpdate={handleFieldUpdate} builder={builder} />
     <ExplorerFormField label={strings.explorer_min_patch} fields={expandedFields} builderField="minPatch" handleFieldUpdate={handleFieldUpdate} builder={builder} />

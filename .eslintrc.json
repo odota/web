@@ -32,7 +32,7 @@
     ],
     "import/prefer-default-export": 0,
     "jsx-a11y/no-static-element-interactions": [0],
-    "jsx-a11y/img-has-alt": 1,
+    "jsx-a11y/alt-text": 1,
     "react/no-array-index-key": 1,
     "react/prop-types": 0,
     "react/require-default-props": 0,
