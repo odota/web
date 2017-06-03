@@ -25,11 +25,30 @@ function createAction(type, host, path, params = {}, transform) {
   };
 }
 
+function transformBenchmark(data) {
+  const result = data.result;
+  const listStats = Object.keys(data.result);
+  const listPercentiles = result[listStats[0]].map(i => i.percentile);
+  const benchmarks = [];
+
+  for (let i = 0; i < listPercentiles.length; i += 1) {
+    const percentilePerStat = {
+      percentile: listPercentiles[i],
+    };
+
+    listStats.forEach((stat) => {
+      percentilePerStat[stat] = result[stat][i].value;
+    });
+    benchmarks.push(percentilePerStat);
+  }
+  return { result: benchmarks };
+}
+
 export const getMetadata = () => createAction('metadata', API_HOST, 'api/metadata');
 export const getMatch = matchId => createAction('match', API_HOST, `api/matches/${matchId}`, {}, renderMatch);
-export const getRanking = (heroId) => createAction('heroRanking', API_HOST, 'api/rankings', { hero_id: heroId });
+export const getRanking = heroId => createAction('heroRanking', API_HOST, 'api/rankings', { hero_id: heroId });
+export const getBenchmark = heroId => createAction('heroBenchmark', API_HOST, 'api/benchmarks', { hero_id: heroId }, transformBenchmark);
 
-export * from './benchmarkActions';
 export * from './searchActions';
 export * from './requestActions';
 export * from './distributionsActions';

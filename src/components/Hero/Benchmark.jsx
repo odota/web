@@ -5,9 +5,6 @@ import {
   connect,
 } from 'react-redux';
 import {
-  benchmark,
-} from 'reducers';
-import {
   getBenchmark,
 } from 'actions';
 import Spinner from 'components/Spinner';
@@ -72,9 +69,9 @@ HISTOGRAM API
 */
 
 const mapStateToProps = state => ({
-  isLoading: benchmark.getLoading(state),
-  isError: benchmark.getError(state),
-  result: benchmark.getBenchmarks(state),
+  isLoading: state.app.heroBenchmark.loading,
+  isError: state.app.heroBenchmark.error,
+  result: state.app.heroBenchmark.data.result,
 });
 
 const mapDispatchToProps = dispatch => ({
