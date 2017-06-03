@@ -22,7 +22,6 @@ import recentMatches, { getPlayerRecentMatches } from 'reducers/gotPlayer/recent
 import totals, { getPlayerTotals } from 'reducers/gotPlayer/totals';
 import form, { getForm } from 'reducers/form';
 import request from 'reducers/request';
-import distributions from 'reducers/distributions';
 import ghPulls from 'reducers/githubPulls';
 import table, { getTable } from 'reducers/table';
 import localization, { getLocalization } from 'reducers/localization';
@@ -91,7 +90,7 @@ export default combineReducers({
   heroBenchmark: reducer('heroBenchmark'),
   search: reducer('search'),
   request,
-  distributions,
+  distributions: reducer('distributions'),
   proPlayers: reducer('proPlayers'),
   proMatches,
   localization,

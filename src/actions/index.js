@@ -59,8 +59,7 @@ export const getSearchResultAndPros = query => dispatch => Promise.all([
   dispatch(getSearchResult(query)),
   dispatch(getProPlayers()),
 ]);
-export * from './requestActions';
-export * from './distributionsActions';
+export const getDistributions = () => createAction('distributions', API_HOST, 'api/distributions');
 export * from './proMatchesActions';
 export * from './localizationActions';
 export * from './pvgnaActions';
@@ -89,3 +88,4 @@ export * from './player/playerTotalsActions';
 
 export * from './tableActions';
 export * from './formActions';
+export * from './requestActions';
