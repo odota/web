@@ -62,7 +62,6 @@ export const getSearchResultAndPros = query => dispatch => Promise.all([
   dispatch(getProPlayers()),
 ]);
 export const getDistributions = () => createAction('distributions', API_HOST, 'api/distributions');
-export * from './localizationActions';
 export * from './pvgnaActions';
 export * from './heroStatsActions';
 export * from './leaguesActions';
