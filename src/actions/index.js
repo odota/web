@@ -66,8 +66,8 @@ export const getPvgnaHeroGuides = () => createAction('pvgnaGuides', 'https://yas
 export const getHeroStats = params => createAction('heroStats', API_HOST, 'api/heroStats', params);
 export const getLeagues = () => createAction('leagues', API_HOST, 'api/leagues');
 export const getTeams = () => createAction('teams', API_HOST, 'api/teams');
+export const getRecords = (field) => createAction('records', API_HOST, `api/records/${field}`);
 
-export * from './recordsActions';
 export * from './player/playerActions';
 export * from './player/playerMatchesActions';
 export * from './player/playerPeersActions';
