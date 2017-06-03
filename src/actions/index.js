@@ -63,7 +63,8 @@ export const getSearchResultAndPros = query => dispatch => Promise.all([
 ]);
 export const getDistributions = () => createAction('distributions', API_HOST, 'api/distributions');
 export const getPvgnaHeroGuides = () => createAction('pvgnaGuides', 'https://yasp.pvgna.com', 'yasp');
-export * from './heroStatsActions';
+export const getHeroStats = params => createAction('heroStats', API_HOST, 'api/heroStats', params);
+
 export * from './leaguesActions';
 export * from './teamsActions';
 export * from './recordsActions';

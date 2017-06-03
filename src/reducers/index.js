@@ -21,7 +21,6 @@ import form, { getForm } from 'reducers/form';
 import request from 'reducers/request';
 import ghPulls from 'reducers/githubPulls';
 import table, { getTable } from 'reducers/table';
-import heroStats, { getHeroStats } from 'reducers/heroStats';
 import leagues, { getLeagues } from 'reducers/leagues';
 import teams, { getTeams } from 'reducers/teams';
 import globalRecords, { getGlobalRecords } from 'reducers/records';
@@ -48,7 +47,6 @@ export {
   getPlayerWinLoss as playerWinLoss,
   getForm as form,
   getTable as table,
-  getHeroStats as heroStats,
   getLeagues as leagues,
   getTeams as teams,
   getGlobalRecords as records,
@@ -86,7 +84,7 @@ export default combineReducers({
   proMatches: reducer('proMatches'),
   publicMatches: reducer('publicMatches'),
   pvgnaGuides: reducer('pvgnaGuides'),
-  heroStats,
+  heroStats: reducer('heroStats'),
   leagues,
   ghPulls,
   teams,
