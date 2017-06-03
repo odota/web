@@ -19,7 +19,6 @@ import recentMatches, { getPlayerRecentMatches } from 'reducers/gotPlayer/recent
 import totals, { getPlayerTotals } from 'reducers/gotPlayer/totals';
 import form, { getForm } from 'reducers/form';
 import request from 'reducers/request';
-import ghPulls from 'reducers/githubPulls';
 import table, { getTable } from 'reducers/table';
 
 // This is where we will export all our state retrieval functions (better encapsulation)
@@ -82,7 +81,7 @@ export default combineReducers({
   leagues: reducer('leagues'),
   teams: reducer('teams'),
   records: reducer('records'),
-  ghPulls,
+  ghPulls: reducer('ghPulls'),
   table,
   form,
   request,

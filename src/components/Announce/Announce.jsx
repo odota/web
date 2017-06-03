@@ -3,7 +3,7 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import strings from 'lang';
 import { connect } from 'react-redux';
-import { getGithubPulls } from 'actions/githubPulls';
+import { getGithubPulls } from 'actions';
 import ReactMarkdown from 'react-markdown';
 import { IconGithub } from 'components/Icons';
 
