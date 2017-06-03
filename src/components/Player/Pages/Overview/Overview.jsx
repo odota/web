@@ -12,9 +12,6 @@ import {
   playerHeroes,
   playerPeers,
 } from 'reducers';
-import {
-  getPvgnaGuides,
-} from 'reducers/pvgnaGuides';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesColumns';
@@ -124,7 +121,7 @@ const mapStateToProps = (state, { playerId }) => ({
   matchesData: playerRecentMatches.getMatchList(state, playerId),
   matchesLoading: playerRecentMatches.getLoading(state, playerId),
   matchesError: playerRecentMatches.getError(state, playerId),
-  heroesData: mergeHeroGuides(playerHeroes.getHeroList(state, playerId), getPvgnaGuides(state)),
+  heroesData: mergeHeroGuides(playerHeroes.getHeroList(state, playerId), state.app.pvgnaGuides.data),
   heroesLoading: playerHeroes.getLoading(state, playerId),
   heroesError: playerHeroes.getError(state, playerId),
   peersData: playerPeers.getPeerList(state, playerId),

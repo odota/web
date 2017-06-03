@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import reducer from 'reducers/reducer';
-import pvgnaGuides from 'reducers/pvgnaGuides';
 import player, { getPlayer } from 'reducers/gotPlayer/player';
 import matches, { getPlayerMatches } from 'reducers/gotPlayer/matches';
 import peers, { getPlayerPeers } from 'reducers/gotPlayer/peers';
@@ -49,7 +48,6 @@ export {
   getPlayerWinLoss as playerWinLoss,
   getForm as form,
   getTable as table,
-  pvgnaGuides,
   getHeroStats as heroStats,
   getLeagues as leagues,
   getTeams as teams,
@@ -87,7 +85,7 @@ export default combineReducers({
   proPlayers: reducer('proPlayers'),
   proMatches: reducer('proMatches'),
   publicMatches: reducer('publicMatches'),
-  pvgnaGuides,
+  pvgnaGuides: reducer('pvgnaGuides'),
   heroStats,
   leagues,
   ghPulls,

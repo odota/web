@@ -14,14 +14,14 @@ function createAction(type, host, path, params = {}, transform) {
       payload,
     });
     dispatch(getDataStart());
-    return fetch(url, { credentials: 'include' })
-  .then(response => response.json())
-  .then(transform || (json => json))
-  .then(json => dispatch(getDataOk(json)))
-  .catch((error) => {
-    console.error(error);
-    // TODO transparently retry with backoff
-  });
+    return fetch(url, path === 'api/metadata' ? { credentials: 'include' } : {})
+    .then(response => response.json())
+    .then(transform || (json => json))
+    .then(json => dispatch(getDataOk(json)))
+    .catch((error) => {
+      console.error(error);
+      // TODO transparently retry with backoff
+    });
   };
 }
 
@@ -62,7 +62,7 @@ export const getSearchResultAndPros = query => dispatch => Promise.all([
   dispatch(getProPlayers()),
 ]);
 export const getDistributions = () => createAction('distributions', API_HOST, 'api/distributions');
-export * from './pvgnaActions';
+export const getPvgnaHeroGuides = () => createAction('pvgnaGuides', 'https://yasp.pvgna.com', 'yasp');
 export * from './heroStatsActions';
 export * from './leaguesActions';
 export * from './teamsActions';

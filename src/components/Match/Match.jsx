@@ -6,9 +6,6 @@ import TabBar from 'components/TabBar';
 import {
   getMatch, getPvgnaHeroGuides,
 } from 'actions';
-import {
-  getPvgnaGuides,
-} from 'reducers/pvgnaGuides';
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
 import styles from './Match.css';
@@ -61,7 +58,7 @@ const mergeHeroGuides = (match, heroGuides) => ({
 
 const mapStateToProps = (state, ownProps) => ({
   matchId: ownProps.params.matchId,
-  match: mergeHeroGuides(state.app.match.data, getPvgnaGuides(state)),
+  match: mergeHeroGuides(state.app.match.data, state.app.pvgnaGuides.data),
   loading: state.app.match.loading,
   user: state.app.metadata.data.user,
 });
