@@ -639,7 +639,8 @@ export const runesColumns = [heroTdColumn]
     displayName: (
       <div
         className={styles.runes}
-        data-tip data-for={`rune_${runeType}`}
+        data-tip
+        data-for={`rune_${runeType}`}
       >
         <img
           src={`/assets/images/dota2/runes/${runeType}.png`}
@@ -685,7 +686,8 @@ export const cosmeticsColumns = [heroTdColumn, {
         rel="noopener noreferrer"
       >
         <img
-          src={`${API_HOST}/apps/570/${cosmetic.image_path}`} role="presentation"
+          src={`${API_HOST}/apps/570/${cosmetic.image_path}`}
+          role="presentation"
           style={{
             borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : styles.gray}`,
           }}

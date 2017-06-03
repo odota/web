@@ -32,7 +32,8 @@ const Records = ({ routeParams, data, error, loading, playerId }) => {
           displayFn: (row, col, field) => (field && field.toFixed ? Number(field.toFixed(2)) : ''),
           field: selected,
           relativeBars: true,
-        })} data={data}
+        })}
+        data={data}
       />
     </Container>
   </div>);

@@ -32,18 +32,6 @@ import fields from './fields';
 import autocomplete from './autocomplete';
 import styles from './Explorer.css';
 
-// TODO link to schema
-// TODO split picks/bans by phase
-// TODO mega creep wins query (matches table only)
-// TODO gold/kill differential
-// TODO hero combos (3+)
-// TODO projection of multiple columns (multiple selects)
-// TODO OR multiple where queries (e.g. select two leagues)
-// TODO num roshans killed?
-// TODO item build rates?
-// TODO lane positions/lane roles (requires storing lane number)
-// TODO AEGIS_STOLEN, AEGIS, DENIED_AEGIS, FIRSTBLOOD, PAUSED (requires player1_slot fix/reparse)
-
 const playerMapping = {};
 const teamMapping = {};
 
@@ -86,9 +74,10 @@ const ExplorerControlSection = ({ showEditor, toggleEditor, expandedFields, hand
       label={strings.explorer_player_purchased}
       fields={expandedFields}
       builderField="playerPurchased"
-      handleFieldUpdate={handleFieldUpdate} builder={builder}
+      handleFieldUpdate={handleFieldUpdate}
+      builder={builder}
     />
-    {/* <ExplorerFormField label={strings.explorer_lane_pos} fields={expandedFields} builderField="lanePos" handleFieldUpdate={handleFieldUpdate} builder={builder} />*/}
+    <ExplorerFormField label={strings.explorer_lane_role} fields={expandedFields} builderField="laneRole" handleFieldUpdate={handleFieldUpdate} builder={builder} />
     <ExplorerFormField label={strings.explorer_min_patch} fields={expandedFields} builderField="minPatch" handleFieldUpdate={handleFieldUpdate} builder={builder} />
     <ExplorerFormField label={strings.explorer_max_patch} fields={expandedFields} builderField="maxPatch" handleFieldUpdate={handleFieldUpdate} builder={builder} />
     <ExplorerFormField label={strings.explorer_min_duration} fields={expandedFields} builderField="minDuration" handleFieldUpdate={handleFieldUpdate} builder={builder} />

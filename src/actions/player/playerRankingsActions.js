@@ -31,9 +31,6 @@ export const getPlayerRankingsError = (payload, id) => ({
 });
 
 export const getPlayerRankings = (playerId, options = {}) => (dispatch, getState) => {
-  // TODO - there is no reason to dispatch an OK in the positive case here that I can think of.
-  // Instead, we should change this (and all like it in players probably) to be triggered on the negative
-  // condition only (which is important to do).
   if (playerRankings.isLoaded(getState(), playerId)) {
     dispatch(getPlayerRankingsOk(playerRankings.getRankingList(getState(), playerId), playerId));
   } else {

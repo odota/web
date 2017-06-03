@@ -230,6 +230,18 @@ const fields = (players = [], leagues = [], teams = []) => ({
     key: 'sen_placed',
   },
   {
+    text: strings.th_legs,
+    value: 'heroes.legs',
+    alias: 'legs',
+    key: 'legs',
+  },
+  {
+    text: strings.th_fantasy_points,
+    value: '(0.3 * kills + (3 - 0.3 * deaths) + 0.003 * (last_hits + denies) + 0.002 * gold_per_min + towers_killed + roshans_killed + 3 * teamfight_participation + 0.5 * observers_placed + 0.5 * camps_stacked + 0.25 * rune_pickups + 4 * firstblood_claimed + 0.05 * stuns)',
+    alias: 'fantasy_points',
+    key: 'fantasy_points',
+  },
+  {
     text: strings.heading_distinct_heroes,
     value: 1,
     countValue: 'count(distinct player_matches.hero_id) distinct_heroes',
@@ -396,12 +408,10 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
   })),
   order: [{ text: strings.explorer_asc, value: 'ASC', key: 'asc' }, { text: strings.explorer_desc, value: 'DESC', key: 'desc' }],
   having,
-  /*
-  lanePos: Object.keys(strings).filter(str => str.indexOf('lane_pos_') === 0).map(str => {
-    const lanePosId = Number(str.substring('lane_pos_'.length));
-    return { text: strings[str], value: lanePosId, key: lanePosId };
+  laneRole: Object.keys(strings).filter(str => str.indexOf('lane_role_') === 0).map((str) => {
+    const laneRoleId = Number(str.substring('lane_role_'.length));
+    return { text: strings[str], value: laneRoleId, key: String(laneRoleId) };
   }),
-  */
 });
 
 export default fields;
