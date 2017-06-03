@@ -48,11 +48,19 @@ export const getMetadata = () => createAction('metadata', API_HOST, 'api/metadat
 export const getMatch = matchId => createAction('match', API_HOST, `api/matches/${matchId}`, {}, renderMatch);
 export const getRanking = heroId => createAction('heroRanking', API_HOST, 'api/rankings', { hero_id: heroId });
 export const getBenchmark = heroId => createAction('heroBenchmark', API_HOST, 'api/benchmarks', { hero_id: heroId }, transformBenchmark);
-
-export * from './searchActions';
+export const getProPlayers = () => createAction('proPlayers', API_HOST, 'api/proPlayers');
+export const setSearchQuery = query => dispatch => dispatch(({
+  type: 'QUERY/search',
+  query,
+}));
+export const getSearchResult = query => createAction('search', API_HOST, 'api/search', { q: query });
+export const getSearchResultAndPros = query => dispatch => Promise.all([
+  dispatch(setSearchQuery(query)),
+  dispatch(getSearchResult(query)),
+  dispatch(getProPlayers()),
+]);
 export * from './requestActions';
 export * from './distributionsActions';
-export * from './proPlayersActions';
 export * from './proMatchesActions';
 export * from './localizationActions';
 export * from './pvgnaActions';

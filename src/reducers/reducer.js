@@ -14,6 +14,11 @@ export default (type, initialData) => (state = {
         loading: false,
         data: action.payload,
       };
+    case `QUERY/${type}`:
+      return {
+        ...state,
+        query: action.query,
+      };
     default:
       return state;
   }

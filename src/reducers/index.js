@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
 import reducer from 'reducers/reducer';
 import pvgnaGuides from 'reducers/pvgnaGuides';
-import search from 'reducers/search';
-import proPlayers, { getProPlayers } from 'reducers/proPlayers';
 import publicMatches, { getPublicMatches } from 'reducers/publicMatches';
 import proMatches, { getProMatches } from 'reducers/proMatches';
 import player, { getPlayer } from 'reducers/gotPlayer/player';
@@ -33,7 +31,6 @@ import leagues, { getLeagues } from 'reducers/leagues';
 import teams, { getTeams } from 'reducers/teams';
 import globalRecords, { getGlobalRecords } from 'reducers/records';
 
-
 // This is where we will export all our state retrieval functions (better encapsulation)
 // TODO rename all of these "read*"
 export {
@@ -54,7 +51,6 @@ export {
   getPlayerRecentMatches as playerRecentMatches,
   getPlayerTotals as playerTotals,
   getPlayerWinLoss as playerWinLoss,
-  getProPlayers as proPlayers,
   getProMatches as proMatches,
   getForm as form,
   getTable as table,
@@ -93,12 +89,10 @@ export default combineReducers({
   }),
   heroRanking: reducer('heroRanking'),
   heroBenchmark: reducer('heroBenchmark'),
-  search,
-  form,
+  search: reducer('search'),
   request,
   distributions,
-  table,
-  proPlayers,
+  proPlayers: reducer('proPlayers'),
   proMatches,
   localization,
   pvgnaGuides,
@@ -108,4 +102,6 @@ export default combineReducers({
   ghPulls,
   teams,
   records: globalRecords,
+  table,
+  form,
 });

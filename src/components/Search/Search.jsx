@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { getSearchResultAndPros } from 'actions';
-import { proPlayers } from 'reducers';
 import strings from 'lang';
+import fuzzy from 'fuzzy';
 import SearchResult from './SearchResult';
-// import SearchForm from './SearchForm';
+
+const extract = item => `${item.name}${item.team_name}`;
 
 class Search extends React.Component {
   componentDidMount() {
@@ -24,15 +25,15 @@ class Search extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { error, loading, done, searchResults, query } = state.app.search;
+  const { error, loading, done, data, query } = state.app.search;
   return {
     playersLoading: loading,
     playersError: error,
     done,
-    data: searchResults,
-    pros: proPlayers.getFilteredList(state, query),
-    prosLoading: proPlayers.getLoading(state),
-    prosError: proPlayers.getError(state),
+    data,
+    pros: fuzzy.filter(query, state.app.proPlayers.data, { extract }).map(item => ({ ...item.original })),
+    prosLoading: state.app.proPlayers.loading,
+    prosError: state.app.proPlayers.error,
   };
 };
 
