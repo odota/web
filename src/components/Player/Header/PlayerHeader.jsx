@@ -6,7 +6,6 @@ import { player } from 'reducers';
 import strings from 'lang';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
-import { getMetadataUser } from 'reducers/metadata';
 import styles from './PlayerHeader.css';
 import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
@@ -96,7 +95,7 @@ const mapStateToProps = (state, ownProps) => ({
   picture: player.getPictureFull(state, ownProps.playerId),
   registered: player.getLastLogin(state, ownProps.playerId),
   width: state.browser.width,
-  loggedInUser: getMetadataUser(state),
+  loggedInUser: state.app.metadata.data.user,
 });
 
 export default connect(mapStateToProps)(PlayerHeader);

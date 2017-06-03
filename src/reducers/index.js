@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import metadata from 'reducers/metadata';
+import reducer from './reducer';
 import match from 'reducers/match';
 import pvgnaGuides from 'reducers/pvgnaGuides';
 import heroRanking, { getHeroRanking } from 'reducers/heroRanking';
@@ -92,7 +92,7 @@ export default combineReducers({
     recentMatches,
     totals,
   }),
-  metadata,
+  metadata: reducer,
   match,
   heroRanking,
   heroBenchmark,

@@ -1,4 +1,30 @@
-export * from './metadataActions';
+import querystring from 'querystring';
+import fetch from 'isomorphic-fetch';
+
+function createAction(host, path, params = {}) {
+    return (dispatch) => {
+    const getDataStart = () => ({
+    type: 'REQUEST ' + path,
+    });
+    const getDataOk = payload => ({
+    type: 'OK ' + path,
+    payload,
+    });
+  dispatch(getDataStart());
+  return fetch(`${host}/${path}?${querystring.stringify(params)}`, { credentials: 'include' })
+  .then(response => response.json())
+  .then(json => dispatch(getDataOk(json)))
+  .catch((error) => {
+    console.error(error);
+    // TODO transparently retry with backoff
+  });
+}
+}
+
+export function getMetadata() {
+    return createAction(API_HOST, 'api/metadata')
+}
+
 export * from './matchActions';
 export * from './tableActions';
 export * from './player/playerActions';

@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "webpack": "NODE_ENV=production webpack",
-    "start": "webpack-dev-server --hot --inline --compress",
-    "start:noc": "webpack-dev-server --hot --inline",
+    "start": "webpack-dev-server --hot",
     "build": "npm install && npm run lintnofix && npm run lint:css && npm run webpack",
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx",

@@ -13,7 +13,6 @@ import {
 import {
   getPvgnaGuides,
 } from 'reducers/pvgnaGuides';
-import { getMetadataUser } from 'reducers/metadata';
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
 import styles from './Match.css';
@@ -68,7 +67,7 @@ const mapStateToProps = (state, ownProps) => ({
   matchId: ownProps.params.matchId,
   match: mergeHeroGuides(getMatchData(state), getPvgnaGuides(state)),
   loading: getMatchLoading(state),
-  user: getMetadataUser(state),
+  user: state.app.metadata.data.user,
 });
 
 const mapDispatchToProps = dispatch => ({

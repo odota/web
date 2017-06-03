@@ -88,7 +88,7 @@ const config = {
     disableHostCheck: true,
     port: Number(process.env.PORT) || 8080,
     historyApiFallback: true,
-    hot: true,
+    compress: true,
   },
 };
 

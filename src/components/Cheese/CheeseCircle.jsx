@@ -6,7 +6,7 @@ import Error from '../Error';
 import { IconCheese } from '../Icons';
 import styles from './CheeseCircle.css';
 
-const Cheese = ({ donations, error, loading }) => {
+const Cheese = ({ donations = {}, error, loading }) => {
   const { goal, cheese } = donations;
   const percent = ((cheese / goal) * 100) || 0;
 
@@ -31,12 +31,11 @@ const Cheese = ({ donations, error, loading }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { loading, error, donations } = state.app.metadata;
-
+  const { loading, error } = state.app.metadata;
   return {
     loading,
     error,
-    donations,
+    donations: state.app.metadata.data.cheese,
   };
 };
 
