@@ -5,9 +5,6 @@ import {
   connect,
 } from 'react-redux';
 import {
-  ranking,
-} from 'reducers';
-import {
   getRanking,
 } from 'actions';
 import Spinner from 'components/Spinner';
@@ -46,9 +43,9 @@ class Ranking extends Component {
 }
 
 const mapStateToProps = state => ({
-  rankings: ranking.getRankings(state),
-  isLoading: ranking.getLoading(state),
-  isError: ranking.getError(state),
+  rankings: state.app.heroRanking.data.rankings || [],
+  isLoading: state.app.heroRanking.loading,
+  isError: state.app.heroRanking.error,
 });
 
 const mapDispatchToProps = dispatch => ({

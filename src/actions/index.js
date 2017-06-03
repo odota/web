@@ -1,3 +1,4 @@
+/* global API_HOST */
 import querystring from 'querystring';
 import fetch from 'isomorphic-fetch';
 import renderMatch from 'components/Match/renderMatch';
@@ -26,8 +27,21 @@ function createAction(type, host, path, params = {}, transform) {
 
 export const getMetadata = () => createAction('metadata', API_HOST, 'api/metadata');
 export const getMatch = matchId => createAction('match', API_HOST, `api/matches/${matchId}`, {}, renderMatch);
+export const getRanking = (heroId) => createAction('heroRanking', API_HOST, 'api/rankings', { hero_id: heroId });
 
-export * from './tableActions';
+export * from './benchmarkActions';
+export * from './searchActions';
+export * from './requestActions';
+export * from './distributionsActions';
+export * from './proPlayersActions';
+export * from './proMatchesActions';
+export * from './localizationActions';
+export * from './pvgnaActions';
+export * from './heroStatsActions';
+export * from './publicMatchesActions';
+export * from './leaguesActions';
+export * from './teamsActions';
+export * from './recordsActions';
 export * from './player/playerActions';
 export * from './player/playerMatchesActions';
 export * from './player/playerPeersActions';
@@ -45,18 +59,6 @@ export * from './player/playerWordcloudActions';
 export * from './player/playerTrendsActions';
 export * from './player/playerRecentMatchesActions';
 export * from './player/playerTotalsActions';
+
+export * from './tableActions';
 export * from './formActions';
-export * from './rankingActions';
-export * from './benchmarkActions';
-export * from './searchActions';
-export * from './requestActions';
-export * from './distributionsActions';
-export * from './proPlayersActions';
-export * from './proMatchesActions';
-export * from './localizationActions';
-export * from './pvgnaActions';
-export * from './heroStatsActions';
-export * from './publicMatchesActions';
-export * from './leaguesActions';
-export * from './teamsActions';
-export * from './recordsActions';
