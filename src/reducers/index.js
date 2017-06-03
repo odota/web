@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
 import reducer from 'reducers/reducer';
 import pvgnaGuides from 'reducers/pvgnaGuides';
-import publicMatches, { getPublicMatches } from 'reducers/publicMatches';
-import proMatches, { getProMatches } from 'reducers/proMatches';
 import player, { getPlayer } from 'reducers/gotPlayer/player';
 import matches, { getPlayerMatches } from 'reducers/gotPlayer/matches';
 import peers, { getPlayerPeers } from 'reducers/gotPlayer/peers';
@@ -50,13 +48,11 @@ export {
   getPlayerRecentMatches as playerRecentMatches,
   getPlayerTotals as playerTotals,
   getPlayerWinLoss as playerWinLoss,
-  getProMatches as proMatches,
   getForm as form,
   getTable as table,
   getLocalization as localization,
   pvgnaGuides,
   getHeroStats as heroStats,
-  getPublicMatches as publicMatches,
   getLeagues as leagues,
   getTeams as teams,
   getGlobalRecords as records,
@@ -89,18 +85,18 @@ export default combineReducers({
   heroRanking: reducer('heroRanking'),
   heroBenchmark: reducer('heroBenchmark'),
   search: reducer('search'),
-  request,
   distributions: reducer('distributions'),
   proPlayers: reducer('proPlayers'),
-  proMatches,
+  proMatches: reducer('proMatches'),
+  publicMatches: reducer('publicMatches'),
   localization,
   pvgnaGuides,
   heroStats,
-  publicMatches,
   leagues,
   ghPulls,
   teams,
   records: globalRecords,
   table,
   form,
+  request,
 });

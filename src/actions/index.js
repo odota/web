@@ -49,6 +49,8 @@ export const getMatch = matchId => createAction('match', API_HOST, `api/matches/
 export const getRanking = heroId => createAction('heroRanking', API_HOST, 'api/rankings', { hero_id: heroId });
 export const getBenchmark = heroId => createAction('heroBenchmark', API_HOST, 'api/benchmarks', { hero_id: heroId }, transformBenchmark);
 export const getProPlayers = () => createAction('proPlayers', API_HOST, 'api/proPlayers');
+export const getProMatches = () => createAction('proMatches', API_HOST, 'api/proMatches');
+export const getPublicMatches = params => createAction('publicMatches', API_HOST, 'api/publicMatches', params);
 export const setSearchQuery = query => dispatch => dispatch(({
   type: 'QUERY/search',
   query,
@@ -60,11 +62,9 @@ export const getSearchResultAndPros = query => dispatch => Promise.all([
   dispatch(getProPlayers()),
 ]);
 export const getDistributions = () => createAction('distributions', API_HOST, 'api/distributions');
-export * from './proMatchesActions';
 export * from './localizationActions';
 export * from './pvgnaActions';
 export * from './heroStatsActions';
-export * from './publicMatchesActions';
 export * from './leaguesActions';
 export * from './teamsActions';
 export * from './recordsActions';
