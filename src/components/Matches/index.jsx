@@ -99,7 +99,6 @@ const matchTabs = [{
 }];
 
 const getData = (props) => {
-  console.log(props);
   const route = props.match.params.matchId || 'pro';
   if (!Number.isInteger(Number(route))) {
     props.dispatchProMatches();
