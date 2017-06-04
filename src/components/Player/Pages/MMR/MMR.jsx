@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { MMRGraph } from 'components/Visualizations';
-import { getPlayerMMR } from 'actions';
-import { playerMMR } from 'reducers';
+import { getPlayerMmr } from 'actions';
 import strings from 'lang';
 import Container from 'components/Container';
 
@@ -15,7 +14,7 @@ const MMR = ({ columns, error, loading }) => (
 );
 
 const getData = (props) => {
-  props.getPlayerMMR(props.playerId, props.location.query);
+  props.getPlayerMmr(props.playerId, props.location.query);
 };
 
 class RequestLayer extends React.Component {
@@ -34,10 +33,14 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { playerId }) => ({
-  columns: playerMMR.getList(state, playerId),
-  loading: playerMMR.getLoading(state, playerId),
-  error: playerMMR.getError(state, playerId),
+const mapStateToProps = state => ({
+  columns: state.app.playerMmr.data.map(mmr => ({
+    value: mmr.solo_competitive_rank,
+    x: new Date(mmr.time),
+    competitiveRank: mmr.competitive_rank,
+  })),
+  loading: state.app.playerMmr.loading,
+  error: state.app.playerMmr.error,
 });
 
-export default connect(mapStateToProps, { getPlayerMMR })(RequestLayer);
+export default connect(mapStateToProps, { getPlayerMmr })(RequestLayer);

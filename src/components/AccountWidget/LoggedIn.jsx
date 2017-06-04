@@ -2,14 +2,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import strings from 'lang';
 // import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
-import { player } from 'reducers';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import styles from './AccountWidget.css';
 
-const LoggedIn = ({ loading, error, playerId, playerName }) => {
+const LoggedIn = ({ loading, error, playerId }) => {
   const getPlayerWidget = () => {
     if (error) return <Error />;
     if (loading) return <Spinner color="#fff" size={0.5} />;
@@ -17,7 +17,7 @@ const LoggedIn = ({ loading, error, playerId, playerName }) => {
       <div className={styles.group}>
         <Link to={`/players/${playerId}`}>
           <FlatButton
-            label={playerName}
+            label={strings.app_my_profile}
             // labelPosition="before"
             className={styles.account}
             hoverColor="transparent"
@@ -32,10 +32,8 @@ const LoggedIn = ({ loading, error, playerId, playerName }) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  loading: player.getLoading(state, ownProps.playerId),
-  error: player.getError(state, ownProps.playerId),
-  playerName: player.getPlayerName(state, ownProps.playerId),
-  playerPicture: player.getPicture(state, ownProps.playerId),
+  loading: state.app.player.loading,
+  error: state.app.player.error,
   playerId: ownProps.playerId,
 });
 

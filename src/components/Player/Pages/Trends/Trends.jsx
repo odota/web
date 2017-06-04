@@ -5,7 +5,6 @@ import { TrendGraph } from 'components/Visualizations';
 import {
   getPlayerTrends,
 } from 'actions';
-import { playerTrends } from 'reducers';
 import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
 import Heading from 'components/Heading';
@@ -111,10 +110,10 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { playerId }) => ({
-  columns: playerTrends.getTrendsList(state, playerId),
-  loading: playerTrends.getLoading(state, playerId),
-  error: playerTrends.getError(state, playerId),
+const mapStateToProps = state => ({
+  columns: state.app.playerTrends.data,
+  loading: state.app.playerTrends.loading,
+  error: state.app.playerTrends.error,
 });
 
 export default connect(mapStateToProps, { getPlayerTrends })(RequestLayer);

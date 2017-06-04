@@ -1,7 +1,12 @@
 /* global API_HOST */
 import querystring from 'querystring';
 import fetch from 'isomorphic-fetch';
-import renderMatch from 'components/Match/renderMatch';
+import transformMatch from 'actions/transformMatch';
+import transformBenchmarks from 'actions/transformBenchmarks';
+import transformCounts from 'actions/transformCounts';
+import transformHistograms from 'actions/transformHistograms';
+import transformTrends from 'actions/transformTrends';
+import transformRankings from 'actions/transformRankings';
 
 function createAction(type, host, path, params = {}, transform) {
   return (dispatch) => {
@@ -25,29 +30,10 @@ function createAction(type, host, path, params = {}, transform) {
   };
 }
 
-function transformBenchmark(data) {
-  const result = data.result;
-  const listStats = Object.keys(data.result);
-  const listPercentiles = result[listStats[0]].map(i => i.percentile);
-  const benchmarks = [];
-
-  for (let i = 0; i < listPercentiles.length; i += 1) {
-    const percentilePerStat = {
-      percentile: listPercentiles[i],
-    };
-
-    listStats.forEach((stat) => {
-      percentilePerStat[stat] = result[stat][i].value;
-    });
-    benchmarks.push(percentilePerStat);
-  }
-  return { result: benchmarks };
-}
-
 export const getMetadata = () => createAction('metadata', API_HOST, 'api/metadata');
-export const getMatch = matchId => createAction('match', API_HOST, `api/matches/${matchId}`, {}, renderMatch);
+export const getMatch = matchId => createAction('match', API_HOST, `api/matches/${matchId}`, {}, transformMatch);
 export const getRanking = heroId => createAction('heroRanking', API_HOST, 'api/rankings', { hero_id: heroId });
-export const getBenchmark = heroId => createAction('heroBenchmark', API_HOST, 'api/benchmarks', { hero_id: heroId }, transformBenchmark);
+export const getBenchmark = heroId => createAction('heroBenchmark', API_HOST, 'api/benchmarks', { hero_id: heroId }, transformBenchmarks);
 export const getProPlayers = () => createAction('proPlayers', API_HOST, 'api/proPlayers');
 export const getProMatches = () => createAction('proMatches', API_HOST, 'api/proMatches');
 export const getPublicMatches = params => createAction('publicMatches', API_HOST, 'api/publicMatches', params);
@@ -73,25 +59,23 @@ export const getGithubPulls = merged => createAction('ghPulls', 'https://api.git
   page: 1,
   per_page: 1,
 });
-
-export * from './player/playerActions';
-export * from './player/playerMatchesActions';
-export * from './player/playerPeersActions';
-export * from './player/playerHeroesActions';
-export * from './player/playerProsActions';
-export * from './player/playerRankingsActions';
-export * from './player/playerHistogramActions';
-export * from './player/playerRecordsActions';
-export * from './player/playerCountsActions';
-export * from './player/playerMMRActions';
-export * from './player/playerItemsActions';
-export * from './player/playerWinLossActions';
-export * from './player/playerWardmapActions';
-export * from './player/playerWordcloudActions';
-export * from './player/playerTrendsActions';
-export * from './player/playerRecentMatchesActions';
-export * from './player/playerTotalsActions';
-
+export const getPlayer = accountId => createAction('player', API_HOST, `api/players/${accountId}`);
+export const getPlayerWinLoss = (accountId, params) => createAction('playerWinLoss', API_HOST, `api/players/${accountId}/wl`, params);
+export const getPlayerRecentMatches = (accountId, params) => createAction('playerRecentMatches', API_HOST, `api/players/${accountId}/recentMatches`, params);
+export const getPlayerMatches = (accountId, params) => createAction('playerMatches', API_HOST, `api/players/${accountId}/matches`, params);
+export const getPlayerPeers = (accountId, params) => createAction('playerPeers', API_HOST, `api/players/${accountId}/peers`, params);
+export const getPlayerHeroes = (accountId, params) => createAction('playerHeroes', API_HOST, `api/players/${accountId}/heroes`, params);
+export const getPlayerPros = (accountId, params) => createAction('playerPros', API_HOST, `api/players/${accountId}/pros`, params);
+export const getPlayerHistograms = (accountId, params, field) => createAction('playerHistograms', API_HOST, `api/players/${accountId}/histograms/${field}`, params, transformHistograms);
+export const getPlayerRecords = (accountId, params, field) => createAction('playerRecords', API_HOST, `api/players/${accountId}/matches`, { ...params, sort: field, limit: 20 });
+export const getPlayerTrends = (accountId, params, field) => createAction('playerTrends', API_HOST, `api/players/${accountId}/matches`, params, transformTrends(field));
+export const getPlayerCounts = (accountId, params) => createAction('playerCounts', API_HOST, `api/players/${accountId}/counts`, params, transformCounts);
+export const getPlayerItems = (accountId, params) => createAction('playerItems', API_HOST, `api/players/${accountId}/items`, params);
+export const getPlayerWardmap = (accountId, params) => createAction('playerWardmap', API_HOST, `api/players/${accountId}/wardmap`, params);
+export const getPlayerWordcloud = (accountId, params) => createAction('playerWordcloud', API_HOST, `api/players/${accountId}/wordcloud`, params);
+export const getPlayerTotals = (accountId, params) => createAction('playerTotals', API_HOST, `api/players/${accountId}/totals`, params);
+export const getPlayerMmr = (accountId, params) => createAction('playerMmr', API_HOST, `api/players/${accountId}/ratings`, params);
+export const getPlayerRankings = (accountId, params) => createAction('playerRankings', API_HOST, `api/players/${accountId}/rankings`, params, transformRankings);
 export * from './tableActions';
 export * from './formActions';
 export * from './requestActions';

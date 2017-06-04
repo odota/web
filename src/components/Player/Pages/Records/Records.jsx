@@ -4,7 +4,6 @@ import {
   getPlayerRecords,
 } from 'actions';
 import { browserHistory } from 'react-router';
-import { playerRecords } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import strings from 'lang';
@@ -59,10 +58,10 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { playerId }) => ({
-  data: playerRecords.getRecordsList(state, playerId),
-  error: playerRecords.getError(state, playerId),
-  loading: playerRecords.getLoading(state, playerId),
+const mapStateToProps = state => ({
+  data: state.app.playerRecords.data,
+  error: state.app.playerRecords.error,
+  loading: state.app.playerRecords.loading,
 });
 
 const mapDispatchToProps = dispatch => ({

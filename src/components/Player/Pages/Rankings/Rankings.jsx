@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {
   getPlayerRankings,
 } from 'actions';
-import { playerRankings } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import strings from 'lang';
@@ -37,10 +36,10 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { playerId }) => ({
-  data: playerRankings.getRankingList(state, playerId),
-  error: playerRankings.getError(state, playerId),
-  loading: playerRankings.getLoading(state, playerId),
+const mapStateToProps = state => ({
+  data: state.app.playerRankings.data,
+  error: state.app.playerRankings.error,
+  loading: state.app.playerRankings.loading,
 });
 
 const mapDispatchToProps = dispatch => ({

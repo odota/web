@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Long from 'long';
-import { player } from 'reducers';
 import {
   getPlayer,
   getPlayerWinLoss,
@@ -60,8 +59,8 @@ class RequestLayer extends React.Component {
 const mapStateToProps = (state, ownProps) => ({
   // Passed from react-router
   playerId: ownProps.params.playerId,
-  playerName: player.getPlayerName(state, ownProps.params.playerId),
-  officialPlayerName: player.getOfficialPlayerName(state, ownProps.params.playerId),
+  playerName: (state.app.player.data.profile || {}).personaname,
+  officialPlayerName: (state.app.player.data.profile || {}).name,
 });
 
 const mapDispatchToProps = dispatch => ({

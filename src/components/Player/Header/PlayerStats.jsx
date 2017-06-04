@@ -7,10 +7,6 @@ import {
   CardTitle,
 } from 'material-ui/Card';
 import ActionHelp from 'material-ui/svg-icons/action/help';
-import {
-  player,
-  playerWinLoss,
-} from 'reducers';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
 import strings from 'lang';
@@ -104,6 +100,7 @@ export const PlayerStatsCards = ({
 };
 
 const { number, bool, shape, string } = PropTypes;
+
 PlayerStatsCards.propTypes = {
   loading: bool,
   error: bool,
@@ -115,14 +112,14 @@ PlayerStatsCards.propTypes = {
   compact: bool,
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  loading: player.getLoading(state, ownProps.playerId),
-  error: player.getError(state, ownProps.playerId),
-  partyRank: player.getCompetitiveRank(state, ownProps.playerId),
-  soloRank: player.getSoloCompetitiveRank(state, ownProps.playerId),
-  mmrEstimate: player.getMmrEstimate(state, ownProps.playerId),
-  wins: playerWinLoss.getWins(state, ownProps.playerId),
-  losses: playerWinLoss.getLosses(state, ownProps.playerId),
+const mapStateToProps = state => ({
+  loading: state.app.player.loading,
+  error: state.app.player.error,
+  partyRank: state.app.player.data.competitive_rank,
+  soloRank: state.app.player.data.solo_competitive_rank,
+  mmrEstimate: state.app.player.data.mmr_estimate,
+  wins: state.app.playerWinLoss.data.win,
+  losses: state.app.playerWinLoss.data.lose,
 });
 
 export default connect(mapStateToProps)(PlayerStatsCards);

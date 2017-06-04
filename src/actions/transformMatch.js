@@ -8,7 +8,7 @@ import heroes from 'dotaconstants/build/heroes.json';
 import immutable from 'seamless-immutable';
 import _ from 'lodash/fp';
 import strings from 'lang';
-import analysis from './analysis';
+import analyzeMatch from './analyzeMatch';
 
 const expanded = {};
 Object.keys(strings)
@@ -175,7 +175,7 @@ function generateVisionLog(match) {
   return visionLog(match.players || []);
 }
 
-function renderMatch(m) {
+function transformMatch(m) {
   const newPlayers = m.players.map((player) => {
     const newPlayer = {
       ...player,
@@ -184,7 +184,7 @@ function renderMatch(m) {
       kill_streaks_max: getMaxKeyOfObject(player.kill_streaks),
       lh_ten: (player.lh_t || [])[10],
       dn_ten: (player.dn_t || [])[10],
-      analysis: analysis(m, player),
+      analysis: analyzeMatch(m, player),
     };
     // filter interval data to only be >= 0
     if (player.times) {
@@ -271,4 +271,4 @@ function renderMatch(m) {
   };
 }
 
-export default renderMatch;
+export default transformMatch;

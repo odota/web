@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
-import { player } from 'reducers';
 import strings from 'lang';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
@@ -87,13 +86,13 @@ const PlayerHeader = ({ playerName, officialPlayerName, playerId, picture, regis
 
 const mapStateToProps = (state, ownProps) => ({
   playerId: ownProps.playerId,
-  loading: player.getLoading(state, ownProps.playerId),
-  error: player.getError(state, ownProps.playerId),
-  playerName: player.getPlayerName(state, ownProps.playerId),
-  officialPlayerName: player.getOfficialPlayerName(state, ownProps.playerId),
-  playerSoloCompetitiveRank: player.getSoloCompetitiveRank(state, ownProps.playerId),
-  picture: player.getPictureFull(state, ownProps.playerId),
-  registered: player.getLastLogin(state, ownProps.playerId),
+  loading: state.app.player.loading,
+  error: state.app.player.error,
+  playerName: (state.app.player.data.profile || {}).personaname,
+  officialPlayerName: (state.app.player.data.profile || {}).name,
+  playerSoloCompetitiveRank: state.app.player.data.solo_competitive_rank,
+  picture: (state.app.player.data.profile || {}).avatarfull,
+  registered: (state.app.player.data.profile || {}).last_login,
   width: state.browser.width,
   loggedInUser: state.app.metadata.data.user,
 });

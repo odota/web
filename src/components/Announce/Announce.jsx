@@ -76,7 +76,7 @@ class RequestLayer extends React.Component {
         } = data.items[0];
 
         if (localStorage && Number(localStorage.getItem('dismiss')) < number) {
-          return <Announce title={title} body={body} onClick={() => this.dismiss(number)} link={link} location={location} />;
+          return <Announce title={title} body={body} onClick={() => this.dismiss(number)} link={link} location={window.location} />;
         }
       }
     }

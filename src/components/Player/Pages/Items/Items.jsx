@@ -5,9 +5,6 @@ import {
 import {
   getPlayerItems,
 } from 'actions';
-import {
-  playerItems,
-} from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import playerItemsColumns from './playerItemsColumns';
@@ -42,10 +39,10 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { playerId }) => ({
-  data: playerItems.getItemsList(state, playerId),
-  loading: playerItems.getLoading(state, playerId),
-  error: playerItems.getError(state, playerId),
+const mapStateToProps = (state) => ({
+  data: state.app.playerItems.data,
+  loading: state.app.playerItems.loading,
+  error: state.app.playerItems.error,
 });
 
 const mapDispatchToProps = dispatch => ({
