@@ -1,15 +1,8 @@
 {
-  "parserOptions": {
-    "ecmaFeatures": { "experimentalObjectRestSpread": true }
-  },
   "env": {
     "browser": true,
-    "node": true,
     "mocha": true
   },
-  "plugins": [
-    "import"
-  ],
   "settings": {
     "import/resolver": "webpack"
   },
