@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import querystring from 'querystring';
 import { browserHistory } from 'react-router';
-import { form } from 'reducers';
 import strings from 'lang';
 import { toggleShowForm } from 'actions/formActions';
 import Form from 'components/Form/Form';
@@ -192,7 +191,7 @@ class TableFilterForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  showForm: form.getFormShow(state, 'tableFilter'),
+  showForm: state.app.form.show,
   currentQueryString: window.location.search,
 });
 

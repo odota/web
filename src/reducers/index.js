@@ -1,13 +1,8 @@
 import { combineReducers } from 'redux';
 import reducer from 'reducers/reducer';
-import form, { getForm } from 'reducers/form';
 import request from 'reducers/request';
-import table, { getTable } from 'reducers/table';
-
-export {
-  getForm as form,
-  getTable as table,
-};
+import form from 'reducers/form';
+import table from 'reducers/table';
 
 export default combineReducers({
   player: reducer('player'),

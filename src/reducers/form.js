@@ -15,8 +15,3 @@ export default (state = initialFormState, action) => {
       return state;
   }
 };
-
-export const getForm = {
-  getForm: state => state.app.form || initialFormState,
-  getFormShow: (state, formName) => getForm.getForm(state, formName).show,
-};

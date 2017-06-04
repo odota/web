@@ -1,5 +1,5 @@
 import { tableActions } from 'actions';
-import { SORT_ENUM, defaultSort } from 'utility';
+import { SORT_ENUM } from 'utility';
 
 const initialState = {
   currentPage: 0,
@@ -51,22 +51,4 @@ export default (state = {}, action) => {
     default:
       return state;
   }
-};
-
-export const getTable = {
-  getTable: (state, id) => state.app.table[id] || initialState,
-  getCurrentPage: (state, id) => getTable.getTable(state, id).currentPage,
-  getTotalPages: (state, id) => getTable.getTable(state, id).totalPages,
-  getSortState: (state, id) => getTable.getTable(state, id).sortState,
-  getSortField: (state, id) => getTable.getTable(state, id).sortField,
-  getSortFn: (state, id) => getTable.getTable(state, id).sortFn,
-  getSortedData: data => (state, id) => (
-    !getTable.getSortField(state, id) ?
-    data :
-    defaultSort(
-      data,
-      getTable.getSortState(state, id),
-      getTable.getSortField(state, id),
-      getTable.getSortFn(state, id),
-    )),
 };

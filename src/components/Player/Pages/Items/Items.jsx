@@ -39,7 +39,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   data: state.app.playerItems.data,
   loading: state.app.playerItems.loading,
   error: state.app.playerItems.error,

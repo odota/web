@@ -5,8 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import ActionUpdate from 'material-ui/svg-icons/action/update';
 import strings from 'lang';
 import fetch from 'isomorphic-fetch';
-import { form } from 'reducers';
-import { toggleShowForm } from 'actions/formActions';
+import { toggleShowForm } from 'actions';
 import ShowFormToggle from 'components/Form/ShowFormToggle';
 import { FORM_NAME } from '../TableFilterForm';
 import styles from './PlayerButtons.css';
@@ -60,7 +59,7 @@ class PlayerButtons extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  showForm: form.getFormShow(state, 'tableFilter'),
+  showForm: state.app.form.show,
 });
 
 const mapDispatchToProps = dispatch => ({
