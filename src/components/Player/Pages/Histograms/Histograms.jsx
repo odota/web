@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { getPlayerHistograms } from 'actions';
 import Heading from 'components/Heading';
 import { HistogramGraph } from 'components/Visualizations';
@@ -25,13 +26,12 @@ const getSubtitleStats = (columns) => {
 
 const histogramNames = dataColumns.filter(col => col !== 'win_rate');
 
-const Histogram = ({ routeParams, columns, playerId, error, loading, histogramName }) => (
+const Histogram = ({ routeParams, columns, playerId, error, loading, histogramName, history }) => (
   <div style={{ fontSize: 10 }}>
     <Heading title={strings.histograms_name} subtitle={strings.histograms_description} />
     <ButtonGarden
       onClick={(buttonName) => {
-        this.histogramName = buttonName;
-        window.history.pushState('', '', `/players/${playerId}/histograms/${buttonName}${window.location.search}`);
+        history.push(`/players/${playerId}/histograms/${buttonName}${window.location.search}`);
       }}
       buttonNames={histogramNames}
       selectedButton={routeParams.subInfo || histogramNames[0]}
@@ -56,7 +56,6 @@ class RequestLayer extends React.Component {
 
   componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId
-      || this.props.routeParams.subInfo !== nextProps.routeParams.subInfo
       || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
@@ -74,4 +73,4 @@ const mapStateToProps = (state, { histogramName = histogramNames[0] }) => ({
   error: state.app.playerHistograms.error,
 });
 
-export default connect(mapStateToProps, { getPlayerHistograms })(RequestLayer);
+export default withRouter(connect(mapStateToProps, { getPlayerHistograms })(RequestLayer));

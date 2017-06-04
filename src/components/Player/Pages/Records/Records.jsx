@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import {
   getPlayerRecords,
 } from 'actions';
@@ -13,12 +14,12 @@ import playerRecordsColumns from './playerRecordsColumns';
 const excludedColumns = ['win_rate', 'level'];
 const recordsColumns = dataColumns.filter(col => !excludedColumns.includes(col));
 
-const Records = ({ routeParams, data, error, loading, playerId }) => {
+const Records = ({ routeParams, data, error, loading, playerId, history }) => {
   const selected = routeParams.subInfo || recordsColumns[0];
   return (<div style={{ fontSize: 10 }}>
     <ButtonGarden
       onClick={(buttonName) => {
-        window.history.pushState('', '', `/players/${playerId}/records/${buttonName}${window.location.search}`);
+        history.push(`/players/${playerId}/records/${buttonName}${window.location.search}`);
       }}
       buttonNames={recordsColumns}
       selectedButton={selected}
@@ -67,4 +68,4 @@ const mapDispatchToProps = dispatch => ({
   getPlayerRecords: (playerId, options, subInfo) => dispatch(getPlayerRecords(playerId, options, subInfo)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RequestLayer));

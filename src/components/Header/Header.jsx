@@ -76,10 +76,10 @@ const LinkGroup = () => (
   </ToolbarGroup>
 );
 
-const SearchGroup = ({ location }) => (
+const SearchGroup = () => (
   <ToolbarGroup style={{ marginLeft: 20 }} className={styles.verticalAlign}>
     <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
-    <SearchForm location={location} />
+    <SearchForm />
   </ToolbarGroup>
 );
 
@@ -134,7 +134,7 @@ const Header = ({ location, width }) => (
       <div className={styles.verticalAlign}>
         <LogoGroup width={width} />
         {width > tablet && <LinkGroup />}
-        <SearchGroup location={location} />
+        <SearchGroup />
       </div>
       <div className={styles.accountGroup}>
         {width > tablet && <AccountGroup />}

@@ -1,35 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import debounce from 'lodash.debounce';
 import TextField from 'material-ui/TextField';
 import { getSearchResultAndPros, setSearchQuery } from 'actions';
 import strings from 'lang';
+import querystring from 'querystring';
 import styles from './search.css';
 
 class SearchForm extends React.Component {
-  constructor(props) {
-    super(props);
-
-    let query = '';
-    const location = window.location;
-    if (location.pathname === '/search') {
-      // Avoid getting ?q= from other paths
-      query = location.query.q;
-    }
-    this.state = { query };
-
+  constructor() {
+    super();
+    this.state = {};
     this.formSubmit = this.formSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.debouncedSetQuery = debounce(this.props.dispatchSetQuery, 100);
+    this.debouncedSetQuery = this.debouncedSetQuery.bind(this);
+  }
+
+  componentWillMount() {
+    const params = querystring.parse(window.location.search.substring(1));
+    if (params.q) {
+      this.props.dispatchSearch(params.q);
+    }
   }
 
   formSubmit(e) {
     const { query } = this.state;
-
     e.preventDefault();
-    window.history.pushState('', '', `/search?q=${query}`);
+    this.props.history.push(`/search?q=${query}`);
     this.props.dispatchSearch(query);
+  }
+
+  debouncedSetQuery() {
+    debounce(this.props.dispatchSetQuery, 100);
   }
 
   handleChange(e) {
@@ -86,4 +90,4 @@ const mapDispatchToProps = dispatch => ({
   dispatchSetQuery: query => dispatch(setSearchQuery(query)),
 });
 
-export default connect(null, mapDispatchToProps)(SearchForm);
+export default withRouter(connect(null, mapDispatchToProps)(SearchForm));

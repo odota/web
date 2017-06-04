@@ -44,7 +44,7 @@ function poll(dispatch, json, matchId) {
       dispatch(requestError(json.err || 'failed'));
     } else if (json.state === 'completed') {
       dispatch(requestOk());
-      window.history.pushState('', '', `/matches/${matchId}`);
+      window.location.href = `/matches/${matchId}`;
     } else {
       setTimeout(poll, 2000, dispatch, { job: json }, matchId);
     }

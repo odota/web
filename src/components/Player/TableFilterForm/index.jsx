@@ -1,6 +1,7 @@
 /* global API_HOST fetch */
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import querystring from 'querystring';
 import strings from 'lang';
 import { toggleShowForm } from 'actions/formActions';
@@ -18,7 +19,7 @@ const addChip = (name, input, limit) => {
     ...query,
     [name]: field,
   };
-  window.history.pushState('', '', `${window.location.pathname}?${querystring.stringify(newQuery)}`);
+  this.props.history.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
 };
 
 const deleteChip = (name, index) => {
@@ -34,7 +35,7 @@ const deleteChip = (name, index) => {
   if (!newQuery[name].length) {
     delete newQuery[name];
   }
-  window.history.pushState.pushState('', '', `${window.location.pathname}?${querystring.stringify(newQuery)}`);
+  this.props.history.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
 };
 
 const getPeers = (props, context) => {
@@ -198,4 +199,4 @@ const mapDispatchToProps = dispatch => ({
   toggleShowForm: () => dispatch(toggleShowForm('tableFilter')),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TableFilterForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TableFilterForm));

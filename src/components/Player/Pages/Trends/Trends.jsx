@@ -1,6 +1,7 @@
 /* global API_HOST */
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { TrendGraph } from 'components/Visualizations';
 import {
   getPlayerTrends,
@@ -14,7 +15,7 @@ import heroes from 'dotaconstants/build/heroes.json';
 import { formatSeconds, fromNow } from 'utility';
 import styles from './Trends.css';
 
-const Trend = ({ routeParams, columns, playerId, error, loading }) => {
+const Trend = ({ routeParams, columns, playerId, error, loading, history }) => {
   const selectedTrend = routeParams.subInfo || trendNames[0];
   const trendStr = strings[`heading_${selectedTrend}`];
   const unit = selectedTrend === 'win_rate' ? '%' : '';
@@ -22,7 +23,7 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => {
     <div style={{ fontSize: 10 }}>
       <Heading title={strings.trends_name} subtitle={strings.trends_description} />
       <ButtonGarden
-        onClick={buttonName => window.history.pushState('', '', `/players/${playerId}/trends/${buttonName}${window.location.search}`)}
+        onClick={buttonName => history.push(`/players/${playerId}/trends/${buttonName}${window.location.search}`)}
         buttonNames={trendNames}
         selectedButton={selectedTrend}
       />
@@ -74,7 +75,7 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => {
           }}
           onClick={(p) => {
             const matchId = columns[p.index].match_id;
-            window.history.pushState('', '', `/matches/${matchId}`);
+            history.push(`/matches/${matchId}`);
           }}
         />
       </Container>
@@ -98,7 +99,6 @@ class RequestLayer extends React.Component {
 
   componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId
-      || this.props.routeParams.subInfo !== nextProps.routeParams.subInfo
       || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
@@ -115,4 +115,4 @@ const mapStateToProps = state => ({
   error: state.app.playerTrends.error,
 });
 
-export default connect(mapStateToProps, { getPlayerTrends })(RequestLayer);
+export default withRouter(connect(mapStateToProps, { getPlayerTrends })(RequestLayer));

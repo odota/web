@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { withRouter } from 'react-router-dom';
 import Long from 'long';
 import {
   getPlayer,
@@ -25,6 +26,7 @@ class RequestLayer extends React.Component {
 
   componentWillUpdate(nextProps) {
     const props = nextProps;
+    console.log(props.location);
     const playerId = props.match.params.playerId;
     if (this.props.match.params.playerId !== playerId) {
       props.getPlayer(playerId);
@@ -38,7 +40,7 @@ class RequestLayer extends React.Component {
     const { location, match } = this.props;
     const playerId = this.props.match.params.playerId;
     if (Long.fromString(playerId).greaterThan('76561197960265728')) {
-      window.history.replaceState('', '', `/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
+      this.props.history.push(`/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
     }
     const info = match.params.info || 'overview';
     const page = playerPages(playerId).find(page => page.key === info);
@@ -70,4 +72,4 @@ const mapDispatchToProps = dispatch => ({
   getPlayerWinLoss: (playerId, options) => dispatch(getPlayerWinLoss(playerId, options)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RequestLayer));

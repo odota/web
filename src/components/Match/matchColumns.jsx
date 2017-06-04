@@ -756,6 +756,31 @@ export const inflictorsColumns = [
   },
 ];
 
+export const castsColumns = [
+  heroTdColumn, {
+    displayName: strings.th_abilities,
+    tooltip: strings.tooltip_casts,
+    field: 'ability_uses',
+    displayFn: (row, col, field) => (field ? Object.keys(field)
+      .sort((a, b) => field[b] - field[a])
+      .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+  }, {
+    displayName: strings.th_items,
+    tooltip: strings.tooltip_casts,
+    field: 'item_uses',
+    displayFn: (row, col, field) => (field ? Object.keys(field)
+      .sort((a, b) => field[b] - field[a])
+      .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+  }, {
+    displayName: strings.th_hits,
+    tooltip: strings.tooltip_hits,
+    field: 'hero_hits',
+    displayFn: (row, col, field) => (field ? Object.keys(field)
+      .sort((a, b) => field[b] - field[a])
+      .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+  },
+];
+
 export const analysisColumns = [heroTdColumn, {
   displayName: strings.th_analysis,
   field: 'analysis',
