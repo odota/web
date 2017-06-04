@@ -4,30 +4,29 @@ import { browserHistory } from 'react-router';
 
 const url = '/api/request';
 
-const REQUEST = 'request/REQUEST';
+const START = 'request/START';
 const ERROR = 'request/ERROR';
+const OK = 'request/OK';
 const PROGRESS = 'request/PROGRESS';
-const MATCH_ID = 'request/MATCH_ID';
 
 export const requestActions = {
-  REQUEST,
+  START,
   ERROR,
+  OK,
   PROGRESS,
-  MATCH_ID,
 };
 
-const setMatchId = matchId => ({
-  type: MATCH_ID,
-  matchId,
-});
-
-const requestRequest = () => ({
-  type: REQUEST,
+const requestStart = () => ({
+  type: START,
 });
 
 const requestError = error => ({
   type: ERROR,
   error,
+});
+
+const requestOk = () => ({
+  type: OK,
 });
 
 const requestProgress = progress => ({
@@ -45,6 +44,7 @@ function poll(dispatch, json, matchId) {
     if (json.err || json.state === 'failed') {
       dispatch(requestError(json.err || 'failed'));
     } else if (json.state === 'completed') {
+      dispatch(requestOk());
       browserHistory.push(`/matches/${matchId}`);
     } else {
       setTimeout(poll, 2000, dispatch, { job: json }, matchId);
@@ -52,8 +52,8 @@ function poll(dispatch, json, matchId) {
   });
 }
 
-const requestSubmit = matchId => (dispatch) => {
-  dispatch(requestRequest());
+export const postRequest = matchId => (dispatch) => {
+  dispatch(requestStart());
   return fetch(`${API_HOST}${url}/${matchId}`, { method: 'post' })
   .then(res => res.json())
   .then((json) => {
@@ -64,9 +64,4 @@ const requestSubmit = matchId => (dispatch) => {
     }
   })
   .catch(err => dispatch(requestError(err)));
-};
-
-export {
-  setMatchId,
-  requestSubmit,
 };

@@ -1,8 +1,6 @@
 import { requestActions } from 'actions';
 
 const initialState = {
-  replayBlob: null,
-  matchId: '',
   progress: 0,
   error: '',
   loading: false,
@@ -10,29 +8,22 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case requestActions.REQUEST:
+    case requestActions.START:
       return {
         ...state,
         loading: true,
-        done: false,
-        error: false,
       };
     case requestActions.ERROR:
       return {
-        ...state,
-        loading: false,
-        done: false,
+        ...initialState,
         error: action.error,
       };
+    case requestActions.OK:
+      return initialState;
     case requestActions.PROGRESS:
       return {
         ...state,
         progress: action.progress,
-      };
-    case requestActions.MATCH_ID:
-      return {
-        ...state,
-        matchId: action.matchId,
       };
     default:
       return state;
