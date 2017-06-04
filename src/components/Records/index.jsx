@@ -40,7 +40,7 @@ const tabs = fields.map(field => ({
 }));
 
 const getData = (props) => {
-  const route = props.routeParams.info || 'duration';
+  const route = props.match.params.info || 'duration';
   props.dispatchRecords(route);
 };
 
@@ -50,12 +50,12 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.routeParams.info !== nextProps.routeParams.info) {
+    if (this.props.match.params.info !== nextProps.match.params.info) {
       getData(nextProps);
     }
   }
   render() {
-    const route = this.props.routeParams.info || 'duration';
+    const route = this.props.match.params.info || 'duration';
 
     const tab = tabs.find(tab => tab.key === route);
     return (<div>

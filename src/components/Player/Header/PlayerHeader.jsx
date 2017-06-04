@@ -84,8 +84,7 @@ const PlayerHeader = ({ playerName, officialPlayerName, playerId, picture, regis
   );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  playerId: ownProps.playerId,
+const mapStateToProps = state => ({
   loading: state.app.player.loading,
   error: state.app.player.error,
   playerName: (state.app.player.data.profile || {}).personaname,

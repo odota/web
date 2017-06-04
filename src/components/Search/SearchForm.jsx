@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 import debounce from 'lodash.debounce';
 import TextField from 'material-ui/TextField';
 import { getSearchResultAndPros, setSearchQuery } from 'actions';
@@ -13,7 +12,7 @@ class SearchForm extends React.Component {
     super(props);
 
     let query = '';
-    const location = browserHistory.getCurrentLocation();
+    const location = window.location;
     if (location.pathname === '/search') {
       // Avoid getting ?q= from other paths
       query = location.query.q;
@@ -29,12 +28,12 @@ class SearchForm extends React.Component {
     const { query } = this.state;
 
     e.preventDefault();
-    browserHistory.push(`/search?q=${query}`);
+    window.history.pushState('', '', `/search?q=${query}`);
     this.props.dispatchSearch(query);
   }
 
   handleChange(e) {
-    const { pathname } = browserHistory.getCurrentLocation();
+    const { pathname } = window.location;
     const { value } = e.target;
 
     this.setState({

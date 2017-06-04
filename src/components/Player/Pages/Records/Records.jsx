@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {
   getPlayerRecords,
 } from 'actions';
-import { browserHistory } from 'react-router';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import strings from 'lang';
@@ -19,7 +18,7 @@ const Records = ({ routeParams, data, error, loading, playerId }) => {
   return (<div style={{ fontSize: 10 }}>
     <ButtonGarden
       onClick={(buttonName) => {
-        browserHistory.push(`/players/${playerId}/records/${buttonName}${window.location.search}`);
+        window.history.pushState('', '', `/players/${playerId}/records/${buttonName}${window.location.search}`);
       }}
       buttonNames={recordsColumns}
       selectedButton={selected}

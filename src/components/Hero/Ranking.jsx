@@ -18,10 +18,9 @@ const renderRanking = (hero, rankings) => (
 );
 
 class Ranking extends Component {
-
   componentDidMount() {
-    if (this.props.routeParams && this.props.routeParams.heroId) {
-      this.props.getRanking(this.props.routeParams.heroId);
+    if (this.props.match.params && this.props.match.params.heroId) {
+      this.props.getRanking(this.props.match.params.heroId);
     }
   }
 

@@ -6,7 +6,6 @@ import { HistogramGraph } from 'components/Visualizations';
 import ButtonGarden from 'components/ButtonGarden';
 import dataColumns from 'components/Player/Pages/matchDataColumns';
 import Container from 'components/Container';
-import { browserHistory } from 'react-router';
 import strings from 'lang';
 
 const getMedian = (columns, midpoint) => {
@@ -32,7 +31,7 @@ const Histogram = ({ routeParams, columns, playerId, error, loading, histogramNa
     <ButtonGarden
       onClick={(buttonName) => {
         this.histogramName = buttonName;
-        browserHistory.push(`/players/${playerId}/histograms/${buttonName}${window.location.search}`);
+        window.history.pushState('', '', `/players/${playerId}/histograms/${buttonName}${window.location.search}`);
       }}
       buttonNames={histogramNames}
       selectedButton={routeParams.subInfo || histogramNames[0]}

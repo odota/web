@@ -9,7 +9,6 @@ import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
 import Heading from 'components/Heading';
 import Container from 'components/Container';
-import { browserHistory } from 'react-router';
 import strings from 'lang';
 import heroes from 'dotaconstants/build/heroes.json';
 import { formatSeconds, fromNow } from 'utility';
@@ -23,7 +22,7 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => {
     <div style={{ fontSize: 10 }}>
       <Heading title={strings.trends_name} subtitle={strings.trends_description} />
       <ButtonGarden
-        onClick={buttonName => browserHistory.push(`/players/${playerId}/trends/${buttonName}${window.location.search}`)}
+        onClick={buttonName => window.history.pushState('', '', `/players/${playerId}/trends/${buttonName}${window.location.search}`)}
         buttonNames={trendNames}
         selectedButton={selectedTrend}
       />
@@ -75,7 +74,7 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => {
           }}
           onClick={(p) => {
             const matchId = columns[p.index].match_id;
-            browserHistory.push(`/matches/${matchId}`);
+            window.history.pushState('', '', `/matches/${matchId}`);
           }}
         />
       </Container>

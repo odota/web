@@ -2,7 +2,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import querystring from 'querystring';
-import { browserHistory } from 'react-router';
 import strings from 'lang';
 import { toggleShowForm } from 'actions/formActions';
 import Form from 'components/Form/Form';
@@ -19,7 +18,7 @@ const addChip = (name, input, limit) => {
     ...query,
     [name]: field,
   };
-  browserHistory.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
+  window.history.pushState('', '', `${window.location.pathname}?${querystring.stringify(newQuery)}`);
 };
 
 const deleteChip = (name, index) => {
@@ -35,7 +34,7 @@ const deleteChip = (name, index) => {
   if (!newQuery[name].length) {
     delete newQuery[name];
   }
-  browserHistory.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
+  window.history.pushState.pushState('', '', `${window.location.pathname}?${querystring.stringify(newQuery)}`);
 };
 
 const getPeers = (props, context) => {

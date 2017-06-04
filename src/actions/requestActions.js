@@ -1,6 +1,5 @@
 /* global API_HOST */
 import fetch from 'isomorphic-fetch';
-import { browserHistory } from 'react-router';
 
 const url = '/api/request';
 
@@ -45,7 +44,7 @@ function poll(dispatch, json, matchId) {
       dispatch(requestError(json.err || 'failed'));
     } else if (json.state === 'completed') {
       dispatch(requestOk());
-      browserHistory.push(`/matches/${matchId}`);
+      window.history.pushState('', '', `/matches/${matchId}`);
     } else {
       setTimeout(poll, 2000, dispatch, { job: json }, matchId);
     }

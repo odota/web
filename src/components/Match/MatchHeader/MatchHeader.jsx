@@ -3,7 +3,7 @@ import { transformations, isRadiant, sum } from 'utility';
 import strings from 'lang';
 import Spinner from 'components/Spinner';
 import { IconRadiant, IconDire } from 'components/Icons';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
 import ActionFingerprint from 'material-ui/svg-icons/action/fingerprint';
