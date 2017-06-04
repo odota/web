@@ -1,7 +1,7 @@
 /* global API_HOST */
 import React from 'react';
 import { connect } from 'react-redux';
-//import { getPlayer } from 'actions';
+// import { getPlayer } from 'actions';
 import strings from 'lang';
 import { IconSteam } from 'components/Icons';
 import Spinner from '../Spinner';
@@ -32,12 +32,14 @@ const mapStateToProps = (state) => {
   };
 };
 
+/*
 const mapDispatchToProps = dispatch => ({
   getPlayer: playerId => dispatch(getPlayer(playerId)),
 });
+*/
 
 class RequestLayer extends React.Component {
-  componentWillUpdate(nextProps) {
+  componentWillUpdate() {
   }
 
   render() {
@@ -45,4 +47,4 @@ class RequestLayer extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, null)(RequestLayer);
