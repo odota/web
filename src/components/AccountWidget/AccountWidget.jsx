@@ -1,7 +1,7 @@
 /* global API_HOST */
 import React from 'react';
 import { connect } from 'react-redux';
-import { getPlayer } from 'actions';
+//import { getPlayer } from 'actions';
 import strings from 'lang';
 import { IconSteam } from 'components/Icons';
 import Spinner from '../Spinner';
@@ -38,9 +38,6 @@ const mapDispatchToProps = dispatch => ({
 
 class RequestLayer extends React.Component {
   componentWillUpdate(nextProps) {
-    if (nextProps.user && nextProps.user.account_id) {
-      this.props.getPlayer(nextProps.user.account_id);
-    }
   }
 
   render() {
