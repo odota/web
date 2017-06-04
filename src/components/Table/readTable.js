@@ -1,6 +1,12 @@
 import { defaultSort } from 'utility';
 
-export const getTable = (state, id) => state.app.table[id] || {};
+export const getTable = (state, id) => state.app.table[id] || {
+  currentPage: 0,
+  totalPages: 0,
+  sortState: '',
+  sortField: '',
+  sortFn: f => f,
+};
 export const getCurrentPage = (state, id) => getTable(state, id).currentPage;
 export const getTotalPages = (state, id) => getTable(state, id).totalPages;
 export const getSortState = (state, id) => getTable(state, id).sortState;
