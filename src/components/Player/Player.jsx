@@ -15,19 +15,20 @@ import PlayerHeader from './Header/PlayerHeader';
 import styles from './Player.css';
 import playerPages from './playerPages';
 
-const getData = (props) => {
-  props.getPlayer(props.playerId);
-  props.getPlayerWinLoss(props.playerId, props.location.query);
-};
-
 class RequestLayer extends React.Component {
   componentDidMount() {
-    getData(this.props);
+    const props = this.props;
+    props.getPlayer(props.playerId);
+    props.getPlayerWinLoss(props.playerId, props.location.query);
   }
 
   componentWillUpdate(nextProps) {
+    const props = nextProps;
     if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
-      getData(nextProps);
+      if (this.props.playerId !== nextProps.playerId) {
+        props.getPlayer(props.playerId);
+      }
+      props.getPlayerWinLoss(props.playerId, props.location.query);
     }
   }
 
