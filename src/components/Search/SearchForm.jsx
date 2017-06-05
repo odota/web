@@ -20,7 +20,8 @@ class SearchForm extends React.Component {
 
   componentWillMount() {
     const params = querystring.parse(window.location.search.substring(1));
-    if (params.q) {
+    const { pathname } = window.location;
+    if (params.q && pathname === '/search') {
       this.props.dispatchSearch(params.q);
     }
   }

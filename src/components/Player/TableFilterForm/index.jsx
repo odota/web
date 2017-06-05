@@ -19,6 +19,7 @@ const addChip = (name, input, limit) => {
     ...query,
     [name]: field,
   };
+  // TODO fix this
   this.props.history.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
 };
 
