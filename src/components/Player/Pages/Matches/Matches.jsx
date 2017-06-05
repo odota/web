@@ -21,7 +21,7 @@ const Matches = ({
 );
 
 const getData = (props) => {
-  props.getPlayerMatches(props.playerId, { ...props.location.query, significant: 0 });
+  props.getPlayerMatches(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {

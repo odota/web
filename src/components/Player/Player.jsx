@@ -21,7 +21,7 @@ class RequestLayer extends React.Component {
     const props = this.props;
     const playerId = props.match.params.playerId;
     props.getPlayer(playerId);
-    props.getPlayerWinLoss(playerId, props.location.query);
+    props.getPlayerWinLoss(playerId, props.location.search);
   }
 
   componentWillUpdate(nextProps) {
@@ -30,8 +30,9 @@ class RequestLayer extends React.Component {
     if (this.props.match.params.playerId !== playerId) {
       props.getPlayer(playerId);
     }
+    console.log(props);
     if (this.props.location.key !== props.location.key) {
-      props.getPlayerWinLoss(playerId, props.location.query);
+      props.getPlayerWinLoss(playerId, props.location.search);
     }
   }
 

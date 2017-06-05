@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch';
 
 export default function action(type, host, path, params = {}, transform) {
   return (dispatch) => {
-    const url = `${host}/${path}?${querystring.stringify(params)}`;
+    const url = `${host}/${path}?${typeof params === 'string' ? params.substring(1) : querystring.stringify(params)}`;
     const getDataStart = () => ({
       type: `REQUEST/${type}`,
     });

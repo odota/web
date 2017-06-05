@@ -20,7 +20,7 @@ const Items = ({
 );
 
 const getData = (props) => {
-  props.getPlayerItems(props.playerId, props.location.query);
+  props.getPlayerItems(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {

@@ -22,7 +22,7 @@ const Counts = ({ counts, error, loading }) => (
 );
 
 const getData = (props) => {
-  props.getPlayerCounts(props.playerId, props.location.query);
+  props.getPlayerCounts(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {

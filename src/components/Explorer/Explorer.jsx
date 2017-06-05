@@ -151,7 +151,7 @@ class Explorer extends React.Component {
       editor.completers = [autocomplete(schema)];
     });
     this.editor = editor;
-    const sql = this.props && this.props.location && this.props.location.query && this.props.location.query.sql;
+    const sql = querystring.parse(window.location.search.substring(1)).sql;
     if (sql) {
       editor.setValue(decodeURIComponent(sql));
     } else {

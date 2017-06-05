@@ -8,7 +8,7 @@ import { unpackPositionData } from 'utility';
 import styles from './Wardmap.css';
 
 const getData = (props) => {
-  props.getPlayerWardmap(props.playerId, props.location.query);
+  props.getPlayerWardmap(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {

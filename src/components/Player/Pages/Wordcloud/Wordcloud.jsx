@@ -10,7 +10,7 @@ import Wordcloud from 'components/Wordcloud';
 import strings from 'lang';
 
 const getData = (props) => {
-  props.getPlayerWordcloud(props.playerId, props.location.query);
+  props.getPlayerWordcloud(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {

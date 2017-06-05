@@ -1,5 +1,6 @@
-/* global API_HOST fetch */
+/* global API_HOST */
 import React from 'react';
+import fetch from 'isomorphic-fetch';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import querystring from 'querystring';
@@ -11,33 +12,6 @@ import styles from './TableFilterForm.css';
 import * as data from './TableFilter.config';
 
 export const FORM_NAME = 'tableFilter';
-
-const addChip = (name, input, limit) => {
-  const query = querystring.parse(window.location.search.substring(1));
-  const field = [input.value].concat(query[name] || []).slice(0, limit);
-  const newQuery = {
-    ...query,
-    [name]: field,
-  };
-  // TODO fix this
-  this.props.history.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
-};
-
-const deleteChip = (name, index) => {
-  const query = querystring.parse(window.location.search.substring(1));
-  const field = [].concat(query[name] || []);
-  const newQuery = {
-    ...query,
-    [name]: [
-      ...field.slice(0, index),
-      ...field.slice(index + 1),
-    ],
-  };
-  if (!newQuery[name].length) {
-    delete newQuery[name];
-  }
-  this.props.history.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
-};
 
 const getPeers = (props, context) => {
   fetch(`${API_HOST}/api/players/${props.playerId}/peers`)
@@ -73,17 +47,13 @@ class TableFilterForm extends React.Component {
   }
 
   render() {
-    const { showForm, currentQueryString } = this.props;
+    const { showForm, currentQueryString, history } = this.props;
     const formSelectionState = querystring.parse(currentQueryString.substring(1));
     return (
       <div>
         <div className={showForm ? styles.showForm : styles.hideForm}>
           <Form name={FORM_NAME} className={styles.form}>
-            <FormGroup
-              formSelectionState={formSelectionState}
-              addChip={addChip}
-              deleteChip={deleteChip}
-            >
+            <FormGroup formSelectionState={formSelectionState} history={history}>
               {Field => (
                 <div className={styles.formGroup}>
                   <Field
@@ -197,7 +167,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleShowForm: () => dispatch(toggleShowForm('tableFilter')),
+  toggleShowForm: () => dispatch(toggleShowForm(FORM_NAME)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TableFilterForm));
