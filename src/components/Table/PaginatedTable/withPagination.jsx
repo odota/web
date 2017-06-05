@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import uuid from 'uuid';
-import { table } from 'reducers';
+import { getCurrentPage } from 'components/Table/readTable';
 import { setCurrentPage } from 'actions';
 import Pagination from './Pagination';
 
@@ -44,7 +44,7 @@ export default (Table, id = uuid.v4()) => {
   };
 
   const mapStateToProps = state => ({
-    currentPage: table.getCurrentPage(state, id),
+    currentPage: getCurrentPage(state, id),
   });
 
   const mapDispatchToProps = dispatch => ({

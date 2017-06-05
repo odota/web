@@ -1,6 +1,6 @@
 /* global API_HOST */
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import patch from 'dotaconstants/build/patch.json';

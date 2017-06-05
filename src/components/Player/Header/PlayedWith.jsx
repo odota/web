@@ -4,7 +4,7 @@ import strings from 'lang';
 import {
   CardTitle,
 } from 'material-ui/Card';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import playerStatsStyles from 'components/Player/Header/PlayerStats.css';
 
 const shouldShow = props => props.loggedInId && props.loggedInId !== props.playerId;

@@ -279,9 +279,9 @@ class Explorer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  proPlayers: state.app.proPlayers.list,
-  leagues: state.app.leagues.list,
-  teams: state.app.teams.list,
+  proPlayers: state.app.proPlayers.data,
+  leagues: state.app.leagues.data,
+  teams: state.app.teams.data,
 });
 
 const mapDispatchToProps = dispatch => ({

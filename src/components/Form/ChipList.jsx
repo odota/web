@@ -1,6 +1,5 @@
 import React from 'react';
 import Chip from 'material-ui/Chip';
-// import { form } from 'reducers';
 import styles from './ChipList.css';
 
 const ChipList = ({ chipList, deleteChip, name }) => (

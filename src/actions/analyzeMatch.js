@@ -9,7 +9,7 @@ import {
   isActiveItem,
 } from 'utility';
 
-export default function (match, pm) {
+export default function analyzeMatch(match, pm) {
   // define condition check for each advice point
   const advice = {};
   const checks = {

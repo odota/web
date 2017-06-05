@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import {
   getPlayerRecords,
 } from 'actions';
-import { browserHistory } from 'react-router';
-import { playerRecords } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import strings from 'lang';
@@ -15,12 +14,12 @@ import playerRecordsColumns from './playerRecordsColumns';
 const excludedColumns = ['win_rate', 'level'];
 const recordsColumns = dataColumns.filter(col => !excludedColumns.includes(col));
 
-const Records = ({ routeParams, data, error, loading, playerId }) => {
+const Records = ({ routeParams, data, error, loading, playerId, history }) => {
   const selected = routeParams.subInfo || recordsColumns[0];
   return (<div style={{ fontSize: 10 }}>
     <ButtonGarden
       onClick={(buttonName) => {
-        browserHistory.push(`/players/${playerId}/records/${buttonName}${window.location.search}`);
+        history.push(`/players/${playerId}/records/${buttonName}${window.location.search}`);
       }}
       buttonNames={recordsColumns}
       selectedButton={selected}
@@ -59,14 +58,14 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { playerId }) => ({
-  data: playerRecords.getRecordsList(state, playerId),
-  error: playerRecords.getError(state, playerId),
-  loading: playerRecords.getLoading(state, playerId),
+const mapStateToProps = state => ({
+  data: state.app.playerRecords.data,
+  error: state.app.playerRecords.error,
+  loading: state.app.playerRecords.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
   getPlayerRecords: (playerId, options, subInfo) => dispatch(getPlayerRecords(playerId, options, subInfo)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RequestLayer));

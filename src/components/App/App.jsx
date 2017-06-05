@@ -5,9 +5,20 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Helmet from 'react-helmet';
 import palette from 'components/palette.css';
-// For some reason, if reducers are not imported here, the app doesn't work
-import 'reducers';
 import strings from 'lang';
+import { Route } from 'react-router-dom';
+import Player from 'components/Player';
+import Home from 'components/Home';
+import Search from 'components/Search';
+import Explorer from 'components/Explorer';
+// import FourOhFour from 'components/FourOhFour';
+import Heroes from 'components/Heroes';
+import Request from 'components/Request';
+import Distributions from 'components/Distributions';
+import Status from 'components/Status';
+import Matches from 'components/Matches';
+// import Assistant from 'components/Assistant';
+import Records from 'components/Records';
 import Header from '../Header';
 import Footer from '../Footer';
 import styles from './App.css';
@@ -36,7 +47,7 @@ const muiTheme = {
   button: { height: 38 },
 };
 
-const App = ({ children, open, params, location, width, localization }) => (
+const App = ({ open, params, width, location }) => (
   <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
     <div
       className={
@@ -46,21 +57,25 @@ const App = ({ children, open, params, location, width, localization }) => (
       }
     >
       <Helmet
-        htmlAttributes={{ lang: localization }}
         defaultTitle={strings.title_default}
         titleTemplate={strings.title_template}
       />
       <Header params={params} location={location} />
       <div className={styles.body}>
-        {children}
+        <Route exact path="/" component={Home} />
+        <Route exact path="/matches/:matchId?/:info?" component={Matches} />
+        <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
+        <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
+        <Route exact path="/distributions/:info?" component={Distributions} />
+        <Route exact path="/request" component={Request} />
+        <Route exact path="/status" component={Status} />
+        <Route exact path="/explorer" component={Explorer} />
+        <Route exact path="/search" component={Search} />
+        <Route exact path="/records/:info?" component={Records} />
       </div>
       <Footer location={location} width={width} />
     </div>
   </MuiThemeProvider>
-);
+  );
 
-const mapStateToProps = state => ({
-  localization: state.app.localization,
-});
-
-export default connect(mapStateToProps)(App);
+export default connect()(App);

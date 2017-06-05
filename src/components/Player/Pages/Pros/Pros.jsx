@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {
   getPlayerPros,
 } from 'actions';
-import { playerPros } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import strings from 'lang';
@@ -39,10 +38,10 @@ const mapDispatchToProps = dispatch => ({
   getPlayerPros: (playerId, options) => dispatch(getPlayerPros(playerId, options)),
 });
 
-const mapStateToProps = (state, { playerId }) => ({
-  data: playerPros.getProsList(state, playerId),
-  error: playerPros.getError(state, playerId),
-  loading: playerPros.getLoading(state, playerId),
+const mapStateToProps = state => ({
+  data: state.app.playerPros.data,
+  error: state.app.playerPros.error,
+  loading: state.app.playerPros.loading,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
