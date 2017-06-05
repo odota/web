@@ -667,6 +667,8 @@
   "th_played_with":"Meu Registro com",
   "th_obs_placed":"Sentinelas Observadoras Colocadas",
   "th_sen_placed":"Sentinelas Reveladoras Colocadas",
+  "th_obs_destroyed":"Observer Wards Destroyed",
+  "th_sen_destroyed":"Sentry Wards Destroyed",
   "th_scans_used":"Escaneamentos Utilizados",
   "th_glyphs_used":"Glifos Utilizados",
   "th_legs":"Legs",
