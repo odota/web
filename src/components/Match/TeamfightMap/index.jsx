@@ -309,7 +309,8 @@ class TeamfightMap extends Component {
                   <TeamTable
                     players={teamfight.players && teamfight.players.filter(p => p.participate)}
                     columns={teamfightColumns}
-                    radiantTeam={this.props.match.radiant_team} direTeam={this.props.match.dire_team}
+                    radiantTeam={this.props.match.radiant_team}
+                    direTeam={this.props.match.dire_team}
                   />
                 </div>
               </div>

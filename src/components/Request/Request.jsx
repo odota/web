@@ -4,20 +4,27 @@ import Helmet from 'react-helmet';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import { requestSubmit, setMatchId } from 'actions';
+import { postRequest } from 'actions';
 import strings from 'lang';
 
 class Request extends React.Component {
+  constructor() {
+    super();
+    this.state = {};
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   componentWillMount() {
-    this.props.dispatchMatchId(window.location.hash.slice(1));
+    this.setState({ matchId: window.location.hash.slice(1) });
+  }
+
+  handleSubmit() {
+    const { dispatchPostRequest } = this.props;
+    dispatchPostRequest(this.state.matchId);
   }
 
   render() {
-    const { progress, error, loading, matchId, dispatchMatchId, dispatchRequest } = this.props;
-    function submit() {
-      dispatchRequest(matchId);
-      dispatchMatchId('');
-    }
+    const { progress, error, loading } = this.props;
     const progressIndicator = (progress ?
       <CircularProgress value={progress} mode="determinate" /> :
       <CircularProgress value={progress} mode="indeterminate" />);
@@ -29,28 +36,26 @@ class Request extends React.Component {
           id="match_id"
           floatingLabelText={strings.request_match_id}
           errorText={error ? strings.request_error : false}
-          value={matchId}
-          onChange={e => dispatchMatchId(e.target.value)}
+          value={this.state.matchId}
+          onChange={e => this.setState({ matchId: e.target.value })}
         />
-        <div>{loading ? progressIndicator : <RaisedButton label={strings.request_submit} onClick={submit} />}</div>
+        <div>{loading ? progressIndicator : <RaisedButton label={strings.request_submit} onClick={this.handleSubmit} />}</div>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { error, matchId, loading, progress } = state.app.request;
+  const { error, loading, progress } = state.app.request;
   return {
     error,
-    matchId,
     loading,
     progress,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  dispatchRequest: matchId => dispatch(requestSubmit(matchId)),
-  dispatchMatchId: matchId => dispatch(setMatchId(matchId)),
+  dispatchPostRequest: matchId => dispatch(postRequest(matchId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Request);

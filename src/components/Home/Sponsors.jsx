@@ -20,7 +20,8 @@ export default () => (
       </a>
       <a
         href="//www.lootmarket.com/?partner=1101&utm_source=misc&utm_medium=misc&utm_campaign=opendota/"
-        target="_blank" rel="noopener noreferrer"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         <img src="/assets/images/loot.svg" role="presentation" />
       </a>

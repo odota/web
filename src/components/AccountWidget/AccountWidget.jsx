@@ -1,7 +1,7 @@
 /* global API_HOST */
 import React from 'react';
 import { connect } from 'react-redux';
-import { getPlayer } from 'actions';
+// import { getPlayer } from 'actions';
 import strings from 'lang';
 import { IconSteam } from 'components/Icons';
 import Spinner from '../Spinner';
@@ -24,24 +24,22 @@ const AccountWidget = ({ loading, error, user, style }) => (
 );
 
 const mapStateToProps = (state) => {
-  const { error, loading, user } = state.app.metadata;
-
+  const { error, loading, data } = state.app.metadata;
   return {
     loading,
     error,
-    user,
+    user: data.user,
   };
 };
 
+/*
 const mapDispatchToProps = dispatch => ({
   getPlayer: playerId => dispatch(getPlayer(playerId)),
 });
+*/
 
 class RequestLayer extends React.Component {
-  componentWillUpdate(nextProps) {
-    if (nextProps.user && nextProps.user.account_id) {
-      this.props.getPlayer(nextProps.user.account_id);
-    }
+  componentWillUpdate() {
   }
 
   render() {
@@ -49,4 +47,4 @@ class RequestLayer extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, null)(RequestLayer);

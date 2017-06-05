@@ -19,12 +19,12 @@ const matchesColumns = [{
   displayName: strings.th_match_id,
   field: 'match_id',
   sortFn: true,
-  displayFn: (row, col, field) => <div>
+  displayFn: (row, col, field) => (<div>
     <TableLink to={`/matches/${field}`}>{field}</TableLink>
     <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
       {row.league_name}
     </span>
-  </div>,
+  </div>),
 }, {
   displayName: strings.th_duration,
   tooltip: strings.tooltip_duration,
@@ -48,12 +48,12 @@ const publicMatchesColumns = [
     displayName: strings.th_match_id,
     field: 'match_id',
     sortFn: true,
-    displayFn: (row, col, field) => <div>
+    displayFn: (row, col, field) => (<div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
       <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
         {row.avg_mmr} {strings.th_mmr}
       </span>
-    </div>,
+    </div>),
   }, {
     displayName: strings.th_duration,
     tooltip: strings.tooltip_duration,
@@ -99,10 +99,10 @@ const matchTabs = [{
 }];
 
 const getData = (props) => {
-  const route = props.routeParams.matchId || 'pro';
+  const route = props.match.params.matchId || 'pro';
   if (!Number.isInteger(Number(route))) {
     props.dispatchProMatches();
-    props.dispatchPublicMatches({ mmr_ascending: props.routeParams.matchId === 'lowMmr' ? '1' : '' });
+    props.dispatchPublicMatches({ [props.match.params.matchId === 'lowMmr' ? 'mmr_ascending' : 'mmr_descending']: 1 });
   }
 };
 
@@ -112,15 +112,15 @@ class RequestLayer extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.routeParams.matchId !== nextProps.routeParams.matchId) {
+    if (this.props.match.params.matchId !== nextProps.match.params.matchId) {
       getData(nextProps);
     }
   }
   render() {
-    const route = this.props.routeParams.matchId || 'pro';
+    const route = this.props.match.params.matchId || 'pro';
 
     if (Number.isInteger(Number(route))) {
-      return <Match {...this.props} />;
+      return <Match {...this.props} matchId={route} />;
     }
 
     const tab = matchTabs.find(tab => tab.key === route);
@@ -138,8 +138,8 @@ class RequestLayer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  proData: state.app.proMatches.list,
-  publicData: state.app.publicMatches.list,
+  proData: state.app.proMatches.data,
+  publicData: state.app.publicMatches.data,
   loading: state.app.proMatches.loading,
 });
 

@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import findLast from 'lodash/findLast';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';
@@ -28,6 +29,7 @@ import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
 import { IconRadiant, IconDire, IconBackpack } from 'components/Icons';
+import subtextStyle from 'components/Visualizations/Table/subText.css';
 import styles from './Match.css';
 
 export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide = false) =>
@@ -74,6 +76,29 @@ const parties = (row, match) => {
     }
   }
   return null;
+};
+
+const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
+  let skipped = 0;
+  let itemSkipCount = _itemSkipCount || 0;
+  const purchaseEvent = findLast(purchaseLog, (item) => {
+    if (item.key !== itemKey) {
+      return false;
+    }
+
+    if (!itemSkipCount || itemSkipCount <= skipped) {
+      itemSkipCount += 1;
+      return true;
+    }
+
+    skipped += 1;
+    return false;
+  });
+
+  return {
+    itemSkipCount,
+    purchaseEvent,
+  };
 };
 
 export const overviewColumns = (match) => {
@@ -184,13 +209,16 @@ export const overviewColumns = (match) => {
       const additionalItemArray = [];
       const backpackItemArray = [];
 
+      const visitedItemsCount = {};
+
       for (let i = 0; i < 6; i += 1) {
         const itemKey = itemIds[row[`item_${i}`]];
-        const firstPurchase = row.first_purchase_time && row.first_purchase_time[itemKey];
+        const { itemSkipCount, purchaseEvent } = findBuyTime(row.purchase_log, itemKey, visitedItemsCount[itemKey]);
+        visitedItemsCount[itemKey] = itemSkipCount;
 
         if (items[itemKey]) {
           itemArray.push(
-            inflictorWithValue(itemKey, formatSeconds(firstPurchase)),
+            inflictorWithValue(itemKey, formatSeconds(purchaseEvent && purchaseEvent.time)),
           );
         }
 
@@ -363,7 +391,10 @@ export const performanceColumns = [
     tooltip: strings.tooltip_lane,
     field: 'lane_role',
     sortFn: true,
-    displayFn: (row, col, field) => strings[`lane_role_${field}`],
+    displayFn: (row, col, field) => (<div>
+      <span>{strings[`lane_role_${field}`]}</span>
+      {row.is_roaming && <span className={subtextStyle.subText}>{strings.roaming}</span>}
+    </div>),
   }, {
     displayName: strings.th_map,
     tooltip: strings.tooltip_map,
@@ -466,6 +497,28 @@ export const performanceColumns = [
       }
       return <div />;
     },
+  }, {
+    displayName: strings.th_other,
+    field: 'performance_others',
+    sortFn: true,
+    displayFn: (row, col, field) => {
+      const comp = [];
+      if (field) {
+        if (field.tracked_deaths) {
+          const tooltip = [
+            `${field.tracked_deaths} ${strings.tooltip_others_tracked_deaths}`,
+            `${field.track_gold} ${strings.tooltip_others_track_gold}`,
+          ];
+          comp.push(inflictorWithValue('bounty_hunter_track', abbreviateNumber(field.tracked_deaths), '', tooltip.join('\n')));
+        }
+        if (field.greevils_greed_gold) {
+          const tooltip = `${field.greevils_greed_gold} ${strings.tooltip_others_greevils_gold}`;
+          comp.push(inflictorWithValue('alchemist_goblins_greed', abbreviateNumber(field.greevils_greed_gold), '', tooltip));
+        }
+        return comp;
+      }
+      return '-';
+    },
   },
 ];
 
@@ -474,13 +527,13 @@ export const chatColumns = [
     displayName: strings.filter_is_radiant,
     field: '',
     displayFn: row =>
-      <div className={styles.teamIconContainer}>
+      (<div className={styles.teamIconContainer}>
         {
           row.isRadiant ?
             <IconRadiant className={styles.iconRadiant} /> :
             <IconDire className={styles.iconDire} />
         }
-      </div>
+      </div>)
     ,
   },
   Object.assign({}, heroTdColumn, { sortFn: false }),
@@ -586,7 +639,8 @@ export const runesColumns = [heroTdColumn]
     displayName: (
       <div
         className={styles.runes}
-        data-tip data-for={`rune_${runeType}`}
+        data-tip
+        data-for={`rune_${runeType}`}
       >
         <img
           src={`/assets/images/dota2/runes/${runeType}.png`}
@@ -632,7 +686,8 @@ export const cosmeticsColumns = [heroTdColumn, {
         rel="noopener noreferrer"
       >
         <img
-          src={`${API_HOST}/apps/570/${cosmetic.image_path}`} role="presentation"
+          src={`${API_HOST}/apps/570/${cosmetic.image_path}`}
+          role="presentation"
           style={{
             borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : styles.gray}`,
           }}
@@ -695,6 +750,31 @@ export const inflictorsColumns = [
   }, {
     displayName: strings.th_damage_received,
     field: 'damage_inflictor_received',
+    displayFn: (row, col, field) => (field ? Object.keys(field)
+      .sort((a, b) => field[b] - field[a])
+      .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+  },
+];
+
+export const castsColumns = [
+  heroTdColumn, {
+    displayName: strings.th_abilities,
+    tooltip: strings.tooltip_casts,
+    field: 'ability_uses',
+    displayFn: (row, col, field) => (field ? Object.keys(field)
+      .sort((a, b) => field[b] - field[a])
+      .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+  }, {
+    displayName: strings.th_items,
+    tooltip: strings.tooltip_casts,
+    field: 'item_uses',
+    displayFn: (row, col, field) => (field ? Object.keys(field)
+      .sort((a, b) => field[b] - field[a])
+      .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+  }, {
+    displayName: strings.th_hits,
+    tooltip: strings.tooltip_hits,
+    field: 'hero_hits',
     displayFn: (row, col, field) => (field ? Object.keys(field)
       .sort((a, b) => field[b] - field[a])
       .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),

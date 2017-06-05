@@ -4,16 +4,21 @@ import classNames from 'classnames';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import { localization } from 'reducers';
-import { setLocalization } from 'actions';
 import strings, { langs } from 'lang';
 import styles from './Localization.css';
 
-const Localization = ({ localization, setLocalization }) => (
+const getLocalization = window.localStorage.getItem('localization');
+
+const setLocalization = (event, key, payload) => {
+  window.localStorage.setItem('localization', payload.value);
+  window.location.reload();
+};
+
+const Localization = () => (
   <div>
     <SelectField
       floatingLabelText={strings.app_localization}
-      value={localization}
+      value={getLocalization}
       onChange={setLocalization}
     >
       {langs.map(lang => <MenuItem key={lang} value={lang} primaryText={lang} />)}
@@ -40,7 +45,6 @@ class LocalizationMenuItems extends Component {
   }
 
   render() {
-    const { setLocalization, localization } = this.props;
     const { open } = this.state;
     return (
       <div className={styles.container}>
@@ -51,29 +55,21 @@ class LocalizationMenuItems extends Component {
           {strings.app_language} <Next />
         </div>
         <div className={styles.languageContainer}>
-          {open && langs.map(lang => <MenuItem
+          {open && langs.map(lang => (<MenuItem
             style={{
-              color: lang.value === localization && styles.selected,
+              color: lang.value === getLocalization && styles.selected,
             }}
             key={lang.translated}
             value={lang.value}
             primaryText={lang.native}
             onTouchTap={() => setLocalization(null, null, lang)}
-          />)}
+          />))}
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  localization: localization(state),
-});
+export default connect(null, null)(Localization);
 
-const mapDispatchToProps = dispatch => ({
-  setLocalization: (event, key, payload) => dispatch(setLocalization(payload)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Localization);
-
-export const LocalizationMenu = connect(mapStateToProps, mapDispatchToProps)(LocalizationMenuItems);
+export const LocalizationMenu = connect(null, null)(LocalizationMenuItems);

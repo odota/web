@@ -23,13 +23,13 @@ export default class VisionFilter extends React.Component {
   playerColumn(playerNumber) {
     return {
       displayName: <PlayerThumb {...this.props.match.players[playerNumber]} hideText />,
-      displayFn: row => <Checkbox
+      displayFn: row => (<Checkbox
         checked={this.props.parent.state.players[row.type][playerNumber]}
         onCheck={(event, checked) => {
           this.props.parent.setPlayer(playerNumber, row.type, checked);
         }
       }
-      />,
+      />),
     };
   }
 

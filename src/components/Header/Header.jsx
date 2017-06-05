@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
@@ -12,6 +12,7 @@ import ActionSettings from 'material-ui/svg-icons/action/settings';
 // import IconMenu from 'material-ui/IconMenu';
 // import AppBar from 'material-ui/AppBar';
 import Bug from 'material-ui/svg-icons/action/bug-report';
+import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
 import strings from 'lang';
 import { LocalizationMenu } from 'components/Localization';
 import Dropdown from 'components/Header/Dropdown';
@@ -28,30 +29,23 @@ const mobile = 425;
 const REPORT_BUG_PATH = '//github.com/odota/ui/issues';
 
 const navbarPages = [
+  <Link key={strings.header_explorer} to="/explorer">{strings.header_explorer}</Link>,
   <Link key={strings.header_matches} to="/matches">{strings.header_matches}</Link>,
   <Link key={strings.header_heroes} to="/heroes">{strings.header_heroes}</Link>,
   <Link key={strings.header_distributions} to="/distributions">{strings.header_distributions}</Link>,
   <Link key={strings.header_records} to="/records">{strings.header_records}</Link>,
-  <Link key={strings.header_explorer} to="/explorer">{strings.header_explorer}</Link>,
   //<Link key="Assistant" to="/assistant">Assistant</Link>,
 ];
 
-const burgerItems = width => [
+const burgerItems = () => [
   {
     component: <AccountWidget key={0} />,
     close: true,
-  },
-  {
-    component: width <= mobile ? <LocalizationMenu /> : null,
   },
   ...navbarPages.map(item => ({
     component: item,
     close: true,
   })),
-  {
-    component: <a key={strings.app_report_bug} href={REPORT_BUG_PATH}>{strings.app_report_bug}</a>,
-    close: true,
-  },
 ];
 
 const buttonProps = {
@@ -75,10 +69,10 @@ const LinkGroup = () => (
   </ToolbarGroup>
 );
 
-const SearchGroup = ({ location }) => (
+const SearchGroup = () => (
   <ToolbarGroup style={{ marginLeft: 20 }} className={styles.verticalAlign}>
     <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
-    <SearchForm location={location} />
+    <SearchForm />
   </ToolbarGroup>
 );
 
@@ -96,6 +90,7 @@ const SettingsGroup = ({ width }) => width > mobile && (
   >
     <LocalizationMenu />
     <ReportBug />
+    <LogOut />
   </Dropdown>
 );
 
@@ -113,13 +108,26 @@ const ReportBug = () => (
   </a>
 );
 
+const LogOut = () => (
+  <a
+    className={styles.bug}
+    href={`${API_HOST}/logout`}
+    rel="noopener noreferrer"
+  >
+    <LogOutButton />
+    <span>
+      {strings.app_logout}
+    </span>
+  </a>
+);
+
 const Header = ({ location, width }) => (
   <div>
     <Toolbar style={{ padding: width < mobile ? '8px' : '20px' }} className={styles.header}>
       <div className={styles.verticalAlign}>
         <LogoGroup width={width} />
         {width > tablet && <LinkGroup />}
-        <SearchGroup location={location} />
+        <SearchGroup />
       </div>
       <div className={styles.accountGroup}>
         {width > tablet && <AccountGroup />}

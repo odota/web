@@ -4,7 +4,6 @@ import strings from 'lang';
 import {
   formatSeconds,
   jsonFn,
-  transformations,
   formatTemplate,
 } from 'utility';
 import { IconRadiant, IconDire } from 'components/Icons';
@@ -147,18 +146,13 @@ class IntroEvent extends StoryEvent {
     this.region = match.region;
     this.date = new Date(match.start_time * 1000);
   }
-  get localizedRegion() {
-    let words = transformations.region(null, null, this.region).split(' ');
-    words = words.map(word => (word.length <= 2 ? word : word[0] + word.slice(1).toLowerCase()));
-    return words.join(' ');
-  }
   format() {
     return formatTemplate(strings.story_intro, {
       game_mode: strings[`game_mode_${this.game_mode}`],
       date: this.date.toLocaleDateString(
         (window.localStorage && window.localStorage.getItem('localization')) || 'en-US',
         { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
-      region: this.localizedRegion,
+      region: strings[`region_${this.region}`],
     });
   }
 }
@@ -210,6 +204,25 @@ class RoshanEvent extends StoryEvent {
   format() {
     const formatted = formatTemplate(strings.story_roshan, { team: TeamSpan(this.team) });
     return this.aegis ? formatList([formatted, this.aegis.format()]) : formatted;
+  }
+}
+
+class PredictionEvent extends StoryEvent {
+  constructor(match, team) {
+    super(team);
+    if (team === -89) {
+      this.team = true; // radiant
+      this.players = match.players.filter(player => player.isRadiant && player.pred_vict);
+    } else {
+      this.team = false; // dire
+      this.players = match.players.filter(player => !player.isRadiant && player.pred_vict);
+    }
+  }
+  format() {
+    return formatTemplate(strings.story_predicted_victory, {
+      players: formatList(this.players.map(PlayerSpan), strings.story_predicted_victory_empty),
+      team: TeamSpan(this.team),
+    });
   }
 }
 
@@ -539,6 +552,18 @@ const generateStory = (match) => {
 
   // Intro
   events.push(new IntroEvent(match));
+
+  // Prediction
+  let predExists = false;
+  match.players.forEach((player) => {
+    if (player.pred_vict === true) {
+      predExists = true;
+    }
+  });
+  if (predExists === true) {
+    events.push(new PredictionEvent(match, -89));
+    events.push(new PredictionEvent(match, -88));
+  }
 
   // Firstblood
   const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {
   getPlayerPeers,
 } from 'actions';
-import { playerPeers } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import strings from 'lang';
@@ -35,10 +34,10 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { playerId }) => ({
-  data: playerPeers.getPeerList(state, playerId),
-  error: playerPeers.getError(state, playerId),
-  loading: playerPeers.getLoading(state, playerId),
+const mapStateToProps = state => ({
+  data: state.app.playerPeers.data,
+  error: state.app.playerPeers.error,
+  loading: state.app.playerPeers.loading,
 });
 const mapDispatchToProps = dispatch => ({
   getPlayerPeers: (playerId, options) => dispatch(getPlayerPeers(playerId, options)),

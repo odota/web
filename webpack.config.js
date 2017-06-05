@@ -78,24 +78,22 @@ const config = {
       },
     }),
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      },
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       API_HOST: JSON.stringify(process.env.API_HOST || 'https://api.opendota.com'),
     }),
   ],
   devServer: {
     contentBase: __dirname,
     host: '0.0.0.0',
+    disableHostCheck: true,
     port: Number(process.env.PORT) || 8080,
     historyApiFallback: true,
+    compress: true,
   },
 };
 
 if (!isProd) {
   config.devtool = 'eval-source-map';
-  config.devServer.hot = true;
-
   config.entry = [
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://${config.devServer.host}:${config.devServer.port}`,
@@ -103,25 +101,9 @@ if (!isProd) {
     'babel-polyfill',
     path.resolve(__dirname, 'src'),
   ];
-
-  config.plugins.push(new webpack.HotModuleReplacementPlugin());
   config.plugins.push(new webpack.NamedModulesPlugin());
 } else {
-  config.plugins.push(new webpack.LoaderOptionsPlugin({
-    minimize: true,
-    debug: false,
-  }));
-
-  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false,
-    },
-    output: {
-      comments: false,
-    },
-    sourceMap: false,
-  }));
-
+  config.plugins.push(new webpack.optimize.UglifyJsPlugin());
   config.plugins.push(new HashBundlePlugin());
 }
 

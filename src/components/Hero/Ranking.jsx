@@ -5,9 +5,6 @@ import {
   connect,
 } from 'react-redux';
 import {
-  ranking,
-} from 'reducers';
-import {
   getRanking,
 } from 'actions';
 import Spinner from 'components/Spinner';
@@ -21,10 +18,9 @@ const renderRanking = (hero, rankings) => (
 );
 
 class Ranking extends Component {
-
   componentDidMount() {
-    if (this.props.routeParams && this.props.routeParams.heroId) {
-      this.props.getRanking(this.props.routeParams.heroId);
+    if (this.props.match.params && this.props.match.params.heroId) {
+      this.props.getRanking(this.props.match.params.heroId);
     }
   }
 
@@ -46,9 +42,9 @@ class Ranking extends Component {
 }
 
 const mapStateToProps = state => ({
-  rankings: ranking.getRankings(state),
-  isLoading: ranking.getLoading(state),
-  isError: ranking.getError(state),
+  rankings: state.app.heroRanking.data.rankings || [],
+  isLoading: state.app.heroRanking.loading,
+  isError: state.app.heroRanking.error,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -7,14 +7,6 @@ import {
   getPlayerPeers,
   getPvgnaHeroGuides,
 } from 'actions';
-import {
-  playerRecentMatches,
-  playerHeroes,
-  playerPeers,
-} from 'reducers';
-import {
-  getPvgnaGuides,
-} from 'reducers/pvgnaGuides';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesColumns';
@@ -120,16 +112,16 @@ const mergeHeroGuides = (heroes, heroGuides) => heroes.map(hero => ({
   pvgnaGuide: heroGuides[hero.hero_id],
 }));
 
-const mapStateToProps = (state, { playerId }) => ({
-  matchesData: playerRecentMatches.getMatchList(state, playerId),
-  matchesLoading: playerRecentMatches.getLoading(state, playerId),
-  matchesError: playerRecentMatches.getError(state, playerId),
-  heroesData: mergeHeroGuides(playerHeroes.getHeroList(state, playerId), getPvgnaGuides(state)),
-  heroesLoading: playerHeroes.getLoading(state, playerId),
-  heroesError: playerHeroes.getError(state, playerId),
-  peersData: playerPeers.getPeerList(state, playerId),
-  peersLoading: playerPeers.getLoading(state, playerId),
-  peersError: playerPeers.getError(state, playerId),
+const mapStateToProps = state => ({
+  matchesData: state.app.playerRecentMatches.data,
+  matchesLoading: state.app.playerRecentMatches.loading,
+  matchesError: state.app.playerRecentMatches.error,
+  heroesData: mergeHeroGuides(state.app.playerHeroes.data, state.app.pvgnaGuides.data),
+  heroesLoading: state.app.playerHeroes.loading,
+  heroesError: state.app.playerHeroes.error,
+  peersData: state.app.playerPeers.data,
+  peersLoading: state.app.playerPeers.loading,
+  peersError: state.app.playerPeers.error,
 });
 
 const mapDispatchToProps = dispatch => ({

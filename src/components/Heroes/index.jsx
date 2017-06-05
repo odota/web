@@ -20,7 +20,7 @@ class RequestLayer extends React.Component {
     this.props.dispatchHeroStats();
   }
   render() {
-    const route = this.props.routeParams.heroId || 'pro';
+    const route = this.props.match.params.heroId || 'pro';
 
     if (Number.isInteger(Number(route))) {
       return <Hero props={this.props} />;
@@ -65,11 +65,10 @@ class RequestLayer extends React.Component {
       };
     });
     processedData.sort((a, b) => b.pickBanRatePro - a.pickBanRatePro);
-    // TODO add filter by month
     const heroTabs = [{
       name: strings.hero_pro_tab,
       key: 'pro',
-      content: (data, columns) => <div>
+      content: (data, columns) => (<div>
         <Heading
           title={strings.hero_pro_heading}
           subtitle={`${abbreviateNumber(matchCountPro)} ${strings.hero_this_month}`}
@@ -77,12 +76,12 @@ class RequestLayer extends React.Component {
           icon=""
         />
         <Table data={data} columns={columns} />
-      </div>,
+      </div>),
       route: '/heroes/pro',
     }, {
       name: strings.hero_public_tab,
       key: 'public',
-      content: (data, columns) => <div>
+      content: (data, columns) => (<div>
         <Heading
           title={strings.hero_public_heading}
           subtitle={`${abbreviateNumber(matchCountPublic)} ${strings.hero_this_month}`}
@@ -90,7 +89,7 @@ class RequestLayer extends React.Component {
           icon=""
         />
         <Table data={data} columns={columns} />
-      </div>,
+      </div>),
       route: '/heroes/public',
     }];
 
@@ -111,7 +110,7 @@ class RequestLayer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  data: state.app.heroStats.list,
+  data: state.app.heroStats.data,
   loading: state.app.heroStats.loading,
 });
 
