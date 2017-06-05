@@ -708,6 +708,8 @@
   "th_other": "Other",
   "th_obs_placed": "Observer Wards Placed",
   "th_sen_placed": "Sentry Wards Placed",
+  "th_obs_destroyed": "Observer Wards Destroyed",
+  "th_sen_destroyed": "Sentry Wards Destroyed",
   "th_scans_used": "Scans Used",
   "th_glyphs_used": "Glyphs Used",
   "th_legs": "Legs",

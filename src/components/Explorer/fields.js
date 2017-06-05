@@ -230,6 +230,18 @@ const fields = (players = [], leagues = [], teams = []) => ({
     key: 'sen_placed',
   },
   {
+    text: strings.th_obs_destroyed,
+    value: '(killed->>\'npc_dota_observer_wards\')::int',
+    alias: 'obs_destroyed',
+    key: 'obs_destroyed',
+  },
+  {
+    text: strings.th_sen_destroyed,
+    value: '(killed->>\'npc_dota_sentry_wards\')::int',
+    alias: 'sen_destroyed',
+    key: 'sen_destroyed',
+  },
+  {
     text: strings.th_legs,
     value: 'heroes.legs',
     alias: 'legs',
