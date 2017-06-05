@@ -309,7 +309,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
   },
   ]
     .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect))
-    .sort((a,b) => a.text.localeCompare(b.text)),
+    .sort((a, b) => a.text.localeCompare(b.text)),
   group: [{
     text: strings.explorer_player,
     value: 'notable_players.account_id',
