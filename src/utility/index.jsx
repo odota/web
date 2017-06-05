@@ -1,6 +1,6 @@
 /* global API_HOST */
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import patch from 'dotaconstants/build/patch.json';
@@ -196,7 +196,9 @@ export const percentile = (pct) => {
 
 const getSubtitle = (row) => {
   if (row.match_id && row.player_slot !== undefined) {
-    return isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire;
+    let laneName;
+    if (row.is_roaming) { laneName = ` / ${strings.roaming}`; } else { laneName = row.lane_role ? ` / ${strings[`lane_role_${row.lane_role}`]}` : ''; }
+    return (isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire) + laneName;
   } else if (row.last_played) {
     return <FromNowTooltip timestamp={row.last_played} />;
   } else if (row.start_time) {

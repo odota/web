@@ -6,21 +6,13 @@ import TabBar from 'components/TabBar';
 import {
   getMatch, getPvgnaHeroGuides,
 } from 'actions';
-import {
-  getMatchData,
-  getMatchLoading,
-} from 'reducers/match';
-import {
-  getPvgnaGuides,
-} from 'reducers/pvgnaGuides';
-import { getMetadataUser } from 'reducers/metadata';
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
 import styles from './Match.css';
 
 class RequestLayer extends React.Component {
   componentDidMount() {
-    this.props.getMatch(this.props.routeParams.matchId);
+    this.props.getMatch(this.props.matchId);
     this.props.getPvgnaHeroGuides();
   }
 
@@ -32,9 +24,9 @@ class RequestLayer extends React.Component {
 
   render() {
     const loading = this.props.loading;
-    const match = this.props.match;
+    const match = this.props.matchData;
     const matchId = this.props.matchId;
-    const info = this.props.routeParams.info || 'overview';
+    const info = this.props.match.params.info || 'overview';
     const page = matchPages(matchId).find(page => page.key.toLowerCase() === info);
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
     return (
@@ -64,11 +56,10 @@ const mergeHeroGuides = (match, heroGuides) => ({
   })),
 });
 
-const mapStateToProps = (state, ownProps) => ({
-  matchId: ownProps.params.matchId,
-  match: mergeHeroGuides(getMatchData(state), getPvgnaGuides(state)),
-  loading: getMatchLoading(state),
-  user: getMetadataUser(state),
+const mapStateToProps = state => ({
+  matchData: mergeHeroGuides(state.app.match.data, state.app.pvgnaGuides.data),
+  loading: state.app.match.loading,
+  user: state.app.metadata.data.user,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,6 +1,6 @@
 /* global API_HOST */
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
 import strings from 'lang';
 import { IconSteam } from 'components/Icons';
@@ -31,7 +31,8 @@ export default () => (
           />}
           label={<span className={styles.label}>{strings.home_jist_button}</span>}
           href="https://www.jist.tv/create.php?opendota-welcome=1"
-          target="_blank" rel="noopener noreferrer"
+          target="_blank"
+          rel="noopener noreferrer"
         />
       </div>
     </div>

@@ -4,7 +4,6 @@ import strings from 'lang';
 import {
   getPlayerHeroes,
 } from 'actions';
-import { playerHeroes } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import { playerHeroesColumns } from './playerHeroesColumns';
@@ -35,10 +34,10 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { playerId }) => ({
-  data: playerHeroes.getHeroList(state, playerId),
-  error: playerHeroes.getError(state, playerId),
-  loading: playerHeroes.getLoading(state, playerId),
+const mapStateToProps = state => ({
+  data: state.app.playerHeroes.data,
+  error: state.app.playerHeroes.error,
+  loading: state.app.playerHeroes.loading,
 });
 
 const mapDispatchToProps = dispatch => ({

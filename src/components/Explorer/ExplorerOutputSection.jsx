@@ -7,7 +7,7 @@ from 'utility';
 import {
   Link,
 }
-from 'react-router';
+from 'react-router-dom';
 import strings from 'lang';
 import Table from 'components/Table';
 import itemData from 'dotaconstants/build/items.json';

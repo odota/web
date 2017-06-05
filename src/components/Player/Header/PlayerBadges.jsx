@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { player } from 'reducers';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
 import { IconCheese, IconSteam, IconEye, IconEyeInactive } from 'components/Icons';
@@ -66,14 +65,13 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
   return getPlayerBadges();
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  loading: player.getLoading(state, ownProps.playerId),
-  error: player.getError(state, ownProps.playerId),
-  cheese: player.getCheese(state, ownProps.playerId),
-  tracked: player.getTrackedUntil(state, ownProps.playerId),
-  steamLink: player.getSteamLink(state, ownProps.playerId),
-  officialPlayerName: player.getOfficialPlayerName(state, ownProps.playerId),
+const mapStateToProps = state => ({
+  loading: state.app.player.loading,
+  error: state.app.player.error,
+  cheese: (state.app.player.data.profile || {}).cheese,
+  tracked: state.app.player.data.tracked_until,
+  steamLink: (state.app.player.data.profile || {}).profileurl,
+  officialPlayerName: (state.app.player.data.profile || {}).name,
 });
-
 
 export default connect(mapStateToProps)(PlayerBadgesIcons);

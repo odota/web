@@ -20,7 +20,7 @@ class RequestLayer extends React.Component {
     this.props.dispatchHeroStats();
   }
   render() {
-    const route = this.props.routeParams.heroId || 'pro';
+    const route = this.props.match.params.heroId || 'pro';
 
     if (Number.isInteger(Number(route))) {
       return <Hero props={this.props} />;
@@ -65,7 +65,6 @@ class RequestLayer extends React.Component {
       };
     });
     processedData.sort((a, b) => b.pickBanRatePro - a.pickBanRatePro);
-    // TODO add filter by month
     const heroTabs = [{
       name: strings.hero_pro_tab,
       key: 'pro',
@@ -111,7 +110,7 @@ class RequestLayer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  data: state.app.heroStats.list,
+  data: state.app.heroStats.data,
   loading: state.app.heroStats.loading,
 });
 

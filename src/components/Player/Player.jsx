@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { withRouter } from 'react-router-dom';
 import Long from 'long';
-import { player } from 'reducers';
 import {
   getPlayer,
   getPlayerWinLoss,
@@ -16,28 +16,33 @@ import PlayerHeader from './Header/PlayerHeader';
 import styles from './Player.css';
 import playerPages from './playerPages';
 
-const getData = (props) => {
-  props.getPlayer(props.playerId);
-  props.getPlayerWinLoss(props.playerId, props.location.query);
-};
-
 class RequestLayer extends React.Component {
   componentDidMount() {
-    getData(this.props);
+    const props = this.props;
+    const playerId = props.match.params.playerId;
+    props.getPlayer(playerId);
+    props.getPlayerWinLoss(playerId, props.location.query);
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
-      getData(nextProps);
+    const props = nextProps;
+    console.log(props.location);
+    const playerId = props.match.params.playerId;
+    if (this.props.match.params.playerId !== playerId) {
+      props.getPlayer(playerId);
+    }
+    if (this.props.location.key !== props.location.key) {
+      props.getPlayerWinLoss(playerId, props.location.query);
     }
   }
 
   render() {
-    const { playerId, location, routeParams } = this.props;
+    const { location, match } = this.props;
+    const playerId = this.props.match.params.playerId;
     if (Long.fromString(playerId).greaterThan('76561197960265728')) {
-      window.history.replaceState('', '', `/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
+      this.props.history.push(`/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
     }
-    const info = routeParams.info || 'overview';
+    const info = match.params.info || 'overview';
     const page = playerPages(playerId).find(page => page.key === info);
     const playerName = this.props.officialPlayerName || this.props.playerName || strings.general_anonymous;
     const title = page ? `${playerName} - ${page.name}` : playerName;
@@ -50,18 +55,16 @@ class RequestLayer extends React.Component {
         </div>
         <div className={styles.page}>
           <TableFilterForm playerId={playerId} />
-          {page ? page.content(playerId, routeParams, location) : <Spinner />}
+          {page ? page.content(playerId, match.params, location) : <Spinner />}
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  // Passed from react-router
-  playerId: ownProps.params.playerId,
-  playerName: player.getPlayerName(state, ownProps.params.playerId),
-  officialPlayerName: player.getOfficialPlayerName(state, ownProps.params.playerId),
+const mapStateToProps = state => ({
+  playerName: (state.app.player.data.profile || {}).personaname,
+  officialPlayerName: (state.app.player.data.profile || {}).name,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -69,4 +72,4 @@ const mapDispatchToProps = dispatch => ({
   getPlayerWinLoss: (playerId, options) => dispatch(getPlayerWinLoss(playerId, options)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RequestLayer));

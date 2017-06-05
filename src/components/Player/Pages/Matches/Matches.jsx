@@ -5,9 +5,6 @@ import {
 import {
   getPlayerMatches,
 } from 'actions';
-import {
-  playerMatches,
-} from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import strings from 'lang';
@@ -47,10 +44,10 @@ const defaultOptions = {
   limit: null,
 };
 
-const mapStateToProps = (state, { playerId }) => ({
-  data: playerMatches.getMatchList(state, playerId),
-  loading: playerMatches.getLoading(state, playerId),
-  error: playerMatches.getError(state, playerId),
+const mapStateToProps = state => ({
+  data: state.app.playerMatches.data,
+  loading: state.app.playerMatches.loading,
+  error: state.app.playerMatches.error,
 });
 
 const mapDispatchToProps = dispatch => ({

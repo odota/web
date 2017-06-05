@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import uuid from 'uuid';
-import { table } from 'reducers';
+import { getSortState, getSortField, getSortedData } from 'components/Table/readTable';
 import { sortTable } from 'actions';
 
 // We have to give the table an id so we can hold all tables currentPage in memory.
@@ -32,9 +32,9 @@ export default (Table, id = uuid.v4()) => {
   };
 
   const mapStateToProps = (state, { data }) => ({
-    sortState: table.getSortState(state, id),
-    sortField: table.getSortField(state, id),
-    data: table.getSortedData(data)(state, id),
+    sortState: getSortState(state, id),
+    sortField: getSortField(state, id),
+    data: getSortedData(data)(state, id),
   });
 
   return connect(mapStateToProps, {

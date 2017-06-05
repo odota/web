@@ -639,7 +639,8 @@ export const runesColumns = [heroTdColumn]
     displayName: (
       <div
         className={styles.runes}
-        data-tip data-for={`rune_${runeType}`}
+        data-tip
+        data-for={`rune_${runeType}`}
       >
         <img
           src={`/assets/images/dota2/runes/${runeType}.png`}
@@ -685,7 +686,8 @@ export const cosmeticsColumns = [heroTdColumn, {
         rel="noopener noreferrer"
       >
         <img
-          src={`${API_HOST}/apps/570/${cosmetic.image_path}`} role="presentation"
+          src={`${API_HOST}/apps/570/${cosmetic.image_path}`}
+          role="presentation"
           style={{
             borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : styles.gray}`,
           }}
@@ -748,6 +750,31 @@ export const inflictorsColumns = [
   }, {
     displayName: strings.th_damage_received,
     field: 'damage_inflictor_received',
+    displayFn: (row, col, field) => (field ? Object.keys(field)
+      .sort((a, b) => field[b] - field[a])
+      .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+  },
+];
+
+export const castsColumns = [
+  heroTdColumn, {
+    displayName: strings.th_abilities,
+    tooltip: strings.tooltip_casts,
+    field: 'ability_uses',
+    displayFn: (row, col, field) => (field ? Object.keys(field)
+      .sort((a, b) => field[b] - field[a])
+      .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+  }, {
+    displayName: strings.th_items,
+    tooltip: strings.tooltip_casts,
+    field: 'item_uses',
+    displayFn: (row, col, field) => (field ? Object.keys(field)
+      .sort((a, b) => field[b] - field[a])
+      .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+  }, {
+    displayName: strings.th_hits,
+    tooltip: strings.tooltip_hits,
+    field: 'hero_hits',
     displayFn: (row, col, field) => (field ? Object.keys(field)
       .sort((a, b) => field[b] - field[a])
       .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),

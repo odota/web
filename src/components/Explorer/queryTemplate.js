@@ -14,7 +14,7 @@ const queryTemplate = (props) => {
     result,
     team,
     organization,
-    lanePos,
+    laneRole,
     region,
     minDate,
     maxDate,
@@ -77,7 +77,8 @@ FROM matches
 JOIN match_patch using(match_id)
 JOIN leagues using(leagueid)
 JOIN player_matches using(match_id)
-LEFT JOIN notable_players using(account_id)
+JOIN heroes on heroes.id = player_matches.hero_id
+LEFT JOIN notable_players ON notable_players.account_id = player_matches.account_id AND notable_players.locked_until = (SELECT MAX(locked_until) FROM notable_players)
 LEFT JOIN teams using(team_id)
 ${organization || (group && group.key === 'organization') ? 'JOIN team_match ON matches.match_id = team_match.match_id AND (player_matches.player_slot < 128) = team_match.radiant' : ''}
 ${(select && select.join) ? select.join : ''}
@@ -96,7 +97,7 @@ ${side ? `AND (player_matches.player_slot < 128) = ${side.value}` : ''}
 ${result ? `AND ((player_matches.player_slot < 128) = matches.radiant_win) = ${result.value}` : ''}
 ${team ? `AND notable_players.team_id = ${team.value}` : ''}
 ${organization ? `AND team_match.team_id = ${organization.value} AND (player_matches.player_slot < 128) = team_match.radiant` : ''}
-${lanePos ? `AND player_matches.lane_pos = ${lanePos.value}` : ''}
+${laneRole ? `AND player_matches.lane_role = ${laneRole.value}` : ''}
 ${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
 ${minDate ? `AND matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
 ${maxDate ? `AND matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
