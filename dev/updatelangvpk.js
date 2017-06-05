@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies no-console */
 const request = require('request');
 const fs = require('fs');
 // For updating the opendota-ui lang files with data from the vpk

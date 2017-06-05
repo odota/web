@@ -33,6 +33,5 @@ export default function transformCounts(data) {
         })).sort((a, b) => b.category - a.category),
     };
   });
-  console.log(result);
   return result;
 }

@@ -53,9 +53,6 @@ function updateWordCloud(wordCounts, cloudDomId) {
 
   // sort the list to ensure most frequent words get displayed
   wordList = wordList.sort((a, b) => b[1] - a[1]);
-
-  // console.log(wordList);
-
   wordcloud(document.getElementById(cloudDomId), {
     list: wordList,
     backgroundColor: 'transparent',

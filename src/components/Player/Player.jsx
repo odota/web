@@ -26,7 +26,6 @@ class RequestLayer extends React.Component {
 
   componentWillUpdate(nextProps) {
     const props = nextProps;
-    console.log(props.location);
     const playerId = props.match.params.playerId;
     if (this.props.match.params.playerId !== playerId) {
       props.getPlayer(playerId);

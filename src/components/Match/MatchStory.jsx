@@ -678,7 +678,7 @@ class MatchStory extends React.Component {
       if (e.stack) {
         exmsg += ` | stack: ${e.stack}`;
       }
-      console.log(exmsg);
+      console.error(exmsg);
       return (<div>{strings.story_error}</div>);
     }
   }
