@@ -60,12 +60,6 @@
     width: 18px !important;
     height: 18px !important;
   }
-
-  @media only screen and (max-width: 900px) {
-    & span {
-      display: none;
-    }
-  }
 }
 
 .adBanner {

@@ -29,30 +29,23 @@ const mobile = 425;
 const REPORT_BUG_PATH = '//github.com/odota/ui/issues';
 
 const navbarPages = [
+  <Link key={strings.header_explorer} to="/explorer">{strings.header_explorer}</Link>,
   <Link key={strings.header_matches} to="/matches">{strings.header_matches}</Link>,
   <Link key={strings.header_heroes} to="/heroes">{strings.header_heroes}</Link>,
   <Link key={strings.header_distributions} to="/distributions">{strings.header_distributions}</Link>,
   <Link key={strings.header_records} to="/records">{strings.header_records}</Link>,
-  <Link key={strings.header_explorer} to="/explorer">{strings.header_explorer}</Link>,
   //<Link key="Assistant" to="/assistant">Assistant</Link>,
 ];
 
-const burgerItems = width => [
+const burgerItems = () => [
   {
     component: <AccountWidget key={0} />,
     close: true,
-  },
-  {
-    component: width <= mobile ? <LocalizationMenu /> : null,
   },
   ...navbarPages.map(item => ({
     component: item,
     close: true,
   })),
-  {
-    component: <a key={strings.app_report_bug} href={REPORT_BUG_PATH}>{strings.app_report_bug}</a>,
-    close: true,
-  },
 ];
 
 const buttonProps = {
