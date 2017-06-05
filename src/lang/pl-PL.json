@@ -667,6 +667,8 @@
   "th_played_with":"Mój rekord z",
   "th_obs_placed":"Postawieni Obserwatorzy",
   "th_sen_placed":"Postawieni Wartownicy",
+  "th_obs_destroyed":"Observer Wards Destroyed",
+  "th_sen_destroyed":"Sentry Wards Destroyed",
   "th_scans_used":"Użyte Skany",
   "th_glyphs_used":"Użyte Glify",
   "th_legs":"Nogi",
