@@ -667,6 +667,8 @@
   "th_played_with":"Rekod Saya Dengan",
   "th_obs_placed":"Observer Ward Diletakkan",
   "th_sen_placed":"Sentry Ward Diletakkan",
+  "th_obs_destroyed":"Observer Wards Destroyed",
+  "th_sen_destroyed":"Sentry Wards Destroyed",
   "th_scans_used":"Scan Digunakan",
   "th_glyphs_used":"Glyph Digunakan",
   "th_legs":"Legs",
