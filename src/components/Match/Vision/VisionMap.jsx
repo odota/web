@@ -7,6 +7,7 @@ import ReactTooltip from 'react-tooltip';
 import strings from 'lang';
 import PlayerThumb from 'components/Match/PlayerThumb';
 import DotaMap from 'components/DotaMap';
+import Measure from 'react-measure';
 import styles from './Vision.css';
 
 const wardStyle = (width, log) => {
@@ -96,7 +97,7 @@ class VisionMap extends React.Component {
 
   render() {
     return (
-      <div>
+      <Measure>
         {({ width }) => (
           <div style={{ height: width }}>
             <DotaMap
@@ -108,7 +109,7 @@ class VisionMap extends React.Component {
             </DotaMap>
           </div>
         )}
-      </div>
+      </Measure>
     );
   }
 }

@@ -10,6 +10,7 @@ import PlayerThumb from 'components/Match/PlayerThumb';
 import strings from 'lang';
 import Timeline from 'components/Match/Overview/Timeline';
 import DotaMap from 'components/DotaMap';
+import Measure from 'react-measure';
 import styles from './TeamfightMap.css';
 
 const MAP_WIDTH = 400;
@@ -256,7 +257,7 @@ class TeamfightMap extends Component {
     const { teamfight } = this.state;
     const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
     return (
-      <div>
+      <Measure>
         {({ width }) => (
           <div>
             <div className={styles.timelineContainer}>
@@ -316,7 +317,7 @@ class TeamfightMap extends Component {
             </div>
           </div>
         )}
-      </div>
+      </Measure>
     );
   }
 }
