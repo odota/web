@@ -23,9 +23,6 @@ import SearchForm from '../Search/SearchForm';
 import AppLogo from '../App/AppLogo';
 import BurgerMenu from '../BurgerMenu';
 
-const tablet = 864;
-const mobile = 425;
-
 const REPORT_BUG_PATH = '//github.com/odota/ui/issues';
 
 const navbarPages = [
@@ -52,10 +49,10 @@ const buttonProps = {
   children: <ActionSettings />,
 };
 
-const LogoGroup = ({ width }) => (
+const LogoGroup = ({ small }) => (
   <ToolbarGroup className={styles.verticalAlign}>
-    {width < tablet && <BurgerMenu menuItems={burgerItems(width)} />}
-    <AppLogo style={{ marginRight: 18 }} size={width < mobile && '14px'} />
+    {!small && <BurgerMenu menuItems={burgerItems()} />}
+    <AppLogo style={{ marginRight: 18 }} />
   </ToolbarGroup>
 );
 
@@ -82,7 +79,7 @@ const AccountGroup = () => (
   </ToolbarGroup>
 );
 
-const SettingsGroup = ({ width }) => width > mobile && (
+const SettingsGroup = () => (
   <Dropdown
     Button={IconButton}
     buttonProps={buttonProps}
@@ -121,17 +118,17 @@ const LogOut = () => (
   </a>
 );
 
-const Header = ({ location, width }) => (
+const Header = ({ location, small }) => (
   <div>
-    <Toolbar style={{ padding: width < mobile ? '8px' : '20px' }} className={styles.header}>
+    <Toolbar style={{ padding: '8px' }} className={styles.header}>
       <div className={styles.verticalAlign}>
-        <LogoGroup width={width} />
-        {width > tablet && <LinkGroup />}
+        <LogoGroup small={small} />
+        {small && <LinkGroup />}
         <SearchGroup />
       </div>
       <div className={styles.accountGroup}>
-        {width > tablet && <AccountGroup />}
-        {<SettingsGroup width={width} />}
+        {small && <AccountGroup />}
+        {<SettingsGroup />}
       </div>
     </Toolbar>
     <Announce location={location} />
@@ -146,6 +143,6 @@ const Header = ({ location, width }) => (
 );
 
 const mapStateToProps = state => ({
-  width: state.browser.width,
+  small: state.browser.greaterThan.small,
 });
 export default connect(mapStateToProps, null)(Header);
