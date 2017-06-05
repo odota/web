@@ -4,7 +4,6 @@ import {
   formatSeconds,
 } from 'utility';
 import ReactTooltip from 'react-tooltip';
-import Measure from 'react-measure';
 import strings from 'lang';
 import PlayerThumb from 'components/Match/PlayerThumb';
 import DotaMap from 'components/DotaMap';
@@ -97,7 +96,7 @@ class VisionMap extends React.Component {
 
   render() {
     return (
-      <Measure>
+      <div>
         {({ width }) => (
           <div style={{ height: width }}>
             <DotaMap
@@ -109,7 +108,7 @@ class VisionMap extends React.Component {
             </DotaMap>
           </div>
         )}
-      </Measure>
+      </div>
     );
   }
 }

@@ -6,8 +6,6 @@ const path = require('path');
 const webpack = require('webpack');
 const postcssImport = require('postcss-import');
 const postcssCssNext = require('postcss-cssnext');
-const postcssBR = require('postcss-browser-reporter');
-const postcssR = require('postcss-reporter');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -72,8 +70,6 @@ const config = {
             addDependencyTo: webpack,
           }),
           postcssCssNext(),
-          postcssBR(),
-          postcssR(),
         ],
       },
     }),

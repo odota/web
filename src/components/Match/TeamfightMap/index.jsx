@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from 'utility';
 import ReactTooltip from 'react-tooltip';
-import Measure from 'react-measure';
 import classNames from 'classnames';
 import { IconRadiant, IconDire, IconDot } from 'components/Icons';
 import TeamTable from 'components/Match/TeamTable';
@@ -257,7 +256,7 @@ class TeamfightMap extends Component {
     const { teamfight } = this.state;
     const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
     return (
-      <Measure>
+      <div>
         {({ width }) => (
           <div>
             <div className={styles.timelineContainer}>
@@ -317,7 +316,7 @@ class TeamfightMap extends Component {
             </div>
           </div>
         )}
-      </Measure>
+      </div>
     );
   }
 }
