@@ -13,8 +13,8 @@ class Request extends React.Component {
     this.state = {};
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
-  componentDidMount() {
+
+  componentWillMount() {
     this.setState({ matchId: window.location.hash.slice(1) });
   }
 

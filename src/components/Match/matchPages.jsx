@@ -5,7 +5,6 @@ import Table from 'components/Table';
 import TeamfightMap from 'components/Match/TeamfightMap';
 import Timeline from 'components/Match/Overview/Timeline';
 import Vision from './Vision';
-import CastTable from './CastTable';
 import CrossTable from './CrossTable';
 import MatchGraph from './MatchGraph';
 import MatchLog from './MatchLog';
@@ -25,6 +24,7 @@ import {
   objectiveDamageColumns,
   analysisColumns,
   inflictorsColumns,
+  castsColumns,
 } from './matchColumns';
 import Overview from './Overview';
 import TeamTable from './TeamTable';
@@ -148,8 +148,13 @@ const matchPages = [Overview, {
   key: 'casts',
   parsed: true,
   content: match => (<div>
-    <Heading title={strings.heading_casts} />
-    <CastTable match={match} />
+    <TeamTable
+      players={match.players}
+      columns={castsColumns}
+      heading={strings.heading_casts}
+      radiantTeam={match.radiant_team}
+      direTeam={match.dire_team}
+    />
   </div>),
 }, {
   name: strings.tab_objectives,

@@ -12,14 +12,14 @@ import styles from './Hero.css';
 const getSingleHero = heroId => ({ ...heroes[heroId], img: API_HOST + heroes[heroId].img });
 
 const Hero = ({ props }) => (<div>
-  <Helmet title={getSingleHero(props.routeParams.heroId).localized_name} />
+  <Helmet title={getSingleHero(props.match.params.heroId).localized_name} />
   <div className={styles.Header}>
     <Heading
-      title={getSingleHero(props.routeParams.heroId).localized_name}
+      title={getSingleHero(props.match.params.heroId).localized_name}
       className={styles.Heading}
       icon=""
     />
-    <img role="presentation" src={getSingleHero(props.routeParams.heroId).img} className={styles.image} />
+    <img role="presentation" src={getSingleHero(props.match.params.heroId).img} className={styles.image} />
   </div>
   <div style={{ display: 'flex' }}>
     <div style={{ width: '50%', padding: '15px' }}>

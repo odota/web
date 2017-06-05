@@ -230,6 +230,18 @@ const fields = (players = [], leagues = [], teams = []) => ({
     key: 'sen_placed',
   },
   {
+    text: strings.th_obs_destroyed,
+    value: '(killed->>\'npc_dota_observer_wards\')::int',
+    alias: 'obs_destroyed',
+    key: 'obs_destroyed',
+  },
+  {
+    text: strings.th_sen_destroyed,
+    value: '(killed->>\'npc_dota_sentry_wards\')::int',
+    alias: 'sen_destroyed',
+    key: 'sen_destroyed',
+  },
+  {
     text: strings.th_legs,
     value: 'heroes.legs',
     alias: 'legs',
@@ -237,7 +249,7 @@ const fields = (players = [], leagues = [], teams = []) => ({
   },
   {
     text: strings.th_fantasy_points,
-    value: '(0.3 * kills + (3 - 0.3 * deaths) + 0.003 * (last_hits + denies) + 0.002 * gold_per_min + towers_killed + roshans_killed + 3 * teamfight_participation + 0.5 * observers_placed + 0.5 * camps_stacked + 0.25 * rune_pickups + 4 * firstblood_claimed + 0.05 * stuns)',
+    value: 'round((0.3 * kills + (3 - 0.3 * deaths) + 0.003 * (last_hits + denies) + 0.002 * gold_per_min + towers_killed + roshans_killed + 3 * teamfight_participation + 0.5 * observers_placed + 0.5 * camps_stacked + 0.25 * rune_pickups + 4 * firstblood_claimed + 0.05 * stuns)::numeric, 1)',
     alias: 'fantasy_points',
     key: 'fantasy_points',
   },
@@ -296,7 +308,8 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     value: 1,
   },
   ]
-    .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect)),
+    .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect))
+    .sort((a,b) => a.text.localeCompare(b.text)),
   group: [{
     text: strings.explorer_player,
     value: 'notable_players.account_id',
