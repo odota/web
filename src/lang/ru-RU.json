@@ -667,6 +667,8 @@
   "th_played_with":"Мои игры с",
   "th_obs_placed":"Обсервер Вардов поставлено",
   "th_sen_placed":"Sentry Wards Placed",
+  "th_obs_destroyed":"Observer Wards Destroyed",
+  "th_sen_destroyed":"Sentry Wards Destroyed",
   "th_scans_used":"Использовано сканирований",
   "th_glyphs_used":"Glyphs Used",
   "th_legs":"Legs",
