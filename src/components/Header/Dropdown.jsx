@@ -49,11 +49,11 @@ class Dropdown extends Component {
           className={styles.popoverContainer}
         >
           <Menu>
-            {React.Children.map(children, child => (
+            {React.Children.map(children, child => (child ? (
               <MenuItem>
                 {child}
               </MenuItem>
-            ))}
+            ) : null))}
           </Menu>
         </Popover>
       </div>

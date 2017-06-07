@@ -1,3 +1,4 @@
+/* global API_HOST */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -79,7 +80,7 @@ const AccountGroup = () => (
   </ToolbarGroup>
 );
 
-const SettingsGroup = () => (
+const SettingsGroup = ({ user }) => (
   <Dropdown
     Button={IconButton}
     buttonProps={buttonProps}
@@ -87,7 +88,7 @@ const SettingsGroup = () => (
   >
     <LocalizationMenu />
     <ReportBug />
-    <LogOut />
+    {user ? <LogOut /> : null}
   </Dropdown>
 );
 
@@ -118,7 +119,7 @@ const LogOut = () => (
   </a>
 );
 
-const Header = ({ location, small }) => (
+const Header = ({ location, small, user }) => (
   <div>
     <Toolbar style={{ padding: '8px' }} className={styles.header}>
       <div className={styles.verticalAlign}>
@@ -128,7 +129,7 @@ const Header = ({ location, small }) => (
       </div>
       <div className={styles.accountGroup}>
         {small && <AccountGroup />}
-        {<SettingsGroup />}
+        {<SettingsGroup user={user} />}
       </div>
     </Toolbar>
     <Announce location={location} />
@@ -144,5 +145,6 @@ const Header = ({ location, small }) => (
 
 const mapStateToProps = state => ({
   small: state.browser.greaterThan.small,
+  user: state.app.metadata.data.user,
 });
 export default connect(mapStateToProps, null)(Header);
