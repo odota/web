@@ -5,7 +5,7 @@ import strings from 'lang';
 import querystring from 'querystring';
 import ChipList from './ChipList';
 
-const addChip = (history, name, input, limit) => {
+const addChipDefault = (name, input, limit, history) => {
   const query = querystring.parse(window.location.search.substring(1));
   const field = [input.value].concat(query[name] || []).slice(0, limit);
   const newQuery = {
@@ -15,7 +15,7 @@ const addChip = (history, name, input, limit) => {
   history.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
 };
 
-const deleteChip = (history, name, index) => {
+const deleteChipDefault = (name, index, history) => {
   const query = querystring.parse(window.location.search.substring(1));
   const field = [].concat(query[name] || []);
   const newQuery = {
@@ -31,7 +31,7 @@ const deleteChip = (history, name, index) => {
   history.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
 };
 
-function formField({ formSelectionState, history }) {
+function formField({ formSelectionState, history, addChip, deleteChip }) {
   return class extends React.Component {
     constructor(props) {
       super(props);
@@ -84,7 +84,7 @@ function formField({ formSelectionState, history }) {
       }
 
       this.handleUpdateInput('');
-      addChip(history, name, input, limit);
+      addChip(name, input, limit, history);
     }
 
     handleUpdateInput(searchText) {
@@ -138,6 +138,6 @@ function formField({ formSelectionState, history }) {
   };
 }
 
-export default ({ children, formSelectionState, history }) => (
-  children(formField({ formSelectionState, history }))
+export default ({ children, formSelectionState, history, addChip, deleteChip }) => (
+  children(formField({ formSelectionState, history, addChip: addChip || addChipDefault, deleteChip: deleteChip || deleteChipDefault }))
 );

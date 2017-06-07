@@ -8,7 +8,7 @@ const ChipList = ({ chipList, deleteChip, name, history }) => (
       <Chip
         style={{ margin: '0 5px 5px 0' }}
         key={index}
-        onRequestDelete={() => deleteChip(history, name, index)}
+        onRequestDelete={() => deleteChip(name, index, history)}
       >
         {chip.text}
       </Chip>
