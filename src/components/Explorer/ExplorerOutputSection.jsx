@@ -38,7 +38,7 @@ class ExplorerOutputSection extends React.Component {
     return nextProps.rows !== this.props.rows || nextProps.format !== this.props.format;
   }
   render() {
-    const { rows, fields, expandedBuilder, teamMapping, playerMapping, format } = this.props;
+    const { rows = [], fields, expandedBuilder, teamMapping, playerMapping, format } = this.props;
     setTimeout(() => {
       const firstCol = fields && fields[0].name;
       redrawGraphs(rows.map(row => ({
