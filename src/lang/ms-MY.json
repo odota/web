@@ -117,6 +117,7 @@
   "explorer_table":"Jadual",
   "explorer_column":"Kolum",
   "explorer_query_button":"Jadual",
+  "explorer_cancel_button":"Cancel",
   "explorer_table_button":"Table",
   "explorer_api_button":"API",
   "explorer_json_button":"JSON",
