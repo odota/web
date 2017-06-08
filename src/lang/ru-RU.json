@@ -117,6 +117,7 @@
   "explorer_table":"Таблица",
   "explorer_column":"Столбец",
   "explorer_query_button":"Таблица",
+  "explorer_cancel_button":"Cancel",
   "explorer_table_button":"Таблица",
   "explorer_api_button":"API",
   "explorer_json_button":"JSON",
