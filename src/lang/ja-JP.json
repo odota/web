@@ -117,6 +117,7 @@
   "explorer_table":"テーブル",
   "explorer_column":"列",
   "explorer_query_button":"テーブル",
+  "explorer_cancel_button":"Cancel",
   "explorer_table_button":"テーブル",
   "explorer_api_button":"API",
   "explorer_json_button":"JSON",
