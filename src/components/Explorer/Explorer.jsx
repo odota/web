@@ -113,13 +113,14 @@ class Explorer extends React.Component {
     this.state = {
       loadingEditor: true,
       showEditor: Boolean(sqlState),
-      querying: false,
+      loading: false,
       result: {},
       builder: urlState,
     };
     this.instantiateEditor = this.instantiateEditor.bind(this);
     this.toggleEditor = this.toggleEditor.bind(this);
     this.handleQuery = this.handleQuery.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
     this.handleResponse = this.handleResponse.bind(this);
     this.getSqlString = this.getSqlString.bind(this);
     this.buildQuery = this.buildQuery.bind(this);
@@ -177,15 +178,21 @@ class Explorer extends React.Component {
       return setTimeout(this.handleQuery, 1000);
     }
     this.setState({ ...this.state,
-      querying: true,
+      loading: true,
     });
     this.syncWindowHistory();
     const sqlString = this.getSqlString();
     return fetch(`${API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
   }
+  handleCancel() {
+    this.setState({ ...this.state,
+      loading: false,
+    });
+    window.stop();
+  }
   handleResponse(json) {
     this.setState({ ...this.state,
-      querying: false,
+      loading: false,
       result: json,
     });
   }
@@ -218,6 +225,7 @@ class Explorer extends React.Component {
     const expandedFields = fields(this.props.proPlayers, this.props.leagues, this.props.teams);
     const expandedBuilder = expandBuilderState(this.state.builder, expandedFields);
     const handleQuery = this.handleQuery;
+    const handleCancel = this.handleCancel;
     const getSqlString = this.getSqlString;
     const explorer = this;
     return (<div>
@@ -231,10 +239,11 @@ class Explorer extends React.Component {
         builder={this.state.builder}
       />
       <RaisedButton
-        primary
+        primary={!this.state.loading}
+        secondary={this.state.loading}
         style={{ margin: '5px' }}
-        label={strings.explorer_query_button}
-        onClick={handleQuery}
+        label={this.state.loading ? strings.explorer_cancel_button : strings.explorer_query_button}
+        onClick={this.state.loading ? handleCancel : handleQuery}
       />
       <span style={{ float: 'right' }}>
         <ExplorerOutputButton defaultSelected label={strings.explorer_table_button} format="table" context={explorer} />
@@ -264,16 +273,15 @@ class Explorer extends React.Component {
       </span>
       <Heading title={strings.explorer_results} subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`} />
       <pre style={{ color: 'red' }}>{this.state.result.err}</pre>
-      {!this.state.querying ?
-        <ExplorerOutputSection
-          rows={this.state.result.rows}
-          fields={this.state.result.fields}
-          expandedBuilder={expandedBuilder}
-          playerMapping={playerMapping}
-          teamMapping={teamMapping}
-          format={this.state.builder.format}
-        />
-      : <Spinner />}
+      {this.state.loading ? <Spinner /> : null}
+      <ExplorerOutputSection
+        rows={this.state.result.rows}
+        fields={this.state.result.fields}
+        expandedBuilder={expandedBuilder}
+        playerMapping={playerMapping}
+        teamMapping={teamMapping}
+        format={this.state.builder.format}
+      />
     </div>);
   }
 }
