@@ -6,7 +6,7 @@ import { getRecords } from 'actions';
 import strings from 'lang';
 import Table from 'components/Table';
 import Heading from 'components/Heading';
-import { transformations, formatSeconds } from 'utility';
+import { transformations, formatSeconds, getOrdinal } from 'utility';
 // import { IconRadiant, IconDire, IconTrophy } from 'components/Icons';
 import Container from 'components/Container';
 import TabBar from 'components/TabBar';
@@ -14,6 +14,7 @@ import TabBar from 'components/TabBar';
 const matchesColumns = field => [{
   displayName: '#',
   field: 'rank',
+  displayFn: (row, col, field) => getOrdinal(field),
 }, {
   displayName: strings[`th_${field}`],
   field: 'score',
