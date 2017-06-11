@@ -117,6 +117,7 @@
   "explorer_table":"表",
   "explorer_column":"行",
   "explorer_query_button":"表格",
+  "explorer_cancel_button":"Cancel",
   "explorer_table_button":"表",
   "explorer_api_button":"应用开发接口（API）",
   "explorer_json_button":"JSON",

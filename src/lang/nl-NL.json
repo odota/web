@@ -117,6 +117,7 @@
   "explorer_table":"Tabel",
   "explorer_column":"Kolom",
   "explorer_query_button":"Table",
+  "explorer_cancel_button":"Cancel",
   "explorer_table_button":"Tabel",
   "explorer_api_button":"API",
   "explorer_json_button":"JSON",
