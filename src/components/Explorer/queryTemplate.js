@@ -52,9 +52,10 @@ ${tier ? `AND leagues.tier = '${tier.value}'` : ''}
 GROUP BY hero_id
 ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
+    const groupVal = `${group.value}${group.bucket ? ` / ${group.bucket} * ${group.bucket}` : ''}`;
     query = `SELECT
 ${(group) ?
-[`${group.groupKeySelect || group.value} ${group.alias || ''}`,
+[`${group.groupKeySelect || groupVal} ${group.alias || ''}`,
   (select || {}).countValue || '',
   `round(sum(${(select || {}).groupValue || (select || {}).value || 1})::numeric/count(${(select || {}).avgCountValue || 'distinct matches.match_id'}), 2) avg`,
   'count(distinct matches.match_id) count',
@@ -106,7 +107,7 @@ ${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
 ${minDate ? `AND matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
 ${maxDate ? `AND matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${tier ? `AND leagues.tier = '${tier.value}'` : ''}
-${group ? `GROUP BY ${group.value}${group.bucket ? ` / ${group.bucket} * ${group.bucket}` : ''}` : ''}
+${group ? `GROUP BY ${groupVal}` : ''}
 ${group ? `HAVING count(distinct matches.match_id) >= ${having ? having.value : '1'}` : ''}
 ORDER BY ${
 [`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(order && order.value) || (select && select.order) || 'DESC'}`,
