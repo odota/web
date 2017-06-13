@@ -68,18 +68,10 @@ class ExplorerOutputSection extends React.Component {
               return transformations.hero_id(row, col, field);
             } else if (column.field.indexOf('account_id') === 0) {
               return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
-            } else if (column.field === 'winrate') {
+            } else if (column.field === 'winrate' || column.field === 'wr_lower_bound') {
               return (field >= 0 && field <= 1 ? <TablePercent
                 percent={Number((field * 100).toFixed(2))}
               /> : null);
-            } else if (column.field === 'adj_winrate') {
-          /*
-          const phat = field;
-          const z = 1.96;
-          const n = row.count;
-          return ((phat + z * z / (2 * n) - z * Math.sqrt((phat * (1 - phat) + z * z / (4 * n)) / n)) / (1 + z * z / n)).toFixed(2);
-          */
-              return field;
             } else if (column.field === 'rune_id') {
               return strings[`rune_${field}`];
             } else if (column.field === 'item_name') {

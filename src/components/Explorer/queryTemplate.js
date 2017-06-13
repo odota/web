@@ -59,6 +59,10 @@ ${(group) ?
   `round(sum(${(select || {}).groupValue || (select || {}).value || 1})::numeric/count(${(select || {}).avgCountValue || 'distinct matches.match_id'}), 2) avg`,
   'count(distinct matches.match_id) count',
   'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
+  `((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) 
+  + 1.96 * 1.96 / (2 * count(1)) 
+  - 1.96 * sqrt((((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) * (1 - (sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1))) + 1.96 * 1.96 / (4 * count(1))) / count(1))))
+  / (1 + 1.96 * 1.96 / count(1)) wr_lower_bound`,
   `sum(${(select || {}).groupValue || (select || {}).value || 1}) sum`,
   `min(${(select || {}).groupValue || (select || {}).value || 1}) min`,
   `max(${(select || {}).groupValue || (select || {}).value || 1}) max`,
