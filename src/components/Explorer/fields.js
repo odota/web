@@ -42,6 +42,183 @@ AND match_logs.targetname LIKE '${unitKey}'`,
   key: `kill_${unitKey}`,
 });
 
+const singleFields = [{
+  text: strings.heading_kills,
+  value: 'kills',
+  key: 'kills',
+  avgCountValue: 1,
+}, {
+  text: strings.heading_deaths,
+  value: 'deaths',
+  key: 'deaths',
+  avgCountValue: 1,
+}, {
+  text: strings.heading_assists,
+  value: 'assists',
+  key: 'assists',
+  avgCountValue: 1,
+
+}, {
+  text: strings.heading_gold_per_min,
+  value: 'gold_per_min',
+  bucket: 50,
+  key: 'gold_per_min',
+  avgCountValue: 1,
+
+}, {
+  text: strings.heading_xp_per_min,
+  value: 'xp_per_min',
+  bucket: 50,
+  key: 'xp_per_min',
+  avgCountValue: 1,
+
+}, {
+  text: strings.heading_last_hits,
+  value: 'last_hits',
+  bucket: 50,
+  key: 'last_hits',
+  avgCountValue: 1,
+
+}, {
+  text: strings.heading_denies,
+  value: 'denies',
+  key: 'denies',
+  avgCountValue: 1,
+
+}, {
+  text: strings.heading_hero_damage,
+  value: 'hero_damage',
+  bucket: 1000,
+  key: 'hero_damage',
+  avgCountValue: 1,
+
+}, {
+  text: strings.heading_tower_damage,
+  value: 'tower_damage',
+  bucket: 1000,
+  key: 'tower_damage',
+  avgCountValue: 1,
+
+}, {
+  text: strings.heading_hero_healing,
+  value: 'hero_healing',
+  bucket: 1000,
+  key: 'hero_healing',
+  avgCountValue: 1,
+
+}, {
+  text: strings.heading_level,
+  value: 'level',
+  key: 'level',
+  avgCountValue: 1,
+
+}, {
+  text: strings.heading_stuns,
+  value: 'stuns',
+  bucket: 1,
+  key: 'stuns',
+  avgCountValue: 1,
+
+}, {
+  text: strings.heading_camps_stacked,
+  value: 'camps_stacked',
+  key: 'camps_stacked',
+  avgCountValue: 1,
+
+}, {
+  text: strings.heading_lhten,
+  value: 'lh_t[10]',
+  key: 'lh10',
+  avgCountValue: 1,
+
+}, {
+  text: strings.heading_lhtwenty,
+  value: 'lh_t[20]',
+  key: 'lh20',
+  avgCountValue: 1,
+
+}, {
+  text: strings.heading_lhthirty,
+  value: 'lh_t[30]',
+  key: 'lh30',
+  avgCountValue: 1,
+}, {
+  text: strings.heading_lhforty,
+  value: 'lh_t[40]',
+  key: 'lh40',
+  avgCountValue: 1,
+
+}, {
+  text: strings.heading_lhfifty,
+  value: 'lh_t[50]',
+  key: 'lh50',
+  avgCountValue: 1,
+},
+{
+  text: strings.th_buybacks,
+  value: 'json_array_length(array_to_json(buyback_log))',
+  alias: 'buybacks',
+  key: 'buybacks',
+  avgCountValue: 1,
+},
+{
+  text: strings.th_scans_used,
+  value: '(actions->>\'31\')::int',
+  alias: 'scans_used',
+  key: 'scans_used',
+  avgCountValue: 1,
+},
+{
+  text: strings.th_glyphs_used,
+  value: '(actions->>\'24\')::int',
+  alias: 'glyphs_used',
+  key: 'glyphs_used',
+  avgCountValue: 1,
+},
+{
+  text: strings.th_obs_placed,
+  value: 'json_array_length(array_to_json(obs_log))',
+  alias: 'obs_placed',
+  key: 'obs_placed',
+  avgCountValue: 1,
+},
+{
+  text: strings.th_sen_placed,
+  value: 'json_array_length(array_to_json(sen_log))',
+  alias: 'sen_placed',
+  key: 'sen_placed',
+  avgCountValue: 1,
+},
+{
+  text: strings.th_obs_destroyed,
+  value: '(killed->>\'npc_dota_observer_wards\')::int',
+  alias: 'obs_destroyed',
+  key: 'obs_destroyed',
+  avgCountValue: 1,
+},
+{
+  text: strings.th_sen_destroyed,
+  value: '(killed->>\'npc_dota_sentry_wards\')::int',
+  alias: 'sen_destroyed',
+  key: 'sen_destroyed',
+  avgCountValue: 1,
+},
+{
+  text: strings.th_legs,
+  value: 'heroes.legs',
+  alias: 'legs',
+  key: 'legs',
+  avgCountValue: 1,
+},
+{
+  text: strings.th_fantasy_points,
+  value: 'round((0.3 * kills + (3 - 0.3 * deaths) + 0.003 * (last_hits + denies) + 0.002 * gold_per_min + towers_killed + roshans_killed + 3 * teamfight_participation + 0.5 * observers_placed + 0.5 * camps_stacked + 0.25 * rune_pickups + 4 * firstblood_claimed + 0.05 * stuns)::numeric, 1)',
+  alias: 'fantasy_points',
+  key: 'fantasy_points',
+  bucket: 1,
+  avgCountValue: 1,
+}];
+
 const patches = patchData.reverse().map(patch => ({
   text: patch.name,
   value: patch.name,
@@ -62,127 +239,63 @@ const having = Array(10).fill().map((e, i) => i).map(element => ({
 }));
 
 const fields = (players = [], leagues = [], teams = []) => ({
-  select: [{
-    text: strings.heading_kills,
-    value: 'kills',
-    key: 'kills',
-  }, {
-    text: strings.heading_deaths,
-    value: 'deaths',
-    key: 'deaths',
-  }, {
-    text: strings.heading_assists,
-    value: 'assists',
-    key: 'assists',
-  }, {
-    text: strings.heading_gold_per_min,
-    value: 'gold_per_min',
-    key: 'gold_per_min',
-  }, {
-    text: strings.heading_xp_per_min,
-    value: 'xp_per_min',
-    key: 'xp_per_min',
-  }, {
-    text: strings.heading_last_hits,
-    value: 'last_hits',
-    key: 'last_hits',
-  }, {
-    text: strings.heading_denies,
-    value: 'denies',
-    key: 'denies',
-  }, {
-    text: strings.heading_hero_damage,
-    value: 'hero_damage',
-    key: 'hero_damage',
-  }, {
-    text: strings.heading_tower_damage,
-    value: 'tower_damage',
-    key: 'tower_damage',
-  }, {
-    text: strings.heading_hero_healing,
-    value: 'hero_healing',
-    key: 'hero_healing',
-  }, {
-    text: strings.heading_level,
-    value: 'level',
-    key: 'level',
-  }, {
-    text: strings.heading_stuns,
-    value: 'stuns',
-    key: 'stuns',
-  }, {
-    text: strings.heading_camps_stacked,
-    value: 'camps_stacked',
-    key: 'camps_stacked',
-  }, {
-    text: strings.heading_lhten,
-    value: 'lh_t[10]',
-    key: 'lh10',
-  }, {
-    text: strings.heading_lhtwenty,
-    value: 'lh_t[20]',
-    key: 'lh20',
-  }, {
-    text: strings.heading_lhthirty,
-    value: 'lh_t[30]',
-    key: 'lh30',
-  }, {
-    text: strings.heading_lhforty,
-    value: 'lh_t[40]',
-    key: 'lh40',
-  }, {
-    text: strings.heading_lhfifty,
-    value: 'lh_t[50]',
-    key: 'lh50',
-  }, {
-    text: strings.heading_duration,
-    value: 'duration',
-    avgCountValue: 1,
-    alias: 'as time',
-    key: 'duration',
-    formatSeconds: true,
-  }, { ...jsonSelect,
-    text: strings.heading_item_purchased,
-    alias: 'item_name',
-    join: ', json_each(player_matches.purchase)',
-    key: 'item_purchased',
-  }, { ...jsonSelect,
-    text: strings.heading_ability_used,
-    alias: 'ability_name',
-    join: ', json_each(player_matches.ability_uses)',
-    key: 'ability_used',
-  }, { ...jsonSelect,
-    text: strings.heading_item_used,
-    alias: 'item_name',
-    join: ', json_each(player_matches.item_uses)',
-    key: 'item_used',
-  }, { ...jsonSelect,
-    text: strings.heading_damage_inflictor,
-    alias: 'inflictor',
-    join: ', json_each(player_matches.damage_inflictor)',
-    key: 'damage_inflictor',
-  }, { ...jsonSelect,
-    text: strings.heading_damage_inflictor_received,
-    alias: 'inflictor',
-    join: ', json_each(player_matches.damage_inflictor_received)',
-    key: 'damage_inflictor_received',
-  }, { ...jsonSelect,
-    text: strings.heading_runes,
-    alias: 'rune_id',
-    join: ', json_each(player_matches.runes)',
-    key: 'runes',
-  }, { ...jsonSelect,
-    text: strings.heading_unit_kills,
-    join: ', json_each(player_matches.killed)',
-    key: 'unit_kills',
-  }, { ...jsonSelect,
-    text: strings.heading_damage_instances,
-    join: ', json_each(player_matches.hero_hits)',
-    key: 'damage_instances',
-  }, killSelect({
-    text: strings.heading_courier,
-    unitKey: 'npc_dota_courier',
-  }),
+  select: [
+    {
+      text: strings.heading_duration,
+      value: 'duration',
+      avgCountValue: 1,
+      alias: 'as time',
+      key: 'duration',
+      formatSeconds: true,
+    },
+    {
+      text: strings.heading_distinct_heroes,
+      value: 1,
+      countValue: 'count(distinct player_matches.hero_id) distinct_heroes',
+      key: 'distinct_heroes',
+    },
+    { ...jsonSelect,
+      text: strings.heading_item_purchased,
+      alias: 'item_name',
+      join: ', json_each(player_matches.purchase)',
+      key: 'item_purchased',
+    }, { ...jsonSelect,
+      text: strings.heading_ability_used,
+      alias: 'ability_name',
+      join: ', json_each(player_matches.ability_uses)',
+      key: 'ability_used',
+    }, { ...jsonSelect,
+      text: strings.heading_item_used,
+      alias: 'item_name',
+      join: ', json_each(player_matches.item_uses)',
+      key: 'item_used',
+    }, { ...jsonSelect,
+      text: strings.heading_damage_inflictor,
+      alias: 'inflictor',
+      join: ', json_each(player_matches.damage_inflictor)',
+      key: 'damage_inflictor',
+    }, { ...jsonSelect,
+      text: strings.heading_damage_inflictor_received,
+      alias: 'inflictor',
+      join: ', json_each(player_matches.damage_inflictor_received)',
+      key: 'damage_inflictor_received',
+    }, { ...jsonSelect,
+      text: strings.heading_runes,
+      alias: 'rune_id',
+      join: ', json_each(player_matches.runes)',
+      key: 'runes',
+    }, { ...jsonSelect,
+      text: strings.heading_unit_kills,
+      join: ', json_each(player_matches.killed)',
+      key: 'unit_kills',
+    }, { ...jsonSelect,
+      text: strings.heading_damage_instances,
+      join: ', json_each(player_matches.hero_hits)',
+      key: 'damage_instances',
+    }, killSelect({
+      text: strings.heading_courier,
+      unitKey: 'npc_dota_courier',
+    }),
     killSelect({
       text: strings.heading_roshan,
       unitKey: 'npc_dota_roshan',
@@ -199,116 +312,57 @@ const fields = (players = [], leagues = [], teams = []) => ({
       text: strings.heading_shrine,
       unitKey: '%healers%',
     }),
-  {
-    text: strings.th_buybacks,
-    value: 'json_array_length(array_to_json(buyback_log))',
-    alias: 'buybacks',
-    key: 'buybacks',
-  },
-  {
-    text: strings.th_scans_used,
-    value: '(actions->>\'31\')::int',
-    alias: 'scans_used',
-    key: 'scans_used',
-  },
-  {
-    text: strings.th_glyphs_used,
-    value: '(actions->>\'24\')::int',
-    alias: 'glyphs_used',
-    key: 'glyphs_used',
-  },
-  {
-    text: strings.th_obs_placed,
-    value: 'json_array_length(array_to_json(obs_log))',
-    alias: 'obs_placed',
-    key: 'obs_placed',
-  },
-  {
-    text: strings.th_sen_placed,
-    value: 'json_array_length(array_to_json(sen_log))',
-    alias: 'sen_placed',
-    key: 'sen_placed',
-  },
-  {
-    text: strings.th_obs_destroyed,
-    value: '(killed->>\'npc_dota_observer_wards\')::int',
-    alias: 'obs_destroyed',
-    key: 'obs_destroyed',
-  },
-  {
-    text: strings.th_sen_destroyed,
-    value: '(killed->>\'npc_dota_sentry_wards\')::int',
-    alias: 'sen_destroyed',
-    key: 'sen_destroyed',
-  },
-  {
-    text: strings.th_legs,
-    value: 'heroes.legs',
-    alias: 'legs',
-    key: 'legs',
-  },
-  {
-    text: strings.th_fantasy_points,
-    value: 'round((0.3 * kills + (3 - 0.3 * deaths) + 0.003 * (last_hits + denies) + 0.002 * gold_per_min + towers_killed + roshans_killed + 3 * teamfight_participation + 0.5 * observers_placed + 0.5 * camps_stacked + 0.25 * rune_pickups + 4 * firstblood_claimed + 0.05 * stuns)::numeric, 1)',
-    alias: 'fantasy_points',
-    key: 'fantasy_points',
-  },
-  {
-    text: strings.heading_distinct_heroes,
-    value: 1,
-    countValue: 'count(distinct player_matches.hero_id) distinct_heroes',
-    key: 'distinct_heroes',
-  },
-  {
-    text: strings.explorer_hero_combos,
-    value: 1,
-    groupValue: 1,
-    groupKeySelect: 'player_matches.hero_id, player_matches2.hero_id hero_id2',
-    groupKey: 'player_matches.hero_id, player_matches2.hero_id',
-    joinFn: props => `JOIN player_matches player_matches2
+    {
+      text: strings.explorer_hero_combos,
+      value: 1,
+      groupValue: 1,
+      groupKeySelect: 'player_matches.hero_id, player_matches2.hero_id hero_id2',
+      groupKey: 'player_matches.hero_id, player_matches2.hero_id',
+      joinFn: props => `JOIN player_matches player_matches2
 ON player_matches.match_id = player_matches2.match_id
 AND player_matches.hero_id != player_matches2.hero_id 
 AND abs(player_matches.player_slot - player_matches2.player_slot) < 10
 ${props.hero && props.hero.value ? '' : 'AND player_matches.hero_id < player_matches2.hero_id'}`,
-    key: 'hero_combos',
-  },
-  {
-    text: strings.explorer_hero_player,
-    value: 1,
-    groupValue: 1,
-    groupKey: 'player_matches.hero_id, player_matches.account_id',
-    key: 'hero_player',
-  },
-  {
-    text: strings.explorer_player_player,
-    value: 1,
-    groupValue: 1,
-    groupKeySelect: 'player_matches.account_id, player_matches2.account_id account_id2',
-    groupKey: 'player_matches.account_id, player_matches2.account_id',
-    joinFn: props => `JOIN player_matches player_matches2
+      key: 'hero_combos',
+    },
+    {
+      text: strings.explorer_hero_player,
+      value: 1,
+      groupValue: 1,
+      groupKey: 'player_matches.hero_id, player_matches.account_id',
+      key: 'hero_player',
+    },
+    {
+      text: strings.explorer_player_player,
+      value: 1,
+      groupValue: 1,
+      groupKeySelect: 'player_matches.account_id, player_matches2.account_id account_id2',
+      groupKey: 'player_matches.account_id, player_matches2.account_id',
+      joinFn: props => `JOIN player_matches player_matches2
 ON player_matches.match_id = player_matches2.match_id
 AND player_matches.account_id != player_matches2.account_id 
 AND abs(player_matches.player_slot - player_matches2.player_slot) < 10
 ${props.player && props.player.value ? '' : 'AND player_matches.account_id < player_matches2.account_id'}`,
-    key: 'player_player',
-  },
-  {
-    text: strings.explorer_picks_bans,
-    template: 'picks_bans',
-    key: 'picks_bans',
+      key: 'player_player',
+    },
+    {
+      text: strings.explorer_picks_bans,
+      template: 'picks_bans',
+      key: 'picks_bans',
     // picks_bans.team is 0 for radiant, 1 for dire
-    where: 'AND team_match.radiant::int != picks_bans.team',
-    value: 1,
-  },
-  {
-    text: strings.explorer_counter_picks_bans,
-    template: 'picks_bans',
-    key: 'counter_picks_bans',
-    where: 'AND team_match.radiant::int = picks_bans.team',
-    value: 1,
-  },
+      where: 'AND team_match.radiant::int != picks_bans.team',
+      value: 1,
+    },
+    {
+      text: strings.explorer_counter_picks_bans,
+      template: 'picks_bans',
+      key: 'counter_picks_bans',
+      where: 'AND team_match.radiant::int = picks_bans.team',
+      value: 1,
+    },
   ]
     .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect))
+    .concat(singleFields)
     .sort((a, b) => a.text.localeCompare(b.text)),
   group: [{
     text: strings.explorer_player,
@@ -351,7 +405,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     value: 'team_match.team_id',
     key: 'organization',
   },
-  ],
+  ].concat(singleFields),
   minPatch: patches,
   maxPatch: patches,
   hero: Object.keys(heroData).map(heroId => ({
