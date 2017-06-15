@@ -130,7 +130,6 @@ const TableCreator = ({
               } else {
                 fieldEl = value;
               }
-
               return (
                 <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style}>
                   {fieldEl}

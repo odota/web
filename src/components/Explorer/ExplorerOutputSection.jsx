@@ -95,10 +95,17 @@ class ExplorerOutputSection extends React.Component {
                 year: 'numeric',
               });
             }
-            return typeof field === 'string' ? field : JSON.stringify(field);
+            if (typeof field === 'string') {
+              return field;
+            }
+            return JSON.stringify(field);
           },
-          sortFn: row => (isNaN(Number(row[column.field])) ? row[column.field] : Number(row[column.field])),
-        }))}
+          sortFn: (row) => {
+            if (row[column.field] === null || isNaN(Number(row[column.field]))) {
+              return row[column.field];
+            }
+            return Number(row[column.field]);
+          } }))}
       />);
   }
 }
