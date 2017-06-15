@@ -52,7 +52,7 @@ ${tier ? `AND leagues.tier = '${tier.value}'` : ''}
 GROUP BY hero_id
 ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
-    const groupVal = `${group.value}${group.bucket ? ` / ${group.bucket} * ${group.bucket}` : ''}`;
+    const groupVal = group ? `${group.value}${group.bucket ? ` / ${group.bucket} * ${group.bucket}` : ''}` : null;
     query = `SELECT
 ${(group) ?
 [`${group.groupKeySelect || groupVal} ${group.alias || ''}`,
