@@ -11,14 +11,15 @@ export default function action(type, host, path, params = {}, transform) {
       type: `OK/${type}`,
       payload,
     });
+    const fetchDataWithRetry = delay => fetch(url, path === 'api/metadata' ? { credentials: 'include' } : {})
+        .then(response => response.json())
+        .then(transform || (json => json))
+        .then(json => dispatch(getDataOk(json)))
+        .catch((error) => {
+          console.error(error);
+          setTimeout(() => fetchDataWithRetry(delay + 3000), delay);
+        });
     dispatch(getDataStart());
-    return fetch(url, path === 'api/metadata' ? { credentials: 'include' } : {})
-    .then(response => response.json())
-    .then(transform || (json => json))
-    .then(json => dispatch(getDataOk(json)))
-    .catch((error) => {
-      console.error(error);
-      // TODO transparently retry with backoff
-    });
+    return fetchDataWithRetry(1000);
   };
 }

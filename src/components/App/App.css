@@ -17,12 +17,8 @@
 }
 
 .body {
-  padding: 50px;
+  padding: 25px;
   flex-grow: 1;
-
-  @media only screen and (max-width: 960px) {
-    padding: 50px 25px;
-  }
 
   @media only screen and (min-width: 1540px) {
     width: 1440px;
