@@ -29,6 +29,12 @@ hero_id,
 count(1) total,
 sum(case WHEN is_pick IS TRUE THEN 1 ELSE 0 END) picks, 
 sum(case WHEN is_pick IS FALSE THEN 1 ELSE 0 END) bans,
+sum(case WHEN is_pick IS TRUE AND ord <= 8 THEN 1 ELSE 0 END) first_pick, 
+sum(case WHEN is_pick IS FALSE AND ord <= 8 THEN 1 ELSE 0 END) first_ban,
+sum(case WHEN is_pick IS TRUE AND ord > 8 AND ord <= 16 THEN 1 ELSE 0 END) second_pick, 
+sum(case WHEN is_pick IS FALSE AND ord > 8 AND ord <= 16 THEN 1 ELSE 0 END) second_ban,
+sum(case WHEN is_pick IS TRUE AND ord > 16 THEN 1 ELSE 0 END) third_pick, 
+sum(case WHEN is_pick IS FALSE AND ord > 16 THEN 1 ELSE 0 END) third_ban,
 sum(case WHEN radiant = radiant_win THEN 1 ELSE 0 END)::float/count(1) winrate
 FROM picks_bans
 JOIN matches using(match_id)
