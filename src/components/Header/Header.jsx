@@ -29,6 +29,7 @@ const REPORT_BUG_PATH = '//github.com/odota/ui/issues';
 const navbarPages = [
   <Link key={strings.header_explorer} to="/explorer">{strings.header_explorer}</Link>,
   <Link key={strings.header_matches} to="/matches">{strings.header_matches}</Link>,
+  <Link key={strings.header_teams} to="/teams">{strings.header_teams}</Link>,
   <Link key={strings.header_heroes} to="/heroes">{strings.header_heroes}</Link>,
   <Link key={strings.header_distributions} to="/distributions">{strings.header_distributions}</Link>,
   <Link key={strings.header_records} to="/records">{strings.header_records}</Link>,
