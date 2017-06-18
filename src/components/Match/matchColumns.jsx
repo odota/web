@@ -367,7 +367,7 @@ const fantasyComponents = [
 export const fantasyColumns = [
   heroTdColumn,
   { displayName: strings.th_fantasy_points,
-    displayFn: (row) => fantasyComponents
+    displayFn: row => fantasyComponents
       .map(comp => comp.fantasyFn(row[comp.field]))
       .reduce((a, b) => a + b)
       .toFixed(2),
