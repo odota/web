@@ -104,7 +104,7 @@ const singleFields = [{
 }, {
   text: strings.heading_lhten,
   value: 'lh_t[10]',
-  bucket: 10
+  bucket: 10,
   key: 'lh10',
 }, {
   text: strings.heading_lhtwenty,
@@ -114,7 +114,7 @@ const singleFields = [{
 }, {
   text: strings.heading_lhthirty,
   value: 'lh_t[30]',
-  bucket: 10
+  bucket: 10,
   key: 'lh30',
 }, {
   text: strings.heading_lhforty,
