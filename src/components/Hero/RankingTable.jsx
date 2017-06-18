@@ -5,7 +5,7 @@ import { transformations, getOrdinal } from 'utility';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
 
 const rankingColumns = [{
-  displayName: '#',
+  displayName: strings.th_rank,
   displayFn: (row, col, field, index) => getOrdinal(index + 1),
 }, {
   displayName: strings.th_name,

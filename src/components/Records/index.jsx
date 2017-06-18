@@ -12,7 +12,7 @@ import Container from 'components/Container';
 import TabBar from 'components/TabBar';
 
 const matchesColumns = field => [{
-  displayName: '#',
+  displayName: strings.th_rank,
   field: 'rank',
   displayFn: (row, col, field) => getOrdinal(field),
 }, {
