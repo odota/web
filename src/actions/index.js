@@ -29,7 +29,7 @@ export const getDistributions = () => action('distributions', API_HOST, 'api/dis
 export const getPvgnaHeroGuides = () => action('pvgnaGuides', 'https://yasp.pvgna.com', 'yasp');
 export const getHeroStats = params => action('heroStats', API_HOST, 'api/heroStats', params);
 export const getLeagues = () => action('leagues', API_HOST, 'api/leagues');
-export const getTeams = () => action('teams', API_HOST, 'api/teams', {}, json => json.sort((a, b) => b.rating - a.rating));
+export const getTeams = () => action('teams', API_HOST, 'api/teams');
 export const getRecords = field => action('records', API_HOST, `api/records/${field}`);
 export const getGithubPulls = merged => action('ghPulls', 'https://api.github.com', 'search/issues', {
   q: `repo:odota/ui type:pr base:production label:release merged:>${merged}`,
