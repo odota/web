@@ -101,11 +101,11 @@ class Vision extends React.Component {
 
     return (
       <div>
-        <div style={{ display: 'flex' }}>
-          <div style={{ width: '50%', margin: '10px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <div style={{ width: '30%', margin: '10px', flexGrow: '1' }}>
             <VisionMap match={match} wards={visibleWards} />
           </div>
-          <div style={{ width: '50%', margin: '10px' }}>
+          <div style={{ flexGrow: '1' }}>
             <div className={styles.visionSliderText}>
               {this.state.currentTick === -90 ? strings.vision_all_time : formatSeconds(this.state.currentTick)}
             </div>

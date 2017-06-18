@@ -17,14 +17,13 @@ import {
   transformations,
   percentile,
   sum,
-  unpackPositionData,
 } from 'utility';
-import Heatmap from 'components/Heatmap';
 import {
   TableHeroImage,
   inflictorWithValue,
 } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
+import { RadioButton } from 'material-ui/RadioButton';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
@@ -425,46 +424,6 @@ export const lastHitsTimesColumns = (match) => {
 
 export const performanceColumns = [
   heroTdColumn, {
-    displayName: strings.th_lane,
-    tooltip: strings.tooltip_lane,
-    field: 'lane_role',
-    sortFn: true,
-    displayFn: (row, col, field) => (<div>
-      <span>{strings[`lane_role_${field}`]}</span>
-      {row.is_roaming && <span className={subtextStyle.subText}>{strings.roaming}</span>}
-    </div>),
-  }, {
-    displayName: strings.th_map,
-    tooltip: strings.tooltip_map,
-    field: 'lane_pos',
-    displayFn: (row, col, field) => (field ?
-      <Heatmap width={80} points={unpackPositionData(field)} /> :
-      <div />),
-  }, {
-    displayName: strings.th_lane_efficiency,
-    tooltip: strings.tooltip_lane_efficiency,
-    field: 'lane_efficiency',
-    sortFn: true,
-    displayFn: (row, col, field) => (field ? `${(field * 100).toFixed(2)}%` : '-'),
-    relativeBars: true,
-    sumFn: true,
-  }, {
-    displayName: strings.th_lhten,
-    tooltip: strings.tooltip_lhten,
-    field: 'lh_ten',
-    sortFn: true,
-    displayFn: (row, col, field) => (field || '-'),
-    relativeBars: true,
-    sumFn: true,
-  }, {
-    displayName: strings.th_dnten,
-    tooltip: strings.tooltip_dnten,
-    field: 'dn_ten',
-    sortFn: true,
-    displayFn: (row, col, field) => (field || '-'),
-    relativeBars: true,
-    sumFn: true,
-  }, {
     displayName: strings.th_multikill,
     tooltip: strings.tooltip_multikill,
     field: 'multi_kills_max',
@@ -559,6 +518,43 @@ export const performanceColumns = [
     },
   },
 ];
+
+export const laningColumns = (currentState, setSelectedPlayer) => [
+  { displayFn: (row, col, field, index) => (<RadioButton checked={currentState.selectedPlayer === index} onClick={() => setSelectedPlayer(index)} />) },
+  heroTdColumn, {
+    displayName: strings.th_lane,
+    tooltip: strings.tooltip_lane,
+    field: 'lane_role',
+    sortFn: true,
+    displayFn: (row, col, field) => (<div>
+      <span>{strings[`lane_role_${field}`]}</span>
+      {row.is_roaming && <span className={subtextStyle.subText}>{strings.roaming}</span>}
+    </div>),
+  }, {
+    displayName: strings.th_lane_efficiency,
+    tooltip: strings.tooltip_lane_efficiency,
+    field: 'lane_efficiency',
+    sortFn: true,
+    displayFn: (row, col, field) => (field ? `${(field * 100).toFixed(2)}%` : '-'),
+    relativeBars: true,
+    sumFn: true,
+  }, {
+    displayName: strings.th_lhten,
+    tooltip: strings.tooltip_lhten,
+    field: 'lh_ten',
+    sortFn: true,
+    displayFn: (row, col, field) => (field || '-'),
+    relativeBars: true,
+    sumFn: true,
+  }, {
+    displayName: strings.th_dnten,
+    tooltip: strings.tooltip_dnten,
+    field: 'dn_ten',
+    sortFn: true,
+    displayFn: (row, col, field) => (field || '-'),
+    relativeBars: true,
+    sumFn: true,
+  }];
 
 export const chatColumns = [
   {

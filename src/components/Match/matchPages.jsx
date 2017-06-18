@@ -5,6 +5,7 @@ import Table from 'components/Table';
 import TeamfightMap from 'components/Match/TeamfightMap';
 import Timeline from 'components/Match/Overview/Timeline';
 import Vision from './Vision';
+import Laning from './Laning';
 import CrossTable from './CrossTable';
 import MatchGraph from './MatchGraph';
 import MatchLog from './MatchLog';
@@ -56,6 +57,13 @@ const matchPages = [Overview, {
       direTeam={match.dire_team}
       summable
     />
+  </div>),
+}, {
+  name: strings.tab_laning,
+  key: 'laning',
+  parsed: true,
+  content: match => (<div>
+    <Laning match={match} />
   </div>),
 }, {
   name: strings.tab_combat,
