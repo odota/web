@@ -67,7 +67,7 @@ const singleFields = [{
 }, {
   text: strings.heading_last_hits,
   value: 'last_hits',
-  bucket: 50,
+  bucket: 10,
   key: 'last_hits',
 }, {
   text: strings.heading_denies,
@@ -104,22 +104,27 @@ const singleFields = [{
 }, {
   text: strings.heading_lhten,
   value: 'lh_t[10]',
+  bucket: 10
   key: 'lh10',
 }, {
   text: strings.heading_lhtwenty,
   value: 'lh_t[20]',
+  bucket: 10,
   key: 'lh20',
 }, {
   text: strings.heading_lhthirty,
   value: 'lh_t[30]',
+  bucket: 10
   key: 'lh30',
 }, {
   text: strings.heading_lhforty,
   value: 'lh_t[40]',
+  bucket: 10,
   key: 'lh40',
 }, {
   text: strings.heading_lhfifty,
   value: 'lh_t[50]',
+  bucket: 10,
   key: 'lh50',
 },
 {

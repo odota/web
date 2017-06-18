@@ -101,7 +101,7 @@ class ExplorerOutputSection extends React.Component {
             return JSON.stringify(field);
           },
           sortFn: (row) => {
-            if (row[column.field] === null || isNaN(Number(row[column.field]))) {
+            if (row[column.field] === null || typeof row[column.field] === 'boolean' || isNaN(Number(row[column.field]))) {
               return row[column.field];
             }
             return Number(row[column.field]);
