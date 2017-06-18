@@ -322,7 +322,7 @@
   "heading_total_matches":"Всього матчів",
   "heading_median":"Медіана",
   "heading_distinct_heroes":"Відмінних героїв",
-  "heading_team_elo_rankings":"Team Elo Rankings",
+  "heading_team_elo_rankings":"ELO рейтинг команд",
   "subheading_avg_and_max":"in last %d matches",
   "subheading_records":"In ranked matches. Records reset monthly.",
   "subheading_team_elo_rankings":"k=32, init=1000",
