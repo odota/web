@@ -25,6 +25,7 @@ import {
   analysisColumns,
   inflictorsColumns,
   castsColumns,
+  fantasyColumns,
 } from './matchColumns';
 import Overview from './Overview';
 import TeamTable from './TeamTable';
@@ -232,6 +233,19 @@ const matchPages = [Overview, {
   content: match => (<div>
     <Heading title={strings.heading_log} />
     <MatchLog match={match} />
+  </div>),
+}, {
+  name: strings.tab_fantasy,
+  key: 'fantasy',
+  parsed: true,
+  content: match => (<div>
+    <TeamTable
+      players={match.players}
+      columns={fantasyColumns}
+      heading={strings.heading_fantasy}
+      radiantTeam={match.radiant_team}
+      direTeam={match.dire_team}
+    />
   </div>),
 }, {
   name: strings.tab_chat,

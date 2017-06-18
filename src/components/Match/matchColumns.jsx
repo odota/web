@@ -336,6 +336,44 @@ export const benchmarksColumns = (match) => {
   return cols;
 };
 
+const displayFantasyComponent = transform => (row, col, field) => {
+  const score = Number(transform(field).toFixed(2));
+  const raw = Number(field.toFixed(2));
+  return (<div data-tip data-for={`fantasy_${row.player_slot}_${col.field}`}>
+    <span>{score}</span>
+    <small style={{ margin: '3px', color: 'rgb(179, 179, 179)' }}>{raw}</small>
+    <ReactTooltip id={`fantasy_${row.player_slot}_${col.field}`} place="top" effect="solid">
+      {util.format(strings.fantasy_description, raw, score)}
+    </ReactTooltip>
+  </div>);
+};
+
+const fantasyComponents = [
+  { displayName: strings.th_kills, field: 'kills', fantasyFn: v => 0.3 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_deaths, field: 'deaths', fantasyFn: v => 3 - (0.3 * v), get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_last_hits, field: 'last_hits', fantasyFn: v => 0.003 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_denies, field: 'denies', fantasyFn: v => 0.003 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_gold_per_min, field: 'gold_per_min', fantasyFn: v => 0.002 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_towers, field: 'towers_killed', fantasyFn: v => 1 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_roshan, field: 'roshans_killed', fantasyFn: v => 1 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_teamfight_participation, field: 'teamfight_participation', fantasyFn: v => 3 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_observers_placed, field: 'obs_placed', fantasyFn: v => 0.5 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.tooltip_camps_stacked, field: 'camps_stacked', fantasyFn: v => 0.5 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.heading_runes, field: 'rune_pickups', fantasyFn: v => 0.25 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_firstblood_claimed, field: 'firstblood_claimed', fantasyFn: v => 4 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_stuns, field: 'stuns', fantasyFn: v => 0.05 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+];
+
+export const fantasyColumns = [
+  heroTdColumn,
+  { displayName: strings.th_fantasy_points,
+    displayFn: (row) => fantasyComponents
+      .map(comp => comp.fantasyFn(row[comp.field]))
+      .reduce((a, b) => a + b)
+      .toFixed(2),
+  },
+].concat(fantasyComponents);
+
 export const purchaseTimesColumns = (match) => {
   const cols = [heroTdColumn];
   const bucket = 300;
