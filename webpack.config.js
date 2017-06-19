@@ -1,7 +1,7 @@
 /**
  * Webpack configuration file
  **/
-const fs = require('fs');
+// const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const postcssImport = require('postcss-import');
@@ -27,7 +27,7 @@ HashBundlePlugin.prototype.apply = (compiler) => {
 const config = {
   entry: ['babel-polyfill', path.resolve(__dirname, 'src')],
   output: {
-    filename: `bundle.js`,
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'build'),
     publicPath: 'build/',
   },
@@ -99,7 +99,7 @@ if (!isProd) {
   config.plugins.push(new webpack.NamedModulesPlugin());
 } else {
   config.plugins.push(new webpack.optimize.UglifyJsPlugin());
-  //config.plugins.push(new HashBundlePlugin());
+  // config.plugins.push(new HashBundlePlugin());
 }
 
 module.exports = config;
