@@ -116,7 +116,7 @@
   "explorer_sql":"SQL",
   "explorer_postgresql_function":"PostgreSQL Function",
   "explorer_table":"Table",
-  "explorer_column":"Column",
+  "explorer_column":"欄",
   "explorer_query_button":"Table",
   "explorer_cancel_button":"Cancel",
   "explorer_table_button":"Table",
