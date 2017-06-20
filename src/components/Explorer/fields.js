@@ -103,27 +103,27 @@ const singleFields = [{
   key: 'camps_stacked',
 }, {
   text: strings.heading_lhten,
-  value: 'lh_t[10]',
+  value: 'lh_t[11]',
   bucket: 10,
   key: 'lh10',
 }, {
   text: strings.heading_lhtwenty,
-  value: 'lh_t[20]',
+  value: 'lh_t[21]',
   bucket: 10,
   key: 'lh20',
 }, {
   text: strings.heading_lhthirty,
-  value: 'lh_t[30]',
+  value: 'lh_t[31]',
   bucket: 10,
   key: 'lh30',
 }, {
   text: strings.heading_lhforty,
-  value: 'lh_t[40]',
+  value: 'lh_t[41]',
   bucket: 10,
   key: 'lh40',
 }, {
   text: strings.heading_lhfifty,
-  value: 'lh_t[50]',
+  value: 'lh_t[51]',
   bucket: 10,
   key: 'lh50',
 },
