@@ -18,13 +18,13 @@ export const langs = [
     data: require('./de-DE.json'),
   }, {
     value: 'es-ES',
-    native: 'Español (España)',
+    native: 'Español',
     data: require('./es-ES.json'),
-  }, {
+  }, /* {
     value: 'es-PE',
     native: 'Español (América Latina)',
     data: require('./es-PE.json'),
-  }, /* {
+  }, {
     value: 'fi-FI',
     native: 'Suomi',
     data: require('./fi-FI.json'),
@@ -40,11 +40,11 @@ export const langs = [
     value: 'ja-JP',
     native: '日本語',
     data: require('./ja-JP.json'),
-  }, {
+  }, /* {
     value: 'ko-KR',
     native: '한국어',
     data: require('./ko-KR.json'),
-  }, {
+  }, */ {
     value: 'ms-MY',
     native: 'Bahasa Melayu',
     data: require('./ms-MY.json'),
@@ -64,7 +64,7 @@ export const langs = [
     value: 'ru-RU',
     native: 'Русский',
     data: require('./ru-RU.json'),
-  }, {
+  }, /* {
     value: 'sv-SE',
     native: 'Svenska',
     data: require('./sv-SE.json'),
@@ -72,7 +72,7 @@ export const langs = [
     value: 'tr-TR',
     native: 'Türkçe',
     data: require('./tr-TR.json'),
-  }, {
+  }, */ {
     value: 'uk-UA',
     native: 'Українська',
     data: require('./uk-UA.json'),
