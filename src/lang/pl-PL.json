@@ -859,7 +859,7 @@
   "vision_expired":"Wygasł po",
   "vision_destroyed":"Zniszczone po",
   "vision_all_time":"Łączny czas",
-  "vision_placed_observer":"umieścił Obserwatora w",
-  "vision_placed_sentry":"umieścił Wartownika w",
+  "vision_placed_observer":"umieścił(a) Obserwatora w",
+  "vision_placed_sentry":"umieścił(a) Wartownika w",
   "vision_ward_log":"Dziennik wardów"
 }
