@@ -254,7 +254,7 @@ class TeamfightMap extends Component {
 
   render() {
     const { teamfights = [], match } = this.props;
-    const { teamfight } = this.state;
+    const teamfight = this.state.teamfight || {};
     const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
     return (
       <Measure>
@@ -301,7 +301,7 @@ class TeamfightMap extends Component {
                         <Icon style={{ height: iconSize(bindWidth(width, 400)), width: iconSize(bindWidth(width, 400)) }} />
                       </div>
                       <span className={styles.headerGold}><GoldDelta radiantGoldDelta={teamfight.radiant_gold_advantage_delta} /></span>
-                      <div className={styles.muted}>{teamfight.deaths_pos.length} Deaths</div>
+                      <div className={styles.muted}>{(teamfight.deaths_pos || []).length} Deaths</div>
                     </div>
                   </header>
                 </div>

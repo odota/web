@@ -318,7 +318,7 @@ export const benchmarksColumns = (match) => {
             const bm = field[key];
             const bucket = percentile(bm.pct);
             const percent = Number(bm.pct * 100).toFixed(2);
-            const value = Number(bm.raw.toFixed(2));
+            const value = Number((bm.raw || 0).toFixed(2));
             return (<div data-tip data-for={`benchmarks_${row.player_slot}_${key}`}>
               <span style={{ color: styles[bucket.color] }}>{`${percent}%`}</span>
               <small style={{ margin: '3px' }}>{value}</small>
@@ -337,7 +337,7 @@ export const benchmarksColumns = (match) => {
 
 const displayFantasyComponent = transform => (row, col, field) => {
   const score = Number(transform(field).toFixed(2));
-  const raw = Number(field.toFixed(2));
+  const raw = Number((field || 0).toFixed(2));
   return (<div data-tip data-for={`fantasy_${row.player_slot}_${col.field}`}>
     <span>{score}</span>
     <small style={{ margin: '3px', color: 'rgb(179, 179, 179)' }}>{raw}</small>
@@ -644,7 +644,7 @@ export const unitKillsColumns = [
     field: 'specific',
     // TODO make this work for non-english (current names are hardcoded in dotaconstants)
     displayFn: (row, col, field) => (<div>
-      {Object.keys(field).map((unit, index) => (<div key={index}>{`${field[unit]} ${unit}`}</div>))}
+      {Object.keys(field || {}).map((unit, index) => (<div key={index}>{`${field[unit]} ${unit}`}</div>))}
     </div>),
   },
 ];
@@ -819,7 +819,7 @@ export const analysisColumns = [heroTdColumn, {
   displayName: strings.th_analysis,
   field: 'analysis',
   displayFn: (row, col, field) => (
-    Object.keys(field).map((key) => {
+    Object.keys(field || {}).map((key) => {
       const val = field[key];
       val.display = `${val.name}: ${Number(val.value ? val.value.toFixed(2) : '')} / ${Number(val.top.toFixed(2))}`;
       val.pct = val.score(val.value) / val.score(val.top);
