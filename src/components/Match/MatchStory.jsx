@@ -576,7 +576,7 @@ const generateStory = (match) => {
     events.push(new FirstbloodEvent(match,
       match.objectives[fbIndex].time,
       match.objectives[fbIndex].player_slot,
-      (killerLog instanceof Array && killerLog[0] ? killerLog[0].key : null)));
+      (Array.isArray(killerLog) && killerLog[0] ? killerLog[0].key : null)));
   }
 
 
