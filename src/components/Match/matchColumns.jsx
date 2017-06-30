@@ -583,8 +583,8 @@ export const chatColumns = [
       if (row.type === 'chatwheel') {
         if (Number(row.key) >= 86) {
           return (<span>
-            <span 
-              style={{ cursor: 'pointer', position: 'relative', top: '6px', marginRight: '3px' }} 
+            <span
+              style={{ cursor: 'pointer', position: 'relative', top: '6px', marginRight: '3px' }}
               onClick={() => new Audio(`/assets/chatwheel/dota_chatwheel_${row.key}.wav`).play()}
             >
               <AvPlayCircleOutline />
