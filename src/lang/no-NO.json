@@ -861,5 +861,17 @@
   "vision_all_time":"All time",
   "vision_placed_observer":"placed Observer at",
   "vision_placed_sentry":"placed Sentry at",
-  "vision_ward_log":"Ward Log"
+  "vision_ward_log":"Ward Log",
+  "chatwheel_0":"OK. ",
+  "chatwheel_2":"Bakover!",
+  "chatwheel_5":"Hjelp!",
+  "chatwheel_12":"Gå!",
+  "chatwheel_25":"Mana",
+  "chatwheel_53":"Roshan",
+  "chatwheel_54":"Bekreftet",
+  "chatwheel_55":"Vent",
+  "chatwheel_61":"Bra",
+  "chatwheel_63":"Unnskyld",
+  "chatwheel_68":"Min feil",
+  "chatwheel_80":"Oops"
 }
