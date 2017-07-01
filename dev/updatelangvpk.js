@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies, no-console */
 const request = require('request');
 const fs = require('fs');
+const vdf = require('simple-vdf');
 // For updating the opendota-ui lang files with data from the vpk
 
 const dontReplace = [
@@ -117,7 +118,7 @@ Object.keys(englishLang).filter(k => k.match(/^npc_dota_/)).forEach((key) => {
 });
 replacements.npc_dota_phoenix_sun = 'DOTA_Tooltip_ability_phoenix_supernova';
 replacements.npc_dota_weaver_swarm = 'DOTA_Tooltip_ability_weaver_the_swarm';
-// regions & call update
+// regions, chat wheel, & call update
 request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/regions.json', (err, resp, body) => {
   if (err || resp.statusCode !== 200) {
     console.log('Error getting regions info from d2vpkr');
@@ -128,14 +129,25 @@ request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/r
   Object.keys(regions).forEach((key) => {
     replacements[`region_${regions[key].region}`] = regions[key].display_name.replace(/^#/, '');
   });
+  request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/chat_wheel.txt', (err, resp, body) => {
+    if (err || resp.statusCode !== 200) {
+      console.log('Error getting chat wheel info from d2vpkr');
+      process.exit(1);
+    }
+    const chatWheel = vdf.parse(body).chat_wheel.messages;
 
-  // Remove ones we don't want to replace
-  dontReplace.forEach((key) => {
-    delete replacements[key];
+    Object.keys(chatWheel).forEach((key) => {
+      if (chatWheel[key].message[0] === '#') {
+        replacements[`chatwheel_${chatWheel[key].message_id}`] = chatWheel[key].message.replace(/^#/, '');
+      }
+    });
+
+    // Remove ones we don't want to replace
+    dontReplace.forEach((key) => {
+      delete replacements[key];
+    });
+    console.log('Updating lang files...');
+    Object.keys(langTagNames).forEach(tag => updateLang(tag, langTagNames[tag]));
   });
-
-  console.log('Updating lang files...');
-
-  Object.keys(langTagNames).forEach(tag => updateLang(tag, langTagNames[tag]));
 });
 
