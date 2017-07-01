@@ -134,11 +134,11 @@ request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/r
       console.log('Error getting chat wheel info from d2vpkr');
       process.exit(1);
     }
-    const chat_wheel = vdf.parse(body).chat_wheel.messages;
+    const chatWheel = vdf.parse(body).chat_wheel.messages;
 
-    Object.keys(chat_wheel).forEach((key) => {
-      if (chat_wheel[key].message[0] == '#') {
-        replacements[`chatwheel_${chat_wheel[key].message_id}`] = chat_wheel[key].message.replace(/^#/, '');
+    Object.keys(chatWheel).forEach((key) => {
+      if (chatWheel[key].message[0] === '#') {
+        replacements[`chatwheel_${chatWheel[key].message_id}`] = chatWheel[key].message.replace(/^#/, '');
       }
     });
 
