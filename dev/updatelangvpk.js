@@ -95,7 +95,10 @@ const updateLang = (langTag, langName) => {
 
     Object.keys(replacements).forEach((key) => {
       if ((!lang[key] || lang[key] === englishLang[key]) && (replacements[key] in strings)) {
-        lang[key] = strings[replacements[key]];
+        let result = strings[replacements[key]];
+        result = result.replace(/(\s)%s[0-9]?\s/g, '$1');
+        result = result.replace(/\s?%s[0-9]?\s?/g, '');
+        lang[key] = result;
       }
     });
 
