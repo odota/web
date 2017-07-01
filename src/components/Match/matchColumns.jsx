@@ -26,6 +26,8 @@ import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
+import AvPlayCircleOutline from 'material-ui/svg-icons/av/play-circle-outline';
+import ActionLabel from 'material-ui/svg-icons/action/label';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
 import { IconRadiant, IconDire, IconBackpack } from 'components/Icons';
 import subtextStyle from 'components/Visualizations/Table/subText.css';
@@ -567,8 +569,7 @@ export const chatColumns = [
             <IconRadiant className={styles.iconRadiant} /> :
             <IconDire className={styles.iconDire} />
         }
-      </div>)
-    ,
+      </div>),
   },
   Object.assign({}, heroTdColumn, { sortFn: false }),
   {
@@ -578,7 +579,23 @@ export const chatColumns = [
   }, {
     displayName: strings.th_message,
     field: '',
-    displayFn: row => row.key || row.text,
+    displayFn: (row) => {
+      if (row.type === 'chatwheel') {
+        if (Number(row.key) >= 86) {
+          return (<span>
+            <span
+              style={{ cursor: 'pointer', position: 'relative', top: '6px', marginRight: '3px' }}
+              onClick={() => new Audio(`/assets/chatwheel/dota_chatwheel_${row.key}.wav`).play()}
+            >
+              <AvPlayCircleOutline />
+            </span>
+            <span>{strings[`chatwheel_${row.key}`]}</span>
+          </span>);
+        }
+        return <span><span style={{ position: 'relative', top: '6px', marginRight: '3px' }}><ActionLabel /></span><span>{strings[`chatwheel_${row.key}`]}</span></span>;
+      }
+      return row.key || row.text;
+    },
   },
 ];
 
