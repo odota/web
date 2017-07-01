@@ -1,60 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies, no-console */
 const request = require('request');
 const fs = require('fs');
+const vdf = require('simple-vdf');
 // For updating the opendota-ui lang files with data from the vpk
-
-const kv2json = (text) => {
-  // To temporarily hide non-functional quotes
-  let quote_token = 'TEMP_QUOTE_TOKEN';
-  text = text.replace(/\\"/g, quote_token);
-
-  let value_replaces = {
-    "\t": "\\t",
-    "\n": "\\n",
-    "\r": "\\r"
-  };
-
-  // Remove Comments
-  let in_value = false;
-  let in_comment = false;
-  let result = "";
-  for (var i = 0; i < text.length; i++) {
-    if (in_comment) {
-      if (text[i] == "\n") {
-        in_comment = false;
-        result += text[i];
-      }
-    }
-    else if(text[i] == '"') {
-      in_value = !in_value;
-      result += text[i];
-    }
-    else if(!in_value && text[i] == "/") {
-      in_comment = true;
-    }
-    else if(in_value && text[i] in value_replaces) {
-      result += value_replaces[text[i]];
-    }
-    else {
-      result += text[i];
-    }
-  }
-  text = result;
-
-  // Regex string replacements from:
-  // http://dev.dota2.com/showthread.php?t=87191
-  text = text.replace(/"([^"]*)"(\s*){/g, '"$1": {');
-  text = text.replace(/"([^"]*)"\s*"([^"]*)"/g, '"$1": "$2",');
-  text = text.replace(/,(\s*[}\]])/g, '$1');
-  text = text.replace(/([}\]])(\s*)("[^"]*":\s*)?([{\[])/g, '$1,$2$3$4');
-  text = text.replace(/}(\s*"[^"]*":)/g, '},$1');
-  text = `{${text}}`;
-
-  // To re-include non-functional quotes
-  text = text.replace(quote_token, '\\"');
-
-  return JSON.parse(text);
-}
 
 const dontReplace = [
   'npc_dota_brewmaster_earth_#',
@@ -186,10 +134,10 @@ request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/r
       console.log('Error getting chat wheel info from d2vpkr');
       process.exit(1);
     }
-    const chat_wheel = kv2json(body).chat_wheel.messages;
+    const chat_wheel = vdf.parse(body).chat_wheel.messages;
 
     Object.keys(chat_wheel).forEach((key) => {
-      if (chat_wheel[key].message[0] == "#") {
+      if (chat_wheel[key].message[0] == '#') {
         replacements[`chatwheel_${chat_wheel[key].message_id}`] = chat_wheel[key].message.replace(/^#/, '');
       }
     });
