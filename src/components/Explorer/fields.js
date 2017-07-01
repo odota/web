@@ -129,7 +129,7 @@ const singleFields = [{
 },
 {
   text: strings.th_buybacks,
-  value: 'json_array_length(array_to_json(buyback_log))',
+  value: 'array_length(buyback_log, 1)',
   key: 'buybacks',
 },
 {
@@ -144,12 +144,12 @@ const singleFields = [{
 },
 {
   text: strings.th_obs_placed,
-  value: 'json_array_length(array_to_json(obs_log))',
+  value: 'array_length(obs_log, 1)',
   key: 'obs_placed',
 },
 {
   text: strings.th_sen_placed,
-  value: 'json_array_length(array_to_json(sen_log))',
+  value: 'array_length(sen_log, 1)',
   key: 'sen_placed',
 },
 {
@@ -208,9 +208,10 @@ const fields = (players = [], leagues = [], teams = []) => ({
     },
     {
       text: strings.heading_distinct_heroes,
-      value: 1,
+      value: 'player_matches.hero_id',
       countValue: 'count(distinct player_matches.hero_id) distinct_heroes',
       key: 'distinct_heroes',
+      distinct: true,
     },
     { ...jsonSelect,
       text: strings.heading_item_purchased,

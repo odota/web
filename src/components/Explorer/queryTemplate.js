@@ -27,15 +27,17 @@ const queryTemplate = (props) => {
     query = `SELECT
 hero_id, 
 count(1) total,
-sum(case WHEN is_pick IS TRUE THEN 1 ELSE 0 END) picks, 
-sum(case WHEN is_pick IS FALSE THEN 1 ELSE 0 END) bans,
-sum(case WHEN is_pick IS TRUE AND ord < 8 THEN 1 ELSE 0 END) first_pick, 
-sum(case WHEN is_pick IS FALSE AND ord < 8 THEN 1 ELSE 0 END) first_ban,
-sum(case WHEN is_pick IS TRUE AND ord >= 8 AND ord < 16 THEN 1 ELSE 0 END) second_pick, 
-sum(case WHEN is_pick IS FALSE AND ord >= 8 AND ord < 16 THEN 1 ELSE 0 END) second_ban,
-sum(case WHEN is_pick IS TRUE AND ord >= 16 THEN 1 ELSE 0 END) third_pick, 
-sum(case WHEN is_pick IS FALSE AND ord >= 16 THEN 1 ELSE 0 END) third_ban,
-sum(case WHEN radiant = radiant_win THEN 1 ELSE 0 END)::float/count(1) winrate
+sum(is_pick::int) picks, 
+sum((NOT is_pick)::int) bans,
+sum((is_pick IS TRUE AND ord < 8)::int) first_pick, 
+sum((is_pick IS FALSE AND ord < 8)::int) first_ban,
+sum((is_pick IS TRUE AND ord >= 8 AND ord < 16)::int) second_pick, 
+sum((is_pick IS FALSE AND ord >= 8 AND ord < 16)::int) second_ban,
+sum((is_pick IS TRUE AND ord >= 16)::int) third_pick, 
+sum((is_pick IS FALSE AND ord >= 16)::int) third_ban,
+sum((radiant = radiant_win)::int)::float/count(1) winrate,
+sum((radiant = radiant_win AND is_pick IS TRUE)::int)::float/NULLIF(sum(is_pick::int), 0) pick_winrate,
+sum((radiant = radiant_win AND is_pick IS FALSE)::int)::float/NULLIF(sum((NOT is_pick)::int), 0) ban_winrate
 FROM picks_bans
 JOIN matches using(match_id)
 JOIN match_patch using(match_id)
@@ -60,6 +62,7 @@ ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
     const groupVal = group ? `${group.value}${group.bucket ? ` / ${group.bucket} * ${group.bucket}` : ''}` : null;
     query = `SELECT
+${select && select.distinct && !group ? `DISTINCT ON (${select.value})` : ''}
 ${(group) ?
 [`${group.groupKeySelect || groupVal} ${group.alias || ''}`,
   (select || {}).countValue || '',

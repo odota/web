@@ -68,7 +68,7 @@ class ExplorerOutputSection extends React.Component {
               return transformations.hero_id(row, col, field);
             } else if (column.field.indexOf('account_id') === 0) {
               return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
-            } else if (column.field === 'winrate' || column.field === 'wr_lower_bound') {
+            } else if (column.field.indexOf('winrate') !== -1 || column.field === 'wr_lower_bound') {
               return (field >= 0 && field <= 1 ? <TablePercent
                 percent={Number((field * 100).toFixed(2))}
               /> : null);
