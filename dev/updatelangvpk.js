@@ -96,8 +96,9 @@ const updateLang = (langTag, langName) => {
     Object.keys(replacements).forEach((key) => {
       if ((!lang[key] || lang[key] === englishLang[key]) && (replacements[key] in strings)) {
         let result = strings[replacements[key]];
-        result = result.replace(/(\s)%s[0-9]?\s/g, '$1');
-        result = result.replace(/\s?%s[0-9]?\s?/g, '');
+        if ([ 'chatwheel_71', 'chatwheel_72' ].indexOf(key) >= 0) {
+          result = result.replace(/%s1/, strings['DOTA_Shared_Unit_Control_Hero'])
+        }
         lang[key] = result;
       }
     });
