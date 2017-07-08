@@ -86,8 +86,8 @@ const Overview = ({
 
 const getData = (props) => {
   props.getPlayerRecentMatches(props.playerId);
-  props.getPlayerHeroes(props.playerId, props.location.query);
-  props.getPlayerPeers(props.playerId, props.location.query);
+  props.getPlayerHeroes(props.playerId, props.location.search);
+  props.getPlayerPeers(props.playerId, props.location.search);
   props.getPvgnaHeroGuides();
 };
 

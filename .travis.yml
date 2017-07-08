@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- 'node'
+- '8.1.2'
 notifications:
   email:
   - howardc93@gmail.com

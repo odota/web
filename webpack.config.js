@@ -1,18 +1,15 @@
 /**
  * Webpack configuration file
  **/
-const fs = require('fs');
+// const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const postcssImport = require('postcss-import');
 const postcssCssNext = require('postcss-cssnext');
-const postcssBR = require('postcss-browser-reporter');
-const postcssR = require('postcss-reporter');
 
 const isProd = process.env.NODE_ENV === 'production';
-
+/*
 function HashBundlePlugin() {}
-
 HashBundlePlugin.prototype.apply = (compiler) => {
   compiler.plugin('done', (statsData) => {
     const stats = statsData.toJson();
@@ -26,11 +23,11 @@ HashBundlePlugin.prototype.apply = (compiler) => {
     }
   });
 };
-
+*/
 const config = {
   entry: ['babel-polyfill', path.resolve(__dirname, 'src')],
   output: {
-    filename: `${isProd ? '[hash].' : ''}bundle.js`,
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'build'),
     publicPath: 'build/',
   },
@@ -72,8 +69,6 @@ const config = {
             addDependencyTo: webpack,
           }),
           postcssCssNext(),
-          postcssBR(),
-          postcssR(),
         ],
       },
     }),
@@ -104,7 +99,7 @@ if (!isProd) {
   config.plugins.push(new webpack.NamedModulesPlugin());
 } else {
   config.plugins.push(new webpack.optimize.UglifyJsPlugin());
-  config.plugins.push(new HashBundlePlugin());
+  // config.plugins.push(new HashBundlePlugin());
 }
 
 module.exports = config;

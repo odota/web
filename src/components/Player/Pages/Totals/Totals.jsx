@@ -70,7 +70,7 @@ const Totals = ({ data, error, loading }) => (<div>
 </div>);
 
 const getData = (props) => {
-  props.getPlayerTotals(props.playerId, props.location.query);
+  props.getPlayerTotals(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {

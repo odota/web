@@ -15,7 +15,7 @@ const Pros = ({ data, playerId, error, loading }) => (
 );
 
 const getData = (props) => {
-  props.getPlayerPros(props.playerId, props.location.query);
+  props.getPlayerPros(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {

@@ -17,16 +17,17 @@ import {
   transformations,
   percentile,
   sum,
-  unpackPositionData,
 } from 'utility';
-import Heatmap from 'components/Heatmap';
 import {
   TableHeroImage,
   inflictorWithValue,
 } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
+import { RadioButton } from 'material-ui/RadioButton';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
+import AvPlayCircleOutline from 'material-ui/svg-icons/av/play-circle-outline';
+import ActionLabel from 'material-ui/svg-icons/action/label';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
 import { IconRadiant, IconDire, IconBackpack } from 'components/Icons';
 import subtextStyle from 'components/Visualizations/Table/subText.css';
@@ -319,7 +320,7 @@ export const benchmarksColumns = (match) => {
             const bm = field[key];
             const bucket = percentile(bm.pct);
             const percent = Number(bm.pct * 100).toFixed(2);
-            const value = Number(bm.raw.toFixed(2));
+            const value = Number((bm.raw || 0).toFixed(2));
             return (<div data-tip data-for={`benchmarks_${row.player_slot}_${key}`}>
               <span style={{ color: styles[bucket.color] }}>{`${percent}%`}</span>
               <small style={{ margin: '3px' }}>{value}</small>
@@ -335,6 +336,44 @@ export const benchmarksColumns = (match) => {
   }
   return cols;
 };
+
+const displayFantasyComponent = transform => (row, col, field) => {
+  const score = Number(transform(field).toFixed(2));
+  const raw = Number((field || 0).toFixed(2));
+  return (<div data-tip data-for={`fantasy_${row.player_slot}_${col.field}`}>
+    <span>{score}</span>
+    <small style={{ margin: '3px', color: 'rgb(179, 179, 179)' }}>{raw}</small>
+    <ReactTooltip id={`fantasy_${row.player_slot}_${col.field}`} place="top" effect="solid">
+      {util.format(strings.fantasy_description, raw, score)}
+    </ReactTooltip>
+  </div>);
+};
+
+const fantasyComponents = [
+  { displayName: strings.th_kills, field: 'kills', fantasyFn: v => 0.3 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_deaths, field: 'deaths', fantasyFn: v => 3 - (0.3 * v), get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_last_hits, field: 'last_hits', fantasyFn: v => 0.003 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_denies, field: 'denies', fantasyFn: v => 0.003 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_gold_per_min, field: 'gold_per_min', fantasyFn: v => 0.002 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_towers, field: 'towers_killed', fantasyFn: v => 1 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_roshan, field: 'roshans_killed', fantasyFn: v => 1 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_teamfight_participation, field: 'teamfight_participation', fantasyFn: v => 3 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_observers_placed, field: 'obs_placed', fantasyFn: v => 0.5 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.tooltip_camps_stacked, field: 'camps_stacked', fantasyFn: v => 0.5 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.heading_runes, field: 'rune_pickups', fantasyFn: v => 0.25 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_firstblood_claimed, field: 'firstblood_claimed', fantasyFn: v => 4 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_stuns, field: 'stuns', fantasyFn: v => 0.05 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+];
+
+export const fantasyColumns = [
+  heroTdColumn,
+  { displayName: strings.th_fantasy_points,
+    displayFn: row => fantasyComponents
+      .map(comp => comp.fantasyFn(row[comp.field]))
+      .reduce((a, b) => a + b)
+      .toFixed(2),
+  },
+].concat(fantasyComponents);
 
 export const purchaseTimesColumns = (match) => {
   const cols = [heroTdColumn];
@@ -387,46 +426,6 @@ export const lastHitsTimesColumns = (match) => {
 
 export const performanceColumns = [
   heroTdColumn, {
-    displayName: strings.th_lane,
-    tooltip: strings.tooltip_lane,
-    field: 'lane_role',
-    sortFn: true,
-    displayFn: (row, col, field) => (<div>
-      <span>{strings[`lane_role_${field}`]}</span>
-      {row.is_roaming && <span className={subtextStyle.subText}>{strings.roaming}</span>}
-    </div>),
-  }, {
-    displayName: strings.th_map,
-    tooltip: strings.tooltip_map,
-    field: 'lane_pos',
-    displayFn: (row, col, field) => (field ?
-      <Heatmap width={80} points={unpackPositionData(field)} /> :
-      <div />),
-  }, {
-    displayName: strings.th_lane_efficiency,
-    tooltip: strings.tooltip_lane_efficiency,
-    field: 'lane_efficiency',
-    sortFn: true,
-    displayFn: (row, col, field) => (field ? `${(field * 100).toFixed(2)}%` : '-'),
-    relativeBars: true,
-    sumFn: true,
-  }, {
-    displayName: strings.th_lhten,
-    tooltip: strings.tooltip_lhten,
-    field: 'lh_ten',
-    sortFn: true,
-    displayFn: (row, col, field) => (field || '-'),
-    relativeBars: true,
-    sumFn: true,
-  }, {
-    displayName: strings.th_dnten,
-    tooltip: strings.tooltip_dnten,
-    field: 'dn_ten',
-    sortFn: true,
-    displayFn: (row, col, field) => (field || '-'),
-    relativeBars: true,
-    sumFn: true,
-  }, {
     displayName: strings.th_multikill,
     tooltip: strings.tooltip_multikill,
     field: 'multi_kills_max',
@@ -522,6 +521,43 @@ export const performanceColumns = [
   },
 ];
 
+export const laningColumns = (currentState, setSelectedPlayer) => [
+  { displayFn: (row, col, field, index) => (<RadioButton checked={currentState.selectedPlayer === index} onClick={() => setSelectedPlayer(index)} />) },
+  heroTdColumn, {
+    displayName: strings.th_lane,
+    tooltip: strings.tooltip_lane,
+    field: 'lane_role',
+    sortFn: true,
+    displayFn: (row, col, field) => (<div>
+      <span>{strings[`lane_role_${field}`]}</span>
+      {row.is_roaming && <span className={subtextStyle.subText}>{strings.roaming}</span>}
+    </div>),
+  }, {
+    displayName: strings.th_lane_efficiency,
+    tooltip: strings.tooltip_lane_efficiency,
+    field: 'lane_efficiency',
+    sortFn: true,
+    displayFn: (row, col, field) => (field ? `${(field * 100).toFixed(2)}%` : '-'),
+    relativeBars: true,
+    sumFn: true,
+  }, {
+    displayName: strings.th_lhten,
+    tooltip: strings.tooltip_lhten,
+    field: 'lh_ten',
+    sortFn: true,
+    displayFn: (row, col, field) => (field || '-'),
+    relativeBars: true,
+    sumFn: true,
+  }, {
+    displayName: strings.th_dnten,
+    tooltip: strings.tooltip_dnten,
+    field: 'dn_ten',
+    sortFn: true,
+    displayFn: (row, col, field) => (field || '-'),
+    relativeBars: true,
+    sumFn: true,
+  }];
+
 export const chatColumns = [
   {
     displayName: strings.filter_is_radiant,
@@ -533,8 +569,7 @@ export const chatColumns = [
             <IconRadiant className={styles.iconRadiant} /> :
             <IconDire className={styles.iconDire} />
         }
-      </div>)
-    ,
+      </div>),
   },
   Object.assign({}, heroTdColumn, { sortFn: false }),
   {
@@ -544,7 +579,23 @@ export const chatColumns = [
   }, {
     displayName: strings.th_message,
     field: '',
-    displayFn: row => row.key || row.text,
+    displayFn: (row) => {
+      if (row.type === 'chatwheel') {
+        if (Number(row.key) >= 86) {
+          return (<span>
+            <span
+              style={{ cursor: 'pointer', position: 'relative', top: '6px', marginRight: '3px' }}
+              onClick={() => new Audio(`/assets/chatwheel/dota_chatwheel_${row.key}.wav`).play()}
+            >
+              <AvPlayCircleOutline />
+            </span>
+            <span>{strings[`chatwheel_${row.key}`]}</span>
+          </span>);
+        }
+        return <span><span style={{ position: 'relative', top: '6px', marginRight: '3px' }}><ActionLabel /></span><span>{strings[`chatwheel_${row.key}`]}</span></span>;
+      }
+      return row.key || row.text;
+    },
   },
 ];
 
@@ -610,7 +661,7 @@ export const unitKillsColumns = [
     field: 'specific',
     // TODO make this work for non-english (current names are hardcoded in dotaconstants)
     displayFn: (row, col, field) => (<div>
-      {Object.keys(field).map((unit, index) => (<div key={index}>{`${field[unit]} ${unit}`}</div>))}
+      {Object.keys(field || {}).map((unit, index) => (<div key={index}>{`${field[unit]} ${unit}`}</div>))}
     </div>),
   },
 ];
@@ -785,7 +836,7 @@ export const analysisColumns = [heroTdColumn, {
   displayName: strings.th_analysis,
   field: 'analysis',
   displayFn: (row, col, field) => (
-    Object.keys(field).map((key) => {
+    Object.keys(field || {}).map((key) => {
       const val = field[key];
       val.display = `${val.name}: ${Number(val.value ? val.value.toFixed(2) : '')} / ${Number(val.top.toFixed(2))}`;
       val.pct = val.score(val.value) / val.score(val.top);
@@ -952,7 +1003,7 @@ export const visionColumns = [
     ),
     tooltip: strings.tooltip_used_ward_observer,
     field: 'uses_ward_observer',
-    sortFn: row => (row.item_uses && row.item_uses.ward_observer),
+    sortFn: row => (row.obs_log && row.obs_log.length),
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },
@@ -967,7 +1018,7 @@ export const visionColumns = [
     ),
     tooltip: strings.tooltip_used_ward_sentry,
     field: 'uses_ward_sentry',
-    sortFn: row => (row.item_uses && row.item_uses.ward_sentry),
+    sortFn: row => (row.sen_log && row.sen_log.length),
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },

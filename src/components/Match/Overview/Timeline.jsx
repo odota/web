@@ -38,7 +38,7 @@ const Timeline = ({
     const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
     let fbArr = [{ type: 'firstblood', time: match.first_blood_time || 0 }];
 
-    if (fbIndex > -1) {
+    if (fbIndex > -1 && match.objectives[fbIndex].player_slot !== undefined) {
       const killerLog = match.players.find(player =>
         player.player_slot === match.objectives[fbIndex].player_slot,
       ).kills_log;

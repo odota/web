@@ -18,14 +18,14 @@
   justify-content: flex-start;
   flex-wrap: wrap;
 
-  @media only screen and (max-width: 660px) {
+  @media only screen and (max-width: 768px) {
     flex-direction: column;
     align-items: center;
   }
 }
 
 .stats {
-  @media only screen and (max-width: 660px) {
+  @media only screen and (max-width: 768px) {
     align-self: flex-end;
   }
 }
@@ -39,7 +39,7 @@
 .overviewAvatar {
   box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.4);
 
-  @media only screen and (max-width: 660px) {
+  @media only screen and (max-width: 768px) {
     margin-left: 0 !important;
   }
 }
@@ -56,7 +56,7 @@
 .topContainer {
   composes: row;
 
-  @media only screen and (max-width: 660px) {
+  @media only screen and (max-width: 768px) {
     flex-direction: column;
     align-items: center;
   }

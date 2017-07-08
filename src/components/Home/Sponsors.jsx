@@ -28,6 +28,9 @@ export default () => (
       <a href="http://www.vpgame.com/" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/vp-logo.png" role="presentation" />
       </a>
+      <a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">
+        <img src="/assets/images/netlify.svg" role="presentation" />
+      </a>
     </div>
     <div className={styles.Buttons}>
       <FlatButton

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from 'utility';
 import ReactTooltip from 'react-tooltip';
-import Measure from 'react-measure';
 import classNames from 'classnames';
 import { IconRadiant, IconDire, IconDot } from 'components/Icons';
 import TeamTable from 'components/Match/TeamTable';
@@ -11,6 +10,7 @@ import PlayerThumb from 'components/Match/PlayerThumb';
 import strings from 'lang';
 import Timeline from 'components/Match/Overview/Timeline';
 import DotaMap from 'components/DotaMap';
+import Measure from 'react-measure';
 import styles from './TeamfightMap.css';
 
 const MAP_WIDTH = 400;
@@ -254,7 +254,7 @@ class TeamfightMap extends Component {
 
   render() {
     const { teamfights = [], match } = this.props;
-    const { teamfight } = this.state;
+    const teamfight = this.state.teamfight || {};
     const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
     return (
       <Measure>
@@ -301,7 +301,7 @@ class TeamfightMap extends Component {
                         <Icon style={{ height: iconSize(bindWidth(width, 400)), width: iconSize(bindWidth(width, 400)) }} />
                       </div>
                       <span className={styles.headerGold}><GoldDelta radiantGoldDelta={teamfight.radiant_gold_advantage_delta} /></span>
-                      <div className={styles.muted}>{teamfight.deaths_pos.length} Deaths</div>
+                      <div className={styles.muted}>{(teamfight.deaths_pos || []).length} Deaths</div>
                     </div>
                   </header>
                 </div>

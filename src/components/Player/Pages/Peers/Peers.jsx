@@ -15,7 +15,7 @@ const Peers = ({ data, playerId, error, loading }) => (
 );
 
 const getData = (props) => {
-  props.getPlayerPeers(props.playerId, props.location.query);
+  props.getPlayerPeers(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {

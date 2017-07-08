@@ -17,6 +17,7 @@ import Request from 'components/Request';
 import Distributions from 'components/Distributions';
 import Status from 'components/Status';
 import Matches from 'components/Matches';
+import Teams from 'components/Teams';
 // import Assistant from 'components/Assistant';
 import Records from 'components/Records';
 import Header from '../Header';
@@ -47,35 +48,47 @@ const muiTheme = {
   button: { height: 38 },
 };
 
-const App = ({ open, params, width, location }) => (
-  <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
-    <div
-      className={
+class App extends React.Component {
+  componentWillUpdate(nextProps) {
+    if (this.props.location.key !== nextProps.location.key) {
+      window.scrollTo(0, 0);
+    }
+  }
+
+  render() {
+    const { open, params, width, location } = this.props;
+    return (
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
+        <div
+          className={
         `${open ? styles.drawerOpen : styles.drawerClosed}
         ${styles.container}
         ${location.pathname === '/' && styles.HomeBackground}`
       }
-    >
-      <Helmet
-        defaultTitle={strings.title_default}
-        titleTemplate={strings.title_template}
-      />
-      <Header params={params} location={location} />
-      <div className={styles.body}>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/matches/:matchId?/:info?" component={Matches} />
-        <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
-        <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
-        <Route exact path="/distributions/:info?" component={Distributions} />
-        <Route exact path="/request" component={Request} />
-        <Route exact path="/status" component={Status} />
-        <Route exact path="/explorer" component={Explorer} />
-        <Route exact path="/search" component={Search} />
-        <Route exact path="/records/:info?" component={Records} />
-      </div>
-      <Footer location={location} width={width} />
-    </div>
-  </MuiThemeProvider>
-  );
+        >
+          <Helmet
+            defaultTitle={strings.title_default}
+            titleTemplate={strings.title_template}
+          />
+          <Header params={params} location={location} />
+          <div className={styles.body}>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/matches/:matchId?/:info?" component={Matches} />
+            <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
+            <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
+            <Route exact path="/teams" component={Teams} />
+            <Route exact path="/distributions/:info?" component={Distributions} />
+            <Route exact path="/request" component={Request} />
+            <Route exact path="/status" component={Status} />
+            <Route exact path="/explorer" component={Explorer} />
+            <Route exact path="/search" component={Search} />
+            <Route exact path="/records/:info?" component={Records} />
+          </div>
+          <Footer location={location} width={width} />
+        </div>
+      </MuiThemeProvider>
+    );
+  }
+}
 
 export default connect()(App);

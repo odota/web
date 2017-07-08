@@ -43,7 +43,7 @@ class ExplorerFormField extends React.Component {
         ref={ref => (this.autocomplete = ref)}
         searchText={builder[builderField]
           ? (dataSource.find(element => element.key === builder[builderField]) || {}).text
-          : undefined
+          : ''
         }
         openOnFocus
         listStyle={{ maxHeight: 400, overflow: 'auto' }}

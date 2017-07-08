@@ -1,3 +1,4 @@
+/* global API_HOST */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -23,14 +24,12 @@ import SearchForm from '../Search/SearchForm';
 import AppLogo from '../App/AppLogo';
 import BurgerMenu from '../BurgerMenu';
 
-const tablet = 864;
-const mobile = 425;
-
 const REPORT_BUG_PATH = '//github.com/odota/ui/issues';
 
 const navbarPages = [
   <Link key={strings.header_explorer} to="/explorer">{strings.header_explorer}</Link>,
   <Link key={strings.header_matches} to="/matches">{strings.header_matches}</Link>,
+  <Link key={strings.header_teams} to="/teams">{strings.header_teams}</Link>,
   <Link key={strings.header_heroes} to="/heroes">{strings.header_heroes}</Link>,
   <Link key={strings.header_distributions} to="/distributions">{strings.header_distributions}</Link>,
   <Link key={strings.header_records} to="/records">{strings.header_records}</Link>,
@@ -52,10 +51,10 @@ const buttonProps = {
   children: <ActionSettings />,
 };
 
-const LogoGroup = ({ width }) => (
+const LogoGroup = ({ small }) => (
   <ToolbarGroup className={styles.verticalAlign}>
-    {width < tablet && <BurgerMenu menuItems={burgerItems(width)} />}
-    <AppLogo style={{ marginRight: 18 }} size={width < mobile && '14px'} />
+    {!small && <BurgerMenu menuItems={burgerItems()} />}
+    <AppLogo style={{ marginRight: 18 }} />
   </ToolbarGroup>
 );
 
@@ -82,7 +81,7 @@ const AccountGroup = () => (
   </ToolbarGroup>
 );
 
-const SettingsGroup = ({ width }) => width > mobile && (
+const SettingsGroup = ({ user }) => (
   <Dropdown
     Button={IconButton}
     buttonProps={buttonProps}
@@ -90,7 +89,7 @@ const SettingsGroup = ({ width }) => width > mobile && (
   >
     <LocalizationMenu />
     <ReportBug />
-    <LogOut />
+    {user ? <LogOut /> : null}
   </Dropdown>
 );
 
@@ -121,17 +120,17 @@ const LogOut = () => (
   </a>
 );
 
-const Header = ({ location, width }) => (
+const Header = ({ location, small, user }) => (
   <div>
-    <Toolbar style={{ padding: width < mobile ? '8px' : '20px' }} className={styles.header}>
+    <Toolbar style={{ padding: '8px' }} className={styles.header}>
       <div className={styles.verticalAlign}>
-        <LogoGroup width={width} />
-        {width > tablet && <LinkGroup />}
+        <LogoGroup small={small} />
+        {small && <LinkGroup />}
         <SearchGroup />
       </div>
       <div className={styles.accountGroup}>
-        {width > tablet && <AccountGroup />}
-        {<SettingsGroup width={width} />}
+        {small && <AccountGroup />}
+        {<SettingsGroup user={user} />}
       </div>
     </Toolbar>
     <Announce location={location} />
@@ -146,6 +145,7 @@ const Header = ({ location, width }) => (
 );
 
 const mapStateToProps = state => ({
-  width: state.browser.width,
+  small: state.browser.greaterThan.small,
+  user: state.app.metadata.data.user,
 });
 export default connect(mapStateToProps, null)(Header);

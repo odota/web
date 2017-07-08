@@ -33,7 +33,6 @@ const drawHeatmap = ({
   // scale points by width/127 units to fit to size of map
   // offset points by 25 units to increase visibility
   const adjustedData = scaleAndExtrema(points, width / 127, null, 25);
-  // console.log(adjustedData);
   heatmap.setData(adjustedData);
 };
 

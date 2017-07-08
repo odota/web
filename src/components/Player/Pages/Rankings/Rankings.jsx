@@ -17,7 +17,7 @@ const Rankings = ({ data, error, loading }) => (
 );
 
 const getData = (props) => {
-  props.getPlayerRankings(props.playerId, props.location.query);
+  props.getPlayerRankings(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {

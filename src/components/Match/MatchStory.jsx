@@ -576,7 +576,7 @@ const generateStory = (match) => {
     events.push(new FirstbloodEvent(match,
       match.objectives[fbIndex].time,
       match.objectives[fbIndex].player_slot,
-      killerLog ? killerLog[0].key : null));
+      (Array.isArray(killerLog) && killerLog[0] ? killerLog[0].key : null)));
   }
 
 
@@ -678,7 +678,7 @@ class MatchStory extends React.Component {
       if (e.stack) {
         exmsg += ` | stack: ${e.stack}`;
       }
-      console.log(exmsg);
+      console.error(exmsg);
       return (<div>{strings.story_error}</div>);
     }
   }

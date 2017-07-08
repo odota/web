@@ -14,7 +14,7 @@ const MMR = ({ columns, error, loading }) => (
 );
 
 const getData = (props) => {
-  props.getPlayerMmr(props.playerId, props.location.query);
+  props.getPlayerMmr(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {

@@ -6,6 +6,7 @@ import transformHistograms from 'actions/transformHistograms';
 import transformTrends from 'actions/transformTrends';
 import transformRankings from 'actions/transformRankings';
 import action from 'actions/action';
+import querystring from 'querystring';
 
 export const getMetadata = () => action('metadata', API_HOST, 'api/metadata');
 export const getMatch = matchId => action('match', API_HOST, `api/matches/${matchId}`, {}, transformMatch);
@@ -39,13 +40,13 @@ export const getGithubPulls = merged => action('ghPulls', 'https://api.github.co
 export const getPlayer = accountId => action('player', API_HOST, `api/players/${accountId}`);
 export const getPlayerWinLoss = (accountId, params) => action('playerWinLoss', API_HOST, `api/players/${accountId}/wl`, params);
 export const getPlayerRecentMatches = (accountId, params) => action('playerRecentMatches', API_HOST, `api/players/${accountId}/recentMatches`, params);
-export const getPlayerMatches = (accountId, params) => action('playerMatches', API_HOST, `api/players/${accountId}/matches`, params);
+export const getPlayerMatches = (accountId, params) => action('playerMatches', API_HOST, `api/players/${accountId}/matches`, { ...querystring.parse(params.substring(1)), significant: 0 });
 export const getPlayerPeers = (accountId, params) => action('playerPeers', API_HOST, `api/players/${accountId}/peers`, params);
 export const getPlayerHeroes = (accountId, params) => action('playerHeroes', API_HOST, `api/players/${accountId}/heroes`, params);
 export const getPlayerPros = (accountId, params) => action('playerPros', API_HOST, `api/players/${accountId}/pros`, params);
 export const getPlayerHistograms = (accountId, params, field) => action('playerHistograms', API_HOST, `api/players/${accountId}/histograms/${field}`, params, transformHistograms);
-export const getPlayerRecords = (accountId, params, field) => action('playerRecords', API_HOST, `api/players/${accountId}/matches`, { ...params, sort: field, limit: 20 });
-export const getPlayerTrends = (accountId, params, field) => action('playerTrends', API_HOST, `api/players/${accountId}/matches`, params, transformTrends(field));
+export const getPlayerRecords = (accountId, params, field) => action('playerRecords', API_HOST, `api/players/${accountId}/matches`, { ...querystring.parse(params.substring(1)), sort: field, limit: 20 });
+export const getPlayerTrends = (accountId, params, field) => action('playerTrends', API_HOST, `api/players/${accountId}/matches`, { ...querystring.parse(params.substring(1)), limit: 500, project: [field, 'hero_id', 'start_time'] }, transformTrends(field));
 export const getPlayerCounts = (accountId, params) => action('playerCounts', API_HOST, `api/players/${accountId}/counts`, params, transformCounts);
 export const getPlayerItems = (accountId, params) => action('playerItems', API_HOST, `api/players/${accountId}/items`, params);
 export const getPlayerWardmap = (accountId, params) => action('playerWardmap', API_HOST, `api/players/${accountId}/wardmap`, params);

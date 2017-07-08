@@ -15,7 +15,7 @@ const Heroes = ({ data, playerId, error, loading }) => (
 );
 
 const getData = (props) => {
-  props.getPlayerHeroes(props.playerId, props.location.query);
+  props.getPlayerHeroes(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {

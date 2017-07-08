@@ -85,11 +85,7 @@ const Trend = ({ routeParams, columns, playerId, error, loading, history }) => {
 
 const getData = (props) => {
   const trendName = props.routeParams.subInfo || trendNames[0];
-  props.getPlayerTrends(
-    props.playerId,
-    { ...props.location.query, limit: 500, project: [trendName, 'hero_id', 'start_time'] },
-    trendName,
-  );
+  props.getPlayerTrends(props.playerId, props.location.search, trendName);
 };
 
 class RequestLayer extends React.Component {

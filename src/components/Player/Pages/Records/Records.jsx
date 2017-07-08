@@ -39,7 +39,7 @@ const Records = ({ routeParams, data, error, loading, playerId, history }) => {
 };
 
 const getData = (props) => {
-  props.getPlayerRecords(props.playerId, props.location.query, props.routeParams.subInfo || recordsColumns[0]);
+  props.getPlayerRecords(props.playerId, props.location.search, props.routeParams.subInfo || recordsColumns[0]);
 };
 
 class RequestLayer extends React.Component {

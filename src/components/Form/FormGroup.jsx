@@ -2,9 +2,36 @@ import React from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 import { blue, red } from 'components/palette.css';
 import strings from 'lang';
+import querystring from 'querystring';
 import ChipList from './ChipList';
 
-function formField({ formSelectionState, addChip, deleteChip }) {
+const addChipDefault = (name, input, limit, history) => {
+  const query = querystring.parse(window.location.search.substring(1));
+  const field = [input.value].concat(query[name] || []).slice(0, limit);
+  const newQuery = {
+    ...query,
+    [name]: field,
+  };
+  history.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
+};
+
+const deleteChipDefault = (name, index, history) => {
+  const query = querystring.parse(window.location.search.substring(1));
+  const field = [].concat(query[name] || []);
+  const newQuery = {
+    ...query,
+    [name]: [
+      ...field.slice(0, index),
+      ...field.slice(index + 1),
+    ],
+  };
+  if (!newQuery[name].length) {
+    delete newQuery[name];
+  }
+  history.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
+};
+
+function formField({ formSelectionState, history, addChip, deleteChip }) {
   return class extends React.Component {
     constructor(props) {
       super(props);
@@ -57,7 +84,7 @@ function formField({ formSelectionState, addChip, deleteChip }) {
       }
 
       this.handleUpdateInput('');
-      addChip(name, input, limit);
+      addChip(name, input, limit, history);
     }
 
     handleUpdateInput(searchText) {
@@ -100,18 +127,17 @@ function formField({ formSelectionState, addChip, deleteChip }) {
           searchText={searchText}
           errorText={errorText}
           style={{ flex: '1 0 0' }}
-          listStyle={{ textTransform: 'uppercase' }}
           floatingLabelFocusStyle={{ color: errorText ? red : blue }}
           underlineFocusStyle={{ borderColor: blue }}
           errorStyle={{ color: red }}
           onClose={() => this.setState({ errorText: '' })}
         />
-        <ChipList name={name} chipList={chipList} deleteChip={deleteChip} />
+        <ChipList name={name} chipList={chipList} deleteChip={deleteChip} history={history} />
       </div>);
     }
   };
 }
 
-export default ({ children, formSelectionState, addChip, deleteChip }) => (
-  children(formField({ formSelectionState, addChip, deleteChip }))
+export default ({ children, formSelectionState, history, addChip, deleteChip }) => (
+  children(formField({ formSelectionState, history, addChip: addChip || addChipDefault, deleteChip: deleteChip || deleteChipDefault }))
 );
