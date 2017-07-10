@@ -685,7 +685,7 @@
   "th_rating":"Рейтинг",
   "th_teamfight_participation":"Участие",
   "th_firstblood_claimed":"Первая кровь",
-  "th_observers_placed":"Варды",
+  "th_observers_placed":"Observers",
   "ward_log_type":"Тип",
   "ward_log_owner":"Владелец",
   "ward_log_entered_at":"Размещение",
