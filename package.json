@@ -69,7 +69,7 @@
     "chai-enzyme": "^0.7.0",
     "css-loader": "^0.28.4",
     "css-modules-require-hook": "^4.0.5",
-    "dirty-chai": "^1.2.2",
+    "dirty-chai": "^2.0.1",
     "enzyme": "2.9.1",
     "eslint": "^4.1.0",
     "eslint-config-airbnb": "^15.0.1",
