@@ -126,15 +126,6 @@ const formatList = (items, noneValue = []) => {
   }
 };
 
-// is given a hero in the format of npc_dota_hero_{heroname}, and returns the player corresponding to that hero, else undefined
-const heroToPlayer = (match, heroname) => match.players.find((player) => {
-  const hero = heroes[player.hero_id];
-  if (!hero) {
-    return false;
-  }
-  return hero.name === heroname;
-});
-
 // Abstract class
 class StoryEvent {
   constructor(time) {
@@ -360,7 +351,7 @@ class TowerEvent extends StoryEvent {
         top: 3,
         '': 2,
       }[groups[3]];
-      this.player = heroToPlayer(match, obj.unit);
+      this.player = match.players.find(player => player.player_slot === obj.player_slot);
     } else if (obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY') {
       this.player = match.players.find(player => player.player_slot === obj.player_slot);
       this.team = obj.type === 'CHAT_MESSAGE_TOWER_DENY' ? this.player.isRadiant : obj.team !== 2;
@@ -391,7 +382,7 @@ class BarracksEvent extends StoryEvent {
         mid: 2,
         top: 3,
       }[groups[3]];
-      this.player = heroToPlayer(match, obj.unit);
+      this.player = match.players.find(player => player.player_slot === obj.player_slot);
     } else if (obj.type === 'CHAT_MESSAGE_BARRACKS_KILL') {
       this.team = obj.key >= 64;
       this.key = obj.key < 64 ? obj.key : obj.key / 64;
