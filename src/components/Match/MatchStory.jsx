@@ -326,41 +326,70 @@ class LanesEvent extends StoryEvent {
   }
 }
 
+// returnes a formatted template when given a TowerEvent or BarracksEvent
+const formatBuilding = (event) => {
+  let template = strings.story_building_destroy;
+  if (event.player) {
+    template = event.player.isRadiant === event.team ? strings.story_building_deny_player : strings.story_building_destroy_player;
+  }
+  return formatTemplate(template, {
+    building: event.localizedBuilding,
+    player: event.player ? PlayerSpan(event.player) : null,
+  });
+};
+
 class TowerEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
-    this.is_deny = obj.type === 'CHAT_MESSAGE_TOWER_DENY';
-    this.player = match.players.find(player => player.player_slot === obj.player_slot);
-    if (this.is_deny) {
-      this.team = this.player.isRadiant;
-    } else {
-      this.team = obj.team !== 2;
-    }
-    if (!this.player) {
-      this.template = strings.story_building_destroy;
-    } else {
-      this.template = this.is_deny ? strings.story_building_deny_player : strings.story_building_destroy_player;
+    if (obj.type === 'building_kill') {
+      const groups = /npc_dota_(good|bad)guys_tower(1|2|3|4)_?(bot|mid|top|)/.exec(obj.key);
+      this.team = groups[1] === 'good';
+      this.tier = parseInt(groups[2], 10);
+      this.lane = {
+        bot: 1,
+        mid: 2,
+        top: 3,
+        '': 2,
+      }[groups[3]];
+      this.player = match.players.find(player => player.player_slot === obj.player_slot);
+    } else if (obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY') {
+      this.player = match.players.find(player => player.player_slot === obj.player_slot);
+      this.team = obj.type === 'CHAT_MESSAGE_TOWER_DENY' ? this.player.isRadiant : obj.team !== 2;
     }
   }
   get localizedBuilding() {
-    return formatTemplate(strings.story_tower, { team: TeamSpan(this.team) });
+    const template = this.tier === undefined ? strings.story_tower_simple : strings.story_tower;
+    return formatTemplate(template, {
+      team: TeamSpan(this.team),
+      tier: this.tier,
+      lane: localizedLane[this.lane],
+    });
   }
   format() {
-    return formatTemplate(this.template, {
-      building: this.localizedBuilding,
-      player: this.player ? PlayerSpan(this.player) : null,
-    });
+    return formatBuilding(this);
   }
 }
 
 class BarracksEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
-    this.team = obj.key >= 64;
-    this.key = obj.key < 64 ? obj.key : obj.key / 64;
-    const power = Math.log2(this.key);
-    this.is_melee = (power % 2) === 0;
-    this.lane = Math.floor(power / 2) + 1;
+    if (obj.type === 'building_kill') {
+      const groups = /npc_dota_(good|bad)guys_(range|melee)_rax_(bot|mid|top)/.exec(obj.key);
+      this.team = groups[1] === 'good';
+      this.is_melee = groups[2] === 'melee';
+      this.lane = {
+        bot: 1,
+        mid: 2,
+        top: 3,
+      }[groups[3]];
+      this.player = match.players.find(player => player.player_slot === obj.player_slot);
+    } else if (obj.type === 'CHAT_MESSAGE_BARRACKS_KILL') {
+      this.team = obj.key >= 64;
+      this.key = obj.key < 64 ? obj.key : obj.key / 64;
+      const power = Math.log2(this.key);
+      this.is_melee = (power % 2) === 0;
+      this.lane = Math.floor(power / 2) + 1;
+    }
   }
   get localizedBuilding() {
     return formatTemplate(strings.story_barracks, {
@@ -370,7 +399,7 @@ class BarracksEvent extends StoryEvent {
     });
   }
   format() {
-    return formatTemplate(strings.story_building_destroy, { building: this.localizedBuilding });
+    return formatBuilding(this);
   }
 }
 
@@ -600,11 +629,20 @@ const generateStory = (match) => {
     events.push(new LanesEvent(match));
   }
 
+  // New Buildings Events
+  match.objectives.filter(obj => obj.type === 'building_kill').forEach((obj) => {
+    if (obj.key.includes('tower')) {
+      events.push(new TowerEvent(match, obj));
+    } else if (obj.key.includes('rax')) {
+      events.push(new BarracksEvent(match, obj));
+    }
+  });
+
+  // Old Buildings Events
   // Towers
   events = events.concat(match.objectives
       .filter(obj => obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY')
       .map(obj => new TowerEvent(match, obj)));
-
   // Barracks
   events = events.concat(match.objectives
       .filter(obj => obj.type === 'CHAT_MESSAGE_BARRACKS_KILL')
