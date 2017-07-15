@@ -127,15 +127,13 @@ const formatList = (items, noneValue = []) => {
 };
 
 // is given a hero in the format of npc_dota_hero_{heroname}, and returns the player corresponding to that hero, else undefined
-const heroToPlayer = (match, heroname) => {
-  return match.players.find(player => {
-    var hero = heroes[player.hero_id];
-    if(!hero) {
-      return false;
-    }
-    return hero.name === heroname;
-  })
-}
+const heroToPlayer = (match, heroname) => match.players.find((player) => {
+  const hero = heroes[player.hero_id];
+  if (!hero) {
+    return false;
+  }
+  return hero.name === heroname;
+});
 
 // Abstract class
 class StoryEvent {
@@ -339,43 +337,41 @@ class LanesEvent extends StoryEvent {
 
 // returnes a formatted template when given a TowerEvent or BarracksEvent
 const formatBuilding = (event) => {
-  var template = strings.story_building_destroy;
-  if(event.player){
+  let template = strings.story_building_destroy;
+  if (event.player) {
     template = event.player.isRadiant === event.team ? strings.story_building_deny_player : strings.story_building_destroy_player;
   }
   return formatTemplate(template, {
     building: event.localizedBuilding,
     player: event.player ? PlayerSpan(event.player) : null,
   });
-}
+};
 
 class TowerEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
-    if(obj.type === 'building_kill'){
-      var groups = /npc_dota_(good|bad)guys_tower(1|2|3|4)_?(bot|mid|top|)/.exec(obj.key);
+    if (obj.type === 'building_kill') {
+      const groups = /npc_dota_(good|bad)guys_tower(1|2|3|4)_?(bot|mid|top|)/.exec(obj.key);
       this.team = groups[1] === 'good';
       this.tier = parseInt(groups[2], 10);
       this.lane = {
         bot: 1,
         mid: 2,
         top: 3,
-        '': 2
+        '': 2,
       }[groups[3]];
       this.player = heroToPlayer(match, obj.unit);
-    }
-    else if(obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY') {
-      var is_deny = obj.type === 'CHAT_MESSAGE_TOWER_DENY';
+    } else if (obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY') {
       this.player = match.players.find(player => player.player_slot === obj.player_slot);
-      this.team = is_deny ? this.player.isRadiant : obj.team !== 2;
+      this.team = obj.type === 'CHAT_MESSAGE_TOWER_DENY' ? this.player.isRadiant : obj.team !== 2;
     }
   }
   get localizedBuilding() {
-    var template = this.tier === undefined ? strings.story_tower_simple : strings.story_tower;
-    return formatTemplate(template, { 
+    const template = this.tier === undefined ? strings.story_tower_simple : strings.story_tower;
+    return formatTemplate(template, {
       team: TeamSpan(this.team),
       tier: this.tier,
-      lane: localizedLane[this.lane]
+      lane: localizedLane[this.lane],
     });
   }
   format() {
@@ -386,18 +382,17 @@ class TowerEvent extends StoryEvent {
 class BarracksEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
-    if(obj.type == 'building_kill'){
-      var groups = /npc_dota_(good|bad)guys_(range|melee)_rax_(bot|mid|top)/.exec(obj.key);
+    if (obj.type === 'building_kill') {
+      const groups = /npc_dota_(good|bad)guys_(range|melee)_rax_(bot|mid|top)/.exec(obj.key);
       this.team = groups[1] === 'good';
       this.is_melee = groups[2] === 'melee';
       this.lane = {
         bot: 1,
         mid: 2,
-        top: 3
+        top: 3,
       }[groups[3]];
       this.player = heroToPlayer(match, obj.unit);
-    }
-    else if(obj.type == 'CHAT_MESSAGE_BARRACKS_KILL'){
+    } else if (obj.type === 'CHAT_MESSAGE_BARRACKS_KILL') {
       this.team = obj.key >= 64;
       this.key = obj.key < 64 ? obj.key : obj.key / 64;
       const power = Math.log2(this.key);
@@ -644,11 +639,10 @@ const generateStory = (match) => {
   }
 
   // New Buildings Events
-  match.objectives.filter(obj => obj.type === 'building_kill').forEach(obj => {
-    if(obj.key.includes('tower')) {
+  match.objectives.filter(obj => obj.type === 'building_kill').forEach((obj) => {
+    if (obj.key.includes('tower')) {
       events.push(new TowerEvent(match, obj));
-    }
-    else if(obj.key.includes('rax')) {
+    } else if (obj.key.includes('rax')) {
       events.push(new BarracksEvent(match, obj));
     }
   });
