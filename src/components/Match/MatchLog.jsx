@@ -21,7 +21,13 @@ const typeConfig = {
   runes: 2,
 };
 const getObjectiveDesc = objective => (objective.key && objective.type === 'CHAT_MESSAGE_BARRACKS_KILL' ? strings[`barracks_value_${objective.key}`] : '');
-const getObjectiveBase = objective => strings[objective.subtype || objective.type] || objective.subtype || objective.type;
+const getObjectiveBase = (objective) => {
+  if (objective.type === 'building_kill') {
+    const desc = objective.key.indexOf('npc_dota_badguys') === 0 ? strings.general_dire : strings.general_radiant;
+    return `${desc} ${(objective.key.split('guys_') || [])[1]}`;
+  }
+  return strings[objective.subtype || objective.type] || objective.subtype || objective.type;
+};
 const generateLog = (match, { types, players }) => {
   let log = [];
   const matchPlayers = !players.length
@@ -31,7 +37,8 @@ const generateLog = (match, { types, players }) => {
   if (types.includes(typeConfig.objectives)) {
     log = (match.objectives || []).reduce((objectivesLog, objective) => {
       if (!players.length || players.includes(objective.slot)) {
-        let name = matchPlayers.name;
+        /*
+        let name;
         if (objective.slot === -1) {
           if (objective.team === 2) {
             name = strings.general_radiant;
@@ -39,10 +46,10 @@ const generateLog = (match, { types, players }) => {
             name = strings.general_dire;
           }
         }
+        */
         objectivesLog.push({
           ...objective,
           ...matchPlayers[objective.slot],
-          name,
           type: 'objectives',
           detail: `${getObjectiveDesc(objective)} ${getObjectiveBase(objective)}`,
         });
