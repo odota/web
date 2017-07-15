@@ -21,6 +21,7 @@ const queryTemplate = (props) => {
     order,
     tier,
     having,
+    limit,
   } = props;
   let query;
   if (select && select.template === 'picks_bans') {
@@ -122,7 +123,7 @@ ORDER BY ${
 [`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(order && order.value) || (select && select.order) || 'DESC'}`,
   group ? 'count DESC' : '',
 ].filter(Boolean).join(',')} NULLS LAST
-LIMIT 200`;
+LIMIT ${limit ? limit.value : 200}`;
   }
   return query
   // Remove extra newlines

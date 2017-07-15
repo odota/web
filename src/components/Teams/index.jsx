@@ -6,7 +6,8 @@ import strings from 'lang';
 import { getTeams } from 'actions';
 import Heading from 'components/Heading';
 import Table from 'components/Table';
-import { getOrdinal } from 'utility';
+import { getOrdinal, fromNow } from 'utility';
+import subTextStyle from 'components/Visualizations/Table/subText.css';
 
 const columns = [{
   displayName: strings.th_rank,
@@ -15,6 +16,13 @@ const columns = [{
 {
   displayName: strings.th_name,
   field: 'name',
+  displayFn: (row, col, field) => (
+    <div>
+      <span>{field}</span>
+      <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+        {fromNow(row.last_match_time)}
+      </span>
+    </div>),
 }, {
   displayName: strings.th_rating,
   field: 'rating',
@@ -47,7 +55,7 @@ class RequestLayer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  data: state.app.teams.data,
+  data: state.app.teams.data.filter(team => team.last_match_time > ((new Date() / 1000) - (60 * 60 * 24 * 30 * 6))),
   loading: state.app.teams.loading,
 });
 

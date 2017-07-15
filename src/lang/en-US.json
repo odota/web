@@ -148,6 +148,7 @@
   "explorer_desc": "Descending",
   "explorer_tier": "Tier",
   "explorer_having": "At Least This Many Matches",
+  "explorer_limit": "Limit",
 
   "farm_heroes": "Heroes killed",
   "farm_creeps": "Lane creeps killed",
