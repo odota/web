@@ -8,8 +8,7 @@ import ReactTooltip from 'react-tooltip';
 import Table from 'components/Table';
 import heroes from 'dotaconstants/build/heroes.json';
 import heroNames from 'dotaconstants/build/hero_names.json';
-import Form from 'components/Form/Form';
-import FormGroup from 'components/Form/FormGroup';
+import FormField from 'components/Form/FormField';
 import styles from './Match.css';
 import {
   heroTdColumn,
@@ -177,30 +176,26 @@ class MatchLog extends React.Component {
     return (
       <div>
         {runeTooltips}
-        <Form name="logFilterForm">
-          <FormGroup
-            formSelectionState={this.state}
+        <div className={styles.logFilterForm}>
+          <FormField
+            name="types"
+            label={strings.ward_log_type}
+            dataSource={this.typesSource}
             addChip={this.addChip}
             deleteChip={this.deleteChip}
-          >
-            {Field => (
-              <div className={styles.logFilterForm}>
-                <Field
-                  name="types"
-                  label={strings.ward_log_type}
-                  dataSource={this.typesSource}
-                  strict
-                />
-                <Field
-                  name="players"
-                  label={strings.log_heroes}
-                  dataSource={this.playersSource}
-                  strict
-                />
-              </div>
-            )}
-          </FormGroup>
-        </Form>
+            formSelectionState={this.state}
+            strict
+          />
+          <FormField
+            name="players"
+            label={strings.log_heroes}
+            dataSource={this.playersSource}
+            addChip={this.addChip}
+            deleteChip={this.deleteChip}
+            formSelectionState={this.state}
+            strict
+          />
+        </div>
         <Table data={logData} columns={logColumns} />
       </div>
     );

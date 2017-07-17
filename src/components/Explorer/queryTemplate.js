@@ -23,6 +23,12 @@ const queryTemplate = (props) => {
     having,
     limit,
   } = props;
+  // array inputs
+  // hero
+  // player
+  // league
+  // team
+  // organization
   let query;
   if (select && select.template === 'picks_bans') {
     query = `SELECT

@@ -157,6 +157,7 @@ class Explorer extends React.Component {
     // Note that this will not get expanded data for API-dependent fields (player/league/team)
     // This is ok if we only need the value prop (e.g. an id to build the query with)
     const expandedBuilder = expandBuilderState(this.state.builder, fields());
+    // TODO handle arrays
     this.editor.setValue(queryTemplate(expandedBuilder));
   }
   render() {
