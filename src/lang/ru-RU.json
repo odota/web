@@ -516,7 +516,7 @@
   "story_building_deny_player":"{player} не отдал {building}",
   "story_building_list_destroy":"{buildings} разрушена",
   "story_tower":"{team}'s Tier {tier} {lane} tower",
-  "story_tower_simple":"one of {team}'s towers",
+  "story_tower_simple":"одна из башен",
   "story_towers_n":"{n} вышки команды {team}",
   "story_barracks":"{rax_type} команды {team} ({lane} линия)",
   "story_barracks_both":"обе казармы команды {team} ({lane} линия)",
