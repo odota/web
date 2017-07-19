@@ -66,7 +66,7 @@ ${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
 ${minDate ? `AND matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
 ${maxDate ? `AND matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${tier ? `AND leagues.tier = '${tier.value}'` : ''}
-${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 3214108, 3331948, 4593831)' : ''}
+${isTi7Team ? 'AND team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 3214108, 3331948, 4593831)' : ''}
 GROUP BY hero_id
 ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
