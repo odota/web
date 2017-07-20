@@ -369,6 +369,10 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     text: strings.explorer_organization,
     value: 'team_match.team_id',
     key: 'organization',
+  }, {
+    text: strings.explorer_match,
+    value: 'matches.match_id',
+    key: 'match',
   },
   ].concat(singleFields),
   minPatch: patches,

@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import HardwareKeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import styles from '../palette.css';
 
-const TableLink = ({ to, children }) => (
-  <Link to={to}>
+const TableLink = ({ to, children, target }) => (
+  <Link to={to} target={target}>
     {children}
     <HardwareKeyboardArrowRight
       style={{
