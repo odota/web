@@ -164,49 +164,49 @@ const predictionArray = [
   },
   {
     title: 'Tournament heroes picked',
-    prediction: '111',
-    link: '/explorer?group=&isTi7Team=&minDate=2017-07-08T07%3A00%3A00.000Z&select=picks_bans&having=&order=&maxDate=2017-07-18T07%3A00%3A00.000Z',
-    notes: 'Tournament predictions based on ~200 recent matches',
+    prediction: '73',
+    link: '/explorer?group=&isTi7Team=true&minDate=2017-06-27T07%3A00%3A00.000Z&select=picks_bans&having=&order=&maxDate=2017-07-18T07%3A00%3A00.000Z',
+    notes: 'Tournament predictions based on ~170 recent matches',
   },
   {
     title: 'Tournament heroes banned',
-    prediction: '102',
-    link: '/explorer?group=&isTi7Team=&minDate=2017-07-08T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=picks_bans&having=&order=',
+    prediction: '60',
+    link: '/explorer?group=&isTi7Team=true&minDate=2017-06-27T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=picks_bans&having=&order=',
   },
   {
     title: 'Tournament most kills in a game',
-    prediction: '115',
-    link: '/explorer?group=match&isTi7Team=&minDate=2017-07-08T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=kills&having=&order=',
+    prediction: '73',
+    link: '/explorer?group=match&isTi7Team=true&minDate=2017-06-27T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=kills&having=&order=',
   },
   {
     title: 'Tournament longest game',
     prediction: '69:12',
-    link: '/explorer?group=&isTi7Team=true&minDate=2017-07-08T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=duration&having=&limit=',
+    link: '/explorer?group=&isTi7Team=true&minDate=2017-06-27T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=duration&having=&limit=',
   },
   {
     title: 'Tournament shortest game',
     prediction: '17:54',
-    link: '/explorer?group=&isTi7Team=true&minDate=2017-07-08T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=duration&having=&order=asc',
+    link: '/explorer?group=&isTi7Team=true&minDate=2017-06-27T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=duration&having=&order=asc',
   },
   {
     title: 'Tournament most kills by a hero in a game',
     prediction: '20',
-    link: '/explorer?group=&isTi7Team=true&minDate=2017-07-08T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=kills&having=&limit=',
+    link: '/explorer?group=&isTi7Team=true&minDate=2017-06-27T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=kills&having=&limit=',
   },
   {
     title: 'Tournament most deaths by a hero in a game',
     prediction: '14',
-    link: '/explorer?group=&isTi7Team=true&minDate=2017-07-08T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=deaths&having=&limit=',
+    link: '/explorer?group=&isTi7Team=true&minDate=2017-06-27T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=deaths&having=&limit=',
   },
   {
     title: 'Tournament most assists by a hero in a game',
     prediction: '32',
-    link: '/explorer?group=&isTi7Team=true&minDate=2017-07-08T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=assists&having=&limit=',
+    link: '/explorer?group=&isTi7Team=true&minDate=2017-06-27T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=assists&having=&limit=',
   },
   {
     title: 'Tournament highest GPM by a hero in a game',
     prediction: '814',
-    link: '/explorer?group=&isTi7Team=true&minDate=2017-07-08T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=gold_per_min&having=&limit=',
+    link: '/explorer?group=&isTi7Team=true&minDate=2017-06-27T07%3A00%3A00.000Z&maxDate=2017-07-18T07%3A00%3A00.000Z&select=gold_per_min&having=&limit=',
   },
 ];
 
