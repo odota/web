@@ -12,11 +12,11 @@ import styles from './Hero.css';
 
 const getSingleHero = heroId => ({ ...heroes[heroId], img: API_HOST + heroes[heroId].img });
 
-const tabs = (heroId) => ([
-  { 
+const tabs = heroId => ([
+  {
     name: strings.tab_rankings,
     key: 'rankings',
-    content: (props) => (<div>
+    content: props => (<div>
       <Heading title={strings.tab_rankings} subtitle={strings.rankings_description} />
       <Ranking {...props} />
     </div>),
@@ -25,7 +25,7 @@ const tabs = (heroId) => ([
   {
     name: strings.tab_benchmarks,
     key: 'benchmarks',
-    content: (props) => (<div>
+    content: props => (<div>
       <Heading title={strings.tab_benchmarks} />
       <Benchmark {...props} />
     </div>),
@@ -47,11 +47,11 @@ const Hero = ({ props }) => {
       <img role="presentation" src={getSingleHero(props.match.params.heroId).img} className={styles.image} />
     </div>
     <div>
-    <TabBar
-      info={route}
-      tabs={tabs(heroId)}
-    />
-    {tabs(heroId).filter(tab => tab.key === route).map(tab => tab.content(props))}
+      <TabBar
+        info={route}
+        tabs={tabs(heroId)}
+      />
+      {tabs(heroId).filter(tab => tab.key === route).map(tab => tab.content(props))}
     </div>
   </div>);
 };
