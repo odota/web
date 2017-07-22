@@ -139,6 +139,7 @@
   "explorer_tier":"Tier",
   "explorer_having":"At Least This Many Matches",
   "explorer_limit":"Limit",
+  "explorer_match":"Match",
   "farm_heroes":"Héros tués",
   "farm_creeps":"Creeps de lane tués",
   "farm_neutrals":"Creeps neutres tués (incluant les Anciens)",
