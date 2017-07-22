@@ -1,0 +1,87 @@
+@import '../../palette.css';
+
+.Chat {
+  padding-left: 32px;
+
+  & .radiant,
+  & .dire {
+    display: flex;
+    align-items: flex-end;
+
+    &:not(:last-of-type) {
+      padding-bottom: 10px;
+    }
+
+    & svg.icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    & time {
+      display: inline-block;
+      width: 54px;
+      text-align: center;
+
+      & a {
+        font-size: var(--fontSizeSmall);
+        margin: 2px;
+      }
+    }
+
+    & time,
+    & time > a {
+      color: var(--colorMutedLight);
+    }
+
+    & img {
+      height: 20px;
+    }
+
+    & .author {
+      font-size: 15px;
+      font-weight: var(--fontWeightMedium);
+      margin: 0 8px;
+
+      & span {
+        font-size: var(--fontSizeSmall);
+        color: var(--colorMutedLight);
+        display: block;
+      }
+    }
+
+    & article {
+      & svg {
+        width: 18px !important;
+        height: 18px !important;
+        vertical-align: sub;
+        margin-right: 5px;
+        border-radius: 50%;
+        background-color: var(--colorBlueMuted);
+
+        &.play {
+          &:hover {
+            cursor: pointer;
+            background-color: var(--colorBlue);
+            color: var(--primarySurfaceColor) !important;
+          }
+        }
+      }
+    }
+  }
+
+  & .radiant {
+    & svg.icon {
+      fill: var(--colorSuccess);
+    }
+  }
+
+  & .dire {
+    & svg.icon {
+      fill: var(--colorDanger);
+    }
+  }
+
+  & .disabled {
+    pointer-events: none;
+  }
+}
