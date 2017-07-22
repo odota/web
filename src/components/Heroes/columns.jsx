@@ -3,6 +3,7 @@ import {
   abbreviateNumber,
 } from 'utility';
 import strings from 'lang';
+import heroes from 'dotaconstants/build/heroes.json';
 
 const decimalToCount = (decimal, total) => (
   total &&
@@ -15,6 +16,7 @@ const heroColumn = {
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
   displayFn: transformations.hero_id,
+  sortFn: (row) => (heroes[row.hero_id] && heroes[row.hero_id].localized_name),
 };
 
 export default {

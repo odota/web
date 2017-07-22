@@ -8,6 +8,7 @@ import Heading from 'components/Heading';
 import Table from 'components/Table';
 import TabBar from 'components/TabBar';
 import Hero from 'components/Hero';
+import heroes from 'dotaconstants/build/heroes.json';
 import {
   sum,
   abbreviateNumber,
@@ -42,6 +43,7 @@ class RequestLayer extends React.Component {
       return {
         ...heroStat,
         hero_id: heroStat.id,
+        heroName: (heroes[heroStat.id] && heroes[heroStat.id].localized_name) || '',
         matchCountPro,
         matchCount5000,
         matchCount4000,
@@ -64,7 +66,7 @@ class RequestLayer extends React.Component {
         winRate1000: (heroStat['1000_win'] || 0) / heroStat['1000_pick'],
       };
     });
-    processedData.sort((a, b) => b.pickBanRatePro - a.pickBanRatePro);
+    processedData.sort((a, b) => a.heroName.localeCompare(b.heroName));
     const heroTabs = [{
       name: strings.hero_pro_tab,
       key: 'pro',
