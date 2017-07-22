@@ -52,6 +52,7 @@ JOIN matches using(match_id)
 JOIN match_patch using(match_id)
 JOIN leagues using(leagueid)
 JOIN team_match using(match_id)
+JOIN teams using(team_id)
 WHERE TRUE
 ${select && select.where ? select.where : ''}
 ${organization ? `AND team_id = ${organization.value}` : ''}

@@ -14,12 +14,12 @@ const predictionArray = [
   {
     title: 'Hero most banned',
     link: '/explorer?group=hero&isTi7Team=true&minDate=2017-06-18T07%3A00%3A00.000Z&select=picks_bans',
-    prediction: 'Nyx Assassin',
+    prediction: 'Night Stalker',
   },
   {
     title: 'Hero with the highest winrate',
     link: '/explorer?order=&group=hero&isTi7Team=true&minDate=2017-06-18T07%3A00%3A00.000Z&select=&having=10',
-    prediction: 'Templar Assassin',
+    prediction: 'Zeus',
   },
   {
     title: 'Hero with the highest kill avg',
