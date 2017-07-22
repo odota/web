@@ -33,7 +33,7 @@ const predictionArray = [
   },
   {
     title: 'Hero with the lowest death avg',
-    link: '/explorer?order=&group=hero&isTi7Team=true&minDate=2017-06-18T07%3A00%3A00.000Z&select=deaths&having=10&order=asc',
+    link: '/explorer?group=hero&isTi7Team=true&minDate=2017-06-18T07%3A00%3A00.000Z&select=deaths&having=10&order=asc',
     prediction: 'Templar Assassin',
   },
   {
@@ -75,7 +75,7 @@ const predictionArray = [
   {
     title: 'Team with the fewest deaths in a game',
     link: '/explorer?group=team&isTi7Team=true&minDate=2017-06-18T07%3A00%3A00.000Z&select=deaths&having=&order=asc',
-    prediction: 'Team NP',
+    prediction: 'Cloud9',
   },
   {
     title: 'Team with the most assists in a game',
@@ -85,7 +85,7 @@ const predictionArray = [
   {
     title: 'Team winning the longest game',
     link: '/explorer?group=team&isTi7Team=true&minDate=2017-06-18T07%3A00%3A00.000Z&select=duration',
-    prediction: 'Team NP',
+    prediction: 'Cloud9',
   },
   {
     title: 'Team winning the shortest game',
@@ -95,7 +95,7 @@ const predictionArray = [
   {
     title: 'Team with highest game duration avg',
     link: '/explorer?group=team&isTi7Team=true&minDate=2017-06-18T07%3A00%3A00.000Z&select=duration',
-    prediction: 'Team NP',
+    prediction: 'Cloud9',
   },
   {
     title: 'Team with most distinct heroes',
@@ -130,7 +130,7 @@ const predictionArray = [
   {
     title: 'Player with the most assists in a game',
     link: '/explorer?group=&isTi7Team=true&minDate=2017-06-18T07%3A00%3A00.000Z&select=assists&having=&order=',
-    prediction: '33',
+    prediction: 'Gh',
   },
   {
     title: 'Player with the highest last hits avg',
@@ -155,18 +155,18 @@ const predictionArray = [
   {
     title: 'Player with the most distinct heroes',
     link: '/explorer?group=player&isTi7Team=true&minDate=2017-06-18T07%3A00%3A00.000Z&select=distinct_heroes',
-    prediction: 'AME',
+    prediction: 'fn',
   },
   {
     title: 'Tournament number of games in Main Event',
     prediction: '51',
-    notes: 'Group Stage: (18 * 8 * 2) / 2 = 144\nMain Event: 4 Bo1, 17 Bo3, 1 Bo5. (4) + (2.5 * 17) + (4) = 50.5',
+    notes: '4 Bo1, 17 Bo3, 1 Bo5. (4) + (2.5 * 17) + (4) = 50.5',
   },
   {
     title: 'Tournament heroes picked',
     prediction: '104',
     link: '/explorer?group=&isTi7Team=true&minDate=2017-06-26T07%3A00%3A00.000Z&select=picks_bans&having=&order=&maxDate=2017-07-18T07%3A00%3A00.000Z',
-    notes: 'Tournament predictions based on ~200 recent matches',
+    notes: 'Group Stage: (18 * 8 * 2) / 2 = 144\nTournament predictions based on ~200 recent matches',
   },
   {
     title: 'Tournament heroes banned',
