@@ -1,83 +1,119 @@
 @import '../../palette.css';
+@import '../../Player/Pages/Overview/Summary.css';
 
-.Chat {
-  padding-left: 32px;
+.Container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
-  & .radiant,
-  & .dire {
-    display: flex;
-    align-items: flex-end;
+  & .Chat {
+    padding-left: 32px; /* 32px */
 
-    &:not(:last-of-type) {
-      padding-bottom: 10px;
-    }
+    & .radiant,
+    & .dire {
+      display: flex;
+      align-items: flex-end;
 
-    & svg.icon {
-      width: 16px;
-      height: 16px;
-    }
-
-    & time {
-      display: inline-block;
-      width: 54px;
-      text-align: center;
-
-      & a {
-        font-size: var(--fontSizeSmall);
-        margin: 2px;
+      &:not(:last-of-type) {
+        padding-bottom: 10px;
       }
-    }
 
-    & time,
-    & time > a {
-      color: var(--colorMutedLight);
-    }
+      & svg.icon {
+        width: 16px;
+        height: 16px;
+      }
 
-    & img {
-      height: 20px;
-    }
+      & time {
+        display: inline-block;
+        width: 54px;
+        text-align: center;
 
-    & .author {
-      font-size: 15px;
-      font-weight: var(--fontWeightMedium);
-      margin: 0 8px;
+        & a {
+          font-size: var(--fontSizeSmall);
+          margin: 2px;
+        }
+      }
 
-      & span {
-        font-size: var(--fontSizeSmall);
+      & time,
+      & time > a {
         color: var(--colorMutedLight);
-        display: block;
       }
-    }
 
-    & article {
-      & svg {
-        width: 18px !important;
-        height: 18px !important;
-        vertical-align: sub;
-        margin-right: 5px;
-        border-radius: 50%;
-        background-color: var(--colorBlueMuted);
+      & img {
+        height: 20px;
+      }
 
-        &.play {
-          &:hover {
-            cursor: pointer;
-            background-color: var(--colorBlue);
-            color: var(--primarySurfaceColor) !important;
+      & .author {
+        font-size: 15px;
+        font-weight: var(--fontWeightMedium);
+        margin: 0 8px;
+
+        & span {
+          font-size: var(--fontSizeSmall);
+          color: var(--colorMutedLight);
+          display: block;
+        }
+      }
+
+      & article {
+        & svg {
+          width: 18px !important;
+          height: 18px !important;
+          vertical-align: sub;
+          margin-right: 5px;
+          border-radius: 50%;
+          background-color: var(--colorBlueMuted);
+
+          &.play {
+            &:hover {
+              cursor: pointer;
+              background-color: var(--colorBlue);
+              color: var(--primarySurfaceColor) !important;
+            }
           }
         }
       }
     }
-  }
 
-  & .radiant {
-    & svg.icon {
-      fill: var(--colorSuccess);
+    & .radiant {
+      & svg.icon {
+        fill: var(--colorSuccess);
+      }
+    }
+
+    & .dire {
+      & svg.icon {
+        fill: var(--colorDanger);
+      }
     }
   }
 
-  & .dire {
-    & svg.icon {
-      fill: var(--colorDanger);
+  & > aside {
+    /*
+    & .heading {
+      display: flex;
+      flex-direction: row-reverse;
+
+      & svg {
+        transform: rotate(180deg);
+        margin-left: 6px;
+        margin-right: 0;
+      }
+    }
+    */
+
+    & .Filters {
+      text-align: right;
+
+      & .switchers {
+        margin-right: 32px;
+
+        & > div {
+          &:not(:last-of-type) {
+            margin-bottom: 10px;
+          }
+        }
+      }
     }
   }
 
