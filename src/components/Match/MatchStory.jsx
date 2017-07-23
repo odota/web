@@ -589,11 +589,11 @@ class GameoverEvent extends StoryEvent {
     this.winning_team = match.radiant_win;
     this.radiant_score = match.radiant_score || match.players
       .filter(player => player.isRadiant)
-      .map(player => player["kills"])
+      .map(player => player.kills)
       .reduce((a, b) => a + b, 0);
     this.dire_score = match.dire_score || match.players
       .filter(player => !player.isRadiant)
-      .map(player => player["kills"])
+      .map(player => player.kills)
       .reduce((a, b) => a + b, 0);
   }
   format() {
