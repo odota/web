@@ -1,29 +1,25 @@
 /**
  * Webpack configuration file
  **/
-// const fs = require('fs');
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const postcssImport = require('postcss-import');
 const postcssCssNext = require('postcss-cssnext');
 
 const isProd = process.env.NODE_ENV === 'production';
-/*
+
 function HashBundlePlugin() {}
 HashBundlePlugin.prototype.apply = (compiler) => {
   compiler.plugin('done', (statsData) => {
     const stats = statsData.toJson();
-
-    if (!stats.errors.length) {
-      const htmlFileName = 'index.html';
-      const html = fs.readFileSync(path.join(__dirname, htmlFileName), 'utf8');
-      const htmlOutput = html.replace(/\/build\/.?bundle\.js/, `${'/build/'}${stats.hash}${'.bundle.js'}`);
-
-      fs.writeFileSync(path.join(__dirname, htmlFileName), htmlOutput);
-    }
+    const htmlFileName = 'index.html';
+    const html = fs.readFileSync(path.join(__dirname, htmlFileName), 'utf8');
+    const htmlOutput = html.replace(/\/build\/.?bundle\.js/, `/build/bundle.js?h=${stats.hash}`);
+    fs.writeFileSync(path.join(__dirname, htmlFileName), htmlOutput);
   });
 };
-*/
+
 const config = {
   entry: ['babel-polyfill', path.resolve(__dirname, 'src')],
   output: {
@@ -99,7 +95,7 @@ if (!isProd) {
   config.plugins.push(new webpack.NamedModulesPlugin());
 } else {
   config.plugins.push(new webpack.optimize.UglifyJsPlugin());
-  // config.plugins.push(new HashBundlePlugin());
+  config.plugins.push(new HashBundlePlugin());
 }
 
 module.exports = config;
