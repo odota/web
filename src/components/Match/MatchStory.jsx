@@ -545,11 +545,11 @@ class TimeMarkerEvent extends StoryEvent {
     this.radiant_gold = match.players
       .filter(player => player.isRadiant)
       .map(player => player.gold_t[minutes])
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => a + b, 0);
     this.dire_gold = match.players
       .filter(player => !player.isRadiant)
       .map(player => player.gold_t[minutes])
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => a + b, 0);
     this.radiant_percent = Math.round(100 * this.radiant_gold / (this.radiant_gold + this.dire_gold));
     this.dire_percent = 100 - this.radiant_percent;
   }
@@ -587,10 +587,17 @@ class GameoverEvent extends StoryEvent {
   constructor(match) {
     super(match.duration);
     this.winning_team = match.radiant_win;
-    this.radiant_score = match.radiant_score;
-    this.dire_score = match.dire_score;
+    this.radiant_score = match.radiant_score || match.players
+      .filter(player => player.isRadiant)
+      .map(player => player["kills"])
+      .reduce((a, b) => a + b, 0);
+    this.dire_score = match.dire_score || match.players
+      .filter(player => !player.isRadiant)
+      .map(player => player["kills"])
+      .reduce((a, b) => a + b, 0);
   }
   format() {
+    console.log(`score: ${this.radiant_score}`);
     return formatTemplate(strings.story_gameover, {
       duration: formatSeconds(this.time),
       winning_team: TeamSpan(this.winning_team),
