@@ -597,7 +597,6 @@ class GameoverEvent extends StoryEvent {
       .reduce((a, b) => a + b, 0);
   }
   format() {
-    console.log(`score: ${this.radiant_score}`);
     return formatTemplate(strings.story_gameover, {
       duration: formatSeconds(this.time),
       winning_team: TeamSpan(this.winning_team),
