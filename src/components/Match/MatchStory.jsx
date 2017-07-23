@@ -576,9 +576,9 @@ class TimeMarkerEvent extends StoryEvent {
         </div>
       </div>,
       <div key={`minute_${this.minutes}_networth`} className={styles.storyNetWorthBar}>
-        <div style={{ backgroundColor: styles.green, width: `${this.radiant_percent}%` }}></div>
-        <div style={{ backgroundColor: styles.red, width: `${this.dire_percent}%` }}></div>
-      </div>
+        <div style={{ backgroundColor: styles.green, width: `${this.radiant_percent}%` }} />
+        <div style={{ backgroundColor: styles.red, width: `${this.dire_percent}%` }} />
+      </div>,
     ];
   }
 }
