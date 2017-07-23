@@ -7,7 +7,8 @@
   justify-content: space-between;
 
   & .Chat {
-    padding-left: 32px; /* 32px */
+    margin: 0;
+    padding-left: 32px;
 
     & .radiant,
     & .dire {
@@ -44,18 +45,13 @@
       }
 
       & .author {
-        font-size: 15px;
+        font-size: var(--fontSizeMedium);
         font-weight: var(--fontWeightMedium);
         margin: 0 8px;
-
-        & span {
-          font-size: var(--fontSizeSmall);
-          color: var(--colorMutedLight);
-          display: block;
-        }
       }
 
       & article {
+        /* override material-ui */
         & svg {
           width: 18px !important;
           height: 18px !important;
@@ -103,18 +99,37 @@
     */
 
     & .Filters {
-      text-align: right;
+      margin: 0;
+      padding-right: 32px;
 
-      & .switchers {
-        margin-right: 32px;
+      & > li {
+        display: flex;
+        flex-direction: row-reverse;
+        text-align: right;
+
+        &:not(:first-of-type) {
+          margin-top: 10px;
+        }
 
         & > div {
-          &:not(:last-of-type) {
-            margin-bottom: 10px;
-          }
+          width: auto !important; /* override material-ui */
+        }
+
+        & > b {
+          color: var(--colorMutedLight);
+          width: 40px;
         }
       }
     }
+  }
+
+  & .divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to left, #f5f5f5, rgba(0, 0, 0, 0));
+    opacity: 0.1;
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
 
   & .disabled {

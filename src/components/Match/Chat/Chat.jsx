@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { isRadiant, formatSeconds } from 'utility';
 import strings from 'lang';
 import { IconRadiant, IconDire } from 'components/Icons';
-import Heading from 'components/Heading';
+// import Heading from 'components/Heading';
 import AvVolumeUp from 'material-ui/svg-icons/av/volume-up';
 import HardwareKeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Toggle from 'material-ui/Toggle';
@@ -71,20 +71,25 @@ class Chat extends React.Component {
   constructor(props) {
     super(props);
 
-    this.messages = this.props.data;
-
     this.state = {
-      chat: true,
-      chatwheel: true,
       radiant: true,
       dire: true,
+      chat: true,
+      chatwheel: true,
+    };
+
+    this.messages = this.props.data;
+    this.filters = {
+      radiant: this.props.data.filter(msg => isRadiant(msg.player_slot)),
+      dire: this.props.data.filter(msg => !isRadiant(msg.player_slot)),
+      chat: this.props.data.filter(msg => msg.type === 'chat'),
+      chatwheel: this.props.data.filter(msg => msg.type === 'chatwheel'),
     };
 
     this.toggleType = this.toggleType.bind(this);
     this.toggleTeam = this.toggleTeam.bind(this);
   }
 
-  // TODO: Make `toggle` and` toggleTeam` work together
   toggleType(type) {
     const s = this.state;
     this.setState({ [type]: !s[type] });
@@ -121,47 +126,55 @@ class Chat extends React.Component {
   render() {
     this.messages.sort((a, b) => Number(a.time) - Number(b.time));
 
+    const f = this.filters;
+
     return (
       <div className={styles.Container}>
         <Messages data={this.messages} />
         <aside>
-          <div className={styles.Filters}>
-            {/* <Heading
-              title="Filters"
-              className={styles.heading}
-            /> */}
-            <div className={styles.switchers}>
-              <Toggle
-                label="Chat"
-                toggled={this.state.chat}
-                onToggle={() => this.toggleType('chat')}
-                thumbStyle={{ backgroundColor: styles.lightGray }}
-                disabled={(this.props.data.filter(msg => msg.type === 'chat').length === 0) === this.state.chatwheel}
-              />
-              <Toggle
-                label="Chatwheel"
-                toggled={this.state.chatwheel}
-                onToggle={() => this.toggleType('chatwheel')}
-                thumbStyle={{ backgroundColor: styles.lightGray }}
-                disabled={(this.props.data.filter(msg => msg.type === 'chatwheel').length === 0) === this.state.chat}
-              />
-              <br />
+          <ul className={styles.Filters}>
+            <li>
+              <b>{f.radiant.length}</b>
               <Toggle
                 label="Radiant"
                 toggled={this.state.radiant}
                 onToggle={() => this.toggleTeam('radiant')}
                 thumbStyle={{ backgroundColor: styles.lightGray }}
-                disabled={(this.props.data.filter(msg => isRadiant(msg.player_slot)).length === 0) === this.state.dire}
+                disabled={(f.radiant.length === 0) === this.state.dire}
               />
+            </li>
+            <li>
+              <b>{f.dire.length}</b>
               <Toggle
                 label="Dire"
                 toggled={this.state.dire}
                 onToggle={() => this.toggleTeam('dire')}
                 thumbStyle={{ backgroundColor: styles.lightGray }}
-                disabled={(this.props.data.filter(msg => !isRadiant(msg.player_slot)).length === 0) === this.state.radiant}
+                disabled={(f.dire.length === 0) === this.state.radiant}
               />
-            </div>
-          </div>
+            </li>
+            <hr className={styles.divider} />
+            <li>
+              <b>{f.chat.length}</b>
+              <Toggle
+                label="Chat"
+                toggled={this.state.chat}
+                onToggle={() => this.toggleType('chat')}
+                thumbStyle={{ backgroundColor: styles.lightGray }}
+                disabled={(f.chat.length === 0) === this.state.chatwheel}
+              />
+            </li>
+            <li>
+              <b>{f.chatwheel.length}</b>
+              <Toggle
+                label="Chatwheel"
+                toggled={this.state.chatwheel}
+                onToggle={() => this.toggleType('chatwheel')}
+                thumbStyle={{ backgroundColor: styles.lightGray }}
+                disabled={(f.chatwheel.length === 0) === this.state.chat}
+              />
+            </li>
+          </ul>
         </aside>
       </div>
     );
