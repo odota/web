@@ -23,12 +23,13 @@ const TEAM = {
 
 const GoldSpan = amount => (
   <span key={`gold_${amount}`} className={styles.storySpan}>
-    <font color={styles.golden}>{amount} </font>
+    <font color={styles.golden}>{amount.toLocaleString()}</font>
     <img
       width="25px"
       height="17px"
       role="presentation"
       src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
+      style={{ marginLeft: 3 }}
     />
   </span>
 );
@@ -560,9 +561,20 @@ class TimeMarkerEvent extends StoryEvent {
   }
   format() {
     return [
-      <h3 key={`minute_${this.minutes}_subheading`}>
+      <h3 key={`minute_${this.minutes}_subheading`} style={{ marginBottom: 0 }}>
         {formatTemplate(strings.story_time_marker, { minutes: this.minutes })}
       </h3>,
+      <div key={`minute_${this.minutes}_networth_text`} className={styles.storyNetWorthText}>
+        <div style={{ width: `${this.radiant_percent}%` }}>
+          {GoldSpan(this.radiant_gold)}
+        </div>
+        <div style={{ left: `${this.radiant_percent}%` }}>
+          {Math.abs(this.radiant_percent - this.dire_percent)}% / {GoldSpan(Math.abs(this.radiant_gold - this.dire_gold))} Diff
+        </div>
+        <div style={{ width: `${this.dire_percent}%` }}>
+          {GoldSpan(this.dire_gold)}
+        </div>
+      </div>,
       <div key={`minute_${this.minutes}_networth`} className={styles.storyNetWorthBar}>
         <div style={{ backgroundColor: styles.green, width: `${this.radiant_percent}%` }}></div>
         <div style={{ backgroundColor: styles.red, width: `${this.dire_percent}%` }}></div>
