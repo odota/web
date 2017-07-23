@@ -249,6 +249,25 @@
   height: 20px;
 }
 
+.storyNetWorthBar {
+  display: flex;
+}
+
+.storyNetWorthBar > div {
+  display: inline-block;
+  height: 7px;
+}
+
+.storyNetWorthBar > div:first-child {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+.storyNetWorthBar > div:last-child {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
 .logFilterForm {
   max-width: 600px;
   display: flex;

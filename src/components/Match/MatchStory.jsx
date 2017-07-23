@@ -539,8 +539,18 @@ class ItemPurchaseEvent extends StoryEvent {
 }
 
 class TimeMarkerEvent extends StoryEvent {
-  constructor(minutes) {
+  constructor(match, minutes) {
     super(minutes * 60);
+    this.radiant_gold = match.players
+      .filter(player => player.isRadiant)
+      .map(player => player.gold_t[minutes])
+      .reduce((a, b) => a + b);
+    this.dire_gold = match.players
+      .filter(player => !player.isRadiant)
+      .map(player => player.gold_t[minutes])
+      .reduce((a, b) => a + b);
+    this.radiant_percent = Math.round(100 * this.radiant_gold / (this.radiant_gold + this.dire_gold));
+    this.dire_percent = 100 - this.radiant_percent;
   }
   formatSentence() {
     return this.format();
@@ -553,7 +563,10 @@ class TimeMarkerEvent extends StoryEvent {
       <h3 key={`minute_${this.minutes}_subheading`}>
         {formatTemplate(strings.story_time_marker, { minutes: this.minutes })}
       </h3>,
-      <hr key={`minute_${this.minutes}_hr`} />,
+      <div key={`minute_${this.minutes}_networth`} className={styles.storyNetWorthBar}>
+        <div style={{ backgroundColor: styles.green, width: `${this.radiant_percent}%` }}></div>
+        <div style={{ backgroundColor: styles.red, width: `${this.dire_percent}%` }}></div>
+      </div>
     ];
   }
 }
@@ -664,7 +677,7 @@ const generateStory = (match) => {
 
   // Time Markers
   for (let min = 20; min < (match.duration / 60); min += 10) {
-    events.push(new TimeMarkerEvent(min));
+    events.push(new TimeMarkerEvent(match, min));
   }
 
   // Gameover
