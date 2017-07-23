@@ -29,7 +29,7 @@ const GoldSpan = amount => (
       height="17px"
       role="presentation"
       src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
-      style={{ marginLeft: 3 }}
+      style={{ marginLeft: '3px' }}
     />
   </span>
 );
