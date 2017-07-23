@@ -569,7 +569,10 @@ class TimeMarkerEvent extends StoryEvent {
           {GoldSpan(this.radiant_gold)}
         </div>
         <div style={{ color: this.radiant_gold > this.dire_gold ? styles.green : styles.red, left: `${this.radiant_percent}%` }}>
-          {Math.abs(this.radiant_percent - this.dire_percent)}% / {GoldSpan(Math.abs(this.radiant_gold - this.dire_gold))} Diff
+          {formatTemplate(strings.story_networth_diff, {
+            percent: Math.abs(this.radiant_percent - this.dire_percent),
+            gold: GoldSpan(Math.abs(this.radiant_gold - this.dire_gold)),
+          })}
         </div>
         <div style={{ width: `${this.dire_percent}%` }}>
           {GoldSpan(this.dire_gold)}
