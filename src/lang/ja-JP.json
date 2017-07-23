@@ -139,6 +139,7 @@
   "explorer_tier":"Tier",
   "explorer_having":"At Least This Many Matches",
   "explorer_limit":"Limit",
+  "explorer_match":"Match",
   "farm_heroes":"ヒーローキル数",
   "farm_creeps":"レーンクリープキル数",
   "farm_neutrals":"中立クリープキル数 (Ancientsを含む)",
