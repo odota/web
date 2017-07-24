@@ -44,6 +44,11 @@
         height: 20px;
       }
 
+      & .target {
+        font-size: var(--fontSizeMedium);
+        margin-left: 8px;
+      }
+
       & .author {
         font-size: var(--fontSizeMedium);
         font-weight: var(--fontWeightMedium);
@@ -68,6 +73,13 @@
             }
           }
         }
+      }
+
+      &.spam {
+        opacity: 0.5;
+        color: var(--colorMuted) !important;
+        filter: grayscale(100%);
+        pointer-events: none;
       }
     }
 
