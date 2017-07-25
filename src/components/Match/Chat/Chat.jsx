@@ -20,31 +20,29 @@ const Messages = ({ data }) => (
     {data.map(((msg, index) => {
       const hero = heroes[msg.heroID];
       const rad = isRadiant(msg.player_slot);
-      let message = (
-        <article>
-          {msg.key}
-        </article>
-      );
+
+      let message = msg.key;
       if (msg.type === 'chatwheel') {
+        message = [
+          strings[`chatwheel_${msg.key}`],
+        ];
         if (Number(msg.key) >= 86) {
-          message = (
-            <article>
-              <AvVolumeUp
-                viewBox="-2 -2 28 28"
-                onClick={() => new Audio(`/assets/chatwheel/dota_chatwheel_${msg.key}.wav`).play()}
-                className={styles.play}
-              />
-              {strings[`chatwheel_${msg.key}`]}
-            </article>
-          );
+          message.unshift(<AvVolumeUp
+            viewBox="-2 -2 28 28"
+            onClick={() => new Audio(`/assets/chatwheel/dota_chatwheel_${msg.key}.wav`).play()}
+            className={styles.play}
+            key={msg.key}
+          />);
         } else {
-          message = (
-            <article>
-              <HardwareKeyboardArrowRight />
-              {strings[`chatwheel_${msg.key}`]}
-            </article>
-          );
+          message.unshift(<HardwareKeyboardArrowRight
+            key={msg.key}
+          />);
         }
+      }
+
+      let target = strings.chat_all;
+      if (msg.type === 'chatwheel' && !chatwheelAll.includes(Number(msg.key))) {
+        target = strings.chat_allies;
       }
 
       return (
@@ -65,8 +63,7 @@ const Messages = ({ data }) => (
             alt={hero && hero.localized_name}
           />
           <span className={styles.target}>
-            [{msg.type === 'chat' && 'ALL'}
-            {msg.type === 'chatwheel' && (chatwheelAll.includes(Number(msg.key)) ? 'ALL' : 'ALLIES')}]
+            [{target.toUpperCase()}]
           </span>
           <Link
             to={`/players/${msg.accountID}`}
@@ -75,7 +72,9 @@ const Messages = ({ data }) => (
           >
             {msg.name}
           </Link>
-          {message}
+          <article>
+            {message}
+          </article>
         </li>
       );
     }))}
@@ -94,9 +93,19 @@ class Chat extends React.Component {
     for (let i = 0; i < this.raw.length - 1; i += 1) {
       const curr = this.raw[i];
       const next = this.raw[i + 1];
-      if (curr.key === next.key) {
-        if (curr.player_slot === next.player_slot) {
-          if (next.time - curr.time < 10) {
+      if (curr.player_slot === next.player_slot) {
+        if ((next.time - curr.time) < 10) {
+          if (curr.key === next.key) {
+            next.spam = true;
+          }
+        }
+        // ex: 3334005345
+        if (curr.type === 'chat' && next.type === 'chat') {
+          // for some reason some strings have trailing space
+          curr.key = curr.key.trim();
+          next.key = next.key.trim();
+          // if first and last 2 chars matches, it's spam
+          if (curr.key.slice(0, 2) === next.key.slice(0, 2) && curr.key.slice(-2) === next.key.slice(-2)) {
             next.spam = true;
           }
         }
@@ -123,10 +132,10 @@ class Chat extends React.Component {
       spam: (arr = this.raw) => arr.filter(msg => msg.spam),
     };
 
-    this.toggle = this.toggle.bind(this);
+    this.filter = this.filter.bind(this);
   }
 
-  toggle(key) {
+  filter(key) {
     if (key !== undefined) {
       this.state[key] = !this.state[key];
       this.forceUpdate();
@@ -148,7 +157,7 @@ class Chat extends React.Component {
 
   render() {
     if (!this.messages) {
-      this.toggle();
+      this.filter();
     }
 
     // sort by time, considering spam
@@ -168,20 +177,27 @@ class Chat extends React.Component {
         <Messages data={this.messages} />
         <aside>
           <ul className={styles.Filters}>
-            {Object.keys(this.state).map((key) => {
+            {Object.keys(this.state).map((key, index) => {
               const len = this.filters[key]().length;
-
-              return len > 0 && (
+              const switcher = [
                 <li key={key}>
                   <b>{len}</b>
                   <Toggle
-                    label={key}
+                    label={strings[`chat_${key}`]}
                     toggled={this.state[key]}
-                    onToggle={() => this.toggle(key)}
+                    onToggle={() => this.filter(key)}
                     thumbStyle={{ backgroundColor: styles.lightGray }}
                   />
-                </li>
-              );
+                </li>,
+              ];
+
+              // add dividers for better perception after each 2nd elem
+              // I mean, divide radiant & dire from chat & chatwheel & spam
+              if (index % 2) {
+                switcher.push(<hr className={styles.divider} />);
+              }
+
+              return len > 0 && switcher;
             })}
           </ul>
         </aside>
