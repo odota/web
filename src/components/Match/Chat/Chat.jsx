@@ -15,6 +15,44 @@ import styles from './Chat.css';
 // https://github.com/dotabuff/d2vpkr/blob/8fdc29b84f3e7e2c130fc1b8c6ffe3b811e2d4a7/dota/scripts/chat_wheel.txt
 const chatwheelAll = [75, 76, 108, 109, 110];
 
+class Play extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      playing: false,
+    };
+
+    this.audio = this.audio.bind(this);
+  }
+
+  audio() {
+    const a = new Audio(`/assets/chatwheel/dota_chatwheel_${this.props.wk}.wav`);
+    a.play();
+    this.setState({
+      playing: true,
+    });
+    const i = setInterval(() => {
+      if (a.paused) {
+        this.setState({
+          playing: false,
+        });
+        clearInterval(i);
+      }
+    }, 500);
+  }
+
+  render() {
+    return (
+      <AvVolumeUp
+        viewBox="-2 -2 28 28"
+        onClick={this.audio}
+        className={`${styles.play} ${this.state.playing ? styles.playing : ''}`}
+      />
+    );
+  }
+}
+
 const Messages = ({ data }) => (
   <ul className={styles.Chat}>
     {data.map(((msg, index) => {
@@ -27,10 +65,8 @@ const Messages = ({ data }) => (
           strings[`chatwheel_${msg.key}`],
         ];
         if (Number(msg.key) >= 86) {
-          message.unshift(<AvVolumeUp
-            viewBox="-2 -2 28 28"
-            onClick={() => new Audio(`/assets/chatwheel/dota_chatwheel_${msg.key}.wav`).play()}
-            className={styles.play}
+          message.unshift(<Play
+            wk={msg.key}
             key={msg.key}
           />);
         } else {
@@ -117,7 +153,7 @@ class Chat extends React.Component {
       dire: true,
 
       chat: true,
-      chatwheel: true,
+      chatwheel: false,
 
       spam: false,
     };

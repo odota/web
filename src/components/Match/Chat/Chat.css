@@ -71,6 +71,15 @@
               background-color: var(--colorBlue);
               color: var(--primarySurfaceColor) !important;
             }
+
+            &:active {
+              opacity: 0.6;
+            }
+          }
+
+          &.playing {
+            background-color: var(--colorBlue);
+            color: var(--primarySurfaceColor) !important;
           }
         }
       }
@@ -97,19 +106,6 @@
   }
 
   & > aside {
-    /*
-    & .heading {
-      display: flex;
-      flex-direction: row-reverse;
-
-      & svg {
-        transform: rotate(180deg);
-        margin-left: 6px;
-        margin-right: 0;
-      }
-    }
-    */
-
     & .Filters {
       margin: 0;
       padding-right: 32px;
