@@ -418,6 +418,7 @@ export const lastHitsTimesColumns = (match) => {
       displayName: `${minutes}'`,
       field: i,
       sortFn: row => (row.lh_t && row.lh_t[minutes]),
+      displayFn: (row, col, field) => (`${row.lh_t[minutes]}(+${row.lh_t[minutes] - row.lh_t[minutes - bucket/60]})`),
       relativeBars: true,
     });
   }
