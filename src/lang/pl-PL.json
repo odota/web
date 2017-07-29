@@ -525,6 +525,7 @@
   "story_item_purchase":"{player} kupił/a {item} w {time}",
   "story_predicted_victory":"{players} stawia(ją), że {team} wygrają",
   "story_predicted_victory_empty":"Nikt",
+  "story_networth_diff":"{percent}% / {gold} Diff",
   "tab_overview":"Przegląd",
   "tab_matches":"Mecze",
   "tab_heroes":"Bohaterowie",
