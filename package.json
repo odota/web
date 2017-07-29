@@ -6,7 +6,7 @@
   "scripts": {
     "webpack": "NODE_ENV=production webpack",
     "start": "webpack-dev-server --hot",
-    "build": "npm install && npm run lintnofix && npm run lint:css && npm run webpack",
+    "build": "npm install && npm run lintnofix && npm run webpack",
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx",
     "lint:css": "stylelint 'src/**/*.css'",
