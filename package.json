@@ -90,7 +90,7 @@
     "sinon": "^2.3.5",
     "sinon-chai": "^2.11.0",
     "style-loader": "^0.18.2",
-    "stylelint": "^7.11.1",
+    "stylelint": "^8.0.0",
     "stylelint-config-css-modules": "^1.0.0",
     "stylelint-config-standard": "^17.0.0",
     "url-loader": "^0.5.9"
