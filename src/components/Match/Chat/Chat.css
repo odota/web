@@ -105,28 +105,26 @@
     }
   }
 
-  & > aside {
-    & .Filters {
-      margin: 0;
-      padding-right: 32px;
+  & .Filters {
+    margin: 0;
+    padding-right: 32px;
 
-      & > li {
-        display: flex;
-        flex-direction: row-reverse;
-        text-align: right;
+    & > li {
+      display: flex;
+      flex-direction: row-reverse;
+      text-align: right;
 
-        &:not(:first-of-type) {
-          margin-top: 10px;
-        }
+      &:not(:first-of-type) {
+        margin-top: 10px;
+      }
 
-        & > div {
-          width: auto !important; /* override material-ui */
-        }
+      & > div {
+        width: auto !important; /* override material-ui */
+      }
 
-        & > b {
-          color: var(--colorMutedLight);
-          width: 40px;
-        }
+      & > b {
+        color: var(--colorMutedLight);
+        width: 40px;
       }
     }
   }
