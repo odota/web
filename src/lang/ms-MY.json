@@ -525,6 +525,7 @@
   "story_item_purchase":"{player} membeli {item} pada {time}",
   "story_predicted_victory":"{players} meramalkan {team} akan menang",
   "story_predicted_victory_empty":"Tiada sesiapa",
+  "story_networth_diff":"{percent}% / {gold} Diff",
   "tab_overview":"Gambaran Keseluruhan",
   "tab_matches":"Perlawanan",
   "tab_heroes":"Hero",

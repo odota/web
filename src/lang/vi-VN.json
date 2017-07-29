@@ -525,6 +525,7 @@
   "story_item_purchase":"{player} mua một {item} lúc {time}",
   "story_predicted_victory":"{players} dự đoán {team} sẽ giành chiến thắng",
   "story_predicted_victory_empty":"No one",
+  "story_networth_diff":"{percent}% / {gold} Diff",
   "tab_overview":"Tổng quan",
   "tab_matches":"Trận đấu",
   "tab_heroes":"Hero",
