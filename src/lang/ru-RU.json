@@ -525,6 +525,7 @@
   "story_item_purchase":"{player} купил {item} во время {time}",
   "story_predicted_victory":"{players} предсказал победу {team}",
   "story_predicted_victory_empty":"Никто",
+  "story_networth_diff":"Разница {percent}% / {gold}",
   "tab_overview":"Обзор",
   "tab_matches":"Матчи",
   "tab_heroes":"Герои",
