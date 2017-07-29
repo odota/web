@@ -249,6 +249,39 @@
   height: 20px;
 }
 
+.storyNetWorthBar {
+  display: flex;
+}
+
+.storyNetWorthBar > div {
+  display: inline-block;
+  height: 7px;
+}
+
+.storyNetWorthBar > div:first-child {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+.storyNetWorthBar > div:last-child {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.storyNetWorthText {
+  display: flex;
+  text-align: center;
+}
+
+.storyNetWorthText > div {
+  display: inline-block;
+}
+
+.storyNetWorthText > div:nth-child(2) {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
 .logFilterForm {
   max-width: 600px;
   display: flex;
