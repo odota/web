@@ -35,32 +35,32 @@ const requestProgress = progress => ({
 
 function poll(dispatch, json, matchId) {
   fetch(`${API_HOST}${url}/${json.job.jobId}`)
-  .then(res => res.json())
-  .then((json) => {
-    if (json.progress) {
-      dispatch(requestProgress(json.progress));
-    }
-    if (json.err || json.state === 'failed') {
-      dispatch(requestError(json.err || 'failed'));
-    } else if (json.state === 'completed') {
-      dispatch(requestOk());
-      window.location.href = `/matches/${matchId}`;
-    } else {
-      setTimeout(poll, 2000, dispatch, { job: json }, matchId);
-    }
-  });
+    .then(res => res.json())
+    .then((json) => {
+      if (json.progress) {
+        dispatch(requestProgress(json.progress));
+      }
+      if (json.err || json.state === 'failed') {
+        dispatch(requestError(json.err || 'failed'));
+      } else if (json.state === 'completed') {
+        dispatch(requestOk());
+        window.location.href = `/matches/${matchId}`;
+      } else {
+        setTimeout(poll, 2000, dispatch, { job: json }, matchId);
+      }
+    });
 }
 
 export const postRequest = matchId => (dispatch) => {
   dispatch(requestStart());
   return fetch(`${API_HOST}${url}/${matchId}`, { method: 'post' })
-  .then(res => res.json())
-  .then((json) => {
-    if (json.job && json.job.jobId) {
-      poll(dispatch, json, matchId);
-    } else {
-      dispatch(requestError(json.err));
-    }
-  })
-  .catch(err => dispatch(requestError(err)));
+    .then(res => res.json())
+    .then((json) => {
+      if (json.job && json.job.jobId) {
+        poll(dispatch, json, matchId);
+      } else {
+        dispatch(requestError(json.err));
+      }
+    })
+    .catch(err => dispatch(requestError(err)));
 };

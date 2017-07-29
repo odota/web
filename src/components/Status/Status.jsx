@@ -31,47 +31,47 @@ class Status extends React.Component {
       <Table
         style={tableStyle}
         data={Object.keys(this.state.result)
-        .filter(key => typeof (this.state.result[key]) !== 'object')
-        .map(key => ({ key, value: this.state.result[key] }))}
+          .filter(key => typeof (this.state.result[key]) !== 'object')
+          .map(key => ({ key, value: this.state.result[key] }))}
         columns={columns}
       />
       <Table
         style={tableStyle}
         data={Object.keys(this.state.result.health || {})
-        .map(key => ({
-          key,
-          value: `${abbreviateNumber(this.state.result.health[key].metric)}/${abbreviateNumber(this.state.result.health[key].threshold)}`,
-        }))}
+          .map(key => ({
+            key,
+            value: `${abbreviateNumber(this.state.result.health[key].metric)}/${abbreviateNumber(this.state.result.health[key].threshold)}`,
+          }))}
         columns={columns}
       />
       <Table
         style={tableStyle}
         data={(this.state.result.last_added || [])
-        .map(match => ({ key: match.match_id, value: fromNow(match.start_time + match.duration) }))}
+          .map(match => ({ key: match.match_id, value: fromNow(match.start_time + match.duration) }))}
         columns={columns}
       />
       <Table
         style={tableStyle}
         data={(this.state.result.last_parsed || [])
-        .map(match => ({ key: match.match_id, value: fromNow(match.start_time + match.duration) }))}
+          .map(match => ({ key: match.match_id, value: fromNow(match.start_time + match.duration) }))}
         columns={columns}
       />
       <Table
         style={tableStyle}
         data={(this.state.result.retriever || [])
-        .map(row => ({ key: row.hostname, value: row.count }))}
+          .map(row => ({ key: row.hostname, value: row.count }))}
         columns={columns}
       />
       <Table
         style={tableStyle}
         data={Object.keys(this.state.result.queue || {})
-        .map(key => ({ key, value: JSON.stringify(this.state.result.queue[key]) }))}
+          .map(key => ({ key, value: JSON.stringify(this.state.result.queue[key]) }))}
         columns={columns}
       />
       <Table
         style={tableStyle}
         data={Object.keys(this.state.result.load_times || {})
-        .map(key => ({ key, value: this.state.result.load_times[key] }))}
+          .map(key => ({ key, value: this.state.result.load_times[key] }))}
         columns={columns}
       />
     </div>);

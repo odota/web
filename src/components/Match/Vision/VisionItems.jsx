@@ -11,6 +11,6 @@ const VisionItems = ({ match }) => (
     radiantTeam={match.radiant_team}
     direTeam={match.dire_team}
   />
- );
+);
 
 export default VisionItems;

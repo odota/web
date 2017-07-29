@@ -13,7 +13,7 @@ const Search = ({ data, pros, query, ...rest }) => (<div>
   <Helmet title={`${query} - ${strings.title_search}`} />
   <SearchResult {...rest} players={data || []} pros={pros || []} />
 </div>
-  );
+);
 
 const mapStateToProps = (state) => {
   const { error, loading, done, data, query } = state.app.search;

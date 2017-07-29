@@ -44,7 +44,7 @@ export default function redrawGraphs(rows, field, yAxis) {
     },
     tooltip: {
       format: {
-          // title: i => i,
+        // title: i => i,
       },
     },
   });

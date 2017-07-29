@@ -314,7 +314,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
       text: strings.explorer_picks_bans,
       template: 'picks_bans',
       key: 'picks_bans',
-    // picks_bans.team is 0 for radiant, 1 for dire
+      // picks_bans.team is 0 for radiant, 1 for dire
       where: 'AND team_match.radiant::int != picks_bans.team',
       value: 1,
     },

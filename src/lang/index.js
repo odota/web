@@ -52,7 +52,7 @@ export const langs = [
     value: 'nl-NL',
     native: 'Nederlands',
     data: require('./nl-NL.json'),
-  },*/ {
+  }, */ {
     value: 'pl-PL',
     native: 'Polski',
     data: require('./pl-PL.json'),

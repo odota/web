@@ -14,17 +14,17 @@ import PlayedWith from './PlayedWith';
 import styles from './PlayerStats.css';
 
 export const PlayerStatsCards = ({
-    loading,
-    error,
-    partyRank,
-    soloRank,
-    mmrEstimate,
-    wins,
-    losses,
-    compact,
-    playerId,
-    loggedInId,
-  }) => {
+  loading,
+  error,
+  partyRank,
+  soloRank,
+  mmrEstimate,
+  wins,
+  losses,
+  compact,
+  playerId,
+  loggedInId,
+}) => {
   if (error) {
     return <Error />;
   }

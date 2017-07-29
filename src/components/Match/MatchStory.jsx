@@ -458,8 +458,8 @@ class TeamfightEvent extends StoryEvent {
     this.winning_team = fight.radiant_gold_advantage_delta >= 0; // is_radiant value basically
     this.gold_delta = Math.abs(fight.radiant_gold_advantage_delta);
     const deaths = fight.players
-        .map((player, i) => ({ player: match.players[i], count: player.deaths }))
-        .filter(death => death.count > 0);
+      .map((player, i) => ({ player: match.players[i], count: player.deaths }))
+      .filter(death => death.count > 0);
     this.win_dead = deaths.filter(death => death.player.isRadiant === this.winning_team);
     this.lose_dead = deaths.filter(death => death.player.isRadiant !== this.winning_team);
     this.during_events = [];
@@ -675,12 +675,12 @@ const generateStory = (match) => {
   // Old Buildings Events
   // Towers
   events = events.concat(match.objectives
-      .filter(obj => obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY')
-      .map(obj => new TowerEvent(match, obj)));
+    .filter(obj => obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY')
+    .map(obj => new TowerEvent(match, obj)));
   // Barracks
   events = events.concat(match.objectives
-      .filter(obj => obj.type === 'CHAT_MESSAGE_BARRACKS_KILL')
-      .map(obj => new BarracksEvent(match, obj)));
+    .filter(obj => obj.type === 'CHAT_MESSAGE_BARRACKS_KILL')
+    .map(obj => new BarracksEvent(match, obj)));
 
   // Expensive Item
   if (ExpensiveItemEvent.exists(match, 4000)) {

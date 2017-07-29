@@ -14,10 +14,10 @@ export const getSortField = (state, id) => getTable(state, id).sortField;
 export const getSortFn = (state, id) => getTable(state, id).sortFn;
 export const getSortedData = data => (state, id) => (
   !getSortField(state, id) ?
-  data :
-  defaultSort(
-    data,
-    getSortState(state, id),
-    getSortField(state, id),
-    getSortFn(state, id),
-  ));
+    data :
+    defaultSort(
+      data,
+      getSortState(state, id),
+      getSortField(state, id),
+      getSortFn(state, id),
+    ));

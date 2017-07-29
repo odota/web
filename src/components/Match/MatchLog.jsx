@@ -30,8 +30,8 @@ const getObjectiveBase = (objective) => {
 const generateLog = (match, { types, players }) => {
   let log = [];
   const matchPlayers = !players.length
-                        ? match.players
-                        : match.players.filter((p, i) => players.includes(i));
+    ? match.players
+    : match.players.filter((p, i) => players.includes(i));
 
   if (types.includes(typeConfig.objectives)) {
     log = (match.objectives || []).reduce((objectivesLog, objective) => {

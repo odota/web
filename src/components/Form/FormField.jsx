@@ -48,22 +48,22 @@ class FormField extends React.Component {
 
   handleSelect(value, index) {
     const {
-        name,
-        dataSource,
-        strict,
-        limit,
-        formSelectionState,
-        addChip = addChipDefault,
-        history,
-      } = this.props;
+      name,
+      dataSource,
+      strict,
+      limit,
+      formSelectionState,
+      addChip = addChipDefault,
+      history,
+    } = this.props;
 
     const selectedElements = formSelectionState[name];
     if (selectedElements && Array.isArray(selectedElements)) {
       const isSelected = index > -1
-                            ? selectedElements.includes(value.value)
-                            : selectedElements.includes(value);
+        ? selectedElements.includes(value.value)
+        : selectedElements.includes(value);
       if (isSelected) {
-          // Handle inputs that are already selected
+        // Handle inputs that are already selected
         this.handleUpdateInput('');
         return;
       }
@@ -72,16 +72,16 @@ class FormField extends React.Component {
     let input = null;
 
     if (index > -1) {
-        // User selected an element
+      // User selected an element
       input = dataSource[index];
     } else if (!strict && index === -1) {
-        // Direct free input
+      // Direct free input
       input = {
         text: value,
         value,
       };
     } else {
-        // Strict and not in datasource
+      // Strict and not in datasource
       this.setState({
         searchText: '',
         errorText: strings.filter_error,
@@ -102,23 +102,23 @@ class FormField extends React.Component {
 
   render() {
     const {
-        name,
-        label,
-        dataSource = [],
-        className,
-        maxSearchResults = 100,
-        deleteChip = deleteChipDefault,
-        history,
-        formSelectionState,
-        filter,
-      } = this.props;
+      name,
+      label,
+      dataSource = [],
+      className,
+      maxSearchResults = 100,
+      deleteChip = deleteChipDefault,
+      history,
+      formSelectionState,
+      filter,
+    } = this.props;
     const {
-        searchText,
-        errorText,
-      } = this.state;
+      searchText,
+      errorText,
+    } = this.state;
 
     const selectedElements = [].concat(formSelectionState[name] || []);
-      // Use dataSource on selectedElements to hydrate the chipList
+    // Use dataSource on selectedElements to hydrate the chipList
     const chipList = selectedElements.map((element) => {
       const fromSource = dataSource.find(data => Number(data.value) === Number(element));
       return fromSource || { text: element, value: element };

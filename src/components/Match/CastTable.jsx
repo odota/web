@@ -16,7 +16,7 @@ const castsColumns = [{
   field: 'name',
   displayFn: (row, col, field) => (<div>
     <span>{inflictorWithValue(field)}</span>
-    {/* <span>{items[field] ? items[field].dname : field}</span>*/}
+    {/* <span>{items[field] ? items[field].dname : field}</span> */}
   </div>),
 }, {
   displayName: strings.th_casts,

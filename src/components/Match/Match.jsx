@@ -29,9 +29,8 @@ class RequestLayer extends React.Component {
     const info = this.props.match.params.info || 'overview';
     const page = matchPages(matchId).find(page => page.key.toLowerCase() === info);
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
-    return (
-      loading ? <Spinner /> :
-      <div>
+    return loading ? <Spinner /> :
+      (<div>
         <Helmet title={pageTitle} />
         <MatchHeader
           match={match}
@@ -43,8 +42,7 @@ class RequestLayer extends React.Component {
           mediaQClass={styles.tabBar}
         />
         {page && page.content(match)}
-      </div>
-    );
+      </div>);
   }
 }
 

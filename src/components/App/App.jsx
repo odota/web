@@ -62,10 +62,10 @@ class App extends React.Component {
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
         <div
           className={
-        `${open ? styles.drawerOpen : styles.drawerClosed}
+            `${open ? styles.drawerOpen : styles.drawerClosed}
         ${styles.container}
         ${location.pathname === '/' && styles.HomeBackground}`
-      }
+          }
         >
           <Helmet
             defaultTitle={strings.title_default}

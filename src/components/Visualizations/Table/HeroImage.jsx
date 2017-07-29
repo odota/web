@@ -94,7 +94,7 @@ const TableHeroImage = ({
             <TableLink to={`/players/${accountId}`}>
               {title}
             </TableLink>
-          : title}
+            : title}
         </span>
         {subtitle &&
           <span className={styles.subText}>

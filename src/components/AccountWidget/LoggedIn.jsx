@@ -17,7 +17,7 @@ const LoggedIn = ({ playerId }) => {
       <Link to={`/players/${playerId}`}>
         <FlatButton
           label={strings.app_my_profile}
-            // labelPosition="before"
+          // labelPosition="before"
           className={styles.account}
           hoverColor="transparent"
         />
