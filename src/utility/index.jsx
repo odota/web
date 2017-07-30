@@ -18,8 +18,9 @@ import subTextStyle from 'components/Visualizations/Table/subText.css';
 import findLast from 'lodash.findlast';
 import _ from 'lodash/fp';
 import util from 'util';
-// import FontIcon from 'material-ui/FontIcon';
+// import SvgIcon from 'material-ui/SvgIcon';
 import SocialPeople from 'material-ui/svg-icons/social/people';
+import SocialPerson from 'material-ui/svg-icons/social/person';
 
 const iconStyles = {
   marginBottom: -5,
@@ -274,14 +275,18 @@ export const transformations = {
   game_mode: (row, col, field) => (strings[`game_mode_${field}`]),
   match_id_and_game_mode: (row, col, field) => {
     const partySize = (partySize) => {
-      if (partySize > 1) {
+      if (partySize === 1) {
         return [
-          <SocialPeople color="rgb(179, 179, 179)" style={iconStyles} />,
-          ` x${row.party_size}`,
+          <SocialPerson color="rgb(179, 179, 179)" style={iconStyles} />,
         ];
+      } else if (partySize === null) {
+        return null;
       }
 
-      return null;
+      return [
+        <SocialPeople color="rgb(179, 179, 179)" style={iconStyles} />,
+        ` x${row.party_size}`,
+      ];
     };
     return (
       <div>
