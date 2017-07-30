@@ -292,7 +292,7 @@ export const transformations = {
   patch: (row, col, field) => (patch[field] ? patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
-  rank: row => getOrdinal(row.card - row.rank),
+  rank: (row, col, field) => getOrdinal(field),
   rank_percentile: row => (
     <span style={{ color: styles[percentile(row.rank / row.card).color] }}>
       {getPercentWin(row.rank, row.card).toFixed(2)}%
