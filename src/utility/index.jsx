@@ -228,6 +228,7 @@ export const transformations = {
         heroName={heroName}
         showPvgnaGuide={showPvgnaGuide}
         pvgnaGuideInfo={row.pvgnaGuide}
+        leaverStatus={row.leaver_status}
       />
     );
   },
@@ -266,9 +267,9 @@ export const transformations = {
   game_mode: (row, col, field) => (strings[`game_mode_${field}`]),
   match_id_and_game_mode: (row, col, field) => (
     <div>
-      <TableLink to={`/matches/${field}`}>{field}</TableLink>
+      <TableLink to={`/matches/${field}`}>{field} </TableLink>
       <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
-        {strings[`game_mode_${row.game_mode}`]} / {strings[`lobby_type_${row.lobby_type}`]}
+        {strings[`game_mode_${row.game_mode}`]} / {strings[`lobby_type_${row.lobby_type}`]} x{ row.party_size}
       </span>
     </div>
   ),
