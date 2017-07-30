@@ -23,12 +23,13 @@ const TEAM = {
 
 const GoldSpan = amount => (
   <span key={`gold_${amount}`} className={styles.storySpan}>
-    <font color={styles.golden}>{amount} </font>
+    <font color={styles.golden}>{amount.toLocaleString()}</font>
     <img
       width="25px"
       height="17px"
       role="presentation"
       src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
+      style={{ marginLeft: '3px' }}
     />
   </span>
 );
@@ -457,8 +458,8 @@ class TeamfightEvent extends StoryEvent {
     this.winning_team = fight.radiant_gold_advantage_delta >= 0; // is_radiant value basically
     this.gold_delta = Math.abs(fight.radiant_gold_advantage_delta);
     const deaths = fight.players
-        .map((player, i) => ({ player: match.players[i], count: player.deaths }))
-        .filter(death => death.count > 0);
+      .map((player, i) => ({ player: match.players[i], count: player.deaths }))
+      .filter(death => death.count > 0);
     this.win_dead = deaths.filter(death => death.player.isRadiant === this.winning_team);
     this.lose_dead = deaths.filter(death => death.player.isRadiant !== this.winning_team);
     this.during_events = [];
@@ -539,8 +540,18 @@ class ItemPurchaseEvent extends StoryEvent {
 }
 
 class TimeMarkerEvent extends StoryEvent {
-  constructor(minutes) {
+  constructor(match, minutes) {
     super(minutes * 60);
+    this.radiant_gold = match.players
+      .filter(player => player.isRadiant)
+      .map(player => player.gold_t[minutes])
+      .reduce((a, b) => a + b, 0);
+    this.dire_gold = match.players
+      .filter(player => !player.isRadiant)
+      .map(player => player.gold_t[minutes])
+      .reduce((a, b) => a + b, 0);
+    this.radiant_percent = Math.round(100 * this.radiant_gold / (this.radiant_gold + this.dire_gold));
+    this.dire_percent = 100 - this.radiant_percent;
   }
   formatSentence() {
     return this.format();
@@ -550,10 +561,27 @@ class TimeMarkerEvent extends StoryEvent {
   }
   format() {
     return [
-      <h3 key={`minute_${this.minutes}_subheading`}>
+      <h3 key={`minute_${this.minutes}_subheading`} style={{ marginBottom: 0 }}>
         {formatTemplate(strings.story_time_marker, { minutes: this.minutes })}
       </h3>,
-      <hr key={`minute_${this.minutes}_hr`} />,
+      <div key={`minute_${this.minutes}_networth_text`} className={styles.storyNetWorthText}>
+        <div style={{ width: `${this.radiant_percent}%` }}>
+          {GoldSpan(this.radiant_gold)}
+        </div>
+        <div style={{ color: this.radiant_gold > this.dire_gold ? styles.green : styles.red, left: `${this.radiant_percent}%` }}>
+          {formatTemplate(strings.story_networth_diff, {
+            percent: Math.abs(this.radiant_percent - this.dire_percent),
+            gold: GoldSpan(Math.abs(this.radiant_gold - this.dire_gold)),
+          })}
+        </div>
+        <div style={{ width: `${this.dire_percent}%` }}>
+          {GoldSpan(this.dire_gold)}
+        </div>
+      </div>,
+      <div key={`minute_${this.minutes}_networth`} className={styles.storyNetWorthBar}>
+        <div style={{ backgroundColor: styles.green, width: `${this.radiant_percent}%` }} />
+        <div style={{ backgroundColor: styles.red, width: `${this.dire_percent}%` }} />
+      </div>,
     ];
   }
 }
@@ -562,8 +590,14 @@ class GameoverEvent extends StoryEvent {
   constructor(match) {
     super(match.duration);
     this.winning_team = match.radiant_win;
-    this.radiant_score = match.radiant_score;
-    this.dire_score = match.dire_score;
+    this.radiant_score = match.radiant_score || match.players
+      .filter(player => player.isRadiant)
+      .map(player => player.kills)
+      .reduce((a, b) => a + b, 0);
+    this.dire_score = match.dire_score || match.players
+      .filter(player => !player.isRadiant)
+      .map(player => player.kills)
+      .reduce((a, b) => a + b, 0);
   }
   format() {
     return formatTemplate(strings.story_gameover, {
@@ -641,12 +675,12 @@ const generateStory = (match) => {
   // Old Buildings Events
   // Towers
   events = events.concat(match.objectives
-      .filter(obj => obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY')
-      .map(obj => new TowerEvent(match, obj)));
+    .filter(obj => obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY')
+    .map(obj => new TowerEvent(match, obj)));
   // Barracks
   events = events.concat(match.objectives
-      .filter(obj => obj.type === 'CHAT_MESSAGE_BARRACKS_KILL')
-      .map(obj => new BarracksEvent(match, obj)));
+    .filter(obj => obj.type === 'CHAT_MESSAGE_BARRACKS_KILL')
+    .map(obj => new BarracksEvent(match, obj)));
 
   // Expensive Item
   if (ExpensiveItemEvent.exists(match, 4000)) {
@@ -664,7 +698,7 @@ const generateStory = (match) => {
 
   // Time Markers
   for (let min = 20; min < (match.duration / 60); min += 10) {
-    events.push(new TimeMarkerEvent(min));
+    events.push(new TimeMarkerEvent(match, min));
   }
 
   // Gameover

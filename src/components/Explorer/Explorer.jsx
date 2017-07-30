@@ -3,7 +3,7 @@ import React from 'react';
 import {
   connect,
 }
-from 'react-redux';
+  from 'react-redux';
 import fetch from 'isomorphic-fetch';
 import Spinner from 'components/Spinner';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -12,14 +12,14 @@ import Helmet from 'react-helmet';
 import {
   getScript,
 }
-from 'utility';
+  from 'utility';
 import Heading from 'components/Heading';
 import {
   getProPlayers,
   getLeagues,
   getTeams,
 }
-from 'actions';
+  from 'actions';
 import querystring from 'querystring';
 import json2csv from 'json2csv';
 import queryTemplate from './queryTemplate';

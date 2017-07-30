@@ -153,10 +153,10 @@ export default function BuildingMap({ match }) {
                                 <span className={styles.deny}>
                                   {strings.building_denied}
                                 </span>
-                              : <span>
-                                {type !== 'fort' && <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />}
-                                {strings.building_lasthit}
-                              </span>
+                                : <span>
+                                  {type !== 'fort' && <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />}
+                                  {strings.building_lasthit}
+                                </span>
                             }
                           </span>
                         }

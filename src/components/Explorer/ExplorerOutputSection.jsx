@@ -3,11 +3,11 @@ import {
   transformations,
   formatSeconds,
 }
-from 'utility';
+  from 'utility';
 import {
   Link,
 }
-from 'react-router-dom';
+  from 'react-router-dom';
 import strings from 'lang';
 import Table from 'components/Table';
 import itemData from 'dotaconstants/build/items.json';
@@ -18,7 +18,7 @@ import {
   TablePercent,
   inflictorWithValue,
 }
-from 'components/Visualizations';
+  from 'components/Visualizations';
 import redrawGraphs from './redrawGraphs';
 import styles from './Explorer.css';
 
@@ -86,8 +86,8 @@ class ExplorerOutputSection extends React.Component {
               return <span className={field ? styles.textSuccess : styles.textDanger}>{field ? strings.td_win : strings.td_loss}</span>;
             } else if (column.field === 'is_radiant') {
               return field
-            ? <span className={matchStyles.teamIconContainer}><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>
-            : <span className={matchStyles.teamIconContainer}><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>;
+                ? <span className={matchStyles.teamIconContainer}><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>
+                : <span className={matchStyles.teamIconContainer}><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>;
             } else if (column.field === 'start_time') {
               return (new Date(field * 1000)).toLocaleDateString('en-US', {
                 day: 'numeric',

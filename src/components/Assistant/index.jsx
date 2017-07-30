@@ -60,11 +60,11 @@ const responses = [
   'Your stick your stick your stick, drop your stick',
   'nice la',
   'It\'s a disastah',
-//'They storm up the river, patience from Zhou, waiting in the wings, NaVi\'s about to be caught.
-//Oh there\'s the sleep, the surge, he catches everyone! Oh this could be a total disaster!
-//Vacuum in, ravage on everyone, here\'s the Black Hole as well. LightOfHeaven, he turns it around, ravage as well, stolen by Dendi.
-//ARE YOU KIDDING ME, THEY TURNED IT AROUND. 4 heroes dead, 5 heroes dead, Chuan trying to survive, Chuan\'s gonna go down.
-//Puppey talked about the naga counter, it\'s LightOfHeaven with his BKB. They turned it around. Standing ovation from the crowd.',
+// 'They storm up the river, patience from Zhou, waiting in the wings, NaVi\'s about to be caught.
+// Oh there\'s the sleep, the surge, he catches everyone! Oh this could be a total disaster!
+// Vacuum in, ravage on everyone, here\'s the Black Hole as well. LightOfHeaven, he turns it around, ravage as well, stolen by Dendi.
+// ARE YOU KIDDING ME, THEY TURNED IT AROUND. 4 heroes dead, 5 heroes dead, Chuan trying to survive, Chuan\'s gonna go down.
+// Puppey talked about the naga counter, it\'s LightOfHeaven with his BKB. They turned it around. Standing ovation from the crowd.',
 // Maelk Award
 // IT'S A DISASTER!
 // The Play; Patience from Zhou
@@ -119,60 +119,60 @@ const responses = [
 // EE pours Monster over H4nni's head
 // LMFAO wHo cAREAS HAHA Xd
 // Hi, 4k player here who reported slahser.; "SLASHER'S WAY"
-//Hello I'm Snith, playing my 202143th game on Chen.
-//measure ur words cuz i might smash ur head when i meet u
-//Just a boy trying to play dota.
-//Cloud9 no TP scrolls vs Secret
-//Old man Fear in a wheelchair: "Where am I?"
-//One less ego one more championship
-//Spin 2 Win
-//tfw valve memes u
-//hey its me ur brother
-//DROP YOUR STICK
-//Hello I'm Synderen. I sexually identify as a pig molester.
-//HO HO, HA HA
-//ez bugatti
-//Wolves Need no Armor
-//6.84 is coming after Starladder
-//Expert Analyzers
-//Icefrog likes Mangos
-//Polish
-//Futa's Way: Warlock.; Mangolems, Mangolian Scepter
-//Bruno is Icefrog
-//I look at the moon and I tell myself... I fucked up... I FUCKED UP!
-//I'm a simple man.
-//Good Jokes mate real funny see u at FUCK YOUJ
-//Matumbawoman
-//PogChamp WTF 3 Merlinis PogChamp
-//Topless Gamer Grill Stream
-//Experts and Synderen
-//OSfrog Imbalance Demands it OSfrog
-//Artstyle graves himself
-//Swindlemelonzz drops his Eul's; Delete your Eul's and apologize
-//420 Booty Wizard
-//IT'S A DISASTAH! v2.0
-//One of my favorites! Thus I invoke Masturbation
-//THAT'S ILL EAGLE
-//RTC? TI5?
-//Introducing Team SUNSfan Digital Chaos
-//nope ._.
-//"Pit Lord" picked in Moon Duck Elimination Tournament for the first time
-//Aghanim's Scepter: Riki (Pocket Riki)
-//pls mr lizard
-//8 0 0 0 M A T C H M A K I N G P O I N T S
-//Kuroky was right, Arteezy was left.; Arteezy was right, Kuroky was left.
-//DC Scrim Leak Drama
-//Beesa shares a story about Ritsu
-//Orangutang Ganja, Overrated Gamers, Olympic Gays
-//QUALITY MEMES. I love the memes there, Jack.
-//6.86: Literally nothing.
-//Happy little trees.
-//Whatever kid. Oh I'm sorry did I fucking trigger you?
-//Does s4 remember the million dollar Dream Carl?
-//Thank you, Dota 2. I owe you one.
-//BabyRage PEDUUUUUR BabyRage
-//The Shanghai Major.
-//RTZ Sven gets sprouted
+// Hello I'm Snith, playing my 202143th game on Chen.
+// measure ur words cuz i might smash ur head when i meet u
+// Just a boy trying to play dota.
+// Cloud9 no TP scrolls vs Secret
+// Old man Fear in a wheelchair: "Where am I?"
+// One less ego one more championship
+// Spin 2 Win
+// tfw valve memes u
+// hey its me ur brother
+// DROP YOUR STICK
+// Hello I'm Synderen. I sexually identify as a pig molester.
+// HO HO, HA HA
+// ez bugatti
+// Wolves Need no Armor
+// 6.84 is coming after Starladder
+// Expert Analyzers
+// Icefrog likes Mangos
+// Polish
+// Futa's Way: Warlock.; Mangolems, Mangolian Scepter
+// Bruno is Icefrog
+// I look at the moon and I tell myself... I fucked up... I FUCKED UP!
+// I'm a simple man.
+// Good Jokes mate real funny see u at FUCK YOUJ
+// Matumbawoman
+// PogChamp WTF 3 Merlinis PogChamp
+// Topless Gamer Grill Stream
+// Experts and Synderen
+// OSfrog Imbalance Demands it OSfrog
+// Artstyle graves himself
+// Swindlemelonzz drops his Eul's; Delete your Eul's and apologize
+// 420 Booty Wizard
+// IT'S A DISASTAH! v2.0
+// One of my favorites! Thus I invoke Masturbation
+// THAT'S ILL EAGLE
+// RTC? TI5?
+// Introducing Team SUNSfan Digital Chaos
+// nope ._.
+// "Pit Lord" picked in Moon Duck Elimination Tournament for the first time
+// Aghanim's Scepter: Riki (Pocket Riki)
+// pls mr lizard
+// 8 0 0 0 M A T C H M A K I N G P O I N T S
+// Kuroky was right, Arteezy was left.; Arteezy was right, Kuroky was left.
+// DC Scrim Leak Drama
+// Beesa shares a story about Ritsu
+// Orangutang Ganja, Overrated Gamers, Olympic Gays
+// QUALITY MEMES. I love the memes there, Jack.
+// 6.86: Literally nothing.
+// Happy little trees.
+// Whatever kid. Oh I'm sorry did I fucking trigger you?
+// Does s4 remember the million dollar Dream Carl?
+// Thank you, Dota 2. I owe you one.
+// BabyRage PEDUUUUUR BabyRage
+// The Shanghai Major.
+// RTZ Sven gets sprouted
 ];
 
 let recognition;

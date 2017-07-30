@@ -34,7 +34,7 @@ const navbarPages = [
   <Link key={strings.header_distributions} to="/distributions">{strings.header_distributions}</Link>,
   <Link key={strings.header_records} to="/records">{strings.header_records}</Link>,
   <Link key="Predictions" to="/predictions">Predictions</Link>,
-  //<Link key="Assistant" to="/assistant">Assistant</Link>,
+  // <Link key="Assistant" to="/assistant">Assistant</Link>,
 ];
 
 const burgerItems = () => [

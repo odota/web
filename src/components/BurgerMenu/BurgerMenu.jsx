@@ -7,7 +7,6 @@ import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import styles from './BurgerMenu.css';
 
 export default class BurgerMenu extends React.Component {
-
   constructor() {
     super();
     this.state = { open: false };

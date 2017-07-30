@@ -212,7 +212,7 @@ const getSubtitle = (row) => {
  * Transformations of table cell data to display values.
  * These functions are intended to be used as the displayFn property in table columns.
  * This is why they all take (row, col, field)
- **/
+ * */
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
   hero_id: (row, col, field, showPvgnaGuide = false) => {
@@ -293,7 +293,7 @@ export const transformations = {
   patch: (row, col, field) => (patch[field] ? patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
-  rank: row => getOrdinal(row.card - row.rank),
+  rank: (row, col, field) => getOrdinal(field),
   rank_percentile: row => (
     <span style={{ color: styles[percentile(row.rank / row.card).color] }}>
       {getPercentWin(row.rank, row.card).toFixed(2)}%
@@ -402,7 +402,7 @@ export const gameCoordToUV = (x, y) => ({
  * Unpacks position data from hash format to array format
  * 64 is the offset of x and y values
  * subtracting y from 127 inverts from bottom/left origin to top/left origin
- **/
+ * */
 export function unpackPositionData(input) {
   if (typeof input === 'object' && !Array.isArray(input)) {
     const result = [];

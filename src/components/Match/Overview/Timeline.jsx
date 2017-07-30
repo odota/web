@@ -54,50 +54,50 @@ const Timeline = ({
     const events = fbArr
 
     // Roshan kills, team 2 = radiant, 3 = dire
-    .concat(
-      match.objectives
-        .filter(obj => obj.type === 'CHAT_MESSAGE_ROSHAN_KILL')
-        .map((obj, i) => ({
-          type: 'roshan',
-          time: obj.time,
-          team: obj.team,
-          key: i,
-        })) || [],
-    )
-
-    // Teamfights
-    .concat(match.teamfights && match.teamfights.length > 0 ?
-      match.teamfights.map(fight => ({
-        type: 'teamfight',
-        start: fight.start,
-        end: fight.end,
-        time: (fight.start + fight.end) / 2,
-        radiant_gold_advantage_delta: fight.radiant_gold_advantage_delta,
-        deaths: fight.players
-          .map((player, i) => (player.deaths > 0 ? {
+      .concat(
+        match.objectives
+          .filter(obj => obj.type === 'CHAT_MESSAGE_ROSHAN_KILL')
+          .map((obj, i) => ({
+            type: 'roshan',
+            time: obj.time,
+            team: obj.team,
             key: i,
-            gold_delta: player.gold_delta,
-          } : ''))
-          .filter(String),
-      })) : [],
-    );
+          })) || [],
+      )
+
+      // Teamfights
+      .concat(match.teamfights && match.teamfights.length > 0 ?
+        match.teamfights.map(fight => ({
+          type: 'teamfight',
+          start: fight.start,
+          end: fight.end,
+          time: (fight.start + fight.end) / 2,
+          radiant_gold_advantage_delta: fight.radiant_gold_advantage_delta,
+          deaths: fight.players
+            .map((player, i) => (player.deaths > 0 ? {
+              key: i,
+              gold_delta: player.gold_delta,
+            } : ''))
+            .filter(String),
+        })) : [],
+      );
 
     // Aegis pickups
     const aegis = (match.objectives || [])
-        .filter(obj => (
-          obj.type === 'CHAT_MESSAGE_AEGIS' ||
+      .filter(obj => (
+        obj.type === 'CHAT_MESSAGE_AEGIS' ||
             obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' ||
             obj.type === 'CHAT_MESSAGE_DENIED_AEGIS'
-        ))
-        .map(obj => ({
-          type: 'aegis',
-          act: (
-            (obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' && 'stolen') ||
+      ))
+      .map(obj => ({
+        type: 'aegis',
+        act: (
+          (obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' && 'stolen') ||
               (obj.type === 'CHAT_MESSAGE_DENIED_AEGIS' && 'denied')
-          ),
-          time: obj.time,
-          player_slot: obj.player_slot,
-        }));
+        ),
+        time: obj.time,
+        player_slot: obj.player_slot,
+      }));
 
     let fTower = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_TOWER_KILL' || o.type === 'CHAT_MESSAGE_TOWER_DENY');
     fTower = match.objectives[fTower] ? match.objectives[fTower].time : null;
@@ -132,7 +132,7 @@ const Timeline = ({
                   const side = (
                     obj.player_slot && isRadiant(obj.player_slot))
                       || (obj.team && obj.team === 2
-                  ) ? 'radiant' : 'dire';
+                      ) ? 'radiant' : 'dire';
                   const wTeamfight = obj.type === 'teamfight' && (100 * (obj.end - obj.start)) / (match.duration + preHorn);
 
                   return (

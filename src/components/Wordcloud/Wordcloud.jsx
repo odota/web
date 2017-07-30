@@ -36,9 +36,9 @@ function updateWordCloud(wordCounts, cloudDomId) {
   // @howardchung implementation of scaling
   const scale = maxSize / Math.log(max);
   // var scale = max_size/max;
-    // take the log of each count and scale them up to top_size
-    // use log since words such as "gg" tend to dominate
-    // w[1] = Math.max(w[1]*scale, min_size);
+  // take the log of each count and scale them up to top_size
+  // use log since words such as "gg" tend to dominate
+  // w[1] = Math.max(w[1]*scale, min_size);
   wordList = wordList.map(w => [w[0], Math.max(getBaseLog(w[1], 6) * scale, minSize)]);
 
   /*

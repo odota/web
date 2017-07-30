@@ -86,7 +86,7 @@ const getPage = (data, key) => (
     />
     {(key === 'mmr') ?
       <div id="mmr" />
-    : <Table data={data[key] && data[key].rows} columns={countryMmrColumns} />}
+      : <Table data={data[key] && data[key].rows} columns={countryMmrColumns} />}
   </div>
 );
 

@@ -14,8 +14,8 @@ export const FORM_NAME = 'tableFilter';
 
 const getPeers = (props, context) => {
   fetch(`${API_HOST}/api/players/${props.playerId}/peers`)
-  .then(resp => resp.json())
-  .then(json => context.setState({ peers: json }));
+    .then(resp => resp.json())
+    .then(json => context.setState({ peers: json }));
 };
 
 const setShowFormState = (props) => {

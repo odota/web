@@ -61,8 +61,8 @@ const Trend = ({ routeParams, columns, playerId, error, loading, history }) => {
                       ${formatSeconds(data.duration)}
                     </div>
                     ${selectedTrend === 'win_rate'
-                      ? ''
-                      : `<div class="${styles.matchValue}">
+      ? ''
+      : `<div class="${styles.matchValue}">
                           ${trendStr}: ${data.independent_value}${unit}
                         </div>`}
                   </div>

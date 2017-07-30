@@ -39,15 +39,15 @@ export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, 
           >
             <IconEyeInactive className={styles.icon} />
           </div>
-          ) : (
-            <div
-              className={`${styles.iconButton} ${styles.iconEye}`}
-              data-hint={strings.app_tracked}
-              data-hint-position="top"
-            >
-              <IconEye className={styles.iconEyeTracked} />
-            </div>
-          )
+        ) : (
+          <div
+            className={`${styles.iconButton} ${styles.iconEye}`}
+            data-hint={strings.app_tracked}
+            data-hint-position="top"
+          >
+            <IconEye className={styles.iconEyeTracked} />
+          </div>
+        )
         }
         {cheese > 0 && (
           <div

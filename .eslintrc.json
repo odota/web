@@ -13,6 +13,7 @@
   "rules": {
     "max-len": ["error", { "code": 180, "ignoreTemplateLiterals": true, "ignoreStrings": true }],
     "no-shadow": 1,
+    "no-return-assign": 1,
     "no-mixed-operators": ["error", {
       "allowSamePrecedence": true
     }],

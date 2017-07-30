@@ -23,8 +23,8 @@ export default function editDistance(a, b) {
         matrix[i][j] = matrix[i - 1][j - 1];
       } else {
         matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, // substitution
-                                Math.min(matrix[i][j - 1] + 1, // insertion
-                                         matrix[i - 1][j] + 1)); // deletion
+          Math.min(matrix[i][j - 1] + 1, // insertion
+            matrix[i - 1][j] + 1)); // deletion
       }
     }
   }

@@ -28,7 +28,7 @@ export default class VisionFilter extends React.Component {
         onCheck={(event, checked) => {
           this.props.parent.setPlayer(playerNumber, row.type, checked);
         }
-      }
+        }
       />),
     };
   }

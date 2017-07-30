@@ -52,7 +52,7 @@ export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide =
     predictedVictory={row.pred_vict}
     leaverStatus={row.leaver_status}
   />
-);
+  );
 
 export const heroTdColumn = {
   displayName: strings.th_avatar,
@@ -262,44 +262,44 @@ export const overviewColumns = (match) => {
       );
     },
   }]
-  .concat(
-    match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0 ? {
-      displayName: strings.th_permanent_buffs,
-      field: 'permanent_buffs',
-      displayFn: row => (
-        row.permanent_buffs && row.permanent_buffs.length > 0
-          ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff'))
-          : '-'
+    .concat(
+      match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0 ? {
+        displayName: strings.th_permanent_buffs,
+        field: 'permanent_buffs',
+        displayFn: row => (
+          row.permanent_buffs && row.permanent_buffs.length > 0
+            ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff'))
+            : '-'
+        ),
+      } : [],
+    )
+    .concat({
+      displayName: (
+        <div style={{ marginLeft: 10 }}>
+          {strings.th_ability_builds}
+        </div>
       ),
-    } : [],
-  )
-  .concat({
-    displayName: (
-      <div style={{ marginLeft: 10 }}>
-        {strings.th_ability_builds}
-      </div>
-    ),
-    tooltip: strings.tooltip_ability_builds,
-    displayFn: row => (
-      <div data-tip data-for={`au_${row.player_slot}`} className={styles.abilityUpgrades}>
-        {row.ability_upgrades_arr ? <NavigationMoreHoriz /> : <NavigationMoreHoriz style={{ opacity: 0.4 }} />}
-        <ReactTooltip id={`au_${row.player_slot}`} place="left" effect="solid">
-          {row.ability_upgrades_arr ? row.ability_upgrades_arr.map(
-            (ab) => {
-              if (ab && abilityIds[ab]) {
-                return (
-                  <div className={styles.ability}>
-                    {inflictorWithValue(abilityIds[ab])}
-                  </div>
-                );
-              }
-              return null;
-            },
-          ) : <div style={{ paddingBottom: 5 }}>{strings.tooltip_ability_builds_expired}</div>}
-        </ReactTooltip>
-      </div>
-    ),
-  });
+      tooltip: strings.tooltip_ability_builds,
+      displayFn: row => (
+        <div data-tip data-for={`au_${row.player_slot}`} className={styles.abilityUpgrades}>
+          {row.ability_upgrades_arr ? <NavigationMoreHoriz /> : <NavigationMoreHoriz style={{ opacity: 0.4 }} />}
+          <ReactTooltip id={`au_${row.player_slot}`} place="left" effect="solid">
+            {row.ability_upgrades_arr ? row.ability_upgrades_arr.map(
+              (ab) => {
+                if (ab && abilityIds[ab]) {
+                  return (
+                    <div className={styles.ability}>
+                      {inflictorWithValue(abilityIds[ab])}
+                    </div>
+                  );
+                }
+                return null;
+              },
+            ) : <div style={{ paddingBottom: 5 }}>{strings.tooltip_ability_builds_expired}</div>}
+          </ReactTooltip>
+        </div>
+      ),
+    });
 
   return cols;
 };
@@ -385,23 +385,23 @@ export const purchaseTimesColumns = (match) => {
       field: 'purchase_log',
       displayFn: (row, column, field) => (<div>
         {field ? field
-        .filter(purchase => (purchase.time >= curTime - bucket && purchase.time < curTime))
-        .sort((p1, p2) => {
-          const item1 = items[p1.key];
-          const item2 = items[p2.key];
-          if (item1 && item2 && p1.time === p2.time) {
+          .filter(purchase => (purchase.time >= curTime - bucket && purchase.time < curTime))
+          .sort((p1, p2) => {
+            const item1 = items[p1.key];
+            const item2 = items[p2.key];
+            if (item1 && item2 && p1.time === p2.time) {
             // We're only concerned with sorting by value
             // if items are bought at the same time, time is presorted
-            return item1.cost - item2.cost;
-          }
-          return 0;
-        })
-        .map((purchase) => {
-          if (items[purchase.key]) {
-            return inflictorWithValue(purchase.key, formatSeconds(purchase.time));
-          }
-          return null;
-        }) : ''}
+              return item1.cost - item2.cost;
+            }
+            return 0;
+          })
+          .map((purchase) => {
+            if (items[purchase.key]) {
+              return inflictorWithValue(purchase.key, formatSeconds(purchase.time));
+            }
+            return null;
+          }) : ''}
       </div>),
     });
   }
@@ -418,6 +418,7 @@ export const lastHitsTimesColumns = (match) => {
       displayName: `${minutes}'`,
       field: i,
       sortFn: row => (row.lh_t && row.lh_t[minutes]),
+      displayFn: row => (`${row.lh_t[minutes]} (+${row.lh_t[minutes] - row.lh_t[minutes - (bucket / 60)]})`),
       relativeBars: true,
     });
   }
@@ -684,31 +685,31 @@ export const actionsColumns = [heroTdColumn, {
 
 export const runesColumns = [heroTdColumn]
   .concat(Object.keys(strings)
-  .filter(str => str.indexOf('rune_') === 0)
-  .map(str => str.split('_')[1])
-  .map(runeType => ({
-    displayName: (
-      <div
-        className={styles.runes}
-        data-tip
-        data-for={`rune_${runeType}`}
-      >
-        <img
-          src={`/assets/images/dota2/runes/${runeType}.png`}
-          role="presentation"
-        />
-        <ReactTooltip id={`rune_${runeType}`} effect="solid">
-          <span>
-            {strings[`rune_${runeType}`]}
-          </span>
-        </ReactTooltip>
-      </div>
-    ),
-    field: `rune_${runeType}`,
-    displayFn: (row, col, value) => (value || '-'),
-    sortFn: row => row.runes && row.runes[runeType],
-    relativeBars: true,
-  })));
+    .filter(str => str.indexOf('rune_') === 0)
+    .map(str => str.split('_')[1])
+    .map(runeType => ({
+      displayName: (
+        <div
+          className={styles.runes}
+          data-tip
+          data-for={`rune_${runeType}`}
+        >
+          <img
+            src={`/assets/images/dota2/runes/${runeType}.png`}
+            role="presentation"
+          />
+          <ReactTooltip id={`rune_${runeType}`} effect="solid">
+            <span>
+              {strings[`rune_${runeType}`]}
+            </span>
+          </ReactTooltip>
+        </div>
+      ),
+      field: `rune_${runeType}`,
+      displayFn: (row, col, value) => (value || '-'),
+      sortFn: row => row.runes && row.runes[runeType],
+      relativeBars: true,
+    })));
 
 
 const cosmeticsRarity = {

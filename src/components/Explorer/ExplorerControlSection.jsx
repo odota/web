@@ -6,7 +6,7 @@ import styles from './Explorer.css';
 
 const ExplorerControlSection = ({ showEditor, toggleEditor, expandedFields, handleFieldUpdate, builder }) => (<div>
   <div style={{ width: '180px', margin: '10px' }}>
-    <div>{/* drawOmnibox(this, expandedFields)*/}</div>
+    <div>{/* drawOmnibox(this, expandedFields) */}</div>
     <Toggle
       label={strings.explorer_toggle_sql}
       defaultToggled={showEditor}

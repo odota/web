@@ -24,7 +24,7 @@ const getMaxKeyOfObject = field => Number(Object.keys(field || {}).sort((a, b) =
 
 /**
  * Generates data for c3 charts in a match
- **/
+ * */
 function generateGraphData(match) {
   if (match.players && match.players[0] && match.radiant_gold_adv && match.radiant_xp_adv) {
     // compute graphs
@@ -219,8 +219,8 @@ function transformMatch(m) {
           identifier = 'shrine';
         }
         newPlayer.objective_damage[identifier] = newPlayer.objective_damage[identifier] ?
-                                                 newPlayer.objective_damage[identifier] + player.damage[key] :
-                                                 player.damage[key];
+          newPlayer.objective_damage[identifier] + player.damage[key] :
+          player.damage[key];
       });
     }
     if (player.killed) {

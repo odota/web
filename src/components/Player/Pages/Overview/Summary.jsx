@@ -88,8 +88,8 @@ const SummOfRecMatches = ({ matchesData }) => {
   });
 
   winrate = Number((data.wins
-  .filter(Boolean)
-  .reduce(sum, 0) * 100 / numRows)
+    .filter(Boolean)
+    .reduce(sum, 0) * 100 / numRows)
     .toFixed(2));
 
   return (

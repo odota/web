@@ -17,7 +17,6 @@ const renderBenchmark = (hero, data) => (
 );
 
 class Benchmark extends Component {
-
   componentDidMount() {
     if (this.props.match.params && this.props.match.params.heroId) {
       this.props.getBenchmark(this.props.match.params.heroId);
