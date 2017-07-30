@@ -23,7 +23,7 @@ import SocialPeople from 'material-ui/svg-icons/social/people';
 
 const iconStyles = {
   marginBottom: -5,
-  marginLeft: 10
+  marginLeft: 10,
 };
 
 // TODO - add in the relevant text invocations of TableHeroImage
@@ -276,10 +276,12 @@ export const transformations = {
     const partySize = (partySize) => {
       if (partySize > 1) {
         return [
-          <SocialPeople color="rgb(179, 179, 179)" style={iconStyles} />, 
-          ` x${row.party_size}`
+          <SocialPeople color="rgb(179, 179, 179)" style={iconStyles} />,
+          ` x${row.party_size}`,
         ];
       }
+
+      return null;
     };
     return (
       <div>
