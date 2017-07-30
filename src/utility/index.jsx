@@ -18,6 +18,13 @@ import subTextStyle from 'components/Visualizations/Table/subText.css';
 import findLast from 'lodash.findlast';
 import _ from 'lodash/fp';
 import util from 'util';
+// import FontIcon from 'material-ui/FontIcon';
+import SocialPeople from 'material-ui/svg-icons/social/people';
+
+const iconStyles = {
+  marginBottom: -5,
+  marginLeft: 10
+};
 
 // TODO - add in the relevant text invocations of TableHeroImage
 export const isRadiant = playerSlot => playerSlot < 128;
@@ -265,14 +272,24 @@ export const transformations = {
       </div>);
   },
   game_mode: (row, col, field) => (strings[`game_mode_${field}`]),
-  match_id_and_game_mode: (row, col, field) => (
-    <div>
-      <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
-        {strings[`game_mode_${row.game_mode}`]} / {strings[`lobby_type_${row.lobby_type}`]}
-      </span>
-    </div>
-  ),
+  match_id_and_game_mode: (row, col, field) => {
+    const partySize = (partySize) => {
+      if (partySize > 1) {
+        return [
+          <SocialPeople color="rgb(179, 179, 179)" style={iconStyles} />, 
+          ` x${row.party_size}`
+        ];
+      }
+    };
+    return (
+      <div>
+        <TableLink to={`/matches/${field}`}>{field}</TableLink>
+        <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+          {strings[`game_mode_${row.game_mode}`]} / {strings[`lobby_type_${row.lobby_type}`]}
+          {partySize(row.party_size)}
+        </span>
+      </div>);
+  },
   start_time: (row, col, field) => <FromNowTooltip timestamp={field} />,
   last_played: (row, col, field) => <FromNowTooltip timestamp={field} />,
   duration: (row, col, field) => (
@@ -281,9 +298,9 @@ export const transformations = {
         {formatSeconds(field)}
       </span>
       {row &&
-      <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
-        <FromNowTooltip timestamp={row.start_time + row.duration} />
-      </span>}
+        <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+          <FromNowTooltip timestamp={row.start_time + row.duration} />
+        </span>}
     </div>
   ),
   region: (row, col, field) => (strings[`region_${field}`]),
