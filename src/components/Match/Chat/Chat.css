@@ -5,15 +5,34 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-left: 32px;
+  padding-right: 32px;
+
+  @media (max-width: 1024px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap-reverse;
+  }
+
+  & .Chat,
+  & .Filters {
+    margin: 0;
+    padding: 0;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
 
   & .Chat {
-    margin: 0;
-    padding-left: 32px;
-
     & .radiant,
     & .dire {
       display: flex;
       align-items: flex-end;
+      flex-wrap: wrap;
 
       &:not(:last-of-type) {
         padding-bottom: 10px;
@@ -103,23 +122,49 @@
         fill: var(--colorDanger);
       }
     }
+
+    & .disabled {
+      pointer-events: none;
+    }
   }
 
   & .Filters {
-    margin: 0;
-    padding-right: 32px;
+    margin-bottom: 25px;
+
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
     & > li {
       display: flex;
       flex-direction: row-reverse;
       text-align: right;
 
+      @media (max-width: 768px) {
+        flex-direction: row;
+        text-align: left;
+      }
+
       &:not(:first-of-type) {
         margin-top: 10px;
       }
 
+      /* override material-ui */
       & > div {
-        width: auto !important; /* override material-ui */
+        width: auto !important;
+
+        @media (max-width: 768px) {
+          & > div {
+            flex-direction: row-reverse;
+
+            & > div {
+              margin-left: 0 !important;
+              margin-right: 8px !important;
+            }
+          }
+        }
       }
 
       & > b {
@@ -127,18 +172,23 @@
         width: 40px;
       }
     }
-  }
 
-  & .divider {
-    border: 0;
-    height: 1px;
-    background: linear-gradient(to left, #f5f5f5, rgba(0, 0, 0, 0));
-    opacity: 0.1;
-    margin-top: 15px;
-    margin-bottom: 15px;
-  }
+    & .divider {
+      border: 0;
+      height: 1px;
+      background: linear-gradient(to left, #f5f5f5, rgba(0, 0, 0, 0));
+      opacity: 0.1;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      width: 100%;
 
-  & .disabled {
-    pointer-events: none;
+      @media (max-width: 768px) {
+        background: linear-gradient(to right, #f5f5f5, rgba(0, 0, 0, 0));
+      }
+
+      @media (max-width: 320px) {
+        background: #f5f5f5;
+      }
+    }
   }
 }

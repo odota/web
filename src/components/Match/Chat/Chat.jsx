@@ -12,7 +12,7 @@ import playerColors from 'dotaconstants/build/player_colors.json';
 import styles from './Chat.css';
 
 // All chat
-// https://github.com/dotabuff/d2vpkr/blob/8fdc29b84f3e7e2c130fc1b8c6ffe3b811e2d4a7/dota/scripts/chat_wheel.txt
+// https://github.com/dotabuff/d2vpkr/blob/8fdc29b84f3e7e2c130fc1b8c6ffe3b811e2d4a7/dota/scripts/chat_wheel.txt#L640
 const chatwheelAll = [75, 76, 108, 109, 110];
 
 class Chat extends React.Component {
@@ -49,7 +49,7 @@ class Chat extends React.Component {
       radiant: true,
       dire: true,
       chat: true,
-      chatwheel: false,
+      chatwheel: true,
       spam: false,
 
       playing: null,
@@ -156,7 +156,7 @@ class Chat extends React.Component {
               key={index}
               className={`
                 ${rad ? styles.radiant : styles.dire}
-                ${msg.spam && styles.spam}
+                ${msg.spam ? styles.spam : ''}
               `}
             >
               {rad ? <IconRadiant className={styles.icon} /> : <IconDire className={styles.icon} />}
