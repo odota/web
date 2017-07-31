@@ -122,7 +122,7 @@ class Chat extends React.Component {
 
     const Messages = () => (
       <ul className={styles.Chat}>
-        {this.messages.map(((msg, index) => {
+        {this.messages.map((msg, index) => {
           const hero = heroes[msg.heroID];
           const rad = isRadiant(msg.player_slot);
 
@@ -139,8 +139,11 @@ class Chat extends React.Component {
                 className={`${styles.play} ${this.state.playing === index ? styles.playing : ''}`}
               />);
             } else {
-              message.unshift(<HardwareKeyboardArrowRight
+              message.unshift(<img
                 key={msg.key}
+                src="/assets/images/dota2/chat_wheel_icon.png"
+                alt="chatwheel"
+                className={styles.chatwheel}
               />);
             }
           }
@@ -182,7 +185,7 @@ class Chat extends React.Component {
               </article>
             </li>
           );
-        }))}
+        })}
       </ul>
     );
 

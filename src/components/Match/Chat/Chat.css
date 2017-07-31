@@ -75,12 +75,16 @@
       }
 
       & article {
+        & svg,
+        & .chatwheel {
+          vertical-align: sub;
+          margin-right: 5px;
+        }
+
         /* override material-ui */
         & svg {
           width: 18px !important;
           height: 18px !important;
-          vertical-align: sub;
-          margin-right: 5px;
           border-radius: 50%;
           background-color: var(--colorBlueMuted);
 
@@ -100,6 +104,10 @@
             background-color: var(--colorBlue);
             color: var(--primarySurfaceColor) !important;
           }
+        }
+
+        & .chatwheel {
+          height: 18px;
         }
       }
 
