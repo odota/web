@@ -6,7 +6,6 @@ import {
 } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import {
-  responsiveStateReducer,
   createResponsiveStoreEnhancer,
   createResponsiveStateReducer,
 } from 'redux-responsive';
@@ -17,7 +16,7 @@ const reducer = combineReducers({
   browser: createResponsiveStateReducer(null, {
     extraFields: () => ({
       width: window.innerWidth,
-    })
+    }),
   }),
 });
 /* eslint-disable no-underscore-dangle */
@@ -30,5 +29,5 @@ export default createStore(
   composeEnhancers(
     createResponsiveStoreEnhancer(),
     applyMiddleware(thunkMiddleware),
-  )
+  ),
 );

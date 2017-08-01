@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { calculateResponsiveState } from 'redux-responsive';
 import { getPlayerWardmap } from 'actions';
 import Heatmap from 'components/Heatmap';
 import Container from 'components/Container';
 import strings from 'lang';
 import { unpackPositionData } from 'utility';
 import styles from './Wardmap.css';
-import { calculateResponsiveState } from 'redux-responsive';
 
 const getData = (props) => {
   props.getPlayerWardmap(props.playerId, props.location.search);
@@ -18,14 +18,14 @@ class RequestLayer extends React.Component {
     window.addEventListener('resize', this.props.updateWindowSize);
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.props.updateWindowSize);
-  }
-
   componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.props.updateWindowSize);
   }
 
   render() {
