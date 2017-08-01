@@ -525,7 +525,7 @@
   "story_item_purchase":"aos {time}, {player} comprou {item}",
   "story_predicted_victory":"{players} previu(ram) que {team} iria ganhar",
   "story_predicted_victory_empty":"Ninguém",
-  "story_networth_diff":"{percent}% / {gold} Diff",
+  "story_networth_diff":"Vantagem: {percent}% / Diferença de ouro: {gold}",
   "tab_overview":"Visão Geral",
   "tab_matches":"Partidas",
   "tab_heroes":"Heróis",
