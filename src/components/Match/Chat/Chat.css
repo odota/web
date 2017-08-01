@@ -145,6 +145,19 @@
       align-items: flex-start;
     }
 
+    @media (min-width: 768px) {
+      & .heading {
+        display: flex;
+        flex-direction: row-reverse;
+
+        & > svg {
+          transform: rotate(180deg);
+          margin-left: 6px;
+          margin-right: 0;
+        }
+      }
+    }
+
     & > li {
       display: flex;
       flex-direction: row-reverse;

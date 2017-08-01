@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 import { isRadiant, formatSeconds } from 'utility';
 import strings from 'lang';
 import { IconRadiant, IconDire } from 'components/Icons';
-// import Heading from 'components/Heading';
+import Heading from 'components/Heading';
 import AvVolumeUp from 'material-ui/svg-icons/av/volume-up';
-import HardwareKeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Toggle from 'material-ui/Toggle';
 import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
@@ -191,13 +190,17 @@ class Chat extends React.Component {
 
     const Filters = () => (
       <ul className={styles.Filters}>
+        <Heading
+          className={styles.heading}
+          title="Filters"
+        />
         {Object.keys(this.filters).map((key, index) => {
           const len = this.filters[key]().length;
           const switcher = [
             <li key={key}>
               <b>{len}</b>
               <Toggle
-                label={strings[`chat_${key}`]}
+                label={strings[`chat_${key}`] || strings[`general_${key}`]}
                 toggled={this.state[key]}
                 onToggle={() => this.filter(key)}
                 thumbStyle={{ backgroundColor: styles.lightGray }}
