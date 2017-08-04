@@ -271,7 +271,15 @@ const matchPages = [Overview, {
       };
     });
 
-    return <Chat data={data} />;
+    return (
+      <div>
+        <Heading
+          title={strings.heading_chat}
+          subtitle={strings.subheading_chat}
+        />
+        <Chat data={data} />
+      </div>
+    );
   },
 }, {
   name: strings.tab_story,

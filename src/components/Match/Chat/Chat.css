@@ -2,20 +2,18 @@
 @import '../../Player/Pages/Overview/Summary.css';
 
 .Container {
+  padding-left: 32px;
+  padding-right: 32px;
+
+  @media (max-width: 768px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   & .Chat,
   & .Filters {
     margin: 0;
     padding: 0;
-
-    & > li {
-      padding-left: 32px;
-
-      /*
-      @media (max-width: 1024px) {
-        padding-left: 0;
-      }
-      */
-    }
   }
 
   & .Chat {
@@ -133,12 +131,13 @@
 
   & .Filters {
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
 
     & > li {
       display: flex;
       flex-direction: column;
       margin: 0;
+      padding-right: 32px;
 
       & > div {
         text-transform: uppercase;
@@ -150,9 +149,11 @@
       & > ul {
         padding: 0;
         display: flex;
-        flex-direction: row;
+        flex-flow: row wrap;
 
         & > li {
+          margin-bottom: 10px;
+
           &:not(:last-of-type) {
             margin-right: 16px;
           }

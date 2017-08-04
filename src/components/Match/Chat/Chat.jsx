@@ -284,10 +284,6 @@ class Chat extends React.Component {
 
     return (
       <div className={styles.Container}>
-        <Heading
-          title={strings.heading_chat}
-          subtitle={strings.subheading_chat}
-        />
         <Filters />
         <hr className={styles.divider} />
         <Messages />
