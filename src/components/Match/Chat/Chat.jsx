@@ -5,7 +5,6 @@ import strings from 'lang';
 import { IconRadiant, IconDire } from 'components/Icons';
 import AvVolumeUp from 'material-ui/svg-icons/av/volume-up';
 import Checkbox from 'material-ui/Checkbox';
-import Heading from 'components/Heading';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import heroes from 'dotaconstants/build/heroes.json';
