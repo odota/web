@@ -6,14 +6,18 @@ import {
 } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import {
-  responsiveStateReducer,
   createResponsiveStoreEnhancer,
+  createResponsiveStateReducer,
 } from 'redux-responsive';
 import app from 'reducers';
 
 const reducer = combineReducers({
   app,
-  browser: responsiveStateReducer,
+  browser: createResponsiveStateReducer(null, {
+    extraFields: () => ({
+      width: window.innerWidth,
+    }),
+  }),
 });
 /* eslint-disable no-underscore-dangle */
 // This enables the redux dev tools extension, or does nothing if not installed
@@ -25,4 +29,5 @@ export default createStore(
   composeEnhancers(
     createResponsiveStoreEnhancer(),
     applyMiddleware(thunkMiddleware),
-  ));
+  ),
+);

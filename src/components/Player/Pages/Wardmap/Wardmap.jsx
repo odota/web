@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { calculateResponsiveState } from 'redux-responsive';
 import { getPlayerWardmap } from 'actions';
 import Heatmap from 'components/Heatmap';
 import Container from 'components/Container';
@@ -14,6 +15,7 @@ const getData = (props) => {
 class RequestLayer extends React.Component {
   componentWillMount() {
     getData(this.props);
+    window.addEventListener('resize', this.props.updateWindowSize);
   }
 
   componentWillUpdate(nextProps) {
@@ -22,8 +24,14 @@ class RequestLayer extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.props.updateWindowSize);
+  }
+
   render() {
-    const { error, loading, data } = this.props;
+    const { error, loading, data, browser } = this.props;
+    const heatmapWidth = browser.width - 50;
+
     return (
       <div className={styles.wardmaps}>
         <Container
@@ -32,7 +40,10 @@ class RequestLayer extends React.Component {
           error={error}
           loading={loading}
         >
-          <Heatmap points={unpackPositionData(data.obs)} />
+          <Heatmap
+            points={unpackPositionData(data.obs)}
+            width={heatmapWidth > 1440 ? 1440 : heatmapWidth}
+          />
         </Container>
         <Container
           title={strings.th_ward_sentry}
@@ -40,7 +51,10 @@ class RequestLayer extends React.Component {
           error={error}
           loading={loading}
         >
-          <Heatmap points={unpackPositionData(data.sen)} />
+          <Heatmap
+            points={unpackPositionData(data.sen)}
+            width={heatmapWidth > 1440 ? 1440 : heatmapWidth}
+          />
         </Container>
       </div>
     );
@@ -51,10 +65,12 @@ const mapStateToProps = state => ({
   data: state.app.playerWardmap.data,
   loading: state.app.playerWardmap.loading,
   error: state.app.playerWardmap.data.error,
+  browser: state.browser,
 });
 
 const mapDispatchToProps = dispatch => ({
   getPlayerWardmap: (playerId, options) => dispatch(getPlayerWardmap(playerId, options)),
+  updateWindowSize: () => dispatch(calculateResponsiveState(window)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
