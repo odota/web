@@ -27,8 +27,7 @@ class Chat extends React.Component {
       const curr = this.raw[i];
       const next = this.raw[i + 1];
       if (curr.player_slot === next.player_slot) {
-        // time diff = 10 sec, I think there is no reason for less or more
-        if ((next.time - curr.time) < 10) {
+        if ((next.time - curr.time) < 15) {
           if (curr.key === next.key) {
             next.spam = true;
           }
@@ -49,8 +48,11 @@ class Chat extends React.Component {
     this.state = {
       radiant: true,
       dire: true,
-      chat: true,
-      chatwheel: true,
+      text: true,
+      phrases: true,
+      audio: true,
+      all: true,
+      allies: true,
       spam: false,
 
       playing: null,
@@ -60,22 +62,42 @@ class Chat extends React.Component {
       radiant: {
         f: (arr = this.raw) => arr.filter(msg => isRadiant(msg.player_slot)),
         type: 'faction',
+        disabled: () => !this.state.dire,
       },
       dire: {
         f: (arr = this.raw) => arr.filter(msg => !isRadiant(msg.player_slot)),
         type: 'faction',
+        disabled: () => !this.state.radiant,
       },
-      chat: {
+      text: {
         f: (arr = this.raw) => arr.filter(msg => msg.type === 'chat'),
         type: 'type',
+        disabled: () => this.state.phrases === false && this.state.audio === false,
       },
-      chatwheel: {
-        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel'),
+      phrases: {
+        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel' && Number(msg.key) < 86),
         type: 'type',
+        disabled: () => this.state.text === false && this.state.audio === false,
+      },
+      audio: {
+        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel' && Number(msg.key) >= 86),
+        type: 'type',
+        disabled: () => this.state.phrases === false && this.state.text === false,
+      },
+      all: {
+        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chat' || (msg.type === 'chatwheel' && chatwheelAll.includes(Number(msg.key)))),
+        type: 'target',
+        disabled: () => !this.state.allies,
+      },
+      allies: {
+        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel' && !chatwheelAll.includes(Number(msg.key))),
+        type: 'target',
+        disabled: () => !this.state.all,
       },
       spam: {
         f: (arr = this.raw) => arr.filter(msg => msg.spam),
         type: 'other',
+        disabled: () => false,
       },
     };
 
@@ -165,9 +187,9 @@ class Chat extends React.Component {
               }
             }
 
-            let target = strings.chat_all;
+            let target = strings.chat_filter_all;
             if (msg.type === 'chatwheel' && !chatwheelAll.includes(Number(msg.key))) {
-              target = strings.chat_allies;
+              target = strings.chat_filter_allies;
             }
 
             return (
@@ -216,6 +238,7 @@ class Chat extends React.Component {
           c[f[name].type].push({
             name,
             f: f[name].f,
+            disabled: f[name].disabled,
           });
         }
         return c;
@@ -225,24 +248,33 @@ class Chat extends React.Component {
         <ul className={styles.Filters}>
           {Object.keys(categories).map(cat => (
             <li key={cat}>
-              <div>{cat}</div>
+              <div>{strings[`chat_category_${cat}`]}</div>
               <ul>
-                {categories[cat].map((filter, index) => (
-                  <li key={index}>
-                    <Checkbox
-                      label={
-                        <span>
-                          {strings[`chat_${filter.name}`] || strings[`general_${filter.name}`]}
-                          <b>{filter.f().length}</b>
-                        </span>
-                      }
-                      checked={this.state[filter.name]}
-                      onCheck={() => this.filter(filter.name)}
-                      checkedIcon={<Visibility />}
-                      uncheckedIcon={<VisibilityOff />}
-                    />
-                  </li>
-                ))}
+                {categories[cat].map((filter, index) => {
+                  const len = filter.f().length;
+                  const lenFiltered = filter.f(this.messages).length;
+
+                  return (
+                    <li key={index}>
+                      <Checkbox
+                        label={
+                          <span>
+                            <div>
+                              {strings[`chat_filter_${filter.name}`] || strings[`general_${filter.name}`]}
+                              <b>{len}</b>
+                            </div>
+                            {len !== lenFiltered && <small>filtered <span>{lenFiltered}</span></small>}
+                          </span>
+                        }
+                        checked={this.state[filter.name]}
+                        onCheck={() => this.filter(filter.name)}
+                        checkedIcon={<Visibility />}
+                        uncheckedIcon={<VisibilityOff />}
+                        disabled={filter.disabled()}
+                      />
+                    </li>
+                  );
+                })}
               </ul>
             </li>
           ))}
@@ -257,6 +289,7 @@ class Chat extends React.Component {
           subtitle={strings.subheading_chat}
         />
         <Filters />
+        <hr className={styles.divider} />
         <Messages />
       </div>
     );

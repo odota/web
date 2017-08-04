@@ -123,8 +123,15 @@
     }
   }
 
+  & .divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, var(--primaryTextColor), rgba(0, 0, 0, 0));
+    opacity: 0.1;
+    margin: 16px 0;
+  }
+
   & .Filters {
-    margin-bottom: 25px;
     display: flex;
     flex-direction: row;
 
@@ -162,9 +169,35 @@
               & > label {
                 width: auto !important;
 
-                & b {
-                  margin-left: 8px;
-                  color: var(--colorMutedLight);
+                & > span {
+                  display: inline-block;
+
+                  & > div {
+                    display: flex;
+                    justify-content: space-between;
+                    flex-direction: row;
+                  }
+
+                  & > div > b,
+                  & > small {
+                    text-align: right;
+                    color: var(--colorMutedLight);
+                  }
+
+                  & > div > b,
+                  & > small > span {
+                    margin-left: 4px;
+                    width: 32px;
+                    display: inline-block;
+                  }
+
+                  & > small {
+                    display: block;
+                    font-weight: var(--fontWeightNormal);
+                    font-size: var(--fontSizeSmall);
+                    text-transform: lowercase;
+                    margin-top: -4px;
+                  }
                 }
               }
             }
