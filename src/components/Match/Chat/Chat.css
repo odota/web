@@ -2,28 +2,19 @@
 @import '../../Player/Pages/Overview/Summary.css';
 
 .Container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding-left: 32px;
-  padding-right: 32px;
-
-  @media (max-width: 1024px) {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  @media (max-width: 768px) {
-    flex-wrap: wrap-reverse;
-  }
-
   & .Chat,
   & .Filters {
     margin: 0;
     padding: 0;
 
-    @media (max-width: 768px) {
-      width: 100%;
+    & > li {
+      padding-left: 32px;
+
+      /*
+      @media (max-width: 1024px) {
+        padding-left: 0;
+      }
+      */
     }
   }
 
@@ -79,12 +70,12 @@
         & .chatwheel {
           vertical-align: sub;
           margin-right: 5px;
+          height: 18px !important;
         }
 
         /* override material-ui */
         & svg {
           width: 18px !important;
-          height: 18px !important;
           border-radius: 50%;
           background-color: var(--colorBlueMuted);
 
@@ -104,10 +95,6 @@
             background-color: var(--colorBlue);
             color: var(--primarySurfaceColor) !important;
           }
-        }
-
-        & .chatwheel {
-          height: 18px;
         }
       }
 
@@ -138,77 +125,55 @@
 
   & .Filters {
     margin-bottom: 25px;
-
-    @media (max-width: 768px) {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    @media (min-width: 768px) {
-      & .heading {
-        display: flex;
-        flex-direction: row-reverse;
-
-        & > svg {
-          transform: rotate(180deg);
-          margin-left: 6px;
-          margin-right: 0;
-        }
-      }
-    }
+    display: flex;
+    flex-direction: row;
 
     & > li {
       display: flex;
-      flex-direction: row-reverse;
-      text-align: right;
+      flex-direction: column;
+      margin: 0;
 
-      @media (max-width: 768px) {
-        flex-direction: row;
-        text-align: left;
-      }
-
-      &:not(:first-of-type) {
-        margin-top: 10px;
-      }
-
-      /* override material-ui */
       & > div {
-        width: auto !important;
+        text-transform: uppercase;
+        font-size: var(--fontSizeSmall);
+        color: var(--colorMutedLight);
+        margin-bottom: 8px;
+      }
 
-        @media (max-width: 768px) {
+      & > ul {
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+
+        & > li {
+          &:not(:last-of-type) {
+            margin-right: 16px;
+          }
+
+          /* override material-ui */
           & > div {
-            flex-direction: row-reverse;
+            display: block !important;
 
             & > div {
-              margin-left: 0 !important;
-              margin-right: 8px !important;
+              & > div {
+                margin-right: 8px !important;
+              }
+
+              & > label {
+                width: auto !important;
+
+                & b {
+                  margin-left: 8px;
+                  color: var(--colorMutedLight);
+                }
+              }
             }
           }
         }
       }
 
-      & > b {
-        color: var(--colorMutedLight);
-        width: 40px;
-      }
-    }
-
-    & .divider {
-      border: 0;
-      height: 1px;
-      background: linear-gradient(to left, #f5f5f5, rgba(0, 0, 0, 0));
-      opacity: 0.1;
-      margin-top: 15px;
-      margin-bottom: 15px;
-      width: 100%;
-
-      @media (max-width: 768px) {
-        background: linear-gradient(to right, #f5f5f5, rgba(0, 0, 0, 0));
-      }
-
-      @media (max-width: 320px) {
-        background: #f5f5f5;
+      &:not(:last-of-type) {
+        margin-right: 16px;
       }
     }
   }

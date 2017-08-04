@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { isRadiant, formatSeconds } from 'utility';
 import strings from 'lang';
 import { IconRadiant, IconDire } from 'components/Icons';
-import Heading from 'components/Heading';
 import AvVolumeUp from 'material-ui/svg-icons/av/volume-up';
-import Toggle from 'material-ui/Toggle';
+import Checkbox from 'material-ui/Checkbox';
+import Heading from 'components/Heading';
+import Visibility from 'material-ui/svg-icons/action/visibility';
+import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import styles from './Chat.css';
@@ -55,11 +57,26 @@ class Chat extends React.Component {
     };
 
     this.filters = {
-      radiant: (arr = this.raw) => arr.filter(msg => isRadiant(msg.player_slot)),
-      dire: (arr = this.raw) => arr.filter(msg => !isRadiant(msg.player_slot)),
-      chat: (arr = this.raw) => arr.filter(msg => msg.type === 'chat'),
-      chatwheel: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel'),
-      spam: (arr = this.raw) => arr.filter(msg => msg.spam),
+      radiant: {
+        f: (arr = this.raw) => arr.filter(msg => isRadiant(msg.player_slot)),
+        type: 'faction',
+      },
+      dire: {
+        f: (arr = this.raw) => arr.filter(msg => !isRadiant(msg.player_slot)),
+        type: 'faction',
+      },
+      chat: {
+        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chat'),
+        type: 'type',
+      },
+      chatwheel: {
+        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel'),
+        type: 'type',
+      },
+      spam: {
+        f: (arr = this.raw) => arr.filter(msg => msg.spam),
+        type: 'other',
+      },
     };
 
     this.filter = this.filter.bind(this);
@@ -76,7 +93,7 @@ class Chat extends React.Component {
 
     Object.keys(this.filters).forEach((k) => {
       if (!this.state[k]) {
-        this.filters[k]().forEach((obj) => {
+        this.filters[k].f().forEach((obj) => {
           const index = this.messages.indexOf(obj);
           if (index >= 0) {
             this.messages.splice(index, 1);
@@ -120,109 +137,127 @@ class Chat extends React.Component {
     }
 
     const Messages = () => (
-      <ul className={styles.Chat}>
-        {this.messages.map((msg, index) => {
-          const hero = heroes[msg.heroID];
-          const rad = isRadiant(msg.player_slot);
+      <div>
+        <ul className={styles.Chat}>
+          {this.messages.map((msg, index) => {
+            const hero = heroes[msg.heroID];
+            const rad = isRadiant(msg.player_slot);
 
-          let message = msg.key;
-          if (msg.type === 'chatwheel') {
-            message = [
-              strings[`chatwheel_${msg.key}`],
-            ];
-            if (Number(msg.key) >= 86) {
-              message.unshift(<AvVolumeUp
-                key={msg.key}
-                viewBox="-2 -2 28 28"
-                onClick={() => this.audio(msg.key, index)}
-                className={`${styles.play} ${this.state.playing === index ? styles.playing : ''}`}
-              />);
-            } else {
-              message.unshift(<img
-                key={msg.key}
-                src="/assets/images/dota2/chat_wheel_icon.png"
-                alt="chatwheel"
-                className={styles.chatwheel}
-              />);
+            let message = msg.key;
+            if (msg.type === 'chatwheel') {
+              message = [
+                strings[`chatwheel_${msg.key}`],
+              ];
+              if (Number(msg.key) >= 86) {
+                message.unshift(<AvVolumeUp
+                  key={msg.key}
+                  viewBox="-2 -2 28 28"
+                  onClick={() => this.audio(msg.key, index)}
+                  className={`${styles.play} ${this.state.playing === index ? styles.playing : ''}`}
+                />);
+              } else {
+                message.unshift(<img
+                  key={msg.key}
+                  src="/assets/images/dota2/chat_wheel_icon.png"
+                  alt="chatwheel"
+                  className={styles.chatwheel}
+                />);
+              }
             }
-          }
 
-          let target = strings.chat_all;
-          if (msg.type === 'chatwheel' && !chatwheelAll.includes(Number(msg.key))) {
-            target = strings.chat_allies;
-          }
+            let target = strings.chat_all;
+            if (msg.type === 'chatwheel' && !chatwheelAll.includes(Number(msg.key))) {
+              target = strings.chat_allies;
+            }
 
-          return (
-            <li
-              id={index}
-              key={index}
-              className={`
-                ${rad ? styles.radiant : styles.dire}
-                ${msg.spam ? styles.spam : ''}
-              `}
-            >
-              {rad ? <IconRadiant className={styles.icon} /> : <IconDire className={styles.icon} />}
-              <time>
-                <a href={`#${index}`}>{formatSeconds(msg.time)}</a>
-              </time>
-              <img
-                src={hero ? API_HOST + hero.img : '/assets/images/blank-1x1.gif'}
-                alt={hero && hero.localized_name}
-              />
-              <span className={styles.target}>
-                [{target.toUpperCase()}]
-              </span>
-              <Link
-                to={`/players/${msg.accountID}`}
-                style={{ color: playerColors[msg.player_slot] }}
-                className={`${styles.author} ${msg.accountID ? '' : styles.disabled}`}
+            return (
+              <li
+                id={index}
+                key={index}
+                className={`
+                  ${rad ? styles.radiant : styles.dire}
+                  ${msg.spam ? styles.spam : ''}
+                `.trim()}
               >
-                {msg.name}
-              </Link>
-              <article>
-                {message}
-              </article>
+                {rad ? <IconRadiant className={styles.icon} /> : <IconDire className={styles.icon} />}
+                <time>
+                  <a href={`#${index}`}>{formatSeconds(msg.time)}</a>
+                </time>
+                <img
+                  src={hero ? API_HOST + hero.img : '/assets/images/blank-1x1.gif'}
+                  alt={hero && hero.localized_name}
+                />
+                <span className={styles.target}>
+                  [{target.toUpperCase()}]
+                </span>
+                <Link
+                  to={`/players/${msg.accountID}`}
+                  style={{ color: playerColors[msg.player_slot] }}
+                  className={`${styles.author} ${msg.accountID ? '' : styles.disabled}`}
+                >
+                  {msg.name}
+                </Link>
+                <article>
+                  {message}
+                </article>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+
+    const Filters = () => {
+      const categories = Object.keys(this.filters).reduce((cats, name) => {
+        const c = cats;
+        const f = this.filters;
+        if (f[name].f().length > 0) {
+          c[f[name].type] = c[f[name].type] || [];
+          c[f[name].type].push({
+            name,
+            f: f[name].f,
+          });
+        }
+        return c;
+      }, {});
+
+      return (
+        <ul className={styles.Filters}>
+          {Object.keys(categories).map(cat => (
+            <li key={cat}>
+              <div>{cat}</div>
+              <ul>
+                {categories[cat].map((filter, index) => (
+                  <li key={index}>
+                    <Checkbox
+                      label={
+                        <span>
+                          {strings[`chat_${filter.name}`] || strings[`general_${filter.name}`]}
+                          <b>{filter.f().length}</b>
+                        </span>
+                      }
+                      checked={this.state[filter.name]}
+                      onCheck={() => this.filter(filter.name)}
+                      checkedIcon={<Visibility />}
+                      uncheckedIcon={<VisibilityOff />}
+                    />
+                  </li>
+                ))}
+              </ul>
             </li>
-          );
-        })}
-      </ul>
-    );
-
-    const Filters = () => (
-      <ul className={styles.Filters}>
-        <Heading
-          className={styles.heading}
-          title="Filters"
-        />
-        {Object.keys(this.filters).map((key, index) => {
-          const len = this.filters[key]().length;
-          const switcher = [
-            <li key={key}>
-              <b>{len}</b>
-              <Toggle
-                label={strings[`chat_${key}`] || strings[`general_${key}`]}
-                toggled={this.state[key]}
-                onToggle={() => this.filter(key)}
-                thumbStyle={{ backgroundColor: styles.lightGray }}
-              />
-            </li>,
-          ];
-
-          // add dividers for better perception after each 2nd elem
-          // divide radiant & dire from chat & chatwheel & spam
-          if (index % 2) {
-            switcher.push(<hr className={styles.divider} />);
-          }
-
-          return len > 0 && switcher;
-        })}
-      </ul>
-    );
+          ))}
+        </ul>
+      );
+    };
 
     return (
       <div className={styles.Container}>
-        <Messages />
+        <Heading
+          title={strings.heading_chat}
+          subtitle={strings.subheading_chat}
+        />
         <Filters />
+        <Messages />
       </div>
     );
   }

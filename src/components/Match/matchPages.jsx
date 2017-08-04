@@ -271,12 +271,7 @@ const matchPages = [Overview, {
       };
     });
 
-    return (
-      <div>
-        <Heading title={strings.heading_chat} />
-        <Chat data={data} />
-      </div>
-    );
+    return <Chat data={data} />;
   },
 }, {
   name: strings.tab_story,
