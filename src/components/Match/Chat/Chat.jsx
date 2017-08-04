@@ -262,7 +262,7 @@ class Chat extends React.Component {
                               {strings[`chat_filter_${filter.name}`] || strings[`general_${filter.name}`]}
                               <b>{len}</b>
                             </div>
-                            {len !== lenFiltered && <small>filtered <span>{lenFiltered}</span></small>}
+                            {len !== lenFiltered && <small>{strings.chat_filtered.toLowerCase()} <span>{lenFiltered}</span></small>}
                           </span>
                         }
                         checked={this.state[filter.name]}
