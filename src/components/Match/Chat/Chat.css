@@ -126,7 +126,7 @@
     height: 1px;
     background: linear-gradient(to right, var(--primaryTextColor), rgba(0, 0, 0, 0));
     opacity: 0.1;
-    margin: 16px 0;
+    margin: 6px 0 20px 0;
   }
 
   & .Filters {
