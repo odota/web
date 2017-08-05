@@ -296,7 +296,7 @@
   "heading_analysis": "Analysis",
   "heading_cosmetics": "Cosmetics",
   "heading_log": "Log",
-  "heading_chat": "Chat messages",
+  "heading_chat": "Chat",
   "heading_story": "Story",
   "heading_fantasy": "Fantasy",
   "heading_wardmap": "Wardmap",
@@ -343,7 +343,6 @@
   "heading_team_elo_rankings": "Team Elo Rankings",
 
   "subheading_avg_and_max": "in last %d matches",
-  "subheading_chat": "and categorized filters with counts beside",
   "subheading_records": "In ranked matches. Records reset monthly.",
   "subheading_team_elo_rankings": "k=32, init=1000",
 

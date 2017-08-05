@@ -273,10 +273,7 @@ const matchPages = [Overview, {
 
     return (
       <div>
-        <Heading
-          title={strings.heading_chat}
-          subtitle={strings.subheading_chat}
-        />
+        <Heading title={strings.heading_chat} />
         <Chat data={data} />
       </div>
     );

@@ -52,7 +52,7 @@ class Chat extends React.Component {
       audio: true,
       all: true,
       allies: true,
-      spam: false,
+      spam: true,
 
       playing: null,
     };
