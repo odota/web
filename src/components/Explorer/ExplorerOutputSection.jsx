@@ -55,6 +55,7 @@ class ExplorerOutputSection extends React.Component {
     }
     return (
       <Table
+        resetTableState
         data={(rows || []).slice(0, 500)}
         columns={(fields || []).map(column => ({
           displayName: column.name === 'count' ? strings.general_matches : column.name,

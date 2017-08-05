@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 import reducer from 'reducers/reducer';
 import request from 'reducers/request';
 import form from 'reducers/form';
-import table from 'reducers/table';
 
 export default combineReducers({
   player: reducer('player'),
@@ -39,7 +38,6 @@ export default combineReducers({
   teams: reducer('teams'),
   records: reducer('records'),
   ghPulls: reducer('ghPulls'),
-  table,
   form,
   request,
 });
