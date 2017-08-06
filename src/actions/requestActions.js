@@ -37,12 +37,10 @@ function poll(dispatch, json, matchId) {
   fetch(`${API_HOST}${url}/${json.job.jobId}`)
     .then(res => res.json())
     .then((json) => {
-      if (json.progress) {
+      if (json && json.progress) {
         dispatch(requestProgress(json.progress));
       }
-      if (json.err || json.state === 'failed') {
-        dispatch(requestError(json.err || 'failed'));
-      } else if (json.state === 'completed') {
+      if (!json || (json && json.state === 'completed')) {
         dispatch(requestOk());
         window.location.href = `/matches/${matchId}`;
       } else {
