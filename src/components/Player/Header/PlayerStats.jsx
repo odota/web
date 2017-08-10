@@ -71,10 +71,6 @@ export const PlayerStatsCards = ({
             subtitle={
               <div
                 className={styles.estimatedMMR}
-                data-hint={`
-                  ${strings.general_standard_deviation}: ${Math.round(mmrEstimate.stdDev)},
-                  ${strings.general_matches}: ${mmrEstimate.n}
-                `}
               >
                 {mmrEstimate.estimate}
               </div>
