@@ -27,7 +27,7 @@ const countryMmrColumns = [{
   sortFn: true,
   displayFn: (row) => {
     const code = row.loccountrycode.toLowerCase();
-    let image = `/assets/images/flags/${code}.svg`;
+    // let image = `/assets/images/flags/${code}.svg`;
     let name = row.common;
 
     // Fill missed flags and country names
@@ -41,7 +41,8 @@ const countryMmrColumns = [{
       name = 'Zaire';
     } else {
       try {
-        image = `/${require(`flag-icon-css/flags/4x3/${code}.svg`)}`;
+        // TODO this no longer properly renders the flags
+        // image = `/${require(`flag-icon-css/flags/4x3/${code}.svg`)}`;
       } catch (e) {
         console.error(e);
       }
@@ -54,10 +55,12 @@ const countryMmrColumns = [{
 
     return (
       <div className={styles.country}>
+        {/*
         <img
           src={image}
           role="presentation"
         />
+        */}
         <span>
           {name}
         </span>
