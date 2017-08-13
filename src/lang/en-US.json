@@ -93,7 +93,7 @@
   "error": "Error",
   "error_message": "Whoops! Something went wrong.",
   "error_four_oh_four_message": "The page you are looking for cannot be found.",
-  
+
   "explorer_title": "Data Explorer",
   "explorer_subtitle": "Professional Dota 2 Stats",
   "explorer_description": "Stats from professional Dota 2 matches. Amateur leagues are not included.",
@@ -342,11 +342,11 @@
   "heading_median": "Median",
   "heading_distinct_heroes": "Distinct Heroes",
   "heading_team_elo_rankings": "Team Elo Rankings",
-  
+
   "subheading_avg_and_max": "in last %d matches",
   "subheading_records": "In ranked matches. Records reset monthly.",
   "subheading_team_elo_rankings": "k=32, init=1000",
-  
+
   "hero_pro_tab": "Professional",
   "hero_public_tab": "Public",
   "hero_pro_heading": "Heroes in Professional Matches",
@@ -366,7 +366,7 @@
   "hero_2000_win_rate": "2K W%",
   "hero_1000_pick_rate": "<2K P%",
   "hero_1000_win_rate": "<2K W%",
-  
+
   "home_login": "Login",
   "home_login_desc": "for automatic replay parsing",
   "home_parse": "Request",
@@ -397,7 +397,7 @@
   "lane_role_2": "Mid",
   "lane_role_3": "Off",
   "lane_role_4": "Jungle",
-  
+
   "lane_pos_1": "Bot",
   "lane_pos_2": "Mid",
   "lane_pos_3": "Top",
@@ -438,7 +438,7 @@
   "match_first_barracks": "First barracks",
   "match_pick": "Pick",
   "match_ban": "Ban",
-  
+
   "matches_highest_mmr": "High MMR",
   "matches_lowest_mmr": "Low MMR",
 
@@ -501,7 +501,7 @@
   "pagination_first": "First",
   "pagination_last": "Last",
   "pagination_of": "of",
-  
+
   "request_title": "Request a Parse",
   "request_match_id": "Match ID",
   "request_error": "Failed to get match data",
@@ -516,7 +516,7 @@
   "rune_4": "Regeneration",
   "rune_5": "Bounty",
   "rune_6": "Arcane",
-  
+
   "search_title": "Player Search",
 
   "skill_1": "Normal",
@@ -744,7 +744,7 @@
 
   "tier_professional": "Professional",
   "tier_premium": "Premium",
-  
+
   "time_past": "%s ago",
   "time_just_now": "just now",
   "time_s": "a second",
@@ -879,7 +879,7 @@
 
   "histograms_name": "Histograms",
   "histograms_description": "Percentages indicate win rates for the labeled bin",
-  
+
   "trends_name": "Trends",
   "trends_description": "Moving mean of last 20 games",
   "trends_tooltip_average": "Avg.",
@@ -920,6 +920,18 @@
   "vision_placed_observer": "placed Observer at",
   "vision_placed_sentry": "placed Sentry at",
   "vision_ward_log": "Ward Log",
+
+  "chat_category_faction": "Faction",
+  "chat_category_type": "Type",
+  "chat_category_target": "Target",
+  "chat_category_other": "Other",
+  "chat_filter_text": "Text",
+  "chat_filter_phrases": "Phrases",
+  "chat_filter_audio": "Audio",
+  "chat_filter_spam": "Spam",
+  "chat_filter_all": "All",
+  "chat_filter_allies": "Allies",
+  "chat_filtered": "Filtered",
 
   "chatwheel_0": "Okay.",
   "chatwheel_1": "Careful!",

@@ -26,10 +26,8 @@ import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
-import AvPlayCircleOutline from 'material-ui/svg-icons/av/play-circle-outline';
-import ActionLabel from 'material-ui/svg-icons/action/label';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
-import { IconRadiant, IconDire, IconBackpack } from 'components/Icons';
+import { IconBackpack } from 'components/Icons';
 import subtextStyle from 'components/Visualizations/Table/subText.css';
 import styles from './Match.css';
 
@@ -558,47 +556,6 @@ export const laningColumns = (currentState, setSelectedPlayer) => [
     relativeBars: true,
     sumFn: true,
   }];
-
-export const chatColumns = [
-  {
-    displayName: strings.filter_is_radiant,
-    field: '',
-    displayFn: row =>
-      (<div className={styles.teamIconContainer}>
-        {
-          row.isRadiant ?
-            <IconRadiant className={styles.iconRadiant} /> :
-            <IconDire className={styles.iconDire} />
-        }
-      </div>),
-  },
-  Object.assign({}, heroTdColumn, { sortFn: false }),
-  {
-    displayName: strings.th_time,
-    field: 'time',
-    displayFn: (row, col, field) => formatSeconds(field),
-  }, {
-    displayName: strings.th_message,
-    field: '',
-    displayFn: (row) => {
-      if (row.type === 'chatwheel') {
-        if (Number(row.key) >= 86) {
-          return (<span>
-            <span
-              style={{ cursor: 'pointer', position: 'relative', top: '6px', marginRight: '3px' }}
-              onClick={() => new Audio(`/assets/chatwheel/dota_chatwheel_${row.key}.wav`).play()}
-            >
-              <AvPlayCircleOutline />
-            </span>
-            <span>{strings[`chatwheel_${row.key}`]}</span>
-          </span>);
-        }
-        return <span><span style={{ position: 'relative', top: '6px', marginRight: '3px' }}><ActionLabel /></span><span>{strings[`chatwheel_${row.key}`]}</span></span>;
-      }
-      return row.key || row.text;
-    },
-  },
-];
 
 export const unitKillsColumns = [
   heroTdColumn, {
