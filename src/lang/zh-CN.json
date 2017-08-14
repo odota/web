@@ -127,7 +127,7 @@
   "explorer_bar_button":"柱状图",
   "explorer_timeseries_button":"时序图",
   "explorer_chart_unavailable":"图表不可用，请尝试添加 GROUP BY",
-  "explorer_value":"Value",
+  "explorer_value":"值",
   "explorer_category":"分类",
   "explorer_region":"地区",
   "explorer_picks_bans":"选择/禁用",
