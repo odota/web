@@ -27,7 +27,7 @@ const countryMmrColumns = [{
   sortFn: true,
   displayFn: (row) => {
     const code = row.loccountrycode.toLowerCase();
-    // let image = `/assets/images/flags/${code}.svg`;
+    const image = `/assets/images/flags/${code}.svg`;
     let name = row.common;
 
     // Fill missed flags and country names
@@ -39,28 +39,18 @@ const countryMmrColumns = [{
       name = 'East Timor';
     } else if (code === 'zr') {
       name = 'Zaire';
-    } else {
-      try {
-        // TODO this no longer properly renders the flags
-        // image = `/${require(`flag-icon-css/flags/4x3/${code}.svg`)}`;
-      } catch (e) {
-        console.error(e);
-      }
-      if (code === 'bq') {
-        name = 'Caribbean Netherlands';
-      } else if (code === 'sh') {
-        name = 'Saint Helena, Ascension and Tristan da Cunha';
-      }
+    } else if (code === 'bq') {
+      name = 'Caribbean Netherlands';
+    } else if (code === 'sh') {
+      name = 'Saint Helena, Ascension and Tristan da Cunha';
     }
 
     return (
       <div className={styles.country}>
-        {/*
         <img
           src={image}
           role="presentation"
         />
-        */}
         <span>
           {name}
         </span>
