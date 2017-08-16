@@ -102,7 +102,7 @@ class Table extends React.Component {
     const { sortState, sortField, sortFn, currentPage } = this.state;
     const dataLength = this.props.data.length;
     let data = this.props.data;
-    if (maxRows && maxRows <= data.length) {
+    if (maxRows && maxRows <= dataLength) {
       data = data.slice(0, maxRows);
     }
     if (sortField) {
@@ -224,7 +224,7 @@ class Table extends React.Component {
           numPages={Math.ceil(dataLength / pageLength)}
           currentPage={currentPage}
           pageLength={pageLength}
-          length={data.length}
+          length={dataLength}
           nextPage={this.nextPage}
           prevPage={this.prevPage}
           setCurrentPage={this.setCurrentPage}
