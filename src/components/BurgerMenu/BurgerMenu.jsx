@@ -17,7 +17,7 @@ export default class BurgerMenu extends React.Component {
   render() {
     return (
       <div>
-        <IconButton onTouchTap={this.handleToggle}>
+        <IconButton onClick={this.handleToggle}>
           <MenuIcon />
         </IconButton>
         <Drawer
