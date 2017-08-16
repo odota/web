@@ -690,7 +690,7 @@ export const cosmeticsColumns = [heroTdColumn, {
       data-for={`cosmetic_${cosmetic.item_id}`}
     >
       <a
-        href={`https://www.lootmarket.com/dota-2/item/${cosmetic.name}?partner=1101&utm_source=misc&utm_medium=misc&utm_campaign=opendota`}
+        href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`}
         target="_blank"
         rel="noopener noreferrer"
       >

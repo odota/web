@@ -18,13 +18,6 @@ export default () => (
       <a href="https://pvgna.com/?ref=yasp" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/pvgna-logo.png" role="presentation" />
       </a>
-      <a
-        href="//www.lootmarket.com/?partner=1101&utm_source=misc&utm_medium=misc&utm_campaign=opendota/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img src="/assets/images/loot.svg" role="presentation" />
-      </a>
       <a href="http://www.vpgame.com/" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/vp-logo.png" role="presentation" />
       </a>
