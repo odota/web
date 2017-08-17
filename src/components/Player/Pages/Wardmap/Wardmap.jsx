@@ -8,7 +8,7 @@ import strings from 'lang';
 import { unpackPositionData } from 'utility';
 import styles from './Wardmap.css';
 
-const MAX_WIDTH = 1080;
+const MAX_WIDTH = 1200;
 
 const getData = (props) => {
   props.getPlayerWardmap(props.playerId, props.location.search);

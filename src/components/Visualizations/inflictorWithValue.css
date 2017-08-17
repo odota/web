@@ -4,7 +4,7 @@
   position: relative;
   float: left;
   margin: 1px;
-  height: 29px;
+  height: 27px;
 
   & .overlay {
     background-color: var(--darkPrimaryColor);
@@ -17,7 +17,7 @@
   }
 
   & img {
-    height: 29px;
+    height: 27px;
   }
 
   & .tooltip {
