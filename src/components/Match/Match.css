@@ -160,7 +160,7 @@
 
 .tabBar {
   & a {
-    @media only screen and (max-width: 1023px) {
+    @media only screen and (max-width: 1080px) {
       padding-left: 12px;
       padding-right: 12px;
     }
