@@ -608,6 +608,13 @@ export const unitKillsColumns = [
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
   }, {
+    displayName: strings.th_observers_placed,
+    tooltip: strings.farm_observers,
+    field: 'observer_kills',
+    sortFn: true,
+    displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
+  }, {
     displayName: strings.th_necronomicon,
     tooltip: strings.farm_necronomicon,
     field: 'necronomicon_kills',
