@@ -49,8 +49,11 @@ const drawGraphs = (props, id) => {
       },
       tooltip: {
         contents(d, defaultTitleFormat, defaultValueFormat, color) {
-          d.sort((a, b) => b.value - a.value);
           return this.getTooltipContent(d, defaultTitleFormat, valueFormat || defaultValueFormat, color);
+        },
+        order: (a, b) => {
+          if (a.id === 'Gold' || b.id === 'Gold') return a.id - b.id;
+          return b.value - a.value;
         },
       },
     });
