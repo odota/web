@@ -4,6 +4,7 @@
   "abbr_billion":"b",
   "abbr_trillion":"t",
   "abbr_quadrillion":"q",
+  "abbr_not_available":"N/A",
   "analysis_eff":"Lane efficiency",
   "analysis_farm_drought":"Nejnižší GPM v intervalu 5 minut",
   "analysis_skillshot":"Počet trefených skillshotů",
