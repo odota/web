@@ -46,7 +46,7 @@ export const PlayerStatsCards = ({
         />
         <CardTitle
           className={styles.playerStats}
-          subtitle={wins + losses ? `${((wins / (wins + losses)) * 100).toFixed(2)}%` : 'N/A'}
+          subtitle={wins + losses ? `${((wins / (wins + losses)) * 100).toFixed(2)}%` : strings.abbr_not_available}
           title={strings.th_winrate}
         />
       </div>
@@ -54,14 +54,14 @@ export const PlayerStatsCards = ({
         {soloRank && (
           <CardTitle
             className={styles.playerStats}
-            subtitle={soloRank || 'N/A'}
+            subtitle={soloRank || strings.abbr_not_available}
             title={strings.th_solo_mmr}
           />
         )}
         {partyRank && (
           <CardTitle
             className={styles.playerStats}
-            subtitle={partyRank || 'N/A'}
+            subtitle={partyRank || strings.abbr_not_available}
             title={strings.th_party_mmr}
           />
         )}
