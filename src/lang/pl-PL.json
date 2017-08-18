@@ -4,6 +4,7 @@
   "abbr_billion":"mld",
   "abbr_trillion":"tln",
   "abbr_quadrillion":"kln",
+  "abbr_not_available":"N/A",
   "analysis_eff":"Skuteczność na linii",
   "analysis_farm_drought":"Najniższe złoto/min w 5 minutowych przedziałach",
   "analysis_skillshot":"Skuteczne użycie umiejętności",
