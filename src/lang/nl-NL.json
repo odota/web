@@ -4,6 +4,7 @@
   "abbr_billion":"mld",
   "abbr_trillion":"t",
   "abbr_quadrillion":"q",
+  "abbr_not_available":"N/A",
   "analysis_eff":"Lane-efficiëntie",
   "analysis_farm_drought":"Laagste GPM in een vijfminuutsinterval",
   "analysis_skillshot":"Vaardigheidsschoten geraakt",
