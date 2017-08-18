@@ -4,6 +4,7 @@
   "abbr_billion":"b",
   "abbr_trillion":"t",
   "abbr_quadrillion":"q",
+  "abbr_not_available":"N/A",
   "analysis_eff":"Hiệu quả lane",
   "analysis_farm_drought":"Tiền từng phút thấp nhất mỗi 5 phút",
   "analysis_skillshot":"Chiêu thức đã bắn",
