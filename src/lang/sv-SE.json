@@ -4,6 +4,7 @@
   "abbr_billion":"b",
   "abbr_trillion":"t",
   "abbr_quadrillion":"q",
+  "abbr_not_available":"N/A",
   "analysis_eff":"Baneffektivit",
   "analysis_farm_drought":"Lägsta GPM per 5 minuter intervall",
   "analysis_skillshot":"Träffade skicklighetskrafter",
