@@ -4,6 +4,7 @@
   "abbr_billion": "b",
   "abbr_trillion": "t",
   "abbr_quadrillion": "q",
+  "abbr_not_available": "N/A",
 
   "analysis_eff": "Lane efficiency",
   "analysis_farm_drought": "Lowest GPM in 5 minute interval",
@@ -718,7 +719,6 @@
   "th_permanent_buffs": "Buffs",
   "th_winner": "Winner",
   "th_played_with": "My Record With",
-  "th_other": "Other",
   "th_obs_placed": "Observer Wards Placed",
   "th_sen_placed": "Sentry Wards Placed",
   "th_obs_destroyed": "Observer Wards Destroyed",
