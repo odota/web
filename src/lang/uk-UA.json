@@ -4,6 +4,7 @@
   "abbr_billion":"м",
   "abbr_trillion":"т",
   "abbr_quadrillion":"к",
+  "abbr_not_available":"N/A",
   "analysis_eff":"Ефективність на лінії",
   "analysis_farm_drought":"Найменше ДВХ за 5 хвилин",
   "analysis_skillshot":"Успішних скілшотів",
