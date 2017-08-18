@@ -46,7 +46,7 @@ export const PlayerStatsCards = ({
         />
         <CardTitle
           className={styles.playerStats}
-          subtitle={`${((wins / (wins + losses)) * 100).toFixed(2)}%`}
+          subtitle={wins + losses ? `${((wins / (wins + losses)) * 100).toFixed(2)}%` : 'N/A'}
           title={strings.th_winrate}
         />
       </div>
@@ -65,7 +65,7 @@ export const PlayerStatsCards = ({
             title={strings.th_party_mmr}
           />
         )}
-        {mmrEstimate.estimate > 0 && (
+        {mmrEstimate && mmrEstimate.estimate > 0 && (
           <CardTitle
             className={styles.playerStats}
             subtitle={
