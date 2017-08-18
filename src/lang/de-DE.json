@@ -4,6 +4,7 @@
   "abbr_billion":"b",
   "abbr_trillion":"t",
   "abbr_quadrillion":"q",
+  "abbr_not_available":"N/A",
   "analysis_eff":"Lane-Effizienz",
   "analysis_farm_drought":"Niedrigste GPM im 5 Minuten-Intervall",
   "analysis_skillshot":"Skillshots getroffen",
