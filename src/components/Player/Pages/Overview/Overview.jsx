@@ -55,7 +55,6 @@ const Overview = ({
         maxRows={MAX_MATCHES_ROWS}
       />
     </Container>
-
     <div className={styles.heroesContainer}>
       <Container
         title={strings.heading_peers}
@@ -68,7 +67,6 @@ const Overview = ({
           maxRows={MAX_PEERS_ROWS}
         />
       </Container>
-
       <Container
         title={strings.heading_heroes}
         loading={heroesLoading}

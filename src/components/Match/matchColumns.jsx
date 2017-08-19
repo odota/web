@@ -216,9 +216,7 @@ export const overviewColumns = (match) => {
         visitedItemsCount[itemKey] = itemSkipCount;
 
         if (items[itemKey]) {
-          itemArray.push(
-            inflictorWithValue(itemKey, formatSeconds(purchaseEvent && purchaseEvent.time)),
-          );
+          itemArray.push(inflictorWithValue(itemKey, formatSeconds(purchaseEvent && purchaseEvent.time)));
         }
 
         // Use hero_id because Meepo showing up as an additional unit in some matches http://dev.dota2.com/showthread.php?t=132401
@@ -227,9 +225,7 @@ export const overviewColumns = (match) => {
           const additionalFirstPurchase = row.first_purchase_time && row.first_purchase_time[additionalItemKey];
 
           if (items[additionalItemKey]) {
-            additionalItemArray.push(
-              inflictorWithValue(additionalItemKey, formatSeconds(additionalFirstPurchase)),
-            );
+            additionalItemArray.push(inflictorWithValue(additionalItemKey, formatSeconds(additionalFirstPurchase)));
           }
         }
 
@@ -237,9 +233,7 @@ export const overviewColumns = (match) => {
         const backpackfirstPurchase = row.first_purchase_time && row.first_purchase_time[backpackItemKey];
 
         if (items[backpackItemKey]) {
-          backpackItemArray.push(
-            inflictorWithValue(backpackItemKey, formatSeconds(backpackfirstPurchase)),
-          );
+          backpackItemArray.push(inflictorWithValue(backpackItemKey, formatSeconds(backpackfirstPurchase)));
         }
       }
 
@@ -357,7 +351,7 @@ const fantasyComponents = [
   { displayName: strings.th_roshan, field: 'roshans_killed', fantasyFn: v => 1 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
   { displayName: strings.th_teamfight_participation, field: 'teamfight_participation', fantasyFn: v => 3 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
   { displayName: strings.th_observers_placed, field: 'obs_placed', fantasyFn: v => 0.5 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
-  { displayName: strings.tooltip_camps_stacked, field: 'camps_stacked', fantasyFn: v => 0.5 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_camps_stacked, field: 'camps_stacked', fantasyFn: v => 0.5 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
   { displayName: strings.heading_runes, field: 'rune_pickups', fantasyFn: v => 0.25 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
   { displayName: strings.th_firstblood_claimed, field: 'firstblood_claimed', fantasyFn: v => 4 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
   { displayName: strings.th_stuns, field: 'stuns', fantasyFn: v => 0.05 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },

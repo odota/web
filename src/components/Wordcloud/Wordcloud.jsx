@@ -72,10 +72,12 @@ class Wordcloud extends React.Component {
     updateWordCloud(nextProps.counts, this.id);
   }
   render() {
+    const width = Math.min(1080, window.innerWidth * 0.75);
+    const height = width * 0.7;
     return (
       <canvas
-        width={window.innerWidth * 0.75}
-        height={window.innerWidth * 0.75 * 0.7}
+        width={width}
+        height={height}
         id={this.id}
         className={styles.Wordcloud}
       />

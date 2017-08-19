@@ -8,6 +8,8 @@ import strings from 'lang';
 import { unpackPositionData } from 'utility';
 import styles from './Wardmap.css';
 
+const MAX_WIDTH = 1200;
+
 const getData = (props) => {
   props.getPlayerWardmap(props.playerId, props.location.search);
 };
@@ -42,7 +44,7 @@ class RequestLayer extends React.Component {
         >
           <Heatmap
             points={unpackPositionData(data.obs)}
-            width={heatmapWidth > 1440 ? 1440 : heatmapWidth}
+            width={Math.min(MAX_WIDTH, heatmapWidth)}
           />
         </Container>
         <Container
@@ -53,7 +55,7 @@ class RequestLayer extends React.Component {
         >
           <Heatmap
             points={unpackPositionData(data.sen)}
-            width={heatmapWidth > 1440 ? 1440 : heatmapWidth}
+            width={Math.min(MAX_WIDTH, heatmapWidth)}
           />
         </Container>
       </div>
