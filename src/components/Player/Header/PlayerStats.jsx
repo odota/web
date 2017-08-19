@@ -46,7 +46,7 @@ export const PlayerStatsCards = ({
         />
         <CardTitle
           className={styles.playerStats}
-          subtitle={`${((wins / (wins + losses)) * 100).toFixed(2)}%`}
+          subtitle={wins + losses ? `${((wins / (wins + losses)) * 100).toFixed(2)}%` : strings.abbr_not_available}
           title={strings.th_winrate}
         />
       </div>
@@ -54,27 +54,23 @@ export const PlayerStatsCards = ({
         {soloRank && (
           <CardTitle
             className={styles.playerStats}
-            subtitle={soloRank || 'N/A'}
+            subtitle={soloRank || strings.abbr_not_available}
             title={strings.th_solo_mmr}
           />
         )}
         {partyRank && (
           <CardTitle
             className={styles.playerStats}
-            subtitle={partyRank || 'N/A'}
+            subtitle={partyRank || strings.abbr_not_available}
             title={strings.th_party_mmr}
           />
         )}
-        {mmrEstimate.estimate > 0 && (
+        {mmrEstimate && mmrEstimate.estimate > 0 && (
           <CardTitle
             className={styles.playerStats}
             subtitle={
               <div
                 className={styles.estimatedMMR}
-                data-hint={`
-                  ${strings.general_standard_deviation}: ${Math.round(mmrEstimate.stdDev)},
-                  ${strings.general_matches}: ${mmrEstimate.n}
-                `}
               >
                 {mmrEstimate.estimate}
               </div>

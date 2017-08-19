@@ -20,8 +20,8 @@
   padding: 25px;
   flex-grow: 1;
 
-  @media only screen and (min-width: 1540px) {
-    width: 1440px;
+  @media only screen and (min-width: 1200px) {
+    width: 1200px;
     margin: auto;
   }
 }

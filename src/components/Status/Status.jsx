@@ -64,12 +64,6 @@ class Status extends React.Component {
       />
       <Table
         style={tableStyle}
-        data={Object.keys(this.state.result.queue || {})
-          .map(key => ({ key, value: JSON.stringify(this.state.result.queue[key]) }))}
-        columns={columns}
-      />
-      <Table
-        style={tableStyle}
         data={Object.keys(this.state.result.load_times || {})
           .map(key => ({ key, value: this.state.result.load_times[key] }))}
         columns={columns}

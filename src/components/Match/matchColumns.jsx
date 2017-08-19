@@ -26,10 +26,8 @@ import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import NavigationMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
-import AvPlayCircleOutline from 'material-ui/svg-icons/av/play-circle-outline';
-import ActionLabel from 'material-ui/svg-icons/action/label';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
-import { IconRadiant, IconDire, IconBackpack } from 'components/Icons';
+import { IconBackpack } from 'components/Icons';
 import subtextStyle from 'components/Visualizations/Table/subText.css';
 import styles from './Match.css';
 
@@ -218,9 +216,7 @@ export const overviewColumns = (match) => {
         visitedItemsCount[itemKey] = itemSkipCount;
 
         if (items[itemKey]) {
-          itemArray.push(
-            inflictorWithValue(itemKey, formatSeconds(purchaseEvent && purchaseEvent.time)),
-          );
+          itemArray.push(inflictorWithValue(itemKey, formatSeconds(purchaseEvent && purchaseEvent.time)));
         }
 
         // Use hero_id because Meepo showing up as an additional unit in some matches http://dev.dota2.com/showthread.php?t=132401
@@ -229,9 +225,7 @@ export const overviewColumns = (match) => {
           const additionalFirstPurchase = row.first_purchase_time && row.first_purchase_time[additionalItemKey];
 
           if (items[additionalItemKey]) {
-            additionalItemArray.push(
-              inflictorWithValue(additionalItemKey, formatSeconds(additionalFirstPurchase)),
-            );
+            additionalItemArray.push(inflictorWithValue(additionalItemKey, formatSeconds(additionalFirstPurchase)));
           }
         }
 
@@ -239,9 +233,7 @@ export const overviewColumns = (match) => {
         const backpackfirstPurchase = row.first_purchase_time && row.first_purchase_time[backpackItemKey];
 
         if (items[backpackItemKey]) {
-          backpackItemArray.push(
-            inflictorWithValue(backpackItemKey, formatSeconds(backpackfirstPurchase)),
-          );
+          backpackItemArray.push(inflictorWithValue(backpackItemKey, formatSeconds(backpackfirstPurchase)));
         }
       }
 
@@ -359,7 +351,7 @@ const fantasyComponents = [
   { displayName: strings.th_roshan, field: 'roshans_killed', fantasyFn: v => 1 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
   { displayName: strings.th_teamfight_participation, field: 'teamfight_participation', fantasyFn: v => 3 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
   { displayName: strings.th_observers_placed, field: 'obs_placed', fantasyFn: v => 0.5 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
-  { displayName: strings.tooltip_camps_stacked, field: 'camps_stacked', fantasyFn: v => 0.5 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
+  { displayName: strings.th_camps_stacked, field: 'camps_stacked', fantasyFn: v => 0.5 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
   { displayName: strings.heading_runes, field: 'rune_pickups', fantasyFn: v => 0.25 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
   { displayName: strings.th_firstblood_claimed, field: 'firstblood_claimed', fantasyFn: v => 4 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
   { displayName: strings.th_stuns, field: 'stuns', fantasyFn: v => 0.05 * v, get displayFn() { return displayFantasyComponent(this.fantasyFn); } },
@@ -559,47 +551,6 @@ export const laningColumns = (currentState, setSelectedPlayer) => [
     sumFn: true,
   }];
 
-export const chatColumns = [
-  {
-    displayName: strings.filter_is_radiant,
-    field: '',
-    displayFn: row =>
-      (<div className={styles.teamIconContainer}>
-        {
-          row.isRadiant ?
-            <IconRadiant className={styles.iconRadiant} /> :
-            <IconDire className={styles.iconDire} />
-        }
-      </div>),
-  },
-  Object.assign({}, heroTdColumn, { sortFn: false }),
-  {
-    displayName: strings.th_time,
-    field: 'time',
-    displayFn: (row, col, field) => formatSeconds(field),
-  }, {
-    displayName: strings.th_message,
-    field: '',
-    displayFn: (row) => {
-      if (row.type === 'chatwheel') {
-        if (Number(row.key) >= 86) {
-          return (<span>
-            <span
-              style={{ cursor: 'pointer', position: 'relative', top: '6px', marginRight: '3px' }}
-              onClick={() => new Audio(`/assets/chatwheel/dota_chatwheel_${row.key}.wav`).play()}
-            >
-              <AvPlayCircleOutline />
-            </span>
-            <span>{strings[`chatwheel_${row.key}`]}</span>
-          </span>);
-        }
-        return <span><span style={{ position: 'relative', top: '6px', marginRight: '3px' }}><ActionLabel /></span><span>{strings[`chatwheel_${row.key}`]}</span></span>;
-      }
-      return row.key || row.text;
-    },
-  },
-];
-
 export const unitKillsColumns = [
   heroTdColumn, {
     displayName: strings.th_heroes,
@@ -647,6 +598,13 @@ export const unitKillsColumns = [
     displayName: strings.th_roshan,
     tooltip: strings.farm_roshan,
     field: 'roshan_kills',
+    sortFn: true,
+    displayFn: (row, col, field) => field || '-',
+    relativeBars: true,
+  }, {
+    displayName: strings.th_observers_placed,
+    tooltip: strings.farm_observers,
+    field: 'observer_kills',
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
@@ -733,7 +691,7 @@ export const cosmeticsColumns = [heroTdColumn, {
       data-for={`cosmetic_${cosmetic.item_id}`}
     >
       <a
-        href={`https://www.lootmarket.com/dota-2/item/${cosmetic.name}?partner=1101&utm_source=misc&utm_medium=misc&utm_campaign=opendota`}
+        href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`}
         target="_blank"
         rel="noopener noreferrer"
       >

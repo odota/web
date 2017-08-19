@@ -35,7 +35,7 @@ class Dropdown extends Component {
     return (
       <div className={className}>
         <Button
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleTouchTap}
           className={classNames(styles.dropButton, open && styles.open)}
           {...buttonProps}
         />

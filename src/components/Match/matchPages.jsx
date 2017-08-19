@@ -13,7 +13,6 @@ import MatchStory from './MatchStory';
 import {
   benchmarksColumns,
   performanceColumns,
-  chatColumns,
   purchaseTimesColumns,
   lastHitsTimesColumns,
   unitKillsColumns,
@@ -30,6 +29,7 @@ import {
 } from './matchColumns';
 import Overview from './Overview';
 import TeamTable from './TeamTable';
+import Chat from './Chat';
 import styles from './Match.css';
 
 const matchPages = [Overview, {
@@ -259,10 +259,25 @@ const matchPages = [Overview, {
   name: strings.tab_chat,
   key: 'chat',
   parsed: true,
-  content: match => (<div>
-    <Heading title={strings.heading_chat} />
-    <Table data={(match.chat || []).map(c => Object.assign({}, c, match.players[c.slot]))} columns={chatColumns} />
-  </div>),
+  content: (match) => {
+    const data = (match.chat || []).map((c) => {
+      const p = match.players[c.slot];
+
+      return {
+        ...c,
+        accountID: p.account_id,
+        heroID: p.hero_id,
+        name: p.name || p.personaname || strings.general_anonymous,
+      };
+    });
+
+    return (
+      <div>
+        <Heading title={strings.heading_chat} />
+        <Chat data={data} />
+      </div>
+    );
+  },
 }, {
   name: strings.tab_story,
   key: 'story',

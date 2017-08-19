@@ -1,0 +1,214 @@
+@import '../../palette.css';
+@import '../../Player/Pages/Overview/Summary.css';
+
+.Container {
+  padding-left: 32px;
+  padding-right: 32px;
+
+  @media (max-width: 768px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  & .Chat,
+  & .Filters {
+    margin: 0;
+    padding: 0;
+  }
+
+  & .Chat {
+    & .radiant,
+    & .dire {
+      display: flex;
+      align-items: flex-end;
+      flex-wrap: wrap;
+
+      &:not(:last-of-type) {
+        padding-bottom: 10px;
+      }
+
+      & svg.icon {
+        width: 16px;
+        height: 16px;
+      }
+
+      & time {
+        display: inline-block;
+        width: 54px;
+        text-align: center;
+
+        & a {
+          font-size: var(--fontSizeSmall);
+          margin: 2px;
+        }
+      }
+
+      & time,
+      & time > a {
+        color: var(--colorMutedLight);
+      }
+
+      & img {
+        height: 20px;
+      }
+
+      & .target {
+        font-size: var(--fontSizeMedium);
+        margin-left: 8px;
+      }
+
+      & .author {
+        font-size: var(--fontSizeMedium);
+        font-weight: var(--fontWeightMedium);
+        margin: 0 8px;
+      }
+
+      & article {
+        & svg,
+        & .chatwheel {
+          vertical-align: sub;
+          margin-right: 5px;
+          height: 18px !important;
+        }
+
+        /* override material-ui */
+        & svg {
+          width: 18px !important;
+          border-radius: 50%;
+          background-color: var(--colorBlueMuted);
+
+          &.play {
+            &:hover {
+              cursor: pointer;
+              background-color: var(--colorBlue);
+              color: var(--primarySurfaceColor) !important;
+            }
+
+            &:active {
+              opacity: 0.6;
+            }
+          }
+
+          &.playing {
+            background-color: var(--colorBlue);
+            color: var(--primarySurfaceColor) !important;
+          }
+        }
+      }
+
+      &.spam {
+        opacity: 0.5;
+        color: var(--colorMuted) !important;
+        filter: grayscale(100%);
+        pointer-events: none;
+      }
+    }
+
+    & .radiant {
+      & svg.icon {
+        fill: var(--colorSuccess);
+      }
+    }
+
+    & .dire {
+      & svg.icon {
+        fill: var(--colorDanger);
+      }
+    }
+
+    & .disabled {
+      pointer-events: none;
+    }
+  }
+
+  & .divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, var(--primaryTextColor), rgba(0, 0, 0, 0));
+    opacity: 0.1;
+    margin: 6px 0 20px 0;
+  }
+
+  & .Filters {
+    display: flex;
+    flex-flow: row wrap;
+
+    & > li {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding-right: 32px;
+
+      & > div {
+        text-transform: uppercase;
+        font-size: var(--fontSizeSmall);
+        color: var(--colorMutedLight);
+        margin-bottom: 8px;
+      }
+
+      & > ul {
+        padding: 0;
+        display: flex;
+        flex-flow: row wrap;
+
+        & > li {
+          margin-bottom: 10px;
+
+          &:not(:last-of-type) {
+            margin-right: 16px;
+          }
+
+          /* override material-ui */
+          & > div {
+            display: block !important;
+
+            & > div {
+              & > div {
+                margin-right: 8px !important;
+              }
+
+              & > label {
+                width: auto !important;
+
+                & > span {
+                  display: inline-block;
+
+                  & > div {
+                    display: flex;
+                    justify-content: space-between;
+                    flex-direction: row;
+                  }
+
+                  & > div > b,
+                  & > small {
+                    text-align: right;
+                    color: var(--colorMutedLight);
+                  }
+
+                  & > div > b,
+                  & > small > span {
+                    margin-left: 4px;
+                    width: 32px;
+                    display: inline-block;
+                  }
+
+                  & > small {
+                    display: block;
+                    font-weight: var(--fontWeightNormal);
+                    font-size: var(--fontSizeSmall);
+                    text-transform: lowercase;
+                    margin-top: -4px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &:not(:last-of-type) {
+        margin-right: 16px;
+      }
+    }
+  }
+}

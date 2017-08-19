@@ -3,11 +3,6 @@ import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
-import {
-  nextPage,
-  prevPage,
-  setCurrentPage,
-} from 'actions';
 import strings from 'lang';
 import styles from './Pagination.css';
 
@@ -92,10 +87,12 @@ const Pagination = ({
   </div>
 );
 
-const mapDispatchToProps = (dispatch, { id }) => ({
+const mapDispatchToProps = () => ({
+  /*
   nextPage: () => dispatch(nextPage(id)),
   prevPage: () => dispatch(prevPage(id)),
   setCurrentPage: pageNumber => dispatch(setCurrentPage(id, pageNumber)),
+  */
 });
 
 export default connect(null, mapDispatchToProps)(Pagination);
