@@ -42,7 +42,7 @@ const Trend = ({ routeParams, columns, playerId, error, loading, history }) => {
               return `<div class="${styles.tooltipWrapper}">
                 <div class="${styles.value}">
                   ${selectedTrend === 'win_rate' ? '' : strings.trends_tooltip_average}
-                  ${' '}${trendStr}: ${data.value}${unit}
+                  ${' '}${trendStr}: ${Number(data.value.toFixed(2))}${unit}
                 </div>
                 <div class="${styles.match}">
                   <div>
@@ -63,7 +63,7 @@ const Trend = ({ routeParams, columns, playerId, error, loading, history }) => {
                     ${selectedTrend === 'win_rate'
       ? ''
       : `<div class="${styles.matchValue}">
-                          ${trendStr}: ${data.independent_value}${unit}
+                          ${trendStr}: ${Number(data.independent_value.toFixed(2))}${unit}
                         </div>`}
                   </div>
                   <div class="${styles.hero}">
