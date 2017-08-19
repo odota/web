@@ -213,7 +213,10 @@ class Table extends React.Component {
                 ))}
                 {summable && <MaterialTableRow>
                   {columns.map((column, colIndex) => (<MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
-                    {column.sumFn && abbreviateNumber(data.map(row => row[column.field]).reduce(sum, 0))}
+                    {column.sumFn && (column.field !== 'life_state_dead' ?
+                      abbreviateNumber(data.map(row => row[column.field]).reduce(sum, 0))
+                      : column.displayFn(null, column, data.map(row => row[column.field]).reduce(sum, 0))
+                    )}
                   </MaterialTableRowColumn>))}
                 </MaterialTableRow>}
               </MaterialTableBody>
