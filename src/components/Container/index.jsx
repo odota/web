@@ -22,9 +22,9 @@ AsyncContainer.propTypes = {
   children: node,
 };
 
-const Container = ({ title, subtitle, style, className, children, error, loading, hide }) => (!hide ? (
+const Container = ({ title, subtitle, style, className, children, error, loading, hide, titleTo }) => (!hide ? (
   <div className={className} style={{ ...style }}>
-    {title && <Heading title={title} subtitle={subtitle} />}
+    {title && <Heading title={title} subtitle={subtitle} titleTo={titleTo} />}
     <AsyncContainer error={error} loading={loading}>
       {children}
     </AsyncContainer>

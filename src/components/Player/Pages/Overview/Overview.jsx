@@ -36,6 +36,7 @@ const Overview = ({
   <div className={styles.overviewContainer}>
     <Container
       title={strings.heading_avg_and_max}
+      titleTo={`/players/${playerId}/records`}
       subtitle={util.format(strings.subheading_avg_and_max, MAX_MATCHES_ROWS)}
       className={sumStyles.summaryContainer}
       loading={matchesLoading}
@@ -45,6 +46,7 @@ const Overview = ({
     </Container>
     <Container
       title={strings.heading_matches}
+      titleTo={`/players/${playerId}/matches`}
       className={styles.matchesContainer}
       loading={matchesLoading}
       error={matchesError}
@@ -58,6 +60,7 @@ const Overview = ({
     <div className={styles.heroesContainer}>
       <Container
         title={strings.heading_peers}
+        titleTo={`/players/${playerId}/peers`}
         loading={peersLoading}
         error={peersError}
       >
@@ -69,6 +72,7 @@ const Overview = ({
       </Container>
       <Container
         title={strings.heading_heroes}
+        titleTo={`/players/${playerId}/heroes`}
         loading={heroesLoading}
         error={heroesError}
       >
