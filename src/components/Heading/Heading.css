@@ -13,6 +13,15 @@
     fill: var(--textColorPrimary);
   }
 
+  & a {
+    color: var(--primaryTextColor);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--primaryLinkColor);
+    }
+  }
+
   & .title {
     font-size: 20px;
   }
