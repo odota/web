@@ -52,7 +52,7 @@ const drawGraphs = (props, id) => {
           return this.getTooltipContent(d, defaultTitleFormat, valueFormat || defaultValueFormat, color);
         },
         order: (a, b) => {
-          if (a.id === 'Gold' || b.id === 'Gold') return a.id - b.id;
+          if (props.type === 'difference') return a.id - b.id;
           return b.value - a.value;
         },
       },
