@@ -149,6 +149,7 @@ class IntroEvent extends StoryEvent {
   }
   format() {
     return formatTemplate(strings.story_intro, {
+      game_mode_article: ['A', 'E', 'I', 'O', 'U'].includes(strings[`game_mode_${this.game_mode}`].charAt(0)) ? 'an' : 'a',
       game_mode: strings[`game_mode_${this.game_mode}`],
       date: this.date.toLocaleDateString(
         (window.localStorage && window.localStorage.getItem('localization')) || 'en-US',
