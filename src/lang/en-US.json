@@ -526,7 +526,7 @@
 
   "story_invalid_template": "(invalid template)",
   "story_error": "An error occured while compiling the story for this match",
-  "story_intro": "on {date}, two teams decided to play {game_mode_article} {game_mode} game of Dota 2 in {region}",
+  "story_intro": "on {date}, two teams decided to play {game_mode_article} {game_mode} game of Dota 2 in {region}. Little did they know, the game would last {duration_in_words}",
   "story_invalid_hero": "Unrecognized Hero",
   "story_fullstop": ".",
   "story_list_2": "{1} and {2}",
@@ -751,8 +751,10 @@
   "time_s": "a second",
   "time_ss": "%d seconds",
   "time_m": "a minute",
+  "time_ms": "minute",
   "time_mm": "%d minutes",
   "time_h": "an hour",
+  "time_hs": "hour",
   "time_hh": "%d hours",
   "time_d": "a day",
   "time_dd": "%d days",
@@ -1051,6 +1053,9 @@
 
   "chatwheel_108": "It's a disastah!",
   "chatwheel_109": "走好, 不送",
-  "chatwheel_110": "Это. Просто. Нечто."
+  "chatwheel_110": "Это. Просто. Нечто.",
 
+  "advb_almost": "almost",
+  "advb_over": "over",
+  "advb_about": "about"
 }

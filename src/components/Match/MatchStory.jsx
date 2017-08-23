@@ -109,6 +109,33 @@ const toSentence = (content) => {
   return result;
 };
 
+const pluralize = (count, object, pluralization_override=null) => {
+  if (count == 1) {
+    return count + ' ' + object;
+  } else {
+    const pluralized_object = (pluralization_override !== null) ? pluralization_override : object + 's';
+    return count + ' ' + pluralized_object;
+  }
+};
+
+const formatApproximateTime = (time_seconds) => {
+  const time_minutes = time_seconds / 60;
+
+  // If the time is at least one hour, describe it in hours
+  if (time_minutes > 60) {
+    const time_hours = time_seconds / (60 * 60);
+    return strings['advb_over'] + ' ' + pluralize(time_hours, strings['time_hs'])
+  }
+
+  // If the time is between 50 and 60 minutes, describe it as "almost an hour"
+  if (time_minutes >= 50) {
+    return strings['advb_almost'] + ' ' + strings['time_h'];
+  }
+
+  // Otherwise, describe the time in minutes
+  return strings['advb_about'] + ' ' + pluralize(parseInt(time_seconds / 60), strings['time_ms']);
+};
+
 const renderSentence = (template, dict) => toSentence(formatTemplate(template, dict));
 
 // Enumerates a list of items using the correct language syntax
@@ -146,6 +173,7 @@ class IntroEvent extends StoryEvent {
     this.game_mode = match.game_mode;
     this.region = match.region;
     this.date = new Date(match.start_time * 1000);
+    this.match_duration_seconds = match.duration;
   }
   format() {
     return formatTemplate(strings.story_intro, {
@@ -155,6 +183,7 @@ class IntroEvent extends StoryEvent {
         (window.localStorage && window.localStorage.getItem('localization')) || 'en-US',
         { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
       region: strings[`region_${this.region}`],
+      duration_in_words: formatApproximateTime(this.match_duration_seconds)
     });
   }
 }
