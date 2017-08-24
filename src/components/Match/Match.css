@@ -17,7 +17,7 @@
   & .ability {
     position: relative;
     display: inline-block;
-    margin: 0 2px;
+    /*margin: 0 2px;*/
 
     &:first-of-type {
       margin-left: 0;
@@ -41,14 +41,18 @@
       left: 0;
       font-size: 10px;
     }
+
+    & .placeholder {
+      background-color: transparent;
+    }
   }
 
   /* React-tooltip ability upgrades */
   & > div {
     pointer-events: auto !important;
-    margin-left: 3px !important;
+    /*margin-left: 3px !important;
     margin-top: 1px !important;
-    padding: 6px 12px 2px !important;
+    /*padding: 6px 12px 2px !important;*/
 
     &:hover {
       visibility: visible !important;
