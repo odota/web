@@ -289,12 +289,7 @@ export const abilityColumns = () => {
       </div>),
   }));
 
-  cols[0] = {
-    displayName: strings.th_avatar,
-    field: 'player_slot',
-    displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, null, true),
-    sortFn: true,
-  };
+  cols[0] = heroTdColumn;
 
   return cols;
 };
