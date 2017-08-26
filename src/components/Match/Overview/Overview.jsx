@@ -2,7 +2,8 @@ import React from 'react';
 import strings from 'lang';
 
 import TeamTable from '../TeamTable';
-import { overviewColumns } from '../matchColumns';
+import AbilityBuildTable from '../AbilityBuildTable';
+import { overviewColumns, abilityColumns } from '../matchColumns';
 import BuildingMap from '../BuildingMap';
 import MatchGraph from '../MatchGraph';
 import styles from './Overview.css';
@@ -22,6 +23,13 @@ export default {
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
         summable
+      />
+      <AbilityBuildTable
+        players={match.players}
+        columns={abilityColumns()}
+        heading={'Ability Build'}
+        radiantTeam={match.radiant_team}
+        direTeam={match.dire_team}
       />
       <div className={styles.overviewMapGraph}>
         <div className={`${styles.map} ${!match.version && styles.centeredMap}`}>
