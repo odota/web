@@ -114,11 +114,11 @@ const articleFor = (followingWord) => {
   // Whether we use a or an depends on the sound of the following word, but that's much hardder to detect programmatically,
   // so we're looking solely at vowel usage for now.
   if (['A', 'E', 'I', 'O', 'U'].includes(followingWord.charAt(0))) {
-    return strings['article_before_vowel_sound'];
-  } else {
-    return strings['article_before_consonant_sound'];
+    return strings.article_before_vowel_sound;
   }
-}
+
+  return strings.article_before_consonant_sound;
+};
 
 const formatApproximateTime = (timeSeconds) => {
   const timeMinutes = parseInt(timeSeconds / 60, 10);
@@ -133,10 +133,9 @@ const formatApproximateTime = (timeSeconds) => {
   } else if (timeMinutes >= 50) {
     // If the time is between 50 and 60 minutes, describe it as "almost an hour"
     return `${strings.advb_almost} ${strings.time_h}`;
-  } else {
-    // Otherwise, describe the time in minutes
-    return `${strings.advb_about} ${util.format(strings.time_mm, timeMinutes)}`;
   }
+  // Otherwise, describe the time in minutes
+  return `${strings.advb_about} ${util.format(strings.time_mm, timeMinutes)}`;
 };
 
 const renderSentence = (template, dict) => toSentence(formatTemplate(template, dict));
@@ -220,7 +219,7 @@ class ChatMessageEvent extends StoryEvent {
     return formatTemplate(strings.story_chatmessage, {
       player: PlayerSpan(this.player),
       message: this.message,
-      said_verb: (this.message.charAt(this.message.length - 1) === '?') ? strings['story_chat_asked'] : strings['story_chat_said'],
+      said_verb: (this.message.charAt(this.message.length - 1) === '?') ? strings.story_chat_asked : strings.story_chat_said,
     });
   }
 }
@@ -694,7 +693,7 @@ const generateStory = (match) => {
   // Chat messages
   const chatMessageEvents = match.chat
     .filter(obj => obj.type === 'chat')
-    .map((obj) => new ChatMessageEvent(match, obj));
+    .map(obj => new ChatMessageEvent(match, obj));
   events = events.concat(chatMessageEvents);
 
   // Aegis pickups
