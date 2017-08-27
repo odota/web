@@ -109,31 +109,30 @@ const toSentence = (content) => {
   return result;
 };
 
-const pluralize = (count, object, pluralization_override=null) => {
-  if (count == 1) {
-    return count + ' ' + object;
-  } else {
-    const pluralized_object = (pluralization_override !== null) ? pluralization_override : object + 's';
-    return count + ' ' + pluralized_object;
+const pluralize = (count, object, pluralizationOverride = null) => {
+  if (count === 1) {
+    return `${count} ${object}`;
   }
+  const pluralizedObject = (pluralizationOverride !== null) ? pluralizationOverride : `${object}s`;
+  return `${count} ${pluralizedObject}`;
 };
 
-const formatApproximateTime = (time_seconds) => {
-  const time_minutes = time_seconds / 60;
+const formatApproximateTime = (timeSeconds) => {
+  const timeMinutes = timeSeconds / 60;
 
   // If the time is at least one hour, describe it in hours
-  if (time_minutes > 60) {
-    const time_hours = time_seconds / (60 * 60);
-    return strings['advb_over'] + ' ' + pluralize(time_hours, strings['time_hs'])
+  if (timeMinutes > 60) {
+    const timeHours = timeSeconds / (60 * 60);
+    return `${strings.advb_over} ${pluralize(timeHours, strings.time_hs)}`;
   }
 
   // If the time is between 50 and 60 minutes, describe it as "almost an hour"
-  if (time_minutes >= 50) {
-    return strings['advb_almost'] + ' ' + strings['time_h'];
+  if (timeMinutes >= 50) {
+    return `${strings.advb_almost} ${strings.time_h}`;
   }
 
   // Otherwise, describe the time in minutes
-  return strings['advb_about'] + ' ' + pluralize(parseInt(time_seconds / 60), strings['time_ms']);
+  return `${strings.advb_about} ${pluralize(parseInt(timeSeconds / 60, 10), strings.time_ms)}`;
 };
 
 const renderSentence = (template, dict) => toSentence(formatTemplate(template, dict));
@@ -183,7 +182,7 @@ class IntroEvent extends StoryEvent {
         (window.localStorage && window.localStorage.getItem('localization')) || 'en-US',
         { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
       region: strings[`region_${this.region}`],
-      duration_in_words: formatApproximateTime(this.match_duration_seconds)
+      duration_in_words: formatApproximateTime(this.match_duration_seconds),
     });
   }
 }
@@ -210,14 +209,14 @@ class ChatMessageEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time + 70);
     this.type = obj.type;
-    this.player = match.players.find(player => player.player_slot == obj.player_slot);
+    this.player = match.players.find(player => player.player_slot === obj.player_slot);
     this.message = obj.key.trim();
   }
   format() {
     return formatTemplate(strings.story_chatmessage, {
       player: PlayerSpan(this.player),
       message: this.message,
-      said_verb: (this.message.charAt(this.message.length - 1) == '?') ? 'asked' : 'said'
+      said_verb: (this.message.charAt(this.message.length - 1) === '?') ? 'asked' : 'said',
     });
   }
 }
@@ -690,8 +689,8 @@ const generateStory = (match) => {
 
   // Chat messages
   const chatMessageEvents = match.chat
-    .filter(obj => obj.type == 'chat')
-    .map((obj, index) => new ChatMessageEvent(match, obj));
+    .filter(obj => obj.type === 'chat')
+    .map((obj) => new ChatMessageEvent(match, obj));
   events = events.concat(chatMessageEvents);
 
   // Aegis pickups
