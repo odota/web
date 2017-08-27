@@ -191,6 +191,19 @@ class Chat extends React.Component {
               target = strings.chat_filter_allies;
             }
 
+            let icon = (<img
+              src="/assets/images/blank-1x1.gif"
+              alt="???"
+              className={styles.unknown}
+            />);
+            if (msg.slot < 10) {
+              if (rad) {
+                icon = <IconRadiant className={styles.icon} />;
+              } else {
+                icon = <IconDire className={styles.icon} />;
+              }
+            }
+
             return (
               <li
                 id={index}
@@ -200,7 +213,7 @@ class Chat extends React.Component {
                   ${msg.spam ? styles.spam : ''}
                 `.trim()}
               >
-                {rad ? <IconRadiant className={styles.icon} /> : <IconDire className={styles.icon} />}
+                {icon}
                 <time>
                   <a href={`#${index}`}>{formatSeconds(msg.time)}</a>
                 </time>
