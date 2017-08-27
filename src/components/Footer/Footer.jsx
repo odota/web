@@ -2,7 +2,6 @@ import React from 'react';
 import strings from 'lang';
 import AppLogo from '../App/AppLogo';
 import PageLinks from './PageLinks';
-import Cheese from './Cheese';
 import SocialLinks from './SocialLinks';
 import styles from './Footer.css';
 import { IconSteam } from '../Icons';
@@ -39,7 +38,6 @@ export default () => (
           <PageLinks />
         </div>
       </div>
-      <Cheese />
     </main>
   </footer>
 );
