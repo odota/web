@@ -206,6 +206,22 @@ class FirstbloodEvent extends StoryEvent {
   }
 }
 
+class ChatMessageEvent extends StoryEvent {
+  constructor(match, obj) {
+    super(obj.time + 70);
+    this.type = obj.type;
+    this.player = match.players.find(player => player.player_slot == obj.player_slot);
+    this.message = obj.key;
+  }
+  format() {
+    return formatTemplate(strings.story_chatmessage, {
+      player: PlayerSpan(this.player),
+      message: this.message,
+      said_verb: (this.message.charAt(this.message.length - 1) == '?') ? 'asked' : 'said'
+    });
+  }
+}
+
 class AegisEvent extends StoryEvent {
   constructor(match, obj, index) {
     super(obj.time);
@@ -672,6 +688,11 @@ const generateStory = (match) => {
       (Array.isArray(killerLog) && killerLog[0] ? killerLog[0].key : null)));
   }
 
+  // Chat messages
+  const chatMessageEvents = match.chat
+    .filter(obj => obj.type == 'chat')
+    .map((obj, index) => new ChatMessageEvent(match, obj));
+  events = events.concat(chatMessageEvents);
 
   // Aegis pickups
   const aegisEvents = match.objectives

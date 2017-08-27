@@ -533,6 +533,7 @@
   "story_list_3": "{1}, {2}, and {3}",
   "story_list_n": "{i}, {rest}",
   "story_firstblood": "first blood was drawn when {killer} killed {victim} at {time}",
+  "story_chatmessage": "\"{message}\", {player} {said_verb}",
   "story_teamfight": "{winning_team} won a teamfight by trading {win_dead} for {lose_dead}, resulting in a net worth increase of {net_change}",
   "story_teamfight_none_dead": "{winning_team} won a teamfight by killing {lose_dead} without losing any heroes, resulting in a net worth increase of {net_change}",
   "story_lane_intro": "At 10 minutes into the game, the lanes had gone as follows:",
