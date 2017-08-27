@@ -281,6 +281,7 @@ export const transformations = {
       if (partySize === 1) {
         return [
           <SocialPerson color="rgb(179, 179, 179)" style={iconStyles} />,
+          `x${row.party_size}`,
         ];
       } else if (partySize === null) {
         return null;
