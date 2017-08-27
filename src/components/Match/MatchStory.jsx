@@ -117,6 +117,16 @@ const pluralize = (count, object, pluralizationOverride = null) => {
   return `${count} ${pluralizedObject}`;
 };
 
+const articleFor = (followingWord) => {
+  // Whether we use a or an depends on the sound of the following word, but that's much hardder to detect programmatically,
+  // so we're looking solely at vowel usage for now.
+  if (['A', 'E', 'I', 'O', 'U'].includes(followingWord.charAt(0))) {
+    return strings['article_before_vowel_sound'];
+  } else {
+    return strings['article_before_consonant_sound'];
+  }
+}
+
 const formatApproximateTime = (timeSeconds) => {
   const timeMinutes = timeSeconds / 60;
 
@@ -176,7 +186,7 @@ class IntroEvent extends StoryEvent {
   }
   format() {
     return formatTemplate(strings.story_intro, {
-      game_mode_article: ['A', 'E', 'I', 'O', 'U'].includes(strings[`game_mode_${this.game_mode}`].charAt(0)) ? 'an' : 'a',
+      game_mode_article: articleFor(strings[`game_mode_${this.game_mode}`]),
       game_mode: strings[`game_mode_${this.game_mode}`],
       date: this.date.toLocaleDateString(
         (window.localStorage && window.localStorage.getItem('localization')) || 'en-US',

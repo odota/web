@@ -1058,5 +1058,8 @@
 
   "advb_almost": "almost",
   "advb_over": "over",
-  "advb_about": "about"
+  "advb_about": "about",
+
+  "article_before_consonant_sound": "a",
+  "article_before_vowel_sound": "an"
 }
