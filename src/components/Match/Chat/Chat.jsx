@@ -14,6 +14,8 @@ import styles from './Chat.css';
 // All chat
 // https://github.com/dotabuff/d2vpkr/blob/8fdc29b84f3e7e2c130fc1b8c6ffe3b811e2d4a7/dota/scripts/chat_wheel.txt#L640
 const chatwheelAll = [75, 76, 108, 109, 110];
+// 10 - coach, 11 - most likely too
+const coachSlots = [10, 11];
 
 class Chat extends React.Component {
   constructor(props) {
@@ -59,7 +61,7 @@ class Chat extends React.Component {
 
     this.filters = {
       radiant: {
-        f: (arr = this.raw) => arr.filter(msg => isRadiant(msg.player_slot)),
+        f: (arr = this.raw) => arr.filter(msg => isRadiant(msg.player_slot) || coachSlots.includes(msg.slot)),
         type: 'faction',
         disabled: () => !this.state.dire,
       },
@@ -163,6 +165,7 @@ class Chat extends React.Component {
           {this.messages.map((msg, index) => {
             const hero = heroes[msg.heroID];
             const rad = isRadiant(msg.player_slot);
+            const isCoach = coachSlots.includes(msg.slot);
 
             let message = msg.key;
             if (msg.type === 'chatwheel') {
@@ -190,13 +193,16 @@ class Chat extends React.Component {
             if (msg.type === 'chatwheel' && !chatwheelAll.includes(Number(msg.key))) {
               target = strings.chat_filter_allies;
             }
+            if (isCoach) {
+              target = strings.chat_filter_coach;
+            }
 
             let icon = (<img
               src="/assets/images/blank-1x1.gif"
               alt="???"
               className={styles.unknown}
             />);
-            if (msg.slot < 10) {
+            if (!isCoach) {
               if (rad) {
                 icon = <IconRadiant className={styles.icon} />;
               } else {
@@ -226,10 +232,10 @@ class Chat extends React.Component {
                 </span>
                 <Link
                   to={`/players/${msg.accountID}`}
-                  style={{ color: playerColors[msg.player_slot] }}
+                  style={{ color: playerColors[msg.player_slot] || 'red' }}
                   className={`${styles.author} ${msg.accountID ? '' : styles.disabled}`}
                 >
-                  {msg.name}
+                  {msg.name || msg.unit}
                 </Link>
                 <article>
                   {message}
