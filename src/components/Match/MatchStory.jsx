@@ -211,7 +211,7 @@ class ChatMessageEvent extends StoryEvent {
     super(obj.time + 70);
     this.type = obj.type;
     this.player = match.players.find(player => player.player_slot == obj.player_slot);
-    this.message = obj.key;
+    this.message = obj.key.trim();
   }
   format() {
     return formatTemplate(strings.story_chatmessage, {
