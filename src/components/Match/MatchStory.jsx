@@ -6,6 +6,7 @@ import {
   jsonFn,
   formatTemplate,
 } from 'utility';
+import util from 'util';
 import { IconRadiant, IconDire } from 'components/Icons';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
@@ -109,14 +110,6 @@ const toSentence = (content) => {
   return result;
 };
 
-const pluralize = (count, object, pluralizationOverride = null) => {
-  if (count === 1) {
-    return `${count} ${object}`;
-  }
-  const pluralizedObject = (pluralizationOverride !== null) ? pluralizationOverride : `${object}s`;
-  return `${count} ${pluralizedObject}`;
-};
-
 const articleFor = (followingWord) => {
   // Whether we use a or an depends on the sound of the following word, but that's much hardder to detect programmatically,
   // so we're looking solely at vowel usage for now.
@@ -128,21 +121,22 @@ const articleFor = (followingWord) => {
 }
 
 const formatApproximateTime = (timeSeconds) => {
-  const timeMinutes = timeSeconds / 60;
+  const timeMinutes = parseInt(timeSeconds / 60, 10);
 
-  // If the time is at least one hour, describe it in hours
-  if (timeMinutes > 60) {
+  // If the time is at least two hours, describe it in hours
+  if (timeMinutes > 120) {
     const timeHours = timeSeconds / (60 * 60);
-    return `${strings.advb_over} ${pluralize(timeHours, strings.time_hs)}`;
-  }
-
-  // If the time is between 50 and 60 minutes, describe it as "almost an hour"
-  if (timeMinutes >= 50) {
+    return `${strings.advb_over} ${util.format(strings.time_hh, timeHours)}`;
+  } else if (timeMinutes > 60 && timeMinutes <= 75) {
+    // If the time is an hour to a quarter after, describe it as "over an hour"
+    return `${strings.advb_over} ${strings.time_h}`;
+  } else if (timeMinutes >= 50) {
+    // If the time is between 50 and 60 minutes, describe it as "almost an hour"
     return `${strings.advb_almost} ${strings.time_h}`;
+  } else {
+    // Otherwise, describe the time in minutes
+    return `${strings.advb_about} ${util.format(strings.time_mm, timeMinutes)}`;
   }
-
-  // Otherwise, describe the time in minutes
-  return `${strings.advb_about} ${pluralize(parseInt(timeSeconds / 60, 10), strings.time_ms)}`;
 };
 
 const renderSentence = (template, dict) => toSentence(formatTemplate(template, dict));
@@ -226,7 +220,7 @@ class ChatMessageEvent extends StoryEvent {
     return formatTemplate(strings.story_chatmessage, {
       player: PlayerSpan(this.player),
       message: this.message,
-      said_verb: (this.message.charAt(this.message.length - 1) === '?') ? 'asked' : 'said',
+      said_verb: (this.message.charAt(this.message.length - 1) === '?') ? strings['story_chat_asked'] : strings['story_chat_said'],
     });
   }
 }

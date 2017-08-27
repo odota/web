@@ -565,6 +565,9 @@
   "story_predicted_victory_empty": "No one",
   "story_networth_diff": "{percent}% / {gold} Diff",
 
+  "story_chat_asked": "asked",
+  "story_chat_said": "said",
+
   "tab_overview": "Overview",
   "tab_matches": "Matches",
   "tab_heroes": "Heroes",
@@ -752,10 +755,8 @@
   "time_s": "a second",
   "time_ss": "%d seconds",
   "time_m": "a minute",
-  "time_ms": "minute",
   "time_mm": "%d minutes",
   "time_h": "an hour",
-  "time_hs": "hour",
   "time_hh": "%d hours",
   "time_d": "a day",
   "time_dd": "%d days",
