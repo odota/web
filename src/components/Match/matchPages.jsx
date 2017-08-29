@@ -260,15 +260,18 @@ const matchPages = [Overview, {
   key: 'chat',
   parsed: true,
   content: (match) => {
-    const data = (match.chat || []).map((c) => {
-      const p = match.players[c.slot];
+    const data = (match.chat || []).map((msg) => {
+      const p = match.players[msg.slot];
+      if (p) {
+        return {
+          ...msg,
+          accountID: p.account_id,
+          heroID: p.hero_id,
+          name: p.name || p.personaname || strings.general_anonymous,
+        };
+      }
 
-      return {
-        ...c,
-        accountID: p.account_id,
-        heroID: p.hero_id,
-        name: p.name || p.personaname || strings.general_anonymous,
-      };
+      return msg;
     });
 
     return (
