@@ -6,6 +6,7 @@ import {
   jsonFn,
   formatTemplate,
 } from 'utility';
+import util from 'util';
 import { IconRadiant, IconDire } from 'components/Icons';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
@@ -109,6 +110,34 @@ const toSentence = (content) => {
   return result;
 };
 
+const articleFor = (followingWord) => {
+  // Whether we use a or an depends on the sound of the following word, but that's much hardder to detect programmatically,
+  // so we're looking solely at vowel usage for now.
+  if (['A', 'E', 'I', 'O', 'U'].includes(followingWord.charAt(0))) {
+    return strings.article_before_vowel_sound;
+  }
+
+  return strings.article_before_consonant_sound;
+};
+
+const formatApproximateTime = (timeSeconds) => {
+  const timeMinutes = parseInt(timeSeconds / 60, 10);
+
+  // If the time is at least two hours, describe it in hours
+  if (timeMinutes > 120) {
+    const timeHours = parseInt(timeSeconds / (60 * 60), 10);
+    return `${strings.advb_over} ${util.format(strings.time_hh, timeHours)}`;
+  } else if (timeMinutes > 60 && timeMinutes <= 75) {
+    // If the time is an hour to a quarter after, describe it as "over an hour"
+    return `${strings.advb_over} ${strings.time_h}`;
+  } else if (timeMinutes >= 50) {
+    // If the time is between 50 and 60 minutes, describe it as "almost an hour"
+    return `${strings.advb_almost} ${strings.time_h}`;
+  }
+  // Otherwise, describe the time in minutes
+  return `${strings.advb_about} ${util.format(strings.time_mm, timeMinutes)}`;
+};
+
 const renderSentence = (template, dict) => toSentence(formatTemplate(template, dict));
 
 // Enumerates a list of items using the correct language syntax
@@ -146,14 +175,17 @@ class IntroEvent extends StoryEvent {
     this.game_mode = match.game_mode;
     this.region = match.region;
     this.date = new Date(match.start_time * 1000);
+    this.match_duration_seconds = match.duration;
   }
   format() {
     return formatTemplate(strings.story_intro, {
+      game_mode_article: articleFor(strings[`game_mode_${this.game_mode}`]),
       game_mode: strings[`game_mode_${this.game_mode}`],
       date: this.date.toLocaleDateString(
         (window.localStorage && window.localStorage.getItem('localization')) || 'en-US',
         { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
       region: strings[`region_${this.region}`],
+      duration_in_words: formatApproximateTime(this.match_duration_seconds),
     });
   }
 }
@@ -172,6 +204,22 @@ class FirstbloodEvent extends StoryEvent {
       time: formatSeconds(this.time),
       killer: PlayerSpan(this.killer),
       victim: PlayerSpan(this.victim),
+    });
+  }
+}
+
+class ChatMessageEvent extends StoryEvent {
+  constructor(match, obj) {
+    super(obj.time + 70);
+    this.type = obj.type;
+    this.player = match.players.find(player => player.player_slot === obj.player_slot);
+    this.message = obj.key.trim();
+  }
+  format() {
+    return formatTemplate(strings.story_chatmessage, {
+      player: PlayerSpan(this.player),
+      message: this.message,
+      said_verb: (this.message.charAt(this.message.length - 1) === '?') ? strings.story_chat_asked : strings.story_chat_said,
     });
   }
 }
@@ -642,6 +690,11 @@ const generateStory = (match) => {
       (Array.isArray(killerLog) && killerLog[0] ? killerLog[0].key : null)));
   }
 
+  // Chat messages
+  const chatMessageEvents = match.chat
+    .filter(obj => obj.type === 'chat')
+    .map(obj => new ChatMessageEvent(match, obj));
+  events = events.concat(chatMessageEvents);
 
   // Aegis pickups
   const aegisEvents = match.objectives

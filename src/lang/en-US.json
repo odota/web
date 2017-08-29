@@ -526,13 +526,14 @@
 
   "story_invalid_template": "(invalid template)",
   "story_error": "An error occured while compiling the story for this match",
-  "story_intro": "on {date}, two teams decided to play a {game_mode} game of Dota 2 in {region}",
+  "story_intro": "on {date}, two teams decided to play {game_mode_article} {game_mode} game of Dota 2 in {region}. Little did they know, the game would last {duration_in_words}",
   "story_invalid_hero": "Unrecognized Hero",
   "story_fullstop": ".",
   "story_list_2": "{1} and {2}",
   "story_list_3": "{1}, {2}, and {3}",
   "story_list_n": "{i}, {rest}",
   "story_firstblood": "first blood was drawn when {killer} killed {victim} at {time}",
+  "story_chatmessage": "\"{message}\", {player} {said_verb}",
   "story_teamfight": "{winning_team} won a teamfight by trading {win_dead} for {lose_dead}, resulting in a net worth increase of {net_change}",
   "story_teamfight_none_dead": "{winning_team} won a teamfight by killing {lose_dead} without losing any heroes, resulting in a net worth increase of {net_change}",
   "story_lane_intro": "At 10 minutes into the game, the lanes had gone as follows:",
@@ -563,6 +564,9 @@
   "story_predicted_victory": "{players} predicted {team} would win",
   "story_predicted_victory_empty": "No one",
   "story_networth_diff": "{percent}% / {gold} Diff",
+
+  "story_chat_asked": "asked",
+  "story_chat_said": "said",
 
   "tab_overview": "Overview",
   "tab_matches": "Matches",
@@ -1052,6 +1056,12 @@
 
   "chatwheel_108": "It's a disastah!",
   "chatwheel_109": "走好, 不送",
-  "chatwheel_110": "Это. Просто. Нечто."
+  "chatwheel_110": "Это. Просто. Нечто.",
 
+  "advb_almost": "almost",
+  "advb_over": "over",
+  "advb_about": "about",
+
+  "article_before_consonant_sound": "a",
+  "article_before_vowel_sound": "an"
 }
