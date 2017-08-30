@@ -4,10 +4,17 @@ import { MMRGraph } from 'components/Visualizations';
 import { getPlayerMmr } from 'actions';
 import strings from 'lang';
 import Container from 'components/Container';
+import Info from 'components/Alerts/Info';
+
+const MMRInfo = (<Info>
+  <a href="https://blog.opendota.com/2016/01/13/opendota-mmr-and-you/" target="_blank" rel="noopener noreferrer">
+    {strings.mmr_not_up_to_date}
+  </a>
+</Info>);
 
 const MMR = ({ columns, error, loading }) => (
   <div style={{ fontSize: 10 }}>
-    <Container title={strings.heading_mmr} error={error} loading={loading}>
+    <Container title={strings.heading_mmr} subtitle={MMRInfo} error={error} loading={loading}>
       <MMRGraph columns={columns} />
     </Container>
   </div>
