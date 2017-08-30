@@ -997,6 +997,6 @@
   "advb_almost":"hampir",
   "advb_over":"ke atas",
   "advb_about":"tentang",
-  "article_before_consonant_sound":"a",
-  "article_before_vowel_sound":"an"
+  "article_before_consonant_sound":" ",
+  "article_before_vowel_sound":" "
 }
