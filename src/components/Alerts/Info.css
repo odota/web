@@ -3,14 +3,14 @@
 .Info {
   & a {
     color: var(--colorMutedLight);
-    font-size: var(--fontSizeTiny);
+    font-size: var(--fontSizeSmall);
   }
 
   & svg {
     vertical-align: sub;
     margin-right: 5px;
-    width: 12px !important;
-    height: 12px !important;
+    width: 15px !important;
+    height: 15px !important;
     fill: var(--colorBlue) !important;
   }
 }
