@@ -22,6 +22,8 @@ const MAX_HEROES_ROWS = 10;
 const MAX_PEERS_ROWS = 5;
 
 const Overview = ({
+  validRecentMatches,
+  numValidRecentMatches,
   matchesData,
   matchesLoading,
   matchesError,
@@ -37,12 +39,12 @@ const Overview = ({
     <Container
       title={strings.heading_avg_and_max}
       titleTo={`/players/${playerId}/records`}
-      subtitle={util.format(strings.subheading_avg_and_max, MAX_MATCHES_ROWS)}
+      subtitle={util.format(strings.subheading_avg_and_max, numValidRecentMatches)}
       className={sumStyles.summaryContainer}
       loading={matchesLoading}
       error={matchesError}
     >
-      <SummOfRecMatches matchesData={matchesData} />
+      <SummOfRecMatches matchesData={validRecentMatches} />
     </Container>
     <Container
       title={strings.heading_matches}
@@ -57,6 +59,7 @@ const Overview = ({
         maxRows={MAX_MATCHES_ROWS}
       />
     </Container>
+
     <div className={styles.heroesContainer}>
       <Container
         title={strings.heading_peers}
@@ -70,6 +73,7 @@ const Overview = ({
           maxRows={MAX_PEERS_ROWS}
         />
       </Container>
+
       <Container
         title={strings.heading_heroes}
         titleTo={`/players/${playerId}/heroes`}
@@ -114,10 +118,26 @@ const mergeHeroGuides = (heroes, heroGuides) => heroes.map(hero => ({
   pvgnaGuide: heroGuides[hero.hero_id],
 }));
 
+/**
+ * Get the number of recent matches, filtering out Siltbreaker matches
+ */
+const countValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19).length;
+
+/**
+ * Get the recent matches, filtering out Siltbreaker matches
+ *
+ * XXX - this could be switched to use playerMatches while specifying the
+ * desired fields in order to request >20 matches and filter down to 20 matches.
+ */
+const getValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19)
+  .slice(0, MAX_MATCHES_ROWS);
+
 const mapStateToProps = state => ({
   matchesData: state.app.playerRecentMatches.data,
   matchesLoading: state.app.playerRecentMatches.loading,
   matchesError: state.app.playerRecentMatches.error,
+  validRecentMatches: getValidRecentMatches(state.app.playerRecentMatches.data),
+  numValidRecentMatches: countValidRecentMatches(state.app.playerRecentMatches.data),
   heroesData: mergeHeroGuides(state.app.playerHeroes.data, state.app.pvgnaGuides.data),
   heroesLoading: state.app.playerHeroes.loading,
   heroesError: state.app.playerHeroes.error,
