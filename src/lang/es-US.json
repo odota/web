@@ -415,6 +415,7 @@
   "match_ban":"Ban",
   "matches_highest_mmr":"High MMR",
   "matches_lowest_mmr":"Low MMR",
+  "mmr_not_up_to_date":"Why is the MMR not up to date?",
   "npc_dota_beastmaster_boar_#":"Jabalí",
   "npc_dota_lesser_eidolon":"Eidolon Menor",
   "npc_dota_eidolon":"Eidolon",
