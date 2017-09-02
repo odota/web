@@ -1,5 +1,5 @@
 {
-  "abbr_thousand":"тыс.",
+  "abbr_thousand":" т.",
   "abbr_million":" млн",
   "abbr_billion":"млрд",
   "abbr_trillion":"трлн",
@@ -274,7 +274,7 @@
   "heading_support":"Поддержка",
   "heading_purchase_log":"Журнал покупок",
   "heading_casts":"Использовано способностей",
-  "heading_objective_damage":"– Урон по целям",
+  "heading_objective_damage":"Урон по целям",
   "heading_runes":"Руны",
   "heading_vision":"Видимость",
   "heading_actions":"Действия",
@@ -996,7 +996,7 @@
   "chatwheel_109":"走好, 不送",
   "chatwheel_110":"Это. Просто. Нечто.",
   "advb_almost":"почти",
-  "advb_over":"over",
+  "advb_over":"больше",
   "advb_about":"около",
   "article_before_consonant_sound":"a",
   "article_before_vowel_sound":"an"
