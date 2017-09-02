@@ -443,6 +443,8 @@
   "matches_highest_mmr": "High MMR",
   "matches_lowest_mmr": "Low MMR",
 
+  "mmr_not_up_to_date": "Why is my MMR not up to date?",
+
   "npc_dota_beastmaster_boar_#": "Boar",
   "npc_dota_lesser_eidolon": "Lesser Eidolon",
   "npc_dota_eidolon": "Eidolon",
