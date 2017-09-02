@@ -134,7 +134,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       color: styles.golden,
       sumFn: true,
-      relativeBars: true,
+      // relativeBars: true,
     },
     {
       displayName: strings.th_xp_per_min,
@@ -142,7 +142,7 @@ export const overviewColumns = (match) => {
       field: 'xp_per_min',
       sortFn: true,
       sumFn: true,
-      relativeBars: true,
+      // relativeBars: true,
     },
     {
       displayName: strings.th_last_hits,
@@ -150,7 +150,7 @@ export const overviewColumns = (match) => {
       field: 'last_hits',
       sortFn: true,
       sumFn: true,
-      relativeBars: true,
+      // relativeBars: true,
     },
     {
       displayName: strings.th_denies,
@@ -158,7 +158,7 @@ export const overviewColumns = (match) => {
       field: 'denies',
       sortFn: true,
       sumFn: true,
-      relativeBars: true,
+      // relativeBars: true,
     },
     {
       displayName: strings.th_hero_damage,
@@ -167,7 +167,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       displayFn: row => abbreviateNumber(row.hero_damage),
-      relativeBars: true,
+      // relativeBars: true,
     },
     {
       displayName: strings.th_hero_healing,
@@ -176,7 +176,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       displayFn: row => abbreviateNumber(row.hero_healing),
-      relativeBars: true,
+      // relativeBars: true,
     },
     {
       displayName: strings.th_tower_damage,
@@ -185,7 +185,7 @@ export const overviewColumns = (match) => {
       displayFn: row => abbreviateNumber(row.tower_damage),
       sortFn: true,
       sumFn: true,
-      relativeBars: true,
+      // relativeBars: true,
     },
     {
       displayName: (
@@ -200,7 +200,7 @@ export const overviewColumns = (match) => {
       color: styles.golden,
       sumFn: true,
       displayFn: row => abbreviateNumber(row.total_gold),
-      relativeBars: true,
+      // relativeBars: true,
     },
     {
       displayName: strings.th_items,

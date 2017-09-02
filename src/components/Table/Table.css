@@ -63,8 +63,8 @@ table {
 
   & th,
   & td {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
 
     &:first-child {
       padding-left: 24px !important;
