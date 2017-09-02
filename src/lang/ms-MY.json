@@ -415,6 +415,7 @@
   "match_ban":"Buang",
   "matches_highest_mmr":"MMR Tinggi",
   "matches_lowest_mmr":"MMR Rendah",
+  "mmr_not_up_to_date":"Why is the MMR not up to date?",
   "npc_dota_beastmaster_boar_#":"Boar",
   "npc_dota_lesser_eidolon":"Lesser Eidolon",
   "npc_dota_eidolon":"Eidolon",
@@ -997,6 +998,6 @@
   "advb_almost":"hampir",
   "advb_over":"ke atas",
   "advb_about":"tentang",
-  "article_before_consonant_sound":"a",
-  "article_before_vowel_sound":"an"
+  "article_before_consonant_sound":" ",
+  "article_before_vowel_sound":" "
 }
