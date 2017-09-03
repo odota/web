@@ -998,6 +998,6 @@
   "advb_almost":"почти",
   "advb_over":"больше",
   "advb_about":"около",
-  "article_before_consonant_sound":"a",
-  "article_before_vowel_sound":"an"
+  "article_before_consonant_sound":" ",
+  "article_before_vowel_sound":" "
 }
