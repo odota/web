@@ -26,7 +26,7 @@ const standardizeLevel = (skilledAt, obj) => {
 
 const convertArrayToKeys = (obj, fieldName = '') => ({
   ...obj,
-  ...obj[fieldName].reduce(
+  ...(obj[fieldName] || []).reduce(
     (acc, cur, index) => ({
       ...acc,
       [`ability_upgrades_arr_${standardizeLevel(index, obj) + 1}`]: cur,
