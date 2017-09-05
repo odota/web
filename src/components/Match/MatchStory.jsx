@@ -219,7 +219,9 @@ class ChatMessageEvent extends StoryEvent {
     return formatTemplate(strings.story_chatmessage, {
       player: PlayerSpan(this.player),
       message: this.message,
-      said_verb: (this.message.charAt(this.message.length - 1) === '?') ? strings.story_chat_asked : strings.story_chat_said,
+      said_verb: (this.message.charAt(this.message.length - 1) === '?' && this.message !== '?')
+        ? strings.story_chat_asked
+        : strings.story_chat_said,
     });
   }
 }
