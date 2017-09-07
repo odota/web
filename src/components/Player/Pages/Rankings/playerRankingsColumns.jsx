@@ -12,9 +12,4 @@ export default [{
   sortFn: true,
   percentBars: true,
   // displayFn: transformations.rank_percentile,
-}, {
-  displayName: strings.th_rank,
-  field: 'numeric_rank',
-  sortFn: true,
-  displayFn: transformations.rank,
 }];
