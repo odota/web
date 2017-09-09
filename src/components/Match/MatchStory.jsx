@@ -157,19 +157,28 @@ const formatList = (items, noneValue = []) => {
 };
 
 // evaluate the sentiment behind the message - rage, question, statement etc
-const evaluateSentiment = (message) => {
-  let string_appendature = "normal";
+const evaluateSentiment = (event, lastMessage) => {
+  const { message, player, time } = event;
+  let stringAppendature = 'normal';
 
   if (message.split(' ').length > 10) {
-    string_appendature = "long";
+    stringAppendature = 'long';
   } else if (message.toUpperCase() === message && /\w/.test(message)) {
-    string_appendature = "shouted";
+    stringAppendature = 'shouted';
   } else if (/(\?|!|@|~|#|\$){2,}/.test(message)) {
-    string_appendature = "excited";
+    stringAppendature = 'excited';
   }
-  const isQuestion = message.indexOf('?') !== -1;
 
-  return strings[(isQuestion ? 'question_' : 'statement_') + string_appendature];
+  let type = message.indexOf('?') !== -1 ? 'question' : 'statement';
+  if (lastMessage && lastMessage.time + 60 > time) {
+    if (lastMessage.player.player_slot === player.player_slot) {
+      type += '_continued';
+    } else if (lastMessage.message.indexOf('?') !== -1) {
+      type += '_response';
+    }
+  }
+
+  return strings[`${type}_${stringAppendature}`];
 };
 
 // Abstract class
@@ -225,17 +234,18 @@ class FirstbloodEvent extends StoryEvent {
 }
 
 class ChatMessageEvent extends StoryEvent {
-  constructor(match, obj) {
+  constructor(match, obj, lastMessage) {
     super(obj.time + 70);
     this.type = obj.type;
     this.player = match.players.find(player => player.player_slot === obj.player_slot);
+    this.lastMessage = lastMessage;
     this.message = obj.key.trim();
   }
   format() {
     return formatTemplate(strings.story_chatmessage, {
       player: PlayerSpan(this.player),
       message: this.message,
-      said_verb: evaluateSentiment(this.message),
+      said_verb: evaluateSentiment(this, this.lastMessage),
     });
   }
 }
@@ -707,9 +717,19 @@ const generateStory = (match) => {
   }
 
   // Chat messages
+  let lastMessage;
   const chatMessageEvents = match.chat
     .filter(obj => obj.type === 'chat')
-    .map(obj => new ChatMessageEvent(match, obj));
+    .map((obj) => {
+      let event;
+      if (lastMessage !== undefined) {
+        event = new ChatMessageEvent(match, obj, lastMessage);
+      } else {
+        event = new ChatMessageEvent(match, obj);
+      }
+      lastMessage = event;
+      return event;
+    });
   events = events.concat(chatMessageEvents);
 
   // Aegis pickups
