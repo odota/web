@@ -156,15 +156,17 @@ const formatList = (items, noneValue = []) => {
   }
 };
 
+const isQuestion = message => /\w(?:\W*(\?)\W*)$/.test(message);
+
 // evaluate the sentiment behind the message - rage, question, statement etc
 const evaluateSentiment = (event, lastMessage) => {
   const { message, player, time } = event;
-  const sentiment = message.indexOf('?') !== -1 ? ['question'] : ['statement'];
+  const sentiment = isQuestion(message) ? ['question'] : ['statement'];
 
   if (lastMessage && lastMessage.time + 130 > time) {
     if (lastMessage.player_slot === player.player_slot) {
       sentiment.push('continued');
-    } else if (lastMessage.key.indexOf('?') !== -1) {
+    } else if (isQuestion(lastMessage.key)) {
       sentiment.push('response');
     }
   }
