@@ -156,6 +156,22 @@ const formatList = (items, noneValue = []) => {
   }
 };
 
+// evaluate the sentiment behind the message - rage, question, statement etc
+const evaluateSentiment = (message) => {
+  let string_appendature = "normal";
+
+  if (message.split(' ').length > 10) {
+    string_appendature = "long";
+  } else if (message.toUpperCase() === message && /\w/.test(message)) {
+    string_appendature = "shouted";
+  } else if (/(\?|!|@|~|#|\$){2,}/.test(message)) {
+    string_appendature = "excited";
+  }
+  const isQuestion = message.indexOf('?') !== -1;
+
+  return strings[(isQuestion ? 'question_' : 'statement_') + string_appendature];
+};
+
 // Abstract class
 class StoryEvent {
   constructor(time) {
@@ -219,7 +235,7 @@ class ChatMessageEvent extends StoryEvent {
     return formatTemplate(strings.story_chatmessage, {
       player: PlayerSpan(this.player),
       message: this.message,
-      said_verb: (this.message.charAt(this.message.length - 1) === '?') ? strings.story_chat_asked : strings.story_chat_said,
+      said_verb: evaluateSentiment(this.message),
     });
   }
 }

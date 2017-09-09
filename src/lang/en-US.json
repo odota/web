@@ -1065,5 +1065,15 @@
   "advb_about": "about",
 
   "article_before_consonant_sound": "a",
-  "article_before_vowel_sound": "an"
+  "article_before_vowel_sound": "an",
+
+  "statement_long": "hypothesised",
+  "statement_shouted": "shouted",
+  "statement_excited": "exclaimed",
+  "statement_normal": "said",
+
+  "question_long": "raised, in need of answers",
+  "question_shouted": "inquired",
+  "question_excited": "interrogated",
+  "question_normal": "asked"
 }
