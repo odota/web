@@ -1012,7 +1012,7 @@
   "statement_response_shouted":"respondeu frustrado",
   "statement_response_excited":"exclamou",
   "statement_response_normal":"respondeu",
-  "statement_continued_long":"ranted",
+  "statement_continued_long":"falaram",
   "statement_continued_shouted":"continuou furiosamente",
   "statement_continued_excited":"continuou",
   "statement_continued_normal":"adicionou",
@@ -1020,8 +1020,8 @@
   "question_response_shouted":"perguntou, frustrado",
   "question_response_excited":"disputou",
   "question_response_normal":"retrucou",
-  "question_continued_long":"propositioned",
-  "question_continued_shouted":"asked furiously",
-  "question_continued_excited":"lovingly asked",
-  "question_continued_normal":"asked"
+  "question_continued_long":"propôs",
+  "question_continued_shouted":"perguntou enfurecido",
+  "question_continued_excited":"perguntou carinhosamente",
+  "question_continued_normal":"perguntou"
 }
