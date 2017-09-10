@@ -157,6 +157,34 @@ const formatList = (list, noneValue = []) => {
   }
 };
 
+const isQuestion = message => /\w(?:\W*(\?)\W*)$/.test(message);
+
+// evaluate the sentiment behind the message - rage, question, statement etc
+const evaluateSentiment = (event, lastMessage) => {
+  const { message, player, time } = event;
+  const sentiment = isQuestion(message) ? ['question'] : ['statement'];
+
+  if (lastMessage && lastMessage.time + 130 > time) {
+    if (lastMessage.player_slot === player.player_slot) {
+      sentiment.push('continued');
+    } else if (isQuestion(lastMessage.key)) {
+      sentiment.push('response');
+    }
+  }
+
+  if (message.split(' ').length > 10) {
+    sentiment.push('long');
+  } else if (message.toUpperCase() === message && /\w/.test(message)) {
+    sentiment.push('shouted');
+  } else if (/(\?|!|@|~|#|\$){2,}/.test(message)) {
+    sentiment.push('excited');
+  } else {
+    sentiment.push('normal');
+  }
+
+  return strings[sentiment.join('_')];
+};
+
 // Abstract class
 class StoryEvent {
   constructor(time) {
@@ -210,17 +238,18 @@ class FirstbloodEvent extends StoryEvent {
 }
 
 class ChatMessageEvent extends StoryEvent {
-  constructor(match, obj) {
+  constructor(match, obj, lastMessage) {
     super(obj.time + 70);
     this.type = obj.type;
     this.player = match.players.find(player => player.player_slot === obj.player_slot);
+    this.lastMessage = lastMessage;
     this.message = obj.key.trim();
   }
   format() {
     return formatTemplate(strings.story_chatmessage, {
       player: PlayerSpan(this.player),
       message: this.message,
-      said_verb: (this.message.charAt(this.message.length - 1) === '?') ? strings.story_chat_asked : strings.story_chat_said,
+      said_verb: evaluateSentiment(this, this.lastMessage),
     });
   }
 }
@@ -694,7 +723,7 @@ const generateStory = (match) => {
   // Chat messages
   const chatMessageEvents = match.chat
     .filter(obj => obj.type === 'chat')
-    .map(obj => new ChatMessageEvent(match, obj));
+    .map((obj, i, array) => new ChatMessageEvent(match, obj, i > 0 && array[i - 1]));
   events = events.concat(chatMessageEvents);
 
   // Aegis pickups
