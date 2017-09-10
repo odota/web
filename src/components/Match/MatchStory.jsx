@@ -28,7 +28,7 @@ const GoldSpan = amount => (
     <img
       width="25px"
       height="17px"
-      role="presentation"
+      alt={`${amount.toLocaleString()} gold`}
       src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
       style={{ marginLeft: '3px' }}
     />
@@ -47,6 +47,7 @@ const PlayerSpan = (player) => {
   if (!player || !heroes[player.hero_id]) {
     return strings.story_invalid_hero;
   }
+  const heroName = heroes[player.hero_id] ? heroes[player.hero_id].localized_name : strings.story_invalid_hero;
   return (
     <span>
       <span
@@ -61,9 +62,9 @@ const PlayerSpan = (player) => {
             ? `${API_HOST}${heroes[player.hero_id].icon}`
             : '/assets/images/blank-1x1.gif'
           }
-          role="presentation"
+          alt={heroName}
         />
-        {heroes[player.hero_id] ? heroes[player.hero_id].localized_name : strings.story_invalid_hero}
+        {heroName}
       </span>
       <ReactTooltip id={`player_${player.account_id}`} place="left" effect="solid">
         {player.account_id ? player.personaname : strings.general_anonymous}
@@ -84,7 +85,7 @@ const ItemSpan = item => (
         ? `${API_HOST}${items[item].img}`
         : '/assets/images/blank-1x1.gif'
       }
-      role="presentation"
+      alt={(items[item] || {}).dname}
     />
     {(items[item] || {}).dname}
   </span>
@@ -141,18 +142,18 @@ const formatApproximateTime = (timeSeconds) => {
 const renderSentence = (template, dict) => toSentence(formatTemplate(template, dict));
 
 // Enumerates a list of items using the correct language syntax
-const formatList = (items, noneValue = []) => {
-  switch (items.length) {
+const formatList = (list, noneValue = []) => {
+  switch (list.length) {
     case 0:
       return noneValue;
     case 1:
-      return items;
+      return list;
     case 2:
-      return formatTemplate(strings.story_list_2, { 1: items[0], 2: items[1] });
+      return formatTemplate(strings.story_list_2, { 1: list[0], 2: list[1] });
     case 3:
-      return formatTemplate(strings.story_list_3, { 1: items[0], 2: items[1], 3: items[2] });
+      return formatTemplate(strings.story_list_3, { 1: list[0], 2: list[1], 3: list[2] });
     default:
-      return formatTemplate(strings.story_list_n, { i: items.shift(), rest: formatList(items) });
+      return formatTemplate(strings.story_list_n, { i: list.shift(), rest: formatList(list) });
   }
 };
 
@@ -803,7 +804,7 @@ class MatchStory extends React.Component {
       if (e.stack) {
         exmsg += ` | stack: ${e.stack}`;
       }
-      console.error(exmsg);
+      console.error(exmsg); // eslint-disable-line no-console
       return (<div>{strings.story_error}</div>);
     }
   }
