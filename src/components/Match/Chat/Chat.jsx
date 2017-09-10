@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createElement } from 'react';
 import { Link } from 'react-router-dom';
 import { isRadiant, formatSeconds } from 'utility';
 import strings from 'lang';
@@ -9,6 +9,7 @@ import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
+import emotes from 'dota2-emoticons/resources/json/charname.json';
 import styles from './Chat.css';
 
 // All chat
@@ -159,6 +160,8 @@ class Chat extends React.Component {
       this.filter();
     }
 
+    const emoteKeys = Object.keys(emotes);
+
     const Messages = () => (
       <div>
         <ul className={styles.Chat}>
@@ -167,7 +170,7 @@ class Chat extends React.Component {
             const rad = isRadiant(msg.player_slot);
             const isCoach = coachSlots.includes(msg.slot);
 
-            let message = msg.key;
+            let message = null;
             if (msg.type === 'chatwheel') {
               message = [
                 strings[`chatwheel_${msg.key}`],
@@ -187,6 +190,20 @@ class Chat extends React.Component {
                   className={styles.chatwheel}
                 />);
               }
+            } else if (msg.type === 'chat') {
+              message = msg.key
+                .split('')
+                .map((char) => {
+                  const emote = emotes[emoteKeys[emoteKeys.indexOf(char)]];
+                  if (emote) {
+                    return createElement('img', {
+                      alt: emote,
+                      src: `/assets/images/dota2/emoticons/${emote}.gif`,
+                      className: styles.emote,
+                    });
+                  }
+                  return char;
+                });
             }
 
             let target = strings.chat_filter_all;

@@ -49,7 +49,10 @@
       }
 
       & img {
-        width: 36px;
+        &:not(.chatwheel) {
+          width: 36px;
+        }
+
         height: 20px;
 
         &.unknown {
@@ -99,6 +102,12 @@
             background-color: var(--colorBlue);
             color: var(--primarySurfaceColor) !important;
           }
+        }
+
+        & .emote {
+          width: 20px;
+          height: 20px;
+          vertical-align: bottom;
         }
       }
 
