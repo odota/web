@@ -36,17 +36,15 @@ const SummOfRecMatches = ({ matchesData }) => {
 
   const numRows = Math.min(MAX_MATCHES_ROWS, matchesData.length);
 
-  for (let i = 0; i < numRows; i += 1) {
-    dataKeys.map((key) => {
+  matchesData.forEach((match) => {
+    dataKeys.forEach((key) => {
       if (key === 'wins') {
-        data.wins.push(matchesData[i].radiant_win === isRadiant(matchesData[i].player_slot));
+        data.wins.push(match.radiant_win === isRadiant(match.player_slot));
       } else {
-        data[key].push(matchesData[i][key]);
+        data[key].push(match[key]);
       }
-
-      return null;
     });
-  }
+  });
 
   dataKeys.map((key) => {
     if (key !== 'wins') {
