@@ -165,7 +165,7 @@ const evaluateSentiment = (event, lastMessage) => {
   const sentiment = isQuestion(message) ? ['question'] : ['statement'];
 
   if (lastMessage && lastMessage.time + 130 > time) {
-    if (lastMessage.player_slot === player.player_slot) {
+    if (player && lastMessage.player_slot === player.player_slot) {
       sentiment.push('continued');
     } else if (isQuestion(lastMessage.key)) {
       sentiment.push('response');
