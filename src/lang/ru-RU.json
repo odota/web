@@ -882,7 +882,7 @@
   "chat_filter_spam":"Спам",
   "chat_filter_all":"Все",
   "chat_filter_allies":"Союзники",
-  "chat_filter_coach":"Тренер",
+  "chat_filter_spectator":"Spectator",
   "chat_filtered":"Отфильтровано",
   "chatwheel_0":"Хорошо.",
   "chatwheel_1":"Осторожнее!",
