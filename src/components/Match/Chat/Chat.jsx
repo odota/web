@@ -15,8 +15,8 @@ import styles from './Chat.css';
 // All chat
 // https://github.com/dotabuff/d2vpkr/blob/8fdc29b84f3e7e2c130fc1b8c6ffe3b811e2d4a7/dota/scripts/chat_wheel.txt#L640
 const chatwheelAll = [75, 76, 108, 109, 110];
-// 10 - coach, 11 - most likely too
-const coachSlots = [10, 11];
+
+const isSpectator = slot => slot > 9 && slot < 128;
 
 class Chat extends React.Component {
   constructor(props) {
@@ -62,7 +62,7 @@ class Chat extends React.Component {
 
     this.filters = {
       radiant: {
-        f: (arr = this.raw) => arr.filter(msg => isRadiant(msg.player_slot) || coachSlots.includes(msg.slot)),
+        f: (arr = this.raw) => arr.filter(msg => isRadiant(msg.player_slot) || isSpectator(msg.slot)),
         type: 'faction',
         disabled: () => !this.state.dire,
       },
@@ -168,7 +168,7 @@ class Chat extends React.Component {
           {this.messages.map((msg, index) => {
             const hero = heroes[msg.heroID];
             const rad = isRadiant(msg.player_slot);
-            const isCoach = coachSlots.includes(msg.slot);
+            const spec = isSpectator(msg.slot);
 
             let message = null;
             if (msg.type === 'chatwheel') {
@@ -210,8 +210,8 @@ class Chat extends React.Component {
             if (msg.type === 'chatwheel' && !chatwheelAll.includes(Number(msg.key))) {
               target = strings.chat_filter_allies;
             }
-            if (isCoach) {
-              target = strings.chat_filter_coach;
+            if (spec) {
+              target = strings.chat_filter_spectator;
             }
 
             let icon = (<img
@@ -219,7 +219,7 @@ class Chat extends React.Component {
               alt="???"
               className={styles.unknown}
             />);
-            if (!isCoach) {
+            if (!spec) {
               if (rad) {
                 icon = <IconRadiant className={styles.icon} />;
               } else {
