@@ -882,7 +882,7 @@
   "chat_filter_spam":"垃圾话",
   "chat_filter_all":"全屏",
   "chat_filter_allies":"队友",
-  "chat_filter_coach":"教练",
+  "chat_filter_spectator":"Spectator",
   "chat_filtered":"已过滤",
   "chatwheel_0":"好的。",
   "chatwheel_1":"小心！",
