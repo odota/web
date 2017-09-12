@@ -128,7 +128,7 @@ const formatApproximateTime = (timeSeconds) => {
   if (timeMinutes > 120) {
     const timeHours = parseInt(timeSeconds / (60 * 60), 10);
     return `${strings.advb_over} ${util.format(strings.time_hh, timeHours)}`;
-  } else if (timeMinutes > 60 && timeMinutes <= 75) {
+  } else if (timeMinutes > 60 && timeMinutes <= 120) {
     // If the time is an hour to a quarter after, describe it as "over an hour"
     return `${strings.advb_over} ${strings.time_h}`;
   } else if (timeMinutes >= 50) {
