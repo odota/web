@@ -174,6 +174,8 @@ const evaluateSentiment = (event, lastMessage) => {
 
   if (message.split(' ').length > 10) {
     sentiment.push('long');
+  } else if (['XD', ':D', 'LOL'].indexOf(message.replace('?', '').toUpperCase()) !== -1) {
+    sentiment.push('laughed');
   } else if (message.toUpperCase() === message && /\w/.test(message)) {
     sentiment.push('shouted');
   } else if (/(\?|!|@|~|#|\$){2,}/.test(message)) {

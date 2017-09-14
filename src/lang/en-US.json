@@ -1071,29 +1071,35 @@
   "statement_shouted": "shouted",
   "statement_excited": "exclaimed",
   "statement_normal": "said",
+  "statement_laughed": "laughed",
 
   "question_long": "raised, in need of answers",
   "question_shouted": "inquired",
   "question_excited": "interrogated",
   "question_normal": "asked",
+  "question_laughed": "laughed mockingly",
 
   "statement_response_long": "advised",
   "statement_response_shouted": "responded in frustration",
   "statement_response_excited": "exclaimed",
   "statement_response_normal": "replied",
+  "statement_response_laughed": "laughed",
 
   "statement_continued_long": "ranted",
   "statement_continued_shouted": "continued furiously",
   "statement_continued_excited": "continued",
   "statement_continued_normal": "added",
+  "statement_continued_laughed": "continued",
 
   "question_response_long": "advised",
   "question_response_shouted": "asked back, out of frustration",
   "question_response_excited": "disputed",
   "question_response_normal": "countered",
+  "question_response_laughed": "laughed wondering",
 
   "question_continued_long": "propositioned",
   "question_continued_shouted": "asked furiously",
   "question_continued_excited": "lovingly asked",
-  "question_continued_normal": "asked"
+  "question_continued_normal": "asked",
+  "question_continued_laughed": "asked joyfully"
 }
