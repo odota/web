@@ -219,6 +219,15 @@ const getSubtitle = (row) => {
   return null;
 };
 
+const getTitle = (row, col, heroName) => {
+  if (row.match_id && row.player_slot !== undefined) {
+    return <TableLink to={`/matches/${row.match_id}`}>{heroName}</TableLink>;
+  } else if (row.last_played) {
+    return <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
+  }
+  return null;
+};
+
 /**
  * Transformations of table cell data to display values.
  * These functions are intended to be used as the displayFn property in table columns.
@@ -232,9 +241,7 @@ export const transformations = {
       <TableHeroImage
         parsed={row.version}
         image={heroes[row[col.field]] && API_HOST + heroes[row[col.field]].img}
-        title={
-          <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>
-        }
+        title={getTitle(row, col, heroName)}
         subtitle={getSubtitle(row)}
         heroName={heroName}
         showPvgnaGuide={showPvgnaGuide}
