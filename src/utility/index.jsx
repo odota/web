@@ -221,9 +221,9 @@ const getSubtitle = (row) => {
 
 const getTitle = (row, col, heroName) => {
   if (row.match_id && row.player_slot !== undefined) {
-    return  <TableLink to={`/matches/${row.match_id}`}>{heroName}</TableLink>;
+    return <TableLink to={`/matches/${row.match_id}`}>{heroName}</TableLink>;
   } else if (row.last_played) {
-    return  <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
+    return <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
   }
   return null;
 };
@@ -237,7 +237,6 @@ const getTitle = (row, col, heroName) => {
 export const transformations = {
   hero_id: (row, col, field, showPvgnaGuide = false) => {
     const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
-    console.log(row)
     return (
       <TableHeroImage
         parsed={row.version}
