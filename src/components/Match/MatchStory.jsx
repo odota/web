@@ -11,6 +11,7 @@ import { IconRadiant, IconDire } from 'components/Icons';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import itemColors from 'dotaconstants/build/item_colors.json';
+import emotes from 'dota2-emoticons/resources/json/charname.json';
 import ReactTooltip from 'react-tooltip';
 import styles from './Match.css';
 
@@ -185,6 +186,8 @@ const evaluateSentiment = (event, lastMessage) => {
   return strings[sentiment.join('_')];
 };
 
+const emoteKeys = Object.keys(emotes);
+
 // Abstract class
 class StoryEvent {
   constructor(time) {
@@ -245,10 +248,22 @@ class ChatMessageEvent extends StoryEvent {
     this.lastMessage = lastMessage;
     this.message = obj.key.trim();
   }
+
   format() {
     return formatTemplate(strings.story_chatmessage, {
       player: PlayerSpan(this.player),
-      message: this.message,
+      message: this.message.split('')
+        .map((char) => {
+          const emote = emotes[emoteKeys[emoteKeys.indexOf(char)]];
+          if (emote) {
+            return React.createElement('img', {
+              alt: emote,
+              src: `/assets/images/dota2/emoticons/${emote}.gif`,
+              className: styles.emote,
+            });
+          }
+          return char;
+        }),
       said_verb: evaluateSentiment(this, this.lastMessage),
     });
   }
