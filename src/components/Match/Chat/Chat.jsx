@@ -51,7 +51,7 @@ class Chat extends React.Component {
       radiant: true,
       dire: true,
       text: true,
-      phrases: true,
+      phrases: false,
       audio: true,
       all: true,
       allies: true,
