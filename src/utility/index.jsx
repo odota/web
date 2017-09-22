@@ -222,10 +222,8 @@ const getSubtitle = (row) => {
 const getTitle = (row, col, heroName) => {
   if (row.match_id && row.player_slot !== undefined) {
     return <TableLink to={`/matches/${row.match_id}`}>{heroName}</TableLink>;
-  } else if (row.last_played) {
-    return <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
   }
-  return null;
+  return <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
 };
 
 /**
