@@ -247,8 +247,8 @@ const {
 Table.propTypes = {
   data: arrayOf(shape({})).isRequired,
   columns: arrayOf(shape({})).isRequired,
-  loading: bool.isRequired,
-  error: bool.isRequired,
+  loading: bool,
+  error: bool,
   summable: bool,
 };
 

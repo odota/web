@@ -23,13 +23,17 @@ const Percent = ({ percent, altValue, valEl }) => (
   </div>
 );
 
-const { number, oneOfType, string, node } = PropTypes;
+const { number, oneOfType, string, node, bool } = PropTypes;
 
 Percent.propTypes = {
-  percent: number,
+  percent: oneOfType([
+    number,
+    bool,
+  ]),
   altValue: oneOfType([
     string,
     number,
+    bool,
   ]),
   valEl: node,
 };

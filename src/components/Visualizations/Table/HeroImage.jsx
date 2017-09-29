@@ -145,12 +145,15 @@ const TableHeroImage = ({
   </div>
 );
 
-const { string, oneOfType, bool, node, shape } = PropTypes;
+const { string, oneOfType, bool, node, shape, object } = PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: PropTypes.number,
   image: string,
-  title: string,
+  title: oneOfType([
+    string,
+    object,
+  ]),
   subtitle: oneOfType([
     string,
     node,
@@ -162,7 +165,10 @@ TableHeroImage.propTypes = {
   party: node,
   confirmed: bool,
   heroName: string,
-  showPvgnaGuide: bool,
+  showPvgnaGuide: oneOfType([
+    bool,
+    PropTypes.number,
+  ]),
   pvgnaGuideInfo: shape({ url: string }),
 
 };

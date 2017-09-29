@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from 'utility';
 import ReactTooltip from 'react-tooltip';
+import stylePropType from 'react-style-proptype';
 import classNames from 'classnames';
 import { IconRadiant, IconDire, IconDot } from 'components/Icons';
 import TeamTable from 'components/Match/TeamTable';
@@ -12,6 +13,7 @@ import Timeline from 'components/Match/Overview/Timeline';
 import DotaMap from 'components/DotaMap';
 import Measure from 'react-measure';
 import styles from './TeamfightMap.css';
+
 
 const MAP_WIDTH = 400;
 const iconSize = (mapWidth, factor = 12, minSize = 15) =>
@@ -334,7 +336,7 @@ TeamfightIcon.propTypes = {
   mapWidth: number,
   onClick: func, // not required because tombstone doesn't need click fn
   Icon: func.isRequired,
-  style: object,
+  style: stylePropType,
 };
 
 GoldDelta.propTypes = {
@@ -362,7 +364,7 @@ Teamfight.propTypes = {
 
 TeamfightMap.propTypes = {
   teamfights: arrayOf(object).isRequired,
-  match: object.isRequired,
+  match: shape({}).isRequired,
 };
 
 export default TeamfightMap;

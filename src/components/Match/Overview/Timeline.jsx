@@ -277,7 +277,7 @@ const Timeline = ({
 };
 
 Timeline.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.shape({}),
 };
 
 export default Timeline;
