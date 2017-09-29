@@ -9,7 +9,7 @@ const TabBar = ({ tabs, info, mediaQClass = null }) => (
       {tabs.map((tab, index) => (
         <Link
           key={index}
-          className={tab.key === info && styles.chosen}
+          className={tab.key === info ? styles.chosen : ''}
           to={tab.route + window.location.search}
           disabled={tab.disabled}
         >
