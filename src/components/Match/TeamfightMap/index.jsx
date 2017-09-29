@@ -42,7 +42,7 @@ export const TeamfightIcon = ({ position, tooltipKey, mapWidth = MAP_WIDTH, onCl
 export const GoldDelta = ({ radiantGoldDelta }) => (
   <div className={styles.goldChange}>
     {isRadiant(radiantGoldDelta) ? radiantGoldDelta : radiantGoldDelta * -1}
-    <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />
+    <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />
   </div>
 );
 

@@ -10,19 +10,19 @@ export default () => (
     </div>
     <div className={styles.images}>
       <a href="//www.jist.tv" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/jist-white-logo.png" role="presentation" />
+        <img src="/assets/images/jist-white-logo.png" alt="" />
       </a>
       <a href="//dotacoach.org" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/dotacoach-logo.png" role="presentation" />
+        <img src="/assets/images/dotacoach-logo.png" alt="" />
       </a>
       <a href="https://pvgna.com/?ref=yasp" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/pvgna-logo.png" role="presentation" />
+        <img src="/assets/images/pvgna-logo.png" alt="" />
       </a>
       <a href="http://www.vpgame.com/" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/vp-logo.png" role="presentation" />
+        <img src="/assets/images/vp-logo.png" alt="" />
       </a>
       <a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/netlify.svg" role="presentation" />
+        <img src="/assets/images/netlify.svg" alt="" />
       </a>
     </div>
     <div className={styles.Buttons}>

@@ -138,7 +138,7 @@ const Header = ({ location, small, user }) => (
     <div className={styles.adBanner}>
       { location.pathname !== '/' &&
         <a href="http://www.vpgame.com/?lang=en_us">
-          <img src="/assets/images/vp-banner.jpg" role="presentation" />
+          <img src="/assets/images/vp-banner.jpg" alt="" />
         </a>
       }
     </div>

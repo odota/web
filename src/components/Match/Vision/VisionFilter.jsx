@@ -11,11 +11,11 @@ import PlayerThumb from '../PlayerThumb';
 const data = [
   {
     type: 'observer',
-    image: <img height="24" src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} role="presentation" />,
+    image: <img height="24" src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />,
   },
   {
     type: 'sentry',
-    image: <img height="24" src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} role="presentation" />,
+    image: <img height="24" src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />,
   },
 ];
 

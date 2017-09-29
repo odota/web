@@ -44,7 +44,7 @@ const Hero = ({ props }) => {
         className={styles.Heading}
         icon=""
       />
-      <img role="presentation" src={getSingleHero(props.match.params.heroId).img} className={styles.image} />
+      <img alt="" src={getSingleHero(props.match.params.heroId).img} className={styles.image} />
     </div>
     <div>
       <TabBar

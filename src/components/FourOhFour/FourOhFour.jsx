@@ -6,7 +6,7 @@ import styles from './FourOhFour.css';
 export default () => (
   <div className={styles.container}>
     <Helmet title={`${strings.error} 404`} />
-    <img src="/assets/images/sad.gif" role="presentation" />
+    <img src="/assets/images/sad.gif" alt="" />
     <div className={styles.message}>
       {strings.error_four_oh_four_message}
     </div>

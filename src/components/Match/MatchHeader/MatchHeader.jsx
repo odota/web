@@ -116,21 +116,21 @@ export default ({ match, user, loading }) => {
           {match.replay_url &&
           <FlatButton
             label={strings.match_button_video}
-            icon={<img src="/assets/images/jist-24x24.png" role="presentation" />}
+            icon={<img src="/assets/images/jist-24x24.png" alt="" />}
             href={`//www.jist.tv/create.php?dota2-match-url=${match.replay_url}`}
             target="_blank"
             rel="noopener noreferrer"
           />}
           <FlatButton
             label={strings.app_dotacoach}
-            icon={<img src="/assets/images/dotacoach-32x24.png" role="presentation" />}
+            icon={<img src="/assets/images/dotacoach-32x24.png" alt="" />}
             href={`//dotacoach.org/Hire/OpenDota?matchID=${match.match_id}&userSteamId=${user && user.account_id}`}
             target="_blank"
             rel="noopener noreferrer"
           />
           <FlatButton
             label={strings.app_pvgna}
-            icon={<img src="/assets/images/pvgna-guide-icon.png" alt={strings.app_pvgna_alt} height="24px" role="presentation" />}
+            icon={<img src="/assets/images/pvgna-guide-icon.png" alt={strings.app_pvgna_alt} height="24px" />}
             href={`https://pvgna.com/?userSteamId=${user && user.account_id}&ref=yasp`}
             target="_blank"
             rel="noopener noreferrer"

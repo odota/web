@@ -214,7 +214,7 @@ const Timeline = ({
                                 </span>
                                 <img
                                   src="/assets/images/dota2/aegis_icon.png"
-                                  role="presentation"
+                                  alt=""
                                 />
                               </section>
                             ))
@@ -235,7 +235,7 @@ const Timeline = ({
                                   {/* nothing if === 0 */}
                                   <font color={styles.golden}>{Math.abs(death.gold_delta)} </font>
                                   <img
-                                    role="presentation"
+                                    alt=""
                                     src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
                                   />
                                 </span>

@@ -105,7 +105,7 @@ export default function BuildingMap({ match }) {
         >
           <img
             src={props.src}
-            role="presentation"
+            alt=""
             style={props.style.img}
           />
           <ReactTooltip id={props.key} effect="solid">
@@ -135,7 +135,7 @@ export default function BuildingMap({ match }) {
                       <div key={player.hero_id}>
                         <img
                           src={heroes[player.hero_id] && API_HOST + heroes[player.hero_id].icon}
-                          role="presentation"
+                          alt=""
                         />
                         <span className={styles.damageValue}>
                           {player.damage}
@@ -154,7 +154,7 @@ export default function BuildingMap({ match }) {
                                   {strings.building_denied}
                                 </span>
                                 : <span>
-                                  {type !== 'fort' && <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />}
+                                  {type !== 'fort' && <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />}
                                   {strings.building_lasthit}
                                 </span>
                             }
@@ -166,7 +166,7 @@ export default function BuildingMap({ match }) {
                       <div className={styles.creeps}>
                         <img
                           src="/assets/images/blank-1x1.gif"
-                          role="presentation"
+                          alt=""
                           style={{
                             backgroundImage: `url(/assets/images/dota2/${side === 'good' ? 'bad' : 'good'}guys_creep.png)`,
                             backgroundPosition: 'center',
@@ -209,7 +209,7 @@ export default function BuildingMap({ match }) {
         {/* <div className={styles.buildingMap}>
           <img
             src="/assets/images/dota2/map/minimap.jpg"
-            role="presentation"
+            alt=""
             className={styles.buildingMapImage}
           />
           {icons}

@@ -49,7 +49,7 @@ const countryMmrColumns = [{
       <div className={styles.country}>
         <img
           src={image}
-          role="presentation"
+          alt=""
         />
         <span>
           {name}

@@ -50,7 +50,7 @@ const generateData = match => (log) => {
 
   return {
     ...match.players[log.player],
-    type: <img height="29" src={`${API_HOST}/apps/dota2/images/items/ward_${log.type}_lg.png`} role="presentation" />,
+    type: <img height="29" src={`${API_HOST}/apps/dota2/images/items/ward_${log.type}_lg.png`} alt="" />,
     enter_time: formatSeconds(log.entered.time),
     left_time: formatSeconds(log.left && log.left.time) || '-',
     duration: <span style={{ color: durationColor }}>{formatSeconds(duration)}</span>,

@@ -14,7 +14,7 @@ const tooltipContainer = thing => (
       {thing.dname}
       {thing.cost &&
       <span className={styles.gold}>
-        <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />
+        <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />
         {thing.cost}
       </span>}
       {thing.lore &&
@@ -28,12 +28,12 @@ const tooltipContainer = thing => (
     <div className={styles.cost}>
       {thing.mc > 0 &&
       <span>
-        <img src={`${API_HOST}/apps/dota2/images/tooltips/mana.png`} role="presentation" />
+        <img src={`${API_HOST}/apps/dota2/images/tooltips/mana.png`} alt="" />
         {thing.mc}
       </span>}
       {thing.cd > 0 &&
       <span>
-        <img src={`${API_HOST}/apps/dota2/images/tooltips/cooldown.png`} role="presentation" />
+        <img src={`${API_HOST}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
         {thing.cd}
       </span>}
     </div>}
@@ -72,7 +72,7 @@ export default (inflictor, value, type, ptooltip) => {
 
     return (
       <div className={styles.inflictorWithValue} data-tip={tooltip && true} data-for={ttId}>
-        {!type && <img src={image} role="presentation" />}
+        {!type && <img src={image} alt="" />}
         {type === 'buff' &&
           <div
             className={styles.buff}
