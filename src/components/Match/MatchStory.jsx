@@ -29,7 +29,7 @@ const GoldSpan = amount => (
     <img
       width="25px"
       height="17px"
-      alt={`${amount.toLocaleString()} gold`}
+      alt={'gold'}
       src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
       style={{ marginLeft: '3px' }}
     />
@@ -63,7 +63,7 @@ const PlayerSpan = (player) => {
             ? `${API_HOST}${heroes[player.hero_id].icon}`
             : '/assets/images/blank-1x1.gif'
           }
-          alt={heroName}
+          alt=""
         />
         {heroName}
       </span>
