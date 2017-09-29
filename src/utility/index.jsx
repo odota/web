@@ -282,13 +282,13 @@ export const transformations = {
   },
   game_mode: (row, col, field) => (strings[`game_mode_${field}`]),
   match_id_and_game_mode: (row, col, field) => {
-    const partySize = (partySize) => {
-      if (partySize === 1) {
+    const partySize = (_partySize) => {
+      if (_partySize === 1) {
         return [
           <SocialPerson color="rgb(179, 179, 179)" style={iconStyles} />,
           `x${row.party_size}`,
         ];
-      } else if (partySize === null) {
+      } else if (_partySize === null) {
         return null;
       }
 
@@ -416,13 +416,13 @@ export function isActiveItem(key) {
 
 export const sum = (a, b) => a + b;
 
-export const extractTransitionClasses = styles => name => ({
-  enter: styles[`${name}-enter`],
-  enterActive: styles[`${name}-enter-active`],
-  leave: styles[`${name}-leave`],
-  leaveActive: styles[`${name}-leave-active`],
-  appear: styles[`${name}-appear`],
-  appearActive: styles[`${name}-appear-active`],
+export const extractTransitionClasses = _styles => name => ({
+  enter: _styles[`${name}-enter`],
+  enterActive: _styles[`${name}-enter-active`],
+  leave: _styles[`${name}-leave`],
+  leaveActive: _styles[`${name}-leave-active`],
+  appear: _styles[`${name}-appear`],
+  appearActive: _styles[`${name}-appear-active`],
 });
 
 export const gameCoordToUV = (x, y) => ({
@@ -465,8 +465,8 @@ export const threshold = _.curry((start, limits, values, value) => {
   return findLast(values, (v, i) => _.inRange(limitsWithStart[i], limitsWithStart[i + 1], value));
 });
 
-export const getTeamName = (team, isRadiant) => {
-  if (isRadiant) {
+export const getTeamName = (team, _isRadiant) => {
+  if (_isRadiant) {
     return (team && team.name) ? team.name : strings.general_radiant;
   }
 
@@ -522,7 +522,7 @@ export const getScript = (url, callback) => {
   firstScript.parentNode.insertBefore(script, firstScript);
 
   // Attach handlers
-  script.onreadystatechange = (_, isAbort) => {
+  script.onreadystatechange = (__, isAbort) => {
     if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
       // Handle IE memory leak
       script.onreadystatechange = null;

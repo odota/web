@@ -26,7 +26,7 @@ const style = (width, position, iconSizeOverride, options = { noTopAdjustment: f
 
 const isRadiant = radiantGoldDelta => radiantGoldDelta > 0;
 
-const IconType = isRadiant => (isRadiant ? IconRadiant : IconDire);
+const IconType = _isRadiant => (_isRadiant ? IconRadiant : IconDire);
 
 export const TeamfightIcon = ({ position, tooltipKey, mapWidth = MAP_WIDTH, onClick, Icon, style: overStyle, ...props }) => (
   <Icon
@@ -51,8 +51,8 @@ const getSelectedStyle = radiantGoldDelta =>
   (isRadiant(radiantGoldDelta) ? styles.radiantSelected : styles.direSelected);
 
 const getTombStyle = position => position.reduce(
-  (str, position) => {
-    const radStr = position.isRadiant ? 'radiant' : 'dire';
+  (str, _position) => {
+    const radStr = _position.isRadiant ? 'radiant' : 'dire';
     if (str !== radStr) {
       return 'both';
     }
@@ -79,8 +79,8 @@ export const Tombstones = ({ deathPositions, mapWidth, tooltipKey }) => (
           border
           class={styles[`${getTombStyle(position)}TombstoneTooltip`]}
         >
-          {position.map((pos, index) => (
-            <div key={index} className={styles.tooltipContainer}>
+          {position.map((pos, _index) => (
+            <div key={_index} className={styles.tooltipContainer}>
               <PlayerThumb {...pos.player} />
               <div>{strings.tooltip_tombstone_killer}</div>
               <PlayerThumb {...pos.killer} />
@@ -136,10 +136,10 @@ const avgPosition = ({ deaths_pos: deathPositions }) => {
   const avgs = deathPositions.reduce(
     (avg, position, index) => {
       const posTotal = position.reduce(
-        (avg, position) => ({
-          x: avg.x + position.x,
-          y: avg.y + position.y,
-          length: avg.length + 1,
+        (_avg, _position) => ({
+          x: _avg.x + _position.x,
+          y: _avg.y + _position.y,
+          length: _avg.length + 1,
         }), {
           x: 0,
           y: 0,
@@ -276,18 +276,18 @@ class TeamfightMap extends Component {
                     maxWidth={400}
                     startTime={match.start_time}
                   >
-                    {teamfights.map((teamfight, index) => (
+                    {teamfights.map((teamFight, index) => (
                       <Teamfight
-                        selected={this.isSelected(teamfight)}
-                        hovered={this.isHovered(teamfight)}
+                        selected={this.isSelected(teamFight)}
+                        hovered={this.isHovered(teamFight)}
                         key={index}
-                        onClick={this.onIconClick(teamfight)}
-                        position={avgPosition(teamfight)}
-                        tooltipKey={`${index}_${teamfight.start}`}
-                        start={teamfight.start}
-                        end={teamfight.end}
-                        radiantGoldDelta={teamfight.radiant_gold_advantage_delta}
-                        deathPositions={teamfight.deaths_pos}
+                        onClick={this.onIconClick(teamFight)}
+                        position={avgPosition(teamFight)}
+                        tooltipKey={`${index}_${teamFight.start}`}
+                        start={teamFight.start}
+                        end={teamFight.end}
+                        radiantGoldDelta={teamFight.radiant_gold_advantage_delta}
+                        deathPositions={teamFight.deaths_pos}
                         mapWidth={bindWidth(width, 400)}
                       />
                     ))}

@@ -45,7 +45,7 @@ const initialState = {
   currentPage: 0,
   sortState: '',
   sortField: '',
-  sortFn: f => f,
+  sortFnc: f => f,
 };
 
 class Table extends React.Component {
@@ -99,14 +99,14 @@ class Table extends React.Component {
       paginated,
       pageLength = 20,
     } = this.props;
-    const { sortState, sortField, sortFn, currentPage } = this.state;
+    const { sortState, sortField, sortFnc, currentPage } = this.state;
     const dataLength = this.props.data.length;
     let data = this.props.data;
     if (maxRows && maxRows <= dataLength) {
       data = data.slice(0, maxRows);
     }
     if (sortField) {
-      data = defaultSort(data, sortState, sortField, sortFn);
+      data = defaultSort(data, sortState, sortField, sortFnc);
     }
     if (paginated) {
       data = data.slice(currentPage * pageLength, (currentPage + 1) * pageLength);

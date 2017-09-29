@@ -162,7 +162,7 @@ class RequestLayer extends React.Component {
   render() {
     const loading = this.props.loading;
     const info = this.props.match.params.info || 'mmr';
-    const page = distributionsPages.find(page => (page.key || page.name.toLowerCase()) === info);
+    const page = distributionsPages.find(_page => (_page.key || _page.name.toLowerCase()) === info);
     return loading
       ? <Spinner />
       : (<div>

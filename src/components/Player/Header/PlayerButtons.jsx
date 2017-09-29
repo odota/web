@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import ActionUpdate from 'material-ui/svg-icons/action/update';
 import strings from 'lang';
 import fetch from 'isomorphic-fetch';
-import { toggleShowForm } from 'actions';
+import { toggleShowForm as toggleShowFormAction } from 'actions';
 import ShowFormToggle from 'components/Form/ShowFormToggle';
 import { FORM_NAME } from '../TableFilterForm';
 import styles from './PlayerButtons.css';
@@ -63,7 +63,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleShowForm: () => dispatch(toggleShowForm('tableFilter')),
+  toggleShowForm: () => dispatch(toggleShowFormAction('tableFilter')),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerButtons);

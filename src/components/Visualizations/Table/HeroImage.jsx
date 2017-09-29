@@ -145,10 +145,10 @@ const TableHeroImage = ({
   </div>
 );
 
-const { number, string, oneOfType, bool, node, shape } = PropTypes;
+const { string, oneOfType, bool, node, shape } = PropTypes;
 
 TableHeroImage.propTypes = {
-  parsed: number,
+  parsed: PropTypes.number,
   image: string,
   title: string,
   subtitle: oneOfType([
@@ -156,8 +156,8 @@ TableHeroImage.propTypes = {
     node,
   ]),
   registered: string,
-  accountId: number,
-  playerSlot: number,
+  accountId: PropTypes.number,
+  playerSlot: PropTypes.number,
   hideText: bool,
   party: node,
   confirmed: bool,

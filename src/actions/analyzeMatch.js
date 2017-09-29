@@ -9,7 +9,7 @@ import {
   isActiveItem,
 } from 'utility';
 
-export default function analyzeMatch(match, pm) {
+export default function analyzeMatch(match, _pm) {
   // define condition check for each advice point
   const advice = {};
   const checks = {
@@ -188,7 +188,7 @@ export default function analyzeMatch(match, pm) {
     },
   };
   Object.keys(checks).forEach((key) => {
-    advice[key] = checks[key](match, pm);
+    advice[key] = checks[key](match, _pm);
   });
   return advice;
 }

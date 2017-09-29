@@ -123,7 +123,7 @@ class RequestLayer extends React.Component {
       return <Match {...this.props} matchId={route} />;
     }
 
-    const tab = matchTabs.find(tab => tab.key === route);
+    const tab = matchTabs.find(_tab => _tab.key === route);
     return (<div>
       <Helmet title={strings.title_matches} />
       <div>

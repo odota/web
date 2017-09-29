@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { gradient } from 'abcolor';
 import styles from './Percent.css';
 
-const percent = ({ percent, altValue, valEl }) => (
+const Percent = ({ percent, altValue, valEl }) => (
   <div className={styles.container}>
     <div className={styles.title}>
       {valEl || percent} {altValue && <small>{altValue}</small>}
@@ -25,7 +25,7 @@ const percent = ({ percent, altValue, valEl }) => (
 
 const { number, oneOfType, string, node } = PropTypes;
 
-percent.propTypes = {
+Percent.propTypes = {
   percent: number,
   altValue: oneOfType([
     string,
@@ -34,4 +34,4 @@ percent.propTypes = {
   valEl: node,
 };
 
-export default percent;
+export default Percent;

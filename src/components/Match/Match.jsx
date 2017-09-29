@@ -27,7 +27,7 @@ class RequestLayer extends React.Component {
     const match = this.props.matchData;
     const matchId = this.props.matchId;
     const info = this.props.match.params.info || 'overview';
-    const page = matchPages(matchId).find(page => page.key.toLowerCase() === info);
+    const page = matchPages(matchId).find(_page => _page.key.toLowerCase() === info);
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
     return loading ? <Spinner /> :
       (<div>
