@@ -40,10 +40,12 @@ const navbarPages = [
 const burgerItems = () => [
   {
     component: <AccountWidget key={0} />,
+    key: 0,
     close: true,
   },
-  ...navbarPages.map(item => ({
+  ...navbarPages.map((item, index) => ({
     component: item,
+    key: item.props.to || index,
     close: true,
   })),
 ];

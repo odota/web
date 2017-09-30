@@ -6,9 +6,9 @@ import styles from './TabBar.css';
 const TabBar = ({ tabs, info, mediaQClass = null }) => (
   <main className={`${styles.container} ${mediaQClass}`}>
     <section className={styles.subContainer}>
-      {tabs.map((tab, index) => (
+      {tabs.map(tab => (
         <Link
-          key={`${index + index}`}
+          key={tab.key}
           className={tab.key === info ? styles.chosen : ''}
           to={tab.route + window.location.search}
           disabled={tab.disabled}

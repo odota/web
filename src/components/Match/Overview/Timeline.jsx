@@ -205,7 +205,7 @@ const Timeline = ({
                           match.players
                             .filter(player => player.player_slot === aegis[obj.key].player_slot)
                             .map(player => (
-                              <section key={`${player.slot}_${player.hero_id}`}>
+                              <section key={`${player.player_slot}_${player.hero_id}`}>
                                 <PlayerThumb {...player} />
                                 <span>
                                   {!aegis[obj.key].act && strings.timeline_aegis_picked_up}
