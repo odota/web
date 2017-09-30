@@ -529,6 +529,7 @@
   "story_predicted_victory":"{players} 预测 {team} 将取得胜利",
   "story_predicted_victory_empty":"没有人",
   "story_networth_diff":"{percent}% / {gold} 差异",
+  "story_gold":"gold",
   "story_chat_asked":"asked",
   "story_chat_said":"说道",
   "tab_overview":"概观",
