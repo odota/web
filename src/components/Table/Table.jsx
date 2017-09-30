@@ -136,7 +136,7 @@ class Table extends React.Component {
               </MaterialTableHeader>
               <MaterialTableBody displayRowCheckbox={false} selectable={false}>
                 {data.map((row, index) => (
-                  <MaterialTableRow key={row.field}>
+                  <MaterialTableRow key={row.player_slot}>
                     {columns.map((column, colIndex) => {
                       const { field, color, center, displayFn, relativeBars, percentBars, percentBarsWithValue, sortFn } = column;
                       const getValue = typeof sortFn === 'function' ? sortFn : null;
