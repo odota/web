@@ -12,7 +12,7 @@ import styles from './Counts.css';
 const Counts = ({ counts, error, loading }) => (
   <div className={styles.countsContainer}>
     {Object.keys(counts).map((key, index) => (
-      <div key={index} className={styles.countTable}>
+      <div key={`${index + index}`} className={styles.countTable}>
         <Container title={strings[`heading_${key}`]} error={error} loading={loading}>
           <Table columns={playerCountsColumns} data={counts[key].list} />
         </Container>
