@@ -28,8 +28,8 @@ export default class BurgerMenu extends React.Component {
           className={styles.drawer}
         >
           <Menu>
-            {this.props.menuItems.map((item, index) => (
-              <MenuItem className={styles.menuItem} key={index} onTouchTap={item.close && this.handleClose}>
+            {this.props.menuItems.map(item => (
+              <MenuItem className={styles.menuItem} key={item.component.to} onTouchTap={item.close && this.handleClose}>
                 {item.component}
               </MenuItem>
             ))}

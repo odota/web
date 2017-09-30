@@ -748,7 +748,7 @@ export const unitKillsColumns = [
     // TODO make this work for non-english (current names are hardcoded in dotaconstants)
     displayFn: (row, col, field) =>
       (<div>
-        {Object.keys(field || {}).map((unit, index) => <div key={index}>{`${field[unit]} ${unit}`}</div>)}
+        {Object.keys(field || {}).map(unit => <div key={`${row}_${col}`}>{`${field[unit]} ${unit}`}</div>)}
       </div>),
   },
 ];
@@ -808,8 +808,8 @@ export const cosmeticsColumns = [
     displayName: strings.th_cosmetics,
     field: 'cosmetics',
     displayFn: (row, col, field) =>
-      field.map((cosmetic, i) =>
-        (<div key={i} className={styles.cosmetics} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
+      field.map(cosmetic =>
+        (<div key={`${row}_${col}`} className={styles.cosmetics} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
           <a href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`} target="_blank" rel="noopener noreferrer">
             <img
               src={`${API_HOST}/apps/570/${cosmetic.image_path}`}

@@ -7,7 +7,7 @@ const TableHeader = ({ columns, sortState, sortField, sortClick, totalWidth }) =
   <MaterialTableRow>
     {columns.map((column, index) => (
       <TableHeaderColumn
-        key={index}
+        key={`${index + index}`}
         column={column}
         sortClick={sortClick}
         sortField={sortField}

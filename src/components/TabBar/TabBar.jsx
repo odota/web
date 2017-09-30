@@ -8,7 +8,7 @@ const TabBar = ({ tabs, info, mediaQClass = null }) => (
     <section className={styles.subContainer}>
       {tabs.map((tab, index) => (
         <Link
-          key={index}
+          key={`${index + index}`}
           className={tab.key === info ? styles.chosen : ''}
           to={tab.route + window.location.search}
           disabled={tab.disabled}
