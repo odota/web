@@ -29,7 +29,7 @@ const GoldSpan = amount => (
     <img
       width="25px"
       height="17px"
-      alt={' gold'}
+      alt={` ${strings.story_gold}`}
       src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
       style={{ marginLeft: '3px' }}
     />
