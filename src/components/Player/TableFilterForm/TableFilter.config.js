@@ -18,8 +18,8 @@ export const laneList = Object.keys(strings)
     text: strings[`lane_role_${id}`],
     value: Number(id),
   }));
-export const patchList = patch.map((patch, index) => ({
-  text: patch.name,
+export const patchList = patch.map((_patch, index) => ({
+  text: _patch.name,
   value: index,
 })).reverse();
 export const modeList = Object.keys(strings)

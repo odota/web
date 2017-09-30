@@ -102,7 +102,7 @@ const logColumns = [heroTdColumn, {
     switch (row.type) {
       case 'kills': {
         const hero = heroNames[row.detail] || {};
-        return <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} role="presentation" />;
+        return <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} alt="" />;
       }
       case 'runes': {
         const runeType = row.detail;
@@ -110,7 +110,7 @@ const logColumns = [heroTdColumn, {
         return (
           <img
             src={`/assets/images/dota2/runes/${runeType}.png`}
-            role="presentation"
+            alt=""
             className={styles.imgSmall}
             data-tip
             data-for={runeString}

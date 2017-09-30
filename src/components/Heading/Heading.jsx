@@ -20,11 +20,14 @@ const Heading = ({ title = '', titleTo, icon = <ActionLabelOutline />, subtitle,
   </div>
 );
 
-const { string, element } = PropTypes;
+const { string, element, oneOfType } = PropTypes;
 
 Heading.propTypes = {
   title: string,
-  icon: element,
+  icon: oneOfType([
+    string,
+    element,
+  ]),
   subtitle: string,
   className: string,
 };

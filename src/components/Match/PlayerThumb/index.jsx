@@ -13,7 +13,7 @@ const PlayerThumb = ({ player_slot, hero_id, name, personaname, hideText }) => (
         ? `${API_HOST}${heroes[hero_id].icon}`
         : '/assets/images/blank-1x1.gif'
       }
-      role="presentation"
+      alt=""
     />
     {!hideText && (name || personaname || strings.general_anonymous)}
   </aside>

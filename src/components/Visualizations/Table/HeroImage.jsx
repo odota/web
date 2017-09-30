@@ -48,7 +48,7 @@ const TableHeroImage = ({
       <div className={styles.imageContainer}>
         <img
           src={image}
-          role="presentation"
+          alt=""
           className={styles.image}
         />
         {leaverStatus !== undefined && leaverStatus > 1 &&
@@ -59,7 +59,7 @@ const TableHeroImage = ({
         >
           <img
             src="/assets/images/dota2/disconnect_icon.png"
-            role="presentation"
+            alt=""
           />
         </span>
         }
@@ -145,25 +145,31 @@ const TableHeroImage = ({
   </div>
 );
 
-const { number, string, oneOfType, bool, node, object } = PropTypes;
+const { string, oneOfType, bool, node, shape, object } = PropTypes;
 
 TableHeroImage.propTypes = {
-  parsed: number,
+  parsed: PropTypes.number,
   image: string,
-  title: string,
+  title: oneOfType([
+    string,
+    object,
+  ]),
   subtitle: oneOfType([
     string,
     node,
   ]),
   registered: string,
-  accountId: number,
-  playerSlot: number,
+  accountId: PropTypes.number,
+  playerSlot: PropTypes.number,
   hideText: bool,
   party: node,
   confirmed: bool,
   heroName: string,
-  showPvgnaGuide: bool,
-  pvgnaGuideInfo: object,
+  showPvgnaGuide: oneOfType([
+    bool,
+    PropTypes.number,
+  ]),
+  pvgnaGuideInfo: shape({ url: string }),
 
 };
 

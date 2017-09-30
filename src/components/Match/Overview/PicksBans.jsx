@@ -11,7 +11,7 @@ const PicksBans = ({ data }) => (
       <section key={pb.order}>
         <img
           src={`${API_HOST}${heroes[pb.hero_id].img}`}
-          role="presentation"
+          alt=""
           className={styles.image}
           data-isPick={pb.is_pick}
         />
@@ -25,7 +25,7 @@ const PicksBans = ({ data }) => (
 );
 
 PicksBans.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.shape({}),
 };
 
 export default PicksBans;

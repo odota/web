@@ -48,8 +48,8 @@ const drawGraphs = (props, id) => {
         rescale: true,
       },
       tooltip: {
-        contents(d, defaultTitleFormat, defaultValueFormat, color) {
-          return this.getTooltipContent(d, defaultTitleFormat, valueFormat || defaultValueFormat, color);
+        contents(d, defaultTitleFormat, defaultValueFormat, _color) {
+          return this.getTooltipContent(d, defaultTitleFormat, valueFormat || defaultValueFormat, _color);
         },
         order: (a, b) => {
           if (props.type === 'difference') return a.id - b.id;

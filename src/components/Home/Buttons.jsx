@@ -26,7 +26,7 @@ export default () => (
         <FlatButton
           icon={<img
             src="/assets/images/jist-white-logo.png"
-            role="presentation"
+            alt=""
             style={{ width: 75, verticalAlign: 'middle' }}
           />}
           label={<span className={styles.label}>{strings.home_jist_button}</span>}

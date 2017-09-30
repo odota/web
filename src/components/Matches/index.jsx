@@ -65,13 +65,13 @@ const publicMatchesColumns = [
     displayName: <span className={matchStyles.teamIconContainer} ><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>,
     field: 'radiant_team',
     displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
-      <img key={heroId} style={{ width: '50px' }} src={`${API_HOST}${heroes[heroId].img}`} role="presentation" />),
+      <img key={heroId} style={{ width: '50px' }} src={`${API_HOST}${heroes[heroId].img}`} alt="" />),
   },
   {
     displayName: <span className={matchStyles.teamIconContainer} ><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>,
     field: 'dire_team',
     displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
-      <img key={heroId} style={{ width: '50px' }} src={`${API_HOST}${heroes[heroId].img}`} role="presentation" />),
+      <img key={heroId} style={{ width: '50px' }} src={`${API_HOST}${heroes[heroId].img}`} alt="" />),
   },
 ];
 
@@ -123,7 +123,7 @@ class RequestLayer extends React.Component {
       return <Match {...this.props} matchId={route} />;
     }
 
-    const tab = matchTabs.find(tab => tab.key === route);
+    const tab = matchTabs.find(_tab => _tab.key === route);
     return (<div>
       <Helmet title={strings.title_matches} />
       <div>

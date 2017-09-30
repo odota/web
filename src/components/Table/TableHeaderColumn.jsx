@@ -36,7 +36,7 @@ const TableHeaderColumn = ({ column, sortClick, sortField, sortState }) => {
 };
 
 TableHeaderColumn.propTypes = {
-  column: PropTypes.object,
+  column: PropTypes.shape({}),
   sortClick: PropTypes.func,
   sortField: PropTypes.string,
   sortState: PropTypes.string,

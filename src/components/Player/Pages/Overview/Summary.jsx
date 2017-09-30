@@ -128,7 +128,7 @@ const SummOfRecMatches = ({ matchesData }) => {
 };
 
 SummOfRecMatches.propTypes = {
-  matchesData: PropTypes.object,
+  matchesData: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 export default SummOfRecMatches;

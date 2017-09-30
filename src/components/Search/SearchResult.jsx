@@ -70,10 +70,10 @@ const Search = ({
 );
 
 Search.propTypes = {
-  players: PropTypes.array,
+  players: PropTypes.arrayOf(PropTypes.shape({})),
   playersLoading: PropTypes.bool,
   playersError: PropTypes.string,
-  pros: PropTypes.array,
+  pros: PropTypes.arrayOf(PropTypes.shape({})),
   prosLoading: PropTypes.bool,
   prosError: PropTypes.string,
 };

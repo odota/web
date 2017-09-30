@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from 'utility';
 import ReactTooltip from 'react-tooltip';
+import stylePropType from 'react-style-proptype';
 import classNames from 'classnames';
 import { IconRadiant, IconDire, IconDot } from 'components/Icons';
 import TeamTable from 'components/Match/TeamTable';
@@ -12,6 +13,7 @@ import Timeline from 'components/Match/Overview/Timeline';
 import DotaMap from 'components/DotaMap';
 import Measure from 'react-measure';
 import styles from './TeamfightMap.css';
+
 
 const MAP_WIDTH = 400;
 const iconSize = (mapWidth, factor = 12, minSize = 15) =>
@@ -26,7 +28,7 @@ const style = (width, position, iconSizeOverride, options = { noTopAdjustment: f
 
 const isRadiant = radiantGoldDelta => radiantGoldDelta > 0;
 
-const IconType = isRadiant => (isRadiant ? IconRadiant : IconDire);
+const IconType = _isRadiant => (_isRadiant ? IconRadiant : IconDire);
 
 export const TeamfightIcon = ({ position, tooltipKey, mapWidth = MAP_WIDTH, onClick, Icon, style: overStyle, ...props }) => (
   <Icon
@@ -42,7 +44,7 @@ export const TeamfightIcon = ({ position, tooltipKey, mapWidth = MAP_WIDTH, onCl
 export const GoldDelta = ({ radiantGoldDelta }) => (
   <div className={styles.goldChange}>
     {isRadiant(radiantGoldDelta) ? radiantGoldDelta : radiantGoldDelta * -1}
-    <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />
+    <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />
   </div>
 );
 
@@ -51,8 +53,8 @@ const getSelectedStyle = radiantGoldDelta =>
   (isRadiant(radiantGoldDelta) ? styles.radiantSelected : styles.direSelected);
 
 const getTombStyle = position => position.reduce(
-  (str, position) => {
-    const radStr = position.isRadiant ? 'radiant' : 'dire';
+  (str, _position) => {
+    const radStr = _position.isRadiant ? 'radiant' : 'dire';
     if (str !== radStr) {
       return 'both';
     }
@@ -79,8 +81,8 @@ export const Tombstones = ({ deathPositions, mapWidth, tooltipKey }) => (
           border
           class={styles[`${getTombStyle(position)}TombstoneTooltip`]}
         >
-          {position.map((pos, index) => (
-            <div key={index} className={styles.tooltipContainer}>
+          {position.map((pos, _index) => (
+            <div key={_index} className={styles.tooltipContainer}>
               <PlayerThumb {...pos.player} />
               <div>{strings.tooltip_tombstone_killer}</div>
               <PlayerThumb {...pos.killer} />
@@ -136,10 +138,10 @@ const avgPosition = ({ deaths_pos: deathPositions }) => {
   const avgs = deathPositions.reduce(
     (avg, position, index) => {
       const posTotal = position.reduce(
-        (avg, position) => ({
-          x: avg.x + position.x,
-          y: avg.y + position.y,
-          length: avg.length + 1,
+        (_avg, _position) => ({
+          x: _avg.x + _position.x,
+          y: _avg.y + _position.y,
+          length: _avg.length + 1,
         }), {
           x: 0,
           y: 0,
@@ -276,18 +278,18 @@ class TeamfightMap extends Component {
                     maxWidth={400}
                     startTime={match.start_time}
                   >
-                    {teamfights.map((teamfight, index) => (
+                    {teamfights.map((teamFight, index) => (
                       <Teamfight
-                        selected={this.isSelected(teamfight)}
-                        hovered={this.isHovered(teamfight)}
+                        selected={this.isSelected(teamFight)}
+                        hovered={this.isHovered(teamFight)}
                         key={index}
-                        onClick={this.onIconClick(teamfight)}
-                        position={avgPosition(teamfight)}
-                        tooltipKey={`${index}_${teamfight.start}`}
-                        start={teamfight.start}
-                        end={teamfight.end}
-                        radiantGoldDelta={teamfight.radiant_gold_advantage_delta}
-                        deathPositions={teamfight.deaths_pos}
+                        onClick={this.onIconClick(teamFight)}
+                        position={avgPosition(teamFight)}
+                        tooltipKey={`${index}_${teamFight.start}`}
+                        start={teamFight.start}
+                        end={teamFight.end}
+                        radiantGoldDelta={teamFight.radiant_gold_advantage_delta}
+                        deathPositions={teamFight.deaths_pos}
                         mapWidth={bindWidth(width, 400)}
                       />
                     ))}
@@ -334,7 +336,7 @@ TeamfightIcon.propTypes = {
   mapWidth: number,
   onClick: func, // not required because tombstone doesn't need click fn
   Icon: func.isRequired,
-  style: object,
+  style: stylePropType,
 };
 
 GoldDelta.propTypes = {
@@ -362,7 +364,7 @@ Teamfight.propTypes = {
 
 TeamfightMap.propTypes = {
   teamfights: arrayOf(object).isRequired,
-  match: object.isRequired,
+  match: shape({}).isRequired,
 };
 
 export default TeamfightMap;

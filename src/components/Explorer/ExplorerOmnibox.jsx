@@ -31,7 +31,6 @@ const ExplorerOmnibox = (context, expandedFields) => (<TextField
     // For each field, pick the best token. A token can't be used more than once.
     // Minimizing the total is N*M time where N is the number of fields and M is the number of words
     // Apply state update with best fit (matchedBuilder)
-    console.log(result);
     const alreadyUsedTokens = {};
     const alreadyUsedFields = {};
     const matchedBuilder = {};
@@ -46,7 +45,6 @@ const ExplorerOmnibox = (context, expandedFields) => (<TextField
         }
       }
     });
-    console.log(matchedBuilder);
     context.setState({ ...context.state, builder: { ...matchedBuilder } });
   }, 1000)}
 />);
