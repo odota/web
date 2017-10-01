@@ -9,7 +9,6 @@
     "build": "npm install && npm run lintnofix && npm run webpack",
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx",
-    "lint:css": "stylelint 'src/**/*.css'",
     "test": "NODE_PATH=./src NODE_ENV=test mocha --ui bdd --reporter nyan -r test/initializeJsdom.js $(find src -name '*.spec.*')",
     "test:watch": "npm test -- --watch --watch-extensions jsx,js",
     "update:emoticons": "npm r dota2-emoticons && npm i dota2-emoticons && node dev/updateEmoticons.js"
@@ -93,9 +92,6 @@
     "sinon": "^3.2.1",
     "sinon-chai": "^2.12.0",
     "style-loader": "^0.18.2",
-    "stylelint": "^8.0.0",
-    "stylelint-config-css-modules": "^1.1.0",
-    "stylelint-config-standard": "^17.0.0",
     "url-loader": "^0.5.9"
   },
   "moduleRoots": [
