@@ -19,8 +19,9 @@ import strings from 'lang';
 import { LocalizationMenu } from 'components/Localization';
 import Dropdown from 'components/Header/Dropdown';
 import Announce from 'components/Announce';
+import styled from 'styled-components';
+import constants from '../constants';
 import AccountWidget from '../AccountWidget';
-import styles from './Header.css';
 import SearchForm from '../Search/SearchForm';
 import AppLogo from '../App/AppLogo';
 import BurgerMenu from '../BurgerMenu';
@@ -53,11 +54,36 @@ const buttonProps = {
   children: <ActionSettings />,
 };
 
+const VerticalAlignToolbar = styled(ToolbarGroup)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const VerticalAlignDropdown = styled(Dropdown)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const VerticalAlignDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TabContainer = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
 const LogoGroup = ({ small }) => (
-  <ToolbarGroup className={styles.verticalAlign}>
+  <VerticalAlignToolbar>
     {!small && <BurgerMenu menuItems={burgerItems()} />}
     <AppLogo style={{ marginRight: 18 }} />
-  </ToolbarGroup>
+  </VerticalAlignToolbar>
 );
 
 LogoGroup.propTypes = {
@@ -65,47 +91,66 @@ LogoGroup.propTypes = {
 };
 
 const LinkGroup = () => (
-  <ToolbarGroup className={styles.verticalAlign}>
-    {navbarPages.map(page => (
-      <div key={page.name} className={styles.tabContainer}>
-        {React.cloneElement(page, { className: styles.tab })}
-      </div>
+  <VerticalAlignToolbar>
+    {navbarPages.map(Page => (
+      <TabContainer key={Page.name}>
+        <div style={{ margin: '0 10px', textAlign: 'center', fontWeight: `${constants.fontWeightNormal} !important` }}>
+          {Page}
+        </div>
+      </TabContainer>
     ))}
-  </ToolbarGroup>
+  </VerticalAlignToolbar>
 );
 
 const SearchGroup = () => (
-  <ToolbarGroup style={{ marginLeft: 20 }} className={styles.verticalAlign}>
+  <VerticalAlignToolbar style={{ marginLeft: 20 }}>
     <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
     <SearchForm />
-  </ToolbarGroup>
+  </VerticalAlignToolbar>
 );
 
 const AccountGroup = () => (
-  <ToolbarGroup className={styles.verticalAlign}>
+  <VerticalAlignToolbar>
     <AccountWidget />
-  </ToolbarGroup>
+  </VerticalAlignToolbar>
 );
 
 const SettingsGroup = ({ user }) => (
-  <Dropdown
+  <VerticalAlignDropdown
     Button={IconButton}
     buttonProps={buttonProps}
-    className={styles.verticalAlign}
   >
     <LocalizationMenu />
     <ReportBug />
     {user ? <LogOut /> : null}
-  </Dropdown>
+  </VerticalAlignDropdown>
 );
 
 SettingsGroup.propTypes = {
   user: PropTypes.object,
 };
 
+const BugLink = styled.a`
+  font-size: ${constants.fontSizeMedium};
+  font-weight: ${constants.fontWeightLight};
+  color: ${constants.colorMutedLight} !important;
+  display: flex;
+  align-items: center;
+  margin-top: 2px;
+  margin-right: 15px;
+
+  & svg {
+    margin-right: 5px;
+
+    /* Override material-ui */
+    color: currentColor !important;
+    width: 18px !important;
+    height: 18px !important;
+  }
+`;
+
 const ReportBug = () => (
-  <a
-    className={styles.bug}
+  <BugLink
     href={REPORT_BUG_PATH}
     target="_blank"
     rel="noopener noreferrer"
@@ -114,12 +159,11 @@ const ReportBug = () => (
     <span>
       {strings.app_report_bug}
     </span>
-  </a>
+  </BugLink>
 );
 
 const LogOut = () => (
-  <a
-    className={styles.bug}
+  <BugLink
     href={`${API_HOST}/logout`}
     rel="noopener noreferrer"
   >
@@ -127,30 +171,53 @@ const LogOut = () => (
     <span>
       {strings.app_logout}
     </span>
-  </a>
+  </BugLink>
 );
+
+const ToolbarHeader = styled(Toolbar)`
+  background-color: ${constants.defaultPrimaryColor} !important;
+  padding: 8px;
+  
+  & a {
+    color: ${constants.primaryTextColor};
+
+    &:hover {
+      color: ${constants.primaryTextColor};
+      opacity: 0.6;
+    }
+  }
+`;
+
+const AdBannerDiv = styled.div`
+  text-align: center;
+
+  & img {
+    margin-top: 10px;
+    max-width: 100%;
+  }
+`;
 
 const Header = ({ location, small, user }) => (
   <div>
-    <Toolbar style={{ padding: '8px' }} className={styles.header}>
-      <div className={styles.verticalAlign}>
+    <ToolbarHeader>
+      <VerticalAlignDiv>
         <LogoGroup small={small} />
         {small && <LinkGroup />}
         <SearchGroup />
-      </div>
-      <div className={styles.accountGroup}>
+      </VerticalAlignDiv>
+      <VerticalAlignDiv style={{ marginLeft: 'auto' }}>
         {small && <AccountGroup />}
         {<SettingsGroup user={user} />}
-      </div>
-    </Toolbar>
+      </VerticalAlignDiv>
+    </ToolbarHeader>
     <Announce location={location} />
-    <div className={styles.adBanner}>
+    <AdBannerDiv>
       { location.pathname !== '/' &&
         <a href="http://www.vpgame.com/?lang=en_us">
           <img src="/assets/images/vp-banner.jpg" alt="" />
         </a>
       }
-    </div>
+    </AdBannerDiv>
   </div>
 );
 
