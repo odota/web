@@ -1,5 +1,6 @@
 /* global API_HOST fetch */
 import React from 'react';
+import PropTypes from 'prop-types';
 import strings from 'lang';
 import {
   CardTitle,
@@ -48,5 +49,10 @@ class PlayedWith extends React.Component {
     </div>);
   }
 }
+
+PlayedWith.propTypes = {
+  playerId: PropTypes.string,
+  loggedInId: PropTypes.string,
+};
 
 export default PlayedWith;

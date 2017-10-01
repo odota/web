@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import strings from 'lang';
 import {
@@ -90,6 +91,22 @@ const Overview = ({
   </div>
 );
 
+Overview.propTypes = {
+  validRecentMatches: PropTypes.array,
+  numValidRecentMatches: PropTypes.number,
+  matchesData: PropTypes.array,
+  matchesLoading: PropTypes.bool,
+  matchesError: PropTypes.string,
+  heroesData: PropTypes.array,
+  heroesLoading: PropTypes.bool,
+  heroesError: PropTypes.string,
+  peersData: PropTypes.array,
+  peersLoading: PropTypes.bool,
+  peersError: PropTypes.string,
+  playerId: PropTypes.string,
+};
+
+
 const getData = (props) => {
   props.getPlayerRecentMatches(props.playerId);
   props.getPlayerHeroes(props.playerId, props.location.search);
@@ -112,6 +129,11 @@ class RequestLayer extends React.Component {
     return <Overview {...this.props} />;
   }
 }
+
+RequestLayer.propTypes = {
+  location: PropTypes.object,
+  playerId: PropTypes.string,
+};
 
 const mergeHeroGuides = (heroes, heroGuides) => heroes.map(hero => ({
   ...hero,

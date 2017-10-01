@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   gameCoordToUV,
   formatSeconds,
@@ -48,6 +49,11 @@ const WardTooltipEnter = ({ player, log }) => (
   </div>
 );
 
+WardTooltipEnter.propTypes = {
+  player: PropTypes.object,
+  log: PropTypes.object,
+};
+
 const WardTooltipLeft = ({ log }) => {
   let expired;
   const age = log.left.time - log.entered.time;
@@ -64,6 +70,10 @@ const WardTooltipLeft = ({ log }) => {
       <div>{` ${formatSeconds(age)}`}</div>
     </div>
   );
+};
+
+WardTooltipLeft.propTypes = {
+  log: PropTypes.object,
 };
 
 const WardPin = ({ match, width, log }) => {
@@ -90,6 +100,13 @@ const WardPin = ({ match, width, log }) => {
   );
 };
 
+WardPin.propTypes = {
+  match: PropTypes.object,
+  width: PropTypes.number,
+  log: PropTypes.object,
+};
+
+
 class VisionMap extends React.Component {
   shouldComponentUpdate(newProps) {
     return newProps.wards.length !== this.props.wards.length;
@@ -113,6 +130,11 @@ class VisionMap extends React.Component {
     );
   }
 }
+
+VisionMap.propTypes = {
+  match: PropTypes.object,
+  wards: PropTypes.object,
+};
 
 VisionMap.defaultProps = {
   width: 400,

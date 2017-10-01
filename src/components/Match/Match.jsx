@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Spinner from 'components/Spinner';
@@ -45,6 +46,16 @@ class RequestLayer extends React.Component {
       </div>);
   }
 }
+
+RequestLayer.propTypes = {
+  loading: PropTypes.bool,
+  matchData: PropTypes.object,
+  match: PropTypes.object,
+  user: PropTypes.object,
+  getMatch: PropTypes.func,
+  getPvgnaHeroGuides: PropTypes.func,
+  matchId: PropTypes.string,
+};
 
 const mergeHeroGuides = (match, heroGuides) => ({
   ...match,

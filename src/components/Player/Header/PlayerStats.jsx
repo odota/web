@@ -101,11 +101,13 @@ PlayerStatsCards.propTypes = {
   loading: bool,
   error: bool,
   partyRank: string,
-  soloRank: string,
+  soloRank: number,
   mmrEstimate: shape({}),
   wins: number,
   losses: number,
   compact: bool,
+  playerId: string,
+  loggedInId: string,
 };
 
 const mapStateToProps = state => ({

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {
@@ -38,6 +39,16 @@ const Records = ({ routeParams, data, error, loading, playerId, history }) => {
   </div>);
 };
 
+Records.propTypes = {
+  routeParams: PropTypes.object,
+  history: PropTypes.object,
+  data: PropTypes.array,
+  error: PropTypes.string,
+  playerId: PropTypes.string,
+  loading: PropTypes.bool,
+};
+
+
 const getData = (props) => {
   props.getPlayerRecords(props.playerId, props.location.search, props.routeParams.subInfo || recordsColumns[0]);
 };
@@ -57,6 +68,11 @@ class RequestLayer extends React.Component {
     return <Records {...this.props} />;
   }
 }
+
+RequestLayer.propTypes = {
+  location: PropTypes.object,
+  playerId: PropTypes.string,
+};
 
 const mapStateToProps = state => ({
   data: state.app.playerRecords.data,

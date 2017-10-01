@@ -24,6 +24,7 @@ const { string, node } = PropTypes;
 TableLink.propTypes = {
   to: string,
   children: node,
+  target: string,
 };
 
 export default TableLink;

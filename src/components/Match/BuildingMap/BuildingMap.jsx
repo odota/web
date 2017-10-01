@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   pad,
   sum,
@@ -225,3 +226,10 @@ export default function BuildingMap({ match }) {
   }
   return <div />;
 }
+
+BuildingMap.propTypes = {
+  match: PropTypes.object,
+  key: PropTypes.string,
+  style: PropTypes.object,
+  src: PropTypes.string,
+};

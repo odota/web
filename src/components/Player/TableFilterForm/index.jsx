@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import fetch from 'isomorphic-fetch';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -181,6 +182,13 @@ class TableFilterForm extends React.Component {
     );
   }
 }
+
+TableFilterForm.propTypes = {
+  showForm: PropTypes.bool,
+  currentQueryString: PropTypes.string,
+  history: PropTypes.object,
+  playerId: PropTypes.string,
+};
 
 const mapStateToProps = state => ({
   showForm: state.app.form.show,

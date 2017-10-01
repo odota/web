@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import ActionUpdate from 'material-ui/svg-icons/action/update';
@@ -57,6 +58,13 @@ class PlayerButtons extends React.Component {
       </div>);
   }
 }
+
+PlayerButtons.propTypes = {
+  playerId: PropTypes.string,
+  playerSoloCompetitiveRank: PropTypes.number,
+  showForm: PropTypes.bool,
+  toggleShowForm: PropTypes.func,
+};
 
 const mapStateToProps = state => ({
   showForm: state.app.form.show,

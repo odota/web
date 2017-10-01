@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { withRouter } from 'react-router-dom';
@@ -60,6 +61,14 @@ class RequestLayer extends React.Component {
     );
   }
 }
+
+RequestLayer.propTypes = {
+  location: PropTypes.object,
+  match: PropTypes.object,
+  history: PropTypes.object,
+  officialPlayerName: PropTypes.string,
+  playerName: PropTypes.string,
+};
 
 const mapStateToProps = state => ({
   playerName: (state.app.player.data.profile || {}).personaname,

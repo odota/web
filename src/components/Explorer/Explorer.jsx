@@ -1,5 +1,6 @@
 /* global window ace API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   connect,
 }
@@ -243,6 +244,15 @@ class Explorer extends React.Component {
     </div>);
   }
 }
+
+Explorer.propTypes = {
+  proPlayers: PropTypes.object,
+  teams: PropTypes.object,
+  leagues: PropTypes.object,
+  dispatchProPlayers: PropTypes.func,
+  dispatchLeagues: PropTypes.func,
+  dispatchTeams: PropTypes.func,
+};
 
 const mapStateToProps = state => ({
   proPlayers: state.app.proPlayers.data,

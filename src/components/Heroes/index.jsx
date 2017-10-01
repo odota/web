@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import strings from 'lang';
@@ -110,6 +111,13 @@ class RequestLayer extends React.Component {
     </div>);
   }
 }
+
+RequestLayer.propTypes = {
+  dispatchHeroStats: PropTypes.func,
+  data: PropTypes.object,
+  loading: PropTypes.bool,
+  match: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
   data: state.app.heroStats.data,

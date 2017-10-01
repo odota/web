@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Table,
   TableRow,
@@ -141,5 +142,11 @@ const CrossTable = ({
       </TableRow>
     </TableBody>
   </Table>);
+
+CrossTable.propTypes = {
+  match: PropTypes.object,
+  field1: PropTypes.string,
+  field2: PropTypes.string,
+};
 
 export default CrossTable;

@@ -25,7 +25,7 @@ const PicksBans = ({ data }) => (
 );
 
 PicksBans.propTypes = {
-  data: PropTypes.shape({}),
+  data: PropTypes.array,
 };
 
 export default PicksBans;
