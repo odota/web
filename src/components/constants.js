@@ -4,6 +4,7 @@ export default {
   almostBlack: 'rgba(0, 0, 0, 0.9)',
   colorSuccess: '#66BB6A',
   colorDanger: '#ff4c4c',
+  colorRed: '#ff4c4c',
   colorBlue: '#6BF',
   colorMuted: '#727272',
   colorYelor: '#FFAB40',
