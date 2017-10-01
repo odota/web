@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { TrendGraph } from 'components/Visualizations';
@@ -83,6 +84,15 @@ const Trend = ({ routeParams, columns, playerId, error, loading, history }) => {
   );
 };
 
+Trend.propTypes = {
+  routeParams: PropTypes.object,
+  columns: PropTypes.array,
+  playerId: PropTypes.string,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+  history: PropTypes.object,
+};
+
 const getData = (props) => {
   const trendName = props.routeParams.subInfo || trendNames[0];
   props.getPlayerTrends(props.playerId, props.location.search, trendName);
@@ -104,6 +114,11 @@ class RequestLayer extends React.Component {
     return <Trend {...this.props} />;
   }
 }
+
+RequestLayer.propTypes = {
+  playerId: PropTypes.string,
+  location: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
   columns: state.app.playerTrends.data,

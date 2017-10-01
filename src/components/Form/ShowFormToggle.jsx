@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Clear from 'material-ui/svg-icons/content/clear';
 import Filter from 'material-ui/svg-icons/content/filter-list';
 import strings from 'lang';
@@ -25,6 +26,11 @@ const ShowFormToggle = ({ toggleShowForm, showForm }) => (
     </div>
   </FlatButton>
 );
+
+ShowFormToggle.propTypes = {
+  toggleShowForm: PropTypes.func,
+  showForm: PropTypes.bool,
+};
 
 // const mapStateToProps = () => ({});
 

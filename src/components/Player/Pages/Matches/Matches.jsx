@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   connect,
 } from 'react-redux';
@@ -20,6 +21,12 @@ const Matches = ({
   </Container>
 );
 
+Matches.propTypes = {
+  data: PropTypes.array,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+};
+
 const getData = (props) => {
   props.getPlayerMatches(props.playerId, props.location.search);
 };
@@ -39,6 +46,11 @@ class RequestLayer extends React.Component {
     return <Matches {...this.props} />;
   }
 }
+
+RequestLayer.propTypes = {
+  location: PropTypes.object,
+  playerId: PropTypes.string,
+};
 
 const defaultOptions = {
   limit: null,

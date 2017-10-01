@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import strings from 'lang';
 import {
   formatSeconds,
@@ -855,5 +856,9 @@ class MatchStory extends React.Component {
     }
   }
 }
+
+MatchStory.propTypes = {
+  match: PropTypes.object,
+};
 
 export default MatchStory;

@@ -145,7 +145,7 @@ const TableHeroImage = ({
   </div>
 );
 
-const { string, oneOfType, bool, node, shape, object } = PropTypes;
+const { string, oneOfType, bool, node, shape, object, number } = PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: PropTypes.number,
@@ -170,7 +170,10 @@ TableHeroImage.propTypes = {
     PropTypes.number,
   ]),
   pvgnaGuideInfo: shape({ url: string }),
-
+  randomed: bool,
+  repicked: string,
+  predictedVictory: bool,
+  leaverStatus: number,
 };
 
 // If need party or estimated, just add new prop with default val = solo and change icons depending what needs

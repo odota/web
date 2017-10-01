@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { getRecords } from 'actions';
@@ -34,8 +35,8 @@ const fields = ['duration', 'kills', 'deaths', 'assists', 'gold_per_min', 'xp_pe
 const tabs = fields.map(field => ({
   name: strings[`th_${field}`],
   key: field,
-  content: props => (<Container>
-    <Table data={props.data.map((element, index) => ({ ...element, rank: index + 1 }))} columns={matchesColumns(field)} />
+  content: propsPar => (<Container>
+    <Table data={propsPar.data.map((element, index) => ({ ...element, rank: index + 1 }))} columns={matchesColumns(field)} />
   </Container>),
   route: `/records/${field}`,
 }));
@@ -72,6 +73,10 @@ class RequestLayer extends React.Component {
     </div>);
   }
 }
+
+RequestLayer.propTypes = {
+  match: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
   data: state.app.records.data,

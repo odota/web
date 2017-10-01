@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
@@ -91,5 +92,12 @@ class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  open: PropTypes.bool,
+  params: PropTypes.object,
+  width: PropTypes.number,
+  location: PropTypes.object,
+};
 
 export default connect()(App);

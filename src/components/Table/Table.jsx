@@ -242,6 +242,7 @@ const {
   arrayOf,
   bool,
   shape,
+  number,
 } = PropTypes;
 
 Table.propTypes = {
@@ -250,6 +251,9 @@ Table.propTypes = {
   loading: bool,
   error: bool,
   summable: bool,
+  maxRows: number,
+  paginated: bool,
+  pageLength: number,
 };
 
 export default Table;

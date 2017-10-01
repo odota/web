@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { threshold, formatSeconds } from 'utility';
 import Table from 'components/Table';
 import strings from 'lang';
@@ -64,5 +65,10 @@ const VisionLog = ({ match, wards }) => (
     <Table data={wards.map(generateData(match))} columns={columns} />
   </div>
 );
+
+VisionLog.propTypes = {
+  match: PropTypes.object,
+  wards: PropTypes.array,
+};
 
 export default VisionLog;

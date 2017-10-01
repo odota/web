@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   getPlayerCounts,
@@ -21,6 +22,15 @@ const Counts = ({ counts, error, loading }) => (
   </div>
 );
 
+Counts.propTypes = {
+  counts: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+};
+
 const getData = (props) => {
   props.getPlayerCounts(props.playerId, props.location.search);
 };
@@ -42,6 +52,11 @@ class RequestLayer extends React.Component {
     );
   }
 }
+
+RequestLayer.propTypes = {
+  playerId: PropTypes.string,
+  location: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
   counts: state.app.playerCounts.data,

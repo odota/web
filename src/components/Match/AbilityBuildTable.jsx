@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isRadiant, getTeamName } from 'utility';
 import { IconRadiant, IconDire } from 'components/Icons';
 import Heading from 'components/Heading';
@@ -35,7 +36,7 @@ const convertArrayToKeys = (obj, fieldName = '') => ({
   ),
 });
 
-export default ({ players = [], columns, heading = '', radiantTeam = {}, direTeam = {}, summable = false }) => {
+const AbilityBuildTable = ({ players = [], columns, heading = '', radiantTeam = {}, direTeam = {}, summable = false }) => {
   const keyedPlayers = players.map(player => convertArrayToKeys(player, 'ability_upgrades_arr'));
   return (
     <div>
@@ -46,3 +47,14 @@ export default ({ players = [], columns, heading = '', radiantTeam = {}, direTea
     </div>
   );
 };
+
+AbilityBuildTable.propTypes = {
+  players: PropTypes.array,
+  columns: PropTypes.array,
+  heading: PropTypes.string,
+  radiantTeam: PropTypes.object,
+  direTeam: PropTypes.array,
+  summable: PropTypes.bool,
+};
+
+export default AbilityBuildTable;

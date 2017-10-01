@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Tabs,
   Tab,
@@ -71,5 +72,9 @@ const CastTable = ({
       ))
     }
   </Tabs>);
+
+CastTable.propTypes = {
+  match: PropTypes.object,
+};
 
 export default CastTable;

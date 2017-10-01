@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import strings from 'lang';
 import Toggle from 'material-ui/Toggle';
 import ExplorerFormField from './ExplorerFormField';
@@ -54,5 +55,13 @@ const ExplorerControlSection = ({ showEditor, toggleEditor, expandedFields, hand
     />
   </div>
 </div>);
+
+ExplorerControlSection.propTypes = {
+  showEditor: PropTypes.bool,
+  toggleEditor: PropTypes.func,
+  expandedFields: PropTypes.array,
+  handleFieldUpdate: PropTypes.func,
+  builder: PropTypes.func,
+};
 
 export default ExplorerControlSection;

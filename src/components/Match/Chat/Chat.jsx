@@ -1,4 +1,5 @@
 import React, { createElement } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { isRadiant, formatSeconds } from 'utility';
 import strings from 'lang';
@@ -326,5 +327,9 @@ class Chat extends React.Component {
     );
   }
 }
+
+Chat.propTypes = {
+  data: PropTypes.object,
+};
 
 export default Chat;

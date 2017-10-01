@@ -1,6 +1,7 @@
 import React, {
   Component,
 } from 'react';
+import PropTypes from 'prop-types';
 import {
   connect,
 } from 'react-redux';
@@ -40,6 +41,15 @@ class Ranking extends Component {
     );
   }
 }
+
+Ranking.propTypes = {
+  match: PropTypes.string,
+  isLoading: PropTypes.string,
+  isError: PropTypes.string,
+  rankings: PropTypes.string,
+  hero: PropTypes.string,
+  getRanking: PropTypes.func,
+};
 
 const mapStateToProps = state => ({
   rankings: state.app.heroRanking.data.rankings || [],

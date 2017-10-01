@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import heroes from 'dotaconstants/build/heroes.json';
@@ -54,6 +55,11 @@ const Hero = ({ props }) => {
       {tabs(heroId).filter(tab => tab.key === route).map(tab => tab.content(props))}
     </div>
   </div>);
+};
+
+Hero.propTypes = {
+  props: PropTypes.object,
+  match: PropTypes.object,
 };
 
 export default connect()(Hero);

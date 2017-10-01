@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isRadiant, getTeamName } from 'utility';
 import Heading from 'components/Heading';
 import { IconRadiant, IconDire } from 'components/Icons';
@@ -11,7 +12,7 @@ const filterMatchPlayers = (players, team = '') =>
     ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === ''),
   ).sort((a, b) => a.player_slot - b.player_slot);
 
-export default ({
+const TeamTable = ({
   players = [],
   columns,
   heading = '',
@@ -35,3 +36,15 @@ export default ({
     {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
   </div>
 );
+
+TeamTable.propTypes = {
+  players: PropTypes.array,
+  columns: PropTypes.array,
+  heading: PropTypes.string,
+  picksBans: PropTypes.array,
+  radiantTeam: PropTypes.object,
+  direTeam: PropTypes.object,
+  summable: PropTypes.bool,
+};
+
+export default TeamTable;

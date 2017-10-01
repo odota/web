@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Popover from 'material-ui/Popover';
@@ -60,5 +61,12 @@ class Dropdown extends Component {
     );
   }
 }
+
+Dropdown.propTypes = {
+  Button: PropTypes.func,
+  buttonProps: PropTypes.object,
+  className: PropTypes.string,
+  children: PropTypes.array,
+};
 
 export default Dropdown;

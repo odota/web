@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
 import Table from 'components/Table';
 import strings from 'lang';
@@ -64,3 +65,8 @@ export default class VisionFilter extends React.Component {
     );
   }
 }
+
+VisionFilter.propTypes = {
+  match: PropTypes.object,
+  parent: PropTypes.object,
+};

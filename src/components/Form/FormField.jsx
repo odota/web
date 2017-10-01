@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 import { blue, red } from 'components/palette.css';
 import strings from 'lang';
@@ -146,5 +147,20 @@ class FormField extends React.Component {
     </div>);
   }
 }
+
+FormField.propTypes = {
+  name: PropTypes.string,
+  dataSource: PropTypes.array,
+  strict: PropTypes.bool,
+  limit: PropTypes.number,
+  formSelectionState: PropTypes.object,
+  addChip: PropTypes.string,
+  history: PropTypes.object,
+  label: PropTypes.string,
+  filter: PropTypes.string,
+  className: PropTypes.string,
+  maxSearchResults: PropTypes.string,
+  deleteChip: PropTypes.string,
+};
 
 export default FormField;

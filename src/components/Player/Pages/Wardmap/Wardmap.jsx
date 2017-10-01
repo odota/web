@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { calculateResponsiveState } from 'redux-responsive';
 import { getPlayerWardmap } from 'actions';
@@ -62,6 +63,16 @@ class RequestLayer extends React.Component {
     );
   }
 }
+
+RequestLayer.propTypes = {
+  updateWindowSize: PropTypes.func,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+  data: PropTypes.array,
+  browser: PropTypes.object,
+  playerId: PropTypes.string,
+  location: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
   data: state.app.playerWardmap.data,
