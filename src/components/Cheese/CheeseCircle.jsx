@@ -1,10 +1,59 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
+import styled from 'styled-components';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import { IconCheese } from '../Icons';
-import styles from './CheeseCircle.css';
+
+const ProgressDiv = styled.div`
+  position: relative;
+  width: 90px;
+  height: 90px;
+
+  & > div[mode="determinate"],
+  & div#cheeseDiv {
+    position: absolute !important;
+  }
+
+  & svg > circle {
+    stroke-width: 3;
+  }
+
+  &[data-hint] {
+    &::after {
+      left: 10px;
+      right: 10px;
+      text-align: center;
+    }
+  }
+`;
+const FrontProgress = styled(CircularProgress)`
+  z-index: 1;
+`;
+const BackProgress = styled(CircularProgress)`
+  stroke: rgba(255, 255, 255, 0.06) !important;
+`;
+const CheeseDiv = styled.div`
+  top: 17px;
+  left: 28px;
+  width: 35px;
+  height: 35px;
+
+  & svg {
+    filter: drop-shadow(0 0 10px #ff0);
+  }
+`;
+const PercentP = styled.p`
+  text-align: center;
+  padding: 0 !important;
+  margin-top: -5px !important;
+
+  & > div {
+    position: relative;
+    width: 100%;
+  }
+`;
 
 const Cheese = ({ donations = {}, error, loading }) => {
   const { goal, cheese } = donations;
@@ -15,16 +64,16 @@ const Cheese = ({ donations = {}, error, loading }) => {
       {error && <Error />}
       {loading && <Spinner />}
       {!error && !loading &&
-      <div className={styles.progress} data-hint={`${cheese} / ${goal}`}>
-        <CircularProgress mode="determinate" value={Math.min(percent, 100)} size={90} className={styles.front} />
-        <CircularProgress mode="determinate" value={100} size={90} className={styles.back} />
-        <div className={styles.cheese}>
+      <ProgressDiv data-hint={`${cheese} / ${goal}`}>
+        <FrontProgress mode="determinate" value={Math.min(percent, 100)} size={90} />
+        <BackProgress mode="determinate" value={100} size={90} />
+        <CheeseDiv id="cheeseDiv">
           <IconCheese />
-          <p className={styles.percent}>
+          <PercentP>
             {`${percent.toFixed(0)}%`}
-          </p>
-        </div>
-      </div>
+          </PercentP>
+        </CheeseDiv>
+      </ProgressDiv>
       }
     </div>
   );
