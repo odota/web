@@ -100,7 +100,6 @@ Announce.propTypes = {
   body: PropTypes.string,
   onClick: PropTypes.func,
   link: PropTypes.string,
-  location: PropTypes.object,
 };
 
 class RequestLayer extends React.Component {

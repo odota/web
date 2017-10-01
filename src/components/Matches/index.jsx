@@ -139,9 +139,9 @@ class RequestLayer extends React.Component {
 }
 
 RequestLayer.propTypes = {
-  proData: PropTypes.array,
   match: PropTypes.object,
-  publicData: PropTypes.array,
+  // proData: PropTypes.array,
+  // publicData: PropTypes.array,
 };
 
 const mapStateToProps = state => ({

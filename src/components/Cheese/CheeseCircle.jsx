@@ -13,7 +13,7 @@ const ProgressDiv = styled.div`
   height: 90px;
 
   & > div[mode="determinate"],
-  & div#cheeseDiv {
+  & div.cheeseDiv {
     position: absolute !important;
   }
 
@@ -33,7 +33,9 @@ const FrontProgress = styled(CircularProgress)`
   z-index: 1;
 `;
 const BackProgress = styled(CircularProgress)`
-  stroke: rgba(255, 255, 255, 0.06) !important;
+  circle {
+    stroke: rgba(255, 255, 255, 0.06) !important;
+  }
 `;
 const CheeseDiv = styled.div`
   top: 17px;
@@ -68,7 +70,7 @@ const Cheese = ({ donations = {}, error, loading }) => {
       <ProgressDiv data-hint={`${cheese} / ${goal}`}>
         <FrontProgress mode="determinate" value={Math.min(percent, 100)} size={90} />
         <BackProgress mode="determinate" value={100} size={90} />
-        <CheeseDiv id="cheeseDiv">
+        <CheeseDiv className="cheeseDiv">
           <IconCheese />
           <PercentP>
             {`${percent.toFixed(0)}%`}

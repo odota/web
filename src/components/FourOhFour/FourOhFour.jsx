@@ -1,7 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import strings from 'lang';
-import styles from './FourOhFour.css';
 
 // TODO migrate to styled-components (this component is not currently used)
 /*
@@ -33,13 +32,13 @@ import styles from './FourOhFour.css';
 }
 */
 export default () => (
-  <div className={styles.container}>
+  <div className="container">
     <Helmet title={`${strings.error} 404`} />
     <img src="/assets/images/sad.gif" alt="" />
-    <div className={styles.message}>
+    <div className="message">
       {strings.error_four_oh_four_message}
     </div>
-    <div className={styles.FourOhFour}>
+    <div className="FourOhFour">
       {strings.error} 404
     </div>
   </div>

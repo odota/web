@@ -110,7 +110,6 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  open: PropTypes.bool,
   params: PropTypes.object,
   width: PropTypes.number,
   location: PropTypes.object,
