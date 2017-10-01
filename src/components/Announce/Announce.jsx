@@ -70,7 +70,7 @@ const StyledDiv = styled.div`
     flex-shrink: 0;
   }
 `;
-const Announce = ({ title, body, onClick, link, location }) => (
+const Announce = ({ title, body, onClick, link }) => (
   <StyledDiv>
     <main>
       <h4>{title}</h4>

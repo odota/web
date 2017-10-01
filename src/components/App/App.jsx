@@ -55,10 +55,10 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  left: ${props => props.open ? '256px' : '0px'};
-  background-image: ${props => props.location.pathname === '/' ? 'url("/assets/images/home-background.png")' : ''};
-  background-position: ${props => props.location.pathname === '/' ? 'center top' : ''};
-  background-repeat: ${props => props.location.pathname === '/' ? 'no-repeat' : ''};
+  left: ${props => (props.open ? '256px' : '0px')};
+  background-image: ${props => (props.location.pathname === '/' ? 'url("/assets/images/home-background.png")' : '')};
+  background-position: ${props => (props.location.pathname === '/' ? 'center top' : '')};
+  background-repeat: ${props => (props.location.pathname === '/' ? 'no-repeat' : '')};
 `;
 
 const StyledBodyDiv = styled.div`
