@@ -12,7 +12,7 @@ export default {
   colorYelorMuted: 'rgba(255, 171, 64, 0.3)',
   // TODO convert this properly
   colorMutedLight:   'color(var(--colorMuted) lightness(70%))',
-  primaryLinkColor: 'var(--colorBlue)',
+  primaryLinkColor: '#6BF',
   textColorPrimary:     '#F5F5F5',
   primaryTextColor:     '#F5F5F5',
   textColorSecondary:   '#212020',
