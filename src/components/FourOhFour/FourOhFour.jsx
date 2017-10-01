@@ -3,6 +3,35 @@ import Helmet from 'react-helmet';
 import strings from 'lang';
 import styles from './FourOhFour.css';
 
+// TODO migrate to styled-components (this component is not currently used)
+/*
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.message {
+  font-weight: var(--fontWeightLight);
+  text-align: center;
+  font-size: 32px;
+  width: 420px;
+  margin-top: 20px;
+}
+
+.FourOhFour {
+  background-color: var(--textColorPrimary);
+  color: var(--textColorSecondary);
+  text-transform: uppercase;
+  padding: 6px 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  margin: 30px auto 0;
+  opacity: 0.6;
+}
+*/
 export default () => (
   <div className={styles.container}>
     <Helmet title={`${strings.error} 404`} />
