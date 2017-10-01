@@ -20,7 +20,7 @@ import {
 }
   from 'components/Visualizations';
 import redrawGraphs from './redrawGraphs';
-import styles from './Explorer.css';
+import constants from '../constants';
 
 function resolveId(key, value, mappings) {
   if (key === 'hero_id') {
@@ -84,7 +84,7 @@ class ExplorerOutputSection extends React.Component {
             } else if (column.field === 'inflictor') {
               return <span>{inflictorWithValue(field)} {field}</span>;
             } else if (column.field === 'win') {
-              return <span className={field ? styles.textSuccess : styles.textDanger}>{field ? strings.td_win : strings.td_loss}</span>;
+              return <span style={{ color: field ? constants.colorSuccess : constants.colorDanger }}>{field ? strings.td_win : strings.td_loss}</span>;
             } else if (column.field === 'is_radiant') {
               return field
                 ? <span className={matchStyles.teamIconContainer}><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>
