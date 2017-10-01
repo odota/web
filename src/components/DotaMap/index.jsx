@@ -27,7 +27,6 @@ const MapContainer = styled.div`
 `;
 
 const DotaMap = ({
-  className,
   startTime = null,
   maxWidth = 400,
   width = 400,
@@ -48,7 +47,6 @@ DotaMap.propTypes = {
   maxWidth: oneOfType([number, string]),
   width: oneOfType([number, string]),
   children: oneOfType([node, string]),
-  className: string,
 };
 
 export default DotaMap;

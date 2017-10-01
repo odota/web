@@ -7,7 +7,7 @@ import ExplorerFormField from './ExplorerFormField';
 const StyledDiv = styled.div`
   padding: 0 15px;
   box-sizing: border-box;
-  display: ${props => props.showEditor ? 'none' : 'flex'};
+  display: ${props => (props.showEditor ? 'none' : 'flex')};
   flex-direction: row;
   flex-wrap: wrap;
 `;
