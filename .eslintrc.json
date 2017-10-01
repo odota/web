@@ -28,7 +28,7 @@
     "jsx-a11y/no-static-element-interactions": 1,
     "jsx-a11y/alt-text": 1,
     "react/no-array-index-key": 1,
-    "react/prop-types": 0,
+    "react/prop-types": 2,
     "react/require-default-props": 0,
     "react/forbid-prop-types": 1
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
@@ -80,6 +81,20 @@ const PlayerHeader = ({ playerName, officialPlayerName, playerId, picture, regis
       </div>
     </div>
   );
+};
+
+PlayerHeader.propTypes = {
+  playerName: PropTypes.string,
+  officialPlayerName: PropTypes.string,
+  playerId: PropTypes.string,
+  picture: PropTypes.string,
+  registered: PropTypes.string,
+  loading: PropTypes.bool,
+  error: PropTypes.string,
+  small: PropTypes.bool,
+  extraSmall: PropTypes.bool,
+  playerSoloCompetitiveRank: PropTypes.number,
+  loggedInUser: PropTypes.object,
 };
 
 const mapStateToProps = state => ({

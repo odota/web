@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import strings from 'lang';
 import styled from 'styled-components';
@@ -15,10 +16,16 @@ const StyledLink = styled(Link)`
   }
 `;
 
-export default ({ size }) => (
+const AppLogo = ({ size }) => (
   <StyledLink to="/">
     <big style={{ fontSize: size }}>
       {`<${strings.app_name}/>`}
     </big>
   </StyledLink>
 );
+
+AppLogo.propTypes = {
+  size: PropTypes.string,
+};
+
+export default AppLogo;

@@ -1,6 +1,7 @@
 import React, {
   Component,
 } from 'react';
+import PropTypes from 'prop-types';
 import {
   connect,
 } from 'react-redux';
@@ -40,6 +41,16 @@ class Benchmark extends Component {
     );
   }
 }
+
+Benchmark.propTypes = {
+  match: PropTypes.object,
+  getBenchmark: PropTypes.func,
+  isLoading: PropTypes.bool,
+  isError: PropTypes.bool,
+  hero: PropTypes.object,
+  result: PropTypes.string,
+};
+
 /**
 HISTOGRAM API
 

@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { getProMatches, getPublicMatches } from 'actions';
@@ -78,22 +79,22 @@ const publicMatchesColumns = [
 const matchTabs = [{
   name: strings.hero_pro_tab,
   key: 'pro',
-  content: props => (<div>
-    <Table data={props.proData} columns={matchesColumns} />
+  content: propsPar => (<div>
+    <Table data={propsPar.proData} columns={matchesColumns} />
   </div>),
   route: '/matches/pro',
 }, {
   name: strings.matches_highest_mmr,
   key: 'highMmr',
-  content: props => (<div>
-    <Table data={props.publicData} columns={publicMatchesColumns} />
+  content: propsPar => (<div>
+    <Table data={propsPar.publicData} columns={publicMatchesColumns} />
   </div>),
   route: '/matches/highMmr',
 }, {
   name: strings.matches_lowest_mmr,
   key: 'lowMmr',
-  content: props => (<div>
-    <Table data={props.publicData} columns={publicMatchesColumns} />
+  content: propsPar => (<div>
+    <Table data={propsPar.publicData} columns={publicMatchesColumns} />
   </div>),
   route: '/matches/lowMmr',
 }];
@@ -136,6 +137,12 @@ class RequestLayer extends React.Component {
     </div>);
   }
 }
+
+RequestLayer.propTypes = {
+  proData: PropTypes.array,
+  match: PropTypes.object,
+  publicData: PropTypes.array,
+};
 
 const mapStateToProps = state => ({
   proData: state.app.proMatches.data,

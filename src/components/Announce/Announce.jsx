@@ -1,5 +1,6 @@
 /* global localStorage */
 import React from 'react';
+import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
 import strings from 'lang';
 import { connect } from 'react-redux';
@@ -94,6 +95,14 @@ const Announce = ({ title, body, onClick, link }) => (
   </StyledDiv>
 );
 
+Announce.propTypes = {
+  title: PropTypes.string,
+  body: PropTypes.string,
+  onClick: PropTypes.func,
+  link: PropTypes.string,
+  location: PropTypes.object,
+};
+
 class RequestLayer extends React.Component {
   constructor() {
     super();
@@ -145,6 +154,16 @@ class RequestLayer extends React.Component {
     return null;
   }
 }
+
+RequestLayer.propTypes = {
+  getPulls: PropTypes.func,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+  data: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
+};
 
 const mapStateToProps = (state) => {
   const { error, loading, data } = state.app.ghPulls;

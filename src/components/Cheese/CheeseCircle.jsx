@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
 import styled from 'styled-components';
@@ -77,6 +78,12 @@ const Cheese = ({ donations = {}, error, loading }) => {
       }
     </div>
   );
+};
+
+Cheese.propTypes = {
+  donations: PropTypes.object,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {

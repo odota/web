@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import strings from 'lang';
@@ -36,6 +37,10 @@ const LoggedIn = ({ playerId }) => {
       </Link>
     </div>
   );
+};
+
+LoggedIn.propTypes = {
+  playerId: PropTypes.number,
 };
 
 export default connect()(LoggedIn);

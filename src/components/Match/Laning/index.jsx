@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import strings from 'lang';
 import Heading from 'components/Heading';
 import Heatmap from 'components/Heatmap';
@@ -35,5 +36,9 @@ class Laning extends React.Component {
     </div>);
   }
 }
+
+Laning.propTypes = {
+  match: PropTypes.object,
+};
 
 export default Laning;

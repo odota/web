@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { transformations, isRadiant, sum } from 'utility';
 import strings from 'lang';
 import Spinner from 'components/Spinner';
@@ -18,7 +19,7 @@ const getWinnerStyle = (radiantWin) => {
   return radiantWin ? styles.radiant : styles.dire;
 };
 
-export default ({ match, user, loading }) => {
+const MatchHeader = ({ match, user, loading }) => {
   if (!loading) {
     const mapPlayers = (key, radiant) =>
       player =>
@@ -142,3 +143,11 @@ export default ({ match, user, loading }) => {
 
   return <Spinner />;
 };
+
+MatchHeader.propTypes = {
+  match: PropTypes.object,
+  user: PropTypes.object,
+  loading: PropTypes.bool,
+};
+
+export default MatchHeader;

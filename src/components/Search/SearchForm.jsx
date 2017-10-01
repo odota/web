@@ -70,9 +70,11 @@ class SearchForm extends React.Component {
     );
   }
 }
+
 SearchForm.propTypes = {
   dispatchSearch: PropTypes.func,
   dispatchSetQuery: PropTypes.func,
+  history: PropTypes.object,
 };
 
 // const mapStateToProps = (state) => {

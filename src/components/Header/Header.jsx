@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ActionSearch from 'material-ui/svg-icons/action/search';
@@ -59,6 +60,10 @@ const LogoGroup = ({ small }) => (
   </ToolbarGroup>
 );
 
+LogoGroup.propTypes = {
+  small: PropTypes.bool,
+};
+
 const LinkGroup = () => (
   <ToolbarGroup className={styles.verticalAlign}>
     {navbarPages.map(page => (
@@ -93,6 +98,10 @@ const SettingsGroup = ({ user }) => (
     {user ? <LogOut /> : null}
   </Dropdown>
 );
+
+SettingsGroup.propTypes = {
+  user: PropTypes.object,
+};
 
 const ReportBug = () => (
   <a
@@ -144,6 +153,12 @@ const Header = ({ location, small, user }) => (
     </div>
   </div>
 );
+
+Header.propTypes = {
+  location: PropTypes.object,
+  small: PropTypes.bool,
+  user: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
   small: state.browser.greaterThan.small,

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Drawer from 'material-ui/Drawer';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
@@ -47,3 +48,7 @@ export default class BurgerMenu extends React.Component {
     );
   }
 }
+
+BurgerMenu.propTypes = {
+  menuItems: PropTypes.array,
+};

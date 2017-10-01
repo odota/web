@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { formatSeconds } from 'utility';
 import Slider from 'material-ui/Slider';
 import _ from 'lodash/fp';
@@ -29,6 +30,11 @@ const SliderTicks = props => (
     })}
   </div>
 );
+
+SliderTicks.propTypes = {
+  value: PropTypes.object,
+  ticks: PropTypes.array,
+};
 
 const alive = (ward, time) => time === -90 || (time > ward.entered.time && (!ward.left || time < ward.left.time));
 // const team = (ward, teams) => (teams.radiant && ward.player < 5) || (teams.dire && ward.player > 4);
@@ -133,5 +139,9 @@ class Vision extends React.Component {
     );
   }
 }
+
+Vision.propTypes = {
+  match: PropTypes.object,
+};
 
 export default Vision;

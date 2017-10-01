@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { getPlayer } from 'actions';
 import strings from 'lang';
@@ -43,6 +44,13 @@ const AccountWidget = ({ loading, error, user, style }) => (
     }
   </div>
 );
+
+AccountWidget.propTypes = {
+  loading: PropTypes.bool,
+  error: PropTypes.string,
+  user: PropTypes.object,
+  style: PropTypes.string,
+};
 
 const mapStateToProps = (state) => {
   const { error, loading, data } = state.app.metadata;

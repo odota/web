@@ -1,5 +1,6 @@
 /* eslint-disable import/no-dynamic-require,global-require */
 import React from 'react';
+import PropTypes from 'prop-types';
 import c3 from 'c3';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
@@ -197,6 +198,13 @@ class RequestLayer extends React.Component {
       </div>);
   }
 }
+
+RequestLayer.propTypes = {
+  loading: PropTypes.bool,
+  match: PropTypes.object,
+  dispatchDistributions: PropTypes.func,
+  data: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
   data: state.app.distributions.data,

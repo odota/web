@@ -1,6 +1,7 @@
 import React, {
   Component,
 } from 'react';
+import PropTypes from 'prop-types';
 import uuid from 'uuid';
 import c3 from 'c3';
 import {
@@ -78,5 +79,9 @@ class MatchGraph extends Component {
     </div>);
   }
 }
+
+MatchGraph.propTypes = {
+  type: PropTypes.string,
+};
 
 export default MatchGraph;

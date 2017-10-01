@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './PiePercent.css';
 
-export default ({ percent, color, negativeColor }) => (
+const PiePercent = ({ percent, color, negativeColor }) => (
   <svg viewBox="0 0 32 32" className={styles.pieChart} styles={{ color: negativeColor }}>
     <circle
       r="16"
@@ -13,3 +14,11 @@ export default ({ percent, color, negativeColor }) => (
     />
   </svg>
 );
+
+PiePercent.propTypes = {
+  percent: PropTypes.number,
+  color: PropTypes.string,
+  negativeColor: PropTypes.string,
+};
+
+export default PiePercent;

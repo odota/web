@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   transformations,
   formatSeconds,
@@ -110,5 +111,14 @@ class ExplorerOutputSection extends React.Component {
       />);
   }
 }
+
+ExplorerOutputSection.propTypes = {
+  rows: PropTypes.string,
+  fields: PropTypes.string,
+  expandedBuilder: PropTypes.string,
+  teamMapping: PropTypes.string,
+  playerMapping: PropTypes.string,
+  format: PropTypes.string,
+};
 
 export default ExplorerOutputSection;

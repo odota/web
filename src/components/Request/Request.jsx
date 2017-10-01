@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import CircularProgress from 'material-ui/CircularProgress';
@@ -44,6 +45,13 @@ class Request extends React.Component {
     );
   }
 }
+
+Request.propTypes = {
+  dispatchPostRequest: PropTypes.func,
+  progress: PropTypes.number,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+};
 
 const mapStateToProps = (state) => {
   const { error, loading, progress } = state.app.request;

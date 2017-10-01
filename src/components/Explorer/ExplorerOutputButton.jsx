@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const ExplorerOutputButton = ({ defaultSelected, label, format, href, download, onClick, context }) => {
@@ -20,6 +21,16 @@ const ExplorerOutputButton = ({ defaultSelected, label, format, href, download, 
     download={download}
     onClick={clickFn}
   />);
+};
+
+ExplorerOutputButton.propTypes = {
+  defaultSelected: PropTypes.string,
+  label: PropTypes.string,
+  format: PropTypes.string,
+  href: PropTypes.string,
+  download: PropTypes.string,
+  onClick: PropTypes.func,
+  context: PropTypes.object,
 };
 
 export default ExplorerOutputButton;

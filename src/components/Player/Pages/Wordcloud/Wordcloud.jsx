@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   connect,
 } from 'react-redux';
@@ -38,6 +39,14 @@ class RequestLayer extends React.Component {
     );
   }
 }
+
+RequestLayer.propTypes = {
+  playerId: PropTypes.string,
+  location: PropTypes.object,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+  data: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
   data: state.app.playerWordcloud.data,

@@ -40,6 +40,8 @@ Container.propTypes = {
   loading: bool,
   error: bool,
   children: node,
+  hide: bool,
+  titleTo: string,
 };
 
 export default Container;
