@@ -53,6 +53,7 @@
     "redux-responsive": "^4.3.2",
     "redux-thunk": "^2.2.0",
     "seamless-immutable": "^7.1.2",
+    "styled-components": "^2.2.0",
     "uuid": "^3.1.0",
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.6.1",

@@ -1,16 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ActionInfo from 'material-ui/svg-icons/action/info';
-import styles from './Info.css';
+import styled from 'styled-components';
+import constants from '../constants';
+
+const StyledDiv = styled.div`
+  & a {
+    color: ${constants.colorMutedLight};
+    font-size: ${constants.fontSizeSmall};
+  }
+
+  & svg {
+    vertical-align: sub;
+    margin-right: 5px;
+    width: 15px !important;
+    height: 15px !important;
+    fill: ${constants.colorBlue} !important;
+  }
+`;
 
 const Info = ({ children, className, msg }) => (
-  <div className={`${styles.Info} ${className}`}>
+  <StyledDiv className={`${className}`}>
     <ActionInfo />
     <span>
       {!children && msg}
       {!msg && children}
     </span>
-  </div>
+  </StyledDiv>
 );
 
 Info.propTypes = {

@@ -4,10 +4,31 @@ import { connect } from 'react-redux';
 // import { getPlayer } from 'actions';
 import strings from 'lang';
 import { IconSteam } from 'components/Icons';
+import styled from 'styled-components';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import LoggedIn from './LoggedIn';
-import styles from './AccountWidget.css';
+
+const IconButtonLink = styled.a`
+  padding: 0 !important;
+  height: auto !important;
+  width: auto !important;
+
+  & svg:hover {
+    opacity: 1;
+  }
+
+  &[data-hint-position="bottom"] {
+    &::before {
+      bottom: -9px;
+      left: 8px;
+    }
+
+    &::after {
+      margin-top: 9px;
+    }
+  }
+`;
 
 const AccountWidget = ({ loading, error, user, style }) => (
   <div style={style}>
@@ -15,10 +36,10 @@ const AccountWidget = ({ loading, error, user, style }) => (
     {error && <Error />}
     {!error && !loading && user
       ? <LoggedIn playerId={user.account_id} />
-      : <a href={`${API_HOST}/login`} className={styles.iconButton}>
+      : <IconButtonLink href={`${API_HOST}/login`}>
         <IconSteam />
         {strings.app_login}
-      </a>
+      </IconButtonLink>
     }
   </div>
 );

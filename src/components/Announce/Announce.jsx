@@ -5,19 +5,80 @@ import strings from 'lang';
 import { connect } from 'react-redux';
 import { getGithubPulls } from 'actions';
 import ReactMarkdown from 'react-markdown';
-import { IconGithub } from 'components/Icons';
+import styled from 'styled-components';
+import constants from '../constants';
 
-import styles from './Announce.css';
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: #34a5ff;
 
+  & main,
+  & aside {
+    padding: 8px 20px;
+  }
+
+  & main {
+    flex-grow: 1;
+
+    & > div,
+    & a,
+    & p {
+      font-size: ${constants.fontSizeMedium};
+      margin: 0;
+      opacity: 0.85;
+    }
+
+    & a {
+      color: ${constants.textColorPrimary};
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    & h4 {
+      font-weight: ${constants.fontWeightMedium};
+      font-size: ${constants.fontSizeCommon};
+      line-height: ${constants.fontSizeCommon};
+      margin: 0 0 2px;
+
+      & svg {
+        height: 16px;
+        fill: ${constants.textColorPrimary};
+        vertical-align: sub;
+      }
+    }
+
+    & ul {
+      margin: 2px 0 0;
+      padding-left: 20px;
+
+      & li {
+        list-style-type: circle;
+
+        &::first-letter {
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+
+  & aside {
+    flex-shrink: 0;
+  }
+`;
 const Announce = ({ title, body, onClick, link, location }) => (
-  <div className={`${styles.announce} ${location.pathname === '/' ? styles.home : ''}`}>
+  <StyledDiv>
     <main>
-      <h4><IconGithub /> {title}</h4>
+      <h4>{title}</h4>
       {body && <ReactMarkdown source={body} />}
     </main>
     <aside>
       <RaisedButton
-        backgroundColor={styles.blue}
+        backgroundColor={constants.colorBlue}
         href={link}
         target="_blank"
         label={strings.announce_github_more}
@@ -25,12 +86,12 @@ const Announce = ({ title, body, onClick, link, location }) => (
     </aside>
     <aside>
       <RaisedButton
-        backgroundColor={styles.blue}
+        backgroundColor={constants.colorBlue}
         onClick={onClick}
         label={strings.announce_dismiss}
       />
     </aside>
-  </div>
+  </StyledDiv>
 );
 
 class RequestLayer extends React.Component {
