@@ -6,7 +6,6 @@ import Helmet from 'react-helmet';
 import { getDistributions } from 'actions';
 import strings from 'lang';
 import Table from 'components/Table';
-import Heading from 'components/Heading';
 import {
   sum,
   abbreviateNumber,
@@ -15,7 +14,29 @@ import {
 import Warning from 'components/Alerts';
 import TabBar from 'components/TabBar';
 import Spinner from 'components/Spinner';
-import styles from './Distributions.css';
+import StyledHeading from 'components/Heading/StyledHeading';
+import styled from 'styled-components';
+import constants from '../constants';
+
+const CountryDiv = styled.div`
+  & img {
+    vertical-align: sub;
+    margin-right: 7px;
+    height: 24px;
+    width: 32px;
+    box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
+  }
+
+  & span {
+    vertical-align: super;
+    height: 24px;
+  }
+`;
+const StyledWarning = styled(Warning)`
+  font-size: ${constants.fontSizeCommon};
+  text-align: center;
+  margin-bottom: 20px;
+`;
 
 const countryMmrColumns = [{
   displayName: strings.th_rank,
@@ -46,7 +67,7 @@ const countryMmrColumns = [{
     }
 
     return (
-      <div className={styles.country}>
+      <CountryDiv>
         <img
           src={image}
           alt=""
@@ -54,7 +75,7 @@ const countryMmrColumns = [{
         <span>
           {name}
         </span>
-      </div>
+      </CountryDiv>
     );
   },
 }, {
@@ -69,13 +90,12 @@ const countryMmrColumns = [{
 
 const getPage = (data, key) => (
   <div>
-    <Heading
+    <StyledHeading
       title={strings[`distributions_heading_${key}`]}
       subtitle={`
         ${data[key] && data[key].rows && abbreviateNumber(data[key].rows.map(row => row.count).reduce(sum, 0))} ${strings.th_players}
       `}
       icon=" "
-      className={styles.Heading}
     />
     {(key === 'mmr') ?
       <div id="mmr" />
@@ -167,11 +187,11 @@ class RequestLayer extends React.Component {
       ? <Spinner />
       : (<div>
         <Helmet title={page ? page.name : strings.distributions_tab_mmr} />
-        <Warning className={styles.Warning}>
+        <StyledWarning>
           {strings.distributions_warning_1}
           <br />
           {strings.distributions_warning_2}
-        </Warning>
+        </StyledWarning>
         <TabBar info={info} tabs={distributionsPages} />
         {page && page.content(this.props.data, info)}
       </div>);

@@ -5,12 +5,19 @@ import Helmet from 'react-helmet';
 import heroes from 'dotaconstants/build/heroes.json';
 import strings from 'lang';
 import Heading from 'components/Heading';
+import StyledHeading from 'components/Heading/StyledHeading';
 import TabBar from 'components/TabBar';
+import styled from 'styled-components';
 import Ranking from './Ranking';
 import Benchmark from './Benchmark';
-import styles from './Hero.css';
 
 const getSingleHero = heroId => ({ ...heroes[heroId], img: API_HOST + heroes[heroId].img });
+
+const StyledImage = styled.img`
+  border: solid 1px rgba(255, 255, 255, 0.3);
+  margin: 0 auto;
+  height: 100%;
+`;
 
 const tabs = heroId => ([
   {
@@ -38,13 +45,12 @@ const Hero = ({ props }) => {
   const heroId = props.match.params.heroId;
   return (<div>
     <Helmet title={getSingleHero(props.match.params.heroId).localized_name} />
-    <div className={styles.Header}>
-      <Heading
+    <div style={{ textAlign: 'center' }}>
+      <StyledHeading
         title={getSingleHero(props.match.params.heroId).localized_name}
-        className={styles.Heading}
         icon=""
       />
-      <img alt="" src={getSingleHero(props.match.params.heroId).img} className={styles.image} />
+      <StyledImage alt="" src={getSingleHero(props.match.params.heroId).img} />
     </div>
     <div>
       <TabBar
