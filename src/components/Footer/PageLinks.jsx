@@ -1,6 +1,5 @@
 import React from 'react';
 import strings from 'lang';
-import styles from './Footer.css';
 
 const links = [{
   name: strings.app_about,
@@ -19,7 +18,7 @@ const links = [{
   path: '//translate.opendota.com/',
 }];
 export default () => (
-  <div className={styles.pages}>
+  <div className="links">
     {links.map(link => (
       <a href={link.path} key={link.name} target="_blank" rel="noopener noreferrer">{link.name}</a>
     ))}

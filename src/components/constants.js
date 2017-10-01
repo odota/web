@@ -10,8 +10,7 @@ export default {
   colorGolden: '#e5c100',
   colorBlueMuted: 'rgba(102, 187, 255, 0.3)',
   colorYelorMuted: 'rgba(255, 171, 64, 0.3)',
-  // TODO convert this properly
-  colorMutedLight: 'color(var(--colorMuted) lightness(70%))',
+  colorMutedLight: 'rgb(179, 179, 179)',
   primaryLinkColor: '#6BF',
   textColorPrimary: '#F5F5F5',
   primaryTextColor: '#F5F5F5',
