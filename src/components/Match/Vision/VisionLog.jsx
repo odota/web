@@ -5,12 +5,11 @@ import { threshold, formatSeconds } from 'utility';
 import Table from 'components/Table';
 import strings from 'lang';
 import Heading from 'components/Heading';
-
 import { heroTd, heroTdColumn } from '../matchColumns';
-import styles from './Vision.css';
+import constants from '../../constants';
 
-const durationObserverColor = threshold(0, [121, 241, 371], [styles.red, styles.yelor, styles.green]);
-const durationSentryColor = threshold(0, [81, 161, 251], [styles.red, styles.yelor, styles.green]);
+const durationObserverColor = threshold(0, [121, 241, 371], [constants.colorRed, constants.colorYelor, constants.colorGreen]);
+const durationSentryColor = threshold(0, [81, 161, 251], [constants.colorRed, constants.colorYelor, constants.colorGreen]);
 
 const columns = [
   {
