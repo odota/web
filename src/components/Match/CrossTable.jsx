@@ -19,7 +19,7 @@ const CrossTable = ({
   field1,
   field2,
 }) => (
-  <Table selectable={false} className={styles.teamIconContainer}>
+  <Table selectable={false} >
     <TableBody displayRowCheckbox={false}>
       <TableRow>
         <TableRowColumn />

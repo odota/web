@@ -78,6 +78,7 @@ export default {
   textMuted: var(--colorMuted)
   */
 };
+
 /*
 @custom-media --tiny (width < 400px);
 @custom-media --small (width < 660px);

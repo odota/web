@@ -30,7 +30,7 @@ import {
 import Overview from './Overview';
 import TeamTable from './TeamTable';
 import Chat from './Chat';
-import styles from './Match.css';
+import { StyledFlexContainer, StyledFlexElement } from './StyledMatch';
 
 const matchPages = [Overview, {
   name: strings.tab_benchmarks,
@@ -70,16 +70,16 @@ const matchPages = [Overview, {
   key: 'combat',
   parsed: true,
   content: match => (<div>
-    <div className={styles.flexContainer}>
-      <div className={styles.flexElement}>
+    <StyledFlexContainer>
+      <StyledFlexElement>
         <Heading title={strings.heading_kills} />
         <CrossTable match={match} field1="killed" field2="killed_by" />
-      </div>
-      <div className={styles.flexElement}>
+      </StyledFlexElement>
+      <StyledFlexElement>
         <Heading title={strings.heading_damage} />
         <CrossTable match={match} field1="damage" field2="damage_taken" />
-      </div>
-    </div>
+      </StyledFlexElement>
+    </StyledFlexContainer>
     <TeamTable
       players={match.players}
       columns={inflictorsColumns}
@@ -107,8 +107,8 @@ const matchPages = [Overview, {
       radiantTeam={match.radiant_team}
       direTeam={match.dire_team}
     />
-    <div className={styles.flexContainer}>
-      <div className={styles.flexElement}>
+    <StyledFlexContainer>
+      <StyledFlexElement>
         <TeamTable
           players={match.players}
           columns={goldReasonsColumns}
@@ -116,8 +116,8 @@ const matchPages = [Overview, {
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
         />
-      </div>
-      <div className={styles.flexElement}>
+      </StyledFlexElement>
+      <StyledFlexElement>
         <TeamTable
           players={match.players}
           columns={xpReasonsColumns}
@@ -125,8 +125,8 @@ const matchPages = [Overview, {
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
         />
-      </div>
-    </div>
+      </StyledFlexElement>
+    </StyledFlexContainer>
   </div>),
 }, {
   name: strings.tab_purchases,

@@ -8,12 +8,16 @@ import {
   formatSeconds,
   getLevelFromXp,
 } from 'utility';
+import styled from 'styled-components';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import strings from 'lang';
 import Heading from 'components/Heading';
-import styles from './Match.css';
 
 const colorArray = Object.keys(playerColors).map(k => playerColors[k]);
+
+const StyledMatchGraph = styled.div`
+  margin-top: 20px;
+  margin-bottom: 20px;`;
 
 const drawGraphs = (props, id) => {
   if (props.match && props.match.graphData) {
@@ -75,7 +79,7 @@ class MatchGraph extends Component {
   render() {
     return (<div>
       <Heading title={strings[`heading_graph_${this.props.type}`]} />
-      <div className={styles.matchGraph} id={this.id} />
+      <StyledMatchGraph id={this.id} />
     </div>);
   }
 }
