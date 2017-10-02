@@ -127,14 +127,6 @@
   }
 }
 
-.goldGot {
-  composes: goldGot from "../Overview/Timeline.css";
-}
-
-.goldLost {
-  composes: goldLost from "../Overview/Timeline.css";
-}
-
 .radiantSelected {
   & .header {
     color: var(--colorSuccess);
