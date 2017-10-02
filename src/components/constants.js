@@ -4,6 +4,7 @@ export default {
   almostBlack: 'rgba(0, 0, 0, 0.9)',
   colorSuccess: '#66BB6A',
   colorDanger: '#ff4c4c',
+  colorGreen: '#66BB6A',
   colorRed: '#ff4c4c',
   colorBlue: '#6BF',
   colorMuted: '#727272',
@@ -25,7 +26,6 @@ export default {
   sliderTicksColor: '#757575',
   sliderTicksColorActive: '#337AB7',
   dividerColor: 'rgb(52, 50, 50)',
-
   fontFamily: `
       -apple-system, BlinkMacSystemFont,
       "Segoe UI",
@@ -33,7 +33,6 @@ export default {
       Ubuntu, Cantarell,
       "Fira Sans",
       Helvetica, Arial, sans-serif`,
-
   fontWeightLight: '300',
   fontWeightNormal: '400',
   fontWeightMedium: '500',
@@ -41,7 +40,6 @@ export default {
   fontSizeMedium: '14px',
   fontSizeSmall: '12px',
   fontSizeTiny: '10px',
-
   navDrawerWidth: '256px',
   normalTransition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
   linearTransition: 'all 300ms linear',
