@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import stylePropType from 'react-style-proptype';
-import classNames from 'classnames';
 import { IconRadiant, IconDire, IconDot } from 'components/Icons';
 import TeamTable from 'components/Match/TeamTable';
 import { teamfightColumns } from 'components/Match/matchColumns';
@@ -11,9 +10,208 @@ import PlayerThumb from 'components/Match/PlayerThumb';
 import strings from 'lang';
 import Timeline from 'components/Match/Overview/Timeline';
 import DotaMap from 'components/DotaMap';
-import Measure from 'react-measure';
-import styles from './TeamfightMap.css';
+import styled from 'styled-components';
+import constants from '../../constants';
 
+const Styled = styled.div`
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 -5px;
+}
+
+.timelineContainer {
+  margin-bottom: 75px;
+}
+
+.mapAndInfoContainer {
+  margin: 0 5px 10px 5px;
+}
+
+.headerGold {
+  margin: 0 25px;
+}
+
+.header {
+  margin: 10px 0 66px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headerSubInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+
+  & svg {
+    margin: 0;
+  }
+}
+
+.teamfightContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tableContainer {
+  flex-grow: 1;
+  overflow-x: hidden;
+  margin: -56px 5px 0 5px;
+}
+
+.map {
+  position: relative;
+  max-width: 400px;
+  max-height: 400px;
+  background-size: contain;
+}
+
+.mapIcon {
+  position: absolute;
+  margin: 0 !important;
+}
+
+.teamfightIcon {
+  position: absolute;
+  margin: 0 !important;
+  cursor: pointer;
+}
+
+.tombstone {
+  position: absolute;
+  margin: 0 !important;
+  fill: ${constants.colorGolden};
+  opacity: 0.75;
+}
+
+.radiantTombstone {
+  fill: ${constants.colorSuccess};
+}
+
+.direTombstone {
+  fill: ${constants.colorDanger};
+}
+
+.radiantTombstoneTooltip {
+  border-width: 2px !important;
+  border-color: ${constants.colorSuccess} !important;
+}
+
+.direTombstoneTooltip {
+  border-width: 2px !important;
+  border-color: ${constants.colorDanger} !important;
+}
+
+.tooltipContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 10px;
+  margin: -8px -12px;
+
+  & > * {
+    margin: 0 5px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  & > div {
+    margin: 0;
+    color: ${constants.colorMutedLight};
+  }
+}
+
+.teamfightTooltipContainer {
+  flex-direction: column;
+}
+
+.winner {
+  filter: drop-shadow(0 0 20px #000);
+  padding: 0;
+}
+
+.goldChange {
+  display: flex;
+  align-items: center;
+
+  & img {
+    margin-left: 5px;
+    filter: drop-shadow(0 0 5px ${constants.colorGolden});
+  }
+}
+
+.radiantSelected {
+  & .header {
+    color: ${constants.colorSuccess};
+  }
+}
+
+.direSelected {
+  & .header {
+    color: ${constants.colorDanger};
+  }
+}
+
+.radiant {
+  filter: drop-shadow(0 0 20px #000);
+  padding: 0;
+  
+  & .goldChange {
+    color: ${constants.colorSuccess};
+  }
+
+  margin: 0;
+  fill: #f5f5f5;
+  & svg {
+    filter: drop-shadow(0 0 5px green);
+  }
+}
+
+.dire {
+  filter: drop-shadow(0 0 20px #000);
+  padding: 0;
+  
+  & .goldChange {
+    color: ${constants.colorDanger};
+  }
+
+  & svg {
+    filter: drop-shadow(0 0 5px red);
+  }
+  
+  margin: 0;
+  fill: #000000;
+}
+
+.teamfightIconSvg {
+  & svg {
+    transition: ${constants.linearTransition};
+  }
+}
+
+.hovered {
+  & svg {
+    fill: ${constants.colorBlue} !important;
+  }
+}
+
+.selected {
+  & svg {
+    fill: ${constants.colorGolden} !important;
+  }
+}
+`;
 
 const MAP_WIDTH = 400;
 const iconSize = (mapWidth, factor = 12, minSize = 15) =>
@@ -30,10 +228,10 @@ const isRadiant = radiantGoldDelta => radiantGoldDelta > 0;
 
 const IconType = _isRadiant => (_isRadiant ? IconRadiant : IconDire);
 
-export const TeamfightIcon = ({ position, tooltipKey, mapWidth = MAP_WIDTH, onClick, Icon, style: overStyle, ...props }) => (
+export const TeamfightIcon = ({ position, tooltipKey, mapWidth = MAP_WIDTH, onClick, Icon, ...props }) => (
   <Icon
-    className={styles.teamfightIcon}
-    style={overStyle || style(mapWidth, position)}
+    className="teamfightIcon"
+    style={style(mapWidth, position)}
     data-tip
     data-for={tooltipKey}
     onClick={onClick}
@@ -42,15 +240,15 @@ export const TeamfightIcon = ({ position, tooltipKey, mapWidth = MAP_WIDTH, onCl
 );
 
 export const GoldDelta = ({ radiantGoldDelta }) => (
-  <div className={styles.goldChange}>
+  <div className="goldChange">
     {isRadiant(radiantGoldDelta) ? radiantGoldDelta : radiantGoldDelta * -1}
     <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />
   </div>
 );
 
-const getIconStyle = radiantGoldDelta => (isRadiant(radiantGoldDelta) ? styles.radiant : styles.dire);
+const getIconStyle = radiantGoldDelta => (isRadiant(radiantGoldDelta) ? 'radiant' : 'dire');
 const getSelectedStyle = radiantGoldDelta =>
-  (isRadiant(radiantGoldDelta) ? styles.radiantSelected : styles.direSelected);
+  (isRadiant(radiantGoldDelta) ? 'radiantSelected' : 'direSelected');
 
 const getTombStyle = position => position.reduce(
   (str, _position) => {
@@ -72,17 +270,17 @@ export const Tombstones = ({ deathPositions, mapWidth, tooltipKey }) => (
           position={position[0]}
           mapWidth={mapWidth}
           tooltipKey={`${index}_${tooltipKey}`}
-          className={styles[`${getTombStyle(position)}Tombstone`]}
+          className={`mapIcon ${getTombStyle(position)}Tombstone`}
           style={style(mapWidth, position[0], iconSize(mapWidth, 20))}
         />
         <ReactTooltip
           id={`${index}_${tooltipKey}`}
           effect="solid"
           border
-          class={styles[`${getTombStyle(position)}TombstoneTooltip`]}
+          class={`${getTombStyle(position)}TombstoneTooltip`}
         >
           {position.map((pos, _index) => (
-            <div key={_index} className={styles.tooltipContainer}>
+            <div key={_index} className="tooltipContainer">
               <PlayerThumb {...pos.player} />
               <div>{strings.tooltip_tombstone_killer}</div>
               <PlayerThumb {...pos.killer} />
@@ -108,7 +306,7 @@ export const Teamfight = ({
 }) => (
   <div>
     <div className={getIconStyle(radiantGoldDelta)}>
-      <div className={classNames(styles.teamfightIconSvg, hovered && styles.hovered, selected && styles.selected)}>
+      <div className={`teamfightIconSvg ${hovered && 'hovered'} ${selected && 'selected'}`}>
         <TeamfightIcon
           position={position}
           isRadiant={isRadiant(radiantGoldDelta)}
@@ -122,7 +320,7 @@ export const Teamfight = ({
         id={tooltipKey}
         effect="solid"
       >
-        <div className={styles.teamfightTooltipContainer}>
+        <div className="tooltipContainer teamfightTooltipContainer">
           <div>{formatSeconds(start)} - {formatSeconds(end)}</div>
           <div>
             <GoldDelta radiantGoldDelta={radiantGoldDelta} />
@@ -257,69 +455,58 @@ class TeamfightMap extends Component {
   render() {
     const { teamfights = [], match } = this.props;
     const teamfight = this.state.teamfight || {};
-    const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
+    // const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
     return (
-      <Measure>
-        {({ width }) => (
-          <div>
-            <div className={styles.timelineContainer}>
-              <Timeline
-                match={match}
-                onTeamfightClick={this.onTimelineIconClick}
-                onTeamfightHover={this.onTimelineHover}
-                selectedTeamfight={teamfight && teamfight.start}
+      <Styled>
+        <div className="timelineContainer">
+          <Timeline
+            match={match}
+            onTeamfightClick={this.onTimelineIconClick}
+            onTeamfightHover={this.onTimelineHover}
+            selectedTeamfight={teamfight && teamfight.start}
+          />
+        </div>
+        <div className={`container ${getSelectedStyle(teamfight.radiant_gold_advantage_delta)}`}>
+          <div className="teamfightContainer">
+            <div className="mapAndInfoContainer">
+              <DotaMap
+                width={400}
+                maxWidth={400}
+                startTime={match.start_time}
+              >
+                {teamfights.map((teamFight, index) => (
+                  <Teamfight
+                    selected={this.isSelected(teamFight)}
+                    hovered={this.isHovered(teamFight)}
+                    key={index}
+                    onClick={this.onIconClick(teamFight)}
+                    position={avgPosition(teamFight)}
+                    tooltipKey={`${index}_${teamFight.start}`}
+                    start={teamFight.start}
+                    end={teamFight.end}
+                    radiantGoldDelta={teamFight.radiant_gold_advantage_delta}
+                    deathPositions={teamFight.deaths_pos}
+                    mapWidth={bindWidth(400, 400)}
+                  />
+                ))}
+              </DotaMap>
+              <header className="header">
+                <div className="muted">
+                  {formatSeconds(teamfight.start)} - {formatSeconds(teamfight.end)}
+                </div>
+              </header>
+            </div>
+            <div className="tableContainer">
+              <TeamTable
+                players={teamfight.players && teamfight.players.filter(p => p.participate)}
+                columns={teamfightColumns}
+                radiantTeam={this.props.match.radiant_team}
+                direTeam={this.props.match.dire_team}
               />
             </div>
-            <div className={`${styles.container} ${getSelectedStyle(teamfight.radiant_gold_advantage_delta)}`}>
-              <div className={styles.teamfightContainer}>
-                <div className={styles.mapAndInfoContainer}>
-                  <DotaMap
-                    width={width}
-                    maxWidth={400}
-                    startTime={match.start_time}
-                  >
-                    {teamfights.map((teamFight, index) => (
-                      <Teamfight
-                        selected={this.isSelected(teamFight)}
-                        hovered={this.isHovered(teamFight)}
-                        key={index}
-                        onClick={this.onIconClick(teamFight)}
-                        position={avgPosition(teamFight)}
-                        tooltipKey={`${index}_${teamFight.start}`}
-                        start={teamFight.start}
-                        end={teamFight.end}
-                        radiantGoldDelta={teamFight.radiant_gold_advantage_delta}
-                        deathPositions={teamFight.deaths_pos}
-                        mapWidth={bindWidth(width, 400)}
-                      />
-                    ))}
-                  </DotaMap>
-                  <header className={styles.header}>
-                    <div className={styles.muted}>
-                      {formatSeconds(teamfight.start)} - {formatSeconds(teamfight.end)}
-                    </div>
-                    <div className={styles.headerSubInfo}>
-                      <div className={getIconStyle(teamfight.radiant_gold_advantage_delta)}>
-                        <Icon style={{ height: iconSize(bindWidth(width, 400)), width: iconSize(bindWidth(width, 400)) }} />
-                      </div>
-                      <span className={styles.headerGold}><GoldDelta radiantGoldDelta={teamfight.radiant_gold_advantage_delta} /></span>
-                      <div className={styles.muted}>{(teamfight.deaths_pos || []).length} Deaths</div>
-                    </div>
-                  </header>
-                </div>
-                <div className={styles.tableContainer}>
-                  <TeamTable
-                    players={teamfight.players && teamfight.players.filter(p => p.participate)}
-                    columns={teamfightColumns}
-                    radiantTeam={this.props.match.radiant_team}
-                    direTeam={this.props.match.dire_team}
-                  />
-                </div>
-              </div>
-            </div>
           </div>
-        )}
-      </Measure>
+        </div>
+      </Styled>
     );
   }
 }
