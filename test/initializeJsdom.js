@@ -1,3 +1,4 @@
+/* eslint-disable */
 const babelRegister = require('babel-register');
 const cssModulesRequireHook = require('css-modules-require-hook');
 const chai = require('chai');
