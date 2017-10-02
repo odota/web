@@ -148,7 +148,6 @@
 }
 
 .radiant {
-  composes: radiant from "../MatchHeader/MatchHeader.css";
   composes: winner;
 
   & .goldChange {
@@ -159,7 +158,6 @@
 }
 
 .dire {
-  composes: dire from "../MatchHeader/MatchHeader.css";
   composes: winner;
 
   & .goldChange {
