@@ -15,6 +15,7 @@ export default {
   golden: '#e5c100',
   yelor: '#FFAB40',
   red: '#ff4c4c',
+  lightGray: 'rgb(179, 179, 179)',
   colorBlueMuted: 'rgba(102, 187, 255, 0.3)',
   colorYelorMuted: 'rgba(255, 171, 64, 0.3)',
   colorMutedLight: 'rgb(179, 179, 179)',

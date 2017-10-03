@@ -11,7 +11,7 @@ import {
 import heroes from 'dotaconstants/build/heroes.json';
 import strings from 'lang';
 import { MAX_MATCHES_ROWS } from './Overview';
-import styles from './Summary.css';
+import constants from '../../../constants';
 
 const SummOfRecMatches = ({ matchesData }) => {
   // initial values
@@ -107,7 +107,7 @@ const SummOfRecMatches = ({ matchesData }) => {
             return (
               <li key={key}>
                 <span>{strings[`heading_${key}`]}</span>
-                <p style={{ color: styles[c.color] }}>
+                <p style={{ color: constants[c.color] }}>
                   {key === 'duration' ? formatSeconds(c.avg) : abbreviateNumber(c.avg)}
                   &nbsp;
                   <span>{key === 'duration' ? formatSeconds(c.max.value) : abbreviateNumber(c.max.value)}
