@@ -11,7 +11,7 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: ${props => (props.top ? 'flex-end' : 'center')};
-  ${props => (props.top && `position:relative
+  ${props => (props.top && `position:relative;
   @media only screen and (max-width: 767px) {
     align-items: center;
   }
