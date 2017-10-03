@@ -20,6 +20,8 @@ import { Mmr } from 'components/Visualizations/Table/HeroImage';
 import { IconBackpack } from 'components/Icons';
 import subtextStyle from 'components/Visualizations/Table/subText.css';
 import styles from './Match.css';
+import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
+
 
 export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide = false) =>
   (<TableHeroImage
@@ -189,10 +191,10 @@ export const overviewColumns = (match) => {
     },
     {
       displayName: (
-        <span className={styles.thGold}>
+        <StyledGoldIcon>
           <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />
           {strings.th_gold}
-        </span>
+        </StyledGoldIcon>
       ),
       tooltip: strings.tooltip_gold,
       field: 'total_gold',
@@ -241,7 +243,7 @@ export const overviewColumns = (match) => {
         }
 
         return (
-          <div className={styles.items}>
+          <StyledDivClearBoth>
             {itemArray &&
               <div>
                 {itemArray}
@@ -252,13 +254,13 @@ export const overviewColumns = (match) => {
               </div>}
             {backpackItemArray &&
               backpackItemArray.length > 0 &&
-              <div className={styles.backpack}>
+              <StyledBackpack>
                 <div data-hint={strings.tooltip_backpack} data-hint-position="bottom">
                   <IconBackpack />
                 </div>
                 {backpackItemArray}
-              </div>}
-          </div>
+              </StyledBackpack>}
+          </StyledDivClearBoth>
         );
       },
     },
@@ -282,11 +284,11 @@ export const abilityColumns = () => {
     tooltip: 'Ability upgraded at this level',
     field: `ability_upgrades_arr_${index}`,
     displayFn: row =>
-      (<div data-tip data-for={`au_${row.player_slot}`} className={styles.abilityUpgrades}>
-        <div className={styles.ability}>
+      (<StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
+        <div className="ability">
           {inflictorWithValue(abilityIds[row[`ability_upgrades_arr_${index}`]]) || <div className={styles.placeholder} />}
         </div>
-      </div>),
+      </StyledAbilityUpgrades>),
   }));
 
   cols[0] = heroTdColumn;
@@ -776,14 +778,14 @@ export const actionsColumns = [
 export const runesColumns = [heroTdColumn].concat(
   Object.keys(strings).filter(str => str.indexOf('rune_') === 0).map(str => str.split('_')[1]).map(runeType => ({
     displayName: (
-      <div className={styles.runes} data-tip data-for={`rune_${runeType}`}>
+      <StyledRunes data-tip data-for={`rune_${runeType}`}>
         <img src={`/assets/images/dota2/runes/${runeType}.png`} alt="" />
         <ReactTooltip id={`rune_${runeType}`} effect="solid">
           <span>
             {strings[`rune_${runeType}`]}
           </span>
         </ReactTooltip>
-      </div>
+      </StyledRunes>
     ),
     field: `rune_${runeType}`,
     displayFn: (row, col, value) => value || '-',
@@ -809,7 +811,7 @@ export const cosmeticsColumns = [
     field: 'cosmetics',
     displayFn: (row, col, field) =>
       field.map((cosmetic, i) =>
-        (<div key={i} className={styles.cosmetics} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
+        (<StyledCosmetic key={i} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
           <a href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`} target="_blank" rel="noopener noreferrer">
             <img
               src={`${API_HOST}/apps/570/${cosmetic.image_path}`}
@@ -828,7 +830,7 @@ export const cosmeticsColumns = [
               </span>
             </span>
           </ReactTooltip>
-        </div>),
+        </StyledCosmetic>),
       ),
   },
 ];
@@ -925,9 +927,9 @@ export const analysisColumns = [
               <span>
                 {field[key].display}
               </span>
-              <div className={styles.unusedItem}>
+              <StyledUnusedItem>
                 {key === 'unused_item' && field[key].metadata.map(item => inflictorWithValue(item))}
-              </div>
+              </StyledUnusedItem>
             </div>
           );
         }
@@ -943,9 +945,9 @@ const playerDeaths = (row, col, field) => {
   }
   return (
     field > 0 &&
-    <div className={styles.playerDeath}>
+    <StyledPlayersDeath>
       {deaths}
-    </div>
+    </StyledPlayersDeath>
   );
 };
 

@@ -14,6 +14,7 @@ import styles from './Match.css';
 import {
   heroTdColumn,
 } from './matchColumns';
+import { StyledLogFilterForm } from './StyledMatch';
 
 const typeConfig = {
   kills: 0,
@@ -177,7 +178,7 @@ class MatchLog extends React.Component {
     return (
       <div>
         {runeTooltips}
-        <div className={styles.logFilterForm}>
+        <StyledLogFilterForm >
           <FormField
             name="types"
             label={strings.ward_log_type}
@@ -196,7 +197,7 @@ class MatchLog extends React.Component {
             formSelectionState={this.state}
             strict
           />
-        </div>
+        </StyledLogFilterForm>
         <Table data={logData} columns={logColumns} />
       </div>
     );

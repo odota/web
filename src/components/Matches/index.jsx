@@ -10,11 +10,13 @@ import Table, { TableLink } from 'components/Table';
 import { transformations } from 'utility';
 import subTextStyle from 'components/Visualizations/Table/subText.css';
 import { IconRadiant, IconDire, IconTrophy } from 'components/Icons';
-import matchStyles from 'components/Match/Match.css';
 import Match from 'components/Match';
 import TabBar from 'components/TabBar';
 import heroes from 'dotaconstants/build/heroes.json';
 import styles from './Matches.css';
+import { StyledTeamIconContainer } from '../Match/StyledMatch';
+import colorPallete from '../constants';
+
 
 const matchesColumns = [{
   displayName: strings.th_match_id,
@@ -33,14 +35,14 @@ const matchesColumns = [{
   sortFn: true,
   displayFn: transformations.duration,
 }, {
-  displayName: <span className={matchStyles.teamIconContainer} ><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>,
+  displayName: <StyledTeamIconContainer ><IconRadiant />{strings.general_radiant}</StyledTeamIconContainer>,
   field: 'radiant_name',
-  color: matchStyles.green,
+  color: colorPallete.colorGreen,
   displayFn: (row, col, field) => <div>{row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>,
 }, {
-  displayName: <span className={matchStyles.teamIconContainer} ><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>,
+  displayName: <StyledTeamIconContainer ><IconDire />{strings.general_dire}</StyledTeamIconContainer>,
   field: 'dire_name',
-  color: matchStyles.red,
+  color: colorPallete.colorRed,
   displayFn: (row, col, field) => <div>{!row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>,
 }];
 
@@ -63,13 +65,13 @@ const publicMatchesColumns = [
     displayFn: transformations.duration,
   },
   {
-    displayName: <span className={matchStyles.teamIconContainer} ><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>,
+    displayName: <StyledTeamIconContainer><IconRadiant />{strings.general_radiant}</StyledTeamIconContainer>,
     field: 'radiant_team',
     displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
       <img key={heroId} style={{ width: '50px' }} src={`${API_HOST}${heroes[heroId].img}`} alt="" />),
   },
   {
-    displayName: <span className={matchStyles.teamIconContainer} ><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>,
+    displayName: <StyledTeamIconContainer ><IconDire />{strings.general_dire}</StyledTeamIconContainer>,
     field: 'dire_team',
     displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
       <img key={heroId} style={{ width: '50px' }} src={`${API_HOST}${heroes[heroId].img}`} alt="" />),

@@ -13,7 +13,6 @@ import strings from 'lang';
 import Table from 'components/Table';
 import itemData from 'dotaconstants/build/items.json';
 import { IconRadiant, IconDire } from 'components/Icons';
-import matchStyles from 'components/Match/Match.css';
 import heroes from 'dotaconstants/build/heroes.json';
 import {
   TablePercent,
@@ -22,6 +21,7 @@ import {
   from 'components/Visualizations';
 import redrawGraphs from './redrawGraphs';
 import constants from '../constants';
+import { StyledTeamIconContainer } from '../Match/StyledMatch';
 
 function resolveId(key, value, mappings) {
   if (key === 'hero_id') {
@@ -88,8 +88,8 @@ class ExplorerOutputSection extends React.Component {
               return <span style={{ color: field ? constants.colorSuccess : constants.colorDanger }}>{field ? strings.td_win : strings.td_loss}</span>;
             } else if (column.field === 'is_radiant') {
               return field
-                ? <span className={matchStyles.teamIconContainer}><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>
-                : <span className={matchStyles.teamIconContainer}><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>;
+                ? <StyledTeamIconContainer><IconRadiant />{strings.general_radiant}</StyledTeamIconContainer>
+                : <StyledTeamIconContainer><IconDire />{strings.general_dire}</StyledTeamIconContainer>;
             } else if (column.field === 'start_time') {
               return (new Date(field * 1000)).toLocaleDateString('en-US', {
                 day: 'numeric',

@@ -15,6 +15,8 @@ import itemColors from 'dotaconstants/build/item_colors.json';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
 import ReactTooltip from 'react-tooltip';
 import styles from './Match.css';
+import { StyledEmote, StyledStoryNetWorthBar, StyledStoryNetWorthText, StyledStorySpan, StyledStoryWrapper } from './StyledMatch';
+import colorPallete from '../constants';
 
 const heroesArr = jsonFn(heroes);
 
@@ -25,7 +27,7 @@ const TEAM = {
 };
 
 const GoldSpan = amount => (
-  <span key={`gold_${amount}`} className={styles.storySpan}>
+  <StyledStorySpan key={`gold_${amount}`}>
     <font color={styles.golden}>{amount.toLocaleString()}</font>
     <img
       width="25px"
@@ -34,14 +36,14 @@ const GoldSpan = amount => (
       src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
       style={{ marginLeft: '3px' }}
     />
-  </span>
+  </StyledStorySpan>
 );
 
 const TeamSpan = isRadiant => (
-  <span key={`team_${isRadiant ? 'radiant' : 'dire'}`} style={{ color: (isRadiant ? styles.green : styles.red) }} className={styles.storySpan}>
-    {isRadiant ? <IconRadiant className={styles.iconRadiant} /> : <IconDire className={styles.iconDire} />}
+  <StyledStorySpan isRadiant={isRadiant} key={`team_${isRadiant ? 'radiant' : 'dire'}`}>
+    {isRadiant ? <IconRadiant /> : <IconDire />}
     {isRadiant ? strings.general_radiant : strings.general_dire}
-  </span>
+  </StyledStorySpan>
 );
 
 // Modified version of PlayerThumb
@@ -52,12 +54,11 @@ const PlayerSpan = (player) => {
   const heroName = heroes[player.hero_id] ? heroes[player.hero_id].localized_name : strings.story_invalid_hero;
   return (
     <span>
-      <span
+      <StyledStorySpan
         data-tip
         data-for={`player_${player.account_id}`}
         key={`player_${player.player_slot}`}
         style={{ color: (player.isRadiant ? styles.green : styles.red) }}
-        className={styles.storySpan}
       >
         <img
           src={heroes[player.hero_id]
@@ -67,7 +68,7 @@ const PlayerSpan = (player) => {
           alt=""
         />
         {heroName}
-      </span>
+      </StyledStorySpan>
       <ReactTooltip id={`player_${player.account_id}`} place="left" effect="solid">
         {player.account_id ? player.personaname : strings.general_anonymous}
       </ReactTooltip>
@@ -76,9 +77,8 @@ const PlayerSpan = (player) => {
 
 // Modified version of PlayerThumb
 const ItemSpan = item => (
-  <span
+  <StyledStorySpan
     key={`item_${item}`}
-    className={styles.storySpan}
     style={{ color: itemColors[(items[item] || {}).qual] }}
   >
     <img
@@ -90,7 +90,7 @@ const ItemSpan = item => (
       alt={(items[item] || {}).dname}
     />
     {(items[item] || {}).dname}
-  </span>
+  </StyledStorySpan>
 );
 
 const capitalizeFirst = (list) => {
@@ -259,11 +259,7 @@ class ChatMessageEvent extends StoryEvent {
         .map((char) => {
           const emote = emotes[emoteKeys[emoteKeys.indexOf(char)]];
           if (emote) {
-            return React.createElement('img', {
-              alt: emote,
-              src: `/assets/images/dota2/emoticons/${emote}.gif`,
-              className: styles.emote,
-            });
+            return <StyledEmote emote={emote} />;
           }
           return char;
         }),
@@ -660,24 +656,24 @@ class TimeMarkerEvent extends StoryEvent {
       <h3 key={`minute_${this.minutes}_subheading`} style={{ marginBottom: 0 }}>
         {formatTemplate(strings.story_time_marker, { minutes: this.minutes })}
       </h3>,
-      <div key={`minute_${this.minutes}_networth_text`} className={styles.storyNetWorthText}>
-        <div style={{ width: `${this.radiant_percent}%` }}>
+      <StyledStoryNetWorthText key={`minute_${this.minutes}_networth_text`}>
+        <StyledStoryNetWorthText width={this.radiant_percent}>
           {GoldSpan(this.radiant_gold)}
-        </div>
-        <div style={{ color: this.radiant_gold > this.dire_gold ? styles.green : styles.red, left: `${this.radiant_percent}%` }}>
+        </StyledStoryNetWorthText>
+        <StyledStoryNetWorthText color={this.radiant_gold > this.dire_gold ? colorPallete.colorGreen : colorPallete.red} left={this.radiant_percent}>
           {formatTemplate(strings.story_networth_diff, {
             percent: Math.abs(this.radiant_percent - this.dire_percent),
             gold: GoldSpan(Math.abs(this.radiant_gold - this.dire_gold)),
           })}
-        </div>
-        <div style={{ width: `${this.dire_percent}%` }}>
+        </StyledStoryNetWorthText>
+        <StyledStoryNetWorthText width={this.dire_percent}>
           {GoldSpan(this.dire_gold)}
-        </div>
-      </div>,
-      <div key={`minute_${this.minutes}_networth`} className={styles.storyNetWorthBar}>
-        <div style={{ backgroundColor: styles.green, width: `${this.radiant_percent}%` }} />
-        <div style={{ backgroundColor: styles.red, width: `${this.dire_percent}%` }} />
-      </div>,
+        </StyledStoryNetWorthText>
+      </StyledStoryNetWorthText>,
+      <StyledStoryNetWorthBar key={`minute_${this.minutes}_networth`}>
+        <StyledStoryNetWorthText color={colorPallete.colorGreen} width={this.radiant_percent} />
+        <StyledStoryNetWorthText color={colorPallete.colorRed} width={this.dire_percent} />
+      </StyledStoryNetWorthBar>,
     ];
   }
 }
@@ -838,7 +834,7 @@ const generateStory = (match) => {
 class MatchStory extends React.Component {
   renderEvents() {
     const events = generateStory(this.props.match);
-    return (<div className={styles.storyWrapper} key="matchstory">{events.map(event => event.render())}</div>);
+    return (<StyledStoryWrapper key="matchstory">{events.map(event => event.render())}</StyledStoryWrapper>);
   }
   render() {
     try {

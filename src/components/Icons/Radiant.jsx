@@ -1,6 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
 
-export default props => (
+const icon = props => (
   <svg {...props} viewBox="0 0 300 300">
     <ellipse cx="148.6" cy="65.5" rx="35" ry="64.4" />
     <path
@@ -30,3 +31,5 @@ export default props => (
     />
   </svg>
 );
+export default styled(icon)`filter: drop-shadow(0 0 5px green);
+margin-left: 5px;`;
