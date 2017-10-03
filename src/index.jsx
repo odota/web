@@ -8,7 +8,6 @@ import App from 'components/App';
 
 // Import global CSS
 import 'c3/c3.css';
-import 'components/tooltip.css';
 import './index.css';
 
 // Fetch metadata (used on all pages)
