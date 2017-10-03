@@ -112,17 +112,19 @@ const Overview = ({
     >
       <SummOfRecMatches matchesData={validRecentMatches} />
     </SummaryContainer>
-    <MatchesContainer
-      title={strings.heading_matches}
-      titleTo={`/players/${playerId}/matches`}
-      loading={matchesLoading}
-      error={matchesError}
-    >
-      <Table
-        columns={playerMatchesColumns}
-        data={matchesData}
-        maxRows={MAX_MATCHES_ROWS}
-      />
+    <MatchesContainer>
+      <Container
+        title={strings.heading_matches}
+        titleTo={`/players/${playerId}/matches`}
+        loading={matchesLoading}
+        error={matchesError}
+      >
+        <Table
+          columns={playerMatchesColumns}
+          data={matchesData}
+          maxRows={MAX_MATCHES_ROWS}
+        />
+      </Container>
     </MatchesContainer>
 
     <HeroesContainer>

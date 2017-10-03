@@ -8,8 +8,30 @@ import querystring from 'querystring';
 import strings from 'lang';
 import { toggleShowForm } from 'actions/formActions';
 import FormField from 'components/Form/FormField';
-import styles from './TableFilterForm.css';
+import styled from 'styled-components';
 import * as data from './TableFilter.config';
+
+const Styled = styled.div`
+.formGroup {
+  padding: 0 15px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.hideForm {
+  overflow: hidden;
+  transition: max-height 0.2s;
+  max-height: 0px;
+}
+
+.showForm {
+  overflow: hidden;
+  transition: max-height 0.2s;
+  max-height: 1000px;
+}
+`;
 
 const getPeers = (props, context) => {
   fetch(`${API_HOST}/api/players/${props.playerId}/peers`)
@@ -48,9 +70,9 @@ class TableFilterForm extends React.Component {
     const { showForm, currentQueryString, history } = this.props;
     const formSelectionState = querystring.parse(currentQueryString.substring(1));
     return (
-      <div>
-        <div className={showForm ? styles.showForm : styles.hideForm}>
-          <div className={styles.formGroup}>
+      <Styled>
+        <div className={showForm ? 'showForm' : 'hideForm'}>
+          <div className="formGroup">
             <FormField
               name="hero_id"
               label={strings.filter_hero_id}
@@ -176,7 +198,7 @@ class TableFilterForm extends React.Component {
             />
           </div>
         </div>
-      </div>
+      </Styled>
     );
   }
 }
