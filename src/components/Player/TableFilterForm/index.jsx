@@ -11,8 +11,6 @@ import FormField from 'components/Form/FormField';
 import styles from './TableFilterForm.css';
 import * as data from './TableFilter.config';
 
-export const FORM_NAME = 'tableFilter';
-
 const getPeers = (props, context) => {
   fetch(`${API_HOST}/api/players/${props.playerId}/peers`)
     .then(resp => resp.json())
@@ -196,7 +194,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleShowForm: () => dispatch(toggleShowForm(FORM_NAME)),
+  toggleShowForm: () => dispatch(toggleShowForm()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TableFilterForm));

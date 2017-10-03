@@ -9,7 +9,6 @@ import strings from 'lang';
 import {
   CardTitle,
 } from 'material-ui/Card';
-import playerStatsStyles from 'components/Player/Header/PlayerStats.css';
 // import util from 'util';
 
 const totalsToShow = {
@@ -49,7 +48,6 @@ const formatDurationString = (sec) => {
 const drawElement = (element, type) => {
   if (totalsToShow[element.field] === type) {
     return (<CardTitle
-      className={playerStatsStyles.playerStats}
       subtitle={<div>{element.field === 'duration' ? formatDurationString(element.sum) : Math.floor(element.sum).toLocaleString()}</div>}
       title={strings[`heading_${element.field}`]}
     />);

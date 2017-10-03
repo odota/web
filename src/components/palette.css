@@ -116,29 +116,6 @@
 .textDanger   { color: var(--colorDanger) }
 .textMuted    { color: var(--colorMuted) }
 
-.iconButton {
-  margin: 0 5px 4px;
-
-  & svg {
-    width: auto !important;
-    height: 16px;
-    vertical-align: middle;
-    fill: var(--primaryTextColor);
-    margin: 0 6px;
-    transition: var(--normalTransition);
-  }
-
-  &:hover svg {
-    opacity: 0.6;
-  }
-}
-
-.overrideHelpIcon {
-  &[data-tip="true"] {
-    cursor: pointer;
-  }
-}
-
 .tooltipContainer {
   display: flex;
   align-items: center;

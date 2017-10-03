@@ -3,15 +3,71 @@ import PropTypes from 'prop-types';
 import {
   connect,
 } from 'react-redux';
-import {
-  CardTitle,
-} from 'material-ui/Card';
 import ActionHelp from 'material-ui/svg-icons/action/help';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
 import strings from 'lang';
+import styled from 'styled-components';
 import PlayedWith from './PlayedWith';
-import styles from './PlayerStats.css';
+import { PlayerStatsCard } from './Styled';
+import constants from '../../constants';
+
+const Styled = styled.div`
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.textSuccess {
+  color: ${constants.colorGreen}
+}
+
+.textDanger {
+  color: ${constants.colorRed}
+}
+
+.icon {
+  fill: ${constants.colorMutedLight} !important;
+}
+
+.estimateHelp {
+  display: inline-block;
+  position: relative;
+
+  & svg {
+    width: 16px !important;
+    height: 16px !important;
+    margin-left: 5px;
+    position: absolute;
+    margin-top: -13px;
+  }
+
+  &[data-hint-position="top"] {
+    &::after {
+      margin-bottom: 19px;
+      margin-left: -2px;
+    }
+
+    &::before {
+      top: -19px;
+      margin-left: 7px;
+    }
+  }
+}
+
+.estimatedMMR {
+  position: relative;
+
+  &[data-hint] {
+    &::after {
+      margin-left: 10px;
+      margin-top: 5px;
+    }
+  }
+}
+
+`;
 
 export const PlayerStatsCards = ({
   loading,
@@ -32,66 +88,60 @@ export const PlayerStatsCards = ({
     return <Spinner />;
   }
   return (
-    <div className={compact ? styles.compactContainer : styles.container}>
-      <div className={compact && styles.compactRow}>
-        <CardTitle
-          className={styles.playerStats}
-          subtitle={<div className={styles.textSuccess}>{wins}</div>}
-          title={strings.th_wins}
-        />
-        <CardTitle
-          className={styles.playerStats}
-          subtitle={<div className={styles.textDanger}>{losses}</div>}
-          title={strings.th_losses}
-        />
-        <CardTitle
-          className={styles.playerStats}
-          subtitle={wins + losses ? `${((wins / (wins + losses)) * 100).toFixed(2)}%` : strings.abbr_not_available}
-          title={strings.th_winrate}
-        />
-      </div>
-      <div className={compact && styles.compactRow}>
-        {soloRank && (
-          <CardTitle
-            className={styles.playerStats}
-            subtitle={soloRank || strings.abbr_not_available}
-            title={strings.th_solo_mmr}
+    <Styled>
+      <div className="container">
+        <div style={{ textAlign: compact ? 'center' : '' }}>
+          <PlayerStatsCard
+            subtitle={<div className="textSuccess">{wins}</div>}
+            title={strings.th_wins}
           />
-        )}
-        {partyRank && (
-          <CardTitle
-            className={styles.playerStats}
-            subtitle={partyRank || strings.abbr_not_available}
-            title={strings.th_party_mmr}
+          <PlayerStatsCard
+            subtitle={<div className="textDanger">{losses}</div>}
+            title={strings.th_losses}
           />
-        )}
-        {mmrEstimate && mmrEstimate.estimate > 0 && (
-          <CardTitle
-            className={styles.playerStats}
-            subtitle={
-              <div
-                className={styles.estimatedMMR}
-              >
-                {mmrEstimate.estimate}
-              </div>
-            }
-            title={
-              <div>
-                {strings.th_estimated_mmr}
+          <PlayerStatsCard
+            subtitle={wins + losses ? `${((wins / (wins + losses)) * 100).toFixed(2)}%` : strings.abbr_not_available}
+            title={strings.th_winrate}
+          />
+          {soloRank && (
+            <PlayerStatsCard
+              subtitle={soloRank || strings.abbr_not_available}
+              title={strings.th_solo_mmr}
+            />
+          )}
+          {partyRank && (
+            <PlayerStatsCard
+              subtitle={partyRank || strings.abbr_not_available}
+              title={strings.th_party_mmr}
+            />
+          )}
+          {mmrEstimate && mmrEstimate.estimate > 0 && (
+            <PlayerStatsCard
+              subtitle={
                 <div
-                  className={styles.estimateHelp}
-                  data-hint={strings.tooltip_estimated_mmr}
-                  data-hint-position="top"
+                  className="estimatedMMR"
                 >
-                  <ActionHelp className={styles.icon} />
+                  {mmrEstimate.estimate}
                 </div>
-              </div>
-            }
-          />
-        )}
+              }
+              title={
+                <div>
+                  {strings.th_estimated_mmr}
+                  <div
+                    className="estimateHelp"
+                    data-hint={strings.tooltip_estimated_mmr}
+                    data-hint-position="top"
+                  >
+                    <ActionHelp className="icon" />
+                  </div>
+                </div>
+              }
+            />
+          )}
+          <PlayedWith loggedInId={loggedInId} playerId={playerId} />
+        </div>
       </div>
-      <PlayedWith loggedInId={loggedInId} playerId={playerId} />
-    </div>
+    </Styled>
   );
 };
 

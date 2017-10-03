@@ -8,9 +8,36 @@ import strings from 'lang';
 import fetch from 'isomorphic-fetch';
 import { toggleShowForm as toggleShowFormAction } from 'actions';
 import ShowFormToggle from 'components/Form/ShowFormToggle';
-import { FORM_NAME } from '../TableFilterForm';
-import styles from './PlayerButtons.css';
+import styled from 'styled-components';
 
+const Styled = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  font-size: 14px;
+
+  @media only screen and (max-width: 660px) {
+    justify-content: center;
+
+    & a {
+      min-width: 50px !important;
+    }
+
+    & button {
+      min-width: 50px !important;
+    }
+
+    & * {
+      font-size: 0 !important;
+      padding: 0 !important;
+      margin: auto !important;
+    }
+
+    & span {
+      margin: 0 !important;
+    }
+  }
+`;
 class PlayerButtons extends React.Component {
   componentWillMount() {
     this.setState({ disableRefresh: false });
@@ -24,9 +51,8 @@ class PlayerButtons extends React.Component {
       toggleShowForm,
     } = this.props;
     return (
-      <div className={styles.container}>
+      <Styled>
         <div
-          className={styles.refreshButton}
           data-hint={strings.app_refresh}
           data-hint-position="top"
         >
@@ -40,7 +66,7 @@ class PlayerButtons extends React.Component {
             label={strings.app_refresh_label}
           />
         </div>
-        <ShowFormToggle formName={FORM_NAME} showForm={showForm} toggleShowForm={toggleShowForm} />
+        <ShowFormToggle showForm={showForm} toggleShowForm={toggleShowForm} />
         <FlatButton
           label={strings.app_dotacoach}
           labelPosition="after"
@@ -55,7 +81,7 @@ class PlayerButtons extends React.Component {
           style={{ marginLeft: 15 }}
           href={`https://pvgna.com/?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}&ref=yasp`}
         />
-      </div>);
+      </Styled>);
   }
 }
 
