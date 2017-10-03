@@ -13,10 +13,20 @@ import { IconTrophy } from 'components/Icons';
 import Match from 'components/Match';
 import TabBar from 'components/TabBar';
 import heroes from 'dotaconstants/build/heroes.json';
-import styles from './Matches.css';
+import styled from 'styled-components';
 import { StyledTeamIconContainer } from '../Match/StyledMatch';
-import colorPallete from '../constants';
+import constants from '../constants';
 
+const WinnerSpan = styled.span`
+  display: inline-block;
+
+  & svg {
+    width: 10px !important;
+    height: 10px !important;
+    margin-right: 5px;
+    fill: ${constants.colorGolden};
+  }
+`;
 
 const matchesColumns = [{
   displayName: strings.th_match_id,
@@ -35,15 +45,15 @@ const matchesColumns = [{
   sortFn: true,
   displayFn: transformations.duration,
 }, {
-  displayName: <StyledTeamIconContainer >{strings.general_radiant}</StyledTeamIconContainer>,
+  displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
   field: 'radiant_name',
-  color: colorPallete.colorGreen,
-  displayFn: (row, col, field) => <div>{row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>,
+  color: constants.colorGreen,
+  displayFn: (row, col, field) => <div>{row.radiant_win && <WinnerSpan><IconTrophy /></WinnerSpan>}{field}</div>,
 }, {
-  displayName: <StyledTeamIconContainer >{strings.general_dire}</StyledTeamIconContainer>,
+  displayName: <StyledTeamIconContainer>{strings.general_dire}</StyledTeamIconContainer>,
   field: 'dire_name',
-  color: colorPallete.colorRed,
-  displayFn: (row, col, field) => <div>{!row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>,
+  color: constants.colorRed,
+  displayFn: (row, col, field) => <div>{!row.radiant_win && <WinnerSpan><IconTrophy /></WinnerSpan>}{field}</div>,
 }];
 
 const publicMatchesColumns = [
