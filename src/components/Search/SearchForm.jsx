@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField';
 import { getSearchResultAndPros, setSearchQuery } from 'actions';
 import strings from 'lang';
 import querystring from 'querystring';
-import styles from './search.css';
+import constants from '../constants';
 
 class SearchForm extends React.Component {
   constructor() {
@@ -59,7 +59,7 @@ class SearchForm extends React.Component {
           onChange={this.handleChange}
           fullWidth
           underlineFocusStyle={{
-            borderColor: styles.searchBarColor,
+            borderColor: constants.primaryLinkColor,
             bottom: '-4px',
             left: '-40px',
             width: 'calc(100% + 40px)',

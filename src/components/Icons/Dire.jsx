@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import colorPallete from '../constants';
+import constants from '../constants';
 
 const icon = props => (
   <svg {...props} viewBox="0 0 300 300">
@@ -115,6 +115,6 @@ const icon = props => (
   </svg>
 );
 
-export default styled(icon)`filter: drop-shadow(0 0 5px ${colorPallete.colorDanger});
+export default styled(icon)`filter: drop-shadow(0 0 5px ${constants.colorDanger});
   fill: black !important;
 margin-left: 5px;`;

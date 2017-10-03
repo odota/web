@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import colorPallete from '../constants';
+import constants from '../constants';
 
 export const StyledAbilityUpgrades = styled.div`
   margin: -8px;
@@ -22,7 +22,7 @@ export const StyledAbilityUpgrades = styled.div`
     }
 
     & > div {
-      background-color: ${colorPallete.darkPrimaryColor};
+      background-color: ${constants.darkPrimaryColor};
       height: 30px;
       width: 30px;
       text-align: center;
@@ -69,18 +69,18 @@ export const StyledCosmetic = styled.div`
   }
 
   & > div {
-    font-size: ${colorPallete.fontSizeCommon};
+    font-size: ${constants.fontSizeCommon};
 
     & span > span {
-      font-size: ${colorPallete.fontSizeSmall};
-      color: ${colorPallete.colorMutedLight};
+      font-size: ${constants.fontSizeSmall};
+      color: ${constants.colorMutedLight};
       text-transform: capitalize;
       display: block;
     }
   }
 
   & a {
-    transition: ${colorPallete.normalTransition};
+    transition: ${constants.normalTransition};
     position: relative;
 
     &:hover {
@@ -97,11 +97,11 @@ export const StyledCosmetic = styled.div`
     position: absolute;
 
     /* override material-ui */
-    fill: ${colorPallete.primaryLinkColor} !important;
+    fill: ${constants.primaryLinkColor} !important;
     display: none !important;
     width: 18px !important;
     height: 18px !important;
-    filter: drop-shadow(0 0 3px ${colorPallete.darkPrimaryColor});
+    filter: drop-shadow(0 0 3px ${constants.darkPrimaryColor});
     right: 2px;
     bottom: 6px;
   }
@@ -130,7 +130,7 @@ export const StyledRunes = styled.div`
 
   & span {
     text-transform: none;
-    font-weight: ${colorPallete.fontWeightNormal};
+    font-weight: ${constants.fontWeightNormal};
   }
 `;
 
@@ -160,7 +160,7 @@ export const StyledBackpack = styled.div`
   & svg {
     width: 21px;
     height: 20px;
-    fill: ${colorPallete.colorMutedLight};
+    fill: ${constants.colorMutedLight};
     margin: 0 10px;
   }
 `;
@@ -179,7 +179,7 @@ export const StyledTeamIconContainer = styled.span`
   width: 26px !important;
   margin-right: 6px;
   opacity: 0.8;
-  fill: ${colorPallete.textColorPrimary};
+  fill: ${constants.textColorPrimary};
 `;
 export const StyledPlayersDeath = styled.div`
   position: relative;
@@ -203,13 +203,13 @@ export const StyledEmote = styled.img.attrs({
 export const StyledStorySpan = styled.span`
   white-space: nowrap;
   color: ${props =>
-    (props.isRadiant ? colorPallete.colorGreen : colorPallete.colorRed)};
+    (props.isRadiant ? constants.colorGreen : constants.colorRed)};
   svg,
   img {
     vertical-align: middle;
     max-height: 20px;
     margin-right: 2px;
-    fill: ${colorPallete.textColorPrimary};
+    fill: ${constants.textColorPrimary};
   }
   svg {
     opacity: 0.8;
