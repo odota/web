@@ -9,7 +9,7 @@ import Table, { TableLink } from 'components/Table';
 // import Heading from 'components/Heading';
 import { transformations } from 'utility';
 import subTextStyle from 'components/Visualizations/Table/subText.css';
-import { IconRadiant, IconDire, IconTrophy } from 'components/Icons';
+import { IconTrophy } from 'components/Icons';
 import Match from 'components/Match';
 import TabBar from 'components/TabBar';
 import heroes from 'dotaconstants/build/heroes.json';
@@ -35,12 +35,12 @@ const matchesColumns = [{
   sortFn: true,
   displayFn: transformations.duration,
 }, {
-  displayName: <StyledTeamIconContainer ><IconRadiant />{strings.general_radiant}</StyledTeamIconContainer>,
+  displayName: <StyledTeamIconContainer >{strings.general_radiant}</StyledTeamIconContainer>,
   field: 'radiant_name',
   color: colorPallete.colorGreen,
   displayFn: (row, col, field) => <div>{row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>,
 }, {
-  displayName: <StyledTeamIconContainer ><IconDire />{strings.general_dire}</StyledTeamIconContainer>,
+  displayName: <StyledTeamIconContainer >{strings.general_dire}</StyledTeamIconContainer>,
   field: 'dire_name',
   color: colorPallete.colorRed,
   displayFn: (row, col, field) => <div>{!row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>,
@@ -65,13 +65,13 @@ const publicMatchesColumns = [
     displayFn: transformations.duration,
   },
   {
-    displayName: <StyledTeamIconContainer><IconRadiant />{strings.general_radiant}</StyledTeamIconContainer>,
+    displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
     field: 'radiant_team',
     displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
       <img key={heroId} style={{ width: '50px' }} src={`${API_HOST}${heroes[heroId].img}`} alt="" />),
   },
   {
-    displayName: <StyledTeamIconContainer ><IconDire />{strings.general_dire}</StyledTeamIconContainer>,
+    displayName: <StyledTeamIconContainer >{strings.general_dire}</StyledTeamIconContainer>,
     field: 'dire_team',
     displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
       <img key={heroId} style={{ width: '50px' }} src={`${API_HOST}${heroes[heroId].img}`} alt="" />),

@@ -116,11 +116,6 @@
 .textDanger   { color: var(--colorDanger) }
 .textMuted    { color: var(--colorMuted) }
 
-/* TODO - needs to be refactored since this file shouldn't just be a place to stuff classes */
-.imgSmall {
-  height: 30px;
-}
-
 .iconButton {
   margin: 0 5px 4px;
 

@@ -19,7 +19,7 @@ import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
 import { IconBackpack } from 'components/Icons';
 import subtextStyle from 'components/Visualizations/Table/subText.css';
-import styles from './Match.css';
+import constants from '../constants';
 import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
 
 
@@ -134,7 +134,7 @@ export const overviewColumns = (match) => {
       tooltip: strings.tooltip_gold_per_min,
       field: 'gold_per_min',
       sortFn: true,
-      color: styles.golden,
+      color: constants.golden,
       sumFn: true,
       // relativeBars: true,
     },
@@ -199,7 +199,7 @@ export const overviewColumns = (match) => {
       tooltip: strings.tooltip_gold,
       field: 'total_gold',
       sortFn: true,
-      color: styles.golden,
+      color: constants.golden,
       sumFn: true,
       displayFn: row => abbreviateNumber(row.total_gold),
       // relativeBars: true,
@@ -286,7 +286,7 @@ export const abilityColumns = () => {
     displayFn: row =>
       (<StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
         <div className="ability">
-          {inflictorWithValue(abilityIds[row[`ability_upgrades_arr_${index}`]]) || <div className={styles.placeholder} />}
+          {inflictorWithValue(abilityIds[row[`ability_upgrades_arr_${index}`]]) || <div className="placeholder" />}
         </div>
       </StyledAbilityUpgrades>),
   }));
@@ -313,7 +313,7 @@ export const benchmarksColumns = (match) => {
             const value = Number((bm.raw || 0).toFixed(2));
             return (
               <div data-tip data-for={`benchmarks_${row.player_slot}_${key}`}>
-                <span style={{ color: styles[bucket.color] }}>{`${percent}%`}</span>
+                <span style={{ color: constants[bucket.color] }}>{`${percent}%`}</span>
                 <small style={{ margin: '3px' }}>
                   {value}
                 </small>
@@ -593,7 +593,7 @@ export const performanceColumns = [
         return (
           <div>
             {inflictorWithValue(field.inflictor, abbreviateNumber(field.value))}
-            <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} alt="" />
+            <img src={`${API_HOST}${hero.img}`} style={{ height: '30px' }} alt="" />
           </div>
         );
       }
@@ -817,7 +817,7 @@ export const cosmeticsColumns = [
               src={`${API_HOST}/apps/570/${cosmetic.image_path}`}
               alt=""
               style={{
-                borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : styles.gray}`,
+                borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : constants.colorMuted}`,
               }}
             />
             <ActionOpenInNew />
@@ -921,7 +921,7 @@ export const analysisColumns = [
           const bucket = percentile(percent);
           return (
             <div>
-              <span style={{ color: styles[bucket.color], margin: '10px', fontSize: '18px' }}>
+              <span style={{ color: constants[bucket.color], margin: '10px', fontSize: '18px' }}>
                 {bucket.grade}
               </span>
               <span>

@@ -14,9 +14,8 @@ import items from 'dotaconstants/build/items.json';
 import itemColors from 'dotaconstants/build/item_colors.json';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
 import ReactTooltip from 'react-tooltip';
-import styles from './Match.css';
 import { StyledEmote, StyledStoryNetWorthBar, StyledStoryNetWorthText, StyledStorySpan, StyledStoryWrapper } from './StyledMatch';
-import colorPallete from '../constants';
+import constants from '../constants';
 
 const heroesArr = jsonFn(heroes);
 
@@ -28,7 +27,7 @@ const TEAM = {
 
 const GoldSpan = amount => (
   <StyledStorySpan key={`gold_${amount}`}>
-    <font color={styles.golden}>{amount.toLocaleString()}</font>
+    <font color={constants.colorGolden}>{amount.toLocaleString()}</font>
     <img
       width="25px"
       height="17px"
@@ -58,7 +57,7 @@ const PlayerSpan = (player) => {
         data-tip
         data-for={`player_${player.account_id}`}
         key={`player_${player.player_slot}`}
-        style={{ color: (player.isRadiant ? styles.green : styles.red) }}
+        style={{ color: (player.isRadiant ? constants.colorGreen : constants.colorRed) }}
       >
         <img
           src={heroes[player.hero_id]
@@ -660,7 +659,7 @@ class TimeMarkerEvent extends StoryEvent {
         <StyledStoryNetWorthText width={this.radiant_percent}>
           {GoldSpan(this.radiant_gold)}
         </StyledStoryNetWorthText>
-        <StyledStoryNetWorthText color={this.radiant_gold > this.dire_gold ? colorPallete.colorGreen : colorPallete.red} left={this.radiant_percent}>
+        <StyledStoryNetWorthText style={{ backgroundColor: 'rgba(0,0,0,0)' }} color={this.radiant_gold > this.dire_gold ? constants.colorGreen : constants.colorRed} left={this.radiant_percent}>
           {formatTemplate(strings.story_networth_diff, {
             percent: Math.abs(this.radiant_percent - this.dire_percent),
             gold: GoldSpan(Math.abs(this.radiant_gold - this.dire_gold)),
@@ -671,8 +670,8 @@ class TimeMarkerEvent extends StoryEvent {
         </StyledStoryNetWorthText>
       </StyledStoryNetWorthText>,
       <StyledStoryNetWorthBar key={`minute_${this.minutes}_networth`}>
-        <StyledStoryNetWorthText color={colorPallete.colorGreen} width={this.radiant_percent} />
-        <StyledStoryNetWorthText color={colorPallete.colorRed} width={this.dire_percent} />
+        <StyledStoryNetWorthText color={constants.colorGreen} width={this.radiant_percent} />
+        <StyledStoryNetWorthText color={constants.colorRed} width={this.dire_percent} />
       </StyledStoryNetWorthBar>,
     ];
   }
@@ -695,8 +694,8 @@ class GameoverEvent extends StoryEvent {
     return formatTemplate(strings.story_gameover, {
       duration: formatSeconds(this.time),
       winning_team: TeamSpan(this.winning_team),
-      radiant_score: <font key="radiant_score" color={styles.green}>{this.radiant_score}</font>,
-      dire_score: <font key="dire_score" color={styles.red}>{this.dire_score}</font>,
+      radiant_score: <font key="radiant_score" color={constants.colorGreen}>{this.radiant_score}</font>,
+      dire_score: <font key="dire_score" color={constants.colorRed}>{this.dire_score}</font>,
     });
   }
 }

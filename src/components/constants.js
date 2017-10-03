@@ -10,6 +10,11 @@ export default {
   colorMuted: '#727272',
   colorYelor: '#FFAB40',
   colorGolden: '#e5c100',
+  green: '#66BB6A',
+  blue: '#6BF',
+  golden: '#e5c100',
+  yelor: '#FFAB40',
+  red: '#ff4c4c',
   colorBlueMuted: 'rgba(102, 187, 255, 0.3)',
   colorYelorMuted: 'rgba(255, 171, 64, 0.3)',
   colorMutedLight: 'rgb(179, 179, 179)',
@@ -48,14 +53,9 @@ export default {
   black4: var(--defaultPrimaryColor);
   black6: var(--darkPrimaryColor);
   black9: var(--almostBlack);
-  red:      var(--colorDanger);
-  green:    var(--colorSuccess);
-  blue:     var(--colorBlue);
-  golden:   var(--colorGolden);
   gray:      var(--colorMuted);
   grey:      var(--colorMuted);
   lightGray: var(--colorMutedLight);
-  yelor:           var(--colorYelor);
   yellowOrange:    var(--colorYelor);
   blueMuted:  var(--colorBlueMuted);
   yelorMuted: var(--colorYelorMuted);
@@ -78,63 +78,3 @@ export default {
   textMuted: var(--colorMuted)
   */
 };
-
-/*
-@custom-media --tiny (width < 400px);
-@custom-media --small (width < 660px);
-@custom-media --medium (width < 900px);
-*/
-
-/* TODO move these somewhere else
-.imgSmall {
-  height: 30px;
-}
-
-.iconButton {
-  margin: 0 5px 4px;
-
-  & svg {
-    width: auto !important;
-    height: 16px;
-    vertical-align: middle;
-    fill: var(--primaryTextColor);
-    margin: 0 6px;
-    transition: var(--normalTransition);
-  }
-
-  &:hover svg {
-    opacity: 0.6;
-  }
-}
-
-.overrideHelpIcon {
-  &[data-tip="true"] {
-    cursor: pointer;
-  }
-}
-
-.tooltipContainer {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  padding: 10px;
-  margin: -8px -12px;
-
-  & > * {
-    margin: 0 5px;
-
-    &:first-child {
-      margin-left: 0;
-    }
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-
-  & > div {
-    margin: 0;
-    color: var(--colorMutedLight);
-  }
-}
-*/
