@@ -83,7 +83,7 @@
     "ignore-styles": "^5.0.1",
     "jsdom": "^11.1.0",
     "json-loader": "^0.5.7",
-    "mocha": "^3.4.2",
+    "mocha": "^4.0.0",
     "react-addons-perf": "^15.3.2",
     "react-addons-test-utils": "^15.6.0",
     "react-hot-loader": "^3.0.0-beta.6",
