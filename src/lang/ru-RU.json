@@ -529,7 +529,7 @@
   "story_predicted_victory":"{players} предсказал победу {team}",
   "story_predicted_victory_empty":"Никто",
   "story_networth_diff":"Разница {percent}% / {gold}",
-  "story_gold":"gold",
+  "story_gold":"Золото",
   "story_chat_asked":"спросил",
   "story_chat_said":"сказал",
   "tab_overview":"Обзор",
