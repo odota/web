@@ -1,6 +1,6 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
-import debounce from 'lodash.debounce';
+import { debounce } from 'lodash/fp';
 import editDistance from './editDistance';
 
 const ExplorerOmnibox = (context, expandedFields) => (<TextField

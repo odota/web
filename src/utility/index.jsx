@@ -13,7 +13,6 @@ import {
   FromNowTooltip,
 } from 'components/Visualizations';
 import strings from 'lang';
-import findLast from 'lodash.findlast';
 import _ from 'lodash/fp';
 import util from 'util';
 // import SvgIcon from 'material-ui/SvgIcon';
@@ -469,7 +468,7 @@ export const threshold = _.curry((start, limits, values, value) => {
   const limitsWithStart = limits.slice(0);
   limitsWithStart.unshift(start);
 
-  return findLast(values, (v, i) => _.inRange(limitsWithStart[i], limitsWithStart[i + 1], value));
+  return _.findLast((v, i) => _.inRange(limitsWithStart[i], limitsWithStart[i + 1], value), values);
 });
 
 export const getTeamName = (team, _isRadiant) => {

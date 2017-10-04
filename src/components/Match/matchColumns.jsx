@@ -1,6 +1,6 @@
 /* global API_HOST */
 import React from 'react';
-import findLast from 'lodash/findLast';
+import lodash from 'lodash/fp';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';
@@ -20,7 +20,6 @@ import { Mmr } from 'components/Visualizations/Table/HeroImage';
 import { IconBackpack } from 'components/Icons';
 import constants from '../constants';
 import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
-
 
 export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide = false) =>
   (<TableHeroImage
@@ -70,7 +69,7 @@ const parties = (row, match) => {
 const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
   let skipped = 0;
   let itemSkipCount = _itemSkipCount || 0;
-  const purchaseEvent = findLast(purchaseLog, (item) => {
+  const purchaseEvent = lodash.findLast((item) => {
     if (item.key !== itemKey) {
       return false;
     }
@@ -82,7 +81,7 @@ const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
 
     skipped += 1;
     return false;
-  });
+  }, purchaseLog);
 
   return {
     itemSkipCount,
