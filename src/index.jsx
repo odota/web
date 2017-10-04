@@ -12,7 +12,7 @@ import { injectGlobal } from 'styled-components';
 import 'c3/c3.css';
 
 // Inject global styles
-injectGlobal`
+injectGlobal([`
 body {
   margin: 0;
   font-family: ${constants.fontFamily};
@@ -166,7 +166,7 @@ li {
     bottom: -3px;
   }
 }
-`;
+`]);
 
 // Fetch metadata (used on all pages)
 store.dispatch(getMetadata());
