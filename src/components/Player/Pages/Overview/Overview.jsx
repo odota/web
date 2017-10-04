@@ -14,13 +14,79 @@ import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesC
 import { playerHeroesOverviewColumns } from 'components/Player/Pages/Heroes/playerHeroesColumns';
 import { playerPeersOverviewColumns } from 'components/Player/Pages/Peers/playerPeersColumns';
 import util from 'util';
-import styles from './Overview.css';
-import sumStyles from './Summary.css';
+import styled from 'styled-components';
 import SummOfRecMatches from './Summary';
+import constants from '../../../constants';
 
 export const MAX_MATCHES_ROWS = 20;
 const MAX_HEROES_ROWS = 10;
 const MAX_PEERS_ROWS = 5;
+
+const OverviewContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const SummaryContainer = styled(Container)`
+  width: 100%;
+
+  & ul {
+    margin: 0;
+    padding: 0;
+
+    & li {
+      list-style: none;
+      display: inline-block;
+      margin-bottom: 10px;
+      margin-right: 15px;
+
+      & p {
+        margin: 0;
+        padding: 0;
+        font-size: 24px;
+      }
+
+      & span {
+        font-size: ${constants.fontSizeSmall};
+        color: ${constants.colorMutedLight};
+
+        &:first-child {
+          text-transform: uppercase;
+        }
+      }
+
+      & img {
+        height: 20px;
+        width: auto;
+        vertical-align: text-bottom;
+        transition: ${constants.normalTransition};
+        margin-left: 6px;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+`;
+
+const MatchesContainer = styled.div`
+  width: calc(65% - 15px);
+  margin-right: 15px;
+
+  @media only screen and (max-width: 1080px) {
+    width: 100%;
+    margin-right: 0;
+  }
+`;
+
+const HeroesContainer = styled.div`
+  width: 35%;
+
+  @media only screen and (max-width: 1080px) {
+    width: 100%;
+  }
+`;
 
 const Overview = ({
   validRecentMatches,
@@ -36,32 +102,32 @@ const Overview = ({
   peersError,
   playerId,
 }) => (
-  <div className={styles.overviewContainer}>
-    <Container
+  <OverviewContainer>
+    <SummaryContainer
       title={strings.heading_avg_and_max}
       titleTo={`/players/${playerId}/records`}
       subtitle={util.format(strings.subheading_avg_and_max, numValidRecentMatches)}
-      className={sumStyles.summaryContainer}
       loading={matchesLoading}
       error={matchesError}
     >
       <SummOfRecMatches matchesData={validRecentMatches} />
-    </Container>
-    <Container
-      title={strings.heading_matches}
-      titleTo={`/players/${playerId}/matches`}
-      className={styles.matchesContainer}
-      loading={matchesLoading}
-      error={matchesError}
-    >
-      <Table
-        columns={playerMatchesColumns}
-        data={matchesData}
-        maxRows={MAX_MATCHES_ROWS}
-      />
-    </Container>
+    </SummaryContainer>
+    <MatchesContainer>
+      <Container
+        title={strings.heading_matches}
+        titleTo={`/players/${playerId}/matches`}
+        loading={matchesLoading}
+        error={matchesError}
+      >
+        <Table
+          columns={playerMatchesColumns}
+          data={matchesData}
+          maxRows={MAX_MATCHES_ROWS}
+        />
+      </Container>
+    </MatchesContainer>
 
-    <div className={styles.heroesContainer}>
+    <HeroesContainer>
       <Container
         title={strings.heading_peers}
         titleTo={`/players/${playerId}/peers`}
@@ -87,8 +153,8 @@ const Overview = ({
           maxRows={MAX_HEROES_ROWS}
         />
       </Container>
-    </div>
-  </div>
+    </HeroesContainer>
+  </OverviewContainer>
 );
 
 Overview.propTypes = {

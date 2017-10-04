@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import strings, { langs } from 'lang';
-import styles from './Localization.css';
+import styled from 'styled-components';
+import constants from '../constants';
+
+const ClickableDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  transition: ${constants.linearTransition};
+  padding-right: 10px;
+`;
+
+const LanguageContainerDiv = styled.div`
+  max-height: 300px;
+  overflow: auto;
+`;
 
 const getLocalization = window.localStorage.getItem('localization');
 
@@ -47,24 +61,23 @@ class LocalizationMenuItems extends Component {
   render() {
     const { open } = this.state;
     return (
-      <div className={styles.container}>
-        <div
-          className={classNames(styles.clickable, open && styles.open)}
+      <div style={{ minWidth: '200px' }}>
+        <ClickableDiv
           onClick={this.handleOnClick}
         >
           {strings.app_language} <Next />
-        </div>
-        <div className={styles.languageContainer}>
+        </ClickableDiv>
+        <LanguageContainerDiv>
           {open && langs.map(lang => (<MenuItem
             style={{
-              color: lang.value === getLocalization && styles.selected,
+              color: lang.value === getLocalization && constants.colorGolden,
             }}
             key={lang.translated}
             value={lang.value}
             primaryText={lang.native}
             onClick={() => setLocalization(null, null, lang)}
           />))}
-        </div>
+        </LanguageContainerDiv>
       </div>
     );
   }

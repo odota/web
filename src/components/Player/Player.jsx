@@ -14,7 +14,6 @@ import Spinner from 'components/Spinner';
 import TableFilterForm from './TableFilterForm';
 import PlayerHeader from './Header/PlayerHeader';
 // import Error from '../Error';
-import styles from './Player.css';
 import playerPages from './playerPages';
 
 class RequestLayer extends React.Component {
@@ -53,7 +52,7 @@ class RequestLayer extends React.Component {
           <PlayerHeader playerId={playerId} location={location} />
           <TabBar info={info} tabs={playerPages(playerId)} />
         </div>
-        <div className={styles.page}>
+        <div>
           <TableFilterForm playerId={playerId} />
           {page ? page.content(playerId, match.params, location) : <Spinner />}
         </div>

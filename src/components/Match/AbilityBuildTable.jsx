@@ -4,7 +4,6 @@ import { isRadiant, getTeamName } from 'utility';
 import { IconRadiant, IconDire } from 'components/Icons';
 import Heading from 'components/Heading';
 import Table from 'components/Table';
-import styles from './Match.css';
 
 const filterMatchPlayers = (players, team = '') =>
   players
@@ -40,9 +39,9 @@ const AbilityBuildTable = ({ players = [], columns, heading = '', radiantTeam = 
   const keyedPlayers = players.map(player => convertArrayToKeys(player, 'ability_upgrades_arr'));
   return (
     <div>
-      <Heading title={`${getTeamName(radiantTeam, true)} - ${heading}`} icon={<IconRadiant className={styles.iconRadiant} />} />
+      <Heading title={`${getTeamName(radiantTeam, true)} - ${heading}`} icon={<IconRadiant />} />
       <Table data={filterMatchPlayers(keyedPlayers, 'radiant')} columns={columns} summable={summable} />
-      <Heading title={`${getTeamName(direTeam, false)} - ${heading}`} icon={<IconDire className={styles.iconDire} />} />
+      <Heading title={`${getTeamName(direTeam, false)} - ${heading}`} icon={<IconDire />} />
       <Table data={filterMatchPlayers(keyedPlayers, 'dire')} columns={columns} summable={summable} />
     </div>
   );

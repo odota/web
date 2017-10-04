@@ -9,7 +9,6 @@ import {
 } from 'actions';
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
-import styles from './Match.css';
 
 class RequestLayer extends React.Component {
   componentDidMount() {
@@ -40,7 +39,6 @@ class RequestLayer extends React.Component {
         <TabBar
           info={info}
           tabs={matchPages(matchId, match)}
-          mediaQClass={styles.tabBar}
         />
         {page && page.content(match)}
       </div>);

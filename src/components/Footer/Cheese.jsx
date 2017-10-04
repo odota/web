@@ -1,10 +1,9 @@
 import React from 'react';
 import strings from 'lang';
 import CheeseCircle from '../Cheese';
-import styles from './Footer.css';
 
 export default () => (
-  <div className={styles.cheese}>
+  <div className="cheese">
     <CheeseCircle />
     <section>
       <big>

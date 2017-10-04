@@ -4,8 +4,6 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const postcssImport = require('postcss-import');
-const postcssCssNext = require('postcss-cssnext');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -39,12 +37,7 @@ const config = {
   module: {
     rules: [{
       test: /\.css$/,
-      loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!postcss-loader',
-      exclude: /node_modules\/c3/,
-    }, {
-      test: /\.css$/,
       loader: 'style-loader!css-loader',
-      include: /node_modules\/c3/,
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: 'url-loader?limit=10000&minetype=application/font-woff&name=[hash].[ext]',
@@ -58,16 +51,6 @@ const config = {
     }],
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss: [
-          postcssImport({
-            addDependencyTo: webpack,
-          }),
-          postcssCssNext(),
-        ],
-      },
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       API_HOST: JSON.stringify(process.env.API_HOST || 'https://api.opendota.com'),
@@ -86,7 +69,6 @@ const config = {
 if (!isProd) {
   config.devtool = 'eval-source-map';
   config.entry = [
-    'react-hot-loader/patch',
     `webpack-dev-server/client?http://${config.devServer.host}:${config.devServer.port}`,
     'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     'babel-polyfill',

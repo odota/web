@@ -7,7 +7,6 @@ import strings from 'lang';
 import Heading from 'components/Heading';
 
 import PlayerThumb from '../PlayerThumb';
-// import styles from './Vision.css';
 
 const data = [
   {

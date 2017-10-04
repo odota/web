@@ -13,7 +13,7 @@ import { abbreviateNumber, sum, SORT_ENUM, defaultSort } from 'utility';
 import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
-import styles from './Table.css';
+import { StyledBody, StyledContainer } from './Styled';
 
 const getColumnMax = (data, field, getValue) => {
   const valuesArr = data.reduce((arr, row) => {
@@ -112,7 +112,7 @@ class Table extends React.Component {
       data = data.slice(currentPage * pageLength, (currentPage + 1) * pageLength);
     }
     return (
-      <div>
+      <StyledBody>
         {paginated && <Pagination
           numPages={Math.ceil(dataLength / pageLength)}
           currentPage={currentPage}
@@ -121,10 +121,10 @@ class Table extends React.Component {
           setCurrentPage={this.setCurrentPage}
           place="top"
         />}
-        <div className={styles.container}>
+        <StyledContainer >
           {loading && <Spinner />}
           {!loading && error && <Error />}
-          {!loading && !error && data && (<div className={styles.innerContainer}>
+          {!loading && !error && data && (<div className="innerContainer">
             <MaterialTable fixedHeader={false} selectable={false}>
               <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableHeader
@@ -222,7 +222,7 @@ class Table extends React.Component {
               </MaterialTableBody>
             </MaterialTable>
           </div>)}
-        </div>
+        </StyledContainer>
         {paginated && <Pagination
           numPages={Math.ceil(dataLength / pageLength)}
           currentPage={currentPage}
@@ -233,7 +233,7 @@ class Table extends React.Component {
           setCurrentPage={this.setCurrentPage}
           place="bot"
         />}
-      </div>
+      </StyledBody>
     );
   }
 }

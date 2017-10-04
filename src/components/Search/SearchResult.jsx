@@ -8,7 +8,6 @@ import {
 import Table from 'components/Table';
 import Container from 'components/Container';
 // import { List } from 'material-ui/List';
-// import style from './search.css';
 
 const searchColumns = [{
   displayName: strings.th_name,
