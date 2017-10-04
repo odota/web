@@ -22,3 +22,5 @@ export const PlayerStatsCard = styled(CardTitle)`
     text-transform: uppercase;
   }
 `;
+
+export default PlayerStatsCard;
