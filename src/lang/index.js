@@ -28,11 +28,11 @@ export const langs = [
     value: 'fi-FI',
     native: 'Suomi',
     data: require('./fi-FI.json'),
-  }, */ {
+  },  {
     value: 'fr-FR',
     native: 'Français',
     data: require('./fr-FR.json'),
-  }, {
+  }, */ {
     value: 'it-IT',
     native: 'Italiano',
     data: require('./it-IT.json'),
