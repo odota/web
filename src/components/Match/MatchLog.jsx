@@ -204,7 +204,9 @@ class MatchLog extends React.Component {
 }
 
 MatchLog.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.shape({
+    players: PropTypes.arrayOf({}),
+  }),
 };
 
 export default MatchLog;

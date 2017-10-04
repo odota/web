@@ -38,7 +38,7 @@ class Laning extends React.Component {
 }
 
 Laning.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.shape({}),
 };
 
 export default Laning;

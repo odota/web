@@ -66,8 +66,8 @@ const VisionLog = ({ match, wards }) => (
 );
 
 VisionLog.propTypes = {
-  match: PropTypes.object,
-  wards: PropTypes.array,
+  match: PropTypes.shape({}),
+  wards: PropTypes.arrayOf({}),
 };
 
 export default VisionLog;

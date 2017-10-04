@@ -181,7 +181,7 @@ PlayerHeader.propTypes = {
   small: PropTypes.bool,
   extraSmall: PropTypes.bool,
   playerSoloCompetitiveRank: PropTypes.number,
-  loggedInUser: PropTypes.object,
+  loggedInUser: PropTypes.shape({}),
 };
 
 const mapStateToProps = state => ({

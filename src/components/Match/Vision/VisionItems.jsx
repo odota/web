@@ -15,7 +15,7 @@ const VisionItems = ({ match }) => (
 );
 
 VisionItems.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.shape({}),
 };
 
 export default VisionItems;

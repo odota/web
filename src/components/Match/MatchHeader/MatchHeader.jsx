@@ -349,8 +349,8 @@ const MatchHeader = ({ match, user, loading }) => {
 };
 
 MatchHeader.propTypes = {
-  match: PropTypes.object,
-  user: PropTypes.object,
+  match: PropTypes.shape({}),
+  user: PropTypes.shape({}),
   loading: PropTypes.bool,
 };
 

@@ -150,7 +150,11 @@ class RequestLayer extends React.Component {
 }
 
 RequestLayer.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      matchId: PropTypes.number,
+    }),
+  }),
   // proData: PropTypes.array,
   // publicData: PropTypes.array,
 };

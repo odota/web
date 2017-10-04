@@ -16,7 +16,7 @@ const Heroes = ({ data, playerId, error, loading }) => (
 );
 
 Heroes.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf({}),
   playerId: PropTypes.string,
   error: PropTypes.string,
   loading: PropTypes.bool,
@@ -43,7 +43,9 @@ class RequestLayer extends React.Component {
 }
 
 RequestLayer.propTypes = {
-  location: PropTypes.object,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
   playerId: PropTypes.string,
 };
 

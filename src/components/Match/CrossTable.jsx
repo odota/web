@@ -150,7 +150,7 @@ const CrossTable = ({
   </Table>);
 
 CrossTable.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.shape({}),
   field1: PropTypes.string,
   field2: PropTypes.string,
 };

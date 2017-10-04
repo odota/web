@@ -47,13 +47,13 @@ const Histogram = ({ routeParams, columns, playerId, error, loading, histogramNa
 );
 
 Histogram.propTypes = {
-  routeParams: PropTypes.object,
+  routeParams: PropTypes.shape({}),
   columns: PropTypes.number,
   playerId: PropTypes.string,
   error: PropTypes.string,
   loading: PropTypes.bool,
   histogramName: PropTypes.string,
-  history: PropTypes.object,
+  history: PropTypes.shape({}),
 };
 
 const getData = (props) => {
@@ -79,7 +79,9 @@ class RequestLayer extends React.Component {
 
 RequestLayer.propTypes = {
   playerId: PropTypes.string,
-  location: PropTypes.object,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
 };
 
 const mapStateToProps = (state, { histogramName = histogramNames[0] }) => ({

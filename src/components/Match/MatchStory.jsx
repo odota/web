@@ -853,7 +853,7 @@ class MatchStory extends React.Component {
 }
 
 MatchStory.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.shape({}),
 };
 
 export default MatchStory;

@@ -22,7 +22,7 @@ const MMR = ({ columns, error, loading }) => (
 );
 
 MMR.propTypes = {
-  columns: PropTypes.array,
+  columns: PropTypes.arrayOf({}),
   error: PropTypes.string,
   loading: PropTypes.bool,
 };
@@ -49,7 +49,9 @@ class RequestLayer extends React.Component {
 }
 
 RequestLayer.propTypes = {
-  location: PropTypes.object,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
   playerId: PropTypes.string,
 };
 

@@ -22,7 +22,7 @@ const Matches = ({
 );
 
 Matches.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf({}),
   error: PropTypes.string,
   loading: PropTypes.bool,
 };
@@ -48,7 +48,9 @@ class RequestLayer extends React.Component {
 }
 
 RequestLayer.propTypes = {
-  location: PropTypes.object,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
   playerId: PropTypes.string,
 };
 

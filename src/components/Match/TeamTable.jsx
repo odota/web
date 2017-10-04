@@ -37,12 +37,12 @@ const TeamTable = ({
 );
 
 TeamTable.propTypes = {
-  players: PropTypes.array,
-  columns: PropTypes.array,
+  players: PropTypes.arrayOf({}),
+  columns: PropTypes.arrayOf({}),
   heading: PropTypes.string,
-  picksBans: PropTypes.array,
-  radiantTeam: PropTypes.object,
-  direTeam: PropTypes.object,
+  picksBans: PropTypes.arrayOf({}),
+  radiantTeam: PropTypes.shape({}),
+  direTeam: PropTypes.shape({}),
   summable: PropTypes.bool,
 };
 

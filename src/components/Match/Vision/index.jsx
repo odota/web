@@ -104,8 +104,8 @@ const SliderTicks = props => (
 );
 
 SliderTicks.propTypes = {
-  value: PropTypes.object,
-  ticks: PropTypes.array,
+  value: PropTypes.shape({}),
+  ticks: PropTypes.arrayOf({}),
 };
 
 const alive = (ward, time) => time === -90 || (time > ward.entered.time && (!ward.left || time < ward.left.time));
@@ -213,7 +213,10 @@ class Vision extends React.Component {
 }
 
 Vision.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.shape({
+    duration: PropTypes.number,
+    wards_log: PropTypes.arrayOf({}),
+  }),
 };
 
 export default Vision;

@@ -21,7 +21,7 @@ const Items = ({
 );
 
 Items.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.shape({}),
   error: PropTypes.string,
   loading: PropTypes.bool,
 };
@@ -47,7 +47,9 @@ class RequestLayer extends React.Component {
 }
 
 RequestLayer.propTypes = {
-  location: PropTypes.object,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
   playerId: PropTypes.string,
 };
 

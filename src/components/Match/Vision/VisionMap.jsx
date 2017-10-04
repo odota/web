@@ -87,8 +87,8 @@ const WardTooltipEnter = ({ player, log }) => (
 );
 
 WardTooltipEnter.propTypes = {
-  player: PropTypes.object,
-  log: PropTypes.object,
+  player: PropTypes.shape({}),
+  log: PropTypes.shape({}),
 };
 
 const WardTooltipLeft = ({ log }) => {
@@ -110,7 +110,7 @@ const WardTooltipLeft = ({ log }) => {
 };
 
 WardTooltipLeft.propTypes = {
-  log: PropTypes.object,
+  log: PropTypes.shape({}),
 };
 
 const WardPin = ({ match, width, log }) => {
@@ -138,9 +138,9 @@ const WardPin = ({ match, width, log }) => {
 };
 
 WardPin.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.shape({}),
   width: PropTypes.number,
-  log: PropTypes.object,
+  log: PropTypes.shape({}),
 };
 
 
@@ -166,8 +166,10 @@ class VisionMap extends React.Component {
 }
 
 VisionMap.propTypes = {
-  match: PropTypes.object,
-  wards: PropTypes.object,
+  match: PropTypes.shape({
+    start_time: PropTypes.number,
+  }),
+  wards: PropTypes.arrayOf({}),
 };
 
 VisionMap.defaultProps = {

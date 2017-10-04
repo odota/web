@@ -47,9 +47,13 @@ class RequestLayer extends React.Component {
 
 RequestLayer.propTypes = {
   loading: PropTypes.bool,
-  matchData: PropTypes.object,
-  match: PropTypes.object,
-  user: PropTypes.object,
+  matchData: PropTypes.shape({}),
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      info: PropTypes.string,
+    }),
+  }),
+  user: PropTypes.shape({}),
   getMatch: PropTypes.func,
   getPvgnaHeroGuides: PropTypes.func,
   matchId: PropTypes.string,

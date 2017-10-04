@@ -87,7 +87,7 @@ const PicksBans = ({ data }) => (
 );
 
 PicksBans.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf({}),
 };
 
 export default PicksBans;

@@ -37,7 +37,7 @@ const Counts = ({ counts, error, loading }) => (
 
 Counts.propTypes = {
   counts: PropTypes.oneOfType([
-    PropTypes.object,
+    PropTypes.shape({}),
     PropTypes.array,
   ]),
   error: PropTypes.string,
@@ -68,7 +68,9 @@ class RequestLayer extends React.Component {
 
 RequestLayer.propTypes = {
   playerId: PropTypes.string,
-  location: PropTypes.object,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
 };
 
 const mapStateToProps = state => ({

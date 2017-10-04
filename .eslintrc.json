@@ -15,7 +15,7 @@
     "no-mixed-operators": ["error", {
       "allowSamePrecedence": true
     }],
-    "no-shadow": 0,
+    "no-shadow": 1,
     "import/named": 2,
     "import/no-extraneous-dependencies": [
       "error",
