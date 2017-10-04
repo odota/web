@@ -82,11 +82,11 @@ export const langs = [
     data: require('./vi-VN.json'),
   }, */ {
     value: 'zh-CN',
-    native: '简体字',
+    native: '中文',
     data: require('./zh-CN.json'),
   }, /* {
     value: 'zh-TW',
-    native: '繁體字',
+    native: '中文 (繁體字)',
     data: require('./zh-TW.json'),
   }, */
 ];
