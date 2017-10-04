@@ -5,7 +5,7 @@ import TeamTable from '../TeamTable';
 import AbilityBuildTable from '../AbilityBuildTable';
 import { overviewColumns, abilityColumns } from '../matchColumns';
 import BuildingMap from '../BuildingMap';
-import MatchGraph from '../MatchGraph';
+// import MatchGraph from '../MatchGraph';
 
 const Styled = styled.div`
   width: 100%;
