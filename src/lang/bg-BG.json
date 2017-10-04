@@ -529,6 +529,7 @@
   "story_predicted_victory":"{players} predicted {team} would win",
   "story_predicted_victory_empty":"No one",
   "story_networth_diff":"{percent}% / {gold} Diff",
+  "story_gold":"gold",
   "story_chat_asked":"asked",
   "story_chat_said":"said",
   "tab_overview":"Общ изглед",
