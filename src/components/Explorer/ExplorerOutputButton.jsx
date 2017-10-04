@@ -30,7 +30,7 @@ ExplorerOutputButton.propTypes = {
   href: PropTypes.string,
   download: PropTypes.string,
   onClick: PropTypes.func,
-  context: PropTypes.object,
+  context: PropTypes.shape({}),
 };
 
 export default ExplorerOutputButton;

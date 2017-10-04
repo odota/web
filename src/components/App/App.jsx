@@ -110,9 +110,11 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  params: PropTypes.object,
+  params: PropTypes.shape({}),
   width: PropTypes.number,
-  location: PropTypes.object,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
 };
 
 export default connect()(App);

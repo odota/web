@@ -246,9 +246,9 @@ class Explorer extends React.Component {
 }
 
 Explorer.propTypes = {
-  proPlayers: PropTypes.object,
-  teams: PropTypes.object,
-  leagues: PropTypes.object,
+  proPlayers: PropTypes.arrayOf({}),
+  teams: PropTypes.arrayOf({}),
+  leagues: PropTypes.shape({}),
   dispatchProPlayers: PropTypes.func,
   dispatchLeagues: PropTypes.func,
   dispatchTeams: PropTypes.func,

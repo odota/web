@@ -26,7 +26,7 @@ const RankingTable = ({
 }) => (<Table data={rankings} columns={rankingColumns} />);
 
 RankingTable.propTypes = {
-  rankings: PropTypes.object,
+  rankings: PropTypes.shape({}),
 };
 
 export default RankingTable;

@@ -92,7 +92,7 @@ class ExplorerFormField extends React.Component {
 }
 
 ExplorerFormField.propTypes = {
-  fields: PropTypes.array,
+  fields: PropTypes.arrayOf({}),
   label: PropTypes.string,
   builderField: PropTypes.func,
   handleFieldUpdate: PropTypes.func,

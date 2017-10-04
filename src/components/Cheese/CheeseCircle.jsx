@@ -83,7 +83,7 @@ const Cheese = ({ donations = {}, error, loading }) => {
 };
 
 Cheese.propTypes = {
-  donations: PropTypes.object,
+  donations: PropTypes.shape({}),
   error: PropTypes.string,
   loading: PropTypes.bool,
 };

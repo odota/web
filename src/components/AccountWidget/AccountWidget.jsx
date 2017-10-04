@@ -48,7 +48,7 @@ const AccountWidget = ({ loading, error, user, style }) => (
 AccountWidget.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.string,
-  user: PropTypes.object,
+  user: PropTypes.shape({}),
   style: PropTypes.string,
 };
 

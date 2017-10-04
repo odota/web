@@ -555,7 +555,7 @@ class Chat extends React.Component {
 }
 
 Chat.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.shape({}),
 };
 
 export default Chat;

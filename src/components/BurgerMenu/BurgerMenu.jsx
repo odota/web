@@ -50,5 +50,5 @@ export default class BurgerMenu extends React.Component {
 }
 
 BurgerMenu.propTypes = {
-  menuItems: PropTypes.array,
+  menuItems: PropTypes.arrayOf({}),
 };

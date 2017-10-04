@@ -13,7 +13,7 @@ const columns = data => Object.keys(data[0] || {}).map(stat => ({
 const BenchmarkTable = ({ data }) => (<Table data={data} columns={columns(data)} />);
 
 BenchmarkTable.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.shape({}),
 };
 
 export default BenchmarkTable;

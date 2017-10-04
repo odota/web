@@ -64,8 +64,13 @@ const Hero = ({ props }) => {
 };
 
 Hero.propTypes = {
-  props: PropTypes.object,
-  match: PropTypes.object,
+  props: PropTypes.shape({}),
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      info: PropTypes.string,
+      heroId: PropTypes.string,
+    }),
+  }),
 };
 
 export default connect()(Hero);

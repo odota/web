@@ -48,11 +48,11 @@ const AbilityBuildTable = ({ players = [], columns, heading = '', radiantTeam = 
 };
 
 AbilityBuildTable.propTypes = {
-  players: PropTypes.array,
-  columns: PropTypes.array,
+  players: PropTypes.arrayOf({}),
+  columns: PropTypes.arrayOf({}),
   heading: PropTypes.string,
-  radiantTeam: PropTypes.object,
-  direTeam: PropTypes.array,
+  radiantTeam: PropTypes.arrayOf({}),
+  direTeam: PropTypes.arrayOf({}),
   summable: PropTypes.bool,
 };
 

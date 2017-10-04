@@ -21,7 +21,7 @@ const Heading = ({ title = '', titleTo, icon = <ActionLabelOutline />, subtitle,
   </DivToUse>);
 };
 
-const { string, element, oneOfType, object, bool } = PropTypes;
+const { string, element, oneOfType, bool, shape } = PropTypes;
 
 Heading.propTypes = {
   title: string,
@@ -30,7 +30,7 @@ Heading.propTypes = {
     string,
     element,
   ]),
-  subtitle: object,
+  subtitle: shape({}),
   twoLine: bool,
 };
 

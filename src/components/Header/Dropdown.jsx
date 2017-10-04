@@ -75,9 +75,9 @@ class Dropdown extends Component {
 
 Dropdown.propTypes = {
   Button: PropTypes.func,
-  buttonProps: PropTypes.object,
+  buttonProps: PropTypes.shape({}),
   className: PropTypes.string,
-  children: PropTypes.array,
+  children: PropTypes.arrayOf({}),
 };
 
 export default Dropdown;

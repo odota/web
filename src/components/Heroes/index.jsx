@@ -113,9 +113,14 @@ class RequestLayer extends React.Component {
 
 RequestLayer.propTypes = {
   dispatchHeroStats: PropTypes.func,
-  data: PropTypes.object,
+  data: PropTypes.shape({}),
   loading: PropTypes.bool,
-  match: PropTypes.object,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      info: PropTypes.string,
+      heroId: PropTypes.string,
+    }),
+  }),
 };
 
 const mapStateToProps = state => ({

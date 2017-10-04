@@ -152,12 +152,12 @@ class FormField extends React.Component {
 
 FormField.propTypes = {
   name: PropTypes.string,
-  dataSource: PropTypes.array,
+  dataSource: PropTypes.arrayOf({}),
   strict: PropTypes.bool,
   limit: PropTypes.number,
-  formSelectionState: PropTypes.object,
+  formSelectionState: PropTypes.shape({}),
   addChip: PropTypes.string,
-  history: PropTypes.object,
+  history: PropTypes.shape({}),
   label: PropTypes.string,
   filter: PropTypes.string,
   className: PropTypes.string,

@@ -43,11 +43,15 @@ class Benchmark extends Component {
 }
 
 Benchmark.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      heroId: PropTypes.string,
+    }),
+  }),
   getBenchmark: PropTypes.func,
   isLoading: PropTypes.bool,
   isError: PropTypes.bool,
-  hero: PropTypes.object,
+  hero: PropTypes.shape({}),
   result: PropTypes.string,
 };
 

@@ -24,10 +24,10 @@ const ChipList = ({ chipList, deleteChip, name, history }) => (
 );
 
 ChipList.propTypes = {
-  chipList: PropTypes.array,
+  chipList: PropTypes.arrayOf({}),
   deleteChip: PropTypes.func,
   name: PropTypes.string,
-  history: PropTypes.object,
+  history: PropTypes.shape({}),
 };
 
 export default ChipList;

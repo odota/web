@@ -74,7 +74,7 @@ const CastTable = ({
   </Tabs>);
 
 CastTable.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.shape({}),
 };
 
 export default CastTable;

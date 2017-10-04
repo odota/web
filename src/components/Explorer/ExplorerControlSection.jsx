@@ -67,7 +67,7 @@ const ExplorerControlSection = ({ showEditor, toggleEditor, expandedFields, hand
 ExplorerControlSection.propTypes = {
   showEditor: PropTypes.bool,
   toggleEditor: PropTypes.func,
-  expandedFields: PropTypes.array,
+  expandedFields: PropTypes.arrayOf({}),
   handleFieldUpdate: PropTypes.func,
   builder: PropTypes.func,
 };

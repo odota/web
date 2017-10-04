@@ -365,8 +365,11 @@ export default function BuildingMap({ match }) {
 }
 
 BuildingMap.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.shape({}),
   key: PropTypes.string,
-  style: PropTypes.object,
+  style: PropTypes.shape({
+    span: PropTypes.string,
+    img: PropTypes.string,
+  }),
   src: PropTypes.string,
 };

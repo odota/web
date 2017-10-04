@@ -127,7 +127,7 @@ const SettingsGroup = ({ user }) => (
 );
 
 SettingsGroup.propTypes = {
-  user: PropTypes.object,
+  user: PropTypes.shape({}),
 };
 
 const BugLink = styled.a`
@@ -222,9 +222,9 @@ const Header = ({ location, small, user }) => (
 );
 
 Header.propTypes = {
-  location: PropTypes.object,
+  location: PropTypes.shape({}),
   small: PropTypes.bool,
-  user: PropTypes.object,
+  user: PropTypes.shape({}),
 };
 
 const mapStateToProps = state => ({
