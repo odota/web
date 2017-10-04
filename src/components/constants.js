@@ -49,33 +49,4 @@ export default {
   navDrawerWidth: '256px',
   normalTransition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
   linearTransition: 'all 300ms linear',
-  // TODO convert these
-  /*
-  black4: var(--defaultPrimaryColor);
-  black6: var(--darkPrimaryColor);
-  black9: var(--almostBlack);
-  gray:      var(--colorMuted);
-  grey:      var(--colorMuted);
-  lightGray: var(--colorMutedLight);
-  yellowOrange:    var(--colorYelor);
-  blueMuted:  var(--colorBlueMuted);
-  yelorMuted: var(--colorYelorMuted);
-  textColorPrimary:    var(--textColorPrimary);
-  primaryTextColor:    var(--textColorPrimary);
-  textColorSecondary:  var(--textColorSecondary);
-  secondaryTextColor:  var(--textColorSecondary);
-  dividerColor: var(--dividerColor);
-  fontFamily: var(--fontFamily);
-  fontWeightLight: var(--fontWeightLight);
-  fontWeightNormal: var(--fontWeightNormal);
-  fontWeightMedium: var(--fontWeightMedium);
-  fontSizeCommon: var(--fontSizeCommon);
-  fontSizeMedium: var(--fontSizeMedium);
-  fontSizeSmall: var(--fontSizeSmall);
-  primarySurfaceColor: var(--primarySurfaceColor);
-  secondarySurfaceColor: var(--secondarySurfaceColor);
-  textSuccess: var(--colorSuccess)
-  textDanger: var(--colorDanger)
-  textMuted: var(--colorMuted)
-  */
 };

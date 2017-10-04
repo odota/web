@@ -39,7 +39,8 @@ const StyledPagination = styled.div`
   }
   `}
 `;
-const pageStyle = `  color: ${constants.primaryLinkColor}!important;
+const pageStyle = `
+  color: ${constants.primaryLinkColor}!important;
   min-width: 20px !important;
   padding: 0 10px !important;
   margin: 0 2px !important;
@@ -48,11 +49,12 @@ const pageStyle = `  color: ${constants.primaryLinkColor}!important;
     min-width: 14px !important;
     padding: 0 6px !important;
     margin: 0 1px !important; 
-}`;
+  }
+`;
 const StyledPage = styled(FlatButton)`
 ${pageStyle}
 `;
-const arrowStyle = ` composes: page;
+const arrowStyle = `
   vertical-align: text-top;
 
   /* Override material-ui */

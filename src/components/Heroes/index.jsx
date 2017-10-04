@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import strings from 'lang';
 import { getHeroStats } from 'actions';
-import StyledHeading from 'components/Heading/StyledHeading';
+import Heading from 'components/Heading';
 import Table from 'components/Table';
 import TabBar from 'components/TabBar';
 import Hero from 'components/Hero';
@@ -71,10 +71,11 @@ class RequestLayer extends React.Component {
       name: strings.hero_pro_tab,
       key: 'pro',
       content: (data, _columns) => (<div>
-        <StyledHeading
+        <Heading
           title={strings.hero_pro_heading}
           subtitle={`${abbreviateNumber(matchCountPro)} ${strings.hero_this_month}`}
           icon=""
+          twoLine
         />
         <Table data={data} columns={_columns} />
       </div>),
@@ -83,10 +84,11 @@ class RequestLayer extends React.Component {
       name: strings.hero_public_tab,
       key: 'public',
       content: (data, _columns) => (<div>
-        <StyledHeading
+        <Heading
           title={strings.hero_public_heading}
           subtitle={`${abbreviateNumber(matchCountPublic)} ${strings.hero_this_month}`}
           icon=""
+          twoLine
         />
         <Table data={data} columns={_columns} />
       </div>),

@@ -6,7 +6,6 @@ import Helmet from 'react-helmet';
 import heroes from 'dotaconstants/build/heroes.json';
 import strings from 'lang';
 import Heading from 'components/Heading';
-import StyledHeading from 'components/Heading/StyledHeading';
 import TabBar from 'components/TabBar';
 import styled from 'styled-components';
 import Ranking from './Ranking';
@@ -47,9 +46,10 @@ const Hero = ({ props }) => {
   return (<div>
     <Helmet title={getSingleHero(props.match.params.heroId).localized_name} />
     <div style={{ textAlign: 'center' }}>
-      <StyledHeading
+      <Heading
         title={getSingleHero(props.match.params.heroId).localized_name}
         icon=""
+        twoLine
       />
       <StyledImage alt="" src={getSingleHero(props.match.params.heroId).img} />
     </div>

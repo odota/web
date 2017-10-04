@@ -7,8 +7,7 @@ import { getProMatches, getPublicMatches } from 'actions';
 import strings from 'lang';
 import Table, { TableLink } from 'components/Table';
 // import Heading from 'components/Heading';
-import { transformations } from 'utility';
-import subTextStyle from 'components/Visualizations/Table/subText.css';
+import { transformations, subTextStyle } from 'utility';
 import { IconTrophy } from 'components/Icons';
 import Match from 'components/Match';
 import TabBar from 'components/TabBar';
@@ -34,7 +33,7 @@ const matchesColumns = [{
   sortFn: true,
   displayFn: (row, col, field) => (<div>
     <TableLink to={`/matches/${field}`}>{field}</TableLink>
-    <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+    <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
       {row.league_name}
     </span>
   </div>),
@@ -63,7 +62,7 @@ const publicMatchesColumns = [
     sortFn: true,
     displayFn: (row, col, field) => (<div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
         {row.avg_mmr} {strings.th_mmr}
       </span>
     </div>),

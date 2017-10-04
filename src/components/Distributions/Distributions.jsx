@@ -15,7 +15,7 @@ import {
 import Warning from 'components/Alerts';
 import TabBar from 'components/TabBar';
 import Spinner from 'components/Spinner';
-import StyledHeading from 'components/Heading/StyledHeading';
+import Heading from 'components/Heading';
 import styled from 'styled-components';
 import constants from '../constants';
 
@@ -91,12 +91,13 @@ const countryMmrColumns = [{
 
 const getPage = (data, key) => (
   <div>
-    <StyledHeading
+    <Heading
       title={strings[`distributions_heading_${key}`]}
       subtitle={`
         ${data[key] && data[key].rows && abbreviateNumber(data[key].rows.map(row => row.count).reduce(sum, 0))} ${strings.th_players}
       `}
       icon=" "
+      twoLine
     />
     {(key === 'mmr') ?
       <div id="mmr" />

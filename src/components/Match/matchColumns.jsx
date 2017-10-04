@@ -11,14 +11,13 @@ import heroNames from 'dotaconstants/build/hero_names.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum } from 'utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle } from 'utility';
 import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
 import { IconBackpack } from 'components/Icons';
-import subtextStyle from 'components/Visualizations/Table/subText.css';
 import constants from '../constants';
 import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
 
@@ -636,7 +635,7 @@ export const laningColumns = (currentState, setSelectedPlayer) => [
           {strings[`lane_role_${field}`]}
         </span>
         {row.is_roaming &&
-          <span className={subtextStyle.subText}>
+          <span style={subTextStyle}>
             {strings.roaming}
           </span>}
       </div>),

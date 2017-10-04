@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import constans from '../constants';
+import constants from '../constants';
 
 const StyledMain = styled.main`
   position: relative;
@@ -18,20 +18,20 @@ const StyledSection = styled.section`
   & a {
     /* Tab */
     text-align: center;
-    font-weight: ${constans.fontWeightLight};
+    font-weight: ${constants.fontWeightLight};
     font-size: 14px;
-    color: ${constans.primaryTextColor};
+    color: ${constants.primaryTextColor};
     padding: 10px 12px 16px;
     border-bottom: 2px solid transparent;
     flex-grow: 1;
 
     &:hover {
-      color: ${constans.colorMutedLight};
+      color: ${constants.colorMutedLight};
     }
 
     &[disabled] {
       pointer-events: none;
-      color: ${constans.colorMuted};
+      color: ${constants.colorMuted};
     }
 
     @media only screen and (max-width: 768px) {
@@ -42,8 +42,8 @@ const StyledSection = styled.section`
 
   & .chosen {
     display: inline-block;
-    border-color: ${constans.primaryLinkColor};
-    color: color(${constans.colorMuted} lightness(85%));
+    border-color: ${constants.primaryLinkColor};
+    color: color(${constants.colorMuted} lightness(85%));
   }
 `;
 
