@@ -21,7 +21,7 @@ const Heading = ({ title = '', titleTo, icon = <ActionLabelOutline />, subtitle,
   </DivToUse>);
 };
 
-const { string, element, oneOfType, object, boolean } = PropTypes;
+const { string, element, oneOfType, object, bool } = PropTypes;
 
 Heading.propTypes = {
   title: string,
@@ -31,7 +31,7 @@ Heading.propTypes = {
     element,
   ]),
   subtitle: object,
-  twoLine: boolean,
+  twoLine: bool,
 };
 
 export default Heading;

@@ -63,6 +63,7 @@ const config = {
     port: Number(process.env.PORT) || 8080,
     historyApiFallback: true,
     compress: true,
+    inline: true,
   },
 };
 

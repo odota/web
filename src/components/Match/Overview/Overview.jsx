@@ -27,18 +27,8 @@ const Styled = styled.div`
   & .map {
     margin: 0 auto;
   }
-
-  & .centeredMap {
-    width: 312px !important;
-    display: block;
-  }
-
+  
   @media only screen and (max-width: 370px) {
-    & .centeredMap {
-      width: 262px !important;
-      display: block;
-    }
-
     & .map {
       width: 262px !important;
     }
@@ -87,13 +77,13 @@ export default {
       }
       {
         <Styled>
-          <div className={`map ${!match.version && 'centeredMap'}`}>
+          <div className="map">
             <BuildingMap match={match} />
           </div>
-          {match.version &&
+          { /* match.version &&
           <div className="graph">
             <MatchGraph match={match} type="difference" />
-          </div>}
+          </div> */}
         </Styled>
       }
     </div>
