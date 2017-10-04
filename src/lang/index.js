@@ -72,7 +72,7 @@ export const langs = [
     value: 'tr-TR',
     native: 'Türkçe',
     data: require('./tr-TR.json'),
-  }, */ {
+  },  {
     value: 'uk-UA',
     native: 'Українська',
     data: require('./uk-UA.json'),
@@ -80,15 +80,15 @@ export const langs = [
     value: 'vi-VN',
     native: 'Tiếng Việt',
     data: require('./vi-VN.json'),
-  }, {
+  }, */ {
     value: 'zh-CN',
     native: '简体字',
     data: require('./zh-CN.json'),
-  }, {
+  }, /* {
     value: 'zh-TW',
     native: '繁體字',
     data: require('./zh-TW.json'),
-  },
+  }, */
 ];
 const savedLang = window.localStorage && window.localStorage.getItem('localization');
 const langToUse = (langs.find(lang => lang.value === savedLang) || langs[0]).data;
