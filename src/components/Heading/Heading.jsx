@@ -2,25 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
-import styles from './Heading.css';
+import { StyledDiv, TwoLineDiv } from './Styled';
 
-const Heading = ({ title = '', titleTo, icon = <ActionLabelOutline />, subtitle, className }) => (
-  <div className={`${styles.tableHeading} ${className}`}>
+const Heading = ({ title = '', titleTo, icon = <ActionLabelOutline />, subtitle, twoLine }) => {
+  const DivToUse = twoLine ? TwoLineDiv : StyledDiv;
+  return (<DivToUse>
     {icon}
-    <span className={styles.title}>
+    <span className="title">
       {titleTo ?
         <Link to={titleTo}>
           {title.trim()}
         </Link>
         : title.trim()}
     </span>
-    <span className={styles.subtitle}>
+    <span className="subtitle">
       {subtitle}
     </span>
-  </div>
-);
+  </DivToUse>);
+};
 
-const { string, element, oneOfType, object } = PropTypes;
+const { string, element, oneOfType, object, boolean } = PropTypes;
 
 Heading.propTypes = {
   title: string,
@@ -30,7 +31,7 @@ Heading.propTypes = {
     element,
   ]),
   subtitle: object,
-  className: string,
+  twoLine: boolean,
 };
 
 export default Heading;

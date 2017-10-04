@@ -9,7 +9,6 @@ import {
   getRanking,
 } from 'actions';
 import Spinner from 'components/Spinner';
-// import style from './Heroes.css';
 import RankingTable from './RankingTable';
 
 const renderRanking = (hero, rankings) => (

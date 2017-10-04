@@ -11,8 +11,234 @@ import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
-import styles from './Chat.css';
+import styled from 'styled-components';
+import constants from '../../constants';
 
+const StyledDiv = styled.div`
+  padding-left: 32px;
+  padding-right: 32px;
+
+  @media (max-width: 768px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  & .Chat,
+  & .Filters {
+    margin: 0;
+    padding: 0;
+  }
+
+  & .Chat {
+    & .radiant {
+      & svg.icon {
+        fill: ${constants.colorSuccess};
+      }
+    }
+
+    & .dire {
+      & svg.icon {
+        fill: ${constants.colorDanger};
+      }
+    }
+    & .radiant,
+    & .dire {
+      display: flex;
+      align-items: flex-end;
+      flex-wrap: wrap;
+
+      &:not(:last-of-type) {
+        padding-bottom: 10px;
+      }
+
+      & svg.icon {
+        width: 16px;
+        height: 16px;
+      }
+
+      & time {
+        display: inline-block;
+        width: 54px;
+        text-align: center;
+
+        & a {
+          font-size: ${constants.fontSizeSmall};
+          margin: 2px;
+        }
+      }
+
+      & time,
+      & time > a {
+        color: ${constants.colorMutedLight};
+      }
+
+      & img {
+        &:not(.chatwheel) {
+          width: 36px;
+        }
+
+        height: 20px;
+
+        &.unknown {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      & .target {
+        font-size: ${constants.fontSizeMedium};
+        margin-left: 8px;
+      }
+
+      & .author {
+        font-size: ${constants.fontSizeMedium};
+        font-weight: ${constants.fontWeightMedium};
+        margin: 0 8px;
+      }
+
+      & article {
+        & svg,
+        & .chatwheel {
+          vertical-align: sub;
+          margin-right: 5px;
+          height: 18px !important;
+        }
+
+        /* override material-ui */
+        & svg {
+          width: 18px !important;
+          border-radius: 50%;
+          background-color: ${constants.colorBlueMuted};
+
+          &.play {
+            &:hover {
+              cursor: pointer;
+              background-color: ${constants.colorBlue};
+              color: ${constants.primarySurfaceColor} !important;
+            }
+
+            &:active {
+              opacity: 0.6;
+            }
+          }
+
+          &.playing {
+            background-color: ${constants.colorBlue};
+            color: ${constants.primarySurfaceColor} !important;
+          }
+        }
+
+        & .emote {
+          width: 20px;
+          height: 20px;
+          vertical-align: bottom;
+        }
+      }
+
+      &.spam {
+        opacity: 0.5;
+        color: ${constants.colorMuted} !important;
+        filter: grayscale(100%);
+        pointer-events: none;
+      }
+    }
+
+    & .disabled {
+      pointer-events: none;
+    }
+  }
+
+  & .divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, ${constants.primaryTextColor}, rgba(0, 0, 0, 0));
+    opacity: 0.1;
+    margin: 6px 0 20px 0;
+  }
+
+  & .Filters {
+    display: flex;
+    flex-flow: row wrap;
+
+    & > li {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding-right: 32px;
+
+      & > div {
+        text-transform: uppercase;
+        font-size: ${constants.fontSizeSmall};
+        color: ${constants.colorMutedLight};
+        margin-bottom: 8px;
+      }
+
+      & > ul {
+        padding: 0;
+        display: flex;
+        flex-flow: row wrap;
+
+        & > li {
+          margin-bottom: 10px;
+
+          &:not(:last-of-type) {
+            margin-right: 16px;
+          }
+
+          /* override material-ui */
+          & > div {
+            display: block !important;
+
+            & > div {
+              & > div {
+                margin-right: 8px !important;
+              }
+
+              & > label {
+                width: auto !important;
+
+                & > span {
+                  display: inline-block;
+
+                  & > div {
+                    display: flex;
+                    justify-content: space-between;
+                    flex-direction: row;
+                  }
+
+                  & > div > b,
+                  & > small {
+                    text-align: right;
+                    color: ${constants.colorMutedLight};
+                  }
+
+                  & > div > b,
+                  & > small > span {
+                    margin-left: 4px;
+                    width: 32px;
+                    display: inline-block;
+                  }
+
+                  & > small {
+                    display: block;
+                    font-weight: ${constants.fontWeightNormal};
+                    font-size: ${constants.fontSizeSmall};
+                    text-transform: lowercase;
+                    margin-top: -4px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &:not(:last-of-type) {
+        margin-right: 16px;
+      }
+    }
+  }
+`;
 // All chat
 // https://github.com/dotabuff/d2vpkr/blob/8fdc29b84f3e7e2c130fc1b8c6ffe3b811e2d4a7/dota/scripts/chat_wheel.txt#L640
 const chatwheelAll = [75, 76, 108, 109, 110];
@@ -165,7 +391,7 @@ class Chat extends React.Component {
 
     const Messages = () => (
       <div>
-        <ul className={styles.Chat}>
+        <ul className="Chat">
           {this.messages.map((msg, index) => {
             const hero = heroes[msg.heroID];
             const rad = isRadiant(msg.player_slot);
@@ -181,14 +407,14 @@ class Chat extends React.Component {
                   key={msg.key}
                   viewBox="-2 -2 28 28"
                   onClick={() => this.audio(msg.key, index)}
-                  className={`${styles.play} ${this.state.playing === index ? styles.playing : ''}`}
+                  className={`play ${this.state.playing === index ? 'playing' : ''}`}
                 />);
               } else {
                 message.unshift(<img
                   key={msg.key}
                   src="/assets/images/dota2/chat_wheel_icon.png"
                   alt="chatwheel"
-                  className={styles.chatwheel}
+                  className="chatwheel"
                 />);
               }
             } else if (msg.type === 'chat') {
@@ -200,7 +426,7 @@ class Chat extends React.Component {
                     return createElement('img', {
                       alt: emote,
                       src: `/assets/images/dota2/emoticons/${emote}.gif`,
-                      className: styles.emote,
+                      className: 'emote',
                     });
                   }
                   return char;
@@ -218,13 +444,13 @@ class Chat extends React.Component {
             let icon = (<img
               src="/assets/images/blank-1x1.gif"
               alt="???"
-              className={styles.unknown}
+              className="unknown"
             />);
             if (!spec) {
               if (rad) {
-                icon = <IconRadiant className={styles.icon} />;
+                icon = <IconRadiant className="icon" />;
               } else {
-                icon = <IconDire className={styles.icon} />;
+                icon = <IconDire className="icon" />;
               }
             }
 
@@ -233,8 +459,8 @@ class Chat extends React.Component {
                 id={index}
                 key={index}
                 className={`
-                  ${rad ? styles.radiant : styles.dire}
-                  ${msg.spam ? styles.spam : ''}
+                  ${rad ? 'radiant' : 'dire'}
+                  ${msg.spam ? 'spam' : ''}
                 `.trim()}
               >
                 {icon}
@@ -245,13 +471,13 @@ class Chat extends React.Component {
                   src={hero ? API_HOST + hero.img : '/assets/images/blank-1x1.gif'}
                   alt={hero && hero.localized_name}
                 />
-                <span className={styles.target}>
+                <span className="target">
                   [{target.toUpperCase()}]
                 </span>
                 <Link
                   to={`/players/${msg.accountID}`}
                   style={{ color: playerColors[msg.player_slot] || 'red' }}
-                  className={`${styles.author} ${msg.accountID ? '' : styles.disabled}`}
+                  className={`author ${msg.accountID ? '' : 'disabled'}`}
                 >
                   {msg.name || msg.unit}
                 </Link>
@@ -281,7 +507,7 @@ class Chat extends React.Component {
       }, {});
 
       return (
-        <ul className={styles.Filters}>
+        <ul className="Filters">
           {Object.keys(categories).map(cat => (
             <li key={cat}>
               <div>{strings[`chat_category_${cat}`]}</div>
@@ -319,11 +545,11 @@ class Chat extends React.Component {
     };
 
     return (
-      <div className={styles.Container}>
+      <StyledDiv>
         <Filters />
-        <hr className={styles.divider} />
+        <hr className="divider" />
         <Messages />
-      </div>
+      </StyledDiv>
     );
   }
 }

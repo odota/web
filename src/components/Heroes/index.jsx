@@ -15,7 +15,6 @@ import {
   abbreviateNumber,
 } from 'utility';
 import columns from './columns';
-import styles from './Heroes.css';
 
 class RequestLayer extends React.Component {
   componentDidMount() {
@@ -75,8 +74,8 @@ class RequestLayer extends React.Component {
         <Heading
           title={strings.hero_pro_heading}
           subtitle={`${abbreviateNumber(matchCountPro)} ${strings.hero_this_month}`}
-          className={styles.Heading}
           icon=""
+          twoLine
         />
         <Table data={data} columns={_columns} />
       </div>),
@@ -88,8 +87,8 @@ class RequestLayer extends React.Component {
         <Heading
           title={strings.hero_public_heading}
           subtitle={`${abbreviateNumber(matchCountPublic)} ${strings.hero_this_month}`}
-          className={styles.Heading}
           icon=""
+          twoLine
         />
         <Table data={data} columns={_columns} />
       </div>),

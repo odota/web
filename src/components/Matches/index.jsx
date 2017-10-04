@@ -7,14 +7,25 @@ import { getProMatches, getPublicMatches } from 'actions';
 import strings from 'lang';
 import Table, { TableLink } from 'components/Table';
 // import Heading from 'components/Heading';
-import { transformations } from 'utility';
-import subTextStyle from 'components/Visualizations/Table/subText.css';
-import { IconRadiant, IconDire, IconTrophy } from 'components/Icons';
-import matchStyles from 'components/Match/Match.css';
+import { transformations, subTextStyle } from 'utility';
+import { IconTrophy } from 'components/Icons';
 import Match from 'components/Match';
 import TabBar from 'components/TabBar';
 import heroes from 'dotaconstants/build/heroes.json';
-import styles from './Matches.css';
+import styled from 'styled-components';
+import { StyledTeamIconContainer } from '../Match/StyledMatch';
+import constants from '../constants';
+
+const WinnerSpan = styled.span`
+  display: inline-block;
+
+  & svg {
+    width: 10px !important;
+    height: 10px !important;
+    margin-right: 5px;
+    fill: ${constants.colorGolden};
+  }
+`;
 
 const matchesColumns = [{
   displayName: strings.th_match_id,
@@ -22,7 +33,7 @@ const matchesColumns = [{
   sortFn: true,
   displayFn: (row, col, field) => (<div>
     <TableLink to={`/matches/${field}`}>{field}</TableLink>
-    <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+    <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
       {row.league_name}
     </span>
   </div>),
@@ -33,15 +44,15 @@ const matchesColumns = [{
   sortFn: true,
   displayFn: transformations.duration,
 }, {
-  displayName: <span className={matchStyles.teamIconContainer} ><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>,
+  displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
   field: 'radiant_name',
-  color: matchStyles.green,
-  displayFn: (row, col, field) => <div>{row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>,
+  color: constants.colorGreen,
+  displayFn: (row, col, field) => <div>{row.radiant_win && <WinnerSpan><IconTrophy /></WinnerSpan>}{field}</div>,
 }, {
-  displayName: <span className={matchStyles.teamIconContainer} ><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>,
+  displayName: <StyledTeamIconContainer>{strings.general_dire}</StyledTeamIconContainer>,
   field: 'dire_name',
-  color: matchStyles.red,
-  displayFn: (row, col, field) => <div>{!row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>,
+  color: constants.colorRed,
+  displayFn: (row, col, field) => <div>{!row.radiant_win && <WinnerSpan><IconTrophy /></WinnerSpan>}{field}</div>,
 }];
 
 const publicMatchesColumns = [
@@ -51,7 +62,7 @@ const publicMatchesColumns = [
     sortFn: true,
     displayFn: (row, col, field) => (<div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
         {row.avg_mmr} {strings.th_mmr}
       </span>
     </div>),
@@ -63,13 +74,13 @@ const publicMatchesColumns = [
     displayFn: transformations.duration,
   },
   {
-    displayName: <span className={matchStyles.teamIconContainer} ><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>,
+    displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
     field: 'radiant_team',
     displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
       <img key={heroId} style={{ width: '50px' }} src={`${API_HOST}${heroes[heroId].img}`} alt="" />),
   },
   {
-    displayName: <span className={matchStyles.teamIconContainer} ><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>,
+    displayName: <StyledTeamIconContainer >{strings.general_dire}</StyledTeamIconContainer>,
     field: 'dire_team',
     displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
       <img key={heroId} style={{ width: '50px' }} src={`${API_HOST}${heroes[heroId].img}`} alt="" />),
@@ -139,9 +150,9 @@ class RequestLayer extends React.Component {
 }
 
 RequestLayer.propTypes = {
-  proData: PropTypes.array,
   match: PropTypes.object,
-  publicData: PropTypes.array,
+  // proData: PropTypes.array,
+  // publicData: PropTypes.array,
 };
 
 const mapStateToProps = state => ({

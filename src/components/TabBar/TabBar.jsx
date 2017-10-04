@@ -1,30 +1,73 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import styles from './TabBar.css';
+import constants from '../constants';
 
-const TabBar = ({ tabs, info, mediaQClass = null }) => (
-  <main className={`${styles.container} ${mediaQClass}`}>
-    <section className={styles.subContainer}>
-      {tabs.map((tab, index) => (
+const StyledMain = styled.main`
+  position: relative;
+  margin: 10px 0 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.19);
+`;
+const StyledSection = styled.section`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  & a {
+    /* Tab */
+    text-align: center;
+    font-weight: ${constants.fontWeightLight};
+    font-size: 14px;
+    color: ${constants.primaryTextColor};
+    padding: 10px 12px 16px;
+    border-bottom: 2px solid transparent;
+    flex-grow: 1;
+
+    &:hover {
+      color: ${constants.colorMutedLight};
+    }
+
+    &[disabled] {
+      pointer-events: none;
+      color: ${constants.colorMuted};
+    }
+
+    @media only screen and (max-width: 768px) {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+
+  & .chosen {
+    display: inline-block;
+    border-color: ${constants.primaryLinkColor};
+    color: color(${constants.colorMuted} lightness(85%));
+  }
+`;
+
+const TabBar = ({ tabs, info }) => (
+  <StyledMain>
+    <StyledSection>
+      {tabs.map(tab => (
         <Link
-          key={index}
-          className={tab.key === info ? styles.chosen : ''}
+          key={`${tab.name}_${tab.route}_${tab.key}`}
+          className={tab.key === info ? 'chosen' : ''}
           to={tab.route + window.location.search}
           disabled={tab.disabled}
         >
           {tab.name}
         </Link>
       ))}
-    </section>
-  </main>
+    </StyledSection>
+  </StyledMain>
 );
 
 const { string, shape, arrayOf } = PropTypes;
 TabBar.propTypes = {
   tabs: arrayOf(shape({})),
   info: string,
-  mediaQClass: string,
 };
 
 export default TabBar;

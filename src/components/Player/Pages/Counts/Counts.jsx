@@ -7,19 +7,32 @@ import {
 import Table from 'components/Table';
 import Container from 'components/Container';
 import strings from 'lang';
+import styled from 'styled-components';
 import playerCountsColumns from './playerCountsColumns';
-import styles from './Counts.css';
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const StyledTableContainer = styled.div`
+  flex-grow: 1;
+  overflow-x: auto;
+  box-sizing: border-box;
+  padding: 5px;
+`;
 
 const Counts = ({ counts, error, loading }) => (
-  <div className={styles.countsContainer}>
+  <StyledContainer>
     {Object.keys(counts).map((key, index) => (
-      <div key={index} className={styles.countTable}>
+      <StyledTableContainer key={index}>
         <Container title={strings[`heading_${key}`]} error={error} loading={loading}>
           <Table columns={playerCountsColumns} data={counts[key].list} />
         </Container>
-      </div>
+      </StyledTableContainer>
     ))}
-  </div>
+  </StyledContainer>
 );
 
 Counts.propTypes = {

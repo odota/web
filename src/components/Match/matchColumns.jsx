@@ -11,15 +11,16 @@ import heroNames from 'dotaconstants/build/hero_names.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum } from 'utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle } from 'utility';
 import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
 import { IconBackpack } from 'components/Icons';
-import subtextStyle from 'components/Visualizations/Table/subText.css';
-import styles from './Match.css';
+import constants from '../constants';
+import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
+
 
 export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide = false) =>
   (<TableHeroImage
@@ -132,7 +133,7 @@ export const overviewColumns = (match) => {
       tooltip: strings.tooltip_gold_per_min,
       field: 'gold_per_min',
       sortFn: true,
-      color: styles.golden,
+      color: constants.golden,
       sumFn: true,
       // relativeBars: true,
     },
@@ -189,15 +190,15 @@ export const overviewColumns = (match) => {
     },
     {
       displayName: (
-        <span className={styles.thGold}>
+        <StyledGoldIcon>
           <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />
           {strings.th_gold}
-        </span>
+        </StyledGoldIcon>
       ),
       tooltip: strings.tooltip_gold,
       field: 'total_gold',
       sortFn: true,
-      color: styles.golden,
+      color: constants.golden,
       sumFn: true,
       displayFn: row => abbreviateNumber(row.total_gold),
       // relativeBars: true,
@@ -241,7 +242,7 @@ export const overviewColumns = (match) => {
         }
 
         return (
-          <div className={styles.items}>
+          <StyledDivClearBoth>
             {itemArray &&
               <div>
                 {itemArray}
@@ -252,13 +253,13 @@ export const overviewColumns = (match) => {
               </div>}
             {backpackItemArray &&
               backpackItemArray.length > 0 &&
-              <div className={styles.backpack}>
+              <StyledBackpack>
                 <div data-hint={strings.tooltip_backpack} data-hint-position="bottom">
                   <IconBackpack />
                 </div>
                 {backpackItemArray}
-              </div>}
-          </div>
+              </StyledBackpack>}
+          </StyledDivClearBoth>
         );
       },
     },
@@ -282,11 +283,11 @@ export const abilityColumns = () => {
     tooltip: 'Ability upgraded at this level',
     field: `ability_upgrades_arr_${index}`,
     displayFn: row =>
-      (<div data-tip data-for={`au_${row.player_slot}`} className={styles.abilityUpgrades}>
-        <div className={styles.ability}>
-          {inflictorWithValue(abilityIds[row[`ability_upgrades_arr_${index}`]]) || <div className={styles.placeholder} />}
+      (<StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
+        <div className="ability">
+          {inflictorWithValue(abilityIds[row[`ability_upgrades_arr_${index}`]]) || <div className="placeholder" />}
         </div>
-      </div>),
+      </StyledAbilityUpgrades>),
   }));
 
   cols[0] = heroTdColumn;
@@ -311,7 +312,7 @@ export const benchmarksColumns = (match) => {
             const value = Number((bm.raw || 0).toFixed(2));
             return (
               <div data-tip data-for={`benchmarks_${row.player_slot}_${key}`}>
-                <span style={{ color: styles[bucket.color] }}>{`${percent}%`}</span>
+                <span style={{ color: constants[bucket.color] }}>{`${percent}%`}</span>
                 <small style={{ margin: '3px' }}>
                   {value}
                 </small>
@@ -591,7 +592,7 @@ export const performanceColumns = [
         return (
           <div>
             {inflictorWithValue(field.inflictor, abbreviateNumber(field.value))}
-            <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} alt="" />
+            <img src={`${API_HOST}${hero.img}`} style={{ height: '30px' }} alt="" />
           </div>
         );
       }
@@ -634,7 +635,7 @@ export const laningColumns = (currentState, setSelectedPlayer) => [
           {strings[`lane_role_${field}`]}
         </span>
         {row.is_roaming &&
-          <span className={subtextStyle.subText}>
+          <span style={subTextStyle}>
             {strings.roaming}
           </span>}
       </div>),
@@ -776,14 +777,14 @@ export const actionsColumns = [
 export const runesColumns = [heroTdColumn].concat(
   Object.keys(strings).filter(str => str.indexOf('rune_') === 0).map(str => str.split('_')[1]).map(runeType => ({
     displayName: (
-      <div className={styles.runes} data-tip data-for={`rune_${runeType}`}>
+      <StyledRunes data-tip data-for={`rune_${runeType}`}>
         <img src={`/assets/images/dota2/runes/${runeType}.png`} alt="" />
         <ReactTooltip id={`rune_${runeType}`} effect="solid">
           <span>
             {strings[`rune_${runeType}`]}
           </span>
         </ReactTooltip>
-      </div>
+      </StyledRunes>
     ),
     field: `rune_${runeType}`,
     displayFn: (row, col, value) => value || '-',
@@ -809,13 +810,13 @@ export const cosmeticsColumns = [
     field: 'cosmetics',
     displayFn: (row, col, field) =>
       field.map((cosmetic, i) =>
-        (<div key={i} className={styles.cosmetics} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
+        (<StyledCosmetic key={i} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
           <a href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`} target="_blank" rel="noopener noreferrer">
             <img
               src={`${API_HOST}/apps/570/${cosmetic.image_path}`}
               alt=""
               style={{
-                borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : styles.gray}`,
+                borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : constants.colorMuted}`,
               }}
             />
             <ActionOpenInNew />
@@ -828,7 +829,7 @@ export const cosmeticsColumns = [
               </span>
             </span>
           </ReactTooltip>
-        </div>),
+        </StyledCosmetic>),
       ),
   },
 ];
@@ -919,15 +920,15 @@ export const analysisColumns = [
           const bucket = percentile(percent);
           return (
             <div>
-              <span style={{ color: styles[bucket.color], margin: '10px', fontSize: '18px' }}>
+              <span style={{ color: constants[bucket.color], margin: '10px', fontSize: '18px' }}>
                 {bucket.grade}
               </span>
               <span>
                 {field[key].display}
               </span>
-              <div className={styles.unusedItem}>
+              <StyledUnusedItem>
                 {key === 'unused_item' && field[key].metadata.map(item => inflictorWithValue(item))}
-              </div>
+              </StyledUnusedItem>
             </div>
           );
         }
@@ -943,9 +944,9 @@ const playerDeaths = (row, col, field) => {
   }
   return (
     field > 0 &&
-    <div className={styles.playerDeath}>
+    <StyledPlayersDeath>
       {deaths}
-    </div>
+    </StyledPlayersDeath>
   );
 };
 
