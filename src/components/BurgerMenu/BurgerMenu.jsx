@@ -1,10 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Drawer from 'material-ui/Drawer';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
-import styles from './BurgerMenu.css';
+import styled from 'styled-components';
+import constants from '../constants';
+
+const StyledDrawer = styled(Drawer)`
+  background-color: ${constants.defaultPrimaryColor} !important;
+`;
+
+const StyledMenuItem = styled(MenuItem)`
+  display: block;
+`;
 
 export default class BurgerMenu extends React.Component {
   constructor() {
@@ -20,22 +30,25 @@ export default class BurgerMenu extends React.Component {
         <IconButton onClick={this.handleToggle}>
           <MenuIcon />
         </IconButton>
-        <Drawer
+        <StyledDrawer
           docked={false}
           width={260}
           open={this.state.open}
           onRequestChange={open => this.setState({ open })}
-          className={styles.drawer}
         >
           <Menu>
             {this.props.menuItems.map(item => (
-              <MenuItem className={styles.menuItem} key={item.key} onTouchTap={item.close && this.handleClose}>
+              <StyledMenuItem key={index} onTouchTap={item.close && this.handleClose}>
                 {item.component}
-              </MenuItem>
+              </StyledMenuItem>
             ))}
           </Menu>
-        </Drawer>
+        </StyledDrawer>
       </div>
     );
   }
 }
+
+BurgerMenu.propTypes = {
+  menuItems: PropTypes.arrayOf({}),
+};

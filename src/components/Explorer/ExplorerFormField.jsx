@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 import DatePicker from 'material-ui/DatePicker';
 // import FormField from 'components/Form/FormField';
@@ -89,5 +90,14 @@ class ExplorerFormField extends React.Component {
     </span>);
   }
 }
+
+ExplorerFormField.propTypes = {
+  fields: PropTypes.arrayOf({}),
+  label: PropTypes.string,
+  builderField: PropTypes.func,
+  handleFieldUpdate: PropTypes.func,
+  isDateField: PropTypes.bool,
+  builder: PropTypes.func,
+};
 
 export default ExplorerFormField;

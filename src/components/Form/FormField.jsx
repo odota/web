@@ -1,9 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
-import { blue, red } from 'components/palette.css';
 import strings from 'lang';
 import querystring from 'querystring';
 import ChipList from './ChipList';
+import constants from '../constants';
+
+const { colorRed, colorBlue } = constants;
 
 const addChipDefault = (name, input, limit, history) => {
   if (history) {
@@ -137,14 +140,29 @@ class FormField extends React.Component {
         searchText={searchText}
         errorText={errorText}
         style={{ flex: '1 0 0' }}
-        floatingLabelFocusStyle={{ color: errorText ? red : blue }}
-        underlineFocusStyle={{ borderColor: blue }}
-        errorStyle={{ color: red }}
+        floatingLabelFocusStyle={{ color: errorText ? colorRed : colorBlue }}
+        underlineFocusStyle={{ borderColor: colorBlue }}
+        errorStyle={{ color: colorRed }}
         onClose={() => this.setState({ errorText: '' })}
       />
       <ChipList name={name} chipList={chipList} deleteChip={deleteChip} history={history} />
     </div>);
   }
 }
+
+FormField.propTypes = {
+  name: PropTypes.string,
+  dataSource: PropTypes.arrayOf({}),
+  strict: PropTypes.bool,
+  limit: PropTypes.number,
+  formSelectionState: PropTypes.shape({}),
+  addChip: PropTypes.string,
+  history: PropTypes.shape({}),
+  label: PropTypes.string,
+  filter: PropTypes.string,
+  className: PropTypes.string,
+  maxSearchResults: PropTypes.string,
+  deleteChip: PropTypes.string,
+};
 
 export default FormField;

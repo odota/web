@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   getPlayerTotals,
@@ -8,7 +9,6 @@ import strings from 'lang';
 import {
   CardTitle,
 } from 'material-ui/Card';
-import playerStatsStyles from 'components/Player/Header/PlayerStats.css';
 // import util from 'util';
 
 const totalsToShow = {
@@ -48,7 +48,6 @@ const formatDurationString = (sec) => {
 const drawElement = (element, type) => {
   if (totalsToShow[element.field] === type) {
     return (<CardTitle
-      className={playerStatsStyles.playerStats}
       subtitle={<div>{element.field === 'duration' ? formatDurationString(element.sum) : Math.floor(element.sum).toLocaleString()}</div>}
       title={strings[`heading_${element.field}`]}
     />);
@@ -69,6 +68,12 @@ const Totals = ({ data, error, loading }) => (<div>
   </Container>
 </div>);
 
+Totals.propTypes = {
+  data: PropTypes.array,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+};
+
 const getData = (props) => {
   props.getPlayerTotals(props.playerId, props.location.search);
 };
@@ -88,6 +93,11 @@ class RequestLayer extends React.Component {
     return <Totals {...this.props} />;
   }
 }
+
+RequestLayer.propTypes = {
+  playerId: PropTypes.string,
+  location: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
   data: state.app.playerTotals.data,

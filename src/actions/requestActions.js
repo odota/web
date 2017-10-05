@@ -36,15 +36,15 @@ const requestProgress = progress => ({
 function poll(dispatch, json, matchId) {
   fetch(`${API_HOST}${url}/${json.job.jobId}`)
     .then(res => res.json())
-    .then((json) => {
-      if (json && json.progress) {
-        dispatch(requestProgress(json.progress));
+    .then((_json) => {
+      if (_json && _json.progress) {
+        dispatch(requestProgress(_json.progress));
       }
-      if (!json || (json && json.state === 'completed')) {
+      if (!_json || (_json && _json.state === 'completed')) {
         dispatch(requestOk());
         window.location.href = `/matches/${matchId}`;
       } else {
-        setTimeout(poll, 2000, dispatch, { job: json }, matchId);
+        setTimeout(poll, 2000, dispatch, { job: _json }, matchId);
       }
     });
 }

@@ -1,10 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Helmet from 'react-helmet';
-import palette from 'components/palette.css';
 import strings from 'lang';
 import { Route } from 'react-router-dom';
 import Player from 'components/Player';
@@ -21,33 +21,56 @@ import Teams from 'components/Teams';
 // import Assistant from 'components/Assistant';
 import Records from 'components/Records';
 // import Predictions from 'components/Predictions';
+import styled from 'styled-components';
 import Header from '../Header';
 import Footer from '../Footer';
-import styles from './App.css';
+import constants from '../constants';
 
 const muiTheme = {
-  fontFamily: palette.fontFamily,
-  card: { fontWeight: palette.fontWeightNormal },
-  badge: { fontWeight: palette.fontWeightNormal },
-  subheader: { fontWeight: palette.fontWeightNormal },
-  raisedButton: { fontWeight: palette.fontWeightNormal },
-  flatButton: { fontWeight: palette.fontWeightNormal }, // color: 'background color'
+  fontFamily: constants.fontFamily,
+  card: { fontWeight: constants.fontWeightNormal },
+  badge: { fontWeight: constants.fontWeightNormal },
+  subheader: { fontWeight: constants.fontWeightNormal },
+  raisedButton: { fontWeight: constants.fontWeightNormal },
+  flatButton: { fontWeight: constants.fontWeightNormal },
   inkBar: {
-    backgroundColor: palette.blue,
+    backgroundColor: constants.colorBlue,
   },
   palette: {
-    textColor: palette.textColorPrimary,
-    primary1Color: palette.blue,
-    canvasColor: palette.primarySurfaceColor,
-    borderColor: palette.dividerColor,
+    textColor: constants.textColorPrimary,
+    primary1Color: constants.colorBlue,
+    canvasColor: constants.primarySurfaceColor,
+    borderColor: constants.dividerColor,
   },
   tabs: {
-    backgroundColor: palette.primarySurfaceColor,
-    textColor: palette.textColorPrimary,
-    selectedTextColor: palette.textColorPrimary,
+    backgroundColor: constants.primarySurfaceColor,
+    textColor: constants.textColorPrimary,
+    selectedTextColor: constants.textColorPrimary,
   },
   button: { height: 38 },
 };
+
+const StyledDiv = styled.div`
+  transition: ${constants.normalTransition};
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  left: ${props => (props.open ? '256px' : '0px')};
+  background-image: ${props => (props.location.pathname === '/' ? 'url("/assets/images/home-background.png")' : '')};
+  background-position: ${props => (props.location.pathname === '/' ? 'center top' : '')};
+  background-repeat: ${props => (props.location.pathname === '/' ? 'no-repeat' : '')};
+`;
+
+const StyledBodyDiv = styled.div`
+  padding: 25px;
+  flex-grow: 1;
+
+  @media only screen and (min-width: 1200px) {
+    width: 1200px;
+    margin: auto;
+  }
+`;
 
 class App extends React.Component {
   componentWillUpdate(nextProps) {
@@ -57,22 +80,16 @@ class App extends React.Component {
   }
 
   render() {
-    const { open, params, width, location } = this.props;
+    const { params, width, location } = this.props;
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
-        <div
-          className={
-            `${open ? styles.drawerOpen : styles.drawerClosed}
-        ${styles.container}
-        ${location.pathname === '/' && styles.HomeBackground}`
-          }
-        >
+        <StyledDiv {...this.props}>
           <Helmet
             defaultTitle={strings.title_default}
             titleTemplate={strings.title_template}
           />
           <Header params={params} location={location} />
-          <div className={styles.body}>
+          <StyledBodyDiv {...this.props}>
             <Route exact path="/" component={Home} />
             <Route exact path="/matches/:matchId?/:info?" component={Matches} />
             <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
@@ -84,12 +101,20 @@ class App extends React.Component {
             <Route exact path="/explorer" component={Explorer} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/records/:info?" component={Records} />
-          </div>
+          </StyledBodyDiv>
           <Footer location={location} width={width} />
-        </div>
+        </StyledDiv>
       </MuiThemeProvider>
     );
   }
 }
+
+App.propTypes = {
+  params: PropTypes.shape({}),
+  width: PropTypes.number,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
+};
 
 export default connect()(App);

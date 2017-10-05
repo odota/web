@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPlayerHistograms } from 'actions';
@@ -45,6 +46,16 @@ const Histogram = ({ routeParams, columns, playerId, error, loading, histogramNa
   </div>
 );
 
+Histogram.propTypes = {
+  routeParams: PropTypes.shape({}),
+  columns: PropTypes.number,
+  playerId: PropTypes.string,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+  histogramName: PropTypes.string,
+  history: PropTypes.shape({}),
+};
+
 const getData = (props) => {
   props.getPlayerHistograms(props.playerId, props.location.search, props.routeParams.subInfo || histogramNames[0]);
 };
@@ -65,6 +76,13 @@ class RequestLayer extends React.Component {
     return <Histogram {...this.props} />;
   }
 }
+
+RequestLayer.propTypes = {
+  playerId: PropTypes.string,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
+};
 
 const mapStateToProps = (state, { histogramName = histogramNames[0] }) => ({
   histogramName,

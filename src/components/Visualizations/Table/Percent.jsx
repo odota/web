@@ -1,37 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { gradient } from 'abcolor';
-import styles from './Percent.css';
+import { StyledContainer, PercentContainer, TitleContainer } from './Styled';
+import constants from '../../constants';
 
-const percent = ({ percent, altValue, valEl }) => (
-  <div className={styles.container}>
-    <div className={styles.title}>
+const Percent = ({ percent, altValue, valEl }) => (
+  <StyledContainer>
+    <TitleContainer>
       {valEl || percent} {altValue && <small>{altValue}</small>}
-    </div>
-    <div className={styles.percent}>
+    </TitleContainer>
+    <PercentContainer>
       <div
         style={{
           width: `${percent}%`,
           backgroundColor: gradient(percent, {
             css: true,
-            from: styles.red,
-            to: styles.green,
+            from: constants.colorRed,
+            to: constants.colorGreen,
           }),
         }}
       />
-    </div>
-  </div>
+    </PercentContainer>
+  </StyledContainer>
 );
 
-const { number, oneOfType, string, node } = PropTypes;
+const { number, oneOfType, string, node, bool } = PropTypes;
 
-percent.propTypes = {
-  percent: number,
+Percent.propTypes = {
+  percent: oneOfType([
+    number,
+    bool,
+  ]),
   altValue: oneOfType([
     string,
     number,
+    bool,
   ]),
   valEl: node,
 };
 
-export default percent;
+export default Percent;

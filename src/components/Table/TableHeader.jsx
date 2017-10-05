@@ -20,10 +20,10 @@ const TableHeader = ({ columns, sortState, sortField, sortClick, totalWidth }) =
 );
 
 TableHeader.propTypes = {
-  columns: PropTypes.array,
+  columns: PropTypes.arrayOf(PropTypes.shape({})),
   sortState: PropTypes.string,
   sortField: PropTypes.string,
-  sortClick: PropTypes.string,
+  sortClick: PropTypes.func,
   totalWidth: PropTypes.number,
 };
 

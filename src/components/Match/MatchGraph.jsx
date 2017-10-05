@@ -1,18 +1,23 @@
 import React, {
   Component,
 } from 'react';
+import PropTypes from 'prop-types';
 import uuid from 'uuid';
 import c3 from 'c3';
 import {
   formatSeconds,
   getLevelFromXp,
 } from 'utility';
+import styled from 'styled-components';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import strings from 'lang';
 import Heading from 'components/Heading';
-import styles from './Match.css';
 
 const colorArray = Object.keys(playerColors).map(k => playerColors[k]);
+
+const StyledMatchGraph = styled.div`
+  margin-top: 20px;
+  margin-bottom: 20px;`;
 
 const drawGraphs = (props, id) => {
   if (props.match && props.match.graphData) {
@@ -48,8 +53,8 @@ const drawGraphs = (props, id) => {
         rescale: true,
       },
       tooltip: {
-        contents(d, defaultTitleFormat, defaultValueFormat, color) {
-          return this.getTooltipContent(d, defaultTitleFormat, valueFormat || defaultValueFormat, color);
+        contents(d, defaultTitleFormat, defaultValueFormat, _color) {
+          return this.getTooltipContent(d, defaultTitleFormat, valueFormat || defaultValueFormat, _color);
         },
         order: (a, b) => {
           if (props.type === 'difference') return a.id - b.id;
@@ -74,9 +79,13 @@ class MatchGraph extends Component {
   render() {
     return (<div>
       <Heading title={strings[`heading_graph_${this.props.type}`]} />
-      <div className={styles.matchGraph} id={this.id} />
+      <StyledMatchGraph id={this.id} />
     </div>);
   }
 }
+
+MatchGraph.propTypes = {
+  type: PropTypes.string,
+};
 
 export default MatchGraph;

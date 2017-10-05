@@ -529,6 +529,7 @@
   "story_predicted_victory":"{players} previu(ram) que {team} iria ganhar",
   "story_predicted_victory_empty":"Ninguém",
   "story_networth_diff":"Vantagem: {percent}% / Diferença de ouro: {gold}",
+  "story_gold":"gold",
   "story_chat_asked":"perguntou",
   "story_chat_said":"disse",
   "tab_overview":"Visão Geral",

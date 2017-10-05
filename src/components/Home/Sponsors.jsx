@@ -1,31 +1,60 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import strings from 'lang';
-import styles from './Home.css';
+import styled from 'styled-components';
+import { ButtonsDiv } from './Styled';
+
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+
+  & .headline {
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+
+  & img {
+    height: 32px;
+    margin: 10px 15px;
+    transition: var(--normalTransition);
+  }
+
+  & a {
+    background-color: transparent !important;
+    padding: 0 !important;
+    border-width: 1px !important;
+    border-radius: 0 !important;
+  }
+`;
 
 export default () => (
-  <div className={styles.SponsorsContainer}>
-    <div className={styles.headline}>
+  <StyledDiv>
+    <div className="headline">
       {strings.home_sponsored_by}
     </div>
-    <div className={styles.images}>
+    <div className="images">
       <a href="//www.jist.tv" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/jist-white-logo.png" role="presentation" />
+        <img src="/assets/images/jist-white-logo.png" alt="" />
       </a>
       <a href="//dotacoach.org" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/dotacoach-logo.png" role="presentation" />
+        <img src="/assets/images/dotacoach-logo.png" alt="" />
       </a>
       <a href="https://pvgna.com/?ref=yasp" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/pvgna-logo.png" role="presentation" />
+        <img src="/assets/images/pvgna-logo.png" alt="" />
       </a>
       <a href="http://www.vpgame.com/" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/vp-logo.png" role="presentation" />
+        <img src="/assets/images/vp-logo.png" alt="" />
       </a>
       <a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/netlify.svg" role="presentation" />
+        <img src="/assets/images/netlify.svg" alt="" />
       </a>
     </div>
-    <div className={styles.Buttons}>
+    <ButtonsDiv>
       <FlatButton
         label={
           <span style={{ fontWeight: 300 }}>
@@ -34,6 +63,6 @@ export default () => (
         }
         href="//carry.opendota.com"
       />
-    </div>
-  </div>
+    </ButtonsDiv>
+  </StyledDiv>
 );

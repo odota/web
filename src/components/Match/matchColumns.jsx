@@ -1,6 +1,6 @@
 /* global API_HOST */
 import React from 'react';
-import findLast from 'lodash/findLast';
+import lodash from 'lodash/fp';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';
@@ -11,15 +11,15 @@ import heroNames from 'dotaconstants/build/hero_names.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum } from 'utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle } from 'utility';
 import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
 import { IconBackpack } from 'components/Icons';
-import subtextStyle from 'components/Visualizations/Table/subText.css';
-import styles from './Match.css';
+import constants from '../constants';
+import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
 
 export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide = false) =>
   (<TableHeroImage
@@ -69,7 +69,7 @@ const parties = (row, match) => {
 const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
   let skipped = 0;
   let itemSkipCount = _itemSkipCount || 0;
-  const purchaseEvent = findLast(purchaseLog, (item) => {
+  const purchaseEvent = lodash.findLast((item) => {
     if (item.key !== itemKey) {
       return false;
     }
@@ -81,7 +81,7 @@ const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
 
     skipped += 1;
     return false;
-  });
+  }, purchaseLog);
 
   return {
     itemSkipCount,
@@ -132,7 +132,7 @@ export const overviewColumns = (match) => {
       tooltip: strings.tooltip_gold_per_min,
       field: 'gold_per_min',
       sortFn: true,
-      color: styles.golden,
+      color: constants.golden,
       sumFn: true,
       // relativeBars: true,
     },
@@ -189,15 +189,15 @@ export const overviewColumns = (match) => {
     },
     {
       displayName: (
-        <span className={styles.thGold}>
-          <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />
+        <StyledGoldIcon>
+          <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />
           {strings.th_gold}
-        </span>
+        </StyledGoldIcon>
       ),
       tooltip: strings.tooltip_gold,
       field: 'total_gold',
       sortFn: true,
-      color: styles.golden,
+      color: constants.golden,
       sumFn: true,
       displayFn: row => abbreviateNumber(row.total_gold),
       // relativeBars: true,
@@ -241,7 +241,7 @@ export const overviewColumns = (match) => {
         }
 
         return (
-          <div className={styles.items}>
+          <StyledDivClearBoth>
             {itemArray &&
               <div>
                 {itemArray}
@@ -252,13 +252,13 @@ export const overviewColumns = (match) => {
               </div>}
             {backpackItemArray &&
               backpackItemArray.length > 0 &&
-              <div className={styles.backpack}>
+              <StyledBackpack>
                 <div data-hint={strings.tooltip_backpack} data-hint-position="bottom">
                   <IconBackpack />
                 </div>
                 {backpackItemArray}
-              </div>}
-          </div>
+              </StyledBackpack>}
+          </StyledDivClearBoth>
         );
       },
     },
@@ -282,11 +282,11 @@ export const abilityColumns = () => {
     tooltip: 'Ability upgraded at this level',
     field: `ability_upgrades_arr_${index}`,
     displayFn: row =>
-      (<div data-tip data-for={`au_${row.player_slot}`} className={styles.abilityUpgrades}>
-        <div className={styles.ability}>
-          {inflictorWithValue(abilityIds[row[`ability_upgrades_arr_${index}`]]) || <div className={styles.placeholder} />}
+      (<StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
+        <div className="ability">
+          {inflictorWithValue(abilityIds[row[`ability_upgrades_arr_${index}`]]) || <div className="placeholder" />}
         </div>
-      </div>),
+      </StyledAbilityUpgrades>),
   }));
 
   cols[0] = heroTdColumn;
@@ -311,7 +311,7 @@ export const benchmarksColumns = (match) => {
             const value = Number((bm.raw || 0).toFixed(2));
             return (
               <div data-tip data-for={`benchmarks_${row.player_slot}_${key}`}>
-                <span style={{ color: styles[bucket.color] }}>{`${percent}%`}</span>
+                <span style={{ color: constants[bucket.color] }}>{`${percent}%`}</span>
                 <small style={{ margin: '3px' }}>
                   {value}
                 </small>
@@ -591,7 +591,7 @@ export const performanceColumns = [
         return (
           <div>
             {inflictorWithValue(field.inflictor, abbreviateNumber(field.value))}
-            <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} role="presentation" />
+            <img src={`${API_HOST}${hero.img}`} style={{ height: '30px' }} alt="" />
           </div>
         );
       }
@@ -634,7 +634,7 @@ export const laningColumns = (currentState, setSelectedPlayer) => [
           {strings[`lane_role_${field}`]}
         </span>
         {row.is_roaming &&
-          <span className={subtextStyle.subText}>
+          <span style={subTextStyle}>
             {strings.roaming}
           </span>}
       </div>),
@@ -776,14 +776,14 @@ export const actionsColumns = [
 export const runesColumns = [heroTdColumn].concat(
   Object.keys(strings).filter(str => str.indexOf('rune_') === 0).map(str => str.split('_')[1]).map(runeType => ({
     displayName: (
-      <div className={styles.runes} data-tip data-for={`rune_${runeType}`}>
-        <img src={`/assets/images/dota2/runes/${runeType}.png`} role="presentation" />
+      <StyledRunes data-tip data-for={`rune_${runeType}`}>
+        <img src={`/assets/images/dota2/runes/${runeType}.png`} alt="" />
         <ReactTooltip id={`rune_${runeType}`} effect="solid">
           <span>
             {strings[`rune_${runeType}`]}
           </span>
         </ReactTooltip>
-      </div>
+      </StyledRunes>
     ),
     field: `rune_${runeType}`,
     displayFn: (row, col, value) => value || '-',
@@ -802,6 +802,7 @@ const cosmeticsRarity = {
   arcana: '#ADE55C',
   ancient: '#EB4B4B',
 };
+
 export const cosmeticsColumns = [
   heroTdColumn,
   {
@@ -809,13 +810,13 @@ export const cosmeticsColumns = [
     field: 'cosmetics',
     displayFn: (row, col, field) =>
       field.map(cosmetic =>
-        (<div key={cosmetic.item_id} className={styles.cosmetics} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
+        (<StyledCosmetic key={cosmetic.item_id} className={styles.cosmetics} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
           <a href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`} target="_blank" rel="noopener noreferrer">
             <img
               src={`${API_HOST}/apps/570/${cosmetic.image_path}`}
-              role="presentation"
+              alt=""
               style={{
-                borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : styles.gray}`,
+                borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : constants.colorMuted}`,
               }}
             />
             <ActionOpenInNew />
@@ -828,7 +829,7 @@ export const cosmeticsColumns = [
               </span>
             </span>
           </ReactTooltip>
-        </div>),
+        </StyledCosmetic>),
       ),
   },
 ];
@@ -919,15 +920,15 @@ export const analysisColumns = [
           const bucket = percentile(percent);
           return (
             <div>
-              <span style={{ color: styles[bucket.color], margin: '10px', fontSize: '18px' }}>
+              <span style={{ color: constants[bucket.color], margin: '10px', fontSize: '18px' }}>
                 {bucket.grade}
               </span>
               <span>
                 {field[key].display}
               </span>
-              <div className={styles.unusedItem}>
+              <StyledUnusedItem>
                 {key === 'unused_item' && field[key].metadata.map(item => inflictorWithValue(item))}
-              </div>
+              </StyledUnusedItem>
             </div>
           );
         }
@@ -939,13 +940,13 @@ export const analysisColumns = [
 const playerDeaths = (row, col, field) => {
   const deaths = [];
   for (let i = 0; i < field; i += 1) {
-    deaths.push(<img src="/assets/images/player_death.png" role="presentation" />);
+    deaths.push(<img src="/assets/images/player_death.png" alt="" />);
   }
   return (
     field > 0 &&
-    <div className={styles.playerDeath}>
+    <StyledPlayersDeath>
       {deaths}
-    </div>
+    </StyledPlayersDeath>
   );
 };
 
@@ -1009,7 +1010,7 @@ const purchaseObserverColumn = {
   center: true,
   displayName: (
     <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-      <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} role="presentation" />
+      <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
       &nbsp;{strings.th_purchase_shorthand}
     </div>
   ),
@@ -1024,7 +1025,7 @@ const purchaseSentryColumn = {
   center: true,
   displayName: (
     <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-      <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} role="presentation" />
+      <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
       &nbsp;{strings.th_purchase_shorthand}
     </div>
   ),
@@ -1039,7 +1040,7 @@ const purchaseDustColumn = {
   center: true,
   displayName: (
     <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-      <img height="15" src={`${API_HOST}/apps/dota2/images/items/dust_lg.png`} role="presentation" />
+      <img height="15" src={`${API_HOST}/apps/dota2/images/items/dust_lg.png`} alt="" />
       &nbsp;{strings.th_purchase_shorthand}
     </div>
   ),
@@ -1054,7 +1055,7 @@ const purchaseSmokeColumn = {
   center: true,
   displayName: (
     <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-      <img height="15" src={`${API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} role="presentation" />
+      <img height="15" src={`${API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
       &nbsp;{strings.th_purchase_shorthand}
     </div>
   ),
@@ -1069,7 +1070,7 @@ const purchaseGemColumn = {
   center: true,
   displayName: (
     <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-      <img height="15" src={`${API_HOST}/apps/dota2/images/items/gem_lg.png`} role="presentation" />
+      <img height="15" src={`${API_HOST}/apps/dota2/images/items/gem_lg.png`} alt="" />
       &nbsp;{strings.th_purchase_shorthand}
     </div>
   ),
@@ -1086,7 +1087,7 @@ export const visionColumns = [
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} role="presentation" />
+        <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
         &nbsp;{strings.th_use_shorthand}
       </div>
     ),
@@ -1101,7 +1102,7 @@ export const visionColumns = [
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} role="presentation" />
+        <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
         &nbsp;{strings.th_use_shorthand}
       </div>
     ),
@@ -1116,7 +1117,7 @@ export const visionColumns = [
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${API_HOST}/apps/dota2/images/items/dust_lg.png`} role="presentation" />
+        <img height="15" src={`${API_HOST}/apps/dota2/images/items/dust_lg.png`} alt="" />
         &nbsp;{strings.th_use_shorthand}
       </div>
     ),
@@ -1131,7 +1132,7 @@ export const visionColumns = [
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} role="presentation" />
+        <img height="15" src={`${API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
         &nbsp;{strings.th_use_shorthand}
       </div>
     ),

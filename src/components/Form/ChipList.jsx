@@ -1,9 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Chip from 'material-ui/Chip';
-import styles from './ChipList.css';
+import styled from 'styled-components';
+
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
 
 const ChipList = ({ chipList, deleteChip, name, history }) => (
-  <div className={styles.container}>
+  <StyledDiv>
     {chipList.map((chip, index) => (
       <Chip
         style={{ margin: '0 5px 5px 0' }}
@@ -13,7 +20,14 @@ const ChipList = ({ chipList, deleteChip, name, history }) => (
         {chip.text}
       </Chip>
     ))}
-  </div>
+  </StyledDiv>
 );
+
+ChipList.propTypes = {
+  chipList: PropTypes.arrayOf({}),
+  deleteChip: PropTypes.func,
+  name: PropTypes.string,
+  history: PropTypes.shape({}),
+};
 
 export default ChipList;

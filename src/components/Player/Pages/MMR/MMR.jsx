@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { MMRGraph } from 'components/Visualizations';
 import { getPlayerMmr } from 'actions';
@@ -20,6 +21,13 @@ const MMR = ({ columns, error, loading }) => (
   </div>
 );
 
+MMR.propTypes = {
+  columns: PropTypes.arrayOf({}),
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+};
+
+
 const getData = (props) => {
   props.getPlayerMmr(props.playerId, props.location.search);
 };
@@ -39,6 +47,14 @@ class RequestLayer extends React.Component {
     return <MMR {...this.props} />;
   }
 }
+
+RequestLayer.propTypes = {
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
+  playerId: PropTypes.string,
+};
+
 
 const mapStateToProps = state => ({
   columns: state.app.playerMmr.data.map(mmr => ({

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   getPlayerRankings,
@@ -15,6 +16,12 @@ const Rankings = ({ data, error, loading }) => (
     </Container>
   </div>
 );
+
+Rankings.propTypes = {
+  data: PropTypes.array,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+};
 
 const getData = (props) => {
   props.getPlayerRankings(props.playerId, props.location.search);
@@ -35,6 +42,11 @@ class RequestLayer extends React.Component {
     return <Rankings {...this.props} />;
   }
 }
+
+RequestLayer.propTypes = {
+  location: PropTypes.object,
+  playerId: PropTypes.string,
+};
 
 const mapStateToProps = state => ({
   data: state.app.playerRankings.data,

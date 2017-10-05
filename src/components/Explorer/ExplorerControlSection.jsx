@@ -1,8 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import strings from 'lang';
 import Toggle from 'material-ui/Toggle';
+import styled from 'styled-components';
 import ExplorerFormField from './ExplorerFormField';
-import styles from './Explorer.css';
+
+const StyledDiv = styled.div`
+  padding: 0 15px;
+  box-sizing: border-box;
+  display: ${props => (props.showEditor ? 'none' : 'flex')};
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
 
 const ExplorerControlSection = ({ showEditor, toggleEditor, expandedFields, handleFieldUpdate, builder }) => (<div>
   <div style={{ width: '180px', margin: '10px' }}>
@@ -13,7 +22,7 @@ const ExplorerControlSection = ({ showEditor, toggleEditor, expandedFields, hand
       onToggle={toggleEditor}
     />
   </div>
-  <div style={{ display: showEditor ? 'none' : 'flex' }} className={styles.formGroup}>
+  <StyledDiv showEditor={showEditor}>
     <ExplorerFormField label={strings.explorer_select} fields={expandedFields} builderField="select" handleFieldUpdate={handleFieldUpdate} builder={builder} />
     <ExplorerFormField label={strings.explorer_group_by} fields={expandedFields} builderField="group" handleFieldUpdate={handleFieldUpdate} builder={builder} />
     <ExplorerFormField label={strings.explorer_hero} fields={expandedFields} builderField="hero" handleFieldUpdate={handleFieldUpdate} builder={builder} />
@@ -43,7 +52,7 @@ const ExplorerControlSection = ({ showEditor, toggleEditor, expandedFields, hand
     <ExplorerFormField label={strings.explorer_having} fields={expandedFields} builderField="having" handleFieldUpdate={handleFieldUpdate} builder={builder} />
     <ExplorerFormField label={strings.explorer_limit} fields={expandedFields} builderField="limit" handleFieldUpdate={handleFieldUpdate} builder={builder} />
     <ExplorerFormField label={'Is TI7 Team'} fields={expandedFields} builderField="isTi7Team" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-  </div>
+  </StyledDiv>
   <div style={{ display: showEditor ? 'block' : 'none' }}>
     <div
       id={'editor'}
@@ -54,5 +63,13 @@ const ExplorerControlSection = ({ showEditor, toggleEditor, expandedFields, hand
     />
   </div>
 </div>);
+
+ExplorerControlSection.propTypes = {
+  showEditor: PropTypes.bool,
+  toggleEditor: PropTypes.func,
+  expandedFields: PropTypes.arrayOf({}),
+  handleFieldUpdate: PropTypes.func,
+  builder: PropTypes.func,
+};
 
 export default ExplorerControlSection;

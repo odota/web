@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   getPlayerPros,
@@ -13,6 +14,13 @@ const Pros = ({ data, playerId, error, loading }) => (
     <Table paginated columns={playerProsColumns(playerId)} data={data} />
   </Container>
 );
+
+Pros.propTypes = {
+  data: PropTypes.array,
+  error: PropTypes.string,
+  playerId: PropTypes.string,
+  loading: PropTypes.bool,
+};
 
 const getData = (props) => {
   props.getPlayerPros(props.playerId, props.location.search);
@@ -33,6 +41,11 @@ class RequestLayer extends React.Component {
     return <Pros {...this.props} />;
   }
 }
+
+RequestLayer.propTypes = {
+  location: PropTypes.object,
+  playerId: PropTypes.string,
+};
 
 const mapDispatchToProps = dispatch => ({
   getPlayerPros: (playerId, options) => dispatch(getPlayerPros(playerId, options)),

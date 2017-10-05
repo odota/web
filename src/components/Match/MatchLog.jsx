@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import strings from 'lang';
 import {
   formatSeconds,
@@ -9,10 +10,10 @@ import Table from 'components/Table';
 import heroes from 'dotaconstants/build/heroes.json';
 import heroNames from 'dotaconstants/build/hero_names.json';
 import FormField from 'components/Form/FormField';
-import styles from './Match.css';
 import {
   heroTdColumn,
 } from './matchColumns';
+import { StyledLogFilterForm } from './StyledMatch';
 
 const typeConfig = {
   kills: 0,
@@ -102,7 +103,7 @@ const logColumns = [heroTdColumn, {
     switch (row.type) {
       case 'kills': {
         const hero = heroNames[row.detail] || {};
-        return <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} role="presentation" />;
+        return <img src={`${API_HOST}${hero.img}`} style={{ height: '30px' }} alt="" />;
       }
       case 'runes': {
         const runeType = row.detail;
@@ -110,8 +111,8 @@ const logColumns = [heroTdColumn, {
         return (
           <img
             src={`/assets/images/dota2/runes/${runeType}.png`}
-            role="presentation"
-            className={styles.imgSmall}
+            alt=""
+            style={{ height: '30px' }}
             data-tip
             data-for={runeString}
           />
@@ -176,7 +177,7 @@ class MatchLog extends React.Component {
     return (
       <div>
         {runeTooltips}
-        <div className={styles.logFilterForm}>
+        <StyledLogFilterForm >
           <FormField
             name="types"
             label={strings.ward_log_type}
@@ -195,11 +196,17 @@ class MatchLog extends React.Component {
             formSelectionState={this.state}
             strict
           />
-        </div>
+        </StyledLogFilterForm>
         <Table data={logData} columns={logColumns} />
       </div>
     );
   }
 }
+
+MatchLog.propTypes = {
+  match: PropTypes.shape({
+    players: PropTypes.arrayOf({}),
+  }),
+};
 
 export default MatchLog;

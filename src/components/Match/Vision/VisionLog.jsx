@@ -1,15 +1,15 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { threshold, formatSeconds } from 'utility';
 import Table from 'components/Table';
 import strings from 'lang';
 import Heading from 'components/Heading';
-
 import { heroTd, heroTdColumn } from '../matchColumns';
-import styles from './Vision.css';
+import constants from '../../constants';
 
-const durationObserverColor = threshold(0, [121, 241, 371], [styles.red, styles.yelor, styles.green]);
-const durationSentryColor = threshold(0, [81, 161, 251], [styles.red, styles.yelor, styles.green]);
+const durationObserverColor = threshold(0, [121, 241, 371], [constants.colorRed, constants.colorYelor, constants.colorGreen]);
+const durationSentryColor = threshold(0, [81, 161, 251], [constants.colorRed, constants.colorYelor, constants.colorGreen]);
 
 const columns = [
   {
@@ -50,7 +50,7 @@ const generateData = match => (log) => {
 
   return {
     ...match.players[log.player],
-    type: <img height="29" src={`${API_HOST}/apps/dota2/images/items/ward_${log.type}_lg.png`} role="presentation" />,
+    type: <img height="29" src={`${API_HOST}/apps/dota2/images/items/ward_${log.type}_lg.png`} alt="" />,
     enter_time: formatSeconds(log.entered.time),
     left_time: formatSeconds(log.left && log.left.time) || '-',
     duration: <span style={{ color: durationColor }}>{formatSeconds(duration)}</span>,
@@ -64,5 +64,10 @@ const VisionLog = ({ match, wards }) => (
     <Table data={wards.map(generateData(match))} columns={columns} />
   </div>
 );
+
+VisionLog.propTypes = {
+  match: PropTypes.shape({}),
+  wards: PropTypes.arrayOf({}),
+};
 
 export default VisionLog;

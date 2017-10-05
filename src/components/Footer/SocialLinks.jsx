@@ -1,7 +1,6 @@
 import React from 'react';
 import strings from 'lang';
 import { IconGithub, IconDiscord } from '../Icons';
-import styles from './Footer.css';
 
 const links = [{
   tooltip: strings.app_github,
@@ -14,7 +13,7 @@ const links = [{
 }];
 
 export default () => (
-  <div className={styles.SocialLinks}>
+  <div className="links">
     {links.map(link => (
       <a
         key={link.path}

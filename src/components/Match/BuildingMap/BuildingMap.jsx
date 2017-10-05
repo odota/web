@@ -1,5 +1,6 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   pad,
   sum,
@@ -11,9 +12,146 @@ import Heading from 'components/Heading';
 import DotaMap from 'components/DotaMap';
 import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
-import { IconLightbulb } from 'components/Icons';
+// import { IconLightbulb } from 'components/Icons';
+import styled from 'styled-components';
 import buildingData from './buildingData';
-import styles from './BuildingMap.css';
+import constants from '../../constants';
+
+const StyledDiv = styled.div`
+.map {
+  @media only screen and (max-width: 370px) {
+    max-height: 250px !important;
+    max-width: 250px !important;
+  }
+}
+
+.buildingMap {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border: 6px solid rgba(255, 255, 255, 0.1);
+  margin: 0 auto;
+
+  & .buildingMapImage {
+    width: 300px;
+    height: 300px;
+    filter: grayscale(40%) brightness(180%) contrast(110%);
+  }
+
+  & > span {
+    position: absolute;
+
+    &:hover {
+      z-index: 99;
+    }
+
+    & img {
+      transition: ${constants.normalTransition};
+
+      &:hover {
+        filter: drop-shadow(0 0 8px ${constants.textColorPrimary});
+      }
+    }
+  }
+
+  @media only screen and (max-width: 370px) {
+    width: 250px;
+    height: 250px;
+
+    & .buildingMapImage {
+      width: 250px;
+      height: 250px;
+    }
+  }
+}
+
+.buildingHealth {
+  height: 10px;
+  min-width: 150px;
+  margin: 4px 0;
+  display: flex;
+
+  & > div {
+    height: 100%;
+    float: left;
+  }
+}
+
+.damage {
+  & > div > img {
+    margin: 0 5px;
+    width: 14px;
+    height: 14px;
+    vertical-align: sub;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
+  }
+
+  & .damageValue {
+    display: inline-block;
+    width: 36px;
+    text-align: center;
+  }
+
+  & .playerName {
+    margin-right: 5px;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+
+  & .lasthit {
+    font-size: ${constants.fontSizeSmall};
+    color: ${constants.colorGolden};
+
+    & img {
+      height: 10px;
+      margin-right: 3px;
+    }
+  }
+
+  & .creeps {
+    & .lasthit {
+      color: ${constants.colorMutedLight};
+    }
+
+    & img {
+      margin: 0;
+      width: 24px;
+      height: 14px;
+      display: inline-block;
+    }
+  }
+
+  & .deny {
+    color: ${constants.colorMutedLight};
+  }
+}
+
+.subtitle {
+  margin-left: 4px;
+  font-size: ${constants.fontSizeSmall};
+  font-weight: ${constants.fontWeightLight};
+  color: ${constants.colorMutedLight};
+}
+
+.hint {
+  color: ${constants.colorMutedLight};
+  font-weight: ${constants.fontWeightLight};
+  font-size: ${constants.fontSizeMedium};
+  text-align: center;
+  margin-top: 12px;
+
+  & svg {
+    vertical-align: sub;
+    fill: ${constants.colorMutedLight};
+    height: 14px;
+    margin-right: 5px;
+  }
+}
+`;
 
 const buildingsHealth = {
   tower1: 1300,
@@ -105,19 +243,19 @@ export default function BuildingMap({ match }) {
         >
           <img
             src={props.src}
-            role="presentation"
+            alt=""
             style={props.style.img}
           />
           <ReactTooltip id={props.key} effect="solid">
             {title}
             {damage && damage.length > 0 &&
               <span>
-                <span className={styles.subtitle}> & {strings.building_damage}</span>
+                <span className="subtitle"> {strings.building_damage}</span>
                 <div>
                   <div
-                    className={styles.buildingHealth}
+                    className="buildingHealth"
                     style={{
-                      backgroundColor: (bits[i] === '1' && styles.gray) || (side === 'good' ? styles.red : styles.green),
+                      backgroundColor: (bits[i] === '1' && constants.colorMuted) || (side === 'good' ? constants.colorRed : constants.colorGreen),
                     }}
                   >
                     {damage.map(player => (
@@ -130,31 +268,31 @@ export default function BuildingMap({ match }) {
                       />
                     ))}
                   </div>
-                  <div className={styles.damage}>
+                  <div className="damage">
                     {damage.map(player => (
                       <div key={player.hero_id}>
                         <img
                           src={heroes[player.hero_id] && API_HOST + heroes[player.hero_id].icon}
-                          role="presentation"
+                          alt=""
                         />
-                        <span className={styles.damageValue}>
+                        <span className="damageValue">
                           {player.damage}
                         </span>
                         <span
                           style={{ color: playerColors[player.player_slot] }}
-                          className={styles.playerName}
+                          className="playerName"
                         >
                           {player.name}
                         </span>
                         {destroyedBy && destroyedBy.player_slot === player.player_slot &&
-                          <span className={styles.lasthit}>
+                          <span className="lasthit">
                             {
                               ((side === 'good' && isRadiant(destroyedBy.player_slot)) || (side === 'bad' && !isRadiant(destroyedBy.player_slot))) ?
-                                <span className={styles.deny}>
+                                <span className="deny">
                                   {strings.building_denied}
                                 </span>
                                 : <span>
-                                  {type !== 'fort' && <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />}
+                                  {type !== 'fort' && <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />}
                                   {strings.building_lasthit}
                                 </span>
                             }
@@ -163,10 +301,10 @@ export default function BuildingMap({ match }) {
                       </div>
                     ))}
                     {(damageByCreeps > 0) && (bits[i] !== '1') &&
-                      <div className={styles.creeps}>
+                      <div className="creeps">
                         <img
                           src="/assets/images/blank-1x1.gif"
-                          role="presentation"
+                          alt=""
                           style={{
                             backgroundImage: `url(/assets/images/dota2/${side === 'good' ? 'bad' : 'good'}guys_creep.png)`,
                             backgroundPosition: 'center',
@@ -174,15 +312,15 @@ export default function BuildingMap({ match }) {
                             backgroundSize: 'contain',
                           }}
                         />
-                        <span className={styles.damageValue}>
+                        <span className="damageValue">
                           {damageByCreeps}
                         </span>
                         <span
-                          style={{ color: side === 'good' ? styles.red : styles.green }}
-                          className={styles.playerName}
+                          style={{ color: side === 'good' ? constants.colorRed : constants.colorGreen }}
+                          className="playerName"
                         >creeps </span>
                         {!destroyedBy &&
-                          <span className={styles.lasthit}>
+                          <span className="lasthit">
                             {strings.building_lasthit}
                           </span>
                         }
@@ -197,31 +335,41 @@ export default function BuildingMap({ match }) {
       );
     }
     return (
-      <div>
+      <StyledDiv>
         <Heading title={strings.heading_buildings} />
         <DotaMap
           startTime={match.start_time}
           maxWidth={300}
-          className={styles.map}
+          className="map"
         >
           {icons}
         </DotaMap>
         {/* <div className={styles.buildingMap}>
           <img
             src="/assets/images/dota2/map/minimap.jpg"
-            role="presentation"
+            alt=""
             className={styles.buildingMapImage}
           />
           {icons}
         </div> */}
-        {match.version &&
-          <div className={styles.hint}>
+        {/* match.version &&
+          <div className="hint">
             <IconLightbulb />
             {strings.building_hint}
           </div>
-        }
-      </div>
+        */}
+      </StyledDiv>
     );
   }
   return <div />;
 }
+
+BuildingMap.propTypes = {
+  match: PropTypes.shape({}),
+  key: PropTypes.string,
+  style: PropTypes.shape({
+    span: PropTypes.string,
+    img: PropTypes.string,
+  }),
+  src: PropTypes.string,
+};

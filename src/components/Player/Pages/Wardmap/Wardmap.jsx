@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { calculateResponsiveState } from 'redux-responsive';
 import { getPlayerWardmap } from 'actions';
@@ -6,9 +7,25 @@ import Heatmap from 'components/Heatmap';
 import Container from 'components/Container';
 import strings from 'lang';
 import { unpackPositionData } from 'utility';
-import styles from './Wardmap.css';
+import styled from 'styled-components';
 
 const MAX_WIDTH = 1200;
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+`;
+
+const StyledInner = styled(Container)`
+  flex-grow: 1;
+  flex-basis: 0;
+  max-width: 50%;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+`;
 
 const getData = (props) => {
   props.getPlayerWardmap(props.playerId, props.location.search);
@@ -35,10 +52,9 @@ class RequestLayer extends React.Component {
     const heatmapWidth = browser.width - 50;
 
     return (
-      <div className={styles.wardmaps}>
-        <Container
+      <StyledContainer>
+        <StyledInner
           title={strings.th_ward_observer}
-          className={styles.wardmapContainer}
           error={error}
           loading={loading}
         >
@@ -46,10 +62,9 @@ class RequestLayer extends React.Component {
             points={unpackPositionData(data.obs)}
             width={Math.min(MAX_WIDTH, heatmapWidth)}
           />
-        </Container>
-        <Container
+        </StyledInner>
+        <StyledInner
           title={strings.th_ward_sentry}
-          className={styles.wardmapContainer}
           error={error}
           loading={loading}
         >
@@ -57,11 +72,21 @@ class RequestLayer extends React.Component {
             points={unpackPositionData(data.sen)}
             width={Math.min(MAX_WIDTH, heatmapWidth)}
           />
-        </Container>
-      </div>
+        </StyledInner>
+      </StyledContainer>
     );
   }
 }
+
+RequestLayer.propTypes = {
+  updateWindowSize: PropTypes.func,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+  data: PropTypes.array,
+  browser: PropTypes.object,
+  playerId: PropTypes.string,
+  location: PropTypes.object,
+};
 
 const mapStateToProps = state => ({
   data: state.app.playerWardmap.data,

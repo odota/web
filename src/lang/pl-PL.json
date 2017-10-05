@@ -529,6 +529,7 @@
   "story_predicted_victory":"{players} stawia(ją), że {team} wygrają",
   "story_predicted_victory_empty":"Nikt",
   "story_networth_diff":"Różnica {percent}% / {gold}",
+  "story_gold":"gold",
   "story_chat_asked":"zapytał",
   "story_chat_said":"powiedział",
   "tab_overview":"Przegląd",

@@ -1,13 +1,13 @@
 /* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import strings from 'lang';
 import { getTeams } from 'actions';
 import Heading from 'components/Heading';
 import Table from 'components/Table';
-import { getOrdinal, fromNow } from 'utility';
-import subTextStyle from 'components/Visualizations/Table/subText.css';
+import { getOrdinal, fromNow, subTextStyle } from 'utility';
 
 const columns = [{
   displayName: strings.th_rank,
@@ -19,7 +19,7 @@ const columns = [{
   displayFn: (row, col, field) => (
     <div>
       <span>{field}</span>
-      <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
         {fromNow(row.last_match_time)}
       </span>
     </div>),
@@ -53,6 +53,11 @@ class RequestLayer extends React.Component {
     </div>);
   }
 }
+
+RequestLayer.propTypes = {
+  dispatchTeams: PropTypes.string,
+  data: PropTypes.string,
+};
 
 const mapStateToProps = state => ({
   data: state.app.teams.data.filter(team => team.last_match_time > ((new Date() / 1000) - (60 * 60 * 24 * 30 * 6))),

@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import strings from 'lang';
 import Heading from 'components/Heading';
 import Heatmap from 'components/Heatmap';
 import Table from 'components/Table';
 import { unpackPositionData } from 'utility';
 import { laningColumns } from 'components/Match/matchColumns';
-import styles from 'components/Match/Match.css';
+import { StyledFlexContainer, StyledFlexElement } from '../StyledMatch';
 
 class Laning extends React.Component {
   constructor(props) {
@@ -20,20 +21,24 @@ class Laning extends React.Component {
   }
   render() {
     const { match } = this.props;
-    return (<div className={styles.flexContainer}>
-      <div className={styles.flexElement}>
+    return (<StyledFlexContainer>
+      <StyledFlexElement >
         <Heading title={strings.th_map} />
         <Heatmap width={400} points={unpackPositionData(match.players[this.state.selectedPlayer].lane_pos)} />
-      </div>
-      <div className={styles.flexElement}>
+      </StyledFlexElement>
+      <StyledFlexElement>
         <Heading title={strings.heading_laning} />
         <Table
           data={match.players}
           columns={laningColumns(this.state, this.setSelectedPlayer)}
         />
-      </div>
-    </div>);
+      </StyledFlexElement>
+    </StyledFlexContainer>);
   }
 }
+
+Laning.propTypes = {
+  match: PropTypes.shape({}),
+};
 
 export default Laning;

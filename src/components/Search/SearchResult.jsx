@@ -8,7 +8,6 @@ import {
 import Table from 'components/Table';
 import Container from 'components/Container';
 // import { List } from 'material-ui/List';
-// import style from './search.css';
 
 const searchColumns = [{
   displayName: strings.th_name,
@@ -70,10 +69,10 @@ const Search = ({
 );
 
 Search.propTypes = {
-  players: PropTypes.array,
+  players: PropTypes.arrayOf(PropTypes.shape({})),
   playersLoading: PropTypes.bool,
   playersError: PropTypes.string,
-  pros: PropTypes.array,
+  pros: PropTypes.arrayOf(PropTypes.shape({})),
   prosLoading: PropTypes.bool,
   prosError: PropTypes.string,
 };

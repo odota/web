@@ -1,12 +1,12 @@
 /* eslint-disable import/no-dynamic-require,global-require */
 import React from 'react';
+import PropTypes from 'prop-types';
 import c3 from 'c3';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { getDistributions } from 'actions';
 import strings from 'lang';
 import Table from 'components/Table';
-import Heading from 'components/Heading';
 import {
   sum,
   abbreviateNumber,
@@ -15,7 +15,29 @@ import {
 import Warning from 'components/Alerts';
 import TabBar from 'components/TabBar';
 import Spinner from 'components/Spinner';
-import styles from './Distributions.css';
+import Heading from 'components/Heading';
+import styled from 'styled-components';
+import constants from '../constants';
+
+const CountryDiv = styled.div`
+  & img {
+    vertical-align: sub;
+    margin-right: 7px;
+    height: 24px;
+    width: 32px;
+    box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
+  }
+
+  & span {
+    vertical-align: super;
+    height: 24px;
+  }
+`;
+const StyledWarning = styled(Warning)`
+  font-size: ${constants.fontSizeCommon};
+  text-align: center;
+  margin-bottom: 20px;
+`;
 
 const countryMmrColumns = [{
   displayName: strings.th_rank,
@@ -46,15 +68,15 @@ const countryMmrColumns = [{
     }
 
     return (
-      <div className={styles.country}>
+      <CountryDiv>
         <img
           src={image}
-          role="presentation"
+          alt=""
         />
         <span>
           {name}
         </span>
-      </div>
+      </CountryDiv>
     );
   },
 }, {
@@ -75,7 +97,7 @@ const getPage = (data, key) => (
         ${data[key] && data[key].rows && abbreviateNumber(data[key].rows.map(row => row.count).reduce(sum, 0))} ${strings.th_players}
       `}
       icon=" "
-      className={styles.Heading}
+      twoLine
     />
     {(key === 'mmr') ?
       <div id="mmr" />
@@ -162,21 +184,32 @@ class RequestLayer extends React.Component {
   render() {
     const loading = this.props.loading;
     const info = this.props.match.params.info || 'mmr';
-    const page = distributionsPages.find(page => (page.key || page.name.toLowerCase()) === info);
+    const page = distributionsPages.find(_page => (_page.key || _page.name.toLowerCase()) === info);
     return loading
       ? <Spinner />
       : (<div>
         <Helmet title={page ? page.name : strings.distributions_tab_mmr} />
-        <Warning className={styles.Warning}>
+        <StyledWarning>
           {strings.distributions_warning_1}
           <br />
           {strings.distributions_warning_2}
-        </Warning>
+        </StyledWarning>
         <TabBar info={info} tabs={distributionsPages} />
         {page && page.content(this.props.data, info)}
       </div>);
   }
 }
+
+RequestLayer.propTypes = {
+  loading: PropTypes.bool,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      info: PropTypes.string,
+    }),
+  }),
+  dispatchDistributions: PropTypes.func,
+  data: PropTypes.shape({}),
+};
 
 const mapStateToProps = state => ({
   data: state.app.distributions.data,

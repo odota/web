@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { withRouter } from 'react-router-dom';
@@ -13,7 +14,6 @@ import Spinner from 'components/Spinner';
 import TableFilterForm from './TableFilterForm';
 import PlayerHeader from './Header/PlayerHeader';
 // import Error from '../Error';
-import styles from './Player.css';
 import playerPages from './playerPages';
 
 class RequestLayer extends React.Component {
@@ -42,7 +42,7 @@ class RequestLayer extends React.Component {
       this.props.history.push(`/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
     }
     const info = match.params.info || 'overview';
-    const page = playerPages(playerId).find(page => page.key === info);
+    const page = playerPages(playerId).find(_page => _page.key === info);
     const playerName = this.props.officialPlayerName || this.props.playerName || strings.general_anonymous;
     const title = page ? `${playerName} - ${page.name}` : playerName;
     return (
@@ -52,7 +52,7 @@ class RequestLayer extends React.Component {
           <PlayerHeader playerId={playerId} location={location} />
           <TabBar info={info} tabs={playerPages(playerId)} />
         </div>
-        <div className={styles.page}>
+        <div>
           <TableFilterForm playerId={playerId} />
           {page ? page.content(playerId, match.params, location) : <Spinner />}
         </div>
@@ -60,6 +60,14 @@ class RequestLayer extends React.Component {
     );
   }
 }
+
+RequestLayer.propTypes = {
+  location: PropTypes.object,
+  match: PropTypes.object,
+  history: PropTypes.object,
+  officialPlayerName: PropTypes.string,
+  playerName: PropTypes.string,
+};
 
 const mapStateToProps = state => ({
   playerName: (state.app.player.data.profile || {}).personaname,

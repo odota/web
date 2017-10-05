@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import strings from 'lang';
-// import styles from './ButtonGarden.css';
 
 const ButtonGarden = ({ buttonNames, selectedButton, onClick }) => (
   <SelectField

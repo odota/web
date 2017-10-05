@@ -1,5 +1,6 @@
 /* global window ace API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   connect,
 }
@@ -36,11 +37,11 @@ function jsonResponse(response) {
   return response.json();
 }
 
-function expandBuilderState(builder, fields) {
+function expandBuilderState(builder, _fields) {
   const expandedBuilder = {};
   Object.keys(builder).forEach((key) => {
     if (builder[key]) {
-      expandedBuilder[key] = (fields[key] || []).find(element => element.key === builder[key]) || { value: builder[key] };
+      expandedBuilder[key] = (_fields[key] || []).find(element => element.key === builder[key]) || { value: builder[key] };
     }
   });
   return expandedBuilder;
@@ -56,7 +57,7 @@ class Explorer extends React.Component {
       sqlState = urlState.sql;
       delete urlState.sql;
     } catch (e) {
-      console.error(e);
+      // console.error(e);
     }
     this.state = {
       loadingEditor: true,
@@ -243,6 +244,15 @@ class Explorer extends React.Component {
     </div>);
   }
 }
+
+Explorer.propTypes = {
+  proPlayers: PropTypes.arrayOf({}),
+  teams: PropTypes.arrayOf({}),
+  leagues: PropTypes.shape({}),
+  dispatchProPlayers: PropTypes.func,
+  dispatchLeagues: PropTypes.func,
+  dispatchTeams: PropTypes.func,
+};
 
 const mapStateToProps = state => ({
   proPlayers: state.app.proPlayers.data,
