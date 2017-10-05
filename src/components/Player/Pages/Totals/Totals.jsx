@@ -69,7 +69,7 @@ const Totals = ({ data, error, loading }) => (<div>
 </div>);
 
 Totals.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf({}),
   error: PropTypes.string,
   loading: PropTypes.bool,
 };
@@ -96,7 +96,9 @@ class RequestLayer extends React.Component {
 
 RequestLayer.propTypes = {
   playerId: PropTypes.string,
-  location: PropTypes.object,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
 };
 
 const mapStateToProps = state => ({

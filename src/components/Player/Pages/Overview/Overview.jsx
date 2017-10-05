@@ -158,15 +158,15 @@ const Overview = ({
 );
 
 Overview.propTypes = {
-  validRecentMatches: PropTypes.array,
+  validRecentMatches: PropTypes.arrayOf({}),
   numValidRecentMatches: PropTypes.number,
-  matchesData: PropTypes.array,
+  matchesData: PropTypes.arrayOf({}),
   matchesLoading: PropTypes.bool,
   matchesError: PropTypes.string,
-  heroesData: PropTypes.array,
+  heroesData: PropTypes.arrayOf({}),
   heroesLoading: PropTypes.bool,
   heroesError: PropTypes.string,
-  peersData: PropTypes.array,
+  peersData: PropTypes.arrayOf({}),
   peersLoading: PropTypes.bool,
   peersError: PropTypes.string,
   playerId: PropTypes.string,
@@ -197,7 +197,9 @@ class RequestLayer extends React.Component {
 }
 
 RequestLayer.propTypes = {
-  location: PropTypes.object,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
   playerId: PropTypes.string,
 };
 

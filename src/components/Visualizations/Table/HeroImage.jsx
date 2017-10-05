@@ -354,7 +354,7 @@ const TableHeroImage = ({
   </Styled>
 );
 
-const { string, oneOfType, bool, node, shape, object, number } = PropTypes;
+const { string, oneOfType, bool, node, shape, object } = PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: PropTypes.number,
@@ -382,7 +382,7 @@ TableHeroImage.propTypes = {
   randomed: bool,
   repicked: string,
   predictedVictory: bool,
-  leaverStatus: number,
+  leaverStatus: PropTypes.number,
 };
 
 // If need party or estimated, just add new prop with default val = solo and change icons depending what needs

@@ -62,9 +62,17 @@ class RequestLayer extends React.Component {
 }
 
 RequestLayer.propTypes = {
-  location: PropTypes.object,
-  match: PropTypes.object,
-  history: PropTypes.object,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      playerId: PropTypes.string,
+    }),
+  }),
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
   officialPlayerName: PropTypes.string,
   playerName: PropTypes.string,
 };
