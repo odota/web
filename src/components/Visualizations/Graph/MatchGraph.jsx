@@ -28,7 +28,7 @@ const StyledRadiant = styled.span`
 `;
 const StyledDire = styled.span`
   position: absolute;
-  top: 280px;
+  bottom: 60px;
   left: 100px;
   color: white;
   filter: drop-shadow(0 0 5px ${constants.colorDanger});
@@ -52,6 +52,8 @@ const GoldSpan = styled.span`color: ${constants.golden};`;
 const XpSpan = styled.span`color: #acc9ed;`;
 const StyledTooltipGold = styled.div`display: inline-flex;`;
 
+const formatGraphTime = minutes => `${minutes}:00`;
+
 const generateDiffData = (match) => {
   const { radiant_gold_adv, radiant_xp_adv } = match;
   const data = [];
@@ -67,18 +69,29 @@ const XpTooltipContent = ({ payload }) => {
     const xp = data.rXpAdv;
     const gold = data.rGoldAdv;
     const time = data.time;
+
     return (
       <StyledTooltip>
         <StyledTooltipGold>
-          <span>{`${time}`}</span>
+          <span>{`${formatGraphTime(time)}`}</span>
         </StyledTooltipGold>
         <br />
         <StyledTooltipGold>
-          <GoldSpan>{gold} {strings.heading_graph_gold}</GoldSpan>
+          <StyledTooltipTeam
+            color={gold > 0 ? constants.colorSuccess : constants.colorDanger}
+          >
+            {gold > 0 ? 'Radiant' : 'Dire'}
+          </StyledTooltipTeam>
+          <GoldSpan>{Math.abs(gold)} Gold</GoldSpan>
         </StyledTooltipGold>
         <br />
         <StyledTooltipGold>
-          <XpSpan>{xp} {strings.heading_graph_xp}</XpSpan>
+          <StyledTooltipTeam
+            color={xp > 0 ? constants.colorSuccess : constants.colorDanger}
+          >
+            {xp > 0 ? 'Radiant' : 'Dire'}
+          </StyledTooltipTeam>
+          <XpSpan>{Math.abs(xp)} Experience</XpSpan>
         </StyledTooltipGold>
       </StyledTooltip>
     );
@@ -86,7 +99,6 @@ const XpTooltipContent = ({ payload }) => {
     return null;
   }
 };
-
 XpTooltipContent.propTypes = {
   payload: PropTypes.shape({}),
 };
@@ -110,7 +122,7 @@ const XpNetworthGraph = ({ match, width }) => {
       >
         <ReferenceArea y1={0} y2={maxY} fill={'rgba(102, 187, 106, 0.12)'} />
         <ReferenceArea y1={0} y2={minY} fill={'rgba(255, 76, 76, 0.12)'} />
-        <XAxis dataKey="time" interval={4}>
+        <XAxis dataKey="time" interval={4} tickFormatter={formatGraphTime}>
           <Label value={strings.th_time} position="insideTopRight" />
         </XAxis>
         <YAxis domain={[minY, maxY]} />
@@ -149,33 +161,11 @@ XpNetworthGraph.propTypes = {
   match: PropTypes.shape({}),
 };
 
-const PlayerTooltipContent = ({ payload }) => {
-  const data = (payload[0] || {}).payload;
-  return (
-    <StyledTooltip>
-      {Object.keys(data || {}).map(key =>
-        // TODO colorize text
-        // TODO sort
-        (<div><StyledTooltipGold>
-          <StyledTooltipTeam>
-            {key === 'time' ? '' : key}
-          </StyledTooltipTeam>
-          <div>{`${data[key]}${key === 'time' ? '\'' : ''}`}</div>
-        </StyledTooltipGold>
-        </div>),
-      )}
-    </StyledTooltip>
-  );
-};
-PlayerTooltipContent.propTypes = {
-  payload: PropTypes.shape({}),
-};
-
 const PlayersGraph = ({ match, width, type }) => {
   const matchData = [];
   if (match.players && match.players[0] && match.players[0][`${type}_t`]) {
     match.players[0][`${type}_t`].forEach((value, index) => {
-      const obj = { time: index };
+      const obj = { time: formatGraphTime(index) };
       match.players.forEach((player) => {
         const hero = heroes[player.hero_id] || {};
         obj[hero.localized_name] = player[`${type}_t`][index];
@@ -192,7 +182,7 @@ const PlayersGraph = ({ match, width, type }) => {
           data={matchData}
           margin={{ top: 5, right: 30, left: 30, bottom: 5 }}
         >
-          <XAxis dataKey="time" interval={4}>
+          <XAxis dataKey="time" interval={4} >
             <Label value={strings.th_time} position="insideTopRight" />
           </XAxis>
           <YAxis />
@@ -202,7 +192,10 @@ const PlayersGraph = ({ match, width, type }) => {
             opacity={0.5}
           />
 
-          <Tooltip wrapperStyle={{ backgroundColor: constants.darkPrimaryColor }} />
+          <Tooltip
+            itemSorter={(a, b) => a.value < b.value}
+            wrapperStyle={{ backgroundColor: constants.darkPrimaryColor, border: 'none' }}
+          />
           {match.players.map((player) => {
             const hero = heroes[player.hero_id] || {};
             const playerColor = playerColors[player.player_slot];
