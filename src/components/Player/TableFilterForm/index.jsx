@@ -206,7 +206,7 @@ class TableFilterForm extends React.Component {
 TableFilterForm.propTypes = {
   showForm: PropTypes.bool,
   currentQueryString: PropTypes.string,
-  history: PropTypes.object,
+  history: PropTypes.shape({}),
   playerId: PropTypes.string,
 };
 

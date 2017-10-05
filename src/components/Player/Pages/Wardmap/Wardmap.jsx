@@ -82,10 +82,12 @@ RequestLayer.propTypes = {
   updateWindowSize: PropTypes.func,
   error: PropTypes.string,
   loading: PropTypes.bool,
-  data: PropTypes.array,
-  browser: PropTypes.object,
+  data: PropTypes.arrayOf({}),
+  browser: PropTypes.shape({}),
   playerId: PropTypes.string,
-  location: PropTypes.object,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
 };
 
 const mapStateToProps = state => ({

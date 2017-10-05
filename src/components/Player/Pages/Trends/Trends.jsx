@@ -143,12 +143,12 @@ const Trend = ({ routeParams, columns, playerId, error, loading, history }) => {
 };
 
 Trend.propTypes = {
-  routeParams: PropTypes.object,
-  columns: PropTypes.array,
+  routeParams: PropTypes.shape({}),
+  columns: PropTypes.arrayOf({}),
   playerId: PropTypes.string,
   error: PropTypes.string,
   loading: PropTypes.bool,
-  history: PropTypes.object,
+  history: PropTypes.shape({}),
 };
 
 const getData = (props) => {
@@ -175,7 +175,9 @@ class RequestLayer extends React.Component {
 
 RequestLayer.propTypes = {
   playerId: PropTypes.string,
-  location: PropTypes.object,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
 };
 
 const mapStateToProps = state => ({

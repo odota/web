@@ -17,8 +17,8 @@ const Search = ({ data, pros, query, ...rest }) => (<div>
 );
 
 Search.propTypes = {
-  data: PropTypes.object,
-  pros: PropTypes.array,
+  data: PropTypes.shape({}),
+  pros: PropTypes.arrayOf({}),
   query: PropTypes.string,
 };
 
