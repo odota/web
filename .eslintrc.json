@@ -16,13 +16,7 @@
       "allowSamePrecedence": true
     }],
     "no-shadow": 1,
-    "import/named": 2,
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": ["**/*.spec.*", "**/test/**/*", "webpack.config.js"]
-      }
-    ],
+    "import/named": ["error"],
     "react/no-array-index-key": 1,
     "react/require-default-props": 0
   }
