@@ -1,91 +1,154 @@
-import React, {
-  Component,
-} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import uuid from 'uuid';
-import c3 from 'c3';
-import {
-  formatSeconds,
-  getLevelFromXp,
-} from 'utility';
 import styled from 'styled-components';
-import playerColors from 'dotaconstants/build/player_colors.json';
-import strings from 'lang';
 import Heading from 'components/Heading';
+import {
+  ReferenceArea,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Line,
+  LineChart,
+  CartesianGrid,
+  ReferenceLine,
+  Legend,
+} from 'recharts';
+import constants from '../constants';
 
-const colorArray = Object.keys(playerColors).map(k => playerColors[k]);
+const StyledRadiant = styled.span`
+  color: white;
+  position: absolute;
+  top: 52px;
+  left: 100px;
+  filter: drop-shadow(0 0 5px ${constants.colorSuccess});
+`;
+const StyledDire = styled.span`
+  position: absolute;
+  top: 280px;
+  left: 100px;
+  color: white;
+  filter: drop-shadow(0 0 5px ${constants.colorDanger});
+`;
+const StyledHolder = styled.div`position: relative;`;
 
-const StyledMatchGraph = styled.div`
-  margin-top: 20px;
-  margin-bottom: 20px;`;
+const StyledTooltip = styled.div`
+  position: relative;
+  display: block;
+  padding: 0.5em;
+  background-color: ${constants.darkPrimaryColor};
+`;
+const StyledTooltipTeam = styled.span`
+  position: relative;
+  margin-right: 0.3em;
+  color: ${props => props.color};
+`;
+const GoldSpan = styled.span`color: ${constants.golden};`;
+const XpSpan = styled.span`color: #acc9ed;`;
+const StyledTooltipGold = styled.div`display: inline-flex;`;
 
-const drawGraphs = (props, id) => {
-  if (props.match && props.match.graphData) {
-    const data = props.match.graphData[props.type];
-    const color = props.type === 'difference' ? null : {
-      pattern: colorArray,
-    };
-    const type = props.type === 'difference' ? 'area-spline' : 'spline';
-    const valueFormat = props.type === 'xp' ? xp => `${xp} - ${strings.th_level} ${getLevelFromXp(xp)}` : undefined;
-    c3.generate({
-      bindto: `#${id}`,
-      data: {
-        x: 'time',
-        columns: data,
-        type,
-      },
-      color,
-      axis: {
-        x: {
-          tick: {
-            format(x) {
-              return formatSeconds(x);
-            },
-          },
-          label: 'Time',
-        },
-        y: {
-          label: props.type,
-        },
-      },
-      zoom: {
-        enabled: true,
-        rescale: true,
-      },
-      tooltip: {
-        contents(d, defaultTitleFormat, defaultValueFormat, _color) {
-          return this.getTooltipContent(d, defaultTitleFormat, valueFormat || defaultValueFormat, _color);
-        },
-        order: (a, b) => {
-          if (props.type === 'difference') return a.id - b.id;
-          return b.value - a.value;
-        },
-      },
-    });
+const generateDiffData = (match) => {
+  const { radiant_gold_adv, radiant_xp_adv } = match;
+  const data = [];
+  radiant_xp_adv.forEach((rXpAdv, index) => {
+    data.push({ time: index, rXpAdv, rGoldAdv: radiant_gold_adv[index] });
+  });
+  return data;
+};
+const TooltipContent = ({ payload }) => {
+  try {
+    const data = payload[0].payload;
+    const xp = data.rXpAdv;
+    const gold = data.rGoldAdv;
+    return (
+      <StyledTooltip>
+        <StyledTooltipGold>
+          <StyledTooltipTeam
+            color={gold > 0 ? constants.colorSuccess : constants.colorDanger}
+          >
+            {gold > 0 ? 'Radiant' : 'Dire'}
+          </StyledTooltipTeam>
+          <GoldSpan>{Math.abs(gold)}</GoldSpan>
+        </StyledTooltipGold>
+        <br />
+        <StyledTooltipGold>
+          <StyledTooltipTeam
+            color={xp > 0 ? constants.colorSuccess : constants.colorDanger}
+          >
+            {xp > 0 ? 'Radiant' : 'Dire'}
+          </StyledTooltipTeam>
+          <XpSpan>{Math.abs(xp)}</XpSpan>
+        </StyledTooltipGold>
+      </StyledTooltip>
+    );
+  } catch (e) {
+    return null;
   }
 };
 
-class MatchGraph extends Component {
-  componentWillMount() {
-    this.id = `a-${uuid.v4()}`;
-  }
-  componentDidMount() {
-    drawGraphs(this.props, this.id);
-  }
-  componentWillUpdate(nextProps) {
-    drawGraphs(nextProps, this.id);
-  }
-
+TooltipContent.propTypes = {
+  payload: PropTypes.object,
+};
+class XpNetworthGraph extends PureComponent {
   render() {
-    return (<div>
-      <Heading title={strings[`heading_graph_${this.props.type}`]} />
-      <StyledMatchGraph id={this.id} />
-    </div>);
+    const { match } = this.props;
+    const matchData = generateDiffData(match);
+    const maxY =
+      Math.ceil(
+        Math.max(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000,
+      ) * 5000;
+    const minY =
+      Math.floor(
+        Math.min(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000,
+      ) * 5000;
+    return (
+      <StyledHolder>
+        <StyledRadiant>The Radiant</StyledRadiant>
+        <StyledDire>The Dire</StyledDire>
+        <Heading title="Team XP and Net worth" />
+        <LineChart
+          width={this.props.width}
+          height={320}
+          data={matchData}
+          margin={{ top: 5, right: 30, left: 30, bottom: 5 }}
+        >
+          <ReferenceArea y1={0} y2={maxY} fill={'rgba(102, 187, 106, 0.12)'} />
+          <ReferenceArea y1={0} y2={minY} fill={'rgba(255, 76, 76, 0.12)'} />
+          <XAxis dataKey="time" interval={4} />
+          <YAxis domain={[minY, maxY]} tickFormatter={Math.abs} />
+          <ReferenceLine y={0} stroke="#505050" strokeWidth={2} opacity={1} />
+          <CartesianGrid
+            vertical={false}
+            stroke="#505050"
+            strokeWidth={1}
+            opacity={0.5}
+          />
+
+          <Tooltip content={<TooltipContent />} />
+          <Line
+            dot={false}
+            dataKey="rXpAdv"
+            stroke="#acc9ed"
+            strokeWidth={2}
+            name="Xp"
+          />
+          <Line
+            dot={false}
+            dataKey="rGoldAdv"
+            stroke="#ffd455"
+            strokeWidth={2}
+            name="Gold"
+          />
+          <Legend />
+        </LineChart>
+      </StyledHolder>
+    );
   }
 }
-
-MatchGraph.propTypes = {
-  type: PropTypes.string,
+XpNetworthGraph.defaultProps = {
+  width: 1200,
 };
-
-export default MatchGraph;
+XpNetworthGraph.propTypes = {
+  width: PropTypes.number,
+  match: PropTypes.object,
+};
+export default XpNetworthGraph;

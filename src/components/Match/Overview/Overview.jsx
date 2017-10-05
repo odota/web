@@ -5,7 +5,7 @@ import TeamTable from '../TeamTable';
 import AbilityBuildTable from '../AbilityBuildTable';
 import { overviewColumns, abilityColumns } from '../matchColumns';
 import BuildingMap from '../BuildingMap';
-// import MatchGraph from '../MatchGraph';
+import MatchGraph from '../MatchGraph';
 
 const Styled = styled.div`
   width: 100%;
@@ -19,7 +19,7 @@ const Styled = styled.div`
     margin-left: 30px;
     width: calc(100% - 312px - 50px);
 
-    & svg[style="overflow: hidden;"] {
+    & svg[style='overflow: hidden;'] {
       margin-top: 14px;
     }
   }
@@ -27,7 +27,7 @@ const Styled = styled.div`
   & .map {
     margin: 0 auto;
   }
-  
+
   @media only screen and (max-width: 370px) {
     & .map {
       width: 262px !important;
@@ -80,10 +80,9 @@ export default {
           <div className="map">
             <BuildingMap match={match} />
           </div>
-          { /* match.version &&
-          <div className="graph">
-            <MatchGraph match={match} type="difference" />
-          </div> */}
+          <div>
+            <MatchGraph match={match} width={900} />
+          </div>
         </Styled>
       }
     </div>
