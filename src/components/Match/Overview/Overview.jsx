@@ -1,11 +1,11 @@
 import React from 'react';
 import strings from 'lang';
 import styled from 'styled-components';
+import MatchGraph from 'components/Visualizations/Graph/MatchGraph';
 import TeamTable from '../TeamTable';
 import AbilityBuildTable from '../AbilityBuildTable';
 import { overviewColumns, abilityColumns } from '../matchColumns';
 import BuildingMap from '../BuildingMap';
-import MatchGraph from '../MatchGraph';
 
 const Styled = styled.div`
   width: 100%;
@@ -80,9 +80,9 @@ export default {
           <div className="map">
             <BuildingMap match={match} />
           </div>
-          <div>
-            <MatchGraph match={match} width={900} />
-          </div>
+          {match.version && <div>
+            <MatchGraph match={match} width={900} type="difference" />
+          </div>}
         </Styled>
       }
     </div>

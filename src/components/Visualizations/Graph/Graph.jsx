@@ -116,34 +116,9 @@ class GraphWrapper extends Component {
     return <Graph id={this.id} height={this.props.height} />;
   }
 }
+
 GraphWrapper.propTypes = {
   height: PropTypes.number,
 };
-
-/*
-const { string, number, arrayOf, shape, func, bool } = PropTypes;
-GraphWrapper.propTypes = {
-  columns: arrayOf(shape({
-    x: number,
-    value: number.isRequired,
-  })).isRequired,
-  xAxis: shape({
-    tick: shape({
-      values: arrayOf(number),
-    }),
-  }),
-  hidePoints: bool,
-  formatFn: func,
-  colorFn: func,
-  type: string.isRequired,
-  name: string,
-  height: number,
-  noX: bool,
-  otherColumnNames: arrayOf(shape({
-    name: string.isRequired,
-    property: string.isRequired,
-  })),
-};
-*/
 
 export default GraphWrapper;

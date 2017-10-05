@@ -4,10 +4,10 @@ import Heading from 'components/Heading';
 import Table from 'components/Table';
 import TeamfightMap from 'components/Match/TeamfightMap';
 import Timeline from 'components/Match/Overview/Timeline';
+import MatchGraph from 'components/Visualizations/Graph/MatchGraph';
 import Vision from './Vision';
 import Laning from './Laning';
 import CrossTable from './CrossTable';
-import MatchGraph from './MatchGraph';
 import MatchLog from './MatchLog';
 import MatchStory from './MatchStory';
 import {
@@ -147,10 +147,10 @@ const matchPages = [Overview, {
   parsed: true,
   content: match => (<div>
     <Timeline match={match} />
-    <MatchGraph match={match} />
-    {/* <MatchGraph match={match} type="gold" /> */}
-    {/* <MatchGraph match={match} type="xp" /> */}
-    {/* <MatchGraph match={match} type="lh" /> */}
+    <MatchGraph match={match} type="difference" />
+    <MatchGraph match={match} type="gold" />
+    <MatchGraph match={match} type="xp" />
+    <MatchGraph match={match} type="lh" />
   </div>),
 }, {
   name: strings.tab_casts,

@@ -135,7 +135,7 @@ export const StyledRunes = styled.div`
 `;
 
 export const StyledDivClearBoth = styled.div`
-  min-width: 200px;
+  min-width: 240px;
   > div {
     clear: both;
   }
