@@ -147,10 +147,10 @@ const matchPages = [Overview, {
   parsed: true,
   content: match => (<div>
     <Timeline match={match} />
-    <MatchGraph match={match} type="difference" />
-    <MatchGraph match={match} type="gold" />
-    <MatchGraph match={match} type="xp" />
-    <MatchGraph match={match} type="lh" />
+    <MatchGraph match={match} />
+    {/* <MatchGraph match={match} type="gold" /> */}
+    {/* <MatchGraph match={match} type="xp" /> */}
+    {/* <MatchGraph match={match} type="lh" /> */}
   </div>),
 }, {
   name: strings.tab_casts,
