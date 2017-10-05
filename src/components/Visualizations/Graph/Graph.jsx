@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import c3 from 'c3';
+// import c3 from 'c3';
 import uuid from 'uuid';
 import strings from 'lang';
 
@@ -95,7 +95,7 @@ const generateGraph = ({
         onclick: onClick,
       };
     }
-    c3.generate(configObject);
+    // c3.generate(configObject);
   }
 };
 

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-dynamic-require,global-require */
 import React from 'react';
 import PropTypes from 'prop-types';
-import c3 from 'c3';
+// import c3 from 'c3';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { getDistributions } from 'actions';
@@ -178,7 +178,7 @@ class RequestLayer extends React.Component {
           },
         },
       };
-      c3.generate(options);
+      // c3.generate(options);
     }
   }
   render() {
