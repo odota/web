@@ -74,7 +74,7 @@ const TooltipStylesDiv = styled.div`
 const Trend = ({ routeParams, columns, playerId, error, loading, history }) => {
   const selectedTrend = routeParams.subInfo || trendNames[0];
   return (
-    <div style={{ fontSize: 10 }}>
+    <div>
       <Heading title={strings.trends_name} subtitle={strings.trends_description} />
       <ButtonGarden
         onClick={buttonName => history.push(`/players/${playerId}/trends/${buttonName}${window.location.search}`)}
@@ -82,7 +82,6 @@ const Trend = ({ routeParams, columns, playerId, error, loading, history }) => {
         selectedButton={selectedTrend}
       />
       <Container
-        style={{ fontSize: 10, minHeight: '320px' }}
         error={error}
         loading={loading}
       >

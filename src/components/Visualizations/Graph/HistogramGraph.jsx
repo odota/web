@@ -83,7 +83,8 @@ const HistogramGraph = ({
     opacity={0.5}
   />
 
-  <Tooltip content={<HistogramTooltipContent />} /> <Bar
+  <Tooltip />
+  <Bar
     dataKey="games"
   >
     {
@@ -98,7 +99,9 @@ const HistogramGraph = ({
         console.log(color);
         return <Cell fill={color} />;
       })
-    } </Bar> </BarChart>
+    }
+  </Bar>
+</BarChart>
 );
 
 HistogramGraph.propTypes = {

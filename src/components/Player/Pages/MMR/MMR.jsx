@@ -14,7 +14,7 @@ const MMRInfo = (<Info>
 </Info>);
 
 const MMR = ({ columns, error, loading }) => (
-  <div style={{ fontSize: 10 }}>
+  <div>
     <Container title={strings.heading_mmr} subtitle={MMRInfo} error={error} loading={loading}>
       <MMRGraph columns={columns} />
     </Container>

@@ -94,7 +94,7 @@ const DistributionGraph = ({
         opacity={0.5}
       />
 
-      <Tooltip content={<DistributionTooltipContent />} />
+      <Tooltip />
       <Bar
         dataKey="count"
         yAxisId="left"

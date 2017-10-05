@@ -12,12 +12,6 @@ import {
   Label,
 } from 'recharts';
 
-// TODO add a tooltip
-const MMRTooltipContent = ({ payload }) => (<div />);
-MMRTooltipContent.propTypes = {
-  payload: PropTypes.arrayOf({}),
-};
-
 // TODO add dates to x axis
 const MMRGraph = ({ columns }) => (<LineChart
   width={1200}
@@ -35,7 +29,7 @@ const MMRGraph = ({ columns }) => (<LineChart
     opacity={0.5}
   />
 
-  <Tooltip content={<MMRTooltipContent />} />
+  <Tooltip />
   <Line
     dot={false}
     dataKey="value"

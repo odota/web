@@ -70,7 +70,7 @@ const XpTooltipContent = ({ payload }) => {
     return (
       <StyledTooltip>
         <StyledTooltipGold>
-          <span>{`${time}'`}</span>
+          <span>{`${time}`}</span>
         </StyledTooltipGold>
         <br />
         <StyledTooltipGold>
@@ -202,7 +202,7 @@ const PlayersGraph = ({ match, width, type }) => {
             opacity={0.5}
           />
 
-          <Tooltip content={<PlayerTooltipContent />} />
+          <Tooltip wrapperStyle={{ backgroundColor: constants.darkPrimaryColor }} />
           {match.players.map((player) => {
             const hero = heroes[player.hero_id] || {};
             const playerColor = playerColors[player.player_slot];
