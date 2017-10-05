@@ -111,7 +111,7 @@ const XpNetworthGraph = ({ match, width }) => {
         <ReferenceArea y1={0} y2={maxY} fill={'rgba(102, 187, 106, 0.12)'} />
         <ReferenceArea y1={0} y2={minY} fill={'rgba(255, 76, 76, 0.12)'} />
         <XAxis dataKey="time" interval={4}>
-          <Label value={strings.th_time} position="right" />
+          <Label value={strings.th_time} position="insideTopRight" />
         </XAxis>
         <YAxis domain={[minY, maxY]} />
         <ReferenceLine y={0} stroke="#505050" strokeWidth={2} opacity={1} />
@@ -154,7 +154,7 @@ const PlayerTooltipContent = ({ payload }) => {
   return (
     <StyledTooltip>
       {Object.keys(data || {}).map(key =>
-        //  TODO colorize text
+        // TODO colorize text
         // TODO sort
         (<div><StyledTooltipGold>
           <StyledTooltipTeam>
@@ -173,53 +173,53 @@ PlayerTooltipContent.propTypes = {
 
 const PlayersGraph = ({ match, width, type }) => {
   const matchData = [];
-  // TODO handle unparsed matches (prop may not exist)
-  match.players[0][`${type}_t`].forEach((value, index) => {
-    const obj = { time: index };
-    match.players.forEach((player) => {
-      const hero = heroes[player.hero_id] || {};
-      obj[hero.localized_name] = player[`${type}_t`][index];
+  if (match.players && match.players[0] && match.players[0][`${type}_t`]) {
+    match.players[0][`${type}_t`].forEach((value, index) => {
+      const obj = { time: index };
+      match.players.forEach((player) => {
+        const hero = heroes[player.hero_id] || {};
+        obj[hero.localized_name] = player[`${type}_t`][index];
+      });
+      matchData.push(obj);
     });
-    matchData.push(obj);
-  });
-  console.log(width, type, matchData);
 
-  return (
-    <StyledHolder>
-      <Heading title={strings[`heading_graph_${type}`]} />
-      <LineChart
-        width={width}
-        height={400}
-        data={matchData}
-        margin={{ top: 5, right: 30, left: 30, bottom: 5 }}
-      >
-        <XAxis dataKey="time" interval={4}>
-          <Label value={strings.th_time} position="right" />
-        </XAxis>
-        <YAxis />
-        <CartesianGrid
-          stroke="#505050"
-          strokeWidth={1}
-          opacity={0.5}
-        />
+    return (
+      <StyledHolder>
+        <Heading title={strings[`heading_graph_${type}`]} />
+        <LineChart
+          width={width}
+          height={400}
+          data={matchData}
+          margin={{ top: 5, right: 30, left: 30, bottom: 5 }}
+        >
+          <XAxis dataKey="time" interval={4}>
+            <Label value={strings.th_time} position="insideTopRight" />
+          </XAxis>
+          <YAxis />
+          <CartesianGrid
+            stroke="#505050"
+            strokeWidth={1}
+            opacity={0.5}
+          />
 
-        <Tooltip content={<PlayerTooltipContent />} />
-        {match.players.map((player) => {
-          const hero = heroes[player.hero_id] || {};
-          const playerColor = playerColors[player.player_slot];
-          console.log(hero.localized_name, playerColor);
-          return (<Line
-            dot={false}
-            dataKey={hero.localized_name}
-            stroke={playerColor}
-            strokeWidth={2}
-            name={hero.localized_name}
-          />);
-        })}
-        <Legend />
-      </LineChart>
-    </StyledHolder>
-  );
+          <Tooltip content={<PlayerTooltipContent />} />
+          {match.players.map((player) => {
+            const hero = heroes[player.hero_id] || {};
+            const playerColor = playerColors[player.player_slot];
+            return (<Line
+              dot={false}
+              dataKey={hero.localized_name}
+              stroke={playerColor}
+              strokeWidth={2}
+              name={hero.localized_name}
+            />);
+          })}
+          <Legend />
+        </LineChart>
+      </StyledHolder>
+    );
+  }
+  return null;
 };
 PlayersGraph.propTypes = {
   width: PropTypes.number,
