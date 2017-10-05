@@ -1,4 +1,3 @@
-// import c3 from 'c3';
 // import strings from 'lang';
 
 /*

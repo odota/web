@@ -18,7 +18,7 @@ import constants from '../../../constants';
 const TooltipStylesDiv = styled.div`
 .tooltipWrapper {
   background-color: ${constants.defaultPrimaryColor};
-  color: ${constants.textColorPrimary} !important; /* override c3 */
+  color: ${constants.textColorPrimary} !important;
   font-size: ${constants.fontSizeMedium};
   min-width: 250px;
 }
