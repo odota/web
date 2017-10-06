@@ -159,6 +159,14 @@ const Styled = styled.div`
         flex-direction: row;
         align-items: center;
       }
+
+      & span.goldDelta {
+        margin-left: auto;
+      }
+
+      & .goldChange {
+        display: inline;
+      }
     }
   }
 
@@ -337,10 +345,11 @@ const Timeline = ({
           time: (fight.start + fight.end) / 2,
           radiant_gold_advantage_delta: fight.radiant_gold_advantage_delta,
           deaths: fight.players
-            .map((player, i) => (player.deaths > 0 ? {
+            .map((player, i) => ({
               key: i,
               gold_delta: player.gold_delta,
-            } : ''))
+              deaths: player.deaths,
+            }))
             .filter(String),
         })) : [],
       );
@@ -491,7 +500,8 @@ const Timeline = ({
                             {obj.deaths.map(death => (
                               <section key={death.key}>
                                 <PlayerThumb {...match.players[death.key]} />
-                                <span>
+                                {death.deaths > 0 ? <img src="/assets/images/player_death.png" alt="died" /> : ''}
+                                <span className="goldDelta">
                                   {death.gold_delta > 0 ? <span className="goldChange goldGot" /> : <span className="goldChange goldLost" />}
                                   {/* nothing if === 0 */}
                                   <font style={{ color: constants.colorGolden }}>{Math.abs(death.gold_delta)} </font>
