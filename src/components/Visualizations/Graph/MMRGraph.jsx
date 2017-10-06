@@ -11,15 +11,20 @@ import {
   Legend,
   Label,
 } from 'recharts';
+import constants from 'components/constants';
 
-// TODO add dates to x axis
+const formatXTick = (time) => {
+  const date = new Date(time);
+  return `${date.getFullYear()}/${date.getMonth() + 1}`;
+};
+
 const MMRGraph = ({ columns }) => (<LineChart
   width={1200}
   height={400}
   data={columns}
   margin={{ top: 5, right: 30, left: 30, bottom: 5 }}
 >
-  <XAxis dataKey="time" interval={4}>
+  <XAxis dataKey="time" interval={30} tickFormatter={formatXTick}>
     <Label value={strings.th_time} position="insideTopRight" />
   </XAxis>
   <YAxis />
@@ -29,17 +34,19 @@ const MMRGraph = ({ columns }) => (<LineChart
     opacity={0.5}
   />
 
-  <Tooltip />
+  <Tooltip
+    wrapperStyle={{ backgroundColor: constants.darkPrimaryColor, border: 'none' }}
+  />
   <Line
     dot={false}
-    dataKey="value"
+    dataKey="solo_competitive_rank"
     stroke="#66BBFF"
     strokeWidth={2}
     name={strings.th_solo_mmr}
   />
   <Line
     dot={false}
-    dataKey="competitiveRank"
+    dataKey="competitive_rank"
     stroke="#FF4C4C"
     strokeWidth={2}
     name={strings.th_party_mmr}

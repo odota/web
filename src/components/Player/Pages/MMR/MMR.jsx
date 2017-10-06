@@ -57,11 +57,7 @@ RequestLayer.propTypes = {
 
 
 const mapStateToProps = state => ({
-  columns: state.app.playerMmr.data.map(mmr => ({
-    value: mmr.solo_competitive_rank,
-    x: new Date(mmr.time),
-    competitiveRank: mmr.competitive_rank,
-  })),
+  columns: state.app.playerMmr.data,
   loading: state.app.playerMmr.loading,
   error: state.app.playerMmr.error,
 });

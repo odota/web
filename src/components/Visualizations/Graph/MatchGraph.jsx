@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import Heading from 'components/Heading';
 import {
   ReferenceArea,
@@ -18,39 +17,7 @@ import constants from 'components/constants';
 import strings from 'lang';
 import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
-
-const StyledRadiant = styled.span`
-  color: white;
-  position: absolute;
-  top: 52px;
-  left: 100px;
-  filter: drop-shadow(0 0 5px ${constants.colorSuccess});
-`;
-const StyledDire = styled.span`
-  position: absolute;
-  bottom: 60px;
-  left: 100px;
-  color: white;
-  filter: drop-shadow(0 0 5px ${constants.colorDanger});
-`;
-const StyledHolder = styled.div`position: relative;`;
-
-const StyledTooltip = styled.div`
-  position: relative;
-  display: block;
-  padding: 0.5em;
-  background-color: ${constants.darkPrimaryColor};
-`;
-
-const StyledTooltipTeam = styled.span`
-  position: relative;
-  margin-right: 0.3em;
-  color: ${props => props.color};
-`;
-
-const GoldSpan = styled.span`color: ${constants.golden};`;
-const XpSpan = styled.span`color: #acc9ed;`;
-const StyledTooltipGold = styled.div`display: inline-flex;`;
+import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHolder, GoldSpan, XpSpan, StyledTooltipGold } from './Styled';
 
 const formatGraphTime = minutes => `${minutes}:00`;
 
