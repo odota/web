@@ -46,6 +46,10 @@ const Styled = styled.div`
   border-width: 2px !important;
   border-color: ${constants.colorDanger} !important;
 }
+
+div > img {
+  width: 18px;
+}
 `;
 
 const wardStyle = (width, log) => {
@@ -75,7 +79,15 @@ const wardStyle = (width, log) => {
     background: fill,
     borderRadius: '50%',
     border: `${strokeWidth}px solid ${stroke}`,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   };
+};
+
+const wardIcon = (log) => {
+  const side = log.entered.player_slot < 5 ? 'goodguys' : 'badguys';
+  return `/assets/images/dota2/map/${side}_${log.type}.png`;
 };
 
 const WardTooltipEnter = ({ player, log }) => (
@@ -123,7 +135,12 @@ const WardPin = ({ match, width, log }) => {
         style={wardStyle(width, log)}
         data-tip
         data-for={id}
-      />
+      >
+        <img
+          src={wardIcon(log)}
+          alt={log.type === 'observer' ? 'O' : 'S'}
+        />
+      </div>
       <ReactTooltip
         id={id}
         effect="solid"

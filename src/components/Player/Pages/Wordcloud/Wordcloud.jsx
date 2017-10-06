@@ -42,10 +42,12 @@ class RequestLayer extends React.Component {
 
 RequestLayer.propTypes = {
   playerId: PropTypes.string,
-  location: PropTypes.object,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
   error: PropTypes.string,
   loading: PropTypes.bool,
-  data: PropTypes.object,
+  data: PropTypes.shape({}),
 };
 
 const mapStateToProps = state => ({

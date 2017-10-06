@@ -40,9 +40,9 @@ const Records = ({ routeParams, data, error, loading, playerId, history }) => {
 };
 
 Records.propTypes = {
-  routeParams: PropTypes.object,
-  history: PropTypes.object,
-  data: PropTypes.array,
+  routeParams: PropTypes.shape({}),
+  history: PropTypes.shape({}),
+  data: PropTypes.arrayOf({}),
   error: PropTypes.string,
   playerId: PropTypes.string,
   loading: PropTypes.bool,
@@ -70,7 +70,9 @@ class RequestLayer extends React.Component {
 }
 
 RequestLayer.propTypes = {
-  location: PropTypes.object,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
   playerId: PropTypes.string,
 };
 

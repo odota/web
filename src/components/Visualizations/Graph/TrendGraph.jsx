@@ -22,9 +22,9 @@ const TrendGraph = ({ columns, name, tooltip, onClick }) => (
 );
 
 TrendGraph.propTypes = {
-  columns: PropTypes.arrayOf(),
+  columns: PropTypes.arrayOf({}),
   name: PropTypes.string,
-  tooltip: PropTypes.object,
+  tooltip: PropTypes.shape({}),
   onClick: PropTypes.func,
 };
 

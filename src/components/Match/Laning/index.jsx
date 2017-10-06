@@ -16,15 +16,15 @@ class Laning extends React.Component {
     };
     this.setSelectedPlayer = this.setSelectedPlayer.bind(this);
   }
-  setSelectedPlayer(index) {
-    this.setState({ ...this.state, selectedPlayer: index });
+  setSelectedPlayer(playerSlot) {
+    this.setState({ ...this.state, selectedPlayer: playerSlot });
   }
   render() {
     const { match } = this.props;
     return (<StyledFlexContainer>
       <StyledFlexElement >
         <Heading title={strings.th_map} />
-        <Heatmap width={400} points={unpackPositionData(match.players[this.state.selectedPlayer].lane_pos)} />
+        <Heatmap width={400} points={unpackPositionData((match.players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)} />
       </StyledFlexElement>
       <StyledFlexElement>
         <Heading title={strings.heading_laning} />

@@ -621,7 +621,7 @@ export const performanceColumns = [
 ];
 
 export const laningColumns = (currentState, setSelectedPlayer) => [
-  { displayFn: (row, col, field, index) => <RadioButton checked={currentState.selectedPlayer === index} onClick={() => setSelectedPlayer(index)} /> },
+  { displayFn: row => <RadioButton checked={currentState.selectedPlayer === row.player_slot} onClick={() => setSelectedPlayer(row.player_slot)} /> },
   heroTdColumn,
   {
     displayName: strings.th_lane,
