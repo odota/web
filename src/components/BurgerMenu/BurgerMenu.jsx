@@ -37,7 +37,7 @@ export default class BurgerMenu extends React.Component {
           onRequestChange={open => this.setState({ open })}
         >
           <Menu>
-            {this.props.menuItems.map(item => (
+            {this.props.menuItems.map((item, index) => (
               <StyledMenuItem key={index} onTouchTap={item.close && this.handleClose}>
                 {item.component}
               </StyledMenuItem>

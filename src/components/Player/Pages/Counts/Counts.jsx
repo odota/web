@@ -25,7 +25,7 @@ const StyledTableContainer = styled.div`
 
 const Counts = ({ counts, error, loading }) => (
   <StyledContainer>
-    {Object.keys(counts).map(key => (
+    {Object.keys(counts).map((key, index) => (
       <StyledTableContainer key={index}>
         <Container title={strings[`heading_${key}`]} error={error} loading={loading}>
           <Table columns={playerCountsColumns} data={counts[key].list} />

@@ -166,7 +166,7 @@ const Styled = styled.div`
 .radiant {
   filter: drop-shadow(0 0 20px #000);
   padding: 0;
-  
+
   & .goldChange {
     color: ${constants.colorSuccess};
   }
@@ -181,7 +181,7 @@ const Styled = styled.div`
 .dire {
   filter: drop-shadow(0 0 20px #000);
   padding: 0;
-  
+
   & .goldChange {
     color: ${constants.colorDanger};
   }
@@ -189,7 +189,7 @@ const Styled = styled.div`
   & svg {
     filter: drop-shadow(0 0 5px red);
   }
-  
+
   margin: 0;
   fill: #000000;
 }
@@ -280,7 +280,7 @@ export const Tombstones = ({ deathPositions, mapWidth, tooltipKey }) => (
           class={`${getTombStyle(position)}TombstoneTooltip`}
         >
           {position.map(pos => (
-            <div key={`${pos.player.hero_id}_${pos.player.deaths}`} className={styles.tooltipContainer}>
+            <div key={`${pos.player.hero_id}_${pos.player.deaths}`} className="tooltipContainer">
               <PlayerThumb {...pos.player} />
               <div>{strings.tooltip_tombstone_killer}</div>
               <PlayerThumb {...pos.killer} />
@@ -478,7 +478,7 @@ class TeamfightMap extends Component {
                   <Teamfight
                     selected={this.isSelected(teamFight)}
                     hovered={this.isHovered(teamFight)}
-                        key={`${teamfight.start}_${teamfight.end}`}
+                    key={`${teamfight.start}_${teamfight.end}`}
                     onClick={this.onIconClick(teamFight)}
                     position={avgPosition(teamFight)}
                     tooltipKey={`${index}_${teamFight.start}`}

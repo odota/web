@@ -810,7 +810,7 @@ export const cosmeticsColumns = [
     field: 'cosmetics',
     displayFn: (row, col, field) =>
       field.map(cosmetic =>
-        (<StyledCosmetic key={cosmetic.item_id} className={styles.cosmetics} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
+        (<StyledCosmetic key={cosmetic.item_id} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
           <a href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`} target="_blank" rel="noopener noreferrer">
             <img
               src={`${API_HOST}/apps/570/${cosmetic.image_path}`}
