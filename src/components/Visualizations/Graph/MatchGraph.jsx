@@ -80,18 +80,18 @@ const XpTooltipContent = ({ payload }) => {
           <StyledTooltipTeam
             color={gold > 0 ? constants.colorSuccess : constants.colorDanger}
           >
-            {gold > 0 ? 'Radiant' : 'Dire'}
+            {gold > 0 ? strings.general_radiant : strings.general_dire}
           </StyledTooltipTeam>
-          <GoldSpan>{Math.abs(gold)} Gold</GoldSpan>
+          <GoldSpan>{Math.abs(gold)} {strings.heading_graph_gold}</GoldSpan>
         </StyledTooltipGold>
         <br />
         <StyledTooltipGold>
           <StyledTooltipTeam
             color={xp > 0 ? constants.colorSuccess : constants.colorDanger}
           >
-            {xp > 0 ? 'Radiant' : 'Dire'}
+            {xp > 0 ? strings.general_radiant : strings.general_dire}
           </StyledTooltipTeam>
-          <XpSpan>{Math.abs(xp)} Experience</XpSpan>
+          <XpSpan>{Math.abs(xp)} {strings.heading_graph_xp}</XpSpan>
         </StyledTooltipGold>
       </StyledTooltip>
     );
