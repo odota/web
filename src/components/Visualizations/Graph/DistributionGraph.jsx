@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import strings from 'lang';
+import strings from 'lang';
 import {
   XAxis,
   YAxis,
@@ -11,11 +11,20 @@ import {
   CartesianGrid,
   Label,
 } from 'recharts';
+import { StyledTooltip } from './Styled';
 
-// TODO add tooltips
-const DistributionTooltipContent = ({ payload }) => (<div />);
+const DistributionTooltipContent = ({ payload, array }) => {
+  const data = (payload[0] || {}).payload;
+  const total = array.length ? array[array.length - 1].cumulative_sum : 0;
+  return (<StyledTooltip>
+    <div>{data && data.bin_name}</div>
+    <div>{data && data.count} {strings.th_players}</div>
+    <div>{data && (data.cumulative_sum / total * 100).toFixed(2)} {strings.th_percentile}</div>
+  </StyledTooltip>);
+};
 DistributionTooltipContent.propTypes = {
   payload: PropTypes.arrayOf({}),
+  array: PropTypes.arrayOf({}),
 };
 
 const DistributionGraph = ({
@@ -23,85 +32,33 @@ const DistributionGraph = ({
 }) => {
   const mmr = data && data.mmr && data.mmr.rows;
   if (mmr) {
-    /*
-      const counts = mmr.map(d => (d.count));
-      const count = counts.reduce((c, n) => (c + n), 0);
-      const names = mmr.map(d => (d.bin_name));
-      const pcts = mmr.map(d => ((d.cumulative_sum / count) * 100));
-      const options = {
-        data: {
-          x: strings.th_mmr,
-          columns: [
-            [strings.th_mmr].concat(names), [strings.th_players].concat(counts), [strings.th_percentile].concat(pcts),
-          ],
-          type: 'bar',
-          types: {
-            Percentile: 'spline',
-          },
-          axes: {
-            Players: 'y',
-            Percentile: 'y2',
-          },
-          groups: [
-            [strings.th_players, strings.th_percentile],
-          ],
-        },
-        bar: {
-          width: {
-            ratio: 0.8,
-          },
-        },
-        axis: {
-          x: {
-            label: strings.th_mmr,
-          },
-          y: {
-            label: strings.th_players,
-          },
-          y2: {
-            show: true,
-            label: strings.th_percentile,
-          },
-        },
-        tooltip: {
-          format: {
-            value: function tooltip(value, ratio, id) {
-              // also has ind param
-              if (id === strings.th_percentile) {
-                return value.toFixed(2);
-              }
-              return value;
-            },
-          },
-        },
-      };
-      */
-    console.log(mmr);
     return (<ComposedChart
       width={1200}
       height={600}
       data={mmr}
       margin={{ top: 5, right: 30, left: 30, bottom: 5 }}
     >
-      <XAxis dataKey="x" interval={1}>
+      <XAxis dataKey="bin_name" interval={4}>
         <Label value="" position="insideTopRight" />
       </XAxis>
-      <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
-      <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+      <YAxis yAxisId="left" orientation="left" stroke="#1393f9" />
+      <YAxis yAxisId="right" orientation="right" stroke="#ff4c4c" />
       <CartesianGrid
         stroke="#505050"
         strokeWidth={1}
         opacity={0.5}
       />
 
-      <Tooltip />
+      <Tooltip content={<DistributionTooltipContent array={mmr} />} />
       <Bar
         dataKey="count"
         yAxisId="left"
+        fill="#1393f9"
       />
       <Line
         dataKey="cumulative_sum"
         yAxisId="right"
+        stroke="#ff4c4c"
       />
     </ComposedChart>
     );

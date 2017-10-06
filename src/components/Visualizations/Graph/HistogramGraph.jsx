@@ -57,7 +57,6 @@ const HistogramGraph = ({
           percent - (percent / 5);
         const rgb = hsvToRgb(adjustedVal * (1 / 3), 0.9, 0.9);
         const color = `rgb(${Math.floor(rgb[0])}, ${Math.floor(rgb[1])}, ${Math.floor(rgb[2])})`;
-        console.log(color);
         return <Cell fill={color} />;
       })
     }

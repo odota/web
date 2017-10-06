@@ -12,64 +12,6 @@ import trendNames from 'components/Player/Pages/matchDataColumns';
 import Heading from 'components/Heading';
 import Container from 'components/Container';
 import strings from 'lang';
-import styled from 'styled-components';
-import constants from '../../../constants';
-
-const TooltipStylesDiv = styled.div`
-.tooltipWrapper {
-  background-color: ${constants.defaultPrimaryColor};
-  color: ${constants.textColorPrimary} !important;
-  font-size: ${constants.fontSizeMedium};
-  min-width: 250px;
-}
-
-.value {
-  text-align: center;
-  background-color: ${constants.colorBlueMuted};
-  height: 30px;
-  line-height: 30px;
-  font-size: ${constants.fontSizeCommon};
-}
-
-.match {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-}
-
-.win {
-  color: ${constants.colorSuccess};
-}
-
-.loss {
-  color: ${constants.colorDanger};
-}
-
-.time {
-  color: ${constants.colorMutedLight};
-  font-size: ${constants.fontSizeTiny};
-}
-
-.matchValue {
-  font-weight: bold;
-}
-
-.hero {
-  height: 50px;
-  width: 88.88px; /* ratio */
-  background-color: ${constants.almostBlack};
-}
-
-.heroImg {
-  height: 100%;
-}
-
-.noData {
-  text-align: center;
-  padding-top: 30px;
-  font-size: ${constants.fontSizeCommon};
-}
-`;
 
 const Trend = ({ routeParams, columns, playerId, error, loading, history }) => {
   const selectedTrend = routeParams.subInfo || trendNames[0];
@@ -85,16 +27,14 @@ const Trend = ({ routeParams, columns, playerId, error, loading, history }) => {
         error={error}
         loading={loading}
       >
-        <TooltipStylesDiv>
-          <TrendGraph
-            columns={columns}
-            name={selectedTrend}
-            onClick={(p) => {
-              const matchId = columns[p.index].match_id;
-              history.push(`/matches/${matchId}`);
-            }}
-          />
-        </TooltipStylesDiv>
+        <TrendGraph
+          columns={columns}
+          name={selectedTrend}
+          onClick={(p) => {
+            const matchId = columns[p.index].match_id;
+            history.push(`/matches/${matchId}`);
+          }}
+        />
       </Container>
     </div>
   );
