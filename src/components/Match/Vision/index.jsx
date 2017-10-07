@@ -141,19 +141,22 @@ class Vision extends React.Component {
   }
 
   setPlayer(player, type, value) {
-    this.state.players[type][player] = value;
-    this.setState(this.state);
+    const newArray = this.state.players[type];
+    newArray[player] = value;
+    this.setState({ ...this.state, players: { ...this.state.players, [type]: newArray } });
   }
 
   setTeam(team, value) {
-    this.state.teams[team] = value;
     const start = team === 'radiant' ? 0 : 5;
     const end = start + 5;
+    const newPlayerObs = this.state.players.observer;
+    const newPlayerSentry = this.state.players.sentry;
     for (let i = start; i < end; i += 1) {
-      this.state.players.observer[i] = value;
-      this.state.players.sentry[i] = value;
+      newPlayerObs[i] = value;
+      newPlayerSentry[i] = value;
     }
-    this.setState(this.state);
+    const newState = { ...this.state, teams: { ...this.state.teams, [team]: value }, players: { observer: newPlayerObs, sentry: newPlayerSentry } };
+    this.setState(newState);
   }
 
   computeTick() {
@@ -162,8 +165,7 @@ class Vision extends React.Component {
   }
 
   viewportChange(value) {
-    this.state.currentTick = value;
-    this.setState(this.state);
+    this.setState({ ...this.state, currentTick: value });
   }
 
   visibleData() {

@@ -336,8 +336,7 @@ class Chat extends React.Component {
 
   filter(key) {
     if (key !== undefined) {
-      this.state[key] = !this.state[key];
-      this.forceUpdate();
+      this.setState({ ...this.state, [key]: !this.state[key] });
     }
 
     this.messages = this.raw.slice();
@@ -468,7 +467,7 @@ class Chat extends React.Component {
                   <a href={`#${index}`}>{formatSeconds(msg.time)}</a>
                 </time>
                 <img
-                  src={hero ? API_HOST + hero.img : '/assets/images/blank-1x1.gif'}
+                  src={hero ? process.env.REACT_APP_API_HOST + hero.img : '/assets/images/blank-1x1.gif'}
                   alt={hero && hero.localized_name}
                 />
                 <span className="target">

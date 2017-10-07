@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
@@ -157,7 +156,7 @@ const tooltipContainer = thing => (
       {thing.dname}
       {thing.cost &&
       <span className="gold">
-        <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />
+        <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />
         {thing.cost}
       </span>}
       {thing.lore &&
@@ -171,12 +170,12 @@ const tooltipContainer = thing => (
     <div className="cost">
       {thing.mc > 0 &&
       <span>
-        <img src={`${API_HOST}/apps/dota2/images/tooltips/mana.png`} alt="" />
+        <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/mana.png`} alt="" />
         {thing.mc}
       </span>}
       {thing.cd > 0 &&
       <span>
-        <img src={`${API_HOST}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
+        <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
         {thing.cd}
       </span>}
     </div>}
@@ -200,11 +199,11 @@ export default (inflictor, value, type, ptooltip) => {
       } else if (neutralAbility) {
         image = neutralAbility.img;
       } else {
-        image = `${API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
+        image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
       }
       tooltip = tooltipContainer(ability);
     } else if (item) {
-      image = `${API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`;
+      image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`;
       tooltip = tooltipContainer(item);
     } else {
       image = '/assets/images/default_attack.png';

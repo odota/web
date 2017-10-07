@@ -1,4 +1,4 @@
-/* global window ace API_HOST */
+/* global ace */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -97,7 +97,7 @@ class Explorer extends React.Component {
       maxLines: Infinity,
       enableLiveAutocompletion: true,
     });
-    fetch(`${API_HOST}/api/schema`).then(jsonResponse).then((schema) => {
+    fetch(`${process.env.REACT_APP_API_HOST}/api/schema`).then(jsonResponse).then((schema) => {
       editor.completers = [autocomplete(schema)];
     });
     this.editor = editor;
@@ -131,7 +131,7 @@ class Explorer extends React.Component {
     });
     this.syncWindowHistory();
     const sqlString = this.getSqlString();
-    return fetch(`${API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
+    return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
   }
   handleCancel() {
     this.setState({ ...this.state,
@@ -227,7 +227,7 @@ class Explorer extends React.Component {
           />
           <ExplorerOutputButton
             label={strings.explorer_api_button}
-            onClick={() => window.open(`${API_HOST}/api/explorer?sql=${encodeURIComponent(getSqlString())}`, '_blank')}
+            onClick={() => window.open(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(getSqlString())}`, '_blank')}
             context={explorer}
           />
         </span>

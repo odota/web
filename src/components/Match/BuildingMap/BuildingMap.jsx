@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -272,7 +271,7 @@ export default function BuildingMap({ match }) {
                     {damage.map(player => (
                       <div key={player.hero_id}>
                         <img
-                          src={heroes[player.hero_id] && API_HOST + heroes[player.hero_id].icon}
+                          src={heroes[player.hero_id] && process.env.REACT_APP_API_HOST + heroes[player.hero_id].icon}
                           alt=""
                         />
                         <span className="damageValue">
@@ -292,7 +291,7 @@ export default function BuildingMap({ match }) {
                                   {strings.building_denied}
                                 </span>
                                 : <span>
-                                  {type !== 'fort' && <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />}
+                                  {type !== 'fort' && <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />}
                                   {strings.building_lasthit}
                                 </span>
                             }

@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -11,7 +10,7 @@ import styled from 'styled-components';
 import Ranking from './Ranking';
 import Benchmark from './Benchmark';
 
-const getSingleHero = heroId => ({ ...heroes[heroId], img: API_HOST + heroes[heroId].img });
+const getSingleHero = heroId => ({ ...heroes[heroId], img: process.env.REACT_APP_API_HOST + heroes[heroId].img });
 
 const StyledImage = styled.img`
   border: solid 1px rgba(255, 255, 255, 0.3);

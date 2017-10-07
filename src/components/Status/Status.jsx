@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import fetch from 'isomorphic-fetch';
 import { fromNow, abbreviateNumber } from 'utility';
@@ -23,7 +22,7 @@ class Status extends React.Component {
       loading: false,
       result: {},
     });
-    fetch(`${API_HOST}/api/status`).then(jsonResponse).then(json => this.setState({ loading: false, result: json }));
+    fetch(`${process.env.REACT_APP_API_HOST}/api/status`).then(jsonResponse).then(json => this.setState({ loading: false, result: json }));
   }
   render() {
     return (<div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>

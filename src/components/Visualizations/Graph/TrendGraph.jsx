@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -105,7 +104,7 @@ const TrendTooltipContent = ({ payload, name }) => {
             </div>}
           </div>
           <div className="hero">
-            <img className="heroImg" src={`${API_HOST}${heroes[data.hero_id].img}`} alt="" />
+            <img className="heroImg" src={`${process.env.REACT_APP_API_HOST}${heroes[data.hero_id].img}`} alt="" />
           </div>
         </div>
       </div>

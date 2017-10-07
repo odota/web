@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -164,7 +163,7 @@ const ReportBug = () => (
 
 const LogOut = () => (
   <BugLink
-    href={`${API_HOST}/logout`}
+    href={`${process.env.REACT_APP_API_HOST}/logout`}
     rel="noopener noreferrer"
   >
     <LogOutButton />

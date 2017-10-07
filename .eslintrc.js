@@ -1,13 +1,16 @@
-{
+const path = require('path');
+
+module.exports = {
   "env": {
     "browser": true,
-    "mocha": true
+    "jest": true,
   },
   "settings": {
-    "import/resolver": "webpack"
-  },
-  "globals": {
-    "API_HOST": true
+    "import/resolver": {
+      node: {
+        paths: [path.resolve(__dirname, './src')],
+      },
+    },
   },
   "extends": "airbnb",
   "rules": {
@@ -20,4 +23,4 @@
     "react/no-array-index-key": 1,
     "react/require-default-props": 0
   }
-}
+};

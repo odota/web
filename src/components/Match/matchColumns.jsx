@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import lodash from 'lodash/fp';
 import heroes from 'dotaconstants/build/heroes.json';
@@ -23,7 +22,7 @@ import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBo
 
 export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide = false) =>
   (<TableHeroImage
-    image={heroes[row.hero_id] && API_HOST + heroes[row.hero_id].img}
+    image={heroes[row.hero_id] && process.env.REACT_APP_API_HOST + heroes[row.hero_id].img}
     title={row.name || row.personaname || strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
@@ -190,7 +189,7 @@ export const overviewColumns = (match) => {
     {
       displayName: (
         <StyledGoldIcon>
-          <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />
+          <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />
           {strings.th_gold}
         </StyledGoldIcon>
       ),
@@ -591,7 +590,7 @@ export const performanceColumns = [
         return (
           <div>
             {inflictorWithValue(field.inflictor, abbreviateNumber(field.value))}
-            <img src={`${API_HOST}${hero.img}`} style={{ height: '30px' }} alt="" />
+            <img src={`${process.env.REACT_APP_API_HOST}${hero.img}`} style={{ height: '30px' }} alt="" />
           </div>
         );
       }
@@ -812,7 +811,7 @@ export const cosmeticsColumns = [
         (<StyledCosmetic key={i} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
           <a href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`} target="_blank" rel="noopener noreferrer">
             <img
-              src={`${API_HOST}/apps/570/${cosmetic.image_path}`}
+              src={`${process.env.REACT_APP_API_HOST}/apps/570/${cosmetic.image_path}`}
               alt=""
               style={{
                 borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : constants.colorMuted}`,
@@ -1009,7 +1008,7 @@ const purchaseObserverColumn = {
   center: true,
   displayName: (
     <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-      <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
+      <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
       &nbsp;{strings.th_purchase_shorthand}
     </div>
   ),
@@ -1024,7 +1023,7 @@ const purchaseSentryColumn = {
   center: true,
   displayName: (
     <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-      <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
+      <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
       &nbsp;{strings.th_purchase_shorthand}
     </div>
   ),
@@ -1039,7 +1038,7 @@ const purchaseDustColumn = {
   center: true,
   displayName: (
     <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-      <img height="15" src={`${API_HOST}/apps/dota2/images/items/dust_lg.png`} alt="" />
+      <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/dust_lg.png`} alt="" />
       &nbsp;{strings.th_purchase_shorthand}
     </div>
   ),
@@ -1054,7 +1053,7 @@ const purchaseSmokeColumn = {
   center: true,
   displayName: (
     <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-      <img height="15" src={`${API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
+      <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
       &nbsp;{strings.th_purchase_shorthand}
     </div>
   ),
@@ -1069,7 +1068,7 @@ const purchaseGemColumn = {
   center: true,
   displayName: (
     <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-      <img height="15" src={`${API_HOST}/apps/dota2/images/items/gem_lg.png`} alt="" />
+      <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/gem_lg.png`} alt="" />
       &nbsp;{strings.th_purchase_shorthand}
     </div>
   ),
@@ -1086,7 +1085,7 @@ export const visionColumns = [
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
         &nbsp;{strings.th_use_shorthand}
       </div>
     ),
@@ -1101,7 +1100,7 @@ export const visionColumns = [
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
         &nbsp;{strings.th_use_shorthand}
       </div>
     ),
@@ -1116,7 +1115,7 @@ export const visionColumns = [
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${API_HOST}/apps/dota2/images/items/dust_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/dust_lg.png`} alt="" />
         &nbsp;{strings.th_use_shorthand}
       </div>
     ),
@@ -1131,7 +1130,7 @@ export const visionColumns = [
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
         &nbsp;{strings.th_use_shorthand}
       </div>
     ),

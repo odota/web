@@ -1,8 +1,8 @@
-/* global API_HOST fetch */
 import React from 'react';
 import PropTypes from 'prop-types';
 import strings from 'lang';
 import { Link } from 'react-router-dom';
+import fetch from 'isomorphic-fetch';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
 
@@ -10,7 +10,7 @@ const shouldShow = props => props.loggedInId && props.loggedInId !== props.playe
 
 const getData = (props, context) => {
   if (shouldShow(props)) {
-    fetch(`${API_HOST}/api/players/${props.loggedInId}/wl?included_account_id=${props.playerId}`)
+    fetch(`${process.env.REACT_APP_API_HOST}/api/players/${props.loggedInId}/wl?included_account_id=${props.playerId}`)
       .then(resp => resp.json())
       .then(json => context.setState({ ...context.state, ...json }));
   }

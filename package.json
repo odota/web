@@ -4,13 +4,14 @@
   "version": "1.0.1",
   "license": "MIT",
   "scripts": {
+    "start": "NODE_PATH=src react-scripts start",
+    "build": "npm install && npm run lintnofix && npm run rsbuild",
+    "rsbuild": "NODE_PATH=src react-scripts build",
+    "test": "NODE_PATH=src react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
     "webpack": "NODE_ENV=production webpack",
-    "start": "webpack-dev-server --hot",
-    "build": "npm install && npm run lintnofix && npm run webpack",
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx",
-    "test": "NODE_PATH=./src NODE_ENV=test mocha --ui bdd --reporter nyan -r test/initializeJsdom.js $(find src -name '*.spec.*')",
-    "test:watch": "npm test -- --watch --watch-extensions jsx,js",
     "update:emoticons": "npm r dota2-emoticons && npm i dota2-emoticons && node dev/updateEmoticons.js"
   },
   "greenkeeper": {
@@ -38,6 +39,7 @@
     "react-markdown": "^2.5.0",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.2",
+    "react-scripts": "1.0.14",
     "react-style-proptype": "^3.0.0",
     "react-tooltip": "^3.3.0",
     "recharts": "^1.0.0-apha.5",
@@ -50,30 +52,12 @@
     "wordcloud": "^1.0.6"
   },
   "devDependencies": {
-    "babel-core": "6.26.0",
-    "babel-loader": "^7.1.1",
-    "babel-polyfill": "6.26.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-3": "^6.17.0",
-    "babel-register": "^6.18.0",
-    "css-loader": "^0.28.4",
     "eslint": "^4.1.0",
     "eslint-config-airbnb": "^15.1.0",
-    "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.2.0",
-    "file-loader": "^1.0.0",
     "fs-extra": "^4.0.1",
-    "simple-vdf": "^1.1.0",
-    "style-loader": "^0.19.0",
-    "url-loader": "^0.6.2",
-    "webpack": "^3.4.1",
-    "webpack-dev-server": "^2.6.1"
-  },
-  "moduleRoots": [
-    "./src",
-    "./node_modules"
-  ]
+    "simple-vdf": "^1.1.0"
+  }
 }
