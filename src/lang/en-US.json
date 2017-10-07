@@ -343,6 +343,7 @@
   "heading_median": "Median",
   "heading_distinct_heroes": "Distinct Heroes",
   "heading_team_elo_rankings": "Team Elo Rankings",
+  "heading_ability_build": "Ability Build",
 
   "subheading_avg_and_max": "in last %d matches",
   "subheading_records": "In ranked matches. Records reset monthly.",

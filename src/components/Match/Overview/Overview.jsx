@@ -70,7 +70,7 @@ export default {
         <AbilityBuildTable
           players={match.players}
           columns={abilityColumns()}
-          heading="Ability Build"
+          heading= {strings.heading_ability_build}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
         />
