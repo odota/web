@@ -13,16 +13,17 @@ import strings from 'lang';
 import Table from 'components/Table';
 import itemData from 'dotaconstants/build/items.json';
 import { IconRadiant, IconDire } from 'components/Icons';
-import heroes from 'dotaconstants/build/heroes.json';
+// import heroes from 'dotaconstants/build/heroes.json';
 import {
   TablePercent,
   inflictorWithValue,
 }
   from 'components/Visualizations';
-import redrawGraphs from './redrawGraphs';
+// import redrawGraphs from './redrawGraphs';
 import constants from '../constants';
 import { StyledTeamIconContainer } from '../Match/StyledMatch';
 
+/*
 function resolveId(key, value, mappings) {
   if (key === 'hero_id') {
     return (heroes[value] || {}).localized_name;
@@ -33,6 +34,7 @@ function resolveId(key, value, mappings) {
   }
   return value;
 }
+*/
 
 class ExplorerOutputSection extends React.Component {
   shouldComponentUpdate(nextProps) {
@@ -40,6 +42,7 @@ class ExplorerOutputSection extends React.Component {
   }
   render() {
     const { rows = [], fields, expandedBuilder, teamMapping, playerMapping, format } = this.props;
+    /*
     setTimeout(() => {
       const firstCol = fields && fields[0].name;
       redrawGraphs(rows.map(row => ({
@@ -47,6 +50,7 @@ class ExplorerOutputSection extends React.Component {
         [firstCol]: resolveId(firstCol, row[firstCol], { teamMapping, playerMapping }) }
       )), firstCol, (expandedBuilder.select && expandedBuilder.select.key) || strings.th_count);
     }, 100);
+      */
     if (format === 'donut') {
       return <div id="donut" />;
     } else if (format === 'bar') {

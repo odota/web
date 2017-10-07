@@ -205,9 +205,11 @@ class Explorer extends React.Component {
         />
         <span style={{ float: 'right' }}>
           <ExplorerOutputButton defaultSelected label={strings.explorer_table_button} format="table" context={explorer} />
+          {/*
           <ExplorerOutputButton label={strings.explorer_donut_button} format="donut" context={explorer} />
           <ExplorerOutputButton label={strings.explorer_bar_button} format="bar" context={explorer} />
           <ExplorerOutputButton label={strings.explorer_timeseries_button} format="timeseries" context={explorer} />
+          */}
           <ExplorerOutputButton
             label={strings.explorer_csv_button}
             href={`data:application/octet-stream,${encodeURIComponent(json2csv({

@@ -1,6 +1,6 @@
-import c3 from 'c3';
-import strings from 'lang';
+// import strings from 'lang';
 
+/*
 export default function redrawGraphs(rows, field, yAxis) {
   const hasSum = rows[0] && rows[0].sum;
   const hasAvg = rows[0] && rows[0].avg;
@@ -70,3 +70,4 @@ export default function redrawGraphs(rows, field, yAxis) {
     },
   });
 }
+  */

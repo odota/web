@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "abcolor": "^0.5.5",
-    "c3": "^0.4.15",
     "dota2-emoticons": "^1.0.1",
     "dotaconstants": "^5.11.0",
     "fuzzy": "^0.1.3",
@@ -41,6 +40,7 @@
     "react-router-dom": "^4.1.2",
     "react-style-proptype": "^3.0.0",
     "react-tooltip": "^3.3.0",
+    "recharts": "^1.0.0-apha.5",
     "redux": "^3.7.2",
     "redux-responsive": "^4.3.2",
     "redux-thunk": "^2.2.0",

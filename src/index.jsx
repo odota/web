@@ -8,9 +8,6 @@ import App from 'components/App';
 import constants from 'components/constants';
 import { injectGlobal } from 'styled-components';
 
-// Import c3 styles
-import 'c3/c3.css';
-
 // Inject global styles
 injectGlobal([`
 body {
@@ -40,29 +37,6 @@ li {
   background-image: -webkit-linear-gradient(315deg, #2e2d45, #1c2127);
   background-image: linear-gradient(135deg, #2e2d45, #1c2127);
   color: ${constants.primaryTextColor};
-}
-
-.c3 {
-  & text {
-    fill: white;
-  }
-
-  & line {
-    fill: white;
-    stroke: white;
-  }
-}
-
-.c3-axis {
-  & > path {
-    stroke: white;
-  }
-}
-
-.c3-tooltip-container {
-  & > * {
-    color: black;
-  }
 }
 
 [data-tip="true"] {

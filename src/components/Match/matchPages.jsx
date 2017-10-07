@@ -4,10 +4,10 @@ import Heading from 'components/Heading';
 import Table from 'components/Table';
 import TeamfightMap from 'components/Match/TeamfightMap';
 import Timeline from 'components/Match/Overview/Timeline';
+import MatchGraph from 'components/Visualizations/Graph/MatchGraph';
 import Vision from './Vision';
 import Laning from './Laning';
 import CrossTable from './CrossTable';
-import MatchGraph from './MatchGraph';
 import MatchLog from './MatchLog';
 import MatchStory from './MatchStory';
 import {

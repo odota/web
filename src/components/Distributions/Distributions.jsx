@@ -1,7 +1,6 @@
 /* eslint-disable import/no-dynamic-require,global-require */
 import React from 'react';
 import PropTypes from 'prop-types';
-import c3 from 'c3';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { getDistributions } from 'actions';
@@ -17,6 +16,7 @@ import TabBar from 'components/TabBar';
 import Spinner from 'components/Spinner';
 import Heading from 'components/Heading';
 import styled from 'styled-components';
+import { DistributionGraph } from 'components/Visualizations';
 import constants from '../constants';
 
 const CountryDiv = styled.div`
@@ -100,7 +100,7 @@ const getPage = (data, key) => (
       twoLine
     />
     {(key === 'mmr') ?
-      <div id="mmr" />
+      <DistributionGraph data={data} />
       : <Table data={data[key] && data[key].rows} columns={countryMmrColumns} />}
   </div>
 );
@@ -118,68 +118,6 @@ const distributionsPages = [
 class RequestLayer extends React.Component {
   componentDidMount() {
     this.props.dispatchDistributions();
-  }
-  componentDidUpdate() {
-    const data = this.props.data;
-    const mmr = data && data.mmr && data.mmr.rows;
-    if (mmr) {
-      const counts = mmr.map(d => (d.count));
-      const count = counts.reduce((c, n) => (c + n), 0);
-      const names = mmr.map(d => (d.bin_name));
-      const pcts = mmr.map(d => ((d.cumulative_sum / count) * 100));
-      const options = {
-        bindto: '#mmr',
-        size: {
-          height: 500,
-        },
-        data: {
-          x: strings.th_mmr,
-          columns: [
-            [strings.th_mmr].concat(names), [strings.th_players].concat(counts), [strings.th_percentile].concat(pcts),
-          ],
-          type: 'bar',
-          types: {
-            Percentile: 'spline',
-          },
-          axes: {
-            Players: 'y',
-            Percentile: 'y2',
-          },
-          groups: [
-            [strings.th_players, strings.th_percentile],
-          ],
-        },
-        bar: {
-          width: {
-            ratio: 0.8,
-          },
-        },
-        axis: {
-          x: {
-            label: strings.th_mmr,
-          },
-          y: {
-            label: strings.th_players,
-          },
-          y2: {
-            show: true,
-            label: strings.th_percentile,
-          },
-        },
-        tooltip: {
-          format: {
-            value: function tooltip(value, ratio, id) {
-              // also has ind param
-              if (id === strings.th_percentile) {
-                return value.toFixed(2);
-              }
-              return value;
-            },
-          },
-        },
-      };
-      c3.generate(options);
-    }
   }
   render() {
     const loading = this.props.loading;
