@@ -326,6 +326,7 @@
   "heading_median":"Median",
   "heading_distinct_heroes":"Hero Berbeza",
   "heading_team_elo_rankings":"Kedudukan Elo Pasukan",
+  "heading_ability_build":"Ability Build",
   "subheading_avg_and_max":"dalam %d perlawanan terakhir",
   "subheading_records":"Dalam perlawanan ranked. Rekod ditetapkan semula setiap bulan.",
   "subheading_team_elo_rankings":"k=32, init=1000",
