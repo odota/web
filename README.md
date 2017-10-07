@@ -9,7 +9,7 @@ Quickstart
 * Install Node.js (6.0.0 or greater) (on Ubuntu, `curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && sudo apt-get install -y nodejs`)
 * `npm install`
 * `npm start`
-* Visit port 8080 on your development machine.
+* Visit port 3000 on your development machine.
 * Make some changes
 * `npm run lint` to check your code for linting errors
 * Submit a pull request. Wait for review and merge.
@@ -28,7 +28,7 @@ Workflow
 * The `master` branch is automatically deployed to the stage environment: https://stage.opendota.com
 * Admins will periodically drive releases by making a pull request from `master` to `production`.
 * The `production` branch is automatically built by Travis CI and pushed to the production repository `odota.github.io`.  Once there, it's available globally at https://www.opendota.com
-  
+
 Notes
 ----
 * The UI is standalone, so you don't have to set up the entire stack (databases, etc.), or worry about getting starter data.
