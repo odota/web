@@ -59,7 +59,7 @@
     "babel-register": "^6.18.0",
     "css-loader": "^0.28.4",
     "eslint": "^4.1.0",
-    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-airbnb": "^16.0.0",
     "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
