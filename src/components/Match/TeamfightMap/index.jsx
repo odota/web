@@ -14,7 +14,7 @@ import styled from 'styled-components';
 import constants from '../../constants';
 
 const Styled = styled.div`
-.container {
+.parentContainer {
   display: flex;
   flex-direction: column;
   margin: 0 -5px;
@@ -166,7 +166,7 @@ const Styled = styled.div`
 .radiant {
   filter: drop-shadow(0 0 20px #000);
   padding: 0;
-  
+
   & .goldChange {
     color: ${constants.colorSuccess};
   }
@@ -181,7 +181,7 @@ const Styled = styled.div`
 .dire {
   filter: drop-shadow(0 0 20px #000);
   padding: 0;
-  
+
   & .goldChange {
     color: ${constants.colorDanger};
   }
@@ -189,7 +189,7 @@ const Styled = styled.div`
   & svg {
     filter: drop-shadow(0 0 5px red);
   }
-  
+
   margin: 0;
   fill: #000000;
 }
@@ -455,7 +455,7 @@ class TeamfightMap extends Component {
   render() {
     const { teamfights = [], match } = this.props;
     const teamfight = this.state.teamfight || {};
-    // const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
+    const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
     return (
       <Styled>
         <div className="timelineContainer">
@@ -466,7 +466,7 @@ class TeamfightMap extends Component {
             selectedTeamfight={teamfight && teamfight.start}
           />
         </div>
-        <div className={`container ${getSelectedStyle(teamfight.radiant_gold_advantage_delta)}`}>
+        <div className={`parentContainer ${getSelectedStyle(teamfight.radiant_gold_advantage_delta)}`}>
           <div className="teamfightContainer">
             <div className="mapAndInfoContainer">
               <DotaMap
@@ -493,6 +493,12 @@ class TeamfightMap extends Component {
               <header className="header">
                 <div className="muted">
                   {formatSeconds(teamfight.start)} - {formatSeconds(teamfight.end)}
+                </div>
+                <div className="headerSubInfo">
+                  <div className={getIconStyle(teamfight.radiant_gold_advantage_delta)}>
+                    <Icon style={{ height: iconSize(bindWidth(400, 400)), width: iconSize(bindWidth(400, 400)) }} />
+                  </div>
+                  <span className="headerGold"><GoldDelta radiantGoldDelta={teamfight.radiant_gold_advantage_delta} /></span>
                 </div>
               </header>
             </div>
