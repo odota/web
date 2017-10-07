@@ -326,6 +326,7 @@
   "heading_median":"中路",
   "heading_distinct_heroes":"按英雄分类",
   "heading_team_elo_rankings":"Elo等级分排名",
+  "heading_ability_build":"Ability Build",
   "subheading_avg_and_max":"在最近 %d 比赛里",
   "subheading_records":"在天梯比赛中。每周重置。",
   "subheading_team_elo_rankings":"k = 32, init = 1000",
