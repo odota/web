@@ -326,6 +326,7 @@
   "heading_median":"Медіана",
   "heading_distinct_heroes":"Відмінних героїв",
   "heading_team_elo_rankings":"ELO рейтинг команд",
+  "heading_ability_build":"Ability Build",
   "subheading_avg_and_max":"в останні %d матчів",
   "subheading_records":"У рейтингових матчах. Записи оновлюються щомісяця.",
   "subheading_team_elo_rankings":"k=32, init=1000",
