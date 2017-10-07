@@ -164,7 +164,6 @@ const LogOut = () => (
 const ToolbarHeader = styled(Toolbar)`
   background-color: ${constants.defaultPrimaryColor} !important;
   padding: 8px !important;
-  
   & a {
     color: ${constants.primaryTextColor};
 

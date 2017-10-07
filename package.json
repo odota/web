@@ -13,7 +13,9 @@
     "webpack": "NODE_ENV=production webpack",
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx",
-    "update:emoticons": "npm r dota2-emoticons && npm i dota2-emoticons && node dev/updateEmoticons.js"
+    "update:emoticons": "npm r dota2-emoticons && npm i dota2-emoticons && node dev/updateEmoticons.js",
+    "storybook": "NODE_PATH=src start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "greenkeeper": {
     "label": "type: greenkeeper"
@@ -50,9 +52,13 @@
     "seamless-immutable": "^7.1.2",
     "styled-components": "^2.2.0",
     "uuid": "^3.1.0",
-    "wordcloud": "^1.0.6"
+    "wordcloud": "^1.0.6",
+    "@storybook/react": "^3.2.12",
+    "@storybook/addon-actions": "^3.2.12",
+    "@storybook/addon-links": "^3.2.12"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
     "eslint": "^4.1.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.6.0",
