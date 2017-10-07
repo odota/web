@@ -129,7 +129,7 @@ class FormField extends React.Component {
 
     return (<div className={className}>
       <AutoComplete
-        ref={(ref) => { this.autocomplete = ref; return this.autocomplete; }}
+        ref={(ref) => { this.autocomplete = ref; return null; }}
         openOnFocus
         dataSource={dataSource}
         floatingLabelText={label}

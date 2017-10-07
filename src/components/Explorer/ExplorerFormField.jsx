@@ -44,7 +44,7 @@ class ExplorerFormField extends React.Component {
     if (isDateField) {
       return (<span style={{ width: fieldWidth }}>
         <DatePicker
-          ref={(ref) => { this.datepicker = ref; return this.datepicker; }}
+          ref={(ref) => { this.datepicker = ref; return null; }}
           floatingLabelText={label}
           container="inline"
           autoOk
@@ -70,7 +70,7 @@ class ExplorerFormField extends React.Component {
       />
       */}
       <AutoComplete
-        ref={(ref) => { this.autocomplete = ref; return this.autocomplete; }}
+        ref={(ref) => { this.autocomplete = ref; return null; }}
         searchText={builder[builderField]
           ? (dataSource.find(element => element.key === builder[builderField]) || {}).text
           : ''
