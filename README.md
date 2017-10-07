@@ -15,26 +15,28 @@ Quickstart
 * Submit a pull request. Wait for review and merge.
 * Congratulations! You're a contributor.
 
+Configuration
+----
+* You can set the following environment variables:
+  * PORT: Changes the port that the development server runs on
+  * REACT_APP_API_HOST: Changes the API that the UI requests data from (default https://api.opendota.com)
+
 Tech Stack
 ----
 * View: React
 * State Management: Redux
-* CSS: css-modules/postcss
+* CSS: styled-components
 
 Workflow
 ----
 * If you're interested in contributing regularly, let us know and we'll add you to the organization.
-* Development/pull requests should target the `master` branch.
 * The `master` branch is automatically deployed to the stage environment: https://stage.opendota.com
-* Admins will periodically drive releases by making a pull request from `master` to `production`.
-* The `production` branch is automatically built by Travis CI and pushed to the production repository `odota.github.io`.  Once there, it's available globally at https://www.opendota.com
+* We'll periodically ship releases to production: https://www.opendota.com
 
 Notes
 ----
-* The UI is standalone, so you don't have to set up the entire stack (databases, etc.), or worry about getting starter data.
-* By default, the UI points to the production API.
-* You can configure it to point to your own backend (if you are working on a new feature and want to start building the UI before it's deployed to production).
-* You can also configure the port used by webpack-dev-server in `webpack.config.js`.
+* You don't have to set up the entire stack (databases, etc.), or worry about getting starter data, since the UI points to the production API.
+* Use the configuration to point to your own API (if you are working on a new feature and want to start building the UI before it's deployed to production).
 * Discord: https://discord.gg/0o5SQGbXuWCNDcaF
   * Strongly recommended for active developers! We move fast and it's helpful to be up to speed with everything that's happening.
 
