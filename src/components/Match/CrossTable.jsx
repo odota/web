@@ -28,8 +28,7 @@ const CrossTable = ({
         {match.players.slice(match.players.length / 2, match.players.length).map((player, i) => (
           <TableRowColumn key={player.hero_id}>
             {heroTd(player, 'hero_id', player.hero_id, i, true)}
-          </TableRowColumn>),
-        )}
+          </TableRowColumn>))}
         <TableRowColumn>
           <div style={teamIconStyle}>
             <IconDire />

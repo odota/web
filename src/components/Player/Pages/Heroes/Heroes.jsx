@@ -9,7 +9,9 @@ import Table from 'components/Table';
 import Container from 'components/Container';
 import { playerHeroesColumns } from './playerHeroesColumns';
 
-const Heroes = ({ data, playerId, error, loading }) => (
+const Heroes = ({
+  data, playerId, error, loading,
+}) => (
   <Container title={strings.heading_heroes} error={error} loading={loading}>
     <Table paginated columns={playerHeroesColumns(playerId)} data={data} />
   </Container>

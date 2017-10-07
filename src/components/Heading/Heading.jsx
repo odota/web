@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
 import { StyledDiv, TwoLineDiv } from './Styled';
 
-const Heading = ({ title = '', titleTo, icon = <ActionLabelOutline />, subtitle, twoLine }) => {
+const Heading = ({
+  title = '', titleTo, icon = <ActionLabelOutline />, subtitle, twoLine,
+}) => {
   const DivToUse = twoLine ? TwoLineDiv : StyledDiv;
   return (<DivToUse>
     {icon}
@@ -21,7 +23,9 @@ const Heading = ({ title = '', titleTo, icon = <ActionLabelOutline />, subtitle,
   </DivToUse>);
 };
 
-const { string, element, oneOfType, bool, shape } = PropTypes;
+const {
+  string, element, oneOfType, bool, shape,
+} = PropTypes;
 
 Heading.propTypes = {
   title: string,

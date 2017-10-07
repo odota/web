@@ -9,7 +9,9 @@ import Container from 'components/Container';
 import strings from 'lang';
 import { playerPeersColumns } from './playerPeersColumns';
 
-const Peers = ({ data, playerId, error, loading }) => (
+const Peers = ({
+  data, playerId, error, loading,
+}) => (
   <Container title={strings.heading_peers} error={error} loading={loading}>
     <Table paginated columns={playerPeersColumns(playerId)} data={data} />
   </Container>

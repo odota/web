@@ -18,7 +18,9 @@ const StyledImg = styled.img`
   margin-right: 4px;
 `;
 
-const PlayerThumb = ({ player_slot, hero_id, name, personaname, hideText }) => (
+const PlayerThumb = ({
+  player_slot, hero_id, name, personaname, hideText,
+}) => (
   <StyledAside style={{ color: playerColors[player_slot] }}>
     <StyledImg
       src={heroes[hero_id]
@@ -31,7 +33,9 @@ const PlayerThumb = ({ player_slot, hero_id, name, personaname, hideText }) => (
   </StyledAside>
 );
 
-const { string, oneOfType, number, bool } = PropTypes;
+const {
+  string, oneOfType, number, bool,
+} = PropTypes;
 
 PlayerThumb.propTypes = {
   player_slot: oneOfType([string, number]),

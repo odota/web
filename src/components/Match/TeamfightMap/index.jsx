@@ -228,7 +228,9 @@ const isRadiant = radiantGoldDelta => radiantGoldDelta > 0;
 
 const IconType = _isRadiant => (_isRadiant ? IconRadiant : IconDire);
 
-export const TeamfightIcon = ({ position, tooltipKey, mapWidth = MAP_WIDTH, onClick, Icon, ...props }) => (
+export const TeamfightIcon = ({
+  position, tooltipKey, mapWidth = MAP_WIDTH, onClick, Icon, ...props
+}) => (
   <Icon
     className="teamfightIcon"
     style={style(mapWidth, position)}
@@ -333,35 +335,32 @@ export const Teamfight = ({
 );
 
 const avgPosition = ({ deaths_pos: deathPositions }) => {
-  const avgs = deathPositions.reduce(
-    (avg, position, index) => {
-      const posTotal = position.reduce(
-        (_avg, _position) => ({
-          x: _avg.x + _position.x,
-          y: _avg.y + _position.y,
-          length: _avg.length + 1,
-        }), {
-          x: 0,
-          y: 0,
-          length: 0,
-        });
-      const newAvg = {
-        x: avg.x + posTotal.x,
-        y: avg.y + posTotal.y,
-        length: avg.length + posTotal.length,
-      };
-
-      if (index === deathPositions.length - 1) {
-        newAvg.x /= newAvg.length;
-        newAvg.y /= newAvg.length;
-      }
-      return newAvg;
-    }, {
+  const avgs = deathPositions.reduce((avg, position, index) => {
+    const posTotal = position.reduce((_avg, _position) => ({
+      x: _avg.x + _position.x,
+      y: _avg.y + _position.y,
+      length: _avg.length + 1,
+    }), {
       x: 0,
       y: 0,
       length: 0,
-    },
-  );
+    });
+    const newAvg = {
+      x: avg.x + posTotal.x,
+      y: avg.y + posTotal.y,
+      length: avg.length + posTotal.length,
+    };
+
+    if (index === deathPositions.length - 1) {
+      newAvg.x /= newAvg.length;
+      newAvg.y /= newAvg.length;
+    }
+    return newAvg;
+  }, {
+    x: 0,
+    y: 0,
+    length: 0,
+  });
   return {
     x: avgs.x,
     y: avgs.y,
@@ -517,7 +516,9 @@ class TeamfightMap extends Component {
   }
 }
 
-const { arrayOf, object, shape, number, bool, func, string, array } = PropTypes;
+const {
+  arrayOf, object, shape, number, bool, func, string, array,
+} = PropTypes;
 const positionShape = {
   x: number.isRequired,
   y: number.isRequired,

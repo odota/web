@@ -35,7 +35,9 @@ const convertArrayToKeys = (obj, fieldName = '') => ({
   ),
 });
 
-const AbilityBuildTable = ({ players = [], columns, heading = '', radiantTeam = {}, direTeam = {}, summable = false }) => {
+const AbilityBuildTable = ({
+  players = [], columns, heading = '', radiantTeam = {}, direTeam = {}, summable = false,
+}) => {
   const keyedPlayers = players.map(player => convertArrayToKeys(player, 'ability_upgrades_arr'));
   return (
     <div>

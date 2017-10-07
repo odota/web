@@ -106,7 +106,9 @@ const getPage = (data, key) => (
 );
 
 const distributionsPages = [
-  { name: strings.distributions_tab_mmr, key: 'mmr', content: getPage, route: '/distributions/mmr' },
+  {
+    name: strings.distributions_tab_mmr, key: 'mmr', content: getPage, route: '/distributions/mmr',
+  },
   {
     name: strings.distributions_tab_country_mmr,
     key: 'countryMmr',

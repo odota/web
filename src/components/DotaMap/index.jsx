@@ -40,7 +40,9 @@ const DotaMap = ({
   </MapContainer>
 );
 
-const { number, node, string, oneOfType } = PropTypes;
+const {
+  number, node, string, oneOfType,
+} = PropTypes;
 
 DotaMap.propTypes = {
   startTime: number,

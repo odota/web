@@ -12,7 +12,9 @@ import Heading from 'components/Heading';
 import Container from 'components/Container';
 import strings from 'lang';
 
-const Trend = ({ routeParams, columns, playerId, error, loading, history }) => {
+const Trend = ({
+  routeParams, columns, playerId, error, loading, history,
+}) => {
   const selectedTrend = routeParams.subInfo || trendNames[0];
   return (
     <div>

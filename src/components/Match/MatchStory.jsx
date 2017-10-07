@@ -216,7 +216,10 @@ class IntroEvent extends StoryEvent {
       game_mode: strings[`game_mode_${this.game_mode}`],
       date: this.date.toLocaleDateString(
         (window.localStorage && window.localStorage.getItem('localization')) || 'en-US',
-        { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
+        {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+        },
+      ),
       region: strings[`region_${this.region}`],
       duration_in_words: formatApproximateTime(this.match_duration_seconds),
     });
@@ -568,12 +571,16 @@ class TeamfightEvent extends StoryEvent {
         death.count === 1 ? new PlayerSpan(death.player) : [new PlayerSpan(death.player), `(x${death.count})`]))),
     })];
     if (this.during_events.length > 0) {
-      formatted = formatted.concat(renderSentence(strings.story_during_teamfight,
-        { events: formatObjectiveEvents(this.during_events) }));
+      formatted = formatted.concat(renderSentence(
+        strings.story_during_teamfight,
+        { events: formatObjectiveEvents(this.during_events) },
+      ));
     }
     if (this.after_events.length > 0) {
-      formatted = formatted.concat(renderSentence(strings.story_after_teamfight,
-        { events: formatObjectiveEvents(this.after_events) }));
+      formatted = formatted.concat(renderSentence(
+        strings.story_after_teamfight,
+        { events: formatObjectiveEvents(this.after_events) },
+      ));
     }
     return formatted;
   }
@@ -723,13 +730,14 @@ const generateStory = (match) => {
 
   if (fbIndex > -1) {
     const killerLog = match.players.find(player =>
-      player.player_slot === match.objectives[fbIndex].player_slot,
-    ).kills_log;
+      player.player_slot === match.objectives[fbIndex].player_slot).kills_log;
 
-    events.push(new FirstbloodEvent(match,
+    events.push(new FirstbloodEvent(
+      match,
       match.objectives[fbIndex].time,
       match.objectives[fbIndex].player_slot,
-      (Array.isArray(killerLog) && killerLog[0] ? killerLog[0].key : null)));
+      (Array.isArray(killerLog) && killerLog[0] ? killerLog[0].key : null),
+    ));
   }
 
   // Chat messages

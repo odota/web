@@ -121,7 +121,9 @@ const TrendGraph = ({ columns, name }) => (<LineChart
   width={1200}
   height={400}
   data={columns}
-  margin={{ top: 5, right: 30, left: 30, bottom: 5 }}
+  margin={{
+    top: 5, right: 30, left: 30, bottom: 5,
+  }}
 >
   <XAxis interval={49}>
     <Label value="" position="insideTopRight" />

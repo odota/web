@@ -14,7 +14,9 @@ const columns = [
   { displayName: 'value', field: 'value' },
 ];
 
-const tableStyle = { flexGrow: 1, overflowX: 'auto', boxSizing: 'border-box', padding: '15px' };
+const tableStyle = {
+  flexGrow: 1, overflowX: 'auto', boxSizing: 'border-box', padding: '15px',
+};
 
 class Status extends React.Component {
   componentWillMount() {

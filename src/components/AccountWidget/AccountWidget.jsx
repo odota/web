@@ -30,7 +30,9 @@ const IconButtonLink = styled.a`
   }
 `;
 
-const AccountWidget = ({ loading, error, user, style }) => (
+const AccountWidget = ({
+  loading, error, user, style,
+}) => (
   <div style={style}>
     {loading && !error && <Spinner />}
     {error && <Error />}

@@ -99,7 +99,9 @@ class Table extends React.Component {
       paginated,
       pageLength = 20,
     } = this.props;
-    const { sortState, sortField, sortFn, currentPage } = this.state;
+    const {
+      sortState, sortField, sortFn, currentPage,
+    } = this.state;
     const dataLength = this.props.data.length;
     let data = this.props.data;
     if (maxRows && maxRows <= dataLength) {
@@ -138,11 +140,12 @@ class Table extends React.Component {
                 {data.map((row, index) => (
                   <MaterialTableRow key={index}>
                     {columns.map((column, colIndex) => {
-                      const { field, color, center, displayFn, relativeBars, percentBars, percentBarsWithValue, sortFn } = column;
+                      const {
+                        field, color, center, displayFn, relativeBars, percentBars, percentBarsWithValue, sortFn,
+                      } = column;
                       const getValue = typeof sortFn === 'function' ? sortFn : null;
                       const value = getValue ? getValue(row) : row[field];
                       const style = {
-                        // width: `${getWidthStyle(column.width, totalWidth)}%`,
                         overflow: `${field === 'kills' ? 'visible' : null}`,
                         color,
                       };

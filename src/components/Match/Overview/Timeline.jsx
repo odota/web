@@ -310,8 +310,7 @@ const Timeline = ({
 
     if (fbIndex > -1 && match.objectives[fbIndex].player_slot !== undefined) {
       const killer = match.players.find(player =>
-        player.player_slot === match.objectives[fbIndex].player_slot,
-      ) || {};
+        player.player_slot === match.objectives[fbIndex].player_slot) || {};
       const killerLog = killer.kills_log;
 
       fbArr = [{
@@ -325,16 +324,14 @@ const Timeline = ({
     const events = fbArr
 
     // Roshan kills, team 2 = radiant, 3 = dire
-      .concat(
-        match.objectives
-          .filter(obj => obj.type === 'CHAT_MESSAGE_ROSHAN_KILL')
-          .map((obj, i) => ({
-            type: 'roshan',
-            time: obj.time,
-            team: obj.team,
-            key: i,
-          })) || [],
-      )
+      .concat(match.objectives
+        .filter(obj => obj.type === 'CHAT_MESSAGE_ROSHAN_KILL')
+        .map((obj, i) => ({
+          type: 'roshan',
+          time: obj.time,
+          team: obj.team,
+          key: i,
+        })) || [])
 
       // Teamfights
       .concat(match.teamfights && match.teamfights.length > 0 ?
@@ -351,8 +348,7 @@ const Timeline = ({
               deaths: player.deaths,
             }))
             .filter(String),
-        })) : [],
-      );
+        })) : []);
 
     // Aegis pickups
     const aegis = (match.objectives || [])

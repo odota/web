@@ -38,7 +38,9 @@ class ExplorerFormField extends React.Component {
     this.props.handleFieldUpdate(name, newChips);
   }
   render() {
-    const { fields, label, builderField, handleFieldUpdate, isDateField, builder } = this.props;
+    const {
+      fields, label, builderField, handleFieldUpdate, isDateField, builder,
+    } = this.props;
     const dataSource = fields && fields[builderField];
     const fieldWidth = 300;
     if (isDateField) {
@@ -53,7 +55,8 @@ class ExplorerFormField extends React.Component {
           onChange={(event, date) => {
             handleFieldUpdate(builderField, date.toISOString());
           }}
-        /></span>);
+        />
+      </span>);
     }
     return (<span style={{ width: fieldWidth }}>
       {/*

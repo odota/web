@@ -233,105 +233,104 @@ export default function BuildingMap({ match }) {
         },
       };
 
-      icons.push(
-        <span
-          key={props.key}
-          data-tip
-          data-for={props.key}
-          style={props.style.span}
-        >
-          <img
-            src={props.src}
-            alt=""
-            style={props.style.img}
-          />
-          <ReactTooltip id={props.key} effect="solid">
-            {title}
-            {damage && damage.length > 0 &&
-              <span>
-                <span className="subtitle"> {strings.building_damage}</span>
-                <div>
+      icons.push(<span
+        key={props.key}
+        data-tip
+        data-for={props.key}
+        style={props.style.span}
+      >
+        <img
+          src={props.src}
+          alt=""
+          style={props.style.img}
+        />
+        <ReactTooltip id={props.key} effect="solid">
+          {title}
+          {damage && damage.length > 0 &&
+          <span>
+            <span className="subtitle"> {strings.building_damage}</span>
+            <div>
+              <div
+                className="buildingHealth"
+                style={{
+                  backgroundColor: (bits[i] === '1' && constants.colorMuted) || (side === 'good' ? constants.colorRed : constants.colorGreen),
+                }}
+              >
+                {damage.map(player => (
                   <div
-                    className="buildingHealth"
+                    key={player.hero_id}
                     style={{
-                      backgroundColor: (bits[i] === '1' && constants.colorMuted) || (side === 'good' ? constants.colorRed : constants.colorGreen),
+                      width: `${(Number(player.damage) * 100) / buildingsHealth[type === 'tower' ? `tower${tier}` : type]}%`,
+                      backgroundColor: playerColors[player.player_slot],
                     }}
-                  >
-                    {damage.map(player => (
-                      <div
-                        key={player.hero_id}
-                        style={{
-                          width: `${(Number(player.damage) * 100) / buildingsHealth[type === 'tower' ? `tower${tier}` : type]}%`,
-                          backgroundColor: playerColors[player.player_slot],
-                        }}
-                      />
-                    ))}
-                  </div>
-                  <div className="damage">
-                    {damage.map(player => (
-                      <div key={player.hero_id}>
-                        <img
-                          src={heroes[player.hero_id] && process.env.REACT_APP_API_HOST + heroes[player.hero_id].icon}
-                          alt=""
-                        />
-                        <span className="damageValue">
-                          {player.damage}
-                        </span>
-                        <span
-                          style={{ color: playerColors[player.player_slot] }}
-                          className="playerName"
-                        >
-                          {player.name}
-                        </span>
-                        {destroyedBy && destroyedBy.player_slot === player.player_slot &&
-                          <span className="lasthit">
-                            {
-                              ((side === 'good' && isRadiant(destroyedBy.player_slot)) || (side === 'bad' && !isRadiant(destroyedBy.player_slot))) ?
-                                <span className="deny">
-                                  {strings.building_denied}
-                                </span>
-                                : <span>
-                                  {type !== 'fort' && <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />}
-                                  {strings.building_lasthit}
-                                </span>
-                            }
+                  />
+                ))}
+              </div>
+              <div className="damage">
+                {damage.map(player => (
+                  <div key={player.hero_id}>
+                    <img
+                      src={heroes[player.hero_id] && process.env.REACT_APP_API_HOST + heroes[player.hero_id].icon}
+                      alt=""
+                    />
+                    <span className="damageValue">
+                      {player.damage}
+                    </span>
+                    <span
+                      style={{ color: playerColors[player.player_slot] }}
+                      className="playerName"
+                    >
+                      {player.name}
+                    </span>
+                    {destroyedBy && destroyedBy.player_slot === player.player_slot &&
+                    <span className="lasthit">
+                      {
+                        ((side === 'good' && isRadiant(destroyedBy.player_slot)) || (side === 'bad' && !isRadiant(destroyedBy.player_slot))) ?
+                          <span className="deny">
+                            {strings.building_denied}
                           </span>
-                        }
-                      </div>
-                    ))}
-                    {(damageByCreeps > 0) && (bits[i] !== '1') &&
-                      <div className="creeps">
-                        <img
-                          src="/assets/images/blank-1x1.gif"
-                          alt=""
-                          style={{
-                            backgroundImage: `url(/assets/images/dota2/${side === 'good' ? 'bad' : 'good'}guys_creep.png)`,
-                            backgroundPosition: 'center',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundSize: 'contain',
-                          }}
-                        />
-                        <span className="damageValue">
-                          {damageByCreeps}
-                        </span>
-                        <span
-                          style={{ color: side === 'good' ? constants.colorRed : constants.colorGreen }}
-                          className="playerName"
-                        >creeps </span>
-                        {!destroyedBy &&
-                          <span className="lasthit">
+                          : <span>
+                            {type !== 'fort' && <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />}
                             {strings.building_lasthit}
                           </span>
-                        }
-                      </div>
+                      }
+                    </span>
                     }
                   </div>
+                ))}
+                {(damageByCreeps > 0) && (bits[i] !== '1') &&
+                <div className="creeps">
+                  <img
+                    src="/assets/images/blank-1x1.gif"
+                    alt=""
+                    style={{
+                      backgroundImage: `url(/assets/images/dota2/${side === 'good' ? 'bad' : 'good'}guys_creep.png)`,
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: 'contain',
+                    }}
+                  />
+                  <span className="damageValue">
+                    {damageByCreeps}
+                  </span>
+                  <span
+                    style={{ color: side === 'good' ? constants.colorRed : constants.colorGreen }}
+                    className="playerName"
+                  >creeps
+                  </span>
+                  {!destroyedBy &&
+                  <span className="lasthit">
+                    {strings.building_lasthit}
+                  </span>
+                  }
                 </div>
-              </span>
-            }
-          </ReactTooltip>
-        </span>,
-      );
+                }
+              </div>
+            </div>
+          </span>
+          }
+        </ReactTooltip>
+      </span>);
     }
     return (
       <StyledDiv>

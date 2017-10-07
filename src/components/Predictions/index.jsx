@@ -218,9 +218,9 @@ const predColumns = [
 ];
 
 const Predictions = () => (<div>
-  <Helmet title={'TI7 Predictions'} />
-  <Heading title="TI7 Predictions" subtitle={'Based on the games of the 18 participating teams since June 18, 2017'} />
-  <Warning className={''}>
+  <Helmet title="TI7 Predictions" />
+  <Heading title="TI7 Predictions" subtitle="Based on the games of the 18 participating teams since June 18, 2017" />
+  <Warning className="">
     {'These predictions assume future play will be similar to past play, which is not guaranteed! Use the Explorer link for each prediction if you want to examine the data in more detail.'}
   </Warning>
   <br />

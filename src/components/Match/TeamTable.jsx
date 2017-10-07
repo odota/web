@@ -8,8 +8,7 @@ import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` pa
 
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
-    ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === ''),
-  ).sort((a, b) => a.player_slot - b.player_slot);
+    ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === '')).sort((a, b) => a.player_slot - b.player_slot);
 
 const TeamTable = ({
   players = [],
