@@ -336,8 +336,7 @@ class Chat extends React.Component {
 
   filter(key) {
     if (key !== undefined) {
-      this.state[key] = !this.state[key];
-      this.forceUpdate();
+      this.setState({ ...this.state, [key]: !this.state[key] });
     }
 
     this.messages = this.raw.slice();
