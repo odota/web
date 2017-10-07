@@ -507,7 +507,7 @@ const Timeline = ({
                                   <font style={{ color: constants.colorGolden }}>{Math.abs(death.gold_delta)} </font>
                                   <img
                                     alt=""
-                                    src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
+                                    src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`}
                                   />
                                 </span>
                               </section>

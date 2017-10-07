@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -112,7 +111,7 @@ const SummOfRecMatches = ({ matchesData }) => {
                   &nbsp;
                   <span>{key === 'duration' ? formatSeconds(c.max.value) : abbreviateNumber(c.max.value)}
                     <Link to={`/matches/${c.max.matchId}`}>
-                      <img src={`${API_HOST}${hero.icon}`} alt={hero.localized_name} />
+                      <img src={`${process.env.REACT_APP_API_HOST}${hero.icon}`} alt={hero.localized_name} />
                     </Link>
                   </span>
                 </p>

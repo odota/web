@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import heroes from 'dotaconstants/build/heroes.json';
@@ -244,7 +243,7 @@ export const transformations = {
     return (
       <TableHeroImage
         parsed={row.version}
-        image={heroes[row[col.field]] && API_HOST + heroes[row[col.field]].img}
+        image={heroes[row[col.field]] && process.env.REACT_APP_API_HOST + heroes[row[col.field]].img}
         title={getTitle(row, col, heroName)}
         subtitle={getSubtitle(row)}
         heroName={heroName}
@@ -362,7 +361,7 @@ const transformMatchItem = ({
   if (field === 0) {
     return false;
   }
-  return `${API_HOST}${items[itemIds[field]].img}`;
+  return `${process.env.REACT_APP_API_HOST}${items[itemIds[field]].img}`;
 };
 
 for (let i = 0; i < 6; i += 1) {

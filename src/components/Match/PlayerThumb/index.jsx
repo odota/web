@@ -22,7 +22,7 @@ const PlayerThumb = ({ player_slot, hero_id, name, personaname, hideText }) => (
   <StyledAside style={{ color: playerColors[player_slot] }}>
     <StyledImg
       src={heroes[hero_id]
-        ? `${API_HOST}${heroes[hero_id].icon}`
+        ? `${process.env.REACT_APP_API_HOST}${heroes[hero_id].icon}`
         : '/assets/images/blank-1x1.gif'
       }
       alt=""

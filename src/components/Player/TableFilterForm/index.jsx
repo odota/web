@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import PropTypes from 'prop-types';
 import fetch from 'isomorphic-fetch';
@@ -34,7 +33,7 @@ const Styled = styled.div`
 `;
 
 const getPeers = (props, context) => {
-  fetch(`${API_HOST}/api/players/${props.playerId}/peers`)
+  fetch(`${process.env.REACT_APP_API_HOST}/api/players/${props.playerId}/peers`)
     .then(resp => resp.json())
     .then(json => context.setState({ peers: json }));
 };

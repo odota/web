@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -60,7 +59,7 @@ class PlayerButtons extends React.Component {
             icon={<ActionUpdate />}
             disabled={this.state.disableRefresh}
             onClick={() => {
-              fetch(`${API_HOST}/api/players/${playerId}/refresh`, { method: 'POST' });
+              fetch(`${process.env.REACT_APP_API_HOST}/api/players/${playerId}/refresh`, { method: 'POST' });
               this.setState({ disableRefresh: true });
             }}
             label={strings.app_refresh_label}

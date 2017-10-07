@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import PropTypes from 'prop-types';
 import strings from 'lang';
@@ -32,7 +31,7 @@ const GoldSpan = amount => (
       width="25px"
       height="17px"
       alt={` ${strings.story_gold}`}
-      src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
+      src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`}
       style={{ marginLeft: '3px' }}
     />
   </StyledStorySpan>
@@ -61,7 +60,7 @@ const PlayerSpan = (player) => {
       >
         <img
           src={heroes[player.hero_id]
-            ? `${API_HOST}${heroes[player.hero_id].icon}`
+            ? `${process.env.REACT_APP_API_HOST}${heroes[player.hero_id].icon}`
             : '/assets/images/blank-1x1.gif'
           }
           alt=""
@@ -83,7 +82,7 @@ const ItemSpan = item => (
     <img
       width="26px"
       src={items[item]
-        ? `${API_HOST}${items[item].img}`
+        ? `${process.env.REACT_APP_API_HOST}${items[item].img}`
         : '/assets/images/blank-1x1.gif'
       }
       alt={(items[item] || {}).dname}

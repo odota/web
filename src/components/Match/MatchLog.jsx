@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import PropTypes from 'prop-types';
 import strings from 'lang';
@@ -103,7 +102,7 @@ const logColumns = [heroTdColumn, {
     switch (row.type) {
       case 'kills': {
         const hero = heroNames[row.detail] || {};
-        return <img src={`${API_HOST}${hero.img}`} style={{ height: '30px' }} alt="" />;
+        return <img src={`${process.env.REACT_APP_API_HOST}${hero.img}`} style={{ height: '30px' }} alt="" />;
       }
       case 'runes': {
         const runeType = row.detail;

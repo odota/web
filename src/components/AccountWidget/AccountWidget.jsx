@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -37,7 +36,7 @@ const AccountWidget = ({ loading, error, user, style }) => (
     {error && <Error />}
     {!error && !loading && user
       ? <LoggedIn playerId={user.account_id} />
-      : <IconButtonLink href={`${API_HOST}/login`}>
+      : <IconButtonLink href={`${process.env.REACT_APP_API_HOST}/login`}>
         <IconSteam />
         {strings.app_login}
       </IconButtonLink>
