@@ -9,7 +9,7 @@ import App from 'components/App';
 import constants from 'components/constants';
 import { injectGlobal } from 'styled-components';
 // import unregisterServiceWorker from './registerServiceWorker';
-import { unregisterServiceWorker } from './registerServiceWorker';
+import { unregister } from './registerServiceWorker';
 
 // Inject global styles
 injectGlobal([`
@@ -155,4 +155,4 @@ render(<Provider store={store}>
   </BrowserRouter>
 </Provider>, reactElement);
 // registerServiceWorker();
-unregisterServiceWorker();
+unregister();
