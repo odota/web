@@ -13,7 +13,7 @@
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx",
     "update:emoticons": "npm r dota2-emoticons && npm i dota2-emoticons && node dev/updateEmoticons.js",
-    "storybook": "start-storybook -p 9009 -s public",
+    "storybook": "NODE_PATH=src start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
   },
   "greenkeeper": {
