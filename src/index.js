@@ -8,7 +8,8 @@ import { getMetadata } from 'actions';
 import App from 'components/App';
 import constants from 'components/constants';
 import { injectGlobal } from 'styled-components';
-// import registerServiceWorker from './registerServiceWorker';
+// import unregisterServiceWorker from './registerServiceWorker';
+import { unregisterServiceWorker } from './registerServiceWorker';
 
 // Inject global styles
 injectGlobal([`
@@ -154,3 +155,4 @@ render(<Provider store={store}>
   </BrowserRouter>
 </Provider>, reactElement);
 // registerServiceWorker();
+unregisterServiceWorker();
