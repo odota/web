@@ -8,6 +8,7 @@ import { getMetadata } from 'actions';
 import App from 'components/App';
 import constants from 'components/constants';
 import { injectGlobal } from 'styled-components';
+import registerServiceWorker from './registerServiceWorker';
 
 // Inject global styles
 injectGlobal([`
@@ -152,3 +153,4 @@ render(<Provider store={store}>
     <Route component={App} />
   </BrowserRouter>
 </Provider>, reactElement);
+registerServiceWorker();
