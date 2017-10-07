@@ -196,7 +196,7 @@ const Header = ({ location, small, user }) => (
         {<SettingsGroup user={user} />}
       </VerticalAlignDiv>
     </ToolbarHeader>
-    <Announce location={location} />
+    { location.pathname !== '/' && <Announce /> }
     <AdBannerDiv>
       { location.pathname !== '/' &&
         <a href="http://www.vpgame.com/?lang=en_us">

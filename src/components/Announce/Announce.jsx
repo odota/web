@@ -14,7 +14,7 @@ const StyledDiv = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  background-color: #34a5ff;
+  background-color: #008eff;
 
   & main,
   & aside {
