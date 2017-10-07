@@ -22,24 +22,23 @@ const StyledFlatButton = styled(FlatButton)`
  }
 `;
 
-const LoggedIn = ({ playerId }) => {
+const LoggedIn = ({ playerId, style }) => {
   if (!playerId) {
     return <Spinner color="#fff" size={0.5} />;
   }
   return (
-    <div>
-      <Link to={`/players/${playerId}`}>
-        <StyledFlatButton
-          label={strings.app_my_profile}
-          hoverColor="transparent"
-        />
-      </Link>
-    </div>
+    <Link style={style} to={`/players/${playerId}`}>
+      <StyledFlatButton
+        label={strings.app_my_profile}
+        hoverColor="transparent"
+      />
+    </Link>
   );
 };
 
 LoggedIn.propTypes = {
   playerId: PropTypes.number,
+  style: PropTypes.shape({}),
 };
 
 export default connect()(LoggedIn);

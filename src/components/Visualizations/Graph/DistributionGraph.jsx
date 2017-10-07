@@ -36,7 +36,9 @@ const DistributionGraph = ({
       width={1200}
       height={600}
       data={mmr}
-      margin={{ top: 5, right: 30, left: 30, bottom: 5 }}
+      margin={{
+        top: 5, right: 30, left: 30, bottom: 5,
+      }}
     >
       <XAxis dataKey="bin_name" interval={4}>
         <Label value="" position="insideTopRight" />

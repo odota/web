@@ -13,7 +13,9 @@ const StyledDiv = styled.div`
   flex-wrap: wrap;
 `;
 
-const ExplorerControlSection = ({ showEditor, toggleEditor, expandedFields, handleFieldUpdate, builder }) => (<div>
+const ExplorerControlSection = ({
+  showEditor, toggleEditor, expandedFields, handleFieldUpdate, builder,
+}) => (<div>
   <div style={{ width: '180px', margin: '10px' }}>
     <div>{/* drawOmnibox(this, expandedFields) */}</div>
     <Toggle
@@ -51,11 +53,11 @@ const ExplorerControlSection = ({ showEditor, toggleEditor, expandedFields, hand
     <ExplorerFormField label={strings.explorer_order} fields={expandedFields} builderField="order" handleFieldUpdate={handleFieldUpdate} builder={builder} />
     <ExplorerFormField label={strings.explorer_having} fields={expandedFields} builderField="having" handleFieldUpdate={handleFieldUpdate} builder={builder} />
     <ExplorerFormField label={strings.explorer_limit} fields={expandedFields} builderField="limit" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-    <ExplorerFormField label={'Is TI7 Team'} fields={expandedFields} builderField="isTi7Team" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+    <ExplorerFormField label="Is TI7 Team" fields={expandedFields} builderField="isTi7Team" handleFieldUpdate={handleFieldUpdate} builder={builder} />
   </StyledDiv>
   <div style={{ display: showEditor ? 'block' : 'none' }}>
     <div
-      id={'editor'}
+      id="editor"
       style={{
         height: 100,
         width: '100%',

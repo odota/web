@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { TableRow as MaterialTableRow } from 'material-ui/Table';
 import TableHeaderColumn from './TableHeaderColumn';
 
-const TableHeader = ({ columns, sortState, sortField, sortClick, totalWidth }) => (
+const TableHeader = ({
+  columns, sortState, sortField, sortClick, totalWidth,
+}) => (
   <MaterialTableRow>
     {columns.map((column, index) => (
       <TableHeaderColumn

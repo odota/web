@@ -145,7 +145,9 @@ export const PlayerStatsCards = ({
   );
 };
 
-const { number, bool, shape, string } = PropTypes;
+const {
+  number, bool, shape, string,
+} = PropTypes;
 
 PlayerStatsCards.propTypes = {
   loading: bool,

@@ -106,7 +106,9 @@ const getRegistrationBadge = registered => registered && (
   />
 );
 
-const PlayerHeader = ({ playerName, officialPlayerName, playerId, picture, registered, loading, error, small, extraSmall, playerSoloCompetitiveRank, loggedInUser }) => {
+const PlayerHeader = ({
+  playerName, officialPlayerName, playerId, picture, registered, loading, error, small, extraSmall, playerSoloCompetitiveRank, loggedInUser,
+}) => {
   if (error) {
     return <Error />;
   }

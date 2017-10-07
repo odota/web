@@ -30,12 +30,14 @@ const IconButtonLink = styled.a`
   }
 `;
 
-const AccountWidget = ({ loading, error, user, style }) => (
+const AccountWidget = ({
+  loading, error, user, style,
+}) => (
   <div style={style}>
     {loading && !error && <Spinner />}
     {error && <Error />}
     {!error && !loading && user
-      ? <LoggedIn playerId={user.account_id} />
+      ? <LoggedIn style={style} playerId={user.account_id} />
       : <IconButtonLink href={`${process.env.REACT_APP_API_HOST}/login`}>
         <IconSteam />
         {strings.app_login}

@@ -27,7 +27,9 @@ const getSubtitleStats = (columns) => {
 
 const histogramNames = dataColumns.filter(col => col !== 'win_rate');
 
-const Histogram = ({ routeParams, columns, playerId, error, loading, histogramName, history }) => (
+const Histogram = ({
+  routeParams, columns, playerId, error, loading, histogramName, history,
+}) => (
   <div>
     <Heading title={strings.histograms_name} subtitle={strings.histograms_description} />
     <ButtonGarden

@@ -48,7 +48,9 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    const { error, loading, data, browser } = this.props;
+    const {
+      error, loading, data, browser,
+    } = this.props;
     const heatmapWidth = browser.width - 50;
 
     return (

@@ -6,12 +6,6 @@ import ActionSearch from 'material-ui/svg-icons/action/search';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
-// import FlatButton from 'material-ui/FlatButton';
-// import IconButton from 'material-ui/IconButton/IconButton';
-// import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-// import MenuItem from 'material-ui/MenuItem';
-// import IconMenu from 'material-ui/IconMenu';
-// import AppBar from 'material-ui/AppBar';
 import Bug from 'material-ui/svg-icons/action/bug-report';
 import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
 import strings from 'lang';
@@ -23,7 +17,7 @@ import constants from '../constants';
 import AccountWidget from '../AccountWidget';
 import SearchForm from '../Search/SearchForm';
 import AppLogo from '../App/AppLogo';
-import BurgerMenu from '../BurgerMenu';
+import BurgerMenu from './BurgerMenu';
 
 const REPORT_BUG_PATH = '//github.com/odota/ui/issues';
 
@@ -38,15 +32,9 @@ const navbarPages = [
   // <Link key="Assistant" to="/assistant">Assistant</Link>,
 ];
 
-const burgerItems = () => [
-  {
-    component: <AccountWidget key={0} />,
-    close: true,
-  },
-  ...navbarPages.map(item => ({
-    component: item,
-    close: true,
-  })),
+const burgerItems = [
+  <AccountWidget key={0} />,
+  ...navbarPages,
 ];
 
 const buttonProps = {
@@ -80,7 +68,7 @@ const TabContainer = styled.div`
 
 const LogoGroup = ({ small }) => (
   <VerticalAlignToolbar>
-    {!small && <BurgerMenu menuItems={burgerItems()} />}
+    {!small && <BurgerMenu menuItems={burgerItems} />}
     <AppLogo style={{ marginRight: 18 }} />
   </VerticalAlignToolbar>
 );
@@ -175,7 +163,7 @@ const LogOut = () => (
 
 const ToolbarHeader = styled(Toolbar)`
   background-color: ${constants.defaultPrimaryColor} !important;
-  padding: 8px;
+  padding: 8px !important;
   & a {
     color: ${constants.primaryTextColor};
 

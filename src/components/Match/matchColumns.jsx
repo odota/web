@@ -43,6 +43,7 @@ export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide =
 export const heroTdColumn = {
   displayName: strings.th_avatar,
   field: 'player_slot',
+  key: 'heroTd',
   displayFn: heroTd,
   sortFn: true,
 };
@@ -261,16 +262,14 @@ export const overviewColumns = (match) => {
         );
       },
     },
-  ].concat(
-    match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0
-      ? {
-        displayName: strings.th_permanent_buffs,
-        field: 'permanent_buffs',
-        displayFn: row =>
-          (row.permanent_buffs && row.permanent_buffs.length > 0 ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff')) : '-'),
-      }
-      : [],
-  );
+  ].concat(match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0
+    ? {
+      displayName: strings.th_permanent_buffs,
+      field: 'permanent_buffs',
+      displayFn: row =>
+        (row.permanent_buffs && row.permanent_buffs.length > 0 ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff')) : '-'),
+    }
+    : []);
 
   return cols;
 };
@@ -761,35 +760,31 @@ export const actionsColumns = [
     sortFn: true,
     relativeBars: true,
   },
-].concat(
-  Object.keys(orderTypes).filter(orderType => `th_${orderTypes[orderType]}` in strings).map(orderType => ({
-    displayName: strings[`th_${orderTypes[orderType]}`],
-    tooltip: strings[`tooltip_${orderTypes[orderType]}`],
-    field: orderType,
-    sortFn: row => (row.actions ? row.actions[orderType] : 0),
-    displayFn: (row, column, value) => value || '-',
-    relativeBars: true,
-  })),
-);
+].concat(Object.keys(orderTypes).filter(orderType => `th_${orderTypes[orderType]}` in strings).map(orderType => ({
+  displayName: strings[`th_${orderTypes[orderType]}`],
+  tooltip: strings[`tooltip_${orderTypes[orderType]}`],
+  field: orderType,
+  sortFn: row => (row.actions ? row.actions[orderType] : 0),
+  displayFn: (row, column, value) => value || '-',
+  relativeBars: true,
+})));
 
-export const runesColumns = [heroTdColumn].concat(
-  Object.keys(strings).filter(str => str.indexOf('rune_') === 0).map(str => str.split('_')[1]).map(runeType => ({
-    displayName: (
-      <StyledRunes data-tip data-for={`rune_${runeType}`}>
-        <img src={`/assets/images/dota2/runes/${runeType}.png`} alt="" />
-        <ReactTooltip id={`rune_${runeType}`} effect="solid">
-          <span>
-            {strings[`rune_${runeType}`]}
-          </span>
-        </ReactTooltip>
-      </StyledRunes>
-    ),
-    field: `rune_${runeType}`,
-    displayFn: (row, col, value) => value || '-',
-    sortFn: row => row.runes && row.runes[runeType],
-    relativeBars: true,
-  })),
-);
+export const runesColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('rune_') === 0).map(str => str.split('_')[1]).map(runeType => ({
+  displayName: (
+    <StyledRunes data-tip data-for={`rune_${runeType}`}>
+      <img src={`/assets/images/dota2/runes/${runeType}.png`} alt="" />
+      <ReactTooltip id={`rune_${runeType}`} effect="solid">
+        <span>
+          {strings[`rune_${runeType}`]}
+        </span>
+      </ReactTooltip>
+    </StyledRunes>
+  ),
+  field: `rune_${runeType}`,
+  displayFn: (row, col, value) => value || '-',
+  sortFn: row => row.runes && row.runes[runeType],
+  relativeBars: true,
+})));
 
 const cosmeticsRarity = {
   common: '#B0C3D9',
@@ -827,40 +822,33 @@ export const cosmeticsColumns = [
               </span>
             </span>
           </ReactTooltip>
-        </StyledCosmetic>),
-      ),
+        </StyledCosmetic>)),
   },
 ];
 
-export const goldReasonsColumns = [heroTdColumn].concat(
-  Object.keys(strings).filter(str => str.indexOf('gold_reasons_') === 0).map(gr => ({
-    displayName: strings[gr],
-    field: gr,
-    sortFn: row => (row.gold_reasons ? row.gold_reasons[gr.substring('gold_reasons_'.length)] : 0),
-    displayFn: (row, column, value) => value || '-',
-    relativeBars: true,
-  })),
-);
+export const goldReasonsColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('gold_reasons_') === 0).map(gr => ({
+  displayName: strings[gr],
+  field: gr,
+  sortFn: row => (row.gold_reasons ? row.gold_reasons[gr.substring('gold_reasons_'.length)] : 0),
+  displayFn: (row, column, value) => value || '-',
+  relativeBars: true,
+})));
 
-export const xpReasonsColumns = [heroTdColumn].concat(
-  Object.keys(strings).filter(str => str.indexOf('xp_reasons_') === 0).map(xpr => ({
-    displayName: strings[xpr],
-    field: xpr,
-    sortFn: row => (row.xp_reasons ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] : 0),
-    displayFn: (row, column, value) => value || '-',
-    relativeBars: true,
-  })),
-);
+export const xpReasonsColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('xp_reasons_') === 0).map(xpr => ({
+  displayName: strings[xpr],
+  field: xpr,
+  sortFn: row => (row.xp_reasons ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] : 0),
+  displayFn: (row, column, value) => value || '-',
+  relativeBars: true,
+})));
 
-export const objectiveDamageColumns = [heroTdColumn].concat(
-  Object.keys(strings).filter(str => str.indexOf('objective_') === 0).map(obj => ({
-    displayName: strings[obj],
-    field: obj,
-    sortFn: row => row.objective_damage && row.objective_damage[obj.substring('objective_'.length)],
-    displayFn: (row, col, value) => value || '-',
-    relativeBars: true,
-  })),
-);
+export const objectiveDamageColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('objective_') === 0).map(obj => ({
+  displayName: strings[obj],
+  field: obj,
+  sortFn: row => row.objective_damage && row.objective_damage[obj.substring('objective_'.length)],
+  displayFn: (row, col, value) => value || '-',
+  relativeBars: true,
+})));
 
 export const inflictorsColumns = [
   heroTdColumn,

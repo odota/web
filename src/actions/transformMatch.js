@@ -123,9 +123,7 @@ function generateVisionLog(match) {
           entered: wards[0],
           left: wards[1],
         };
-      })
-    ;
-
+      });
     const observers = extractVisionLog('observer', safePlayer.obs_log, safePlayer.obs_left_log);
     const sentries = extractVisionLog('sentry', safePlayer.sen_log, safePlayer.sen_left_log);
     return _.concat(observers, sentries);

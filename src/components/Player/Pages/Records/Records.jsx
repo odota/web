@@ -15,7 +15,9 @@ import playerRecordsColumns from './playerRecordsColumns';
 const excludedColumns = ['win_rate', 'level'];
 const recordsColumns = dataColumns.filter(col => !excludedColumns.includes(col));
 
-const Records = ({ routeParams, data, error, loading, playerId, history }) => {
+const Records = ({
+  routeParams, data, error, loading, playerId, history,
+}) => {
   const selected = routeParams.subInfo || recordsColumns[0];
   return (<div style={{ fontSize: 10 }}>
     <ButtonGarden

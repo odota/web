@@ -108,7 +108,8 @@ class Explorer extends React.Component {
       this.buildQuery();
     }
     this.handleQuery();
-    this.setState({ ...this.state,
+    this.setState({
+      ...this.state,
       loadingEditor: false,
     });
   }
@@ -126,7 +127,8 @@ class Explorer extends React.Component {
     if (this.state.loadingEditor === true) {
       return setTimeout(this.handleQuery, 1000);
     }
-    this.setState({ ...this.state,
+    this.setState({
+      ...this.state,
       loading: true,
     });
     this.syncWindowHistory();
@@ -134,13 +136,15 @@ class Explorer extends React.Component {
     return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
   }
   handleCancel() {
-    this.setState({ ...this.state,
+    this.setState({
+      ...this.state,
       loading: false,
     });
     window.stop();
   }
   handleResponse(json) {
-    this.setState({ ...this.state,
+    this.setState({
+      ...this.state,
       loading: false,
       result: json,
     });

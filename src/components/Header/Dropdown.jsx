@@ -42,7 +42,9 @@ class Dropdown extends Component {
   }
 
   render() {
-    const { Button, buttonProps, className, children } = this.props;
+    const {
+      Button, buttonProps, className, children,
+    } = this.props;
     const { open } = this.state;
     return (
       <div className={className}>

@@ -120,7 +120,9 @@ const Styled = styled.div`
 }
 `;
 
-export const PlayerBadgesIcons = ({ loading, error, cheese, tracked, steamLink, officialPlayerName }) => {
+export const PlayerBadgesIcons = ({
+  loading, error, cheese, tracked, steamLink, officialPlayerName,
+}) => {
   const getPlayerBadges = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;

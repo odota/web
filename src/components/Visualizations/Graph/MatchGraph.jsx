@@ -85,10 +85,12 @@ const XpNetworthGraph = ({ match, width }) => {
         width={width}
         height={400}
         data={matchData}
-        margin={{ top: 5, right: 30, left: 30, bottom: 5 }}
+        margin={{
+          top: 5, right: 30, left: 30, bottom: 5,
+        }}
       >
-        <ReferenceArea y1={0} y2={maxY} fill={'rgba(102, 187, 106, 0.12)'} />
-        <ReferenceArea y1={0} y2={minY} fill={'rgba(255, 76, 76, 0.12)'} />
+        <ReferenceArea y1={0} y2={maxY} fill="rgba(102, 187, 106, 0.12)" />
+        <ReferenceArea y1={0} y2={minY} fill="rgba(255, 76, 76, 0.12)" />
         <XAxis dataKey="time" interval={4} tickFormatter={formatGraphTime}>
           <Label value={strings.th_time} position="insideTopRight" />
         </XAxis>
@@ -147,7 +149,9 @@ const PlayersGraph = ({ match, width, type }) => {
           width={width}
           height={400}
           data={matchData}
-          margin={{ top: 5, right: 30, left: 30, bottom: 5 }}
+          margin={{
+            top: 5, right: 30, left: 30, bottom: 5,
+          }}
         >
           <XAxis dataKey="time" interval={4} >
             <Label value={strings.th_time} position="insideTopRight" />

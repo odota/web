@@ -14,7 +14,8 @@ const searchColumns = [{
   field: 'personaname',
   displayFn: (row, col, field) => {
     const subtitle = row.last_match_time ? fromNow(new Date(row.last_match_time) / 1000) : '';
-    return transformations.player({ ...row,
+    return transformations.player({
+      ...row,
       subtitle,
     }, col, field);
   },

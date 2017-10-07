@@ -61,13 +61,6 @@ const Styled = styled.div`
   box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
 }
 
-.container {
-  display: flex;
-  position: relative;
-  height: 100%;
-  align-items: center;
-}
-
 .abandoned {
   position: absolute;
   right: 7px;
@@ -218,6 +211,13 @@ const Styled = styled.div`
 }
 `;
 
+const HeroImageContainer = styled.div`
+  display: flex;
+  position: relative;
+  height: 100%;
+  align-items: center;
+`;
+
 const TableHeroImage = ({
   parsed,
   image,
@@ -238,7 +238,7 @@ const TableHeroImage = ({
   leaverStatus,
 }) => (
   <Styled>
-    <div className="container">
+    <HeroImageContainer>
       {parsed !== undefined &&
       <div
         className={parsed ? 'parsed' : 'unparsed'}
@@ -350,11 +350,13 @@ const TableHeroImage = ({
         </ReactTooltip>
       </div>
       }
-    </div>
+    </HeroImageContainer>
   </Styled>
 );
 
-const { string, oneOfType, bool, node, shape, object } = PropTypes;
+const {
+  string, oneOfType, bool, node, shape, object,
+} = PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: PropTypes.number,

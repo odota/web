@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const ExplorerOutputButton = ({ defaultSelected, label, format, href, download, onClick, context }) => {
+const ExplorerOutputButton = ({
+  defaultSelected, label, format, href, download, onClick, context,
+}) => {
   let clickFn;
   if (onClick) {
     clickFn = onClick;

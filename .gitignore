@@ -5,3 +5,4 @@ npm-debug.log
 build
 .DS_STORE
 *.swp
+analyze.html

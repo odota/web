@@ -24,7 +24,9 @@ const Percent = ({ percent, altValue, valEl }) => (
   </StyledContainer>
 );
 
-const { number, oneOfType, string, node, bool } = PropTypes;
+const {
+  number, oneOfType, string, node, bool,
+} = PropTypes;
 
 Percent.propTypes = {
   percent: oneOfType([
