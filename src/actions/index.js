@@ -31,7 +31,7 @@ export const getLeagues = () => action('leagues', process.env.REACT_APP_API_HOST
 export const getTeams = () => action('teams', process.env.REACT_APP_API_HOST, 'api/teams');
 export const getRecords = field => action('records', process.env.REACT_APP_API_HOST, `api/records/${field}`);
 export const getGithubPulls = merged => action('ghPulls', 'https://api.github.com', 'search/issues', {
-  q: `repo:odota/ui type:pr base:production label:release merged:>${merged}`,
+  q: `repo:odota/ui type:pr label:release merged:>${merged}`,
   order: 'desc',
   page: 1,
   per_page: 1,
