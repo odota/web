@@ -326,6 +326,7 @@
   "heading_median":"Mediana",
   "heading_distinct_heroes":"Odrębni bohaterowie",
   "heading_team_elo_rankings":"Drużynowe rankingi Elo",
+  "heading_ability_build":"Ability Build",
   "subheading_avg_and_max":"w ostatnich %d meczach",
   "subheading_records":"W meczach rankingowych. Wpisy resetują się co miesiąc.",
   "subheading_team_elo_rankings":"k = 32, począt.=1000",

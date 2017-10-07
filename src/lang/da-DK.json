@@ -326,6 +326,7 @@
   "heading_median":"Median",
   "heading_distinct_heroes":"Forskellige Helte",
   "heading_team_elo_rankings":"Team Elo Rankings",
+  "heading_ability_build":"Ability Build",
   "subheading_avg_and_max":"i de seneste %d kampe",
   "subheading_records":"I rangerede kampe. Poster nulstilles hver måned.",
   "subheading_team_elo_rankings":"k=32, init=1000",

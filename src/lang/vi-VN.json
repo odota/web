@@ -326,6 +326,7 @@
   "heading_median":"Trung bình",
   "heading_distinct_heroes":"Phân biêt tướng",
   "heading_team_elo_rankings":"Team Elo Rankings",
+  "heading_ability_build":"Ability Build",
   "subheading_avg_and_max":"trong %d các trận gần đây",
   "subheading_records":"Trong các trận đấu hạng. Các ghi chép được làm lại hằng tháng.",
   "subheading_team_elo_rankings":"k=32, init=1000",
