@@ -326,6 +326,7 @@
   "heading_median":"Mediana",
   "heading_distinct_heroes":"Heróis distintos",
   "heading_team_elo_rankings":"Ranking de Equipes",
+  "heading_ability_build":"Ability Build",
   "subheading_avg_and_max":"nas últimas %d partidas",
   "subheading_records":"Em partidas ranqueadas. Recordes reiniciam mensalmente.",
   "subheading_team_elo_rankings":"k = 32, init = 1000",
