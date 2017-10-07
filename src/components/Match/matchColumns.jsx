@@ -746,7 +746,7 @@ export const unitKillsColumns = [
     // TODO make this work for non-english (current names are hardcoded in dotaconstants)
     displayFn: (row, col, field) =>
       (<div>
-        {Object.keys(field || {}).map((unit, index) => <div key={index}>{`${field[unit]} ${unit}`}</div>)}
+        {Object.keys(field || {}).map(unit => <div key={`${row.player_slot}_${col.field}`}>{`${field[unit]} ${unit}`}</div>)}
       </div>),
   },
 ];
@@ -796,14 +796,15 @@ const cosmeticsRarity = {
   arcana: '#ADE55C',
   ancient: '#EB4B4B',
 };
+
 export const cosmeticsColumns = [
   heroTdColumn,
   {
     displayName: strings.th_cosmetics,
     field: 'cosmetics',
     displayFn: (row, col, field) =>
-      field.map((cosmetic, i) =>
-        (<StyledCosmetic key={i} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
+      field.map(cosmetic =>
+        (<StyledCosmetic key={cosmetic.item_id} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
           <a href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`} target="_blank" rel="noopener noreferrer">
             <img
               src={`${process.env.REACT_APP_API_HOST}/apps/570/${cosmetic.image_path}`}

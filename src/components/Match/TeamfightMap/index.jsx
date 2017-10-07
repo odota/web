@@ -266,7 +266,7 @@ const getTombStyle = position => position.reduce(
 export const Tombstones = ({ deathPositions, mapWidth, tooltipKey }) => (
   <div>
     {deathPositions.map((position, index) => (
-      <div key={index}>
+      <div key={`${position[0].player.hero_id}_${position[0].player.deaths}`}>
         <TeamfightIcon
           Icon={IconDot}
           position={position[0]}
@@ -281,8 +281,8 @@ export const Tombstones = ({ deathPositions, mapWidth, tooltipKey }) => (
           border
           class={`${getTombStyle(position)}TombstoneTooltip`}
         >
-          {position.map((pos, _index) => (
-            <div key={_index} className="tooltipContainer">
+          {position.map(pos => (
+            <div key={`${pos.player.hero_id}_${pos.player.deaths}`} className="tooltipContainer">
               <PlayerThumb {...pos.player} />
               <div>{strings.tooltip_tombstone_killer}</div>
               <PlayerThumb {...pos.killer} />
@@ -477,7 +477,7 @@ class TeamfightMap extends Component {
                   <Teamfight
                     selected={this.isSelected(teamFight)}
                     hovered={this.isHovered(teamFight)}
-                    key={index}
+                    key={`${teamfight.start}_${teamfight.end}`}
                     onClick={this.onIconClick(teamFight)}
                     position={avgPosition(teamFight)}
                     tooltipKey={`${index}_${teamFight.start}`}

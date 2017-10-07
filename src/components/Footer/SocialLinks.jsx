@@ -14,9 +14,9 @@ const links = [{
 
 export default () => (
   <div className="links">
-    {links.map((link, index) => (
+    {links.map(link => (
       <a
-        key={index}
+        key={link.path}
         target="_blank"
         rel="noopener noreferrer"
         data-hint-position="top"
