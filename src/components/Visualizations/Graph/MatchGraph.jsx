@@ -11,7 +11,7 @@ import {
   CartesianGrid,
   ReferenceLine,
   Legend,
-  Label,
+  Label, ResponsiveContainer,
 } from 'recharts';
 import constants from 'components/constants';
 import strings from 'lang';
@@ -70,7 +70,7 @@ XpTooltipContent.propTypes = {
   payload: PropTypes.shape({}),
 };
 
-const XpNetworthGraph = ({ match, width }) => {
+const XpNetworthGraph = ({ match }) => {
   const matchData = generateDiffData(match);
   const maxY =
       Math.ceil(Math.max(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000) * 5000;
@@ -81,56 +81,52 @@ const XpNetworthGraph = ({ match, width }) => {
       <StyledRadiant>{strings.general_radiant}</StyledRadiant>
       <StyledDire>{strings.general_dire}</StyledDire>
       <Heading title={strings.heading_graph_difference} />
-      <LineChart
-        width={width}
-        height={400}
-        data={matchData}
-        margin={{
-          top: 5, right: 30, left: 30, bottom: 5,
-        }}
-      >
-        <ReferenceArea y1={0} y2={maxY} fill="rgba(102, 187, 106, 0.12)" />
-        <ReferenceArea y1={0} y2={minY} fill="rgba(255, 76, 76, 0.12)" />
-        <XAxis dataKey="time" interval={4} tickFormatter={formatGraphTime}>
-          <Label value={strings.th_time} position="insideTopRight" />
-        </XAxis>
-        <YAxis domain={[minY, maxY]} />
-        <ReferenceLine y={0} stroke="#505050" strokeWidth={2} opacity={1} />
-        <CartesianGrid
-          stroke="#505050"
-          strokeWidth={1}
-          opacity={0.5}
-        />
+      <ResponsiveContainer width="100%" height={400}>
+        <LineChart
+          data={matchData}
+          margin={{
+            top: 5, right: 30, left: 30, bottom: 5,
+          }}
+        >
+          <ReferenceArea y1={0} y2={maxY} fill="rgba(102, 187, 106, 0.12)" />
+          <ReferenceArea y1={0} y2={minY} fill="rgba(255, 76, 76, 0.12)" />
+          <XAxis dataKey="time" interval={4} tickFormatter={formatGraphTime}>
+            <Label value={strings.th_time} position="insideTopRight" />
+          </XAxis>
+          <YAxis domain={[minY, maxY]} />
+          <ReferenceLine y={0} stroke="#505050" strokeWidth={2} opacity={1} />
+          <CartesianGrid
+            stroke="#505050"
+            strokeWidth={1}
+            opacity={0.5}
+          />
 
-        <Tooltip content={<XpTooltipContent />} />
-        <Line
-          dot={false}
-          dataKey="rXpAdv"
-          stroke="#acc9ed"
-          strokeWidth={2}
-          name={strings.heading_graph_xp}
-        />
-        <Line
-          dot={false}
-          dataKey="rGoldAdv"
-          stroke="#ffd455"
-          strokeWidth={2}
-          name={strings.heading_graph_gold}
-        />
-        <Legend />
-      </LineChart>
+          <Tooltip content={<XpTooltipContent />} />
+          <Line
+            dot={false}
+            dataKey="rXpAdv"
+            stroke="#acc9ed"
+            strokeWidth={2}
+            name={strings.heading_graph_xp}
+          />
+          <Line
+            dot={false}
+            dataKey="rGoldAdv"
+            stroke="#ffd455"
+            strokeWidth={2}
+            name={strings.heading_graph_gold}
+          />
+          <Legend />
+        </LineChart>
+      </ResponsiveContainer>
     </StyledHolder>
   );
 };
-XpNetworthGraph.defaultProps = {
-  width: 1200,
-};
 XpNetworthGraph.propTypes = {
-  width: PropTypes.number,
   match: PropTypes.shape({}),
 };
 
-const PlayersGraph = ({ match, width, type }) => {
+const PlayersGraph = ({ match, type }) => {
   const matchData = [];
   if (match.players && match.players[0] && match.players[0][`${type}_t`]) {
     match.players[0][`${type}_t`].forEach((value, index) => {
@@ -145,48 +141,47 @@ const PlayersGraph = ({ match, width, type }) => {
     return (
       <StyledHolder>
         <Heading title={strings[`heading_graph_${type}`]} />
-        <LineChart
-          width={width}
-          height={400}
-          data={matchData}
-          margin={{
-            top: 5, right: 30, left: 30, bottom: 5,
-          }}
-        >
-          <XAxis dataKey="time" interval={4} >
-            <Label value={strings.th_time} position="insideTopRight" />
-          </XAxis>
-          <YAxis />
-          <CartesianGrid
-            stroke="#505050"
-            strokeWidth={1}
-            opacity={0.5}
-          />
+        <ResponsiveContainer width="100%" height={400}>
+          <LineChart
+            data={matchData}
+            margin={{
+              top: 5, right: 30, left: 30, bottom: 5,
+            }}
+          >
+            <XAxis dataKey="time" interval={4} >
+              <Label value={strings.th_time} position="insideTopRight" />
+            </XAxis>
+            <YAxis />
+            <CartesianGrid
+              stroke="#505050"
+              strokeWidth={1}
+              opacity={0.5}
+            />
 
-          <Tooltip
-            itemSorter={(a, b) => a.value < b.value}
-            wrapperStyle={{ backgroundColor: constants.darkPrimaryColor, border: 'none' }}
-          />
-          {match.players.map((player) => {
-            const hero = heroes[player.hero_id] || {};
-            const playerColor = playerColors[player.player_slot];
-            return (<Line
-              dot={false}
-              dataKey={hero.localized_name}
-              stroke={playerColor}
-              strokeWidth={2}
-              name={hero.localized_name}
-            />);
-          })}
-          <Legend />
-        </LineChart>
+            <Tooltip
+              itemSorter={(a, b) => a.value < b.value}
+              wrapperStyle={{ backgroundColor: constants.darkPrimaryColor, border: 'none' }}
+            />
+            {match.players.map((player) => {
+              const hero = heroes[player.hero_id] || {};
+              const playerColor = playerColors[player.player_slot];
+              return (<Line
+                dot={false}
+                dataKey={hero.localized_name}
+                stroke={playerColor}
+                strokeWidth={2}
+                name={hero.localized_name}
+              />);
+            })}
+            <Legend />
+          </LineChart>
+        </ResponsiveContainer>
       </StyledHolder>
     );
   }
   return null;
 };
 PlayersGraph.propTypes = {
-  width: PropTypes.number,
   match: PropTypes.shape({}),
   type: PropTypes.string,
 };
