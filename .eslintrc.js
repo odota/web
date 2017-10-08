@@ -21,6 +21,15 @@ module.exports = {
     "no-shadow": 1,
     "import/named": ["error"],
     "react/no-array-index-key": 1,
-    "react/require-default-props": 0
+    "react/require-default-props": 0,
+    'import/no-extraneous-dependencies': [
+      "error",
+      {
+        devDependencies: [
+          '.storybook/**',
+          'src/stories/**'
+        ]
+      }
+    ]
   }
 };
