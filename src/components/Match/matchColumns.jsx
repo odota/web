@@ -6,11 +6,10 @@ import orderTypes from 'dotaconstants/build/order_types.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
 import abilityIds from 'dotaconstants/build/ability_ids.json';
 import abilityKeys from 'dotaconstants/build/ability_keys.json';
-import heroNames from 'dotaconstants/build/hero_names.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle } from 'utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById } from 'utility';
 import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
@@ -19,6 +18,8 @@ import { Mmr } from 'components/Visualizations/Table/HeroImage';
 import { IconBackpack } from 'components/Icons';
 import constants from '../constants';
 import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
+
+const heroNames = getHeroesById();
 
 export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide = false) =>
   (<TableHeroImage

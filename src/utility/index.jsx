@@ -570,3 +570,11 @@ export const formatTemplate = (template, dict) => {
   result = result.filter(part => part !== '');
   return result;
 };
+
+export const getHeroesById = () => {
+  const obj = {};
+  Object.keys(heroes).forEach((hero) => {
+    obj[hero.name] = hero;
+  });
+  return obj;
+};
