@@ -22,6 +22,15 @@ module.exports = {
     "import/named": ["error"],
     "jsx-a11y/anchor-is-valid" : 1,
     "react/no-array-index-key": 1,
-    "react/require-default-props": 0
+    "react/require-default-props": 0,
+    'import/no-extraneous-dependencies': [
+      "error",
+      {
+        devDependencies: [
+          '.storybook/**',
+          'src/stories/**'
+        ]
+      }
+    ]
   }
 };
