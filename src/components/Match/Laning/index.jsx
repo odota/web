@@ -21,19 +21,20 @@ class Laning extends React.Component {
   }
   render() {
     const { match } = this.props;
-    return (<StyledFlexContainer>
-      <StyledFlexElement >
-        <Heading title={strings.th_map} />
-        <Heatmap width={400} points={unpackPositionData((match.players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)} />
-      </StyledFlexElement>
-      <StyledFlexElement>
-        <Heading title={strings.heading_laning} />
-        <Table
-          data={match.players}
-          columns={laningColumns(this.state, this.setSelectedPlayer)}
-        />
-      </StyledFlexElement>
-    </StyledFlexContainer>);
+    return (
+      <StyledFlexContainer>
+        <StyledFlexElement >
+          <Heading title={strings.th_map} />
+          <Heatmap width={400} points={unpackPositionData((match.players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)} />
+        </StyledFlexElement>
+        <StyledFlexElement>
+          <Heading title={strings.heading_laning} />
+          <Table
+            data={match.players}
+            columns={laningColumns(this.state, this.setSelectedPlayer)}
+          />
+        </StyledFlexElement>
+      </StyledFlexContainer>);
   }
 }
 

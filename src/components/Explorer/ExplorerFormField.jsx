@@ -44,22 +44,24 @@ class ExplorerFormField extends React.Component {
     const dataSource = fields && fields[builderField];
     const fieldWidth = 300;
     if (isDateField) {
-      return (<span style={{ width: fieldWidth }}>
-        <DatePicker
-          ref={(ref) => { this.datepicker = ref; return null; }}
-          floatingLabelText={label}
-          container="inline"
-          autoOk
-          defaultDate={builder[builderField] ? new Date(builder[builderField]) : undefined}
-          onShow={this.resetField}
-          onChange={(event, date) => {
+      return (
+        <span style={{ width: fieldWidth }}>
+          <DatePicker
+            ref={(ref) => { this.datepicker = ref; return null; }}
+            floatingLabelText={label}
+            container="inline"
+            autoOk
+            defaultDate={builder[builderField] ? new Date(builder[builderField]) : undefined}
+            onShow={this.resetField}
+            onChange={(event, date) => {
             handleFieldUpdate(builderField, date.toISOString());
           }}
-        />
-      </span>);
+          />
+        </span>);
     }
-    return (<span style={{ width: fieldWidth }}>
-      {/*
+    return (
+      <span style={{ width: fieldWidth }}>
+        {/*
       <FormField
         name={builderField}
         label={label}
@@ -72,25 +74,25 @@ class ExplorerFormField extends React.Component {
         deleteChip={this.deleteChip}
       />
       */}
-      <AutoComplete
-        ref={(ref) => { this.autocomplete = ref; return null; }}
-        searchText={builder[builderField]
+        <AutoComplete
+          ref={(ref) => { this.autocomplete = ref; return null; }}
+          searchText={builder[builderField]
           ? (dataSource.find(element => element.key === builder[builderField]) || {}).text
           : ''
         }
-        openOnFocus
-        listStyle={{ maxHeight: 400, overflow: 'auto' }}
-        fullWidth
-        filter={AutoComplete.caseInsensitiveFilter}
-        floatingLabelText={label}
-        dataSource={dataSource}
-        maxSearchResults={100}
-        onClick={this.resetField}
-        onNewRequest={(value, index) => {
+          openOnFocus
+          listStyle={{ maxHeight: 400, overflow: 'auto' }}
+          fullWidth
+          filter={AutoComplete.caseInsensitiveFilter}
+          floatingLabelText={label}
+          dataSource={dataSource}
+          maxSearchResults={100}
+          onClick={this.resetField}
+          onNewRequest={(value, index) => {
           handleFieldUpdate(builderField, index > -1 ? value.key : '');
         }}
-      />
-    </span>);
+        />
+      </span>);
   }
 }
 

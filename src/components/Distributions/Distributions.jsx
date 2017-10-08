@@ -122,21 +122,22 @@ class RequestLayer extends React.Component {
     this.props.dispatchDistributions();
   }
   render() {
-    const loading = this.props.loading;
+    const { loading } = this.props;
     const info = this.props.match.params.info || 'mmr';
     const page = distributionsPages.find(_page => (_page.key || _page.name.toLowerCase()) === info);
     return loading
       ? <Spinner />
-      : (<div>
-        <Helmet title={page ? page.name : strings.distributions_tab_mmr} />
-        <StyledWarning>
-          {strings.distributions_warning_1}
-          <br />
-          {strings.distributions_warning_2}
-        </StyledWarning>
-        <TabBar info={info} tabs={distributionsPages} />
-        {page && page.content(this.props.data, info)}
-      </div>);
+      : (
+        <div>
+          <Helmet title={page ? page.name : strings.distributions_tab_mmr} />
+          <StyledWarning>
+            {strings.distributions_warning_1}
+            <br />
+            {strings.distributions_warning_2}
+          </StyledWarning>
+          <TabBar info={info} tabs={distributionsPages} />
+          {page && page.content(this.props.data, info)}
+        </div>);
   }
 }
 

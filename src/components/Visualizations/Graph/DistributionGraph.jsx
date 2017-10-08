@@ -16,11 +16,12 @@ import { StyledTooltip } from './Styled';
 const DistributionTooltipContent = ({ payload, array }) => {
   const data = (payload[0] || {}).payload;
   const total = array.length ? array[array.length - 1].cumulative_sum : 0;
-  return (<StyledTooltip>
-    <div>{data && data.bin_name}</div>
-    <div>{data && data.count} {strings.th_players}</div>
-    <div>{data && (data.cumulative_sum / total * 100).toFixed(2)} {strings.th_percentile}</div>
-  </StyledTooltip>);
+  return (
+    <StyledTooltip>
+      <div>{data && data.bin_name}</div>
+      <div>{data && data.count} {strings.th_players}</div>
+      <div>{data && (data.cumulative_sum / total * 100).toFixed(2)} {strings.th_percentile}</div>
+    </StyledTooltip>);
 };
 DistributionTooltipContent.propTypes = {
   payload: PropTypes.arrayOf({}),

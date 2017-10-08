@@ -20,6 +20,7 @@ module.exports = {
     }],
     "no-shadow": 1,
     "import/named": ["error"],
+    "jsx-a11y/anchor-is-valid" : 1,
     "react/no-array-index-key": 1,
     "react/require-default-props": 0
   }

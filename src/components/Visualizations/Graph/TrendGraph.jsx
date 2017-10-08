@@ -99,9 +99,7 @@ const TrendTooltipContent = ({ payload, name }) => {
                 ''
               ) : (
                 <div className="matchValue">
-                  {`${trendStr}: ${Number(
-                    data.independent_value.toFixed(2),
-                  )}${unit}`}
+                  {`${trendStr}: ${Number(data.independent_value.toFixed(2))}${unit}`}
                 </div>
               )}
             </div>

@@ -30,12 +30,13 @@ const matchesColumns = [{
   displayName: strings.th_match_id,
   field: 'match_id',
   sortFn: true,
-  displayFn: (row, col, field) => (<div>
-    <TableLink to={`/matches/${field}`}>{field}</TableLink>
-    <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-      {row.league_name}
-    </span>
-  </div>),
+  displayFn: (row, col, field) => (
+    <div>
+      <TableLink to={`/matches/${field}`}>{field}</TableLink>
+      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+        {row.league_name}
+      </span>
+    </div>),
 }, {
   displayName: strings.th_duration,
   tooltip: strings.tooltip_duration,
@@ -59,12 +60,13 @@ const publicMatchesColumns = [
     displayName: strings.th_match_id,
     field: 'match_id',
     sortFn: true,
-    displayFn: (row, col, field) => (<div>
-      <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-        {row.avg_mmr} {strings.th_mmr}
-      </span>
-    </div>),
+    displayFn: (row, col, field) => (
+      <div>
+        <TableLink to={`/matches/${field}`}>{field}</TableLink>
+        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+          {row.avg_mmr} {strings.th_mmr}
+        </span>
+      </div>),
   }, {
     displayName: strings.th_duration,
     tooltip: strings.tooltip_duration,
@@ -89,23 +91,26 @@ const publicMatchesColumns = [
 const matchTabs = [{
   name: strings.hero_pro_tab,
   key: 'pro',
-  content: propsPar => (<div>
-    <Table data={propsPar.proData} columns={matchesColumns} />
-  </div>),
+  content: propsPar => (
+    <div>
+      <Table data={propsPar.proData} columns={matchesColumns} />
+    </div>),
   route: '/matches/pro',
 }, {
   name: strings.matches_highest_mmr,
   key: 'highMmr',
-  content: propsPar => (<div>
-    <Table data={propsPar.publicData} columns={publicMatchesColumns} />
-  </div>),
+  content: propsPar => (
+    <div>
+      <Table data={propsPar.publicData} columns={publicMatchesColumns} />
+    </div>),
   route: '/matches/highMmr',
 }, {
   name: strings.matches_lowest_mmr,
   key: 'lowMmr',
-  content: propsPar => (<div>
-    <Table data={propsPar.publicData} columns={publicMatchesColumns} />
-  </div>),
+  content: propsPar => (
+    <div>
+      <Table data={propsPar.publicData} columns={publicMatchesColumns} />
+    </div>),
   route: '/matches/lowMmr',
 }];
 
@@ -135,16 +140,17 @@ class RequestLayer extends React.Component {
     }
 
     const tab = matchTabs.find(_tab => _tab.key === route);
-    return (<div>
-      <Helmet title={strings.title_matches} />
+    return (
       <div>
-        <TabBar
-          info={route}
-          tabs={matchTabs}
-        />
-        {tab && tab.content(this.props)}
-      </div>
-    </div>);
+        <Helmet title={strings.title_matches} />
+        <div>
+          <TabBar
+            info={route}
+            tabs={matchTabs}
+          />
+          {tab && tab.content(this.props)}
+        </div>
+      </div>);
   }
 }
 

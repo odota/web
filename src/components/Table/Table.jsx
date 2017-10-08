@@ -19,7 +19,7 @@ const getColumnMax = (data, field, getValue) => {
   const valuesArr = data.reduce((arr, row) => {
     const value = getValue ? getValue(row) : row[field];
     const num = Number(value);
-    if (isNaN(num)) {
+    if (Number.isNaN(num)) {
       return arr;
     }
     arr.push(value);
@@ -32,7 +32,7 @@ const getColumnMin = (data, field, getValue) => {
   const valuesArr = data.reduce((arr, row) => {
     const value = getValue ? getValue(row) : row[field];
     const num = Number(value);
-    if (isNaN(num)) {
+    if (Number.isNaN(num)) {
       return arr;
     }
     arr.push(value);
@@ -69,7 +69,7 @@ class Table extends React.Component {
     });
   }
   sortClick(sortField, sortState, sortFn) {
-    const state = this.state;
+    const { state } = this;
     this.setState({
       ...state,
       sortState: sortField === state.sortField ? SORT_ENUM.next(SORT_ENUM[state.sortState]) : SORT_ENUM[0],
@@ -103,7 +103,7 @@ class Table extends React.Component {
       sortState, sortField, sortFn, currentPage,
     } = this.state;
     const dataLength = this.props.data.length;
-    let data = this.props.data;
+    let { data } = this.props;
     if (maxRows && maxRows <= dataLength) {
       data = data.slice(0, maxRows);
     }
@@ -126,7 +126,8 @@ class Table extends React.Component {
         <StyledContainer >
           {loading && <Spinner />}
           {!loading && error && <Error />}
-          {!loading && !error && data && (<div className="innerContainer">
+          {!loading && !error && data && (
+          <div className="innerContainer">
             <MaterialTable fixedHeader={false} selectable={false}>
               <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableHeader
@@ -175,13 +176,13 @@ class Table extends React.Component {
                           const min = getColumnMin(data, field, getValue);
                           let max = getColumnMax(data, field, getValue);
                           let valueWithOffset = value;
-                          if (!isNaN(min) && min < 0) {
+                          if (!Number.isNaN(Number(min)) && min < 0) {
                             // Rescale to cater for columns with negatives
                             max -= min;
                             valueWithOffset -= min;
                           }
 
-                          const isValidNumber = !isNaN(valueWithOffset);
+                          const isValidNumber = !Number.isNaN(Number(valueWithOffset));
                           barPercentValue = max !== 0 && isValidNumber
                             ? Number((valueWithOffset * 100 / max).toFixed(2))
                             : 0;
@@ -214,13 +215,15 @@ class Table extends React.Component {
                     })}
                   </MaterialTableRow>
                 ))}
-                {summable && <MaterialTableRow>
-                  {columns.map((column, colIndex) => (<MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
-                    {column.sumFn && (column.field !== 'life_state_dead' ?
+                {summable &&
+                <MaterialTableRow>
+                  {columns.map((column, colIndex) => (
+                    <MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
+                      {column.sumFn && (column.field !== 'life_state_dead' ?
                       abbreviateNumber(data.map(row => row[column.field]).reduce(sum, 0))
                       : column.displayFn(null, column, data.map(row => row[column.field]).reduce(sum, 0))
                     )}
-                  </MaterialTableRowColumn>))}
+                    </MaterialTableRowColumn>))}
                 </MaterialTableRow>}
               </MaterialTableBody>
             </MaterialTable>

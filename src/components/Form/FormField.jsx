@@ -127,26 +127,27 @@ class FormField extends React.Component {
       return fromSource || { text: element, value: element };
     });
 
-    return (<div className={className}>
-      <AutoComplete
-        ref={(ref) => { this.autocomplete = ref; return null; }}
-        openOnFocus
-        dataSource={dataSource}
-        floatingLabelText={label}
-        filter={filter || AutoComplete.fuzzyFilter}
-        maxSearchResults={maxSearchResults}
-        onNewRequest={this.handleSelect}
-        onUpdateInput={this.handleUpdateInput}
-        searchText={searchText}
-        errorText={errorText}
-        style={{ flex: '1 0 0' }}
-        floatingLabelFocusStyle={{ color: errorText ? colorRed : colorBlue }}
-        underlineFocusStyle={{ borderColor: colorBlue }}
-        errorStyle={{ color: colorRed }}
-        onClose={() => this.setState({ errorText: '' })}
-      />
-      <ChipList name={name} chipList={chipList} deleteChip={deleteChip} history={history} />
-    </div>);
+    return (
+      <div className={className}>
+        <AutoComplete
+          ref={(ref) => { this.autocomplete = ref; return null; }}
+          openOnFocus
+          dataSource={dataSource}
+          floatingLabelText={label}
+          filter={filter || AutoComplete.fuzzyFilter}
+          maxSearchResults={maxSearchResults}
+          onNewRequest={this.handleSelect}
+          onUpdateInput={this.handleUpdateInput}
+          searchText={searchText}
+          errorText={errorText}
+          style={{ flex: '1 0 0' }}
+          floatingLabelFocusStyle={{ color: errorText ? colorRed : colorBlue }}
+          underlineFocusStyle={{ borderColor: colorBlue }}
+          errorStyle={{ color: colorRed }}
+          onClose={() => this.setState({ errorText: '' })}
+        />
+        <ChipList name={name} chipList={chipList} deleteChip={deleteChip} history={history} />
+      </div>);
   }
 }
 
