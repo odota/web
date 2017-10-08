@@ -53,5 +53,6 @@ export const getPlayerWordcloud = (accountId, params) => action('playerWordcloud
 export const getPlayerTotals = (accountId, params) => action('playerTotals', process.env.REACT_APP_API_HOST, `api/players/${accountId}/totals`, params);
 export const getPlayerMmr = (accountId, params) => action('playerMmr', process.env.REACT_APP_API_HOST, `api/players/${accountId}/ratings`, params);
 export const getPlayerRankings = (accountId, params) => action('playerRankings', process.env.REACT_APP_API_HOST, `api/players/${accountId}/rankings`, params, transformRankings);
+export const getAbilities = () => action('abilities', 'https://raw.githubusercontent.com', 'odota/dotaconstants/master/build/abilities.json');
 export * from './requestActions';
 export * from './formActions';

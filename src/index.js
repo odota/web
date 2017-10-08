@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Route, BrowserRouter } from 'react-router-dom';
 import store from 'store';
-import { getMetadata } from 'actions';
+import { getMetadata, getAbilities } from 'actions';
 import App from 'components/App';
 import constants from 'components/constants';
 import { injectGlobal } from 'styled-components';
@@ -147,6 +147,7 @@ li {
 
 // Fetch metadata (used on all pages)
 store.dispatch(getMetadata());
+store.dispatch(getAbilities());
 
 const reactElement = document.getElementById('react');
 render(<Provider store={store}>

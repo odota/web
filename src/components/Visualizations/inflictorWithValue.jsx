@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
 import items from 'dotaconstants/build/items.json';
-import abilities from 'dotaconstants/build/abilities.json';
 import neutralAbilities from 'dotaconstants/build/neutral_abilities.json';
 import strings from 'lang';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 import constants from '../constants';
 
 const StyledDiv = styled.div`
@@ -182,7 +183,7 @@ const tooltipContainer = thing => (
   </div>
 );
 
-export default (inflictor, value, type, ptooltip) => {
+const InflictorWithValueComp = ({ inflictor, value, type, ptooltip, abilities }) => {
   if (inflictor !== undefined) {
     const ability = abilities[inflictor];
     const neutralAbility = neutralAbilities[inflictor];
@@ -217,28 +218,44 @@ export default (inflictor, value, type, ptooltip) => {
         <div className="inflictorWithValue" data-tip={tooltip && true} data-for={ttId}>
           {!type && <img src={image} alt="" />}
           {type === 'buff' &&
-          <div
-            className="buff"
-            style={{
-              backgroundImage: `url(${image})`,
-            }}
-          />
+            <div
+              className="buff"
+              style={{
+                backgroundImage: `url(${image})`,
+              }}
+            />
           }
           {!type && <div className="overlay">{value}</div>}
           {type === 'buff' &&
-          <div className="buffOverlay">
-            {value > 0 && value}
-          </div>
+            <div className="buffOverlay">
+              {value > 0 && value}
+            </div>
           }
           {tooltip &&
-          <div className="tooltip">
-            <ReactTooltip id={ttId} effect="solid" place="left">
-              {tooltip}
-            </ReactTooltip>
-          </div>}
+            <div className="tooltip">
+              <ReactTooltip id={ttId} effect="solid" place="left">
+                {tooltip}
+              </ReactTooltip>
+            </div>}
         </div>
       </StyledDiv>
     );
   }
   return null;
 };
+
+InflictorWithValueComp.propTypes = {
+  inflictor: PropTypes.string,
+  value: PropTypes.string,
+  type: PropTypes.string,
+  ptooltip: PropTypes.shape({}),
+  abilities: PropTypes.shape({}),
+};
+
+const mapStateToProps = state => ({
+  abilities: state.app.abilities.data || {},
+});
+
+const InflictorWithValue = connect(mapStateToProps)(InflictorWithValueComp);
+
+export default (inflictor, value, type, ptooltip) => <InflictorWithValue inflictor={inflictor} value={value} type={type} ptooltip={ptooltip} />;
