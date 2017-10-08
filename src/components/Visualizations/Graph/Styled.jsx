@@ -3,6 +3,7 @@ import constants from 'components/constants';
 
 export const StyledTooltip = styled.div`
   position: relative;
+  width:auto;
   display: block;
   padding: 0.5em;
   background-color: ${constants.darkPrimaryColor};

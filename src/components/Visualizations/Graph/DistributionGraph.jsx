@@ -9,7 +9,7 @@ import {
   Line,
   ComposedChart,
   CartesianGrid,
-  Label,
+  Label, ResponsiveContainer,
 } from 'recharts';
 import { StyledTooltip } from './Styled';
 
@@ -32,37 +32,38 @@ const DistributionGraph = ({
 }) => {
   const mmr = data && data.mmr && data.mmr.rows;
   if (mmr) {
-    return (<ComposedChart
-      width={1200}
-      height={600}
-      data={mmr}
-      margin={{
-        top: 5, right: 30, left: 30, bottom: 5,
-      }}
-    >
-      <XAxis dataKey="bin_name" interval={4}>
-        <Label value="" position="insideTopRight" />
-      </XAxis>
-      <YAxis yAxisId="left" orientation="left" stroke="#1393f9" />
-      <YAxis yAxisId="right" orientation="right" stroke="#ff4c4c" />
-      <CartesianGrid
-        stroke="#505050"
-        strokeWidth={1}
-        opacity={0.5}
-      />
+    return (
+      <ResponsiveContainer width="100%" height={600}>
+        <ComposedChart
+          data={mmr}
+          margin={{
+            top: 5, right: 30, left: 30, bottom: 5,
+          }}
+        >
+          <XAxis dataKey="bin_name" interval={4}>
+            <Label value="" position="insideTopRight" />
+          </XAxis>
+          <YAxis yAxisId="left" orientation="left" stroke="#1393f9" />
+          <YAxis yAxisId="right" orientation="right" stroke="#ff4c4c" />
+          <CartesianGrid
+            stroke="#505050"
+            strokeWidth={1}
+            opacity={0.5}
+          />
 
-      <Tooltip content={<DistributionTooltipContent array={mmr} />} />
-      <Bar
-        dataKey="count"
-        yAxisId="left"
-        fill="#1393f9"
-      />
-      <Line
-        dataKey="cumulative_sum"
-        yAxisId="right"
-        stroke="#ff4c4c"
-      />
-    </ComposedChart>
+          <Tooltip content={<DistributionTooltipContent array={mmr} />} />
+          <Bar
+            dataKey="count"
+            yAxisId="left"
+            fill="#1393f9"
+          />
+          <Line
+            dataKey="cumulative_sum"
+            yAxisId="right"
+            stroke="#ff4c4c"
+          />
+        </ComposedChart>
+      </ResponsiveContainer>
     );
   }
   return null;
