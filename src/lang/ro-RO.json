@@ -5,6 +5,7 @@
   "abbr_trillion":"tril",
   "abbr_quadrillion":"qdl",
   "abbr_not_available":"Indisponibil",
+
   "analysis_eff":"Eficienţă Lane",
   "analysis_farm_drought":"Cel mai mic GPM într-un interval de 5 minute",
   "analysis_skillshot":"Skillshot-uri reușite",
@@ -13,9 +14,11 @@
   "analysis_roshan":"Roshan a fost ucis",
   "analysis_rune_control":"Rune obţinute",
   "analysis_unused_item":"Items active neutilizate",
-  "analysis_expected":"of",
+  "analysis_expected":"din",
+
   "announce_dismiss":"Închide",
   "announce_github_more":"Vezi pe GitHub",
+
   "app_name":"OpenDota",
   "app_language":"Limbă",
   "app_localization":"Localizare",
@@ -48,6 +51,7 @@
   "app_pro_players":"Jucători profesioniști",
   "app_public_players":"Jucători publici",
   "app_my_profile":"Profilul meu",
+
   "barracks_value_1":"Baraca melee jos Dire",
   "barracks_value_2":"Baraca ranged jos Dire",
   "barracks_value_4":"Baraca melee mid Dire",
@@ -60,14 +64,18 @@
   "barracks_value_512":"Baraca ranged mid Radiant",
   "barracks_value_1024":"Baraca melee sus Radiant",
   "barracks_value_2048":"Baraca ranged sus Radiant",
+
   "benchmarks_description":"%d %s este egală sau mai mare decât %d % a performanţelor recente pe acest erou",
+
   "fantasy_description":"%d pentru %d puncte",
+
   "building_melee_rax":"Barăci melee",
   "building_range_rax":"Barăci ranged",
   "building_lasthit":"a luat un last hit",
   "building_damage":"a luat daune",
   "building_hint":"Iconițele de pe hartă au tooltip-uri",
   "building_denied":"negat",
+
   "CHAT_MESSAGE_TOWER_KILL":"Turn",
   "CHAT_MESSAGE_BARRACKS_KILL":"Barăci",
   "CHAT_MESSAGE_ROSHAN_KILL":"Roshan",
@@ -76,15 +84,18 @@
   "CHAT_MESSAGE_TOWER_DENY":"Negare de turn",
   "CHAT_MESSAGE_AEGIS_STOLEN":"A furat Aegis-ul",
   "CHAT_MESSAGE_DENIED_AEGIS":"A negat Aegis-ul",
+
   "distributions_heading_mmr":"Distribuire Solo MMR",
   "distributions_heading_country_mmr":"Solo MMR mediu în funcție de țară",
   "distributions_tab_mmr":"Solo MMR",
   "distributions_tab_country_mmr":"Solo MMR după Țară",
   "distributions_warning_1":"This data set is limited to players displaying MMR on profile and sharing public match data.",
   "distributions_warning_2":"Players do not have to sign in, but due to the opt-in nature of the data collected, averages are likely higher than expected.",
+
   "error":"Eroare",
   "error_message":"Oooops! Ceva nu a mers bine.",
   "error_four_oh_four_message":"Pagina pe care o cauți nu a putut fi găsită.",
+
   "explorer_title":"Data Explorer",
   "explorer_subtitle":"Professional Dota 2 Stats",
   "explorer_description":"Explore data from professional Dota 2 matches",
@@ -141,6 +152,7 @@
   "explorer_having":"Cel puţin atât de multe meciuri",
   "explorer_limit":"Limită",
   "explorer_match":"Meci",
+
   "farm_heroes":"Eroi ucişi",
   "farm_creeps":"Creepi omorâți în lane",
   "farm_neutrals":"Creepi neutrii uciși (inclusiv Ancients)",
@@ -151,6 +163,7 @@
   "farm_sentries":"Sentry-uri distruse",
   "farm_roshan":"Roshani uciși",
   "farm_necronomicon":"Unități de Necronomicon ucise",
+
   "filter_button_text_open":"Filtrare",
   "filter_button_text_close":"Închide",
   "filter_hero_id":"Erou",
@@ -173,6 +186,7 @@
   "filter_last_3_months":"Ultimele 3 luni",
   "filter_last_6_months":"Ultimele 6 luni",
   "filter_error":"Vă rugăm să selectaţi un element din lista",
+
   "game_mode_0":"Necunoscut",
   "game_mode_1":"All Pick",
   "game_mode_2":"Captains Mode",
@@ -196,6 +210,7 @@
   "game_mode_20":"All Random Deathmatch",
   "game_mode_21":"1v1 Solo Mid",
   "game_mode_22":"All Draft",
+
   "general_unknown":"Unknown",
   "general_no_hero":"No hero",
   "general_anonymous":"Anonymous",
@@ -207,16 +222,21 @@
   "general_randomed":"Randomed",
   "general_repicked":"Repicked",
   "general_predicted_victory":"Predicted Victory",
+
   "gold_reasons_0":"Other",
   "gold_reasons_1":"Death",
   "gold_reasons_2":"Buyback",
+
   "NULL_gold_reasons_5":"Abandon",
   "NULL_gold_reasons_6":"Sell",
+
   "gold_reasons_11":"Building",
   "gold_reasons_12":"Hero",
   "gold_reasons_13":"Creep",
   "gold_reasons_14":"Roshan",
+
   "NULL_gold_reasons_15":"Courier",
+
   "header_request":"Request",
   "header_distributions":"MMR",
   "header_heroes":"Heroes",
@@ -226,6 +246,7 @@
   "header_records":"Records",
   "header_explorer":"Explorer",
   "header_teams":"Teams",
+
   "heading_lhten":"Last Hits @ 10",
   "heading_lhtwenty":"Last Hits @ 20",
   "heading_lhthirty":"Last Hits @ 30",
@@ -327,9 +348,11 @@
   "heading_distinct_heroes":"Eroi Diferiți",
   "heading_team_elo_rankings":"Team Elo Rankings",
   "heading_ability_build":"Ability Build",
+
   "subheading_avg_and_max":"în ultimele %d meciuri",
   "subheading_records":"În meciuri ranked. Recordurile se resetează lunar.",
   "subheading_team_elo_rankings":"k=32, init=1000",
+
   "hero_pro_tab":"Profesional",
   "hero_public_tab":"Public",
   "hero_pro_heading":"Eroi în Meciuri Profesionale",
@@ -349,11 +372,13 @@
   "hero_2000_win_rate":"2K W%",
   "hero_1000_pick_rate":"<2K P%",
   "hero_1000_win_rate":"<2K W%",
+
   "home_login":"Autentificare",
   "home_login_desc":"pentru analiza automată a meciurilor",
   "home_parse":"Cerere",
   "home_parse_desc":"un meci specific",
   "home_why":"",
+
   "home_opensource_title":"Open Source",
   "home_opensource_desc":"All project code is open source and available for contributors to improve and modify.",
   "home_indepth_title":"In-Depth Data",
@@ -364,6 +389,7 @@
   "home_sponsored_by":"Sponsorizat de",
   "home_become_sponsor":"Deveniți un Sponsor",
   "home_jist_button":"New: AutoMagic highlights!",
+
   "items_name":"Name of item",
   "items_built":"Number of times this item was built",
   "items_matches":"Number of matches where this item was built",
@@ -372,6 +398,7 @@
   "items_timing":"Mean time this item was built at",
   "items_build_pct":"Percentage of matches this item was built in",
   "items_win_pct":"Percentage of matches won where this item was built",
+
   "lane_role_0":"Unknown",
   "lane_role_1":"Safe",
   "lane_role_2":"Mid",
@@ -382,6 +409,7 @@
   "lane_pos_3":"Top",
   "lane_pos_4":"Radiant Jungle",
   "lane_pos_5":"Dire Jungle",
+
   "leaver_status_0":"Niciunul",
   "leaver_status_1":"Left Safely",
   "leaver_status_2":"Abandonat (DC)",
@@ -389,6 +417,7 @@
   "leaver_status_4":"Abandonat (AFK)",
   "leaver_status_5":"Never Connected",
   "leaver_status_6":"Never Connected (Timeout)",
+
   "lobby_type_0":"Normal",
   "lobby_type_1":"Exercițiu",
   "lobby_type_2":"Turneu",
@@ -399,6 +428,7 @@
   "lobby_type_7":"Ranked",
   "lobby_type_8":"1v1 Mid",
   "lobby_type_9":"Battle Cup",
+
   "match_radiant_win":"Victorie Radiant",
   "match_dire_win":"Victorie Dire",
   "match_team_win":"Victorie",
@@ -414,9 +444,12 @@
   "match_first_barracks":"Primele Barăci",
   "match_pick":"Pick",
   "match_ban":"Ban",
+
   "matches_highest_mmr":"High MMR",
   "matches_lowest_mmr":"Low MMR",
+
   "mmr_not_up_to_date":"De ce nu este actualizat MMR-ul?",
+
   "npc_dota_beastmaster_boar_#":"Boar",
   "npc_dota_lesser_eidolon":"Lesser Eidolon",
   "npc_dota_eidolon":"Eidolon",
@@ -455,6 +488,7 @@
   "npc_dota_treant_eyes":"Eyes in the Forest",
   "npc_dota_gyrocopter_homing_missile":"Homing Missile",
   "npc_dota_weaver_swarm":"The Swarm",
+
   "objective_tower1_top":"T1",
   "objective_tower1_mid":"M1",
   "objective_tower1_bot":"B1",
@@ -471,14 +505,18 @@
   "objective_fort":"Anc",
   "objective_shrine":"Shr",
   "objective_roshan":"Rosh",
+
   "pagination_first":"First",
   "pagination_last":"Last",
   "pagination_of":"of",
+
   "request_title":"Request a Parse",
   "request_match_id":"Match ID",
   "request_error":"Failed to get match data",
   "request_submit":"Submit",
+
   "roaming":"Roaming",
+
   "rune_0":"Double Damage",
   "rune_1":"Haste",
   "rune_2":"Illusion",
@@ -486,10 +524,13 @@
   "rune_4":"Regeneration",
   "rune_5":"Bounty",
   "rune_6":"Arcane",
-  "search_title":"Player Search",
+
+  "search_title":"Caută jucători",
+
   "skill_1":"Normal",
-  "skill_2":"High",
-  "skill_3":"Very High",
+  "skill_2":"Ridicat",
+  "skill_3":"Foarte Ridicat",
+
   "story_invalid_template":"(invalid template)",
   "story_error":"An error occured while compiling the story for this match",
   "story_intro":"pe {date}, două echipe au decis să joace {game_mode_article} {game_mode} meci de Dota 2 în {region}. Nu puteau ști că meciul va dura {duration_in_words}",
@@ -533,6 +574,7 @@
   "story_gold":"gold",
   "story_chat_asked":"asked",
   "story_chat_said":"said",
+
   "tab_overview":"Overview",
   "tab_matches":"Matches",
   "tab_heroes":"Heroes",
@@ -568,10 +610,13 @@
   "tab_story":"Story",
   "tab_fantasy":"Fantasy",
   "tab_laning":"Laning",
+
   "placeholder_filter_heroes":"Filter Heroes",
+
   "td_win":"Win",
   "td_loss":"Loss",
   "td_no_result":"No Result",
+
   "th_hero_id":"Hero",
   "th_match_id":"ID",
   "th_result":"Result",
@@ -698,30 +743,35 @@
   "th_firstblood_claimed":"First Blood",
   "th_observers_placed":"Observers",
   "th_camps_stacked":"Stacks",
-  "ward_log_type":"Type",
-  "ward_log_owner":"Owner",
-  "ward_log_entered_at":"Placed",
-  "ward_log_left_at":"Left",
-  "ward_log_duration":"Lifespan",
-  "ward_log_killed_by":"Killed by",
-  "log_detail":"Detail",
-  "log_heroes":"Specify Heroes",
-  "tier_professional":"Professional",
+
+  "ward_log_type":"Tip",
+  "ward_log_owner":"Proprietar",
+  "ward_log_entered_at":"Așezat",
+  "ward_log_left_at":"Lăsat",
+  "ward_log_duration":"Durată de viață",
+  "ward_log_killed_by":"Ucis de",
+
+  "log_detail":"Detaliu",
+  "log_heroes":"Specifică Eroi",
+
+  "tier_professional":"Profesional",
   "tier_premium":"Premium",
+
   "time_past":"%s ago",
-  "time_just_now":"just now",
-  "time_s":"a second",
-  "time_ss":"%d seconds",
-  "time_m":"a minute",
-  "time_mm":"%d minutes",
-  "time_h":"an hour",
-  "time_hh":"%d hours",
-  "time_d":"a day",
-  "time_dd":"%d days",
-  "time_M":"a month",
-  "time_MM":"%d months",
-  "time_y":"a year",
-  "time_yy":"%d years",
+  "time_just_now":"adineaori",
+  "time_s":"o secundă",
+  "time_ss":"%d secunde",
+  "time_m":"un minut",
+  "time_mm":"%d minute",
+  "time_h":"o oră",
+  "time_hh":"%d ore",
+  "time_d":"o zi",
+  "time_dd":"%d zile",
+  "time_M":"o lună",
+  "time_MM":"%d luni",
+  "time_y":"un an",
+  "time_yy":"%d ani",
+
   "timeline_firstblood":"drew first blood",
   "timeline_firstblood_key":"drew first blood by killing",
   "timeline_aegis_picked_up":"picked up",
@@ -729,14 +779,16 @@
   "timeline_aegis_denied":"denied",
   "timeline_teamfight_deaths":"Deaths",
   "timeline_teamfight_gold_delta":"gold delta",
+
   "title_default":"OpenDota - Dota 2 Statistics",
   "title_template":"%s - OpenDota - Dota 2 Statistics",
-  "title_matches":"Matches",
-  "title_request":"Request a Parse",
-  "title_search":"Search",
+  "title_matches":"Meciuri",
+  "title_request":"Cere o analiză",
+  "title_search":"Căutare",
   "title_status":"Status",
-  "title_explorer":"Data Explorer",
-  "title_records":"Records",
+  "title_explorer":"Explorator date",
+  "title_records":"Recorduri",
+
   "tooltip_mmr":"Solo MMR of the player",
   "tooltip_level":"Level achieved by hero",
   "tooltip_kills":"Number of kills by hero",
@@ -836,17 +888,22 @@
   "tooltip_others_tracked_deaths":"tracked deaths",
   "tooltip_others_track_gold":"gold earned from Track",
   "tooltip_others_greevils_gold":"gold earned from Greevil's Greed",
-  "histograms_name":"Histograms",
+
+  "histograms_name":"Histograme",
   "histograms_description":"Percentages indicate win rates for the labeled bin",
+
   "trends_name":"Trends",
   "trends_description":"Cumulative average over last 500 games",
-  "trends_tooltip_average":"Avg.",
-  "trends_no_data":"Sorry, no data for this graph",
-  "xp_reasons_0":"Other",
-  "xp_reasons_1":"Hero",
+  "trends_tooltip_average":"Medie",
+  "trends_no_data":"Scuze, nu sunt date pentru acest grafic",
+
+  "xp_reasons_0":"Altceva",
+  "xp_reasons_1":"Erou",
   "xp_reasons_2":"Creep",
   "xp_reasons_3":"Roshan",
+
   "rankings_description":"",
+
   "region_0":"Automat",
   "region_1":"SUA Vest",
   "region_2":"SUA Est",
@@ -868,24 +925,28 @@
   "region_19":"Japonia",
   "region_20":"China TC Wuhan",
   "region_25":"China UC 2",
-  "vision_expired":"Expired after",
-  "vision_destroyed":"Destroyed after",
-  "vision_all_time":"All time",
-  "vision_placed_observer":"placed Observer at",
-  "vision_placed_sentry":"placed Sentry at",
-  "vision_ward_log":"Ward Log",
-  "chat_category_faction":"Faction",
-  "chat_category_type":"Type",
-  "chat_category_target":"Target",
-  "chat_category_other":"Other",
+
+  "vision_expired":"Expirat după",
+  "vision_destroyed":"Distrus după",
+  "vision_all_time":"Tot timpul",
+  "vision_placed_observer":"Observere plasate",
+  "vision_placed_sentry":"Sentry-uri plasate",
+  "vision_ward_log":"Log ward-uri",
+
+  "chat_category_faction":"Facțiune",
+  "chat_category_type":"Tip",
+  "chat_category_target":"Țintă",
+  "chat_category_other":"Altele",
+
   "chat_filter_text":"Text",
-  "chat_filter_phrases":"Phrases",
+  "chat_filter_phrases":"Fraze",
   "chat_filter_audio":"Audio",
   "chat_filter_spam":"Spam",
-  "chat_filter_all":"All",
-  "chat_filter_allies":"Allies",
+  "chat_filter_all":"Tot",
+  "chat_filter_allies":"Aliați",
   "chat_filter_spectator":"Spectator",
-  "chat_filtered":"Filtered",
+  "chat_filtered":"Filtrate",
+
   "chatwheel_0":"Okay.",
   "chatwheel_1":"Careful!",
   "chatwheel_2":"Get Back!",
@@ -997,39 +1058,47 @@
   "chatwheel_108":"It's a disastah!",
   "chatwheel_109":"走好, 不送",
   "chatwheel_110":"Это. Просто. Нечто.",
-  "advb_almost":"almost",
-  "advb_over":"over",
-  "advb_about":"about",
-  "article_before_consonant_sound":"a",
-  "article_before_vowel_sound":"an",
-  "statement_long":"hypothesised",
+
+  "advb_almost":"aproape",
+  "advb_over":"gata",
+  "advb_about":"despre",
+
+  "article_before_consonant_sound":"",
+  "article_before_vowel_sound":"un",
+
+  "statement_long":"ipoteză",
   "statement_shouted":"a strigat",
-  "statement_excited":"exclaimed",
+  "statement_excited":"a exclamat",
   "statement_normal":"a spus",
-  "statement_laughed":"laughed",
-  "question_long":"raised, in need of answers",
-  "question_shouted":"inquired",
-  "question_excited":"interrogated",
-  "question_normal":"asked",
-  "question_laughed":"laughed mockingly",
-  "statement_response_long":"advised",
-  "statement_response_shouted":"responded in frustration",
+  "statement_laughed":"a râs",
+
+  "question_long":"întrebă, cautând răspunsuri",
+  "question_shouted":"întrebă",
+  "question_excited":"a interogat",
+  "question_normal":"a întrebat",
+  "question_laughed":"râse batjocoritor",
+
+  "statement_response_long":"a sfătuit",
+  "statement_response_shouted":"a răspuns cu frustrare",
   "statement_response_excited":"a exclamat",
   "statement_response_normal":"a răspuns",
-  "statement_response_laughed":"laughed",
-  "statement_continued_long":"ranted",
-  "statement_continued_shouted":"continued furiously",
+  "statement_response_laughed":"râse",
+
+  "statement_continued_long":"s-a plâns",
+  "statement_continued_shouted":"a continuat furios",
   "statement_continued_excited":"a continuat",
   "statement_continued_normal":"a adăugat",
   "statement_continued_laughed":"continuă",
-  "question_response_long":"advised",
-  "question_response_shouted":"asked back, out of frustration",
-  "question_response_excited":"disputed",
-  "question_response_normal":"countered",
+
+  "question_response_long":"a sfătuit",
+  "question_response_shouted":"întrebă înapoi, din frustrare",
+  "question_response_excited":"discută",
+  "question_response_normal":"contracară",
   "question_response_laughed":"a râs",
-  "question_continued_long":"propositioned",
-  "question_continued_shouted":"a întrebat fu",
-  "question_continued_excited":"lovingly asked",
+
+  "question_continued_long":"propuse",
+  "question_continued_shouted":"întrebă furios",
+  "question_continued_excited":"a întrebat cu iubire",
   "question_continued_normal":"a întrebat",
-  "question_continued_laughed":"asked joyfully"
+  "question_continued_laughed":"întrebă bucuros"
 }
