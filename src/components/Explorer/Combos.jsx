@@ -59,13 +59,10 @@ class Combos extends React.Component {
       // matchup_ids: {},
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.getMatchupIds = this.getMatchupIds.bind(this);
   }
 
-  componentDidMount() {}
-
   /*
-  getMatchupIds(matchup) {
+  getMatchupIds = (matchup) => {
     // this.setState(Object.assign({}, this.state, { loading_matchup: true }));
 
     const dateToTimestamp = date => date.getTime() / 1000;
