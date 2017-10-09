@@ -102,7 +102,7 @@ class App extends React.Component {
             <Route exact path="/explorer" component={Explorer} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/records/:info?" component={Records} />
-            <Route path="combos" component={Combos} />
+            <Route exact path="/combos" component={Combos} />
           </StyledBodyDiv>
           <Footer location={location} width={width} />
         </StyledDiv>
