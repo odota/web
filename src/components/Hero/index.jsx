@@ -9,6 +9,7 @@ import TabBar from 'components/TabBar';
 import styled from 'styled-components';
 import Ranking from './Ranking';
 import Benchmark from './Benchmark';
+import Recent from './Recent';
 
 const getSingleHero = heroId => ({ ...heroes[heroId], img: process.env.REACT_APP_API_HOST + heroes[heroId].img });
 
@@ -39,11 +40,23 @@ const tabs = heroId => ([
       </div>),
     route: `/heroes/${heroId}/benchmarks`,
   },
+  {
+    name: strings.tab_recent,
+    key: 'recent',
+    content: props => (
+      <div>
+        <Heading title={strings.tab_recent} />
+        <Recent {...props} />
+      </div>
+    ),
+    route: `/heroes/${heroId}/recent`,
+  },
 ]);
 
 const Hero = ({ props }) => {
   const route = props.match.params.info || 'rankings';
   const { heroId } = props.match.params;
+  const currentTab = tabs(heroId).find(tab => tab.key === route);
   return (
     <div>
       <Helmet title={getSingleHero(props.match.params.heroId).localized_name} />
@@ -60,7 +73,7 @@ const Hero = ({ props }) => {
           info={route}
           tabs={tabs(heroId)}
         />
-        {tabs(heroId).filter(tab => tab.key === route).map(tab => tab.content(props))}
+        {currentTab ? currentTab.content(props) : null}
       </div>
     </div>);
 };

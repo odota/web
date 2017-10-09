@@ -27,6 +27,7 @@ export default combineReducers({
   }),
   heroRanking: reducer('heroRanking'),
   heroBenchmark: reducer('heroBenchmark'),
+  heroRecentGames: reducer('heroRecentGames'),
   search: reducer('search'),
   distributions: reducer('distributions'),
   proPlayers: reducer('proPlayers'),
