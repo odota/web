@@ -79,7 +79,10 @@ Dropdown.propTypes = {
   Button: PropTypes.func,
   buttonProps: PropTypes.shape({}),
   className: PropTypes.string,
-  children: PropTypes.arrayOf({}),
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf({}),
+    PropTypes.node,
+  ]),
 };
 
 export default Dropdown;

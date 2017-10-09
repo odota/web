@@ -116,7 +116,10 @@ class RequestLayer extends React.Component {
 
 RequestLayer.propTypes = {
   dispatchHeroStats: PropTypes.func,
-  data: PropTypes.shape({}),
+  data: PropTypes.oneOfType([
+    PropTypes.shape({}),
+    PropTypes.arrayOf(PropTypes.shape({})),
+  ]),
   loading: PropTypes.bool,
   match: PropTypes.shape({
     params: PropTypes.shape({

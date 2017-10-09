@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { oneOfType, shape, arrayOf } from 'prop-types';
 import Table from 'components/Table';
 import strings from 'lang';
 
@@ -13,7 +13,10 @@ const columns = data => Object.keys(data[0] || {}).map(stat => ({
 const BenchmarkTable = ({ data }) => (<Table data={data} columns={columns(data)} />);
 
 BenchmarkTable.propTypes = {
-  data: PropTypes.shape({}),
+  data: oneOfType([
+    arrayOf(shape({})),
+    shape({}),
+  ]),
 };
 
 export default BenchmarkTable;

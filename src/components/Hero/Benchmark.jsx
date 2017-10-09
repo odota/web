@@ -1,13 +1,7 @@
-import React, {
-  Component,
-} from 'react';
-import PropTypes from 'prop-types';
-import {
-  connect,
-} from 'react-redux';
-import {
-  getBenchmark,
-} from 'actions';
+import React, { Component } from 'react';
+import { shape, func, bool, arrayOf, oneOfType, string } from 'prop-types';
+import { connect } from 'react-redux';
+import { getBenchmark } from 'actions';
 import Spinner from 'components/Spinner';
 import BenchmarkTable from './BenchmarkTable';
 
@@ -19,40 +13,45 @@ const renderBenchmark = (hero, data) => (
 
 class Benchmark extends Component {
   componentDidMount() {
-    if (this.props.match.params && this.props.match.params.heroId) {
+    if (
+      this.props.match.params &&
+      this.props.match.params.heroId
+    ) {
       this.props.getBenchmark(this.props.match.params.heroId);
     }
   }
 
-
   render() {
     const {
-      isLoading,
-      isError,
-      hero,
-      result,
+      isLoading, isError, hero, result,
     } = this.props;
 
     return (
       <div>
-        {isLoading || isError || result === null ?
-          <Spinner /> : renderBenchmark(hero, result)}
+        {isLoading || isError || result === null ? (
+          <Spinner />
+        ) : (
+          renderBenchmark(hero, result)
+        )}
       </div>
     );
   }
 }
 
 Benchmark.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      heroId: PropTypes.string,
+  match: shape({
+    params: shape({
+      heroId: string,
     }),
   }),
-  getBenchmark: PropTypes.func,
-  isLoading: PropTypes.bool,
-  isError: PropTypes.bool,
-  hero: PropTypes.shape({}),
-  result: PropTypes.string,
+  getBenchmark: func,
+  isLoading: bool,
+  isError: bool,
+  hero: shape({}),
+  result: oneOfType([
+    arrayOf(shape({})),
+    shape({}),
+  ]),
 };
 
 /**
