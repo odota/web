@@ -72,7 +72,18 @@ const TooltipStylesDiv = styled.div`
     font-size: ${constants.fontSizeCommon};
   }
 `;
-
+const getHeroImg = (data) => {
+  try {
+    return (<img
+      className="heroImg"
+      src={`${process.env.REACT_APP_API_HOST}${heroes[data.hero_id]
+    .img}`}
+      alt=""
+    />);
+  } catch (e) {
+    return <div />;
+  }
+};
 const TrendTooltipContent = ({ payload, name }) => {
   const data = (payload[0] || {}).payload;
   if (data) {
@@ -104,12 +115,7 @@ const TrendTooltipContent = ({ payload, name }) => {
               )}
             </div>
             <div className="hero">
-              <img
-                className="heroImg"
-                src={`${process.env.REACT_APP_API_HOST}${heroes[data.hero_id]
-                  .img}`}
-                alt=""
-              />
+              { getHeroImg(data)}
             </div>
           </div>
         </div>
@@ -137,7 +143,7 @@ const TrendGraph = ({ columns, name }) => (
       <XAxis interval={49}>
         <Label value="" position="insideTopRight" />
       </XAxis>
-      <YAxis />
+      <YAxis domain={['auto', 'auto']} />
       <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
 
       <Tooltip content={<TrendTooltipContent name={name} />} />
