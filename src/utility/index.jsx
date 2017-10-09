@@ -60,7 +60,7 @@ export function abbreviateNumber(num) {
 }
 
 export function formatSeconds(input) {
-  if (!isNaN(parseFloat(input)) && isFinite(input)) {
+  if (!Number.isNaN(parseFloat(input)) && Number.isFinite(Number(input))) {
     const absTime = Math.abs(input);
     const minutes = Math.floor(absTime / 60);
     const seconds = pad(Math.floor(absTime % 60), 2);
@@ -255,12 +255,13 @@ export const transformations = {
   },
   hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true),
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
-  match_id_with_time: (row, col, field) => (<div>
-    <TableLink to={`/matches/${field}`}>{field}</TableLink>
-    <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-      {fromNow(row.start_time)}
-    </span>
-  </div>),
+  match_id_with_time: (row, col, field) => (
+    <div>
+      <TableLink to={`/matches/${field}`}>{field}</TableLink>
+      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+        {fromNow(row.start_time)}
+      </span>
+    </div>),
   radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
     const getColor = (result) => {

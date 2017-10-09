@@ -109,14 +109,10 @@ class RequestLayer extends React.Component {
     super();
 
     this.state = {
-      isDismissed: false,
     };
 
     this.dismiss = (value) => {
       if (localStorage) {
-        this.setState({
-          isDismissed: true,
-        });
         localStorage.setItem('dismiss', value);
       }
     };

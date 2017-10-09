@@ -71,7 +71,6 @@ Heatmap.propTypes = {
 };
 
 Heatmap.defaultProps = {
-  points: [],
   width: 600,
 };
 

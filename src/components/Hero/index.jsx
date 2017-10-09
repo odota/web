@@ -22,44 +22,47 @@ const tabs = heroId => ([
   {
     name: strings.tab_rankings,
     key: 'rankings',
-    content: props => (<div>
-      <Heading title={strings.tab_rankings} subtitle={strings.rankings_description} />
-      <Ranking {...props} />
-    </div>),
+    content: props => (
+      <div>
+        <Heading title={strings.tab_rankings} subtitle={strings.rankings_description} />
+        <Ranking {...props} />
+      </div>),
     route: `/heroes/${heroId}/rankings`,
   },
   {
     name: strings.tab_benchmarks,
     key: 'benchmarks',
-    content: props => (<div>
-      <Heading title={strings.tab_benchmarks} />
-      <Benchmark {...props} />
-    </div>),
+    content: props => (
+      <div>
+        <Heading title={strings.tab_benchmarks} />
+        <Benchmark {...props} />
+      </div>),
     route: `/heroes/${heroId}/benchmarks`,
   },
 ]);
 
 const Hero = ({ props }) => {
   const route = props.match.params.info || 'rankings';
-  const heroId = props.match.params.heroId;
-  return (<div>
-    <Helmet title={getSingleHero(props.match.params.heroId).localized_name} />
-    <div style={{ textAlign: 'center' }}>
-      <Heading
-        title={getSingleHero(props.match.params.heroId).localized_name}
-        icon=""
-        twoLine
-      />
-      <StyledImage alt="" src={getSingleHero(props.match.params.heroId).img} />
-    </div>
+  const { heroId } = props.match.params;
+  return (
     <div>
-      <TabBar
-        info={route}
-        tabs={tabs(heroId)}
-      />
-      {tabs(heroId).filter(tab => tab.key === route).map(tab => tab.content(props))}
-    </div>
-  </div>);
+      <Helmet title={getSingleHero(props.match.params.heroId).localized_name} />
+      <div style={{ textAlign: 'center' }}>
+        <Heading
+          title={getSingleHero(props.match.params.heroId).localized_name}
+          icon=""
+          twoLine
+        />
+        <StyledImage alt="" src={getSingleHero(props.match.params.heroId).img} />
+      </div>
+      <div>
+        <TabBar
+          info={route}
+          tabs={tabs(heroId)}
+        />
+        {tabs(heroId).filter(tab => tab.key === route).map(tab => tab.content(props))}
+      </div>
+    </div>);
 };
 
 Hero.propTypes = {

@@ -128,7 +128,7 @@ request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/r
     console.log('Error getting regions info from d2vpkr');
     process.exit(1);
   }
-  const regions = JSON.parse(body).regions;
+  const { regions } = JSON.parse(body);
 
   Object.keys(regions).forEach((key) => {
     replacements[`region_${regions[key].region}`] = regions[key].display_name.replace(/^#/, '');

@@ -1,5 +1,5 @@
 export default function transformBenchmarks(data) {
-  const result = data.result;
+  const { result } = data;
   const listStats = Object.keys(data.result);
   const listPercentiles = result[listStats[0]].map(i => i.percentile);
   const benchmarks = [];

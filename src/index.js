@@ -149,10 +149,12 @@ li {
 store.dispatch(getMetadata());
 
 const reactElement = document.getElementById('react');
-render(<Provider store={store}>
-  <BrowserRouter>
-    <Route component={App} />
-  </BrowserRouter>
-</Provider>, reactElement);
+const app = (
+  <Provider store={store}>
+    <BrowserRouter>
+      <Route component={App} />
+    </BrowserRouter>
+  </Provider>);
+render(app, reactElement);
 // registerServiceWorker();
 unregister();

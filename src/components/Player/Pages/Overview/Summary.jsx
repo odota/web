@@ -93,10 +93,11 @@ const SummOfRecMatches = ({ matchesData }) => {
     <div>
       <ul>
         {winrate
-          ? <li>
-            <span>{strings.th_winrate}</span>
-            <p>{winrate}%</p>
-          </li>
+          ?
+            <li>
+              <span>{strings.th_winrate}</span>
+              <p>{winrate}%</p>
+            </li>
           : null
         } {Object.keys(computed).map((key) => {
           const c = computed[key];

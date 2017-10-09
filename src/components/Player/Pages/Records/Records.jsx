@@ -19,26 +19,27 @@ const Records = ({
   routeParams, data, error, loading, playerId, history,
 }) => {
   const selected = routeParams.subInfo || recordsColumns[0];
-  return (<div style={{ fontSize: 10 }}>
-    <ButtonGarden
-      onClick={(buttonName) => {
+  return (
+    <div style={{ fontSize: 10 }}>
+      <ButtonGarden
+        onClick={(buttonName) => {
         history.push(`/players/${playerId}/records/${buttonName}${window.location.search}`);
       }}
-      buttonNames={recordsColumns}
-      selectedButton={selected}
-    />
-    <Container title={strings.heading_records} error={error} loading={loading}>
-      <Table
-        columns={playerRecordsColumns.concat({
+        buttonNames={recordsColumns}
+        selectedButton={selected}
+      />
+      <Container title={strings.heading_records} error={error} loading={loading}>
+        <Table
+          columns={playerRecordsColumns.concat({
           displayName: strings[`th_${selected}`] || strings.th_record,
           displayFn: (row, col, field) => (field && field.toFixed ? Number(field.toFixed(2)) : ''),
           field: selected,
           relativeBars: true,
         })}
-        data={data}
-      />
-    </Container>
-  </div>);
+          data={data}
+        />
+      </Container>
+    </div>);
 };
 
 Records.propTypes = {

@@ -7,11 +7,12 @@ import strings from 'lang';
 import Container from 'components/Container';
 import Info from 'components/Alerts/Info';
 
-const MMRInfo = (<Info>
-  <a href="https://blog.opendota.com/2016/01/13/opendota-mmr-and-you/" target="_blank" rel="noopener noreferrer">
-    {strings.mmr_not_up_to_date}
-  </a>
-</Info>);
+const MMRInfo = (
+  <Info>
+    <a href="https://blog.opendota.com/2016/01/13/opendota-mmr-and-you/" target="_blank" rel="noopener noreferrer">
+      {strings.mmr_not_up_to_date}
+    </a>
+  </Info>);
 
 const MMR = ({ columns, error, loading }) => (
   <div>

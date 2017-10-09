@@ -69,44 +69,48 @@ class RequestLayer extends React.Component {
     const heroTabs = [{
       name: strings.hero_pro_tab,
       key: 'pro',
-      content: (data, _columns) => (<div>
-        <Heading
-          title={strings.hero_pro_heading}
-          subtitle={`${abbreviateNumber(matchCountPro)} ${strings.hero_this_month}`}
-          icon=""
-          twoLine
-        />
-        <Table data={data} columns={_columns} />
-      </div>),
+      content: (data, _columns) => (
+        <div>
+          <Heading
+            title={strings.hero_pro_heading}
+            subtitle={`${abbreviateNumber(matchCountPro)} ${strings.hero_this_month}`}
+            icon=""
+            twoLine
+          />
+          <Table data={data} columns={_columns} />
+        </div>),
       route: '/heroes/pro',
     }, {
       name: strings.hero_public_tab,
       key: 'public',
-      content: (data, _columns) => (<div>
-        <Heading
-          title={strings.hero_public_heading}
-          subtitle={`${abbreviateNumber(matchCountPublic)} ${strings.hero_this_month}`}
-          icon=""
-          twoLine
-        />
-        <Table data={data} columns={_columns} />
-      </div>),
+      content: (data, _columns) => (
+        <div>
+          <Heading
+            title={strings.hero_public_heading}
+            subtitle={`${abbreviateNumber(matchCountPublic)} ${strings.hero_this_month}`}
+            icon=""
+            twoLine
+          />
+          <Table data={data} columns={_columns} />
+        </div>),
       route: '/heroes/public',
     }];
 
     const tab = heroTabs.find(_tab => _tab.key === route);
-    const loading = this.props.loading;
+    const { loading } = this.props;
 
-    return (<div>
-      <Helmet title={strings.header_heroes} />
-      {!loading && <div>
-        <TabBar
-          info={route}
-          tabs={heroTabs}
-        />
-        {tab && tab.content(processedData, columns[route])}
-      </div>}
-    </div>);
+    return (
+      <div>
+        <Helmet title={strings.header_heroes} />
+        {!loading &&
+        <div>
+          <TabBar
+            info={route}
+            tabs={heroTabs}
+          />
+          {tab && tab.content(processedData, columns[route])}
+        </div>}
+      </div>);
   }
 }
 
