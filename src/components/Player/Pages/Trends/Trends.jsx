@@ -1,82 +1,39 @@
-/* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { TrendGraph } from 'components/Visualizations';
 import {
   getPlayerTrends,
 } from 'actions';
-import { playerTrends } from 'reducers';
 import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
 import Heading from 'components/Heading';
 import Container from 'components/Container';
-import { browserHistory } from 'react-router';
 import strings from 'lang';
-import heroes from 'dotaconstants/build/heroes.json';
-import { formatSeconds, fromNow } from 'utility';
-import styles from './Trends.css';
 
-const Trend = ({ routeParams, columns, playerId, error, loading }) => {
+const Trend = ({
+  routeParams, columns, playerId, error, loading, history,
+}) => {
   const selectedTrend = routeParams.subInfo || trendNames[0];
-  const trendStr = strings[`heading_${selectedTrend}`];
-  const unit = selectedTrend === 'win_rate' ? '%' : '';
   return (
-    <div style={{ fontSize: 10 }}>
+    <div>
       <Heading title={strings.trends_name} subtitle={strings.trends_description} />
       <ButtonGarden
-        onClick={buttonName => browserHistory.push(`/players/${playerId}/trends/${buttonName}${window.location.search}`)}
+        onClick={buttonName => history.push(`/players/${playerId}/trends/${buttonName}${window.location.search}`)}
         buttonNames={trendNames}
         selectedButton={selectedTrend}
       />
       <Container
-        className={styles.container}
-        style={{ fontSize: 10 }}
         error={error}
         loading={loading}
       >
         <TrendGraph
           columns={columns}
           name={selectedTrend}
-          tooltip={{
-            contents: (d) => {
-              const data = columns[d[0].index];
-              return `<div class="${styles.tooltipWrapper}">
-                <div class="${styles.value}">
-                  ${selectedTrend === 'win_rate' ? '' : strings.trends_tooltip_average}
-                  ${' '}${trendStr}: ${data.value}${unit}
-                </div>
-                <div class="${styles.match}">
-                  <div>
-                    <div>
-                      <span class="${data.win ? styles.win : styles.loss}">
-                        ${data.win ? strings.td_win : strings.td_loss}
-                      </span>
-                      <span class="${styles.time}">
-                        ${fromNow(data.start_time)}
-                      </span>
-                    </div>
-                    <div>
-                      ${strings[`game_mode_${data.game_mode}`]}
-                    </div>
-                    <div>
-                      ${formatSeconds(data.duration)}
-                    </div>
-                    ${selectedTrend === 'win_rate'
-                      ? ''
-                      : `<div class="${styles.matchValue}">
-                          ${trendStr}: ${data.independent_value}${unit}
-                        </div>`}
-                  </div>
-                  <div class="${styles.hero}">
-                    <img class="${styles.heroImg}" src="${API_HOST}${heroes[data.hero_id].img}" />
-                  </div>
-                </div>
-              </div>`;
-            },
-          }}
           onClick={(p) => {
             const matchId = columns[p.index].match_id;
-            browserHistory.push(`/matches/${matchId}`);
+            history.push(`/matches/${matchId}`);
           }}
         />
       </Container>
@@ -84,13 +41,18 @@ const Trend = ({ routeParams, columns, playerId, error, loading }) => {
   );
 };
 
+Trend.propTypes = {
+  routeParams: PropTypes.shape({}),
+  columns: PropTypes.arrayOf({}),
+  playerId: PropTypes.string,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+  history: PropTypes.shape({}),
+};
+
 const getData = (props) => {
   const trendName = props.routeParams.subInfo || trendNames[0];
-  props.getPlayerTrends(
-    props.playerId,
-    { ...props.location.query, limit: 500, project: [trendName, 'hero_id', 'start_time'] },
-    trendName,
-  );
+  props.getPlayerTrends(props.playerId, props.location.search, trendName);
 };
 
 class RequestLayer extends React.Component {
@@ -100,7 +62,6 @@ class RequestLayer extends React.Component {
 
   componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId
-      || this.props.routeParams.subInfo !== nextProps.routeParams.subInfo
       || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
@@ -111,10 +72,17 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { playerId }) => ({
-  columns: playerTrends.getTrendsList(state, playerId),
-  loading: playerTrends.getLoading(state, playerId),
-  error: playerTrends.getError(state, playerId),
+RequestLayer.propTypes = {
+  playerId: PropTypes.string,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
+};
+
+const mapStateToProps = state => ({
+  columns: state.app.playerTrends.data,
+  loading: state.app.playerTrends.loading,
+  error: state.app.playerTrends.error,
 });
 
-export default connect(mapStateToProps, { getPlayerTrends })(RequestLayer);
+export default withRouter(connect(mapStateToProps, { getPlayerTrends })(RequestLayer));

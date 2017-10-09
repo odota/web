@@ -1,40 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
-import debounce from 'lodash.debounce';
+import { withRouter } from 'react-router-dom';
+import { debounce } from 'lodash/fp';
 import TextField from 'material-ui/TextField';
 import { getSearchResultAndPros, setSearchQuery } from 'actions';
 import strings from 'lang';
-import styles from './search.css';
+import querystring from 'querystring';
+import constants from '../constants';
 
 class SearchForm extends React.Component {
-  constructor(props) {
-    super(props);
-
-    let query = '';
-    const location = browserHistory.getCurrentLocation();
-    if (location.pathname === '/search') {
-      // Avoid getting ?q= from other paths
-      query = location.query.q;
-    }
-    this.state = { query };
-
+  constructor() {
+    super();
+    this.state = {};
     this.formSubmit = this.formSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.debouncedSetQuery = debounce(this.props.dispatchSetQuery, 100);
+    this.debouncedSetQuery = this.debouncedSetQuery.bind(this);
+  }
+
+  componentWillMount() {
+    const params = querystring.parse(window.location.search.substring(1));
+    const { pathname } = window.location;
+    if (params.q && pathname === '/search') {
+      this.props.dispatchSearch(params.q);
+    }
   }
 
   formSubmit(e) {
     const { query } = this.state;
-
     e.preventDefault();
-    browserHistory.push(`/search?q=${query}`);
+    this.props.history.push(`/search?q=${query}`);
     this.props.dispatchSearch(query);
   }
 
+  debouncedSetQuery() {
+    debounce(this.props.dispatchSetQuery, 100);
+  }
+
   handleChange(e) {
-    const { pathname } = browserHistory.getCurrentLocation();
+    const { pathname } = window.location;
     const { value } = e.target;
 
     this.setState({
@@ -55,7 +59,7 @@ class SearchForm extends React.Component {
           onChange={this.handleChange}
           fullWidth
           underlineFocusStyle={{
-            borderColor: styles.searchBarColor,
+            borderColor: constants.primaryLinkColor,
             bottom: '-4px',
             left: '-40px',
             width: 'calc(100% + 40px)',
@@ -66,9 +70,13 @@ class SearchForm extends React.Component {
     );
   }
 }
+
 SearchForm.propTypes = {
   dispatchSearch: PropTypes.func,
   dispatchSetQuery: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
 };
 
 // const mapStateToProps = (state) => {
@@ -87,4 +95,4 @@ const mapDispatchToProps = dispatch => ({
   dispatchSetQuery: query => dispatch(setSearchQuery(query)),
 });
 
-export default connect(null, mapDispatchToProps)(SearchForm);
+export default withRouter(connect(null, mapDispatchToProps)(SearchForm));

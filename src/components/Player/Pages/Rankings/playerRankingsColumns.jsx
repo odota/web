@@ -8,13 +8,8 @@ export default [{
   displayFn: transformations.hero_id,
 }, {
   displayName: strings.th_percentile,
-  field: 'card',
-  sortFn: row => row.rank / row.card,
-  percentBars: row => row.rank / row.card,
+  field: 'percent_rank',
+  sortFn: true,
+  percentBars: true,
   // displayFn: transformations.rank_percentile,
-}, {
-  displayName: strings.th_rank,
-  field: 'rank',
-  sortFn: row => row.card - row.rank,
-  displayFn: transformations.rank,
 }];

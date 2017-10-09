@@ -1,22 +1,31 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   getPlayerPeers,
 } from 'actions';
-import { playerPeers } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import strings from 'lang';
 import { playerPeersColumns } from './playerPeersColumns';
 
-const Peers = ({ data, playerId, error, loading }) => (
+const Peers = ({
+  data, playerId, error, loading,
+}) => (
   <Container title={strings.heading_peers} error={error} loading={loading}>
     <Table paginated columns={playerPeersColumns(playerId)} data={data} />
   </Container>
 );
 
+Peers.propTypes = {
+  data: PropTypes.arrayOf({}),
+  error: PropTypes.string,
+  playerId: PropTypes.string,
+  loading: PropTypes.bool,
+};
+
 const getData = (props) => {
-  props.getPlayerPeers(props.playerId, props.location.query);
+  props.getPlayerPeers(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {
@@ -35,10 +44,17 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { playerId }) => ({
-  data: playerPeers.getPeerList(state, playerId),
-  error: playerPeers.getError(state, playerId),
-  loading: playerPeers.getLoading(state, playerId),
+RequestLayer.propTypes = {
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
+  playerId: PropTypes.string,
+};
+
+const mapStateToProps = state => ({
+  data: state.app.playerPeers.data,
+  error: state.app.playerPeers.error,
+  loading: state.app.playerPeers.loading,
 });
 const mapDispatchToProps = dispatch => ({
   getPlayerPeers: (playerId, options) => dispatch(getPlayerPeers(playerId, options)),

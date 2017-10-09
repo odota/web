@@ -1,54 +1,44 @@
-/* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-// import Avatar from 'material-ui/Avatar';
-import FlatButton from 'material-ui/FlatButton';
-import IconButton from 'material-ui/IconButton';
+import { Link } from 'react-router-dom';
 import strings from 'lang';
-import { player } from 'reducers';
+import styled from 'styled-components';
+import FlatButton from 'material-ui/FlatButton';
 import Spinner from '../Spinner';
-import Error from '../Error';
-import styles from './AccountWidget.css';
-import { IconLogout } from '../Icons';
 
-const LoggedIn = ({ loading, error, playerId, playerName }) => {
-  const getPlayerWidget = () => {
-    if (error) return <Error />;
-    if (loading) return <Spinner color="#fff" size={0.5} />;
-    return (
-      <div className={styles.group}>
-        <Link to={`/players/${playerId}`}>
-          <FlatButton
-            label={playerName}
-            // labelPosition="before"
-            className={styles.account}
-            hoverColor="transparent"
-            // icon={<Avatar src={playerPicture} size={30} />}
-          />
-        </Link>
-        <IconButton
-          href={`${API_HOST}/logout`}
-          data-hint={strings.app_logout}
-          data-hint-position="bottom"
-          style={{ zIndex: 3200 }}
-          className={styles.iconButton}
-        >
-          <IconLogout />
-        </IconButton>
-      </div>
-    );
-  };
+const StyledFlatButton = styled(FlatButton)`
+ min-width: 30px !important;
+ & > div > span {
+   display: inline-block;
+   max-width: 90px;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   text-transform: none !important;
+   white-space: nowrap;
+   font-size: 16px !important;
+   padding-right: 10px !important;
+   padding-left: 0 !important;
+ }
+`;
 
-  return getPlayerWidget();
+const LoggedIn = ({ playerId, style }) => {
+  if (!playerId) {
+    return <Spinner color="#fff" size={0.5} />;
+  }
+  return (
+    <Link style={style} to={`/players/${playerId}`}>
+      <StyledFlatButton
+        label={strings.app_my_profile}
+        hoverColor="transparent"
+      />
+    </Link>
+  );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  loading: player.getLoading(state, ownProps.playerId),
-  error: player.getError(state, ownProps.playerId),
-  playerName: player.getPlayerName(state, ownProps.playerId),
-  playerPicture: player.getPicture(state, ownProps.playerId),
-  playerId: ownProps.playerId,
-});
+LoggedIn.propTypes = {
+  playerId: PropTypes.number,
+  style: PropTypes.shape({}),
+};
 
-export default connect(mapStateToProps)(LoggedIn);
+export default connect()(LoggedIn);

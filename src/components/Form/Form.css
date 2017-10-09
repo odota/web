@@ -1,9 +1,0 @@
-.form {
-  & input {
-    text-transform: uppercase;
-  }
-
-  & label {
-    text-transform: uppercase;
-  }
-}

@@ -1,22 +1,31 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import strings from 'lang';
 import {
   getPlayerHeroes,
 } from 'actions';
-import { playerHeroes } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import { playerHeroesColumns } from './playerHeroesColumns';
 
-const Heroes = ({ data, playerId, error, loading }) => (
+const Heroes = ({
+  data, playerId, error, loading,
+}) => (
   <Container title={strings.heading_heroes} error={error} loading={loading}>
     <Table paginated columns={playerHeroesColumns(playerId)} data={data} />
   </Container>
 );
 
+Heroes.propTypes = {
+  data: PropTypes.arrayOf({}),
+  playerId: PropTypes.string,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+};
+
 const getData = (props) => {
-  props.getPlayerHeroes(props.playerId, props.location.query);
+  props.getPlayerHeroes(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {
@@ -35,10 +44,17 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { playerId }) => ({
-  data: playerHeroes.getHeroList(state, playerId),
-  error: playerHeroes.getError(state, playerId),
-  loading: playerHeroes.getLoading(state, playerId),
+RequestLayer.propTypes = {
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
+  playerId: PropTypes.string,
+};
+
+const mapStateToProps = state => ({
+  data: state.app.playerHeroes.data,
+  error: state.app.playerHeroes.error,
+  loading: state.app.playerHeroes.loading,
 });
 
 const mapDispatchToProps = dispatch => ({

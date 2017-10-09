@@ -1,29 +1,51 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   getPlayerCounts,
 } from 'actions';
-import { playerCounts } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import strings from 'lang';
+import styled from 'styled-components';
 import playerCountsColumns from './playerCountsColumns';
-import styles from './Counts.css';
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const StyledTableContainer = styled.div`
+  flex-grow: 1;
+  overflow-x: auto;
+  box-sizing: border-box;
+  padding: 5px;
+`;
 
 const Counts = ({ counts, error, loading }) => (
-  <div className={styles.countsContainer}>
+  <StyledContainer>
     {Object.keys(counts).map((key, index) => (
-      <div key={index} className={styles.countTable}>
+      <StyledTableContainer key={index}>
         <Container title={strings[`heading_${key}`]} error={error} loading={loading}>
           <Table columns={playerCountsColumns} data={counts[key].list} />
         </Container>
-      </div>
+      </StyledTableContainer>
     ))}
-  </div>
+  </StyledContainer>
 );
 
+Counts.propTypes = {
+  counts: PropTypes.oneOfType([
+    PropTypes.shape({}),
+    PropTypes.array,
+  ]),
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+};
+
 const getData = (props) => {
-  props.getPlayerCounts(props.playerId, props.location.query);
+  props.getPlayerCounts(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {
@@ -44,10 +66,17 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { playerId }) => ({
-  counts: playerCounts.getOnlyData(state, playerId),
-  error: playerCounts.getError(state, playerId),
-  loading: playerCounts.getLoading(state, playerId),
+RequestLayer.propTypes = {
+  playerId: PropTypes.string,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
+};
+
+const mapStateToProps = state => ({
+  counts: state.app.playerCounts.data,
+  error: state.app.playerCounts.error,
+  loading: state.app.playerCounts.loading,
 });
 
 const mapDispatchToProps = dispatch => ({

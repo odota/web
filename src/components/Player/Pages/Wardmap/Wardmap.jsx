@@ -1,20 +1,40 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { calculateResponsiveState } from 'redux-responsive';
 import { getPlayerWardmap } from 'actions';
-import { playerWardmap } from 'reducers';
 import Heatmap from 'components/Heatmap';
 import Container from 'components/Container';
 import strings from 'lang';
 import { unpackPositionData } from 'utility';
-import styles from './Wardmap.css';
+import styled from 'styled-components';
+
+const MAX_WIDTH = 1200;
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+`;
+
+const StyledInner = styled(Container)`
+  flex-grow: 1;
+  flex-basis: 0;
+  max-width: 50%;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+`;
 
 const getData = (props) => {
-  props.getPlayerWardmap(props.playerId, props.location.query);
+  props.getPlayerWardmap(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {
   componentWillMount() {
     getData(this.props);
+    window.addEventListener('resize', this.props.updateWindowSize);
   }
 
   componentWillUpdate(nextProps) {
@@ -23,39 +43,65 @@ class RequestLayer extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.props.updateWindowSize);
+  }
+
   render() {
-    const { error, loading, data } = this.props;
+    const {
+      error, loading, data, browser,
+    } = this.props;
+    const heatmapWidth = browser.width - 50;
+
     return (
-      <div className={styles.wardmaps}>
-        <Container
+      <StyledContainer>
+        <StyledInner
           title={strings.th_ward_observer}
-          className={styles.wardmapContainer}
           error={error}
           loading={loading}
         >
-          <Heatmap points={unpackPositionData(data.obs)} />
-        </Container>
-        <Container
+          <Heatmap
+            points={unpackPositionData(data.obs)}
+            width={Math.min(MAX_WIDTH, heatmapWidth)}
+          />
+        </StyledInner>
+        <StyledInner
           title={strings.th_ward_sentry}
-          className={styles.wardmapContainer}
           error={error}
           loading={loading}
         >
-          <Heatmap points={unpackPositionData(data.sen)} />
-        </Container>
-      </div>
+          <Heatmap
+            points={unpackPositionData(data.sen)}
+            width={Math.min(MAX_WIDTH, heatmapWidth)}
+          />
+        </StyledInner>
+      </StyledContainer>
     );
   }
 }
 
-const mapStateToProps = (state, { playerId }) => ({
-  data: playerWardmap.getPlayerWardmap(state, playerId),
-  loading: playerWardmap.getLoading(state, playerId),
-  error: playerWardmap.getError(state, playerId),
+RequestLayer.propTypes = {
+  updateWindowSize: PropTypes.func,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+  data: PropTypes.arrayOf({}),
+  browser: PropTypes.shape({}),
+  playerId: PropTypes.string,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
+};
+
+const mapStateToProps = state => ({
+  data: state.app.playerWardmap.data,
+  loading: state.app.playerWardmap.loading,
+  error: state.app.playerWardmap.data.error,
+  browser: state.browser,
 });
 
 const mapDispatchToProps = dispatch => ({
   getPlayerWardmap: (playerId, options) => dispatch(getPlayerWardmap(playerId, options)),
+  updateWindowSize: () => dispatch(calculateResponsiveState(window)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

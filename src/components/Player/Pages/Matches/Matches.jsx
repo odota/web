@@ -1,13 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   connect,
 } from 'react-redux';
 import {
   getPlayerMatches,
 } from 'actions';
-import {
-  playerMatches,
-} from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import strings from 'lang';
@@ -23,8 +21,14 @@ const Matches = ({
   </Container>
 );
 
+Matches.propTypes = {
+  data: PropTypes.arrayOf({}),
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+};
+
 const getData = (props) => {
-  props.getPlayerMatches(props.playerId, { ...props.location.query, significant: 0 });
+  props.getPlayerMatches(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {
@@ -43,14 +47,21 @@ class RequestLayer extends React.Component {
   }
 }
 
+RequestLayer.propTypes = {
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
+  playerId: PropTypes.string,
+};
+
 const defaultOptions = {
   limit: null,
 };
 
-const mapStateToProps = (state, { playerId }) => ({
-  data: playerMatches.getMatchList(state, playerId),
-  loading: playerMatches.getLoading(state, playerId),
-  error: playerMatches.getError(state, playerId),
+const mapStateToProps = state => ({
+  data: state.app.playerMatches.data,
+  loading: state.app.playerMatches.loading,
+  error: state.app.playerMatches.error,
 });
 
 const mapDispatchToProps = dispatch => ({

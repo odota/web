@@ -1,9 +1,0 @@
-@import "../palette.css";
-
-.formGroup {
-  padding: 0 15px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}

@@ -1,38 +1,43 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { getSearchResultAndPros } from 'actions';
-import { proPlayers } from 'reducers';
 import strings from 'lang';
+import fuzzy from 'fuzzy';
+import { withRouter } from 'react-router-dom';
 import SearchResult from './SearchResult';
-// import SearchForm from './SearchForm';
 
-class Search extends React.Component {
-  componentDidMount() {
-    if (this.props.location.query.q) {
-      this.props.dispatchSearch(this.props.location.query.q);
-    }
-  }
-  render() {
-    const { data, pros, ...rest } = this.props;
-    return (<div>
-      <Helmet title={`${this.props.location.query.q} - ${strings.title_search}`} />
-      <SearchResult {...rest} players={data || []} pros={pros || []} />
-    </div>
-    );
-  }
-}
+const extract = item => `${item.name}${item.team_name}`;
+
+const Search = ({
+  data, pros, query, ...rest
+}) => (
+  <div>
+    <Helmet title={`${query} - ${strings.title_search}`} />
+    <SearchResult {...rest} players={data || []} pros={pros || []} />
+  </div>
+);
+
+Search.propTypes = {
+  data: PropTypes.shape({}),
+  pros: PropTypes.arrayOf({}),
+  query: PropTypes.string,
+};
 
 const mapStateToProps = (state) => {
-  const { error, loading, done, searchResults, query } = state.app.search;
+  const {
+    error, loading, done, data, query,
+  } = state.app.search;
   return {
     playersLoading: loading,
     playersError: error,
     done,
-    data: searchResults,
-    pros: proPlayers.getFilteredList(state, query),
-    prosLoading: proPlayers.getLoading(state),
-    prosError: proPlayers.getError(state),
+    data,
+    query,
+    pros: fuzzy.filter(query, state.app.proPlayers.data, { extract }).map(item => ({ ...item.original })),
+    prosLoading: state.app.proPlayers.loading,
+    prosError: state.app.proPlayers.error,
   };
 };
 
@@ -40,4 +45,4 @@ const mapDispatchToProps = dispatch => ({
   dispatchSearch: query => dispatch(getSearchResultAndPros(query)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Search));

@@ -1,5 +1,5 @@
-/* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Tabs,
   Tab,
@@ -14,10 +14,11 @@ import Table from '../Table/Table';
 const castsColumns = [{
   displayName: strings.th_name,
   field: 'name',
-  displayFn: (row, col, field) => (<div>
-    <span>{inflictorWithValue(field)}</span>
-    {/* <span>{items[field] ? items[field].dname : field}</span>*/}
-  </div>),
+  displayFn: (row, col, field) => (
+    <div>
+      <span>{inflictorWithValue(field)}</span>
+      {/* <span>{items[field] ? items[field].dname : field}</span> */}
+    </div>),
 }, {
   displayName: strings.th_casts,
   tooltip: strings.tooltip_casts,
@@ -62,7 +63,7 @@ const CastTable = ({
   <Tabs>
     {match.players.map(p =>
       (
-        <Tab key={p.player_slot} icon={<img src={`${API_HOST}${heroes[p.hero_id].img}`} height={30} role="presentation" />}>
+        <Tab key={p.player_slot} icon={<img src={`${process.env.REACT_APP_API_HOST}${heroes[p.hero_id].img}`} height={30} alt="" />}>
           <Table
             data={getCastArray(p)}
             columns={castsColumns}
@@ -71,5 +72,9 @@ const CastTable = ({
       ))
     }
   </Tabs>);
+
+CastTable.propTypes = {
+  match: PropTypes.shape({}),
+};
 
 export default CastTable;

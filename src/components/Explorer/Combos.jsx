@@ -18,7 +18,7 @@ import {
 from 'components/Visualizations';
 import DatePicker from 'material-ui/DatePicker';
 import constants from 'dotaconstants';
-import Link from 'react-router';
+import { Link } from 'react-router-dom';
 // import Spinner from '../Spinner';
 // import {blue300} from 'material-ui/styles/colors';
 
@@ -26,7 +26,6 @@ import Link from 'react-router';
 // TODO integrate into explorer?
 
 class Combos extends React.Component {
-
   constructor() {
     super();
     const today = new Date();
@@ -100,7 +99,7 @@ JOIN matches m
   AND m.start_time <= ${maxTimestamp}
 LIMIT 1000
 `;
-    fetch(`${API_HOST}/api/explorer?sql=${encodeURIComponent(sql)}`).then(resp => resp.json()).then(json =>
+    fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sql)}`).then(resp => resp.json()).then(json =>
       this.setState(Object.assign({}, this.state, {
         loading_matchup: false,
         matchup,
@@ -158,7 +157,7 @@ HAVING count(*) >= 5
 ORDER BY winrate DESC
 LIMIT 1000
 `;
-    fetch(`${API_HOST}/api/explorer?sql=${encodeURIComponent(sql)}`).then(resp => resp.json()).then(json =>
+    fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sql)}`).then(resp => resp.json()).then(json =>
       this.setState(Object.assign({}, this.state, {
         loading: false,
         result: json,
@@ -233,7 +232,7 @@ LIMIT 1000
               return constants.heroes[row[column.field]] ?
                 <div>
                   <img
-                    src={`${API_HOST}${constants.heroes[row[column.field]].img}`}
+                    src={`${process.env.REACT_APP_API_HOST}${constants.heroes[row[column.field]].img}`}
                     style={{ width: '50px' }}
                     title={row[column.field]}
                     role="presentation"

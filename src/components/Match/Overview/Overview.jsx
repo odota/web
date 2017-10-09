@@ -1,37 +1,73 @@
 import React from 'react';
 import strings from 'lang';
-
+import styled from 'styled-components';
+import MatchGraph from 'components/Visualizations/Graph/MatchGraph';
 import TeamTable from '../TeamTable';
-import { overviewColumns } from '../matchColumns';
+import AbilityBuildTable from '../AbilityBuildTable';
+import { overviewColumns, abilityColumns } from '../matchColumns';
 import BuildingMap from '../BuildingMap';
-import MatchGraph from '../MatchGraph';
-import styles from './Overview.css';
-import Timeline from './Timeline';
+
+const Styled = styled.div`
+  width: 100%;
+  display: flex;
+  vertical-align: top;
+  .graph {
+    margin-left: 30px;
+    width: calc(100% - 300px);
+  }
+  .map {
+    margin: 0 auto;
+  }
+  @media (max-width: 850px) {
+    display: block;
+    .graph {
+      margin-left: 0;
+
+      width: 100%;
+    }
+    .map {
+      width: 300px;
+    }
+  }
+`;
 
 export default {
   name: strings.tab_overview,
   key: 'overview',
   content: match => (
     <div>
-      <Timeline match={match} />
-      <TeamTable
-        players={match.players}
-        columns={overviewColumns(match)}
-        heading={strings.heading_overview}
-        picksBans={match.picks_bans}
-        radiantTeam={match.radiant_team}
-        direTeam={match.dire_team}
-        summable
-      />
-      <div className={styles.overviewMapGraph}>
-        <div className={`${styles.map} ${!match.version && styles.centeredMap}`}>
-          <BuildingMap match={match} />
-        </div>
-        {match.version &&
-        <div className={styles.graph}>
-          <MatchGraph match={match} type="difference" />
-        </div>}
-      </div>
+      {
+        <TeamTable
+          players={match.players}
+          columns={overviewColumns(match)}
+          heading={strings.heading_overview}
+          picksBans={match.picks_bans}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+          summable
+        />
+      }
+      {
+        <AbilityBuildTable
+          players={match.players}
+          columns={abilityColumns()}
+          heading={strings.heading_ability_build}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+        />
+      }
+      {
+        <Styled>
+          <div className="map">
+            <BuildingMap match={match} />
+          </div>
+          {match.version && (
+            <div className="graph">
+              <MatchGraph match={match} type="difference" />
+            </div>
+          )}
+        </Styled>
+      }
     </div>
   ),
 };

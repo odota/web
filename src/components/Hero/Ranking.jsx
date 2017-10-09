@@ -1,17 +1,14 @@
 import React, {
   Component,
 } from 'react';
+import PropTypes from 'prop-types';
 import {
   connect,
 } from 'react-redux';
 import {
-  ranking,
-} from 'reducers';
-import {
   getRanking,
 } from 'actions';
 import Spinner from 'components/Spinner';
-// import style from './Heroes.css';
 import RankingTable from './RankingTable';
 
 const renderRanking = (hero, rankings) => (
@@ -21,10 +18,9 @@ const renderRanking = (hero, rankings) => (
 );
 
 class Ranking extends Component {
-
   componentDidMount() {
-    if (this.props.routeParams && this.props.routeParams.heroId) {
-      this.props.getRanking(this.props.routeParams.heroId);
+    if (this.props.match.params && this.props.match.params.heroId) {
+      this.props.getRanking(this.props.match.params.heroId);
     }
   }
 
@@ -45,10 +41,19 @@ class Ranking extends Component {
   }
 }
 
+Ranking.propTypes = {
+  match: PropTypes.string,
+  isLoading: PropTypes.string,
+  isError: PropTypes.string,
+  rankings: PropTypes.string,
+  hero: PropTypes.string,
+  getRanking: PropTypes.func,
+};
+
 const mapStateToProps = state => ({
-  rankings: ranking.getRankings(state),
-  isLoading: ranking.getLoading(state),
-  isError: ranking.getError(state),
+  rankings: state.app.heroRanking.data.rankings || [],
+  isLoading: state.app.heroRanking.loading,
+  isError: state.app.heroRanking.error,
 });
 
 const mapDispatchToProps = dispatch => ({

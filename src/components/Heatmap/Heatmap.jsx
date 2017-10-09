@@ -1,6 +1,7 @@
 import React, {
   Component,
 } from 'react';
+import PropTypes from 'prop-types';
 import DotaMap from 'components/DotaMap';
 import uuid from 'uuid';
 import h337 from 'heatmap.js';
@@ -33,7 +34,6 @@ const drawHeatmap = ({
   // scale points by width/127 units to fit to size of map
   // offset points by 25 units to increase visibility
   const adjustedData = scaleAndExtrema(points, width / 127, null, 25);
-  // console.log(adjustedData);
   heatmap.setData(adjustedData);
 };
 
@@ -66,8 +66,11 @@ class Heatmap extends Component {
   }
 }
 
+Heatmap.propTypes = {
+  width: PropTypes.number,
+};
+
 Heatmap.defaultProps = {
-  points: [],
   width: 600,
 };
 

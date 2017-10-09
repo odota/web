@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   getPlayerRankings,
 } from 'actions';
-import { playerRankings } from 'reducers';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import strings from 'lang';
@@ -17,8 +17,14 @@ const Rankings = ({ data, error, loading }) => (
   </div>
 );
 
+Rankings.propTypes = {
+  data: PropTypes.arrayOf({}),
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+};
+
 const getData = (props) => {
-  props.getPlayerRankings(props.playerId, props.location.query);
+  props.getPlayerRankings(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {
@@ -37,10 +43,17 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { playerId }) => ({
-  data: playerRankings.getRankingList(state, playerId),
-  error: playerRankings.getError(state, playerId),
-  loading: playerRankings.getLoading(state, playerId),
+RequestLayer.propTypes = {
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
+  playerId: PropTypes.string,
+};
+
+const mapStateToProps = state => ({
+  data: state.app.playerRankings.data,
+  error: state.app.playerRankings.error,
+  loading: state.app.playerRankings.loading,
 });
 
 const mapDispatchToProps = dispatch => ({

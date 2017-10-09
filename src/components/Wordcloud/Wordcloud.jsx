@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import wordcloud from 'wordcloud';
 import uuid from 'uuid';
-import styles from './Wordcloud.css';
 
 const stopWords = 'a,am,an,and,are,as,at,be,by,for,from,how,i,im,in,is,it,not,of,on,or,that,the,this,to,was,what,when,where,who,will,with';
 
@@ -16,9 +15,10 @@ function getBaseLog(x, y) {
   return Math.log(x) / Math.log(y);
 }
 
-function updateWordCloud(wordCounts, width, cloudDomId) {
+function updateWordCloud(wordCounts, cloudDomId) {
   let wordList = [];
   let max = 0;
+  const width = window.innerWidth * 0.8;
 
   Object.keys(wordCounts).forEach((key) => {
     if (!isStopWord(key)) {
@@ -29,15 +29,15 @@ function updateWordCloud(wordCounts, width, cloudDomId) {
     }
   });
 
-  const maxSize = width / 10;
-  const minSize = 9;
+  const maxSize = width / 12;
+  const minSize = 8;
 
   // @howardchung implementation of scaling
   const scale = maxSize / Math.log(max);
   // var scale = max_size/max;
-    // take the log of each count and scale them up to top_size
-    // use log since words such as "gg" tend to dominate
-    // w[1] = Math.max(w[1]*scale, min_size);
+  // take the log of each count and scale them up to top_size
+  // use log since words such as "gg" tend to dominate
+  // w[1] = Math.max(w[1]*scale, min_size);
   wordList = wordList.map(w => [w[0], Math.max(getBaseLog(w[1], 6) * scale, minSize)]);
 
   /*
@@ -52,9 +52,6 @@ function updateWordCloud(wordCounts, width, cloudDomId) {
 
   // sort the list to ensure most frequent words get displayed
   wordList = wordList.sort((a, b) => b[1] - a[1]);
-
-  // console.log(wordList);
-
   wordcloud(document.getElementById(cloudDomId), {
     list: wordList,
     backgroundColor: 'transparent',
@@ -68,35 +65,30 @@ class Wordcloud extends React.Component {
     this.id = `a-${uuid.v4()}`;
   }
   componentDidMount() {
-    updateWordCloud(this.props.counts, this.props.width, this.id);
+    updateWordCloud(this.props.counts, this.id);
   }
   componentDidUpdate(nextProps) {
-    updateWordCloud(nextProps.counts, nextProps.width, this.id);
+    updateWordCloud(nextProps.counts, this.id);
   }
   render() {
+    const width = Math.min(1080, window.innerWidth * 0.75);
+    const height = width * 0.7;
     return (
       <canvas
-        width={this.props.width}
-        height={this.props.height}
+        width={width}
+        height={height}
         id={this.id}
-        className={styles.Wordcloud}
+        style={{ display: 'block', margin: '0 auto' }}
       />
     );
   }
 }
 Wordcloud.defaultProps = {
   counts: {},
-  height: 600,
 };
-const { string, number } = PropTypes;
+const { string } = PropTypes;
 Wordcloud.propTypes = {
   counts: string,
-  width: number,
-  height: number,
 };
 
-const mapStateToProps = state => ({
-  width: state.browser.width <= 960 ? state.browser.width - 50 : Math.min(1440, state.browser.width - 100),
-});
-
-export default connect(mapStateToProps)(Wordcloud);
+export default connect()(Wordcloud);

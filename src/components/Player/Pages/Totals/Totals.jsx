@@ -1,15 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   getPlayerTotals,
 } from 'actions';
-import { playerTotals } from 'reducers';
 import Container from 'components/Container';
 import strings from 'lang';
 import {
   CardTitle,
 } from 'material-ui/Card';
-import playerStatsStyles from 'components/Player/Header/PlayerStats.css';
 // import util from 'util';
 
 const totalsToShow = {
@@ -48,30 +47,37 @@ const formatDurationString = (sec) => {
 
 const drawElement = (element, type) => {
   if (totalsToShow[element.field] === type) {
-    return (<CardTitle
-      className={playerStatsStyles.playerStats}
-      subtitle={<div>{element.field === 'duration' ? formatDurationString(element.sum) : Math.floor(element.sum).toLocaleString()}</div>}
-      title={strings[`heading_${element.field}`]}
-    />);
+    return (
+      <CardTitle
+        subtitle={<div>{element.field === 'duration' ? formatDurationString(element.sum) : Math.floor(element.sum).toLocaleString()}</div>}
+        title={strings[`heading_${element.field}`]}
+      />);
   }
   return null;
 };
 
-const Totals = ({ data, error, loading }) => (<div>
-  <Container title={strings.heading_all_matches} error={error} loading={loading}>
-    <div>
-      {data.map(element => drawElement(element, 1))}
-    </div>
-  </Container>
-  <Container title={strings.heading_parsed_matches} error={error} loading={loading}>
-    <div>
-      {data.map(element => drawElement(element, 'parsed'))}
-    </div>
-  </Container>
-</div>);
+const Totals = ({ data, error, loading }) => (
+  <div>
+    <Container title={strings.heading_all_matches} error={error} loading={loading}>
+      <div>
+        {data.map(element => drawElement(element, 1))}
+      </div>
+    </Container>
+    <Container title={strings.heading_parsed_matches} error={error} loading={loading}>
+      <div>
+        {data.map(element => drawElement(element, 'parsed'))}
+      </div>
+    </Container>
+  </div>);
+
+Totals.propTypes = {
+  data: PropTypes.arrayOf({}),
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+};
 
 const getData = (props) => {
-  props.getPlayerTotals(props.playerId, props.location.query);
+  props.getPlayerTotals(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {
@@ -90,10 +96,17 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { playerId }) => ({
-  data: playerTotals.getTotalsList(state, playerId),
-  error: playerTotals.getError(state, playerId),
-  loading: playerTotals.getLoading(state, playerId),
+RequestLayer.propTypes = {
+  playerId: PropTypes.string,
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
+};
+
+const mapStateToProps = state => ({
+  data: state.app.playerTotals.data,
+  error: state.app.playerTotals.error,
+  loading: state.app.playerTotals.loading,
 });
 
 const mapDispatchToProps = dispatch => ({

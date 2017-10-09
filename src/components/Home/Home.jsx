@@ -4,25 +4,25 @@ import strings from 'lang';
 import Buttons from './Buttons';
 import Why from './Why';
 import Sponsors from './Sponsors';
-import styles from './Home.css';
+import { HeadContainerDiv, HeadlineDiv, DescriptionDiv, BottomTextDiv } from './Styled';
 
 const Home = () => (
   <div>
-    <div className={styles.HeadContainer}>
-      <div className={styles.headline}>
+    <HeadContainerDiv>
+      <HeadlineDiv>
         {strings.app_name}
-      </div>
-      <div className={styles.description}>
+      </HeadlineDiv>
+      <DescriptionDiv>
         {strings.app_description}
-      </div>
+      </DescriptionDiv>
       <Buttons />
-    </div>
+    </HeadContainerDiv>
     <Why />
     <Sponsors />
-    <div className={styles.bottomText}>
+    <BottomTextDiv>
       {strings.home_background_by}
       <a href="//www.artstation.com/artist/mikeazevedo" target="_blank" rel="noopener noreferrer"> Mike Azevedo</a>
-    </div>
+    </BottomTextDiv>
   </div>
 );
 

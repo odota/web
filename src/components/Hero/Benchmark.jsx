@@ -1,12 +1,10 @@
 import React, {
   Component,
 } from 'react';
+import PropTypes from 'prop-types';
 import {
   connect,
 } from 'react-redux';
-import {
-  benchmark,
-} from 'reducers';
 import {
   getBenchmark,
 } from 'actions';
@@ -20,10 +18,9 @@ const renderBenchmark = (hero, data) => (
 );
 
 class Benchmark extends Component {
-
   componentDidMount() {
-    if (this.props.routeParams && this.props.routeParams.heroId) {
-      this.props.getBenchmark(this.props.routeParams.heroId);
+    if (this.props.match.params && this.props.match.params.heroId) {
+      this.props.getBenchmark(this.props.match.params.heroId);
     }
   }
 
@@ -44,6 +41,20 @@ class Benchmark extends Component {
     );
   }
 }
+
+Benchmark.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      heroId: PropTypes.string,
+    }),
+  }),
+  getBenchmark: PropTypes.func,
+  isLoading: PropTypes.bool,
+  isError: PropTypes.bool,
+  hero: PropTypes.shape({}),
+  result: PropTypes.string,
+};
+
 /**
 HISTOGRAM API
 
@@ -72,9 +83,9 @@ HISTOGRAM API
 */
 
 const mapStateToProps = state => ({
-  isLoading: benchmark.getLoading(state),
-  isError: benchmark.getError(state),
-  result: benchmark.getBenchmarks(state),
+  isLoading: state.app.heroBenchmark.loading,
+  isError: state.app.heroBenchmark.error,
+  result: state.app.heroBenchmark.data.result,
 });
 
 const mapDispatchToProps = dispatch => ({

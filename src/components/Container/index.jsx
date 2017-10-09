@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Heading from 'components/Heading';
 import Spinner from 'components/Spinner';
 import Error from 'components/Error';
+import stylePropType from 'react-style-proptype';
 
 export const AsyncContainer = ({ loading, error, children }) => {
   if (error) {
@@ -14,7 +15,7 @@ export const AsyncContainer = ({ loading, error, children }) => {
   return children;
 };
 
-const { bool, node, string, object } = PropTypes;
+const { bool, node, string } = PropTypes;
 
 AsyncContainer.propTypes = {
   loading: bool,
@@ -22,10 +23,11 @@ AsyncContainer.propTypes = {
   children: node,
 };
 
-
-const Container = ({ title, subtitle, style, className, children, error, loading, hide }) => (!hide ? (
+const Container = ({
+  title, subtitle, style, className, children, error, loading, hide, titleTo,
+}) => (!hide ? (
   <div className={className} style={{ ...style }}>
-    {title && <Heading title={title} subtitle={subtitle} />}
+    {title && <Heading title={title} subtitle={subtitle} titleTo={titleTo} />}
     <AsyncContainer error={error} loading={loading}>
       {children}
     </AsyncContainer>
@@ -35,11 +37,13 @@ const Container = ({ title, subtitle, style, className, children, error, loading
 Container.propTypes = {
   title: string,
   subtitle: string,
-  style: object,
+  style: stylePropType,
   className: string,
   loading: bool,
   error: bool,
   children: node,
+  hide: bool,
+  titleTo: string,
 };
 
 export default Container;

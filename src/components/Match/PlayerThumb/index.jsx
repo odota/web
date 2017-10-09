@@ -3,23 +3,39 @@ import PropTypes from 'prop-types';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import heroes from 'dotaconstants/build/heroes.json';
 import strings from 'lang';
-import styles from './PlayerThumb.css';
+import styled from 'styled-components';
+import constants from '../../constants';
 
-const PlayerThumb = ({ player_slot, hero_id, name, personaname, hideText }) => (
-  <aside style={{ color: playerColors[player_slot] }} className={styles.container}>
-    <img
-      className={styles.heroThumb}
+const StyledAside = styled.aside`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: ${constants.fontWeightMedium};
+`;
+
+const StyledImg = styled.img`
+  height: 24px;
+  margin-right: 4px;
+`;
+
+const PlayerThumb = ({
+  player_slot, hero_id, name, personaname, hideText,
+}) => (
+  <StyledAside style={{ color: playerColors[player_slot] }}>
+    <StyledImg
       src={heroes[hero_id]
-        ? `${API_HOST}${heroes[hero_id].icon}`
+        ? `${process.env.REACT_APP_API_HOST}${heroes[hero_id].icon}`
         : '/assets/images/blank-1x1.gif'
       }
-      role="presentation"
+      alt=""
     />
     {!hideText && (name || personaname || strings.general_anonymous)}
-  </aside>
+  </StyledAside>
 );
 
-const { string, oneOfType, number, bool } = PropTypes;
+const {
+  string, oneOfType, number, bool,
+} = PropTypes;
 
 PlayerThumb.propTypes = {
   player_slot: oneOfType([string, number]),

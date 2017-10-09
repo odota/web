@@ -1,18 +1,20 @@
-/* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import strings from 'lang';
 import {
   formatSeconds,
   jsonFn,
-  transformations,
   formatTemplate,
 } from 'utility';
+import util from 'util';
 import { IconRadiant, IconDire } from 'components/Icons';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import itemColors from 'dotaconstants/build/item_colors.json';
+import emotes from 'dota2-emoticons/resources/json/charname.json';
 import ReactTooltip from 'react-tooltip';
-import styles from './Match.css';
+import { StyledEmote, StyledStoryNetWorthBar, StyledStoryNetWorthText, StyledStorySpan, StyledStoryWrapper } from './StyledMatch';
+import constants from '../constants';
 
 const heroesArr = jsonFn(heroes);
 
@@ -23,22 +25,23 @@ const TEAM = {
 };
 
 const GoldSpan = amount => (
-  <span key={`gold_${amount}`} className={styles.storySpan}>
-    <font color={styles.golden}>{amount} </font>
+  <StyledStorySpan key={`gold_${amount}`}>
+    <font color={constants.colorGolden}>{amount.toLocaleString()}</font>
     <img
       width="25px"
       height="17px"
-      role="presentation"
-      src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`}
+      alt={` ${strings.story_gold}`}
+      src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`}
+      style={{ marginLeft: '3px' }}
     />
-  </span>
+  </StyledStorySpan>
 );
 
 const TeamSpan = isRadiant => (
-  <span key={`team_${isRadiant ? 'radiant' : 'dire'}`} style={{ color: (isRadiant ? styles.green : styles.red) }} className={styles.storySpan}>
-    {isRadiant ? <IconRadiant className={styles.iconRadiant} /> : <IconDire className={styles.iconDire} />}
+  <StyledStorySpan isRadiant={isRadiant} key={`team_${isRadiant ? 'radiant' : 'dire'}`}>
+    {isRadiant ? <IconRadiant /> : <IconDire />}
     {isRadiant ? strings.general_radiant : strings.general_dire}
-  </span>
+  </StyledStorySpan>
 );
 
 // Modified version of PlayerThumb
@@ -46,24 +49,24 @@ const PlayerSpan = (player) => {
   if (!player || !heroes[player.hero_id]) {
     return strings.story_invalid_hero;
   }
+  const heroName = heroes[player.hero_id] ? heroes[player.hero_id].localized_name : strings.story_invalid_hero;
   return (
     <span>
-      <span
+      <StyledStorySpan
         data-tip
         data-for={`player_${player.account_id}`}
         key={`player_${player.player_slot}`}
-        style={{ color: (player.isRadiant ? styles.green : styles.red) }}
-        className={styles.storySpan}
+        style={{ color: (player.isRadiant ? constants.colorGreen : constants.colorRed) }}
       >
         <img
           src={heroes[player.hero_id]
-            ? `${API_HOST}${heroes[player.hero_id].icon}`
+            ? `${process.env.REACT_APP_API_HOST}${heroes[player.hero_id].icon}`
             : '/assets/images/blank-1x1.gif'
           }
-          role="presentation"
+          alt=""
         />
-        {heroes[player.hero_id] ? heroes[player.hero_id].localized_name : strings.story_invalid_hero}
-      </span>
+        {heroName}
+      </StyledStorySpan>
       <ReactTooltip id={`player_${player.account_id}`} place="left" effect="solid">
         {player.account_id ? player.personaname : strings.general_anonymous}
       </ReactTooltip>
@@ -72,21 +75,20 @@ const PlayerSpan = (player) => {
 
 // Modified version of PlayerThumb
 const ItemSpan = item => (
-  <span
+  <StyledStorySpan
     key={`item_${item}`}
-    className={styles.storySpan}
     style={{ color: itemColors[(items[item] || {}).qual] }}
   >
     <img
       width="26px"
       src={items[item]
-        ? `${API_HOST}${items[item].img}`
+        ? `${process.env.REACT_APP_API_HOST}${items[item].img}`
         : '/assets/images/blank-1x1.gif'
       }
-      role="presentation"
+      alt={(items[item] || {}).dname}
     />
     {(items[item] || {}).dname}
-  </span>
+  </StyledStorySpan>
 );
 
 const capitalizeFirst = (list) => {
@@ -109,23 +111,83 @@ const toSentence = (content) => {
   return result;
 };
 
+const articleFor = (followingWord) => {
+  // Whether we use a or an depends on the sound of the following word, but that's much hardder to detect programmatically,
+  // so we're looking solely at vowel usage for now.
+  if (['A', 'E', 'I', 'O', 'U'].includes(followingWord.charAt(0))) {
+    return strings.article_before_vowel_sound;
+  }
+
+  return strings.article_before_consonant_sound;
+};
+
+const formatApproximateTime = (timeSeconds) => {
+  const timeMinutes = parseInt(timeSeconds / 60, 10);
+
+  // If the time is at least two hours, describe it in hours
+  if (timeMinutes > 120) {
+    const timeHours = parseInt(timeSeconds / (60 * 60), 10);
+    return `${strings.advb_over} ${util.format(strings.time_hh, timeHours)}`;
+  } else if (timeMinutes > 60 && timeMinutes <= 120) {
+    // If the time is an hour to a quarter after, describe it as "over an hour"
+    return `${strings.advb_over} ${strings.time_h}`;
+  } else if (timeMinutes >= 50 && timeMinutes < 60) {
+    // If the time is between 50 and 60 minutes, describe it as "almost an hour"
+    return `${strings.advb_almost} ${strings.time_h}`;
+  }
+  // Otherwise, describe the time in minutes
+  return `${strings.advb_about} ${util.format(strings.time_mm, timeMinutes)}`;
+};
+
 const renderSentence = (template, dict) => toSentence(formatTemplate(template, dict));
 
 // Enumerates a list of items using the correct language syntax
-const formatList = (items, noneValue = []) => {
-  switch (items.length) {
+const formatList = (list, noneValue = []) => {
+  switch (list.length) {
     case 0:
       return noneValue;
     case 1:
-      return items;
+      return list;
     case 2:
-      return formatTemplate(strings.story_list_2, { 1: items[0], 2: items[1] });
+      return formatTemplate(strings.story_list_2, { 1: list[0], 2: list[1] });
     case 3:
-      return formatTemplate(strings.story_list_3, { 1: items[0], 2: items[1], 3: items[2] });
+      return formatTemplate(strings.story_list_3, { 1: list[0], 2: list[1], 3: list[2] });
     default:
-      return formatTemplate(strings.story_list_n, { i: items.shift(), rest: formatList(items) });
+      return formatTemplate(strings.story_list_n, { i: list.shift(), rest: formatList(list) });
   }
 };
+
+const isQuestion = message => /\w(?:\W*(\?)\W*)$/.test(message);
+
+// evaluate the sentiment behind the message - rage, question, statement etc
+const evaluateSentiment = (event, lastMessage) => {
+  const { message, player, time } = event;
+  const sentiment = isQuestion(message) ? ['question'] : ['statement'];
+
+  if (lastMessage && lastMessage.time + 130 > time) {
+    if (player && lastMessage.player_slot === player.player_slot) {
+      sentiment.push('continued');
+    } else if (isQuestion(lastMessage.key)) {
+      sentiment.push('response');
+    }
+  }
+
+  if (message.split(' ').length > 10) {
+    sentiment.push('long');
+  } else if (['XD', ':D', 'LOL'].includes(message.replace('?', '').toUpperCase())) {
+    sentiment.push('laughed');
+  } else if (message.toUpperCase() === message && /\w/.test(message)) {
+    sentiment.push('shouted');
+  } else if (/(\?|!|@|~|#|\$){2,}/.test(message)) {
+    sentiment.push('excited');
+  } else {
+    sentiment.push('normal');
+  }
+
+  return strings[sentiment.join('_')];
+};
+
+const emoteKeys = Object.keys(emotes);
 
 // Abstract class
 class StoryEvent {
@@ -146,19 +208,20 @@ class IntroEvent extends StoryEvent {
     this.game_mode = match.game_mode;
     this.region = match.region;
     this.date = new Date(match.start_time * 1000);
-  }
-  get localizedRegion() {
-    let words = transformations.region(null, null, this.region).split(' ');
-    words = words.map(word => (word.length <= 2 ? word : word[0] + word.slice(1).toLowerCase()));
-    return words.join(' ');
+    this.match_duration_seconds = match.duration;
   }
   format() {
     return formatTemplate(strings.story_intro, {
+      game_mode_article: articleFor(strings[`game_mode_${this.game_mode}`]),
       game_mode: strings[`game_mode_${this.game_mode}`],
       date: this.date.toLocaleDateString(
         (window.localStorage && window.localStorage.getItem('localization')) || 'en-US',
-        { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
-      region: this.localizedRegion,
+        {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+        },
+      ),
+      region: strings[`region_${this.region}`],
+      duration_in_words: formatApproximateTime(this.match_duration_seconds),
     });
   }
 }
@@ -177,6 +240,31 @@ class FirstbloodEvent extends StoryEvent {
       time: formatSeconds(this.time),
       killer: PlayerSpan(this.killer),
       victim: PlayerSpan(this.victim),
+    });
+  }
+}
+
+class ChatMessageEvent extends StoryEvent {
+  constructor(match, obj, lastMessage) {
+    super(obj.time + 70);
+    this.type = obj.type;
+    this.player = match.players.find(player => player.player_slot === obj.player_slot);
+    this.lastMessage = lastMessage;
+    this.message = obj.key.trim();
+  }
+
+  format() {
+    return formatTemplate(strings.story_chatmessage, {
+      player: PlayerSpan(this.player),
+      message: this.message.split('')
+        .map((char) => {
+          const emote = emotes[emoteKeys[emoteKeys.indexOf(char)]];
+          if (emote) {
+            return <StyledEmote emote={emote} />;
+          }
+          return char;
+        }),
+      said_verb: evaluateSentiment(this, this.lastMessage),
     });
   }
 }
@@ -210,6 +298,25 @@ class RoshanEvent extends StoryEvent {
   format() {
     const formatted = formatTemplate(strings.story_roshan, { team: TeamSpan(this.team) });
     return this.aegis ? formatList([formatted, this.aegis.format()]) : formatted;
+  }
+}
+
+class PredictionEvent extends StoryEvent {
+  constructor(match, team) {
+    super(team);
+    if (team === -89) {
+      this.team = true; // radiant
+      this.players = match.players.filter(player => player.isRadiant && player.pred_vict);
+    } else {
+      this.team = false; // dire
+      this.players = match.players.filter(player => !player.isRadiant && player.pred_vict);
+    }
+  }
+  format() {
+    return formatTemplate(strings.story_predicted_victory, {
+      players: formatList(this.players.map(PlayerSpan), strings.story_predicted_victory_empty),
+      team: TeamSpan(this.team),
+    });
   }
 }
 
@@ -313,41 +420,70 @@ class LanesEvent extends StoryEvent {
   }
 }
 
+// returnes a formatted template when given a TowerEvent or BarracksEvent
+const formatBuilding = (event) => {
+  let template = strings.story_building_destroy;
+  if (event.player) {
+    template = event.player.isRadiant === event.team ? strings.story_building_deny_player : strings.story_building_destroy_player;
+  }
+  return formatTemplate(template, {
+    building: event.localizedBuilding,
+    player: event.player ? PlayerSpan(event.player) : null,
+  });
+};
+
 class TowerEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
-    this.is_deny = obj.type === 'CHAT_MESSAGE_TOWER_DENY';
-    this.player = match.players.find(player => player.player_slot === obj.player_slot);
-    if (this.is_deny) {
-      this.team = this.player.isRadiant;
-    } else {
-      this.team = obj.team !== 2;
-    }
-    if (!this.player) {
-      this.template = strings.story_building_destroy;
-    } else {
-      this.template = this.is_deny ? strings.story_building_deny_player : strings.story_building_destroy_player;
+    if (obj.type === 'building_kill') {
+      const groups = /npc_dota_(good|bad)guys_tower(1|2|3|4)_?(bot|mid|top|)/.exec(obj.key);
+      this.team = groups[1] === 'good';
+      this.tier = parseInt(groups[2], 10);
+      this.lane = {
+        bot: 1,
+        mid: 2,
+        top: 3,
+        '': 2,
+      }[groups[3]];
+      this.player = match.players.find(player => player.player_slot === obj.player_slot);
+    } else if (obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY') {
+      this.player = match.players.find(player => player.player_slot === obj.player_slot);
+      this.team = obj.type === 'CHAT_MESSAGE_TOWER_DENY' ? this.player.isRadiant : obj.team !== 2;
     }
   }
   get localizedBuilding() {
-    return formatTemplate(strings.story_tower, { team: TeamSpan(this.team) });
+    const template = this.tier === undefined ? strings.story_tower_simple : strings.story_tower;
+    return formatTemplate(template, {
+      team: TeamSpan(this.team),
+      tier: this.tier,
+      lane: localizedLane[this.lane],
+    });
   }
   format() {
-    return formatTemplate(this.template, {
-      building: this.localizedBuilding,
-      player: this.player ? PlayerSpan(this.player) : null,
-    });
+    return formatBuilding(this);
   }
 }
 
 class BarracksEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
-    this.team = obj.key >= 64;
-    this.key = obj.key < 64 ? obj.key : obj.key / 64;
-    const power = Math.log2(this.key);
-    this.is_melee = (power % 2) === 0;
-    this.lane = Math.floor(power / 2) + 1;
+    if (obj.type === 'building_kill') {
+      const groups = /npc_dota_(good|bad)guys_(range|melee)_rax_(bot|mid|top)/.exec(obj.key);
+      this.team = groups[1] === 'good';
+      this.is_melee = groups[2] === 'melee';
+      this.lane = {
+        bot: 1,
+        mid: 2,
+        top: 3,
+      }[groups[3]];
+      this.player = match.players.find(player => player.player_slot === obj.player_slot);
+    } else if (obj.type === 'CHAT_MESSAGE_BARRACKS_KILL') {
+      this.team = obj.key >= 64;
+      this.key = obj.key < 64 ? obj.key : obj.key / 64;
+      const power = Math.log2(this.key);
+      this.is_melee = (power % 2) === 0;
+      this.lane = Math.floor(power / 2) + 1;
+    }
   }
   get localizedBuilding() {
     return formatTemplate(strings.story_barracks, {
@@ -357,7 +493,7 @@ class BarracksEvent extends StoryEvent {
     });
   }
   format() {
-    return formatTemplate(strings.story_building_destroy, { building: this.localizedBuilding });
+    return formatBuilding(this);
   }
 }
 
@@ -415,8 +551,8 @@ class TeamfightEvent extends StoryEvent {
     this.winning_team = fight.radiant_gold_advantage_delta >= 0; // is_radiant value basically
     this.gold_delta = Math.abs(fight.radiant_gold_advantage_delta);
     const deaths = fight.players
-        .map((player, i) => ({ player: match.players[i], count: player.deaths }))
-        .filter(death => death.count > 0);
+      .map((player, i) => ({ player: match.players[i], count: player.deaths }))
+      .filter(death => death.count > 0);
     this.win_dead = deaths.filter(death => death.player.isRadiant === this.winning_team);
     this.lose_dead = deaths.filter(death => death.player.isRadiant !== this.winning_team);
     this.during_events = [];
@@ -435,12 +571,16 @@ class TeamfightEvent extends StoryEvent {
         death.count === 1 ? new PlayerSpan(death.player) : [new PlayerSpan(death.player), `(x${death.count})`]))),
     })];
     if (this.during_events.length > 0) {
-      formatted = formatted.concat(renderSentence(strings.story_during_teamfight,
-        { events: formatObjectiveEvents(this.during_events) }));
+      formatted = formatted.concat(renderSentence(
+        strings.story_during_teamfight,
+        { events: formatObjectiveEvents(this.during_events) },
+      ));
     }
     if (this.after_events.length > 0) {
-      formatted = formatted.concat(renderSentence(strings.story_after_teamfight,
-        { events: formatObjectiveEvents(this.after_events) }));
+      formatted = formatted.concat(renderSentence(
+        strings.story_after_teamfight,
+        { events: formatObjectiveEvents(this.after_events) },
+      ));
     }
     return formatted;
   }
@@ -497,8 +637,18 @@ class ItemPurchaseEvent extends StoryEvent {
 }
 
 class TimeMarkerEvent extends StoryEvent {
-  constructor(minutes) {
+  constructor(match, minutes) {
     super(minutes * 60);
+    this.radiant_gold = match.players
+      .filter(player => player.isRadiant)
+      .map(player => player.gold_t[minutes])
+      .reduce((a, b) => a + b, 0);
+    this.dire_gold = match.players
+      .filter(player => !player.isRadiant)
+      .map(player => player.gold_t[minutes])
+      .reduce((a, b) => a + b, 0);
+    this.radiant_percent = Math.round(100 * this.radiant_gold / (this.radiant_gold + this.dire_gold));
+    this.dire_percent = 100 - this.radiant_percent;
   }
   formatSentence() {
     return this.format();
@@ -508,10 +658,27 @@ class TimeMarkerEvent extends StoryEvent {
   }
   format() {
     return [
-      <h3 key={`minute_${this.minutes}_subheading`}>
+      <h3 key={`minute_${this.minutes}_subheading`} style={{ marginBottom: 0 }}>
         {formatTemplate(strings.story_time_marker, { minutes: this.minutes })}
       </h3>,
-      <hr key={`minute_${this.minutes}_hr`} />,
+      <StyledStoryNetWorthText key={`minute_${this.minutes}_networth_text`}>
+        <StyledStoryNetWorthText width={this.radiant_percent}>
+          {GoldSpan(this.radiant_gold)}
+        </StyledStoryNetWorthText>
+        <StyledStoryNetWorthText style={{ backgroundColor: 'rgba(0,0,0,0)' }} color={this.radiant_gold > this.dire_gold ? constants.colorGreen : constants.colorRed} left={this.radiant_percent}>
+          {formatTemplate(strings.story_networth_diff, {
+            percent: Math.abs(this.radiant_percent - this.dire_percent),
+            gold: GoldSpan(Math.abs(this.radiant_gold - this.dire_gold)),
+          })}
+        </StyledStoryNetWorthText>
+        <StyledStoryNetWorthText width={this.dire_percent}>
+          {GoldSpan(this.dire_gold)}
+        </StyledStoryNetWorthText>
+      </StyledStoryNetWorthText>,
+      <StyledStoryNetWorthBar key={`minute_${this.minutes}_networth`}>
+        <StyledStoryNetWorthText color={constants.colorGreen} width={this.radiant_percent} />
+        <StyledStoryNetWorthText color={constants.colorRed} width={this.dire_percent} />
+      </StyledStoryNetWorthBar>,
     ];
   }
 }
@@ -520,15 +687,21 @@ class GameoverEvent extends StoryEvent {
   constructor(match) {
     super(match.duration);
     this.winning_team = match.radiant_win;
-    this.radiant_score = match.radiant_score;
-    this.dire_score = match.dire_score;
+    this.radiant_score = match.radiant_score || match.players
+      .filter(player => player.isRadiant)
+      .map(player => player.kills)
+      .reduce((a, b) => a + b, 0);
+    this.dire_score = match.dire_score || match.players
+      .filter(player => !player.isRadiant)
+      .map(player => player.kills)
+      .reduce((a, b) => a + b, 0);
   }
   format() {
     return formatTemplate(strings.story_gameover, {
       duration: formatSeconds(this.time),
       winning_team: TeamSpan(this.winning_team),
-      radiant_score: <font key="radiant_score" color={styles.green}>{this.radiant_score}</font>,
-      dire_score: <font key="dire_score" color={styles.red}>{this.dire_score}</font>,
+      radiant_score: <font key="radiant_score" color={constants.colorGreen}>{this.radiant_score}</font>,
+      dire_score: <font key="dire_score" color={constants.colorRed}>{this.dire_score}</font>,
     });
   }
 }
@@ -540,20 +713,38 @@ const generateStory = (match) => {
   // Intro
   events.push(new IntroEvent(match));
 
+  // Prediction
+  let predExists = false;
+  match.players.forEach((player) => {
+    if (player.pred_vict === true) {
+      predExists = true;
+    }
+  });
+  if (predExists === true) {
+    events.push(new PredictionEvent(match, -89));
+    events.push(new PredictionEvent(match, -88));
+  }
+
   // Firstblood
   const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
 
   if (fbIndex > -1) {
     const killerLog = match.players.find(player =>
-      player.player_slot === match.objectives[fbIndex].player_slot,
-    ).kills_log;
+      player.player_slot === match.objectives[fbIndex].player_slot).kills_log;
 
-    events.push(new FirstbloodEvent(match,
+    events.push(new FirstbloodEvent(
+      match,
       match.objectives[fbIndex].time,
       match.objectives[fbIndex].player_slot,
-      killerLog ? killerLog[0].key : null));
+      (Array.isArray(killerLog) && killerLog[0] ? killerLog[0].key : null),
+    ));
   }
 
+  // Chat messages
+  const chatMessageEvents = match.chat
+    .filter(obj => obj.type === 'chat')
+    .map((obj, i, array) => new ChatMessageEvent(match, obj, i > 0 && array[i - 1]));
+  events = events.concat(chatMessageEvents);
 
   // Aegis pickups
   const aegisEvents = match.objectives
@@ -575,15 +766,24 @@ const generateStory = (match) => {
     events.push(new LanesEvent(match));
   }
 
+  // New Buildings Events
+  match.objectives.filter(obj => obj.type === 'building_kill').forEach((obj) => {
+    if (obj.key.includes('tower')) {
+      events.push(new TowerEvent(match, obj));
+    } else if (obj.key.includes('rax')) {
+      events.push(new BarracksEvent(match, obj));
+    }
+  });
+
+  // Old Buildings Events
   // Towers
   events = events.concat(match.objectives
-      .filter(obj => obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY')
-      .map(obj => new TowerEvent(match, obj)));
-
+    .filter(obj => obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY')
+    .map(obj => new TowerEvent(match, obj)));
   // Barracks
   events = events.concat(match.objectives
-      .filter(obj => obj.type === 'CHAT_MESSAGE_BARRACKS_KILL')
-      .map(obj => new BarracksEvent(match, obj)));
+    .filter(obj => obj.type === 'CHAT_MESSAGE_BARRACKS_KILL')
+    .map(obj => new BarracksEvent(match, obj)));
 
   // Expensive Item
   if (ExpensiveItemEvent.exists(match, 4000)) {
@@ -601,7 +801,7 @@ const generateStory = (match) => {
 
   // Time Markers
   for (let min = 20; min < (match.duration / 60); min += 10) {
-    events.push(new TimeMarkerEvent(min));
+    events.push(new TimeMarkerEvent(match, min));
   }
 
   // Gameover
@@ -640,7 +840,7 @@ const generateStory = (match) => {
 class MatchStory extends React.Component {
   renderEvents() {
     const events = generateStory(this.props.match);
-    return (<div className={styles.storyWrapper} key="matchstory">{events.map(event => event.render())}</div>);
+    return (<StyledStoryWrapper key="matchstory">{events.map(event => event.render())}</StyledStoryWrapper>);
   }
   render() {
     try {
@@ -653,10 +853,14 @@ class MatchStory extends React.Component {
       if (e.stack) {
         exmsg += ` | stack: ${e.stack}`;
       }
-      console.log(exmsg);
+      console.error(exmsg); // eslint-disable-line no-console
       return (<div>{strings.story_error}</div>);
     }
   }
 }
+
+MatchStory.propTypes = {
+  match: PropTypes.shape({}),
+};
 
 export default MatchStory;

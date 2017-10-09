@@ -1,27 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   transformations,
   formatSeconds,
 }
-from 'utility';
+  from 'utility';
 import {
   Link,
 }
-from 'react-router';
+  from 'react-router-dom';
 import strings from 'lang';
 import Table from 'components/Table';
 import itemData from 'dotaconstants/build/items.json';
 import { IconRadiant, IconDire } from 'components/Icons';
-import matchStyles from 'components/Match/Match.css';
-import heroes from 'dotaconstants/build/heroes.json';
+// import heroes from 'dotaconstants/build/heroes.json';
 import {
   TablePercent,
   inflictorWithValue,
 }
-from 'components/Visualizations';
-import redrawGraphs from './redrawGraphs';
-import styles from './Explorer.css';
+  from 'components/Visualizations';
+// import redrawGraphs from './redrawGraphs';
+import constants from '../constants';
+import { StyledTeamIconContainer } from '../Match/StyledMatch';
 
+/*
 function resolveId(key, value, mappings) {
   if (key === 'hero_id') {
     return (heroes[value] || {}).localized_name;
@@ -32,13 +34,17 @@ function resolveId(key, value, mappings) {
   }
   return value;
 }
+*/
 
 class ExplorerOutputSection extends React.Component {
   shouldComponentUpdate(nextProps) {
     return nextProps.rows !== this.props.rows || nextProps.format !== this.props.format;
   }
   render() {
-    const { rows, fields, expandedBuilder, teamMapping, playerMapping, format } = this.props;
+    const {
+      rows = [], fields, expandedBuilder, teamMapping, playerMapping, format,
+    } = this.props;
+    /*
     setTimeout(() => {
       const firstCol = fields && fields[0].name;
       redrawGraphs(rows.map(row => ({
@@ -46,6 +52,7 @@ class ExplorerOutputSection extends React.Component {
         [firstCol]: resolveId(firstCol, row[firstCol], { teamMapping, playerMapping }) }
       )), firstCol, (expandedBuilder.select && expandedBuilder.select.key) || strings.th_count);
     }, 100);
+      */
     if (format === 'donut') {
       return <div id="donut" />;
     } else if (format === 'bar') {
@@ -55,9 +62,10 @@ class ExplorerOutputSection extends React.Component {
     }
     return (
       <Table
-        data={(rows || []).slice(0, 1000)}
+        resetTableState
+        data={(rows || []).slice(0, 500)}
         columns={(fields || []).map(column => ({
-          displayName: column.name,
+          displayName: column.name === 'count' ? strings.general_matches : column.name,
           field: column.name,
         })).map(column => ({
           ...column,
@@ -68,18 +76,10 @@ class ExplorerOutputSection extends React.Component {
               return transformations.hero_id(row, col, field);
             } else if (column.field.indexOf('account_id') === 0) {
               return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
-            } else if (column.field === 'winrate') {
+            } else if (column.field.indexOf('winrate') !== -1 || column.field === 'wr_lower_bound') {
               return (field >= 0 && field <= 1 ? <TablePercent
                 percent={Number((field * 100).toFixed(2))}
               /> : null);
-            } else if (column.field === 'adj_winrate') {
-          /*
-          const phat = field;
-          const z = 1.96;
-          const n = row.count;
-          return ((phat + z * z / (2 * n) - z * Math.sqrt((phat * (1 - phat) + z * z / (4 * n)) / n)) / (1 + z * z / n)).toFixed(2);
-          */
-              return field;
             } else if (column.field === 'rune_id') {
               return strings[`rune_${field}`];
             } else if (column.field === 'item_name') {
@@ -91,11 +91,11 @@ class ExplorerOutputSection extends React.Component {
             } else if (column.field === 'inflictor') {
               return <span>{inflictorWithValue(field)} {field}</span>;
             } else if (column.field === 'win') {
-              return <span className={field ? styles.textSuccess : styles.textDanger}>{field ? strings.td_win : strings.td_loss}</span>;
+              return <span style={{ color: field ? constants.colorSuccess : constants.colorDanger }}>{field ? strings.td_win : strings.td_loss}</span>;
             } else if (column.field === 'is_radiant') {
               return field
-            ? <span className={matchStyles.teamIconContainer}><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>
-            : <span className={matchStyles.teamIconContainer}><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>;
+                ? <StyledTeamIconContainer><IconRadiant />{strings.general_radiant}</StyledTeamIconContainer>
+                : <StyledTeamIconContainer><IconDire />{strings.general_dire}</StyledTeamIconContainer>;
             } else if (column.field === 'start_time') {
               return (new Date(field * 1000)).toLocaleDateString('en-US', {
                 day: 'numeric',
@@ -103,12 +103,29 @@ class ExplorerOutputSection extends React.Component {
                 year: 'numeric',
               });
             }
-            return typeof field === 'string' ? field : JSON.stringify(field);
+            if (typeof field === 'string') {
+              return field;
+            }
+            return JSON.stringify(field);
           },
-          sortFn: row => (isNaN(Number(row[column.field])) ? row[column.field] : Number(row[column.field])),
+          sortFn: (row) => {
+            if (row[column.field] === null || typeof row[column.field] === 'boolean' || Number.isNaN(Number(row[column.field]))) {
+              return row[column.field];
+            }
+            return Number(row[column.field]);
+          },
         }))}
       />);
   }
 }
+
+ExplorerOutputSection.propTypes = {
+  rows: PropTypes.string,
+  fields: PropTypes.string,
+  expandedBuilder: PropTypes.string,
+  teamMapping: PropTypes.string,
+  playerMapping: PropTypes.string,
+  format: PropTypes.string,
+};
 
 export default ExplorerOutputSection;

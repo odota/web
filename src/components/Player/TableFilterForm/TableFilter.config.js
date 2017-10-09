@@ -10,34 +10,34 @@ import strings from 'lang';
 export const heroList = Object.keys(heroes).map(id => ({
   text: heroes[id].localized_name,
   value: id,
-}));
+})).sort((a, b) => a.text.localeCompare(b.text));
 export const laneList = Object.keys(strings)
-.filter(str => str.indexOf('lane_role_') === 0)
-.map(str => str.substring('lane_role_'.length))
-.map(id => ({
-  text: strings[`lane_role_${id}`],
-  value: Number(id),
-}));
-export const patchList = patch.map((patch, index) => ({
-  text: patch.name,
+  .filter(str => str.indexOf('lane_role_') === 0)
+  .map(str => str.substring('lane_role_'.length))
+  .map(id => ({
+    text: strings[`lane_role_${id}`],
+    value: Number(id),
+  }));
+export const patchList = patch.map((_patch, index) => ({
+  text: _patch.name,
   value: index,
 })).reverse();
 export const modeList = Object.keys(strings)
-.filter(str => str.indexOf('game_mode_') === 0)
-.map(str => str.substring('game_mode_'.length))
-.map(id => ({
-  text: strings[`game_mode_${id}`],
-  value: id,
-}));
+  .filter(str => str.indexOf('game_mode_') === 0)
+  .map(str => str.substring('game_mode_'.length))
+  .map(id => ({
+    text: strings[`game_mode_${id}`],
+    value: id,
+  }));
 export const lobbyTypeList = Object.keys(strings)
-.filter(str => str.indexOf('lobby_type_') === 0)
-.map(str => str.substring('lobby_type_'.length))
-.map(id => ({
-  text: strings[`lobby_type_${id}`],
-  value: id,
-}));
+  .filter(str => str.indexOf('lobby_type_') === 0)
+  .map(str => str.substring('lobby_type_'.length))
+  .map(id => ({
+    text: strings[`lobby_type_${id}`],
+    value: id,
+  }));
 export const regionList = Object.keys(region).map(id => ({
-  text: region[id],
+  text: strings[`region_${id}`],
   value: Number(id),
 }));
 
