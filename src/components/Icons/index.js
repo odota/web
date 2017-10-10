@@ -20,4 +20,4 @@ export { default as IconDot } from './Dot';
 export { default as IconBackpack } from './Backpack';
 export { default as IconDice } from './Dice';
 export { default as IconCrystalBall } from './CrystalBall';
-export { default as IconCheckCircle } from './CheckCircle'
+export { default as IconCheckCircle } from './CheckCircle';

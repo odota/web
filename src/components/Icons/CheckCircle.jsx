@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import CheckCircle from 'material-ui/svg-icons/action/check-circle';
 
 export default props => (
