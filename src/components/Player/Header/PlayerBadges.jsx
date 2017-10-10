@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
-import { IconCheese, IconSteam, IconEye, IconEyeInactive } from 'components/Icons';
-import CheckCircle from 'material-ui/svg-icons/action/check-circle';
+import { IconCheese, IconSteam, IconEye, IconEyeInactive, IconCheckCircle } from 'components/Icons';
 import strings from 'lang';
 import styled from 'styled-components';
 import constants from '../../constants';
@@ -12,11 +11,13 @@ const Styled = styled.div`
 .iconButton {
   padding-bottom: 0;
   cursor: default;
-  margin: 0 5px 4px;
+  &:not(:first-of-type) {
+    margin-left: 8px;
+  }
 
   & svg {
     width: auto !important;
-    height: 16px;
+    height: 18px !important;
     vertical-align: middle;
     fill: ${constants.primaryTextColor};
     margin: 0 6px;
@@ -51,8 +52,9 @@ const Styled = styled.div`
 .playerBadges {
   display: flex;
   flex-direction: row;
-  margin-left: 10px;
+  margin-left: 16px;
   align-items: center;
+  height: 90%;
 
   @media only screen and (max-width: 660px) {
     margin-left: 0;
@@ -62,8 +64,8 @@ const Styled = styled.div`
   & .iconButton {
     position: relative;
 
-    & .IconTrophy {
-      fill: ${constants.colorGolden} !important;
+    & .iconConfirmed {
+      fill: ${constants.golden} !important;
     }
 
     & .iconSteam {
@@ -87,7 +89,7 @@ const Styled = styled.div`
 
   & .iconEye {
     & svg {
-      height: 22px;
+      height: 24px !important;
       margin-top: 4px;
     }
 
@@ -116,7 +118,6 @@ const Styled = styled.div`
 .cheese {
   -webkit-filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.6));
   filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.6));
-  height: 18;
 }
 `;
 
@@ -135,7 +136,7 @@ export const PlayerBadgesIcons = ({
               data-hint={`${strings.app_confirmed_as} ${officialPlayerName}`}
               data-hint-position="top"
             >
-              <CheckCircle className="icon IconTrophy" />
+              <IconCheckCircle className="iconConfirmed" />
             </div>
           )}
           <div
