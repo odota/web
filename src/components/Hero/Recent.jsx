@@ -32,6 +32,22 @@ const matchesColumns = [
     tooltip: strings.tooltip_result,
     field: 'radiant_win',
     displayFn: transformations.radiant_win,
+  }, {
+    displayName: strings.th_kills,
+    tooltip: strings.tooltip_kills,
+    field: 'kills',
+    sortFn: true,
+    displayFn: transformations.kda,
+  }, {
+    displayName: strings.th_deaths,
+    tooltip: strings.tooltip_deaths,
+    field: 'deaths',
+    sortFn: true,
+  }, {
+    displayName: strings.th_assists,
+    tooltip: strings.tooltip_assists,
+    field: 'assists',
+    sortFn: true,
   },
 ];
 
@@ -56,7 +72,7 @@ class Recent extends React.Component {
         {isLoading || isError || result === null ? (
           <Spinner />
         ) : (
-          <Table data={this.props.result} columns={matchesColumns} />
+          <Table data={this.props.result} columns={matchesColumns} paginated />
         )}
       </div>
     );
