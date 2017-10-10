@@ -33,7 +33,7 @@ const generateDiffData = (match) => {
 const XpTooltipContent = ({ payload }) => {
   try {
     const data = payload && payload[0] && payload[0].payload;
-    const { xp, gold, time } = data;
+    const { rXpAdv, rGoldAdv, time } = data;
     return (
       <StyledTooltip>
         <StyledTooltipGold>
@@ -42,20 +42,20 @@ const XpTooltipContent = ({ payload }) => {
         <br />
         <StyledTooltipGold>
           <StyledTooltipTeam
-            color={gold > 0 ? constants.colorSuccess : constants.colorDanger}
+            color={rGoldAdv > 0 ? constants.colorSuccess : constants.colorDanger}
           >
-            {gold > 0 ? strings.general_radiant : strings.general_dire}
+            {rGoldAdv > 0 ? strings.general_radiant : strings.general_dire}
           </StyledTooltipTeam>
-          <GoldSpan>{Math.abs(gold)} {strings.heading_graph_gold}</GoldSpan>
+          <GoldSpan>{Math.abs(rGoldAdv)} {strings.heading_graph_gold}</GoldSpan>
         </StyledTooltipGold>
         <br />
         <StyledTooltipGold>
           <StyledTooltipTeam
-            color={xp > 0 ? constants.colorSuccess : constants.colorDanger}
+            color={rXpAdv > 0 ? constants.colorSuccess : constants.colorDanger}
           >
-            {xp > 0 ? strings.general_radiant : strings.general_dire}
+            {rXpAdv > 0 ? strings.general_radiant : strings.general_dire}
           </StyledTooltipTeam>
-          <XpSpan>{Math.abs(xp)} {strings.heading_graph_xp}</XpSpan>
+          <XpSpan>{Math.abs(rXpAdv)} {strings.heading_graph_xp}</XpSpan>
         </StyledTooltipGold>
       </StyledTooltip>
     );
