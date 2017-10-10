@@ -32,7 +32,7 @@ const generateDiffData = (match) => {
 
 const XpTooltipContent = ({ payload }) => {
   try {
-    const data = payload[0].payload;
+    const data = payload && payload[0] && payload[0].payload;
     const { xp, gold, time } = data;
     return (
       <StyledTooltip>

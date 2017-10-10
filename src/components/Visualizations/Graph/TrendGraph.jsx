@@ -72,21 +72,10 @@ const TooltipStylesDiv = styled.div`
     font-size: ${constants.fontSizeCommon};
   }
 `;
-const getHeroImg = (data) => {
-  try {
-    return (<img
-      className="heroImg"
-      src={`${process.env.REACT_APP_API_HOST}${heroes[data.hero_id]
-    .img}`}
-      alt=""
-    />);
-  } catch (e) {
-    return <div />;
-  }
-};
 const TrendTooltipContent = ({ payload, name }) => {
-  const data = (payload[0] || {}).payload;
+  const data = payload && payload[0] && payload[0].payload;
   if (data) {
+    const hero = heroes[data.hero_id] || {};
     const trendStr = strings[`heading_${name}`];
     const unit = data.name === 'win_rate' ? '%' : '';
     return (
@@ -115,7 +104,11 @@ const TrendTooltipContent = ({ payload, name }) => {
               )}
             </div>
             <div className="hero">
-              { getHeroImg(data)}
+              <img
+                className="heroImg"
+                src={`${process.env.REACT_APP_API_HOST}${hero.img}`}
+                alt=""
+              />
             </div>
           </div>
         </div>

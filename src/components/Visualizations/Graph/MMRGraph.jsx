@@ -39,7 +39,7 @@ const MMRGraph = ({ columns }) => (
         <XAxis dataKey="time" interval={49} tickFormatter={formatXTick}>
           <Label value={strings.th_time} position="insideTopRight" />
         </XAxis>
-        <YAxis type="number" domain={['dataMin - 150', 'dataMax + 150']} />
+        <YAxis type="number" domain={['dataMin - 100', 'dataMax + 100']} />
         <CartesianGrid
           stroke="#505050"
           strokeWidth={1}

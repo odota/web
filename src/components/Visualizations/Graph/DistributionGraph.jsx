@@ -14,7 +14,7 @@ import {
 import { StyledTooltip } from './Styled';
 
 const DistributionTooltipContent = ({ payload, array }) => {
-  const data = (payload[0] || {}).payload;
+  const data = payload && payload[0] && payload[0].payload;
   const total = array.length ? array[array.length - 1].cumulative_sum : 0;
   return (
     <StyledTooltip>
