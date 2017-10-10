@@ -45,11 +45,12 @@ class RequestLayer extends React.Component {
     this.props.dispatchTeams();
   }
   render() {
-    return (<div>
-      <Helmet title={strings.header_teams} />
-      <Heading title={strings.heading_team_elo_rankings} subtitle={strings.subheading_team_elo_rankings} />
-      <Table columns={columns} data={this.props.data.slice(0, 100)} />
-    </div>);
+    return (
+      <div>
+        <Helmet title={strings.header_teams} />
+        <Heading title={strings.heading_team_elo_rankings} subtitle={strings.subheading_team_elo_rankings} />
+        <Table columns={columns} data={this.props.data.slice(0, 100)} />
+      </div>);
   }
 }
 

@@ -38,7 +38,8 @@ const AccountWidget = ({
     {error && <Error />}
     {!error && !loading && user
       ? <LoggedIn style={style} playerId={user.account_id} />
-      : <IconButtonLink href={`${process.env.REACT_APP_API_HOST}/login`}>
+      :
+      <IconButtonLink href={`${process.env.REACT_APP_API_HOST}/login`}>
         <IconSteam />
         {strings.app_login}
       </IconButtonLink>

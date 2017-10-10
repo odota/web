@@ -14,7 +14,7 @@ const StyledDiv = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  background-color: #34a5ff;
+  background-color: #008eff;
 
   & main,
   & aside {
@@ -109,16 +109,13 @@ class RequestLayer extends React.Component {
     super();
 
     this.state = {
-      isDismissed: false,
     };
 
     this.dismiss = (value) => {
       if (localStorage) {
-        this.setState({
-          isDismissed: true,
-        });
         localStorage.setItem('dismiss', value);
       }
+      this.setState({ dismissed: true });
     };
 
     this.getDate = (days) => {
@@ -146,7 +143,7 @@ class RequestLayer extends React.Component {
           html_url: link,
         } = data.items[0];
 
-        if (localStorage && Number(localStorage.getItem('dismiss')) < number) {
+        if (localStorage && !this.state.dismissed && Number(localStorage.getItem('dismiss')) < number) {
           return <Announce title={title} body={body} onClick={() => this.dismiss(number)} link={link} location={window.location} />;
         }
       }

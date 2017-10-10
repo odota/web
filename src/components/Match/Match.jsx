@@ -23,25 +23,25 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    const loading = this.props.loading;
+    const { loading, matchId } = this.props;
     const match = this.props.matchData;
-    const matchId = this.props.matchId;
     const info = this.props.match.params.info || 'overview';
     const page = matchPages(matchId).find(_page => _page.key.toLowerCase() === info);
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
     return loading ? <Spinner /> :
-      (<div>
-        <Helmet title={pageTitle} />
-        <MatchHeader
-          match={match}
-          user={this.props.user}
-        />
-        <TabBar
-          info={info}
-          tabs={matchPages(matchId, match)}
-        />
-        {page && page.content(match)}
-      </div>);
+      (
+        <div>
+          <Helmet title={pageTitle} />
+          <MatchHeader
+            match={match}
+            user={this.props.user}
+          />
+          <TabBar
+            info={info}
+            tabs={matchPages(matchId, match)}
+          />
+          {page && page.content(match)}
+        </div>);
   }
 }
 

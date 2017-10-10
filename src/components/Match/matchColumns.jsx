@@ -6,11 +6,10 @@ import orderTypes from 'dotaconstants/build/order_types.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
 import abilityIds from 'dotaconstants/build/ability_ids.json';
 import abilityKeys from 'dotaconstants/build/ability_keys.json';
-import heroNames from 'dotaconstants/build/hero_names.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle } from 'utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById } from 'utility';
 import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
@@ -19,6 +18,8 @@ import { Mmr } from 'components/Visualizations/Table/HeroImage';
 import { IconBackpack } from 'components/Icons';
 import constants from '../constants';
 import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
+
+const heroNames = getHeroesById();
 
 export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide = false) =>
   (<TableHeroImage
@@ -280,11 +281,12 @@ export const abilityColumns = () => {
     tooltip: 'Ability upgraded at this level',
     field: `ability_upgrades_arr_${index}`,
     displayFn: row =>
-      (<StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
-        <div className="ability">
-          {inflictorWithValue(abilityIds[row[`ability_upgrades_arr_${index}`]]) || <div className="placeholder" />}
-        </div>
-      </StyledAbilityUpgrades>),
+      (
+        <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
+          <div className="ability">
+            {inflictorWithValue(abilityIds[row[`ability_upgrades_arr_${index}`]]) || <div className="placeholder" />}
+          </div>
+        </StyledAbilityUpgrades>),
   }));
 
   cols[0] = heroTdColumn;
@@ -469,8 +471,9 @@ export const purchaseTimesColumns = (match) => {
       displayName: `${curTime / 60}'`,
       field: 'purchase_log',
       displayFn: (row, column, field) =>
-        (<div>
-          {field
+        (
+          <div>
+            {field
             ? field
               .filter(purchase => purchase.time >= curTime - bucket && purchase.time < curTime)
               .sort((p1, p2) => {
@@ -490,7 +493,7 @@ export const purchaseTimesColumns = (match) => {
                 return null;
               })
             : ''}
-        </div>),
+          </div>),
     });
   }
   return cols;
@@ -627,15 +630,16 @@ export const laningColumns = (currentState, setSelectedPlayer) => [
     field: 'lane_role',
     sortFn: true,
     displayFn: (row, col, field) =>
-      (<div>
-        <span>
-          {strings[`lane_role_${field}`]}
-        </span>
-        {row.is_roaming &&
+      (
+        <div>
+          <span>
+            {strings[`lane_role_${field}`]}
+          </span>
+          {row.is_roaming &&
           <span style={subTextStyle}>
             {strings.roaming}
           </span>}
-      </div>),
+        </div>),
   },
   {
     displayName: strings.th_lane_efficiency,
@@ -745,9 +749,10 @@ export const unitKillsColumns = [
     field: 'specific',
     // TODO make this work for non-english (current names are hardcoded in dotaconstants)
     displayFn: (row, col, field) =>
-      (<div>
-        {Object.keys(field || {}).map((unit, index) => <div key={index}>{`${field[unit]} ${unit}`}</div>)}
-      </div>),
+      (
+        <div>
+          {Object.keys(field || {}).map((unit, index) => <div key={index}>{`${field[unit]} ${unit}`}</div>)}
+        </div>),
   },
 ];
 
@@ -803,26 +808,27 @@ export const cosmeticsColumns = [
     field: 'cosmetics',
     displayFn: (row, col, field) =>
       field.map((cosmetic, i) =>
-        (<StyledCosmetic key={i} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
-          <a href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`} target="_blank" rel="noopener noreferrer">
-            <img
-              src={`${process.env.REACT_APP_API_HOST}/apps/570/${cosmetic.image_path}`}
-              alt=""
-              style={{
+        (
+          <StyledCosmetic key={i} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
+            <a href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`} target="_blank" rel="noopener noreferrer">
+              <img
+                src={`${process.env.REACT_APP_API_HOST}/apps/570/${cosmetic.image_path}`}
+                alt=""
+                style={{
                 borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : constants.colorMuted}`,
               }}
-            />
-            <ActionOpenInNew />
-          </a>
-          <ReactTooltip id={`cosmetic_${cosmetic.item_id}`} effect="solid">
-            <span style={{ color: cosmetic.item_rarity && cosmeticsRarity[cosmetic.item_rarity] }}>
-              {cosmetic.name}
-              <span>
-                {cosmetic.item_rarity}
+              />
+              <ActionOpenInNew />
+            </a>
+            <ReactTooltip id={`cosmetic_${cosmetic.item_id}`} effect="solid">
+              <span style={{ color: cosmetic.item_rarity && cosmeticsRarity[cosmetic.item_rarity] }}>
+                {cosmetic.name}
+                <span>
+                  {cosmetic.item_rarity}
+                </span>
               </span>
-            </span>
-          </ReactTooltip>
-        </StyledCosmetic>)),
+            </ReactTooltip>
+          </StyledCosmetic>)),
   },
 ];
 
@@ -938,14 +944,15 @@ const playerDeaths = (row, col, field) => {
 
 const inflictorRow = obj => (row, col, field) =>
   (field
-    ? <div style={{ maxWidth: '100px' }}>
-      {Object.keys(field).map((inflictor) => {
+    ?
+      <div style={{ maxWidth: '100px' }}>
+        {Object.keys(field).map((inflictor) => {
         if (obj[inflictor]) {
           return inflictorWithValue(inflictor, field[inflictor]);
         }
         return null;
       })}
-    </div>
+      </div>
     : '');
 
 export const teamfightColumns = [

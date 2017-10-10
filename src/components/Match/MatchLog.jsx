@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 import strings from 'lang';
 import {
   formatSeconds,
+  getHeroesById,
 } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import Table from 'components/Table';
 import heroes from 'dotaconstants/build/heroes.json';
-import heroNames from 'dotaconstants/build/hero_names.json';
 import FormField from 'components/Form/FormField';
 import {
   heroTdColumn,
 } from './matchColumns';
 import { StyledLogFilterForm } from './StyledMatch';
 
+const heroNames = getHeroesById();
 const typeConfig = {
   kills: 0,
   objectives: 1,

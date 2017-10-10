@@ -9,43 +9,24 @@ import BuildingMap from '../BuildingMap';
 
 const Styled = styled.div`
   width: 100%;
-
-  & > div {
-    display: inline-block;
-    vertical-align: top;
-  }
-
-  & .graph {
+  display: flex;
+  vertical-align: top;
+  .graph {
     margin-left: 30px;
-    width: calc(100% - 312px - 50px);
-
-    & svg[style='overflow: hidden;'] {
-      margin-top: 14px;
-    }
+    width: calc(100% - 300px);
   }
-
-  & .map {
+  .map {
     margin: 0 auto;
   }
-
-  @media only screen and (max-width: 370px) {
-    & .map {
-      width: 262px !important;
-    }
-  }
-
-  @media only screen and (max-width: 1023px) {
-    & > div {
-      display: block;
-    }
-
-    & .graph {
+  @media (max-width: 850px) {
+    display: block;
+    .graph {
       margin-left: 0;
+
       width: 100%;
     }
-
-    & .map {
-      width: 312px;
+    .map {
+      width: 300px;
     }
   }
 `;
@@ -80,9 +61,11 @@ export default {
           <div className="map">
             <BuildingMap match={match} />
           </div>
-          {match.version && <div>
-            <MatchGraph match={match} width={900} type="difference" />
-          </div>}
+          {match.version && (
+            <div className="graph">
+              <MatchGraph match={match} type="difference" />
+            </div>
+          )}
         </Styled>
       }
     </div>
