@@ -23,7 +23,7 @@ class RequestLayer extends React.Component {
     const route = this.props.match.params.heroId || 'pro';
 
     if (Number.isInteger(Number(route))) {
-      return <Hero props={this.props} />;
+      return <Hero {...this.props} />;
     }
 
     const json = this.props.data;
