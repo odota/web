@@ -1,5 +1,5 @@
 import React from 'react';
-import { oneOf, oneOfType, string, number, shape } from 'prop-types';
+import { oneOf, oneOfType, string, number, shape, bool } from 'prop-types';
 import styled from 'styled-components';
 import AttrStrength from 'components/Icons/AttrStrength';
 import AttrAgility from 'components/Icons/AttrAgility';
@@ -9,6 +9,7 @@ const Wrapper = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-weight: ${props => (props.primary ? 'bold' : null)};
 `;
 
 export const TYPES = {
@@ -18,7 +19,7 @@ export const TYPES = {
 };
 
 const Attribute = ({
-  type, base, gain, style, iconSize,
+  type, base, gain, style, iconSize, primary,
 }) => {
   let Attr = null;
   switch (type) {
@@ -36,7 +37,7 @@ const Attribute = ({
   }
 
   return (
-    <Wrapper style={style}>
+    <Wrapper style={style} primary={primary}>
       <Attr style={{ width: iconSize, marginRight: 4 }} /> {base} + {gain}
     </Wrapper>
   );
@@ -48,6 +49,7 @@ Attribute.propTypes = {
   gain: oneOfType([string, number]),
   style: shape({}),
   iconSize: number,
+  primary: bool,
 };
 
 Attribute.defaultProps = {

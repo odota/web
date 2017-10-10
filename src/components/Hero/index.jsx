@@ -116,16 +116,19 @@ const Hero = (props) => {
             type={ATTR_TYPES.str}
             base={hero.base_str}
             gain={hero.str_gain}
+            primary={hero.primary_attr === 'str'}
           />
           <Attribute
             type={ATTR_TYPES.agi}
             base={hero.base_agi}
             gain={hero.agi_gain}
+            primary={hero.primary_attr === 'agi'}
           />
           <Attribute
             type={ATTR_TYPES.int}
             base={hero.base_int}
             gain={hero.int_gain}
+            primary={hero.primary_attr === 'int'}
           />
         </HeroDescription>
       </HeroWrapper>
