@@ -5,9 +5,8 @@ import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import strings from 'lang';
 import { TableLink } from 'components/Table';
 import playerColors from 'dotaconstants/build/player_colors.json';
-import { IconDice, IconCrystalBall } from 'components/Icons';
+import { IconDice, IconCrystalBall, IconCheckCircle } from 'components/Icons';
 import SocialPerson from 'material-ui/svg-icons/social/person';
-import CheckCircle from 'material-ui/svg-icons/action/check-circle';
 import NotificationSync from 'material-ui/svg-icons/notification/sync';
 import styled from 'styled-components';
 import { subTextStyle } from 'utility';
@@ -295,7 +294,7 @@ const TableHeroImage = ({
               data-hint={`${strings.app_confirmed_as} ${title}`}
               data-hint-position="top"
             >
-              <CheckCircle className="golden" />
+              <IconCheckCircle className="golden" />
             </div>
           }
           {accountId ?
