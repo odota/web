@@ -91,8 +91,6 @@ const Hero = (props) => {
   const { heroId } = props.match.params;
   const hero = heroSelector(props.heroes, heroId);
 
-  console.log(hero);
-
   if (props.heroes.length === 0) {
     return <Spinner />;
   }
