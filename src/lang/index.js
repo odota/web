@@ -91,5 +91,5 @@ export const langs = [
   }, */
 ];
 const savedLang = window.localStorage && window.localStorage.getItem('localization');
-const langToUse = (langs.find(lang => lang.value === savedLang) || langs[0]).data;
-export default langToUse;
+const selectedLang = langs.find(lang => lang.value === savedLang) || { };
+export default { ...langs[0].data, ...selectedLang.data };
