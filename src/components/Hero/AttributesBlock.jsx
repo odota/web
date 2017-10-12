@@ -8,14 +8,21 @@ import AttrIntelligent from 'components/Icons/AttrIntelligent';
 import constants from 'components/constants';
 import Attribute from './Attribute';
 
+const WRAP_WIDTH = '576px';
+
 const AttributesWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   height: 100%;
-`;
+  flex-wrap: wrap;
 
-const AttributeBlock = styled.div`
+  @media (max-width: ${WRAP_WIDTH}) {
+    flex-direction: column;
+  }
+  `;
+
+ const AttributeBlock = styled.div`
   &:last-child {
     margin-right: initial;
   }
@@ -23,6 +30,11 @@ const AttributeBlock = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 10px;
+
+
+  @media (max-width: ${WRAP_WIDTH}) {
+    margin-bottom: 10px;
+  }
 `;
 
 const Label = styled.span`
@@ -49,54 +61,54 @@ const HeroAttributes = ({ hero }) => (
     </AttributeBlock>
     <AttributeBlock>
       <Attribute>
-        <Label>Attack:</Label> {`${hero.base_attack_min} - ${hero.base_attack_max}`}
+        <Label>{strings.heading_attack}:</Label> {`${hero.base_attack_min} - ${hero.base_attack_max}`}
       </Attribute>
       <Attribute>
-        <Label>Attack range:</Label> {hero.attack_range}
+        <Label>{strings.heading_attack_range}:</Label> {hero.attack_range}
       </Attribute>
       <Attribute>
-        <Label>Attack speed:</Label> {hero.attack_rate}
+        <Label>{strings.heading_attack_speed}:</Label> {hero.attack_rate}
       </Attribute>
       {hero.projectile_speed !== 0 && (
         <Attribute>
-          <Label>Projectile speed:</Label> {hero.projectile_speed}
+          <Label>{strings.heading_projectile_speed}:</Label> {hero.projectile_speed}
         </Attribute>
       )}
     </AttributeBlock>
     <AttributeBlock>
       <Attribute>
-        <Label>Health:</Label> {hero.base_health}
+        <Label>{strings.heading_base_health}:</Label> {hero.base_health}
       </Attribute>
       <Attribute>
-        <Label>Health regen:</Label> {hero.base_health_regen}
+        <Label>{strings.heading_base_health_regen}:</Label> {hero.base_health_regen}
       </Attribute>
       <Attribute>
-        <Label>Mana:</Label> {hero.base_mana}
+        <Label>{strings.heading_base_mana}</Label> {hero.base_mana}
       </Attribute>
       <Attribute>
-        <Label>Mana regen:</Label> {hero.base_mana_regen}
-      </Attribute>
-    </AttributeBlock>
-    <AttributeBlock>
-      <Attribute>
-        <Label>Armor:</Label> {`${hero.base_armor} (${calcArmorPercent(hero.base_armor)}%)`}
-      </Attribute>
-      <Attribute>
-        <Label>Magic resistance:</Label> {`${hero.base_mr}%`}
-      </Attribute>
-      <Attribute>
-        <Label>Move Speed:</Label> {hero.move_speed}
-      </Attribute>
-      <Attribute>
-        <Label>Turn speed:</Label> {hero.turn_rate}
+        <Label>{strings.heading_base_mana_regen}</Label> {hero.base_mana_regen}
       </Attribute>
     </AttributeBlock>
     <AttributeBlock>
       <Attribute>
-        <Label>Number of legs:</Label> {hero.legs}
+        <Label>{strings.heading_base_armor}</Label> {`${hero.base_armor} (${calcArmorPercent(hero.base_armor)}%)`}
       </Attribute>
       <Attribute>
-        <Label>CM Enabled:</Label> {hero.cm_enabled ? strings.yes : strings.no}
+        <Label>{strings.heading_base_mr}</Label> {`${hero.base_mr}%`}
+      </Attribute>
+      <Attribute>
+        <Label>{strings.heading_move_speed}</Label> {hero.move_speed}
+      </Attribute>
+      <Attribute>
+        <Label>{strings.heading_turn_rate}</Label> {hero.turn_rate}
+      </Attribute>
+    </AttributeBlock>
+    <AttributeBlock>
+      <Attribute>
+        <Label>{strings.heading_legs}</Label> {hero.legs}
+      </Attribute>
+      <Attribute>
+        <Label>{strings.heading_cm_enabled}</Label> {hero.cm_enabled ? strings.yes : strings.no}
       </Attribute>
     </AttributeBlock>
   </AttributesWrapper>

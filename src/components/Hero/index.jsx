@@ -29,7 +29,7 @@ const StyledImage = styled.img`
 
 const HeroWrapper = styled.div`
   display: flex;
-  // flex-wrap: wrap;
+  flex-wrap: wrap;
 `;
 
 const HeroName = styled.div`
