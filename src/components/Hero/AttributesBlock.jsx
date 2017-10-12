@@ -1,8 +1,11 @@
 import React from 'react';
-import { shape, number } from 'prop-types';
+import { shape, number, string, bool } from 'prop-types';
 import styled from 'styled-components';
 import strings from 'lang';
-import Attribute, { TYPES as ATTR_TYPES } from './Attribute';
+import AttrStrength from 'components/Icons/AttrStrength';
+import AttrAgility from 'components/Icons/AttrAgility';
+import AttrIntelligent from 'components/Icons/AttrIntelligent';
+import Attribute from './Attribute';
 
 const AttributesWrapper = styled.div`
   display: flex;
@@ -22,59 +25,105 @@ const AttributeBlock = styled.div`
   margin-right: 10px;
 `;
 
+const renderIcon = Icon => <Icon style={{ width: 20, marginRight: 4 }} />;
+
+const renderText = text => <span style={{ marginRight: 5 }}>{text}</span>;
+
 const calcArmorPercent = hero => Math.round(0.06 * hero / (1 + (0.06 * hero)) * 100);
 
 const HeroAttributes = ({ hero }) => (
   <AttributesWrapper>
     <AttributeBlock>
-      <Attribute
-        type={ATTR_TYPES.str}
-        value={`${hero.base_str} + ${hero.str_gain}`}
-        primary={hero.primary_attr === 'str'}
-      />
-      <Attribute
-        type={ATTR_TYPES.agi}
-        value={`${hero.base_agi} + ${hero.agi_gain}`}
-        primary={hero.primary_attr === 'agi'}
-      />
-      <Attribute
-        type={ATTR_TYPES.int}
-        value={`${hero.base_int} + ${hero.int_gain}`}
-        primary={hero.primary_attr === 'int'}
-      />
+      <Attribute primary={hero.primary_attr === 'str'}>
+        {renderIcon(AttrStrength)} {`${hero.base_str} + ${hero.str_gain}`}
+      </Attribute>
+      <Attribute primary={hero.primary_attr === 'agi'}>
+        {renderIcon(AttrAgility)} {`${hero.base_agi} + ${hero.agi_gain}`}
+      </Attribute>
+      <Attribute primary={hero.primary_attr === 'int'}>
+        {renderIcon(AttrIntelligent)} {`${hero.base_int} + ${hero.int_gain}`}
+      </Attribute>
     </AttributeBlock>
     <AttributeBlock>
-      <Attribute type="Attack:" value={`${hero.base_attack_min} - ${hero.base_attack_max}`} />
-      <Attribute type="Attack speed:" value={hero.attack_rate} />
-      <Attribute type="Attack range:" value={hero.attack_range} />
+      <Attribute>
+        {renderText('Attack:')} {`${hero.base_attack_min} - ${hero.base_attack_max}`}
+      </Attribute>
+      <Attribute>
+        {renderText('Attack speed:')} {hero.attack_rate}
+      </Attribute>
+      <Attribute>
+        {renderText('Attack range:')} {hero.attack_range}
+      </Attribute>
       {hero.projectile_speed !== 0 && (
-        <Attribute type="Projectile speed:" value={hero.projectile_speed} />
+        <Attribute>
+          {renderText('Projectile speed:')} {hero.projectile_speed}
+        </Attribute>
       )}
     </AttributeBlock>
     <AttributeBlock>
-      <Attribute type="Health:" value={hero.base_health} />
-      <Attribute type="Health regen:" value={hero.base_health_regen} />
-      <Attribute type="Mana:" value={hero.base_mana} />
-      <Attribute type="Mana regen:" value={hero.base_mana_regen} />
+      <Attribute>
+        {renderText('Health:')} {hero.base_health}
+      </Attribute>
+      <Attribute>
+        {renderText('Health regen:')} {hero.base_health_regen}
+      </Attribute>
+      <Attribute>
+        {renderText('Mana:')} {hero.base_mana}
+      </Attribute>
+      <Attribute>
+        {renderText('Mana regen:')} {hero.base_mana_regen}
+      </Attribute>
     </AttributeBlock>
     <AttributeBlock>
-      <Attribute
-        type="Armor:"
-        value={`${hero.base_armor} (${calcArmorPercent(hero.base_armor)}%)`}
-      />
-      <Attribute type="Magic resistance:" value={`${hero.base_mr}%`} />
-      <Attribute type="Move Speed:" value={hero.move_speed} />
-      <Attribute type="Turn speed:" value={hero.turn_rate} />
+      <Attribute>
+        {renderText('Armor:')} {`${hero.base_armor} (${calcArmorPercent(hero.base_armor)}%)`}
+      </Attribute>
+      <Attribute>
+        {renderText('Magic resistance:')} {`${hero.base_mr}%`}
+      </Attribute>
+      <Attribute>
+        {renderText('Move Speed:')} {hero.move_speed}
+      </Attribute>
+      <Attribute>
+        {renderText('Turn speed:')} {hero.turn_rate}
+      </Attribute>
     </AttributeBlock>
     <AttributeBlock>
-      <Attribute type="Number of legs:" value={`${hero.legs}`} />
-      <Attribute type="CM Enabled:" value={hero.cm_enabled ? strings.yes : strings.no} />
+      <Attribute>
+        {renderText('Number of legs:')} {hero.legs}
+      </Attribute>
+      <Attribute>
+        {renderText('CM Enabled:')} {hero.cm_enabled ? strings.yes : strings.no}
+      </Attribute>
     </AttributeBlock>
   </AttributesWrapper>
 );
 
 HeroAttributes.propTypes = {
-  hero: shape({}),
+  hero: shape({
+    primary_attr: string,
+    base_health: number,
+    base_health_regen: number,
+    base_mana: number,
+    base_mana_regen: number,
+    base_armor: number,
+    base_mr: number,
+    base_attack_min: number,
+    base_attack_max: number,
+    base_str: number,
+    base_agi: number,
+    base_int: number,
+    str_gain: number,
+    agi_gain: number,
+    int_gain: number,
+    attack_range: number,
+    projectile_speed: number,
+    attack_rate: number,
+    move_speed: number,
+    turn_rate: number,
+    cm_enabled: bool,
+    legs: number,
+  }),
 };
 
 export default HeroAttributes;
