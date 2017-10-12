@@ -22,7 +22,7 @@ const AttributesWrapper = styled.div`
   }
   `;
 
- const AttributeBlock = styled.div`
+const AttributeBlock = styled.div`
   &:last-child {
     margin-right: initial;
   }
