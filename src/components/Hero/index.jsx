@@ -9,10 +9,10 @@ import Spinner from 'components/Spinner';
 import ErrorBox from 'components/Error/ErrorBox';
 import constants from 'components/constants';
 import styled from 'styled-components';
-import Attribute, { TYPES as ATTR_TYPES } from './Attribute';
 import Ranking from './Ranking';
 import Benchmark from './Benchmark';
 import Recent from './Recent';
+import AttributesBlock from './AttributesBlock';
 
 const getHeroImgSrc = src => process.env.REACT_APP_API_HOST + src;
 
@@ -29,10 +29,13 @@ const StyledImage = styled.img`
 
 const HeroWrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
 `;
 
-const HeroName = styled.div`font-size: 20px;`;
+const HeroName = styled.div`
+  font-size: 20px;
+  margin-bottom: 5px;
+`;
 
 const HeroRole = styled.div`
   font-size: 16px;
@@ -42,7 +45,7 @@ const HeroRole = styled.div`
 const HeroDescription = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  flex-grow: 1;
 `;
 
 const HeroAttackTipe = styled.span`color: ${constants.textColorPrimary};`;
@@ -112,24 +115,7 @@ const Hero = (props) => {
               <HeroAttackTipe>{hero.attack_type}</HeroAttackTipe>, {hero.roles.join(', ')}
             </HeroRole>
           </HeroName>
-          <Attribute
-            type={ATTR_TYPES.str}
-            base={hero.base_str}
-            gain={hero.str_gain}
-            primary={hero.primary_attr === 'str'}
-          />
-          <Attribute
-            type={ATTR_TYPES.agi}
-            base={hero.base_agi}
-            gain={hero.agi_gain}
-            primary={hero.primary_attr === 'agi'}
-          />
-          <Attribute
-            type={ATTR_TYPES.int}
-            base={hero.base_int}
-            gain={hero.int_gain}
-            primary={hero.primary_attr === 'int'}
-          />
+          <AttributesBlock hero={hero} />
         </HeroDescription>
       </HeroWrapper>
       <div>

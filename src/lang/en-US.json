@@ -1,4 +1,7 @@
 {
+  "yes": "yes",
+  "no": "no",
+
   "abbr_thousand": "k",
   "abbr_million": "m",
   "abbr_billion": "b",

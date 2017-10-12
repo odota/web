@@ -19,7 +19,7 @@ export const TYPES = {
 };
 
 const Attribute = ({
-  type, base, gain, style, iconSize, primary,
+  type, value, style, iconSize, primary,
 }) => {
   let Attr = null;
   switch (type) {
@@ -33,20 +33,21 @@ const Attribute = ({
       Attr = AttrIntelligent;
       break;
     default:
-      return null;
+      // TODO: delete this hack
+      Attr = () => <span style={{ marginRight: 5 }}>{type}</span>;
+      break;
   }
 
   return (
     <Wrapper style={style} primary={primary}>
-      <Attr style={{ width: iconSize, marginRight: 4 }} /> {base} + {gain}
+      <Attr style={{ width: iconSize, marginRight: 4 }} /> {value}
     </Wrapper>
   );
 };
 
 Attribute.propTypes = {
   type: oneOf([...Object.keys(TYPES)]),
-  base: oneOfType([string, number]),
-  gain: oneOfType([string, number]),
+  value: oneOfType([string, number]),
   style: shape({}),
   iconSize: number,
   primary: bool,
