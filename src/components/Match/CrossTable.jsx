@@ -73,9 +73,9 @@ const CrossTable = ({
           return (
             <TableRowColumn key={`${player.hero_id}_totals`}>
               <div data-tip data-for={`${field1}_${field2}_${player.player_slot}_radiant`}>
-                <span style={{ color: ptotal1 > ptotal2 ? constants.textSuccess : '' }}>{abbreviateNumber(ptotal1)}</span>
+                <span style={{ color: ptotal1 > ptotal2 ? constants.colorSuccess : '' }}>{abbreviateNumber(ptotal1)}</span>
                 {'/'}
-                <span style={{ color: ptotal2 > ptotal1 ? constants.textDanger : '' }}>{abbreviateNumber(ptotal2)}</span>
+                <span style={{ color: ptotal2 > ptotal1 ? constants.colorDanger : '' }}>{abbreviateNumber(ptotal2)}</span>
                 <ReactTooltip id={`${field1}_${field2}_${player.player_slot}_radiant`} place="top" effect="solid">
                   {`${hero1.localized_name} → ${strings.general_dire}: ${ptotal1}`}
                   <br />
@@ -106,9 +106,9 @@ const CrossTable = ({
           return (
             <TableRowColumn key={`${player.hero_id}_totals`}>
               <div data-tip data-for={`${field1}_${field2}_${player.player_slot}_dire`}>
-                <span style={{ color: ptotal2 > ptotal1 ? constants.textSuccess : '' }}>{abbreviateNumber(ptotal2)}</span>
+                <span style={{ color: ptotal2 > ptotal1 ? constants.colorSuccess : '' }}>{abbreviateNumber(ptotal2)}</span>
                 {'/'}
-                <span style={{ color: ptotal1 > ptotal2 ? constants.textDanger : '' }}>{abbreviateNumber(ptotal1)}</span>
+                <span style={{ color: ptotal1 > ptotal2 ? constants.colorDanger : '' }}>{abbreviateNumber(ptotal1)}</span>
                 <ReactTooltip id={`${field1}_${field2}_${player.player_slot}_dire`} place="top" effect="solid">
                   {`${strings.general_radiant} → ${hero1.localized_name}: ${ptotal2}`}
                   <br />
@@ -134,9 +134,9 @@ const CrossTable = ({
           return (
             <TableRowColumn>
               <div data-tip data-for={`${field1}_${field2}_total`}>
-                <span style={{ color: radiantTotal > direTotal ? constants.textSuccess : '' }}>{abbreviateNumber(radiantTotal)}</span>
+                <span style={{ color: radiantTotal > direTotal ? constants.colorSuccess : '' }}>{abbreviateNumber(radiantTotal)}</span>
                 {'/'}
-                <span style={{ color: direTotal > radiantTotal ? constants.textDanger : '' }}>{abbreviateNumber(direTotal)}</span>
+                <span style={{ color: direTotal > radiantTotal ? constants.colorDanger : '' }}>{abbreviateNumber(direTotal)}</span>
                 <ReactTooltip id={`${field1}_${field2}_total`} place="top" effect="solid">
                   {`${strings.general_radiant} → ${strings.general_dire}: ${radiantTotal}`}
                   <br />
