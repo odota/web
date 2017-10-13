@@ -167,8 +167,13 @@ export const StyledBackpack = styled.div`
 `;
 export const StyledFlexContainer = styled.div`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   overflow: auto;
+
+  @media only screen and (min-width: 800px) {
+    flex-direction: row;
+  }
 `;
 export const StyledFlexElement = styled.div`
   flex: 1;
