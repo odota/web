@@ -520,6 +520,7 @@
   "story_building_destroy_player":"{player} destruiu {building}",
   "story_building_deny_player":"{player} negou {building}",
   "story_building_list_destroy":"{buildings} foram destruídas",
+  "story_courier_kill":"{team}'s courier was killed",
   "story_tower":"Torre {tier} da {lane} dos {team}",
   "story_tower_simple":"uma das torres dos {team}",
   "story_towers_n":"{n} das torres dos {team}",
