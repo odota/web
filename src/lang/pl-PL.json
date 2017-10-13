@@ -520,6 +520,7 @@
   "story_building_destroy_player":"{player} zniszczył(a) {building}",
   "story_building_deny_player":"{player} zanegował(a) {building}",
   "story_building_list_destroy":"zostały zniszczone {buildings}",
+  "story_courier_kill":"{team}'s courier was killed",
   "story_tower":"Tier {tier} {lane} wieżę {team}",
   "story_tower_simple":"jedna z wież {team}",
   "story_towers_n":"{n} wieże {team}",
