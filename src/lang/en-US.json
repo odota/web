@@ -634,6 +634,7 @@
 
   "th_hero_id": "Hero",
   "th_match_id": "ID",
+  "th_account_id": "Account ID",
   "th_result": "Result",
   "th_skill": "Skill",
   "th_duration": "Duration",

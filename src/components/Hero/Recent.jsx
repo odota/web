@@ -22,6 +22,14 @@ const matchesColumns = [
       </div>
     ),
   }, {
+    displayName: strings.th_account_id,
+    field: 'account_id',
+    displayFn: (row, col, field) => (
+      <div>
+        <TableLink to={`/players/${field}`}>{field}</TableLink>
+      </div>
+    ),
+  }, {
     displayName: strings.th_duration,
     tooltip: strings.tooltip_duration,
     field: 'duration',
