@@ -167,6 +167,10 @@ const StyledDiv = styled.div`
   & .dire {
     color: ${constants.red};
   }
+
+  & .roaming {
+    margin-right: 6px;
+  }
 }
 
 .radiant-safe,
@@ -432,6 +436,9 @@ export default function BuildingMap({ match }) {
     const direMid = [];
     const direOff = [];
     const direJungle = [];
+    const roaming = (
+      <span className="roaming">{strings.roaming}</span>
+    );
     for (let i = 0; i < match.players.length; i += 1) {
       const player = (
         <div
@@ -446,7 +453,7 @@ export default function BuildingMap({ match }) {
           <ReactTooltip id={heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].name} effect="solid">
             <span className={match.players[i].isRadiant ? 'radiant' : 'dire'}>{heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].localized_name}</span>
             <br />
-            {match.players[i].is_roaming ? 'Roaming ' : ''}
+            {match.players[i].is_roaming ? roaming : ''}
             {match.players[i].desc}
           </ReactTooltip>
         </div>
