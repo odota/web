@@ -83,32 +83,32 @@ const HeroAttributes = ({ hero }) => (
         <Label>{strings.heading_base_health_regen}:</Label> {hero.base_health_regen}
       </Attribute>
       <Attribute>
-        <Label>{strings.heading_base_mana}</Label> {hero.base_mana}
+        <Label>{strings.heading_base_mana}:</Label> {hero.base_mana}
       </Attribute>
       <Attribute>
-        <Label>{strings.heading_base_mana_regen}</Label> {hero.base_mana_regen}
-      </Attribute>
-    </AttributeBlock>
-    <AttributeBlock>
-      <Attribute>
-        <Label>{strings.heading_base_armor}</Label> {`${hero.base_armor} (${calcArmorPercent(hero.base_armor)}%)`}
-      </Attribute>
-      <Attribute>
-        <Label>{strings.heading_base_mr}</Label> {`${hero.base_mr}%`}
-      </Attribute>
-      <Attribute>
-        <Label>{strings.heading_move_speed}</Label> {hero.move_speed}
-      </Attribute>
-      <Attribute>
-        <Label>{strings.heading_turn_rate}</Label> {hero.turn_rate}
+        <Label>{strings.heading_base_mana_regen}:</Label> {hero.base_mana_regen}
       </Attribute>
     </AttributeBlock>
     <AttributeBlock>
       <Attribute>
-        <Label>{strings.heading_legs}</Label> {hero.legs}
+        <Label>{strings.heading_base_armor}:</Label> {`${hero.base_armor} (${calcArmorPercent(hero.base_armor)}%)`}
       </Attribute>
       <Attribute>
-        <Label>{strings.heading_cm_enabled}</Label> {hero.cm_enabled ? strings.yes : strings.no}
+        <Label>{strings.heading_base_mr}:</Label> {`${hero.base_mr}%`}
+      </Attribute>
+      <Attribute>
+        <Label>{strings.heading_move_speed}:</Label> {hero.move_speed}
+      </Attribute>
+      <Attribute>
+        <Label>{strings.heading_turn_rate}:</Label> {hero.turn_rate}
+      </Attribute>
+    </AttributeBlock>
+    <AttributeBlock>
+      <Attribute>
+        <Label>{strings.heading_legs}:</Label> {hero.legs}
+      </Attribute>
+      <Attribute>
+        <Label>{strings.heading_cm_enabled}:</Label> {hero.cm_enabled ? strings.yes : strings.no}
       </Attribute>
     </AttributeBlock>
   </AttributesWrapper>
