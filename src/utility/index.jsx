@@ -579,3 +579,16 @@ export const getHeroesById = () => {
   });
   return obj;
 };
+
+// https://www.evanmiller.org/how-not-to-sort-by-average-rating.html
+export const wilsonScore = (up, down) => {
+  if (!up) return 0;
+  const n = up + down;
+  const z = 1.64485; // 1.0 = 85%, 1.6 = 95%
+  const phat = up / n;
+  return (
+    phat + ((z * z) / (2 * n)) - (z * Math.sqrt(((phat * (1 - phat)) + (z * z / (4 * n))) / n))
+  ) / (
+    1 + (z * z / n)
+  );
+};

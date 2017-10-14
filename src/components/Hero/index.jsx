@@ -9,17 +9,14 @@ import Spinner from 'components/Spinner';
 import ErrorBox from 'components/Error/ErrorBox';
 import constants from 'components/constants';
 import styled from 'styled-components';
+import { heroSelector } from 'reducers/selectors';
 import Ranking from './Ranking';
 import Benchmark from './Benchmark';
 import Recent from './Recent';
+import Matchups from './Matchups';
 import AttributesBlock from './AttributesBlock';
 
 const getHeroImgSrc = src => process.env.REACT_APP_API_HOST + src;
-
-/**
- * Get Hero from heroes by heroId
- */
-const heroSelector = (heroes, heroId) => heroes.find(hero => String(hero.id) === String(heroId));
 
 const StyledImage = styled.img`
   border: solid 1px rgba(255, 255, 255, 0.3);
@@ -83,6 +80,17 @@ const tabs = heroId => [
       </div>
     ),
     route: `/heroes/${heroId}/recent`,
+  },
+  {
+    name: strings.tab_matchups,
+    key: 'matchups',
+    content: props => (
+      <div>
+        <Heading title={strings.tab_recent} />
+        <Matchups {...props} />
+      </div>
+    ),
+    route: `/heroes/${heroId}/matchups`,
   },
 ];
 

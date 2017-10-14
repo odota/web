@@ -625,6 +625,7 @@
   "tab_fantasy": "Fantasy",
   "tab_laning": "Laning",
   "tab_recent": "Recent",
+  "tab_matchups": "Matchups",
 
   "placeholder_filter_heroes": "Filter Heroes",
 
@@ -639,7 +640,9 @@
   "th_skill": "Skill",
   "th_duration": "Duration",
   "th_games": "MP",
+  "th_games_played": "Games",
   "th_win": "Win %",
+  "th_advantage": "Advantage",
   "th_with_games": "With",
   "th_with_win": "Win with %",
   "th_against_games": "Against",
