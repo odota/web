@@ -86,7 +86,7 @@ const tabs = heroId => [
     key: 'matchups',
     content: props => (
       <div>
-        <Heading title={strings.tab_recent} />
+        <Heading title={strings.tab_matchups} />
         <Matchups {...props} />
       </div>
     ),
