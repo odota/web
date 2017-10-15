@@ -520,7 +520,7 @@
   "story_building_destroy_player":"{player} разрушил {building}",
   "story_building_deny_player":"{player} не отдал {building}",
   "story_building_list_destroy":"{buildings} разрушена",
-  "story_courier_kill":"{team}'s courier was killed",
+  "story_courier_kill":"Курьер {team} был убит",
   "story_tower":"{lane} Tier {tier} башню {team}",
   "story_tower_simple":"одна из башен {team}",
   "story_towers_n":"{n} вышки команды {team}",
