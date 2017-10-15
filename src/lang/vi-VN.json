@@ -520,6 +520,7 @@
   "story_building_destroy_player":"{player} phá hủy {building}",
   "story_building_deny_player":"{player} denied {building}",
   "story_building_list_destroy":"{buildings} bị phá hủy",
+  "story_courier_kill":"{team}'s courier was killed",
   "story_tower":"{team}'s Tier {tier} {lane} tower",
   "story_tower_simple":"one of {team}'s towers",
   "story_towers_n":"{n} of {team}'s Towers",

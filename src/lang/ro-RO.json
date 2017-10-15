@@ -539,6 +539,7 @@
   "story_list_2":"{1} și {2}",
   "story_list_3":"{1}, {2}, și {3}",
   "story_list_n":"{i}, {rest}",
+
   "story_firstblood":"prima moarte a luat loc când {victim} a fost ucis(ă) de către {killer} la {time}",
   "story_chatmessage":"\"{message}\", {said_verb} {player}",
   "story_teamfight":"{winning_team} a câștigat un teamfight pierzând pe {win_dead} pentru {lose_dead}, rezultând într-o creștere netă a valorii de {net_change}",

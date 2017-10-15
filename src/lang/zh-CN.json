@@ -520,6 +520,7 @@
   "story_building_destroy_player":"{player} 摧毁了 {building}",
   "story_building_deny_player":"{player} 反补了 {building}",
   "story_building_list_destroy":"{buildings} 被摧毁",
+  "story_courier_kill":"{team}'s courier was killed",
   "story_tower":"{team} {lane} 路的 {tier} 层防御塔",
   "story_tower_simple":"{team} 的一座防御塔",
   "story_towers_n":"{team} 队伍的 {n} 座防御塔",
