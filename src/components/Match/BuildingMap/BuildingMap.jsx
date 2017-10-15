@@ -1,5 +1,5 @@
-/* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   pad,
   sum,
@@ -11,9 +11,239 @@ import Heading from 'components/Heading';
 import DotaMap from 'components/DotaMap';
 import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
-import { IconLightbulb } from 'components/Icons';
+// import { IconLightbulb } from 'components/Icons';
+import styled from 'styled-components';
 import buildingData from './buildingData';
-import styles from './BuildingMap.css';
+import constants from '../../constants';
+
+const StyledDiv = styled.div`
+.map {
+  @media only screen and (max-width: 370px) {
+    max-height: 250px !important;
+    max-width: 250px !important;
+  }
+}
+
+.buildingMap {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border: 6px solid rgba(255, 255, 255, 0.1);
+  margin: 0 auto;
+
+  & .buildingMapImage {
+    width: 300px;
+    height: 300px;
+    filter: grayscale(40%) brightness(180%) contrast(110%);
+  }
+
+  & > span {
+    position: absolute;
+
+    &:hover {
+      z-index: 99;
+    }
+
+    & img {
+      transition: ${constants.normalTransition};
+
+      &:hover {
+        filter: drop-shadow(0 0 8px ${constants.textColorPrimary});
+      }
+    }
+  }
+
+  @media only screen and (max-width: 370px) {
+    width: 250px;
+    height: 250px;
+
+    & .buildingMapImage {
+      width: 250px;
+      height: 250px;
+    }
+  }
+}
+
+.buildingHealth {
+  height: 10px;
+  min-width: 150px;
+  margin: 4px 0;
+  display: flex;
+
+  & > div {
+    height: 100%;
+    float: left;
+  }
+}
+
+.damage {
+  & > div > img {
+    margin: 0 5px;
+    width: 14px;
+    height: 14px;
+    vertical-align: sub;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
+  }
+
+  & .damageValue {
+    display: inline-block;
+    width: 36px;
+    text-align: center;
+  }
+
+  & .playerName {
+    margin-right: 5px;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+
+  & .lasthit {
+    font-size: ${constants.fontSizeSmall};
+    color: ${constants.colorGolden};
+
+    & img {
+      height: 10px;
+      margin-right: 3px;
+    }
+  }
+
+  & .creeps {
+    & .lasthit {
+      color: ${constants.colorMutedLight};
+    }
+
+    & img {
+      margin: 0;
+      width: 24px;
+      height: 14px;
+      display: inline-block;
+    }
+  }
+
+  & .deny {
+    color: ${constants.colorMutedLight};
+  }
+}
+
+.subtitle {
+  margin-left: 4px;
+  font-size: ${constants.fontSizeSmall};
+  font-weight: ${constants.fontWeightLight};
+  color: ${constants.colorMutedLight};
+}
+
+.hint {
+  color: ${constants.colorMutedLight};
+  font-weight: ${constants.fontWeightLight};
+  font-size: ${constants.fontSizeMedium};
+  text-align: center;
+  margin-top: 12px;
+
+  & svg {
+    vertical-align: sub;
+    fill: ${constants.colorMutedLight};
+    height: 14px;
+    margin-right: 5px;
+  }
+}
+
+.hero-icons {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+
+  & img {
+    width: 26px;
+  }
+
+  & .radiant {
+    color: ${constants.green};
+  }
+
+  & .dire {
+    color: ${constants.red};
+  }
+
+  & .roaming {
+    margin-right: 6px;
+  }
+}
+
+.radiant-safe,
+.radiant-mid,
+.radiant-off,
+.radiant-jungle {
+  & img {
+    filter: drop-shadow(0 0 5px ${constants.green});
+  }
+}
+
+.dire-safe,
+.dire-mid,
+.dire-off,
+.dire-jungle {
+  & img {
+    filter: drop-shadow(0 0 5px ${constants.red});
+  }
+}
+
+.radiant-safe {
+  bottom: 0;
+  flex-direction: row-reverse;
+  right: 30px;
+}
+
+.radiant-mid {
+  left: 130px;
+  top: 155px;
+}
+
+.radiant-off {
+  flex-direction: column;
+  flex-wrap: wrap;
+  left: 0;
+  top: 75px;
+  width: 26px;
+}
+
+.radiant-jungle {
+  flex-wrap: wrap;
+  left: 130px;
+  top: 200px;
+  width: 78px;
+}
+
+.dire-safe {
+  left: 20px;
+  top: 0;
+}
+
+.dire-mid {
+  flex-direction: row-reverse;
+  right: 145px;
+  top: 125px;
+}
+
+.dire-off {
+  bottom: 70px;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+  right: 0;
+  width: 26px;
+}
+
+.dire-jungle {
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  right: 120px;
+  top: 50px;
+  width: 78px;
+}
+`;
 
 const buildingsHealth = {
   tower1: 1300,
@@ -95,8 +325,7 @@ export default function BuildingMap({ match }) {
           },
         },
       };
-
-      icons.push(
+      const icon = (
         <span
           key={props.key}
           data-tip
@@ -105,123 +334,228 @@ export default function BuildingMap({ match }) {
         >
           <img
             src={props.src}
-            role="presentation"
+            alt=""
             style={props.style.img}
           />
           <ReactTooltip id={props.key} effect="solid">
             {title}
             {damage && damage.length > 0 &&
-              <span>
-                <span className={styles.subtitle}> & {strings.building_damage}</span>
-                <div>
-                  <div
-                    className={styles.buildingHealth}
-                    style={{
-                      backgroundColor: (bits[i] === '1' && styles.gray) || (side === 'good' ? styles.red : styles.green),
+            <span>
+              <span className="subtitle"> {strings.building_damage}</span>
+              <div>
+                <div
+                  className="buildingHealth"
+                  style={{
+                  backgroundColor: (bits[i] === '1' && constants.colorMuted) || (side === 'good' ? constants.colorRed : constants.colorGreen),
+                }}
+                >
+                  {damage.map(player => (
+                    <div
+                      key={player.hero_id}
+                      style={{
+                      width: `${(Number(player.damage) * 100) / buildingsHealth[type === 'tower' ? `tower${tier}` : type]}%`,
+                      backgroundColor: playerColors[player.player_slot],
                     }}
-                  >
-                    {damage.map(player => (
-                      <div
-                        key={player.hero_id}
-                        style={{
-                          width: `${(Number(player.damage) * 100) / buildingsHealth[type === 'tower' ? `tower${tier}` : type]}%`,
-                          backgroundColor: playerColors[player.player_slot],
-                        }}
-                      />
-                    ))}
-                  </div>
-                  <div className={styles.damage}>
-                    {damage.map(player => (
-                      <div key={player.hero_id}>
-                        <img
-                          src={heroes[player.hero_id] && API_HOST + heroes[player.hero_id].icon}
-                          role="presentation"
-                        />
-                        <span className={styles.damageValue}>
-                          {player.damage}
-                        </span>
-                        <span
-                          style={{ color: playerColors[player.player_slot] }}
-                          className={styles.playerName}
-                        >
-                          {player.name}
-                        </span>
-                        {destroyedBy && destroyedBy.player_slot === player.player_slot &&
-                          <span className={styles.lasthit}>
-                            {
-                              ((side === 'good' && isRadiant(destroyedBy.player_slot)) || (side === 'bad' && !isRadiant(destroyedBy.player_slot))) ?
-                                <span className={styles.deny}>
-                                  {strings.building_denied}
-                                </span>
-                              : <span>
-                                {type !== 'fort' && <img src={`${API_HOST}/apps/dota2/images/tooltips/gold.png`} role="presentation" />}
-                                {strings.building_lasthit}
-                              </span>
-                            }
-                          </span>
-                        }
-                      </div>
-                    ))}
-                    {(damageByCreeps > 0) && (bits[i] !== '1') &&
-                      <div className={styles.creeps}>
-                        <img
-                          src="/assets/images/blank-1x1.gif"
-                          role="presentation"
-                          style={{
-                            backgroundImage: `url(/assets/images/dota2/${side === 'good' ? 'bad' : 'good'}guys_creep.png)`,
-                            backgroundPosition: 'center',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundSize: 'contain',
-                          }}
-                        />
-                        <span className={styles.damageValue}>
-                          {damageByCreeps}
-                        </span>
-                        <span
-                          style={{ color: side === 'good' ? styles.red : styles.green }}
-                          className={styles.playerName}
-                        >creeps </span>
-                        {!destroyedBy &&
-                          <span className={styles.lasthit}>
-                            {strings.building_lasthit}
-                          </span>
-                        }
-                      </div>
-                    }
-                  </div>
+                    />
+                ))}
                 </div>
-              </span>
-            }
+                <div className="damage">
+                  {damage.map(player => (
+                    <div key={player.hero_id}>
+                      <img
+                        src={heroes[player.hero_id] && process.env.REACT_APP_API_HOST + heroes[player.hero_id].icon}
+                        alt=""
+                      />
+                      <span className="damageValue">
+                        {player.damage}
+                      </span>
+                      <span
+                        style={{ color: playerColors[player.player_slot] }}
+                        className="playerName"
+                      >
+                        {player.name}
+                      </span>
+                      {destroyedBy && destroyedBy.player_slot === player.player_slot &&
+                      <span className="lasthit">
+                        {
+                          ((side === 'good' && isRadiant(destroyedBy.player_slot)) || (side === 'bad' && !isRadiant(destroyedBy.player_slot))) ?
+                            <span className="deny">
+                              {strings.building_denied}
+                            </span>
+                            :
+                            <span>
+                              {type !== 'fort' && <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />}
+                              {strings.building_lasthit}
+                            </span>
+                        }
+                      </span>
+                    }
+                    </div>
+                ))}
+                  {(damageByCreeps > 0) && (bits[i] !== '1') &&
+                  <div className="creeps">
+                    <img
+                      src="/assets/images/blank-1x1.gif"
+                      alt=""
+                      style={{
+                      backgroundImage: `url(/assets/images/dota2/${side === 'good' ? 'bad' : 'good'}guys_creep.png)`,
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: 'contain',
+                    }}
+                    />
+                    <span className="damageValue">
+                      {damageByCreeps}
+                    </span>
+                    <span
+                      style={{ color: side === 'good' ? constants.colorRed : constants.colorGreen }}
+                      className="playerName"
+                    >creeps
+                    </span>
+                    {!destroyedBy &&
+                    <span className="lasthit">
+                      {strings.building_lasthit}
+                    </span>
+                  }
+                  </div>
+                }
+                </div>
+              </div>
+            </span>
+          }
           </ReactTooltip>
-        </span>,
-      );
+        </span>);
+      icons.push(icon);
     }
+
+    const radiantSafe = [];
+    const radiantMid = [];
+    const radiantOff = [];
+    const radiantJungle = [];
+    const direSafe = [];
+    const direMid = [];
+    const direOff = [];
+    const direJungle = [];
+    const roaming = (
+      <span className="roaming">{strings.roaming}</span>
+    );
+    for (let i = 0; i < match.players.length; i += 1) {
+      const player = (
+        <div
+          key={heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].name}
+          data-for={heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].name}
+          data-tip
+        >
+          <img
+            src={heroes[match.players[i].hero_id] && process.env.REACT_APP_API_HOST + heroes[match.players[i].hero_id].icon}
+            alt=""
+          />
+          <ReactTooltip id={heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].name} effect="solid">
+            <span className={match.players[i].isRadiant ? 'radiant' : 'dire'}>{heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].localized_name}</span>
+            <br />
+            {match.players[i].is_roaming ? roaming : ''}
+            {match.players[i].desc}
+          </ReactTooltip>
+        </div>
+      );
+
+      if (match.players[i].isRadiant) {
+        switch (match.players[i].lane) {
+          case 1:
+            radiantSafe.push(player);
+            break;
+          case 2:
+            radiantMid.push(player);
+            break;
+          case 3:
+            radiantOff.push(player);
+            break;
+          case 4:
+            radiantJungle.push(player);
+            break;
+          default:
+            break;
+        }
+      } else {
+        switch (match.players[i].lane) {
+          case 1:
+            direOff.push(player);
+            break;
+          case 2:
+            direMid.push(player);
+            break;
+          case 3:
+            direSafe.push(player);
+            break;
+          case 4:
+            direJungle.push(player);
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
     return (
-      <div>
+      <StyledDiv>
         <Heading title={strings.heading_buildings} />
         <DotaMap
           startTime={match.start_time}
           maxWidth={300}
-          className={styles.map}
+          className="map"
         >
           {icons}
+          <div className="hero-icons radiant-safe">
+            {radiantSafe}
+          </div>
+          <div className="hero-icons radiant-mid">
+            {radiantMid}
+          </div>
+          <div className="hero-icons radiant-off">
+            {radiantOff}
+          </div>
+          <div className="hero-icons radiant-jungle">
+            {radiantJungle}
+          </div>
+          <div className="hero-icons dire-safe">
+            {direSafe}
+          </div>
+          <div className="hero-icons dire-mid">
+            {direMid}
+          </div>
+          <div className="hero-icons dire-off">
+            {direOff}
+          </div>
+          <div className="hero-icons dire-jungle">
+            {direJungle}
+          </div>
         </DotaMap>
         {/* <div className={styles.buildingMap}>
           <img
             src="/assets/images/dota2/map/minimap.jpg"
-            role="presentation"
+            alt=""
             className={styles.buildingMapImage}
           />
           {icons}
         </div> */}
-        {match.version &&
-          <div className={styles.hint}>
+        {/* match.version &&
+          <div className="hint">
             <IconLightbulb />
             {strings.building_hint}
           </div>
-        }
-      </div>
+        */}
+      </StyledDiv>
     );
   }
   return <div />;
 }
+
+BuildingMap.propTypes = {
+  match: PropTypes.shape({}),
+  key: PropTypes.string,
+  style: PropTypes.shape({
+    span: PropTypes.string,
+    img: PropTypes.string,
+  }),
+  src: PropTypes.string,
+};

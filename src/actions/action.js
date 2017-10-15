@@ -12,13 +12,12 @@ export default function action(type, host, path, params = {}, transform) {
       payload,
     });
     const fetchDataWithRetry = delay => fetch(url, path === 'api/metadata' ? { credentials: 'include' } : {})
-        .then(response => response.json())
-        .then(transform || (json => json))
-        .then(json => dispatch(getDataOk(json)))
-        .catch((error) => {
-          console.error(error);
-          setTimeout(() => fetchDataWithRetry(delay + 3000), delay);
-        });
+      .then(response => response.json())
+      .then(transform || (json => json))
+      .then(json => dispatch(getDataOk(json)))
+      .catch(() => {
+        setTimeout(() => fetchDataWithRetry(delay + 3000), delay);
+      });
     dispatch(getDataStart());
     return fetchDataWithRetry(1000);
   };

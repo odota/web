@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import debounce from 'lodash.debounce';
+import { debounce } from 'lodash/fp';
 import TextField from 'material-ui/TextField';
 import { getSearchResultAndPros, setSearchQuery } from 'actions';
 import strings from 'lang';
 import querystring from 'querystring';
-import styles from './search.css';
+import constants from '../constants';
 
 class SearchForm extends React.Component {
   constructor() {
@@ -59,7 +59,7 @@ class SearchForm extends React.Component {
           onChange={this.handleChange}
           fullWidth
           underlineFocusStyle={{
-            borderColor: styles.searchBarColor,
+            borderColor: constants.primaryLinkColor,
             bottom: '-4px',
             left: '-40px',
             width: 'calc(100% + 40px)',
@@ -70,9 +70,13 @@ class SearchForm extends React.Component {
     );
   }
 }
+
 SearchForm.propTypes = {
   dispatchSearch: PropTypes.func,
   dispatchSetQuery: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
 };
 
 // const mapStateToProps = (state) => {

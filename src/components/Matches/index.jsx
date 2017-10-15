@@ -1,30 +1,42 @@
-/* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { getProMatches, getPublicMatches } from 'actions';
 import strings from 'lang';
 import Table, { TableLink } from 'components/Table';
 // import Heading from 'components/Heading';
-import { transformations } from 'utility';
-import subTextStyle from 'components/Visualizations/Table/subText.css';
-import { IconRadiant, IconDire, IconTrophy } from 'components/Icons';
-import matchStyles from 'components/Match/Match.css';
+import { transformations, subTextStyle } from 'utility';
+import { IconTrophy } from 'components/Icons';
 import Match from 'components/Match';
 import TabBar from 'components/TabBar';
 import heroes from 'dotaconstants/build/heroes.json';
-import styles from './Matches.css';
+import styled from 'styled-components';
+import { StyledTeamIconContainer } from '../Match/StyledMatch';
+import constants from '../constants';
+
+const WinnerSpan = styled.span`
+  display: inline-block;
+
+  & svg {
+    width: 10px !important;
+    height: 10px !important;
+    margin-right: 5px;
+    fill: ${constants.colorGolden};
+  }
+`;
 
 const matchesColumns = [{
   displayName: strings.th_match_id,
   field: 'match_id',
   sortFn: true,
-  displayFn: (row, col, field) => (<div>
-    <TableLink to={`/matches/${field}`}>{field}</TableLink>
-    <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
-      {row.league_name}
-    </span>
-  </div>),
+  displayFn: (row, col, field) => (
+    <div>
+      <TableLink to={`/matches/${field}`}>{field}</TableLink>
+      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+        {row.league_name}
+      </span>
+    </div>),
 }, {
   displayName: strings.th_duration,
   tooltip: strings.tooltip_duration,
@@ -32,15 +44,15 @@ const matchesColumns = [{
   sortFn: true,
   displayFn: transformations.duration,
 }, {
-  displayName: <span className={matchStyles.teamIconContainer} ><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>,
+  displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
   field: 'radiant_name',
-  color: matchStyles.green,
-  displayFn: (row, col, field) => <div>{row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>,
+  color: constants.colorGreen,
+  displayFn: (row, col, field) => <div>{row.radiant_win && <WinnerSpan><IconTrophy /></WinnerSpan>}{field}</div>,
 }, {
-  displayName: <span className={matchStyles.teamIconContainer} ><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>,
+  displayName: <StyledTeamIconContainer>{strings.general_dire}</StyledTeamIconContainer>,
   field: 'dire_name',
-  color: matchStyles.red,
-  displayFn: (row, col, field) => <div>{!row.radiant_win && <span className={styles.confirmed}><IconTrophy /></span>}{field}</div>,
+  color: constants.colorRed,
+  displayFn: (row, col, field) => <div>{!row.radiant_win && <WinnerSpan><IconTrophy /></WinnerSpan>}{field}</div>,
 }];
 
 const publicMatchesColumns = [
@@ -48,12 +60,13 @@ const publicMatchesColumns = [
     displayName: strings.th_match_id,
     field: 'match_id',
     sortFn: true,
-    displayFn: (row, col, field) => (<div>
-      <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
-        {row.avg_mmr} {strings.th_mmr}
-      </span>
-    </div>),
+    displayFn: (row, col, field) => (
+      <div>
+        <TableLink to={`/matches/${field}`}>{field}</TableLink>
+        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+          {row.avg_mmr} {strings.th_mmr}
+        </span>
+      </div>),
   }, {
     displayName: strings.th_duration,
     tooltip: strings.tooltip_duration,
@@ -62,39 +75,42 @@ const publicMatchesColumns = [
     displayFn: transformations.duration,
   },
   {
-    displayName: <span className={matchStyles.teamIconContainer} ><IconRadiant className={matchStyles.iconRadiant} />{strings.general_radiant}</span>,
+    displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
     field: 'radiant_team',
     displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
-      <img key={heroId} style={{ width: '50px' }} src={`${API_HOST}${heroes[heroId].img}`} role="presentation" />),
+      <img key={heroId} style={{ width: '50px' }} src={`${process.env.REACT_APP_API_HOST}${heroes[heroId].img}`} alt="" />),
   },
   {
-    displayName: <span className={matchStyles.teamIconContainer} ><IconDire className={matchStyles.iconDire} />{strings.general_dire}</span>,
+    displayName: <StyledTeamIconContainer >{strings.general_dire}</StyledTeamIconContainer>,
     field: 'dire_team',
     displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
-      <img key={heroId} style={{ width: '50px' }} src={`${API_HOST}${heroes[heroId].img}`} role="presentation" />),
+      <img key={heroId} style={{ width: '50px' }} src={`${process.env.REACT_APP_API_HOST}${heroes[heroId].img}`} alt="" />),
   },
 ];
 
 const matchTabs = [{
   name: strings.hero_pro_tab,
   key: 'pro',
-  content: props => (<div>
-    <Table data={props.proData} columns={matchesColumns} />
-  </div>),
+  content: propsPar => (
+    <div>
+      <Table data={propsPar.proData} columns={matchesColumns} />
+    </div>),
   route: '/matches/pro',
 }, {
   name: strings.matches_highest_mmr,
   key: 'highMmr',
-  content: props => (<div>
-    <Table data={props.publicData} columns={publicMatchesColumns} />
-  </div>),
+  content: propsPar => (
+    <div>
+      <Table data={propsPar.publicData} columns={publicMatchesColumns} />
+    </div>),
   route: '/matches/highMmr',
 }, {
   name: strings.matches_lowest_mmr,
   key: 'lowMmr',
-  content: props => (<div>
-    <Table data={props.publicData} columns={publicMatchesColumns} />
-  </div>),
+  content: propsPar => (
+    <div>
+      <Table data={propsPar.publicData} columns={publicMatchesColumns} />
+    </div>),
   route: '/matches/lowMmr',
 }];
 
@@ -123,19 +139,30 @@ class RequestLayer extends React.Component {
       return <Match {...this.props} matchId={route} />;
     }
 
-    const tab = matchTabs.find(tab => tab.key === route);
-    return (<div>
-      <Helmet title={strings.title_matches} />
+    const tab = matchTabs.find(_tab => _tab.key === route);
+    return (
       <div>
-        <TabBar
-          info={route}
-          tabs={matchTabs}
-        />
-        {tab && tab.content(this.props)}
-      </div>
-    </div>);
+        <Helmet title={strings.title_matches} />
+        <div>
+          <TabBar
+            info={route}
+            tabs={matchTabs}
+          />
+          {tab && tab.content(this.props)}
+        </div>
+      </div>);
   }
 }
+
+RequestLayer.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      matchId: PropTypes.number,
+    }),
+  }),
+  // proData: PropTypes.array,
+  // publicData: PropTypes.array,
+};
 
 const mapStateToProps = state => ({
   proData: state.app.proMatches.data,

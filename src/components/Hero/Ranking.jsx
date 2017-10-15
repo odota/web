@@ -1,6 +1,7 @@
 import React, {
   Component,
 } from 'react';
+import PropTypes from 'prop-types';
 import {
   connect,
 } from 'react-redux';
@@ -8,7 +9,6 @@ import {
   getRanking,
 } from 'actions';
 import Spinner from 'components/Spinner';
-// import style from './Heroes.css';
 import RankingTable from './RankingTable';
 
 const renderRanking = (hero, rankings) => (
@@ -40,6 +40,15 @@ class Ranking extends Component {
     );
   }
 }
+
+Ranking.propTypes = {
+  match: PropTypes.string,
+  isLoading: PropTypes.string,
+  isError: PropTypes.string,
+  rankings: PropTypes.string,
+  hero: PropTypes.string,
+  getRanking: PropTypes.func,
+};
 
 const mapStateToProps = state => ({
   rankings: state.app.heroRanking.data.rankings || [],

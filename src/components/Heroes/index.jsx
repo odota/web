@@ -1,5 +1,5 @@
-/* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import strings from 'lang';
@@ -8,12 +8,12 @@ import Heading from 'components/Heading';
 import Table from 'components/Table';
 import TabBar from 'components/TabBar';
 import Hero from 'components/Hero';
+import heroes from 'dotaconstants/build/heroes.json';
 import {
   sum,
   abbreviateNumber,
 } from 'utility';
 import columns from './columns';
-import styles from './Heroes.css';
 
 class RequestLayer extends React.Component {
   componentDidMount() {
@@ -42,6 +42,7 @@ class RequestLayer extends React.Component {
       return {
         ...heroStat,
         hero_id: heroStat.id,
+        heroName: (heroes[heroStat.id] && heroes[heroStat.id].localized_name) || '',
         matchCountPro,
         matchCount5000,
         matchCount4000,
@@ -64,50 +65,66 @@ class RequestLayer extends React.Component {
         winRate1000: (heroStat['1000_win'] || 0) / heroStat['1000_pick'],
       };
     });
-    processedData.sort((a, b) => b.pickBanRatePro - a.pickBanRatePro);
+    processedData.sort((a, b) => a.heroName.localeCompare(b.heroName));
     const heroTabs = [{
       name: strings.hero_pro_tab,
       key: 'pro',
-      content: (data, columns) => (<div>
-        <Heading
-          title={strings.hero_pro_heading}
-          subtitle={`${abbreviateNumber(matchCountPro)} ${strings.hero_this_month}`}
-          className={styles.Heading}
-          icon=""
-        />
-        <Table data={data} columns={columns} />
-      </div>),
+      content: (data, _columns) => (
+        <div>
+          <Heading
+            title={strings.hero_pro_heading}
+            subtitle={`${abbreviateNumber(matchCountPro)} ${strings.hero_this_month}`}
+            icon=""
+            twoLine
+          />
+          <Table data={data} columns={_columns} />
+        </div>),
       route: '/heroes/pro',
     }, {
       name: strings.hero_public_tab,
       key: 'public',
-      content: (data, columns) => (<div>
-        <Heading
-          title={strings.hero_public_heading}
-          subtitle={`${abbreviateNumber(matchCountPublic)} ${strings.hero_this_month}`}
-          className={styles.Heading}
-          icon=""
-        />
-        <Table data={data} columns={columns} />
-      </div>),
+      content: (data, _columns) => (
+        <div>
+          <Heading
+            title={strings.hero_public_heading}
+            subtitle={`${abbreviateNumber(matchCountPublic)} ${strings.hero_this_month}`}
+            icon=""
+            twoLine
+          />
+          <Table data={data} columns={_columns} />
+        </div>),
       route: '/heroes/public',
     }];
 
-    const tab = heroTabs.find(tab => tab.key === route);
-    const loading = this.props.loading;
+    const tab = heroTabs.find(_tab => _tab.key === route);
+    const { loading } = this.props;
 
-    return (<div>
-      <Helmet title={strings.header_heroes} />
-      {!loading && <div>
-        <TabBar
-          info={route}
-          tabs={heroTabs}
-        />
-        {tab && tab.content(processedData, columns[route])}
-      </div>}
-    </div>);
+    return (
+      <div>
+        <Helmet title={strings.header_heroes} />
+        {!loading &&
+        <div>
+          <TabBar
+            info={route}
+            tabs={heroTabs}
+          />
+          {tab && tab.content(processedData, columns[route])}
+        </div>}
+      </div>);
   }
 }
+
+RequestLayer.propTypes = {
+  dispatchHeroStats: PropTypes.func,
+  data: PropTypes.shape({}),
+  loading: PropTypes.bool,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      info: PropTypes.string,
+      heroId: PropTypes.string,
+    }),
+  }),
+};
 
 const mapStateToProps = state => ({
   data: state.app.heroStats.data,

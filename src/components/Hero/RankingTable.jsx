@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Table from 'components/Table';
 import strings from 'lang';
 import { transformations, getOrdinal } from 'utility';
@@ -19,6 +20,13 @@ const rankingColumns = [{
   displayFn: row => parseFloat(row.score).toFixed(),
   relativeBars: true,
 }];
-export default ({
+
+const RankingTable = ({
   rankings,
 }) => (<Table data={rankings} columns={rankingColumns} />);
+
+RankingTable.propTypes = {
+  rankings: PropTypes.shape({}),
+};
+
+export default RankingTable;

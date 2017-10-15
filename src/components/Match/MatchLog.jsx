@@ -1,37 +1,44 @@
-/* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import strings from 'lang';
 import {
   formatSeconds,
+  getHeroesById,
 } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import Table from 'components/Table';
 import heroes from 'dotaconstants/build/heroes.json';
-import heroNames from 'dotaconstants/build/hero_names.json';
-import Form from 'components/Form/Form';
-import FormGroup from 'components/Form/FormGroup';
-import styles from './Match.css';
+import FormField from 'components/Form/FormField';
 import {
   heroTdColumn,
 } from './matchColumns';
+import { StyledLogFilterForm } from './StyledMatch';
 
+const heroNames = getHeroesById();
 const typeConfig = {
   kills: 0,
   objectives: 1,
   runes: 2,
 };
 const getObjectiveDesc = objective => (objective.key && objective.type === 'CHAT_MESSAGE_BARRACKS_KILL' ? strings[`barracks_value_${objective.key}`] : '');
-const getObjectiveBase = objective => strings[objective.subtype || objective.type] || objective.subtype || objective.type;
+const getObjectiveBase = (objective) => {
+  if (objective.type === 'building_kill') {
+    const desc = objective.key.indexOf('npc_dota_badguys') === 0 ? strings.general_dire : strings.general_radiant;
+    return `${desc} ${(objective.key.split('guys_') || [])[1]}`;
+  }
+  return strings[objective.subtype || objective.type] || objective.subtype || objective.type;
+};
 const generateLog = (match, { types, players }) => {
   let log = [];
   const matchPlayers = !players.length
-                        ? match.players
-                        : match.players.filter((p, i) => players.includes(i));
+    ? match.players
+    : match.players.filter((p, i) => players.includes(i));
 
   if (types.includes(typeConfig.objectives)) {
     log = (match.objectives || []).reduce((objectivesLog, objective) => {
       if (!players.length || players.includes(objective.slot)) {
-        let name = matchPlayers.name;
+        /*
+        let name;
         if (objective.slot === -1) {
           if (objective.team === 2) {
             name = strings.general_radiant;
@@ -39,10 +46,10 @@ const generateLog = (match, { types, players }) => {
             name = strings.general_dire;
           }
         }
+        */
         objectivesLog.push({
           ...objective,
           ...matchPlayers[objective.slot],
-          name,
           type: 'objectives',
           detail: `${getObjectiveDesc(objective)} ${getObjectiveBase(objective)}`,
         });
@@ -96,7 +103,7 @@ const logColumns = [heroTdColumn, {
     switch (row.type) {
       case 'kills': {
         const hero = heroNames[row.detail] || {};
-        return <img src={`${API_HOST}${hero.img}`} className={styles.imgSmall} role="presentation" />;
+        return <img src={`${process.env.REACT_APP_API_HOST}${hero.img}`} style={{ height: '30px' }} alt="" />;
       }
       case 'runes': {
         const runeType = row.detail;
@@ -104,8 +111,8 @@ const logColumns = [heroTdColumn, {
         return (
           <img
             src={`/assets/images/dota2/runes/${runeType}.png`}
-            role="presentation"
-            className={styles.imgSmall}
+            alt=""
+            style={{ height: '30px' }}
             data-tip
             data-for={runeString}
           />
@@ -170,34 +177,36 @@ class MatchLog extends React.Component {
     return (
       <div>
         {runeTooltips}
-        <Form name="logFilterForm">
-          <FormGroup
-            formSelectionState={this.state}
+        <StyledLogFilterForm >
+          <FormField
+            name="types"
+            label={strings.ward_log_type}
+            dataSource={this.typesSource}
             addChip={this.addChip}
             deleteChip={this.deleteChip}
-          >
-            {Field => (
-              <div className={styles.logFilterForm}>
-                <Field
-                  name="types"
-                  label={strings.ward_log_type}
-                  dataSource={this.typesSource}
-                  strict
-                />
-                <Field
-                  name="players"
-                  label={strings.log_heroes}
-                  dataSource={this.playersSource}
-                  strict
-                />
-              </div>
-            )}
-          </FormGroup>
-        </Form>
+            formSelectionState={this.state}
+            strict
+          />
+          <FormField
+            name="players"
+            label={strings.log_heroes}
+            dataSource={this.playersSource}
+            addChip={this.addChip}
+            deleteChip={this.deleteChip}
+            formSelectionState={this.state}
+            strict
+          />
+        </StyledLogFilterForm>
         <Table data={logData} columns={logColumns} />
       </div>
     );
   }
 }
+
+MatchLog.propTypes = {
+  match: PropTypes.shape({
+    players: PropTypes.arrayOf({}),
+  }),
+};
 
 export default MatchLog;

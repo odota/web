@@ -4,20 +4,19 @@ import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
 import { TableHeaderColumn as MaterialTableHeaderColumn } from 'material-ui/Table';
 import { getSortIcon } from './tableHelpers';
-import styles from './Table.css';
+import { StyledHeaderCell } from './Styled';
 
-const TableHeaderColumn = ({ column, sortClick, sortField, sortState }) => {
+const TableHeaderColumn = ({
+  column, sortClick, sortField, sortState,
+}) => {
   const tooltipId = uuid.v4();
-  const style = {};
-
-  if (column.center) {
-    style.justifyContent = 'center';
-  }
+  const style = {
+    justifyContent: column.center ? 'center' : null,
+  };
 
   return (
-    <MaterialTableHeaderColumn>
-      <div
-        className={styles.headerCell}
+    <MaterialTableHeaderColumn style={{ width: column.key === 'heroTd' ? '1px' : null }}>
+      <StyledHeaderCell
         onClick={() => column.sortFn && sortClick(column.field, sortState, column.sortFn)}
         style={style}
       >
@@ -30,13 +29,13 @@ const TableHeaderColumn = ({ column, sortClick, sortField, sortState }) => {
           </ReactTooltip>
           }
         </div>
-      </div>
+      </StyledHeaderCell>
     </MaterialTableHeaderColumn>
   );
 };
 
 TableHeaderColumn.propTypes = {
-  column: PropTypes.object,
+  column: PropTypes.shape({}),
   sortClick: PropTypes.func,
   sortField: PropTypes.string,
   sortState: PropTypes.string,

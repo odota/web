@@ -172,7 +172,8 @@ const singleFields = [{
   value: 'round((0.3 * kills + (3 - 0.3 * deaths) + 0.003 * (last_hits + denies) + 0.002 * gold_per_min + towers_killed + roshans_killed + 3 * teamfight_participation + 0.5 * observers_placed + 0.5 * camps_stacked + 0.25 * rune_pickups + 4 * firstblood_claimed + 0.05 * stuns)::numeric, 1)',
   key: 'fantasy_points',
   bucket: 1,
-}].map(select => ({ ...select,
+}].map(select => ({
+  ...select,
   avgCountValue: 1,
   alias: select.alias || select.key,
 }));
@@ -196,6 +197,12 @@ const having = Array(10).fill().map((e, i) => i).map(element => ({
   key: String(element + 1),
 }));
 
+const limit = [100, 200, 500, 1000].map(element => ({
+  text: String(element),
+  value: element,
+  key: String(element),
+}));
+
 const fields = (players = [], leagues = [], teams = []) => ({
   select: [
     {
@@ -213,41 +220,49 @@ const fields = (players = [], leagues = [], teams = []) => ({
       key: 'distinct_heroes',
       distinct: true,
     },
-    { ...jsonSelect,
+    {
+      ...jsonSelect,
       text: strings.heading_item_purchased,
       alias: 'item_name',
       join: ', json_each(player_matches.purchase)',
       key: 'item_purchased',
-    }, { ...jsonSelect,
+    }, {
+      ...jsonSelect,
       text: strings.heading_ability_used,
       alias: 'ability_name',
       join: ', json_each(player_matches.ability_uses)',
       key: 'ability_used',
-    }, { ...jsonSelect,
+    }, {
+      ...jsonSelect,
       text: strings.heading_item_used,
       alias: 'item_name',
       join: ', json_each(player_matches.item_uses)',
       key: 'item_used',
-    }, { ...jsonSelect,
+    }, {
+      ...jsonSelect,
       text: strings.heading_damage_inflictor,
       alias: 'inflictor',
       join: ', json_each(player_matches.damage_inflictor)',
       key: 'damage_inflictor',
-    }, { ...jsonSelect,
+    }, {
+      ...jsonSelect,
       text: strings.heading_damage_inflictor_received,
       alias: 'inflictor',
       join: ', json_each(player_matches.damage_inflictor_received)',
       key: 'damage_inflictor_received',
-    }, { ...jsonSelect,
+    }, {
+      ...jsonSelect,
       text: strings.heading_runes,
       alias: 'rune_id',
       join: ', json_each(player_matches.runes)',
       key: 'runes',
-    }, { ...jsonSelect,
+    }, {
+      ...jsonSelect,
       text: strings.heading_unit_kills,
       join: ', json_each(player_matches.killed)',
       key: 'unit_kills',
-    }, { ...jsonSelect,
+    }, {
+      ...jsonSelect,
       text: strings.heading_damage_instances,
       join: ', json_each(player_matches.hero_hits)',
       key: 'damage_instances',
@@ -308,7 +323,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
       text: strings.explorer_picks_bans,
       template: 'picks_bans',
       key: 'picks_bans',
-    // picks_bans.team is 0 for radiant, 1 for dire
+      // picks_bans.team is 0 for radiant, 1 for dire
       where: 'AND team_match.radiant::int != picks_bans.team',
       value: 1,
     },
@@ -363,6 +378,10 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     text: strings.explorer_organization,
     value: 'team_match.team_id',
     key: 'organization',
+  }, {
+    text: strings.explorer_match,
+    value: 'matches.match_id',
+    key: 'match',
   },
   ].concat(singleFields),
   minPatch: patches,
@@ -434,10 +453,12 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
   })),
   order: [{ text: strings.explorer_asc, value: 'ASC', key: 'asc' }, { text: strings.explorer_desc, value: 'DESC', key: 'desc' }],
   having,
+  limit,
   laneRole: Object.keys(strings).filter(str => str.indexOf('lane_role_') === 0).map((str) => {
     const laneRoleId = Number(str.substring('lane_role_'.length));
     return { text: strings[str], value: laneRoleId, key: String(laneRoleId) };
   }),
+  isTi7Team: [{ text: 'Yes', value: true, key: 'true' }],
 });
 
 export default fields;

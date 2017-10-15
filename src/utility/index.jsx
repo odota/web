@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import heroes from 'dotaconstants/build/heroes.json';
@@ -6,7 +5,6 @@ import items from 'dotaconstants/build/items.json';
 import patch from 'dotaconstants/build/patch.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
 import xpLevel from 'dotaconstants/build/xp_level.json';
-import styles from 'components/palette.css';
 import { TableLink } from 'components/Table';
 import {
   KDA,
@@ -14,10 +12,28 @@ import {
   FromNowTooltip,
 } from 'components/Visualizations';
 import strings from 'lang';
-import subTextStyle from 'components/Visualizations/Table/subText.css';
-import findLast from 'lodash.findlast';
 import _ from 'lodash/fp';
 import util from 'util';
+// import SvgIcon from 'material-ui/SvgIcon';
+import SocialPeople from 'material-ui/svg-icons/social/people';
+import SocialPerson from 'material-ui/svg-icons/social/person';
+import constants from 'components/constants';
+
+export const iconStyle = {
+  marginLeft: 5,
+  marginRight: 5,
+  width: 18,
+  height: 18,
+  verticalAlign: 'bottom',
+};
+
+export const subTextStyle = {
+  fontSize: '12px',
+  color: constants.colorMutedLight,
+  textOverflow: 'initial',
+  display: 'block',
+  marginTop: '1px',
+};
 
 // TODO - add in the relevant text invocations of TableHeroImage
 export const isRadiant = playerSlot => playerSlot < 128;
@@ -44,7 +60,7 @@ export function abbreviateNumber(num) {
 }
 
 export function formatSeconds(input) {
-  if (!isNaN(parseFloat(input)) && isFinite(input)) {
+  if (!Number.isNaN(parseFloat(input)) && Number.isFinite(Number(input))) {
     const absTime = Math.abs(input);
     const minutes = Math.floor(absTime / 60);
     const seconds = pad(Math.floor(absTime % 60), 2);
@@ -208,11 +224,18 @@ const getSubtitle = (row) => {
   return null;
 };
 
+const getTitle = (row, col, heroName) => {
+  if (row.match_id && row.player_slot !== undefined) {
+    return <TableLink to={`/matches/${row.match_id}`}>{heroName}</TableLink>;
+  }
+  return <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
+};
+
 /**
  * Transformations of table cell data to display values.
  * These functions are intended to be used as the displayFn property in table columns.
  * This is why they all take (row, col, field)
- **/
+ * */
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
   hero_id: (row, col, field, showPvgnaGuide = false) => {
@@ -220,32 +243,32 @@ export const transformations = {
     return (
       <TableHeroImage
         parsed={row.version}
-        image={heroes[row[col.field]] && API_HOST + heroes[row[col.field]].img}
-        title={
-          <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>
-        }
+        image={heroes[row[col.field]] && process.env.REACT_APP_API_HOST + heroes[row[col.field]].img}
+        title={getTitle(row, col, heroName)}
         subtitle={getSubtitle(row)}
         heroName={heroName}
         showPvgnaGuide={showPvgnaGuide}
         pvgnaGuideInfo={row.pvgnaGuide}
+        leaverStatus={row.leaver_status}
       />
     );
   },
   hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true),
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
-  match_id_with_time: (row, col, field) => (<div>
-    <TableLink to={`/matches/${field}`}>{field}</TableLink>
-    <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
-      {fromNow(row.start_time)}
-    </span>
-  </div>),
+  match_id_with_time: (row, col, field) => (
+    <div>
+      <TableLink to={`/matches/${field}`}>{field}</TableLink>
+      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+        {fromNow(row.start_time)}
+      </span>
+    </div>),
   radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
     const getColor = (result) => {
       if (result === null || result === undefined) {
-        return styles.textMuted;
+        return constants.colorMuted;
       }
-      return won ? styles.textSuccess : styles.textDanger;
+      return won ? constants.colorGreen : constants.colorRed;
     };
     const getString = (result) => {
       if (result === null || result === undefined) {
@@ -255,23 +278,40 @@ export const transformations = {
     };
     return (
       <div>
-        <span className={getColor(field)}>
+        <span style={{ color: getColor(field) }}>
           {getString(field)}
         </span>
-        <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
+        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
           {row.skill ? `${strings[`skill_${row.skill}`]} ${strings.th_skill}` : ''}
         </span>
       </div>);
   },
   game_mode: (row, col, field) => (strings[`game_mode_${field}`]),
-  match_id_and_game_mode: (row, col, field) => (
-    <div>
-      <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
-        {strings[`game_mode_${row.game_mode}`]} / {strings[`lobby_type_${row.lobby_type}`]}
-      </span>
-    </div>
-  ),
+  match_id_and_game_mode: (row, col, field) => {
+    const partySize = (_partySize) => {
+      if (_partySize === 1) {
+        return [
+          <SocialPerson color="rgb(179, 179, 179)" style={iconStyle} />,
+          `x${row.party_size}`,
+        ];
+      } else if (_partySize === null) {
+        return null;
+      }
+
+      return [
+        <SocialPeople color="rgb(179, 179, 179)" style={iconStyle} />,
+        `x${row.party_size}`,
+      ];
+    };
+    return (
+      <div>
+        <TableLink to={`/matches/${field}`}>{field}</TableLink>
+        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+          {strings[`game_mode_${row.game_mode}`]} / {strings[`lobby_type_${row.lobby_type}`]}
+          {partySize(row.party_size)}
+        </span>
+      </div>);
+  },
   start_time: (row, col, field) => <FromNowTooltip timestamp={field} />,
   last_played: (row, col, field) => <FromNowTooltip timestamp={field} />,
   duration: (row, col, field) => (
@@ -280,9 +320,9 @@ export const transformations = {
         {formatSeconds(field)}
       </span>
       {row &&
-      <span className={subTextStyle.subText} style={{ display: 'block', marginTop: 1 }}>
-        <FromNowTooltip timestamp={row.start_time + row.duration} />
-      </span>}
+        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+          <FromNowTooltip timestamp={row.start_time + row.duration} />
+        </span>}
     </div>
   ),
   region: (row, col, field) => (strings[`region_${field}`]),
@@ -292,9 +332,9 @@ export const transformations = {
   patch: (row, col, field) => (patch[field] ? patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
-  rank: row => getOrdinal(row.card - row.rank),
+  rank: (row, col, field) => getOrdinal(field),
   rank_percentile: row => (
-    <span style={{ color: styles[percentile(row.rank / row.card).color] }}>
+    <span style={{ color: constants[percentile(row.rank / row.card).color] }}>
       {getPercentWin(row.rank, row.card).toFixed(2)}%
     </span>
   ),
@@ -322,7 +362,7 @@ const transformMatchItem = ({
   if (field === 0) {
     return false;
   }
-  return `${API_HOST}${items[itemIds[field]].img}`;
+  return `${process.env.REACT_APP_API_HOST}${items[itemIds[field]].img}`;
 };
 
 for (let i = 0; i < 6; i += 1) {
@@ -382,13 +422,13 @@ export function isActiveItem(key) {
 
 export const sum = (a, b) => a + b;
 
-export const extractTransitionClasses = styles => name => ({
-  enter: styles[`${name}-enter`],
-  enterActive: styles[`${name}-enter-active`],
-  leave: styles[`${name}-leave`],
-  leaveActive: styles[`${name}-leave-active`],
-  appear: styles[`${name}-appear`],
-  appearActive: styles[`${name}-appear-active`],
+export const extractTransitionClasses = _styles => name => ({
+  enter: _styles[`${name}-enter`],
+  enterActive: _styles[`${name}-enter-active`],
+  leave: _styles[`${name}-leave`],
+  leaveActive: _styles[`${name}-leave-active`],
+  appear: _styles[`${name}-appear`],
+  appearActive: _styles[`${name}-appear-active`],
 });
 
 export const gameCoordToUV = (x, y) => ({
@@ -401,7 +441,7 @@ export const gameCoordToUV = (x, y) => ({
  * Unpacks position data from hash format to array format
  * 64 is the offset of x and y values
  * subtracting y from 127 inverts from bottom/left origin to top/left origin
- **/
+ * */
 export function unpackPositionData(input) {
   if (typeof input === 'object' && !Array.isArray(input)) {
     const result = [];
@@ -428,11 +468,11 @@ export const threshold = _.curry((start, limits, values, value) => {
   const limitsWithStart = limits.slice(0);
   limitsWithStart.unshift(start);
 
-  return findLast(values, (v, i) => _.inRange(limitsWithStart[i], limitsWithStart[i + 1], value));
+  return _.findLast((v, i) => _.inRange(limitsWithStart[i], limitsWithStart[i + 1], value), values);
 });
 
-export const getTeamName = (team, isRadiant) => {
-  if (isRadiant) {
+export const getTeamName = (team, _isRadiant) => {
+  if (_isRadiant) {
     return (team && team.name) ? team.name : strings.general_radiant;
   }
 
@@ -488,7 +528,7 @@ export const getScript = (url, callback) => {
   firstScript.parentNode.insertBefore(script, firstScript);
 
   // Attach handlers
-  script.onreadystatechange = (_, isAbort) => {
+  script.onreadystatechange = (__, isAbort) => {
     if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
       // Handle IE memory leak
       script.onreadystatechange = null;
@@ -530,4 +570,12 @@ export const formatTemplate = (template, dict) => {
   }
   result = result.filter(part => part !== '');
   return result;
+};
+
+export const getHeroesById = () => {
+  const obj = {};
+  Object.keys(heroes).forEach((hero) => {
+    obj[heroes[hero].name] = heroes[hero];
+  });
+  return obj;
 };

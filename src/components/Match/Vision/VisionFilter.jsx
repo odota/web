@@ -1,21 +1,20 @@
-/* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
 import Table from 'components/Table';
 import strings from 'lang';
 import Heading from 'components/Heading';
 
 import PlayerThumb from '../PlayerThumb';
-// import styles from './Vision.css';
 
 const data = [
   {
     type: 'observer',
-    image: <img height="24" src={`${API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} role="presentation" />,
+    image: <img height="24" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />,
   },
   {
     type: 'sentry',
-    image: <img height="24" src={`${API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} role="presentation" />,
+    image: <img height="24" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />,
   },
 ];
 
@@ -28,7 +27,7 @@ export default class VisionFilter extends React.Component {
         onCheck={(event, checked) => {
           this.props.parent.setPlayer(playerNumber, row.type, checked);
         }
-      }
+        }
       />),
     };
   }
@@ -64,3 +63,18 @@ export default class VisionFilter extends React.Component {
     );
   }
 }
+
+VisionFilter.propTypes = {
+  match: PropTypes.shape({
+    players: PropTypes.arrayOf({}),
+  }),
+  parent: PropTypes.shape({
+    state: PropTypes.shape({
+      players: PropTypes.arrayOf({}),
+      teams: PropTypes.arrayOf({}),
+    }),
+    setPlayer: PropTypes.func,
+    teams: PropTypes.arrayOf({}),
+    setTeam: PropTypes.func,
+  }),
+};

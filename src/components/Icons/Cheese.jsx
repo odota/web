@@ -1,5 +1,5 @@
 import React from 'react';
-import { textColorPrimary } from 'components/palette.css';
+import constants from '../constants';
 
 export default props => (
   <svg
@@ -7,7 +7,7 @@ export default props => (
     viewBox="0 0 300 300"
     style={{
       fill: 'none',
-      stroke: textColorPrimary,
+      stroke: constants.textColorPrimary,
       strokeWidth: 10,
     }}
   >

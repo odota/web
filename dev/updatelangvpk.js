@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, no-console */
+/* eslint-disable import/no-extraneous-dependencies, no-console, import/no-unresolved */
 const request = require('request');
 const fs = require('fs');
 const vdf = require('simple-vdf');
@@ -128,17 +128,17 @@ request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/r
     console.log('Error getting regions info from d2vpkr');
     process.exit(1);
   }
-  const regions = JSON.parse(body).regions;
+  const { regions } = JSON.parse(body);
 
   Object.keys(regions).forEach((key) => {
     replacements[`region_${regions[key].region}`] = regions[key].display_name.replace(/^#/, '');
   });
-  request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/chat_wheel.txt', (err, resp, body) => {
-    if (err || resp.statusCode !== 200) {
+  request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/chat_wheel.txt', (_err, _resp, _body) => {
+    if (_err || _resp.statusCode !== 200) {
       console.log('Error getting chat wheel info from d2vpkr');
       process.exit(1);
     }
-    const chatWheel = vdf.parse(body).chat_wheel.messages;
+    const chatWheel = vdf.parse(_body).chat_wheel.messages;
 
     Object.keys(chatWheel).forEach((key) => {
       if (chatWheel[key].message[0] === '#') {

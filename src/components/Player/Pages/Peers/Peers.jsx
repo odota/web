@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   getPlayerPeers,
@@ -8,11 +9,20 @@ import Container from 'components/Container';
 import strings from 'lang';
 import { playerPeersColumns } from './playerPeersColumns';
 
-const Peers = ({ data, playerId, error, loading }) => (
+const Peers = ({
+  data, playerId, error, loading,
+}) => (
   <Container title={strings.heading_peers} error={error} loading={loading}>
     <Table paginated columns={playerPeersColumns(playerId)} data={data} />
   </Container>
 );
+
+Peers.propTypes = {
+  data: PropTypes.arrayOf({}),
+  error: PropTypes.string,
+  playerId: PropTypes.string,
+  loading: PropTypes.bool,
+};
 
 const getData = (props) => {
   props.getPlayerPeers(props.playerId, props.location.search);
@@ -33,6 +43,13 @@ class RequestLayer extends React.Component {
     return <Peers {...this.props} />;
   }
 }
+
+RequestLayer.propTypes = {
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
+  playerId: PropTypes.string,
+};
 
 const mapStateToProps = state => ({
   data: state.app.playerPeers.data,

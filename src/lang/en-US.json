@@ -4,6 +4,7 @@
   "abbr_billion": "b",
   "abbr_trillion": "t",
   "abbr_quadrillion": "q",
+  "abbr_not_available": "N/A",
 
   "analysis_eff": "Lane efficiency",
   "analysis_farm_drought": "Lowest GPM in 5 minute interval",
@@ -93,7 +94,7 @@
   "error": "Error",
   "error_message": "Whoops! Something went wrong.",
   "error_four_oh_four_message": "The page you are looking for cannot be found.",
-  
+
   "explorer_title": "Data Explorer",
   "explorer_subtitle": "Professional Dota 2 Stats",
   "explorer_description": "Stats from professional Dota 2 matches. Amateur leagues are not included.",
@@ -148,6 +149,8 @@
   "explorer_desc": "Descending",
   "explorer_tier": "Tier",
   "explorer_having": "At Least This Many Matches",
+  "explorer_limit": "Limit",
+  "explorer_match": "Match",
 
   "farm_heroes": "Heroes killed",
   "farm_creeps": "Lane creeps killed",
@@ -262,7 +265,7 @@
   "heading_mmr": "MMR History",
   "heading_peers": "Players Played With",
   "heading_pros": "Pro Players Played With",
-  "heading_rankings": "Seasonal Hero Rankings",
+  "heading_rankings": "Hero Rankings",
   "heading_all_matches": "In All Matches",
   "heading_parsed_matches": "In Parsed Matches",
   "heading_records": "Records",
@@ -340,11 +343,12 @@
   "heading_median": "Median",
   "heading_distinct_heroes": "Distinct Heroes",
   "heading_team_elo_rankings": "Team Elo Rankings",
-  
+  "heading_ability_build": "Ability Build",
+
   "subheading_avg_and_max": "in last %d matches",
   "subheading_records": "In ranked matches. Records reset monthly.",
   "subheading_team_elo_rankings": "k=32, init=1000",
-  
+
   "hero_pro_tab": "Professional",
   "hero_public_tab": "Public",
   "hero_pro_heading": "Heroes in Professional Matches",
@@ -364,7 +368,7 @@
   "hero_2000_win_rate": "2K W%",
   "hero_1000_pick_rate": "<2K P%",
   "hero_1000_win_rate": "<2K W%",
-  
+
   "home_login": "Login",
   "home_login_desc": "for automatic replay parsing",
   "home_parse": "Request",
@@ -395,7 +399,7 @@
   "lane_role_2": "Mid",
   "lane_role_3": "Off",
   "lane_role_4": "Jungle",
-  
+
   "lane_pos_1": "Bot",
   "lane_pos_2": "Mid",
   "lane_pos_3": "Top",
@@ -436,9 +440,11 @@
   "match_first_barracks": "First barracks",
   "match_pick": "Pick",
   "match_ban": "Ban",
-  
+
   "matches_highest_mmr": "High MMR",
   "matches_lowest_mmr": "Low MMR",
+
+  "mmr_not_up_to_date": "Why is the MMR not up to date?",
 
   "npc_dota_beastmaster_boar_#": "Boar",
   "npc_dota_lesser_eidolon": "Lesser Eidolon",
@@ -479,27 +485,27 @@
   "npc_dota_gyrocopter_homing_missile": "Homing Missile",
   "npc_dota_weaver_swarm": "The Swarm",
 
-  "objective_tower1_top": "Top1",
-  "objective_tower1_mid": "Mid1",
-  "objective_tower1_bot": "Bot1",
-  "objective_tower2_top": "Top2",
-  "objective_tower2_mid": "Mid2",
-  "objective_tower2_bot": "Bot2",
-  "objective_tower3_top": "Top3",
-  "objective_tower3_mid": "Mid3",
-  "objective_tower3_bot": "Bot3",
+  "objective_tower1_top": "T1",
+  "objective_tower1_mid": "M1",
+  "objective_tower1_bot": "B1",
+  "objective_tower2_top": "T2",
+  "objective_tower2_mid": "M2",
+  "objective_tower2_bot": "B2",
+  "objective_tower3_top": "T3",
+  "objective_tower3_mid": "M3",
+  "objective_tower3_bot": "B3",
   "objective_rax_top": "RaxT",
   "objective_rax_mid": "RaxM",
   "objective_rax_bot": "RaxB",
   "objective_tower4": "T4",
   "objective_fort": "Anc",
-  "objective_shrine": "Shrine",
+  "objective_shrine": "Shr",
   "objective_roshan": "Rosh",
 
   "pagination_first": "First",
   "pagination_last": "Last",
   "pagination_of": "of",
-  
+
   "request_title": "Request a Parse",
   "request_match_id": "Match ID",
   "request_error": "Failed to get match data",
@@ -514,7 +520,7 @@
   "rune_4": "Regeneration",
   "rune_5": "Bounty",
   "rune_6": "Arcane",
-  
+
   "search_title": "Player Search",
 
   "skill_1": "Normal",
@@ -523,13 +529,14 @@
 
   "story_invalid_template": "(invalid template)",
   "story_error": "An error occured while compiling the story for this match",
-  "story_intro": "on {date}, two teams decided to play a {game_mode} game of Dota 2 in {region}",
+  "story_intro": "on {date}, two teams decided to play {game_mode_article} {game_mode} game of Dota 2 in {region}. Little did they know, the game would last {duration_in_words}",
   "story_invalid_hero": "Unrecognized Hero",
   "story_fullstop": ".",
   "story_list_2": "{1} and {2}",
   "story_list_3": "{1}, {2}, and {3}",
   "story_list_n": "{i}, {rest}",
   "story_firstblood": "first blood was drawn when {killer} killed {victim} at {time}",
+  "story_chatmessage": "\"{message}\", {player} {said_verb}",
   "story_teamfight": "{winning_team} won a teamfight by trading {win_dead} for {lose_dead}, resulting in a net worth increase of {net_change}",
   "story_teamfight_none_dead": "{winning_team} won a teamfight by killing {lose_dead} without losing any heroes, resulting in a net worth increase of {net_change}",
   "story_lane_intro": "At 10 minutes into the game, the lanes had gone as follows:",
@@ -550,7 +557,9 @@
   "story_building_destroy_player": "{player} destroyed {building}",
   "story_building_deny_player": "{player} denied {building}",
   "story_building_list_destroy": "{buildings} were destroyed",
-  "story_tower": "one of {team}'s towers",
+  "story_courier_kill": "{team}'s courier was killed",
+  "story_tower": "{team}'s Tier {tier} {lane} tower",
+  "story_tower_simple": "one of {team}'s towers",
   "story_towers_n": "{n} of {team}'s Towers",
   "story_barracks": "{team}'s {lane} {rax_type}",
   "story_barracks_both": "both of {team}'s {lane} Barracks",
@@ -558,6 +567,11 @@
   "story_item_purchase": "{player} purchased a {item} at {time}",
   "story_predicted_victory": "{players} predicted {team} would win",
   "story_predicted_victory_empty": "No one",
+  "story_networth_diff": "{percent}% / {gold} Diff",
+  "story_gold": "gold",
+
+  "story_chat_asked": "asked",
+  "story_chat_said": "said",
 
   "tab_overview": "Overview",
   "tab_matches": "Matches",
@@ -714,7 +728,6 @@
   "th_permanent_buffs": "Buffs",
   "th_winner": "Winner",
   "th_played_with": "My Record With",
-  "th_other": "Other",
   "th_obs_placed": "Observer Wards Placed",
   "th_sen_placed": "Sentry Wards Placed",
   "th_obs_destroyed": "Observer Wards Destroyed",
@@ -722,11 +735,12 @@
   "th_scans_used": "Scans Used",
   "th_glyphs_used": "Glyphs Used",
   "th_legs": "Legs",
-  "th_fantasy_points": "Fantasy Points",
+  "th_fantasy_points": "Points",
   "th_rating": "Rating",
   "th_teamfight_participation": "Participation",
   "th_firstblood_claimed" : "First Blood",
   "th_observers_placed": "Observers",
+  "th_camps_stacked": "Stacks",
 
   "ward_log_type": "Type",
   "ward_log_owner": "Owner",
@@ -740,7 +754,7 @@
 
   "tier_professional": "Professional",
   "tier_premium": "Premium",
-  
+
   "time_past": "%s ago",
   "time_just_now": "just now",
   "time_s": "a second",
@@ -875,7 +889,7 @@
 
   "histograms_name": "Histograms",
   "histograms_description": "Percentages indicate win rates for the labeled bin",
-  
+
   "trends_name": "Trends",
   "trends_description": "Moving mean of last 20 games",
   "trends_tooltip_average": "Avg.",
@@ -886,7 +900,7 @@
   "xp_reasons_2": "Creep",
   "xp_reasons_3": "Roshan",
 
-  "rankings_description": "Based on visible MMR in matches won. Resets each quarter.",
+  "rankings_description": "",
 
   "region_0": "Automatic",
   "region_1": "US West",
@@ -916,6 +930,19 @@
   "vision_placed_observer": "placed Observer at",
   "vision_placed_sentry": "placed Sentry at",
   "vision_ward_log": "Ward Log",
+
+  "chat_category_faction": "Faction",
+  "chat_category_type": "Type",
+  "chat_category_target": "Target",
+  "chat_category_other": "Other",
+  "chat_filter_text": "Text",
+  "chat_filter_phrases": "Phrases",
+  "chat_filter_audio": "Audio",
+  "chat_filter_spam": "Spam",
+  "chat_filter_all": "All",
+  "chat_filter_allies": "Allies",
+  "chat_filter_spectator": "Spectator",
+  "chat_filtered": "Filtered",
 
   "chatwheel_0": "Okay.",
   "chatwheel_1": "Careful!",
@@ -1034,6 +1061,48 @@
 
   "chatwheel_108": "It's a disastah!",
   "chatwheel_109": "走好, 不送",
-  "chatwheel_110": "Это. Просто. Нечто."
+  "chatwheel_110": "Это. Просто. Нечто.",
 
+  "advb_almost": "almost",
+  "advb_over": "over",
+  "advb_about": "about",
+
+  "article_before_consonant_sound": "a",
+  "article_before_vowel_sound": "an",
+
+  "statement_long": "hypothesised",
+  "statement_shouted": "shouted",
+  "statement_excited": "exclaimed",
+  "statement_normal": "said",
+  "statement_laughed": "laughed",
+
+  "question_long": "raised, in need of answers",
+  "question_shouted": "inquired",
+  "question_excited": "interrogated",
+  "question_normal": "asked",
+  "question_laughed": "laughed mockingly",
+
+  "statement_response_long": "advised",
+  "statement_response_shouted": "responded in frustration",
+  "statement_response_excited": "exclaimed",
+  "statement_response_normal": "replied",
+  "statement_response_laughed": "laughed",
+
+  "statement_continued_long": "ranted",
+  "statement_continued_shouted": "continued furiously",
+  "statement_continued_excited": "continued",
+  "statement_continued_normal": "added",
+  "statement_continued_laughed": "continued",
+
+  "question_response_long": "advised",
+  "question_response_shouted": "asked back, out of frustration",
+  "question_response_excited": "disputed",
+  "question_response_normal": "countered",
+  "question_response_laughed": "laughed",
+
+  "question_continued_long": "propositioned",
+  "question_continued_shouted": "asked furiously",
+  "question_continued_excited": "lovingly asked",
+  "question_continued_normal": "asked",
+  "question_continued_laughed": "asked joyfully"
 }

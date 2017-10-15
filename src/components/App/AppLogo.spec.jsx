@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
@@ -14,3 +15,4 @@ describe('AppLogo tests', () => {
     expect(AppLogoLink.html()).to.contain(strings.app_name);
   });
 });
+*/

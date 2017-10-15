@@ -8,14 +8,14 @@ import {
 import Table from 'components/Table';
 import Container from 'components/Container';
 // import { List } from 'material-ui/List';
-// import style from './search.css';
 
 const searchColumns = [{
   displayName: strings.th_name,
   field: 'personaname',
   displayFn: (row, col, field) => {
     const subtitle = row.last_match_time ? fromNow(new Date(row.last_match_time) / 1000) : '';
-    return transformations.player({ ...row,
+    return transformations.player({
+      ...row,
       subtitle,
     }, col, field);
   },
@@ -70,10 +70,10 @@ const Search = ({
 );
 
 Search.propTypes = {
-  players: PropTypes.array,
+  players: PropTypes.arrayOf(PropTypes.shape({})),
   playersLoading: PropTypes.bool,
   playersError: PropTypes.string,
-  pros: PropTypes.array,
+  pros: PropTypes.arrayOf(PropTypes.shape({})),
   prosLoading: PropTypes.bool,
   prosError: PropTypes.string,
 };

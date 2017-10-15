@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import styles from './DotaMap.css';
+import styled from 'styled-components';
 
 const setMapSizeStyle = (width, maxWidth) => ({
   width,
@@ -10,42 +9,46 @@ const setMapSizeStyle = (width, maxWidth) => ({
   maxHeight: maxWidth,
 });
 
-// TODO make this a generic function that can determine which of multiple maps to use
 // 12/13/2016 @ 5:00pm (UTC)
 const isPost700 = unixDate => unixDate > 1481648400;
 
-const getClassName = (startTime) => {
-  let className = 'map';
-  // this will default the map to post 700 if the start time isn't included
+// TODO make this a generic function that can determine which of multiple maps to use
+const getUrl = (startTime) => {
   if (startTime === null || isPost700(startTime)) {
-    className += '700';
+    return '/assets/images/dota2/map/detailed_700.png';
   }
-  return styles[className];
+  return '/assets/images/dota2/map/detailed.png';
 };
 
+const MapContainer = styled.div`
+  position: relative;
+  background: url("${props => getUrl(props.startTime)}");
+  background-size: contain;
+`;
+
 const DotaMap = ({
-  className,
   startTime = null,
   maxWidth = 400,
   width = 400,
   children,
 }) => (
-  <div
-    className={classnames(getClassName(startTime), className)}
+  <MapContainer
+    startTime={startTime}
     style={setMapSizeStyle(width, maxWidth)}
   >
     {children}
-  </div>
+  </MapContainer>
 );
 
-const { number, node, string, oneOfType } = PropTypes;
+const {
+  number, node, string, oneOfType,
+} = PropTypes;
 
 DotaMap.propTypes = {
   startTime: number,
   maxWidth: oneOfType([number, string]),
   width: oneOfType([number, string]),
   children: oneOfType([node, string]),
-  className: string,
 };
 
 export default DotaMap;

@@ -1,15 +1,42 @@
-/* global API_HOST */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import ActionUpdate from 'material-ui/svg-icons/action/update';
 import strings from 'lang';
 import fetch from 'isomorphic-fetch';
-import { toggleShowForm } from 'actions';
+import { toggleShowForm as toggleShowFormAction } from 'actions';
 import ShowFormToggle from 'components/Form/ShowFormToggle';
-import { FORM_NAME } from '../TableFilterForm';
-import styles from './PlayerButtons.css';
+import styled from 'styled-components';
 
+const Styled = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  font-size: 14px;
+
+  @media only screen and (max-width: 660px) {
+    justify-content: center;
+
+    & a {
+      min-width: 50px !important;
+    }
+
+    & button {
+      min-width: 50px !important;
+    }
+
+    & * {
+      font-size: 0 !important;
+      padding: 0 !important;
+      margin: auto !important;
+    }
+
+    & span {
+      margin: 0 !important;
+    }
+  }
+`;
 class PlayerButtons extends React.Component {
   componentWillMount() {
     this.setState({ disableRefresh: false });
@@ -23,9 +50,8 @@ class PlayerButtons extends React.Component {
       toggleShowForm,
     } = this.props;
     return (
-      <div className={styles.container}>
+      <Styled>
         <div
-          className={styles.refreshButton}
           data-hint={strings.app_refresh}
           data-hint-position="top"
         >
@@ -33,13 +59,13 @@ class PlayerButtons extends React.Component {
             icon={<ActionUpdate />}
             disabled={this.state.disableRefresh}
             onClick={() => {
-              fetch(`${API_HOST}/api/players/${playerId}/refresh`, { method: 'POST' });
+              fetch(`${process.env.REACT_APP_API_HOST}/api/players/${playerId}/refresh`, { method: 'POST' });
               this.setState({ disableRefresh: true });
             }}
             label={strings.app_refresh_label}
           />
         </div>
-        <ShowFormToggle formName={FORM_NAME} showForm={showForm} toggleShowForm={toggleShowForm} />
+        <ShowFormToggle showForm={showForm} toggleShowForm={toggleShowForm} />
         <FlatButton
           label={strings.app_dotacoach}
           labelPosition="after"
@@ -54,16 +80,23 @@ class PlayerButtons extends React.Component {
           style={{ marginLeft: 15 }}
           href={`https://pvgna.com/?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}&ref=yasp`}
         />
-      </div>);
+      </Styled>);
   }
 }
+
+PlayerButtons.propTypes = {
+  playerId: PropTypes.string,
+  playerSoloCompetitiveRank: PropTypes.number,
+  showForm: PropTypes.bool,
+  toggleShowForm: PropTypes.func,
+};
 
 const mapStateToProps = state => ({
   showForm: state.app.form.show,
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleShowForm: () => dispatch(toggleShowForm('tableFilter')),
+  toggleShowForm: () => dispatch(toggleShowFormAction('tableFilter')),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerButtons);

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import wordcloud from 'wordcloud';
 import uuid from 'uuid';
-import styles from './Wordcloud.css';
 
 const stopWords = 'a,am,an,and,are,as,at,be,by,for,from,how,i,im,in,is,it,not,of,on,or,that,the,this,to,was,what,when,where,who,will,with';
 
@@ -36,9 +35,9 @@ function updateWordCloud(wordCounts, cloudDomId) {
   // @howardchung implementation of scaling
   const scale = maxSize / Math.log(max);
   // var scale = max_size/max;
-    // take the log of each count and scale them up to top_size
-    // use log since words such as "gg" tend to dominate
-    // w[1] = Math.max(w[1]*scale, min_size);
+  // take the log of each count and scale them up to top_size
+  // use log since words such as "gg" tend to dominate
+  // w[1] = Math.max(w[1]*scale, min_size);
   wordList = wordList.map(w => [w[0], Math.max(getBaseLog(w[1], 6) * scale, minSize)]);
 
   /*
@@ -72,12 +71,14 @@ class Wordcloud extends React.Component {
     updateWordCloud(nextProps.counts, this.id);
   }
   render() {
+    const width = Math.min(1080, window.innerWidth * 0.75);
+    const height = width * 0.7;
     return (
       <canvas
-        width={window.innerWidth * 0.75}
-        height={window.innerWidth * 0.75 * 0.7}
+        width={width}
+        height={height}
         id={this.id}
-        className={styles.Wordcloud}
+        style={{ display: 'block', margin: '0 auto' }}
       />
     );
   }

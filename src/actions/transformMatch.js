@@ -22,39 +22,6 @@ Object.keys(strings)
 
 const getMaxKeyOfObject = field => Number(Object.keys(field || {}).sort((a, b) => Number(b) - Number(a))[0]) || 0;
 
-/**
- * Generates data for c3 charts in a match
- **/
-function generateGraphData(match) {
-  if (match.players && match.players[0] && match.radiant_gold_adv && match.radiant_xp_adv) {
-    // compute graphs
-    const goldDifference = ['Gold', ...match.radiant_gold_adv];
-    const xpDifference = ['XP', ...match.radiant_xp_adv];
-    const time = ['time', ...match.players[0].times];
-    const data = {
-      difference: [time, xpDifference, goldDifference],
-      gold: [time],
-      xp: [time],
-      lh: [time],
-    };
-    match.players.forEach((player) => {
-      let hero = heroes[player.hero_id] || {};
-      hero = hero.localized_name;
-      if (player.gold_t) {
-        data.gold.push([hero, ...player.gold_t]);
-      }
-      if (player.xp_t) {
-        data.xp.push([hero, ...player.xp_t]);
-      }
-      if (player.lh_t) {
-        data.lh.push([hero, ...player.lh_t]);
-      }
-    });
-    return data;
-  }
-  return {};
-}
-
 function generateTeamfights({ players, teamfights = [] }) {
   const computeTfData = (tf) => {
     const newtf = {
@@ -156,9 +123,7 @@ function generateVisionLog(match) {
           entered: wards[0],
           left: wards[1],
         };
-      })
-    ;
-
+      });
     const observers = extractVisionLog('observer', safePlayer.obs_log, safePlayer.obs_left_log);
     const sentries = extractVisionLog('sentry', safePlayer.sen_log, safePlayer.sen_left_log);
     return _.concat(observers, sentries);
@@ -219,8 +184,8 @@ function transformMatch(m) {
           identifier = 'shrine';
         }
         newPlayer.objective_damage[identifier] = newPlayer.objective_damage[identifier] ?
-                                                 newPlayer.objective_damage[identifier] + player.damage[key] :
-                                                 player.damage[key];
+          newPlayer.objective_damage[identifier] + player.damage[key] :
+          player.damage[key];
       });
     }
     if (player.killed) {
@@ -263,7 +228,6 @@ function transformMatch(m) {
 
   return {
     ...m,
-    graphData: generateGraphData(m),
     teamfights: generateTeamfights(m),
     players: newPlayers,
     wards_log: generateVisionLog(immutable(m)),

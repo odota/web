@@ -1,6 +1,7 @@
 import React, {
   Component,
 } from 'react';
+import PropTypes from 'prop-types';
 import {
   connect,
 } from 'react-redux';
@@ -17,7 +18,6 @@ const renderBenchmark = (hero, data) => (
 );
 
 class Benchmark extends Component {
-
   componentDidMount() {
     if (this.props.match.params && this.props.match.params.heroId) {
       this.props.getBenchmark(this.props.match.params.heroId);
@@ -41,6 +41,20 @@ class Benchmark extends Component {
     );
   }
 }
+
+Benchmark.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      heroId: PropTypes.string,
+    }),
+  }),
+  getBenchmark: PropTypes.func,
+  isLoading: PropTypes.bool,
+  isError: PropTypes.bool,
+  hero: PropTypes.shape({}),
+  result: PropTypes.string,
+};
+
 /**
 HISTOGRAM API
 

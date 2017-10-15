@@ -1,6 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
 
-export default props => (
+const icon = props => (
   <svg {...props} viewBox="0 0 110 110">
     <path
       d="M55,0C25.881,0,2.062,22.634,0.14,51.267l28.525,11.507C31.172,61.029,34.214,60,37.5,60
@@ -16,3 +17,11 @@ export default props => (
     />
   </svg>
 );
+export default styled(icon)`
+fill: #f5f5f5;
+height: 16px;
+margin: 0 6px;
+transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+vertical-align: middle;
+width: auto !important;
+`;

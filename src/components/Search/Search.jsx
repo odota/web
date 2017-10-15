@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { getSearchResultAndPros } from 'actions';
@@ -9,14 +10,25 @@ import SearchResult from './SearchResult';
 
 const extract = item => `${item.name}${item.team_name}`;
 
-const Search = ({ data, pros, query, ...rest }) => (<div>
-  <Helmet title={`${query} - ${strings.title_search}`} />
-  <SearchResult {...rest} players={data || []} pros={pros || []} />
-</div>
-  );
+const Search = ({
+  data, pros, query, ...rest
+}) => (
+  <div>
+    <Helmet title={`${query} - ${strings.title_search}`} />
+    <SearchResult {...rest} players={data || []} pros={pros || []} />
+  </div>
+);
+
+Search.propTypes = {
+  data: PropTypes.shape({}),
+  pros: PropTypes.arrayOf({}),
+  query: PropTypes.string,
+};
 
 const mapStateToProps = (state) => {
-  const { error, loading, done, data, query } = state.app.search;
+  const {
+    error, loading, done, data, query,
+  } = state.app.search;
   return {
     playersLoading: loading,
     playersError: error,

@@ -1,4 +1,3 @@
-/* global API_HOST */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -11,7 +10,7 @@ import {
 import heroes from 'dotaconstants/build/heroes.json';
 import strings from 'lang';
 import { MAX_MATCHES_ROWS } from './Overview';
-import styles from './Summary.css';
+import constants from '../../../constants';
 
 const SummOfRecMatches = ({ matchesData }) => {
   // initial values
@@ -36,17 +35,15 @@ const SummOfRecMatches = ({ matchesData }) => {
 
   const numRows = Math.min(MAX_MATCHES_ROWS, matchesData.length);
 
-  for (let i = 0; i < numRows; i += 1) {
-    dataKeys.map((key) => {
+  matchesData.forEach((match) => {
+    dataKeys.forEach((key) => {
       if (key === 'wins') {
-        data.wins.push(matchesData[i].radiant_win === isRadiant(matchesData[i].player_slot));
+        data.wins.push(match.radiant_win === isRadiant(match.player_slot));
       } else {
-        data[key].push(matchesData[i][key]);
+        data[key].push(match[key]);
       }
-
-      return null;
     });
-  }
+  });
 
   dataKeys.map((key) => {
     if (key !== 'wins') {
@@ -88,18 +85,19 @@ const SummOfRecMatches = ({ matchesData }) => {
   });
 
   winrate = Number((data.wins
-  .filter(Boolean)
-  .reduce(sum, 0) * 100 / numRows)
+    .filter(Boolean)
+    .reduce(sum, 0) * 100 / numRows)
     .toFixed(2));
 
   return (
     <div>
       <ul>
         {winrate
-          ? <li>
-            <span>{strings.th_winrate}</span>
-            <p>{winrate}%</p>
-          </li>
+          ?
+            <li>
+              <span>{strings.th_winrate}</span>
+              <p>{winrate}%</p>
+            </li>
           : null
         } {Object.keys(computed).map((key) => {
           const c = computed[key];
@@ -109,12 +107,12 @@ const SummOfRecMatches = ({ matchesData }) => {
             return (
               <li key={key}>
                 <span>{strings[`heading_${key}`]}</span>
-                <p style={{ color: styles[c.color] }}>
+                <p style={{ color: constants[c.color] }}>
                   {key === 'duration' ? formatSeconds(c.avg) : abbreviateNumber(c.avg)}
                   &nbsp;
                   <span>{key === 'duration' ? formatSeconds(c.max.value) : abbreviateNumber(c.max.value)}
                     <Link to={`/matches/${c.max.matchId}`}>
-                      <img src={`${API_HOST}${hero.icon}`} alt={hero.localized_name} />
+                      <img src={`${process.env.REACT_APP_API_HOST}${hero.icon}`} alt={hero.localized_name} />
                     </Link>
                   </span>
                 </p>
@@ -130,7 +128,7 @@ const SummOfRecMatches = ({ matchesData }) => {
 };
 
 SummOfRecMatches.propTypes = {
-  matchesData: PropTypes.object,
+  matchesData: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 export default SummOfRecMatches;

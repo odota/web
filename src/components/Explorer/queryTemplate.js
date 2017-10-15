@@ -21,7 +21,16 @@ const queryTemplate = (props) => {
     order,
     tier,
     having,
+    limit,
+    isTi7Team,
   } = props;
+  // array inputs
+  // group
+  // hero
+  // player
+  // league
+  // team
+  // organization
   let query;
   if (select && select.template === 'picks_bans') {
     query = `SELECT
@@ -43,6 +52,7 @@ JOIN matches using(match_id)
 JOIN match_patch using(match_id)
 JOIN leagues using(leagueid)
 JOIN team_match using(match_id)
+JOIN teams using(team_id)
 WHERE TRUE
 ${select && select.where ? select.where : ''}
 ${organization ? `AND team_id = ${organization.value}` : ''}
@@ -57,6 +67,7 @@ ${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
 ${minDate ? `AND matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
 ${maxDate ? `AND matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${tier ? `AND leagues.tier = '${tier.value}'` : ''}
+${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 1333179, 3331948, 1846548)' : ''}
 GROUP BY hero_id
 ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
@@ -64,29 +75,29 @@ ORDER BY total ${(order && order.value) || 'DESC'}`;
     query = `SELECT
 ${select && select.distinct && !group ? `DISTINCT ON (${select.value})` : ''}
 ${(group) ?
-[`${group.groupKeySelect || groupVal} ${group.alias || ''}`,
-  (select || {}).countValue || '',
-  `round(sum(${(select || {}).groupValue || (select || {}).value || 1})::numeric/count(${(select || {}).avgCountValue || 'distinct matches.match_id'}), 2) avg`,
-  'count(distinct matches.match_id) count',
-  'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
-  `((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) 
+    [`${group.groupKeySelect || groupVal} ${group.alias || ''}`,
+      (select || {}).countValue || '',
+      `round(sum(${(select || {}).groupValue || (select || {}).value || 1})::numeric/count(${(select || {}).avgCountValue || 'distinct matches.match_id'}), 2) avg`,
+      'count(distinct matches.match_id) count',
+      'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
+      `((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) 
   + 1.96 * 1.96 / (2 * count(1)) 
   - 1.96 * sqrt((((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) * (1 - (sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1))) + 1.96 * 1.96 / (4 * count(1))) / count(1))))
   / (1 + 1.96 * 1.96 / count(1)) wr_lower_bound`,
-  `sum(${(select || {}).groupValue || (select || {}).value || 1}) sum`,
-  `min(${(select || {}).groupValue || (select || {}).value || 1}) min`,
-  `max(${(select || {}).groupValue || (select || {}).value || 1}) max`,
-  `round(stddev(${(select || {}).groupValue || (select || {}).value || 1}::numeric), 2) stddev`,
-].filter(Boolean).join(',\n')
-:
-[select ? `${select.value} ${select.alias || ''}` : '',
-  'matches.match_id',
-  'matches.start_time',
-  '((player_matches.player_slot < 128) = matches.radiant_win) win',
-  'player_matches.hero_id',
-  'player_matches.account_id',
-  'leagues.name leaguename',
-].filter(Boolean).join(',\n')}
+      `sum(${(select || {}).groupValue || (select || {}).value || 1}) sum`,
+      `min(${(select || {}).groupValue || (select || {}).value || 1}) min`,
+      `max(${(select || {}).groupValue || (select || {}).value || 1}) max`,
+      `round(stddev(${(select || {}).groupValue || (select || {}).value || 1}::numeric), 2) stddev`,
+    ].filter(Boolean).join(',\n')
+    :
+    [select ? `${select.value} ${select.alias || ''}` : '',
+      'matches.match_id',
+      'matches.start_time',
+      '((player_matches.player_slot < 128) = matches.radiant_win) win',
+      'player_matches.hero_id',
+      'player_matches.account_id',
+      'leagues.name leaguename',
+    ].filter(Boolean).join(',\n')}
 FROM matches
 JOIN match_patch using(match_id)
 JOIN leagues using(leagueid)
@@ -116,17 +127,18 @@ ${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
 ${minDate ? `AND matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
 ${maxDate ? `AND matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${tier ? `AND leagues.tier = '${tier.value}'` : ''}
+${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 1333179, 3331948, 1846548)' : ''}
 ${group ? `GROUP BY ${groupVal}` : ''}
 ${group ? `HAVING count(distinct matches.match_id) >= ${having ? having.value : '1'}` : ''}
 ORDER BY ${
-[`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(order && order.value) || (select && select.order) || 'DESC'}`,
-  group ? 'count DESC' : '',
-].filter(Boolean).join(',')} NULLS LAST
-LIMIT 200`;
+  [`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(order && order.value) || (select && select.order) || 'DESC'}`,
+    group ? 'count DESC' : '',
+  ].filter(Boolean).join(',')} NULLS LAST
+LIMIT ${limit ? limit.value : 200}`;
   }
   return query
   // Remove extra newlines
-  .replace(/\n{2,}/g, '\n');
+    .replace(/\n{2,}/g, '\n');
 };
 
 export default queryTemplate;

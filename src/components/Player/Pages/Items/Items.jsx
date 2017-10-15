@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   connect,
 } from 'react-redux';
@@ -19,6 +20,12 @@ const Items = ({
   </Container>
 );
 
+Items.propTypes = {
+  data: PropTypes.shape({}),
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+};
+
 const getData = (props) => {
   props.getPlayerItems(props.playerId, props.location.search);
 };
@@ -38,6 +45,13 @@ class RequestLayer extends React.Component {
     return <Items {...this.props} />;
   }
 }
+
+RequestLayer.propTypes = {
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
+  playerId: PropTypes.string,
+};
 
 const mapStateToProps = state => ({
   data: state.app.playerItems.data,
