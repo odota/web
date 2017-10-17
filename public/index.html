@@ -11,13 +11,70 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="icon" type="image/png" href="/assets/images/logo.png">
     <meta property="og:image" content="/assets/images/logo-preview.jpg" />
+    <style>
+      body {
+        background-color: #34495e;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        margin: 0;
+      }
+      
+      .loader {
+        width: 3em;
+        height: 3em;
+        animation: loaderAnim 1.25s infinite;
+        outline: 1px solid transparent;
+      }
+      .loader #largeBox {
+        height: 3em;
+        width: 3em;
+        background-color: #ECECEC;
+        outline: 1px solid transparent;
+        position: fixed;
+      }
+      .loader #smallBox {
+        height: 3em;
+        width: 3em;
+        background-color: #34495e;
+        position: fixed;
+        z-index: 1;
+        outline: 1px solid transparent;
+        animation: smallBoxAnim 1.25s alternate infinite ease-in-out;
+      }
+      
+      @keyframes smallBoxAnim {
+        0% {
+          transform: scale(0.2);
+        }
+        100% {
+          transform: scale(0.75);
+        }
+      }
+      @keyframes loaderAnim {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(90deg);
+        }
+      }
+    </style>
   </head>
 
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="react"></div>
+    <div id="react">
+      <div class="loader">
+        <div id="largeBox"></div>
+        <div id="smallBox"></div>
+      </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/1.0.3/autotrack.js"></script>
     <script>
       (function (i, s, o, g, r, a, m) {
