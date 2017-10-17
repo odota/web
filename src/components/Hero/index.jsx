@@ -16,6 +16,7 @@ import Recent from './Recent';
 import Matchups from './Matchups';
 import AttributesBlock from './AttributesBlock';
 import Durations from './Durations';
+import Players from './Players';
 
 const getHeroImgSrc = src => process.env.REACT_APP_API_HOST + src;
 
@@ -111,6 +112,18 @@ const tabs = heroId => [
       </div>
     ),
     route: `/heroes/${heroId}/durations`,
+  },
+  {
+    name: strings.tab_players,
+    key: 'players',
+    content: props => (
+      <div>
+        <Heading title={strings.tab_players} />
+        <Disclaimer>{strings.hero_disclaimer_public}</Disclaimer>
+        <Players {...props} />
+      </div>
+    ),
+    route: `/heroes/${heroId}/players`,
   },
 ];
 

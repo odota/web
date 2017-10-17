@@ -30,6 +30,7 @@ export default combineReducers({
   heroRecentGames: reducer('heroRecentGames'),
   heroMatchups: reducer('heroMatchups'),
   heroDurations: reducer('heroDurations'),
+  heroPlayers: reducer('heroPlayers'),
   search: reducer('search'),
   distributions: reducer('distributions'),
   proPlayers: reducer('proPlayers'),

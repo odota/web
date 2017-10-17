@@ -14,6 +14,7 @@ export const getBenchmark = heroId => action('heroBenchmark', process.env.REACT_
 export const getHeroRecentGames = heroId => action('heroRecentGames', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/matches`);
 export const getHeroMatchups = heroId => action('heroMatchups', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/matchups`);
 export const getHeroDurations = heroId => action('heroDurations', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/durations`);
+export const getHeroPlayers = heroId => action('heroPlayers', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/players`);
 export const getProPlayers = () => action('proPlayers', process.env.REACT_APP_API_HOST, 'api/proPlayers');
 export const getProMatches = () => action('proMatches', process.env.REACT_APP_API_HOST, 'api/proMatches');
 export const getPublicMatches = params => action('publicMatches', process.env.REACT_APP_API_HOST, 'api/publicMatches', params);
