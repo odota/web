@@ -1126,5 +1126,8 @@
   "question_continued_shouted": "asked furiously",
   "question_continued_excited": "lovingly asked",
   "question_continued_normal": "asked",
-  "question_continued_laughed": "asked joyfully"
+  "question_continued_laughed": "asked joyfully",
+
+  "hero_disclaimer_pro": "* All data are taken from PRO games",
+  "hero_disclaimer_public": "* All data are taken from public games"
 }

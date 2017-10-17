@@ -45,6 +45,10 @@ const HeroDescription = styled.div`
   flex-grow: 1;
 `;
 
+const Disclaimer = styled.p`
+  color: ${constants.colorMutedLight};
+`;
+
 const HeroAttackTipe = styled.span`color: ${constants.textColorPrimary};`;
 
 const tabs = heroId => [
@@ -65,6 +69,7 @@ const tabs = heroId => [
     content: props => (
       <div>
         <Heading title={strings.tab_benchmarks} />
+        <Disclaimer>{strings.hero_disclaimer_public}</Disclaimer>
         <Benchmark {...props} />
       </div>
     ),
@@ -76,6 +81,7 @@ const tabs = heroId => [
     content: props => (
       <div>
         <Heading title={strings.tab_recent} />
+        <Disclaimer>{strings.hero_disclaimer_pro}</Disclaimer>
         <Recent {...props} />
       </div>
     ),
@@ -87,6 +93,7 @@ const tabs = heroId => [
     content: props => (
       <div>
         <Heading title={strings.tab_matchups} />
+        <Disclaimer>{strings.hero_disclaimer_pro}</Disclaimer>
         <Matchups {...props} />
       </div>
     ),
