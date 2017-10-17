@@ -626,6 +626,7 @@
   "tab_laning": "Laning",
   "tab_recent": "Recent",
   "tab_matchups": "Matchups",
+  "tab_durations": "Durations",
 
   "placeholder_filter_heroes": "Filter Heroes",
 
@@ -1129,5 +1130,6 @@
   "question_continued_laughed": "asked joyfully",
 
   "hero_disclaimer_pro": "* All data are taken from PRO games",
-  "hero_disclaimer_public": "* All data are taken from public games"
+  "hero_disclaimer_public": "* All data are taken from public games",
+  "hero_duration_x_axis": "Minutes"
 }

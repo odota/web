@@ -15,6 +15,7 @@ import Benchmark from './Benchmark';
 import Recent from './Recent';
 import Matchups from './Matchups';
 import AttributesBlock from './AttributesBlock';
+import Durations from './Durations';
 
 const getHeroImgSrc = src => process.env.REACT_APP_API_HOST + src;
 
@@ -98,6 +99,18 @@ const tabs = heroId => [
       </div>
     ),
     route: `/heroes/${heroId}/matchups`,
+  },
+  {
+    name: strings.tab_durations,
+    key: 'durations',
+    content: props => (
+      <div>
+        <Heading title={strings.tab_durations} />
+        <Disclaimer>{strings.hero_disclaimer_pro}</Disclaimer>
+        <Durations {...props} />
+      </div>
+    ),
+    route: `/heroes/${heroId}/durations`,
   },
 ];
 
