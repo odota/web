@@ -15,7 +15,7 @@ import strings from 'lang';
 import { StyledTooltip } from './Styled';
 
 const HistogramTooltipContent = ({ payload, xAxisLabel = '' }) => {
-  const data = (payload[0] || {}).payload;
+  const data = payload && payload[0] && payload[0].payload;
   return (
     <StyledTooltip>
       <div>{`${data && data.x} ${xAxisLabel}`}</div>

@@ -61,6 +61,10 @@ export const langs = [
     native: 'Português Brasileiro',
     data: require('./pt-BR.json'),
   }, {
+    value: 'ro-RO',
+    native: 'Română',
+    data: require('./ro-RO.json'),
+  }, {
     value: 'ru-RU',
     native: 'Русский',
     data: require('./ru-RU.json'),

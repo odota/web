@@ -33,11 +33,23 @@ const StyledFooter = styled.footer`
         display: flex;
         flex-direction: row;
         align-items: baseline;
+        position: relative;
+
+        & a {
+          cursor: pointer;
+
+          &[data-hint-position="top"] {
+            &::before {
+              margin-left: 18px;
+            }
+          }
+        }
       }
 
       & svg {
         height: 18px;
         margin-left: 15px;
+        vertical-align: text-top;
         fill: ${constants.textColorPrimary};
         transition: ${constants.normalTransition};
 
