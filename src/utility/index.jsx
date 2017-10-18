@@ -575,7 +575,7 @@ export const formatTemplate = (template, dict) => {
 export const getHeroesById = () => {
   const obj = {};
   Object.keys(heroes).forEach((hero) => {
-    obj[hero.name] = hero;
+    obj[heroes[hero].name] = heroes[hero];
   });
   return obj;
 };

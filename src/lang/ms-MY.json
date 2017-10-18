@@ -520,6 +520,7 @@
   "story_building_destroy_player":"{player} memusnahkan {building}",
   "story_building_deny_player":"{player} denie {building}",
   "story_building_list_destroy":"{buildings} telah dimusnahkan",
+  "story_courier_kill":"{team}'s courier was killed",
   "story_tower":"{team}'s Tier {tier} {lane} tower",
   "story_tower_simple":"salah satu tower {team}",
   "story_towers_n":"{n} daripada tower {team}",
