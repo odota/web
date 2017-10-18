@@ -219,8 +219,8 @@ class Table extends React.Component {
                 <MaterialTableRow>
                   {columns.map((column, colIndex) => (
                     <MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
-                      {column.sumValueFn && abbreviateNumber(data.map(column.sumValueFn).reduce(sum, 0))}
-                      {column.sumFn && (column.field !== 'life_state_dead' ?
+                      {column.sumFn && typeof column.sumFn === 'function' && abbreviateNumber(data.map(column.sumFn).reduce(sum, 0))}
+                      {column.sumFn && typeof column.sumFn !== 'function' && (column.field !== 'life_state_dead' ?
                       abbreviateNumber(data.map(row => row[column.field]).reduce(sum, 0))
                       : column.displayFn(null, column, data.map(row => row[column.field]).reduce(sum, 0))
                     )}
