@@ -25,7 +25,7 @@ const CrossTable = ({
     <TableBody displayRowCheckbox={false}>
       <TableRow>
         <TableRowColumn />
-        {match.players.sort((a,b) => {return a.player_slot-b.player_slot}).slice(match.players.length / 2, match.players.length).map((player, i) => (
+        {match.players.sort((a, b) => { return a.player_slot - b.player_slot; }).slice(match.players.length / 2, match.players.length).map((player, i) => (
           <TableRowColumn key={player.hero_id}>
             {heroTd(player, 'hero_id', player.hero_id, i, true)}
           </TableRowColumn>))}
