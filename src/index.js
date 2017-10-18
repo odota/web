@@ -8,8 +8,8 @@ import { getMetadata } from 'actions';
 import App from 'components/App';
 import constants from 'components/constants';
 import { injectGlobal } from 'styled-components';
-// import unregisterServiceWorker from './registerServiceWorker';
-import { unregister } from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
+// import { unregister } from './registerServiceWorker';
 
 // Inject global styles
 injectGlobal([`
@@ -156,5 +156,5 @@ const app = (
     </BrowserRouter>
   </Provider>);
 render(app, reactElement);
-// registerServiceWorker();
-unregister();
+registerServiceWorker();
+// unregister();
