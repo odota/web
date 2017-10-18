@@ -8,12 +8,19 @@ import { getMetadata } from 'actions';
 import App from 'components/App';
 import constants from 'components/constants';
 import { injectGlobal } from 'styled-components';
-// import unregisterServiceWorker from './registerServiceWorker';
-import { unregister } from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
+// import { unregister } from './registerServiceWorker';
 
 // Inject global styles
 injectGlobal([`
 body {
+  background-color: initial;
+  text-align: initial;
+  display: initial;
+  justify-content: initial;
+  align-items: initial;
+  height: initial;
+  width: initial;
   margin: 0;
   font-family: ${constants.fontFamily};
 }
@@ -156,5 +163,5 @@ const app = (
     </BrowserRouter>
   </Provider>);
 render(app, reactElement);
-// registerServiceWorker();
-unregister();
+registerServiceWorker();
+// unregister();
