@@ -104,6 +104,7 @@ const matchPages = [Overview, {
         heading={strings.heading_unit_kills}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        summable
       />
       <TeamTable
         players={match.players}
@@ -111,6 +112,7 @@ const matchPages = [Overview, {
         heading={strings.heading_last_hits}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        summable
       />
       <StyledFlexContainer>
         <StyledFlexElement>
@@ -120,6 +122,7 @@ const matchPages = [Overview, {
             heading={strings.heading_gold_reasons}
             radiantTeam={match.radiant_team}
             direTeam={match.dire_team}
+            summable
           />
         </StyledFlexElement>
         <StyledFlexElement>
@@ -129,6 +132,7 @@ const matchPages = [Overview, {
             heading={strings.heading_xp_reasons}
             radiantTeam={match.radiant_team}
             direTeam={match.dire_team}
+            summable
           />
         </StyledFlexElement>
       </StyledFlexContainer>

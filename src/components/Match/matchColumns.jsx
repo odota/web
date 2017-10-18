@@ -511,6 +511,7 @@ export const lastHitsTimesColumns = (match) => {
       sortFn: row => row.lh_t && row.lh_t[minutes],
       displayFn: row => `${row.lh_t[minutes]} (+${row.lh_t[minutes] - row.lh_t[minutes - (bucket / 60)]})`,
       relativeBars: true,
+      sumValueFn: row => ((row.lh_t) ? row.lh_t[minutes] : 0),
     });
   }
   return cols;
@@ -679,6 +680,7 @@ export const unitKillsColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
+    sumFn: true,
   },
   {
     displayName: strings.th_creeps,
@@ -687,6 +689,7 @@ export const unitKillsColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
+    sumFn: true,
   },
   {
     displayName: strings.th_neutrals,
@@ -695,6 +698,7 @@ export const unitKillsColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
+    sumFn: true,
   },
   {
     displayName: strings.th_ancients,
@@ -703,6 +707,7 @@ export const unitKillsColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
+    sumFn: true,
   },
   {
     displayName: strings.th_towers,
@@ -711,6 +716,7 @@ export const unitKillsColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
+    sumFn: true,
   },
   {
     displayName: strings.th_couriers,
@@ -719,6 +725,7 @@ export const unitKillsColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
+    sumFn: true,
   },
   {
     displayName: strings.th_roshan,
@@ -727,6 +734,7 @@ export const unitKillsColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
+    sumFn: true,
   },
   {
     displayName: strings.th_observers_placed,
@@ -735,6 +743,7 @@ export const unitKillsColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
+    sumFn: true,
   },
   {
     displayName: strings.th_necronomicon,
@@ -743,6 +752,7 @@ export const unitKillsColumns = [
     sortFn: true,
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
+    sumFn: true,
   },
   {
     displayName: strings.th_other,
@@ -838,6 +848,7 @@ export const goldReasonsColumns = [heroTdColumn].concat(Object.keys(strings).fil
   sortFn: row => (row.gold_reasons ? row.gold_reasons[gr.substring('gold_reasons_'.length)] : 0),
   displayFn: (row, column, value) => value || '-',
   relativeBars: true,
+  sumValueFn: row => (row.gold_reasons ? (row.gold_reasons[gr.substring('gold_reasons_'.length)] || 0) : 0),
 })));
 
 export const xpReasonsColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('xp_reasons_') === 0).map(xpr => ({
@@ -846,6 +857,7 @@ export const xpReasonsColumns = [heroTdColumn].concat(Object.keys(strings).filte
   sortFn: row => (row.xp_reasons ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] : 0),
   displayFn: (row, column, value) => value || '-',
   relativeBars: true,
+  sumValueFn: row => (row.xp_reasons ? (row.xp_reasons[xpr.substring('xp_reasons_'.length)] || 0) : 0),
 })));
 
 export const objectiveDamageColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('objective_') === 0).map(obj => ({
