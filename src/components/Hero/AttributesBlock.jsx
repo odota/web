@@ -8,7 +8,6 @@ import AttrIntelligent from 'components/Icons/AttrIntelligent';
 import constants from 'components/constants';
 import Attribute from './Attribute';
 
-const WRAP_WIDTH = '576px';
 
 const AttributesWrapper = styled.div`
   display: flex;
@@ -16,8 +15,7 @@ const AttributesWrapper = styled.div`
   justify-content: space-between;
   height: 100%;
   flex-wrap: wrap;
-
-  `;
+`;
 
 const AttributeBlock = styled.div`
   &:last-child {
