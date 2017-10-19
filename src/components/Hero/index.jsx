@@ -70,7 +70,6 @@ const tabs = heroId => [
     key: 'rankings',
     content: props => (
       <div>
-        <Heading title={strings.tab_rankings} subtitle={strings.rankings_description} />
         <Ranking {...props} />
       </div>
     ),
@@ -81,7 +80,6 @@ const tabs = heroId => [
     key: 'benchmarks',
     content: props => (
       <div>
-        <Heading title={strings.tab_benchmarks} />
         <Disclaimer>{strings.hero_disclaimer_public}</Disclaimer>
         <Benchmark {...props} />
       </div>
@@ -93,7 +91,6 @@ const tabs = heroId => [
     key: 'recent',
     content: props => (
       <div>
-        <Heading title={strings.tab_recent} />
         <Disclaimer>{strings.hero_disclaimer_pro}</Disclaimer>
         <Recent {...props} />
       </div>
@@ -105,7 +102,6 @@ const tabs = heroId => [
     key: 'matchups',
     content: props => (
       <div>
-        <Heading title={strings.tab_matchups} />
         <Disclaimer>{strings.hero_disclaimer_pro}</Disclaimer>
         <Matchups {...props} />
       </div>
@@ -117,7 +113,6 @@ const tabs = heroId => [
     key: 'durations',
     content: props => (
       <div>
-        <Heading title={strings.tab_durations} />
         <Disclaimer>{strings.hero_disclaimer_pro}</Disclaimer>
         <Durations {...props} />
       </div>
