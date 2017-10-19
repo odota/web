@@ -7,6 +7,7 @@ import Table from 'components/Table';
 import { unpackPositionData } from 'utility';
 import { laningColumns } from 'components/Match/matchColumns';
 import { StyledFlexContainer, StyledFlexElement } from '../StyledMatch';
+import * as _ from "lodash";
 
 class Laning extends React.Component {
   constructor(props) {
@@ -20,26 +21,22 @@ class Laning extends React.Component {
     this.setState({ ...this.state, selectedPlayer: playerSlot });
   }
   render() {
-    const { match } = this.props;
+    const players = _.cloneDeep(this.props.match.players);
     return (
       <StyledFlexContainer>
         <StyledFlexElement >
           <Heading title={strings.th_map} />
-          <Heatmap width={400} points={unpackPositionData((match.players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)} />
+          <Heatmap width={400} points={unpackPositionData((players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)} />
         </StyledFlexElement>
         <StyledFlexElement>
           <Heading title={strings.heading_laning} />
           <Table
-            data={match.players}
+            data={players}
             columns={laningColumns(this.state, this.setSelectedPlayer)}
           />
         </StyledFlexElement>
       </StyledFlexContainer>);
   }
 }
-
-Laning.propTypes = {
-  match: PropTypes.shape({}),
-};
 
 export default Laning;
