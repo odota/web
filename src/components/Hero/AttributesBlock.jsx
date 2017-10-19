@@ -12,14 +12,11 @@ const WRAP_WIDTH = '576px';
 
 const AttributesWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   height: 100%;
   flex-wrap: wrap;
 
-  @media (max-width: ${WRAP_WIDTH}) {
-    flex-direction: column;
-  }
   `;
 
 const AttributeBlock = styled.div`
@@ -29,12 +26,7 @@ const AttributeBlock = styled.div`
 
   display: flex;
   flex-direction: column;
-  margin-right: 10px;
-
-
-  @media (max-width: ${WRAP_WIDTH}) {
-    margin-bottom: 10px;
-  }
+  margin-top: 10px;
 `;
 
 const Label = styled.span`

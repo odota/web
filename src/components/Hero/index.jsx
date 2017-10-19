@@ -20,15 +20,23 @@ import Players from './Players';
 
 const getHeroImgSrc = src => process.env.REACT_APP_API_HOST + src;
 
-const StyledImage = styled.img`
-  border: solid 1px rgba(255, 255, 255, 0.3);
-  height: 100%;
-  margin-right: 25px;
+const WRAP_WIDTH = '576px';
+
+const Wrapper = styled.div`
+  display: flex;
+
+  @media (max-width: ${WRAP_WIDTH}) {
+    flex-wrap: wrap;
+  }
 `;
 
-const HeroWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+const StyledImage = styled.img`
+  border: solid 1px rgba(255, 255, 255, 0.3);
+`;
+
+const HeroBlock = styled.div`
+  margin-right: 25px;
+  width: 258px;
 `;
 
 const HeroName = styled.div`
@@ -39,6 +47,7 @@ const HeroName = styled.div`
 const HeroRole = styled.div`
   font-size: 16px;
   color: ${constants.colorMutedLight};
+  word-wrap: break-word;
 `;
 
 const HeroDescription = styled.div`
@@ -47,9 +56,11 @@ const HeroDescription = styled.div`
   flex-grow: 1;
 `;
 
-const Disclaimer = styled.p`
-  color: ${constants.colorMutedLight};
+const TabsBlock = styled.div`
+  width: 100%;
 `;
+
+const Disclaimer = styled.p`color: ${constants.colorMutedLight};`;
 
 const HeroAttackTipe = styled.span`color: ${constants.textColorPrimary};`;
 
@@ -143,9 +154,9 @@ const Hero = (props) => {
 
   const currentTab = tabs(heroId).find(tab => tab.key === route);
   return (
-    <div>
+    <Wrapper>
       <Helmet title={hero.localized_name} />
-      <HeroWrapper>
+      <HeroBlock>
         <StyledImage alt="" src={getHeroImgSrc(hero.img)} />
         <HeroDescription>
           <HeroName>
@@ -156,12 +167,12 @@ const Hero = (props) => {
           </HeroName>
           <AttributesBlock hero={hero} />
         </HeroDescription>
-      </HeroWrapper>
-      <div>
+      </HeroBlock>
+      <TabsBlock>
         <TabBar info={route} tabs={tabs(heroId)} />
         {currentTab ? currentTab.content(props) : null}
-      </div>
-    </div>
+      </TabsBlock>
+    </Wrapper>
   );
 };
 
