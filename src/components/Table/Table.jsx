@@ -9,7 +9,7 @@ import {
 } from 'material-ui/Table';
 import { TablePercent } from 'components/Visualizations';
 import Pagination from 'components/Table/PaginatedTable/Pagination';
-import { abbreviateNumber, sum, SORT_ENUM, defaultSort } from 'utility';
+import { abbreviateNumber, SORT_ENUM, defaultSort } from 'utility';
 import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
@@ -49,6 +49,25 @@ const initialState = {
 };
 
 class Table extends React.Component {
+  static renderSumRow({ columns, data }) {
+    return (
+      <MaterialTableRow>
+        {columns.map((column, colIndex) => {
+            let total = 0;
+            if (column.sumFn) {
+              const sumFn = (typeof column.sumFn === 'function') ? column.sumFn : (acc, row) => (acc + row[column.field]);
+              total = data.reduce(sumFn, null);
+            }
+
+            return (
+              <MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
+                {column.sumFn && ((column.displaySumFn) ? column.displaySumFn(total) : abbreviateNumber(total))}
+              </MaterialTableRowColumn>
+            );
+          })}
+      </MaterialTableRow>
+    );
+  }
   constructor() {
     super();
     this.state = initialState;
@@ -215,17 +234,7 @@ class Table extends React.Component {
                     })}
                   </MaterialTableRow>
                 ))}
-                {summable &&
-                <MaterialTableRow>
-                  {columns.map((column, colIndex) => (
-                    <MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
-                      {column.sumFn && typeof column.sumFn === 'function' && abbreviateNumber(data.map(column.sumFn).reduce(sum, 0))}
-                      {column.sumFn && typeof column.sumFn !== 'function' && (column.field !== 'life_state_dead' ?
-                      abbreviateNumber(data.map(row => row[column.field]).reduce(sum, 0))
-                      : column.displayFn(null, column, data.map(row => row[column.field]).reduce(sum, 0))
-                    )}
-                    </MaterialTableRowColumn>))}
-                </MaterialTableRow>}
+                {summable && Table.renderSumRow({ columns, data })}
               </MaterialTableBody>
             </MaterialTable>
           </div>)}

@@ -511,7 +511,7 @@ export const lastHitsTimesColumns = (match) => {
       sortFn: row => row.lh_t && row.lh_t[minutes],
       displayFn: row => `${row.lh_t[minutes]} (+${row.lh_t[minutes] - row.lh_t[minutes - (bucket / 60)]})`,
       relativeBars: true,
-      sumFn: row => ((row.lh_t) ? row.lh_t[minutes] : 0),
+      sumFn: (acc, row) => (acc + ((row.lh_t && row.lh_t[minutes]) ? row.lh_t[minutes] : 0)),
     });
   }
   return cols;
@@ -563,6 +563,7 @@ export const performanceColumns = [
     displayFn: (row, col, field) => formatSeconds(field) || '-',
     relativeBars: true,
     sumFn: true,
+    displaySumFn: total => formatSeconds(total) || '-',
   },
   {
     displayName: strings.th_buybacks,
@@ -763,6 +764,20 @@ export const unitKillsColumns = [
         <div>
           {Object.keys(field || {}).map((unit, index) => <div key={index}>{`${field[unit]} ${unit}`}</div>)}
         </div>),
+    sumFn: (acc, row) => {
+      const result = (acc != null) ? acc : {};
+
+      Object.keys(row.specific || {}).forEach((unit) => {
+        result[unit] = ((result[unit] ? result[unit] : 0) + row.specific[unit]);
+      });
+
+      return result;
+    },
+    displaySumFn: totals => (
+      <div>
+        {Object.keys(totals || {}).map((unit, index) => <div key={index}>{`${totals[unit]} ${unit}`}</div>)}
+      </div>
+    ),
   },
 ];
 
@@ -848,7 +863,7 @@ export const goldReasonsColumns = [heroTdColumn].concat(Object.keys(strings).fil
   sortFn: row => (row.gold_reasons ? row.gold_reasons[gr.substring('gold_reasons_'.length)] : 0),
   displayFn: (row, column, value) => value || '-',
   relativeBars: true,
-  sumFn: row => (row.gold_reasons ? (row.gold_reasons[gr.substring('gold_reasons_'.length)] || 0) : 0),
+  sumFn: (acc, row) => (acc + (row.gold_reasons ? (row.gold_reasons[gr.substring('gold_reasons_'.length)] || 0) : 0)),
 })));
 
 export const xpReasonsColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('xp_reasons_') === 0).map(xpr => ({
@@ -857,7 +872,7 @@ export const xpReasonsColumns = [heroTdColumn].concat(Object.keys(strings).filte
   sortFn: row => (row.xp_reasons ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] : 0),
   displayFn: (row, column, value) => value || '-',
   relativeBars: true,
-  sumFn: row => (row.xp_reasons ? (row.xp_reasons[xpr.substring('xp_reasons_'.length)] || 0) : 0),
+  sumFn: (acc, row) => (acc + (row.xp_reasons ? (row.xp_reasons[xpr.substring('xp_reasons_'.length)] || 0) : 0)),
 })));
 
 export const objectiveDamageColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('objective_') === 0).map(obj => ({
