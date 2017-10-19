@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import strings from 'lang';
@@ -21,7 +20,7 @@ class Laning extends React.Component {
     this.setState({ ...this.state, selectedPlayer: playerSlot });
   }
   render() {
-    const players = _.cloneDeep(this.props.match.players);
+    const players = [...this.props.match.players];
     return (
       <StyledFlexContainer>
         <StyledFlexElement >
