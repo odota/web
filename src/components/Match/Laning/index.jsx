@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import strings from 'lang';
@@ -7,7 +8,6 @@ import Table from 'components/Table';
 import { unpackPositionData } from 'utility';
 import { laningColumns } from 'components/Match/matchColumns';
 import { StyledFlexContainer, StyledFlexElement } from '../StyledMatch';
-import * as _ from "lodash";
 
 class Laning extends React.Component {
   constructor(props) {
@@ -38,5 +38,11 @@ class Laning extends React.Component {
       </StyledFlexContainer>);
   }
 }
+
+Laning.propTypes = {
+  match: PropTypes.shape({
+    players: PropTypes.shape({}),
+  }),
+};
 
 export default Laning;
