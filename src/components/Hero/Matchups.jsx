@@ -57,7 +57,7 @@ const getMatchupsColumns = (heroes) => {
       displayName: strings.th_advantage,
       relativeBars: true,
       sortFn: true,
-      displayFn: (row, col, field) => `${field}%`,
+      displayFn: (row, col, field) => `${field}`,
     },
   ];
 };
@@ -97,7 +97,7 @@ class Matchups extends React.Component {
       ...item,
       win_rate: Math.max(0, Math.min(100, (item.wins / item.games_played * 100).toFixed(2))),
       advantage: Math.round(wilsonScore(item.wins, item.games_played - item.wins) * 100),
-    }));
+    })).sort((a, b) => b.games_played - a.games_played);
 
     return <Table data={preparedData} columns={getMatchupsColumns(heroes)} />;
   }

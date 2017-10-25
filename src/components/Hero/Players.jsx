@@ -6,12 +6,13 @@ import Spinner from 'components/Spinner';
 import Table, { TableLink } from 'components/Table';
 import strings from 'lang';
 import { wilsonScore } from 'utility';
+import { proPlayersSelector } from 'reducers/selectors';
 
 const playersColumns = [
   {
     field: 'account_id',
     displayName: strings.th_account_id,
-    displayFn: (row, col, field) => <TableLink to={`/players/${field}`}>{field}</TableLink>,
+    displayFn: (row, col, field) => <TableLink to={`/players/${field}`}>{row.name || field}</TableLink>,
   },
   {
     field: 'games_played',
@@ -31,7 +32,7 @@ const playersColumns = [
     displayName: strings.th_advantage,
     relativeBars: true,
     sortFn: true,
-    displayFn: (row, col, field) => `${field}%`,
+    displayFn: (row, col, field) => `${field}`,
   },
 ];
 
@@ -49,6 +50,7 @@ class Players extends React.Component {
       }),
     }),
     onGetHeroPlayers: func,
+    proPlayers: shape({}),
   };
 
   componentDidMount() {
@@ -60,27 +62,36 @@ class Players extends React.Component {
   }
 
   render() {
-    const { data, isLoading } = this.props;
+    const { data, isLoading, proPlayers } = this.props;
 
     if (isLoading) {
       return <Spinner />;
     }
 
     const preparedData = data
-      .map(item => ({
-        ...item,
-        wins: Math.round(item.wins / item.games_played * 100),
-        advantage: Math.round(wilsonScore(item.wins, item.games_played - item.wins) * 100),
-      }))
-      .sort((a, b) => b.advantage - a.advantage);
+      .map((item) => {
+        const wins = Math.round(item.wins / item.games_played * 100);
+        const advantage = Math.round(wilsonScore(item.wins, item.games_played - item.wins) * 100);
+        const proPlayer = proPlayers[item.account_id];
+        const name = proPlayer ? proPlayer.name : undefined;
+
+        return {
+          ...item,
+          wins,
+          advantage,
+          name,
+        };
+      })
+      .sort((a, b) => b.games_played - a.games_played);
 
     return <Table data={preparedData} columns={playersColumns} paginated />;
   }
 }
 
-const mapStateToProps = ({ app }) => ({
-  isLoading: app.heroPlayers.loading,
-  data: Object.values(app.heroPlayers.data),
+const mapStateToProps = state => ({
+  isLoading: state.app.heroPlayers.loading,
+  data: Object.values(state.app.heroPlayers.data),
+  proPlayers: proPlayersSelector(state),
 });
 
 const mapDispatchToProps = {
