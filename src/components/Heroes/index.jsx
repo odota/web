@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import strings from 'lang';
-import { getHeroStats } from 'actions';
+import { getHeroStats, getProPlayers } from 'actions';
 import Heading from 'components/Heading';
 import Table from 'components/Table';
 import TabBar from 'components/TabBar';
@@ -18,6 +18,7 @@ import columns from './columns';
 class RequestLayer extends React.Component {
   componentDidMount() {
     this.props.dispatchHeroStats();
+    this.props.onGetProPlayers();
   }
   render() {
     const route = this.props.match.params.heroId || 'pro';
@@ -116,6 +117,7 @@ class RequestLayer extends React.Component {
 
 RequestLayer.propTypes = {
   dispatchHeroStats: PropTypes.func,
+  onGetProPlayers: PropTypes.func,
   data: PropTypes.oneOfType([
     PropTypes.shape({}),
     PropTypes.arrayOf(PropTypes.shape({})),
@@ -134,8 +136,9 @@ const mapStateToProps = state => ({
   loading: state.app.heroStats.loading,
 });
 
-const mapDispatchToProps = dispatch => ({
-  dispatchHeroStats: () => dispatch(getHeroStats()),
-});
+const mapDispatchToProps = {
+  dispatchHeroStats: getHeroStats,
+  onGetProPlayers: getProPlayers,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

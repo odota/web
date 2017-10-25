@@ -7,6 +7,7 @@ import Spinner from 'components/Spinner';
 import { getHeroRecentGames } from 'actions';
 import strings from 'lang';
 import { transformations } from 'utility';
+import { proPlayersSelector } from 'reducers/selectors';
 
 const matchesColumns = [
   {
@@ -26,7 +27,7 @@ const matchesColumns = [
     field: 'account_id',
     displayFn: (row, col, field) => (
       <div>
-        <TableLink to={`/players/${field}`}>{field}</TableLink>
+        <TableLink to={`/players/${field}`}>{row.name ? row.name : field}</TableLink>
       </div>
     ),
   }, {
@@ -69,18 +70,28 @@ class Recent extends React.Component {
   }
 
   render() {
-    const { isLoading, isError, result } = this.props;
+    const { isLoading, isError, result, proPlayers } = this.props;
 
     if (isError || (result && result.error)) {
       return <ErrorBox />;
     }
+
+    // Merge recent matches with ProPlayer names
+    const mergedResult = result.map(match => {
+      const proPlayer = proPlayers[match.account_id];
+
+      return {
+        name: proPlayer ? proPlayer.name : undefined,
+        ...match,
+      };
+    });
 
     return (
       <div>
         {isLoading || isError || result === null ? (
           <Spinner />
         ) : (
-          <Table data={this.props.result} columns={matchesColumns} paginated />
+          <Table data={mergedResult} columns={matchesColumns} paginated />
         )}
       </div>
     );
@@ -100,6 +111,9 @@ Recent.propTypes = {
       heroId: string,
     }),
   }),
+  proPlayers: shape({
+    name: string,
+  }),
 };
 
 Recent.defaultProps = {
@@ -114,6 +128,7 @@ const mapStateToProps = state => ({
     state.app.heroRecentGames.error ||
     !!state.app.heroRecentGames.data.error,
   result: state.app.heroRecentGames.data,
+  proPlayers: proPlayersSelector(state),
 });
 
 const mapDispatchToProps = {
