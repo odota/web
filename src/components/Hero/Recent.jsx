@@ -17,12 +17,11 @@ const matchesColumns = [
     displayFn: (row, col, field) => (
       <div>
         <TableLink to={`/matches/${field}`}>{field}</TableLink>
-        <span style={{ display: 'block', marginTop: 1 }}>
-          {row.league_name}
-        </span>
+        <span style={{ display: 'block', marginTop: 1 }}>{row.league_name}</span>
       </div>
     ),
-  }, {
+  },
+  {
     displayName: strings.th_account_id,
     field: 'account_id',
     displayFn: (row, col, field) => (
@@ -30,29 +29,34 @@ const matchesColumns = [
         <TableLink to={`/players/${field}`}>{row.name ? row.name : field}</TableLink>
       </div>
     ),
-  }, {
+  },
+  {
     displayName: strings.th_duration,
     tooltip: strings.tooltip_duration,
     field: 'duration',
     sortFn: true,
     displayFn: transformations.duration,
-  }, {
+  },
+  {
     displayName: strings.th_result,
     tooltip: strings.tooltip_result,
     field: 'radiant_win',
     displayFn: transformations.radiant_win,
-  }, {
+  },
+  {
     displayName: strings.th_kills,
     tooltip: strings.tooltip_kills,
     field: 'kills',
     sortFn: true,
     displayFn: transformations.kda,
-  }, {
+  },
+  {
     displayName: strings.th_deaths,
     tooltip: strings.tooltip_deaths,
     field: 'deaths',
     sortFn: true,
-  }, {
+  },
+  {
     displayName: strings.th_assists,
     tooltip: strings.tooltip_assists,
     field: 'assists',
@@ -70,7 +74,9 @@ class Recent extends React.Component {
   }
 
   render() {
-    const { isLoading, isError, result, proPlayers } = this.props;
+    const {
+      isLoading, isError, result, proPlayers,
+    } = this.props;
 
     if (isError || (result && result.error)) {
       return <ErrorBox />;
@@ -101,10 +107,7 @@ class Recent extends React.Component {
 Recent.propTypes = {
   isLoading: bool,
   isError: bool,
-  result: oneOfType([
-    arrayOf(shape({})),
-    shape({}),
-  ]),
+  result: oneOfType([arrayOf(shape({})), shape({})]),
   onGetRecentMatches: func,
   match: shape({
     params: shape({
@@ -124,9 +127,7 @@ Recent.defaultProps = {
 
 const mapStateToProps = state => ({
   isLoading: state.app.heroRecentGames.loading,
-  isError:
-    state.app.heroRecentGames.error ||
-    !!state.app.heroRecentGames.data.error,
+  isError: state.app.heroRecentGames.error || !!state.app.heroRecentGames.data.error,
   result: state.app.heroRecentGames.data,
   proPlayers: proPlayersSelector(state),
 });
