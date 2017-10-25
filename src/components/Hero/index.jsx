@@ -60,8 +60,6 @@ const TabsBlock = styled.div`
   width: 100%;
 `;
 
-const Disclaimer = styled.p`color: ${constants.colorMutedLight};`;
-
 const HeroAttackTipe = styled.span`color: ${constants.textColorPrimary};`;
 
 const tabs = heroId => [
@@ -70,6 +68,7 @@ const tabs = heroId => [
     key: 'rankings',
     content: props => (
       <div>
+        <Heading title={strings.tab_rankings} subtitle={strings.rankings_description} />
         <Ranking {...props} />
       </div>
     ),
@@ -80,7 +79,7 @@ const tabs = heroId => [
     key: 'benchmarks',
     content: props => (
       <div>
-        <Disclaimer>{strings.hero_disclaimer_public}</Disclaimer>
+        <Heading title={strings.tab_benchmarks} subtitle={strings.hero_disclaimer_public} />
         <Benchmark {...props} />
       </div>
     ),
@@ -91,7 +90,7 @@ const tabs = heroId => [
     key: 'recent',
     content: props => (
       <div>
-        <Disclaimer>{strings.hero_disclaimer_pro}</Disclaimer>
+        <Heading title={strings.tab_recent} subtitle={strings.hero_disclaimer_pro} />
         <Recent {...props} />
       </div>
     ),
@@ -102,7 +101,7 @@ const tabs = heroId => [
     key: 'matchups',
     content: props => (
       <div>
-        <Disclaimer>{strings.hero_disclaimer_pro}</Disclaimer>
+        <Heading title={strings.tab_matchups} subtitle={strings.hero_disclaimer_pro} />
         <Matchups {...props} />
       </div>
     ),
@@ -113,7 +112,7 @@ const tabs = heroId => [
     key: 'durations',
     content: props => (
       <div>
-        <Disclaimer>{strings.hero_disclaimer_pro}</Disclaimer>
+        <Heading title={strings.tab_durations} subtitle={strings.hero_disclaimer_pro} />
         <Durations {...props} />
       </div>
     ),
@@ -124,8 +123,7 @@ const tabs = heroId => [
     key: 'players',
     content: props => (
       <div>
-        <Heading title={strings.tab_players} />
-        <Disclaimer>{strings.hero_disclaimer_public}</Disclaimer>
+        <Heading title={strings.tab_players} subtitle={strings.hero_disclaimer_public} />
         <Players {...props} />
       </div>
     ),

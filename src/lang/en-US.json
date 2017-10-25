@@ -1131,7 +1131,7 @@
   "question_continued_normal": "asked",
   "question_continued_laughed": "asked joyfully",
 
-  "hero_disclaimer_pro": "* All data are taken from PRO games",
-  "hero_disclaimer_public": "* All data are taken from public games",
+  "hero_disclaimer_pro": "Data from professional matches",
+  "hero_disclaimer_public": "Data from public matches",
   "hero_duration_x_axis": "Minutes"
 }
