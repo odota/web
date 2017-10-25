@@ -200,7 +200,7 @@ class Table extends React.Component {
 
                         fieldEl = (<TablePercent
                           valEl={valEl}
-                          percent={relativeNegativeBars ? 100 - barPercentValue : barPercentValue }
+                          percent={relativeNegativeBars ? 100 - barPercentValue : barPercentValue}
                           altValue={altValue}
                         />);
                       } else if (displayFn) {
