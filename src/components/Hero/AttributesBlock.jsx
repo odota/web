@@ -34,6 +34,7 @@ const Label = styled.span`
 
 const renderIcon = Icon => <Icon style={{ width: 20, marginRight: 4 }} />;
 
+// Damage multiplier https://dota2.gamepedia.com/Armor#Damage_multiplier
 const calcArmorPercent = hero => Math.round(0.06 * hero / (1 + (0.06 * hero)) * 100);
 
 const HeroAttributes = ({ hero }) => (
