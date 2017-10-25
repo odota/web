@@ -170,7 +170,16 @@ class Table extends React.Component {
                         const altValue = typeof bars === 'function' && percentBarsWithValue ? bars(row) : null;
                         let valEl = null;
                         let barPercentValue = 0;
-                        if (relativeBars || relativeNegativeBars) {
+                        if (relativeNegativeBars) {
+                          const min = getColumnMin(data, field, getValue);
+                          const max = getColumnMax(data, field, getValue);
+
+                          barPercentValue = (1 - ((value - min) / (max - min))) * 100;
+
+                          valEl = displayFn
+                            ? displayFn(row, column, value, index, barPercentValue)
+                            : <span>{value}</span>;
+                        } else if (relativeBars) {
                           // Relative bars calculates the max for the column
                           // and gets the percentage of value/max
                           // TODO masad-frost memoize or something
@@ -200,7 +209,7 @@ class Table extends React.Component {
 
                         fieldEl = (<TablePercent
                           valEl={valEl}
-                          percent={relativeNegativeBars ? 100 - barPercentValue : barPercentValue}
+                          percent={barPercentValue}
                           altValue={altValue}
                         />);
                       } else if (displayFn) {
