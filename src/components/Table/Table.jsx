@@ -142,7 +142,8 @@ class Table extends React.Component {
                   <MaterialTableRow key={index}>
                     {columns.map((column, colIndex) => {
                       const {
-                        field, color, center, displayFn, relativeBars, percentBars, percentBarsWithValue, sortFn,
+                        field, color, center, displayFn, relativeNegativeBars,
+                        relativeBars, percentBars, percentBarsWithValue, sortFn,
                       } = column;
                       const getValue = typeof sortFn === 'function' ? sortFn : null;
                       const value = getValue ? getValue(row) : row[field];
@@ -164,12 +165,12 @@ class Table extends React.Component {
                       }
 
                       let fieldEl = null;
-                      const bars = relativeBars || percentBars || percentBarsWithValue;
+                      const bars = relativeBars || relativeNegativeBars || percentBars || percentBarsWithValue;
                       if (bars) {
                         const altValue = typeof bars === 'function' && percentBarsWithValue ? bars(row) : null;
                         let valEl = null;
                         let barPercentValue = 0;
-                        if (relativeBars) {
+                        if (relativeBars || relativeNegativeBars) {
                           // Relative bars calculates the max for the column
                           // and gets the percentage of value/max
                           // TODO masad-frost memoize or something
@@ -199,7 +200,7 @@ class Table extends React.Component {
 
                         fieldEl = (<TablePercent
                           valEl={valEl}
-                          percent={barPercentValue}
+                          percent={relativeNegativeBars ? 100 - barPercentValue : barPercentValue }
                           altValue={altValue}
                         />);
                       } else if (displayFn) {
