@@ -123,7 +123,7 @@ const tabs = heroId => [
     key: 'players',
     content: props => (
       <div>
-        <Heading title={strings.tab_players} subtitle={strings.hero_disclaimer_public} />
+        <Heading title={strings.tab_players} subtitle={strings.hero_disclaimer_pro} />
         <Players {...props} />
       </div>
     ),
