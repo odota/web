@@ -77,7 +77,7 @@ class Recent extends React.Component {
     }
 
     // Merge recent matches with ProPlayer names
-    const mergedResult = result.map(match => {
+    const mergedResult = result.map((match) => {
       const proPlayer = proPlayers[match.account_id];
 
       return {
