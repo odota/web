@@ -561,7 +561,7 @@ export const performanceColumns = [
     field: 'life_state_dead',
     sortFn: true,
     displayFn: (row, col, field) => formatSeconds(field) || '-',
-    relativeBars: true,
+    relativeNegativeBars: true,
     sumFn: true,
     displaySumFn: total => formatSeconds(total) || '-',
   },
