@@ -5,6 +5,8 @@ import Table from 'components/Table';
 import TeamfightMap from 'components/Match/TeamfightMap';
 import Timeline from 'components/Match/Overview/Timeline';
 import MatchGraph from 'components/Visualizations/Graph/MatchGraph';
+import StackedBarGraph from 'components/Visualizations/Graph/StackedBarGraph';
+import heroes from 'dotaconstants/build/heroes.json';
 import Vision from './Vision';
 import Laning from './Laning';
 import CrossTable from './CrossTable';
@@ -19,8 +21,8 @@ import {
   actionsColumns,
   runesColumns,
   cosmeticsColumns,
-  goldReasonsColumns,
-  xpReasonsColumns,
+  // goldReasonsColumns,
+  // xpReasonsColumns,
   objectiveDamageColumns,
   analysisColumns,
   inflictorsColumns,
@@ -112,26 +114,32 @@ const matchPages = [Overview, {
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
       />
-      <StyledFlexContainer>
-        <StyledFlexElement>
-          <TeamTable
-            players={match.players}
-            columns={goldReasonsColumns}
-            heading={strings.heading_gold_reasons}
-            radiantTeam={match.radiant_team}
-            direTeam={match.dire_team}
-          />
-        </StyledFlexElement>
-        <StyledFlexElement>
-          <TeamTable
-            players={match.players}
-            columns={xpReasonsColumns}
-            heading={strings.heading_xp_reasons}
-            radiantTeam={match.radiant_team}
-            direTeam={match.dire_team}
-          />
-        </StyledFlexElement>
-      </StyledFlexContainer>
+      <StackedBarGraph
+        columns={match.players.map(player => ({ ...player.gold_reasons, name: heroes[player.hero_id] && heroes[player.hero_id].localized_name }))}
+        heading={strings.heading_gold_reasons}
+        type="gold_reasons"
+      />
+      <StackedBarGraph
+        columns={match.players.map(player => ({ ...player.xp_reasons, name: heroes[player.hero_id] && heroes[player.hero_id].localized_name }))}
+        heading={strings.heading_xp_reasons}
+        type="xp_reasons"
+      />
+      {/*
+      <TeamTable
+        players={match.players}
+        columns={goldReasonsColumns}
+        heading={strings.heading_gold_reasons}
+        radiantTeam={match.radiant_team}
+        direTeam={match.dire_team}
+      />
+      <TeamTable
+        players={match.players}
+        columns={xpReasonsColumns}
+        heading={strings.heading_xp_reasons}
+        radiantTeam={match.radiant_team}
+        direTeam={match.dire_team}
+      />
+      */}
     </div>),
 }, {
   name: strings.tab_purchases,
