@@ -106,6 +106,7 @@ const matchPages = [Overview, {
         heading={strings.heading_unit_kills}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        summable
       />
       <TeamTable
         players={match.players}
@@ -113,6 +114,7 @@ const matchPages = [Overview, {
         heading={strings.heading_last_hits}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        summable
       />
       <StackedBarGraph
         columns={match.players.map(player => ({ ...player.gold_reasons, name: heroes[player.hero_id] && heroes[player.hero_id].localized_name }))}
