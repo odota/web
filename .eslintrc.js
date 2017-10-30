@@ -12,6 +12,7 @@ module.exports = {
       },
     },
   },
+  "parser": "babel-eslint",
   "extends": "airbnb",
   "rules": {
     "max-len": ["error", { "code": 180, "ignoreTemplateLiterals": true, "ignoreStrings": true }],

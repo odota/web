@@ -11,6 +11,7 @@ import {
 } from 'recharts';
 import Heading from 'components/Heading';
 import strings from 'lang';
+import constants from 'components/constants';
 import { StyledHolder } from './Styled';
 
 const category10 = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'];
@@ -43,7 +44,10 @@ const StackedBarGraph = ({
             strokeWidth={1}
             opacity={0.5}
           />
-          <Tooltip wrapperStyle={{ background: '#000' }} />
+          <Tooltip
+            cursor={{ opacity: '0.06' }}
+            wrapperStyle={{ backgroundColor: constants.darkPrimaryColor, border: 'none' }}
+          />
           {Object.keys(strings).filter(str => str.indexOf(`${type}_`) === 0).map((gr, i) => (
             <Bar
               dataKey={gr.substring(`${type}_`.length)}
