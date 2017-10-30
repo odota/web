@@ -195,6 +195,15 @@ class TableFilterForm extends React.Component {
               strict
               limit={1}
             />
+            <FormField
+              name="games_played"
+              label={strings.filter_with_games_played}
+              dataSource={data.gamesPlayedList}
+              formSelectionState={formSelectionState}
+              history={history}
+              strict
+              limit={1}
+            />
           </div>
         </div>
       </Styled>

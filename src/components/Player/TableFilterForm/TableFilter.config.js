@@ -72,3 +72,13 @@ export const significantList = [{
   text: strings.filter_significant_include,
   value: 0,
 }];
+export const gamesPlayedList = [{
+  text: strings.filter_gamesplayed_5,
+  value: 5,
+}, {
+  text: strings.filter_gamesplayed_10,
+  value: 10,
+}, {
+  text: strings.filter_gamesplayed_15,
+  value: 15,
+}];
