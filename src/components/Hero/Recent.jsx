@@ -1,6 +1,7 @@
 import React from 'react';
 import { arrayOf, shape, bool, func, string, oneOfType } from 'prop-types';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import Table, { TableLink } from 'components/Table';
 import ErrorBox from 'components/Error/ErrorBox';
 import Spinner from 'components/Spinner';
@@ -8,6 +9,13 @@ import { getHeroRecentGames } from 'actions';
 import strings from 'lang';
 import { transformations } from 'utility';
 import { proPlayersSelector } from 'reducers/selectors';
+import constants from 'components/constants';
+
+const LeagueName = styled.span`
+  color: ${constants.colorMutedLight};
+  display: block;
+  margin-top: 1;
+`;
 
 const matchesColumns = [
   {
@@ -17,7 +25,7 @@ const matchesColumns = [
     displayFn: (row, col, field) => (
       <div>
         <TableLink to={`/matches/${field}`}>{field}</TableLink>
-        <span style={{ display: 'block', marginTop: 1 }}>{row.league_name}</span>
+        <LeagueName>{row.league_name}</LeagueName>
       </div>
     ),
   },
