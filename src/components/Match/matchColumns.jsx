@@ -561,6 +561,7 @@ export const performanceColumns = [
     sortFn: true,
     displayFn: (row, col, field) => formatSeconds(field) || '-',
     relativeBars: true,
+    inverseRelativeBars: true,
     sumFn: true,
   },
   {

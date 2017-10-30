@@ -4,7 +4,9 @@ import { gradient } from 'abcolor';
 import { StyledContainer, PercentContainer, TitleContainer } from './Styled';
 import constants from '../../constants';
 
-const Percent = ({ percent, altValue, valEl }) => (
+const Percent = ({
+  percent, altValue, valEl, inverse = false,
+}) => (
   <StyledContainer>
     <TitleContainer>
       {valEl || percent} {altValue && <small>{altValue}</small>}
@@ -15,8 +17,8 @@ const Percent = ({ percent, altValue, valEl }) => (
           width: `${percent}%`,
           backgroundColor: gradient(percent, {
             css: true,
-            from: constants.colorRed,
-            to: constants.colorGreen,
+            from: inverse ? constants.colorGreen : constants.colorRed,
+            to: inverse ? constants.colorRed : constants.colorGreen,
           }),
         }}
       />
@@ -29,16 +31,10 @@ const {
 } = PropTypes;
 
 Percent.propTypes = {
-  percent: oneOfType([
-    number,
-    bool,
-  ]),
-  altValue: oneOfType([
-    string,
-    number,
-    bool,
-  ]),
+  percent: oneOfType([number, bool]),
+  altValue: oneOfType([string, number, bool]),
   valEl: node,
+  inverse: bool,
 };
 
 export default Percent;
