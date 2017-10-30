@@ -25,7 +25,7 @@ const playersColumns = [
     displayName: strings.th_win,
     relativeBars: true,
     sortFn: true,
-    displayFn: (row, col, field) => `${field}%`,
+    displayFn: (row, col, field) => `${field}`,
   },
   {
     field: 'advantage',
@@ -70,7 +70,7 @@ class Players extends React.Component {
 
     const preparedData = data
       .map((item) => {
-        const wins = Math.round(item.wins / item.games_played * 100);
+        const wins = Math.max(0, Math.min(100, (item.wins / item.games_played * 100).toFixed(2)));
         const advantage = Math.round(wilsonScore(item.wins, item.games_played - item.wins) * 100);
         const proPlayer = proPlayers[item.account_id];
         const name = proPlayer ? proPlayer.name : undefined;
