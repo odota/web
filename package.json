@@ -42,7 +42,7 @@
     "react-markdown": "^2.5.0",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.2",
-    "react-scripts": "1.0.14",
+    "react-scripts": "1.0.15",
     "react-style-proptype": "^3.0.0",
     "react-tooltip": "^3.3.0",
     "recharts": "^1.0.0-apha.5",
