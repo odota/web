@@ -911,6 +911,7 @@
   "tooltip_others_tracked_deaths": "tracked deaths",
   "tooltip_others_track_gold": "gold earned from Track",
   "tooltip_others_greevils_gold": "gold earned from Greevil's Greed",
+  "tooltip_advantage": "Calculated by Wilson score",
 
   "histograms_name": "Histograms",
   "histograms_description": "Percentages indicate win rates for the labeled bin",

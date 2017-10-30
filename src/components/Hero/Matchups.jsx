@@ -53,6 +53,7 @@ const getMatchupsColumns = (heroes) => {
       sortFn: true,
     },
     {
+      tooltip: strings.tooltip_advantage,
       field: 'advantage',
       displayName: strings.th_advantage,
       relativeBars: true,
