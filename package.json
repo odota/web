@@ -7,6 +7,7 @@
     "start": "cross-env NODE_PATH=src react-scripts start",
     "build": "npm install && npm run lintnofix && npm run rsbuild",
     "rsbuild": "cross-env NODE_PATH=src react-scripts build",
+    "snapshot": "react-snap",
     "test": "cross-env NODE_PATH=src react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer build/static/js/main.* --html > analyze.html",
@@ -66,6 +67,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
     "fs-extra": "^4.0.2",
+    "react-snap": "^0.7.3",
     "simple-vdf": "^1.1.0"
   }
 }
