@@ -130,6 +130,8 @@ class Table extends React.Component {
       data = defaultSort(data, sortState, sortField, sortFn);
     }
     if (paginated) {
+      let filter_gamesplayed_amount = (FILTER.AMOUNTHERE) || 0;
+      data = data.filter( hero => hero.games > filter_gamesplayed_amount );
       data = data.slice(currentPage * pageLength, (currentPage + 1) * pageLength);
     }
     return (
