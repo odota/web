@@ -156,7 +156,7 @@ export default function analyzeMatch(match, _pm) {
     },
     // unused item actives (multiple results?)
     unused_item(m, pm) {
-      whitelistUnusedActiveItems = [
+      const whitelistUnusedActiveItems = [
         'quelling_blade',
         'faerie_fire',
         'enchanted_mango',
@@ -165,8 +165,8 @@ export default function analyzeMatch(match, _pm) {
         'sphere',
         'butterfly',
         'bfury',
-        'ring_of_aquila'
-      ]
+        'ring_of_aquila',
+      ];
       function getGroupedItemUses(key) {
         let total = 0;
         Object.keys(pm.item_uses).forEach((key2) => {
