@@ -182,7 +182,7 @@ export default function analyzeMatch(match, _pm) {
           if (pm.purchase[key] && getGroupedItemUses(key) < 1 && items[key] && isActiveItem(key)) {
             // if item has cooldown, consider it usable
             // if item is purchased shortly before game end, ignore it
-            if (m.duration - pm.purchase[key].time < 1) {
+            if (m.duration - pm.purchase[key].time < 60) {
               if (whitelistUnusedActiveItems.includes(key)) {
                 result.push(key);
               }
