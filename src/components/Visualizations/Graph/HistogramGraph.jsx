@@ -9,7 +9,8 @@ import {
   BarChart,
   CartesianGrid,
   Label,
-  Cell, ResponsiveContainer,
+  Cell,
+  ResponsiveContainer,
 } from 'recharts';
 import strings from 'lang';
 import { StyledTooltip } from './Styled';
