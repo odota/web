@@ -14,7 +14,7 @@
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx",
     "update:emoticons": "npm r dota2-emoticons && npm i dota2-emoticons && node dev/updateEmoticons.js",
-    "storybook": "NODE_PATH=src start-storybook -p 9009 -s public",
+    "storybook": "cross-env NODE_PATH=src start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
   },
   "greenkeeper": {
@@ -49,6 +49,7 @@
     "redux": "^3.7.2",
     "redux-responsive": "^4.3.4",
     "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1",
     "seamless-immutable": "^7.1.2",
     "styled-components": "^2.2.3",
     "uuid": "^3.1.0",

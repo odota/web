@@ -80,7 +80,7 @@ LogoGroup.propTypes = {
 const LinkGroup = () => (
   <VerticalAlignToolbar>
     {navbarPages.map(Page => (
-      <TabContainer key={Page.name}>
+      <TabContainer key={Page.key}>
         <div style={{ margin: '0 10px', textAlign: 'center', fontWeight: `${constants.fontWeightNormal} !important` }}>
           {Page}
         </div>
