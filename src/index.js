@@ -8,8 +8,8 @@ import { getMetadata } from 'actions';
 import App from 'components/App';
 import constants from 'components/constants';
 import { injectGlobal } from 'styled-components';
-import registerServiceWorker from './registerServiceWorker';
-// import { unregister } from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
+import { unregister } from './registerServiceWorker';
 
 // Inject global styles
 injectGlobal([`
@@ -167,6 +167,6 @@ if (rootElement.hasChildNodes()) {
 } else {
   hydrate(app, rootElement);
 }
-registerServiceWorker();
-// unregister();
+// registerServiceWorker();
+unregister();
 // document.getElementById('loader').style.display = 'none';
