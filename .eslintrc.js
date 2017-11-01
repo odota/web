@@ -21,7 +21,10 @@ module.exports = {
     }],
     "no-shadow": 1,
     "import/named": ["error"],
-    "jsx-a11y/anchor-is-valid" : 1,
+    "jsx-a11y/anchor-is-valid": ["warn", {
+      "components": ["Link"],
+      "specialLink": ["to"],
+    }],
     "react/no-array-index-key": 1,
     "react/require-default-props": 0,
     'import/no-extraneous-dependencies': [
