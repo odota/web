@@ -297,6 +297,10 @@ const MatchHeader = ({ match, user, loading }) => {
                 {strings[`region_${match.region}`]}
               </li>
               <li>
+                <span>{strings.th_skill}</span>
+                {(match.skill) ? strings[`skill_${match.skill}`] : strings.general_unknown}
+              </li>
+              <li>
                 <span>{strings.match_avg_mmr}</span>
                 {(mmrPlayers.length) ? (mmrPlayers.reduce(sum, 0) / mmrPlayers.length).toFixed(0) : strings.general_unknown}
               </li>
