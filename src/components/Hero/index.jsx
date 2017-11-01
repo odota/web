@@ -141,7 +141,7 @@ const Hero = (props) => {
   }
 
   if (!hero) {
-    const errorText = `Hero id${heroId} not found...`;
+    const errorText = `Hero ${heroId} not found...`;
     return <ErrorBox text={errorText} />;
   }
 
