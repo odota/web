@@ -50,6 +50,9 @@ export default () => (
       <a href="http://www.vpgame.com/" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/vp-logo.png" alt="" />
       </a>
+      <a href="http://www.openai.com/" target="_blank" rel="noopener noreferrer">
+        <img src="/assets/images/openai-logo.png" alt="" />
+      </a>
     </div>
     <ButtonsDiv>
       <FlatButton

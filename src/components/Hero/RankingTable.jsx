@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { shape, oneOfType, arrayOf } from 'prop-types';
 import Table from 'components/Table';
 import strings from 'lang';
 import { transformations, getOrdinal } from 'utility';
@@ -26,7 +26,10 @@ const RankingTable = ({
 }) => (<Table data={rankings} columns={rankingColumns} />);
 
 RankingTable.propTypes = {
-  rankings: PropTypes.shape({}),
+  rankings: oneOfType([
+    arrayOf(shape({})),
+    shape({}),
+  ]),
 };
 
 export default RankingTable;

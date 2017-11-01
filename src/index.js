@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import { render } from 'react-dom';
+import { hydrate, render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Route, BrowserRouter } from 'react-router-dom';
 import store from 'store';
@@ -8,12 +8,19 @@ import { getMetadata } from 'actions';
 import App from 'components/App';
 import constants from 'components/constants';
 import { injectGlobal } from 'styled-components';
-// import unregisterServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 import { unregister } from './registerServiceWorker';
 
 // Inject global styles
 injectGlobal([`
 body {
+  background-color: initial;
+  text-align: initial;
+  display: initial;
+  justify-content: initial;
+  align-items: initial;
+  height: initial;
+  width: initial;
   margin: 0;
   font-family: ${constants.fontFamily};
 }
@@ -32,7 +39,7 @@ li {
   list-style-type: none;
 }
 
-#react {
+#root {
   height: 100%;
   overflow-x: hidden;
   min-height: 100vh;
@@ -148,13 +155,18 @@ li {
 // Fetch metadata (used on all pages)
 store.dispatch(getMetadata());
 
-const reactElement = document.getElementById('react');
+const rootElement = document.getElementById('root');
 const app = (
   <Provider store={store}>
     <BrowserRouter>
       <Route component={App} />
     </BrowserRouter>
   </Provider>);
-render(app, reactElement);
+if (rootElement.hasChildNodes()) {
+  render(app, rootElement);
+} else {
+  hydrate(app, rootElement);
+}
 // registerServiceWorker();
 unregister();
+// document.getElementById('loader').style.display = 'none';

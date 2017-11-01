@@ -1,3 +1,12 @@
 import React from 'react';
+import { string } from 'prop-types';
 
-export default () => <div>Whoops! Something went wrong.</div>;
+const Error = props => (
+  <div>Whoops! Something went wrong. {props.text ? props.text : ''}</div>
+);
+
+Error.propTypes = {
+  text: string,
+};
+
+export default Error;
