@@ -93,7 +93,7 @@ const matchTabs = [{
   key: 'pro',
   content: propsPar => (
     <div>
-      <Table data={propsPar.proData} columns={matchesColumns} />
+      <Table data={propsPar.proData} columns={matchesColumns} loading={propsPar.loading} />
     </div>),
   route: '/matches/pro',
 }, {
@@ -101,7 +101,7 @@ const matchTabs = [{
   key: 'highMmr',
   content: propsPar => (
     <div>
-      <Table data={propsPar.publicData} columns={publicMatchesColumns} />
+      <Table data={propsPar.publicData} columns={publicMatchesColumns} loading={propsPar.loading} />
     </div>),
   route: '/matches/highMmr',
 }, {
@@ -109,7 +109,7 @@ const matchTabs = [{
   key: 'lowMmr',
   content: propsPar => (
     <div>
-      <Table data={propsPar.publicData} columns={publicMatchesColumns} />
+      <Table data={propsPar.publicData} columns={publicMatchesColumns} loading={propsPar.loading} />
     </div>),
   route: '/matches/lowMmr',
 }];

@@ -70,7 +70,7 @@ class RequestLayer extends React.Component {
     const heroTabs = [{
       name: strings.hero_pro_tab,
       key: 'pro',
-      content: (data, _columns) => (
+      content: (data, _columns, loading) => (
         <div>
           <Heading
             title={strings.hero_pro_heading}
@@ -78,13 +78,13 @@ class RequestLayer extends React.Component {
             icon=""
             twoLine
           />
-          <Table data={data} columns={_columns} />
+          <Table data={data} columns={_columns} loading={loading} />
         </div>),
       route: '/heroes/pro',
     }, {
       name: strings.hero_public_tab,
       key: 'public',
-      content: (data, _columns) => (
+      content: (data, _columns, loading) => (
         <div>
           <Heading
             title={strings.hero_public_heading}
@@ -92,7 +92,7 @@ class RequestLayer extends React.Component {
             icon=""
             twoLine
           />
-          <Table data={data} columns={_columns} />
+          <Table data={data} columns={_columns} loading={loading} />
         </div>),
       route: '/heroes/public',
     }];
@@ -103,14 +103,13 @@ class RequestLayer extends React.Component {
     return (
       <div>
         <Helmet title={strings.header_heroes} />
-        {!loading &&
         <div>
           <TabBar
             info={route}
             tabs={heroTabs}
           />
-          {tab && tab.content(processedData, columns[route])}
-        </div>}
+          {tab && tab.content(processedData, columns[route], loading)}
+        </div>
       </div>);
   }
 }
