@@ -156,6 +156,17 @@ export default function analyzeMatch(match, _pm) {
     },
     // unused item actives (multiple results?)
     unused_item(m, pm) {
+      const whitelistUnusedActiveItems = [
+        'quelling_blade',
+        'faerie_fire',
+        'enchanted_mango',
+        'power_treads',
+        'ring_of_basilius',
+        'sphere',
+        'butterfly',
+        'bfury',
+        'ring_of_aquila',
+      ];
       function getGroupedItemUses(key) {
         let total = 0;
         Object.keys(pm.item_uses).forEach((key2) => {
@@ -170,7 +181,12 @@ export default function analyzeMatch(match, _pm) {
         Object.keys(pm.purchase).forEach((key) => {
           if (pm.purchase[key] && getGroupedItemUses(key) < 1 && items[key] && isActiveItem(key)) {
             // if item has cooldown, consider it usable
-            result.push(key);
+            // if item is purchased shortly before game end, ignore it
+            if (m.duration - pm.purchase[key].time < 60) {
+              if (whitelistUnusedActiveItems.includes(key)) {
+                result.push(key);
+              }
+            }
           }
         });
       }
