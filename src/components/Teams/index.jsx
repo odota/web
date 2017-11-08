@@ -45,11 +45,12 @@ class RequestLayer extends React.Component {
     this.props.dispatchTeams();
   }
   render() {
+    const { loading } = this.props;
     return (
       <div>
         <Helmet title={strings.header_teams} />
         <Heading title={strings.heading_team_elo_rankings} subtitle={strings.subheading_team_elo_rankings} />
-        <Table columns={columns} data={this.props.data.slice(0, 100)} />
+        <Table columns={columns} data={this.props.data.slice(0, 100)} loading={loading} />
       </div>);
   }
 }
@@ -57,6 +58,7 @@ class RequestLayer extends React.Component {
 RequestLayer.propTypes = {
   dispatchTeams: PropTypes.string,
   data: PropTypes.string,
+  loading: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
