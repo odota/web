@@ -24,17 +24,13 @@ const isPre682 = unixDate => unixDate < 1411621200;
 const getUrl = (startTime) => {
   if (startTime === null || is707(startTime)) {
     return '/assets/images/dota2/map/detailed_707.png';
-  }
-  else if (startTime === null || is700(startTime)) {
+  } else if (startTime === null || is700(startTime)) {
     return '/assets/images/dota2/map/detailed_700.png';
-  }
-  else if (startTime === null || is686(startTime)) {
+  } else if (startTime === null || is686(startTime)) {
     return '/assets/images/dota2/map/detailed_686.png';
-  }
-  else if (startTime === null || is682(startTime)) {
+  } else if (startTime === null || is682(startTime)) {
     return '/assets/images/dota2/map/detailed_682.png';
-  }
-  else if (startTime === null || isPre682(startTime)) {
+  } else if (startTime === null || isPre682(startTime)) {
     return '/assets/images/dota2/map/detailed_pre682.png';
   }
   return '/assets/images/dota2/map/detailed.png';
