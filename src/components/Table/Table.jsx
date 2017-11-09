@@ -127,7 +127,7 @@ class Table extends React.Component {
       data = data.slice(0, maxRows);
     }
     if (sortField) {
-      data = defaultSort(data, sortState, sortField, sortFn);
+      data = defaultSort(data.slice(0), sortState, sortField, sortFn);
     }
     if (paginated) {
       data = data.slice(currentPage * pageLength, (currentPage + 1) * pageLength);
