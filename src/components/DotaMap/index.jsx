@@ -18,18 +18,17 @@ const dotaMaps = [
   { patchName: '6.70', mapImage: '/assets/images/dota2/map/detailed_pre682.png' },
 ];
 
-const defaultMap = '/assets/images/dota2/map/detailed.png';
-
 const patchDate = {};
 patch.forEach((patchElement) => {
   patchDate[patchElement.name] = new Date(patchElement.date).getTime() / 1000;
 });
 
 const getUrl = (startTime) => {
+  if (startTime == null) return dotaMaps[0];
   for (let i = 0; i < dotaMaps.length; i += 1) {
     if (startTime >= patchDate[dotaMaps[i].patchName]) return dotaMaps[i].mapImage;
   }
-  return defaultMap;
+  return dotaMaps[0];
 };
 
 const MapContainer = styled.div`
