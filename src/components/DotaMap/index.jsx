@@ -24,11 +24,11 @@ patch.forEach((patchElement) => {
 });
 
 const getUrl = (startTime) => {
-  if (startTime == null) return dotaMaps[0];
+  if (startTime == null) return dotaMaps[0].mapImage;
   for (let i = 0; i < dotaMaps.length; i += 1) {
     if (startTime >= patchDate[dotaMaps[i].patchName]) return dotaMaps[i].mapImage;
   }
-  return dotaMaps[0];
+  return dotaMaps[0].mapImage;
 };
 
 const MapContainer = styled.div`
