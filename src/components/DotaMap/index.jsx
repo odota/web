@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import patch from 'dotaconstants/build/patch.json';
 
 const setMapSizeStyle = (width, maxWidth) => ({
   width,
@@ -9,31 +10,26 @@ const setMapSizeStyle = (width, maxWidth) => ({
   maxHeight: maxWidth,
 });
 
-// 10/31/2017 @ 5:00pm (UTC) - patch 7.07
-const is707 = unixDate => unixDate > 1509426000;
-// 12/13/2016 @ 5:00pm (UTC) - patch 7.00
-const is700 = unixDate => unixDate > 1481648400 && unixDate < 1509426000;
-// 12/16/2015 @ 5:00pm (UTC) - patch 6.86
-const is686 = unixDate => unixDate > 1450242000 && unixDate < 1481648400;
-// 09/25/2014 @ 5:00pm (UTC) - patch 6.82
-const is682 = unixDate => unixDate > 1411621200 && unixDate < 1450242000;
-// Before 09/25/2014 @ 5:00pm (UTC) - pre patch 6.82
-const isPre682 = unixDate => unixDate < 1411621200;
+const dotaMaps = [
+  { patchName: '7.07', mapImage: '/assets/images/dota2/map/detailed_707.png' },
+  { patchName: '7.00', mapImage: '/assets/images/dota2/map/detailed_700.png' },
+  { patchName: '6.86', mapImage: '/assets/images/dota2/map/detailed_686.png' },
+  { patchName: '6.82', mapImage: '/assets/images/dota2/map/detailed_682.png' },
+  { patchName: '6.70', mapImage: '/assets/images/dota2/map/detailed_pre682.png' },
+];
 
-// TODO make this a generic function that can determine which of multiple maps to use
+const defaultMap = '/assets/images/dota2/map/detailed.png';
+
+const patchDate = {};
+patch.forEach((patchElement) => {
+  patchDate[patchElement.name] = new Date(patchElement.date).getTime() / 1000;
+});
+
 const getUrl = (startTime) => {
-  if (startTime === null || is707(startTime)) {
-    return '/assets/images/dota2/map/detailed_707.png';
-  } else if (startTime === null || is700(startTime)) {
-    return '/assets/images/dota2/map/detailed_700.png';
-  } else if (startTime === null || is686(startTime)) {
-    return '/assets/images/dota2/map/detailed_686.png';
-  } else if (startTime === null || is682(startTime)) {
-    return '/assets/images/dota2/map/detailed_682.png';
-  } else if (startTime === null || isPre682(startTime)) {
-    return '/assets/images/dota2/map/detailed_pre682.png';
+  for (let i = 0; i < dotaMaps.length; i += 1) {
+    if (startTime >= patchDate[dotaMaps[i].patchName]) return dotaMaps[i].mapImage;
   }
-  return '/assets/images/dota2/map/detailed.png';
+  return defaultMap;
 };
 
 const MapContainer = styled.div`
