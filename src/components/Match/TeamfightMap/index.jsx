@@ -520,45 +520,45 @@ const {
   arrayOf, object, shape, number, bool, func, string, array,
 } = PropTypes;
 const positionShape = {
-  x: number.isRequired,
-  y: number.isRequired,
+  x: number,
+  y: number,
 };
 
 TeamfightIcon.propTypes = {
-  position: shape(positionShape).isRequired,
-  tooltipKey: string.isRequired,
+  position: shape(positionShape),
+  tooltipKey: string,
   mapWidth: number,
   onClick: func, // not required because tombstone doesn't need click fn
-  Icon: func.isRequired,
+  Icon: func,
   style: stylePropType,
 };
 
 GoldDelta.propTypes = {
-  radiantGoldDelta: number.isRequired,
+  radiantGoldDelta: number,
 };
 
 Tombstones.propTypes = {
-  tooltipKey: string.isRequired,
-  mapWidth: number.isRequired,
-  deathPositions: arrayOf(array).isRequired,
+  tooltipKey: string,
+  mapWidth: number,
+  deathPositions: arrayOf(array),
 };
 
 Teamfight.propTypes = {
   position: shape(positionShape),
-  tooltipKey: string.isRequired,
-  start: number.isRequired,
-  end: number.isRequired,
-  radiantGoldDelta: number.isRequired,
+  tooltipKey: string,
+  start: number,
+  end: number,
+  radiantGoldDelta: number,
   selected: bool,
   hovered: bool,
-  mapWidth: number.isRequired,
-  onClick: func.isRequired,
-  deathPositions: arrayOf(array).isRequired,
+  mapWidth: number,
+  onClick: func,
+  deathPositions: arrayOf(array),
 };
 
 TeamfightMap.propTypes = {
-  teamfights: arrayOf(object).isRequired,
-  match: shape({}).isRequired,
+  teamfights: arrayOf(object),
+  match: shape({}),
 };
 
 export default TeamfightMap;

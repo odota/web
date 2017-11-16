@@ -93,17 +93,19 @@ const getPages = ({ currentPage, numPages, setCurrentPage }) => {
   const start = Math.min(targetStart, minStart);
   const end = Math.max(targetEnd, minEnd);
   for (let i = start; i <= end; i += 1) {
-    pages.push(i === currentPage ? <StyledCurrentPage
-      key={i}
-      onClick={i === currentPage ? () => {} : () => setCurrentPage(i)}
-    >
-      {i + 1}
-    </StyledCurrentPage> : <StyledPage
-      key={i}
-      onClick={i === currentPage ? () => {} : () => setCurrentPage(i)}
-    >
-      {i + 1}
-    </StyledPage>);
+    pages.push(i === currentPage ?
+      <StyledCurrentPage
+        key={i}
+        onClick={i === currentPage ? () => {} : () => setCurrentPage(i)}
+      >
+        {i + 1}
+      </StyledCurrentPage> :
+      <StyledPage
+        key={i}
+        onClick={i === currentPage ? () => {} : () => setCurrentPage(i)}
+      >
+        {i + 1}
+      </StyledPage>);
   }
   return pages;
 };

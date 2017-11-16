@@ -6,7 +6,7 @@ OpenDota UI: A web interface for viewing Dota 2 data. This utilizes the [OpenDot
 
 Quickstart
 ----
-* Install Node.js (6.0.0 or greater) (on Ubuntu, `curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && sudo apt-get install -y nodejs`)
+* Install Node.js (6.0.0 or greater) (on Ubuntu, `curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && sudo apt-get install -y nodejs`)
 * `npm install`
 * `npm start`
 * Visit port 3000 on your development machine.

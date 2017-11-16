@@ -167,8 +167,13 @@ export const StyledBackpack = styled.div`
 `;
 export const StyledFlexContainer = styled.div`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   overflow: auto;
+
+  @media only screen and (min-width: 800px) {
+    flex-direction: row;
+  }
 `;
 export const StyledFlexElement = styled.div`
   flex: 1;
@@ -242,6 +247,7 @@ export const StyledStoryNetWorthBar = styled.div`
 }
 `;
 export const StyledStoryNetWorthText = styled.div`
+  position: relative;
   display: flex;
   text-align: center;
   ${props => (props.color ? `background-color:${props.color}` : '')};
@@ -255,6 +261,10 @@ export const StyledStoryNetWorthText = styled.div`
   > div:nth-child(2) {
     position: absolute;
     transform: translateX(-50%);
+
+    @media only screen and (max-width: 768px) {
+      display: none;
+    }
   }
 `;
 export const StyledLogFilterForm = styled.div`

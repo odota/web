@@ -34,9 +34,14 @@ const fields = ['duration', 'kills', 'deaths', 'assists', 'gold_per_min', 'xp_pe
 const tabs = fields.map(field => ({
   name: strings[`th_${field}`],
   key: field,
-  content: propsPar => (<Container>
-    <Table data={propsPar.data.map((element, index) => ({ ...element, rank: index + 1 }))} columns={matchesColumns(field)} />
-  </Container>),
+  content: propsPar => (
+    <Container>
+      <Table
+        data={propsPar.data.map((element, index) => ({ ...element, rank: index + 1 }))}
+        columns={matchesColumns(field)}
+        loading={propsPar.loading}
+      />
+    </Container>),
   route: `/records/${field}`,
 }));
 
@@ -59,17 +64,18 @@ class RequestLayer extends React.Component {
     const route = this.props.match.params.info || 'duration';
 
     const tab = tabs.find(_tab => _tab.key === route);
-    return (<div>
-      <Helmet title={strings.heading_records} />
+    return (
       <div>
-        <Heading title={strings.heading_records} subtitle={strings.subheading_records} />
-        <TabBar
-          info={route}
-          tabs={tabs}
-        />
-        {tab && tab.content(this.props)}
-      </div>
-    </div>);
+        <Helmet title={strings.heading_records} />
+        <div>
+          <Heading title={strings.heading_records} subtitle={strings.subheading_records} />
+          <TabBar
+            info={route}
+            tabs={tabs}
+          />
+          {tab && tab.content(this.props)}
+        </div>
+      </div>);
   }
 }
 

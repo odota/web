@@ -12,10 +12,11 @@ const extract = item => `${item.name}${item.team_name}`;
 
 const Search = ({
   data, pros, query, ...rest
-}) => (<div>
-  <Helmet title={`${query} - ${strings.title_search}`} />
-  <SearchResult {...rest} players={data || []} pros={pros || []} />
-</div>
+}) => (
+  <div>
+    <Helmet title={`${query} - ${strings.title_search}`} />
+    <SearchResult {...rest} players={data || []} pros={pros || []} />
+  </div>
 );
 
 Search.propTypes = {

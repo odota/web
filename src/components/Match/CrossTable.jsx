@@ -35,29 +35,31 @@ const CrossTable = ({
           </div>
         </TableRowColumn>
       </TableRow>
-      {match.players.slice(0, match.players.length / 2).map((player, i) => (<TableRow key={player.hero_id}>
-        <TableRowColumn>{heroTd(player, 'hero_id', player.hero_id, i, true)}</TableRowColumn>
-        {match.players.slice(match.players.length / 2, match.players.length).map((player2) => {
+      {match.players.slice(0, match.players.length / 2).map((player, i) => (
+        <TableRow key={player.hero_id}>
+          <TableRowColumn>{heroTd(player, 'hero_id', player.hero_id, i, true)}</TableRowColumn>
+          {match.players.slice(match.players.length / 2, match.players.length).map((player2) => {
           const hero1 = heroes[player.hero_id] || {};
           const hero2 = heroes[player2.hero_id] || {};
           const pfield1 = player[field1] || {};
           const pfield2 = player[field2] || {};
           const pvalue1 = pfield1[hero2.name] || 0;
           const pvalue2 = pfield2[hero2.name] || 0;
-          return (<TableRowColumn key={player2.hero_id}>
-            <div data-tip data-for={`${field1}_${field2}_${player.player_slot}_${player2.player_slot}`}>
-              <span style={{ color: pvalue1 > pvalue2 ? constants.colorSuccess : '' }}>{abbreviateNumber(pvalue1)}</span>
-              {'/'}
-              <span style={{ color: pvalue2 > pvalue1 ? constants.colorDanger : '' }}>{abbreviateNumber(pvalue2)}</span>
-              <ReactTooltip id={`${field1}_${field2}_${player.player_slot}_${player2.player_slot}`} place="top" effect="solid">
-                {`${hero1.localized_name} → ${hero2.localized_name}: ${pvalue1}`}
-                <br />
-                {`${hero2.localized_name} → ${hero1.localized_name}: ${pvalue2}`}
-              </ReactTooltip>
-            </div>
-          </TableRowColumn>);
+          return (
+            <TableRowColumn key={player2.hero_id}>
+              <div data-tip data-for={`${field1}_${field2}_${player.player_slot}_${player2.player_slot}`}>
+                <span style={{ color: pvalue1 > pvalue2 ? constants.colorSuccess : '' }}>{abbreviateNumber(pvalue1)}</span>
+                {'/'}
+                <span style={{ color: pvalue2 > pvalue1 ? constants.colorDanger : '' }}>{abbreviateNumber(pvalue2)}</span>
+                <ReactTooltip id={`${field1}_${field2}_${player.player_slot}_${player2.player_slot}`} place="top" effect="solid">
+                  {`${hero1.localized_name} → ${hero2.localized_name}: ${pvalue1}`}
+                  <br />
+                  {`${hero2.localized_name} → ${hero1.localized_name}: ${pvalue2}`}
+                </ReactTooltip>
+              </div>
+            </TableRowColumn>);
         })}
-        {(() => {
+          {(() => {
           const hero1 = heroes[player.hero_id] || {};
           let ptotal1 = 0;
           let ptotal2 = 0;
@@ -71,9 +73,9 @@ const CrossTable = ({
           return (
             <TableRowColumn key={`${player.hero_id}_totals`}>
               <div data-tip data-for={`${field1}_${field2}_${player.player_slot}_radiant`}>
-                <span style={{ color: ptotal1 > ptotal2 ? constants.textSuccess : '' }}>{abbreviateNumber(ptotal1)}</span>
+                <span style={{ color: ptotal1 > ptotal2 ? constants.colorSuccess : '' }}>{abbreviateNumber(ptotal1)}</span>
                 {'/'}
-                <span style={{ color: ptotal2 > ptotal1 ? constants.textDanger : '' }}>{abbreviateNumber(ptotal2)}</span>
+                <span style={{ color: ptotal2 > ptotal1 ? constants.colorDanger : '' }}>{abbreviateNumber(ptotal2)}</span>
                 <ReactTooltip id={`${field1}_${field2}_${player.player_slot}_radiant`} place="top" effect="solid">
                   {`${hero1.localized_name} → ${strings.general_dire}: ${ptotal1}`}
                   <br />
@@ -83,7 +85,7 @@ const CrossTable = ({
             </TableRowColumn>
           );
         })()}
-      </TableRow>))}
+        </TableRow>))}
       <TableRow>
         <TableRowColumn>
           <div style={teamIconStyle}>
@@ -104,9 +106,9 @@ const CrossTable = ({
           return (
             <TableRowColumn key={`${player.hero_id}_totals`}>
               <div data-tip data-for={`${field1}_${field2}_${player.player_slot}_dire`}>
-                <span style={{ color: ptotal2 > ptotal1 ? constants.textSuccess : '' }}>{abbreviateNumber(ptotal2)}</span>
+                <span style={{ color: ptotal2 > ptotal1 ? constants.colorSuccess : '' }}>{abbreviateNumber(ptotal2)}</span>
                 {'/'}
-                <span style={{ color: ptotal1 > ptotal2 ? constants.textDanger : '' }}>{abbreviateNumber(ptotal1)}</span>
+                <span style={{ color: ptotal1 > ptotal2 ? constants.colorDanger : '' }}>{abbreviateNumber(ptotal1)}</span>
                 <ReactTooltip id={`${field1}_${field2}_${player.player_slot}_dire`} place="top" effect="solid">
                   {`${strings.general_radiant} → ${hero1.localized_name}: ${ptotal2}`}
                   <br />
@@ -132,9 +134,9 @@ const CrossTable = ({
           return (
             <TableRowColumn>
               <div data-tip data-for={`${field1}_${field2}_total`}>
-                <span style={{ color: radiantTotal > direTotal ? constants.textSuccess : '' }}>{abbreviateNumber(radiantTotal)}</span>
+                <span style={{ color: radiantTotal > direTotal ? constants.colorSuccess : '' }}>{abbreviateNumber(radiantTotal)}</span>
                 {'/'}
-                <span style={{ color: direTotal > radiantTotal ? constants.textDanger : '' }}>{abbreviateNumber(direTotal)}</span>
+                <span style={{ color: direTotal > radiantTotal ? constants.colorDanger : '' }}>{abbreviateNumber(direTotal)}</span>
                 <ReactTooltip id={`${field1}_${field2}_total`} place="top" effect="solid">
                   {`${strings.general_radiant} → ${strings.general_dire}: ${radiantTotal}`}
                   <br />

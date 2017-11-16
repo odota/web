@@ -8,19 +8,20 @@ const Heading = ({
   title = '', titleTo, icon = <ActionLabelOutline />, subtitle, twoLine,
 }) => {
   const DivToUse = twoLine ? TwoLineDiv : StyledDiv;
-  return (<DivToUse>
-    {icon}
-    <span className="title">
-      {titleTo ?
-        <Link to={titleTo}>
-          {title.trim()}
-        </Link>
+  return (
+    <DivToUse>
+      {icon}
+      <span className="title">
+        {titleTo ?
+          <Link to={titleTo}>
+            {title.trim()}
+          </Link>
         : title.trim()}
-    </span>
-    <span className="subtitle">
-      {subtitle}
-    </span>
-  </DivToUse>);
+      </span>
+      <span className="subtitle">
+        {subtitle}
+      </span>
+    </DivToUse>);
 };
 
 const {
@@ -34,7 +35,10 @@ Heading.propTypes = {
     string,
     element,
   ]),
-  subtitle: shape({}),
+  subtitle: oneOfType([
+    shape({}),
+    string,
+  ]),
   twoLine: bool,
 };
 

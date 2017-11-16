@@ -3,7 +3,21 @@
 
   <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>OpenDota - Dota 2 Statistics</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="OpenDota">
+    <link rel="apple-touch-icon" href="/assets/images/icons/icon-72x72.png" sizes="72x72">
+    <link rel="apple-touch-icon" href="/assets/images/icons/icon-96x96.png" sizes="96x96">
+    <link rel="apple-touch-icon" href="/assets/images/icons/icon-128x128.png" sizes="128x128">
+    <link rel="apple-touch-icon" href="/assets/images/icons/icon-144x144.png" sizes="144x144">
+    <link rel="apple-touch-icon" href="/assets/images/icons/icon-152x152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/assets/images/icons/icon-192x192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/assets/images/icons/icon-384x384.png" sizes="384x384">
+    <link rel="apple-touch-icon" href="/assets/images/icons/icon-512x512.png" sizes="512x512">
+    <meta name="msapplication-TileImage" content="/assets/images/icons/icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#000">
     <meta name="description" content="Open source Dota 2 match data and player statistics">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#000000">
@@ -11,13 +25,58 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="icon" type="image/png" href="/assets/images/logo.png">
     <meta property="og:image" content="/assets/images/logo-preview.jpg" />
-  </head>
-
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="react"></div>
+    <style>
+      body {
+        background-color: #2e2d45;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        margin: 0;
+      }
+      
+      .loader {
+        width: 3em;
+        height: 3em;
+        animation: loaderAnim 1.25s infinite;
+        outline: 1px solid transparent;
+      }
+      .loader #largeBox {
+        height: 3em;
+        width: 3em;
+        background-color: #ECECEC;
+        outline: 1px solid transparent;
+        position: fixed;
+      }
+      .loader #smallBox {
+        height: 3em;
+        width: 3em;
+        background-color: #34495e;
+        position: fixed;
+        z-index: 1;
+        outline: 1px solid transparent;
+        animation: smallBoxAnim 1.25s alternate infinite ease-in-out;
+      }
+      
+      @keyframes smallBoxAnim {
+        0% {
+          transform: scale(0.2);
+        }
+        100% {
+          transform: scale(0.75);
+        }
+      }
+      @keyframes loaderAnim {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(90deg);
+        }
+      }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/1.0.3/autotrack.js"></script>
     <script>
       (function (i, s, o, g, r, a, m) {
@@ -36,5 +95,16 @@
       ga('require', 'urlChangeTracker');
       ga('send', 'pageview');
     </script>
+  </head>
+
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root" />
+    <div id="loader" class="loader">
+      <div id="largeBox"></div>
+      <div id="smallBox"></div>
+    </div>
   </body>
 </html>

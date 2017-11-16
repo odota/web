@@ -47,26 +47,28 @@ const formatDurationString = (sec) => {
 
 const drawElement = (element, type) => {
   if (totalsToShow[element.field] === type) {
-    return (<CardTitle
-      subtitle={<div>{element.field === 'duration' ? formatDurationString(element.sum) : Math.floor(element.sum).toLocaleString()}</div>}
-      title={strings[`heading_${element.field}`]}
-    />);
+    return (
+      <CardTitle
+        subtitle={<div>{element.field === 'duration' ? formatDurationString(element.sum) : Math.floor(element.sum).toLocaleString()}</div>}
+        title={strings[`heading_${element.field}`]}
+      />);
   }
   return null;
 };
 
-const Totals = ({ data, error, loading }) => (<div>
-  <Container title={strings.heading_all_matches} error={error} loading={loading}>
-    <div>
-      {data.map(element => drawElement(element, 1))}
-    </div>
-  </Container>
-  <Container title={strings.heading_parsed_matches} error={error} loading={loading}>
-    <div>
-      {data.map(element => drawElement(element, 'parsed'))}
-    </div>
-  </Container>
-</div>);
+const Totals = ({ data, error, loading }) => (
+  <div>
+    <Container title={strings.heading_all_matches} error={error} loading={loading}>
+      <div>
+        {data.map(element => drawElement(element, 1))}
+      </div>
+    </Container>
+    <Container title={strings.heading_parsed_matches} error={error} loading={loading}>
+      <div>
+        {data.map(element => drawElement(element, 'parsed'))}
+      </div>
+    </Container>
+  </div>);
 
 Totals.propTypes = {
   data: PropTypes.arrayOf({}),

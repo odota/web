@@ -18,15 +18,15 @@ import playerPages from './playerPages';
 
 class RequestLayer extends React.Component {
   componentDidMount() {
-    const props = this.props;
-    const playerId = props.match.params.playerId;
+    const { props } = this;
+    const { playerId } = props.match.params;
     props.getPlayer(playerId);
     props.getPlayerWinLoss(playerId, props.location.search);
   }
 
   componentWillUpdate(nextProps) {
     const props = nextProps;
-    const playerId = props.match.params.playerId;
+    const { playerId } = props.match.params;
     if (this.props.match.params.playerId !== playerId) {
       props.getPlayer(playerId);
     }
@@ -37,7 +37,7 @@ class RequestLayer extends React.Component {
 
   render() {
     const { location, match } = this.props;
-    const playerId = this.props.match.params.playerId;
+    const { playerId } = this.props.match.params;
     if (Long.fromString(playerId).greaterThan('76561197960265728')) {
       this.props.history.push(`/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
     }

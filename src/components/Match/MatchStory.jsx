@@ -301,6 +301,18 @@ class RoshanEvent extends StoryEvent {
   }
 }
 
+class CourierKillEvent extends StoryEvent {
+  constructor(match, obj) {
+    super(obj.time);
+    this.team = obj.team === 2;
+  }
+  format() {
+    return formatTemplate(strings.story_courier_kill, {
+      team: TeamSpan(this.team),
+    });
+  }
+}
+
 class PredictionEvent extends StoryEvent {
   constructor(match, team) {
     super(team);
@@ -757,6 +769,11 @@ const generateStory = (match) => {
   events = events.concat(match.objectives
     .filter(obj => obj.type === 'CHAT_MESSAGE_ROSHAN_KILL')
     .map((obj, index) => new RoshanEvent(match, obj, index, aegisEvents)));
+
+  // Courier kills
+  events = events.concat(match.objectives
+    .filter(obj => obj.type === 'CHAT_MESSAGE_COURIER_LOST')
+    .map(obj => new CourierKillEvent(match, obj)));
 
   // Teamfights
   events = events.concat(match.teamfights && match.teamfights.length > 0 ? match.teamfights.map(fight => new TeamfightEvent(match, fight)) : []);

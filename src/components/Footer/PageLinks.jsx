@@ -17,10 +17,7 @@ const links = [{
   name: strings.app_translate,
   path: '//translate.opendota.com/',
 }];
-export default () => (
-  <div className="links">
-    {links.map(link => (
-      <a href={link.path} key={link.name} target="_blank" rel="noopener noreferrer">{link.name}</a>
-    ))}
-  </div>
-);
+
+export default () => links.map(link => (
+  <a href={link.path} key={link.name} target="_blank" rel="noopener noreferrer">{link.name}</a>
+));

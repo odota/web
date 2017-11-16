@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import strings from 'lang';
-import { getHeroStats } from 'actions';
+import { getHeroStats, getProPlayers } from 'actions';
 import Heading from 'components/Heading';
 import Table from 'components/Table';
 import TabBar from 'components/TabBar';
@@ -18,12 +18,13 @@ import columns from './columns';
 class RequestLayer extends React.Component {
   componentDidMount() {
     this.props.dispatchHeroStats();
+    this.props.onGetProPlayers();
   }
   render() {
     const route = this.props.match.params.heroId || 'pro';
 
     if (Number.isInteger(Number(route))) {
-      return <Hero props={this.props} />;
+      return <Hero {...this.props} />;
     }
 
     const json = this.props.data;
@@ -69,50 +70,57 @@ class RequestLayer extends React.Component {
     const heroTabs = [{
       name: strings.hero_pro_tab,
       key: 'pro',
-      content: (data, _columns) => (<div>
-        <Heading
-          title={strings.hero_pro_heading}
-          subtitle={`${abbreviateNumber(matchCountPro)} ${strings.hero_this_month}`}
-          icon=""
-          twoLine
-        />
-        <Table data={data} columns={_columns} />
-      </div>),
+      content: (data, _columns, loading) => (
+        <div>
+          <Heading
+            title={strings.hero_pro_heading}
+            subtitle={`${abbreviateNumber(matchCountPro)} ${strings.hero_this_month}`}
+            icon=""
+            twoLine
+          />
+          <Table data={data} columns={_columns} loading={loading} />
+        </div>),
       route: '/heroes/pro',
     }, {
       name: strings.hero_public_tab,
       key: 'public',
-      content: (data, _columns) => (<div>
-        <Heading
-          title={strings.hero_public_heading}
-          subtitle={`${abbreviateNumber(matchCountPublic)} ${strings.hero_this_month}`}
-          icon=""
-          twoLine
-        />
-        <Table data={data} columns={_columns} />
-      </div>),
+      content: (data, _columns, loading) => (
+        <div>
+          <Heading
+            title={strings.hero_public_heading}
+            subtitle={`${abbreviateNumber(matchCountPublic)} ${strings.hero_this_month}`}
+            icon=""
+            twoLine
+          />
+          <Table data={data} columns={_columns} loading={loading} />
+        </div>),
       route: '/heroes/public',
     }];
 
     const tab = heroTabs.find(_tab => _tab.key === route);
-    const loading = this.props.loading;
+    const { loading } = this.props;
 
-    return (<div>
-      <Helmet title={strings.header_heroes} />
-      {!loading && <div>
-        <TabBar
-          info={route}
-          tabs={heroTabs}
-        />
-        {tab && tab.content(processedData, columns[route])}
-      </div>}
-    </div>);
+    return (
+      <div>
+        <Helmet title={strings.header_heroes} />
+        <div>
+          <TabBar
+            info={route}
+            tabs={heroTabs}
+          />
+          {tab && tab.content(processedData, columns[route], loading)}
+        </div>
+      </div>);
   }
 }
 
 RequestLayer.propTypes = {
   dispatchHeroStats: PropTypes.func,
-  data: PropTypes.shape({}),
+  onGetProPlayers: PropTypes.func,
+  data: PropTypes.oneOfType([
+    PropTypes.shape({}),
+    PropTypes.arrayOf(PropTypes.shape({})),
+  ]),
   loading: PropTypes.bool,
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -127,8 +135,9 @@ const mapStateToProps = state => ({
   loading: state.app.heroStats.loading,
 });
 
-const mapDispatchToProps = dispatch => ({
-  dispatchHeroStats: () => dispatch(getHeroStats()),
-});
+const mapDispatchToProps = {
+  dispatchHeroStats: getHeroStats,
+  onGetProPlayers: getProPlayers,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

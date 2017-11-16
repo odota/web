@@ -60,7 +60,7 @@ export function abbreviateNumber(num) {
 }
 
 export function formatSeconds(input) {
-  if (!isNaN(parseFloat(input)) && isFinite(input)) {
+  if (!Number.isNaN(parseFloat(input)) && Number.isFinite(Number(input))) {
     const absTime = Math.abs(input);
     const minutes = Math.floor(absTime / 60);
     const seconds = pad(Math.floor(absTime % 60), 2);
@@ -255,12 +255,13 @@ export const transformations = {
   },
   hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true),
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
-  match_id_with_time: (row, col, field) => (<div>
-    <TableLink to={`/matches/${field}`}>{field}</TableLink>
-    <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-      {fromNow(row.start_time)}
-    </span>
-  </div>),
+  match_id_with_time: (row, col, field) => (
+    <div>
+      <TableLink to={`/matches/${field}`}>{field}</TableLink>
+      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+        {fromNow(row.start_time)}
+      </span>
+    </div>),
   radiant_win: (row, col, field) => {
     const won = field === isRadiant(row.player_slot);
     const getColor = (result) => {
@@ -574,7 +575,20 @@ export const formatTemplate = (template, dict) => {
 export const getHeroesById = () => {
   const obj = {};
   Object.keys(heroes).forEach((hero) => {
-    obj[hero.name] = hero;
+    obj[heroes[hero].name] = heroes[hero];
   });
   return obj;
+};
+
+// https://www.evanmiller.org/how-not-to-sort-by-average-rating.html
+export const wilsonScore = (up, down) => {
+  if (!up) return 0;
+  const n = up + down;
+  const z = 1.64485; // 1.0 = 85%, 1.6 = 95%
+  const phat = up / n;
+  return (
+    phat + ((z * z) / (2 * n)) - (z * Math.sqrt(((phat * (1 - phat)) + (z * z / (4 * n))) / n))
+  ) / (
+    1 + (z * z / n)
+  );
 };

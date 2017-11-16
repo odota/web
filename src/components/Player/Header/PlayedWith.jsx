@@ -32,18 +32,19 @@ class PlayedWith extends React.Component {
     }
   }
   render() {
-    return (<div style={{ display: shouldShow(this.props) ? 'inline' : 'none', marginLeft: '10px' }}>
-      <PlayerStatsCard
-        subtitle={
-          <div>
-            <div style={{ ...inlineStyle, color: constants.colorGreen }}>{this.state.win}</div>
-            <div style={inlineStyle}> - </div>
-            <div style={{ ...inlineStyle, color: constants.colorRed }}>{this.state.lose}</div>
-          </div>
+    return (
+      <div style={{ display: shouldShow(this.props) ? 'inline' : 'none', marginLeft: '10px' }}>
+        <PlayerStatsCard
+          subtitle={
+            <div>
+              <div style={{ ...inlineStyle, color: constants.colorGreen }}>{this.state.win}</div>
+              <div style={inlineStyle}> - </div>
+              <div style={{ ...inlineStyle, color: constants.colorRed }}>{this.state.lose}</div>
+            </div>
         }
-        title={<Link to={`/players/${this.props.loggedInId}/matches?included_account_id=${this.props.playerId}`}>{strings.th_played_with}</Link>}
-      />
-    </div>);
+          title={<Link to={`/players/${this.props.loggedInId}/matches?included_account_id=${this.props.playerId}`}>{strings.th_played_with}</Link>}
+        />
+      </div>);
   }
 }
 

@@ -1,4 +1,7 @@
 {
+  "yes": "yes",
+  "no": "no",
+
   "abbr_thousand": "k",
   "abbr_million": "m",
   "abbr_billion": "b",
@@ -209,6 +212,7 @@
   "game_mode_20": "All Random Deathmatch",
   "game_mode_21": "1v1 Solo Mid",
   "game_mode_22": "All Draft",
+  "game_mode_23": "Turbo",
 
   "general_unknown": "Unknown",
   "general_no_hero": "No hero",
@@ -344,6 +348,20 @@
   "heading_distinct_heroes": "Distinct Heroes",
   "heading_team_elo_rankings": "Team Elo Rankings",
   "heading_ability_build": "Ability Build",
+  "heading_attack": "Base attack",
+  "heading_attack_range": "Attack range",
+  "heading_attack_speed": "Attack speed",
+  "heading_projectile_speed": "Projectile speed",
+  "heading_base_health": "Health",
+  "heading_base_health_regen": "Health regen",
+  "heading_base_mana": "Mana",
+  "heading_base_mana_regen": "Mana regen",
+  "heading_base_armor": "Base armor",
+  "heading_base_mr": "Magic resistance",
+  "heading_move_speed": "Move speed",
+  "heading_turn_rate": "Turn speed",
+  "heading_legs": "Number of legs",
+  "heading_cm_enabled": "CM enabled",
 
   "subheading_avg_and_max": "in last %d matches",
   "subheading_records": "In ranked matches. Records reset monthly.",
@@ -557,6 +575,7 @@
   "story_building_destroy_player": "{player} destroyed {building}",
   "story_building_deny_player": "{player} denied {building}",
   "story_building_list_destroy": "{buildings} were destroyed",
+  "story_courier_kill": "{team}'s courier was killed",
   "story_tower": "{team}'s Tier {tier} {lane} tower",
   "story_tower_simple": "one of {team}'s towers",
   "story_towers_n": "{n} of {team}'s Towers",
@@ -607,6 +626,10 @@
   "tab_story": "Story",
   "tab_fantasy": "Fantasy",
   "tab_laning": "Laning",
+  "tab_recent": "Recent",
+  "tab_matchups": "Matchups",
+  "tab_durations": "Durations",
+  "tab_players": "Players",
 
   "placeholder_filter_heroes": "Filter Heroes",
 
@@ -616,11 +639,14 @@
 
   "th_hero_id": "Hero",
   "th_match_id": "ID",
+  "th_account_id": "Account ID",
   "th_result": "Result",
   "th_skill": "Skill",
   "th_duration": "Duration",
   "th_games": "MP",
+  "th_games_played": "Games",
   "th_win": "Win %",
+  "th_advantage": "Advantage",
   "th_with_games": "With",
   "th_with_win": "Win with %",
   "th_against_games": "Against",
@@ -740,6 +766,7 @@
   "th_firstblood_claimed" : "First Blood",
   "th_observers_placed": "Observers",
   "th_camps_stacked": "Stacks",
+  "th_league": "League",
 
   "ward_log_type": "Type",
   "ward_log_owner": "Owner",
@@ -885,6 +912,7 @@
   "tooltip_others_tracked_deaths": "tracked deaths",
   "tooltip_others_track_gold": "gold earned from Track",
   "tooltip_others_greevils_gold": "gold earned from Greevil's Greed",
+  "tooltip_advantage": "Calculated by Wilson score",
 
   "histograms_name": "Histograms",
   "histograms_description": "Percentages indicate win rates for the labeled bin",
@@ -1103,5 +1131,9 @@
   "question_continued_shouted": "asked furiously",
   "question_continued_excited": "lovingly asked",
   "question_continued_normal": "asked",
-  "question_continued_laughed": "asked joyfully"
+  "question_continued_laughed": "asked joyfully",
+
+  "hero_disclaimer_pro": "Data from professional matches",
+  "hero_disclaimer_public": "Data from public matches",
+  "hero_duration_x_axis": "Minutes"
 }
