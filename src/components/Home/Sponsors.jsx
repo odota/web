@@ -45,7 +45,7 @@ export default () => (
         <img src="/assets/images/dotacoach-logo.png" alt="" />
       </a>
       <a href="https://pvgna.com/?ref=yasp" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/pvgna-logo.png" alt="" />
+        <img src="/assets/images/pvgna_logo.png" alt="" />
       </a>
       <a href="http://www.vpgame.com/" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/vp-logo.png" alt="" />
