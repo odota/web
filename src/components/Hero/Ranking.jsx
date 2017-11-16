@@ -31,7 +31,7 @@ class Ranking extends Component {
         {isLoading || isError || rankings === null ? (
           <Spinner />
         ) : (
-          renderRanking(hero, rankings)
+          renderRanking(hero, rankings || [])
         )}
       </div>
     );
@@ -55,7 +55,7 @@ Ranking.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  rankings: state.app.heroRanking.data.rankings || [],
+  rankings: state.app.heroRanking.data.rankings,
   isLoading: state.app.heroRanking.loading,
   isError: state.app.heroRanking.error,
 });
