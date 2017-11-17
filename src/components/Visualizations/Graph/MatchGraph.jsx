@@ -188,7 +188,7 @@ class PlayersGraph extends React.Component {
               {match.players.map((player) => {
                 const hero = heroes[player.hero_id] || {};
                 const playerColor = playerColors[player.player_slot];
-                const isSelected = (hoverHero === heroes[player.hero_id] && heroes[player.hero_id].localized_name);
+                const isSelected = heroes[player.hero_id] && (hoverHero === heroes[player.hero_id].localized_name);
                 const opacity = (!hoverHero || isSelected) ? 1 : 0.25;
                 const stroke = (isSelected) ? 4 : 2;
                 return (<Line
