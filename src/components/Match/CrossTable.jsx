@@ -16,6 +16,8 @@ import constants from '../constants';
 
 const teamIconStyle = { width: '30px', height: '30px' };
 
+const default_hero = { name: 'Unknown Hero' };
+
 const CrossTable = ({
   match,
   field1,
