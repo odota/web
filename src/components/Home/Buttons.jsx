@@ -7,13 +7,6 @@ import strings from 'lang';
 import { IconSteam } from 'components/Icons';
 import { ButtonsDiv } from './Styled';
 
-const mapStateToProps = (state) => {
-  const { data } = state.app.metadata;
-  return {
-    user: data.user,
-  };
-};
-
 const Buttons = ({ user }) => (
   <ButtonsDiv>
     {
@@ -54,13 +47,11 @@ Buttons.propTypes = {
   user: PropTypes.shape({}),
 };
 
-class RequestLayer extends React.Component {
-  componentWillUpdate() {
-  }
+const mapStateToProps = (state) => {
+  const { data } = state.app.metadata;
+  return {
+    user: data.user,
+  };
+};
 
-  render() {
-    return <Buttons {...this.props} />;
-  }
-}
-
-export default connect(mapStateToProps, null)(RequestLayer);
+export default connect(mapStateToProps, null)(Buttons);
