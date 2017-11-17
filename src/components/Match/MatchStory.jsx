@@ -574,11 +574,10 @@ class TeamfightEvent extends StoryEvent {
     return this.format();
   }
   format() {
-    var template = strings.story_teamfight;
+    let template = strings.story_teamfight;
     if (this.win_dead.length === 0) {
       template = strings.story_teamfight_none_dead;
-    }
-    else if(this.lose_dead.length === 0) {
+    } else if (this.lose_dead.length === 0) {
       template = strings.story_teamfight_none_dead_loss;
     }
     let formatted = [renderSentence(template, {
