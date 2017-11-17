@@ -574,7 +574,14 @@ class TeamfightEvent extends StoryEvent {
     return this.format();
   }
   format() {
-    let formatted = [renderSentence(this.win_dead.length > 0 ? strings.story_teamfight : strings.story_teamfight_none_dead, {
+    var template = strings.story_teamfight;
+    if (this.win_dead.length === 0) {
+      template = strings.story_teamfight_none_dead;
+    }
+    else if(this.lose_dead.length === 0) {
+      template = strings.story_teamfight_none_dead_loss;
+    }
+    let formatted = [renderSentence(template, {
       winning_team: TeamSpan(this.winning_team),
       net_change: GoldSpan(this.gold_delta),
       win_dead: formatList(this.win_dead.map(death => (
