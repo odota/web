@@ -138,7 +138,7 @@ class MatchLog extends React.Component {
       { text: strings.heading_runes, value: 2 },
     ];
     this.playersSource = this.props.match.players.map((player, index) => ({
-      text: heroes[player.hero_id].localized_name || strings.general_no_hero,
+      text: heroes[player.hero_id] ? heroes[player.hero_id].localized_name : strings.general_no_hero,
       value: index,
     }));
 
