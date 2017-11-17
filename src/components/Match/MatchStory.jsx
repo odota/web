@@ -46,7 +46,7 @@ const TeamSpan = isRadiant => (
 
 // Modified version of PlayerThumb
 const PlayerSpan = (player) => {
-  if (!player || !heroes[player.hero_id]) {
+  if (!player || (!player && !heroes[player.hero_id])) {
     return strings.story_invalid_hero;
   }
   const heroName = heroes[player.hero_id] ? heroes[player.hero_id].localized_name : strings.story_invalid_hero;
