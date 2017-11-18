@@ -344,7 +344,7 @@ const TableHeroImage = ({
         <a href={pvgnaGuideInfo.url}>
           <img className="pvgnaGuideIcon" src="/assets/images/pvgna-guide-icon.png" alt={`Learn ${heroName} on Pvgna`} />
         </a>
-        <ReactTooltip id={heroName} place="top" type="light" effect="solid">
+        <ReactTooltip id={heroName} place="top" type="light" effect="solid" offset="{'top': 1, 'right': 3}">
           {`Learn ${heroName} on Pvgna`}
         </ReactTooltip>
       </div>
