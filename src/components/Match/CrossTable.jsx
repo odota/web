@@ -65,7 +65,7 @@ const CrossTable = ({
           let ptotal2 = 0;
 
           match.players.slice(match.players.length / 2, match.players.length).forEach((player2) => {
-            const hero2 = heroes[player2.hero_id];
+            const hero2 = heroes[player2.hero_id] || {};
             ptotal1 += (player[field1] && hero2.name in player[field1]) ? player[field1][hero2.name] : 0;
             ptotal2 += (player[field2] && hero2.name in player[field2]) ? player[field2][hero2.name] : 0;
           });
@@ -98,7 +98,7 @@ const CrossTable = ({
           let ptotal2 = 0;
 
           match.players.slice(0, match.players.length / 2).forEach((player2) => {
-            const hero2 = heroes[player2.hero_id];
+            const hero2 = heroes[player2.hero_id] || {};
             ptotal1 += (player[field1] && hero2.name in player[field1]) ? player[field1][hero2.name] : 0;
             ptotal2 += (player[field2] && hero2.name in player[field2]) ? player[field2][hero2.name] : 0;
           });
@@ -123,9 +123,9 @@ const CrossTable = ({
           let direTotal = 0;
 
           match.players.slice(match.players.length / 2, match.players.length).forEach((player) => {
-            const hero = heroes[player.hero_id];
+            const hero = heroes[player.hero_id] || {};
             match.players.slice(0, match.players.length / 2).forEach((player2) => {
-              const hero2 = heroes[player2.hero_id];
+              const hero2 = heroes[player2.hero_id] || {};
               radiantTotal += (player2[field1] && hero.name in player2[field1]) ? player2[field1][hero.name] : 0;
               direTotal += (player[field1] && hero2.name in player[field1]) ? player[field1][hero2.name] : 0;
             });

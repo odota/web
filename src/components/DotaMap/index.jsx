@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import patch from 'dotaconstants/build/patch.json';
 
 const setMapSizeStyle = (width, maxWidth) => ({
   width,
@@ -9,15 +10,25 @@ const setMapSizeStyle = (width, maxWidth) => ({
   maxHeight: maxWidth,
 });
 
-// 12/13/2016 @ 5:00pm (UTC)
-const isPost700 = unixDate => unixDate > 1481648400;
+const dotaMaps = [
+  { patchName: '7.07', mapImage: '/assets/images/dota2/map/detailed_707.png' },
+  { patchName: '7.00', mapImage: '/assets/images/dota2/map/detailed_700.png' },
+  { patchName: '6.86', mapImage: '/assets/images/dota2/map/detailed_686.png' },
+  { patchName: '6.82', mapImage: '/assets/images/dota2/map/detailed_682.png' },
+  { patchName: '6.70', mapImage: '/assets/images/dota2/map/detailed_pre682.png' },
+];
 
-// TODO make this a generic function that can determine which of multiple maps to use
+const patchDate = {};
+patch.forEach((patchElement) => {
+  patchDate[patchElement.name] = new Date(patchElement.date).getTime() / 1000;
+});
+
 const getUrl = (startTime) => {
-  if (startTime === null || isPost700(startTime)) {
-    return '/assets/images/dota2/map/detailed_700.png';
+  if (startTime == null) return dotaMaps[0].mapImage;
+  for (let i = 0; i < dotaMaps.length; i += 1) {
+    if (startTime >= patchDate[dotaMaps[i].patchName]) return dotaMaps[i].mapImage;
   }
-  return '/assets/images/dota2/map/detailed.png';
+  return dotaMaps[0].mapImage;
 };
 
 const MapContainer = styled.div`
