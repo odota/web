@@ -8,12 +8,13 @@ import fetch from 'isomorphic-fetch';
 import Spinner from 'components/Spinner';
 import RaisedButton from 'material-ui/RaisedButton';
 import ExplorerOutputSection from 'components/Explorer/ExplorerOutputSection';
+import ExplorerControlSection from 'components/Explorer/ExplorerControlSection';
+import ExplorerFormField from 'components/Explorer/ExplorerFormField';
 import strings from 'lang';
 import Helmet from 'react-helmet';
 import Heading from 'components/Heading';
 import querystring from 'querystring';
 import queryTemplate from './queryTemplate';
-import ExplorerControlSection from './ExplorerControlSection';
 import fields from './fields';
 
 function jsonResponse(response) {
@@ -94,18 +95,29 @@ class Explorer extends React.Component {
     this.setState({ sql: queryTemplate(expandedBuilder) }, cb || noOp);
   }
   render() {
+    const { builder } = this.state;
     const expandedFields = fields();
     const expandedBuilder = expandBuilderState(this.state.builder, expandedFields);
-    const { handleQuery, handleCancel } = this;
+    const { handleQuery, handleCancel, handleFieldUpdate } = this;
     return (
       <div>
         <Helmet title={`${strings.title_meta}`} />
         <Heading title={strings.meta_title} subtitle={strings.meta_description} />
-        <ExplorerControlSection
-          expandedFields={expandedFields}
-          handleFieldUpdate={this.handleFieldUpdate}
-          builder={this.state.builder}
-        />
+        <ExplorerControlSection>
+          <ExplorerFormField label={strings.explorer_group_by} fields={expandedFields} builderField="group" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.explorer_min_mmr} fields={expandedFields} builderField="minMmr" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.explorer_max_mmr} fields={expandedFields} builderField="maxMmr" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.explorer_hero} fields={expandedFields} builderField="hero" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.explorer_side} fields={expandedFields} builderField="side" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.th_result} fields={expandedFields} builderField="result" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.explorer_min_duration} fields={expandedFields} builderField="minDuration" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.explorer_max_duration} fields={expandedFields} builderField="maxDuration" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          {/* <ExplorerFormField label={strings.explorer_min_date} builderField="minDate" handleFieldUpdate={handleFieldUpdate} builder={builder} isDateField /> */}
+          {/* <ExplorerFormField label={strings.explorer_max_date} builderField="maxDate" handleFieldUpdate={handleFieldUpdate} builder={builder} isDateField /> */}
+          {/* <ExplorerFormField label={strings.explorer_order} fields={expandedFields} builderField="order" handleFieldUpdate={handleFieldUpdate} builder={builder} /> */}
+          {/* <ExplorerFormField label={strings.explorer_having} fields={expandedFields} builderField="having" handleFieldUpdate={handleFieldUpdate} builder={builder} /> */}
+          {/* <ExplorerFormField label={strings.explorer_limit} fields={expandedFields} builderField="limit" handleFieldUpdate={handleFieldUpdate} builder={builder} /> */}
+        </ExplorerControlSection>
         <div>
           <RaisedButton
             primary={!this.state.loading}
