@@ -519,6 +519,7 @@
   "story_chatmessage": "\"{message}\", {player} {said_verb}",
   "story_teamfight": "{winning_team} chiến thắng teamfight bằng cách đổi {win_dead} lấy {lose_dead}, kết quả lượng vàng chênh lệch tăng {net_change}",
   "story_teamfight_none_dead": "{winning_team} chiến thắng teamfight bằng cách giết {lose_dead} mà không mất hero nào, kết quả lượng vàng chênh lệch tăng {net_change}",
+  "story_teamfight_none_dead_loss": "{winning_team} somehow won a teamfight without killing anyone, and losing {win_dead}, resulting in a net worth increase of {net_change}",
   "story_lane_intro": "Tại thời điểm 10 phút trong game, lanes có diễn biến như sau:",
   "story_lane_radiant_win": "{radiant_players} thắng {lane} Lane trước {dire_players}",
   "story_lane_radiant_lose": "{radiant_players} thua {lane} Lane trước {dire_players}",

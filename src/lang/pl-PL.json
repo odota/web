@@ -519,6 +519,7 @@
   "story_chatmessage": "\"{message}\", {said_verb} {player}",
   "story_teamfight": "{winning_team} wygrali walkę drużynową poświęcając {win_dead} za {lose_dead} zyskując przewagę w złocie w wysokości {net_change}",
   "story_teamfight_none_dead": "{winning_team} wygrali walkę drużynową zabijając {lose_dead}, nie tracąc przy tym żadnego własnego bohatera, zyskując przewagę w złocie w wysokości {net_change}",
+  "story_teamfight_none_dead_loss": "{winning_team} somehow won a teamfight without killing anyone, and losing {win_dead}, resulting in a net worth increase of {net_change}",
   "story_lane_intro": "W 10 minucie gry, linie rozegrano następująco:",
   "story_lane_radiant_win": "{radiant_players} wygrali linię {lane} przeciwko {dire_players}",
   "story_lane_radiant_lose": "{radiant_players} stracili linię {lane} przeciwko {dire_players}",
