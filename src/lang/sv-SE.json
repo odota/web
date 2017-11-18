@@ -519,6 +519,7 @@
   "story_chatmessage": "\"{message}\", {player} {said_verb}",
   "story_teamfight": "{winning_team} vann en lagkamp genom med resultaten {win_dead} mot  {lose_dead}, vilket resulterade i en guldfärbättring av {net_change}",
   "story_teamfight_none_dead": "{winning_team} vann en  lagkamp genom att döda {lose_dead} utan att tappa några hjältar, vilket resulterade i en guldfärbättring av {net_change}",
+  "story_teamfight_none_dead_loss": "{winning_team} somehow won a teamfight without killing anyone, and losing {win_dead}, resulting in a net worth increase of {net_change}",
   "story_lane_intro": "Vid 10 minuter in i spelet hade banorna gått enligt följande:",
   "story_lane_radiant_win": "{radiant_players} vann {lane} banan mot {dire_players}",
   "story_lane_radiant_lose": "{radiant_players} förlorade {lane} banan till {dire_players}",
