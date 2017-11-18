@@ -519,6 +519,7 @@
   "story_chatmessage": "\"{message}\", {said_verb} {player}",
   "story_teamfight": "{winning_team} выиграли командный бой, обменяв {win_dead} на {lose_dead}, в результате общая ценность изменилась на {net_change}",
   "story_teamfight_none_dead": "{winning_team} выиграли командный бой, убив {lose_dead}, не потеряв героев, что привело к увеличению общей ценности на {net_change}",
+  "story_teamfight_none_dead_loss": "{winning_team} somehow won a teamfight without killing anyone, and losing {win_dead}, resulting in a net worth increase of {net_change}",
   "story_lane_intro": "На 10 минуте игры ситуация на линиях была такой:",
   "story_lane_radiant_win": "{lane} линия выиграна {radiant_players} против {dire_players}",
   "story_lane_radiant_lose": "{lane} линия проиграна {radiant_players} против {dire_players}",
