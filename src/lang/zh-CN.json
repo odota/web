@@ -519,6 +519,7 @@
   "story_chatmessage": "“{message}”，{player}{said_verb}",
   "story_teamfight": "{winning_team} 获得了团战胜利，以 {win_dead} 的牺牲为代价击杀了 {lose_dead} ，获得了 {net_change} 的经济优势",
   "story_teamfight_none_dead": "{winning_team} 以 0 换 {lose_dead} 的战绩获得了团战胜利，带来了 {net_change} 的经济收入",
+  "story_teamfight_none_dead_loss": "{winning_team} somehow won a teamfight without killing anyone, and losing {win_dead}, resulting in a net worth increase of {net_change}",
   "story_lane_intro": "比赛开始后十分钟，各分路的情况如下：",
   "story_lane_radiant_win": "{radiant_players} 在 {lane}路 压制了 {dire_players}",
   "story_lane_radiant_lose": "{radiant_players} 在与 {dire_players} 的 {lane} 路对线中处于劣势",
