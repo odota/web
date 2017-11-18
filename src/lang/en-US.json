@@ -100,7 +100,7 @@
 
   "explorer_title": "Data Explorer",
   "explorer_subtitle": "Professional Dota 2 Stats",
-  "explorer_description": "Stats from professional Dota 2 matches. Amateur leagues are not included.",
+  "explorer_description": "Run advanced queries on professional matches (excludes amateur leagues)",
   "explorer_schema": "Schema",
   "explorer_results": "Results",
   "explorer_num_rows": "row(s)",
@@ -110,6 +110,8 @@
   "explorer_patch": "Patch",
   "explorer_min_patch": "Min Patch",
   "explorer_max_patch": "Max Patch",
+  "explorer_min_mmr": "Min MMR",
+  "explorer_max_mmr": "Max MMR",
   "explorer_player": "Player",
   "explorer_league": "League",
   "explorer_player_purchased": "Player Purchased",
@@ -246,6 +248,7 @@
   "header_records": "Records",
   "header_explorer": "Explorer",
   "header_teams": "Teams",
+  "header_meta": "Meta",
 
   "heading_lhten": "Last Hits @ 10",
   "heading_lhtwenty": "Last Hits @ 20",
@@ -461,6 +464,9 @@
 
   "matches_highest_mmr": "High MMR",
   "matches_lowest_mmr": "Low MMR",
+  
+  "meta_title": "Meta",
+  "meta_description": "Data from sampled public matches in previous 24h",
 
   "mmr_not_up_to_date": "Why is the MMR not up to date?",
 
@@ -812,6 +818,7 @@
   "title_search": "Search",
   "title_status": "Status",
   "title_explorer": "Data Explorer",
+  "title_meta": "Meta",
   "title_records": "Records",
 
   "tooltip_mmr": "Solo MMR of the player",
