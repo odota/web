@@ -31,15 +31,15 @@ const limit = [100, 200, 500, 1000].map(element => ({
 }));
 
 const gameMode = Object.values(gameModeData).map(element => ({
-  text: strings['game_mode_' + element.id],
+  text: strings[`game_mode_${element.id}`],
   value: element.id,
   key: String(element.id),
 }));
 
 const lobbyType = Object.values(lobbyTypeData).map(element => ({
-  text: strings['lobby_type_' + element.id],
+  text: strings[`lobby_type_${element.id}`],
   value: element.id,
-  key: String(element.id),  
+  key: String(element.id),
 }));
 
 const fields = () => ({
