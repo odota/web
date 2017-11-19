@@ -184,7 +184,7 @@
   "filter_last_month": "Last month",
   "filter_last_3_months": "Last 3 months",
   "filter_last_6_months": "Last 6 months",
-  "filter_with_games_played": "Games played",
+  "filter_with_games_played": "At least this many games played",
   "filter_gamesplayed_5": "At least 5",
   "filter_gamesplayed_10": "At least 10",
   "filter_gamesplayed_15": "At least 15",
