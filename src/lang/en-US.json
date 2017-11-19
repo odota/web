@@ -466,7 +466,7 @@
   "matches_lowest_mmr": "Low MMR",
   
   "meta_title": "Meta",
-  "meta_description": "Data from sampled public matches in previous 24h",
+  "meta_description": "Run advanced queries on data from sampled public matches in previous 24h",
 
   "mmr_not_up_to_date": "Why is the MMR not up to date?",
 
