@@ -188,6 +188,8 @@
   "filter_gamesplayed_5": "At least 5",
   "filter_gamesplayed_10": "At least 10",
   "filter_gamesplayed_15": "At least 15",
+  "filter_gamesplayed_20": "At least 20",
+  "filter_gamesplayed_25": "At least 25",
   "filter_error": "Please select an item from the dropdown",
 
   "game_mode_0": "Unknown",

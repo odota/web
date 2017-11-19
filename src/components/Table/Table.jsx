@@ -108,6 +108,9 @@ class Table extends React.Component {
       currentPage: this.state.currentPage - 1,
     });
   }
+  getURLParameter(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(window.location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+  }
   render() {
     const {
       columns,
@@ -119,10 +122,16 @@ class Table extends React.Component {
       pageLength = 20,
     } = this.props;
     const {
-      sortState, sortField, sortFn, currentPage,
+      sortState, sortField, sortFn, currentPage
     } = this.state;
     const dataLength = this.props.data.length;
     let { data } = this.props;
+    
+    let filter_gamesplayed_amount = this.getURLParameter("games_played");
+    if (filter_gamesplayed_amount) {
+      data = data.filter( hero => hero.games > filter_gamesplayed_amount );
+    }
+
     if (maxRows && maxRows <= dataLength) {
       data = data.slice(0, maxRows);
     }
@@ -130,8 +139,6 @@ class Table extends React.Component {
       data = defaultSort(data, sortState, sortField, sortFn);
     }
     if (paginated) {
-      let filter_gamesplayed_amount = (FILTER.AMOUNTHERE) || 0;
-      data = data.filter( hero => hero.games > filter_gamesplayed_amount );
       data = data.slice(currentPage * pageLength, (currentPage + 1) * pageLength);
     }
     return (

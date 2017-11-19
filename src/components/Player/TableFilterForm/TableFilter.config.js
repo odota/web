@@ -81,4 +81,10 @@ export const gamesPlayedList = [{
 }, {
   text: strings.filter_gamesplayed_15,
   value: 15,
+}, {
+  text: strings.filter_gamesplayed_20,
+  value: 20,
+}, {
+  text: strings.filter_gamesplayed_25,
+  value: 25,
 }];
