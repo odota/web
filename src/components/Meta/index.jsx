@@ -112,6 +112,8 @@ class Explorer extends React.Component {
           <ExplorerFormField label={strings.th_result} fields={expandedFields} builderField="result" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_min_duration} fields={expandedFields} builderField="minDuration" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_max_duration} fields={expandedFields} builderField="maxDuration" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.filter_game_mode} fields={expandedFields} builderField="gameMode" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.filter_lobby_type} fields={expandedFields} builderField="lobbyType" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           {/* <ExplorerFormField label={strings.explorer_min_date} builderField="minDate" handleFieldUpdate={handleFieldUpdate} builder={builder} isDateField /> */}
           {/* <ExplorerFormField label={strings.explorer_max_date} builderField="maxDate" handleFieldUpdate={handleFieldUpdate} builder={builder} isDateField /> */}
           {/* <ExplorerFormField label={strings.explorer_order} fields={expandedFields} builderField="order" handleFieldUpdate={handleFieldUpdate} builder={builder} /> */}

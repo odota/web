@@ -8,6 +8,8 @@ const queryTemplate = (props) => {
     maxDuration,
     side,
     result,
+    gameMode,
+    lobbyType,
     // minDate,
     // maxDate,
     // having,
@@ -28,6 +30,8 @@ ${minDuration ? `AND public_matches.duration >= ${minDuration.value}` : ''}
 ${maxDuration ? `AND public_matches.duration <= ${maxDuration.value}` : ''}
 ${side ? `AND (public_player_matches.player_slot < 128) = ${side.value}` : ''}
 ${result ? `AND ((public_player_matches.player_slot < 128) = public_matches.radiant_win) = ${result.value}` : ''}
+${gameMode ? `AND game_mode = '${gameMode.value}'` : ''}
+${lobbyType ? `AND lobby_type = '${lobbyType.value}'` : ''}
 AND start_time > extract(epoch from now() - interval '1 day')::int
 GROUP BY ${groupVal}
 ORDER BY games desc

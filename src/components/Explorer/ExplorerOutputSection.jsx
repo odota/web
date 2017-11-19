@@ -102,6 +102,10 @@ class ExplorerOutputSection extends React.Component {
                 month: 'short',
                 year: 'numeric',
               });
+            } else if (column.field === 'game_mode') {
+              return strings[`game_mode_${field}`];
+            } else if (column.field === 'lobby_type') {
+              return strings[`lobby_type_${field}`];
             }
             if (typeof field === 'string') {
               return field;

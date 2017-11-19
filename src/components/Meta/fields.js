@@ -1,6 +1,8 @@
 import util from 'util';
 import strings from 'lang';
 import heroData from 'dotaconstants/build/heroes.json';
+import gameModeData from 'dotaconstants/build/game_mode.json';
+import lobbyTypeData from 'dotaconstants/build/lobby_type.json';
 // import patchData from 'dotaconstants/build/patch.json';
 
 const mmrs = Array(20).fill().map((e, i) => i * 500).map(element => ({
@@ -28,8 +30,19 @@ const limit = [100, 200, 500, 1000].map(element => ({
   key: String(element),
 }));
 
+const gameMode = Object.values(gameModeData).map(element => ({
+  text: strings['game_mode_' + element.id],
+  value: element.id,
+  key: String(element.id),
+}));
+
+const lobbyType = Object.values(lobbyTypeData).map(element => ({
+  text: strings['lobby_type_' + element.id],
+  value: element.id,
+  key: String(element.id),  
+}));
+
 const fields = () => ({
-  select: [],
   group: [{
     text: strings.th_hero_id,
     value: 'public_player_matches.hero_id',
@@ -53,6 +66,14 @@ const fields = () => ({
     value: '((public_player_matches.player_slot < 128) = public_matches.radiant_win)',
     alias: 'win',
     key: 'result',
+  }, {
+    text: strings.filter_game_mode,
+    value: 'game_mode',
+    key: 'game_mode',
+  }, {
+    text: strings.filter_lobby_type,
+    value: 'lobby_type',
+    key: 'lobby_type',
   }],
   minMmr: mmrs,
   maxMmr: mmrs,
@@ -82,6 +103,8 @@ const fields = () => ({
     value: false,
     key: 'loss',
   }],
+  gameMode,
+  lobbyType,
   order: [{ text: strings.explorer_asc, value: 'ASC', key: 'asc' }, { text: strings.explorer_desc, value: 'DESC', key: 'desc' }],
   having,
   limit,
