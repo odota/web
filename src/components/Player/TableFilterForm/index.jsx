@@ -197,7 +197,7 @@ class TableFilterForm extends React.Component {
             />
             <FormField
               name="games_played"
-              label={strings.filter_with_games_played}
+              label={strings.explorer_having}
               dataSource={data.gamesPlayedList}
               formSelectionState={formSelectionState}
               history={history}
