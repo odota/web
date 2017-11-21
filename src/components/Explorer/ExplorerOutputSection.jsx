@@ -94,14 +94,18 @@ class ExplorerOutputSection extends React.Component {
               return <span style={{ color: field ? constants.colorSuccess : constants.colorDanger }}>{field ? strings.td_win : strings.td_loss}</span>;
             } else if (column.field === 'is_radiant') {
               return field
-                ? <StyledTeamIconContainer><IconRadiant />{strings.general_radiant}</StyledTeamIconContainer>
-                : <StyledTeamIconContainer><IconDire />{strings.general_dire}</StyledTeamIconContainer>;
+                ? <StyledTeamIconContainer><IconRadiant width={30} />{strings.general_radiant}</StyledTeamIconContainer>
+                : <StyledTeamIconContainer><IconDire width={30} />{strings.general_dire}</StyledTeamIconContainer>;
             } else if (column.field === 'start_time') {
               return (new Date(field * 1000)).toLocaleDateString('en-US', {
                 day: 'numeric',
                 month: 'short',
                 year: 'numeric',
               });
+            } else if (column.field === 'game_mode') {
+              return strings[`game_mode_${field}`];
+            } else if (column.field === 'lobby_type') {
+              return strings[`lobby_type_${field}`];
             }
             if (typeof field === 'string') {
               return field;
