@@ -23,7 +23,7 @@ count(distinct match_id)::float/sum(count(1)) OVER() * 10 pickrate,
 sum(case when radiant_win = (player_slot < 128) then 1 else 0 end)::float/count(1) winrate
 FROM public_matches
 JOIN public_player_matches using(match_id)
-WHERE start_time >= extract(epoch from ${minDate ? `timestamp '${minDate.value}'` : `now() - interval '1 day'`})::int
+WHERE start_time >= extract(epoch from ${minDate ? `timestamp '${minDate.value}'` : 'now() - interval \'1 day\''})::int
 ${minMmr ? `AND avg_mmr >= '${minMmr.value}'` : ''}
 ${maxMmr ? `AND avg_mmr <= '${maxMmr.value}'` : ''}
 ${hero ? `AND public_player_matches.hero_id = ${hero.value}` : ''}
@@ -37,13 +37,13 @@ ${maxDate ? `AND start_time <= extract(epoch from timestamp '${maxDate.value}'):
 GROUP BY ${groupVal}
 ORDER BY games desc
 `;
-console.log(query);
+  console.log(query);
   return query
   // Remove extra newlines
     .replace(/\n{2,}/g, '\n');
 };
 
 export default queryTemplate;
-//const minDateThreshold = new Date(new Date()) - (1000 * 60 * 60 * 24 * 30));
-//TABLESAMPLE SYSTEM_ROWS(1000)
-//Postgres query optimizer refuses to use index scan when date range is too large (>3 days or so)
+// const minDateThreshold = new Date(new Date()) - (1000 * 60 * 60 * 24 * 30));
+// TABLESAMPLE SYSTEM_ROWS(1000)
+// Postgres query optimizer refuses to use index scan when date range is too large (>3 days or so)
