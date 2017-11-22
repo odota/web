@@ -18,10 +18,10 @@ const durations = Array(10).fill().map((e, i) => i * 10).map(duration => ({
   key: String(duration),
 }));
 
-const having = Array(10).fill().map((e, i) => i).map(element => ({
-  text: String(element + 1),
-  value: element + 1,
-  key: String(element + 1),
+const having = Array(5).fill().map((e, i) => (i + 1) * 5).map(element => ({
+  text: String(element),
+  value: element,
+  key: String(element),
 }));
 
 const limit = [100, 200, 500, 1000].map(element => ({

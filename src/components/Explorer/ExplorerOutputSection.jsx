@@ -76,7 +76,7 @@ class ExplorerOutputSection extends React.Component {
               return transformations.hero_id(row, col, field);
             } else if (column.field.indexOf('account_id') === 0) {
               return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
-            } else if (column.field.indexOf('winrate') === 0 || column.field.indexOf('pickrate') === 0 || column.field === 'winrate_wilson_score') {
+            } else if (column.field.indexOf('winrate') === 0 || column.field.indexOf('pickrate') === 0 || column.field === 'winrate_wilson') {
               return (field >= 0 && field <= 1 ? <TablePercent
                 percent={Number((field * 100).toFixed(2))}
               /> : null);
@@ -116,7 +116,7 @@ class ExplorerOutputSection extends React.Component {
             if (row[column.field] === null || typeof row[column.field] === 'boolean' || Number.isNaN(Number(row[column.field]))) {
               return row[column.field];
             }
-            return Number(row[column.field]);
+            return Number(Number(row[column.field]).toFixed(2));
           },
         }))}
       />);
