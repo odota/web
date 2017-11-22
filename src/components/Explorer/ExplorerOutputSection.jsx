@@ -116,7 +116,7 @@ class ExplorerOutputSection extends React.Component {
             if (row[column.field] === null || typeof row[column.field] === 'boolean' || Number.isNaN(Number(row[column.field]))) {
               return row[column.field];
             }
-            return Number(Number(row[column.field]).toPrecision(4));
+            return Number(Number(row[column.field]).toFixed(4));
           },
         }))}
       />);
