@@ -19,7 +19,7 @@ const queryTemplate = (props) => {
   const query = `
 select ${groupVal} ${(group && group.alias) || ''}, 
 count(distinct match_id) games, 
-count(distinct match_id)::float/sum(count(1)) OVER() * 10 pickrate,
+${!hero ? `count(distinct match_id)::float/sum(count(1)) OVER() * ${group && group.groupSize ? group.groupSize : 1} pickrate,` : ''}
 sum(case when radiant_win = (player_slot < 128) then 1 else 0 end)::float/count(1) winrate
 FROM public_matches
 JOIN public_player_matches using(match_id)
@@ -36,8 +36,8 @@ ${lobbyType ? `AND lobby_type = '${lobbyType.value}'` : ''}
 ${maxDate ? `AND start_time <= extract(epoch from timestamp '${maxDate.value}')::int` : ''}
 GROUP BY ${groupVal}
 ORDER BY games desc
+LIMIT 500
 `;
-  console.log(query);
   return query
   // Remove extra newlines
     .replace(/\n{2,}/g, '\n');

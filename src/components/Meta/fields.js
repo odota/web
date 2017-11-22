@@ -47,20 +47,24 @@ const fields = () => ({
     text: strings.th_hero_id,
     value: 'public_player_matches.hero_id',
     key: 'hero',
+    groupSize: 10,
   }, {
     text: strings.match_avg_mmr,
     value: 'avg_mmr/500*500',
+    alias: 'avg_mmr',
     key: 'mmr',
   }, {
     text: strings.explorer_side,
     value: '(public_player_matches.player_slot < 128)',
     alias: 'is_radiant',
     key: 'side',
+    groupSize: 5,
   }, {
     text: strings.th_result,
     value: '((public_player_matches.player_slot < 128) = public_matches.radiant_win)',
     alias: 'win',
     key: 'result',
+    groupSize: 5,
   }, {
     text: strings.heading_duration,
     value: 'duration/300*5',
