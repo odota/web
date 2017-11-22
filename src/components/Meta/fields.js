@@ -74,7 +74,7 @@ const fields = () => ({
     text: strings.filter_lobby_type,
     value: 'lobby_type',
     key: 'lobby_type',
-  } /* {
+  }, /* {
     text: strings.explorer_patch,
     value: 'patch',
     key: 'patch',
