@@ -47,15 +47,10 @@ const fields = () => ({
     text: strings.th_hero_id,
     value: 'public_player_matches.hero_id',
     key: 'hero',
-  }, /* {
-    text: strings.explorer_patch,
-    value: 'patch',
-    key: 'patch',
-  }, */ {
-    text: strings.heading_duration,
-    value: 'duration/300*5',
-    alias: 'minutes',
-    key: 'duration',
+  }, {
+    text: strings.match_avg_mmr,
+    value: 'avg_mmr/500*500',
+    key: 'mmr',
   }, {
     text: strings.explorer_side,
     value: '(public_player_matches.player_slot < 128)',
@@ -67,6 +62,11 @@ const fields = () => ({
     alias: 'win',
     key: 'result',
   }, {
+    text: strings.heading_duration,
+    value: 'duration/300*5',
+    alias: 'minutes',
+    key: 'duration',
+  }, {
     text: strings.filter_game_mode,
     value: 'game_mode',
     key: 'game_mode',
@@ -74,7 +74,11 @@ const fields = () => ({
     text: strings.filter_lobby_type,
     value: 'lobby_type',
     key: 'lobby_type',
-  }],
+  } /* {
+    text: strings.explorer_patch,
+    value: 'patch',
+    key: 'patch',
+  }, */],
   minMmr: mmrs,
   maxMmr: mmrs,
   hero: Object.keys(heroData).map(heroId => ({

@@ -19,7 +19,7 @@ import SearchForm from '../Search/SearchForm';
 import AppLogo from '../App/AppLogo';
 import BurgerMenu from './BurgerMenu';
 
-const REPORT_BUG_PATH = '//github.com/odota/ui/issues';
+const REPORT_BUG_PATH = '//github.com/odota/web/issues';
 
 const navbarPages = [
   <Link key={strings.header_explorer} to="/explorer">{strings.header_explorer}</Link>,
