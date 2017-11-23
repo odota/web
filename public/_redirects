@@ -1,2 +1,3 @@
+/api/*  https://api.opendota.com/api/:splat  200
 /static/js/* /index.html 404
 /*    /index.html   200
