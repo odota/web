@@ -11,7 +11,7 @@ class Purchases extends React.Component {
     this.state = {
       showCommItems: false,
     };
-    this.baconChange = () => {
+    this.change = () => {
       const { showCommItems } = this.state;
       this.setState({ showCommItems: !showCommItems });
     };
@@ -25,7 +25,7 @@ class Purchases extends React.Component {
           <Toggle
             label={strings.hide_consumables_items}
             defaultToggled
-            onToggle={this.baconChange}
+            onToggle={this.change}
           />
         </div>
         <TeamTable
