@@ -594,15 +594,16 @@ export const wilsonScore = (up, down) => {
 };
 
 export const commonConsumableItems = [
-  "Town Portal Scroll",
-  "Tango",
-  "Iron Branch",
-  "Enchanted Mango",
-  "Clarity",
-  "Healing Salve",
-  "Smoke of Deceit",
-  "Observer Ward",
-  "Sentry Ward",
-  "Infused Raindrop",
-  "Tome of Knowledge"
- ]
+  'Town Portal Scroll',
+  'Tango',
+  'Iron Branch',
+  'Enchanted Mango',
+  'Clarity',
+  'Healing Salve',
+  'Smoke of Deceit',
+  'Observer Ward',
+  'Sentry Ward',
+  'Infused Raindrop',
+  'Tome of Knowledge',
+];
+
