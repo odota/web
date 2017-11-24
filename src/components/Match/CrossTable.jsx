@@ -27,7 +27,7 @@ const CrossTable = ({
 }) => (
   <Table selectable={false}>
     <TableBody displayRowCheckbox={false}>
-      <TableRow >
+      <TableRow>
         <TableRowColumn />
         {match.players.slice(match.players.length / 2, match.players.length).map((player, i) => (
           <TableRowColumn key={player.hero_id} style={st}>
