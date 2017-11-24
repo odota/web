@@ -101,6 +101,8 @@
   "explorer_max_patch": "Максимальный патч",
   "explorer_min_mmr": "Мин. рейтинг",
   "explorer_max_mmr": "Макс. рейтинг",
+  "explorer_min_rank_tier": "Min Tier",
+  "explorer_max_rank_tier": "Max Tier",
   "explorer_player": "Игрок",
   "explorer_league": "Турнир",
   "explorer_player_purchased": "Игроков купили",
