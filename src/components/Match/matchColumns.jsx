@@ -9,7 +9,7 @@ import abilityKeys from 'dotaconstants/build/ability_keys.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById } from 'utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, commonConsumableItems } from 'utility';
 import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
@@ -464,7 +464,7 @@ export const fantasyColumns = [
 
 export const purchaseTimesColumns = (match, showCommItems) => {
   // IDs of common consumable items
-  const commCon = showCommItems ? [] : [16, 38, 42, 43, 44, 46, 188, 216, 257, 265];
+  const commCon = showCommItems ? [] : commonConsumableItems;
   const cols = [heroTdColumn];
   const bucket = 300;
   for (let i = 0; i < match.duration + bucket; i += bucket) {
@@ -472,7 +472,7 @@ export const purchaseTimesColumns = (match, showCommItems) => {
     cols.push({
       displayName: `${curTime / 60}'`,
       field: 'purchase_log',
-      displayFn: (row, column, field) => [
+      displayFn: (row, column, field) => 
         (
           <div>
             {field
@@ -489,13 +489,14 @@ export const purchaseTimesColumns = (match, showCommItems) => {
                 return 0;
               })
               .map((purchase) => {
-                if (items[purchase.key] && (!i || !commCon.includes(items[purchase.key].id))) { // always show consumable starting items
+                console.log(items[purchase.key])
+                if (items[purchase.key] && (!i || !commCon.includes(items[purchase.key].dname))) { // always show consumable starting items
                   return inflictorWithValue(purchase.key, formatSeconds(purchase.time));
                 }
                 return null;
               })
             : ''}
-          </div>)],
+          </div>),
     });
   }
   return cols;

@@ -592,3 +592,17 @@ export const wilsonScore = (up, down) => {
     1 + (z * z / n)
   );
 };
+
+export const commonConsumableItems = [
+  "Town Portal Scroll",
+  "Tango",
+  "Iron Branch",
+  "Enchanted Mango",
+  "Clarity",
+  "Healing Salve",
+  "Smoke of Deceit",
+  "Observer Ward",
+  "Sentry Ward",
+  "Infused Raindrop",
+  "Tome of Knowledge"
+ ]
