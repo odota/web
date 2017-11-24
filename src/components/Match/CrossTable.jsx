@@ -16,6 +16,10 @@ import constants from '../constants';
 
 const teamIconStyle = { width: '30px', height: '30px' };
 
+const st = {
+  paddingLeft: 0,
+};
+
 const CrossTable = ({
   match,
   field1,
@@ -26,10 +30,10 @@ const CrossTable = ({
       <TableRow>
         <TableRowColumn />
         {match.players.slice(match.players.length / 2, match.players.length).map((player, i) => (
-          <TableRowColumn key={player.hero_id}>
+          <TableRowColumn key={player.hero_id} style={st}>
             {heroTd(player, 'hero_id', player.hero_id, i, true)}
           </TableRowColumn>))}
-        <TableRowColumn>
+        <TableRowColumn style={st}>
           <div style={teamIconStyle}>
             <IconDire />
           </div>
@@ -46,7 +50,7 @@ const CrossTable = ({
           const pvalue1 = pfield1[hero2.name] || 0;
           const pvalue2 = pfield2[hero2.name] || 0;
           return (
-            <TableRowColumn key={player2.hero_id}>
+            <TableRowColumn key={player2.hero_id} style={st}>
               <div data-tip data-for={`${field1}_${field2}_${player.player_slot}_${player2.player_slot}`}>
                 <span style={{ color: pvalue1 > pvalue2 ? constants.colorSuccess : '' }}>{abbreviateNumber(pvalue1)}</span>
                 {'/'}
@@ -71,7 +75,7 @@ const CrossTable = ({
           });
 
           return (
-            <TableRowColumn key={`${player.hero_id}_totals`}>
+            <TableRowColumn key={`${player.hero_id}_totals`} style={st}>
               <div data-tip data-for={`${field1}_${field2}_${player.player_slot}_radiant`}>
                 <span style={{ color: ptotal1 > ptotal2 ? constants.colorSuccess : '' }}>{abbreviateNumber(ptotal1)}</span>
                 {'/'}
@@ -104,7 +108,7 @@ const CrossTable = ({
           });
 
           return (
-            <TableRowColumn key={`${player.hero_id}_totals`}>
+            <TableRowColumn key={`${player.hero_id}_totals`} style={st}>
               <div data-tip data-for={`${field1}_${field2}_${player.player_slot}_dire`}>
                 <span style={{ color: ptotal2 > ptotal1 ? constants.colorSuccess : '' }}>{abbreviateNumber(ptotal2)}</span>
                 {'/'}
@@ -132,7 +136,7 @@ const CrossTable = ({
           });
 
           return (
-            <TableRowColumn>
+            <TableRowColumn style={st}>
               <div data-tip data-for={`${field1}_${field2}_total`}>
                 <span style={{ color: radiantTotal > direTotal ? constants.colorSuccess : '' }}>{abbreviateNumber(radiantTotal)}</span>
                 {'/'}
