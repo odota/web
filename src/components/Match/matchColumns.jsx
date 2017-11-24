@@ -628,6 +628,19 @@ export const laningColumns = (currentState, setSelectedPlayer) => [
   { displayFn: row => <RadioButton checked={currentState.selectedPlayer === row.player_slot} onClick={() => setSelectedPlayer(row.player_slot)} /> },
   heroTdColumn,
   {
+    displayName: strings.heading_is_radiant,
+    tooltip: strings.heading_is_radiant,
+    field: 'isRadiant',
+    sortFn: true,
+    displayFn: (row, col, field) =>
+      (
+        <span>
+          {field && <IconRadiant height="30" /> }
+          {!field && <IconDire height="30" /> }
+        </span>
+      ),
+  },
+  {
     displayName: strings.th_lane,
     tooltip: strings.tooltip_lane,
     field: 'lane_role',
@@ -670,19 +683,6 @@ export const laningColumns = (currentState, setSelectedPlayer) => [
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
     sumFn: true,
-  },
-  {
-    displayName: strings.heading_is_radiant,
-    tooltip: strings.heading_is_radiant,
-    field: 'isRadiant',
-    sortFn: true,
-    displayFn: (row, col, field) =>
-      (
-        <span>
-          {field && <IconRadiant height="30" /> }
-          {!field && <IconDire height="30" /> }
-        </span>
-      ),
   },
 ];
 
