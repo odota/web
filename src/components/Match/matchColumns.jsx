@@ -471,7 +471,7 @@ export const purchaseTimesColumns = (match, showCommItems) => {
     cols.push({
       displayName: `${curTime / 60}'`,
       field: 'purchase_log',
-      displayFn: (row, column, field) => 
+      displayFn: (row, column, field) =>
         (
           <div>
             {field
@@ -488,7 +488,6 @@ export const purchaseTimesColumns = (match, showCommItems) => {
                 return 0;
               })
               .map((purchase) => {
-                console.log(items[purchase.key])
                 if (items[purchase.key] && (!i || !commCon.includes(items[purchase.key].dname))) { // always show consumable starting items
                   return inflictorWithValue(purchase.key, formatSeconds(purchase.time));
                 }
