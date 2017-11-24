@@ -467,7 +467,7 @@
 
   "matches_highest_mmr": "High MMR",
   "matches_lowest_mmr": "Low MMR",
-  
+
   "meta_title": "Meta",
   "meta_description": "Run advanced queries on data from sampled public matches in previous 24h",
 
@@ -690,6 +690,7 @@
   "th_biggest_hit": "Biggest Hit",
   "th_lane": "Lane",
   "th_map": "Map",
+  "th_side": "Side",
   "th_lane_efficiency": "EFF@10",
   "th_lhten": "LH@10",
   "th_dnten": "DN@10",
@@ -888,6 +889,7 @@
   "tooltip_stomp": "Maximum gold advantage in a won game",
   "tooltip_loss": "Maximum gold disadvantage in a lost game",
   "tooltip_items": "Items built",
+  "tooltip_side": "Side player was on",
   "tooltip_lane": "Lane based on early game position",
   "tooltip_map": "Heatmap of the player's early game position",
   "tooltip_lane_efficiency": "Percentage of lane gold (creeps+passive+starting) obtained at 10 minutes",

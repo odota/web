@@ -15,7 +15,7 @@ import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
-import { IconBackpack } from 'components/Icons';
+import { IconBackpack, IconRadiant, IconDire } from 'components/Icons';
 import constants from '../constants';
 import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
 
@@ -627,6 +627,18 @@ export const performanceColumns = [
 export const laningColumns = (currentState, setSelectedPlayer) => [
   { displayFn: row => <RadioButton checked={currentState.selectedPlayer === row.player_slot} onClick={() => setSelectedPlayer(row.player_slot)} /> },
   heroTdColumn,
+  {
+    displayName: strings.th_side,
+    tooltip: strings.tooltip_side,
+    field: 'isRadiant',
+    sortFn: true,
+    displayFn: (row, col, field) =>
+      (
+        <div style={{width: '30px', height: '30px'}}>
+          {field ? <IconRadiant /> : <IconDire />}
+        </div>
+      ),
+  },
   {
     displayName: strings.th_lane,
     tooltip: strings.tooltip_lane,
