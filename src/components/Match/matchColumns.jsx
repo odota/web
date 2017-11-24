@@ -472,7 +472,7 @@ export const purchaseTimesColumns = (match, showCommItems) => {
     cols.push({
       displayName: `${curTime / 60}'`,
       field: 'purchase_log',
-      displayFn: (row, column, field) => [
+      displayFn: (row, column, field) => 
         (
           <div>
             {field
@@ -495,7 +495,7 @@ export const purchaseTimesColumns = (match, showCommItems) => {
                 return null;
               })
             : ''}
-          </div>)],
+          </div>),
     });
   }
   return cols;
