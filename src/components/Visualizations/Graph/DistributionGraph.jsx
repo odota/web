@@ -31,12 +31,11 @@ DistributionTooltipContent.propTypes = {
 const DistributionGraph = ({
   data,
 }) => {
-  const mmr = data && data.mmr && data.mmr.rows;
-  if (mmr) {
+  if (data && data.length) {
     return (
       <ResponsiveContainer width="100%" height={600}>
         <ComposedChart
-          data={mmr}
+          data={data}
           margin={{
             top: 5, right: 30, left: 30, bottom: 5,
           }}
@@ -52,7 +51,7 @@ const DistributionGraph = ({
             opacity={0.5}
           />
 
-          <Tooltip content={<DistributionTooltipContent array={mmr} />} />
+          <Tooltip content={<DistributionTooltipContent array={data} />} />
           <Bar
             dataKey="count"
             yAxisId="left"

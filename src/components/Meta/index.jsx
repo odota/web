@@ -105,8 +105,8 @@ class Explorer extends React.Component {
         <Heading title={strings.meta_title} subtitle={strings.meta_description} />
         <ExplorerControlSection>
           <ExplorerFormField label={strings.explorer_group_by} fields={expandedFields} builderField="group" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-          <ExplorerFormField label={strings.explorer_min_mmr} fields={expandedFields} builderField="minMmr" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-          <ExplorerFormField label={strings.explorer_max_mmr} fields={expandedFields} builderField="maxMmr" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.explorer_min_rank_tier} fields={expandedFields} builderField="minRankTier" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.explorer_max_rank_tier} fields={expandedFields} builderField="maxRankTier" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_hero} fields={expandedFields} builderField="hero" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_side} fields={expandedFields} builderField="side" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.th_result} fields={expandedFields} builderField="result" handleFieldUpdate={handleFieldUpdate} builder={builder} />
@@ -114,6 +114,8 @@ class Explorer extends React.Component {
           <ExplorerFormField label={strings.explorer_max_duration} fields={expandedFields} builderField="maxDuration" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.filter_game_mode} fields={expandedFields} builderField="gameMode" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.filter_lobby_type} fields={expandedFields} builderField="lobbyType" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          {/* <ExplorerFormField label={strings.explorer_min_mmr} fields={expandedFields} builderField="minMmr" handleFieldUpdate={handleFieldUpdate} builder={builder} /> */}
+          {/* <ExplorerFormField label={strings.explorer_max_mmr} fields={expandedFields} builderField="maxMmr" handleFieldUpdate={handleFieldUpdate} builder={builder} /> */}
           {/* <ExplorerFormField label={strings.explorer_min_date} builderField="minDate" handleFieldUpdate={handleFieldUpdate} builder={builder} isDateField /> */}
           {/* <ExplorerFormField label={strings.explorer_max_date} builderField="maxDate" handleFieldUpdate={handleFieldUpdate} builder={builder} isDateField /> */}
           {/* <ExplorerFormField label={strings.explorer_order} fields={expandedFields} builderField="order" handleFieldUpdate={handleFieldUpdate} builder={builder} /> */}

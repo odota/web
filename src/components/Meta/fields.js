@@ -5,11 +5,22 @@ import gameModeData from 'dotaconstants/build/game_mode.json';
 import lobbyTypeData from 'dotaconstants/build/lobby_type.json';
 // import patchData from 'dotaconstants/build/patch.json';
 
+/*
 const mmrs = Array(20).fill().map((e, i) => i * 500).map(element => ({
   text: String(element),
   value: element,
   key: String(element),
 }));
+*/
+
+const rankTiers = Object.keys(strings).filter(str => str.indexOf('rank_tier_') === 0 && str !== 'rank_tier_0').map((str) => {
+  const num = str.substring('rank_tier_'.length);
+  return {
+    text: `[${num}] ${strings[str]}`,
+    value: num,
+    key: String(num),
+  };
+});
 
 const durations = Array(10).fill().map((e, i) => i * 10).map(duration => ({
   text: `${util.format(strings.time_mm, duration)}`,
@@ -48,12 +59,19 @@ const fields = () => ({
     value: 'public_player_matches.hero_id',
     key: 'hero',
     groupSize: 10,
-  }, {
+  }, /* {
     text: strings.match_avg_mmr,
     value: 'avg_mmr/500*500',
     alias: 'avg_mmr',
     key: 'mmr',
-  }, {
+  }, */
+  {
+    text: strings.match_avg_rank_tier,
+    value: 'floor(avg_rank_tier)',
+    key: 'avg_rank_tier',
+    alias: 'avg_rank_tier',
+  },
+  {
     text: strings.explorer_side,
     value: '(public_player_matches.player_slot < 128)',
     alias: 'is_radiant',
@@ -83,8 +101,10 @@ const fields = () => ({
     value: 'patch',
     key: 'patch',
   }, */],
-  minMmr: mmrs,
-  maxMmr: mmrs,
+  // minMmr: mmrs,
+  // maxMmr: mmrs,
+  minRankTier: rankTiers,
+  maxRankTier: rankTiers,
   hero: Object.keys(heroData).map(heroId => ({
     text: `[${heroId}] ${heroData[heroId].localized_name}`,
     searchText: heroData[heroId].localized_name,
