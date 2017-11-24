@@ -462,7 +462,9 @@ export const fantasyColumns = [
   },
 ].concat(fantasyComponents);
 
-export const purchaseTimesColumns = (match) => {
+export const purchaseTimesColumns = (match, showCommItems) => {
+  // IDs of common consumable items
+  const commCon = showCommItems ? [] : [46, 216, 44, 42, 43, 38, 257, 265, 188, 16];
   const cols = [heroTdColumn];
   const bucket = 300;
   for (let i = 0; i < match.duration + bucket; i += bucket) {
@@ -470,7 +472,7 @@ export const purchaseTimesColumns = (match) => {
     cols.push({
       displayName: `${curTime / 60}'`,
       field: 'purchase_log',
-      displayFn: (row, column, field) =>
+      displayFn: (row, column, field) => [
         (
           <div>
             {field
@@ -487,13 +489,13 @@ export const purchaseTimesColumns = (match) => {
                 return 0;
               })
               .map((purchase) => {
-                if (items[purchase.key]) {
+                if (items[purchase.key] && (!i || !commCon.includes(items[purchase.key].id))) { // always show consumable start items
                   return inflictorWithValue(purchase.key, formatSeconds(purchase.time));
                 }
                 return null;
               })
             : ''}
-          </div>),
+          </div>)],
     });
   }
   return cols;
