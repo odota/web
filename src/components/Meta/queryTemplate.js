@@ -12,6 +12,8 @@ const queryTemplate = (props) => {
     lobbyType,
     minDate,
     maxDate,
+    minRankTier,
+    maxRankTier,
     // having,
     // limit,
   } = props;
@@ -26,6 +28,8 @@ JOIN public_player_matches using(match_id)
 WHERE start_time >= extract(epoch from ${minDate ? `timestamp '${minDate.value}'` : 'now() - interval \'1 day\''})::int
 ${minMmr ? `AND avg_mmr >= '${minMmr.value}'` : ''}
 ${maxMmr ? `AND avg_mmr <= '${maxMmr.value}'` : ''}
+${minRankTier ? `AND avg_rank_tier >= '${minRankTier.value}'` : ''}
+${maxRankTier ? `AND avg_rank_tier <= '${maxRankTier.value}'` : ''}
 ${hero ? `AND public_player_matches.hero_id = ${hero.value}` : ''}
 ${minDuration ? `AND public_matches.duration >= ${minDuration.value}` : ''}
 ${maxDuration ? `AND public_matches.duration <= ${maxDuration.value}` : ''}
