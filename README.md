@@ -1,6 +1,6 @@
 # ui
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/odota/ui.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/odota/web.svg)](https://greenkeeper.io/)
 
 OpenDota UI: A web interface for viewing Dota 2 data. This utilizes the [OpenDota API](https://docs.opendota.com), which is also an [open source project](https://github.com/odota/core).
 
@@ -52,6 +52,6 @@ Testing
 ----
 <img src="/.github/browserstack_logo.png?raw=true" width="350" align="left">
 
-[Browserstack](https://www.browserstack.com/start) have been kind enough to provide us with a free account for Live and Automate. We will be using automate in the future to run automatic end-to-end testing. [Join the discussion on testing](https://github.com/odota/ui/issues/144)
+[Browserstack](https://www.browserstack.com/start) have been kind enough to provide us with a free account for Live and Automate. We will be using automate in the future to run automatic end-to-end testing.
 
 BrowserStack is a cloud-based cross-browser testing tool that enables developers to test their websites across various browsers on different operating systems and mobile devices, without requiring users to install virtual machines, devices or emulators.

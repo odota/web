@@ -11,7 +11,7 @@ import {
   abbreviateNumber,
   getOrdinal,
 } from 'utility';
-import Warning from 'components/Alerts';
+// import Warning from 'components/Alerts';
 import TabBar from 'components/TabBar';
 import Spinner from 'components/Spinner';
 import Heading from 'components/Heading';
@@ -33,11 +33,13 @@ const CountryDiv = styled.div`
     height: 24px;
   }
 `;
+/*
 const StyledWarning = styled(Warning)`
   font-size: ${constants.fontSizeCommon};
   text-align: center;
   margin-bottom: 20px;
 `;
+*/
 
 const countryMmrColumns = [{
   displayName: strings.th_rank,
@@ -89,31 +91,40 @@ const countryMmrColumns = [{
   sortFn: true,
 }];
 
-const getPage = (data, key) => (
-  <div>
-    <Heading
-      title={strings[`distributions_heading_${key}`]}
-      subtitle={`
+const getPage = (data, key) => {
+  let rows = data && data[key] && data[key].rows;
+  if (key === 'ranks') {
+    // Translate the rank integers into names
+    rows = rows.map(r => ({ ...r, bin_name: `${strings[`rank_tier_${Math.floor(r.bin_name / 10)}`]} ${r.bin_name % 10}` }));
+  }
+  return (
+    <div>
+      <Heading
+        title={strings[`distributions_heading_${key}`]}
+        subtitle={`
         ${data[key] && data[key].rows && abbreviateNumber(data[key].rows.map(row => row.count).reduce(sum, 0))} ${strings.th_players}
       `}
-      icon=" "
-      twoLine
-    />
-    {(key === 'mmr') ?
-      <DistributionGraph data={data} />
-      : <Table data={data[key] && data[key].rows} columns={countryMmrColumns} />}
-  </div>
-);
+        icon=" "
+        twoLine
+      />
+      {(key === 'mmr' || key === 'ranks') ?
+        <DistributionGraph data={rows} />
+      : <Table data={data && data[key] && data[key].rows} columns={countryMmrColumns} />}
+    </div>);
+};
 
 const distributionsPages = [
+  {
+    name: strings.distributions_tab_ranks, key: 'ranks', content: getPage, route: '/distributions/ranks',
+  },
   {
     name: strings.distributions_tab_mmr, key: 'mmr', content: getPage, route: '/distributions/mmr',
   },
   {
     name: strings.distributions_tab_country_mmr,
-    key: 'countryMmr',
+    key: 'country_mmr',
     content: data => getPage(data, 'country_mmr'),
-    route: '/distributions/countryMmr',
+    route: '/distributions/country_mmr',
   },
 ];
 
@@ -123,18 +134,13 @@ class RequestLayer extends React.Component {
   }
   render() {
     const { loading } = this.props;
-    const info = this.props.match.params.info || 'mmr';
+    const info = this.props.match.params.info || 'ranks';
     const page = distributionsPages.find(_page => (_page.key || _page.name.toLowerCase()) === info);
     return loading
       ? <Spinner />
       : (
         <div>
-          <Helmet title={page ? page.name : strings.distributions_tab_mmr} />
-          <StyledWarning>
-            {strings.distributions_warning_1}
-            <br />
-            {strings.distributions_warning_2}
-          </StyledWarning>
+          <Helmet title={page ? page.name : strings.distributions_tab_ranks} />
           <TabBar info={info} tabs={distributionsPages} />
           {page && page.content(this.props.data, info)}
         </div>);
