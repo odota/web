@@ -15,7 +15,7 @@ import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { Mmr } from 'components/Visualizations/Table/HeroImage';
-import { IconBackpack } from 'components/Icons';
+import { IconBackpack, IconRadiant, IconDire } from 'components/Icons';
 import constants from '../constants';
 import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
 
@@ -670,6 +670,19 @@ export const laningColumns = (currentState, setSelectedPlayer) => [
     displayFn: (row, col, field) => field || '-',
     relativeBars: true,
     sumFn: true,
+  },
+  {
+    displayName: strings.heading_is_radiant,
+    tooltip: strings.heading_is_radiant,
+    field: 'isRadiant',
+    sortFn: true,
+    displayFn: (row, col, field) =>
+      (
+        <span>
+          {field && <IconRadiant height="30" /> }
+          {!field && <IconDire height="30" /> }
+        </span>
+      ),
   },
 ];
 
