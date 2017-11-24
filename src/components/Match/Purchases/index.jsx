@@ -41,8 +41,6 @@ class Purchases extends React.Component {
 
 Purchases.propTypes = {
   match: PropTypes.shape({}),
-  showCommItems: PropTypes.bool,
-  handleBaconChange: PropTypes.func,
 };
 
 export default Purchases;
