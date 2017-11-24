@@ -463,7 +463,6 @@ export const fantasyColumns = [
 ].concat(fantasyComponents);
 
 export const purchaseTimesColumns = (match, showCommItems) => {
-  // IDs of common consumable items
   const commCon = showCommItems ? [] : commonConsumableItems;
   const cols = [heroTdColumn];
   const bucket = 300;
