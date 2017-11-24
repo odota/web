@@ -628,7 +628,7 @@ export const laningColumns = (currentState, setSelectedPlayer) => [
   { displayFn: row => <RadioButton checked={currentState.selectedPlayer === row.player_slot} onClick={() => setSelectedPlayer(row.player_slot)} /> },
   heroTdColumn,
   {
-    displayName: strings.heading_is_radiant,
+    displayName: strings.th_side,
     tooltip: strings.tooltip_side,
     field: 'isRadiant',
     sortFn: true,
