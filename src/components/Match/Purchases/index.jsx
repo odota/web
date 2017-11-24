@@ -23,7 +23,7 @@ class Purchases extends React.Component {
       <div>
         <div style={{ width: '180px', margin: '10px' }}>
           <Toggle
-            label={strings.hide_common_items}
+            label={strings.hide_consumables_items}
             defaultToggled
             onToggle={this.baconChange}
           />
