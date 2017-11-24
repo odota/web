@@ -101,6 +101,8 @@
   "explorer_max_patch": "Patch massima",
   "explorer_min_mmr": "Min MMR",
   "explorer_max_mmr": "Max MMR",
+  "explorer_min_rank_tier": "Min Tier",
+  "explorer_max_rank_tier": "Max Tier",
   "explorer_player": "Giocatore",
   "explorer_league": "Lega",
   "explorer_player_purchased": "Oggetto acquistato",
