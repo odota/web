@@ -25,7 +25,7 @@ const CrossTable = ({
   field1,
   field2,
 }) => (
-  <Table selectable={false}>
+  <Table selectable={false} >
     <TableBody displayRowCheckbox={false}>
       <TableRow>
         <TableRowColumn />
@@ -41,7 +41,7 @@ const CrossTable = ({
       </TableRow>
       {match.players.slice(0, match.players.length / 2).map((player, i) => (
         <TableRow key={player.hero_id}>
-          <TableRowColumn >{heroTd(player, 'hero_id', player.hero_id, i, true)}</TableRowColumn>
+          <TableRowColumn>{heroTd(player, 'hero_id', player.hero_id, i, true)}</TableRowColumn>
           {match.players.slice(match.players.length / 2, match.players.length).map((player2) => {
           const hero1 = heroes[player.hero_id] || {};
           const hero2 = heroes[player2.hero_id] || {};
