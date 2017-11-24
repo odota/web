@@ -101,6 +101,8 @@
   "explorer_max_patch": "最高版本",
   "explorer_min_mmr": "Min MMR",
   "explorer_max_mmr": "Max MMR",
+  "explorer_min_rank_tier": "Min Tier",
+  "explorer_max_rank_tier": "Max Tier",
   "explorer_player": "玩家",
   "explorer_league": "联赛",
   "explorer_player_purchased": "购买物品",
