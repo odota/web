@@ -86,9 +86,11 @@
   "CHAT_MESSAGE_TOWER_DENY": "Tower Deny",
   "CHAT_MESSAGE_AEGIS_STOLEN": "Stole the Aegis",
   "CHAT_MESSAGE_DENIED_AEGIS": "Denied the Aegis",
-
+  
+  "distributions_heading_ranks": "Rank Tier Distribution",
   "distributions_heading_mmr": "Solo MMR Distribution",
   "distributions_heading_country_mmr": "Average Solo MMR by Country",
+  "distributions_tab_ranks": "Rank Tiers",
   "distributions_tab_mmr": "Solo MMR",
   "distributions_tab_country_mmr": "Solo MMR by Country",
   "distributions_warning_1": "This data set is limited to players displaying MMR on profile and sharing public match data.",
@@ -243,7 +245,7 @@
   "NULL_gold_reasons_15": "Courier",
 
   "header_request": "Request",
-  "header_distributions": "MMR",
+  "header_distributions": "Ranks",
   "header_heroes": "Heroes",
   "header_blog": "Blog",
   "header_ingame": "Ingame",
