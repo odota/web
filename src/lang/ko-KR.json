@@ -101,6 +101,8 @@
   "explorer_max_patch": "가장 최신 패치",
   "explorer_min_mmr": "Min MMR",
   "explorer_max_mmr": "Max MMR",
+  "explorer_min_rank_tier": "Min Tier",
+  "explorer_max_rank_tier": "Max Tier",
   "explorer_player": "선수",
   "explorer_league": "리그",
   "explorer_player_purchased": "플레이어가 구입한 아이템",
