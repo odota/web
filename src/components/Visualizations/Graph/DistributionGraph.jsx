@@ -30,6 +30,7 @@ DistributionTooltipContent.propTypes = {
 
 const DistributionGraph = ({
   data,
+  xTickInterval,
 }) => {
   if (data && data.length) {
     return (
@@ -40,7 +41,7 @@ const DistributionGraph = ({
             top: 5, right: 30, left: 30, bottom: 5,
           }}
         >
-          <XAxis dataKey="bin_name" interval={4}>
+          <XAxis dataKey="bin_name" interval={xTickInterval || 4}>
             <Label value="" position="insideTopRight" />
           </XAxis>
           <YAxis yAxisId="left" orientation="left" stroke="#1393f9" />
@@ -70,7 +71,8 @@ const DistributionGraph = ({
 };
 
 DistributionGraph.propTypes = {
-  data: PropTypes.arrayOf(),
+  data: PropTypes.arrayOf(PropTypes.shape({})),
+  xTickInterval: PropTypes.number,
 };
 
 export default DistributionGraph;

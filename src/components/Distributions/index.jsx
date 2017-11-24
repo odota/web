@@ -108,7 +108,7 @@ const getPage = (data, key) => {
         twoLine
       />
       {(key === 'mmr' || key === 'ranks') ?
-        <DistributionGraph data={rows} />
+        <DistributionGraph data={rows} xTickInterval={key === 'ranks' ? 5 : null} />
       : <Table data={data && data[key] && data[key].rows} columns={countryMmrColumns} />}
     </div>);
 };
