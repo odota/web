@@ -68,6 +68,8 @@
   "barracks_value_1024": "Radiant Top Melee",
   "barracks_value_2048": "Radiant Top Ranged",
 
+ "building_ancient": "Ancient",
+
   "benchmarks_description": "%d %s is equal or higher than %d% of recent performances on this hero",
   "fantasy_description": "%d for %d points",
 
@@ -1157,5 +1159,13 @@
 
   "hero_disclaimer_pro": "Data from professional matches",
   "hero_disclaimer_public": "Data from public matches",
-  "hero_duration_x_axis": "Minutes"
+  "hero_duration_x_axis": "Minutes",
+                        
+  "top_tower": "Top Tower",
+  "bot_tower": "Bottom Tower",
+  "mid_tower": "Mid Tower",
+  "tier1": "Tier 1",
+  "tier2": "Tier 2",
+  "tier3": "Tier 3",
+  "tier4": "Tier 4"
 }

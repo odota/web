@@ -4,6 +4,7 @@ import strings from 'lang';
 import {
   formatSeconds,
   getHeroesById,
+  translateBuildings as tb,
 } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import Table from 'components/Table';
@@ -100,6 +101,7 @@ const logColumns = [heroTdColumn, {
   displayName: strings.log_detail,
   field: 'detail',
   displayFn: (row) => {
+    console.log(row);
     switch (row.type) {
       case 'kills': {
         const hero = heroNames[row.detail] || {};
@@ -117,6 +119,69 @@ const logColumns = [heroTdColumn, {
             data-for={runeString}
           />
         );
+      }
+      case 'objectives': {
+        if (row.detail === ' First Blood') {
+          return (
+            <span>
+              <img
+                src="/assets/images/dota2/bloodsplattersmall.png"
+                alt=""
+                style={{ height: '30px', float: 'left', paddingTop: '7px' }}
+              />
+              <p>{strings.th_firstblood_claimed}</p>
+            </span>
+          );
+        }
+        if (tb.radiant[row.key]) {
+          return (
+            <span>
+              <img
+                src="/assets/images/dota2/dotastructuresmallradiant.png"
+                alt=""
+                style={{ height: '30px', float: 'left', paddingTop: '7px' }}
+              />
+              <p>{tb.radiant[row.key]}</p>
+            </span>
+          );
+        }
+        if (tb.dire[row.key]) {
+          return (
+            <span>
+              <img
+                src="/assets/images/dota2/dotastructuresmalldire.png"
+                alt=""
+                style={{ height: '30px', float: 'left', paddingTop: '7px' }}
+              />
+              <p>{tb.dire[row.key]}</p>
+            </span>
+          );
+        }
+        if (row.detail === ' Picked up the Aegis') {
+          return (
+            <span>
+              <img
+                src="/assets/images/dota2/aegis_icon.png"
+                alt=""
+                style={{ height: '30px', float: 'left', paddingTop: '7px' }}
+              />
+              <p>{strings.CHAT_MESSAGE_AEGIS}</p>
+            </span>
+          );
+        }
+        if (row.detail === ' Roshan') {
+          return (
+            <span>
+              <img
+                src="/assets/images/dota2/deadroshan.png"
+                alt=""
+                style={{ height: '30px', float: 'left', paddingTop: '7px' }}
+              />
+              <p>{strings.th_roshan}</p>
+            </span>
+          );
+        }
+        return row.detail;
       }
       default:
         return row.detail;
