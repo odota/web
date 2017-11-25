@@ -24,6 +24,7 @@ class Purchases extends React.Component {
         <div style={{ width: '180px', margin: '10px' }}>
           <Toggle
             label={strings.hide_consumables_items}
+            labelStyle={ {color: '#5d6683'} }
             defaultToggled
             onToggle={this.change}
           />
