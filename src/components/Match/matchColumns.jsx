@@ -9,7 +9,7 @@ import abilityKeys from 'dotaconstants/build/ability_keys.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, commonConsumableItems } from 'utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById } from 'utility';
 import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
@@ -487,7 +487,7 @@ export const purchaseTimesColumns = (match, showCommItems) => {
                 return 0;
               })
               .map((purchase) => {
-                console.log(items[purchase.key])
+                console.log(items[purchase.key]);
                 if (items[purchase.key] && (!i || showCommItems || items[purchase.key].qual !== 'consumable')) { // always show consumable starting items
                   return inflictorWithValue(purchase.key, formatSeconds(purchase.time));
                 }
