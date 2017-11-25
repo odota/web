@@ -101,7 +101,6 @@ const logColumns = [heroTdColumn, {
   displayName: strings.log_detail,
   field: 'detail',
   displayFn: (row) => {
-    console.log(row);
     switch (row.type) {
       case 'kills': {
         const hero = heroNames[row.detail] || {};
