@@ -10,6 +10,7 @@ import ReactTooltip from 'react-tooltip';
 import Table from 'components/Table';
 import heroes from 'dotaconstants/build/heroes.json';
 import FormField from 'components/Form/FormField';
+import { IconRadiant, IconDire } from 'components/Icons';
 import {
   heroTdColumn,
 } from './matchColumns';
@@ -91,6 +92,19 @@ const generateLog = (match, { types, players }) => {
 };
 
 const logColumns = [heroTdColumn, {
+  displayName: strings.heading_is_radiant,
+  tooltip: strings.heading_is_radiant,
+  field: 'isRadiant',
+  sortFn: true,
+  displayFn: (row, col, field) =>
+    (
+      <span>
+        {field && <IconRadiant height="30" />}
+        {!field && <IconDire height="30" />}
+      </span>
+    ),
+},
+{
   displayName: strings.th_time,
   field: 'time',
   displayFn: (row, col, field) => formatSeconds(field),
@@ -135,24 +149,20 @@ const logColumns = [heroTdColumn, {
         if (tb.radiant[row.key]) {
           return (
             <span>
-              <img
-                src="/assets/images/dota2/dotastructuresmallradiant.png"
-                alt=""
+              <IconRadiant
                 style={{ height: '30px', float: 'left', paddingTop: '7px' }}
               />
-              <p>{tb.radiant[row.key]}</p>
+              <p>{tb.radiant[row.key]} {row.isRadiant ? `(${strings.building_denied})` : ''}</p>
             </span>
           );
         }
         if (tb.dire[row.key]) {
           return (
             <span>
-              <img
-                src="/assets/images/dota2/dotastructuresmalldire.png"
-                alt=""
+              <IconDire
                 style={{ height: '30px', float: 'left', paddingTop: '7px' }}
               />
-              <p>{tb.dire[row.key]}</p>
+              <p>{tb.dire[row.key]} {!row.isRadiant ? `(${strings.building_denied})` : ''}</p>
             </span>
           );
         }
