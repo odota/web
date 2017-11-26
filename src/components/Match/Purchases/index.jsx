@@ -21,11 +21,10 @@ class Purchases extends React.Component {
     const { match } = this.props;
     return (
       <div>
-        <div style={{ width: '180px', margin: '10px' }}>
+        <div style={{ width: '190px', margin: '10px' }}>
           <Toggle
-            label={strings.hide_consumables_items}
+            label={strings.show_consumables_items}
             labelStyle={{ color: '#5d6683' }}
-            defaultToggled
             onToggle={this.change}
           />
         </div>
