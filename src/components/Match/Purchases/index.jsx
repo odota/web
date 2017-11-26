@@ -9,11 +9,11 @@ class Purchases extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showCommItems: false,
+      showConsumables: false,
     };
     this.change = () => {
-      const { showCommItems } = this.state;
-      this.setState({ showCommItems: !showCommItems });
+      const { showConsumables } = this.state;
+      this.setState({ showConsumables: !showConsumables });
     };
   }
 
@@ -31,7 +31,7 @@ class Purchases extends React.Component {
         </div>
         <TeamTable
           players={match.players}
-          columns={purchaseTimesColumns(match, this.state.showCommItems)}
+          columns={purchaseTimesColumns(match, this.state.showConsumables)}
           heading={strings.heading_purchase_log}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}

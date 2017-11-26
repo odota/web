@@ -462,7 +462,7 @@ export const fantasyColumns = [
   },
 ].concat(fantasyComponents);
 
-export const purchaseTimesColumns = (match, showCommItems) => {
+export const purchaseTimesColumns = (match, showConsumables) => {
   const cols = [heroTdColumn];
   const bucket = 300;
   for (let i = 0; i < match.duration + bucket; i += bucket) {
@@ -487,8 +487,7 @@ export const purchaseTimesColumns = (match, showCommItems) => {
                 return 0;
               })
               .map((purchase) => {
-                console.log(items[purchase.key]);
-                if (items[purchase.key] && (!i || showCommItems || items[purchase.key].qual !== 'consumable')) { // always show consumable starting items
+                if (items[purchase.key] && (showConsumables || items[purchase.key].qual !== 'consumable')) { // always show consumable starting items
                   return inflictorWithValue(purchase.key, formatSeconds(purchase.time));
                 }
                 return null;
