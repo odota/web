@@ -4,11 +4,13 @@ import strings from 'lang';
 import {
   formatSeconds,
   getHeroesById,
+  translateBuildings as tb,
 } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import Table from 'components/Table';
 import heroes from 'dotaconstants/build/heroes.json';
 import FormField from 'components/Form/FormField';
+import { IconRadiant, IconDire } from 'components/Icons';
 import {
   heroTdColumn,
 } from './matchColumns';
@@ -90,6 +92,19 @@ const generateLog = (match, { types, players }) => {
 };
 
 const logColumns = [heroTdColumn, {
+  displayName: strings.heading_is_radiant,
+  tooltip: strings.heading_is_radiant,
+  field: 'isRadiant',
+  sortFn: true,
+  displayFn: (row, col, field) =>
+    (
+      <span>
+        {field && <IconRadiant height="30" />}
+        {!field && <IconDire height="30" />}
+      </span>
+    ),
+},
+{
   displayName: strings.th_time,
   field: 'time',
   displayFn: (row, col, field) => formatSeconds(field),
@@ -117,6 +132,65 @@ const logColumns = [heroTdColumn, {
             data-for={runeString}
           />
         );
+      }
+      case 'objectives': {
+        if (row.detail === ' First Blood') {
+          return (
+            <span>
+              <img
+                src="/assets/images/dota2/bloodsplattersmall.png"
+                alt=""
+                style={{ height: '30px', float: 'left', paddingTop: '7px' }}
+              />
+              <p>{strings.th_firstblood_claimed}</p>
+            </span>
+          );
+        }
+        if (tb.radiant[row.key]) {
+          return (
+            <span>
+              <IconRadiant
+                style={{ height: '30px', float: 'left', paddingTop: '7px' }}
+              />
+              <p>{tb.radiant[row.key]} {row.isRadiant ? `(${strings.building_denied})` : ''}</p>
+            </span>
+          );
+        }
+        if (tb.dire[row.key]) {
+          return (
+            <span>
+              <IconDire
+                style={{ height: '30px', float: 'left', paddingTop: '7px' }}
+              />
+              <p>{tb.dire[row.key]} {!row.isRadiant ? `(${strings.building_denied})` : ''}</p>
+            </span>
+          );
+        }
+        if (row.detail === ' Picked up the Aegis') {
+          return (
+            <span>
+              <img
+                src="/assets/images/dota2/aegis_icon.png"
+                alt=""
+                style={{ height: '30px', float: 'left', paddingTop: '7px' }}
+              />
+              <p>{strings.CHAT_MESSAGE_AEGIS}</p>
+            </span>
+          );
+        }
+        if (row.detail === ' Roshan') {
+          return (
+            <span>
+              <img
+                src="/assets/images/dota2/deadroshan.png"
+                alt=""
+                style={{ height: '30px', float: 'left', paddingTop: '7px' }}
+              />
+              <p>{strings.th_roshan}</p>
+            </span>
+          );
+        }
+        return row.detail;
       }
       default:
         return row.detail;
