@@ -16,6 +16,7 @@ import {
 } from './matchColumns';
 import { StyledLogFilterForm } from './StyledMatch';
 
+const logDetailIconStyle = { height: '30px', float: 'left', paddingTop: '7px' };
 const heroNames = getHeroesById();
 const typeConfig = {
   kills: 0,
@@ -140,7 +141,7 @@ const logColumns = [heroTdColumn, {
               <img
                 src="/assets/images/dota2/bloodsplattersmall.png"
                 alt=""
-                style={{ height: '30px', float: 'left', paddingTop: '7px' }}
+                style={logDetailIconStyle}
               />
               <p>{strings.th_firstblood_claimed}</p>
             </span>
@@ -150,7 +151,7 @@ const logColumns = [heroTdColumn, {
           return (
             <span>
               <IconRadiant
-                style={{ height: '30px', float: 'left', paddingTop: '7px' }}
+                style={logDetailIconStyle}
               />
               <p>{tb.radiant[row.key]} {row.isRadiant ? `(${strings.building_denied})` : ''}</p>
             </span>
@@ -160,7 +161,7 @@ const logColumns = [heroTdColumn, {
           return (
             <span>
               <IconDire
-                style={{ height: '30px', float: 'left', paddingTop: '7px' }}
+                style={logDetailIconStyle}
               />
               <p>{tb.dire[row.key]} {!row.isRadiant ? `(${strings.building_denied})` : ''}</p>
             </span>
@@ -172,7 +173,7 @@ const logColumns = [heroTdColumn, {
               <img
                 src="/assets/images/dota2/aegis_icon.png"
                 alt=""
-                style={{ height: '30px', float: 'left', paddingTop: '7px' }}
+                style={logDetailIconStyle}
               />
               <p>{strings.CHAT_MESSAGE_AEGIS}</p>
             </span>
@@ -184,7 +185,7 @@ const logColumns = [heroTdColumn, {
               <img
                 src="/assets/images/dota2/deadroshan.png"
                 alt=""
-                style={{ height: '30px', float: 'left', paddingTop: '7px' }}
+                style={logDetailIconStyle}
               />
               <p>{strings.th_roshan}</p>
             </span>
