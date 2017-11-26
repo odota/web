@@ -487,7 +487,7 @@ export const purchaseTimesColumns = (match, showConsumables) => {
                 return 0;
               })
               .map((purchase) => {
-                if (items[purchase.key] && (showConsumables || items[purchase.key].qual !== 'consumable')) { // always show consumable starting items
+                if (items[purchase.key] && (showConsumables || items[purchase.key].qual !== 'consumable')) {
                   return inflictorWithValue(purchase.key, formatSeconds(purchase.time));
                 }
                 return null;
