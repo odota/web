@@ -1081,5 +1081,6 @@
   "question_continued_laughed": "欣喜地问道",
   "hero_disclaimer_pro": "来自职业比赛的数据",
   "hero_disclaimer_public": "来自公开比赛的数据",
-  "hero_duration_x_axis": "分钟"
+  "hero_duration_x_axis": "分钟",
+  "show_consumables_items": "Show consumables"
 }
