@@ -3,6 +3,7 @@ import strings from 'lang';
 import Heading from 'components/Heading';
 import Table from 'components/Table';
 import TeamfightMap from 'components/Match/TeamfightMap';
+import Purchases from 'components/Match/Purchases';
 import Timeline from 'components/Match/Overview/Timeline';
 import MatchGraph from 'components/Visualizations/Graph/MatchGraph';
 import StackedBarGraph from 'components/Visualizations/Graph/StackedBarGraph';
@@ -15,7 +16,6 @@ import MatchStory from './MatchStory';
 import {
   benchmarksColumns,
   performanceColumns,
-  purchaseTimesColumns,
   lastHitsTimesColumns,
   unitKillsColumns,
   actionsColumns,
@@ -149,13 +149,7 @@ const matchPages = [Overview, {
   parsed: true,
   content: match => (
     <div>
-      <TeamTable
-        players={match.players}
-        columns={purchaseTimesColumns(match)}
-        heading={strings.heading_purchase_log}
-        radiantTeam={match.radiant_team}
-        direTeam={match.dire_team}
-      />
+      <Purchases match={match} />
     </div>),
 }, {
   name: strings.tab_graphs,
