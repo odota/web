@@ -1081,5 +1081,6 @@
   "question_continued_laughed": "радостно спросил",
   "hero_disclaimer_pro": "Данные профессиональных матчей",
   "hero_disclaimer_public": "Данные публичных матчей",
-  "hero_duration_x_axis": "Минут"
+  "hero_duration_x_axis": "Минут",
+  "show_consumables_items": "Show consumables"
 }
