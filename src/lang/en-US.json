@@ -68,8 +68,6 @@
   "barracks_value_1024": "Radiant Top Melee",
   "barracks_value_2048": "Radiant Top Ranged",
 
- "building_ancient": "Ancient",
-
   "benchmarks_description": "%d %s is equal or higher than %d% of recent performances on this hero",
   "fantasy_description": "%d for %d points",
 
@@ -79,6 +77,7 @@
   "building_damage": "received damage",
   "building_hint": "Icons on the map have tooltips",
   "building_denied": "denied",
+  "building_ancient": "Ancient",
 
   "CHAT_MESSAGE_TOWER_KILL": "Tower",
   "CHAT_MESSAGE_BARRACKS_KILL": "Barracks",
@@ -1164,6 +1163,10 @@
   "top_tower": "Top Tower",
   "bot_tower": "Bottom Tower",
   "mid_tower": "Mid Tower",
+  "top_rax": "Top Barracks",
+  "bot_rax": "Bottom Barracks",
+  "mid_rax": "Mid Barracks",
+
   "tier1": "Tier 1",
   "tier2": "Tier 2",
   "tier3": "Tier 3",

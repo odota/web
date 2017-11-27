@@ -593,46 +593,29 @@ export const wilsonScore = (up, down) => {
   );
 };
 
-// example: Radiant Top Tower Tier 1
-export const translateBuildings = {
-  radiant: {
-    npc_dota_goodguys_fort: `${strings.general_radiant} ${strings.building_ancient}`,
-    npc_dota_goodguys_healers: `${strings.general_radiant} ${strings.heading_shrine}`,
-    npc_dota_goodguys_tower1_top: `${strings.general_radiant} ${strings.top_tower} ${strings.tier1}`,
-    npc_dota_goodguys_tower2_top: `${strings.general_radiant} ${strings.top_tower} ${strings.tier2}`,
-    npc_dota_goodguys_tower3_top: `${strings.general_radiant} ${strings.top_tower} ${strings.tier3}`,
-    npc_dota_goodguys_tower1_mid: `${strings.general_radiant} ${strings.mid_tower} ${strings.tier1}`,
-    npc_dota_goodguys_tower2_mid: `${strings.general_radiant} ${strings.mid_tower} ${strings.tier2}`,
-    npc_dota_goodguys_tower3_mid: `${strings.general_radiant} ${strings.mid_tower} ${strings.tier3}`,
-    npc_dota_goodguys_tower1_bot: `${strings.general_radiant} ${strings.bot_tower} ${strings.tier1}`,
-    npc_dota_goodguys_tower2_bot: `${strings.general_radiant} ${strings.bot_tower} ${strings.tier2}`,
-    npc_dota_goodguys_tower3_bot: `${strings.general_radiant} ${strings.bot_tower} ${strings.tier3}`,
-    npc_dota_goodguys_tower4: `${strings.general_radiant} ${strings.heading_tower} ${strings.tier4}`,
-    npc_dota_goodguys_melee_rax_top: `${strings.barracks_value_1024} ${strings.heading_barracks}`,
-    npc_dota_goodguys_melee_rax_mid: `${strings.barracks_value_256} ${strings.heading_barracks}`,
-    npc_dota_goodguys_melee_rax_bot: `${strings.barracks_value_64} ${strings.heading_barracks}`,
-    npc_dota_goodguys_range_rax_top: `${strings.barracks_value_2048} ${strings.heading_barracks}`,
-    npc_dota_goodguys_range_rax_mid: `${strings.barracks_value_512} ${strings.heading_barracks}`,
-    npc_dota_goodguys_range_rax_bot: `${strings.barracks_value_128} ${strings.heading_barracks}`,
-  },
-  dire: {
-    npc_dota_badguys_fort: `${strings.general_dire} ${strings.building_ancient}`,
-    npc_dota_badguys_healers: `${strings.general_dire} ${strings.heading_shrine}`,
-    npc_dota_badguys_tower1_top: `${strings.general_dire} ${strings.top_tower} ${strings.tier1}`,
-    npc_dota_badguys_tower2_top: `${strings.general_dire} ${strings.top_tower} ${strings.tier2}`,
-    npc_dota_badguys_tower3_top: `${strings.general_dire} ${strings.top_tower} ${strings.tier3}`,
-    npc_dota_badguys_tower1_mid: `${strings.general_dire} ${strings.mid_tower} ${strings.tier1}`,
-    npc_dota_badguys_tower2_mid: `${strings.general_dire} ${strings.mid_tower} ${strings.tier2}`,
-    npc_dota_badguys_tower3_mid: `${strings.general_dire} ${strings.mid_tower} ${strings.tier3}`,
-    npc_dota_badguys_tower1_bot: `${strings.general_dire} ${strings.bot_tower} ${strings.tier1}`,
-    npc_dota_badguys_tower2_bot: `${strings.general_dire} ${strings.bot_tower} ${strings.tier2}`,
-    npc_dota_badguys_tower3_bot: `${strings.general_dire} ${strings.bot_tower} ${strings.tier3}`,
-    npc_dota_badguys_tower4: `${strings.general_dire} ${strings.heading_tower} ${strings.tier4}`,
-    npc_dota_badguys_melee_rax_top: `${strings.barracks_value_16} ${strings.heading_barracks}`,
-    npc_dota_badguys_melee_rax_mid: `${strings.barracks_value_4} ${strings.heading_barracks}`,
-    npc_dota_badguys_melee_rax_bot: `${strings.barracks_value_1} ${strings.heading_barracks}`,
-    npc_dota_badguys_range_rax_top: `${strings.barracks_value_32} ${strings.heading_barracks}`,
-    npc_dota_badguys_range_rax_mid: `${strings.barracks_value_8} ${strings.heading_barracks}`,
-    npc_dota_badguys_range_rax_bot: `${strings.barracks_value_2} ${strings.heading_barracks}`,
-  },
+export const translateBuildings = (isRadiant, key) => {
+  const team = isRadiant ? strings.general_radiant : strings.general_dire;
+  const k = key.split('_').slice(3).join('_');
+  const dict = {
+    fort: strings.building_ancient,
+    healers: strings.heading_shrine,
+    tower1_top: ` ${strings.top_tower} ${strings.tier1}`,
+    tower2_top: ` ${strings.top_tower} ${strings.tier2}`,
+    tower3_top: ` ${strings.top_tower} ${strings.tier3}`,
+    tower1_mid: ` ${strings.mid_tower} ${strings.tier1}`,
+    tower2_mid: ` ${strings.mid_tower} ${strings.tier2}`,
+    tower3_mid: ` ${strings.mid_tower} ${strings.tier3}`,
+    tower1_bot: ` ${strings.bot_tower} ${strings.tier1}`,
+    tower2_bot: ` ${strings.bot_tower} ${strings.tier2}`,
+    tower3_bot: ` ${strings.bot_tower} ${strings.tier3}`,
+    tower4: ` ${strings.heading_tower} ${strings.tier4}`,
+    melee_rax_top: `${' Top'} ${strings.building_melee_rax}`,
+    melee_rax_mid: `${' Mid'} ${strings.building_melee_rax}`,
+    melee_rax_bot: `${' Bot'} ${strings.building_melee_rax}`,
+    range_rax_top: `${' Top'} ${strings.building_range_rax}`,
+    range_rax_mid: `${' Mid'} ${strings.building_range_rax}`,
+    range_rax_bot: `${' Bot'} ${strings.building_range_rax}`,
+  };
+  return team + dict[k];
 };
+

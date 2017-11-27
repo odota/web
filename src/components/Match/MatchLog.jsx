@@ -5,6 +5,7 @@ import {
   formatSeconds,
   getHeroesById,
   translateBuildings as tb,
+  formatTemplate,
 } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import Table from 'components/Table';
@@ -15,6 +16,20 @@ import {
   heroTdColumn,
 } from './matchColumns';
 import { StyledLogFilterForm } from './StyledMatch';
+
+
+const radiantConditions = (field, row) => {
+  if (row.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
+    return row.team !== 2;
+  }
+  return field === true || (row.unit && row.unit.indexOf('goodguys') !== -1) || (row.team && row.team === 2);
+};
+const direConditions = (field, row) => {
+  if (row.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
+    return row.team === 2;
+  }
+  return field === false || (row.unit && row.unit.indexOf('badguys') !== -1) || (row.team && row.team === 3);
+};
 
 const logDetailIconStyle = { height: '30px', float: 'left', paddingTop: '7px' };
 const heroNames = getHeroesById();
@@ -54,6 +69,7 @@ const generateLog = (match, { types, players }) => {
           ...objective,
           ...matchPlayers[objective.slot],
           type: 'objectives',
+          alt_key: objective.type,
           detail: `${getObjectiveDesc(objective)} ${getObjectiveBase(objective)}`,
         });
       }
@@ -100,8 +116,8 @@ const logColumns = [heroTdColumn, {
   displayFn: (row, col, field) =>
     (
       <span>
-        {field && <IconRadiant height="30" />}
-        {!field && <IconDire height="30" />}
+        {radiantConditions(field, row) && <IconRadiant height="30" />}
+        {direConditions(field, row) && <IconDire height="30" />}
       </span>
     ),
 },
@@ -119,7 +135,7 @@ const logColumns = [heroTdColumn, {
     switch (row.type) {
       case 'kills': {
         const hero = heroNames[row.detail] || {};
-        return <img src={`${process.env.REACT_APP_API_HOST}${hero.img}`} style={{ height: '30px' }} alt="" />;
+        return <img src={`${process.env.REACT_APP_API_HOST}${hero.img}`} style={{ height: '30px', border: '1px solid #7c0808' }} alt="" />;
       }
       case 'runes': {
         const runeType = row.detail;
@@ -135,11 +151,11 @@ const logColumns = [heroTdColumn, {
         );
       }
       case 'objectives': {
-        if (row.detail === ' First Blood') {
+        if (row.alt_key === 'CHAT_MESSAGE_FIRSTBLOOD') {
           return (
             <span>
               <img
-                src="/assets/images/dota2/bloodsplattersmall.png"
+                src="/assets/images/dota2/bloodsplattersmall2.png" // https://pixabay.com/en/ink-red-splatter-abstract-paint-303244/
                 alt=""
                 style={logDetailIconStyle}
               />
@@ -147,27 +163,29 @@ const logColumns = [heroTdColumn, {
             </span>
           );
         }
-        if (tb.radiant[row.key]) {
-          return (
-            <span>
-              <IconRadiant
-                style={logDetailIconStyle}
-              />
-              <p>{tb.radiant[row.key]} {row.isRadiant ? `(${strings.building_denied})` : ''}</p>
-            </span>
-          );
-        }
-        if (tb.dire[row.key]) {
+        // {formatTemplate(strings.story_courier_kill, {team})
+        if (row.alt_key === 'building_kill') {
+          if (row.key.indexOf('goodguys') !== -1) {
+            return (
+              <span>
+                <IconRadiant
+                  style={logDetailIconStyle}
+                />
+                <p>{tb(true, row.key)} {row.isRadiant === true ? `(${strings.building_denied})` : ''}</p>
+              </span>
+            );
+          }
+
           return (
             <span>
               <IconDire
                 style={logDetailIconStyle}
               />
-              <p>{tb.dire[row.key]} {!row.isRadiant ? `(${strings.building_denied})` : ''}</p>
+              <p>{tb(false, row.key)} {row.isRadiant === true ? `(${strings.building_denied})` : ''}</p>
             </span>
           );
         }
-        if (row.detail === ' Picked up the Aegis') {
+        if (row.alt_key === 'CHAT_MESSAGE_AEGIS') {
           return (
             <span>
               <img
@@ -179,15 +197,29 @@ const logColumns = [heroTdColumn, {
             </span>
           );
         }
-        if (row.detail === ' Roshan') {
+        if (row.alt_key === 'CHAT_MESSAGE_ROSHAN_KILL') {
           return (
             <span>
               <img
-                src="/assets/images/dota2/deadroshan.png"
+                src="/assets/images/dota2/roshan.png"
                 alt=""
                 style={logDetailIconStyle}
               />
               <p>{strings.th_roshan}</p>
+            </span>
+          );
+        }
+        if (row.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
+          const team = row.team === 2 ? strings.general_radiant : strings.general_dire;
+          const courierIcon = row.team === 2 ? 'radiantcourier.png' : 'direcourier.png';
+          return (
+            <span>
+              <img
+                src={`/assets/images/dota2/${courierIcon}`}
+                alt=""
+                style={logDetailIconStyle}
+              />
+              <p>{formatTemplate(strings.story_courier_kill, { team })}</p>
             </span>
           );
         }
