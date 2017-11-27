@@ -1081,5 +1081,6 @@
   "question_continued_laughed": "perguntou entusiamado",
   "hero_disclaimer_pro": "Dados de partidas profissionais",
   "hero_disclaimer_public": "Dados de partidas públicas",
-  "hero_duration_x_axis": "Minutos"
+  "hero_duration_x_axis": "Minutos",
+  "show_consumables_items": "Show consumables"
 }
