@@ -597,8 +597,8 @@ export const translateBuildings = (isRadiant, key) => {
   const team = isRadiant ? strings.general_radiant : strings.general_dire;
   const k = key.split('_').slice(3).join('_');
   const dict = {
-    fort: strings.building_ancient,
-    healers: strings.heading_shrine,
+    fort: ` ${strings.building_ancient}`,
+    healers: ` ${strings.heading_shrine}`,
     tower1_top: ` ${strings.top_tower} ${strings.tier1}`,
     tower2_top: ` ${strings.top_tower} ${strings.tier2}`,
     tower3_top: ` ${strings.top_tower} ${strings.tier3}`,
