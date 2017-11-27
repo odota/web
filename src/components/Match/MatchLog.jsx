@@ -165,7 +165,6 @@ const logColumns = [heroTdColumn, {
         }
         // {formatTemplate(strings.story_courier_kill, {team})
         if (row.alt_key === 'building_kill') {
-          console.log(row)
           if (row.key.indexOf('goodguys') !== -1) {
             return (
               <span>
