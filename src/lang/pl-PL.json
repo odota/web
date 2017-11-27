@@ -1081,5 +1081,6 @@
   "question_continued_laughed": "zapytał radośnie",
   "hero_disclaimer_pro": "Dane z profesjonalnych meczów",
   "hero_disclaimer_public": "Dane z publicznych meczów",
-  "hero_duration_x_axis": "Minuty"
+  "hero_duration_x_axis": "Minuty",
+  "show_consumables_items": "Show consumables"
 }
