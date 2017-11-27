@@ -165,6 +165,7 @@ const logColumns = [heroTdColumn, {
         }
         // {formatTemplate(strings.story_courier_kill, {team})
         if (row.alt_key === 'building_kill') {
+          console.log(row)
           if (row.key.indexOf('goodguys') !== -1) {
             return (
               <span>
@@ -181,7 +182,7 @@ const logColumns = [heroTdColumn, {
               <IconDire
                 style={logDetailIconStyle}
               />
-              <p>{tb(false, row.key)} {row.isRadiant === true ? `(${strings.building_denied})` : ''}</p>
+              <p>{tb(false, row.key)} {row.isRadiant === false ? `(${strings.building_denied})` : ''}</p>
             </span>
           );
         }
