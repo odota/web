@@ -1157,5 +1157,7 @@
 
   "hero_disclaimer_pro": "Data from professional matches",
   "hero_disclaimer_public": "Data from public matches",
-  "hero_duration_x_axis": "Minutes"
+  "hero_duration_x_axis": "Minutes",
+
+  "show_consumables_items": "Show consumables"
 }
