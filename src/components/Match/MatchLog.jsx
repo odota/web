@@ -338,7 +338,7 @@ class MatchLog extends React.Component {
           />
         </StyledLogFilterForm>
         <St>
-          <Table data={logData} columns={logColumns} style={{ width: 1200 }} />
+          <Table data={logData} columns={logColumns} />
         </St>
       </div>
     );
