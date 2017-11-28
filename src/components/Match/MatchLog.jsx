@@ -48,6 +48,9 @@ const direConditions = (field, row) => {
 };
 
 const logDetailIconStyle = { height: '30px', float: 'left', paddingTop: '7px' };
+const logDetailIconStyleTower = {
+  height: '31px', paddingTop: '6px', float: 'left', position: 'relative', right: '6px',
+};
 const heroNames = getHeroesById();
 const typeConfig = {
   kills: 0,
@@ -197,9 +200,7 @@ const logColumns = [
                 <span>
                   {killIcon(row.isRadiant)}
                   <IconRadiant
-                    style={{
- height: '31px', paddingTop: '6px', float: 'left', position: 'relative', right: '6px',
-}}
+                    style={logDetailIconStyleTower}
                   />
                   <p style={{ float: 'left' }}>
                     {translateBuildings(true, row.key)} {row.isRadiant === true ? `(${strings.building_denied})` : ''}
@@ -212,9 +213,7 @@ const logColumns = [
               <span>
                 {killIcon(row.isRadiant)}
                 <IconDire
-                  style={{
- height: '31px', paddingTop: '6px', float: 'left', position: 'relative', right: '6px',
-}}
+                  style={logDetailIconStyleTower}
                 />
                 <p style={{ float: 'left' }}>
                   {translateBuildings(false, row.key)} {row.isRadiant === false ? `(${strings.building_denied})` : ''}
