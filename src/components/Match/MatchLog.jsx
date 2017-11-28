@@ -197,7 +197,9 @@ const logColumns = [
                 <span>
                   {killIcon(row.isRadiant)}
                   <IconRadiant
-                    style={{ height: '31px', paddingTop: '6px', float: 'left' }}
+                    style={{
+ height: '31px', paddingTop: '6px', float: 'left', position: 'relative', right: '6px',
+}}
                   />
                   <p style={{ float: 'left' }}>
                     {translateBuildings(true, row.key)} {row.isRadiant === true ? `(${strings.building_denied})` : ''}
@@ -210,7 +212,9 @@ const logColumns = [
               <span>
                 {killIcon(row.isRadiant)}
                 <IconDire
-                  style={{ height: '31px', paddingTop: '6px', float: 'left' }}
+                  style={{
+ height: '31px', paddingTop: '6px', float: 'left', position: 'relative', right: '6px',
+}}
                 />
                 <p style={{ float: 'left' }}>
                   {translateBuildings(false, row.key)} {row.isRadiant === false ? `(${strings.building_denied})` : ''}
