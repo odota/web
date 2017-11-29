@@ -1,11 +1,11 @@
-// Service
-
+/* eslint-disable */
+// Service Worker
 self.addEventListener('install', function(event) {
-    console.log("Install Service Worker", event);
+    // console.log("Install Service Worker", event);
 })
 
 self.addEventListener('activate', function(event) {
-    console.log("Activated Service Worker", event);
+    // console.log("Activated Service Worker", event);
     return self.clients.claim();
 })
 
