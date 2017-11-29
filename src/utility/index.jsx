@@ -592,3 +592,30 @@ export const wilsonScore = (up, down) => {
     1 + (z * z / n)
   );
 };
+
+export const translateBuildings = (isRadiant, key) => {
+  const team = isRadiant ? strings.general_radiant : strings.general_dire;
+  const k = key.split('_').slice(3).join('_');
+  const dict = {
+    fort: ` ${strings.building_ancient}`,
+    healers: ` ${strings.heading_shrine}`,
+    tower1_top: ` ${strings.top_tower} ${strings.tier1}`,
+    tower2_top: ` ${strings.top_tower} ${strings.tier2}`,
+    tower3_top: ` ${strings.top_tower} ${strings.tier3}`,
+    tower1_mid: ` ${strings.mid_tower} ${strings.tier1}`,
+    tower2_mid: ` ${strings.mid_tower} ${strings.tier2}`,
+    tower3_mid: ` ${strings.mid_tower} ${strings.tier3}`,
+    tower1_bot: ` ${strings.bot_tower} ${strings.tier1}`,
+    tower2_bot: ` ${strings.bot_tower} ${strings.tier2}`,
+    tower3_bot: ` ${strings.bot_tower} ${strings.tier3}`,
+    tower4: ` ${strings.heading_tower} ${strings.tier4}`,
+    melee_rax_top: ` ${'Top'} ${strings.building_melee_rax}`,
+    melee_rax_mid: ` ${'Mid'} ${strings.building_melee_rax}`,
+    melee_rax_bot: ` ${'Bot'} ${strings.building_melee_rax}`,
+    range_rax_top: ` ${'Top'} ${strings.building_range_rax}`,
+    range_rax_mid: ` ${'Mid'} ${strings.building_range_rax}`,
+    range_rax_bot: ` ${'Bot'} ${strings.building_range_rax}`,
+  };
+  return team + dict[k];
+};
+
