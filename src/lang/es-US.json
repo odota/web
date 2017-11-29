@@ -70,6 +70,7 @@
   "building_damage": "daño recibido",
   "building_hint": "Los iconos en el mapa tienen información adicional",
   "building_denied": "denegado",
+  "building_ancient": "Ancient",
   "CHAT_MESSAGE_TOWER_KILL": "Torre",
   "CHAT_MESSAGE_BARRACKS_KILL": "Barracones",
   "CHAT_MESSAGE_ROSHAN_KILL": "Roshan",
@@ -1082,5 +1083,17 @@
   "hero_disclaimer_pro": "Data from professional matches",
   "hero_disclaimer_public": "Data from public matches",
   "hero_duration_x_axis": "Minutes",
-  "show_consumables_items": "Show consumables"
+  "top_tower": "Top Tower",
+  "bot_tower": "Bottom Tower",
+  "mid_tower": "Mid Tower",
+  "top_rax": "Top Barracks",
+  "bot_rax": "Bottom Barracks",
+  "mid_rax": "Mid Barracks",
+  "tier1": "Tier 1",
+  "tier2": "Tier 2",
+  "tier3": "Tier 3",
+  "tier4": "Tier 4",
+  "show_consumables_items": "Show consumables",
+  "activated": "Activated",
+  "rune": "Rune"
 }
