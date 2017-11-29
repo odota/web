@@ -34,20 +34,22 @@ const killIcon = (isRadiant) => {
   );
 };
 
-const radiantConditions = (field, row) => {
+const isRadiant = (field, row) => {
   if (row.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
     return row.team !== 2;
   }
   return field === true || (row.unit && row.unit.indexOf('goodguys') !== -1) || row.team === 2;
 };
-const direConditions = (field, row) => {
+const isDire = (field, row) => {
   if (row.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
     return row.team === 2;
   }
   return field === false || (row.unit && row.unit.indexOf('badguys') !== -1) || row.team === 3;
 };
 
-const logDetailIconStyle = { height: '30px', float: 'left', paddingTop: '7px' };
+const logDetailIconStyle = {
+  height: '30px', float: 'left', paddingTop: '7px', paddingRight: '5px',
+};
 const logDetailIconStyleTower = {
   height: '31px', paddingTop: '6px', float: 'left', position: 'relative', right: '6px',
 };
@@ -141,8 +143,8 @@ const logColumns = [
     displayFn: (row, col, field) =>
       (
         <span>
-          {radiantConditions(field, row) && <IconRadiant height="30" />}
-          {direConditions(field, row) && <IconDire height="30" />}
+          {isRadiant(field, row) && <IconRadiant height="30" />}
+          {isDire(field, row) && <IconDire height="30" />}
         </span>
       ),
   }, heroTdColumn,

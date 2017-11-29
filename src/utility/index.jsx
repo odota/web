@@ -609,12 +609,12 @@ export const translateBuildings = (isRadiant, key) => {
     tower2_bot: ` ${strings.bot_tower} ${strings.tier2}`,
     tower3_bot: ` ${strings.bot_tower} ${strings.tier3}`,
     tower4: ` ${strings.heading_tower} ${strings.tier4}`,
-    melee_rax_top: `${' Top'} ${strings.building_melee_rax}`,
-    melee_rax_mid: `${' Mid'} ${strings.building_melee_rax}`,
-    melee_rax_bot: `${' Bot'} ${strings.building_melee_rax}`,
-    range_rax_top: `${' Top'} ${strings.building_range_rax}`,
-    range_rax_mid: `${' Mid'} ${strings.building_range_rax}`,
-    range_rax_bot: `${' Bot'} ${strings.building_range_rax}`,
+    melee_rax_top: ` ${'Top'} ${strings.building_melee_rax}`,
+    melee_rax_mid: ` ${'Mid'} ${strings.building_melee_rax}`,
+    melee_rax_bot: ` ${'Bot'} ${strings.building_melee_rax}`,
+    range_rax_top: ` ${'Top'} ${strings.building_range_rax}`,
+    range_rax_mid: ` ${'Mid'} ${strings.building_range_rax}`,
+    range_rax_bot: ` ${'Bot'} ${strings.building_range_rax}`,
   };
   return team + dict[k];
 };
