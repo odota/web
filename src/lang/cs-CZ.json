@@ -1,6 +1,6 @@
 {
-  "yes": "yes",
-  "no": "no",
+  "yes": "ano",
+  "no": "ne",
   "abbr_thousand": "tisíc",
   "abbr_million": "mil",
   "abbr_billion": "miliard",
@@ -21,7 +21,7 @@
   "app_name": "OpenDota",
   "app_language": "Jazyk",
   "app_localization": "Lokalizace",
-  "app_description": "Open source Dota 2 data platform",
+  "app_description": "Datová platforma Doty 2 s otevřeným kódem",
   "app_about": "O aplikaci",
   "app_privacy_terms": "Soukromí & Podmínky",
   "app_api_docs": "API dokumentace",
