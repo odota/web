@@ -155,7 +155,6 @@ const Styled = styled.div`
 .party {
   position: absolute;
   top: 0;
-  width: 11px;
   height: 93%;
   left: -11px;
 
@@ -164,7 +163,7 @@ const Styled = styled.div`
     width: 100%;
     height: 100%;
 
-    &[data-next] {
+    &.group1 {
       border-left: 2px solid ${constants.colorMutedLight};
       border-top: 2px solid ${constants.colorMutedLight};
       top: 50%;
@@ -172,46 +171,7 @@ const Styled = styled.div`
 
     &[data-prev-next] {
       border-left: 2px solid ${constants.colorMutedLight};
-      height: 185%;
-      top: -39%;
-
-      &::after {
-        content: "";
-        border-top: 2px solid ${constants.colorMutedLight};
-        position: absolute;
-        width: 100%;
-        top: 50%;
-      }
-    }
-
-    &[data-prev] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      border-bottom: 2px solid ${constants.colorMutedLight};
-      top: -50%;
-    }
-  }
-}
-
-.party2 {
-  position: absolute;
-  top: 0;
-  width: 20px;
-  height: 93%;
-  left: -20px;
-
-  & > div {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-
-    &[data-next] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      border-top: 2px solid ${constants.colorMutedLight};
-      top: 50%;
-    }
-
-    &[data-prev-next] {
-      border-left: 2px solid ${constants.colorMutedLight};
+      border-color: green; 
       height: 185%;
       top: -39%;
 
