@@ -57,12 +57,15 @@ const parties = (row, match) => {
   };
   const team = row.isRadiant ? 'radiant' : 'dire';
   match.players.forEach((player) => {
-    if (Object.keys(teamOrder[team]).indexOf(player.party_id.toString()) === -1) {
-      teamOrder[team][player.party_id] = counter[team];
-      counter[team] += 1;
+    const playerTeam = player.isRadiant ? 'radiant' : 'dire';
+    const teamOrderKeys = Object.keys(teamOrder[playerTeam]);
+    if (teamOrderKeys.indexOf(player.party_id.toString()) === -1) {
+      teamOrder[playerTeam][player.party_id.toString()] = counter[playerTeam];
+      counter[playerTeam] += 1;
     }
   });
   const groupName = 'group' + teamOrder[team][row.party_id];
+  console.log(teamOrder);
   return <div className={groupName} />;
 };
 
