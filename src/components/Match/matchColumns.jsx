@@ -65,7 +65,8 @@ const parties = (row, match) => {
     }
   });
   let groupName = 'group' + teamOrder[team][row.party_id];
-  console.log(teamOrder);
+  let i = match.players.findIndex(player => player.player_slot === row.player_slot);
+
   return <div className={groupName} />;
 };
 

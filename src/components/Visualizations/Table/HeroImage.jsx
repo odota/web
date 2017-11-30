@@ -152,9 +152,19 @@ const Styled = styled.div`
   fill: ${constants.colorGolden} !important;
 }
 
+.length0 {
+  height: 60px !important;
+}
+
+.length1{
+  height: 117px !important;
+}
+
+
 .party {
   position: absolute;
   top: 0;
+  width: 11px;
   height: 93%;
   left: -11px;
 
@@ -168,13 +178,14 @@ const Styled = styled.div`
       border-top: 2px solid ${constants.colorMutedLight};
       top: 50%;
       border-color: green;
-    }    
+    }      
 
     &.group1 {
       border-left: 2px solid ${constants.colorMutedLight};
       border-top: 2px solid ${constants.colorMutedLight};
       top: 50%;
       border-color: red;
+      left: -2px;
     }
 
     &.group3 {
@@ -182,7 +193,12 @@ const Styled = styled.div`
       border-top: 2px solid ${constants.colorMutedLight};
       top: 50%;
       border-color: blue;
+      left: -4px;
     }    
+
+    &.group0 + .group0 {
+      border-color: white;
+    }
 
     &[data-prev-next] {
       border-left: 2px solid ${constants.colorMutedLight};
