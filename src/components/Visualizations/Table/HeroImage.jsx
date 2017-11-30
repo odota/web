@@ -163,11 +163,26 @@ const Styled = styled.div`
     width: 100%;
     height: 100%;
 
+    &.group0 {
+      border-left: 2px solid ${constants.colorMutedLight};
+      border-top: 2px solid ${constants.colorMutedLight};
+      top: 50%;
+      border-color: green;
+    }    
+
     &.group1 {
       border-left: 2px solid ${constants.colorMutedLight};
       border-top: 2px solid ${constants.colorMutedLight};
       top: 50%;
+      border-color: red;
     }
+
+    &.group3 {
+      border-left: 2px solid ${constants.colorMutedLight};
+      border-top: 2px solid ${constants.colorMutedLight};
+      top: 50%;
+      border-color: blue;
+    }    
 
     &[data-prev-next] {
       border-left: 2px solid ${constants.colorMutedLight};

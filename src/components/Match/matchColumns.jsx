@@ -64,7 +64,7 @@ const parties = (row, match) => {
       counter[playerTeam] += 1;
     }
   });
-  const groupName = 'group' + teamOrder[team][row.party_id];
+  let groupName = 'group' + teamOrder[team][row.party_id];
   console.log(teamOrder);
   return <div className={groupName} />;
 };
