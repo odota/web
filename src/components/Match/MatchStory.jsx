@@ -610,7 +610,7 @@ class ExpensiveItemEvent extends StoryEvent {
     this.price_limit = price;
     match.players.forEach((player) => {
       Object.entries(player.first_purchase_time).forEach(([item, time]) => {
-        if (items[item].cost >= price && time < this.time) {
+        if (item in items && items[item].cost >= price && time < this.time) {
           this.time = time;
           this.item = item;
           this.player = player;
@@ -622,7 +622,7 @@ class ExpensiveItemEvent extends StoryEvent {
     let found = false;
     match.players.forEach((player) => {
       Object.keys(player.first_purchase_time).forEach((item) => {
-        if (items[item].cost >= price) {
+        if (item in items && items[item].cost >= price) {
           found = true;
         }
       });
