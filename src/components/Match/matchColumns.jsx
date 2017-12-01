@@ -60,7 +60,7 @@ const getSortIndex = (match) => {
 };
 
 const parties = (row, match) => {
-  console.log(match);
+  // console.log(match);
   const index = getSortIndex(match);
   if (row.party_size < 2) {
     return <div />;
@@ -92,8 +92,10 @@ const parties = (row, match) => {
   while (i < match.players.length && i > 0) {
     const player = match.players[i];
     const playerTeam = player.isRadiant ? 'radiant' : 'dire';
-    if (teamOrder[playerTeam][player.party_id] === teamOrder[team][row.party_id]) {
+    if (player.party_id === row.party_id && playerTeam === team) {
       groupName += ` length${Math.abs(i - index)}`;
+      console.log(player.personaname, player.party_id, ' is in the same party as ', row.personaname, row.party_id);
+      console.log(row.personaname, 'was given a length to the nextr person of ', Math.abs(i - index), i, 'minus', index);
       break;
     }
 
