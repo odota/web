@@ -188,6 +188,15 @@ const Styled = styled.div`
       left: -2px;
     }
 
+
+    &.group2 {
+      border-left: 2px solid ${constants.colorMutedLight};
+      border-top: 2px solid ${constants.colorMutedLight};
+      top: 50%;
+      border-color: yellow;
+      left: -2px;
+    }    
+
     &.group3 {
       border-left: 2px solid ${constants.colorMutedLight};
       border-top: 2px solid ${constants.colorMutedLight};

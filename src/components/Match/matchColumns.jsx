@@ -61,6 +61,10 @@ const getSortIndex = (match) => {
 
 const parties = (row, match) => {
   console.log(match);
+  const index = getSortIndex(match);
+  if (row.party_size < 2) {
+    return <div />;
+  }
   const teamOrder = { radiant: {}, dire: {} };
   const counter = {
     radiant: 0,
@@ -77,7 +81,6 @@ const parties = (row, match) => {
   });
   let groupName = `group${teamOrder[team][row.party_id]}`;
   let i = match.players.findIndex(player => player.player_slot === row.player_slot);
-  const index = getSortIndex(match);
   const isAscending = match.players[index].player_slot === row.player_slot;
 
   // ascend/descend determines which way along the players to calculate length/ where to start
