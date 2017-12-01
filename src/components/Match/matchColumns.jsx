@@ -75,15 +75,31 @@ const parties = (row, match) => {
       counter[playerTeam] += 1;
     }
   });
-  const groupName = 'group' + teamOrder[team][row.party_id];
-  // const i = match.players.findIndex(player => player.player_slot === row.player_slot);
+  let groupName = `group${teamOrder[team][row.party_id]}`;
+  let i = match.players.findIndex(player => player.player_slot === row.player_slot);
   const index = getSortIndex(match);
-  if (match.players[index].player_slot === row.player_slot) {
-    console.log("ascending!");
-  } else {
-    console.log("descending");
-  }
+  const isAscending = match.players[index].player_slot === row.player_slot;
 
+  // ascend/descend determines which way along the players to calculate length/ where to start
+  if (isAscending) {
+    i += 1;
+  } else {
+    i -= 1;
+  }
+  while (i < match.players.length && i > 0) {
+    const player = match.players[i];
+    const playerTeam = player.isRadiant ? 'radiant' : 'dire';
+    if (teamOrder[playerTeam][player.party_id] === teamOrder[team][row.party_id]) {
+      groupName += ` length${Math.abs(i - index)}`;
+      break;
+    }
+
+    if (isAscending) {
+      i += 1;
+    } else {
+      i -= 1;
+    }
+  }
 
   return <div className={groupName} />;
 };
