@@ -49,7 +49,18 @@ export const heroTdColumn = {
   sortFn: true,
 };
 
+let sortIndex = 0;
+const getSortIndex = (match) => {
+  if (sortIndex > match.players.length - 1) {
+    sortIndex = 0;
+  }
+  const index = sortIndex;
+  sortIndex += 1;
+  return index;
+};
+
 const parties = (row, match) => {
+  console.log(match);
   const teamOrder = { radiant: {}, dire: {} };
   const counter = {
     radiant: 0,
@@ -64,8 +75,15 @@ const parties = (row, match) => {
       counter[playerTeam] += 1;
     }
   });
-  let groupName = 'group' + teamOrder[team][row.party_id];
-  let i = match.players.findIndex(player => player.player_slot === row.player_slot);
+  const groupName = 'group' + teamOrder[team][row.party_id];
+  // const i = match.players.findIndex(player => player.player_slot === row.player_slot);
+  const index = getSortIndex(match);
+  if (match.players[index].player_slot === row.player_slot) {
+    console.log("ascending!");
+  } else {
+    console.log("descending");
+  }
+
 
   return <div className={groupName} />;
 };
