@@ -84,26 +84,22 @@ const parties = (row, match) => {
   const isAscending = match.players[index].player_slot === row.player_slot;
 
   // ascend/descend determines which way along the players to calculate length/ where to start
-  if (isAscending) {
-    i += 1;
-  } else {
-    i -= 1;
-  }
-  while (i < match.players.length && i > 0) {
+  i += 1; 
+  while (i < match.players.length && i >= 0) {
     const player = match.players[i];
+    console.log(player.personaname);
     const playerTeam = player.isRadiant ? 'radiant' : 'dire';
     if (player.party_id === row.party_id && playerTeam === team) {
-      groupName += ` length${Math.abs(i - index)}`;
+      let length = Math.abs(i - index);
+      if (!isAscending) {
+        length = Math.abs(length - 10);
+      }
+      groupName += ` length${length}`;
       console.log(player.personaname, player.party_id, ' is in the same party as ', row.personaname, row.party_id);
       console.log(row.personaname, 'was given a length to the nextr person of ', Math.abs(i - index), i, 'minus', index);
       break;
     }
-
-    if (isAscending) {
-      i += 1;
-    } else {
-      i -= 1;
-    }
+    i += 1;
   }
 
   return <div className={groupName} />;
