@@ -152,11 +152,11 @@ const Styled = styled.div`
   fill: ${constants.colorGolden} !important;
 }
 
-.length0 {
+.length1 {
   height: 60px !important;
 }
 
-.length1{
+.length2{
   height: 117px !important;
 }
 
