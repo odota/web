@@ -402,4 +402,27 @@ Mmr.propTypes = {
   number: PropTypes.number,
 };
 
+export const CompetitiveRank = ({ rankTier }) => (
+  <span>
+    <section
+      data-hint="Competitive rank"
+      data-hint-position="bottom"
+    >
+      <SocialPerson />
+    </section>
+    {rankTier && rankTier === parseInt(rankTier, 10) ?
+      <span>
+        {strings[`rank_tier_${parseInt(rankTier / 10, 10)}`]} { (parseInt(rankTier, 10) > 9) && <span>[{parseInt(rankTier % 10, 10)}]</span> }
+      </span>
+      :
+      <span>
+        { strings.general_unknown }
+      </span>
+    }
+  </span>
+);
+CompetitiveRank.propTypes = {
+  rankTier: PropTypes.number,
+};
+
 export default TableHeroImage;

@@ -14,6 +14,7 @@ import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
+import { CompetitiveRank } from 'components/Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from 'components/Icons';
 import constants from '../constants';
 import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
@@ -27,6 +28,7 @@ export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide =
     registered={row.last_login}
     accountId={row.account_id}
     playerSlot={row.player_slot}
+    subtitle={<CompetitiveRank rankTier={row.rank_tier} />}
     hideText={hideName}
     confirmed={row.account_id && row.name}
     party={party}
