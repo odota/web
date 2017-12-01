@@ -27,7 +27,7 @@ export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide =
     title={row.name || row.personaname || strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
-    subtitle={<Mmr number={row.solo_competitive_rank} />}
+    /*subtitle={<Mmr number={row.competitive_rank} />}*/
     playerSlot={row.player_slot}
     hideText={hideName}
     confirmed={row.account_id && row.name}
