@@ -132,6 +132,10 @@ class Table extends React.Component {
     if (paginated) {
       data = data.slice(currentPage * pageLength, (currentPage + 1) * pageLength);
     }
+    data.forEach((row) => {
+      const r = row;
+      r.sortApplied = !!sortField && (sortField !== 'player_slot' || sortState !== 'asc');
+    });
     return (
       <StyledBody>
         {paginated && <Pagination
