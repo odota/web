@@ -9,7 +9,7 @@ import abilityKeys from 'dotaconstants/build/ability_keys.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById } from 'utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString } from 'utility';
 import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
@@ -28,7 +28,7 @@ export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide =
     registered={row.last_login}
     accountId={row.account_id}
     playerSlot={row.player_slot}
-    subtitle={<CompetitiveRank rankTier={row.rank_tier} />}
+    subtitle={<CompetitiveRank rankTier={rankTierToString(row.rank_tier)} />}
     hideText={hideName}
     confirmed={row.account_id && row.name}
     party={party}

@@ -10,6 +10,7 @@ import {
   sum,
   abbreviateNumber,
   getOrdinal,
+  rankTierToString,
 } from 'utility';
 // import Warning from 'components/Alerts';
 import TabBar from 'components/TabBar';
@@ -95,7 +96,7 @@ const getPage = (data, key) => {
   let rows = data && data[key] && data[key].rows;
   if (key === 'ranks') {
     // Translate the rank integers into names
-    rows = rows.map(r => ({ ...r, bin_name: `${strings[`rank_tier_${Math.floor(r.bin_name / 10)}`]} ${r.bin_name % 10}` }));
+    rows = rows.map(r => ({ ...r, bin_name: rankTierToString(r.bin_name) }));
   }
   return (
     <div>

@@ -59,6 +59,18 @@ export function abbreviateNumber(num) {
   return num.toFixed(0);
 }
 
+export function rankTierToString(rankTier) {
+  if (rankTier !== parseInt(rankTier, 10)) {
+    return strings.general_unknown;
+  }
+  const intRankTier = parseInt(rankTier, 10);
+  let rank = strings[`rank_tier_${parseInt(intRankTier / 10, 10)}`];
+  if (intRankTier > 9) {
+    rank += ` [${parseInt(intRankTier % 10, 10)}]`;
+  }
+  return rank;
+}
+
 export function formatSeconds(input) {
   if (!Number.isNaN(parseFloat(input)) && Number.isFinite(Number(input))) {
     const absTime = Math.abs(input);
