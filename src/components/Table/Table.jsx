@@ -134,7 +134,7 @@ class Table extends React.Component {
     }
     data.forEach((row) => {
       const r = row;
-      r.sortApplied = !!sortField && (sortField !== 'player_slot' || sortState !== 'asc');
+      r.sortApplied = sortField && (sortField !== 'player_slot' || sortState !== 'asc');
     });
     return (
       <StyledBody>
