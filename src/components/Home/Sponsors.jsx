@@ -38,9 +38,6 @@ export default () => (
       {strings.home_sponsored_by}
     </div>
     <div className="images">
-      <a href="//www.jist.tv" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/jist-white-logo.png" alt="" />
-      </a>
       <a href="//dotacoach.org" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/dotacoach-logo.png" alt="" />
       </a>
