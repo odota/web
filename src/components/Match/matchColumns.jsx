@@ -9,12 +9,12 @@ import abilityKeys from 'dotaconstants/build/ability_keys.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById } from 'utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString } from 'utility';
 import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
-import { Mmr } from 'components/Visualizations/Table/HeroImage';
+import { CompetitiveRank } from 'components/Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from 'components/Icons';
 import constants from '../constants';
 import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
@@ -27,8 +27,8 @@ export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide =
     title={row.name || row.personaname || strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
-    subtitle={<Mmr number={row.solo_competitive_rank} />}
     playerSlot={row.player_slot}
+    subtitle={<CompetitiveRank rankTier={rankTierToString(row.rank_tier)} />}
     hideText={hideName}
     confirmed={row.account_id && row.name}
     party={party}
@@ -462,7 +462,7 @@ export const fantasyColumns = [
   },
 ].concat(fantasyComponents);
 
-export const purchaseTimesColumns = (match) => {
+export const purchaseTimesColumns = (match, showConsumables) => {
   const cols = [heroTdColumn];
   const bucket = 300;
   for (let i = 0; i < match.duration + bucket; i += bucket) {
@@ -487,7 +487,7 @@ export const purchaseTimesColumns = (match) => {
                 return 0;
               })
               .map((purchase) => {
-                if (items[purchase.key]) {
+                if (items[purchase.key] && (showConsumables || items[purchase.key].qual !== 'consumable')) {
                   return inflictorWithValue(purchase.key, formatSeconds(purchase.time));
                 }
                 return null;
