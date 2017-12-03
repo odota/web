@@ -49,20 +49,13 @@ export const heroTdColumn = {
   sortFn: true,
 };
 
-const parties = (row, match) => {
-  if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
-    const i = match.players.findIndex(player => player.player_slot === row.player_slot);
-    const partyPrev = (match.players[i - 1] || {}).party_id === row.party_id;
-    const partyNext = (match.players[i + 1] || {}).party_id === row.party_id;
-    if (!partyPrev && partyNext) {
-      return <div data-next />;
-    }
-    if (partyPrev && partyNext) {
-      return <div data-prev-next />;
-    }
-    if (partyPrev && !partyNext) {
-      return <div data-prev />;
-    }
+const parties = (row, match, i) => {
+  const partyIds = match.players && match.players.map(player => player.party_id);
+  if (partyIds.reduce(sum) > 0 && (p => (new Set(p)).size !== p.length)(partyIds)) {
+    const color = row.party_id % 2 ? 'darkred' : 'steelblue';
+    const groupIndicator = (i === 0 && <div data-party-grouping-next />) || (i === 4 && <div data-party-grouping-prev />) || '';
+    const partyIndicator = row.party_size > 1 ? <div style={{ color }} data-party-indicator /> : undefined;
+    return [partyIndicator, groupIndicator];
   }
   return null;
 };
@@ -95,7 +88,7 @@ export const overviewColumns = (match) => {
     {
       displayName: strings.th_avatar,
       field: 'player_slot',
-      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, parties(row, match), true),
+      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, parties(row, match, i), true),
       sortFn: true,
     },
     {

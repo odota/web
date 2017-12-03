@@ -154,40 +154,35 @@ const Styled = styled.div`
 
 .party {
   position: absolute;
-  top: 0;
-  width: 11px;
-  height: 93%;
-  left: -11px;
+  width: 19px;
+  height: 100%;
+  left: -19px;
 
   & > div {
     position: absolute;
     width: 100%;
     height: 100%;
 
-    &[data-next] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      border-top: 2px solid ${constants.colorMutedLight};
+    &[data-party-indicator] {
+      border-top: 4px solid;
+      position: absolute;
+      width: 100%;
       top: 50%;
+      left: 1px;
     }
 
-    &[data-prev-next] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      height: 185%;
-      top: -39%;
-
-      &::after {
-        content: "";
-        border-top: 2px solid ${constants.colorMutedLight};
-        position: absolute;
-        width: 100%;
-        top: 50%;
-      }
+    &[data-party-grouping-next] {
+      z-index: 1;
+      border-left: 4px solid ${constants.colorMuted};
+      top: 50%;
+      height: 680%
     }
 
-    &[data-prev] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      border-bottom: 2px solid ${constants.colorMutedLight};
+    &[data-party-grouping-prev] {
+      z-index: 1;
+      border-left: 4px solid ${constants.colorMuted};
       top: -50%;
+      margin-top: 4px;
     }
   }
 }
