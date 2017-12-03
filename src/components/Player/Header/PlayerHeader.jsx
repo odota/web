@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
 import strings from 'lang';
+import { rankTierToString } from 'utility';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
 import styled from 'styled-components';
@@ -110,34 +111,57 @@ const MedalStyled = styled.div`
   .rankMedal {
     position: relative;
     height: 37px;
-    top: 2px;
+    width:37px;
+    top: 3px;
     margin-right: 5px;
     text-align: center;
+    &[data-hint-position="top"] {
+      &::after {
+        margin-bottom: 3px;
+        margin-left: -37px;
+      }
+  
+      &::before {
+        top: -3px;
+        margin-left: 13px;
+      }
+    }
     &-icon {
       top: 0px;
       height: 100%;
-      width: auto;
+      width: 100%;
     }
     &-star {
       position: absolute;
       left: 0px;
       height: 100%;
-      width: auto;
+      width: 100%;
     }
   }
 `;
 
 const getRankTierMedal = (rankTier) => {
   let medalElement = null;
-  if (rankTier) {
-    const rankInfo = rankTier.toString().split('');
-    const iconPath = `/assets/images/dota2/rank_icons/rank_icon_${rankInfo[0]}.png`;
-    const starPath = `/assets/images/dota2/rank_icons/rank_star_${rankInfo[1]}.png`;
+  const imgDescription = rankTierToString(rankTier);
+  if (rankTier && rankTier > 9) {
+    const intRankTier = parseInt(rankTier, 10);
+    const iconPath = `/assets/images/dota2/rank_icons/rank_icon_${parseInt(intRankTier / 10, 10)}.png`;
+    const star = parseInt(intRankTier % 10, 10);
+    const starPath = `/assets/images/dota2/rank_icons/rank_star_${parseInt(intRankTier % 10, 10)}.png`;
     medalElement = (
       <MedalStyled>
-        <div className="rankMedal">
+        <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
           <img className="rankMedal-icon" src={iconPath} alt="icon" />
-          {rankInfo[1] !== '0' ? <img className="rankMedal-star" src={starPath} alt="star" /> : ''}
+          {(star > 0) ? <img className="rankMedal-star" src={starPath} alt="star" /> : ''}
+        </div>
+      </MedalStyled>
+    );
+  } else {
+    const iconPath = '/assets/images/dota2/rank_icons/rank_icon_0.png';
+    medalElement = (
+      <MedalStyled>
+        <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
+          <img className="rankMedal-icon" src={iconPath} alt="icon" />
         </div>
       </MedalStyled>
     );
@@ -177,7 +201,7 @@ const PlayerHeader = ({
   }
 
   const playerMedal = getRankTierMedal(rankTier);
-
+  console.log(playerSoloCompetitiveRank);
   return (
     <Styled>
       <div className="container">
