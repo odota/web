@@ -50,7 +50,8 @@ export const heroTdColumn = {
 };
 
 const parties = (row, match, i) => {
-  if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
+  const partyIds = match.players && match.players.map(player => player.party_id);
+  if (partyIds.reduce(sum) > 0 && (p => (new Set(p)).size !== p.length)(partyIds)) {
     const color = row.party_id % 2 ? 'darkred' : 'steelblue';
     const groupIndicator = (i === 0 && <div data-party-grouping-next />) || (i === 4 && <div data-party-grouping-prev />) || '';
     const partyIndicator = row.party_size > 1 ? <div style={{ color }} data-party-indicator /> : undefined;
