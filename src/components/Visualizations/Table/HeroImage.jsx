@@ -175,7 +175,7 @@ const Styled = styled.div`
       z-index: 1;
       border-left: 4px solid ${constants.colorMuted};
       top: 50%;
-      height: 620%
+      height: 680%
     }
 
     &[data-party-grouping-prev] {
