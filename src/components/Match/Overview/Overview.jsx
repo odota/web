@@ -49,15 +49,6 @@ export default {
         />
       }
       {
-        <AbilityBuildTable
-          players={match.players}
-          columns={abilityColumns()}
-          heading={strings.heading_ability_build}
-          radiantTeam={match.radiant_team}
-          direTeam={match.dire_team}
-        />
-      }
-      {
         match.game_mode === 18 &&
         <AbilityDraftTable
           players={match.players}
@@ -67,6 +58,15 @@ export default {
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
           summable
+        />
+      }
+      {
+        <AbilityBuildTable
+          players={match.players}
+          columns={abilityColumns()}
+          heading={strings.heading_ability_build}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
         />
       }
       {
