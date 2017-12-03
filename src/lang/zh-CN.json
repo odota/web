@@ -7,6 +7,8 @@
   "abbr_trillion": "t",
   "abbr_quadrillion": "q",
   "abbr_not_available": "N/A",
+  "abbr_pick": "P",
+  "abbr_win": "W",
   "analysis_eff": "占线效率",
   "analysis_farm_drought": "5分钟间隔内最低GPM",
   "analysis_skillshot": "技能精准击中",
