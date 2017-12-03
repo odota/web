@@ -7,6 +7,8 @@
   "abbr_trillion": "t",
   "abbr_quadrillion": "q",
   "abbr_not_available": "N/A",
+  "abbr_pick": "P",
+  "abbr_win": "W",
   "analysis_eff": "Lane efficiency",
   "analysis_farm_drought": "Lowest GPM in 5 minute interval",
   "analysis_skillshot": "Skillshots landed",
