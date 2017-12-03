@@ -106,8 +106,47 @@ const getRegistrationBadge = registered => registered && (
   />
 );
 
+const MedalStyled = styled.div`
+  .rankMedal {
+    position: relative;
+    height: 37px;
+    top: 2px;
+    margin-right: 5px;
+    text-align: center;
+    &-icon {
+      top: 0px;
+      height: 100%;
+      width: auto;
+    }
+    &-star {
+      position: absolute;
+      left: 0px;
+      height: 100%;
+      width: auto;
+    }
+  }
+`;
+
+const getRankTierMedal = (rankTier) => {
+  let medalElement = null;
+  if (rankTier) {
+    const rankInfo = rankTier.toString().split('');
+    const iconPath = `/assets/images/dota2/rank_icons/rank_icon_${rankInfo[0]}.png`;
+    const starPath = `/assets/images/dota2/rank_icons/rank_star_${rankInfo[1]}.png`;
+    medalElement = (
+      <MedalStyled>
+        <div className="rankMedal">
+          <img className="rankMedal-icon" src={iconPath} alt="icon" />
+          {rankInfo[1] !== '0' ? <img className="rankMedal-star" src={starPath} alt="star" /> : ''}
+        </div>
+      </MedalStyled>
+    );
+  }
+  return medalElement;
+};
+
 const PlayerHeader = ({
-  playerName, officialPlayerName, playerId, picture, registered, loading, error, small, extraSmall, playerSoloCompetitiveRank, loggedInUser,
+  playerName, officialPlayerName, playerId, picture, registered, loading, error, small, extraSmall, playerSoloCompetitiveRank, loggedInUser, rankTier,
 }) => {
   if (error) {
     return <Error />;
@@ -137,6 +176,8 @@ const PlayerHeader = ({
     };
   }
 
+  const playerMedal = getRankTierMedal(rankTier);
+
   return (
     <Styled>
       <div className="container">
@@ -160,6 +201,7 @@ const PlayerHeader = ({
           </div>
           <div className="playerInfo">
             <div className="titleNameButtons">
+              {playerMedal}
               <span className="playerName">{officialPlayerName || playerName}</span>
               <PlayerBadges playerId={playerId} />
             </div>
@@ -184,6 +226,7 @@ PlayerHeader.propTypes = {
   extraSmall: PropTypes.bool,
   playerSoloCompetitiveRank: PropTypes.number,
   loggedInUser: PropTypes.shape({}),
+  rankTier: PropTypes.number,
 };
 
 const mapStateToProps = state => ({
@@ -197,6 +240,7 @@ const mapStateToProps = state => ({
   small: state.browser.greaterThan.small,
   extraSmall: state.browser.greaterThan.extraSmall,
   loggedInUser: state.app.metadata.data.user,
+  rankTier: state.app.player.data.rank_tier,
 });
 
 export default connect(mapStateToProps)(PlayerHeader);
