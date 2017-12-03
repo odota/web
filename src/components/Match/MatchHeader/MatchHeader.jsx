@@ -319,14 +319,6 @@ const MatchHeader = ({ match, user, loading }) => {
             target="_blank"
             rel="noopener noreferrer"
           />}
-          {match.replay_url &&
-          <FlatButton
-            label={strings.match_button_video}
-            icon={<img src="/assets/images/jist-24x24.png" alt="" />}
-            href={`//www.jist.tv/create.php?dota2-match-url=${match.replay_url}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          />}
           <FlatButton
             label={strings.app_dotacoach}
             icon={<img src="/assets/images/dotacoach-32x24.png" alt="" />}

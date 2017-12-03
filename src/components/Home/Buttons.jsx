@@ -26,19 +26,6 @@ const Buttons = ({ user }) => (
           containerElement={<Link to="/request">{strings.home_parse}</Link>}
         />
       </div>
-      <div>
-        <FlatButton
-          icon={<img
-            src="/assets/images/jist-white-logo.png"
-            alt=""
-            style={{ width: 75, verticalAlign: 'middle' }}
-          />}
-          label={<span className="label">{strings.home_jist_button}</span>}
-          href="https://www.jist.tv/create.php?opendota-welcome=1"
-          target="_blank"
-          rel="noopener noreferrer"
-        />
-      </div>
     </div>
   </ButtonsDiv>
 );
