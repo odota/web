@@ -7,6 +7,8 @@
   "abbr_trillion": "{1}, {2} och {3}",
   "abbr_quadrillion": "{i}, {rest}",
   "abbr_not_available": "N/A",
+  "abbr_pick": "P",
+  "abbr_win": "W",
   "analysis_eff": "Min profil",
   "analysis_farm_drought": "Lägsta GPM per 5 minuter intervall",
   "analysis_skillshot": "Träffade skicklighetskrafter",
