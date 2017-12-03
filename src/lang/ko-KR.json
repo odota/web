@@ -7,6 +7,8 @@
   "abbr_trillion": "t",
   "abbr_quadrillion": "q",
   "abbr_not_available": "해당 없음",
+  "abbr_pick": "P",
+  "abbr_win": "W",
   "analysis_eff": "레인 효율성",
   "analysis_farm_drought": "5분 간격으로 가장 낮은 분당골드",
   "analysis_skillshot": "스킬샷 명중 횟수",
