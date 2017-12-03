@@ -7,6 +7,8 @@
   "abbr_trillion": "bil.",
   "abbr_quadrillion": "tril.",
   "abbr_not_available": "N/A",
+  "abbr_pick": "P",
+  "abbr_win": "W",
   "analysis_eff": "Linjatehokkuus",
   "analysis_farm_drought": "Alin kulta/min viiden minuutin välein",
   "analysis_skillshot": "Tarkkuusosumia",
