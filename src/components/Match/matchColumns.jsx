@@ -53,7 +53,8 @@ const parties = (row, match, i) => {
   if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
     const color = row.party_id % 2 ? 'darkred' : 'steelblue';
     const groupIndicator = (i === 0 && <div data-party-grouping-next />) || (i === 4 && <div data-party-grouping-prev />) || '';
-    return [<div style={{ color }} data-party-indicator />, groupIndicator];
+    const partyIndicator = row.party_size > 1 ? <div style={{ color }} data-party-indicator /> : undefined;
+    return [partyIndicator, groupIndicator];
   }
   return null;
 };
