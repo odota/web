@@ -184,32 +184,6 @@ const Styled = styled.div`
       top: -50%;
       margin-top: 4px;
     }
-
-    &[data-next] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      border-top: 2px solid ${constants.colorMutedLight};
-      top: 50%;
-    }
-
-    &[data-prev-next] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      height: 185%;
-      top: -39%;
-
-      &::after {
-        content: "";
-        border-top: 2px solid ${constants.colorMutedLight};
-        position: absolute;
-        width: 100%;
-        top: 50%;
-      }
-    }
-
-    &[data-prev] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      border-bottom: 2px solid ${constants.colorMutedLight};
-      top: -50%;
-    }
   }
 }
 
