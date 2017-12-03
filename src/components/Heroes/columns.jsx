@@ -1,9 +1,11 @@
+// import React from 'react';
 import {
   transformations,
   abbreviateNumber,
 } from 'utility';
 import strings from 'lang';
 import heroes from 'dotaconstants/build/heroes.json';
+// import TablePercent from 'components/Visualizations/Table/Percent';
 
 const decimalToCount = (decimal, total) => (
   total &&
@@ -42,54 +44,78 @@ export default {
     percentBarsWithValue: row => decimalToCount(row.winRatePro, row.pro_pick),
   }],
   public: [heroColumn, {
-    displayName: strings.hero_5000_pick_rate,
-    field: 'pickRate5000',
+    displayName: strings.rank_tier_7,
+    field: 'pickRate7',
     sortFn: true,
-    percentBarsWithValue: row => decimalToCount(row.pickRate5000, row.matchCount5000),
+    percentBarsWithValue: row => decimalToCount(row.pickRate7, row.matchCount7),
   }, {
-    displayName: strings.hero_5000_win_rate,
-    field: 'winRate5000',
+    displayName: strings.rank_tier_7,
+    field: 'winRate7',
     sortFn: true,
-    percentBarsWithValue: row => decimalToCount(row.winRate5000, row['5000_pick']),
+    percentBarsWithValue: row => decimalToCount(row.winRate7, row['7_pick']),
   }, {
-    displayName: strings.hero_4000_pick_rate,
-    field: 'pickRate4000',
+    displayName: strings.rank_tier_6,
+    field: 'pickRate6',
     sortFn: true,
-    percentBarsWithValue: row => decimalToCount(row.pickRate4000, row.matchCount4000),
+    percentBarsWithValue: row => decimalToCount(row.pickRate6, row.matchCount6),
   }, {
-    displayName: strings.hero_4000_win_rate,
-    field: 'winRate4000',
+    displayName: strings.rank_tier_6,
+    field: 'winRate6',
     sortFn: true,
-    percentBarsWithValue: row => decimalToCount(row.winRate4000, row['4000_pick']),
+    percentBarsWithValue: row => decimalToCount(row.winRate6, row['6_pick']),
   }, {
-    displayName: strings.hero_3000_pick_rate,
-    field: 'pickRate3000',
+    displayName: strings.rank_tier_5,
+    field: 'pickRate5',
     sortFn: true,
-    percentBarsWithValue: row => decimalToCount(row.pickRate3000, row.matchCount3000),
+    percentBarsWithValue: row => decimalToCount(row.pickRate5, row.matchCount5),
   }, {
-    displayName: strings.hero_3000_win_rate,
-    field: 'winRate3000',
+    displayName: strings.rank_tier_5,
+    field: 'winRate5',
     sortFn: true,
-    percentBarsWithValue: row => decimalToCount(row.winRate3000, row['3000_pick']),
+    percentBarsWithValue: row => decimalToCount(row.winRate5, row['5_pick']),
   }, {
-    displayName: strings.hero_2000_pick_rate,
-    field: 'pickRate2000',
+    displayName: strings.rank_tier_4,
+    field: 'pickRate4',
     sortFn: true,
-    percentBarsWithValue: row => decimalToCount(row.pickRate2000, row.matchCount2000),
+    percentBarsWithValue: row => decimalToCount(row.pickRate4, row.matchCount4),
   }, {
-    displayName: strings.hero_2000_win_rate,
-    field: 'winRate2000',
+    displayName: strings.rank_tier_4,
+    field: 'winRate4',
     sortFn: true,
-    percentBarsWithValue: row => decimalToCount(row.winRate2000, row['2000_pick']),
+    percentBarsWithValue: row => decimalToCount(row.winRate4, row['4_pick']),
   }, {
-    displayName: strings.hero_1000_pick_rate,
-    field: 'pickRate1000',
+    displayName: strings.rank_tier_3,
+    field: 'pickRate3',
     sortFn: true,
-    percentBarsWithValue: row => decimalToCount(row.pickRate1000, row.matchCount1000),
+    percentBarsWithValue: row => decimalToCount(row.pickRate3, row.matchCount3),
   }, {
-    displayName: strings.hero_1000_win_rate,
-    field: 'winRate1000',
+    displayName: strings.rank_tier_3,
+    field: 'winRate3',
     sortFn: true,
-    percentBarsWithValue: row => decimalToCount(row.winRate1000, row['1000_pick']),
-  }],
+    percentBarsWithValue: row => decimalToCount(row.winRate3, row['3_pick']),
+  }, {
+    displayName: strings.rank_tier_2,
+    field: 'pickRate2',
+    sortFn: true,
+    percentBarsWithValue: row => decimalToCount(row.pickRate2, row.matchCount2),
+  }, {
+    displayName: strings.rank_tier_2,
+    field: 'winRate2',
+    sortFn: true,
+    percentBarsWithValue: row => decimalToCount(row.winRate2, row['2_pick']),
+  }, {
+    displayName: strings.rank_tier_1,
+    field: 'pickRate1',
+    sortFn: true,
+    percentBarsWithValue: row => decimalToCount(row.pickRate1, row.matchCount1),
+  }, {
+    displayName: strings.rank_tier_1,
+    field: 'winRate1',
+    sortFn: true,
+    percentBarsWithValue: row => decimalToCount(row.winRate1, row['1_pick']),
+  }].map((col, i) => ({
+    ...col,
+    displayName: i === 0 ? col.displayName : `${col.displayName.substring(0, 2)} ${col.field.startsWith('pick') ? strings.abbr_pick : strings.abbr_win}%`,
+    tooltip: col.displayName,
+  })),
 };
