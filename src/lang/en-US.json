@@ -8,6 +8,8 @@
   "abbr_trillion": "t",
   "abbr_quadrillion": "q",
   "abbr_not_available": "N/A",
+  "abbr_pick": "P",
+  "abbr_win": "W",
 
   "analysis_eff": "Lane efficiency",
   "analysis_farm_drought": "Lowest GPM in 5 minute interval",
@@ -410,7 +412,6 @@
   "home_background_by": "Background picture by",
   "home_sponsored_by": "Sponsored by",
   "home_become_sponsor": "Become a Sponsor",
-  "home_jist_button": "New: AutoMagic highlights!",
 
   "items_name": "Name of item",
   "items_built": "Number of times this item was built",

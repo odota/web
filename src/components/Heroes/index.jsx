@@ -30,12 +30,14 @@ class RequestLayer extends React.Component {
     const json = this.props.data;
     // Assemble the result data array
     const matchCountPro = json.map(heroStat => heroStat.pro_pick || 0).reduce(sum, 0) / 10;
-    const matchCount5000 = json.map(heroStat => heroStat['5000_pick'] || 0).reduce(sum, 0) / 10;
-    const matchCount4000 = json.map(heroStat => heroStat['4000_pick'] || 0).reduce(sum, 0) / 10;
-    const matchCount3000 = json.map(heroStat => heroStat['3000_pick'] || 0).reduce(sum, 0) / 10;
-    const matchCount2000 = json.map(heroStat => heroStat['2000_pick'] || 0).reduce(sum, 0) / 10;
-    const matchCount1000 = json.map(heroStat => heroStat['1000_pick'] || 0).reduce(sum, 0) / 10;
-    const matchCountPublic = matchCount5000 + matchCount4000 + matchCount3000 + matchCount2000 + matchCount1000;
+    const matchCount7 = json.map(heroStat => heroStat['7_pick'] || 0).reduce(sum, 0) / 10;
+    const matchCount6 = json.map(heroStat => heroStat['6_pick'] || 0).reduce(sum, 0) / 10;
+    const matchCount5 = json.map(heroStat => heroStat['5_pick'] || 0).reduce(sum, 0) / 10;
+    const matchCount4 = json.map(heroStat => heroStat['4_pick'] || 0).reduce(sum, 0) / 10;
+    const matchCount3 = json.map(heroStat => heroStat['3_pick'] || 0).reduce(sum, 0) / 10;
+    const matchCount2 = json.map(heroStat => heroStat['2_pick'] || 0).reduce(sum, 0) / 10;
+    const matchCount1 = json.map(heroStat => heroStat['1_pick'] || 0).reduce(sum, 0) / 10;
+    const matchCountPublic = matchCount7 + matchCount6 + matchCount5 + matchCount4 + matchCount3 + matchCount2 + matchCount1;
 
     const processedData = json.map((heroStat) => {
       const pickRatePro = (heroStat.pro_pick || 0) / matchCountPro;
@@ -45,25 +47,31 @@ class RequestLayer extends React.Component {
         hero_id: heroStat.id,
         heroName: (heroes[heroStat.id] && heroes[heroStat.id].localized_name) || '',
         matchCountPro,
-        matchCount5000,
-        matchCount4000,
-        matchCount3000,
-        matchCount2000,
-        matchCount1000,
+        matchCount7,
+        matchCount6,
+        matchCount5,
+        matchCount4,
+        matchCount3,
+        matchCount2,
+        matchCount1,
         pickBanRatePro: pickRatePro + banRatePro,
         pickRatePro,
         banRatePro,
         winRatePro: (heroStat.pro_win || 0) / heroStat.pro_pick,
-        pickRate5000: (heroStat['5000_pick'] || 0) / matchCount5000,
-        pickRate4000: (heroStat['4000_pick'] || 0) / matchCount4000,
-        pickRate3000: (heroStat['3000_pick'] || 0) / matchCount3000,
-        pickRate2000: (heroStat['2000_pick'] || 0) / matchCount2000,
-        pickRate1000: (heroStat['1000_pick'] || 0) / matchCount1000,
-        winRate5000: (heroStat['5000_win'] || 0) / heroStat['5000_pick'],
-        winRate4000: (heroStat['4000_win'] || 0) / heroStat['4000_pick'],
-        winRate3000: (heroStat['3000_win'] || 0) / heroStat['3000_pick'],
-        winRate2000: (heroStat['2000_win'] || 0) / heroStat['2000_pick'],
-        winRate1000: (heroStat['1000_win'] || 0) / heroStat['1000_pick'],
+        pickRate7: (heroStat['7_pick'] || 0) / matchCount7,
+        pickRate6: (heroStat['6_pick'] || 0) / matchCount6,
+        pickRate5: (heroStat['5_pick'] || 0) / matchCount5,
+        pickRate4: (heroStat['4_pick'] || 0) / matchCount4,
+        pickRate3: (heroStat['3_pick'] || 0) / matchCount3,
+        pickRate2: (heroStat['2_pick'] || 0) / matchCount2,
+        pickRate1: (heroStat['1_pick'] || 0) / matchCount1,
+        winRate7: (heroStat['7_win'] || 0) / heroStat['7_pick'],
+        winRate6: (heroStat['6_win'] || 0) / heroStat['6_pick'],
+        winRate5: (heroStat['5_win'] || 0) / heroStat['5_pick'],
+        winRate4: (heroStat['4_win'] || 0) / heroStat['4_pick'],
+        winRate3: (heroStat['3_win'] || 0) / heroStat['3_pick'],
+        winRate2: (heroStat['2_win'] || 0) / heroStat['2_pick'],
+        winRate1: (heroStat['1_win'] || 0) / heroStat['1_pick'],
       };
     });
     processedData.sort((a, b) => a.heroName.localeCompare(b.heroName));

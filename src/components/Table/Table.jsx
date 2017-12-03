@@ -204,17 +204,17 @@ class Table extends React.Component {
 
                           const isValidNumber = !Number.isNaN(Number(valueWithOffset));
                           barPercentValue = max !== 0 && isValidNumber
-                            ? Number((valueWithOffset * 100 / max).toFixed(2))
+                            ? Number((valueWithOffset * 100 / max).toFixed(1))
                             : 0;
                           valEl = displayFn
                             ? displayFn(row, column, value, index, barPercentValue)
                             : <span>{value}</span>;
                         } else {
                           // Percent bars assumes that the value is in decimal
-                          barPercentValue = Number((value * 100).toFixed(2)) || 0;
+                          barPercentValue = Number((value * 100).toFixed(1)) || 0;
                           valEl = displayFn
                             ? displayFn(row, column, value, index, barPercentValue)
-                            : <span>{barPercentValue}%</span>;
+                            : <span>{barPercentValue}</span>;
                         }
 
                         fieldEl = (<TablePercent
