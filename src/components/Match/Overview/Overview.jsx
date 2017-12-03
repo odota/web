@@ -53,7 +53,7 @@ export default {
         <AbilityDraftTable
           players={match.players}
           columns={abilityDraftColumns()}
-          heading={strings.heading_overview}
+          heading={strings.heading_ability_draft}
           picksBans={match.picks_bans}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
