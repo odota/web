@@ -50,7 +50,7 @@ export const heroTdColumn = {
 };
 
 const parties = (row, match) => {
-  if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
+  if (!row.sortApplied && match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
     const i = match.players.findIndex(player => player.player_slot === row.player_slot);
     const partyPrev = (match.players[i - 1] || {}).party_id === row.party_id;
     const partyNext = (match.players[i + 1] || {}).party_id === row.party_id;
