@@ -153,41 +153,34 @@ const Styled = styled.div`
 }
 
 .party {
-  position: absolute;
-  top: 0;
-  width: 11px;
-  height: 93%;
-  left: -11px;
+  width: 2px;
+  height: 29px;
 
   & > div {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 2px;
+    height: 29px;
+    left: -24px;
 
-    &[data-next] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      border-top: 2px solid ${constants.colorMutedLight};
-      top: 50%;
+    &.group0 {
+      background-color: ${constants.red};
+      box-shadow: 1px 0 2px ${constants.defaultPrimaryColor};
+    }      
+
+    &.group1 {
+      background-color: ${constants.blue};
+      box-shadow: 1px 0 2px ${constants.defaultPrimaryColor};
     }
 
-    &[data-prev-next] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      height: 185%;
-      top: -39%;
 
-      &::after {
-        content: "";
-        border-top: 2px solid ${constants.colorMutedLight};
-        position: absolute;
-        width: 100%;
-        top: 50%;
-      }
-    }
+    &.group2 {
+      background-color: yellow;
+      box-shadow: 1px 0 2px ${constants.defaultPrimaryColor};
+    }    
 
-    &[data-prev] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      border-bottom: 2px solid ${constants.colorMutedLight};
-      top: -50%;
+    &.group3 {
+      background-color: purple;
+      box-shadow: 1px 0 2px ${constants.defaultPrimaryColor};
     }
   }
 }
@@ -246,11 +239,6 @@ const TableHeroImage = ({
         <ActionDoneAll />
       </div>
       }
-      {party &&
-      <div className="party">
-        {party}
-      </div>
-      }
       {image &&
       <div className="imageContainer">
         <img
@@ -258,6 +246,11 @@ const TableHeroImage = ({
           alt=""
           className="image"
         />
+        {party &&
+        <div className="party">
+          {party}
+        </div>
+        }
         {leaverStatus !== undefined && leaverStatus > 1 &&
         <span
           className="abandoned"

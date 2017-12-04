@@ -50,21 +50,22 @@ export const heroTdColumn = {
 };
 
 const parties = (row, match) => {
-  if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
-    const i = match.players.findIndex(player => player.player_slot === row.player_slot);
-    const partyPrev = (match.players[i - 1] || {}).party_id === row.party_id;
-    const partyNext = (match.players[i + 1] || {}).party_id === row.party_id;
-    if (!partyPrev && partyNext) {
-      return <div data-next />;
-    }
-    if (partyPrev && partyNext) {
-      return <div data-prev-next />;
-    }
-    if (partyPrev && !partyNext) {
-      return <div data-prev />;
-    }
+  // console.log(match);
+  if (row.party_size < 2) {
+    return <div />;
   }
-  return null;
+  const teamOrder = { };
+  let counter = 0;
+  match.players.forEach((player) => {
+    const teamOrderKeys = Object.keys(teamOrder);
+    if (player.party_size > 1 && teamOrderKeys.indexOf(player.party_id.toString()) === -1) {
+      teamOrder[player.party_id.toString()] = counter;
+      counter += 1;
+    }
+  });
+  const groupName = `group${teamOrder[row.party_id]}`;
+
+  return <div className={groupName} />;
 };
 
 const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
