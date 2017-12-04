@@ -63,7 +63,6 @@ function findParties(partyArray) {
 
 const partyStyles = (row, match) => {
   if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0 && row.party_size > 1) {
-    console.log(match.players.map(player => player.party_id))
     const parties = findParties(match.players.map(player => player.party_id));
     const findGroup = parties.indexOf(row.party_id);
     return <div className={`group${findGroup}`} />;
