@@ -191,7 +191,6 @@ const Styled = styled.div`
 
 .pvgnaGuideContainer {
   margin: auto;
-  padding-left: 26px;
 }
 
 .pvgnaGuideIcon {
