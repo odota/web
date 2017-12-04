@@ -54,7 +54,6 @@ const Styled = styled.div`
 }
 
 .image {
-  margin-right: 7px;
   position: relative;
   height: 29px;
   box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
@@ -152,81 +151,36 @@ const Styled = styled.div`
   fill: ${constants.colorGolden} !important;
 }
 
-.length1 {
-  border-left: 2px solid ${constants.colorMutedLight};
-  height: 175% !important;
-}
-
-.length2{
-  border-left: 2px solid ${constants.colorMutedLight};
-  height: 250% !important;
-}
-
-
 .party {
-  position: absolute;
-  top: 0;
-  width: 11px;
-  height: 93%;
-  left: -11px;
+  width: 2px;
+  height: 29px;
+  margin-right: 7px;
 
   & > div {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 2px;
+    height: 29px;
+    box-shadow: 1px 0 2px ${constants.defaultPrimaryColor};
 
     &.group0 {
-      
-      border-top: 2px solid ${constants.colorMutedLight};
-      top: 50%;
-      border-color: green;
+      background-color: ${constants.red};
     }      
 
     &.group1 {
-      border-top: 2px solid ${constants.colorMutedLight};
-      top: 50%;
-      border-color: red;
-      left: -2px;
+      background-color: ${constants.blue};
     }
 
 
     &.group2 {
-      border-top: 2px solid ${constants.colorMutedLight};
-      top: 50%;
-      border-color: yellow;
-      left: -2px;
+      background-color: ${constants.golden};
     }    
 
     &.group3 {
-      border-top: 2px solid ${constants.colorMutedLight};
-      top: 50%;
-      border-color: blue;
-      left: -4px;
-    }    
-
-    &.group0 + .group0 {
-      border-color: white;
+      background-color: ${constants.yelor};
     }
 
-    &[data-prev-next] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      border-color: green; 
-      height: 185%;
-      top: -39%;
-
-      &::after {
-        content: "";
-        border-top: 2px solid ${constants.colorMutedLight};
-        position: absolute;
-        width: 100%;
-        top: 50%;
-      }
-    }
-
-    &[data-prev] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      border-bottom: 2px solid ${constants.colorMutedLight};
-      top: -50%;
+    &.group4 {
+      background-color: ${constants.green};
     }
   }
 }
@@ -285,11 +239,6 @@ const TableHeroImage = ({
         <ActionDoneAll />
       </div>
       }
-      {party &&
-      <div className="party">
-        {party}
-      </div>
-      }
       {image &&
       <div className="imageContainer">
         <img
@@ -314,6 +263,11 @@ const TableHeroImage = ({
             className="playerSlot"
             style={{ backgroundColor: playerColors[playerSlot] }}
           />
+        }
+        {party &&
+        <div className="party">
+          {party}
+        </div>
         }
       </div>
       }
