@@ -160,27 +160,26 @@ const Styled = styled.div`
     position: absolute;
     width: 2px;
     height: 29px;
-    box-shadow: 1px 0 2px ${constants.defaultPrimaryColor};
 
     &.group0 {
       background-color: ${constants.red};
+      box-shadow: 1px 0 2px ${constants.defaultPrimaryColor};
     }      
 
     &.group1 {
       background-color: ${constants.blue};
+      box-shadow: 1px 0 2px ${constants.defaultPrimaryColor};
     }
 
 
     &.group2 {
-      background-color: ${constants.golden};
+      background-color: yellow;
+      box-shadow: 1px 0 2px ${constants.defaultPrimaryColor};
     }    
 
     &.group3 {
-      background-color: ${constants.yelor};
-    }
-
-    &.group4 {
-      background-color: ${constants.green};
+      background-color: purple;
+      box-shadow: 1px 0 2px ${constants.defaultPrimaryColor};
     }
   }
 }
