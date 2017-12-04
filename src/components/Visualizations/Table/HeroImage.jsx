@@ -155,31 +155,27 @@ const Styled = styled.div`
 .party {
   position: absolute;
   top: 0;
-  width: 11px;
-  height: 93%;
-  left: -28px;
+  width: 8px;
+  height: 101%;
+  left: -13px;
 
   & > div {
     position: absolute;
     width: 100%;
     height: 100%;
+    border-left: 3px solid;
 
-    &[data-next] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      border-top: 2px solid ${constants.colorMutedLight};
-      top: 50%;
+    &.group0 {
+      border-left-color: #4C5900;
+    }      
+    &.group1 {
+      border-left-color: ${constants.blue};
     }
-
-    &[data-prev-next] {
-      border-left: 9px solid ${constants.colorMutedLight};
-      // height: 185%;
-      // top: -39%;
-    }
-
-    &[data-prev] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      border-bottom: 2px solid ${constants.colorMutedLight};
-      top: -50%;
+    &.group2 {
+      border-left-color: #D7E874;
+    }    
+    &.group3 {
+      border-left-color: #740D00;
     }
   }
 }
@@ -194,6 +190,7 @@ const Styled = styled.div`
 
 .pvgnaGuideContainer {
   margin: auto;
+  padding-left: 26px;
 }
 
 .pvgnaGuideIcon {
@@ -208,6 +205,15 @@ const HeroImageContainer = styled.div`
   height: 100%;
   align-items: center;
 `;
+
+
+const expand = {
+  display: 'flex',
+  position: 'relative',
+  height: '100%',
+  width: 'calc(300% + 50px)',
+  left: '-10px',
+};
 
 const TableHeroImage = ({
   parsed,
@@ -228,7 +234,7 @@ const TableHeroImage = ({
   predictedVictory,
   leaverStatus,
 }) => (
-  <Styled>
+  <Styled style={expand}>
     <HeroImageContainer>
       {parsed !== undefined &&
       <div

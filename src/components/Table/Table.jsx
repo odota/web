@@ -28,30 +28,6 @@ const getColumnMax = (data, field, getValue) => {
   return Math.max(...valuesArr);
 };
 
-const partyStyles = (index, data) => {
-  console.log(data);
-  if (data.find(player => player.party_id !== 0)) {
-    const teamZero = '#D7E874';
-    const teamOne = '#4C5900';
-    const teamTwo = '#FF9486';
-    const teamThree = '#740D00';
-    const baseStyle = '8px solid ';
-    switch (data[index].party_id) {
-      case 0:
-        return baseStyle + teamZero;
-      case 1:
-        return baseStyle + teamOne;
-      case 2:
-        return baseStyle + teamTwo;
-      case 3:
-        return baseStyle + teamThree;
-      default:
-        break;
-    }
-  }
-  return null;
-};
-
 const getColumnMin = (data, field, getValue) => {
   const valuesArr = data.reduce((arr, row) => {
     const value = getValue ? getValue(row) : row[field];

@@ -56,36 +56,19 @@ const partyStyles = (row, match) => {
     const teamOne = '#4C5900';
     const teamTwo = '#FF9486';
     const teamThree = '#740D00';
-    switch (match.players[i].party_id) {
-      case 0:
-        return <div data-prev-next style={{ borderColor: teamZero }} />;
-      case 1:
-        return <div data-prev-next style={{ borderColor: teamOne }} />;
-      case 2:
-        return <div data-prev-next style={{ borderColor: teamTwo }} />;
-      case 3:
-        return <div data-prev-next style={{ borderColor: teamThree }} />;
-      default:
-        break;
-    }
-  }
-  return null;
-};
-
-const parties = (row, match) => {
-  if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
-    const i = match.players.findIndex(player => player.player_slot === row.player_slot);
-    const partyPrev = (match.players[i - 1] || {}).party_id === row.party_id;
-    const partyNext = (match.players[i + 1] || {}).party_id === row.party_id;
-    if (!partyPrev && partyNext) {
-      return <div data-next />;
-    }
-    if (partyPrev && partyNext) {
-      return <div data-prev-next />;
-    }
-    if (partyPrev && !partyNext) {
-      return <div data-prev />;
-    }
+    return <div className={`group${match.players[i].party_id}`} />;
+    // switch (match.players[i].party_id) {
+    //   case 0:
+    //     return <div data-prev-next style={{ borderColor: teamZero }} />;
+    //   case 1:
+    //     return <div data-prev-next style={{ borderColor: teamOne }} />;
+    //   case 2:
+    //     return <div data-prev-next style={{ borderColor: teamTwo }} />;
+    //   case 3:
+    //     return <div data-prev-next style={{ borderColor: teamThree }} />;
+    //   default:
+    //     break;
+    // }
   }
   return null;
 };
