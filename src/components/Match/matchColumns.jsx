@@ -49,20 +49,9 @@ export const heroTdColumn = {
   sortFn: true,
 };
 
-const parties = (row, match) => {
-  if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
-    const i = match.players.findIndex(player => player.player_slot === row.player_slot);
-    const partyPrev = (match.players[i - 1] || {}).party_id === row.party_id;
-    const partyNext = (match.players[i + 1] || {}).party_id === row.party_id;
-    if (!partyPrev && partyNext) {
-      return <div data-next />;
-    }
-    if (partyPrev && partyNext) {
-      return <div data-prev-next />;
-    }
-    if (partyPrev && !partyNext) {
-      return <div data-prev />;
-    }
+const partyStyles = (row, match) => {
+  if (match.players && match.players.filter(x => x.party_size > 1).length) {
+    return <div className={`group${row.party_id}`} />;
   }
   return null;
 };
@@ -95,7 +84,7 @@ export const overviewColumns = (match) => {
     {
       displayName: strings.th_avatar,
       field: 'player_slot',
-      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, parties(row, match), true),
+      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), true),
       sortFn: true,
     },
     {
