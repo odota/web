@@ -5,7 +5,7 @@ import MatchGraph from 'components/Visualizations/Graph/MatchGraph';
 import TeamTable from '../TeamTable';
 import AbilityBuildTable from '../AbilityBuildTable';
 import AbilityDraftTable from '../AbilityDraftTable';
-import {overviewColumns, abilityColumns, abilityDraftColumns} from '../matchColumns';
+import { overviewColumns, abilityColumns, abilityDraftColumns } from '../matchColumns';
 import BuildingMap from '../BuildingMap';
 
 const Styled = styled.div`
