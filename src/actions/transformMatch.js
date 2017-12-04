@@ -211,7 +211,7 @@ function transformMatch(m) {
     }
     newPlayer.buybacks = (player.buyback_log || []).length;
     newPlayer.total_gold = (player.gold_per_min * m.duration) / 60;
-    if (m.game_mode === 18) {
+    if (m.game_mode === 18 && Object.prototype.hasOwnProperty.call(player, 'ability_upgrades_arr')) {
       const arr = [];
       arr[0] = 1;
       player.ability_upgrades_arr.forEach((ability) => {

@@ -297,8 +297,8 @@ export const abilityColumns = () => {
 export const abilityDraftColumns = () => {
   const cols = Array.from(new Array(6), (_, index) => ({
     displayName: `${index}`,
-    tooltip: 'Ability Drafted',
-    field: `abilites${index}`,
+    tooltip: strings.tooltip_abilitydraft,
+    field: `abilities${index}`,
     displayFn: row =>
       (
         <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
