@@ -49,6 +49,29 @@ export const heroTdColumn = {
   sortFn: true,
 };
 
+const partyStyles = (row, match) => {
+  if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
+    const i = match.players.findIndex(player => player.player_slot === row.player_slot);
+    const teamZero = '#D7E874';
+    const teamOne = '#4C5900';
+    const teamTwo = '#FF9486';
+    const teamThree = '#740D00';
+    switch (match.players[i].party_id) {
+      case 0:
+        return <div data-prev-next style={{ borderColor: teamZero }} />;
+      case 1:
+        return <div data-prev-next style={{ borderColor: teamOne }} />;
+      case 2:
+        return <div data-prev-next style={{ borderColor: teamTwo }} />;
+      case 3:
+        return <div data-prev-next style={{ borderColor: teamThree }} />;
+      default:
+        break;
+    }
+  }
+  return null;
+};
+
 const parties = (row, match) => {
   if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
     const i = match.players.findIndex(player => player.player_slot === row.player_slot);
@@ -95,7 +118,7 @@ export const overviewColumns = (match) => {
     {
       displayName: strings.th_avatar,
       field: 'player_slot',
-      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, parties(row, match), true),
+      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), true),
       sortFn: true,
     },
     {

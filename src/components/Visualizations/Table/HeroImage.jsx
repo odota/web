@@ -157,7 +157,7 @@ const Styled = styled.div`
   top: 0;
   width: 11px;
   height: 93%;
-  left: -11px;
+  left: -28px;
 
   & > div {
     position: absolute;
@@ -171,17 +171,9 @@ const Styled = styled.div`
     }
 
     &[data-prev-next] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      height: 185%;
-      top: -39%;
-
-      &::after {
-        content: "";
-        border-top: 2px solid ${constants.colorMutedLight};
-        position: absolute;
-        width: 100%;
-        top: 50%;
-      }
+      border-left: 9px solid ${constants.colorMutedLight};
+      // height: 185%;
+      // top: -39%;
     }
 
     &[data-prev] {

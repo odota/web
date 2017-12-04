@@ -29,6 +29,7 @@ const getColumnMax = (data, field, getValue) => {
 };
 
 const partyStyles = (index, data) => {
+  console.log(data);
   if (data.find(player => player.party_id !== 0)) {
     const teamZero = '#D7E874';
     const teamOne = '#4C5900';
@@ -181,7 +182,7 @@ class Table extends React.Component {
               </MaterialTableHeader>
               <MaterialTableBody displayRowCheckbox={false} selectable={false}>
                 {data.map((row, index) => (
-                  <MaterialTableRow style={{ borderLeft: partyStyles(index, this.props.data) }} key={index}>
+                  <MaterialTableRow key={index}>
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,
