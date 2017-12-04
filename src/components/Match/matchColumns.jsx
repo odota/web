@@ -49,16 +49,6 @@ export const heroTdColumn = {
   sortFn: true,
 };
 
-let sortIndex = 0;
-const getSortIndex = (match) => {
-  if (sortIndex > match.players.length - 1) {
-    sortIndex = 0;
-  }
-  const index = sortIndex;
-  sortIndex += 1;
-  return index;
-};
-
 const parties = (row, match) => {
   // console.log(match);
   if (row.party_size < 2) {
@@ -68,7 +58,7 @@ const parties = (row, match) => {
   let counter = 0;
   match.players.forEach((player) => {
     const teamOrderKeys = Object.keys(teamOrder);
-    if (teamOrderKeys.indexOf(player.party_id.toString()) === -1) {
+    if (player.party_size > 1 && teamOrderKeys.indexOf(player.party_id.toString()) === -1) {
       teamOrder[player.party_id.toString()] = counter;
       counter += 1;
     }

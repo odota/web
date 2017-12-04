@@ -137,6 +137,7 @@ const Styled = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
+  margin-right: 7px;
 }
 
 .playerSlot {
@@ -154,12 +155,12 @@ const Styled = styled.div`
 .party {
   width: 2px;
   height: 29px;
-  margin-right: 7px;
 
   & > div {
     position: absolute;
     width: 2px;
     height: 29px;
+    left: -24px;
 
     &.group0 {
       background-color: ${constants.red};
@@ -245,6 +246,11 @@ const TableHeroImage = ({
           alt=""
           className="image"
         />
+        {party &&
+        <div className="party">
+          {party}
+        </div>
+        }
         {leaverStatus !== undefined && leaverStatus > 1 &&
         <span
           className="abandoned"
@@ -262,11 +268,6 @@ const TableHeroImage = ({
             className="playerSlot"
             style={{ backgroundColor: playerColors[playerSlot] }}
           />
-        }
-        {party &&
-        <div className="party">
-          {party}
-        </div>
         }
       </div>
       }
