@@ -49,9 +49,23 @@ export const heroTdColumn = {
   sortFn: true,
 };
 
+function findParties(partyArray) {
+  const parties = [];
+  partyArray.forEach((element, index) => {
+    if (partyArray.indexOf(element, index + 1) > -1) {
+      if (parties.indexOf(element) === -1) {
+        parties.push(element);
+      }
+    }
+  });
+  return parties;
+}
+
 const partyStyles = (row, match) => {
-  if (match.players && match.players.filter(x => x.party_size > 1).length) {
-    return <div className={`group${row.party_id}`} />;
+  if (match.players && row.party_size > 1) {
+    const parties = findParties(match.players.map(player => player.party_id));
+    const findGroup = parties.indexOf(row.party_id);
+    return <div className={`group${findGroup}`} />;
   }
   return null;
 };
