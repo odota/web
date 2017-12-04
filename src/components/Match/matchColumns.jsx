@@ -50,9 +50,8 @@ export const heroTdColumn = {
 };
 
 const partyStyles = (row, match) => {
-  if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
-    const i = match.players.findIndex(player => player.player_slot === row.player_slot);
-    return <div className={`group${match.players[i].party_id}`} />;
+  if (match.players && match.players.filter(x => x.party_size > 1).length) {
+    return <div className={`group${row.party_id}`} />;
   }
   return null;
 };

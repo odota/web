@@ -80,7 +80,7 @@ const Styled = styled.div`
 
 .parsed {
   position: relative;
-  left: -24px;
+  left: -14px;
   width: 2px;
   height: 29px;
   background-color: ${constants.primaryLinkColor};
@@ -138,6 +138,7 @@ const Styled = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
+  padding-left: 11px;
 }
 
 .playerSlot {
@@ -211,7 +212,6 @@ const expand = {
   display: 'flex',
   position: 'relative',
   height: '100%',
-  width: 'calc(300% + 50px)',
   left: '-10px',
 };
 
