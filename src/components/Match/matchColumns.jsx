@@ -52,23 +52,7 @@ export const heroTdColumn = {
 const partyStyles = (row, match) => {
   if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
     const i = match.players.findIndex(player => player.player_slot === row.player_slot);
-    const teamZero = '#D7E874';
-    const teamOne = '#4C5900';
-    const teamTwo = '#FF9486';
-    const teamThree = '#740D00';
     return <div className={`group${match.players[i].party_id}`} />;
-    // switch (match.players[i].party_id) {
-    //   case 0:
-    //     return <div data-prev-next style={{ borderColor: teamZero }} />;
-    //   case 1:
-    //     return <div data-prev-next style={{ borderColor: teamOne }} />;
-    //   case 2:
-    //     return <div data-prev-next style={{ borderColor: teamTwo }} />;
-    //   case 3:
-    //     return <div data-prev-next style={{ borderColor: teamThree }} />;
-    //   default:
-    //     break;
-    // }
   }
   return null;
 };
