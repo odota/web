@@ -64,21 +64,16 @@ const parties = (row, match) => {
   if (row.party_size < 2) {
     return <div />;
   }
-  const teamOrder = { radiant: {}, dire: {} };
-  const counter = {
-    radiant: 0,
-    dire: 0,
-  };
-  const team = row.isRadiant ? 'radiant' : 'dire';
+  const teamOrder = { };
+  let counter = 0;
   match.players.forEach((player) => {
-    const playerTeam = player.isRadiant ? 'radiant' : 'dire';
-    const teamOrderKeys = Object.keys(teamOrder[playerTeam]);
+    const teamOrderKeys = Object.keys(teamOrder);
     if (teamOrderKeys.indexOf(player.party_id.toString()) === -1) {
-      teamOrder[playerTeam][player.party_id.toString()] = counter[playerTeam];
-      counter[playerTeam] += 1;
+      teamOrder[player.party_id.toString()] = counter;
+      counter += 1;
     }
   });
-  const groupName = `group${teamOrder[team][row.party_id]}`;
+  const groupName = `group${teamOrder[row.party_id]}`;
 
   return <div className={groupName} />;
 };
