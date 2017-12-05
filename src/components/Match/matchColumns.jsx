@@ -50,27 +50,14 @@ export const heroTdColumn = {
 };
 
 const partyStyles = (row, match) => {
-  if (match.players && match.players.filter(x => x.party_size > 1).length) {
-    const groupedPlayers = lodash.compose(
+  if (match.players && row.party_size > 1) {
+    const partyIndex = lodash.compose(
+      lodash.findIndex(y => y.find(x => x.hero_id === row.hero_id)),
+      Object.values,
       lodash.pickBy(value => value.length > 1),
       lodash.groupBy(x => x.party_id),
     )(match.players);
-    const playerArr = Object.keys(groupedPlayers).map((k, i) => {
-      const groupArr = groupedPlayers[k];
-      // If the player in the row is in the party
-      const player = groupArr.find(x => x.hero_id === row.hero_id);
-      if (player) {
-        // Return the index in the array
-        return i;
-      }
-      // Otherwise return null
-      return null;
-    });
-    // Remove all the nulls
-    const partyId = playerArr.filter(x => x !== null);
-
-    // If there is anything in the array, return the group
-    return partyId.length === 0 ? null : <div className={`group${partyId[0]}`} />;
+    return <div className={`group${partyIndex}`} />;
   }
   return null;
 };
