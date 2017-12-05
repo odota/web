@@ -145,8 +145,7 @@ const Styled = styled.div`
   width: 2px;
   height: 29px;
   position: absolute;
-  left: 0;
-  box-shadow: 1px 0 2px ${constants.defaultPrimaryColor};
+  right: 7px;
 }
 
 .golden {
