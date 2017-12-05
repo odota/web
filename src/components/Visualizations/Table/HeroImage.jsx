@@ -138,7 +138,6 @@ const Styled = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  padding-left: 11px;
 }
 
 .playerSlot {
@@ -160,24 +159,35 @@ const Styled = styled.div`
   height: 101%;
   left: -13px;
 
+
   & > div {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 104%;
     border-left: 3px solid;
 
+    &::after {
+      content: "";
+      border-top: 2px solid;
+      position: absolute;
+      width: 119%;
+      top: 50%;
+      border-color: inherit
+    }
+
     &.group0 {
-      border-left-color: #4C5900;
+      border-color: #4C5900;
     }      
     &.group1 {
-      border-left-color: ${constants.blue};
+      border-color: ${constants.blue};
     }
     &.group2 {
-      border-left-color: #D7E874;
+      border-color: #D7E874;
     }    
     &.group3 {
-      border-left-color: #740D00;
+      border-color: #740D00;
     }
+
   }
 }
 
