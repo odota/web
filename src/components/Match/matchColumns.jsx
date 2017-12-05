@@ -1,5 +1,5 @@
 import React from 'react';
-import lodash from 'lodash/fp';
+import { findLast, compose, pickBy, groupBy, findIndex } from 'lodash/fp';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';
@@ -51,11 +51,11 @@ export const heroTdColumn = {
 
 const partyStyles = (row, match) => {
   if (match.players && row.party_size > 1) {
-    const partyIndex = lodash.compose(
-      lodash.findIndex(y => y.find(x => x.hero_id === row.hero_id)),
+    const partyIndex = compose(
+      findIndex(y => y.find(x => x.hero_id === row.hero_id)),
       Object.values,
-      lodash.pickBy(value => value.length > 1),
-      lodash.groupBy(x => x.party_id),
+      pickBy(value => value.length > 1),
+      groupBy(x => x.party_id),
     )(match.players);
     return <div className={`group${partyIndex}`} />;
   }
@@ -65,7 +65,7 @@ const partyStyles = (row, match) => {
 const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
   let skipped = 0;
   let itemSkipCount = _itemSkipCount || 0;
-  const purchaseEvent = lodash.findLast((item) => {
+  const purchaseEvent = findLast((item) => {
     if (item.key !== itemKey) {
       return false;
     }
