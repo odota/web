@@ -1,5 +1,5 @@
 import React from 'react';
-import { findLast, compose, pickBy, groupBy, findIndex } from 'lodash/fp';
+import lodash from 'lodash/fp';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';
@@ -50,14 +50,27 @@ export const heroTdColumn = {
 };
 
 const partyStyles = (row, match) => {
-  if (match.players && row.party_size > 1) {
-    const partyIndex = compose(
-      findIndex(y => y.find(x => x.hero_id === row.hero_id)),
-      Object.values,
-      pickBy(value => value.length > 1),
-      groupBy(x => x.party_id),
+  if (match.players && match.players.filter(x => x.party_size > 1).length) {
+    const groupedPlayers = lodash.compose(
+      lodash.pickBy(value => value.length > 1),
+      lodash.groupBy(x => x.party_id),
     )(match.players);
-    return <div className={`group${partyIndex}`} />;
+    const playerArr = Object.keys(groupedPlayers).map((k, i) => {
+      const groupArr = groupedPlayers[k];
+      // If the player in the row is in the party
+      const player = groupArr.find(x => x.hero_id === row.hero_id);
+      if (player) {
+        // Return the index in the array
+        return i;
+      }
+      // Otherwise return null
+      return null;
+    });
+    // Remove all the nulls
+    const partyId = playerArr.filter(x => x !== null);
+
+    // If there is anything in the array, return the group
+    return partyId.length === 0 ? null : <div className={`group${partyId[0]}`} />;
   }
   return null;
 };
@@ -65,7 +78,7 @@ const partyStyles = (row, match) => {
 const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
   let skipped = 0;
   let itemSkipCount = _itemSkipCount || 0;
-  const purchaseEvent = findLast((item) => {
+  const purchaseEvent = lodash.findLast((item) => {
     if (item.key !== itemKey) {
       return false;
     }
