@@ -1175,6 +1175,8 @@
   
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
-  "rune": "Rune"
+  "rune": "Rune",
+  "placement": "Placement on map"
+
 
 }
