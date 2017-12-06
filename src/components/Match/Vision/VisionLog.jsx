@@ -42,6 +42,7 @@ const columns = [
 ];
 
 const generateData = match => (log) => {
+  console.log(log)
   const wardKiller = (log.left && log.left.player1) ? heroTd(match.players[log.left.player1]) : '';
   const duration = log.left ? log.left.time - log.entered.time : '';
 

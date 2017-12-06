@@ -1030,11 +1030,12 @@ export const teamfightColumns = [
 ];
 
 const computeAverage = (row, type) => {
+  console.log(row)
   const t = type === 'obs' ? 'ward_observer' : 'ward_sentry';
   const maxDuration = items[t].attrib.find(x => x.key === 'lifetime').value;
   const totalDuration = [];
   row[`${type}_log`].forEach((ward) => {
-    const findTime = row[`${type}_left_log`].find(x => x.key === ward.key);
+    const findTime = row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
     const leftTime = (findTime && findTime.time) || row.duration;
     const duration = Math.min(Math.max(leftTime - ward.time, 0), maxDuration);
     totalDuration.push(duration);
