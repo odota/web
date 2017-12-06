@@ -1167,6 +1167,7 @@ export const visionColumns = [
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },
+  obsAvgColumn,
   purchaseSentryColumn,
   {
     center: true,
@@ -1182,6 +1183,7 @@ export const visionColumns = [
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },
+  senAvgColumn,
   purchaseDustColumn,
   {
     center: true,
@@ -1213,6 +1215,4 @@ export const visionColumns = [
     relativeBars: true,
   },
   purchaseGemColumn,
-  obsAvgColumn,
-  senAvgColumn,
 ];
