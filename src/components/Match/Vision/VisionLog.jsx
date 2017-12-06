@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactHover from 'react-hover';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { threshold, formatSeconds } from 'utility';
 import Table from 'components/Table';
 import strings from 'lang';
@@ -9,6 +9,17 @@ import { heroTd, heroTdColumn } from '../matchColumns';
 import constants from '../../constants';
 import LogHover from './LogHover';
 
+const Styled = styled.div`
+.placement{ 
+  display: none;
+  }
+  .minimap:hover .placement{
+  position: absolute;
+  display : block;
+  padding-left: 30px;
+  pointer-events: none
+  }
+`;
 
 const durationObserverColor = threshold(0, [121, 241, 371], [constants.colorRed, constants.colorYelor, constants.colorGreen]);
 const durationSentryColor = threshold(0, [81, 161, 251], [constants.colorRed, constants.colorYelor, constants.colorGreen]);
@@ -51,18 +62,16 @@ const columns = [
 
 function logWard(log) {
   return (
-    <ReactHover options={{ followCursor: false }}>
-      <ReactHover.Trigger type="trigger">
-        <img
-          src="/assets/images/dota2/map/minimap2.jpg"
-          style={{ height: '30px' }}
-          alt=""
-        />
-      </ReactHover.Trigger>
-      <ReactHover.Hover type="hover">
-        {LogHover(log)}
-      </ReactHover.Hover>
-    </ReactHover>);
+    <Styled>
+      <div className="minimap"><img
+        src="/assets/images/dota2/map/minimap2.jpg"
+        style={{ height: '30px' }}
+        alt=""
+      /><div className="placement">{LogHover(log)}</div>
+      </div>
+
+    </Styled>
+  );
 }
 
 const generateData = match => (log) => {
