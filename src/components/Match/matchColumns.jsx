@@ -53,7 +53,7 @@ const partyStyles = (row, match) => {
   if (row.party_size === 1) {
     return null;
   }
-  // groupBy party id, then remove all the solo players, then find the index the pary the row player is in
+  // groupBy party id, then remove all the solo players, then find the index the party the row player is in
   const index = Object.values(groupBy(match.players, 'party_id'))
     .filter(x => x.length > 1)
     .findIndex(x => x.find(y => y.player_slot === row.player_slot));
