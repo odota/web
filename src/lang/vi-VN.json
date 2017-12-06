@@ -441,7 +441,7 @@
   "match_first_barracks": "Nhà lính đầu tiên",
   "match_pick": "Chọn",
   "match_ban": "Cấm",
-  "matches_highest_mmr": "MMR cao",
+  "matches_highest_mmr": "Top Public",
   "matches_lowest_mmr": "MMR thấp",
   "meta_title": "Meta",
   "meta_description": "Run advanced queries on data from sampled public matches in previous 24h",
