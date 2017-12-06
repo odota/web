@@ -1030,7 +1030,6 @@ export const teamfightColumns = [
 ];
 
 const computeAverage = (row, type) => {
-  console.log(row)
   const t = type === 'obs' ? 'ward_observer' : 'ward_sentry';
   const maxDuration = items[t].attrib.find(x => x.key === 'lifetime').value;
   const totalDuration = [];
