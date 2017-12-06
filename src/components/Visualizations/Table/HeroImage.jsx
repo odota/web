@@ -164,13 +164,13 @@ const Styled = styled.div`
     position: absolute;
     width: 100%;
     height: 104%;
-    border-left: 3px solid;
+    border-left: 2px solid;
 
     &::after {
       content: "";
       border-top: 2px solid;
       position: absolute;
-      width: 119%;
+      width: 132%;
       top: 50%;
       box-shadow: 0 0 5px rgba(0,0,0,0.4);
       border-color: inherit
