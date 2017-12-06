@@ -6,7 +6,7 @@ import { getProMatches, getPublicMatches } from 'actions';
 import strings from 'lang';
 import Table, { TableLink } from 'components/Table';
 // import Heading from 'components/Heading';
-import { transformations, subTextStyle } from 'utility';
+import { transformations, subTextStyle, rankTierToString } from 'utility';
 import { IconTrophy } from 'components/Icons';
 import Match from 'components/Match';
 import TabBar from 'components/TabBar';
@@ -64,7 +64,7 @@ const publicMatchesColumns = [
       <div>
         <TableLink to={`/matches/${field}`}>{field}</TableLink>
         <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-          {row.avg_mmr} {strings.th_mmr}
+          {rankTierToString(row.avg_rank_tier)}
         </span>
       </div>),
   }, {
@@ -104,21 +104,13 @@ const matchTabs = [{
       <Table data={propsPar.publicData} columns={publicMatchesColumns} loading={propsPar.loading} />
     </div>),
   route: '/matches/highMmr',
-}, {
-  name: strings.matches_lowest_mmr,
-  key: 'lowMmr',
-  content: propsPar => (
-    <div>
-      <Table data={propsPar.publicData} columns={publicMatchesColumns} loading={propsPar.loading} />
-    </div>),
-  route: '/matches/lowMmr',
 }];
 
 const getData = (props) => {
   const route = props.match.params.matchId || 'pro';
   if (!Number.isInteger(Number(route))) {
     props.dispatchProMatches();
-    props.dispatchPublicMatches({ [props.match.params.matchId === 'lowMmr' ? 'mmr_ascending' : 'mmr_descending']: 1 });
+    props.dispatchPublicMatches({ mmr_descending: 1 });
   }
 };
 
