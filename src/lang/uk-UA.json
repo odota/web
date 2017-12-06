@@ -441,7 +441,7 @@
   "match_first_barracks": "Перші казарми",
   "match_pick": "Вибір",
   "match_ban": "Бан",
-  "matches_highest_mmr": "Високий MMR",
+  "matches_highest_mmr": "Top Public",
   "matches_lowest_mmr": "Низький MMR",
   "meta_title": "Meta",
   "meta_description": "Run advanced queries on data from sampled public matches in previous 24h",
