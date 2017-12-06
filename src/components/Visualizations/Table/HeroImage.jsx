@@ -138,7 +138,6 @@ const Styled = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  padding-left: 11px;
 }
 
 .playerSlot {
@@ -156,27 +155,39 @@ const Styled = styled.div`
   position: absolute;
   top: 0;
   width: 8px;
-  height: 101%;
+  height: 100%;
   left: -13px;
+
 
   & > div {
     position: absolute;
     width: 100%;
-    height: 100%;
-    border-left: 3px solid;
+    height: 104%;
+    border-left: 2px solid;
+
+    &::after {
+      content: "";
+      border-top: 2px solid;
+      position: absolute;
+      width: 132%;
+      top: 50%;
+      box-shadow: 0 0 5px rgba(0,0,0,0.4);
+      border-color: inherit
+    }
 
     &.group0 {
-      border-left-color: #4C5900;
+      border-color: #4C5900;
     }      
     &.group1 {
-      border-left-color: ${constants.blue};
+      border-color: ${constants.blue};
     }
     &.group2 {
-      border-left-color: #D7E874;
+      border-color: #D7E874;
     }    
     &.group3 {
-      border-left-color: #740D00;
+      border-color: #740D00;
     }
+
   }
 }
 
@@ -209,7 +220,8 @@ const HeroImageContainer = styled.div`
 const expand = {
   display: 'flex',
   position: 'relative',
-  height: '100%',
+  height: '107%',
+  marginTop: '-1px',
   left: '-10px',
 };
 

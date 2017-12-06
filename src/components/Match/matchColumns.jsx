@@ -9,7 +9,7 @@ import abilityKeys from 'dotaconstants/build/ability_keys.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString } from 'utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy } from 'utility';
 import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
@@ -50,10 +50,14 @@ export const heroTdColumn = {
 };
 
 const partyStyles = (row, match) => {
-  if (match.players && match.players.filter(x => x.party_size > 1).length) {
-    return <div className={`group${row.party_id}`} />;
+  if (row.party_size === 1) {
+    return null;
   }
-  return null;
+  // groupBy party id, then remove all the solo players, then find the index the party the row player is in
+  const index = Object.values(groupBy(match.players, 'party_id'))
+    .filter(x => x.length > 1)
+    .findIndex(x => x.find(y => y.player_slot === row.player_slot));
+  return <div className={`group${index}`} />;
 };
 
 const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
