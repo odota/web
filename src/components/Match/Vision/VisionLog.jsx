@@ -94,5 +94,4 @@ VisionLog.propTypes = {
   wards: PropTypes.arrayOf({}),
 };
 
-
 export default VisionLog;
