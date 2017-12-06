@@ -9,7 +9,7 @@ import abilityKeys from 'dotaconstants/build/ability_keys.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString } from 'utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy } from 'utility';
 import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
@@ -50,29 +50,14 @@ export const heroTdColumn = {
 };
 
 const partyStyles = (row, match) => {
-  if (match.players && match.players.filter(x => x.party_size > 1).length) {
-    const groupedPlayers = lodash.compose(
-      lodash.pickBy(value => value.length > 1),
-      lodash.groupBy(x => x.party_id),
-    )(match.players);
-    const playerArr = Object.keys(groupedPlayers).map((k, i) => {
-      const groupArr = groupedPlayers[k];
-      // If the player in the row is in the party
-      const player = groupArr.find(x => x.hero_id === row.hero_id);
-      if (player) {
-        // Return the index in the array
-        return i;
-      }
-      // Otherwise return null
-      return null;
-    });
-    // Remove all the nulls
-    const partyId = playerArr.filter(x => x !== null);
-
-    // If there is anything in the array, return the group
-    return partyId.length === 0 ? null : <div className={`group${partyId[0]}`} />;
+  if (row.party_size === 1) {
+    return null;
   }
-  return null;
+  // groupBy party id, then remove all the solo players, then find the index the pary the row player is in
+  const index = Object.values(groupBy(match.players, 'party_id'))
+    .filter(x => x.length > 1)
+    .findIndex(x => x.find(y => y.player_slot === row.player_slot));
+  return <div className={`group${index}`} />;
 };
 
 const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {

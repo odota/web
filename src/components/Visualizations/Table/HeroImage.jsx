@@ -156,7 +156,7 @@ const Styled = styled.div`
   position: absolute;
   top: 0;
   width: 8px;
-  height: 101%;
+  height: 100%;
   left: -13px;
 
 
@@ -172,6 +172,7 @@ const Styled = styled.div`
       position: absolute;
       width: 119%;
       top: 50%;
+      box-shadow: 0 0 5px rgba(0,0,0,0.4);
       border-color: inherit
     }
 
@@ -221,7 +222,8 @@ const HeroImageContainer = styled.div`
 const expand = {
   display: 'flex',
   position: 'relative',
-  height: '100%',
+  height: '107%',
+  marginTop: '-1px',
   left: '-10px',
 };
 
