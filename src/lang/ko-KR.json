@@ -441,7 +441,7 @@
   "match_first_barracks": "First barracks",
   "match_pick": "Pick",
   "match_ban": "Ban",
-  "matches_highest_mmr": "높은 MMR",
+  "matches_highest_mmr": "Top Public",
   "matches_lowest_mmr": "Low MMR",
   "meta_title": "Meta",
   "meta_description": "Run advanced queries on data from sampled public matches in previous 24h",
