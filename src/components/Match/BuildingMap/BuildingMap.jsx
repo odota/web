@@ -255,7 +255,7 @@ const buildingsHealth = {
   fort: 4200,
 };
 
-export default function BuildingMap({ match }) {
+export default function BuildingMap({ match, showHeroIcons }) {
   if (match && match.tower_status_radiant !== undefined) {
     // see https://wiki.teamfortress.com/wiki/WebAPI/GetMatchDetails
     let bits = pad(match.tower_status_radiant.toString(2), 11);
@@ -439,59 +439,61 @@ export default function BuildingMap({ match }) {
     const roaming = (
       <span className="roaming">{strings.roaming}</span>
     );
-    for (let i = 0; i < match.players.length; i += 1) {
-      const player = (
-        <div
-          key={heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].name}
-          data-for={heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].name}
-          data-tip
-        >
-          <img
-            src={heroes[match.players[i].hero_id] && process.env.REACT_APP_API_HOST + heroes[match.players[i].hero_id].icon}
-            alt=""
-          />
-          <ReactTooltip id={heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].name} effect="solid">
-            <span className={match.players[i].isRadiant ? 'radiant' : 'dire'}>{heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].localized_name}</span>
-            <br />
-            {match.players[i].is_roaming ? roaming : ''}
-            {match.players[i].desc}
-          </ReactTooltip>
-        </div>
-      );
+    if (showHeroIcons) {
+      for (let i = 0; i < match.players.length; i += 1) {
+        const player = (
+          <div
+            key={heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].name}
+            data-for={heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].name}
+            data-tip
+          >
+            <img
+              src={heroes[match.players[i].hero_id] && process.env.REACT_APP_API_HOST + heroes[match.players[i].hero_id].icon}
+              alt=""
+            />
+            <ReactTooltip id={heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].name} effect="solid">
+              <span className={match.players[i].isRadiant ? 'radiant' : 'dire'}>{heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].localized_name}</span>
+              <br />
+              {match.players[i].is_roaming ? roaming : ''}
+              {match.players[i].desc}
+            </ReactTooltip>
+          </div>
+        );
 
-      if (match.players[i].isRadiant) {
-        switch (match.players[i].lane) {
-          case 1:
-            radiantSafe.push(player);
-            break;
-          case 2:
-            radiantMid.push(player);
-            break;
-          case 3:
-            radiantOff.push(player);
-            break;
-          case 4:
-            radiantJungle.push(player);
-            break;
-          default:
-            break;
-        }
-      } else {
-        switch (match.players[i].lane) {
-          case 1:
-            direOff.push(player);
-            break;
-          case 2:
-            direMid.push(player);
-            break;
-          case 3:
-            direSafe.push(player);
-            break;
-          case 4:
-            direJungle.push(player);
-            break;
-          default:
-            break;
+        if (match.players[i].isRadiant) {
+          switch (match.players[i].lane) {
+            case 1:
+              radiantSafe.push(player);
+              break;
+            case 2:
+              radiantMid.push(player);
+              break;
+            case 3:
+              radiantOff.push(player);
+              break;
+            case 4:
+              radiantJungle.push(player);
+              break;
+            default:
+              break;
+          }
+        } else {
+          switch (match.players[i].lane) {
+            case 1:
+              direOff.push(player);
+              break;
+            case 2:
+              direMid.push(player);
+              break;
+            case 3:
+              direSafe.push(player);
+              break;
+            case 4:
+              direJungle.push(player);
+              break;
+            default:
+              break;
+          }
         }
       }
     }
@@ -550,7 +552,12 @@ export default function BuildingMap({ match }) {
   return <div />;
 }
 
+BuildingMap.defaultProps = {
+  showHeroIcons: true,
+};
+
 BuildingMap.propTypes = {
+  showHeroIcons: PropTypes.bool,
   match: PropTypes.shape({}),
   key: PropTypes.string,
   style: PropTypes.shape({
