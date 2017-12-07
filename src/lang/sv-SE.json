@@ -272,6 +272,7 @@
   "heading_graph_xp": "Roshans dödade",
   "heading_graph_lh": "Sista träffen",
   "heading_overview": "Filter",
+  "heading_ability_draft": "Abilities Drafted",
   "heading_buildings": "Byggnadskarta",
   "heading_benchmarks": "Hjälte",
   "heading_laning": "Sida",
@@ -786,6 +787,7 @@
   "title_meta": "Meta",
   "title_records": "Rekord",
   "tooltip_mmr": "Ensam MMR för spelaren",
+  "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "Övergav (DC) ",
   "tooltip_kills": "Övergav",
   "tooltip_deaths": "Övergav (AFK)",
@@ -1096,5 +1098,6 @@
   "tier4": "Tier 4",
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
-  "rune": "Rune"
+  "rune": "Rune",
+  "placement": "Placement"
 }
