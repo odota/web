@@ -272,6 +272,7 @@
   "heading_graph_xp": "Expérience",
   "heading_graph_lh": "Last Hits",
   "heading_overview": "Résumé",
+  "heading_ability_draft": "Abilities Drafted",
   "heading_buildings": "Carte des bâtiments",
   "heading_benchmarks": "Benchmarks",
   "heading_laning": "Laning",
@@ -786,6 +787,7 @@
   "title_meta": "Meta",
   "title_records": "Records",
   "tooltip_mmr": "Solo MMR du joueur",
+  "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "Niveau acquis par héros",
   "tooltip_kills": "Nombre de victimes par héros",
   "tooltip_deaths": "Nombre de morts par héros",
@@ -1096,5 +1098,6 @@
   "tier4": "Tier 4",
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
-  "rune": "Rune"
+  "rune": "Rune",
+  "placement": "Placement"
 }
