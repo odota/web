@@ -154,14 +154,12 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
   let medalElement = null;
   const imgDescription = rankTierToString(rankTier);
   if (rankTier && rankTier > 9) {
-    if (rankTier === 76) {
-      let iconPath = '';
-      if (leaderboardRank > 100) {
-        iconPath = '/assets/images/dota2/rank_icons/rank_icon_7a.png';
-      } else if (leaderboardRank > 10) {
-        iconPath = '/assets/images/dota2/rank_icons/rank_icon_7b.png';
-      } else {
-        iconPath = '/assets/images/dota2/rank_icons/rank_icon_7c.png';
+    if (rankTier === 76 && leaderboardRank) {
+      let iconPath = '/assets/images/dota2/rank_icons/rank_icon_7a.png'; // Divine Elite
+      if (leaderboardRank <= 10) {
+        iconPath = '/assets/images/dota2/rank_icons/rank_icon_7c.png'; // Divine Top 10
+      } else if (leaderboardRank <= 100) {
+        iconPath = '/assets/images/dota2/rank_icons/rank_icon_7b.png'; // Divine Top 100
       }
       medalElement = (
         <div className="rankTierContainer">
