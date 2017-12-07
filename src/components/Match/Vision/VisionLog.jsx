@@ -1,11 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { threshold, formatSeconds } from 'utility';
 import Table from 'components/Table';
 import strings from 'lang';
 import Heading from 'components/Heading';
 import { heroTd, heroTdColumn } from '../matchColumns';
 import constants from '../../constants';
+import LogHover from './LogHover';
+
+const Styled = styled.div`
+.placement{ 
+  display: none;
+  }
+  .minimap:hover .placement{
+  position: absolute;
+  display : block;
+  padding-left: 30px;
+  pointer-events: none
+  }
+`;
 
 const durationObserverColor = threshold(0, [121, 241, 371], [constants.colorRed, constants.colorYelor, constants.colorGreen]);
 const durationSentryColor = threshold(0, [81, 161, 251], [constants.colorRed, constants.colorYelor, constants.colorGreen]);
@@ -39,7 +53,26 @@ const columns = [
     displayName: strings.ward_log_killed_by,
     field: 'killer',
   },
+  {
+    displayName: strings.placement,
+    field: 'placement',
+  },
 ];
+
+
+function logWard(log) {
+  return (
+    <Styled>
+      <div className="minimap"><img
+        src="/assets/images/dota2/map/minimap2.jpg"
+        style={{ height: '30px' }}
+        alt=""
+      /><div className="placement">{LogHover(log)}</div>
+      </div>
+
+    </Styled>
+  );
+}
 
 const generateData = match => (log) => {
   const wardKiller = (log.left && log.left.player1) ? heroTd(match.players[log.left.player1]) : '';
@@ -54,6 +87,7 @@ const generateData = match => (log) => {
     left_time: formatSeconds(log.left && log.left.time) || '-',
     duration: <span style={{ color: durationColor }}>{formatSeconds(duration)}</span>,
     killer: wardKiller,
+    placement: logWard(log),
   };
 };
 
