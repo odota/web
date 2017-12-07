@@ -272,6 +272,7 @@
   "heading_graph_xp": "Досвід",
   "heading_graph_lh": "Останні удари",
   "heading_overview": "Огляд",
+  "heading_ability_draft": "Abilities Drafted",
   "heading_buildings": "Мапа будівель",
   "heading_benchmarks": "Контрольні показники",
   "heading_laning": "Лейнінг",
@@ -786,6 +787,7 @@
   "title_meta": "Meta",
   "title_records": "Рекорди",
   "tooltip_mmr": "Соло MMR гравця",
+  "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "Рівень, досягнутий героєм",
   "tooltip_kills": "Кількість вбивств героєм",
   "tooltip_deaths": "Кількість смертей героя",
@@ -1096,5 +1098,6 @@
   "tier4": "Tier 4",
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
-  "rune": "Rune"
+  "rune": "Rune",
+  "placement": "Placement"
 }
