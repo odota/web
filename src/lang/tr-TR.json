@@ -272,6 +272,7 @@
   "heading_graph_xp": "Tecrübe",
   "heading_graph_lh": "Son Vuruşlar",
   "heading_overview": "Genel Bakış",
+  "heading_ability_draft": "Abilities Drafted",
   "heading_buildings": "Yapı Hariası",
   "heading_benchmarks": "Kriterler",
   "heading_laning": "Kulvar kısmı",
@@ -786,6 +787,7 @@
   "title_meta": "Meta",
   "title_records": "Kayıtlar",
   "tooltip_mmr": "Oyuncunun tekil ED'si",
+  "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "Kahramanın ulaşılan seviyesi",
   "tooltip_kills": "Kahramanın leş sayısı",
   "tooltip_deaths": "Kahramanın ölüm sayısı",
@@ -1096,5 +1098,6 @@
   "tier4": "Tier 4",
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
-  "rune": "Rune"
+  "rune": "Rune",
+  "placement": "Placement"
 }
