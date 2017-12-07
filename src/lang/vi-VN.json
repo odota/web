@@ -272,6 +272,7 @@
   "heading_graph_xp": "Kinh nghiệm",
   "heading_graph_lh": "Last hit",
   "heading_overview": "Tổng quan",
+  "heading_ability_draft": "Abilities Drafted",
   "heading_buildings": "Bản đồ công trình",
   "heading_benchmarks": "So sánh",
   "heading_laning": "Giai đoạn đi lane",
@@ -786,6 +787,7 @@
   "title_meta": "Meta",
   "title_records": "Kỉ lục",
   "tooltip_mmr": "Solo MMR của người chơi",
+  "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "Level achieved by hero",
   "tooltip_kills": "Số lần kill bởi hero",
   "tooltip_deaths": "Số lần chết của hero",
@@ -1096,5 +1098,6 @@
   "tier4": "Tier 4",
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
-  "rune": "Rune"
+  "rune": "Rune",
+  "placement": "Placement"
 }
