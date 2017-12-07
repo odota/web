@@ -72,7 +72,7 @@ export default {
       {
         <Styled>
           <div className="map">
-            <BuildingMap match={match} />
+            <BuildingMap match={match} showHeroIcons={false} />
           </div>
           {match.version && (
             <div className="graph">
