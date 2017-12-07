@@ -272,6 +272,7 @@
   "heading_graph_xp": "Experiență",
   "heading_graph_lh": "Last hit-uri",
   "heading_overview": "Rezumat",
+  "heading_ability_draft": "Abilities Drafted",
   "heading_buildings": "Hartă clădiri",
   "heading_benchmarks": "Criterii de evaluare",
   "heading_laning": "Laning",
@@ -786,6 +787,7 @@
   "title_meta": "Meta",
   "title_records": "Înregistrări",
   "tooltip_mmr": "MMR-ul individual al jucatorului",
+  "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "Level achieved by hero",
   "tooltip_kills": "Number of kills by hero",
   "tooltip_deaths": "Number of deaths by hero",
@@ -1096,5 +1098,6 @@
   "tier4": "Tier 4",
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
-  "rune": "Rune"
+  "rune": "Rune",
+  "placement": "Placement"
 }
