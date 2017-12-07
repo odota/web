@@ -21,7 +21,7 @@ const queryTemplate = (props) => {
   const query = `
 select ${groupVal} ${(group && group.alias) || ''}, 
 count(distinct match_id) games, 
-${!hero ? `count(distinct match_id)::float/sum(count(1)) OVER() * ${group && group.groupSize ? group.groupSize : 1} pickrate,` : ''}
+${!hero ? `count(distinct match_id)::float/sum(count(1)) OVER() * ${group ? group.groupSize || 1 : 10} pickrate,` : ''}
 sum(case when radiant_win = (player_slot < 128) then 1 else 0 end)::float/count(1) winrate
 FROM public_matches
 JOIN public_player_matches using(match_id)
