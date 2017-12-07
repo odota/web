@@ -272,6 +272,7 @@
   "heading_graph_xp": "Experiência",
   "heading_graph_lh": "Finalizações",
   "heading_overview": "Visão Geral",
+  "heading_ability_draft": "Abilities Drafted",
   "heading_buildings": "Mapa das estruturas",
   "heading_benchmarks": "Referência",
   "heading_laning": "Laning",
@@ -786,6 +787,7 @@
   "title_meta": "Meta",
   "title_records": "Recordes",
   "tooltip_mmr": "MMR Individual do jogador",
+  "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "Nível alcançado pelo herói",
   "tooltip_kills": "Número de kills por herói",
   "tooltip_deaths": "Número de mortes por herói",
@@ -1096,5 +1098,6 @@
   "tier4": "Quarta",
   "show_consumables_items": "Exibir consumíveis",
   "activated": "Ativado(a)",
-  "rune": "Runa"
+  "rune": "Runa",
+  "placement": "Placement"
 }
