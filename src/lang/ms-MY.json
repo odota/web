@@ -272,6 +272,7 @@
   "heading_graph_xp": "Experience",
   "heading_graph_lh": "Pukulan Akhir",
   "heading_overview": "Gambaran Keseluruhan",
+  "heading_ability_draft": "Abilities Drafted",
   "heading_buildings": "Peta Bangunan",
   "heading_benchmarks": "Tanda Aras",
   "heading_laning": "Laning",
@@ -786,6 +787,7 @@
   "title_meta": "Meta",
   "title_records": "Rekod",
   "tooltip_mmr": "MMR Solo Pemain",
+  "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "Level yang dicapai oleh hero",
   "tooltip_kills": "Jumlah pembunuhan Hero",
   "tooltip_deaths": "Jumlah kematian Hero",
@@ -1096,5 +1098,6 @@
   "tier4": "Tier 4",
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
-  "rune": "Rune"
+  "rune": "Rune",
+  "placement": "Placement"
 }
