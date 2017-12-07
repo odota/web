@@ -272,6 +272,7 @@
   "heading_graph_xp": "经验",
   "heading_graph_lh": "正补",
   "heading_overview": "摘要",
+  "heading_ability_draft": "Abilities Drafted",
   "heading_buildings": "建筑",
   "heading_benchmarks": "评估",
   "heading_laning": "分路",
@@ -786,6 +787,7 @@
   "title_meta": "Meta",
   "title_records": "记录",
   "tooltip_mmr": "玩家单排天梯积分",
+  "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "结束游戏时的英雄等级",
   "tooltip_kills": "击杀次数",
   "tooltip_deaths": "死亡次数",
@@ -1096,5 +1098,6 @@
   "tier4": "Tier 4",
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
-  "rune": "Rune"
+  "rune": "Rune",
+  "placement": "Placement"
 }
