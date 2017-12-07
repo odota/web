@@ -303,7 +303,7 @@ export const abilityDraftColumns = () => {
       (
         <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
           <div className="ability">
-            {inflictorWithValue(abilityIds[row.abilities[index]]) || <div className="placeholder" />}
+            {inflictorWithValue(abilityIds[row.abilities[index - 1]]) || <div className="placeholder" />}
           </div>
         </StyledAbilityUpgrades>),
   }));
