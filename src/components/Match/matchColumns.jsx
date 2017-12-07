@@ -1052,6 +1052,55 @@ export const teamfightColumns = [
   },
 ];
 
+const computeAverage = (row, type) => {
+  const t = type === 'obs' ? 'ward_observer' : 'ward_sentry';
+  const maxDuration = items[t].attrib.find(x => x.key === 'lifetime').value;
+  const totalDuration = [];
+  row[`${type}_log`].forEach((ward) => {
+    const findTime = row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
+    const leftTime = (findTime && findTime.time) || row.duration;
+    const duration = Math.min(Math.max(leftTime - ward.time, 0), maxDuration);
+    totalDuration.push(duration);
+  });
+  let sum = 0;
+  for (let i = 0; i < totalDuration.length; i += 1) {
+    sum += totalDuration[i];
+  }
+  const avg = sum / totalDuration.length;
+
+  return avg;
+};
+
+const obsAvgColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
+      &nbsp;{strings.th_duration_shorthand}
+    </div>
+  ),
+  field: 'obs_avg_life',
+  tooltip: strings.tooltip_duration_observer,
+  sortFn: row => computeAverage(row, 'obs'),
+  displayFn: row => formatSeconds(computeAverage(row, 'obs')) || '-',
+  relativeBars: true,
+};
+
+const senAvgColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
+      &nbsp;{strings.th_duration_shorthand}
+    </div>
+  ),
+  field: 'sen_avg_life',
+  tooltip: strings.tooltip_duration_sentry,
+  sortFn: row => computeAverage(row, 'sen'),
+  displayFn: row => formatSeconds(computeAverage(row, 'sen')) || '-',
+  relativeBars: true,
+};
+
 const purchaseObserverColumn = {
   center: true,
   displayName: (
@@ -1143,6 +1192,7 @@ export const visionColumns = [
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },
+  obsAvgColumn,
   purchaseSentryColumn,
   {
     center: true,
@@ -1158,6 +1208,7 @@ export const visionColumns = [
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },
+  senAvgColumn,
   purchaseDustColumn,
   {
     center: true,
