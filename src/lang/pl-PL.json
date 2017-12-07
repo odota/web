@@ -272,6 +272,7 @@
   "heading_graph_xp": "Doświadczenie",
   "heading_graph_lh": "Ostatnie uderzenia",
   "heading_overview": "Przegląd",
+  "heading_ability_draft": "Abilities Drafted",
   "heading_buildings": "Mapa budynków",
   "heading_benchmarks": "Benchmark",
   "heading_laning": "Faza liniowa",
@@ -786,6 +787,7 @@
   "title_meta": "Meta",
   "title_records": "Wpisy",
   "tooltip_mmr": "Solo MMR gracza",
+  "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "Poziom uzyskany przez bohatera",
   "tooltip_kills": "Liczba zabójstw bohatera",
   "tooltip_deaths": "Ilość zgonów bohatera",
@@ -1096,5 +1098,6 @@
   "tier4": "Tier 4",
   "show_consumables_items": "Pokaż jednorazowe przedmioty",
   "activated": "Aktywowany",
-  "rune": "Runa"
+  "rune": "Runa",
+  "placement": "Placement"
 }
