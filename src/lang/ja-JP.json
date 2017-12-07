@@ -272,6 +272,7 @@
   "heading_graph_xp": "経験値",
   "heading_graph_lh": "ラストヒット数",
   "heading_overview": "概要",
+  "heading_ability_draft": "Abilities Drafted",
   "heading_buildings": "建造物マップ",
   "heading_benchmarks": "ベンチマーク",
   "heading_laning": "レーニング",
@@ -786,6 +787,7 @@
   "title_meta": "Meta",
   "title_records": "記録",
   "tooltip_mmr": "プレイヤーのソロMMR",
+  "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "ヒーローが到達したレベル",
   "tooltip_kills": "ヒーローがキルした回数",
   "tooltip_deaths": "ヒーローがデスした回数",
@@ -1096,5 +1098,6 @@
   "tier4": "Tier 4",
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
-  "rune": "Rune"
+  "rune": "Rune",
+  "placement": "Placement"
 }
