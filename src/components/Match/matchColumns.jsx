@@ -1056,8 +1056,9 @@ const obsAvgColumn = {
       &nbsp;{strings.th_duration_shorthand}
     </div>
   ),
+  field: 'obs_avg_life',
   tooltip: strings.tooltip_duration_observer,
-  sortFn: true,
+  sortFn: row => computeAverage(row, 'obs'),
   displayFn: row => formatSeconds(computeAverage(row, 'obs')) || '-',
   relativeBars: true,
 };
@@ -1070,8 +1071,9 @@ const senAvgColumn = {
       &nbsp;{strings.th_duration_shorthand}
     </div>
   ),
+  field: 'sen_avg_life',
   tooltip: strings.tooltip_duration_sentry,
-  sortFn: true,
+  sortFn: row => computeAverage(row, 'sen'),
   displayFn: row => formatSeconds(computeAverage(row, 'sen')) || '-',
   relativeBars: true,
 };
