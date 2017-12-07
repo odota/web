@@ -272,6 +272,7 @@
   "heading_graph_xp": "Опыт",
   "heading_graph_lh": "Добито",
   "heading_overview": "Обзор",
+  "heading_ability_draft": "Abilities Drafted",
   "heading_buildings": "Карта строений",
   "heading_benchmarks": "Бенчмарки",
   "heading_laning": "Лайнинг",
@@ -786,6 +787,7 @@
   "title_meta": "Мета",
   "title_records": "Записи",
   "tooltip_mmr": "Одиночный рейтинг игрока",
+  "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "Уровень, полученный героем",
   "tooltip_kills": "Количество убийств героя",
   "tooltip_deaths": "Количество смертей героя",
@@ -1096,5 +1098,6 @@
   "tier4": "4-й разряд",
   "show_consumables_items": "Показать расходуемые предметы",
   "activated": "Активирован",
-  "rune": "Руны"
+  "rune": "Руны",
+  "placement": "Placement"
 }
