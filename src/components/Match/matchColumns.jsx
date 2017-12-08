@@ -50,7 +50,7 @@ export const heroTdColumn = {
 };
 
 const partyStyles = (row, match) => {
-  if (row.lobby_type && row.lobby_type === 1) { // team matches
+  if (row.lobby_type === 1) { // team matches
     if (row.isRadiant) {
       return <div className={`group${0}`} />;
     }
