@@ -77,10 +77,10 @@ function logWard(log) {
 
 const generateData = match => (log) => {
   const wardKiller = (log.left && log.left.player1) ? heroTd(match.players[log.left.player1]) : '';
-  const duration = (log.left && log.left.time - log.entered.time) || (match && match.duration - log.entered.time)
+  const duration = (log.left && log.left.time - log.entered.time) || (match && match.duration - log.entered.time);
 
   // necessary until https://github.com/odota/parser/pull/3 is implemented
-  const discrepancy = duration - Math.min(items['ward_'+log.type].attrib.find(x => x.key === 'lifetime').value, duration)
+  const discrepancy = duration - Math.min(items[`ward_${log.type}`].attrib.find(x => x.key === 'lifetime').value, duration);
 
   const durationColor = log.type === 'observer' ? durationObserverColor(duration) : durationSentryColor(duration);
 
