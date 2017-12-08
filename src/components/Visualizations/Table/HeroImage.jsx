@@ -45,7 +45,7 @@ const Styled = styled.div`
 
     & a {
       display: inline-block;
-      width: 100%;
+      width: 88%;
       overflow: hidden;
       text-overflow: ellipsis;
       vertical-align: sub;
