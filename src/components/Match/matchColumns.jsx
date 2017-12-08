@@ -54,7 +54,6 @@ const partyStyles = (row, match) => {
     if (row.isRadiant) {
       return <div className={`group${0}`} />;
     }
-
     return <div className={`group${3}`} />;
   }
   if (row.party_size === 1 || (match.players && !match.players.map(player => player.party_id).reduce(sum))) {
