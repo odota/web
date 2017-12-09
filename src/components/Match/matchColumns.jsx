@@ -1058,9 +1058,11 @@ const computeAverage = (row, type) => {
   const totalDuration = [];
   row[`${type}_log`].forEach((ward) => {
     const findTime = row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
-    const leftTime = (findTime && findTime.time) || row.duration;
-    const duration = Math.min(Math.max(leftTime - ward.time, 0), maxDuration);
-    totalDuration.push(duration);
+    const leftTime = (findTime && findTime.time) || false;
+    if (leftTime !== false) { // exclude wards that did not expire before game ended from average time
+      const duration = Math.min(Math.max(leftTime - ward.time, 0), maxDuration);
+      totalDuration.push(duration);
+    }
   });
   let sum = 0;
   for (let i = 0; i < totalDuration.length; i += 1) {
