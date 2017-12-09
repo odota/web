@@ -50,7 +50,7 @@ export const heroTdColumn = {
 };
 
 const partyStyles = (row, match) => {
-  if (row.party_size === 1) {
+  if (row.party_size === 1 || (match.players && !match.players.map(player => player.party_id).reduce(sum))) {
     return null;
   }
   // groupBy party id, then remove all the solo players, then find the index the party the row player is in
