@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "abcolor": "^0.5.5",
+    "core-js": "^2.5.2",
     "dota2-emoticons": "^1.0.1",
     "dotaconstants": "^5.21.0",
     "fuzzy": "^0.1.3",
