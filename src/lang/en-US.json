@@ -90,7 +90,7 @@
   "CHAT_MESSAGE_TOWER_DENY": "Tower Deny",
   "CHAT_MESSAGE_AEGIS_STOLEN": "Stole the Aegis",
   "CHAT_MESSAGE_DENIED_AEGIS": "Denied the Aegis",
-  
+
   "distributions_heading_ranks": "Rank Tier Distribution",
   "distributions_heading_mmr": "Solo MMR Distribution",
   "distributions_heading_country_mmr": "Average Solo MMR by Country",
@@ -473,7 +473,7 @@
 
   "matches_highest_mmr": "Top Public",
   "matches_lowest_mmr": "Low MMR",
-  
+
   "meta_title": "Meta",
   "meta_description": "Run advanced queries on data from sampled public matches in previous 24h",
 
@@ -538,7 +538,8 @@
   "pagination_first": "First",
   "pagination_last": "Last",
   "pagination_of": "of",
-  
+  "peers_none": "This player has no peers",
+
 	"rank_tier_0": "Uncalibrated",
 	"rank_tier_1": "Herald",
 	"rank_tier_2": "Guardian",
@@ -547,7 +548,7 @@
 	"rank_tier_5": "Legend",
 	"rank_tier_6": "Ancient",
 	"rank_tier_7": "Divine",
-  
+
   "request_title": "Request a Parse",
   "request_match_id": "Match ID",
   "request_error": "Failed to get match data",
@@ -958,6 +959,7 @@
   "xp_reasons_3": "Roshan",
 
   "rankings_description": "",
+  "rankings_none": "This player is not ranked on any heroes",
 
   "region_0": "Automatic",
   "region_1": "US West",
@@ -1166,19 +1168,19 @@
   "hero_disclaimer_pro": "Data from professional matches",
   "hero_disclaimer_public": "Data from public matches",
   "hero_duration_x_axis": "Minutes",
-                     
+
   "top_tower": "Top Tower",
   "bot_tower": "Bottom Tower",
   "mid_tower": "Mid Tower",
   "top_rax": "Top Barracks",
   "bot_rax": "Bottom Barracks",
   "mid_rax": "Mid Barracks",
-  
+
   "tier1": "Tier 1",
   "tier2": "Tier 2",
   "tier3": "Tier 3",
   "tier4": "Tier 4",
-  
+
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
   "rune": "Rune",
