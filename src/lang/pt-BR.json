@@ -827,7 +827,7 @@
   "tooltip_purchase_rapier": "Rapieira Divina compradas",
   "tooltip_purchase_buyback": "Buybacks comprados",
   "tooltip_duration_observer": "Duração média das sentinelas observadoras",
-  "tooltip_duration_sentry": "Average lifespan of Sentry Wards",
+  "tooltip_duration_sentry": "Duração média das sentinelas reveladoras",
   "tooltip_used_ward_observer": "Número de Sentinelas Observadoras colocadas durante o jogo",
   "tooltip_used_ward_sentry": "Número de Sentinelas Reveladoras colocadas durante o jogo",
   "tooltip_used_dust": "Numero de vezes que a Areia da Revelação foi usada durante o jogo",
@@ -1103,5 +1103,5 @@
   "show_consumables_items": "Exibir consumíveis",
   "activated": "Ativado(a)",
   "rune": "Runa",
-  "placement": "Placement"
+  "placement": "Posição"
 }
