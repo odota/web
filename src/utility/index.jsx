@@ -631,3 +631,9 @@ export const translateBuildings = (isRadiant, key) => {
   return team + dict[k];
 };
 
+export const groupBy = (xs, key) =>
+  xs.reduce((rv, x) => {
+    (rv[x[key]] = rv[x[key]] || []).push(x); // eslint-disable-line no-param-reassign
+    return rv;
+  }, {});
+

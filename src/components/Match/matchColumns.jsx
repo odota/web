@@ -9,7 +9,7 @@ import abilityKeys from 'dotaconstants/build/ability_keys.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString } from 'utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy } from 'utility';
 import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
@@ -49,22 +49,15 @@ export const heroTdColumn = {
   sortFn: true,
 };
 
-const parties = (row, match) => {
-  if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
-    const i = match.players.findIndex(player => player.player_slot === row.player_slot);
-    const partyPrev = (match.players[i - 1] || {}).party_id === row.party_id;
-    const partyNext = (match.players[i + 1] || {}).party_id === row.party_id;
-    if (!partyPrev && partyNext) {
-      return <div data-next />;
-    }
-    if (partyPrev && partyNext) {
-      return <div data-prev-next />;
-    }
-    if (partyPrev && !partyNext) {
-      return <div data-prev />;
-    }
+const partyStyles = (row, match) => {
+  if (row.party_size === 1 || (match.players && !match.players.map(player => player.party_id).reduce(sum))) {
+    return null;
   }
-  return null;
+  // groupBy party id, then remove all the solo players, then find the index the party the row player is in
+  const index = Object.values(groupBy(match.players, 'party_id'))
+    .filter(x => x.length > 1)
+    .findIndex(x => x.find(y => y.player_slot === row.player_slot));
+  return <div className={`group${index}`} />;
 };
 
 const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
@@ -95,7 +88,7 @@ export const overviewColumns = (match) => {
     {
       displayName: strings.th_avatar,
       field: 'player_slot',
-      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, parties(row, match), true),
+      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), true),
       sortFn: true,
     },
     {
@@ -285,6 +278,25 @@ export const abilityColumns = () => {
         <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
           <div className="ability">
             {inflictorWithValue(abilityIds[row[`ability_upgrades_arr_${index}`]]) || <div className="placeholder" />}
+          </div>
+        </StyledAbilityUpgrades>),
+  }));
+
+  cols[0] = heroTdColumn;
+
+  return cols;
+};
+
+export const abilityDraftColumns = () => {
+  const cols = Array.from(new Array(6), (_, index) => ({
+    displayName: `${index}`,
+    tooltip: strings.tooltip_abilitydraft,
+    field: `abilities${index}`,
+    displayFn: row =>
+      (
+        <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
+          <div className="ability">
+            {inflictorWithValue(abilityIds[row.abilities[index - 1]]) || <div className="placeholder" />}
           </div>
         </StyledAbilityUpgrades>),
   }));
@@ -1040,6 +1052,57 @@ export const teamfightColumns = [
   },
 ];
 
+const computeAverage = (row, type) => {
+  const t = type === 'obs' ? 'ward_observer' : 'ward_sentry';
+  const maxDuration = items[t].attrib.find(x => x.key === 'lifetime').value;
+  const totalDuration = [];
+  row[`${type}_log`].forEach((ward) => {
+    const findTime = row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
+    const leftTime = (findTime && findTime.time) || false;
+    if (leftTime !== false) { // exclude wards that did not expire before game ended from average time
+      const duration = Math.min(Math.max(leftTime - ward.time, 0), maxDuration);
+      totalDuration.push(duration);
+    }
+  });
+  let sum = 0;
+  for (let i = 0; i < totalDuration.length; i += 1) {
+    sum += totalDuration[i];
+  }
+  const avg = sum / totalDuration.length;
+
+  return avg;
+};
+
+const obsAvgColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
+      &nbsp;{strings.th_duration_shorthand}
+    </div>
+  ),
+  field: 'obs_avg_life',
+  tooltip: strings.tooltip_duration_observer,
+  sortFn: row => computeAverage(row, 'obs'),
+  displayFn: row => formatSeconds(computeAverage(row, 'obs')) || '-',
+  relativeBars: true,
+};
+
+const senAvgColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
+      &nbsp;{strings.th_duration_shorthand}
+    </div>
+  ),
+  field: 'sen_avg_life',
+  tooltip: strings.tooltip_duration_sentry,
+  sortFn: row => computeAverage(row, 'sen'),
+  displayFn: row => formatSeconds(computeAverage(row, 'sen')) || '-',
+  relativeBars: true,
+};
+
 const purchaseObserverColumn = {
   center: true,
   displayName: (
@@ -1131,6 +1194,7 @@ export const visionColumns = [
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },
+  obsAvgColumn,
   purchaseSentryColumn,
   {
     center: true,
@@ -1146,6 +1210,7 @@ export const visionColumns = [
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },
+  senAvgColumn,
   purchaseDustColumn,
   {
     center: true,
