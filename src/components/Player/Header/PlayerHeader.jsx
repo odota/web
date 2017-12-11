@@ -111,12 +111,12 @@ const Styled = styled.div`
   &[data-hint-position="top"] {
     &::after {
       margin-bottom: 3px;
-      margin-left: 22px;
+      margin-left: 52px;
     }
 
     &::before {
       top: -3px;
-      margin-left: 56px;
+      margin-left: 57px;
     }
   }
   & img {
@@ -163,7 +163,7 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
       }
       medalElement = (
         <div className="rankTierContainer">
-          <div className="rankMedal" data-hint={`No. ${leaderboardRank}`} data-hint-position="top">
+          <div className="rankMedal" data-hint={`${strings.abbr_number} ${leaderboardRank}`} data-hint-position="top">
             <img className="rankMedal-icon" src={iconPath} alt="icon" />
             <span className="rankMedal-board">{leaderboardRank}</span>
           </div>
