@@ -60,7 +60,7 @@ const PlayerSpan = (player) => {
       >
         <img
           src={heroes[player.hero_id]
-            ? `${process.env.REACT_APP_API_HOST}${heroes[player.hero_id].icon}`
+            ? process.env.REACT_APP_API_HOST + heroes[player.hero_id].icon
             : '/assets/images/blank-1x1.gif'
           }
           alt=""
@@ -298,6 +298,18 @@ class RoshanEvent extends StoryEvent {
   format() {
     const formatted = formatTemplate(strings.story_roshan, { team: TeamSpan(this.team) });
     return this.aegis ? formatList([formatted, this.aegis.format()]) : formatted;
+  }
+}
+
+class CourierKillEvent extends StoryEvent {
+  constructor(match, obj) {
+    super(obj.time);
+    this.team = obj.team === 2;
+  }
+  format() {
+    return formatTemplate(strings.story_courier_kill, {
+      team: TeamSpan(this.team),
+    });
   }
 }
 
@@ -562,13 +574,19 @@ class TeamfightEvent extends StoryEvent {
     return this.format();
   }
   format() {
-    let formatted = [renderSentence(this.win_dead.length > 0 ? strings.story_teamfight : strings.story_teamfight_none_dead, {
+    let template = strings.story_teamfight;
+    if (this.win_dead.length === 0) {
+      template = strings.story_teamfight_none_dead;
+    } else if (this.lose_dead.length === 0) {
+      template = strings.story_teamfight_none_dead_loss;
+    }
+    let formatted = [renderSentence(template, {
       winning_team: TeamSpan(this.winning_team),
       net_change: GoldSpan(this.gold_delta),
       win_dead: formatList(this.win_dead.map(death => (
-        death.count === 1 ? new PlayerSpan(death.player) : [new PlayerSpan(death.player), `(x${death.count})`]))),
+        death.count === 1 ? PlayerSpan(death.player) : [PlayerSpan(death.player), `(x${death.count})`]))),
       lose_dead: formatList(this.lose_dead.map(death => (
-        death.count === 1 ? new PlayerSpan(death.player) : [new PlayerSpan(death.player), `(x${death.count})`]))),
+        death.count === 1 ? PlayerSpan(death.player) : [PlayerSpan(death.player), `(x${death.count})`]))),
     })];
     if (this.during_events.length > 0) {
       formatted = formatted.concat(renderSentence(
@@ -592,7 +610,7 @@ class ExpensiveItemEvent extends StoryEvent {
     this.price_limit = price;
     match.players.forEach((player) => {
       Object.entries(player.first_purchase_time).forEach(([item, time]) => {
-        if (items[item].cost >= price && time < this.time) {
+        if (item in items && items[item].cost >= price && time < this.time) {
           this.time = time;
           this.item = item;
           this.player = player;
@@ -604,7 +622,7 @@ class ExpensiveItemEvent extends StoryEvent {
     let found = false;
     match.players.forEach((player) => {
       Object.keys(player.first_purchase_time).forEach((item) => {
-        if (items[item].cost >= price) {
+        if (item in items && items[item].cost >= price) {
           found = true;
         }
       });
@@ -757,6 +775,11 @@ const generateStory = (match) => {
   events = events.concat(match.objectives
     .filter(obj => obj.type === 'CHAT_MESSAGE_ROSHAN_KILL')
     .map((obj, index) => new RoshanEvent(match, obj, index, aegisEvents)));
+
+  // Courier kills
+  events = events.concat(match.objectives
+    .filter(obj => obj.type === 'CHAT_MESSAGE_COURIER_LOST')
+    .map(obj => new CourierKillEvent(match, obj)));
 
   // Teamfights
   events = events.concat(match.teamfights && match.teamfights.length > 0 ? match.teamfights.map(fight => new TeamfightEvent(match, fight)) : []);

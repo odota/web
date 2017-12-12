@@ -59,6 +59,18 @@ export function abbreviateNumber(num) {
   return num.toFixed(0);
 }
 
+export function rankTierToString(rankTier) {
+  if (rankTier !== parseInt(rankTier, 10)) {
+    return strings.general_unknown;
+  }
+  const intRankTier = parseInt(rankTier, 10);
+  let rank = strings[`rank_tier_${parseInt(intRankTier / 10, 10)}`];
+  if (intRankTier > 9) {
+    rank += ` [${parseInt(intRankTier % 10, 10)}]`;
+  }
+  return rank;
+}
+
 export function formatSeconds(input) {
   if (!Number.isNaN(parseFloat(input)) && Number.isFinite(Number(input))) {
     const absTime = Math.abs(input);
@@ -575,7 +587,53 @@ export const formatTemplate = (template, dict) => {
 export const getHeroesById = () => {
   const obj = {};
   Object.keys(heroes).forEach((hero) => {
-    obj[hero.name] = hero;
+    obj[heroes[hero].name] = heroes[hero];
   });
   return obj;
 };
+
+// https://www.evanmiller.org/how-not-to-sort-by-average-rating.html
+export const wilsonScore = (up, down) => {
+  if (!up) return 0;
+  const n = up + down;
+  const z = 1.64485; // 1.0 = 85%, 1.6 = 95%
+  const phat = up / n;
+  return (
+    phat + ((z * z) / (2 * n)) - (z * Math.sqrt(((phat * (1 - phat)) + (z * z / (4 * n))) / n))
+  ) / (
+    1 + (z * z / n)
+  );
+};
+
+export const translateBuildings = (isRadiant, key) => {
+  const team = isRadiant ? strings.general_radiant : strings.general_dire;
+  const k = key.split('_').slice(3).join('_');
+  const dict = {
+    fort: ` ${strings.building_ancient}`,
+    healers: ` ${strings.heading_shrine}`,
+    tower1_top: ` ${strings.top_tower} ${strings.tier1}`,
+    tower2_top: ` ${strings.top_tower} ${strings.tier2}`,
+    tower3_top: ` ${strings.top_tower} ${strings.tier3}`,
+    tower1_mid: ` ${strings.mid_tower} ${strings.tier1}`,
+    tower2_mid: ` ${strings.mid_tower} ${strings.tier2}`,
+    tower3_mid: ` ${strings.mid_tower} ${strings.tier3}`,
+    tower1_bot: ` ${strings.bot_tower} ${strings.tier1}`,
+    tower2_bot: ` ${strings.bot_tower} ${strings.tier2}`,
+    tower3_bot: ` ${strings.bot_tower} ${strings.tier3}`,
+    tower4: ` ${strings.heading_tower} ${strings.tier4}`,
+    melee_rax_top: ` ${'Top'} ${strings.building_melee_rax}`,
+    melee_rax_mid: ` ${'Mid'} ${strings.building_melee_rax}`,
+    melee_rax_bot: ` ${'Bot'} ${strings.building_melee_rax}`,
+    range_rax_top: ` ${'Top'} ${strings.building_range_rax}`,
+    range_rax_mid: ` ${'Mid'} ${strings.building_range_rax}`,
+    range_rax_bot: ` ${'Bot'} ${strings.building_range_rax}`,
+  };
+  return team + dict[k];
+};
+
+export const groupBy = (xs, key) =>
+  xs.reduce((rv, x) => {
+    (rv[x[key]] = rv[x[key]] || []).push(x); // eslint-disable-line no-param-reassign
+    return rv;
+  }, {});
+

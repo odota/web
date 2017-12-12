@@ -8,7 +8,7 @@ import strings from 'lang';
 // they are probably built like this to allow map key access but it would be nice if I didn't
 // have to convert them all into arrays.
 export const heroList = Object.keys(heroes).map(id => ({
-  text: heroes[id].localized_name,
+  text: heroes[id] && heroes[id].localized_name,
   value: id,
 })).sort((a, b) => a.text.localeCompare(b.text));
 export const laneList = Object.keys(strings)
@@ -71,4 +71,20 @@ export const dateList = [{
 export const significantList = [{
   text: strings.filter_significant_include,
   value: 0,
+}];
+export const gamesPlayedList = [{
+  text: '5',
+  value: 5,
+}, {
+  text: '10',
+  value: 10,
+}, {
+  text: '15',
+  value: 15,
+}, {
+  text: '20',
+  value: 20,
+}, {
+  text: '25',
+  value: 25,
 }];

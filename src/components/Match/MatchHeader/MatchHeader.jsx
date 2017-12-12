@@ -229,8 +229,6 @@ const MatchHeader = ({ match, user, loading }) => {
       player =>
         ((radiant === undefined || radiant === isRadiant(player.player_slot)) ? Number(player[key]) : null);
 
-    const mmrPlayers = match.players.map(mapPlayers('solo_competitive_rank')).filter(Boolean);
-
     const victorySection = match.radiant_win
       ? (
         <span>
@@ -297,8 +295,8 @@ const MatchHeader = ({ match, user, loading }) => {
                 {strings[`region_${match.region}`]}
               </li>
               <li>
-                <span>{strings.match_avg_mmr}</span>
-                {(mmrPlayers.length) ? (mmrPlayers.reduce(sum, 0) / mmrPlayers.length).toFixed(0) : strings.general_unknown}
+                <span>{strings.th_skill}</span>
+                {(match.skill) ? strings[`skill_${match.skill}`] : strings.general_unknown}
               </li>
             </ul>
           </div>
@@ -318,14 +316,6 @@ const MatchHeader = ({ match, user, loading }) => {
             label={strings.match_button_replay}
             icon={<FileFileDownload />}
             href={match.replay_url}
-            target="_blank"
-            rel="noopener noreferrer"
-          />}
-          {match.replay_url &&
-          <FlatButton
-            label={strings.match_button_video}
-            icon={<img src="/assets/images/jist-24x24.png" alt="" />}
-            href={`//www.jist.tv/create.php?dota2-match-url=${match.replay_url}`}
             target="_blank"
             rel="noopener noreferrer"
           />}

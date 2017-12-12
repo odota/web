@@ -11,6 +11,22 @@ class ExplorerFormField extends React.Component {
     this.addChip = this.addChip.bind(this);
     this.deleteChip = this.deleteChip.bind(this);
   }
+  componentWillUpdate(newProps) {
+    if (this.autocomplete && !this.autocomplete.state.searchText) {
+      const {
+        builderField, builder, fields,
+      } = newProps;
+      const dataSource = fields && fields[builderField];
+      const searchText = builder[builderField]
+        ? (dataSource.find(element => element.key === builder[builderField]) || {}).text
+        : '';
+      if (searchText) {
+        this.autocomplete.setState({
+          searchText,
+        });
+      }
+    }
+  }
   resetField() {
     const { builderField, handleFieldUpdate } = this.props;
     // Set state on the ref'd component to clear it
@@ -42,7 +58,7 @@ class ExplorerFormField extends React.Component {
       fields, label, builderField, handleFieldUpdate, isDateField, builder,
     } = this.props;
     const dataSource = fields && fields[builderField];
-    const fieldWidth = 300;
+    const fieldWidth = 280;
     if (isDateField) {
       return (
         <span style={{ width: fieldWidth }}>
@@ -76,10 +92,6 @@ class ExplorerFormField extends React.Component {
       */}
         <AutoComplete
           ref={(ref) => { this.autocomplete = ref; return null; }}
-          searchText={builder[builderField]
-          ? (dataSource.find(element => element.key === builder[builderField]) || {}).text
-          : ''
-        }
           openOnFocus
           listStyle={{ maxHeight: 400, overflow: 'auto' }}
           fullWidth

@@ -6,7 +6,7 @@ import { getProMatches, getPublicMatches } from 'actions';
 import strings from 'lang';
 import Table, { TableLink } from 'components/Table';
 // import Heading from 'components/Heading';
-import { transformations, subTextStyle } from 'utility';
+import { transformations, subTextStyle, rankTierToString } from 'utility';
 import { IconTrophy } from 'components/Icons';
 import Match from 'components/Match';
 import TabBar from 'components/TabBar';
@@ -64,7 +64,7 @@ const publicMatchesColumns = [
       <div>
         <TableLink to={`/matches/${field}`}>{field}</TableLink>
         <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-          {row.avg_mmr} {strings.th_mmr}
+          {rankTierToString(row.avg_rank_tier)}
         </span>
       </div>),
   }, {
@@ -78,13 +78,13 @@ const publicMatchesColumns = [
     displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
     field: 'radiant_team',
     displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
-      <img key={heroId} style={{ width: '50px' }} src={`${process.env.REACT_APP_API_HOST}${heroes[heroId].img}`} alt="" />),
+      (heroes[heroId] ? <img key={heroId} style={{ width: '50px' }} src={`${process.env.REACT_APP_API_HOST}${heroes[heroId].img}`} alt="" /> : null)),
   },
   {
     displayName: <StyledTeamIconContainer >{strings.general_dire}</StyledTeamIconContainer>,
     field: 'dire_team',
     displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
-      <img key={heroId} style={{ width: '50px' }} src={`${process.env.REACT_APP_API_HOST}${heroes[heroId].img}`} alt="" />),
+      (heroes[heroId] ? <img key={heroId} style={{ width: '50px' }} src={`${process.env.REACT_APP_API_HOST}${heroes[heroId].img}`} alt="" /> : null)),
   },
 ];
 
@@ -93,7 +93,7 @@ const matchTabs = [{
   key: 'pro',
   content: propsPar => (
     <div>
-      <Table data={propsPar.proData} columns={matchesColumns} />
+      <Table data={propsPar.proData} columns={matchesColumns} loading={propsPar.loading} />
     </div>),
   route: '/matches/pro',
 }, {
@@ -101,24 +101,16 @@ const matchTabs = [{
   key: 'highMmr',
   content: propsPar => (
     <div>
-      <Table data={propsPar.publicData} columns={publicMatchesColumns} />
+      <Table data={propsPar.publicData} columns={publicMatchesColumns} loading={propsPar.loading} />
     </div>),
   route: '/matches/highMmr',
-}, {
-  name: strings.matches_lowest_mmr,
-  key: 'lowMmr',
-  content: propsPar => (
-    <div>
-      <Table data={propsPar.publicData} columns={publicMatchesColumns} />
-    </div>),
-  route: '/matches/lowMmr',
 }];
 
 const getData = (props) => {
   const route = props.match.params.matchId || 'pro';
   if (!Number.isInteger(Number(route))) {
     props.dispatchProMatches();
-    props.dispatchPublicMatches({ [props.match.params.matchId === 'lowMmr' ? 'mmr_ascending' : 'mmr_descending']: 1 });
+    props.dispatchPublicMatches({ mmr_descending: 1 });
   }
 };
 

@@ -1,10 +1,16 @@
 {
+  "yes": "yes",
+  "no": "no",
+
   "abbr_thousand": "k",
   "abbr_million": "m",
   "abbr_billion": "b",
   "abbr_trillion": "t",
   "abbr_quadrillion": "q",
   "abbr_not_available": "N/A",
+  "abbr_pick": "P",
+  "abbr_win": "W",
+  "abbr_number": "No.",
 
   "analysis_eff": "Lane efficiency",
   "analysis_farm_drought": "Lowest GPM in 5 minute interval",
@@ -74,6 +80,7 @@
   "building_damage": "received damage",
   "building_hint": "Icons on the map have tooltips",
   "building_denied": "denied",
+  "building_ancient": "Ancient",
 
   "CHAT_MESSAGE_TOWER_KILL": "Tower",
   "CHAT_MESSAGE_BARRACKS_KILL": "Barracks",
@@ -83,9 +90,11 @@
   "CHAT_MESSAGE_TOWER_DENY": "Tower Deny",
   "CHAT_MESSAGE_AEGIS_STOLEN": "Stole the Aegis",
   "CHAT_MESSAGE_DENIED_AEGIS": "Denied the Aegis",
-
+  
+  "distributions_heading_ranks": "Rank Tier Distribution",
   "distributions_heading_mmr": "Solo MMR Distribution",
   "distributions_heading_country_mmr": "Average Solo MMR by Country",
+  "distributions_tab_ranks": "Rank Tiers",
   "distributions_tab_mmr": "Solo MMR",
   "distributions_tab_country_mmr": "Solo MMR by Country",
   "distributions_warning_1": "This data set is limited to players displaying MMR on profile and sharing public match data.",
@@ -97,7 +106,7 @@
 
   "explorer_title": "Data Explorer",
   "explorer_subtitle": "Professional Dota 2 Stats",
-  "explorer_description": "Stats from professional Dota 2 matches. Amateur leagues are not included.",
+  "explorer_description": "Run advanced queries on professional matches (excludes amateur leagues)",
   "explorer_schema": "Schema",
   "explorer_results": "Results",
   "explorer_num_rows": "row(s)",
@@ -107,6 +116,10 @@
   "explorer_patch": "Patch",
   "explorer_min_patch": "Min Patch",
   "explorer_max_patch": "Max Patch",
+  "explorer_min_mmr": "Min MMR",
+  "explorer_max_mmr": "Max MMR",
+  "explorer_min_rank_tier": "Min Tier",
+  "explorer_max_rank_tier": "Max Tier",
   "explorer_player": "Player",
   "explorer_league": "League",
   "explorer_player_purchased": "Player Purchased",
@@ -114,6 +127,7 @@
   "explorer_min_duration": "Min Duration",
   "explorer_max_duration": "Max Duration",
   "explorer_timing": "Timing",
+  "explorer_uses": "Uses",
   "explorer_kill": "Kill Time",
   "explorer_side": "Side",
   "explorer_toggle_sql": "Toggle SQL",
@@ -209,6 +223,7 @@
   "game_mode_20": "All Random Deathmatch",
   "game_mode_21": "1v1 Solo Mid",
   "game_mode_22": "All Draft",
+  "game_mode_23": "Turbo",
 
   "general_unknown": "Unknown",
   "general_no_hero": "No hero",
@@ -234,7 +249,7 @@
   "NULL_gold_reasons_15": "Courier",
 
   "header_request": "Request",
-  "header_distributions": "MMR",
+  "header_distributions": "Ranks",
   "header_heroes": "Heroes",
   "header_blog": "Blog",
   "header_ingame": "Ingame",
@@ -242,6 +257,7 @@
   "header_records": "Records",
   "header_explorer": "Explorer",
   "header_teams": "Teams",
+  "header_meta": "Meta",
 
   "heading_lhten": "Last Hits @ 10",
   "heading_lhtwenty": "Last Hits @ 20",
@@ -275,6 +291,7 @@
   "heading_graph_xp": "Experience",
   "heading_graph_lh": "Last Hits",
   "heading_overview": "Overview",
+  "heading_ability_draft": "Abilities Drafted",
   "heading_buildings": "Buildings Map",
   "heading_benchmarks": "Benchmarks",
   "heading_laning": "Laning",
@@ -344,6 +361,20 @@
   "heading_distinct_heroes": "Distinct Heroes",
   "heading_team_elo_rankings": "Team Elo Rankings",
   "heading_ability_build": "Ability Build",
+  "heading_attack": "Base attack",
+  "heading_attack_range": "Attack range",
+  "heading_attack_speed": "Attack speed",
+  "heading_projectile_speed": "Projectile speed",
+  "heading_base_health": "Health",
+  "heading_base_health_regen": "Health regen",
+  "heading_base_mana": "Mana",
+  "heading_base_mana_regen": "Mana regen",
+  "heading_base_armor": "Base armor",
+  "heading_base_mr": "Magic resistance",
+  "heading_move_speed": "Move speed",
+  "heading_turn_rate": "Turn speed",
+  "heading_legs": "Number of legs",
+  "heading_cm_enabled": "CM enabled",
 
   "subheading_avg_and_max": "in last %d matches",
   "subheading_records": "In ranked matches. Records reset monthly.",
@@ -383,7 +414,6 @@
   "home_background_by": "Background picture by",
   "home_sponsored_by": "Sponsored by",
   "home_become_sponsor": "Become a Sponsor",
-  "home_jist_button": "New: AutoMagic highlights!",
 
   "items_name": "Name of item",
   "items_built": "Number of times this item was built",
@@ -441,8 +471,11 @@
   "match_pick": "Pick",
   "match_ban": "Ban",
 
-  "matches_highest_mmr": "High MMR",
+  "matches_highest_mmr": "Top Public",
   "matches_lowest_mmr": "Low MMR",
+  
+  "meta_title": "Meta",
+  "meta_description": "Run advanced queries on data from sampled public matches in previous 24h",
 
   "mmr_not_up_to_date": "Why is the MMR not up to date?",
 
@@ -505,7 +538,16 @@
   "pagination_first": "First",
   "pagination_last": "Last",
   "pagination_of": "of",
-
+  
+	"rank_tier_0": "Uncalibrated",
+	"rank_tier_1": "Herald",
+	"rank_tier_2": "Guardian",
+	"rank_tier_3": "Crusader",
+	"rank_tier_4": "Archon",
+	"rank_tier_5": "Legend",
+	"rank_tier_6": "Ancient",
+	"rank_tier_7": "Divine",
+  
   "request_title": "Request a Parse",
   "request_match_id": "Match ID",
   "request_error": "Failed to get match data",
@@ -539,6 +581,7 @@
   "story_chatmessage": "\"{message}\", {player} {said_verb}",
   "story_teamfight": "{winning_team} won a teamfight by trading {win_dead} for {lose_dead}, resulting in a net worth increase of {net_change}",
   "story_teamfight_none_dead": "{winning_team} won a teamfight by killing {lose_dead} without losing any heroes, resulting in a net worth increase of {net_change}",
+  "story_teamfight_none_dead_loss": "{winning_team} somehow won a teamfight without killing anyone, and losing {win_dead}, resulting in a net worth increase of {net_change}",
   "story_lane_intro": "At 10 minutes into the game, the lanes had gone as follows:",
   "story_lane_radiant_win": "{radiant_players} won {lane} Lane against {dire_players}",
   "story_lane_radiant_lose": "{radiant_players} lost {lane} Lane to {dire_players}",
@@ -557,6 +600,7 @@
   "story_building_destroy_player": "{player} destroyed {building}",
   "story_building_deny_player": "{player} denied {building}",
   "story_building_list_destroy": "{buildings} were destroyed",
+  "story_courier_kill": "{team}'s courier was killed",
   "story_tower": "{team}'s Tier {tier} {lane} tower",
   "story_tower_simple": "one of {team}'s towers",
   "story_towers_n": "{n} of {team}'s Towers",
@@ -607,6 +651,10 @@
   "tab_story": "Story",
   "tab_fantasy": "Fantasy",
   "tab_laning": "Laning",
+  "tab_recent": "Recent",
+  "tab_matchups": "Matchups",
+  "tab_durations": "Durations",
+  "tab_players": "Players",
 
   "placeholder_filter_heroes": "Filter Heroes",
 
@@ -616,11 +664,14 @@
 
   "th_hero_id": "Hero",
   "th_match_id": "ID",
+  "th_account_id": "Account ID",
   "th_result": "Result",
   "th_skill": "Skill",
   "th_duration": "Duration",
   "th_games": "MP",
+  "th_games_played": "Games",
   "th_win": "Win %",
+  "th_advantage": "Advantage",
   "th_with_games": "With",
   "th_with_win": "Win with %",
   "th_against_games": "Against",
@@ -709,6 +760,7 @@
   "th_ability_builds": "AB",
   "th_purchase_shorthand": "PUR",
   "th_use_shorthand": "USE",
+  "th_duration_shorthand": "DUR",
   "th_country": "Country",
   "th_count": "Count",
   "th_sum": "Sum",
@@ -734,12 +786,13 @@
   "th_scans_used": "Scans Used",
   "th_glyphs_used": "Glyphs Used",
   "th_legs": "Legs",
-  "th_fantasy_points": "Points",
+  "th_fantasy_points": "Fantasy Pts",
   "th_rating": "Rating",
   "th_teamfight_participation": "Participation",
   "th_firstblood_claimed" : "First Blood",
   "th_observers_placed": "Observers",
   "th_camps_stacked": "Stacks",
+  "th_league": "League",
 
   "ward_log_type": "Type",
   "ward_log_owner": "Owner",
@@ -784,9 +837,11 @@
   "title_search": "Search",
   "title_status": "Status",
   "title_explorer": "Data Explorer",
+  "title_meta": "Meta",
   "title_records": "Records",
 
   "tooltip_mmr": "Solo MMR of the player",
+  "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "Level achieved by hero",
   "tooltip_kills": "Number of kills by hero",
   "tooltip_deaths": "Number of deaths by hero",
@@ -823,6 +878,8 @@
   "tooltip_purchase_gem": "Gem of True Sight purchases",
   "tooltip_purchase_rapier": "Divine Rapier purchases",
   "tooltip_purchase_buyback": "Buyback purchases",
+  "tooltip_duration_observer": "Average lifespan of Observer Wards",
+  "tooltip_duration_sentry": "Average lifespan of Sentry Wards",
   "tooltip_used_ward_observer": "Number of Observer Wards placed during the game",
   "tooltip_used_ward_sentry": "Number of Sentry Wards placed during the game",
   "tooltip_used_dust": "Number of times Dust of Appearance was used during the game",
@@ -885,6 +942,7 @@
   "tooltip_others_tracked_deaths": "tracked deaths",
   "tooltip_others_track_gold": "gold earned from Track",
   "tooltip_others_greevils_gold": "gold earned from Greevil's Greed",
+  "tooltip_advantage": "Calculated by Wilson score",
 
   "histograms_name": "Histograms",
   "histograms_description": "Percentages indicate win rates for the labeled bin",
@@ -1103,5 +1161,28 @@
   "question_continued_shouted": "asked furiously",
   "question_continued_excited": "lovingly asked",
   "question_continued_normal": "asked",
-  "question_continued_laughed": "asked joyfully"
+  "question_continued_laughed": "asked joyfully",
+
+  "hero_disclaimer_pro": "Data from professional matches",
+  "hero_disclaimer_public": "Data from public matches",
+  "hero_duration_x_axis": "Minutes",
+                     
+  "top_tower": "Top Tower",
+  "bot_tower": "Bottom Tower",
+  "mid_tower": "Mid Tower",
+  "top_rax": "Top Barracks",
+  "bot_rax": "Bottom Barracks",
+  "mid_rax": "Mid Barracks",
+  
+  "tier1": "Tier 1",
+  "tier2": "Tier 2",
+  "tier3": "Tier 3",
+  "tier4": "Tier 4",
+  
+  "show_consumables_items": "Show consumables",
+  "activated": "Activated",
+  "rune": "Rune",
+  "placement": "Placement"
+
+
 }

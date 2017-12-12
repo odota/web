@@ -35,7 +35,10 @@ Heading.propTypes = {
     string,
     element,
   ]),
-  subtitle: shape({}),
+  subtitle: oneOfType([
+    shape({}),
+    string,
+  ]),
   twoLine: bool,
 };
 

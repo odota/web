@@ -63,7 +63,7 @@ const CastTable = ({
   <Tabs>
     {match.players.map(p =>
       (
-        <Tab key={p.player_slot} icon={<img src={`${process.env.REACT_APP_API_HOST}${heroes[p.hero_id].img}`} height={30} alt="" />}>
+        <Tab key={p.player_slot} icon={<img src={heroes[p.hero_id] && process.env.REACT_APP_API_HOST + heroes[p.hero_id].img} height={30} alt="" />}>
           <Table
             data={getCastArray(p)}
             columns={castsColumns}

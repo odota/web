@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
 import strings from 'lang';
+import { rankTierToString } from 'utility';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
 import styled from 'styled-components';
@@ -94,6 +95,49 @@ const Styled = styled.div`
   }
 }
 
+.rankTierContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rankMedal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 30px;
+
+  &[data-hint-position="top"] {
+    &::after {
+      margin-bottom: 3px;
+      margin-left: 52px;
+    }
+
+    &::before {
+      top: -3px;
+      margin-left: 57px;
+    }
+  }
+  & img {
+    width: 124px;
+    height: 124px;
+  }
+  &-icon {
+
+  }
+  &-board {
+    position: absolute;
+    align-self: center;
+    margin-top: 41px;
+    font-size: 22px;
+    color: #ECD9C8;
+  }
+  &-star {
+    position: absolute;
+  }
+}
+
 `;
 
 const LARGE_IMAGE_SIZE = 124;
@@ -106,8 +150,62 @@ const getRegistrationBadge = registered => registered && (
   />
 );
 
+const getRankTierMedal = (rankTier, leaderboardRank) => {
+  let medalElement = null;
+  const imgDescription = rankTierToString(rankTier);
+  if (rankTier && rankTier > 9) {
+    if (rankTier === 76 && leaderboardRank) {
+      let iconPath = '/assets/images/dota2/rank_icons/rank_icon_7a.png'; // Divine Elite
+      if (leaderboardRank <= 10) {
+        iconPath = '/assets/images/dota2/rank_icons/rank_icon_7c.png'; // Divine Top 10
+      } else if (leaderboardRank <= 100) {
+        iconPath = '/assets/images/dota2/rank_icons/rank_icon_7b.png'; // Divine Top 100
+      }
+      medalElement = (
+        <div className="rankTierContainer">
+          <div className="rankMedal" data-hint={`${strings.abbr_number} ${leaderboardRank}`} data-hint-position="top">
+            <img className="rankMedal-icon" src={iconPath} alt="icon" />
+            <span className="rankMedal-board">{leaderboardRank}</span>
+          </div>
+        </div>
+      );
+    } else {
+      const intRankTier = parseInt(rankTier, 10);
+      const iconPath = `/assets/images/dota2/rank_icons/rank_icon_${parseInt(intRankTier / 10, 10)}.png`;
+      const star = parseInt(intRankTier % 10, 10);
+      let correctStar = 0;
+      if (star <= 0) {
+        correctStar = 0;
+      } else if (star >= 5) {
+        correctStar = 5;
+      } else {
+        correctStar = star;
+      }
+      const starPath = `/assets/images/dota2/rank_icons/rank_star_${correctStar}.png`;
+      medalElement = (
+        <div className="rankTierContainer">
+          <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
+            <img className="rankMedal-icon" src={iconPath} alt="icon" />
+            {(correctStar !== 0) ? <img className="rankMedal-star" src={starPath} alt="star" /> : ''}
+          </div>
+        </div>
+      );
+    }
+  } else {
+    const iconPath = '/assets/images/dota2/rank_icons/rank_icon_0.png';
+    medalElement = (
+      <div className="rankTierContainer">
+        <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
+          <img className="rankMedal-icon" src={iconPath} alt="icon" />
+        </div>
+      </div>
+    );
+  }
+  return medalElement;
+};
+
 const PlayerHeader = ({
-  playerName, officialPlayerName, playerId, picture, registered, loading, error, small, extraSmall, playerSoloCompetitiveRank, loggedInUser,
+  playerName, officialPlayerName, playerId, picture, registered, loading, error, small, playerSoloCompetitiveRank, loggedInUser, rankTier, leaderboardRank,
 }) => {
   if (error) {
     return <Error />;
@@ -127,7 +225,7 @@ const PlayerHeader = ({
 
   const avatarStyle = {
     marginLeft: small ? 30 : 0,
-    marginRight: extraSmall ? 30 : 0,
+    marginRight: small ? 30 : 0,
   };
 
   if (!small) {
@@ -166,6 +264,7 @@ const PlayerHeader = ({
             <PlayerStats playerId={playerId} loggedInId={loggedInUser && String(loggedInUser.account_id)} compact={!small} />
             <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={!small} />
           </div>
+          {getRankTierMedal(rankTier, leaderboardRank)}
         </div>
       </div>
     </Styled>
@@ -181,9 +280,10 @@ PlayerHeader.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.string,
   small: PropTypes.bool,
-  extraSmall: PropTypes.bool,
   playerSoloCompetitiveRank: PropTypes.number,
   loggedInUser: PropTypes.shape({}),
+  rankTier: PropTypes.number,
+  leaderboardRank: PropTypes.number,
 };
 
 const mapStateToProps = state => ({
@@ -195,8 +295,9 @@ const mapStateToProps = state => ({
   picture: (state.app.player.data.profile || {}).avatarfull,
   registered: (state.app.player.data.profile || {}).last_login,
   small: state.browser.greaterThan.small,
-  extraSmall: state.browser.greaterThan.extraSmall,
   loggedInUser: state.app.metadata.data.user,
+  rankTier: state.app.player.data.rank_tier,
+  leaderboardRank: state.app.player.data.leaderboard_rank,
 });
 
 export default connect(mapStateToProps)(PlayerHeader);

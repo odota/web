@@ -9,7 +9,7 @@ import {
 } from 'material-ui/Table';
 import { TablePercent } from 'components/Visualizations';
 import Pagination from 'components/Table/PaginatedTable/Pagination';
-import { abbreviateNumber, sum, SORT_ENUM, defaultSort } from 'utility';
+import { abbreviateNumber, SORT_ENUM, defaultSort } from 'utility';
 import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
@@ -49,6 +49,25 @@ const initialState = {
 };
 
 class Table extends React.Component {
+  static renderSumRow({ columns, data }) {
+    return (
+      <MaterialTableRow>
+        {columns.map((column, colIndex) => {
+            let total = 0;
+            if (column.sumFn) {
+              const sumFn = (typeof column.sumFn === 'function') ? column.sumFn : (acc, row) => (acc + row[column.field]);
+              total = data.reduce(sumFn, null);
+            }
+
+            return (
+              <MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
+                {column.sumFn && ((column.displaySumFn) ? column.displaySumFn(total) : abbreviateNumber(total))}
+              </MaterialTableRowColumn>
+            );
+          })}
+      </MaterialTableRow>
+    );
+  }
   constructor() {
     super();
     this.state = initialState;
@@ -108,7 +127,7 @@ class Table extends React.Component {
       data = data.slice(0, maxRows);
     }
     if (sortField) {
-      data = defaultSort(data, sortState, sortField, sortFn);
+      data = defaultSort(data.slice(0), sortState, sortField, sortFn);
     }
     if (paginated) {
       data = data.slice(currentPage * pageLength, (currentPage + 1) * pageLength);
@@ -142,7 +161,8 @@ class Table extends React.Component {
                   <MaterialTableRow key={index}>
                     {columns.map((column, colIndex) => {
                       const {
-                        field, color, center, displayFn, relativeBars, percentBars, percentBarsWithValue, sortFn,
+                        field, color, center, displayFn, relativeBars, percentBars,
+                        percentBarsWithValue, sortFn, invertBarColor,
                       } = column;
                       const getValue = typeof sortFn === 'function' ? sortFn : null;
                       const value = getValue ? getValue(row) : row[field];
@@ -184,23 +204,24 @@ class Table extends React.Component {
 
                           const isValidNumber = !Number.isNaN(Number(valueWithOffset));
                           barPercentValue = max !== 0 && isValidNumber
-                            ? Number((valueWithOffset * 100 / max).toFixed(2))
+                            ? Number((valueWithOffset * 100 / max).toFixed(1))
                             : 0;
                           valEl = displayFn
                             ? displayFn(row, column, value, index, barPercentValue)
                             : <span>{value}</span>;
                         } else {
                           // Percent bars assumes that the value is in decimal
-                          barPercentValue = Number((value * 100).toFixed(2)) || 0;
+                          barPercentValue = Number((value * 100).toFixed(1)) || 0;
                           valEl = displayFn
                             ? displayFn(row, column, value, index, barPercentValue)
-                            : <span>{barPercentValue}%</span>;
+                            : <span>{barPercentValue}</span>;
                         }
 
                         fieldEl = (<TablePercent
                           valEl={valEl}
                           percent={barPercentValue}
                           altValue={altValue}
+                          inverse={invertBarColor}
                         />);
                       } else if (displayFn) {
                         fieldEl = displayFn(row, column, value, index);
@@ -215,16 +236,7 @@ class Table extends React.Component {
                     })}
                   </MaterialTableRow>
                 ))}
-                {summable &&
-                <MaterialTableRow>
-                  {columns.map((column, colIndex) => (
-                    <MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
-                      {column.sumFn && (column.field !== 'life_state_dead' ?
-                      abbreviateNumber(data.map(row => row[column.field]).reduce(sum, 0))
-                      : column.displayFn(null, column, data.map(row => row[column.field]).reduce(sum, 0))
-                    )}
-                    </MaterialTableRowColumn>))}
-                </MaterialTableRow>}
+                {summable && Table.renderSumRow({ columns, data })}
               </MaterialTableBody>
             </MaterialTable>
           </div>)}

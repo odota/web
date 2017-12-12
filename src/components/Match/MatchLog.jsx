@@ -4,16 +4,55 @@ import strings from 'lang';
 import {
   formatSeconds,
   getHeroesById,
+  translateBuildings,
+  formatTemplate,
 } from 'utility';
+import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
 import Table from 'components/Table';
 import heroes from 'dotaconstants/build/heroes.json';
 import FormField from 'components/Form/FormField';
+import { IconRadiant, IconDire } from 'components/Icons';
 import {
   heroTdColumn,
 } from './matchColumns';
 import { StyledLogFilterForm } from './StyledMatch';
 
+const St = styled.div`
+table {
+  width: 650px !important;
+`;
+
+const killIcon = (isRadiant) => {
+  const icon = isRadiant ? 'radiant_kill.png' : 'dire_kill.png';
+  return (
+    <img
+      src={`/assets/images/dota2/${icon}`}
+      alt=""
+      style={{ paddingRight: '6px', paddingBottom: '2px', float: 'left' }}
+    />
+  );
+};
+
+const isRadiant = (field, row) => {
+  if (row.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
+    return row.team !== 2;
+  }
+  return field === true || (row.unit && row.unit.indexOf('goodguys') !== -1) || row.team === 2;
+};
+const isDire = (field, row) => {
+  if (row.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
+    return row.team === 2;
+  }
+  return field === false || (row.unit && row.unit.indexOf('badguys') !== -1) || row.team === 3;
+};
+
+const logDetailIconStyle = {
+  height: '30px', float: 'left', paddingTop: '7px', paddingRight: '5px',
+};
+const logDetailIconStyleTower = {
+  height: '31px', paddingTop: '6px', float: 'left', position: 'relative', right: '6px',
+};
 const heroNames = getHeroesById();
 const typeConfig = {
   kills: 0,
@@ -51,6 +90,7 @@ const generateLog = (match, { types, players }) => {
           ...objective,
           ...matchPlayers[objective.slot],
           type: 'objectives',
+          alt_key: objective.type,
           detail: `${getObjectiveDesc(objective)} ${getObjectiveBase(objective)}`,
         });
       }
@@ -89,40 +129,145 @@ const generateLog = (match, { types, players }) => {
   return log;
 };
 
-const logColumns = [heroTdColumn, {
-  displayName: strings.th_time,
-  field: 'time',
-  displayFn: (row, col, field) => formatSeconds(field),
-}, {
-  displayName: strings.ward_log_type,
-  field: 'type',
-}, {
-  displayName: strings.log_detail,
-  field: 'detail',
-  displayFn: (row) => {
-    switch (row.type) {
-      case 'kills': {
-        const hero = heroNames[row.detail] || {};
-        return <img src={`${process.env.REACT_APP_API_HOST}${hero.img}`} style={{ height: '30px' }} alt="" />;
-      }
-      case 'runes': {
-        const runeType = row.detail;
-        const runeString = strings[`rune_${runeType}`];
-        return (
-          <img
-            src={`/assets/images/dota2/runes/${runeType}.png`}
-            alt=""
-            style={{ height: '30px' }}
-            data-tip
-            data-for={runeString}
-          />
-        );
-      }
-      default:
-        return row.detail;
-    }
+const logColumns = [
+  {
+    displayName: strings.th_time,
+    field: 'time',
+    displayFn: (row, col, field) => formatSeconds(field),
   },
-}];
+  {
+    displayName: strings.heading_is_radiant,
+    tooltip: strings.heading_is_radiant,
+    field: 'isRadiant',
+    sortFn: true,
+    displayFn: (row, col, field) =>
+      (
+        <span>
+          {isRadiant(field, row) && <IconRadiant height="30" />}
+          {isDire(field, row) && <IconDire height="30" />}
+        </span>
+      ),
+  }, heroTdColumn,
+  {
+    displayName: strings.log_detail,
+    field: 'detail',
+    displayFn: (row) => {
+      switch (row.type) {
+        case 'kills': {
+          const hero = heroNames[row.detail] || {};
+          return (
+            <span>
+              {killIcon(row.isRadiant)}
+              <img
+                src={`${process.env.REACT_APP_API_HOST}${hero.img}`}
+                style={{ height: '30px', float: 'left', paddingTop: '6px' }}
+                alt=""
+              />
+            </span>
+          );
+        }
+        case 'runes': {
+          const runeType = row.detail;
+          const runeString = strings[`rune_${runeType}`];
+          return (
+            <span>
+              <p style={{ float: 'left' }}>{strings.activated}</p>
+              <img
+                src={`/assets/images/dota2/runes/${runeType}.png`}
+                alt=""
+                style={{ height: '30px', float: 'left' }}
+                data-tip
+                data-for={runeString}
+              />
+              <p style={{ float: 'left' }}> {runeString} {strings.rune}</p>
+            </span>
+          );
+        }
+        case 'objectives': {
+          if (row.alt_key === 'CHAT_MESSAGE_FIRSTBLOOD') {
+            return (
+              <span>
+                <img
+                  src="/assets/images/dota2/bloodsplattersmall2.png" // https://pixabay.com/en/ink-red-splatter-abstract-paint-303244/
+                  alt=""
+                  style={logDetailIconStyle}
+                />
+                <p>{strings.th_firstblood_claimed}</p>
+              </span>
+            );
+          }
+          if (row.alt_key === 'building_kill') {
+            if (row.key.indexOf('goodguys') !== -1) {
+              return (
+                <span>
+                  {killIcon(row.isRadiant)}
+                  <IconRadiant
+                    style={logDetailIconStyleTower}
+                  />
+                  <p style={{ float: 'left' }}>
+                    {translateBuildings(true, row.key)} {row.isRadiant === true ? `(${strings.building_denied})` : ''}
+                  </p>
+                </span>
+              );
+            }
+
+            return (
+              <span>
+                {killIcon(row.isRadiant)}
+                <IconDire
+                  style={logDetailIconStyleTower}
+                />
+                <p style={{ float: 'left' }}>
+                  {translateBuildings(false, row.key)} {row.isRadiant === false ? `(${strings.building_denied})` : ''}
+                </p>
+              </span>
+            );
+          }
+          if (row.alt_key === 'CHAT_MESSAGE_AEGIS') {
+            return (
+              <span>
+                <img
+                  src="/assets/images/dota2/aegis_icon.png"
+                  alt=""
+                  style={logDetailIconStyle}
+                />
+                <p>{strings.CHAT_MESSAGE_AEGIS}</p>
+              </span>
+            );
+          }
+          if (row.alt_key === 'CHAT_MESSAGE_ROSHAN_KILL') {
+            return (
+              <span>
+                <img
+                  src="/assets/images/dota2/roshan.png"
+                  alt=""
+                  style={logDetailIconStyle}
+                />
+                <p>{strings.th_roshan}</p>
+              </span>
+            );
+          }
+          if (row.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
+            const team = row.team === 2 ? strings.general_radiant : strings.general_dire;
+            const courierIcon = row.team === 2 ? 'radiantcourier.png' : 'direcourier.png';
+            return (
+              <span>
+                <img
+                  src={`/assets/images/dota2/${courierIcon}`}
+                  alt=""
+                  style={logDetailIconStyle}
+                />
+                <p>{formatTemplate(strings.story_courier_kill, { team })}</p>
+              </span>
+            );
+          }
+          return row.detail;
+        }
+        default:
+          return row.detail;
+      }
+    },
+  }];
 
 class MatchLog extends React.Component {
   constructor(props) {
@@ -138,7 +283,7 @@ class MatchLog extends React.Component {
       { text: strings.heading_runes, value: 2 },
     ];
     this.playersSource = this.props.match.players.map((player, index) => ({
-      text: heroes[player.hero_id].localized_name || strings.general_no_hero,
+      text: heroes[player.hero_id] ? heroes[player.hero_id].localized_name : strings.general_no_hero,
       value: index,
     }));
 
@@ -197,7 +342,9 @@ class MatchLog extends React.Component {
             strict
           />
         </StyledLogFilterForm>
-        <Table data={logData} columns={logColumns} />
+        <St>
+          <Table data={logData} columns={logColumns} />
+        </St>
       </div>
     );
   }

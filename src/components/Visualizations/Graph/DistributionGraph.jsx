@@ -14,7 +14,7 @@ import {
 import { StyledTooltip } from './Styled';
 
 const DistributionTooltipContent = ({ payload, array }) => {
-  const data = (payload[0] || {}).payload;
+  const data = payload && payload[0] && payload[0].payload;
   const total = array.length ? array[array.length - 1].cumulative_sum : 0;
   return (
     <StyledTooltip>
@@ -30,18 +30,18 @@ DistributionTooltipContent.propTypes = {
 
 const DistributionGraph = ({
   data,
+  xTickInterval,
 }) => {
-  const mmr = data && data.mmr && data.mmr.rows;
-  if (mmr) {
+  if (data && data.length) {
     return (
       <ResponsiveContainer width="100%" height={600}>
         <ComposedChart
-          data={mmr}
+          data={data}
           margin={{
             top: 5, right: 30, left: 30, bottom: 5,
           }}
         >
-          <XAxis dataKey="bin_name" interval={4}>
+          <XAxis dataKey="bin_name" interval={xTickInterval || 4}>
             <Label value="" position="insideTopRight" />
           </XAxis>
           <YAxis yAxisId="left" orientation="left" stroke="#1393f9" />
@@ -52,7 +52,7 @@ const DistributionGraph = ({
             opacity={0.5}
           />
 
-          <Tooltip content={<DistributionTooltipContent array={mmr} />} />
+          <Tooltip content={<DistributionTooltipContent array={data} />} />
           <Bar
             dataKey="count"
             yAxisId="left"
@@ -71,7 +71,8 @@ const DistributionGraph = ({
 };
 
 DistributionGraph.propTypes = {
-  data: PropTypes.arrayOf(),
+  data: PropTypes.arrayOf(PropTypes.shape({})),
+  xTickInterval: PropTypes.number,
 };
 
 export default DistributionGraph;

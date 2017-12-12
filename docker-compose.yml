@@ -6,10 +6,10 @@ services:
   ui:
     build:
       context: .
-    image: odota/ui
+    image: odota/web
     entrypoint: "./scripts/docker.sh"
     ports:
       - "8080:8080"
     volumes: 
       - .:/usr/src
-    container_name: odota-ui
+    container_name: odota-web
