@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-filename-extension */
+import 'core-js/fn/object/values';
 import React from 'react';
 import { hydrate, render } from 'react-dom';
 import { Provider } from 'react-redux';
