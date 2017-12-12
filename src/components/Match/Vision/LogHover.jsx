@@ -110,7 +110,7 @@ WardPin.propTypes = {
 };
 
 const LogHover = ward => (
-  <div style={{ height: 300 }}>
+  <div style={{ height: 300, position: 'absolute', bottom: '10px' }}>
     <DotaMap
       maxWidth={300}
       width={300}
