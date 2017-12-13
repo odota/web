@@ -538,7 +538,7 @@
   "pagination_first": "First",
   "pagination_last": "Last",
   "pagination_of": "of",
-  "peers_none": "This player has no peers",
+  "peers_none": "This player has no peers.",
 
 	"rank_tier_0": "Uncalibrated",
 	"rank_tier_1": "Herald",
@@ -959,7 +959,7 @@
   "xp_reasons_3": "Roshan",
 
   "rankings_description": "",
-  "rankings_none": "This player is not ranked on any heroes",
+  "rankings_none": "This player is not ranked on any heroes.",
 
   "region_0": "Automatic",
   "region_1": "US West",
