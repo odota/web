@@ -116,6 +116,7 @@ class Table extends React.Component {
       summable,
       maxRows,
       paginated,
+      placeholderMessage,
       pageLength = 20,
     } = this.props;
     const {
@@ -145,7 +146,8 @@ class Table extends React.Component {
         <StyledContainer >
           {loading && <Spinner />}
           {!loading && error && <Error />}
-          {!loading && !error && data && (
+          {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
+          {!loading && !error && dataLength > 0 && (
           <div className="innerContainer">
             <MaterialTable fixedHeader={false} selectable={false}>
               <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
@@ -261,6 +263,7 @@ const {
   bool,
   shape,
   number,
+  string,
 } = PropTypes;
 
 Table.propTypes = {
@@ -271,6 +274,7 @@ Table.propTypes = {
   summable: bool,
   maxRows: number,
   paginated: bool,
+  placeholderMessage: string,
   pageLength: number,
 };
 
