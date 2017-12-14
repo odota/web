@@ -211,7 +211,7 @@ const mergeHeroGuides = (heroes, heroGuides) => heroes.map(hero => ({
 /**
  * Get the number of recent matches, filtering out Siltbreaker matches
  */
-const countValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19).length;
+const countValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19 && match.game_mode !== 23).length;
 
 /**
  * Get the recent matches, filtering out Siltbreaker matches
@@ -219,7 +219,7 @@ const countValidRecentMatches = matches => matches.filter(match => match.game_mo
  * XXX - this could be switched to use playerMatches while specifying the
  * desired fields in order to request >20 matches and filter down to 20 matches.
  */
-const getValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19)
+const getValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19 && match.game_mode !== 23)
   .slice(0, MAX_MATCHES_ROWS);
 
 const mapStateToProps = state => ({
