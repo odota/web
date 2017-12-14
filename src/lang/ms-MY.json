@@ -749,6 +749,8 @@
   "th_observers_placed": "Observer",
   "th_camps_stacked": "Stack",
   "th_league": "Liga",
+  "th_attack_type": "Attack Type",
+  "th_primary_attr": "Primary Attribute",
   "ward_log_type": "Jenis",
   "ward_log_owner": "Pemilik",
   "ward_log_entered_at": "Diletakkan",
