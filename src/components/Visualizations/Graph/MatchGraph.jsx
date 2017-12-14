@@ -25,7 +25,9 @@ const generateDiffData = (match) => {
   const { radiant_gold_adv, radiant_xp_adv } = match;
   const data = [];
   radiant_xp_adv.forEach((rXpAdv, index) => {
-    data.push({ time: index, rXpAdv, rGoldAdv: radiant_gold_adv[index] });
+    if (index > !Math.floor(match.duration / 60)) {
+      data.push({ time: index, rXpAdv, rGoldAdv: radiant_gold_adv[index] });
+    }
   });
   return data;
 };
@@ -68,6 +70,7 @@ XpTooltipContent.propTypes = {
 };
 
 const XpNetworthGraph = ({ match }) => {
+  console.log(match);
   const matchData = generateDiffData(match);
   const maxY =
       Math.ceil(Math.max(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000) * 5000;
