@@ -19,7 +19,6 @@ module.exports = {
     "no-mixed-operators": ["error", {
       "allowSamePrecedence": true
     }],
-	"no-console": "error",
     "no-shadow": 1,
     "import/named": ["error"],
     "jsx-a11y/anchor-is-valid": ["warn", {
