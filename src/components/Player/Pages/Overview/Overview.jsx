@@ -8,6 +8,10 @@ import {
   getPlayerPeers,
   getPvgnaHeroGuides,
 } from 'actions';
+import Checkbox from 'material-ui/Checkbox';
+import Alarm from 'material-ui/svg-icons/action/alarm';
+import AlarmOff from 'material-ui/svg-icons/action/alarm-off';
+import ReactTooltip from 'react-tooltip';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesColumns';
@@ -88,6 +92,12 @@ const HeroesContainer = styled.div`
   }
 `;
 
+const Styled = styled.div`
+float: left;
+position: relative;
+width: 30px;
+`;
+
 const Overview = ({
   validRecentMatches,
   numValidRecentMatches,
@@ -101,6 +111,8 @@ const Overview = ({
   peersLoading,
   peersError,
   playerId,
+  toggleTurboGames,
+  showTurboGames,
 }) => (
   <OverviewContainer>
     <SummaryContainer
@@ -110,7 +122,20 @@ const Overview = ({
       loading={matchesLoading}
       error={matchesError}
     >
-      <SummOfRecMatches matchesData={validRecentMatches} />
+      <Styled
+        data-tip={strings.exclude_turbo_matches}
+        style={{ display: validRecentMatches.some(match => match.game_mode === 23) ? 'inline' : 'none' }}
+      >
+        <ReactTooltip />
+        <Checkbox
+          style={{ display: validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23) }}
+          defaultChecked
+          onCheck={toggleTurboGames}
+          checkedIcon={<Alarm />}
+          uncheckedIcon={<AlarmOff />}
+        />
+      </Styled>
+      <SummOfRecMatches matchesData={validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23)} />
     </SummaryContainer>
     <MatchesContainer>
       <Container
@@ -170,6 +195,8 @@ Overview.propTypes = {
   peersLoading: PropTypes.bool,
   peersError: PropTypes.string,
   playerId: PropTypes.string,
+  toggleTurboGames: PropTypes.func,
+  showTurboGames: PropTypes.bool,
 };
 
 
@@ -181,6 +208,15 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showTurboGames: true,
+    };
+    this.toggleTurboGames = this.toggleTurboGames.bind(this);
+  }
+
+
   componentDidMount() {
     getData(this.props);
   }
@@ -191,8 +227,13 @@ class RequestLayer extends React.Component {
     }
   }
 
+  toggleTurboGames = () => {
+    const { showTurboGames } = this.state;
+    this.setState({ showTurboGames: !showTurboGames });
+  };
+
   render() {
-    return <Overview {...this.props} />;
+    return <Overview {...this.props} toggleTurboGames={this.toggleTurboGames} showTurboGames={this.state.showTurboGames} />;
   }
 }
 
@@ -201,6 +242,8 @@ RequestLayer.propTypes = {
     key: PropTypes.string,
   }),
   playerId: PropTypes.string,
+  toggleTurboGames: PropTypes.func,
+  showTurboGames: PropTypes.bool,
 };
 
 const mergeHeroGuides = (heroes, heroGuides) => heroes.map(hero => ({
@@ -211,7 +254,7 @@ const mergeHeroGuides = (heroes, heroGuides) => heroes.map(hero => ({
 /**
  * Get the number of recent matches, filtering out Siltbreaker matches
  */
-const countValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19 && match.game_mode !== 23).length;
+const countValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19).length;
 
 /**
  * Get the recent matches, filtering out Siltbreaker matches
@@ -219,7 +262,7 @@ const countValidRecentMatches = matches => matches.filter(match => match.game_mo
  * XXX - this could be switched to use playerMatches while specifying the
  * desired fields in order to request >20 matches and filter down to 20 matches.
  */
-const getValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19 && match.game_mode !== 23)
+const getValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19)
   .slice(0, MAX_MATCHES_ROWS);
 
 const mapStateToProps = state => ({
