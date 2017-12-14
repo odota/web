@@ -348,11 +348,11 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     .sort((a, b) => a.text.localeCompare(b.text)),
   group: [{
     text: strings.explorer_player,
-    value: 'notable_players.account_id',
+    value: 'notable_players.name',
     key: 'player',
   }, {
     text: strings.th_hero_id,
-    value: 'player_matches.hero_id',
+    value: 'heroes.localized_name',
     key: 'hero',
   }, {
     text: strings.explorer_league,
@@ -384,7 +384,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     key: 'team',
   }, {
     text: strings.explorer_organization,
-    value: 'team_match.team_id',
+    value: 'teams2.name',
     key: 'organization',
   }, {
     text: strings.explorer_match,
