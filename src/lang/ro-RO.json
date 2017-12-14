@@ -749,6 +749,8 @@
   "th_observers_placed": "Observator",
   "th_camps_stacked": "Stivă",
   "th_league": "League",
+  "th_attack_type": "Attack Type",
+  "th_primary_attr": "Primary Attribute",
   "ward_log_type": "Tip",
   "ward_log_owner": "Proprietar",
   "ward_log_entered_at": "Plasat",
