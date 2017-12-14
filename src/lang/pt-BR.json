@@ -749,6 +749,8 @@
   "th_observers_placed": "Sentinela Observadora",
   "th_camps_stacked": "Stacks",
   "th_league": "Liga",
+  "th_attack_type": "Attack Type",
+  "th_primary_attr": "Primary Attribute",
   "ward_log_type": "Tipo",
   "ward_log_owner": "Dono",
   "ward_log_entered_at": "Colocado",
