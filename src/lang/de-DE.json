@@ -749,6 +749,8 @@
   "th_observers_placed": "Beobachter",
   "th_camps_stacked": "Stacks",
   "th_league": "League",
+  "th_attack_type": "Attack Type",
+  "th_primary_attr": "Primary Attribute",
   "ward_log_type": "Typ",
   "ward_log_owner": "Besitzer\t",
   "ward_log_entered_at": "Platziert",
