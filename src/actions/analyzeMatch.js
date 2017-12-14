@@ -40,8 +40,9 @@ export default function analyzeMatch(match, _pm) {
       const interval = 5;
       let start = 0;
       if (pm.gold_t) {
-        for (let i = 0; i < pm.gold_t.length - interval; i += 1) {
-          const diff = pm.gold_t[i + interval] - pm.gold_t[i];
+        const goldT = pm.gold_t.slice(0, Math.floor(m.duration / 60) + 1);
+        for (let i = 0; i < goldT.length - interval; i += 1) {
+          const diff = goldT[i + interval] - goldT[i];
           if (i > 5 && diff < delta) {
             delta = diff;
             start = i;
