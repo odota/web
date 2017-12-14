@@ -749,6 +749,8 @@
   "th_observers_placed": "假眼",
   "th_camps_stacked": "屯野",
   "th_league": "联赛",
+  "th_attack_type": "Attack Type",
+  "th_primary_attr": "Primary Attribute",
   "ward_log_type": "类型：",
   "ward_log_owner": "拥有者:",
   "ward_log_entered_at": "放置",
