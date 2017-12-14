@@ -749,6 +749,8 @@
   "th_observers_placed": "Спостерігачі",
   "th_camps_stacked": "Зроблено відводів",
   "th_league": "League",
+  "th_attack_type": "Attack Type",
+  "th_primary_attr": "Primary Attribute",
   "ward_log_type": "Тип",
   "ward_log_owner": "Власник",
   "ward_log_entered_at": "Розміщено",
