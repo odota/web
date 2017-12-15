@@ -1107,5 +1107,6 @@
   "show_consumables_items": "Показать расходуемые предметы",
   "activated": "Активирован",
   "rune": "Руны",
-  "placement": "Размещение"
+  "placement": "Размещение",
+  "exclude_turbo_matches": "Exclude Turbo matches"
 }
