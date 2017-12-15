@@ -48,6 +48,12 @@ const toUnderline = (data, row, field, underline) => {
   });
   x.sort((a, b) => a[1] - b[1]);
   if ((underline === 'min' && x[0][0] === row.player_slot) || ((underline === 'max' && x[x.length - 1][0] === row.player_slot))) {
+    if (underline === 'min' && x[0][1] === x[1][1]) {
+      return false;
+    }
+    if (underline === 'max' && x[x.length - 2][1] === x[x.length - 1][1]) {
+      return false;
+    }
     return true;
   }
   return false;
