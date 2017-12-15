@@ -136,6 +136,7 @@ const Styled = styled.div`
     margin-top: 41px;
     font-size: 22px;
     color: #ECD9C8;
+    text-shadow: 0 0 10px black;
   }
   &-star {
     position: absolute;
