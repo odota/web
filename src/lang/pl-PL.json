@@ -1107,5 +1107,6 @@
   "show_consumables_items": "Pokaż jednorazowe przedmioty",
   "activated": "Aktywowany",
   "rune": "Runa",
-  "placement": "Placement"
+  "placement": "Placement",
+  "exclude_turbo_matches": "Exclude Turbo matches"
 }
