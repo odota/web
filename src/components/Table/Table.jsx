@@ -44,16 +44,10 @@ const getColumnMin = (data, field, getValue) => {
 const toUnderline = (data, row, field, underline) => {
   const x = [];
   data.forEach((r) => {
-    x.push([r.player_slot, r[field]]);
+    x.push(r[field]);
   });
-  x.sort((a, b) => a[1] - b[1]);
-  if ((underline === 'min' && x[0][0] === row.player_slot) || ((underline === 'max' && x[x.length - 1][0] === row.player_slot))) {
-    if (underline === 'min' && x[0][1] === x[1][1]) {
-      return false;
-    }
-    if (underline === 'max' && x[x.length - 2][1] === x[x.length - 1][1]) {
-      return false;
-    }
+  x.sort((a, b) => a - b);
+  if ((underline === 'min' && x[0] === row[field]) || ((underline === 'max' && x[x.length - 1] === row[field]))) {
     return true;
   }
   return false;
