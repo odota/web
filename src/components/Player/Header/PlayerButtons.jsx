@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
-import ActionUpdate from 'material-ui/svg-icons/action/update';
+import ActionUpdate from 'material-ui/svg-icons/navigation/refresh';
 import strings from 'lang';
 import fetch from 'isomorphic-fetch';
 import { toggleShowForm as toggleShowFormAction } from 'actions';

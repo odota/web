@@ -107,6 +107,10 @@ const Styled = styled.div`
   flex-direction: column;
   justify-content: center;
   margin: 0 30px;
+  -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
+  drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
+  drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
 
   &[data-hint-position="top"] {
     &::after {
