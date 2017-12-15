@@ -98,6 +98,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       maxFn: true,
       sumFn: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_kills,
@@ -106,6 +107,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       displayFn: transformations.kda,
       sumFn: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_deaths,
@@ -113,6 +115,7 @@ export const overviewColumns = (match) => {
       field: 'deaths',
       sortFn: true,
       sumFn: true,
+      underline: 'min',
     },
     {
       displayName: strings.th_assists,
@@ -120,6 +123,7 @@ export const overviewColumns = (match) => {
       field: 'assists',
       sortFn: true,
       sumFn: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_gold_per_min,
@@ -129,6 +133,7 @@ export const overviewColumns = (match) => {
       color: constants.golden,
       sumFn: true,
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_xp_per_min,
@@ -137,6 +142,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_last_hits,
@@ -145,6 +151,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_denies,
@@ -153,6 +160,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_hero_damage,
@@ -162,6 +170,7 @@ export const overviewColumns = (match) => {
       sumFn: true,
       displayFn: row => abbreviateNumber(row.hero_damage),
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_hero_healing,
@@ -171,6 +180,7 @@ export const overviewColumns = (match) => {
       sumFn: true,
       displayFn: row => abbreviateNumber(row.hero_healing),
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_tower_damage,
@@ -180,6 +190,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: (
@@ -195,6 +206,7 @@ export const overviewColumns = (match) => {
       sumFn: true,
       displayFn: row => abbreviateNumber(row.total_gold),
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_items,
