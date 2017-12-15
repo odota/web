@@ -1107,5 +1107,6 @@
   "show_consumables_items": "Exibir consumíveis",
   "activated": "Ativado(a)",
   "rune": "Runa",
-  "placement": "Posição"
+  "placement": "Posição",
+  "exclude_turbo_matches": "Exclude Turbo matches"
 }
