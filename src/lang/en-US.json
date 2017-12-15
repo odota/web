@@ -1186,7 +1186,8 @@
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
   "rune": "Rune",
-  "placement": "Placement"
+  "placement": "Placement",
+  "exclude_turbo_matches": "Exclude Turbo matches"
 
 
 }
