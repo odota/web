@@ -41,6 +41,18 @@ const getColumnMin = (data, field, getValue) => {
   return Math.min(...valuesArr);
 };
 
+const toUnderline = (data, row, field, underline) => {
+  const x = [];
+  data.forEach((r) => {
+    x.push([r.player_slot, r[field]]);
+  });
+  x.sort((a, b) => a[1] - b[1]);
+  if ((underline === 'min' && x[0][0] === row.player_slot) || ((underline === 'max' && x[x.length - 1][0] === row.player_slot))) {
+    return true;
+  }
+  return false;
+};
+
 const initialState = {
   currentPage: 0,
   sortState: '',
@@ -164,13 +176,16 @@ class Table extends React.Component {
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,
-                        percentBarsWithValue, sortFn, invertBarColor,
+                        percentBarsWithValue, sortFn, invertBarColor, underline,
                       } = column;
                       const getValue = typeof sortFn === 'function' ? sortFn : null;
                       const value = getValue ? getValue(row) : row[field];
                       const style = {
                         overflow: `${field === 'kills' ? 'visible' : null}`,
                         color,
+                        marginBottom: 0,
+                        textUnderlinePosition: 'under',
+                        textDecorationColor: 'rgb(140, 140, 140)',
                       };
 
                       if (center) {
@@ -229,6 +244,9 @@ class Table extends React.Component {
                         fieldEl = displayFn(row, column, value, index);
                       } else {
                         fieldEl = value;
+                      }
+                      if (underline === 'max' || underline === 'min') {
+                        style.textDecoration = toUnderline(data, row, field, underline) ? 'underline' : 'none';
                       }
                       return (
                         <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style}>
