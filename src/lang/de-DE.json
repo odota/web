@@ -1107,5 +1107,6 @@
   "show_consumables_items": "Verbrauchsgegenstände zeigen",
   "activated": "Activated",
   "rune": "Rune",
-  "placement": "Placement"
+  "placement": "Placement",
+  "exclude_turbo_matches": "Exclude Turbo matches"
 }
