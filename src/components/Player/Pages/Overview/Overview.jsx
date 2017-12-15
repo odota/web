@@ -9,8 +9,8 @@ import {
   getPvgnaHeroGuides,
 } from 'actions';
 import Checkbox from 'material-ui/Checkbox';
-import Alarm from 'material-ui/svg-icons/action/alarm';
-import AlarmOff from 'material-ui/svg-icons/action/alarm-off';
+import Turbo from 'material-ui/svg-icons/image/timelapse';
+import TurboOff from 'material-ui/svg-icons/notification/do-not-disturb';
 import ReactTooltip from 'react-tooltip';
 import Table from 'components/Table';
 import Container from 'components/Container';
@@ -131,8 +131,8 @@ const Overview = ({
           style={{ display: validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23) }}
           defaultChecked
           onCheck={toggleTurboGames}
-          checkedIcon={<Alarm />}
-          uncheckedIcon={<AlarmOff />}
+          checkedIcon={<Turbo />}
+          uncheckedIcon={<TurboOff />}
         />
       </Styled>
       <SummOfRecMatches matchesData={validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23)} />
