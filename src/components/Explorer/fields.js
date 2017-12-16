@@ -241,13 +241,6 @@ const fields = (players = [], leagues = [], teams = []) => ({
       key: 'ability_used',
     }, {
       ...jsonSelect,
-      text: strings.heading_ability_used,
-      alias: 'ability_name',
-      join: ', json_each(player_matches.ability_targets)',
-      key: 'ability_targets',
-    },
-    {
-      ...jsonSelect,
       text: strings.heading_item_used,
       alias: 'item_name',
       join: ', json_each(player_matches.item_uses)',

@@ -50,7 +50,6 @@ export const heroTdColumn = {
 };
 
 const partyStyles = (row, match) => {
-  console.log(match);
   if (row.party_size === 1 || (match.players && !match.players.map(player => player.party_id).reduce(sum))) {
     return null;
   }
