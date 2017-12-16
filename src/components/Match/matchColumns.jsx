@@ -50,6 +50,7 @@ export const heroTdColumn = {
 };
 
 const partyStyles = (row, match) => {
+  console.log(match);
   if (row.party_size === 1 || (match.players && !match.players.map(player => player.party_id).reduce(sum))) {
     return null;
   }
@@ -937,6 +938,26 @@ export const inflictorsColumns = [
   },
 ];
 
+const sumValues = f => Object.values(f).reduce((a, b) => a + b);
+
+const targetTooltip = (t) => {
+  const targets = [];
+
+
+  Object.keys(t).forEach((target) => {
+    targets.push(<div style={{ display: 'block', textAlign: 'right' }}><span style={{ fontSize: '135%' }}>{t[target]}</span><img
+      src={heroes[getHeroesById()[target].id] && process.env.REACT_APP_API_HOST + heroes[getHeroesById()[target].id].icon}
+      alt=""
+      style={{
+float: 'right', paddingLeft: '5px', paddingTop: '3px', height: '20px',
+ }}
+    />
+                 </div>);
+  });
+
+  return targets;
+};
+
 export const castsColumns = [
   heroTdColumn,
   {
@@ -945,6 +966,13 @@ export const castsColumns = [
     field: 'ability_uses',
     displayFn: (row, col, field) =>
       (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+  },
+  {
+    displayName: strings.th_abilities,
+    field: 'ability_targets',
+    displayFn: (row, col, field) =>
+      (field ? Object.keys(field).map(inflictor => inflictorWithValue(inflictor, sumValues(field[inflictor]), '', targetTooltip(field[inflictor]))) : ''),
+
   },
   {
     displayName: strings.th_items,
