@@ -938,21 +938,26 @@ export const inflictorsColumns = [
   },
 ];
 
+const targetStyle = {
+  float: 'right', paddingLeft: '5px', paddingTop: '4px', height: '20px',
+};
+
 const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 
 const targetTooltip = (t) => {
   const targets = [];
-
-
   Object.keys(t).forEach((target) => {
-    targets.push(<div style={{ display: 'block', textAlign: 'right' }}><span style={{ fontSize: '135%' }}>{t[target]}</span><img
-      src={heroes[getHeroesById()[target].id] && process.env.REACT_APP_API_HOST + heroes[getHeroesById()[target].id].icon}
-      alt=""
-      style={{
-float: 'right', paddingLeft: '5px', paddingTop: '3px', height: '20px',
- }}
-    />
-                 </div>);
+    const heroicon = heroes[getHeroesById()[target].id] && process.env.REACT_APP_API_HOST + heroes[getHeroesById()[target].id].icon;
+    const j = (
+      <div style={{ display: 'block', textAlign: 'right' }}>
+        <span style={{ fontSize: '135%' }}>{t[target]}</span>
+        <img
+          src={heroicon}
+          alt=""
+          style={targetStyle}
+        />
+      </div>);
+    targets.push(j);
   });
 
   return targets;
@@ -968,7 +973,8 @@ export const castsColumns = [
       (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
   },
   {
-    displayName: strings.th_abilities,
+    displayName: strings.th_target_abilities,
+    tooltip: strings.tooltip_target_abilities,
     field: 'ability_targets',
     displayFn: (row, col, field) =>
       (field ? Object.keys(field).map(inflictor => inflictorWithValue(inflictor, sumValues(field[inflictor]), '', targetTooltip(field[inflictor]))) : ''),
