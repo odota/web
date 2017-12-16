@@ -956,10 +956,10 @@ const targetTooltip = (t) => {
           style={targetStyle}
         />
       </div>);
-    targets.push(j);
+    targets.push([j, t[target]]);
   });
 
-  return targets;
+  return targets.sort((a, b) => b[1] - a[1]).map(x => x[0]);
 };
 
 export const castsColumns = [
