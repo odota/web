@@ -505,7 +505,7 @@
   "pagination_first": "Первая",
   "pagination_last": "Последняя",
   "pagination_of": "из",
-  "peers_none": "This player has no peers.",
+  "peers_none": "У этой страницы нет связей.",
   "rank_tier_0": "Без ранга",
   "rank_tier_1": "Рекрут",
   "rank_tier_2": "Страж",
@@ -749,7 +749,7 @@
   "th_observers_placed": "Observers",
   "th_camps_stacked": "Стаков",
   "th_league": "Лига",
-  "th_attack_type": "Attack Type",
+  "th_attack_type": "Тип атаки",
   "th_primary_attr": "Осн. характеристика",
   "ward_log_type": "Тип",
   "ward_log_owner": "Владелец",
@@ -1108,5 +1108,5 @@
   "activated": "Активирован",
   "rune": "Руны",
   "placement": "Размещение",
-  "exclude_turbo_matches": "Exclude Turbo matches"
+  "exclude_turbo_matches": "Исключить Turbo матчи"
 }
