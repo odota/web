@@ -939,17 +939,27 @@ export const inflictorsColumns = [
 
 const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 
+const valueStyle = {
+  position: 'absolute',
+  textAlign: 'center',
+  marginLeft: '16px',
+  marginTop: '18px',
+  fontSize: '12px',
+  backgroundColor: constants.darkPrimaryColor,
+};
+
 const targetTooltip = (t) => {
   const targets = [];
   Object.keys(t).forEach((target) => {
     const heroicon = heroes[getHeroesById()[target].id] && process.env.REACT_APP_API_HOST + heroes[getHeroesById()[target].id].icon;
     const j = (
-      <div style={{ display: 'inline-block', padding: '5px', paddingBottom: '20px' }}>
-        <span style={{ fontSize: '100%' }}>{`${t[target]}x`}</span>
+
+      <div style={{ display: 'inline-block', paddingBottom: '20px' }}>
+        <span style={valueStyle}>{`${t[target]}x`}</span>
         <img
           src={heroicon}
           alt=""
-          style={{ height: '24px' }}
+          style={{ height: '30px', paddingLeft: '15px' }}
         />
       </div>);
     targets.push([j, t[target]]);
