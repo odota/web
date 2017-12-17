@@ -58,7 +58,7 @@ class ExplorerFormField extends React.Component {
       fields, label, builderField, handleFieldUpdate, isDateField, builder,
     } = this.props;
     const dataSource = fields && fields[builderField];
-    const fieldWidth = 300;
+    const fieldWidth = 280;
     if (isDateField) {
       return (
         <span style={{ width: fieldWidth }}>

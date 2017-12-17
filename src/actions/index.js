@@ -11,6 +11,10 @@ export const getMetadata = () => action('metadata', process.env.REACT_APP_API_HO
 export const getMatch = matchId => action('match', process.env.REACT_APP_API_HOST, `api/matches/${matchId}`, {}, transformMatch);
 export const getRanking = heroId => action('heroRanking', process.env.REACT_APP_API_HOST, 'api/rankings', { hero_id: heroId });
 export const getBenchmark = heroId => action('heroBenchmark', process.env.REACT_APP_API_HOST, 'api/benchmarks', { hero_id: heroId }, transformBenchmarks);
+export const getHeroRecentGames = heroId => action('heroRecentGames', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/matches`);
+export const getHeroMatchups = heroId => action('heroMatchups', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/matchups`);
+export const getHeroDurations = heroId => action('heroDurations', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/durations`);
+export const getHeroPlayers = heroId => action('heroPlayers', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/players`);
 export const getProPlayers = () => action('proPlayers', process.env.REACT_APP_API_HOST, 'api/proPlayers');
 export const getProMatches = () => action('proMatches', process.env.REACT_APP_API_HOST, 'api/proMatches');
 export const getPublicMatches = params => action('publicMatches', process.env.REACT_APP_API_HOST, 'api/publicMatches', params);
@@ -31,7 +35,7 @@ export const getLeagues = () => action('leagues', process.env.REACT_APP_API_HOST
 export const getTeams = () => action('teams', process.env.REACT_APP_API_HOST, 'api/teams');
 export const getRecords = field => action('records', process.env.REACT_APP_API_HOST, `api/records/${field}`);
 export const getGithubPulls = merged => action('ghPulls', 'https://api.github.com', 'search/issues', {
-  q: `repo:odota/ui type:pr label:release merged:>${merged}`,
+  q: `repo:odota/web type:pr base:production label:release merged:>${merged}`,
   order: 'desc',
   page: 1,
   per_page: 1,

@@ -45,7 +45,7 @@ const Styled = styled.div`
 
     & a {
       display: inline-block;
-      width: 100%;
+      width: 88%;
       overflow: hidden;
       text-overflow: ellipsis;
       vertical-align: sub;
@@ -80,7 +80,7 @@ const Styled = styled.div`
 
 .parsed {
   position: relative;
-  left: -24px;
+  left: -14px;
   width: 2px;
   height: 29px;
   background-color: ${constants.primaryLinkColor};
@@ -144,8 +144,7 @@ const Styled = styled.div`
   width: 2px;
   height: 29px;
   position: absolute;
-  left: 0;
-  box-shadow: 1px 0 2px ${constants.defaultPrimaryColor};
+  right: 7px;
 }
 
 .golden {
@@ -155,40 +154,40 @@ const Styled = styled.div`
 .party {
   position: absolute;
   top: 0;
-  width: 11px;
-  height: 93%;
-  left: -11px;
+  width: 8px;
+  height: 100%;
+  left: -13px;
+
 
   & > div {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 104%;
+    border-left: 2px solid;
 
-    &[data-next] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      border-top: 2px solid ${constants.colorMutedLight};
+    &::after {
+      content: "";
+      border-top: 2px solid;
+      position: absolute;
+      width: 132%;
       top: 50%;
+      box-shadow: 0 0 5px rgba(0,0,0,0.4);
+      border-color: inherit
     }
 
-    &[data-prev-next] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      height: 185%;
-      top: -39%;
-
-      &::after {
-        content: "";
-        border-top: 2px solid ${constants.colorMutedLight};
-        position: absolute;
-        width: 100%;
-        top: 50%;
-      }
+    &.group0 {
+      border-color: #4C5900;
+    }      
+    &.group1 {
+      border-color: ${constants.blue};
+    }
+    &.group2 {
+      border-color: #D7E874;
+    }    
+    &.group3 {
+      border-color: #740D00;
     }
 
-    &[data-prev] {
-      border-left: 2px solid ${constants.colorMutedLight};
-      border-bottom: 2px solid ${constants.colorMutedLight};
-      top: -50%;
-    }
   }
 }
 
@@ -217,6 +216,15 @@ const HeroImageContainer = styled.div`
   align-items: center;
 `;
 
+
+const expand = {
+  display: 'flex',
+  position: 'relative',
+  height: '107%',
+  marginTop: '-1px',
+  left: '-10px',
+};
+
 const TableHeroImage = ({
   parsed,
   image,
@@ -236,7 +244,7 @@ const TableHeroImage = ({
   predictedVictory,
   leaverStatus,
 }) => (
-  <Styled>
+  <Styled style={expand}>
     <HeroImageContainer>
       {parsed !== undefined &&
       <div
@@ -344,7 +352,7 @@ const TableHeroImage = ({
         <a href={pvgnaGuideInfo.url}>
           <img className="pvgnaGuideIcon" src="/assets/images/pvgna-guide-icon.png" alt={`Learn ${heroName} on Pvgna`} />
         </a>
-        <ReactTooltip id={heroName} place="top" type="light" effect="solid">
+        <ReactTooltip id={heroName} place="top" type="light" effect="solid" offset="{'top': 1, 'right': 3}">
           {`Learn ${heroName} on Pvgna`}
         </ReactTooltip>
       </div>
@@ -400,6 +408,21 @@ export const Mmr = ({ number }) => (
 );
 Mmr.propTypes = {
   number: PropTypes.number,
+};
+
+export const CompetitiveRank = ({ rankTier }) => (
+  <span>
+    <section
+      data-hint={strings.th_rank}
+      data-hint-position="bottom"
+    >
+      <SocialPerson />
+    </section>
+    {rankTier}
+  </span>
+);
+CompetitiveRank.propTypes = {
+  rankTier: PropTypes.number,
 };
 
 export default TableHeroImage;

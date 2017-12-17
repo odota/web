@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { shape, oneOfType, arrayOf } from 'prop-types';
 import Table from 'components/Table';
 import strings from 'lang';
-import { transformations, getOrdinal } from 'utility';
-import { Mmr } from 'components/Visualizations/Table/HeroImage';
+import { transformations, getOrdinal, rankTierToString } from 'utility';
 
 const rankingColumns = [{
   displayName: strings.th_rank,
@@ -11,7 +10,7 @@ const rankingColumns = [{
 }, {
   displayName: strings.th_name,
   displayFn: (row, col, field) => {
-    const subtitle = <Mmr number={row.solo_competitive_rank} />;
+    const subtitle = rankTierToString(row.rank_tier);
     return transformations.player({ ...row, subtitle }, col, field);
   },
 }, {
@@ -26,7 +25,10 @@ const RankingTable = ({
 }) => (<Table data={rankings} columns={rankingColumns} />);
 
 RankingTable.propTypes = {
-  rankings: PropTypes.shape({}),
+  rankings: oneOfType([
+    arrayOf(shape({})),
+    shape({}),
+  ]),
 };
 
 export default RankingTable;

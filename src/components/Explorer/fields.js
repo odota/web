@@ -5,6 +5,7 @@ import patchData from 'dotaconstants/build/patch.json';
 import itemData from 'dotaconstants/build/items.json';
 import regionData from 'dotaconstants/build/region.json';
 import clusterData from 'dotaconstants/build/cluster.json';
+// import { isActiveItem } from 'utility';
 
 const getItemSuffix = itemKey => (['_2', '_3', '_4', '_5'].some(suffix => itemKey.indexOf(suffix) !== -1) ? itemKey[itemKey.length - 1] : '');
 
@@ -12,7 +13,15 @@ const jsonSelect = {
   value: 'key',
   groupValue: 'value::text::int',
   groupKey: 'key',
+  avgPerMatch: true,
 };
+
+const usesSelect = itemKey => ({
+  text: `${strings.explorer_uses} - ${itemData[itemKey].dname} ${getItemSuffix(itemKey)}`,
+  value: `(item_uses->>'${itemKey}')::int`,
+  key: `uses_${itemKey}`,
+  alias: 'uses',
+});
 
 const timingSelect = itemKey => ({
   text: `${strings.explorer_timing} - ${itemData[itemKey].dname} ${getItemSuffix(itemKey)}`,
@@ -174,7 +183,6 @@ const singleFields = [{
   bucket: 1,
 }].map(select => ({
   ...select,
-  avgCountValue: 1,
   alias: select.alias || select.key,
 }));
 
@@ -191,10 +199,10 @@ const durations = Array(10).fill().map((e, i) => i * 10).map(duration => ({
   key: String(duration),
 }));
 
-const having = Array(10).fill().map((e, i) => i).map(element => ({
-  text: String(element + 1),
-  value: element + 1,
-  key: String(element + 1),
+const having = Array(5).fill().map((e, i) => (i + 1) * 5).map(element => ({
+  text: String(element),
+  value: element,
+  key: String(element),
 }));
 
 const limit = [100, 200, 500, 1000].map(element => ({
@@ -208,7 +216,6 @@ const fields = (players = [], leagues = [], teams = []) => ({
     {
       text: strings.heading_duration,
       value: 'duration',
-      avgCountValue: 1,
       alias: 'as time',
       key: 'duration',
       formatSeconds: true,
@@ -335,16 +342,17 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
       value: 1,
     },
   ]
+    .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cd).map(usesSelect))
     .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect))
     .concat(singleFields)
     .sort((a, b) => a.text.localeCompare(b.text)),
   group: [{
     text: strings.explorer_player,
-    value: 'notable_players.account_id',
+    value: 'notable_players.name',
     key: 'player',
   }, {
     text: strings.th_hero_id,
-    value: 'player_matches.hero_id',
+    value: 'heroes.localized_name',
     key: 'hero',
   }, {
     text: strings.explorer_league,
@@ -376,7 +384,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     key: 'team',
   }, {
     text: strings.explorer_organization,
-    value: 'team_match.team_id',
+    value: 'teams2.name',
     key: 'organization',
   }, {
     text: strings.explorer_match,

@@ -36,7 +36,11 @@ const tabs = fields.map(field => ({
   key: field,
   content: propsPar => (
     <Container>
-      <Table data={propsPar.data.map((element, index) => ({ ...element, rank: index + 1 }))} columns={matchesColumns(field)} />
+      <Table
+        data={propsPar.data.map((element, index) => ({ ...element, rank: index + 1 }))}
+        columns={matchesColumns(field)}
+        loading={propsPar.loading}
+      />
     </Container>),
   route: `/records/${field}`,
 }));

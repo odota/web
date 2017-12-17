@@ -25,7 +25,9 @@ const generateDiffData = (match) => {
   const { radiant_gold_adv, radiant_xp_adv } = match;
   const data = [];
   radiant_xp_adv.forEach((rXpAdv, index) => {
-    data.push({ time: index, rXpAdv, rGoldAdv: radiant_gold_adv[index] });
+    if (index <= Math.floor(match.duration / 60)) {
+      data.push({ time: index, rXpAdv, rGoldAdv: radiant_gold_adv[index] });
+    }
   });
   return data;
 };
@@ -123,61 +125,95 @@ XpNetworthGraph.propTypes = {
   match: PropTypes.shape({}),
 };
 
-const PlayersGraph = ({ match, type }) => {
-  const matchData = [];
-  if (match.players && match.players[0] && match.players[0][`${type}_t`]) {
-    match.players[0][`${type}_t`].forEach((value, index) => {
-      const obj = { time: formatGraphTime(index) };
-      match.players.forEach((player) => {
-        const hero = heroes[player.hero_id] || {};
-        obj[hero.localized_name] = player[`${type}_t`][index];
-      });
-      matchData.push(obj);
-    });
+class PlayersGraph extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hoverHero: null,
+    };
 
-    return (
-      <StyledHolder>
-        <Heading title={strings[`heading_graph_${type}`]} />
-        <ResponsiveContainer width="100%" height={400}>
-          <LineChart
-            data={matchData}
-            margin={{
-              top: 5, right: 30, left: 30, bottom: 5,
-            }}
-          >
-            <XAxis dataKey="time" interval={4} >
-              <Label value={strings.th_time} position="insideTopRight" />
-            </XAxis>
-            <YAxis />
-            <CartesianGrid
-              stroke="#505050"
-              strokeWidth={1}
-              opacity={0.5}
-            />
-
-            <Tooltip
-              itemSorter={(a, b) => a.value < b.value}
-              wrapperStyle={{ backgroundColor: constants.darkPrimaryColor, border: 'none' }}
-            />
-            {match.players.map((player) => {
-              const hero = heroes[player.hero_id] || {};
-              const playerColor = playerColors[player.player_slot];
-              return (<Line
-                dot={false}
-                dataKey={hero.localized_name}
-                stroke={playerColor}
-                strokeWidth={2}
-                name={hero.localized_name}
-              />);
-            })}
-            <Legend />
-          </LineChart>
-        </ResponsiveContainer>
-      </StyledHolder>
-    );
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
-  return null;
-};
+
+  handleMouseEnter(o) {
+    this.setState({
+      hoverHero: o.dataKey,
+    });
+  }
+
+  handleMouseLeave() {
+    this.setState({
+      hoverHero: null,
+    });
+  }
+
+  render() {
+    const { match, type } = this.props;
+    const { hoverHero } = this.state;
+
+    const matchData = [];
+    if (match.players && match.players[0] && match.players[0][`${type}_t`]) {
+      match.players[0][`${type}_t`].forEach((value, index) => {
+        if (index <= Math.floor(match.duration / 60)) {
+          const obj = { time: formatGraphTime(index) };
+          match.players.forEach((player) => {
+            const hero = heroes[player.hero_id] || {};
+            obj[hero.localized_name] = player[`${type}_t`][index];
+          });
+          matchData.push(obj);
+        }
+      });
+
+      return (
+        <StyledHolder>
+          <Heading title={strings[`heading_graph_${type}`]} />
+          <ResponsiveContainer width="100%" height={400}>
+            <LineChart
+              data={matchData}
+              margin={{
+                top: 5, right: 30, left: 30, bottom: 5,
+              }}
+            >
+              <XAxis dataKey="time" interval={4} >
+                <Label value={strings.th_time} position="insideTopRight" />
+              </XAxis>
+              <YAxis />
+              <CartesianGrid
+                stroke="#505050"
+                strokeWidth={1}
+                opacity={0.5}
+              />
+
+              <Tooltip
+                itemSorter={(a, b) => a.value < b.value}
+                wrapperStyle={{ backgroundColor: constants.darkPrimaryColor, border: 'none' }}
+              />
+              {match.players.map((player) => {
+                const hero = heroes[player.hero_id] || {};
+                const playerColor = playerColors[player.player_slot];
+                const isSelected = heroes[player.hero_id] && (hoverHero === heroes[player.hero_id].localized_name);
+                const opacity = (!hoverHero || isSelected) ? 1 : 0.25;
+                const stroke = (isSelected) ? 4 : 2;
+                return (<Line
+                  dot={false}
+                  dataKey={hero.localized_name}
+                  stroke={playerColor}
+                  strokeWidth={stroke}
+                  strokeOpacity={opacity}
+                  name={hero.localized_name}
+                />);
+              })}
+              <Legend onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} />
+            </LineChart>
+          </ResponsiveContainer>
+        </StyledHolder>
+      );
+    }
+
+    return null;
+  }
+}
 PlayersGraph.propTypes = {
   match: PropTypes.shape({}),
   type: PropTypes.string,

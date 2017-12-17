@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import MatchGraph from 'components/Visualizations/Graph/MatchGraph';
 import TeamTable from '../TeamTable';
 import AbilityBuildTable from '../AbilityBuildTable';
-import { overviewColumns, abilityColumns } from '../matchColumns';
+import AbilityDraftTable from '../AbilityDraftTable';
+import { overviewColumns, abilityColumns, abilityDraftColumns } from '../matchColumns';
 import BuildingMap from '../BuildingMap';
 
 const Styled = styled.div`
@@ -41,6 +42,18 @@ export default {
           players={match.players}
           columns={overviewColumns(match)}
           heading={strings.heading_overview}
+          picksBans={match.picks_bans}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+          summable
+        />
+      }
+      {
+        match.game_mode === 18 &&
+        <AbilityDraftTable
+          players={match.players}
+          columns={abilityDraftColumns()}
+          heading={strings.heading_ability_draft}
           picksBans={match.picks_bans}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}

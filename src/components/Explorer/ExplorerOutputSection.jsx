@@ -76,7 +76,7 @@ class ExplorerOutputSection extends React.Component {
               return transformations.hero_id(row, col, field);
             } else if (column.field.indexOf('account_id') === 0) {
               return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
-            } else if (column.field.indexOf('winrate') !== -1 || column.field === 'wr_lower_bound') {
+            } else if (column.field.indexOf('winrate') === 0 || column.field.indexOf('pickrate') === 0 || column.field === 'winrate_wilson') {
               return (field >= 0 && field <= 1 ? <TablePercent
                 percent={Number((field * 100).toFixed(2))}
               /> : null);
@@ -94,14 +94,18 @@ class ExplorerOutputSection extends React.Component {
               return <span style={{ color: field ? constants.colorSuccess : constants.colorDanger }}>{field ? strings.td_win : strings.td_loss}</span>;
             } else if (column.field === 'is_radiant') {
               return field
-                ? <StyledTeamIconContainer><IconRadiant />{strings.general_radiant}</StyledTeamIconContainer>
-                : <StyledTeamIconContainer><IconDire />{strings.general_dire}</StyledTeamIconContainer>;
+                ? <StyledTeamIconContainer><IconRadiant width={30} />{strings.general_radiant}</StyledTeamIconContainer>
+                : <StyledTeamIconContainer><IconDire width={30} />{strings.general_dire}</StyledTeamIconContainer>;
             } else if (column.field === 'start_time') {
               return (new Date(field * 1000)).toLocaleDateString('en-US', {
                 day: 'numeric',
                 month: 'short',
                 year: 'numeric',
               });
+            } else if (column.field === 'game_mode') {
+              return strings[`game_mode_${field}`];
+            } else if (column.field === 'lobby_type') {
+              return strings[`lobby_type_${field}`];
             }
             if (typeof field === 'string') {
               return field;
@@ -112,7 +116,7 @@ class ExplorerOutputSection extends React.Component {
             if (row[column.field] === null || typeof row[column.field] === 'boolean' || Number.isNaN(Number(row[column.field]))) {
               return row[column.field];
             }
-            return Number(row[column.field]);
+            return Number(Number(row[column.field]).toFixed(4));
           },
         }))}
       />);
