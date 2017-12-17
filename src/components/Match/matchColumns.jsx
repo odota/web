@@ -937,10 +937,6 @@ export const inflictorsColumns = [
   },
 ];
 
-const targetStyle = {
-  float: 'right', paddingLeft: '5px', paddingTop: '4px', height: '20px',
-};
-
 const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 
 const targetTooltip = (t) => {
@@ -948,12 +944,12 @@ const targetTooltip = (t) => {
   Object.keys(t).forEach((target) => {
     const heroicon = heroes[getHeroesById()[target].id] && process.env.REACT_APP_API_HOST + heroes[getHeroesById()[target].id].icon;
     const j = (
-      <div style={{ display: 'block', textAlign: 'right' }}>
-        <span style={{ fontSize: '135%' }}>{t[target]}</span>
+      <div style={{ display: 'inline-block', padding: '5px', paddingBottom: '20px' }}>
+        <span style={{ fontSize: '100%' }}>{`${t[target]}x`}</span>
         <img
           src={heroicon}
           alt=""
-          style={targetStyle}
+          style={{ height: '24px' }}
         />
       </div>);
     targets.push([j, t[target]]);
@@ -975,9 +971,17 @@ export const castsColumns = [
     displayName: strings.th_target_abilities,
     tooltip: strings.tooltip_target_abilities,
     field: 'ability_targets',
-    displayFn: (row, col, field) =>
-      (field ? Object.keys(field).map(inflictor => inflictorWithValue(inflictor, sumValues(field[inflictor]), '', targetTooltip(field[inflictor]))) : ''),
+    displayFn: (row, col, field) => {
+      const r = [];
+      Object.keys(field).forEach((inflictor) => {
+        r.push(inflictorWithValue(inflictor, sumValues(field[inflictor])));
+        r.push(targetTooltip(field[inflictor]));
+      });
 
+      return (
+        <div style={{ display: 'inline-block', width: '150px' }}>{r}</div>
+      );
+    },
   },
   {
     displayName: strings.th_items,
