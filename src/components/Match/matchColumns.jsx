@@ -982,15 +982,18 @@ export const castsColumns = [
     tooltip: strings.tooltip_target_abilities,
     field: 'ability_targets',
     displayFn: (row, col, field) => {
-      const r = [];
-      Object.keys(field).forEach((inflictor) => {
-        r.push(inflictorWithValue(inflictor, sumValues(field[inflictor])));
-        r.push(targetTooltip(field[inflictor]));
-      });
+      if (field) {
+        const r = [];
+        Object.keys(field).forEach((inflictor) => {
+          r.push(inflictorWithValue(inflictor, sumValues(field[inflictor])));
+          r.push(targetTooltip(field[inflictor]));
+        });
 
-      return (
-        <div style={{ display: 'inline-block', width: '150px' }}>{r}</div>
-      );
+        return (
+          <div style={{ display: 'inline-block', width: '150px' }}>{r}</div>
+        );
+      }
+      return null;
     },
   },
   {
