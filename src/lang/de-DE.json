@@ -505,6 +505,7 @@
   "pagination_first": "Erste",
   "pagination_last": "Letzter",
   "pagination_of": "von",
+  "peers_none": "This player has no peers.",
   "rank_tier_0": "Uncalibrated",
   "rank_tier_1": "Herald",
   "rank_tier_2": "Guardian",
@@ -682,6 +683,7 @@
   "th_gold": "G",
   "th_xp": "EP",
   "th_abilities": "Fähigkeiten",
+  "th_target_abilities": "Ability Targets",
   "th_mmr": "MMR",
   "th_level": "LVL",
   "th_kills": "K",
@@ -748,6 +750,8 @@
   "th_observers_placed": "Beobachter",
   "th_camps_stacked": "Stacks",
   "th_league": "League",
+  "th_attack_type": "Attack Type",
+  "th_primary_attr": "Primary Attribute",
   "ward_log_type": "Typ",
   "ward_log_owner": "Besitzer\t",
   "ward_log_entered_at": "Platziert",
@@ -882,6 +886,7 @@
   "tooltip_multikill": "Längster Multi-kill",
   "tooltip_killstreak": "Längster Killstreak",
   "tooltip_casts": "Wieoft diese/s Fähigkeit/Item gecastet wurde",
+  "tooltip_target_abilities": "How many times each hero was targeted by this hero's abilities",
   "tooltip_hits": "Anzahl der Schadens Instanzen gegen Helden durch diese/s Fähigkeit/Item",
   "tooltip_damage": "Höhe des Schadens gegen Helden durch diese/s Fähigkeit/Item",
   "tooltip_autoattack_other": "Auto-Angriff / Sonstiges",
@@ -902,6 +907,7 @@
   "xp_reasons_2": "Creep",
   "xp_reasons_3": "Roshan",
   "rankings_description": "",
+  "rankings_none": "This player is not ranked on any heroes.",
   "region_0": "Automatisch",
   "region_1": "US-Westküste",
   "region_2": "US-Ostküste",
@@ -1103,5 +1109,6 @@
   "show_consumables_items": "Verbrauchsgegenstände zeigen",
   "activated": "Activated",
   "rune": "Rune",
-  "placement": "Placement"
+  "placement": "Placement",
+  "exclude_turbo_matches": "Exclude Turbo matches"
 }

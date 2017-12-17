@@ -505,6 +505,7 @@
   "pagination_first": "Pierwszy",
   "pagination_last": "Ostatnia",
   "pagination_of": "z",
+  "peers_none": "This player has no peers.",
   "rank_tier_0": "Nieskalibrowany",
   "rank_tier_1": "Herald",
   "rank_tier_2": "Guardian",
@@ -682,6 +683,7 @@
   "th_gold": "ZŁ",
   "th_xp": "DOŚW",
   "th_abilities": "Umiejętności",
+  "th_target_abilities": "Ability Targets",
   "th_mmr": "MMR",
   "th_level": "Poziom",
   "th_kills": "K",
@@ -748,6 +750,8 @@
   "th_observers_placed": "Obserwatorzy",
   "th_camps_stacked": "Stacki",
   "th_league": "Liga",
+  "th_attack_type": "Attack Type",
+  "th_primary_attr": "Primary Attribute",
   "ward_log_type": "Typ",
   "ward_log_owner": "Właściciel",
   "ward_log_entered_at": "Postawiony",
@@ -882,6 +886,7 @@
   "tooltip_multikill": "Najdłuższy multikill",
   "tooltip_killstreak": "Najdłuższa seria zabójstw",
   "tooltip_casts": "Ile razy umiejętność/zaklęcie zostały użyte",
+  "tooltip_target_abilities": "How many times each hero was targeted by this hero's abilities",
   "tooltip_hits": "Liczba zadania obrażeń bohaterowi przy użyciu tej umiejętności/przedmiotu",
   "tooltip_damage": "Ilość obrażeń zadanych temu bohaterowi przez tą umiejętność/przedmiot",
   "tooltip_autoattack_other": "Auto-atak/Inne",
@@ -902,6 +907,7 @@
   "xp_reasons_2": "Creep",
   "xp_reasons_3": "Roshan",
   "rankings_description": "",
+  "rankings_none": "This player is not ranked on any heroes.",
   "region_0": "Automatycznie",
   "region_1": "Zachodnie USA",
   "region_2": "Wschodnie USA",
@@ -1103,5 +1109,6 @@
   "show_consumables_items": "Pokaż jednorazowe przedmioty",
   "activated": "Aktywowany",
   "rune": "Runa",
-  "placement": "Placement"
+  "placement": "Placement",
+  "exclude_turbo_matches": "Exclude Turbo matches"
 }

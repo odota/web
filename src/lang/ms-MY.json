@@ -505,6 +505,7 @@
   "pagination_first": "Pertama",
   "pagination_last": "Terakhir",
   "pagination_of": "dari",
+  "peers_none": "This player has no peers.",
   "rank_tier_0": "Uncalibrated",
   "rank_tier_1": "Herald",
   "rank_tier_2": "Guardian",
@@ -682,6 +683,7 @@
   "th_gold": "G",
   "th_xp": "XP",
   "th_abilities": "Ability",
+  "th_target_abilities": "Ability Targets",
   "th_mmr": "MMR",
   "th_level": "THP",
   "th_kills": "K",
@@ -748,6 +750,8 @@
   "th_observers_placed": "Observer",
   "th_camps_stacked": "Stack",
   "th_league": "Liga",
+  "th_attack_type": "Attack Type",
+  "th_primary_attr": "Primary Attribute",
   "ward_log_type": "Jenis",
   "ward_log_owner": "Pemilik",
   "ward_log_entered_at": "Diletakkan",
@@ -882,6 +886,7 @@
   "tooltip_multikill": "Multi-pembunuhan terpanjang",
   "tooltip_killstreak": "Deretan pembunuhan terpanjang",
   "tooltip_casts": "Berapa kali kebolehan/item ini dilancarkan",
+  "tooltip_target_abilities": "How many times each hero was targeted by this hero's abilities",
   "tooltip_hits": "Berapa kali Damage dilakukan ke atas Hero dengan kebolehan/item ini",
   "tooltip_damage": "Jumlah Damage dilakukan ke atas Hero dengan kebolehan/item ini",
   "tooltip_autoattack_other": "Auto Serang/Lain",
@@ -902,6 +907,7 @@
   "xp_reasons_2": "Creep",
   "xp_reasons_3": "Roshan",
   "rankings_description": "",
+  "rankings_none": "This player is not ranked on any heroes.",
   "region_0": "Automatik",
   "region_1": "US West",
   "region_2": "US East",
@@ -1103,5 +1109,6 @@
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
   "rune": "Rune",
-  "placement": "Placement"
+  "placement": "Placement",
+  "exclude_turbo_matches": "Exclude Turbo matches"
 }

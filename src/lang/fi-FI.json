@@ -505,6 +505,7 @@
   "pagination_first": "First",
   "pagination_last": "Last",
   "pagination_of": "of",
+  "peers_none": "This player has no peers.",
   "rank_tier_0": "Uncalibrated",
   "rank_tier_1": "Herald",
   "rank_tier_2": "Guardian",
@@ -682,6 +683,7 @@
   "th_gold": "G",
   "th_xp": "XP",
   "th_abilities": "Abilities",
+  "th_target_abilities": "Ability Targets",
   "th_mmr": "MMR",
   "th_level": "LVL",
   "th_kills": "K",
@@ -748,6 +750,8 @@
   "th_observers_placed": "Observers",
   "th_camps_stacked": "Stacks",
   "th_league": "League",
+  "th_attack_type": "Attack Type",
+  "th_primary_attr": "Primary Attribute",
   "ward_log_type": "Type",
   "ward_log_owner": "Owner",
   "ward_log_entered_at": "Placed",
@@ -882,6 +886,7 @@
   "tooltip_multikill": "Longest multi-kill",
   "tooltip_killstreak": "Longest killstreak",
   "tooltip_casts": "Number of times this ability/item was cast",
+  "tooltip_target_abilities": "How many times each hero was targeted by this hero's abilities",
   "tooltip_hits": "Number of damage instances to heroes caused by this ability/item",
   "tooltip_damage": "Amount of damage dealt to heroes by this ability/item",
   "tooltip_autoattack_other": "Auto Attack/Other",
@@ -902,6 +907,7 @@
   "xp_reasons_2": "Creep",
   "xp_reasons_3": "Roshan",
   "rankings_description": "",
+  "rankings_none": "This player is not ranked on any heroes.",
   "region_0": "Automaattinen",
   "region_1": "US Länsi",
   "region_2": "US Itä",
@@ -1103,5 +1109,6 @@
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
   "rune": "Rune",
-  "placement": "Placement"
+  "placement": "Placement",
+  "exclude_turbo_matches": "Exclude Turbo matches"
 }

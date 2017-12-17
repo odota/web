@@ -505,6 +505,7 @@
   "pagination_first": "Ett fel uppstod när du sammanställde berättelsen för den här matchen",
   "pagination_last": "den {date} beslutade två lag att spela {game_mode_article} {game_mode} spelet Dota 2 i {region}. Lite visste de att spelet skulle vara i {duration_in_words}",
   "pagination_of": "Oigenkänd hjälte",
+  "peers_none": "This player has no peers.",
   "rank_tier_0": "Uncalibrated",
   "rank_tier_1": "Herald",
   "rank_tier_2": "Guardian",
@@ -682,6 +683,7 @@
   "th_gold": "i de senaste %d matcherna",
   "th_xp": "I rankade matcher. Återställs varje månad.",
   "th_abilities": "k=32, init=1000",
+  "th_target_abilities": "Ability Targets",
   "th_mmr": "Professionell",
   "th_level": "Offentlig",
   "th_kills": "Hjältar i professionella matcher",
@@ -748,6 +750,8 @@
   "th_observers_placed": "Observers",
   "th_camps_stacked": "Stacks",
   "th_league": "League",
+  "th_attack_type": "Attack Type",
+  "th_primary_attr": "Primary Attribute",
   "ward_log_type": "Typ",
   "ward_log_owner": "Ägare",
   "ward_log_entered_at": "Placerade",
@@ -882,6 +886,7 @@
   "tooltip_multikill": "Longest multi-kill",
   "tooltip_killstreak": "Longest killstreak",
   "tooltip_casts": "Number of times this ability/item was cast",
+  "tooltip_target_abilities": "How many times each hero was targeted by this hero's abilities",
   "tooltip_hits": "Number of damage instances to heroes caused by this ability/item",
   "tooltip_damage": "Rosh",
   "tooltip_autoattack_other": "Först",
@@ -902,6 +907,7 @@
   "xp_reasons_2": "Creep",
   "xp_reasons_3": "Misslyckades med att få matchdata",
   "rankings_description": "",
+  "rankings_none": "This player is not ranked on any heroes.",
   "region_0": "Automatiskt",
   "region_1": "Västra USA",
   "region_2": "Östra USA",
@@ -1103,5 +1109,6 @@
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
   "rune": "Rune",
-  "placement": "Placement"
+  "placement": "Placement",
+  "exclude_turbo_matches": "Exclude Turbo matches"
 }
