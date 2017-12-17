@@ -25,6 +25,7 @@ ${!hero ? `count(distinct match_id)::float/sum(count(1)) OVER() * ${group ? grou
 sum(case when radiant_win = (player_slot < 128) then 1 else 0 end)::float/count(1) winrate
 FROM public_matches
 JOIN public_player_matches using(match_id)
+JOIN heroes on public_player_matches.hero_id = heroes.id
 WHERE start_time >= extract(epoch from ${minDate ? `timestamp '${minDate.value}'` : 'now() - interval \'1 day\''})::int
 ${minMmr ? `AND avg_mmr >= '${minMmr.value}'` : ''}
 ${maxMmr ? `AND avg_mmr <= '${maxMmr.value}'` : ''}

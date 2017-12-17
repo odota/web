@@ -41,6 +41,18 @@ const getColumnMin = (data, field, getValue) => {
   return Math.min(...valuesArr);
 };
 
+const toUnderline = (data, row, field, underline) => {
+  const x = [];
+  data.forEach((r) => {
+    x.push(r[field]);
+  });
+  x.sort((a, b) => a - b);
+  if ((underline === 'min' && x[0] === row[field]) || ((underline === 'max' && x[x.length - 1] === row[field]))) {
+    return true;
+  }
+  return false;
+};
+
 const initialState = {
   currentPage: 0,
   sortState: '',
@@ -116,6 +128,7 @@ class Table extends React.Component {
       summable,
       maxRows,
       paginated,
+      placeholderMessage,
       pageLength = 20,
     } = this.props;
     const {
@@ -145,7 +158,8 @@ class Table extends React.Component {
         <StyledContainer >
           {loading && <Spinner />}
           {!loading && error && <Error />}
-          {!loading && !error && data && (
+          {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
+          {!loading && !error && dataLength > 0 && (
           <div className="innerContainer">
             <MaterialTable fixedHeader={false} selectable={false}>
               <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
@@ -162,13 +176,16 @@ class Table extends React.Component {
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,
-                        percentBarsWithValue, sortFn, invertBarColor,
+                        percentBarsWithValue, sortFn, invertBarColor, underline,
                       } = column;
                       const getValue = typeof sortFn === 'function' ? sortFn : null;
                       const value = getValue ? getValue(row) : row[field];
                       const style = {
                         overflow: `${field === 'kills' ? 'visible' : null}`,
                         color,
+                        marginBottom: 0,
+                        textUnderlinePosition: 'under',
+                        textDecorationColor: 'rgb(140, 140, 140)',
                       };
 
                       if (center) {
@@ -228,6 +245,9 @@ class Table extends React.Component {
                       } else {
                         fieldEl = value;
                       }
+                      if (underline === 'max' || underline === 'min') {
+                        style.textDecoration = toUnderline(data, row, field, underline) ? 'underline' : 'none';
+                      }
                       return (
                         <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style}>
                           {fieldEl}
@@ -261,6 +281,7 @@ const {
   bool,
   shape,
   number,
+  string,
 } = PropTypes;
 
 Table.propTypes = {
@@ -271,6 +292,7 @@ Table.propTypes = {
   summable: bool,
   maxRows: number,
   paginated: bool,
+  placeholderMessage: string,
   pageLength: number,
 };
 

@@ -96,6 +96,21 @@ const fields = () => ({
     text: strings.filter_lobby_type,
     value: 'lobby_type',
     key: 'lobby_type',
+  }, {
+    text: strings.th_primary_attr,
+    value: 'primary_attr',
+    key: 'primary_attr',
+    groupSize: 10,
+  }, {
+    text: strings.th_legs,
+    value: 'legs',
+    key: 'legs',
+    groupSize: 10,
+  }, {
+    text: strings.th_attack_type,
+    value: 'attack_type',
+    key: 'attack_type',
+    groupSize: 10,
   }, /* {
     text: strings.explorer_patch,
     value: 'patch',

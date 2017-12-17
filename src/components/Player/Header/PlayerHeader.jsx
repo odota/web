@@ -107,16 +107,20 @@ const Styled = styled.div`
   flex-direction: column;
   justify-content: center;
   margin: 0 30px;
+  -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
+  drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
+  drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
 
   &[data-hint-position="top"] {
     &::after {
       margin-bottom: 3px;
-      margin-left: 22px;
+      margin-left: 52px;
     }
 
     &::before {
       top: -3px;
-      margin-left: 56px;
+      margin-left: 57px;
     }
   }
   & img {
@@ -132,6 +136,7 @@ const Styled = styled.div`
     margin-top: 41px;
     font-size: 22px;
     color: #ECD9C8;
+    text-shadow: 0 0 10px black;
   }
   &-star {
     position: absolute;
@@ -163,7 +168,7 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
       }
       medalElement = (
         <div className="rankTierContainer">
-          <div className="rankMedal" data-hint={`No. ${leaderboardRank}`} data-hint-position="top">
+          <div className="rankMedal" data-hint={`${strings.abbr_number} ${leaderboardRank}`} data-hint-position="top">
             <img className="rankMedal-icon" src={iconPath} alt="icon" />
             <span className="rankMedal-board">{leaderboardRank}</span>
           </div>

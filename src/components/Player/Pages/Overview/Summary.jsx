@@ -67,7 +67,7 @@ const SummOfRecMatches = ({ matchesData }) => {
           color = 'golden';
           break;
         default:
-          color = false;
+          color = 'textColorPrimary';
       }
 
       computed[key] = {
@@ -107,15 +107,15 @@ const SummOfRecMatches = ({ matchesData }) => {
             return (
               <li key={key}>
                 <span>{strings[`heading_${key}`]}</span>
-                <p style={{ color: constants[c.color] }}>
-                  {key === 'duration' ? formatSeconds(c.avg) : abbreviateNumber(c.avg)}
+                <Link to={`/matches/${c.max.matchId}`}>
+                  <p style={{ color: constants[c.color] }}>
+                    {key === 'duration' ? formatSeconds(c.avg) : abbreviateNumber(c.avg)}
                   &nbsp;
-                  <span>{key === 'duration' ? formatSeconds(c.max.value) : abbreviateNumber(c.max.value)}
-                    <Link to={`/matches/${c.max.matchId}`}>
+                    <span>{key === 'duration' ? formatSeconds(c.max.value) : abbreviateNumber(c.max.value)}
                       <img src={`${process.env.REACT_APP_API_HOST}${hero.icon}`} alt={hero.localized_name} />
-                    </Link>
-                  </span>
-                </p>
+                    </span>
+                  </p>
+                </Link>
               </li>
             );
           }
