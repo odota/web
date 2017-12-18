@@ -1,3 +1,25 @@
+function templ(strings, value) {
+  if (value.length === 0) {
+    return '';
+  }
+  let r = 'AND (';
+  const str0 = strings[0];
+  const str1 = strings[1];
+
+  if (value instanceof Array) {
+    value.forEach((s, index) => {
+      r += str0 + s + str1;
+
+      if (index !== value.length - 1) {
+        r += ' OR ';
+      }
+    });
+  } else {
+    return `${str0 + value + str1})`;
+  }
+  return `${r})`;
+}
+
 const queryTemplate = (props) => {
   const {
     select,
@@ -110,29 +132,29 @@ ${organization || (group && group.key === 'organization') ? 'JOIN team_match ON 
 ${(select && select.join) ? select.join : ''}
 ${(select && select.joinFn) ? select.joinFn(props) : ''}
 WHERE TRUE
-${select ? `AND ${select.value} IS NOT NULL` : ''}
-${minPatch ? `AND match_patch.patch >= '${minPatch.value}'` : ''}
-${maxPatch ? `AND match_patch.patch <= '${maxPatch.value}'` : ''}
-${hero ? `AND player_matches.hero_id = ${hero.value}` : ''}
-${player ? `AND player_matches.account_id = ${player.value}` : ''}
-${league ? `AND matches.leagueid = ${league.value}` : ''}
-${playerPurchased ? `AND (player_matches.purchase->>'${playerPurchased.value}')::int > 0` : ''}
-${minDuration ? `AND matches.duration >= ${minDuration.value}` : ''}
-${maxDuration ? `AND matches.duration <= ${maxDuration.value}` : ''}
-${side ? `AND (player_matches.player_slot < 128) = ${side.value}` : ''}
-${result ? `AND ((player_matches.player_slot < 128) = matches.radiant_win) = ${result.value}` : ''}
-${team ? `AND notable_players.team_id = ${team.value}` : ''}
-${organization ? `AND team_match.team_id = ${organization.value} AND (player_matches.player_slot < 128) = team_match.radiant` : ''}
-${laneRole ? `AND player_matches.lane_role = ${laneRole.value}` : ''}
-${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
-${minDate ? `AND matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
-${maxDate ? `AND matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
-${tier ? `AND leagues.tier = '${tier.value}'` : ''}
+${select ? select.value.map(x => `AND ${x} IS NOT NULL `).join('') : ''}
+${minPatch ? templ`match_patch.patch >= '${maxPatch.value}'` : ''}
+${maxPatch ? templ`match_patch.patch <= '${maxPatch.value}'` : ''}
+${hero ? templ`player_matches.hero_id = ${hero.value}` : ''}
+${player ? templ`player_matches.account_id = ${player.value}` : ''}
+${league ? templ`matches.leagueid = ${league.value}` : ''}
+${playerPurchased ? templ`(player_matches.purchase->>'${playerPurchased.value}')::int > 0` : ''}
+${minDuration ? templ`matches.duration >= ${minDuration.value}` : ''}
+${maxDuration ? templ`matches.duration <= ${maxDuration.value}` : ''}
+${side ? templ`(player_matches.player_slot < 128) = ${side.value}` : ''}
+${result ? templ`((player_matches.player_slot < 128) = matches.radiant_win) = ${result.value}` : ''}
+${team ? templ`notable_players.team_id = ${team.value}` : ''}
+${organization ? templ`team_match.team_id = ${organization.value} AND (player_matches.player_slot < 128) = team_match.radiant` : ''}
+${laneRole ? templ`player_matches.lane_role = ${laneRole.value}` : ''}
+${region ? templ`AND matches.cluster IN (${region.value.join(',')}` : ''}
+${minDate ? templ`matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
+${maxDate ? templ`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
+${tier ? templ`leagues.tier = '${tier.value}'` : ''}
 ${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 1333179, 3331948, 1846548)' : ''}
 ${group ? `GROUP BY ${groupVal}` : ''}
 ${group ? `HAVING count(distinct matches.match_id) >= ${having ? having.value : '1'}` : ''}
 ORDER BY ${
-  [`${group ? 'avg' : (select && select.value) || 'matches.match_id'} ${(order && order.value) || (select && select.order) || 'DESC'}`,
+  [`${group ? 'avg' : (select && select.value[select.value.length - 1]) || 'matches.match_id'} ${(order && order.value) || (select && select.order) || 'DESC'}`,
     group ? 'count DESC' : '',
   ].filter(Boolean).join(',')} NULLS LAST
 LIMIT ${limit ? limit.value : 200}`;
@@ -141,5 +163,6 @@ LIMIT ${limit ? limit.value : 200}`;
   // Remove extra newlines
     .replace(/\n{2,}/g, '\n');
 };
+
 
 export default queryTemplate;

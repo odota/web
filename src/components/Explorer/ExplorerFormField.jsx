@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 import DatePicker from 'material-ui/DatePicker';
-// import FormField from 'components/Form/FormField';
+import FormField from 'components/Form/FormField';
 
 class ExplorerFormField extends React.Component {
   constructor() {
@@ -77,33 +77,19 @@ class ExplorerFormField extends React.Component {
     }
     return (
       <span style={{ width: fieldWidth }}>
-        {/*
-      <FormField
-        name={builderField}
-        label={label}
-        dataSource={dataSource}
-        formSelectionState={builder}
-        filter={AutoComplete.caseInsensitiveFilter}
-        strict
-        limit={1}
-        addChip={this.addChip}
-        deleteChip={this.deleteChip}
-      />
-      */}
-        <AutoComplete
-          ref={(ref) => { this.autocomplete = ref; return null; }}
-          openOnFocus
-          listStyle={{ maxHeight: 400, overflow: 'auto' }}
-          fullWidth
-          filter={AutoComplete.caseInsensitiveFilter}
-          floatingLabelText={label}
-          dataSource={dataSource}
-          maxSearchResults={100}
-          onClick={this.resetField}
-          onNewRequest={(value, index) => {
-          handleFieldUpdate(builderField, index > -1 ? value.key : '');
-        }}
-        />
+        {
+          <FormField
+            name={builderField}
+            label={label}
+            dataSource={dataSource}
+            formSelectionState={builder}
+            filter={AutoComplete.caseInsensitiveFilter}
+            strict
+            limit={5}
+            addChip={this.addChip}
+            deleteChip={this.deleteChip}
+          />
+      }
       </span>);
   }
 }
