@@ -1,5 +1,4 @@
 function templ(strings, value) {
-  // console.log(value)
   const o = value.map(x => x.value);
   let r = [];
   if (!value.length) {
@@ -96,6 +95,7 @@ ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
     const selectVal = {};
     const groupVal = {};
+    console.log(group);
     if (group) {
       group.forEach((x) => { groupVal[x.key] = `${x.value}${x.bucket ? ` / ${x.bucket} * ${x.bucket}` : ''}`; });
     }
@@ -168,7 +168,7 @@ ${group ? 'GROUP BY' : ''}${(group && group.map(x => ` ${groupVal[x.key]}`)) || 
 ${group ? `HAVING count(distinct matches.match_id) >= ${having ? having.value : '1'}` : ''}
 ORDER BY ${
   [`${group ? typeof select === 'string' ? `"AVG ${select.text}"` : `"AVG ${select[0].text}"` : // eslint-disable-line no-nested-ternary
-    select ? select.map(x => x.value).join('')
+    select ? select.map(x => x.value).join(',')
       : 'matches.match_id'} ${order ? order.map(x => x.value).join('') // eslint-disable-line no-nested-ternary
     : select ? select.map(x => x.order).join('') : 'DESC'}`,
   group ? 'count DESC' : '',
