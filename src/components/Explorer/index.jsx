@@ -47,7 +47,6 @@ function expandBuilderState(builder, _fields) {
       expandedBuilder[key] = (_fields[key] || []).find(element => element.key === builder[key]) || { value: builder[key] };
     }
   });
-  console.log(expandedBuilder);
   return expandedBuilder;
 }
 
