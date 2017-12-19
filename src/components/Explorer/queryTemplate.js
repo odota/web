@@ -1,23 +1,22 @@
 function templ(strings, value) {
+  var r = []
   if (value.length === 0) {
     return '';
   }
-  let r = 'AND (';
   const str0 = strings[0];
   const str1 = strings[1];
-
   if (value instanceof Array) {
-    value.forEach((s, index) => {
-      r += str0 + s + str1;
-
+    r = value.map((s, index) => {
+      const p = `${str0}${s}${str1}`;
       if (index !== value.length - 1) {
-        r += ' OR ';
+        return `${p} OR `;
       }
+      return `${p}`;
     });
   } else {
-    return `${str0 + value + str1})`;
+    return `${str0}${value}${str1}`;
   }
-  return `${r})`;
+  return `AND (${r.join('')})`;
 }
 
 const queryTemplate = (props) => {
@@ -54,6 +53,7 @@ const queryTemplate = (props) => {
   // team
   // organization
   let query;
+  console.log(props)
   if (select && select.template === 'picks_bans') {
     query = `SELECT
 hero_id, 
@@ -146,7 +146,7 @@ ${result ? templ`((player_matches.player_slot < 128) = matches.radiant_win) = ${
 ${team ? templ`notable_players.team_id = ${team.value}` : ''}
 ${organization ? templ`team_match.team_id = ${organization.value} AND (player_matches.player_slot < 128) = team_match.radiant` : ''}
 ${laneRole ? templ`player_matches.lane_role = ${laneRole.value}` : ''}
-${region ? templ`AND matches.cluster IN (${region.value.join(',')}` : ''}
+${region ? templ`AND matches.cluster IN (${region.value.join(',')})` : ''}
 ${minDate ? templ`matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
 ${maxDate ? templ`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${tier ? templ`leagues.tier = '${tier.value}'` : ''}
