@@ -170,7 +170,7 @@ class Explorer extends React.Component {
     // This is ok if we only need the value prop (e.g. an id to build the query with)
     const expandedBuilder = expandBuilderState(this.state.builder, fields());
     // TODO handle arrays
-    console.log(expandedBuilder)
+    //console.log(expandedBuilder)
     this.editor.setValue(queryTemplate(expandedBuilder));
   }
   render() {

@@ -1,5 +1,5 @@
 function templ(strings, value) {
-  console.log(value)
+  //console.log(value)
   const o = value.map(x => x.value)
   var r = []
   if (!value.length) {
@@ -102,16 +102,17 @@ ORDER BY total ${(order && order.value) || 'DESC'}`;
     group && group.forEach( x=> groupVal[x.key] = `${x.value}${x.bucket ? ` / ${x.bucket} * ${x.bucket}` : ''}`);
     select && select.forEach(x=> selectVal[x.key] = x.groupValue || (x && x.value) || 1              )
     //console.log(selectVal)
-    console.log(select)
+    console.log(group)
+    console.log(props)
     query = `SELECT
-    ${select && select.map(x=> x.distinct && !group ? `DISTINCT ON (${x.value})` : '').join('') || ''}
+    ${select ? select.map(x=> x.distinct && !group ? `DISTINCT ON (${x.value})` : '').join('') : ''}
 
     
 
 
 ${(group) ?
   group.map( (x, i)=>
-    [`${!i ? '' : ',\n'}${x.groupKeySelect || groupVal[x.key]} ${x.alias || ''}`].filter(Boolean).join(',\n')).join('')    
+    [`${x.groupKeySelect || groupVal[x.key]} ${x.alias || ''},`].filter(Boolean).join(',\n')).join('')    
     
     : ''}
 
@@ -129,7 +130,7 @@ ${(group) ?
     `sum(${selectVal[x.key]}) sum`,
     `min(${selectVal[x.key]}) min`,
     `max(${selectVal[x.key]}) max`,
-    `stddev(${selectVal[x.key]}::numeric) stddev,
+    `stddev(${selectVal[x.key]}::numeric) stddev
   `
 ].filter(Boolean).join(',\n')): ''.join('') : ''}
 
@@ -155,10 +156,12 @@ JOIN player_matches using(match_id)
 JOIN heroes on heroes.id = player_matches.hero_id
 LEFT JOIN notable_players ON notable_players.account_id = player_matches.account_id AND notable_players.locked_until = (SELECT MAX(locked_until) FROM notable_players)
 LEFT JOIN teams using(team_id)
-${organization || (group && group.key === 'organization') ? 'JOIN team_match ON matches.match_id = team_match.match_id AND (player_matches.player_slot < 128) = team_match.radiant JOIN teams teams2 ON team_match.team_id = teams2.team_id' : ''}
 
-${select && select.map( x => x.join ? x.join : '' ).join('') || ''}
-${select && select.map( x => x.joinFn ? x.joinFn(props) : '' ).join('') || ''}
+${organization || (group && group.some( x=> x.key === 'organization')) ? 
+'JOIN team_match ON matches.match_id = team_match.match_id AND (player_matches.player_slot < 128) = team_match.radiant JOIN teams teams2 ON team_match.team_id = teams2.team_id' : ''}
+
+${select ? select.map( x => x.join ? x.join : '' ).join('') : ''}
+${select ? select.map( x => x.joinFn ? x.joinFn(props) : '' ).join('') : ''}
 
 WHERE TRUE
 ${select ? select.map(x => `AND ${x.value} IS NOT NULL `).join('') : ''}
@@ -182,11 +185,14 @@ ${tier ? templ`leagues.tier = '${tier}'` : ''}
 ${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 1333179, 3331948, 1846548)' : ''}
 ${group ? 'GROUP BY' : ''}${group && group.map(x =>   ` ${groupVal[x.key]}`) || ''}
 ${group ? `HAVING count(distinct matches.match_id) >= ${having ? having.value : '1'}` : ''}
+
+
+
 ORDER BY ${
-  [`${group ? 'avg' : (select && select[select.length - 1].value) || 'matches.match_id'} ${(order && order.value) || (select && select.order) || 'DESC'}`,
+  [`${group ? 'avg' : (select && select.map(x => x[x.length - 1].value).join('')) || 'matches.match_id'} ${(order && order.map(x=> x.value).join('') ) || (select && select.map(x=> x.order).join('')) || 'DESC'}`,
     group ? 'count DESC' : '',
   ].filter(Boolean).join(',')} NULLS LAST
-LIMIT ${limit ? limit.value : 200}`;
+LIMIT ${limit ? limit.map(x=> x.value).join('') : 200}`;
   }
   return query
   // Remove extra newlines
