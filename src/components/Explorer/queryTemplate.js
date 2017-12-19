@@ -104,6 +104,7 @@ ORDER BY total ${(order && order.value) || 'DESC'}`;
     //console.log(selectVal)
     console.log(group)
     console.log(props)
+    console.log(select)
     query = `SELECT
     ${select ? select.map(x=> x.distinct && !group ? `DISTINCT ON (${x.value})` : '').join('') : ''}
 
@@ -120,7 +121,7 @@ ${(group) ?
   select ? select.map((x, i)=> 
   [
     (x && x.countValue) || '',
-    (x && x.avgPerMatch) ? `sum(${selectVal[x.key]})::numeric/count(distinct matches.match_id) avg` : `${x && x.avg ? x.avg : `avg(${selectVal[x.key]})`} avg`,
+    (x && x.avgPerMatch) ? `sum(${selectVal[x.key]})::numeric/count(distinct matches.match_id) avg` : `${x && x.avg ? x.avg : `avg(${selectVal[x.key]})`} AS "avg ${selectVal[x.key]}"`,
     'count(distinct matches.match_id) count',
     'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
     `((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) 
@@ -183,15 +184,12 @@ ${minDate ? templ`matches.start_time >= extract(epoch from timestamp '${new Date
 ${maxDate ? templ`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate).toISOString()}')` : ''}
 ${tier ? templ`leagues.tier = '${tier}'` : ''}
 ${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 1333179, 3331948, 1846548)' : ''}
-${group ? 'GROUP BY' : ''}${group && group.map(x =>   ` ${groupVal[x.key]}`) || ''}
+${group && group.length > 0 ? 'GROUP BY' : ''}${group && group.map(x =>   ` ${groupVal[x.key]}`) || ''}
 ${group ? `HAVING count(distinct matches.match_id) >= ${having ? having.value : '1'}` : ''}
 
 
 
-ORDER BY ${
-  [`${group ? 'avg' : (select && select.map(x => x[x.length - 1].value).join('')) || 'matches.match_id'} ${(order && order.map(x=> x.value).join('') ) || (select && select.map(x=> x.order).join('')) || 'DESC'}`,
-    group ? 'count DESC' : '',
-  ].filter(Boolean).join(',')} NULLS LAST
+
 LIMIT ${limit ? limit.map(x=> x.value).join('') : 200}`;
   }
   return query
