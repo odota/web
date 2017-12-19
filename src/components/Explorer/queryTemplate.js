@@ -169,7 +169,7 @@ ORDER BY ${
   [`${group ? typeof select === 'string' ? `"AVG ${select.text}"` : `"AVG ${select[0].text}"` : // eslint-disable-line no-nested-ternary
     select ? select.map(x => `${x.value} DESC`).join(',')
       : 'matches.match_id'} ${order ? order.map(x => x.value).join('') // eslint-disable-line no-nested-ternary
-    : select ? `` : 'DESC'}`,
+    : select ? '' : 'DESC'}`,
   group ? 'count DESC' : '',
   ].filter(Boolean).join(',')} NULLS LAST
 LIMIT ${limit ? limit.map(x => x.value).join('') : 200}`;

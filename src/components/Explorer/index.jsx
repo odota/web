@@ -68,7 +68,7 @@ class Explorer extends React.Component {
       showEditor: Boolean(sqlState),
       loading: false,
       result: {},
-      builder: '',
+      builder: urlState,
     };
     this.instantiateEditor = this.instantiateEditor.bind(this);
     this.toggleEditor = this.toggleEditor.bind(this);
