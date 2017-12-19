@@ -39,18 +39,17 @@ function jsonResponse(response) {
 }
 
 function expandBuilderState(builder, _fields) {
-  //console.log(_fields)
-  console.log(builder)
+  // console.log(_fields)
+  console.log(builder);
   const expandedBuilder = {};
   Object.keys(builder).forEach((key) => {
     if (builder[key] instanceof Array) {
-      expandedBuilder[key] = builder[key].map(x => (_fields[key] || []).find(element => element.key === x) || { value: x })
-    }
-    else if (builder[key]) {
+      expandedBuilder[key] = builder[key].map(x => (_fields[key] || []).find(element => element.key === x) || { value: x });
+    } else if (builder[key]) {
       expandedBuilder[key] = (_fields[key] || []).find(element => element.key === builder[key]) || { value: builder[key] };
     }
   });
-  console.log(expandedBuilder)
+  console.log(expandedBuilder);
   return expandedBuilder;
 }
 
@@ -170,7 +169,7 @@ class Explorer extends React.Component {
     // This is ok if we only need the value prop (e.g. an id to build the query with)
     const expandedBuilder = expandBuilderState(this.state.builder, fields());
     // TODO handle arrays
-    //console.log(expandedBuilder)
+    // console.log(expandedBuilder)
     this.editor.setValue(queryTemplate(expandedBuilder));
   }
   render() {
