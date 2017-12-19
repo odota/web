@@ -95,12 +95,18 @@ ${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 18383
 GROUP BY hero_id
 ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
+
+
+    const groupVal = {}
     const selectVal = (select && select.groupValue) || (select && select.value) || 1;
-    const groupVal = group ? `${group.value}${group.bucket ? ` / ${group.bucket} * ${group.bucket}` : ''}` : null;
+    group && group.forEach( x=> groupVal[x.key] = `${x.value}${x.bucket ? ` / ${x.bucket} * ${x.bucket}` : ''}`) || '';
     query = `SELECT
-${select && select.distinct && !group ? `DISTINCT ON (${select.value})` : ''}
+    ${select && select.map(x=> x.distinct && !group ? `DISTINCT ON (${x.value})` : '').join('')}
+
+
 ${(group) ?
-    [`${group.groupKeySelect || groupVal} ${group.alias || ''}`,
+  group.map( x=>
+    [`${x.groupKeySelect || groupVal[x.key]} ${x.alias || ''}`,
       (select && select.countValue) || '',
       (select && select.avgPerMatch) ? `sum(${selectVal})::numeric/count(distinct matches.match_id) avg` : `${select && select.avg ? select.avg : `avg(${selectVal})`} avg`,
       'count(distinct matches.match_id) count',
@@ -113,8 +119,11 @@ ${(group) ?
       `min(${selectVal}) min`,
       `max(${selectVal}) max`,
       `stddev(${selectVal}::numeric) stddev`,
-    ].filter(Boolean).join(',\n')
+    ].filter(Boolean).join(',\n')).join('')
+
+
     :
+
     [select ? select.map(x => `${x.value} AS ${x.alias || ''}` ): '',
       'matches.match_id',
       'matches.start_time',
@@ -123,6 +132,9 @@ ${(group) ?
       'player_matches.account_id',
       'leagues.name leaguename',
     ].filter(Boolean).join(',\n')}
+
+
+
 FROM matches
 JOIN match_patch using(match_id)
 JOIN leagues using(leagueid)
