@@ -111,7 +111,7 @@ ${(group) ? // eslint-disable-line no-nested-ternary
   select ? select.map(x =>
     [
       (x && x.countValue) || '',
-      (x && x.avgPerMatch) ? `sum(${selectVal[x.key]})::numeric/count(distinct matches.match_id) avg` : `${x && x.avg ? x.avg : `avg(${selectVal[x.key]})`} AS "AVG ${x.alias}"`,
+      (x && x.avgPerMatch) ? `sum(${selectVal[x.key]})::numeric/count(distinct matches.match_id) avg` : `${x && x.avg ? x.avg : `avg(${selectVal[x.key]})`} AS "AVG ${x.text}"`,
       'count(distinct matches.match_id) count',
       'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
       `((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) 
@@ -167,7 +167,7 @@ ${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 18383
 ${group ? 'GROUP BY' : ''}${(group && group.map(x => ` ${groupVal[x.key]}`)) || ''}
 ${group ? `HAVING count(distinct matches.match_id) >= ${having ? having.value : '1'}` : ''}
 ORDER BY ${
-  [`${group ? typeof select === 'string' ? `"AVG ${select.alias}"` : `"AVG ${select[0].alias}"` : // eslint-disable-line no-nested-ternary
+  [`${group ? typeof select === 'string' ? `"AVG ${select.text}"` : `"AVG ${select[0].text}"` : // eslint-disable-line no-nested-ternary
     select ? select.map(x => x.value).join('')
       : 'matches.match_id'} ${order ? order.map(x => x.value).join('') // eslint-disable-line no-nested-ternary
     : select ? select.map(x => x.order).join('') : 'DESC'}`,
