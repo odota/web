@@ -43,8 +43,11 @@ function expandBuilderState(builder, _fields) {
   console.log(builder)
   const expandedBuilder = {};
   Object.keys(builder).forEach((key) => {
-    if (builder[key]) {
+    if (builder[key] instanceof Array) {
       expandedBuilder[key] = builder[key].map(x => (_fields[key] || []).find(element => element.key === x) || { value: x })
+    }
+    else if (builder[key]) {
+      expandedBuilder[key] = (_fields[key] || []).find(element => element.key === builder[key]) || { value: builder[key] };
     }
   });
   console.log(expandedBuilder)
