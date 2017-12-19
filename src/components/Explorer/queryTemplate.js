@@ -96,30 +96,33 @@ GROUP BY hero_id
 ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
 
-
+    const selectVal = {}
     const groupVal = {}
-    const selectVal = (select && select.groupValue) || (select && select.value) || 1;
-    group && group.forEach( x=> groupVal[x.key] = `${x.value}${x.bucket ? ` / ${x.bucket} * ${x.bucket}` : ''}`) || '';
+    //const selectVal = (select && select.groupValue) || (select && select.value) || 1;
+    group && group.forEach( x=> groupVal[x.key] = `${x.value}${x.bucket ? ` / ${x.bucket} * ${x.bucket}` : ''}`);
+    select && select.forEach(x=> selectVal[x.key] = x.groupValue || (x && x.value) || 1              );
+    console.log(groupVal)
     query = `SELECT
-    ${select && select.map(x=> x.distinct && !group ? `DISTINCT ON (${x.value})` : '').join('')}
+    ${select && select.map(x=> x.distinct && !group ? `DISTINCT ON (${x.value})` : '').join('') || ''}
 
 
 ${(group) ?
-  group.map( x=>
-    [`${x.groupKeySelect || groupVal[x.key]} ${x.alias || ''}`,
-      (select && select.countValue) || '',
-      (select && select.avgPerMatch) ? `sum(${selectVal})::numeric/count(distinct matches.match_id) avg` : `${select && select.avg ? select.avg : `avg(${selectVal})`} avg`,
+  group.map( (x, i)=>
+    [`${!i ? '' : ',\n'}${x.groupKeySelect || groupVal[x.key]} ${x.alias || ''}`,
+    select.forEach( x =>
+      (x && x.countValue) || '',
+      (x && x.avgPerMatch) ? `sum(${selectVal[x.key]})::numeric/count(distinct matches.match_id) avg` : `${x && x.avg ? x.avg : `avg(${selectVal[x.key]})`} avg`,
       'count(distinct matches.match_id) count',
       'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
       `((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) 
   + 1.96 * 1.96 / (2 * count(1)) 
   - 1.96 * sqrt((((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) * (1 - (sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1))) + 1.96 * 1.96 / (4 * count(1))) / count(1))))
   / (1 + 1.96 * 1.96 / count(1)) winrate_wilson`,
-      `sum(${selectVal}) sum`,
-      `min(${selectVal}) min`,
-      `max(${selectVal}) max`,
-      `stddev(${selectVal}::numeric) stddev`,
-    ].filter(Boolean).join(',\n')).join('')
+      `sum(${selectVal[x.key]}) sum`,
+      `min(${selectVal[x.key]}) min`,
+      `max(${selectVal[x.key]}) max`,
+      `stddev(${selectVal[x.key]}::numeric) stddev`,
+  )].filter(Boolean).join(',\n')).join('')
 
 
     :
@@ -144,8 +147,8 @@ LEFT JOIN notable_players ON notable_players.account_id = player_matches.account
 LEFT JOIN teams using(team_id)
 ${organization || (group && group.key === 'organization') ? 'JOIN team_match ON matches.match_id = team_match.match_id AND (player_matches.player_slot < 128) = team_match.radiant JOIN teams teams2 ON team_match.team_id = teams2.team_id' : ''}
 
-${select && select.map( x => x.join ? x.join : '' ).join('')}
-${select && select.map( x => x.joinFn ? x.joinFn(props) : '' ).join('')}
+${select && select.map( x => x.join ? x.join : '' ).join('') || ''}
+${select && select.map( x => x.joinFn ? x.joinFn(props) : '' ).join('') || ''}
 
 WHERE TRUE
 ${select ? select.map(x => `AND ${x.value} IS NOT NULL `).join('') : ''}
@@ -167,7 +170,7 @@ ${minDate ? templ`matches.start_time >= extract(epoch from timestamp '${new Date
 ${maxDate ? templ`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate).toISOString()}')` : ''}
 ${tier ? templ`leagues.tier = '${tier}'` : ''}
 ${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 1333179, 3331948, 1846548)' : ''}
-${group ? `GROUP BY ${groupVal}` : ''}
+${group ? 'GROUP BY' : ''}${group && group.map(x =>   ` ${groupVal[x.key]}`) || ''}
 ${group ? `HAVING count(distinct matches.match_id) >= ${having ? having.value : '1'}` : ''}
 ORDER BY ${
   [`${group ? 'avg' : (select && select[select.length - 1].value) || 'matches.match_id'} ${(order && order.value) || (select && select.order) || 'DESC'}`,
