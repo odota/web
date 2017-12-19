@@ -100,33 +100,41 @@ ORDER BY total ${(order && order.value) || 'DESC'}`;
     const groupVal = {}
     //const selectVal = (select && select.groupValue) || (select && select.value) || 1;
     group && group.forEach( x=> groupVal[x.key] = `${x.value}${x.bucket ? ` / ${x.bucket} * ${x.bucket}` : ''}`);
-    select && select.forEach(x=> selectVal[x.key] = x.groupValue || (x && x.value) || 1              );
-    console.log(groupVal)
+    select && select.forEach(x=> selectVal[x.key] = x.groupValue || (x && x.value) || 1              )
+    //console.log(selectVal)
+    console.log(select)
     query = `SELECT
     ${select && select.map(x=> x.distinct && !group ? `DISTINCT ON (${x.value})` : '').join('') || ''}
+
+    
 
 
 ${(group) ?
   group.map( (x, i)=>
-    [`${!i ? '' : ',\n'}${x.groupKeySelect || groupVal[x.key]} ${x.alias || ''}`,
-    select.forEach( x =>
-      (x && x.countValue) || '',
-      (x && x.avgPerMatch) ? `sum(${selectVal[x.key]})::numeric/count(distinct matches.match_id) avg` : `${x && x.avg ? x.avg : `avg(${selectVal[x.key]})`} avg`,
-      'count(distinct matches.match_id) count',
-      'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
-      `((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) 
-  + 1.96 * 1.96 / (2 * count(1)) 
-  - 1.96 * sqrt((((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) * (1 - (sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1))) + 1.96 * 1.96 / (4 * count(1))) / count(1))))
-  / (1 + 1.96 * 1.96 / count(1)) winrate_wilson`,
-      `sum(${selectVal[x.key]}) sum`,
-      `min(${selectVal[x.key]}) min`,
-      `max(${selectVal[x.key]}) max`,
-      `stddev(${selectVal[x.key]}::numeric) stddev`,
-  )].filter(Boolean).join(',\n')).join('')
+    [`${!i ? '' : ',\n'}${x.groupKeySelect || groupVal[x.key]} ${x.alias || ''}`].filter(Boolean).join(',\n')).join('')    
+    
+    : ''}
+
+${(group) ? 
+  select ? select.map((x, i)=> 
+  [
+    (x && x.countValue) || '',
+    (x && x.avgPerMatch) ? `sum(${selectVal[x.key]})::numeric/count(distinct matches.match_id) avg` : `${x && x.avg ? x.avg : `avg(${selectVal[x.key]})`} avg`,
+    'count(distinct matches.match_id) count',
+    'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
+    `((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) 
++ 1.96 * 1.96 / (2 * count(1)) 
+- 1.96 * sqrt((((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) * (1 - (sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1))) + 1.96 * 1.96 / (4 * count(1))) / count(1))))
+/ (1 + 1.96 * 1.96 / count(1)) winrate_wilson`,
+    `sum(${selectVal[x.key]}) sum`,
+    `min(${selectVal[x.key]}) min`,
+    `max(${selectVal[x.key]}) max`,
+    `stddev(${selectVal[x.key]}::numeric) stddev,
+  `
+].filter(Boolean).join(',\n')): ''.join('') : ''}
 
 
-    :
-
+${(!group && select) ?
     [select ? select.map(x => `${x.value} AS ${x.alias || ''}` ): '',
       'matches.match_id',
       'matches.start_time',
@@ -134,7 +142,9 @@ ${(group) ?
       'player_matches.hero_id',
       'player_matches.account_id',
       'leagues.name leaguename',
-    ].filter(Boolean).join(',\n')}
+    ].filter(Boolean).join(',\n') : ''}
+
+
 
 
 
