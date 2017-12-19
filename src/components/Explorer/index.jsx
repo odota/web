@@ -39,8 +39,6 @@ function jsonResponse(response) {
 }
 
 function expandBuilderState(builder, _fields) {
-  // console.log(_fields)
-  console.log(builder);
   const expandedBuilder = {};
   Object.keys(builder).forEach((key) => {
     if (builder[key] instanceof Array) {
