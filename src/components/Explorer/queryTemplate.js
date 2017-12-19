@@ -115,7 +115,7 @@ ${(group) ?
       `stddev(${selectVal}::numeric) stddev`,
     ].filter(Boolean).join(',\n')
     :
-    [select ? `${select.value} ${select.alias || ''}` : '',
+    [select ? select.map(x => `${x.value} AS ${x.alias || ''}` ): '',
       'matches.match_id',
       'matches.start_time',
       '((player_matches.player_slot < 128) = matches.radiant_win) win',
@@ -136,7 +136,7 @@ ${select && select.map( x => x.join ? x.join : '' ).join('')}
 ${select && select.map( x => x.joinFn ? x.joinFn(props) : '' ).join('')}
 
 WHERE TRUE
-${select && select.length > 0 ? select.map(x => `AND ${x.value} IS NOT NULL `).join('') : ''}
+${select ? select.map(x => `AND ${x.value} IS NOT NULL `).join('') : ''}
 ${minPatch ? templ`match_patch.patch >= '${maxPatch}'` : ''}
 ${maxPatch ? templ`match_patch.patch <= '${maxPatch}'` : ''}
 ${hero ? templ`player_matches.hero_id = ${hero}` : ''}
