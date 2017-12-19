@@ -95,7 +95,6 @@ ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
     const selectVal = {};
     const groupVal = {};
-    console.log(group);
     if (group) {
       group.forEach((x) => { groupVal[x.key] = `${x.value}${x.bucket ? ` / ${x.bucket} * ${x.bucket}` : ''}`; });
     }
@@ -168,9 +167,9 @@ ${group ? 'GROUP BY' : ''}${(group && group.map(x => ` ${groupVal[x.key]}`)) || 
 ${group ? `HAVING count(distinct matches.match_id) >= ${having ? having.value : '1'}` : ''}
 ORDER BY ${
   [`${group ? typeof select === 'string' ? `"AVG ${select.text}"` : `"AVG ${select[0].text}"` : // eslint-disable-line no-nested-ternary
-    select ? select.map(x => x.value).join(',')
+    select ? select.map(x => `${x.value} DESC`).join(',')
       : 'matches.match_id'} ${order ? order.map(x => x.value).join('') // eslint-disable-line no-nested-ternary
-    : select ? select.map(x => x.order).join('') : 'DESC'}`,
+    : select ? `` : 'DESC'}`,
   group ? 'count DESC' : '',
   ].filter(Boolean).join(',')} NULLS LAST
 LIMIT ${limit ? limit.map(x => x.value).join('') : 200}`;
