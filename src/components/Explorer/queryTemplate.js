@@ -190,5 +190,4 @@ LIMIT ${limit ? limit[0] : 200}`;
     .replace(/\n{2,}/g, '\n');
 };
 
-
 export default queryTemplate;
