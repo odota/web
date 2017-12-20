@@ -1,23 +1,19 @@
 function templ(strings, value) {
   const o = value.map(x => x.value);
-  let r = [];
+  const r = [];
   if (!value.length) {
     return '';
   }
   const str0 = strings[0];
   const str1 = strings[1];
   if (value instanceof Array) {
-    r = o.map((s, index) => {
-      const p = `${str0}${s}${str1}`;
-      if (index !== o.length - 1) {
-        return `${p} OR `;
-      }
-      return `${p}`;
+    o.forEach((s) => {
+      r.push(`${str0}${s}${str1}`);
     });
   } else {
     return `${str0}${o}${str1}`;
   }
-  return `AND (${r.join('')})`;
+  return `AND (${r.join(' OR ')})`;
 }
 
 const queryTemplate = (props) => {
@@ -66,8 +62,9 @@ const queryTemplate = (props) => {
   } else {
     selectArray = select;
   }
-  console.log(selectArray)
-  console.log(groupArray)
+  console.log(selectArray);
+  console.log(groupArray);
+  console.log(props);
   const selectExists = selectArray !== null && selectArray.length > 0 && selectArray[0] !== null && selectArray[0] !== undefined;
   const groupExists = groupArray !== null && groupArray.length > 0 && groupArray[0] !== null && groupArray[0] !== undefined;
   if (selectArray && selectArray.template === 'picks_bans') {
@@ -182,13 +179,13 @@ ${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 18383
 ${groupExists ? 'GROUP BY' : ''}${(groupExists && groupArray.map(x => ` ${groupVal[x.key]}`)) || ''}
 ${groupExists ? `HAVING count(distinct matches.match_id) >= ${having && having.value !== undefined ? having.value : '1'}` : ''}
 ORDER BY ${
-  [`${groupExists && selectExists ? `"AVG ${selectArray[0].text}"` : // eslint-disable-line no-nested-ternary
-  selectExists ? selectArray.map(x => `${x.value} DESC`).join(',')
+  [`${groupExists && selectExists ? selectArray.map(x=> `"AVG ${x.text}" DESC`) : // eslint-disable-line no-nested-ternary
+    selectExists ? selectArray.map(x => `${x.value} DESC`).join(',')
       : 'matches.match_id'} ${order ? order.map(x => x.value).join('') // eslint-disable-line no-nested-ternary
     : selectExists ? '' : 'DESC'}`,
   groupExists ? 'count DESC' : '',
   ].filter(Boolean).join(',')} NULLS LAST
-LIMIT ${limit ? limit.map(x => x.value).join('') : 200}`;
+LIMIT ${limit ? limit[0] : 200}`;
   }
   return query
   // Remove extra newlines

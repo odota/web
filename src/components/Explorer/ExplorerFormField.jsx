@@ -85,7 +85,7 @@ class ExplorerFormField extends React.Component {
             formSelectionState={builder}
             filter={AutoComplete.caseInsensitiveFilter}
             strict
-            limit={5}
+            limit={10}
             addChip={this.addChip}
             deleteChip={this.deleteChip}
           />
