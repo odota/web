@@ -54,14 +54,23 @@ const queryTemplate = (props) => {
   // team
   // organization
   let query;
-  let grouparray = [];
-  if (!(group instanceof Array)) {
-    grouparray.push(group);
+  let groupArray = [];
+  let selectArray = [];
+  if (!(Array.isArray(group))) {
+    groupArray.push(group);
   } else {
-    grouparray = group;
+    groupArray = group;
   }
-  const groupexists = grouparray !== null && grouparray.length > 0 && grouparray[0] !== null;
-  if (select && select.template === 'picks_bans') {
+  if (!(Array.isArray(select))) {
+    selectArray.push(select);
+  } else {
+    selectArray = select;
+  }
+  console.log(selectArray)
+  console.log(groupArray)
+  const selectExists = selectArray !== null && selectArray.length > 0 && selectArray[0] !== null && selectArray[0] !== undefined;
+  const groupExists = groupArray !== null && groupArray.length > 0 && groupArray[0] !== null && groupArray[0] !== undefined;
+  if (selectArray && selectArray.template === 'picks_bans') {
     query = `SELECT
 hero_id, 
 count(1) total,
@@ -83,7 +92,7 @@ JOIN leagues using(leagueid)
 JOIN team_match using(match_id)
 JOIN teams using(team_id)
 WHERE TRUE
-${select && select.where ? select.where : ''}
+${selectExists && selectArray.where ? selectArray.where : ''}
 ${organization ? `AND team_id = ${organization.value}` : ''}
 ${minPatch ? `AND match_patch.patch >= '${minPatch.value}'` : ''}
 ${maxPatch ? `AND match_patch.patch <= '${maxPatch.value}'` : ''}
@@ -102,20 +111,19 @@ ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
     const selectVal = {};
     const groupVal = {};
-    console.log(grouparray);
-    if (groupexists) {
-      grouparray.forEach((x) => { groupVal[x.key] = `${x.value}${x.bucket ? ` / ${x.bucket} * ${x.bucket}` : ''}`; });
+    if (groupExists) {
+      groupArray.forEach((x) => { groupVal[x.key] = `${x.value}${x.bucket ? ` / ${x.bucket} * ${x.bucket}` : ''}`; });
     }
-    if (select) {
-      select.forEach((x) => { selectVal[x.key] = x.groupValue || (x && x.value) || 1; });
+    if (selectExists) {
+      selectArray.forEach((x) => { selectVal[x.key] = x.groupValue || (x && x.value) || 1; });
     }
     query = `SELECT
-    ${select ? select.map(x => (x.distinct && grouparray.length < 1 ? `DISTINCT ON (${x.value})` : '')).join('') : ''}
-    ${(groupexists) ?
-    grouparray.map(x =>
+    ${selectExists ? selectArray.map(x => (x.distinct && !groupExists ? `DISTINCT ON (${x.value})` : '')).join('') : ''}
+    ${(groupExists) ?
+    groupArray.map(x =>
       [`${x.groupKeySelect || groupVal[x.key]} ${x.alias || ''},`].filter(Boolean).join(',\n')).join('') : ''}
-${(groupexists) ? // eslint-disable-line no-nested-ternary
-  select ? select.map(x =>
+${(groupExists) ? // eslint-disable-line no-nested-ternary
+  selectExists ? selectArray.map(x =>
     [
       (x && x.countValue) || '',
       (x && x.avgPerMatch) ? `sum(${selectVal[x.key]})::numeric/count(distinct matches.match_id) avg` : `${x && x.avg ? x.avg : `avg(${selectVal[x.key]})`} AS "AVG ${x.text}"`,
@@ -130,9 +138,9 @@ ${(groupexists) ? // eslint-disable-line no-nested-ternary
       `max(${selectVal[x.key]}) max`,
       `stddev(${selectVal[x.key]}::numeric) stddev
   `,
-    ].filter(Boolean).join(',\n')) : ''.join('') : ''}
-${(grouparray === null || grouparray.length < 2) && select ?
-    [select ? select.map(x => `${x.value} AS ${x.alias || ''}`) : '',
+    ].filter(Boolean).join(',\n')) : '' : ''}
+${!groupExists && selectExists ?
+    [selectExists ? selectArray.map(x => `${x.value} AS ${x.alias || ''}`) : '',
       'matches.match_id',
       'matches.start_time',
       '((player_matches.player_slot < 128) = matches.radiant_win) win',
@@ -147,12 +155,12 @@ JOIN player_matches using(match_id)
 JOIN heroes on heroes.id = player_matches.hero_id
 LEFT JOIN notable_players ON notable_players.account_id = player_matches.account_id AND notable_players.locked_until = (SELECT MAX(locked_until) FROM notable_players)
 LEFT JOIN teams using(team_id)
-${organization || (grouparray !== null && grouparray.length > 0 && grouparray[0] && grouparray.some(x => x.key === 'organization')) ?
+${organization || (groupArray !== null && groupArray.length > 0 && groupArray[0] && groupArray.some(x => x.key === 'organization')) ?
     'JOIN team_match ON matches.match_id = team_match.match_id AND (player_matches.player_slot < 128) = team_match.radiant JOIN teams teams2 ON team_match.team_id = teams2.team_id' : ''}
-${select ? select.map(x => (x.join ? x.join : '')).join('') : ''}
-${select ? select.map(x => (x.joinFn ? x.joinFn(props) : '')).join('') : ''}
+${selectExists ? selectArray.map(x => (x.join ? x.join : '')).join('') : ''}
+${selectExists ? selectArray.map(x => (x.joinFn ? x.joinFn(props) : '')).join('') : ''}
 WHERE TRUE
-${select ? select.map(x => `AND ${x.value} IS NOT NULL `).join('') : ''}
+${selectExists ? selectArray.map(x => `AND ${x.value} IS NOT NULL `).join('') : ''}
 ${minPatch ? templ`match_patch.patch >= '${maxPatch}'` : ''}
 ${maxPatch ? templ`match_patch.patch <= '${maxPatch}'` : ''}
 ${hero ? templ`player_matches.hero_id = ${hero}` : ''}
@@ -171,14 +179,14 @@ ${minDate ? templ`matches.start_time >= extract(epoch from timestamp '${new Date
 ${maxDate ? templ`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate).toISOString()}')` : ''}
 ${tier ? templ`leagues.tier = '${tier}'` : ''}
 ${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 1333179, 3331948, 1846548)' : ''}
-${groupexists ? 'GROUP BY' : ''}${(groupexists && grouparray.map(x => ` ${groupVal[x.key]}`)) || ''}
-${groupexists ? `HAVING count(distinct matches.match_id) >= ${having ? having.value : '1'}` : ''}
+${groupExists ? 'GROUP BY' : ''}${(groupExists && groupArray.map(x => ` ${groupVal[x.key]}`)) || ''}
+${groupExists ? `HAVING count(distinct matches.match_id) >= ${having && having.value !== undefined ? having.value : '1'}` : ''}
 ORDER BY ${
-  [`${groupexists ? typeof select === 'string' ? `"AVG ${select.text}"` : `"AVG ${select[0].text}"` : // eslint-disable-line no-nested-ternary
-    select ? select.map(x => `${x.value} DESC`).join(',')
+  [`${groupExists && selectExists ? `"AVG ${selectArray[0].text}"` : // eslint-disable-line no-nested-ternary
+  selectExists ? selectArray.map(x => `${x.value} DESC`).join(',')
       : 'matches.match_id'} ${order ? order.map(x => x.value).join('') // eslint-disable-line no-nested-ternary
-    : select ? '' : 'DESC'}`,
-  groupexists ? 'count DESC' : '',
+    : selectExists ? '' : 'DESC'}`,
+  groupExists ? 'count DESC' : '',
   ].filter(Boolean).join(',')} NULLS LAST
 LIMIT ${limit ? limit.map(x => x.value).join('') : 200}`;
   }
