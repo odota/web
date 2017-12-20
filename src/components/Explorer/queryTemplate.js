@@ -191,4 +191,6 @@ LIMIT ${limit ? limit[0] : 200}`;
   // Remove extra newlines
     .replace(/\n{2,}/g, '\n');
 };
+
+
 export default queryTemplate;
