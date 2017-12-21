@@ -117,7 +117,7 @@ ORDER BY total ${(order && order.value) || 'DESC'}`;
       selectArray.forEach((x) => { selectVal[x.key] = x.groupValue || (x && x.value) || 1; });
     }
     query = `SELECT
-    ${validate(selectArray) ? selectArray.map(x => (x.distinct && !validate(groupArray) ? `DISTINCT ON (${x.value})` : '')).join('') : ''}
+    ${validate(selectArray) ? selectArray.map(x => (x.distinct && !validate(groupArray) ? `DISTINCT ON (${x.value})` : '')).join('') : ''}\
     ${(validate(groupArray)) ?
     groupArray.map(x =>
       [`${x.groupKeySelect || groupVal[x.key]} ${x.alias || ''},`].filter(Boolean).join(',\n')).join('') : ''}
@@ -125,7 +125,7 @@ ${(validate(groupArray)) ?
     (validate(selectArray) && selectArray.map(x =>
       [
         (x && x.countValue) || '',
-        (x && x.avgPerMatch) ? `sum(${selectVal[x.key]})::numeric/count(distinct matches.match_id) avg` : `${x && x.avg ? x.avg : `avg(${selectVal[x.key]})`} AS "AVG ${x.text}"`,
+        (x && x.avgPerMatch) ? `sum(${selectVal[x.key]})::numeric/count(distinct matches.match_id) avg` : `${x && x.avg ? x.avg : `avg(${selectVal[x.key]})`} "AVG ${x.text}"`,
         'count(distinct matches.match_id) count',
         'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
         `((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) 
@@ -139,7 +139,7 @@ ${(validate(groupArray)) ?
   `,
       ].filter(Boolean).join(',\n'))) || '' : ''}
 ${!validate(groupArray) && validate(selectArray) ?
-    [validate(selectArray) ? selectArray.map(x => `${x.value} AS ${x.alias || ''}`) : '',
+    [validate(selectArray) ? selectArray.map(x => `${x.value} ${x.alias || ''}`) : '',
       'matches.match_id',
       'matches.start_time',
       '((player_matches.player_slot < 128) = matches.radiant_win) win',
@@ -181,12 +181,8 @@ ${validate(isTi7Team) ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375
 ${validate(groupArray) ? 'GROUP BY' : ''}${(validate(groupArray) && groupArray.map(x => ` ${groupVal[x.key]}`)) || ''}
 ${validate(groupArray) ? `HAVING count(distinct matches.match_id) >= ${(validate(having) && having[0].value) || '1'}` : ''}
 ORDER BY ${
-  [`${(validate(groupArray) && validate(selectArray) && selectArray.map(x => `"AVG ${x.text}" 
-    ${order ? (Array.isArray(order) && order.length > 0 && order[0].value) || order.value : 'DESC'}`)) ||
-    (validate(selectArray) && selectArray.map(x => `${x.value} 
-    ${order ? (Array.isArray(order) && order.length > 0 && order[0].value) || order.value : 'DESC'}`).join(','))
-      || 'matches.match_id'}
-    `,
+  [`${(validate(groupArray) && validate(selectArray) && selectArray.map(x => `"AVG ${x.text}" ${validate(order) ? (Array.isArray(order) && order.length > 0 && order[0].value) || order.value : 'DESC'}`)) ||
+    (validate(selectArray) && selectArray.map(x => `${x.value} ${validate(order) ? (Array.isArray(order) && order.length > 0 && order[0].value) || order.value : 'DESC'}`).join(',')) || 'matches.match_id'}`,
   validate(groupArray) ? 'count DESC' : '',
   ].filter(Boolean).join(',')} NULLS LAST
 LIMIT ${validate(limit) ? limit[0].value : 200}`;
