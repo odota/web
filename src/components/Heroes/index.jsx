@@ -100,7 +100,13 @@ class RequestLayer extends React.Component {
             icon=""
             twoLine
           />
-          <Table data={data} columns={_columns} loading={loading} />
+          <div style={{position:"relative"}}>
+            <Table data={data} columns={_columns} loading={loading} />
+            <Table data={data} columns={[_columns[0]]} loading={loading} fixedStyle={{
+              position: "absolute",
+              top: "0px"
+            }}/>
+          </div>
         </div>),
       route: '/heroes/public',
     }];

@@ -61,8 +61,17 @@ export const StyledBody = styled.div`
     overflow-y: hidden !important;
     overflow-x: auto !important;
   }
+  .innerContainerFixed {
+    width: 216px;
+    & div > div {
+      overflow-x: hidden !important;
+    }
+    table {
+      background-color: rgb(46, 47, 64) !important;
+    }
+  }
   @media only screen and (max-width: 960px) {
-    .innerContainer {
+    .innerContainer, .innerContainerFixed {
       margin: 0 -25px;
     }
   }

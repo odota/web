@@ -134,7 +134,7 @@ class Table extends React.Component {
       data = data.slice(currentPage * pageLength, (currentPage + 1) * pageLength);
     }
     return (
-      <StyledBody>
+      <StyledBody style={this.props.fixedStyle}>
         {paginated && <Pagination
           numPages={Math.ceil(dataLength / pageLength)}
           currentPage={currentPage}
@@ -148,7 +148,7 @@ class Table extends React.Component {
           {!loading && error && <Error />}
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
-          <div className="innerContainer">
+          <div className={this.props.fixedStyle ? "innerContainerFixed" : "innerContainer"}>
             <MaterialTable fixedHeader={false} selectable={false}>
               <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableHeader
