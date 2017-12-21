@@ -55,7 +55,7 @@ class ExplorerFormField extends React.Component {
   }
   render() {
     const {
-      fields, label, builderField, handleFieldUpdate, isDateField, builder,
+      fields, label, builderField, handleFieldUpdate, isDateField, builder, chipLimit,
     } = this.props;
     const dataSource = fields && fields[builderField];
     const fieldWidth = 280;
@@ -85,7 +85,7 @@ class ExplorerFormField extends React.Component {
             formSelectionState={builder}
             filter={AutoComplete.caseInsensitiveFilter}
             strict
-            limit={10}
+            limit={chipLimit}
             addChip={this.addChip}
             deleteChip={this.deleteChip}
           />
@@ -101,6 +101,11 @@ ExplorerFormField.propTypes = {
   handleFieldUpdate: PropTypes.func,
   isDateField: PropTypes.bool,
   builder: PropTypes.func,
+  chipLimit: PropTypes.number,
+};
+
+ExplorerFormField.defaultProps = {
+  chipLimit: 10,
 };
 
 export default ExplorerFormField;
