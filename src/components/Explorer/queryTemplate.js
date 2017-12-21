@@ -160,7 +160,7 @@ ${validate(selectArray) ? selectArray.map(x => (x.join ? x.join : '')).join('') 
 ${validate(selectArray) ? selectArray.map(x => (x.joinFn ? x.joinFn(props) : '')).join('') : ''}
 WHERE TRUE
 ${validate(selectArray) ? selectArray.map(x => `AND ${x.value} IS NOT NULL `).join('') : ''}
-${validate(minPatch) ? templ`match_patch.patch >= '${maxPatch}'` : ''}
+${validate(minPatch) ? templ`match_patch.patch >= '${minPatch}'` : ''}
 ${validate(maxPatch) ? templ`match_patch.patch <= '${maxPatch}'` : ''}
 ${validate(hero) ? templ`player_matches.hero_id = ${hero}` : ''}
 ${validate(player) ? templ`player_matches.account_id = ${player}` : ''}
