@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 import DatePicker from 'material-ui/DatePicker';
 import FormField from 'components/Form/FormField';
+import explorerFields  from 'components/Explorer/fields';
 
 class ExplorerFormField extends React.Component {
   constructor() {
@@ -59,6 +60,16 @@ class ExplorerFormField extends React.Component {
     } = this.props;
     const dataSource = fields && fields[builderField];
     const fieldWidth = 280;
+    const translatedBuilder = {}
+    if (builder && builder) {
+    Object.keys(builder).forEach( function(field)  {
+      if (Array.isArray(builder[field])) {
+        translatedBuilder[field] = builder[field].map( function(x) {
+          let name = explorerFields()[field].find(f => f.key === x)
+          name = name ? name.text : x
+          return name
+      })}  
+    })}
     if (isDateField) {
       return (
         <span style={{ width: fieldWidth }}>
@@ -82,7 +93,7 @@ class ExplorerFormField extends React.Component {
             name={builderField}
             label={label}
             dataSource={dataSource}
-            formSelectionState={builder}
+            formSelectionState={translatedBuilder}
             filter={AutoComplete.caseInsensitiveFilter}
             strict
             limit={chipLimit}
