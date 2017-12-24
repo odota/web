@@ -72,6 +72,14 @@ export const StyledBody = styled.div`
       margin: 0 -25px;
     }
   }
+  @media only screen and (max-width: 450px) {
+    .textContainer {
+      display: none;
+    }
+    .innerContainerFixed {
+      width: 95px;
+    }
+  }
 `;
 export const StyledContainer = styled.div`
   min-width: 100%;
