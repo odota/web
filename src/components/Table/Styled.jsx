@@ -3,7 +3,7 @@ import constants from '../constants';
 
 export const StyledBody = styled.div`
   table {
-    background-color: transparent !important;
+    /*background-color: transparent !important;*/
     table-layout: auto !important;
     margin-bottom: 20px;
 
@@ -65,9 +65,6 @@ export const StyledBody = styled.div`
     width: 216px;
     & div > div {
       overflow-x: hidden !important;
-    }
-    table {
-      background-color: rgb(46, 47, 64) !important;
     }
   }
   @media only screen and (max-width: 960px) {
