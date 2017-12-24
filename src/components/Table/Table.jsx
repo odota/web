@@ -148,7 +148,7 @@ class Table extends React.Component {
           {!loading && error && <Error />}
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
-          <div className={this.props.fixedStyle ? "innerContainerFixed" : "innerContainer"}>
+          <div className={this.props.fixedStyle ? 'innerContainerFixed' : 'innerContainer'}>
             <MaterialTable fixedHeader={false} selectable={false}>
               <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableHeader
@@ -276,6 +276,7 @@ Table.propTypes = {
   paginated: bool,
   placeholderMessage: string,
   pageLength: number,
+  fixedStyle: shape({}).isRequired,
 };
 
 export default Table;
