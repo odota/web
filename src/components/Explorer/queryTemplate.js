@@ -25,7 +25,7 @@ function validate(p) {
 const queryTemplate = (props) => {
   const {
     select,
-    group = select && select.groupValue ? { value: select.groupKey, groupKeySelect: select.groupKeySelect, alias: select.alias } : null,
+    group,
     minPatch,
     maxPatch,
     hero,
@@ -58,7 +58,7 @@ const queryTemplate = (props) => {
   let query;
   let groupArray = [];
   let selectArray = [];
-  // console.log(props)
+  console.log(props)
   if (!(Array.isArray(group))) {
     groupArray.push(group);
   } else {
@@ -69,6 +69,25 @@ const queryTemplate = (props) => {
   } else {
     selectArray = select;
   }
+  selectArray = selectArray.filter(function(x) { return x !== undefined})
+  groupArray = groupArray.filter(function(x) { return x !== undefined})
+  //select && select.groupValue ? { value: select.groupKey, groupKeySelect: select.groupKeySelect, alias: select.alias } : null,
+  selectArray.forEach( function(x, index) {
+    if (x && x.groupValue) {
+      let a = {value: x.groupKey, groupKeySelect: x.groupKeySelect, alias: x.alias, key: "key" + index.toString()}
+      if (x.groupKey === "key") {
+        a.value = "key" + index.toString() + ".key"
+        x.value = "key" + index.toString() + ".key"
+        x.join = x.join + " key" +  index.toString()
+        x.groupValue = "key" + index.toString() + "." + x.groupValue 
+
+      }
+      groupArray.push(a)
+    }
+  }    
+  )
+  console.log(selectArray)
+  console.log(groupArray)
   if (selectArray && selectArray.template === 'picks_bans') {
     query = `SELECT
 hero_id, 
@@ -116,6 +135,8 @@ ORDER BY total ${(order && order.value) || 'DESC'}`;
     if (validate(selectArray)) {
       selectArray.forEach((x) => { selectVal[x.key] = x.groupValue || (x && x.value) || 1; });
     }
+    console.log(selectVal)
+    console.log(groupVal)
     query = `SELECT
     ${validate(selectArray) ? selectArray.map(x => (x.distinct && !validate(groupArray) ? `DISTINCT ON (${x.value})` : '')).join('') : ''}\
     ${(validate(groupArray)) ?
@@ -125,7 +146,7 @@ ${(validate(groupArray)) ?
     (validate(selectArray) && selectArray.map(x =>
       [
         (x && x.countValue) || '',
-        (x && x.avgPerMatch) ? `sum(${selectVal[x.key]})::numeric/count(distinct matches.match_id) avg` : `${x && x.avg ? x.avg : `avg(${selectVal[x.key]})`} "AVG ${x.text}"`,
+        (x && x.avgPerMatch) ? `sum(${selectVal[x.key]})::numeric/count(distinct matches.match_id) "AVG ${x.text}"` : `${x && x.avg ? x.avg : `avg(${selectVal[x.key]})`} "AVG ${x.text}"`,
         'count(distinct matches.match_id) count',
         'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
         `((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) 
