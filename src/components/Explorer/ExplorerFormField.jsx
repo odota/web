@@ -43,7 +43,7 @@ class ExplorerFormField extends React.Component {
   }
   addChip(name, input, limit) {
     const currentChips = [].concat(this.props.builder[name] || []);
-    const newChips = [input.key].concat(currentChips).slice(0, limit);
+    const newChips = currentChips.includes(input.key) ? currentChips : [input.key].concat(currentChips).slice(0, limit);
     this.props.handleFieldUpdate(name, newChips);
   }
   deleteChip(name, index) {
