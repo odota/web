@@ -178,8 +178,8 @@ LEFT JOIN notable_players ON notable_players.account_id = player_matches.account
 LEFT JOIN teams using(team_id)
 ${organization || (groupArray !== null && groupArray.length > 0 && groupArray[0] && groupArray.some(x => x.key === 'organization')) ?
     'JOIN team_match ON matches.match_id = team_match.match_id AND (player_matches.player_slot < 128) = team_match.radiant JOIN teams teams2 ON team_match.team_id = teams2.team_id' : ''}
-${validate(selectArray) ? selectArray.map(x => (x.join ? x.join : '')).join('') : ''}
 ${validate(selectArray) ? selectArray.map(x => (x.joinFn ? x.joinFn(props) : '')).join('') : ''}
+${validate(selectArray) ? selectArray.map(x => (x.join ? x.join : '')).join('') : ''}
 WHERE TRUE
 ${validate(selectArray) ? selectArray.map(x => `AND ${x.value} IS NOT NULL `).join('') : ''}
 ${validate(minPatch) ? templ`match_patch.patch >= '${minPatch}'` : ''}
