@@ -58,7 +58,6 @@ const queryTemplate = (props) => {
   let query;
   let groupArray = [];
   let selectArray = [];
-  console.log(props);
   if (!(Array.isArray(group))) {
     groupArray.push(group);
   } else {
@@ -71,7 +70,6 @@ const queryTemplate = (props) => {
   }
   selectArray = selectArray.filter(x => x !== undefined);
   groupArray = groupArray.filter(x => x !== undefined);
-  // select && select.groupValue ? { value: select.groupKey, groupKeySelect: select.groupKeySelect, alias: select.alias } : null,
   selectArray.forEach((x, index) => {
     if (x && x.groupValue) {
       const a = {
@@ -87,8 +85,6 @@ const queryTemplate = (props) => {
       groupArray.push(a);
     }
   });
-  console.log(selectArray);
-  console.log(groupArray);
   if (selectArray && selectArray.template === 'picks_bans') {
     query = `SELECT
 hero_id, 
@@ -136,8 +132,6 @@ ORDER BY total ${(order && order.value) || 'DESC'}`;
     if (validate(selectArray)) {
       selectArray.forEach((x) => { selectVal[x.key] = x.groupValue || (x && x.value) || 1; });
     }
-    console.log(selectVal);
-    console.log(groupVal);
     query = `SELECT
     ${validate(selectArray) ? selectArray.map(x => (x.distinct && !validate(groupArray) ? `DISTINCT ON (${x.value})` : '')).join('') : ''}\
     ${(validate(groupArray)) ?
