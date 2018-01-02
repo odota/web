@@ -14,7 +14,6 @@ import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import { StyledBody, StyledContainer } from './Styled';
-import ReactDOM from 'react-dom';
 
 const getColumnMax = (data, field, getValue) => {
   const valuesArr = data.reduce((arr, row) => {
