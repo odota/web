@@ -14,6 +14,7 @@ import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import { StyledBody, StyledContainer } from './Styled';
+import ReactDOM from 'react-dom';
 
 const getColumnMax = (data, field, getValue) => {
   const valuesArr = data.reduce((arr, row) => {
@@ -149,7 +150,7 @@ class Table extends React.Component {
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
           <div className={this.props.fixedStyle ? 'innerContainerFixed' : 'innerContainer'}>
-            <MaterialTable fixedHeader={false} selectable={false}>
+            <MaterialTable fixedHeader={true} selectable={false} className={this.props.rootTable ? 'rootTable' : ''}>
               <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableHeader
                   columns={columns}
