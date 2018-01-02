@@ -5,7 +5,7 @@ import {
   transformations,
   fromNow,
 } from 'utility';
-import Table from 'components/Table';
+import Table, { TableLink } from 'components/Table';
 import Container from 'components/Container';
 // import { List } from 'material-ui/List';
 
@@ -30,6 +30,9 @@ const proColumns = [{
 }, {
   displayName: strings.th_team_name,
   field: 'team_name',
+  displayFn: (row, col, field) => (
+    <TableLink to={`/teams/${row.team_id}`}>{field}</TableLink>
+  ),
 }];
 
 const Search = ({
