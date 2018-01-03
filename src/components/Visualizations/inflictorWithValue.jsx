@@ -8,6 +8,8 @@ import strings from 'lang';
 import styled from 'styled-components';
 import constants from '../constants';
 
+const customItemIcon = ['kaya', 'aeon_disk'];
+
 const StyledDiv = styled.div`
 .inflictorWithValue {
   position: relative;
@@ -203,7 +205,11 @@ export default (inflictor, value, type, ptooltip) => {
       }
       tooltip = tooltipContainer(ability);
     } else if (item) {
-      image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`;
+      if (customItemIcon.includes(inflictor)) {
+        image = `/assets/images/dota2/items/${inflictor}.png`;
+      } else {
+        image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${inflictor}_lg.png`;
+      }
       tooltip = tooltipContainer(item);
     } else {
       image = '/assets/images/default_attack.png';
