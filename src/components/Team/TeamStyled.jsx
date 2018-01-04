@@ -36,7 +36,7 @@ export const TeamStatsCard = styled(CardTitle)`
 export const Logo = styled.img`
   margin-left: 30px;
   margin-right: 30px;
-  max-height: 124px;
+  width: 124px;
   @media only screen and (max-width: 768px) {
     margin-left: auto;
     margin-right: auto;
@@ -45,8 +45,8 @@ export const Logo = styled.img`
 
 export const TableImage = styled.img`
   margin-right: 10px;
-  width: 29px;
-  max-height: 29px;
+  width: 35px;
+  max-height: 45px;
 `;
 
 export const TeamName = styled.span`
