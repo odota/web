@@ -31,7 +31,7 @@ const proColumns = [{
   displayName: strings.th_team_name,
   field: 'team_name',
   displayFn: (row, col, field) => (
-    <TableLink to={`/teams/${row.team_id}`}>{field}</TableLink>
+    <TableLink to={`/teams/${row.team_id}`}>{field || strings.general_unknown}</TableLink>
   ),
 }];
 

@@ -1,9 +1,11 @@
 import React from 'react';
 import heroes from 'dotaconstants/build/heroes.json';
 import strings from 'lang';
-import { transformations, subTextStyle } from 'utility';
+import { transformations, subTextStyle, getTeamLogoUrl } from 'utility';
 import { TableLink } from 'components/Table';
 import constants from '../constants';
+import { TableRow, TableImage } from './TeamStyled';
+import proPlayerImages from './proPlayerImages';
 
 const displayResult = (row) => {
   const won = row.radiant_win === row.radiant;
@@ -12,6 +14,13 @@ const displayResult = (row) => {
   return (
     <span style={{ color: textColor }}>{string}</span>
   );
+};
+
+const getPlayerImageUrl = (accountId) => {
+  if (proPlayerImages.indexOf(accountId) !== -1) {
+    return `/assets/images/dota2/players/${accountId}.png`;
+  }
+  return '/assets/images/dota2/players/portrait.png';
 };
 
 export const matchColumns = [{
@@ -40,7 +49,10 @@ export const matchColumns = [{
   field: 'opposing_team_name',
   sortFn: true,
   displayFn: (row, col, field) => (
-    <TableLink to={`/teams/${row.opposing_team_id}`}>{field || strings.general_unknown}</TableLink>
+    <TableRow>
+      <TableImage src={getTeamLogoUrl(row.opposing_team_logo)} alt="" />
+      <TableLink to={`/teams/${row.opposing_team_id}`}>{field || strings.general_unknown}</TableLink>
+    </TableRow>
   ),
 },
 ];
@@ -50,7 +62,10 @@ export const memberColumns = [{
   field: 'name',
   sortFn: true,
   displayFn: (row, col, field) => (
-    <TableLink to={`/players/${row.account_id}`}>{field || strings.general_unknown}</TableLink>
+    <TableRow>
+      <TableImage src={getPlayerImageUrl(row.account_id)} />
+      <TableLink to={`/players/${row.account_id}`}>{field || strings.general_unknown}</TableLink>
+    </TableRow>
   ),
 }, {
   displayName: strings.th_games_played,

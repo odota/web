@@ -43,6 +43,12 @@ export const Logo = styled.img`
   }
 `;
 
+export const TableImage = styled.img`
+  margin-right: 10px;
+  width: 29px;
+  max-height: 29px;
+`;
+
 export const TeamName = styled.span`
   color: rgba(245, 245, 245, 0.870588);
   font-size: 28px;
@@ -71,6 +77,12 @@ export const Row = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+`;
+
+export const TableRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const MatchesContainer = styled.div`

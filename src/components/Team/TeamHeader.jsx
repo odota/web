@@ -1,12 +1,13 @@
 import React from 'react';
 import strings from 'lang';
+import { getTeamLogoUrl } from 'utility';
 import { HeaderContainer, Logo, Column, TeamName, Row, TeamStatsCard } from './TeamStyled';
 
 export default generalData => (
   <HeaderContainer loading={generalData.loading} error={generalData.error}>
     <Logo
-      src={generalData.data.logo_url}
-      alt="Team logo"
+      src={getTeamLogoUrl(generalData.data.logo_url)}
+      alt=""
     />
     <Column>
       <TeamName>{generalData.data.name}</TeamName>
