@@ -45,7 +45,7 @@ export const matchColumns = [{
   displayName: strings.th_result,
   displayFn: displayResult,
 }, {
-  displayName: 'Opposing team',
+  displayName: strings.th_opposing_team,
   field: 'opposing_team_name',
   sortFn: true,
   displayFn: (row, col, field) => (

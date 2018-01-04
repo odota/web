@@ -28,7 +28,7 @@ export default {
       </MatchesContainer>
       <MemberAndHeroContainer>
         <Container
-          title="Current Members"
+          title={strings.heading_current_players}
           loading={playerData.loading}
           error={playerData.error}
         >

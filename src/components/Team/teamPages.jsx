@@ -38,12 +38,12 @@ const teamPages = [Overview, {
     </Container>
   ),
 }, {
-  name: 'Members',
-  key: 'members',
+  name: strings.tab_players,
+  key: 'players',
   content: (generalData, matchData, heroData, playerData) => (
     <div>
       <Container
-        title="Current Members"
+        title={strings.heading_current_players}
         loading={playerData.loading}
         error={playerData.error}
       >
@@ -53,7 +53,7 @@ const teamPages = [Overview, {
         />
       </Container>
       <Container
-        title="Former Members"
+        title={strings.heading_former_players}
         loading={playerData.loading}
         error={playerData.error}
       >
