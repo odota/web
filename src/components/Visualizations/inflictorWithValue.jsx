@@ -8,7 +8,7 @@ import strings from 'lang';
 import styled from 'styled-components';
 import constants from '../constants';
 
-const customItemIcon = ['kaya', 'aeon_disk'];
+const customItemIcon = ['kaya', 'aeon_disk', 'nullifier', 'spirit_vessel', 'meteor_hammer'];
 
 const StyledDiv = styled.div`
 .inflictorWithValue {
