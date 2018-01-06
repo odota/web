@@ -17,7 +17,7 @@ const displayResult = (row) => {
 };
 
 const getPlayerImageUrl = (accountId) => {
-  if (proPlayerImages.indexOf(accountId) !== -1) {
+  if (proPlayerImages[accountId]) {
     return `/assets/images/dota2/players/${accountId}.png`;
   }
   return '/assets/images/dota2/players/portrait.png';
