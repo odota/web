@@ -118,6 +118,7 @@ class Table extends React.Component {
       paginated,
       placeholderMessage,
       pageLength = 20,
+      fixedHeader,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage,
@@ -134,7 +135,7 @@ class Table extends React.Component {
       data = data.slice(currentPage * pageLength, (currentPage + 1) * pageLength);
     }
     return (
-      <StyledBody style={this.props.fixedStyle}>
+      <StyledBody>
         {paginated && <Pagination
           numPages={Math.ceil(dataLength / pageLength)}
           currentPage={currentPage}
@@ -148,8 +149,8 @@ class Table extends React.Component {
           {!loading && error && <Error />}
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
-          <div className={this.props.fixedStyle ? 'innerContainerFixed' : 'innerContainer'}>
-            <MaterialTable fixedHeader={true} selectable={false} className={this.props.rootTable ? 'rootTable' : ''}>
+          <div className="innerContainer">
+            <MaterialTable fixedHeader={fixedHeader} selectable={false}>
               <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableHeader
                   columns={columns}
@@ -276,7 +277,7 @@ Table.propTypes = {
   paginated: bool,
   placeholderMessage: string,
   pageLength: number,
-  fixedStyle: shape({}).isRequired,
+  fixedHeader: bool,
 };
 
 export default Table;
