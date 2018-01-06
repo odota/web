@@ -10,8 +10,11 @@ const FixedTableWrapper = styled.div`
         .innerContainer>div>div>table {
             margin-bottom: 0px;
         }
-        .innerContainer>div>div:first-child>table>thead>tr>th:first-child {
-            min-width: 188px;
+        .innerContainer>div>div:first-child>table>thead>tr>th {
+            min-width: 55px;
+            &:first-child {
+                min-width: 188px;
+            }
         }
     }
 
@@ -30,24 +33,21 @@ const FixedTableWrapper = styled.div`
     }
 `;
 
-const addVerticalScrollListener = () => {
+const addScrollListener = () => {
   const tableBodyEl = document.querySelector('.baseTable .innerContainer>div>div:nth-child(2)');
   const heroTableEl = document.querySelector('.fixedTable .innerContainer>div>div:nth-child(2)');
+  const fixedHeaderTableEl = document.querySelector('.baseTable .innerContainer>div>div:nth-child(1)');
   if (heroTableEl && tableBodyEl) {
     tableBodyEl.onscroll = () => {
       heroTableEl.scrollTop = tableBodyEl.scrollTop;
+      fixedHeaderTableEl.scrollLeft = tableBodyEl.scrollLeft;
     };
   }
 };
 
-const addHorizontalScrollListener = () => {
-  // TODO: add horizontal scroll for header
-};
-
 class FixedTable extends React.Component {
   componentDidUpdate() {
-    addVerticalScrollListener();
-    addHorizontalScrollListener();
+    addScrollListener();
   }
 
   render() {
