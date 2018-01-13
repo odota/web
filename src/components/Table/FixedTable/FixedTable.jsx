@@ -25,11 +25,20 @@ const FixedTableWrapper = styled.div`
     .baseTable {
         .innerContainer>div>div>table {
             margin-bottom: 0px;
+            &>tbody>tr>td:nth-child(n+1) {
+              min-width: 74px;
+            }
         }
         .innerContainer>div>div:first-child>table>thead>tr>th {
-            min-width: 55px;
+            min-width: 74px;
             &:first-child {
                 min-width: 188px;
+            }
+            &:nth-child(2) {
+              padding-left: 27px !important;
+            }
+            &:last-child {
+              padding-right: 39px !important;
             }
         }
     }
