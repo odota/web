@@ -3,13 +3,8 @@ import constants from '../constants';
 
 export const StyledBody = styled.div`
   table {
-    /*background-color: transparent !important;*/
     table-layout: auto !important;
     margin-bottom: 20px;
-
-    &.rootTable {
-      margin-bottom: 0px;
-    }
 
     & th {
       background-color: rgba(0, 0, 0, 0.3);
@@ -68,26 +63,9 @@ export const StyledBody = styled.div`
   .innerContainer > div > div:first-child {
     overflow-x: hidden !important;
   }
-  .innerContainerFixed {
-    width: 216px;
-    & > div > div {
-      overflow-x: hidden !important;
-      overflow-y: hidden !important;
-      margin-bottom: -20px; /* For scroll bar of unfixed content to be visible */
-      max-height: 400px;
-    }
-  }
   @media only screen and (max-width: 960px) {
-    .innerContainer, .innerContainerFixed {
+    .innerContainer {
       margin: 0 -25px;
-    }
-  }
-  @media only screen and (max-width: 450px) {
-    .textContainer {
-      display: none;
-    }
-    .innerContainerFixed {
-      width: 95px;
     }
   }
 `;

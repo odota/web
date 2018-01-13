@@ -6,6 +6,22 @@ import PropTypes from 'prop-types';
 const FixedTableWrapper = styled.div`
     position: relative;
     
+    @media only screen and (max-width: 450px) {
+      .fixedTable {
+        width: auto !important;
+        margin-left: -30px;
+        padding-left: 30px;
+      }
+      .fixedTable, .baseTable {
+        .textContainer {
+          display: none;
+        }
+        .innerContainer>div>div:first-child>table>thead>tr>th:first-child {
+          min-width: 55px !important;
+        }
+      }
+    }
+
     .baseTable {
         .innerContainer>div>div>table {
             margin-bottom: 0px;
@@ -57,14 +73,14 @@ class FixedTable extends React.Component {
     return (
       <FixedTableWrapper>
         <div className="baseTable">
-          <Table data={data} columns={columns} loading={loading} rootTable fixedHeader />
+          <Table data={data} columns={columns} loading={loading} fixedHeader />
         </div>
         {
-                    !loading &&
-                    <div className="fixedTable">
-                      <Table data={data} columns={[fixedColumn]} loading={false} />
-                    </div>
-                }
+          !loading &&
+          <div className="fixedTable">
+            <Table data={data} columns={[fixedColumn]} loading={false} />
+          </div>
+        }
       </FixedTableWrapper>
     );
   }
