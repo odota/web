@@ -70,6 +70,11 @@ const queryTemplate = (props) => {
   }
   selectArray = selectArray.filter(x => x !== undefined);
   groupArray = groupArray.filter(x => x !== undefined);
+  groupArray.forEach((x) => {
+    if (x.json_each) {
+      selectArray.push(x);
+    }
+  });
   selectArray.forEach((x, index) => {
     if (x && x.groupValue) {
       const a = {
