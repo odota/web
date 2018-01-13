@@ -75,6 +75,7 @@ const queryTemplate = (props) => {
       selectArray.push(x);
     }
   });
+  groupArray = groupArray.filter(x => !x.json_each);
   selectArray.forEach((x, index) => {
     if (x && x.groupValue) {
       const a = {
