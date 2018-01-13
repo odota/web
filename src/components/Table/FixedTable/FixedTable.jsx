@@ -20,6 +20,13 @@ const FixedTableWrapper = styled.div`
           min-width: 55px !important;
         }
       }
+      .baseTable {
+        .innerContainer>div>div:first-child>table>thead>tr>th {
+          &:nth-child(2) {
+            padding-left: 27px !important;
+          } 
+        }
+      }
     }
 
     .baseTable {
@@ -33,9 +40,6 @@ const FixedTableWrapper = styled.div`
             min-width: 74px;
             &:first-child {
                 min-width: 188px;
-            }
-            &:nth-child(2) {
-              padding-left: 27px !important;
             }
             &:last-child {
               padding-right: 39px !important;
