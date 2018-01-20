@@ -235,8 +235,8 @@ class FirstbloodEvent extends StoryEvent {
       this.victim = match.players[obj.key];
     } else {
       const killerLog = this.killer.kills_log;
-      const victim_hero = (Array.isArray(killerLog) && killerLog[0] ? killerLog[0].key : null);
-      const foundHero = heroesArr('find')(hero => hero.name === victim_hero);
+      const victimHero = (Array.isArray(killerLog) && killerLog[0] ? killerLog[0].key : null);
+      const foundHero = heroesArr('find')(hero => hero.name === victimHero);
       this.victim = match.players.find(player => foundHero && player.hero_id === foundHero.id);
     }
   }
