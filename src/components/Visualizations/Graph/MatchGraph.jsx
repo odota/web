@@ -22,11 +22,12 @@ import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHold
 const formatGraphTime = minutes => `${minutes}:00`;
 
 const generateDiffData = (match) => {
-  const { radiant_gold_adv, radiant_xp_adv } = match;
+  const radiantGoldAdv = match.radiant_gold_adv;
+  const radiantXpAdv = match.radiant_xp_adv;
   const data = [];
-  radiant_xp_adv.forEach((rXpAdv, index) => {
+  radiantXpAdv.forEach((rXpAdv, index) => {
     if (index <= Math.floor(match.duration / 60)) {
-      data.push({ time: index, rXpAdv, rGoldAdv: radiant_gold_adv[index] });
+      data.push({ time: index, rXpAdv, rGoldAdv: radiantGoldAdv[index] });
     }
   });
   return data;
