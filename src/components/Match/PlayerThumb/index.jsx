@@ -45,8 +45,8 @@ const {
 } = PropTypes;
 
 PlayerThumb.propTypes = {
-  playerSlot: oneOfType([string, number]),
-  heroId: oneOfType([string, number]),
+  player_slot: oneOfType([string, number]),
+  hero_id: oneOfType([string, number]),
   name: string,
   personaname: string,
   hideText: bool,
