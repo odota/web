@@ -27,18 +27,18 @@ const PlayerThumb = (props) => {
   const playerSlot = props.player_slot;
   const heroId = props.hero_id;
   return (
-  <StyledAside style={{ color: playerColors[playerSlot] }}>
-    <StyledImg
-      src={heroes[heroId]
-        ? `${process.env.REACT_APP_API_HOST}${heroes[heroId].icon}`
-        : '/assets/images/blank-1x1.gif'
-      }
-      alt=""
-    />
-    {!hideText && (name || personaname || strings.general_anonymous)}
-  </StyledAside>
+    <StyledAside style={{ color: playerColors[playerSlot] }}>
+      <StyledImg
+        src={heroes[heroId]
+          ? `${process.env.REACT_APP_API_HOST}${heroes[heroId].icon}`
+          : '/assets/images/blank-1x1.gif'
+        }
+        alt=""
+      />
+      {!hideText && (name || personaname || strings.general_anonymous)}
+    </StyledAside>
   );
-}
+};
 
 const {
   string, oneOfType, number, bool,
