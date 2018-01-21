@@ -19,12 +19,12 @@ const StyledImg = styled.img`
 `;
 
 const PlayerThumb = ({
-  player_slot, hero_id, name, personaname, hideText,
+  playerSlot, heroId, name, personaname, hideText,
 }) => (
-  <StyledAside style={{ color: playerColors[player_slot] }}>
+  <StyledAside style={{ color: playerColors[playerSlot] }}>
     <StyledImg
-      src={heroes[hero_id]
-        ? `${process.env.REACT_APP_API_HOST}${heroes[hero_id].icon}`
+      src={heroes[heroId]
+        ? `${process.env.REACT_APP_API_HOST}${heroes[heroId].icon}`
         : '/assets/images/blank-1x1.gif'
       }
       alt=""
@@ -38,8 +38,8 @@ const {
 } = PropTypes;
 
 PlayerThumb.propTypes = {
-  player_slot: oneOfType([string, number]),
-  hero_id: oneOfType([string, number]),
+  playerSlot: oneOfType([string, number]),
+  heroId: oneOfType([string, number]),
   name: string,
   personaname: string,
   hideText: bool,
