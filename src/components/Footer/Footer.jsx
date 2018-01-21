@@ -3,7 +3,7 @@ import strings from 'lang';
 import styled from 'styled-components';
 import AppLogo from '../App/AppLogo';
 import PageLinks from './PageLinks';
-import Cheese from './Cheese';
+// import Cheese from './Cheese';
 import SocialLinks from './SocialLinks';
 import { IconSteam } from '../Icons';
 import constants from '../constants';
