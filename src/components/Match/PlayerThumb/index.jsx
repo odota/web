@@ -18,9 +18,15 @@ const StyledImg = styled.img`
   margin-right: 4px;
 `;
 
-const PlayerThumb = ({
-  playerSlot, heroId, name, personaname, hideText,
-}) => (
+const PlayerThumb = (props) => {
+  const {
+    name,
+    personaname,
+    hideText,
+  } = props;
+  const playerSlot = props.player_slot;
+  const heroId = props.hero_id;
+  return (
   <StyledAside style={{ color: playerColors[playerSlot] }}>
     <StyledImg
       src={heroes[heroId]
@@ -31,7 +37,8 @@ const PlayerThumb = ({
     />
     {!hideText && (name || personaname || strings.general_anonymous)}
   </StyledAside>
-);
+  );
+}
 
 const {
   string, oneOfType, number, bool,
