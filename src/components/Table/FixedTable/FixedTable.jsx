@@ -8,7 +8,7 @@ const FixedTableWrapper = styled.div`
     
     @media only screen and (max-width: 450px) {
       .fixedTable {
-        width: auto !important;
+        width: 85px;
         margin-left: -30px;
         padding-left: 30px;
       }
@@ -26,6 +26,20 @@ const FixedTableWrapper = styled.div`
             padding-left: 27px !important;
           } 
         }
+      }
+    }
+    
+    @media only screen and (max-width: 960px) and (min-width:450px) {
+      .fixedTable {
+        width: 195px;
+        margin-left: -25px;
+        padding-left: 25px;
+      }
+    }
+
+    @media only screen and (min-width: 960px) {
+      .fixedTable {
+        width: 220px;
       }
     }
 
@@ -51,7 +65,6 @@ const FixedTableWrapper = styled.div`
         position: absolute;
         top: 0px;
         overflow: hidden;
-        width: 220px;
         .innerContainer>div>div>table {
             margin-bottom: 0px;
         }
