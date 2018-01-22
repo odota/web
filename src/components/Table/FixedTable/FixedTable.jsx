@@ -70,6 +70,7 @@ const FixedTableWrapper = styled.div`
         }
         .innerContainer>div>div:nth-child(2) {
             overflow-y: hidden !important;
+            overflow-x: scroll !important;
             margin-bottom: -15px;
         }
     }
