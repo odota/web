@@ -140,6 +140,7 @@ class FormField extends React.Component {
           onUpdateInput={this.handleUpdateInput}
           searchText={searchText}
           errorText={errorText}
+          listStyle={{ maxHeight: 250, overflow: 'auto' }}
           style={{ flex: '1 0 0' }}
           floatingLabelFocusStyle={{ color: errorText ? colorRed : colorBlue }}
           underlineFocusStyle={{ borderColor: colorBlue }}
