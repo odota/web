@@ -491,6 +491,12 @@ export const getTeamName = (team, _isRadiant) => {
   return (team && team.name) ? team.name : strings.general_dire;
 };
 
+// Use proxy layer to serve team logos
+export const getTeamLogoUrl = (logoUrl) => {
+  const url = logoUrl ? `${process.env.REACT_APP_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}` : '';
+  return url;
+};
+
 /**
  * Converts an HSV color value to RGB. Conversion formula
  * adapted from http://en.wikipedia.org/wiki/HSV_color_space.
