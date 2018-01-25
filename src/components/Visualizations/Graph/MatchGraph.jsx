@@ -22,7 +22,7 @@ import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHold
 const formatGraphTime = minutes => `${minutes}:00`;
 
 const generateDiffData = (match) => {
-  const { radiant_gold_adv, radiant_xp_adv } = match; // eslint-disable-line camelcase
+  const { radiant_gold_adv, radiant_xp_adv } = match;
   const data = [];
   radiant_xp_adv.forEach((rXpAdv, index) => {
     if (index <= Math.floor(match.duration / 60)) {

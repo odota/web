@@ -12,14 +12,11 @@ function templ(strings, value) {
     });
     return `AND (${r.join(' OR ')})`;
   }
-  return `AND ${str0}${value.value}${str1}`;
+  return `AND ${str0}${value.value || value}${str1}`;
 }
 
 function validate(p) {
-  if (p !== null && p !== undefined && p.length > 0 && p[0] !== null && p[0] !== undefined) {
-    return true;
-  }
-  return false;
+  return p !== null && p !== undefined && p.length > 0 && p[0] !== null && p[0] !== undefined;
 }
 
 const queryTemplate = (props) => {
@@ -58,6 +55,14 @@ const queryTemplate = (props) => {
   let query;
   let groupArray = [];
   let selectArray = [];
+  let defaultMinDate;
+
+  // set default minDate to 30 days ago
+  if (!minDate) {
+    const today = new Date();
+    defaultMinDate = new Date().setDate(today.getDate() - 30);
+  }
+
   if (!(Array.isArray(group))) {
     groupArray.push(group);
   } else {
@@ -196,8 +201,8 @@ ${validate(team) ? templ`notable_players.team_id = ${team}` : ''}
 ${validate(organization) ? templ`team_match.team_id = ${organization} AND (player_matches.player_slot < 128) = team_match.radiant` : ''}
 ${validate(laneRole) ? templ`player_matches.lane_role = ${laneRole}` : ''}
 ${validate(region) ? templ`matches.cluster IN (${region})` : ''}
-${validate(minDate) ? templ`matches.start_time >= extract(epoch from timestamp '${new Date(minDate).toISOString()}')` : ''}
-${validate(maxDate) ? templ`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate).toISOString()}')` : ''}
+${templ`matches.start_time >= extract(epoch from timestamp '${new Date(defaultMinDate || minDate.value).toISOString()}')`}
+${maxDate ? templ`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${validate(tier) ? templ`leagues.tier = '${tier}'` : ''}
 ${validate(isTi7Team) ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 1333179, 3331948, 1846548)' : ''}
 ${validate(groupArray) ? 'GROUP BY' : ''}${(validate(groupArray) && groupArray.map(x => ` ${groupVal[x.key]}`)) || ''}

@@ -56,7 +56,7 @@ class ExplorerFormField extends React.Component {
   }
   render() {
     const {
-      fields, label, builderField, handleFieldUpdate, isDateField, builder, chipLimit,
+      fields, label, builderField, handleFieldUpdate, isDateField, builder, chipLimit, multipleSelect,
     } = this.props;
     const dataSource = fields && fields[builderField];
     const fieldWidth = 280;
@@ -90,7 +90,7 @@ class ExplorerFormField extends React.Component {
     }
     return (
       <span style={{ width: fieldWidth }}>
-        {
+        { multipleSelect ?
           <FormField
             name={builderField}
             label={label}
@@ -102,7 +102,22 @@ class ExplorerFormField extends React.Component {
             addChip={this.addChip}
             deleteChip={this.deleteChip}
           />
-      }
+      :
+          <AutoComplete
+            ref={(ref) => { this.autocomplete = ref; return null; }}
+            openOnFocus
+            listStyle={{ maxHeight: 400, overflow: 'auto' }}
+            fullWidth
+            filter={AutoComplete.caseInsensitiveFilter}
+            floatingLabelText={label}
+            dataSource={dataSource}
+            maxSearchResults={100}
+            onClick={this.resetField}
+            onNewRequest={(value, index) => {
+        handleFieldUpdate(builderField, index > -1 ? value.key : '');
+      }}
+          />
+    }
       </span>);
   }
 }
@@ -115,10 +130,12 @@ ExplorerFormField.propTypes = {
   isDateField: PropTypes.bool,
   builder: PropTypes.func,
   chipLimit: PropTypes.number,
+  multipleSelect: PropTypes.bool,
 };
 
 ExplorerFormField.defaultProps = {
   chipLimit: 10,
+  multipleSelect: false,
 };
 
 export default ExplorerFormField;

@@ -19,7 +19,7 @@ const StyledImg = styled.img`
 `;
 
 const PlayerThumb = ({
-  player_slot, hero_id, name, personaname, hideText, // eslint-disable-line camelcase
+  player_slot, hero_id, name, personaname, hideText,
 }) => (
   <StyledAside style={{ color: playerColors[player_slot] }}>
     <StyledImg
