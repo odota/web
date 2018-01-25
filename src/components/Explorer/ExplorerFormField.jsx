@@ -56,7 +56,7 @@ class ExplorerFormField extends React.Component {
   }
   render() {
     const {
-      fields, label, builderField, handleFieldUpdate, isDateField, builder, chipLimit, multipleSelect,
+      fields, label, builderField, handleFieldUpdate, isDateField, builder, chipLimit, multipleSelect, minDate,
     } = this.props;
     const dataSource = fields && fields[builderField];
     const fieldWidth = 280;
@@ -80,8 +80,7 @@ class ExplorerFormField extends React.Component {
             floatingLabelText={label}
             container="inline"
             autoOk
-            defaultDate={builder[builderField] ? new Date(builder[builderField]) : undefined}
-            onShow={this.resetField}
+            defaultDate={minDate ? new Date(new Date().setDate(new Date().getDate() - 30)) : undefined}
             onChange={(event, date) => {
             handleFieldUpdate(builderField, date.toISOString());
           }}
@@ -131,11 +130,13 @@ ExplorerFormField.propTypes = {
   builder: PropTypes.func,
   chipLimit: PropTypes.number,
   multipleSelect: PropTypes.bool,
+  minDate: PropTypes.bool,
 };
 
 ExplorerFormField.defaultProps = {
   chipLimit: 10,
   multipleSelect: false,
+  minDate: false,
 };
 
 export default ExplorerFormField;
