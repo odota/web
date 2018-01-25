@@ -29,6 +29,6 @@ export default [{
 }, {
   displayName: strings.th_rank,
   field: 'card',
-  sortFn: true,
+  sortFn: row => Math.max(100, roundUp(Math.floor(row.card * (1 - row.percent_rank)))),
   displayFn: row => `~${Math.max(100, roundUp(Math.floor(row.card * (1 - row.percent_rank))))}`,
 }];
