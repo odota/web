@@ -81,6 +81,7 @@ class ExplorerFormField extends React.Component {
             container="inline"
             autoOk
             defaultDate={minDate ? new Date(new Date().setDate(new Date().getDate() - 30)) : undefined}
+            onShow={minDate ? undefined : this.resetField}
             onChange={(event, date) => {
             handleFieldUpdate(builderField, date.toISOString());
           }}
