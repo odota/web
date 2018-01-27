@@ -94,6 +94,10 @@ class FixedTable extends React.Component {
     this.onSortCallback = this.onSortCallback.bind(this);
   }
 
+  componentDidMount() {
+    addScrollListener();
+  }
+
   componentDidUpdate() {
     addScrollListener();
   }
