@@ -48,6 +48,7 @@ const FixedTableWrapper = styled.div`
         background-color: rgb(46, 47, 64) !important;
       }
       .innerContainer > div > div {
+        overflow-y: auto !important;
         overflow-x: auto !important;
         max-height: 400px;
       }

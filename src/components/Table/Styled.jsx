@@ -57,6 +57,10 @@ export const StyledBody = styled.div`
   }
   /* Override material-ui style */
 
+  .innerContainer > div > div {
+    overflow-y: hidden !important;
+    overflow-x: auto !important;
+  }
   @media only screen and (max-width: 960px) {
     .innerContainer {
       margin: 0 -25px;
