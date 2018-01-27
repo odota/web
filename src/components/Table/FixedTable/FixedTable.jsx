@@ -118,7 +118,7 @@ class FixedTable extends React.Component {
         {
           !loading &&
           <div className="fixedTable">
-            <Table data={data} columns={[fixedColumn]} loading={false} ref={(fixedHeroColumn) => { this.fixedHeroColumn = fixedHeroColumn; }} />
+            <Table data={data} columns={[fixedColumn]} loading={false} fixedHeader ref={(fixedHeroColumn) => { this.fixedHeroColumn = fixedHeroColumn; }} />
           </div>
         }
       </FixedTableWrapper>

@@ -153,7 +153,7 @@ class Table extends React.Component {
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
           <div className="innerContainer">
-            <MaterialTable fixedHeader={fixedHeader} selectable={false}>
+            <MaterialTable fixedHeader={!!fixedHeader} selectable={false}>
               <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableHeader
                   columns={columns}
