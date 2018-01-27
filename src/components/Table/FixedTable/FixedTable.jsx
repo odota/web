@@ -43,6 +43,19 @@ const FixedTableWrapper = styled.div`
       }
     }
 
+    .baseTable, .fixedTable {
+      table {
+        background-color: rgb(46, 47, 64) !important;
+      }
+      .innerContainer > div > div {
+        overflow-x: auto !important;
+        max-height: 400px;
+      }
+      .innerContainer > div > div:first-child {
+        overflow-x: hidden !important;
+      }
+    }
+
     .baseTable {
         .innerContainer>div>div>table {
             margin-bottom: 0px;

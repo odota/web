@@ -3,6 +3,7 @@ import constants from '../constants';
 
 export const StyledBody = styled.div`
   table {
+    background-color: transparent !important;
     table-layout: auto !important;
     margin-bottom: 20px;
 
@@ -56,13 +57,6 @@ export const StyledBody = styled.div`
   }
   /* Override material-ui style */
 
-  .innerContainer > div > div {
-    overflow-x: auto !important;
-    max-height: 400px;
-  }
-  .innerContainer > div > div:first-child {
-    overflow-x: hidden !important;
-  }
   @media only screen and (max-width: 960px) {
     .innerContainer {
       margin: 0 -25px;
