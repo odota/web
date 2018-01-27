@@ -89,8 +89,17 @@ const addScrollListener = () => {
 };
 
 class FixedTable extends React.Component {
+  constructor() {
+    super();
+    this.onSortCallback = this.onSortCallback.bind(this);
+  }
+
   componentDidUpdate() {
     addScrollListener();
+  }
+
+  onSortCallback(sortField, sortState, sortFn) {
+    this.fixedHeroColumn.sortClick(sortField, sortState, sortFn);
   }
 
   render() {
@@ -100,12 +109,12 @@ class FixedTable extends React.Component {
     return (
       <FixedTableWrapper>
         <div className="baseTable">
-          <Table data={data} columns={columns} loading={loading} fixedHeader />
+          <Table data={data} columns={columns} loading={loading} fixedHeader onSortCallback={this.onSortCallback} />
         </div>
         {
           !loading &&
           <div className="fixedTable">
-            <Table data={data} columns={[fixedColumn]} loading={false} />
+            <Table data={data} columns={[fixedColumn]} loading={false} ref={(fixedHeroColumn) => { this.fixedHeroColumn = fixedHeroColumn; }} />
           </div>
         }
       </FixedTableWrapper>

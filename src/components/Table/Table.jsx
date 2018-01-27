@@ -95,6 +95,9 @@ class Table extends React.Component {
       sortField,
       sortFn,
     });
+    if (typeof this.props.onSortCallback === 'function') {
+      this.props.onSortCallback(sortField, sortState, sortFn);
+    }
   }
   nextPage() {
     this.setState({
@@ -265,6 +268,7 @@ const {
   shape,
   number,
   string,
+  func,
 } = PropTypes;
 
 Table.propTypes = {
@@ -278,6 +282,7 @@ Table.propTypes = {
   placeholderMessage: string,
   pageLength: number,
   fixedHeader: bool,
+  onSortCallback: func,
 };
 
 export default Table;
