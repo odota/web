@@ -505,6 +505,7 @@
   "pagination_first": "Перший",
   "pagination_last": "Остання",
   "pagination_of": "з",
+  "peers_none": "This player has no peers.",
   "rank_tier_0": "Невідкалібровано",
   "rank_tier_1": "Вісник",
   "rank_tier_2": "Охоронець",
@@ -682,6 +683,7 @@
   "th_gold": "З",
   "th_xp": "ОД",
   "th_abilities": "Здібності",
+  "th_target_abilities": "Ability Targets",
   "th_mmr": "Матчмейкінг",
   "th_level": "Рівень",
   "th_kills": "В",
@@ -748,6 +750,8 @@
   "th_observers_placed": "Спостерігачі",
   "th_camps_stacked": "Зроблено відводів",
   "th_league": "League",
+  "th_attack_type": "Attack Type",
+  "th_primary_attr": "Primary Attribute",
   "ward_log_type": "Тип",
   "ward_log_owner": "Власник",
   "ward_log_entered_at": "Розміщено",
@@ -882,6 +886,7 @@
   "tooltip_multikill": "Найдовша кількість вбивств поспіль",
   "tooltip_killstreak": "Найдовша череда вбивств",
   "tooltip_casts": "Кількість разів, що ця річ/здатність була використана",
+  "tooltip_target_abilities": "How many times each hero was targeted by this hero's abilities",
   "tooltip_hits": "Кількість випадків пошкодження героїв, викликаних цією здатністю/речью",
   "tooltip_damage": "Кількість пошкоджень викликаних цією здатністю/речью",
   "tooltip_autoattack_other": "Авто напад / інше",
@@ -902,6 +907,7 @@
   "xp_reasons_2": "Creep",
   "xp_reasons_3": "Рошан",
   "rankings_description": "",
+  "rankings_none": "This player is not ranked on any heroes.",
   "region_0": "Автоматично",
   "region_1": "Захід США",
   "region_2": "Схід США",
@@ -1103,5 +1109,6 @@
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
   "rune": "Rune",
-  "placement": "Placement"
+  "placement": "Placement",
+  "exclude_turbo_matches": "Exclude Turbo matches"
 }

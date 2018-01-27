@@ -505,6 +505,7 @@
   "pagination_first": "Prima",
   "pagination_last": "Ultimo",
   "pagination_of": "di",
+  "peers_none": "This player has no peers.",
   "rank_tier_0": "Uncalibrated",
   "rank_tier_1": "Herald",
   "rank_tier_2": "Guardian",
@@ -682,6 +683,7 @@
   "th_gold": "G",
   "th_xp": "XP",
   "th_abilities": "Abilità",
+  "th_target_abilities": "Ability Targets",
   "th_mmr": "MMR",
   "th_level": "LVL",
   "th_kills": "K",
@@ -748,6 +750,8 @@
   "th_observers_placed": "Observers",
   "th_camps_stacked": "Stacks",
   "th_league": "League",
+  "th_attack_type": "Attack Type",
+  "th_primary_attr": "Primary Attribute",
   "ward_log_type": "Tipo",
   "ward_log_owner": "Proprietario",
   "ward_log_entered_at": "Piazzati",
@@ -882,6 +886,7 @@
   "tooltip_multikill": "Multi-uccisioni più lunga",
   "tooltip_killstreak": "Serie di uccisioni più lunga",
   "tooltip_casts": "Numero di volte che questo item/abilità è stata utilizzata",
+  "tooltip_target_abilities": "How many times each hero was targeted by this hero's abilities",
   "tooltip_hits": "Istanze di danno agli eroi causate da questo item/abilità",
   "tooltip_damage": "Ammontare di danno inflitto agli eroi da questo item/abilità",
   "tooltip_autoattack_other": "Auto attacco/Altro",
@@ -902,6 +907,7 @@
   "xp_reasons_2": "Creep",
   "xp_reasons_3": "Roshan",
   "rankings_description": "",
+  "rankings_none": "This player is not ranked on any heroes.",
   "region_0": "Automatica",
   "region_1": "Stati Uniti ovest",
   "region_2": "Stati Uniti est",
@@ -1103,5 +1109,6 @@
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
   "rune": "Rune",
-  "placement": "Placement"
+  "placement": "Placement",
+  "exclude_turbo_matches": "Exclude Turbo matches"
 }

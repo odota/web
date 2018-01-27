@@ -98,6 +98,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       maxFn: true,
       sumFn: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_kills,
@@ -106,6 +107,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       displayFn: transformations.kda,
       sumFn: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_deaths,
@@ -113,6 +115,7 @@ export const overviewColumns = (match) => {
       field: 'deaths',
       sortFn: true,
       sumFn: true,
+      underline: 'min',
     },
     {
       displayName: strings.th_assists,
@@ -120,6 +123,7 @@ export const overviewColumns = (match) => {
       field: 'assists',
       sortFn: true,
       sumFn: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_gold_per_min,
@@ -129,6 +133,7 @@ export const overviewColumns = (match) => {
       color: constants.golden,
       sumFn: true,
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_xp_per_min,
@@ -137,6 +142,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_last_hits,
@@ -145,6 +151,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_denies,
@@ -153,6 +160,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_hero_damage,
@@ -162,6 +170,7 @@ export const overviewColumns = (match) => {
       sumFn: true,
       displayFn: row => abbreviateNumber(row.hero_damage),
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_hero_healing,
@@ -171,6 +180,7 @@ export const overviewColumns = (match) => {
       sumFn: true,
       displayFn: row => abbreviateNumber(row.hero_healing),
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_tower_damage,
@@ -180,6 +190,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: (
@@ -195,6 +206,7 @@ export const overviewColumns = (match) => {
       sumFn: true,
       displayFn: row => abbreviateNumber(row.total_gold),
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_items,
@@ -925,6 +937,37 @@ export const inflictorsColumns = [
   },
 ];
 
+const sumValues = f => Object.values(f).reduce((a, b) => a + b);
+
+const valueStyle = {
+  position: 'absolute',
+  textAlign: 'center',
+  marginLeft: '16px',
+  marginTop: '18px',
+  fontSize: '12px',
+  backgroundColor: constants.darkPrimaryColor,
+};
+
+const targetTooltip = (t) => {
+  const targets = [];
+  Object.keys(t).forEach((target) => {
+    const heroicon = heroes[getHeroesById()[target].id] && process.env.REACT_APP_API_HOST + heroes[getHeroesById()[target].id].icon;
+    const j = (
+
+      <div style={{ display: 'inline-block', paddingBottom: '20px' }}>
+        <span style={valueStyle}>{`${t[target]}x`}</span>
+        <img
+          src={heroicon}
+          alt=""
+          style={{ height: '30px', paddingLeft: '15px' }}
+        />
+      </div>);
+    targets.push([j, t[target]]);
+  });
+
+  return targets.sort((a, b) => b[1] - a[1]).map(x => x[0]);
+};
+
 export const castsColumns = [
   heroTdColumn,
   {
@@ -933,6 +976,25 @@ export const castsColumns = [
     field: 'ability_uses',
     displayFn: (row, col, field) =>
       (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+  },
+  {
+    displayName: strings.th_target_abilities,
+    tooltip: strings.tooltip_target_abilities,
+    field: 'ability_targets',
+    displayFn: (row, col, field) => {
+      if (field) {
+        const r = [];
+        Object.keys(field).forEach((inflictor) => {
+          r.push(inflictorWithValue(inflictor, sumValues(field[inflictor])));
+          r.push(targetTooltip(field[inflictor]));
+        });
+
+        return (
+          <div style={{ display: 'inline-block', width: '150px' }}>{r}</div>
+        );
+      }
+      return null;
+    },
   },
   {
     displayName: strings.th_items,

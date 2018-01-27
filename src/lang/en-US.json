@@ -375,6 +375,8 @@
   "heading_turn_rate": "Turn speed",
   "heading_legs": "Number of legs",
   "heading_cm_enabled": "CM enabled",
+  "heading_current_players": "Current Players",
+  "heading_former_players": "Former Players",
 
   "subheading_avg_and_max": "in last %d matches",
   "subheading_records": "In ranked matches. Records reset monthly.",
@@ -728,6 +730,7 @@
   "th_gold": "G",
   "th_xp": "XP",
   "th_abilities": "Abilities",
+  "th_target_abilities": "Ability Targets",
   "th_mmr": "MMR",
   "th_level": "LVL",
   "th_kills": "K",
@@ -794,6 +797,9 @@
   "th_observers_placed": "Observers",
   "th_camps_stacked": "Stacks",
   "th_league": "League",
+  "th_attack_type": "Attack Type",
+  "th_primary_attr": "Primary Attribute",
+  "th_opposing_team": "Opposing Team",
 
   "ward_log_type": "Type",
   "ward_log_owner": "Owner",
@@ -935,6 +941,7 @@
   "tooltip_multikill": "Longest multi-kill",
   "tooltip_killstreak": "Longest killstreak",
   "tooltip_casts": "Number of times this ability/item was cast",
+  "tooltip_target_abilities": "How many times each hero was targeted by this hero's abilities",
   "tooltip_hits": "Number of damage instances to heroes caused by this ability/item",
   "tooltip_damage": "Amount of damage dealt to heroes by this ability/item",
   "tooltip_autoattack_other": "Auto Attack/Other",
@@ -1184,7 +1191,8 @@
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
   "rune": "Rune",
-  "placement": "Placement"
+  "placement": "Placement",
+  "exclude_turbo_matches": "Exclude Turbo matches"
 
 
 }

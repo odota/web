@@ -33,6 +33,10 @@ export const getPvgnaHeroGuides = () => action('pvgnaGuides', 'https://yasp.pvgn
 export const getHeroStats = params => action('heroStats', process.env.REACT_APP_API_HOST, 'api/heroStats', params);
 export const getLeagues = () => action('leagues', process.env.REACT_APP_API_HOST, 'api/leagues');
 export const getTeams = () => action('teams', process.env.REACT_APP_API_HOST, 'api/teams');
+export const getTeam = teamId => action('team', process.env.REACT_APP_API_HOST, `api/teams/${teamId}`);
+export const getTeamMatches = teamId => action('teamMatches', process.env.REACT_APP_API_HOST, `api/teams/${teamId}/matches`);
+export const getTeamPlayers = teamId => action('teamPlayers', process.env.REACT_APP_API_HOST, `api/teams/${teamId}/players`);
+export const getTeamHeroes = teamId => action('teamHeroes', process.env.REACT_APP_API_HOST, `api/teams/${teamId}/heroes`);
 export const getRecords = field => action('records', process.env.REACT_APP_API_HOST, `api/records/${field}`);
 export const getGithubPulls = merged => action('ghPulls', 'https://api.github.com', 'search/issues', {
   q: `repo:odota/web type:pr base:production label:release merged:>${merged}`,

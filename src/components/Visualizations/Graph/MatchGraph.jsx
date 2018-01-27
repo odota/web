@@ -22,10 +22,13 @@ import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHold
 const formatGraphTime = minutes => `${minutes}:00`;
 
 const generateDiffData = (match) => {
-  const { radiant_gold_adv, radiant_xp_adv } = match;
+  const radiantGoldAdv = match.radiant_gold_adv;
+  const radiantXpAdv = match.radiant_xp_adv;
   const data = [];
-  radiant_xp_adv.forEach((rXpAdv, index) => {
-    data.push({ time: index, rXpAdv, rGoldAdv: radiant_gold_adv[index] });
+  radiantXpAdv.forEach((rXpAdv, index) => {
+    if (index <= Math.floor(match.duration / 60)) {
+      data.push({ time: index, rXpAdv, rGoldAdv: radiantGoldAdv[index] });
+    }
   });
   return data;
 };
@@ -153,12 +156,14 @@ class PlayersGraph extends React.Component {
     const matchData = [];
     if (match.players && match.players[0] && match.players[0][`${type}_t`]) {
       match.players[0][`${type}_t`].forEach((value, index) => {
-        const obj = { time: formatGraphTime(index) };
-        match.players.forEach((player) => {
-          const hero = heroes[player.hero_id] || {};
-          obj[hero.localized_name] = player[`${type}_t`][index];
-        });
-        matchData.push(obj);
+        if (index <= Math.floor(match.duration / 60)) {
+          const obj = { time: formatGraphTime(index) };
+          match.players.forEach((player) => {
+            const hero = heroes[player.hero_id] || {};
+            obj[hero.localized_name] = player[`${type}_t`][index];
+          });
+          matchData.push(obj);
+        }
       });
 
       return (
