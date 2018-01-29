@@ -80,6 +80,7 @@ const queryTemplate = (props) => {
       selectArray.push(x);
     }
   });
+  console.log(minDate)
   groupArray = groupArray.filter(x => !x.json_each);
   selectArray.forEach((x, index) => {
     if (x && x.groupValue) {
@@ -165,7 +166,7 @@ ${(validate(groupArray)) ?
         `stddev(${selectVal[x.key]}::numeric) stddev
   `,
       ].filter(Boolean).join(',\n'))) || '' : ''}
-${!validate(groupArray) && validate(selectArray) ?
+${!validate(groupArray) ?
     [validate(selectArray) ? selectArray.map(x => `${x.value} ${x.alias || ''}`) : '',
       'matches.match_id',
       'matches.start_time',
@@ -186,6 +187,7 @@ ${organization || (groupArray !== null && groupArray.length > 0 && groupArray[0]
 ${validate(selectArray) ? selectArray.map(x => (x.joinFn ? x.joinFn(props) : '')).join('') : ''}
 ${validate(selectArray) ? selectArray.map(x => (x.join ? x.join : '')).join('') : ''}
 WHERE TRUE
+${minDate && minDate.value === -1 ? '' : `ANDd matches.start_time >= extract(epoch from timestamp '${new Date(new Date().setDate(new Date().getDate() - 30)).toISOString()}')`}
 ${validate(selectArray) ? selectArray.map(x => `AND ${x.value} IS NOT NULL `).join('') : ''}
 ${validate(minPatch) ? templ`match_patch.patch >= '${minPatch}'` : ''}
 ${validate(maxPatch) ? templ`match_patch.patch <= '${maxPatch}'` : ''}
@@ -201,7 +203,7 @@ ${validate(team) ? templ`notable_players.team_id = ${team}` : ''}
 ${validate(organization) ? templ`team_match.team_id = ${organization} AND (player_matches.player_slot < 128) = team_match.radiant` : ''}
 ${validate(laneRole) ? templ`player_matches.lane_role = ${laneRole}` : ''}
 ${validate(region) ? templ`matches.cluster IN (${region})` : ''}
-${templ`matches.start_time >= extract(epoch from timestamp '${new Date(defaultMinDate || minDate.value).toISOString()}')`}
+${minDate ? templ`matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')`: ''}
 ${maxDate ? templ`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${validate(tier) ? templ`leagues.tier = '${tier}'` : ''}
 ${validate(isTi7Team) ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 1333179, 3331948, 1846548)' : ''}

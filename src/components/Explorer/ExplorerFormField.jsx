@@ -38,6 +38,8 @@ class ExplorerFormField extends React.Component {
     }
     if (this.datepicker) {
       this.datepicker.setState({ date: undefined });
+      handleFieldUpdate(builderField, -1);
+      return;
     }
     handleFieldUpdate(builderField, undefined);
   }
@@ -81,7 +83,7 @@ class ExplorerFormField extends React.Component {
             container="inline"
             autoOk
             defaultDate={minDate ? new Date(new Date().setDate(new Date().getDate() - 30)) : undefined}
-            onShow={minDate ? undefined : this.resetField}
+            onShow={this.resetField}
             onChange={(event, date) => {
             handleFieldUpdate(builderField, date.toISOString());
           }}
