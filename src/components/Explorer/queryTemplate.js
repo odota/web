@@ -55,7 +55,6 @@ const queryTemplate = (props) => {
   let query;
   let groupArray = [];
   let selectArray = [];
-
   if (!(Array.isArray(group))) {
     groupArray.push(group);
   } else {
@@ -73,7 +72,6 @@ const queryTemplate = (props) => {
       selectArray.push(x);
     }
   });
-  console.log(minDate);
   groupArray = groupArray.filter(x => !x.json_each);
   selectArray.forEach((x, index) => {
     if (x && x.groupValue) {
@@ -181,24 +179,24 @@ ${validate(selectArray) ? selectArray.map(x => (x.joinFn ? x.joinFn(props) : '')
 ${validate(selectArray) ? selectArray.map(x => (x.join ? x.join : '')).join('') : ''}
 WHERE TRUE
 ${validate(selectArray) ? selectArray.map(x => `AND ${x.value} IS NOT NULL `).join('') : ''}
-${validate(minPatch) ? templ`match_patch.patch >= '${minPatch}'` : ''}
-${validate(maxPatch) ? templ`match_patch.patch <= '${maxPatch}'` : ''}
-${validate(hero) ? templ`player_matches.hero_id = ${hero}` : ''}
-${validate(player) ? templ`player_matches.account_id = ${player}` : ''}
-${validate(league) ? templ`matches.leagueid = ${league}` : ''}
-${validate(playerPurchased) ? templ`(player_matches.purchase->>'${playerPurchased}')::int > 0` : ''}
-${validate(minDuration) ? templ`matches.duration >= ${minDuration}` : ''}
-${validate(maxDuration) ? templ`matches.duration <= ${maxDuration}` : ''}
-${validate(side) ? templ`(player_matches.player_slot < 128) = ${side}` : ''}
-${validate(result) ? templ`((player_matches.player_slot < 128) = matches.radiant_win) = ${result}` : ''}
-${validate(team) ? templ`notable_players.team_id = ${team}` : ''}
-${validate(organization) ? templ`team_match.team_id = ${organization} AND (player_matches.player_slot < 128) = team_match.radiant` : ''}
-${validate(laneRole) ? templ`player_matches.lane_role = ${laneRole}` : ''}
-${validate(region) ? templ`matches.cluster IN (${region})` : ''}
+${minPatch ? templ`match_patch.patch >= '${minPatch}'` : ''}
+${maxPatch ? templ`match_patch.patch <= '${maxPatch}'` : ''}
+${hero ? templ`player_matches.hero_id = ${hero}` : ''}
+${player ? templ`player_matches.account_id = ${player}` : ''}
+${league ? templ`matches.leagueid = ${league}` : ''}
+${playerPurchased ? templ`(player_matches.purchase->>'${playerPurchased}')::int > 0` : ''}
+${minDuration ? templ`matches.duration >= ${minDuration}` : ''}
+${maxDuration ? templ`matches.duration <= ${maxDuration}` : ''}
+${side ? templ`(player_matches.player_slot < 128) = ${side}` : ''}
+${result ? templ`((player_matches.player_slot < 128) = matches.radiant_win) = ${result}` : ''}
+${team ? templ`notable_players.team_id = ${team}` : ''}
+${organization ? templ`team_match.team_id = ${organization} AND (player_matches.player_slot < 128) = team_match.radiant` : ''}
+${laneRole ? templ`player_matches.lane_role = ${laneRole}` : ''}
+${region ? templ`matches.cluster IN (${region})` : ''}
 ${minDate ? templ`matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
 ${maxDate ? templ`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
-${validate(tier) ? templ`leagues.tier = '${tier}'` : ''}
-${validate(isTi7Team) ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 1333179, 3331948, 1846548)' : ''}
+${tier ? templ`leagues.tier = '${tier}'` : ''}
+${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 1333179, 3331948, 1846548)' : ''}
 ${validate(groupArray) ? 'GROUP BY' : ''}${(validate(groupArray) && groupArray.map(x => ` ${groupVal[x.key]}`)) || ''}
 ${validate(groupArray) ? `HAVING count(distinct matches.match_id) >= ${(validate(having) && having[0].value) || '1'}` : ''}
 ORDER BY ${

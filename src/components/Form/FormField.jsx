@@ -123,10 +123,10 @@ class FormField extends React.Component {
     const selectedElements = [].concat(formSelectionState[name] || []);
     // Use dataSource on selectedElements to hydrate the chipList
     const chipList = selectedElements.map((element) => {
-      const fromSource = dataSource.find(data => Number(data.value) === Number(element));
+      let fromSource = dataSource.find(data => Number(data.value) === Number(element));
+      fromSource = fromSource || dataSource.find(data => data.key === element);
       return fromSource || { text: element, value: element };
     });
-
     return (
       <div className={className}>
         <AutoComplete

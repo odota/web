@@ -34,6 +34,8 @@ import autocomplete from './autocomplete';
 const playerMapping = {};
 const teamMapping = {};
 
+const defaultMinDate = 30;
+
 function jsonResponse(response) {
   return response.json();
 }
@@ -78,6 +80,10 @@ class Explorer extends React.Component {
     this.buildQuery = this.buildQuery.bind(this);
     this.syncWindowHistory = this.syncWindowHistory.bind(this);
     this.handleFieldUpdate = this.handleFieldUpdate.bind(this);
+
+    if (!('minDate' in this.state.builder)) {
+      this.state.builder.minDate = new Date(new Date().setDate(new Date().getDate() - defaultMinDate)).toISOString();
+    }
   }
   componentDidMount() {
     this.props.dispatchProPlayers();
