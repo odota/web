@@ -38,8 +38,6 @@ class ExplorerFormField extends React.Component {
     }
     if (this.datepicker) {
       this.datepicker.setState({ date: undefined });
-      handleFieldUpdate(builderField, -1);
-      return;
     }
     handleFieldUpdate(builderField, undefined);
   }
