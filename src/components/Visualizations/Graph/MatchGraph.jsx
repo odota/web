@@ -11,7 +11,7 @@ import {
   CartesianGrid,
   ReferenceLine,
   Legend,
-  Label, ResponsiveContainer,
+  ResponsiveContainer,
 } from 'recharts';
 import constants from 'components/constants';
 import strings from 'lang';
@@ -85,15 +85,13 @@ const XpNetworthGraph = ({ match }) => {
         <LineChart
           data={matchData}
           margin={{
-            top: 5, right: 30, left: 30, bottom: 5,
+            top: 5, right: 10, left: 10, bottom: 5,
           }}
         >
           <ReferenceArea y1={0} y2={maxY} fill="rgba(102, 187, 106, 0.12)" />
           <ReferenceArea y1={0} y2={minY} fill="rgba(255, 76, 76, 0.12)" />
-          <XAxis dataKey="time" interval={4} tickFormatter={formatGraphTime}>
-            <Label value={strings.th_time} position="insideTopRight" />
-          </XAxis>
-          <YAxis domain={[minY, maxY]} />
+          <XAxis dataKey="time" tickFormatter={formatGraphTime} />
+          <YAxis domain={[minY, maxY]} mirror="true" padding={{ top: 5, bottom: 5 }} />
           <ReferenceLine y={0} stroke="#505050" strokeWidth={2} opacity={1} />
           <CartesianGrid
             stroke="#505050"
@@ -173,13 +171,11 @@ class PlayersGraph extends React.Component {
             <LineChart
               data={matchData}
               margin={{
-                top: 5, right: 30, left: 30, bottom: 5,
+                top: 5, right: 10, left: 10, bottom: 5,
               }}
             >
-              <XAxis dataKey="time" interval={4} >
-                <Label value={strings.th_time} position="insideTopRight" />
-              </XAxis>
-              <YAxis />
+              <XAxis dataKey="time" />
+              <YAxis mirror="true" />
               <CartesianGrid
                 stroke="#505050"
                 strokeWidth={1}

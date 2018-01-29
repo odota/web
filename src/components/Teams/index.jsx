@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import strings from 'lang';
 import { getTeams } from 'actions';
 import Heading from 'components/Heading';
-import Table from 'components/Table';
+import Team from 'components/Team';
+import Table, { TableLink } from 'components/Table';
 import { getOrdinal, fromNow, subTextStyle } from 'utility';
 
 const columns = [{
@@ -17,7 +18,7 @@ const columns = [{
   field: 'name',
   displayFn: (row, col, field) => (
     <div>
-      <span>{field}</span>
+      <TableLink to={`/teams/${row.team_id}`}>{field}</TableLink>
       <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
         {fromNow(row.last_match_time)}
       </span>
@@ -45,6 +46,11 @@ class RequestLayer extends React.Component {
     this.props.dispatchTeams();
   }
   render() {
+    const route = this.props.match.params.teamId;
+
+    if (Number.isInteger(Number(route))) {
+      return <Team {...this.props} />;
+    }
     const { loading } = this.props;
     return (
       <div>
@@ -56,9 +62,14 @@ class RequestLayer extends React.Component {
 }
 
 RequestLayer.propTypes = {
-  dispatchTeams: PropTypes.string,
-  data: PropTypes.string,
+  dispatchTeams: PropTypes.func,
+  data: PropTypes.arrayOf(PropTypes.object),
   loading: PropTypes.bool,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      teamId: PropTypes.string,
+    }),
+  }),
 };
 
 const mapStateToProps = state => ({
