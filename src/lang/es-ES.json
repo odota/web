@@ -1,5 +1,5 @@
 {
-  "yes": "yes",
+  "yes": "sí",
   "no": "no",
   "abbr_thousand": "k",
   "abbr_million": "m",
@@ -7,8 +7,8 @@
   "abbr_trillion": "t",
   "abbr_quadrillion": "q",
   "abbr_not_available": "No disponible",
-  "abbr_pick": "P",
-  "abbr_win": "W",
+  "abbr_pick": "S",
+  "abbr_win": "V",
   "abbr_number": "No.",
   "analysis_eff": "Eficiencia en línea",
   "analysis_farm_drought": "Menor GPM en un intervalo de 5 minutos",
