@@ -200,8 +200,8 @@ ${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 18383
 ${validate(groupArray) ? 'GROUP BY' : ''}${(validate(groupArray) && groupArray.map(x => ` ${groupVal[x.key]}`)) || ''}
 ${validate(groupArray) ? `HAVING count(distinct matches.match_id) >= ${(having && having.value) || '1'}` : ''}
 ORDER BY ${
-  [`${(validate(groupArray) && validate(selectArray) && selectArray.map(x => `"AVG ${x.text}" ${validate(order) ? (Array.isArray(order) && order.length > 0 && order[0].value) || order.value : 'DESC'}`)) ||
-    (validate(selectArray) && selectArray.map(x => `${x.value} ${validate(order) ? (Array.isArray(order) && order.length > 0 && order[0].value) || order.value : 'DESC'}`).join(',')) || 'matches.match_id'}`,
+  [`${(validate(groupArray) && validate(selectArray) && selectArray.map(x => `"AVG ${x.text}" ${order ? order.value : 'DESC'}`)) ||
+    (validate(selectArray) && selectArray.map(x => `${x.value} ${order ? order.value : 'DESC'}`).join(',')) || 'matches.match_id'}`,
   validate(groupArray) ? 'count DESC' : '',
   ].filter(Boolean).join(',')} NULLS LAST
 LIMIT ${limit ? limit.value : 200}`;
