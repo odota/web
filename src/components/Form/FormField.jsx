@@ -127,6 +127,7 @@ class FormField extends React.Component {
       fromSource = fromSource || dataSource.find(data => data.key === element);
       return fromSource || { text: element, value: element };
     });
+    
     return (
       <div className={className}>
         <AutoComplete
