@@ -209,7 +209,7 @@ class Explorer extends React.Component {
           <ExplorerFormField label={strings.explorer_league} fields={expandedFields} builderField="league" handleFieldUpdate={handleFieldUpdate} builder={builder} multipleSelect />
           <ExplorerFormField label={strings.explorer_tier} fields={expandedFields} builderField="tier" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_region} fields={expandedFields} builderField="region" handleFieldUpdate={handleFieldUpdate} builder={builder} multipleSelect />
-          <ExplorerFormField label={strings.explorer_side} fields={expandedFields} builderField="side" handleFieldUpdate={handleFieldUpdate} builder={builder} multipleSelect />
+          <ExplorerFormField label={strings.explorer_side} fields={expandedFields} builderField="side" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.th_result} fields={expandedFields} builderField="result" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField
             label={strings.explorer_player_purchased}

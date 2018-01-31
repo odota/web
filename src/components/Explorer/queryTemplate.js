@@ -12,7 +12,7 @@ function templ(strings, value) {
     });
     return `AND (${r.join(' OR ')})`;
   }
-  return `AND ${str0}${value.value || value}${str1}`;
+  return `AND ${str0}${value.value !== undefined ? value.value : value}${str1}`;
 }
 
 function validate(p) {
@@ -55,7 +55,6 @@ const queryTemplate = (props) => {
   let query;
   let groupArray = [];
   let selectArray = [];
-  console.log(props);
   if (!(Array.isArray(group))) {
     groupArray.push(group);
   } else {
