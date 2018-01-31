@@ -88,7 +88,7 @@ const queryTemplate = (props) => {
       groupArray.push(a);
     }
   });
-  if (selectArray && selectArray.template === 'picks_bans') {
+  if (validate(selectArray) && selectArray.some(p => p.template === 'picks_bans')) {
     query = `SELECT
 hero_id, 
 count(1) total,
@@ -110,19 +110,19 @@ JOIN leagues using(leagueid)
 JOIN team_match using(match_id)
 JOIN teams using(team_id)
 WHERE TRUE
-${validate(selectArray) && selectArray.where ? selectArray.where : ''}
-${organization ? `AND team_id = ${organization.value}` : ''}
-${minPatch ? `AND match_patch.patch >= '${minPatch.value}'` : ''}
-${maxPatch ? `AND match_patch.patch <= '${maxPatch.value}'` : ''}
-${league ? `AND matches.leagueid = ${league.value}` : ''}
-${minDuration ? `AND matches.duration >= ${minDuration.value}` : ''}
-${maxDuration ? `AND matches.duration <= ${maxDuration.value}` : ''}
-${side ? `AND team_match.radiant = ${side.value}` : ''}
-${result ? `AND (team_match.radiant = matches.radiant_win) = ${result.value}` : ''}
-${region ? `AND matches.cluster IN (${region.value.join(',')})` : ''}
-${minDate ? `AND matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
-${maxDate ? `AND matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
-${tier ? `AND leagues.tier = '${tier.value}'` : ''}
+${validate(selectArray) && selectArray.find(x => x.where) !== undefined ? selectArray.find(x => x.where).where : ''}
+${organization ? templ`team_id = ${organization}` : ''}
+${minPatch ? templ`match_patch.patch >= '${minPatch}'` : ''}
+${maxPatch ? templ`match_patch.patch <= '${maxPatch}'` : ''}
+${league ? templ`matches.leagueid = ${league}` : ''}
+${minDuration ? templ`matches.duration >= ${minDuration}` : ''}
+${maxDuration ? templ`matches.duration <= ${maxDuration}` : ''}
+${side ? templ`team_match.radiant = ${side}` : ''}
+${result ? templ`(team_match.radiant = matches.radiant_win) = ${result.value}` : ''}
+${region ? templ`matches.cluster IN (${region.value.join(',')})` : ''}
+${minDate ? templ`matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
+${maxDate ? templ`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
+${tier ? templ`leagues.tier = '${tier}'` : ''}
 ${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 1333179, 3331948, 1846548)' : ''}
 GROUP BY hero_id
 ORDER BY total ${(order && order.value) || 'DESC'}`;
