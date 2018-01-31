@@ -55,6 +55,7 @@ const queryTemplate = (props) => {
   let query;
   let groupArray = [];
   let selectArray = [];
+  console.log(props);
   if (!(Array.isArray(group))) {
     groupArray.push(group);
   } else {
@@ -198,7 +199,7 @@ ${maxDate ? templ`matches.start_time <= extract(epoch from timestamp '${new Date
 ${tier ? templ`leagues.tier = '${tier}'` : ''}
 ${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 1333179, 3331948, 1846548)' : ''}
 ${validate(groupArray) ? 'GROUP BY' : ''}${(validate(groupArray) && groupArray.map(x => ` ${groupVal[x.key]}`)) || ''}
-${validate(groupArray) ? `HAVING count(distinct matches.match_id) >= ${(validate(having) && having[0].value) || '1'}` : ''}
+${validate(groupArray) ? `HAVING count(distinct matches.match_id) >= ${(having && having.value) || '1'}` : ''}
 ORDER BY ${
   [`${(validate(groupArray) && validate(selectArray) && selectArray.map(x => `"AVG ${x.text}" ${validate(order) ? (Array.isArray(order) && order.length > 0 && order[0].value) || order.value : 'DESC'}`)) ||
     (validate(selectArray) && selectArray.map(x => `${x.value} ${validate(order) ? (Array.isArray(order) && order.length > 0 && order[0].value) || order.value : 'DESC'}`).join(',')) || 'matches.match_id'}`,
