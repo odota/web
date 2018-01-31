@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-filename-extension */
 import 'core-js/fn/object/values';
 import React from 'react';
+import createHistory from 'history/createBrowserHistory';
+import ReactGA from 'react-ga';
 import { hydrate, render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Route, Router } from 'react-router-dom';
@@ -11,8 +13,6 @@ import constants from 'components/constants';
 import { injectGlobal } from 'styled-components';
 // import registerServiceWorker from './registerServiceWorker';
 import { unregister } from './registerServiceWorker';
-import createHistory from "history/createBrowserHistory"
-import ReactGA from 'react-ga';
 
 // Inject global styles
 injectGlobal([`
@@ -160,7 +160,7 @@ store.dispatch(getMetadata());
 
 ReactGA.initialize('UA-55757642-1');
 const history = createHistory();
-history.listen((location, action) => {
+history.listen((location) => {
   ReactGA.set({ page: location.pathname });
   ReactGA.pageview(location.pathname);
 });
