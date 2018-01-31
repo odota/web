@@ -204,7 +204,7 @@ ORDER BY ${
     (validate(selectArray) && selectArray.map(x => `${x.value} ${validate(order) ? (Array.isArray(order) && order.length > 0 && order[0].value) || order.value : 'DESC'}`).join(',')) || 'matches.match_id'}`,
   validate(groupArray) ? 'count DESC' : '',
   ].filter(Boolean).join(',')} NULLS LAST
-LIMIT ${validate(limit) ? limit[0].value : 200}`;
+LIMIT ${limit ? limit.value : 200}`;
   }
   return query
   // Remove extra newlines
