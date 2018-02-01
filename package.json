@@ -69,7 +69,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.4.0",
-    "fs-extra": "^4.0.2",
+    "fs-extra": "^5.0.0",
     "react-snap": "^1.0.5",
     "simple-vdf": "^1.1.0"
   }
