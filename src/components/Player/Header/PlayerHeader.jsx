@@ -170,7 +170,7 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
         <div className="rankTierContainer">
           <div className="rankMedal" data-hint={`${strings.abbr_number} ${leaderboardRank}`} data-hint-position="top">
             <img className="rankMedal-icon" src={iconPath} alt="icon" />
-            <span className="rankMedal-board">{leaderboardRank}</span>
+            {leaderboardRank && <span className="rankMedal-board">{leaderboardRank}</span>}
           </div>
         </div>
       );
@@ -192,6 +192,7 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
           <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
             <img className="rankMedal-icon" src={iconPath} alt="icon" />
             {(correctStar !== 0) ? <img className="rankMedal-star" src={starPath} alt="star" /> : ''}
+            {leaderboardRank && <span className="rankMedal-board">{leaderboardRank}</span>}
           </div>
         </div>
       );
