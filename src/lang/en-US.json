@@ -34,6 +34,7 @@
   "app_api_docs": "API Docs",
   "app_blog": "Blog",
   "app_translate": "Translate",
+  "app_donate": "Donate",
   "app_powered_by": "powered by",
   "app_donation_goal": "Monthly Donation Goal",
   "app_sponsorship": "Your sponsorship helps keep the service free for everyone.",
@@ -375,6 +376,8 @@
   "heading_turn_rate": "Turn speed",
   "heading_legs": "Number of legs",
   "heading_cm_enabled": "CM enabled",
+  "heading_current_players": "Current Players",
+  "heading_former_players": "Former Players",
 
   "subheading_avg_and_max": "in last %d matches",
   "subheading_records": "In ranked matches. Records reset monthly.",
@@ -797,6 +800,7 @@
   "th_league": "League",
   "th_attack_type": "Attack Type",
   "th_primary_attr": "Primary Attribute",
+  "th_opposing_team": "Opposing Team",
 
   "ward_log_type": "Type",
   "ward_log_owner": "Owner",

@@ -16,6 +16,9 @@ const links = [{
 }, {
   name: strings.app_translate,
   path: '//translate.opendota.com/',
+}, {
+  name: strings.app_donate,
+  path: '//carry.opendota.com/',
 }];
 
 export default () => links.map(link => (
