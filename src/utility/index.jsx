@@ -541,9 +541,9 @@ export const getScript = (url, callback) => {
   script.async = 1;
   script.src = url;
 
-  // Insert before first <script>
-  const firstScript = document.getElementsByTagName('script')[0];
-  firstScript.parentNode.insertBefore(script, firstScript);
+  // Insert into body
+  const theFirstChild = document.body.firstChild;
+  document.body.insertBefore(script, theFirstChild);
 
   // Attach handlers
   script.onreadystatechange = (__, isAbort) => {
@@ -551,11 +551,6 @@ export const getScript = (url, callback) => {
       // Handle IE memory leak
       script.onreadystatechange = null;
       script.onload = null;
-
-      // Keep for dev-debugging, see https://goo.gl/MbNOCv
-      if (process.env.NODE_ENV === 'production') {
-        script.parentNode.removeChild(script);
-      }
       script = undefined;
 
       if (!isAbort && callback) {
