@@ -19,6 +19,9 @@ const links = [{
 }, {
   name: strings.app_donate,
   path: '//carry.opendota.com/',
+}, {
+  name: strings.app_gravitech,
+  path: '//www.gravitech.io'
 }];
 
 export default () => links.map(link => (
