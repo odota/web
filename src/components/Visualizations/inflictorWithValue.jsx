@@ -210,7 +210,6 @@ export default (inflictor, value, type, ptooltip) => {
       tooltip = tooltipContainer(ability);
     } else if (item) {
       if (customImageIcon.includes(inflictor)) {
-        console.log(inflictor);
         image = `/assets/images/dota2/${inflictor}.png`;
       } else {
         image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${customNameIcon[inflictor] || inflictor}_lg.png`;
