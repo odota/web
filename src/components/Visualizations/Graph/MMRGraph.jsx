@@ -18,11 +18,12 @@ const StyledGraphArea = styled.div`
 user-select: none;
 `;
 
-const filterZeroValues = function (column) {
-  const c = column;
-  c.solo_competitive_rank = c.solo_competitive_rank || null;
-  c.competitive_rank = c.competitive_rank || null;
-  return c;
+const filterZeroValues = column => {
+  const c = column
+  return { ...column,
+    solo_competitive_rank: c.solo_competitive_rank || null,
+    competitive_rank: c.competitive_rank || null
+  }
 };
 
 const formatXTick = (time) => {
