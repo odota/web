@@ -18,6 +18,13 @@ const StyledGraphArea = styled.div`
 user-select: none;
 `;
 
+const filterNullValues = function (columns) {
+  const c = columns
+  c.solo_competitive_rank = c.solo_competitive_rank ? c.solo_competitive_rank : undefined
+  c.competitive_rank = c.competitive_rank ? c.competitive_rank : undefined
+  return c
+}
+
 const formatXTick = (time) => {
   const date = new Date(time);
   return `${date.getFullYear()}/${date.getMonth() + 1}`;
@@ -31,7 +38,7 @@ const MMRGraph = ({ columns }) => (
   <StyledGraphArea>
     <ResponsiveContainer width="100%" height={400}>
       <LineChart
-        data={columns}
+        data={columns.map(filterNullValues)}
         margin={{
         top: 5, right: 30, left: 30, bottom: 5,
       }}
