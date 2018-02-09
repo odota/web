@@ -19,11 +19,11 @@ user-select: none;
 `;
 
 const filterNullValues = function (columns) {
-  const c = columns
-  c.solo_competitive_rank = c.solo_competitive_rank ? c.solo_competitive_rank : undefined
-  c.competitive_rank = c.competitive_rank ? c.competitive_rank : undefined
-  return c
-}
+  const c = columns;
+  c.solo_competitive_rank = c.solo_competitive_rank ? c.solo_competitive_rank : undefined;
+  c.competitive_rank = c.competitive_rank ? c.competitive_rank : undefined;
+  return c;
+};
 
 const formatXTick = (time) => {
   const date = new Date(time);
