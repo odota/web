@@ -18,8 +18,8 @@ const StyledGraphArea = styled.div`
 user-select: none;
 `;
 
-const filterNullValues = function (columns) {
-  const c = columns;
+const filterZeroValues = function (column) {
+  const c = column;
   c.solo_competitive_rank = c.solo_competitive_rank || null;
   c.competitive_rank = c.competitive_rank || null;
   return c;
@@ -38,7 +38,7 @@ const MMRGraph = ({ columns }) => (
   <StyledGraphArea>
     <ResponsiveContainer width="100%" height={400}>
       <LineChart
-        data={columns.map(filterNullValues)}
+        data={columns.map(filterZeroValues)}
         margin={{
         top: 5, right: 30, left: 30, bottom: 5,
       }}
