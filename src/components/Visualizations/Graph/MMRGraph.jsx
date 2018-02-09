@@ -20,8 +20,8 @@ user-select: none;
 
 const filterNullValues = function (columns) {
   const c = columns;
-  c.solo_competitive_rank = c.solo_competitive_rank ? c.solo_competitive_rank : undefined;
-  c.competitive_rank = c.competitive_rank ? c.competitive_rank : undefined;
+  c.solo_competitive_rank = c.solo_competitive_rank || null;
+  c.competitive_rank = c.competitive_rank || null;
   return c;
 };
 
