@@ -8,6 +8,7 @@ import Timeline from 'components/Match/Overview/Timeline';
 import MatchGraph from 'components/Visualizations/Graph/MatchGraph';
 import StackedBarGraph from 'components/Visualizations/Graph/StackedBarGraph';
 import heroes from 'dotaconstants/build/heroes.json';
+import Draft from './Draft';
 import Vision from './Vision';
 import Laning from './Laning';
 import CrossTable from './CrossTable';
@@ -35,6 +36,17 @@ import Chat from './Chat';
 import { StyledFlexContainer, StyledFlexElement } from './StyledMatch';
 
 const matchPages = [Overview, {
+  name: strings.tab_drafts,
+  key: 'drafts',
+  content: match => (
+    <div>
+      <Draft
+        radiantTeam={match.radiant_team}
+        direTeam={match.dire_team}
+        draft={match.draft_timings}
+      />
+    </div>),
+}, {
   name: strings.tab_benchmarks,
   key: 'benchmarks',
   content: match => (
