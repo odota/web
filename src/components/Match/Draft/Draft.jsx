@@ -1,14 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-// import strings from 'lang';
-import { getTeamName } from 'utility';
-import { TableBody, TableRow, TableRowColumn, Table } from 'material-ui/Table';
 import Heading from 'components/Heading';
 import { IconRadiant, IconDire } from 'components/Icons';
 import heroes from 'dotaconstants/build/heroes.json';
-import styled from 'styled-components';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
+import { TableBody, TableRow, TableRowColumn, Table } from 'material-ui/Table';
+import PropTypes from 'prop-types';
+import React from 'react';
+import styled from 'styled-components';
+import { getTeamName } from 'utility';
 import constants from '../../constants';
 
 const Styled = styled.div`
@@ -35,7 +34,6 @@ const PickBan = styled.span`
 
 const Pick = PickBan.extend`
   color: ${constants.colorGreen};
-
   svg {
     color: ${constants.colorGreen};
   }
@@ -51,7 +49,7 @@ const Ban = PickBan.extend`
 const DraftCell = styled.div`
   display: flex;
   width: fit-content;
-  margin-left: ${props => (props.dire ? 'auto' : '0')};
+  margin-left: ${props => (props.radiant ? '0' : 'auto')};
 
   .time-tracker {
     display: flex;
@@ -115,7 +113,7 @@ const LeftArrow = styled(Prev)`
 `;
 
 const RightArrow = styled(Next)`
-visibility: ${props => (props.visible === 'true' ? 'visible' : 'hidden')};
+  visibility: ${props => (props.visible === 'true' ? 'visible' : 'hidden')};
 `;
 
 
@@ -164,10 +162,6 @@ const Draft = ({ radiantTeam, direTeam, draft }) => {
   return (
     <Styled>
       <section className="teams">
-        {/*
-        <h3 className="radiant">{getTeamName(radiantTeam)}</h3>
-        <h3 className="dire">{getTeamName(direTeam)}</h3>
-        */}
         <Heading
           title={`${getTeamName(radiantTeam, true)}`}
           icon={<IconRadiant />}
