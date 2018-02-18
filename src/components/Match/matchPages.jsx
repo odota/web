@@ -36,19 +36,6 @@ import Chat from './Chat';
 import { StyledFlexContainer, StyledFlexElement } from './StyledMatch';
 
 const matchPages = [Overview, {
-  name: strings.tab_drafts,
-  key: 'draft',
-  content: match => (
-    <div>
-      {match.game_mode === 2 &&
-        <Draft
-          radiantTeam={match.radiant_team}
-          direTeam={match.dire_team}
-          draft={match.draft_timings}
-        />
-      }
-    </div>),
-}, {
   name: strings.tab_benchmarks,
   key: 'benchmarks',
   content: match => (
@@ -60,6 +47,20 @@ const matchPages = [Overview, {
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
       />
+    </div>),
+}, {
+  name: strings.tab_drafts,
+  key: 'draft',
+  parsed: true,
+  content: match => (
+    <div>
+      {match.game_mode === 2 &&
+        <Draft
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+          draft={match.draft_timings}
+        />
+      }
     </div>),
 }, {
   name: strings.tab_performances,

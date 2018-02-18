@@ -145,7 +145,7 @@ const orderTwo = [2, 4, 6, 8, 9, 11, 13, 15, 17, 19, 22];
 const picks = [7, 8, 9, 10, 15, 16, 17, 18, 21, 22];
 
 const Draft = ({ radiantTeam, direTeam, draft }) => {
-  const firstIsTeamTwo = draft[0].active_team === 2;
+  const firstIsTeamTwo = draft[0] && draft[0].active_team === 2;
   const radiantOrder = firstIsTeamTwo ? orderTwo : orderOne;
   const radiantPick = pb => (radiantOrder.includes(pb.order));
   let radiantTimeLeft = 130;
