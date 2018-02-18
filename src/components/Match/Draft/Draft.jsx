@@ -87,7 +87,7 @@ const HeroIcon = styled.div`
   
   img {
     width: 100px;
-    &[data-isPick="false"] {
+    &[data-ispick="false"] {
       filter: grayscale(100%);
     }
   }
@@ -195,7 +195,7 @@ const Draft = ({
                       <img
                         src={heroes[pb.hero_id] && process.env.REACT_APP_API_HOST + heroes[pb.hero_id].img}
                         alt=""
-                        data-isPick={picks.includes(pb.order)}
+                        data-ispick={picks.includes(pb.order)}
                       />
                       {!picks.includes(pb.order) && <div className="ban" />}
                     </HeroIcon>
@@ -224,7 +224,7 @@ const Draft = ({
                       <img
                         src={heroes[pb.hero_id] && process.env.REACT_APP_API_HOST + heroes[pb.hero_id].img}
                         alt=""
-                        data-isPick={picks.includes(pb.order)}
+                        data-ispick={picks.includes(pb.order)}
                       />
                       {!picks.includes(pb.order) && <div className="ban" />}
                     </HeroIcon>
@@ -242,7 +242,7 @@ const Draft = ({
 Draft.propTypes = {
   radiantTeam: PropTypes.shape({}),
   direTeam: PropTypes.shape({}),
-  draft: PropTypes.arrayOf({}),
+  draft: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 export default Draft;
