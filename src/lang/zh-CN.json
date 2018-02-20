@@ -97,7 +97,7 @@
   "error_four_oh_four_message": "找不到你正在打开的网页。",
   "explorer_title": "数据探索",
   "explorer_subtitle": "Dota2 专业数据",
-  "explorer_description": "Run advanced queries on professional matches (excludes amateur leagues)",
+  "explorer_description": "对职业比赛记录进行分类查询（不包括业余联赛）",
   "explorer_schema": "概要",
   "explorer_results": "结果",
   "explorer_num_rows": "行",
