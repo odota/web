@@ -211,7 +211,7 @@
   "game_mode_20": "全随机死亡竞赛模式",
   "game_mode_21": "1V1 中路 Solo 模式",
   "game_mode_22": "全英雄选择（BP）",
-  "game_mode_23": "快速模式",
+  "game_mode_23": "加速模式",
   "general_unknown": "未知",
   "general_no_hero": "无英雄",
   "general_anonymous": "匿名",
@@ -1115,5 +1115,5 @@
   "activated": "Activated",
   "rune": "Rune",
   "placement": "Placement",
-  "exclude_turbo_matches": "Exclude Turbo matches"
+  "exclude_turbo_matches": "排除加速模式"
 }
