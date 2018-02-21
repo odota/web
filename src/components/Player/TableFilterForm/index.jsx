@@ -204,6 +204,15 @@ class TableFilterForm extends React.Component {
               strict
               limit={1}
             />
+            <FormField
+              name="party_size"
+              label={strings.filter_party_size}
+              dataSource={data.partySize}
+              formSelectionState={formSelectionState}
+              history={history}
+              strict
+              limit={5}
+            />
           </div>
         </div>
       </Styled>
