@@ -211,7 +211,7 @@ class TableFilterForm extends React.Component {
               formSelectionState={formSelectionState}
               history={history}
               strict
-              limit={5}
+              limit={1}
             />
           </div>
         </div>
