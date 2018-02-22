@@ -360,7 +360,7 @@
   "heading_legs": "Количество ног",
   "heading_cm_enabled": "Доступно в CM",
   "heading_current_players": "Текущее количество игроков",
-  "heading_former_players": "Former Players",
+  "heading_former_players": "Бывшие игроки",
   "subheading_avg_and_max": "в последних %d матчах",
   "subheading_records": "В рейтинге. Записи обновляются ежемеясчно.",
   "subheading_team_elo_rankings": "k=32, init=1000",
