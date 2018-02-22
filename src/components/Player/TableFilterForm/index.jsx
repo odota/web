@@ -28,7 +28,7 @@ const Styled = styled.div`
 .showForm {
   overflow: hidden;
   transition: max-height 0.2s;
-  max-height: 1000px;
+  max-height: 1200px;
 }
 `;
 
