@@ -188,6 +188,7 @@
   "filter_last_3_months": "3ヶ月以内",
   "filter_last_6_months": "半年以内",
   "filter_error": "ドロップダウンメニューからアイテムを選択してください",
+  "filter_party_size": "Party Size",
   "game_mode_0": "不明",
   "game_mode_1": "オールピック",
   "game_mode_2": "キャプテンズモード",
