@@ -188,6 +188,7 @@
   "filter_last_3_months": "Last 3 months",
   "filter_last_6_months": "Last 6 months",
   "filter_error": "Please select an item from the dropdown",
+  "filter_party_size": "Party Size",
   "game_mode_0": "Unknown",
   "game_mode_1": "All Pick",
   "game_mode_2": "Captains Mode",
