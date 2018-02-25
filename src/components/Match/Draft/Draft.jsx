@@ -121,33 +121,40 @@ const RightArrow = styled(Next)`
   visibility: ${props => (props.visible === 'true' ? 'visible' : 'hidden')};
 `;
 
-const TimeTracker = ({ pb, extraTime }) => (
+const TimeTracker = ({ pb, extraTime, isCaptains }) => (
   <div className="time-tracker">
     <span className="taken">
       <span className={pb.total_time_taken > 30 ? 'extra-used' : ''}>
         {pb.total_time_taken}s
       </span> used
     </span>
-    <span className="left">
-      {extraTime}s left
-      {pb.total_time_taken > 30 &&
-        <span className="extra-used">
-          {` (-${pb.total_time_taken - 30}s)`}
-        </span>
-      }
-    </span>
+    {isCaptains &&
+      <span className="left">
+        {extraTime}s left
+        {pb.total_time_taken > 30 &&
+          <span className="extra-used">
+            {` (-${pb.total_time_taken - 30}s)`}
+          </span>
+        }
+      </span>
+    }
   </div>
 );
 TimeTracker.propTypes = {
   pb: PropTypes.shape({}),
   extraTime: PropTypes.number,
+  isCaptains: PropTypes.bool,
 };
 
 const DraftHero = ({
-  pb, radiant, calcExtraTime, picks,
+  pb, radiant, calcExtraTime, picks, isCaptains,
 }) => (
   <DraftCell radiant={radiant}>
-    <TimeTracker pb={pb} extraTime={calcExtraTime(true, pb.total_time_taken)} />
+    <TimeTracker
+      pb={pb}
+      extraTime={calcExtraTime(true, pb.total_time_taken)}
+      isCaptains={isCaptains}
+    />
     <HeroIcon radiant={radiant}>
       <img
         src={heroes[pb.hero_id] && process.env.REACT_APP_API_HOST + heroes[pb.hero_id].img}
@@ -163,6 +170,7 @@ DraftHero.propTypes = {
   radiant: PropTypes.bool,
   calcExtraTime: PropTypes.func,
   picks: PropTypes.arrayOf(PropTypes.number),
+  isCaptains: PropTypes.bool,
 };
 
 // one-based indexing (since draft[i].order starts at 1)
@@ -222,6 +230,7 @@ const Draft = ({
                       radiant={radiantPick(pb)}
                       calcExtraTime={calcExtraTime}
                       picks={picks}
+                      isCaptains={gameMode === 2}
                     />
                   }
                 </TableRowColumn>
@@ -246,12 +255,41 @@ const Draft = ({
                       radiant={radiantPick(pb)}
                       calcExtraTime={calcExtraTime}
                       picks={picks}
+                      isCaptains={gameMode === 2}
                     />
                   }
                 </TableRowColumn>
               </TableRow>
             )) :
-            <span>no</span>
+            draft.sort((a, b) => a.total_time_taken - b.total_time_taken).map(pb => (
+              <TableRow
+                key={pb.order}
+                className={`${radiantOrder.includes(pb.order) ? 'radiant' : 'dire'} draft-row`}
+              >
+                <TableRowColumn style={{ paddingLeft: 0 }}>
+                  {radiantPick(pb) &&
+                    <DraftHero
+                      pb={pb}
+                      radiant={radiantPick(pb)}
+                      calcExtraTime={calcExtraTime}
+                      picks={picks}
+                      isCaptains={gameMode === 2}
+                    />
+                  }
+                </TableRowColumn>
+                <TableRowColumn style={{ paddingRight: 0 }}>
+                  {!radiantPick(pb) &&
+                    <DraftHero
+                      pb={pb}
+                      radiant={radiantPick(pb)}
+                      calcExtraTime={calcExtraTime}
+                      picks={picks}
+                      isCaptains={gameMode === 2}
+                    />
+                  }
+                </TableRowColumn>
+              </TableRow>
+            ))
           }
         </TableBody>
       </Table>
