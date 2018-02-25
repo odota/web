@@ -22,6 +22,11 @@ margin: 0 auto;
   display: flex;
   justify-content: space-between;
 }
+
+.nodata {
+  display: flex;
+  justify-content: center;
+}
 `;
 
 const PickBan = styled.span`
@@ -116,7 +121,6 @@ const RightArrow = styled(Next)`
   visibility: ${props => (props.visible === 'true' ? 'visible' : 'hidden')};
 `;
 
-
 const TimeTracker = ({ pb, extraTime }) => (
   <div className="time-tracker">
     <span className="taken">
@@ -139,18 +143,41 @@ TimeTracker.propTypes = {
   extraTime: PropTypes.number,
 };
 
+const DraftHero = ({
+  pb, radiant, calcExtraTime, picks,
+}) => (
+  <DraftCell radiant={radiant}>
+    <TimeTracker pb={pb} extraTime={calcExtraTime(true, pb.total_time_taken)} />
+    <HeroIcon radiant={radiant}>
+      <img
+        src={heroes[pb.hero_id] && process.env.REACT_APP_API_HOST + heroes[pb.hero_id].img}
+        alt=""
+        data-ispick={picks.includes(pb.order)}
+      />
+      {!picks.includes(pb.order) && <div className="ban" />}
+    </HeroIcon>
+  </DraftCell>
+);
+DraftHero.propTypes = {
+  pb: PropTypes.shape({}),
+  radiant: PropTypes.bool,
+  calcExtraTime: PropTypes.func,
+  picks: PropTypes.arrayOf(PropTypes.number),
+};
+
 // one-based indexing (since draft[i].order starts at 1)
 const orderOne = [1, 3, 5, 7, 10, 12, 14, 16, 18, 20, 21];
 const orderTwo = [2, 4, 6, 8, 9, 11, 13, 15, 17, 19, 22];
 const picks = [7, 8, 9, 10, 15, 16, 17, 18, 21, 22];
 
 const Draft = ({
+  gameMode,
   radiantTeam = {},
   direTeam = {},
   draft = [],
 }) => {
   // if there is no draft data there is no meaning to firstIsTeamTwo
-  const firstIsTeamTwo = draft[0] && draft[0].active_team === 2;
+  const firstIsTeamTwo = draft && draft[0] && draft[0].active_team === 2;
   const radiantOrder = firstIsTeamTwo ? orderTwo : orderOne;
   const radiantPick = pb => (radiantOrder.includes(pb.order));
   let radiantTimeLeft = 130;
@@ -182,57 +209,50 @@ const Draft = ({
           selectable={false}
           className="draft-table"
         >
-          {draft.map(pb => (
-            <TableRow
-              key={pb.order}
-              className={`${radiantOrder.includes(pb.order) ? 'radiant' : 'dire'} draft-row`}
-            >
-              <TableRowColumn style={{ paddingLeft: 0 }}>
-                {radiantPick(pb) &&
-                  <DraftCell radiant>
-                    <TimeTracker pb={pb} extraTime={calcExtraTime(true, pb.total_time_taken)} />
-                    <HeroIcon radiant>
-                      <img
-                        src={heroes[pb.hero_id] && process.env.REACT_APP_API_HOST + heroes[pb.hero_id].img}
-                        alt=""
-                        data-ispick={picks.includes(pb.order)}
-                      />
-                      {!picks.includes(pb.order) && <div className="ban" />}
-                    </HeroIcon>
-                  </DraftCell>
-                }
-              </TableRowColumn>
-              <TableRowColumn>
-                {picks.includes(pb.order) ?
-                  <Pick>
-                    <LeftArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'true' : 'false'} />
-                    Pick {pb.order}
-                    <RightArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'false' : 'true'} />
-                  </Pick> :
-                  <Ban>
-                    <LeftArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'true' : 'false'} />
-                    Ban {pb.order}
-                    <RightArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'false' : 'true'} />
-                  </Ban>
-                }
-              </TableRowColumn>
-              <TableRowColumn style={{ paddingRight: 0 }}>
-                {!radiantPick(pb) &&
-                  <DraftCell dire>
-                    <TimeTracker pb={pb} extraTime={calcExtraTime(false, pb.total_time_taken)} />
-                    <HeroIcon dire>
-                      <img
-                        src={heroes[pb.hero_id] && process.env.REACT_APP_API_HOST + heroes[pb.hero_id].img}
-                        alt=""
-                        data-ispick={picks.includes(pb.order)}
-                      />
-                      {!picks.includes(pb.order) && <div className="ban" />}
-                    </HeroIcon>
-                  </DraftCell>
-                }
-              </TableRowColumn>
-            </TableRow>
-          ))}
+          {gameMode === 2 ?
+            draft.map(pb => (
+              <TableRow
+                key={pb.order}
+                className={`${radiantOrder.includes(pb.order) ? 'radiant' : 'dire'} draft-row`}
+              >
+                <TableRowColumn style={{ paddingLeft: 0 }}>
+                  {radiantPick(pb) &&
+                    <DraftHero
+                      pb={pb}
+                      radiant={radiantPick(pb)}
+                      calcExtraTime={calcExtraTime}
+                      picks={picks}
+                    />
+                  }
+                </TableRowColumn>
+                <TableRowColumn>
+                  {picks.includes(pb.order) ?
+                    <Pick>
+                      <LeftArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'true' : 'false'} />
+                      Pick {pb.order}
+                      <RightArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'false' : 'true'} />
+                    </Pick> :
+                    <Ban>
+                      <LeftArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'true' : 'false'} />
+                      Ban {pb.order}
+                      <RightArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'false' : 'true'} />
+                    </Ban>
+                  }
+                </TableRowColumn>
+                <TableRowColumn style={{ paddingRight: 0 }}>
+                  {!radiantPick(pb) &&
+                    <DraftHero
+                      pb={pb}
+                      radiant={radiantPick(pb)}
+                      calcExtraTime={calcExtraTime}
+                      picks={picks}
+                    />
+                  }
+                </TableRowColumn>
+              </TableRow>
+            )) :
+            <span>no</span>
+          }
         </TableBody>
       </Table>
     </Styled>
@@ -240,6 +260,7 @@ const Draft = ({
 };
 
 Draft.propTypes = {
+  gameMode: PropTypes.number,
   radiantTeam: PropTypes.shape({}),
   direTeam: PropTypes.shape({}),
   draft: PropTypes.arrayOf(PropTypes.shape({})),

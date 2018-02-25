@@ -54,13 +54,12 @@ const matchPages = [Overview, {
   parsed: true,
   content: match => (
     <div>
-      {match.game_mode === 2 &&
-        <Draft
-          radiantTeam={match.radiant_team}
-          direTeam={match.dire_team}
-          draft={match.draft_timings}
-        />
-      }
+      <Draft
+        gameMode={match.game_mode}
+        radiantTeam={match.radiant_team}
+        direTeam={match.dire_team}
+        draft={match.draft_timings}
+      />
     </div>),
 }, {
   name: strings.tab_performances,
