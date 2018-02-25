@@ -18,6 +18,12 @@ const StyledGraphArea = styled.div`
 user-select: none;
 `;
 
+const filterZeroValues = column => ({
+  ...column,
+  solo_competitive_rank: column.solo_competitive_rank || null,
+  competitive_rank: column.competitive_rank || null,
+});
+
 const formatXTick = (time) => {
   const date = new Date(time);
   return `${date.getFullYear()}/${date.getMonth() + 1}`;
@@ -31,7 +37,7 @@ const MMRGraph = ({ columns }) => (
   <StyledGraphArea>
     <ResponsiveContainer width="100%" height={400}>
       <LineChart
-        data={columns}
+        data={columns.map(filterZeroValues)}
         margin={{
         top: 5, right: 30, left: 30, bottom: 5,
       }}

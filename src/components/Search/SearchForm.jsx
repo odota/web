@@ -23,6 +23,9 @@ class SearchForm extends React.Component {
     const { pathname } = window.location;
     if (params.q && pathname === '/search') {
       this.props.dispatchSearch(params.q);
+      this.setState({
+        query: params.q,
+      });
     }
   }
 

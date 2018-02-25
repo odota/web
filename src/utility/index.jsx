@@ -491,6 +491,12 @@ export const getTeamName = (team, _isRadiant) => {
   return (team && team.name) ? team.name : strings.general_dire;
 };
 
+// Use proxy layer to serve team logos
+export const getTeamLogoUrl = (logoUrl) => {
+  const url = logoUrl ? `${process.env.REACT_APP_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}` : '';
+  return url;
+};
+
 /**
  * Converts an HSV color value to RGB. Conversion formula
  * adapted from http://en.wikipedia.org/wiki/HSV_color_space.
@@ -535,9 +541,9 @@ export const getScript = (url, callback) => {
   script.async = 1;
   script.src = url;
 
-  // Insert before first <script>
-  const firstScript = document.getElementsByTagName('script')[0];
-  firstScript.parentNode.insertBefore(script, firstScript);
+  // Insert into body
+  const theFirstChild = document.body.firstChild;
+  document.body.insertBefore(script, theFirstChild);
 
   // Attach handlers
   script.onreadystatechange = (__, isAbort) => {
@@ -545,11 +551,6 @@ export const getScript = (url, callback) => {
       // Handle IE memory leak
       script.onreadystatechange = null;
       script.onload = null;
-
-      // Keep for dev-debugging, see https://goo.gl/MbNOCv
-      if (process.env.NODE_ENV === 'production') {
-        script.parentNode.removeChild(script);
-      }
       script = undefined;
 
       if (!isAbort && callback) {
