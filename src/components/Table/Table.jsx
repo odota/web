@@ -107,6 +107,9 @@ class Table extends React.Component {
       sortField,
       sortFn,
     });
+    if (typeof this.props.onSortCallback === 'function') {
+      this.props.onSortCallback(sortField, sortState, sortFn);
+    }
   }
   nextPage() {
     this.setState({
@@ -130,6 +133,7 @@ class Table extends React.Component {
       paginated,
       placeholderMessage,
       pageLength = 20,
+      fixedHeader,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage,
@@ -161,7 +165,7 @@ class Table extends React.Component {
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
           <div className="innerContainer">
-            <MaterialTable fixedHeader={false} selectable={false}>
+            <MaterialTable fixedHeader={!!fixedHeader} selectable={false}>
               <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableHeader
                   columns={columns}
@@ -282,6 +286,7 @@ const {
   shape,
   number,
   string,
+  func,
 } = PropTypes;
 
 Table.propTypes = {
@@ -294,6 +299,8 @@ Table.propTypes = {
   paginated: bool,
   placeholderMessage: string,
   pageLength: number,
+  fixedHeader: bool,
+  onSortCallback: func,
 };
 
 export default Table;

@@ -14,6 +14,7 @@ import {
   abbreviateNumber,
 } from 'utility';
 import columns from './columns';
+import FixedTable from '../Table/FixedTable/FixedTable';
 
 class RequestLayer extends React.Component {
   componentDidMount() {
@@ -100,7 +101,7 @@ class RequestLayer extends React.Component {
             icon=""
             twoLine
           />
-          <Table data={data} columns={_columns} loading={loading} />
+          <FixedTable data={data} columns={_columns} fixedColumn={_columns[0]} loading={loading} />
         </div>),
       route: '/heroes/public',
     }];
