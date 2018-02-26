@@ -72,7 +72,7 @@ export const StyledBody = styled.div`
 
     & tr {
       :hover {
-        background: rgba(190, 190, 190, 0.1) !important;
+        background: rgba(190, 190, 190, 0.07) !important;
       }   
     }
 
@@ -83,14 +83,12 @@ export const StyledBody = styled.div`
       :hover::after {
         content: "" !important;
         position: absolute !important;
-        background: rgba(190, 190, 190, 0.1) !important;
+        background: rgba(190, 190, 190, 0.07) !important;
         left: 0 !important;
         top: -1000px !important;
         height: 2000px !important;
         width: 100% !important;
         pointer-events: none !important;
-        opacity: 0.5 !important;
-        z-index: 1 !important;
       }
     }
   }` : '')};
