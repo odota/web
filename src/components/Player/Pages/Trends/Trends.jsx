@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { TrendGraph } from 'components/Visualizations';
-import {
-  getPlayerTrends,
-} from 'actions';
+import { getPlayerTrends } from 'actions';
 import ButtonGarden from 'components/ButtonGarden';
 import trendNames from 'components/Player/Pages/matchDataColumns';
 import Heading from 'components/Heading';

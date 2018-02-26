@@ -7,7 +7,24 @@ import { getTeams } from 'actions';
 import Heading from 'components/Heading';
 import Team from 'components/Team';
 import Table, { TableLink } from 'components/Table';
-import { getOrdinal, fromNow, subTextStyle } from 'utility';
+import styled from 'styled-components';
+import { getOrdinal, getTeamLogoUrl, fromNow, subTextStyle } from 'utility';
+import { Logo } from '../Team/TeamStyled';
+
+const TeamImageContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  img {
+    margin-top: 7px;
+    margin-right: 7px;
+    margin-bottom: 7px;
+    margin-left: 0px;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
+`;
 
 const columns = [{
   displayName: strings.th_rank,
@@ -17,12 +34,18 @@ const columns = [{
   displayName: strings.th_name,
   field: 'name',
   displayFn: (row, col, field) => (
-    <div>
-      <TableLink to={`/teams/${row.team_id}`}>{field}</TableLink>
-      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-        {fromNow(row.last_match_time)}
-      </span>
-    </div>),
+    <TeamImageContainer>
+      <Logo
+        src={getTeamLogoUrl(row.logo_url)}
+        alt=""
+      />
+      <div>
+        <TableLink to={`/teams/${row.team_id}`}>{field}</TableLink>
+        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+          {fromNow(row.last_match_time)}
+        </span>
+      </div>
+    </TeamImageContainer>),
 }, {
   displayName: strings.th_rating,
   field: 'rating',

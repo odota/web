@@ -5,9 +5,7 @@ import {
   formatSeconds,
 }
   from 'utility';
-import {
-  Link,
-}
+import { Link }
   from 'react-router-dom';
 import strings from 'lang';
 import Table from 'components/Table';

@@ -1,6 +1,4 @@
-import React, {
-  Component,
-} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DotaMap from 'components/DotaMap';
 import uuid from 'uuid';
