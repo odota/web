@@ -146,7 +146,6 @@ class Table extends React.Component {
     if (paginated) {
       data = data.slice(currentPage * pageLength, (currentPage + 1) * pageLength);
     }
-    console.log(hoverRowColumn);
     return (
       <StyledBody hoverRowColumn={hoverRowColumn} >
         {paginated && <Pagination
