@@ -54,7 +54,7 @@ export const StyledBody = styled.div`
         padding-right: 24px !important;
       }
     }
-  } 
+  }
   /* Override material-ui style */
 
   .innerContainer > div > div {
