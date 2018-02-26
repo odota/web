@@ -85,8 +85,8 @@ export const StyledBody = styled.div`
         position: absolute !important;
         background: rgba(190, 190, 190, 0.1) !important;
         left: 0 !important;
-        top: -5000px !important;
-        height: 10000px !important;
+        top: -1000px !important;
+        height: 2000px !important;
         width: 100% !important;
         pointer-events: none !important;
         opacity: 0.5 !important;
