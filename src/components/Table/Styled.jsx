@@ -6,7 +6,6 @@ export const StyledBody = styled.div`
     background-color: transparent !important;
     table-layout: auto !important;
     margin-bottom: 20px;
-    overflow: hidden !important;
 
     & th {
       background-color: rgba(0, 0, 0, 0.3);
@@ -40,17 +39,12 @@ export const StyledBody = styled.div`
         border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
         border-bottom: 0 !important;
       }
-
-      :hover {
-        background: rgba(190, 190, 190, 0.1);
-      }   
     }
 
     & th,
     & td {
       padding-left: 8px !important;
       padding-right: 8px !important;
-      position: relative !important;
 
       &:first-child {
         padding-left: 24px !important;
@@ -59,21 +53,9 @@ export const StyledBody = styled.div`
       &:last-child {
         padding-right: 24px !important;
       }
-      ${props => props.small ? `      :hover::after {
-        content: "";
-        position: absolute;
-        background: rgba(190, 190, 190, 0.1);
-        left: 0;
-        top: -5000px;
-        height: 10000px;
-        width: 100%;
-        pointer-events: none;
-        opacity: 0.5;
-        z-index: 1;
-      }` : '0.5em 2em'}
-
     }
   }
+  
   /* Override material-ui style */
 
   .innerContainer > div > div {
@@ -85,6 +67,34 @@ export const StyledBody = styled.div`
       margin: 0 -25px;
     }
   }
+  ${props => (props.hoverRowColumn ? `
+  table {
+    overflow: hidden !important;
+
+    & tr {
+      :hover {
+        background: rgba(190, 190, 190, 0.1) !important;
+      }   
+    }
+
+    & th,
+    & td {
+      position: relative !important;
+
+      :hover::after {
+        content: "" !important;
+        position: absolute !important;
+        background: rgba(190, 190, 190, 0.1) !important;
+        left: 0 !important;
+        top: -5000px !important;
+        height: 10000px !important;
+        width: 100% !important;
+        pointer-events: none !important;
+        opacity: 0.5 !important;
+        z-index: 1 !important;
+      }
+    }
+  }` : '')};
 `;
 export const StyledContainer = styled.div`
   min-width: 100%;
