@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import constants from '../constants';
+import querystring from 'querystring';
 
 const StyledMain = styled.main`
   position: relative;
@@ -47,6 +48,13 @@ const StyledSection = styled.section`
   }
 `;
 
+const filteredURLSearchParams = () => {
+  const PARAMS_TO_IGNORE = [constants.PAGINATION_PAGE_NUMBER, constants.PAGINATION_PAGE_SIZE];
+  const params = querystring.parse(window.location.search.substring(1));
+  PARAMS_TO_IGNORE.forEach(key => delete params[key]);
+  return querystring.encode(params);
+};
+
 const TabBar = ({ tabs, info }) => (
   <StyledMain>
     <StyledSection>
@@ -54,7 +62,7 @@ const TabBar = ({ tabs, info }) => (
         <Link
           key={`${tab.name}_${tab.route}_${tab.key}`}
           className={tab.key === info ? 'chosen' : ''}
-          to={tab.route + window.location.search}
+          to={tab.route + filteredURLSearchParams()}
           disabled={tab.disabled}
         >
           {tab.name}
