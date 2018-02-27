@@ -120,7 +120,7 @@ class Table extends React.Component {
   }
   setCurrentPage(pageNumber) {
     // update the URL with page number as the user sees it (1 indexed vs 0 indexed)
-    updateURLQueryStringParam('page', pageNumber + 1);
+    updateURLQueryStringParam(PAGINATION_PAGE_NUMBER, pageNumber + 1);
     this.setState({
       ...this.state,
       currentPage: pageNumber,
