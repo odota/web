@@ -10,6 +10,7 @@ export default {
   colorMuted: '#727272',
   colorYelor: '#FFAB40',
   colorGolden: '#e5c100',
+  colorBlueGray: '#7c99a8',
   green: '#66BB6A',
   blue: '#6BF',
   golden: '#e5c100',
