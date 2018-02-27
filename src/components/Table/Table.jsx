@@ -8,7 +8,8 @@ import {
   TableRowColumn as MaterialTableRowColumn,
 } from 'material-ui/Table';
 import { TablePercent } from 'components/Visualizations';
-import Pagination from 'components/Table/PaginatedTable/Pagination';
+import querystring from 'querystring';
+import Pagination from './PaginatedTable/Pagination';
 import { abbreviateNumber, SORT_ENUM, defaultSort } from 'utility';
 import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
@@ -53,8 +54,31 @@ const toUnderline = (data, row, field, underline) => {
   return false;
 };
 
+const getParamFromURL = (key) => {
+  const params = querystring.decode(window.location.search.substring(1));
+  return params[key];
+};
+
+const updateURLQueryStringParam = function (key, value) {
+  const params = querystring.decode(window.location.search.substring(1));
+  params[key] = value;
+  const baseUrl = [window.location.protocol, '//', window.location.host, window.location.pathname].join('');
+  window.history.replaceState({}, '', [baseUrl, '?', querystring.encode(params)].join(''));
+};
+
+const getPageNumberFromURL = () => {
+  const page = getParamFromURL('page');
+  return page ? page - 1 : 0;
+};
+
+const getPageLengthFromURL = () => {
+  const length = getParamFromURL('pageSize');
+  return length || 20;
+};
+
 const initialState = {
-  currentPage: 0,
+  currentPage: getPageNumberFromURL(),
+  pageLength: getPageLengthFromURL(),
   sortState: '',
   sortField: '',
   sortFn: f => f,
@@ -94,10 +118,18 @@ class Table extends React.Component {
     }
   }
   setCurrentPage(pageNumber) {
+    // update the URL with page number as the user sees it (1 indexed vs 0 indexed)
+    updateURLQueryStringParam('page', pageNumber + 1);
     this.setState({
       ...this.state,
       currentPage: pageNumber,
     });
+  }
+  nextPage() {
+    this.setCurrentPage(this.state.currentPage + 1);
+  }
+  prevPage() {
+    this.setCurrentPage(this.state.currentPage - 1);
   }
   sortClick(sortField, sortState, sortFn) {
     const { state } = this;
@@ -106,18 +138,6 @@ class Table extends React.Component {
       sortState: sortField === state.sortField ? SORT_ENUM.next(SORT_ENUM[state.sortState]) : SORT_ENUM[0],
       sortField,
       sortFn,
-    });
-  }
-  nextPage() {
-    this.setState({
-      ...this.state,
-      currentPage: this.state.currentPage + 1,
-    });
-  }
-  prevPage() {
-    this.setState({
-      ...this.state,
-      currentPage: this.state.currentPage - 1,
     });
   }
   render() {
@@ -129,10 +149,9 @@ class Table extends React.Component {
       maxRows,
       paginated,
       placeholderMessage,
-      pageLength = 20,
     } = this.props;
     const {
-      sortState, sortField, sortFn, currentPage,
+      sortState, sortField, sortFn, currentPage, pageLength,
     } = this.state;
     const dataLength = this.props.data.length;
     let { data } = this.props;
