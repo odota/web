@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import querystring from 'querystring';
 import constants from '../constants';
+import { PAGINATION_PAGE_NUMBER, PAGINATION_PAGE_SIZE } from '../keys';
 
 const StyledMain = styled.main`
   position: relative;
@@ -49,7 +50,7 @@ const StyledSection = styled.section`
 `;
 
 const filteredURLSearchParams = () => {
-  const PARAMS_TO_IGNORE = [constants.PAGINATION_PAGE_NUMBER, constants.PAGINATION_PAGE_SIZE];
+  const PARAMS_TO_IGNORE = [PAGINATION_PAGE_NUMBER, PAGINATION_PAGE_SIZE];
   const params = querystring.parse(window.location.search.substring(1));
   PARAMS_TO_IGNORE.forEach(key => delete params[key]);
   return `?${querystring.encode(params)}`;

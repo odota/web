@@ -15,6 +15,7 @@ import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import { StyledBody, StyledContainer } from './Styled';
+import { PAGINATION_PAGE_NUMBER, PAGINATION_PAGE_SIZE } from '../keys';
 
 const getColumnMax = (data, field, getValue) => {
   const valuesArr = data.reduce((arr, row) => {
@@ -67,12 +68,12 @@ const updateURLQueryStringParam = function (key, value) {
 };
 
 const getPageNumberFromURL = () => {
-  const page = getParamFromURL('page');
+  const page = getParamFromURL(PAGINATION_PAGE_NUMBER);
   return page ? page - 1 : 0;
 };
 
 const getPageLengthFromURL = () => {
-  const length = getParamFromURL('pageSize');
+  const length = getParamFromURL(PAGINATION_PAGE_SIZE);
   return length || 20;
 };
 
