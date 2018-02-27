@@ -52,7 +52,7 @@ const filteredURLSearchParams = () => {
   const PARAMS_TO_IGNORE = [constants.PAGINATION_PAGE_NUMBER, constants.PAGINATION_PAGE_SIZE];
   const params = querystring.parse(window.location.search.substring(1));
   PARAMS_TO_IGNORE.forEach(key => delete params[key]);
-  return querystring.encode(params);
+  return '?' + querystring.encode(params);
 };
 
 const TabBar = ({ tabs, info }) => (
