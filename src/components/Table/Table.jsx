@@ -9,8 +9,8 @@ import {
 } from 'material-ui/Table';
 import { TablePercent } from 'components/Visualizations';
 import querystring from 'querystring';
-import Pagination from './PaginatedTable/Pagination';
 import { abbreviateNumber, SORT_ENUM, defaultSort } from 'utility';
+import Pagination from './PaginatedTable/Pagination';
 import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
@@ -312,7 +312,6 @@ Table.propTypes = {
   maxRows: number,
   paginated: bool,
   placeholderMessage: string,
-  pageLength: number,
 };
 
 export default Table;

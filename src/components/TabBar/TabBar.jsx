@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import constants from '../constants';
 import querystring from 'querystring';
+import constants from '../constants';
 
 const StyledMain = styled.main`
   position: relative;
