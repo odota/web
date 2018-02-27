@@ -72,7 +72,7 @@ export const StyledBody = styled.div`
 
     & tr {
       :hover {
-        background: rgba(190, 190, 190, 0.07) !important;
+        background: rgba(190, 190, 140, 0.07) !important;
       }   
     }
 
