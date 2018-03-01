@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import {
-  CardTitle,
-} from 'material-ui/Card';
+import { CardTitle } from 'material-ui/Card';
 import Container from 'components/Container';
 import constants from '../constants';
 

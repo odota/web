@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  connect,
-} from 'react-redux';
+import { connect } from 'react-redux';
 import ActionHelp from 'material-ui/svg-icons/action/help';
 import Error from 'components/Error';
 import Spinner from 'components/Spinner';
