@@ -108,6 +108,7 @@ export const overviewColumns = (match) => {
       displayFn: transformations.kda,
       sumFn: true,
       underline: 'max',
+      color: constants.colorGreen,
     },
     {
       displayName: strings.th_deaths,
@@ -116,6 +117,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       underline: 'min',
+      color: constants.colorRed,
     },
     {
       displayName: strings.th_assists,
@@ -124,6 +126,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       underline: 'max',
+      color: constants.colorBlueGray,
     },
     {
       displayName: strings.th_gold_per_min,
