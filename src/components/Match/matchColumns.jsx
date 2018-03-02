@@ -947,6 +947,13 @@ const valueStyle = {
   backgroundColor: constants.darkPrimaryColor,
 };
 
+const iconStyle = {
+  height: '30px',
+  bottom: '30px',
+  left: '25px',
+  position: 'relative',
+};
+
 const targetTooltip = (t) => {
   const targets = [];
   Object.keys(t).forEach((target) => {
@@ -957,9 +964,7 @@ const targetTooltip = (t) => {
         <img
           src={heroicon}
           alt=""
-          style={{
- height: '30px', bottom: '30px', left: '25px', position: 'relative',
-}}
+          style={iconStyle}
         />
       </div>
     );
