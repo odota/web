@@ -952,15 +952,17 @@ const targetTooltip = (t) => {
   Object.keys(t).forEach((target) => {
     const heroicon = heroes[getHeroesById()[target].id] && process.env.REACT_APP_API_HOST + heroes[getHeroesById()[target].id].icon;
     const j = (
-      <div style={{float: 'left'}}>
+      <div style={{ float: 'left' }}>
         <span style={valueStyle}>{`${t[target]}x`}</span>
         <img
           src={heroicon}
           alt=""
-          style={{ height: '30px', bottom: '30px', left: '25px', position: 'relative' }}
+          style={{
+ height: '30px', bottom: '30px', left: '25px', position: 'relative',
+}}
         />
       </div>
-      );
+    );
     targets.push([j, t[target]]);
   });
 
@@ -990,7 +992,7 @@ export const castsColumns = [
 
         return (
           <ul>
-          {r.map(row => <li style={{clear: 'left'}}>{row}</li>)}
+            {r.map(row => <li style={{ clear: 'left' }}>{row}</li>)}
           </ul>
         );
       }
