@@ -940,11 +940,10 @@ export const inflictorsColumns = [
 const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 
 const valueStyle = {
-  position: 'absolute',
-  textAlign: 'center',
-  marginLeft: '16px',
-  marginTop: '18px',
-  fontSize: '12px',
+  position: 'relative',
+  left: '40px',
+  bottom: '24px',
+  zIndex: '1',
   backgroundColor: constants.darkPrimaryColor,
 };
 
@@ -953,15 +952,15 @@ const targetTooltip = (t) => {
   Object.keys(t).forEach((target) => {
     const heroicon = heroes[getHeroesById()[target].id] && process.env.REACT_APP_API_HOST + heroes[getHeroesById()[target].id].icon;
     const j = (
-
-      <div style={{ display: 'inline-block', paddingBottom: '20px' }}>
+      <div style={{float: 'left'}}>
         <span style={valueStyle}>{`${t[target]}x`}</span>
         <img
           src={heroicon}
           alt=""
-          style={{ height: '30px', paddingLeft: '15px' }}
+          style={{ height: '30px', bottom: '30px', left: '25px', position: 'relative' }}
         />
-      </div>);
+      </div>
+      );
     targets.push([j, t[target]]);
   });
 
@@ -990,7 +989,9 @@ export const castsColumns = [
         });
 
         return (
-          <div style={{ display: 'inline-block', width: '150px' }}>{r}</div>
+          <ul>
+          {r.map(row => <li style={{clear: 'left'}}>{row}</li>)}
+          </ul>
         );
       }
       return null;
