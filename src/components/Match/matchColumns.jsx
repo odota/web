@@ -940,9 +940,10 @@ export const inflictorsColumns = [
 const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 
 const valueStyle = {
-  position: 'relative',
-  left: '40px',
+  position: 'absolute',
+  left: '35px',
   bottom: '24px',
+  fontSize: '12px',
   zIndex: '1',
   backgroundColor: constants.darkPrimaryColor,
 };
@@ -959,7 +960,7 @@ const targetTooltip = (t) => {
   Object.keys(t).forEach((target) => {
     const heroicon = heroes[getHeroesById()[target].id] && process.env.REACT_APP_API_HOST + heroes[getHeroesById()[target].id].icon;
     const j = (
-      <div style={{ float: 'left' }}>
+      <div style={{ float: 'left', position: 'relative', paddingLeft: '10px' }}>
         <span style={valueStyle}>{`${t[target]}x`}</span>
         <img
           src={heroicon}
