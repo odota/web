@@ -243,10 +243,10 @@ class Explorer extends React.Component {
           */}
             <ExplorerOutputButton
               label={strings.explorer_csv_button}
-              href={`data:application/octet-stream,${encodeURIComponent(!this.state.result.rows ? '' : json2csv.parse(
+              href={`data:application/octet-stream,${encodeURIComponent((this.state.result.rows && this.state.result.rows.length) ? json2csv.parse(
               this.state.result.rows || [],
               { fields: (this.state.result.fields || []).map(field => field.name) }
-            ))}`}
+            ) : '')}`}
               download="data.csv"
               context={explorer}
             />
