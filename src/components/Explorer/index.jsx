@@ -1,18 +1,14 @@
 /* global ace */
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  connect,
-}
+import { connect }
   from 'react-redux';
 import fetch from 'isomorphic-fetch';
 import Spinner from 'components/Spinner';
 import RaisedButton from 'material-ui/RaisedButton';
 import strings from 'lang';
 import Helmet from 'react-helmet';
-import {
-  getScript,
-}
+import { getScript }
   from 'utility';
 import Heading from 'components/Heading';
 import {

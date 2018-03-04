@@ -13,9 +13,7 @@ import Table from 'components/Table';
 import heroes from 'dotaconstants/build/heroes.json';
 import FormField from 'components/Form/FormField';
 import { IconRadiant, IconDire } from 'components/Icons';
-import {
-  heroTdColumn,
-} from './matchColumns';
+import { heroTdColumn } from './matchColumns';
 import { StyledLogFilterForm } from './StyledMatch';
 
 const St = styled.div`
