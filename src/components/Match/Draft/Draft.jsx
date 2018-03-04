@@ -152,7 +152,7 @@ const DraftHero = ({
   <DraftCell radiant={radiant}>
     <TimeTracker
       pb={pb}
-      extraTime={calcExtraTime(true, pb.total_time_taken)}
+      extraTime={calcExtraTime(radiant, pb.total_time_taken)}
       isCaptains={isCaptains}
     />
     <HeroIcon radiant={radiant}>
