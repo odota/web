@@ -1,110 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>OpenDota - Dota 2 Statistics</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="OpenDota">
-    <link rel="apple-touch-icon" href="/assets/images/icons/icon-72x72.png" sizes="72x72">
-    <link rel="apple-touch-icon" href="/assets/images/icons/icon-96x96.png" sizes="96x96">
-    <link rel="apple-touch-icon" href="/assets/images/icons/icon-128x128.png" sizes="128x128">
-    <link rel="apple-touch-icon" href="/assets/images/icons/icon-144x144.png" sizes="144x144">
-    <link rel="apple-touch-icon" href="/assets/images/icons/icon-152x152.png" sizes="152x152">
-    <link rel="apple-touch-icon" href="/assets/images/icons/icon-192x192.png" sizes="192x192">
-    <link rel="apple-touch-icon" href="/assets/images/icons/icon-384x384.png" sizes="384x384">
-    <link rel="apple-touch-icon" href="/assets/images/icons/icon-512x512.png" sizes="512x512">
-    <meta name="msapplication-TileImage" content="/assets/images/icons/icon-144x144.png">
-    <meta name="msapplication-TileColor" content="#000">
-    <meta name="description" content="Open source Dota 2 match data and player statistics">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#000000">
-    <meta name="explanation" content="Microsoft browsers require custom 404 pages to be at least 512 bytes in length.">
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="icon" type="image/png" href="/assets/images/logo.png">
-    <meta property="og:image" content="/assets/images/logo-preview.jpg" />
-    <style>
-      body {
-        background-color: #2e2d45;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        width: 100vw;
-        margin: 0;
-      }
-      
-      .loader {
-        width: 3em;
-        height: 3em;
-        animation: loaderAnim 1.25s infinite;
-        outline: 1px solid transparent;
-      }
-      .loader #largeBox {
-        height: 3em;
-        width: 3em;
-        background-color: #ECECEC;
-        outline: 1px solid transparent;
-        position: fixed;
-      }
-      .loader #smallBox {
-        height: 3em;
-        width: 3em;
-        background-color: #34495e;
-        position: fixed;
-        z-index: 1;
-        outline: 1px solid transparent;
-        animation: smallBoxAnim 1.25s alternate infinite ease-in-out;
-      }
-      
-      @keyframes smallBoxAnim {
-        0% {
-          transform: scale(0.2);
-        }
-        100% {
-          transform: scale(0.75);
-        }
-      }
-      @keyframes loaderAnim {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(90deg);
-        }
-      }
-    </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/1.0.3/autotrack.js"></script>
-    <script>
-      (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-          (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-          m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>OpenDota - Dota 2 Statistics</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="OpenDota">
+  <link rel="apple-touch-icon" href="/assets/images/icons/icon-72x72.png" sizes="72x72">
+  <link rel="apple-touch-icon" href="/assets/images/icons/icon-96x96.png" sizes="96x96">
+  <link rel="apple-touch-icon" href="/assets/images/icons/icon-128x128.png" sizes="128x128">
+  <link rel="apple-touch-icon" href="/assets/images/icons/icon-144x144.png" sizes="144x144">
+  <link rel="apple-touch-icon" href="/assets/images/icons/icon-152x152.png" sizes="152x152">
+  <link rel="apple-touch-icon" href="/assets/images/icons/icon-192x192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/images/icons/icon-384x384.png" sizes="384x384">
+  <link rel="apple-touch-icon" href="/assets/images/icons/icon-512x512.png" sizes="512x512">
+  <meta name="msapplication-TileImage" content="/assets/images/icons/icon-144x144.png">
+  <meta name="msapplication-TileColor" content="#000">
+  <meta name="description" content="Open source Dota 2 match data and player statistics">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <meta name="explanation" content="Microsoft browsers require custom 404 pages to be at least 512 bytes in length.">
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+  <link rel="icon" type="image/png" href="/assets/images/logo.png">
+  <meta property="og:image" content="/assets/images/logo-preview.jpg" />
+  <style>
+    body {
+      background-color: #2e2d45;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-      ga('create', 'UA-55757642-1', 'auto');
-      ga('require', 'urlChangeTracker');
-      ga('send', 'pageview');
-    </script>
-  </head>
+    .sk-cube-grid {
+      width: 40px;
+      height: 40px;
+      margin: 100px auto;
+    }
 
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="root" />
-    <div id="loader" class="loader">
-      <div id="largeBox"></div>
-      <div id="smallBox"></div>
-    </div>
-  </body>
+    .sk-cube-grid .sk-cube {
+      width: 33%;
+      height: 33%;
+      background-color: #CCC;
+      float: left;
+      -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+      animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+    }
+
+    .sk-cube-grid .sk-cube1 {
+      -webkit-animation-delay: 0.2s;
+      animation-delay: 0.2s;
+    }
+
+    .sk-cube-grid .sk-cube2 {
+      -webkit-animation-delay: 0.3s;
+      animation-delay: 0.3s;
+    }
+
+    .sk-cube-grid .sk-cube3 {
+      -webkit-animation-delay: 0.4s;
+      animation-delay: 0.4s;
+    }
+
+    .sk-cube-grid .sk-cube4 {
+      -webkit-animation-delay: 0.1s;
+      animation-delay: 0.1s;
+    }
+
+    .sk-cube-grid .sk-cube5 {
+      -webkit-animation-delay: 0.2s;
+      animation-delay: 0.2s;
+    }
+
+    .sk-cube-grid .sk-cube6 {
+      -webkit-animation-delay: 0.3s;
+      animation-delay: 0.3s;
+    }
+
+    .sk-cube-grid .sk-cube7 {
+      -webkit-animation-delay: 0s;
+      animation-delay: 0s;
+    }
+
+    .sk-cube-grid .sk-cube8 {
+      -webkit-animation-delay: 0.1s;
+      animation-delay: 0.1s;
+    }
+
+    .sk-cube-grid .sk-cube9 {
+      -webkit-animation-delay: 0.2s;
+      animation-delay: 0.2s;
+    }
+
+    @-webkit-keyframes sk-cubeGridScaleDelay {
+      0%,
+      70%,
+      100% {
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+      }
+      35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+      }
+    }
+
+    @keyframes sk-cubeGridScaleDelay {
+      0%,
+      70%,
+      100% {
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+      }
+      35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="root" />
+  <noscript>
+    <h3>Looks like your browser isn't allowing scripts! Enable JavaScript to run this app.</h3>
+  </noscript>
+  <div class="sk-cube-grid">
+    <div class="sk-cube sk-cube1"></div>
+    <div class="sk-cube sk-cube2"></div>
+    <div class="sk-cube sk-cube3"></div>
+    <div class="sk-cube sk-cube4"></div>
+    <div class="sk-cube sk-cube5"></div>
+    <div class="sk-cube sk-cube6"></div>
+    <div class="sk-cube sk-cube7"></div>
+    <div class="sk-cube sk-cube8"></div>
+    <div class="sk-cube sk-cube9"></div>
+  </div>
+  </div>
+  <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .register('/sw.js')
+          .then(function() {
+            console.log('Service worker registered!');
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
+      }  
+  </script>   
+</body>
 </html>

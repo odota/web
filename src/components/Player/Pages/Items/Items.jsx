@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  connect,
-} from 'react-redux';
-import {
-  getPlayerItems,
-} from 'actions';
+import { connect } from 'react-redux';
+import { getPlayerItems } from 'actions';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import playerItemsColumns from './playerItemsColumns';

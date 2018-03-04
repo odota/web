@@ -9,13 +9,13 @@ import abilityKeys from 'dotaconstants/build/ability_keys.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById } from 'utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy } from 'utility';
 import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
-import { Mmr } from 'components/Visualizations/Table/HeroImage';
-import { IconBackpack } from 'components/Icons';
+import { CompetitiveRank } from 'components/Visualizations/Table/HeroImage';
+import { IconBackpack, IconRadiant, IconDire } from 'components/Icons';
 import constants from '../constants';
 import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
 
@@ -27,8 +27,8 @@ export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide =
     title={row.name || row.personaname || strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
-    subtitle={<Mmr number={row.solo_competitive_rank} />}
     playerSlot={row.player_slot}
+    subtitle={<CompetitiveRank rankTier={rankTierToString(row.rank_tier)} />}
     hideText={hideName}
     confirmed={row.account_id && row.name}
     party={party}
@@ -49,22 +49,15 @@ export const heroTdColumn = {
   sortFn: true,
 };
 
-const parties = (row, match) => {
-  if (match.players && match.players.map(player => player.party_id).reduce(sum) > 0) {
-    const i = match.players.findIndex(player => player.player_slot === row.player_slot);
-    const partyPrev = (match.players[i - 1] || {}).party_id === row.party_id;
-    const partyNext = (match.players[i + 1] || {}).party_id === row.party_id;
-    if (!partyPrev && partyNext) {
-      return <div data-next />;
-    }
-    if (partyPrev && partyNext) {
-      return <div data-prev-next />;
-    }
-    if (partyPrev && !partyNext) {
-      return <div data-prev />;
-    }
+const partyStyles = (row, match) => {
+  if (row.party_size === 1 || (match.players && !match.players.map(player => player.party_id).reduce(sum))) {
+    return null;
   }
-  return null;
+  // groupBy party id, then remove all the solo players, then find the index the party the row player is in
+  const index = Object.values(groupBy(match.players, 'party_id'))
+    .filter(x => x.length > 1)
+    .findIndex(x => x.find(y => y.player_slot === row.player_slot));
+  return <div className={`group${index}`} />;
 };
 
 const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
@@ -95,7 +88,7 @@ export const overviewColumns = (match) => {
     {
       displayName: strings.th_avatar,
       field: 'player_slot',
-      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, parties(row, match), true),
+      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), true),
       sortFn: true,
     },
     {
@@ -105,6 +98,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       maxFn: true,
       sumFn: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_kills,
@@ -113,6 +107,8 @@ export const overviewColumns = (match) => {
       sortFn: true,
       displayFn: transformations.kda,
       sumFn: true,
+      underline: 'max',
+      color: constants.colorGreen,
     },
     {
       displayName: strings.th_deaths,
@@ -120,6 +116,8 @@ export const overviewColumns = (match) => {
       field: 'deaths',
       sortFn: true,
       sumFn: true,
+      underline: 'min',
+      color: constants.colorRed,
     },
     {
       displayName: strings.th_assists,
@@ -127,6 +125,8 @@ export const overviewColumns = (match) => {
       field: 'assists',
       sortFn: true,
       sumFn: true,
+      underline: 'max',
+      color: constants.colorBlueGray,
     },
     {
       displayName: strings.th_gold_per_min,
@@ -136,6 +136,7 @@ export const overviewColumns = (match) => {
       color: constants.golden,
       sumFn: true,
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_xp_per_min,
@@ -144,6 +145,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_last_hits,
@@ -152,6 +154,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_denies,
@@ -160,6 +163,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_hero_damage,
@@ -169,6 +173,7 @@ export const overviewColumns = (match) => {
       sumFn: true,
       displayFn: row => abbreviateNumber(row.hero_damage),
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_hero_healing,
@@ -178,6 +183,7 @@ export const overviewColumns = (match) => {
       sumFn: true,
       displayFn: row => abbreviateNumber(row.hero_healing),
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_tower_damage,
@@ -187,6 +193,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: (
@@ -202,6 +209,7 @@ export const overviewColumns = (match) => {
       sumFn: true,
       displayFn: row => abbreviateNumber(row.total_gold),
       // relativeBars: true,
+      underline: 'max',
     },
     {
       displayName: strings.th_items,
@@ -285,6 +293,25 @@ export const abilityColumns = () => {
         <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
           <div className="ability">
             {inflictorWithValue(abilityIds[row[`ability_upgrades_arr_${index}`]]) || <div className="placeholder" />}
+          </div>
+        </StyledAbilityUpgrades>),
+  }));
+
+  cols[0] = heroTdColumn;
+
+  return cols;
+};
+
+export const abilityDraftColumns = () => {
+  const cols = Array.from(new Array(6), (_, index) => ({
+    displayName: `${index}`,
+    tooltip: strings.tooltip_abilitydraft,
+    field: `abilities${index}`,
+    displayFn: row =>
+      (
+        <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
+          <div className="ability">
+            {inflictorWithValue(abilityIds[row.abilities[index - 1]]) || <div className="placeholder" />}
           </div>
         </StyledAbilityUpgrades>),
   }));
@@ -462,7 +489,7 @@ export const fantasyColumns = [
   },
 ].concat(fantasyComponents);
 
-export const purchaseTimesColumns = (match) => {
+export const purchaseTimesColumns = (match, showConsumables) => {
   const cols = [heroTdColumn];
   const bucket = 300;
   for (let i = 0; i < match.duration + bucket; i += bucket) {
@@ -487,7 +514,7 @@ export const purchaseTimesColumns = (match) => {
                 return 0;
               })
               .map((purchase) => {
-                if (items[purchase.key]) {
+                if (items[purchase.key] && (showConsumables || items[purchase.key].qual !== 'consumable')) {
                   return inflictorWithValue(purchase.key, formatSeconds(purchase.time));
                 }
                 return null;
@@ -627,6 +654,19 @@ export const performanceColumns = [
 export const laningColumns = (currentState, setSelectedPlayer) => [
   { displayFn: row => <RadioButton checked={currentState.selectedPlayer === row.player_slot} onClick={() => setSelectedPlayer(row.player_slot)} /> },
   heroTdColumn,
+  {
+    displayName: strings.heading_is_radiant,
+    tooltip: strings.heading_is_radiant,
+    field: 'isRadiant',
+    sortFn: true,
+    displayFn: (row, col, field) =>
+      (
+        <span>
+          {field && <IconRadiant height="30" /> }
+          {!field && <IconDire height="30" /> }
+        </span>
+      ),
+  },
   {
     displayName: strings.th_lane,
     tooltip: strings.tooltip_lane,
@@ -900,6 +940,44 @@ export const inflictorsColumns = [
   },
 ];
 
+const sumValues = f => Object.values(f).reduce((a, b) => a + b);
+
+const valueStyle = {
+  position: 'absolute',
+  left: '35px',
+  bottom: '24px',
+  fontSize: '12px',
+  zIndex: '1',
+  backgroundColor: constants.darkPrimaryColor,
+};
+
+const iconStyle = {
+  height: '30px',
+  bottom: '30px',
+  left: '25px',
+  position: 'relative',
+};
+
+const targetTooltip = (t) => {
+  const targets = [];
+  Object.keys(t).forEach((target) => {
+    const heroicon = heroes[getHeroesById()[target].id] && process.env.REACT_APP_API_HOST + heroes[getHeroesById()[target].id].icon;
+    const j = (
+      <div style={{ float: 'left', position: 'relative', paddingLeft: '10px' }}>
+        <span style={valueStyle}>{`${t[target]}x`}</span>
+        <img
+          src={heroicon}
+          alt=""
+          style={iconStyle}
+        />
+      </div>
+    );
+    targets.push([j, t[target]]);
+  });
+
+  return targets.sort((a, b) => b[1] - a[1]).map(x => x[0]);
+};
+
 export const castsColumns = [
   heroTdColumn,
   {
@@ -908,6 +986,27 @@ export const castsColumns = [
     field: 'ability_uses',
     displayFn: (row, col, field) =>
       (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+  },
+  {
+    displayName: strings.th_target_abilities,
+    tooltip: strings.tooltip_target_abilities,
+    field: 'ability_targets',
+    displayFn: (row, col, field) => {
+      if (field) {
+        const r = [];
+        Object.keys(field).forEach((inflictor) => {
+          r.push(inflictorWithValue(inflictor, sumValues(field[inflictor])));
+          r.push(targetTooltip(field[inflictor]));
+        });
+
+        return (
+          <ul>
+            {r.map(row => <li style={{ clear: 'left' }}>{row}</li>)}
+          </ul>
+        );
+      }
+      return null;
+    },
   },
   {
     displayName: strings.th_items,
@@ -1027,6 +1126,57 @@ export const teamfightColumns = [
   },
 ];
 
+const computeAverage = (row, type) => {
+  const t = type === 'obs' ? 'ward_observer' : 'ward_sentry';
+  const maxDuration = items[t].attrib.find(x => x.key === 'lifetime').value;
+  const totalDuration = [];
+  row[`${type}_log`].forEach((ward) => {
+    const findTime = row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
+    const leftTime = (findTime && findTime.time) || false;
+    if (leftTime !== false) { // exclude wards that did not expire before game ended from average time
+      const duration = Math.min(Math.max(leftTime - ward.time, 0), maxDuration);
+      totalDuration.push(duration);
+    }
+  });
+  let sum = 0;
+  for (let i = 0; i < totalDuration.length; i += 1) {
+    sum += totalDuration[i];
+  }
+  const avg = sum / totalDuration.length;
+
+  return avg;
+};
+
+const obsAvgColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
+      &nbsp;{strings.th_duration_shorthand}
+    </div>
+  ),
+  field: 'obs_avg_life',
+  tooltip: strings.tooltip_duration_observer,
+  sortFn: row => computeAverage(row, 'obs'),
+  displayFn: row => formatSeconds(computeAverage(row, 'obs')) || '-',
+  relativeBars: true,
+};
+
+const senAvgColumn = {
+  center: true,
+  displayName: (
+    <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+      <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
+      &nbsp;{strings.th_duration_shorthand}
+    </div>
+  ),
+  field: 'sen_avg_life',
+  tooltip: strings.tooltip_duration_sentry,
+  sortFn: row => computeAverage(row, 'sen'),
+  displayFn: row => formatSeconds(computeAverage(row, 'sen')) || '-',
+  relativeBars: true,
+};
+
 const purchaseObserverColumn = {
   center: true,
   displayName: (
@@ -1118,6 +1268,7 @@ export const visionColumns = [
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },
+  obsAvgColumn,
   purchaseSentryColumn,
   {
     center: true,
@@ -1133,6 +1284,7 @@ export const visionColumns = [
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   },
+  senAvgColumn,
   purchaseDustColumn,
   {
     center: true,

@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  getPlayerPeers,
-} from 'actions';
+import { getPlayerPeers } from 'actions';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import strings from 'lang';
@@ -13,7 +11,7 @@ const Peers = ({
   data, playerId, error, loading,
 }) => (
   <Container title={strings.heading_peers} error={error} loading={loading}>
-    <Table paginated columns={playerPeersColumns(playerId)} data={data} />
+    <Table paginated columns={playerPeersColumns(playerId)} data={data} placeholderMessage={strings.peers_none} />
   </Container>
 );
 

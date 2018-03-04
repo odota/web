@@ -59,6 +59,18 @@ export function abbreviateNumber(num) {
   return num.toFixed(0);
 }
 
+export function rankTierToString(rankTier) {
+  if (rankTier !== parseInt(rankTier, 10)) {
+    return strings.general_unknown;
+  }
+  const intRankTier = parseInt(rankTier, 10);
+  let rank = strings[`rank_tier_${parseInt(intRankTier / 10, 10)}`];
+  if (intRankTier > 9) {
+    rank += ` [${parseInt(intRankTier % 10, 10)}]`;
+  }
+  return rank;
+}
+
 export function formatSeconds(input) {
   if (!Number.isNaN(parseFloat(input)) && Number.isFinite(Number(input))) {
     const absTime = Math.abs(input);
@@ -479,6 +491,12 @@ export const getTeamName = (team, _isRadiant) => {
   return (team && team.name) ? team.name : strings.general_dire;
 };
 
+// Use proxy layer to serve team logos
+export const getTeamLogoUrl = (logoUrl) => {
+  const url = logoUrl ? `${process.env.REACT_APP_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}` : '';
+  return url;
+};
+
 /**
  * Converts an HSV color value to RGB. Conversion formula
  * adapted from http://en.wikipedia.org/wiki/HSV_color_space.
@@ -523,9 +541,9 @@ export const getScript = (url, callback) => {
   script.async = 1;
   script.src = url;
 
-  // Insert before first <script>
-  const firstScript = document.getElementsByTagName('script')[0];
-  firstScript.parentNode.insertBefore(script, firstScript);
+  // Insert into body
+  const theFirstChild = document.body.firstChild;
+  document.body.insertBefore(script, theFirstChild);
 
   // Attach handlers
   script.onreadystatechange = (__, isAbort) => {
@@ -533,11 +551,6 @@ export const getScript = (url, callback) => {
       // Handle IE memory leak
       script.onreadystatechange = null;
       script.onload = null;
-
-      // Keep for dev-debugging, see https://goo.gl/MbNOCv
-      if (process.env.NODE_ENV === 'production') {
-        script.parentNode.removeChild(script);
-      }
       script = undefined;
 
       if (!isAbort && callback) {
@@ -592,3 +605,36 @@ export const wilsonScore = (up, down) => {
     1 + (z * z / n)
   );
 };
+
+export const translateBuildings = (isRadiant, key) => {
+  const team = isRadiant ? strings.general_radiant : strings.general_dire;
+  const k = key.split('_').slice(3).join('_');
+  const dict = {
+    fort: ` ${strings.building_ancient}`,
+    healers: ` ${strings.heading_shrine}`,
+    tower1_top: ` ${strings.top_tower} ${strings.tier1}`,
+    tower2_top: ` ${strings.top_tower} ${strings.tier2}`,
+    tower3_top: ` ${strings.top_tower} ${strings.tier3}`,
+    tower1_mid: ` ${strings.mid_tower} ${strings.tier1}`,
+    tower2_mid: ` ${strings.mid_tower} ${strings.tier2}`,
+    tower3_mid: ` ${strings.mid_tower} ${strings.tier3}`,
+    tower1_bot: ` ${strings.bot_tower} ${strings.tier1}`,
+    tower2_bot: ` ${strings.bot_tower} ${strings.tier2}`,
+    tower3_bot: ` ${strings.bot_tower} ${strings.tier3}`,
+    tower4: ` ${strings.heading_tower} ${strings.tier4}`,
+    melee_rax_top: ` ${'Top'} ${strings.building_melee_rax}`,
+    melee_rax_mid: ` ${'Mid'} ${strings.building_melee_rax}`,
+    melee_rax_bot: ` ${'Bot'} ${strings.building_melee_rax}`,
+    range_rax_top: ` ${'Top'} ${strings.building_range_rax}`,
+    range_rax_mid: ` ${'Mid'} ${strings.building_range_rax}`,
+    range_rax_bot: ` ${'Bot'} ${strings.building_range_rax}`,
+  };
+  return team + dict[k];
+};
+
+export const groupBy = (xs, key) =>
+  xs.reduce((rv, x) => {
+    (rv[x[key]] = rv[x[key]] || []).push(x); // eslint-disable-line no-param-reassign
+    return rv;
+  }, {});
+

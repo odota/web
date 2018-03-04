@@ -28,7 +28,6 @@ const Styled = styled.div`
 .showForm {
   overflow: hidden;
   transition: max-height 0.2s;
-  max-height: 1000px;
 }
 `;
 
@@ -190,6 +189,24 @@ class TableFilterForm extends React.Component {
               name="significant"
               label={strings.filter_significant}
               dataSource={data.significantList}
+              formSelectionState={formSelectionState}
+              history={history}
+              strict
+              limit={1}
+            />
+            <FormField
+              name="having"
+              label={strings.explorer_having}
+              dataSource={data.gamesPlayedList}
+              formSelectionState={formSelectionState}
+              history={history}
+              strict
+              limit={1}
+            />
+            <FormField
+              name="party_size"
+              label={strings.filter_party_size}
+              dataSource={data.partySize}
               formSelectionState={formSelectionState}
               history={history}
               strict

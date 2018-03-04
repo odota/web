@@ -60,7 +60,7 @@ const PlayerSpan = (player) => {
       >
         <img
           src={heroes[player.hero_id]
-            ? `${process.env.REACT_APP_API_HOST}${heroes[player.hero_id].icon}`
+            ? process.env.REACT_APP_API_HOST + heroes[player.hero_id].icon
             : '/assets/images/blank-1x1.gif'
           }
           alt=""
@@ -227,13 +227,18 @@ class IntroEvent extends StoryEvent {
 }
 
 class FirstbloodEvent extends StoryEvent {
-  constructor(match, time, playerSlot, key) {
-    super(time);
-    this.killer = match.players.find(player => player.player_slot === playerSlot);
-    this.victim = match.players.find((player) => {
-      const foundHero = heroesArr('find')(hero => hero.name === key);
-      return foundHero && player.hero_id === foundHero.id;
-    });
+  constructor(match, obj) {
+    super(obj.time);
+    this.killer = match.players.find(player => player.player_slot === obj.player_slot);
+
+    if (obj.key !== null && obj.key !== undefined) {
+      this.victim = match.players[obj.key];
+    } else {
+      const killerLog = this.killer.kills_log;
+      const victimHero = (Array.isArray(killerLog) && killerLog[0] ? killerLog[0].key : null);
+      const foundHero = heroesArr('find')(hero => hero.name === victimHero);
+      this.victim = match.players.find(player => foundHero && player.hero_id === foundHero.id);
+    }
   }
   format() {
     return formatTemplate(strings.story_firstblood, {
@@ -574,13 +579,19 @@ class TeamfightEvent extends StoryEvent {
     return this.format();
   }
   format() {
-    let formatted = [renderSentence(this.win_dead.length > 0 ? strings.story_teamfight : strings.story_teamfight_none_dead, {
+    let template = strings.story_teamfight;
+    if (this.win_dead.length === 0) {
+      template = strings.story_teamfight_none_dead;
+    } else if (this.lose_dead.length === 0) {
+      template = strings.story_teamfight_none_dead_loss;
+    }
+    let formatted = [renderSentence(template, {
       winning_team: TeamSpan(this.winning_team),
       net_change: GoldSpan(this.gold_delta),
       win_dead: formatList(this.win_dead.map(death => (
-        death.count === 1 ? new PlayerSpan(death.player) : [new PlayerSpan(death.player), `(x${death.count})`]))),
+        death.count === 1 ? PlayerSpan(death.player) : [PlayerSpan(death.player), `(x${death.count})`]))),
       lose_dead: formatList(this.lose_dead.map(death => (
-        death.count === 1 ? new PlayerSpan(death.player) : [new PlayerSpan(death.player), `(x${death.count})`]))),
+        death.count === 1 ? PlayerSpan(death.player) : [PlayerSpan(death.player), `(x${death.count})`]))),
     })];
     if (this.during_events.length > 0) {
       formatted = formatted.concat(renderSentence(
@@ -604,7 +615,7 @@ class ExpensiveItemEvent extends StoryEvent {
     this.price_limit = price;
     match.players.forEach((player) => {
       Object.entries(player.first_purchase_time).forEach(([item, time]) => {
-        if (items[item].cost >= price && time < this.time) {
+        if (item in items && items[item].cost >= price && time < this.time) {
           this.time = time;
           this.item = item;
           this.player = player;
@@ -616,7 +627,7 @@ class ExpensiveItemEvent extends StoryEvent {
     let found = false;
     match.players.forEach((player) => {
       Object.keys(player.first_purchase_time).forEach((item) => {
-        if (items[item].cost >= price) {
+        if (item in items && items[item].cost >= price) {
           found = true;
         }
       });
@@ -741,15 +752,7 @@ const generateStory = (match) => {
   const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
 
   if (fbIndex > -1) {
-    const killerLog = match.players.find(player =>
-      player.player_slot === match.objectives[fbIndex].player_slot).kills_log;
-
-    events.push(new FirstbloodEvent(
-      match,
-      match.objectives[fbIndex].time,
-      match.objectives[fbIndex].player_slot,
-      (Array.isArray(killerLog) && killerLog[0] ? killerLog[0].key : null),
-    ));
+    events.push(new FirstbloodEvent(match, match.objectives[fbIndex]));
   }
 
   // Chat messages

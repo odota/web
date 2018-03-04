@@ -71,23 +71,24 @@ ${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 18383
 GROUP BY hero_id
 ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
+    const selectVal = (select && select.groupValue) || (select && select.value) || 1;
     const groupVal = group ? `${group.value}${group.bucket ? ` / ${group.bucket} * ${group.bucket}` : ''}` : null;
     query = `SELECT
 ${select && select.distinct && !group ? `DISTINCT ON (${select.value})` : ''}
 ${(group) ?
     [`${group.groupKeySelect || groupVal} ${group.alias || ''}`,
-      (select || {}).countValue || '',
-      `round(sum(${(select || {}).groupValue || (select || {}).value || 1})::numeric/count(${(select || {}).avgCountValue || 'distinct matches.match_id'}), 2) avg`,
+      (select && select.countValue) || '',
+      (select && select.avgPerMatch) ? `sum(${selectVal})::numeric/count(distinct matches.match_id) avg` : `${select && select.avg ? select.avg : `avg(${selectVal})`} avg`,
       'count(distinct matches.match_id) count',
       'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
       `((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) 
   + 1.96 * 1.96 / (2 * count(1)) 
   - 1.96 * sqrt((((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) * (1 - (sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1))) + 1.96 * 1.96 / (4 * count(1))) / count(1))))
-  / (1 + 1.96 * 1.96 / count(1)) wr_lower_bound`,
-      `sum(${(select || {}).groupValue || (select || {}).value || 1}) sum`,
-      `min(${(select || {}).groupValue || (select || {}).value || 1}) min`,
-      `max(${(select || {}).groupValue || (select || {}).value || 1}) max`,
-      `round(stddev(${(select || {}).groupValue || (select || {}).value || 1}::numeric), 2) stddev`,
+  / (1 + 1.96 * 1.96 / count(1)) winrate_wilson`,
+      `sum(${selectVal}) sum`,
+      `min(${selectVal}) min`,
+      `max(${selectVal}) max`,
+      `stddev(${selectVal}::numeric) stddev`,
     ].filter(Boolean).join(',\n')
     :
     [select ? `${select.value} ${select.alias || ''}` : '',
@@ -105,7 +106,7 @@ JOIN player_matches using(match_id)
 JOIN heroes on heroes.id = player_matches.hero_id
 LEFT JOIN notable_players ON notable_players.account_id = player_matches.account_id AND notable_players.locked_until = (SELECT MAX(locked_until) FROM notable_players)
 LEFT JOIN teams using(team_id)
-${organization || (group && group.key === 'organization') ? 'JOIN team_match ON matches.match_id = team_match.match_id AND (player_matches.player_slot < 128) = team_match.radiant' : ''}
+${organization || (group && group.key === 'organization') ? 'JOIN team_match ON matches.match_id = team_match.match_id AND (player_matches.player_slot < 128) = team_match.radiant JOIN teams teams2 ON team_match.team_id = teams2.team_id' : ''}
 ${(select && select.join) ? select.join : ''}
 ${(select && select.joinFn) ? select.joinFn(props) : ''}
 WHERE TRUE

@@ -5,8 +5,26 @@ import { connect } from 'react-redux';
 import strings from 'lang';
 import { getTeams } from 'actions';
 import Heading from 'components/Heading';
-import Table from 'components/Table';
-import { getOrdinal, fromNow, subTextStyle } from 'utility';
+import Team from 'components/Team';
+import Table, { TableLink } from 'components/Table';
+import styled from 'styled-components';
+import { getOrdinal, getTeamLogoUrl, fromNow, subTextStyle } from 'utility';
+import { Logo } from '../Team/TeamStyled';
+
+const TeamImageContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  img {
+    margin-top: 7px;
+    margin-right: 7px;
+    margin-bottom: 7px;
+    margin-left: 0px;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
+`;
 
 const columns = [{
   displayName: strings.th_rank,
@@ -16,12 +34,18 @@ const columns = [{
   displayName: strings.th_name,
   field: 'name',
   displayFn: (row, col, field) => (
-    <div>
-      <span>{field}</span>
-      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-        {fromNow(row.last_match_time)}
-      </span>
-    </div>),
+    <TeamImageContainer>
+      <Logo
+        src={getTeamLogoUrl(row.logo_url)}
+        alt=""
+      />
+      <div>
+        <TableLink to={`/teams/${row.team_id}`}>{field}</TableLink>
+        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+          {fromNow(row.last_match_time)}
+        </span>
+      </div>
+    </TeamImageContainer>),
 }, {
   displayName: strings.th_rating,
   field: 'rating',
@@ -45,6 +69,11 @@ class RequestLayer extends React.Component {
     this.props.dispatchTeams();
   }
   render() {
+    const route = this.props.match.params.teamId;
+
+    if (Number.isInteger(Number(route))) {
+      return <Team {...this.props} />;
+    }
     const { loading } = this.props;
     return (
       <div>
@@ -56,9 +85,14 @@ class RequestLayer extends React.Component {
 }
 
 RequestLayer.propTypes = {
-  dispatchTeams: PropTypes.string,
-  data: PropTypes.string,
+  dispatchTeams: PropTypes.func,
+  data: PropTypes.arrayOf(PropTypes.object),
   loading: PropTypes.bool,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      teamId: PropTypes.string,
+    }),
+  }),
 };
 
 const mapStateToProps = state => ({
