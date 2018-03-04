@@ -189,9 +189,11 @@ const tooltipContainer = thing => (
   </div>
 );
 
-const InflictorWithValueComp = ({ inflictor, value, type, ptooltip, abilities }) => {
+const InflictorWithValueComp = ({
+  inflictor, value, type, ptooltip, abilities,
+}) => {
   if (inflictor !== undefined) {
-    const ability = abilities[inflictor];
+    const ability = abilities && abilities[inflictor];
     const neutralAbility = neutralAbilities[inflictor];
     const item = items[inflictor];
     let image;
@@ -263,7 +265,7 @@ InflictorWithValueComp.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  abilities: state.app.abilities.data || {},
+  abilities: state.app.abilities.data,
 });
 
 const InflictorWithValue = connect(mapStateToProps)(InflictorWithValueComp);
