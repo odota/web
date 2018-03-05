@@ -16,7 +16,6 @@ const StyledFooter = styled.footer`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    position: relative;
 
     & p {
       padding: 2px 0 5px;
