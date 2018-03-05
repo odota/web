@@ -138,6 +138,7 @@ const Styled = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
+  z-index: 1;
 }
 
 .playerSlot {
