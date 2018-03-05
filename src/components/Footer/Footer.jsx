@@ -160,7 +160,7 @@ export default () => (
           <SocialLinks />
           <div>
             <a
-              href="https://play.google.com/store/apps/details?id=com.opendota.mobile&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
+              href="https://play.google.com/store/apps/details?id=com.opendota.mobile&hl=en"
               style={{ position: 'relative', left: '13px', top: '12px' }}
             >
               <img src="/assets/images/google_play_store.png" alt="" height="46px" />
