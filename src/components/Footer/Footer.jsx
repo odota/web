@@ -16,6 +16,7 @@ const StyledFooter = styled.footer`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    position: relative;
 
     & p {
       padding: 2px 0 5px;
@@ -167,6 +168,16 @@ export default () => (
             <IconSteam />
           </a>
         </small>
+        <StyledHr />
+        <a href="https://play.google.com/store/apps/details?id=com.opendota.mobile&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
+          <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="46px" />
+        </a>
+        <a
+          href="https://itunes.apple.com/us/app/opendota/id1354762555?ls=1&mt=8"
+          style={{ bottom: '7px', position: 'relative' }}
+        >
+          <img src="/assets/images/apple_app_store.png" alt="" height="31px" />
+        </a>
         <StyledHr />
         <div className="pages">
           <PageLinks />
