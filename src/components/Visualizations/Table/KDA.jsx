@@ -18,6 +18,7 @@ const KDA = ({ kills, deaths, assists }) => {
       >
         <div style={{ width: `${(kills * 100) / kdaSum}%`, backgroundColor: constants.colorGreen }} />
         <div style={{ width: `${(deaths * 100) / kdaSum}%`, backgroundColor: constants.colorRed }} />
+        <div style={{ width: `${(assists * 100) / kdaSum}%`, backgroundColor: constants.colorBlueGray }} />
       </KDAPercentContainer>
     </KDAContainer>
   );

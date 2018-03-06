@@ -46,6 +46,7 @@ export default {
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
           summable
+          hoverRowColumn
         />
       }
       {

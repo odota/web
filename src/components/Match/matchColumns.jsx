@@ -108,6 +108,7 @@ export const overviewColumns = (match) => {
       displayFn: transformations.kda,
       sumFn: true,
       underline: 'max',
+      color: constants.colorGreen,
     },
     {
       displayName: strings.th_deaths,
@@ -116,6 +117,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       underline: 'min',
+      color: constants.colorRed,
     },
     {
       displayName: strings.th_assists,
@@ -124,6 +126,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       underline: 'max',
+      color: constants.colorBlueGray,
     },
     {
       displayName: strings.th_gold_per_min,
@@ -941,11 +944,18 @@ const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 
 const valueStyle = {
   position: 'absolute',
-  textAlign: 'center',
-  marginLeft: '16px',
-  marginTop: '18px',
+  left: '35px',
+  bottom: '24px',
   fontSize: '12px',
+  zIndex: '1',
   backgroundColor: constants.darkPrimaryColor,
+};
+
+const iconStyle = {
+  height: '30px',
+  bottom: '30px',
+  left: '25px',
+  position: 'relative',
 };
 
 const targetTooltip = (t) => {
@@ -953,15 +963,15 @@ const targetTooltip = (t) => {
   Object.keys(t).forEach((target) => {
     const heroicon = heroes[getHeroesById()[target].id] && process.env.REACT_APP_API_HOST + heroes[getHeroesById()[target].id].icon;
     const j = (
-
-      <div style={{ display: 'inline-block', paddingBottom: '20px' }}>
+      <div style={{ float: 'left', position: 'relative', paddingLeft: '10px' }}>
         <span style={valueStyle}>{`${t[target]}x`}</span>
         <img
           src={heroicon}
           alt=""
-          style={{ height: '30px', paddingLeft: '15px' }}
+          style={iconStyle}
         />
-      </div>);
+      </div>
+    );
     targets.push([j, t[target]]);
   });
 
@@ -990,7 +1000,9 @@ export const castsColumns = [
         });
 
         return (
-          <div style={{ display: 'inline-block', width: '150px' }}>{r}</div>
+          <ul>
+            {r.map(row => <li style={{ clear: 'left' }}>{row}</li>)}
+          </ul>
         );
       }
       return null;

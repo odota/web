@@ -15,6 +15,7 @@ const teamPages = [Overview, {
       error={matchData.error}
     >
       <Table
+        resetTableState
         columns={matchColumns}
         data={matchData.data}
         paginated
@@ -31,6 +32,7 @@ const teamPages = [Overview, {
       error={heroData.error}
     >
       <Table
+        resetTableState
         columns={heroColumns}
         data={heroData.data}
         paginated

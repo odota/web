@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  getPlayerRankings,
-} from 'actions';
+import { getPlayerRankings } from 'actions';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import strings from 'lang';

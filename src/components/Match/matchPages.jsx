@@ -46,6 +46,7 @@ const matchPages = [Overview, {
         heading={strings.heading_benchmarks}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        hoverRowColumn
       />
     </div>),
 }, {
@@ -75,6 +76,7 @@ const matchPages = [Overview, {
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
         summable
+        hoverRowColumn
       />
     </div>),
 }, {
@@ -122,6 +124,7 @@ const matchPages = [Overview, {
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
         summable
+        hoverRowColumn
       />
       <TeamTable
         players={match.players}
@@ -130,6 +133,7 @@ const matchPages = [Overview, {
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
         summable
+        hoverRowColumn
       />
       <StackedBarGraph
         columns={match.players.map(player => ({ ...player.gold_reasons, name: heroes[player.hero_id] && heroes[player.hero_id].localized_name }))}
@@ -204,6 +208,7 @@ const matchPages = [Overview, {
         heading={strings.heading_objective_damage}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        hoverRowColumn
       />
       <TeamTable
         players={match.players}
@@ -211,13 +216,14 @@ const matchPages = [Overview, {
         heading={strings.heading_runes}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        hoverRowColumn
       />
     </div>),
 }, {
   name: strings.tab_vision,
   key: 'vision',
   parsed: true,
-  content: match => <Vision match={match} />,
+  content: match => <Vision match={match} hoverRowColumn />,
 }, {
   name: strings.tab_actions,
   key: 'actions',
@@ -230,6 +236,7 @@ const matchPages = [Overview, {
         heading={strings.heading_actions}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        hoverRowColumn
       />
     </div>),
 }, {
@@ -238,7 +245,7 @@ const matchPages = [Overview, {
   parsed: true,
   content: match => (
     <div>
-      <TeamfightMap teamfights={match.teamfights} match={match} />
+      <TeamfightMap teamfights={match.teamfights} match={match} hoverRowColumn />
     </div>),
 }, {
   name: strings.tab_analysis,
@@ -285,6 +292,7 @@ const matchPages = [Overview, {
         heading={strings.heading_fantasy}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        hoverRowColumn
       />
     </div>),
 }, {

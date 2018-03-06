@@ -4,9 +4,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Spinner from 'components/Spinner';
 import TabBar from 'components/TabBar';
-import {
-  getMatch, getPvgnaHeroGuides,
-} from 'actions';
+import { getMatch, getPvgnaHeroGuides } from 'actions';
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
 
