@@ -218,7 +218,7 @@ const Draft = ({
           className="draft-table"
         >
           {gameMode === 2 ?
-            draft.map(pb => (
+            draft && draft.map(pb => (
               <TableRow
                 key={pb.order}
                 className={`${radiantOrder.includes(pb.order) ? 'radiant' : 'dire'} draft-row`}

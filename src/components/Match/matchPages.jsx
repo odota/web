@@ -52,6 +52,7 @@ const matchPages = [Overview, {
   name: strings.tab_drafts,
   key: 'draft',
   parsed: true,
+  disabled: match => match.game_mode !== 2,
   content: match => (
     <div>
       <Draft
@@ -324,7 +325,16 @@ const matchPages = [Overview, {
 }];
 
 export default (matchId, match) => matchPages.map(page => ({
-  ...page,
+  // ...page,
+  name: page.name,
+  key: page.key,
+  parsed: page.parsed,
+  content: page.content,
   route: `/matches/${matchId}/${page.key.toLowerCase()}`,
-  disabled: match && !match.version && page.parsed,
+  disabled: (m) => {
+    if (page.disabled) {
+      return page.disabled(m);
+    }
+    return match && !match.version && page.parsed;
+  },
 }));
