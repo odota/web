@@ -9,19 +9,19 @@ import Table from 'components/Table';
 import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
 
 const StyledDiv = styled.div`
-${props => (props.user !== undefined ? `
-#${isRadiant(props.user.player_slot) ? 'radiant' : 'dire'} {
-  table {
-    & tbody {
-      & tr {
-        &:nth-child(${props.user.player_slot + 1 - (!isRadiant(props.user.player_slot) * 128)}) {
-          background-color: rgba(0, 60, 180, 0.03);
+  ${props => (props.user !== undefined ? `
+  #${isRadiant(props.user.player_slot) ? 'radiant' : 'dire'} {
+    table {
+      & tbody {
+        & tr {
+          &:nth-child(${props.user.player_slot + 1 - (!isRadiant(props.user.player_slot) * 128)}) {
+            background-color: rgba(0, 60, 180, 0.03);
+          }
         }
       }
     }
   }
-}
-` : '')}
+  ` : '')}
 `;
 
 const filterMatchPlayers = (players, team = '') =>
@@ -41,7 +41,6 @@ const TeamTable = ({
 }) => {
   const user = players.find(player => player.account_id === loggedInId);
 
-  console.log(user && user.player_slot);
   return (
     <StyledDiv user={user}>
       <Heading
@@ -73,6 +72,7 @@ TeamTable.propTypes = {
   direTeam: PropTypes.shape({}),
   summable: PropTypes.bool,
   hoverRowColumn: PropTypes.bool,
+  loggedInId: PropTypes.number,
 };
 
 const mapStateToProps = state => ({
