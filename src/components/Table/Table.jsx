@@ -148,7 +148,7 @@ class Table extends React.Component {
       data = data.slice(currentPage * pageLength, (currentPage + 1) * pageLength);
     }
     return (
-      <StyledBody hoverRowColumn={hoverRowColumn} highlightUser={highlightUser}>
+      <StyledBody hoverRowColumn={hoverRowColumn} >
         {paginated && <Pagination
           numPages={Math.ceil(dataLength / pageLength)}
           currentPage={currentPage}
@@ -174,7 +174,7 @@ class Table extends React.Component {
               </MaterialTableHeader>
               <MaterialTableBody displayRowCheckbox={false} selectable={false}>
                 {data.map((row, index) => (
-                  <MaterialTableRow key={index}>
+                  <MaterialTableRow key={index} style={{ backgroundColor: index + 1 === highlightUser ? 'rgba(74, 149, 247, 0.038)' : null }}>
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,

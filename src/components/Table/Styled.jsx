@@ -92,17 +92,6 @@ export const StyledBody = styled.div`
       }
     }
   }` : '')};
-
-  ${props => (props.highlightUser !== undefined && props.highlightUser !== null ? `
-  table {
-    & tbody {
-      & tr {
-        &:nth-child(${props.highlightUser}) {
-          background-color: rgba(74, 149, 247, 0.038);
-        }
-      }
-    }
-  }` : '')};
 `;
 export const StyledContainer = styled.div`
   min-width: 100%;
