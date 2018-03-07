@@ -98,7 +98,7 @@ export const StyledBody = styled.div`
     & tbody {
       & tr {
         &:nth-child(${props.highlightUser}) {
-          background-color: rgba(0, 60, 180, 0.033);
+          background-color: rgba(74, 149, 247, 0.038);
         }
       }
     }
