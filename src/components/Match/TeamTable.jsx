@@ -4,25 +4,14 @@ import { isRadiant, getTeamName } from 'utility';
 import Heading from 'components/Heading';
 import { IconRadiant, IconDire } from 'components/Icons';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import Table from 'components/Table';
 import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
 
-const StyledDiv = styled.div`
-  ${props => (props.user !== undefined ? `
-  #${isRadiant(props.user.player_slot) ? 'radiant' : 'dire'} {
-    table {
-      & tbody {
-        & tr {
-          &:nth-child(${props.user.player_slot + 1 - (!isRadiant(props.user.player_slot) * 128)}) {
-            background-color: rgba(0, 60, 180, 0.03);
-          }
-        }
-      }
-    }
-  }
-  ` : '')}
-`;
+function highLightUser(loggedInId, players, side) {
+  const user = players.find(player => player.account_id === loggedInId);
+  const radiant = user && isRadiant(user.player_slot);
+  return user && (side === radiant) && (user.player_slot + 1 - (!radiant * 128));
+}
 
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
@@ -38,30 +27,22 @@ const TeamTable = ({
   summable = false,
   hoverRowColumn = false,
   loggedInId,
-}) => {
-  const user = players.find(player => player.account_id === loggedInId);
-
-  return (
-    <StyledDiv user={user}>
-      <Heading
-        title={`${getTeamName(radiantTeam, true)} - ${heading}`}
-        icon={<IconRadiant />}
-      />
-      <span id="radiant">
-        <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} />
-      </span >
-      {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
-      <Heading
-        title={`${getTeamName(direTeam, false)} - ${heading}`}
-        icon={<IconDire />}
-      />
-      <span id="dire">
-        <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} />
-      </span>
-      {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
-    </StyledDiv>
-  );
-};
+}) => (
+  <div>
+    <Heading
+      title={`${getTeamName(radiantTeam, true)} - ${heading}`}
+      icon={<IconRadiant />}
+    />
+    <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightUser={highLightUser(loggedInId, players, true)} />
+    {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
+    <Heading
+      title={`${getTeamName(direTeam, false)} - ${heading}`}
+      icon={<IconDire />}
+    />
+    <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightUser={highLightUser(loggedInId, players, false)} />
+    {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
+  </div>
+);
 
 TeamTable.propTypes = {
   players: PropTypes.arrayOf({}),

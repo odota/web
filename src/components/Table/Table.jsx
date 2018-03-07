@@ -131,6 +131,7 @@ class Table extends React.Component {
       placeholderMessage,
       pageLength = 20,
       hoverRowColumn,
+      highlightUser,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage,
@@ -147,7 +148,7 @@ class Table extends React.Component {
       data = data.slice(currentPage * pageLength, (currentPage + 1) * pageLength);
     }
     return (
-      <StyledBody hoverRowColumn={hoverRowColumn} >
+      <StyledBody hoverRowColumn={hoverRowColumn} highlightUser={highlightUser}>
         {paginated && <Pagination
           numPages={Math.ceil(dataLength / pageLength)}
           currentPage={currentPage}
@@ -296,6 +297,7 @@ Table.propTypes = {
   placeholderMessage: string,
   pageLength: number,
   hoverRowColumn: bool,
+  highlightUser: bool,
 };
 
 export default Table;
