@@ -174,7 +174,7 @@ class Table extends React.Component {
               </MaterialTableHeader>
               <MaterialTableBody displayRowCheckbox={false} selectable={false}>
                 {data.map((row, index) => (
-                  <MaterialTableRow key={index} style={{ backgroundColor: index + 1 === highlightUser ? 'rgba(74, 149, 247, 0.038)' : null }}>
+                  <MaterialTableRow key={index} style={{ backgroundColor: index === highlightUser ? 'rgba(74, 149, 247, 0.038)' : null }}>
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,

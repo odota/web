@@ -10,7 +10,7 @@ import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` pa
 function highLightUser(loggedInId, players, side) {
   const user = players.find(player => player.account_id === loggedInId);
   const radiant = user && isRadiant(user.player_slot);
-  return user && (side === radiant) && (user.player_slot + 1 - (!radiant * 128));
+  return user && (side === radiant) && (user.player_slot - (!radiant * 128));
 }
 
 const filterMatchPlayers = (players, team = '') =>
