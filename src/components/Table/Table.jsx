@@ -297,7 +297,7 @@ Table.propTypes = {
   placeholderMessage: string,
   pageLength: number,
   hoverRowColumn: bool,
-  highlightUser: bool,
+  highlightUser: number,
 };
 
 export default Table;
