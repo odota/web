@@ -926,7 +926,7 @@ export const objectiveDamageColumns = [heroTdColumn].concat(Object.keys(strings)
 
 const dmgTargetValueStyle = {
   position: 'absolute',
-  left: '35px',
+  left: '43px',
   width: '30px',
   height: '10px',
   bottom: '33px',
@@ -943,6 +943,7 @@ const dmgTargetIconStyle = {
   height: '30px',
   bottom: '30px',
   left: '25px',
+  marginLeft: '8px',
   position: 'relative',
   backgroundColor: 'rgba(255, 255, 255, 0.1)',
 };
