@@ -9,7 +9,7 @@ import abilityKeys from 'dotaconstants/build/ability_keys.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy } from 'utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy, sumValues } from 'utility';
 import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
@@ -924,13 +924,77 @@ export const objectiveDamageColumns = [heroTdColumn].concat(Object.keys(strings)
   relativeBars: true,
 })));
 
+const dmgTargetValueStyle = {
+  position: 'absolute',
+  left: '35px',
+  width: '30px',
+  height: '10px',
+  bottom: '33px',
+  fontSize: '10px',
+  textAlign: 'center',
+  lineHeight: '0.9',
+  fontWeight: constants.fontWeightMedium,
+  verticalAlign: 'center',
+  zIndex: '1',
+  backgroundColor: constants.darkPrimaryColor,
+};
+
+const dmgTargetIconStyle = {
+  height: '30px',
+  bottom: '30px',
+  left: '25px',
+  position: 'relative',
+  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+};
+
+const damageTargetIcons = (t) => {
+  const targets = [];
+  Object.keys(t).forEach((target) => {
+    const hero = getHeroesById()[target];
+    const heroicon = heroes[hero.id] && process.env.REACT_APP_API_HOST + heroes[hero.id].icon;
+    const j = (
+      <div style={{ float: 'left', position: 'relative', paddingLeft: '10px' }}>
+        <span style={dmgTargetValueStyle}>{`${t[target]}`}</span>
+        <img
+          src={heroicon}
+          alt=""
+          style={dmgTargetIconStyle}
+          data-tip={`${hero.localized_name} ${t[target]}`}
+          data-offset="{'right': 5}"
+          data-delay-show="50"
+        />
+        <ReactTooltip place="top" effect="solid" />
+      </div>
+    );
+    targets.push([j, t[target]]);
+  });
+
+  return targets.sort((a, b) => b[1] - a[1]).map(x => x[0]);
+};
+
 export const inflictorsColumns = [
   heroTdColumn,
   {
     displayName: strings.th_damage_dealt,
-    field: 'damage_inflictor',
-    displayFn: (row, col, field) =>
-      (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+    field: 'damage_targets',
+    displayFn: (row, col, field) => {
+      if (field) {
+        const f = Object.entries(field)
+          .sort((a, b) => sumValues(b[1]) - sumValues(a[1]))
+          .reduce((obj, [k, v]) => Object.assign(obj, { [k]: v }), {});
+        const r = [];
+        Object.keys(f).forEach((inflictor) => {
+          r.push(inflictorWithValue(inflictor, sumValues(f[inflictor])));
+          r.push(damageTargetIcons(f[inflictor]));
+        });
+        return (
+          <ul style={{ paddingLeft: '0px' }}>
+            {r.map(row => <li style={{ clear: 'left' }}>{row}</li>)}
+          </ul>
+        );
+      }
+      return null;
+    },
   },
   {
     displayName: strings.th_damage_received,
@@ -939,8 +1003,6 @@ export const inflictorsColumns = [
       (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
   },
 ];
-
-const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 
 const valueStyle = {
   position: 'absolute',

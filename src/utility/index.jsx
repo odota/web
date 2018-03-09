@@ -638,3 +638,5 @@ export const groupBy = (xs, key) =>
     return rv;
   }, {});
 
+export const sumValues = f => Object.values(f).reduce((a, b) => a + b);
+
