@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  gameCoordToUV,
-} from 'utility';
+import { gameCoordToUV } from 'utility';
 import DotaMap from 'components/DotaMap';
 import styled from 'styled-components';
 import constants from '../../constants';
@@ -110,7 +108,7 @@ WardPin.propTypes = {
 };
 
 const LogHover = ward => (
-  <div style={{ height: 300 }}>
+  <div style={{ height: 300, position: 'absolute', bottom: '10px' }}>
     <DotaMap
       maxWidth={300}
       width={300}

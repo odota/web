@@ -1,9 +1,11 @@
 /* eslint-disable react/jsx-filename-extension */
 import 'core-js/fn/object/values';
 import React from 'react';
+import createHistory from 'history/createBrowserHistory';
+import ReactGA from 'react-ga';
 import { hydrate, render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route, Router } from 'react-router-dom';
 import store from 'store';
 import { getMetadata } from 'actions';
 import App from 'components/App';
@@ -156,12 +158,19 @@ li {
 // Fetch metadata (used on all pages)
 store.dispatch(getMetadata());
 
+ReactGA.initialize('UA-55757642-1');
+ReactGA.pageview(window.location.pathname + window.location.search);
+const history = createHistory();
+history.listen((location) => {
+  ReactGA.pageview(location.pathname);
+});
+
 const rootElement = document.getElementById('root');
 const app = (
   <Provider store={store}>
-    <BrowserRouter>
+    <Router history={history}>
       <Route component={App} />
-    </BrowserRouter>
+    </Router>
   </Provider>);
 if (rootElement.hasChildNodes()) {
   render(app, rootElement);

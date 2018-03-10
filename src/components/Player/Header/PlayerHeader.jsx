@@ -107,6 +107,10 @@ const Styled = styled.div`
   flex-direction: column;
   justify-content: center;
   margin: 0 30px;
+  -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
+  drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
+  drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
 
   &[data-hint-position="top"] {
     &::after {
@@ -129,9 +133,10 @@ const Styled = styled.div`
   &-board {
     position: absolute;
     align-self: center;
-    margin-top: 41px;
+    margin-top: 45px;
     font-size: 22px;
     color: #ECD9C8;
+    text-shadow: 0 0 10px black;
   }
   &-star {
     position: absolute;
@@ -154,39 +159,43 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
   let medalElement = null;
   const imgDescription = rankTierToString(rankTier);
   if (rankTier && rankTier > 9) {
-    if (rankTier === 76 && leaderboardRank) {
-      let iconPath = '/assets/images/dota2/rank_icons/rank_icon_7a.png'; // Divine Elite
-      if (leaderboardRank <= 10) {
-        iconPath = '/assets/images/dota2/rank_icons/rank_icon_7c.png'; // Divine Top 10
-      } else if (leaderboardRank <= 100) {
-        iconPath = '/assets/images/dota2/rank_icons/rank_icon_7b.png'; // Divine Top 100
-      }
+    let iconPath;
+    if (leaderboardRank && leaderboardRank <= 10) {
+      iconPath = '/assets/images/dota2/rank_icons/rank_icon_7c.png'; // Divine Top 10
+    } else if (leaderboardRank && leaderboardRank <= 100) {
+      iconPath = '/assets/images/dota2/rank_icons/rank_icon_7b.png'; // Divine Top 100
+    }
+    if (rankTier === 76) {
+      iconPath = iconPath || '/assets/images/dota2/rank_icons/rank_icon_7a.png'; // Divine Elite
       medalElement = (
         <div className="rankTierContainer">
-          <div className="rankMedal" data-hint={`${strings.abbr_number} ${leaderboardRank}`} data-hint-position="top">
+          <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
             <img className="rankMedal-icon" src={iconPath} alt="icon" />
-            <span className="rankMedal-board">{leaderboardRank}</span>
+            {leaderboardRank && <span className="rankMedal-board">{leaderboardRank}</span>}
           </div>
         </div>
       );
     } else {
       const intRankTier = parseInt(rankTier, 10);
-      const iconPath = `/assets/images/dota2/rank_icons/rank_icon_${parseInt(intRankTier / 10, 10)}.png`;
       const star = parseInt(intRankTier % 10, 10);
       let correctStar = 0;
-      if (star <= 0) {
-        correctStar = 0;
-      } else if (star >= 5) {
-        correctStar = 5;
-      } else {
-        correctStar = star;
+      if (!iconPath) {
+        if (star <= 0) {
+          correctStar = 0;
+        } else if (star >= 5) {
+          correctStar = 5;
+        } else {
+          correctStar = star;
+        }
       }
       const starPath = `/assets/images/dota2/rank_icons/rank_star_${correctStar}.png`;
+      iconPath = iconPath || `/assets/images/dota2/rank_icons/rank_icon_${parseInt(intRankTier / 10, 10)}.png`;
       medalElement = (
         <div className="rankTierContainer">
           <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
             <img className="rankMedal-icon" src={iconPath} alt="icon" />
             {(correctStar !== 0) ? <img className="rankMedal-star" src={starPath} alt="star" /> : ''}
+            {leaderboardRank && <span className="rankMedal-board">{leaderboardRank}</span>}
           </div>
         </div>
       );

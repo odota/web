@@ -96,7 +96,7 @@ class App extends React.Component {
             <Route exact path="/matches/:matchId?/:info?" component={Matches} />
             <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
             <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
-            <Route exact path="/teams" component={Teams} />
+            <Route exact path="/teams/:teamId?/:info?" component={Teams} />
             <Route exact path="/distributions/:info?" component={Distributions} />
             <Route exact path="/request" component={Request} />
             <Route exact path="/status" component={Status} />

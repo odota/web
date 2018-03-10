@@ -1,8 +1,6 @@
 import patch from 'dotaconstants/build/patch.json';
 import region from 'dotaconstants/build/region.json';
-import {
-  getPercentWin,
-} from 'utility';
+import { getPercentWin } from 'utility';
 import strings from 'lang';
 
 const patchLookup = {};

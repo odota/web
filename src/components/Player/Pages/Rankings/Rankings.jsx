@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  getPlayerRankings,
-} from 'actions';
+import { getPlayerRankings } from 'actions';
 import Table from 'components/Table';
 import Container from 'components/Container';
 import strings from 'lang';
@@ -12,7 +10,7 @@ import playerRankingsColumns from './playerRankingsColumns';
 const Rankings = ({ data, error, loading }) => (
   <div>
     <Container title={strings.heading_rankings} subtitle={strings.rankings_description} error={error} loading={loading}>
-      <Table columns={playerRankingsColumns} data={data} />
+      <Table columns={playerRankingsColumns} data={data} placeholderMessage={strings.rankings_none} />
     </Container>
   </div>
 );
