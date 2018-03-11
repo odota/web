@@ -98,8 +98,10 @@ const Styled = styled.div`
   width: 30px;
 
   #TurboButton {
-    -webkit-filter: drop-shadow(0px 1px 1.5px #000000) drop-shadow(0px 1px 1.5px #000000);
-    filter: drop-shadow(0px 1px 1.5px #000000) drop-shadow(0px 1px 1.5px #000000);
+    filter: drop-shadow(0px 2px 0px #004782) 
+            drop-shadow(0px 1px 0px #004782) 
+            drop-shadow(0px 2px 0px #004782) 
+            drop-shadow(0px 1px 0px #000000);
   }
 `;
 
