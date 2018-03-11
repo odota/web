@@ -493,9 +493,14 @@ export const getTeamName = (team, _isRadiant) => {
 
 // Use proxy layer to serve team logos
 export const getTeamLogoUrl = (logoUrl) => {
-  const url = logoUrl ? `${process.env.REACT_APP_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}` : '';
-  return url;
-};
+  if (!logoUrl) {
+    return ''
+  }
+  if (logoUrl.indexOf('/ugc') !== -1) {
+    return `${process.env.REACT_APP_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}`
+  }
+  return logoUrl
+}
 
 /**
  * Converts an HSV color value to RGB. Conversion formula
