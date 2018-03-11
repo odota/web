@@ -1008,8 +1008,11 @@ export const inflictorsColumns = [
         return (
           <StyledDmgTargetRow>
             <div style={{
- float: 'left', width: '100%', paddingTop: '10px', paddingBottom: '10px',
-}}
+            float: 'left',
+            width: '100%',
+            paddingTop: '10px',
+            paddingBottom: '10px',
+            }}
             >
               {r.map(row => <div style={{ display: 'flex', flexDirection: 'column' }} id="row">{row}</div>)}
             </div>
