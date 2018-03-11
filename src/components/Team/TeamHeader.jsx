@@ -6,7 +6,7 @@ import { HeaderContainer, Logo, Column, TeamName, Row, TeamStatsCard } from './T
 export default generalData => (
   <HeaderContainer loading={generalData.loading} error={generalData.error}>
     <Logo
-      src={'https://steamcdn-a.akamaihd.net/apps/dota2/images/team_logos/2163.png'}
+      src={getTeamLogoUrl(generalData.data.logo_url)}
       alt=""
     />
     <Column>
