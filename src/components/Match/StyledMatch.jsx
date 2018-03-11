@@ -287,5 +287,13 @@ export const StyledDmgTargetRow = styled.div`
   #target {
     background: rgba(74, 149, 247, 0.5);
   }
+  #targetvalue {
+    background-color: black !important;
   }
+  .inflictorWithValue {
+    & .overlay {
+      background-color: black;
+    }
+  }
+}
 `;

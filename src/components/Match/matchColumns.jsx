@@ -959,7 +959,7 @@ const damageTargetIcons = (t) => {
         data-tip
         data-for={`${hero.localized_name}`}
       >
-        <span style={dmgTargetValueStyle}>{`${abbreviateNumber(t[target])}`}</span>
+        <span id="targetvalue" style={dmgTargetValueStyle}>{`${abbreviateNumber(t[target])}`}</span>
         <img
           src={heroicon}
           alt=""
@@ -1007,7 +1007,10 @@ export const inflictorsColumns = [
         });
         return (
           <StyledDmgTargetRow>
-            <div style={{ float: 'left', width: '100%' }} >
+            <div style={{
+ float: 'left', width: '100%', paddingTop: '10px', paddingBottom: '10px',
+}}
+            >
               {r.map(row => <div style={{ display: 'flex', flexDirection: 'column' }} id="row">{row}</div>)}
             </div>
           </StyledDmgTargetRow>
