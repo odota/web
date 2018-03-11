@@ -7,11 +7,7 @@ import { connect } from 'react-redux';
 import Table from 'components/Table';
 import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
 
-function highLightUser(loggedInId, players, side) {
-  const user = players.find(player => player.account_id === loggedInId);
-  const radiant = user && isRadiant(user.player_slot);
-  return user && (side === radiant) && (user.player_slot - (!radiant * 128));
-}
+const getHighlightFn = loggedInId => row => row.account_id === loggedInId;
 
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
@@ -33,13 +29,13 @@ const TeamTable = ({
       title={`${getTeamName(radiantTeam, true)} - ${heading}`}
       icon={<IconRadiant />}
     />
-    <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightUser={highLightUser(loggedInId, players, true)} />
+    <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} />
     {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
     <Heading
       title={`${getTeamName(direTeam, false)} - ${heading}`}
       icon={<IconDire />}
     />
-    <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightUser={highLightUser(loggedInId, players, false)} />
+    <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} />
     {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
   </div>
 );

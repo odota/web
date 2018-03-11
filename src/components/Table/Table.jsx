@@ -131,7 +131,7 @@ class Table extends React.Component {
       placeholderMessage,
       pageLength = 20,
       hoverRowColumn,
-      highlightUser,
+      highlightFn = function () {},
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage,
@@ -174,7 +174,7 @@ class Table extends React.Component {
               </MaterialTableHeader>
               <MaterialTableBody displayRowCheckbox={false} selectable={false}>
                 {data.map((row, index) => (
-                  <MaterialTableRow key={index} style={{ backgroundColor: index === highlightUser ? 'rgba(74, 149, 247, 0.038)' : null }}>
+                  <MaterialTableRow key={index} style={{ backgroundColor: highlightFn(row) ? 'rgba(74, 149, 247, 0.038)' : 'none' }}>
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,
@@ -284,6 +284,7 @@ const {
   shape,
   number,
   string,
+  func,
 } = PropTypes;
 
 Table.propTypes = {
@@ -297,7 +298,7 @@ Table.propTypes = {
   placeholderMessage: string,
   pageLength: number,
   hoverRowColumn: bool,
-  highlightUser: number,
+  highlightFn: func,
 };
 
 export default Table;
