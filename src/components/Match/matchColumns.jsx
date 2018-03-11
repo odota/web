@@ -17,7 +17,7 @@ import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { CompetitiveRank } from 'components/Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from 'components/Icons';
 import constants from '../constants';
-import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
+import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem, StyledDmgTargetInflictor, StyledDmgTargetRow } from './StyledMatch';
 
 const heroNames = getHeroesById();
 
@@ -926,10 +926,10 @@ export const objectiveDamageColumns = [heroTdColumn].concat(Object.keys(strings)
 
 const dmgTargetValueStyle = {
   position: 'absolute',
-  left: '25px',
+  left: '0px',
   width: '30px',
   height: '10px',
-  bottom: '25px',
+  bottom: '3px',
   fontSize: '10px',
   textAlign: 'center',
   lineHeight: '0.9',
@@ -941,9 +941,6 @@ const dmgTargetValueStyle = {
 
 const dmgTargetIconStyle = {
   height: '30px',
-  bottom: '55px',
-  left: '25px',
-  position: 'relative',
   backgroundColor: 'rgba(255, 255, 255, 0.1)',
 };
 
@@ -954,11 +951,10 @@ const damageTargetIcons = (t) => {
     const heroicon = heroes[hero.id] && process.env.REACT_APP_API_HOST + heroes[hero.id].icon;
     const j = (
       <div
+        id="target"
         style={{
        float: 'left',
        position: 'relative',
-       height: '0px',
-       paddingTop: '25px',
       }}
         data-tip
         data-for={`${hero.localized_name}`}
@@ -979,7 +975,7 @@ const damageTargetIcons = (t) => {
   });
 
   return (
-    <div style={{ paddingLeft: '15px', paddingRight: '15px' }}>
+    <div style={{ paddingLeft: '15px', paddingRight: '15px', display: 'flex' }}>
       {targets.sort((a, b) => b[1] - a[1]).map(x => x[0])}
     </div>);
 };
@@ -996,11 +992,25 @@ export const inflictorsColumns = [
           .reduce((obj, [k, v]) => Object.assign(obj, { [k]: v }), {});
         const r = [];
         Object.keys(f).forEach((inflictor) => {
-          r.push(inflictorWithValue(inflictor, abbreviateNumber(sumValues(f[inflictor]))));
-          r.push(damageTargetIcons(f[inflictor]));
+          r.push((
+            <div style={{ display: 'flex' }}>
+              {
+                <StyledDmgTargetInflictor>
+                  {inflictorWithValue(inflictor, abbreviateNumber(sumValues(f[inflictor])))}
+                </StyledDmgTargetInflictor>
+            }
+              {
+              damageTargetIcons(f[inflictor])
+            }
+            </div>
+          ));
         });
         return (
-          r.map(row => <div style={{ clear: 'left' }}>{row}</div>)
+          <StyledDmgTargetRow>
+            <div style={{ float: 'left', width: '100%' }} >
+              {r.map(row => <div style={{ display: 'flex', flexDirection: 'column' }} id="row">{row}</div>)}
+            </div>
+          </StyledDmgTargetRow>
         );
       }
       return null;

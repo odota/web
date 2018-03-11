@@ -273,3 +273,18 @@ export const StyledLogFilterForm = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `;
+
+export const StyledDmgTargetInflictor = styled.div`
+  .inflictorWithValue {  
+    img {
+    max-width: 27px !important;  
+    }
+  }
+`;
+export const StyledDmgTargetRow = styled.div`
+#row:hover {
+  #target {
+    background: rgba(74, 149, 247, 0.5);
+  }
+  }
+`;
