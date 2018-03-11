@@ -995,7 +995,7 @@ export const inflictorsColumns = [
           r.push((
             <div style={{ display: 'flex' }}>
               {
-                <StyledDmgTargetInflictor>
+                <StyledDmgTargetInflictor id="target">
                   {inflictorWithValue(inflictor, abbreviateNumber(sumValues(f[inflictor])))}
                 </StyledDmgTargetInflictor>
             }
