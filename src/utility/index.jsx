@@ -491,11 +491,11 @@ export const getTeamName = (team, _isRadiant) => {
   return (team && team.name) ? team.name : strings.general_dire;
 };
 
-// Use proxy layer to serve team logos
 export const getTeamLogoUrl = (logoUrl) => {
   if (!logoUrl) {
     return ''
   }
+  // Use proxy layer to serve team logos
   if (logoUrl.indexOf('/ugc') !== -1) {
     return `${process.env.REACT_APP_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}`
   }
