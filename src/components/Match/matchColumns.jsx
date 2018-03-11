@@ -929,7 +929,7 @@ const dmgTargetValueStyle = {
   left: '25px',
   width: '30px',
   height: '10px',
-  bottom: '33px',
+  bottom: '25px',
   fontSize: '10px',
   textAlign: 'center',
   lineHeight: '0.9',
@@ -941,7 +941,7 @@ const dmgTargetValueStyle = {
 
 const dmgTargetIconStyle = {
   height: '30px',
-  bottom: '30px',
+  bottom: '55px',
   left: '25px',
   position: 'relative',
   backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -953,7 +953,13 @@ const damageTargetIcons = (t) => {
     const hero = getHeroesById()[target];
     const heroicon = heroes[hero.id] && process.env.REACT_APP_API_HOST + heroes[hero.id].icon;
     const j = (
-      <div style={{ float: 'left', position: 'relative' }}>
+      <div
+        style={{
+ float: 'left', position: 'relative', height: '0px', paddingTop: '25px',
+}}
+        data-tip
+        data-for={`${hero.localized_name}`}
+      >
         <span style={dmgTargetValueStyle}>{`${abbreviateNumber(t[target])}`}</span>
         <img
           src={heroicon}
