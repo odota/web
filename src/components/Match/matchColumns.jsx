@@ -926,7 +926,7 @@ export const objectiveDamageColumns = [heroTdColumn].concat(Object.keys(strings)
 
 const dmgTargetValueStyle = {
   position: 'absolute',
-  left: '43px',
+  left: '25px',
   width: '30px',
   height: '10px',
   bottom: '33px',
@@ -943,7 +943,6 @@ const dmgTargetIconStyle = {
   height: '30px',
   bottom: '30px',
   left: '25px',
-  marginLeft: '8px',
   position: 'relative',
   backgroundColor: 'rgba(255, 255, 255, 0.1)',
 };
@@ -954,13 +953,13 @@ const damageTargetIcons = (t) => {
     const hero = getHeroesById()[target];
     const heroicon = heroes[hero.id] && process.env.REACT_APP_API_HOST + heroes[hero.id].icon;
     const j = (
-      <div style={{ float: 'left', position: 'relative', paddingLeft: '10px' }}>
-        <span style={dmgTargetValueStyle}>{`${t[target]}`}</span>
+      <div style={{ float: 'left', position: 'relative' }}>
+        <span style={dmgTargetValueStyle}>{`${abbreviateNumber(t[target])}`}</span>
         <img
           src={heroicon}
           alt=""
           style={dmgTargetIconStyle}
-          data-tip={`${hero.localized_name} ${t[target]}`}
+          data-tip={`${hero.localized_name}`}
           data-offset="{'right': 5}"
           data-delay-show="50"
         />
@@ -970,7 +969,10 @@ const damageTargetIcons = (t) => {
     targets.push([j, t[target]]);
   });
 
-  return targets.sort((a, b) => b[1] - a[1]).map(x => x[0]);
+  return (
+    <div style={{ paddingLeft: '15px', paddingRight: '15px' }}>
+      {targets.sort((a, b) => b[1] - a[1]).map(x => x[0])}
+    </div>);
 };
 
 export const inflictorsColumns = [
@@ -985,13 +987,11 @@ export const inflictorsColumns = [
           .reduce((obj, [k, v]) => Object.assign(obj, { [k]: v }), {});
         const r = [];
         Object.keys(f).forEach((inflictor) => {
-          r.push(inflictorWithValue(inflictor, sumValues(f[inflictor])));
+          r.push(inflictorWithValue(inflictor, abbreviateNumber(sumValues(f[inflictor]))));
           r.push(damageTargetIcons(f[inflictor]));
         });
         return (
-          <ul style={{ paddingLeft: '0px' }}>
-            {r.map(row => <li style={{ clear: 'left' }}>{row}</li>)}
-          </ul>
+          r.map(row => <div style={{ clear: 'left' }}>{row}</div>)
         );
       }
       return null;
@@ -1063,9 +1063,7 @@ export const castsColumns = [
         });
 
         return (
-          <ul>
-            {r.map(row => <li style={{ clear: 'left' }}>{row}</li>)}
-          </ul>
+          r.map(row => <div style={{ clear: 'left' }}>{row}</div>)
         );
       }
       return null;
