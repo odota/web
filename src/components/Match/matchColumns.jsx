@@ -955,8 +955,11 @@ const damageTargetIcons = (t) => {
     const j = (
       <div
         style={{
- float: 'left', position: 'relative', height: '0px', paddingTop: '25px',
-}}
+       float: 'left',
+       position: 'relative',
+       height: '0px',
+       paddingTop: '25px',
+      }}
         data-tip
         data-for={`${hero.localized_name}`}
       >
