@@ -281,6 +281,7 @@ export const StyledDmgTargetInflictor = styled.div`
     }
   }
 `;
+
 export const StyledDmgTargetRow = styled.div`
 #row:hover {
   #target {
