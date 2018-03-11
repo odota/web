@@ -285,7 +285,10 @@ export const StyledDmgTargetInflictor = styled.div`
 export const StyledDmgTargetRow = styled.div`
 #row:hover {
   #target {
-    background: rgba(74, 149, 247, 0.5);
+    img {
+    background: rgba(74, 149, 247, 0.5) !important;
+    box-shadow: 0px 0px 10px rgba(74, 149, 247, 0.5);
+    }
   }
   #targetvalue {
     background-color: black !important;
