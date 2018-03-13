@@ -53,6 +53,8 @@ const toUnderline = (data, row, field, underline) => {
   return false;
 };
 
+const rowStyle = (highlightFn, row) => ({ backgroundColor: highlightFn(row) ? 'rgba(74, 149, 247, 0.038)' : 'none' });
+
 const initialState = {
   currentPage: 0,
   sortState: '',
@@ -174,7 +176,7 @@ class Table extends React.Component {
               </MaterialTableHeader>
               <MaterialTableBody displayRowCheckbox={false} selectable={false}>
                 {data.map((row, index) => (
-                  <MaterialTableRow key={index} style={{ backgroundColor: highlightFn(row) ? 'rgba(74, 149, 247, 0.038)' : 'none' }}>
+                  <MaterialTableRow key={index} style={rowStyle(highlightFn, row)}>
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,
