@@ -78,7 +78,10 @@ const TargetsBreakdown = ({ field }) => {
               {inflictorWithValue(inflictor, abbreviateNumber(sumValues(f[inflictor])))}
             </StyledDmgTargetInflictor>
           }
-          <NavigationArrowForward style={{ position: 'relative', top: '4px', height: '20px' }} />
+          <NavigationArrowForward style={{
+ position: 'relative', top: '4px', height: '20px', opacity: '0.3',
+}}
+          />
           {
             damageTargetIcons(f[inflictor])
           }
