@@ -20,7 +20,6 @@ const StyledDiv = styled.div`
   float: left;
   margin: 1px;
   height: 27px;
-  z-index: 1;
 
   & .overlay {
     background-color: ${constants.darkPrimaryColor};
@@ -228,7 +227,7 @@ export default (inflictor, value, type, ptooltip) => {
         <div className="inflictorWithValue" data-tip={tooltip && true} data-for={ttId}>
           {!type &&
           <object data={image} height="27px" type="image/png">
-            <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)' }} />
+            <img src="/assets/images/Dota2Logo.svg" alt="" />
           </object>}
           {type === 'buff' &&
           <div
