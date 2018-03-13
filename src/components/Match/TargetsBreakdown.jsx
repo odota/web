@@ -28,6 +28,14 @@ const dmgTargetIconStyle = {
   backgroundColor: 'rgba(255, 255, 255, 0.1)',
 };
 
+const arrowStyle = {
+  position: 'relative',
+  top: '4px',
+  height: '20px',
+  opacity: '0.3',
+  transition: 'none',
+};
+
 const damageTargetIcons = (t) => {
   const targets = [];
   Object.keys(t).forEach((target) => {
@@ -78,10 +86,7 @@ const TargetsBreakdown = ({ field }) => {
               {inflictorWithValue(inflictor, abbreviateNumber(sumValues(f[inflictor])))}
             </StyledDmgTargetInflictor>
           }
-          <NavigationArrowForward style={{
- position: 'relative', top: '4px', height: '20px', opacity: '0.3',
-}}
-          />
+          <NavigationArrowForward style={arrowStyle} />
           {
             damageTargetIcons(f[inflictor])
           }
