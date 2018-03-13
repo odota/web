@@ -286,10 +286,13 @@ export const StyledDmgTargetRow = styled.div`
 #row:hover {
   svg {
     opacity: 1 !important;
+    transition: opacity 0.5s ease !important;
+    backface-visibility: hidden;
   }
   #target {
     img {
     background: rgba(74, 149, 247, 0.5) !important;
+    transition: background 0.5s ease !important;
     box-shadow: 0px 0px 10px rgba(74, 149, 247, 0.5);
     }
   }
