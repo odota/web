@@ -20,6 +20,7 @@ const StyledDiv = styled.div`
   float: left;
   margin: 1px;
   height: 27px;
+  z-index: 1;
 
   & .overlay {
     background-color: ${constants.darkPrimaryColor};
