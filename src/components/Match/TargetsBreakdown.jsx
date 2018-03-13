@@ -21,7 +21,6 @@ const dmgTargetValueStyle = {
   verticalAlign: 'center',
   zIndex: '1',
   backgroundColor: constants.darkPrimaryColor,
-  WebkitFontSmoothing: 'antialiased',
 };
 
 const dmgTargetIconStyle = {
@@ -87,9 +86,7 @@ const TargetsBreakdown = ({ field }) => {
               {inflictorWithValue(inflictor, abbreviateNumber(sumValues(f[inflictor])))}
             </StyledDmgTargetInflictor>
           }
-          <div>
-            <NavigationArrowForward style={arrowStyle} />
-          </div>
+          <NavigationArrowForward style={arrowStyle} />
           {
             damageTargetIcons(f[inflictor])
           }
