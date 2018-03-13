@@ -9,7 +9,7 @@ import abilityKeys from 'dotaconstants/build/ability_keys.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy, sumValues } from 'utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy } from 'utility';
 import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
@@ -17,7 +17,8 @@ import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import { CompetitiveRank } from 'components/Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from 'components/Icons';
 import constants from '../constants';
-import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem, StyledDmgTargetInflictor, StyledDmgTargetRow } from './StyledMatch';
+import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
+import TargetsBreakdown from './TargetsBreakdown';
 
 const heroNames = getHeroesById();
 
@@ -924,103 +925,12 @@ export const objectiveDamageColumns = [heroTdColumn].concat(Object.keys(strings)
   relativeBars: true,
 })));
 
-const dmgTargetValueStyle = {
-  position: 'absolute',
-  left: '0px',
-  width: '30px',
-  height: '10px',
-  bottom: '3px',
-  fontSize: '10px',
-  textAlign: 'center',
-  lineHeight: '0.9',
-  fontWeight: constants.fontWeightMedium,
-  verticalAlign: 'center',
-  zIndex: '1',
-  backgroundColor: constants.darkPrimaryColor,
-};
-
-const dmgTargetIconStyle = {
-  height: '30px',
-  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-};
-
-const damageTargetIcons = (t) => {
-  const targets = [];
-  Object.keys(t).forEach((target) => {
-    const hero = getHeroesById()[target];
-    const heroicon = heroes[hero.id] && process.env.REACT_APP_API_HOST + heroes[hero.id].icon;
-    const j = (
-      <div
-        id="target"
-        style={{
-       float: 'left',
-       position: 'relative',
-      }}
-        data-tip
-        data-for={`${hero.localized_name}`}
-      >
-        <span id="targetvalue" style={dmgTargetValueStyle}>{`${abbreviateNumber(t[target])}`}</span>
-        <img
-          src={heroicon}
-          alt=""
-          style={dmgTargetIconStyle}
-          data-tip={`${hero.localized_name}`}
-          data-offset="{'right': 5}"
-          data-delay-show="50"
-        />
-        <ReactTooltip place="top" effect="solid" />
-      </div>
-    );
-    targets.push([j, t[target]]);
-  });
-
-  return (
-    <div style={{ paddingLeft: '15px', paddingRight: '15px', display: 'flex' }}>
-      {targets.sort((a, b) => b[1] - a[1]).map(x => x[0])}
-    </div>);
-};
-
 export const inflictorsColumns = [
   heroTdColumn,
   {
     displayName: strings.th_damage_dealt,
     field: 'damage_targets',
-    displayFn: (row, col, field) => {
-      if (field) {
-        const f = Object.entries(field)
-          .sort((a, b) => sumValues(b[1]) - sumValues(a[1]))
-          .reduce((obj, [k, v]) => Object.assign(obj, { [k]: v }), {});
-        const r = [];
-        Object.keys(f).forEach((inflictor) => {
-          r.push((
-            <div style={{ display: 'flex' }}>
-              {
-                <StyledDmgTargetInflictor id="target">
-                  {inflictorWithValue(inflictor, abbreviateNumber(sumValues(f[inflictor])))}
-                </StyledDmgTargetInflictor>
-            }
-              {
-              damageTargetIcons(f[inflictor])
-            }
-            </div>
-          ));
-        });
-        return (
-          <StyledDmgTargetRow>
-            <div style={{
-            float: 'left',
-            width: '100%',
-            paddingTop: '10px',
-            paddingBottom: '10px',
-            }}
-            >
-              {r.map(row => <div style={{ display: 'flex', flexDirection: 'column' }} id="row">{row}</div>)}
-            </div>
-          </StyledDmgTargetRow>
-        );
-      }
-      return null;
-    },
+    displayFn: (row, col, field) => <TargetsBreakdown field={field} />,
   },
   {
     displayName: strings.th_damage_received,
@@ -1029,42 +939,6 @@ export const inflictorsColumns = [
       (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
   },
 ];
-
-const valueStyle = {
-  position: 'absolute',
-  left: '35px',
-  bottom: '24px',
-  fontSize: '12px',
-  zIndex: '1',
-  backgroundColor: constants.darkPrimaryColor,
-};
-
-const iconStyle = {
-  height: '30px',
-  bottom: '30px',
-  left: '25px',
-  position: 'relative',
-};
-
-const targetTooltip = (t) => {
-  const targets = [];
-  Object.keys(t).forEach((target) => {
-    const heroicon = heroes[getHeroesById()[target].id] && process.env.REACT_APP_API_HOST + heroes[getHeroesById()[target].id].icon;
-    const j = (
-      <div style={{ float: 'left', position: 'relative', paddingLeft: '10px' }}>
-        <span style={valueStyle}>{`${t[target]}x`}</span>
-        <img
-          src={heroicon}
-          alt=""
-          style={iconStyle}
-        />
-      </div>
-    );
-    targets.push([j, t[target]]);
-  });
-
-  return targets.sort((a, b) => b[1] - a[1]).map(x => x[0]);
-};
 
 export const castsColumns = [
   heroTdColumn,
@@ -1079,20 +953,7 @@ export const castsColumns = [
     displayName: strings.th_target_abilities,
     tooltip: strings.tooltip_target_abilities,
     field: 'ability_targets',
-    displayFn: (row, col, field) => {
-      if (field) {
-        const r = [];
-        Object.keys(field).forEach((inflictor) => {
-          r.push(inflictorWithValue(inflictor, sumValues(field[inflictor])));
-          r.push(targetTooltip(field[inflictor]));
-        });
-
-        return (
-          r.map(row => <div style={{ clear: 'left' }}>{row}</div>)
-        );
-      }
-      return null;
-    },
+    displayFn: (row, col, field) => <TargetsBreakdown field={field} />,
   },
   {
     displayName: strings.th_items,

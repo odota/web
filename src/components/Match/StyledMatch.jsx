@@ -284,6 +284,9 @@ export const StyledDmgTargetInflictor = styled.div`
 
 export const StyledDmgTargetRow = styled.div`
 #row:hover {
+  svg {
+    color: rgba(74, 149, 247, 0.5) !important;
+  }
   #target {
     img {
     background: rgba(74, 149, 247, 0.5) !important;
