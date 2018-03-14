@@ -227,7 +227,7 @@ export default (inflictor, value, type, ptooltip) => {
         <div className="inflictorWithValue" data-tip={tooltip && true} data-for={ttId}>
           {!type &&
           <object data={image} height="27px" type="image/png">
-            <img src="/assets/images/Dota2Logo.svg" alt="" />
+            <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)' }} />
           </object>}
           {type === 'buff' &&
           <div
