@@ -96,8 +96,6 @@ const TargetsBreakdown = ({ field }) => {
     return (
       <StyledDmgTargetRow>
         <div style={{
-          float: 'left',
-          width: '100%',
           paddingTop: '10px',
           paddingBottom: '10px',
           }}

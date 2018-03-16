@@ -283,26 +283,32 @@ export const StyledDmgTargetInflictor = styled.div`
 `;
 
 export const StyledDmgTargetRow = styled.div`
-#row:hover {
-  svg {
-    opacity: 1 !important;
-    transition: opacity 0.2s ease !important;
-    backface-visibility: hidden;
+  > div {
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
-  #target {
-    img {
-    background: rgba(74, 149, 247, 0.5) !important;
-    transition: background 0.2s ease !important;
-    box-shadow: 0px 0px 10px rgba(74, 149, 247, 0.5);
+
+  #row:hover {
+    svg {
+      opacity: 1 !important;
+      transition: opacity 0.2s ease !important;
+      backface-visibility: hidden;
+    }
+    #target {
+      img {
+      background: rgba(74, 149, 247, 0.5) !important;
+      transition: background 0.2s ease !important;
+      box-shadow: 0px 0px 10px rgba(74, 149, 247, 0.5);
+      }
+    }
+    #targetvalue {
+      background-color: black !important;
+    }
+    .inflictorWithValue {
+      & .overlay {
+        background-color: black;
+      }
     }
   }
-  #targetvalue {
-    background-color: black !important;
-  }
-  .inflictorWithValue {
-    & .overlay {
-      background-color: black;
-    }
-  }
-}
 `;
+
