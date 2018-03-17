@@ -53,7 +53,7 @@ const toUnderline = (data, row, field, underline) => {
   return false;
 };
 
-const rowStyle = (highlightFn, row) => ({ backgroundColor: highlightFn(row) ? 'rgba(74, 149, 247, 0.038)' : 'none' });
+const rowStyle = (highlightFn, row) => ({ backgroundColor: highlightFn && highlightFn(row) ? 'rgba(74, 149, 247, 0.038)' : 'none' });
 
 const initialState = {
   currentPage: 0,
@@ -133,7 +133,7 @@ class Table extends React.Component {
       placeholderMessage,
       pageLength = 20,
       hoverRowColumn,
-      highlightFn = function () {},
+      highlightFn,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage,
