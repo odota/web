@@ -93,9 +93,16 @@ const HeroesContainer = styled.div`
 `;
 
 const Styled = styled.div`
-float: left;
-position: relative;
-width: 30px;
+  float: left;
+  position: relative;
+  width: 30px;
+
+  #TurboButton {
+    filter: drop-shadow(0px 2px 0px #004782) 
+            drop-shadow(0px 1px 0px #004782) 
+            drop-shadow(0px 2px 0px #004782) 
+            drop-shadow(0px 1px 0px rgba(0, 0, 0, 0.7));
+  }
 `;
 
 const Overview = ({
@@ -131,7 +138,7 @@ const Overview = ({
           style={{ display: validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23) }}
           defaultChecked
           onCheck={toggleTurboGames}
-          checkedIcon={<Turbo />}
+          checkedIcon={<Turbo id="TurboButton" />}
           uncheckedIcon={<TurboOff />}
         />
       </Styled>
