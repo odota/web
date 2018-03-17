@@ -945,15 +945,8 @@ export const castsColumns = [
   {
     displayName: strings.th_abilities,
     tooltip: strings.tooltip_casts,
-    field: 'ability_uses',
-    displayFn: (row, col, field) =>
-      (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
-  },
-  {
-    displayName: strings.th_target_abilities,
-    tooltip: strings.tooltip_target_abilities,
     field: 'ability_targets',
-    displayFn: (row, col, field) => <TargetsBreakdown field={field} />,
+    displayFn: (row, col, field) => <TargetsBreakdown field={field} abilityUses={row.ability_uses} />,
   },
   {
     displayName: strings.th_items,

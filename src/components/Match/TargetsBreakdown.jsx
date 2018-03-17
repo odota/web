@@ -36,33 +36,48 @@ const arrowStyle = {
   transition: 'none',
 };
 
+const processCasts = (uses, targets) => {
+  const field = {};
+  Object.keys(uses).forEach(((ability) => {
+    if (targets[ability]) {
+      field[ability] = targets[ability];
+    } else {
+      field[ability] = { null: uses[ability] };
+    }
+  }));
+  return field;
+};
+
 const damageTargetIcons = (t) => {
   const targets = [];
   Object.keys(t).forEach((target) => {
     const hero = getHeroesById()[target];
-    const heroicon = heroes[hero.id] && process.env.REACT_APP_API_HOST + heroes[hero.id].icon;
-    const j = (
-      <div
-        id="target"
-        style={{
-         float: 'left',
-         position: 'relative',
-        }}
-        data-tip
-        data-for={`${hero.localized_name}`}
-      >
-        <span id="targetvalue" style={dmgTargetValueStyle}>{`${abbreviateNumber(t[target])}`}</span>
-        <img
-          src={heroicon}
-          alt=""
-          style={dmgTargetIconStyle}
-          data-tip={`${hero.localized_name}`}
-          data-offset="{'right': 5}"
-          data-delay-show="50"
-        />
-        <ReactTooltip place="top" effect="solid" />
-      </div>
-    );
+    const heroicon = hero && heroes[hero.id] && process.env.REACT_APP_API_HOST + heroes[hero.id].icon;
+    let j;
+    if (hero) {
+      j = (
+        <div
+          id="target"
+          style={{
+           float: 'left',
+           position: 'relative',
+          }}
+          data-tip
+          data-for={`${hero.localized_name}`}
+        >
+          <span id="targetvalue" style={dmgTargetValueStyle}>{`${abbreviateNumber(t[target])}`}</span>
+          <img
+            src={heroicon}
+            alt=""
+            style={dmgTargetIconStyle}
+            data-tip={`${hero.localized_name}`}
+            data-offset="{'right': 5}"
+            data-delay-show="50"
+          />
+          <ReactTooltip place="top" effect="solid" />
+        </div>
+      );
+    }
     targets.push([j, t[target]]);
   });
 
@@ -72,21 +87,34 @@ const damageTargetIcons = (t) => {
     </div>);
 };
 
-const TargetsBreakdown = ({ field }) => {
+const TargetsBreakdown = ({ field, abilityUses = null }) => {
   if (field) {
-    const f = Object.entries(field)
-      .sort((a, b) => sumValues(b[1]) - sumValues(a[1]))
-      .reduce((obj, [k, v]) => Object.assign(obj, { [k]: v }), {});
+    let f;
+    if (abilityUses) {
+      f = Object.entries(processCasts(abilityUses, field))
+        .sort((a, b) => abilityUses[b[0]] - abilityUses[a[0]])
+        .reduce((obj, [k, v]) => Object.assign(obj, { [k]: v }), {});
+    } else {
+      f = Object.entries(field)
+        .sort((a, b) => sumValues(b[1]) - sumValues(a[1]))
+        .reduce((obj, [k, v]) => Object.assign(obj, { [k]: v }), {});
+    }
     const r = [];
     Object.keys(f).forEach((inflictor) => {
+      const value = (
+        <div>
+          <div id="heroTargetValue">{abbreviateNumber(sumValues(f[inflictor]))}</div>
+          <div id="totalValue">{(abilityUses && abilityUses[inflictor]) || abbreviateNumber(sumValues(f[inflictor]))}</div>
+        </div>
+      );
       r.push((
         <div style={{ display: 'flex' }}>
           {
             <StyledDmgTargetInflictor id="target">
-              {inflictorWithValue(inflictor, abbreviateNumber(sumValues(f[inflictor])))}
+              {inflictorWithValue(inflictor, value)}
             </StyledDmgTargetInflictor>
           }
-          <NavigationArrowForward style={arrowStyle} />
+          {!f[inflictor].null ? <NavigationArrowForward style={arrowStyle} /> : null}
           {
             damageTargetIcons(f[inflictor])
           }
@@ -95,12 +123,8 @@ const TargetsBreakdown = ({ field }) => {
     });
     return (
       <StyledDmgTargetRow>
-        <div style={{
-          paddingTop: '10px',
-          paddingBottom: '10px',
-          }}
-        >
-          {r.map(row => <div style={{ display: 'flex', flexDirection: 'column' }} id="row">{row}</div>)}
+        <div>
+          {r.map(row => <div style={{ display: 'flex', flexDirection: 'column', height: '33px' }} id="row">{row}</div>)}
         </div>
       </StyledDmgTargetRow>
     );
@@ -110,6 +134,7 @@ const TargetsBreakdown = ({ field }) => {
 
 TargetsBreakdown.propTypes = {
   field: PropTypes.shape({}),
+  abilityUses: PropTypes.shape({}),
 };
 
 export default TargetsBreakdown;
