@@ -931,14 +931,14 @@ export const inflictorsColumns = [
     displayName: strings.th_damage_dealt,
     field: 'damage_targets',
     displayFn: (row, col, field) => {
-     if (field) {
-       return <TargetsBreakdown field={field} />
-     }
-     //backwards compatibility 2018-03-17
-     return Object.keys(row.damage_inflictor)
-            .sort((a, b) => (row.damage_inflictor[b] - (row.damage_inflictor[a])))
-            .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber((row.damage_inflictor[inflictor]))))
-  },
+      if (field) {
+        return <TargetsBreakdown field={field} />;
+      }
+      // backwards compatibility 2018-03-17
+      return Object.keys(row.damage_inflictor)
+        .sort((a, b) => (row.damage_inflictor[b] - (row.damage_inflictor[a])))
+        .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber((row.damage_inflictor[inflictor]))));
+    },
   },
   {
     displayName: strings.th_damage_received,
@@ -954,15 +954,15 @@ export const castsColumns = [
     displayName: strings.th_abilities,
     tooltip: strings.tooltip_casts,
     field: 'ability_targets',
-  displayFn: (row, col, field) => {
-    if (field) {
-    return <TargetsBreakdown field={field} abilityUses={row.ability_uses} />
-    }
-    //backwards compatibility 2018-03-17
-    return Object.keys(row.ability_uses)
-           .sort((a, b) => row.ability_uses[b] - row.ability_uses[a])
-           .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber((row.ability_uses[inflictor]))))
-  },
+    displayFn: (row, col, field) => {
+      if (field) {
+        return <TargetsBreakdown field={field} abilityUses={row.ability_uses} />;
+      }
+      // backwards compatibility 2018-03-17
+      return Object.keys(row.ability_uses)
+        .sort((a, b) => row.ability_uses[b] - row.ability_uses[a])
+        .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber((row.ability_uses[inflictor]))));
+    },
   },
   {
     displayName: strings.th_items,
