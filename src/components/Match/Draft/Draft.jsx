@@ -201,98 +201,102 @@ const Draft = ({
 
   return (
     <Styled>
-      <section className="teams">
-        <Heading
-          title={`${getTeamName(radiantTeam, true)}`}
-          icon={<IconRadiant />}
-        />
-        <Heading
-          title={`${getTeamName(direTeam, false)}`}
-          icon={<IconDire />}
-        />
-      </section>
-      <Table selectable={false}>
-        <TableBody
-          displayRowCheckbox={false}
-          selectable={false}
-          className="draft-table"
-        >
-          {gameMode === 2 ?
-            draft && draft.map(pb => (
-              <TableRow
-                key={pb.order}
-                className={`${radiantOrder.includes(pb.order) ? 'radiant' : 'dire'} draft-row`}
-              >
-                <TableRowColumn style={{ paddingLeft: 0 }}>
-                  {radiantPick(pb) &&
-                    <DraftHero
-                      pb={pb}
-                      radiant={radiantPick(pb)}
-                      calcExtraTime={calcExtraTime}
-                      picks={picks}
-                      isCaptains={gameMode === 2}
-                    />
-                  }
-                </TableRowColumn>
-                <TableRowColumn>
-                  {picks.includes(pb.order) ?
-                    <Pick>
-                      <LeftArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'true' : 'false'} />
-                      Pick {pb.order}
-                      <RightArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'false' : 'true'} />
-                    </Pick> :
-                    <Ban>
-                      <LeftArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'true' : 'false'} />
-                      Ban {pb.order}
-                      <RightArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'false' : 'true'} />
-                    </Ban>
-                  }
-                </TableRowColumn>
-                <TableRowColumn style={{ paddingRight: 0 }}>
-                  {!radiantPick(pb) &&
-                    <DraftHero
-                      pb={pb}
-                      radiant={radiantPick(pb)}
-                      calcExtraTime={calcExtraTime}
-                      picks={picks}
-                      isCaptains={gameMode === 2}
-                    />
-                  }
-                </TableRowColumn>
-              </TableRow>
-            )) :
-            draft && draft.sort((a, b) => a.total_time_taken - b.total_time_taken).map(pb => (
-              <TableRow
-                key={pb.order}
-                className={`${radiantOrder.includes(pb.order) ? 'radiant' : 'dire'} draft-row`}
-              >
-                <TableRowColumn style={{ paddingLeft: 0 }}>
-                  {radiantPick(pb) &&
-                    <DraftHero
-                      pb={pb}
-                      radiant={radiantPick(pb)}
-                      calcExtraTime={calcExtraTime}
-                      picks={picks}
-                      isCaptains={gameMode === 2}
-                    />
-                  }
-                </TableRowColumn>
-                <TableRowColumn style={{ paddingRight: 0 }}>
-                  {!radiantPick(pb) &&
-                    <DraftHero
-                      pb={pb}
-                      radiant={radiantPick(pb)}
-                      calcExtraTime={calcExtraTime}
-                      picks={picks}
-                      isCaptains={gameMode === 2}
-                    />
-                  }
-                </TableRowColumn>
-              </TableRow>
-            ))
-          }
-        </TableBody>
-      </Table>
+      {draft &&
+      <div>
+        <section className="teams">
+          <Heading
+            title={`${getTeamName(radiantTeam, true)}`}
+            icon={<IconRadiant />}
+          />
+          <Heading
+            title={`${getTeamName(direTeam, false)}`}
+            icon={<IconDire />}
+          />
+        </section>
+        <Table selectable={false}>
+          <TableBody
+            displayRowCheckbox={false}
+            selectable={false}
+            className="draft-table"
+          >
+            {gameMode === 2 ?
+              draft.map(pb => (
+                <TableRow
+                  key={pb.order}
+                  className={`${radiantOrder.includes(pb.order) ? 'radiant' : 'dire'} draft-row`}
+                >
+                  <TableRowColumn style={{ paddingLeft: 0 }}>
+                    {radiantPick(pb) &&
+                      <DraftHero
+                        pb={pb}
+                        radiant={radiantPick(pb)}
+                        calcExtraTime={calcExtraTime}
+                        picks={picks}
+                        isCaptains={gameMode === 2}
+                      />
+                    }
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    {picks.includes(pb.order) ?
+                      <Pick>
+                        <LeftArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'true' : 'false'} />
+                        Pick {pb.order}
+                        <RightArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'false' : 'true'} />
+                      </Pick> :
+                      <Ban>
+                        <LeftArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'true' : 'false'} />
+                        Ban {pb.order}
+                        <RightArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'false' : 'true'} />
+                      </Ban>
+                    }
+                  </TableRowColumn>
+                  <TableRowColumn style={{ paddingRight: 0 }}>
+                    {!radiantPick(pb) &&
+                      <DraftHero
+                        pb={pb}
+                        radiant={radiantPick(pb)}
+                        calcExtraTime={calcExtraTime}
+                        picks={picks}
+                        isCaptains={gameMode === 2}
+                      />
+                    }
+                  </TableRowColumn>
+                </TableRow>
+              )) :
+              draft.sort((a, b) => a.total_time_taken - b.total_time_taken).map(pb => (
+                <TableRow
+                  key={pb.order}
+                  className={`${radiantOrder.includes(pb.order) ? 'radiant' : 'dire'} draft-row`}
+                >
+                  <TableRowColumn style={{ paddingLeft: 0 }}>
+                    {radiantPick(pb) &&
+                      <DraftHero
+                        pb={pb}
+                        radiant={radiantPick(pb)}
+                        calcExtraTime={calcExtraTime}
+                        picks={picks}
+                        isCaptains={gameMode === 2}
+                      />
+                    }
+                  </TableRowColumn>
+                  <TableRowColumn style={{ paddingRight: 0 }}>
+                    {!radiantPick(pb) &&
+                      <DraftHero
+                        pb={pb}
+                        radiant={radiantPick(pb)}
+                        calcExtraTime={calcExtraTime}
+                        picks={picks}
+                        isCaptains={gameMode === 2}
+                      />
+                    }
+                  </TableRowColumn>
+                </TableRow>
+              ))
+            }
+          </TableBody>
+        </Table>
+      </div>
+      }
     </Styled>
   );
 };
