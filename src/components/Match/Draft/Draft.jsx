@@ -261,7 +261,7 @@ const Draft = ({
                 </TableRowColumn>
               </TableRow>
             )) :
-            draft.sort((a, b) => a.total_time_taken - b.total_time_taken).map(pb => (
+            draft && draft.sort((a, b) => a.total_time_taken - b.total_time_taken).map(pb => (
               <TableRow
                 key={pb.order}
                 className={`${radiantOrder.includes(pb.order) ? 'radiant' : 'dire'} draft-row`}
