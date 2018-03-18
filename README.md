@@ -38,7 +38,7 @@ Notes
 ----
 * You don't have to set up the entire stack (databases, etc.), or worry about getting starter data, since the UI points to the production API.
 * Use the configuration to point to your own API (if you are working on a new feature and want to start building the UI before it's deployed to production).
-* Discord: https://discord.gg/0o5SQGbXuWCNDcaF
+* Discord: https://discord.gg/opendota
   * Strongly recommended for active developers! We move fast and it's helpful to be up to speed with everything that's happening.
 
 Resources
