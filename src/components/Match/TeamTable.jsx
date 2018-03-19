@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import { isRadiant, getTeamName } from 'utility';
 import Heading from 'components/Heading';
 import { IconRadiant, IconDire } from 'components/Icons';
+import { connect } from 'react-redux';
 import Table from 'components/Table';
 import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
+
+const getHighlightFn = loggedInId => row => row.account_id === loggedInId;
 
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
@@ -19,19 +22,20 @@ const TeamTable = ({
   direTeam = {},
   summable = false,
   hoverRowColumn = false,
+  loggedInId,
 }) => (
   <div>
     <Heading
       title={`${getTeamName(radiantTeam, true)} - ${heading}`}
       icon={<IconRadiant />}
     />
-    <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} />
+    <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} />
     {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
     <Heading
       title={`${getTeamName(direTeam, false)} - ${heading}`}
       icon={<IconDire />}
     />
-    <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} />
+    <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} />
     {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
   </div>
 );
@@ -45,6 +49,11 @@ TeamTable.propTypes = {
   direTeam: PropTypes.shape({}),
   summable: PropTypes.bool,
   hoverRowColumn: PropTypes.bool,
+  loggedInId: PropTypes.number,
 };
 
-export default TeamTable;
+const mapStateToProps = state => ({
+  loggedInId: state.app.metadata.data.user ? state.app.metadata.data.user.account_id : null,
+});
+
+export default connect(mapStateToProps)(TeamTable);
