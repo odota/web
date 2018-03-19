@@ -47,7 +47,7 @@ const StyledSection = styled.section`
   }
 `;
 
-const TabBar = ({ tabs, info }) => (
+const TabBar = ({ tabs, info, match }) => (
   <StyledMain>
     <StyledSection>
       {tabs.map(tab => (
@@ -55,7 +55,7 @@ const TabBar = ({ tabs, info }) => (
           key={`${tab.name}_${tab.route}_${tab.key}`}
           className={tab.key === info ? 'chosen' : ''}
           to={tab.route + window.location.search}
-          disabled={tab.disabled}
+          disabled={tab.disabled && tab.disabled(match)}
         >
           {tab.name}
         </Link>
@@ -68,6 +68,7 @@ const { string, shape, arrayOf } = PropTypes;
 TabBar.propTypes = {
   tabs: arrayOf(shape({})),
   info: string,
+  match: shape({}),
 };
 
 export default TabBar;

@@ -8,6 +8,7 @@ import Timeline from 'components/Match/Overview/Timeline';
 import MatchGraph from 'components/Visualizations/Graph/MatchGraph';
 import StackedBarGraph from 'components/Visualizations/Graph/StackedBarGraph';
 import heroes from 'dotaconstants/build/heroes.json';
+import Draft from './Draft';
 import Vision from './Vision';
 import Laning from './Laning';
 import CrossTable from './CrossTable';
@@ -46,6 +47,20 @@ const matchPages = [Overview, {
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
         hoverRowColumn
+      />
+    </div>),
+}, {
+  name: strings.tab_drafts,
+  key: 'draft',
+  parsed: true,
+  disabled: match => match.game_mode !== 2,
+  content: match => (
+    <div>
+      <Draft
+        gameMode={match.game_mode}
+        radiantTeam={match.radiant_team}
+        direTeam={match.dire_team}
+        draft={match.draft_timings}
       />
     </div>),
 }, {
@@ -318,7 +333,16 @@ const matchPages = [Overview, {
 }];
 
 export default (matchId, match) => matchPages.map(page => ({
-  ...page,
+  // ...page,
+  name: page.name,
+  key: page.key,
+  parsed: page.parsed,
+  content: page.content,
   route: `/matches/${matchId}/${page.key.toLowerCase()}`,
-  disabled: match && !match.version && page.parsed,
+  disabled: (m) => {
+    if (page.disabled) {
+      return page.disabled(m);
+    }
+    return match && !match.version && page.parsed;
+  },
 }));

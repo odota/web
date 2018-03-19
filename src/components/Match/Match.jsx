@@ -37,6 +37,7 @@ class RequestLayer extends React.Component {
           <TabBar
             info={info}
             tabs={matchPages(matchId, match)}
+            match={match}
           />
           {page && page.content(match)}
         </div>);
