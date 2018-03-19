@@ -273,3 +273,57 @@ export const StyledLogFilterForm = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `;
+
+export const StyledDmgTargetInflictor = styled.div`
+  .inflictorWithValue {  
+    img {
+    max-width: 27px !important;  
+    }
+  }
+`;
+
+export const StyledDmgTargetRow = styled.div`
+  > div {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  #heroTargetValue {
+    display: none;
+  }
+
+  #row:hover {
+    svg {
+      opacity: 1 !important;
+      transition: opacity 0.2s ease !important;
+      backface-visibility: hidden;
+    }
+
+    #target {
+      img {
+      background: rgba(74, 149, 247, 0.5) !important;
+      transition: background 0.2s ease !important;
+      box-shadow: 0px 0px 10px rgba(74, 149, 247, 0.5);
+      }
+    }
+
+    #targetvalue {
+      background-color: black !important;
+    }
+
+    #heroTargetValue {
+      display: inline !important;
+    }
+
+    #totalValue {
+      display: none !important;
+    }
+    
+    .inflictorWithValue {
+      & .overlay {
+        background-color: black;
+      }
+    }
+  }
+`;
+

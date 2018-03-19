@@ -18,6 +18,7 @@ import { CompetitiveRank } from 'components/Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from 'components/Icons';
 import constants from '../constants';
 import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
+import TargetsBreakdown from './TargetsBreakdown';
 
 const heroNames = getHeroesById();
 
@@ -928,9 +929,16 @@ export const inflictorsColumns = [
   heroTdColumn,
   {
     displayName: strings.th_damage_dealt,
-    field: 'damage_inflictor',
-    displayFn: (row, col, field) =>
-      (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+    field: 'damage_targets',
+    displayFn: (row, col, field) => {
+      if (field) {
+        return <TargetsBreakdown field={field} />;
+      }
+      // backwards compatibility 2018-03-17
+      return Object.keys(row.damage_inflictor)
+        .sort((a, b) => (row.damage_inflictor[b] - (row.damage_inflictor[a])))
+        .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber((row.damage_inflictor[inflictor]))));
+    },
   },
   {
     displayName: strings.th_damage_received,
@@ -940,72 +948,20 @@ export const inflictorsColumns = [
   },
 ];
 
-const sumValues = f => Object.values(f).reduce((a, b) => a + b);
-
-const valueStyle = {
-  position: 'absolute',
-  left: '35px',
-  bottom: '24px',
-  fontSize: '12px',
-  zIndex: '1',
-  backgroundColor: constants.darkPrimaryColor,
-};
-
-const iconStyle = {
-  height: '30px',
-  bottom: '30px',
-  left: '25px',
-  position: 'relative',
-};
-
-const targetTooltip = (t) => {
-  const targets = [];
-  Object.keys(t).forEach((target) => {
-    const heroicon = heroes[getHeroesById()[target].id] && process.env.REACT_APP_API_HOST + heroes[getHeroesById()[target].id].icon;
-    const j = (
-      <div style={{ float: 'left', position: 'relative', paddingLeft: '10px' }}>
-        <span style={valueStyle}>{`${t[target]}x`}</span>
-        <img
-          src={heroicon}
-          alt=""
-          style={iconStyle}
-        />
-      </div>
-    );
-    targets.push([j, t[target]]);
-  });
-
-  return targets.sort((a, b) => b[1] - a[1]).map(x => x[0]);
-};
-
 export const castsColumns = [
   heroTdColumn,
   {
     displayName: strings.th_abilities,
     tooltip: strings.tooltip_casts,
-    field: 'ability_uses',
-    displayFn: (row, col, field) =>
-      (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
-  },
-  {
-    displayName: strings.th_target_abilities,
-    tooltip: strings.tooltip_target_abilities,
     field: 'ability_targets',
     displayFn: (row, col, field) => {
       if (field) {
-        const r = [];
-        Object.keys(field).forEach((inflictor) => {
-          r.push(inflictorWithValue(inflictor, sumValues(field[inflictor])));
-          r.push(targetTooltip(field[inflictor]));
-        });
-
-        return (
-          <ul>
-            {r.map(row => <li style={{ clear: 'left' }}>{row}</li>)}
-          </ul>
-        );
+        return <TargetsBreakdown field={field} abilityUses={row.ability_uses} />;
       }
-      return null;
+      // backwards compatibility 2018-03-17
+      return Object.keys(row.ability_uses)
+        .sort((a, b) => row.ability_uses[b] - row.ability_uses[a])
+        .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber((row.ability_uses[inflictor]))));
     },
   },
   {
