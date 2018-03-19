@@ -8,7 +8,7 @@ const links = [{
   icon: <IconGithub />,
 }, {
   tooltip: strings.app_discord,
-  path: '//discord.gg/0o5SQGbXuWCNDcaF',
+  path: '//discord.gg/opendota',
   icon: <IconDiscord />,
 }];
 
