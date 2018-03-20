@@ -279,11 +279,6 @@ export const transformations = {
     );
   },
   hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true),
-  hero_id_with_custom_image_size: (row, col, field, showPvgnaGuide, imageSizeSuffix = IMAGESIZE_ENUM.LARGE) => {
-    const heroId = transformations.hero_id(row, col, field, showPvgnaGuide); // image here is [api link]/heroname_full.png, ~34KB (256 px x 144 px)
-    const heroImageURLNoSuffix = heroId.img.slice(0, -('_full.png?'.length));
-    return React.cloneElement(heroId, { image: heroImageURLNoSuffix + imageSizeSuffix });
-  },
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
   match_id_with_time: (row, col, field) => (
     <div>
