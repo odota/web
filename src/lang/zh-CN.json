@@ -362,7 +362,7 @@
   "heading_cm_enabled": "是否启用队长模式",
   "heading_current_players": "当前玩家",
   "heading_former_players": "Former Players",
-  "subheading_avg_and_max": "在最近 %d 比赛里",
+  "subheading_avg_and_max": "最近的 %d 场比赛中",
   "subheading_records": "在天梯比赛中。每周重置。",
   "subheading_team_elo_rankings": "k = 32, init = 1000",
   "hero_pro_tab": "职业比赛",
