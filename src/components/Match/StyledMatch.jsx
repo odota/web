@@ -276,7 +276,7 @@ export const StyledLogFilterForm = styled.div`
 
 export const StyledDmgTargetInflictor = styled.div`
   .inflictorWithValue {  
-    img {
+    object {
     max-width: 27px !important;  
     }
   }
