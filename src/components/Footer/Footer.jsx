@@ -10,7 +10,7 @@ import constants from '../constants';
 
 const StyledFooter = styled.footer`
   & main {
-    padding: 20px 50px 15px;
+    padding: 0px 50px 15px;
     background-color: ${constants.defaultPrimaryColor};
     color: ${constants.primaryTextColor};
     display: flex;
@@ -26,6 +26,14 @@ const StyledFooter = styled.footer`
     & .links,
     & .cheese {
       width: 50%;
+    }
+
+    & .mobile {
+      & img {
+        &:hover {
+        opacity: 0.6;
+        }
+      }
     }
 
     & .links {
@@ -158,6 +166,20 @@ export default () => (
         <div className="logoNsocial">
           <AppLogo />
           <SocialLinks />
+          <div className="mobile">
+            <a
+              href="https://play.google.com/store/apps/details?id=com.opendota.mobile&hl=en"
+              style={{ position: 'relative', left: '13px', top: '12px' }}
+            >
+              <img src="/assets/images/google_play_store.png" alt="" height="46px" />
+            </a>
+            <a
+              href="https://itunes.apple.com/us/app/opendota/id1354762555?ls=1&mt=8"
+              style={{ position: 'relative', left: '20px', top: '5px' }}
+            >
+              <img src="/assets/images/apple_app_store.png" alt="" height="31px" />
+            </a>
+          </div>
         </div>
         <small className="about">
           {strings.app_description}

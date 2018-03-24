@@ -222,6 +222,16 @@ export const percentile = (pct) => {
   };
 };
 
+export const IMAGESIZE_ENUM = {
+  SMALL: 'sb.png', //     ~10KB (59 px x 33 px)
+  MEDIUM: 'lg.png', //     ~41KB (205 px x 105 px)
+  LARGE: 'full.png', // ~52KB (256 px x 144 px)
+  VERT: 'vert.jpg', // ~18KB (235 px x 272 px) note that this is a jpg
+
+// if you ever wanna see what the above look like (change the suffix):
+// https://api.opendota.com/apps/dota2/images/heroes/abaddon_full.png
+};
+
 const getSubtitle = (row) => {
   if (row.match_id && row.player_slot !== undefined) {
     let laneName;
@@ -243,6 +253,7 @@ const getTitle = (row, col, heroName) => {
   return <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
 };
 
+
 /**
  * Transformations of table cell data to display values.
  * These functions are intended to be used as the displayFn property in table columns.
@@ -250,12 +261,14 @@ const getTitle = (row, col, heroName) => {
  * */
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
-  hero_id: (row, col, field, showPvgnaGuide = false) => {
+  hero_id: (row, col, field, showPvgnaGuide = false, imageSizeSuffix = IMAGESIZE_ENUM.SMALL) => {
     const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
+    const imageUrl = heroes[row[col.field]] && process.env.REACT_APP_API_HOST + heroes[row[col.field]].img; // "[api url]/abaddon_full.png?"
+    const imageUrlNoSuffix = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
     return (
       <TableHeroImage
         parsed={row.version}
-        image={heroes[row[col.field]] && process.env.REACT_APP_API_HOST + heroes[row[col.field]].img}
+        image={imageUrlNoSuffix + imageSizeSuffix}
         title={getTitle(row, col, heroName)}
         subtitle={getSubtitle(row)}
         heroName={heroName}
@@ -491,10 +504,15 @@ export const getTeamName = (team, _isRadiant) => {
   return (team && team.name) ? team.name : strings.general_dire;
 };
 
-// Use proxy layer to serve team logos
 export const getTeamLogoUrl = (logoUrl) => {
-  const url = logoUrl ? `${process.env.REACT_APP_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}` : '';
-  return url;
+  if (!logoUrl) {
+    return '';
+  }
+  // Use proxy layer to serve team logos
+  if (logoUrl.indexOf('/ugc') !== -1) {
+    return `${process.env.REACT_APP_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}`;
+  }
+  return logoUrl;
 };
 
 /**
@@ -637,4 +655,6 @@ export const groupBy = (xs, key) =>
     (rv[x[key]] = rv[x[key]] || []).push(x); // eslint-disable-line no-param-reassign
     return rv;
   }, {});
+
+export const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 

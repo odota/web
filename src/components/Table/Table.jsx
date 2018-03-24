@@ -53,6 +53,8 @@ const toUnderline = (data, row, field, underline) => {
   return false;
 };
 
+const rowStyle = (highlightFn, row) => ({ backgroundColor: highlightFn && highlightFn(row) ? 'rgba(74, 149, 247, 0.038)' : 'none' });
+
 const initialState = {
   currentPage: 0,
   sortState: '',
@@ -131,6 +133,7 @@ class Table extends React.Component {
       placeholderMessage,
       pageLength = 20,
       hoverRowColumn,
+      highlightFn,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage,
@@ -173,7 +176,7 @@ class Table extends React.Component {
               </MaterialTableHeader>
               <MaterialTableBody displayRowCheckbox={false} selectable={false}>
                 {data.map((row, index) => (
-                  <MaterialTableRow key={index}>
+                  <MaterialTableRow key={index} style={rowStyle(highlightFn, row)}>
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,
@@ -283,6 +286,7 @@ const {
   shape,
   number,
   string,
+  func,
 } = PropTypes;
 
 Table.propTypes = {
@@ -296,6 +300,7 @@ Table.propTypes = {
   placeholderMessage: string,
   pageLength: number,
   hoverRowColumn: bool,
+  highlightFn: func,
 };
 
 export default Table;
