@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import Table from 'components/Table';
 import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
 
-const getHighlightFn = loggedInId => row => row.account_id === loggedInId;
+const getHighlightFn = loggedInId => row => loggedInId && row.account_id === loggedInId;
 
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
