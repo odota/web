@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
     case requestActions.ERROR:
       return {
         ...initialState,
-        error: action.error,
+        error: action.error || true,
       };
     case requestActions.OK:
       return initialState;
