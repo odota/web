@@ -21,7 +21,7 @@ class Request extends React.Component {
 
   componentDidMount() {
     if (this.state.matchId) {
-      this.handleSubmit()
+      this.handleSubmit();
     }
   }
 
