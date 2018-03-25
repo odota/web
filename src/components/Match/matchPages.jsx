@@ -340,10 +340,5 @@ export default (matchId, match) => matchPages.map(page => ({
   content: page.content,
   route: `/matches/${matchId}/${page.key.toLowerCase()}`,
   disabled: match && !match.version && page.parsed,
-  hidden: (m) => {
-    if (page.hidden) {
-      return page.hidden(m);
-    }
-    return false;
-  },
+  hidden: m => page.hidden && page.hidden(m),
 }));
