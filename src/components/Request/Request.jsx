@@ -19,6 +19,12 @@ class Request extends React.Component {
     this.setState({ matchId: window.location.hash.slice(1) });
   }
 
+  componentDidMount() {
+    if (this.state.matchId) {
+      this.handleSubmit();
+    }
+  }
+
   handleSubmit() {
     const { dispatchPostRequest } = this.props;
     dispatchPostRequest(this.state.matchId);
@@ -36,7 +42,7 @@ class Request extends React.Component {
         <TextField
           id="match_id"
           floatingLabelText={strings.request_match_id}
-          errorText={error ? strings.request_error : false}
+          errorText={error && !loading ? strings.request_error : false}
           value={this.state.matchId}
           onChange={e => this.setState({ matchId: e.target.value })}
         />
