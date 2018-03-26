@@ -263,12 +263,14 @@ const getTitle = (row, col, heroName) => {
 export const transformations = {
   hero_id: (row, col, field, showPvgnaGuide = false, imageSizeSuffix = IMAGESIZE_ENUM.SMALL) => {
     const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
-    const imageUrl = heroes[row[col.field]] && process.env.REACT_APP_API_HOST + heroes[row[col.field]].img; // "[api url]/abaddon_full.png?"
-    const imageUrlNoSuffix = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
+    let imageUrl = heroes[row[col.field]] && process.env.REACT_APP_API_HOST + heroes[row[col.field]].img; // "[api url]/abaddon_full.png?"
+    if (imageUrl) {
+      imageUrl = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
+    }
     return (
       <TableHeroImage
         parsed={row.version}
-        image={imageUrlNoSuffix + imageSizeSuffix}
+        image={imageUrl + imageSizeSuffix}
         title={getTitle(row, col, heroName)}
         subtitle={getSubtitle(row)}
         heroName={heroName}
