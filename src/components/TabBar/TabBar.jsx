@@ -34,6 +34,10 @@ const StyledSection = styled.section`
       color: ${constants.colorMuted};
     }
 
+    &[hidden] {
+      display: none;
+    }
+
     @media only screen and (max-width: 768px) {
       padding-left: 10px;
       padding-right: 10px;
@@ -55,7 +59,8 @@ const TabBar = ({ tabs, info, match }) => (
           key={`${tab.name}_${tab.route}_${tab.key}`}
           className={tab.key === info ? 'chosen' : ''}
           to={tab.route + window.location.search}
-          disabled={tab.disabled && tab.disabled(match)}
+          disabled={tab.disabled}
+          hidden={tab.hidden && tab.hidden(match)}
         >
           {tab.name}
         </Link>
