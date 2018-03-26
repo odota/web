@@ -23,19 +23,20 @@ const TeamTable = ({
   summable = false,
   hoverRowColumn = false,
   loggedInId,
+  uniqueKey = false,
 }) => (
   <div>
     <Heading
       title={`${getTeamName(radiantTeam, true)} - ${heading}`}
       icon={<IconRadiant />}
     />
-    <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} />
+    <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn highlightFn={getHighlightFn(loggedInId)} uniqueKey={uniqueKey} />
     {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
     <Heading
       title={`${getTeamName(direTeam, false)} - ${heading}`}
       icon={<IconDire />}
     />
-    <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} />
+    <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn highlightFn={getHighlightFn(loggedInId)} uniqueKey={uniqueKey} />
     {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
   </div>
 );
@@ -50,6 +51,7 @@ TeamTable.propTypes = {
   summable: PropTypes.bool,
   hoverRowColumn: PropTypes.bool,
   loggedInId: PropTypes.number,
+  uniqueKey: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({

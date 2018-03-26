@@ -10,6 +10,7 @@ import {
 import { TablePercent } from 'components/Visualizations';
 import Pagination from 'components/Table/PaginatedTable/Pagination';
 import { abbreviateNumber, SORT_ENUM, defaultSort } from 'utility';
+import uuid from 'uuid';
 import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
@@ -134,6 +135,7 @@ class Table extends React.Component {
       pageLength = 20,
       hoverRowColumn,
       highlightFn,
+      uniqueKey = false,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage,
@@ -176,7 +178,7 @@ class Table extends React.Component {
               </MaterialTableHeader>
               <MaterialTableBody displayRowCheckbox={false} selectable={false}>
                 {data.map((row, index) => (
-                  <MaterialTableRow key={index} style={rowStyle(highlightFn, row)}>
+                  <MaterialTableRow key={(uniqueKey && uuid.v4()) || index} style={rowStyle(highlightFn, row)}>
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,
@@ -301,6 +303,7 @@ Table.propTypes = {
   pageLength: number,
   hoverRowColumn: bool,
   highlightFn: func,
+  uniqueKey: bool,
 };
 
 export default Table;
