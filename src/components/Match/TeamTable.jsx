@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import Table from 'components/Table';
 import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
 
+const uniqueKey = row => row && row.player_slot + 1;
+
 const getHighlightFn = loggedInId => row => loggedInId && row.account_id === loggedInId;
 
 const filterMatchPlayers = (players, team = '') =>
@@ -23,7 +25,6 @@ const TeamTable = ({
   summable = false,
   hoverRowColumn = false,
   loggedInId,
-  uniqueKey = false,
 }) => (
   <div>
     <Heading
@@ -51,7 +52,6 @@ TeamTable.propTypes = {
   summable: PropTypes.bool,
   hoverRowColumn: PropTypes.bool,
   loggedInId: PropTypes.number,
-  uniqueKey: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({

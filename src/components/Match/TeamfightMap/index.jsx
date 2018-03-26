@@ -507,7 +507,6 @@ class TeamfightMap extends Component {
                 columns={teamfightColumns}
                 radiantTeam={this.props.match.radiant_team}
                 direTeam={this.props.match.dire_team}
-                uniqueKey
               />
             </div>
           </div>
