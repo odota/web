@@ -134,7 +134,7 @@ class Table extends React.Component {
       pageLength = 20,
       hoverRowColumn,
       highlightFn,
-      uniqueKey,
+      keyFn,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage,
@@ -177,7 +177,7 @@ class Table extends React.Component {
               </MaterialTableHeader>
               <MaterialTableBody displayRowCheckbox={false} selectable={false}>
                 {data.map((row, index) => (
-                  <MaterialTableRow key={(uniqueKey && uniqueKey(row)) || index} style={rowStyle(highlightFn, row)}>
+                  <MaterialTableRow key={(keyFn && keyFn(row)) || index} style={rowStyle(highlightFn, row)}>
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,
@@ -302,7 +302,7 @@ Table.propTypes = {
   pageLength: number,
   hoverRowColumn: bool,
   highlightFn: func,
-  uniqueKey: func,
+  keyFn: func,
 };
 
 export default Table;

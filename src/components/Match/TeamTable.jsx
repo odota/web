@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import Table from 'components/Table';
 import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
 
-const uniqueKey = row => row && row.player_slot + 1;
+const keyFn = row => row && row.player_slot + 1;
 
 const getHighlightFn = loggedInId => row => loggedInId && row.account_id === loggedInId;
 
@@ -31,13 +31,13 @@ const TeamTable = ({
       title={`${getTeamName(radiantTeam, true)} - ${heading}`}
       icon={<IconRadiant />}
     />
-    <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} uniqueKey={uniqueKey} />
+    <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} />
     {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
     <Heading
       title={`${getTeamName(direTeam, false)} - ${heading}`}
       icon={<IconDire />}
     />
-    <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} uniqueKey={uniqueKey} />
+    <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} />
     {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
   </div>
 );
