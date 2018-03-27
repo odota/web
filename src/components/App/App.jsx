@@ -126,9 +126,11 @@ class App extends React.Component {
                 <img src="/assets/images/rivalry-banner.png" alt="" />
               </a>
             }
-            <div style={{ fontSize: '12px' }}>
-              {strings.home_sponsored_by} <a href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota">Rivalry</a>
-            </div>
+            { location.pathname !== '/' &&
+              <div style={{ fontSize: '12px' }}>
+                {strings.home_sponsored_by} <a href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota">Rivalry</a>
+              </div>
+            }
           </AdBannerDiv>
           <Footer location={location} width={width} />
         </StyledDiv>
