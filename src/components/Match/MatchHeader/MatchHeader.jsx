@@ -335,7 +335,7 @@ const MatchHeader = ({ match, user, loading }) => {
           />
           <FlatButton
             label={strings.app_rivalry}
-            icon={<img src="/assets/images/rivalry-icon.png" alt={strings.app_pvgna_alt} height="24px" />}
+            icon={<img src="/assets/images/rivalry-icon.png" alt="" height="24px" />}
             href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota"
             target="_blank"
             rel="noopener noreferrer"
