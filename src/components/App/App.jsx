@@ -73,6 +73,15 @@ const StyledBodyDiv = styled.div`
   }
 `;
 
+const AdBannerDiv = styled.div`
+  text-align: center;
+
+  & img {
+    margin-top: 10px;
+    max-width: 100%;
+  }
+`;
+
 class App extends React.Component {
   componentWillUpdate(nextProps) {
     if (this.props.location.key !== nextProps.location.key) {
@@ -90,6 +99,13 @@ class App extends React.Component {
             titleTemplate={strings.title_template}
           />
           <Header params={params} location={location} />
+          <AdBannerDiv>
+            { location.pathname !== '/' &&
+              <a href="http://www.vpgame.com/?lang=en_us">
+                <img src="/assets/images/vp-banner.jpg" alt="" />
+              </a>
+            }
+          </AdBannerDiv>
           <StyledBodyDiv {...this.props}>
             <Route exact path="/" component={Home} />
             <Route exact path="/matches/:matchId?/:info?" component={Matches} />
@@ -104,6 +120,16 @@ class App extends React.Component {
             <Route exact path="/records/:info?" component={Records} />
             <Route exact path="/meta" component={Meta} />
           </StyledBodyDiv>
+          <AdBannerDiv>
+            { location.pathname !== '/' &&
+              <a href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota">
+                <img src="/assets/images/rivalry-banner.png" alt="" />
+              </a>
+            }
+            <div style={{ fontSize: '12px' }}>
+              {strings.home_sponsored_by} <a href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota">Rivalry</a>
+            </div>
+          </AdBannerDiv>
           <Footer location={location} width={width} />
         </StyledDiv>
       </MuiThemeProvider>

@@ -175,15 +175,6 @@ const ToolbarHeader = styled(Toolbar)`
   }
 `;
 
-const AdBannerDiv = styled.div`
-  text-align: center;
-
-  & img {
-    margin-top: 10px;
-    max-width: 100%;
-  }
-`;
-
 const Header = ({ location, small, user }) => (
   <div>
     <ToolbarHeader>
@@ -198,13 +189,6 @@ const Header = ({ location, small, user }) => (
       </VerticalAlignDiv>
     </ToolbarHeader>
     { location.pathname !== '/' && <Announce /> }
-    <AdBannerDiv>
-      { location.pathname !== '/' &&
-        <a href="http://www.vpgame.com/?lang=en_us">
-          <img src="/assets/images/vp-banner.jpg" alt="" />
-        </a>
-      }
-    </AdBannerDiv>
   </div>
 );
 
