@@ -25,6 +25,10 @@ const getSubtitleStats = (columns) => {
   return `${strings.heading_total_matches}: ${total}${(median !== undefined) ? `, ${strings.heading_median}: ${median}` : ''}`;
 };
 
+const getSubtitleDescription = (histogramName) => {
+  return strings[`histograms_${histogramName}_description`]
+};
+
 const histogramNames = dataColumns.filter(col => col !== 'win_rate');
 
 const Histogram = ({
@@ -41,7 +45,10 @@ const Histogram = ({
     />
     <Container error={error} loading={loading}>
       <div>
-        <Heading title={strings[`heading_${histogramName}`]} subtitle={loading ? '' : strings[`histograms_${histogramName}`] + " (" + getSubtitleStats(columns) + ") "} />
+        <Heading 
+          title={strings[`heading_${histogramName}`]} 
+          subtitle={loading ? '' : `${getSubtitleDescription(histogramName)} (${getSubtitleStats(columns)})`}
+        />
         <HistogramGraph columns={columns || []} />
       </div>
     </Container>
