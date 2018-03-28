@@ -41,7 +41,7 @@ const Histogram = ({
     />
     <Container error={error} loading={loading}>
       <div>
-        <Heading title={strings[`heading_${histogramName}`]} subtitle={loading ? '' : getSubtitleStats(columns)} />
+        <Heading title={strings[`heading_${histogramName}`]} subtitle={loading ? '' : strings[`histograms_${histogramName}`] + " (" + getSubtitleStats(columns) + ") "} />
         <HistogramGraph columns={columns || []} />
       </div>
     </Container>
