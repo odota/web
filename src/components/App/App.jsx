@@ -128,7 +128,7 @@ class App extends React.Component {
             }
             { location.pathname !== '/' &&
               <div style={{ fontSize: '12px' }}>
-                {strings.home_sponsored_by} <a href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota">Rivalry</a>
+                {strings.home_sponsored_by} <a href="https://www.rivalry.gg">Rivalry</a>
               </div>
             }
           </AdBannerDiv>
