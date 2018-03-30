@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import strings from 'lang';
+import heroes from 'dotaconstants/build/heroes.json';
+import strings from '../../lang';
 import { getHeroStats, getProPlayers } from '../../actions';
 import Heading from '../Heading';
 import Table from '../Table';
 import TabBar from '../TabBar';
 import Hero from '../Hero';
-import heroes from 'dotaconstants/build/heroes.json';
 import {
   sum,
   abbreviateNumber,
-} from 'utility';
+} from '../../utility';
 import columns from './columns';
 
 class RequestLayer extends React.Component {

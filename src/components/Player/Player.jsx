@@ -8,7 +8,7 @@ import {
   getPlayer,
   getPlayerWinLoss,
 } from '../../actions';
-import strings from 'lang';
+import strings from '../../lang';
 import TabBar from '../TabBar';
 import Spinner from '../Spinner';
 import TableFilterForm from './TableFilterForm';

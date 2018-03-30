@@ -1,5 +1,6 @@
 import React from 'react';
 import strings from 'lang';
+import heroes from 'dotaconstants/build/heroes.json';
 import Heading from '../Heading';
 import Table from '../Table';
 import TeamfightMap from '../Match/TeamfightMap';
@@ -7,7 +8,6 @@ import Purchases from '../Match/Purchases';
 import Timeline from '../Match/Overview/Timeline';
 import MatchGraph from '../Visualizations/Graph/MatchGraph';
 import StackedBarGraph from '../Visualizations/Graph/StackedBarGraph';
-import heroes from 'dotaconstants/build/heroes.json';
 import Draft from './Draft';
 import Vision from './Vision';
 import Laning from './Laning';

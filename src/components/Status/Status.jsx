@@ -1,9 +1,9 @@
 import React from 'react';
 import fetch from 'isomorphic-fetch';
-import { fromNow, abbreviateNumber } from 'utility';
 import Helmet from 'react-helmet';
+import { fromNow, abbreviateNumber } from '../../utility';
 import Table from '../Table';
-import strings from 'lang';
+import strings from '../../lang';
 
 function jsonResponse(response) {
   return response.json();

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getHeroDurations } from '../../actions';
 import Spinner from '../Spinner';
 import { HistogramGraph } from '../Visualizations';
-import strings from 'lang';
+import strings from '../../lang';
 
 class Durations extends React.Component {
   static propTypes = {

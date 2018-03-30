@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { gameCoordToUV } from 'utility';
-import DotaMap from '../DotaMap';
 import styled from 'styled-components';
+import { gameCoordToUV } from '../../../utility';
+import DotaMap from '../../DotaMap';
 import constants from '../../constants';
 
 const Styled = styled.div`

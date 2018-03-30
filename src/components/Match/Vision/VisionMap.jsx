@@ -5,10 +5,10 @@ import {
   formatSeconds,
 } from 'utility';
 import ReactTooltip from 'react-tooltip';
-import strings from 'lang';
-import PlayerThumb from '../Match/PlayerThumb';
-import DotaMap from '../DotaMap';
 import styled from 'styled-components';
+import strings from '../../../lang';
+import PlayerThumb from '../PlayerThumb';
+import DotaMap from '../../DotaMap';
 import constants from '../../constants';
 
 const Styled = styled.div`

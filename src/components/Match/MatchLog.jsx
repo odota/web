@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
+import styled from 'styled-components';
+import ReactTooltip from 'react-tooltip';
+import heroes from 'dotaconstants/build/heroes.json';
+import strings from '../../lang';
 import {
   formatSeconds,
   getHeroesById,
   translateBuildings,
   formatTemplate,
-} from 'utility';
-import styled from 'styled-components';
-import ReactTooltip from 'react-tooltip';
+} from '../../utility';
 import Table from '../Table';
-import heroes from 'dotaconstants/build/heroes.json';
 import FormField from '../Form/FormField';
 import { IconRadiant, IconDire } from '../Icons';
 import { heroTdColumn } from './matchColumns';

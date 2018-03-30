@@ -1,7 +1,7 @@
 import React from 'react';
-import { TableLink } from '../Table';
 import { transformations } from 'utility';
-import strings from 'lang';
+import { TableLink } from '../../../Table';
+import strings from '../../../../lang';
 
 const avatarMatches = playerId => [{
   displayName: strings.th_avatar,

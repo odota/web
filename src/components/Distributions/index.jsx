@@ -3,20 +3,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { getDistributions } from '../../actions';
-import strings from 'lang';
-import Table from '../Table';
+import styled from 'styled-components';
 import {
   sum,
   abbreviateNumber,
   getOrdinal,
   rankTierToString,
-} from 'utility';
+} from '../../utility';
+import { getDistributions } from '../../actions';
+import strings from '../../lang';
+import Table from '../Table';
 // import Warning from '../Alerts';
 import TabBar from '../TabBar';
 import Spinner from '../Spinner';
 import Heading from '../Heading';
-import styled from 'styled-components';
 import { DistributionGraph } from '../Visualizations';
 import constants from '../constants';
 

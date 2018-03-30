@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import stylePropType from 'react-style-proptype';
-import { IconRadiant, IconDire, IconDot } from '../Icons';
-import TeamTable from '../Match/TeamTable';
-import { teamfightColumns } from '../Match/matchColumns';
-import PlayerThumb from '../Match/PlayerThumb';
-import strings from 'lang';
-import Timeline from '../Match/Overview/Timeline';
-import DotaMap from '../DotaMap';
 import styled from 'styled-components';
+import { IconRadiant, IconDire, IconDot } from '../../Icons';
+import TeamTable from '../TeamTable';
+import { teamfightColumns } from '../matchColumns';
+import PlayerThumb from '../PlayerThumb';
+import strings from '../../../lang';
+import Timeline from '../Overview/Timeline';
+import DotaMap from '../../DotaMap';
 import constants from '../../constants';
 
 const Styled = styled.div`

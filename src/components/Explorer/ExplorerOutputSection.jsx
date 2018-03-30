@@ -7,9 +7,9 @@ import {
   from 'utility';
 import { Link }
   from 'react-router-dom';
-import strings from 'lang';
-import Table from '../Table';
 import itemData from 'dotaconstants/build/items.json';
+import strings from '../../lang';
+import Table from '../Table';
 import { IconRadiant, IconDire } from '../Icons';
 // import heroes from 'dotaconstants/build/heroes.json';
 import {

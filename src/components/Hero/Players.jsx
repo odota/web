@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { getHeroPlayers } from '../../actions';
 import Spinner from '../Spinner';
 import Table, { TableLink } from '../Table';
-import strings from 'lang';
-import { wilsonScore } from 'utility';
-import { proPlayersSelector } from 'reducers/selectors';
+import strings from '../../lang';
+import { wilsonScore } from '../../utility';
+import { proPlayersSelector } from '../../reducers/selectors';
 
 const playersColumns = [
   {

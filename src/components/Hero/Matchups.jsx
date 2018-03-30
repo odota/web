@@ -1,12 +1,12 @@
 import React from 'react';
 import { shape, string, bool, number, func, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
-import { getHeroMatchups } from '../../actions';
 import styled from 'styled-components';
+import { getHeroMatchups } from '../../actions';
 import Spinner from '../Spinner';
 import Table, { TableLink } from '../Table';
-import strings from 'lang';
-import { wilsonScore } from 'utility';
+import strings from '../../lang';
+import { wilsonScore } from '../../utility';
 
 const { REACT_APP_API_HOST } = process.env;
 

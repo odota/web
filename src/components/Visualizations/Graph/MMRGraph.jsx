@@ -11,8 +11,8 @@ import {
   Legend,
   Label, ResponsiveContainer, Brush,
 } from 'recharts';
-import constants from '../constants';
 import styled from 'styled-components';
+import constants from '../../constants';
 
 const StyledGraphArea = styled.div`
 user-select: none;

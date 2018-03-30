@@ -6,9 +6,9 @@ import Table, { TableLink } from '../Table';
 import ErrorBox from '../Error/ErrorBox';
 import Spinner from '../Spinner';
 import { getHeroRecentGames } from '../../actions';
-import strings from 'lang';
-import { transformations } from 'utility';
-import { proPlayersSelector } from 'reducers/selectors';
+import strings from '../../lang';
+import { transformations } from '../../utility';
+import { proPlayersSelector } from '../../reducers/selectors';
 import constants from '../constants';
 
 const LeagueName = styled.span`

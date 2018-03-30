@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import strings from 'lang';
-import Heading from '../Heading';
-import Heatmap from '../Heatmap';
-import Table from '../Table';
-import { unpackPositionData } from 'utility';
-import { laningColumns } from '../Match/matchColumns';
+import Heading from '../../Heading';
+import Heatmap from '../../Heatmap';
+import Table from '../../Table';
+import { unpackPositionData } from '../../../utility';
+import { laningColumns } from '../matchColumns';
 import { StyledFlexContainer, StyledFlexElement } from '../StyledMatch';
 
 class Laning extends React.Component {

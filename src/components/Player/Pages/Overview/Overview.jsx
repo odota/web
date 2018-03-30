@@ -2,23 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import strings from 'lang';
+import Checkbox from 'material-ui/Checkbox';
+import Turbo from 'material-ui/svg-icons/image/timelapse';
+import TurboOff from 'material-ui/svg-icons/notification/do-not-disturb';
+import ReactTooltip from 'react-tooltip';
+import util from 'util';
+import styled from 'styled-components';
 import {
   getPlayerRecentMatches,
   getPlayerHeroes,
   getPlayerPeers,
   getPvgnaHeroGuides,
-} from '../../actions';
-import Checkbox from 'material-ui/Checkbox';
-import Turbo from 'material-ui/svg-icons/image/timelapse';
-import TurboOff from 'material-ui/svg-icons/notification/do-not-disturb';
-import ReactTooltip from 'react-tooltip';
-import Table from '../Table';
-import Container from '../Container';
-import playerMatchesColumns from '../Player/Pages/Matches/playerMatchesColumns';
-import { playerHeroesOverviewColumns } from '../Player/Pages/Heroes/playerHeroesColumns';
-import { playerPeersOverviewColumns } from '../Player/Pages/Peers/playerPeersColumns';
-import util from 'util';
-import styled from 'styled-components';
+} from '../../../../actions';
+import Table from '../../../Table';
+import Container from '../../../Container';
+import playerMatchesColumns from '../Matches/playerMatchesColumns';
+import { playerHeroesOverviewColumns } from '../Heroes/playerHeroesColumns';
+import { playerPeersOverviewColumns } from '../Peers/playerPeersColumns';
 import SummOfRecMatches from './Summary';
 import constants from '../../../constants';
 

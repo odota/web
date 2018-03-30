@@ -1,8 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-
-import Spinner from '../Spinner';
-import constants from '../constants';
+import Spinner from '../components/Spinner';
+import constants from '../components/constants';
 
 storiesOf('Spinner')
   .add('Size 20 color white', () => <Spinner size={20} color="white" />)

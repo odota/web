@@ -1,9 +1,6 @@
 import React, { createElement } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { isRadiant, formatSeconds } from 'utility';
-import strings from 'lang';
-import { IconRadiant, IconDire } from '../Icons';
 import AvVolumeUp from 'material-ui/svg-icons/av/volume-up';
 import Checkbox from 'material-ui/Checkbox';
 import Visibility from 'material-ui/svg-icons/action/visibility';
@@ -12,6 +9,9 @@ import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
 import styled from 'styled-components';
+import { isRadiant, formatSeconds } from '../../../utility';
+import strings from '../../../lang';
+import { IconRadiant, IconDire } from '../../Icons';
 import constants from '../../constants';
 
 const StyledDiv = styled.div`

@@ -5,19 +5,19 @@ import items from 'dotaconstants/build/items.json';
 import patch from 'dotaconstants/build/patch.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
 import xpLevel from 'dotaconstants/build/xp_level.json';
-import { TableLink } from '../Table';
-import {
-  KDA,
-  TableHeroImage,
-  FromNowTooltip,
-} from '../Visualizations';
-import strings from 'lang';
 import _ from 'lodash/fp';
 import util from 'util';
 // import SvgIcon from 'material-ui/SvgIcon';
 import SocialPeople from 'material-ui/svg-icons/social/people';
 import SocialPerson from 'material-ui/svg-icons/social/person';
-import constants from '../constants';
+import strings from '../lang';
+import { TableLink } from '../components/Table';
+import {
+  KDA,
+  TableHeroImage,
+  FromNowTooltip,
+} from '../components/Visualizations';
+import constants from '../components/constants';
 
 export const iconStyle = {
   marginLeft: 5,

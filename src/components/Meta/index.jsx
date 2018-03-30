@@ -3,15 +3,15 @@ import React from 'react';
 import { connect }
   from 'react-redux';
 import fetch from 'isomorphic-fetch';
-import Spinner from '../Spinner';
 import RaisedButton from 'material-ui/RaisedButton';
+import Helmet from 'react-helmet';
+import querystring from 'querystring';
+import Spinner from '../Spinner';
+import strings from '../../lang';
 import ExplorerOutputSection from '../Explorer/ExplorerOutputSection';
 import ExplorerControlSection from '../Explorer/ExplorerControlSection';
 import ExplorerFormField from '../Explorer/ExplorerFormField';
-import strings from 'lang';
-import Helmet from 'react-helmet';
 import Heading from '../Heading';
-import querystring from 'querystring';
 import queryTemplate from './queryTemplate';
 import fields from './fields';
 

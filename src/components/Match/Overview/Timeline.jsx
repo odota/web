@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
+import heroes from 'dotaconstants/build/heroes.json';
+import styled from 'styled-components';
 import {
   formatSeconds,
   isRadiant,
   jsonFn,
   getTeamName,
-} from 'utility';
+} from '../../../utility';
 import {
   IconBloodDrop,
   IconRoshan,
   IconBattle,
-} from '../Icons';
-import strings from 'lang';
-import ReactTooltip from 'react-tooltip';
-import heroes from 'dotaconstants/build/heroes.json';
-import PlayerThumb from '../Match/PlayerThumb';
-import styled from 'styled-components';
+} from '../../Icons';
+import strings from '../../../lang';
+import PlayerThumb from '../PlayerThumb';
 import constants from '../../constants';
 
 const Styled = styled.div`

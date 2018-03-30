@@ -1,8 +1,8 @@
 import React from 'react';
 import { shape, oneOfType, arrayOf } from 'prop-types';
 import Table from '../Table';
-import strings from 'lang';
-import { transformations, getOrdinal, rankTierToString } from 'utility';
+import strings from '../../lang';
+import { transformations, getOrdinal, rankTierToString } from '../../utility';
 
 const rankingColumns = [{
   displayName: strings.th_rank,

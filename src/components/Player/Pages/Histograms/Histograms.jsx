@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getPlayerHistograms } from '../../actions';
-import Heading from '../Heading';
-import { HistogramGraph } from '../Visualizations';
-import ButtonGarden from '../ButtonGarden';
-import dataColumns from '../Player/Pages/matchDataColumns';
-import Container from '../Container';
-import strings from 'lang';
+import { getPlayerHistograms } from '../../../../actions';
+import Heading from '../../../Heading';
+import { HistogramGraph } from '../../../Visualizations';
+import ButtonGarden from '../../../ButtonGarden';
+import dataColumns from '../matchDataColumns';
+import Container from '../../../Container';
+import strings from '../../../../lang';
 
 const getMedian = (columns, midpoint) => {
   let sum = 0;

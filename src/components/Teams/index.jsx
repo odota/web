@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import strings from 'lang';
+import styled from 'styled-components';
+import { getOrdinal, getTeamLogoUrl, fromNow, subTextStyle } from 'utility';
 import { getTeams } from '../../actions';
 import Heading from '../Heading';
 import Team from '../Team';
 import Table, { TableLink } from '../Table';
-import styled from 'styled-components';
-import { getOrdinal, getTeamLogoUrl, fromNow, subTextStyle } from 'utility';
 import { Logo } from '../Team/TeamStyled';
 
 const TeamImageContainer = styled.div`

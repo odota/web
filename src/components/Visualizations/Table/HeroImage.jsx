@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
-import strings from 'lang';
-import { TableLink } from '../Table';
 import playerColors from 'dotaconstants/build/player_colors.json';
-import { IconDice, IconCrystalBall, IconCheckCircle } from '../Icons';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import NotificationSync from 'material-ui/svg-icons/notification/sync';
 import styled from 'styled-components';
-import { subTextStyle } from 'utility';
+import { subTextStyle } from '../../../utility';
+import { TableLink } from '../../Table';
+import { IconDice, IconCrystalBall, IconCheckCircle } from '../../Icons';
 import constants from '../../constants';
+import strings from '../../../lang';
 
 const Styled = styled.div`
 .subTextContainer {
