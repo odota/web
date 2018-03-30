@@ -3,7 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import ButtonGarden from '../components/ButtonGarden';
+import ButtonGarden from '../ButtonGarden';
 
 class ButtonGardenWrapper extends React.Component {
   constructor(props, context) {

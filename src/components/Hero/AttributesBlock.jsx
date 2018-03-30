@@ -2,10 +2,10 @@ import React from 'react';
 import { shape, number, string, bool } from 'prop-types';
 import styled from 'styled-components';
 import strings from 'lang';
-import AttrStrength from '../components/Icons/AttrStrength';
-import AttrAgility from '../components/Icons/AttrAgility';
-import AttrIntelligent from '../components/Icons/AttrIntelligent';
-import constants from '../components/constants';
+import AttrStrength from '../Icons/AttrStrength';
+import AttrAgility from '../Icons/AttrAgility';
+import AttrIntelligent from '../Icons/AttrIntelligent';
+import constants from '../constants';
 import Attribute from './Attribute';
 
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import strings from 'lang';
-import TeamTable from '../components/Match/TeamTable';
+import TeamTable from '../Match/TeamTable';
 import Toggle from 'material-ui/Toggle';
-import { purchaseTimesColumns } from '../components/Match/matchColumns';
+import { purchaseTimesColumns } from '../Match/matchColumns';
 
 class Purchases extends React.Component {
   constructor(props) {

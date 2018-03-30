@@ -4,7 +4,7 @@ import {
   Tabs,
   Tab,
 } from 'material-ui/Tabs';
-import { inflictorWithValue } from '../components/Visualizations';
+import { inflictorWithValue } from '../Visualizations';
 import heroes from 'dotaconstants/build/heroes.json';
 import strings from 'lang';
 import Table from '../Table/Table';

@@ -4,10 +4,10 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import strings from 'lang';
 import { getHeroStats, getProPlayers } from '../../actions';
-import Heading from '../components/Heading';
-import Table from '../components/Table';
-import TabBar from '../components/TabBar';
-import Hero from '../components/Hero';
+import Heading from '../Heading';
+import Table from '../Table';
+import TabBar from '../TabBar';
+import Hero from '../Hero';
 import heroes from 'dotaconstants/build/heroes.json';
 import {
   sum,

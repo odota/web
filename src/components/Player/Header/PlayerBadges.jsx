@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Error from '../components/Error';
-import Spinner from '../components/Spinner';
-import { IconCheese, IconSteam, IconEye, IconEyeInactive, IconCheckCircle } from '../components/Icons';
+import Error from '../Error';
+import Spinner from '../Spinner';
+import { IconCheese, IconSteam, IconEye, IconEyeInactive, IconCheckCircle } from '../Icons';
 import strings from 'lang';
 import styled from 'styled-components';
 import constants from '../../constants';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { shape, func, bool, arrayOf, oneOfType, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { getBenchmark } from '../../actions';
-import Spinner from '../components/Spinner';
+import Spinner from '../Spinner';
 import BenchmarkTable from './BenchmarkTable';
 
 const renderBenchmark = (hero, data) => (

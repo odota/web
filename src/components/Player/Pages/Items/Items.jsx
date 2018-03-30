@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getPlayerItems } from '../../actions';
-import Table from '../components/Table';
-import Container from '../components/Container';
+import Table from '../Table';
+import Container from '../Container';
 import playerItemsColumns from './playerItemsColumns';
 
 const Items = ({

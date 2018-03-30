@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { shape, string, bool, oneOfType, func, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import { getRanking } from '../../actions';
-import Spinner from '../components/Spinner';
+import Spinner from '../Spinner';
 import RankingTable from './RankingTable';
 
 const renderRanking = (hero, rankings) => (

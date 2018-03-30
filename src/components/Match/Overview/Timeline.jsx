@@ -10,11 +10,11 @@ import {
   IconBloodDrop,
   IconRoshan,
   IconBattle,
-} from '../components/Icons';
+} from '../Icons';
 import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
 import heroes from 'dotaconstants/build/heroes.json';
-import PlayerThumb from '../components/Match/PlayerThumb';
+import PlayerThumb from '../Match/PlayerThumb';
 import styled from 'styled-components';
 import constants from '../../constants';
 

@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { getRecords } from '../../actions';
 import strings from 'lang';
-import Table from '../components/Table';
-import Heading from '../components/Heading';
+import Table from '../Table';
+import Heading from '../Heading';
 import { transformations, formatSeconds, getOrdinal } from 'utility';
-// import { IconRadiant, IconDire, IconTrophy } from '../components/Icons';
-import Container from '../components/Container';
-import TabBar from '../components/TabBar';
+// import { IconRadiant, IconDire, IconTrophy } from '../Icons';
+import Container from '../Container';
+import TabBar from '../TabBar';
 
 const matchesColumns = field => [{
   displayName: strings.th_rank,

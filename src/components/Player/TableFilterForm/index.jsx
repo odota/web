@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import querystring from 'querystring';
 import strings from 'lang';
 import { toggleShowForm } from '../../actions/formActions';
-import FormField from '../components/Form/FormField';
+import FormField from '../Form/FormField';
 import styled from 'styled-components';
 import * as data from './TableFilter.config';
 

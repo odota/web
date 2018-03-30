@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableLink } from '../components/Table';
+import { TableLink } from '../Table';
 import { transformations } from 'utility';
 import strings from 'lang';
 

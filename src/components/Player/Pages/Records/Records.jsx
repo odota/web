@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPlayerRecords } from '../../actions';
-import Table from '../components/Table';
-import Container from '../components/Container';
+import Table from '../Table';
+import Container from '../Container';
 import strings from 'lang';
-import dataColumns from '../components/Player/Pages/matchDataColumns';
-import ButtonGarden from '../components/ButtonGarden';
+import dataColumns from '../Player/Pages/matchDataColumns';
+import ButtonGarden from '../ButtonGarden';
 import playerRecordsColumns from './playerRecordsColumns';
 
 const excludedColumns = ['win_rate', 'level'];

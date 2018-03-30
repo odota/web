@@ -7,7 +7,7 @@ import {
   formatTemplate,
 } from 'utility';
 import util from 'util';
-import { IconRadiant, IconDire } from '../components/Icons';
+import { IconRadiant, IconDire } from '../Icons';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import itemColors from 'dotaconstants/build/item_colors.json';

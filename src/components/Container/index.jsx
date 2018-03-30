@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Heading from '../components/Heading';
-import Spinner from '../components/Spinner';
-import Error from '../components/Error';
+import Heading from '../Heading';
+import Spinner from '../Spinner';
+import Error from '../Error';
 import stylePropType from 'react-style-proptype';
 
 export const AsyncContainer = ({ loading, error, children }) => {

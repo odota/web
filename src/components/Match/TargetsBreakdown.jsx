@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import heroes from 'dotaconstants/build/heroes.json';
 import ReactTooltip from 'react-tooltip';
 import NavigationArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
-import { inflictorWithValue } from '../components/Visualizations';
+import { inflictorWithValue } from '../Visualizations';
 import { sumValues, getHeroesById, abbreviateNumber } from 'utility';
 import { StyledDmgTargetInflictor, StyledDmgTargetRow } from './StyledMatch';
 import constants from '../constants';

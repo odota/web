@@ -8,15 +8,15 @@ import {
 import { Link }
   from 'react-router-dom';
 import strings from 'lang';
-import Table from '../components/Table';
+import Table from '../Table';
 import itemData from 'dotaconstants/build/items.json';
-import { IconRadiant, IconDire } from '../components/Icons';
+import { IconRadiant, IconDire } from '../Icons';
 // import heroes from 'dotaconstants/build/heroes.json';
 import {
   TablePercent,
   inflictorWithValue,
 }
-  from '../components/Visualizations';
+  from '../Visualizations';
 // import redrawGraphs from './redrawGraphs';
 import constants from '../constants';
 import { StyledTeamIconContainer } from '../Match/StyledMatch';

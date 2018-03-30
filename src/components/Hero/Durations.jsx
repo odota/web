@@ -2,8 +2,8 @@ import React from 'react';
 import { string, shape, func, bool, arrayOf, number } from 'prop-types';
 import { connect } from 'react-redux';
 import { getHeroDurations } from '../../actions';
-import Spinner from '../components/Spinner';
-import { HistogramGraph } from '../components/Visualizations';
+import Spinner from '../Spinner';
+import { HistogramGraph } from '../Visualizations';
 import strings from 'lang';
 
 class Durations extends React.Component {

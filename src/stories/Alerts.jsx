@@ -2,8 +2,8 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 
-import Warning from '../components/Alerts/Warning';
-import Info from '../components/Alerts/Info';
+import Warning from '../Alerts/Warning';
+import Info from '../Alerts/Info';
 
 storiesOf('Alerts', module)
   .add('Warning with msg', () => <Warning msg="This is Warning" />)

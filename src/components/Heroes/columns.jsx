@@ -5,7 +5,7 @@ import {
 } from 'utility';
 import strings from 'lang';
 import heroes from 'dotaconstants/build/heroes.json';
-// import TablePercent from '../components/Visualizations/Table/Percent';
+// import TablePercent from '../Visualizations/Table/Percent';
 
 const decimalToCount = (decimal, total) => (
   total &&

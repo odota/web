@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import AttributesBlock from '../components/Hero/AttributesBlock';
+import AttributesBlock from '../Hero/AttributesBlock';
 
 const hero = {
   primary_attr: 'agi',

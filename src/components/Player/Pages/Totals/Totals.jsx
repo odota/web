@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getPlayerTotals } from '../../actions';
-import Container from '../components/Container';
+import Container from '../Container';
 import strings from 'lang';
 import { CardTitle } from 'material-ui/Card';
 // import util from 'util';

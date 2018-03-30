@@ -9,8 +9,8 @@ import {
   getPlayerWinLoss,
 } from '../../actions';
 import strings from 'lang';
-import TabBar from '../components/TabBar';
-import Spinner from '../components/Spinner';
+import TabBar from '../TabBar';
+import Spinner from '../Spinner';
 import TableFilterForm from './TableFilterForm';
 import PlayerHeader from './Header/PlayerHeader';
 // import Error from '../Error';

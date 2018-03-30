@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { gameCoordToUV } from 'utility';
-import DotaMap from '../components/DotaMap';
+import DotaMap from '../DotaMap';
 import styled from 'styled-components';
 import constants from '../../constants';
 
