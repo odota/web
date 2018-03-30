@@ -22,8 +22,10 @@ const getMedian = (columns, midpoint) => {
 const getSubtitleStats = (columns) => {
   const total = columns.reduce((sum, col) => (sum + col.games), 0);
   const median = getMedian(columns, total / 2);
-  return `${strings.heading_total_matches}: ${total}${(median !== undefined) ? `, ${strings.heading_median}: ${median}` : ''}`;
+  return `(${strings.heading_total_matches}: ${total}${(median !== undefined) ? `, ${strings.heading_median}: ${median})` : ''}`;
 };
+
+const getSubtitleDescription = histogramName => (strings[`histograms_${histogramName}_description`] || '');
 
 const histogramNames = dataColumns.filter(col => col !== 'win_rate');
 
@@ -41,7 +43,10 @@ const Histogram = ({
     />
     <Container error={error} loading={loading}>
       <div>
-        <Heading title={strings[`heading_${histogramName}`]} subtitle={loading ? '' : getSubtitleStats(columns)} />
+        <Heading
+          title={strings[`heading_${histogramName}`]}
+          subtitle={loading ? '' : [getSubtitleDescription(histogramName), getSubtitleStats(columns)].filter(Boolean).join(' ')}
+        />
         <HistogramGraph columns={columns || []} />
       </div>
     </Container>
