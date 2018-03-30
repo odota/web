@@ -2,7 +2,7 @@ import React from 'react';
 import heroes from 'dotaconstants/build/heroes.json';
 import strings from 'lang';
 import { transformations, subTextStyle, getTeamLogoUrl } from 'utility';
-import { TableLink } from 'components/Table';
+import { TableLink } from '../components/Table';
 import constants from '../constants';
 import { TableRow, TableImage } from './TeamStyled';
 import proPlayerImages from './proPlayerImages';

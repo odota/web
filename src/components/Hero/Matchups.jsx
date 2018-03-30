@@ -1,10 +1,10 @@
 import React from 'react';
 import { shape, string, bool, number, func, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
-import { getHeroMatchups } from 'actions';
+import { getHeroMatchups } from '../../actions';
 import styled from 'styled-components';
-import Spinner from 'components/Spinner';
-import Table, { TableLink } from 'components/Table';
+import Spinner from '../components/Spinner';
+import Table, { TableLink } from '../components/Table';
 import strings from 'lang';
 import { wilsonScore } from 'utility';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import Table from 'components/Table';
-import Heading from 'components/Heading';
-import Warning from 'components/Alerts';
+import Table from '../components/Table';
+import Heading from '../components/Heading';
+import Warning from '../components/Alerts';
 // import RaisedButton from 'material-ui/RaisedButton';
 
 const predictionArray = [

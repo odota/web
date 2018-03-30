@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import DotaMap from 'components/DotaMap';
+import DotaMap from '../components/DotaMap';
 import uuid from 'uuid';
 import h337 from 'heatmap.js';
 

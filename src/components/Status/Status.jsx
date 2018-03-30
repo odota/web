@@ -2,7 +2,7 @@ import React from 'react';
 import fetch from 'isomorphic-fetch';
 import { fromNow, abbreviateNumber } from 'utility';
 import Helmet from 'react-helmet';
-import Table from 'components/Table';
+import Table from '../components/Table';
 import strings from 'lang';
 
 function jsonResponse(response) {

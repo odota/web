@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { isRadiant, formatSeconds } from 'utility';
 import strings from 'lang';
-import { IconRadiant, IconDire } from 'components/Icons';
+import { IconRadiant, IconDire } from '../components/Icons';
 import AvVolumeUp from 'material-ui/svg-icons/av/volume-up';
 import Checkbox from 'material-ui/Checkbox';
 import Visibility from 'material-ui/svg-icons/action/visibility';

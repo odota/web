@@ -1,7 +1,7 @@
 import React from 'react';
 import strings from 'lang';
-import Container from 'components/Container';
-import Table from 'components/Table';
+import Container from '../components/Container';
+import Table from '../components/Table';
 import { matchColumns, memberColumns, heroColumns } from './teamDataColumns';
 import { Row, MatchesContainer, MemberAndHeroContainer } from './TeamStyled';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shape, oneOfType, arrayOf } from 'prop-types';
-import Table from 'components/Table';
+import Table from '../components/Table';
 import strings from 'lang';
 import { transformations, getOrdinal, rankTierToString } from 'utility';
 

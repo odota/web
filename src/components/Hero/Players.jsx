@@ -1,9 +1,9 @@
 import React from 'react';
 import { bool, func, arrayOf, shape, number, string } from 'prop-types';
 import { connect } from 'react-redux';
-import { getHeroPlayers } from 'actions';
-import Spinner from 'components/Spinner';
-import Table, { TableLink } from 'components/Table';
+import { getHeroPlayers } from '../../actions';
+import Spinner from '../components/Spinner';
+import Table, { TableLink } from '../components/Table';
 import strings from 'lang';
 import { wilsonScore } from 'utility';
 import { proPlayersSelector } from 'reducers/selectors';

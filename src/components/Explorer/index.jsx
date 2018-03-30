@@ -4,19 +4,19 @@ import PropTypes from 'prop-types';
 import { connect }
   from 'react-redux';
 import fetch from 'isomorphic-fetch';
-import Spinner from 'components/Spinner';
+import Spinner from '../components/Spinner';
 import RaisedButton from 'material-ui/RaisedButton';
 import strings from 'lang';
 import Helmet from 'react-helmet';
 import { getScript }
   from 'utility';
-import Heading from 'components/Heading';
+import Heading from '../components/Heading';
 import {
   getProPlayers,
   getLeagues,
   getTeams,
 }
-  from 'actions';
+  from '../../actions';
 import querystring from 'querystring';
 import json2csv from 'json2csv';
 import queryTemplate from './queryTemplate';

@@ -5,8 +5,8 @@ import FlatButton from 'material-ui/FlatButton';
 import ActionUpdate from 'material-ui/svg-icons/navigation/refresh';
 import strings from 'lang';
 import fetch from 'isomorphic-fetch';
-import { toggleShowForm as toggleShowFormAction } from 'actions';
-import ShowFormToggle from 'components/Form/ShowFormToggle';
+import { toggleShowForm as toggleShowFormAction } from '../../actions';
+import ShowFormToggle from '../components/Form/ShowFormToggle';
 import styled from 'styled-components';
 
 const Styled = styled.div`

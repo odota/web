@@ -1,5 +1,5 @@
-import Heading from 'components/Heading';
-import { IconRadiant, IconDire } from 'components/Icons';
+import Heading from '../components/Heading';
+import { IconRadiant, IconDire } from '../components/Icons';
 import heroes from 'dotaconstants/build/heroes.json';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';

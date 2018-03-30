@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { transformations, isRadiant, sum } from 'utility';
 import strings from 'lang';
-import Spinner from 'components/Spinner';
-import { IconRadiant, IconDire } from 'components/Icons';
+import Spinner from '../components/Spinner';
+import { IconRadiant, IconDire } from '../components/Icons';
 import { Link } from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
 import ActionFingerprint from 'material-ui/svg-icons/action/fingerprint';
 import FileFileDownload from 'material-ui/svg-icons/file/file-download';
-import Warning from 'components/Alerts';
+import Warning from '../components/Alerts';
 import styled from 'styled-components';
 import constants from '../../constants';
 

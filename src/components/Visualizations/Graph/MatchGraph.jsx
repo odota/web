@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Heading from 'components/Heading';
+import Heading from '../components/Heading';
 import {
   ReferenceArea,
   XAxis,
@@ -13,7 +13,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import constants from 'components/constants';
+import constants from '../components/constants';
 import strings from 'lang';
 import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';

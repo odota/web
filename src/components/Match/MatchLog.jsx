@@ -9,10 +9,10 @@ import {
 } from 'utility';
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
-import Table from 'components/Table';
+import Table from '../components/Table';
 import heroes from 'dotaconstants/build/heroes.json';
-import FormField from 'components/Form/FormField';
-import { IconRadiant, IconDire } from 'components/Icons';
+import FormField from '../components/Form/FormField';
+import { IconRadiant, IconDire } from '../components/Icons';
 import { heroTdColumn } from './matchColumns';
 import { StyledLogFilterForm } from './StyledMatch';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import strings from 'lang';
-import { IconOpenSource, IconStatsBars, IconWand } from 'components/Icons';
+import { IconOpenSource, IconStatsBars, IconWand } from '../components/Icons';
 import styled from 'styled-components';
 import constants from '../constants';
 

@@ -7,11 +7,11 @@ import {
 } from 'utility';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import heroes from 'dotaconstants/build/heroes.json';
-import Heading from 'components/Heading';
-import DotaMap from 'components/DotaMap';
+import Heading from '../components/Heading';
+import DotaMap from '../components/DotaMap';
 import strings from 'lang';
 import ReactTooltip from 'react-tooltip';
-// import { IconLightbulb } from 'components/Icons';
+// import { IconLightbulb } from '../components/Icons';
 import styled from 'styled-components';
 import buildingData from './buildingData';
 import constants from '../../constants';

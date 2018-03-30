@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import strings from 'lang';
-import { getHeroStats, getProPlayers } from 'actions';
-import Heading from 'components/Heading';
-import Table from 'components/Table';
-import TabBar from 'components/TabBar';
-import Hero from 'components/Hero';
+import { getHeroStats, getProPlayers } from '../../actions';
+import Heading from '../components/Heading';
+import Table from '../components/Table';
+import TabBar from '../components/TabBar';
+import Hero from '../components/Hero';
 import heroes from 'dotaconstants/build/heroes.json';
 import {
   sum,

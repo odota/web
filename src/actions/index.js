@@ -1,10 +1,10 @@
-import transformMatch from 'actions/transformMatch';
-import transformBenchmarks from 'actions/transformBenchmarks';
-import transformCounts from 'actions/transformCounts';
-import transformHistograms from 'actions/transformHistograms';
-import transformTrends from 'actions/transformTrends';
-import transformRankings from 'actions/transformRankings';
-import action from 'actions/action';
+import transformMatch from '../../actions/transformMatch';
+import transformBenchmarks from '../../actions/transformBenchmarks';
+import transformCounts from '../../actions/transformCounts';
+import transformHistograms from '../../actions/transformHistograms';
+import transformTrends from '../../actions/transformTrends';
+import transformRankings from '../../actions/transformRankings';
+import action from '../../actions/action';
 import querystring from 'querystring';
 
 export const getMetadata = () => action('metadata', process.env.REACT_APP_API_HOST, 'api/metadata');

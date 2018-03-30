@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isRadiant, getTeamName } from 'utility';
-import Heading from 'components/Heading';
-import { IconRadiant, IconDire } from 'components/Icons';
+import Heading from '../components/Heading';
+import { IconRadiant, IconDire } from '../components/Icons';
 import { connect } from 'react-redux';
-import Table from 'components/Table';
+import Table from '../components/Table';
 import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
 
 const keyFn = row => row && row.player_slot + 1;

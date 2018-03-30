@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
 import strings from 'lang';
 import { connect } from 'react-redux';
-import { getGithubPulls } from 'actions';
+import { getGithubPulls } from '../../actions';
 import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 import constants from '../constants';

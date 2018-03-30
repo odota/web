@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { getSearchResultAndPros } from 'actions';
+import { getSearchResultAndPros } from '../../actions';
 import strings from 'lang';
 import fuzzy from 'fuzzy';
 import { withRouter } from 'react-router-dom';

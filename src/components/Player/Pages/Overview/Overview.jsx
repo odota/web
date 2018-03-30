@@ -7,16 +7,16 @@ import {
   getPlayerHeroes,
   getPlayerPeers,
   getPvgnaHeroGuides,
-} from 'actions';
+} from '../../actions';
 import Checkbox from 'material-ui/Checkbox';
 import Turbo from 'material-ui/svg-icons/image/timelapse';
 import TurboOff from 'material-ui/svg-icons/notification/do-not-disturb';
 import ReactTooltip from 'react-tooltip';
-import Table from 'components/Table';
-import Container from 'components/Container';
-import playerMatchesColumns from 'components/Player/Pages/Matches/playerMatchesColumns';
-import { playerHeroesOverviewColumns } from 'components/Player/Pages/Heroes/playerHeroesColumns';
-import { playerPeersOverviewColumns } from 'components/Player/Pages/Peers/playerPeersColumns';
+import Table from '../components/Table';
+import Container from '../components/Container';
+import playerMatchesColumns from '../components/Player/Pages/Matches/playerMatchesColumns';
+import { playerHeroesOverviewColumns } from '../components/Player/Pages/Heroes/playerHeroesColumns';
+import { playerPeersOverviewColumns } from '../components/Player/Pages/Peers/playerPeersColumns';
 import util from 'util';
 import styled from 'styled-components';
 import SummOfRecMatches from './Summary';

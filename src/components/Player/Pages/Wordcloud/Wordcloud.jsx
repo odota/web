@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getPlayerWordcloud } from 'actions';
-import Container from 'components/Container';
-import Wordcloud from 'components/Wordcloud';
+import { getPlayerWordcloud } from '../../actions';
+import Container from '../components/Container';
+import Wordcloud from '../components/Wordcloud';
 import strings from 'lang';
 
 const getData = (props) => {

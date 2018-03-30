@@ -6,8 +6,8 @@ import {
 } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import strings from 'lang';
-import PlayerThumb from 'components/Match/PlayerThumb';
-import DotaMap from 'components/DotaMap';
+import PlayerThumb from '../components/Match/PlayerThumb';
+import DotaMap from '../components/DotaMap';
 import styled from 'styled-components';
 import constants from '../../constants';
 

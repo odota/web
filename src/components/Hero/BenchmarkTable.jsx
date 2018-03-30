@@ -1,6 +1,6 @@
 import React from 'react';
 import { oneOfType, shape, arrayOf } from 'prop-types';
-import Table from 'components/Table';
+import Table from '../components/Table';
 import strings from 'lang';
 
 const columns = data => Object.keys(data[0] || {}).map(stat => ({

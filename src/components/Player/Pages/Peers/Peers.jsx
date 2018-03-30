@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getPlayerPeers } from 'actions';
-import Table from 'components/Table';
-import Container from 'components/Container';
+import { getPlayerPeers } from '../../actions';
+import Table from '../components/Table';
+import Container from '../components/Container';
 import strings from 'lang';
 import { playerPeersColumns } from './playerPeersColumns';
 

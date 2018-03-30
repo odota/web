@@ -15,7 +15,7 @@ import strings from 'lang';
 import heroes from 'dotaconstants/build/heroes.json';
 import { formatSeconds, fromNow } from 'utility';
 import styled from 'styled-components';
-import constants from 'components/constants';
+import constants from '../components/constants';
 
 const TooltipStylesDiv = styled.div`
   .tooltipWrapper {

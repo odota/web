@@ -5,8 +5,8 @@ import {
   transformations,
   fromNow,
 } from 'utility';
-import Table, { TableLink } from 'components/Table';
-import Container from 'components/Container';
+import Table, { TableLink } from '../components/Table';
+import Container from '../components/Container';
 // import { List } from 'material-ui/List';
 
 const searchColumns = [{
