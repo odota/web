@@ -25,7 +25,7 @@ const getSubtitleStats = (columns) => {
   return `${strings.heading_total_matches}: ${total}${(median !== undefined) ? `, ${strings.heading_median}: ${median}` : ''}`;
 };
 
-const getSubtitleDescription = histogramName => (strings[`histograms_${histogramName}_description`] ? strings[`histograms_${histogramName}_description`] : '');
+const getSubtitleDescription = histogramName => (strings[`histograms_${histogramName}_description`] || '');
 
 const histogramNames = dataColumns.filter(col => col !== 'win_rate');
 
