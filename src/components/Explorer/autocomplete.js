@@ -1,4 +1,4 @@
-import strings from 'lang';
+import strings from '../../lang';
 // import fields from './fields';
 
 const sqlfs = ['SELECT', 'WHERE', 'GROUP BY', 'ORDER BY'];

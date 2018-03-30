@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { debounce } from 'lodash/fp';
 import TextField from 'material-ui/TextField';
-import strings from 'lang';
 import querystring from 'querystring';
+import strings from '../../lang';
 import { getSearchResultAndPros, setSearchQuery } from '../../actions';
 import constants from '../constants';
 

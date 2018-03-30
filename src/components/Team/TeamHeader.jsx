@@ -1,6 +1,6 @@
 import React from 'react';
-import strings from 'lang';
-import { getTeamLogoUrl } from 'utility';
+import strings from '../../lang';
+import { getTeamLogoUrl } from '../../utility';
 import { HeaderContainer, Logo, Column, TeamName, Row, TeamStatsCard } from './TeamStyled';
 
 export default generalData => (

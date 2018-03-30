@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
 import {
   XAxis,
   YAxis,
@@ -12,6 +11,7 @@ import {
   Label, ResponsiveContainer, Brush,
 } from 'recharts';
 import styled from 'styled-components';
+import strings from '../../../lang';
 import constants from '../../constants';
 
 const StyledGraphArea = styled.div`

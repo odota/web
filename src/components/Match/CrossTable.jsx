@@ -8,8 +8,8 @@ import {
 } from 'material-ui/Table';
 import heroes from 'dotaconstants/build/heroes.json';
 import ReactTooltip from 'react-tooltip';
-import { abbreviateNumber } from 'utility';
-import strings from 'lang';
+import { abbreviateNumber } from '../../utility';
+import strings from '../../lang';
 import { IconRadiant, IconDire } from '../Icons';
 import { heroTd } from './matchColumns';
 import constants from '../constants';

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
 import heroes from 'dotaconstants/build/heroes.json';
 import styled from 'styled-components';
+import strings from '../../../lang';
 import constants from '../../constants';
 
 const Styled = styled.div`

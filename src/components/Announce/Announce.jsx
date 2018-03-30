@@ -2,10 +2,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
-import strings from 'lang';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
+import strings from '../../lang';
 import { getGithubPulls } from '../../actions';
 import constants from '../constants';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
+import strings from '../../../lang';
 import Heading from '../../Heading';
 import Heatmap from '../../Heatmap';
 import Table from '../../Table';

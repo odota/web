@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import itemData from 'dotaconstants/build/items.json';
 import {
   transformations,
   formatSeconds,
 }
-  from 'utility';
-import { Link }
-  from 'react-router-dom';
-import itemData from 'dotaconstants/build/items.json';
+  from '../../utility';
 import strings from '../../lang';
 import Table from '../Table';
 import { IconRadiant, IconDire } from '../Icons';

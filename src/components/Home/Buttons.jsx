@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
-import strings from 'lang';
+import strings from '../../lang';
 import { IconSteam } from '../Icons';
 import { ButtonsDiv } from './Styled';
 

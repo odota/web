@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
 import Toggle from 'material-ui/Toggle';
+import strings from '../../../lang';
 import TeamTable from '../TeamTable';
 import { purchaseTimesColumns } from '../matchColumns';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isRadiant, getTeamName } from 'utility';
+import { isRadiant, getTeamName } from '../../utility';
 import { IconRadiant, IconDire } from '../Icons';
 import Heading from '../Heading';
 import Table from '../Table';

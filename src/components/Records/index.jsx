@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { transformations, formatSeconds, getOrdinal } from 'utility';
+import { transformations, formatSeconds, getOrdinal } from '../../utility';
 import { getRecords } from '../../actions';
 import strings from '../../lang';
 import Table from '../Table';

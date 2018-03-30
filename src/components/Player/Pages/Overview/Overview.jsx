@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import strings from 'lang';
 import Checkbox from 'material-ui/Checkbox';
 import Turbo from 'material-ui/svg-icons/image/timelapse';
 import TurboOff from 'material-ui/svg-icons/notification/do-not-disturb';
@@ -14,6 +13,7 @@ import {
   getPlayerPeers,
   getPvgnaHeroGuides,
 } from '../../../../actions';
+import strings from '../../../../lang';
 import Table from '../../../Table';
 import Container from '../../../Container';
 import playerMatchesColumns from '../Matches/playerMatchesColumns';

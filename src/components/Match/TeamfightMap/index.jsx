@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from 'utility';
 import ReactTooltip from 'react-tooltip';
 import stylePropType from 'react-style-proptype';
 import styled from 'styled-components';
+import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from '../../../utility';
 import { IconRadiant, IconDire, IconDot } from '../../Icons';
 import TeamTable from '../TeamTable';
 import { teamfightColumns } from '../matchColumns';

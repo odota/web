@@ -1,6 +1,6 @@
 import React from 'react';
-import strings from 'lang';
 import styled from 'styled-components';
+import strings from '../../../lang';
 import MatchGraph from '../../Visualizations/Graph/MatchGraph';
 import TeamTable from '../TeamTable';
 import AbilityBuildTable from '../AbilityBuildTable';

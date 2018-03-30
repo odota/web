@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
-import strings from 'lang';
 import querystring from 'querystring';
+import strings from '../../lang';
 import ChipList from './ChipList';
 import constants from '../constants';
 

@@ -7,7 +7,7 @@ import {
   TableRow as MaterialTableRow,
   TableRowColumn as MaterialTableRowColumn,
 } from 'material-ui/Table';
-import { abbreviateNumber, SORT_ENUM, defaultSort } from 'utility';
+import { abbreviateNumber, SORT_ENUM, defaultSort } from '../../utility';
 import { TablePercent } from '../Visualizations';
 import Pagination from '../Table/PaginatedTable/Pagination';
 import TableHeader from './TableHeader';

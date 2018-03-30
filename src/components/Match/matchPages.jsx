@@ -1,6 +1,6 @@
 import React from 'react';
-import strings from 'lang';
 import heroes from 'dotaconstants/build/heroes.json';
+import strings from '../../lang';
 import Heading from '../Heading';
 import Table from '../Table';
 import TeamfightMap from '../Match/TeamfightMap';

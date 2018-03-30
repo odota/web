@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { getPlayer } from '../../actions';
-import strings from 'lang';
 import styled from 'styled-components';
+// import { getPlayer } from '../../actions';
+import strings from '../../lang';
 import { IconSteam } from '../Icons';
 import Spinner from '../Spinner';
 import Error from '../Error';

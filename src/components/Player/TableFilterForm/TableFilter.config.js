@@ -1,7 +1,7 @@
 import heroes from 'dotaconstants/build/heroes.json';
 import patch from 'dotaconstants/build/patch.json';
 import region from 'dotaconstants/build/region.json';
-import strings from 'lang';
+import strings from '../../../lang';
 
 // This has to be a list in order to pass it in.
 // We should consider refactoring all these kinds of objects into lists. I understand

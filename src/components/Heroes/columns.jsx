@@ -1,10 +1,10 @@
 // import React from 'react';
+import heroes from 'dotaconstants/build/heroes.json';
 import {
   transformations,
   abbreviateNumber,
-} from 'utility';
-import strings from 'lang';
-import heroes from 'dotaconstants/build/heroes.json';
+} from '../../utility';
+import strings from '../../lang';
 // import TablePercent from '../Visualizations/Table/Percent';
 
 const decimalToCount = (decimal, total) => (

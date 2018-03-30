@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import strings from 'lang';
+import strings from '../../../../lang';
 import { getPlayerHeroes } from '../../../../actions';
 import Table from '../../../Table';
 import Container from '../../../Container';

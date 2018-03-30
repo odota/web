@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import heroes from 'dotaconstants/build/heroes.json';
-import strings from 'lang';
 import styled from 'styled-components';
+import strings from '../../../lang';
 import constants from '../../constants';
 
 const StyledAside = styled.aside`

@@ -1,5 +1,5 @@
-import { transformations } from 'utility';
-import strings from 'lang';
+import { transformations } from '../../../../utility';
+import strings from '../../../../lang';
 
 export default [{
   displayName: strings.th_category,

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isRadiant, getTeamName } from 'utility';
 import { connect } from 'react-redux';
+import { isRadiant, getTeamName } from '../../utility';
 import Heading from '../Heading';
 import { IconRadiant, IconDire } from '../Icons';
 import Table from '../Table';

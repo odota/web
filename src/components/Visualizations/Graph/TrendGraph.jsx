@@ -12,8 +12,8 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import heroes from 'dotaconstants/build/heroes.json';
-import { formatSeconds, fromNow } from 'utility';
 import styled from 'styled-components';
+import { formatSeconds, fromNow } from '../../../utility';
 import strings from '../../../lang';
 import constants from '../../constants';
 

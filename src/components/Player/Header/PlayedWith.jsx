@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
 import { Link } from 'react-router-dom';
 import fetch from 'isomorphic-fetch';
+import strings from '../../../lang';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
 

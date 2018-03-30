@@ -1,5 +1,5 @@
 import React from 'react';
-import strings from 'lang';
+import strings from '../../lang';
 import Container from '../Container';
 import Table from '../Table';
 import { matchColumns, memberColumns, heroColumns } from './teamDataColumns';
