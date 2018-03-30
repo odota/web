@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ActionHelp from 'material-ui/svg-icons/action/help';
-import Error from 'components/Error';
-import Spinner from 'components/Spinner';
-import strings from 'lang';
 import styled from 'styled-components';
+import Error from '../../Error';
+import Spinner from '../../Spinner';
 import PlayedWith from './PlayedWith';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
+import strings from '../../../lang';
 
 const Styled = styled.div`
 .container {

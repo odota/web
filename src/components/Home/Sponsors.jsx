@@ -1,7 +1,7 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import strings from 'lang';
 import styled from 'styled-components';
+import strings from '../../lang';
 import { ButtonsDiv } from './Styled';
 
 const StyledDiv = styled.div`

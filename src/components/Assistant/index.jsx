@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React from 'react';
-import Heading from 'components/Heading';
+import Heading from '../Heading';
 import IconButton from 'material-ui/IconButton';
 import Mic from 'material-ui/svg-icons/av/mic';
 

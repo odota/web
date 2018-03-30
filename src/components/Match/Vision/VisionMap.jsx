@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
+import styled from 'styled-components';
 import {
   gameCoordToUV,
   formatSeconds,
-} from 'utility';
-import ReactTooltip from 'react-tooltip';
-import strings from 'lang';
-import PlayerThumb from 'components/Match/PlayerThumb';
-import DotaMap from 'components/DotaMap';
-import styled from 'styled-components';
+} from '../../../utility';
+import strings from '../../../lang';
+import PlayerThumb from '../PlayerThumb';
+import DotaMap from '../../DotaMap';
 import constants from '../../constants';
 
 const Styled = styled.div`

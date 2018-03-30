@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getPlayerCounts } from 'actions';
-import Table from 'components/Table';
-import Container from 'components/Container';
-import strings from 'lang';
 import styled from 'styled-components';
+import { getPlayerCounts } from '../../../../actions';
+import Table from '../../../Table';
+import Container from '../../../Container';
+import strings from '../../../../lang';
 import playerCountsColumns from './playerCountsColumns';
 
 const StyledContainer = styled.div`

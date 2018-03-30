@@ -1,4 +1,4 @@
-// import strings from 'lang';
+// import strings from '../../lang';
 
 /*
 export default function redrawGraphs(rows, field, yAxis) {

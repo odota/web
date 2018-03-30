@@ -6,11 +6,11 @@ import ReactGA from 'react-ga';
 import { hydrate, render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Route, Router } from 'react-router-dom';
-import store from 'store';
-import { getMetadata } from 'actions';
-import App from 'components/App';
-import constants from 'components/constants';
 import { injectGlobal } from 'styled-components';
+import store from './store';
+import { getMetadata } from './actions';
+import App from './components/App';
+import constants from './components/constants';
 // import registerServiceWorker from './registerServiceWorker';
 import { unregister } from './registerServiceWorker';
 

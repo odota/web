@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-
 import Error from '../components/Error';
 import ErrorBox from '../components/Error/ErrorBox';
 

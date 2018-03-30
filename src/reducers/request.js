@@ -1,4 +1,4 @@
-import { requestActions } from 'actions';
+import { requestActions } from '../actions';
 
 const initialState = {
   progress: 0,

@@ -2,14 +2,14 @@ import React from 'react';
 import { arrayOf, shape, bool, func, string, oneOfType } from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import Table, { TableLink } from 'components/Table';
-import ErrorBox from 'components/Error/ErrorBox';
-import Spinner from 'components/Spinner';
-import { getHeroRecentGames } from 'actions';
-import strings from 'lang';
-import { transformations } from 'utility';
-import { proPlayersSelector } from 'reducers/selectors';
-import constants from 'components/constants';
+import Table, { TableLink } from '../Table';
+import ErrorBox from '../Error/ErrorBox';
+import Spinner from '../Spinner';
+import { getHeroRecentGames } from '../../actions';
+import strings from '../../lang';
+import { transformations } from '../../utility';
+import { proPlayersSelector } from '../../reducers/selectors';
+import constants from '../constants';
 
 const LeagueName = styled.span`
   color: ${constants.colorMutedLight};

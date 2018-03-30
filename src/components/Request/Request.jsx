@@ -5,8 +5,8 @@ import Helmet from 'react-helmet';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import { postRequest } from 'actions';
-import strings from 'lang';
+import strings from '../../lang';
+import { postRequest } from '../../actions';
 
 class Request extends React.Component {
   constructor() {

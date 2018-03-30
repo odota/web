@@ -1,6 +1,6 @@
 import React from 'react';
-import strings from 'lang';
 import styled from 'styled-components';
+import strings from '../../lang';
 import AppLogo from '../App/AppLogo';
 import PageLinks from './PageLinks';
 // import Cheese from './Cheese';

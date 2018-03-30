@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { calculateResponsiveState } from 'redux-responsive';
-import { getPlayerWardmap } from 'actions';
-import Heatmap from 'components/Heatmap';
-import Container from 'components/Container';
-import strings from 'lang';
-import { unpackPositionData } from 'utility';
 import styled from 'styled-components';
+import { unpackPositionData } from '../../../../utility';
+import { getPlayerWardmap } from '../../../../actions';
+import Heatmap from '../../../Heatmap';
+import Container from '../../../Container';
+import strings from '../../../../lang';
 
 const MAX_WIDTH = 1200;
 

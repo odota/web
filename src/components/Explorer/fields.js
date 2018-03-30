@@ -1,11 +1,11 @@
 import util from 'util';
-import strings from 'lang';
 import heroData from 'dotaconstants/build/heroes.json';
 import patchData from 'dotaconstants/build/patch.json';
 import itemData from 'dotaconstants/build/items.json';
 import regionData from 'dotaconstants/build/region.json';
 import clusterData from 'dotaconstants/build/cluster.json';
-// import { isActiveItem } from 'utility';
+import strings from '../../lang';
+// import { isActiveItem } from '../../utility';
 
 const getItemSuffix = itemKey => (['_2', '_3', '_4', '_5'].some(suffix => itemKey.indexOf(suffix) !== -1) ? itemKey[itemKey.length - 1] : '');
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import strings from 'lang';
+import strings from '../../lang';
 
 // TODO migrate to styled-components (this component is not currently used)
 /*

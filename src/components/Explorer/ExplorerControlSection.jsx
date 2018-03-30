@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
 import Toggle from 'material-ui/Toggle';
 import styled from 'styled-components';
+import strings from '../../lang';
 
 const StyledDiv = styled.div`
   padding: 0 15px;

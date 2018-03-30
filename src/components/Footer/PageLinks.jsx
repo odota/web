@@ -1,5 +1,5 @@
 import React from 'react';
-import strings from 'lang';
+import strings from '../../lang';
 
 const links = [{
   name: strings.app_about,
