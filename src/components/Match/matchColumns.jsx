@@ -5,7 +5,6 @@ import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
 import abilityIds from 'dotaconstants/build/ability_ids.json';
-import abilityKeys from 'dotaconstants/build/ability_keys.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import ReactTooltip from 'react-tooltip';
@@ -1025,16 +1024,11 @@ const playerDeaths = (row, col, field) => {
   );
 };
 
-const inflictorRow = obj => (row, col, field) =>
+const inflictorRow = (row, col, field) =>
   (field
     ?
       <div style={{ maxWidth: '100px' }}>
-        {Object.keys(field).map((inflictor) => {
-        if (obj[inflictor]) {
-          return inflictorWithValue(inflictor, field[inflictor]);
-        }
-        return null;
-      })}
+        {Object.keys(field).map(inflictor => inflictorWithValue(inflictor, field[inflictor]))}
       </div>
     : '');
 
@@ -1073,12 +1067,12 @@ export const teamfightColumns = [
   {
     displayName: strings.th_abilities,
     field: 'ability_uses',
-    displayFn: inflictorRow(abilityKeys),
+    displayFn: inflictorRow,
   },
   {
     displayName: strings.th_items,
     field: 'item_uses',
-    displayFn: inflictorRow(items),
+    displayFn: inflictorRow,
   },
 ];
 
