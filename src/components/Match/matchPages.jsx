@@ -226,7 +226,7 @@ const matchPages = [Overview, {
   content: match => <Vision match={match} hoverRowColumn />,
 }, {
   name: strings.tab_actions,
-  key: '../../actions',
+  key: 'actions',
   parsed: true,
   content: match => (
     <div>
