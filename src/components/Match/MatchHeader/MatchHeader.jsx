@@ -333,6 +333,13 @@ const MatchHeader = ({ match, user, loading }) => {
             target="_blank"
             rel="noopener noreferrer"
           />
+          <FlatButton
+            label={strings.app_rivalry}
+            icon={<img src="/assets/images/rivalry-icon.png" alt="" height="24px" />}
+            href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota"
+            target="_blank"
+            rel="noopener noreferrer"
+          />
         </div>
       </Styled>
     );
