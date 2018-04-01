@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatSeconds } from 'utility';
 import Slider from 'material-ui/Slider';
 import _ from 'lodash/fp';
-import strings from 'lang';
 import styled from 'styled-components';
+import { formatSeconds } from '../../../utility';
+import strings from '../../../lang';
 import VisionFilter from './VisionFilter';
 import VisionItems from './VisionItems';
 import VisionMap from './VisionMap';

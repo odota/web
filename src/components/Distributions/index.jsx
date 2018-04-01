@@ -3,21 +3,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { getDistributions } from 'actions';
-import strings from 'lang';
-import Table from 'components/Table';
+import styled from 'styled-components';
 import {
   sum,
   abbreviateNumber,
   getOrdinal,
   rankTierToString,
-} from 'utility';
-// import Warning from 'components/Alerts';
-import TabBar from 'components/TabBar';
-import Spinner from 'components/Spinner';
-import Heading from 'components/Heading';
-import styled from 'styled-components';
-import { DistributionGraph } from 'components/Visualizations';
+} from '../../utility';
+import { getDistributions } from '../../actions';
+import strings from '../../lang';
+import Table from '../Table';
+// import Warning from '../Alerts';
+import TabBar from '../TabBar';
+import Spinner from '../Spinner';
+import Heading from '../Heading';
+import { DistributionGraph } from '../Visualizations';
 import constants from '../constants';
 
 const CountryDiv = styled.div`

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import reducer from 'reducers/reducer';
-import request from 'reducers/request';
-import form from 'reducers/form';
+import reducer from './reducer';
+import request from './request';
+import form from './form';
 
 export default combineReducers({
   player: reducer('player'),

@@ -4,8 +4,8 @@ import uuid from 'uuid';
 import items from 'dotaconstants/build/items.json';
 import abilities from 'dotaconstants/build/abilities.json';
 import neutralAbilities from 'dotaconstants/build/neutral_abilities.json';
-import strings from 'lang';
 import styled from 'styled-components';
+import strings from '../../lang';
 import constants from '../constants';
 
 const customNameIcon = {

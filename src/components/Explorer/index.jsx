@@ -4,21 +4,20 @@ import PropTypes from 'prop-types';
 import { connect }
   from 'react-redux';
 import fetch from 'isomorphic-fetch';
-import Spinner from 'components/Spinner';
 import RaisedButton from 'material-ui/RaisedButton';
-import strings from 'lang';
 import Helmet from 'react-helmet';
-import { getScript }
-  from 'utility';
-import Heading from 'components/Heading';
+import querystring from 'querystring';
+import json2csv from 'json2csv';
+import Spinner from '../Spinner';
+import strings from '../../lang';
+import { getScript } from '../../utility';
+import Heading from '../Heading';
 import {
   getProPlayers,
   getLeagues,
   getTeams,
 }
-  from 'actions';
-import querystring from 'querystring';
-import json2csv from 'json2csv';
+  from '../../actions';
 import queryTemplate from './queryTemplate';
 import ExplorerOutputButton from './ExplorerOutputButton';
 import ExplorerOutputSection from './ExplorerOutputSection';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import strings from 'lang';
+import strings from '../../lang';
 
 const ButtonGarden = ({ buttonNames, selectedButton, onClick }) => (
   <SelectField

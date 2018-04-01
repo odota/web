@@ -1,5 +1,5 @@
-import { transformations } from 'utility';
-import strings from 'lang';
+import { transformations } from '../../../../utility';
+import strings from '../../../../lang';
 
 function roundUp(x) {
   const y = 10 ** (x.toString().length - 1);

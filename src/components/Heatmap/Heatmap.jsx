@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import DotaMap from 'components/DotaMap';
 import uuid from 'uuid';
 import h337 from 'heatmap.js';
+import DotaMap from '../DotaMap';
 
 /**
  * Adjust each x/y coordinate by the provided scale factor.

@@ -8,11 +8,11 @@ import IconButton from 'material-ui/IconButton';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 import Bug from 'material-ui/svg-icons/action/bug-report';
 import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
-import strings from 'lang';
-import { LocalizationMenu } from 'components/Localization';
-import Dropdown from 'components/Header/Dropdown';
-import Announce from 'components/Announce';
 import styled from 'styled-components';
+import strings from '../../lang';
+import { LocalizationMenu } from '../Localization';
+import Dropdown from '../Header/Dropdown';
+import Announce from '../Announce';
 import constants from '../constants';
 import AccountWidget from '../AccountWidget';
 import SearchForm from '../Search/SearchForm';
@@ -175,15 +175,6 @@ const ToolbarHeader = styled(Toolbar)`
   }
 `;
 
-const AdBannerDiv = styled.div`
-  text-align: center;
-
-  & img {
-    margin-top: 10px;
-    max-width: 100%;
-  }
-`;
-
 const Header = ({ location, small, user }) => (
   <div>
     <ToolbarHeader>
@@ -198,13 +189,6 @@ const Header = ({ location, small, user }) => (
       </VerticalAlignDiv>
     </ToolbarHeader>
     { location.pathname !== '/' && <Announce /> }
-    <AdBannerDiv>
-      { location.pathname !== '/' &&
-        <a href="http://www.vpgame.com/?lang=en_us">
-          <img src="/assets/images/vp-banner.jpg" alt="" />
-        </a>
-      }
-    </AdBannerDiv>
   </div>
 );
 

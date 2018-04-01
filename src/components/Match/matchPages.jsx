@@ -1,13 +1,13 @@
 import React from 'react';
-import strings from 'lang';
-import Heading from 'components/Heading';
-import Table from 'components/Table';
-import TeamfightMap from 'components/Match/TeamfightMap';
-import Purchases from 'components/Match/Purchases';
-import Timeline from 'components/Match/Overview/Timeline';
-import MatchGraph from 'components/Visualizations/Graph/MatchGraph';
-import StackedBarGraph from 'components/Visualizations/Graph/StackedBarGraph';
 import heroes from 'dotaconstants/build/heroes.json';
+import strings from '../../lang';
+import Heading from '../Heading';
+import Table from '../Table';
+import TeamfightMap from '../Match/TeamfightMap';
+import Purchases from '../Match/Purchases';
+import Timeline from '../Match/Overview/Timeline';
+import MatchGraph from '../Visualizations/Graph/MatchGraph';
+import StackedBarGraph from '../Visualizations/Graph/StackedBarGraph';
 import Draft from './Draft';
 import Vision from './Vision';
 import Laning from './Laning';
@@ -226,7 +226,7 @@ const matchPages = [Overview, {
   content: match => <Vision match={match} hoverRowColumn />,
 }, {
   name: strings.tab_actions,
-  key: 'actions',
+  key: '../../actions',
   parsed: true,
   content: match => (
     <div>

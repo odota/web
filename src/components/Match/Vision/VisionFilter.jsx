@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
-import Table from 'components/Table';
-import strings from 'lang';
-import Heading from 'components/Heading';
+import Table from '../../Table';
+import strings from '../../../lang';
+import Heading from '../../Heading';
 
 import PlayerThumb from '../PlayerThumb';
 

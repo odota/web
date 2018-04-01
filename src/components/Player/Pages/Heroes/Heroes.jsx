@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import strings from 'lang';
-import { getPlayerHeroes } from 'actions';
-import Table from 'components/Table';
-import Container from 'components/Container';
+import strings from '../../../../lang';
+import { getPlayerHeroes } from '../../../../actions';
+import Table from '../../../Table';
+import Container from '../../../Container';
 import { playerHeroesColumns } from './playerHeroesColumns';
 
 const Heroes = ({

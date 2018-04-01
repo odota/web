@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getPlayerHistograms } from 'actions';
-import Heading from 'components/Heading';
-import { HistogramGraph } from 'components/Visualizations';
-import ButtonGarden from 'components/ButtonGarden';
-import dataColumns from 'components/Player/Pages/matchDataColumns';
-import Container from 'components/Container';
-import strings from 'lang';
+import { getPlayerHistograms } from '../../../../actions';
+import Heading from '../../../Heading';
+import { HistogramGraph } from '../../../Visualizations';
+import ButtonGarden from '../../../ButtonGarden';
+import dataColumns from '../matchDataColumns';
+import Container from '../../../Container';
+import strings from '../../../../lang';
 
 const getMedian = (columns, midpoint) => {
   let sum = 0;
@@ -22,8 +22,10 @@ const getMedian = (columns, midpoint) => {
 const getSubtitleStats = (columns) => {
   const total = columns.reduce((sum, col) => (sum + col.games), 0);
   const median = getMedian(columns, total / 2);
-  return `${strings.heading_total_matches}: ${total}${(median !== undefined) ? `, ${strings.heading_median}: ${median}` : ''}`;
+  return `(${strings.heading_total_matches}: ${total}${(median !== undefined) ? `, ${strings.heading_median}: ${median})` : ''}`;
 };
+
+const getSubtitleDescription = histogramName => (strings[`histograms_${histogramName}_description`] || '');
 
 const histogramNames = dataColumns.filter(col => col !== 'win_rate');
 
@@ -41,7 +43,10 @@ const Histogram = ({
     />
     <Container error={error} loading={loading}>
       <div>
-        <Heading title={strings[`heading_${histogramName}`]} subtitle={loading ? '' : getSubtitleStats(columns)} />
+        <Heading
+          title={strings[`heading_${histogramName}`]}
+          subtitle={loading ? '' : [getSubtitleDescription(histogramName), getSubtitleStats(columns)].filter(Boolean).join(' ')}
+        />
         <HistogramGraph columns={columns || []} />
       </div>
     </Container>

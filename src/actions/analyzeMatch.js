@@ -1,13 +1,13 @@
 import items from 'dotaconstants/build/items.json';
 import itemGroups from 'dotaconstants/build/item_groups.json';
 import skillshots from 'dotaconstants/build/skillshots.json';
-import strings from 'lang';
+import strings from '../lang';
 import {
   isSupport,
   getObsWardsPlaced,
   isRoshHero,
   isActiveItem,
-} from 'utility';
+} from '../utility';
 
 export default function analyzeMatch(match, _pm) {
   // define condition check for each advice point

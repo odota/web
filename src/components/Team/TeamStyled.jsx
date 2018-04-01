@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
-import Container from 'components/Container';
+import Container from '../Container';
 import constants from '../constants';
 
 export const TeamStatsCard = styled(CardTitle)`
