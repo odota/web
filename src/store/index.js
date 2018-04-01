@@ -9,7 +9,7 @@ import {
   createResponsiveStoreEnhancer,
   createResponsiveStateReducer,
 } from 'redux-responsive';
-import app from 'reducers';
+import app from '../reducers';
 
 const reducer = combineReducers({
   app,

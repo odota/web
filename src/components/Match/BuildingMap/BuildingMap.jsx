@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import playerColors from 'dotaconstants/build/player_colors.json';
+import heroes from 'dotaconstants/build/heroes.json';
+import ReactTooltip from 'react-tooltip';
+import styled from 'styled-components';
 import {
   pad,
   sum,
   isRadiant,
-} from 'utility';
-import playerColors from 'dotaconstants/build/player_colors.json';
-import heroes from 'dotaconstants/build/heroes.json';
-import Heading from 'components/Heading';
-import DotaMap from 'components/DotaMap';
-import strings from 'lang';
-import ReactTooltip from 'react-tooltip';
-// import { IconLightbulb } from 'components/Icons';
-import styled from 'styled-components';
+} from '../../../utility';
+import Heading from '../../Heading';
+import DotaMap from '../../DotaMap';
+import strings from '../../../lang';
+// import { IconLightbulb } from '../Icons';
 import buildingData from './buildingData';
 import constants from '../../constants';
 

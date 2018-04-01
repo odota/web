@@ -1,5 +1,5 @@
 import React from 'react';
-import strings from 'lang';
+import strings from '../../lang';
 import { IconGithub, IconDiscord } from '../Icons';
 
 const links = [{

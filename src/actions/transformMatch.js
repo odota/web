@@ -1,13 +1,13 @@
+import heroes from 'dotaconstants/build/heroes.json';
+import immutable from 'seamless-immutable';
+import _ from 'lodash/fp';
 import {
   isRadiant,
   isSupport,
   getLevelFromXp,
   unpackPositionData,
-} from 'utility';
-import heroes from 'dotaconstants/build/heroes.json';
-import immutable from 'seamless-immutable';
-import _ from 'lodash/fp';
-import strings from 'lang';
+} from '../utility';
+import strings from '../lang';
 import analyzeMatch from './analyzeMatch';
 
 const expanded = {};

@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import strings from 'lang';
-import { getTeams } from 'actions';
-import Heading from 'components/Heading';
-import Team from 'components/Team';
-import Table, { TableLink } from 'components/Table';
 import styled from 'styled-components';
-import { getOrdinal, getTeamLogoUrl, fromNow, subTextStyle } from 'utility';
 import FlatButton from 'material-ui/FlatButton';
+import { getOrdinal, getTeamLogoUrl, fromNow, subTextStyle } from '../../utility';
+import strings from '../../lang';
+import { getTeams } from '../../actions';
+import Heading from '../Heading';
+import Team from '../Team';
+import Table, { TableLink } from '../Table';
 import { Logo } from '../Team/TeamStyled';
 
 const TeamImageContainer = styled.div`

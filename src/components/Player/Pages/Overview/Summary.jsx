@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import heroes from 'dotaconstants/build/heroes.json';
 import {
   isRadiant,
   sum,
   formatSeconds,
   abbreviateNumber,
-} from 'utility';
-import heroes from 'dotaconstants/build/heroes.json';
-import strings from 'lang';
+} from '../../../../utility';
+import strings from '../../../../lang';
 import { MAX_MATCHES_ROWS } from './Overview';
 import constants from '../../../constants';
 

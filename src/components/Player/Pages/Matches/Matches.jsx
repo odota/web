@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getPlayerMatches } from 'actions';
-import Table from 'components/Table';
-import Container from 'components/Container';
-import strings from 'lang';
+import { getPlayerMatches } from '../../../../actions';
+import Table from '../../../Table';
+import Container from '../../../Container';
+import strings from '../../../../lang';
 import playerMatchesColumns from './playerMatchesColumns';
 
 const Matches = ({

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import strings from 'lang';
 import styled from 'styled-components';
 import constants from '../constants';
+import strings from '../../lang';
 
 const StyledLink = styled(Link)`
   font-weight: ${constants.fontWeightMedium};

@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import strings from 'lang';
 import styled from 'styled-components';
 import FlatButton from 'material-ui/FlatButton';
+import strings from '../../lang';
 import Spinner from '../Spinner';
 
 const StyledFlatButton = styled(FlatButton)`

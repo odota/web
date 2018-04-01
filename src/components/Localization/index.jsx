@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import strings, { langs } from 'lang';
 import styled from 'styled-components';
+import strings, { langs } from '../../lang';
 import constants from '../constants';
 
 const ClickableDiv = styled.div`

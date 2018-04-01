@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { MMRGraph } from 'components/Visualizations';
-import { getPlayerMmr } from 'actions';
-import strings from 'lang';
-import Container from 'components/Container';
-import Info from 'components/Alerts/Info';
+import { MMRGraph } from '../../../Visualizations';
+import { getPlayerMmr } from '../../../../actions';
+import strings from '../../../../lang';
+import Container from '../../../Container';
+import Info from '../../../Alerts/Info';
 
 const MMRInfo = (
   <Info>
