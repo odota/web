@@ -47,6 +47,7 @@
   "app_pvgna": "Encontre um guia",
   "app_pvgna_alt": "Encontre um guia de Dota 2 na Pvgna",
   "app_rivalry": "Apostar em partidas profissionais",
+  "app_rivalry_team": "Bet on %s Matches",
   "app_refresh": "Atualizar o Histórico de Partidas: Agendar uma varredura para encontrar as partidas que faltam devido às configurações de privacidade",
   "app_refresh_label": "Atualizar",
   "app_login": "Entrar",
