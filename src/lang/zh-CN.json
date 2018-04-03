@@ -47,6 +47,7 @@
   "app_pvgna": "寻找向导",
   "app_pvgna_alt": "在 Pvgna 上寻找 Dota 2 指南",
   "app_rivalry": "Bet on Pro Matches",
+  "app_rivalry_team": "Bet on %s Matches",
   "app_refresh": "刷新比赛历史：由于打开隐私设定而导致的比赛缺失时可使用此功能刷新。",
   "app_refresh_label": "刷新",
   "app_login": "登陆",
