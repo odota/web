@@ -47,6 +47,7 @@
   "app_pvgna": "Найти руководство",
   "app_pvgna_alt": "Найти руководство на Pvgna",
   "app_rivalry": "Поставить на про-матч",
+  "app_rivalry_team": "Bet on %s Matches",
   "app_refresh": "Обновить историю матчей: Запросить сканирование пропущенных матчей из-за настроек приватности",
   "app_refresh_label": "Обновить",
   "app_login": "Войти",
