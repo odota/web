@@ -47,6 +47,7 @@
   "app_pvgna": "ガイドを探す",
   "app_pvgna_alt": "PvgnaでDota2のガイドを探す",
   "app_rivalry": "Bet on Pro Matches",
+  "app_rivalry_team": "Bet on %s Matches",
   "app_refresh": "マッチ履歴の更新: 未発見のマッチ結果の検索のキューに入れます。",
   "app_refresh_label": "更新",
   "app_login": "ログイン",
