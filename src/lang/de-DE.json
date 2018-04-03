@@ -47,6 +47,7 @@
   "app_pvgna": "Eine Anleitung finden",
   "app_pvgna_alt": "Finden Sie eine Dota 2 Anleitung auf Pvgna",
   "app_rivalry": "Bet on Pro Matches",
+  "app_rivalry_team": "Bet on %s Matches",
   "app_refresh": "Aktualisiere Match Verläufe: Fehlende Matches finden, die wegen Privatsphäre Einstellungen blockiert wurden",
   "app_refresh_label": "Aktuaklisieren",
   "app_login": "Login",
