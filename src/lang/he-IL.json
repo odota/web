@@ -47,6 +47,7 @@
   "app_pvgna": "מצא מדריך",
   "app_pvgna_alt": "מצא מדריך ל Dota ב Pvgna",
   "app_rivalry": "Bet on Pro Matches",
+  "app_rivalry_team": "Bet on %s Matches",
   "app_refresh": "Refresh Match History: Queue a scan to find missing matches due to privacy settings",
   "app_refresh_label": "רענון",
   "app_login": "התחברות",
