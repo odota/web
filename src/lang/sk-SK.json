@@ -47,6 +47,7 @@
   "app_pvgna": "Nájsť návod",
   "app_pvgna_alt": "Nájsť návod na Pvgna",
   "app_rivalry": "Bet on Pro Matches",
+  "app_rivalry_team": "Bet on %s Matches",
   "app_refresh": "Refresh Match History: Queue a scan to find missing matches due to privacy settings",
   "app_refresh_label": "Obnoviť",
   "app_login": "Prihlásiť sa",
