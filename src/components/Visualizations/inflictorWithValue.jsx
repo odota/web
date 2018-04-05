@@ -12,6 +12,13 @@ const customNameIcon = {
   kaya: 'trident',
 };
 
+const getInflictorImage = (inflictor) => {
+  if (inflictor.includes('recipe')) {
+    return 'recipe';
+  }
+  return customNameIcon[inflictor] || inflictor;
+};
+
 const customImageIcon = ['refresher_shard'];
 
 const StyledDiv = styled.div`
@@ -217,7 +224,7 @@ export default (inflictor, value, type, ptooltip) => {
       if (customImageIcon.includes(inflictor)) {
         image = `/assets/images/dota2/${inflictor}.png`;
       } else {
-        image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${customNameIcon[inflictor] || inflictor}_lg.png`;
+        image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${getInflictorImage(inflictor)}_lg.png`;
       }
       tooltip = tooltipContainer(item);
     } else {
