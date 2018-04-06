@@ -28,7 +28,7 @@ const metadata = {
   },
 };
 
-const minSampleSize = x => x.games > 100;
+const minSampleSize = x => x.games > 200;
 
 const fields = {
   itemTimings: ['hero_id', 'item'],
