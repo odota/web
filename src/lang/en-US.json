@@ -24,6 +24,21 @@
 
   "announce_dismiss": "Dismiss",
   "announce_github_more": "View on GitHub",
+  
+  "api_title": "The OpenDota API",
+  "api_subtitle": "Build on top of the OpenDota platform. Bring advanced stats to your app and deep insights to your users.",
+  "api_first": "First",
+  "api_calls_month": "calls per month",
+  "api_free": "Free",
+  "api_per_unit": "per 1000 calls",
+  "api_get_key": "Get my key",
+  "api_docs": "Read the docs",
+  "api_details": "Details",
+  "api_key_requirement": "Calls over 25000/month will require an API key.",
+  "api_account_level": "All limits are at the account level.",
+  "api_rate_limit": "Keyless API calls are limited to 1 call per second. Calls with API keys are limited to 3 calls per second.",
+  "api_credit_required": "Getting an API key requires a linked-credit card. We'll automatically charge the card at the beginning of the month for any fees owed.",
+  "api_stripe": "Payment is processed with Stripe. We never store your credit card information.",
 
   "app_name": "OpenDota",
   "app_language": "Language",
@@ -851,6 +866,7 @@
   "title_explorer": "Data Explorer",
   "title_meta": "Meta",
   "title_records": "Records",
+  "title_api": "Get your Opendota API Key - stats just a GET call away.",
 
   "tooltip_mmr": "Solo MMR of the player",
   "tooltip_abilitydraft": "Ability Drafted",
