@@ -1,5 +1,5 @@
-export default (type, initialData) => (state = {
-  loading: true,
+export default (type, initialData, initialLoading = true) => (state = {
+  loading: initialLoading,
   data: initialData || [],
 }, action) => {
   switch (action.type) {

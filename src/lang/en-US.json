@@ -263,6 +263,7 @@
   "header_explorer": "Explorer",
   "header_teams": "Teams",
   "header_meta": "Meta",
+  "header_scenarios": "Scenarios",
 
   "heading_lhten": "Last Hits @ 10",
   "heading_lhtwenty": "Last Hits @ 20",
@@ -1213,7 +1214,14 @@
   "activated": "Activated",
   "rune": "Rune",
   "placement": "Placement",
-  "exclude_turbo_matches": "Exclude Turbo matches"
+  "exclude_turbo_matches": "Exclude Turbo matches",
+
+  "item_timings": "Item Timings",
+  "misc": "Misc",
+  "time": "Time",
+  "item": "Item",
+  "game_duration": "Game Duration",
+  "scenario": "Scenario"
 
 
 }
