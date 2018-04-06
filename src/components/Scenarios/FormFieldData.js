@@ -19,6 +19,6 @@ export default function getFormFieldData(metadata) {
 
     laneRoleList: [1, 2, 3, 4].map(role => ({ text: strings[`lane_role_${role}`], value: role.toString() })),
 
-    miscList: Object.keys(teamScenariosQueryParams).map(scenario => ({ text: scenario, value: scenario })),
+    miscList: Object.keys(teamScenariosQueryParams).map(scenario => ({ text: teamScenariosQueryParams[scenario], value: scenario })),
   };
 }
