@@ -181,9 +181,10 @@ class Table extends React.Component {
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,
-                        percentBarsWithValue, sortFn, invertBarColor, underline,
+                        percentBarsWithValue, invertBarColor, underline,
                       } = column;
-                      const getValue = typeof sortFn === 'function' ? sortFn : null;
+                      const columnSortFn = column.sortFn;
+                      const getValue = typeof columnSortFn === 'function' ? columnSortFn : null;
                       const value = getValue ? getValue(row) : row[field];
                       const style = {
                         overflow: `${field === 'kills' ? 'visible' : null}`,

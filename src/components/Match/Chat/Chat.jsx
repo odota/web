@@ -511,12 +511,12 @@ class Chat extends React.Component {
             <li key={cat}>
               <div>{strings[`chat_category_${cat}`]}</div>
               <ul>
-                {categories[cat].map((filter, index) => {
+                {categories[cat].map((filter) => {
                   const len = filter.f().length;
                   const lenFiltered = filter.f(this.messages).length;
 
                   return (
-                    <li key={index}>
+                    <li key={filter.name}>
                       <Checkbox
                         label={
                           <span>

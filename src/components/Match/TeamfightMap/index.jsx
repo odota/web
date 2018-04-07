@@ -477,7 +477,7 @@ class TeamfightMap extends Component {
                   <Teamfight
                     selected={this.isSelected(teamFight)}
                     hovered={this.isHovered(teamFight)}
-                    key={index}
+                    key={teamFight.start}
                     onClick={this.onIconClick(teamFight)}
                     position={avgPosition(teamFight)}
                     tooltipKey={`${index}_${teamFight.start}`}

@@ -626,8 +626,8 @@ export const wilsonScore = (up, down) => {
   );
 };
 
-export const translateBuildings = (isRadiant, key) => {
-  const team = isRadiant ? strings.general_radiant : strings.general_dire;
+export const translateBuildings = (isRad, key) => {
+  const team = isRad ? strings.general_radiant : strings.general_dire;
   const k = key.split('_').slice(3).join('_');
   const dict = {
     fort: ` ${strings.building_ancient}`,
