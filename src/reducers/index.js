@@ -48,4 +48,5 @@ export default combineReducers({
   ghPulls: reducer('ghPulls'),
   form,
   request,
+  live: reducer('live'),
 });

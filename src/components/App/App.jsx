@@ -23,6 +23,7 @@ import Teams from '../Teams';
 import Records from '../Records';
 // import Predictions from '../Predictions';
 import Meta from '../Meta';
+import Live from '../Live';
 import Header from '../Header';
 import Footer from '../Footer';
 import constants from '../constants';
@@ -119,6 +120,7 @@ class App extends React.Component {
             <Route exact path="/search" component={Search} />
             <Route exact path="/records/:info?" component={Records} />
             <Route exact path="/meta" component={Meta} />
+            <Route exact path="/live" component={Live} />
           </StyledBodyDiv>
           <AdBannerDiv>
             { location.pathname !== '/' &&

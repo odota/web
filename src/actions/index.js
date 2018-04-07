@@ -63,3 +63,4 @@ export const getPlayerMmr = (accountId, params) => action('playerMmr', process.e
 export const getPlayerRankings = (accountId, params) => action('playerRankings', process.env.REACT_APP_API_HOST, `api/players/${accountId}/rankings`, params, transformRankings);
 export * from './requestActions';
 export * from './formActions';
+export const getLive = () => action('live', process.env.REACT_APP_API_HOST, 'api/live');
