@@ -39,7 +39,15 @@
   "api_rate_limit": "Keyless API calls are limited to 1 call per second. Calls with API keys are limited to 3 calls per second.",
   "api_credit_required": "Getting an API key requires a linked-credit card. We'll automatically charge the card at the beginning of the month for any fees owed.",
   "api_stripe": "Payment is processed with Stripe. We never store your credit card information.",
-
+  "api_delay": "Just got your key? It takes up to 10 minutes to take effect.",
+  "api_error": "There was an error with the request. Please try again. If it continues, contact us at support@yasp.co.",
+  "api_login": "Login to access API Key",
+  "api_update_billing": "Update billing method",
+  "api_delete": "Delete key",
+  "api_your_key": "Your Key",
+  "api_billing_cycle": "The current billing cycle ends on $date.",
+  "api_billed_to": "We'll automatically bill the $brand ending in $last4.",
+  
   "app_name": "OpenDota",
   "app_language": "Language",
   "app_localization": "Localization",

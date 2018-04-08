@@ -1,13 +1,14 @@
 import React from 'react';
+import fetch from 'isomorphic-fetch';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
 import strings from '../../lang';
-import { postRequest } from '../../actions';
 import styled from 'styled-components';
+import StripeCheckout from 'react-stripe-checkout';
+import moment from 'moment';
 import {
   Table,
   TableBody,
@@ -16,6 +17,8 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+
+const URI = '/api/keys';
 
 const ApiContainer = styled.div`
   width: 80%;
@@ -26,26 +29,24 @@ const ApiContainer = styled.div`
   }
 `;
 
-const Modal = styled.div`
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, .4);
-  position: absolute
-  
-  & div {
-    width: 50%;
-    height: 50%;
-    margin: 20% auto;
-  }
+const KeyContainer = styled.pre`
+  background: grey;
+  display: inline;
+  padding: 10px;
 `;
 
-class Request extends React.Component {
-  constructor() {
-    super();
+class KeyManagement extends React.Component {
+  constructor(props) {
+    super(props);
+
     this.state = {
-      showModal: false
+      error: false,
+      loading: true,
     };
+    
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentWillMount() {
@@ -53,43 +54,157 @@ class Request extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.matchId) {
-      this.handleSubmit();
-    }
+    fetch(`${process.env.REACT_APP_API_HOST}${URI}`, {
+      credentials: 'include',
+      method: 'GET'
+    })
+    .then((res) => {
+      if(res.ok) {
+        return res.json();
+      } else if (res.status === 403) {
+        this.setState({loggedIn: false});
+        throw Error();
+      }
+    })
+    .then((json) => {
+      json.loading = false;
+      this.setState(json)
+    })
+    .catch(err => this.setState({error: true}))
   }
 
-  handleSubmit() {
-    const { dispatchPostRequest } = this.props;
-    dispatchPostRequest(this.state.matchId);
+  handleSubmit(token, address) {
+    this.setState({loading: true});
+    fetch(`${process.env.REACT_APP_API_HOST}${URI}`, {
+      credentials: 'include',
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        token: token
+      })
+    })
+    .then((res) => {
+      if (res.ok) {
+        window.location.reload(false);
+      } else {
+        throw Error(strings.api_error)
+      }
+    })
+    .catch(err => this.setState({error: true}))
+  }
+
+  handleDelete() {
+    this.setState({loading: true});
+    fetch(`${process.env.REACT_APP_API_HOST}${URI}`, {
+      credentials: 'include',
+      method: 'DELETE'
+    })
+    .then((res) => {
+      if (res.ok) {
+        window.location.reload(false);
+      } else {
+        throw Error(strings.api_error)
+      }
+    })
+    .catch(err => this.setState({error: true}))
   }
   
+  handleUpdate(token, address) {
+    this.setState({loading: true});
+    fetch(`${process.env.REACT_APP_API_HOST}${URI}`, {
+      credentials: 'include',
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        token: token
+      })
+    })
+    .then((res) => {
+      if (res.ok) {
+        window.location.reload(false);
+      } else {
+        throw Error(strings.api_error)
+      }
+    })
+    .catch(err => this.setState({error: true}))
+  }
   
-
   render() {
-    const { progress, error, loading } = this.props;
-    const progressIndicator = (progress ?
-      <CircularProgress value={progress} mode="determinate" /> :
-      <CircularProgress value={progress} mode="indeterminate" />);
+    const { loading, user } = this.props;
+
     return (
       <div>
-        {
-          this.state.showModal ? 
-          <Modal>
-            <ul>
-              <li>{strings.api_credit_required}</li>
-              <li>{strings.api_stripe}</li>
-            </ul>
-          </Modal>
-          : <div />
-        }
         <Helmet title={strings.title_api} />
         <ApiContainer style={{ textAlign: 'center' }}>
+          {
+            this.state.error ?
+            <div>
+              {strings.api_error}
+            </div>
+            : <div/>
+          }
           <h1>{strings.api_title}</h1>
           <h3>{strings.api_subtitle}</h3>
-          <RaisedButton label={strings.api_get_key} style={{margin:'5px 5px'}} onClick={() => this.setState({showModal: true})} />
-          <a href>
-            <RaisedButton label={strings.api_docs} style={{margin:'5px 5px'}} onClick={this.handleSubmit} />
-          </a>
+          {
+            loading || this.state.loading ?
+              <CircularProgress mode="indeterminate" />
+            : <div>
+                { user ? 
+                  (this.state.customer && this.state.customer.api_key ?
+                    <div />
+                  : <StripeCheckout
+                      billingAddress={true}
+                      stripeKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}
+                      token={this.handleSubmit}
+                      zipCode={true}
+                      locale='auto'
+                    >
+                      <RaisedButton label={strings.api_get_key} style={{margin:'5px 5px'}} />
+                    </StripeCheckout>)
+                : <a href={`${process.env.REACT_APP_API_HOST}/login`}>
+                    <RaisedButton label={strings.api_login} style={{margin:'5px 5px'}} />
+                  </a>
+              }
+              <a href={'//docs.opendota.com'}>
+                <RaisedButton label={strings.api_docs} style={{margin:'5px 5px'}} />
+              </a>
+              {
+                this.state.customer ?
+                  <div>
+                    { this.state.customer.api_key ?
+                        <div>
+                          <h4>Your Key</h4>
+                          <KeyContainer>{this.state.customer.api_key}</KeyContainer>
+                          <p>{strings.api_billing_cycle
+                            .replace('$date', moment.unix(this.state.customer.current_period_end).format('MM-DD-YYYY')) + ' ' +
+                            strings.api_billed_to
+                              .replace('$brand', this.state.customer.credit_brand)
+                              .replace('$last4', this.state.customer.credit_last4)
+                            }</p>
+                          <RaisedButton label={strings.api_delete} style={{margin:'5px 5px'}} onClick={this.handleDelete}/>
+                          <StripeCheckout
+                            billingAddress={true}
+                            stripeKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}
+                            token={this.handleUpdate}
+                            zipCode={true}
+                            locale='auto'
+                          >
+                            <RaisedButton label={strings.api_update_billing} style={{margin:'5px 5px'}} />
+                          </StripeCheckout>
+                        </div>
+                      : <div/>
+                    }
+                  </div>
+                : <div/>
+              }
+            </div>
+          }
           <Table style={{width: '60%', margin:'0 auto' }}>
             <TableHeader
               displaySelectAll={false}
@@ -117,40 +232,31 @@ class Request extends React.Component {
             <li>{strings.api_rate_limit}</li>
             <li>{strings.api_credit_required}</li>
             <li>{strings.api_stripe}</li>
+            <li>{strings.api_delay}</li>
           </ul>
-          
-          <TextField
-            id="match_id"
-            floatingLabelText={strings.request_match_id}
-            errorText={error && !loading ? strings.request_error : false}
-            value={this.state.matchId}
-            onChange={e => this.setState({ matchId: e.target.value })}
-          />
-          <div>{loading ? progressIndicator : <RaisedButton label={strings.request_submit} onClick={this.handleSubmit} />}</div>
         </ApiContainer>
       </div>
     );
   }
 }
 
-Request.propTypes = {
-  dispatchPostRequest: PropTypes.func,
-  progress: PropTypes.number,
-  error: PropTypes.string,
+KeyManagement.propTypes = {
   loading: PropTypes.bool,
+  error: PropTypes.string,
+  user: PropTypes.shape({}),
 };
 
 const mapStateToProps = (state) => {
-  const { error, loading, progress } = state.app.request;
+  const { error, loading, data } = state.app.metadata;
   return {
-    error,
     loading,
-    progress,
+    error,
+    user: data.user,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  dispatchPostRequest: matchId => dispatch(postRequest(matchId)),
-});
+// const mapDispatchToProps = dispatch => ({
+//   dispatchPostRequest: matchId => dispatch(postRequest(matchId)),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Request);
+export default connect(mapStateToProps, null)(KeyManagement);
