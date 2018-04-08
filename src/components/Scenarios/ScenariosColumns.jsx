@@ -1,6 +1,6 @@
-import strings from 'lang';
-import { transformations, formatSeconds } from 'utility';
 import { inflictorWithValue } from 'components/Visualizations';
+import strings from '../../lang';
+import { transformations, formatSeconds } from '../../utility';
 
 const computeWinRate = row => (row.wins / row.games);
 
@@ -23,12 +23,12 @@ const getColumns = (f, metadata) => {
     sortFn: true,
     displayFn: transformations.hero_id,
   }, {
-    displayName: strings.time,
+    displayName: strings.scenarios_time,
     field: 'time',
     sortFn: row => row.time,
     displayFn: (row, col, field) => getTimeRange(field, metadata.timings),
   }, {
-    displayName: strings.item,
+    displayName: strings.scenarios_item,
     field: 'item',
     sortFn: true,
     displayFn: (row, col, field) => inflictorWithValue(field),
@@ -50,7 +50,7 @@ const getColumns = (f, metadata) => {
     sortFn: true,
     displayFn: (row, col, field) => strings[`lane_role_${field}`],
   }, {
-    displayName: strings.game_duration,
+    displayName: strings.scenarios_game_duration,
     field: 'time',
     sortFn: true,
     displayFn: (row, col, field) => getTimeRange(field, metadata.gameDurationBucket),
@@ -62,10 +62,10 @@ const getColumns = (f, metadata) => {
   }],
 
   misc: [{
-    displayName: strings.scenario,
+    displayName: strings.scenarios_scenario,
     field: 'scenario',
     sortFn: true,
-    displayFn: (row, col, field) => field,
+    displayFn: (row, col, field) => strings[`scenarios_${field}`],
   }, {
     displayName: strings.heading_win_rate,
     field: 'wins',

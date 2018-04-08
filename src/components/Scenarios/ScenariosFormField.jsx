@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
 import AutoComplete from 'material-ui/AutoComplete';
 import getFormFieldData from './FormFieldData';
 import { autoCompleteStyle } from './Styles';
+import strings from '../../lang';
 
 const hintText = {
   hero_id: strings.filter_hero_id,
-  item: strings.item,
-  scenario: strings.scenario,
+  item: strings.scenarios_item,
+  scenario: strings.scenarios_scenario,
   lane_role: strings.heading_lane_role,
 };
 

@@ -1,6 +1,6 @@
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
-import strings from 'lang';
+import strings from '../../lang';
 
 export default function getFormFieldData(metadata) {
   const { teamScenariosQueryParams, itemCost } = metadata;
@@ -19,6 +19,6 @@ export default function getFormFieldData(metadata) {
 
     laneRoleList: [1, 2, 3, 4].map(role => ({ text: strings[`lane_role_${role}`], value: role.toString() })),
 
-    miscList: Object.keys(teamScenariosQueryParams).map(scenario => ({ text: teamScenariosQueryParams[scenario], value: scenario })),
+    miscList: teamScenariosQueryParams.map(scenario => ({ text: strings[`scenarios_${scenario}`], value: scenario })),
   };
 }

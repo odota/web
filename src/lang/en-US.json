@@ -1216,12 +1216,16 @@
   "placement": "Placement",
   "exclude_turbo_matches": "Exclude Turbo matches",
 
-  "item_timings": "Item Timings",
-  "misc": "Misc",
-  "time": "Time",
-  "item": "Item",
-  "game_duration": "Game Duration",
-  "scenario": "Scenario"
+  "scenarios_item_timings": "Item Timings",
+  "scenarios_misc": "Misc",
+  "scenarios_time": "Time",
+  "scenarios_item": "Item",
+  "scenarios_game_duration": "Game Duration",
+  "scenarios_scenario": "Scenario",
+  "scenarios_first_blood": "Team drew First Blood",
+  "scenarios_courier_kill": "Team sniped the enemy courier before the 3-minute mark",
+  "scenarios_pos_chat_1min": "Team all chatted positive words before the 1-minute mark",
+  "scenarios_neg_chat_1min": "Team all chatted negative words before the 1-minute mark"
 
 
 }

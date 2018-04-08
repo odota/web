@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import strings from 'lang';
-import Table from 'components/Table';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { withRouter, Link } from 'react-router-dom';
 import querystring from 'querystring';
@@ -13,22 +11,12 @@ import ScenariosFormField from './ScenariosFormField';
 import getColumns from './ScenariosColumns';
 import { buttonStyle, formFieldStyle } from './Styles';
 import { getScenariosItemTimings, getScenariosMisc, getScenariosLaneRoles } from '../../actions/index';
+import strings from '../../lang';
+import Table from '../Table';
+import Spinner from '../Spinner';
+import Error from '../Error';
 
-
-// placeholder, will be replaced by api call
-const metadata = {
-  timings: [450, 600, 720, 900, 1200, 1500, 1800],
-  gameDurationBucket: [900, 1800, 2700, 3600, 5400],
-  itemCost: 2000,
-  teamScenariosQueryParams: {
-    pos_chat_1min: 'Positivity in chat before 1 minute',
-    neg_chat_1min: 'Negativity in chat before 1 minute',
-    courier_kill: 'Courier Kill before 3 minutes',
-    first_blood: 'First Blood',
-  },
-};
-
-const minSampleSize = x => x.games > 200;
+const minSampleSize = row => row.games > 200;
 
 const fields = {
   itemTimings: ['hero_id', 'item'],
@@ -37,7 +25,7 @@ const fields = {
 };
 
 const menuItems = [{
-  text: strings.item_timings,
+  text: strings.scenarios_item_timings,
   value: 'itemTimings',
 },
 {
@@ -45,7 +33,7 @@ const menuItems = [{
   value: 'laneRoles',
 },
 {
-  text: strings.misc,
+  text: strings.scenarios_misc,
   value: 'misc',
 },
 ];
@@ -117,39 +105,49 @@ class Scenarios extends React.Component {
     const { scenariosState } = this.props;
     const { dropDownValue, formFields } = this.state;
     const { data } = scenariosState[dropDownValue];
+    const { metadata, metadataLoading, metadataError } = scenariosState.metadata;
+
     return (
       <div>
-        <DropDownMenu value={dropDownValue} onChange={this.handleChange}>
-          {menuItems.map(item => (
-            <MenuItem value={item.value} primaryText={item.text} containerElement={this.getLink(item.value)} />
+        {metadataError && <Error />}
+        {metadataLoading && <Spinner />}
+        {!metadataError && !metadataLoading &&
+        <div>
+          <DropDownMenu value={dropDownValue} onChange={this.handleChange}>
+            {menuItems.map(item => (
+              <MenuItem value={item.value} primaryText={item.text} containerElement={this.getLink(item.value)} />
+            ))}
+          </DropDownMenu>
+          <div style={formFieldStyle}>
+            {fields[dropDownValue].map(field => (
+              <ScenariosFormField
+                key={field + dropDownValue}
+                field={field}
+                updateQueryParams={this.updateQueryParams}
+                updateFormFieldState={this.updateFormFieldStates}
+                formFieldState={formFields[dropDownValue] && formFields[dropDownValue][field]}
+                metadata={metadata}
+              />
           ))}
-        </DropDownMenu>
-        <div style={formFieldStyle}>
-          {fields[dropDownValue].map(field => (
-            <ScenariosFormField
-              key={field + dropDownValue}
-              field={field}
-              updateQueryParams={this.updateQueryParams}
-              updateFormFieldState={this.updateFormFieldStates}
-              formFieldState={formFields[dropDownValue] && formFields[dropDownValue][field]}
-              metadata={metadata}
-            />
-        ))}
+          </div>
+          <FlatButton
+            onClick={this.getData}
+            style={buttonStyle}
+            backgroundColor="rgba(220, 220, 220, 0.05)"
+            hoverColor="rgba(220, 220, 220, 0.2)"
+            label={strings.explorer_query_button}
+            icon={<ActionSearch />}
+            primary
+          />
+          <Table
+            key={dropDownValue}
+            data={data.filter(minSampleSize)}
+            columns={getColumns(dropDownValue, metadata)}
+            loading={scenariosState[dropDownValue].loading}
+            paginated
+          />
         </div>
-        <FlatButton
-          onClick={this.getData}
-          style={buttonStyle}
-          label={strings.explorer_query_button}
-          icon={<ActionSearch />}
-          primary
-        />
-        <Table
-          key={dropDownValue}
-          data={data.filter(minSampleSize)}
-          columns={getColumns(dropDownValue, metadata)}
-          loading={scenariosState[dropDownValue].loading}
-          paginated
-        />
+        }
       </div>
     );
   }
@@ -166,10 +164,16 @@ const mapStateToProps = (state) => {
     scenariosItemTimings,
     scenariosLaneRoles,
     scenariosMisc,
+    metadata,
   } = state.app;
 
   return {
     scenariosState: {
+      metadata: {
+        metadata: metadata.data.scenarios,
+        metadataLoading: metadata.loading,
+        metadataError: metadata.error,
+      },
       itemTimings: {
         data: scenariosItemTimings.data,
         loading: scenariosItemTimings.loading,
