@@ -68,10 +68,7 @@ class Scenarios extends React.Component {
   }
 
   componentDidMount() {
-    const { dropDownValue, formFields } = this.state;
-    if (Object.keys(formFields[dropDownValue]).length > 0) {
-      this.getData();
-    }
+    this.getData();
   }
 
   getData() {
