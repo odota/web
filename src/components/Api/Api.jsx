@@ -7,7 +7,6 @@ import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import styled from 'styled-components';
 import StripeCheckout from 'react-stripe-checkout';
-import moment from 'moment';
 import {
   Table,
   TableBody,
@@ -18,7 +17,7 @@ import {
 } from 'material-ui/Table';
 import strings from '../../lang';
 
-const URI = '/api/keys';
+const path = '/api/keys';
 
 const ApiContainer = styled.div`
   width: 80%;
@@ -50,7 +49,7 @@ class KeyManagement extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`${process.env.REACT_APP_API_HOST}${URI}`, {
+    fetch(`${process.env.REACT_APP_API_HOST}${path}`, {
       credentials: 'include',
       method: 'GET',
     })
@@ -72,7 +71,7 @@ class KeyManagement extends React.Component {
 
   handleSubmit(token) {
     this.setState({ loading: true });
-    fetch(`${process.env.REACT_APP_API_HOST}${URI}`, {
+    fetch(`${process.env.REACT_APP_API_HOST}${path}`, {
       credentials: 'include',
       method: 'POST',
       headers: {
@@ -95,7 +94,7 @@ class KeyManagement extends React.Component {
 
   handleDelete() {
     this.setState({ loading: true });
-    fetch(`${process.env.REACT_APP_API_HOST}${URI}`, {
+    fetch(`${process.env.REACT_APP_API_HOST}${path}`, {
       credentials: 'include',
       method: 'DELETE',
     })
@@ -111,7 +110,7 @@ class KeyManagement extends React.Component {
 
   handleUpdate(token) {
     this.setState({ loading: true });
-    fetch(`${process.env.REACT_APP_API_HOST}${URI}`, {
+    fetch(`${process.env.REACT_APP_API_HOST}${path}`, {
       credentials: 'include',
       method: 'PUT',
       headers: {
@@ -126,7 +125,7 @@ class KeyManagement extends React.Component {
         if (res.ok) {
           window.location.reload(false);
         } else {
-          throw Error(strings.api_error);
+          throw Error();
         }
       })
       .catch(() => this.setState({ error: true }));
@@ -185,7 +184,7 @@ class KeyManagement extends React.Component {
                         <h4>{strings.api_header_key}</h4>
                         <KeyContainer>{this.state.customer.api_key}</KeyContainer>
                         <p>{`${strings.api_billing_cycle
-                            .replace('$date', moment.unix(this.state.customer.current_period_end).format('MM-DD-YYYY'))} ${
+                            .replace('$date', (new Date(this.state.customer.current_period_end * 1000)).toLocaleDateString())} ${
                             strings.api_billed_to
                               .replace('$brand', this.state.customer.credit_brand)
                               .replace('$last4', this.state.customer.credit_last4)}`
