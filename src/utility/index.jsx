@@ -658,5 +658,21 @@ export const groupBy = (xs, key) =>
     return rv;
   }, {});
 
+export function groupByArray(xs, key) {
+  return xs.reduce((rv, x) => {
+    const v = key instanceof Function ? key(x) : x[key];
+    const el = rv.find(r => r && r.key === v);
+    if (el) {
+      el.values.push(x);
+    } else {
+      rv.push({
+        key: v,
+        values: [x],
+      });
+    }
+    return rv;
+  }, []);
+}
+
 export const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 

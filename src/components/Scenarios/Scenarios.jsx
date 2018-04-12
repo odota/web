@@ -17,6 +17,7 @@ import Table from '../Table';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import Heading from '../Heading';
+import { groupByArray } from '../../utility/index';
 
 const minSampleSize = row => row.games > 200;
 
@@ -47,11 +48,11 @@ const reduceRows = (data) => {
   if (data.length === 0) {
     return data;
   }
-  return [data.reduce((a, b) => ({
+  return data.map(scenario => scenario.values.reduce((a, b) => ({
     ...a,
     games: Number(a.games) + Number(b.games),
     wins: Number(a.wins) + Number(b.wins),
-  }))];
+  })));
 };
 
 const getLink = scenario => <Link to={`/scenarios/${scenario}`} />;
@@ -88,10 +89,10 @@ class Scenarios extends React.Component {
     const { scenariosState } = this.props;
     const { dropDownValue } = this.state;
     const { data } = scenariosState[dropDownValue];
-    if (scenariosState[dropDownValue].loading && data.length === 0){
-      this.getData()
+    if (scenariosState[dropDownValue].loading && data.length === 0) {
+      this.getData();
     }
-    this.updateQueryParams()
+    this.updateQueryParams();
   }
 
   handleChange = (dropDownValue) => {
@@ -192,7 +193,7 @@ const mapStateToProps = (state) => {
         error: scenariosLaneRoles.error,
       },
       misc: {
-        data: reduceRows(scenariosMisc.data),
+        data: reduceRows(groupByArray(scenariosMisc.data, 'scenario')),
         loading: scenariosMisc.loading,
         error: scenariosMisc.error,
       },

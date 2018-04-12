@@ -37,7 +37,7 @@ const getColumns = (f, metadata) => {
     field: 'games',
     sortFn: computeWinRate,
     percentBarsWithValue: row => row.games,
-    tooltip: strings.tooltip_winrate_samplesize
+    tooltip: strings.tooltip_winrate_samplesize,
   }],
 
   laneRoles: [{
@@ -60,7 +60,7 @@ const getColumns = (f, metadata) => {
     field: 'games',
     sortFn: computeWinRate,
     percentBarsWithValue: row => row.games,
-    tooltip: strings.tooltip_winrate_samplesize
+    tooltip: strings.tooltip_winrate_samplesize,
   }],
 
   misc: [{
@@ -73,7 +73,7 @@ const getColumns = (f, metadata) => {
     field: 'games',
     sortFn: computeWinRate,
     percentBarsWithValue: row => row.games,
-    tooltip: strings.tooltip_winrate_samplesize
+    tooltip: strings.tooltip_winrate_samplesize,
   }],
 };
 
