@@ -958,6 +958,7 @@
   "tooltip_others_track_gold": "gold earned from Track",
   "tooltip_others_greevils_gold": "gold earned from Greevil's Greed",
   "tooltip_advantage": "Calculated by Wilson score",
+  "tooltip_winrate_samplesize": "Win rate and sample size",
 
   "histograms_name": "Histograms",
   "histograms_description": "Percentages indicate win rates for the labeled bin",
