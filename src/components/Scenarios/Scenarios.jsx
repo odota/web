@@ -18,6 +18,7 @@ import Spinner from '../Spinner';
 import Error from '../Error';
 import Heading from '../Heading';
 import { groupByArray } from '../../utility/index';
+import { IconLaneRoles } from '../Icons';
 
 const minSampleSize = row => row.games > 200;
 
@@ -32,10 +33,10 @@ const menuItems = [{
   value: 'itemTimings',
   icon: <Schedule />,
 },
-{
+{// /assets/images/dota2/lane_roles.svg
   text: strings.heading_lane_role,
   value: 'laneRoles',
-  icon: <img src="/assets/images/dota2/lane_roles.svg" alt="" />,
+  icon: <IconLaneRoles />,
 },
 {
   text: strings.scenarios_misc,
@@ -150,9 +151,7 @@ class Scenarios extends React.Component {
             icon={<ActionSearch />}
             primary
           />
-          {!scenariosState[dropDownValue].loading &&
-            <Heading title={strings.explorer_results} subtitle={`${data.filter(minSampleSize).length} ${strings.explorer_num_rows}`} />
-          }
+          <Heading title={strings.explorer_results} subtitle={`${data.filter(minSampleSize).length} ${strings.explorer_num_rows}`} />
           <Table
             key={dropDownValue}
             data={data.filter(minSampleSize)}

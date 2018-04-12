@@ -46,7 +46,7 @@ const muiTheme = {
   },
   tabs: {
     backgroundColor: constants.primarySurfaceColor,
-    textColor: constants.textColorPrimary,
+    textColor: constants.colorMuted,
     selectedTextColor: constants.textColorPrimary,
   },
   button: { height: 38 },
