@@ -1,8 +1,20 @@
 import styled from 'styled-components';
+import constants from '../constants';
 
 export const StyledDiv = styled.div`
   & small {
     font-size: xx-small !important;
+  }
+  .tab:hover { 
+    transition: ${constants.normalTransition} !important;  
+    color: ${constants.colorMutedLight} !important; 
+    svg {
+      fill: ${constants.colorMutedLight} !important;
+      line {
+        transition: ${constants.normalTransition} !important;  
+        stroke: ${constants.colorMutedLight} !important;
+      }
+    }
   }
 }
 `;

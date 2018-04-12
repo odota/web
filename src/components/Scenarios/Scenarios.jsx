@@ -127,7 +127,7 @@ class Scenarios extends React.Component {
           <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} />
           <Tabs value={dropDownValue} onChange={this.handleChange} style={tabsStyle}>
             {menuItems.map(item => (
-              <Tab label={item.text} value={item.value} icon={item.icon} containerElement={getLink(item.value)} />
+              <Tab label={item.text} value={item.value} icon={item.icon} containerElement={getLink(item.value)} className="tab" />
             ))}
           </Tabs>
           <div style={formFieldStyle}>
