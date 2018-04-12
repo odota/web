@@ -12,6 +12,10 @@ const hintText = {
   lane_role: strings.heading_lane_role,
 };
 
+const customStyles = {
+  scenario: { width: '450px' },
+};
+
 class ScenarioFormField extends React.Component {
   constructor(props) {
     super(props);
@@ -60,7 +64,9 @@ class ScenarioFormField extends React.Component {
       <div>
         <AutoComplete
           openOnFocus
-          listStyle={{ maxHeight: 400, overflow: 'auto' }}
+          listStyle={{
+ backgroundColor: 'rgba(0, 0, 0, 0.35)', maxHeight: 400, overflow: 'auto', ...customStyles[field],
+}}
           filter={AutoComplete.caseInsensitiveFilter}
           floatingLabelText={hintText[field]}
           dataSource={this.dataSources[field]}

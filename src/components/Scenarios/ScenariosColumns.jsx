@@ -49,7 +49,7 @@ const getColumns = (f, metadata) => {
     displayName: strings.heading_lane_role,
     field: 'lane_role',
     sortFn: true,
-    displayFn: (row, col, field) => strings[`lane_role_${field}`],
+    displayFn: (row, col, field) => strings[`lane_role_${field}`] || field,
   }, {
     displayName: strings.scenarios_game_duration,
     field: 'time',
@@ -67,7 +67,7 @@ const getColumns = (f, metadata) => {
     displayName: strings.scenarios_scenario,
     field: 'scenario',
     sortFn: true,
-    displayFn: (row, col, field) => strings[`scenarios_${field}`],
+    displayFn: (row, col, field) => strings[`scenarios_${field}`] || field,
   }, {
     displayName: strings.heading_win_rate,
     field: 'games',
