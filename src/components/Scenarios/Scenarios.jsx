@@ -2,19 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ActionSearch from 'material-ui/svg-icons/action/search';
+import Schedule from 'material-ui/svg-icons/action/schedule';
+import Grain from 'material-ui/svg-icons/image/grain';
 import { withRouter, Link } from 'react-router-dom';
 import querystring from 'querystring';
 import FlatButton from 'material-ui/FlatButton';
-import MenuItem from 'material-ui/MenuItem';
-import { DropDownMenu } from 'material-ui/DropDownMenu';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import ScenariosFormField from './ScenariosFormField';
 import getColumns from './ScenariosColumns';
-import { buttonStyle, formFieldStyle } from './Styles';
+import { buttonStyle, formFieldStyle, StyledDiv, tabsStyle } from './Styles';
 import { getScenariosItemTimings, getScenariosMisc, getScenariosLaneRoles } from '../../actions/index';
 import strings from '../../lang';
 import Table from '../Table';
 import Spinner from '../Spinner';
 import Error from '../Error';
+import Heading from '../Heading';
 
 const minSampleSize = row => row.games > 200;
 
@@ -27,14 +29,17 @@ const fields = {
 const menuItems = [{
   text: strings.scenarios_item_timings,
   value: 'itemTimings',
+  icon: <Schedule />,
 },
 {
   text: strings.heading_lane_role,
   value: 'laneRoles',
+  icon: <img src="/assets/images/dota2/lane_roles.svg" alt="" />,
 },
 {
   text: strings.scenarios_misc,
   value: 'misc',
+  icon: <Grain />,
 },
 ];
 
@@ -48,6 +53,8 @@ const reduceRows = (data) => {
     wins: Number(a.wins) + Number(b.wins),
   }))];
 };
+
+const getLink = scenario => <Link to={`/scenarios/${scenario}`} />;
 
 class Scenarios extends React.Component {
   constructor(props) {
@@ -77,11 +84,7 @@ class Scenarios extends React.Component {
     scenariosDispatch[dropDownValue](formFields[dropDownValue]);
   }
 
-  getLink(scenario) {
-    return <Link to={`/scenarios/${scenario}?${querystring.stringify(this.state.formFields)}`} />;
-  }
-
-  handleChange = (event, index, dropDownValue) => {
+  handleChange = (dropDownValue) => {
     this.setState({ dropDownValue }, this.updateQueryParams);
   }
 
@@ -103,18 +106,18 @@ class Scenarios extends React.Component {
     const { dropDownValue, formFields } = this.state;
     const { data } = scenariosState[dropDownValue];
     const { metadata, metadataLoading, metadataError } = scenariosState.metadata;
-
     return (
-      <div>
+      <StyledDiv>
         {metadataError && <Error />}
         {metadataLoading && <Spinner />}
         {!metadataError && !metadataLoading &&
         <div>
-          <DropDownMenu value={dropDownValue} onChange={this.handleChange}>
+          <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} />
+          <Tabs value={dropDownValue} onChange={this.handleChange} style={tabsStyle}>
             {menuItems.map(item => (
-              <MenuItem value={item.value} primaryText={item.text} containerElement={this.getLink(item.value)} />
+              <Tab label={item.text} value={item.value} icon={item.icon} containerElement={getLink(item.value)} />
             ))}
-          </DropDownMenu>
+          </Tabs>
           <div style={formFieldStyle}>
             {fields[dropDownValue].map(field => (
               <ScenariosFormField
@@ -136,6 +139,9 @@ class Scenarios extends React.Component {
             icon={<ActionSearch />}
             primary
           />
+          {!scenariosState[dropDownValue].loading &&
+            <Heading title={strings.explorer_results} subtitle={`${data.filter(minSampleSize).length} ${strings.explorer_num_rows}`} />
+          }
           <Table
             key={dropDownValue}
             data={data.filter(minSampleSize)}
@@ -145,16 +151,10 @@ class Scenarios extends React.Component {
           />
         </div>
         }
-      </div>
+      </StyledDiv>
     );
   }
 }
-
-Scenarios.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({ info: PropTypes.string }),
-  }),
-};
 
 const mapStateToProps = (state) => {
   const {
@@ -199,6 +199,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Scenarios.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({ info: PropTypes.string }),
+  }),
   location: PropTypes.shape({
     search: PropTypes.shape({
       substring: PropTypes.string,

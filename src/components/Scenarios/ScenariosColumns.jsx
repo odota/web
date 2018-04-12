@@ -34,9 +34,9 @@ const getColumns = (f, metadata) => {
     displayFn: (row, col, field) => inflictorWithValue(field),
   }, {
     displayName: strings.heading_win_rate,
-    field: 'wins',
+    field: 'games',
     sortFn: computeWinRate,
-    percentBars: true,
+    percentBarsWithValue: row => row.games,
   }],
 
   laneRoles: [{
@@ -56,9 +56,9 @@ const getColumns = (f, metadata) => {
     displayFn: (row, col, field) => getTimeRange(field, metadata.gameDurationBucket),
   }, {
     displayName: strings.heading_win_rate,
-    field: 'wins',
+    field: 'games',
     sortFn: computeWinRate,
-    percentBars: true,
+    percentBarsWithValue: row => row.games,
   }],
 
   misc: [{
@@ -68,9 +68,9 @@ const getColumns = (f, metadata) => {
     displayFn: (row, col, field) => strings[`scenarios_${field}`],
   }, {
     displayName: strings.heading_win_rate,
-    field: 'wins',
+    field: 'games',
     sortFn: computeWinRate,
-    percentBars: true,
+    percentBarsWithValue: row => row.games,
   }],
 };
 
