@@ -84,8 +84,18 @@ class Scenarios extends React.Component {
     scenariosDispatch[dropDownValue](formFields[dropDownValue]);
   }
 
+  initialQuery() {
+    const { scenariosState } = this.props;
+    const { dropDownValue } = this.state;
+    const { data } = scenariosState[dropDownValue];
+    if (scenariosState[dropDownValue].loading && data.length === 0){
+      this.getData()
+    }
+    this.updateQueryParams()
+  }
+
   handleChange = (dropDownValue) => {
-    this.setState({ dropDownValue }, this.updateQueryParams);
+    this.setState({ dropDownValue }, this.initialQuery);
   }
 
   updateQueryParams() {
