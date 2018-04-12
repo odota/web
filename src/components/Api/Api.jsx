@@ -34,6 +34,12 @@ const KeyContainer = styled.pre`
   padding: 10px;
 `;
 
+const TableContainer = styled.div`
+  & table td {
+    white-space: inherit !important;
+  }
+`;
+
 class KeyManagement extends React.Component {
   constructor(props) {
     super(props);
@@ -62,9 +68,7 @@ class KeyManagement extends React.Component {
         throw Error();
       })
       .then((json) => {
-        const update = json;
-        update.loading = false;
-        this.setState(update);
+        this.setState({ ...json, loading: false });
       })
       .catch(() => this.setState({ error: true }));
   }
@@ -138,7 +142,10 @@ class KeyManagement extends React.Component {
 
     return (
       <div>
-        <Helmet title={strings.title_api} />
+        <Helmet>
+          <title>{strings.title_api}</title>
+          <meta name="description" content={strings.api_meta_description} />
+        </Helmet>
         <ApiContainer style={{ textAlign: 'center' }}>
           {
             this.state.error ?
@@ -183,6 +190,10 @@ class KeyManagement extends React.Component {
                       <div>
                         <h4>{strings.api_header_key}</h4>
                         <KeyContainer>{this.state.customer.api_key}</KeyContainer>
+                        <p>{strings.api_key_usage.replace('$param', 'API_KEY=XXXX')}</p>
+                        <a href={`https://api.opendota.com/api/matches/271145478?API_KEY=${this.state.customer.api_key}`}>
+                          <KeyContainer>{`https://api.opendota.com/api/matches/271145478?API_KEY=${this.state.customer.api_key}`}</KeyContainer>
+                        </a>
                         <p>{`${strings.api_billing_cycle
                             .replace('$date', (new Date(this.state.customer.current_period_end * 1000)).toLocaleDateString())} ${
                             strings.api_billed_to
@@ -237,32 +248,53 @@ class KeyManagement extends React.Component {
                 }
               </div>
           }
-          <h3>{strings.api_header_price}</h3>
-          <Table style={{ width: '60%', margin: '0 auto' }}>
-            <TableHeader
-              displaySelectAll={false}
-              adjustForCheckbox={false}
-            >
-              <TableRow>
-                <TableHeaderColumn>{`${strings.api_first} 25000 ${strings.api_calls_month}`}</TableHeaderColumn>
-                <TableHeaderColumn>{`>25000 ${strings.api_calls_month}`}</TableHeaderColumn>
-              </TableRow>
-            </TableHeader>
-            <TableBody
-              displayRowCheckbox={false}
-            >
-              <TableRow>
-                <TableRowColumn>{strings.api_free}</TableRowColumn>
-                <TableRowColumn>{`$1.00 ${strings.api_per_unit}`}</TableRowColumn>
-              </TableRow>
-            </TableBody>
-          </Table>
-
           <h3>{strings.api_header_details}</h3>
+          <TableContainer>
+            <Table style={{ width: '80%', margin: '0 auto' }}>
+              <TableHeader
+                displaySelectAll={false}
+                adjustForCheckbox={false}
+              >
+                <TableRow>
+                  <TableHeaderColumn />
+                  <TableHeaderColumn>{strings.api_details_free_tier}</TableHeaderColumn>
+                  <TableHeaderColumn>{strings.api_details_premium_tier}</TableHeaderColumn>
+                </TableRow>
+              </TableHeader>
+              <TableBody
+                displayRowCheckbox={false}
+              >
+                <TableRow>
+                  <TableHeaderColumn>{strings.api_details_price}</TableHeaderColumn>
+                  <TableRowColumn>{strings.api_details_price_free}</TableRowColumn>
+                  <TableRowColumn>{strings.api_details_price_prem.replace('$price', '$1.00')}</TableRowColumn>
+                </TableRow>
+                <TableRow>
+                  <TableHeaderColumn>{strings.api_details_key_required}</TableHeaderColumn>
+                  <TableRowColumn>{strings.api_details_key_required_free}</TableRowColumn>
+                  <TableRowColumn>{strings.api_details_key_required_prem}</TableRowColumn>
+                </TableRow>
+                <TableRow>
+                  <TableHeaderColumn>{strings.api_details_call_limit}</TableHeaderColumn>
+                  <TableRowColumn>{strings.api_details_call_limit_free.replace('$limit', '25000')}</TableRowColumn>
+                  <TableRowColumn>{strings.api_details_call_limit_prem}</TableRowColumn>
+                </TableRow>
+                <TableRow>
+                  <TableHeaderColumn>{strings.api_details_rate_limit}</TableHeaderColumn>
+                  <TableRowColumn>{strings.api_details_rate_limit_val.replace('$num', 60)}</TableRowColumn>
+                  <TableRowColumn>{strings.api_details_rate_limit_val.replace('$num', 180)}</TableRowColumn>
+                </TableRow>
+                <TableRow>
+                  <TableHeaderColumn>{strings.api_details_support}</TableHeaderColumn>
+                  <TableRowColumn>{strings.api_details_support_free}</TableRowColumn>
+                  <TableRowColumn>{strings.api_details_support_prem}</TableRowColumn>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+
           <ul style={{ textAlign: 'left' }}>
-            <li>{strings.api_key_requirement}</li>
-            <li>{strings.api_account_level}</li>
-            <li>{strings.api_rate_limit}</li>
+            <li>{strings.api_free_to_prem}</li>
             <li>{strings.api_credit_required}</li>
             <li>{strings.api_stripe}</li>
             <li>{strings.api_delay}</li>
