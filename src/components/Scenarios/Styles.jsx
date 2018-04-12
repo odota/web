@@ -25,3 +25,10 @@ export const tabsStyle = {
   paddingBottom: '50px',
   paddingTop: '10px',
 };
+
+export const listStyle = {
+  backgroundColor: 'rgba(0, 0, 0, 0.35)',
+  maxHeight: 400,
+  overflow: 'auto',
+};
+

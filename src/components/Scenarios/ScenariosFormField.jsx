@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 import getFormFieldData from './FormFieldData';
-import { autoCompleteStyle } from './Styles';
+import { autoCompleteStyle, listStyle } from './Styles';
 import strings from '../../lang';
 
 const hintText = {
@@ -64,9 +64,7 @@ class ScenarioFormField extends React.Component {
       <div>
         <AutoComplete
           openOnFocus
-          listStyle={{
- backgroundColor: 'rgba(0, 0, 0, 0.35)', maxHeight: 400, overflow: 'auto', ...customStyles[field],
-}}
+          listStyle={{ ...listStyle, ...customStyles[field] }}
           filter={AutoComplete.caseInsensitiveFilter}
           floatingLabelText={hintText[field]}
           dataSource={this.dataSources[field]}
