@@ -73,6 +73,7 @@ class ScenarioFormField extends React.Component {
           searchText={searchText}
           onNewRequest={this.handleRequest}
           style={autoCompleteStyle}
+          className="autocomplete"
         />
       </div>
     );
