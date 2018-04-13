@@ -45,9 +45,10 @@ const muiTheme = {
     borderColor: constants.dividerColor,
   },
   tabs: {
-    backgroundColor: constants.primarySurfaceColor,
+    backgroundColor: 'transparent',
     textColor: constants.colorMuted,
     selectedTextColor: constants.textColorPrimary,
+    borderBottom: `1px solid ${constants.dividerColor}`,
   },
   button: { height: 38 },
 };

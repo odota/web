@@ -34,8 +34,9 @@ export const autoCompleteStyle = {
 };
 
 export const tabsStyle = {
-  paddingBottom: '50px',
-  paddingTop: '10px',
+  marginBottom: '50px',
+  marginTop: '10px',
+  borderBottom: `1px solid ${constants.dividerColor}`,
 };
 
 export const listStyle = {
