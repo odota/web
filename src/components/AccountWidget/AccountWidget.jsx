@@ -67,20 +67,4 @@ function RequestLayer(props) {
   return <AccountWidget {...props} />;
 }
 
-/*
-const mapDispatchToProps = dispatch => ({
-  getPlayer: playerId => dispatch(getPlayer(playerId)),
-});
-
-
-class RequestLayer extends React.Component {
-  UNSAFE_componentWillUpdate() {
-  }
-
-  render() {
-    return <AccountWidget {...this.props} />;
-  }
-}
-*/
-
 export default connect(mapStateToProps, null)(RequestLayer);
