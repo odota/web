@@ -12,11 +12,6 @@ class Request extends React.Component {
   constructor() {
     super();
     this.state = {};
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentWillMount() {
-    this.setState({ matchId: window.location.hash.slice(1) });
   }
 
   componentDidMount() {
@@ -25,10 +20,14 @@ class Request extends React.Component {
     }
   }
 
-  handleSubmit() {
+  UNSAFE_componentWillMount() {
+    this.setState({ matchId: window.location.hash.slice(1) });
+  }
+
+  handleSubmit = () => {
     const { dispatchPostRequest } = this.props;
     dispatchPostRequest(this.state.matchId);
-  }
+  };
 
   render() {
     const { progress, error, loading } = this.props;

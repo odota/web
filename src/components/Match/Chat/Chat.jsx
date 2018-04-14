@@ -329,12 +329,25 @@ class Chat extends React.Component {
         disabled: () => false,
       },
     };
-
-    this.filter = this.filter.bind(this);
-    this.audio = this.audio.bind(this);
   }
 
-  filter(key) {
+  audio = (key, index) => {
+    const a = new Audio(`/assets/chatwheel/dota_chatwheel_${key}.wav`);
+    a.play();
+    this.setState({
+      playing: index,
+    });
+    const i = setInterval(() => {
+      if (a.paused) {
+        this.setState({
+          playing: null,
+        });
+        clearInterval(i);
+      }
+    }, 500);
+  };
+
+  filter = (key) => {
     if (key !== undefined) {
       this.setState({ ...this.state, [key]: !this.state[key] });
     }
@@ -363,23 +376,7 @@ class Chat extends React.Component {
       }
       return timeDiff;
     });
-  }
-
-  audio(key, index) {
-    const a = new Audio(`/assets/chatwheel/dota_chatwheel_${key}.wav`);
-    a.play();
-    this.setState({
-      playing: index,
-    });
-    const i = setInterval(() => {
-      if (a.paused) {
-        this.setState({
-          playing: null,
-        });
-        clearInterval(i);
-      }
-    }, 500);
-  }
+  };
 
   render() {
     if (!this.messages) {

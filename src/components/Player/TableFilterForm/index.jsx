@@ -57,7 +57,7 @@ class TableFilterForm extends React.Component {
     getPeers(this.props, this);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (nextProps.playerId !== this.props.playerId) {
       setShowFormState(nextProps);
       getPeers(nextProps, this);

@@ -22,7 +22,7 @@ class Team extends React.Component {
     getData(this.props);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.match.params.teamId !== nextProps.match.params.teamId) {
       getData(nextProps);
     }

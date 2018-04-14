@@ -83,7 +83,7 @@ const AdBannerDiv = styled.div`
 `;
 
 class App extends React.Component {
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.location.key !== nextProps.location.key) {
       window.scrollTo(0, 0);
     }
