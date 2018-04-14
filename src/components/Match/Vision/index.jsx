@@ -136,10 +136,6 @@ class Vision extends React.Component {
     this.handleViewportChange = _.debounce(50, this.viewportChange);
   }
 
-  UNSAFE_componentWillReceiveProps(props) {
-    this.sliderMax = props.match.duration;
-  }
-
   setPlayer(player, type, value) {
     const newArray = this.state.players[type];
     newArray[player] = value;
@@ -157,6 +153,10 @@ class Vision extends React.Component {
     }
     const newState = { ...this.state, teams: { ...this.state.teams, [team]: value }, players: { observer: newPlayerObs, sentry: newPlayerSentry } };
     this.setState(newState);
+  }
+
+  UNSAFE_componentWillReceiveProps(props) {
+    this.sliderMax = props.match.duration;
   }
 
   computeTick() {

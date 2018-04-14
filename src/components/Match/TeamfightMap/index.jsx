@@ -377,22 +377,6 @@ class TeamfightMap extends Component {
     };
   }
 
-  onTimelineIconClick = start => {
-    return this.curriedTeamfightHandler(this.onIconClick, start);
-  };
-
-  onTimelineHover = start => {
-    return this.curriedTeamfightHandler(this.onTeamfightHover, start);
-  };
-
-  onTeamfightHover = teamfight => {
-    return () => {
-      this.setState({
-        hoveredTeamfight: teamfight,
-      });
-    };
-  };
-
   onIconClick = teamfight => {
     return () => {
       // We do this because we need to prevent the map click event from
@@ -428,6 +412,22 @@ class TeamfightMap extends Component {
         teamfight: newSelection.teamfight,
       });
     };
+  };
+
+  onTeamfightHover = teamfight => {
+    return () => {
+      this.setState({
+        hoveredTeamfight: teamfight,
+      });
+    };
+  };
+
+  onTimelineHover = start => {
+    return this.curriedTeamfightHandler(this.onTeamfightHover, start);
+  };
+
+  onTimelineIconClick = start => {
+    return this.curriedTeamfightHandler(this.onIconClick, start);
   };
 
   curriedTeamfightHandler = (fn, start) => {

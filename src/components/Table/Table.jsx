@@ -86,11 +86,6 @@ class Table extends React.Component {
     super();
     this.state = initialState;
   }
-  UNSAFE_componentWillReceiveProps(newProps) {
-    if (newProps.resetTableState) {
-      this.setState(initialState);
-    }
-  }
 
   setCurrentPage = pageNumber => {
     this.setState({
@@ -99,15 +94,11 @@ class Table extends React.Component {
     });
   };
 
-  sortClick = (sortField, sortState, sortFn) => {
-    const { state } = this;
-    this.setState({
-      ...state,
-      sortState: sortField === state.sortField ? SORT_ENUM.next(SORT_ENUM[state.sortState]) : SORT_ENUM[0],
-      sortField,
-      sortFn,
-    });
-  };
+  UNSAFE_componentWillReceiveProps(newProps) {
+    if (newProps.resetTableState) {
+      this.setState(initialState);
+    }
+  }
 
   nextPage = () => {
     this.setState({
@@ -120,6 +111,16 @@ class Table extends React.Component {
     this.setState({
       ...this.state,
       currentPage: this.state.currentPage - 1,
+    });
+  };
+
+  sortClick = (sortField, sortState, sortFn) => {
+    const { state } = this;
+    this.setState({
+      ...state,
+      sortState: sortField === state.sortField ? SORT_ENUM.next(SORT_ENUM[state.sortState]) : SORT_ENUM[0],
+      sortField,
+      sortFn,
     });
   };
 

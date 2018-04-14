@@ -22,20 +22,6 @@ class ExplorerFormField extends React.Component {
     }
   }
 
-  resetField = () => {
-    const { builderField, handleFieldUpdate } = this.props;
-    // Set state on the ref'd component to clear it
-    if (this.autocomplete) {
-      this.autocomplete.setState({
-        searchText: '',
-      });
-    }
-    if (this.datepicker) {
-      this.datepicker.setState({ date: undefined });
-    }
-    handleFieldUpdate(builderField, undefined);
-  };
-
   addChip = (name, input, limit) => {
     const currentChips = [].concat(this.props.builder[name] || []);
     const newChips = [input.key].concat(currentChips).slice(0, limit);
@@ -49,6 +35,20 @@ class ExplorerFormField extends React.Component {
       ...currentChips.slice(index + 1),
     ];
     this.props.handleFieldUpdate(name, newChips);
+  };
+
+  resetField = () => {
+    const { builderField, handleFieldUpdate } = this.props;
+    // Set state on the ref'd component to clear it
+    if (this.autocomplete) {
+      this.autocomplete.setState({
+        searchText: '',
+      });
+    }
+    if (this.datepicker) {
+      this.datepicker.setState({ date: undefined });
+    }
+    handleFieldUpdate(builderField, undefined);
   };
 
   render() {

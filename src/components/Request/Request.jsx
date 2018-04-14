@@ -14,14 +14,14 @@ class Request extends React.Component {
     this.state = {};
   }
 
-  UNSAFE_componentWillMount() {
-    this.setState({ matchId: window.location.hash.slice(1) });
-  }
-
   componentDidMount() {
     if (this.state.matchId) {
       this.handleSubmit();
     }
+  }
+
+  UNSAFE_componentWillMount() {
+    this.setState({ matchId: window.location.hash.slice(1) });
   }
 
   handleSubmit = () => {
