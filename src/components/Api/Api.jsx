@@ -17,12 +17,17 @@ import {
 } from 'material-ui/Table';
 import strings from '../../lang';
 
-const path = '/api/keys';
+const path = '/api';
 
 const ApiContainer = styled.div`
+
   width: 80%;
-  margin: 0 auto;
+  margin: 0 auto; 
   
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
+   
   & li {
     list-style-type: initial;
   }
@@ -35,8 +40,15 @@ const KeyContainer = styled.pre`
 `;
 
 const TableContainer = styled.div`
+  width: 80%;
+  margin: 0 auto; 
+  
   & table td {
     white-space: inherit !important;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    width: 100%;
   }
 `;
 
@@ -44,6 +56,10 @@ const DetailsContainer = styled.div`
   text-align: left;
   width: 80%;
   margin: 0 auto;
+  
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 class KeyManagement extends React.Component {
@@ -261,7 +277,7 @@ class KeyManagement extends React.Component {
           }
           <h3>{strings.api_header_table}</h3>
           <TableContainer>
-            <Table style={{ width: '80%', margin: '0 auto' }}>
+            <Table>
               <TableHeader
                 displaySelectAll={false}
                 adjustForCheckbox={false}
@@ -300,6 +316,7 @@ class KeyManagement extends React.Component {
                   <TableRowColumn>{strings.api_details_support_free}</TableRowColumn>
                   <TableRowColumn>{strings.api_details_support_prem}</TableRowColumn>
                 </TableRow>
+                <TableRow style={{ height: '24px' }} />
               </TableBody>
             </Table>
           </TableContainer>
