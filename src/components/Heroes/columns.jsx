@@ -48,7 +48,7 @@ export default {
     field: 'pickRate7',
     sortFn: true,
     percentBarsWithValue: row => decimalToCount(row.pickRate7, row.matchCount7),
-    colColor: 'rgba(33, 41, 69, 0.3)',
+    colColor: 'rgba(33, 41, 69, 0.45)',
   }, {
     displayName: strings.rank_tier_7,
     field: 'winRate7',
@@ -60,7 +60,7 @@ export default {
     field: 'pickRate6',
     sortFn: true,
     percentBarsWithValue: row => decimalToCount(row.pickRate6, row.matchCount6),
-    colColor: 'rgba(82, 52, 91, 0.3)',
+    colColor: 'rgba(82, 52, 91, 0.45)',
   }, {
     displayName: strings.rank_tier_6,
     field: 'winRate6',
@@ -72,7 +72,7 @@ export default {
     field: 'pickRate5',
     sortFn: true,
     percentBarsWithValue: row => decimalToCount(row.pickRate5, row.matchCount5),
-    colColor: 'rgba(84, 60, 26, 0.3)',
+    colColor: 'rgba(84, 60, 26, 0.45)',
   }, {
     displayName: strings.rank_tier_5,
     field: 'winRate5',
@@ -84,7 +84,7 @@ export default {
     field: 'pickRate4',
     sortFn: true,
     percentBarsWithValue: row => decimalToCount(row.pickRate4, row.matchCount4),
-    colColor: 'rgba(24, 85, 74, 0.3)',
+    colColor: 'rgba(24, 85, 74, 0.45)',
   }, {
     displayName: strings.rank_tier_4,
     field: 'winRate4',
@@ -96,7 +96,7 @@ export default {
     field: 'pickRate3',
     sortFn: true,
     percentBarsWithValue: row => decimalToCount(row.pickRate3, row.matchCount3),
-    colColor: 'rgba(58, 73, 124, 0.3)',
+    colColor: 'rgba(58, 73, 124, 0.45)',
   }, {
     displayName: strings.rank_tier_3,
     field: 'winRate3',
@@ -108,7 +108,7 @@ export default {
     field: 'pickRate2',
     sortFn: true,
     percentBarsWithValue: row => decimalToCount(row.pickRate2, row.matchCount2),
-    colColor: 'rgba(114, 79, 49, 0.3)',
+    colColor: 'rgba(114, 79, 49, 0.45)',
   }, {
     displayName: strings.rank_tier_2,
     field: 'winRate2',
@@ -120,7 +120,7 @@ export default {
     field: 'pickRate1',
     sortFn: true,
     percentBarsWithValue: row => decimalToCount(row.pickRate1, row.matchCount1),
-    colColor: 'rgba(32, 74, 33, 0.3)',
+    colColor: 'rgba(32, 74, 33, 0.45)',
   }, {
     displayName: strings.rank_tier_1,
     field: 'winRate1',
