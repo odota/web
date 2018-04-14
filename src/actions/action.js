@@ -12,7 +12,7 @@ export default function action(type, host, path, params = {}, transform) {
       payload,
     });
     const fetchDataWithRetry = delay => fetch(url, path === 'api/metadata' ? { credentials: 'include' } : {})
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error('fetch failed');
         }
