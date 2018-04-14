@@ -17,7 +17,7 @@ import {
 } from 'material-ui/Table';
 import strings from '../../lang';
 
-const path = '/api';
+const path = '/keys';
 
 const ApiContainer = styled.div`
 
