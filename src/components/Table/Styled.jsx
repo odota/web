@@ -54,6 +54,12 @@ export const StyledBody = styled.div`
         padding-right: 24px !important;
       }
     }
+    // function for colorizing columns
+    ${props => props.colColors.map(col => `
+      & td:nth-child(${col.index}), th:nth-child(${col.index}) {
+        background-color: ${col.color} !important;
+      }
+    `).join('')}
   }
   /* Override material-ui style */
 

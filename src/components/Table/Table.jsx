@@ -55,6 +55,19 @@ const toUnderline = (data, row, field, underline) => {
 
 const rowStyle = (highlightFn, row) => ({ backgroundColor: highlightFn && highlightFn(row) ? 'rgba(74, 149, 247, 0.038)' : 'none' });
 
+const compileColColors = (columns) => {
+  const colColors = [];
+  columns.forEach((col, i) => {
+    if (col.colColor) {
+      colColors.push({
+        index: i + 1,
+        color: col.colColor,
+      });
+    }
+  });
+  return colColors;
+};
+
 const initialState = {
   currentPage: 0,
   sortState: '',
@@ -151,7 +164,7 @@ class Table extends React.Component {
       data = data.slice(currentPage * pageLength, (currentPage + 1) * pageLength);
     }
     return (
-      <StyledBody hoverRowColumn={hoverRowColumn} >
+      <StyledBody hoverRowColumn={hoverRowColumn} colColors={compileColColors(columns)}>
         {paginated && <Pagination
           numPages={Math.ceil(dataLength / pageLength)}
           currentPage={currentPage}
