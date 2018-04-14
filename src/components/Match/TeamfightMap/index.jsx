@@ -377,72 +377,58 @@ class TeamfightMap extends Component {
     };
   }
 
-  onIconClick = teamfight => {
-    return () => {
-      // We do this because we need to prevent the map click event from
-      // being executed. That click event is innaccurate if the actual icon is clicked.
-      // event.stopPropagation();
-      this.setState({
-        teamfight,
+  onIconClick = teamfight => () => {
+    // We do this because we need to prevent the map click event from
+    // being executed. That click event is innaccurate if the actual icon is clicked.
+    // event.stopPropagation();
+    this.setState({
+      teamfight,
+    });
+  };
+
+  onMapClick = width => (event) => {
+    const { x: x1, y: y1 } = calculateRelativeXY(event);
+    const { teamfights } = this.props;
+    const newSelection = teamfights
+      .reduce((cursor, teamfight) => {
+        let newCursor = { ...cursor };
+        const { left: x2, top: y2 } = style(width, avgPosition(teamfight));
+        const distance = calculateDistance(x1, y1, x2 + (iconSize(width) / 2), y2 + (iconSize(width) / 2));
+        if (distance < cursor.distance) {
+          newCursor = {
+            teamfight,
+            distance,
+          };
+        }
+        return newCursor;
+      }, {
+        teamfight: this.state.teamfight,
+        distance: Infinity,
       });
-    };
+    this.setState({
+      teamfight: newSelection.teamfight,
+    });
   };
 
-  onMapClick = width => {
-    return (event) => {
-      const { x: x1, y: y1 } = calculateRelativeXY(event);
-      const { teamfights } = this.props;
-      const newSelection = teamfights
-        .reduce((cursor, teamfight) => {
-          let newCursor = { ...cursor };
-          const { left: x2, top: y2 } = style(width, avgPosition(teamfight));
-          const distance = calculateDistance(x1, y1, x2 + (iconSize(width) / 2), y2 + (iconSize(width) / 2));
-          if (distance < cursor.distance) {
-            newCursor = {
-              teamfight,
-              distance,
-            };
-          }
-          return newCursor;
-        }, {
-          teamfight: this.state.teamfight,
-          distance: Infinity,
-        });
-      this.setState({
-        teamfight: newSelection.teamfight,
-      });
-    };
+  onTeamfightHover = teamfight => () => {
+    this.setState({
+      hoveredTeamfight: teamfight,
+    });
   };
 
-  onTeamfightHover = teamfight => {
-    return () => {
-      this.setState({
-        hoveredTeamfight: teamfight,
-      });
-    };
-  };
+  onTimelineHover = start => this.curriedTeamfightHandler(this.onTeamfightHover, start);
 
-  onTimelineHover = start => {
-    return this.curriedTeamfightHandler(this.onTeamfightHover, start);
-  };
+  onTimelineIconClick = start => this.curriedTeamfightHandler(this.onIconClick, start);
 
-  onTimelineIconClick = start => {
-    return this.curriedTeamfightHandler(this.onIconClick, start);
-  };
-
-  curriedTeamfightHandler = (fn, start) => {
-    return (event) => {
-      fn(this.props.teamfights.find(tf => tf.start === start))(event);
-    };
+  curriedTeamfightHandler = (fn, start) => (event) => {
+    fn(this.props.teamfights.find(tf => tf.start === start))(event);
   };
 
   isHovered(teamfight = { start: null }) {
     return this.state.hoveredTeamfight && this.state.hoveredTeamfight.start === teamfight.start;
   }
 
-  isSelected = (teamfight = { start: null }) => {
-    return this.state.teamfight && this.state.teamfight.start === teamfight.start;
-  };
+  isSelected = (teamfight = { start: null }) => this.state.teamfight && this.state.teamfight.start === teamfight.start;
 
   render() {
     const { teamfights = [], match } = this.props;

@@ -72,9 +72,7 @@ class Explorer extends React.Component {
     });
   }
 
-  getSqlString = () => {
-    return this.editor.getSelectedText() || this.editor.getValue();
-  };
+  getSqlString = () => this.editor.getSelectedText() || this.editor.getValue();
 
   buildQuery = () => {
     // Note that this will not get expanded data for API-dependent fields (player/league/team)
@@ -115,7 +113,7 @@ class Explorer extends React.Component {
     return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
   };
 
-  handleResponse = json => {
+  handleResponse = (json) => {
     this.setState({
       ...this.state,
       loading: false,

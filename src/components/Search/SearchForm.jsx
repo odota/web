@@ -30,14 +30,14 @@ class SearchForm extends React.Component {
     debounce(this.props.dispatchSetQuery, 100);
   };
 
-  formSubmit = e => {
+  formSubmit = (e) => {
     const { query } = this.state;
     e.preventDefault();
     this.props.history.push(`/search?q=${query}`);
     this.props.dispatchSearch(query);
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { pathname } = window.location;
     const { value } = e.target;
 

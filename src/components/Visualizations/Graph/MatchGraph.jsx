@@ -132,7 +132,7 @@ class PlayersGraph extends React.Component {
     };
   }
 
-  handleMouseEnter = o => {
+  handleMouseEnter = (o) => {
     this.setState({
       hoverHero: o.dataKey,
     });

@@ -49,7 +49,7 @@ class LocalizationMenuItems extends Component {
     };
   }
 
-  handleOnClick = event => {
+  handleOnClick = (event) => {
     event.preventDefault();
     event.stopPropagation();
     this.setState({

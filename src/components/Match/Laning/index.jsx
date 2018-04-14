@@ -16,7 +16,7 @@ class Laning extends React.Component {
     };
   }
 
-  setSelectedPlayer = playerSlot => {
+  setSelectedPlayer = (playerSlot) => {
     this.setState({ ...this.state, selectedPlayer: playerSlot });
   };
 

@@ -94,7 +94,7 @@ class FormField extends React.Component {
     addChip(name, input, limit, history);
   };
 
-  handleUpdateInput = searchText => {
+  handleUpdateInput = (searchText) => {
     this.setState({
       searchText,
       errorText: '', // clear error when user types

@@ -31,7 +31,7 @@ class Dropdown extends Component {
     });
   };
 
-  handleTouchTap = event => {
+  handleTouchTap = (event) => {
     event.preventDefault();
     this.setState({
       open: true,

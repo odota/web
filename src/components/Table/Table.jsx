@@ -87,7 +87,7 @@ class Table extends React.Component {
     this.state = initialState;
   }
 
-  setCurrentPage = pageNumber => {
+  setCurrentPage = (pageNumber) => {
     this.setState({
       ...this.state,
       currentPage: pageNumber,

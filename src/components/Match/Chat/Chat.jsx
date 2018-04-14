@@ -347,7 +347,7 @@ class Chat extends React.Component {
     }, 500);
   };
 
-  filter = key => {
+  filter = (key) => {
     if (key !== undefined) {
       this.setState({ ...this.state, [key]: !this.state[key] });
     }

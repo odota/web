@@ -45,7 +45,7 @@ class Explorer extends React.Component {
     this.buildQuery(this.handleQuery);
   }
 
-  buildQuery = cb => {
+  buildQuery = (cb) => {
     const noOp = () => {};
     const expandedBuilder = expandBuilderState(this.state.builder, fields());
     this.setState({ sql: queryTemplate(expandedBuilder) }, cb || noOp);
@@ -79,7 +79,7 @@ class Explorer extends React.Component {
     return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
   };
 
-  handleResponse = json => {
+  handleResponse = (json) => {
     this.setState({
       ...this.state,
       loading: false,
