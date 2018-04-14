@@ -90,7 +90,7 @@ class Table extends React.Component {
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
   }
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.resetTableState) {
       this.setState(initialState);
     }

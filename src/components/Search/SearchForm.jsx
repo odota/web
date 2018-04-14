@@ -18,7 +18,7 @@ class SearchForm extends React.Component {
     this.debouncedSetQuery = this.debouncedSetQuery.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const params = querystring.parse(window.location.search.substring(1));
     const { pathname } = window.location;
     if (params.q && pathname === '/search') {

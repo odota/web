@@ -61,7 +61,7 @@ function updateWordCloud(wordCounts, cloudDomId) {
 }
 
 class Wordcloud extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.id = `a-${uuid.v4()}`;
   }
   componentDidMount() {

@@ -70,7 +70,7 @@ const mapDispatchToProps = dispatch => ({
 */
 
 class RequestLayer extends React.Component {
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
   }
 
   render() {

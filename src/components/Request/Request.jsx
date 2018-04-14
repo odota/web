@@ -15,7 +15,7 @@ class Request extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setState({ matchId: window.location.hash.slice(1) });
   }
 

@@ -31,7 +31,7 @@ const tableStyle = {
 };
 
 class Status extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setState({
       result: {},
     });

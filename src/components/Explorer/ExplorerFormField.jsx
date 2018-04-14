@@ -11,7 +11,7 @@ class ExplorerFormField extends React.Component {
     this.addChip = this.addChip.bind(this);
     this.deleteChip = this.deleteChip.bind(this);
   }
-  componentWillUpdate(newProps) {
+  UNSAFE_componentWillUpdate(newProps) {
     if (this.autocomplete && !this.autocomplete.state.searchText) {
       const {
         builderField, builder, fields,

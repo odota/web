@@ -136,7 +136,7 @@ class Vision extends React.Component {
     this.handleViewportChange = _.debounce(50, this.viewportChange);
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.sliderMax = props.match.duration;
   }
 
