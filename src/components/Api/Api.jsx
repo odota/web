@@ -145,12 +145,12 @@ class KeyManagement extends React.Component {
     const { loading, user } = this.props;
     const showLoginButton = !user;
     const showGetKeyButton = user && !(this.state.customer && this.state.customer.api_key);
-    const prem_unit = 10000;
-    const free_call_limit = 25000;
-    const free_rate_limit = 60;
-    const prem_rate_limit = 180;
-    const prem_price = '$1.00';
-    
+    const premUnit = 10000;
+    const freeCallLimit = 50000;
+    const freeRateLimit = 60;
+    const premRateLimit = 180;
+    const premPrice = '$1.00';
+
     return (
       <div>
         <Helmet>
@@ -278,7 +278,7 @@ class KeyManagement extends React.Component {
                 <TableRow>
                   <TableHeaderColumn>{strings.api_details_price}</TableHeaderColumn>
                   <TableRowColumn>{strings.api_details_price_free}</TableRowColumn>
-                  <TableRowColumn>{strings.api_details_price_prem.replace('$price', prem_price).replace('$unit', prem_unit)}</TableRowColumn>
+                  <TableRowColumn>{strings.api_details_price_prem.replace('$price', premPrice).replace('$unit', premUnit)}</TableRowColumn>
                 </TableRow>
                 <TableRow>
                   <TableHeaderColumn>{strings.api_details_key_required}</TableHeaderColumn>
@@ -287,13 +287,13 @@ class KeyManagement extends React.Component {
                 </TableRow>
                 <TableRow>
                   <TableHeaderColumn>{strings.api_details_call_limit}</TableHeaderColumn>
-                  <TableRowColumn>{strings.api_details_call_limit_free.replace('$limit', free_call_limit)}</TableRowColumn>
+                  <TableRowColumn>{strings.api_details_call_limit_free.replace('$limit', freeCallLimit)}</TableRowColumn>
                   <TableRowColumn>{strings.api_details_call_limit_prem}</TableRowColumn>
                 </TableRow>
                 <TableRow>
                   <TableHeaderColumn>{strings.api_details_rate_limit}</TableHeaderColumn>
-                  <TableRowColumn>{strings.api_details_rate_limit_val.replace('$num', free_rate_limit)}</TableRowColumn>
-                  <TableRowColumn>{strings.api_details_rate_limit_val.replace('$num', prem_rate_limit)}</TableRowColumn>
+                  <TableRowColumn>{strings.api_details_rate_limit_val.replace('$num', freeRateLimit)}</TableRowColumn>
+                  <TableRowColumn>{strings.api_details_rate_limit_val.replace('$num', premRateLimit)}</TableRowColumn>
                 </TableRow>
                 <TableRow>
                   <TableHeaderColumn>{strings.api_details_support}</TableHeaderColumn>
@@ -308,7 +308,7 @@ class KeyManagement extends React.Component {
           <DetailsContainer>
             <ul>
               <li>{strings.api_free_to_prem}</li>
-              <li>{strings.api_charging.replace('$price', prem_price).replace('$unit', prem_unit).replace('$cost', `$${1/prem_unit}`)}</li>
+              <li>{strings.api_charging.replace('$price', premPrice).replace('$unit', premUnit).replace('$cost', `$${1 / premUnit}`)}</li>
               <li>{strings.api_credit_required}</li>
               <li>{strings.api_stripe}</li>
               <li>{strings.api_delay}</li>

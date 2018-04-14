@@ -35,7 +35,7 @@
   "api_details_price_prem": "$price per $unit calls after free tier surpassed",
   "api_details_key_required": "Key Required?",
   "api_details_key_required_free": "No",
-  "api_details_key_required_prem": "Yes. Requires payment method.",
+  "api_details_key_required_prem": "Yes -- requires payment method",
   "api_details_call_limit": "Call Limit",
   "api_details_call_limit_free": "$limit per month",
   "api_details_call_limit_prem": "Unlimited",
