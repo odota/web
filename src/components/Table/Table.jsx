@@ -85,23 +85,21 @@ class Table extends React.Component {
   constructor() {
     super();
     this.state = initialState;
-    this.sortClick = this.sortClick.bind(this);
-    this.setCurrentPage = this.setCurrentPage.bind(this);
-    this.nextPage = this.nextPage.bind(this);
-    this.prevPage = this.prevPage.bind(this);
   }
   UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.resetTableState) {
       this.setState(initialState);
     }
   }
-  setCurrentPage(pageNumber) {
+
+  setCurrentPage = pageNumber => {
     this.setState({
       ...this.state,
       currentPage: pageNumber,
     });
-  }
-  sortClick(sortField, sortState, sortFn) {
+  };
+
+  sortClick = (sortField, sortState, sortFn) => {
     const { state } = this;
     this.setState({
       ...state,
@@ -109,19 +107,22 @@ class Table extends React.Component {
       sortField,
       sortFn,
     });
-  }
-  nextPage() {
+  };
+
+  nextPage = () => {
     this.setState({
       ...this.state,
       currentPage: this.state.currentPage + 1,
     });
-  }
-  prevPage() {
+  };
+
+  prevPage = () => {
     this.setState({
       ...this.state,
       currentPage: this.state.currentPage - 1,
     });
-  }
+  };
+
   render() {
     const {
       columns,

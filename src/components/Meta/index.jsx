@@ -40,22 +40,18 @@ class Explorer extends React.Component {
       builder: urlState,
       sql: '',
     };
-    this.handleQuery = this.handleQuery.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.handleResponse = this.handleResponse.bind(this);
-    this.buildQuery = this.buildQuery.bind(this);
-    this.syncWindowHistory = this.syncWindowHistory.bind(this);
-    this.handleFieldUpdate = this.handleFieldUpdate.bind(this);
   }
   componentDidMount() {
     this.buildQuery(this.handleQuery);
   }
-  syncWindowHistory() {
+
+  syncWindowHistory = () => {
     const objectToSerialize = this.state.builder;
     const stringToSerialize = `?${querystring.stringify(objectToSerialize)}`;
     window.history.pushState('', '', stringToSerialize);
-  }
-  handleQuery() {
+  };
+
+  handleQuery = () => {
     this.setState({
       ...this.state,
       loading: true,
@@ -63,22 +59,25 @@ class Explorer extends React.Component {
     this.syncWindowHistory();
     const sqlString = this.state.sql;
     return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
-  }
-  handleCancel() {
+  };
+
+  handleCancel = () => {
     this.setState({
       ...this.state,
       loading: false,
     });
     window.stop();
-  }
-  handleResponse(json) {
+  };
+
+  handleResponse = json => {
     this.setState({
       ...this.state,
       loading: false,
       result: json,
     });
-  }
-  handleFieldUpdate(builderField, value) {
+  };
+
+  handleFieldUpdate = (builderField, value) => {
     this.setState({
       ...this.state,
       builder: {
@@ -86,12 +85,14 @@ class Explorer extends React.Component {
         [builderField]: value,
       },
     }, this.buildQuery);
-  }
-  buildQuery(cb) {
+  };
+
+  buildQuery = cb => {
     const noOp = () => {};
     const expandedBuilder = expandBuilderState(this.state.builder, fields());
     this.setState({ sql: queryTemplate(expandedBuilder) }, cb || noOp);
-  }
+  };
+
   render() {
     const { builder } = this.state;
     const expandedFields = fields();

@@ -12,7 +12,6 @@ class Request extends React.Component {
   constructor() {
     super();
     this.state = {};
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   UNSAFE_componentWillMount() {
@@ -25,10 +24,10 @@ class Request extends React.Component {
     }
   }
 
-  handleSubmit() {
+  handleSubmit = () => {
     const { dispatchPostRequest } = this.props;
     dispatchPostRequest(this.state.matchId);
-  }
+  };
 
   render() {
     const { progress, error, loading } = this.props;

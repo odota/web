@@ -62,15 +62,6 @@ class Explorer extends React.Component {
       result: {},
       builder: urlState,
     };
-    this.instantiateEditor = this.instantiateEditor.bind(this);
-    this.toggleEditor = this.toggleEditor.bind(this);
-    this.handleQuery = this.handleQuery.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.handleResponse = this.handleResponse.bind(this);
-    this.getSqlString = this.getSqlString.bind(this);
-    this.buildQuery = this.buildQuery.bind(this);
-    this.syncWindowHistory = this.syncWindowHistory.bind(this);
-    this.handleFieldUpdate = this.handleFieldUpdate.bind(this);
   }
   componentDidMount() {
     this.props.dispatchProPlayers();
@@ -80,10 +71,12 @@ class Explorer extends React.Component {
       getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js', this.instantiateEditor);
     });
   }
-  getSqlString() {
+
+  getSqlString = () => {
     return this.editor.getSelectedText() || this.editor.getValue();
-  }
-  instantiateEditor() {
+  };
+
+  instantiateEditor = () => {
     const editor = ace.edit('editor');
     editor.setTheme('ace/theme/monokai');
     editor.getSession().setMode('ace/mode/sql');
@@ -108,18 +101,21 @@ class Explorer extends React.Component {
       ...this.state,
       loadingEditor: false,
     });
-  }
-  toggleEditor() {
+  };
+
+  toggleEditor = () => {
     this.setState({ ...this.state, showEditor: !this.state.showEditor });
     this.editor.renderer.updateFull();
-  }
-  syncWindowHistory() {
+  };
+
+  syncWindowHistory = () => {
     const sqlString = this.getSqlString();
     const objectToSerialize = this.state.showEditor ? { sql: sqlString, format: this.state.builder.format } : this.state.builder;
     const stringToSerialize = `?${querystring.stringify(objectToSerialize)}`;
     window.history.pushState('', '', stringToSerialize);
-  }
-  handleQuery() {
+  };
+
+  handleQuery = () => {
     if (this.state.loadingEditor === true) {
       return setTimeout(this.handleQuery, 1000);
     }
@@ -130,22 +126,25 @@ class Explorer extends React.Component {
     this.syncWindowHistory();
     const sqlString = this.getSqlString();
     return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
-  }
-  handleCancel() {
+  };
+
+  handleCancel = () => {
     this.setState({
       ...this.state,
       loading: false,
     });
     window.stop();
-  }
-  handleResponse(json) {
+  };
+
+  handleResponse = json => {
     this.setState({
       ...this.state,
       loading: false,
       result: json,
     });
-  }
-  handleFieldUpdate(builderField, value) {
+  };
+
+  handleFieldUpdate = (builderField, value) => {
     this.setState({
       ...this.state,
       builder: {
@@ -153,14 +152,16 @@ class Explorer extends React.Component {
         [builderField]: value,
       },
     }, this.buildQuery);
-  }
-  buildQuery() {
+  };
+
+  buildQuery = () => {
     // Note that this will not get expanded data for API-dependent fields (player/league/team)
     // This is ok if we only need the value prop (e.g. an id to build the query with)
     const expandedBuilder = expandBuilderState(this.state.builder, fields());
     // TODO handle arrays
     this.editor.setValue(queryTemplate(expandedBuilder));
-  }
+  };
+
   render() {
     if (!Object.keys(playerMapping).length) {
       this.props.proPlayers.forEach((player) => {

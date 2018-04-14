@@ -370,13 +370,6 @@ const avgPosition = ({ deaths_pos: deathPositions }) => {
 class TeamfightMap extends Component {
   constructor(props) {
     super();
-    this.isSelected = this.isSelected.bind(this);
-    this.onMapClick = this.onMapClick.bind(this);
-    this.onIconClick = this.onIconClick.bind(this);
-    this.onTimelineIconClick = this.onTimelineIconClick.bind(this);
-    this.onTimelineHover = this.onTimelineHover.bind(this);
-    this.onTeamfightHover = this.onTeamfightHover.bind(this);
-    this.curriedTeamfightHandler = this.curriedTeamfightHandler.bind(this);
     const { teamfights = [] } = props;
     const teamfight = teamfights.length > 0 ? teamfights[0] : null;
     this.state = {
@@ -384,23 +377,23 @@ class TeamfightMap extends Component {
     };
   }
 
-  onTimelineIconClick(start) {
+  onTimelineIconClick = start => {
     return this.curriedTeamfightHandler(this.onIconClick, start);
-  }
+  };
 
-  onTimelineHover(start) {
+  onTimelineHover = start => {
     return this.curriedTeamfightHandler(this.onTeamfightHover, start);
-  }
+  };
 
-  onTeamfightHover(teamfight) {
+  onTeamfightHover = teamfight => {
     return () => {
       this.setState({
         hoveredTeamfight: teamfight,
       });
     };
-  }
+  };
 
-  onIconClick(teamfight) {
+  onIconClick = teamfight => {
     return () => {
       // We do this because we need to prevent the map click event from
       // being executed. That click event is innaccurate if the actual icon is clicked.
@@ -409,9 +402,9 @@ class TeamfightMap extends Component {
         teamfight,
       });
     };
-  }
+  };
 
-  onMapClick(width) {
+  onMapClick = width => {
     return (event) => {
       const { x: x1, y: y1 } = calculateRelativeXY(event);
       const { teamfights } = this.props;
@@ -435,21 +428,21 @@ class TeamfightMap extends Component {
         teamfight: newSelection.teamfight,
       });
     };
-  }
+  };
 
-  curriedTeamfightHandler(fn, start) {
+  curriedTeamfightHandler = (fn, start) => {
     return (event) => {
       fn(this.props.teamfights.find(tf => tf.start === start))(event);
     };
-  }
+  };
 
   isHovered(teamfight = { start: null }) {
     return this.state.hoveredTeamfight && this.state.hoveredTeamfight.start === teamfight.start;
   }
 
-  isSelected(teamfight = { start: null }) {
+  isSelected = (teamfight = { start: null }) => {
     return this.state.teamfight && this.state.teamfight.start === teamfight.start;
-  }
+  };
 
   render() {
     const { teamfights = [], match } = this.props;

@@ -130,22 +130,19 @@ class PlayersGraph extends React.Component {
     this.state = {
       hoverHero: null,
     };
-
-    this.handleMouseEnter = this.handleMouseEnter.bind(this);
-    this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
 
-  handleMouseEnter(o) {
+  handleMouseEnter = o => {
     this.setState({
       hoverHero: o.dataKey,
     });
-  }
+  };
 
-  handleMouseLeave() {
+  handleMouseLeave = () => {
     this.setState({
       hoverHero: null,
     });
-  }
+  };
 
   render() {
     const { match, type } = this.props;

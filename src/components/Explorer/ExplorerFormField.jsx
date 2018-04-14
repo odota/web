@@ -5,12 +5,6 @@ import DatePicker from 'material-ui/DatePicker';
 // import FormField from '../Form/FormField';
 
 class ExplorerFormField extends React.Component {
-  constructor() {
-    super();
-    this.resetField = this.resetField.bind(this);
-    this.addChip = this.addChip.bind(this);
-    this.deleteChip = this.deleteChip.bind(this);
-  }
   UNSAFE_componentWillUpdate(newProps) {
     if (this.autocomplete && !this.autocomplete.state.searchText) {
       const {
@@ -27,7 +21,8 @@ class ExplorerFormField extends React.Component {
       }
     }
   }
-  resetField() {
+
+  resetField = () => {
     const { builderField, handleFieldUpdate } = this.props;
     // Set state on the ref'd component to clear it
     if (this.autocomplete) {
@@ -39,20 +34,23 @@ class ExplorerFormField extends React.Component {
       this.datepicker.setState({ date: undefined });
     }
     handleFieldUpdate(builderField, undefined);
-  }
-  addChip(name, input, limit) {
+  };
+
+  addChip = (name, input, limit) => {
     const currentChips = [].concat(this.props.builder[name] || []);
     const newChips = [input.key].concat(currentChips).slice(0, limit);
     this.props.handleFieldUpdate(name, newChips);
-  }
-  deleteChip(name, index) {
+  };
+
+  deleteChip = (name, index) => {
     const currentChips = [].concat(this.props.builder[name] || []);
     const newChips = [
       ...currentChips.slice(0, index),
       ...currentChips.slice(index + 1),
     ];
     this.props.handleFieldUpdate(name, newChips);
-  }
+  };
+
   render() {
     const {
       fields, label, builderField, handleFieldUpdate, isDateField, builder,

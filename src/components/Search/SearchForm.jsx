@@ -13,9 +13,6 @@ class SearchForm extends React.Component {
   constructor() {
     super();
     this.state = {};
-    this.formSubmit = this.formSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.debouncedSetQuery = this.debouncedSetQuery.bind(this);
   }
 
   UNSAFE_componentWillMount() {
@@ -29,18 +26,18 @@ class SearchForm extends React.Component {
     }
   }
 
-  formSubmit(e) {
+  formSubmit = e => {
     const { query } = this.state;
     e.preventDefault();
     this.props.history.push(`/search?q=${query}`);
     this.props.dispatchSearch(query);
-  }
+  };
 
-  debouncedSetQuery() {
+  debouncedSetQuery = () => {
     debounce(this.props.dispatchSetQuery, 100);
-  }
+  };
 
-  handleChange(e) {
+  handleChange = e => {
     const { pathname } = window.location;
     const { value } = e.target;
 
@@ -51,7 +48,7 @@ class SearchForm extends React.Component {
     if (pathname === '/search') {
       this.debouncedSetQuery(value);
     }
-  }
+  };
 
   render() {
     return (
