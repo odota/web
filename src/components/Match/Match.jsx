@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import Spinner from 'components/Spinner';
-import TabBar from 'components/TabBar';
-import { getMatch, getPvgnaHeroGuides } from 'actions';
+import Spinner from '../Spinner';
+import TabBar from '../TabBar';
+import { getMatch, getPvgnaHeroGuides } from '../../actions';
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
 
@@ -14,7 +14,7 @@ class RequestLayer extends React.Component {
     this.props.getPvgnaHeroGuides();
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.matchId !== nextProps.matchId) {
       this.props.getMatch(nextProps.matchId);
     }

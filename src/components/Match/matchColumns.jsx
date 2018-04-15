@@ -5,17 +5,16 @@ import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
 import abilityIds from 'dotaconstants/build/ability_ids.json';
-import abilityKeys from 'dotaconstants/build/ability_keys.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
-import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy } from 'utility';
-import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
-import { CompetitiveRank } from 'components/Visualizations/Table/HeroImage';
-import { IconBackpack, IconRadiant, IconDire } from 'components/Icons';
+import strings from '../../lang';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy } from '../../utility';
+import { TableHeroImage, inflictorWithValue } from '../Visualizations';
+import { CompetitiveRank } from '../Visualizations/Table/HeroImage';
+import { IconBackpack, IconRadiant, IconDire } from '../Icons';
 import constants from '../constants';
 import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
 import TargetsBreakdown from './TargetsBreakdown';
@@ -804,7 +803,7 @@ export const unitKillsColumns = [
     displayFn: (row, col, field) =>
       (
         <div>
-          {Object.keys(field || {}).map((unit, index) => <div key={index}>{`${field[unit]} ${unit}`}</div>)}
+          {Object.keys(field || {}).map(unit => <div key={unit}>{`${field[unit]} ${unit}`}</div>)}
         </div>),
     sumFn: (acc, row) => {
       const result = (acc != null) ? acc : {};
@@ -817,7 +816,7 @@ export const unitKillsColumns = [
     },
     displaySumFn: totals => (
       <div>
-        {Object.keys(totals || {}).map((unit, index) => <div key={index}>{`${totals[unit]} ${unit}`}</div>)}
+        {Object.keys(totals || {}).map(unit => <div key={unit}>{`${totals[unit]} ${unit}`}</div>)}
       </div>
     ),
   },
@@ -874,9 +873,9 @@ export const cosmeticsColumns = [
     displayName: strings.th_cosmetics,
     field: 'cosmetics',
     displayFn: (row, col, field) =>
-      field.map((cosmetic, i) =>
+      field.map(cosmetic =>
         (
-          <StyledCosmetic key={i} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
+          <StyledCosmetic key={cosmetic.item_id} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
             <a href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`} target="_blank" rel="noopener noreferrer">
               <img
                 src={`${process.env.REACT_APP_API_HOST}/apps/570/${cosmetic.image_path}`}
@@ -1025,16 +1024,11 @@ const playerDeaths = (row, col, field) => {
   );
 };
 
-const inflictorRow = obj => (row, col, field) =>
+const inflictorRow = (row, col, field) =>
   (field
     ?
       <div style={{ maxWidth: '100px' }}>
-        {Object.keys(field).map((inflictor) => {
-        if (obj[inflictor]) {
-          return inflictorWithValue(inflictor, field[inflictor]);
-        }
-        return null;
-      })}
+        {Object.keys(field).map(inflictor => inflictorWithValue(inflictor, field[inflictor]))}
       </div>
     : '');
 
@@ -1073,12 +1067,12 @@ export const teamfightColumns = [
   {
     displayName: strings.th_abilities,
     field: 'ability_uses',
-    displayFn: inflictorRow(abilityKeys),
+    displayFn: inflictorRow,
   },
   {
     displayName: strings.th_items,
     field: 'item_uses',
-    displayFn: inflictorRow(items),
+    displayFn: inflictorRow,
   },
 ];
 
@@ -1094,11 +1088,11 @@ const computeAverage = (row, type) => {
       totalDuration.push(duration);
     }
   });
-  let sum = 0;
+  let total = 0;
   for (let i = 0; i < totalDuration.length; i += 1) {
-    sum += totalDuration[i];
+    total += totalDuration[i];
   }
-  const avg = sum / totalDuration.length;
+  const avg = total / totalDuration.length;
 
   return avg;
 };

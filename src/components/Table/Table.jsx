@@ -7,9 +7,9 @@ import {
   TableRow as MaterialTableRow,
   TableRowColumn as MaterialTableRowColumn,
 } from 'material-ui/Table';
-import { TablePercent } from 'components/Visualizations';
-import Pagination from 'components/Table/PaginatedTable/Pagination';
-import { abbreviateNumber, SORT_ENUM, defaultSort } from 'utility';
+import { abbreviateNumber, SORT_ENUM, defaultSort } from '../../utility';
+import { TablePercent } from '../Visualizations';
+import Pagination from '../Table/PaginatedTable/Pagination';
 import TableHeader from './TableHeader';
 import Spinner from '../Spinner';
 import Error from '../Error';
@@ -85,23 +85,36 @@ class Table extends React.Component {
   constructor() {
     super();
     this.state = initialState;
-    this.sortClick = this.sortClick.bind(this);
-    this.setCurrentPage = this.setCurrentPage.bind(this);
-    this.nextPage = this.nextPage.bind(this);
-    this.prevPage = this.prevPage.bind(this);
   }
-  componentWillReceiveProps(newProps) {
-    if (newProps.resetTableState) {
-      this.setState(initialState);
-    }
-  }
-  setCurrentPage(pageNumber) {
+
+  setCurrentPage = (pageNumber) => {
     this.setState({
       ...this.state,
       currentPage: pageNumber,
     });
+  };
+
+  UNSAFE_componentWillReceiveProps(newProps) {
+    if (newProps.resetTableState) {
+      this.setState(initialState);
+    }
   }
-  sortClick(sortField, sortState, sortFn) {
+
+  nextPage = () => {
+    this.setState({
+      ...this.state,
+      currentPage: this.state.currentPage + 1,
+    });
+  };
+
+  prevPage = () => {
+    this.setState({
+      ...this.state,
+      currentPage: this.state.currentPage - 1,
+    });
+  };
+
+  sortClick = (sortField, sortState, sortFn) => {
     const { state } = this;
     this.setState({
       ...state,
@@ -109,19 +122,8 @@ class Table extends React.Component {
       sortField,
       sortFn,
     });
-  }
-  nextPage() {
-    this.setState({
-      ...this.state,
-      currentPage: this.state.currentPage + 1,
-    });
-  }
-  prevPage() {
-    this.setState({
-      ...this.state,
-      currentPage: this.state.currentPage - 1,
-    });
-  }
+  };
+
   render() {
     const {
       columns,
@@ -134,6 +136,7 @@ class Table extends React.Component {
       pageLength = 20,
       hoverRowColumn,
       highlightFn,
+      keyFn,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage,
@@ -176,16 +179,18 @@ class Table extends React.Component {
               </MaterialTableHeader>
               <MaterialTableBody displayRowCheckbox={false} selectable={false}>
                 {data.map((row, index) => (
-                  <MaterialTableRow key={index} style={rowStyle(highlightFn, row)}>
+                  <MaterialTableRow key={(keyFn && keyFn(row)) || index} style={rowStyle(highlightFn, row)}>
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,
-                        percentBarsWithValue, sortFn, invertBarColor, underline,
+                        percentBarsWithValue, invertBarColor, underline, colColor,
                       } = column;
-                      const getValue = typeof sortFn === 'function' ? sortFn : null;
+                      const columnSortFn = column.sortFn;
+                      const getValue = typeof columnSortFn === 'function' ? columnSortFn : null;
                       const value = getValue ? getValue(row) : row[field];
                       const style = {
                         overflow: `${field === 'kills' ? 'visible' : null}`,
+                        backgroundColor: colColor,
                         color,
                         marginBottom: 0,
                         textUnderlinePosition: 'under',
@@ -301,6 +306,7 @@ Table.propTypes = {
   pageLength: number,
   hoverRowColumn: bool,
   highlightFn: func,
+  keyFn: func,
 };
 
 export default Table;

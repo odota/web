@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
 import {
   XAxis,
   YAxis,
@@ -11,8 +10,9 @@ import {
   Legend,
   Label, ResponsiveContainer, Brush,
 } from 'recharts';
-import constants from 'components/constants';
 import styled from 'styled-components';
+import strings from '../../../lang';
+import constants from '../../constants';
 
 const StyledGraphArea = styled.div`
 user-select: none;

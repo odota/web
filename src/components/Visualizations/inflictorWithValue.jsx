@@ -4,13 +4,20 @@ import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
 import items from 'dotaconstants/build/items.json';
 import neutralAbilities from 'dotaconstants/build/neutral_abilities.json';
-import strings from 'lang';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import strings from '../../lang';
 import constants from '../constants';
 
 const customNameIcon = {
   kaya: 'trident',
+};
+
+const getInflictorImage = (inflictor) => {
+  if (inflictor.includes('recipe')) {
+    return 'recipe';
+  }
+  return customNameIcon[inflictor] || inflictor;
 };
 
 const customImageIcon = ['refresher_shard'];
@@ -220,7 +227,7 @@ const InflictorWithValueComp = ({
       if (customImageIcon.includes(inflictor)) {
         image = `/assets/images/dota2/${inflictor}.png`;
       } else {
-        image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${customNameIcon[inflictor] || inflictor}_lg.png`;
+        image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${getInflictorImage(inflictor)}_lg.png`;
       }
       tooltip = tooltipContainer(item);
     } else {

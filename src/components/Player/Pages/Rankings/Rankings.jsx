@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getPlayerRankings } from 'actions';
-import Table from 'components/Table';
-import Container from 'components/Container';
-import strings from 'lang';
+import { getPlayerRankings } from '../../../../actions';
+import Table from '../../../Table';
+import Container from '../../../Container';
+import strings from '../../../../lang';
 import playerRankingsColumns from './playerRankingsColumns';
 
 const Rankings = ({ data, error, loading }) => (
@@ -30,7 +30,7 @@ class RequestLayer extends React.Component {
     getData(this.props);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(this.props);
     }

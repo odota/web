@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { MMRGraph } from 'components/Visualizations';
-import { getPlayerMmr } from 'actions';
-import strings from 'lang';
-import Container from 'components/Container';
-import Info from 'components/Alerts/Info';
+import { MMRGraph } from '../../../Visualizations';
+import { getPlayerMmr } from '../../../../actions';
+import strings from '../../../../lang';
+import Container from '../../../Container';
+import Info from '../../../Alerts/Info';
 
 const MMRInfo = (
   <Info>
@@ -34,11 +34,11 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     getData(this.props);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }

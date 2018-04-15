@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatSeconds } from 'utility';
 import Slider from 'material-ui/Slider';
 import _ from 'lodash/fp';
-import strings from 'lang';
 import styled from 'styled-components';
+import { formatSeconds } from '../../../utility';
+import strings from '../../../lang';
 import VisionFilter from './VisionFilter';
 import VisionItems from './VisionItems';
 import VisionMap from './VisionMap';
@@ -136,10 +136,6 @@ class Vision extends React.Component {
     this.handleViewportChange = _.debounce(50, this.viewportChange);
   }
 
-  componentWillReceiveProps(props) {
-    this.sliderMax = props.match.duration;
-  }
-
   setPlayer(player, type, value) {
     const newArray = this.state.players[type];
     newArray[player] = value;
@@ -157,6 +153,10 @@ class Vision extends React.Component {
     }
     const newState = { ...this.state, teams: { ...this.state.teams, [team]: value }, players: { observer: newPlayerObs, sentry: newPlayerSentry } };
     this.setState(newState);
+  }
+
+  UNSAFE_componentWillReceiveProps(props) {
+    this.sliderMax = props.match.duration;
   }
 
   computeTick() {

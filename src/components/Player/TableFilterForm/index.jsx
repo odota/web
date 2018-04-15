@@ -4,10 +4,10 @@ import fetch from 'isomorphic-fetch';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import querystring from 'querystring';
-import strings from 'lang';
-import { toggleShowForm } from 'actions/formActions';
-import FormField from 'components/Form/FormField';
 import styled from 'styled-components';
+import { toggleShowForm } from '../../../actions/formActions';
+import FormField from '../../Form/FormField';
+import strings from '../../../lang';
 import * as data from './TableFilter.config';
 
 const Styled = styled.div`
@@ -57,7 +57,7 @@ class TableFilterForm extends React.Component {
     getPeers(this.props, this);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (nextProps.playerId !== this.props.playerId) {
       setShowFormState(nextProps);
       getPeers(nextProps, this);

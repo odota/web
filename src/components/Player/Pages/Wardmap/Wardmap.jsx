@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { calculateResponsiveState } from 'redux-responsive';
-import { getPlayerWardmap } from 'actions';
-import Heatmap from 'components/Heatmap';
-import Container from 'components/Container';
-import strings from 'lang';
-import { unpackPositionData } from 'utility';
 import styled from 'styled-components';
+import { unpackPositionData } from '../../../../utility';
+import { getPlayerWardmap } from '../../../../actions';
+import Heatmap from '../../../Heatmap';
+import Container from '../../../Container';
+import strings from '../../../../lang';
 
 const MAX_WIDTH = 1200;
 
@@ -32,19 +32,19 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
-  componentWillMount() {
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.props.updateWindowSize);
+  }
+
+  UNSAFE_componentWillMount() {
     getData(this.props);
     window.addEventListener('resize', this.props.updateWindowSize);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.props.updateWindowSize);
   }
 
   render() {

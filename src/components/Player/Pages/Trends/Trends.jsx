@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { TrendGraph } from 'components/Visualizations';
-import { getPlayerTrends } from 'actions';
-import ButtonGarden from 'components/ButtonGarden';
-import trendNames from 'components/Player/Pages/matchDataColumns';
-import Heading from 'components/Heading';
-import Container from 'components/Container';
-import strings from 'lang';
+import { TrendGraph } from '../../../Visualizations';
+import { getPlayerTrends } from '../../../../actions';
+import ButtonGarden from '../../../ButtonGarden';
+import trendNames from '../matchDataColumns';
+import Heading from '../../../Heading';
+import Container from '../../../Container';
+import strings from '../../../../lang';
 
 const Trend = ({
   routeParams, columns, playerId, error, loading, history,
@@ -54,11 +54,11 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     getData(this.props);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId
       || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);

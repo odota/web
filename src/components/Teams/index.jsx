@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import strings from 'lang';
-import { getTeams } from 'actions';
-import Heading from 'components/Heading';
-import Team from 'components/Team';
-import Table, { TableLink } from 'components/Table';
 import styled from 'styled-components';
-import { getOrdinal, getTeamLogoUrl, fromNow, subTextStyle } from 'utility';
+import FlatButton from 'material-ui/FlatButton';
+import { getOrdinal, getTeamLogoUrl, fromNow, subTextStyle } from '../../utility';
+import strings from '../../lang';
+import { getTeams } from '../../actions';
+import Heading from '../Heading';
+import Team from '../Team';
+import Table, { TableLink } from '../Table';
 import { Logo } from '../Team/TeamStyled';
 
 const TeamImageContainer = styled.div`
@@ -78,6 +79,15 @@ class RequestLayer extends React.Component {
     return (
       <div>
         <Helmet title={strings.header_teams} />
+        <div style={{ textAlign: 'center' }}>
+          <FlatButton
+            label={strings.app_rivalry}
+            icon={<img src="/assets/images/rivalry-icon.png" alt="" height="24px" />}
+            href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota"
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+        </div>
         <Heading title={strings.heading_team_elo_rankings} subtitle={strings.subheading_team_elo_rankings} />
         <Table columns={columns} data={this.props.data.slice(0, 100)} loading={loading} />
       </div>);

@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
+import styled from 'styled-components';
+import ReactTooltip from 'react-tooltip';
+import heroes from 'dotaconstants/build/heroes.json';
+import strings from '../../lang';
 import {
   formatSeconds,
   getHeroesById,
   translateBuildings,
   formatTemplate,
-} from 'utility';
-import styled from 'styled-components';
-import ReactTooltip from 'react-tooltip';
-import Table from 'components/Table';
-import heroes from 'dotaconstants/build/heroes.json';
-import FormField from 'components/Form/FormField';
-import { IconRadiant, IconDire } from 'components/Icons';
+} from '../../utility';
+import Table from '../Table';
+import FormField from '../Form/FormField';
+import { IconRadiant, IconDire } from '../Icons';
 import { heroTdColumn } from './matchColumns';
 import { StyledLogFilterForm } from './StyledMatch';
 
@@ -284,25 +284,22 @@ class MatchLog extends React.Component {
       text: heroes[player.hero_id] ? heroes[player.hero_id].localized_name : strings.general_no_hero,
       value: index,
     }));
-
-    this.addChip = this.addChip.bind(this);
-    this.deleteChip = this.deleteChip.bind(this);
   }
 
-  addChip(name, input, limit) {
+  addChip = (name, input, limit) => {
     const currentChips = this.state[name];
     const newChips = [input.value].concat(currentChips).slice(0, limit);
     this.setState({ [name]: newChips });
-  }
+  };
 
-  deleteChip(name, index) {
+  deleteChip = (name, index) => {
     const currentChips = this.state[name];
     const newChips = [
       ...currentChips.slice(0, index),
       ...currentChips.slice(index + 1),
     ];
     this.setState({ [name]: newChips });
-  }
+  };
 
   render() {
     const runeTooltips = Object.keys(strings)

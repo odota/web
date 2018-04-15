@@ -5,19 +5,19 @@ import items from 'dotaconstants/build/items.json';
 import patch from 'dotaconstants/build/patch.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
 import xpLevel from 'dotaconstants/build/xp_level.json';
-import { TableLink } from 'components/Table';
-import {
-  KDA,
-  TableHeroImage,
-  FromNowTooltip,
-} from 'components/Visualizations';
-import strings from 'lang';
 import _ from 'lodash/fp';
 import util from 'util';
 // import SvgIcon from 'material-ui/SvgIcon';
 import SocialPeople from 'material-ui/svg-icons/social/people';
 import SocialPerson from 'material-ui/svg-icons/social/person';
-import constants from 'components/constants';
+import strings from '../lang';
+import { TableLink } from '../components/Table';
+import {
+  KDA,
+  TableHeroImage,
+  FromNowTooltip,
+} from '../components/Visualizations';
+import constants from '../components/constants';
 
 export const iconStyle = {
   marginLeft: 5,
@@ -263,12 +263,14 @@ const getTitle = (row, col, heroName) => {
 export const transformations = {
   hero_id: (row, col, field, showPvgnaGuide = false, imageSizeSuffix = IMAGESIZE_ENUM.SMALL) => {
     const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
-    const imageUrl = heroes[row[col.field]] && process.env.REACT_APP_API_HOST + heroes[row[col.field]].img; // "[api url]/abaddon_full.png?"
-    const imageUrlNoSuffix = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
+    let imageUrl = heroes[row[col.field]] && process.env.REACT_APP_API_HOST + heroes[row[col.field]].img; // "[api url]/abaddon_full.png?"
+    if (imageUrl) {
+      imageUrl = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
+    }
     return (
       <TableHeroImage
         parsed={row.version}
-        image={imageUrlNoSuffix + imageSizeSuffix}
+        image={imageUrl + imageSizeSuffix}
         title={getTitle(row, col, heroName)}
         subtitle={getSubtitle(row)}
         heroName={heroName}
@@ -624,8 +626,8 @@ export const wilsonScore = (up, down) => {
   );
 };
 
-export const translateBuildings = (isRadiant, key) => {
-  const team = isRadiant ? strings.general_radiant : strings.general_dire;
+export const translateBuildings = (isRad, key) => {
+  const team = isRad ? strings.general_radiant : strings.general_dire;
   const k = key.split('_').slice(3).join('_');
   const dict = {
     fort: ` ${strings.building_ancient}`,

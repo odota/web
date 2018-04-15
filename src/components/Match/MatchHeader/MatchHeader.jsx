@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { transformations, isRadiant, sum } from 'utility';
-import strings from 'lang';
-import Spinner from 'components/Spinner';
-import { IconRadiant, IconDire } from 'components/Icons';
 import { Link } from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
+import styled from 'styled-components';
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
 import ActionFingerprint from 'material-ui/svg-icons/action/fingerprint';
 import FileFileDownload from 'material-ui/svg-icons/file/file-download';
-import Warning from 'components/Alerts';
-import styled from 'styled-components';
+import { transformations, isRadiant, sum } from '../../../utility';
+import strings from '../../../lang';
+import Spinner from '../../Spinner';
+import { IconRadiant, IconDire } from '../../Icons';
+import Warning from '../../Alerts';
 import constants from '../../constants';
 
 const Styled = styled.header`
@@ -330,6 +330,13 @@ const MatchHeader = ({ match, user, loading }) => {
             label={strings.app_pvgna}
             icon={<img src="/assets/images/pvgna-guide-icon.png" alt={strings.app_pvgna_alt} height="24px" />}
             href={`https://pvgna.com/?userSteamId=${user && user.account_id}&ref=yasp`}
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+          <FlatButton
+            label={strings.app_rivalry}
+            icon={<img src="/assets/images/rivalry-icon.png" alt="" height="24px" />}
+            href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota"
             target="_blank"
             rel="noopener noreferrer"
           />

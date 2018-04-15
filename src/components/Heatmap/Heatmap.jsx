@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import DotaMap from 'components/DotaMap';
 import uuid from 'uuid';
 import h337 from 'heatmap.js';
+import DotaMap from '../DotaMap';
 
 /**
  * Adjust each x/y coordinate by the provided scale factor.
@@ -36,9 +36,6 @@ const drawHeatmap = ({
 };
 
 class Heatmap extends Component {
-  componentWillMount() {
-    this.id = `a-${uuid.v4()}`;
-  }
   componentDidMount() {
     this.heatmap = h337.create({
       container: document.getElementById(this.id),
@@ -46,7 +43,10 @@ class Heatmap extends Component {
     });
     drawHeatmap(this.props, this.heatmap);
   }
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillMount() {
+    this.id = `a-${uuid.v4()}`;
+  }
+  UNSAFE_componentWillUpdate(nextProps) {
     drawHeatmap(nextProps, this.heatmap);
   }
 

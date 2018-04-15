@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isRadiant, getTeamName } from 'utility';
-import { IconRadiant, IconDire } from 'components/Icons';
-import Heading from 'components/Heading';
-import Table from 'components/Table';
+import { isRadiant, getTeamName } from '../../utility';
+import { IconRadiant, IconDire } from '../Icons';
+import Heading from '../Heading';
+import Table from '../Table';
 
 const filterMatchPlayers = (players, team = '') =>
   players

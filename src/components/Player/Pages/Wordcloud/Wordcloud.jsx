@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getPlayerWordcloud } from 'actions';
-import Container from 'components/Container';
-import Wordcloud from 'components/Wordcloud';
-import strings from 'lang';
+import { getPlayerWordcloud } from '../../../../actions';
+import Container from '../../../Container';
+import Wordcloud from '../../../Wordcloud';
+import strings from '../../../../lang';
 
 const getData = (props) => {
   props.getPlayerWordcloud(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     getData(this.props);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }

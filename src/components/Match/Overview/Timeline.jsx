@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
+import heroes from 'dotaconstants/build/heroes.json';
+import styled from 'styled-components';
 import {
   formatSeconds,
   isRadiant,
   jsonFn,
   getTeamName,
-} from 'utility';
+} from '../../../utility';
 import {
   IconBloodDrop,
   IconRoshan,
   IconBattle,
-} from 'components/Icons';
-import strings from 'lang';
-import ReactTooltip from 'react-tooltip';
-import heroes from 'dotaconstants/build/heroes.json';
-import PlayerThumb from 'components/Match/PlayerThumb';
-import styled from 'styled-components';
+} from '../../Icons';
+import strings from '../../../lang';
+import PlayerThumb from '../PlayerThumb';
 import constants from '../../constants';
 
 const Styled = styled.div`
@@ -405,7 +405,7 @@ const Timeline = ({
 
                   return (
                     <mark
-                      key={i}
+                      key={`${obj.type}_${obj.time}`}
                       className={obj.type === 'teamfight' ? 'teamfight' : side}
                       style={{
                         left: obj.time && `${
@@ -452,7 +452,7 @@ const Timeline = ({
                           <section>
                             {match.players
                               .filter(player => player.player_slot === obj.player_slot)
-                              .map((player, index) => <PlayerThumb key={index} {...player} />)
+                              .map(player => <PlayerThumb key={player.player_slot} {...player} />)
                             }
                             <span>
                               {obj.key ? strings.timeline_firstblood_key : strings.timeline_firstblood}
@@ -471,7 +471,7 @@ const Timeline = ({
                           match.players
                             .filter(player => player.player_slot === aegis[obj.key].player_slot)
                             .map(player => (
-                              <section key={i}>
+                              <section key={player.player_slot}>
                                 <PlayerThumb {...player} />
                                 <span>
                                   {!aegis[obj.key].act && strings.timeline_aegis_picked_up}

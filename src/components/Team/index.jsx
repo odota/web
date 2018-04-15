@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import { getTeam, getTeamHeroes, getTeamMatches, getTeamPlayers } from 'actions';
-import Spinner from 'components/Spinner';
-import TabBar from 'components/TabBar';
+import { getTeam, getTeamHeroes, getTeamMatches, getTeamPlayers } from '../../actions';
+import Spinner from '../Spinner';
+import TabBar from '../TabBar';
 import teamPages from './teamPages';
 import getTeamHeader from './TeamHeader';
 import { Column } from './TeamStyled';
@@ -22,7 +22,7 @@ class Team extends React.Component {
     getData(this.props);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.match.params.teamId !== nextProps.match.params.teamId) {
       getData(nextProps);
     }

@@ -1,13 +1,13 @@
-import Heading from 'components/Heading';
-import { IconRadiant, IconDire } from 'components/Icons';
+import React from 'react';
 import heroes from 'dotaconstants/build/heroes.json';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import { TableBody, TableRow, TableRowColumn, Table } from 'material-ui/Table';
 import PropTypes from 'prop-types';
-import React from 'react';
 import styled from 'styled-components';
-import { getTeamName } from 'utility';
+import Heading from '../../Heading';
+import { IconRadiant, IconDire } from '../../Icons';
+import { getTeamName } from '../../../utility';
 import constants from '../../constants';
 
 const Styled = styled.div`

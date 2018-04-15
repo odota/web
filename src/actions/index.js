@@ -1,11 +1,11 @@
-import transformMatch from 'actions/transformMatch';
-import transformBenchmarks from 'actions/transformBenchmarks';
-import transformCounts from 'actions/transformCounts';
-import transformHistograms from 'actions/transformHistograms';
-import transformTrends from 'actions/transformTrends';
-import transformRankings from 'actions/transformRankings';
-import action from 'actions/action';
 import querystring from 'querystring';
+import transformMatch from './transformMatch';
+import transformBenchmarks from './transformBenchmarks';
+import transformCounts from './transformCounts';
+import transformHistograms from './transformHistograms';
+import transformTrends from './transformTrends';
+import transformRankings from './transformRankings';
+import action from './action';
 
 export const getMetadata = () => action('metadata', process.env.REACT_APP_API_HOST, 'api/metadata');
 export const getMatch = matchId => action('match', process.env.REACT_APP_API_HOST, `api/matches/${matchId}`, {}, transformMatch);

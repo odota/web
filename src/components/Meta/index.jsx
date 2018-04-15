@@ -3,15 +3,15 @@ import React from 'react';
 import { connect }
   from 'react-redux';
 import fetch from 'isomorphic-fetch';
-import Spinner from 'components/Spinner';
 import RaisedButton from 'material-ui/RaisedButton';
-import ExplorerOutputSection from 'components/Explorer/ExplorerOutputSection';
-import ExplorerControlSection from 'components/Explorer/ExplorerControlSection';
-import ExplorerFormField from 'components/Explorer/ExplorerFormField';
-import strings from 'lang';
 import Helmet from 'react-helmet';
-import Heading from 'components/Heading';
 import querystring from 'querystring';
+import Spinner from '../Spinner';
+import strings from '../../lang';
+import ExplorerOutputSection from '../Explorer/ExplorerOutputSection';
+import ExplorerControlSection from '../Explorer/ExplorerControlSection';
+import ExplorerFormField from '../Explorer/ExplorerFormField';
+import Heading from '../Heading';
 import queryTemplate from './queryTemplate';
 import fields from './fields';
 
@@ -40,45 +40,26 @@ class Explorer extends React.Component {
       builder: urlState,
       sql: '',
     };
-    this.handleQuery = this.handleQuery.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.handleResponse = this.handleResponse.bind(this);
-    this.buildQuery = this.buildQuery.bind(this);
-    this.syncWindowHistory = this.syncWindowHistory.bind(this);
-    this.handleFieldUpdate = this.handleFieldUpdate.bind(this);
   }
   componentDidMount() {
     this.buildQuery(this.handleQuery);
   }
-  syncWindowHistory() {
-    const objectToSerialize = this.state.builder;
-    const stringToSerialize = `?${querystring.stringify(objectToSerialize)}`;
-    window.history.pushState('', '', stringToSerialize);
-  }
-  handleQuery() {
-    this.setState({
-      ...this.state,
-      loading: true,
-    });
-    this.syncWindowHistory();
-    const sqlString = this.state.sql;
-    return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
-  }
-  handleCancel() {
+
+  buildQuery = (cb) => {
+    const noOp = () => {};
+    const expandedBuilder = expandBuilderState(this.state.builder, fields());
+    this.setState({ sql: queryTemplate(expandedBuilder) }, cb || noOp);
+  };
+
+  handleCancel = () => {
     this.setState({
       ...this.state,
       loading: false,
     });
     window.stop();
-  }
-  handleResponse(json) {
-    this.setState({
-      ...this.state,
-      loading: false,
-      result: json,
-    });
-  }
-  handleFieldUpdate(builderField, value) {
+  };
+
+  handleFieldUpdate = (builderField, value) => {
     this.setState({
       ...this.state,
       builder: {
@@ -86,12 +67,32 @@ class Explorer extends React.Component {
         [builderField]: value,
       },
     }, this.buildQuery);
-  }
-  buildQuery(cb) {
-    const noOp = () => {};
-    const expandedBuilder = expandBuilderState(this.state.builder, fields());
-    this.setState({ sql: queryTemplate(expandedBuilder) }, cb || noOp);
-  }
+  };
+
+  handleQuery = () => {
+    this.setState({
+      ...this.state,
+      loading: true,
+    });
+    this.syncWindowHistory();
+    const sqlString = this.state.sql;
+    return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
+  };
+
+  handleResponse = (json) => {
+    this.setState({
+      ...this.state,
+      loading: false,
+      result: json,
+    });
+  };
+
+  syncWindowHistory = () => {
+    const objectToSerialize = this.state.builder;
+    const stringToSerialize = `?${querystring.stringify(objectToSerialize)}`;
+    window.history.pushState('', '', stringToSerialize);
+  };
+
   render() {
     const { builder } = this.state;
     const expandedFields = fields();

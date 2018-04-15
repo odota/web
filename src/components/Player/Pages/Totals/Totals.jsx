@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getPlayerTotals } from 'actions';
-import Container from 'components/Container';
-import strings from 'lang';
 import { CardTitle } from 'material-ui/Card';
 // import util from 'util';
+import { getPlayerTotals } from '../../../../actions';
+import Container from '../../../Container';
+import strings from '../../../../lang';
 
 const totalsToShow = {
   kills: 1,
@@ -81,7 +81,7 @@ class RequestLayer extends React.Component {
     getData(this.props);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }

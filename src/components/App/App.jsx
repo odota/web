@@ -5,24 +5,24 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Helmet from 'react-helmet';
-import strings from 'lang';
-import { Route } from 'react-router-dom';
-import Player from 'components/Player';
-import Home from 'components/Home';
-import Search from 'components/Search';
-import Explorer from 'components/Explorer';
-// import FourOhFour from 'components/FourOhFour';
-import Heroes from 'components/Heroes';
-import Request from 'components/Request';
-import Distributions from 'components/Distributions';
-import Status from 'components/Status';
-import Matches from 'components/Matches';
-import Teams from 'components/Teams';
-// import Assistant from 'components/Assistant';
-import Records from 'components/Records';
-// import Predictions from 'components/Predictions';
-import Meta from 'components/Meta';
 import styled from 'styled-components';
+import { Route } from 'react-router-dom';
+import strings from '../../lang';
+import Player from '../Player';
+import Home from '../Home';
+import Search from '../Search';
+import Explorer from '../Explorer';
+// import FourOhFour from '../FourOhFour';
+import Heroes from '../Heroes';
+import Request from '../Request';
+import Distributions from '../Distributions';
+import Status from '../Status';
+import Matches from '../Matches';
+import Teams from '../Teams';
+// import Assistant from '../Assistant';
+import Records from '../Records';
+// import Predictions from '../Predictions';
+import Meta from '../Meta';
 import Header from '../Header';
 import Footer from '../Footer';
 import constants from '../constants';
@@ -73,8 +73,17 @@ const StyledBodyDiv = styled.div`
   }
 `;
 
+const AdBannerDiv = styled.div`
+  text-align: center;
+
+  & img {
+    margin-top: 10px;
+    max-width: 100%;
+  }
+`;
+
 class App extends React.Component {
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.location.key !== nextProps.location.key) {
       window.scrollTo(0, 0);
     }
@@ -90,6 +99,13 @@ class App extends React.Component {
             titleTemplate={strings.title_template}
           />
           <Header params={params} location={location} />
+          <AdBannerDiv>
+            { location.pathname !== '/' &&
+              <a href="http://www.vpgame.com/?lang=en_us">
+                <img src="/assets/images/vp-banner.jpg" alt="" />
+              </a>
+            }
+          </AdBannerDiv>
           <StyledBodyDiv {...this.props}>
             <Route exact path="/" component={Home} />
             <Route exact path="/matches/:matchId?/:info?" component={Matches} />
@@ -104,6 +120,18 @@ class App extends React.Component {
             <Route exact path="/records/:info?" component={Records} />
             <Route exact path="/meta" component={Meta} />
           </StyledBodyDiv>
+          <AdBannerDiv>
+            { location.pathname !== '/' &&
+              <a href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota">
+                <img src="/assets/images/rivalry-banner.png" alt="" />
+              </a>
+            }
+            { location.pathname !== '/' &&
+              <div style={{ fontSize: '12px' }}>
+                {strings.home_sponsored_by} <a href="https://www.rivalry.gg">Rivalry</a>
+              </div>
+            }
+          </AdBannerDiv>
           <Footer location={location} width={width} />
         </StyledDiv>
       </MuiThemeProvider>

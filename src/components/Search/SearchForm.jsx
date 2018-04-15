@@ -4,21 +4,18 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { debounce } from 'lodash/fp';
 import TextField from 'material-ui/TextField';
-import { getSearchResultAndPros, setSearchQuery } from 'actions';
-import strings from 'lang';
 import querystring from 'querystring';
+import strings from '../../lang';
+import { getSearchResultAndPros, setSearchQuery } from '../../actions';
 import constants from '../constants';
 
 class SearchForm extends React.Component {
   constructor() {
     super();
     this.state = {};
-    this.formSubmit = this.formSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.debouncedSetQuery = this.debouncedSetQuery.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const params = querystring.parse(window.location.search.substring(1));
     const { pathname } = window.location;
     if (params.q && pathname === '/search') {
@@ -29,18 +26,18 @@ class SearchForm extends React.Component {
     }
   }
 
-  formSubmit(e) {
+  debouncedSetQuery = () => {
+    debounce(this.props.dispatchSetQuery, 100);
+  };
+
+  formSubmit = (e) => {
     const { query } = this.state;
     e.preventDefault();
     this.props.history.push(`/search?q=${query}`);
     this.props.dispatchSearch(query);
-  }
+  };
 
-  debouncedSetQuery() {
-    debounce(this.props.dispatchSetQuery, 100);
-  }
-
-  handleChange(e) {
+  handleChange = (e) => {
     const { pathname } = window.location;
     const { value } = e.target;
 
@@ -51,7 +48,7 @@ class SearchForm extends React.Component {
     if (pathname === '/search') {
       this.debouncedSetQuery(value);
     }
-  }
+  };
 
   render() {
     return (

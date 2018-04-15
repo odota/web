@@ -1,9 +1,6 @@
 import React, { createElement } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { isRadiant, formatSeconds } from 'utility';
-import strings from 'lang';
-import { IconRadiant, IconDire } from 'components/Icons';
 import AvVolumeUp from 'material-ui/svg-icons/av/volume-up';
 import Checkbox from 'material-ui/Checkbox';
 import Visibility from 'material-ui/svg-icons/action/visibility';
@@ -12,6 +9,9 @@ import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
 import styled from 'styled-components';
+import { isRadiant, formatSeconds } from '../../../utility';
+import strings from '../../../lang';
+import { IconRadiant, IconDire } from '../../Icons';
 import constants from '../../constants';
 
 const StyledDiv = styled.div`
@@ -329,12 +329,25 @@ class Chat extends React.Component {
         disabled: () => false,
       },
     };
-
-    this.filter = this.filter.bind(this);
-    this.audio = this.audio.bind(this);
   }
 
-  filter(key) {
+  audio = (key, index) => {
+    const a = new Audio(`/assets/chatwheel/dota_chatwheel_${key}.wav`);
+    a.play();
+    this.setState({
+      playing: index,
+    });
+    const i = setInterval(() => {
+      if (a.paused) {
+        this.setState({
+          playing: null,
+        });
+        clearInterval(i);
+      }
+    }, 500);
+  };
+
+  filter = (key) => {
     if (key !== undefined) {
       this.setState({ ...this.state, [key]: !this.state[key] });
     }
@@ -363,23 +376,7 @@ class Chat extends React.Component {
       }
       return timeDiff;
     });
-  }
-
-  audio(key, index) {
-    const a = new Audio(`/assets/chatwheel/dota_chatwheel_${key}.wav`);
-    a.play();
-    this.setState({
-      playing: index,
-    });
-    const i = setInterval(() => {
-      if (a.paused) {
-        this.setState({
-          playing: null,
-        });
-        clearInterval(i);
-      }
-    }, 500);
-  }
+  };
 
   render() {
     if (!this.messages) {
@@ -511,12 +508,12 @@ class Chat extends React.Component {
             <li key={cat}>
               <div>{strings[`chat_category_${cat}`]}</div>
               <ul>
-                {categories[cat].map((filter, index) => {
+                {categories[cat].map((filter) => {
                   const len = filter.f().length;
                   const lenFiltered = filter.f(this.messages).length;
 
                   return (
-                    <li key={index}>
+                    <li key={filter.name}>
                       <Checkbox
                         label={
                           <span>

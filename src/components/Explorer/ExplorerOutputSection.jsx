@@ -1,22 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import itemData from 'dotaconstants/build/items.json';
 import {
   transformations,
   formatSeconds,
 }
-  from 'utility';
-import { Link }
-  from 'react-router-dom';
-import strings from 'lang';
-import Table from 'components/Table';
-import itemData from 'dotaconstants/build/items.json';
-import { IconRadiant, IconDire } from 'components/Icons';
+  from '../../utility';
+import strings from '../../lang';
+import Table from '../Table';
+import { IconRadiant, IconDire } from '../Icons';
 // import heroes from 'dotaconstants/build/heroes.json';
 import {
   TablePercent,
   inflictorWithValue,
 }
-  from 'components/Visualizations';
+  from '../Visualizations';
 // import redrawGraphs from './redrawGraphs';
 import constants from '../constants';
 import { StyledTeamIconContainer } from '../Match/StyledMatch';

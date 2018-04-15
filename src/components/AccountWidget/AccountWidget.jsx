@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { getPlayer } from 'actions';
-import strings from 'lang';
-import { IconSteam } from 'components/Icons';
 import styled from 'styled-components';
+// import { getPlayer } from '../../actions';
+import strings from '../../lang';
+import { IconSteam } from '../Icons';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import LoggedIn from './LoggedIn';
@@ -63,19 +63,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-/*
-const mapDispatchToProps = dispatch => ({
-  getPlayer: playerId => dispatch(getPlayer(playerId)),
-});
-*/
-
-class RequestLayer extends React.Component {
-  componentWillUpdate() {
-  }
-
-  render() {
-    return <AccountWidget {...this.props} />;
-  }
+function RequestLayer(props) {
+  return <AccountWidget {...props} />;
 }
 
 export default connect(mapStateToProps, null)(RequestLayer);

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TeamTable from 'components/Match/TeamTable';
-import { visionColumns } from 'components/Match/matchColumns';
-import strings from 'lang';
+import TeamTable from '../TeamTable';
+import { visionColumns } from '../matchColumns';
+import strings from '../../../lang';
 
 const VisionItems = ({ match }) => (
   <TeamTable

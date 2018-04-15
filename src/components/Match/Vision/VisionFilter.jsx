@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
-import Table from 'components/Table';
-import strings from 'lang';
-import Heading from 'components/Heading';
+import Table from '../../Table';
+import strings from '../../../lang';
+import Heading from '../../Heading';
 
 import PlayerThumb from '../PlayerThumb';
 
@@ -19,19 +19,6 @@ const data = [
 ];
 
 export default class VisionFilter extends React.Component {
-  playerColumn(playerNumber) {
-    return {
-      displayName: <PlayerThumb {...this.props.match.players[playerNumber]} hideText />,
-      displayFn: row => (<Checkbox
-        checked={this.props.parent.state.players[row.type][playerNumber]}
-        onCheck={(event, checked) => {
-          this.props.parent.setPlayer(playerNumber, row.type, checked);
-        }
-        }
-      />),
-    };
-  }
-
   columns(index) {
     return [
       {
@@ -50,6 +37,19 @@ export default class VisionFilter extends React.Component {
       this.playerColumn(3 + index),
       this.playerColumn(4 + index),
     ];
+  }
+
+  playerColumn(playerNumber) {
+    return {
+      displayName: <PlayerThumb {...this.props.match.players[playerNumber]} hideText />,
+      displayFn: row => (<Checkbox
+        checked={this.props.parent.state.players[row.type][playerNumber]}
+        onCheck={(event, checked) => {
+          this.props.parent.setPlayer(playerNumber, row.type, checked);
+        }
+        }
+      />),
+    };
   }
 
   render() {

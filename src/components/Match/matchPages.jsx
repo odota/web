@@ -1,13 +1,13 @@
 import React from 'react';
-import strings from 'lang';
-import Heading from 'components/Heading';
-import Table from 'components/Table';
-import TeamfightMap from 'components/Match/TeamfightMap';
-import Purchases from 'components/Match/Purchases';
-import Timeline from 'components/Match/Overview/Timeline';
-import MatchGraph from 'components/Visualizations/Graph/MatchGraph';
-import StackedBarGraph from 'components/Visualizations/Graph/StackedBarGraph';
 import heroes from 'dotaconstants/build/heroes.json';
+import strings from '../../lang';
+import Heading from '../Heading';
+import Table from '../Table';
+import TeamfightMap from '../Match/TeamfightMap';
+import Purchases from '../Match/Purchases';
+import Timeline from '../Match/Overview/Timeline';
+import MatchGraph from '../Visualizations/Graph/MatchGraph';
+import StackedBarGraph from '../Visualizations/Graph/StackedBarGraph';
 import Draft from './Draft';
 import Vision from './Vision';
 import Laning from './Laning';
@@ -53,7 +53,7 @@ const matchPages = [Overview, {
   name: strings.tab_drafts,
   key: 'draft',
   parsed: true,
-  disabled: match => match.game_mode !== 2,
+  hidden: match => match.game_mode !== 2,
   content: match => (
     <div>
       <Draft
@@ -339,10 +339,6 @@ export default (matchId, match) => matchPages.map(page => ({
   parsed: page.parsed,
   content: page.content,
   route: `/matches/${matchId}/${page.key.toLowerCase()}`,
-  disabled: (m) => {
-    if (page.disabled) {
-      return page.disabled(m);
-    }
-    return match && !match.version && page.parsed;
-  },
+  disabled: match && !match.version && page.parsed,
+  hidden: m => page.hidden && page.hidden(m),
 }));
