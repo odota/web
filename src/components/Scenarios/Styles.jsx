@@ -18,6 +18,9 @@ export const StyledDiv = styled.div`
       }
     }
   }
+  #formHeading {
+    margin-bottom: 0px !important;
+  }
 }
 `;
 

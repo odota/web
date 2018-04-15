@@ -126,14 +126,13 @@ class Scenarios extends React.Component {
     const { selectedTab, formFields } = this.state;
     let { data } = scenariosState[selectedTab];
     const { queryForms, filterForms } = forms[selectedTab]
-    console.log(this.state)
     const { metadata, metadataLoading, metadataError } = scenariosState.metadata;
-    /*
     if (filterForms) {
       filterForms.forEach((key) => {
-          data = data.filter(x => Number(filterForms[key]) == x[key] || filterForms[key] == x[key] || !filterForms[key]);
+          const formValue = formFields[selectedTab] && formFields[selectedTab][key]
+          data = data.filter(row => Number(formValue) === row[key] || formValue === row[key] || !formValue);
       });
-    }*/
+    }
     return (
       <StyledDiv>
         {metadataError && <Error />}
@@ -147,7 +146,7 @@ class Scenarios extends React.Component {
             ))}
           </Tabs>
           <div style={formFieldStyle}>
-            {forms[selectedTab].map(field => (
+            {[...(queryForms || []), ...(filterForms || [])].map(field => (
               <ScenariosFormField
                 key={field + selectedTab}
                 field={field}

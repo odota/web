@@ -79,6 +79,7 @@ class ScenarioFormField extends React.Component {
   render() {
     const { field, selectedTab } = this.props;
     const { searchText } = this.state;
+    console.log(this.props)
     return (
       <div>
         <AutoComplete
