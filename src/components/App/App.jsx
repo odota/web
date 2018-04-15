@@ -7,25 +7,24 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { Route } from 'react-router-dom';
-import strings from '../../lang';
-import Player from '../Player';
-import Home from '../Home';
-import Search from '../Search';
-import Explorer from '../Explorer';
-// import FourOhFour from '../FourOhFour';
-import Heroes from '../Heroes';
-import Request from '../Request';
-import Distributions from '../Distributions';
-import Status from '../Status';
-import Matches from '../Matches';
-import Teams from '../Teams';
-// import Assistant from '../Assistant';
-import Records from '../Records';
-// import Predictions from '../Predictions';
-import Meta from '../Meta';
+import asyncComponent from '../AsyncComponent';
 import Header from '../Header';
 import Footer from '../Footer';
 import constants from '../constants';
+import strings from '../../lang';
+
+const Home = asyncComponent(() => import('../Home'));
+const Explorer = asyncComponent(() => import('../Explorer'));
+const Player = asyncComponent(() => import('../Player'));
+const Search = asyncComponent(() => import('../Search'));
+const Heroes = asyncComponent(() => import('../Heroes'));
+const Request =asyncComponent(() => import('../Request'));
+const Distributions = asyncComponent(() => import('../Distributions'));
+const Status = asyncComponent(() => import ('../Status'));
+const Matches = asyncComponent(() => import('../Matches'));
+const Teams = asyncComponent(() => import('../Teams'));
+const Records =asyncComponent(() => import('../Records'));
+const Meta = asyncComponent(() => import('../Meta'));
 
 const muiTheme = {
   fontFamily: constants.fontFamily,
@@ -108,6 +107,7 @@ class App extends React.Component {
           </AdBannerDiv>
           <StyledBodyDiv {...this.props}>
             <Route exact path="/" component={Home} />
+            <Route exact path="/explorer" component={Explorer} />
             <Route exact path="/matches/:matchId?/:info?" component={Matches} />
             <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
             <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
@@ -115,7 +115,6 @@ class App extends React.Component {
             <Route exact path="/distributions/:info?" component={Distributions} />
             <Route exact path="/request" component={Request} />
             <Route exact path="/status" component={Status} />
-            <Route exact path="/explorer" component={Explorer} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/records/:info?" component={Records} />
             <Route exact path="/meta" component={Meta} />
