@@ -18,12 +18,12 @@ const Explorer = asyncComponent(() => import('../Explorer'));
 const Player = asyncComponent(() => import('../Player'));
 const Search = asyncComponent(() => import('../Search'));
 const Heroes = asyncComponent(() => import('../Heroes'));
-const Request =asyncComponent(() => import('../Request'));
+const Request = asyncComponent(() => import('../Request'));
 const Distributions = asyncComponent(() => import('../Distributions'));
-const Status = asyncComponent(() => import ('../Status'));
+const Status = asyncComponent(() => import('../Status'));
 const Matches = asyncComponent(() => import('../Matches'));
 const Teams = asyncComponent(() => import('../Teams'));
-const Records =asyncComponent(() => import('../Records'));
+const Records = asyncComponent(() => import('../Records'));
 const Meta = asyncComponent(() => import('../Meta'));
 
 const muiTheme = {
