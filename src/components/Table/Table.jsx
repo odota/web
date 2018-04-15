@@ -180,7 +180,7 @@ class Table extends React.Component {
                   <MaterialTableRow key={(keyFn && keyFn(row)) || index} style={rowStyle(highlightFn, row)}>
                     {columns.map((column, colIndex) => {
                       const {
-                        field, color, center, displayFn, relativeBars, percentBars,
+                        field, color, center, displayFn, relativeBars, percentBars, abbreviateAltValue,
                         percentBarsWithValue, sortFn, invertBarColor, underline,
                       } = column;
                       const getValue = typeof sortFn === 'function' ? sortFn : null;
@@ -244,6 +244,7 @@ class Table extends React.Component {
                           percent={barPercentValue}
                           altValue={altValue}
                           inverse={invertBarColor}
+                          abbreviateAltValue
                         />);
                       } else if (displayFn) {
                         fieldEl = displayFn(row, column, value, index);

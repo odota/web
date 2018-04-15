@@ -19,13 +19,22 @@ import Error from '../Error';
 import Heading from '../Heading';
 import { groupByArray } from '../../utility/index';
 import { IconLaneRoles } from '../Icons';
+import { abbreviateNumber } from './../../utility/index';
 
 const minSampleSize = row => row.games > 200;
 
-const fields = {
-  itemTimings: ['hero_id', 'item'],
-  laneRoles: ['hero_id', 'lane_role'],
-  misc: ['scenario'],
+const forms = {
+  itemTimings: {
+    queryForms: ['hero_id', 'item'],
+    filterForms: ['time']
+  },
+  laneRoles: {
+    queryForms: ['hero_id', 'lane_role'],
+    filterForms: ['time']
+  },
+  misc: {
+    queryForms: ['scenario']
+  }
 };
 
 const menuItems = [{
@@ -62,13 +71,12 @@ class Scenarios extends React.Component {
   constructor(props) {
     super(props);
 
-    const dropDownValue = this.props.match.params.info || 'itemTimings';
+    const selectedTab = this.props.match.params.info || 'itemTimings';
     const params = this.props.location.search.substring(1);
     this.state = {
-      dropDownValue,
-      formFields: { [dropDownValue]: querystring.parse(params) || null },
+      selectedTab,
+      formFields: { [selectedTab]: querystring.parse(params) || null },
     };
-
     this.updateFormFieldStates();
 
     this.getData = this.getData.bind(this);
@@ -82,42 +90,50 @@ class Scenarios extends React.Component {
 
   getData() {
     const { scenariosDispatch } = this.props;
-    const { dropDownValue, formFields } = this.state;
-    scenariosDispatch[dropDownValue](formFields[dropDownValue]);
+    const { selectedTab, formFields } = this.state;
+    scenariosDispatch[selectedTab](formFields[selectedTab]);
   }
 
   initialQuery() {
     const { scenariosState } = this.props;
-    const { dropDownValue } = this.state;
-    const { data } = scenariosState[dropDownValue];
-    if (scenariosState[dropDownValue].loading && data.length === 0) {
+    const { selectedTab } = this.state;
+    const { data } = scenariosState[selectedTab];
+    if (scenariosState[selectedTab].loading && data.length === 0) {
       this.getData();
     }
     this.updateQueryParams();
   }
 
-  handleChange = (dropDownValue) => {
-    this.setState({ dropDownValue }, this.initialQuery);
+  handleChange = (selectedTab) => {
+    this.setState({ selectedTab }, this.initialQuery);
   }
 
   updateQueryParams() {
-    const { formFields, dropDownValue } = this.state;
+    const { formFields, selectedTab } = this.state;
     const { location } = this.props;
-    this.props.history.push(`${location.pathname}?${querystring.stringify(formFields[dropDownValue])}`);
+    this.props.history.push(`${location.pathname}?${querystring.stringify(formFields[selectedTab])}`);
   }
 
   updateFormFieldStates(newFormFieldState) {
-    const { dropDownValue, formFields } = this.state;
+    const { selectedTab, formFields } = this.state;
     this.setState({
-      formFields: { ...formFields, [dropDownValue]: { ...formFields[dropDownValue], ...newFormFieldState } },
+      formFields: { ...formFields, [selectedTab]: { ...formFields[selectedTab], ...newFormFieldState } },
     }, this.updateQueryParams);
   }
 
   render() {
     const { scenariosState } = this.props;
-    const { dropDownValue, formFields } = this.state;
-    const { data } = scenariosState[dropDownValue];
+    const { selectedTab, formFields } = this.state;
+    let { data } = scenariosState[selectedTab];
+    const { queryForms, filterForms } = forms[selectedTab]
+    console.log(this.state)
     const { metadata, metadataLoading, metadataError } = scenariosState.metadata;
+    /*
+    if (filterForms) {
+      filterForms.forEach((key) => {
+          data = data.filter(x => Number(filterForms[key]) == x[key] || filterForms[key] == x[key] || !filterForms[key]);
+      });
+    }*/
     return (
       <StyledDiv>
         {metadataError && <Error />}
@@ -125,19 +141,20 @@ class Scenarios extends React.Component {
         {!metadataError && !metadataLoading &&
         <div>
           <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} />
-          <Tabs value={dropDownValue} onChange={this.handleChange} style={tabsStyle}>
+          <Tabs value={selectedTab} onChange={this.handleChange} style={tabsStyle}>
             {menuItems.map(item => (
               <Tab label={item.text} value={item.value} icon={item.icon} containerElement={getLink(item.value)} className="tab" />
             ))}
           </Tabs>
           <div style={formFieldStyle}>
-            {fields[dropDownValue].map(field => (
+            {forms[selectedTab].map(field => (
               <ScenariosFormField
-                key={field + dropDownValue}
+                key={field + selectedTab}
                 field={field}
+                selectedTab={selectedTab}
                 updateQueryParams={this.updateQueryParams}
                 updateFormFieldState={this.updateFormFieldStates}
-                formFieldState={formFields[dropDownValue] && formFields[dropDownValue][field]}
+                formFieldState={formFields[selectedTab] && formFields[selectedTab][field]}
                 metadata={metadata}
               />
           ))}
@@ -153,10 +170,10 @@ class Scenarios extends React.Component {
           />
           <Heading title={strings.explorer_results} subtitle={`${data.filter(minSampleSize).length} ${strings.explorer_num_rows}`} />
           <Table
-            key={dropDownValue}
+            key={selectedTab}
             data={data.filter(minSampleSize)}
-            columns={getColumns(dropDownValue, metadata)}
-            loading={scenariosState[dropDownValue].loading}
+            columns={getColumns(selectedTab, metadata)}
+            loading={scenariosState[selectedTab].loading}
             paginated
           />
         </div>

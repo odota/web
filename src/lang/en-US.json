@@ -1217,7 +1217,7 @@
   "placement": "Placement",
   "exclude_turbo_matches": "Exclude Turbo matches",
 
-  "scenarios_subtitle": "Combination of factors that are present in a match",
+  "scenarios_subtitle": "Explore win rates of combinations of factors that happen in matches",
   "scenarios_item_timings": "Item Timings",
   "scenarios_misc": "Misc",
   "scenarios_time": "Time",

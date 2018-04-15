@@ -5,11 +5,20 @@ import getFormFieldData from './FormFieldData';
 import { autoCompleteStyle, listStyle } from './Styles';
 import strings from '../../lang';
 
-const hintText = {
-  hero_id: strings.filter_hero_id,
-  item: strings.scenarios_item,
-  scenario: strings.scenarios_scenario,
-  lane_role: strings.heading_lane_role,
+const hintTexts = {
+  itemTimings: {
+    hero_id: strings.filter_hero_id,
+    item: strings.scenarios_item,
+    time: strings.scenarios_time,
+  },
+  laneRoles: {
+    hero_id: strings.filter_hero_id,
+    lane_role: strings.heading_lane_role,
+    time: strings.scenarios_game_duration,
+  },
+  misc: {
+    scenario: strings.scenarios_scenario,
+  }
 };
 
 const customStyles = {
@@ -19,19 +28,29 @@ const customStyles = {
 class ScenarioFormField extends React.Component {
   constructor(props) {
     super(props);
-    const { field, formFieldState, metadata } = this.props;
-
+    const { field, formFieldState, metadata, selectedTab } = this.props;
+    console.log(this.props)
     const {
-      heroList, itemList, laneRoleList, miscList,
+      heroList, itemList, laneRoleList, miscList, gameDurationList, timingList,
     } = getFormFieldData(metadata);
     this.dataSources = {
-      hero_id: heroList,
-      item: itemList,
-      lane_role: laneRoleList,
-      scenario: miscList,
+      itemTimings: {
+        hero_id: heroList,
+        item: itemList,
+        time: timingList
+      },
+      laneRoles: {
+        hero_id: heroList,
+        lane_role: laneRoleList,
+        time: gameDurationList,
+      },
+      misc: {
+        scenario: miscList,
+      }
     };
 
-    let searchText = this.dataSources[field].find(el => el.value === formFieldState);
+
+    let searchText = this.dataSources[selectedTab][field].find(el => el.value === formFieldState);
     searchText = searchText ? searchText.text : '';
 
     this.state = {
@@ -58,7 +77,7 @@ class ScenarioFormField extends React.Component {
   }
 
   render() {
-    const { field } = this.props;
+    const { field, selectedTab } = this.props;
     const { searchText } = this.state;
     return (
       <div>
@@ -66,8 +85,8 @@ class ScenarioFormField extends React.Component {
           openOnFocus
           listStyle={{ ...listStyle, ...customStyles[field] }}
           filter={AutoComplete.caseInsensitiveFilter}
-          floatingLabelText={hintText[field]}
-          dataSource={this.dataSources[field]}
+          floatingLabelText={hintTexts[selectedTab][field]}
+          dataSource={this.dataSources[selectedTab][field]}
           onClick={this.resetField}
           onUpdateInput={this.handleUpdateInput}
           searchText={searchText}

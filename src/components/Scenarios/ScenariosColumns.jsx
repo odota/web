@@ -4,7 +4,7 @@ import { transformations, formatSeconds } from '../../utility';
 
 const computeWinRate = row => (row.wins / row.games);
 
-const getTimeRange = (field, metadata) => {
+export const getTimeRange = (field, metadata) => {
   let lower;
   if (metadata.indexOf(field) !== 0) {
     lower = metadata[metadata.indexOf(field) - 1];
@@ -15,69 +15,72 @@ const getTimeRange = (field, metadata) => {
 };
 
 const getColumns = (f, metadata) => {
-  const columns =
-{
-  itemTimings: [{
-    displayName: strings.filter_hero_id,
-    field: 'hero_id',
-    sortFn: true,
-    displayFn: transformations.hero_id,
-  }, {
-    displayName: strings.scenarios_time,
-    field: 'time',
-    sortFn: row => row.time,
-    displayFn: (row, col, field) => getTimeRange(field, metadata.timings),
-  }, {
-    displayName: strings.scenarios_item,
-    field: 'item',
-    sortFn: true,
-    displayFn: (row, col, field) => inflictorWithValue(field),
-  }, {
-    displayName: strings.heading_win_rate,
-    field: 'games',
-    sortFn: computeWinRate,
-    percentBarsWithValue: row => row.games,
-    tooltip: strings.tooltip_winrate_samplesize,
-  }],
+  const columns = {
+    itemTimings: [{
+      displayName: strings.filter_hero_id,
+      field: 'hero_id',
+      sortFn: true,
+      displayFn: transformations.hero_id,
+    }, {
+      displayName: strings.scenarios_time,
+      field: 'time',
+      sortFn: row => row.time,
+      displayFn: (row, col, field) => getTimeRange(field, metadata.timings),
+    }, {
+      displayName: strings.scenarios_item,
+      field: 'item',
+      sortFn: true,
+      displayFn: (row, col, field) => inflictorWithValue(field),
+    }, {
+      displayName: strings.heading_win_rate,
+      field: 'games',
+      sortFn: computeWinRate,
+      percentBarsWithValue: row => row.games,
+      abbreviateAltValue: true,
+      tooltip: strings.tooltip_winrate_samplesize,
+    }],
 
-  laneRoles: [{
-    displayName: strings.filter_hero_id,
-    field: 'hero_id',
-    sortFn: true,
-    displayFn: transformations.hero_id,
-  }, {
-    displayName: strings.heading_lane_role,
-    field: 'lane_role',
-    sortFn: true,
-    displayFn: (row, col, field) => strings[`lane_role_${field}`] || field,
-  }, {
-    displayName: strings.scenarios_game_duration,
-    field: 'time',
-    sortFn: true,
-    displayFn: (row, col, field) => getTimeRange(field, metadata.gameDurationBucket),
-  }, {
-    displayName: strings.heading_win_rate,
-    field: 'games',
-    sortFn: computeWinRate,
-    percentBarsWithValue: row => row.games,
-    tooltip: strings.tooltip_winrate_samplesize,
-  }],
+    laneRoles: [{
+      displayName: strings.filter_hero_id,
+      field: 'hero_id',
+      sortFn: true,
+      displayFn: transformations.hero_id,
+    }, {
+      displayName: strings.heading_lane_role,
+      field: 'lane_role',
+      sortFn: true,
+      displayFn: (row, col, field) => strings[`lane_role_${field}`] || field,
+    }, {
+      displayName: strings.scenarios_game_duration,
+      field: 'time',
+      sortFn: true,
+      displayFn: (row, col, field) => getTimeRange(field, metadata.gameDurationBucket),
+    }, {
+      displayName: strings.heading_win_rate,
+      field: 'games',
+      sortFn: computeWinRate,
+      percentBarsWithValue: row => row.games,
+      abbreviateAltValue: true,
+      tooltip: strings.tooltip_winrate_samplesize,
+    }],
 
-  misc: [{
-    displayName: strings.scenarios_scenario,
-    field: 'scenario',
-    sortFn: true,
-    displayFn: (row, col, field) => strings[`scenarios_${field}`] || field,
-  }, {
-    displayName: strings.heading_win_rate,
-    field: 'games',
-    sortFn: computeWinRate,
-    percentBarsWithValue: row => row.games,
-    tooltip: strings.tooltip_winrate_samplesize,
-  }],
-};
+    misc: [{
+      displayName: strings.scenarios_scenario,
+      field: 'scenario',
+      sortFn: true,
+      displayFn: (row, col, field) => strings[`scenarios_${field}`] || field,
+    }, {
+      displayName: strings.heading_win_rate,
+      field: 'games',
+      sortFn: computeWinRate,
+      percentBarsWithValue: row => row.games,
+      abbreviateAltValue: true,
+      tooltip: strings.tooltip_winrate_samplesize,
+    }],
+  };
 
   return columns[f];
 };
 
 export default getColumns;
+

@@ -1,9 +1,10 @@
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import strings from '../../lang';
+import { getTimeRange } from './ScenariosColumns';
 
 export default function getFormFieldData(metadata) {
-  const { teamScenariosQueryParams, itemCost } = metadata;
+  const { teamScenariosQueryParams, itemCost, gameDurationBucket, timings } = metadata;
 
   return {
     heroList: Object.keys(heroes).map(id => ({
@@ -20,5 +21,9 @@ export default function getFormFieldData(metadata) {
     laneRoleList: [1, 2, 3, 4].map(role => ({ text: strings[`lane_role_${role}`], value: role.toString() })),
 
     miscList: teamScenariosQueryParams.map(scenario => ({ text: strings[`scenarios_${scenario}`], value: scenario })),
+
+    gameDurationList: gameDurationBucket.map(time => ({ text: getTimeRange(time, gameDurationBucket), value: time.toString() })),
+
+    timingList: timings.map(time => ({ text: getTimeRange(time, timings), value: time.toString() })), 
   };
 }
