@@ -61,5 +61,13 @@ export const getPlayerWordcloud = (accountId, params) => action('playerWordcloud
 export const getPlayerTotals = (accountId, params) => action('playerTotals', process.env.REACT_APP_API_HOST, `api/players/${accountId}/totals`, params);
 export const getPlayerMmr = (accountId, params) => action('playerMmr', process.env.REACT_APP_API_HOST, `api/players/${accountId}/ratings`, params);
 export const getPlayerRankings = (accountId, params) => action('playerRankings', process.env.REACT_APP_API_HOST, `api/players/${accountId}/rankings`, params, transformRankings);
+export const getStrings = () => async (dispatch) => {
+  const { langs } = require('../lang');
+  const savedLang = window.localStorage && window.localStorage.getItem('localization');
+  const selectedLang = langs.find(lang => lang.value === savedLang) || langs[0];
+  const defData = await import('../lang/' + langs[0].data);
+  const selData = await import('../lang/' + selectedLang.data);
+  dispatch({ type: 'strings', payload: { ...defData, ...selData } });
+};
 export * from './requestActions';
 export * from './formActions';
