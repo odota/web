@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
 import items from 'dotaconstants/build/items.json';
@@ -284,7 +285,7 @@ class InflictorWithValue extends React.Component {
   }
 }
 
-InflictorWithValueComp.propTypes = {
+InflictorWithValue.propTypes = {
   inflictor: PropTypes.string,
   value: PropTypes.string,
   type: PropTypes.string,
