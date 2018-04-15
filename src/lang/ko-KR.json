@@ -46,6 +46,8 @@
   "app_dotacoach": "코치에게 질문하세요",
   "app_pvgna": "가이드 찾기",
   "app_pvgna_alt": "Pvgna의 도타2 가이드 찾기",
+  "app_rivalry": "Bet on Pro Matches",
+  "app_rivalry_team": "Bet on %s Matches",
   "app_refresh": "매치 기록 새로고침: 개인 설정 때문에 빠진 매치를 찾는 것을 탐색합니다.",
   "app_refresh_label": "새로고침",
   "app_login": "로그인",

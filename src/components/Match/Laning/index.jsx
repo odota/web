@@ -14,11 +14,12 @@ class Laning extends React.Component {
     this.state = {
       selectedPlayer: 0,
     };
-    this.setSelectedPlayer = this.setSelectedPlayer.bind(this);
   }
-  setSelectedPlayer(playerSlot) {
+
+  setSelectedPlayer = (playerSlot) => {
     this.setState({ ...this.state, selectedPlayer: playerSlot });
-  }
+  };
+
   render() {
     const { match } = this.props;
     return (

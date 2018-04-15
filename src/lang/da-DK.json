@@ -46,6 +46,8 @@
   "app_dotacoach": "Spørg en Coach",
   "app_pvgna": "Find en Guide",
   "app_pvgna_alt": "Find en Dota 2 Guide på Pvgna",
+  "app_rivalry": "Bet on Pro Matches",
+  "app_rivalry_team": "Bet on %s Matches",
   "app_refresh": "Opdater Kamphistorie: Sæt en skanning i kø for at finde manglende kampe pga. privatlivsindstillinger",
   "app_refresh_label": "Opdater",
   "app_login": "Log ind",

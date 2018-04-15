@@ -45,11 +45,9 @@ class FormField extends React.Component {
       searchText: '',
       errorText: '',
     };
-    this.handleSelect = this.handleSelect.bind(this);
-    this.handleUpdateInput = this.handleUpdateInput.bind(this);
   }
 
-  handleSelect(value, index) {
+  handleSelect = (value, index) => {
     const {
       name,
       dataSource,
@@ -94,14 +92,14 @@ class FormField extends React.Component {
 
     this.handleUpdateInput('');
     addChip(name, input, limit, history);
-  }
+  };
 
-  handleUpdateInput(searchText) {
+  handleUpdateInput = (searchText) => {
     this.setState({
       searchText,
       errorText: '', // clear error when user types
     });
-  }
+  };
 
   render() {
     const {

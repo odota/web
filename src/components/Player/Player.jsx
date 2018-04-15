@@ -24,7 +24,7 @@ class RequestLayer extends React.Component {
     props.getPlayerWinLoss(playerId, props.location.search);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     const props = nextProps;
     const { playerId } = props.match.params;
     if (this.props.match.params.playerId !== playerId) {

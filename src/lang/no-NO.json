@@ -46,6 +46,8 @@
   "app_dotacoach": "Ask a Coach",
   "app_pvgna": "Find a Guide",
   "app_pvgna_alt": "Find a Dota 2 Guide on Pvgna",
+  "app_rivalry": "Bet on Pro Matches",
+  "app_rivalry_team": "Bet on %s Matches",
   "app_refresh": "Refresh Match History: Queue a scan to find missing matches due to privacy settings",
   "app_refresh_label": "Refresh",
   "app_login": "Innlogging",

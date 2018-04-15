@@ -19,19 +19,6 @@ const data = [
 ];
 
 export default class VisionFilter extends React.Component {
-  playerColumn(playerNumber) {
-    return {
-      displayName: <PlayerThumb {...this.props.match.players[playerNumber]} hideText />,
-      displayFn: row => (<Checkbox
-        checked={this.props.parent.state.players[row.type][playerNumber]}
-        onCheck={(event, checked) => {
-          this.props.parent.setPlayer(playerNumber, row.type, checked);
-        }
-        }
-      />),
-    };
-  }
-
   columns(index) {
     return [
       {
@@ -50,6 +37,19 @@ export default class VisionFilter extends React.Component {
       this.playerColumn(3 + index),
       this.playerColumn(4 + index),
     ];
+  }
+
+  playerColumn(playerNumber) {
+    return {
+      displayName: <PlayerThumb {...this.props.match.players[playerNumber]} hideText />,
+      displayFn: row => (<Checkbox
+        checked={this.props.parent.state.players[row.type][playerNumber]}
+        onCheck={(event, checked) => {
+          this.props.parent.setPlayer(playerNumber, row.type, checked);
+        }
+        }
+      />),
+    };
   }
 
   render() {

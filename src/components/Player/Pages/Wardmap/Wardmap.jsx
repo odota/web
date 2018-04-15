@@ -32,19 +32,19 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
-  componentWillMount() {
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.props.updateWindowSize);
+  }
+
+  UNSAFE_componentWillMount() {
     getData(this.props);
     window.addEventListener('resize', this.props.updateWindowSize);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.props.updateWindowSize);
   }
 
   render() {

@@ -127,7 +127,7 @@ class RequestLayer extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.getPulls(this.getDate(5));
   }
 
