@@ -4,7 +4,9 @@ import strings from '../../lang';
 import { getTimeRange } from './ScenariosColumns';
 
 export default function getFormFieldData(metadata) {
-  const { teamScenariosQueryParams, itemCost, gameDurationBucket, timings } = metadata;
+  const {
+    teamScenariosQueryParams, itemCost, gameDurationBucket, timings,
+  } = metadata;
 
   return {
     heroList: Object.keys(heroes).map(id => ({
@@ -24,6 +26,6 @@ export default function getFormFieldData(metadata) {
 
     gameDurationList: gameDurationBucket.map(time => ({ text: getTimeRange(time, gameDurationBucket), value: time.toString() })),
 
-    timingList: timings.map(time => ({ text: getTimeRange(time, timings), value: time.toString() })), 
+    timingList: timings.map(time => ({ text: getTimeRange(time, timings), value: time.toString() })),
   };
 }

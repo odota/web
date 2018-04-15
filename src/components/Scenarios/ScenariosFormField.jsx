@@ -18,7 +18,7 @@ const hintTexts = {
   },
   misc: {
     scenario: strings.scenarios_scenario,
-  }
+  },
 };
 
 const customStyles = {
@@ -28,8 +28,9 @@ const customStyles = {
 class ScenarioFormField extends React.Component {
   constructor(props) {
     super(props);
-    const { field, formFieldState, metadata, selectedTab } = this.props;
-    console.log(this.props)
+    const {
+      field, formFieldState, metadata, selectedTab,
+    } = this.props;
     const {
       heroList, itemList, laneRoleList, miscList, gameDurationList, timingList,
     } = getFormFieldData(metadata);
@@ -37,7 +38,7 @@ class ScenarioFormField extends React.Component {
       itemTimings: {
         hero_id: heroList,
         item: itemList,
-        time: timingList
+        time: timingList,
       },
       laneRoles: {
         hero_id: heroList,
@@ -46,7 +47,7 @@ class ScenarioFormField extends React.Component {
       },
       misc: {
         scenario: miscList,
-      }
+      },
     };
 
 
@@ -77,9 +78,8 @@ class ScenarioFormField extends React.Component {
   }
 
   render() {
-    const { field, selectedTab } = this.props;
+    const { field, selectedTab, className } = this.props;
     const { searchText } = this.state;
-    console.log(this.props)
     return (
       <div>
         <AutoComplete
@@ -93,7 +93,7 @@ class ScenarioFormField extends React.Component {
           searchText={searchText}
           onNewRequest={this.handleRequest}
           style={autoCompleteStyle}
-          className="autocomplete"
+          className={[className, 'autocomplete'].join(' ')}
         />
       </div>
     );
@@ -105,6 +105,8 @@ ScenarioFormField.propTypes = {
   formFieldState: PropTypes.shape({}),
   metadata: PropTypes.shape({}),
   updateFormFieldState: PropTypes.func,
+  selectedTab: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default ScenarioFormField;

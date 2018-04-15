@@ -36,6 +36,7 @@ Percent.propTypes = {
   altValue: oneOfType([string, number, bool]),
   valEl: node,
   inverse: bool,
+  abbreviateAltValue: bool,
 };
 
 export default Percent;

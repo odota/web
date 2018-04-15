@@ -180,7 +180,7 @@ class Table extends React.Component {
                   <MaterialTableRow key={(keyFn && keyFn(row)) || index} style={rowStyle(highlightFn, row)}>
                     {columns.map((column, colIndex) => {
                       const {
-                        field, color, center, displayFn, relativeBars, percentBars, abbreviateAltValue,
+                        field, color, center, displayFn, relativeBars, percentBars,
                         percentBarsWithValue, sortFn, invertBarColor, underline,
                       } = column;
                       const getValue = typeof sortFn === 'function' ? sortFn : null;

@@ -2,7 +2,13 @@ import styled from 'styled-components';
 import constants from '../constants';
 
 export const StyledDiv = styled.div`
-  .autocomplete:hover label {
+  .filter > label {
+    color: ${constants.colorMuted} !important;
+  }
+  .query:hover label {
+    color: ${constants.colorBlue} !important;
+  }
+  .filter:hover label {
     color: ${constants.colorMutedLight} !important;
   }
   small {
@@ -18,8 +24,8 @@ export const StyledDiv = styled.div`
       }
     }
   }
-  #formHeading {
-    margin-bottom: 0px !important;
+  .filter > div > hr:nth-child(2) {
+    border-bottom-color: ${constants.colorMutedLight} !important;
   }
 }
 `;

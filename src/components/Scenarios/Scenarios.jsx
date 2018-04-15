@@ -19,22 +19,21 @@ import Error from '../Error';
 import Heading from '../Heading';
 import { groupByArray } from '../../utility/index';
 import { IconLaneRoles } from '../Icons';
-import { abbreviateNumber } from './../../utility/index';
 
 const minSampleSize = row => row.games > 200;
 
 const forms = {
   itemTimings: {
     queryForms: ['hero_id', 'item'],
-    filterForms: ['time']
+    filterForms: ['time'],
   },
   laneRoles: {
     queryForms: ['hero_id', 'lane_role'],
-    filterForms: ['time']
+    filterForms: ['time'],
   },
   misc: {
-    queryForms: ['scenario']
-  }
+    queryForms: ['scenario'],
+  },
 };
 
 const menuItems = [{
@@ -89,9 +88,8 @@ class Scenarios extends React.Component {
   }
 
   getData() {
-    const { scenariosDispatch } = this.props;
     const { selectedTab, formFields } = this.state;
-    scenariosDispatch[selectedTab](formFields[selectedTab]);
+    this.props[selectedTab](formFields[selectedTab]);
   }
 
   initialQuery() {
@@ -125,12 +123,12 @@ class Scenarios extends React.Component {
     const { scenariosState } = this.props;
     const { selectedTab, formFields } = this.state;
     let { data } = scenariosState[selectedTab];
-    const { queryForms, filterForms } = forms[selectedTab]
+    const { queryForms, filterForms } = forms[selectedTab];
     const { metadata, metadataLoading, metadataError } = scenariosState.metadata;
     if (filterForms) {
       filterForms.forEach((key) => {
-          const formValue = formFields[selectedTab] && formFields[selectedTab][key]
-          data = data.filter(row => Number(formValue) === row[key] || formValue === row[key] || !formValue);
+        const formValue = formFields[selectedTab] && formFields[selectedTab][key];
+        data = data.filter(row => Number(formValue) === row[key] || formValue === row[key] || !formValue);
       });
     }
     return (
@@ -155,6 +153,7 @@ class Scenarios extends React.Component {
                 updateFormFieldState={this.updateFormFieldStates}
                 formFieldState={formFields[selectedTab] && formFields[selectedTab][field]}
                 metadata={metadata}
+                className={filterForms && filterForms.includes(field) ? 'filter' : 'query'}
               />
           ))}
           </div>
@@ -217,11 +216,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  scenariosDispatch: {
-    itemTimings: params => dispatch(getScenariosItemTimings(params)),
-    laneRoles: params => dispatch(getScenariosLaneRoles(params)),
-    misc: params => dispatch(getScenariosMisc(params)),
-  },
+  itemTimings: params => dispatch(getScenariosItemTimings(params)),
+  laneRoles: params => dispatch(getScenariosLaneRoles(params)),
+  misc: params => dispatch(getScenariosMisc(params)),
 });
 
 Scenarios.propTypes = {
@@ -237,7 +234,6 @@ Scenarios.propTypes = {
     push: PropTypes.func,
   }),
   scenariosState: PropTypes.shape({}),
-  scenariosDispatch: PropTypes.shape({}),
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Scenarios));
