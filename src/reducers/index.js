@@ -46,6 +46,7 @@ export default combineReducers({
   teamPlayers: reducer('teamPlayers'),
   records: reducer('records'),
   ghPulls: reducer('ghPulls'),
+  abilities: reducer('abilities'),
   form,
   request,
 });

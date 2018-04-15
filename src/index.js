@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { Route, Router } from 'react-router-dom';
 import { injectGlobal } from 'styled-components';
 import store from './store';
-import { getMetadata } from './actions';
+import { getMetadata, getAbilities } from './actions';
 import App from './components/App';
 import constants from './components/constants';
 // import registerServiceWorker from './registerServiceWorker';
@@ -157,6 +157,7 @@ li {
 
 // Fetch metadata (used on all pages)
 store.dispatch(getMetadata());
+store.dispatch(getAbilities());
 
 ReactGA.initialize('UA-55757642-1');
 ReactGA.pageview(window.location.pathname + window.location.search);
