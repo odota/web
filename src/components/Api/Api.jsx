@@ -161,11 +161,11 @@ class KeyManagement extends React.Component {
     const { loading, user } = this.props;
     const showLoginButton = !user;
     const showGetKeyButton = user && !(this.state.customer && this.state.customer.api_key);
-    const premUnit = 10000;
+    const premUnit = 100;
     const freeCallLimit = 50000;
     const freeRateLimit = 60;
-    const premRateLimit = 180;
-    const premPrice = '$1.00';
+    const premRateLimit = 300;
+    const premPrice = 0.01;
 
     return (
       <div>
@@ -255,6 +255,7 @@ class KeyManagement extends React.Component {
                               <TableRow>
                                 <TableHeaderColumn>{strings.api_month}</TableHeaderColumn>
                                 <TableHeaderColumn>{strings.api_usage_calls}</TableHeaderColumn>
+                                <TableHeaderColumn>{strings.api_usage_fees}</TableHeaderColumn>
                               </TableRow>
                             </TableHeader>
                             <TableBody
@@ -264,6 +265,7 @@ class KeyManagement extends React.Component {
                                 <TableRow key={e.month}>
                                   <TableRowColumn>{e.month}</TableRowColumn>
                                   <TableRowColumn>{e.usage_count}</TableRowColumn>
+                                  <TableRowColumn>{`$${premPrice * Math.ceil(e.usage_count / premUnit)}`}</TableRowColumn>
                                 </TableRow>))}
                             </TableBody>
                           </Table>
@@ -294,7 +296,7 @@ class KeyManagement extends React.Component {
                 <TableRow>
                   <TableHeaderColumn>{strings.api_details_price}</TableHeaderColumn>
                   <TableRowColumn>{strings.api_details_price_free}</TableRowColumn>
-                  <TableRowColumn>{strings.api_details_price_prem.replace('$price', premPrice).replace('$unit', premUnit)}</TableRowColumn>
+                  <TableRowColumn>{strings.api_details_price_prem.replace('price', premPrice).replace('$unit', premUnit)}</TableRowColumn>
                 </TableRow>
                 <TableRow>
                   <TableHeaderColumn>{strings.api_details_key_required}</TableHeaderColumn>
@@ -324,8 +326,7 @@ class KeyManagement extends React.Component {
           <h3>{strings.api_header_details}</h3>
           <DetailsContainer>
             <ul>
-              <li>{strings.api_free_to_prem}</li>
-              <li>{strings.api_charging.replace('$price', premPrice).replace('$unit', premUnit).replace('$cost', `$${1 / premUnit}`)}</li>
+              <li>{strings.api_charging.replace('$cost', `$${premPrice / premUnit}`)}</li>
               <li>{strings.api_credit_required}</li>
               <li>{strings.api_stripe}</li>
               <li>{strings.api_delay}</li>
