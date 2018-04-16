@@ -91,7 +91,7 @@ class ScenarioFormField extends React.Component {
     const style = {
       paddingRight: '20px',
       opacity: this.state.animate ? 1 : 0,
-      transition: `all ${((index + 1) * 2) * 0.125}s ease-in-out`,
+      transition: `all ${0.25 * (index + 1)}s ease-in-out`,
     };
 
     return (
