@@ -46,7 +46,7 @@ export default combineReducers({
   teamPlayers: reducer('teamPlayers'),
   records: reducer('records'),
   ghPulls: reducer('ghPulls'),
-  strings: (state = {}, action) => (action && action.type === 'strings') ? action.payload : state,
+  strings: (state = {}, action) => ((action && action.type === 'strings') ? action.payload : state),
   form,
   request,
 });

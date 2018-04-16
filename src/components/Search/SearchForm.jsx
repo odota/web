@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import { debounce } from 'lodash/fp';
 import TextField from 'material-ui/TextField';
 import querystring from 'querystring';
-import strings from '../../lang';
 import { getSearchResultAndPros, setSearchQuery } from '../../actions';
 import constants from '../constants';
 
@@ -51,9 +50,11 @@ class SearchForm extends React.Component {
   };
 
   render() {
+    const { strings } = this.props;
     return (
       <form onSubmit={this.formSubmit}>
         <TextField
+          id="searchField"
           hintText={strings.search_title}
           value={this.state.query}
           onChange={this.handleChange}
@@ -77,22 +78,16 @@ SearchForm.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
+  strings: PropTypes.shape({}),
 };
 
-// const mapStateToProps = (state) => {
-//   const { error, loading, done } = state.app.search;
-//   return {
-//     loading,
-//     done,
-//     error,
-//     query,
-//     data: searchResults,
-//   };
-// };
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
 
 const mapDispatchToProps = dispatch => ({
   dispatchSearch: query => dispatch(getSearchResultAndPros(query)),
   dispatchSetQuery: query => dispatch(setSearchQuery(query)),
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(SearchForm));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchForm));

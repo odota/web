@@ -9,7 +9,7 @@ import ActionSettings from 'material-ui/svg-icons/action/settings';
 import Bug from 'material-ui/svg-icons/action/bug-report';
 import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
 import styled from 'styled-components';
-import { LocalizationMenu } from '../Localization';
+import LocalizationMenu from '../Localization';
 import Dropdown from '../Header/Dropdown';
 import Announce from '../Announce';
 import constants from '../constants';
@@ -19,27 +19,6 @@ import AppLogo from '../App/AppLogo';
 import BurgerMenu from './BurgerMenu';
 
 const REPORT_BUG_PATH = '//github.com/odota/web/issues';
-
-const navbarPages = (strings) => [
-  <Link key={strings.header_explorer} to="/explorer">{strings.header_explorer}</Link>,
-  <Link key={strings.header_meta} to="/meta">{strings.header_meta}</Link>,
-  <Link key={strings.header_matches} to="/matches">{strings.header_matches}</Link>,
-  <Link key={strings.header_teams} to="/teams">{strings.header_teams}</Link>,
-  <Link key={strings.header_heroes} to="/heroes">{strings.header_heroes}</Link>,
-  <Link key={strings.header_distributions} to="/distributions">{strings.header_distributions}</Link>,
-  <Link key={strings.header_records} to="/records">{strings.header_records}</Link>,
-  // <Link key="Predictions" to="/predictions">Predictions</Link>,
-  // <Link key="Assistant" to="/assistant">Assistant</Link>,
-];
-
-const burgerItems = (strings) => [
-  <AccountWidget key={0} />,
-  ...navbarPages(strings),
-];
-
-const buttonProps = {
-  children: <ActionSettings />,
-};
 
 const VerticalAlignToolbar = styled(ToolbarGroup)`
   display: flex;
@@ -66,59 +45,6 @@ const TabContainer = styled.div`
   justify-content: center;
 `;
 
-const LogoGroup = ({ small, strings }) => (
-  <VerticalAlignToolbar>
-    {!small && <BurgerMenu menuItems={burgerItems(strings)} />}
-    <AppLogo style={{ marginRight: 18 }} />
-  </VerticalAlignToolbar>
-);
-
-LogoGroup.propTypes = {
-  small: PropTypes.bool,
-  strings: PropTypes.shape({}),
-};
-
-const LinkGroup = ({ strings }) => (
-  <VerticalAlignToolbar>
-    {navbarPages(strings).map(Page => (
-      <TabContainer key={Page.key}>
-        <div style={{ margin: '0 10px', textAlign: 'center', fontWeight: `${constants.fontWeightNormal} !important` }}>
-          {Page}
-        </div>
-      </TabContainer>
-    ))}
-  </VerticalAlignToolbar>
-);
-
-const SearchGroup = () => (
-  <VerticalAlignToolbar style={{ marginLeft: 20 }}>
-    <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
-    <SearchForm />
-  </VerticalAlignToolbar>
-);
-
-const AccountGroup = () => (
-  <VerticalAlignToolbar>
-    <AccountWidget />
-  </VerticalAlignToolbar>
-);
-
-const SettingsGroup = ({ user, strings }) => (
-  <VerticalAlignDropdown
-    Button={IconButton}
-    buttonProps={buttonProps}
-  >
-    <LocalizationMenu />
-    <ReportBug strings={strings} />
-    {user ? <LogOut strings={strings} /> : null}
-  </VerticalAlignDropdown>
-);
-
-SettingsGroup.propTypes = {
-  user: PropTypes.shape({}),
-  strings: PropTypes.shape({}),
-};
-
 const BugLink = styled.a`
   font-size: ${constants.fontSizeMedium};
   font-weight: ${constants.fontWeightLight};
@@ -138,31 +64,6 @@ const BugLink = styled.a`
   }
 `;
 
-const ReportBug = ({ strings }) => (
-  <BugLink
-    href={REPORT_BUG_PATH}
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <Bug />
-    <span>
-      {strings.app_report_bug}
-    </span>
-  </BugLink>
-);
-
-const LogOut = ({ strings }) => (
-  <BugLink
-    href={`${process.env.REACT_APP_API_HOST}/logout`}
-    rel="noopener noreferrer"
-  >
-    <LogOutButton />
-    <span>
-      {strings.app_logout}
-    </span>
-  </BugLink>
-);
-
 const ToolbarHeader = styled(Toolbar)`
   background-color: ${constants.defaultPrimaryColor} !important;
   padding: 8px !important;
@@ -176,22 +77,123 @@ const ToolbarHeader = styled(Toolbar)`
   }
 `;
 
-const Header = ({ location, small, user, strings }) => (
-  <div>
-    <ToolbarHeader>
-      <VerticalAlignDiv>
-        <LogoGroup small={small} strings={strings} />
-        {small && <LinkGroup strings={strings} />}
-        <SearchGroup />
-      </VerticalAlignDiv>
-      <VerticalAlignDiv style={{ marginLeft: 'auto' }}>
-        {small && <AccountGroup />}
-        {<SettingsGroup user={user} strings={strings} />}
-      </VerticalAlignDiv>
-    </ToolbarHeader>
-    { location.pathname !== '/' && <Announce /> }
-  </div>
-);
+const Header = ({
+  location, small, user, strings,
+}) => {
+  const navbarPages = [
+    <Link key="header_explorer" to="/explorer">{strings.header_explorer}</Link>,
+    <Link key="header_meta" to="/meta">{strings.header_meta}</Link>,
+    <Link key="header_matches" to="/matches">{strings.header_matches}</Link>,
+    <Link key="header_teams" to="/teams">{strings.header_teams}</Link>,
+    <Link key="header_heroes" to="/heroes">{strings.header_heroes}</Link>,
+    <Link key="header_distributions" to="/distributions">{strings.header_distributions}</Link>,
+    <Link key="header_records" to="/records">{strings.header_records}</Link>,
+    // <Link key="header_predictions" to="/predictions">Predictions</Link>,
+    // <Link key="header_assistant" to="/assistant">Assistant</Link>,
+  ];
+
+  const burgerItems = [
+    <AccountWidget key={0} />,
+    ...navbarPages,
+  ];
+
+  const buttonProps = {
+    children: <ActionSettings />,
+  };
+
+  const LogoGroup = ({ small }) => (
+    <VerticalAlignToolbar>
+      {!small && <BurgerMenu menuItems={burgerItems(strings)} />}
+      <AppLogo style={{ marginRight: 18 }} />
+    </VerticalAlignToolbar>
+  );
+
+  LogoGroup.propTypes = {
+    small: PropTypes.bool,
+  };
+
+  const LinkGroup = () => (
+    <VerticalAlignToolbar>
+      {navbarPages.map(Page => (
+        <TabContainer key={Page.key}>
+          <div style={{ margin: '0 10px', textAlign: 'center', fontWeight: `${constants.fontWeightNormal} !important` }}>
+            {Page}
+          </div>
+        </TabContainer>
+      ))}
+    </VerticalAlignToolbar>
+  );
+
+  const SearchGroup = () => (
+    <VerticalAlignToolbar style={{ marginLeft: 20 }}>
+      <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
+      <SearchForm />
+    </VerticalAlignToolbar>
+  );
+
+  const AccountGroup = () => (
+    <VerticalAlignToolbar>
+      <AccountWidget />
+    </VerticalAlignToolbar>
+  );
+
+  const SettingsGroup = ({ user }) => (
+    <VerticalAlignDropdown
+      Button={IconButton}
+      buttonProps={buttonProps}
+    >
+      <LocalizationMenu />
+      <ReportBug />
+      {user ? <LogOut /> : null}
+    </VerticalAlignDropdown>
+  );
+
+  SettingsGroup.propTypes = {
+    user: PropTypes.shape({}),
+  };
+
+  const ReportBug = () => (
+    <BugLink
+      href={REPORT_BUG_PATH}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Bug />
+      <span>
+        {strings.app_report_bug}
+      </span>
+    </BugLink>
+  );
+
+  const LogOut = () => (
+    <BugLink
+      href={`${process.env.REACT_APP_API_HOST}/logout`}
+      rel="noopener noreferrer"
+    >
+      <LogOutButton />
+      <span>
+        {strings.app_logout}
+      </span>
+    </BugLink>
+  );
+
+  return (
+    <div>
+      <ToolbarHeader>
+        <VerticalAlignDiv>
+          <LogoGroup small={small} />
+          {small && <LinkGroup />}
+          <SearchGroup />
+        </VerticalAlignDiv>
+        <VerticalAlignDiv style={{ marginLeft: 'auto' }}>
+          {small && <AccountGroup />}
+          {<SettingsGroup user={user} />}
+        </VerticalAlignDiv>
+      </ToolbarHeader>
+      { location.pathname !== '/' && <Announce /> }
+    </div>
+  );
+};
 
 Header.propTypes = {
   location: PropTypes.shape({}),

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MenuItem from 'material-ui/MenuItem';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
@@ -69,8 +70,12 @@ class LocalizationMenuItems extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 
-export const LocalizationMenu = connect(mapStateToProps, null)(LocalizationMenuItems);
+LocalizationMenuItems.propTypes = {
+  strings: PropTypes.shape({}),
+};
+
+export default connect(mapStateToProps, null)(LocalizationMenuItems);

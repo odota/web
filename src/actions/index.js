@@ -6,6 +6,7 @@ import transformHistograms from './transformHistograms';
 import transformTrends from './transformTrends';
 import transformRankings from './transformRankings';
 import action from './action';
+import { langs } from '../lang';
 
 export const getMetadata = () => action('metadata', process.env.REACT_APP_API_HOST, 'api/metadata');
 export const getMatch = matchId => action('match', process.env.REACT_APP_API_HOST, `api/matches/${matchId}`, {}, transformMatch);
@@ -62,11 +63,11 @@ export const getPlayerTotals = (accountId, params) => action('playerTotals', pro
 export const getPlayerMmr = (accountId, params) => action('playerMmr', process.env.REACT_APP_API_HOST, `api/players/${accountId}/ratings`, params);
 export const getPlayerRankings = (accountId, params) => action('playerRankings', process.env.REACT_APP_API_HOST, `api/players/${accountId}/rankings`, params, transformRankings);
 export const getStrings = () => async (dispatch) => {
-  const { langs } = require('../lang');
   const savedLang = window.localStorage && window.localStorage.getItem('localization');
+  const defaultLang = langs[0];
   const selectedLang = langs.find(lang => lang.value === savedLang) || langs[0];
-  const defData = await import('../lang/' + langs[0].data);
-  const selData = await import('../lang/' + selectedLang.data);
+  const defData = await import(`../lang/${defaultLang.data}`);
+  const selData = await import(`../lang/${selectedLang.data}`);
   dispatch({ type: 'strings', payload: { ...defData, ...selData } });
 };
 export * from './requestActions';

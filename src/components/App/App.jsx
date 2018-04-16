@@ -6,25 +6,24 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
+import { Route } from 'react-router-dom';
 import Header from '../Header';
-// import { Route } from 'react-router-dom';
-// import strings from '../../lang';
-// import Player from '../Player';
-// import Home from '../Home';
-// import Search from '../Search';
-// import Explorer from '../Explorer';
-// // import FourOhFour from '../FourOhFour';
-// import Heroes from '../Heroes';
-// import Request from '../Request';
-// import Distributions from '../Distributions';
-// import Status from '../Status';
-// import Matches from '../Matches';
-// import Teams from '../Teams';
-// // import Assistant from '../Assistant';
-// import Records from '../Records';
-// // import Predictions from '../Predictions';
-// import Meta from '../Meta';
-// import Footer from '../Footer';
+import Player from '../Player';
+import Home from '../Home';
+import Search from '../Search';
+import Explorer from '../Explorer';
+// import FourOhFour from '../FourOhFour';
+import Heroes from '../Heroes';
+import Request from '../Request';
+import Distributions from '../Distributions';
+import Status from '../Status';
+import Matches from '../Matches';
+import Teams from '../Teams';
+// import Assistant from '../Assistant';
+import Records from '../Records';
+// import Predictions from '../Predictions';
+import Meta from '../Meta';
+import Footer from '../Footer';
 import constants from '../constants';
 
 const muiTheme = {
@@ -90,7 +89,9 @@ class App extends React.Component {
   }
 
   render() {
-    const { params, width, location, strings } = this.props;
+    const {
+      params, width, location, strings,
+    } = this.props;
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
         <StyledDiv {...this.props}>
@@ -99,7 +100,6 @@ class App extends React.Component {
             titleTemplate={strings.title_template}
           />
           <Header params={params} location={location} />
-          {/*
           <AdBannerDiv>
             { location.pathname !== '/' &&
               <a href="http://www.vpgame.com/?lang=en_us">
@@ -134,7 +134,6 @@ class App extends React.Component {
             }
           </AdBannerDiv>
           <Footer location={location} width={width} />
-          */}
         </StyledDiv>
       </MuiThemeProvider>
     );
@@ -147,9 +146,10 @@ App.propTypes = {
   location: PropTypes.shape({
     key: PropTypes.string,
   }),
+  strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 
