@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 import getFormFieldData from './FormFieldData';
-import { autoCompleteStyle, listStyle } from './Styles';
+import { listStyle } from './Styles';
 import strings from '../../lang';
 
 const hintTexts = {
@@ -63,6 +63,12 @@ class ScenarioFormField extends React.Component {
     this.handleRequest = this.handleRequest.bind(this);
   }
 
+  componentDidMount() {
+    requestAnimationFrame(() => {
+      this.setState({ animate: true });
+    });
+  }
+
   resetField() {
     const { updateFormFieldState, field } = this.props;
     this.setState({ searchText: '' }, updateFormFieldState({ [field]: null }));
@@ -78,8 +84,16 @@ class ScenarioFormField extends React.Component {
   }
 
   render() {
-    const { field, selectedTab, className } = this.props;
+    const {
+      field, index, selectedTab, className,
+    } = this.props;
     const { searchText } = this.state;
+    const style = {
+      paddingRight: '20px',
+      opacity: this.state.animate ? 1 : 0,
+      transition: `all ${((index + 1) * 2) * 0.125}s ease-in-out`,
+    };
+
     return (
       <div>
         <AutoComplete
@@ -92,8 +106,8 @@ class ScenarioFormField extends React.Component {
           onUpdateInput={this.handleUpdateInput}
           searchText={searchText}
           onNewRequest={this.handleRequest}
-          style={autoCompleteStyle}
-          className={[className, 'autocomplete'].join(' ')}
+          style={style}
+          className={className}
         />
       </div>
     );
@@ -107,6 +121,7 @@ ScenarioFormField.propTypes = {
   updateFormFieldState: PropTypes.func,
   selectedTab: PropTypes.string,
   className: PropTypes.string,
+  index: PropTypes.number,
 };
 
 export default ScenarioFormField;

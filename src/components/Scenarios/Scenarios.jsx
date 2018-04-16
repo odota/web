@@ -144,10 +144,11 @@ class Scenarios extends React.Component {
             ))}
           </Tabs>
           <div style={formFieldStyle}>
-            {[...(queryForms || []), ...(filterForms || [])].map(field => (
+            {[...(queryForms || []), ...(filterForms || [])].map((field, index) => (
               <ScenariosFormField
                 key={field + selectedTab}
                 field={field}
+                index={index}
                 selectedTab={selectedTab}
                 updateQueryParams={this.updateQueryParams}
                 updateFormFieldState={this.updateFormFieldStates}

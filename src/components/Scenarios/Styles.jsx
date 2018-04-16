@@ -3,7 +3,7 @@ import constants from '../constants';
 
 export const StyledDiv = styled.div`
   .filter > label {
-    color: ${constants.colorMuted} !important;
+    color: rgba(255, 255, 255, 0.3) !important;
   }
   .query:hover label {
     color: ${constants.colorBlue} !important;
@@ -38,10 +38,6 @@ export const buttonStyle = {
 export const formFieldStyle = {
   display: 'flex',
   flexWrap: 'wrap',
-};
-
-export const autoCompleteStyle = {
-  paddingRight: '20px',
 };
 
 export const tabsStyle = {
