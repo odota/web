@@ -43,7 +43,7 @@ const TableContainer = styled.div`
   width: 80%;
   margin: 0 auto; 
   
-  & table td {
+  & table td, table th {
     white-space: inherit !important;
   }
   
@@ -218,9 +218,11 @@ class KeyManagement extends React.Component {
                         <h4>{strings.api_header_key}</h4>
                         <KeyContainer>{this.state.customer.api_key}</KeyContainer>
                         <p>{strings.api_key_usage.replace('$param', 'API_KEY=XXXX')}</p>
-                        <a href={`https://api.opendota.com/api/matches/271145478?API_KEY=${this.state.customer.api_key}`}>
-                          <KeyContainer>{`https://api.opendota.com/api/matches/271145478?API_KEY=${this.state.customer.api_key}`}</KeyContainer>
-                        </a>
+                        <div style={{ overflow: 'hidden' }}>
+                          <a href={`https://api.opendota.com/api/matches/271145478?API_KEY=${this.state.customer.api_key}`}>
+                            <KeyContainer>{`https://api.opendota.com/api/matches/271145478?API_KEY=${this.state.customer.api_key}`}</KeyContainer>
+                          </a>
+                        </div>
                         <p>{`${strings.api_billing_cycle
                             .replace('$date', (new Date(this.state.customer.current_period_end * 1000)).toLocaleDateString())} ${
                             strings.api_billed_to
@@ -247,28 +249,30 @@ class KeyManagement extends React.Component {
                       this.state.usage ?
                         <div>
                           <h4>{strings.api_header_usage}</h4>
-                          <Table style={{ width: '60%', margin: '0 auto' }}>
-                            <TableHeader
-                              displaySelectAll={false}
-                              adjustForCheckbox={false}
-                            >
-                              <TableRow>
-                                <TableHeaderColumn>{strings.api_month}</TableHeaderColumn>
-                                <TableHeaderColumn>{strings.api_usage_calls}</TableHeaderColumn>
-                                <TableHeaderColumn>{strings.api_usage_fees}</TableHeaderColumn>
-                              </TableRow>
-                            </TableHeader>
-                            <TableBody
-                              displayRowCheckbox={false}
-                            >
-                              { this.state.usage.map(e => (
-                                <TableRow key={e.month}>
-                                  <TableRowColumn>{e.month}</TableRowColumn>
-                                  <TableRowColumn>{e.usage_count}</TableRowColumn>
-                                  <TableRowColumn>{`$${premPrice * Math.ceil(e.usage_count / premUnit)}`}</TableRowColumn>
-                                </TableRow>))}
-                            </TableBody>
-                          </Table>
+                          <TableContainer>
+                            <Table>
+                              <TableHeader
+                                displaySelectAll={false}
+                                adjustForCheckbox={false}
+                              >
+                                <TableRow>
+                                  <TableHeaderColumn>{strings.api_month}</TableHeaderColumn>
+                                  <TableHeaderColumn>{strings.api_usage_calls}</TableHeaderColumn>
+                                  <TableHeaderColumn>{strings.api_usage_fees}</TableHeaderColumn>
+                                </TableRow>
+                              </TableHeader>
+                              <TableBody
+                                displayRowCheckbox={false}
+                              >
+                                { this.state.usage.map(e => (
+                                  <TableRow key={e.month}>
+                                    <TableRowColumn>{e.month}</TableRowColumn>
+                                    <TableRowColumn>{e.usage_count}</TableRowColumn>
+                                    <TableRowColumn>{`$${premPrice * Math.ceil(e.usage_count / premUnit)}`}</TableRowColumn>
+                                  </TableRow>))}
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
                         </div>
                       : <div />
                     }
