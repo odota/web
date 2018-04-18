@@ -1,6 +1,6 @@
 import { inflictorWithValue } from 'components/Visualizations';
 import strings from '../../lang';
-import { transformations, formatSeconds } from '../../utility';
+import { transformations, formatSeconds, abbreviateNumber } from '../../utility';
 
 const computeWinRate = row => (row.wins / row.games);
 
@@ -35,8 +35,7 @@ const getColumns = (f, metadata) => {
       displayName: strings.heading_win_rate,
       field: 'games',
       sortFn: computeWinRate,
-      percentBarsWithValue: row => row.games,
-      abbreviateAltValue: true,
+      percentBarsWithValue: row => abbreviateNumber(Number(row.games)),
       tooltip: strings.tooltip_winrate_samplesize,
     }],
 
@@ -59,8 +58,7 @@ const getColumns = (f, metadata) => {
       displayName: strings.heading_win_rate,
       field: 'games',
       sortFn: computeWinRate,
-      percentBarsWithValue: row => row.games,
-      abbreviateAltValue: true,
+      percentBarsWithValue: row => abbreviateNumber(Number(row.games)),
       tooltip: strings.tooltip_winrate_samplesize,
     }],
 
@@ -73,8 +71,7 @@ const getColumns = (f, metadata) => {
       displayName: strings.heading_win_rate,
       field: 'games',
       sortFn: computeWinRate,
-      percentBarsWithValue: row => row.games,
-      abbreviateAltValue: true,
+      percentBarsWithValue: row => abbreviateNumber(Number(row.games)),
       tooltip: strings.tooltip_winrate_samplesize,
     }],
   };

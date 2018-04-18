@@ -244,7 +244,6 @@ class Table extends React.Component {
                           percent={barPercentValue}
                           altValue={altValue}
                           inverse={invertBarColor}
-                          abbreviateAltValue
                         />);
                       } else if (displayFn) {
                         fieldEl = displayFn(row, column, value, index);

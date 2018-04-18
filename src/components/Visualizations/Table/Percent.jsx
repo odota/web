@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { gradient } from 'abcolor';
 import { StyledContainer, PercentContainer, TitleContainer } from './Styled';
 import constants from '../../constants';
-import { abbreviateNumber } from './../../../utility/index';
 
 const Percent = ({
-  percent, altValue, valEl, inverse = false, abbreviateAltValue,
+  percent, altValue, valEl, inverse = false,
 }) => (
   <StyledContainer>
     <TitleContainer>
-      {valEl || percent} {altValue && <small>{abbreviateAltValue ? abbreviateNumber(Number(altValue)) : altValue}</small>}
+      {valEl || percent} {altValue && <small>{altValue}</small>}
     </TitleContainer>
     <PercentContainer>
       <div
@@ -36,7 +35,6 @@ Percent.propTypes = {
   altValue: oneOfType([string, number, bool]),
   valEl: node,
   inverse: bool,
-  abbreviateAltValue: bool,
 };
 
 export default Percent;
