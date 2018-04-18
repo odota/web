@@ -23,23 +23,21 @@ class Dropdown extends Component {
     this.state = {
       open: false,
     };
-    this.handleRequestClose = this.handleRequestClose.bind(this);
-    this.handleTouchTap = this.handleTouchTap.bind(this);
   }
 
-  handleRequestClose() {
+  handleRequestClose = () => {
     this.setState({
       open: false,
     });
-  }
+  };
 
-  handleTouchTap(event) {
+  handleTouchTap = (event) => {
     event.preventDefault();
     this.setState({
       open: true,
       anchorEl: event.currentTarget,
     });
-  }
+  };
 
   render() {
     const {

@@ -30,6 +30,7 @@ const navbarPages = [
   <Link key={strings.header_distributions} to="/distributions">{strings.header_distributions}</Link>,
   <Link key={strings.header_records} to="/records">{strings.header_records}</Link>,
   // <Link key={strings.header_scenarios} to="/scenarios/itemTimings">{strings.header_scenarios}</Link>,
+  <Link key={strings.header_api} to="/api-keys">{strings.header_api}</Link>,
   // <Link key="Predictions" to="/predictions">Predictions</Link>,
   // <Link key="Assistant" to="/assistant">Assistant</Link>,
 ];

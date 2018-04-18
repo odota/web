@@ -38,7 +38,7 @@ const Styled = styled.div`
   }
 `;
 class PlayerButtons extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setState({ disableRefresh: false });
   }
 

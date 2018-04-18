@@ -12,9 +12,9 @@ const links = [{
   icon: <IconDiscord />,
 }];
 
-export default () => links.map((link, index) => (
+export default () => links.map(link => (
   <a
-    key={index}
+    key={link.path}
     target="_blank"
     rel="noopener noreferrer"
     data-hint-position="top"
