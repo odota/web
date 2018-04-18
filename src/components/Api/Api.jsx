@@ -208,7 +208,7 @@ class KeyManagement extends React.Component {
                   </StripeCheckout>
                   : <span />
                 }
-                <a href="//docs.opendota.com" target="_blank">
+                <a href="//docs.opendota.com" target="_blank" rel="noopener noreferrer">
                   <RaisedButton label={strings.api_docs} style={{ margin: '5px 5px' }} />
                 </a>
                 { this.state.customer ?
