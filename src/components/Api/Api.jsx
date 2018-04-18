@@ -332,7 +332,6 @@ class KeyManagement extends React.Component {
             <ul>
               <li>{strings.api_charging.replace('$cost', `$${premPrice / premUnit}`)}</li>
               <li>{strings.api_credit_required}</li>
-              <li>{strings.api_stripe}</li>
               <li>{strings.api_delay}</li>
             </ul>
           </DetailsContainer>
