@@ -217,10 +217,10 @@ class KeyManagement extends React.Component {
                       <div>
                         <h4>{strings.api_header_key}</h4>
                         <KeyContainer>{this.state.customer.api_key}</KeyContainer>
-                        <p>{strings.api_key_usage.replace('$param', 'API_KEY=XXXX')}</p>
+                        <p>{strings.api_key_usage.replace('$param', 'api_key=XXXX')}</p>
                         <div style={{ overflow: 'hidden' }}>
-                          <a href={`https://api.opendota.com/api/matches/271145478?API_KEY=${this.state.customer.api_key}`}>
-                            <KeyContainer>{`https://api.opendota.com/api/matches/271145478?API_KEY=${this.state.customer.api_key}`}</KeyContainer>
+                          <a href={`https://api.opendota.com/api/matches/271145478?api_key=${this.state.customer.api_key}`}>
+                            <KeyContainer>{`https://api.opendota.com/api/matches/271145478?api_key=${this.state.customer.api_key}`}</KeyContainer>
                           </a>
                         </div>
                         <p>{`${strings.api_billing_cycle
