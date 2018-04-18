@@ -122,7 +122,7 @@ class App extends React.Component {
             <Route exact path="/search" component={Search} />
             <Route exact path="/records/:info?" component={Records} />
             <Route exact path="/meta" component={Meta} />
-            <Route exact path="/api" component={Api} />
+            <Route exact path="/api-keys" component={Api} />
           </StyledBodyDiv>
           <AdBannerDiv>
             { includeAds &&
