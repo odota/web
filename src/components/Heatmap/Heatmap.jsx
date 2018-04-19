@@ -36,9 +36,6 @@ const drawHeatmap = ({
 };
 
 class Heatmap extends Component {
-  componentWillMount() {
-    this.id = `a-${uuid.v4()}`;
-  }
   componentDidMount() {
     this.heatmap = h337.create({
       container: document.getElementById(this.id),
@@ -46,7 +43,10 @@ class Heatmap extends Component {
     });
     drawHeatmap(this.props, this.heatmap);
   }
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillMount() {
+    this.id = `a-${uuid.v4()}`;
+  }
+  UNSAFE_componentWillUpdate(nextProps) {
     drawHeatmap(nextProps, this.heatmap);
   }
 

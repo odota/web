@@ -46,6 +46,8 @@
   "app_dotacoach": "Demandez un coach",
   "app_pvgna": "Trouver un guide",
   "app_pvgna_alt": "Chercher un guide Dota 2 sur Pvgna",
+  "app_rivalry": "Parier sur des matchs pro",
+  "app_rivalry_team": "Bet on %s Matches",
   "app_refresh": "Réactualiser l'Historique des Matchs: Faire un scan pour trouver des matchs manquants dûs aux paramètres de confidentialité",
   "app_refresh_label": "Actualiser",
   "app_login": "Se connecter",

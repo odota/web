@@ -47,16 +47,15 @@ class LocalizationMenuItems extends Component {
     this.state = {
       open: false,
     };
-    this.handleOnClick = this.handleOnClick.bind(this);
   }
 
-  handleOnClick(event) {
+  handleOnClick = (event) => {
     event.preventDefault();
     event.stopPropagation();
     this.setState({
       open: !this.state.open,
     });
-  }
+  };
 
   render() {
     const { open } = this.state;

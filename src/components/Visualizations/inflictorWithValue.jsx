@@ -1,9 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
 import items from 'dotaconstants/build/items.json';
-import abilities from 'dotaconstants/build/abilities.json';
-import neutralAbilities from 'dotaconstants/build/neutral_abilities.json';
 import styled from 'styled-components';
 import strings from '../../lang';
 import constants from '../constants';
@@ -200,70 +199,97 @@ const tooltipContainer = thing => (
   </div>
 );
 
-export default (inflictor, value, type, ptooltip) => {
-  if (inflictor !== undefined) {
-    const ability = abilities[inflictor];
-    const neutralAbility = neutralAbilities[inflictor];
-    const item = items[inflictor];
-    let image;
-    let tooltip = strings.tooltip_autoattack_other;
-    const ttId = uuid.v4();
+class InflictorWithValue extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-    if (ability) {
-      if (inflictor.includes('attribute_bonus')) {
-        image = '/assets/images/stats.png';
-      } else if (inflictor.includes('special_bonus')) {
-        image = '/assets/images/dota2/talent_tree.svg';
-      } else if (neutralAbility) {
-        image = neutralAbility.img;
-      } else {
-        image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
-      }
-      tooltip = tooltipContainer(ability);
-    } else if (item) {
-      if (customImageIcon.includes(inflictor)) {
-        image = `/assets/images/dota2/${inflictor}.png`;
-      } else {
-        image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${getInflictorImage(inflictor)}_lg.png`;
-      }
-      tooltip = tooltipContainer(item);
-    } else {
-      image = '/assets/images/default_attack.png';
-    }
-    if (ptooltip) {
-      tooltip = ptooltip;
-    }
+  async UNSAFE_componentWillMount() {
+    this.setState({
+      abilities: await import('dotaconstants/build/abilities.json'),
+      neutralAbilities: await import('dotaconstants/build/neutral_abilities.json'),
+    });
+  }
 
-    return (
-      <StyledDiv>
-        <div className="inflictorWithValue" data-tip={tooltip && true} data-for={ttId}>
-          {!type &&
-          <object data={image} height="27px" type="image/png">
-            <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)' }} />
-          </object>}
-          {type === 'buff' &&
-          <div
-            className="buff"
-            style={{
+  render() {
+    const {
+      inflictor, value, type, ptooltip,
+    } = this.props;
+    const { abilities, neutralAbilities } = this.state;
+    if (inflictor !== undefined) {
+      const ability = abilities && abilities[inflictor];
+      const neutralAbility = neutralAbilities && neutralAbilities[inflictor];
+      const item = items[inflictor];
+      let image;
+      let tooltip = strings.tooltip_autoattack_other;
+      const ttId = uuid.v4();
+
+      if (ability) {
+        if (inflictor.includes('attribute_bonus')) {
+          image = '/assets/images/stats.png';
+        } else if (inflictor.includes('special_bonus')) {
+          image = '/assets/images/dota2/talent_tree.svg';
+        } else if (neutralAbility) {
+          image = neutralAbility.img;
+        } else {
+          image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
+        }
+        tooltip = tooltipContainer(ability);
+      } else if (item) {
+        if (customImageIcon.includes(inflictor)) {
+          image = `/assets/images/dota2/${inflictor}.png`;
+        } else {
+          image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${getInflictorImage(inflictor)}_lg.png`;
+        }
+        tooltip = tooltipContainer(item);
+      } else {
+        image = '/assets/images/default_attack.png';
+      }
+      if (ptooltip) {
+        tooltip = ptooltip;
+      }
+
+      return (
+        <StyledDiv>
+          <div className="inflictorWithValue" data-tip={tooltip && true} data-for={ttId}>
+            {!type &&
+            <object data={image} height="27px" type="image/png">
+              <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)' }} />
+            </object>}
+            {type === 'buff' &&
+            <div
+              className="buff"
+              style={{
               backgroundImage: `url(${image})`,
             }}
-          />
+            />
           }
-          {!type && <div className="overlay">{value}</div>}
-          {type === 'buff' &&
-          <div className="buffOverlay">
-            {value > 0 && value}
+            {!type && <div className="overlay">{value}</div>}
+            {type === 'buff' &&
+            <div className="buffOverlay">
+              {value > 0 && value}
+            </div>
+          }
+            {tooltip &&
+            <div className="tooltip">
+              <ReactTooltip id={ttId} effect="solid" place="left">
+                {tooltip}
+              </ReactTooltip>
+            </div>}
           </div>
-          }
-          {tooltip &&
-          <div className="tooltip">
-            <ReactTooltip id={ttId} effect="solid" place="left">
-              {tooltip}
-            </ReactTooltip>
-          </div>}
-        </div>
-      </StyledDiv>
-    );
+        </StyledDiv>
+      );
+    }
+    return null;
   }
-  return null;
+}
+
+InflictorWithValue.propTypes = {
+  inflictor: PropTypes.string,
+  value: PropTypes.string,
+  type: PropTypes.string,
+  ptooltip: PropTypes.shape({}),
 };
+
+export default (inflictor, value, type, ptooltip) => <InflictorWithValue inflictor={inflictor} value={value} type={type} ptooltip={ptooltip} />;

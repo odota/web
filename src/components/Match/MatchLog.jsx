@@ -284,25 +284,22 @@ class MatchLog extends React.Component {
       text: heroes[player.hero_id] ? heroes[player.hero_id].localized_name : strings.general_no_hero,
       value: index,
     }));
-
-    this.addChip = this.addChip.bind(this);
-    this.deleteChip = this.deleteChip.bind(this);
   }
 
-  addChip(name, input, limit) {
+  addChip = (name, input, limit) => {
     const currentChips = this.state[name];
     const newChips = [input.value].concat(currentChips).slice(0, limit);
     this.setState({ [name]: newChips });
-  }
+  };
 
-  deleteChip(name, index) {
+  deleteChip = (name, index) => {
     const currentChips = this.state[name];
     const newChips = [
       ...currentChips.slice(0, index),
       ...currentChips.slice(index + 1),
     ];
     this.setState({ [name]: newChips });
-  }
+  };
 
   render() {
     const runeTooltips = Object.keys(strings)

@@ -14,7 +14,7 @@ class RequestLayer extends React.Component {
     this.props.getPvgnaHeroGuides();
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.matchId !== nextProps.matchId) {
       this.props.getMatch(nextProps.matchId);
     }
