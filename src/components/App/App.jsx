@@ -23,6 +23,7 @@ import Teams from '../Teams';
 import Records from '../Records';
 // import Predictions from '../Predictions';
 import Meta from '../Meta';
+import Api from '../Api';
 import Footer from '../Footer';
 import constants from '../constants';
 
@@ -74,7 +75,8 @@ const StyledBodyDiv = styled.div`
 
 const AdBannerDiv = styled.div`
   text-align: center;
-
+  margin-bottom: 5px;
+  
   & img {
     margin-top: 10px;
     max-width: 100%;
@@ -89,9 +91,14 @@ class App extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
     const {
       params, width, location, strings,
     } = this.props;
+=======
+    const { params, width, location } = this.props;
+    const includeAds = !['/', '/api-keys'].includes(location.pathname);
+>>>>>>> a045ac9ba95d29f5cf7671de415b6775e7216606
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
         <StyledDiv {...this.props}>
@@ -101,7 +108,7 @@ class App extends React.Component {
           />
           <Header params={params} location={location} />
           <AdBannerDiv>
-            { location.pathname !== '/' &&
+            { includeAds &&
               <a href="http://www.vpgame.com/?lang=en_us">
                 <img src="/assets/images/vp-banner.jpg" alt="" />
               </a>
@@ -120,16 +127,17 @@ class App extends React.Component {
             <Route exact path="/search" component={Search} />
             <Route exact path="/records/:info?" component={Records} />
             <Route exact path="/meta" component={Meta} />
+            <Route exact path="/api-keys" component={Api} />
           </StyledBodyDiv>
           <AdBannerDiv>
-            { location.pathname !== '/' &&
-              <a href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota">
-                <img src="/assets/images/rivalry-banner.png" alt="" />
-              </a>
-            }
-            { location.pathname !== '/' &&
+            { includeAds &&
               <div style={{ fontSize: '12px' }}>
-                {strings.home_sponsored_by} <a href="https://www.rivalry.gg">Rivalry</a>
+                <a href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota">
+                  <img src="/assets/images/rivalry-banner.png" alt="" />
+                </a>
+                <div>
+                  {strings.home_sponsored_by} <a href="https://www.rivalry.gg">Rivalry</a>
+                </div>
               </div>
             }
           </AdBannerDiv>

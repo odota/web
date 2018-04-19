@@ -88,6 +88,7 @@ const Header = ({
     <Link key="header_heroes" to="/heroes">{strings.header_heroes}</Link>,
     <Link key="header_distributions" to="/distributions">{strings.header_distributions}</Link>,
     <Link key="header_records" to="/records">{strings.header_records}</Link>,
+    <Link key={strings.header_api} to="/api-keys">{strings.header_api}</Link>,
     // <Link key="header_predictions" to="/predictions">Predictions</Link>,
     // <Link key="header_assistant" to="/assistant">Assistant</Link>,
   ];
