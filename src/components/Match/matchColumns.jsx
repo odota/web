@@ -1,5 +1,5 @@
 import React from 'react';
-import lodash from 'lodash/fp';
+import { findLast } from 'lodash/fp';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';
@@ -63,7 +63,7 @@ const partyStyles = (row, match) => {
 const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
   let skipped = 0;
   let itemSkipCount = _itemSkipCount || 0;
-  const purchaseEvent = lodash.findLast((item) => {
+  const purchaseEvent = findLast((item) => {
     if (item.key !== itemKey) {
       return false;
     }
