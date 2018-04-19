@@ -554,33 +554,6 @@ export const hsvToRgb = (h, s, v) => {
 
 export const bindWidth = (width, maxWidth) => Math.min(width, maxWidth);
 
-// Pretty much jQuery.getScript https://goo.gl/PBD7ml
-export const getScript = (url, callback) => {
-  // Create script
-  let script = document.createElement('script');
-  script.async = 1;
-  script.src = url;
-
-  // Insert into body
-  const theFirstChild = document.body.firstChild;
-  document.body.insertBefore(script, theFirstChild);
-
-  // Attach handlers
-  script.onreadystatechange = (__, isAbort) => {
-    if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
-      // Handle IE memory leak
-      script.onreadystatechange = null;
-      script.onload = null;
-      script = undefined;
-
-      if (!isAbort && callback) {
-        callback();
-      }
-    }
-  };
-  script.onload = script.onreadystatechange;
-};
-
 // Fills in a template with the values provided in the dict
 // returns a list, so react object don't have to be converted to a string
 // Any keys not found in the given dictionary are simply left untouched
