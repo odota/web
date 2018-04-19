@@ -65,11 +65,13 @@ class TableFilterForm extends React.Component {
   }
 
   render() {
-    const { showForm, currentQueryString, history } = this.props;
+    const {
+      showForm, currentQueryString, history, disableFormToggle,
+    } = this.props;
     const formSelectionState = querystring.parse(currentQueryString.substring(1));
     return (
       <Styled>
-        <div className={showForm ? 'showForm' : 'hideForm'}>
+        <div className={showForm && !disableFormToggle ? 'showForm' : 'hideForm'}>
           <div className="formGroup">
             <FormField
               name="hero_id"
@@ -224,6 +226,7 @@ TableFilterForm.propTypes = {
   currentQueryString: PropTypes.string,
   history: PropTypes.shape({}),
   playerId: PropTypes.string,
+  disableFormToggle: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({

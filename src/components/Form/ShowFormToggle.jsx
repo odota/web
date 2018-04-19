@@ -28,8 +28,8 @@ const getIcon = (show) => {
   return <Clear style={{ fill: constants.colorDanger }} />;
 };
 
-const ShowFormToggle = ({ toggleShowForm, showForm }) => (
-  <FlatButton onClick={() => toggleShowForm()}>
+const ShowFormToggle = ({ toggleShowForm, showForm, disableFormToggle }) => (
+  <FlatButton onClick={() => toggleShowForm()} style={disableFormToggle ? { opacity: 0.3, pointerEvents: 'none' } : null}>
     <StyledDiv>
       {getIcon(showForm)}
       <span>{showForm ? strings.filter_button_text_close : strings.filter_button_text_open}</span>
@@ -40,6 +40,7 @@ const ShowFormToggle = ({ toggleShowForm, showForm }) => (
 ShowFormToggle.propTypes = {
   toggleShowForm: PropTypes.func,
   showForm: PropTypes.bool,
+  disableFormToggle: PropTypes.bool,
 };
 
 // const mapStateToProps = () => ({});

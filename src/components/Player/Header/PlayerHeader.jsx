@@ -214,7 +214,7 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
 };
 
 const PlayerHeader = ({
-  playerName, officialPlayerName, playerId, picture, registered, loading, error, small, playerSoloCompetitiveRank, loggedInUser, rankTier, leaderboardRank,
+  playerName, officialPlayerName, playerId, picture, registered, loading, error, small, playerSoloCompetitiveRank, loggedInUser, rankTier, leaderboardRank, disableFormToggle,
 }) => {
   if (error) {
     return <Error />;
@@ -271,7 +271,7 @@ const PlayerHeader = ({
               <PlayerBadges playerId={playerId} />
             </div>
             <PlayerStats playerId={playerId} loggedInId={loggedInUser && String(loggedInUser.account_id)} compact={!small} />
-            <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={!small} />
+            <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={!small} disableFormToggle={disableFormToggle} />
           </div>
           {getRankTierMedal(rankTier, leaderboardRank)}
         </div>
@@ -293,6 +293,7 @@ PlayerHeader.propTypes = {
   loggedInUser: PropTypes.shape({}),
   rankTier: PropTypes.number,
   leaderboardRank: PropTypes.number,
+  disableFormToggle: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
