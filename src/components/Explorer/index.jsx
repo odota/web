@@ -70,7 +70,7 @@ class Explorer extends React.Component {
     await Promise.all([
       import('ace-builds/src-noconflict/ext-language_tools'),
       import('ace-builds/src-noconflict/theme-monokai'),
-      import('ace-builds/src-noconflict/mode-sql')
+      import('ace-builds/src-noconflict/mode-sql'),
     ]);
     this.instantiateEditor();
   }
