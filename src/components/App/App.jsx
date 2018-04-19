@@ -91,14 +91,8 @@ class App extends React.Component {
   }
 
   render() {
-<<<<<<< HEAD
-    const {
-      params, width, location, strings,
-    } = this.props;
-=======
-    const { params, width, location } = this.props;
+    const { params, width, location, strings } = this.props;
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
->>>>>>> a045ac9ba95d29f5cf7671de415b6775e7216606
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
         <StyledDiv {...this.props}>
