@@ -5,7 +5,7 @@ import items from 'dotaconstants/build/items.json';
 import patch from 'dotaconstants/build/patch.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
 import xpLevel from 'dotaconstants/build/xp_level.json';
-import _ from 'lodash/fp';
+import { curry, findLast, inRange } from 'lodash/fp';
 import util from 'util';
 // import SvgIcon from 'material-ui/SvgIcon';
 import SocialPeople from 'material-ui/svg-icons/social/people';
@@ -489,13 +489,13 @@ export function unpackPositionData(input) {
   return input;
 }
 
-export const threshold = _.curry((start, limits, values, value) => {
+export const threshold = curry((start, limits, values, value) => {
   if (limits.length !== values.length) throw new Error('Limits must be the same as functions.');
 
   const limitsWithStart = limits.slice(0);
   limitsWithStart.unshift(start);
 
-  return _.findLast((v, i) => _.inRange(limitsWithStart[i], limitsWithStart[i + 1], value), values);
+  return findLast((v, i) => inRange(limitsWithStart[i], limitsWithStart[i + 1], value), values);
 });
 
 export const getTeamName = (team, _isRadiant) => {
