@@ -45,15 +45,16 @@ class RequestLayer extends React.Component {
     const page = playerPages(playerId).find(_page => _page.key === info);
     const playerName = this.props.officialPlayerName || this.props.playerName || strings.general_anonymous;
     const title = page ? `${playerName} - ${page.name}` : playerName;
+    const disableFormToggle = info === 'overview';
     return (
       <div>
         <Helmet title={title} />
         <div>
-          <PlayerHeader playerId={playerId} location={location} />
+          <PlayerHeader playerId={playerId} location={location} disableFormToggle={disableFormToggle} />
           <TabBar info={info} tabs={playerPages(playerId)} />
         </div>
         <div>
-          <TableFilterForm playerId={playerId} />
+          <TableFilterForm playerId={playerId} disableFormToggle={disableFormToggle} />
           {page ? page.content(playerId, match.params, location) : <Spinner />}
         </div>
       </div>

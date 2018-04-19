@@ -48,6 +48,7 @@ class PlayerButtons extends React.Component {
       playerSoloCompetitiveRank,
       showForm,
       toggleShowForm,
+      disableFormToggle,
     } = this.props;
     return (
       <Styled>
@@ -65,7 +66,7 @@ class PlayerButtons extends React.Component {
             label={strings.app_refresh_label}
           />
         </div>
-        <ShowFormToggle showForm={showForm} toggleShowForm={toggleShowForm} />
+        <ShowFormToggle showForm={showForm} toggleShowForm={toggleShowForm} disableFormToggle={disableFormToggle} />
         <FlatButton
           label={strings.app_dotacoach}
           labelPosition="after"
@@ -89,6 +90,7 @@ PlayerButtons.propTypes = {
   playerSoloCompetitiveRank: PropTypes.number,
   showForm: PropTypes.bool,
   toggleShowForm: PropTypes.func,
+  disableFormToggle: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
