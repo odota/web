@@ -11,7 +11,6 @@ import querystring from 'querystring';
 import json2csv from 'json2csv';
 import Spinner from '../Spinner';
 import strings from '../../lang';
-import { getScript } from '../../utility';
 import Heading from '../Heading';
 import {
   getProPlayers,
@@ -64,13 +63,17 @@ class Explorer extends React.Component {
       builder: urlState,
     };
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.props.dispatchProPlayers();
     this.props.dispatchLeagues();
     this.props.dispatchTeams();
-    getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js', () => {
-      getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js', this.instantiateEditor);
-    });
+    await import('ace-builds/src-noconflict/ace');
+    await Promise.all([
+      import('ace-builds/src-noconflict/ext-language_tools'),
+      import('ace-builds/src-noconflict/theme-monokai'),
+      import('ace-builds/src-noconflict/mode-sql'),
+    ]);
+    this.instantiateEditor();
   }
 
   getSqlString = () => this.editor.getSelectedText() || this.editor.getValue();
