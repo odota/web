@@ -200,11 +200,11 @@ const Styled = styled.div`
   margin-left: 8px;
 }
 
-.pvgnaGuideContainer {
+.guideContainer {
   margin: auto;
 }
 
-.pvgnaGuideIcon {
+.guideIcon {
   max-width: 24px;
   max-height: 24px;
 }
@@ -238,8 +238,9 @@ const TableHeroImage = ({
   confirmed,
   party,
   heroName,
-  showPvgnaGuide,
-  pvgnaGuideInfo,
+  showGuide,
+  guideUrl,
+  guideType,
   randomed,
   repicked,
   predictedVictory,
@@ -348,13 +349,15 @@ const TableHeroImage = ({
         }
       </div>
       }
-      { !!showPvgnaGuide && pvgnaGuideInfo && heroName &&
-      <div className="pvgnaGuideContainer" data-tip data-for={heroName}>
-        <a href={pvgnaGuideInfo.url}>
-          <img className="pvgnaGuideIcon" src="/assets/images/pvgna-guide-icon.png" alt={`Learn ${heroName} on Pvgna`} />
+      { !!showGuide && guideType && guideUrl && heroName &&
+      <div className="guideContainer" data-tip data-for={heroName}>
+        <a href={guideUrl}>
+          { guideType === 'PVGNA' ? <img className="guideIcon" src="/assets/images/pvgna-guide-icon.png" alt={`Learn ${heroName} on Pvgna`} /> : <div /> }
+          { guideType === 'MOREMMR' ? <img className="guideIcon" src="/assets/images/moremmr-icon.png" alt={`Learn ${heroName} on MoreMMR`} /> : <div /> }
         </a>
         <ReactTooltip id={heroName} place="top" type="light" effect="solid" offset="{'top': 1, 'right': 3}">
-          {`Learn ${heroName} on Pvgna`}
+          { guideType === 'PVGNA' ? `Learn ${heroName} on Pvgna` : '' }
+          { guideType === 'MOREMMR' ? `Learn ${heroName} on MoreMMR` : '' }
         </ReactTooltip>
       </div>
       }
@@ -363,7 +366,7 @@ const TableHeroImage = ({
 );
 
 const {
-  string, oneOfType, bool, node, shape, object,
+  string, oneOfType, bool, node, object,
 } = PropTypes;
 
 TableHeroImage.propTypes = {
@@ -384,11 +387,12 @@ TableHeroImage.propTypes = {
   party: node,
   confirmed: bool,
   heroName: string,
-  showPvgnaGuide: oneOfType([
+  showGuide: oneOfType([
     bool,
     PropTypes.number,
   ]),
-  pvgnaGuideInfo: shape({ url: string }),
+  guideUrl: string,
+  guideType: string,
   randomed: bool,
   repicked: string,
   predictedVictory: bool,
