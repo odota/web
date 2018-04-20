@@ -91,7 +91,9 @@ class App extends React.Component {
   }
 
   render() {
-    const { params, width, location, strings } = this.props;
+    const {
+      params, width, location, strings,
+    } = this.props;
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
