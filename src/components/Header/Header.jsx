@@ -20,29 +20,6 @@ import BurgerMenu from './BurgerMenu';
 
 const REPORT_BUG_PATH = '//github.com/odota/web/issues';
 
-const navbarPages = [
-  <Link key={strings.header_explorer} to="/explorer">{strings.header_explorer}</Link>,
-  <Link key={strings.header_meta} to="/meta">{strings.header_meta}</Link>,
-  <Link key={strings.header_matches} to="/matches">{strings.header_matches}</Link>,
-  <Link key={strings.header_teams} to="/teams">{strings.header_teams}</Link>,
-  <Link key={strings.header_heroes} to="/heroes">{strings.header_heroes}</Link>,
-  <Link key={strings.header_distributions} to="/distributions">{strings.header_distributions}</Link>,
-  <Link key={strings.header_records} to="/records">{strings.header_records}</Link>,
-  // <Link key={strings.header_scenarios} to="/scenarios/itemTimings">{strings.header_scenarios}</Link>,
-  <Link key={strings.header_api} to="/api-keys">{strings.header_api}</Link>,
-  // <Link key="Predictions" to="/predictions">Predictions</Link>,
-  // <Link key="Assistant" to="/assistant">Assistant</Link>,
-];
-
-const burgerItems = [
-  <AccountWidget key={0} />,
-  ...navbarPages,
-];
-
-const buttonProps = {
-  children: <ActionSettings />,
-};
-
 const VerticalAlignToolbar = styled(ToolbarGroup)`
   display: flex;
   align-items: center;
@@ -120,6 +97,7 @@ class Header extends React.Component {
       <Link key="header_heroes" to="/heroes">{strings.header_heroes}</Link>,
       <Link key="header_distributions" to="/distributions">{strings.header_distributions}</Link>,
       <Link key="header_records" to="/records">{strings.header_records}</Link>,
+      // <Link key={strings.header_scenarios} to="/scenarios/itemTimings">{strings.header_scenarios}</Link>,
       <Link key="header_api" to="/api-keys">{strings.header_api}</Link>,
     // <Link key="header_predictions" to="/predictions">Predictions</Link>,
     // <Link key="header_assistant" to="/assistant">Assistant</Link>,
