@@ -11,6 +11,16 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    playerId: PropTypes.string,
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+    error: PropTypes.string,
+    loading: PropTypes.bool,
+    data: PropTypes.shape({}),
+  }
+
   UNSAFE_componentWillMount() {
     getData(this.props);
   }
@@ -35,16 +45,6 @@ class RequestLayer extends React.Component {
     );
   }
 }
-
-RequestLayer.propTypes = {
-  playerId: PropTypes.string,
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-  error: PropTypes.string,
-  loading: PropTypes.bool,
-  data: PropTypes.shape({}),
-};
 
 const mapStateToProps = state => ({
   data: state.app.playerWordcloud.data,

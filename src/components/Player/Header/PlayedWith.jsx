@@ -19,6 +19,11 @@ const getData = (props, context) => {
 const inlineStyle = { display: 'inline' };
 
 class PlayedWith extends React.Component {
+  static propTypes = {
+    playerId: PropTypes.string,
+    loggedInId: PropTypes.string,
+  }
+
   constructor() {
     super();
     this.state = {};
@@ -47,10 +52,5 @@ class PlayedWith extends React.Component {
       </div>);
   }
 }
-
-PlayedWith.propTypes = {
-  playerId: PropTypes.string,
-  loggedInId: PropTypes.string,
-};
 
 export default PlayedWith;

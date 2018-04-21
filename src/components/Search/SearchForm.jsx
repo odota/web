@@ -9,6 +9,15 @@ import { getSearchResultAndPros, setSearchQuery } from '../../actions';
 import constants from '../constants';
 
 class SearchForm extends React.Component {
+  static propTypes = {
+    dispatchSearch: PropTypes.func,
+    dispatchSetQuery: PropTypes.func,
+    history: PropTypes.shape({
+      push: PropTypes.func,
+    }),
+    strings: PropTypes.shape({}),
+  }
+
   constructor() {
     super();
     this.state = {};
@@ -71,15 +80,6 @@ class SearchForm extends React.Component {
     );
   }
 }
-
-SearchForm.propTypes = {
-  dispatchSearch: PropTypes.func,
-  dispatchSetQuery: PropTypes.func,
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }),
-  strings: PropTypes.shape({}),
-};
 
 const mapStateToProps = state => ({
   strings: state.app.strings,

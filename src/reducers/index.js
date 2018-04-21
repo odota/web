@@ -49,4 +49,7 @@ export default combineReducers({
   strings: (state = {}, action) => ((action && action.type === 'strings') ? action.payload : state),
   form,
   request,
+  scenariosItemTimings: reducer('scenariosItemTimings'),
+  scenariosLaneRoles: reducer('scenariosLaneRoles'),
+  scenariosMisc: reducer('scenariosMisc'),
 });

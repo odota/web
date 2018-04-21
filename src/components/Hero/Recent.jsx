@@ -73,6 +73,21 @@ const matchesColumns = [
 ];
 
 class Recent extends React.Component {
+  static propTypes = {
+    isLoading: bool,
+    isError: bool,
+    result: oneOfType([arrayOf(shape({})), shape({})]),
+    onGetRecentMatches: func,
+    match: shape({
+      params: shape({
+        heroId: string,
+      }),
+    }),
+    proPlayers: shape({
+      name: string,
+    }),
+  }
+
   componentDidMount() {
     const { onGetRecentMatches, match } = this.props;
 
@@ -111,21 +126,6 @@ class Recent extends React.Component {
     );
   }
 }
-
-Recent.propTypes = {
-  isLoading: bool,
-  isError: bool,
-  result: oneOfType([arrayOf(shape({})), shape({})]),
-  onGetRecentMatches: func,
-  match: shape({
-    params: shape({
-      heroId: string,
-    }),
-  }),
-  proPlayers: shape({
-    name: string,
-  }),
-};
 
 Recent.defaultProps = {
   result: null,

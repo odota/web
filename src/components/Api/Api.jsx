@@ -63,6 +63,11 @@ const DetailsContainer = styled.div`
 `;
 
 class KeyManagement extends React.Component {
+  static propTypes = {
+    loading: PropTypes.bool,
+    user: PropTypes.shape({}),
+  }
+
   constructor(props) {
     super(props);
 
@@ -230,6 +235,7 @@ class KeyManagement extends React.Component {
                               .replace('$last4', this.state.customer.credit_last4)}`
                             }
                         </p>
+                        <p>{strings.api_support.replace('$email', 'api@opendota.com')}</p>
                         <RaisedButton label={strings.api_delete} style={{ margin: '5px 5px' }} onClick={this.handleDelete} />
                         <StripeCheckout
                           name="OpenDota"
@@ -332,7 +338,7 @@ class KeyManagement extends React.Component {
             <ul>
               <li>{strings.api_charging.replace('$cost', `$${premPrice / premUnit}`)}</li>
               <li>{strings.api_credit_required}</li>
-              <li>{strings.api_delay}</li>
+              <li>{strings.api_failure}</li>
             </ul>
           </DetailsContainer>
         </ApiContainer>
@@ -340,11 +346,6 @@ class KeyManagement extends React.Component {
     );
   }
 }
-
-KeyManagement.propTypes = {
-  loading: PropTypes.bool,
-  user: PropTypes.shape({}),
-};
 
 const mapStateToProps = (state) => {
   const { error, loading, data } = state.app.metadata;

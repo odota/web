@@ -27,6 +27,13 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+    playerId: PropTypes.string,
+  }
+
   componentDidMount() {
     getData(this.props);
   }
@@ -41,13 +48,6 @@ class RequestLayer extends React.Component {
     return <Pros {...this.props} />;
   }
 }
-
-RequestLayer.propTypes = {
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-  playerId: PropTypes.string,
-};
 
 const mapDispatchToProps = dispatch => ({
   getPlayerPros: (playerId, options) => dispatch(getPlayerPros(playerId, options)),

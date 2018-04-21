@@ -5,6 +5,7 @@ import { connect }
   from 'react-redux';
 import fetch from 'isomorphic-fetch';
 import RaisedButton from 'material-ui/RaisedButton';
+import ActionSearch from 'material-ui/svg-icons/action/search';
 import Helmet from 'react-helmet';
 import querystring from 'querystring';
 import json2csv from 'json2csv';
@@ -43,6 +44,15 @@ function expandBuilderState(builder, _fields) {
 }
 
 class Explorer extends React.Component {
+  static propTypes = {
+    proPlayers: PropTypes.arrayOf({}),
+    teams: PropTypes.arrayOf({}),
+    leagues: PropTypes.shape({}),
+    dispatchProPlayers: PropTypes.func,
+    dispatchLeagues: PropTypes.func,
+    dispatchTeams: PropTypes.func,
+  }
+
   constructor() {
     super();
     let urlState = {};
@@ -225,6 +235,7 @@ class Explorer extends React.Component {
             primary={!this.state.loading}
             secondary={this.state.loading}
             style={{ margin: '5px' }}
+            icon={!this.state.loading ? <ActionSearch /> : null}
             label={this.state.loading ? strings.explorer_cancel_button : strings.explorer_query_button}
             onClick={this.state.loading ? handleCancel : handleQuery}
           />
@@ -278,15 +289,6 @@ class Explorer extends React.Component {
       </div>);
   }
 }
-
-Explorer.propTypes = {
-  proPlayers: PropTypes.arrayOf({}),
-  teams: PropTypes.arrayOf({}),
-  leagues: PropTypes.shape({}),
-  dispatchProPlayers: PropTypes.func,
-  dispatchLeagues: PropTypes.func,
-  dispatchTeams: PropTypes.func,
-};
 
 const mapStateToProps = state => ({
   proPlayers: state.app.proPlayers.data,

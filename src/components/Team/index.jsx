@@ -18,6 +18,44 @@ const getData = (props) => {
 };
 
 class Team extends React.Component {
+  static propTypes = {
+    generalData: PropTypes.shape({
+      data: PropTypes.shape({
+        team_id: PropTypes.number,
+        rating: PropTypes.number,
+        wins: PropTypes.number,
+        losses: PropTypes.number,
+        last_match_time: PropTypes.number,
+        name: PropTypes.string,
+        tag: PropTypes.string,
+        logo_url: PropTypes.string,
+      }),
+      loading: PropTypes.bool,
+      error: PropTypes.string,
+    }),
+    matchData: PropTypes.shape({
+      data: PropTypes.arrayOf(PropTypes.object),
+      loading: PropTypes.bool,
+      error: PropTypes.string,
+    }),
+    heroData: PropTypes.shape({
+      data: PropTypes.arrayOf(PropTypes.object),
+      loading: PropTypes.bool,
+      error: PropTypes.string,
+    }),
+    playerData: PropTypes.shape({
+      data: PropTypes.arrayOf(PropTypes.object),
+      loading: PropTypes.bool,
+      error: PropTypes.string,
+    }),
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        teamId: PropTypes.string,
+        info: PropTypes.string,
+      }),
+    }),
+  }
+
   componentDidMount() {
     getData(this.props);
   }
@@ -46,44 +84,6 @@ class Team extends React.Component {
     );
   }
 }
-
-Team.propTypes = {
-  generalData: PropTypes.shape({
-    data: PropTypes.shape({
-      team_id: PropTypes.number,
-      rating: PropTypes.number,
-      wins: PropTypes.number,
-      losses: PropTypes.number,
-      last_match_time: PropTypes.number,
-      name: PropTypes.string,
-      tag: PropTypes.string,
-      logo_url: PropTypes.string,
-    }),
-    loading: PropTypes.bool,
-    error: PropTypes.string,
-  }),
-  matchData: PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.object),
-    loading: PropTypes.bool,
-    error: PropTypes.string,
-  }),
-  heroData: PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.object),
-    loading: PropTypes.bool,
-    error: PropTypes.string,
-  }),
-  playerData: PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.object),
-    loading: PropTypes.bool,
-    error: PropTypes.string,
-  }),
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      teamId: PropTypes.string,
-      info: PropTypes.string,
-    }),
-  }),
-};
 
 const mapStateToProps = state => ({
   generalData: state.app.team,

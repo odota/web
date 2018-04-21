@@ -9,6 +9,20 @@ import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    loading: PropTypes.bool,
+    matchData: PropTypes.shape({}),
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        info: PropTypes.string,
+      }),
+    }),
+    user: PropTypes.shape({}),
+    getMatch: PropTypes.func,
+    getPvgnaHeroGuides: PropTypes.func,
+    matchId: PropTypes.string,
+  }
+
   componentDidMount() {
     this.props.getMatch(this.props.matchId);
     this.props.getPvgnaHeroGuides();
@@ -43,20 +57,6 @@ class RequestLayer extends React.Component {
         </div>);
   }
 }
-
-RequestLayer.propTypes = {
-  loading: PropTypes.bool,
-  matchData: PropTypes.shape({}),
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      info: PropTypes.string,
-    }),
-  }),
-  user: PropTypes.shape({}),
-  getMatch: PropTypes.func,
-  getPvgnaHeroGuides: PropTypes.func,
-  matchId: PropTypes.string,
-};
 
 const mergeHeroGuides = (match, heroGuides) => ({
   ...match,

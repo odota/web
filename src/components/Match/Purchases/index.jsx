@@ -6,6 +6,10 @@ import TeamTable from '../TeamTable';
 import { purchaseTimesColumns } from '../matchColumns';
 
 class Purchases extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({}),
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -38,9 +42,5 @@ class Purchases extends React.Component {
       </div>);
   }
 }
-
-Purchases.propTypes = {
-  match: PropTypes.shape({}),
-};
 
 export default Purchases;

@@ -105,6 +105,16 @@ Announce.propTypes = {
 };
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    getPulls: PropTypes.func,
+    error: PropTypes.string,
+    loading: PropTypes.bool,
+    data: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array,
+    ]),
+  }
+
   constructor() {
     super();
 
@@ -152,16 +162,6 @@ class RequestLayer extends React.Component {
     return null;
   }
 }
-
-RequestLayer.propTypes = {
-  getPulls: PropTypes.func,
-  error: PropTypes.string,
-  loading: PropTypes.bool,
-  data: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.array,
-  ]),
-};
 
 const mapStateToProps = (state) => {
   const { error, loading, data } = state.app.ghPulls;

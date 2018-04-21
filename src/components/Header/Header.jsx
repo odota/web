@@ -74,6 +74,13 @@ const ToolbarHeader = styled(Toolbar)`
 `;
 
 class Header extends React.Component {
+  static propTypes = {
+    location: PropTypes.shape({}),
+    small: PropTypes.bool,
+    user: PropTypes.shape({}),
+    strings: PropTypes.shape({}),
+  }
+
   constructor() {
     super();
     this.state = {};
@@ -92,6 +99,7 @@ class Header extends React.Component {
       <Link key="header_heroes" to="/heroes">{strings.header_heroes}</Link>,
       <Link key="header_distributions" to="/distributions">{strings.header_distributions}</Link>,
       <Link key="header_records" to="/records">{strings.header_records}</Link>,
+      // <Link key={strings.header_scenarios} to="/scenarios/itemTimings">{strings.header_scenarios}</Link>,
       <Link key="header_api" to="/api-keys">{strings.header_api}</Link>,
     // <Link key="header_predictions" to="/predictions">Predictions</Link>,
     // <Link key="header_assistant" to="/assistant">Assistant</Link>,
@@ -202,13 +210,6 @@ class Header extends React.Component {
     );
   }
 }
-
-Header.propTypes = {
-  location: PropTypes.shape({}),
-  small: PropTypes.bool,
-  user: PropTypes.shape({}),
-  strings: PropTypes.shape({}),
-};
 
 const mapStateToProps = state => ({
   small: state.browser.greaterThan.small,

@@ -4,6 +4,7 @@ import { connect }
   from 'react-redux';
 import fetch from 'isomorphic-fetch';
 import RaisedButton from 'material-ui/RaisedButton';
+import ActionSearch from 'material-ui/svg-icons/action/search';
 import Helmet from 'react-helmet';
 import querystring from 'querystring';
 import Spinner from '../Spinner';
@@ -30,6 +31,8 @@ function expandBuilderState(builder, _fields) {
 }
 
 class Explorer extends React.Component {
+  static propTypes = {}
+
   constructor() {
     super();
     const urlState = querystring.parse(window.location.search.substring(1));
@@ -126,6 +129,7 @@ class Explorer extends React.Component {
             primary={!this.state.loading}
             secondary={this.state.loading}
             style={{ margin: '5px' }}
+            icon={!this.state.loading ? <ActionSearch /> : null}
             label={this.state.loading ? strings.explorer_cancel_button : strings.explorer_query_button}
             onClick={this.state.loading ? handleCancel : handleQuery}
           />
@@ -142,8 +146,6 @@ class Explorer extends React.Component {
       </div>);
   }
 }
-
-Explorer.propTypes = {};
 
 const mapStateToProps = () => ({
 });

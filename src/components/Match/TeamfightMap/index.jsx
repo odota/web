@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
-import stylePropType from 'react-style-proptype';
 import styled from 'styled-components';
 import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from '../../../utility';
 import { IconRadiant, IconDire, IconDot } from '../../Icons';
@@ -367,7 +366,16 @@ const avgPosition = ({ deaths_pos: deathPositions }) => {
   };
 };
 
+const {
+  arrayOf, object, shape, number, bool, func, string, array,
+} = PropTypes;
+
 class TeamfightMap extends Component {
+  static propTypes = {
+    teamfights: arrayOf(object),
+    match: shape({}),
+  }
+
   constructor(props) {
     super();
     const { teamfights = [] } = props;
@@ -495,9 +503,6 @@ class TeamfightMap extends Component {
   }
 }
 
-const {
-  arrayOf, object, shape, number, bool, func, string, array,
-} = PropTypes;
 const positionShape = {
   x: number,
   y: number,
@@ -509,7 +514,7 @@ TeamfightIcon.propTypes = {
   mapWidth: number,
   onClick: func, // not required because tombstone doesn't need click fn
   Icon: func,
-  style: stylePropType,
+  style: shape({}),
 };
 
 GoldDelta.propTypes = {
@@ -533,11 +538,6 @@ Teamfight.propTypes = {
   mapWidth: number,
   onClick: func,
   deathPositions: arrayOf(array),
-};
-
-TeamfightMap.propTypes = {
-  teamfights: arrayOf(object),
-  match: shape({}),
 };
 
 export default TeamfightMap;

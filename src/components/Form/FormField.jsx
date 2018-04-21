@@ -39,6 +39,21 @@ const deleteChipDefault = (name, index, history) => {
 };
 
 class FormField extends React.Component {
+  static propTypes = {
+    name: PropTypes.string,
+    dataSource: PropTypes.arrayOf({}),
+    strict: PropTypes.bool,
+    limit: PropTypes.number,
+    formSelectionState: PropTypes.shape({}),
+    addChip: PropTypes.string,
+    history: PropTypes.shape({}),
+    label: PropTypes.string,
+    filter: PropTypes.string,
+    className: PropTypes.string,
+    maxSearchResults: PropTypes.string,
+    deleteChip: PropTypes.string,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -149,20 +164,5 @@ class FormField extends React.Component {
       </div>);
   }
 }
-
-FormField.propTypes = {
-  name: PropTypes.string,
-  dataSource: PropTypes.arrayOf({}),
-  strict: PropTypes.bool,
-  limit: PropTypes.number,
-  formSelectionState: PropTypes.shape({}),
-  addChip: PropTypes.string,
-  history: PropTypes.shape({}),
-  label: PropTypes.string,
-  filter: PropTypes.string,
-  className: PropTypes.string,
-  maxSearchResults: PropTypes.string,
-  deleteChip: PropTypes.string,
-};
 
 export default FormField;

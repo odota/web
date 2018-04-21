@@ -17,6 +17,10 @@ const StyledMenuItem = styled(MenuItem)`
 `;
 
 export default class BurgerMenu extends React.Component {
+  static propTypes = {
+    menuItems: PropTypes.arrayOf({}),
+  }
+
   constructor() {
     super();
     this.state = { open: false };
@@ -51,7 +55,3 @@ export default class BurgerMenu extends React.Component {
     );
   }
 }
-
-BurgerMenu.propTypes = {
-  menuItems: PropTypes.arrayOf({}),
-};

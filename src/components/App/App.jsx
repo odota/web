@@ -21,6 +21,7 @@ import Matches from '../Matches';
 import Teams from '../Teams';
 // import Assistant from '../Assistant';
 import Records from '../Records';
+import Scenarios from '../Scenarios';
 // import Predictions from '../Predictions';
 import Meta from '../Meta';
 import Api from '../Api';
@@ -44,8 +45,8 @@ const muiTheme = {
     borderColor: constants.dividerColor,
   },
   tabs: {
-    backgroundColor: constants.primarySurfaceColor,
-    textColor: constants.textColorPrimary,
+    backgroundColor: 'transparent',
+    textColor: constants.colorMuted,
     selectedTextColor: constants.textColorPrimary,
   },
   button: { height: 38 },
@@ -84,6 +85,15 @@ const AdBannerDiv = styled.div`
 `;
 
 class App extends React.Component {
+  static propTypes = {
+    params: PropTypes.shape({}),
+    width: PropTypes.number,
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+    strings: PropTypes.shape({}),
+  }
+
   UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.location.key !== nextProps.location.key) {
       window.scrollTo(0, 0);
@@ -123,6 +133,7 @@ class App extends React.Component {
             <Route exact path="/search" component={Search} />
             <Route exact path="/records/:info?" component={Records} />
             <Route exact path="/meta" component={Meta} />
+            <Route exact path="/scenarios/:info?" component={Scenarios} />
             <Route exact path="/api-keys" component={Api} />
           </StyledBodyDiv>
           <AdBannerDiv>
@@ -143,15 +154,6 @@ class App extends React.Component {
     );
   }
 }
-
-App.propTypes = {
-  params: PropTypes.shape({}),
-  width: PropTypes.number,
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-  strings: PropTypes.shape({}),
-};
 
 const mapStateToProps = state => ({
   strings: state.app.strings,
