@@ -231,7 +231,7 @@ class InflictorWithValue extends React.Component {
     } = this.props;
     const { abilities, neutralAbilities, abilityIds } = this.state;
     const resolvedInflictor = (abilityId && abilityIds && abilityIds[abilityId]) || inflictor;
-    if (resolvedInflictor !== undefined) {
+    if (resolvedInflictor) {
       const ability = abilities && abilities[resolvedInflictor];
       const neutralAbility = neutralAbilities && neutralAbilities[resolvedInflictor];
       const item = items[resolvedInflictor];
