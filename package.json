@@ -50,7 +50,7 @@
     "react-scripts": "^1.0.17",
     "react-stripe-checkout": "^2.6.3",
     "react-tooltip": "^3.4.0",
-    "recharts": "^1.0.0-beta.2",
+    "recharts": "^1.0.0-beta.10",
     "redux": "^3.7.2",
     "redux-responsive": "^4.3.5",
     "redux-thunk": "^2.2.0",
