@@ -9,8 +9,7 @@ import ActionSettings from 'material-ui/svg-icons/action/settings';
 import Bug from 'material-ui/svg-icons/action/bug-report';
 import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
 import styled from 'styled-components';
-import strings from '../../lang';
-import { LocalizationMenu } from '../Localization';
+import LocalizationMenu from '../Localization';
 import Dropdown from '../Header/Dropdown';
 import constants from '../constants';
 import AccountWidget from '../AccountWidget';
@@ -79,21 +78,18 @@ class Header extends React.Component {
     location: PropTypes.shape({}),
     small: PropTypes.bool,
     user: PropTypes.shape({}),
+    strings: PropTypes.shape({}),
   }
 
   constructor() {
     super();
     this.state = {};
-  }
-
-  async UNSAFE_componentWillMount() {
-    const ann = await import('../Announce');
-    this.setState({ Announce: ann.default });
+    import('../Announce').then(ann => this.setState({ Announce: ann.default }));
   }
 
   render() {
     const {
-      location, small, user,
+      location, small, user, strings,
     } = this.props;
     const navbarPages = [
       <Link key="header_explorer" to="/explorer">{strings.header_explorer}</Link>,
@@ -218,6 +214,7 @@ class Header extends React.Component {
 const mapStateToProps = state => ({
   small: state.browser.greaterThan.small,
   user: state.app.metadata.data.user,
+  strings: state.app.strings,
 });
 
 export default connect(mapStateToProps, null)(Header);

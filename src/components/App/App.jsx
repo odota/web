@@ -7,7 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { Route } from 'react-router-dom';
-import strings from '../../lang';
+import Header from '../Header';
 import Player from '../Player';
 import Home from '../Home';
 import Search from '../Search';
@@ -25,7 +25,6 @@ import Scenarios from '../Scenarios';
 // import Predictions from '../Predictions';
 import Meta from '../Meta';
 import Api from '../Api';
-import Header from '../Header';
 import Footer from '../Footer';
 import constants from '../constants';
 
@@ -92,6 +91,7 @@ class App extends React.Component {
     location: PropTypes.shape({
       key: PropTypes.string,
     }),
+    strings: PropTypes.shape({}),
   }
 
   UNSAFE_componentWillUpdate(nextProps) {
@@ -101,7 +101,9 @@ class App extends React.Component {
   }
 
   render() {
-    const { params, width, location } = this.props;
+    const {
+      params, width, location, strings,
+    } = this.props;
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
@@ -153,4 +155,8 @@ class App extends React.Component {
   }
 }
 
-export default connect()(App);
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(App);

@@ -130,7 +130,7 @@ export default {
     colColor: constants.colorHeraldAlt,
   }].map((col, i) => ({
     ...col,
-    displayName: i === 0 ? col.displayName : `${col.displayName.substring(0, 2)} ${col.field.startsWith('pick') ? strings.abbr_pick : strings.abbr_win}%`,
+    displayName: i === 0 ? col.displayName : `${(col.displayName || '').substring(0, 2)} ${col.field.startsWith('pick') ? strings.abbr_pick : strings.abbr_win}%`,
     tooltip: col.displayName,
   })),
 };
