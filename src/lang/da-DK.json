@@ -284,6 +284,7 @@
   "header_explorer": "Browser",
   "header_teams": "Teams",
   "header_meta": "Meta",
+  "header_scenarios": "Scenarios",
   "header_api": "API",
   "heading_lhten": "Sidste træffere @ 10",
   "heading_lhtwenty": "Sidste træffere @ 20",
@@ -945,6 +946,7 @@
   "tooltip_others_track_gold": "gold earned from Track",
   "tooltip_others_greevils_gold": "gold earned from Greevil's Greed",
   "tooltip_advantage": "Calculated by Wilson score",
+  "tooltip_winrate_samplesize": "Win rate and sample size",
   "histograms_name": "Histograms",
   "histograms_description": "Percentages indicate win rates for the labeled bin",
   "histograms_actions_per_min_description": "Actions performed by player per minute",
@@ -1173,5 +1175,16 @@
   "activated": "Activated",
   "rune": "Rune",
   "placement": "Placement",
-  "exclude_turbo_matches": "Exclude Turbo matches"
+  "exclude_turbo_matches": "Exclude Turbo matches",
+  "scenarios_subtitle": "Explore win rates of combinations of factors that happen in matches",
+  "scenarios_item_timings": "Item Timings",
+  "scenarios_misc": "Misc",
+  "scenarios_time": "Time",
+  "scenarios_item": "Item",
+  "scenarios_game_duration": "Game Duration",
+  "scenarios_scenario": "Scenario",
+  "scenarios_first_blood": "Team drew First Blood",
+  "scenarios_courier_kill": "Team sniped the enemy courier before the 3-minute mark",
+  "scenarios_pos_chat_1min": "Team all chatted positive words before the 1-minute mark",
+  "scenarios_neg_chat_1min": "Team all chatted negative words before the 1-minute mark"
 }
