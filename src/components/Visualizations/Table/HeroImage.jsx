@@ -349,7 +349,7 @@ const TableHeroImage = ({
         }
       </div>
       }
-      { !!showGuide && guideType && guideUrl && heroName &&
+      { Boolean(showGuide) && guideType && guideUrl && heroName &&
       <div className="guideContainer" data-tip data-for={heroName}>
         <a href={guideUrl}>
           { guideType === 'PVGNA' ? <img className="guideIcon" src="/assets/images/pvgna-guide-icon.png" alt={`Learn ${heroName} on Pvgna`} /> : <div /> }

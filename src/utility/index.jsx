@@ -281,10 +281,10 @@ export const transformations = {
       />
     );
   },
-  hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true, IMAGESIZE_ENUM.SMALL, row.pvgnaGuide ? row.pvgnaGuide.url : null, 'PVGNA'),
+  hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true, IMAGESIZE_ENUM.SMALL, row.pvgnaGuide && row.pvgnaGuide.url, 'PVGNA'),
   hero_id_with_more_mmr: (row, col, field) => {
     let url = 'https://moremmr.com/en/heroes/';
-    if (heroes[row[col.field]]) {
+    if (heroes[row[col.field]] && heroes[row[col.field]].localized_name) {
       const heroName = heroes[row[col.field]].localized_name.toLowerCase().replace(' ', '-');
       url = `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`;
     }
