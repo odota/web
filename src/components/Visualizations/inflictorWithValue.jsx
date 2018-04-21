@@ -225,31 +225,31 @@ class InflictorWithValue extends React.Component {
       inflictor, value, type, ptooltip, abilityId,
     } = this.props;
     const { abilities, neutralAbilities, abilityIds } = this.state;
-    if (inflictor !== undefined) {
-      const resolvedInflictor = abilityId && abilityIds && abilityIds[abilityId];
-      const ability = abilities && abilities[resolvedInflictor || inflictor];
-      const neutralAbility = neutralAbilities && neutralAbilities[inflictor];
-      const item = items[inflictor];
+    const resolvedInflictor = (abilityId && abilityIds && abilityIds[abilityId]) || inflictor;
+    if (resolvedInflictor !== undefined) {
+      const ability = abilities && abilities[resolvedInflictor];
+      const neutralAbility = neutralAbilities && neutralAbilities[resolvedInflictor];
+      const item = items[resolvedInflictor];
       let image;
       let tooltip = strings.tooltip_autoattack_other;
       const ttId = uuid.v4();
 
       if (ability) {
-        if (inflictor.includes('attribute_bonus')) {
+        if (resolvedInflictor.includes('attribute_bonus')) {
           image = '/assets/images/stats.png';
-        } else if (inflictor.includes('special_bonus')) {
+        } else if (resolvedInflictor.includes('special_bonus')) {
           image = '/assets/images/dota2/talent_tree.svg';
         } else if (neutralAbility) {
           image = neutralAbility.img;
         } else {
-          image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
+          image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/abilities/${resolvedInflictor}_lg.png`;
         }
         tooltip = tooltipContainer(ability);
       } else if (item) {
-        if (customImageIcon.includes(inflictor)) {
-          image = `/assets/images/dota2/${inflictor}.png`;
+        if (customImageIcon.includes(resolvedInflictor)) {
+          image = `/assets/images/dota2/${resolvedInflictor}.png`;
         } else {
-          image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${getInflictorImage(inflictor)}_lg.png`;
+          image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${getInflictorImage(resolvedInflictor)}_lg.png`;
         }
         tooltip = tooltipContainer(item);
       } else {
