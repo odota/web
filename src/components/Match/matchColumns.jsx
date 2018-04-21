@@ -10,7 +10,7 @@ import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import strings from '../../lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy } from '../../utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy, IMAGESIZE_ENUM, getHeroImageUrl } from '../../utility';
 import { TableHeroImage, inflictorWithValue } from '../Visualizations';
 import { CompetitiveRank } from '../Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from '../Icons';
@@ -22,7 +22,7 @@ const heroNames = getHeroesById();
 
 export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide = false) =>
   (<TableHeroImage
-    image={heroes[row.hero_id] && process.env.REACT_APP_API_HOST + heroes[row.hero_id].img}
+    image={getHeroImageUrl(row.hero_id, IMAGESIZE_ENUM.SMALL)}
     title={row.name || row.personaname || strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}

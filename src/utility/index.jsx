@@ -253,6 +253,13 @@ const getTitle = (row, col, heroName) => {
   return <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
 };
 
+export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
+  let imageUrl = heroes[heroId] && process.env.REACT_APP_API_HOST + heroes[heroId].img; // "[api url]/abaddon_full.png?"
+  if (imageUrl) {
+    imageUrl = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
+  }
+  return imageUrl + imageSizeSuffix;
+};
 
 /**
  * Transformations of table cell data to display values.
@@ -263,14 +270,11 @@ const getTitle = (row, col, heroName) => {
 export const transformations = {
   hero_id: (row, col, field, showPvgnaGuide = false, imageSizeSuffix = IMAGESIZE_ENUM.SMALL) => {
     const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
-    let imageUrl = heroes[row[col.field]] && process.env.REACT_APP_API_HOST + heroes[row[col.field]].img; // "[api url]/abaddon_full.png?"
-    if (imageUrl) {
-      imageUrl = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
-    }
+    const imageUrl = getHeroImageUrl(row[col.field], imageSizeSuffix);
     return (
       <TableHeroImage
         parsed={row.version}
-        image={imageUrl + imageSizeSuffix}
+        image={imageUrl}
         title={getTitle(row, col, heroName)}
         subtitle={getSubtitle(row)}
         heroName={heroName}

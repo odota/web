@@ -247,7 +247,7 @@ class InflictorWithValue extends React.Component {
         } else if (neutralAbility) {
           image = neutralAbility.img;
         } else {
-          image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/abilities/${resolvedInflictor}_lg.png`;
+          image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/abilities/${resolvedInflictor}_sm.png`;
         }
         tooltip = tooltipContainer(ability);
       } else if (item) {
