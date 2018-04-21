@@ -21,6 +21,7 @@ import Matches from '../Matches';
 import Teams from '../Teams';
 // import Assistant from '../Assistant';
 import Records from '../Records';
+import Scenarios from '../Scenarios';
 // import Predictions from '../Predictions';
 import Meta from '../Meta';
 import Api from '../Api';
@@ -45,8 +46,8 @@ const muiTheme = {
     borderColor: constants.dividerColor,
   },
   tabs: {
-    backgroundColor: constants.primarySurfaceColor,
-    textColor: constants.textColorPrimary,
+    backgroundColor: 'transparent',
+    textColor: constants.colorMuted,
     selectedTextColor: constants.textColorPrimary,
   },
   button: { height: 38 },
@@ -122,6 +123,7 @@ class App extends React.Component {
             <Route exact path="/search" component={Search} />
             <Route exact path="/records/:info?" component={Records} />
             <Route exact path="/meta" component={Meta} />
+            <Route exact path="/scenarios/:info?" component={Scenarios} />
             <Route exact path="/api-keys" component={Api} />
           </StyledBodyDiv>
           <AdBannerDiv>
