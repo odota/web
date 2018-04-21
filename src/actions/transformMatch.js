@@ -7,18 +7,23 @@ import {
   getLevelFromXp,
   unpackPositionData,
 } from '../utility';
-import strings from '../lang';
 import analyzeMatch from './analyzeMatch';
+import store from '../store';
 
-const expanded = {};
-Object.keys(strings)
-  .filter(str => str.indexOf('npc_dota_') === 0)
-  .forEach((key) => {
-  // Currently, no unit goes up higher than 4
-    for (let i = 1; i < 5; i += 1) {
-      expanded[key.replace('#', i)] = strings[key];
-    }
-  });
+let expandedUnitNames = null;
+
+function generateExpandedUnitNames(strings) {
+  const expanded = {};
+  Object.keys(strings)
+    .filter(str => str.indexOf('npc_dota_') === 0)
+    .forEach((key) => {
+    // Currently, no unit goes up higher than 4
+      for (let i = 1; i < 5; i += 1) {
+        expanded[key.replace('#', i)] = strings[key];
+      }
+    });
+  return expanded;
+}
 
 const getMaxKeyOfObject = field => Number(Object.keys(field || {}).sort((a, b) => Number(b) - Number(a))[0]) || 0;
 
@@ -141,6 +146,7 @@ function generateVisionLog(match) {
 }
 
 function transformMatch(m) {
+  const { strings } = store.getState().app;
   const newPlayers = m.players.map((player) => {
     const newPlayer = {
       ...player,
@@ -194,9 +200,12 @@ function transformMatch(m) {
       // map to friendly name
       // iterate through keys in killed
       // if in expanded, put in pm.specific
+      if (!expandedUnitNames) {
+        expandedUnitNames = generateExpandedUnitNames(strings);
+      }
       Object.keys(player.killed).forEach((key) => {
-        if (key in expanded) {
-          const name = expanded[key];
+        if (key in expandedUnitNames) {
+          const name = expandedUnitNames[key];
           newPlayer.specific[name] = newPlayer.specific[name] ? newPlayer.specific[name] + newPlayer.killed[key] : newPlayer.killed[key];
         }
       });

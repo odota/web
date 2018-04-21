@@ -203,13 +203,12 @@ class InflictorWithValue extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-  }
-
-  async UNSAFE_componentWillMount() {
-    this.setState({
-      abilities: await import('dotaconstants/build/abilities.json'),
-      neutralAbilities: await import('dotaconstants/build/neutral_abilities.json'),
-    });
+    (async () => {
+      this.setState({
+        abilities: await import('dotaconstants/build/abilities.json'),
+        neutralAbilities: await import('dotaconstants/build/neutral_abilities.json'),
+      });
+    })();
   }
 
   render() {

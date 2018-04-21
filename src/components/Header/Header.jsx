@@ -77,11 +77,7 @@ class Header extends React.Component {
   constructor() {
     super();
     this.state = {};
-  }
-
-  async UNSAFE_componentWillMount() {
-    const ann = await import('../Announce');
-    this.setState({ Announce: ann.default });
+    import('../Announce').then(ann => this.setState({ Announce: ann.default }));
   }
 
   render() {
