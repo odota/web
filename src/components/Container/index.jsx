@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import stylePropType from 'react-style-proptype';
 import Heading from '../Heading';
 import Spinner from '../Spinner';
 import Error from '../Error';
@@ -15,7 +14,9 @@ export const AsyncContainer = ({ loading, error, children }) => {
   return children;
 };
 
-const { bool, node, string } = PropTypes;
+const {
+  bool, node, string, shape,
+} = PropTypes;
 
 AsyncContainer.propTypes = {
   loading: bool,
@@ -37,7 +38,7 @@ const Container = ({
 Container.propTypes = {
   title: string,
   subtitle: string,
-  style: stylePropType,
+  style: shape({}),
   className: string,
   loading: bool,
   error: bool,
