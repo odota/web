@@ -284,6 +284,7 @@
   "header_explorer": "Explorateur",
   "header_teams": "Équipes",
   "header_meta": "Méta",
+  "header_scenarios": "Scenarios",
   "header_api": "API",
   "heading_lhten": "Last Hits à 10 minutes",
   "heading_lhtwenty": "Last Hits à 20 minutes",
@@ -945,6 +946,7 @@
   "tooltip_others_track_gold": "or gagnés par les traques",
   "tooltip_others_greevils_gold": "or gagné par Greevil's Greed",
   "tooltip_advantage": "Calculé par score de Wilson",
+  "tooltip_winrate_samplesize": "Win rate and sample size",
   "histograms_name": "Histogrammes",
   "histograms_description": "Percentages indicate win rates for the labeled bin",
   "histograms_actions_per_min_description": "Actions performed by player per minute",
@@ -1173,5 +1175,16 @@
   "activated": "Activé",
   "rune": "Rune",
   "placement": "Position",
-  "exclude_turbo_matches": "Exclure les parties Turbo"
+  "exclude_turbo_matches": "Exclure les parties Turbo",
+  "scenarios_subtitle": "Explore win rates of combinations of factors that happen in matches",
+  "scenarios_item_timings": "Item Timings",
+  "scenarios_misc": "Misc",
+  "scenarios_time": "Time",
+  "scenarios_item": "Item",
+  "scenarios_game_duration": "Game Duration",
+  "scenarios_scenario": "Scenario",
+  "scenarios_first_blood": "Team drew First Blood",
+  "scenarios_courier_kill": "Team sniped the enemy courier before the 3-minute mark",
+  "scenarios_pos_chat_1min": "Team all chatted positive words before the 1-minute mark",
+  "scenarios_neg_chat_1min": "Team all chatted negative words before the 1-minute mark"
 }
