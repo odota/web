@@ -4,7 +4,6 @@ import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
-import abilityIds from 'dotaconstants/build/ability_ids.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import ReactTooltip from 'react-tooltip';
@@ -292,7 +291,7 @@ export const abilityColumns = () => {
       (
         <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
           <div className="ability">
-            {inflictorWithValue(abilityIds[row[`ability_upgrades_arr_${index}`]]) || <div className="placeholder" />}
+            {inflictorWithValue(null, null, null, null, row[`ability_upgrades_arr_${index}`]) || <div className="placeholder" />}
           </div>
         </StyledAbilityUpgrades>),
   }));
@@ -311,7 +310,7 @@ export const abilityDraftColumns = () => {
       (
         <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
           <div className="ability">
-            {inflictorWithValue(abilityIds[row.abilities[index - 1]]) || <div className="placeholder" />}
+            {inflictorWithValue(null, null, null, null, row.abilities[index - 1]) || <div className="placeholder" />}
           </div>
         </StyledAbilityUpgrades>),
   }));

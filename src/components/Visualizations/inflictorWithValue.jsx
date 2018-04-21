@@ -205,6 +205,7 @@ class InflictorWithValue extends React.Component {
     value: PropTypes.string,
     type: PropTypes.string,
     ptooltip: PropTypes.shape({}),
+    abilityId: PropTypes.number,
   }
 
   constructor(props) {
@@ -216,16 +217,18 @@ class InflictorWithValue extends React.Component {
     this.setState({
       abilities: await import('dotaconstants/build/abilities.json'),
       neutralAbilities: await import('dotaconstants/build/neutral_abilities.json'),
+      abilityIds: await import('dotaconstants/build/ability_ids.json'),
     });
   }
 
   render() {
     const {
-      inflictor, value, type, ptooltip,
+      inflictor, value, type, ptooltip, abilityId,
     } = this.props;
-    const { abilities, neutralAbilities } = this.state;
+    const { abilities, neutralAbilities, abilityIds } = this.state;
     if (inflictor !== undefined) {
-      const ability = abilities && abilities[inflictor];
+      const resolvedInflictor = abilityId && abilityIds && abilityIds[abilityId];
+      const ability = abilities && abilities[resolvedInflictor || inflictor];
       const neutralAbility = neutralAbilities && neutralAbilities[inflictor];
       const item = items[inflictor];
       let image;
@@ -292,4 +295,4 @@ class InflictorWithValue extends React.Component {
   }
 }
 
-export default (inflictor, value, type, ptooltip) => <InflictorWithValue inflictor={inflictor} value={value} type={type} ptooltip={ptooltip} />;
+export default (inflictor, value, type, ptooltip, abilityId) => <InflictorWithValue inflictor={inflictor} value={value} type={type} ptooltip={ptooltip} abilityId={abilityId} />;
