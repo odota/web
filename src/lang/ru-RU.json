@@ -284,6 +284,7 @@
   "header_explorer": "Проводник",
   "header_teams": "Команды",
   "header_meta": "Мета",
+  "header_scenarios": "Scenarios",
   "header_api": "API",
   "heading_lhten": "Добиваний @ 10",
   "heading_lhtwenty": "Добиваний @ 20",
@@ -945,6 +946,7 @@
   "tooltip_others_track_gold": "Добыто золота из Track",
   "tooltip_others_greevils_gold": "Добыто золота из Greevil's Greed",
   "tooltip_advantage": "Рассчитывано Wilson score",
+  "tooltip_winrate_samplesize": "Win rate and sample size",
   "histograms_name": "Гистограммы",
   "histograms_description": "Процентаж указывает на процент побед для этого столбца",
   "histograms_actions_per_min_description": "Действий игрока в минуту",
@@ -1173,5 +1175,16 @@
   "activated": "Активирован",
   "rune": "Руны",
   "placement": "Размещение",
-  "exclude_turbo_matches": "Исключить Turbo матчи"
+  "exclude_turbo_matches": "Исключить Turbo матчи",
+  "scenarios_subtitle": "Explore win rates of combinations of factors that happen in matches",
+  "scenarios_item_timings": "Item Timings",
+  "scenarios_misc": "Misc",
+  "scenarios_time": "Time",
+  "scenarios_item": "Item",
+  "scenarios_game_duration": "Game Duration",
+  "scenarios_scenario": "Scenario",
+  "scenarios_first_blood": "Team drew First Blood",
+  "scenarios_courier_kill": "Team sniped the enemy courier before the 3-minute mark",
+  "scenarios_pos_chat_1min": "Team all chatted positive words before the 1-minute mark",
+  "scenarios_neg_chat_1min": "Team all chatted negative words before the 1-minute mark"
 }
