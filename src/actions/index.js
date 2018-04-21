@@ -70,6 +70,15 @@ export const getStrings = () => async (dispatch) => {
   const selData = await import(`../lang/${selectedLang.value}.json`);
   dispatch({ type: 'strings', payload: { ...defData, ...selData } });
 };
+export const getAbilities = () => async (dispatch) => {
+  dispatch({ type: 'abilities', payload: await import('dotaconstants/build/abilities.json') });
+};
+export const getNeutralAbilities = () => async (dispatch) => {
+  dispatch({ type: 'neutralAbilities', payload: await import('dotaconstants/build/neutral_abilities.json') });
+};
+export const getAbilityIds = () => async (dispatch) => {
+  dispatch({ type: 'abilityIds', payload: await import('dotaconstants/build/ability_ids.json') });
+};
 export * from './requestActions';
 export * from './formActions';
 export const getScenariosItemTimings = params => action('scenariosItemTimings', process.env.REACT_APP_API_HOST, 'api/scenarios/itemTimings', params);

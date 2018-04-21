@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
@@ -299,4 +300,20 @@ class InflictorWithValue extends React.Component {
   }
 }
 
-export default (inflictor, value, type, ptooltip, abilityId) => <InflictorWithValue inflictor={inflictor} value={value} type={type} ptooltip={ptooltip} abilityId={abilityId} />;
+const mapStateToProps = state => ({
+  abilities: state.app.abilities,
+  neutralAbilities: state.app.neutralAbilities,
+  abilityIds: state.app.abilityIds,
+});
+
+const InflictorWithValueCont = connect(mapStateToProps)(InflictorWithValue);
+
+export default (inflictor, value, type, ptooltip, abilityId) => (
+  <InflictorWithValueCont
+    inflictor={inflictor}
+    value={value}
+    type={type}
+    ptooltip={ptooltip}
+    abilityId={abilityId}
+  />
+);
