@@ -31,6 +31,8 @@ function expandBuilderState(builder, _fields) {
 }
 
 class Explorer extends React.Component {
+  static propTypes = {}
+
   constructor() {
     super();
     const urlState = querystring.parse(window.location.search.substring(1));
@@ -144,8 +146,6 @@ class Explorer extends React.Component {
       </div>);
   }
 }
-
-Explorer.propTypes = {};
 
 const mapStateToProps = () => ({
 });

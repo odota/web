@@ -63,6 +63,11 @@ const DetailsContainer = styled.div`
 `;
 
 class KeyManagement extends React.Component {
+  static propTypes = {
+    loading: PropTypes.bool,
+    user: PropTypes.shape({}),
+  }
+
   constructor(props) {
     super(props);
 
@@ -341,11 +346,6 @@ class KeyManagement extends React.Component {
     );
   }
 }
-
-KeyManagement.propTypes = {
-  loading: PropTypes.bool,
-  user: PropTypes.shape({}),
-};
 
 const mapStateToProps = (state) => {
   const { error, loading, data } = state.app.metadata;

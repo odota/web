@@ -26,6 +26,16 @@ const customStyles = {
 };
 
 class ScenarioFormField extends React.Component {
+  static propTypes = {
+    field: PropTypes.string,
+    formFieldState: PropTypes.shape({}),
+    metadata: PropTypes.shape({}),
+    updateFormFieldState: PropTypes.func,
+    selectedTab: PropTypes.string,
+    className: PropTypes.string,
+    index: PropTypes.number,
+  }
+
   constructor(props) {
     super(props);
     const {
@@ -113,15 +123,5 @@ class ScenarioFormField extends React.Component {
     );
   }
 }
-
-ScenarioFormField.propTypes = {
-  field: PropTypes.string,
-  formFieldState: PropTypes.shape({}),
-  metadata: PropTypes.shape({}),
-  updateFormFieldState: PropTypes.func,
-  selectedTab: PropTypes.string,
-  className: PropTypes.string,
-  index: PropTypes.number,
-};
 
 export default ScenarioFormField;

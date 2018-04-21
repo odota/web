@@ -162,6 +162,13 @@ WardPin.propTypes = {
 
 
 class VisionMap extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      start_time: PropTypes.number,
+    }),
+    wards: PropTypes.arrayOf({}),
+  }
+
   shouldComponentUpdate(newProps) {
     return newProps.wards.length !== this.props.wards.length;
   }
@@ -181,13 +188,6 @@ class VisionMap extends React.Component {
     );
   }
 }
-
-VisionMap.propTypes = {
-  match: PropTypes.shape({
-    start_time: PropTypes.number,
-  }),
-  wards: PropTypes.arrayOf({}),
-};
 
 VisionMap.defaultProps = {
   width: 400,

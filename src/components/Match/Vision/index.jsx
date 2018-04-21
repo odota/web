@@ -114,6 +114,13 @@ const alive = (ward, time) => time === -90 || (time > ward.entered.time && (!war
 const isTeam = () => true;
 
 class Vision extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      duration: PropTypes.number,
+      wards_log: PropTypes.arrayOf({}),
+    }),
+  }
+
   constructor(props) {
     super(props);
 
@@ -213,12 +220,5 @@ class Vision extends React.Component {
     );
   }
 }
-
-Vision.propTypes = {
-  match: PropTypes.shape({
-    duration: PropTypes.number,
-    wards_log: PropTypes.arrayOf({}),
-  }),
-};
 
 export default Vision;

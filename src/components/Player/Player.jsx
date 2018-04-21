@@ -17,6 +17,22 @@ import PlayerHeader from './Header/PlayerHeader';
 import playerPages from './playerPages';
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        playerId: PropTypes.string,
+      }),
+    }),
+    history: PropTypes.shape({
+      push: PropTypes.func,
+    }),
+    officialPlayerName: PropTypes.string,
+    playerName: PropTypes.string,
+  }
+
   componentDidMount() {
     const { props } = this;
     const { playerId } = props.match.params;
@@ -60,22 +76,6 @@ class RequestLayer extends React.Component {
     );
   }
 }
-
-RequestLayer.propTypes = {
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      playerId: PropTypes.string,
-    }),
-  }),
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }),
-  officialPlayerName: PropTypes.string,
-  playerName: PropTypes.string,
-};
 
 const mapStateToProps = state => ({
   playerName: (state.app.player.data.profile || {}).personaname,

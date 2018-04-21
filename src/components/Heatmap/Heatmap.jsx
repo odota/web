@@ -36,6 +36,10 @@ const drawHeatmap = ({
 };
 
 class Heatmap extends Component {
+  static propTypes = {
+    width: PropTypes.number,
+  }
+
   componentDidMount() {
     this.heatmap = h337.create({
       container: document.getElementById(this.id),
@@ -63,10 +67,6 @@ class Heatmap extends Component {
       </div>);
   }
 }
-
-Heatmap.propTypes = {
-  width: PropTypes.number,
-};
 
 Heatmap.defaultProps = {
   width: 600,

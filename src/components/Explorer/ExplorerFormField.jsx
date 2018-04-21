@@ -5,6 +5,15 @@ import DatePicker from 'material-ui/DatePicker';
 // import FormField from '../Form/FormField';
 
 class ExplorerFormField extends React.Component {
+  static propTypes = {
+    fields: PropTypes.arrayOf({}),
+    label: PropTypes.string,
+    builderField: PropTypes.func,
+    handleFieldUpdate: PropTypes.func,
+    isDateField: PropTypes.bool,
+    builder: PropTypes.func,
+  }
+
   UNSAFE_componentWillUpdate(newProps) {
     if (this.autocomplete && !this.autocomplete.state.searchText) {
       const {
@@ -105,14 +114,5 @@ class ExplorerFormField extends React.Component {
       </span>);
   }
 }
-
-ExplorerFormField.propTypes = {
-  fields: PropTypes.arrayOf({}),
-  label: PropTypes.string,
-  builderField: PropTypes.func,
-  handleFieldUpdate: PropTypes.func,
-  isDateField: PropTypes.bool,
-  builder: PropTypes.func,
-};
 
 export default ExplorerFormField;

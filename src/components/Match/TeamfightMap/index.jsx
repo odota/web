@@ -367,7 +367,16 @@ const avgPosition = ({ deaths_pos: deathPositions }) => {
   };
 };
 
+const {
+  arrayOf, object, shape, number, bool, func, string, array,
+} = PropTypes;
+
 class TeamfightMap extends Component {
+  static propTypes = {
+    teamfights: arrayOf(object),
+    match: shape({}),
+  }
+
   constructor(props) {
     super();
     const { teamfights = [] } = props;
@@ -495,9 +504,6 @@ class TeamfightMap extends Component {
   }
 }
 
-const {
-  arrayOf, object, shape, number, bool, func, string, array,
-} = PropTypes;
 const positionShape = {
   x: number,
   y: number,
@@ -533,11 +539,6 @@ Teamfight.propTypes = {
   mapWidth: number,
   onClick: func,
   deathPositions: arrayOf(array),
-};
-
-TeamfightMap.propTypes = {
-  teamfights: arrayOf(object),
-  match: shape({}),
 };
 
 export default TeamfightMap;

@@ -200,6 +200,13 @@ const tooltipContainer = thing => (
 );
 
 class InflictorWithValue extends React.Component {
+  static propTypes = {
+    inflictor: PropTypes.string,
+    value: PropTypes.string,
+    type: PropTypes.string,
+    ptooltip: PropTypes.shape({}),
+  }
+
   constructor(props) {
     super(props);
     this.state = {};
@@ -284,12 +291,5 @@ class InflictorWithValue extends React.Component {
     return null;
   }
 }
-
-InflictorWithValue.propTypes = {
-  inflictor: PropTypes.string,
-  value: PropTypes.string,
-  type: PropTypes.string,
-  ptooltip: PropTypes.shape({}),
-};
 
 export default (inflictor, value, type, ptooltip) => <InflictorWithValue inflictor={inflictor} value={value} type={type} ptooltip={ptooltip} />;

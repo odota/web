@@ -9,6 +9,10 @@ import { laningColumns } from '../matchColumns';
 import { StyledFlexContainer, StyledFlexElement } from '../StyledMatch';
 
 class Laning extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({}),
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -38,9 +42,5 @@ class Laning extends React.Component {
       </StyledFlexContainer>);
   }
 }
-
-Laning.propTypes = {
-  match: PropTypes.shape({}),
-};
 
 export default Laning;
