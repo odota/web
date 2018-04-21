@@ -858,6 +858,10 @@ const generateStory = (match) => {
 };
 
 class MatchStory extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({}),
+  }
+
   renderEvents() {
     const events = generateStory(this.props.match);
     return (<StyledStoryWrapper key="matchstory">{events.map(event => event.render())}</StyledStoryWrapper>);
@@ -878,9 +882,5 @@ class MatchStory extends React.Component {
     }
   }
 }
-
-MatchStory.propTypes = {
-  match: PropTypes.shape({}),
-};
 
 export default MatchStory;

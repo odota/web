@@ -125,6 +125,11 @@ XpNetworthGraph.propTypes = {
 };
 
 class PlayersGraph extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({}),
+    type: PropTypes.string,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -208,10 +213,6 @@ class PlayersGraph extends React.Component {
     return null;
   }
 }
-PlayersGraph.propTypes = {
-  match: PropTypes.shape({}),
-  type: PropTypes.string,
-};
 
 const MatchGraph = ({ type, match, width }) => {
   if (type === 'difference') {

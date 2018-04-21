@@ -75,6 +75,12 @@ const ToolbarHeader = styled(Toolbar)`
 `;
 
 class Header extends React.Component {
+  static propTypes = {
+    location: PropTypes.shape({}),
+    small: PropTypes.bool,
+    user: PropTypes.shape({}),
+  }
+
   constructor() {
     super();
     this.state = {};
@@ -208,12 +214,6 @@ class Header extends React.Component {
     );
   }
 }
-
-Header.propTypes = {
-  location: PropTypes.shape({}),
-  small: PropTypes.bool,
-  user: PropTypes.shape({}),
-};
 
 const mapStateToProps = state => ({
   small: state.browser.greaterThan.small,

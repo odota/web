@@ -130,6 +130,17 @@ const distributionsPages = [
 ];
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    loading: PropTypes.bool,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        info: PropTypes.string,
+      }),
+    }),
+    dispatchDistributions: PropTypes.func,
+    data: PropTypes.shape({}),
+  }
+
   componentDidMount() {
     this.props.dispatchDistributions();
   }
@@ -147,17 +158,6 @@ class RequestLayer extends React.Component {
         </div>);
   }
 }
-
-RequestLayer.propTypes = {
-  loading: PropTypes.bool,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      info: PropTypes.string,
-    }),
-  }),
-  dispatchDistributions: PropTypes.func,
-  data: PropTypes.shape({}),
-};
 
 const mapStateToProps = state => ({
   data: state.app.distributions.data,

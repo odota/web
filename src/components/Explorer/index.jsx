@@ -44,6 +44,15 @@ function expandBuilderState(builder, _fields) {
 }
 
 class Explorer extends React.Component {
+  static propTypes = {
+    proPlayers: PropTypes.arrayOf({}),
+    teams: PropTypes.arrayOf({}),
+    leagues: PropTypes.shape({}),
+    dispatchProPlayers: PropTypes.func,
+    dispatchLeagues: PropTypes.func,
+    dispatchTeams: PropTypes.func,
+  }
+
   constructor() {
     super();
     let urlState = {};
@@ -280,15 +289,6 @@ class Explorer extends React.Component {
       </div>);
   }
 }
-
-Explorer.propTypes = {
-  proPlayers: PropTypes.arrayOf({}),
-  teams: PropTypes.arrayOf({}),
-  leagues: PropTypes.shape({}),
-  dispatchProPlayers: PropTypes.func,
-  dispatchLeagues: PropTypes.func,
-  dispatchTeams: PropTypes.func,
-};
 
 const mapStateToProps = state => ({
   proPlayers: state.app.proPlayers.data,

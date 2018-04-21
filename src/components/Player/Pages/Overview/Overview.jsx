@@ -208,6 +208,15 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+    playerId: PropTypes.string,
+    toggleTurboGames: PropTypes.func,
+    showTurboGames: PropTypes.bool,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -236,15 +245,6 @@ class RequestLayer extends React.Component {
     return <Overview {...this.props} toggleTurboGames={this.toggleTurboGames} showTurboGames={this.state.showTurboGames} />;
   }
 }
-
-RequestLayer.propTypes = {
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-  playerId: PropTypes.string,
-  toggleTurboGames: PropTypes.func,
-  showTurboGames: PropTypes.bool,
-};
 
 const mergeHeroGuides = (heroes, heroGuides) => heroes.map(hero => ({
   ...hero,

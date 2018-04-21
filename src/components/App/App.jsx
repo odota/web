@@ -86,6 +86,14 @@ const AdBannerDiv = styled.div`
 `;
 
 class App extends React.Component {
+  static propTypes = {
+    params: PropTypes.shape({}),
+    width: PropTypes.number,
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+  }
+
   UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.location.key !== nextProps.location.key) {
       window.scrollTo(0, 0);
@@ -144,13 +152,5 @@ class App extends React.Component {
     );
   }
 }
-
-App.propTypes = {
-  params: PropTypes.shape({}),
-  width: PropTypes.number,
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-};
 
 export default connect()(App);

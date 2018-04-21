@@ -67,6 +67,21 @@ const reduceRows = (data) => {
 const getLink = scenario => <Link to={`/scenarios/${scenario}`} />;
 
 class Scenarios extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({ info: PropTypes.string }),
+    }),
+    location: PropTypes.shape({
+      search: PropTypes.shape({
+        substring: PropTypes.string,
+      }),
+    }),
+    history: PropTypes.shape({
+      push: PropTypes.func,
+    }),
+    scenariosState: PropTypes.shape({}),
+  }
+
   constructor(props) {
     super(props);
 
@@ -221,20 +236,5 @@ const mapDispatchToProps = dispatch => ({
   laneRoles: params => dispatch(getScenariosLaneRoles(params)),
   misc: params => dispatch(getScenariosMisc(params)),
 });
-
-Scenarios.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({ info: PropTypes.string }),
-  }),
-  location: PropTypes.shape({
-    search: PropTypes.shape({
-      substring: PropTypes.string,
-    }),
-  }),
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }),
-  scenariosState: PropTypes.shape({}),
-};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Scenarios));

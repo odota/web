@@ -115,6 +115,16 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        matchId: PropTypes.number,
+      }),
+    }),
+    // proData: PropTypes.array,
+    // publicData: PropTypes.array,
+  }
+
   componentDidMount() {
     getData(this.props);
   }
@@ -145,16 +155,6 @@ class RequestLayer extends React.Component {
       </div>);
   }
 }
-
-RequestLayer.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      matchId: PropTypes.number,
-    }),
-  }),
-  // proData: PropTypes.array,
-  // publicData: PropTypes.array,
-};
 
 const mapStateToProps = state => ({
   proData: state.app.proMatches.data,

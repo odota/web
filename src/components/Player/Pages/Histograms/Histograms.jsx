@@ -68,6 +68,13 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    playerId: PropTypes.string,
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+  }
+
   UNSAFE_componentWillMount() {
     getData(this.props);
   }
@@ -83,13 +90,6 @@ class RequestLayer extends React.Component {
     return <Histogram {...this.props} />;
   }
 }
-
-RequestLayer.propTypes = {
-  playerId: PropTypes.string,
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-};
 
 const mapStateToProps = (state, { histogramName = histogramNames[0] }) => ({
   histogramName,

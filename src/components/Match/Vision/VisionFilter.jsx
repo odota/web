@@ -19,6 +19,21 @@ const data = [
 ];
 
 export default class VisionFilter extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      players: PropTypes.arrayOf({}),
+    }),
+    parent: PropTypes.shape({
+      state: PropTypes.shape({
+        players: PropTypes.arrayOf({}),
+        teams: PropTypes.arrayOf({}),
+      }),
+      setPlayer: PropTypes.func,
+      teams: PropTypes.arrayOf({}),
+      setTeam: PropTypes.func,
+    }),
+  }
+
   columns(index) {
     return [
       {
@@ -63,18 +78,3 @@ export default class VisionFilter extends React.Component {
     );
   }
 }
-
-VisionFilter.propTypes = {
-  match: PropTypes.shape({
-    players: PropTypes.arrayOf({}),
-  }),
-  parent: PropTypes.shape({
-    state: PropTypes.shape({
-      players: PropTypes.arrayOf({}),
-      teams: PropTypes.arrayOf({}),
-    }),
-    setPlayer: PropTypes.func,
-    teams: PropTypes.arrayOf({}),
-    setTeam: PropTypes.func,
-  }),
-};
