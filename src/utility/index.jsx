@@ -268,7 +268,7 @@ export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
  * */
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
-  hero_id: (row, col, field, showPvgnaGuide = false, imageSizeSuffix = IMAGESIZE_ENUM.SMALL) => {
+  hero_id: (row, col, field, showGuide = false, imageSizeSuffix = IMAGESIZE_ENUM.SMALL, guideUrl, guideType) => {
     const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
     const imageUrl = getHeroImageUrl(row[col.field], imageSizeSuffix);
     return (
@@ -278,13 +278,23 @@ export const transformations = {
         title={getTitle(row, col, heroName)}
         subtitle={getSubtitle(row)}
         heroName={heroName}
-        showPvgnaGuide={showPvgnaGuide}
-        pvgnaGuideInfo={row.pvgnaGuide}
+        showGuide={showGuide}
+        guideUrl={guideUrl}
+        guideType={guideType}
         leaverStatus={row.leaver_status}
       />
     );
   },
-  hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true),
+  hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true, IMAGESIZE_ENUM.SMALL, row.pvgnaGuide && row.pvgnaGuide.url, 'PVGNA'),
+  hero_id_with_more_mmr: (row, col, field) => {
+    let url = 'https://moremmr.com/en/heroes/';
+    if (heroes[row[col.field]] && heroes[row[col.field]].localized_name) {
+      const heroName = heroes[row[col.field]].localized_name.toLowerCase().replace(' ', '-');
+      url = `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`;
+    }
+
+    return transformations.hero_id(row, col, field, true, IMAGESIZE_ENUM.SMALL, url, 'MOREMMR');
+  },
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
   match_id_with_time: (row, col, field) => (
     <div>

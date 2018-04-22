@@ -53,6 +53,9 @@ export default () => (
       <a href="https://www.rivalry.gg/" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/rivalry-logo.png" alt="" />
       </a>
+      <a href="https://moremmr.com?utm_source=opendota&utm_medium=homepage&utm_campaign=logo" target="_blank" rel="noopener noreferrer">
+        <img src="/assets/images/moremmr-logo.png" alt="" />
+      </a>
     </div>
     <ButtonsDiv>
       <FlatButton
