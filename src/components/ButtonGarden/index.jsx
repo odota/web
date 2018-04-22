@@ -1,11 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 // import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import strings from '../../lang';
 
-const ButtonGarden = ({ buttonNames, selectedButton, onClick }) => (
+const ButtonGarden = ({
+  buttonNames, selectedButton, onClick, strings,
+}) => (
   <SelectField
     floatingLabelText={strings.explorer_select}
     value={selectedButton}
@@ -19,12 +21,19 @@ const ButtonGarden = ({ buttonNames, selectedButton, onClick }) => (
   </SelectField>
 );
 
-const { arrayOf, string, func } = PropTypes;
+const {
+  arrayOf, string, func, shape,
+} = PropTypes;
 
 ButtonGarden.propTypes = {
   buttonNames: arrayOf(string),
   selectedButton: string,
   onClick: func,
+  strings: shape({}),
 };
 
-export default ButtonGarden;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(ButtonGarden);

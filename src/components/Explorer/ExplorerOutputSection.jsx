@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import itemData from 'dotaconstants/build/items.json';
@@ -7,7 +8,6 @@ import {
   formatSeconds,
 }
   from '../../utility';
-import strings from '../../lang';
 import Table from '../Table';
 import { IconRadiant, IconDire } from '../Icons';
 // import heroes from 'dotaconstants/build/heroes.json';
@@ -41,6 +41,7 @@ class ExplorerOutputSection extends React.Component {
     teamMapping: PropTypes.string,
     playerMapping: PropTypes.string,
     format: PropTypes.string,
+    strings: PropTypes.shape({}),
   }
 
   shouldComponentUpdate(nextProps) {
@@ -48,7 +49,7 @@ class ExplorerOutputSection extends React.Component {
   }
   render() {
     const {
-      rows = [], fields, expandedBuilder, teamMapping, playerMapping, format,
+      rows = [], fields, expandedBuilder, teamMapping, playerMapping, format, strings,
     } = this.props;
     /*
     setTimeout(() => {
@@ -129,4 +130,8 @@ class ExplorerOutputSection extends React.Component {
   }
 }
 
-export default ExplorerOutputSection;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(ExplorerOutputSection);

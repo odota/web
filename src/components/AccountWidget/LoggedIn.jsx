@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import FlatButton from 'material-ui/FlatButton';
-import strings from '../../lang';
 import Spinner from '../Spinner';
 
 const StyledFlatButton = styled(FlatButton)`
@@ -22,7 +21,7 @@ const StyledFlatButton = styled(FlatButton)`
  }
 `;
 
-const LoggedIn = ({ playerId, style }) => {
+const LoggedIn = ({ playerId, style, strings }) => {
   if (!playerId) {
     return <Spinner color="#fff" size={0.5} />;
   }
@@ -39,6 +38,11 @@ const LoggedIn = ({ playerId, style }) => {
 LoggedIn.propTypes = {
   playerId: PropTypes.number,
   style: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
-export default connect()(LoggedIn);
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(LoggedIn);

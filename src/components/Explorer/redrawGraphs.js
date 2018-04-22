@@ -1,5 +1,3 @@
-// import strings from '../../lang';
-
 /*
 export default function redrawGraphs(rows, field, yAxis) {
   const hasSum = rows[0] && rows[0].sum;

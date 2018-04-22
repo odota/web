@@ -1,4 +1,4 @@
-import strings from '../../lang';
+import store from '../../store';
 // import fields from './fields';
 
 const sqlfs = ['SELECT', 'WHERE', 'GROUP BY', 'ORDER BY'];
@@ -7,16 +7,19 @@ const tables = ['matches', 'player_matches', 'teams', 'match_logs', 'public_matc
 const sqlks = ['OFFSET', 'LIMIT', 'DISTINCT', 'IN'];
 const sqlfuncs = ['to_timestamp()', 'count()', 'avg()', 'sum()', 'stddev()', 'min()', 'max()', 'using()'];
 
-const autocomplete = cols => ({
-  getCompletions(editor, session, pos, prefix, callback) {
-    callback(null, []
-      .concat(sqlfuncs.map(e => ({ value: e, meta: strings.explorer_postgresql_function })))
-      .concat(sqlfs.map(e => ({ value: e, meta: strings.explorer_sql })))
-      .concat(sqlts.map(e => ({ value: e, meta: strings.explorer_sql })))
-      .concat(sqlks.map(e => ({ value: e, meta: strings.explorer_sql })))
-      .concat(tables.map(e => ({ value: e, meta: strings.explorer_table })))
-      .concat(cols.map(e => ({ value: `${e.column_name}`, meta: `${e.table_name} - ${e.data_type}` }))));
-  },
-});
+const autocomplete = (cols) => {
+  const { strings } = store.getState().app;
+  return {
+    getCompletions(editor, session, pos, prefix, callback) {
+      callback(null, []
+        .concat(sqlfuncs.map(e => ({ value: e, meta: strings.explorer_postgresql_function })))
+        .concat(sqlfs.map(e => ({ value: e, meta: strings.explorer_sql })))
+        .concat(sqlts.map(e => ({ value: e, meta: strings.explorer_sql })))
+        .concat(sqlks.map(e => ({ value: e, meta: strings.explorer_sql })))
+        .concat(tables.map(e => ({ value: e, meta: strings.explorer_table })))
+        .concat(cols.map(e => ({ value: `${e.column_name}`, meta: `${e.table_name} - ${e.data_type}` }))));
+    },
+  };
+};
 
 export default autocomplete;
