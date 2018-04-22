@@ -10,7 +10,7 @@ import strings from '../../../lang';
 export const heroList = Object.keys(heroes).map(id => ({
   text: heroes[id] && heroes[id].localized_name,
   value: id,
-})).sort((a, b) => a.text.localeCompare(b.text));
+})).sort((a, b) => a.text && a.text.localeCompare(b.text));
 export const laneList = Object.keys(strings)
   .filter(str => str.indexOf('lane_role_') === 0)
   .map(str => str.substring('lane_role_'.length))

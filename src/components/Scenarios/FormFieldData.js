@@ -12,13 +12,13 @@ export default function getFormFieldData(metadata) {
     heroList: Object.keys(heroes).map(id => ({
       text: heroes[id] && heroes[id].localized_name,
       value: id,
-    })).sort((a, b) => a.text.localeCompare(b.text)),
+    })).sort((a, b) => a.text && a.text.localeCompare(b.text)),
 
     itemList: Object.keys(items).map(k => [items[k], k]).filter(x => x[0].cost >= itemCost).map(x => ({
       text: x[0].dname,
       value: x[1],
     }))
-      .sort((a, b) => a.text.localeCompare(b.text)),
+      .sort((a, b) => a.text && a.text.localeCompare(b.text)),
 
     laneRoleList: [1, 2, 3, 4].map(role => ({ text: strings[`lane_role_${role}`], value: role.toString() })),
 
