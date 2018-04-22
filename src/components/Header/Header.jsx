@@ -116,7 +116,7 @@ class Header extends React.Component {
 
     const LogoGroup = ({ small }) => (
       <VerticalAlignToolbar>
-        {!small && <BurgerMenu menuItems={burgerItems(strings)} />}
+        {!small && <BurgerMenu menuItems={burgerItems} />}
         <AppLogo style={{ marginRight: 18 }} />
       </VerticalAlignToolbar>
     );
