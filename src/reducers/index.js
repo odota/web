@@ -36,7 +36,6 @@ export default combineReducers({
   proPlayers: reducer('proPlayers'),
   proMatches: reducer('proMatches'),
   publicMatches: reducer('publicMatches'),
-  pvgnaGuides: reducer('pvgnaGuides'),
   heroStats: reducer('heroStats'),
   leagues: reducer('leagues'),
   teams: reducer('teams'),

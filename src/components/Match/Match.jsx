@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Spinner from '../Spinner';
 import TabBar from '../TabBar';
-import { getMatch, getPvgnaHeroGuides } from '../../actions';
+import { getMatch } from '../../actions';
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
 
@@ -19,7 +19,6 @@ class RequestLayer extends React.Component {
     }),
     user: PropTypes.shape({}),
     getMatch: PropTypes.func,
-    getPvgnaHeroGuides: PropTypes.func,
     matchId: PropTypes.string,
   }
 
@@ -58,23 +57,13 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mergeHeroGuides = (match, heroGuides) => ({
-  ...match,
-  players: match.players.map(player => ({
-    ...player,
-    pvgnaGuide: heroGuides[player.hero_id],
-  })),
-});
-
 const mapStateToProps = state => ({
-  matchData: mergeHeroGuides(state.app.match.data, state.app.pvgnaGuides.data),
   loading: state.app.match.loading,
   user: state.app.metadata.data.user,
 });
 
 const mapDispatchToProps = dispatch => ({
   getMatch: matchId => dispatch(getMatch(matchId)),
-  getPvgnaHeroGuides: () => dispatch(getPvgnaHeroGuides()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
