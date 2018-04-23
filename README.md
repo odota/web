@@ -41,6 +41,12 @@ Notes
 * Discord: https://discord.gg/opendota
   * Strongly recommended for active developers! We move fast and it's helpful to be up to speed with everything that's happening.
 
+HTTPS
+---
+Service Worker development requires HTTPS, and if you're developing on a remote host, this may be a challenge
+(otherwise, localhost is a trusted origin). `https-docker-compose.yml` sets up HTTPS proxy via Nginx and LetsEncrypt.
+You must set `VIRTUAL_HOST` `LETSENCRYPT_HOST` (which should be the same value) and `LETSENCRYPT_EMAIL`.
+
 Resources
 ----
 * New to React/Redux? Read these articles on React and watch video tutorials by Redux creator Dan Abramov.

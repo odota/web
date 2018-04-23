@@ -1,0 +1,49 @@
+# You don't usually need to edit this file.
+# If it does not fit your personal use case, docker-compose.override.yml is a preferred way to go.
+
+version: '2'
+services:
+  ui:
+    build:
+      context: .
+    image: odota/web
+    container_name: odota-web
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    volumes: 
+      - .:/usr/src
+    environment:
+      - PORT=8080
+      - VIRTUAL_PORT=8080
+      - VIRTUAL_HOST
+      - LETSENCRYPT_HOST
+      - LETSENCRYPT_EMAIL
+    networks:
+      - odota
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: odota-nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /etc/nginx/vhost.d
+      - /usr/share/nginx/html
+      - /etc/nginx/certs
+    networks:
+      - odota
+  letsencrypt-nginx:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    volumes_from:
+      - "nginx-proxy"
+    networks:
+      - odota
+    container_name: odota-nginx-letsencrypt
+networks:
+  odota:
+    driver: bridge
