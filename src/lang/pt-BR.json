@@ -1188,5 +1188,5 @@
   "scenarios_first_blood": "Time conseguiu primeiro abate",
   "scenarios_courier_kill": "Time matou o courier inimigo antes dos 3 minutos",
   "scenarios_pos_chat_1min": "Time mandou mensagens positivas para todos antes de 1 minuto",
-  "scenarios_neg_chat_1min": "Team all chatted negative words before the 1-minute mark"
+  "scenarios_neg_chat_1min": "Time mandou palavras negativas no chat para todos antes de 1 minuto"
 }
