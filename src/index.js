@@ -7,12 +7,14 @@ import { hydrate, render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Route, Router } from 'react-router-dom';
 import { injectGlobal } from 'styled-components';
+import * as firebase from 'firebase/app';
+import 'firebase/messaging';
 import store from './store';
 import { getMetadata, getStrings, getAbilities, getNeutralAbilities, getAbilityIds } from './actions';
 import App from './components/App';
 import constants from './components/constants';
-// import registerServiceWorker from './registerServiceWorker';
-import { unregister } from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
+//import { unregister } from './registerServiceWorker';
 
 // Inject global styles
 injectGlobal([`
@@ -170,6 +172,55 @@ history.listen((location) => {
   ReactGA.pageview(location.pathname);
 });
 
+firebase.initializeApp({
+  messagingSenderId: "94888484309"
+});
+
+const messaging = firebase.messaging();
+
+messaging.usePublicVapidKey('BKps08hUYwudXP-OYfzASjwSHTWtelpAzu6_M44YuTaaoKE_UNoo2WqDSnaEqBM3mH5dKNeK4hok9zDBfCGHGzQ');
+
+messaging.onMessage(function(payload) {
+  console.log('Message received. ', payload);
+});
+
+// Get Instance ID token. Initially this makes a network call, once retrieved
+  // subsequent calls to getToken will return from cache.
+messaging.getToken().then(function(currentToken) {
+  if (currentToken) {
+    console.log(currentToken);
+    // sendTokenToServer(currentToken);
+    // updateUIForPushEnabled(currentToken);
+  } else {
+    // Show permission request.
+    console.log('No Instance ID token available. Request permission to generate one.');
+    // Show permission UI.
+    // updateUIForPushPermissionRequired();
+    // setTokenSentToServer(false);
+  }
+}).catch(function(err) {
+  console.log('An error occurred while retrieving token. ', err);
+  // showToken('Error retrieving Instance ID token. ', err);
+  // setTokenSentToServer(false);
+});
+
+messaging.onTokenRefresh(function() {
+  messaging.getToken().then(function(refreshedToken) {
+    console.log('Token refreshed.');
+    // Indicate that the new Instance ID token has not yet been sent to the
+    // app server.
+    // setTokenSentToServer(false);
+    // // Send Instance ID token to app server.
+    // sendTokenToServer(refreshedToken);
+    console.log('this is the token');
+    console.log(refreshedToken);
+    // ...
+  }).catch(function(err) {
+    console.log('Unable to retrieve refreshed token ', err);
+  });
+});
+
+  
 const rootElement = document.getElementById('root');
 const app = (
   <Provider store={store}>
@@ -182,6 +233,6 @@ if (rootElement.hasChildNodes()) {
 } else {
   hydrate(app, rootElement);
 }
-// registerServiceWorker();
-unregister();
+registerServiceWorker();
+//unregister();
 // document.getElementById('loader').style.display = 'none';
