@@ -45,6 +45,7 @@ function expandBuilderState(builder, _fields) {
 
 class Explorer extends React.Component {
   static propTypes = {
+    schema: PropTypes.arrayOf({}),
     proPlayers: PropTypes.arrayOf({}),
     teams: PropTypes.arrayOf({}),
     leagues: PropTypes.shape({}),
@@ -83,6 +84,15 @@ class Explorer extends React.Component {
       import('ace-builds/src-noconflict/mode-sql'),
     ]);
     this.instantiateEditor();
+  }
+
+  componentDidUpdate(nextProps) {
+    if (this.editor && !this.completersSet && nextProps.proPlayers.length && nextProps.teams.length && nextProps.leagues.length) {
+      this.completersSet = true;
+      fetch(`${process.env.REACT_APP_API_HOST}/api/schema`).then(jsonResponse).then((schema) => {
+        this.editor.completers = [autocomplete(schema, nextProps.proPlayers, nextProps.teams, nextProps.leagues)];
+      });
+    }
   }
 
   getSqlString = () => this.editor.getSelectedText() || this.editor.getValue();
@@ -138,14 +148,11 @@ class Explorer extends React.Component {
     const editor = ace.edit('editor');
     editor.setTheme('ace/theme/monokai');
     editor.getSession().setMode('ace/mode/sql');
-    editor.setShowPrintMargin(false);
     editor.setOptions({
       minLines: 10,
       maxLines: Infinity,
       enableLiveAutocompletion: true,
-    });
-    fetch(`${process.env.REACT_APP_API_HOST}/api/schema`).then(jsonResponse).then((schema) => {
-      editor.completers = [autocomplete(schema)];
+      showPrintMargin: false,
     });
     this.editor = editor;
     const { sql } = querystring.parse(window.location.search.substring(1));
