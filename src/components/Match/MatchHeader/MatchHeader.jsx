@@ -327,6 +327,13 @@ const MatchHeader = ({ match, user, loading }) => {
             rel="noopener noreferrer"
           />
           <FlatButton
+            label={strings.app_moremmr}
+            icon={<img src="/assets/images/moremmr-icon.png" alt="" height="24px" />}
+            href="https://moremmr.com?utm_source=opendota&utm_medium=matches&utm_campaign=button"
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+          <FlatButton
             label={strings.app_pvgna}
             icon={<img src="/assets/images/pvgna-guide-icon.png" alt={strings.app_pvgna_alt} height="24px" />}
             href={`https://pvgna.com/?userSteamId=${user && user.account_id}&ref=yasp`}
@@ -337,13 +344,6 @@ const MatchHeader = ({ match, user, loading }) => {
             label={strings.app_rivalry}
             icon={<img src="/assets/images/rivalry-icon.png" alt="" height="24px" />}
             href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota"
-            target="_blank"
-            rel="noopener noreferrer"
-          />
-          <FlatButton
-            label={strings.app_moremmr}
-            icon={<img src="/assets/images/moremmr-icon.png" alt="" height="24px" />}
-            href="https://moremmr.com?utm_source=opendota&utm_medium=matches&utm_campaign=button"
             target="_blank"
             rel="noopener noreferrer"
           />
