@@ -45,7 +45,6 @@ function expandBuilderState(builder, _fields) {
 
 class Explorer extends React.Component {
   static propTypes = {
-    schema: PropTypes.arrayOf({}),
     proPlayers: PropTypes.arrayOf({}),
     teams: PropTypes.arrayOf({}),
     leagues: PropTypes.shape({}),
