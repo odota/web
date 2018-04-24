@@ -14,7 +14,6 @@ import { getMetadata, getStrings, getAbilities, getNeutralAbilities, getAbilityI
 import App from './components/App';
 import constants from './components/constants';
 import registerServiceWorker from './registerServiceWorker';
-//import { unregister } from './registerServiceWorker';
 
 // Inject global styles
 injectGlobal([`
@@ -167,10 +166,6 @@ store.dispatch(getAbilityIds());
 
 ReactGA.initialize('UA-55757642-1');
 ReactGA.pageview(window.location.pathname + window.location.search);
-const history = createHistory();
-history.listen((location) => {
-  ReactGA.pageview(location.pathname);
-});
 
 firebase.initializeApp({
   messagingSenderId: "94888484309"
@@ -178,30 +173,33 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-messaging.usePublicVapidKey('BKps08hUYwudXP-OYfzASjwSHTWtelpAzu6_M44YuTaaoKE_UNoo2WqDSnaEqBM3mH5dKNeK4hok9zDBfCGHGzQ');
-
 messaging.onMessage(function(payload) {
   console.log('Message received. ', payload);
 });
 
-// Get Instance ID token. Initially this makes a network call, once retrieved
+messaging.requestPermission().then(function() {
+  console.log('Notification permission granted.');
+  // Get Instance ID token. Initially this makes a network call, once retrieved
   // subsequent calls to getToken will return from cache.
-messaging.getToken().then(function(currentToken) {
-  if (currentToken) {
-    console.log(currentToken);
-    // sendTokenToServer(currentToken);
-    // updateUIForPushEnabled(currentToken);
-  } else {
-    // Show permission request.
-    console.log('No Instance ID token available. Request permission to generate one.');
-    // Show permission UI.
-    // updateUIForPushPermissionRequired();
+  messaging.getToken().then(function(currentToken) {
+    if (currentToken) {
+      console.log(currentToken);
+      // sendTokenToServer(currentToken);
+      // updateUIForPushEnabled(currentToken);
+    } else {
+      // Show permission request.
+      console.log('No Instance ID token available. Request permission to generate one.');
+      // Show permission UI.
+      // updateUIForPushPermissionRequired();
+      // setTokenSentToServer(false);
+    }
+  }).catch(function(err) {
+    console.log('An error occurred while retrieving token. ', err);
+    // showToken('Error retrieving Instance ID token. ', err);
     // setTokenSentToServer(false);
-  }
+  });
 }).catch(function(err) {
-  console.log('An error occurred while retrieving token. ', err);
-  // showToken('Error retrieving Instance ID token. ', err);
-  // setTokenSentToServer(false);
+  console.log('Unable to get permission to notify.', err);
 });
 
 messaging.onTokenRefresh(function() {
@@ -220,7 +218,11 @@ messaging.onTokenRefresh(function() {
   });
 });
 
-  
+const history = createHistory();
+history.listen((location) => {
+  ReactGA.pageview(location.pathname);
+});
+
 const rootElement = document.getElementById('root');
 const app = (
   <Provider store={store}>
@@ -234,5 +236,5 @@ if (rootElement.hasChildNodes()) {
   hydrate(app, rootElement);
 }
 registerServiceWorker();
-//unregister();
+
 // document.getElementById('loader').style.display = 'none';
