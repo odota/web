@@ -1,12 +1,17 @@
+/* global Notification */
 import React from 'react';
+import fetch from 'isomorphic-fetch';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import FlatButton from 'material-ui/FlatButton';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { Route } from 'react-router-dom';
+import * as firebase from 'firebase/app';
+import 'firebase/messaging';
 import Header from '../Header';
 import Player from '../Player';
 import Home from '../Home';
@@ -27,6 +32,51 @@ import Meta from '../Meta';
 import Api from '../Api';
 import Footer from '../Footer';
 import constants from '../constants';
+
+const path = '/notifications';
+
+firebase.initializeApp({
+  messagingSenderId: "94888484309"
+});
+
+const messaging = firebase.messaging();
+
+messaging.onTokenRefresh(getMessagingToken);
+
+messaging.onMessage(function(payload) {
+  console.log('Message received. ', payload);
+});
+
+function getMessagingToken() {
+  messaging.getToken()
+  .then((token) => {
+    if (token) {
+      console.log('this is the token');
+      console.log(token);
+      fetch(`${process.env.REACT_APP_API_HOST}${path}`, {
+          credentials: 'include',
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            token,
+          }),
+        })
+          .then((res) => {
+            if (!res.ok) {
+              throw Error();
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+  }).catch(function(err) {
+    console.log('An error occurred while retrieving token. ', err);
+  });
+}
+
+getMessagingToken();
 
 const muiTheme = {
   fontFamily: constants.fontFamily,
@@ -84,6 +134,15 @@ const AdBannerDiv = styled.div`
   }
 `;
 
+const NotificationPrompt = styled.div`
+  position: fixed;
+  right: 5px;
+  bottom: 5px;
+  background: black;
+  width: 250px;
+  z-index: 100;
+`;
+
 class App extends React.Component {
   static propTypes = {
     params: PropTypes.shape({}),
@@ -94,12 +153,35 @@ class App extends React.Component {
     strings: PropTypes.shape({}),
   }
 
+  constructor(props) {
+    super(props);
+    
+      
+    this.state = {
+      canNotify: "Notification" in window && Notification.permission
+    };
+
+    this.askForNotifiyPermission = this.askForNotifiyPermission.bind(this);
+  }
+  
   UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.location.key !== nextProps.location.key) {
       window.scrollTo(0, 0);
     }
   }
 
+  askForNotifiyPermission() {
+    console.log("yo");
+    Notification.requestPermission()
+      .then((permission) => {
+      this.setState({canNotify: permission});
+      if (permission === "granted") {
+        var notification = new Notification("Hi there!");
+        getMessagingToken();
+      }
+    });
+  }
+  
   render() {
     const {
       params, width, location, strings,
@@ -113,6 +195,18 @@ class App extends React.Component {
             titleTemplate={strings.title_template}
           />
           <Header params={params} location={location} />
+          {
+            this.state.canNotify !== false && !['denied', 'granted'].includes(this.state.canNotify) ?
+              <NotificationPrompt>
+                Get notified about new matches.
+                <FlatButton
+                  label="Enable"
+                  labelPosition="after"
+                  onClick={this.askForNotifiyPermission}
+                />
+              </NotificationPrompt>
+            : <div/>
+          }
           <AdBannerDiv>
             { includeAds &&
               <a href="http://www.vpgame.com/?lang=en_us">

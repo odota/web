@@ -7,8 +7,6 @@ import { hydrate, render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Route, Router } from 'react-router-dom';
 import { injectGlobal } from 'styled-components';
-import * as firebase from 'firebase/app';
-import 'firebase/messaging';
 import store from './store';
 import { getMetadata, getStrings, getAbilities, getNeutralAbilities, getAbilityIds } from './actions';
 import App from './components/App';
@@ -166,57 +164,6 @@ store.dispatch(getAbilityIds());
 
 ReactGA.initialize('UA-55757642-1');
 ReactGA.pageview(window.location.pathname + window.location.search);
-
-firebase.initializeApp({
-  messagingSenderId: "94888484309"
-});
-
-const messaging = firebase.messaging();
-
-messaging.onMessage(function(payload) {
-  console.log('Message received. ', payload);
-});
-
-messaging.requestPermission().then(function() {
-  console.log('Notification permission granted.');
-  // Get Instance ID token. Initially this makes a network call, once retrieved
-  // subsequent calls to getToken will return from cache.
-  messaging.getToken().then(function(currentToken) {
-    if (currentToken) {
-      console.log(currentToken);
-      // sendTokenToServer(currentToken);
-      // updateUIForPushEnabled(currentToken);
-    } else {
-      // Show permission request.
-      console.log('No Instance ID token available. Request permission to generate one.');
-      // Show permission UI.
-      // updateUIForPushPermissionRequired();
-      // setTokenSentToServer(false);
-    }
-  }).catch(function(err) {
-    console.log('An error occurred while retrieving token. ', err);
-    // showToken('Error retrieving Instance ID token. ', err);
-    // setTokenSentToServer(false);
-  });
-}).catch(function(err) {
-  console.log('Unable to get permission to notify.', err);
-});
-
-messaging.onTokenRefresh(function() {
-  messaging.getToken().then(function(refreshedToken) {
-    console.log('Token refreshed.');
-    // Indicate that the new Instance ID token has not yet been sent to the
-    // app server.
-    // setTokenSentToServer(false);
-    // // Send Instance ID token to app server.
-    // sendTokenToServer(refreshedToken);
-    console.log('this is the token');
-    console.log(refreshedToken);
-    // ...
-  }).catch(function(err) {
-    console.log('Unable to retrieve refreshed token ', err);
-  });
-});
 
 const history = createHistory();
 history.listen((location) => {
