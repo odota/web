@@ -41,6 +41,7 @@
     "material-ui": "^0.19.4",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
+    "react-content-loader": "^3.1.1",
     "react-dom": "^16.3.2",
     "react-ga": "^2.5.0",
     "react-helmet": "^5.2.0",
