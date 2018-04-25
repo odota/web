@@ -12,6 +12,22 @@ const renderRanking = (hero, rankings) => (
 );
 
 class Ranking extends Component {
+  static propTypes = {
+    match: shape({
+      params: shape({
+        heroId: string,
+      }),
+    }),
+    isLoading: bool,
+    isError: bool,
+    rankings: oneOfType([
+      arrayOf(shape({})),
+      shape({}),
+    ]),
+    hero: string,
+    getRanking: func,
+  }
+
   componentDidMount() {
     if (
       this.props.match.params &&
@@ -37,22 +53,6 @@ class Ranking extends Component {
     );
   }
 }
-
-Ranking.propTypes = {
-  match: shape({
-    params: shape({
-      heroId: string,
-    }),
-  }),
-  isLoading: bool,
-  isError: bool,
-  rankings: oneOfType([
-    arrayOf(shape({})),
-    shape({}),
-  ]),
-  hero: string,
-  getRanking: func,
-};
 
 const mapStateToProps = state => ({
   rankings: state.app.heroRanking.data.rankings,

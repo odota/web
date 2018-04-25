@@ -32,6 +32,18 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    updateWindowSize: PropTypes.func,
+    error: PropTypes.string,
+    loading: PropTypes.bool,
+    data: PropTypes.arrayOf({}),
+    browser: PropTypes.shape({}),
+    playerId: PropTypes.string,
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+  }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.props.updateWindowSize);
   }
@@ -79,18 +91,6 @@ class RequestLayer extends React.Component {
     );
   }
 }
-
-RequestLayer.propTypes = {
-  updateWindowSize: PropTypes.func,
-  error: PropTypes.string,
-  loading: PropTypes.bool,
-  data: PropTypes.arrayOf({}),
-  browser: PropTypes.shape({}),
-  playerId: PropTypes.string,
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-};
 
 const mapStateToProps = state => ({
   data: state.app.playerWardmap.data,

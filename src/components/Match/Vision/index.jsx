@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'material-ui/Slider';
-import _ from 'lodash/fp';
+import { rangeStep, debounce } from 'lodash/fp';
 import styled from 'styled-components';
 import { formatSeconds } from '../../../utility';
 import strings from '../../../lang';
@@ -114,6 +114,13 @@ const alive = (ward, time) => time === -90 || (time > ward.entered.time && (!war
 const isTeam = () => true;
 
 class Vision extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      duration: PropTypes.number,
+      wards_log: PropTypes.arrayOf({}),
+    }),
+  }
+
   constructor(props) {
     super(props);
 
@@ -133,7 +140,7 @@ class Vision extends React.Component {
     };
 
     this.ticks = this.computeTick();
-    this.handleViewportChange = _.debounce(50, this.viewportChange);
+    this.handleViewportChange = debounce(50, this.viewportChange);
   }
 
   setPlayer(player, type, value) {
@@ -161,7 +168,7 @@ class Vision extends React.Component {
 
   computeTick() {
     const interval = 10 * 60; // every 10 minutes interval
-    return _.rangeStep(interval, 0, this.sliderMax);
+    return rangeStep(interval, 0, this.sliderMax);
   }
 
   viewportChange(value) {
@@ -213,12 +220,5 @@ class Vision extends React.Component {
     );
   }
 }
-
-Vision.propTypes = {
-  match: PropTypes.shape({
-    duration: PropTypes.number,
-    wards_log: PropTypes.arrayOf({}),
-  }),
-};
 
 export default Vision;

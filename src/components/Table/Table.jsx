@@ -62,7 +62,31 @@ const initialState = {
   sortFn: f => f,
 };
 
+const {
+  arrayOf,
+  bool,
+  shape,
+  number,
+  string,
+  func,
+} = PropTypes;
+
 class Table extends React.Component {
+  static propTypes = {
+    data: arrayOf(shape({})).isRequired,
+    columns: arrayOf(shape({})).isRequired,
+    loading: bool,
+    error: bool,
+    summable: bool,
+    maxRows: number,
+    paginated: bool,
+    placeholderMessage: string,
+    pageLength: number,
+    hoverRowColumn: bool,
+    highlightFn: func,
+    keyFn: func,
+  }
+
   static renderSumRow({ columns, data }) {
     return (
       <MaterialTableRow>
@@ -284,29 +308,5 @@ class Table extends React.Component {
     );
   }
 }
-
-const {
-  arrayOf,
-  bool,
-  shape,
-  number,
-  string,
-  func,
-} = PropTypes;
-
-Table.propTypes = {
-  data: arrayOf(shape({})).isRequired,
-  columns: arrayOf(shape({})).isRequired,
-  loading: bool,
-  error: bool,
-  summable: bool,
-  maxRows: number,
-  paginated: bool,
-  placeholderMessage: string,
-  pageLength: number,
-  hoverRowColumn: bool,
-  highlightFn: func,
-  keyFn: func,
-};
 
 export default Table;

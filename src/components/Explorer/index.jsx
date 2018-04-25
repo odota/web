@@ -5,12 +5,12 @@ import { connect }
   from 'react-redux';
 import fetch from 'isomorphic-fetch';
 import RaisedButton from 'material-ui/RaisedButton';
+import ActionSearch from 'material-ui/svg-icons/action/search';
 import Helmet from 'react-helmet';
 import querystring from 'querystring';
 import json2csv from 'json2csv';
 import Spinner from '../Spinner';
 import strings from '../../lang';
-import { getScript } from '../../utility';
 import Heading from '../Heading';
 import {
   getProPlayers,
@@ -44,6 +44,15 @@ function expandBuilderState(builder, _fields) {
 }
 
 class Explorer extends React.Component {
+  static propTypes = {
+    proPlayers: PropTypes.arrayOf({}),
+    teams: PropTypes.arrayOf({}),
+    leagues: PropTypes.shape({}),
+    dispatchProPlayers: PropTypes.func,
+    dispatchLeagues: PropTypes.func,
+    dispatchTeams: PropTypes.func,
+  }
+
   constructor() {
     super();
     let urlState = {};
@@ -63,13 +72,17 @@ class Explorer extends React.Component {
       builder: urlState,
     };
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.props.dispatchProPlayers();
     this.props.dispatchLeagues();
     this.props.dispatchTeams();
-    getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js', () => {
-      getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js', this.instantiateEditor);
-    });
+    await import('ace-builds/src-noconflict/ace');
+    await Promise.all([
+      import('ace-builds/src-noconflict/ext-language_tools'),
+      import('ace-builds/src-noconflict/theme-monokai'),
+      import('ace-builds/src-noconflict/mode-sql'),
+    ]);
+    this.instantiateEditor();
   }
 
   getSqlString = () => this.editor.getSelectedText() || this.editor.getValue();
@@ -222,6 +235,7 @@ class Explorer extends React.Component {
             primary={!this.state.loading}
             secondary={this.state.loading}
             style={{ margin: '5px' }}
+            icon={!this.state.loading ? <ActionSearch /> : null}
             label={this.state.loading ? strings.explorer_cancel_button : strings.explorer_query_button}
             onClick={this.state.loading ? handleCancel : handleQuery}
           />
@@ -275,15 +289,6 @@ class Explorer extends React.Component {
       </div>);
   }
 }
-
-Explorer.propTypes = {
-  proPlayers: PropTypes.arrayOf({}),
-  teams: PropTypes.arrayOf({}),
-  leagues: PropTypes.shape({}),
-  dispatchProPlayers: PropTypes.func,
-  dispatchLeagues: PropTypes.func,
-  dispatchTeams: PropTypes.func,
-};
 
 const mapStateToProps = state => ({
   proPlayers: state.app.proPlayers.data,

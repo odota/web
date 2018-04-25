@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import heroes from 'dotaconstants/build/heroes.json';
 import styled from 'styled-components';
 import strings from '../../../lang';
 import constants from '../../constants';
+import { getHeroImageUrl, IMAGESIZE_ENUM } from '../../../utility';
 
 const Styled = styled.div`
 .PicksBans {
@@ -71,7 +71,7 @@ const PicksBans = ({ data }) => (
       {data.map(pb => (
         <section key={pb.order}>
           <img
-            src={heroes[pb.hero_id] && process.env.REACT_APP_API_HOST + heroes[pb.hero_id].img}
+            src={getHeroImageUrl(pb.hero_id, IMAGESIZE_ENUM.SMALL)}
             alt=""
             className="image"
             data-isPick={pb.is_pick}

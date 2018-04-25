@@ -1,17 +1,16 @@
 import React from 'react';
-import lodash from 'lodash/fp';
+import { findLast } from 'lodash/fp';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
-import abilityIds from 'dotaconstants/build/ability_ids.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import strings from '../../lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy } from '../../utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy, IMAGESIZE_ENUM, getHeroImageUrl } from '../../utility';
 import { TableHeroImage, inflictorWithValue } from '../Visualizations';
 import { CompetitiveRank } from '../Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from '../Icons';
@@ -23,7 +22,7 @@ const heroNames = getHeroesById();
 
 export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide = false) =>
   (<TableHeroImage
-    image={heroes[row.hero_id] && process.env.REACT_APP_API_HOST + heroes[row.hero_id].img}
+    image={getHeroImageUrl(row.hero_id, IMAGESIZE_ENUM.SMALL)}
     title={row.name || row.personaname || strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
@@ -33,8 +32,9 @@ export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide =
     confirmed={row.account_id && row.name}
     party={party}
     heroName={heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero}
-    showPvgnaGuide={showPvgnaGuide}
-    pvgnaGuideInfo={row.pvgnaGuide}
+    showGuide={showPvgnaGuide}
+    guideUrl={row.pvgnaGuide ? row.pvgnaGuide.url : null}
+    guideType={showPvgnaGuide ? 'PVGNA' : null}
     randomed={row.randomed}
     repicked={row.repicked}
     predictedVictory={row.pred_vict}
@@ -63,7 +63,7 @@ const partyStyles = (row, match) => {
 const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
   let skipped = 0;
   let itemSkipCount = _itemSkipCount || 0;
-  const purchaseEvent = lodash.findLast((item) => {
+  const purchaseEvent = findLast((item) => {
     if (item.key !== itemKey) {
       return false;
     }
@@ -292,7 +292,7 @@ export const abilityColumns = () => {
       (
         <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
           <div className="ability">
-            {inflictorWithValue(abilityIds[row[`ability_upgrades_arr_${index}`]]) || <div className="placeholder" />}
+            {inflictorWithValue(null, null, null, null, row[`ability_upgrades_arr_${index}`]) || <div className="placeholder" />}
           </div>
         </StyledAbilityUpgrades>),
   }));
@@ -311,7 +311,7 @@ export const abilityDraftColumns = () => {
       (
         <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
           <div className="ability">
-            {inflictorWithValue(abilityIds[row.abilities[index - 1]]) || <div className="placeholder" />}
+            {inflictorWithValue(null, null, null, null, row.abilities[index - 1]) || <div className="placeholder" />}
           </div>
         </StyledAbilityUpgrades>),
   }));

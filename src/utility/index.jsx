@@ -5,7 +5,7 @@ import items from 'dotaconstants/build/items.json';
 import patch from 'dotaconstants/build/patch.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
 import xpLevel from 'dotaconstants/build/xp_level.json';
-import _ from 'lodash/fp';
+import { curry, findLast, inRange } from 'lodash/fp';
 import util from 'util';
 // import SvgIcon from 'material-ui/SvgIcon';
 import SocialPeople from 'material-ui/svg-icons/social/people';
@@ -253,6 +253,13 @@ const getTitle = (row, col, heroName) => {
   return <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
 };
 
+export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
+  let imageUrl = heroes[heroId] && process.env.REACT_APP_API_HOST + heroes[heroId].img; // "[api url]/abaddon_full.png?"
+  if (imageUrl) {
+    imageUrl = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
+  }
+  return imageUrl + imageSizeSuffix;
+};
 
 /**
  * Transformations of table cell data to display values.
@@ -261,26 +268,33 @@ const getTitle = (row, col, heroName) => {
  * */
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
-  hero_id: (row, col, field, showPvgnaGuide = false, imageSizeSuffix = IMAGESIZE_ENUM.SMALL) => {
+  hero_id: (row, col, field, showGuide = false, imageSizeSuffix = IMAGESIZE_ENUM.SMALL, guideUrl, guideType) => {
     const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
-    let imageUrl = heroes[row[col.field]] && process.env.REACT_APP_API_HOST + heroes[row[col.field]].img; // "[api url]/abaddon_full.png?"
-    if (imageUrl) {
-      imageUrl = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
-    }
+    const imageUrl = getHeroImageUrl(row[col.field], imageSizeSuffix);
     return (
       <TableHeroImage
         parsed={row.version}
-        image={imageUrl + imageSizeSuffix}
+        image={imageUrl}
         title={getTitle(row, col, heroName)}
         subtitle={getSubtitle(row)}
         heroName={heroName}
-        showPvgnaGuide={showPvgnaGuide}
-        pvgnaGuideInfo={row.pvgnaGuide}
+        showGuide={showGuide}
+        guideUrl={guideUrl}
+        guideType={guideType}
         leaverStatus={row.leaver_status}
       />
     );
   },
-  hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true),
+  hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true, IMAGESIZE_ENUM.SMALL, row.pvgnaGuide && row.pvgnaGuide.url, 'PVGNA'),
+  hero_id_with_more_mmr: (row, col, field) => {
+    let url = 'https://moremmr.com/en/heroes/';
+    if (heroes[row[col.field]] && heroes[row[col.field]].localized_name) {
+      const heroName = heroes[row[col.field]].localized_name.toLowerCase().replace(' ', '-');
+      url = `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`;
+    }
+
+    return transformations.hero_id(row, col, field, true, IMAGESIZE_ENUM.SMALL, url, 'MOREMMR');
+  },
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
   match_id_with_time: (row, col, field) => (
     <div>
@@ -489,13 +503,13 @@ export function unpackPositionData(input) {
   return input;
 }
 
-export const threshold = _.curry((start, limits, values, value) => {
+export const threshold = curry((start, limits, values, value) => {
   if (limits.length !== values.length) throw new Error('Limits must be the same as functions.');
 
   const limitsWithStart = limits.slice(0);
   limitsWithStart.unshift(start);
 
-  return _.findLast((v, i) => _.inRange(limitsWithStart[i], limitsWithStart[i + 1], value), values);
+  return findLast((v, i) => inRange(limitsWithStart[i], limitsWithStart[i + 1], value), values);
 });
 
 export const getTeamName = (team, _isRadiant) => {
@@ -553,33 +567,6 @@ export const hsvToRgb = (h, s, v) => {
 };
 
 export const bindWidth = (width, maxWidth) => Math.min(width, maxWidth);
-
-// Pretty much jQuery.getScript https://goo.gl/PBD7ml
-export const getScript = (url, callback) => {
-  // Create script
-  let script = document.createElement('script');
-  script.async = 1;
-  script.src = url;
-
-  // Insert into body
-  const theFirstChild = document.body.firstChild;
-  document.body.insertBefore(script, theFirstChild);
-
-  // Attach handlers
-  script.onreadystatechange = (__, isAbort) => {
-    if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
-      // Handle IE memory leak
-      script.onreadystatechange = null;
-      script.onload = null;
-      script = undefined;
-
-      if (!isAbort && callback) {
-        callback();
-      }
-    }
-  };
-  script.onload = script.onreadystatechange;
-};
 
 // Fills in a template with the values provided in the dict
 // returns a list, so react object don't have to be converted to a string
@@ -657,6 +644,22 @@ export const groupBy = (xs, key) =>
     (rv[x[key]] = rv[x[key]] || []).push(x); // eslint-disable-line no-param-reassign
     return rv;
   }, {});
+
+export function groupByArray(xs, key) {
+  return xs.reduce((rv, x) => {
+    const v = key instanceof Function ? key(x) : x[key];
+    const el = rv.find(r => r && r.key === v);
+    if (el) {
+      el.values.push(x);
+    } else {
+      rv.push({
+        key: v,
+        values: [x],
+      });
+    }
+    return rv;
+  }, []);
+}
 
 export const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 

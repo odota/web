@@ -7,7 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { Route } from 'react-router-dom';
-import strings from '../../lang';
+import Header from '../Header';
 import Player from '../Player';
 import Home from '../Home';
 import Search from '../Search';
@@ -21,9 +21,10 @@ import Matches from '../Matches';
 import Teams from '../Teams';
 // import Assistant from '../Assistant';
 import Records from '../Records';
+import Scenarios from '../Scenarios';
 // import Predictions from '../Predictions';
 import Meta from '../Meta';
-import Header from '../Header';
+import Api from '../Api';
 import Footer from '../Footer';
 import constants from '../constants';
 
@@ -44,8 +45,8 @@ const muiTheme = {
     borderColor: constants.dividerColor,
   },
   tabs: {
-    backgroundColor: constants.primarySurfaceColor,
-    textColor: constants.textColorPrimary,
+    backgroundColor: 'transparent',
+    textColor: constants.colorMuted,
     selectedTextColor: constants.textColorPrimary,
   },
   button: { height: 38 },
@@ -75,7 +76,8 @@ const StyledBodyDiv = styled.div`
 
 const AdBannerDiv = styled.div`
   text-align: center;
-
+  margin-bottom: 5px;
+  
   & img {
     margin-top: 10px;
     max-width: 100%;
@@ -83,6 +85,15 @@ const AdBannerDiv = styled.div`
 `;
 
 class App extends React.Component {
+  static propTypes = {
+    params: PropTypes.shape({}),
+    width: PropTypes.number,
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+    strings: PropTypes.shape({}),
+  }
+
   UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.location.key !== nextProps.location.key) {
       window.scrollTo(0, 0);
@@ -90,7 +101,10 @@ class App extends React.Component {
   }
 
   render() {
-    const { params, width, location } = this.props;
+    const {
+      params, width, location, strings,
+    } = this.props;
+    const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
         <StyledDiv {...this.props}>
@@ -100,7 +114,7 @@ class App extends React.Component {
           />
           <Header params={params} location={location} />
           <AdBannerDiv>
-            { location.pathname !== '/' &&
+            { includeAds &&
               <a href="http://www.vpgame.com/?lang=en_us">
                 <img src="/assets/images/vp-banner.jpg" alt="" />
               </a>
@@ -119,16 +133,18 @@ class App extends React.Component {
             <Route exact path="/search" component={Search} />
             <Route exact path="/records/:info?" component={Records} />
             <Route exact path="/meta" component={Meta} />
+            <Route exact path="/scenarios/:info?" component={Scenarios} />
+            <Route exact path="/api-keys" component={Api} />
           </StyledBodyDiv>
           <AdBannerDiv>
-            { location.pathname !== '/' &&
-              <a href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota">
-                <img src="/assets/images/rivalry-banner.png" alt="" />
-              </a>
-            }
-            { location.pathname !== '/' &&
+            { includeAds &&
               <div style={{ fontSize: '12px' }}>
-                {strings.home_sponsored_by} <a href="https://www.rivalry.gg">Rivalry</a>
+                <a href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota">
+                  <img src="/assets/images/rivalry-banner.png" alt="" />
+                </a>
+                <div>
+                  {strings.home_sponsored_by} <a href="https://www.rivalry.gg">Rivalry</a>
+                </div>
               </div>
             }
           </AdBannerDiv>
@@ -139,12 +155,8 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  params: PropTypes.shape({}),
-  width: PropTypes.number,
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-};
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
 
-export default connect()(App);
+export default connect(mapStateToProps)(App);

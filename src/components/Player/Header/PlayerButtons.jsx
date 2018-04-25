@@ -38,6 +38,13 @@ const Styled = styled.div`
   }
 `;
 class PlayerButtons extends React.Component {
+  static propTypes = {
+    playerId: PropTypes.string,
+    playerSoloCompetitiveRank: PropTypes.number,
+    showForm: PropTypes.bool,
+    toggleShowForm: PropTypes.func,
+  }
+
   UNSAFE_componentWillMount() {
     this.setState({ disableRefresh: false });
   }
@@ -83,13 +90,6 @@ class PlayerButtons extends React.Component {
       </Styled>);
   }
 }
-
-PlayerButtons.propTypes = {
-  playerId: PropTypes.string,
-  playerSoloCompetitiveRank: PropTypes.number,
-  showForm: PropTypes.bool,
-  toggleShowForm: PropTypes.func,
-};
 
 const mapStateToProps = state => ({
   showForm: state.app.form.show,

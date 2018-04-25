@@ -28,6 +28,13 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+    playerId: PropTypes.string,
+  }
+
   componentDidMount() {
     getData(this.props);
   }
@@ -42,13 +49,6 @@ class RequestLayer extends React.Component {
     return <Matches {...this.props} />;
   }
 }
-
-RequestLayer.propTypes = {
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-  playerId: PropTypes.string,
-};
 
 const defaultOptions = {
   limit: null,

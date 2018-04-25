@@ -246,6 +246,10 @@ const chatwheelAll = [75, 76, 108, 109, 110];
 const isSpectator = slot => slot > 9 && slot < 128;
 
 class Chat extends React.Component {
+  static propTypes = {
+    data: PropTypes.shape({}),
+  }
+
   constructor(props) {
     super(props);
 
@@ -549,9 +553,5 @@ class Chat extends React.Component {
     );
   }
 }
-
-Chat.propTypes = {
-  data: PropTypes.shape({}),
-};
 
 export default Chat;

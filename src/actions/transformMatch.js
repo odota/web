@@ -1,24 +1,29 @@
 import heroes from 'dotaconstants/build/heroes.json';
 import immutable from 'seamless-immutable';
-import _ from 'lodash/fp';
+import { concat, curry, flatten, map, flow, sortBy } from 'lodash/fp';
 import {
   isRadiant,
   isSupport,
   getLevelFromXp,
   unpackPositionData,
 } from '../utility';
-import strings from '../lang';
 import analyzeMatch from './analyzeMatch';
+import store from '../store';
 
-const expanded = {};
-Object.keys(strings)
-  .filter(str => str.indexOf('npc_dota_') === 0)
-  .forEach((key) => {
-  // Currently, no unit goes up higher than 4
-    for (let i = 1; i < 5; i += 1) {
-      expanded[key.replace('#', i)] = strings[key];
-    }
-  });
+let expandedUnitNames = null;
+
+function generateExpandedUnitNames(strings) {
+  const expanded = {};
+  Object.keys(strings)
+    .filter(str => str.indexOf('npc_dota_') === 0)
+    .forEach((key) => {
+    // Currently, no unit goes up higher than 4
+      for (let i = 1; i < 5; i += 1) {
+        expanded[key.replace('#', i)] = strings[key];
+      }
+    });
+  return expanded;
+}
 
 const getMaxKeyOfObject = field => Number(Object.keys(field || {}).sort((a, b) => Number(b) - Number(a))[0]) || 0;
 
@@ -101,7 +106,7 @@ function generateTeamfights({ players, teamfights = [] }) {
 // create a detailed history of each wards
 function generateVisionLog(match) {
   const computeWardData = (player, i) => {
-    const sameWard = _.curry((w1, w2) => w1.ehandle === w2.ehandle);
+    const sameWard = curry((w1, w2) => w1.ehandle === w2.ehandle);
 
     // let's coerce some value to be sure the structure is what we expect.
     const safePlayer = {
@@ -126,14 +131,14 @@ function generateVisionLog(match) {
       });
     const observers = extractVisionLog('observer', safePlayer.obs_log, safePlayer.obs_left_log);
     const sentries = extractVisionLog('sentry', safePlayer.sen_log, safePlayer.sen_left_log);
-    return _.concat(observers, sentries);
+    return concat(observers, sentries);
   };
 
-  const imap = _.map.convert({ cap: false }); // cap: false to keep the index
-  const visionLog = _.flow(
+  const imap = map.convert({ cap: false }); // cap: false to keep the index
+  const visionLog = flow(
     imap(computeWardData),
-    _.flatten,
-    _.sortBy(xs => xs.entered.time),
+    flatten,
+    sortBy(xs => xs.entered.time),
     imap((x, i) => ({ ...x, key: i })),
   );
 
@@ -141,6 +146,7 @@ function generateVisionLog(match) {
 }
 
 function transformMatch(m) {
+  const { strings } = store.getState().app;
   const newPlayers = m.players.map((player) => {
     const newPlayer = {
       ...player,
@@ -194,9 +200,12 @@ function transformMatch(m) {
       // map to friendly name
       // iterate through keys in killed
       // if in expanded, put in pm.specific
+      if (!expandedUnitNames) {
+        expandedUnitNames = generateExpandedUnitNames(strings);
+      }
       Object.keys(player.killed).forEach((key) => {
-        if (key in expanded) {
-          const name = expanded[key];
+        if (key in expandedUnitNames) {
+          const name = expandedUnitNames[key];
           newPlayer.specific[name] = newPlayer.specific[name] ? newPlayer.specific[name] + newPlayer.killed[key] : newPlayer.killed[key];
         }
       });

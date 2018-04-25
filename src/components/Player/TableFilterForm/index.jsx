@@ -45,6 +45,13 @@ const setShowFormState = (props) => {
 };
 
 class TableFilterForm extends React.Component {
+  static propTypes = {
+    showForm: PropTypes.bool,
+    currentQueryString: PropTypes.string,
+    history: PropTypes.shape({}),
+    playerId: PropTypes.string,
+  }
+
   constructor() {
     super();
     this.state = {
@@ -218,13 +225,6 @@ class TableFilterForm extends React.Component {
     );
   }
 }
-
-TableFilterForm.propTypes = {
-  showForm: PropTypes.bool,
-  currentQueryString: PropTypes.string,
-  history: PropTypes.shape({}),
-  playerId: PropTypes.string,
-};
 
 const mapStateToProps = state => ({
   showForm: state.app.form.show,

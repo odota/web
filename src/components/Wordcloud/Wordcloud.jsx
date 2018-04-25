@@ -60,7 +60,13 @@ function updateWordCloud(wordCounts, cloudDomId) {
   });
 }
 
+const { string } = PropTypes;
+
 class Wordcloud extends React.Component {
+  static propTypes = {
+    counts: string,
+  }
+
   componentDidMount() {
     updateWordCloud(this.props.counts, this.id);
   }
@@ -85,10 +91,6 @@ class Wordcloud extends React.Component {
 }
 Wordcloud.defaultProps = {
   counts: {},
-};
-const { string } = PropTypes;
-Wordcloud.propTypes = {
-  counts: string,
 };
 
 export default connect()(Wordcloud);

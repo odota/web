@@ -16,6 +16,22 @@ import {
 import columns from './columns';
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    dispatchHeroStats: PropTypes.func,
+    onGetProPlayers: PropTypes.func,
+    data: PropTypes.oneOfType([
+      PropTypes.shape({}),
+      PropTypes.arrayOf(PropTypes.shape({})),
+    ]),
+    loading: PropTypes.bool,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        info: PropTypes.string,
+        heroId: PropTypes.string,
+      }),
+    }),
+  }
+
   componentDidMount() {
     this.props.dispatchHeroStats();
     this.props.onGetProPlayers();
@@ -121,22 +137,6 @@ class RequestLayer extends React.Component {
       </div>);
   }
 }
-
-RequestLayer.propTypes = {
-  dispatchHeroStats: PropTypes.func,
-  onGetProPlayers: PropTypes.func,
-  data: PropTypes.oneOfType([
-    PropTypes.shape({}),
-    PropTypes.arrayOf(PropTypes.shape({})),
-  ]),
-  loading: PropTypes.bool,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      info: PropTypes.string,
-      heroId: PropTypes.string,
-    }),
-  }),
-};
 
 const mapStateToProps = state => ({
   data: state.app.heroStats.data,

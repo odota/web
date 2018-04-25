@@ -66,6 +66,17 @@ const columns = [{
 }];
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    dispatchTeams: PropTypes.func,
+    data: PropTypes.arrayOf(PropTypes.object),
+    loading: PropTypes.bool,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        teamId: PropTypes.string,
+      }),
+    }),
+  }
+
   componentDidMount() {
     this.props.dispatchTeams();
   }
@@ -93,17 +104,6 @@ class RequestLayer extends React.Component {
       </div>);
   }
 }
-
-RequestLayer.propTypes = {
-  dispatchTeams: PropTypes.func,
-  data: PropTypes.arrayOf(PropTypes.object),
-  loading: PropTypes.bool,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      teamId: PropTypes.string,
-    }),
-  }),
-};
 
 const mapStateToProps = state => ({
   data: state.app.teams.data.filter(team => team.last_match_time > ((new Date() / 1000) - (60 * 60 * 24 * 30 * 6))),

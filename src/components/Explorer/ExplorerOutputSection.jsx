@@ -34,6 +34,15 @@ function resolveId(key, value, mappings) {
 */
 
 class ExplorerOutputSection extends React.Component {
+  static propTypes = {
+    rows: PropTypes.string,
+    fields: PropTypes.string,
+    expandedBuilder: PropTypes.string,
+    teamMapping: PropTypes.string,
+    playerMapping: PropTypes.string,
+    format: PropTypes.string,
+  }
+
   shouldComponentUpdate(nextProps) {
     return nextProps.rows !== this.props.rows || nextProps.format !== this.props.format;
   }
@@ -119,14 +128,5 @@ class ExplorerOutputSection extends React.Component {
       />);
   }
 }
-
-ExplorerOutputSection.propTypes = {
-  rows: PropTypes.string,
-  fields: PropTypes.string,
-  expandedBuilder: PropTypes.string,
-  teamMapping: PropTypes.string,
-  playerMapping: PropTypes.string,
-  format: PropTypes.string,
-};
 
 export default ExplorerOutputSection;

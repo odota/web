@@ -9,6 +9,13 @@ import strings from '../../lang';
 import { postRequest } from '../../actions';
 
 class Request extends React.Component {
+  static propTypes = {
+    dispatchPostRequest: PropTypes.func,
+    progress: PropTypes.number,
+    error: PropTypes.string,
+    loading: PropTypes.bool,
+  }
+
   constructor() {
     super();
     this.state = {};
@@ -50,13 +57,6 @@ class Request extends React.Component {
     );
   }
 }
-
-Request.propTypes = {
-  dispatchPostRequest: PropTypes.func,
-  progress: PropTypes.number,
-  error: PropTypes.string,
-  loading: PropTypes.bool,
-};
 
 const mapStateToProps = (state) => {
   const { error, loading, progress } = state.app.request;

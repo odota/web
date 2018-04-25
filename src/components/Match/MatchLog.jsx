@@ -268,6 +268,12 @@ const logColumns = [
   }];
 
 class MatchLog extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      players: PropTypes.arrayOf({}),
+    }),
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -344,11 +350,5 @@ class MatchLog extends React.Component {
     );
   }
 }
-
-MatchLog.propTypes = {
-  match: PropTypes.shape({
-    players: PropTypes.arrayOf({}),
-  }),
-};
 
 export default MatchLog;

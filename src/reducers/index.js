@@ -46,6 +46,13 @@ export default combineReducers({
   teamPlayers: reducer('teamPlayers'),
   records: reducer('records'),
   ghPulls: reducer('ghPulls'),
+  strings: (state = {}, action) => ((action && action.type === 'strings') ? action.payload : state),
+  abilities: (state = {}, action) => ((action && action.type === 'abilities') ? action.payload : state),
+  neutralAbilities: (state = {}, action) => ((action && action.type === 'neutralAbilities') ? action.payload : state),
+  abilityIds: (state = {}, action) => ((action && action.type === 'abilityIds') ? action.payload : state),
   form,
   request,
+  scenariosItemTimings: reducer('scenariosItemTimings'),
+  scenariosLaneRoles: reducer('scenariosLaneRoles'),
+  scenariosMisc: reducer('scenariosMisc'),
 });

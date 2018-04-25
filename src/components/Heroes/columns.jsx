@@ -18,7 +18,7 @@ const heroColumn = {
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
-  displayFn: transformations.hero_id,
+  displayFn: transformations.hero_id_with_more_mmr,
   sortFn: row => (heroes[row.hero_id] && heroes[row.hero_id].localized_name),
 };
 
@@ -130,7 +130,7 @@ export default {
     colColor: constants.colorHeraldAlt,
   }].map((col, i) => ({
     ...col,
-    displayName: i === 0 ? col.displayName : `${col.displayName.substring(0, 2)} ${col.field.startsWith('pick') ? strings.abbr_pick : strings.abbr_win}%`,
+    displayName: i === 0 ? col.displayName : `${(col.displayName || '').substring(0, 2)} ${col.field.startsWith('pick') ? strings.abbr_pick : strings.abbr_win}%`,
     tooltip: col.displayName,
   })),
 };
