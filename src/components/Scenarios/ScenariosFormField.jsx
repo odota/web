@@ -90,7 +90,7 @@ class ScenarioFormField extends React.Component {
 
   handleRequest(chosenRequest) {
     const { updateFormFieldState, field } = this.props;
-    updateFormFieldState({ [field]: chosenRequest.value });
+    updateFormFieldState({ [field]: chosenRequest.altValue || chosenRequest.value });
   }
 
   render() {

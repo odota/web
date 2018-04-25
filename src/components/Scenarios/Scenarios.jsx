@@ -36,12 +36,12 @@ const forms = {
   },
 };
 
-const menuItems = [{
+const tabItems = [{
   text: strings.scenarios_item_timings,
   value: 'itemTimings',
   icon: <Schedule />,
 },
-{// /assets/images/dota2/lane_roles.svg
+{
   text: strings.heading_lane_role,
   value: 'laneRoles',
   icon: <IconLaneRoles />,
@@ -154,7 +154,7 @@ class Scenarios extends React.Component {
         <div>
           <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} />
           <Tabs value={selectedTab} onChange={this.handleChange} style={tabsStyle}>
-            {menuItems.map(item => (
+            {tabItems.map(item => (
               <Tab label={item.text} value={item.value} icon={item.icon} containerElement={getLink(item.value)} className="tab" />
             ))}
           </Tabs>
