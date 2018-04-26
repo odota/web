@@ -22,15 +22,15 @@ export default function getFormFieldData(metadata) {
     }))
       .sort((a, b) => a.text.localeCompare(b.text)),
 
-    itemList: Object.keys(items).map(k => [items[k], k]).filter(x => x[0].cost >= itemCost && !x[1].includes('recipe_')).map(x => ({
-      text: x[0].dname,
+    itemList: Object.keys(items).filter(item => items[item].cost >= itemCost && !item.startsWith('recipe_')).map(item => ({
+      text: items[item].dname,
       value: (
         <MenuItem
-          primaryText={x[0].dname}
-          leftIcon={<img src={`${process.env.REACT_APP_API_HOST}${x[0] && x[0].img}`} alt="" />}
+          primaryText={items[item].dname}
+          leftIcon={<img src={`${process.env.REACT_APP_API_HOST}${items[item].img}`} alt="" />}
         />
       ),
-      altValue: x[1],
+      altValue: item,
     }))
       .sort((a, b) => a.text.localeCompare(b.text)),
 
