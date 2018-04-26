@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Heading from '../Heading';
-import Spinner from '../Spinner';
+import { List } from 'react-content-loader'
 import Error from '../Error';
 
 export const AsyncContainer = ({ loading, error, children }) => {
@@ -9,7 +9,7 @@ export const AsyncContainer = ({ loading, error, children }) => {
     return <Error />;
   }
   if (loading) {
-    return <Spinner />;
+    return <List />;
   }
   return children;
 };

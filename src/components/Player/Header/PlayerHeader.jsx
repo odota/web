@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { rankTierToString } from '../../../utility';
 import strings from '../../../lang';
 import Error from '../../Error';
-import Spinner from '../../Spinner';
+import { Facebook } from 'react-content-loader';
 import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';
@@ -220,7 +220,7 @@ const PlayerHeader = ({
     return <Error />;
   }
   if (loading) {
-    return <Spinner />;
+    return <Facebook />;
   }
 
   let badgeStyle = {
