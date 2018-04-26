@@ -22,7 +22,7 @@ export default function getFormFieldData(metadata) {
     }))
       .sort((a, b) => a.text.localeCompare(b.text)),
 
-    itemList: Object.keys(items).map(k => [items[k], k]).filter(x => x[0].cost >= itemCost && !x[1].includes('recipe')).map(x => ({
+    itemList: Object.keys(items).map(k => [items[k], k]).filter(x => x[0].cost >= itemCost && !x[1].includes('recipe_')).map(x => ({
       text: x[0].dname,
       value: (
         <MenuItem
