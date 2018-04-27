@@ -32,6 +32,12 @@ export const StyledDiv = styled.div`
     font-size: ${constants.fontSizeMedium};
     color: ${constants.colorMutedLight};
   }
+
+  & .info {
+    margin-left: 5px;
+    font-size: ${constants.fontSizeMedium};
+    color: ${constants.colorMuted};
+  }
 `;
 
 export const TwoLineDiv = StyledDiv.extend`
