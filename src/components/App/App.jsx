@@ -45,7 +45,14 @@ messaging.onTokenRefresh(getMessagingToken);
 
 messaging.onMessage(function(payload) {
   console.log('Message received. ', payload);
+  let n = new Notification(payload.notification.title, payload.notification);
+  n.onclick = (event) => {
+    console.log(event);
+    event.preventDefault(); // prevent the browser from focusing the Notification's tab
+    window.open('http://www.mozilla.org', '_blank');
+  }
 });
+
 
 function getMessagingToken() {
   messaging.getToken()
@@ -171,7 +178,6 @@ class App extends React.Component {
   }
 
   askForNotifiyPermission() {
-    console.log("yo");
     Notification.requestPermission()
       .then((permission) => {
       this.setState({canNotify: permission});
