@@ -220,7 +220,7 @@ const PlayerHeader = ({
     return <Error />;
   }
   if (loading) {
-    return <Facebook />;
+    return <Facebook primaryColor="#666" width={400} height={60} />;
   }
 
   let badgeStyle = {
