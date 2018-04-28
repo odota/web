@@ -1179,6 +1179,7 @@
   "placement": "Position",
   "exclude_turbo_matches": "Exclure les parties Turbo",
   "scenarios_subtitle": "Explore win rates of combinations of factors that happen in matches",
+  "scenarios_info": "Data compiled from matches in the last %d weeks",
   "scenarios_item_timings": "Item Timings",
   "scenarios_misc": "Misc",
   "scenarios_time": "Time",
