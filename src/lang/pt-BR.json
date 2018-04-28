@@ -1179,6 +1179,7 @@
   "placement": "Posição",
   "exclude_turbo_matches": "Excluir partidas Turbo",
   "scenarios_subtitle": "Explorar taxa de vitórias de combinação de fatores que ocorrem em nas partidas",
+  "scenarios_info": "Data compiled from matches in the last %d weeks",
   "scenarios_item_timings": "Tempo dos itens",
   "scenarios_misc": "Misc",
   "scenarios_time": "Tempo",
