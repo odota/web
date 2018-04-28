@@ -185,11 +185,12 @@ class Scenarios extends React.Component {
           />
           <Heading title={strings.explorer_results} subtitle={`${data.filter(minSampleSize).length} ${strings.explorer_num_rows}`} />
           <Table
-            key={selectedTab + JSON.stringify(data && data[0])}
+            key={selectedTab}
             data={data.filter(minSampleSize)}
             columns={getColumns(selectedTab, metadata)}
             loading={scenariosState[selectedTab].loading}
             paginated
+            resetTableState
           />
         </div>
         }
