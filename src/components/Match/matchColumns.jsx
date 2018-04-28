@@ -32,8 +32,9 @@ export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide =
     confirmed={row.account_id && row.name}
     party={party}
     heroName={heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero}
-    showPvgnaGuide={showPvgnaGuide}
-    pvgnaGuideInfo={row.pvgnaGuide}
+    showGuide={showPvgnaGuide}
+    guideUrl={row.pvgnaGuide ? row.pvgnaGuide.url : null}
+    guideType={showPvgnaGuide ? 'PVGNA' : null}
     randomed={row.randomed}
     repicked={row.repicked}
     predictedVictory={row.pred_vict}

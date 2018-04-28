@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import util from 'util';
 import { connect } from 'react-redux';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Schedule from 'material-ui/svg-icons/action/schedule';
@@ -36,12 +37,12 @@ const forms = {
   },
 };
 
-const menuItems = [{
+const tabItems = [{
   text: strings.scenarios_item_timings,
   value: 'itemTimings',
   icon: <Schedule />,
 },
-{// /assets/images/dota2/lane_roles.svg
+{
   text: strings.heading_lane_role,
   value: 'laneRoles',
   icon: <IconLaneRoles />,
@@ -152,9 +153,9 @@ class Scenarios extends React.Component {
         {metadataLoading && <Spinner />}
         {!metadataError && !metadataLoading &&
         <div>
-          <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} />
+          <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} info={`${util.format(strings.scenarios_info, 4)}`} />
           <Tabs value={selectedTab} onChange={this.handleChange} style={tabsStyle}>
-            {menuItems.map(item => (
+            {tabItems.map(item => (
               <Tab label={item.text} value={item.value} icon={item.icon} containerElement={getLink(item.value)} className="tab" />
             ))}
           </Tabs>

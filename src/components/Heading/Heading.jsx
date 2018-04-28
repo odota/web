@@ -5,7 +5,7 @@ import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
 import { StyledDiv, TwoLineDiv } from './Styled';
 
 const Heading = ({
-  title = '', titleTo, icon = <ActionLabelOutline />, subtitle, twoLine,
+  title = '', titleTo, icon = <ActionLabelOutline />, subtitle, twoLine, info,
 }) => {
   const DivToUse = twoLine ? TwoLineDiv : StyledDiv;
   return (
@@ -20,6 +20,9 @@ const Heading = ({
       </span>
       <span className="subtitle">
         {subtitle}
+      </span>
+      <span className="info" data-hint={info} style={{ display: info ? 'inline' : 'none' }}>
+        {'(?)'}
       </span>
     </DivToUse>);
 };
@@ -40,6 +43,7 @@ Heading.propTypes = {
     string,
   ]),
   twoLine: bool,
+  info: string,
 };
 
 export default Heading;
