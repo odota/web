@@ -246,11 +246,6 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mergeHeroGuides = (heroes, heroGuides) => heroes.map(hero => ({
-  ...hero,
-  pvgnaGuide: heroGuides[hero.hero_id],
-}));
-
 /**
  * Get the number of recent matches, filtering out Siltbreaker matches
  */
@@ -271,7 +266,6 @@ const mapStateToProps = state => ({
   matchesError: state.app.playerRecentMatches.error,
   validRecentMatches: getValidRecentMatches(state.app.playerRecentMatches.data),
   numValidRecentMatches: countValidRecentMatches(state.app.playerRecentMatches.data),
-  heroesData: mergeHeroGuides(state.app.playerHeroes.data, state.app.pvgnaGuides.data),
   heroesLoading: state.app.playerHeroes.loading,
   heroesError: state.app.playerHeroes.error,
   peersData: state.app.playerPeers.data,
@@ -283,7 +277,6 @@ const mapDispatchToProps = dispatch => ({
   getPlayerRecentMatches: (playerId, options) => dispatch(getPlayerRecentMatches(playerId, options)),
   getPlayerHeroes: (playerId, options) => dispatch(getPlayerHeroes(playerId, options)),
   getPlayerPeers: (playerId, options) => dispatch(getPlayerPeers(playerId, options)),
-  getPvgnaHeroGuides: () => dispatch(getPvgnaHeroGuides()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
