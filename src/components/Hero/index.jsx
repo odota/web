@@ -214,14 +214,13 @@ const tabs = heroId => [
 ];
 
 class Hero extends React.Component {
-  state = {
-    detailsOpen: false,
+  constructor(props) {
+    super(props);
+    this.toggleDetailVisibility = this.toggleDetailVisibility.bind(this);
   }
 
-  constructor (props) {
-    super(props)
-
-    this.toggleDetailVisibility = this.toggleDetailVisibility.bind(this)
+  state = {
+    detailsOpen: false,
   }
 
   toggleDetailVisibility(e) {
