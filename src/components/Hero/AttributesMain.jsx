@@ -3,6 +3,7 @@ import { shape, number, string } from 'prop-types';
 import styled from 'styled-components';
 import AttributeMain from './AttributeMain';
 
+const WRAP_WIDTH = '1000px';
 
 const AttributesWrapper = styled.div`
   background: rgba(0, 0, 0, .45);
@@ -13,6 +14,10 @@ const AttributesWrapper = styled.div`
 
 const MainAttributesBlock = styled.div`
   display: flex;
+
+  @media screen and (max-width: ${WRAP_WIDTH}) {
+    display: block;
+  }
 `;
 
 const HeroAttributes = ({ hero }) => (

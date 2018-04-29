@@ -23,6 +23,7 @@ import Players from './Players';
 const getHeroImgSrc = src => process.env.REACT_APP_API_HOST + src;
 
 const WRAP_WIDTH = '1000px';
+const MOBILE_WIDTH = '680px';
 
 const HeroAvatar = styled.img`
   border-radius: 16px;
@@ -37,6 +38,10 @@ const HeroAvatar = styled.img`
   @media screen and (max-width: ${WRAP_WIDTH}) {
     height: 64px;
     width: 120px;
+  }
+
+  @media screen and (max-width: ${MOBILE_WIDTH}) {
+    margin: auto;
   }
 `;
 
@@ -75,17 +80,31 @@ const HeroProfileContent = styled.div`
   @media screen and (max-width: ${WRAP_WIDTH}) {
     padding: 16px;
   }
+
+  @media screen and (max-width: ${MOBILE_WIDTH}) {
+    display: block;
+    text-align: center;
+  }
 `
 
 const HeroDetails = styled.div`
   flex-grow: 1;
   margin: 0 24px;
+
+  @media screen and (max-width: ${MOBILE_WIDTH}) {
+    margin: 12px 0;
+  }
 `
 
 const HeroName = styled.div`
   font-size: 40px;
   font-weight: ${constants.fontWeightMedium};
   line-height: 40px;
+
+  @media screen and (max-width: ${WRAP_WIDTH}) {
+    font-size: 28px;
+    line-height: 28px;
+  }
 `;
 
 const HeroRoleInformations = styled.div`
@@ -94,6 +113,10 @@ const HeroRoleInformations = styled.div`
   letter-spacing: 1px;
   margin: 8px 0;
   text-transform: uppercase;
+
+  @media screen and (max-width: ${WRAP_WIDTH}) {
+    font-size: 10px;
+  }
 `;
 
 const HeroRoles = styled.span`
@@ -107,10 +130,14 @@ const HeroDescription = styled.div`
   flex-grow: 1;
 `;
 
+const HeroFooter = styled.div`
+  text-align: center;
+`
+
 const HeroDetailsButton = styled(FlatButton)`
+  border: 1px solid rgba(0, 0, 0, .35) !important;
   margin: 8px auto !important;
   padding: 0 12px !important;
-  width: 100%;
 `
 
 const TabsBlock = styled.div`
@@ -221,13 +248,15 @@ class Hero extends React.Component {
                 </HeroDetails>
                 <div>
                   <AttributesMain hero={hero} />
-                  <HeroDetailsButton type="button" onClick={this.toggleDetailVisibility.bind(this)}>
-                    {this.state.detailsOpen ? strings.hide_details : strings.show_more_details}
-                  </HeroDetailsButton>
                 </div>
               </HeroProfileContent>
             </HeroProfile>
           </HeroDescription>
+          <HeroFooter>
+            <HeroDetailsButton type="button" onClick={this.toggleDetailVisibility.bind(this)}>
+              {this.state.detailsOpen ? strings.hide_details : strings.show_more_details}
+            </HeroDetailsButton>
+          </HeroFooter>
           {this.state.detailsOpen && <AttributesBlock hero={hero} />}
         </HeroBlock>
         <TabsBlock>

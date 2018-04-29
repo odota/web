@@ -5,11 +5,16 @@ import strings from '../../lang';
 import constants from '../constants';
 import Attribute from './Attribute';
 
+const MOBILE_WIDTH = '680px';
 
 const AttributesWrapper = styled.div`
   display: flex;
   margin-left: -8px;
   margin-right: -8px;
+
+  @media screen and (max-width: ${MOBILE_WIDTH}) {
+    flex-wrap: wrap;
+  }
 `;
 
 const AttributeBlock = styled.div`
@@ -18,6 +23,12 @@ const AttributeBlock = styled.div`
   flex: 1 1 0;
   margin-top: 10px;
   padding: 8px;
+
+  @media screen and (max-width: ${MOBILE_WIDTH}) {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 50%;
+  }
 `;
 
 const Label = styled.span`

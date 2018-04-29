@@ -4,6 +4,9 @@ import styled from 'styled-components';
 
 import constants from '../constants'
 
+const WRAP_WIDTH = '1000px';
+const MOBILE_WIDTH = '680px';
+
 const Wrapper = styled.div`
   flex: 1 1 0;
   padding: 0 16px;
@@ -17,6 +20,16 @@ const Wrapper = styled.div`
   &:last-child {
     padding-right: 0;
   }
+
+  @media screen and (max-width: ${WRAP_WIDTH}) {
+    padding: 4px 0;
+  }
+
+  @media screen and (max-width: ${MOBILE_WIDTH}) {
+    display: block;
+    padding: 0;
+    text-align: center;
+  }
 `;
 
 const AttributeDot = styled.div`
@@ -26,6 +39,11 @@ const AttributeDot = styled.div`
   height: 8px;
   margin-right: 8px;
   width: 8px;
+
+  @media screen and (max-width: ${MOBILE_WIDTH}) {
+    display: inline-block;
+    vertical-align: middle;
+  }
 `
 
 const AttributeValue = styled.div`
@@ -34,6 +52,11 @@ const AttributeValue = styled.div`
   font-size: 12px;
   font-weight: 600;
   line-height: 1;
+
+  @media screen and (max-width: ${MOBILE_WIDTH}) {
+    display: inline-block;
+    vertical-align: middle;
+  }
 `
 
 const AttributeMain = ({
