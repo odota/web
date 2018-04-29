@@ -37,13 +37,13 @@ const Wrapper = styled.div`
   @media screen and (max-width: 380px) {
     width: 100%;
   }
-`
+`;
 
 const Box = styled.div`
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, .35);
   overflow: hidden;
-`
+`;
 
 const Header = styled.div`
   background: rgba(0, 0, 0, .15);
@@ -55,16 +55,16 @@ const Header = styled.div`
   text-align: center;
   text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
   text-transform: uppercase;
-`
+`;
 
 const Value = styled.div`
   font-size: 12px;
   line-height: 1;
   padding: 16px 12px;
   text-align: center;
-`
+`;
 
-const Card = ({total}) => (
+const Card = ({ total }) => (
   <Wrapper>
     <Box>
       <Header>{strings[`heading_${total.field}`]}</Header>
@@ -74,7 +74,7 @@ const Card = ({total}) => (
 );
 
 Card.propTypes = {
-  total: shape({})
-}
+  total: shape({}),
+};
 
 export default Card;

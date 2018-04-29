@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import util from 'util';
-import Card from './Card'
+import Card from './Card';
 import { getPlayerTotals } from '../../../../actions';
 import Container from '../../../Container';
 import strings from '../../../../lang';
@@ -13,7 +13,7 @@ const CardContainer = styled.div`
   flex-wrap: wrap;
   margin-left: -8px;
   margin-right: -8px;
-`
+`;
 
 const totalsToShow = {
   kills: 1,
@@ -40,7 +40,7 @@ const totalsToShow = {
 
 const drawElement = (element, type) => {
   if (totalsToShow[element.field] === type) {
-    return <Card total={element} />
+    return <Card total={element} />;
   }
   return null;
 };
