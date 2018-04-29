@@ -222,7 +222,7 @@ class Hero extends React.Component {
                 <div>
                   <AttributesMain hero={hero} />
                   <HeroDetailsButton type="button" onClick={this.toggleDetailVisibility.bind(this)}>
-                    {this.state.detailsOpen ? 'Hide details' : 'Show more details'}
+                    {this.state.detailsOpen ? strings.hide_details : strings.show_more_details}
                   </HeroDetailsButton>
                 </div>
               </HeroProfileContent>
@@ -247,7 +247,7 @@ class Hero extends React.Component {
   }
 };
 
-const { shape, string, arrayOf, bool } = PropTypes;
+const { shape, string, arrayOf } = PropTypes;
 
 Hero.propTypes = {
   match: shape({

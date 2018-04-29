@@ -1,5 +1,5 @@
 import React from 'react';
-import { shape, bool, string, func, number } from 'prop-types';
+import { shape, bool, string, number } from 'prop-types';
 import styled from 'styled-components';
 
 import constants from '../constants'
@@ -37,7 +37,7 @@ const AttributeValue = styled.div`
 `
 
 const AttributeMain = ({
-  style, attribute, isPrimary, icon, base, gain
+  style, attribute, isPrimary, base, gain
 }) => (
   <Wrapper style={style}>
     <AttributeDot attribute={attribute} />
@@ -49,7 +49,6 @@ AttributeMain.propTypes = {
   style: shape({}),
   attribute: string,
   isPrimary: bool,
-  icon: func,
   base: number,
   gain: number
 };

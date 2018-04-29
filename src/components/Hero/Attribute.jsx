@@ -2,8 +2,6 @@ import React from 'react';
 import { shape, bool, node } from 'prop-types';
 import styled from 'styled-components';
 
-import constants from '../constants'
-
 const Wrapper = styled.span`
   background: rgba(0, 0, 0, .05);
   display: flex;

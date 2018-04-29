@@ -537,6 +537,8 @@
   "skill_1": "Normale",
   "skill_2": "Hohe",
   "skill_3": "Sehr hohe",
+  "show_more_details": "Mehr Details",
+  "hide_details": "Details ausblenden",
   "story_invalid_template": "(ungültige Vorlage)",
   "story_error": "Es ist ein Fehler bei der Erstellung der Story für dieses Match aufgetreten",
   "story_intro": "on {date}, two teams decided to play {game_mode_article} {game_mode} game of Dota 2 in {region}. Little did they know, the game would last {duration_in_words}",

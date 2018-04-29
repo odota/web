@@ -426,6 +426,9 @@
   "heading_cm_enabled": "CM enabled",
   "heading_current_players": "Current Players",
   "heading_former_players": "Former Players",
+  
+  "show_more_details": "Show more details",
+  "hide_details": "Hide details",
 
   "subheading_avg_and_max": "in last %d matches",
   "subheading_records": "In ranked matches. Records reset monthly.",
