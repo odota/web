@@ -44,6 +44,11 @@ export default {
   colorGuardianAlt: 'rgba(114, 79, 49, 0.65)',
   colorHerald: 'rgba(32, 74, 33, 0.45)',
   colorHeraldAlt: 'rgba(32, 74, 33, 0.65)',
+  colorAttributes: {
+    str: '#f44336',
+    agi: '#39d402',
+    int: '#01a9f4'
+  },
   sliderTicksColor: '#757575',
   sliderTicksColorActive: '#337AB7',
   dividerColor: 'rgb(52, 50, 50)',

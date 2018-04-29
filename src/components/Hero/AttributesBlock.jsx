@@ -10,14 +10,14 @@ import Attribute from './Attribute';
 
 
 const AttributesWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  flex-wrap: wrap;
+  display: block;
 `;
 
 const AttributeBlock = styled.div`
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, .25);
+  overflow: hidden;
+
   &:last-child {
     margin-right: initial;
   }
@@ -28,28 +28,18 @@ const AttributeBlock = styled.div`
 `;
 
 const Label = styled.span`
+  color: rgba(255, 255, 255, .5);
+  flex-grow: 1;
+  font-size: ${constants.fontSizeSmall};
   margin-right: 5px;
-  color: ${constants.colorMutedLight};
+  text-transform: uppercase;
 `;
-
-const renderIcon = Icon => <Icon style={{ width: 20, marginRight: 4 }} />;
 
 // Damage multiplier https://dota2.gamepedia.com/Armor#Damage_multiplier
 const calcArmorPercent = hero => Math.round(0.06 * hero / (1 + (0.06 * hero)) * 100);
 
 const HeroAttributes = ({ hero }) => (
   <AttributesWrapper>
-    <AttributeBlock>
-      <Attribute primary={hero.primary_attr === 'str'}>
-        {renderIcon(AttrStrength)} {`${hero.base_str} + ${hero.str_gain}`}
-      </Attribute>
-      <Attribute primary={hero.primary_attr === 'agi'}>
-        {renderIcon(AttrAgility)} {`${hero.base_agi} + ${hero.agi_gain}`}
-      </Attribute>
-      <Attribute primary={hero.primary_attr === 'int'}>
-        {renderIcon(AttrIntelligent)} {`${hero.base_int} + ${hero.int_gain}`}
-      </Attribute>
-    </AttributeBlock>
     <AttributeBlock>
       <Attribute>
         <Label>{strings.heading_attack}:</Label> {`${hero.base_attack_min} - ${hero.base_attack_max}`}

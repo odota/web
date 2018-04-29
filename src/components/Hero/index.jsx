@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import FlatButton from 'material-ui/FlatButton';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { heroSelector } from '../../reducers/selectors';
@@ -14,6 +15,7 @@ import Ranking from './Ranking';
 import Benchmark from './Benchmark';
 import Recent from './Recent';
 import Matchups from './Matchups';
+import AttributesMain from './AttributesMain';
 import AttributesBlock from './AttributesBlock';
 import Durations from './Durations';
 import Players from './Players';
@@ -22,31 +24,71 @@ const getHeroImgSrc = src => process.env.REACT_APP_API_HOST + src;
 
 const WRAP_WIDTH = '576px';
 
-const Wrapper = styled.div`
-  display: flex;
-
-  @media (max-width: ${WRAP_WIDTH}) {
-    flex-wrap: wrap;
-  }
-`;
-
-const StyledImage = styled.img`
-  border: solid 1px rgba(255, 255, 255, 0.3);
+const HeroAvatar = styled.img`
+  border-radius: 50%;
+  border: solid 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 12px rgba(0, 0, 0, .3);
+  display: block;
+  flex-shrink: 0;
+  height: 64px;
+  object-fit: cover;
+  width: 64px;
 `;
 
 const HeroBlock = styled.div`
-  margin-right: 25px;
-  width: 258px;
+  margin-bottom: 8px;
 `;
+
+const HeroProfile = styled.div`
+  background: ${constants.almostBlack};
+  overflow: hidden;
+  position: relative;
+`
+
+const HeroProfileBackground = styled.img`
+  background-repeat: no-repeat;
+  filter: blur(5px);
+  height: 125%;
+  left: -12.5%;
+  object-fit: cover;
+  opacity: .25;
+  position: absolute;
+  top: -12.5%;
+  width: 125%;
+  z-index: 1;
+`
+
+const HeroProfileContent = styled.div`
+  align-items: center;
+  display: flex;
+  padding: 56px 32px;
+  position: relative;
+  z-index: 2;
+`
+
+const HeroDetails = styled.div`
+  flex-grow: 1;
+  margin: 0 24px;
+`
 
 const HeroName = styled.div`
-  font-size: 20px;
-  margin-bottom: 5px;
+  font-size: 24px;
+  font-weight: ${constants.fontWeightMedium};
+  line-height: 24px;
 `;
 
-const HeroRole = styled.div`
-  font-size: 16px;
+const HeroAttackType = styled.div`
+  color: ${constants.primaryTextColor};
+  font-size: 12px;
+  margin: 8px 0;
+  text-transform: uppercase;
+`;
+
+const HeroRoles = styled.div`
   color: ${constants.colorMutedLight};
+  font-size: 12px;
+  margin: 8px 0;
+  text-transform: uppercase;
   word-wrap: break-word;
 `;
 
@@ -56,11 +98,15 @@ const HeroDescription = styled.div`
   flex-grow: 1;
 `;
 
+const HeroDetailsButton = styled(FlatButton)`
+  margin: 8px auto !important;
+  padding: 0 12px !important;
+  width: 100%;
+`
+
 const TabsBlock = styled.div`
   width: 100%;
 `;
-
-const HeroAttackTipe = styled.span`color: ${constants.textColorPrimary};`;
 
 const tabs = heroId => [
   {
@@ -131,45 +177,69 @@ const tabs = heroId => [
   },
 ];
 
-const Hero = (props) => {
-  const route = props.match.params.info || 'rankings';
-  const { heroId } = props.match.params;
-  const hero = heroSelector(props.heroes, heroId);
-
-  if (props.heroes.length === 0) {
-    return <Spinner />;
+class Hero extends React.Component {
+  state = {
+    detailsOpen: false
   }
 
-  if (!hero) {
-    const errorText = `Hero ${heroId} not found...`;
-    return <ErrorBox text={errorText} />;
+  render () {
+    const route = this.props.match.params.info || 'rankings';
+    const { heroId } = this.props.match.params;
+    const hero = heroSelector(this.props.heroes, heroId);
+
+    if (this.props.heroes.length === 0) {
+      return <Spinner />;
+    }
+
+    if (!hero) {
+      const errorText = `Hero ${heroId} not found...`;
+      return <ErrorBox text={errorText} />;
+    }
+
+    const currentTab = tabs(heroId).find(tab => tab.key === route);
+    return (
+      <div>
+        <Helmet title={hero.localized_name} />
+        <HeroBlock>
+          <HeroDescription>
+            <HeroProfile>
+              <HeroProfileBackground alt={hero.localized_name} src={getHeroImgSrc(hero.img)} />
+              <HeroProfileContent>
+                <HeroAvatar alt={hero.localized_name} src={getHeroImgSrc(hero.img)} />
+                <HeroDetails>
+                  <HeroName>{hero.localized_name}</HeroName>
+                  <HeroAttackType>{hero.attack_type}</HeroAttackType>
+                  <HeroRoles>{hero.roles.join(', ')}</HeroRoles>
+                </HeroDetails>
+                <div>
+                  <AttributesMain hero={hero} />
+                  <HeroDetailsButton type="button" onClick={this.toggleDetailVisibility.bind(this)}>
+                    {this.state.detailsOpen ? 'Hide details' : 'Show more details'}
+                  </HeroDetailsButton>
+                </div>
+              </HeroProfileContent>
+            </HeroProfile>
+          </HeroDescription>
+          {this.state.detailsOpen && <AttributesBlock hero={hero} />}
+        </HeroBlock>
+        <TabsBlock>
+          <TabBar info={route} tabs={tabs(heroId)} />
+          {currentTab ? currentTab.content(this.props) : null}
+        </TabsBlock>
+      </div>
+    );
   }
 
-  const currentTab = tabs(heroId).find(tab => tab.key === route);
-  return (
-    <Wrapper>
-      <Helmet title={hero.localized_name} />
-      <HeroBlock>
-        <StyledImage alt="" src={getHeroImgSrc(hero.img)} />
-        <HeroDescription>
-          <HeroName>
-            {hero.localized_name}
-            <HeroRole>
-              <HeroAttackTipe>{hero.attack_type}</HeroAttackTipe>, {hero.roles.join(', ')}
-            </HeroRole>
-          </HeroName>
-          <AttributesBlock hero={hero} />
-        </HeroDescription>
-      </HeroBlock>
-      <TabsBlock>
-        <TabBar info={route} tabs={tabs(heroId)} />
-        {currentTab ? currentTab.content(props) : null}
-      </TabsBlock>
-    </Wrapper>
-  );
+  toggleDetailVisibility (e) {
+    e.preventDefault();
+
+    this.setState({
+      detailsOpen: !this.state.detailsOpen
+    })
+  }
 };
 
-const { shape, string, arrayOf } = PropTypes;
+const { shape, string, arrayOf, bool } = PropTypes;
 
 Hero.propTypes = {
   match: shape({
@@ -178,7 +248,7 @@ Hero.propTypes = {
       heroId: string,
     }),
   }),
-  heroes: arrayOf(shape({})),
+  heroes: arrayOf(shape({}))
 };
 
 Hero.defaultProps = {
