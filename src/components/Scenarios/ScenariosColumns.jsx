@@ -1,4 +1,4 @@
-import { inflictorWithValue } from 'components/Visualizations';
+import { inflictorWithValue } from '../../components/Visualizations';
 import strings from '../../lang';
 import { transformations, formatSeconds, abbreviateNumber } from '../../utility';
 

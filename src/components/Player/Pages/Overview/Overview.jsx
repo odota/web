@@ -121,6 +121,8 @@ const Overview = ({
       subtitle={util.format(strings.subheading_avg_and_max, numValidRecentMatches)}
       loading={matchesLoading}
       error={matchesError}
+      loaderWidth={250}
+      loaderHeight={30}
     >
       <Styled
         data-tip={strings.exclude_turbo_matches}
@@ -143,6 +145,8 @@ const Overview = ({
         titleTo={`/players/${playerId}/matches`}
         loading={matchesLoading}
         error={matchesError}
+        loaderWidth={300}
+        loaderHeight={160}
       >
         <Table
           columns={playerMatchesColumns}

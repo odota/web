@@ -190,6 +190,7 @@ class Scenarios extends React.Component {
             columns={getColumns(selectedTab, metadata)}
             loading={scenariosState[selectedTab].loading}
             paginated
+            resetTableState
           />
         </div>
         }
