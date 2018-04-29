@@ -20,7 +20,7 @@ export default function getFormFieldData(metadata) {
       ),
       altValue: id,
     }))
-      .sort((a, b) => a.text.localeCompare(b.text)),
+      .sort((a, b) => a.text && a.text.localeCompare(b.text)),
 
     itemList: Object.keys(items).filter(item => items[item].cost >= itemCost && !item.startsWith('recipe_')).map(item => ({
       text: items[item].dname,
@@ -32,7 +32,7 @@ export default function getFormFieldData(metadata) {
       ),
       altValue: item,
     }))
-      .sort((a, b) => a.text.localeCompare(b.text)),
+      .sort((a, b) => a.text && a.text.localeCompare(b.text)),
 
     laneRoleList: [1, 2, 3, 4].map(role => ({ text: strings[`lane_role_${role}`], value: role.toString() })),
 

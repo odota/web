@@ -90,7 +90,7 @@ class RequestLayer extends React.Component {
         winRate1: (heroStat['1_win'] || 0) / heroStat['1_pick'],
       };
     });
-    processedData.sort((a, b) => a.heroName.localeCompare(b.heroName));
+    processedData.sort((a, b) => a.heroName && a.heroName.localeCompare(b.heroName));
     const heroTabs = [{
       name: strings.hero_pro_tab,
       key: 'pro',
