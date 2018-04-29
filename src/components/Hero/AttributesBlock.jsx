@@ -10,21 +10,17 @@ import Attribute from './Attribute';
 
 
 const AttributesWrapper = styled.div`
-  display: block;
+  display: flex;
+  margin-left: -8px;
+  margin-right: -8px;
 `;
 
 const AttributeBlock = styled.div`
-  border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, .25);
-  overflow: hidden;
-
-  &:last-child {
-    margin-right: initial;
-  }
-
   display: flex;
   flex-direction: column;
+  flex: 1 1 0;
   margin-top: 10px;
+  padding: 8px;
 `;
 
 const Label = styled.span`

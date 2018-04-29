@@ -30,9 +30,9 @@ const HeroAvatar = styled.img`
   box-shadow: 0 0 12px rgba(0, 0, 0, .3);
   display: block;
   flex-shrink: 0;
-  height: 64px;
+  height: 128px;
   object-fit: cover;
-  width: 64px;
+  width: 128px;
 `;
 
 const HeroBlock = styled.div`
@@ -43,15 +43,16 @@ const HeroProfile = styled.div`
   background: ${constants.almostBlack};
   overflow: hidden;
   position: relative;
+  border-radius: 8px;
 `
 
 const HeroProfileBackground = styled.img`
   background-repeat: no-repeat;
-  filter: blur(5px);
+  filter: blur(25px);
   height: 125%;
   left: -12.5%;
   object-fit: cover;
-  opacity: .25;
+  opacity: .35;
   position: absolute;
   top: -12.5%;
   width: 125%;
@@ -60,6 +61,7 @@ const HeroProfileBackground = styled.img`
 
 const HeroProfileContent = styled.div`
   align-items: center;
+  box-shadow: inset 0 0 125px rgba(0, 0, 0, .25);
   display: flex;
   padding: 56px 32px;
   position: relative;
@@ -77,14 +79,14 @@ const HeroName = styled.div`
   line-height: 24px;
 `;
 
-const HeroAttackType = styled.div`
+const HeroRoleInformations = styled.div`
   color: ${constants.primaryTextColor};
   font-size: 12px;
   margin: 8px 0;
   text-transform: uppercase;
 `;
 
-const HeroRoles = styled.div`
+const HeroRoles = styled.span`
   color: ${constants.colorMutedLight};
   font-size: 12px;
   margin: 8px 0;
@@ -208,8 +210,7 @@ class Hero extends React.Component {
                 <HeroAvatar alt={hero.localized_name} src={getHeroImgSrc(hero.img)} />
                 <HeroDetails>
                   <HeroName>{hero.localized_name}</HeroName>
-                  <HeroAttackType>{hero.attack_type}</HeroAttackType>
-                  <HeroRoles>{hero.roles.join(', ')}</HeroRoles>
+                  <HeroRoleInformations>{hero.attack_type} - <HeroRoles>{hero.roles.join(', ')}</HeroRoles></HeroRoleInformations>
                 </HeroDetails>
                 <div>
                   <AttributesMain hero={hero} />
