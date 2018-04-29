@@ -29,7 +29,7 @@ const AttributeDot = styled.div`
 `
 
 const AttributeValue = styled.div`
-  color: ${constants.primaryTextColor};
+  color: ${props => ((props.isPrimary) ? constants.colorAttributes[props.attribute] : constants.primaryTextColor)};
   flex-shrink: 0;
   font-size: 12px;
   font-weight: 600;
@@ -40,8 +40,8 @@ const AttributeMain = ({
   style, attribute, isPrimary, icon, base, gain
 }) => (
   <Wrapper style={style}>
-    <AttributeDot attribute={attribute} isPrimary={isPrimary} />
-    <AttributeValue>{base} + {gain}</AttributeValue>
+    <AttributeDot attribute={attribute} />
+    <AttributeValue attribute={attribute} isPrimary={isPrimary}>{base} + {gain}</AttributeValue>
   </Wrapper>
 );
 

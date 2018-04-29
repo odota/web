@@ -83,23 +83,21 @@ const HeroDetails = styled.div`
 `
 
 const HeroName = styled.div`
-  font-size: 24px;
+  font-size: 40px;
   font-weight: ${constants.fontWeightMedium};
-  line-height: 24px;
+  line-height: 40px;
 `;
 
 const HeroRoleInformations = styled.div`
   color: ${constants.primaryTextColor};
   font-size: 12px;
+  letter-spacing: 1px;
   margin: 8px 0;
   text-transform: uppercase;
 `;
 
 const HeroRoles = styled.span`
   color: ${constants.colorMutedLight};
-  font-size: 12px;
-  margin: 8px 0;
-  text-transform: uppercase;
   word-wrap: break-word;
 `;
 
