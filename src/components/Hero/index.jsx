@@ -22,7 +22,7 @@ import Players from './Players';
 
 const getHeroImgSrc = src => process.env.REACT_APP_API_HOST + src;
 
-const WRAP_WIDTH = '576px';
+const WRAP_WIDTH = '1000px';
 
 const HeroAvatar = styled.img`
   border-radius: 16px;
@@ -33,6 +33,11 @@ const HeroAvatar = styled.img`
   height: 128px;
   object-fit: cover;
   width: 180px;
+
+  @media screen and (max-width: ${WRAP_WIDTH}) {
+    height: 64px;
+    width: 120px;
+  }
 `;
 
 const HeroBlock = styled.div`
@@ -63,9 +68,13 @@ const HeroProfileContent = styled.div`
   align-items: center;
   box-shadow: inset 0 0 125px rgba(0, 0, 0, .25);
   display: flex;
-  padding: 56px 32px;
+  padding: 56px;
   position: relative;
   z-index: 2;
+
+  @media screen and (max-width: ${WRAP_WIDTH}) {
+    padding: 16px;
+  }
 `
 
 const HeroDetails = styled.div`
