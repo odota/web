@@ -155,7 +155,7 @@ const Footer = ({ strings }) => (
       <div className="links">
         <div className="logoNsocial">
           <AppLogo />
-          <SocialLinks />
+          <SocialLinks strings={strings} />
           <div className="mobile">
             <a
               href="https://play.google.com/store/apps/details?id=com.opendota.mobile&hl=en"

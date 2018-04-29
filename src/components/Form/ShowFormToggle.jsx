@@ -1,10 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Clear from 'material-ui/svg-icons/content/clear';
 import Filter from 'material-ui/svg-icons/content/filter-list';
 import FlatButton from 'material-ui/FlatButton';
 import styled from 'styled-components';
-import strings from '../../lang';
 import constants from '../constants';
 
 const StyledDiv = styled.div`
@@ -28,7 +28,7 @@ const getIcon = (show) => {
   return <Clear style={{ fill: constants.colorDanger }} />;
 };
 
-const ShowFormToggle = ({ toggleShowForm, showForm }) => (
+const ShowFormToggle = ({ toggleShowForm, showForm, strings }) => (
   <FlatButton onClick={() => toggleShowForm()}>
     <StyledDiv>
       {getIcon(showForm)}
@@ -40,8 +40,11 @@ const ShowFormToggle = ({ toggleShowForm, showForm }) => (
 ShowFormToggle.propTypes = {
   toggleShowForm: PropTypes.func,
   showForm: PropTypes.bool,
+  strings: PropTypes.shape({}),
 };
 
-// const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
 
-export default ShowFormToggle;
+export default connect(mapStateToProps)(ShowFormToggle);
