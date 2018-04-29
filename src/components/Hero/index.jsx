@@ -54,7 +54,7 @@ const HeroProfile = styled.div`
   overflow: hidden;
   position: relative;
   border-radius: 8px;
-`
+`;
 
 const HeroProfileBackground = styled.img`
   background-repeat: no-repeat;
@@ -67,7 +67,7 @@ const HeroProfileBackground = styled.img`
   top: -12.5%;
   width: 125%;
   z-index: 1;
-`
+`;
 
 const HeroProfileContent = styled.div`
   align-items: center;
@@ -85,7 +85,7 @@ const HeroProfileContent = styled.div`
     display: block;
     text-align: center;
   }
-`
+`;
 
 const HeroDetails = styled.div`
   flex-grow: 1;
@@ -94,7 +94,7 @@ const HeroDetails = styled.div`
   @media screen and (max-width: ${MOBILE_WIDTH}) {
     margin: 12px 0;
   }
-`
+`;
 
 const HeroName = styled.div`
   font-size: 40px;
@@ -132,13 +132,13 @@ const HeroDescription = styled.div`
 
 const HeroFooter = styled.div`
   text-align: center;
-`
+`;
 
 const HeroDetailsButton = styled(FlatButton)`
   border: 1px solid rgba(0, 0, 0, .35) !important;
   margin: 8px auto !important;
   padding: 0 12px !important;
-`
+`;
 
 const TabsBlock = styled.div`
   width: 100%;
@@ -215,10 +215,24 @@ const tabs = heroId => [
 
 class Hero extends React.Component {
   state = {
-    detailsOpen: false
+    detailsOpen: false,
   }
 
-  render () {
+  constructor (props) {
+    super(props)
+
+    this.toggleDetailVisibility = this.toggleDetailVisibility.bind(this)
+  }
+
+  toggleDetailVisibility(e) {
+    e.preventDefault();
+
+    this.setState({
+      detailsOpen: !this.state.detailsOpen,
+    });
+  }
+
+  render() {
     const route = this.props.match.params.info || 'rankings';
     const { heroId } = this.props.match.params;
     const hero = heroSelector(this.props.heroes, heroId);
@@ -253,7 +267,7 @@ class Hero extends React.Component {
             </HeroProfile>
           </HeroDescription>
           <HeroFooter>
-            <HeroDetailsButton type="button" onClick={this.toggleDetailVisibility.bind(this)}>
+            <HeroDetailsButton type="button" onClick={this.toggleDetailVisibility}>
               {this.state.detailsOpen ? strings.hide_details : strings.show_more_details}
             </HeroDetailsButton>
           </HeroFooter>
@@ -266,15 +280,7 @@ class Hero extends React.Component {
       </div>
     );
   }
-
-  toggleDetailVisibility (e) {
-    e.preventDefault();
-
-    this.setState({
-      detailsOpen: !this.state.detailsOpen
-    })
-  }
-};
+}
 
 const { shape, string, arrayOf } = PropTypes;
 
@@ -285,7 +291,7 @@ Hero.propTypes = {
       heroId: string,
     }),
   }),
-  heroes: arrayOf(shape({}))
+  heroes: arrayOf(shape({})),
 };
 
 Hero.defaultProps = {

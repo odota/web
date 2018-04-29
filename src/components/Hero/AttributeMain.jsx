@@ -2,7 +2,7 @@ import React from 'react';
 import { shape, bool, string, number } from 'prop-types';
 import styled from 'styled-components';
 
-import constants from '../constants'
+import constants from '../constants';
 
 const WRAP_WIDTH = '1000px';
 const MOBILE_WIDTH = '680px';
@@ -44,7 +44,7 @@ const AttributeDot = styled.div`
     display: inline-block;
     vertical-align: middle;
   }
-`
+`;
 
 const AttributeValue = styled.div`
   color: ${props => ((props.isPrimary) ? constants.colorAttributes[props.attribute] : constants.primaryTextColor)};
@@ -57,10 +57,10 @@ const AttributeValue = styled.div`
     display: inline-block;
     vertical-align: middle;
   }
-`
+`;
 
 const AttributeMain = ({
-  style, attribute, isPrimary, base, gain
+  style, attribute, isPrimary, base, gain,
 }) => (
   <Wrapper style={style}>
     <AttributeDot attribute={attribute} />
@@ -73,7 +73,7 @@ AttributeMain.propTypes = {
   attribute: string,
   isPrimary: bool,
   base: number,
-  gain: number
+  gain: number,
 };
 
 export default AttributeMain;

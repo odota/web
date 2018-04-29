@@ -47,7 +47,7 @@ export default {
   colorAttributes: {
     str: '#f44336',
     agi: '#39d402',
-    int: '#01a9f4'
+    int: '#01a9f4',
   },
   sliderTicksColor: '#757575',
   sliderTicksColorActive: '#337AB7',

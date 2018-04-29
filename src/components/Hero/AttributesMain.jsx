@@ -38,7 +38,7 @@ HeroAttributes.propTypes = {
     base_int: number,
     str_gain: number,
     agi_gain: number,
-    int_gain: number
+    int_gain: number,
   }),
 };
 
