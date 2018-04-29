@@ -25,14 +25,14 @@ const getHeroImgSrc = src => process.env.REACT_APP_API_HOST + src;
 const WRAP_WIDTH = '576px';
 
 const HeroAvatar = styled.img`
-  border-radius: 50%;
+  border-radius: 16px;
   border: solid 1px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 12px rgba(0, 0, 0, .3);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .3);
   display: block;
   flex-shrink: 0;
   height: 128px;
   object-fit: cover;
-  width: 128px;
+  width: 180px;
 `;
 
 const HeroBlock = styled.div`
