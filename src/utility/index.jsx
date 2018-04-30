@@ -22,10 +22,12 @@ import {
 import constants from '../components/constants';
 
 export const iconStyle = {
+  position: 'relative',
   marginLeft: 5,
   width: 18,
   height: 18,
   verticalAlign: 'bottom',
+  top: '1px'
 };
 
 export const subTextStyle = {
@@ -341,7 +343,7 @@ export const transformations = {
       backgroundColor: constants.lightGray,
       display: 'inline-block',
       marginLeft: '3px',
-      marginBottom: '3px',
+      marginBottom: '2px',
       transform: 'rotate(45deg)'
     };
     const getSkill = (skill) => {
@@ -362,6 +364,7 @@ export const transformations = {
         height: '13px',
         position: 'relative',
         left: '2px',
+        top: '1px'
       };
       normalOrRanked = <IconRanking style={style} data-tip={strings[`lobby_type_${row.lobby_type}`]} data-offset="{'right': 3, 'top': 3}" />;
     }
