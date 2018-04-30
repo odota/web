@@ -33,7 +33,6 @@ const Wrapper = styled.div`
 `;
 
 const AttributeDot = styled.div`
-  background: ${props => constants.colorAttributes[props.attribute]};
   border-radius: 50%;
   flex-shrink: 0;
   height: 8px;
@@ -61,12 +60,45 @@ const AttributeValue = styled.div`
 
 const AttributeMain = ({
   style, attribute, isPrimary, base, gain,
-}) => (
-  <Wrapper style={style}>
-    <AttributeDot attribute={attribute} />
-    <AttributeValue attribute={attribute} isPrimary={isPrimary}>{base} + {gain}</AttributeValue>
-  </Wrapper>
-);
+}) => {
+  let attributeDotStyle = {
+    background: constants.primaryTextColor,
+  };
+
+  let attributeValueStyle = {
+    color: constants.primaryTextColor,
+  };
+
+  switch (attribute) {
+    default:
+      attributeDotStyle.background = constants.colorAttributeStr;
+      if (isPrimary) {
+        attributeValueStyle.color = constants.colorAttributeStr;
+      }
+      break;
+    
+    case 'agi':
+      attributeDotStyle.background = constants.colorAttributeAgi;
+      if (isPrimary) {
+        attributeValueStyle.color = constants.colorAttributeAgi;
+      }
+      break;
+    
+    case 'int':
+      attributeDotStyle.background = constants.colorAttributeInt;
+      if (isPrimary) {
+        attributeValueStyle.color = constants.colorAttributeInt;
+      }
+      break;
+  }
+
+  return (
+    <Wrapper style={style}>
+      <AttributeDot attribute={attribute} style={attributeDotStyle} />
+      <AttributeValue attribute={attribute} style={attributeValueStyle}>{base} + {gain}</AttributeValue>
+    </Wrapper>
+  );
+};
 
 AttributeMain.propTypes = {
   style: shape({}),
