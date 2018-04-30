@@ -340,9 +340,9 @@ export const transformations = {
       width: '5px',
       backgroundColor: constants.lightGray,
       display: 'inline-block',
-      marginLeft: '2px',
+      marginLeft: '3px',
       marginBottom: '3px',
-      borderRadius: '30%',
+      transform: 'rotate(45deg)'
     };
     const getSkill = (skill) => {
       const skillDots = [];
