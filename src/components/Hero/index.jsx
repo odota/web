@@ -146,7 +146,7 @@ class Hero extends React.Component {
           <Header hero={hero} />
           <HeroFooter>
             <HeroDetailsButton type="button" onClick={this.toggleDetailVisibility}>
-              {this.state.detailsOpen ? strings.hide_details : strings.show_more_details}
+              {this.state.detailsOpen ? strings.hide_details : strings.show_details}
             </HeroDetailsButton>
           </HeroFooter>
           {this.state.detailsOpen && <AttributesBlock hero={hero} />}
