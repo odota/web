@@ -61,11 +61,11 @@ const AttributeValue = styled.div`
 const AttributeMain = ({
   style, attribute, isPrimary, base, gain,
 }) => {
-  let attributeDotStyle = {
+  const attributeDotStyle = {
     background: constants.primaryTextColor,
   };
 
-  let attributeValueStyle = {
+  const attributeValueStyle = {
     color: constants.primaryTextColor,
   };
 
@@ -76,14 +76,14 @@ const AttributeMain = ({
         attributeValueStyle.color = constants.colorAttributeStr;
       }
       break;
-    
+
     case 'agi':
       attributeDotStyle.background = constants.colorAttributeAgi;
       if (isPrimary) {
         attributeValueStyle.color = constants.colorAttributeAgi;
       }
       break;
-    
+
     case 'int':
       attributeDotStyle.background = constants.colorAttributeInt;
       if (isPrimary) {
