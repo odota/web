@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import Spinner from '../Spinner';
+import { List } from 'react-content-loader';
 import TabBar from '../TabBar';
 import { getMatch, getPvgnaHeroGuides } from '../../actions';
 import MatchHeader from './MatchHeader';
@@ -40,7 +40,7 @@ class RequestLayer extends React.Component {
     const info = this.props.match.params.info || 'overview';
     const page = matchPages(matchId).find(_page => _page.key.toLowerCase() === info);
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
-    return loading ? <Spinner /> :
+    return loading ? <List primaryColor="#666" width={250} height={120} /> :
       (
         <div>
           <Helmet title={pageTitle} />

@@ -1,29 +1,26 @@
 /* global ace */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect }
-  from 'react-redux';
+import { connect } from 'react-redux';
 import fetch from 'isomorphic-fetch';
 import RaisedButton from 'material-ui/RaisedButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Helmet from 'react-helmet';
 import querystring from 'querystring';
 import json2csv from 'json2csv';
-import Spinner from '../Spinner';
-import strings from '../../lang';
+import { BulletList } from 'react-content-loader';
 import Heading from '../Heading';
 import {
   getProPlayers,
   getLeagues,
   getTeams,
-}
-  from '../../actions';
+} from '../../actions';
 import queryTemplate from './queryTemplate';
 import ExplorerOutputButton from './ExplorerOutputButton';
 import ExplorerOutputSection from './ExplorerOutputSection';
 import ExplorerControlSection from './ExplorerControlSection';
 import ExplorerFormField from './ExplorerFormField';
-import fields from './fields';
+import getFields from './fields';
 import autocomplete from './autocomplete';
 
 const playerMapping = {};
@@ -51,6 +48,7 @@ class Explorer extends React.Component {
     dispatchProPlayers: PropTypes.func,
     dispatchLeagues: PropTypes.func,
     dispatchTeams: PropTypes.func,
+    strings: PropTypes.shape({}),
   }
 
   constructor() {
@@ -99,7 +97,7 @@ class Explorer extends React.Component {
   buildQuery = () => {
     // Note that this will not get expanded data for API-dependent fields (player/league/team)
     // This is ok if we only need the value prop (e.g. an id to build the query with)
-    const expandedBuilder = expandBuilderState(this.state.builder, fields());
+    const expandedBuilder = expandBuilderState(this.state.builder, getFields());
     // TODO handle arrays
     this.editor.setValue(queryTemplate(expandedBuilder));
   };
@@ -190,13 +188,14 @@ class Explorer extends React.Component {
         teamMapping[team.team_id] = team.name;
       });
     }
-    const expandedFields = fields(this.props.proPlayers, this.props.leagues, this.props.teams);
+    const expandedFields = getFields(this.props.proPlayers, this.props.leagues, this.props.teams);
     const expandedBuilder = expandBuilderState(this.state.builder, expandedFields);
     const {
       handleQuery, handleCancel, getSqlString, handleFieldUpdate,
     } = this;
     const explorer = this;
     const { builder } = this.state;
+    const { strings } = this.props;
     return (
       <div>
         <Helmet title={`${strings.title_explorer} - ${strings.explorer_subtitle}`} />
@@ -283,15 +282,15 @@ class Explorer extends React.Component {
         </div>
         <Heading title={strings.explorer_results} subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`} />
         <pre style={{ color: 'red' }}>{this.state.result.err}</pre>
-        {this.state.loading ? <Spinner /> : null}
-        <ExplorerOutputSection
+        {this.state.loading ? <BulletList primaryColor="#666" width={300} /> : null}
+        {!this.state.loading && <ExplorerOutputSection
           rows={this.state.result.rows}
           fields={this.state.result.fields}
           expandedBuilder={expandedBuilder}
           playerMapping={playerMapping}
           teamMapping={teamMapping}
           format={this.state.builder.format}
-        />
+        />}
       </div>);
   }
 }
@@ -300,6 +299,7 @@ const mapStateToProps = state => ({
   proPlayers: state.app.proPlayers.data,
   leagues: state.app.leagues.data,
   teams: state.app.teams.data,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({
