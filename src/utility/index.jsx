@@ -27,7 +27,7 @@ export const iconStyle = {
   width: 18,
   height: 18,
   verticalAlign: 'bottom',
-  top: '1px'
+  top: '1px',
 };
 
 export const subTextStyle = {
@@ -344,7 +344,7 @@ export const transformations = {
       display: 'inline-block',
       marginLeft: '3px',
       marginBottom: '2px',
-      transform: 'rotate(45deg)'
+      transform: 'rotate(45deg)',
     };
     const getSkill = (skill) => {
       const skillDots = [];
@@ -364,7 +364,7 @@ export const transformations = {
         height: '13px',
         position: 'relative',
         left: '2px',
-        top: '1px'
+        top: '1px',
       };
       normalOrRanked = <IconRanking style={style} data-tip={strings[`lobby_type_${row.lobby_type}`]} data-offset="{'right': 3, 'top': 3}" />;
     }
