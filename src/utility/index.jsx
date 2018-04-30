@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import { Link } from 'react-router-dom';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
@@ -10,6 +11,7 @@ import util from 'util';
 // import SvgIcon from 'material-ui/SvgIcon';
 import SocialPeople from 'material-ui/svg-icons/social/people';
 import SocialPerson from 'material-ui/svg-icons/social/person';
+import { IconRanking } from '../components/Icons';
 import strings from '../lang';
 import { TableLink } from '../components/Table';
 import {
@@ -21,7 +23,6 @@ import constants from '../components/constants';
 
 export const iconStyle = {
   marginLeft: 5,
-  marginRight: 5,
   width: 18,
   height: 18,
   verticalAlign: 'bottom',
@@ -303,7 +304,24 @@ export const transformations = {
         {fromNow(row.start_time)}
       </span>
     </div>),
-  radiant_win: (row, col, field) => {
+  game_mode: (row, col, field) => (strings[`game_mode_${field}`]),
+  radiant_win_and_game_mode: (row, col, field) => {
+    const { match_id } = row;
+    const partySize = (_partySize) => {
+      if (_partySize === 1) {
+        return [
+          <SocialPerson color="rgb(179, 179, 179)" style={iconStyle} />,
+          `x${row.party_size}`,
+        ];
+      } else if (_partySize === null || _partySize === undefined) {
+        return null;
+      }
+
+      return [
+        <SocialPeople color="rgb(179, 179, 179)" style={iconStyle} />,
+        `x${row.party_size}`,
+      ];
+    };
     const won = field === isRadiant(row.player_slot);
     const getColor = (result) => {
       if (result === null || result === undefined) {
@@ -317,39 +335,51 @@ export const transformations = {
       }
       return won ? strings.td_win : strings.td_loss;
     };
-    return (
-      <div>
-        <span style={{ color: getColor(field) }}>
-          {getString(field)}
-        </span>
-        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-          {row.skill ? `${strings[`skill_${row.skill}`]} ${strings.th_skill}` : ''}
-        </span>
-      </div>);
-  },
-  game_mode: (row, col, field) => (strings[`game_mode_${field}`]),
-  match_id_and_game_mode: (row, col, field) => {
-    const partySize = (_partySize) => {
-      if (_partySize === 1) {
-        return [
-          <SocialPerson color="rgb(179, 179, 179)" style={iconStyle} />,
-          `x${row.party_size}`,
-        ];
-      } else if (_partySize === null) {
-        return null;
-      }
-
-      return [
-        <SocialPeople color="rgb(179, 179, 179)" style={iconStyle} />,
-        `x${row.party_size}`,
-      ];
+    const skillDotsStyle = {
+      height: '5px',
+      width: '5px',
+      backgroundColor: constants.lightGray,
+      display: 'inline-block',
+      marginLeft: '2px',
+      borderRadius: '5%',
     };
+    const getSkill = (skill) => {
+      const skillDots = [];
+      if (skill) {
+        for (let i = 0; i < 3; i += 1) {
+          skillDots.push(<div
+            style={{ ...skillDotsStyle, opacity: skill - i > 0 ? '1' : '0.3' }}
+          />);
+        }
+      }
+      return skillDots;
+    };
+    let normalOrRanked;
+    if (row.lobby_type === 7 || row.lobby_type === 0) {
+      const style = {
+        fill: row.lobby_type === 7 ? constants.yelor : constants.lightGray,
+        height: '13px',
+        position: 'relative',
+        left: '3px',
+      };
+      normalOrRanked = <IconRanking style={style} data-tip={strings[`lobby_type_${row.lobby_type}`]} data-offset="{'right': 3, 'top': 3}" />;
+    }
     return (
       <div>
-        <TableLink to={`/matches/${field}`}>{field}</TableLink>
+        <TableLink to={`/matches/${match_id}`} color={getColor(field)}>
+          <span style={{ color: getColor(field) }}>
+            {getString(field)}
+          </span>
+        </TableLink>
         <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-          {strings[`game_mode_${row.game_mode}`]} / {strings[`lobby_type_${row.lobby_type}`]}
-          {partySize(row.party_size)}
+          {strings[`game_mode_${row.game_mode}`]} / {normalOrRanked || strings[`lobby_type_${row.lobby_type}`] || row.league_name}
+          <span style={{ marginRight: '3px' }}>
+            {partySize(row.party_size)}
+          </span>
+          <span data-tip={row.skill ? `${strings[`skill_${row.skill}`]} ${strings.th_skill}` : ''} data-offset="{'right': 13}" data-delay-show="50">
+            {getSkill(row.skill)}
+          </span>
+          <ReactTooltip place="top" effect="solid" />
         </span>
       </div>);
   },

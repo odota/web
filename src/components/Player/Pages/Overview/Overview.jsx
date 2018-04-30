@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Checkbox from 'material-ui/Checkbox';
 import Turbo from 'material-ui/svg-icons/image/timelapse';
 import TurboOff from 'material-ui/svg-icons/notification/do-not-disturb';
-import ReactTooltip from 'react-tooltip';
 import util from 'util';
 import styled from 'styled-components';
 import {
@@ -128,7 +127,6 @@ const Overview = ({
         data-tip={strings.exclude_turbo_matches}
         style={{ display: validRecentMatches.some(match => match.game_mode === 23) ? 'inline' : 'none' }}
       >
-        <ReactTooltip />
         <Checkbox
           style={{ display: validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23) }}
           defaultChecked

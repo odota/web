@@ -22,3 +22,4 @@ export { default as IconDice } from './Dice';
 export { default as IconCrystalBall } from './CrystalBall';
 export { default as IconCheckCircle } from './CheckCircle';
 export { default as IconLaneRoles } from './LaneRoles';
+export { default as IconRanking } from './Ranking';
