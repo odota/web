@@ -23,7 +23,7 @@ import { IconLaneRoles } from '../Icons';
 
 const ScenariosLoader = () => (
   <ContentLoader height={300} width={800} primaryColor="#666">
-    <rect x="0" y="55" rx="0" ry="0" width="550" height="50" />
+    <rect x="0" y="55" rx="0" ry="0" width="800" height="50" />
     <rect x="0" y="140" rx="0" ry="0" width="160" height="35" />
     <rect x="180" y="140" rx="0" ry="0" width="160" height="35" />
     <rect x="360" y="140" rx="0" ry="0" width="160" height="35" />
