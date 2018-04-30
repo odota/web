@@ -341,6 +341,7 @@ export const transformations = {
       backgroundColor: constants.lightGray,
       display: 'inline-block',
       marginLeft: '2px',
+      marginBottom: '3px',
       borderRadius: '5%',
     };
     const getSkill = (skill) => {
@@ -360,7 +361,7 @@ export const transformations = {
         fill: row.lobby_type === 7 ? constants.yelor : constants.lightGray,
         height: '13px',
         position: 'relative',
-        left: '3px',
+        left: '2px',
       };
       normalOrRanked = <IconRanking style={style} data-tip={strings[`lobby_type_${row.lobby_type}`]} data-offset="{'right': 3, 'top': 3}" />;
     }
