@@ -7,8 +7,8 @@ export default [{
   field: 'hero_id',
   displayFn: transformations.hero_id,
 }, {
-  displayName: strings.th_match_id,
-  tooltip: strings.tooltip_match_id,
+  displayName: strings.th_result,
+  tooltip: strings.tooltip_result,
   field: 'radiant_win',
   sortFn: true,
   displayFn: transformations.radiant_win_and_game_mode,
