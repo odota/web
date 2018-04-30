@@ -22,9 +22,7 @@ export default combineReducers({
   playerRecentMatches: reducer('playerRecentMatches'),
   playerTotals: reducer('playerTotals'),
   metadata: reducer('metadata'),
-  match: reducer('match', {
-    players: [],
-  }),
+  match: reducer('match'),
   heroRanking: reducer('heroRanking'),
   heroBenchmark: reducer('heroBenchmark'),
   heroRecentGames: reducer('heroRecentGames'),

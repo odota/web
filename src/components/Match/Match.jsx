@@ -11,11 +11,9 @@ import matchPages from './matchPages';
 class RequestLayer extends React.Component {
   static propTypes = {
     loading: PropTypes.bool,
-    matchData: PropTypes.shape({}),
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        info: PropTypes.string,
-      }),
+    match: PropTypes.shape({}),
+    params: PropTypes.shape({
+      info: PropTypes.string,
     }),
     user: PropTypes.shape({}),
     getMatch: PropTypes.func,
@@ -24,7 +22,6 @@ class RequestLayer extends React.Component {
 
   componentDidMount() {
     this.props.getMatch(this.props.matchId);
-    this.props.getPvgnaHeroGuides();
   }
 
   UNSAFE_componentWillUpdate(nextProps) {
@@ -34,9 +31,8 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    const { loading, matchId } = this.props;
-    const match = this.props.matchData;
-    const info = this.props.match.params.info || 'overview';
+    const { loading, matchId, match, params } = this.props;
+    const info = params.info || 'overview';
     const page = matchPages(matchId).find(_page => _page.key.toLowerCase() === info);
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
     return loading ? <Spinner /> :
@@ -57,10 +53,15 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => {
+  console.log(state)
+  return ({
+  match: state.app.match.data,
+  params: state.app.match.params,
   loading: state.app.match.loading,
   user: state.app.metadata.data.user,
-});
+})
+};
 
 const mapDispatchToProps = dispatch => ({
   getMatch: matchId => dispatch(getMatch(matchId)),

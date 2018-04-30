@@ -11,7 +11,6 @@ import {
   getPlayerRecentMatches,
   getPlayerHeroes,
   getPlayerPeers,
-  getPvgnaHeroGuides,
 } from '../../../../actions';
 import strings from '../../../../lang';
 import Table from '../../../Table';
