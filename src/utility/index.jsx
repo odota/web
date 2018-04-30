@@ -342,7 +342,7 @@ export const transformations = {
       display: 'inline-block',
       marginLeft: '2px',
       marginBottom: '3px',
-      borderRadius: '5%',
+      borderRadius: '30%',
     };
     const getSkill = (skill) => {
       const skillDots = [];
