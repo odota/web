@@ -237,9 +237,36 @@ export const IMAGESIZE_ENUM = {
 
 const getSubtitle = (row) => {
   if (row.match_id && row.player_slot !== undefined) {
-    let laneName;
-    if (row.is_roaming) { laneName = ` / ${strings.roaming}`; } else { laneName = row.lane_role ? ` / ${strings[`lane_role_${row.lane_role}`]}` : ''; }
-    return (isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire) + laneName;
+    let lane;
+    let tooltip;
+    if (row.is_roaming) {
+      tooltip = strings.roaming;
+      lane = 'roam';
+    } else {
+      tooltip = strings[`lane_role_${row.lane_role}`];
+      lane = row.lane_role;
+    }
+    const roleIconStyle = {
+      position: 'relative',
+      height: '12px',
+      marginLeft: '5px',
+      filter: 'grayscale(60%)',
+      top: '2px'
+    };
+
+    return (
+      <span>
+        <span>{(isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire)}</span>
+        {lane ?
+          <img
+            src={`/assets/images/dota2/lane_${lane}.svg`}
+            alt=""
+            data-tip={tooltip}
+            data-delay-show="300"
+            style={roleIconStyle}
+          />
+        : ''}
+      </span>);
   } else if (row.last_played) {
     return <FromNowTooltip timestamp={row.last_played} />;
   } else if (row.start_time) {
@@ -350,9 +377,7 @@ export const transformations = {
       const skillDots = [];
       if (skill) {
         for (let i = 0; i < 3; i += 1) {
-          skillDots.push(<div
-            style={{ ...skillDotsStyle, opacity: skill - i > 0 ? '1' : '0.3' }}
-          />);
+          skillDots.push(<div style={{ ...skillDotsStyle, opacity: skill - i > 0 ? '1' : '0.3' }} />);
         }
       }
       return skillDots;
@@ -366,7 +391,7 @@ export const transformations = {
         left: '2px',
         top: '1px',
       };
-      normalOrRanked = <IconRanking style={style} data-tip={strings[`lobby_type_${row.lobby_type}`]} data-offset="{'right': 3, 'top': 3}" />;
+      normalOrRanked = <IconRanking style={style} data-tip={strings[`lobby_type_${row.lobby_type}`]} data-delay-show="300" data-offset="{'right': 3, 'top': 3}" />;
     }
     return (
       <div>
@@ -380,7 +405,7 @@ export const transformations = {
           <span style={{ marginRight: '3px' }}>
             {partySize(row.party_size)}
           </span>
-          <span data-tip={row.skill ? `${strings[`skill_${row.skill}`]} ${strings.th_skill}` : ''} data-offset="{'right': 13}" data-delay-show="50">
+          <span data-tip={row.skill ? `${strings[`skill_${row.skill}`]} ${strings.th_skill}` : ''} data-offset="{'right': 13}" data-delay-show="300">
             {getSkill(row.skill)}
           </span>
           <ReactTooltip place="top" effect="solid" />
