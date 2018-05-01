@@ -251,7 +251,7 @@ const getSubtitle = (row) => {
       height: '12px',
       marginLeft: '5px',
       filter: 'grayscale(60%)',
-      top: '2px'
+      top: '2px',
     };
 
     return (
