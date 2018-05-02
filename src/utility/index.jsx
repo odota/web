@@ -11,7 +11,6 @@ import util from 'util';
 // import SvgIcon from 'material-ui/SvgIcon';
 import SocialPeople from 'material-ui/svg-icons/social/people';
 import SocialPerson from 'material-ui/svg-icons/social/person';
-import { IconRanking } from '../components/Icons';
 import strings from '../lang';
 import { TableLink } from '../components/Table';
 import {
@@ -262,6 +261,7 @@ const getSubtitle = (row) => {
             src={`/assets/images/dota2/lane_${lane}.svg`}
             alt=""
             data-tip={tooltip}
+            data-offset="{'right': 4, 'top': 4}"
             data-delay-show="300"
             style={roleIconStyle}
           />
@@ -382,17 +382,8 @@ export const transformations = {
       }
       return skillDots;
     };
-    let normalOrRanked;
-    if (row.lobby_type === 7 || row.lobby_type === 0) {
-      const style = {
-        fill: row.lobby_type === 7 ? constants.yelor : constants.lightGray,
-        height: '13px',
-        position: 'relative',
-        left: '2px',
-        top: '1px',
-      };
-      normalOrRanked = <IconRanking style={style} data-tip={strings[`lobby_type_${row.lobby_type}`]} data-delay-show="300" data-offset="{'right': 3, 'top': 3}" />;
-    }
+    const lobbyTypeStyle = { color: row.lobby_type === 7 ? constants.colorRanked : undefined };
+
     return (
       <div>
         <TableLink to={`/matches/${match_id}`} color={getColor(field)}>
@@ -401,11 +392,11 @@ export const transformations = {
           </span>
         </TableLink>
         <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-          {strings[`game_mode_${row.game_mode}`]} / {normalOrRanked || strings[`lobby_type_${row.lobby_type}`] || row.league_name}
-          <span style={{ marginRight: '3px' }}>
+          {strings[`game_mode_${row.game_mode}`] && (`${strings[`game_mode_${row.game_mode}`]} / `)} {row.league_name ? row.league_name : <span style={lobbyTypeStyle}>{strings[`lobby_type_${row.lobby_type}`]}</span>}
+          <span style={{ marginRight: '3px' }} data-tip={`${strings.filter_party_size} ${row.party_size}`} data-offset="{'top': 4, 'right' : 20}" data-delay-show="300">
             {partySize(row.party_size)}
           </span>
-          <span data-tip={row.skill ? `${strings[`skill_${row.skill}`]} ${strings.th_skill}` : ''} data-offset="{'right': 13}" data-delay-show="300">
+          <span data-tip={row.skill ? `${strings[`skill_${row.skill}`]} ${strings.th_skill}` : ''} data-offset="{'right': 17}" data-delay-show="300">
             {getSkill(row.skill)}
           </span>
           <ReactTooltip place="top" effect="solid" />
