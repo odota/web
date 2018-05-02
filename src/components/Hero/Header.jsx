@@ -6,9 +6,6 @@ import AttributesMain from './AttributesMain';
 
 const getHeroImgSrc = src => process.env.REACT_APP_API_HOST + src;
 
-const WRAP_WIDTH = '1000px';
-const MOBILE_WIDTH = '680px';
-
 const HeroProfile = styled.div`
   background: ${constants.almostBlack};
   overflow: hidden;
@@ -37,11 +34,11 @@ const HeroProfileContent = styled.div`
   position: relative;
   z-index: 2;
 
-  @media screen and (max-width: ${WRAP_WIDTH}) {
+  @media screen and (max-width: ${constants.wrapTablet}) {
     padding: 16px;
   }
 
-  @media screen and (max-width: ${MOBILE_WIDTH}) {
+  @media screen and (max-width: ${constants.wrapMobile}) {
     display: block;
     text-align: center;
   }
@@ -51,7 +48,7 @@ const HeroDetails = styled.div`
   flex-grow: 1;
   margin: 0 24px;
 
-  @media screen and (max-width: ${MOBILE_WIDTH}) {
+  @media screen and (max-width: ${constants.wrapMobile}) {
     margin: 12px 0;
   }
 `;
@@ -66,12 +63,12 @@ const HeroAvatar = styled.img`
   object-fit: cover;
   width: 180px;
 
-  @media screen and (max-width: ${WRAP_WIDTH}) {
+  @media screen and (max-width: ${constants.wrapTablet}) {
     height: 64px;
     width: 120px;
   }
 
-  @media screen and (max-width: ${MOBILE_WIDTH}) {
+  @media screen and (max-width: ${constants.wrapMobile}) {
     margin: auto;
   }
 `;
@@ -81,7 +78,7 @@ const HeroName = styled.div`
   font-weight: ${constants.fontWeightMedium};
   line-height: 40px;
 
-  @media screen and (max-width: ${WRAP_WIDTH}) {
+  @media screen and (max-width: ${constants.wrapTablet}) {
     font-size: 28px;
     line-height: 28px;
   }
@@ -94,7 +91,7 @@ const HeroRoleInformations = styled.div`
   margin: 8px 0;
   text-transform: uppercase;
 
-  @media screen and (max-width: ${WRAP_WIDTH}) {
+  @media screen and (max-width: ${constants.wrapTablet}) {
     font-size: 10px;
   }
 `;

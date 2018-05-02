@@ -4,9 +4,6 @@ import styled from 'styled-components';
 
 import constants from '../constants';
 
-const WRAP_WIDTH = '1000px';
-const MOBILE_WIDTH = '680px';
-
 const Wrapper = styled.div`
   flex: 1 1 0;
   padding: 0 16px;
@@ -21,11 +18,11 @@ const Wrapper = styled.div`
     padding-right: 0;
   }
 
-  @media screen and (max-width: ${WRAP_WIDTH}) {
+  @media screen and (max-width: ${constants.wrapTablet}) {
     padding: 4px 0;
   }
 
-  @media screen and (max-width: ${MOBILE_WIDTH}) {
+  @media screen and (max-width: ${constants.wrapMobile}) {
     display: block;
     padding: 0;
     text-align: center;
@@ -39,7 +36,7 @@ const AttributeDot = styled.div`
   margin-right: 8px;
   width: 8px;
 
-  @media screen and (max-width: ${MOBILE_WIDTH}) {
+  @media screen and (max-width: ${constants.wrapMobile}) {
     display: inline-block;
     vertical-align: middle;
   }
@@ -52,7 +49,7 @@ const AttributeValue = styled.div`
   font-weight: 600;
   line-height: 1;
 
-  @media screen and (max-width: ${MOBILE_WIDTH}) {
+  @media screen and (max-width: ${constants.wrapMobile}) {
     display: inline-block;
     vertical-align: middle;
   }

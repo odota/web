@@ -5,14 +5,12 @@ import strings from '../../lang';
 import constants from '../constants';
 import Attribute from './Attribute';
 
-const MOBILE_WIDTH = '680px';
-
 const AttributesWrapper = styled.div`
   display: flex;
   margin-left: -8px;
   margin-right: -8px;
 
-  @media screen and (max-width: ${MOBILE_WIDTH}) {
+  @media screen and (max-width: ${constants.wrapMobile}) {
     flex-wrap: wrap;
   }
 `;
@@ -24,7 +22,7 @@ const AttributeBlock = styled.div`
   margin-top: 10px;
   padding: 8px;
 
-  @media screen and (max-width: ${MOBILE_WIDTH}) {
+  @media screen and (max-width: ${constants.wrapMobile}) {
     flex-grow: 0;
     flex-shrink: 0;
     width: 50%;
