@@ -406,6 +406,8 @@
   "heading_cm_enabled": "Disponible en MC",
   "heading_current_players": "Jugadores actuales",
   "heading_former_players": "Jugadores Anteriores",
+  "show_details": "Show details",
+  "hide_details": "Hide details",
   "subheading_avg_and_max": "en los ultimos % de partidas",
   "subheading_records": "En partidas clasificatorias. Récords se resetean mensualmente.",
   "subheading_team_elo_rankings": "k = 32, init = 1000",
