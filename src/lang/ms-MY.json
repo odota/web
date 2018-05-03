@@ -406,6 +406,8 @@
   "heading_cm_enabled": "CM didayakan",
   "heading_current_players": "Pemain Semasa",
   "heading_former_players": "Bekas Pemain",
+  "show_details": "Show details",
+  "hide_details": "Hide details",
   "subheading_avg_and_max": "dalam %d perlawanan terakhir",
   "subheading_records": "Dalam perlawanan ranked. Rekod ditetapkan semula setiap bulan.",
   "subheading_team_elo_rankings": "k=32, init=1000",
