@@ -13,7 +13,7 @@ class RequestLayer extends React.Component {
     loading: PropTypes.bool,
     matchData: PropTypes.shape({}),
     match: PropTypes.shape({
-        params: PropTypes.shape({
+      params: PropTypes.shape({
         info: PropTypes.string,
       }),
     }),
@@ -55,13 +55,11 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return ({
-    matchData: state.app.match.data,
-    loading: state.app.match.loading,
-    user: state.app.metadata.data.user,
-  })
-};
+const mapStateToProps = state => ({
+  matchData: state.app.match.data,
+  loading: state.app.match.loading,
+  user: state.app.metadata.data.user,
+});
 
 const mapDispatchToProps = dispatch => ({
   getMatch: matchId => dispatch(getMatch(matchId)),
