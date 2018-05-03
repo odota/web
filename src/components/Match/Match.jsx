@@ -11,9 +11,11 @@ import matchPages from './matchPages';
 class RequestLayer extends React.Component {
   static propTypes = {
     loading: PropTypes.bool,
-    match: PropTypes.shape({}),
-    params: PropTypes.shape({
-      info: PropTypes.string,
+    matchData: PropTypes.shape({}),
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+        info: PropTypes.string,
+      }),
     }),
     user: PropTypes.shape({}),
     getMatch: PropTypes.func,
@@ -31,8 +33,8 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    const { loading, matchId, match, params } = this.props;
-    const info = params.info || 'overview';
+    const { loading, matchId, matchData } = this.props;
+    const info = this.props.match.params.info || 'overview';
     const page = matchPages(matchId).find(_page => _page.key.toLowerCase() === info);
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
     return loading ? <Spinner /> :
@@ -40,27 +42,25 @@ class RequestLayer extends React.Component {
         <div>
           <Helmet title={pageTitle} />
           <MatchHeader
-            match={match}
+            match={matchData}
             user={this.props.user}
           />
           <TabBar
             info={info}
-            tabs={matchPages(matchId, match)}
-            match={match}
+            tabs={matchPages(matchId, matchData)}
+            match={matchData}
           />
-          {page && page.content(match)}
+          {page && page.content(matchData)}
         </div>);
   }
 }
 
 const mapStateToProps = state => {
-  console.log(state)
   return ({
-  match: state.app.match.data,
-  params: state.app.match.params,
-  loading: state.app.match.loading,
-  user: state.app.metadata.data.user,
-})
+    matchData: state.app.match.data,
+    loading: state.app.match.loading,
+    user: state.app.metadata.data.user,
+  })
 };
 
 const mapDispatchToProps = dispatch => ({
