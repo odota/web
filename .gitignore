@@ -7,3 +7,4 @@ build
 *.swp
 analyze.html
 .env
+yarn.lock
