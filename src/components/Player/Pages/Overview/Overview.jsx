@@ -203,7 +203,6 @@ const getData = (props) => {
   props.getPlayerRecentMatches(props.playerId);
   props.getPlayerHeroes(props.playerId, props.location.search);
   props.getPlayerPeers(props.playerId, props.location.search);
-  props.getPvgnaHeroGuides();
 };
 
 class RequestLayer extends React.Component {
@@ -265,6 +264,7 @@ const mapStateToProps = state => ({
   matchesError: state.app.playerRecentMatches.error,
   validRecentMatches: getValidRecentMatches(state.app.playerRecentMatches.data),
   numValidRecentMatches: countValidRecentMatches(state.app.playerRecentMatches.data),
+  heroesData: state.app.playerHeroes.data,
   heroesLoading: state.app.playerHeroes.loading,
   heroesError: state.app.playerHeroes.error,
   peersData: state.app.playerPeers.data,
