@@ -406,6 +406,8 @@
   "heading_cm_enabled": "CM ativado",
   "heading_current_players": "Jogadores atuais",
   "heading_former_players": "Ex-jogadores",
+  "show_details": "Show details",
+  "hide_details": "Hide details",
   "subheading_avg_and_max": "nas últimas %d partidas",
   "subheading_records": "Em partidas ranqueadas. Recordes reiniciam mensalmente.",
   "subheading_team_elo_rankings": "k = 32, init = 1000",
