@@ -1,6 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import strings from '../../lang';
 import AppLogo from '../App/AppLogo';
 import PageLinks from './PageLinks';
 // import Cheese from './Cheese';
@@ -148,19 +149,8 @@ const StyledHr = styled.hr`
   background: linear-gradient(to right, ${constants.primaryTextColor}, rgba(0, 0, 0, 0));
 `;
 
-export default () => (
+const Footer = ({ strings }) => (
   <StyledFooter>
-    {
-      /*
-      location.pathname !== '/' &&
-      <section style={{ height: '250px' }}>
-        <iframe
-          style={{ border: 'none', margin: 0, width: '100%', height: 250 }}
-          src="https://www.stanza.co/@dota2?embed=true&banner=true&site=opendota"
-        />
-      </section>
-      */
-    }
     <main>
       <div className="links">
         <div className="logoNsocial">
@@ -198,3 +188,13 @@ export default () => (
     </main>
   </StyledFooter>
 );
+
+Footer.propTypes = {
+  strings: PropTypes.shape({}),
+};
+
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(Footer);

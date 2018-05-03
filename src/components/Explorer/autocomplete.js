@@ -1,6 +1,6 @@
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
-import strings from '../../lang';
+import store from '../../store';
 // import fields from './fields';
 
 const sqlfs = ['SELECT', 'WHERE', 'GROUP BY', 'ORDER BY'];
@@ -10,6 +10,7 @@ const sqlks = ['OFFSET', 'LIMIT', 'DISTINCT', 'IN'];
 const sqlfuncs = ['to_timestamp()', 'count()', 'avg()', 'sum()', 'stddev()', 'min()', 'max()', 'using()'];
 
 const autocomplete = (cols, proPlayers = [], teams = [], leagues = []) => {
+  const { strings } = store.getState().app;
   const filteredPros = proPlayers.filter(p => p.name).slice(0).map(p => ({ value: p.name, snippet: p.account_id.toString(), meta: `${p.account_id.toString()} (${strings.explorer_player})` }));
   const filteredTeams = teams.filter(t => t.name).slice(0, 100).map(t => ({ value: t.name, snippet: t.team_id.toString(), meta: `${t.team_id.toString()} (${strings.explorer_organization})` }));
   const filteredLeagues = leagues.filter(l => l.tier === 'premium' || l.tier === 'professional').map(l => ({ value: l.name, snippet: l.leagueid.toString(), meta: `${l.leagueid.toString()} (${strings.explorer_league})` }));
