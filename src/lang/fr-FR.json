@@ -406,6 +406,8 @@
   "heading_cm_enabled": "Captain's Mode activé",
   "heading_current_players": "Joueurs actuels",
   "heading_former_players": "Anciens joueurs",
+  "show_details": "Show details",
+  "hide_details": "Hide details",
   "subheading_avg_and_max": "dans les %d dernières parties",
   "subheading_records": "Dans les parties classées. Les records sont réinitialisés mensuellement.",
   "subheading_team_elo_rankings": "k=32, init=1000",
