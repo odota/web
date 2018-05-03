@@ -52,7 +52,7 @@ li {
   color: ${constants.primaryTextColor};
 }
 
-[data-tip="true"] {
+[data-tip] {
   cursor: help;
 }
 
