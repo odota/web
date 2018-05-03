@@ -44,6 +44,9 @@ export default {
   colorGuardianAlt: 'rgba(114, 79, 49, 0.65)',
   colorHerald: 'rgba(32, 74, 33, 0.45)',
   colorHeraldAlt: 'rgba(32, 74, 33, 0.65)',
+  colorAttributeStr: '#f44336',
+  colorAttributeAgi: '#39d402',
+  colorAttributeInt: '#01a9f4',
   sliderTicksColor: '#757575',
   sliderTicksColorActive: '#337AB7',
   dividerColor: 'rgb(52, 50, 50)',
@@ -64,4 +67,6 @@ export default {
   navDrawerWidth: '256px',
   normalTransition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
   linearTransition: 'all 300ms linear',
+  wrapTablet: '1024px',
+  wrapMobile: '680px',
 };
