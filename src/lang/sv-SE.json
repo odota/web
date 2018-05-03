@@ -406,6 +406,8 @@
   "heading_cm_enabled": "CM enabled",
   "heading_current_players": "Current Players",
   "heading_former_players": "Former Players",
+  "show_details": "Show details",
+  "hide_details": "Hide details",
   "subheading_avg_and_max": "i de senaste %d matcherna",
   "subheading_records": "I rankade matcher. Återställs varje månad.",
   "subheading_team_elo_rankings": "k=32, init=1000",
