@@ -713,7 +713,7 @@ export function groupByArray(xs, key) {
 
 export const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 
-/*eslint-disable camelcase*/
+/* eslint-disable camelcase */
 // https://dota2.gamepedia.com/Attributes
 export function compileLevelOneStats(hero) {
   const statsBonuses = {
@@ -788,4 +788,4 @@ export function compileLevelOneStats(hero) {
     attack_rate: round(1.7 / (attack_rate / (1 + ((statsBonuses[primary_attr].attack_speed * agiValue) / 100))) * 100), // ingame representation of attack speed
   };
 }
-/*eslint-enable camelcase*/
+/* eslint-enable camelcase */
