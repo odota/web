@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { getProMatches, getPublicMatches } from 'actions';
-import strings from 'lang';
-import Table, { TableLink } from 'components/Table';
-// import Heading from 'components/Heading';
-import { transformations, subTextStyle, rankTierToString } from 'utility';
-import { IconTrophy } from 'components/Icons';
-import Match from 'components/Match';
-import TabBar from 'components/TabBar';
 import heroes from 'dotaconstants/build/heroes.json';
 import styled from 'styled-components';
+import { transformations, subTextStyle, rankTierToString } from '../../utility';
+import { getProMatches, getPublicMatches } from '../../actions';
+import strings from '../../lang';
+import Table, { TableLink } from '../Table';
+// import Heading from '../Heading';
+import { IconTrophy } from '../Icons';
+import Match from '../Match';
+import TabBar from '../TabBar';
 import { StyledTeamIconContainer } from '../Match/StyledMatch';
 import constants from '../constants';
 
@@ -115,11 +115,21 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        matchId: PropTypes.number,
+      }),
+    }),
+    // proData: PropTypes.array,
+    // publicData: PropTypes.array,
+  }
+
   componentDidMount() {
     getData(this.props);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.match.params.matchId !== nextProps.match.params.matchId) {
       getData(nextProps);
     }
@@ -145,16 +155,6 @@ class RequestLayer extends React.Component {
       </div>);
   }
 }
-
-RequestLayer.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      matchId: PropTypes.number,
-    }),
-  }),
-  // proData: PropTypes.array,
-  // publicData: PropTypes.array,
-};
 
 const mapStateToProps = state => ({
   proData: state.app.proMatches.data,

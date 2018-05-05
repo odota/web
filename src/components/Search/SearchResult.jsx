@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
+import strings from '../../lang';
 import {
   transformations,
   fromNow,
-} from 'utility';
-import Table, { TableLink } from 'components/Table';
-import Container from 'components/Container';
+} from '../../utility';
+import Table, { TableLink } from '../Table';
+import Container from '../Container';
 // import { List } from 'material-ui/List';
 
 const searchColumns = [{

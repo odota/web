@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { calculateResponsiveState } from 'redux-responsive';
-import { getPlayerWardmap } from 'actions';
-import Heatmap from 'components/Heatmap';
-import Container from 'components/Container';
-import strings from 'lang';
-import { unpackPositionData } from 'utility';
 import styled from 'styled-components';
+import { unpackPositionData } from '../../../../utility';
+import { getPlayerWardmap } from '../../../../actions';
+import Heatmap from '../../../Heatmap';
+import Container from '../../../Container';
+import strings from '../../../../lang';
 
 const MAX_WIDTH = 1200;
 
@@ -32,19 +32,31 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
-  componentWillMount() {
-    getData(this.props);
-    window.addEventListener('resize', this.props.updateWindowSize);
-  }
-
-  componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
-      getData(nextProps);
-    }
+  static propTypes = {
+    updateWindowSize: PropTypes.func,
+    error: PropTypes.string,
+    loading: PropTypes.bool,
+    data: PropTypes.arrayOf({}),
+    browser: PropTypes.shape({}),
+    playerId: PropTypes.string,
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.props.updateWindowSize);
+  }
+
+  UNSAFE_componentWillMount() {
+    getData(this.props);
+    window.addEventListener('resize', this.props.updateWindowSize);
+  }
+
+  UNSAFE_componentWillUpdate(nextProps) {
+    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
+      getData(nextProps);
+    }
   }
 
   render() {
@@ -79,18 +91,6 @@ class RequestLayer extends React.Component {
     );
   }
 }
-
-RequestLayer.propTypes = {
-  updateWindowSize: PropTypes.func,
-  error: PropTypes.string,
-  loading: PropTypes.bool,
-  data: PropTypes.arrayOf({}),
-  browser: PropTypes.shape({}),
-  playerId: PropTypes.string,
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-};
 
 const mapStateToProps = state => ({
   data: state.app.playerWardmap.data,

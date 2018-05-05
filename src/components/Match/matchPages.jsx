@@ -1,13 +1,14 @@
 import React from 'react';
-import strings from 'lang';
-import Heading from 'components/Heading';
-import Table from 'components/Table';
-import TeamfightMap from 'components/Match/TeamfightMap';
-import Purchases from 'components/Match/Purchases';
-import Timeline from 'components/Match/Overview/Timeline';
-import MatchGraph from 'components/Visualizations/Graph/MatchGraph';
-import StackedBarGraph from 'components/Visualizations/Graph/StackedBarGraph';
 import heroes from 'dotaconstants/build/heroes.json';
+import strings from '../../lang';
+import Heading from '../Heading';
+import Table from '../Table';
+import TeamfightMap from '../Match/TeamfightMap';
+import Purchases from '../Match/Purchases';
+import Timeline from '../Match/Overview/Timeline';
+import MatchGraph from '../Visualizations/Graph/MatchGraph';
+import StackedBarGraph from '../Visualizations/Graph/StackedBarGraph';
+import Draft from './Draft';
 import Vision from './Vision';
 import Laning from './Laning';
 import CrossTable from './CrossTable';
@@ -45,6 +46,21 @@ const matchPages = [Overview, {
         heading={strings.heading_benchmarks}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        hoverRowColumn
+      />
+    </div>),
+}, {
+  name: strings.tab_drafts,
+  key: 'draft',
+  parsed: true,
+  hidden: match => match.game_mode !== 2,
+  content: match => (
+    <div>
+      <Draft
+        gameMode={match.game_mode}
+        radiantTeam={match.radiant_team}
+        direTeam={match.dire_team}
+        draft={match.draft_timings}
       />
     </div>),
 }, {
@@ -60,6 +76,7 @@ const matchPages = [Overview, {
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
         summable
+        hoverRowColumn
       />
     </div>),
 }, {
@@ -107,6 +124,7 @@ const matchPages = [Overview, {
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
         summable
+        hoverRowColumn
       />
       <TeamTable
         players={match.players}
@@ -115,6 +133,7 @@ const matchPages = [Overview, {
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
         summable
+        hoverRowColumn
       />
       <StackedBarGraph
         columns={match.players.map(player => ({ ...player.gold_reasons, name: heroes[player.hero_id] && heroes[player.hero_id].localized_name }))}
@@ -189,6 +208,7 @@ const matchPages = [Overview, {
         heading={strings.heading_objective_damage}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        hoverRowColumn
       />
       <TeamTable
         players={match.players}
@@ -196,13 +216,14 @@ const matchPages = [Overview, {
         heading={strings.heading_runes}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        hoverRowColumn
       />
     </div>),
 }, {
   name: strings.tab_vision,
   key: 'vision',
   parsed: true,
-  content: match => <Vision match={match} />,
+  content: match => <Vision match={match} hoverRowColumn />,
 }, {
   name: strings.tab_actions,
   key: 'actions',
@@ -215,6 +236,7 @@ const matchPages = [Overview, {
         heading={strings.heading_actions}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        hoverRowColumn
       />
     </div>),
 }, {
@@ -223,7 +245,7 @@ const matchPages = [Overview, {
   parsed: true,
   content: match => (
     <div>
-      <TeamfightMap teamfights={match.teamfights} match={match} />
+      <TeamfightMap teamfights={match.teamfights} match={match} hoverRowColumn />
     </div>),
 }, {
   name: strings.tab_analysis,
@@ -270,6 +292,7 @@ const matchPages = [Overview, {
         heading={strings.heading_fantasy}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        hoverRowColumn
       />
     </div>),
 }, {
@@ -310,7 +333,12 @@ const matchPages = [Overview, {
 }];
 
 export default (matchId, match) => matchPages.map(page => ({
-  ...page,
+  // ...page,
+  name: page.name,
+  key: page.key,
+  parsed: page.parsed,
+  content: page.content,
   route: `/matches/${matchId}/${page.key.toLowerCase()}`,
   disabled: match && !match.version && page.parsed,
+  hidden: m => page.hidden && page.hidden(m),
 }));

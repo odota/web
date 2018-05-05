@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
-import strings from 'lang';
 import querystring from 'querystring';
+import strings from '../../lang';
 import ChipList from './ChipList';
 import constants from '../constants';
 
@@ -39,17 +39,30 @@ const deleteChipDefault = (name, index, history) => {
 };
 
 class FormField extends React.Component {
+  static propTypes = {
+    name: PropTypes.string,
+    dataSource: PropTypes.arrayOf({}),
+    strict: PropTypes.bool,
+    limit: PropTypes.number,
+    formSelectionState: PropTypes.shape({}),
+    addChip: PropTypes.string,
+    history: PropTypes.shape({}),
+    label: PropTypes.string,
+    filter: PropTypes.string,
+    className: PropTypes.string,
+    maxSearchResults: PropTypes.string,
+    deleteChip: PropTypes.string,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       searchText: '',
       errorText: '',
     };
-    this.handleSelect = this.handleSelect.bind(this);
-    this.handleUpdateInput = this.handleUpdateInput.bind(this);
   }
 
-  handleSelect(value, index) {
+  handleSelect = (value, index) => {
     const {
       name,
       dataSource,
@@ -94,14 +107,14 @@ class FormField extends React.Component {
 
     this.handleUpdateInput('');
     addChip(name, input, limit, history);
-  }
+  };
 
-  handleUpdateInput(searchText) {
+  handleUpdateInput = (searchText) => {
     this.setState({
       searchText,
       errorText: '', // clear error when user types
     });
-  }
+  };
 
   render() {
     const {
@@ -151,20 +164,5 @@ class FormField extends React.Component {
       </div>);
   }
 }
-
-FormField.propTypes = {
-  name: PropTypes.string,
-  dataSource: PropTypes.arrayOf({}),
-  strict: PropTypes.bool,
-  limit: PropTypes.number,
-  formSelectionState: PropTypes.shape({}),
-  addChip: PropTypes.string,
-  history: PropTypes.shape({}),
-  label: PropTypes.string,
-  filter: PropTypes.string,
-  className: PropTypes.string,
-  maxSearchResults: PropTypes.string,
-  deleteChip: PropTypes.string,
-};
 
 export default FormField;

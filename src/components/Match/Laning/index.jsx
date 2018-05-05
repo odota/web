@@ -1,24 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
-import Heading from 'components/Heading';
-import Heatmap from 'components/Heatmap';
-import Table from 'components/Table';
-import { unpackPositionData } from 'utility';
-import { laningColumns } from 'components/Match/matchColumns';
+import strings from '../../../lang';
+import Heading from '../../Heading';
+import Heatmap from '../../Heatmap';
+import Table from '../../Table';
+import { unpackPositionData } from '../../../utility';
+import { laningColumns } from '../matchColumns';
 import { StyledFlexContainer, StyledFlexElement } from '../StyledMatch';
 
 class Laning extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({}),
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       selectedPlayer: 0,
     };
-    this.setSelectedPlayer = this.setSelectedPlayer.bind(this);
   }
-  setSelectedPlayer(playerSlot) {
+
+  setSelectedPlayer = (playerSlot) => {
     this.setState({ ...this.state, selectedPlayer: playerSlot });
-  }
+  };
+
   render() {
     const { match } = this.props;
     return (
@@ -37,9 +42,5 @@ class Laning extends React.Component {
       </StyledFlexContainer>);
   }
 }
-
-Laning.propTypes = {
-  match: PropTypes.shape({}),
-};
 
 export default Laning;

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
-import Table from 'components/Table';
-import strings from 'lang';
-import Heading from 'components/Heading';
+import Table from '../../Table';
+import strings from '../../../lang';
+import Heading from '../../Heading';
 
 import PlayerThumb from '../PlayerThumb';
 
@@ -19,17 +19,19 @@ const data = [
 ];
 
 export default class VisionFilter extends React.Component {
-  playerColumn(playerNumber) {
-    return {
-      displayName: <PlayerThumb {...this.props.match.players[playerNumber]} hideText />,
-      displayFn: row => (<Checkbox
-        checked={this.props.parent.state.players[row.type][playerNumber]}
-        onCheck={(event, checked) => {
-          this.props.parent.setPlayer(playerNumber, row.type, checked);
-        }
-        }
-      />),
-    };
+  static propTypes = {
+    match: PropTypes.shape({
+      players: PropTypes.arrayOf({}),
+    }),
+    parent: PropTypes.shape({
+      state: PropTypes.shape({
+        players: PropTypes.arrayOf({}),
+        teams: PropTypes.arrayOf({}),
+      }),
+      setPlayer: PropTypes.func,
+      teams: PropTypes.arrayOf({}),
+      setTeam: PropTypes.func,
+    }),
   }
 
   columns(index) {
@@ -52,6 +54,19 @@ export default class VisionFilter extends React.Component {
     ];
   }
 
+  playerColumn(playerNumber) {
+    return {
+      displayName: <PlayerThumb {...this.props.match.players[playerNumber]} hideText />,
+      displayFn: row => (<Checkbox
+        checked={this.props.parent.state.players[row.type][playerNumber]}
+        onCheck={(event, checked) => {
+          this.props.parent.setPlayer(playerNumber, row.type, checked);
+        }
+        }
+      />),
+    };
+  }
+
   render() {
     return (
       <div>
@@ -63,18 +78,3 @@ export default class VisionFilter extends React.Component {
     );
   }
 }
-
-VisionFilter.propTypes = {
-  match: PropTypes.shape({
-    players: PropTypes.arrayOf({}),
-  }),
-  parent: PropTypes.shape({
-    state: PropTypes.shape({
-      players: PropTypes.arrayOf({}),
-      teams: PropTypes.arrayOf({}),
-    }),
-    setPlayer: PropTypes.func,
-    teams: PropTypes.arrayOf({}),
-    setTeam: PropTypes.func,
-  }),
-};

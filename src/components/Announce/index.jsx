@@ -2,11 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
-import strings from 'lang';
 import { connect } from 'react-redux';
-import { getGithubPulls } from 'actions';
-import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
+import ReactMarkdown from 'react-markdown';
+import strings from '../../lang';
+import { getGithubPulls } from '../../actions';
 import constants from '../constants';
 
 const StyledDiv = styled.div`
@@ -105,6 +105,16 @@ Announce.propTypes = {
 };
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    getPulls: PropTypes.func,
+    error: PropTypes.string,
+    loading: PropTypes.bool,
+    data: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array,
+    ]),
+  }
+
   constructor() {
     super();
 
@@ -127,7 +137,7 @@ class RequestLayer extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.getPulls(this.getDate(5));
   }
 
@@ -152,16 +162,6 @@ class RequestLayer extends React.Component {
     return null;
   }
 }
-
-RequestLayer.propTypes = {
-  getPulls: PropTypes.func,
-  error: PropTypes.string,
-  loading: PropTypes.bool,
-  data: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.array,
-  ]),
-};
 
 const mapStateToProps = (state) => {
   const { error, loading, data } = state.app.ghPulls;

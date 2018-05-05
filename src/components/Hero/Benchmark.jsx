@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { shape, func, bool, arrayOf, oneOfType, string } from 'prop-types';
 import { connect } from 'react-redux';
-import { getBenchmark } from 'actions';
-import Spinner from 'components/Spinner';
+import { getBenchmark } from '../../actions';
+import Spinner from '../Spinner';
 import BenchmarkTable from './BenchmarkTable';
 
 const renderBenchmark = (hero, data) => (
@@ -12,6 +12,22 @@ const renderBenchmark = (hero, data) => (
 );
 
 class Benchmark extends Component {
+  static propTypes = {
+    match: shape({
+      params: shape({
+        heroId: string,
+      }),
+    }),
+    getBenchmark: func,
+    isLoading: bool,
+    isError: bool,
+    hero: shape({}),
+    result: oneOfType([
+      arrayOf(shape({})),
+      shape({}),
+    ]),
+  }
+
   componentDidMount() {
     if (
       this.props.match.params &&
@@ -37,22 +53,6 @@ class Benchmark extends Component {
     );
   }
 }
-
-Benchmark.propTypes = {
-  match: shape({
-    params: shape({
-      heroId: string,
-    }),
-  }),
-  getBenchmark: func,
-  isLoading: bool,
-  isError: bool,
-  hero: shape({}),
-  result: oneOfType([
-    arrayOf(shape({})),
-    shape({}),
-  ]),
-};
 
 /**
 HISTOGRAM API

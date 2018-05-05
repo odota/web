@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { storiesOf } from '@storybook/react';
-
 import Warning from '../components/Alerts/Warning';
 import Info from '../components/Alerts/Info';
 

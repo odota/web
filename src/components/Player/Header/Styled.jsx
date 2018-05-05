@@ -1,6 +1,4 @@
-import {
-  CardTitle,
-} from 'material-ui/Card';
+import { CardTitle } from 'material-ui/Card';
 import styled from 'styled-components';
 
 export const PlayerStatsCard = styled(CardTitle)`

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
-import strings from 'lang';
-import { rankTierToString } from 'utility';
-import Error from 'components/Error';
-import Spinner from 'components/Spinner';
 import styled from 'styled-components';
+import { Facebook } from 'react-content-loader';
+import { rankTierToString } from '../../../utility';
+import strings from '../../../lang';
+import Error from '../../Error';
 import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';
@@ -220,7 +220,7 @@ const PlayerHeader = ({
     return <Error />;
   }
   if (loading) {
-    return <Spinner />;
+    return <Facebook primaryColor="#666" width={400} height={60} />;
   }
 
   let badgeStyle = {

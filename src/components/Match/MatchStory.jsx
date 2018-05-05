@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
-import {
-  formatSeconds,
-  jsonFn,
-  formatTemplate,
-} from 'utility';
 import util from 'util';
-import { IconRadiant, IconDire } from 'components/Icons';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import itemColors from 'dotaconstants/build/item_colors.json';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
 import ReactTooltip from 'react-tooltip';
+import { IconRadiant, IconDire } from '../Icons';
+import strings from '../../lang';
+import {
+  formatSeconds,
+  jsonFn,
+  formatTemplate,
+} from '../../utility';
 import { StyledEmote, StyledStoryNetWorthBar, StyledStoryNetWorthText, StyledStorySpan, StyledStoryWrapper } from './StyledMatch';
 import constants from '../constants';
 
@@ -858,6 +858,10 @@ const generateStory = (match) => {
 };
 
 class MatchStory extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({}),
+  }
+
   renderEvents() {
     const events = generateStory(this.props.match);
     return (<StyledStoryWrapper key="matchstory">{events.map(event => event.render())}</StyledStoryWrapper>);
@@ -878,9 +882,5 @@ class MatchStory extends React.Component {
     }
   }
 }
-
-MatchStory.propTypes = {
-  match: PropTypes.shape({}),
-};
 
 export default MatchStory;

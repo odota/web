@@ -1,7 +1,7 @@
 import React from 'react';
-import strings from 'lang';
-import Container from 'components/Container';
-import Table from 'components/Table';
+import strings from '../../lang';
+import Container from '../Container';
+import Table from '../Table';
 import Overview from './Overview';
 import { matchColumns, memberColumns, heroColumns } from './teamDataColumns';
 
@@ -15,6 +15,7 @@ const teamPages = [Overview, {
       error={matchData.error}
     >
       <Table
+        resetTableState
         columns={matchColumns}
         data={matchData.data}
         paginated
@@ -31,6 +32,7 @@ const teamPages = [Overview, {
       error={heroData.error}
     >
       <Table
+        resetTableState
         columns={heroColumns}
         data={heroData.data}
         paginated

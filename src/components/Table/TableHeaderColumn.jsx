@@ -15,7 +15,7 @@ const TableHeaderColumn = ({
   };
 
   return (
-    <MaterialTableHeaderColumn style={{ width: column.key === 'heroTd' ? '1px' : null }}>
+    <MaterialTableHeaderColumn style={{ width: column.key === 'heroTd' ? '1px' : null, backgroundColor: column.colColor }}>
       <StyledHeaderCell
         onClick={() => column.sortFn && sortClick(column.field, sortState, column.sortFn)}
         style={style}

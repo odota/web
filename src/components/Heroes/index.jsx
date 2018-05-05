@@ -2,20 +2,36 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import strings from 'lang';
-import { getHeroStats, getProPlayers } from 'actions';
-import Heading from 'components/Heading';
-import Table from 'components/Table';
-import TabBar from 'components/TabBar';
-import Hero from 'components/Hero';
 import heroes from 'dotaconstants/build/heroes.json';
+import strings from '../../lang';
+import { getHeroStats, getProPlayers } from '../../actions';
+import Heading from '../Heading';
+import Table from '../Table';
+import TabBar from '../TabBar';
+import Hero from '../Hero';
 import {
   sum,
   abbreviateNumber,
-} from 'utility';
+} from '../../utility';
 import columns from './columns';
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    dispatchHeroStats: PropTypes.func,
+    onGetProPlayers: PropTypes.func,
+    data: PropTypes.oneOfType([
+      PropTypes.shape({}),
+      PropTypes.arrayOf(PropTypes.shape({})),
+    ]),
+    loading: PropTypes.bool,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        info: PropTypes.string,
+        heroId: PropTypes.string,
+      }),
+    }),
+  }
+
   componentDidMount() {
     this.props.dispatchHeroStats();
     this.props.onGetProPlayers();
@@ -74,7 +90,7 @@ class RequestLayer extends React.Component {
         winRate1: (heroStat['1_win'] || 0) / heroStat['1_pick'],
       };
     });
-    processedData.sort((a, b) => a.heroName.localeCompare(b.heroName));
+    processedData.sort((a, b) => a.heroName && a.heroName.localeCompare(b.heroName));
     const heroTabs = [{
       name: strings.hero_pro_tab,
       key: 'pro',
@@ -121,22 +137,6 @@ class RequestLayer extends React.Component {
       </div>);
   }
 }
-
-RequestLayer.propTypes = {
-  dispatchHeroStats: PropTypes.func,
-  onGetProPlayers: PropTypes.func,
-  data: PropTypes.oneOfType([
-    PropTypes.shape({}),
-    PropTypes.arrayOf(PropTypes.shape({})),
-  ]),
-  loading: PropTypes.bool,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      info: PropTypes.string,
-      heroId: PropTypes.string,
-    }),
-  }),
-};
 
 const mapStateToProps = state => ({
   data: state.app.heroStats.data,

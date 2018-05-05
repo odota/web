@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from 'utility';
 import ReactTooltip from 'react-tooltip';
-import stylePropType from 'react-style-proptype';
-import { IconRadiant, IconDire, IconDot } from 'components/Icons';
-import TeamTable from 'components/Match/TeamTable';
-import { teamfightColumns } from 'components/Match/matchColumns';
-import PlayerThumb from 'components/Match/PlayerThumb';
-import strings from 'lang';
-import Timeline from 'components/Match/Overview/Timeline';
-import DotaMap from 'components/DotaMap';
 import styled from 'styled-components';
+import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from '../../../utility';
+import { IconRadiant, IconDire, IconDot } from '../../Icons';
+import TeamTable from '../TeamTable';
+import { teamfightColumns } from '../matchColumns';
+import PlayerThumb from '../PlayerThumb';
+import strings from '../../../lang';
+import Timeline from '../Overview/Timeline';
+import DotaMap from '../../DotaMap';
 import constants from '../../constants';
 
 const Styled = styled.div`
@@ -367,16 +366,18 @@ const avgPosition = ({ deaths_pos: deathPositions }) => {
   };
 };
 
+const {
+  arrayOf, object, shape, number, bool, func, string, array,
+} = PropTypes;
+
 class TeamfightMap extends Component {
+  static propTypes = {
+    teamfights: arrayOf(object),
+    match: shape({}),
+  }
+
   constructor(props) {
     super();
-    this.isSelected = this.isSelected.bind(this);
-    this.onMapClick = this.onMapClick.bind(this);
-    this.onIconClick = this.onIconClick.bind(this);
-    this.onTimelineIconClick = this.onTimelineIconClick.bind(this);
-    this.onTimelineHover = this.onTimelineHover.bind(this);
-    this.onTeamfightHover = this.onTeamfightHover.bind(this);
-    this.curriedTeamfightHandler = this.curriedTeamfightHandler.bind(this);
     const { teamfights = [] } = props;
     const teamfight = teamfights.length > 0 ? teamfights[0] : null;
     this.state = {
@@ -384,72 +385,58 @@ class TeamfightMap extends Component {
     };
   }
 
-  onTimelineIconClick(start) {
-    return this.curriedTeamfightHandler(this.onIconClick, start);
-  }
+  onIconClick = teamfight => () => {
+    // We do this because we need to prevent the map click event from
+    // being executed. That click event is innaccurate if the actual icon is clicked.
+    // event.stopPropagation();
+    this.setState({
+      teamfight,
+    });
+  };
 
-  onTimelineHover(start) {
-    return this.curriedTeamfightHandler(this.onTeamfightHover, start);
-  }
-
-  onTeamfightHover(teamfight) {
-    return () => {
-      this.setState({
-        hoveredTeamfight: teamfight,
+  onMapClick = width => (event) => {
+    const { x: x1, y: y1 } = calculateRelativeXY(event);
+    const { teamfights } = this.props;
+    const newSelection = teamfights
+      .reduce((cursor, teamfight) => {
+        let newCursor = { ...cursor };
+        const { left: x2, top: y2 } = style(width, avgPosition(teamfight));
+        const distance = calculateDistance(x1, y1, x2 + (iconSize(width) / 2), y2 + (iconSize(width) / 2));
+        if (distance < cursor.distance) {
+          newCursor = {
+            teamfight,
+            distance,
+          };
+        }
+        return newCursor;
+      }, {
+        teamfight: this.state.teamfight,
+        distance: Infinity,
       });
-    };
-  }
+    this.setState({
+      teamfight: newSelection.teamfight,
+    });
+  };
 
-  onIconClick(teamfight) {
-    return () => {
-      // We do this because we need to prevent the map click event from
-      // being executed. That click event is innaccurate if the actual icon is clicked.
-      // event.stopPropagation();
-      this.setState({
-        teamfight,
-      });
-    };
-  }
+  onTeamfightHover = teamfight => () => {
+    this.setState({
+      hoveredTeamfight: teamfight,
+    });
+  };
 
-  onMapClick(width) {
-    return (event) => {
-      const { x: x1, y: y1 } = calculateRelativeXY(event);
-      const { teamfights } = this.props;
-      const newSelection = teamfights
-        .reduce((cursor, teamfight) => {
-          let newCursor = { ...cursor };
-          const { left: x2, top: y2 } = style(width, avgPosition(teamfight));
-          const distance = calculateDistance(x1, y1, x2 + (iconSize(width) / 2), y2 + (iconSize(width) / 2));
-          if (distance < cursor.distance) {
-            newCursor = {
-              teamfight,
-              distance,
-            };
-          }
-          return newCursor;
-        }, {
-          teamfight: this.state.teamfight,
-          distance: Infinity,
-        });
-      this.setState({
-        teamfight: newSelection.teamfight,
-      });
-    };
-  }
+  onTimelineHover = start => this.curriedTeamfightHandler(this.onTeamfightHover, start);
 
-  curriedTeamfightHandler(fn, start) {
-    return (event) => {
-      fn(this.props.teamfights.find(tf => tf.start === start))(event);
-    };
-  }
+  onTimelineIconClick = start => this.curriedTeamfightHandler(this.onIconClick, start);
+
+  curriedTeamfightHandler = (fn, start) => (event) => {
+    fn(this.props.teamfights.find(tf => tf.start === start))(event);
+  };
 
   isHovered(teamfight = { start: null }) {
     return this.state.hoveredTeamfight && this.state.hoveredTeamfight.start === teamfight.start;
   }
 
-  isSelected(teamfight = { start: null }) {
-    return this.state.teamfight && this.state.teamfight.start === teamfight.start;
-  }
+  isSelected = (teamfight = { start: null }) => this.state.teamfight && this.state.teamfight.start === teamfight.start;
 
   render() {
     const { teamfights = [], match } = this.props;
@@ -477,7 +464,7 @@ class TeamfightMap extends Component {
                   <Teamfight
                     selected={this.isSelected(teamFight)}
                     hovered={this.isHovered(teamFight)}
-                    key={index}
+                    key={teamFight.start}
                     onClick={this.onIconClick(teamFight)}
                     position={avgPosition(teamFight)}
                     tooltipKey={`${index}_${teamFight.start}`}
@@ -516,9 +503,6 @@ class TeamfightMap extends Component {
   }
 }
 
-const {
-  arrayOf, object, shape, number, bool, func, string, array,
-} = PropTypes;
 const positionShape = {
   x: number,
   y: number,
@@ -530,7 +514,7 @@ TeamfightIcon.propTypes = {
   mapWidth: number,
   onClick: func, // not required because tombstone doesn't need click fn
   Icon: func,
-  style: stylePropType,
+  style: shape({}),
 };
 
 GoldDelta.propTypes = {
@@ -554,11 +538,6 @@ Teamfight.propTypes = {
   mapWidth: number,
   onClick: func,
   deathPositions: arrayOf(array),
-};
-
-TeamfightMap.propTypes = {
-  teamfights: arrayOf(object),
-  match: shape({}),
 };
 
 export default TeamfightMap;

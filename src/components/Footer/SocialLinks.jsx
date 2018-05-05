@@ -1,5 +1,5 @@
 import React from 'react';
-import strings from 'lang';
+import strings from '../../lang';
 import { IconGithub, IconDiscord } from '../Icons';
 
 const links = [{
@@ -8,13 +8,13 @@ const links = [{
   icon: <IconGithub />,
 }, {
   tooltip: strings.app_discord,
-  path: '//discord.gg/0o5SQGbXuWCNDcaF',
+  path: '//discord.gg/opendota',
   icon: <IconDiscord />,
 }];
 
-export default () => links.map((link, index) => (
+export default () => links.map(link => (
   <a
-    key={index}
+    key={link.path}
     target="_blank"
     rel="noopener noreferrer"
     data-hint-position="top"

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import FlatButton from 'material-ui/FlatButton';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
-import strings from 'lang';
+import strings from '../../../lang';
 import constants from '../../constants';
 
 const StyledContainer = styled.div`

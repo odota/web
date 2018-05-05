@@ -1,7 +1,7 @@
 import React from 'react';
-import strings from 'lang';
-import { IconOpenSource, IconStatsBars, IconWand } from 'components/Icons';
 import styled from 'styled-components';
+import strings from '../../lang';
+import { IconOpenSource, IconStatsBars, IconWand } from '../Icons';
 import constants from '../constants';
 
 const StyledDiv = styled.div`

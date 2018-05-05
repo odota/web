@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import FlatButton from 'material-ui/FlatButton';
 import Helmet from 'react-helmet';
-import strings from 'lang';
-import Heading from 'components/Heading';
-import TabBar from 'components/TabBar';
-import Spinner from 'components/Spinner';
-import ErrorBox from 'components/Error/ErrorBox';
-import constants from 'components/constants';
 import styled from 'styled-components';
-import { heroSelector } from 'reducers/selectors';
+import { heroSelector } from '../../reducers/selectors';
+import strings from '../../lang';
+import Heading from '../Heading';
+import TabBar from '../TabBar';
+import Spinner from '../Spinner';
+import ErrorBox from '../Error/ErrorBox';
+import Header from './Header';
 import Ranking from './Ranking';
 import Benchmark from './Benchmark';
 import Recent from './Recent';
@@ -18,49 +19,23 @@ import AttributesBlock from './AttributesBlock';
 import Durations from './Durations';
 import Players from './Players';
 
-const getHeroImgSrc = src => process.env.REACT_APP_API_HOST + src;
-
-const WRAP_WIDTH = '576px';
-
-const Wrapper = styled.div`
-  display: flex;
-
-  @media (max-width: ${WRAP_WIDTH}) {
-    flex-wrap: wrap;
-  }
-`;
-
-const StyledImage = styled.img`
-  border: solid 1px rgba(255, 255, 255, 0.3);
-`;
-
 const HeroBlock = styled.div`
-  margin-right: 25px;
-  width: 258px;
+  margin-bottom: 8px;
 `;
 
-const HeroName = styled.div`
-  font-size: 20px;
-  margin-bottom: 5px;
+const HeroFooter = styled.div`
+  text-align: center;
 `;
 
-const HeroRole = styled.div`
-  font-size: 16px;
-  color: ${constants.colorMutedLight};
-  word-wrap: break-word;
-`;
-
-const HeroDescription = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+const HeroDetailsButton = styled(FlatButton)`
+  border: 1px solid rgba(0, 0, 0, .35) !important;
+  margin: 8px auto !important;
+  padding: 0 12px !important;
 `;
 
 const TabsBlock = styled.div`
   width: 100%;
 `;
-
-const HeroAttackTipe = styled.span`color: ${constants.textColorPrimary};`;
 
 const tabs = heroId => [
   {
@@ -131,43 +106,59 @@ const tabs = heroId => [
   },
 ];
 
-const Hero = (props) => {
-  const route = props.match.params.info || 'rankings';
-  const { heroId } = props.match.params;
-  const hero = heroSelector(props.heroes, heroId);
-
-  if (props.heroes.length === 0) {
-    return <Spinner />;
+class Hero extends React.Component {
+  constructor(props) {
+    super(props);
+    this.toggleDetailVisibility = this.toggleDetailVisibility.bind(this);
   }
 
-  if (!hero) {
-    const errorText = `Hero ${heroId} not found...`;
-    return <ErrorBox text={errorText} />;
+  state = {
+    detailsOpen: false,
   }
 
-  const currentTab = tabs(heroId).find(tab => tab.key === route);
-  return (
-    <Wrapper>
-      <Helmet title={hero.localized_name} />
-      <HeroBlock>
-        <StyledImage alt="" src={getHeroImgSrc(hero.img)} />
-        <HeroDescription>
-          <HeroName>
-            {hero.localized_name}
-            <HeroRole>
-              <HeroAttackTipe>{hero.attack_type}</HeroAttackTipe>, {hero.roles.join(', ')}
-            </HeroRole>
-          </HeroName>
-          <AttributesBlock hero={hero} />
-        </HeroDescription>
-      </HeroBlock>
-      <TabsBlock>
-        <TabBar info={route} tabs={tabs(heroId)} />
-        {currentTab ? currentTab.content(props) : null}
-      </TabsBlock>
-    </Wrapper>
-  );
-};
+  toggleDetailVisibility(e) {
+    e.preventDefault();
+
+    this.setState({
+      detailsOpen: !this.state.detailsOpen,
+    });
+  }
+
+  render() {
+    const route = this.props.match.params.info || 'rankings';
+    const { heroId } = this.props.match.params;
+    const hero = heroSelector(this.props.heroes, heroId);
+
+    if (this.props.heroes.length === 0) {
+      return <Spinner />;
+    }
+
+    if (!hero) {
+      const errorText = `Hero ${heroId} not found...`;
+      return <ErrorBox text={errorText} />;
+    }
+
+    const currentTab = tabs(heroId).find(tab => tab.key === route);
+    return (
+      <div>
+        <Helmet title={hero.localized_name} />
+        <HeroBlock>
+          <Header hero={hero} />
+          <HeroFooter>
+            <HeroDetailsButton type="button" onClick={this.toggleDetailVisibility}>
+              {this.state.detailsOpen ? strings.hide_details : strings.show_details}
+            </HeroDetailsButton>
+          </HeroFooter>
+          {this.state.detailsOpen && <AttributesBlock hero={hero} />}
+        </HeroBlock>
+        <TabsBlock>
+          <TabBar info={route} tabs={tabs(heroId)} />
+          {currentTab ? currentTab.content(this.props) : null}
+        </TabsBlock>
+      </div>
+    );
+  }
+}
 
 const { shape, string, arrayOf } = PropTypes;
 

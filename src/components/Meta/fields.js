@@ -1,9 +1,9 @@
 import util from 'util';
-import strings from 'lang';
 import heroData from 'dotaconstants/build/heroes.json';
 import gameModeData from 'dotaconstants/build/game_mode.json';
 import lobbyTypeData from 'dotaconstants/build/lobby_type.json';
 // import patchData from 'dotaconstants/build/patch.json';
+import strings from '../../lang';
 
 /*
 const mmrs = Array(20).fill().map((e, i) => i * 500).map(element => ({

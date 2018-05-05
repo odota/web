@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
 import {
   XAxis,
   YAxis,
@@ -11,6 +10,7 @@ import {
   CartesianGrid,
   Label, ResponsiveContainer,
 } from 'recharts';
+import strings from '../../../lang';
 import { StyledTooltip } from './Styled';
 
 const DistributionTooltipContent = ({ payload, array }) => {

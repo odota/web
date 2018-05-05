@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Clear from 'material-ui/svg-icons/content/clear';
 import Filter from 'material-ui/svg-icons/content/filter-list';
-import strings from 'lang';
 import FlatButton from 'material-ui/FlatButton';
 import styled from 'styled-components';
+import strings from '../../lang';
 import constants from '../constants';
 
 const StyledDiv = styled.div`

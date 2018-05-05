@@ -1,7 +1,7 @@
 import React from 'react';
 import { string } from 'prop-types';
 import styled from 'styled-components';
-import constants from 'components/constants';
+import constants from '../constants';
 
 const Wrapper = styled.div`
   background-color: ${constants.colorDanger};

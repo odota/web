@@ -1,7 +1,7 @@
 import React from 'react';
-import { TableLink } from 'components/Table';
-import { transformations } from 'utility';
-import strings from 'lang';
+import { transformations } from '../../../../utility';
+import { TableLink } from '../../../Table';
+import strings from '../../../../lang';
 
 export const playerHeroesOverviewColumns = playerId => [{
   displayName: strings.th_hero_id,

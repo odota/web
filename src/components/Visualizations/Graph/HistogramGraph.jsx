@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { hsvToRgb } from 'utility';
 import {
   XAxis,
   YAxis,
@@ -12,7 +11,8 @@ import {
   Cell,
   ResponsiveContainer,
 } from 'recharts';
-import strings from 'lang';
+import { hsvToRgb } from '../../../utility';
+import strings from '../../../lang';
 import { StyledTooltip } from './Styled';
 
 const HistogramTooltipContent = ({ payload, xAxisLabel = '' }) => {

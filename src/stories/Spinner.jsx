@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-
 import Spinner from '../components/Spinner';
 import constants from '../components/constants';
 

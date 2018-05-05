@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
-import strings from 'lang';
-import { TableLink } from 'components/Table';
 import playerColors from 'dotaconstants/build/player_colors.json';
-import { IconDice, IconCrystalBall, IconCheckCircle } from 'components/Icons';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import NotificationSync from 'material-ui/svg-icons/notification/sync';
 import styled from 'styled-components';
-import { subTextStyle } from 'utility';
+import { subTextStyle } from '../../../utility';
+import { TableLink } from '../../Table';
+import { IconDice, IconCrystalBall, IconCheckCircle } from '../../Icons';
 import constants from '../../constants';
+import strings from '../../../lang';
 
 const Styled = styled.div`
 .subTextContainer {
@@ -138,6 +138,7 @@ const Styled = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
+  z-index: 1;
 }
 
 .playerSlot {
@@ -199,11 +200,11 @@ const Styled = styled.div`
   margin-left: 8px;
 }
 
-.pvgnaGuideContainer {
+.guideContainer {
   margin: auto;
 }
 
-.pvgnaGuideIcon {
+.guideIcon {
   max-width: 24px;
   max-height: 24px;
 }
@@ -237,8 +238,9 @@ const TableHeroImage = ({
   confirmed,
   party,
   heroName,
-  showPvgnaGuide,
-  pvgnaGuideInfo,
+  showGuide,
+  guideUrl,
+  guideType,
   randomed,
   repicked,
   predictedVictory,
@@ -347,13 +349,15 @@ const TableHeroImage = ({
         }
       </div>
       }
-      { !!showPvgnaGuide && pvgnaGuideInfo && heroName &&
-      <div className="pvgnaGuideContainer" data-tip data-for={heroName}>
-        <a href={pvgnaGuideInfo.url}>
-          <img className="pvgnaGuideIcon" src="/assets/images/pvgna-guide-icon.png" alt={`Learn ${heroName} on Pvgna`} />
+      { Boolean(showGuide) && guideType && guideUrl && heroName &&
+      <div className="guideContainer" data-tip data-for={heroName}>
+        <a href={guideUrl}>
+          { guideType === 'PVGNA' ? <img className="guideIcon" src="/assets/images/pvgna-guide-icon.png" alt={`Learn ${heroName} on Pvgna`} /> : <div /> }
+          { guideType === 'MOREMMR' ? <img className="guideIcon" src="/assets/images/moremmr-icon.png" alt={`Learn ${heroName} on MoreMMR`} /> : <div /> }
         </a>
         <ReactTooltip id={heroName} place="top" type="light" effect="solid" offset="{'top': 1, 'right': 3}">
-          {`Learn ${heroName} on Pvgna`}
+          { guideType === 'PVGNA' ? `Learn ${heroName} on Pvgna` : '' }
+          { guideType === 'MOREMMR' ? `Learn ${heroName} on MoreMMR` : '' }
         </ReactTooltip>
       </div>
       }
@@ -362,7 +366,7 @@ const TableHeroImage = ({
 );
 
 const {
-  string, oneOfType, bool, node, shape, object,
+  string, oneOfType, bool, node, object,
 } = PropTypes;
 
 TableHeroImage.propTypes = {
@@ -383,11 +387,12 @@ TableHeroImage.propTypes = {
   party: node,
   confirmed: bool,
   heroName: string,
-  showPvgnaGuide: oneOfType([
+  showGuide: oneOfType([
     bool,
     PropTypes.number,
   ]),
-  pvgnaGuideInfo: shape({ url: string }),
+  guideUrl: string,
+  guideType: string,
   randomed: bool,
   repicked: string,
   predictedVictory: bool,

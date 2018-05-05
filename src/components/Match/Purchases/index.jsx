@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
-import TeamTable from 'components/Match/TeamTable';
 import Toggle from 'material-ui/Toggle';
-import { purchaseTimesColumns } from 'components/Match/matchColumns';
+import strings from '../../../lang';
+import TeamTable from '../TeamTable';
+import { purchaseTimesColumns } from '../matchColumns';
 
 class Purchases extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({}),
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -38,9 +42,5 @@ class Purchases extends React.Component {
       </div>);
   }
 }
-
-Purchases.propTypes = {
-  match: PropTypes.shape({}),
-};
 
 export default Purchases;

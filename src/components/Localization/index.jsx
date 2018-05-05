@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import strings, { langs } from 'lang';
 import styled from 'styled-components';
+import { langs } from '../../lang';
 import constants from '../constants';
 
 const ClickableDiv = styled.div`
@@ -28,37 +28,24 @@ const setLocalization = (event, key, payload) => {
   window.location.reload();
 };
 
-const Localization = () => (
-  <div>
-    <SelectField
-      floatingLabelText={strings.app_localization}
-      value={getLocalization}
-      onChange={setLocalization}
-    >
-      {langs.map(lang => <MenuItem key={lang} value={lang} primaryText={lang} />)}
-    </SelectField>
-
-  </div>
-);
-
 class LocalizationMenuItems extends Component {
   constructor() {
     super();
     this.state = {
       open: false,
     };
-    this.handleOnClick = this.handleOnClick.bind(this);
   }
 
-  handleOnClick(event) {
+  handleOnClick = (event) => {
     event.preventDefault();
     event.stopPropagation();
     this.setState({
       open: !this.state.open,
     });
-  }
+  };
 
   render() {
+    const { strings } = this.props;
     const { open } = this.state;
     return (
       <div style={{ minWidth: '200px' }}>
@@ -83,6 +70,12 @@ class LocalizationMenuItems extends Component {
   }
 }
 
-export default connect(null, null)(Localization);
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
 
-export const LocalizationMenu = connect(null, null)(LocalizationMenuItems);
+LocalizationMenuItems.propTypes = {
+  strings: PropTypes.shape({}),
+};
+
+export default connect(mapStateToProps, null)(LocalizationMenuItems);

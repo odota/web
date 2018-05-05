@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Heading from 'components/Heading';
 import {
   ReferenceArea,
   XAxis,
@@ -13,10 +12,11 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import constants from 'components/constants';
-import strings from 'lang';
 import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
+import Heading from '../../Heading';
+import constants from '../../constants';
+import strings from '../../../lang';
 import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHolder, GoldSpan, XpSpan, StyledTooltipGold } from './Styled';
 
 const formatGraphTime = minutes => `${minutes}:00`;
@@ -125,27 +125,29 @@ XpNetworthGraph.propTypes = {
 };
 
 class PlayersGraph extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({}),
+    type: PropTypes.string,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       hoverHero: null,
     };
-
-    this.handleMouseEnter = this.handleMouseEnter.bind(this);
-    this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
 
-  handleMouseEnter(o) {
+  handleMouseEnter = (o) => {
     this.setState({
       hoverHero: o.dataKey,
     });
-  }
+  };
 
-  handleMouseLeave() {
+  handleMouseLeave = () => {
     this.setState({
       hoverHero: null,
     });
-  }
+  };
 
   render() {
     const { match, type } = this.props;
@@ -211,10 +213,6 @@ class PlayersGraph extends React.Component {
     return null;
   }
 }
-PlayersGraph.propTypes = {
-  match: PropTypes.shape({}),
-  type: PropTypes.string,
-};
 
 const MatchGraph = ({ type, match, width }) => {
   if (type === 'difference') {

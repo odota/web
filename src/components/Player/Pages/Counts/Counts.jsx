@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  getPlayerCounts,
-} from 'actions';
-import Table from 'components/Table';
-import Container from 'components/Container';
-import strings from 'lang';
 import styled from 'styled-components';
+import { getPlayerCounts } from '../../../../actions';
+import Table from '../../../Table';
+import Container from '../../../Container';
+import strings from '../../../../lang';
 import playerCountsColumns from './playerCountsColumns';
 
 const StyledContainer = styled.div`
@@ -25,8 +23,8 @@ const StyledTableContainer = styled.div`
 
 const Counts = ({ counts, error, loading }) => (
   <StyledContainer>
-    {Object.keys(counts).map((key, index) => (
-      <StyledTableContainer key={index}>
+    {Object.keys(counts).map(key => (
+      <StyledTableContainer key={key}>
         <Container title={strings[`heading_${key}`]} error={error} loading={loading}>
           <Table columns={playerCountsColumns} data={counts[key].list} />
         </Container>
@@ -49,11 +47,18 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    playerId: PropTypes.string,
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+  }
+
   componentDidMount() {
     getData(this.props);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
@@ -65,13 +70,6 @@ class RequestLayer extends React.Component {
     );
   }
 }
-
-RequestLayer.propTypes = {
-  playerId: PropTypes.string,
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-};
 
 const mapStateToProps = state => ({
   counts: state.app.playerCounts.data,

@@ -1,29 +1,28 @@
 import React from 'react';
-import lodash from 'lodash/fp';
+import { findLast } from 'lodash/fp';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
-import abilityIds from 'dotaconstants/build/ability_ids.json';
-import abilityKeys from 'dotaconstants/build/ability_keys.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
 import util from 'util';
-import strings from 'lang';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy } from 'utility';
-import { TableHeroImage, inflictorWithValue } from 'components/Visualizations';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
-import { CompetitiveRank } from 'components/Visualizations/Table/HeroImage';
-import { IconBackpack, IconRadiant, IconDire } from 'components/Icons';
+import strings from '../../lang';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy, IMAGESIZE_ENUM, getHeroImageUrl } from '../../utility';
+import { TableHeroImage, inflictorWithValue } from '../Visualizations';
+import { CompetitiveRank } from '../Visualizations/Table/HeroImage';
+import { IconBackpack, IconRadiant, IconDire } from '../Icons';
 import constants from '../constants';
 import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
+import TargetsBreakdown from './TargetsBreakdown';
 
 const heroNames = getHeroesById();
 
-export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide = false) =>
+export const heroTd = (row, col, field, index, hideName, party, showGuide = false, guideType, guideUrl) =>
   (<TableHeroImage
-    image={heroes[row.hero_id] && process.env.REACT_APP_API_HOST + heroes[row.hero_id].img}
+    image={getHeroImageUrl(row.hero_id, IMAGESIZE_ENUM.SMALL)}
     title={row.name || row.personaname || strings.general_anonymous}
     registered={row.last_login}
     accountId={row.account_id}
@@ -33,8 +32,9 @@ export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide =
     confirmed={row.account_id && row.name}
     party={party}
     heroName={heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero}
-    showPvgnaGuide={showPvgnaGuide}
-    pvgnaGuideInfo={row.pvgnaGuide}
+    showGuide={showGuide}
+    guideUrl={guideUrl}
+    guideType={guideType}
     randomed={row.randomed}
     repicked={row.repicked}
     predictedVictory={row.pred_vict}
@@ -63,7 +63,7 @@ const partyStyles = (row, match) => {
 const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
   let skipped = 0;
   let itemSkipCount = _itemSkipCount || 0;
-  const purchaseEvent = lodash.findLast((item) => {
+  const purchaseEvent = findLast((item) => {
     if (item.key !== itemKey) {
       return false;
     }
@@ -88,7 +88,7 @@ export const overviewColumns = (match) => {
     {
       displayName: strings.th_avatar,
       field: 'player_slot',
-      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), true),
+      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match)),
       sortFn: true,
     },
     {
@@ -108,6 +108,7 @@ export const overviewColumns = (match) => {
       displayFn: transformations.kda,
       sumFn: true,
       underline: 'max',
+      color: constants.colorGreen,
     },
     {
       displayName: strings.th_deaths,
@@ -116,6 +117,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       underline: 'min',
+      color: constants.colorRed,
     },
     {
       displayName: strings.th_assists,
@@ -124,6 +126,7 @@ export const overviewColumns = (match) => {
       sortFn: true,
       sumFn: true,
       underline: 'max',
+      color: constants.colorBlueGray,
     },
     {
       displayName: strings.th_gold_per_min,
@@ -289,7 +292,7 @@ export const abilityColumns = () => {
       (
         <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
           <div className="ability">
-            {inflictorWithValue(abilityIds[row[`ability_upgrades_arr_${index}`]]) || <div className="placeholder" />}
+            {inflictorWithValue(null, null, null, null, row[`ability_upgrades_arr_${index}`]) || <div className="placeholder" />}
           </div>
         </StyledAbilityUpgrades>),
   }));
@@ -308,7 +311,7 @@ export const abilityDraftColumns = () => {
       (
         <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
           <div className="ability">
-            {inflictorWithValue(abilityIds[row.abilities[index - 1]]) || <div className="placeholder" />}
+            {inflictorWithValue(null, null, null, null, row.abilities[index - 1]) || <div className="placeholder" />}
           </div>
         </StyledAbilityUpgrades>),
   }));
@@ -800,7 +803,7 @@ export const unitKillsColumns = [
     displayFn: (row, col, field) =>
       (
         <div>
-          {Object.keys(field || {}).map((unit, index) => <div key={index}>{`${field[unit]} ${unit}`}</div>)}
+          {Object.keys(field || {}).map(unit => <div key={unit}>{`${field[unit]} ${unit}`}</div>)}
         </div>),
     sumFn: (acc, row) => {
       const result = (acc != null) ? acc : {};
@@ -813,7 +816,7 @@ export const unitKillsColumns = [
     },
     displaySumFn: totals => (
       <div>
-        {Object.keys(totals || {}).map((unit, index) => <div key={index}>{`${totals[unit]} ${unit}`}</div>)}
+        {Object.keys(totals || {}).map(unit => <div key={unit}>{`${totals[unit]} ${unit}`}</div>)}
       </div>
     ),
   },
@@ -870,9 +873,9 @@ export const cosmeticsColumns = [
     displayName: strings.th_cosmetics,
     field: 'cosmetics',
     displayFn: (row, col, field) =>
-      field.map((cosmetic, i) =>
+      field.map(cosmetic =>
         (
-          <StyledCosmetic key={i} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
+          <StyledCosmetic key={cosmetic.item_id} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
             <a href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`} target="_blank" rel="noopener noreferrer">
               <img
                 src={`${process.env.REACT_APP_API_HOST}/apps/570/${cosmetic.image_path}`}
@@ -925,9 +928,16 @@ export const inflictorsColumns = [
   heroTdColumn,
   {
     displayName: strings.th_damage_dealt,
-    field: 'damage_inflictor',
-    displayFn: (row, col, field) =>
-      (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+    field: 'damage_targets',
+    displayFn: (row, col, field) => {
+      if (field) {
+        return <TargetsBreakdown field={field} />;
+      }
+      // backwards compatibility 2018-03-17
+      return Object.keys(row.damage_inflictor)
+        .sort((a, b) => (row.damage_inflictor[b] - (row.damage_inflictor[a])))
+        .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber((row.damage_inflictor[inflictor]))));
+    },
   },
   {
     displayName: strings.th_damage_received,
@@ -937,63 +947,20 @@ export const inflictorsColumns = [
   },
 ];
 
-const sumValues = f => Object.values(f).reduce((a, b) => a + b);
-
-const valueStyle = {
-  position: 'absolute',
-  textAlign: 'center',
-  marginLeft: '16px',
-  marginTop: '18px',
-  fontSize: '12px',
-  backgroundColor: constants.darkPrimaryColor,
-};
-
-const targetTooltip = (t) => {
-  const targets = [];
-  Object.keys(t).forEach((target) => {
-    const heroicon = heroes[getHeroesById()[target].id] && process.env.REACT_APP_API_HOST + heroes[getHeroesById()[target].id].icon;
-    const j = (
-
-      <div style={{ display: 'inline-block', paddingBottom: '20px' }}>
-        <span style={valueStyle}>{`${t[target]}x`}</span>
-        <img
-          src={heroicon}
-          alt=""
-          style={{ height: '30px', paddingLeft: '15px' }}
-        />
-      </div>);
-    targets.push([j, t[target]]);
-  });
-
-  return targets.sort((a, b) => b[1] - a[1]).map(x => x[0]);
-};
-
 export const castsColumns = [
   heroTdColumn,
   {
     displayName: strings.th_abilities,
     tooltip: strings.tooltip_casts,
-    field: 'ability_uses',
-    displayFn: (row, col, field) =>
-      (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
-  },
-  {
-    displayName: strings.th_target_abilities,
-    tooltip: strings.tooltip_target_abilities,
     field: 'ability_targets',
     displayFn: (row, col, field) => {
       if (field) {
-        const r = [];
-        Object.keys(field).forEach((inflictor) => {
-          r.push(inflictorWithValue(inflictor, sumValues(field[inflictor])));
-          r.push(targetTooltip(field[inflictor]));
-        });
-
-        return (
-          <div style={{ display: 'inline-block', width: '150px' }}>{r}</div>
-        );
+        return <TargetsBreakdown field={field} abilityUses={row.ability_uses} />;
       }
-      return null;
+      // backwards compatibility 2018-03-17
+      return Object.keys(row.ability_uses)
+        .sort((a, b) => row.ability_uses[b] - row.ability_uses[a])
+        .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber((row.ability_uses[inflictor]))));
     },
   },
   {
@@ -1057,16 +1024,11 @@ const playerDeaths = (row, col, field) => {
   );
 };
 
-const inflictorRow = obj => (row, col, field) =>
+const inflictorRow = (row, col, field) =>
   (field
     ?
       <div style={{ maxWidth: '100px' }}>
-        {Object.keys(field).map((inflictor) => {
-        if (obj[inflictor]) {
-          return inflictorWithValue(inflictor, field[inflictor]);
-        }
-        return null;
-      })}
+        {Object.keys(field).map(inflictor => inflictorWithValue(inflictor, field[inflictor]))}
       </div>
     : '');
 
@@ -1105,12 +1067,12 @@ export const teamfightColumns = [
   {
     displayName: strings.th_abilities,
     field: 'ability_uses',
-    displayFn: inflictorRow(abilityKeys),
+    displayFn: inflictorRow,
   },
   {
     displayName: strings.th_items,
     field: 'item_uses',
-    displayFn: inflictorRow(items),
+    displayFn: inflictorRow,
   },
 ];
 
@@ -1126,11 +1088,11 @@ const computeAverage = (row, type) => {
       totalDuration.push(duration);
     }
   });
-  let sum = 0;
+  let total = 0;
   for (let i = 0; i < totalDuration.length; i += 1) {
-    sum += totalDuration[i];
+    total += totalDuration[i];
   }
-  const avg = sum / totalDuration.length;
+  const avg = total / totalDuration.length;
 
   return avg;
 };

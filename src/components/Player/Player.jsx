@@ -7,16 +7,32 @@ import Long from 'long';
 import {
   getPlayer,
   getPlayerWinLoss,
-} from 'actions';
-import strings from 'lang';
-import TabBar from 'components/TabBar';
-import Spinner from 'components/Spinner';
+} from '../../actions';
+import strings from '../../lang';
+import TabBar from '../TabBar';
+import Spinner from '../Spinner';
 import TableFilterForm from './TableFilterForm';
 import PlayerHeader from './Header/PlayerHeader';
 // import Error from '../Error';
 import playerPages from './playerPages';
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        playerId: PropTypes.string,
+      }),
+    }),
+    history: PropTypes.shape({
+      push: PropTypes.func,
+    }),
+    officialPlayerName: PropTypes.string,
+    playerName: PropTypes.string,
+  }
+
   componentDidMount() {
     const { props } = this;
     const { playerId } = props.match.params;
@@ -24,7 +40,7 @@ class RequestLayer extends React.Component {
     props.getPlayerWinLoss(playerId, props.location.search);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     const props = nextProps;
     const { playerId } = props.match.params;
     if (this.props.match.params.playerId !== playerId) {
@@ -60,22 +76,6 @@ class RequestLayer extends React.Component {
     );
   }
 }
-
-RequestLayer.propTypes = {
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      playerId: PropTypes.string,
-    }),
-  }),
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }),
-  officialPlayerName: PropTypes.string,
-  playerName: PropTypes.string,
-};
 
 const mapStateToProps = state => ({
   playerName: (state.app.player.data.profile || {}).personaname,

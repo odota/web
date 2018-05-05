@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  getPlayerPros,
-} from 'actions';
-import Table from 'components/Table';
-import Container from 'components/Container';
-import strings from 'lang';
+import { getPlayerPros } from '../../../../actions';
+import Table from '../../../Table';
+import Container from '../../../Container';
+import strings from '../../../../lang';
 import playerProsColumns from './playerProsColumns';
 
 const Pros = ({
@@ -29,11 +27,18 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+    playerId: PropTypes.string,
+  }
+
   componentDidMount() {
     getData(this.props);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
@@ -43,13 +48,6 @@ class RequestLayer extends React.Component {
     return <Pros {...this.props} />;
   }
 }
-
-RequestLayer.propTypes = {
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-  playerId: PropTypes.string,
-};
 
 const mapDispatchToProps = dispatch => ({
   getPlayerPros: (playerId, options) => dispatch(getPlayerPros(playerId, options)),

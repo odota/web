@@ -1,30 +1,32 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import { Link } from 'react-router-dom';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import patch from 'dotaconstants/build/patch.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
 import xpLevel from 'dotaconstants/build/xp_level.json';
-import { TableLink } from 'components/Table';
-import {
-  KDA,
-  TableHeroImage,
-  FromNowTooltip,
-} from 'components/Visualizations';
-import strings from 'lang';
-import _ from 'lodash/fp';
+import { curry, findLast, inRange } from 'lodash/fp';
 import util from 'util';
 // import SvgIcon from 'material-ui/SvgIcon';
 import SocialPeople from 'material-ui/svg-icons/social/people';
 import SocialPerson from 'material-ui/svg-icons/social/person';
-import constants from 'components/constants';
+import strings from '../lang';
+import { TableLink } from '../components/Table';
+import {
+  KDA,
+  TableHeroImage,
+  FromNowTooltip,
+} from '../components/Visualizations';
+import constants from '../components/constants';
 
 export const iconStyle = {
+  position: 'relative',
   marginLeft: 5,
-  marginRight: 5,
   width: 18,
   height: 18,
   verticalAlign: 'bottom',
+  top: '1px',
 };
 
 export const subTextStyle = {
@@ -222,11 +224,49 @@ export const percentile = (pct) => {
   };
 };
 
+export const IMAGESIZE_ENUM = {
+  SMALL: 'sb.png', //     ~10KB (59 px x 33 px)
+  MEDIUM: 'lg.png', //     ~41KB (205 px x 105 px)
+  LARGE: 'full.png', // ~52KB (256 px x 144 px)
+  VERT: 'vert.jpg', // ~18KB (235 px x 272 px) note that this is a jpg
+
+// if you ever wanna see what the above look like (change the suffix):
+// https://api.opendota.com/apps/dota2/images/heroes/abaddon_full.png
+};
+
 const getSubtitle = (row) => {
   if (row.match_id && row.player_slot !== undefined) {
-    let laneName;
-    if (row.is_roaming) { laneName = ` / ${strings.roaming}`; } else { laneName = row.lane_role ? ` / ${strings[`lane_role_${row.lane_role}`]}` : ''; }
-    return (isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire) + laneName;
+    let lane;
+    let tooltip;
+    if (row.is_roaming) {
+      tooltip = strings.roaming;
+      lane = 'roam';
+    } else {
+      tooltip = strings[`lane_role_${row.lane_role}`];
+      lane = row.lane_role;
+    }
+    const roleIconStyle = {
+      position: 'relative',
+      height: '12px',
+      marginLeft: '5px',
+      filter: 'grayscale(60%)',
+      top: '2px',
+    };
+
+    return (
+      <span>
+        <span>{(isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire)}</span>
+        {lane ?
+          <img
+            src={`/assets/images/dota2/lane_${lane}.svg`}
+            alt=""
+            data-tip={tooltip}
+            data-offset="{'right': 4, 'top': 4}"
+            data-delay-show="300"
+            style={roleIconStyle}
+          />
+        : ''}
+      </span>);
   } else if (row.last_played) {
     return <FromNowTooltip timestamp={row.last_played} />;
   } else if (row.start_time) {
@@ -243,6 +283,14 @@ const getTitle = (row, col, heroName) => {
   return <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
 };
 
+export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
+  let imageUrl = heroes[heroId] && process.env.REACT_APP_API_HOST + heroes[heroId].img; // "[api url]/abaddon_full.png?"
+  if (imageUrl) {
+    imageUrl = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
+  }
+  return imageUrl + imageSizeSuffix;
+};
+
 /**
  * Transformations of table cell data to display values.
  * These functions are intended to be used as the displayFn property in table columns.
@@ -250,22 +298,33 @@ const getTitle = (row, col, heroName) => {
  * */
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
-  hero_id: (row, col, field, showPvgnaGuide = false) => {
+  hero_id: (row, col, field, showGuide = false, imageSizeSuffix = IMAGESIZE_ENUM.SMALL, guideUrl, guideType) => {
     const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
+    const imageUrl = getHeroImageUrl(row[col.field], imageSizeSuffix);
     return (
       <TableHeroImage
         parsed={row.version}
-        image={heroes[row[col.field]] && process.env.REACT_APP_API_HOST + heroes[row[col.field]].img}
+        image={imageUrl}
         title={getTitle(row, col, heroName)}
         subtitle={getSubtitle(row)}
         heroName={heroName}
-        showPvgnaGuide={showPvgnaGuide}
-        pvgnaGuideInfo={row.pvgnaGuide}
+        showGuide={showGuide}
+        guideUrl={guideUrl}
+        guideType={guideType}
         leaverStatus={row.leaver_status}
       />
     );
   },
-  hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true),
+  hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true, IMAGESIZE_ENUM.SMALL, row.pvgnaGuide && row.pvgnaGuide.url, 'PVGNA'),
+  hero_id_with_more_mmr: (row, col, field) => {
+    let url = 'https://moremmr.com/en/heroes/';
+    if (heroes[row[col.field]] && heroes[row[col.field]].localized_name) {
+      const heroName = heroes[row[col.field]].localized_name.toLowerCase().replace(' ', '-');
+      url = `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`;
+    }
+
+    return transformations.hero_id(row, col, field, true, IMAGESIZE_ENUM.SMALL, url, 'MOREMMR');
+  },
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
   match_id_with_time: (row, col, field) => (
     <div>
@@ -274,7 +333,24 @@ export const transformations = {
         {fromNow(row.start_time)}
       </span>
     </div>),
-  radiant_win: (row, col, field) => {
+  game_mode: (row, col, field) => (strings[`game_mode_${field}`]),
+  radiant_win_and_game_mode: (row, col, field) => {
+    const { match_id } = row;
+    const partySize = (_partySize) => {
+      if (_partySize === 1) {
+        return [
+          <SocialPerson color="rgb(179, 179, 179)" style={iconStyle} />,
+          `x${row.party_size}`,
+        ];
+      } else if (_partySize === null || _partySize === undefined) {
+        return null;
+      }
+
+      return [
+        <SocialPeople color="rgb(179, 179, 179)" style={iconStyle} />,
+        `x${row.party_size}`,
+      ];
+    };
     const won = field === isRadiant(row.player_slot);
     const getColor = (result) => {
       if (result === null || result === undefined) {
@@ -288,39 +364,42 @@ export const transformations = {
       }
       return won ? strings.td_win : strings.td_loss;
     };
-    return (
-      <div>
-        <span style={{ color: getColor(field) }}>
-          {getString(field)}
-        </span>
-        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-          {row.skill ? `${strings[`skill_${row.skill}`]} ${strings.th_skill}` : ''}
-        </span>
-      </div>);
-  },
-  game_mode: (row, col, field) => (strings[`game_mode_${field}`]),
-  match_id_and_game_mode: (row, col, field) => {
-    const partySize = (_partySize) => {
-      if (_partySize === 1) {
-        return [
-          <SocialPerson color="rgb(179, 179, 179)" style={iconStyle} />,
-          `x${row.party_size}`,
-        ];
-      } else if (_partySize === null) {
-        return null;
-      }
-
-      return [
-        <SocialPeople color="rgb(179, 179, 179)" style={iconStyle} />,
-        `x${row.party_size}`,
-      ];
+    const skillDotsStyle = {
+      height: '5px',
+      width: '5px',
+      backgroundColor: constants.lightGray,
+      display: 'inline-block',
+      marginLeft: '3px',
+      marginBottom: '2px',
+      transform: 'rotate(45deg)',
     };
+    const getSkill = (skill) => {
+      const skillDots = [];
+      if (skill) {
+        for (let i = 0; i < 3; i += 1) {
+          skillDots.push(<div style={{ ...skillDotsStyle, opacity: skill - i > 0 ? '1' : '0.3' }} />);
+        }
+      }
+      return skillDots;
+    };
+    const lobbyTypeStyle = { color: row.lobby_type === 7 ? constants.colorRanked : undefined };
+
     return (
       <div>
-        <TableLink to={`/matches/${field}`}>{field}</TableLink>
+        <TableLink to={`/matches/${match_id}`} color={getColor(field)}>
+          <span style={{ color: getColor(field) }}>
+            {getString(field)}
+          </span>
+        </TableLink>
         <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-          {strings[`game_mode_${row.game_mode}`]} / {strings[`lobby_type_${row.lobby_type}`]}
-          {partySize(row.party_size)}
+          {strings[`game_mode_${row.game_mode}`] && (`${strings[`game_mode_${row.game_mode}`]} / `)} {row.league_name ? row.league_name : <span style={lobbyTypeStyle}>{strings[`lobby_type_${row.lobby_type}`]}</span>}
+          <span style={{ marginRight: '3px' }} data-tip={`${strings.filter_party_size} ${row.party_size}`} data-offset="{'top': 4, 'right' : 20}" data-delay-show="300">
+            {partySize(row.party_size)}
+          </span>
+          <span data-tip={row.skill ? `${strings[`skill_${row.skill}`]} ${strings.th_skill}` : ''} data-offset="{'right': 17}" data-delay-show="300">
+            {getSkill(row.skill)}
+          </span>
+          <ReactTooltip place="top" effect="solid" />
         </span>
       </div>);
   },
@@ -474,13 +553,13 @@ export function unpackPositionData(input) {
   return input;
 }
 
-export const threshold = _.curry((start, limits, values, value) => {
+export const threshold = curry((start, limits, values, value) => {
   if (limits.length !== values.length) throw new Error('Limits must be the same as functions.');
 
   const limitsWithStart = limits.slice(0);
   limitsWithStart.unshift(start);
 
-  return _.findLast((v, i) => _.inRange(limitsWithStart[i], limitsWithStart[i + 1], value), values);
+  return findLast((v, i) => inRange(limitsWithStart[i], limitsWithStart[i + 1], value), values);
 });
 
 export const getTeamName = (team, _isRadiant) => {
@@ -491,10 +570,15 @@ export const getTeamName = (team, _isRadiant) => {
   return (team && team.name) ? team.name : strings.general_dire;
 };
 
-// Use proxy layer to serve team logos
 export const getTeamLogoUrl = (logoUrl) => {
-  const url = logoUrl ? `${process.env.REACT_APP_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}` : '';
-  return url;
+  if (!logoUrl) {
+    return '';
+  }
+  // Use proxy layer to serve team logos
+  if (logoUrl.indexOf('/ugc') !== -1) {
+    return `${process.env.REACT_APP_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}`;
+  }
+  return logoUrl;
 };
 
 /**
@@ -533,33 +617,6 @@ export const hsvToRgb = (h, s, v) => {
 };
 
 export const bindWidth = (width, maxWidth) => Math.min(width, maxWidth);
-
-// Pretty much jQuery.getScript https://goo.gl/PBD7ml
-export const getScript = (url, callback) => {
-  // Create script
-  let script = document.createElement('script');
-  script.async = 1;
-  script.src = url;
-
-  // Insert into body
-  const theFirstChild = document.body.firstChild;
-  document.body.insertBefore(script, theFirstChild);
-
-  // Attach handlers
-  script.onreadystatechange = (__, isAbort) => {
-    if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
-      // Handle IE memory leak
-      script.onreadystatechange = null;
-      script.onload = null;
-      script = undefined;
-
-      if (!isAbort && callback) {
-        callback();
-      }
-    }
-  };
-  script.onload = script.onreadystatechange;
-};
 
 // Fills in a template with the values provided in the dict
 // returns a list, so react object don't have to be converted to a string
@@ -606,8 +663,8 @@ export const wilsonScore = (up, down) => {
   );
 };
 
-export const translateBuildings = (isRadiant, key) => {
-  const team = isRadiant ? strings.general_radiant : strings.general_dire;
+export const translateBuildings = (isRad, key) => {
+  const team = isRad ? strings.general_radiant : strings.general_dire;
   const k = key.split('_').slice(3).join('_');
   const dict = {
     fort: ` ${strings.building_ancient}`,
@@ -637,4 +694,22 @@ export const groupBy = (xs, key) =>
     (rv[x[key]] = rv[x[key]] || []).push(x); // eslint-disable-line no-param-reassign
     return rv;
   }, {});
+
+export function groupByArray(xs, key) {
+  return xs.reduce((rv, x) => {
+    const v = key instanceof Function ? key(x) : x[key];
+    const el = rv.find(r => r && r.key === v);
+    if (el) {
+      el.values.push(x);
+    } else {
+      rv.push({
+        key: v,
+        values: [x],
+      });
+    }
+    return rv;
+  }, []);
+}
+
+export const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 

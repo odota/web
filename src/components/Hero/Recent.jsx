@@ -1,34 +1,15 @@
 import React from 'react';
 import { arrayOf, shape, bool, func, string, oneOfType } from 'prop-types';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
-import Table, { TableLink } from 'components/Table';
-import ErrorBox from 'components/Error/ErrorBox';
-import Spinner from 'components/Spinner';
-import { getHeroRecentGames } from 'actions';
-import strings from 'lang';
-import { transformations } from 'utility';
-import { proPlayersSelector } from 'reducers/selectors';
-import constants from 'components/constants';
-
-const LeagueName = styled.span`
-  color: ${constants.colorMutedLight};
-  display: block;
-  margin-top: 1;
-`;
+import Table, { TableLink } from '../Table';
+import ErrorBox from '../Error/ErrorBox';
+import Spinner from '../Spinner';
+import { getHeroRecentGames } from '../../actions';
+import strings from '../../lang';
+import { transformations } from '../../utility';
+import { proPlayersSelector } from '../../reducers/selectors';
 
 const matchesColumns = [
-  {
-    displayName: strings.th_match_id,
-    field: 'match_id',
-    sortFn: true,
-    displayFn: (row, col, field) => (
-      <div>
-        <TableLink to={`/matches/${field}`}>{field}</TableLink>
-        <LeagueName>{row.league_name}</LeagueName>
-      </div>
-    ),
-  },
   {
     displayName: strings.th_account_id,
     field: 'account_id',
@@ -49,7 +30,7 @@ const matchesColumns = [
     displayName: strings.th_result,
     tooltip: strings.tooltip_result,
     field: 'radiant_win',
-    displayFn: transformations.radiant_win,
+    displayFn: transformations.radiant_win_and_game_mode,
   },
   {
     displayName: strings.th_kills,
@@ -73,6 +54,21 @@ const matchesColumns = [
 ];
 
 class Recent extends React.Component {
+  static propTypes = {
+    isLoading: bool,
+    isError: bool,
+    result: oneOfType([arrayOf(shape({})), shape({})]),
+    onGetRecentMatches: func,
+    match: shape({
+      params: shape({
+        heroId: string,
+      }),
+    }),
+    proPlayers: shape({
+      name: string,
+    }),
+  }
+
   componentDidMount() {
     const { onGetRecentMatches, match } = this.props;
 
@@ -111,21 +107,6 @@ class Recent extends React.Component {
     );
   }
 }
-
-Recent.propTypes = {
-  isLoading: bool,
-  isError: bool,
-  result: oneOfType([arrayOf(shape({})), shape({})]),
-  onGetRecentMatches: func,
-  match: shape({
-    params: shape({
-      heroId: string,
-    }),
-  }),
-  proPlayers: shape({
-    name: string,
-  }),
-};
 
 Recent.defaultProps = {
   result: null,
