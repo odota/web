@@ -11,7 +11,7 @@ import { abbreviateNumber, SORT_ENUM, defaultSort } from '../../utility';
 import { TablePercent } from '../Visualizations';
 import Pagination from '../Table/PaginatedTable/Pagination';
 import TableHeader from './TableHeader';
-import Spinner from '../Spinner';
+import TableSkeleton from './TableSkeleton';
 import Error from '../Error';
 import { StyledBody, StyledContainer } from './Styled';
 
@@ -187,7 +187,7 @@ class Table extends React.Component {
           place="top"
         />}
         <StyledContainer >
-          {loading && <Spinner />}
+          {loading && <TableSkeleton />}
           {!loading && error && <Error />}
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
