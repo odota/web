@@ -18,6 +18,7 @@ import Matchups from './Matchups';
 import AttributesBlock from './AttributesBlock';
 import Durations from './Durations';
 import Players from './Players';
+import { compileLevelOneStats } from '../../utility';
 
 const HeroBlock = styled.div`
   margin-bottom: 8px;
@@ -149,7 +150,7 @@ class Hero extends React.Component {
               {this.state.detailsOpen ? strings.hide_details : strings.show_details}
             </HeroDetailsButton>
           </HeroFooter>
-          {this.state.detailsOpen && <AttributesBlock hero={hero} />}
+          {this.state.detailsOpen && <AttributesBlock hero={compileLevelOneStats(hero)} />}
         </HeroBlock>
         <TabsBlock>
           <TabBar info={route} tabs={tabs(heroId)} />

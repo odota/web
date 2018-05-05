@@ -714,7 +714,7 @@ export function groupByArray(xs, key) {
 export const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 
 // https://dota2.gamepedia.com/Attributes
-export function getLevelOneStats(hero) {
+export function compileLevelOneStats(hero) {
   const statsBonuses = {
     str: {
       attackDamage: 1,
@@ -733,7 +733,7 @@ export function getLevelOneStats(hero) {
       armor: 0.16,
       health: 18,
       health_regen: 0.55,
-      mana: 12,
+      mana: 15,
       mana_regen: 2.25,
       mr: 0.08,
       move_speed: 0.05,
@@ -745,7 +745,7 @@ export function getLevelOneStats(hero) {
       armor: 0.2,
       health: 18,
       health_regen: 0.55,
-      mana: 15,
+      mana: 12,
       mana_regen: 1.8,
       mr: 0.08,
       move_speed: 0.063,
