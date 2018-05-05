@@ -1,37 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { BulletList } from 'react-content-loader';
 import Heading from '../Heading';
-import Spinner from '../Spinner';
 import Error from '../Error';
 
-export const AsyncContainer = ({ loading, error, children }) => {
-  if (error) {
-    return <Error />;
-  }
-  if (loading) {
-    return <Spinner />;
-  }
-  return children;
-};
-
 const {
-  bool, node, string, shape,
+  bool, node, string, shape, number,
 } = PropTypes;
 
-AsyncContainer.propTypes = {
-  loading: bool,
-  error: bool,
-  children: node,
-};
-
 const Container = ({
-  title, subtitle, style, className, children, error, loading, hide, titleTo,
+  title, subtitle, style, className, children, error, loading, hide, titleTo, loaderWidth, loaderHeight,
 }) => (!hide ? (
   <div className={className} style={{ ...style }}>
     {title && <Heading title={title} subtitle={subtitle} titleTo={titleTo} />}
-    <AsyncContainer error={error} loading={loading}>
-      {children}
-    </AsyncContainer>
+    {error && <Error />}
+    {!error && loading && <BulletList primaryColor="#666" width={loaderWidth || 400} height={loaderHeight || 160} />}
+    {!error && !loading && children}
   </div>
 ) : null);
 
@@ -45,6 +29,8 @@ Container.propTypes = {
   children: node,
   hide: bool,
   titleTo: string,
+  loaderWidth: number,
+  loaderHeight: number,
 };
 
 export default Container;

@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ContentLoader from 'react-content-loader';
+import util from 'util';
 import { connect } from 'react-redux';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Schedule from 'material-ui/svg-icons/action/schedule';
@@ -14,11 +16,20 @@ import { buttonStyle, formFieldStyle, StyledDiv, tabsStyle } from './Styles';
 import { getScenariosItemTimings, getScenariosMisc, getScenariosLaneRoles } from '../../actions/index';
 import strings from '../../lang';
 import Table from '../Table';
-import Spinner from '../Spinner';
 import Error from '../Error';
 import Heading from '../Heading';
 import { groupByArray } from '../../utility/index';
 import { IconLaneRoles } from '../Icons';
+
+const ScenariosLoader = () => (
+  <ContentLoader height={300} width={800} primaryColor="#666">
+    <rect x="0" y="55" rx="0" ry="0" width="800" height="50" />
+    <rect x="0" y="140" rx="0" ry="0" width="160" height="35" />
+    <rect x="180" y="140" rx="0" ry="0" width="160" height="35" />
+    <rect x="360" y="140" rx="0" ry="0" width="160" height="35" />
+    <rect x="0" y="200" rx="0" ry="0" width="82" height="30" />
+  </ContentLoader>
+);
 
 const minSampleSize = row => row.games > 200;
 
@@ -36,12 +47,12 @@ const forms = {
   },
 };
 
-const menuItems = [{
+const tabItems = [{
   text: strings.scenarios_item_timings,
   value: 'itemTimings',
   icon: <Schedule />,
 },
-{// /assets/images/dota2/lane_roles.svg
+{
   text: strings.heading_lane_role,
   value: 'laneRoles',
   icon: <IconLaneRoles />,
@@ -149,12 +160,12 @@ class Scenarios extends React.Component {
     return (
       <StyledDiv>
         {metadataError && <Error />}
-        {metadataLoading && <Spinner />}
+        {metadataLoading && <ScenariosLoader />}
         {!metadataError && !metadataLoading &&
         <div>
-          <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} />
+          <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} info={`${util.format(strings.scenarios_info, 4)}`} />
           <Tabs value={selectedTab} onChange={this.handleChange} style={tabsStyle}>
-            {menuItems.map(item => (
+            {tabItems.map(item => (
               <Tab label={item.text} value={item.value} icon={item.icon} containerElement={getLink(item.value)} className="tab" />
             ))}
           </Tabs>
@@ -189,6 +200,7 @@ class Scenarios extends React.Component {
             columns={getColumns(selectedTab, metadata)}
             loading={scenariosState[selectedTab].loading}
             paginated
+            resetTableState
           />
         </div>
         }

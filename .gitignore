@@ -6,3 +6,5 @@ build
 .DS_STORE
 *.swp
 analyze.html
+.env
+yarn.lock

@@ -20,7 +20,7 @@ import TargetsBreakdown from './TargetsBreakdown';
 
 const heroNames = getHeroesById();
 
-export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide = false) =>
+export const heroTd = (row, col, field, index, hideName, party, showGuide = false, guideType, guideUrl) =>
   (<TableHeroImage
     image={getHeroImageUrl(row.hero_id, IMAGESIZE_ENUM.SMALL)}
     title={row.name || row.personaname || strings.general_anonymous}
@@ -32,9 +32,9 @@ export const heroTd = (row, col, field, index, hideName, party, showPvgnaGuide =
     confirmed={row.account_id && row.name}
     party={party}
     heroName={heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero}
-    showGuide={showPvgnaGuide}
-    guideUrl={row.pvgnaGuide ? row.pvgnaGuide.url : null}
-    guideType={showPvgnaGuide ? 'PVGNA' : null}
+    showGuide={showGuide}
+    guideUrl={guideUrl}
+    guideType={guideType}
     randomed={row.randomed}
     repicked={row.repicked}
     predictedVictory={row.pred_vict}
@@ -88,7 +88,7 @@ export const overviewColumns = (match) => {
     {
       displayName: strings.th_avatar,
       field: 'player_slot',
-      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), true),
+      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match)),
       sortFn: true,
     },
     {

@@ -80,13 +80,6 @@ class PlayerButtons extends React.Component {
           style={{ marginLeft: 15 }}
           href={`https://dotacoach.org/Hire/OpenDota?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}`}
         />
-        <FlatButton
-          label={strings.app_pvgna}
-          labelPosition="after"
-          icon={<img src="/assets/images/pvgna-guide-icon.png" alt={strings.app_pvgna_alt} height="24px" />}
-          style={{ marginLeft: 15 }}
-          href={`https://pvgna.com/?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}&ref=yasp`}
-        />
       </Styled>);
   }
 }

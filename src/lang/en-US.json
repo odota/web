@@ -426,6 +426,9 @@
   "heading_cm_enabled": "CM enabled",
   "heading_current_players": "Current Players",
   "heading_former_players": "Former Players",
+  
+  "show_details": "Show details",
+  "hide_details": "Hide details",
 
   "subheading_avg_and_max": "in last %d matches",
   "subheading_records": "In ranked matches. Records reset monthly.",
@@ -1262,6 +1265,7 @@
   "exclude_turbo_matches": "Exclude Turbo matches",
 
   "scenarios_subtitle": "Explore win rates of combinations of factors that happen in matches",
+  "scenarios_info": "Data compiled from matches in the last %d weeks",
   "scenarios_item_timings": "Item Timings",
   "scenarios_misc": "Misc",
   "scenarios_time": "Time",
