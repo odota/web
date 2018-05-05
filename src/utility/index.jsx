@@ -789,4 +789,3 @@ export function compileLevelOneStats(hero) {
   };
 }
 /*eslint-enable camelcase*/
-
