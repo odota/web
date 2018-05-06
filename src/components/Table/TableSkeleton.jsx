@@ -9,11 +9,11 @@ const TableSkeleton = props => (
     secondaryColor="#666"
 		{...props}
 	>
-		<rect x="0" y="10" rx="5" ry="5" width="500" height="20" /> 
-		<rect x="0" y="35" rx="5" ry="5" width="500" height="20" /> 
-		<rect x="0" y="60" rx="5" ry="5" width="500" height="20" /> 
-		<rect x="0" y="85" rx="5" ry="5" width="500" height="20" /> 
-		<rect x="0" y="110" rx="5" ry="5" width="500" height="20" />
+		<rect x="0" y="10" rx="5" ry="5" width="500" height="5" /> 
+		<rect x="0" y="25" rx="5" ry="5" width="500" height="5" /> 
+		<rect x="0" y="40" rx="5" ry="5" width="500" height="5" /> 
+		<rect x="0" y="55" rx="5" ry="5" width="500" height="5" /> 
+		<rect x="0" y="70" rx="5" ry="5" width="500" height="5" />
 	</ContentLoader>
 )
 
