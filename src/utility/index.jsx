@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import { Link } from 'react-router-dom';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
@@ -20,11 +21,12 @@ import {
 import constants from '../components/constants';
 
 export const iconStyle = {
+  position: 'relative',
   marginLeft: 5,
-  marginRight: 5,
   width: 18,
   height: 18,
   verticalAlign: 'bottom',
+  top: '1px',
 };
 
 export const subTextStyle = {
@@ -234,9 +236,37 @@ export const IMAGESIZE_ENUM = {
 
 const getSubtitle = (row) => {
   if (row.match_id && row.player_slot !== undefined) {
-    let laneName;
-    if (row.is_roaming) { laneName = ` / ${strings.roaming}`; } else { laneName = row.lane_role ? ` / ${strings[`lane_role_${row.lane_role}`]}` : ''; }
-    return (isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire) + laneName;
+    let lane;
+    let tooltip;
+    if (row.is_roaming) {
+      tooltip = strings.roaming;
+      lane = 'roam';
+    } else {
+      tooltip = strings[`lane_role_${row.lane_role}`];
+      lane = row.lane_role;
+    }
+    const roleIconStyle = {
+      position: 'relative',
+      height: '12px',
+      marginLeft: '5px',
+      filter: 'grayscale(60%)',
+      top: '2px',
+    };
+
+    return (
+      <span>
+        <span>{(isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire)}</span>
+        {lane ?
+          <img
+            src={`/assets/images/dota2/lane_${lane}.svg`}
+            alt=""
+            data-tip={tooltip}
+            data-offset="{'right': 4, 'top': 4}"
+            data-delay-show="300"
+            style={roleIconStyle}
+          />
+        : ''}
+      </span>);
   } else if (row.last_played) {
     return <FromNowTooltip timestamp={row.last_played} />;
   } else if (row.start_time) {
@@ -303,7 +333,24 @@ export const transformations = {
         {fromNow(row.start_time)}
       </span>
     </div>),
-  radiant_win: (row, col, field) => {
+  game_mode: (row, col, field) => (strings[`game_mode_${field}`]),
+  radiant_win_and_game_mode: (row, col, field) => {
+    const { match_id } = row;
+    const partySize = (_partySize) => {
+      if (_partySize === 1) {
+        return [
+          <SocialPerson color="rgb(179, 179, 179)" style={iconStyle} />,
+          `x${row.party_size}`,
+        ];
+      } else if (_partySize === null || _partySize === undefined) {
+        return null;
+      }
+
+      return [
+        <SocialPeople color="rgb(179, 179, 179)" style={iconStyle} />,
+        `x${row.party_size}`,
+      ];
+    };
     const won = field === isRadiant(row.player_slot);
     const getColor = (result) => {
       if (result === null || result === undefined) {
@@ -317,39 +364,42 @@ export const transformations = {
       }
       return won ? strings.td_win : strings.td_loss;
     };
-    return (
-      <div>
-        <span style={{ color: getColor(field) }}>
-          {getString(field)}
-        </span>
-        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-          {row.skill ? `${strings[`skill_${row.skill}`]} ${strings.th_skill}` : ''}
-        </span>
-      </div>);
-  },
-  game_mode: (row, col, field) => (strings[`game_mode_${field}`]),
-  match_id_and_game_mode: (row, col, field) => {
-    const partySize = (_partySize) => {
-      if (_partySize === 1) {
-        return [
-          <SocialPerson color="rgb(179, 179, 179)" style={iconStyle} />,
-          `x${row.party_size}`,
-        ];
-      } else if (_partySize === null) {
-        return null;
-      }
-
-      return [
-        <SocialPeople color="rgb(179, 179, 179)" style={iconStyle} />,
-        `x${row.party_size}`,
-      ];
+    const skillDotsStyle = {
+      height: '5px',
+      width: '5px',
+      backgroundColor: constants.lightGray,
+      display: 'inline-block',
+      marginLeft: '3px',
+      marginBottom: '2px',
+      transform: 'rotate(45deg)',
     };
+    const getSkill = (skill) => {
+      const skillDots = [];
+      if (skill) {
+        for (let i = 0; i < 3; i += 1) {
+          skillDots.push(<div style={{ ...skillDotsStyle, opacity: skill - i > 0 ? '1' : '0.3' }} />);
+        }
+      }
+      return skillDots;
+    };
+    const lobbyTypeStyle = { color: row.lobby_type === 7 ? constants.colorRanked : undefined };
+
     return (
       <div>
-        <TableLink to={`/matches/${field}`}>{field}</TableLink>
+        <TableLink to={`/matches/${match_id}`} color={getColor(field)}>
+          <span style={{ color: getColor(field) }}>
+            {getString(field)}
+          </span>
+        </TableLink>
         <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-          {strings[`game_mode_${row.game_mode}`]} / {strings[`lobby_type_${row.lobby_type}`]}
-          {partySize(row.party_size)}
+          {strings[`game_mode_${row.game_mode}`] && (`${strings[`game_mode_${row.game_mode}`]} / `)} {row.league_name ? row.league_name : <span style={lobbyTypeStyle}>{strings[`lobby_type_${row.lobby_type}`]}</span>}
+          <span style={{ marginRight: '3px' }} data-tip={`${strings.filter_party_size} ${row.party_size}`} data-offset="{'top': 4, 'right' : 20}" data-delay-show="300">
+            {partySize(row.party_size)}
+          </span>
+          <span data-tip={row.skill ? `${strings[`skill_${row.skill}`]} ${strings.th_skill}` : ''} data-offset="{'right': 17}" data-delay-show="300">
+            {getSkill(row.skill)}
+          </span>
+          <ReactTooltip place="top" effect="solid" />
         </span>
       </div>);
   },

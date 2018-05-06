@@ -2,54 +2,46 @@ import React from 'react';
 import { shape, number, string, bool } from 'prop-types';
 import styled from 'styled-components';
 import strings from '../../lang';
-import AttrStrength from '../Icons/AttrStrength';
-import AttrAgility from '../Icons/AttrAgility';
-import AttrIntelligent from '../Icons/AttrIntelligent';
 import constants from '../constants';
 import Attribute from './Attribute';
 
-
 const AttributesWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  flex-wrap: wrap;
+  margin-left: -8px;
+  margin-right: -8px;
+
+  @media screen and (max-width: ${constants.wrapMobile}) {
+    flex-wrap: wrap;
+  }
 `;
 
 const AttributeBlock = styled.div`
-  &:last-child {
-    margin-right: initial;
-  }
-
   display: flex;
   flex-direction: column;
+  flex: 1 1 0;
   margin-top: 10px;
+  padding: 8px;
+
+  @media screen and (max-width: ${constants.wrapMobile}) {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 50%;
+  }
 `;
 
 const Label = styled.span`
+  color: rgba(255, 255, 255, .5);
+  flex-grow: 1;
+  font-size: ${constants.fontSizeSmall};
   margin-right: 5px;
-  color: ${constants.colorMutedLight};
+  text-transform: uppercase;
 `;
-
-const renderIcon = Icon => <Icon style={{ width: 20, marginRight: 4 }} />;
 
 // Damage multiplier https://dota2.gamepedia.com/Armor#Damage_multiplier
 const calcArmorPercent = hero => Math.round(0.06 * hero / (1 + (0.06 * hero)) * 100);
 
 const HeroAttributes = ({ hero }) => (
   <AttributesWrapper>
-    <AttributeBlock>
-      <Attribute primary={hero.primary_attr === 'str'}>
-        {renderIcon(AttrStrength)} {`${hero.base_str} + ${hero.str_gain}`}
-      </Attribute>
-      <Attribute primary={hero.primary_attr === 'agi'}>
-        {renderIcon(AttrAgility)} {`${hero.base_agi} + ${hero.agi_gain}`}
-      </Attribute>
-      <Attribute primary={hero.primary_attr === 'int'}>
-        {renderIcon(AttrIntelligent)} {`${hero.base_int} + ${hero.int_gain}`}
-      </Attribute>
-    </AttributeBlock>
     <AttributeBlock>
       <Attribute>
         <Label>{strings.heading_attack}:</Label> {`${hero.base_attack_min} - ${hero.base_attack_max}`}
