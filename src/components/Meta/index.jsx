@@ -7,12 +7,12 @@ import RaisedButton from 'material-ui/RaisedButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Helmet from 'react-helmet';
 import querystring from 'querystring';
-import Spinner from '../Spinner';
 import strings from '../../lang';
 import ExplorerOutputSection from '../Explorer/ExplorerOutputSection';
 import ExplorerControlSection from '../Explorer/ExplorerControlSection';
 import ExplorerFormField from '../Explorer/ExplorerFormField';
 import Heading from '../Heading';
+import MetaSkeleton from './MetaSkeleton';
 import queryTemplate from './queryTemplate';
 import fields from './fields';
 
@@ -136,7 +136,7 @@ class Explorer extends React.Component {
         </div>
         <Heading title={strings.explorer_results} subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`} />
         <pre style={{ color: 'red' }}>{this.state.result.err}</pre>
-        {this.state.loading ? <Spinner /> : null}
+        {this.state.loading ? <MetaSkeleton /> : null}
         <ExplorerOutputSection
           rows={this.state.result.rows}
           fields={this.state.result.fields}
