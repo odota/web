@@ -135,7 +135,6 @@ class Scenarios extends React.Component {
 
   updateQueryParams() {
     const { formFields, selectedTab } = this.state;
-    const { location } = this.props;
     this.props.history.push(`/scenarios/${selectedTab}?${querystring.stringify(formFields[selectedTab])}`);
   }
 
