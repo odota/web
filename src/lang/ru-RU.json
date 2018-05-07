@@ -1180,7 +1180,7 @@
   "rune": "Руны",
   "placement": "Размещение",
   "exclude_turbo_matches": "Исключить Turbo матчи",
-  "scenarios_subtitle": "Explore win rates of combinations of factors that happen in matches",
+  "scenarios_subtitle": "Исследуйте шансы на победу комбинируя факты произошедшие в матче",
   "scenarios_info": "Данные из матчей в течение последних недель %d",
   "scenarios_item_timings": "Тайминги предметов",
   "scenarios_misc": "Прочее",
