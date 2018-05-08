@@ -713,3 +713,79 @@ export function groupByArray(xs, key) {
 
 export const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 
+/* eslint-disable camelcase */
+// https://dota2.gamepedia.com/Attributes
+export function compileLevelOneStats(hero) {
+  const statsBonuses = {
+    str: {
+      attackDamage: 1,
+      armor: 0.16,
+      health: 22.5,
+      health_regen: 0.69,
+      mana: 12,
+      mana_regen: 1.8,
+      mr: 0.1,
+      move_speed: 0.05,
+      attack_speed: 1,
+
+    },
+    int: {
+      attackDamage: 1,
+      armor: 0.16,
+      health: 18,
+      health_regen: 0.55,
+      mana: 15,
+      mana_regen: 2.25,
+      mr: 0.08,
+      move_speed: 0.05,
+      attack_speed: 1,
+
+    },
+    agi: {
+      attackDamage: 1,
+      armor: 0.2,
+      health: 18,
+      health_regen: 0.55,
+      mana: 12,
+      mana_regen: 1.8,
+      mr: 0.08,
+      move_speed: 0.063,
+      attack_speed: 1.25,
+    },
+  };
+
+  const round = value => Math.round(value * 100) / 100;
+
+  const {
+    primary_attr,
+    base_attack_max,
+    base_attack_min,
+    base_armor,
+    base_health,
+    base_health_regen,
+    base_mana,
+    base_mana_regen,
+    base_mr,
+    base_move_speed,
+    attack_rate,
+  } = hero;
+
+  const primaryAttrValue = hero[`base_${primary_attr}`];
+  const [agiValue, strValue, intValue] = [hero.base_agi, hero.base_str, hero.base_int];
+
+
+  return {
+    ...hero,
+    base_attack_min: base_attack_min + (statsBonuses[primary_attr].attackDamage * primaryAttrValue),
+    base_attack_max: base_attack_max + (statsBonuses[primary_attr].attackDamage * primaryAttrValue),
+    base_armor: round(base_armor + (statsBonuses[primary_attr].armor * agiValue)),
+    base_health: round(base_health + (statsBonuses[primary_attr].health * strValue)),
+    base_health_regen: round(base_health_regen + (base_health_regen * (statsBonuses[primary_attr].health_regen * strValue / 100))),
+    base_mana: round(base_mana + (statsBonuses[primary_attr].mana * intValue)),
+    base_mana_regen: round(base_mana_regen + (base_mana_regen * (statsBonuses[primary_attr].mana_regen * intValue / 100))),
+    base_mr: round(base_mr + (base_mr * (statsBonuses[primary_attr].mr * strValue / 100))),
+    base_move_speed: round(base_move_speed + (base_move_speed * (statsBonuses[primary_attr].move_speed * agiValue / 100))),
+    attack_rate: round(1.7 / (attack_rate / (1 + ((statsBonuses[primary_attr].attack_speed * agiValue) / 100))) * 100), // ingame representation of attack speed
+  };
+}
+/* eslint-enable camelcase */
