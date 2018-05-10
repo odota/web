@@ -10,7 +10,7 @@ export const StyledContainer = styled.div`
 export const KDAContainer = StyledContainer.extend`
   width: calc(300% + 50px);
   left: -10px;
-  pointer-events none;
+  pointer-events: none;
 `;
 
 export const TitleContainer = styled.div`
@@ -30,7 +30,7 @@ export const PercentContainer = styled.div`
   align-self: flex-end;
   bottom: -1px;
   left: 0;
-  pointer-events auto !important;
+  pointer-events: auto !important;
 
   & > div {
     height: 100%;
