@@ -63,6 +63,7 @@ class ScenarioFormField extends React.Component {
 
     let searchText = this.dataSources[selectedTab][field].find(el => (el.altValue !== undefined && el.altValue === formFieldState) || el.value === formFieldState);
     searchText = searchText ? searchText.text : '';
+    console.log(searchText);
 
     this.state = {
       searchText,
@@ -103,7 +104,7 @@ class ScenarioFormField extends React.Component {
       opacity: this.state.animate ? 1 : 0,
       transition: `all ${0.25 * (index + 1)}s ease-in-out`,
     };
-
+    console.log();
     return (
       <div>
         <AutoComplete
