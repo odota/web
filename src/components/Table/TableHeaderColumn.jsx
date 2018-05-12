@@ -7,15 +7,14 @@ import { getSortIcon } from './tableHelpers';
 import { StyledHeaderCell } from './Styled';
 
 const TableHeaderColumn = ({
-  column, sortClick, sortField, sortState,
+  column, sortClick, sortField, sortState, index, setHighlightedCol,
 }) => {
   const tooltipId = uuid.v4();
   const style = {
     justifyContent: column.center ? 'center' : null,
   };
-
   return (
-    <MaterialTableHeaderColumn style={{ width: column.key === 'heroTd' ? '1px' : null, backgroundColor: column.colColor }}>
+    <MaterialTableHeaderColumn style={{ width: column.key === 'heroTd' ? '1px' : null, backgroundColor: column.colColor }} {...(setHighlightedCol && setHighlightedCol(index))}>
       <StyledHeaderCell
         onClick={() => column.sortFn && sortClick(column.field, sortState, column.sortFn)}
         style={style}
@@ -39,6 +38,8 @@ TableHeaderColumn.propTypes = {
   sortClick: PropTypes.func,
   sortField: PropTypes.string,
   sortState: PropTypes.string,
+  setHighlightedCol: PropTypes.func,
+  index: PropTypes.number,
 };
 
 export default TableHeaderColumn;
