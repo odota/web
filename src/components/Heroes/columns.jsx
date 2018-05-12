@@ -13,7 +13,7 @@ const decimalToCount = (decimal, total) => (
   abbreviateNumber(Math.floor(decimal * total))
 );
 
-export default ({ strings }) => {
+export default (strings) => {
   const heroColumn = {
     displayName: strings.th_hero_id,
     tooltip: strings.tooltip_hero_id,
