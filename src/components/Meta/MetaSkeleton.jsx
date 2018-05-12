@@ -5,7 +5,9 @@ const MetaSkeleton = props => (
   <ContentLoader
     height={160}
     width={500}
-    primaryColor="#666"
+    primaryColor="#371b68"
+    secondaryColor="#371b68"
+    animate={false}
     {...props}
   >
     <rect x="0" y="10" rx="5" ry="5" width="500" height="5" />
