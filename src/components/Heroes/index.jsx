@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import heroes from 'dotaconstants/build/heroes.json';
-import strings from '../../lang';
 import { getHeroStats, getProPlayers } from '../../actions';
 import Heading from '../Heading';
 import Table from '../Table';
@@ -30,6 +29,7 @@ class RequestLayer extends React.Component {
         heroId: PropTypes.string,
       }),
     }),
+    strings: PropTypes.shape({}),
   }
 
   componentDidMount() {
@@ -44,6 +44,8 @@ class RequestLayer extends React.Component {
     }
 
     const json = this.props.data;
+    const { strings } = this.props;
+
     // Assemble the result data array
     const matchCountPro = json.map(heroStat => heroStat.pro_pick || 0).reduce(sum, 0) / 10;
     const matchCount7 = json.map(heroStat => heroStat['7_pick'] || 0).reduce(sum, 0) / 10;
@@ -132,7 +134,7 @@ class RequestLayer extends React.Component {
             info={route}
             tabs={heroTabs}
           />
-          {tab && tab.content(processedData, columns[route], loading)}
+          {tab && tab.content(processedData, columns(strings)[route], loading)}
         </div>
       </div>);
   }
@@ -141,6 +143,7 @@ class RequestLayer extends React.Component {
 const mapStateToProps = state => ({
   data: state.app.heroStats.data,
   loading: state.app.heroStats.loading,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = {
