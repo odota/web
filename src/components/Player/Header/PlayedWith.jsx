@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import fetch from 'isomorphic-fetch';
-import strings from '../../../lang';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
 
@@ -22,12 +22,14 @@ class PlayedWith extends React.Component {
   static propTypes = {
     playerId: PropTypes.string,
     loggedInId: PropTypes.string,
+    strings: PropTypes.shape({}),
   }
-
+  
   constructor() {
     super();
     this.state = {};
   }
+
   componentDidMount() {
     getData(this.props, this);
   }
@@ -37,6 +39,7 @@ class PlayedWith extends React.Component {
     }
   }
   render() {
+    const { strings } = this.props;
     return (
       <div style={{ display: shouldShow(this.props) ? 'inline' : 'none', marginLeft: '10px' }}>
         <PlayerStatsCard
@@ -53,4 +56,8 @@ class PlayedWith extends React.Component {
   }
 }
 
-export default PlayedWith;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(PlayedWith);
