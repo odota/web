@@ -161,7 +161,7 @@ const Overview = ({
         error={peersError}
       >
         <Table
-          columns={playerPeersOverviewColumns(playerId)}
+          columns={playerPeersOverviewColumns(playerId, strings)}
           data={peersData}
           maxRows={MAX_PEERS_ROWS}
         />
@@ -174,7 +174,7 @@ const Overview = ({
         error={heroesError}
       >
         <Table
-          columns={playerHeroesOverviewColumns(playerId)}
+          columns={playerHeroesOverviewColumns(playerId, strings)}
           data={heroesData}
           maxRows={MAX_HEROES_ROWS}
         />
