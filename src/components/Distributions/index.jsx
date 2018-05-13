@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
+import ContentLoader from 'react-content-loader';
 import {
   sum,
   abbreviateNumber,
@@ -17,7 +18,6 @@ import TabBar from '../TabBar';
 import Heading from '../Heading';
 import { DistributionGraph } from '../Visualizations';
 import constants from '../constants';
-import DistributionSkeleton from './DistributionSkeleton';
 
 const CountryDiv = styled.div`
   & img {
@@ -33,6 +33,39 @@ const CountryDiv = styled.div`
     height: 24px;
   }
 `;
+
+const DistributionSkeleton = props => (
+  <ContentLoader
+    height={200}
+    width={500}
+    primaryColor="#371b68"
+    secondaryColor="#371b68"
+    animate={false}
+    {...props}
+  >
+    <rect x="150" y="50" rx="5" ry="5" width="5" height="100" />
+    <rect x="160" y="45" rx="5" ry="5" width="5" height="105" />
+    <rect x="170" y="41" rx="5" ry="5" width="5" height="109" />
+    <rect x="180" y="37" rx="5" ry="5" width="5" height="113" />
+    <rect x="190" y="33" rx="5" ry="5" width="5" height="117" />
+    <rect x="200" y="29" rx="5" ry="5" width="5" height="121" />
+    <rect x="210" y="25" rx="5" ry="5" width="5" height="125" />
+    <rect x="220" y="21" rx="5" ry="5" width="5" height="129" />
+    <rect x="230" y="18" rx="5" ry="5" width="5" height="132" />
+    <rect x="240" y="15" rx="5" ry="5" width="5" height="135" />
+    <rect x="250" y="14" rx="5" ry="5" width="5" height="136" />
+    <rect x="260" y="14" rx="5" ry="5" width="5" height="136" />
+    <rect x="270" y="15" rx="5" ry="5" width="5" height="135" />
+    <rect x="280" y="18" rx="5" ry="5" width="5" height="132" />
+    <rect x="290" y="21" rx="5" ry="5" width="5" height="129" />
+    <rect x="300" y="25" rx="5" ry="5" width="5" height="125" />
+    <rect x="310" y="29" rx="5" ry="5" width="5" height="121" />
+    <rect x="320" y="33" rx="5" ry="5" width="5" height="117" />
+    <rect x="330" y="37" rx="5" ry="5" width="5" height="113" />
+    <rect x="340" y="41" rx="5" ry="5" width="5" height="109" />
+    <rect x="350" y="45" rx="5" ry="5" width="5" height="105" />
+  </ContentLoader>
+);
 
 class RequestLayer extends React.Component {
   static propTypes = {
