@@ -8,7 +8,6 @@ import Spinner from '../../Spinner';
 import PlayedWith from './PlayedWith';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
-import strings from '../../../lang';
 
 const Styled = styled.div`
 .container {
@@ -78,6 +77,7 @@ export const PlayerStatsCards = ({
   compact,
   playerId,
   loggedInId,
+  strings,
 }) => {
   if (error) {
     return <Error />;
@@ -158,6 +158,7 @@ PlayerStatsCards.propTypes = {
   compact: bool,
   playerId: string,
   loggedInId: string,
+  strings: shape({}),
 };
 
 const mapStateToProps = state => ({
@@ -168,6 +169,7 @@ const mapStateToProps = state => ({
   mmrEstimate: state.app.player.data.mmr_estimate,
   wins: state.app.playerWinLoss.data.win,
   losses: state.app.playerWinLoss.data.lose,
+  strings: state.app.strings,
 });
 
 export default connect(mapStateToProps)(PlayerStatsCards);
