@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import Card from './Card';
 import { getPlayerTotals } from '../../../../actions';
 import Container from '../../../Container';
-import strings from '../../../../lang';
 
 const CardContainer = styled.div`
   display: flex;
@@ -45,7 +44,9 @@ const drawElement = (element, type) => {
   return null;
 };
 
-const Totals = ({ data, error, loading }) => (
+const Totals = ({
+  data, error, loading, strings,
+}) => (
   <div>
     <Container title={strings.heading_all_matches} error={error} loading={loading}>
       <CardContainer>
@@ -63,6 +64,7 @@ Totals.propTypes = {
   data: PropTypes.arrayOf({}),
   error: PropTypes.string,
   loading: PropTypes.bool,
+  strings: PropTypes.shape({}),
 };
 
 const getData = (props) => {
@@ -75,6 +77,7 @@ class RequestLayer extends React.Component {
     location: PropTypes.shape({
       key: PropTypes.string,
     }),
+    strings: PropTypes.shape({}),
   }
 
   componentDidMount() {
@@ -96,6 +99,7 @@ const mapStateToProps = state => ({
   data: state.app.playerTotals.data,
   error: state.app.playerTotals.error,
   loading: state.app.playerTotals.loading,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({
