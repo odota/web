@@ -1,8 +1,8 @@
 import React from 'react';
 import { bool, func, arrayOf, shape, number, string } from 'prop-types';
 import { connect } from 'react-redux';
+import ContentLoader from 'react-content-loader';
 import { getHeroPlayers } from '../../actions';
-import Spinner from '../Spinner';
 import Table, { TableLink } from '../Table';
 import strings from '../../lang';
 import { wilsonScore } from '../../utility';
@@ -37,6 +37,22 @@ const playersColumns = [
   },
 ];
 
+const PlayersSkeleton = props => (
+  <ContentLoader
+    primaryColor="#371b68"
+    secondaryColor="#371b68"
+    width={400}
+    animate={false}
+    {...props}
+  >
+    <rect x="0" y="10" rx="5" ry="5" width="300" height="5" />
+    <rect x="0" y="25" rx="5" ry="5" width="300" height="5" />
+    <rect x="0" y="40" rx="5" ry="5" width="300" height="5" />
+    <rect x="0" y="55" rx="5" ry="5" width="300" height="5" />
+    <rect x="0" y="70" rx="5" ry="5" width="300" height="5" />
+  </ContentLoader>
+);
+
 class Players extends React.Component {
   static propTypes = {
     isLoading: bool,
@@ -66,7 +82,7 @@ class Players extends React.Component {
     const { data, isLoading, proPlayers } = this.props;
 
     if (isLoading) {
-      return <Spinner />;
+      return <PlayersSkeleton />;
     }
 
     const preparedData = data

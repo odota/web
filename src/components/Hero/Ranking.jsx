@@ -1,14 +1,30 @@
 import React, { Component } from 'react';
 import { shape, string, bool, oneOfType, func, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
+import ContentLoader from 'react-content-loader';
 import { getRanking } from '../../actions';
-import Spinner from '../Spinner';
 import RankingTable from './RankingTable';
 
 const renderRanking = (hero, rankings) => (
   <div>
     <RankingTable rankings={rankings} />
   </div>
+);
+
+const RankingSkeleton = props => (
+  <ContentLoader
+    primaryColor="#371b68"
+    secondaryColor="#371b68"
+    width={400}
+    animate={false}
+    {...props}
+  >
+    <rect x="0" y="10" rx="5" ry="5" width="300" height="5" />
+    <rect x="0" y="25" rx="5" ry="5" width="300" height="5" />
+    <rect x="0" y="40" rx="5" ry="5" width="300" height="5" />
+    <rect x="0" y="55" rx="5" ry="5" width="300" height="5" />
+    <rect x="0" y="70" rx="5" ry="5" width="300" height="5" />
+  </ContentLoader>
 );
 
 class Ranking extends Component {
@@ -45,7 +61,7 @@ class Ranking extends Component {
     return (
       <div>
         {isLoading || isError || rankings === null ? (
-          <Spinner />
+          <RankingSkeleton />
         ) : (
           renderRanking(hero, rankings || [])
         )}

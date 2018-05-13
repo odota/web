@@ -1,9 +1,9 @@
 import React from 'react';
 import { arrayOf, shape, bool, func, string, oneOfType } from 'prop-types';
 import { connect } from 'react-redux';
+import ContentLoader from 'react-content-loader';
 import Table, { TableLink } from '../Table';
 import ErrorBox from '../Error/ErrorBox';
-import Spinner from '../Spinner';
 import { getHeroRecentGames } from '../../actions';
 import strings from '../../lang';
 import { transformations } from '../../utility';
@@ -53,6 +53,22 @@ const matchesColumns = [
   },
 ];
 
+const RecentSkeleton = props => (
+  <ContentLoader
+    primaryColor="#371b68"
+    secondaryColor="#371b68"
+    width={400}
+    animate={false}
+    {...props}
+  >
+    <rect x="0" y="10" rx="5" ry="5" width="300" height="5" />
+    <rect x="0" y="25" rx="5" ry="5" width="300" height="5" />
+    <rect x="0" y="40" rx="5" ry="5" width="300" height="5" />
+    <rect x="0" y="55" rx="5" ry="5" width="300" height="5" />
+    <rect x="0" y="70" rx="5" ry="5" width="300" height="5" />
+  </ContentLoader>
+);
+
 class Recent extends React.Component {
   static propTypes = {
     isLoading: bool,
@@ -99,7 +115,7 @@ class Recent extends React.Component {
     return (
       <div>
         {isLoading || isError || result === null ? (
-          <Spinner />
+          <RecentSkeleton />
         ) : (
           <Table data={mergedResult} columns={matchesColumns} paginated />
         )}
