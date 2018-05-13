@@ -60,6 +60,7 @@ Histogram.propTypes = {
   loading: PropTypes.bool,
   histogramName: PropTypes.string,
   history: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
 const getData = (props) => {

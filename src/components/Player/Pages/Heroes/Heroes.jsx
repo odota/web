@@ -7,7 +7,7 @@ import Container from '../../../Container';
 import { playerHeroesColumns } from './playerHeroesColumns';
 
 const Heroes = ({
-  data, playerId, error, loading, strings
+  data, playerId, error, loading, strings,
 }) => (
   <Container title={strings.heading_heroes} error={error} loading={loading}>
     <Table paginated columns={playerHeroesColumns(playerId)} data={data} />
