@@ -24,7 +24,7 @@ class PlayedWith extends React.Component {
     loggedInId: PropTypes.string,
     strings: PropTypes.shape({}),
   }
-  
+
   constructor() {
     super();
     this.state = {};
