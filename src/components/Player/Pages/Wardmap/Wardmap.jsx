@@ -7,7 +7,6 @@ import { unpackPositionData } from '../../../../utility';
 import { getPlayerWardmap } from '../../../../actions';
 import Heatmap from '../../../Heatmap';
 import Container from '../../../Container';
-import strings from '../../../../lang';
 
 const MAX_WIDTH = 1200;
 
@@ -42,6 +41,7 @@ class RequestLayer extends React.Component {
     location: PropTypes.shape({
       key: PropTypes.string,
     }),
+    strings: PropTypes.shape({}),
   }
 
   componentWillUnmount() {
@@ -61,7 +61,7 @@ class RequestLayer extends React.Component {
 
   render() {
     const {
-      error, loading, data, browser,
+      error, loading, data, browser, strings,
     } = this.props;
     const heatmapWidth = browser.width - 50;
 
@@ -97,6 +97,7 @@ const mapStateToProps = state => ({
   loading: state.app.playerWardmap.loading,
   error: state.app.playerWardmap.data.error,
   browser: state.browser,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

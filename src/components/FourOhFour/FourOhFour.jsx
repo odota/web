@@ -1,9 +1,8 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import strings from '../../lang';
-
 // TODO migrate to styled-components (this component is not currently used)
 /*
+import React from 'react';
+import Helmet from 'react-helmet';
+
 .container {
   display: flex;
   justify-content: center;
@@ -30,16 +29,16 @@ import strings from '../../lang';
   margin: 30px auto 0;
   opacity: 0.6;
 }
-*/
-export default () => (
+export default ({ strings }) => (
   <div className="container">
-    <Helmet title={`${strings.error} 404`} />
-    <img src="/assets/images/sad.gif" alt="" />
-    <div className="message">
-      {strings.error_four_oh_four_message}
-    </div>
-    <div className="FourOhFour">
-      {strings.error} 404
-    </div>
+  <Helmet title={`${strings.error} 404`} />
+  <img src="/assets/images/sad.gif" alt="" />
+  <div className="message">
+  {strings.error_four_oh_four_message}
+  </div>
+  <div className="FourOhFour">
+  {strings.error} 404
+  </div>
   </div>
 );
+*/

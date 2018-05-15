@@ -7,7 +7,6 @@ import querystring from 'querystring';
 import styled from 'styled-components';
 import { toggleShowForm } from '../../../actions/formActions';
 import FormField from '../../Form/FormField';
-import strings from '../../../lang';
 import * as data from './TableFilter.config';
 
 const Styled = styled.div`
@@ -50,6 +49,7 @@ class TableFilterForm extends React.Component {
     currentQueryString: PropTypes.string,
     history: PropTypes.shape({}),
     playerId: PropTypes.string,
+    strings: PropTypes.shape({}),
   }
 
   constructor() {
@@ -72,7 +72,9 @@ class TableFilterForm extends React.Component {
   }
 
   render() {
-    const { showForm, currentQueryString, history } = this.props;
+    const {
+      showForm, currentQueryString, history, strings,
+    } = this.props;
     const formSelectionState = querystring.parse(currentQueryString.substring(1));
     return (
       <Styled>
@@ -229,6 +231,7 @@ class TableFilterForm extends React.Component {
 const mapStateToProps = state => ({
   showForm: state.app.form.show,
   currentQueryString: window.location.search,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

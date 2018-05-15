@@ -6,7 +6,6 @@ import Badge from 'material-ui/Badge';
 import styled from 'styled-components';
 import { Facebook } from 'react-content-loader';
 import { rankTierToString } from '../../../utility';
-import strings from '../../../lang';
 import Error from '../../Error';
 import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
@@ -147,7 +146,7 @@ const Styled = styled.div`
 
 const LARGE_IMAGE_SIZE = 124;
 
-const getRegistrationBadge = registered => registered && (
+const getRegistrationBadge = (registered, strings) => registered && (
   <div
     className="registered"
     data-hint={strings.tooltip_registered_user}
@@ -214,7 +213,7 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
 };
 
 const PlayerHeader = ({
-  playerName, officialPlayerName, playerId, picture, registered, loading, error, small, playerSoloCompetitiveRank, loggedInUser, rankTier, leaderboardRank,
+  playerName, officialPlayerName, playerId, picture, registered, loading, error, small, playerSoloCompetitiveRank, loggedInUser, rankTier, leaderboardRank, strings,
 }) => {
   if (error) {
     return <Error />;
@@ -250,7 +249,7 @@ const PlayerHeader = ({
         <div className="topContainer">
           <div className="imageContainer">
             <Badge
-              badgeContent={getRegistrationBadge(registered)}
+              badgeContent={getRegistrationBadge(registered, strings)}
               badgeStyle={badgeStyle}
               style={{
                 margin: 0,
@@ -293,6 +292,7 @@ PlayerHeader.propTypes = {
   loggedInUser: PropTypes.shape({}),
   rankTier: PropTypes.number,
   leaderboardRank: PropTypes.number,
+  strings: PropTypes.shape({}),
 };
 
 const mapStateToProps = state => ({
@@ -307,6 +307,7 @@ const mapStateToProps = state => ({
   loggedInUser: state.app.metadata.data.user,
   rankTier: state.app.player.data.rank_tier,
   leaderboardRank: state.app.player.data.leaderboard_rank,
+  strings: state.app.strings,
 });
 
 export default connect(mapStateToProps)(PlayerHeader);

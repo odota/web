@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import ContentLoader from 'react-content-loader';
 import { getHeroDurations } from '../../actions';
 import { HistogramGraph } from '../Visualizations';
-import strings from '../../lang';
 
 const DurationsSkeleton = props => (
   <ContentLoader
@@ -53,6 +52,7 @@ class Durations extends React.Component {
       gamed_played: number,
       wins: number,
     })),
+    strings: shape({}),
   }
 
   componentDidMount() {
@@ -64,7 +64,7 @@ class Durations extends React.Component {
   }
 
   render() {
-    const { isLoading, data } = this.props;
+    const { isLoading, data, strings } = this.props;
 
     if (isLoading) {
       return <DurationsSkeleton />;
@@ -91,6 +91,7 @@ const mapDispatchToProps = {
 const mapStateToProps = ({ app }) => ({
   isLoading: app.heroDurations.loading,
   data: Object.values(app.heroDurations.data),
+  strings: app.strings,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Durations);

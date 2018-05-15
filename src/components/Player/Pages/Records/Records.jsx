@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import { getPlayerRecords } from '../../../../actions';
 import Table from '../../../Table';
 import Container from '../../../Container';
-import strings from '../../../../lang';
 import dataColumns from '../matchDataColumns';
 import ButtonGarden from '../../../ButtonGarden';
 import playerRecordsColumns from './playerRecordsColumns';
@@ -14,7 +13,7 @@ const excludedColumns = ['win_rate', 'level'];
 const recordsColumns = dataColumns.filter(col => !excludedColumns.includes(col));
 
 const Records = ({
-  routeParams, data, error, loading, playerId, history,
+  routeParams, data, error, loading, playerId, history, strings,
 }) => {
   const selected = routeParams.subInfo || recordsColumns[0];
   return (
@@ -47,6 +46,7 @@ Records.propTypes = {
   error: PropTypes.string,
   playerId: PropTypes.string,
   loading: PropTypes.bool,
+  strings: PropTypes.shape({}),
 };
 
 
@@ -60,6 +60,7 @@ class RequestLayer extends React.Component {
       key: PropTypes.string,
     }),
     playerId: PropTypes.string,
+    strings: PropTypes.shape({}),
   }
 
   componentDidMount() {
@@ -81,6 +82,7 @@ const mapStateToProps = state => ({
   data: state.app.playerRecords.data,
   error: state.app.playerRecords.error,
   loading: state.app.playerRecords.loading,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

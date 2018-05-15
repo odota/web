@@ -1,9 +1,8 @@
 import React from 'react';
 import { transformations } from '../../../../utility';
 import { TableLink } from '../../../Table';
-import strings from '../../../../lang';
 
-export const playerHeroesOverviewColumns = playerId => [{
+export const playerHeroesOverviewColumns = (playerId, strings) => [{
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
@@ -24,7 +23,7 @@ export const playerHeroesOverviewColumns = playerId => [{
   percentBars: true,
 }];
 
-const restColumns = playerId => [{
+const restColumns = (playerId, strings) => [{
   displayName: strings.th_with_games,
   tooltip: strings.tooltip_played_with,
   field: 'with_games',
