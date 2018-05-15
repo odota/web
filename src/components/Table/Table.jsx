@@ -7,12 +7,12 @@ import {
   TableRow as MaterialTableRow,
   TableRowColumn as MaterialTableRowColumn,
 } from 'material-ui/Table';
-import ContentLoader from 'react-content-loader';
 import { abbreviateNumber, SORT_ENUM, defaultSort } from '../../utility';
 import { TablePercent } from '../Visualizations';
 import Pagination from '../Table/PaginatedTable/Pagination';
 import TableHeader from './TableHeader';
 import Error from '../Error';
+import TableSkeleton from '../Skeletons/TableSkeleton';
 import { StyledBody, StyledContainer } from './Styled';
 
 const getColumnMax = (data, field, getValue) => {
@@ -70,23 +70,6 @@ const {
   string,
   func,
 } = PropTypes;
-
-const TableSkeleton = props => (
-  <ContentLoader
-    height={160}
-    width={500}
-    primaryColor="#371b68"
-    secondaryColor="#371b68"
-    animate={false}
-    {...props}
-  >
-    <rect x="0" y="10" rx="5" ry="5" width="500" height="5" />
-    <rect x="0" y="25" rx="5" ry="5" width="500" height="5" />
-    <rect x="0" y="40" rx="5" ry="5" width="500" height="5" />
-    <rect x="0" y="55" rx="5" ry="5" width="500" height="5" />
-    <rect x="0" y="70" rx="5" ry="5" width="500" height="5" />
-  </ContentLoader>
-);
 
 class Table extends React.Component {
   static propTypes = {

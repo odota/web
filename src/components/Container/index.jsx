@@ -1,27 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ContentLoader from 'react-content-loader';
 import Heading from '../Heading';
 import Error from '../Error';
+import ContainerSkeleton from '../Skeletons/ContainerSkeleton';
 
 const {
   bool, node, string, shape, number,
 } = PropTypes;
-
-const ContainerSkeleton = props => (
-  <ContentLoader
-    primaryColor="#371b68"
-    secondaryColor="#371b68"
-    animate={false}
-    {...props}
-  >
-    <rect x="0" y="10" rx="5" ry="5" width="200" height="5" />
-    <rect x="0" y="25" rx="5" ry="5" width="200" height="5" />
-    <rect x="0" y="40" rx="5" ry="5" width="200" height="5" />
-    <rect x="0" y="55" rx="5" ry="5" width="200" height="5" />
-    <rect x="0" y="70" rx="5" ry="5" width="200" height="5" />
-  </ContentLoader>
-);
 
 const Container = ({
   title, subtitle, style, className, children, error, loading, hide, titleTo, loaderWidth, loaderHeight,

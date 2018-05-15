@@ -2,7 +2,7 @@ import React from 'react';
 import { arrayOf, shape, bool, func, string, oneOfType } from 'prop-types';
 import { connect } from 'react-redux';
 import Table, { TableLink } from '../Table';
-import RecentSkeleton from '../Skeletons/RecentSkeleton'
+import RecentSkeleton from '../Skeletons/RecentSkeleton';
 import ErrorBox from '../Error/ErrorBox';
 import { getHeroRecentGames } from '../../actions';
 import { transformations } from '../../utility';

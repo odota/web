@@ -12,7 +12,7 @@ import ExplorerOutputSection from '../Explorer/ExplorerOutputSection';
 import ExplorerControlSection from '../Explorer/ExplorerControlSection';
 import ExplorerFormField from '../Explorer/ExplorerFormField';
 import Heading from '../Heading';
-import MetaSkeleton from './MetaSkeleton';
+import MetaSkeleton from '../Skeletons/MetaSkeleton';
 import queryTemplate from './queryTemplate';
 import fields from './fields';
 
