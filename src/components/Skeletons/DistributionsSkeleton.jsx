@@ -5,8 +5,8 @@ const DistributionsSkeleton = props => (
   <ContentLoader
     height={200}
     width={500}
-    primaryColor="#371b68"
-    secondaryColor="#371b68"
+    primaryColor="#666"
+    secondaryColor="#666"
     animate={false}
     {...props}
   >

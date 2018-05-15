@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ContentLoader from 'react-content-loader';
 import util from 'util';
 import { connect } from 'react-redux';
 import ActionSearch from 'material-ui/svg-icons/action/search';
@@ -18,18 +17,9 @@ import strings from '../../lang';
 import Table from '../Table';
 import Error from '../Error';
 import Heading from '../Heading';
+import ScenariosSkeleton from '../Skeletons/ScenariosSkeleton';
 import { groupByArray } from '../../utility/index';
 import { IconLaneRoles } from '../Icons';
-
-const ScenariosLoader = () => (
-  <ContentLoader height={300} width={800} primaryColor="#666">
-    <rect x="0" y="55" rx="0" ry="0" width="800" height="50" />
-    <rect x="0" y="140" rx="0" ry="0" width="160" height="35" />
-    <rect x="180" y="140" rx="0" ry="0" width="160" height="35" />
-    <rect x="360" y="140" rx="0" ry="0" width="160" height="35" />
-    <rect x="0" y="200" rx="0" ry="0" width="82" height="30" />
-  </ContentLoader>
-);
 
 const minSampleSize = row => row.games > 200;
 
@@ -168,7 +158,7 @@ class Scenarios extends React.Component {
     return (
       <StyledDiv>
         {metadataError && <Error />}
-        {metadataLoading && <ScenariosLoader />}
+        {metadataLoading && <ScenariosSkeleton />}
         {!metadataError && !metadataLoading &&
         <div>
           <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} info={`${util.format(strings.scenarios_info, 4)}`} />

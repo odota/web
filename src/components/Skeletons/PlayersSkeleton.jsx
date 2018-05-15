@@ -3,8 +3,8 @@ import ContentLoader from 'react-content-loader';
 
 const PlayersSkeleton = props => (
   <ContentLoader
-    primaryColor="#371b68"
-    secondaryColor="#371b68"
+    primaryColor="#666"
+    secondaryColor="#666"
     width={400}
     animate={false}
     {...props}

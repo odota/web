@@ -219,7 +219,7 @@ const PlayerHeader = ({
     return <Error />;
   }
   if (loading) {
-    return <Facebook primaryColor="#371b68" secondaryColor="#371b68" width={400} height={60} animate={false} />;
+    return <Facebook primaryColor="#666" secondaryColor="#666" width={400} height={60} animate={false} />;
   }
 
   let badgeStyle = {
