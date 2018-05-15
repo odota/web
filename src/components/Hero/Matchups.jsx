@@ -2,9 +2,9 @@ import React from 'react';
 import { shape, string, bool, number, func, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import ContentLoader from 'react-content-loader';
 import { getHeroMatchups } from '../../actions';
 import Table, { TableLink } from '../Table';
+import MatchupsSkeleton from '../Skeletons/MatchupsSkeleton';
 import { wilsonScore } from '../../utility';
 
 const { REACT_APP_API_HOST } = process.env;
@@ -62,22 +62,6 @@ const getMatchupsColumns = (heroes, strings) => {
   ];
 };
 
-const MatchupSkeleton = props => (
-  <ContentLoader
-    primaryColor="#371b68"
-    secondaryColor="#371b68"
-    width={400}
-    animate={false}
-    {...props}
-  >
-    <rect x="0" y="10" rx="5" ry="5" width="300" height="5" />
-    <rect x="0" y="25" rx="5" ry="5" width="300" height="5" />
-    <rect x="0" y="40" rx="5" ry="5" width="300" height="5" />
-    <rect x="0" y="55" rx="5" ry="5" width="300" height="5" />
-    <rect x="0" y="70" rx="5" ry="5" width="300" height="5" />
-  </ContentLoader>
-);
-
 class Matchups extends React.Component {
   static propTypes = {
     isLoading: bool,
@@ -123,7 +107,7 @@ class Matchups extends React.Component {
     const { isLoading } = this.props;
 
     if (isLoading) {
-      return <MatchupSkeleton />;
+      return <MatchupsSkeleton />;
     }
 
     return this.renderTable();
