@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import strings from '../../lang';
+import PropTypes from 'prop-types';
 import Buttons from './Buttons';
 import Why from './Why';
 import Sponsors from './Sponsors';
 import { HeadContainerDiv, HeadlineDiv, DescriptionDiv, BottomTextDiv } from './Styled';
 
-const Home = () => (
+const Home = ({ strings }) => (
   <div>
     <HeadContainerDiv>
       <HeadlineDiv>
@@ -26,8 +26,13 @@ const Home = () => (
   </div>
 );
 
-function mapStateToProps(data) {
-  return { content: data.content };
-}
+Home.propTypes = {
+  strings: PropTypes.shape({}),
+};
+
+const mapStateToProps = state => ({
+  content: state.content,
+  strings: state.app.strings,
+});
 
 export default connect(mapStateToProps)(Home);

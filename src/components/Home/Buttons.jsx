@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
-import strings from '../../lang';
 import { IconSteam } from '../Icons';
 import { ButtonsDiv } from './Styled';
 
-const Buttons = ({ user }) => (
+const Buttons = ({ user, strings }) => (
   <ButtonsDiv>
     {
       !user &&
@@ -32,12 +31,14 @@ const Buttons = ({ user }) => (
 
 Buttons.propTypes = {
   user: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
 const mapStateToProps = (state) => {
   const { data } = state.app.metadata;
   return {
     user: data.user,
+    strings: state.app.strings,
   };
 };
 
