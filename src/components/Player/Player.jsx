@@ -8,7 +8,6 @@ import {
   getPlayer,
   getPlayerWinLoss,
 } from '../../actions';
-import strings from '../../lang';
 import TabBar from '../TabBar';
 import Spinner from '../Spinner';
 import TableFilterForm from './TableFilterForm';
@@ -31,6 +30,7 @@ class RequestLayer extends React.Component {
     }),
     officialPlayerName: PropTypes.string,
     playerName: PropTypes.string,
+    strings: PropTypes.shape({}),
   }
 
   componentDidMount() {
@@ -52,7 +52,7 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    const { location, match } = this.props;
+    const { location, match, strings } = this.props;
     const { playerId } = this.props.match.params;
     if (Long.fromString(playerId).greaterThan('76561197960265728')) {
       this.props.history.push(`/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
@@ -80,6 +80,7 @@ class RequestLayer extends React.Component {
 const mapStateToProps = state => ({
   playerName: (state.app.player.data.profile || {}).personaname,
   officialPlayerName: (state.app.player.data.profile || {}).name,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

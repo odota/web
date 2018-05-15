@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import heroes from 'dotaconstants/build/heroes.json';
 import {
   isRadiant,
@@ -8,11 +9,10 @@ import {
   formatSeconds,
   abbreviateNumber,
 } from '../../../../utility';
-import strings from '../../../../lang';
 import { MAX_MATCHES_ROWS } from './Overview';
 import constants from '../../../constants';
 
-const SummOfRecMatches = ({ matchesData }) => {
+const SummOfRecMatches = ({ matchesData, strings }) => {
   // initial values
   const data = {
     kills: [],
@@ -127,8 +127,13 @@ const SummOfRecMatches = ({ matchesData }) => {
   );
 };
 
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
 SummOfRecMatches.propTypes = {
   matchesData: PropTypes.arrayOf(PropTypes.shape({})),
+  strings: PropTypes.shape({}),
 };
 
-export default SummOfRecMatches;
+export default connect(mapStateToProps)(SummOfRecMatches);

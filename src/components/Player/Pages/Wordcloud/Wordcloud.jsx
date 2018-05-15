@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { getPlayerWordcloud } from '../../../../actions';
 import Container from '../../../Container';
 import Wordcloud from '../../../Wordcloud';
-import strings from '../../../../lang';
 
 const getData = (props) => {
   props.getPlayerWordcloud(props.playerId, props.location.search);
@@ -19,6 +18,7 @@ class RequestLayer extends React.Component {
     error: PropTypes.string,
     loading: PropTypes.bool,
     data: PropTypes.shape({}),
+    strings: PropTypes.shape({}),
   }
 
   UNSAFE_componentWillMount() {
@@ -32,7 +32,9 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    const { error, loading, data } = this.props;
+    const {
+      error, loading, data, strings,
+    } = this.props;
     return (
       <div>
         <Container title={strings.heading_wordcloud_said} error={error} loading={loading}>
@@ -50,6 +52,7 @@ const mapStateToProps = state => ({
   data: state.app.playerWordcloud.data,
   loading: state.app.playerWordcloud.loading,
   error: state.app.playerWordcloud.error,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

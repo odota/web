@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { getPlayerCounts } from '../../../../actions';
 import Table from '../../../Table';
 import Container from '../../../Container';
-import strings from '../../../../lang';
 import playerCountsColumns from './playerCountsColumns';
 
 const StyledContainer = styled.div`
@@ -21,7 +20,9 @@ const StyledTableContainer = styled.div`
   padding: 5px;
 `;
 
-const Counts = ({ counts, error, loading }) => (
+const Counts = ({
+  counts, error, loading, strings,
+}) => (
   <StyledContainer>
     {Object.keys(counts).map(key => (
       <StyledTableContainer key={key}>
@@ -40,6 +41,7 @@ Counts.propTypes = {
   ]),
   error: PropTypes.string,
   loading: PropTypes.bool,
+  strings: PropTypes.shape({}),
 };
 
 const getData = (props) => {
@@ -52,6 +54,7 @@ class RequestLayer extends React.Component {
     location: PropTypes.shape({
       key: PropTypes.string,
     }),
+    strings: PropTypes.shape({}),
   }
 
   componentDidMount() {
@@ -75,6 +78,7 @@ const mapStateToProps = state => ({
   counts: state.app.playerCounts.data,
   error: state.app.playerCounts.error,
   loading: state.app.playerCounts.loading,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

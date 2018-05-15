@@ -15,12 +15,10 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import strings from '../../lang';
 
 const path = '/keys';
 
 const ApiContainer = styled.div`
-
   width: 80%;
   margin: 0 auto; 
   
@@ -66,6 +64,7 @@ class KeyManagement extends React.Component {
   static propTypes = {
     loading: PropTypes.bool,
     user: PropTypes.shape({}),
+    strings: PropTypes.shape({}),
   }
 
   constructor(props) {
@@ -163,7 +162,7 @@ class KeyManagement extends React.Component {
   }
 
   render() {
-    const { loading, user } = this.props;
+    const { loading, user, strings } = this.props;
     const showLoginButton = !user;
     const showGetKeyButton = user && !(this.state.customer && this.state.customer.api_key);
     const premUnit = 100;
@@ -353,11 +352,8 @@ const mapStateToProps = (state) => {
     loading,
     error,
     user: data.user,
+    strings: state.app.strings,
   };
 };
-
-// const mapDispatchToProps = dispatch => ({
-//   dispatchPostRequest: matchId => dispatch(postRequest(matchId)),
-// });
 
 export default connect(mapStateToProps, null)(KeyManagement);

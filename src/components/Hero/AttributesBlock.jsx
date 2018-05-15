@@ -1,7 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { shape, number, string, bool } from 'prop-types';
 import styled from 'styled-components';
-import strings from '../../lang';
 import constants from '../constants';
 import Attribute from './Attribute';
 import { compileLevelOneStats } from '../../utility';
@@ -41,7 +41,7 @@ const Label = styled.span`
 // Damage multiplier https://dota2.gamepedia.com/Armor#Damage_multiplier
 const calcArmorPercent = hero => Math.round(0.06 * hero / (1 + (0.06 * hero)) * 100);
 
-const HeroAttributes = ({ hero }) => {
+const HeroAttributes = ({ hero, strings }) => {
   const h = compileLevelOneStats(hero);
 
   return (
@@ -127,6 +127,11 @@ HeroAttributes.propTypes = {
     cm_enabled: bool,
     legs: number,
   }),
+  strings: shape({}),
 };
 
-export default HeroAttributes;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(HeroAttributes);
