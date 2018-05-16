@@ -2,8 +2,8 @@ import React from 'react';
 import { string, shape, func, bool, arrayOf, number } from 'prop-types';
 import { connect } from 'react-redux';
 import { getHeroDurations } from '../../actions';
-import Spinner from '../Spinner';
 import { HistogramGraph } from '../Visualizations';
+import DurationsSkeleton from '../Skeletons/DurationsSkeleton';
 
 class Durations extends React.Component {
   static propTypes = {
@@ -34,7 +34,7 @@ class Durations extends React.Component {
     const { isLoading, data, strings } = this.props;
 
     if (isLoading) {
-      return <Spinner />;
+      return <DurationsSkeleton />;
     }
 
     const result = data.map(item => ({

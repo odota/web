@@ -3,8 +3,8 @@ import { shape, string, bool, number, func, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { getHeroMatchups } from '../../actions';
-import Spinner from '../Spinner';
 import Table, { TableLink } from '../Table';
+import MatchupsSkeleton from '../Skeletons/MatchupsSkeleton';
 import { wilsonScore } from '../../utility';
 
 const { REACT_APP_API_HOST } = process.env;
@@ -107,7 +107,7 @@ class Matchups extends React.Component {
     const { isLoading } = this.props;
 
     if (isLoading) {
-      return <Spinner />;
+      return <MatchupsSkeleton />;
     }
 
     return this.renderTable();

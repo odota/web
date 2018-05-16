@@ -2,8 +2,8 @@ import React from 'react';
 import { bool, func, arrayOf, shape, number, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { getHeroPlayers } from '../../actions';
-import Spinner from '../Spinner';
 import Table, { TableLink } from '../Table';
+import PlayersSkeleton from '../Skeletons/PlayersSkeleton';
 import { wilsonScore } from '../../utility';
 import { proPlayersSelector } from '../../reducers/selectors';
 
@@ -68,7 +68,7 @@ class Players extends React.Component {
     ];
 
     if (isLoading) {
-      return <Spinner />;
+      return <PlayersSkeleton />;
     }
 
     const preparedData = data

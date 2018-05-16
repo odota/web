@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BulletList } from 'react-content-loader';
 import Heading from '../Heading';
 import Error from '../Error';
+import ContainerSkeleton from '../Skeletons/ContainerSkeleton';
 
 const {
   bool, node, string, shape, number,
@@ -14,7 +14,7 @@ const Container = ({
   <div className={className} style={{ ...style }}>
     {title && <Heading title={title} subtitle={subtitle} titleTo={titleTo} />}
     {error && <Error />}
-    {!error && loading && <BulletList primaryColor="#666" width={loaderWidth || 400} height={loaderHeight || 160} />}
+    {!error && loading && <ContainerSkeleton width={loaderWidth || 400} height={loaderHeight || 160} />}
     {!error && !loading && children}
   </div>
 ) : null);

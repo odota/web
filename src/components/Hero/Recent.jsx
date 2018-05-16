@@ -2,8 +2,8 @@ import React from 'react';
 import { arrayOf, shape, bool, func, string, oneOfType } from 'prop-types';
 import { connect } from 'react-redux';
 import Table, { TableLink } from '../Table';
+import RecentSkeleton from '../Skeletons/RecentSkeleton';
 import ErrorBox from '../Error/ErrorBox';
-import Spinner from '../Spinner';
 import { getHeroRecentGames } from '../../actions';
 import { transformations } from '../../utility';
 import { proPlayersSelector } from '../../reducers/selectors';
@@ -99,7 +99,7 @@ class Recent extends React.Component {
     return (
       <div>
         {isLoading || isError || result === null ? (
-          <Spinner />
+          <RecentSkeleton />
         ) : (
           <Table data={mergedResult} columns={matchesColumns} paginated />
         )}
