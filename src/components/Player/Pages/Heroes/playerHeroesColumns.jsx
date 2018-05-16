@@ -51,7 +51,7 @@ const restColumns = (playerId, strings) => [{
   percentBars: true,
 }];
 
-export const playerHeroesColumns = playerId => [
-  ...playerHeroesOverviewColumns(playerId),
-  ...restColumns(playerId),
+export const playerHeroesColumns = (playerId, strings) => [
+  ...playerHeroesOverviewColumns(playerId, strings),
+  ...restColumns(playerId, strings),
 ];
