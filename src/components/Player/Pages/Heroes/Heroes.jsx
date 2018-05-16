@@ -10,7 +10,7 @@ const Heroes = ({
   data, playerId, error, loading, strings,
 }) => (
   <Container title={strings.heading_heroes} error={error} loading={loading}>
-    <Table paginated columns={playerHeroesColumns(playerId)} data={data} />
+    <Table paginated columns={playerHeroesColumns(playerId, strings)} data={data} />
   </Container>
 );
 
