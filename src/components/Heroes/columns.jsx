@@ -18,7 +18,7 @@ export default (strings) => {
     displayName: strings.th_hero_id,
     tooltip: strings.tooltip_hero_id,
     field: 'hero_id',
-    displayFn: transformations.hero_id_with_more_mmr,
+    displayFn: transformations.hero_id,
     sortFn: row => (heroes[row.hero_id] && heroes[row.hero_id].localized_name),
   };
 

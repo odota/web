@@ -329,7 +329,7 @@ const MatchHeader = ({ match, user }) => {
         />
         <FlatButton
           label={strings.app_moremmr}
-          icon={<img src="/assets/images/moremmr-icon2.svg" alt="" height="24px" />}
+          icon={<img src="/assets/images/moremmr-icon.png" alt="" height="24px" />}
           href="https://moremmr.com?utm_source=opendota&utm_medium=matches&utm_campaign=button"
           target="_blank"
           rel="noopener noreferrer"
