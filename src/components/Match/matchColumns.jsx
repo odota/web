@@ -21,7 +21,7 @@ import TargetsBreakdown from './TargetsBreakdown';
 const heroNames = getHeroesById();
 
 export const heroTd = (row, col, field, index, hideName, party, showGuide = false, guideType) => {
-  const heroName = heroes[row.hero_id].localized_name.toLowerCase().replace(' ', '-');
+  const heroName = heroes[row.hero_id] && heroes[row.hero_id].localized_name.toLowerCase().replace(' ', '-');
   return (<TableHeroImage
     image={getHeroImageUrl(row.hero_id, IMAGESIZE_ENUM.SMALL)}
     title={row.name || row.personaname || strings.general_anonymous}
