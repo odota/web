@@ -11,7 +11,6 @@ import {
   getPlayerHeroes,
   getPlayerPeers,
 } from '../../../../actions';
-import strings from '../../../../lang';
 import Table from '../../../Table';
 import Container from '../../../Container';
 import playerMatchesColumns from '../Matches/playerMatchesColumns';
@@ -111,6 +110,7 @@ const Overview = ({
   playerId,
   toggleTurboGames,
   showTurboGames,
+  strings,
 }) => (
   <OverviewContainer>
     <SummaryContainer
@@ -161,7 +161,7 @@ const Overview = ({
         error={peersError}
       >
         <Table
-          columns={playerPeersOverviewColumns(playerId)}
+          columns={playerPeersOverviewColumns(playerId, strings)}
           data={peersData}
           maxRows={MAX_PEERS_ROWS}
         />
@@ -174,7 +174,7 @@ const Overview = ({
         error={heroesError}
       >
         <Table
-          columns={playerHeroesOverviewColumns(playerId)}
+          columns={playerHeroesOverviewColumns(playerId, strings)}
           data={heroesData}
           maxRows={MAX_HEROES_ROWS}
         />
@@ -198,6 +198,7 @@ Overview.propTypes = {
   playerId: PropTypes.string,
   toggleTurboGames: PropTypes.func,
   showTurboGames: PropTypes.bool,
+  strings: PropTypes.shape({}),
 };
 
 
@@ -215,6 +216,7 @@ class RequestLayer extends React.Component {
     playerId: PropTypes.string,
     toggleTurboGames: PropTypes.func,
     showTurboGames: PropTypes.bool,
+    strings: PropTypes.shape({}),
   }
 
   constructor(props) {
@@ -272,6 +274,7 @@ const mapStateToProps = state => ({
   peersData: state.app.playerPeers.data,
   peersLoading: state.app.playerPeers.loading,
   peersError: state.app.playerPeers.error,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

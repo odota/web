@@ -22,8 +22,8 @@ const StackedBarGraph = ({
   type,
 }) => {
   columns.sort((a, b) => {
-    const aSum = Object.values(a).map(Number).filter(v => !Number.isNaN(v)).reduce((c, d) => c + d);
-    const bSum = Object.values(b).map(Number).filter(v => !Number.isNaN(v)).reduce((c, d) => c + d);
+    const aSum = Object.values(a).map(Number).filter(v => !Number.isNaN(v)).reduce((c, d) => c + d, 0);
+    const bSum = Object.values(b).map(Number).filter(v => !Number.isNaN(v)).reduce((c, d) => c + d, 0);
     return bSum - aSum;
   });
   return (

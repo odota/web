@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import strings from '../../lang';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { IconOpenSource, IconStatsBars, IconWand } from '../Icons';
 import constants from '../constants';
 
@@ -49,7 +50,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-export default () => (
+const Why = ({ strings }) => (
   <StyledDiv>
     <div className="whyList">
       <div className="whyElement">
@@ -82,3 +83,13 @@ export default () => (
     </div>
   </StyledDiv>
 );
+
+Why.propTypes = {
+  strings: PropTypes.shape({}),
+};
+
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(Why);

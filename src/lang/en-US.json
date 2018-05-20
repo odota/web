@@ -271,6 +271,7 @@
   "game_mode_21": "1v1 Solo Mid",
   "game_mode_22": "All Draft",
   "game_mode_23": "Turbo",
+  "game_mode_24": "Mutation",
 
   "general_unknown": "Unknown",
   "general_no_hero": "No hero",
@@ -1011,7 +1012,7 @@
   "histograms_description": "Percentages indicate win rates for the labeled bin",
 
   "histograms_actions_per_min_description" : "Actions performed by player per minute",
-  "histograms_comeback_description" : "Maximum gold advantage in a won game",
+  "histograms_comeback_description" : "Maximum gold disadvantage in a won game",
   "histograms_lane_efficiency_pct_description" : "Percentage of lane gold (creeps+passive+starting) obtained at 10 minutes",
   "histograms_gold_per_min_description" : "Gold farmed per minute",
   "histograms_hero_damage_description" : "Amount of damage dealt to heroes",
@@ -1019,7 +1020,7 @@
   "histograms_level_description" : "Level achieved in a game",
   "histograms_loss_description" : "Maximum gold disadvantage in a lost game",
   "histograms_pings_description" : "Number of times the player pinged the map",
-  "histograms_stomp_description" : "Maximum gold disadvantage in a won game",
+  "histograms_stomp_description" : "Maximum gold advantage in a won game",
   "histograms_stuns_description" : "Seconds of disable on heroes",
   "histograms_throw_description" : "Maximum gold advantage in a lost game",
   "histograms_purchase_tpscroll_description" : "Town Portal Scroll purchases",

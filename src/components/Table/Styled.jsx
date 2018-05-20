@@ -67,31 +67,18 @@ export const StyledBody = styled.div`
     }
   }
   ${props => (props.hoverRowColumn ? `
-  table {
-    overflow: hidden !important;
+  & tr {
+    :hover {
+      background: rgba(190, 190, 140, 0.07) !important;
+      transition: background 100ms linear !important;
+    }   
+  }
 
-    & tr {
-      :hover {
-        background: rgba(190, 190, 140, 0.07) !important;
-      }   
-    }
-
-    & th,
-    & td {
-      position: relative !important;
-
-      :hover::after {
-        content: "" !important;
-        position: absolute !important;
-        background: rgba(190, 190, 190, 0.07) !important;
-        left: 0 !important;
-        top: -1000px !important;
-        height: 2000px !important;
-        width: 100% !important;
-        pointer-events: none !important;
-      }
-    }
-  }` : '')};
+  & td.col_highlight, th.col_highlight {
+     background: rgba(190, 190, 190, 0.07) !important;
+     transition: background 100ms linear !important;
+  }
+  ` : '')};
 `;
 export const StyledContainer = styled.div`
   min-width: 100%;

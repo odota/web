@@ -1,8 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 import querystring from 'querystring';
-import strings from '../../lang';
 import ChipList from './ChipList';
 import constants from '../constants';
 
@@ -52,6 +52,7 @@ class FormField extends React.Component {
     className: PropTypes.string,
     maxSearchResults: PropTypes.string,
     deleteChip: PropTypes.string,
+    strings: PropTypes.shape({}),
   }
 
   constructor(props) {
@@ -71,6 +72,7 @@ class FormField extends React.Component {
       formSelectionState,
       addChip = addChipDefault,
       history,
+      strings,
     } = this.props;
 
     const selectedElements = formSelectionState[name];
@@ -165,4 +167,8 @@ class FormField extends React.Component {
   }
 }
 
-export default FormField;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(FormField);

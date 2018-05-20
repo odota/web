@@ -212,6 +212,9 @@ class InflictorWithValue extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  componentDidMount() {
     (async () => {
       const [abilities, neutralAbilities, abilityIds] = await Promise.all([
         await import('dotaconstants/build/abilities.json'),

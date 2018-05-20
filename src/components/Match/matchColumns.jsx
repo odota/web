@@ -20,8 +20,9 @@ import TargetsBreakdown from './TargetsBreakdown';
 
 const heroNames = getHeroesById();
 
-export const heroTd = (row, col, field, index, hideName, party, showGuide = false, guideType, guideUrl) =>
-  (<TableHeroImage
+export const heroTd = (row, col, field, index, hideName, party, showGuide = false, guideType) => {
+  const heroName = heroes[row.hero_id].localized_name.toLowerCase().replace(' ', '-');
+  return (<TableHeroImage
     image={getHeroImageUrl(row.hero_id, IMAGESIZE_ENUM.SMALL)}
     title={row.name || row.personaname || strings.general_anonymous}
     registered={row.last_login}
@@ -33,13 +34,14 @@ export const heroTd = (row, col, field, index, hideName, party, showGuide = fals
     party={party}
     heroName={heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero}
     showGuide={showGuide}
-    guideUrl={guideUrl}
     guideType={guideType}
+    guideUrl={heroes[row.hero_id] && `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`}
     randomed={row.randomed}
     repicked={row.repicked}
     predictedVictory={row.pred_vict}
     leaverStatus={row.leaver_status}
   />);
+};
 
 export const heroTdColumn = {
   displayName: strings.th_avatar,
@@ -88,7 +90,7 @@ export const overviewColumns = (match) => {
     {
       displayName: strings.th_avatar,
       field: 'player_slot',
-      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match)),
+      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), true, 'MOREMMR'),
       sortFn: true,
     },
     {

@@ -14,10 +14,10 @@ import { getDistributions } from '../../actions';
 import Table from '../Table';
 // import Warning from '../Alerts';
 import TabBar from '../TabBar';
-import Spinner from '../Spinner';
 import Heading from '../Heading';
 import { DistributionGraph } from '../Visualizations';
 import constants from '../constants';
+import DistributionsSkeleton from '../Skeletons/DistributionsSkeleton';
 
 const CountryDiv = styled.div`
   & img {
@@ -141,7 +141,7 @@ class RequestLayer extends React.Component {
     const info = this.props.match.params.info || 'ranks';
     const page = distributionsPages.find(_page => (_page.key || _page.name.toLowerCase()) === info);
     return loading
-      ? <Spinner />
+      ? <DistributionsSkeleton />
       : (
         <div>
           <Helmet title={page ? page.name : strings.distributions_tab_ranks} />
