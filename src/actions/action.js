@@ -11,17 +11,34 @@ export default function action(type, host, path, params = {}, transform) {
       type: `OK/${type}`,
       payload,
     });
+    const getError = error => ({
+      type: `ERROR/${type}`,
+      error,
+    });
     const fetchDataWithRetry = delay => fetch(url, path === 'api/metadata' ? { credentials: 'include' } : {})
       .then((response) => {
         if (!response.ok) {
-          throw new Error('fetch failed');
+          dispatch(getError(response.status));
+          if (response.status === 404) {
+            const err = new Error('api returned 404');
+            err.code = 404;
+            throw err;
+          } else {
+            throw new Error('fetch failed');
+          }
         }
         return response.json();
       })
       .then(transform || (json => json))
       .then(json => dispatch(getDataOk(json)))
-      .catch(() => {
-        setTimeout(() => fetchDataWithRetry(delay + 3000), delay);
+      .catch((e) => {
+        console.log(e);
+        console.log(e.code);
+        console.log(e.code === 404);
+        if (e.code !== 404) {
+          console.log('test');
+          setTimeout(() => fetchDataWithRetry(delay + 3000), delay);
+        }
       });
     dispatch(getDataStart());
     return fetchDataWithRetry(1000);
