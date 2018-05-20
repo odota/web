@@ -1,6 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import strings from '../../../lang';
 import Heading from '../../Heading';
 import Heatmap from '../../Heatmap';
 import Table from '../../Table';
@@ -11,6 +11,7 @@ import { StyledFlexContainer, StyledFlexElement } from '../StyledMatch';
 class Laning extends React.Component {
   static propTypes = {
     match: PropTypes.shape({}),
+    strings: PropTypes.shape({}),
   }
 
   constructor(props) {
@@ -25,7 +26,7 @@ class Laning extends React.Component {
   };
 
   render() {
-    const { match } = this.props;
+    const { match, strings } = this.props;
     return (
       <StyledFlexContainer>
         <StyledFlexElement >
@@ -43,4 +44,8 @@ class Laning extends React.Component {
   }
 }
 
-export default Laning;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(Laning);

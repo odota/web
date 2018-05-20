@@ -1,4 +1,5 @@
 import React, { createElement } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AvVolumeUp from 'material-ui/svg-icons/av/volume-up';
@@ -10,7 +11,6 @@ import playerColors from 'dotaconstants/build/player_colors.json';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
 import styled from 'styled-components';
 import { isRadiant, formatSeconds } from '../../../utility';
-import strings from '../../../lang';
 import { IconRadiant, IconDire } from '../../Icons';
 import constants from '../../constants';
 
@@ -248,6 +248,7 @@ const isSpectator = slot => slot > 9 && slot < 128;
 class Chat extends React.Component {
   static propTypes = {
     data: PropTypes.shape({}),
+    strings: PropTypes.shape({}),
   }
 
   constructor(props) {
@@ -389,7 +390,7 @@ class Chat extends React.Component {
 
     const emoteKeys = Object.keys(emotes);
 
-    const Messages = () => (
+    const Messages = ({ strings }) => (
       <div>
         <ul className="Chat">
           {this.messages.map((msg, index) => {
@@ -491,7 +492,7 @@ class Chat extends React.Component {
       </div>
     );
 
-    const Filters = () => {
+    const Filters = ({ strings }) => {
       const categories = Object.keys(this.filters).reduce((cats, name) => {
         const c = cats;
         const f = this.filters;
@@ -546,12 +547,16 @@ class Chat extends React.Component {
 
     return (
       <StyledDiv>
-        <Filters />
+        <Filters strings={this.props.strings} />
         <hr className="divider" />
-        <Messages />
+        <Messages strings={this.props.strings} />
       </StyledDiv>
     );
   }
 }
 
-export default Chat;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(Chat);
