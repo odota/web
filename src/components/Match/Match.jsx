@@ -12,6 +12,7 @@ import FourOhFour from '../../components/FourOhFour';
 class RequestLayer extends React.Component {
   static propTypes = {
     loading: PropTypes.bool,
+    error: PropTypes.bool,
     matchData: PropTypes.shape({}),
     match: PropTypes.shape({
       params: PropTypes.shape({
@@ -35,13 +36,15 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    const { loading, matchId, matchData, error, strings } = this.props;
+    const {
+      loading, matchId, matchData, error, strings,
+    } = this.props;
     const info = this.props.match.params.info || 'overview';
     const page = matchPages(matchId).find(_page => _page.key.toLowerCase() === info);
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
     if (error) {
-      return <FourOhFour msg={strings.request_invalid_match_id}/>
-    } else {
+      return <FourOhFour msg={strings.request_invalid_match_id} />;
+    }
     return loading ? <List primaryColor="#666" width={250} height={120} /> :
       (
         <div>
@@ -57,7 +60,6 @@ class RequestLayer extends React.Component {
           />
           {page && page.content(matchData)}
         </div>);
-    }
   }
 }
 

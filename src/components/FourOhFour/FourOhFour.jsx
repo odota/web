@@ -42,29 +42,27 @@ const Styled = styled.div`
 const FourOhFour = ({ strings, msg }) => (
   <Styled>
     <div className="container">
-    <Helmet title={`${strings.error} 404`} />
-    <img src="/assets/images/sad.gif" alt="" />
-    <div className="message">
-    {strings.error_four_oh_four_message}
-    </div>
-    <div className="msg">
-    {msg}
-    </div>
-    <div className="FourOhFour">
-    {strings.error} 404
-    </div>
+      <Helmet title={`${strings.error} 404`} />
+      <img src="/assets/images/sad.gif" alt="" />
+      <div className="message">
+        {strings.error_four_oh_four_message}
+      </div>
+      <div className="msg">
+        {msg}
+      </div>
+      <div className="FourOhFour">
+        {strings.error} 404
+      </div>
     </div>
   </Styled>
 );
 
-const mapStateToProps = (state) => {
-  return {
-    strings: state.app.strings,
-  };
-};
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
 
 FourOhFour.propTypes = {
-  playerId:PropTypes.shape({}),
+  strings: PropTypes.shape({}),
   msg: PropTypes.string,
 };
 
