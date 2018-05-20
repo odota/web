@@ -7,6 +7,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { Route } from 'react-router-dom';
@@ -45,12 +46,20 @@ messaging.onTokenRefresh(getMessagingToken);
 
 messaging.onMessage(function(payload) {
   console.log('Message received. ', payload);
-  let n = new Notification(payload.notification.title, payload.notification);
-  n.onclick = (event) => {
-    console.log(event);
-    event.preventDefault(); // prevent the browser from focusing the Notification's tab
-    window.open('http://www.mozilla.org', '_blank');
+  
+  if (payload.data.type === 'MATCH') {
+    let n = new Notification(
+      'Parsed $match'.replace('$match', payload.data.match_id),
+      {
+        body: 'Check out your performance.'
+      });
+    n.onclick = (event) => {
+      console.log(event);
+      event.preventDefault(); // prevent the browser from focusing the Notification's tab
+      window.open(`https://opendota.com/matches/${payload.data.match_id}`, '_blank');
+    }  
   }
+  
 });
 
 
@@ -141,13 +150,14 @@ const AdBannerDiv = styled.div`
   }
 `;
 
-const NotificationPrompt = styled.div`
+const Prompt = styled.div`
   position: fixed;
   right: 5px;
   bottom: 5px;
   background: black;
   width: 250px;
   z-index: 100;
+  padding: 10px;
 `;
 
 class App extends React.Component {
@@ -182,7 +192,7 @@ class App extends React.Component {
       .then((permission) => {
       this.setState({canNotify: permission});
       if (permission === "granted") {
-        var notification = new Notification("Hi there!");
+        new Notification("Awesome! You'll get a notification like this when your match is parsed.");
         getMessagingToken();
       }
     });
@@ -190,7 +200,7 @@ class App extends React.Component {
   
   render() {
     const {
-      params, width, location, strings,
+      params, width, location, strings, user
     } = this.props;
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
@@ -202,15 +212,47 @@ class App extends React.Component {
           />
           <Header params={params} location={location} />
           {
-            this.state.canNotify !== false && !['denied', 'granted'].includes(this.state.canNotify) ?
-              <NotificationPrompt>
-                Get notified about new matches.
-                <FlatButton
+            user && this.state.canNotify !== false && !['denied', 'granted'].includes(this.state.canNotify) ?
+              <Prompt>
+                <img src='/assets/images/icons/icon-72x72.png' alt='logo' style={{ height: '25px', margin: '0 5px' }}/>
+                <h3 style={{ display: 'inline-block', margin: '0' }}>Get Notified</h3>
+                <p>Enable automatic notfications for whenever a match is parsed.</p>
+                <RaisedButton
+                  primary
                   label="Enable"
                   labelPosition="after"
                   onClick={this.askForNotifiyPermission}
+                  style={{ margin: '5px 5px' }}
                 />
-              </NotificationPrompt>
+                <FlatButton
+                  label="Dismiss"
+                  labelPosition="after"
+                  onClick={this.askForNotifiyPermission}
+                  style={{ margin: '5px 5px' }}
+                />
+              </Prompt>
+            : <div/>
+          }
+          {
+            !user ?
+              <Prompt>
+                <img src='/assets/images/icons/icon-72x72.png' alt='logo' style={{ height: '25px', margin: '0 5px' }}/>
+                <h3 style={{ display: 'inline-block', margin: '0' }}>Get Tracked</h3>
+                <p>Log in to get your matches automatically parsed. All for free.</p>
+                <RaisedButton
+                  primary
+                  label="Login"
+                  labelPosition="after"
+                  onClick={this.askForNotifiyPermission}
+                  style={{ margin: '5px 5px' }}
+                />
+                <FlatButton
+                  label="Dismiss"
+                  labelPosition="after"
+                  onClick={this.askForNotifiyPermission}
+                  style={{ margin: '5px 5px' }}
+                />
+              </Prompt>
             : <div/>
           }
           <AdBannerDiv>
@@ -257,6 +299,7 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
   strings: state.app.strings,
+  user: state.app.metadata.data.user
 });
 
 export default connect(mapStateToProps)(App);
