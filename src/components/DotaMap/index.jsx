@@ -39,9 +39,9 @@ const MapContainer = styled.div`
 
 const MapImage = styled.picture`
   position: relative;
-  z-index: 1;
 
   img {
+    height: 100%;
     max-width: 100%;
   }
 `;
