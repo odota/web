@@ -86,7 +86,7 @@ const Search = ({
   <div>
     <Container
       loading={matchLoading}
-      title="match"
+      title={strings.explorer_match}
       hide={matchError}
     >
       <Table

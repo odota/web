@@ -35,7 +35,7 @@ class SearchForm extends React.Component {
   }
 
   debouncedSetQuery = () => {
-    debounce(console.log, 100);
+    debounce(this.props.dispatchSetQuery, 100);
   };
 
   formSubmit = (e) => {
@@ -64,7 +64,7 @@ class SearchForm extends React.Component {
       <form onSubmit={this.formSubmit}>
         <TextField
           id="searchField"
-          hintText={strings.search_title}
+          hintText={strings.search_title_2}
           value={this.state.query}
           onChange={this.handleChange}
           fullWidth

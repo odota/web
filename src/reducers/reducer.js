@@ -13,6 +13,7 @@ export default (type, initialData) => (state = {
         ...state,
         loading: false,
         data: action.payload,
+        error: false,
       };
     case `ERROR/${type}`:
       return {

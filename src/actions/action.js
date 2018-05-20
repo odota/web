@@ -32,11 +32,7 @@ export default function action(type, host, path, params = {}, transform) {
       .then(transform || (json => json))
       .then(json => dispatch(getDataOk(json)))
       .catch((e) => {
-        console.log(e);
-        console.log(e.code);
-        console.log(e.code === 404);
         if (e.code !== 404) {
-          console.log('test');
           setTimeout(() => fetchDataWithRetry(delay + 3000), delay);
         }
       });
