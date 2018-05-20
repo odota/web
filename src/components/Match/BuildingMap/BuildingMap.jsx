@@ -548,7 +548,7 @@ const BuildingMap = ({ match, strings }) => {
     );
   }
   return <div />;
-}
+};
 
 BuildingMap.propTypes = {
   match: PropTypes.shape({}),

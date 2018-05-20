@@ -65,7 +65,7 @@ const getObjectiveBase = (objective, strings) => {
   }
   return strings[objective.subtype || objective.type] || objective.subtype || objective.type;
 };
-const generateLog = (match, { types, players }) => {
+const generateLog = (match, { types, players }, strings) => {
   let log = [];
   const matchPlayers = !players.length
     ? match.players
@@ -321,7 +321,7 @@ class MatchLog extends React.Component {
           </ReactTooltip>
         );
       });
-    const logData = generateLog(this.props.match, this.state);
+    const logData = generateLog(this.props.match, this.state, strings);
 
     return (
       <div>
