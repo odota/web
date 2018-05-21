@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   ReferenceArea,
   XAxis,
@@ -16,7 +17,6 @@ import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import Heading from '../../Heading';
 import constants from '../../constants';
-import strings from '../../../lang';
 import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHolder, GoldSpan, XpSpan, StyledTooltipGold } from './Styled';
 
 const formatGraphTime = minutes => `${minutes}:00`;
@@ -33,7 +33,7 @@ const generateDiffData = (match) => {
   return data;
 };
 
-const XpTooltipContent = ({ payload }) => {
+const XpTooltipContent = ({ payload, strings }) => {
   try {
     const data = payload && payload[0] && payload[0].payload;
     const { rXpAdv, rGoldAdv, time } = data;
@@ -68,9 +68,10 @@ const XpTooltipContent = ({ payload }) => {
 };
 XpTooltipContent.propTypes = {
   payload: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
-const XpNetworthGraph = ({ match }) => {
+const XpNetworthGraph = ({ match, strings }) => {
   const matchData = generateDiffData(match);
   const maxY =
       Math.ceil(Math.max(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000) * 5000;
@@ -122,12 +123,14 @@ const XpNetworthGraph = ({ match }) => {
 };
 XpNetworthGraph.propTypes = {
   match: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
 class PlayersGraph extends React.Component {
   static propTypes = {
     match: PropTypes.shape({}),
     type: PropTypes.string,
+    strings: PropTypes.shape({}),
   }
 
   constructor(props) {
@@ -150,7 +153,7 @@ class PlayersGraph extends React.Component {
   };
 
   render() {
-    const { match, type } = this.props;
+    const { match, type, strings } = this.props;
     const { hoverHero } = this.state;
 
     const matchData = [];
@@ -214,11 +217,11 @@ class PlayersGraph extends React.Component {
   }
 }
 
-const MatchGraph = ({ type, match, width }) => {
+const MatchGraph = ({ type, match, width, strings }) => {
   if (type === 'difference') {
-    return <XpNetworthGraph match={match} width={width} />;
+    return <XpNetworthGraph match={match} width={width} strings={strings} />;
   } else if (type === 'gold' || type === 'xp' || type === 'lh') {
-    return <PlayersGraph type={type} match={match} width={width} />;
+    return <PlayersGraph type={type} match={match} width={width} strings={strings} />;
   }
   return null;
 };
@@ -229,6 +232,11 @@ MatchGraph.propTypes = {
   width: PropTypes.number,
   match: PropTypes.shape({}),
   type: PropTypes.string,
+  strings: PropTypes.shape({}),
 };
 
-export default MatchGraph;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(MatchGraph);

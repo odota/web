@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from '../../lang';
+import { connect } from 'react-redux';
 import {
   transformations,
   fromNow,
@@ -9,7 +9,7 @@ import Table, { TableLink } from '../Table';
 import Container from '../Container';
 // import { List } from 'material-ui/List';
 
-const searchColumns = [{
+const searchColumns = strings => [{
   displayName: strings.th_name,
   field: 'personaname',
   displayFn: (row, col, field) => {
@@ -21,7 +21,7 @@ const searchColumns = [{
   },
 }];
 
-const proColumns = [{
+const proColumns = strings => [{
   displayName: strings.th_name,
   field: 'name',
   displayFn: (row, col, field) => transformations.player({
@@ -42,6 +42,7 @@ const Search = ({
   pros,
   prosLoading,
   prosError,
+  strings,
 }) => (
   <div>
     <Container
@@ -54,7 +55,7 @@ const Search = ({
         paginated
         pageLength={5}
         data={pros}
-        columns={proColumns}
+        columns={proColumns(strings)}
       />
     </Container>
     <Container
@@ -66,7 +67,7 @@ const Search = ({
       <Table
         paginated
         data={players}
-        columns={searchColumns}
+        columns={searchColumns(strings)}
       />
     </Container>
   </div>
@@ -79,6 +80,11 @@ Search.propTypes = {
   pros: PropTypes.arrayOf(PropTypes.shape({})),
   prosLoading: PropTypes.bool,
   prosError: PropTypes.string,
+  strings: PropTypes.shape({}),
 };
 
-export default Search;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(Search);
