@@ -620,8 +620,7 @@
   "rune_5": "Bounty",
   "rune_6": "Arcane",
 
-  "search_title": "Player Search",
-  "search_title_2": "Player, Match Search",
+  "search_title": "Search by player name, match ID...",
 
   "skill_1": "Normal",
   "skill_2": "High",

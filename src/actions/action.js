@@ -19,9 +19,9 @@ export default function action(type, host, path, params = {}, transform) {
       .then((response) => {
         if (!response.ok) {
           dispatch(getError(response.status));
-          if (response.status === 404) {
-            const err = new Error('api returned 404');
-            err.code = 404;
+          if (response.status >= 400 && response.status < 500) {
+            const err = new Error('client error');
+            err.clientError = true;
             throw err;
           } else {
             throw new Error('fetch failed');
@@ -32,7 +32,7 @@ export default function action(type, host, path, params = {}, transform) {
       .then(transform || (json => json))
       .then(json => dispatch(getDataOk(json)))
       .catch((e) => {
-        if (e.code !== 404) {
+        if (!e.clientError) {
           setTimeout(() => fetchDataWithRetry(delay + 3000), delay);
         }
       });

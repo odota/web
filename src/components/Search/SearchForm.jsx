@@ -64,7 +64,7 @@ class SearchForm extends React.Component {
       <form onSubmit={this.formSubmit}>
         <TextField
           id="searchField"
-          hintText={strings.search_title_2}
+          hintText={strings.search_title}
           value={this.state.query}
           onChange={this.handleChange}
           fullWidth
@@ -74,6 +74,7 @@ class SearchForm extends React.Component {
             left: '-40px',
             width: 'calc(100% + 40px)',
           }}
+          style={{ width: '150%' }}
           underlineStyle={{ borderColor: 'transparent' }}
         />
       </form>
