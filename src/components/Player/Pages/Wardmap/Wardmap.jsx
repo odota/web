@@ -8,22 +8,24 @@ import { getPlayerWardmap } from '../../../../actions';
 import Heatmap from '../../../Heatmap';
 import Container from '../../../Container';
 
-const MAX_WIDTH = 1200;
 
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-left: -0.5rem;
-  margin-right: -0.5rem;
-`;
+  justify-content: space-around;
 
-const StyledInner = styled(Container)`
-  flex-grow: 1;
-  flex-basis: 0;
-  max-width: 50%;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  .heatmap {
+    cursor: pointer;
+
+    &:hover img {
+      box-shadow: 0px 0px 5px #fff;
+    }
+  }
+
+  .heatmap-clicked {
+    display: none;
+  }
 `;
 
 const getData = (props) => {
@@ -42,6 +44,26 @@ class RequestLayer extends React.Component {
       key: PropTypes.string,
     }),
     strings: PropTypes.shape({}),
+  }
+
+  constructor() {
+    super();
+    this.state = {
+      clicked: null,
+    };
+  }
+
+  handleClick(mapId) {
+    this.setState({
+      clicked: this.state.clicked === null ? mapId : null,
+    });
+  }
+
+  getClickProperties(mapId) {
+    return {
+      className: this.state.clicked !== null && this.state.clicked !== mapId ? 'heatmap-clicked' : 'heatmap',
+      onClick: this.handleClick.bind(this, mapId),
+    };
   }
 
   componentWillUnmount() {
@@ -67,26 +89,32 @@ class RequestLayer extends React.Component {
 
     return (
       <StyledContainer>
-        <StyledInner
-          title={strings.th_ward_observer}
-          error={error}
-          loading={loading}
-        >
-          <Heatmap
-            points={unpackPositionData(data.obs)}
-            width={Math.min(MAX_WIDTH, heatmapWidth)}
-          />
-        </StyledInner>
-        <StyledInner
-          title={strings.th_ward_sentry}
-          error={error}
-          loading={loading}
-        >
-          <Heatmap
-            points={unpackPositionData(data.sen)}
-            width={Math.min(MAX_WIDTH, heatmapWidth)}
-          />
-        </StyledInner>
+        <div {...this.getClickProperties(0)}>
+          <Container
+            title={strings.th_ward_observer}
+            error={error}
+            loading={loading}
+          >
+            <Heatmap
+              points={unpackPositionData(data.obs)}
+              width={Math.min(this.state.clicked === 0 ? 1200 : 580, heatmapWidth)}
+              key={this.state.clicked} // force update
+            />
+          </Container>
+        </div>
+        <div {...this.getClickProperties(1)}>
+          <Container
+            title={strings.th_ward_sentry}
+            error={error}
+            loading={loading}
+          >
+            <Heatmap
+              points={unpackPositionData(data.sen)}
+              width={Math.min(this.state.clicked === 1 ? 1200 : 580, heatmapWidth)}
+              key={this.state.clicked}
+            />
+          </Container>
+        </div>
       </StyledContainer>
     );
   }
