@@ -161,6 +161,6 @@ TrendGraph.propTypes = {
 
 const mapStateToProps = state => ({
   strings: state.app.strings,
-})
+});
 
 export default connect(mapStateToProps)(TrendGraph);

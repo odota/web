@@ -217,7 +217,9 @@ class PlayersGraph extends React.Component {
   }
 }
 
-const MatchGraph = ({ type, match, width, strings }) => {
+const MatchGraph = ({
+  type, match, width, strings,
+}) => {
   if (type === 'difference') {
     return <XpNetworthGraph match={match} width={width} strings={strings} />;
   } else if (type === 'gold' || type === 'xp' || type === 'lh') {

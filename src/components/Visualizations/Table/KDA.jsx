@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { KDAContainer, TitleContainer, KDAPercentContainer } from './Styled';
 import constants from '../../constants';
 
-const KDA = ({ kills, deaths, assists, strings }) => {
+const KDA = ({
+  kills, deaths, assists, strings,
+}) => {
   const kdaSum = kills + deaths + assists;
 
   return (
