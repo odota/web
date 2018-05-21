@@ -9,7 +9,7 @@ import Heatmap from '../../../Heatmap';
 import Container from '../../../Container';
 
 const MAX_WIDTH = 1200;
-const HALF_WIDTH = 580
+const HALF_WIDTH = 580;
 
 const StyledContainer = styled.div`
   display: flex;
