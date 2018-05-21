@@ -9,6 +9,7 @@ import Heatmap from '../../../Heatmap';
 import Container from '../../../Container';
 
 const MAX_WIDTH = 1200;
+const HALF_WIDTH = 580
 
 const StyledContainer = styled.div`
   display: flex;
@@ -98,7 +99,7 @@ class RequestLayer extends React.Component {
           >
             <Heatmap
               points={unpackPositionData(data.obs)}
-              width={Math.min(this.state.clicked === 0 ? MAX_WIDTH : 580, heatmapWidth)}
+              width={Math.min(this.state.clicked === 0 ? MAX_WIDTH : HALF_WIDTH, heatmapWidth)}
               key={this.state.clicked} // force update
             />
           </Container>
@@ -111,7 +112,7 @@ class RequestLayer extends React.Component {
           >
             <Heatmap
               points={unpackPositionData(data.sen)}
-              width={Math.min(this.state.clicked === 1 ? MAX_WIDTH : 580, heatmapWidth)}
+              width={Math.min(this.state.clicked === 1 ? MAX_WIDTH : HALF_WIDTH, heatmapWidth)}
               key={this.state.clicked}
             />
           </Container>
