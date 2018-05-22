@@ -88,7 +88,7 @@ class RequestLayer extends React.Component {
       error, loading, data, browser, strings,
     } = this.props;
     const heatmapWidth = browser.width - 50;
-    console.log(this.state);
+
     return (
       <StyledContainer>
         <div {...this.getClickProperties(1)}>
