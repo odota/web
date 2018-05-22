@@ -69,8 +69,8 @@ const StyledBodyDiv = styled.div`
   padding: 25px;
   flex-grow: 1;
 
-  @media only screen and (min-width: 1200px) {
-    width: 1200px;
+  @media only screen and (min-width: ${constants.appWidth}px) {
+    width: ${constants.appWidth}px;
     margin: auto;
   }
 `;

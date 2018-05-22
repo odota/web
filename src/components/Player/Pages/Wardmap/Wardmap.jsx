@@ -7,9 +7,10 @@ import { unpackPositionData } from '../../../../utility';
 import { getPlayerWardmap } from '../../../../actions';
 import Heatmap from '../../../Heatmap';
 import Container from '../../../Container';
+import constants from '../../../constants';
 
-const MAX_WIDTH = 1200;
-const HALF_WIDTH = 580;
+const MAX_WIDTH = constants.appWidth;
+const HALF_WIDTH = constants.appWidth * 0.483;
 
 const StyledContainer = styled.div`
   display: flex;
@@ -48,14 +49,11 @@ class RequestLayer extends React.Component {
     strings: PropTypes.shape({}),
   }
 
-  constructor() {
-    super();
-    this.state = {
-      clicked: undefined,
-    };
+  state = {
+    clicked: undefined,
   }
 
-  handleClick(mapId) {
+  handleClick = mapId => () => {
     this.setState({
       clicked: !this.state.clicked && mapId,
     });
@@ -64,7 +62,7 @@ class RequestLayer extends React.Component {
   getClickProperties(mapId) {
     return {
       className: this.state.clicked && this.state.clicked !== mapId ? 'heatmap-clicked' : 'heatmap',
-      onClick: this.handleClick.bind(this, mapId),
+      onClick: this.handleClick(mapId),
     };
   }
 
@@ -88,10 +86,9 @@ class RequestLayer extends React.Component {
       error, loading, data, browser, strings,
     } = this.props;
     const heatmapWidth = browser.width - 50;
-
     return (
       <StyledContainer>
-        <div {...this.getClickProperties(1)}>
+        <div {...this.getClickProperties('wards')}>
           <Container
             title={strings.th_ward_observer}
             error={error}
@@ -99,12 +96,12 @@ class RequestLayer extends React.Component {
           >
             <Heatmap
               points={unpackPositionData(data.obs)}
-              width={Math.min(this.state.clicked === 1 ? MAX_WIDTH : HALF_WIDTH, heatmapWidth)}
+              width={Math.min(this.state.clicked === 'wards' ? MAX_WIDTH : HALF_WIDTH, heatmapWidth)}
               key={this.state.clicked} // force update
             />
           </Container>
         </div>
-        <div {...this.getClickProperties(2)}>
+        <div {...this.getClickProperties('sentries')}>
           <Container
             title={strings.th_ward_sentry}
             error={error}
@@ -112,7 +109,7 @@ class RequestLayer extends React.Component {
           >
             <Heatmap
               points={unpackPositionData(data.sen)}
-              width={Math.min(this.state.clicked === 2 ? MAX_WIDTH : HALF_WIDTH, heatmapWidth)}
+              width={Math.min(this.state.clicked === 'sentries' ? MAX_WIDTH : HALF_WIDTH, heatmapWidth)}
               key={this.state.clicked}
             />
           </Container>
