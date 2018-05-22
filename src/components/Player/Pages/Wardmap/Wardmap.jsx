@@ -20,6 +20,7 @@ const StyledContainer = styled.div`
 
   .heatmap {
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
 
     &:hover img {
       box-shadow: 0px 0px 5px #fff;
@@ -88,7 +89,7 @@ class RequestLayer extends React.Component {
     const heatmapWidth = browser.width - 50;
     return (
       <StyledContainer>
-        <div {...this.getClickProperties('wards')}>
+        <div {...this.getClickProperties('observers')}>
           <Container
             title={strings.th_ward_observer}
             error={error}
@@ -96,7 +97,7 @@ class RequestLayer extends React.Component {
           >
             <Heatmap
               points={unpackPositionData(data.obs)}
-              width={Math.min(this.state.clicked === 'wards' ? MAX_WIDTH : HALF_WIDTH, heatmapWidth)}
+              width={Math.min(this.state.clicked === 'observers' ? MAX_WIDTH : HALF_WIDTH, heatmapWidth)}
               key={this.state.clicked} // force update
             />
           </Container>
