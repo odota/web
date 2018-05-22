@@ -51,19 +51,19 @@ class RequestLayer extends React.Component {
   constructor() {
     super();
     this.state = {
-      clicked: null,
+      clicked: undefined,
     };
   }
 
   handleClick(mapId) {
     this.setState({
-      clicked: this.state.clicked === null ? mapId : null,
+      clicked: !this.state.clicked && mapId,
     });
   }
 
   getClickProperties(mapId) {
     return {
-      className: this.state.clicked !== null && this.state.clicked !== mapId ? 'heatmap-clicked' : 'heatmap',
+      className: this.state.clicked && this.state.clicked !== mapId ? 'heatmap-clicked' : 'heatmap',
       onClick: this.handleClick.bind(this, mapId),
     };
   }
@@ -88,10 +88,10 @@ class RequestLayer extends React.Component {
       error, loading, data, browser, strings,
     } = this.props;
     const heatmapWidth = browser.width - 50;
-
+    console.log(this.state);
     return (
       <StyledContainer>
-        <div {...this.getClickProperties(0)}>
+        <div {...this.getClickProperties(1)}>
           <Container
             title={strings.th_ward_observer}
             error={error}
@@ -99,12 +99,12 @@ class RequestLayer extends React.Component {
           >
             <Heatmap
               points={unpackPositionData(data.obs)}
-              width={Math.min(this.state.clicked === 0 ? MAX_WIDTH : HALF_WIDTH, heatmapWidth)}
+              width={Math.min(this.state.clicked === 1 ? MAX_WIDTH : HALF_WIDTH, heatmapWidth)}
               key={this.state.clicked} // force update
             />
           </Container>
         </div>
-        <div {...this.getClickProperties(1)}>
+        <div {...this.getClickProperties(2)}>
           <Container
             title={strings.th_ward_sentry}
             error={error}
@@ -112,7 +112,7 @@ class RequestLayer extends React.Component {
           >
             <Heatmap
               points={unpackPositionData(data.sen)}
-              width={Math.min(this.state.clicked === 1 ? MAX_WIDTH : HALF_WIDTH, heatmapWidth)}
+              width={Math.min(this.state.clicked === 2 ? MAX_WIDTH : HALF_WIDTH, heatmapWidth)}
               key={this.state.clicked}
             />
           </Container>
