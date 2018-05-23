@@ -188,7 +188,7 @@ class KeyManagement extends React.Component {
           <h1>{strings.api_title}</h1>
           <h3>{strings.api_subtitle}</h3>
           {
-            loading || this.state.loading ?
+            loading || this.state.loading || !strings ?
               <CircularProgress mode="indeterminate" />
             :
               <div>
@@ -284,62 +284,62 @@ class KeyManagement extends React.Component {
                   </div>
                   : <div />
                 }
+                <h3>{strings.api_header_table}</h3>
+                <TableContainer>
+                  <Table>
+                    <TableHeader
+                      displaySelectAll={false}
+                      adjustForCheckbox={false}
+                    >
+                      <TableRow>
+                        <TableHeaderColumn />
+                        <TableHeaderColumn>{strings.api_details_free_tier}</TableHeaderColumn>
+                        <TableHeaderColumn>{strings.api_details_premium_tier}</TableHeaderColumn>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody
+                      displayRowCheckbox={false}
+                    >
+                      <TableRow>
+                        <TableHeaderColumn>{strings.api_details_price}</TableHeaderColumn>
+                        <TableRowColumn>{strings.api_details_price_free}</TableRowColumn>
+                        <TableRowColumn>{strings.api_details_price_prem.replace('price', premPrice).replace('$unit', premUnit)}</TableRowColumn>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeaderColumn>{strings.api_details_key_required}</TableHeaderColumn>
+                        <TableRowColumn>{strings.api_details_key_required_free}</TableRowColumn>
+                        <TableRowColumn>{strings.api_details_key_required_prem}</TableRowColumn>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeaderColumn>{strings.api_details_call_limit}</TableHeaderColumn>
+                        <TableRowColumn>{strings.api_details_call_limit_free.replace('$limit', freeCallLimit)}</TableRowColumn>
+                        <TableRowColumn>{strings.api_details_call_limit_prem}</TableRowColumn>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeaderColumn>{strings.api_details_rate_limit}</TableHeaderColumn>
+                        <TableRowColumn>{strings.api_details_rate_limit_val.replace('$num', freeRateLimit)}</TableRowColumn>
+                        <TableRowColumn>{strings.api_details_rate_limit_val.replace('$num', premRateLimit)}</TableRowColumn>
+                      </TableRow>
+                      <TableRow>
+                        <TableHeaderColumn>{strings.api_details_support}</TableHeaderColumn>
+                        <TableRowColumn>{strings.api_details_support_free}</TableRowColumn>
+                        <TableRowColumn>{strings.api_details_support_prem}</TableRowColumn>
+                      </TableRow>
+                      <TableRow style={{ height: '24px' }} />
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+
+                <h3>{strings.api_header_details}</h3>
+                <DetailsContainer>
+                  <ul>
+                    <li>{strings.api_charging.replace('$cost', `$${premPrice / premUnit}`)}</li>
+                    <li>{strings.api_credit_required}</li>
+                    <li>{strings.api_failure}</li>
+                  </ul>
+                </DetailsContainer>
               </div>
           }
-          <h3>{strings.api_header_table}</h3>
-          <TableContainer>
-            <Table>
-              <TableHeader
-                displaySelectAll={false}
-                adjustForCheckbox={false}
-              >
-                <TableRow>
-                  <TableHeaderColumn />
-                  <TableHeaderColumn>{strings.api_details_free_tier}</TableHeaderColumn>
-                  <TableHeaderColumn>{strings.api_details_premium_tier}</TableHeaderColumn>
-                </TableRow>
-              </TableHeader>
-              <TableBody
-                displayRowCheckbox={false}
-              >
-                <TableRow>
-                  <TableHeaderColumn>{strings.api_details_price}</TableHeaderColumn>
-                  <TableRowColumn>{strings.api_details_price_free}</TableRowColumn>
-                  <TableRowColumn>{strings.api_details_price_prem.replace('price', premPrice).replace('$unit', premUnit)}</TableRowColumn>
-                </TableRow>
-                <TableRow>
-                  <TableHeaderColumn>{strings.api_details_key_required}</TableHeaderColumn>
-                  <TableRowColumn>{strings.api_details_key_required_free}</TableRowColumn>
-                  <TableRowColumn>{strings.api_details_key_required_prem}</TableRowColumn>
-                </TableRow>
-                <TableRow>
-                  <TableHeaderColumn>{strings.api_details_call_limit}</TableHeaderColumn>
-                  <TableRowColumn>{strings.api_details_call_limit_free.replace('$limit', freeCallLimit)}</TableRowColumn>
-                  <TableRowColumn>{strings.api_details_call_limit_prem}</TableRowColumn>
-                </TableRow>
-                <TableRow>
-                  <TableHeaderColumn>{strings.api_details_rate_limit}</TableHeaderColumn>
-                  <TableRowColumn>{strings.api_details_rate_limit_val.replace('$num', freeRateLimit)}</TableRowColumn>
-                  <TableRowColumn>{strings.api_details_rate_limit_val.replace('$num', premRateLimit)}</TableRowColumn>
-                </TableRow>
-                <TableRow>
-                  <TableHeaderColumn>{strings.api_details_support}</TableHeaderColumn>
-                  <TableRowColumn>{strings.api_details_support_free}</TableRowColumn>
-                  <TableRowColumn>{strings.api_details_support_prem}</TableRowColumn>
-                </TableRow>
-                <TableRow style={{ height: '24px' }} />
-              </TableBody>
-            </Table>
-          </TableContainer>
-
-          <h3>{strings.api_header_details}</h3>
-          <DetailsContainer>
-            <ul>
-              <li>{strings.api_charging.replace('$cost', `$${premPrice / premUnit}`)}</li>
-              <li>{strings.api_credit_required}</li>
-              <li>{strings.api_failure}</li>
-            </ul>
-          </DetailsContainer>
         </ApiContainer>
       </div>
     );
