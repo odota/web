@@ -6,7 +6,7 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Header from '../Header';
 import Player from '../Player';
 import Home from '../Home';
@@ -27,6 +27,7 @@ import Meta from '../Meta';
 import Api from '../Api';
 import Footer from '../Footer';
 import constants from '../constants';
+import FourOhFour from '../../components/FourOhFour';
 
 const muiTheme = {
   fontFamily: constants.fontFamily,
@@ -68,8 +69,8 @@ const StyledBodyDiv = styled.div`
   padding: 25px;
   flex-grow: 1;
 
-  @media only screen and (min-width: 1200px) {
-    width: 1200px;
+  @media only screen and (min-width: ${constants.appWidth}px) {
+    width: ${constants.appWidth}px;
     margin: auto;
   }
 `;
@@ -121,20 +122,23 @@ class App extends React.Component {
             }
           </AdBannerDiv>
           <StyledBodyDiv {...this.props}>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/matches/:matchId?/:info?" component={Matches} />
-            <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
-            <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
-            <Route exact path="/teams/:teamId?/:info?" component={Teams} />
-            <Route exact path="/distributions/:info?" component={Distributions} />
-            <Route exact path="/request" component={Request} />
-            <Route exact path="/status" component={Status} />
-            <Route exact path="/explorer" component={Explorer} />
-            <Route exact path="/search" component={Search} />
-            <Route exact path="/records/:info?" component={Records} />
-            <Route exact path="/meta" component={Meta} />
-            <Route exact path="/scenarios/:info?" component={Scenarios} />
-            <Route exact path="/api-keys" component={Api} />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/matches/:matchId?/:info?" component={Matches} />
+              <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
+              <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
+              <Route exact path="/teams/:teamId?/:info?" component={Teams} />
+              <Route exact path="/distributions/:info?" component={Distributions} />
+              <Route exact path="/request" component={Request} />
+              <Route exact path="/status" component={Status} />
+              <Route exact path="/explorer" component={Explorer} />
+              <Route exact path="/search" component={Search} />
+              <Route exact path="/records/:info?" component={Records} />
+              <Route exact path="/meta" component={Meta} />
+              <Route exact path="/scenarios/:info?" component={Scenarios} />
+              <Route exact path="/api-keys" component={Api} />
+              <Route component={FourOhFour} />
+            </Switch>
           </StyledBodyDiv>
           <AdBannerDiv>
             { includeAds &&
