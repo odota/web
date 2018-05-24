@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import strings from '../../../lang';
 import MatchGraph from '../../Visualizations/Graph/MatchGraph';
 import TeamTable from '../TeamTable';
 import AbilityBuildTable from '../AbilityBuildTable';
@@ -32,7 +31,7 @@ const Styled = styled.div`
   }
 `;
 
-export default {
+const Overview = strings => ({
   name: strings.tab_overview,
   key: 'overview',
   content: match => (
@@ -84,4 +83,6 @@ export default {
       }
     </div>
   ),
-};
+});
+
+export default Overview;

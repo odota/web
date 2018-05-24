@@ -40,7 +40,7 @@ class RequestLayer extends React.Component {
       loading, matchId, matchData, error, strings,
     } = this.props;
     const info = this.props.match.params.info || 'overview';
-    const page = matchPages(matchId).find(_page => _page.key.toLowerCase() === info);
+    const page = matchPages(matchId, null, strings).find(_page => _page.key.toLowerCase() === info);
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
     if (error) {
       return <FourOhFour msg={strings.request_invalid_match_id} />;
@@ -55,7 +55,7 @@ class RequestLayer extends React.Component {
           />
           <TabBar
             info={info}
-            tabs={matchPages(matchId, matchData)}
+            tabs={matchPages(matchId, matchData, strings)}
             match={matchData}
           />
           {page && page.content(matchData)}

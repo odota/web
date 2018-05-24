@@ -1,6 +1,5 @@
 import React from 'react';
 import heroes from 'dotaconstants/build/heroes.json';
-import strings from '../../lang';
 import Heading from '../Heading';
 import Table from '../Table';
 import TeamfightMap from '../Match/TeamfightMap';
@@ -35,7 +34,7 @@ import TeamTable from './TeamTable';
 import Chat from './Chat';
 import { StyledFlexContainer, StyledFlexElement } from './StyledMatch';
 
-const matchPages = [Overview, {
+const matchPages = strings => [Overview(strings), {
   name: strings.tab_benchmarks,
   key: 'benchmarks',
   content: match => (
@@ -332,7 +331,7 @@ const matchPages = [Overview, {
     </div>),
 }];
 
-export default (matchId, match) => matchPages.map(page => ({
+export default (matchId, match, strings) => matchPages(strings).map(page => ({
   // ...page,
   name: page.name,
   key: page.key,
