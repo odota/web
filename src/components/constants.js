@@ -70,4 +70,5 @@ export default {
   linearTransition: 'all 300ms linear',
   wrapTablet: '1024px',
   wrapMobile: '680px',
+  appWidth: 1200,
 };
