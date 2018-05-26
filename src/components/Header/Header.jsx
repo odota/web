@@ -137,12 +137,16 @@ class Header extends React.Component {
       </VerticalAlignToolbar>
     );
 
-    const SearchGroup = () => (
+    const SearchGroup = ({ small }) => (
       <VerticalAlignToolbar style={{ marginLeft: 20 }}>
         <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
-        <SearchForm />
+        <SearchForm small={small} />
       </VerticalAlignToolbar>
     );
+
+    SearchGroup.propTypes = {
+      small: PropTypes.bool,
+    };
 
     const AccountGroup = () => (
       <VerticalAlignToolbar>
@@ -198,7 +202,7 @@ class Header extends React.Component {
           <VerticalAlignDiv>
             <LogoGroup small={small} />
             {small && <LinkGroup />}
-            <SearchGroup />
+            <SearchGroup small={small} />
           </VerticalAlignDiv>
           <VerticalAlignDiv style={{ marginLeft: 'auto' }}>
             {small && <AccountGroup />}
