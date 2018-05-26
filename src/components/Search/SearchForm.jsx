@@ -75,7 +75,7 @@ class SearchForm extends React.Component {
             left: '-40px',
             width: 'calc(100% + 40px)',
           }}
-          style={{ width: small ? '150%' : '80%', whiteSpace: 'nowrap', overflow: 'hidden'}}
+          style={{ width: small ? '150%' : '80%', whiteSpace: 'nowrap', overflow: 'hidden' }}
           underlineStyle={{ borderColor: 'transparent' }}
         />
       </form>
