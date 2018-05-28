@@ -146,7 +146,7 @@ const Overview = ({
         loaderHeight={160}
       >
         <Table
-          columns={playerMatchesColumns}
+          columns={playerMatchesColumns(strings)}
           data={matchesData}
           maxRows={MAX_MATCHES_ROWS}
         />

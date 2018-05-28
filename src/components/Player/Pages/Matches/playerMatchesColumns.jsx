@@ -1,7 +1,6 @@
 import { transformations } from '../../../../utility';
-import strings from '../../../../lang';
 
-export default [{
+const playerMatchesColumns = strings => ([{
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
@@ -35,4 +34,6 @@ export default [{
   field: 'assists',
   sortFn: true,
 },
-];
+]);
+
+export default playerMatchesColumns;
