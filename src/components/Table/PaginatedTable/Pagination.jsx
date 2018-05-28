@@ -169,7 +169,7 @@ const Pagination = ({
 
 const mapStateToProps = state => ({
   strings: state.app.strings,
-})
+});
 
 const mapDispatchToProps = () => ({
   /*

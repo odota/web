@@ -33,7 +33,7 @@ DistributionTooltipContent.propTypes = {
 const DistributionGraph = ({
   data,
   xTickInterval,
-  strings
+  strings,
 }) => {
   if (data && data.length) {
     return (
