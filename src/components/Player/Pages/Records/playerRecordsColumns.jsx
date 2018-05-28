@@ -1,6 +1,6 @@
 import { transformations } from '../../../../utility';
 
-const playerRecordsColumns = strings => ([{
+export default strings => [{
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
@@ -17,6 +17,4 @@ const playerRecordsColumns = strings => ([{
   field: 'duration',
   sortFn: true,
   displayFn: transformations.duration,
-}]);
-
-export default playerRecordsColumns;
+}];

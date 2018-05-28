@@ -8,7 +8,7 @@ function roundUp(x) {
   return newX;
 }
 
-const playerRankingsColumns = strings => ([{
+export default strings => [{
   displayName: strings.th_hero,
   tooltip: strings.hero_id,
   field: 'hero_id',
@@ -30,6 +30,4 @@ const playerRankingsColumns = strings => ([{
   field: 'card',
   sortFn: row => Math.max(100, roundUp(Math.floor(row.card * (1 - row.percent_rank)))),
   displayFn: row => `~${Math.max(100, roundUp(Math.floor(row.card * (1 - row.percent_rank))))}`,
-}]);
-
-export default playerRankingsColumns;
+}];
