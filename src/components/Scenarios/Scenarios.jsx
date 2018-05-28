@@ -195,7 +195,7 @@ class Scenarios extends React.Component {
           <Table
             key={selectedTab}
             data={data.filter(minSampleSize)}
-            columns={getColumns(selectedTab, metadata)}
+            columns={getColumns(selectedTab, metadata, strings)}
             loading={scenariosState[selectedTab].loading}
             paginated
             resetTableState

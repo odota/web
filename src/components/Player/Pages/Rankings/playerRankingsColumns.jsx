@@ -1,5 +1,4 @@
 import { transformations } from '../../../../utility';
-import strings from '../../../../lang';
 
 function roundUp(x) {
   const y = 10 ** (x.toString().length - 1);
@@ -9,7 +8,7 @@ function roundUp(x) {
   return newX;
 }
 
-export default [{
+const playerRankingsColumns = strings => ([{
   displayName: strings.th_hero,
   tooltip: strings.hero_id,
   field: 'hero_id',
@@ -31,4 +30,6 @@ export default [{
   field: 'card',
   sortFn: row => Math.max(100, roundUp(Math.floor(row.card * (1 - row.percent_rank)))),
   displayFn: row => `~${Math.max(100, roundUp(Math.floor(row.card * (1 - row.percent_rank))))}`,
-}];
+}]);
+
+export default playerRankingsColumns;

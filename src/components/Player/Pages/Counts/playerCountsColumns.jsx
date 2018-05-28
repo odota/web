@@ -1,7 +1,6 @@
 import { transformations } from '../../../../utility';
-import strings from '../../../../lang';
 
-export default [{
+const playerCountsColumns = strings => ([{
   displayName: strings.th_category,
   field: 'category',
   sortFn: true,
@@ -17,4 +16,6 @@ export default [{
   field: 'winPercent',
   sortFn: row => row.winPercent / 100, // percentBars expects decimal value
   percentBars: true,
-}];
+}]);
+
+export default playerCountsColumns;
