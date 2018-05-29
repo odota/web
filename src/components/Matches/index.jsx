@@ -6,7 +6,6 @@ import heroes from 'dotaconstants/build/heroes.json';
 import styled from 'styled-components';
 import { transformations, subTextStyle, rankTierToString } from '../../utility';
 import { getProMatches, getPublicMatches } from '../../actions';
-import strings from '../../lang';
 import Table, { TableLink } from '../Table';
 // import Heading from '../Heading';
 import { IconTrophy } from '../Icons';
@@ -26,7 +25,7 @@ const WinnerSpan = styled.span`
   }
 `;
 
-const matchesColumns = [{
+const matchesColumns = strings => [{
   displayName: strings.th_match_id,
   field: 'match_id',
   sortFn: true,
@@ -55,7 +54,7 @@ const matchesColumns = [{
   displayFn: (row, col, field) => <div>{!row.radiant_win && <WinnerSpan><IconTrophy /></WinnerSpan>}{field}</div>,
 }];
 
-const publicMatchesColumns = [
+const publicMatchesColumns = strings => [
   {
     displayName: strings.th_match_id,
     field: 'match_id',
@@ -88,12 +87,12 @@ const publicMatchesColumns = [
   },
 ];
 
-const matchTabs = [{
+const matchTabs = strings => [{
   name: strings.hero_pro_tab,
   key: 'pro',
   content: propsPar => (
     <div>
-      <Table data={propsPar.proData} columns={matchesColumns} loading={propsPar.loading} />
+      <Table data={propsPar.proData} columns={matchesColumns(strings)} loading={propsPar.loading} />
     </div>),
   route: '/matches/pro',
 }, {
@@ -101,7 +100,7 @@ const matchTabs = [{
   key: 'highMmr',
   content: propsPar => (
     <div>
-      <Table data={propsPar.publicData} columns={publicMatchesColumns} loading={propsPar.loading} />
+      <Table data={propsPar.publicData} columns={publicMatchesColumns(strings)} loading={propsPar.loading} />
     </div>),
   route: '/matches/highMmr',
 }];
@@ -121,6 +120,7 @@ class RequestLayer extends React.Component {
         matchId: PropTypes.number,
       }),
     }),
+    strings: PropTypes.shape({}),
     // proData: PropTypes.array,
     // publicData: PropTypes.array,
   }
@@ -135,20 +135,21 @@ class RequestLayer extends React.Component {
     }
   }
   render() {
+    const { strings } = this.props;
     const route = this.props.match.params.matchId || 'pro';
 
     if (Number.isInteger(Number(route))) {
       return <Match {...this.props} matchId={route} />;
     }
 
-    const tab = matchTabs.find(_tab => _tab.key === route);
+    const tab = matchTabs(strings).find(_tab => _tab.key === route);
     return (
       <div>
         <Helmet title={strings.title_matches} />
         <div>
           <TabBar
             info={route}
-            tabs={matchTabs}
+            tabs={matchTabs(strings)}
           />
           {tab && tab.content(this.props)}
         </div>
@@ -160,6 +161,7 @@ const mapStateToProps = state => ({
   proData: state.app.proMatches.data,
   publicData: state.app.publicMatches.data,
   loading: state.app.proMatches.loading,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

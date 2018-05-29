@@ -1,11 +1,10 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import util from 'util';
-import strings from '../../lang';
 import { getTeamLogoUrl } from '../../utility';
 import { HeaderContainer, Logo, Column, TeamName, Row, TeamStatsCard } from './TeamStyled';
 
-export default generalData => (
+export default (generalData, strings) => (
   <HeaderContainer loading={generalData.loading} error={generalData.error}>
     <Logo
       src={getTeamLogoUrl(generalData.data.logo_url)}

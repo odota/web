@@ -58,7 +58,7 @@ class RequestLayer extends React.Component {
       this.props.history.push(`/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
     }
     const info = match.params.info || 'overview';
-    const page = playerPages(playerId).find(_page => _page.key === info);
+    const page = playerPages(playerId, strings).find(_page => _page.key === info);
     const playerName = this.props.officialPlayerName || this.props.playerName || strings.general_anonymous;
     const title = page ? `${playerName} - ${page.name}` : playerName;
     return (
@@ -66,7 +66,7 @@ class RequestLayer extends React.Component {
         <Helmet title={title} />
         <div>
           <PlayerHeader playerId={playerId} location={location} />
-          <TabBar info={info} tabs={playerPages(playerId)} />
+          <TabBar info={info} tabs={playerPages(playerId, strings)} />
         </div>
         <div>
           <TableFilterForm playerId={playerId} />

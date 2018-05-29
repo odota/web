@@ -78,7 +78,7 @@ class Team extends React.Component {
       <div>
         <Helmet title={title} />
         <Column>
-          {getTeamHeader(this.props.generalData)}
+          {getTeamHeader(this.props.generalData, strings)}
           <TabBar info={info} tabs={teamPages(teamId, strings)} />
           {page ? page.content(this.props.generalData, this.props.matchData, this.props.heroData, this.props.playerData) : <Spinner />}
         </Column>

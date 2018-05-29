@@ -1,9 +1,8 @@
 import React from 'react';
 import { transformations } from '../../../../utility';
 import { TableLink } from '../../../Table';
-import strings from '../../../../lang';
 
-const avatarMatches = playerId => [{
+const avatarMatches = (playerId, strings) => [{
   displayName: strings.th_avatar,
   field: 'last_played',
   displayFn: transformations.player,
@@ -19,7 +18,7 @@ const avatarMatches = playerId => [{
   ),
 }];
 
-const matchesWith = [{
+const matchesWith = strings => [{
   displayName: strings.th_with_games,
   tooltip: strings.tooltip_played_with,
   field: 'with_games',
@@ -27,7 +26,7 @@ const matchesWith = [{
   relativeBars: true,
 }];
 
-const winsWith = [{
+const winsWith = strings => [{
   displayName: strings.th_with_win,
   tooltip: strings.tooltip_win_pct_with,
   field: 'with_win',
@@ -35,7 +34,7 @@ const winsWith = [{
   percentBars: true,
 }];
 
-const restColumns = [{
+const restColumns = strings => [{
   displayName: strings.th_against_games,
   tooltip: strings.tooltip_played_against,
   field: 'against_games',
@@ -61,14 +60,14 @@ const restColumns = [{
   relativeBars: true,
 }];
 
-export const playerPeersOverviewColumns = playerId => [
-  ...avatarMatches(playerId),
-  ...winsWith,
+export const playerPeersOverviewColumns = (playerId, strings) => [
+  ...avatarMatches(playerId, strings),
+  ...winsWith(strings),
 ];
 
-export const playerPeersColumns = playerId => [
-  ...avatarMatches(playerId),
-  ...matchesWith,
-  ...winsWith,
-  ...restColumns,
+export const playerPeersColumns = (playerId, strings) => [
+  ...avatarMatches(playerId, strings),
+  ...matchesWith(strings),
+  ...winsWith(strings),
+  ...restColumns(strings),
 ];
