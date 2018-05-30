@@ -63,7 +63,8 @@ class FormField extends React.Component {
       addChip = addChipDefault,
       history,
     } = this.props;
-
+    console.log(value);
+    console.log(index);
     const selectedElements = formSelectionState[name];
     if (selectedElements && Array.isArray(selectedElements)) {
       const isSelected = index > -1
@@ -80,7 +81,7 @@ class FormField extends React.Component {
 
     if (index > -1) {
       // User selected an element
-      input = dataSource[index];
+      input = dataSource.filter(this.selectBundleFilter)[index];
     } else if (!strict && index === -1) {
       // Direct free input
       input = {
