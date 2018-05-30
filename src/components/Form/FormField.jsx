@@ -135,6 +135,7 @@ class FormField extends React.Component {
       searchText,
       errorText,
     } = this.state;
+    
     const selectedElements = [].concat(formSelectionState[name] || []);
     // Use dataSource on selectedElements to hydrate the chipList
     const chipList = selectedElements.map(this.findFromSource);
