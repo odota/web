@@ -41,9 +41,13 @@ const deleteChipDefault = (name, index, history) => {
 class FormField extends React.Component {
   constructor(props) {
     super(props);
+    const { formSelectionState, name } = this.props;
+    const initialBundle = formSelectionState[name] && this.findFromSource(Array.isArray(formSelectionState[name]) ? formSelectionState[name][0] : formSelectionState[name]).bundle;
+
     this.state = {
       searchText: '',
       errorText: '',
+      selectedBundle: undefined || initialBundle,
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.handleUpdateInput = this.handleUpdateInput.bind(this);
@@ -92,6 +96,7 @@ class FormField extends React.Component {
       return;
     }
 
+    this.setState({ selectedBundle: value.bundle });
     this.handleUpdateInput('');
     addChip(name, input, limit, history);
   }
@@ -102,6 +107,17 @@ class FormField extends React.Component {
       errorText: '', // clear error when user types
     });
   }
+
+  findFromSource = (element) => {
+    let fromSource = this.props.dataSource.find(data => Number(data.value) === Number(element));
+    fromSource = fromSource || this.props.dataSource.find(data => data.key === element);
+    return fromSource || { text: element, value: element };
+  }
+
+  selectBundleFilter = field =>
+    !this.state.selectedBundle ||
+    (!this.props.formSelectionState[this.props.name] || this.props.formSelectionState[this.props.name].length < 1) ||
+    field.bundle === this.state.selectedBundle
 
   render() {
     const {
@@ -119,21 +135,15 @@ class FormField extends React.Component {
       searchText,
       errorText,
     } = this.state;
-
     const selectedElements = [].concat(formSelectionState[name] || []);
     // Use dataSource on selectedElements to hydrate the chipList
-    const chipList = selectedElements.map((element) => {
-      let fromSource = dataSource.find(data => Number(data.value) === Number(element));
-      fromSource = fromSource || dataSource.find(data => data.key === element);
-      return fromSource || { text: element, value: element };
-    });
-
+    const chipList = selectedElements.map(this.findFromSource);
     return (
       <div className={className}>
         <AutoComplete
           ref={(ref) => { this.autocomplete = ref; return null; }}
           openOnFocus
-          dataSource={dataSource}
+          dataSource={dataSource.filter(this.selectBundleFilter)}
           floatingLabelText={label}
           filter={filter || AutoComplete.fuzzyFilter}
           maxSearchResults={maxSearchResults}
