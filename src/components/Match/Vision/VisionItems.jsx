@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TeamTable from '../TeamTable';
 import { visionColumns } from '../matchColumns';
@@ -19,8 +18,4 @@ VisionItems.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(VisionItems);
+export default VisionItems;

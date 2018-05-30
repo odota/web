@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import items from 'dotaconstants/build/items.json';
@@ -108,8 +107,4 @@ VisionLog.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(VisionLog);
+export default VisionLog;
