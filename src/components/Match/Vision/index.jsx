@@ -212,7 +212,7 @@ class Vision extends React.Component {
               disableFocusRipple
               onChange={(e, value) => this.handleViewportChange(value)}
             />
-            <VisionFilter match={match} parent={this} />
+            <VisionFilter match={match} parent={this} strings={strings} />
           </div>
         </div>
         <VisionItems match={match} strings={strings} />

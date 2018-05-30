@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
 import Table from '../../Table';
@@ -81,8 +80,4 @@ class VisionFilter extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(VisionFilter);
+export default VisionFilter;
