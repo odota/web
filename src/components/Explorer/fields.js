@@ -36,6 +36,7 @@ AND match_logs.valuename = 'item_${itemKey}'`,
   key: `timing_${itemKey}`,
   formatSeconds: true,
   bundle: 'timing',
+  singleSelection: true,
 });
 
 const killSelect = ({
@@ -52,6 +53,7 @@ AND match_logs.type = 'DOTA_COMBATLOG_DEATH'
 AND match_logs.targetname LIKE '${unitKey}'`,
   key: `kill_${unitKey}`,
   bundle: 'kill',
+  singleSelection: true,
 });
 
 const singleFields = [{

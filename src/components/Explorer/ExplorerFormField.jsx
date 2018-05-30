@@ -88,6 +88,7 @@ class ExplorerFormField extends React.Component {
             limit={chipLimit}
             addChip={this.addChip}
             deleteChip={this.deleteChip}
+            resetField={this.resetField}
           />
       :
           <AutoComplete
