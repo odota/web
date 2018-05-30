@@ -1203,7 +1203,7 @@ const purchaseGemColumn = {
   displayFn: (row, col, field) => field || '-',
   relativeBars: true,
 };
-export const visionColumns = [
+export const visionColumns = strings => [
   heroTdColumn,
   purchaseObserverColumn,
   {

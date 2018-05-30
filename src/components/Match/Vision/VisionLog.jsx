@@ -1,10 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import items from 'dotaconstants/build/items.json';
 import { threshold, formatSeconds } from '../../../utility';
 import Table from '../../Table';
-import strings from '../../../lang';
 import Heading from '../../Heading';
 import { heroTd, heroTdColumn } from '../matchColumns';
 import constants from '../../constants';
@@ -25,7 +25,7 @@ const Styled = styled.div`
 const durationObserverColor = threshold(0, [121, 241, 371], [constants.colorRed, constants.colorYelor, constants.colorGreen]);
 const durationSentryColor = threshold(0, [81, 161, 251], [constants.colorRed, constants.colorYelor, constants.colorGreen]);
 
-const columns = [
+const columns = strings => [
   {
     displayName: strings.ward_log_type,
     field: 'type',
@@ -95,16 +95,21 @@ const generateData = match => (log) => {
   };
 };
 
-const VisionLog = ({ match, wards }) => (
+const VisionLog = ({ match, wards, strings }) => (
   <div>
     <Heading title={strings.vision_ward_log} />
-    <Table data={wards.map(generateData(match))} columns={columns} />
+    <Table data={wards.map(generateData(match))} columns={columns(strings)} />
   </div>
 );
 
 VisionLog.propTypes = {
   match: PropTypes.shape({}),
   wards: PropTypes.arrayOf({}),
+  strings: PropTypes.shape({}),
 };
 
-export default VisionLog;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(VisionLog);
