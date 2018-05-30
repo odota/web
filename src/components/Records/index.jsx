@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { transformations, formatSeconds, getOrdinal } from '../../utility';
 import { getRecords } from '../../actions';
-import strings from '../../lang';
 import Table from '../Table';
 import Heading from '../Heading';
 // import { IconRadiant, IconDire, IconTrophy } from '../Icons';
 import Container from '../Container';
 import TabBar from '../TabBar';
 
-const matchesColumns = field => [{
+const matchesColumns = (field, strings) => [{
   displayName: strings.th_rank,
   field: 'rank',
   displayFn: (row, col, _field) => getOrdinal(_field),
@@ -31,19 +30,19 @@ const matchesColumns = field => [{
 
 const fields = ['duration', 'kills', 'deaths', 'assists', 'gold_per_min', 'xp_per_min', 'last_hits', 'denies', 'hero_damage', 'tower_damage', 'hero_healing'];
 
-const tabs = fields.map(field => ({
+const tabs = strings => (fields.map(field => ({
   name: strings[`th_${field}`],
   key: field,
   content: propsPar => (
     <Container>
       <Table
         data={propsPar.data.map((element, index) => ({ ...element, rank: index + 1 }))}
-        columns={matchesColumns(field)}
+        columns={matchesColumns(field, strings)}
         loading={propsPar.loading}
       />
     </Container>),
   route: `/records/${field}`,
-}));
+})));
 
 const getData = (props) => {
   const route = props.match.params.info || 'duration';
@@ -57,6 +56,7 @@ class RequestLayer extends React.Component {
         info: PropTypes.string,
       }),
     }),
+    strings: PropTypes.shape({}),
   }
 
   componentDidMount() {
@@ -70,8 +70,9 @@ class RequestLayer extends React.Component {
   }
   render() {
     const route = this.props.match.params.info || 'duration';
+    const { strings } = this.props;
 
-    const tab = tabs.find(_tab => _tab.key === route);
+    const tab = tabs(strings).find(_tab => _tab.key === route);
     return (
       <div>
         <Helmet title={strings.heading_records} />
@@ -79,7 +80,7 @@ class RequestLayer extends React.Component {
           <Heading title={strings.heading_records} subtitle={strings.subheading_records} />
           <TabBar
             info={route}
-            tabs={tabs}
+            tabs={tabs(strings)}
           />
           {tab && tab.content(this.props)}
         </div>
@@ -90,6 +91,7 @@ class RequestLayer extends React.Component {
 const mapStateToProps = state => ({
   data: state.app.records.data,
   loading: state.app.records.loading,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,10 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Slider from 'material-ui/Slider';
 import { rangeStep, debounce } from 'lodash/fp';
 import styled from 'styled-components';
 import { formatSeconds } from '../../../utility';
-import strings from '../../../lang';
 import VisionFilter from './VisionFilter';
 import VisionItems from './VisionItems';
 import VisionMap from './VisionMap';
@@ -119,6 +119,7 @@ class Vision extends React.Component {
       duration: PropTypes.number,
       wards_log: PropTypes.arrayOf({}),
     }),
+    strings: PropTypes.shape({}),
   }
 
   constructor(props) {
@@ -184,13 +185,13 @@ class Vision extends React.Component {
 
   render() {
     const visibleWards = this.visibleData();
-    const { match } = this.props;
+    const { match, strings } = this.props;
 
     return (
       <div>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ width: '30%', margin: '10px', flexGrow: '1' }}>
-            <VisionMap match={match} wards={visibleWards} />
+            <VisionMap match={match} wards={visibleWards} strings={strings} />
           </div>
           <div style={{ flexGrow: '1' }}>
             <div className="visionSliderText">
@@ -211,14 +212,18 @@ class Vision extends React.Component {
               disableFocusRipple
               onChange={(e, value) => this.handleViewportChange(value)}
             />
-            <VisionFilter match={match} parent={this} />
+            <VisionFilter match={match} parent={this} strings={strings} />
           </div>
         </div>
-        <VisionItems match={match} />
-        <VisionLog match={match} wards={visibleWards} />
+        <VisionItems match={match} strings={strings} />
+        <VisionLog match={match} wards={visibleWards} strings={strings} />
       </div>
     );
   }
 }
 
-export default Vision;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(Vision);

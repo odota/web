@@ -1,20 +1,10 @@
 import React from 'react';
 import heroes from 'dotaconstants/build/heroes.json';
-import strings from '../../lang';
 import { transformations, subTextStyle, getTeamLogoUrl } from '../../utility';
 import { TableLink } from '../Table';
 import constants from '../constants';
 import { TableRow, TableImage } from './TeamStyled';
 import proPlayerImages from './proPlayerImages';
-
-const displayResult = (row) => {
-  const won = row.radiant_win === row.radiant;
-  const string = won ? strings.td_win : strings.td_loss;
-  const textColor = won ? constants.colorGreen : constants.colorRed;
-  return (
-    <span style={{ color: textColor }}>{string}</span>
-  );
-};
 
 const getPlayerImageUrl = (accountId) => {
   if (proPlayerImages[accountId]) {
@@ -23,7 +13,7 @@ const getPlayerImageUrl = (accountId) => {
   return '/assets/images/dota2/players/portrait.png';
 };
 
-export const matchColumns = [{
+export const matchColumns = strings => [{
   displayName: strings.th_match_id,
   field: 'match_id',
   sortFn: true,
@@ -43,7 +33,14 @@ export const matchColumns = [{
   displayFn: transformations.duration,
 }, {
   displayName: strings.th_result,
-  displayFn: displayResult,
+  displayFn: (row) => {
+    const won = row.radiant_win === row.radiant;
+    const string = won ? strings.td_win : strings.td_loss;
+    const textColor = won ? constants.colorGreen : constants.colorRed;
+    return (
+      <span style={{ color: textColor }}>{string}</span>
+    );
+  },
 }, {
   displayName: strings.th_opposing_team,
   field: 'opposing_team_name',
@@ -57,7 +54,7 @@ export const matchColumns = [{
 },
 ];
 
-export const memberColumns = [{
+export const memberColumns = strings => [{
   displayName: strings.th_name,
   field: 'name',
   sortFn: true,
@@ -80,7 +77,7 @@ export const memberColumns = [{
 },
 ];
 
-export const heroColumns = [{
+export const heroColumns = strings => [{
   displayName: strings.th_hero_id,
   field: 'hero_id',
   displayFn: transformations.hero_id,

@@ -11,7 +11,7 @@ const Rankings = ({
 }) => (
   <div>
     <Container title={strings.heading_rankings} subtitle={strings.rankings_description} error={error} loading={loading}>
-      <Table columns={playerRankingsColumns} data={data} placeholderMessage={strings.rankings_none} />
+      <Table columns={playerRankingsColumns(strings)} data={data} placeholderMessage={strings.rankings_none} />
     </Container>
   </div>
 );
