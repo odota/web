@@ -27,7 +27,7 @@ const Counts = ({
     {Object.keys(counts).map(key => (
       <StyledTableContainer key={key}>
         <Container title={strings[`heading_${key}`]} error={error} loading={loading}>
-          <Table columns={playerCountsColumns} data={counts[key].list} />
+          <Table columns={playerCountsColumns(strings)} data={counts[key].list} />
         </Container>
       </StyledTableContainer>
     ))}

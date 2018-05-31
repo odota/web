@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import heroes from 'dotaconstants/build/heroes.json';
-import strings from '../../lang';
 import {
   transformations,
   fromNow,
@@ -12,7 +12,7 @@ import Container from '../Container';
 // import { List } from 'material-ui/List';
 import { StyledTeamIconContainer } from '../../components/Match/StyledMatch';
 
-const searchColumns = [{
+const searchColumns = strings => [{
   displayName: strings.th_name,
   field: 'personaname',
   displayFn: (row, col, field) => {
@@ -24,7 +24,7 @@ const searchColumns = [{
   },
 }];
 
-const proColumns = [{
+const proColumns = strings => [{
   displayName: strings.th_name,
   field: 'name',
   displayFn: (row, col, field) => transformations.player({
@@ -38,7 +38,7 @@ const proColumns = [{
   ),
 }];
 
-const matchColumns = [
+const matchColumns = strings => [
   {
     displayName: strings.th_match_id,
     field: 'match_id',
@@ -82,6 +82,7 @@ const Search = ({
   matchData,
   matchLoading,
   matchError,
+  strings,
 }) => (
   <div>
     <Container
@@ -91,7 +92,7 @@ const Search = ({
     >
       <Table
         data={[matchData]}
-        columns={matchColumns}
+        columns={matchColumns(strings)}
       />
     </Container>
     <Container
@@ -104,7 +105,7 @@ const Search = ({
         paginated
         pageLength={5}
         data={pros}
-        columns={proColumns}
+        columns={proColumns(strings)}
       />
     </Container>
     <Container
@@ -116,7 +117,7 @@ const Search = ({
       <Table
         paginated
         data={players}
-        columns={searchColumns}
+        columns={searchColumns(strings)}
       />
     </Container>
   </div>
@@ -132,6 +133,11 @@ Search.propTypes = {
   matchData: PropTypes.arrayOf({}),
   matchLoading: PropTypes.bool,
   matchError: PropTypes.bool,
+  strings: PropTypes.shape({}),
 };
 
-export default Search;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(Search);

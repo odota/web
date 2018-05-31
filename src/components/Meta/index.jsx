@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect }
   from 'react-redux';
 import fetch from 'isomorphic-fetch';
@@ -7,7 +7,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Helmet from 'react-helmet';
 import querystring from 'querystring';
-import strings from '../../lang';
 import ExplorerOutputSection from '../Explorer/ExplorerOutputSection';
 import ExplorerControlSection from '../Explorer/ExplorerControlSection';
 import ExplorerFormField from '../Explorer/ExplorerFormField';
@@ -31,7 +30,9 @@ function expandBuilderState(builder, _fields) {
 }
 
 class Explorer extends React.Component {
-  static propTypes = {}
+  static propTypes = {
+    strings: PropTypes.shape({}),
+  }
 
   constructor() {
     super();
@@ -98,6 +99,7 @@ class Explorer extends React.Component {
 
   render() {
     const { builder } = this.state;
+    const { strings } = this.props;
     const expandedFields = fields();
     const expandedBuilder = expandBuilderState(this.state.builder, expandedFields);
     const { handleQuery, handleCancel, handleFieldUpdate } = this;
@@ -147,7 +149,8 @@ class Explorer extends React.Component {
   }
 }
 
-const mapStateToProps = () => ({
+const mapStateToProps = state => ({
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = () => ({

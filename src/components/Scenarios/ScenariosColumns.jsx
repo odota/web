@@ -1,5 +1,4 @@
 import { inflictorWithValue } from '../Visualizations';
-import strings from '../../lang';
 import { transformations, formatSeconds, abbreviateNumber } from '../../utility';
 
 const computeWinRate = row => (row.wins / row.games);
@@ -14,7 +13,7 @@ export const getTimeRange = (field, metadata) => {
   return `${formatSeconds(lower)} - ${formatSeconds(field)}`;
 };
 
-const getColumns = (f, metadata) => {
+const getColumns = (f, metadata, strings) => {
   const columns = {
     itemTimings: [{
       displayName: strings.filter_hero_id,

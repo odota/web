@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import fuzzy from 'fuzzy';
 import { withRouter } from 'react-router-dom';
-import strings from '../../lang';
 import { getSearchResultAndPros } from '../../actions';
 import SearchResult from './SearchResult';
 
 const extract = item => `${item.name}${item.team_name}`;
 
 const Search = ({
-  data, pros, query, matchData, ...rest
+  data, pros, query, matchData, strings, ...rest
 }) => (
   <div>
     <Helmet title={`${query} - ${strings.title_search}`} />
@@ -25,6 +24,7 @@ Search.propTypes = {
   query: PropTypes.string,
   match: PropTypes.shape({}),
   matchData: PropTypes.arrayOf({}),
+  strings: PropTypes.shape({}),
 };
 
 const mapStateToProps = (state) => {
@@ -43,6 +43,7 @@ const mapStateToProps = (state) => {
     matchData: state.app.match.data,
     matchLoading: state.app.match.loading,
     matchError: state.app.match.error,
+    strings: state.app.strings,
   };
 };
 

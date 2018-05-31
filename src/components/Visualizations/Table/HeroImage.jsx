@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import playerColors from 'dotaconstants/build/player_colors.json';
@@ -10,7 +11,6 @@ import { subTextStyle } from '../../../utility';
 import { TableLink } from '../../Table';
 import { IconDice, IconCrystalBall, IconCheckCircle } from '../../Icons';
 import constants from '../../constants';
-import strings from '../../../lang';
 
 const Styled = styled.div`
 .subTextContainer {
@@ -245,6 +245,7 @@ const TableHeroImage = ({
   repicked,
   predictedVictory,
   leaverStatus,
+  strings,
 }) => (
   <Styled style={expand}>
     <HeroImageContainer>
@@ -397,10 +398,11 @@ TableHeroImage.propTypes = {
   repicked: string,
   predictedVictory: bool,
   leaverStatus: PropTypes.number,
+  strings: PropTypes.shape({}),
 };
 
 // If need party or estimated, just add new prop with default val = solo and change icons depending what needs
-export const Mmr = ({ number }) => (
+export const Mmr = ({ number, strings }) => (
   <span>
     <section
       data-hint={strings.th_solo_mmr}
@@ -411,11 +413,13 @@ export const Mmr = ({ number }) => (
     {number || strings.general_unknown}
   </span>
 );
+
 Mmr.propTypes = {
   number: PropTypes.number,
+  strings: PropTypes.shape({}),
 };
 
-export const CompetitiveRank = ({ rankTier }) => (
+export const CompetitiveRank = ({ rankTier, strings }) => (
   <span>
     <section
       data-hint={strings.th_rank}
@@ -426,8 +430,14 @@ export const CompetitiveRank = ({ rankTier }) => (
     {rankTier}
   </span>
 );
+
 CompetitiveRank.propTypes = {
   rankTier: PropTypes.number,
+  strings: PropTypes.shape({}),
 };
 
-export default TableHeroImage;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(TableHeroImage);

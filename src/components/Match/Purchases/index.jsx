@@ -1,13 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Toggle from 'material-ui/Toggle';
-import strings from '../../../lang';
 import TeamTable from '../TeamTable';
 import { purchaseTimesColumns } from '../matchColumns';
 
 class Purchases extends React.Component {
   static propTypes = {
     match: PropTypes.shape({}),
+    strings: PropTypes.shape({}),
   }
 
   constructor(props) {
@@ -22,7 +23,7 @@ class Purchases extends React.Component {
   }
 
   render() {
-    const { match } = this.props;
+    const { match, strings } = this.props;
     return (
       <div>
         <div style={{ width: '190px', margin: '10px' }}>
@@ -43,4 +44,8 @@ class Purchases extends React.Component {
   }
 }
 
-export default Purchases;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(Purchases);

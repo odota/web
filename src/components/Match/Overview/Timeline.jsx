@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import heroes from 'dotaconstants/build/heroes.json';
@@ -14,7 +15,6 @@ import {
   IconRoshan,
   IconBattle,
 } from '../../Icons';
-import strings from '../../../lang';
 import PlayerThumb from '../PlayerThumb';
 import constants from '../../constants';
 
@@ -300,6 +300,7 @@ const Timeline = ({
   onTeamfightClick,
   onTeamfightHover,
   selectedTeamfight,
+  strings,
 }) => {
   const preHorn = 90; // Seconds before the battle horn
 
@@ -545,6 +546,11 @@ const Timeline = ({
 
 Timeline.propTypes = {
   match: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
-export default Timeline;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(Timeline);
