@@ -3,7 +3,6 @@ import heroData from 'dotaconstants/build/heroes.json';
 import gameModeData from 'dotaconstants/build/game_mode.json';
 import lobbyTypeData from 'dotaconstants/build/lobby_type.json';
 // import patchData from 'dotaconstants/build/patch.json';
-import strings from '../../lang';
 
 /*
 const mmrs = Array(20).fill().map((e, i) => i * 500).map(element => ({
@@ -13,7 +12,7 @@ const mmrs = Array(20).fill().map((e, i) => i * 500).map(element => ({
 }));
 */
 
-const rankTiers = Object.keys(strings).filter(str => str.indexOf('rank_tier_') === 0 && str !== 'rank_tier_0').map((str) => {
+const rankTiers = strings => Object.keys(strings).filter(str => str.indexOf('rank_tier_') === 0 && str !== 'rank_tier_0').map((str) => {
   const num = str.substring('rank_tier_'.length);
   return {
     text: `[${num}] ${strings[str]}`,
@@ -22,7 +21,7 @@ const rankTiers = Object.keys(strings).filter(str => str.indexOf('rank_tier_') =
   };
 });
 
-const durations = Array(10).fill().map((e, i) => i * 10).map(duration => ({
+const durations = strings => Array(10).fill().map((e, i) => i * 10).map(duration => ({
   text: `${util.format(strings.time_mm, duration)}`,
   searchText: util.format(strings.time_mm, duration),
   value: duration * 60,
@@ -41,19 +40,19 @@ const limit = [100, 200, 500, 1000].map(element => ({
   key: String(element),
 }));
 
-const gameMode = Object.values(gameModeData).map(element => ({
+const gameMode = strings => Object.values(gameModeData).map(element => ({
   text: strings[`game_mode_${element.id}`],
   value: element.id,
   key: String(element.id),
 }));
 
-const lobbyType = Object.values(lobbyTypeData).map(element => ({
+const lobbyType = strings => Object.values(lobbyTypeData).map(element => ({
   text: strings[`lobby_type_${element.id}`],
   value: element.id,
   key: String(element.id),
 }));
 
-const fields = () => ({
+const fields = strings => ({
   group: [{
     text: strings.th_hero_id,
     value: 'public_player_matches.hero_id',
@@ -118,16 +117,16 @@ const fields = () => ({
   }, */],
   // minMmr: mmrs,
   // maxMmr: mmrs,
-  minRankTier: rankTiers,
-  maxRankTier: rankTiers,
+  minRankTier: rankTiers(strings),
+  maxRankTier: rankTiers(strings),
   hero: Object.keys(heroData).map(heroId => ({
     text: `[${heroId}] ${heroData[heroId].localized_name}`,
     searchText: heroData[heroId].localized_name,
     value: heroData[heroId].id,
     key: String(heroData[heroId].id),
   })),
-  minDuration: durations,
-  maxDuration: durations,
+  minDuration: durations(strings),
+  maxDuration: durations(strings),
   side: [{
     text: strings.general_radiant,
     value: true,
@@ -146,8 +145,8 @@ const fields = () => ({
     value: false,
     key: 'loss',
   }],
-  gameMode,
-  lobbyType,
+  gameMode: gameMode(strings),
+  lobbyType: lobbyType(strings),
   order: [{ text: strings.explorer_asc, value: 'ASC', key: 'asc' }, { text: strings.explorer_desc, value: 'DESC', key: 'desc' }],
   having,
   limit,
