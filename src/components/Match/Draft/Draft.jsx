@@ -174,8 +174,8 @@ DraftHero.propTypes = {
 };
 
 // one-based indexing (since draft[i].order starts at 1)
-const orderOne = [1, 3, 5, 7, 10, 12, 14, 16, 18, 20, 21];
-const orderTwo = [2, 4, 6, 8, 9, 11, 13, 15, 17, 19, 22];
+const orderOne = [1, 3, 5, 7, 10, 11, 13, 16, 18, 20, 21];
+const orderTwo = [2, 4, 6, 8, 9, 12, 14, 15, 17, 19, 22];
 const picks = [7, 8, 9, 10, 15, 16, 17, 18, 21, 22];
 
 const Draft = ({
