@@ -13,7 +13,6 @@ import ScenariosFormField from './ScenariosFormField';
 import getColumns from './ScenariosColumns';
 import { buttonStyle, formFieldStyle, StyledDiv, tabsStyle } from './Styles';
 import { getScenariosItemTimings, getScenariosMisc, getScenariosLaneRoles } from '../../actions/index';
-import strings from '../../lang';
 import Table from '../Table';
 import Error from '../Error';
 import Heading from '../Heading';
@@ -39,7 +38,7 @@ const forms = {
   },
 };
 
-const tabItems = [{
+const tabItems = strings => ([{
   text: strings.scenarios_item_timings,
   value: 'itemTimings',
   icon: <Schedule />,
@@ -54,7 +53,7 @@ const tabItems = [{
   value: 'misc',
   icon: <Grain />,
 },
-];
+]);
 
 const reduceRows = (data) => {
   if (data.length === 0) {
@@ -83,6 +82,7 @@ class Scenarios extends React.Component {
       push: PropTypes.func,
     }),
     scenariosState: PropTypes.shape({}),
+    strings: PropTypes.shape({}),
   }
 
   constructor(props) {
@@ -144,7 +144,7 @@ class Scenarios extends React.Component {
   }
 
   render() {
-    const { scenariosState } = this.props;
+    const { scenariosState, strings } = this.props;
     const { selectedTab, formFields } = this.state;
     let { data } = scenariosState[selectedTab];
     const { queryForms, filterForms } = forms[selectedTab];
@@ -163,7 +163,7 @@ class Scenarios extends React.Component {
         <div>
           <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} info={`${util.format(strings.scenarios_info, 4)}`} />
           <Tabs value={selectedTab} onChange={this.handleChange} style={tabsStyle}>
-            {tabItems.map(item => (
+            {tabItems(strings).map(item => (
               <Tab label={item.text} value={item.value} icon={item.icon} containerElement={getLink(item.value)} className="tab" />
             ))}
           </Tabs>
@@ -195,7 +195,7 @@ class Scenarios extends React.Component {
           <Table
             key={selectedTab}
             data={data.filter(minSampleSize)}
-            columns={getColumns(selectedTab, metadata)}
+            columns={getColumns(selectedTab, metadata, strings)}
             loading={scenariosState[selectedTab].loading}
             paginated
             resetTableState
@@ -238,6 +238,7 @@ const mapStateToProps = (state) => {
         error: scenariosMisc.error,
       },
     },
+    strings: state.app.strings,
   };
 };
 

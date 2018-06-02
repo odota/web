@@ -28,7 +28,7 @@ export const heroTd = (row, col, field, index, hideName, party, showGuide = fals
     registered={row.last_login}
     accountId={row.account_id}
     playerSlot={row.player_slot}
-    subtitle={<CompetitiveRank rankTier={rankTierToString(row.rank_tier)} />}
+    subtitle={<CompetitiveRank rankTier={rankTierToString(row.rank_tier)} strings={strings} />}
     hideText={hideName}
     confirmed={row.account_id && row.name}
     party={party}
@@ -90,7 +90,7 @@ export const overviewColumns = (match) => {
     {
       displayName: strings.th_avatar,
       field: 'player_slot',
-      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), true, 'MOREMMR'),
+      displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), true, 'MOREMMR', strings),
       sortFn: true,
     },
     {
@@ -1203,7 +1203,7 @@ const purchaseGemColumn = {
   displayFn: (row, col, field) => field || '-',
   relativeBars: true,
 };
-export const visionColumns = [
+export const visionColumns = strings => [
   heroTdColumn,
   purchaseObserverColumn,
   {

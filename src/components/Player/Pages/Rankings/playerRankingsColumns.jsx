@@ -1,5 +1,4 @@
 import { transformations } from '../../../../utility';
-import strings from '../../../../lang';
 
 function roundUp(x) {
   const y = 10 ** (x.toString().length - 1);
@@ -9,7 +8,7 @@ function roundUp(x) {
   return newX;
 }
 
-export default [{
+export default strings => [{
   displayName: strings.th_hero,
   tooltip: strings.hero_id,
   field: 'hero_id',

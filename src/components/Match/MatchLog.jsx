@@ -1,9 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
 import heroes from 'dotaconstants/build/heroes.json';
-import strings from '../../lang';
 import {
   formatSeconds,
   getHeroesById,
@@ -57,15 +57,15 @@ const typeConfig = {
   objectives: 1,
   runes: 2,
 };
-const getObjectiveDesc = objective => (objective.key && objective.type === 'CHAT_MESSAGE_BARRACKS_KILL' ? strings[`barracks_value_${objective.key}`] : '');
-const getObjectiveBase = (objective) => {
+const getObjectiveDesc = (objective, strings) => (objective.key && objective.type === 'CHAT_MESSAGE_BARRACKS_KILL' ? strings[`barracks_value_${objective.key}`] : '');
+const getObjectiveBase = (objective, strings) => {
   if (objective.type === 'building_kill') {
     const desc = objective.key.indexOf('npc_dota_badguys') === 0 ? strings.general_dire : strings.general_radiant;
     return `${desc} ${(objective.key.split('guys_') || [])[1]}`;
   }
   return strings[objective.subtype || objective.type] || objective.subtype || objective.type;
 };
-const generateLog = (match, { types, players }) => {
+const generateLog = (match, { types, players }, strings) => {
   let log = [];
   const matchPlayers = !players.length
     ? match.players
@@ -89,7 +89,7 @@ const generateLog = (match, { types, players }) => {
           ...matchPlayers[objective.slot],
           type: 'objectives',
           alt_key: objective.type,
-          detail: `${getObjectiveDesc(objective)} ${getObjectiveBase(objective)}`,
+          detail: `${getObjectiveDesc(objective, strings)} ${getObjectiveBase(objective, strings)}`,
         });
       }
       return objectivesLog;
@@ -127,7 +127,7 @@ const generateLog = (match, { types, players }) => {
   return log;
 };
 
-const logColumns = [
+const logColumns = strings => [
   {
     displayName: strings.th_time,
     field: 'time',
@@ -272,6 +272,7 @@ class MatchLog extends React.Component {
     match: PropTypes.shape({
       players: PropTypes.arrayOf({}),
     }),
+    strings: PropTypes.shape({}),
   }
 
   constructor(props) {
@@ -281,6 +282,7 @@ class MatchLog extends React.Component {
       players: [],
     };
 
+    const { strings } = props;
     this.typesSource = [
       { text: strings.heading_kills, value: 0 },
       { text: strings.tab_objectives, value: 1 },
@@ -308,6 +310,7 @@ class MatchLog extends React.Component {
   };
 
   render() {
+    const { strings } = this.props;
     const runeTooltips = Object.keys(strings)
       .filter(str => str.indexOf('rune_') === 0)
       .map((runeKey) => {
@@ -318,7 +321,7 @@ class MatchLog extends React.Component {
           </ReactTooltip>
         );
       });
-    const logData = generateLog(this.props.match, this.state);
+    const logData = generateLog(this.props.match, this.state, strings);
 
     return (
       <div>
@@ -344,11 +347,15 @@ class MatchLog extends React.Component {
           />
         </StyledLogFilterForm>
         <St>
-          <Table data={logData} columns={logColumns} />
+          <Table data={logData} columns={logColumns(strings)} />
         </St>
       </div>
     );
   }
 }
 
-export default MatchLog;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(MatchLog);

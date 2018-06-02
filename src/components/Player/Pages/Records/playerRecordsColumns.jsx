@@ -1,7 +1,6 @@
 import { transformations } from '../../../../utility';
-import strings from '../../../../lang';
 
-export default [{
+export default strings => [{
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',

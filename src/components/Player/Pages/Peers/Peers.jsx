@@ -10,7 +10,7 @@ const Peers = ({
   data, playerId, error, loading, strings,
 }) => (
   <Container title={strings.heading_peers} error={error} loading={loading}>
-    <Table paginated columns={playerPeersColumns(playerId)} data={data} placeholderMessage={strings.peers_none} />
+    <Table paginated columns={playerPeersColumns(playerId, strings)} data={data} placeholderMessage={strings.peers_none} />
   </Container>
 );
 

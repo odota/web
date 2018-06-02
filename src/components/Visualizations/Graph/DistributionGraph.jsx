@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   XAxis,
   YAxis,
@@ -10,10 +11,9 @@ import {
   CartesianGrid,
   Label, ResponsiveContainer,
 } from 'recharts';
-import strings from '../../../lang';
 import { StyledTooltip } from './Styled';
 
-const DistributionTooltipContent = ({ payload, array }) => {
+const DistributionTooltipContent = ({ payload, array, strings }) => {
   const data = payload && payload[0] && payload[0].payload;
   const total = array.length ? array[array.length - 1].cumulative_sum : 0;
   return (
@@ -23,14 +23,17 @@ const DistributionTooltipContent = ({ payload, array }) => {
       <div>{data && (data.cumulative_sum / total * 100).toFixed(2)} {strings.th_percentile}</div>
     </StyledTooltip>);
 };
+
 DistributionTooltipContent.propTypes = {
   payload: PropTypes.arrayOf({}),
   array: PropTypes.arrayOf({}),
+  strings: PropTypes.shape({}),
 };
 
 const DistributionGraph = ({
   data,
   xTickInterval,
+  strings,
 }) => {
   if (data && data.length) {
     return (
@@ -52,7 +55,7 @@ const DistributionGraph = ({
             opacity={0.5}
           />
 
-          <Tooltip content={<DistributionTooltipContent array={data} />} />
+          <Tooltip content={<DistributionTooltipContent array={data} strings={strings} />} />
           <Bar
             dataKey="count"
             yAxisId="left"
@@ -73,6 +76,11 @@ const DistributionGraph = ({
 DistributionGraph.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})),
   xTickInterval: PropTypes.number,
+  strings: PropTypes.shape({}),
 };
 
-export default DistributionGraph;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(DistributionGraph);

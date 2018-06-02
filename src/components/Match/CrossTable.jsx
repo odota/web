@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   Table,
@@ -9,7 +10,6 @@ import {
 import heroes from 'dotaconstants/build/heroes.json';
 import ReactTooltip from 'react-tooltip';
 import { abbreviateNumber } from '../../utility';
-import strings from '../../lang';
 import { IconRadiant, IconDire } from '../Icons';
 import { heroTd } from './matchColumns';
 import constants from '../constants';
@@ -24,6 +24,7 @@ const CrossTable = ({
   match,
   field1,
   field2,
+  strings,
 }) => (
   <Table selectable={false} >
     <TableBody displayRowCheckbox={false}>
@@ -158,6 +159,11 @@ CrossTable.propTypes = {
   match: PropTypes.shape({}),
   field1: PropTypes.string,
   field2: PropTypes.string,
+  strings: PropTypes.shape({}),
 };
 
-export default CrossTable;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(CrossTable);
