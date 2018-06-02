@@ -13,17 +13,17 @@ import ExplorerFormField from '../Explorer/ExplorerFormField';
 import Heading from '../Heading';
 import MetaSkeleton from '../Skeletons/MetaSkeleton';
 import queryTemplate from './queryTemplate';
-import fields from './fields';
+import getFields from './fields';
 
 function jsonResponse(response) {
   return response.json();
 }
 
-function expandBuilderState(builder, _fields) {
+function expandBuilderState(builder, fields) {
   const expandedBuilder = {};
   Object.keys(builder).forEach((key) => {
     if (builder[key]) {
-      expandedBuilder[key] = (_fields[key] || []).find(element => element.key === builder[key]) || { value: builder[key] };
+      expandedBuilder[key] = (fields[key] || []).find(element => element.key === builder[key]) || { value: builder[key] };
     }
   });
   return expandedBuilder;
@@ -51,7 +51,7 @@ class Explorer extends React.Component {
 
   buildQuery = (cb) => {
     const noOp = () => {};
-    const expandedBuilder = expandBuilderState(this.state.builder, fields());
+    const expandedBuilder = expandBuilderState(this.state.builder, getFields());
     this.setState({ sql: queryTemplate(expandedBuilder) }, cb || noOp);
   };
 
@@ -100,7 +100,7 @@ class Explorer extends React.Component {
   render() {
     const { builder } = this.state;
     const { strings } = this.props;
-    const expandedFields = fields();
+    const expandedFields = getFields();
     const expandedBuilder = expandBuilderState(this.state.builder, expandedFields);
     const { handleQuery, handleCancel, handleFieldUpdate } = this;
     return (
