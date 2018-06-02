@@ -11,7 +11,6 @@ import util from 'util';
 // import SvgIcon from 'material-ui/SvgIcon';
 import SocialPeople from 'material-ui/svg-icons/social/people';
 import SocialPerson from 'material-ui/svg-icons/social/person';
-import strings from '../lang';
 import { TableLink } from '../components/Table';
 import {
   KDA,
@@ -19,6 +18,14 @@ import {
   FromNowTooltip,
 } from '../components/Visualizations';
 import constants from '../components/constants';
+import strings from '../lang';
+
+const second = 1;
+const minute = second * 60;
+const hour = minute * 60;
+const day = hour * 24;
+const month = day * 30;
+const year = month * 12;
 
 export const iconStyle = {
   position: 'relative',
@@ -43,34 +50,6 @@ export const isRadiant = playerSlot => playerSlot < 128;
 export function pad(n, width, z = '0') {
   const str = `${n}`;
   return str.length >= width ? str : new Array((width - str.length) + 1).join(z) + n;
-}
-
-export function abbreviateNumber(num) {
-  if (!num) {
-    return '-';
-  } else if (num >= 1000 && num < 1000000) {
-    return `${Number((num / 1000).toFixed(1))}${strings.abbr_thousand}`;
-  } else if (num >= 1000000 && num < 1000000000) {
-    return `${Number((num / 1000000).toFixed(1))}${strings.abbr_million}`;
-  } else if (num >= 1000000000 && num < 1000000000000) {
-    return `${Number((num / 1000000000).toFixed(1))}${strings.abbr_billion}`;
-  } else if (num >= 1000000000000) {
-    return `${Number((num / 1000000000000).toFixed(1))}${strings.abbr_trillion}`;
-  }
-
-  return num.toFixed(0);
-}
-
-export function rankTierToString(rankTier) {
-  if (rankTier !== parseInt(rankTier, 10)) {
-    return strings.general_unknown;
-  }
-  const intRankTier = parseInt(rankTier, 10);
-  let rank = strings[`rank_tier_${parseInt(intRankTier / 10, 10)}`];
-  if (intRankTier > 9) {
-    rank += ` [${parseInt(intRankTier % 10, 10)}]`;
-  }
-  return rank;
 }
 
 export function formatSeconds(input) {
@@ -121,17 +100,391 @@ export const calculateRelativeXY = ({ clientX, clientY, currentTarget }) => {
   return { x, y };
 };
 
+export const getPercentWin = (wins, games) => (games ? Number(((wins * 100) / games).toFixed(2)) : 0);
+
+export const camelToSnake = str =>
+  str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
+
+export const getOrdinal = (n) => {
+  // TODO localize
+  const s = ['th', 'st', 'nd', 'rd'];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+};
+
 export const jsonFn = json =>
   arrayFn =>
     fn =>
       json[Object.keys(json)[arrayFn]((key, index) => fn(json[key], index))];
 
-const second = 1;
-const minute = second * 60;
-const hour = minute * 60;
-const day = hour * 24;
-const month = day * 30;
-const year = month * 12;
+export const percentile = (pct) => {
+  if (pct >= 0.8) {
+    return {
+      color: 'green',
+      grade: 'A',
+    };
+  } else if (pct >= 0.6) {
+    return {
+      color: 'blue',
+      grade: 'B',
+    };
+  } else if (pct >= 0.4) {
+    return {
+      color: 'golden',
+      grade: 'C',
+    };
+  } else if (pct >= 0.2) {
+    return {
+      color: 'yelor',
+      grade: 'D',
+    };
+  }
+  return {
+    color: 'red',
+    grade: 'F',
+  };
+};
+
+export const IMAGESIZE_ENUM = {
+  SMALL: 'sb.png', //     ~10KB (59 px x 33 px)
+  MEDIUM: 'lg.png', //     ~41KB (205 px x 105 px)
+  LARGE: 'full.png', // ~52KB (256 px x 144 px)
+  VERT: 'vert.jpg', // ~18KB (235 px x 272 px) note that this is a jpg
+
+// if you ever wanna see what the above look like (change the suffix):
+// https://api.opendota.com/apps/dota2/images/heroes/abaddon_full.png
+};
+
+const getTitle = (row, col, heroName) => {
+  if (row.match_id && row.player_slot !== undefined) {
+    return <TableLink to={`/matches/${row.match_id}`}>{heroName}</TableLink>;
+  }
+  return <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
+};
+
+export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
+  let imageUrl = heroes[heroId] && process.env.REACT_APP_API_HOST + heroes[heroId].img; // "[api url]/abaddon_full.png?"
+  if (imageUrl) {
+    imageUrl = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
+  }
+  return imageUrl + imageSizeSuffix;
+};
+
+/* ---------------------------- match item_n transformations ---------------------------- */
+// This code is used to transform the items in the match.players (array of players with match data).
+// the items for each player are stored as item_0, item_1, ..., item_5. If there is no item, we
+// have a value of 0 there, so we return false for those cases so we don't render a broken image link.
+// Otherwise, we just put the url in the image. THis will also contain the tooltip stuff as well
+// (once I get to the tooltips).
+
+const transformMatchItem = ({
+  field,
+}) => {
+  if (field === 0) {
+    return false;
+  }
+  return `${process.env.REACT_APP_API_HOST}${items[itemIds[field]].img}`;
+};
+
+export const defaultSort = (array, sortState, sortField, sortFn) =>
+  array.sort((a, b) => {
+    const sortFnExists = typeof sortFn === 'function';
+    const aVal = (sortFnExists ? sortFn(a) : a[sortField]) || 0;
+    const bVal = (sortFnExists ? sortFn(b) : b[sortField]) || 0;
+    const desc = aVal < bVal ? 1 : -1;
+    const asc = aVal < bVal ? -1 : 1;
+    return sortState === 'desc' ? desc : asc;
+  });
+
+export const SORT_ENUM = {
+  0: 'asc',
+  1: 'desc',
+  asc: 0,
+  desc: 1,
+  next: state => SORT_ENUM[(state >= 1 ? 0 : state + 1)],
+};
+
+export function getObsWardsPlaced(pm) {
+  if (!pm.obs_log) {
+    return 0;
+  }
+
+  return pm.obs_log.filter(l => !l.entityleft).length;
+}
+
+export function isSupport(pm) {
+  return getObsWardsPlaced(pm) >= 2 && pm.lh_t && pm.lh_t[10] < 20;
+}
+
+export function isRoshHero(pm) {
+  const roshHeroes = {
+    npc_dota_hero_lycan: 1,
+    npc_dota_hero_ursa: 1,
+    npc_dota_hero_troll_warlord: 1,
+  };
+
+  return heroes[pm.hero_id] && (heroes[pm.hero_id].name in roshHeroes);
+}
+
+export function isActiveItem(key) {
+  const whitelist = {
+    branches: 1,
+    bloodstone: 1,
+    radiance: 1,
+  };
+
+  // TODO this will only work for english data files
+  return (items[key].desc.indexOf('Active: ') > -1 && !(key in whitelist));
+}
+
+export const sum = (a, b) => a + b;
+
+export const extractTransitionClasses = _styles => name => ({
+  enter: _styles[`${name}-enter`],
+  enterActive: _styles[`${name}-enter-active`],
+  leave: _styles[`${name}-leave`],
+  leaveActive: _styles[`${name}-leave-active`],
+  appear: _styles[`${name}-appear`],
+  appearActive: _styles[`${name}-appear-active`],
+});
+
+export const gameCoordToUV = (x, y) => ({
+  x: Number(x) - 64,
+  y: 127 - (Number(y) - 64),
+});
+
+// TODO: refactor this to use gameCoordToUV
+/**
+ * Unpacks position data from hash format to array format
+ * 64 is the offset of x and y values
+ * subtracting y from 127 inverts from bottom/left origin to top/left origin
+ * */
+export function unpackPositionData(input) {
+  if (typeof input === 'object' && !Array.isArray(input)) {
+    const result = [];
+
+    Object.keys(input).forEach((x) => {
+      Object.keys(input[x]).forEach((y) => {
+        result.push({
+          x: Number(x) - 64,
+          y: 128 - (Number(y) - 64),
+          value: input[x][y],
+        });
+      });
+    });
+
+    return result;
+  }
+
+  return input;
+}
+
+export const threshold = curry((start, limits, values, value) => {
+  if (limits.length !== values.length) throw new Error('Limits must be the same as functions.');
+
+  const limitsWithStart = limits.slice(0);
+  limitsWithStart.unshift(start);
+
+  return findLast((v, i) => inRange(limitsWithStart[i], limitsWithStart[i + 1], value), values);
+});
+
+export const getTeamLogoUrl = (logoUrl) => {
+  if (!logoUrl) {
+    return '';
+  }
+  // Use proxy layer to serve team logos
+  if (logoUrl.indexOf('/ugc') !== -1) {
+    return `${process.env.REACT_APP_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}`;
+  }
+  return logoUrl;
+};
+
+/**
+ * Converts an HSV color value to RGB. Conversion formula
+ * adapted from http://en.wikipedia.org/wiki/HSV_color_space.
+ * Assumes h, s, and v are contained in the set [0, 1] and
+ * returns r, g, and b in the set [0, 255].
+ *
+ * @param   Number  h       The hue
+ * @param   Number  s       The saturation
+ * @param   Number  v       The value
+ * @return  Array           The RGB representation
+ */
+export const hsvToRgb = (h, s, v) => {
+  let r;
+  let g;
+  let b;
+
+  const i = Math.floor(h * 6);
+  const f = (h * 6) - i;
+  const p = v * (1 - s);
+  const q = v * (1 - (f * s));
+  const t = v * (1 - ((1 - f) * s));
+
+  switch (i % 6) {
+    case 0: r = v; g = t; b = p; break;
+    case 1: r = q; g = v; b = p; break;
+    case 2: r = p; g = v; b = t; break;
+    case 3: r = p; g = q; b = v; break;
+    case 4: r = t; g = p; b = v; break;
+    case 5: r = v; g = p; b = q; break;
+    default: r = v; g = t; b = p;
+  }
+
+  return [r * 255, g * 255, b * 255];
+};
+
+export const bindWidth = (width, maxWidth) => Math.min(width, maxWidth);
+
+export const getHeroesById = () => {
+  const obj = {};
+  Object.keys(heroes).forEach((hero) => {
+    obj[heroes[hero].name] = heroes[hero];
+  });
+  return obj;
+};
+
+// https://www.evanmiller.org/how-not-to-sort-by-average-rating.html
+export const wilsonScore = (up, down) => {
+  if (!up) return 0;
+  const n = up + down;
+  const z = 1.64485; // 1.0 = 85%, 1.6 = 95%
+  const phat = up / n;
+  return (
+    phat + ((z * z) / (2 * n)) - (z * Math.sqrt(((phat * (1 - phat)) + (z * z / (4 * n))) / n))
+  ) / (
+    1 + (z * z / n)
+  );
+};
+
+export const groupBy = (xs, key) =>
+  xs.reduce((rv, x) => {
+    (rv[x[key]] = rv[x[key]] || []).push(x); // eslint-disable-line no-param-reassign
+    return rv;
+  }, {});
+
+export function groupByArray(xs, key) {
+  return xs.reduce((rv, x) => {
+    const v = key instanceof Function ? key(x) : x[key];
+    const el = rv.find(r => r && r.key === v);
+    if (el) {
+      el.values.push(x);
+    } else {
+      rv.push({
+        key: v,
+        values: [x],
+      });
+    }
+    return rv;
+  }, []);
+}
+
+export const sumValues = f => Object.values(f).reduce((a, b) => a + b);
+
+/* eslint-disable camelcase */
+// https://dota2.gamepedia.com/Attributes
+export function compileLevelOneStats(hero) {
+  const statsBonuses = {
+    str: {
+      attackDamage: 1,
+      armor: 0.16,
+      health: 22.5,
+      health_regen: 0.69,
+      mana: 12,
+      mana_regen: 1.8,
+      mr: 0.1,
+      move_speed: 0.05,
+      attack_speed: 1,
+
+    },
+    int: {
+      attackDamage: 1,
+      armor: 0.16,
+      health: 18,
+      health_regen: 0.55,
+      mana: 15,
+      mana_regen: 2.25,
+      mr: 0.08,
+      move_speed: 0.05,
+      attack_speed: 1,
+
+    },
+    agi: {
+      attackDamage: 1,
+      armor: 0.2,
+      health: 18,
+      health_regen: 0.55,
+      mana: 12,
+      mana_regen: 1.8,
+      mr: 0.08,
+      move_speed: 0.063,
+      attack_speed: 1.25,
+    },
+  };
+
+  const round = value => Math.round(value * 100) / 100;
+
+  const {
+    primary_attr,
+    base_attack_max,
+    base_attack_min,
+    base_armor,
+    base_health,
+    base_health_regen,
+    base_mana,
+    base_mana_regen,
+    base_mr,
+    base_move_speed,
+    attack_rate,
+  } = hero;
+
+  const primaryAttrValue = hero[`base_${primary_attr}`];
+  const [agiValue, strValue, intValue] = [hero.base_agi, hero.base_str, hero.base_int];
+
+
+  return {
+    ...hero,
+    base_attack_min: base_attack_min + (statsBonuses[primary_attr].attackDamage * primaryAttrValue),
+    base_attack_max: base_attack_max + (statsBonuses[primary_attr].attackDamage * primaryAttrValue),
+    base_armor: round(base_armor + (statsBonuses[primary_attr].armor * agiValue)),
+    base_health: round(base_health + (statsBonuses[primary_attr].health * strValue)),
+    base_health_regen: round(base_health_regen + (base_health_regen * (statsBonuses[primary_attr].health_regen * strValue / 100))),
+    base_mana: round(base_mana + (statsBonuses[primary_attr].mana * intValue)),
+    base_mana_regen: round(base_mana_regen + (base_mana_regen * (statsBonuses[primary_attr].mana_regen * intValue / 100))),
+    base_mr: round(base_mr + (base_mr * (statsBonuses[primary_attr].mr * strValue / 100))),
+    base_move_speed: round(base_move_speed + (base_move_speed * (statsBonuses[primary_attr].move_speed * agiValue / 100))),
+    attack_rate: round(1.7 / (attack_rate / (1 + ((statsBonuses[primary_attr].attack_speed * agiValue) / 100))) * 100), // ingame representation of attack speed
+  };
+}
+/* eslint-enable camelcase */
+
+export function abbreviateNumber(num) {
+  if (!num) {
+    return '-';
+  } else if (num >= 1000 && num < 1000000) {
+    return `${Number((num / 1000).toFixed(1))}${strings.abbr_thousand}`;
+  } else if (num >= 1000000 && num < 1000000000) {
+    return `${Number((num / 1000000).toFixed(1))}${strings.abbr_million}`;
+  } else if (num >= 1000000000 && num < 1000000000000) {
+    return `${Number((num / 1000000000).toFixed(1))}${strings.abbr_billion}`;
+  } else if (num >= 1000000000000) {
+    return `${Number((num / 1000000000000).toFixed(1))}${strings.abbr_trillion}`;
+  }
+
+  return num.toFixed(0);
+}
+
+export function rankTierToString(rankTier) {
+  if (rankTier !== parseInt(rankTier, 10)) {
+    return strings.general_unknown;
+  }
+  const intRankTier = parseInt(rankTier, 10);
+  let rank = strings[`rank_tier_${parseInt(intRankTier / 10, 10)}`];
+  if (intRankTier > 9) {
+    rank += ` [${parseInt(intRankTier % 10, 10)}]`;
+  }
+  return rank;
+}
 
 const units = [{
   name: strings.time_s,
@@ -184,56 +537,6 @@ export function fromNow(time) {
   return '';
 }
 
-export const getPercentWin = (wins, games) => (games ? Number(((wins * 100) / games).toFixed(2)) : 0);
-
-export const camelToSnake = str =>
-  str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
-
-export const getOrdinal = (n) => {
-  // TODO localize strings
-  const s = ['th', 'st', 'nd', 'rd'];
-  const v = n % 100;
-  return n + (s[(v - 20) % 10] || s[v] || s[0]);
-};
-
-export const percentile = (pct) => {
-  if (pct >= 0.8) {
-    return {
-      color: 'green',
-      grade: 'A',
-    };
-  } else if (pct >= 0.6) {
-    return {
-      color: 'blue',
-      grade: 'B',
-    };
-  } else if (pct >= 0.4) {
-    return {
-      color: 'golden',
-      grade: 'C',
-    };
-  } else if (pct >= 0.2) {
-    return {
-      color: 'yelor',
-      grade: 'D',
-    };
-  }
-  return {
-    color: 'red',
-    grade: 'F',
-  };
-};
-
-export const IMAGESIZE_ENUM = {
-  SMALL: 'sb.png', //     ~10KB (59 px x 33 px)
-  MEDIUM: 'lg.png', //     ~41KB (205 px x 105 px)
-  LARGE: 'full.png', // ~52KB (256 px x 144 px)
-  VERT: 'vert.jpg', // ~18KB (235 px x 272 px) note that this is a jpg
-
-// if you ever wanna see what the above look like (change the suffix):
-// https://api.opendota.com/apps/dota2/images/heroes/abaddon_full.png
-};
-
 const getSubtitle = (row) => {
   if (row.match_id && row.player_slot !== undefined) {
     let lane;
@@ -274,21 +577,6 @@ const getSubtitle = (row) => {
   }
 
   return null;
-};
-
-const getTitle = (row, col, heroName) => {
-  if (row.match_id && row.player_slot !== undefined) {
-    return <TableLink to={`/matches/${row.match_id}`}>{heroName}</TableLink>;
-  }
-  return <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
-};
-
-export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
-  let imageUrl = heroes[heroId] && process.env.REACT_APP_API_HOST + heroes[heroId].img; // "[api url]/abaddon_full.png?"
-  if (imageUrl) {
-    imageUrl = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
-  }
-  return imageUrl + imageSizeSuffix;
 };
 
 /**
@@ -440,127 +728,9 @@ export const transformations = {
   ),
 };
 
-/* ---------------------------- match item_n transformations ---------------------------- */
-// This code is used to transform the items in the match.players (array of players with match data).
-// the items for each player are stored as item_0, item_1, ..., item_5. If there is no item, we
-// have a value of 0 there, so we return false for those cases so we don't render a broken image link.
-// Otherwise, we just put the url in the image. THis will also contain the tooltip stuff as well
-// (once I get to the tooltips).
-
-const transformMatchItem = ({
-  field,
-}) => {
-  if (field === 0) {
-    return false;
-  }
-  return `${process.env.REACT_APP_API_HOST}${items[itemIds[field]].img}`;
-};
-
 for (let i = 0; i < 6; i += 1) {
   transformations[`item_${i}`] = transformMatchItem;
 }
-
-export const defaultSort = (array, sortState, sortField, sortFn) =>
-  array.sort((a, b) => {
-    const sortFnExists = typeof sortFn === 'function';
-    const aVal = (sortFnExists ? sortFn(a) : a[sortField]) || 0;
-    const bVal = (sortFnExists ? sortFn(b) : b[sortField]) || 0;
-    const desc = aVal < bVal ? 1 : -1;
-    const asc = aVal < bVal ? -1 : 1;
-    return sortState === 'desc' ? desc : asc;
-  });
-
-export const SORT_ENUM = {
-  0: 'asc',
-  1: 'desc',
-  asc: 0,
-  desc: 1,
-  next: state => SORT_ENUM[(state >= 1 ? 0 : state + 1)],
-};
-
-export function getObsWardsPlaced(pm) {
-  if (!pm.obs_log) {
-    return 0;
-  }
-
-  return pm.obs_log.filter(l => !l.entityleft).length;
-}
-
-export function isSupport(pm) {
-  return getObsWardsPlaced(pm) >= 2 && pm.lh_t && pm.lh_t[10] < 20;
-}
-
-export function isRoshHero(pm) {
-  const roshHeroes = {
-    npc_dota_hero_lycan: 1,
-    npc_dota_hero_ursa: 1,
-    npc_dota_hero_troll_warlord: 1,
-  };
-
-  return heroes[pm.hero_id] && (heroes[pm.hero_id].name in roshHeroes);
-}
-
-export function isActiveItem(key) {
-  const whitelist = {
-    branches: 1,
-    bloodstone: 1,
-    radiance: 1,
-  };
-
-  // TODO this will only work for english data files
-  return (items[key].desc.indexOf('Active: ') > -1 && !(key in whitelist));
-}
-
-export const sum = (a, b) => a + b;
-
-export const extractTransitionClasses = _styles => name => ({
-  enter: _styles[`${name}-enter`],
-  enterActive: _styles[`${name}-enter-active`],
-  leave: _styles[`${name}-leave`],
-  leaveActive: _styles[`${name}-leave-active`],
-  appear: _styles[`${name}-appear`],
-  appearActive: _styles[`${name}-appear-active`],
-});
-
-export const gameCoordToUV = (x, y) => ({
-  x: Number(x) - 64,
-  y: 127 - (Number(y) - 64),
-});
-
-// TODO: refactor this to use gameCoordToUV
-/**
- * Unpacks position data from hash format to array format
- * 64 is the offset of x and y values
- * subtracting y from 127 inverts from bottom/left origin to top/left origin
- * */
-export function unpackPositionData(input) {
-  if (typeof input === 'object' && !Array.isArray(input)) {
-    const result = [];
-
-    Object.keys(input).forEach((x) => {
-      Object.keys(input[x]).forEach((y) => {
-        result.push({
-          x: Number(x) - 64,
-          y: 128 - (Number(y) - 64),
-          value: input[x][y],
-        });
-      });
-    });
-
-    return result;
-  }
-
-  return input;
-}
-
-export const threshold = curry((start, limits, values, value) => {
-  if (limits.length !== values.length) throw new Error('Limits must be the same as functions.');
-
-  const limitsWithStart = limits.slice(0);
-  limitsWithStart.unshift(start);
-
-  return findLast((v, i) => inRange(limitsWithStart[i], limitsWithStart[i + 1], value), values);
-});
 
 export const getTeamName = (team, _isRadiant) => {
   if (_isRadiant) {
@@ -569,54 +739,6 @@ export const getTeamName = (team, _isRadiant) => {
 
   return (team && team.name) ? team.name : strings.general_dire;
 };
-
-export const getTeamLogoUrl = (logoUrl) => {
-  if (!logoUrl) {
-    return '';
-  }
-  // Use proxy layer to serve team logos
-  if (logoUrl.indexOf('/ugc') !== -1) {
-    return `${process.env.REACT_APP_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}`;
-  }
-  return logoUrl;
-};
-
-/**
- * Converts an HSV color value to RGB. Conversion formula
- * adapted from http://en.wikipedia.org/wiki/HSV_color_space.
- * Assumes h, s, and v are contained in the set [0, 1] and
- * returns r, g, and b in the set [0, 255].
- *
- * @param   Number  h       The hue
- * @param   Number  s       The saturation
- * @param   Number  v       The value
- * @return  Array           The RGB representation
- */
-export const hsvToRgb = (h, s, v) => {
-  let r;
-  let g;
-  let b;
-
-  const i = Math.floor(h * 6);
-  const f = (h * 6) - i;
-  const p = v * (1 - s);
-  const q = v * (1 - (f * s));
-  const t = v * (1 - ((1 - f) * s));
-
-  switch (i % 6) {
-    case 0: r = v; g = t; b = p; break;
-    case 1: r = q; g = v; b = p; break;
-    case 2: r = p; g = v; b = t; break;
-    case 3: r = p; g = q; b = v; break;
-    case 4: r = t; g = p; b = v; break;
-    case 5: r = v; g = p; b = q; break;
-    default: r = v; g = t; b = p;
-  }
-
-  return [r * 255, g * 255, b * 255];
-};
-
-export const bindWidth = (width, maxWidth) => Math.min(width, maxWidth);
 
 // Fills in a template with the values provided in the dict
 // returns a list, so react object don't have to be converted to a string
@@ -640,27 +762,6 @@ export const formatTemplate = (template, dict) => {
   }
   result = result.filter(part => part !== '');
   return result;
-};
-
-export const getHeroesById = () => {
-  const obj = {};
-  Object.keys(heroes).forEach((hero) => {
-    obj[heroes[hero].name] = heroes[hero];
-  });
-  return obj;
-};
-
-// https://www.evanmiller.org/how-not-to-sort-by-average-rating.html
-export const wilsonScore = (up, down) => {
-  if (!up) return 0;
-  const n = up + down;
-  const z = 1.64485; // 1.0 = 85%, 1.6 = 95%
-  const phat = up / n;
-  return (
-    phat + ((z * z) / (2 * n)) - (z * Math.sqrt(((phat * (1 - phat)) + (z * z / (4 * n))) / n))
-  ) / (
-    1 + (z * z / n)
-  );
 };
 
 export const translateBuildings = (isRad, key) => {
@@ -688,104 +789,3 @@ export const translateBuildings = (isRad, key) => {
   };
   return team + dict[k];
 };
-
-export const groupBy = (xs, key) =>
-  xs.reduce((rv, x) => {
-    (rv[x[key]] = rv[x[key]] || []).push(x); // eslint-disable-line no-param-reassign
-    return rv;
-  }, {});
-
-export function groupByArray(xs, key) {
-  return xs.reduce((rv, x) => {
-    const v = key instanceof Function ? key(x) : x[key];
-    const el = rv.find(r => r && r.key === v);
-    if (el) {
-      el.values.push(x);
-    } else {
-      rv.push({
-        key: v,
-        values: [x],
-      });
-    }
-    return rv;
-  }, []);
-}
-
-export const sumValues = f => Object.values(f).reduce((a, b) => a + b);
-
-/* eslint-disable camelcase */
-// https://dota2.gamepedia.com/Attributes
-export function compileLevelOneStats(hero) {
-  const statsBonuses = {
-    str: {
-      attackDamage: 1,
-      armor: 0.16,
-      health: 22.5,
-      health_regen: 0.69,
-      mana: 12,
-      mana_regen: 1.8,
-      mr: 0.1,
-      move_speed: 0.05,
-      attack_speed: 1,
-
-    },
-    int: {
-      attackDamage: 1,
-      armor: 0.16,
-      health: 18,
-      health_regen: 0.55,
-      mana: 15,
-      mana_regen: 2.25,
-      mr: 0.08,
-      move_speed: 0.05,
-      attack_speed: 1,
-
-    },
-    agi: {
-      attackDamage: 1,
-      armor: 0.2,
-      health: 18,
-      health_regen: 0.55,
-      mana: 12,
-      mana_regen: 1.8,
-      mr: 0.08,
-      move_speed: 0.063,
-      attack_speed: 1.25,
-    },
-  };
-
-  const round = value => Math.round(value * 100) / 100;
-
-  const {
-    primary_attr,
-    base_attack_max,
-    base_attack_min,
-    base_armor,
-    base_health,
-    base_health_regen,
-    base_mana,
-    base_mana_regen,
-    base_mr,
-    base_move_speed,
-    attack_rate,
-  } = hero;
-
-  const primaryAttrValue = hero[`base_${primary_attr}`];
-  const [agiValue, strValue, intValue] = [hero.base_agi, hero.base_str, hero.base_int];
-
-
-  return {
-    ...hero,
-    base_attack_min: base_attack_min + (statsBonuses[primary_attr].attackDamage * primaryAttrValue),
-    base_attack_max: base_attack_max + (statsBonuses[primary_attr].attackDamage * primaryAttrValue),
-    base_armor: round(base_armor + (statsBonuses[primary_attr].armor * agiValue)),
-    base_health: round(base_health + (statsBonuses[primary_attr].health * strValue)),
-    base_health_regen: round(base_health_regen + (base_health_regen * (statsBonuses[primary_attr].health_regen * strValue / 100))),
-    base_mana: round(base_mana + (statsBonuses[primary_attr].mana * intValue)),
-    base_mana_regen: round(base_mana_regen + (base_mana_regen * (statsBonuses[primary_attr].mana_regen * intValue / 100))),
-    base_mr: round(base_mr + (base_mr * (statsBonuses[primary_attr].mr * strValue / 100))),
-    base_move_speed: round(base_move_speed + (base_move_speed * (statsBonuses[primary_attr].move_speed * agiValue / 100))),
-    attack_rate: round(1.7 / (attack_rate / (1 + ((statsBonuses[primary_attr].attack_speed * agiValue) / 100))) * 100), // ingame representation of attack speed
-  };
-}
-/* eslint-enable camelcase */
