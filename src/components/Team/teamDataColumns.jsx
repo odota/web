@@ -1,6 +1,6 @@
 import React from 'react';
 import heroes from 'dotaconstants/build/heroes.json';
-import { transformations, subTextStyle, getTeamLogoUrl } from '../../utility';
+import { transformations, displayHeroId, subTextStyle, getTeamLogoUrl } from '../../utility';
 import { TableLink } from '../Table';
 import constants from '../constants';
 import { TableRow, TableImage } from './TeamStyled';
@@ -80,7 +80,7 @@ export const memberColumns = strings => [{
 export const heroColumns = strings => [{
   displayName: strings.th_hero_id,
   field: 'hero_id',
-  displayFn: transformations.hero_id,
+  displayFn: displayHeroId,
   sortFn: row => (heroes[row.hero_id] && heroes[row.hero_id].localized_name),
 }, {
   displayName: strings.th_games_played,

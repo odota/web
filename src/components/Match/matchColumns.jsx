@@ -1281,6 +1281,8 @@ export default (strings) => {
     cosmeticsColumns,
     fantasyColumns,
     goldReasonsColumns,
+    heroTd,
+    heroTdColumn,
     inflictorsColumns,
     laningColumns,
     lastHitsTimesColumns,

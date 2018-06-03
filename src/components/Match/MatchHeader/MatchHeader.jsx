@@ -263,7 +263,7 @@ const MatchHeader = ({ match, user, strings }) => {
           </div>
           <div className="gmde">
             <span className="gameMode">
-              {transformations.game_mode(null, null, match.game_mode)}
+              {strings[`game_mode_${match.game_mode}`]}
             </span>
             <span className="duration">
               {transformations.duration(null, null, match.duration)}

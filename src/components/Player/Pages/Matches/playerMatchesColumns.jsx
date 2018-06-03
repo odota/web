@@ -1,10 +1,10 @@
-import { transformations } from '../../../../utility';
+import { transformations, displayHeroId } from '../../../../utility';
 
 export default strings => ([{
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
-  displayFn: transformations.hero_id,
+  displayFn: displayHeroId,
 }, {
   displayName: strings.th_result,
   tooltip: strings.tooltip_result,

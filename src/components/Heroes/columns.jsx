@@ -1,7 +1,7 @@
 // import React from 'react';
 import heroes from 'dotaconstants/build/heroes.json';
 import {
-  transformations,
+  displayHeroId,
   abbreviateNumber,
 } from '../../utility';
 import constants from '../constants';
@@ -18,7 +18,7 @@ export default (strings) => {
     displayName: strings.th_hero_id,
     tooltip: strings.tooltip_hero_id,
     field: 'hero_id',
-    displayFn: transformations.hero_id,
+    displayFn: displayHeroId,
     sortFn: row => (heroes[row.hero_id] && heroes[row.hero_id].localized_name),
   };
 

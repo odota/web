@@ -194,22 +194,6 @@ export const formatTemplate = (template, dict) => {
   return result;
 };
 
-/* ---------------------------- match item_n transformations ---------------------------- */
-// This code is used to transform the items in the match.players (array of players with match data).
-// the items for each player are stored as item_0, item_1, ..., item_5. If there is no item, we
-// have a value of 0 there, so we return false for those cases so we don't render a broken image link.
-// Otherwise, we just put the url in the image. THis will also contain the tooltip stuff as well
-// (once I get to the tooltips).
-
-const transformMatchItem = ({
-  field,
-}) => {
-  if (field === 0) {
-    return false;
-  }
-  return `${process.env.REACT_APP_API_HOST}${items[itemIds[field]].img}`;
-};
-
 export const defaultSort = (array, sortState, sortField, sortFn) =>
   array.sort((a, b) => {
     const sortFnExists = typeof sortFn === 'function';
@@ -574,6 +558,81 @@ export function fromNow(time) {
   return '';
 }
 
+export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffix = IMAGESIZE_ENUM.SMALL, guideUrl, guideType) {
+  const { strings } = store.getState().app;
+  const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
+  const imageUrl = getHeroImageUrl(row[col.field], imageSizeSuffix);
+  const getSubtitle = (row) => {
+    if (row.match_id && row.player_slot !== undefined) {
+      let lane;
+      let tooltip;
+      if (row.is_roaming) {
+        tooltip = strings.roaming;
+        lane = 'roam';
+      } else {
+        tooltip = strings[`lane_role_${row.lane_role}`];
+        lane = row.lane_role;
+      }
+      const roleIconStyle = {
+        position: 'relative',
+        height: '12px',
+        marginLeft: '5px',
+        filter: 'grayscale(60%)',
+        top: '2px',
+      };
+
+      return (
+        <span>
+          <span>{(isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire)}</span>
+          {lane ?
+            <img
+              src={`/assets/images/dota2/lane_${lane}.svg`}
+              alt=""
+              data-tip={tooltip}
+              data-offset="{'right': 4, 'top': 4}"
+              data-delay-show="300"
+              style={roleIconStyle}
+            />
+          : ''}
+        </span>);
+    } else if (row.last_played) {
+      return <FromNowTooltip timestamp={row.last_played} />;
+    } else if (row.start_time) {
+      return <FromNowTooltip timestamp={row.start_time} />;
+    }
+
+    return null;
+  };
+
+  return (
+    <TableHeroImage
+      parsed={row.version}
+      image={imageUrl}
+      title={getTitle(row, col, heroName)}
+      subtitle={getSubtitle(row)}
+      heroName={heroName}
+      showGuide={showGuide}
+      guideUrl={guideUrl}
+      guideType={guideType}
+      leaverStatus={row.leaver_status}
+    />
+  );
+}
+
+export function displayHeroIdWithPvgna(row, col, field) {
+  return displayHeroId(row, col, field, true, IMAGESIZE_ENUM.SMALL, row.pvgnaGuide && row.pvgnaGuide.url, 'PVGNA');
+}
+
+export function displayHeroIdWithMoreMmr(row, col, field) {
+  let url = 'https://moremmr.com/en/heroes/';
+  if (heroes[row[col.field]] && heroes[row[col.field]].localized_name) {
+    const heroName = heroes[row[col.field]].localized_name.toLowerCase().replace(' ', '-');
+    url = `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`;
+  }
+
+  return displayHeroId(row, col, field, true, IMAGESIZE_ENUM.SMALL, url, 'MOREMMR');
+}
+
 /**
  * Transformations of table cell data to display values.
  * These functions are intended to be used as the displayFn property in table columns.
@@ -581,75 +640,6 @@ export function fromNow(time) {
  * */
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
-  hero_id: (row, col, field, showGuide = false, imageSizeSuffix = IMAGESIZE_ENUM.SMALL, guideUrl, guideType) => {
-    const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
-    const imageUrl = getHeroImageUrl(row[col.field], imageSizeSuffix);
-    const getSubtitle = (row) => {
-      if (row.match_id && row.player_slot !== undefined) {
-        let lane;
-        let tooltip;
-        if (row.is_roaming) {
-          tooltip = strings.roaming;
-          lane = 'roam';
-        } else {
-          tooltip = strings[`lane_role_${row.lane_role}`];
-          lane = row.lane_role;
-        }
-        const roleIconStyle = {
-          position: 'relative',
-          height: '12px',
-          marginLeft: '5px',
-          filter: 'grayscale(60%)',
-          top: '2px',
-        };
-    
-        return (
-          <span>
-            <span>{(isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire)}</span>
-            {lane ?
-              <img
-                src={`/assets/images/dota2/lane_${lane}.svg`}
-                alt=""
-                data-tip={tooltip}
-                data-offset="{'right': 4, 'top': 4}"
-                data-delay-show="300"
-                style={roleIconStyle}
-              />
-            : ''}
-          </span>);
-      } else if (row.last_played) {
-        return <FromNowTooltip timestamp={row.last_played} />;
-      } else if (row.start_time) {
-        return <FromNowTooltip timestamp={row.start_time} />;
-      }
-
-      return null;
-    };
-
-    return (
-      <TableHeroImage
-        parsed={row.version}
-        image={imageUrl}
-        title={getTitle(row, col, heroName)}
-        subtitle={getSubtitle(row)}
-        heroName={heroName}
-        showGuide={showGuide}
-        guideUrl={guideUrl}
-        guideType={guideType}
-        leaverStatus={row.leaver_status}
-      />
-    );
-  },
-  hero_id_with_pvgna_guide: (row, col, field) => transformations.hero_id(row, col, field, true, IMAGESIZE_ENUM.SMALL, row.pvgnaGuide && row.pvgnaGuide.url, 'PVGNA'),
-  hero_id_with_more_mmr: (row, col, field) => {
-    let url = 'https://moremmr.com/en/heroes/';
-    if (heroes[row[col.field]] && heroes[row[col.field]].localized_name) {
-      const heroName = heroes[row[col.field]].localized_name.toLowerCase().replace(' ', '-');
-      url = `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`;
-    }
-
-    return transformations.hero_id(row, col, field, true, IMAGESIZE_ENUM.SMALL, url, 'MOREMMR');
-  },
   match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
   match_id_with_time: (row, col, field) => (
     <div>
@@ -658,9 +648,9 @@ export const transformations = {
         {fromNow(row.start_time)}
       </span>
     </div>),
-  game_mode: (row, col, field) => (strings[`game_mode_${field}`]),
   radiant_win_and_game_mode: (row, col, field) => {
-    const { match_id } = row;
+    const matchId = row.match_id;
+    const { strings } = store.getState().app;
     const partySize = (_partySize) => {
       if (_partySize === 1) {
         return [
@@ -711,7 +701,7 @@ export const transformations = {
 
     return (
       <div>
-        <TableLink to={`/matches/${match_id}`} color={getColor(field)}>
+        <TableLink to={`/matches/${matchId}`} color={getColor(field)}>
           <span style={{ color: getColor(field) }}>
             {getString(field)}
           </span>
@@ -741,10 +731,6 @@ export const transformations = {
         </span>}
     </div>
   ),
-  region: (row, col, field) => (strings[`region_${field}`]),
-  leaver_status: (row, col, field) => (strings[`leaver_status_${field}`]),
-  lobby_type: (row, col, field) => (strings[`lobby_type_${field}`]),
-  lane_role: (row, col, field) => (strings[`lane_role_${field}`]),
   patch: (row, col, field) => (patch[field] ? patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
@@ -763,6 +749,22 @@ export const transformations = {
       accountId={row.account_id}
     />
   ),
+};
+
+/* ---------------------------- match item_n transformations ---------------------------- */
+// This code is used to transform the items in the match.players (array of players with match data).
+// the items for each player are stored as item_0, item_1, ..., item_5. If there is no item, we
+// have a value of 0 there, so we return false for those cases so we don't render a broken image link.
+// Otherwise, we just put the url in the image. THis will also contain the tooltip stuff as well
+// (once I get to the tooltips).
+
+const transformMatchItem = ({
+  field,
+}) => {
+  if (field === 0) {
+    return false;
+  }
+  return `${process.env.REACT_APP_API_HOST}${items[itemIds[field]].img}`;
 };
 
 for (let i = 0; i < 6; i += 1) {

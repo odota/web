@@ -1,15 +1,11 @@
-import { transformations } from '../../../../utility';
-
 export default strings => ([{
   displayName: strings.th_category,
   field: 'category',
   sortFn: true,
-  displayFn: transformations.category,
 }, {
   displayName: strings.th_matches,
   field: 'matches',
   sortFn: true,
-  displayFn: transformations.matches,
   relativeBars: true,
 }, {
   displayName: strings.th_win,
