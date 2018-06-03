@@ -1,5 +1,5 @@
 import React from 'react';
-import { findLast } from 'lodash/fp';
+import findLast from 'lodash/fp/findLast';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { debounce } from 'lodash/fp';
+import debounce from 'lodash/fp/debounce';
 import TextField from 'material-ui/TextField';
 import querystring from 'querystring';
 import { getSearchResultAndPros, setSearchQuery } from '../../actions';

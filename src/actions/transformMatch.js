@@ -1,6 +1,11 @@
 import heroes from 'dotaconstants/build/heroes.json';
 import immutable from 'seamless-immutable';
-import { concat, curry, flatten, map, flow, sortBy } from 'lodash/fp';
+import concat from 'lodash/fp/concat';
+import curry from 'lodash/fp/curry';
+import flatten from 'lodash/fp/flatten';
+import map from 'lodash/fp/map';
+import flow from 'lodash/fp/flow';
+import sortBy from 'lodash/fp/sortBy';
 import {
   isRadiant,
   isSupport,
