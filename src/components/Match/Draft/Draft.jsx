@@ -185,7 +185,7 @@ const Draft = ({
   draft = [],
   sponsorURL,
   sponsorIcon,
-  strings
+  strings,
 }) => {
   // if there is no draft data there is no meaning to firstIsTeamTwo
   const firstIsTeamTwo = draft && draft[0] && draft[0].active_team === 2;
@@ -314,7 +314,7 @@ Draft.propTypes = {
   draft: PropTypes.arrayOf(PropTypes.shape({})),
   sponsorURL: PropTypes.string,
   sponsorIcon: PropTypes.string,
-  strings: PropTypes.shape({})
+  strings: PropTypes.shape({}),
 };
 
 export default Draft;

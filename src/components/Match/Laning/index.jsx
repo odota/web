@@ -13,7 +13,7 @@ class Laning extends React.Component {
     match: PropTypes.shape({}),
     strings: PropTypes.shape({}),
     sponsorURL: PropTypes.string,
-    sponsorIcon: PropTypes.string
+    sponsorIcon: PropTypes.string,
   }
 
   constructor(props) {
@@ -28,7 +28,9 @@ class Laning extends React.Component {
   };
 
   render() {
-    const { match, strings, sponsorURL, sponsorIcon} = this.props;
+    const {
+      match, strings, sponsorURL, sponsorIcon,
+    } = this.props;
     const { laningColumns } = mcs(strings);
     return (
       <StyledFlexContainer>

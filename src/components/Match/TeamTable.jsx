@@ -28,7 +28,7 @@ class TeamTable extends React.Component {
     loggedInId: PropTypes.number,
     buttonLabel: PropTypes.string,
     buttonTo: PropTypes.string,
-    buttonIcon: PropTypes.string
+    buttonIcon: PropTypes.string,
   };
   constructor() {
     super();
@@ -61,7 +61,7 @@ class TeamTable extends React.Component {
       loggedInId,
       buttonLabel,
       buttonTo,
-      buttonIcon
+      buttonIcon,
     } = this.props;
 
     return (

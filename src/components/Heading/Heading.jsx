@@ -25,7 +25,7 @@ const Heading = ({
       <span className="info" data-hint={info} style={{ display: info ? 'inline' : 'none' }}>
         {'(?)'}
       </span>
-      <span class="sponsor-button">
+      <span className="sponsor-button">
         { buttonLabel ?
           <FlatButton
             label={buttonLabel}
@@ -34,7 +34,7 @@ const Heading = ({
             target="_blank"
             rel="noopener noreferrer"
           />
-          : <div/>
+          : <div />
         }
       </span>
     </DivToUse>);
@@ -57,6 +57,9 @@ Heading.propTypes = {
   ]),
   twoLine: bool,
   info: string,
+  buttonLabel: string,
+  buttonTo: string,
+  buttonIcon: string,
 };
 
 export default Heading;

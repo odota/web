@@ -374,6 +374,8 @@ class TeamfightMap extends Component {
     teamfights: arrayOf(object),
     match: shape({}),
     strings: shape({}),
+    sponsorIcon: string,
+    sponsorURL: string,
   }
 
   constructor(props) {
@@ -439,7 +441,9 @@ class TeamfightMap extends Component {
   isSelected = (teamfight = { start: null }) => this.state.teamfight && this.state.teamfight.start === teamfight.start;
 
   render() {
-    const { teamfights = [], match, strings, sponsorURL, sponsorIcon } = this.props;
+    const {
+      teamfights = [], match, strings, sponsorURL, sponsorIcon,
+    } = this.props;
     const teamfight = this.state.teamfight || {};
     const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
     const { teamfightColumns } = mcs(strings);
@@ -546,8 +550,6 @@ Teamfight.propTypes = {
   onClick: func,
   deathPositions: arrayOf(array),
   strings: shape({}),
-  sponsorIcon: string,
-  sponsorURL: string
 };
 
 const mapStateToProps = state => ({

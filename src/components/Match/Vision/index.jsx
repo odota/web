@@ -122,6 +122,8 @@ class Vision extends React.Component {
       wards_log: PropTypes.arrayOf({}),
     }),
     strings: PropTypes.shape({}),
+    sponsorIcon: PropTypes.string,
+    sponsorURL: PropTypes.string,
   }
 
   constructor(props) {
@@ -187,7 +189,9 @@ class Vision extends React.Component {
 
   render() {
     const visibleWards = this.visibleData();
-    const { match, strings, sponsorIcon, sponsorURL } = this.props;
+    const {
+      match, strings, sponsorIcon, sponsorURL,
+    } = this.props;
 
     return (
       <div>

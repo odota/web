@@ -71,7 +71,9 @@ XpTooltipContent.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const XpNetworthGraph = ({ match, strings, sponsorURL, sponsorIcon }) => {
+const XpNetworthGraph = ({
+  match, strings, sponsorURL, sponsorIcon,
+}) => {
   const matchData = generateDiffData(match);
   const maxY =
       Math.ceil(Math.max(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000) * 5000;
@@ -129,6 +131,8 @@ const XpNetworthGraph = ({ match, strings, sponsorURL, sponsorIcon }) => {
 XpNetworthGraph.propTypes = {
   match: PropTypes.shape({}),
   strings: PropTypes.shape({}),
+  sponsorIcon: PropTypes.string,
+  sponsorURL: PropTypes.string,
 };
 
 class PlayersGraph extends React.Component {
@@ -223,10 +227,10 @@ class PlayersGraph extends React.Component {
 }
 
 const MatchGraph = ({
-  type, match, width, strings, sponsorURL, sponsorIcon
+  type, match, width, strings, sponsorURL, sponsorIcon,
 }) => {
   if (type === 'difference') {
-    return <XpNetworthGraph match={match} width={width} strings={strings} sponsorURL={sponsorURL} sponsorIcon={sponsorIcon}/>;
+    return <XpNetworthGraph match={match} width={width} strings={strings} sponsorURL={sponsorURL} sponsorIcon={sponsorIcon} />;
   } else if (type === 'gold' || type === 'xp' || type === 'lh') {
     return <PlayersGraph type={type} match={match} width={width} strings={strings} />;
   }
@@ -240,6 +244,8 @@ MatchGraph.propTypes = {
   match: PropTypes.shape({}),
   type: PropTypes.string,
   strings: PropTypes.shape({}),
+  sponsorIcon: PropTypes.string,
+  sponsorURL: PropTypes.string,
 };
 
 const mapStateToProps = state => ({

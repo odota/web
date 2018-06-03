@@ -9,6 +9,8 @@ class Purchases extends React.Component {
   static propTypes = {
     match: PropTypes.shape({}),
     strings: PropTypes.shape({}),
+    sponsorURL: PropTypes.string,
+    sponsorIcon: PropTypes.string,
   }
 
   constructor(props) {
@@ -23,7 +25,9 @@ class Purchases extends React.Component {
   }
 
   render() {
-    const { match, strings, sponsorURL, sponsorIcon } = this.props;
+    const {
+      match, strings, sponsorURL, sponsorIcon,
+    } = this.props;
     const { purchaseTimesColumns } = mcs(strings);
     return (
       <div>

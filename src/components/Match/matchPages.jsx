@@ -39,7 +39,7 @@ const matchPages = (strings) => {
 
   const gosuUrl = 'https://gosu.ai/dota/?utm_source=opendota&utm_medium=cpc&utm_campaign=';
   const gosuIcon = '/assets/images/dotacoach-32x24.png';
-  
+
   return [Overview(strings, gosuUrl, gosuIcon), {
     name: strings.tab_benchmarks,
     key: 'benchmarks',
@@ -203,7 +203,7 @@ const matchPages = (strings) => {
     content: match => (
       <div>
         <Timeline match={match} />
-        <MatchGraph match={match} type="difference" sponsorURL={gosuUrl} sponsorIcon={gosuIcon}/>
+        <MatchGraph match={match} type="difference" sponsorURL={gosuUrl} sponsorIcon={gosuIcon} />
         <MatchGraph match={match} type="gold" />
         <MatchGraph match={match} type="xp" />
         <MatchGraph match={match} type="lh" />
