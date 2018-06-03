@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { transformations, formatSeconds, getOrdinal } from '../../utility';
+import { transformations, formatSeconds, getOrdinal, displayHeroId } from '../../utility';
 import { getRecords } from '../../actions';
 import Table from '../Table';
 import Heading from '../Heading';
@@ -25,7 +25,7 @@ const matchesColumns = (field, strings) => [{
 }, {
   displayName: '',
   field: 'hero_id',
-  displayFn: (row, col, _field) => (row.hero_id === '' ? null : transformations.hero_id(row, col, _field)),
+  displayFn: (row, col, _field) => (row.hero_id === '' ? null : displayHeroId(row, col, _field)),
 }];
 
 const fields = ['duration', 'kills', 'deaths', 'assists', 'gold_per_min', 'xp_per_min', 'last_hits', 'denies', 'hero_damage', 'tower_damage', 'hero_healing'];

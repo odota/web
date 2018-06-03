@@ -8,7 +8,6 @@ import ActionSearch from 'material-ui/svg-icons/action/search';
 import Helmet from 'react-helmet';
 import querystring from 'querystring';
 import json2csv from 'json2csv';
-import { BulletList } from 'react-content-loader';
 import Heading from '../Heading';
 import {
   getProPlayers,
@@ -22,6 +21,7 @@ import ExplorerControlSection from './ExplorerControlSection';
 import ExplorerFormField from './ExplorerFormField';
 import getFields from './fields';
 import autocomplete from './autocomplete';
+import TableSkeleton from '../Skeletons/TableSkeleton';
 
 const playerMapping = {};
 const teamMapping = {};
@@ -282,7 +282,7 @@ class Explorer extends React.Component {
         </div>
         <Heading title={strings.explorer_results} subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`} />
         <pre style={{ color: 'red' }}>{this.state.result.err}</pre>
-        {this.state.loading ? <BulletList primaryColor="#666" width={300} /> : null}
+        {this.state.loading ? <TableSkeleton /> : null}
         {!this.state.loading && <ExplorerOutputSection
           rows={this.state.result.rows}
           fields={this.state.result.fields}

@@ -4,7 +4,7 @@ import MatchGraph from '../../Visualizations/Graph/MatchGraph';
 import TeamTable from '../TeamTable';
 import AbilityBuildTable from '../AbilityBuildTable';
 import AbilityDraftTable from '../AbilityDraftTable';
-import { overviewColumns, abilityColumns, abilityDraftColumns } from '../matchColumns';
+import mcs from '../matchColumns';
 import BuildingMap from '../BuildingMap';
 
 const Styled = styled.div`
@@ -31,24 +31,26 @@ const Styled = styled.div`
   }
 `;
 
-const Overview = strings => ({
-  name: strings.tab_overview,
-  key: 'overview',
-  content: match => (
-    <div>
-      {
-        <TeamTable
-          players={match.players}
-          columns={overviewColumns(match)}
-          heading={strings.heading_overview}
-          picksBans={match.picks_bans}
-          radiantTeam={match.radiant_team}
-          direTeam={match.dire_team}
-          summable
-          hoverRowColumn
-        />
+const Overview = (strings) => {
+  const { overviewColumns, abilityColumns, abilityDraftColumns } = mcs(strings);
+  return ({
+    name: strings.tab_overview,
+    key: 'overview',
+    content: match => (
+      <div>
+        {
+          <TeamTable
+            players={match.players}
+            columns={overviewColumns(match)}
+            heading={strings.heading_overview}
+            picksBans={match.picks_bans}
+            radiantTeam={match.radiant_team}
+            direTeam={match.dire_team}
+            summable
+            hoverRowColumn
+          />
       }
-      {
+        {
         match.game_mode === 18 &&
         <AbilityDraftTable
           players={match.players}
@@ -60,29 +62,30 @@ const Overview = strings => ({
           summable
         />
       }
-      {
-        <AbilityBuildTable
-          players={match.players}
-          columns={abilityColumns()}
-          heading={strings.heading_ability_build}
-          radiantTeam={match.radiant_team}
-          direTeam={match.dire_team}
-        />
+        {
+          <AbilityBuildTable
+            players={match.players}
+            columns={abilityColumns()}
+            heading={strings.heading_ability_build}
+            radiantTeam={match.radiant_team}
+            direTeam={match.dire_team}
+          />
       }
-      {
-        <Styled>
-          <div className="map">
-            <BuildingMap match={match} />
-          </div>
-          {match.version && (
+        {
+          <Styled>
+            <div className="map">
+              <BuildingMap match={match} />
+            </div>
+            {match.version && (
             <div className="graph">
               <MatchGraph match={match} type="difference" />
             </div>
           )}
-        </Styled>
+          </Styled>
       }
-    </div>
-  ),
-});
+      </div>
+    ),
+  });
+};
 
 export default Overview;

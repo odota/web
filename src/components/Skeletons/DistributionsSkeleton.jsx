@@ -6,8 +6,8 @@ const DistributionsSkeleton = props => (
     height={200}
     width={500}
     primaryColor="#666"
-    secondaryColor="#666"
-    animate={false}
+    secondaryColor="#ecebeb"
+    animate
     {...props}
   >
     <rect x="150" y="50" rx="5" ry="5" width="5" height="100" />

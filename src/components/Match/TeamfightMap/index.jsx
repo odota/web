@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from '../../../utility';
 import { IconRadiant, IconDire, IconDot } from '../../Icons';
 import TeamTable from '../TeamTable';
-import { teamfightColumns } from '../matchColumns';
+import mcs from '../matchColumns';
 import PlayerThumb from '../PlayerThumb';
 import Timeline from '../Overview/Timeline';
 import DotaMap from '../../DotaMap';
@@ -442,6 +442,7 @@ class TeamfightMap extends Component {
     const { teamfights = [], match, strings } = this.props;
     const teamfight = this.state.teamfight || {};
     const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
+    const { teamfightColumns } = mcs(strings);
     return (
       <Styled>
         <div className="timelineContainer">

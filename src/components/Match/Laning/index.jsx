@@ -5,7 +5,7 @@ import Heading from '../../Heading';
 import Heatmap from '../../Heatmap';
 import Table from '../../Table';
 import { unpackPositionData } from '../../../utility';
-import { laningColumns } from '../matchColumns';
+import mcs from '../matchColumns';
 import { StyledFlexContainer, StyledFlexElement } from '../StyledMatch';
 
 class Laning extends React.Component {
@@ -27,6 +27,7 @@ class Laning extends React.Component {
 
   render() {
     const { match, strings } = this.props;
+    const { laningColumns } = mcs(strings);
     return (
       <StyledFlexContainer>
         <StyledFlexElement >

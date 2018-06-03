@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Toggle from 'material-ui/Toggle';
 import TeamTable from '../TeamTable';
-import { purchaseTimesColumns } from '../matchColumns';
+import mcs from '../matchColumns';
 
 class Purchases extends React.Component {
   static propTypes = {
@@ -24,6 +24,7 @@ class Purchases extends React.Component {
 
   render() {
     const { match, strings } = this.props;
+    const { purchaseTimesColumns } = mcs(strings);
     return (
       <div>
         <div style={{ width: '190px', margin: '10px' }}>
