@@ -18,7 +18,7 @@ import {
   FromNowTooltip,
 } from '../components/Visualizations';
 import constants from '../components/constants';
-import strings from '../lang';
+import store from '../store';
 
 const second = 1;
 const minute = second * 60;
@@ -168,6 +168,30 @@ export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
     imageUrl = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
   }
   return imageUrl + imageSizeSuffix;
+};
+
+// Fills in a template with the values provided in the dict
+// returns a list, so react object don't have to be converted to a string
+// Any keys not found in the given dictionary are simply left untouched
+// brackets can be escaped with \
+// Examples:
+// formatTemplate("{person} name is {name}", { person: "My", name: "Gaben" });
+// returns [ "My", " name is ", "Gaben" ]
+// formatTemplate("{person} name is {name}", { name: <font color={styles.golden}>{"Gaben"}</font> });
+// returns [ "{person} name is ", <font color={styles.golden}>{"Gaben"}</font> ]
+export const formatTemplate = (template, dict) => {
+  if (!template) {
+    return ['(invalid template)'];
+  }
+  const pattern = /(\{[^}]+\})/g;
+  let result = template.split(pattern);
+  for (let i = 0; i < result.length; i += 1) {
+    if (result[i].match(pattern) && result[i].slice(1, -1) in dict) {
+      result[i] = dict[result[i].slice(1, -1)];
+    }
+  }
+  result = result.filter(part => part !== '');
+  return result;
 };
 
 /* ---------------------------- match item_n transformations ---------------------------- */
@@ -458,7 +482,17 @@ export function compileLevelOneStats(hero) {
 }
 /* eslint-enable camelcase */
 
+export const getTeamName = (team, _isRadiant) => {
+  const { strings } = store.getState().app;
+  if (_isRadiant) {
+    return (team && team.name) ? team.name : strings.general_radiant;
+  }
+
+  return (team && team.name) ? team.name : strings.general_dire;
+};
+
 export function abbreviateNumber(num) {
+  const { strings } = store.getState().app;
   if (!num) {
     return '-';
   } else if (num >= 1000 && num < 1000000) {
@@ -475,6 +509,7 @@ export function abbreviateNumber(num) {
 }
 
 export function rankTierToString(rankTier) {
+  const { strings } = store.getState().app;
   if (rankTier !== parseInt(rankTier, 10)) {
     return strings.general_unknown;
   }
@@ -486,39 +521,41 @@ export function rankTierToString(rankTier) {
   return rank;
 }
 
-const units = [{
-  name: strings.time_s,
-  plural: strings.time_ss,
-  limit: minute,
-  in_seconds: second,
-}, {
-  name: strings.time_m,
-  plural: strings.time_mm,
-  limit: hour,
-  in_seconds: minute,
-}, {
-  name: strings.time_h,
-  plural: strings.time_hh,
-  limit: day,
-  in_seconds: hour,
-}, {
-  name: strings.time_d,
-  plural: strings.time_dd,
-  limit: month,
-  in_seconds: day,
-}, {
-  name: strings.time_M,
-  plural: strings.time_MM,
-  limit: year,
-  in_seconds: month,
-}, {
-  name: strings.time_y,
-  plural: strings.time_yy,
-  limit: null,
-  in_seconds: year,
-}];
-
 export function fromNow(time) {
+  const { strings } = store.getState().app;
+
+  const units = [{
+    name: strings.time_s,
+    plural: strings.time_ss,
+    limit: minute,
+    in_seconds: second,
+  }, {
+    name: strings.time_m,
+    plural: strings.time_mm,
+    limit: hour,
+    in_seconds: minute,
+  }, {
+    name: strings.time_h,
+    plural: strings.time_hh,
+    limit: day,
+    in_seconds: hour,
+  }, {
+    name: strings.time_d,
+    plural: strings.time_dd,
+    limit: month,
+    in_seconds: day,
+  }, {
+    name: strings.time_M,
+    plural: strings.time_MM,
+    limit: year,
+    in_seconds: month,
+  }, {
+    name: strings.time_y,
+    plural: strings.time_yy,
+    limit: null,
+    in_seconds: year,
+  }];
+
   const diff = (new Date() - new Date(time * 1000)) / 1000;
 
   if (diff < 5) {
@@ -537,48 +574,6 @@ export function fromNow(time) {
   return '';
 }
 
-const getSubtitle = (row) => {
-  if (row.match_id && row.player_slot !== undefined) {
-    let lane;
-    let tooltip;
-    if (row.is_roaming) {
-      tooltip = strings.roaming;
-      lane = 'roam';
-    } else {
-      tooltip = strings[`lane_role_${row.lane_role}`];
-      lane = row.lane_role;
-    }
-    const roleIconStyle = {
-      position: 'relative',
-      height: '12px',
-      marginLeft: '5px',
-      filter: 'grayscale(60%)',
-      top: '2px',
-    };
-
-    return (
-      <span>
-        <span>{(isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire)}</span>
-        {lane ?
-          <img
-            src={`/assets/images/dota2/lane_${lane}.svg`}
-            alt=""
-            data-tip={tooltip}
-            data-offset="{'right': 4, 'top': 4}"
-            data-delay-show="300"
-            style={roleIconStyle}
-          />
-        : ''}
-      </span>);
-  } else if (row.last_played) {
-    return <FromNowTooltip timestamp={row.last_played} />;
-  } else if (row.start_time) {
-    return <FromNowTooltip timestamp={row.start_time} />;
-  }
-
-  return null;
-};
-
 /**
  * Transformations of table cell data to display values.
  * These functions are intended to be used as the displayFn property in table columns.
@@ -589,6 +584,48 @@ export const transformations = {
   hero_id: (row, col, field, showGuide = false, imageSizeSuffix = IMAGESIZE_ENUM.SMALL, guideUrl, guideType) => {
     const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
     const imageUrl = getHeroImageUrl(row[col.field], imageSizeSuffix);
+    const getSubtitle = (row) => {
+      if (row.match_id && row.player_slot !== undefined) {
+        let lane;
+        let tooltip;
+        if (row.is_roaming) {
+          tooltip = strings.roaming;
+          lane = 'roam';
+        } else {
+          tooltip = strings[`lane_role_${row.lane_role}`];
+          lane = row.lane_role;
+        }
+        const roleIconStyle = {
+          position: 'relative',
+          height: '12px',
+          marginLeft: '5px',
+          filter: 'grayscale(60%)',
+          top: '2px',
+        };
+    
+        return (
+          <span>
+            <span>{(isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire)}</span>
+            {lane ?
+              <img
+                src={`/assets/images/dota2/lane_${lane}.svg`}
+                alt=""
+                data-tip={tooltip}
+                data-offset="{'right': 4, 'top': 4}"
+                data-delay-show="300"
+                style={roleIconStyle}
+              />
+            : ''}
+          </span>);
+      } else if (row.last_played) {
+        return <FromNowTooltip timestamp={row.last_played} />;
+      } else if (row.start_time) {
+        return <FromNowTooltip timestamp={row.start_time} />;
+      }
+
+      return null;
+    };
+
     return (
       <TableHeroImage
         parsed={row.version}
@@ -731,61 +768,3 @@ export const transformations = {
 for (let i = 0; i < 6; i += 1) {
   transformations[`item_${i}`] = transformMatchItem;
 }
-
-export const getTeamName = (team, _isRadiant) => {
-  if (_isRadiant) {
-    return (team && team.name) ? team.name : strings.general_radiant;
-  }
-
-  return (team && team.name) ? team.name : strings.general_dire;
-};
-
-// Fills in a template with the values provided in the dict
-// returns a list, so react object don't have to be converted to a string
-// Any keys not found in the given dictionary are simply left untouched
-// brackets can be escaped with \
-// Examples:
-// formatTemplate("{person} name is {name}", { person: "My", name: "Gaben" });
-// returns [ "My", " name is ", "Gaben" ]
-// formatTemplate("{person} name is {name}", { name: <font color={styles.golden}>{"Gaben"}</font> });
-// returns [ "{person} name is ", <font color={styles.golden}>{"Gaben"}</font> ]
-export const formatTemplate = (template, dict) => {
-  if (!template) {
-    return [strings.story_invalid_template];
-  }
-  const pattern = /(\{[^}]+\})/g;
-  let result = template.split(pattern);
-  for (let i = 0; i < result.length; i += 1) {
-    if (result[i].match(pattern) && result[i].slice(1, -1) in dict) {
-      result[i] = dict[result[i].slice(1, -1)];
-    }
-  }
-  result = result.filter(part => part !== '');
-  return result;
-};
-
-export const translateBuildings = (isRad, key) => {
-  const team = isRad ? strings.general_radiant : strings.general_dire;
-  const k = key.split('_').slice(3).join('_');
-  const dict = {
-    fort: ` ${strings.building_ancient}`,
-    healers: ` ${strings.heading_shrine}`,
-    tower1_top: ` ${strings.top_tower} ${strings.tier1}`,
-    tower2_top: ` ${strings.top_tower} ${strings.tier2}`,
-    tower3_top: ` ${strings.top_tower} ${strings.tier3}`,
-    tower1_mid: ` ${strings.mid_tower} ${strings.tier1}`,
-    tower2_mid: ` ${strings.mid_tower} ${strings.tier2}`,
-    tower3_mid: ` ${strings.mid_tower} ${strings.tier3}`,
-    tower1_bot: ` ${strings.bot_tower} ${strings.tier1}`,
-    tower2_bot: ` ${strings.bot_tower} ${strings.tier2}`,
-    tower3_bot: ` ${strings.bot_tower} ${strings.tier3}`,
-    tower4: ` ${strings.heading_tower} ${strings.tier4}`,
-    melee_rax_top: ` ${'Top'} ${strings.building_melee_rax}`,
-    melee_rax_mid: ` ${'Mid'} ${strings.building_melee_rax}`,
-    melee_rax_bot: ` ${'Bot'} ${strings.building_melee_rax}`,
-    range_rax_top: ` ${'Top'} ${strings.building_range_rax}`,
-    range_rax_mid: ` ${'Mid'} ${strings.building_range_rax}`,
-    range_rax_bot: ` ${'Bot'} ${strings.building_range_rax}`,
-  };
-  return team + dict[k];
-};
