@@ -188,7 +188,7 @@ class KeyManagement extends React.Component {
           <h1>{strings.api_title}</h1>
           <h3>{strings.api_subtitle}</h3>
           {
-            loading || this.state.loading || !strings ?
+            loading || this.state.loading || !Object.keys(strings).length ?
               <CircularProgress mode="indeterminate" />
             :
               <div>
