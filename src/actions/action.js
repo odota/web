@@ -34,6 +34,8 @@ export default function action(type, host, path, params = {}, transform) {
       .catch((e) => {
         if (!e.clientError) {
           setTimeout(() => fetchDataWithRetry(delay + 3000), delay);
+        } else {
+          console.error(e);
         }
       });
     dispatch(getDataStart());
