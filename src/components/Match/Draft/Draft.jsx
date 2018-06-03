@@ -183,6 +183,9 @@ const Draft = ({
   radiantTeam = {},
   direTeam = {},
   draft = [],
+  sponsorURL,
+  sponsorIcon,
+  strings
 }) => {
   // if there is no draft data there is no meaning to firstIsTeamTwo
   const firstIsTeamTwo = draft && draft[0] && draft[0].active_team === 2;
@@ -206,6 +209,9 @@ const Draft = ({
         <section className="teams">
           <Heading
             title={`${getTeamName(radiantTeam, true)}`}
+            buttonLabel={strings.gosu_default}
+            buttonTo={`${sponsorURL}Draft`}
+            buttonIcon={sponsorIcon}
             icon={<IconRadiant />}
           />
           <Heading
@@ -306,6 +312,9 @@ Draft.propTypes = {
   radiantTeam: PropTypes.shape({}),
   direTeam: PropTypes.shape({}),
   draft: PropTypes.arrayOf(PropTypes.shape({})),
+  sponsorURL: PropTypes.string,
+  sponsorIcon: PropTypes.string,
+  strings: PropTypes.shape({})
 };
 
 export default Draft;

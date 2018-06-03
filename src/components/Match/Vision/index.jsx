@@ -11,6 +11,7 @@ import VisionItems from './VisionItems';
 import VisionMap from './VisionMap';
 import VisionLog from './VisionLog';
 import constants from '../../constants';
+import Heading from '../../Heading';
 
 const Styled = styled.div`
 .visionLog {
@@ -186,15 +187,20 @@ class Vision extends React.Component {
 
   render() {
     const visibleWards = this.visibleData();
-    const { match, strings } = this.props;
+    const { match, strings, sponsorIcon, sponsorURL } = this.props;
 
     return (
       <div>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          <div style={{ width: '30%', margin: '10px', flexGrow: '1' }}>
+          <div style={{ margin: '10px', flexGrow: '1' }}>
             <VisionMap match={match} wards={visibleWards} strings={strings} />
           </div>
-          <div style={{ flexGrow: '1' }}>
+          <div style={{ flexGrow: '2' }}>
+            <Heading
+              buttonLabel={strings.gosu_vision}
+              buttonTo={`${sponsorURL}Vision`}
+              buttonIcon={sponsorIcon}
+            />
             <div className="visionSliderText">
               {this.state.currentTick === -90 ? strings.vision_all_time : formatSeconds(this.state.currentTick)}
             </div>

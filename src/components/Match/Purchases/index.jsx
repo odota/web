@@ -23,7 +23,7 @@ class Purchases extends React.Component {
   }
 
   render() {
-    const { match, strings } = this.props;
+    const { match, strings, sponsorURL, sponsorIcon } = this.props;
     const { purchaseTimesColumns } = mcs(strings);
     return (
       <div>
@@ -38,6 +38,9 @@ class Purchases extends React.Component {
           players={match.players}
           columns={purchaseTimesColumns(match, this.state.showConsumables)}
           heading={strings.heading_purchase_log}
+          buttonLabel={strings.gosu_default}
+          buttonTo={`${sponsorURL}Purchases`}
+          buttonIcon={sponsorIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
         />

@@ -1277,7 +1277,16 @@
   "scenarios_first_blood": "Team drew First Blood",
   "scenarios_courier_kill": "Team sniped the enemy courier before the 3-minute mark",
   "scenarios_pos_chat_1min": "Team all chatted positive words before the 1-minute mark",
-  "scenarios_neg_chat_1min": "Team all chatted negative words before the 1-minute mark"
+  "scenarios_neg_chat_1min": "Team all chatted negative words before the 1-minute mark",
 
-
+  "gosu_default": "Get personal recommendations",
+  "gosu_benchmarks": "Get detailed benchmarks for your hero, lane and role",
+  "gosu_performances": "Get your map control performance",
+  "gosu_laning": "Get why you missed last hits",
+  "gosu_combat": "Get why kills attempts were unsuccessful",
+  "gosu_farm": "Get why you missed last hits",
+  "gosu_vision": "Get how many heros were killed under your wards",
+  "gosu_actions": "Get your lost time from mouse usage vs hotkeys",
+  "gosu_teamfights": "Get who to target during teamfights",
+  "gosu_analysis": "Get your real MMR bracket"
 }

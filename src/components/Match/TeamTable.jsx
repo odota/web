@@ -26,6 +26,9 @@ class TeamTable extends React.Component {
     summable: PropTypes.bool,
     hoverRowColumn: PropTypes.bool,
     loggedInId: PropTypes.number,
+    buttonLabel: PropTypes.string,
+    buttonTo: PropTypes.string,
+    buttonIcon: PropTypes.string
   };
   constructor() {
     super();
@@ -56,6 +59,9 @@ class TeamTable extends React.Component {
       summable = false,
       hoverRowColumn = false,
       loggedInId,
+      buttonLabel,
+      buttonTo,
+      buttonIcon
     } = this.props;
 
     return (
@@ -63,6 +69,9 @@ class TeamTable extends React.Component {
         <Heading
           title={`${getTeamName(radiantTeam, true)} - ${heading}`}
           icon={<IconRadiant />}
+          buttonLabel={buttonLabel || ''}
+          buttonTo={buttonTo || ''}
+          buttonIcon={buttonIcon || ''}
         />
         <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} setHighlightedCol={this.setHighlightedCol} />
         {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
