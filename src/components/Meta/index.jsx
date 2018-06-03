@@ -11,7 +11,7 @@ import ExplorerOutputSection from '../Explorer/ExplorerOutputSection';
 import ExplorerControlSection from '../Explorer/ExplorerControlSection';
 import ExplorerFormField from '../Explorer/ExplorerFormField';
 import Heading from '../Heading';
-import MetaSkeleton from '../Skeletons/MetaSkeleton';
+import TableSkeleton from '../Skeletons/TableSkeleton';
 import queryTemplate from './queryTemplate';
 import getFields from './fields';
 
@@ -138,7 +138,7 @@ class Explorer extends React.Component {
         </div>
         <Heading title={strings.explorer_results} subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`} />
         <pre style={{ color: 'red' }}>{this.state.result.err}</pre>
-        {this.state.loading ? <MetaSkeleton /> : null}
+        {this.state.loading ? <TableSkeleton /> : null}
         <ExplorerOutputSection
           rows={this.state.result.rows}
           fields={this.state.result.fields}
