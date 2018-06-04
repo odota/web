@@ -22,9 +22,7 @@ export default combineReducers({
   playerRecentMatches: reducer('playerRecentMatches'),
   playerTotals: reducer('playerTotals'),
   metadata: reducer('metadata'),
-  match: reducer('match', {
-    players: [],
-  }),
+  match: reducer('match'),
   heroRanking: reducer('heroRanking'),
   heroBenchmark: reducer('heroBenchmark'),
   heroRecentGames: reducer('heroRecentGames'),
@@ -36,7 +34,6 @@ export default combineReducers({
   proPlayers: reducer('proPlayers'),
   proMatches: reducer('proMatches'),
   publicMatches: reducer('publicMatches'),
-  pvgnaGuides: reducer('pvgnaGuides'),
   heroStats: reducer('heroStats'),
   leagues: reducer('leagues'),
   teams: reducer('teams'),

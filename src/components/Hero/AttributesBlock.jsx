@@ -1,109 +1,106 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { shape, number, string, bool } from 'prop-types';
 import styled from 'styled-components';
-import strings from '../../lang';
-import AttrStrength from '../Icons/AttrStrength';
-import AttrAgility from '../Icons/AttrAgility';
-import AttrIntelligent from '../Icons/AttrIntelligent';
 import constants from '../constants';
 import Attribute from './Attribute';
-
+import { compileLevelOneStats } from '../../utility';
 
 const AttributesWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  flex-wrap: wrap;
+  margin-left: -8px;
+  margin-right: -8px;
+
+  @media screen and (max-width: ${constants.wrapMobile}) {
+    flex-wrap: wrap;
+  }
 `;
 
 const AttributeBlock = styled.div`
-  &:last-child {
-    margin-right: initial;
-  }
-
   display: flex;
   flex-direction: column;
+  flex: 1 1 0;
   margin-top: 10px;
+  padding: 8px;
+
+  @media screen and (max-width: ${constants.wrapMobile}) {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 50%;
+  }
 `;
 
 const Label = styled.span`
+  color: rgba(255, 255, 255, .5);
+  flex-grow: 1;
+  font-size: ${constants.fontSizeSmall};
   margin-right: 5px;
-  color: ${constants.colorMutedLight};
+  text-transform: uppercase;
 `;
-
-const renderIcon = Icon => <Icon style={{ width: 20, marginRight: 4 }} />;
 
 // Damage multiplier https://dota2.gamepedia.com/Armor#Damage_multiplier
 const calcArmorPercent = hero => Math.round(0.06 * hero / (1 + (0.06 * hero)) * 100);
 
-const HeroAttributes = ({ hero }) => (
-  <AttributesWrapper>
-    <AttributeBlock>
-      <Attribute primary={hero.primary_attr === 'str'}>
-        {renderIcon(AttrStrength)} {`${hero.base_str} + ${hero.str_gain}`}
-      </Attribute>
-      <Attribute primary={hero.primary_attr === 'agi'}>
-        {renderIcon(AttrAgility)} {`${hero.base_agi} + ${hero.agi_gain}`}
-      </Attribute>
-      <Attribute primary={hero.primary_attr === 'int'}>
-        {renderIcon(AttrIntelligent)} {`${hero.base_int} + ${hero.int_gain}`}
-      </Attribute>
-    </AttributeBlock>
-    <AttributeBlock>
-      <Attribute>
-        <Label>{strings.heading_attack}:</Label> {`${hero.base_attack_min} - ${hero.base_attack_max}`}
-      </Attribute>
-      <Attribute>
-        <Label>{strings.heading_attack_range}:</Label> {hero.attack_range}
-      </Attribute>
-      <Attribute>
-        <Label>{strings.heading_attack_speed}:</Label> {hero.attack_rate}
-      </Attribute>
-      {hero.projectile_speed !== 0 && (
+const HeroAttributes = ({ hero, strings }) => {
+  const h = compileLevelOneStats(hero);
+
+  return (
+    <AttributesWrapper>
+      <AttributeBlock>
         <Attribute>
-          <Label>{strings.heading_projectile_speed}:</Label> {hero.projectile_speed}
+          <Label>{strings.heading_attack}:</Label> {`${h.base_attack_min} - ${h.base_attack_max}`}
         </Attribute>
-      )}
-    </AttributeBlock>
-    <AttributeBlock>
-      <Attribute>
-        <Label>{strings.heading_base_health}:</Label> {hero.base_health}
-      </Attribute>
-      <Attribute>
-        <Label>{strings.heading_base_health_regen}:</Label> {hero.base_health_regen}
-      </Attribute>
-      <Attribute>
-        <Label>{strings.heading_base_mana}:</Label> {hero.base_mana}
-      </Attribute>
-      <Attribute>
-        <Label>{strings.heading_base_mana_regen}:</Label> {hero.base_mana_regen}
-      </Attribute>
-    </AttributeBlock>
-    <AttributeBlock>
-      <Attribute>
-        <Label>{strings.heading_base_armor}:</Label> {`${hero.base_armor} (${calcArmorPercent(hero.base_armor)}%)`}
-      </Attribute>
-      <Attribute>
-        <Label>{strings.heading_base_mr}:</Label> {`${hero.base_mr}%`}
-      </Attribute>
-      <Attribute>
-        <Label>{strings.heading_move_speed}:</Label> {hero.move_speed}
-      </Attribute>
-      <Attribute>
-        <Label>{strings.heading_turn_rate}:</Label> {hero.turn_rate}
-      </Attribute>
-    </AttributeBlock>
-    <AttributeBlock>
-      <Attribute>
-        <Label>{strings.heading_legs}:</Label> {hero.legs}
-      </Attribute>
-      <Attribute>
-        <Label>{strings.heading_cm_enabled}:</Label> {hero.cm_enabled ? strings.yes : strings.no}
-      </Attribute>
-    </AttributeBlock>
-  </AttributesWrapper>
-);
+        <Attribute>
+          <Label>{strings.heading_attack_range}:</Label> {h.attack_range}
+        </Attribute>
+        <Attribute>
+          <Label>{strings.heading_attack_speed}:</Label> {h.attack_rate}
+        </Attribute>
+        {h.projectile_speed !== 0 && (
+          <Attribute>
+            <Label>{strings.heading_projectile_speed}:</Label> {h.projectile_speed}
+          </Attribute>
+        )}
+      </AttributeBlock>
+      <AttributeBlock>
+        <Attribute>
+          <Label>{strings.heading_base_health}:</Label> {h.base_health}
+        </Attribute>
+        <Attribute>
+          <Label>{strings.heading_base_health_regen}:</Label> {h.base_health_regen}
+        </Attribute>
+        <Attribute>
+          <Label>{strings.heading_base_mana}:</Label> {h.base_mana}
+        </Attribute>
+        <Attribute>
+          <Label>{strings.heading_base_mana_regen}:</Label> {h.base_mana_regen}
+        </Attribute>
+      </AttributeBlock>
+      <AttributeBlock>
+        <Attribute>
+          <Label>{strings.heading_base_armor}:</Label> {`${h.base_armor} (${calcArmorPercent(h.base_armor)}%)`}
+        </Attribute>
+        <Attribute>
+          <Label>{strings.heading_base_mr}:</Label> {`${h.base_mr}%`}
+        </Attribute>
+        <Attribute>
+          <Label>{strings.heading_move_speed}:</Label> {h.move_speed}
+        </Attribute>
+        <Attribute>
+          <Label>{strings.heading_turn_rate}:</Label> {h.turn_rate}
+        </Attribute>
+      </AttributeBlock>
+      <AttributeBlock>
+        <Attribute>
+          <Label>{strings.heading_legs}:</Label> {h.legs}
+        </Attribute>
+        <Attribute>
+          <Label>{strings.heading_cm_enabled}:</Label> {h.cm_enabled ? strings.yes : strings.no}
+        </Attribute>
+      </AttributeBlock>
+    </AttributesWrapper>
+  );
+};
 
 HeroAttributes.propTypes = {
   hero: shape({
@@ -130,6 +127,11 @@ HeroAttributes.propTypes = {
     cm_enabled: bool,
     legs: number,
   }),
+  strings: shape({}),
 };
 
-export default HeroAttributes;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(HeroAttributes);

@@ -4,16 +4,13 @@ import { connect } from 'react-redux';
 import Checkbox from 'material-ui/Checkbox';
 import Turbo from 'material-ui/svg-icons/image/timelapse';
 import TurboOff from 'material-ui/svg-icons/notification/do-not-disturb';
-import ReactTooltip from 'react-tooltip';
 import util from 'util';
 import styled from 'styled-components';
 import {
   getPlayerRecentMatches,
   getPlayerHeroes,
   getPlayerPeers,
-  getPvgnaHeroGuides,
 } from '../../../../actions';
-import strings from '../../../../lang';
 import Table from '../../../Table';
 import Container from '../../../Container';
 import playerMatchesColumns from '../Matches/playerMatchesColumns';
@@ -113,6 +110,7 @@ const Overview = ({
   playerId,
   toggleTurboGames,
   showTurboGames,
+  strings,
 }) => (
   <OverviewContainer>
     <SummaryContainer
@@ -121,12 +119,13 @@ const Overview = ({
       subtitle={util.format(strings.subheading_avg_and_max, numValidRecentMatches)}
       loading={matchesLoading}
       error={matchesError}
+      loaderWidth={250}
+      loaderHeight={30}
     >
       <Styled
         data-tip={strings.exclude_turbo_matches}
         style={{ display: validRecentMatches.some(match => match.game_mode === 23) ? 'inline' : 'none' }}
       >
-        <ReactTooltip />
         <Checkbox
           style={{ display: validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23) }}
           defaultChecked
@@ -143,9 +142,11 @@ const Overview = ({
         titleTo={`/players/${playerId}/matches`}
         loading={matchesLoading}
         error={matchesError}
+        loaderWidth={300}
+        loaderHeight={160}
       >
         <Table
-          columns={playerMatchesColumns}
+          columns={playerMatchesColumns(strings)}
           data={matchesData}
           maxRows={MAX_MATCHES_ROWS}
         />
@@ -160,7 +161,7 @@ const Overview = ({
         error={peersError}
       >
         <Table
-          columns={playerPeersOverviewColumns(playerId)}
+          columns={playerPeersOverviewColumns(playerId, strings)}
           data={peersData}
           maxRows={MAX_PEERS_ROWS}
         />
@@ -173,7 +174,7 @@ const Overview = ({
         error={heroesError}
       >
         <Table
-          columns={playerHeroesOverviewColumns(playerId)}
+          columns={playerHeroesOverviewColumns(playerId, strings)}
           data={heroesData}
           maxRows={MAX_HEROES_ROWS}
         />
@@ -197,6 +198,7 @@ Overview.propTypes = {
   playerId: PropTypes.string,
   toggleTurboGames: PropTypes.func,
   showTurboGames: PropTypes.bool,
+  strings: PropTypes.shape({}),
 };
 
 
@@ -204,7 +206,6 @@ const getData = (props) => {
   props.getPlayerRecentMatches(props.playerId);
   props.getPlayerHeroes(props.playerId, props.location.search);
   props.getPlayerPeers(props.playerId, props.location.search);
-  props.getPvgnaHeroGuides();
 };
 
 class RequestLayer extends React.Component {
@@ -215,6 +216,7 @@ class RequestLayer extends React.Component {
     playerId: PropTypes.string,
     toggleTurboGames: PropTypes.func,
     showTurboGames: PropTypes.bool,
+    strings: PropTypes.shape({}),
   }
 
   constructor(props) {
@@ -246,11 +248,6 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mergeHeroGuides = (heroes, heroGuides) => heroes.map(hero => ({
-  ...hero,
-  pvgnaGuide: heroGuides[hero.hero_id],
-}));
-
 /**
  * Get the number of recent matches, filtering out Siltbreaker matches
  */
@@ -271,19 +268,19 @@ const mapStateToProps = state => ({
   matchesError: state.app.playerRecentMatches.error,
   validRecentMatches: getValidRecentMatches(state.app.playerRecentMatches.data),
   numValidRecentMatches: countValidRecentMatches(state.app.playerRecentMatches.data),
-  heroesData: mergeHeroGuides(state.app.playerHeroes.data, state.app.pvgnaGuides.data),
+  heroesData: state.app.playerHeroes.data,
   heroesLoading: state.app.playerHeroes.loading,
   heroesError: state.app.playerHeroes.error,
   peersData: state.app.playerPeers.data,
   peersLoading: state.app.playerPeers.loading,
   peersError: state.app.playerPeers.error,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({
   getPlayerRecentMatches: (playerId, options) => dispatch(getPlayerRecentMatches(playerId, options)),
   getPlayerHeroes: (playerId, options) => dispatch(getPlayerHeroes(playerId, options)),
   getPlayerPeers: (playerId, options) => dispatch(getPlayerPeers(playerId, options)),
-  getPvgnaHeroGuides: () => dispatch(getPvgnaHeroGuides()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

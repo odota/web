@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import items from 'dotaconstants/build/items.json';
 import { threshold, formatSeconds } from '../../../utility';
 import Table from '../../Table';
-import strings from '../../../lang';
 import Heading from '../../Heading';
-import { heroTd, heroTdColumn } from '../matchColumns';
+import mcs from '../matchColumns';
 import constants from '../../constants';
 import LogHover from './LogHover';
 
@@ -25,40 +24,43 @@ const Styled = styled.div`
 const durationObserverColor = threshold(0, [121, 241, 371], [constants.colorRed, constants.colorYelor, constants.colorGreen]);
 const durationSentryColor = threshold(0, [81, 161, 251], [constants.colorRed, constants.colorYelor, constants.colorGreen]);
 
-const columns = [
-  {
-    displayName: strings.ward_log_type,
-    field: 'type',
-  },
-  {
-    ...heroTdColumn,
-    displayName: strings.ward_log_owner,
-    sortFn: false,
-  },
-  {
-    center: true,
-    displayName: strings.ward_log_entered_at,
-    field: 'enter_time',
-  },
-  {
-    center: true,
-    displayName: strings.ward_log_left_at,
-    field: 'left_time',
-  },
-  {
-    center: true,
-    displayName: strings.ward_log_duration,
-    field: 'duration',
-  },
-  {
-    displayName: strings.ward_log_killed_by,
-    field: 'killer',
-  },
-  {
-    displayName: strings.placement,
-    field: 'placement',
-  },
-];
+const columns = (strings) => {
+  const { heroTdColumn } = mcs(strings);
+  return [
+    {
+      displayName: strings.ward_log_type,
+      field: 'type',
+    },
+    {
+      ...heroTdColumn,
+      displayName: strings.ward_log_owner,
+      sortFn: false,
+    },
+    {
+      center: true,
+      displayName: strings.ward_log_entered_at,
+      field: 'enter_time',
+    },
+    {
+      center: true,
+      displayName: strings.ward_log_left_at,
+      field: 'left_time',
+    },
+    {
+      center: true,
+      displayName: strings.ward_log_duration,
+      field: 'duration',
+    },
+    {
+      displayName: strings.ward_log_killed_by,
+      field: 'killer',
+    },
+    {
+      displayName: strings.placement,
+      field: 'placement',
+    },
+  ];
+};
 
 
 function logWard(log) {
@@ -75,7 +77,8 @@ function logWard(log) {
   );
 }
 
-const generateData = match => (log) => {
+const generateData = (match, strings) => (log) => {
+  const { heroTd } = mcs(strings);
   const wardKiller = (log.left && log.left.player1) ? heroTd(match.players[log.left.player1]) : '';
   const duration = (log.left && log.left.time - log.entered.time) || (match && match.duration - log.entered.time);
 
@@ -95,16 +98,17 @@ const generateData = match => (log) => {
   };
 };
 
-const VisionLog = ({ match, wards }) => (
+const VisionLog = ({ match, wards, strings }) => (
   <div>
     <Heading title={strings.vision_ward_log} />
-    <Table data={wards.map(generateData(match))} columns={columns} />
+    <Table data={wards.map(generateData(match, strings))} columns={columns(strings)} />
   </div>
 );
 
 VisionLog.propTypes = {
   match: PropTypes.shape({}),
   wards: PropTypes.arrayOf({}),
+  strings: PropTypes.shape({}),
 };
 
 export default VisionLog;

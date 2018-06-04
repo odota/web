@@ -5,7 +5,6 @@ import Helmet from 'react-helmet';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import strings from '../../lang';
 import { postRequest } from '../../actions';
 
 class Request extends React.Component {
@@ -14,6 +13,7 @@ class Request extends React.Component {
     progress: PropTypes.number,
     error: PropTypes.string,
     loading: PropTypes.bool,
+    strings: PropTypes.shape({}),
   }
 
   constructor() {
@@ -37,7 +37,9 @@ class Request extends React.Component {
   };
 
   render() {
-    const { progress, error, loading } = this.props;
+    const {
+      progress, error, loading, strings,
+    } = this.props;
     const progressIndicator = (progress ?
       <CircularProgress value={progress} mode="determinate" /> :
       <CircularProgress value={progress} mode="indeterminate" />);
@@ -64,6 +66,7 @@ const mapStateToProps = (state) => {
     error,
     loading,
     progress,
+    strings: state.app.strings,
   };
 };
 

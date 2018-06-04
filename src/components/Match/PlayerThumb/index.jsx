@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { string, oneOfType, number, bool, shape } from 'prop-types';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import heroes from 'dotaconstants/build/heroes.json';
 import styled from 'styled-components';
-import strings from '../../../lang';
 import constants from '../../constants';
 
 const StyledAside = styled.aside`
@@ -23,6 +23,7 @@ const PlayerThumb = (props) => {
     name,
     personaname,
     hideText,
+    strings,
   } = props;
   const playerSlot = props.player_slot;
   const heroId = props.hero_id;
@@ -40,16 +41,17 @@ const PlayerThumb = (props) => {
   );
 };
 
-const {
-  string, oneOfType, number, bool,
-} = PropTypes;
-
 PlayerThumb.propTypes = {
   player_slot: oneOfType([string, number]),
   hero_id: oneOfType([string, number]),
   name: string,
   personaname: string,
   hideText: bool,
+  strings: shape({}),
 };
 
-export default PlayerThumb;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(PlayerThumb);

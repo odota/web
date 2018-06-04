@@ -2,15 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import Spinner from '../Spinner';
+import { List } from 'react-content-loader';
 import TabBar from '../TabBar';
-import { getMatch, getPvgnaHeroGuides } from '../../actions';
+import { getMatch } from '../../actions';
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
+import FourOhFour from '../../components/FourOhFour';
 
 class RequestLayer extends React.Component {
   static propTypes = {
     loading: PropTypes.bool,
+    error: PropTypes.bool,
     matchData: PropTypes.shape({}),
     match: PropTypes.shape({
       params: PropTypes.shape({
@@ -19,13 +21,12 @@ class RequestLayer extends React.Component {
     }),
     user: PropTypes.shape({}),
     getMatch: PropTypes.func,
-    getPvgnaHeroGuides: PropTypes.func,
     matchId: PropTypes.string,
+    strings: PropTypes.shape({}),
   }
 
   componentDidMount() {
     this.props.getMatch(this.props.matchId);
-    this.props.getPvgnaHeroGuides();
   }
 
   UNSAFE_componentWillUpdate(nextProps) {
@@ -35,46 +36,43 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    const { loading, matchId } = this.props;
-    const match = this.props.matchData;
+    const {
+      loading, matchId, matchData, error, strings,
+    } = this.props;
     const info = this.props.match.params.info || 'overview';
-    const page = matchPages(matchId).find(_page => _page.key.toLowerCase() === info);
+    const page = matchPages(matchId, null, strings).find(_page => _page.key.toLowerCase() === info);
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
-    return loading ? <Spinner /> :
+    if (error) {
+      return <FourOhFour msg={strings.request_invalid_match_id} />;
+    }
+    return loading ? <List primaryColor="#666" width={250} height={120} /> :
       (
         <div>
           <Helmet title={pageTitle} />
           <MatchHeader
-            match={match}
+            match={matchData}
             user={this.props.user}
           />
           <TabBar
             info={info}
-            tabs={matchPages(matchId, match)}
-            match={match}
+            tabs={matchPages(matchId, matchData, strings)}
+            match={matchData}
           />
-          {page && page.content(match)}
+          {page && page.content(matchData)}
         </div>);
   }
 }
 
-const mergeHeroGuides = (match, heroGuides) => ({
-  ...match,
-  players: match.players.map(player => ({
-    ...player,
-    pvgnaGuide: heroGuides[player.hero_id],
-  })),
-});
-
 const mapStateToProps = state => ({
-  matchData: mergeHeroGuides(state.app.match.data, state.app.pvgnaGuides.data),
+  matchData: state.app.match.data,
   loading: state.app.match.loading,
+  error: state.app.match.error,
   user: state.app.metadata.data.user,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({
   getMatch: matchId => dispatch(getMatch(matchId)),
-  getPvgnaHeroGuides: () => dispatch(getPvgnaHeroGuides()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import HardwareKeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import constants from '../constants';
 
-const TableLink = ({ to, children, target }) => (
+const TableLink = ({
+  to, children, target, color,
+}) => (
   <Link to={to} target={target}>
     {children}
     <HardwareKeyboardArrowRight
@@ -13,7 +15,7 @@ const TableLink = ({ to, children, target }) => (
         opacity: '.6',
         height: 16,
         width: 16,
-        color: constants.colorBlue,
+        color: color || constants.colorBlue,
       }}
     />
   </Link>
@@ -25,6 +27,7 @@ TableLink.propTypes = {
   to: string,
   children: node,
   target: string,
+  color: string,
 };
 
 export default TableLink;

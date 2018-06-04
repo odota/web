@@ -1,13 +1,12 @@
 import React from 'react';
-import { transformations } from '../../../../utility';
+import { displayHeroId } from '../../../../utility';
 import { TableLink } from '../../../Table';
-import strings from '../../../../lang';
 
-export const playerHeroesOverviewColumns = playerId => [{
+export const playerHeroesOverviewColumns = (playerId, strings) => [{
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
-  displayFn: transformations.hero_id_with_pvgna_guide,
+  displayFn: displayHeroId,
   sortFn: row => row.last_played,
 }, {
   displayName: strings.th_games,
@@ -24,7 +23,7 @@ export const playerHeroesOverviewColumns = playerId => [{
   percentBars: true,
 }];
 
-const restColumns = playerId => [{
+const restColumns = (playerId, strings) => [{
   displayName: strings.th_with_games,
   tooltip: strings.tooltip_played_with,
   field: 'with_games',
@@ -52,7 +51,7 @@ const restColumns = playerId => [{
   percentBars: true,
 }];
 
-export const playerHeroesColumns = playerId => [
-  ...playerHeroesOverviewColumns(playerId),
-  ...restColumns(playerId),
+export const playerHeroesColumns = (playerId, strings) => [
+  ...playerHeroesOverviewColumns(playerId, strings),
+  ...restColumns(playerId, strings),
 ];

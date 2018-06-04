@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from '../../../lang';
+import { connect } from 'react-redux';
 import { KDAContainer, TitleContainer, KDAPercentContainer } from './Styled';
 import constants from '../../constants';
 
-const KDA = ({ kills, deaths, assists }) => {
+const KDA = ({
+  kills, deaths, assists, strings,
+}) => {
   const kdaSum = kills + deaths + assists;
 
   return (
@@ -24,12 +26,17 @@ const KDA = ({ kills, deaths, assists }) => {
   );
 };
 
-const { number } = PropTypes;
+const { number, shape } = PropTypes;
 
 KDA.propTypes = {
   kills: number,
   deaths: number,
   assists: number,
+  strings: shape({}),
 };
 
-export default KDA;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(KDA);

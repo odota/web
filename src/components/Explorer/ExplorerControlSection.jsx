@@ -1,8 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Toggle from 'material-ui/Toggle';
 import styled from 'styled-components';
-import strings from '../../lang';
 
 const StyledDiv = styled.div`
   padding: 0 15px;
@@ -13,7 +13,7 @@ const StyledDiv = styled.div`
 `;
 
 const ExplorerControlSection = ({
-  showToggle, showEditor, toggleEditor, children,
+  showToggle, showEditor, toggleEditor, children, strings,
 }) => (
   <div>
     <div style={{ width: '180px', margin: '10px' }}>
@@ -43,6 +43,11 @@ ExplorerControlSection.propTypes = {
   showEditor: PropTypes.bool,
   toggleEditor: PropTypes.func,
   children: PropTypes.arrayOf(PropTypes.node),
+  strings: PropTypes.shape({}),
 };
 
-export default ExplorerControlSection;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(ExplorerControlSection);

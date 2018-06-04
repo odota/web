@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   XAxis,
   YAxis,
@@ -11,7 +12,6 @@ import {
   Label, ResponsiveContainer, Brush,
 } from 'recharts';
 import styled from 'styled-components';
-import strings from '../../../lang';
 import constants from '../../constants';
 
 const StyledGraphArea = styled.div`
@@ -33,7 +33,7 @@ const formatXTickDetailed = (time) => {
   return `${date.toLocaleString()}`;
 };
 
-const MMRGraph = ({ columns }) => (
+const MMRGraph = ({ columns, strings }) => (
   <StyledGraphArea>
     <ResponsiveContainer width="100%" height={400}>
       <LineChart
@@ -79,6 +79,11 @@ const MMRGraph = ({ columns }) => (
 
 MMRGraph.propTypes = {
   columns: PropTypes.arrayOf().isRequired,
+  strings: PropTypes.shape({}),
 };
 
-export default MMRGraph;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(MMRGraph);

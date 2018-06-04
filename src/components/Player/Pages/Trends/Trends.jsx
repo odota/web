@@ -8,10 +8,9 @@ import ButtonGarden from '../../../ButtonGarden';
 import trendNames from '../matchDataColumns';
 import Heading from '../../../Heading';
 import Container from '../../../Container';
-import strings from '../../../../lang';
 
 const Trend = ({
-  routeParams, columns, playerId, error, loading, history,
+  routeParams, columns, playerId, error, loading, history, strings,
 }) => {
   const selectedTrend = routeParams.subInfo || trendNames[0];
   return (
@@ -46,6 +45,7 @@ Trend.propTypes = {
   error: PropTypes.string,
   loading: PropTypes.bool,
   history: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
 const getData = (props) => {
@@ -59,6 +59,7 @@ class RequestLayer extends React.Component {
     location: PropTypes.shape({
       key: PropTypes.string,
     }),
+    strings: PropTypes.shape({}),
   }
 
   UNSAFE_componentWillMount() {
@@ -81,6 +82,7 @@ const mapStateToProps = state => ({
   columns: state.app.playerTrends.data,
   loading: state.app.playerTrends.loading,
   error: state.app.playerTrends.error,
+  strings: state.app.strings,
 });
 
 export default withRouter(connect(mapStateToProps, { getPlayerTrends })(RequestLayer));

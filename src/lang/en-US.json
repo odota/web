@@ -93,6 +93,7 @@
   "app_pvgna_alt": "Find a Dota 2 Guide on Pvgna",
   "app_rivalry": "Bet on Pro Matches",
   "app_rivalry_team": "Bet on %s Matches",
+  "app_moremmr": "Learn to play like a PRO",
   "app_refresh": "Refresh Match History: Queue a scan to find missing matches due to privacy settings",
   "app_refresh_label": "Refresh",
   "app_login": "Login",
@@ -270,6 +271,7 @@
   "game_mode_21": "1v1 Solo Mid",
   "game_mode_22": "All Draft",
   "game_mode_23": "Turbo",
+  "game_mode_24": "Mutation",
 
   "general_unknown": "Unknown",
   "general_no_hero": "No hero",
@@ -425,6 +427,9 @@
   "heading_cm_enabled": "CM enabled",
   "heading_current_players": "Current Players",
   "heading_former_players": "Former Players",
+  
+  "show_details": "Show details",
+  "hide_details": "Hide details",
 
   "subheading_avg_and_max": "in last %d matches",
   "subheading_records": "In ranked matches. Records reset monthly.",
@@ -601,6 +606,7 @@
 
   "request_title": "Request a Parse",
   "request_match_id": "Match ID",
+  "request_invalid_match_id": "Invalid Match ID",
   "request_error": "Failed to get match data",
   "request_submit": "Submit",
 
@@ -614,7 +620,7 @@
   "rune_5": "Bounty",
   "rune_6": "Arcane",
 
-  "search_title": "Player Search",
+  "search_title": "Search by player name, match ID...",
 
   "skill_1": "Normal",
   "skill_2": "High",
@@ -1007,7 +1013,7 @@
   "histograms_description": "Percentages indicate win rates for the labeled bin",
 
   "histograms_actions_per_min_description" : "Actions performed by player per minute",
-  "histograms_comeback_description" : "Maximum gold advantage in a won game",
+  "histograms_comeback_description" : "Maximum gold disadvantage in a won game",
   "histograms_lane_efficiency_pct_description" : "Percentage of lane gold (creeps+passive+starting) obtained at 10 minutes",
   "histograms_gold_per_min_description" : "Gold farmed per minute",
   "histograms_hero_damage_description" : "Amount of damage dealt to heroes",
@@ -1015,7 +1021,7 @@
   "histograms_level_description" : "Level achieved in a game",
   "histograms_loss_description" : "Maximum gold disadvantage in a lost game",
   "histograms_pings_description" : "Number of times the player pinged the map",
-  "histograms_stomp_description" : "Maximum gold disadvantage in a won game",
+  "histograms_stomp_description" : "Maximum gold advantage in a won game",
   "histograms_stuns_description" : "Seconds of disable on heroes",
   "histograms_throw_description" : "Maximum gold advantage in a lost game",
   "histograms_purchase_tpscroll_description" : "Town Portal Scroll purchases",
@@ -1261,6 +1267,7 @@
   "exclude_turbo_matches": "Exclude Turbo matches",
 
   "scenarios_subtitle": "Explore win rates of combinations of factors that happen in matches",
+  "scenarios_info": "Data compiled from matches in the last %d weeks",
   "scenarios_item_timings": "Item Timings",
   "scenarios_misc": "Misc",
   "scenarios_time": "Time",

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { debounce } from 'lodash/fp';
+import debounce from 'lodash/fp/debounce';
 import TextField from 'material-ui/TextField';
 import querystring from 'querystring';
 import { getSearchResultAndPros, setSearchQuery } from '../../actions';
@@ -16,6 +16,7 @@ class SearchForm extends React.Component {
       push: PropTypes.func,
     }),
     strings: PropTypes.shape({}),
+    small: PropTypes.bool,
   }
 
   constructor() {
@@ -59,7 +60,7 @@ class SearchForm extends React.Component {
   };
 
   render() {
-    const { strings } = this.props;
+    const { strings, small } = this.props;
     return (
       <form onSubmit={this.formSubmit}>
         <TextField
@@ -74,6 +75,7 @@ class SearchForm extends React.Component {
             left: '-40px',
             width: 'calc(100% + 40px)',
           }}
+          style={{ width: small ? '150%' : '100%', whiteSpace: 'nowrap', overflow: 'hidden' }}
           underlineStyle={{ borderColor: 'transparent' }}
         />
       </form>
@@ -83,6 +85,7 @@ class SearchForm extends React.Component {
 
 const mapStateToProps = state => ({
   strings: state.app.strings,
+  small: state.browser.greaterThan.small,
 });
 
 const mapDispatchToProps = dispatch => ({

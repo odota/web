@@ -5,7 +5,6 @@ import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
 import items from 'dotaconstants/build/items.json';
 import styled from 'styled-components';
-import strings from '../../lang';
 import constants from '../constants';
 
 const customNameIcon = {
@@ -207,11 +206,15 @@ class InflictorWithValue extends React.Component {
     type: PropTypes.string,
     ptooltip: PropTypes.shape({}),
     abilityId: PropTypes.number,
+    strings: PropTypes.shape({}),
   }
 
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  componentDidMount() {
     (async () => {
       const [abilities, neutralAbilities, abilityIds] = await Promise.all([
         await import('dotaconstants/build/abilities.json'),
@@ -228,7 +231,7 @@ class InflictorWithValue extends React.Component {
 
   render() {
     const {
-      inflictor, value, type, ptooltip, abilityId,
+      inflictor, value, type, ptooltip, abilityId, strings,
     } = this.props;
     const { abilities, neutralAbilities, abilityIds } = this.state;
     const resolvedInflictor = (abilityId && abilityIds && abilityIds[abilityId]) || inflictor;
@@ -304,6 +307,7 @@ const mapStateToProps = state => ({
   abilities: state.app.abilities,
   neutralAbilities: state.app.neutralAbilities,
   abilityIds: state.app.abilityIds,
+  strings: state.app.strings,
 });
 
 const InflictorWithValueCont = connect(mapStateToProps)(InflictorWithValue);

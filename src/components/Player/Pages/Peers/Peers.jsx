@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import { getPlayerPeers } from '../../../../actions';
 import Table from '../../../Table';
 import Container from '../../../Container';
-import strings from '../../../../lang';
 import { playerPeersColumns } from './playerPeersColumns';
 
 const Peers = ({
-  data, playerId, error, loading,
+  data, playerId, error, loading, strings,
 }) => (
   <Container title={strings.heading_peers} error={error} loading={loading}>
-    <Table paginated columns={playerPeersColumns(playerId)} data={data} placeholderMessage={strings.peers_none} />
+    <Table paginated columns={playerPeersColumns(playerId, strings)} data={data} placeholderMessage={strings.peers_none} />
   </Container>
 );
 
@@ -20,6 +19,7 @@ Peers.propTypes = {
   error: PropTypes.string,
   playerId: PropTypes.string,
   loading: PropTypes.bool,
+  strings: PropTypes.shape({}),
 };
 
 const getData = (props) => {
@@ -32,6 +32,7 @@ class RequestLayer extends React.Component {
       key: PropTypes.string,
     }),
     playerId: PropTypes.string,
+    strings: PropTypes.shape({}),
   }
 
   componentDidMount() {
@@ -53,6 +54,7 @@ const mapStateToProps = state => ({
   data: state.app.playerPeers.data,
   error: state.app.playerPeers.error,
   loading: state.app.playerPeers.loading,
+  strings: state.app.strings,
 });
 const mapDispatchToProps = dispatch => ({
   getPlayerPeers: (playerId, options) => dispatch(getPlayerPeers(playerId, options)),
