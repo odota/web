@@ -25,8 +25,8 @@ const Heading = ({
       <span className="info" data-hint={info} style={{ display: info ? 'inline' : 'none' }}>
         {'(?)'}
       </span>
-      <span className="sponsor-button">
-        { buttonLabel ?
+      { buttonLabel ?
+        <span className="sponsor-button">
           <FlatButton
             label={buttonLabel}
             icon={buttonIcon ? <img src={buttonIcon} alt="" /> : ''}
@@ -34,9 +34,9 @@ const Heading = ({
             target="_blank"
             rel="noopener noreferrer"
           />
-          : <div />
-        }
-      </span>
+        </span>
+        : <div />
+      }
     </DivToUse>);
 };
 
