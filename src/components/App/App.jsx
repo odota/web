@@ -34,6 +34,7 @@ import Api from '../Api';
 import Footer from '../Footer';
 import constants from '../constants';
 import FourOhFour from '../../components/FourOhFour';
+import { heroSelector } from '../../reducers/selectors';
 
 const path = '/notifications';
 
@@ -47,8 +48,6 @@ function getMessagingToken() {
   messaging.getToken()
     .then((token) => {
       if (token) {
-        console.log('this is the token');
-        console.log(token);
         fetch(`${process.env.REACT_APP_API_HOST}${path}`, {
           credentials: 'include',
           method: 'POST',
@@ -190,12 +189,14 @@ class App extends React.Component {
     }
   }
 
-  askForNotifiyPermission() {
+  askForNotifiyPermission(strings) {
     Notification.requestPermission()
       .then((permission) => {
         this.setState({ canNotify: permission });
         if (permission === 'granted') {
-          Notification("Awesome! You'll get a notification like this when your match is parsed.");
+          new Notification(`${strings.notify_granted_title}!`, { // eslint-disable-line no-new
+            body: strings.notify_granted_body,
+          });
           getMessagingToken();
         }
       });
@@ -203,7 +204,7 @@ class App extends React.Component {
 
   render() {
     const {
-      params, width, location, strings, user,
+      params, width, location, strings, user, heroes
     } = this.props;
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
@@ -224,13 +225,13 @@ class App extends React.Component {
                   primary
                   label="Enable"
                   labelPosition="after"
-                  onClick={this.askForNotifiyPermission}
+                  onClick={() => this.askForNotifiyPermission(strings)}
                   style={{ margin: '5px 5px' }}
                 />
                 <FlatButton
                   label="Dismiss"
                   labelPosition="after"
-                  onClick={this.askForNotifiyPermission}
+                  onClick={() => this.setState({canNotify: false})}
                   style={{ margin: '5px 5px' }}
                 />
               </Prompt>
@@ -306,6 +307,7 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   strings: state.app.strings,
   user: state.app.metadata.data.user,
+  heroes: state.app.heroStats.data,
 });
 
 export default connect(mapStateToProps)(App);
