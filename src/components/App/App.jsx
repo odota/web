@@ -38,39 +38,18 @@ import FourOhFour from '../../components/FourOhFour';
 const path = '/notifications';
 
 firebase.initializeApp({
-  messagingSenderId: "94888484309"
+  messagingSenderId: '94888484309',
 });
 
 const messaging = firebase.messaging();
 
-messaging.onTokenRefresh(getMessagingToken);
-
-messaging.onMessage(function(payload) {
-  console.log('Message received. ', payload);
-  
-  if (payload.data.type === 'MATCH') {
-    let n = new Notification(
-      'Parsed $match'.replace('$match', payload.data.match_id),
-      {
-        body: 'Check out your performance.'
-      });
-    n.onclick = (event) => {
-      console.log(event);
-      event.preventDefault(); // prevent the browser from focusing the Notification's tab
-      window.open(`https://opendota.com/matches/${payload.data.match_id}`, '_blank');
-    }  
-  }
-  
-});
-
-
 function getMessagingToken() {
   messaging.getToken()
-  .then((token) => {
-    if (token) {
-      console.log('this is the token');
-      console.log(token);
-      fetch(`${process.env.REACT_APP_API_HOST}${path}`, {
+    .then((token) => {
+      if (token) {
+        console.log('this is the token');
+        console.log(token);
+        fetch(`${process.env.REACT_APP_API_HOST}${path}`, {
           credentials: 'include',
           method: 'POST',
           headers: {
@@ -86,12 +65,32 @@ function getMessagingToken() {
               throw Error();
             }
           })
-          .catch((err) => console.log(err));
+          .catch(err => console.log(err));
       }
-  }).catch(function(err) {
-    console.log('An error occurred while retrieving token. ', err);
-  });
+    }).catch((err) => {
+      console.log('An error occurred while retrieving token. ', err);
+    });
 }
+
+messaging.onTokenRefresh(getMessagingToken);
+
+messaging.onMessage((payload) => {
+  console.log('Message received. ', payload);
+
+  if (payload.data.type === 'MATCH') {
+    const n = new Notification(
+      'Parsed $match'.replace('$match', payload.data.match_id),
+      {
+        body: 'Check out your performance.',
+      },
+    );
+    n.onclick = (event) => {
+      console.log(event);
+      event.preventDefault(); // prevent the browser from focusing the Notification's tab
+      window.open(`https://opendota.com/matches/${payload.data.match_id}`, '_blank');
+    };
+  }
+});
 
 getMessagingToken();
 
@@ -159,6 +158,7 @@ const Prompt = styled.div`
   width: 250px;
   z-index: 100;
   padding: 10px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.4);
 `;
 
 class App extends React.Component {
@@ -169,19 +169,21 @@ class App extends React.Component {
       key: PropTypes.string,
     }),
     strings: PropTypes.shape({}),
+    user: PropTypes.shape({}),
   }
 
   constructor(props) {
     super(props);
-    
-      
+
+
     this.state = {
-      canNotify: "Notification" in window && Notification.permission
+      canNotify: 'Notification' in window && Notification.permission,
+      showLoginPrompt: true,
     };
 
     this.askForNotifiyPermission = this.askForNotifiyPermission.bind(this);
   }
-  
+
   UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.location.key !== nextProps.location.key) {
       window.scrollTo(0, 0);
@@ -191,17 +193,17 @@ class App extends React.Component {
   askForNotifiyPermission() {
     Notification.requestPermission()
       .then((permission) => {
-      this.setState({canNotify: permission});
-      if (permission === "granted") {
-        new Notification("Awesome! You'll get a notification like this when your match is parsed.");
-        getMessagingToken();
-      }
-    });
+        this.setState({ canNotify: permission });
+        if (permission === 'granted') {
+          Notification("Awesome! You'll get a notification like this when your match is parsed.");
+          getMessagingToken();
+        }
+      });
   }
-  
+
   render() {
     const {
-      params, width, location, strings, user
+      params, width, location, strings, user,
     } = this.props;
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
@@ -215,7 +217,7 @@ class App extends React.Component {
           {
             user && this.state.canNotify !== false && !['denied', 'granted'].includes(this.state.canNotify) ?
               <Prompt>
-                <img src='/assets/images/icons/icon-72x72.png' alt='logo' style={{ height: '25px', margin: '0 5px' }}/>
+                <img src="/assets/images/icons/icon-72x72.png" alt="logo" style={{ height: '25px', margin: '0 5px' }} />
                 <h3 style={{ display: 'inline-block', margin: '0' }}>Get Notified</h3>
                 <p>Enable automatic notfications for whenever a match is parsed.</p>
                 <RaisedButton
@@ -232,29 +234,29 @@ class App extends React.Component {
                   style={{ margin: '5px 5px' }}
                 />
               </Prompt>
-            : <div/>
+            : <div />
           }
           {
-            !user ?
+            !user && this.state.showLoginPrompt ?
               <Prompt>
-                <img src='/assets/images/icons/icon-72x72.png' alt='logo' style={{ height: '25px', margin: '0 5px' }}/>
+                <img src="/assets/images/icons/icon-72x72.png" alt="logo" style={{ height: '25px', margin: '0 5px' }} />
                 <h3 style={{ display: 'inline-block', margin: '0' }}>Get Tracked</h3>
                 <p>Log in to get your matches automatically parsed. All for free.</p>
                 <RaisedButton
                   primary
-                  label="Login"
+                  label={strings.app_login}
                   labelPosition="after"
-                  onClick={this.askForNotifiyPermission}
+                  href={`${process.env.REACT_APP_API_HOST}/login`}
                   style={{ margin: '5px 5px' }}
                 />
                 <FlatButton
                   label="Dismiss"
                   labelPosition="after"
-                  onClick={this.askForNotifiyPermission}
+                  onClick={() => this.setState({ showLoginPrompt: false })}
                   style={{ margin: '5px 5px' }}
                 />
               </Prompt>
-            : <div/>
+            : <div />
           }
           <AdBannerDiv>
             { includeAds &&
@@ -303,7 +305,7 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
   strings: state.app.strings,
-  user: state.app.metadata.data.user
+  user: state.app.metadata.data.user,
 });
 
 export default connect(mapStateToProps)(App);
