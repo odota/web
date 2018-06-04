@@ -11,6 +11,8 @@ class ExplorerFormField extends React.Component {
     handleFieldUpdate: PropTypes.func,
     isDateField: PropTypes.bool,
     builder: PropTypes.func,
+    chipLimit: PropTypes.number,
+    multipleSelect: PropTypes.bool,
   }
 
   constructor() {
@@ -38,7 +40,7 @@ class ExplorerFormField extends React.Component {
 
   addChip = (name, input, limit) => {
     const currentChips = [].concat(this.props.builder[name] || []);
-    const newChips = const newChips = currentChips.includes(input.key) ? currentChips : [input.key].concat(currentChips).slice(0, limit);
+    const newChips = currentChips.includes(input.key) ? currentChips : [input.key].concat(currentChips).slice(0, limit);
     this.props.handleFieldUpdate(name, newChips);
   };
 

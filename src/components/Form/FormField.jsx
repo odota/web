@@ -53,6 +53,7 @@ class FormField extends React.Component {
     maxSearchResults: PropTypes.string,
     deleteChip: PropTypes.string,
     strings: PropTypes.shape({}),
+    resetField: PropTypes.func,
   }
 
   constructor(props) {
