@@ -5,27 +5,41 @@ import Helmet from 'react-helmet';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import { postRequest } from 'actions';
-import strings from 'lang';
+import { postRequest } from '../../actions';
 
 class Request extends React.Component {
+  static propTypes = {
+    dispatchPostRequest: PropTypes.func,
+    progress: PropTypes.number,
+    error: PropTypes.string,
+    loading: PropTypes.bool,
+    strings: PropTypes.shape({}),
+  }
+
   constructor() {
     super();
     this.state = {};
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    if (this.state.matchId) {
+      this.handleSubmit();
+    }
+  }
+
+  UNSAFE_componentWillMount() {
     this.setState({ matchId: window.location.hash.slice(1) });
   }
 
-  handleSubmit() {
+  handleSubmit = () => {
     const { dispatchPostRequest } = this.props;
     dispatchPostRequest(this.state.matchId);
-  }
+  };
 
   render() {
-    const { progress, error, loading } = this.props;
+    const {
+      progress, error, loading, strings,
+    } = this.props;
     const progressIndicator = (progress ?
       <CircularProgress value={progress} mode="determinate" /> :
       <CircularProgress value={progress} mode="indeterminate" />);
@@ -36,7 +50,7 @@ class Request extends React.Component {
         <TextField
           id="match_id"
           floatingLabelText={strings.request_match_id}
-          errorText={error ? strings.request_error : false}
+          errorText={error && !loading ? strings.request_error : false}
           value={this.state.matchId}
           onChange={e => this.setState({ matchId: e.target.value })}
         />
@@ -46,19 +60,13 @@ class Request extends React.Component {
   }
 }
 
-Request.propTypes = {
-  dispatchPostRequest: PropTypes.func,
-  progress: PropTypes.number,
-  error: PropTypes.string,
-  loading: PropTypes.bool,
-};
-
 const mapStateToProps = (state) => {
   const { error, loading, progress } = state.app.request;
   return {
     error,
     loading,
     progress,
+    strings: state.app.strings,
   };
 };
 

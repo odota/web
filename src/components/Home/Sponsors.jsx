@@ -1,6 +1,7 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import strings from 'lang';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ButtonsDiv } from './Styled';
 
@@ -32,7 +33,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-export default () => (
+const Sponsors = ({ strings }) => (
   <StyledDiv>
     <div className="headline">
       {strings.home_sponsored_by}
@@ -41,14 +42,17 @@ export default () => (
       <a href="//dotacoach.org" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/dotacoach-logo.png" alt="" />
       </a>
-      <a href="https://pvgna.com/?ref=yasp" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/pvgna_logo.png" alt="" />
+      <a href="https://moremmr.com?utm_source=opendota&utm_medium=homepage&utm_campaign=logo" target="_blank" rel="noopener noreferrer">
+        <img src="/assets/images/moremmr-logo.png" alt="" />
       </a>
       <a href="http://www.vpgame.com/" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/vp-logo.png" alt="" />
       </a>
-      <a href="http://www.openai.com/" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.openai.com/" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/openai-logo.png" alt="" />
+      </a>
+      <a href="https://www.rivalry.gg/" target="_blank" rel="noopener noreferrer">
+        <img src="/assets/images/rivalry-logo.png" alt="" />
       </a>
     </div>
     <ButtonsDiv>
@@ -63,3 +67,13 @@ export default () => (
     </ButtonsDiv>
   </StyledDiv>
 );
+
+Sponsors.propTypes = {
+  strings: PropTypes.shape({}),
+};
+
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(Sponsors);

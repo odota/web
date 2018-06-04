@@ -1,17 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   Tabs,
   Tab,
 } from 'material-ui/Tabs';
-import {
-  inflictorWithValue,
-} from 'components/Visualizations';
 import heroes from 'dotaconstants/build/heroes.json';
-import strings from 'lang';
+import { inflictorWithValue } from '../Visualizations';
 import Table from '../Table/Table';
 
-const castsColumns = [{
+const castsColumns = strings => [{
   displayName: strings.th_name,
   field: 'name',
   displayFn: (row, col, field) => (
@@ -59,6 +57,7 @@ const getCastArray = (pm) => {
 
 const CastTable = ({
   match,
+  strings,
 }) => (
   <Tabs>
     {match.players.map(p =>
@@ -66,7 +65,7 @@ const CastTable = ({
         <Tab key={p.player_slot} icon={<img src={heroes[p.hero_id] && process.env.REACT_APP_API_HOST + heroes[p.hero_id].img} height={30} alt="" />}>
           <Table
             data={getCastArray(p)}
-            columns={castsColumns}
+            columns={castsColumns(strings)}
           />
         </Tab>
       ))
@@ -75,6 +74,11 @@ const CastTable = ({
 
 CastTable.propTypes = {
   match: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
-export default CastTable;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(CastTable);

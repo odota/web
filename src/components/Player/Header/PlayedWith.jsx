@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import fetch from 'isomorphic-fetch';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
@@ -19,19 +19,27 @@ const getData = (props, context) => {
 const inlineStyle = { display: 'inline' };
 
 class PlayedWith extends React.Component {
+  static propTypes = {
+    playerId: PropTypes.string,
+    loggedInId: PropTypes.string,
+    strings: PropTypes.shape({}),
+  }
+
   constructor() {
     super();
     this.state = {};
   }
+
   componentDidMount() {
     getData(this.props, this);
   }
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId) {
       getData(nextProps, this);
     }
   }
   render() {
+    const { strings } = this.props;
     return (
       <div style={{ display: shouldShow(this.props) ? 'inline' : 'none', marginLeft: '10px' }}>
         <PlayerStatsCard
@@ -48,9 +56,8 @@ class PlayedWith extends React.Component {
   }
 }
 
-PlayedWith.propTypes = {
-  playerId: PropTypes.string,
-  loggedInId: PropTypes.string,
-};
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
 
-export default PlayedWith;
+export default connect(mapStateToProps)(PlayedWith);

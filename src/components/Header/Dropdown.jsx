@@ -18,28 +18,36 @@ const StyledButton = styled(Button)`
 */
 
 class Dropdown extends Component {
+  static propTypes = {
+    Button: PropTypes.func,
+    buttonProps: PropTypes.shape({}),
+    className: PropTypes.string,
+    children: PropTypes.oneOfType([
+      PropTypes.arrayOf({}),
+      PropTypes.node,
+    ]),
+  }
+
   constructor() {
     super();
     this.state = {
       open: false,
     };
-    this.handleRequestClose = this.handleRequestClose.bind(this);
-    this.handleTouchTap = this.handleTouchTap.bind(this);
   }
 
-  handleRequestClose() {
+  handleRequestClose = () => {
     this.setState({
       open: false,
     });
-  }
+  };
 
-  handleTouchTap(event) {
+  handleTouchTap = (event) => {
     event.preventDefault();
     this.setState({
       open: true,
       anchorEl: event.currentTarget,
     });
-  }
+  };
 
   render() {
     const {
@@ -74,15 +82,5 @@ class Dropdown extends Component {
     );
   }
 }
-
-Dropdown.propTypes = {
-  Button: PropTypes.func,
-  buttonProps: PropTypes.shape({}),
-  className: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf({}),
-    PropTypes.node,
-  ]),
-};
 
 export default Dropdown;

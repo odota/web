@@ -1,9 +1,9 @@
-# ui
+# web
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/odota/web.svg)](https://greenkeeper.io/)
 [![Help Contribute to Open Source](https://www.codetriage.com/odota/web/badges/users.svg)](https://www.codetriage.com/odota/web)
 
-OpenDota UI: A web interface for viewing Dota 2 data. This utilizes the [OpenDota API](https://docs.opendota.com), which is also an [open source project](https://github.com/odota/core).
+OpenDota Web UI: A web interface for viewing Dota 2 data. This utilizes the [OpenDota API](https://docs.opendota.com), which is also an [open source project](https://github.com/odota/core).
 
 Quickstart
 ----
@@ -38,7 +38,7 @@ Notes
 ----
 * You don't have to set up the entire stack (databases, etc.), or worry about getting starter data, since the UI points to the production API.
 * Use the configuration to point to your own API (if you are working on a new feature and want to start building the UI before it's deployed to production).
-* Discord: https://discord.gg/0o5SQGbXuWCNDcaF
+* Discord: https://discord.gg/opendota
   * Strongly recommended for active developers! We move fast and it's helpful to be up to speed with everything that's happening.
 
 Resources

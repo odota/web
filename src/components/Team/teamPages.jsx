@@ -1,11 +1,10 @@
 import React from 'react';
-import strings from 'lang';
-import Container from 'components/Container';
-import Table from 'components/Table';
+import Container from '../Container';
+import Table from '../Table';
 import Overview from './Overview';
 import { matchColumns, memberColumns, heroColumns } from './teamDataColumns';
 
-const teamPages = [Overview, {
+const teamPages = strings => [Overview(strings), {
   name: strings.tab_matches,
   key: 'matches',
   content: (generalData, matchData) => (
@@ -15,7 +14,8 @@ const teamPages = [Overview, {
       error={matchData.error}
     >
       <Table
-        columns={matchColumns}
+        resetTableState
+        columns={matchColumns(strings)}
         data={matchData.data}
         paginated
       />
@@ -31,7 +31,8 @@ const teamPages = [Overview, {
       error={heroData.error}
     >
       <Table
-        columns={heroColumns}
+        resetTableState
+        columns={heroColumns(strings)}
         data={heroData.data}
         paginated
       />
@@ -48,7 +49,7 @@ const teamPages = [Overview, {
         error={playerData.error}
       >
         <Table
-          columns={memberColumns}
+          columns={memberColumns(strings)}
           data={playerData.data.filter(player => player.is_current_team_member)}
         />
       </Container>
@@ -58,7 +59,7 @@ const teamPages = [Overview, {
         error={playerData.error}
       >
         <Table
-          columns={memberColumns}
+          columns={memberColumns(strings)}
           data={playerData.data.filter(player => !player.is_current_team_member)}
           paginated
         />
@@ -67,7 +68,7 @@ const teamPages = [Overview, {
   ),
 }];
 
-export default teamId => teamPages.map(page => ({
+export default (teamId, strings) => teamPages(strings).map(page => ({
   ...page,
   route: `/teams/${teamId}/${page.key}`,
 }));

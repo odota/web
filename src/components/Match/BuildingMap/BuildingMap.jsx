@@ -1,18 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import playerColors from 'dotaconstants/build/player_colors.json';
+import heroes from 'dotaconstants/build/heroes.json';
+import ReactTooltip from 'react-tooltip';
+import styled from 'styled-components';
 import {
   pad,
   sum,
   isRadiant,
-} from 'utility';
-import playerColors from 'dotaconstants/build/player_colors.json';
-import heroes from 'dotaconstants/build/heroes.json';
-import Heading from 'components/Heading';
-import DotaMap from 'components/DotaMap';
-import strings from 'lang';
-import ReactTooltip from 'react-tooltip';
-// import { IconLightbulb } from 'components/Icons';
-import styled from 'styled-components';
+} from '../../../utility';
+import Heading from '../../Heading';
+import DotaMap from '../../DotaMap';
+// import { IconLightbulb } from '../Icons';
 import buildingData from './buildingData';
 import constants from '../../constants';
 
@@ -255,7 +255,7 @@ const buildingsHealth = {
   fort: 4200,
 };
 
-export default function BuildingMap({ match }) {
+const BuildingMap = ({ match, strings }) => {
   if (match && match.tower_status_radiant !== undefined) {
     // see https://wiki.teamfortress.com/wiki/WebAPI/GetMatchDetails
     let bits = pad(match.tower_status_radiant.toString(2), 11);
@@ -548,7 +548,7 @@ export default function BuildingMap({ match }) {
     );
   }
   return <div />;
-}
+};
 
 BuildingMap.propTypes = {
   match: PropTypes.shape({}),
@@ -558,4 +558,11 @@ BuildingMap.propTypes = {
     img: PropTypes.string,
   }),
   src: PropTypes.string,
+  strings: PropTypes.shape({}),
 };
+
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(BuildingMap);

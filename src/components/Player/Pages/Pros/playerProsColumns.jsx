@@ -1,9 +1,8 @@
 import React from 'react';
-import { TableLink } from 'components/Table';
-import { transformations } from 'utility';
-import strings from 'lang';
+import { transformations } from '../../../../utility';
+import { TableLink } from '../../../Table';
 
-export default playerId => [{
+export default (playerId, strings) => [{
   displayName: strings.th_avatar,
   field: 'last_played',
   displayFn: transformations.player,

@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  getPlayerCounts,
-} from 'actions';
-import Table from 'components/Table';
-import Container from 'components/Container';
-import strings from 'lang';
 import styled from 'styled-components';
+import { getPlayerCounts } from '../../../../actions';
+import Table from '../../../Table';
+import Container from '../../../Container';
 import playerCountsColumns from './playerCountsColumns';
 
 const StyledContainer = styled.div`
@@ -23,12 +20,14 @@ const StyledTableContainer = styled.div`
   padding: 5px;
 `;
 
-const Counts = ({ counts, error, loading }) => (
+const Counts = ({
+  counts, error, loading, strings,
+}) => (
   <StyledContainer>
-    {Object.keys(counts).map((key, index) => (
-      <StyledTableContainer key={index}>
+    {Object.keys(counts).map(key => (
+      <StyledTableContainer key={key}>
         <Container title={strings[`heading_${key}`]} error={error} loading={loading}>
-          <Table columns={playerCountsColumns} data={counts[key].list} />
+          <Table columns={playerCountsColumns(strings)} data={counts[key].list} />
         </Container>
       </StyledTableContainer>
     ))}
@@ -42,6 +41,7 @@ Counts.propTypes = {
   ]),
   error: PropTypes.string,
   loading: PropTypes.bool,
+  strings: PropTypes.shape({}),
 };
 
 const getData = (props) => {
@@ -49,11 +49,19 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    playerId: PropTypes.string,
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+    strings: PropTypes.shape({}),
+  }
+
   componentDidMount() {
     getData(this.props);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
@@ -66,17 +74,11 @@ class RequestLayer extends React.Component {
   }
 }
 
-RequestLayer.propTypes = {
-  playerId: PropTypes.string,
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-};
-
 const mapStateToProps = state => ({
   counts: state.app.playerCounts.data,
   error: state.app.playerCounts.error,
   loading: state.app.playerCounts.loading,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

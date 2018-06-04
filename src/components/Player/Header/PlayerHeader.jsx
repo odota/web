@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
-import strings from 'lang';
-import { rankTierToString } from 'utility';
-import Error from 'components/Error';
-import Spinner from 'components/Spinner';
 import styled from 'styled-components';
+import { Facebook } from 'react-content-loader';
+import { rankTierToString } from '../../../utility';
+import Error from '../../Error';
 import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';
@@ -133,7 +132,7 @@ const Styled = styled.div`
   &-board {
     position: absolute;
     align-self: center;
-    margin-top: 41px;
+    margin-top: 45px;
     font-size: 22px;
     color: #ECD9C8;
     text-shadow: 0 0 10px black;
@@ -147,7 +146,7 @@ const Styled = styled.div`
 
 const LARGE_IMAGE_SIZE = 124;
 
-const getRegistrationBadge = registered => registered && (
+const getRegistrationBadge = (registered, strings) => registered && (
   <div
     className="registered"
     data-hint={strings.tooltip_registered_user}
@@ -159,39 +158,43 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
   let medalElement = null;
   const imgDescription = rankTierToString(rankTier);
   if (rankTier && rankTier > 9) {
-    if (rankTier === 76 && leaderboardRank) {
-      let iconPath = '/assets/images/dota2/rank_icons/rank_icon_7a.png'; // Divine Elite
-      if (leaderboardRank <= 10) {
-        iconPath = '/assets/images/dota2/rank_icons/rank_icon_7c.png'; // Divine Top 10
-      } else if (leaderboardRank <= 100) {
-        iconPath = '/assets/images/dota2/rank_icons/rank_icon_7b.png'; // Divine Top 100
-      }
+    let iconPath;
+    if (leaderboardRank && leaderboardRank <= 10) {
+      iconPath = '/assets/images/dota2/rank_icons/rank_icon_7c.png'; // Divine Top 10
+    } else if (leaderboardRank && leaderboardRank <= 100) {
+      iconPath = '/assets/images/dota2/rank_icons/rank_icon_7b.png'; // Divine Top 100
+    }
+    if (rankTier === 76) {
+      iconPath = iconPath || '/assets/images/dota2/rank_icons/rank_icon_7a.png'; // Divine Elite
       medalElement = (
         <div className="rankTierContainer">
-          <div className="rankMedal" data-hint={`${strings.abbr_number} ${leaderboardRank}`} data-hint-position="top">
+          <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
             <img className="rankMedal-icon" src={iconPath} alt="icon" />
-            <span className="rankMedal-board">{leaderboardRank}</span>
+            {leaderboardRank && <span className="rankMedal-board">{leaderboardRank}</span>}
           </div>
         </div>
       );
     } else {
       const intRankTier = parseInt(rankTier, 10);
-      const iconPath = `/assets/images/dota2/rank_icons/rank_icon_${parseInt(intRankTier / 10, 10)}.png`;
       const star = parseInt(intRankTier % 10, 10);
       let correctStar = 0;
-      if (star <= 0) {
-        correctStar = 0;
-      } else if (star >= 5) {
-        correctStar = 5;
-      } else {
-        correctStar = star;
+      if (!iconPath) {
+        if (star <= 0) {
+          correctStar = 0;
+        } else if (star >= 5) {
+          correctStar = 5;
+        } else {
+          correctStar = star;
+        }
       }
       const starPath = `/assets/images/dota2/rank_icons/rank_star_${correctStar}.png`;
+      iconPath = iconPath || `/assets/images/dota2/rank_icons/rank_icon_${parseInt(intRankTier / 10, 10)}.png`;
       medalElement = (
         <div className="rankTierContainer">
           <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
             <img className="rankMedal-icon" src={iconPath} alt="icon" />
             {(correctStar !== 0) ? <img className="rankMedal-star" src={starPath} alt="star" /> : ''}
+            {leaderboardRank && <span className="rankMedal-board">{leaderboardRank}</span>}
           </div>
         </div>
       );
@@ -210,13 +213,13 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
 };
 
 const PlayerHeader = ({
-  playerName, officialPlayerName, playerId, picture, registered, loading, error, small, playerSoloCompetitiveRank, loggedInUser, rankTier, leaderboardRank,
+  playerName, officialPlayerName, playerId, picture, registered, loading, error, small, playerSoloCompetitiveRank, loggedInUser, rankTier, leaderboardRank, strings,
 }) => {
   if (error) {
     return <Error />;
   }
   if (loading) {
-    return <Spinner />;
+    return <Facebook primaryColor="#666" secondaryColor="#ecebeb" width={400} height={60} animate />;
   }
 
   let badgeStyle = {
@@ -246,7 +249,7 @@ const PlayerHeader = ({
         <div className="topContainer">
           <div className="imageContainer">
             <Badge
-              badgeContent={getRegistrationBadge(registered)}
+              badgeContent={getRegistrationBadge(registered, strings)}
               badgeStyle={badgeStyle}
               style={{
                 margin: 0,
@@ -289,6 +292,7 @@ PlayerHeader.propTypes = {
   loggedInUser: PropTypes.shape({}),
   rankTier: PropTypes.number,
   leaderboardRank: PropTypes.number,
+  strings: PropTypes.shape({}),
 };
 
 const mapStateToProps = state => ({
@@ -303,6 +307,7 @@ const mapStateToProps = state => ({
   loggedInUser: state.app.metadata.data.user,
   rankTier: state.app.player.data.rank_tier,
   leaderboardRank: state.app.player.data.leaderboard_rank,
+  strings: state.app.strings,
 });
 
 export default connect(mapStateToProps)(PlayerHeader);

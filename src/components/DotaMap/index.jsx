@@ -11,11 +11,11 @@ const setMapSizeStyle = (width, maxWidth) => ({
 });
 
 const dotaMaps = [
-  { patchName: '7.07', mapImage: '/assets/images/dota2/map/detailed_707.png' },
-  { patchName: '7.00', mapImage: '/assets/images/dota2/map/detailed_700.png' },
-  { patchName: '6.86', mapImage: '/assets/images/dota2/map/detailed_686.png' },
-  { patchName: '6.82', mapImage: '/assets/images/dota2/map/detailed_682.png' },
-  { patchName: '6.70', mapImage: '/assets/images/dota2/map/detailed_pre682.png' },
+  { patch: '7.07', images: { jpg: '/assets/images/dota2/map/detailed_707.jpg', webp: '/assets/images/dota2/map/detailed_707.webp' } },
+  { patch: '7.00', images: { jpg: '/assets/images/dota2/map/detailed_700.jpg', webp: '/assets/images/dota2/map/detailed_700.webp' } },
+  { patch: '6.86', images: { jpg: '/assets/images/dota2/map/detailed_686.jpg', webp: '/assets/images/dota2/map/detailed_686.webp' } },
+  { patch: '6.82', images: { jpg: '/assets/images/dota2/map/detailed_682.jpg', webp: '/assets/images/dota2/map/detailed_682.webp' } },
+  { patch: '6.70', images: { jpg: '/assets/images/dota2/map/detailed_pre682.jpg', webp: '/assets/images/dota2/map/detailed_pre682.webp' } },
 ];
 
 const patchDate = {};
@@ -23,18 +23,36 @@ patch.forEach((patchElement) => {
   patchDate[patchElement.name] = new Date(patchElement.date).getTime() / 1000;
 });
 
-const getUrl = (startTime) => {
-  if (startTime == null) return dotaMaps[0].mapImage;
+const getPatchMap = (startTime) => {
+  if (startTime == null) return dotaMaps[0];
+
   for (let i = 0; i < dotaMaps.length; i += 1) {
-    if (startTime >= patchDate[dotaMaps[i].patchName]) return dotaMaps[i].mapImage;
+    if (startTime >= patchDate[dotaMaps[i].patchName]) return dotaMaps[i];
   }
-  return dotaMaps[0].mapImage;
+
+  return dotaMaps[0];
 };
 
 const MapContainer = styled.div`
   position: relative;
-  background: url("${props => getUrl(props.startTime)}");
-  background-size: contain;
+`;
+
+const MapImage = styled.picture`
+  position: relative;
+
+  img {
+    height: 100%;
+    max-width: 100%;
+  }
+`;
+
+const MapContent = styled.div`
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
 `;
 
 const DotaMap = ({
@@ -42,14 +60,22 @@ const DotaMap = ({
   maxWidth = 400,
   width = 400,
   children,
-}) => (
-  <MapContainer
-    startTime={startTime}
-    style={setMapSizeStyle(width, maxWidth)}
-  >
-    {children}
-  </MapContainer>
-);
+}) => {
+  const mapData = getPatchMap(startTime);
+
+  return (
+    <MapContainer style={setMapSizeStyle(width, maxWidth)}>
+      <MapImage>
+        <source srcSet={mapData.images.webp} type="image/webp" />
+        <source srcSet={mapData.images.jpg} type="image/jpeg" />
+        <img src={mapData.images.jpg} alt={`Dota 2 Map - ${mapData.patch}`} />
+      </MapImage>
+      <MapContent>
+        {children}
+      </MapContent>
+    </MapContainer>
+  );
+};
 
 const {
   number, node, string, oneOfType,

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import reducer from 'reducers/reducer';
-import request from 'reducers/request';
-import form from 'reducers/form';
+import reducer from './reducer';
+import request from './request';
+import form from './form';
 
 export default combineReducers({
   player: reducer('player'),
@@ -22,9 +22,7 @@ export default combineReducers({
   playerRecentMatches: reducer('playerRecentMatches'),
   playerTotals: reducer('playerTotals'),
   metadata: reducer('metadata'),
-  match: reducer('match', {
-    players: [],
-  }),
+  match: reducer('match'),
   heroRanking: reducer('heroRanking'),
   heroBenchmark: reducer('heroBenchmark'),
   heroRecentGames: reducer('heroRecentGames'),
@@ -36,7 +34,6 @@ export default combineReducers({
   proPlayers: reducer('proPlayers'),
   proMatches: reducer('proMatches'),
   publicMatches: reducer('publicMatches'),
-  pvgnaGuides: reducer('pvgnaGuides'),
   heroStats: reducer('heroStats'),
   leagues: reducer('leagues'),
   teams: reducer('teams'),
@@ -46,6 +43,13 @@ export default combineReducers({
   teamPlayers: reducer('teamPlayers'),
   records: reducer('records'),
   ghPulls: reducer('ghPulls'),
+  strings: (state = {}, action) => ((action && action.type === 'strings') ? action.payload : state),
+  abilities: (state = {}, action) => ((action && action.type === 'abilities') ? action.payload : state),
+  neutralAbilities: (state = {}, action) => ((action && action.type === 'neutralAbilities') ? action.payload : state),
+  abilityIds: (state = {}, action) => ((action && action.type === 'abilityIds') ? action.payload : state),
   form,
   request,
+  scenariosItemTimings: reducer('scenariosItemTimings'),
+  scenariosLaneRoles: reducer('scenariosLaneRoles'),
+  scenariosMisc: reducer('scenariosMisc'),
 });

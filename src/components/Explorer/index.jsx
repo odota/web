@@ -1,35 +1,27 @@
 /* global ace */
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  connect,
-}
-  from 'react-redux';
+import { connect } from 'react-redux';
 import fetch from 'isomorphic-fetch';
-import Spinner from 'components/Spinner';
 import RaisedButton from 'material-ui/RaisedButton';
-import strings from 'lang';
+import ActionSearch from 'material-ui/svg-icons/action/search';
 import Helmet from 'react-helmet';
-import {
-  getScript,
-}
-  from 'utility';
-import Heading from 'components/Heading';
+import querystring from 'querystring';
+import json2csv from 'json2csv';
+import Heading from '../Heading';
 import {
   getProPlayers,
   getLeagues,
   getTeams,
-}
-  from 'actions';
-import querystring from 'querystring';
-import json2csv from 'json2csv';
+} from '../../actions';
 import queryTemplate from './queryTemplate';
 import ExplorerOutputButton from './ExplorerOutputButton';
 import ExplorerOutputSection from './ExplorerOutputSection';
 import ExplorerControlSection from './ExplorerControlSection';
 import ExplorerFormField from './ExplorerFormField';
-import fields from './fields';
+import getFields from './fields';
 import autocomplete from './autocomplete';
+import TableSkeleton from '../Skeletons/TableSkeleton';
 
 const playerMapping = {};
 const teamMapping = {};
@@ -53,6 +45,16 @@ function expandBuilderState(builder, _fields) {
 }
 
 class Explorer extends React.Component {
+  static propTypes = {
+    proPlayers: PropTypes.arrayOf({}),
+    teams: PropTypes.arrayOf({}),
+    leagues: PropTypes.shape({}),
+    dispatchProPlayers: PropTypes.func,
+    dispatchLeagues: PropTypes.func,
+    dispatchTeams: PropTypes.func,
+    strings: PropTypes.shape({}),
+  }
+
   constructor() {
     super();
     let urlState = {};
@@ -71,43 +73,91 @@ class Explorer extends React.Component {
       result: {},
       builder: urlState,
     };
-    this.instantiateEditor = this.instantiateEditor.bind(this);
-    this.toggleEditor = this.toggleEditor.bind(this);
-    this.handleQuery = this.handleQuery.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.handleResponse = this.handleResponse.bind(this);
-    this.getSqlString = this.getSqlString.bind(this);
-    this.buildQuery = this.buildQuery.bind(this);
-    this.syncWindowHistory = this.syncWindowHistory.bind(this);
-    this.handleFieldUpdate = this.handleFieldUpdate.bind(this);
 
     if (!('minDate' in this.state.builder)) {
       this.state.builder.minDate = new Date(new Date().setDate(new Date().getDate() - defaultMinDate)).toISOString();
     }
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.props.dispatchProPlayers();
     this.props.dispatchLeagues();
     this.props.dispatchTeams();
-    getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js', () => {
-      getScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js', this.instantiateEditor);
+    await import('ace-builds/src-noconflict/ace');
+    await Promise.all([
+      import('ace-builds/src-noconflict/ext-language_tools'),
+      import('ace-builds/src-noconflict/theme-monokai'),
+      import('ace-builds/src-noconflict/mode-sql'),
+    ]);
+    this.instantiateEditor();
+  }
+
+  componentDidUpdate(nextProps) {
+    if (this.editor && !this.completersSet && nextProps.proPlayers.length && nextProps.teams.length && nextProps.leagues.length) {
+      this.completersSet = true;
+      fetch(`${process.env.REACT_APP_API_HOST}/api/schema`).then(jsonResponse).then((schema) => {
+        this.editor.completers = [autocomplete(schema, nextProps.proPlayers, nextProps.teams, nextProps.leagues)];
+      });
+    }
+  }
+
+  getSqlString = () => this.editor.getSelectedText() || this.editor.getValue();
+
+  buildQuery = () => {
+    // Note that this will not get expanded data for API-dependent fields (player/league/team)
+    // This is ok if we only need the value prop (e.g. an id to build the query with)
+    const expandedBuilder = expandBuilderState(this.state.builder, getFields());
+    // TODO handle arrays
+    this.editor.setValue(queryTemplate(expandedBuilder));
+  };
+
+  handleCancel = () => {
+    this.setState({
+      ...this.state,
+      loading: false,
     });
-  }
-  getSqlString() {
-    return this.editor.getSelectedText() || this.editor.getValue();
-  }
-  instantiateEditor() {
+    window.stop();
+  };
+
+  handleFieldUpdate = (builderField, value) => {
+    this.setState({
+      ...this.state,
+      builder: {
+        ...this.state.builder,
+        [builderField]: value,
+      },
+    }, this.buildQuery);
+  };
+
+  handleQuery = () => {
+    if (this.state.loadingEditor === true) {
+      return setTimeout(this.handleQuery, 1000);
+    }
+    this.setState({
+      ...this.state,
+      loading: true,
+    });
+    this.syncWindowHistory();
+    const sqlString = this.getSqlString();
+    return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
+  };
+
+  handleResponse = (json) => {
+    this.setState({
+      ...this.state,
+      loading: false,
+      result: json,
+    });
+  };
+
+  instantiateEditor = () => {
     const editor = ace.edit('editor');
     editor.setTheme('ace/theme/monokai');
     editor.getSession().setMode('ace/mode/sql');
-    editor.setShowPrintMargin(false);
     editor.setOptions({
       minLines: 10,
       maxLines: Infinity,
       enableLiveAutocompletion: true,
-    });
-    fetch(`${process.env.REACT_APP_API_HOST}/api/schema`).then(jsonResponse).then((schema) => {
-      editor.completers = [autocomplete(schema)];
+      showPrintMargin: false,
     });
     this.editor = editor;
     const { sql } = querystring.parse(window.location.search.substring(1));
@@ -121,58 +171,20 @@ class Explorer extends React.Component {
       ...this.state,
       loadingEditor: false,
     });
-  }
-  toggleEditor() {
-    this.setState({ ...this.state, showEditor: !this.state.showEditor });
-    this.editor.renderer.updateFull();
-  }
-  syncWindowHistory() {
+  };
+
+  syncWindowHistory = () => {
     const sqlString = this.getSqlString();
     const objectToSerialize = this.state.showEditor ? { sql: sqlString, format: this.state.builder.format } : this.state.builder;
     const stringToSerialize = `?${querystring.stringify(objectToSerialize)}`;
     window.history.pushState('', '', stringToSerialize);
-  }
-  handleQuery() {
-    if (this.state.loadingEditor === true) {
-      return setTimeout(this.handleQuery, 1000);
-    }
-    this.setState({
-      ...this.state,
-      loading: true,
-    });
-    this.syncWindowHistory();
-    const sqlString = this.getSqlString();
-    return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
-  }
-  handleCancel() {
-    this.setState({
-      ...this.state,
-      loading: false,
-    });
-    window.stop();
-  }
-  handleResponse(json) {
-    this.setState({
-      ...this.state,
-      loading: false,
-      result: json,
-    });
-  }
-  handleFieldUpdate(builderField, value) {
-    this.setState({
-      ...this.state,
-      builder: {
-        ...this.state.builder,
-        [builderField]: value,
-      },
-    }, this.buildQuery);
-  }
-  buildQuery() {
-    // Note that this will not get expanded data for API-dependent fields (player/league/team)
-    // This is ok if we only need the value prop (e.g. an id to build the query with)
-    const expandedBuilder = expandBuilderState(this.state.builder, fields());
-    this.editor.setValue(queryTemplate(expandedBuilder));
-  }
+  };
+
+  toggleEditor = () => {
+    this.setState({ ...this.state, showEditor: !this.state.showEditor });
+    this.editor.renderer.updateFull();
+  };
+
   render() {
     if (!Object.keys(playerMapping).length) {
       this.props.proPlayers.forEach((player) => {
@@ -184,13 +196,14 @@ class Explorer extends React.Component {
         teamMapping[team.team_id] = team.name;
       });
     }
-    const expandedFields = fields(this.props.proPlayers, this.props.leagues, this.props.teams);
+    const expandedFields = getFields(this.props.proPlayers, this.props.leagues, this.props.teams);
     const expandedBuilder = expandBuilderState(this.state.builder, expandedFields);
     const {
       handleQuery, handleCancel, getSqlString, handleFieldUpdate,
     } = this;
     const explorer = this;
     const { builder } = this.state;
+    const { strings } = this.props;
     return (
       <div>
         <Helmet title={`${strings.title_explorer} - ${strings.explorer_subtitle}`} />
@@ -236,6 +249,7 @@ class Explorer extends React.Component {
             primary={!this.state.loading}
             secondary={this.state.loading}
             style={{ margin: '5px' }}
+            icon={!this.state.loading ? <ActionSearch /> : null}
             label={this.state.loading ? strings.explorer_cancel_button : strings.explorer_query_button}
             onClick={this.state.loading ? handleCancel : handleQuery}
           />
@@ -277,32 +291,24 @@ class Explorer extends React.Component {
         </div>
         <Heading title={strings.explorer_results} subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`} />
         <pre style={{ color: 'red' }}>{this.state.result.err}</pre>
-        {this.state.loading ? <Spinner /> : null}
-        <ExplorerOutputSection
+        {this.state.loading ? <TableSkeleton /> : null}
+        {!this.state.loading && <ExplorerOutputSection
           rows={this.state.result.rows}
           fields={this.state.result.fields}
           expandedBuilder={expandedBuilder}
           playerMapping={playerMapping}
           teamMapping={teamMapping}
           format={this.state.builder.format}
-        />
+        />}
       </div>);
   }
 }
-
-Explorer.propTypes = {
-  proPlayers: PropTypes.arrayOf({}),
-  teams: PropTypes.arrayOf({}),
-  leagues: PropTypes.shape({}),
-  dispatchProPlayers: PropTypes.func,
-  dispatchLeagues: PropTypes.func,
-  dispatchTeams: PropTypes.func,
-};
 
 const mapStateToProps = state => ({
   proPlayers: state.app.proPlayers.data,
   leagues: state.app.leagues.data,
   teams: state.app.teams.data,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { hsvToRgb } from 'utility';
+import { connect } from 'react-redux';
 import {
   XAxis,
   YAxis,
@@ -12,10 +12,10 @@ import {
   Cell,
   ResponsiveContainer,
 } from 'recharts';
-import strings from 'lang';
+import { hsvToRgb } from '../../../utility';
 import { StyledTooltip } from './Styled';
 
-const HistogramTooltipContent = ({ payload, xAxisLabel = '' }) => {
+const HistogramTooltipContent = ({ payload, xAxisLabel = '', strings }) => {
   const data = payload && payload[0] && payload[0].payload;
   return (
     <StyledTooltip>
@@ -27,10 +27,11 @@ const HistogramTooltipContent = ({ payload, xAxisLabel = '' }) => {
 HistogramTooltipContent.propTypes = {
   payload: PropTypes.arrayOf(PropTypes.shape({})),
   xAxisLabel: PropTypes.string,
+  strings: PropTypes.shape({}),
 };
 
 const HistogramGraph = ({
-  columns, xAxisLabel = '',
+  columns, xAxisLabel = '', strings,
 }) => (
   <ResponsiveContainer width="100%" height={400}>
     <BarChart
@@ -50,7 +51,7 @@ const HistogramGraph = ({
         opacity={0.5}
       />
 
-      <Tooltip content={<HistogramTooltipContent xAxisLabel={xAxisLabel} />} />
+      <Tooltip content={<HistogramTooltipContent xAxisLabel={xAxisLabel} strings={strings} />} />
       <Bar
         dataKey="games"
       >
@@ -74,6 +75,11 @@ const HistogramGraph = ({
 HistogramGraph.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape({})),
   xAxisLabel: PropTypes.string,
+  strings: PropTypes.shape({}),
 };
 
-export default HistogramGraph;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(HistogramGraph);

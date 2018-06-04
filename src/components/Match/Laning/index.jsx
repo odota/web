@@ -1,26 +1,33 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import strings from 'lang';
-import Heading from 'components/Heading';
-import Heatmap from 'components/Heatmap';
-import Table from 'components/Table';
-import { unpackPositionData } from 'utility';
-import { laningColumns } from 'components/Match/matchColumns';
+import Heading from '../../Heading';
+import Heatmap from '../../Heatmap';
+import Table from '../../Table';
+import { unpackPositionData } from '../../../utility';
+import mcs from '../matchColumns';
 import { StyledFlexContainer, StyledFlexElement } from '../StyledMatch';
 
 class Laning extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({}),
+    strings: PropTypes.shape({}),
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       selectedPlayer: 0,
     };
-    this.setSelectedPlayer = this.setSelectedPlayer.bind(this);
   }
-  setSelectedPlayer(playerSlot) {
+
+  setSelectedPlayer = (playerSlot) => {
     this.setState({ ...this.state, selectedPlayer: playerSlot });
-  }
+  };
+
   render() {
-    const { match } = this.props;
+    const { match, strings } = this.props;
+    const { laningColumns } = mcs(strings);
     return (
       <StyledFlexContainer>
         <StyledFlexElement >
@@ -38,8 +45,8 @@ class Laning extends React.Component {
   }
 }
 
-Laning.propTypes = {
-  match: PropTypes.shape({}),
-};
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
 
-export default Laning;
+export default connect(mapStateToProps)(Laning);

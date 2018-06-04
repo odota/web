@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import strings from 'lang';
+import { connect } from 'react-redux';
+import heroes from 'dotaconstants/build/heroes.json';
 import {
   transformations,
   fromNow,
-} from 'utility';
-import Table, { TableLink } from 'components/Table';
-import Container from 'components/Container';
+  subTextStyle,
+} from '../../utility';
+import Table, { TableLink } from '../Table';
+import Container from '../Container';
 // import { List } from 'material-ui/List';
+import { StyledTeamIconContainer } from '../../components/Match/StyledMatch';
 
-const searchColumns = [{
+const searchColumns = strings => [{
   displayName: strings.th_name,
   field: 'personaname',
   displayFn: (row, col, field) => {
@@ -21,7 +24,7 @@ const searchColumns = [{
   },
 }];
 
-const proColumns = [{
+const proColumns = strings => [{
   displayName: strings.th_name,
   field: 'name',
   displayFn: (row, col, field) => transformations.player({
@@ -35,6 +38,40 @@ const proColumns = [{
   ),
 }];
 
+const matchColumns = strings => [
+  {
+    displayName: strings.th_match_id,
+    field: 'match_id',
+    sortFn: true,
+    displayFn: (row, col, field) => (
+      <div>
+        <TableLink to={`/matches/${field}`}>{field}</TableLink>
+        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+          {row.skill && strings[`skill_${row.skill}`]}
+        </span>
+      </div>),
+  },
+  {
+    displayName: strings.th_duration,
+    tooltip: strings.tooltip_duration,
+    field: 'duration',
+    sortFn: true,
+    displayFn: transformations.duration,
+  },
+  {
+    displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
+    field: 'players',
+    displayFn: (row, col, field) => [0, 1, 2, 3, 4].map(player =>
+      (heroes[field[player].hero_id] ? <img key={field[player].hero_id} style={{ width: '50px' }} src={`${process.env.REACT_APP_API_HOST}${heroes[field[player].hero_id].img}`} alt="" /> : null)),
+  },
+  {
+    displayName: <StyledTeamIconContainer >{strings.general_dire}</StyledTeamIconContainer>,
+    field: 'players',
+    displayFn: (row, col, field) => [5, 6, 7, 8, 9].map(player =>
+      (heroes[field[player].hero_id] ? <img key={field[player].hero_id} style={{ width: '50px' }} src={`${process.env.REACT_APP_API_HOST}${heroes[field[player].hero_id].img}`} alt="" /> : null)),
+  },
+];
+
 const Search = ({
   players,
   playersLoading,
@@ -42,8 +79,22 @@ const Search = ({
   pros,
   prosLoading,
   prosError,
+  matchData,
+  matchLoading,
+  matchError,
+  strings,
 }) => (
   <div>
+    <Container
+      loading={matchLoading}
+      title={strings.explorer_match}
+      hide={matchError}
+    >
+      <Table
+        data={[matchData]}
+        columns={matchColumns(strings)}
+      />
+    </Container>
     <Container
       loading={prosLoading}
       error={prosError}
@@ -54,7 +105,7 @@ const Search = ({
         paginated
         pageLength={5}
         data={pros}
-        columns={proColumns}
+        columns={proColumns(strings)}
       />
     </Container>
     <Container
@@ -66,7 +117,7 @@ const Search = ({
       <Table
         paginated
         data={players}
-        columns={searchColumns}
+        columns={searchColumns(strings)}
       />
     </Container>
   </div>
@@ -79,6 +130,14 @@ Search.propTypes = {
   pros: PropTypes.arrayOf(PropTypes.shape({})),
   prosLoading: PropTypes.bool,
   prosError: PropTypes.string,
+  matchData: PropTypes.arrayOf({}),
+  matchLoading: PropTypes.bool,
+  matchError: PropTypes.bool,
+  strings: PropTypes.shape({}),
 };
 
-export default Search;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(Search);

@@ -1,10 +1,9 @@
 import React from 'react';
 import { string, shape, func, bool, arrayOf, number } from 'prop-types';
 import { connect } from 'react-redux';
-import { getHeroDurations } from 'actions';
-import Spinner from 'components/Spinner';
-import { HistogramGraph } from 'components/Visualizations';
-import strings from 'lang';
+import { getHeroDurations } from '../../actions';
+import { HistogramGraph } from '../Visualizations';
+import DurationsSkeleton from '../Skeletons/DurationsSkeleton';
 
 class Durations extends React.Component {
   static propTypes = {
@@ -20,6 +19,7 @@ class Durations extends React.Component {
       gamed_played: number,
       wins: number,
     })),
+    strings: shape({}),
   }
 
   componentDidMount() {
@@ -31,10 +31,10 @@ class Durations extends React.Component {
   }
 
   render() {
-    const { isLoading, data } = this.props;
+    const { isLoading, data, strings } = this.props;
 
     if (isLoading) {
-      return <Spinner />;
+      return <DurationsSkeleton />;
     }
 
     const result = data.map(item => ({
@@ -58,6 +58,7 @@ const mapDispatchToProps = {
 const mapStateToProps = ({ app }) => ({
   isLoading: app.heroDurations.loading,
   data: Object.values(app.heroDurations.data),
+  strings: app.strings,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Durations);

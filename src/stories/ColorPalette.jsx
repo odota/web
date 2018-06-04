@@ -2,8 +2,7 @@ import React from 'react';
 import { string } from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
-
-import constants from 'components/constants';
+import constants from '../components/constants';
 
 const StyledPanel = styled.div`
   background-color: ${props => props.color};
@@ -33,7 +32,7 @@ const Title = styled.h1`
   font-family: Arial;
 `;
 
-storiesOf('Color Palette').add('components/constantns.js', () => (
+storiesOf('Color Palette').add('../constantns.js', () => (
   <div>
     <Title>This is colors from components/constants</Title>
     <Wrapper>

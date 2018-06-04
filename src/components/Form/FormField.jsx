@@ -1,7 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
-import strings from 'lang';
 import querystring from 'querystring';
 import ChipList from './ChipList';
 import constants from '../constants';
@@ -39,6 +39,22 @@ const deleteChipDefault = (name, index, history) => {
 };
 
 class FormField extends React.Component {
+  static propTypes = {
+    name: PropTypes.string,
+    dataSource: PropTypes.arrayOf({}),
+    strict: PropTypes.bool,
+    limit: PropTypes.number,
+    formSelectionState: PropTypes.shape({}),
+    addChip: PropTypes.string,
+    history: PropTypes.shape({}),
+    label: PropTypes.string,
+    filter: PropTypes.string,
+    className: PropTypes.string,
+    maxSearchResults: PropTypes.string,
+    deleteChip: PropTypes.string,
+    strings: PropTypes.shape({}),
+  }
+
   constructor(props) {
     super(props);
     const { formSelectionState, name } = this.props;
@@ -50,11 +66,9 @@ class FormField extends React.Component {
       selectedBundle: undefined || (initialState && initialState.bundle),
       singleSelection: initialState && initialState.singleSelection,
     };
-    this.handleSelect = this.handleSelect.bind(this);
-    this.handleUpdateInput = this.handleUpdateInput.bind(this);
   }
 
-  handleSelect(value, index) {
+  handleSelect = (value, index) => {
     const {
       name,
       dataSource,
@@ -63,6 +77,7 @@ class FormField extends React.Component {
       formSelectionState,
       addChip = addChipDefault,
       history,
+      strings,
     } = this.props;
 
     const selectedElements = formSelectionState[name];
@@ -100,14 +115,14 @@ class FormField extends React.Component {
     this.setState({ selectedBundle: value.bundle, singleSelection: value.singleSelection });
     this.handleUpdateInput('');
     addChip(name, input, limit, history);
-  }
+  };
 
-  handleUpdateInput(searchText) {
+  handleUpdateInput = (searchText) => {
     this.setState({
       searchText,
       errorText: '', // clear error when user types
     });
-  }
+  };
 
   findFromSource = (element) => {
     let fromSource = this.props.dataSource.find(data => Number(data.value) === Number(element));
@@ -172,20 +187,8 @@ class FormField extends React.Component {
   }
 }
 
-FormField.propTypes = {
-  name: PropTypes.string,
-  dataSource: PropTypes.arrayOf({}),
-  strict: PropTypes.bool,
-  limit: PropTypes.number,
-  formSelectionState: PropTypes.shape({}),
-  addChip: PropTypes.string,
-  history: PropTypes.shape({}),
-  label: PropTypes.string,
-  filter: PropTypes.string,
-  className: PropTypes.string,
-  maxSearchResults: PropTypes.string,
-  deleteChip: PropTypes.string,
-  resetField: PropTypes.func,
-};
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
 
-export default FormField;
+export default connect(mapStateToProps)(FormField);

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Heading from 'components/Heading';
+import { connect } from 'react-redux';
 import {
   ReferenceArea,
   XAxis,
@@ -11,12 +11,12 @@ import {
   CartesianGrid,
   ReferenceLine,
   Legend,
-  Label, ResponsiveContainer,
+  ResponsiveContainer,
 } from 'recharts';
-import constants from 'components/constants';
-import strings from 'lang';
 import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
+import Heading from '../../Heading';
+import constants from '../../constants';
 import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHolder, GoldSpan, XpSpan, StyledTooltipGold } from './Styled';
 
 const formatGraphTime = minutes => `${minutes}:00`;
@@ -33,7 +33,7 @@ const generateDiffData = (match) => {
   return data;
 };
 
-const XpTooltipContent = ({ payload }) => {
+const XpTooltipContent = ({ payload, strings }) => {
   try {
     const data = payload && payload[0] && payload[0].payload;
     const { rXpAdv, rGoldAdv, time } = data;
@@ -68,9 +68,10 @@ const XpTooltipContent = ({ payload }) => {
 };
 XpTooltipContent.propTypes = {
   payload: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
-const XpNetworthGraph = ({ match }) => {
+const XpNetworthGraph = ({ match, strings }) => {
   const matchData = generateDiffData(match);
   const maxY =
       Math.ceil(Math.max(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000) * 5000;
@@ -85,15 +86,13 @@ const XpNetworthGraph = ({ match }) => {
         <LineChart
           data={matchData}
           margin={{
-            top: 5, right: 30, left: 30, bottom: 5,
+            top: 5, right: 10, left: 10, bottom: 5,
           }}
         >
           <ReferenceArea y1={0} y2={maxY} fill="rgba(102, 187, 106, 0.12)" />
           <ReferenceArea y1={0} y2={minY} fill="rgba(255, 76, 76, 0.12)" />
-          <XAxis dataKey="time" interval={4} tickFormatter={formatGraphTime}>
-            <Label value={strings.th_time} position="insideTopRight" />
-          </XAxis>
-          <YAxis domain={[minY, maxY]} />
+          <XAxis dataKey="time" tickFormatter={formatGraphTime} />
+          <YAxis domain={[minY, maxY]} mirror="true" padding={{ top: 5, bottom: 5 }} />
           <ReferenceLine y={0} stroke="#505050" strokeWidth={2} opacity={1} />
           <CartesianGrid
             stroke="#505050"
@@ -124,33 +123,37 @@ const XpNetworthGraph = ({ match }) => {
 };
 XpNetworthGraph.propTypes = {
   match: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
 class PlayersGraph extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({}),
+    type: PropTypes.string,
+    strings: PropTypes.shape({}),
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       hoverHero: null,
     };
-
-    this.handleMouseEnter = this.handleMouseEnter.bind(this);
-    this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
 
-  handleMouseEnter(o) {
+  handleMouseEnter = (o) => {
     this.setState({
       hoverHero: o.dataKey,
     });
-  }
+  };
 
-  handleMouseLeave() {
+  handleMouseLeave = () => {
     this.setState({
       hoverHero: null,
     });
-  }
+  };
 
   render() {
-    const { match, type } = this.props;
+    const { match, type, strings } = this.props;
     const { hoverHero } = this.state;
 
     const matchData = [];
@@ -173,13 +176,11 @@ class PlayersGraph extends React.Component {
             <LineChart
               data={matchData}
               margin={{
-                top: 5, right: 30, left: 30, bottom: 5,
+                top: 5, right: 10, left: 10, bottom: 5,
               }}
             >
-              <XAxis dataKey="time" interval={4} >
-                <Label value={strings.th_time} position="insideTopRight" />
-              </XAxis>
-              <YAxis />
+              <XAxis dataKey="time" />
+              <YAxis mirror="true" />
               <CartesianGrid
                 stroke="#505050"
                 strokeWidth={1}
@@ -215,16 +216,14 @@ class PlayersGraph extends React.Component {
     return null;
   }
 }
-PlayersGraph.propTypes = {
-  match: PropTypes.shape({}),
-  type: PropTypes.string,
-};
 
-const MatchGraph = ({ type, match, width }) => {
+const MatchGraph = ({
+  type, match, width, strings,
+}) => {
   if (type === 'difference') {
-    return <XpNetworthGraph match={match} width={width} />;
+    return <XpNetworthGraph match={match} width={width} strings={strings} />;
   } else if (type === 'gold' || type === 'xp' || type === 'lh') {
-    return <PlayersGraph type={type} match={match} width={width} />;
+    return <PlayersGraph type={type} match={match} width={width} strings={strings} />;
   }
   return null;
 };
@@ -235,6 +234,11 @@ MatchGraph.propTypes = {
   width: PropTypes.number,
   match: PropTypes.shape({}),
   type: PropTypes.string,
+  strings: PropTypes.shape({}),
 };
 
-export default MatchGraph;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(MatchGraph);

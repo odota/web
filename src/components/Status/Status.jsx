@@ -1,12 +1,22 @@
 import React from 'react';
 import fetch from 'isomorphic-fetch';
-import { fromNow, abbreviateNumber } from 'utility';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import Table from 'components/Table';
-import strings from 'lang';
+import { fromNow, abbreviateNumber } from '../../utility';
+import Table from '../Table';
 
 function jsonResponse(response) {
   return response.json();
+}
+
+function reverse(a) {
+  const temp = [];
+  const len = a.length;
+  for (let i = (len - 1); i > 0; i -= 1) {
+    temp.push(a[i]);
+  }
+  return temp;
 }
 
 const columns = [
@@ -15,19 +25,32 @@ const columns = [
 ];
 
 const tableStyle = {
-  flexGrow: 1, overflowX: 'auto', boxSizing: 'border-box', padding: '15px',
+  flexGrow: 1,
+  overflowX: 'auto',
+  boxSizing: 'border-box',
+  padding: '15px',
 };
 
 class Status extends React.Component {
-  componentWillMount() {
+  static propTypes = {
+    strings: PropTypes.shape({}),
+  }
+
+  UNSAFE_componentWillMount() {
     this.setState({
       result: {},
     });
-    fetch(`${process.env.REACT_APP_API_HOST}/api/status`).then(jsonResponse).then(json => this.setState({ result: json }));
+    fetch(`${process.env.REACT_APP_API_HOST}/api/status`)
+      .then(jsonResponse)
+      .then(json => this.setState({ result: json }));
   }
   render() {
+    const { strings } = this.props;
     return (
-      <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+      <div style={{
+ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', fontSize: '10px',
+}}
+      >
         <Helmet title={strings.title_status} />
         <Table
           style={tableStyle}
@@ -59,18 +82,30 @@ class Status extends React.Component {
         />
         <Table
           style={tableStyle}
-          data={(this.state.result.retriever || [])
-          .map(row => ({ key: row.hostname, value: row.count }))}
+          data={Object.keys(this.state.result.load_times || {})
+          .map(key => ({ key, value: this.state.result.load_times[key] }))}
           columns={columns}
         />
         <Table
           style={tableStyle}
-          data={Object.keys(this.state.result.load_times || {})
-          .map(key => ({ key, value: this.state.result.load_times[key] }))}
+          data={reverse((this.state.result.api_paths || [])
+          .map(row => ({ key: row.hostname, value: row.count })))
+          }
+          columns={columns}
+        />
+        <Table
+          style={tableStyle}
+          data={reverse((this.state.result.retriever || [])
+          .map(row => ({ key: row.hostname, value: row.count })))
+          }
           columns={columns}
         />
       </div>);
   }
 }
 
-export default Status;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(Status);

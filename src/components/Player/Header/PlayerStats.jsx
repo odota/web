@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  connect,
-} from 'react-redux';
+import { connect } from 'react-redux';
 import ActionHelp from 'material-ui/svg-icons/action/help';
-import Error from 'components/Error';
-import Spinner from 'components/Spinner';
-import strings from 'lang';
 import styled from 'styled-components';
+import Error from '../../Error';
+import Spinner from '../../Spinner';
 import PlayedWith from './PlayedWith';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
@@ -80,6 +77,7 @@ export const PlayerStatsCards = ({
   compact,
   playerId,
   loggedInId,
+  strings,
 }) => {
   if (error) {
     return <Error />;
@@ -160,6 +158,7 @@ PlayerStatsCards.propTypes = {
   compact: bool,
   playerId: string,
   loggedInId: string,
+  strings: shape({}),
 };
 
 const mapStateToProps = state => ({
@@ -170,6 +169,7 @@ const mapStateToProps = state => ({
   mmrEstimate: state.app.player.data.mmr_estimate,
   wins: state.app.playerWinLoss.data.win,
   losses: state.app.playerWinLoss.data.lose,
+  strings: state.app.strings,
 });
 
 export default connect(mapStateToProps)(PlayerStatsCards);

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   Table,
@@ -8,10 +9,9 @@ import {
 } from 'material-ui/Table';
 import heroes from 'dotaconstants/build/heroes.json';
 import ReactTooltip from 'react-tooltip';
-import { abbreviateNumber } from 'utility';
-import strings from 'lang';
-import { IconRadiant, IconDire } from 'components/Icons';
-import { heroTd } from './matchColumns';
+import { abbreviateNumber } from '../../utility';
+import { IconRadiant, IconDire } from '../Icons';
+import mcs from './matchColumns';
 import constants from '../constants';
 
 const teamIconStyle = { width: '30px', height: '30px' };
@@ -24,25 +24,29 @@ const CrossTable = ({
   match,
   field1,
   field2,
-}) => (
-  <Table selectable={false} >
-    <TableBody displayRowCheckbox={false}>
-      <TableRow>
-        <TableRowColumn />
-        {match.players.slice(match.players.length / 2, match.players.length).map((player, i) => (
-          <TableRowColumn key={player.hero_id} style={st}>
-            {heroTd(player, 'hero_id', player.hero_id, i, true)}
-          </TableRowColumn>))}
-        <TableRowColumn style={st}>
-          <div style={teamIconStyle}>
-            <IconDire />
-          </div>
-        </TableRowColumn>
-      </TableRow>
-      {match.players.slice(0, match.players.length / 2).map((player, i) => (
-        <TableRow key={player.hero_id}>
-          <TableRowColumn>{heroTd(player, 'hero_id', player.hero_id, i, true)}</TableRowColumn>
-          {match.players.slice(match.players.length / 2, match.players.length).map((player2) => {
+  strings,
+}) => {
+  const { heroTd } = mcs(strings);
+
+  return (
+    <Table selectable={false} >
+      <TableBody displayRowCheckbox={false}>
+        <TableRow>
+          <TableRowColumn />
+          {match.players.slice(match.players.length / 2, match.players.length).map((player, i) => (
+            <TableRowColumn key={player.hero_id} style={st}>
+              {heroTd(player, 'hero_id', player.hero_id, i, true)}
+            </TableRowColumn>))}
+          <TableRowColumn style={st}>
+            <div style={teamIconStyle}>
+              <IconDire />
+            </div>
+          </TableRowColumn>
+        </TableRow>
+        {match.players.slice(0, match.players.length / 2).map((player, i) => (
+          <TableRow key={player.hero_id}>
+            <TableRowColumn>{heroTd(player, 'hero_id', player.hero_id, i, true)}</TableRowColumn>
+            {match.players.slice(match.players.length / 2, match.players.length).map((player2) => {
           const hero1 = heroes[player.hero_id] || {};
           const hero2 = heroes[player2.hero_id] || {};
           const pfield1 = player[field1] || {};
@@ -63,7 +67,7 @@ const CrossTable = ({
               </div>
             </TableRowColumn>);
         })}
-          {(() => {
+            {(() => {
           const hero1 = heroes[player.hero_id] || {};
           let ptotal1 = 0;
           let ptotal2 = 0;
@@ -89,14 +93,14 @@ const CrossTable = ({
             </TableRowColumn>
           );
         })()}
-        </TableRow>))}
-      <TableRow>
-        <TableRowColumn>
-          <div style={teamIconStyle}>
-            <IconRadiant />
-          </div>
-        </TableRowColumn>
-        { match.players.slice(match.players.length / 2, match.players.length).map((player) => {
+          </TableRow>))}
+        <TableRow>
+          <TableRowColumn>
+            <div style={teamIconStyle}>
+              <IconRadiant />
+            </div>
+          </TableRowColumn>
+          { match.players.slice(match.players.length / 2, match.players.length).map((player) => {
           const hero1 = heroes[player.hero_id] || {};
           let ptotal1 = 0;
           let ptotal2 = 0;
@@ -122,7 +126,7 @@ const CrossTable = ({
             </TableRowColumn>
           );
         }) }
-        {(() => {
+          {(() => {
           let radiantTotal = 0;
           let direTotal = 0;
 
@@ -150,14 +154,20 @@ const CrossTable = ({
             </TableRowColumn>
           );
         })()}
-      </TableRow>
-    </TableBody>
-  </Table>);
+        </TableRow>
+      </TableBody>
+    </Table>);
+};
 
 CrossTable.propTypes = {
   match: PropTypes.shape({}),
   field1: PropTypes.string,
   field2: PropTypes.string,
+  strings: PropTypes.shape({}),
 };
 
-export default CrossTable;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(CrossTable);

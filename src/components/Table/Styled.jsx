@@ -66,6 +66,19 @@ export const StyledBody = styled.div`
       margin: 0 -25px;
     }
   }
+  ${props => (props.hoverRowColumn ? `
+  & tr {
+    :hover {
+      background: rgba(190, 190, 140, 0.07) !important;
+      transition: background 100ms linear !important;
+    }   
+  }
+
+  & td.col_highlight, th.col_highlight {
+     background: rgba(190, 190, 190, 0.07) !important;
+     transition: background 100ms linear !important;
+  }
+  ` : '')};
 `;
 export const StyledContainer = styled.div`
   min-width: 100%;

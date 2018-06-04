@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { fromNow } from 'utility';
 import styled from 'styled-components';
+import { fromNow } from '../../utility';
 
 const StyledDiv = styled.div`
   position: relative;

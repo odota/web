@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   XAxis,
   YAxis,
@@ -9,9 +10,8 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from 'recharts';
-import Heading from 'components/Heading';
-import strings from 'lang';
-import constants from 'components/constants';
+import Heading from '../../Heading';
+import constants from '../../constants';
 import { StyledHolder } from './Styled';
 
 const category10 = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'];
@@ -20,10 +20,11 @@ const StackedBarGraph = ({
   columns,
   heading,
   type,
+  strings,
 }) => {
   columns.sort((a, b) => {
-    const aSum = Object.values(a).map(Number).filter(v => !Number.isNaN(v)).reduce((c, d) => c + d);
-    const bSum = Object.values(b).map(Number).filter(v => !Number.isNaN(v)).reduce((c, d) => c + d);
+    const aSum = Object.values(a).map(Number).filter(v => !Number.isNaN(v)).reduce((c, d) => c + d, 0);
+    const bSum = Object.values(b).map(Number).filter(v => !Number.isNaN(v)).reduce((c, d) => c + d, 0);
     return bSum - aSum;
   });
   return (
@@ -65,6 +66,11 @@ StackedBarGraph.propTypes = {
   columns: PropTypes.arrayOf(),
   heading: PropTypes.string,
   type: PropTypes.string,
+  strings: PropTypes.shape({}),
 };
 
-export default StackedBarGraph;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(StackedBarGraph);

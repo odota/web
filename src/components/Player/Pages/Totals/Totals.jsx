@@ -1,15 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  getPlayerTotals,
-} from 'actions';
-import Container from 'components/Container';
-import strings from 'lang';
-import {
-  CardTitle,
-} from 'material-ui/Card';
 // import util from 'util';
+import Card from './Card';
+import { getPlayerTotals } from '../../../../actions';
+import Container from '../../../Container';
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -8px;
+  margin-right: -8px;
+`;
 
 const totalsToShow = {
   kills: 1,
@@ -34,39 +37,26 @@ const totalsToShow = {
   pings: 'parsed',
 };
 
-// Strings are in format e.g. '%d seconds'
-const getAbbrTime = str => str.slice(3, 4);
-
-const formatDurationString = (sec) => {
-  const days = Math.floor(sec / 86400);
-  const hours = Math.floor((sec - (days * 86400)) / 3600);
-  const minutes = Math.floor((sec - (days * 86400) - (hours * 3600)) / 60);
-  const seconds = Math.floor((sec - (days * 86400) - (hours * 3600) - (minutes * 60)));
-  return `${days}${getAbbrTime(strings.time_dd)} ${hours}${getAbbrTime(strings.time_hh)} ${minutes}${getAbbrTime(strings.time_mm)} ${seconds}${getAbbrTime(strings.time_ss)}`;
-};
-
 const drawElement = (element, type) => {
   if (totalsToShow[element.field] === type) {
-    return (
-      <CardTitle
-        subtitle={<div>{element.field === 'duration' ? formatDurationString(element.sum) : Math.floor(element.sum).toLocaleString()}</div>}
-        title={strings[`heading_${element.field}`]}
-      />);
+    return <Card total={element} />;
   }
   return null;
 };
 
-const Totals = ({ data, error, loading }) => (
+const Totals = ({
+  data, error, loading, strings,
+}) => (
   <div>
     <Container title={strings.heading_all_matches} error={error} loading={loading}>
-      <div>
+      <CardContainer>
         {data.map(element => drawElement(element, 1))}
-      </div>
+      </CardContainer>
     </Container>
     <Container title={strings.heading_parsed_matches} error={error} loading={loading}>
-      <div>
+      <CardContainer>
         {data.map(element => drawElement(element, 'parsed'))}
-      </div>
+      </CardContainer>
     </Container>
   </div>);
 
@@ -74,6 +64,7 @@ Totals.propTypes = {
   data: PropTypes.arrayOf({}),
   error: PropTypes.string,
   loading: PropTypes.bool,
+  strings: PropTypes.shape({}),
 };
 
 const getData = (props) => {
@@ -81,11 +72,19 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    playerId: PropTypes.string,
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+    strings: PropTypes.shape({}),
+  }
+
   componentDidMount() {
     getData(this.props);
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
       getData(nextProps);
     }
@@ -96,17 +95,11 @@ class RequestLayer extends React.Component {
   }
 }
 
-RequestLayer.propTypes = {
-  playerId: PropTypes.string,
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-};
-
 const mapStateToProps = state => ({
   data: state.app.playerTotals.data,
   error: state.app.playerTotals.error,
   loading: state.app.playerTotals.loading,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({
