@@ -16,6 +16,8 @@ const getFields = (players = [], leagues = [], teams = []) => {
     groupValue: 'value::text::int',
     groupKey: 'key',
     avgPerMatch: true,
+    bundle: 'json_select',
+    singleSelection: 'true',
   };
 
   const usesSelect = itemKey => ({
@@ -226,6 +228,7 @@ const getFields = (players = [], leagues = [], teams = []) => {
         alias: 'as time',
         key: 'duration',
         formatSeconds: true,
+        bundle: 'duration',
       },
       {
         text: strings.heading_distinct_heroes,
