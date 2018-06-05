@@ -35,10 +35,7 @@ export const StyledDiv = styled.div`
 
   .sponsor-button {
     /* Material-ui buttons */
-    & a {
-      margin: 5px !important;
-      line-height: 34px !important;
-    }
+
   
     @media only screen and (max-width: 620px) {
       & a {

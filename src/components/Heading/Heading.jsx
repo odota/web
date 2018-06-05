@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import { StyledDiv, TwoLineDiv } from './Styled';
 
 const Heading = ({
@@ -27,12 +27,13 @@ const Heading = ({
       </span>
       { buttonLabel ?
         <span className="sponsor-button">
-          <FlatButton
+          <RaisedButton
             label={buttonLabel}
             icon={buttonIcon ? <img src={buttonIcon} alt="" /> : ''}
             href={buttonTo}
             target="_blank"
             rel="noopener noreferrer"
+            primary
           />
         </span>
         : <div />
