@@ -34,9 +34,9 @@ export const StyledDiv = styled.div`
   }
 
   .sponsor-button {
+    margin: 0px 5px;
+    
     /* Material-ui buttons */
-
-  
     @media only screen and (max-width: 620px) {
       & a {
         min-width: 24px !important;
