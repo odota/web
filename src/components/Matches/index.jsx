@@ -129,9 +129,9 @@ class RequestLayer extends React.Component {
     getData(this.props);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (this.props.match.params.matchId !== nextProps.match.params.matchId) {
-      getData(nextProps);
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.matchId !== prevProps.match.params.matchId) {
+      getData(this.props);
     }
   }
   render() {

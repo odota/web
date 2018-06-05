@@ -45,9 +45,7 @@ class PlayerButtons extends React.Component {
     strings: PropTypes.shape({}),
   }
 
-  UNSAFE_componentWillMount() {
-    this.setState({ disableRefresh: false });
-  }
+  state = { disableRefresh: false }
 
   render() {
     const {
