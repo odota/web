@@ -164,10 +164,6 @@ class Vision extends React.Component {
     this.setState(newState);
   }
 
-  UNSAFE_componentWillReceiveProps(props) {
-    this.sliderMax = props.match.duration;
-  }
-
   computeTick() {
     const interval = 10 * 60; // every 10 minutes interval
     return rangeStep(interval, 0, this.sliderMax);

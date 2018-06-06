@@ -29,9 +29,9 @@ class RequestLayer extends React.Component {
     this.props.getMatch(this.props.matchId);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (this.props.matchId !== nextProps.matchId) {
-      this.props.getMatch(nextProps.matchId);
+  componentDidUpdate(prevProps) {
+    if (this.props.matchId !== prevProps.matchId) {
+      this.props.getMatch(this.props.matchId);
     }
   }
 

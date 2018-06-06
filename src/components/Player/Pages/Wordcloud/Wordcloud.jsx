@@ -21,13 +21,13 @@ class RequestLayer extends React.Component {
     strings: PropTypes.shape({}),
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     getData(this.props);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
-      getData(nextProps);
+  componentDidUpdate(prevProps) {
+    if (this.props.playerId !== prevProps.playerId || this.props.location.key !== prevProps.location.key) {
+      getData(this.props);
     }
   }
 
