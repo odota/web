@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { shape, string, bool, oneOfType, func, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import { getRanking } from '../../actions';
-import Spinner from '../Spinner';
 import RankingTable from './RankingTable';
+import RankingSkeleton from '../Skeletons/RankingSkeleton';
 
 const renderRanking = (hero, rankings) => (
   <div>
@@ -45,7 +45,7 @@ class Ranking extends Component {
     return (
       <div>
         {isLoading || isError || rankings === null ? (
-          <Spinner />
+          <RankingSkeleton />
         ) : (
           renderRanking(hero, rankings || [])
         )}

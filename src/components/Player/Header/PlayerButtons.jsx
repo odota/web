@@ -5,7 +5,6 @@ import FlatButton from 'material-ui/FlatButton';
 import ActionUpdate from 'material-ui/svg-icons/navigation/refresh';
 import fetch from 'isomorphic-fetch';
 import styled from 'styled-components';
-import strings from '../../../lang';
 import { toggleShowForm as toggleShowFormAction } from '../../../actions';
 import ShowFormToggle from '../../Form/ShowFormToggle';
 
@@ -43,11 +42,10 @@ class PlayerButtons extends React.Component {
     playerSoloCompetitiveRank: PropTypes.number,
     showForm: PropTypes.bool,
     toggleShowForm: PropTypes.func,
+    strings: PropTypes.shape({}),
   }
 
-  UNSAFE_componentWillMount() {
-    this.setState({ disableRefresh: false });
-  }
+  state = { disableRefresh: false }
 
   render() {
     const {
@@ -55,6 +53,7 @@ class PlayerButtons extends React.Component {
       playerSoloCompetitiveRank,
       showForm,
       toggleShowForm,
+      strings,
     } = this.props;
     return (
       <Styled>
@@ -86,6 +85,7 @@ class PlayerButtons extends React.Component {
 
 const mapStateToProps = state => ({
   showForm: state.app.form.show,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -54,30 +54,32 @@ class Team extends React.Component {
         info: PropTypes.string,
       }),
     }),
+    strings: PropTypes.shape({}),
   }
 
   componentDidMount() {
     getData(this.props);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (this.props.match.params.teamId !== nextProps.match.params.teamId) {
-      getData(nextProps);
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.teamId !== prevProps.match.params.teamId) {
+      getData(this.props);
     }
   }
 
   render() {
+    const { strings } = this.props;
     const { teamId } = this.props.match.params;
     const info = this.props.match.params.info || 'overview';
-    const page = teamPages(teamId).find(_page => _page.key === info);
+    const page = teamPages(teamId, strings).find(_page => _page.key === info);
     const teamName = this.props.generalData.data.name;
     const title = page ? `${teamName} - ${page.name}` : teamName;
     return (
       <div>
         <Helmet title={title} />
         <Column>
-          {getTeamHeader(this.props.generalData)}
-          <TabBar info={info} tabs={teamPages(teamId)} />
+          {getTeamHeader(this.props.generalData, strings)}
+          <TabBar info={info} tabs={teamPages(teamId, strings)} />
           {page ? page.content(this.props.generalData, this.props.matchData, this.props.heroData, this.props.playerData) : <Spinner />}
         </Column>
       </div>
@@ -90,6 +92,7 @@ const mapStateToProps = state => ({
   heroData: state.app.teamHeroes,
   matchData: state.app.teamMatches,
   playerData: state.app.teamPlayers,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

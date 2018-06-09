@@ -8,7 +8,6 @@ import {
   getPlayer,
   getPlayerWinLoss,
 } from '../../actions';
-import strings from '../../lang';
 import TabBar from '../TabBar';
 import Spinner from '../Spinner';
 import TableFilterForm from './TableFilterForm';
@@ -31,6 +30,7 @@ class RequestLayer extends React.Component {
     }),
     officialPlayerName: PropTypes.string,
     playerName: PropTypes.string,
+    strings: PropTypes.shape({}),
   }
 
   componentDidMount() {
@@ -40,25 +40,25 @@ class RequestLayer extends React.Component {
     props.getPlayerWinLoss(playerId, props.location.search);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    const props = nextProps;
+  componentDidUpdate(prevProps) {
+    const { props } = this;
     const { playerId } = props.match.params;
-    if (this.props.match.params.playerId !== playerId) {
+    if (prevProps.match.params.playerId !== playerId) {
       props.getPlayer(playerId);
     }
-    if (this.props.location.key !== props.location.key) {
+    if (prevProps.location.key !== props.location.key) {
       props.getPlayerWinLoss(playerId, props.location.search);
     }
   }
 
   render() {
-    const { location, match } = this.props;
+    const { location, match, strings } = this.props;
     const { playerId } = this.props.match.params;
     if (Long.fromString(playerId).greaterThan('76561197960265728')) {
       this.props.history.push(`/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
     }
     const info = match.params.info || 'overview';
-    const page = playerPages(playerId).find(_page => _page.key === info);
+    const page = playerPages(playerId, strings).find(_page => _page.key === info);
     const playerName = this.props.officialPlayerName || this.props.playerName || strings.general_anonymous;
     const title = page ? `${playerName} - ${page.name}` : playerName;
     return (
@@ -66,7 +66,7 @@ class RequestLayer extends React.Component {
         <Helmet title={title} />
         <div>
           <PlayerHeader playerId={playerId} location={location} />
-          <TabBar info={info} tabs={playerPages(playerId)} />
+          <TabBar info={info} tabs={playerPages(playerId, strings)} />
         </div>
         <div>
           <TableFilterForm playerId={playerId} />
@@ -80,6 +80,7 @@ class RequestLayer extends React.Component {
 const mapStateToProps = state => ({
   playerName: (state.app.player.data.profile || {}).personaname,
   officialPlayerName: (state.app.player.data.profile || {}).name,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

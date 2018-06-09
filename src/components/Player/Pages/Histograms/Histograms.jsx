@@ -8,7 +8,6 @@ import { HistogramGraph } from '../../../Visualizations';
 import ButtonGarden from '../../../ButtonGarden';
 import dataColumns from '../matchDataColumns';
 import Container from '../../../Container';
-import strings from '../../../../lang';
 
 const getMedian = (columns, midpoint) => {
   let sum = 0;
@@ -19,18 +18,18 @@ const getMedian = (columns, midpoint) => {
   return medianCol && medianCol.x;
 };
 
-const getSubtitleStats = (columns) => {
+const getSubtitleStats = (columns, strings) => {
   const total = columns.reduce((sum, col) => (sum + col.games), 0);
   const median = getMedian(columns, total / 2);
   return `(${strings.heading_total_matches}: ${total}${(median !== undefined) ? `, ${strings.heading_median}: ${median})` : ''}`;
 };
 
-const getSubtitleDescription = histogramName => (strings[`histograms_${histogramName}_description`] || '');
+const getSubtitleDescription = (histogramName, strings) => (strings[`histograms_${histogramName}_description`] || '');
 
 const histogramNames = dataColumns.filter(col => col !== 'win_rate');
 
 const Histogram = ({
-  routeParams, columns, playerId, error, loading, histogramName, history,
+  routeParams, columns, playerId, error, loading, histogramName, history, strings,
 }) => (
   <div>
     <Heading title={strings.histograms_name} subtitle={strings.histograms_description} />
@@ -45,7 +44,7 @@ const Histogram = ({
       <div>
         <Heading
           title={strings[`heading_${histogramName}`]}
-          subtitle={loading ? '' : [getSubtitleDescription(histogramName), getSubtitleStats(columns)].filter(Boolean).join(' ')}
+          subtitle={loading ? '' : [getSubtitleDescription(histogramName, strings), getSubtitleStats(columns, strings)].filter(Boolean).join(' ')}
         />
         <HistogramGraph columns={columns || []} />
       </div>
@@ -61,6 +60,7 @@ Histogram.propTypes = {
   loading: PropTypes.bool,
   histogramName: PropTypes.string,
   history: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
 const getData = (props) => {
@@ -73,16 +73,17 @@ class RequestLayer extends React.Component {
     location: PropTypes.shape({
       key: PropTypes.string,
     }),
+    strings: PropTypes.shape({}),
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     getData(this.props);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId
-      || this.props.location.key !== nextProps.location.key) {
-      getData(nextProps);
+  componentDidUpdate(prevProps) {
+    if (this.props.playerId !== prevProps.playerId
+      || this.props.location.key !== prevProps.location.key) {
+      getData(this.props);
     }
   }
 
@@ -96,6 +97,7 @@ const mapStateToProps = (state, { histogramName = histogramNames[0] }) => ({
   columns: state.app.playerHistograms.data,
   loading: state.app.playerHistograms.loading,
   error: state.app.playerHistograms.error,
+  strings: state.app.strings,
 });
 
 export default withRouter(connect(mapStateToProps, { getPlayerHistograms })(RequestLayer));

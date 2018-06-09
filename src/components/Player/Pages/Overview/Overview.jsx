@@ -11,7 +11,6 @@ import {
   getPlayerHeroes,
   getPlayerPeers,
 } from '../../../../actions';
-import strings from '../../../../lang';
 import Table from '../../../Table';
 import Container from '../../../Container';
 import playerMatchesColumns from '../Matches/playerMatchesColumns';
@@ -111,6 +110,7 @@ const Overview = ({
   playerId,
   toggleTurboGames,
   showTurboGames,
+  strings,
 }) => (
   <OverviewContainer>
     <SummaryContainer
@@ -146,7 +146,7 @@ const Overview = ({
         loaderHeight={160}
       >
         <Table
-          columns={playerMatchesColumns}
+          columns={playerMatchesColumns(strings)}
           data={matchesData}
           maxRows={MAX_MATCHES_ROWS}
         />
@@ -161,7 +161,7 @@ const Overview = ({
         error={peersError}
       >
         <Table
-          columns={playerPeersOverviewColumns(playerId)}
+          columns={playerPeersOverviewColumns(playerId, strings)}
           data={peersData}
           maxRows={MAX_PEERS_ROWS}
         />
@@ -174,7 +174,7 @@ const Overview = ({
         error={heroesError}
       >
         <Table
-          columns={playerHeroesOverviewColumns(playerId)}
+          columns={playerHeroesOverviewColumns(playerId, strings)}
           data={heroesData}
           maxRows={MAX_HEROES_ROWS}
         />
@@ -198,6 +198,7 @@ Overview.propTypes = {
   playerId: PropTypes.string,
   toggleTurboGames: PropTypes.func,
   showTurboGames: PropTypes.bool,
+  strings: PropTypes.shape({}),
 };
 
 
@@ -215,6 +216,7 @@ class RequestLayer extends React.Component {
     playerId: PropTypes.string,
     toggleTurboGames: PropTypes.func,
     showTurboGames: PropTypes.bool,
+    strings: PropTypes.shape({}),
   }
 
   constructor(props) {
@@ -230,9 +232,9 @@ class RequestLayer extends React.Component {
     getData(this.props);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
-      getData(nextProps);
+  componentDidUpdate(prevProps) {
+    if (this.props.playerId !== prevProps.playerId || this.props.location.key !== prevProps.location.key) {
+      getData(this.props);
     }
   }
 
@@ -272,6 +274,7 @@ const mapStateToProps = state => ({
   peersData: state.app.playerPeers.data,
   peersLoading: state.app.playerPeers.loading,
   peersError: state.app.playerPeers.error,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

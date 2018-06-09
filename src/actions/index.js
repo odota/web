@@ -28,6 +28,7 @@ export const getSearchResultAndPros = query => dispatch => Promise.all([
   dispatch(setSearchQuery(query)),
   dispatch(getSearchResult(query)),
   dispatch(getProPlayers()),
+  dispatch(getMatch(query)),
 ]);
 export const getDistributions = () => action('distributions', process.env.REACT_APP_API_HOST, 'api/distributions');
 export const getPvgnaHeroGuides = () => action('pvgnaGuides', 'https://yasp.pvgna.com', 'yasp');

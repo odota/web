@@ -1,7 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import strings from '../../../lang';
 import constants from '../../constants';
 import { getHeroImageUrl, IMAGESIZE_ENUM } from '../../../utility';
 
@@ -65,7 +65,7 @@ const Styled = styled.div`
 }
 `;
 
-const PicksBans = ({ data }) => (
+const PicksBans = ({ data, strings }) => (
   <Styled>
     <div className="PicksBans">
       {data.map(pb => (
@@ -88,6 +88,11 @@ const PicksBans = ({ data }) => (
 
 PicksBans.propTypes = {
   data: PropTypes.arrayOf({}),
+  strings: PropTypes.shape({}),
 };
 
-export default PicksBans;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(PicksBans);

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   XAxis,
   YAxis,
@@ -14,7 +15,6 @@ import {
 import heroes from 'dotaconstants/build/heroes.json';
 import styled from 'styled-components';
 import { formatSeconds, fromNow } from '../../../utility';
-import strings from '../../../lang';
 import constants from '../../constants';
 
 const TooltipStylesDiv = styled.div`
@@ -72,7 +72,7 @@ const TooltipStylesDiv = styled.div`
     font-size: ${constants.fontSizeCommon};
   }
 `;
-const TrendTooltipContent = ({ payload, name }) => {
+const TrendTooltipContent = ({ payload, name, strings }) => {
   const data = payload && payload[0] && payload[0].payload;
   if (data) {
     const hero = heroes[data.hero_id] || {};
@@ -120,9 +120,10 @@ const TrendTooltipContent = ({ payload, name }) => {
 TrendTooltipContent.propTypes = {
   payload: PropTypes.arrayOf({}),
   name: PropTypes.string,
+  strings: PropTypes.shape({}),
 };
 
-const TrendGraph = ({ columns, name }) => (
+const TrendGraph = ({ columns, name, strings }) => (
   <ResponsiveContainer width="100%" height={400}>
     <LineChart
       data={columns}
@@ -139,7 +140,7 @@ const TrendGraph = ({ columns, name }) => (
       <YAxis domain={['auto', 'auto']} />
       <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
 
-      <Tooltip content={<TrendTooltipContent name={name} />} />
+      <Tooltip content={<TrendTooltipContent name={name} strings={strings} />} />
       <Line
         dot={false}
         dataKey="value"
@@ -155,6 +156,11 @@ const TrendGraph = ({ columns, name }) => (
 TrendGraph.propTypes = {
   columns: PropTypes.arrayOf({}),
   name: PropTypes.string,
+  strings: PropTypes.shape({}),
 };
 
-export default TrendGraph;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(TrendGraph);

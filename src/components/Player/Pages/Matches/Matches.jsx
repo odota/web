@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 import { getPlayerMatches } from '../../../../actions';
 import Table from '../../../Table';
 import Container from '../../../Container';
-import strings from '../../../../lang';
 import playerMatchesColumns from './playerMatchesColumns';
 
 const Matches = ({
   data,
   error,
   loading,
+  strings,
 }) => (
   <Container title={strings.heading_matches} error={error} loading={loading}>
-    <Table paginated columns={playerMatchesColumns} data={data} />
+    <Table paginated columns={playerMatchesColumns(strings)} data={data} />
   </Container>
 );
 
@@ -21,6 +21,7 @@ Matches.propTypes = {
   data: PropTypes.arrayOf({}),
   error: PropTypes.string,
   loading: PropTypes.bool,
+  strings: PropTypes.shape({}),
 };
 
 const getData = (props) => {
@@ -33,15 +34,16 @@ class RequestLayer extends React.Component {
       key: PropTypes.string,
     }),
     playerId: PropTypes.string,
+    strings: PropTypes.shape({}),
   }
 
   componentDidMount() {
     getData(this.props);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
-      getData(nextProps);
+  componentDidUpdate(prevProps) {
+    if (this.props.playerId !== prevProps.playerId || this.props.location.key !== prevProps.location.key) {
+      getData(this.props);
     }
   }
 
@@ -58,6 +60,7 @@ const mapStateToProps = state => ({
   data: state.app.playerMatches.data,
   loading: state.app.playerMatches.loading,
   error: state.app.playerMatches.error,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

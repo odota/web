@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { shape, func, bool, arrayOf, oneOfType, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { getBenchmark } from '../../actions';
-import Spinner from '../Spinner';
 import BenchmarkTable from './BenchmarkTable';
+import BenchmarkSkeleton from '../Skeletons/BenchmarkSkeleton';
 
 const renderBenchmark = (hero, data) => (
   <div>
@@ -45,7 +45,7 @@ class Benchmark extends Component {
     return (
       <div>
         {isLoading || isError || result === null ? (
-          <Spinner />
+          <BenchmarkSkeleton />
         ) : (
           renderBenchmark(hero, result)
         )}

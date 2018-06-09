@@ -1,9 +1,10 @@
 import React from 'react';
 import fetch from 'isomorphic-fetch';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { fromNow, abbreviateNumber } from '../../utility';
 import Table from '../Table';
-import strings from '../../lang';
 
 function jsonResponse(response) {
   return response.json();
@@ -31,15 +32,21 @@ const tableStyle = {
 };
 
 class Status extends React.Component {
-  UNSAFE_componentWillMount() {
-    this.setState({
-      result: {},
-    });
+  static propTypes = {
+    strings: PropTypes.shape({}),
+  }
+
+  state = {
+    result: {},
+  }
+
+  componentDidMount() {
     fetch(`${process.env.REACT_APP_API_HOST}/api/status`)
       .then(jsonResponse)
       .then(json => this.setState({ result: json }));
   }
   render() {
+    const { strings } = this.props;
     return (
       <div style={{
  display: 'flex', flexDirection: 'row', flexWrap: 'wrap', fontSize: '10px',
@@ -98,4 +105,8 @@ class Status extends React.Component {
   }
 }
 
-export default Status;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(Status);
