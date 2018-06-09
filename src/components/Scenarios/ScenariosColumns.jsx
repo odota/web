@@ -1,5 +1,5 @@
 import { inflictorWithValue } from '../Visualizations';
-import { transformations, formatSeconds, abbreviateNumber } from '../../utility';
+import { displayHeroId, formatSeconds, abbreviateNumber } from '../../utility';
 
 const computeWinRate = row => (row.wins / row.games);
 
@@ -19,7 +19,7 @@ const getColumns = (f, metadata, strings) => {
       displayName: strings.filter_hero_id,
       field: 'hero_id',
       sortFn: true,
-      displayFn: transformations.hero_id,
+      displayFn: displayHeroId,
     }, {
       displayName: strings.scenarios_time,
       field: 'time',
@@ -42,7 +42,7 @@ const getColumns = (f, metadata, strings) => {
       displayName: strings.filter_hero_id,
       field: 'hero_id',
       sortFn: true,
-      displayFn: transformations.hero_id,
+      displayFn: displayHeroId,
     }, {
       displayName: strings.heading_lane_role,
       field: 'lane_role',

@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Slider from 'material-ui/Slider';
-import { rangeStep, debounce } from 'lodash/fp';
+import rangeStep from 'lodash/fp/rangeStep';
+import debounce from 'lodash/fp/debounce';
 import styled from 'styled-components';
 import { formatSeconds } from '../../../utility';
 import VisionFilter from './VisionFilter';
@@ -161,10 +162,6 @@ class Vision extends React.Component {
     }
     const newState = { ...this.state, teams: { ...this.state.teams, [team]: value }, players: { observer: newPlayerObs, sentry: newPlayerSentry } };
     this.setState(newState);
-  }
-
-  UNSAFE_componentWillReceiveProps(props) {
-    this.sliderMax = props.match.duration;
   }
 
   computeTick() {

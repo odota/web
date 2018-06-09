@@ -71,14 +71,14 @@ class RequestLayer extends React.Component {
     window.removeEventListener('resize', this.props.updateWindowSize);
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     getData(this.props);
     window.addEventListener('resize', this.props.updateWindowSize);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
-      getData(nextProps);
+  componentDidUpdate(prevProps) {
+    if (this.props.playerId !== prevProps.playerId || this.props.location.key !== prevProps.location.key) {
+      getData(this.props);
     }
   }
 

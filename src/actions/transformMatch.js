@@ -1,6 +1,6 @@
 import heroes from 'dotaconstants/build/heroes.json';
 import immutable from 'seamless-immutable';
-import { concat, curry, flatten, map, flow, sortBy } from 'lodash/fp';
+import flatten from 'lodash/fp/flatten';
 import {
   isRadiant,
   isSupport,
@@ -106,8 +106,6 @@ function generateTeamfights({ players, teamfights = [] }) {
 // create a detailed history of each wards
 function generateVisionLog(match) {
   const computeWardData = (player, i) => {
-    const sameWard = curry((w1, w2) => w1.ehandle === w2.ehandle);
-
     // let's coerce some value to be sure the structure is what we expect.
     const safePlayer = {
       ...player,
@@ -120,7 +118,7 @@ function generateVisionLog(match) {
     // let's zip the *_log and the *_left log in a 2-tuples
     const extractVisionLog = (type, enteredLog, leftLog) =>
       enteredLog.map((e) => {
-        const wards = [e, leftLog.find(sameWard(e))];
+        const wards = [e, leftLog.find(l => l.ehandle === e.ehandle)];
         return {
           player: i,
           key: wards[0].ehandle,
@@ -131,18 +129,14 @@ function generateVisionLog(match) {
       });
     const observers = extractVisionLog('observer', safePlayer.obs_log, safePlayer.obs_left_log);
     const sentries = extractVisionLog('sentry', safePlayer.sen_log, safePlayer.sen_left_log);
-    return concat(observers, sentries);
+    return observers.concat(sentries);
   };
 
-  const imap = map.convert({ cap: false }); // cap: false to keep the index
-  const visionLog = flow(
-    imap(computeWardData),
-    flatten,
-    sortBy(xs => xs.entered.time),
-    imap((x, i) => ({ ...x, key: i })),
-  );
+  const temp = flatten((match.players || []).map(computeWardData));
+  temp.sort((a, b) => a.entered.time - b.entered.time);
+  const result2 = temp.map((x, i) => ({ ...x, key: i }));
 
-  return visionLog(match.players || []);
+  return result2;
 }
 
 function transformMatch(m) {

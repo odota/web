@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { debounce } from 'lodash/fp';
+import debounce from 'lodash/fp/debounce';
 import TextField from 'material-ui/TextField';
 import querystring from 'querystring';
 import { getSearchResultAndPros, setSearchQuery } from '../../actions';
@@ -19,19 +19,18 @@ class SearchForm extends React.Component {
     small: PropTypes.bool,
   }
 
-  constructor() {
-    super();
-    this.state = {};
-  }
+  constructor(props) {
+    super(props);
 
-  UNSAFE_componentWillMount() {
     const params = querystring.parse(window.location.search.substring(1));
     const { pathname } = window.location;
     if (params.q && pathname === '/search') {
       this.props.dispatchSearch(params.q);
-      this.setState({
+      this.state = {
         query: params.q,
-      });
+      };
+    } else {
+      this.state = {};
     }
   }
 

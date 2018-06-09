@@ -1,12 +1,12 @@
 import React from 'react';
-import { transformations } from '../../../../utility';
+import { displayHeroId } from '../../../../utility';
 import { TableLink } from '../../../Table';
 
 export const playerHeroesOverviewColumns = (playerId, strings) => [{
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
-  displayFn: transformations.hero_id_with_pvgna_guide,
+  displayFn: displayHeroId,
   sortFn: row => row.last_played,
 }, {
   displayName: strings.th_games,

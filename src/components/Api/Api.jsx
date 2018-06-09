@@ -188,7 +188,7 @@ class KeyManagement extends React.Component {
           <h1>{strings.api_title}</h1>
           <h3>{strings.api_subtitle}</h3>
           {
-            loading || this.state.loading || !strings ?
+            loading || this.state.loading || !Object.keys(strings).length ?
               <CircularProgress mode="indeterminate" />
             :
               <div>
@@ -273,7 +273,7 @@ class KeyManagement extends React.Component {
                                   <TableRow key={e.month}>
                                     <TableRowColumn>{e.month}</TableRowColumn>
                                     <TableRowColumn>{e.usage_count}</TableRowColumn>
-                                    <TableRowColumn>{`$${premPrice * Math.ceil(e.usage_count / premUnit)}`}</TableRowColumn>
+                                    <TableRowColumn>{`$${Number(premPrice * Math.ceil(e.usage_count / premUnit)).toFixed(2)}`}</TableRowColumn>
                                   </TableRow>))}
                               </TableBody>
                             </Table>

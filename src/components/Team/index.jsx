@@ -61,9 +61,9 @@ class Team extends React.Component {
     getData(this.props);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (this.props.match.params.teamId !== nextProps.match.params.teamId) {
-      getData(nextProps);
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.teamId !== prevProps.match.params.teamId) {
+      getData(this.props);
     }
   }
 

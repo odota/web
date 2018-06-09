@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import itemData from 'dotaconstants/build/items.json';
 import {
-  transformations,
+  displayHeroId,
   formatSeconds,
 }
   from '../../utility';
@@ -80,7 +80,7 @@ class ExplorerOutputSection extends React.Component {
             if (column.field === 'match_id') {
               return <Link to={`/matches/${field}`}>{field}</Link>;
             } else if (column.field.indexOf('hero_id') === 0) {
-              return transformations.hero_id(row, col, field);
+              return displayHeroId(row, col, field);
             } else if (column.field.indexOf('account_id') === 0) {
               return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
             } else if (column.field.indexOf('winrate') === 0 || column.field.indexOf('pickrate') === 0 || column.field === 'winrate_wilson') {
