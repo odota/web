@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { shape } from 'prop-types';
 import constants from '../constants';
 import AttributesMain from './AttributesMain';
+import Abilities from './Abilities'
 
 const getHeroImgSrc = src => process.env.REACT_APP_API_HOST + src;
 
@@ -119,6 +120,7 @@ const Header = ({ hero }) => (
         </HeroDetails>
         <div>
           <AttributesMain hero={hero} />
+          <Abilities hero={hero} />
         </div>
       </HeroProfileContent>
     </HeroProfile>
