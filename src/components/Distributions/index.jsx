@@ -119,7 +119,7 @@ class RequestLayer extends React.Component {
             twoLine
           />
           {(key === 'mmr' || key === 'ranks') ?
-            <DistributionGraph data={rows} xTickInterval={key === 'ranks' ? 5 : null} />
+            <DistributionGraph data={rows} xTickInterval={key === 'ranks' ? 4 : null} />
           : <Table data={data && data[key] && data[key].rows} columns={countryMmrColumns} />}
         </div>);
     };
