@@ -17,8 +17,6 @@ const mapAbilitiesAndTalents = (hero)  => {
   const heroTalents = mapTalents(heroAbilities.talents)
   abilities.talents = mapTalentsToLevel(heroTalents, abilities)
 
-  console.log(abilities)
-
   return abilities
 }
 
