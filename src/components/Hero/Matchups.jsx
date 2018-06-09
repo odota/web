@@ -3,9 +3,8 @@ import { shape, string, bool, number, func, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { getHeroMatchups } from '../../actions';
-import Spinner from '../Spinner';
 import Table, { TableLink } from '../Table';
-import strings from '../../lang';
+import MatchupsSkeleton from '../Skeletons/MatchupsSkeleton';
 import { wilsonScore } from '../../utility';
 
 const { REACT_APP_API_HOST } = process.env;
@@ -20,7 +19,7 @@ const HeroWrapper = styled.div`
   align-items: center;
 `;
 
-const getMatchupsColumns = (heroes) => {
+const getMatchupsColumns = (heroes, strings) => {
   // Optimization from O(n^2) to O(n + 1);
   const heroMap = new Map();
   heroes.forEach(hero => heroMap.set(hero.id, hero));
@@ -81,6 +80,7 @@ class Matchups extends React.Component {
       img: string,
     })),
     onGetHeroMatchups: func,
+    strings: shape({}),
   };
 
   componentDidMount() {
@@ -92,7 +92,7 @@ class Matchups extends React.Component {
   }
 
   renderTable() {
-    const { heroes, data } = this.props;
+    const { heroes, data, strings } = this.props;
 
     const preparedData = data.map(item => ({
       ...item,
@@ -100,14 +100,14 @@ class Matchups extends React.Component {
       advantage: Math.round(wilsonScore(item.wins, item.games_played - item.wins) * 100),
     })).sort((a, b) => b.games_played - a.games_played);
 
-    return <Table data={preparedData} columns={getMatchupsColumns(heroes)} />;
+    return <Table data={preparedData} columns={getMatchupsColumns(heroes, strings)} />;
   }
 
   render() {
     const { isLoading } = this.props;
 
     if (isLoading) {
-      return <Spinner />;
+      return <MatchupsSkeleton />;
     }
 
     return this.renderTable();
@@ -118,6 +118,7 @@ const mapStateToProps = ({ app }) => ({
   isLoading: app.heroMatchups.loading,
   data: app.heroMatchups.data,
   heroes: app.heroStats.data,
+  strings: app.strings,
 });
 
 const mapDispatchToProps = {

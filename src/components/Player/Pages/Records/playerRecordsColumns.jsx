@@ -1,12 +1,11 @@
-import { transformations } from '../../../../utility';
-import strings from '../../../../lang';
+import { transformations, displayHeroId } from '../../../../utility';
 
-export default [{
+export default strings => [{
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
   sortFn: true,
-  displayFn: transformations.hero_id,
+  displayFn: displayHeroId,
 }, {
   displayName: strings.th_result,
   tooltip: strings.tooltip_result,

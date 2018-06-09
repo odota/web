@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import strings from '../../../../lang';
 import { getPlayerHeroes } from '../../../../actions';
 import Table from '../../../Table';
 import Container from '../../../Container';
 import { playerHeroesColumns } from './playerHeroesColumns';
 
 const Heroes = ({
-  data, playerId, error, loading,
+  data, playerId, error, loading, strings,
 }) => (
   <Container title={strings.heading_heroes} error={error} loading={loading}>
-    <Table paginated columns={playerHeroesColumns(playerId)} data={data} />
+    <Table paginated columns={playerHeroesColumns(playerId, strings)} data={data} />
   </Container>
 );
 
@@ -20,6 +19,7 @@ Heroes.propTypes = {
   playerId: PropTypes.string,
   error: PropTypes.string,
   loading: PropTypes.bool,
+  strings: PropTypes.shape({}),
 };
 
 const getData = (props) => {
@@ -32,15 +32,16 @@ class RequestLayer extends React.Component {
       key: PropTypes.string,
     }),
     playerId: PropTypes.string,
+    strings: PropTypes.shape({}),
   }
 
   componentDidMount() {
     getData(this.props);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
-      getData(nextProps);
+  componentDidUpdate(prevProps) {
+    if (this.props.playerId !== prevProps.playerId || this.props.location.key !== prevProps.location.key) {
+      getData(this.props);
     }
   }
 
@@ -53,6 +54,7 @@ const mapStateToProps = state => ({
   data: state.app.playerHeroes.data,
   error: state.app.playerHeroes.error,
   loading: state.app.playerHeroes.loading,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

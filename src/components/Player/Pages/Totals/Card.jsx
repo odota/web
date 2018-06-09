@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 import { shape } from 'prop-types';
-import strings from '../../../../lang';
 
 // Strings are in format e.g. '%d seconds'
 const getAbbrTime = str => str.slice(3, 4);
 
-const formatDurationString = (sec) => {
+const formatDurationString = (sec, strings) => {
   const days = Math.floor(sec / 86400);
   const hours = Math.floor((sec - (days * 86400)) / 3600);
   const minutes = Math.floor((sec - (days * 86400) - (hours * 3600)) / 60);
@@ -64,17 +64,22 @@ const Value = styled.div`
   text-align: center;
 `;
 
-const Card = ({ total }) => (
+const Card = ({ total, strings }) => (
   <Wrapper>
     <Box>
       <Header>{strings[`heading_${total.field}`]}</Header>
-      <Value>{total.field === 'duration' ? formatDurationString(total.sum) : Math.floor(total.sum).toLocaleString()}</Value>
+      <Value>{total.field === 'duration' ? formatDurationString(total.sum, strings) : Math.floor(total.sum).toLocaleString()}</Value>
     </Box>
   </Wrapper>
 );
 
 Card.propTypes = {
   total: shape({}),
+  strings: shape({}),
 };
 
-export default Card;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(Card);

@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-// import { getPlayer } from '../../actions';
-import strings from '../../lang';
 import { IconSteam } from '../Icons';
 import Spinner from '../Spinner';
 import Error from '../Error';
@@ -31,7 +29,7 @@ const IconButtonLink = styled.a`
 `;
 
 const AccountWidget = ({
-  loading, error, user, style,
+  loading, error, user, style, strings,
 }) => (
   <div style={style}>
     {loading && !error && <Spinner />}
@@ -52,6 +50,7 @@ AccountWidget.propTypes = {
   error: PropTypes.string,
   user: PropTypes.shape({}),
   style: PropTypes.string,
+  strings: PropTypes.shape({}),
 };
 
 const mapStateToProps = (state) => {
@@ -60,11 +59,8 @@ const mapStateToProps = (state) => {
     loading,
     error,
     user: data.user,
+    strings: state.app.strings,
   };
 };
 
-function RequestLayer(props) {
-  return <AccountWidget {...props} />;
-}
-
-export default connect(mapStateToProps, null)(RequestLayer);
+export default connect(mapStateToProps, null)(AccountWidget);

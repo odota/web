@@ -5,7 +5,6 @@ import FlatButton from 'material-ui/FlatButton';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { heroSelector } from '../../reducers/selectors';
-import strings from '../../lang';
 import Heading from '../Heading';
 import TabBar from '../TabBar';
 import Spinner from '../Spinner';
@@ -37,75 +36,6 @@ const TabsBlock = styled.div`
   width: 100%;
 `;
 
-const tabs = heroId => [
-  {
-    name: strings.tab_rankings,
-    key: 'rankings',
-    content: props => (
-      <div>
-        <Heading title={strings.tab_rankings} subtitle={strings.rankings_description} />
-        <Ranking {...props} />
-      </div>
-    ),
-    route: `/heroes/${heroId}/rankings`,
-  },
-  {
-    name: strings.tab_benchmarks,
-    key: 'benchmarks',
-    content: props => (
-      <div>
-        <Heading title={strings.tab_benchmarks} subtitle={strings.hero_disclaimer_public} />
-        <Benchmark {...props} />
-      </div>
-    ),
-    route: `/heroes/${heroId}/benchmarks`,
-  },
-  {
-    name: strings.tab_recent,
-    key: 'recent',
-    content: props => (
-      <div>
-        <Heading title={strings.tab_recent} subtitle={strings.hero_disclaimer_pro} />
-        <Recent {...props} />
-      </div>
-    ),
-    route: `/heroes/${heroId}/recent`,
-  },
-  {
-    name: strings.tab_matchups,
-    key: 'matchups',
-    content: props => (
-      <div>
-        <Heading title={strings.tab_matchups} subtitle={strings.hero_disclaimer_pro} />
-        <Matchups {...props} />
-      </div>
-    ),
-    route: `/heroes/${heroId}/matchups`,
-  },
-  {
-    name: strings.tab_durations,
-    key: 'durations',
-    content: props => (
-      <div>
-        <Heading title={strings.tab_durations} subtitle={strings.hero_disclaimer_pro} />
-        <Durations {...props} />
-      </div>
-    ),
-    route: `/heroes/${heroId}/durations`,
-  },
-  {
-    name: strings.tab_players,
-    key: 'players',
-    content: props => (
-      <div>
-        <Heading title={strings.tab_players} subtitle={strings.hero_disclaimer_pro} />
-        <Players {...props} />
-      </div>
-    ),
-    route: `/heroes/${heroId}/players`,
-  },
-];
-
 class Hero extends React.Component {
   constructor(props) {
     super(props);
@@ -125,6 +55,7 @@ class Hero extends React.Component {
   }
 
   render() {
+    const { strings } = this.props;
     const route = this.props.match.params.info || 'rankings';
     const { heroId } = this.props.match.params;
     const hero = heroSelector(this.props.heroes, heroId);
@@ -137,6 +68,75 @@ class Hero extends React.Component {
       const errorText = `Hero ${heroId} not found...`;
       return <ErrorBox text={errorText} />;
     }
+
+    const tabs = heroId => [
+      {
+        name: strings.tab_rankings,
+        key: 'rankings',
+        content: props => (
+          <div>
+            <Heading title={strings.tab_rankings} subtitle={strings.rankings_description} />
+            <Ranking {...props} />
+          </div>
+        ),
+        route: `/heroes/${heroId}/rankings`,
+      },
+      {
+        name: strings.tab_benchmarks,
+        key: 'benchmarks',
+        content: props => (
+          <div>
+            <Heading title={strings.tab_benchmarks} subtitle={strings.hero_disclaimer_public} />
+            <Benchmark {...props} />
+          </div>
+        ),
+        route: `/heroes/${heroId}/benchmarks`,
+      },
+      {
+        name: strings.tab_recent,
+        key: 'recent',
+        content: props => (
+          <div>
+            <Heading title={strings.tab_recent} subtitle={strings.hero_disclaimer_pro} />
+            <Recent {...props} />
+          </div>
+        ),
+        route: `/heroes/${heroId}/recent`,
+      },
+      {
+        name: strings.tab_matchups,
+        key: 'matchups',
+        content: props => (
+          <div>
+            <Heading title={strings.tab_matchups} subtitle={strings.hero_disclaimer_pro} />
+            <Matchups {...props} />
+          </div>
+        ),
+        route: `/heroes/${heroId}/matchups`,
+      },
+      {
+        name: strings.tab_durations,
+        key: 'durations',
+        content: props => (
+          <div>
+            <Heading title={strings.tab_durations} subtitle={strings.hero_disclaimer_pro} />
+            <Durations {...props} />
+          </div>
+        ),
+        route: `/heroes/${heroId}/durations`,
+      },
+      {
+        name: strings.tab_players,
+        key: 'players',
+        content: props => (
+          <div>
+            <Heading title={strings.tab_players} subtitle={strings.hero_disclaimer_pro} />
+            <Players {...props} />
+          </div>
+        ),
+        route: `/heroes/${heroId}/players`,
+      },
+    ];
 
     const currentTab = tabs(heroId).find(tab => tab.key === route);
     return (
@@ -170,6 +170,7 @@ Hero.propTypes = {
     }),
   }),
   heroes: arrayOf(shape({})),
+  strings: shape({}),
 };
 
 Hero.defaultProps = {
@@ -180,6 +181,7 @@ const mapStateToProps = state => ({
   isLoading: state.app.heroStats.loading,
   isError: state.app.heroStats.error,
   heroes: state.app.heroStats.data,
+  strings: state.app.strings,
 });
 
 export default connect(mapStateToProps)(Hero);

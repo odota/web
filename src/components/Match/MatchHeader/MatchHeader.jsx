@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
@@ -7,7 +8,6 @@ import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
 import ActionFingerprint from 'material-ui/svg-icons/action/fingerprint';
 import FileFileDownload from 'material-ui/svg-icons/file/file-download';
 import { transformations, isRadiant, sum } from '../../../utility';
-import strings from '../../../lang';
 import { IconRadiant, IconDire } from '../../Icons';
 import Warning from '../../Alerts';
 import constants from '../../constants';
@@ -222,7 +222,7 @@ const getWinnerStyle = (radiantWin) => {
   return radiantWin ? 'radiant' : 'dire';
 };
 
-const MatchHeader = ({ match, user }) => {
+const MatchHeader = ({ match, user, strings }) => {
   if (!match) {
     return null;
   }
@@ -263,7 +263,7 @@ const MatchHeader = ({ match, user }) => {
           </div>
           <div className="gmde">
             <span className="gameMode">
-              {transformations.game_mode(null, null, match.game_mode)}
+              {strings[`game_mode_${match.game_mode}`]}
             </span>
             <span className="duration">
               {transformations.duration(null, null, match.duration)}
@@ -349,6 +349,11 @@ const MatchHeader = ({ match, user }) => {
 MatchHeader.propTypes = {
   match: PropTypes.shape({}),
   user: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
-export default MatchHeader;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(MatchHeader);

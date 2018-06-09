@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ContentLoader from 'react-content-loader';
 import util from 'util';
 import { connect } from 'react-redux';
 import ActionSearch from 'material-ui/svg-icons/action/search';
@@ -14,22 +13,12 @@ import ScenariosFormField from './ScenariosFormField';
 import getColumns from './ScenariosColumns';
 import { buttonStyle, formFieldStyle, StyledDiv, tabsStyle } from './Styles';
 import { getScenariosItemTimings, getScenariosMisc, getScenariosLaneRoles } from '../../actions/index';
-import strings from '../../lang';
 import Table from '../Table';
 import Error from '../Error';
 import Heading from '../Heading';
+import ScenariosSkeleton from '../Skeletons/ScenariosSkeleton';
 import { groupByArray } from '../../utility/index';
 import { IconLaneRoles } from '../Icons';
-
-const ScenariosLoader = () => (
-  <ContentLoader height={300} width={800} primaryColor="#666">
-    <rect x="0" y="55" rx="0" ry="0" width="800" height="50" />
-    <rect x="0" y="140" rx="0" ry="0" width="160" height="35" />
-    <rect x="180" y="140" rx="0" ry="0" width="160" height="35" />
-    <rect x="360" y="140" rx="0" ry="0" width="160" height="35" />
-    <rect x="0" y="200" rx="0" ry="0" width="82" height="30" />
-  </ContentLoader>
-);
 
 const minSampleSize = row => row.games > 200;
 
@@ -37,17 +26,19 @@ const forms = {
   itemTimings: {
     queryForms: ['hero_id', 'item'],
     filterForms: ['time'],
+    initialQuery: { hero_id: '1', item: 'bfury' },
   },
   laneRoles: {
     queryForms: ['hero_id', 'lane_role'],
     filterForms: ['time'],
+    initialQuery: { hero_id: '101', lane_role: '2' },
   },
   misc: {
     queryForms: ['scenario'],
   },
 };
 
-const tabItems = [{
+const tabItems = strings => ([{
   text: strings.scenarios_item_timings,
   value: 'itemTimings',
   icon: <Schedule />,
@@ -62,7 +53,7 @@ const tabItems = [{
   value: 'misc',
   icon: <Grain />,
 },
-];
+]);
 
 const reduceRows = (data) => {
   if (data.length === 0) {
@@ -91,6 +82,7 @@ class Scenarios extends React.Component {
       push: PropTypes.func,
     }),
     scenariosState: PropTypes.shape({}),
+    strings: PropTypes.shape({}),
   }
 
   constructor(props) {
@@ -98,9 +90,15 @@ class Scenarios extends React.Component {
 
     const selectedTab = this.props.match.params.info || 'itemTimings';
     const params = this.props.location.search.substring(1);
+
+    const initialQueries = {};
+    Object.keys(forms).forEach((tab) => {
+      initialQueries[tab] = (selectedTab === tab && Object.keys(querystring.parse(params)).length > 0) ? querystring.parse(params) : forms[tab].initialQuery;
+    });
+
     this.state = {
       selectedTab,
-      formFields: { [selectedTab]: querystring.parse(params) || null },
+      formFields: initialQueries,
     };
     this.updateFormFieldStates();
 
@@ -111,6 +109,7 @@ class Scenarios extends React.Component {
 
   componentDidMount() {
     this.getData();
+    this.updateQueryParams();
   }
 
   getData() {
@@ -134,8 +133,7 @@ class Scenarios extends React.Component {
 
   updateQueryParams() {
     const { formFields, selectedTab } = this.state;
-    const { location } = this.props;
-    this.props.history.push(`${location.pathname}?${querystring.stringify(formFields[selectedTab])}`);
+    this.props.history.push(`/scenarios/${selectedTab}?${querystring.stringify(formFields[selectedTab])}`);
   }
 
   updateFormFieldStates(newFormFieldState) {
@@ -146,7 +144,7 @@ class Scenarios extends React.Component {
   }
 
   render() {
-    const { scenariosState } = this.props;
+    const { scenariosState, strings } = this.props;
     const { selectedTab, formFields } = this.state;
     let { data } = scenariosState[selectedTab];
     const { queryForms, filterForms } = forms[selectedTab];
@@ -160,12 +158,12 @@ class Scenarios extends React.Component {
     return (
       <StyledDiv>
         {metadataError && <Error />}
-        {metadataLoading && <ScenariosLoader />}
+        {metadataLoading && <ScenariosSkeleton />}
         {!metadataError && !metadataLoading &&
         <div>
           <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} info={`${util.format(strings.scenarios_info, 4)}`} />
           <Tabs value={selectedTab} onChange={this.handleChange} style={tabsStyle}>
-            {tabItems.map(item => (
+            {tabItems(strings).map(item => (
               <Tab label={item.text} value={item.value} icon={item.icon} containerElement={getLink(item.value)} className="tab" />
             ))}
           </Tabs>
@@ -197,7 +195,7 @@ class Scenarios extends React.Component {
           <Table
             key={selectedTab}
             data={data.filter(minSampleSize)}
-            columns={getColumns(selectedTab, metadata)}
+            columns={getColumns(selectedTab, metadata, strings)}
             loading={scenariosState[selectedTab].loading}
             paginated
             resetTableState
@@ -240,6 +238,7 @@ const mapStateToProps = (state) => {
         error: scenariosMisc.error,
       },
     },
+    strings: state.app.strings,
   };
 };
 

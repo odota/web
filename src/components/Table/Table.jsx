@@ -11,8 +11,8 @@ import { abbreviateNumber, SORT_ENUM, defaultSort } from '../../utility';
 import { TablePercent } from '../Visualizations';
 import Pagination from '../Table/PaginatedTable/Pagination';
 import TableHeader from './TableHeader';
-import Spinner from '../Spinner';
 import Error from '../Error';
+import TableSkeleton from '../Skeletons/TableSkeleton';
 import { StyledBody, StyledContainer } from './Styled';
 
 const getColumnMax = (data, field, getValue) => {
@@ -85,9 +85,10 @@ class Table extends React.Component {
     hoverRowColumn: bool,
     highlightFn: func,
     keyFn: func,
+    setHighlightedCol: func,
   }
 
-  static renderSumRow({ columns, data }) {
+  static renderSumRow({ columns, data, setHighlightedCol }) {
     return (
       <MaterialTableRow>
         {columns.map((column, colIndex) => {
@@ -98,7 +99,7 @@ class Table extends React.Component {
             }
 
             return (
-              <MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
+              <MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }} {...(setHighlightedCol && setHighlightedCol(colIndex))}>
                 {column.sumFn && ((column.displaySumFn) ? column.displaySumFn(total) : abbreviateNumber(total))}
               </MaterialTableRowColumn>
             );
@@ -118,10 +119,11 @@ class Table extends React.Component {
     });
   };
 
-  UNSAFE_componentWillReceiveProps(newProps) {
-    if (newProps.resetTableState) {
-      this.setState(initialState);
+  static getDerivedStateFromProps(props) {
+    if (props.resetTableState) {
+      return initialState;
     }
+    return null;
   }
 
   nextPage = () => {
@@ -161,6 +163,7 @@ class Table extends React.Component {
       hoverRowColumn,
       highlightFn,
       keyFn,
+      setHighlightedCol,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage,
@@ -187,7 +190,7 @@ class Table extends React.Component {
           place="top"
         />}
         <StyledContainer >
-          {loading && <Spinner />}
+          {loading && <TableSkeleton />}
           {!loading && error && <Error />}
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
@@ -199,6 +202,7 @@ class Table extends React.Component {
                   sortState={sortState}
                   sortField={sortField}
                   sortClick={this.sortClick}
+                  setHighlightedCol={setHighlightedCol}
                 />
               </MaterialTableHeader>
               <MaterialTableBody displayRowCheckbox={false} selectable={false}>
@@ -282,14 +286,14 @@ class Table extends React.Component {
                         style.textDecoration = toUnderline(data, row, field, underline) ? 'underline' : 'none';
                       }
                       return (
-                        <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style}>
+                        <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style} {...(setHighlightedCol && setHighlightedCol(colIndex))}>
                           {fieldEl}
                         </MaterialTableRowColumn>
                       );
                     })}
                   </MaterialTableRow>
                 ))}
-                {summable && Table.renderSumRow({ columns, data })}
+                {summable && Table.renderSumRow({ columns, data, setHighlightedCol })}
               </MaterialTableBody>
             </MaterialTable>
           </div>)}

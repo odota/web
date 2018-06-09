@@ -5,7 +5,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
-import strings from '../../lang';
 import { getGithubPulls } from '../../actions';
 import constants from '../constants';
 
@@ -72,7 +71,7 @@ const StyledDiv = styled.div`
   }
 `;
 const Announce = ({
-  title, body, onClick, link,
+  title, body, onClick, link, strings,
 }) => (
   <StyledDiv>
     <main>
@@ -102,6 +101,7 @@ Announce.propTypes = {
   body: PropTypes.string,
   onClick: PropTypes.func,
   link: PropTypes.string,
+  strings: PropTypes.shape({}),
 };
 
 class RequestLayer extends React.Component {
@@ -113,13 +113,13 @@ class RequestLayer extends React.Component {
       PropTypes.object,
       PropTypes.array,
     ]),
+    strings: PropTypes.shape({}),
   }
 
   constructor() {
     super();
 
-    this.state = {
-    };
+    this.state = {};
 
     this.dismiss = (value) => {
       if (localStorage) {
@@ -137,12 +137,14 @@ class RequestLayer extends React.Component {
     };
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     this.props.getPulls(this.getDate(5));
   }
 
   render() {
-    const { error, loading, data } = this.props;
+    const {
+      error, loading, data, strings,
+    } = this.props;
 
     if (!error && !loading && data) {
       if (data.items && data.items[0]) {
@@ -154,7 +156,7 @@ class RequestLayer extends React.Component {
         } = data.items[0];
 
         if (localStorage && !this.state.dismissed && Number(localStorage.getItem('dismiss')) < number) {
-          return <Announce title={title} body={body} onClick={() => this.dismiss(number)} link={link} location={window.location} />;
+          return <Announce title={title} body={body} onClick={() => this.dismiss(number)} link={link} location={window.location} strings={strings} />;
         }
       }
     }
@@ -170,6 +172,7 @@ const mapStateToProps = (state) => {
     error,
     loading,
     data,
+    strings: state.app.strings,
   };
 };
 
