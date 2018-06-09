@@ -128,15 +128,6 @@ class RequestLayer extends React.Component {
       {
         name: strings.distributions_tab_ranks, key: 'ranks', content: getPage, route: '/distributions/ranks',
       },
-      {
-        name: strings.distributions_tab_mmr, key: 'mmr', content: getPage, route: '/distributions/mmr',
-      },
-      {
-        name: strings.distributions_tab_country_mmr,
-        key: 'country_mmr',
-        content: data => getPage(data, 'country_mmr'),
-        route: '/distributions/country_mmr',
-      },
     ];
     const info = this.props.match.params.info || 'ranks';
     const page = distributionsPages.find(_page => (_page.key || _page.name.toLowerCase()) === info);
