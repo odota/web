@@ -12,7 +12,12 @@ const mapAbilitiesAndTalents = (hero)  => {
   // Filter out generic_hidden skills from skill list
   heroAbilities.abilities = filterAbilities(heroAbilities.abilities)
   abilities.skills = mapAbilities(heroAbilities.abilities)
-  abilities.talents = mapTalents(heroAbilities.talents)
+  
+  // Map Talents and assign them to correct level in Object
+  const heroTalents = mapTalents(heroAbilities.talents)
+  abilities.talents = mapTalentsToLevel(heroTalents, abilities)
+
+  console.log(abilities)
 
   return abilities
 }
@@ -33,6 +38,22 @@ const mapTalents = (talents) => {
   return talents.map((talent) => {
     return {...abilities[talent.name], ...talent}
   })
+}
+
+const mapTalentsToLevel = (talents, abilities) => {
+  let talentMap = []
+
+  talents.forEach((talent) => {
+    if (!talentMap[talent.level - 1]) {
+      talentMap[talent.level - 1] = []
+    }
+
+    talentMap[talent.level - 1].push({
+      name: talent.dname
+    })
+  })
+
+  return talentMap
 }
 
 export default mapAbilitiesAndTalents
