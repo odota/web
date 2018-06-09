@@ -108,6 +108,10 @@ const HeroDescription = styled.div`
   flex-grow: 1;
 `;
 
+const HeroStatsWrapper = styled.div`
+  flex: 1 1 0;
+`
+
 const Header = ({ hero }) => (
   <HeroDescription>
     <HeroProfile>
@@ -118,10 +122,10 @@ const Header = ({ hero }) => (
           <HeroName>{hero.localized_name}</HeroName>
           <HeroRoleInformations>{hero.attack_type} - <HeroRoles>{hero.roles.join(', ')}</HeroRoles></HeroRoleInformations>
         </HeroDetails>
-        <div>
+        <HeroStatsWrapper>
           <AttributesMain hero={hero} />
           <Abilities hero={hero} />
-        </div>
+        </HeroStatsWrapper>
       </HeroProfileContent>
     </HeroProfile>
   </HeroDescription>
