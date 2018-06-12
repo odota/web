@@ -8,7 +8,7 @@ import Info from '../../../Alerts/Info';
 
 const MMRInfo = strings => (
   <Info>
-    <a href="https://blog.opendota.com/2016/01/13/opendota-mmr-and-you/" target="_blank" rel="noopener noreferrer">
+    <a href="https://blog.opendota.com/2016/01/12/opendota-mmr-and-you/" target="_blank" rel="noopener noreferrer">
       {strings.mmr_not_up_to_date}
     </a>
   </Info>);
