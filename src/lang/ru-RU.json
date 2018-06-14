@@ -1194,5 +1194,15 @@
   "scenarios_first_blood": "Команда совершает первую кровь",
   "scenarios_courier_kill": "Команда убивает вражеского курьера до 3-минуты",
   "scenarios_pos_chat_1min": "Команда пишет позитивные слова в общий чат до 1 минуты",
-  "scenarios_neg_chat_1min": "Команда пишет негативные слова в общий чат до 1 минуты"
+  "scenarios_neg_chat_1min": "Команда пишет негативные слова в общий чат до 1 минуты",
+  "gosu_default": "Get personal recommendations",
+  "gosu_benchmarks": "Get detailed benchmarks for your hero, lane and role",
+  "gosu_performances": "Get your map control performance",
+  "gosu_laning": "Get why you missed last hits",
+  "gosu_combat": "Get why kills attempts were unsuccessful",
+  "gosu_farm": "Get why you missed last hits",
+  "gosu_vision": "Get how many heroes were killed under your wards",
+  "gosu_actions": "Get your lost time from mouse usage vs hotkeys",
+  "gosu_teamfights": "Get who to target during teamfights",
+  "gosu_analysis": "Get your real MMR bracket"
 }
