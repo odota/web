@@ -53,7 +53,8 @@ const SkillTip = ({ability, position, ttId}) => {
         <Behavior>{behavior}</Behavior>
         <Footer>
           { renderAttributes(ability.attrib) }
-          { (ability.mc) && <FooterItem title="Mana Consumption" content={ability.mc} /> }
+          { (ability.mc) && <FooterItem icon={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/mana.png`} content={ability.mc} /> }
+          { (ability.cd) && <FooterItem icon={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/cooldown.png`} content={ability.cd} /> }
         </Footer>
       </Wrapper>
     </ReactTooltip>

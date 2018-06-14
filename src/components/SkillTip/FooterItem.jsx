@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
+  align-items: center;
   display: flex;
   margin: 4px 0;
 `
@@ -12,6 +13,12 @@ const Title = styled.div`
   margin-right: 12px;
   font-size: 12px;
   text-transform: uppercase;
+`
+
+const Icon = styled.img`
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
 `
 
 const Content = styled.div`
@@ -32,9 +39,10 @@ const renderContent = (content) => {
   })
 }
 
-const FooterItem = ({title, content}) => (
+const FooterItem = ({icon, title, content}) => (
   <Wrapper>
-    <Title>{title}</Title>
+    { (icon) && <Icon src={icon} /> }
+    { (title) && <Title>{title}</Title> }
     <Content>{renderContent(content)}</Content>
   </Wrapper>
 )
