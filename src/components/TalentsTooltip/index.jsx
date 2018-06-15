@@ -4,7 +4,6 @@ import propTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
 import LevelGroup from './LevelGroup';
-import constants from '../constants';
 
 const Wrapper = styled.div`
   width: 280px;
