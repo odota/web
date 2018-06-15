@@ -41,7 +41,8 @@ const Level = styled.div`
 
 const TalentContent = styled.div`
   flex: 1 1 100%;
-  padding-top: 2px;
+  font-size: 12px;
+  padding-top: 4px;
 
   &:first-child {
     padding-right: 12px;
