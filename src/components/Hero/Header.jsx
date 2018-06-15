@@ -46,7 +46,7 @@ const HeroProfileContent = styled.div`
 `;
 
 const HeroDetails = styled.div`
-  flex-grow: 1;
+  flex: 1 1 100%;
   margin: 0 24px;
 
   @media screen and (max-width: ${constants.wrapMobile}) {
@@ -109,7 +109,7 @@ const HeroDescription = styled.div`
 `;
 
 const HeroStatsWrapper = styled.div`
-  flex: 1 1 0;
+  flex: 1 1 100%;
 `;
 
 const Header = ({ hero }) => (
