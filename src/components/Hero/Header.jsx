@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { shape } from 'prop-types';
 import constants from '../constants';
 import AttributesMain from './AttributesMain';
-import Abilities from './Abilities'
+import Abilities from './Abilities';
 
 const getHeroImgSrc = src => process.env.REACT_APP_API_HOST + src;
 
@@ -110,7 +110,7 @@ const HeroDescription = styled.div`
 
 const HeroStatsWrapper = styled.div`
   flex: 1 1 0;
-`
+`;
 
 const Header = ({ hero }) => (
   <HeroDescription>
