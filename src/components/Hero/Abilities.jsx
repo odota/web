@@ -9,7 +9,6 @@ import mapAbilitiesAndTalents from '../../utility/mapAbilitiesAndTalents';
 const Wrapper = styled.div`
   align-items: center;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   margin-left: -4px;
   margin-right: -4px;
@@ -20,8 +19,7 @@ const AbilityItem = styled.div`
   flex: 1 1 100%;
   margin-bottom: 4px;
   margin-top: 4px;
-  max-width: 15%;
-  min-width: 32px;
+  max-width: 64px;
   padding-left: 4px;
   padding-right: 4px;
 `;

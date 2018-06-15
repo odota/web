@@ -19,11 +19,13 @@ const AbilityIcon = styled.img`
   height: auto;
   opacity: .7;
   overflow: hidden;
-  transition: opacity .2s;
+  transition: opacity .2s, box-shadow .4s, transform .2s;
   width: 100%;
 
   &:hover {
     opacity: 1;
+    box-shadow: 0 0 150px rgba(255, 255, 255, .4);
+    transform: scale(1.1);
   }
 `;
 
