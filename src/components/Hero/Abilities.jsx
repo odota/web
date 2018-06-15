@@ -1,8 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
+import propTypes from 'prop-types';
 
-import Ability from './Ability'
-import mapAbilitiesAndTalents from '../../utility/mapAbilitiesAndTalents'
+import Ability from './Ability';
+import Talents from './Talents';
+import mapAbilitiesAndTalents from '../../utility/mapAbilitiesAndTalents';
 
 const Wrapper = styled.div`
   align-items: center;
@@ -12,7 +14,7 @@ const Wrapper = styled.div`
   margin-left: -4px;
   margin-right: -4px;
   margin-top: 16px;
-`
+`;
 
 const AbilityItem = styled.div`
   flex: 1 1 100%;
@@ -22,29 +24,37 @@ const AbilityItem = styled.div`
   min-width: 32px;
   padding-left: 4px;
   padding-right: 4px;
-`
+`;
 
 const renderAbilities = (abilities) => {
-  return abilities.map((ability, key) => {
-    return (
+  const mappedAbilities = abilities.map((ability, key) => {
+    const mappedAbility = (
       <AbilityItem key={key}>
         <Ability {...ability} abilityID={key} />
       </AbilityItem>
-    )
-  })
-}
+    );
+
+    return mappedAbility;
+  });
+
+  return mappedAbilities;
+};
 
 const Abilities = ({ hero }) => {
-  let heroAbilities = mapAbilitiesAndTalents(hero)
+  const heroAbilities = mapAbilitiesAndTalents(hero);
 
   return (
     <Wrapper>
       {renderAbilities(heroAbilities.skills)}
-      {/* <AbilityItem>
-        Talents
-      </AbilityItem> */}
+      <AbilityItem>
+        <Talents talents={heroAbilities.talents} />
+      </AbilityItem>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default Abilities
+Abilities.propTypes = {
+  hero: propTypes.shape({}).isRequired,
+};
+
+export default Abilities;

@@ -1,16 +1,17 @@
-import React from 'react'
-import styled from 'styled-components'
-import uuid from 'uuid'
+import React from 'react';
+import styled from 'styled-components';
+import uuid from 'uuid';
+import propTypes from 'prop-types';
 
-import SkillTip from '../SkillTip'
-import constants from '../constants'
+import SkillTip from '../SkillTip';
+import constants from '../constants';
 
 const Wrapper = styled.div`
   background: linear-gradient(to bottom, ${constants.colorBlueMuted}, ${constants.primarySurfaceColor});
   border-radius: 4px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, .3);
   position: relative;
-`
+`;
 
 const AbilityIcon = styled.img`
   border-radius: 4px;
@@ -24,7 +25,7 @@ const AbilityIcon = styled.img`
   &:hover {
     opacity: 1;
   }
-`
+`;
 
 const AbilityManaComsumption = styled.div`
   background: ${constants.colorBlackMuted};
@@ -37,24 +38,29 @@ const AbilityManaComsumption = styled.div`
   padding: 1px 4px;
   position: absolute;
   right: 0;
-`
+`;
 
-const Ability = (props, abilityID) => {
-  const ttId = uuid.v4()
-  const showMana = (props.mc && parseInt(props.mc, 0) > 0)
-  let manaString = false
-  
+const Ability = (props) => {
+  const ttId = uuid.v4();
+  const showMana = (props.mc && parseInt(props.mc, 0) > 0);
+  let manaString = false;
+
   if (showMana) {
-    manaString = ((typeof props.mc === 'object') ? props.mc[0] : props.mc)
+    manaString = ((typeof props.mc === 'object') ? props.mc[0] : props.mc);
   }
 
   return (
-    <Wrapper data-tip={true} data-for={ttId}>
+    <Wrapper data-tip data-for={ttId}>
       <AbilityIcon src={process.env.REACT_APP_API_HOST + props.img} />
       {(showMana) && <AbilityManaComsumption>{manaString}</AbilityManaComsumption>}
       <SkillTip ability={props} position="bottom" ttId={ttId} />
     </Wrapper>
-  )
-}
+  );
+};
 
-export default Ability
+Ability.propTypes = {
+  mc: propTypes.shape({}),
+  img: propTypes.string.isRequired,
+};
+
+export default Ability;
