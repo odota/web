@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import uuid from 'uuid';
 import propTypes from 'prop-types';
 
-import SkillTip from '../SkillTip';
 import constants from '../constants';
+import ReactTooltip from 'react-tooltip';
+import ThingTooltip from '../ThingTooltip';
 
 const Wrapper = styled.div`
   background: linear-gradient(to bottom, ${constants.colorBlueMuted}, ${constants.primarySurfaceColor});
@@ -55,13 +56,19 @@ const Ability = (props) => {
     <Wrapper data-tip data-for={ttId}>
       <AbilityIcon src={process.env.REACT_APP_API_HOST + props.img} />
       {(showMana) && <AbilityManaComsumption>{manaString}</AbilityManaComsumption>}
-      <SkillTip ability={props} position="bottom" ttId={ttId} />
+      <ReactTooltip id={ttId} effect="solid" place="bottom">
+        <ThingTooltip thing={props} />
+      </ReactTooltip>
     </Wrapper>
   );
 };
 
 Ability.propTypes = {
-  mc: propTypes.shape({}),
+  mc: propTypes.oneOfType([
+    propTypes.object,
+    propTypes.array,
+    propTypes.string,
+  ]),
   img: propTypes.string.isRequired,
 };
 

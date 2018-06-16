@@ -64,7 +64,10 @@ const LevelGroup = ({ talents, level }) => (
 
 LevelGroup.propTypes = {
   level: propTypes.string.isRequired,
-  talents: propTypes.shape({}).isRequired,
+  talents: propTypes.oneOfType([
+    propTypes.object,
+    propTypes.array,
+  ]).isRequired,
 };
 
 export default LevelGroup;
