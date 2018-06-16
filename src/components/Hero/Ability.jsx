@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import uuid from 'uuid';
 import propTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
 
 import constants from '../constants';
-import ReactTooltip from 'react-tooltip';
 import ThingTooltip from '../ThingTooltip';
 
 const Wrapper = styled.div`
