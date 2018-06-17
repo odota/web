@@ -3,11 +3,13 @@ import { shape, func, bool, arrayOf, oneOfType, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { getBenchmark } from '../../actions';
 import BenchmarkTable from './BenchmarkTable';
+import BenchmarkGraphs from './BenchmarkGraphs';
 import BenchmarkSkeleton from '../Skeletons/BenchmarkSkeleton';
 
 const renderBenchmark = (hero, data) => (
   <div>
     <BenchmarkTable data={data} />
+    <BenchmarkGraphs data={data} />
   </div>
 );
 
