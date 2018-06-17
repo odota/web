@@ -21,12 +21,12 @@ const Wrapper = styled.div`
 const mapData = (data, key) => data.map(item => ({ Percentage: (`${item.percentile * 100}%`), Value: Number(item[key].toFixed(2)) }));
 
 const getData = data => [
-  { title: 'Gold per Minute', data: mapData(data, 'gold_per_min') },
-  { title: 'XP per Minute', data: mapData(data, 'hero_damage_per_min') },
-  { title: 'Hero Damage per Minute', data: mapData(data, 'hero_damage_per_min') },
-  { title: 'Hero Healing per Minute', data: mapData(data, 'hero_healing_per_min') },
-  { title: 'Kills per Minute', data: mapData(data, 'kills_per_min') },
-  { title: 'Last Hits per Minute', data: mapData(data, 'last_hits_per_min') },
+  { title: 'Gold per Minute', data: mapData(data, 'gold_per_min'), color: constants.golden },
+  { title: 'XP per Minute', data: mapData(data, 'hero_damage_per_min'), color: constants.blue },
+  { title: 'Hero Damage per Minute', data: mapData(data, 'hero_damage_per_min'), color: constants.red },
+  { title: 'Hero Healing per Minute', data: mapData(data, 'hero_healing_per_min'), color: constants.green },
+  { title: 'Kills per Minute', data: mapData(data, 'kills_per_min'), color: constants.yelor },
+  { title: 'Last Hits per Minute', data: mapData(data, 'last_hits_per_min'), color: constants.colorBlueGray },
 ];
 
 const renderGraphs = data => data.map(graphData => <BenchmarkGraph key={graphData.title} data={graphData} />);
