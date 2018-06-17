@@ -72,7 +72,7 @@ const BenchmarkGraph = ({ data }) => {
           <CartesianGrid stroke="rgba(255, 255, 255, .1)" strokeDasharray="0" />
           <XAxis dataKey="Percentage" />
           <YAxis />
-          <Area dataKey="Value" stroke={data.color} strokeWidth="3" fill={`url(#colorGraph-${graphId})`} />
+          <Area dataKey="Value" name={data.title} stroke={data.color} strokeWidth="3" fill={`url(#colorGraph-${graphId})`} />
           <Tooltip wrapperStyle={tooltipWrapperStyle} cursor={tooltipCursorStyle} />
         </AreaChart>
       </ResponsiveContainer>
