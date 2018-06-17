@@ -8,8 +8,7 @@ import constants from '../constants';
 const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-left: -8px;
-  margin-right: -8px;
+  margin: 48px -8px;
 
   @media screen and (max-width: ${constants.wrapMobile}) {
     display: block;
