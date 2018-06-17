@@ -52,10 +52,10 @@ const BenchmarkGraph = ({ data }) => (
       <AreaChart
         data={data.data}
         margin={{
-          top: 5,
-          right: 30,
-          left: 30,
-          bottom: 5,
+          top: 0,
+          right: 0,
+          left: 0,
+          bottom: 0,
         }}
       >
         <CartesianGrid stroke="rgba(255, 255, 255, .1)" strokeDasharray="0" />
