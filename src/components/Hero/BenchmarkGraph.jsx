@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   flex: 1 1 100%;
   max-width: 33.333%;
-  padding: 16px 8px;
+  padding: 0 8px 48px;
 
   @media screen and (max-width: ${constants.wrapTablet}) {
     max-width: 50%;
@@ -32,8 +32,9 @@ const Wrapper = styled.div`
 const Title = styled.div`
   font-size: 12px;
   letter-spacing: 1px;
-  margin-top: 8px;
-  text-align: center;
+  margin: 24px 0;
+  text-align: right;
+  text-shadow: 0 0 2px rgba(0, 0, 0, .3);
   text-transform: uppercase;
 `;
 
@@ -64,7 +65,7 @@ const BenchmarkGraph = ({ data }) => {
         >
           <defs>
             <linearGradient id={`colorGraph-${graphId}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="50%" stopColor={data.color} stopOpacity=".6" />
+              <stop offset="50%" stopColor={data.color} stopOpacity=".95" />
               <stop offset="100%" stopColor={data.color} stopOpacity="0" />
             </linearGradient>
           </defs>

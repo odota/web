@@ -8,8 +8,8 @@ import BenchmarkSkeleton from '../Skeletons/BenchmarkSkeleton';
 
 const renderBenchmark = (hero, data) => (
   <div>
-    <BenchmarkTable data={data} />
     <BenchmarkGraphs data={data} />
+    <BenchmarkTable data={data} />
   </div>
 );
 
