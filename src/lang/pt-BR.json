@@ -1195,14 +1195,14 @@
   "scenarios_courier_kill": "Time matou o courier inimigo antes dos 3 minutos",
   "scenarios_pos_chat_1min": "Time mandou mensagens positivas para todos antes de 1 minuto",
   "scenarios_neg_chat_1min": "Time mandou palavras negativas no chat para todos antes de 1 minuto",
-  "gosu_default": "Get personal recommendations",
-  "gosu_benchmarks": "Get detailed benchmarks for your hero, lane and role",
-  "gosu_performances": "Get your map control performance",
-  "gosu_laning": "Get why you missed last hits",
+  "gosu_default": "Obtenha recomendações pessoais",
+  "gosu_benchmarks": "Obter referências detalhadas para o seu herói, linha e posição",
+  "gosu_performances": "Obter seu desempenho de controle de mapa",
+  "gosu_laning": "Entendo porque você perdeu os últimos hits",
   "gosu_combat": "Get why kills attempts were unsuccessful",
   "gosu_farm": "Get why you missed last hits",
   "gosu_vision": "Get how many heroes were killed under your wards",
   "gosu_actions": "Get your lost time from mouse usage vs hotkeys",
   "gosu_teamfights": "Get who to target during teamfights",
-  "gosu_analysis": "Get your real MMR bracket"
+  "gosu_analysis": "Obter seu ranking real"
 }
