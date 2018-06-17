@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   flex: 1 1 100%;
   max-width: 33.333%;
-  padding: 0 8px 48px;
+  padding: 48px 8px;
 
   @media screen and (max-width: ${constants.wrapTablet}) {
     max-width: 50%;
