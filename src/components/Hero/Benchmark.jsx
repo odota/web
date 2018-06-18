@@ -6,9 +6,9 @@ import BenchmarkTable from './BenchmarkTable';
 import BenchmarkGraphs from './BenchmarkGraphs';
 import BenchmarkSkeleton from '../Skeletons/BenchmarkSkeleton';
 
-const renderBenchmark = (hero, data) => (
+const renderBenchmark = (hero, data, strings) => (
   <div>
-    <BenchmarkGraphs data={data} />
+    <BenchmarkGraphs data={data} strings={strings} />
     <BenchmarkTable data={data} />
   </div>
 );
@@ -49,7 +49,7 @@ class Benchmark extends Component {
         {isLoading || isError || result === null ? (
           <BenchmarkSkeleton />
         ) : (
-          renderBenchmark(hero, result)
+          renderBenchmark(hero, result, this.props.strings)
         )}
       </div>
     );
