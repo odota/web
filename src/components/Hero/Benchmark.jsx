@@ -20,6 +20,7 @@ class Benchmark extends Component {
         heroId: string,
       }),
     }),
+    strings: shape({}),
     getBenchmark: func,
     isLoading: bool,
     isError: bool,
