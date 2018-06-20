@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 const mapData = (data, key) => data.map(item => ({ Percentage: (`${item.percentile * 100}%`), Value: Number(item[key].toFixed(2)) }));
 
 const getData = (data, strings) => [
-  { title: strings.benchmarks_gold_per_min, data: mapData(data, 'gold_per_min'), color: constants.golden },
+  { title: strings.tooltip_gold_per_min, data: mapData(data, 'gold_per_min'), color: constants.golden },
   { title: strings.benchmarks_xp_per_min, data: mapData(data, 'xp_per_min'), color: constants.blue },
   { title: strings.benchmarks_hero_damage_per_min, data: mapData(data, 'hero_damage_per_min'), color: constants.red },
   { title: strings.benchmarks_hero_healing_per_min, data: mapData(data, 'hero_healing_per_min'), color: constants.green },

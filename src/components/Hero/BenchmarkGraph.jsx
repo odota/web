@@ -11,7 +11,6 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from 'recharts';
-
 import constants from '../constants';
 
 const Wrapper = styled.div`

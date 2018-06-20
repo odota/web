@@ -118,7 +118,6 @@
   "barracks_value_2048": "Radiant Top Ranged",
 
   "benchmarks_description": "%d %s is equal or higher than %d% of recent performances on this hero",
-  "benchmarks_gold_per_min": "Gold per Minute",
   "benchmarks_xp_per_min": "XP per Minute",
   "benchmarks_hero_damage_per_min": "Hero Damage per Minute",
   "benchmarks_hero_healing_per_min": "Hero Healing per Minute",
