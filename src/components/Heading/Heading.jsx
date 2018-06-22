@@ -25,7 +25,7 @@ const Heading = ({
       <span className="info" data-hint={info} style={{ display: info ? 'inline' : 'none' }}>
         {'(?)'}
       </span>
-      { buttonLabel ?
+      { buttonLabel && buttonTo && buttonIcon ?
         <span className="sponsor-button">
           <RaisedButton
             label={buttonLabel}
