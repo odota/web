@@ -30,15 +30,17 @@ HistogramTooltipContent.propTypes = {
   strings: PropTypes.shape({}),
 };
 
+const graphHeight = 400;
+
 const HistogramGraph = ({
   columns, xAxisLabel = '', strings,
 }) => (
-  <ResponsiveContainer width="100%" height={400}>
+  <ResponsiveContainer width="100%" height={graphHeight}>
     <BarChart
-      height={400}
+      height={graphHeight}
       data={columns}
       margin={{
-      top: 5, right: 30, left: 30, bottom: 5,
+      top: 0, right: 0, left: 0, bottom: 0,
     }}
     >
       <XAxis dataKey="x" interval={1}>
@@ -46,12 +48,12 @@ const HistogramGraph = ({
       </XAxis>
       <YAxis />
       <CartesianGrid
-        stroke="#505050"
+        stroke="rgba(255, 255, 255, .2)"
         strokeWidth={1}
         opacity={0.5}
       />
 
-      <Tooltip content={<HistogramTooltipContent xAxisLabel={xAxisLabel} strings={strings} />} />
+      <Tooltip content={<HistogramTooltipContent xAxisLabel={xAxisLabel} strings={strings} />} cursor={{ fill: 'rgba(255, 255, 255, .35)' }} />
       <Bar
         dataKey="games"
       >
@@ -63,8 +65,9 @@ const HistogramGraph = ({
               percent + ((1 - percent) / 5) :
               percent - (percent / 5);
             const rgb = hsvToRgb(adjustedVal * (1 / 3), 0.9, 0.9);
-            const color = `rgb(${Math.floor(rgb[0])}, ${Math.floor(rgb[1])}, ${Math.floor(rgb[2])})`;
-            return <Cell fill={color} key={x} />;
+            const stroke = `rgba(${Math.floor(rgb[0])}, ${Math.floor(rgb[1])}, ${Math.floor(rgb[2])}, .8)`;
+            const color = `rgba(${Math.floor(rgb[0])}, ${Math.floor(rgb[1])}, ${Math.floor(rgb[2])}, .5)`;
+            return <Cell fill={color} stroke={stroke} strokeWidth="2" key={x} />;
           })
         }
       </Bar>

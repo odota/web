@@ -24,7 +24,7 @@
 
   "announce_dismiss": "Dismiss",
   "announce_github_more": "View on GitHub",
-  
+
   "api_meta_description": "The OpenDota API gives you access to all the advanced Dota 2 stats offered by the OpenDota platform. Access performance graphs, heatmaps, wordclouds, and more. Get started for free.",
   "api_title": "The OpenDota API",
   "api_subtitle": "Build on top of the OpenDota platform. Bring advanced stats to your app and deep insights to your users.",
@@ -65,7 +65,7 @@
   "api_header_key": "Your Key",
   "api_header_table": "Get started for free. Keep going at a ridiculously low price.",
   "api_header_details": "Details",
-  
+
   "app_name": "OpenDota",
   "app_language": "Language",
   "app_localization": "Localization",
@@ -118,6 +118,11 @@
   "barracks_value_2048": "Radiant Top Ranged",
 
   "benchmarks_description": "%d %s is equal or higher than %d% of recent performances on this hero",
+  "benchmarks_xp_per_min": "XP per Minute",
+  "benchmarks_hero_damage_per_min": "Hero Damage per Minute",
+  "benchmarks_hero_healing_per_min": "Hero Healing per Minute",
+  "benchmarks_kills_per_min": "Kills per Minute",
+  "benchmarks_last_hits_per_min": "Last Hits per Minute",
   "fantasy_description": "%d for %d points",
 
   "building_melee_rax": "Melee Barracks",
@@ -427,7 +432,7 @@
   "heading_cm_enabled": "CM enabled",
   "heading_current_players": "Current Players",
   "heading_former_players": "Former Players",
-  
+
   "show_details": "Show details",
   "hide_details": "Hide details",
 
@@ -1278,7 +1283,16 @@
   "scenarios_first_blood": "Team drew First Blood",
   "scenarios_courier_kill": "Team sniped the enemy courier before the 3-minute mark",
   "scenarios_pos_chat_1min": "Team all chatted positive words before the 1-minute mark",
-  "scenarios_neg_chat_1min": "Team all chatted negative words before the 1-minute mark"
+  "scenarios_neg_chat_1min": "Team all chatted negative words before the 1-minute mark",
 
-
+  "gosu_default": "Get personal recommendations",
+  "gosu_benchmarks": "Get detailed benchmarks for your hero, lane and role",
+  "gosu_performances": "Get your map control performance",
+  "gosu_laning": "Get why you missed last hits",
+  "gosu_combat": "Get why kills attempts were unsuccessful",
+  "gosu_farm": "Get why you missed last hits",
+  "gosu_vision": "Get how many heroes were killed under your wards",
+  "gosu_actions": "Get your lost time from mouse usage vs hotkeys",
+  "gosu_teamfights": "Get who to target during teamfights",
+  "gosu_analysis": "Get your real MMR bracket"
 }

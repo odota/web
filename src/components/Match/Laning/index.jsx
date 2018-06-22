@@ -12,6 +12,8 @@ class Laning extends React.Component {
   static propTypes = {
     match: PropTypes.shape({}),
     strings: PropTypes.shape({}),
+    sponsorURL: PropTypes.string,
+    sponsorIcon: PropTypes.string,
   }
 
   constructor(props) {
@@ -26,12 +28,19 @@ class Laning extends React.Component {
   };
 
   render() {
-    const { match, strings } = this.props;
+    const {
+      match, strings, sponsorURL, sponsorIcon,
+    } = this.props;
     const { laningColumns } = mcs(strings);
     return (
       <StyledFlexContainer>
-        <StyledFlexElement >
-          <Heading title={strings.th_map} />
+        <StyledFlexElement>
+          <Heading
+            title={strings.th_map}
+            buttonLabel={strings.gosu_laning}
+            buttonTo={`${sponsorURL}Laning`}
+            buttonIcon={sponsorIcon}
+          />
           <Heatmap width={400} points={unpackPositionData((match.players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)} />
         </StyledFlexElement>
         <StyledFlexElement>

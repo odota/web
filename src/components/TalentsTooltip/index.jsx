@@ -22,7 +22,10 @@ const TalentsTooltip = ({ talents, ttId }) => (
 );
 
 TalentsTooltip.propTypes = {
-  talents: propTypes.shape({}).isRequired,
+  talents: propTypes.oneOfType([
+    propTypes.object,
+    propTypes.array,
+  ]).isRequired,
   ttId: propTypes.string.isRequired,
 };
 

@@ -41,7 +41,10 @@ const Talents = ({ talents }) => {
 };
 
 Talents.propTypes = {
-  talents: propTypes.shape({}).isRequired,
+  talents: propTypes.oneOfType([
+    propTypes.object,
+    propTypes.array,
+  ]).isRequired,
 };
 
 export default Talents;

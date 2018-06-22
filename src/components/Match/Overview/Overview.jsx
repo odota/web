@@ -31,7 +31,7 @@ const Styled = styled.div`
   }
 `;
 
-const Overview = (strings) => {
+const Overview = (strings, gosuUrl, gosuIcon) => {
   const { overviewColumns, abilityColumns, abilityDraftColumns } = mcs(strings);
   return ({
     name: strings.tab_overview,
@@ -43,6 +43,9 @@ const Overview = (strings) => {
             players={match.players}
             columns={overviewColumns(match)}
             heading={strings.heading_overview}
+            buttonLabel={strings.gosu_default}
+            buttonTo={`${gosuUrl}Overview`}
+            buttonIcon={gosuIcon}
             picksBans={match.picks_bans}
             radiantTeam={match.radiant_team}
             direTeam={match.dire_team}
