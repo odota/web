@@ -37,7 +37,6 @@ const Styled = styled.div`
   
   .meter {
     top:100%;
-    transition:1.5s;
     transform-origin:center top;
     border-radius:0 0 6em 6em;
     transform:rotate(${props => props.percent}turn);
@@ -73,7 +72,7 @@ const Styled = styled.div`
 const computeMeterPercent = value => 0.005 * value;
 
 const computeMeterColor = (value) => {
-  if (value < 45) {
+  if (value < 47) {
     return 'rgb(179,132,91)';
   } else if (value < 50) {
     return 'rgb(156,148,96)';
