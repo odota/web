@@ -26,6 +26,7 @@ const SummOfRecMatches = ({ matchesData, strings }) => {
     tower_damage: [],
     duration: [],
     wins: [],
+    game_mode: [],
   };
   const computed = {};
 
