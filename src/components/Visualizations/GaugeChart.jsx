@@ -81,7 +81,7 @@ const Styled = styled.div`
 
   .loss {
     position:absolute;
-    right:0.7em;
+    right:0.8em;
     bottom: 2em;
     color: rgb(245, 245, 245);
     
