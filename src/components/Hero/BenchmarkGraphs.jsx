@@ -21,13 +21,13 @@ const mapData = (data, key) => data.map(item => ({ Percentage: (`${item.percenti
 
 const getData = (data, strings) => [
   { title: strings.tooltip_gold_per_min, data: mapData(data, 'gold_per_min'), color: constants.golden },
-  { title: strings.benchmarks_xp_per_min, data: mapData(data, 'xp_per_min'), color: constants.blue },
-  { title: strings.benchmarks_hero_damage_per_min, data: mapData(data, 'hero_damage_per_min'), color: constants.red },
-  { title: strings.benchmarks_hero_healing_per_min, data: mapData(data, 'hero_healing_per_min'), color: constants.green },
-  { title: strings.benchmarks_kills_per_min, data: mapData(data, 'kills_per_min'), color: constants.yelor },
-  { title: strings.benchmarks_last_hits_per_min, data: mapData(data, 'last_hits_per_min'), color: constants.colorBlueGray },
+  { title: strings.tooltip_xp_per_min, data: mapData(data, 'xp_per_min'), color: constants.blue },
+  { title: strings.tooltip_hero_damage_per_min, data: mapData(data, 'hero_damage_per_min'), color: constants.red },
+  { title: strings.tooltip_hero_healing_per_min, data: mapData(data, 'hero_healing_per_min'), color: constants.green },
+  { title: strings.tooltip_kills_per_min, data: mapData(data, 'kills_per_min'), color: constants.yelor },
+  { title: strings.tooltip_last_hits_per_min, data: mapData(data, 'last_hits_per_min'), color: constants.colorBlueGray },
   { title: strings.tooltip_lhten, data: mapData(data, 'lhten'), color: constants.golden },
-  { title: strings.benchmarks_stuns_per_min, data: mapData(data, 'stuns'), color: constants.red },
+  { title: strings.tooltip_stuns_per_min, data: mapData(data, 'stuns'), color: constants.red },
 ];
 
 const renderGraphs = data => data.map(graphData => <BenchmarkGraph key={graphData.title} data={graphData} />);
