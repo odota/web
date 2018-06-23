@@ -222,7 +222,7 @@ const getData = (props) => {
   props.getPlayerRecentMatches(props.playerId);
   props.getPlayerHeroes(props.playerId, props.location.search);
   props.getPlayerPeers(props.playerId, props.location.search);
-  props.getPlayerCounts(props.playerId, props.location.query);
+  props.getPlayerCounts(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {
@@ -289,7 +289,7 @@ const filterCounts = (counts) => {
 
   const limitCount = (key, field, lim) =>
     counts[key].list.sort((a, b) => (
-      a[field] <= b[field] ? 1 : -1
+      b[field] - a[field]
     )).slice(0, lim);
 
   Object.keys(counts).forEach((key) => {
