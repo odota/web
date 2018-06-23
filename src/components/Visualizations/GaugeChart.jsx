@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-
+import constants from '../constants';
 
 const Styled = styled.div` 
-   font-size: 70%;
+   font-size: 60%;
    padding: 5px;
+   margin-right: 15px;
+   position: relative;
 
   .gauge {
     display:inline-block;
@@ -23,7 +25,7 @@ const Styled = styled.div`
   }
   
   .gauge:before, .meter { width:10em; height:5em; }
-  .gauge:before { border-radius:5em 5em 0 0; background:#2a2a2a; }
+  .gauge:before { border-radius:5em 5em 0 0; background:${constants.colorRed}; }
   
   .gauge:after {
     position:absolute;
@@ -42,7 +44,7 @@ const Styled = styled.div`
     transform:rotate(${props => props.percent}turn);
   }
   
-  .percentage .meter { background:${props => props.meterColor}; }
+  .percentage .meter { background:${constants.colorGreen}; }
   .percentage-container {
     position:absolute;
     bottom:-.75em;
@@ -55,7 +57,7 @@ const Styled = styled.div`
   
   .percentage-indicator {
     font:bold 1.25em/1.6 sans-serif;
-    color:white;
+    color:${constants.colorGreen};
     
     white-space:pre;
     vertical-align:baseline;
@@ -68,22 +70,27 @@ const Styled = styled.div`
       color: rgb(179,179,179);
       font-size: 12;
   }
+
+  .win {
+    position:absolute;
+    left:0.9em;
+    bottom: 2em;
+    color: rgb(245, 245, 245);
+    
+  }
+
+  .loss {
+    position:absolute;
+    right:0.7em;
+    bottom: 2em;
+    color: rgb(245, 245, 245);
+    
+  }
 `;
 const computeMeterPercent = value => 0.005 * value;
 
-const computeMeterColor = (value) => {
-  if (value < 47) {
-    return 'rgb(179,132,91)';
-  } else if (value < 50) {
-    return 'rgb(156,148,96)';
-  } else if (value < 53) {
-    return 'rgb(140,159,99)';
-  }
-  return 'rgb(117,176,103)';
-};
-
 const GaugeChart = ({ value, caption }) => (
-  <Styled percent={computeMeterPercent(value)} meterColor={computeMeterColor(value)}>
+  <Styled percent={computeMeterPercent(value)}>
     <div className="gauge percentage">
       <div className="meter" />
       <div className="percentage-container">
@@ -93,6 +100,8 @@ const GaugeChart = ({ value, caption }) => (
       </div>
     </div>
     <div className="caption">{caption}</div>
+    <div className="win">Win</div>
+    <div className="loss">Loss</div>
   </Styled>
 );
 

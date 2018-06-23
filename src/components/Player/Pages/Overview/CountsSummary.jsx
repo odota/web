@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import GaugeChart from './../../../Visualizations/GaugeChart';
 
 const Styled = styled.div`
-    justify-content: space-evenly;
+    justify-content: center;
     display: flex;
     flex-wrap: wrap;
     border: 1px solid rgba(255,255,255,0.1);

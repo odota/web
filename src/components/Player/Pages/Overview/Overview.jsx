@@ -31,11 +31,12 @@ const OverviewContainer = styled.div`
 `;
 
 const SummaryContainer = styled(Container)`
-  width: 100%;
 
   & ul {
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
     margin: 0;
-    padding: 0;
+    padding-left: 5px;
 
     & li {
       list-style: none;
@@ -141,6 +142,13 @@ const Overview = ({
       </Styled>
       <SummOfRecMatches matchesData={validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23)} />
     </SummaryContainer>
+    <Container
+      title={strings.tab_counts}
+      loading={countsLoading}
+      error={countsError}
+    >
+      <CountsSummary data={countsData} />
+    </Container>
     <MatchesContainer>
       <Container
         title={strings.heading_matches}
@@ -185,14 +193,6 @@ const Overview = ({
         />
       </Container>
     </HeroesContainer>
-    <Container
-      title={strings.tab_counts}
-      loading={countsLoading}
-      error={countsError}
-      style={{ width: '100%' }}
-    >
-      <CountsSummary data={countsData} />
-    </Container>
   </OverviewContainer>
 );
 
