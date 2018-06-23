@@ -25,7 +25,7 @@ const Styled = styled.div`
   }
   
   .gauge:before, .meter { width:10em; height:5em; }
-  .gauge:before { border-radius:5em 5em 0 0; background:${constants.colorRed}; }
+  .gauge:before { border-radius:5em 5em 0 0; background:#2a2a2a; }
   
   .gauge:after {
     position:absolute;
@@ -44,7 +44,7 @@ const Styled = styled.div`
     transform:rotate(${props => props.percent}turn);
   }
   
-  .percentage .meter { background:${constants.colorGreen}; }
+  .percentage .meter { background:${props => props.meterColor}; }
   .percentage-container {
     position:absolute;
     bottom:-.75em;
@@ -57,7 +57,7 @@ const Styled = styled.div`
   
   .percentage-indicator {
     font:bold 1.25em/1.6 sans-serif;
-    color:${constants.colorGreen};
+    color:${props => props.meterColor};
     
     white-space:pre;
     vertical-align:baseline;
@@ -89,8 +89,19 @@ const Styled = styled.div`
 `;
 const computeMeterPercent = value => 0.005 * value;
 
+const computeMeterColor = (value) => {
+  if (value < 45) {
+    return 'rgb(179,132,91)';
+  } else if (value < 50) {
+    return 'rgb(156,148,96)';
+  } else if (value < 53) {
+    return 'rgb(140,159,99)';
+  }
+  return 'rgb(117,176,103)';
+};
+
 const GaugeChart = ({ value, caption }) => (
-  <Styled percent={computeMeterPercent(value)}>
+  <Styled percent={computeMeterPercent(value)} meterColor={computeMeterColor(value)}>
     <div className="gauge percentage">
       <div className="meter" />
       <div className="percentage-container">
