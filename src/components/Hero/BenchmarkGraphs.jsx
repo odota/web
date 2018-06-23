@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const mapData = (data, key) => data.map(item => ({ Percentage: (`${item.percentile * 100}%`), Value: !isNaN(item[key]) && Number(item[key].toFixed(2)) }));
+const mapData = (data, key) => data.map(item => ({ Percentage: (`${item.percentile * 100}%`), Value: typeof item[key] === 'number' && Number(item[key].toFixed(2)) }));
 
 const getData = (data, strings) => [
   { title: strings.tooltip_gold_per_min, data: mapData(data, 'gold_per_min'), color: constants.golden },
@@ -27,14 +27,14 @@ const getData = (data, strings) => [
   { title: strings.benchmarks_kills_per_min, data: mapData(data, 'kills_per_min'), color: constants.yelor },
   { title: strings.benchmarks_last_hits_per_min, data: mapData(data, 'last_hits_per_min'), color: constants.colorBlueGray },
   { title: strings.tooltip_lhten, data: mapData(data, 'lhten'), color: constants.golden },
-  { title: strings.tooltip_stuns, data: mapData(data, 'stuns'), color: constants.red }
+  { title: strings.benchmarks_stuns_per_min, data: mapData(data, 'stuns'), color: constants.red },
 ];
 
 const renderGraphs = data => data.map(graphData => <BenchmarkGraph key={graphData.title} data={graphData} />);
 
 const BenchmarkGraphs = ({ data, strings }) => {
   const mappedData = getData(data, strings);
-  
+
   return (
     <Wrapper>
       { renderGraphs(mappedData) }

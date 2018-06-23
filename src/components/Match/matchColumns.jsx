@@ -332,7 +332,7 @@ export default (strings) => {
         if (match.version || !parsedBenchmarkCols.includes(key)) {
           cols.push({
             displayName: strings[`th_${key}`] || strings[`heading_${key}`],
-            tooltip: strings[`tooltip_${key}`],
+            tooltip: strings[`benchmarks_${key}`] || strings[`tooltip_${key}`],
             field: 'benchmarks',
             index: i,
             displayFn: (row, column, field) => {

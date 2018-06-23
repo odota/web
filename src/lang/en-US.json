@@ -122,6 +122,7 @@
   "benchmarks_hero_damage_per_min": "Hero Damage per Minute",
   "benchmarks_hero_healing_per_min": "Hero Healing per Minute",
   "benchmarks_kills_per_min": "Kills per Minute",
+  "benchmarks_stuns_per_min": "Stuns per Minute",
   "benchmarks_last_hits_per_min": "Last Hits per Minute",
   "fantasy_description": "%d for %d points",
 
