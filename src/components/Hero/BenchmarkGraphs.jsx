@@ -27,7 +27,7 @@ const getData = (data, strings) => [
   { title: strings.tooltip_kills_per_min, data: mapData(data, 'kills_per_min'), color: constants.yelor },
   { title: strings.tooltip_last_hits_per_min, data: mapData(data, 'last_hits_per_min'), color: constants.colorBlueGray },
   { title: strings.tooltip_lhten, data: mapData(data, 'lhten'), color: constants.golden },
-  { title: strings.tooltip_stuns_per_min, data: mapData(data, 'stuns'), color: constants.red },
+  { title: strings.tooltip_stuns_per_min, data: mapData(data, 'stuns_per_min'), color: constants.red },
 ];
 
 const renderGraphs = data => data.map(graphData => <BenchmarkGraph key={graphData.title} data={graphData} />);
