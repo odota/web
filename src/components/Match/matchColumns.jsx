@@ -19,7 +19,7 @@ import TargetsBreakdown from './TargetsBreakdown';
 
 const heroNames = getHeroesById();
 
-const parsedBenchmarkCols = ['lhten', 'stuns'];
+const parsedBenchmarkCols = ['lhten', 'stuns_per_min'];
 
 export default (strings) => {
   const heroTd = (row, col, field, index, hideName, party, showGuide = false, guideType) => {
@@ -331,7 +331,7 @@ export default (strings) => {
       Object.keys(match.players[0].benchmarks).forEach((key, i) => {
         if (match.version || !parsedBenchmarkCols.includes(key)) {
           cols.push({
-            displayName: strings[`th_${key}`] || strings[`heading_${key}`],
+            displayName: strings[`th_${key}`] || strings[`heading_${key}`] || strings[`tooltip_${key}`],
             tooltip: strings[`tooltip_${key}`],
             field: 'benchmarks',
             index: i,
