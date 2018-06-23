@@ -33,7 +33,7 @@ const Styled = styled.div`
     left:2.5em;
     width:5em;
     height:2.5em;
-    background:#222;
+    background:rgb(33, 34, 44);
     border-radius:2.5em 2.5em 0 0;
   }
   

@@ -142,13 +142,13 @@ const Overview = ({
       </Styled>
       <SummOfRecMatches matchesData={validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23)} />
     </SummaryContainer>
-    <Container
+    <SummaryContainer
       title={strings.tab_counts}
       loading={countsLoading}
       error={countsError}
     >
       <CountsSummary data={countsData} />
-    </Container>
+    </SummaryContainer>
     <MatchesContainer>
       <Container
         title={strings.heading_matches}
