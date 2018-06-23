@@ -7,7 +7,8 @@ const Styled = styled.div`
     justify-content: center;
     display: flex;
     flex-wrap: wrap;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgb(52, 50, 50);
+    background-color: rgb(46, 47, 64);
     border-radius: 10px;
 
     > div {
