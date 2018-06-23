@@ -65,25 +65,28 @@ const Styled = styled.div`
   }
 
   .caption {
+      position: relative;
       text-align: center;
       color: rgb(179,179,179);
-      font-size: 12;
+      font-size: 12px;
+      bottom: 5px;
+      text-transform: uppercase;
   }
 
   .win {
     position:absolute;
     left:0.9em;
-    bottom: 2em;
-    color: rgb(245, 245, 245);
-    
+    bottom: 0.7em;
+    color: rgb(245, 245, 245);  
+    font-weight: lighter; 
   }
 
   .loss {
     position:absolute;
     right:0.8em;
-    bottom: 2em;
-    color: rgb(245, 245, 245);
-    
+    bottom: 0.7em;
+    color: rgb(245, 245, 245);   
+    font-weight: lighter; 
   }
 `;
 const computeMeterPercent = value => 0.005 * value;
@@ -101,6 +104,7 @@ const computeMeterColor = (value) => {
 
 const GaugeChart = ({ value, caption }) => (
   <Styled percent={computeMeterPercent(value)} meterColor={computeMeterColor(value)}>
+    <div className="caption">{caption}</div>
     <div className="gauge percentage">
       <div className="meter" />
       <div className="percentage-container">
@@ -109,7 +113,6 @@ const GaugeChart = ({ value, caption }) => (
         </div>
       </div>
     </div>
-    <div className="caption">{caption}</div>
     <div className="win">Win</div>
     <div className="loss">Loss</div>
   </Styled>
