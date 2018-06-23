@@ -31,6 +31,7 @@ const OverviewContainer = styled.div`
 `;
 
 const SummaryContainer = styled(Container)`
+  width: 100%;
 
   & ul {
     border: 1px solid rgb(52, 50, 50);
@@ -147,6 +148,9 @@ const Overview = ({
       title={strings.tab_counts}
       loading={countsLoading}
       error={countsError}
+      loaderWidth={250}
+      loaderHeight={30}
+      style={{ width: 'auto' }}
     >
       <CountsSummary data={countsData} />
     </SummaryContainer>
