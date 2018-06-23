@@ -150,7 +150,7 @@ const Overview = ({
       error={countsError}
       loaderWidth={250}
       loaderHeight={30}
-      style={{ width: 'auto' }}
+      style={{ width: countsLoading ? '100%' : 'auto' }}
     >
       <CountsSummary data={countsData} />
     </SummaryContainer>
