@@ -67,10 +67,16 @@ const Styled = styled.div`
   .caption {
       position: relative;
       text-align: center;
+      left: 4px;
       color: rgb(179,179,179);
       font-size: 12px;
       bottom: 5px;
       text-transform: uppercase;
+      max-width: 90px;
+      max-height: 16px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
   }
 
   .win {
