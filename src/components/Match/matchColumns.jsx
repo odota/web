@@ -19,6 +19,8 @@ import TargetsBreakdown from './TargetsBreakdown';
 
 const heroNames = getHeroesById();
 
+const parsedBenchmarkCols = ['lhten', 'stuns_per_min'];
+
 export default (strings) => {
   const heroTd = (row, col, field, index, hideName, party, showGuide = false, guideType) => {
     const heroName = heroes[row.hero_id] && heroes[row.hero_id].localized_name.toLowerCase().replace(' ', '-');
@@ -327,32 +329,34 @@ export default (strings) => {
     const cols = [heroTdColumn];
     if (match.players && match.players[0] && match.players[0].benchmarks) {
       Object.keys(match.players[0].benchmarks).forEach((key, i) => {
-        cols.push({
-          displayName: strings[`th_${key}`],
-          tooltip: strings[`tooltip_${key}`],
-          field: 'benchmarks',
-          index: i,
-          displayFn: (row, column, field) => {
-            if (field) {
-              const bm = field[key];
-              const bucket = percentile(bm.pct);
-              const percent = Number(bm.pct * 100).toFixed(2);
-              const value = Number((bm.raw || 0).toFixed(2));
-              return (
-                <div data-tip data-for={`benchmarks_${row.player_slot}_${key}`}>
-                  <span style={{ color: constants[bucket.color] }}>{`${percent}%`}</span>
-                  <small style={{ margin: '3px' }}>
-                    {value}
-                  </small>
-                  <ReactTooltip id={`benchmarks_${row.player_slot}_${key}`} place="top" effect="solid">
-                    {util.format(strings.benchmarks_description, value, strings[`th_${key}`], percent)}
-                  </ReactTooltip>
-                </div>
-              );
-            }
-            return null;
-          },
-        });
+        if (match.version || !parsedBenchmarkCols.includes(key)) {
+          cols.push({
+            displayName: strings[`th_${key}`] || strings[`heading_${key}`] || strings[`tooltip_${key}`],
+            tooltip: strings[`tooltip_${key}`],
+            field: 'benchmarks',
+            index: i,
+            displayFn: (row, column, field) => {
+              if (field) {
+                const bm = field[key];
+                const bucket = percentile(bm.pct);
+                const percent = Number(bm.pct * 100).toFixed(2);
+                const value = Number((bm.raw || 0).toFixed(2));
+                return (
+                  <div data-tip data-for={`benchmarks_${row.player_slot}_${key}`}>
+                    <span style={{ color: constants[bucket.color] }}>{`${percent}%`}</span>
+                    <small style={{ margin: '3px' }}>
+                      {value}
+                    </small>
+                    <ReactTooltip id={`benchmarks_${row.player_slot}_${key}`} place="top" effect="solid">
+                      {util.format(strings.benchmarks_description, value, strings[`th_${key}`], percent)}
+                    </ReactTooltip>
+                  </div>
+                );
+              }
+              return null;
+            },
+          });
+        }
       });
     }
     return cols;
@@ -945,7 +949,11 @@ export default (strings) => {
       displayName: strings.th_damage_received,
       field: 'damage_inflictor_received',
       displayFn: (row, col, field) =>
-        (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+        (
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {(field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : '')}
+          </div>
+        ),
     },
   ];
 

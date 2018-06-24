@@ -8,7 +8,7 @@ const BenchmarkTable = ({ data, strings }) => {
     displayName: strings[`th_${stat}`],
     tooltip: strings[`tooltip_${stat}`],
     field: stat,
-    displayFn: (row, col, field) => (stat === 'percentile' ? `${field * 100}%` : Number(field.toFixed(2))),
+    displayFn: (row, col, field) => (stat === 'percentile' ? `${field * 100}%` : typeof field === 'number' && Number(field.toFixed(2))),
   }));
   return (<Table data={data} columns={columns(data)} />);
 };

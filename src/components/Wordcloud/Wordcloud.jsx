@@ -67,14 +67,13 @@ class Wordcloud extends React.Component {
     counts: string,
   }
 
+  id = `a-${uuid.v4()}`;
+
   componentDidMount() {
     updateWordCloud(this.props.counts, this.id);
   }
   componentDidUpdate(nextProps) {
     updateWordCloud(nextProps.counts, this.id);
-  }
-  UNSAFE_componentWillMount() {
-    this.id = `a-${uuid.v4()}`;
   }
   render() {
     const width = Math.min(1080, window.innerWidth * 0.75);

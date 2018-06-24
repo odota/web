@@ -36,10 +36,11 @@ class Status extends React.Component {
     strings: PropTypes.shape({}),
   }
 
-  UNSAFE_componentWillMount() {
-    this.setState({
-      result: {},
-    });
+  state = {
+    result: {},
+  }
+
+  componentDidMount() {
     fetch(`${process.env.REACT_APP_API_HOST}/api/status`)
       .then(jsonResponse)
       .then(json => this.setState({ result: json }));

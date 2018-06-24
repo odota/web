@@ -119,10 +119,11 @@ class Table extends React.Component {
     });
   };
 
-  UNSAFE_componentWillReceiveProps(newProps) {
-    if (newProps.resetTableState) {
-      this.setState(initialState);
+  static getDerivedStateFromProps(props) {
+    if (props.resetTableState) {
+      return initialState;
     }
+    return null;
   }
 
   nextPage = () => {
