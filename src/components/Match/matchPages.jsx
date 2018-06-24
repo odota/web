@@ -185,7 +185,7 @@ const matchPages = (strings) => {
       */}
       </div>),
   }, {
-    name: strings.tab_purchases,
+    name: strings.tab_items,
     key: 'purchases',
     parsed: true,
     content: match => (

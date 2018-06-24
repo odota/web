@@ -8,6 +8,8 @@ const AttributesWrapper = styled.div`
   background: rgba(0, 0, 0, .45);
   border-radius: 8px;
   display: block;
+  margin: auto;
+  max-width: 300px;
   padding: 12px;
 `;
 
