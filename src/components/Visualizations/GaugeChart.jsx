@@ -7,6 +7,10 @@ const Styled = styled.div`
    padding: 5px;
    margin-right: 15px;
    position: relative;
+   
+   :last-child {
+    margin-right: 0 !important;
+   }
 
   .gauge {
     display:inline-block;
