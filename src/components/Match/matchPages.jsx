@@ -60,6 +60,7 @@ const matchPages = strings => [Overview(strings), {
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
         draft={match.draft_timings}
+        startTime={match.start_time}
       />
     </div>),
 }, {
