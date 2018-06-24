@@ -85,7 +85,7 @@ const Styled = styled.div`
     position:absolute;
     right:0.8em;
     bottom: 0.7em;
-    color: rgb(245, 245, 245);   
+    color: rgb(187, 187, 187);   
     font-weight: lighter; 
   }
 `;
