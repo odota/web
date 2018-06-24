@@ -77,16 +77,14 @@ const Styled = styled.div`
     position:absolute;
     left:0.9em;
     bottom: 0.7em;
-    color: rgb(245, 245, 245);  
-    font-weight: lighter; 
+    color: #080808;  
   }
 
   .loss {
     position:absolute;
     right:0.8em;
     bottom: 0.7em;
-    color: rgb(187, 187, 187);   
-    font-weight: lighter; 
+    color: rgb(144, 144, 144);   
   }
 `;
 const computeMeterPercent = value => 0.005 * value;
