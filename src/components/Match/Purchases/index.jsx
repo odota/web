@@ -10,10 +10,11 @@ const toggleStyle = {
   float: 'right',
   position: 'relative',
   right: '10px',
-  top: '15px',
+  top: '9px',
   border: '1px solid rgba(179, 179, 179, 0.1)',
-  padding: '2px',
+  padding: '6px',
   backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  borderRadius: '5px',
 };
 
 class Purchases extends React.Component {
@@ -47,8 +48,8 @@ class Purchases extends React.Component {
           labelStyle={{ color: '#b3b3b3', lineHeight: '13px', fontSize: '14px' }}
           style={toggleStyle}
           onToggle={this.change}
-          thumbStyle={{ backgroundColor: 'rgb(179, 179, 179)', marginTop: '2px' }}
-          trackStyle={{ position: 'absolute', marginTop: '2px' }}
+          thumbStyle={{ backgroundColor: 'rgb(179, 179, 179)', marginTop: '2px', marginRight: '3px' }}
+          trackStyle={{ position: 'absolute', marginTop: '2px', marginRight: '3px' }}
         />
         <TeamTable
           players={match.players}
