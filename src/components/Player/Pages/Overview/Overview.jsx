@@ -35,7 +35,6 @@ const SummaryContainer = styled(Container)`
 
   & ul {
     border: 1px solid rgb(52, 50, 50);
-    border-radius: 10px;
     background-color: rgb(46, 47, 64);
     margin: 0;
     padding-left: 5px;
