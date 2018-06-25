@@ -114,7 +114,7 @@ const Styled = styled.div`
     }
   }
 `;
-const computeMeterpercent = value => 0.005 * value;
+const computeMeterPercent = value => 0.005 * value;
 
 const computeMeterColor = (value) => {
   if (value < 45) {
@@ -128,7 +128,7 @@ const computeMeterColor = (value) => {
 };
 
 const GaugeChart = ({ number, percent, caption }) => (
-  <Styled percent={computeMeterpercent(percent)} meterColor={computeMeterColor(percent)}>
+  <Styled percent={computeMeterPercent(percent)} meterColor={computeMeterColor(percent)}>
     <div className="caption">{caption}</div>
     <div className="gauge percentage">
       <div className="meter" />

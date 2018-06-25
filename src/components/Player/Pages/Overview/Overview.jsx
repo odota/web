@@ -148,6 +148,7 @@ const Overview = ({
       title={strings.tab_counts}
       loading={countsLoading}
       error={countsError}
+      subtitle={strings.th_win}
       loaderWidth={250}
       loaderHeight={30}
       style={{ width: countsLoading ? '100%' : 'auto' }}
