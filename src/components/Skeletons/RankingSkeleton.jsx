@@ -4,9 +4,9 @@ import ContentLoader from 'react-content-loader';
 const RankingSkeleton = props => (
   <ContentLoader
     primaryColor="#666"
-    secondaryColor="#666"
+    secondaryColor="#ecebeb"
     width={400}
-    animate={false}
+    animate
     {...props}
   >
     <rect x="0" y="10" rx="5" ry="5" width="300" height="5" />

@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Toggle from 'material-ui/Toggle';
 import TeamTable from '../TeamTable';
-import { purchaseTimesColumns } from '../matchColumns';
+import mcs from '../matchColumns';
 
 class Purchases extends React.Component {
   static propTypes = {
     match: PropTypes.shape({}),
     strings: PropTypes.shape({}),
+    sponsorURL: PropTypes.string,
+    sponsorIcon: PropTypes.string,
   }
 
   constructor(props) {
@@ -23,7 +25,10 @@ class Purchases extends React.Component {
   }
 
   render() {
-    const { match, strings } = this.props;
+    const {
+      match, strings, sponsorURL, sponsorIcon,
+    } = this.props;
+    const { purchaseTimesColumns } = mcs(strings);
     return (
       <div>
         <div style={{ width: '190px', margin: '10px' }}>
@@ -37,6 +42,9 @@ class Purchases extends React.Component {
           players={match.players}
           columns={purchaseTimesColumns(match, this.state.showConsumables)}
           heading={strings.heading_purchase_log}
+          buttonLabel={strings.gosu_default}
+          buttonTo={`${sponsorURL}Purchases`}
+          buttonIcon={sponsorIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
         />

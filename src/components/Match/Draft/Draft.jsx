@@ -179,6 +179,9 @@ const Draft = ({
   direTeam = {},
   draft = [],
   startTime,
+  sponsorURL,
+  sponsorIcon,
+  strings,
 }) => {
   // one-based indexing (since draft[i].order starts at 1)
   let orderOne = [];
@@ -214,6 +217,9 @@ const Draft = ({
         <section className="teams">
           <Heading
             title={`${getTeamName(radiantTeam, true)}`}
+            buttonLabel={strings.gosu_default}
+            buttonTo={`${sponsorURL}Draft`}
+            buttonIcon={sponsorIcon}
             icon={<IconRadiant />}
           />
           <Heading
@@ -315,6 +321,9 @@ Draft.propTypes = {
   direTeam: PropTypes.shape({}),
   draft: PropTypes.arrayOf(PropTypes.shape({})),
   startTime: PropTypes.number,
+  sponsorURL: PropTypes.string,
+  sponsorIcon: PropTypes.string,
+  strings: PropTypes.shape({}),
 };
 
 export default Draft;

@@ -151,12 +151,12 @@
           .catch(function(err) {
             console.log(err);
           });
-        */
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-          registrations.forEach(function (r) {
-            r.unregister();
+          navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            registrations.forEach(function (r) {
+              r.unregister();
+            });
           });
-        });
+        */
       }  
   </script>   
 </body>

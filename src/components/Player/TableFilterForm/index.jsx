@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import querystring from 'querystring';
 import styled from 'styled-components';
+import heroes from 'dotaconstants/build/heroes.json';
+import patch from 'dotaconstants/build/patch.json';
+import region from 'dotaconstants/build/region.json';
 import { toggleShowForm } from '../../../actions/formActions';
 import FormField from '../../Form/FormField';
-import * as data from './TableFilter.config';
 
 const Styled = styled.div`
 .formGroup {
@@ -64,7 +66,7 @@ class TableFilterForm extends React.Component {
     getPeers(this.props, this);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
+  componentDidUpdate(nextProps) {
     if (nextProps.playerId !== this.props.playerId) {
       setShowFormState(nextProps);
       getPeers(nextProps, this);
@@ -76,6 +78,115 @@ class TableFilterForm extends React.Component {
       showForm, currentQueryString, history, strings,
     } = this.props;
     const formSelectionState = querystring.parse(currentQueryString.substring(1));
+
+    const heroList = Object.keys(heroes).map(id => ({
+      text: heroes[id] && heroes[id].localized_name,
+      value: id,
+    })).sort((a, b) => a.text && a.text.localeCompare(b.text));
+
+    const laneList = Object.keys(strings)
+      .filter(str => str.indexOf('lane_role_') === 0)
+      .map(str => str.substring('lane_role_'.length))
+      .map(id => ({
+        text: strings[`lane_role_${id}`],
+        value: Number(id),
+      }));
+
+    const patchList = patch.map((_patch, index) => ({
+      text: _patch.name,
+      value: index,
+    })).reverse();
+
+    const modeList = Object.keys(strings)
+      .filter(str => str.indexOf('game_mode_') === 0)
+      .map(str => str.substring('game_mode_'.length))
+      .map(id => ({
+        text: strings[`game_mode_${id}`],
+        value: id,
+      }));
+
+    const lobbyTypeList = Object.keys(strings)
+      .filter(str => str.indexOf('lobby_type_') === 0)
+      .map(str => str.substring('lobby_type_'.length))
+      .map(id => ({
+        text: strings[`lobby_type_${id}`],
+        value: id,
+      }));
+
+    const regionList = Object.keys(region).map(id => ({
+      text: strings[`region_${id}`],
+      value: Number(id),
+    }));
+
+    const factionList = [{
+      text: strings.general_radiant,
+      value: 1,
+    }, {
+      text: strings.general_dire,
+      value: 0,
+    }];
+
+    const resultList = [{
+      text: strings.td_win,
+      value: 1,
+    }, {
+      text: strings.td_loss,
+      value: 0,
+    }];
+
+    const dateList = [{
+      text: strings.filter_last_week,
+      value: 7,
+    }, {
+      text: strings.filter_last_month,
+      value: 30,
+    }, {
+      text: strings.filter_last_3_months,
+      value: 90,
+    }, {
+      text: strings.filter_last_6_months,
+      value: 180,
+    }];
+
+    const significantList = [{
+      text: strings.filter_significant_include,
+      value: 0,
+    }];
+
+    const gamesPlayedList = [{
+      text: '5',
+      value: 5,
+    }, {
+      text: '10',
+      value: 10,
+    }, {
+      text: '15',
+      value: 15,
+    }, {
+      text: '20',
+      value: 20,
+    }, {
+      text: '25',
+      value: 25,
+    }];
+
+    const partySize = [{
+      text: '1',
+      value: 1,
+    }, {
+      text: '2',
+      value: 2,
+    }, {
+      text: '3',
+      value: 3,
+    }, {
+      text: '4',
+      value: 4,
+    }, {
+      text: '5',
+      value: 5,
+    }];
+
     return (
       <Styled>
         <div className={showForm ? 'showForm' : 'hideForm'}>
@@ -83,7 +194,7 @@ class TableFilterForm extends React.Component {
             <FormField
               name="hero_id"
               label={strings.filter_hero_id}
-              dataSource={data.heroList}
+              dataSource={heroList}
               formSelectionState={formSelectionState}
               history={history}
               strict
@@ -92,7 +203,7 @@ class TableFilterForm extends React.Component {
             <FormField
               name="is_radiant"
               label={strings.filter_is_radiant}
-              dataSource={data.factionList}
+              dataSource={factionList}
               formSelectionState={formSelectionState}
               history={history}
               strict
@@ -101,7 +212,7 @@ class TableFilterForm extends React.Component {
             <FormField
               name="win"
               label={strings.filter_win}
-              dataSource={data.resultList}
+              dataSource={resultList}
               formSelectionState={formSelectionState}
               history={history}
               strict
@@ -110,7 +221,7 @@ class TableFilterForm extends React.Component {
             <FormField
               name="lane_role"
               label={strings.filter_lane_role}
-              dataSource={data.laneList}
+              dataSource={laneList}
               formSelectionState={formSelectionState}
               history={history}
               strict
@@ -119,7 +230,7 @@ class TableFilterForm extends React.Component {
             <FormField
               name="patch"
               label={strings.filter_patch}
-              dataSource={data.patchList}
+              dataSource={patchList}
               formSelectionState={formSelectionState}
               history={history}
               strict
@@ -128,7 +239,7 @@ class TableFilterForm extends React.Component {
             <FormField
               name="game_mode"
               label={strings.filter_game_mode}
-              dataSource={data.modeList}
+              dataSource={modeList}
               formSelectionState={formSelectionState}
               history={history}
               strict
@@ -137,7 +248,7 @@ class TableFilterForm extends React.Component {
             <FormField
               name="lobby_type"
               label={strings.filter_lobby_type}
-              dataSource={data.lobbyTypeList}
+              dataSource={lobbyTypeList}
               formSelectionState={formSelectionState}
               history={history}
               strict
@@ -146,7 +257,7 @@ class TableFilterForm extends React.Component {
             <FormField
               name="date"
               label={strings.filter_date}
-              dataSource={data.dateList}
+              dataSource={dateList}
               formSelectionState={formSelectionState}
               history={history}
               strict
@@ -155,7 +266,7 @@ class TableFilterForm extends React.Component {
             <FormField
               name="region"
               label={strings.filter_region}
-              dataSource={data.regionList}
+              dataSource={regionList}
               formSelectionState={formSelectionState}
               history={history}
               strict
@@ -164,7 +275,7 @@ class TableFilterForm extends React.Component {
             <FormField
               name="with_hero_id"
               label={strings.filter_with_hero_id}
-              dataSource={data.heroList}
+              dataSource={heroList}
               formSelectionState={formSelectionState}
               history={history}
               strict
@@ -173,7 +284,7 @@ class TableFilterForm extends React.Component {
             <FormField
               name="against_hero_id"
               label={strings.filter_against_hero_id}
-              dataSource={data.heroList}
+              dataSource={heroList}
               formSelectionState={formSelectionState}
               history={history}
               strict
@@ -197,7 +308,7 @@ class TableFilterForm extends React.Component {
             <FormField
               name="significant"
               label={strings.filter_significant}
-              dataSource={data.significantList}
+              dataSource={significantList}
               formSelectionState={formSelectionState}
               history={history}
               strict
@@ -206,7 +317,7 @@ class TableFilterForm extends React.Component {
             <FormField
               name="having"
               label={strings.explorer_having}
-              dataSource={data.gamesPlayedList}
+              dataSource={gamesPlayedList}
               formSelectionState={formSelectionState}
               history={history}
               strict
@@ -215,7 +326,7 @@ class TableFilterForm extends React.Component {
             <FormField
               name="party_size"
               label={strings.filter_party_size}
-              dataSource={data.partySize}
+              dataSource={partySize}
               formSelectionState={formSelectionState}
               history={history}
               strict

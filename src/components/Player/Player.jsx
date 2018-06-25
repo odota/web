@@ -40,13 +40,13 @@ class RequestLayer extends React.Component {
     props.getPlayerWinLoss(playerId, props.location.search);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    const props = nextProps;
+  componentDidUpdate(prevProps) {
+    const { props } = this;
     const { playerId } = props.match.params;
-    if (this.props.match.params.playerId !== playerId) {
+    if (prevProps.match.params.playerId !== playerId) {
       props.getPlayer(playerId);
     }
-    if (this.props.location.key !== props.location.key) {
+    if (prevProps.location.key !== props.location.key) {
       props.getPlayerWinLoss(playerId, props.location.search);
     }
   }

@@ -1,4 +1,4 @@
-import { transformations } from '../../../../utility';
+import { displayHeroId } from '../../../../utility';
 
 function roundUp(x) {
   const y = 10 ** (x.toString().length - 1);
@@ -12,7 +12,7 @@ export default strings => [{
   displayName: strings.th_hero,
   tooltip: strings.hero_id,
   field: 'hero_id',
-  displayFn: transformations.hero_id,
+  displayFn: displayHeroId,
 }, {
   displayName: strings.th_score,
   field: 'score',
@@ -24,7 +24,6 @@ export default strings => [{
   field: 'percent_rank',
   sortFn: true,
   percentBars: true,
-  // displayFn: transformations.rank_percentile,
 }, {
   displayName: strings.th_rank,
   field: 'card',

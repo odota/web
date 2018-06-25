@@ -5,6 +5,7 @@ import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
 import items from 'dotaconstants/build/items.json';
 import styled from 'styled-components';
+import ThingTooltip from '../ThingTooltip';
 import constants from '../constants';
 
 const customNameIcon = {
@@ -40,74 +41,6 @@ const StyledDiv = styled.div`
     bottom: 0;
     width: 100%;
     text-align: center;
-  }
-
-  & img {
-    height: 27px;
-  }
-
-  & .tooltip {
-    & > div {
-      max-width: 300px;
-
-      & .heading {
-        font-size: ${constants.fontSizeCommon};
-        text-transform: uppercase;
-        color: ${constants.colorBlue};
-
-        & .lore {
-          font-size: ${constants.fontSizeSmall};
-          text-transform: none;
-          display: block;
-          color: ${constants.colorMutedLight};
-          margin-bottom: 5px;
-        }
-
-        & .gold {
-          color: ${constants.colorGolden};
-          position: relative;
-          font-size: ${constants.fontSizeSmall};
-
-          & img {
-            height: 11px;
-            margin: 0 5px;
-          }
-        }
-      }
-
-      & hr {
-        border: 0;
-        height: 1px;
-        background: linear-gradient(to right, ${constants.colorMutedLight}, rgba(0, 0, 0, 0));
-        margin: 4px 0 3px;
-      }
-
-      & .cost {
-        margin-top: 6px;
-
-        & span {
-          &:first-child {
-            margin-right: 30px;
-          }
-
-          & img {
-            width: 16px;
-            height: 16px;
-            vertical-align: sub;
-            margin-right: 5px;
-          }
-        }
-      }
-
-      & .cmb {
-        & img {
-          width: 16px;
-          height: 16px;
-          vertical-align: sub;
-          margin-right: 5px;
-        }
-      }
-    }
   }
 
   &:matches([data-tip="true"]) {
@@ -167,38 +100,6 @@ const StyledDiv = styled.div`
 }
 `;
 
-const tooltipContainer = thing => (
-  <div>
-    <div className="heading">
-      {thing.dname}
-      {thing.cost &&
-      <span className="gold">
-        <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />
-        {thing.cost}
-      </span>}
-      {thing.lore &&
-      <span className="lore">{thing.lore}</span>}
-      {thing.desc &&
-      <span className="lore">{thing.desc}</span>}
-    </div>
-    <hr />
-    {(thing.attrib || []).map(attrib => <div key={attrib.key}>{`${attrib.header} ${attrib.value} ${attrib.footer || ''}`}</div>)}
-    {(thing.cd || thing.mc || thing.cmb) &&
-    <div className="cost">
-      {thing.mc > 0 &&
-      <span>
-        <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/mana.png`} alt="" />
-        {thing.mc}
-      </span>}
-      {thing.cd > 0 &&
-      <span>
-        <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
-        {thing.cd}
-      </span>}
-    </div>}
-  </div>
-);
-
 class InflictorWithValue extends React.Component {
   static propTypes = {
     inflictor: PropTypes.string,
@@ -253,14 +154,14 @@ class InflictorWithValue extends React.Component {
         } else {
           image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/abilities/${resolvedInflictor}_sm.png`;
         }
-        tooltip = tooltipContainer(ability);
+        tooltip = <ThingTooltip thing={ability} />;
       } else if (item) {
         if (customImageIcon.includes(resolvedInflictor)) {
           image = `/assets/images/dota2/${resolvedInflictor}.png`;
         } else {
           image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${getInflictorImage(resolvedInflictor)}_lg.png`;
         }
-        tooltip = tooltipContainer(item);
+        tooltip = <ThingTooltip thing={item} />;
       } else {
         image = '/assets/images/default_attack.png';
       }

@@ -33,9 +33,9 @@ class PlayedWith extends React.Component {
   componentDidMount() {
     getData(this.props, this);
   }
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId) {
-      getData(nextProps, this);
+  componentDidUpdate(prevProps) {
+    if (this.props.playerId !== prevProps.playerId) {
+      getData(this.props, this);
     }
   }
   render() {

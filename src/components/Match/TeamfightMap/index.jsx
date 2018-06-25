@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from '../../../utility';
 import { IconRadiant, IconDire, IconDot } from '../../Icons';
 import TeamTable from '../TeamTable';
-import { teamfightColumns } from '../matchColumns';
+import mcs from '../matchColumns';
 import PlayerThumb from '../PlayerThumb';
 import Timeline from '../Overview/Timeline';
 import DotaMap from '../../DotaMap';
@@ -374,6 +374,8 @@ class TeamfightMap extends Component {
     teamfights: arrayOf(object),
     match: shape({}),
     strings: shape({}),
+    sponsorIcon: string,
+    sponsorURL: string,
   }
 
   constructor(props) {
@@ -439,9 +441,12 @@ class TeamfightMap extends Component {
   isSelected = (teamfight = { start: null }) => this.state.teamfight && this.state.teamfight.start === teamfight.start;
 
   render() {
-    const { teamfights = [], match, strings } = this.props;
+    const {
+      teamfights = [], match, strings, sponsorURL, sponsorIcon,
+    } = this.props;
     const teamfight = this.state.teamfight || {};
     const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
+    const { teamfightColumns } = mcs(strings);
     return (
       <Styled>
         <div className="timelineContainer">
@@ -493,6 +498,10 @@ class TeamfightMap extends Component {
               <TeamTable
                 players={teamfight.players && teamfight.players.filter(p => p.participate)}
                 columns={teamfightColumns}
+                heading={strings.heading_teamfights}
+                buttonLabel={strings.gosu_teamfights}
+                buttonTo={`${sponsorURL}Teamfights`}
+                buttonIcon={sponsorIcon}
                 radiantTeam={this.props.match.radiant_team}
                 direTeam={this.props.match.dire_team}
               />

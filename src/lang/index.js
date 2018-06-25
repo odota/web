@@ -1,4 +1,3 @@
-/* eslint-disable global-require */
 export const langs = [
   {
     value: 'en-US',
@@ -72,20 +71,4 @@ export const langs = [
   }, */
 ];
 
-// Temporary until we move fully to dynamic loaded strings
-const savedLang = window.localStorage && window.localStorage.getItem('localization');
-const selectedLang = langs.find(lang => lang.value === savedLang) || {};
-const data = {
-  'en-US': require('./en-US.json'),
-  'de-DE': require('./de-DE.json'),
-  'es-ES': require('./es-ES.json'),
-  'it-IT': require('./it-IT.json'),
-  'ja-JP': require('./ja-JP.json'),
-  'ms-MY': require('./ms-MY.json'),
-  'pl-PL': require('./pl-PL.json'),
-  'pt-BR': require('./pt-BR.json'),
-  'ro-RO': require('./ro-RO.json'),
-  'ru-RU': require('./ru-RU.json'),
-  'zh-CN': require('./zh-CN.json'),
-};
-export default { ...data[langs[0].value], ...data[selectedLang.value] };
+export default langs;

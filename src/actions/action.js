@@ -32,6 +32,7 @@ export default function action(type, host, path, params = {}, transform) {
       .then(transform || (json => json))
       .then(json => dispatch(getDataOk(json)))
       .catch((e) => {
+        console.error(e);
         if (!e.clientError) {
           setTimeout(() => fetchDataWithRetry(delay + 3000), delay);
         }
