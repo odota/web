@@ -90,6 +90,7 @@ const Styled = styled.div`
     bottom: 0.7em;
     color: #080808;
     text-align: center;
+    font-family: Tahoma;
 
     ::before {
       position: absolute;
@@ -105,6 +106,7 @@ const Styled = styled.div`
     bottom: 0.7em;
     color: rgb(144, 144, 144); 
     text-align: center;
+    font-family: Tahoma;
 
     ::before {
       position: absolute;
