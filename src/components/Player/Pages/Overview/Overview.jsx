@@ -290,12 +290,14 @@ const filterCounts = (counts) => {
     game_mode: [],
     patch: [],
     region: [],
+    lane_role: [],
   };
 
   const limitCount = (key, field, lim) =>
-    counts[key].list.sort((a, b) => (
-      b[field] - a[field]
-    )).slice(0, lim);
+    counts[key].list.filter(el => el.category !== 'Unknown')
+      .sort((a, b) => (
+        b[field] - a[field]
+      )).slice(0, lim);
 
   Object.keys(counts).forEach((key) => {
     switch (key) {
@@ -304,15 +306,19 @@ const filterCounts = (counts) => {
         break;
 
       case 'game_mode':
-        countMap[key] = limitCount(key, 'matches', 1);
+        countMap[key] = limitCount(key, 'matches', 2);
         break;
 
       case 'patch':
-        countMap[key] = limitCount(key, 'category', 1);
+        countMap[key] = limitCount(key, 'category', 2);
         break;
 
       case 'region':
-        countMap[key] = limitCount(key, 'matches', 3);
+        countMap[key] = limitCount(key, 'matches', 2);
+        break;
+
+      case 'lane_role':
+        countMap[key] = limitCount(key, 'matches', 2);
         break;
 
       default:
@@ -323,8 +329,9 @@ const filterCounts = (counts) => {
   return [
     ...countMap.is_radiant,
     ...countMap.game_mode,
-    ...countMap.patch,
     ...countMap.region,
+    ...countMap.lane_role,
+    ...countMap.patch,
   ];
 };
 

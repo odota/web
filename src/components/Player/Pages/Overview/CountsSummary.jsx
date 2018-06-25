@@ -18,7 +18,7 @@ const Styled = styled.div`
 
 const Summary = ({ data }) => (
   <Styled>
-    {data.map(el => <GaugeChart value={el.winPercent} caption={el.category} />)}
+    {data.map(el => <GaugeChart number={el.matches} percent={el.winPercent} caption={el.category} />)}
   </Styled>
 );
 

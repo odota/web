@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { abbreviateNumber } from '../../utility';
 
 const Styled = styled.div` 
    font-size: 60%;
@@ -8,9 +9,9 @@ const Styled = styled.div`
    margin-right: 15px;
    position: relative;
    
-   :last-child {
+  :last-child {
     margin-right: 0 !important;
-   }
+  }
 
   .gauge {
     display:inline-block;
@@ -83,21 +84,37 @@ const Styled = styled.div`
       text-overflow: ellipsis;
   }
 
-  .win {
+  .win-number {
     position:absolute;
     left:0.9em;
     bottom: 0.7em;
-    color: #080808;  
+    color: #080808;
+    text-align: center;
+
+    ::before {
+      position: absolute;
+      bottom: 1.2em;
+      left: 0.45em;
+      content: "W";
+    }
   }
 
-  .loss {
+  .loss-number {
     position:absolute;
     right:0.8em;
     bottom: 0.7em;
-    color: rgb(144, 144, 144);   
+    color: rgb(144, 144, 144); 
+    text-align: center;
+
+    ::before {
+      position: absolute;
+      bottom: 1.2em;
+      right: 0.55em;
+      content: "L";
+    }
   }
 `;
-const computeMeterPercent = value => 0.005 * value;
+const computeMeterpercent = value => 0.005 * value;
 
 const computeMeterColor = (value) => {
   if (value < 45) {
@@ -110,24 +127,25 @@ const computeMeterColor = (value) => {
   return 'rgb(117,176,103)';
 };
 
-const GaugeChart = ({ value, caption }) => (
-  <Styled percent={computeMeterPercent(value)} meterColor={computeMeterColor(value)}>
+const GaugeChart = ({ number, percent, caption }) => (
+  <Styled percent={computeMeterpercent(percent)} meterColor={computeMeterColor(percent)}>
     <div className="caption">{caption}</div>
     <div className="gauge percentage">
       <div className="meter" />
       <div className="percentage-container">
         <div className="percentage-indicator">
-          {`${Math.round(value * 10) / 10}%`}
+          {`${Math.round(percent * 10) / 10}%`}
         </div>
       </div>
     </div>
-    <div className="win">Win</div>
-    <div className="loss">Loss</div>
+    <div className="win-number">{abbreviateNumber(Math.round((number / 100) * percent))}</div>
+    <div className="loss-number">{abbreviateNumber(Math.round((number / 100) * (100 - percent)))}</div>
   </Styled>
 );
 
 GaugeChart.propTypes = {
-  value: PropTypes.number,
+  percent: PropTypes.number,
+  number: PropTypes.number,
   caption: PropTypes.string,
 };
 
