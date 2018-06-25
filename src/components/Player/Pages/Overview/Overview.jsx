@@ -38,6 +38,7 @@ const SummaryContainer = styled(Container)`
     background-color: rgb(46, 47, 64);
     margin: 0;
     padding-left: 5px;
+    border-radius: 5px;
 
     & li {
       list-style: none;

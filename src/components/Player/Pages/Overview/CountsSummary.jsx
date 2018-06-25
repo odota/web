@@ -9,6 +9,7 @@ const Styled = styled.div`
     flex-wrap: wrap;
     border: 1px solid rgb(52, 50, 50);
     background-color: rgb(46, 47, 64);
+    border-radius: 5px;
 
     > div {
         margin-top: 3px;
