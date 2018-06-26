@@ -18,8 +18,7 @@ const Styled = styled.div`
     position:relative;
     width:10em;
     height:5em;
-    overflow:hidden;
-    
+    overflow:hidden;  
   }
   
   .gauge:before, .gauge:after, .meter {
