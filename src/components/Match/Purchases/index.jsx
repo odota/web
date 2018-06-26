@@ -5,6 +5,18 @@ import Toggle from 'material-ui/Toggle';
 import TeamTable from '../TeamTable';
 import mcs from '../matchColumns';
 
+const toggleStyle = {
+  width: '30px',
+  float: 'right',
+  position: 'relative',
+  right: '10px',
+  top: '9px',
+  border: '1px solid rgba(179, 179, 179, 0.1)',
+  padding: '6px',
+  backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  borderRadius: '5px',
+};
+
 class Purchases extends React.Component {
   static propTypes = {
     match: PropTypes.shape({}),
@@ -31,13 +43,14 @@ class Purchases extends React.Component {
     const { purchaseTimesColumns } = mcs(strings);
     return (
       <div>
-        <div style={{ width: '190px', margin: '10px' }}>
-          <Toggle
-            label={strings.show_consumables_items}
-            labelStyle={{ color: '#5d6683' }}
-            onToggle={this.change}
-          />
-        </div>
+        <Toggle
+          label={strings.show_consumables_items}
+          labelStyle={{ color: '#b3b3b3', lineHeight: '13px', fontSize: '14px' }}
+          style={toggleStyle}
+          onToggle={this.change}
+          thumbStyle={{ backgroundColor: 'rgb(179, 179, 179)', marginTop: '2px', marginRight: '3px' }}
+          trackStyle={{ position: 'absolute', marginTop: '2px', marginRight: '3px' }}
+        />
         <TeamTable
           players={match.players}
           columns={purchaseTimesColumns(match, this.state.showConsumables)}
