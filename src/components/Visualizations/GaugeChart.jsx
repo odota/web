@@ -5,7 +5,7 @@ import { abbreviateNumber } from '../../utility';
 
 const Styled = styled.div` 
    font-size: 60%;
-   padding: 5px;
+   padding: 5px 5px 15px 5px;
    margin-right: 15px;
    position: relative;
    
@@ -87,32 +87,39 @@ const Styled = styled.div`
   .win-number {
     position:absolute;
     left:0.9em;
-    bottom: 0.7em;
-    color: #080808;
+    color: rgb(144, 144, 144);
     text-align: center;
     font-family: Tahoma;
+    
 
     ::before {
       position: absolute;
-      bottom: 1.2em;
+      bottom: 1.8em;
       left: 0.45em;
       content: "W";
+      color: white;
+      text-shadow: 1px 1px black;
     }
   }
 
   .loss-number {
     position:absolute;
     right:0.8em;
-    bottom: 0.7em;
     color: rgb(144, 144, 144); 
     text-align: center;
     font-family: Tahoma;
 
     ::before {
       position: absolute;
-      bottom: 1.2em;
+      bottom: 1.8em;
       right: 0.55em;
       content: "L";
+      color: white;
+      text-shadow: 1px 1px black;
+    }
+    ::before:hover {
+      content: "10";
+      height: 100px;
     }
   }
 `;
