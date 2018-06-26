@@ -117,10 +117,6 @@ const Styled = styled.div`
       color: white;
       text-shadow: 1px 1px black;
     }
-    ::before:hover {
-      content: "10";
-      height: 100px;
-    }
   }
 `;
 const computeMeterPercent = value => 0.005 * value;
