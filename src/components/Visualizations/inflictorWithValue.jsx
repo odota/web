@@ -174,7 +174,7 @@ class InflictorWithValue extends React.Component {
           <div className="inflictorWithValue" data-tip={tooltip && true} data-for={ttId}>
             {!type &&
             <object data={image} height="27px" type="image/png">
-              <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)' }} />
+              <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)', height: '27px' }} />
             </object>}
             {type === 'buff' &&
             <div
