@@ -151,7 +151,7 @@ const Overview = ({
       subtitle={strings.th_win}
       loaderWidth={250}
       loaderHeight={30}
-      style={{ width: countsLoading ? '100%' : 'auto' }}
+      style={{ width: '100%' }}
     >
       <CountsSummary data={countsData} />
     </SummaryContainer>

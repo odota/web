@@ -81,6 +81,7 @@ const Styled = styled.div`
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      margin-top: 2px;
   }
 
   .win-number {
