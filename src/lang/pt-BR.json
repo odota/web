@@ -861,7 +861,7 @@
   "tooltip_gold": "Ouro total farmado",
   "tooltip_gold_per_min": "Ouro ganho por minuto",
   "tooltip_xp_per_min": "Experiência ganhada por minuto",
-  "tooltip_stuns_per_min": "Seconds of hero stuns per minute",
+  "tooltip_stuns_per_min": "Segundos de inimigos atordoados por minuto",
   "tooltip_last_hits_per_min": "Finalizações por minuto",
   "tooltip_kills_per_min": "Mortes por minuto",
   "tooltip_hero_damage_per_min": "Dano do Herói por Minuto",
