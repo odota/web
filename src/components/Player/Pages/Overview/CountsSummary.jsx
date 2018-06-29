@@ -27,8 +27,8 @@ const Styled = styled.div`
       display: none;
       height: 88px;
       bottom: 0px;
-      border-left: 1px solid rgb(33, 34, 44);
-      border-right 1px solid rgb(42, 43, 56);
+      width: 2px;
+      background: rgb(39, 39, 58);
       position: relative;
       margin-right: 240px;
       left: 234px;
