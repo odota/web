@@ -3,7 +3,6 @@ import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { sample } from 'lodash';
 import constants from '../constants';
 
 const Styled = styled.div`
@@ -39,14 +38,16 @@ const Styled = styled.div`
   }
 `;
 
+const imageList = ['sad', 'bawl', 'cry', 'charm-cry'];
+
+const randomImage = imageList[Math.floor(Math.random() * imageList.length)];
+
 const FourOhFour = ({ strings, msg }) => (
   <Styled>
     <div className="container">
       <Helmet title={`${strings.error} 404`} />
       <img
-        src={`/assets/images/${
-          sample(['sad', 'bawl', 'cry', 'charm-cry'])
-        }.gif`}
+        src={`/assets/images/${randomImage}.gif`}
         alt=""
       />
       <div className="message">
