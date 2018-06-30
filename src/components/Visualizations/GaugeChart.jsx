@@ -2,15 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { abbreviateNumber } from '../../utility';
+import constants from '../constants';
 
 const Styled = styled.div` 
    font-size: 60%;
-   padding: 5px 5px 15px 5px;
-   margin-right: 15px;
+   margin: 5px 19px 15px 5px;
    position: relative;
+   display: inline-block;
    
   :last-child {
-    margin-right: 0 !important;
+    margin-right: 5px !important;
+  }
+
+  @media only screen and (min-width: ${constants.appWidth}px) {
+    :nth-child(even)::after {
+      content: "";
+      width: 2px;
+      height: 300px;
+      position: absolute;
+      background: rgb(39, 39, 58);
+      bottom: -50px;
+      right: -13px;
+    }
   }
 
   .gauge {
@@ -71,12 +84,11 @@ const Styled = styled.div`
   .caption {
       position: relative;
       text-align: center;
-      left: 4px;
       color: rgb(179,179,179);
       font-size: 12px;
       bottom: 5px;
       text-transform: uppercase;
-      max-width: 90px;
+      width: 96px;
       max-height: 16px;
       overflow: hidden;
       white-space: nowrap;
@@ -86,16 +98,17 @@ const Styled = styled.div`
 
   .win-number {
     position:absolute;
-    left:0.9em;
-    color: rgb(144, 144, 144);
+    left:0px;
     text-align: center;
+    color: rgb(144, 144, 144);
     font-family: Tahoma;
+    width: 24px;
     
 
     ::before {
       position: absolute;
       bottom: 1.8em;
-      left: 0.45em;
+      left: 8px;
       content: "W";
       color: white;
       text-shadow: 1px 1px black;
@@ -104,21 +117,23 @@ const Styled = styled.div`
 
   .loss-number {
     position:absolute;
-    right:0.8em;
-    color: rgb(144, 144, 144); 
+    right:0px;
     text-align: center;
+    color: rgb(144, 144, 144);
     font-family: Tahoma;
+    width: 24px;
 
     ::before {
       position: absolute;
       bottom: 1.8em;
-      right: 0.55em;
+      right: 8px;
       content: "L";
       color: white;
       text-shadow: 1px 1px black;
     }
   }
 `;
+
 const computeMeterPercent = value => 0.005 * value;
 
 const computeMeterColor = (value) => {
