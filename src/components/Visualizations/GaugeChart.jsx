@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { abbreviateNumber } from '../../utility';
-import constants from '../constants';
 
 const Styled = styled.div` 
    font-size: 60%;
@@ -12,18 +11,6 @@ const Styled = styled.div`
    
   :last-child {
     margin-right: 5px !important;
-  }
-
-  @media only screen and (min-width: ${constants.appWidth}px) {
-    :nth-child(even)::after {
-      content: "";
-      width: 2px;
-      height: 300px;
-      position: absolute;
-      background: rgb(39, 39, 58);
-      bottom: -50px;
-      right: -13px;
-    }
   }
 
   .gauge {
@@ -148,7 +135,7 @@ const computeMeterColor = (value) => {
 };
 
 const GaugeChart = ({ number, percent, caption }) => (
-  <Styled percent={computeMeterPercent(percent)} meterColor={computeMeterColor(percent)}>
+  <Styled className="gauge-chart" percent={computeMeterPercent(percent)} meterColor={computeMeterColor(percent)}>
     <div className="caption">{caption}</div>
     <div className="gauge percentage">
       <div className="meter" />

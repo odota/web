@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import GaugeChart from './../../../Visualizations/GaugeChart';
+import constants from '../../../constants';
 
 const Styled = styled.div`
     border: 1px solid rgb(52, 50, 50);
@@ -14,6 +15,18 @@ const Styled = styled.div`
       justify-content: center;
       display: flex;
       flex-wrap: wrap;
+    }
+
+    @media only screen and (min-width: ${constants.appWidth}px) {
+      .gauge-chart:nth-child(even)::after {
+        content: "";
+        width: 2px;
+        height: 300px;
+        position: absolute;
+        background: rgb(39, 39, 58);
+        bottom: -50px;
+        right: -13px;
+      }
     }
 `;
 
