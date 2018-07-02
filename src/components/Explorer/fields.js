@@ -193,13 +193,13 @@ const getFields = (players = [], leagues = [], teams = []) => {
   },
   {
     text: strings.heading_damage_dealt,
-    value: '(SELECT SUM(value::text::int) FROM json_each(damage_inflictor_received))',
-    key: 'dmg_received',
+    value: '(SELECT SUM(value::text::int) FROM json_each(damage_inflictor))',
+    key: 'dmg_dealt',
   },
   {
     text: strings.heading_damage_received,
-    value: '(SELECT SUM(value::text::int) FROM json_each(damage_inflictor))',
-    key: 'dmg_dealt',
+    value: '(SELECT SUM(value::text::int) FROM json_each(damage_inflictor_received))',
+    key: 'dmg_received',
   }].map(select => ({
     ...select,
     alias: select.alias || select.key,
