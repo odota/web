@@ -190,6 +190,16 @@ const getFields = (players = [], leagues = [], teams = []) => {
     value: 'round((0.3 * kills + (3 - 0.3 * deaths) + 0.003 * (last_hits + denies) + 0.002 * gold_per_min + towers_killed + roshans_killed + 3 * teamfight_participation + 0.5 * observers_placed + 0.5 * camps_stacked + 0.25 * rune_pickups + 4 * firstblood_claimed + 0.05 * stuns)::numeric, 1)',
     key: 'fantasy_points',
     bucket: 1,
+  },
+  {
+    text: strings.heading_damage_dealt,
+    value: '(SELECT SUM(value::text::int) FROM json_each(damage_inflictor_received))',
+    key: 'dmg_received',
+  },
+  {
+    text: strings.heading_damage_received,
+    value: '(SELECT SUM(value::text::int) FROM json_each(damage_inflictor))',
+    key: 'dmg_dealt',
   }].map(select => ({
     ...select,
     alias: select.alias || select.key,
