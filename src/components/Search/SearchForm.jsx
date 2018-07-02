@@ -19,19 +19,18 @@ class SearchForm extends React.Component {
     small: PropTypes.bool,
   }
 
-  constructor() {
-    super();
-    this.state = {};
-  }
+  constructor(props) {
+    super(props);
 
-  UNSAFE_componentWillMount() {
     const params = querystring.parse(window.location.search.substring(1));
     const { pathname } = window.location;
     if (params.q && pathname === '/search') {
       this.props.dispatchSearch(params.q);
-      this.setState({
+      this.state = {
         query: params.q,
-      });
+      };
+    } else {
+      this.state = {};
     }
   }
 

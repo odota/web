@@ -119,7 +119,7 @@ class RequestLayer extends React.Component {
             twoLine
           />
           {(key === 'mmr' || key === 'ranks') ?
-            <DistributionGraph data={rows} xTickInterval={key === 'ranks' ? 5 : null} />
+            <DistributionGraph data={rows} xTickInterval={key === 'ranks' ? 4 : null} />
           : <Table data={data && data[key] && data[key].rows} columns={countryMmrColumns} />}
         </div>);
     };
@@ -127,15 +127,6 @@ class RequestLayer extends React.Component {
     const distributionsPages = [
       {
         name: strings.distributions_tab_ranks, key: 'ranks', content: getPage, route: '/distributions/ranks',
-      },
-      {
-        name: strings.distributions_tab_mmr, key: 'mmr', content: getPage, route: '/distributions/mmr',
-      },
-      {
-        name: strings.distributions_tab_country_mmr,
-        key: 'country_mmr',
-        content: data => getPage(data, 'country_mmr'),
-        route: '/distributions/country_mmr',
       },
     ];
     const info = this.props.match.params.info || 'ranks';

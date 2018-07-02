@@ -37,7 +37,10 @@ const matchPages = (strings) => {
     fantasyColumns,
   } = mcs(strings);
 
-  return [Overview(strings), {
+  const gosuUrl = 'https://gosu.ai/dota/?utm_source=opendota&utm_medium=cpc&utm_campaign=';
+  const gosuIcon = '/assets/images/gosu-24px.png';
+
+  return [Overview(strings, gosuUrl, gosuIcon), {
     name: strings.tab_benchmarks,
     key: 'benchmarks',
     content: match => (
@@ -46,6 +49,9 @@ const matchPages = (strings) => {
           players={match.players}
           columns={benchmarksColumns(match)}
           heading={strings.heading_benchmarks}
+          buttonLabel={strings.gosu_benchmarks}
+          buttonTo={`${gosuUrl}Benchmarks`}
+          buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
           hoverRowColumn
@@ -63,6 +69,10 @@ const matchPages = (strings) => {
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
           draft={match.draft_timings}
+          startTime={match.start_time}
+          sponsorIcon={gosuIcon}
+          sponsorURL={gosuUrl}
+          strings={strings}
         />
       </div>),
   }, {
@@ -75,6 +85,9 @@ const matchPages = (strings) => {
           players={match.players}
           columns={performanceColumns}
           heading={strings.heading_performances}
+          buttonLabel={strings.gosu_performances}
+          buttonTo={`${gosuUrl}Performances`}
+          buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
           summable
@@ -87,7 +100,7 @@ const matchPages = (strings) => {
     parsed: true,
     content: match => (
       <div>
-        <Laning match={match} />
+        <Laning match={match} sponsorURL={gosuUrl} sponsorIcon={gosuIcon} />
       </div>),
   }, {
     name: strings.tab_combat,
@@ -95,6 +108,11 @@ const matchPages = (strings) => {
     parsed: true,
     content: match => (
       <div>
+        <Heading
+          buttonLabel={strings.gosu_combat}
+          buttonTo={`${gosuUrl}Combat`}
+          buttonIcon={gosuIcon}
+        />
         <StyledFlexContainer>
           <StyledFlexElement>
             <Heading title={strings.heading_kills} />
@@ -123,6 +141,9 @@ const matchPages = (strings) => {
           players={match.players}
           columns={unitKillsColumns}
           heading={strings.heading_unit_kills}
+          buttonLabel={strings.gosu_farm}
+          buttonTo={`${gosuUrl}Farm`}
+          buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
           summable
@@ -165,12 +186,16 @@ const matchPages = (strings) => {
       */}
       </div>),
   }, {
-    name: strings.tab_purchases,
+    name: strings.tab_items,
     key: 'purchases',
     parsed: true,
     content: match => (
       <div>
-        <Purchases match={match} />
+        <Purchases
+          match={match}
+          sponsorURL={gosuUrl}
+          sponsorIcon={gosuIcon}
+        />
       </div>),
   }, {
     name: strings.tab_graphs,
@@ -179,7 +204,7 @@ const matchPages = (strings) => {
     content: match => (
       <div>
         <Timeline match={match} />
-        <MatchGraph match={match} type="difference" />
+        <MatchGraph match={match} type="difference" sponsorURL={gosuUrl} sponsorIcon={gosuIcon} />
         <MatchGraph match={match} type="gold" />
         <MatchGraph match={match} type="xp" />
         <MatchGraph match={match} type="lh" />
@@ -194,6 +219,9 @@ const matchPages = (strings) => {
           players={match.players}
           columns={castsColumns}
           heading={strings.heading_casts}
+          buttonLabel={strings.gosu_default}
+          buttonTo={`${gosuUrl}Casts`}
+          buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
         />
@@ -208,6 +236,9 @@ const matchPages = (strings) => {
           players={match.players}
           columns={objectiveDamageColumns}
           heading={strings.heading_objective_damage}
+          buttonLabel={strings.gosu_default}
+          buttonTo={`${gosuUrl}Objectives`}
+          buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
           hoverRowColumn
@@ -225,7 +256,7 @@ const matchPages = (strings) => {
     name: strings.tab_vision,
     key: 'vision',
     parsed: true,
-    content: match => <Vision match={match} hoverRowColumn />,
+    content: match => <Vision match={match} sponsorURL={gosuUrl} sponsorIcon={gosuIcon} hoverRowColumn />,
   }, {
     name: strings.tab_actions,
     key: 'actions',
@@ -236,6 +267,9 @@ const matchPages = (strings) => {
           players={match.players}
           columns={actionsColumns}
           heading={strings.heading_actions}
+          buttonLabel={strings.gosu_actions}
+          buttonTo={`${gosuUrl}Actions`}
+          buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
           hoverRowColumn
@@ -247,7 +281,7 @@ const matchPages = (strings) => {
     parsed: true,
     content: match => (
       <div>
-        <TeamfightMap teamfights={match.teamfights} match={match} hoverRowColumn />
+        <TeamfightMap teamfights={match.teamfights} match={match} sponsorURL={gosuUrl} sponsorIcon={gosuIcon} hoverRowColumn />
       </div>),
   }, {
     name: strings.tab_analysis,
@@ -259,6 +293,9 @@ const matchPages = (strings) => {
           players={match.players}
           columns={analysisColumns}
           heading={strings.heading_analysis}
+          buttonLabel={strings.gosu_analysis}
+          buttonTo={`${gosuUrl}Analysis`}
+          buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
         />
@@ -269,7 +306,12 @@ const matchPages = (strings) => {
     parsed: true,
     content: match => (
       <div>
-        <Heading title={strings.heading_cosmetics} />
+        <Heading
+          title={strings.heading_cosmetics}
+          buttonLabel={strings.gosu_default}
+          buttonTo={`${gosuUrl}Cosmetics`}
+          buttonIcon={gosuIcon}
+        />
         <Table data={match.players.filter(obj => obj.cosmetics.length > 0)} columns={cosmeticsColumns} />
       </div>
     ),
@@ -279,7 +321,12 @@ const matchPages = (strings) => {
     parsed: true,
     content: match => (
       <div>
-        <Heading title={strings.heading_log} />
+        <Heading
+          title={strings.heading_log}
+          buttonLabel={strings.gosu_default}
+          buttonTo={`${gosuUrl}Log`}
+          buttonIcon={gosuIcon}
+        />
         <MatchLog match={match} />
       </div>),
   }, {
@@ -292,6 +339,9 @@ const matchPages = (strings) => {
           players={match.players}
           columns={fantasyColumns}
           heading={strings.heading_fantasy}
+          buttonLabel={strings.gosu_default}
+          buttonTo={`${gosuUrl}Fantasy`}
+          buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
           hoverRowColumn
@@ -318,7 +368,12 @@ const matchPages = (strings) => {
 
       return (
         <div>
-          <Heading title={strings.heading_chat} />
+          <Heading
+            title={strings.heading_chat}
+            buttonLabel={strings.gosu_default}
+            buttonTo={`${gosuUrl}Chat`}
+            buttonIcon={gosuIcon}
+          />
           <Chat data={data} />
         </div>
       );
@@ -329,7 +384,12 @@ const matchPages = (strings) => {
     parsed: true,
     content: match => (
       <div>
-        <Heading title={strings.heading_story} />
+        <Heading
+          title={strings.heading_story}
+          buttonLabel={strings.gosu_default}
+          buttonTo={`${gosuUrl}Story`}
+          buttonIcon={gosuIcon}
+        />
         <MatchStory match={match} />
       </div>),
   }];

@@ -95,8 +95,8 @@ class App extends React.Component {
     strings: PropTypes.shape({}),
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (this.props.location.key !== nextProps.location.key) {
+  componentDidUpdate(prevProps) {
+    if (this.props.location.key !== prevProps.location.key) {
       window.scrollTo(0, 0);
     }
   }
