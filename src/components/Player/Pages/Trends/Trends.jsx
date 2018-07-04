@@ -8,10 +8,9 @@ import ButtonGarden from '../../../ButtonGarden';
 import trendNames from '../matchDataColumns';
 import Heading from '../../../Heading';
 import Container from '../../../Container';
-import strings from '../../../../lang';
 
 const Trend = ({
-  routeParams, columns, playerId, error, loading, history,
+  routeParams, columns, playerId, error, loading, history, strings,
 }) => {
   const selectedTrend = routeParams.subInfo || trendNames[0];
   return (
@@ -46,6 +45,7 @@ Trend.propTypes = {
   error: PropTypes.string,
   loading: PropTypes.bool,
   history: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
 const getData = (props) => {
@@ -54,14 +54,22 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
-  UNSAFE_componentWillMount() {
+  static propTypes = {
+    playerId: PropTypes.string,
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+    strings: PropTypes.shape({}),
+  }
+
+  componentDidMount() {
     getData(this.props);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId
-      || this.props.location.key !== nextProps.location.key) {
-      getData(nextProps);
+  componentDidUpdate(prevProps) {
+    if (this.props.playerId !== prevProps.playerId
+      || this.props.location.key !== prevProps.location.key) {
+      getData(this.props);
     }
   }
 
@@ -70,17 +78,11 @@ class RequestLayer extends React.Component {
   }
 }
 
-RequestLayer.propTypes = {
-  playerId: PropTypes.string,
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-};
-
 const mapStateToProps = state => ({
   columns: state.app.playerTrends.data,
   loading: state.app.playerTrends.loading,
   error: state.app.playerTrends.error,
+  strings: state.app.strings,
 });
 
 export default withRouter(connect(mapStateToProps, { getPlayerTrends })(RequestLayer));

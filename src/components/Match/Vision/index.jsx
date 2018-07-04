@@ -1,15 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Slider from 'material-ui/Slider';
-import { rangeStep, debounce } from 'lodash/fp';
+import rangeStep from 'lodash/fp/rangeStep';
+import debounce from 'lodash/fp/debounce';
 import styled from 'styled-components';
 import { formatSeconds } from '../../../utility';
-import strings from '../../../lang';
 import VisionFilter from './VisionFilter';
 import VisionItems from './VisionItems';
 import VisionMap from './VisionMap';
 import VisionLog from './VisionLog';
 import constants from '../../constants';
+import Heading from '../../Heading';
 
 const Styled = styled.div`
 .visionLog {
@@ -114,6 +116,16 @@ const alive = (ward, time) => time === -90 || (time > ward.entered.time && (!war
 const isTeam = () => true;
 
 class Vision extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      duration: PropTypes.number,
+      wards_log: PropTypes.arrayOf({}),
+    }),
+    strings: PropTypes.shape({}),
+    sponsorIcon: PropTypes.string,
+    sponsorURL: PropTypes.string,
+  }
+
   constructor(props) {
     super(props);
 
@@ -155,10 +167,6 @@ class Vision extends React.Component {
     this.setState(newState);
   }
 
-  UNSAFE_componentWillReceiveProps(props) {
-    this.sliderMax = props.match.duration;
-  }
-
   computeTick() {
     const interval = 10 * 60; // every 10 minutes interval
     return rangeStep(interval, 0, this.sliderMax);
@@ -177,15 +185,22 @@ class Vision extends React.Component {
 
   render() {
     const visibleWards = this.visibleData();
-    const { match } = this.props;
+    const {
+      match, strings, sponsorIcon, sponsorURL,
+    } = this.props;
 
     return (
       <div>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          <div style={{ width: '30%', margin: '10px', flexGrow: '1' }}>
-            <VisionMap match={match} wards={visibleWards} />
+          <div style={{ margin: '10px', flexGrow: '1' }}>
+            <VisionMap match={match} wards={visibleWards} strings={strings} />
           </div>
-          <div style={{ flexGrow: '1' }}>
+          <div style={{ flexGrow: '2' }}>
+            <Heading
+              buttonLabel={strings.gosu_vision}
+              buttonTo={`${sponsorURL}Vision`}
+              buttonIcon={sponsorIcon}
+            />
             <div className="visionSliderText">
               {this.state.currentTick === -90 ? strings.vision_all_time : formatSeconds(this.state.currentTick)}
             </div>
@@ -204,21 +219,18 @@ class Vision extends React.Component {
               disableFocusRipple
               onChange={(e, value) => this.handleViewportChange(value)}
             />
-            <VisionFilter match={match} parent={this} />
+            <VisionFilter match={match} parent={this} strings={strings} />
           </div>
         </div>
-        <VisionItems match={match} />
-        <VisionLog match={match} wards={visibleWards} />
+        <VisionItems match={match} strings={strings} />
+        <VisionLog match={match} wards={visibleWards} strings={strings} />
       </div>
     );
   }
 }
 
-Vision.propTypes = {
-  match: PropTypes.shape({
-    duration: PropTypes.number,
-    wards_log: PropTypes.arrayOf({}),
-  }),
-};
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
 
-export default Vision;
+export default connect(mapStateToProps)(Vision);

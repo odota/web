@@ -36,6 +36,12 @@ const drawHeatmap = ({
 };
 
 class Heatmap extends Component {
+  static propTypes = {
+    width: PropTypes.number,
+  }
+
+  id = `a-${uuid.v4()}`;
+
   componentDidMount() {
     this.heatmap = h337.create({
       container: document.getElementById(this.id),
@@ -43,11 +49,8 @@ class Heatmap extends Component {
     });
     drawHeatmap(this.props, this.heatmap);
   }
-  UNSAFE_componentWillMount() {
-    this.id = `a-${uuid.v4()}`;
-  }
-  UNSAFE_componentWillUpdate(nextProps) {
-    drawHeatmap(nextProps, this.heatmap);
+  componentDidUpdate() {
+    drawHeatmap(this.props, this.heatmap);
   }
 
   render() {
@@ -63,10 +66,6 @@ class Heatmap extends Component {
       </div>);
   }
 }
-
-Heatmap.propTypes = {
-  width: PropTypes.number,
-};
 
 Heatmap.defaultProps = {
   width: 600,

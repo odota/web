@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
 import items from 'dotaconstants/build/items.json';
 import styled from 'styled-components';
-import strings from '../../lang';
+import ThingTooltip from '../ThingTooltip';
 import constants from '../constants';
 
 const customNameIcon = {
@@ -40,74 +41,6 @@ const StyledDiv = styled.div`
     bottom: 0;
     width: 100%;
     text-align: center;
-  }
-
-  & img {
-    height: 27px;
-  }
-
-  & .tooltip {
-    & > div {
-      max-width: 300px;
-
-      & .heading {
-        font-size: ${constants.fontSizeCommon};
-        text-transform: uppercase;
-        color: ${constants.colorBlue};
-
-        & .lore {
-          font-size: ${constants.fontSizeSmall};
-          text-transform: none;
-          display: block;
-          color: ${constants.colorMutedLight};
-          margin-bottom: 5px;
-        }
-
-        & .gold {
-          color: ${constants.colorGolden};
-          position: relative;
-          font-size: ${constants.fontSizeSmall};
-
-          & img {
-            height: 11px;
-            margin: 0 5px;
-          }
-        }
-      }
-
-      & hr {
-        border: 0;
-        height: 1px;
-        background: linear-gradient(to right, ${constants.colorMutedLight}, rgba(0, 0, 0, 0));
-        margin: 4px 0 3px;
-      }
-
-      & .cost {
-        margin-top: 6px;
-
-        & span {
-          &:first-child {
-            margin-right: 30px;
-          }
-
-          & img {
-            width: 16px;
-            height: 16px;
-            vertical-align: sub;
-            margin-right: 5px;
-          }
-        }
-      }
-
-      & .cmb {
-        & img {
-          width: 16px;
-          height: 16px;
-          vertical-align: sub;
-          margin-right: 5px;
-        }
-      }
-    }
   }
 
   &:matches([data-tip="true"]) {
@@ -167,82 +100,68 @@ const StyledDiv = styled.div`
 }
 `;
 
-const tooltipContainer = thing => (
-  <div>
-    <div className="heading">
-      {thing.dname}
-      {thing.cost &&
-      <span className="gold">
-        <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />
-        {thing.cost}
-      </span>}
-      {thing.lore &&
-      <span className="lore">{thing.lore}</span>}
-      {thing.desc &&
-      <span className="lore">{thing.desc}</span>}
-    </div>
-    <hr />
-    {(thing.attrib || []).map(attrib => <div key={attrib.key}>{`${attrib.header} ${attrib.value} ${attrib.footer || ''}`}</div>)}
-    {(thing.cd || thing.mc || thing.cmb) &&
-    <div className="cost">
-      {thing.mc > 0 &&
-      <span>
-        <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/mana.png`} alt="" />
-        {thing.mc}
-      </span>}
-      {thing.cd > 0 &&
-      <span>
-        <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
-        {thing.cd}
-      </span>}
-    </div>}
-  </div>
-);
-
 class InflictorWithValue extends React.Component {
+  static propTypes = {
+    inflictor: PropTypes.string,
+    value: PropTypes.string,
+    type: PropTypes.string,
+    ptooltip: PropTypes.shape({}),
+    abilityId: PropTypes.number,
+    strings: PropTypes.shape({}),
+  }
+
   constructor(props) {
     super(props);
     this.state = {};
   }
 
-  async UNSAFE_componentWillMount() {
-    this.setState({
-      abilities: await import('dotaconstants/build/abilities.json'),
-      neutralAbilities: await import('dotaconstants/build/neutral_abilities.json'),
-    });
+  componentDidMount() {
+    (async () => {
+      const [abilities, neutralAbilities, abilityIds] = await Promise.all([
+        await import('dotaconstants/build/abilities.json'),
+        await import('dotaconstants/build/neutral_abilities.json'),
+        await import('dotaconstants/build/ability_ids.json'),
+      ]);
+      this.setState({
+        abilities,
+        neutralAbilities,
+        abilityIds,
+      });
+    })();
   }
 
   render() {
     const {
-      inflictor, value, type, ptooltip,
+      inflictor, value, type, ptooltip, abilityId, strings,
     } = this.props;
-    const { abilities, neutralAbilities } = this.state;
-    if (inflictor !== undefined) {
-      const ability = abilities && abilities[inflictor];
-      const neutralAbility = neutralAbilities && neutralAbilities[inflictor];
-      const item = items[inflictor];
+    const { abilities, neutralAbilities, abilityIds } = this.state;
+    const resolvedInflictor = (abilityId && abilityIds && abilityIds[abilityId]) || inflictor;
+    if (resolvedInflictor) {
+      const ability = abilities && abilities[resolvedInflictor];
+      const neutralAbility = neutralAbilities && neutralAbilities[resolvedInflictor];
+      const item = items[resolvedInflictor];
       let image;
       let tooltip = strings.tooltip_autoattack_other;
       const ttId = uuid.v4();
 
       if (ability) {
-        if (inflictor.includes('attribute_bonus')) {
+        if (resolvedInflictor.includes('attribute_bonus')) {
           image = '/assets/images/stats.png';
-        } else if (inflictor.includes('special_bonus')) {
+        } else if (resolvedInflictor.includes('special_bonus')) {
           image = '/assets/images/dota2/talent_tree.svg';
         } else if (neutralAbility) {
           image = neutralAbility.img;
         } else {
-          image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/abilities/${inflictor}_lg.png`;
+          image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/abilities/${resolvedInflictor}_sm.png`;
         }
-        tooltip = tooltipContainer(ability);
+        tooltip = <ThingTooltip thing={ability} />;
       } else if (item) {
-        if (customImageIcon.includes(inflictor)) {
-          image = `/assets/images/dota2/${inflictor}.png`;
+        if (customImageIcon.includes(resolvedInflictor)) {
+          image = `/assets/images/dota2/${resolvedInflictor}.png`;
         } else {
-          image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${getInflictorImage(inflictor)}_lg.png`;
+          image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${getInflictorImage(resolvedInflictor)}_lg.png`;
         }
-        tooltip = tooltipContainer(item);
+        tooltip = <ThingTooltip thing={item} />;
       } else {
         image = '/assets/images/default_attack.png';
       }
@@ -255,7 +174,7 @@ class InflictorWithValue extends React.Component {
           <div className="inflictorWithValue" data-tip={tooltip && true} data-for={ttId}>
             {!type &&
             <object data={image} height="27px" type="image/png">
-              <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)' }} />
+              <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)', height: '27px' }} />
             </object>}
             {type === 'buff' &&
             <div
@@ -285,11 +204,21 @@ class InflictorWithValue extends React.Component {
   }
 }
 
-InflictorWithValue.propTypes = {
-  inflictor: PropTypes.string,
-  value: PropTypes.string,
-  type: PropTypes.string,
-  ptooltip: PropTypes.shape({}),
-};
+const mapStateToProps = state => ({
+  abilities: state.app.abilities,
+  neutralAbilities: state.app.neutralAbilities,
+  abilityIds: state.app.abilityIds,
+  strings: state.app.strings,
+});
 
-export default (inflictor, value, type, ptooltip) => <InflictorWithValue inflictor={inflictor} value={value} type={type} ptooltip={ptooltip} />;
+const InflictorWithValueCont = connect(mapStateToProps)(InflictorWithValue);
+
+export default (inflictor, value, type, ptooltip, abilityId) => (
+  <InflictorWithValueCont
+    inflictor={inflictor}
+    value={value}
+    type={type}
+    ptooltip={ptooltip}
+    abilityId={abilityId}
+  />
+);

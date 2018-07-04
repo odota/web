@@ -2,40 +2,10 @@ import React from 'react';
 import { bool, func, arrayOf, shape, number, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { getHeroPlayers } from '../../actions';
-import Spinner from '../Spinner';
 import Table, { TableLink } from '../Table';
-import strings from '../../lang';
+import PlayersSkeleton from '../Skeletons/PlayersSkeleton';
 import { wilsonScore } from '../../utility';
 import { proPlayersSelector } from '../../reducers/selectors';
-
-const playersColumns = [
-  {
-    field: 'account_id',
-    displayName: strings.th_account_id,
-    displayFn: (row, col, field) => <TableLink to={`/players/${field}`}>{row.name || field}</TableLink>,
-  },
-  {
-    field: 'games_played',
-    displayName: strings.th_games_played,
-    relativeBars: true,
-    sortFn: true,
-  },
-  {
-    field: 'wins',
-    displayName: strings.th_win,
-    relativeBars: true,
-    sortFn: true,
-    displayFn: (row, col, field) => `${field}`,
-  },
-  {
-    tooltip: strings.tooltip_advantage,
-    field: 'advantage',
-    displayName: strings.th_advantage,
-    relativeBars: true,
-    sortFn: true,
-    displayFn: (row, col, field) => `${field}`,
-  },
-];
 
 class Players extends React.Component {
   static propTypes = {
@@ -52,6 +22,7 @@ class Players extends React.Component {
     }),
     onGetHeroPlayers: func,
     proPlayers: shape({}),
+    strings: shape({}),
   };
 
   componentDidMount() {
@@ -63,10 +34,41 @@ class Players extends React.Component {
   }
 
   render() {
-    const { data, isLoading, proPlayers } = this.props;
+    const {
+      data, isLoading, proPlayers, strings,
+    } = this.props;
+
+    const playersColumns = [
+      {
+        field: 'account_id',
+        displayName: strings.th_account_id,
+        displayFn: (row, col, field) => <TableLink to={`/players/${field}`}>{row.name || field}</TableLink>,
+      },
+      {
+        field: 'games_played',
+        displayName: strings.th_games_played,
+        relativeBars: true,
+        sortFn: true,
+      },
+      {
+        field: 'wins',
+        displayName: strings.th_win,
+        relativeBars: true,
+        sortFn: true,
+        displayFn: (row, col, field) => `${field}`,
+      },
+      {
+        tooltip: strings.tooltip_advantage,
+        field: 'advantage',
+        displayName: strings.th_advantage,
+        relativeBars: true,
+        sortFn: true,
+        displayFn: (row, col, field) => `${field}`,
+      },
+    ];
 
     if (isLoading) {
-      return <Spinner />;
+      return <PlayersSkeleton />;
     }
 
     const preparedData = data
@@ -93,6 +95,7 @@ const mapStateToProps = state => ({
   isLoading: state.app.heroPlayers.loading,
   data: Object.values(state.app.heroPlayers.data),
   proPlayers: proPlayersSelector(state),
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = {

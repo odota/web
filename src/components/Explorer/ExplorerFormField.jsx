@@ -1,11 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
-import DatePicker from 'material-ui/DatePicker';
 // import FormField from '../Form/FormField';
 
 class ExplorerFormField extends React.Component {
-  UNSAFE_componentWillUpdate(newProps) {
+  static propTypes = {
+    fields: PropTypes.arrayOf({}),
+    label: PropTypes.string,
+    builderField: PropTypes.func,
+    handleFieldUpdate: PropTypes.func,
+    isDateField: PropTypes.bool,
+    builder: PropTypes.func,
+  }
+
+  constructor() {
+    super();
+    this.state = {};
+    import('material-ui/DatePicker').then(dp => this.setState({ DatePicker: dp.default }));
+  }
+
+  componentDidUpdate(newProps) {
     if (this.autocomplete && !this.autocomplete.state.searchText) {
       const {
         builderField, builder, fields,
@@ -52,6 +66,7 @@ class ExplorerFormField extends React.Component {
   };
 
   render() {
+    const { DatePicker } = this.state;
     const {
       fields, label, builderField, handleFieldUpdate, isDateField, builder,
     } = this.props;
@@ -60,6 +75,7 @@ class ExplorerFormField extends React.Component {
     if (isDateField) {
       return (
         <span style={{ width: fieldWidth }}>
+          {DatePicker &&
           <DatePicker
             ref={(ref) => { this.datepicker = ref; return null; }}
             floatingLabelText={label}
@@ -70,7 +86,7 @@ class ExplorerFormField extends React.Component {
             onChange={(event, date) => {
             handleFieldUpdate(builderField, date.toISOString());
           }}
-          />
+          />}
         </span>);
     }
     return (
@@ -105,14 +121,5 @@ class ExplorerFormField extends React.Component {
       </span>);
   }
 }
-
-ExplorerFormField.propTypes = {
-  fields: PropTypes.arrayOf({}),
-  label: PropTypes.string,
-  builderField: PropTypes.func,
-  handleFieldUpdate: PropTypes.func,
-  isDateField: PropTypes.bool,
-  builder: PropTypes.func,
-};
 
 export default ExplorerFormField;

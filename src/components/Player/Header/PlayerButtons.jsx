@@ -5,7 +5,6 @@ import FlatButton from 'material-ui/FlatButton';
 import ActionUpdate from 'material-ui/svg-icons/navigation/refresh';
 import fetch from 'isomorphic-fetch';
 import styled from 'styled-components';
-import strings from '../../../lang';
 import { toggleShowForm as toggleShowFormAction } from '../../../actions';
 import ShowFormToggle from '../../Form/ShowFormToggle';
 
@@ -38,9 +37,15 @@ const Styled = styled.div`
   }
 `;
 class PlayerButtons extends React.Component {
-  UNSAFE_componentWillMount() {
-    this.setState({ disableRefresh: false });
+  static propTypes = {
+    playerId: PropTypes.string,
+    playerSoloCompetitiveRank: PropTypes.number,
+    showForm: PropTypes.bool,
+    toggleShowForm: PropTypes.func,
+    strings: PropTypes.shape({}),
   }
+
+  state = { disableRefresh: false }
 
   render() {
     const {
@@ -48,6 +53,7 @@ class PlayerButtons extends React.Component {
       playerSoloCompetitiveRank,
       showForm,
       toggleShowForm,
+      strings,
     } = this.props;
     return (
       <Styled>
@@ -73,26 +79,13 @@ class PlayerButtons extends React.Component {
           style={{ marginLeft: 15 }}
           href={`https://dotacoach.org/Hire/OpenDota?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}`}
         />
-        <FlatButton
-          label={strings.app_pvgna}
-          labelPosition="after"
-          icon={<img src="/assets/images/pvgna-guide-icon.png" alt={strings.app_pvgna_alt} height="24px" />}
-          style={{ marginLeft: 15 }}
-          href={`https://pvgna.com/?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}&ref=yasp`}
-        />
       </Styled>);
   }
 }
 
-PlayerButtons.propTypes = {
-  playerId: PropTypes.string,
-  playerSoloCompetitiveRank: PropTypes.number,
-  showForm: PropTypes.bool,
-  toggleShowForm: PropTypes.func,
-};
-
 const mapStateToProps = state => ({
   showForm: state.app.form.show,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

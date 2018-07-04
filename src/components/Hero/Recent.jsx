@@ -1,78 +1,30 @@
 import React from 'react';
 import { arrayOf, shape, bool, func, string, oneOfType } from 'prop-types';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import Table, { TableLink } from '../Table';
+import RecentSkeleton from '../Skeletons/RecentSkeleton';
 import ErrorBox from '../Error/ErrorBox';
-import Spinner from '../Spinner';
 import { getHeroRecentGames } from '../../actions';
-import strings from '../../lang';
 import { transformations } from '../../utility';
 import { proPlayersSelector } from '../../reducers/selectors';
-import constants from '../constants';
-
-const LeagueName = styled.span`
-  color: ${constants.colorMutedLight};
-  display: block;
-  margin-top: 1;
-`;
-
-const matchesColumns = [
-  {
-    displayName: strings.th_match_id,
-    field: 'match_id',
-    sortFn: true,
-    displayFn: (row, col, field) => (
-      <div>
-        <TableLink to={`/matches/${field}`}>{field}</TableLink>
-        <LeagueName>{row.league_name}</LeagueName>
-      </div>
-    ),
-  },
-  {
-    displayName: strings.th_account_id,
-    field: 'account_id',
-    displayFn: (row, col, field) => (
-      <div>
-        <TableLink to={`/players/${field}`}>{row.name ? row.name : field}</TableLink>
-      </div>
-    ),
-  },
-  {
-    displayName: strings.th_duration,
-    tooltip: strings.tooltip_duration,
-    field: 'duration',
-    sortFn: true,
-    displayFn: transformations.duration,
-  },
-  {
-    displayName: strings.th_result,
-    tooltip: strings.tooltip_result,
-    field: 'radiant_win',
-    displayFn: transformations.radiant_win,
-  },
-  {
-    displayName: strings.th_kills,
-    tooltip: strings.tooltip_kills,
-    field: 'kills',
-    sortFn: true,
-    displayFn: transformations.kda,
-  },
-  {
-    displayName: strings.th_deaths,
-    tooltip: strings.tooltip_deaths,
-    field: 'deaths',
-    sortFn: true,
-  },
-  {
-    displayName: strings.th_assists,
-    tooltip: strings.tooltip_assists,
-    field: 'assists',
-    sortFn: true,
-  },
-];
 
 class Recent extends React.Component {
+  static propTypes = {
+    isLoading: bool,
+    isError: bool,
+    result: oneOfType([arrayOf(shape({})), shape({})]),
+    onGetRecentMatches: func,
+    match: shape({
+      params: shape({
+        heroId: string,
+      }),
+    }),
+    proPlayers: shape({
+      name: string,
+    }),
+    strings: shape({}),
+  }
+
   componentDidMount() {
     const { onGetRecentMatches, match } = this.props;
 
@@ -83,8 +35,52 @@ class Recent extends React.Component {
 
   render() {
     const {
-      isLoading, isError, result, proPlayers,
+      isLoading, isError, result, proPlayers, strings,
     } = this.props;
+
+    const matchesColumns = [
+      {
+        displayName: strings.th_account_id,
+        field: 'account_id',
+        displayFn: (row, col, field) => (
+          <div>
+            <TableLink to={`/players/${field}`}>{row.name ? row.name : field}</TableLink>
+          </div>
+        ),
+      },
+      {
+        displayName: strings.th_duration,
+        tooltip: strings.tooltip_duration,
+        field: 'duration',
+        sortFn: true,
+        displayFn: transformations.duration,
+      },
+      {
+        displayName: strings.th_result,
+        tooltip: strings.tooltip_result,
+        field: 'radiant_win',
+        displayFn: transformations.radiant_win_and_game_mode,
+      },
+      {
+        displayName: strings.th_kills,
+        tooltip: strings.tooltip_kills,
+        field: 'kills',
+        sortFn: true,
+        displayFn: transformations.kda,
+      },
+      {
+        displayName: strings.th_deaths,
+        tooltip: strings.tooltip_deaths,
+        field: 'deaths',
+        sortFn: true,
+      },
+      {
+        displayName: strings.th_assists,
+        tooltip: strings.tooltip_assists,
+        field: 'assists',
+        sortFn: true,
+      },
+    ];
 
     if (isError || (result && result.error)) {
       return <ErrorBox />;
@@ -103,7 +99,7 @@ class Recent extends React.Component {
     return (
       <div>
         {isLoading || isError || result === null ? (
-          <Spinner />
+          <RecentSkeleton />
         ) : (
           <Table data={mergedResult} columns={matchesColumns} paginated />
         )}
@@ -111,21 +107,6 @@ class Recent extends React.Component {
     );
   }
 }
-
-Recent.propTypes = {
-  isLoading: bool,
-  isError: bool,
-  result: oneOfType([arrayOf(shape({})), shape({})]),
-  onGetRecentMatches: func,
-  match: shape({
-    params: shape({
-      heroId: string,
-    }),
-  }),
-  proPlayers: shape({
-    name: string,
-  }),
-};
 
 Recent.defaultProps = {
   result: null,
@@ -138,6 +119,7 @@ const mapStateToProps = state => ({
   isError: state.app.heroRecentGames.error || !!state.app.heroRecentGames.data.error,
   result: state.app.heroRecentGames.data,
   proPlayers: proPlayersSelector(state),
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = {

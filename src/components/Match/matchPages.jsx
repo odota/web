@@ -1,6 +1,5 @@
 import React from 'react';
 import heroes from 'dotaconstants/build/heroes.json';
-import strings from '../../lang';
 import Heading from '../Heading';
 import Table from '../Table';
 import TeamfightMap from '../Match/TeamfightMap';
@@ -14,138 +13,162 @@ import Laning from './Laning';
 import CrossTable from './CrossTable';
 import MatchLog from './MatchLog';
 import MatchStory from './MatchStory';
-import {
-  benchmarksColumns,
-  performanceColumns,
-  lastHitsTimesColumns,
-  unitKillsColumns,
-  actionsColumns,
-  runesColumns,
-  cosmeticsColumns,
-  // goldReasonsColumns,
-  // xpReasonsColumns,
-  objectiveDamageColumns,
-  analysisColumns,
-  inflictorsColumns,
-  castsColumns,
-  fantasyColumns,
-} from './matchColumns';
+import mcs from './matchColumns';
 import Overview from './Overview';
 import TeamTable from './TeamTable';
 import Chat from './Chat';
 import { StyledFlexContainer, StyledFlexElement } from './StyledMatch';
 
-const matchPages = [Overview, {
-  name: strings.tab_benchmarks,
-  key: 'benchmarks',
-  content: match => (
-    <div>
-      <TeamTable
-        players={match.players}
-        columns={benchmarksColumns(match)}
-        heading={strings.heading_benchmarks}
-        radiantTeam={match.radiant_team}
-        direTeam={match.dire_team}
-        hoverRowColumn
-      />
-    </div>),
-}, {
-  name: strings.tab_drafts,
-  key: 'draft',
-  parsed: true,
-  hidden: match => match.game_mode !== 2,
-  content: match => (
-    <div>
-      <Draft
-        gameMode={match.game_mode}
-        radiantTeam={match.radiant_team}
-        direTeam={match.dire_team}
-        draft={match.draft_timings}
-      />
-    </div>),
-}, {
-  name: strings.tab_performances,
-  key: 'performances',
-  parsed: true,
-  content: match => (
-    <div>
-      <TeamTable
-        players={match.players}
-        columns={performanceColumns}
-        heading={strings.heading_performances}
-        radiantTeam={match.radiant_team}
-        direTeam={match.dire_team}
-        summable
-        hoverRowColumn
-      />
-    </div>),
-}, {
-  name: strings.tab_laning,
-  key: 'laning',
-  parsed: true,
-  content: match => (
-    <div>
-      <Laning match={match} />
-    </div>),
-}, {
-  name: strings.tab_combat,
-  key: 'combat',
-  parsed: true,
-  content: match => (
-    <div>
-      <StyledFlexContainer>
-        <StyledFlexElement>
-          <Heading title={strings.heading_kills} />
-          <CrossTable match={match} field1="killed" field2="killed_by" />
-        </StyledFlexElement>
-        <StyledFlexElement>
-          <Heading title={strings.heading_damage} />
-          <CrossTable match={match} field1="damage" field2="damage_taken" />
-        </StyledFlexElement>
-      </StyledFlexContainer>
-      <TeamTable
-        players={match.players}
-        columns={inflictorsColumns}
-        heading={strings.heading_damage}
-        radiantTeam={match.radiant_team}
-        direTeam={match.dire_team}
-      />
-    </div>),
-}, {
-  name: strings.tab_farm,
-  key: 'farm',
-  parsed: true,
-  content: match => (
-    <div>
-      <TeamTable
-        players={match.players}
-        columns={unitKillsColumns}
-        heading={strings.heading_unit_kills}
-        radiantTeam={match.radiant_team}
-        direTeam={match.dire_team}
-        summable
-        hoverRowColumn
-      />
-      <TeamTable
-        players={match.players}
-        columns={lastHitsTimesColumns(match)}
-        heading={strings.heading_last_hits}
-        radiantTeam={match.radiant_team}
-        direTeam={match.dire_team}
-        summable
-        hoverRowColumn
-      />
-      <StackedBarGraph
-        columns={match.players.map(player => ({ ...player.gold_reasons, name: heroes[player.hero_id] && heroes[player.hero_id].localized_name }))}
-        heading={strings.heading_gold_reasons}
-        type="gold_reasons"
-      />
-      <StackedBarGraph
-        columns={match.players.map(player => ({ ...player.xp_reasons, name: heroes[player.hero_id] && heroes[player.hero_id].localized_name }))}
-        heading={strings.heading_xp_reasons}
-        type="xp_reasons"
-      />
-      {/*
+const matchPages = (strings) => {
+  const {
+    benchmarksColumns,
+    performanceColumns,
+    lastHitsTimesColumns,
+    unitKillsColumns,
+    actionsColumns,
+    runesColumns,
+    cosmeticsColumns,
+    // goldReasonsColumns,
+    // xpReasonsColumns,
+    objectiveDamageColumns,
+    analysisColumns,
+    inflictorsColumns,
+    castsColumns,
+    fantasyColumns,
+  } = mcs(strings);
+
+  const gosuUrl = 'https://gosu.ai/dota/?utm_source=opendota&utm_medium=cpc&utm_campaign=';
+  const gosuIcon = '/assets/images/gosu-24px.png';
+
+  return [Overview(strings, gosuUrl, gosuIcon), {
+    name: strings.tab_benchmarks,
+    key: 'benchmarks',
+    content: match => (
+      <div>
+        <TeamTable
+          players={match.players}
+          columns={benchmarksColumns(match)}
+          heading={strings.heading_benchmarks}
+          buttonLabel={strings.gosu_benchmarks}
+          buttonTo={`${gosuUrl}Benchmarks`}
+          buttonIcon={gosuIcon}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+          hoverRowColumn
+        />
+      </div>),
+  }, {
+    name: strings.tab_drafts,
+    key: 'draft',
+    parsed: true,
+    hidden: match => match.game_mode !== 2,
+    content: match => (
+      <div>
+        <Draft
+          gameMode={match.game_mode}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+          draft={match.draft_timings}
+          startTime={match.start_time}
+          sponsorIcon={gosuIcon}
+          sponsorURL={gosuUrl}
+          strings={strings}
+        />
+      </div>),
+  }, {
+    name: strings.tab_performances,
+    key: 'performances',
+    parsed: true,
+    content: match => (
+      <div>
+        <TeamTable
+          players={match.players}
+          columns={performanceColumns}
+          heading={strings.heading_performances}
+          buttonLabel={strings.gosu_performances}
+          buttonTo={`${gosuUrl}Performances`}
+          buttonIcon={gosuIcon}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+          summable
+          hoverRowColumn
+        />
+      </div>),
+  }, {
+    name: strings.tab_laning,
+    key: 'laning',
+    parsed: true,
+    content: match => (
+      <div>
+        <Laning match={match} sponsorURL={gosuUrl} sponsorIcon={gosuIcon} />
+      </div>),
+  }, {
+    name: strings.tab_combat,
+    key: 'combat',
+    parsed: true,
+    content: match => (
+      <div>
+        <Heading
+          buttonLabel={strings.gosu_combat}
+          buttonTo={`${gosuUrl}Combat`}
+          buttonIcon={gosuIcon}
+        />
+        <StyledFlexContainer>
+          <StyledFlexElement>
+            <Heading title={strings.heading_kills} />
+            <CrossTable match={match} field1="killed" field2="killed_by" />
+          </StyledFlexElement>
+          <StyledFlexElement>
+            <Heading title={strings.heading_damage} />
+            <CrossTable match={match} field1="damage" field2="damage_taken" />
+          </StyledFlexElement>
+        </StyledFlexContainer>
+        <TeamTable
+          players={match.players}
+          columns={inflictorsColumns}
+          heading={strings.heading_damage}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+        />
+      </div>),
+  }, {
+    name: strings.tab_farm,
+    key: 'farm',
+    parsed: true,
+    content: match => (
+      <div>
+        <TeamTable
+          players={match.players}
+          columns={unitKillsColumns}
+          heading={strings.heading_unit_kills}
+          buttonLabel={strings.gosu_farm}
+          buttonTo={`${gosuUrl}Farm`}
+          buttonIcon={gosuIcon}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+          summable
+          hoverRowColumn
+        />
+        <TeamTable
+          players={match.players}
+          columns={lastHitsTimesColumns(match)}
+          heading={strings.heading_last_hits}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+          summable
+          hoverRowColumn
+        />
+        <StackedBarGraph
+          columns={match.players.map(player => ({ ...player.gold_reasons, name: heroes[player.hero_id] && heroes[player.hero_id].localized_name }))}
+          heading={strings.heading_gold_reasons}
+          type="gold_reasons"
+        />
+        <StackedBarGraph
+          columns={match.players.map(player => ({ ...player.xp_reasons, name: heroes[player.hero_id] && heroes[player.hero_id].localized_name }))}
+          heading={strings.heading_xp_reasons}
+          type="xp_reasons"
+        />
+        {/*
       <TeamTable
         players={match.players}
         columns={goldReasonsColumns}
@@ -161,178 +184,218 @@ const matchPages = [Overview, {
         direTeam={match.dire_team}
       />
       */}
-    </div>),
-}, {
-  name: strings.tab_purchases,
-  key: 'purchases',
-  parsed: true,
-  content: match => (
-    <div>
-      <Purchases match={match} />
-    </div>),
-}, {
-  name: strings.tab_graphs,
-  key: 'graphs',
-  parsed: true,
-  content: match => (
-    <div>
-      <Timeline match={match} />
-      <MatchGraph match={match} type="difference" />
-      <MatchGraph match={match} type="gold" />
-      <MatchGraph match={match} type="xp" />
-      <MatchGraph match={match} type="lh" />
-    </div>),
-}, {
-  name: strings.tab_casts,
-  key: 'casts',
-  parsed: true,
-  content: match => (
-    <div>
-      <TeamTable
-        players={match.players}
-        columns={castsColumns}
-        heading={strings.heading_casts}
-        radiantTeam={match.radiant_team}
-        direTeam={match.dire_team}
-      />
-    </div>),
-}, {
-  name: strings.tab_objectives,
-  key: 'objectives',
-  parsed: true,
-  content: match => (
-    <div>
-      <TeamTable
-        players={match.players}
-        columns={objectiveDamageColumns}
-        heading={strings.heading_objective_damage}
-        radiantTeam={match.radiant_team}
-        direTeam={match.dire_team}
-        hoverRowColumn
-      />
-      <TeamTable
-        players={match.players}
-        columns={runesColumns}
-        heading={strings.heading_runes}
-        radiantTeam={match.radiant_team}
-        direTeam={match.dire_team}
-        hoverRowColumn
-      />
-    </div>),
-}, {
-  name: strings.tab_vision,
-  key: 'vision',
-  parsed: true,
-  content: match => <Vision match={match} hoverRowColumn />,
-}, {
-  name: strings.tab_actions,
-  key: 'actions',
-  parsed: true,
-  content: match => (
-    <div>
-      <TeamTable
-        players={match.players}
-        columns={actionsColumns}
-        heading={strings.heading_actions}
-        radiantTeam={match.radiant_team}
-        direTeam={match.dire_team}
-        hoverRowColumn
-      />
-    </div>),
-}, {
-  name: strings.tab_teamfights,
-  key: 'teamfights',
-  parsed: true,
-  content: match => (
-    <div>
-      <TeamfightMap teamfights={match.teamfights} match={match} hoverRowColumn />
-    </div>),
-}, {
-  name: strings.tab_analysis,
-  key: 'analysis',
-  parsed: true,
-  content: match => (
-    <div>
-      <TeamTable
-        players={match.players}
-        columns={analysisColumns}
-        heading={strings.heading_analysis}
-        radiantTeam={match.radiant_team}
-        direTeam={match.dire_team}
-      />
-    </div>),
-}, {
-  name: strings.tab_cosmetics,
-  key: 'cosmetics',
-  parsed: true,
-  content: match => (
-    <div>
-      <Heading title={strings.heading_cosmetics} />
-      <Table data={match.players.filter(obj => obj.cosmetics.length > 0)} columns={cosmeticsColumns} />
-    </div>
-  ),
-}, {
-  name: strings.tab_log,
-  key: 'log',
-  parsed: true,
-  content: match => (
-    <div>
-      <Heading title={strings.heading_log} />
-      <MatchLog match={match} />
-    </div>),
-}, {
-  name: strings.tab_fantasy,
-  key: 'fantasy',
-  parsed: true,
-  content: match => (
-    <div>
-      <TeamTable
-        players={match.players}
-        columns={fantasyColumns}
-        heading={strings.heading_fantasy}
-        radiantTeam={match.radiant_team}
-        direTeam={match.dire_team}
-        hoverRowColumn
-      />
-    </div>),
-}, {
-  name: strings.tab_chat,
-  key: 'chat',
-  parsed: true,
-  content: (match) => {
-    const data = (match.chat || []).map((msg) => {
-      const p = match.players[msg.slot];
-      if (p) {
-        return {
-          ...msg,
-          accountID: p.account_id,
-          heroID: p.hero_id,
-          name: p.name || p.personaname || strings.general_anonymous,
-        };
-      }
-
-      return msg;
-    });
-
-    return (
+      </div>),
+  }, {
+    name: strings.tab_items,
+    key: 'purchases',
+    parsed: true,
+    content: match => (
       <div>
-        <Heading title={strings.heading_chat} />
-        <Chat data={data} />
+        <Purchases
+          match={match}
+          sponsorURL={gosuUrl}
+          sponsorIcon={gosuIcon}
+        />
+      </div>),
+  }, {
+    name: strings.tab_graphs,
+    key: 'graphs',
+    parsed: true,
+    content: match => (
+      <div>
+        <Timeline match={match} />
+        <MatchGraph match={match} type="difference" sponsorURL={gosuUrl} sponsorIcon={gosuIcon} />
+        <MatchGraph match={match} type="gold" />
+        <MatchGraph match={match} type="xp" />
+        <MatchGraph match={match} type="lh" />
+      </div>),
+  }, {
+    name: strings.tab_casts,
+    key: 'casts',
+    parsed: true,
+    content: match => (
+      <div>
+        <TeamTable
+          players={match.players}
+          columns={castsColumns}
+          heading={strings.heading_casts}
+          buttonLabel={strings.gosu_default}
+          buttonTo={`${gosuUrl}Casts`}
+          buttonIcon={gosuIcon}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+        />
+      </div>),
+  }, {
+    name: strings.tab_objectives,
+    key: 'objectives',
+    parsed: true,
+    content: match => (
+      <div>
+        <TeamTable
+          players={match.players}
+          columns={objectiveDamageColumns}
+          heading={strings.heading_objective_damage}
+          buttonLabel={strings.gosu_default}
+          buttonTo={`${gosuUrl}Objectives`}
+          buttonIcon={gosuIcon}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+          hoverRowColumn
+        />
+        <TeamTable
+          players={match.players}
+          columns={runesColumns}
+          heading={strings.heading_runes}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+          hoverRowColumn
+        />
+      </div>),
+  }, {
+    name: strings.tab_vision,
+    key: 'vision',
+    parsed: true,
+    content: match => <Vision match={match} sponsorURL={gosuUrl} sponsorIcon={gosuIcon} hoverRowColumn />,
+  }, {
+    name: strings.tab_actions,
+    key: 'actions',
+    parsed: true,
+    content: match => (
+      <div>
+        <TeamTable
+          players={match.players}
+          columns={actionsColumns}
+          heading={strings.heading_actions}
+          buttonLabel={strings.gosu_actions}
+          buttonTo={`${gosuUrl}Actions`}
+          buttonIcon={gosuIcon}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+          hoverRowColumn
+        />
+      </div>),
+  }, {
+    name: strings.tab_teamfights,
+    key: 'teamfights',
+    parsed: true,
+    content: match => (
+      <div>
+        <TeamfightMap teamfights={match.teamfights} match={match} sponsorURL={gosuUrl} sponsorIcon={gosuIcon} hoverRowColumn />
+      </div>),
+  }, {
+    name: strings.tab_analysis,
+    key: 'analysis',
+    parsed: true,
+    content: match => (
+      <div>
+        <TeamTable
+          players={match.players}
+          columns={analysisColumns}
+          heading={strings.heading_analysis}
+          buttonLabel={strings.gosu_analysis}
+          buttonTo={`${gosuUrl}Analysis`}
+          buttonIcon={gosuIcon}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+        />
+      </div>),
+  }, {
+    name: strings.tab_cosmetics,
+    key: 'cosmetics',
+    parsed: true,
+    content: match => (
+      <div>
+        <Heading
+          title={strings.heading_cosmetics}
+          buttonLabel={strings.gosu_default}
+          buttonTo={`${gosuUrl}Cosmetics`}
+          buttonIcon={gosuIcon}
+        />
+        <Table data={match.players.filter(obj => obj.cosmetics.length > 0)} columns={cosmeticsColumns} />
       </div>
-    );
-  },
-}, {
-  name: strings.tab_story,
-  key: 'story',
-  parsed: true,
-  content: match => (
-    <div>
-      <Heading title={strings.heading_story} />
-      <MatchStory match={match} />
-    </div>),
-}];
+    ),
+  }, {
+    name: strings.tab_log,
+    key: 'log',
+    parsed: true,
+    content: match => (
+      <div>
+        <Heading
+          title={strings.heading_log}
+          buttonLabel={strings.gosu_default}
+          buttonTo={`${gosuUrl}Log`}
+          buttonIcon={gosuIcon}
+        />
+        <MatchLog match={match} />
+      </div>),
+  }, {
+    name: strings.tab_fantasy,
+    key: 'fantasy',
+    parsed: true,
+    content: match => (
+      <div>
+        <TeamTable
+          players={match.players}
+          columns={fantasyColumns}
+          heading={strings.heading_fantasy}
+          buttonLabel={strings.gosu_default}
+          buttonTo={`${gosuUrl}Fantasy`}
+          buttonIcon={gosuIcon}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+          hoverRowColumn
+        />
+      </div>),
+  }, {
+    name: strings.tab_chat,
+    key: 'chat',
+    parsed: true,
+    content: (match) => {
+      const data = (match.chat || []).map((msg) => {
+        const p = match.players[msg.slot];
+        if (p) {
+          return {
+            ...msg,
+            accountID: p.account_id,
+            heroID: p.hero_id,
+            name: p.name || p.personaname || strings.general_anonymous,
+          };
+        }
 
-export default (matchId, match) => matchPages.map(page => ({
+        return msg;
+      });
+
+      return (
+        <div>
+          <Heading
+            title={strings.heading_chat}
+            buttonLabel={strings.gosu_default}
+            buttonTo={`${gosuUrl}Chat`}
+            buttonIcon={gosuIcon}
+          />
+          <Chat data={data} />
+        </div>
+      );
+    },
+  }, {
+    name: strings.tab_story,
+    key: 'story',
+    parsed: true,
+    content: match => (
+      <div>
+        <Heading
+          title={strings.heading_story}
+          buttonLabel={strings.gosu_default}
+          buttonTo={`${gosuUrl}Story`}
+          buttonIcon={gosuIcon}
+        />
+        <MatchStory match={match} />
+      </div>),
+  }];
+};
+
+export default (matchId, match, strings) => matchPages(strings).map(page => ({
   // ...page,
   name: page.name,
   key: page.key,

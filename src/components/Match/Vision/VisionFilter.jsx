@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
 import Table from '../../Table';
-import strings from '../../../lang';
 import Heading from '../../Heading';
 
 import PlayerThumb from '../PlayerThumb';
@@ -18,7 +17,23 @@ const data = [
   },
 ];
 
-export default class VisionFilter extends React.Component {
+class VisionFilter extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      players: PropTypes.arrayOf({}),
+    }),
+    parent: PropTypes.shape({
+      state: PropTypes.shape({
+        players: PropTypes.arrayOf({}),
+        teams: PropTypes.arrayOf({}),
+      }),
+      setPlayer: PropTypes.func,
+      teams: PropTypes.arrayOf({}),
+      setTeam: PropTypes.func,
+    }),
+    strings: PropTypes.shape({}),
+  }
+
   columns(index) {
     return [
       {
@@ -53,6 +68,7 @@ export default class VisionFilter extends React.Component {
   }
 
   render() {
+    const { strings } = this.props;
     return (
       <div>
         <Heading title={strings.general_radiant} />
@@ -64,17 +80,4 @@ export default class VisionFilter extends React.Component {
   }
 }
 
-VisionFilter.propTypes = {
-  match: PropTypes.shape({
-    players: PropTypes.arrayOf({}),
-  }),
-  parent: PropTypes.shape({
-    state: PropTypes.shape({
-      players: PropTypes.arrayOf({}),
-      teams: PropTypes.arrayOf({}),
-    }),
-    setPlayer: PropTypes.func,
-    teams: PropTypes.arrayOf({}),
-    setTeam: PropTypes.func,
-  }),
-};
+export default VisionFilter;

@@ -18,6 +18,16 @@ const StyledButton = styled(Button)`
 */
 
 class Dropdown extends Component {
+  static propTypes = {
+    Button: PropTypes.func,
+    buttonProps: PropTypes.shape({}),
+    className: PropTypes.string,
+    children: PropTypes.oneOfType([
+      PropTypes.arrayOf({}),
+      PropTypes.node,
+    ]),
+  }
+
   constructor() {
     super();
     this.state = {
@@ -72,15 +82,5 @@ class Dropdown extends Component {
     );
   }
 }
-
-Dropdown.propTypes = {
-  Button: PropTypes.func,
-  buttonProps: PropTypes.shape({}),
-  className: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf({}),
-    PropTypes.node,
-  ]),
-};
 
 export default Dropdown;

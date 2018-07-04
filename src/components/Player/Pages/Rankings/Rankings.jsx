@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import { getPlayerRankings } from '../../../../actions';
 import Table from '../../../Table';
 import Container from '../../../Container';
-import strings from '../../../../lang';
 import playerRankingsColumns from './playerRankingsColumns';
 
-const Rankings = ({ data, error, loading }) => (
+const Rankings = ({
+  data, error, loading, strings,
+}) => (
   <div>
     <Container title={strings.heading_rankings} subtitle={strings.rankings_description} error={error} loading={loading}>
-      <Table columns={playerRankingsColumns} data={data} placeholderMessage={strings.rankings_none} />
+      <Table columns={playerRankingsColumns(strings)} data={data} placeholderMessage={strings.rankings_none} />
     </Container>
   </div>
 );
@@ -19,6 +20,7 @@ Rankings.propTypes = {
   data: PropTypes.arrayOf({}),
   error: PropTypes.string,
   loading: PropTypes.bool,
+  strings: PropTypes.shape({}),
 };
 
 const getData = (props) => {
@@ -26,13 +28,21 @@ const getData = (props) => {
 };
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    location: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+    playerId: PropTypes.string,
+    strings: PropTypes.shape({}),
+  }
+
   componentDidMount() {
     getData(this.props);
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (this.props.playerId !== nextProps.playerId || this.props.location.key !== nextProps.location.key) {
-      getData(this.props);
+  componentDidUpdate(prevProps) {
+    if (this.props.playerId !== prevProps.playerId || this.props.location.key !== prevProps.location.key) {
+      getData(prevProps);
     }
   }
 
@@ -41,17 +51,11 @@ class RequestLayer extends React.Component {
   }
 }
 
-RequestLayer.propTypes = {
-  location: PropTypes.shape({
-    key: PropTypes.string,
-  }),
-  playerId: PropTypes.string,
-};
-
 const mapStateToProps = state => ({
   data: state.app.playerRankings.data,
   error: state.app.playerRankings.error,
   loading: state.app.playerRankings.loading,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({

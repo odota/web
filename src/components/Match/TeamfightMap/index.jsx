@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { arrayOf, object, shape, number, bool, func, string, array } from 'prop-types';
 import ReactTooltip from 'react-tooltip';
-import stylePropType from 'react-style-proptype';
 import styled from 'styled-components';
 import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from '../../../utility';
 import { IconRadiant, IconDire, IconDot } from '../../Icons';
 import TeamTable from '../TeamTable';
-import { teamfightColumns } from '../matchColumns';
+import mcs from '../matchColumns';
 import PlayerThumb from '../PlayerThumb';
-import strings from '../../../lang';
 import Timeline from '../Overview/Timeline';
 import DotaMap from '../../DotaMap';
 import constants from '../../constants';
@@ -263,7 +262,9 @@ const getTombStyle = position => position.reduce(
   position[0].isRadiant ? 'radiant' : 'dire',
 );
 
-export const Tombstones = ({ deathPositions, mapWidth, tooltipKey }) => (
+export const Tombstones = ({
+  deathPositions, mapWidth, tooltipKey, strings,
+}) => (
   <div>
     {deathPositions.map((position, index) => (
       <div key={index}>
@@ -305,6 +306,7 @@ export const Teamfight = ({
   mapWidth,
   onClick,
   deathPositions,
+  strings,
 }) => (
   <div>
     <div className={getIconStyle(radiantGoldDelta)}>
@@ -330,7 +332,7 @@ export const Teamfight = ({
         </div>
       </ReactTooltip>
     </div>
-    {selected && <Tombstones deathPositions={deathPositions} mapWidth={mapWidth} tooltipKey={tooltipKey} />}
+    {selected && <Tombstones deathPositions={deathPositions} mapWidth={mapWidth} tooltipKey={tooltipKey} strings={strings} />}
   </div>
 );
 
@@ -368,6 +370,14 @@ const avgPosition = ({ deaths_pos: deathPositions }) => {
 };
 
 class TeamfightMap extends Component {
+  static propTypes = {
+    teamfights: arrayOf(object),
+    match: shape({}),
+    strings: shape({}),
+    sponsorIcon: string,
+    sponsorURL: string,
+  }
+
   constructor(props) {
     super();
     const { teamfights = [] } = props;
@@ -431,9 +441,12 @@ class TeamfightMap extends Component {
   isSelected = (teamfight = { start: null }) => this.state.teamfight && this.state.teamfight.start === teamfight.start;
 
   render() {
-    const { teamfights = [], match } = this.props;
+    const {
+      teamfights = [], match, strings, sponsorURL, sponsorIcon,
+    } = this.props;
     const teamfight = this.state.teamfight || {};
     const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
+    const { teamfightColumns } = mcs(strings);
     return (
       <Styled>
         <div className="timelineContainer">
@@ -465,6 +478,7 @@ class TeamfightMap extends Component {
                     radiantGoldDelta={teamFight.radiant_gold_advantage_delta}
                     deathPositions={teamFight.deaths_pos}
                     mapWidth={bindWidth(400, 400)}
+                    strings={strings}
                   />
                 ))}
               </DotaMap>
@@ -484,6 +498,10 @@ class TeamfightMap extends Component {
               <TeamTable
                 players={teamfight.players && teamfight.players.filter(p => p.participate)}
                 columns={teamfightColumns}
+                heading={strings.heading_teamfights}
+                buttonLabel={strings.gosu_teamfights}
+                buttonTo={`${sponsorURL}Teamfights`}
+                buttonIcon={sponsorIcon}
                 radiantTeam={this.props.match.radiant_team}
                 direTeam={this.props.match.dire_team}
               />
@@ -495,9 +513,6 @@ class TeamfightMap extends Component {
   }
 }
 
-const {
-  arrayOf, object, shape, number, bool, func, string, array,
-} = PropTypes;
 const positionShape = {
   x: number,
   y: number,
@@ -509,7 +524,7 @@ TeamfightIcon.propTypes = {
   mapWidth: number,
   onClick: func, // not required because tombstone doesn't need click fn
   Icon: func,
-  style: stylePropType,
+  style: shape({}),
 };
 
 GoldDelta.propTypes = {
@@ -520,6 +535,7 @@ Tombstones.propTypes = {
   tooltipKey: string,
   mapWidth: number,
   deathPositions: arrayOf(array),
+  strings: shape({}),
 };
 
 Teamfight.propTypes = {
@@ -533,11 +549,11 @@ Teamfight.propTypes = {
   mapWidth: number,
   onClick: func,
   deathPositions: arrayOf(array),
+  strings: shape({}),
 };
 
-TeamfightMap.propTypes = {
-  teamfights: arrayOf(object),
-  match: shape({}),
-};
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
 
-export default TeamfightMap;
+export default connect(mapStateToProps)(TeamfightMap);

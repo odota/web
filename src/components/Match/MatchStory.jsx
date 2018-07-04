@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import util from 'util';
 import heroes from 'dotaconstants/build/heroes.json';
@@ -7,7 +8,6 @@ import itemColors from 'dotaconstants/build/item_colors.json';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
 import ReactTooltip from 'react-tooltip';
 import { IconRadiant, IconDire } from '../Icons';
-import strings from '../../lang';
 import {
   formatSeconds,
   jsonFn,
@@ -15,6 +15,7 @@ import {
 } from '../../utility';
 import { StyledEmote, StyledStoryNetWorthBar, StyledStoryNetWorthText, StyledStorySpan, StyledStoryWrapper } from './StyledMatch';
 import constants from '../constants';
+import store from '../../store';
 
 const heroesArr = jsonFn(heroes);
 
@@ -24,28 +25,36 @@ const TEAM = {
   dire: false,
 };
 
-const GoldSpan = amount => (
-  <StyledStorySpan key={`gold_${amount}`}>
-    <font color={constants.colorGolden}>{amount.toLocaleString()}</font>
-    <img
-      width="25px"
-      height="17px"
-      alt={` ${strings.story_gold}`}
-      src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`}
-      style={{ marginLeft: '3px' }}
-    />
-  </StyledStorySpan>
-);
+const GoldSpan = (amount) => {
+  const { strings } = store.getState().app;
+  return (
+    <StyledStorySpan key={`gold_${amount}`}>
+      <font color={constants.colorGolden}>{amount.toLocaleString()}</font>
+      <img
+        width="25px"
+        height="17px"
+        alt={` ${strings.story_gold}`}
+        src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`}
+        style={{ marginLeft: '3px' }}
+      />
+    </StyledStorySpan>
+  );
+};
 
-const TeamSpan = isRadiant => (
-  <StyledStorySpan isRadiant={isRadiant} key={`team_${isRadiant ? 'radiant' : 'dire'}`}>
-    {isRadiant ? <IconRadiant /> : <IconDire />}
-    {isRadiant ? strings.general_radiant : strings.general_dire}
-  </StyledStorySpan>
-);
+const TeamSpan = (isRadiant) => {
+  const { strings } = store.getState().app;
+  return (
+    <StyledStorySpan isRadiant={isRadiant} key={`team_${isRadiant ? 'radiant' : 'dire'}`}>
+      {isRadiant ? <IconRadiant /> : <IconDire />}
+      {isRadiant ? strings.general_radiant : strings.general_dire}
+    </StyledStorySpan>
+  );
+};
 
 // Modified version of PlayerThumb
 const PlayerSpan = (player) => {
+  const { strings } = store.getState().app;
+
   if (!player || !heroes[player.hero_id]) {
     return strings.story_invalid_hero;
   }
@@ -106,12 +115,16 @@ const capitalizeFirst = (list) => {
 
 // Adds a fullstop to the end of a sentence, and capitalizes the first letter if it can
 const toSentence = (content) => {
+  const { strings } = store.getState().app;
+
   const result = capitalizeFirst(content);
   result.push(`${strings.story_fullstop} `);
   return result;
 };
 
 const articleFor = (followingWord) => {
+  const { strings } = store.getState().app;
+
   // Whether we use a or an depends on the sound of the following word, but that's much hardder to detect programmatically,
   // so we're looking solely at vowel usage for now.
   if (['A', 'E', 'I', 'O', 'U'].includes(followingWord.charAt(0))) {
@@ -122,6 +135,8 @@ const articleFor = (followingWord) => {
 };
 
 const formatApproximateTime = (timeSeconds) => {
+  const { strings } = store.getState().app;
+
   const timeMinutes = parseInt(timeSeconds / 60, 10);
 
   // If the time is at least two hours, describe it in hours
@@ -143,6 +158,8 @@ const renderSentence = (template, dict) => toSentence(formatTemplate(template, d
 
 // Enumerates a list of items using the correct language syntax
 const formatList = (list, noneValue = []) => {
+  const { strings } = store.getState().app;
+
   switch (list.length) {
     case 0:
       return noneValue;
@@ -161,6 +178,8 @@ const isQuestion = message => /\w(?:\W*(\?)\W*)$/.test(message);
 
 // evaluate the sentiment behind the message - rage, question, statement etc
 const evaluateSentiment = (event, lastMessage) => {
+  const { strings } = store.getState().app;
+
   const { message, player, time } = event;
   const sentiment = isQuestion(message) ? ['question'] : ['statement'];
 
@@ -211,6 +230,8 @@ class IntroEvent extends StoryEvent {
     this.match_duration_seconds = match.duration;
   }
   format() {
+    const { strings } = store.getState().app;
+
     return formatTemplate(strings.story_intro, {
       game_mode_article: articleFor(strings[`game_mode_${this.game_mode}`]),
       game_mode: strings[`game_mode_${this.game_mode}`],
@@ -241,6 +262,8 @@ class FirstbloodEvent extends StoryEvent {
     }
   }
   format() {
+    const { strings } = store.getState().app;
+
     return formatTemplate(strings.story_firstblood, {
       time: formatSeconds(this.time),
       killer: PlayerSpan(this.killer),
@@ -259,6 +282,8 @@ class ChatMessageEvent extends StoryEvent {
   }
 
   format() {
+    const { strings } = store.getState().app;
+
     return formatTemplate(strings.story_chatmessage, {
       player: PlayerSpan(this.player),
       message: this.message.split('')
@@ -282,11 +307,15 @@ class AegisEvent extends StoryEvent {
     this.player = match.players.find(player => player.player_slot === obj.player_slot);
   }
   get localizedAction() {
+    const { strings } = store.getState().app;
+
     return ((this.action === 'CHAT_MESSAGE_AEGIS' && strings.timeline_aegis_picked_up) ||
             (this.action === 'CHAT_MESSAGE_AEGIS_STOLEN' && strings.timeline_aegis_snatched) ||
             (this.action === 'CHAT_MESSAGE_DENIED_AEGIS' && strings.timeline_aegis_denied));
   }
   format() {
+    const { strings } = store.getState().app;
+
     return formatTemplate(strings.story_aegis, {
       action: this.localizedAction,
       player: PlayerSpan(this.player),
@@ -301,6 +330,8 @@ class RoshanEvent extends StoryEvent {
     this.aegis = aegisEvents.find(aegis => aegis.index === index);
   }
   format() {
+    const { strings } = store.getState().app;
+
     const formatted = formatTemplate(strings.story_roshan, { team: TeamSpan(this.team) });
     return this.aegis ? formatList([formatted, this.aegis.format()]) : formatted;
   }
@@ -312,6 +343,8 @@ class CourierKillEvent extends StoryEvent {
     this.team = obj.team === 2;
   }
   format() {
+    const { strings } = store.getState().app;
+
     return formatTemplate(strings.story_courier_kill, {
       team: TeamSpan(this.team),
     });
@@ -330,6 +363,8 @@ class PredictionEvent extends StoryEvent {
     }
   }
   format() {
+    const { strings } = store.getState().app;
+
     return formatTemplate(strings.story_predicted_victory, {
       players: formatList(this.players.map(PlayerSpan), strings.story_predicted_victory_empty),
       team: TeamSpan(this.team),
@@ -337,11 +372,11 @@ class PredictionEvent extends StoryEvent {
   }
 }
 
-const localizedLane = {
+const localizedLane = strings => ({
   1: strings.lane_pos_1,
   2: strings.lane_pos_2,
   3: strings.lane_pos_3,
-};
+});
 
 const getLaneScore = players => (Math.max(...players.map(player => player.gold_t[10] || 0)) || 0);
 const laneScoreDraw = 500;
@@ -355,17 +390,19 @@ class LaneStory {
     this.is_draw = Math.abs(getLaneScore(this.radiant_players) - getLaneScore(this.dire_players)) <= laneScoreDraw;
   }
   format() {
+    const { strings } = store.getState().app;
+
     // If there is nobody in this lane
     if (this.radiant_players.length === 0 && this.dire_players.length === 0) {
       return renderSentence(strings.story_lane_empty, {
-        lane: localizedLane[this.lane],
+        lane: localizedLane(strings)[this.lane],
       });
     }
     // If only one team is in this lane
     if (this.radiant_players.length === 0 || this.dire_players.length === 0) {
       return renderSentence(strings.story_lane_free, {
         players: formatList(this.radiant_players.concat(this.dire_players).map(PlayerSpan)),
-        lane: localizedLane[this.lane],
+        lane: localizedLane(strings)[this.lane],
       });
     }
     // If both teams are in this lane
@@ -375,7 +412,7 @@ class LaneStory {
       return renderSentence(strings.story_lane_draw, {
         radiant_players: formatList(this.radiant_players.map(PlayerSpan), strings.story_lane_empty),
         dire_players: formatList(this.dire_players.map(PlayerSpan), strings.story_lane_empty),
-        lane: localizedLane[this.lane],
+        lane: localizedLane(strings)[this.lane],
       });
     }
 
@@ -383,7 +420,7 @@ class LaneStory {
     return renderSentence(this.winning_team ? strings.story_lane_radiant_win : strings.story_lane_radiant_lose, {
       radiant_players: formatList(this.radiant_players.map(PlayerSpan), strings.story_lane_empty),
       dire_players: formatList(this.dire_players.map(PlayerSpan), strings.story_lane_empty),
-      lane: localizedLane[this.lane],
+      lane: localizedLane(strings)[this.lane],
     });
   }
 }
@@ -397,6 +434,8 @@ class JungleStory {
     return match.players.filter(player => (player.lane === 4 || player.lane === 5) && !player.is_roaming).length > 0;
   }
   format() {
+    const { strings } = store.getState().app;
+
     return renderSentence(strings.story_lane_jungle, {
       players: formatList(this.players.map(PlayerSpan)),
     });
@@ -412,6 +451,8 @@ class RoamStory {
     return match.players.filter(player => player.is_roaming).length > 0;
   }
   format() {
+    const { strings } = store.getState().app;
+
     return renderSentence(strings.story_lane_roam, {
       players: formatList(this.players.map(PlayerSpan)),
     });
@@ -421,7 +462,7 @@ class RoamStory {
 class LanesEvent extends StoryEvent {
   constructor(match) {
     super(10 * 60);
-    this.lanes = Object.keys(localizedLane).map(lane => new LaneStory(match, lane));
+    this.lanes = Object.keys(localizedLane({})).map(lane => new LaneStory(match, lane));
     if (JungleStory.exists(match)) {
       this.lanes.push(new JungleStory(match));
     }
@@ -433,12 +474,16 @@ class LanesEvent extends StoryEvent {
     return this.format();
   }
   format() {
+    const { strings } = store.getState().app;
+
     return [strings.story_lane_intro, <ul key="lanestory">{this.lanes.map(lane => <li key={lane.lane}>{lane.format()}</li>)}</ul>];
   }
 }
 
 // returnes a formatted template when given a TowerEvent or BarracksEvent
 const formatBuilding = (event) => {
+  const { strings } = store.getState().app;
+
   let template = strings.story_building_destroy;
   if (event.player) {
     template = event.player.isRadiant === event.team ? strings.story_building_deny_player : strings.story_building_destroy_player;
@@ -469,11 +514,13 @@ class TowerEvent extends StoryEvent {
     }
   }
   get localizedBuilding() {
+    const { strings } = store.getState().app;
+
     const template = this.tier === undefined ? strings.story_tower_simple : strings.story_tower;
     return formatTemplate(template, {
       team: TeamSpan(this.team),
       tier: this.tier,
-      lane: localizedLane[this.lane],
+      lane: localizedLane(strings)[this.lane],
     });
   }
   format() {
@@ -503,9 +550,11 @@ class BarracksEvent extends StoryEvent {
     }
   }
   get localizedBuilding() {
+    const { strings } = store.getState().app;
+
     return formatTemplate(strings.story_barracks, {
       team: TeamSpan(this.team),
-      lane: localizedLane[this.lane],
+      lane: localizedLane(strings)[this.lane],
       rax_type: this.is_melee ? strings.building_melee_rax : strings.building_range_rax,
     });
   }
@@ -520,6 +569,8 @@ class BuildingListEvent extends StoryEvent {
     this.buildings = buildingEvents;
   }
   format() {
+    const { strings } = store.getState().app;
+
     const buildingList = [];
     [TEAM.radiant, TEAM.dire].forEach((team) => {
       const towers = this.buildings.filter(building => building.team === team && building instanceof TowerEvent);
@@ -531,7 +582,7 @@ class BuildingListEvent extends StoryEvent {
           n: towers.length,
         }));
       }
-      Object.keys(localizedLane).forEach((lane) => {
+      Object.keys(localizedLane(strings)).forEach((lane) => {
         const barracks = this.buildings.filter(building => (
           building.team === team && building instanceof BarracksEvent && building.lane === parseInt(lane, 10)));
         if (barracks.length === 1) {
@@ -539,7 +590,7 @@ class BuildingListEvent extends StoryEvent {
         } else if (barracks.length === 2) {
           buildingList.push(formatTemplate(strings.story_barracks_both, {
             team: TeamSpan(team),
-            lane: localizedLane[lane],
+            lane: localizedLane(strings)[lane],
           }));
         }
       });
@@ -579,6 +630,8 @@ class TeamfightEvent extends StoryEvent {
     return this.format();
   }
   format() {
+    const { strings } = store.getState().app;
+
     let template = strings.story_teamfight;
     if (this.win_dead.length === 0) {
       template = strings.story_teamfight_none_dead;
@@ -635,6 +688,8 @@ class ExpensiveItemEvent extends StoryEvent {
     return found;
   }
   format() {
+    const { strings } = store.getState().app;
+
     return formatTemplate(strings.story_expensive_item, {
       time: formatSeconds(this.time),
       player: PlayerSpan(this.player),
@@ -651,6 +706,8 @@ class ItemPurchaseEvent extends StoryEvent {
     this.item = purchase.key;
   }
   format() {
+    const { strings } = store.getState().app;
+
     return formatTemplate(strings.story_item_purchase, {
       time: formatSeconds(this.time),
       player: PlayerSpan(this.player),
@@ -680,6 +737,8 @@ class TimeMarkerEvent extends StoryEvent {
     return this.time / 60;
   }
   format() {
+    const { strings } = store.getState().app;
+
     return [
       <h3 key={`minute_${this.minutes}_subheading`} style={{ marginBottom: 0 }}>
         {formatTemplate(strings.story_time_marker, { minutes: this.minutes })}
@@ -720,6 +779,8 @@ class GameoverEvent extends StoryEvent {
       .reduce((a, b) => a + b, 0);
   }
   format() {
+    const { strings } = store.getState().app;
+
     return formatTemplate(strings.story_gameover, {
       duration: formatSeconds(this.time),
       winning_team: TeamSpan(this.winning_team),
@@ -858,11 +919,17 @@ const generateStory = (match) => {
 };
 
 class MatchStory extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({}),
+    strings: PropTypes.shape({}),
+  }
+
   renderEvents() {
     const events = generateStory(this.props.match);
     return (<StyledStoryWrapper key="matchstory">{events.map(event => event.render())}</StyledStoryWrapper>);
   }
   render() {
+    const { strings } = this.props;
     try {
       return this.renderEvents();
     } catch (e) {
@@ -879,8 +946,8 @@ class MatchStory extends React.Component {
   }
 }
 
-MatchStory.propTypes = {
-  match: PropTypes.shape({}),
-};
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
 
-export default MatchStory;
+export default connect(mapStateToProps)(MatchStory);

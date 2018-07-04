@@ -6,7 +6,6 @@ import {
   gameCoordToUV,
   formatSeconds,
 } from '../../../utility';
-import strings from '../../../lang';
 import PlayerThumb from '../PlayerThumb';
 import DotaMap from '../../DotaMap';
 import constants from '../../constants';
@@ -90,7 +89,7 @@ const wardIcon = (log) => {
   return `/assets/images/dota2/map/${side}_${log.type}.png`;
 };
 
-const WardTooltipEnter = ({ player, log }) => (
+const WardTooltipEnter = ({ player, log, strings }) => (
   <div className="tooltipContainer">
     <PlayerThumb {...player} />
     <div>{log.type === 'observer' ? strings.vision_placed_observer : strings.vision_placed_sentry}</div>
@@ -101,9 +100,10 @@ const WardTooltipEnter = ({ player, log }) => (
 WardTooltipEnter.propTypes = {
   player: PropTypes.shape({}),
   log: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
-const WardTooltipLeft = ({ log }) => {
+const WardTooltipLeft = ({ log, strings }) => {
   let expired;
   const age = log.left.time - log.entered.time;
 
@@ -123,9 +123,12 @@ const WardTooltipLeft = ({ log }) => {
 
 WardTooltipLeft.propTypes = {
   log: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
-const WardPin = ({ match, width, log }) => {
+const WardPin = ({
+  match, width, log, strings,
+}) => {
   const id = `ward-${log.entered.player_slot}-${log.entered.time}`;
   const sideName = log.entered.player_slot < 5 ? 'radiant' : 'dire';
 
@@ -147,8 +150,8 @@ const WardPin = ({ match, width, log }) => {
         border
         class={`${sideName}WardTooltip`}
       >
-        <WardTooltipEnter player={match.players[log.player]} log={log} />
-        {log.left && <WardTooltipLeft log={log} />}
+        <WardTooltipEnter player={match.players[log.player]} log={log} strings={strings} />
+        {log.left && <WardTooltipLeft log={log} strings={strings} />}
       </ReactTooltip>
     </Styled>
   );
@@ -158,15 +161,25 @@ WardPin.propTypes = {
   match: PropTypes.shape({}),
   width: PropTypes.number,
   log: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
 
 class VisionMap extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      start_time: PropTypes.number,
+    }),
+    wards: PropTypes.arrayOf({}),
+    strings: PropTypes.shape({}),
+  }
+
   shouldComponentUpdate(newProps) {
     return newProps.wards.length !== this.props.wards.length;
   }
 
   render() {
+    const { strings } = this.props;
     const width = 550;
     return (
       <div style={{ height: width }}>
@@ -175,19 +188,12 @@ class VisionMap extends React.Component {
           maxWidth={width}
           width={width}
         >
-          {this.props.wards.map(w => <WardPin match={this.props.match} key={w.key} width={width} log={w} />)}
+          {this.props.wards.map(w => <WardPin match={this.props.match} key={w.key} width={width} log={w} strings={strings} />)}
         </DotaMap>
       </div>
     );
   }
 }
-
-VisionMap.propTypes = {
-  match: PropTypes.shape({
-    start_time: PropTypes.number,
-  }),
-  wards: PropTypes.arrayOf({}),
-};
 
 VisionMap.defaultProps = {
   width: 400,

@@ -1,11 +1,11 @@
-import strings from '../../../../lang';
-
-export default [{
+const playerItemsColumns = strings => ([{
   displayName: 'Name',
   tooltip: strings.items_name,
   field: 'name',
   width: 1,
-}];
+}]);
+
+export default playerItemsColumns;
 
 // "items_built"
 // "items_matches": "Number of matches where this item was built",

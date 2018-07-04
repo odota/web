@@ -2,16 +2,35 @@ import React, { Component } from 'react';
 import { shape, func, bool, arrayOf, oneOfType, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { getBenchmark } from '../../actions';
-import Spinner from '../Spinner';
 import BenchmarkTable from './BenchmarkTable';
+import BenchmarkGraphs from './BenchmarkGraphs';
+import BenchmarkSkeleton from '../Skeletons/BenchmarkSkeleton';
 
-const renderBenchmark = (hero, data) => (
+const renderBenchmark = (hero, data, strings) => (
   <div>
+    <BenchmarkGraphs data={data} strings={strings} />
     <BenchmarkTable data={data} />
   </div>
 );
 
 class Benchmark extends Component {
+  static propTypes = {
+    match: shape({
+      params: shape({
+        heroId: string,
+      }),
+    }),
+    strings: shape({}),
+    getBenchmark: func,
+    isLoading: bool,
+    isError: bool,
+    hero: shape({}),
+    result: oneOfType([
+      arrayOf(shape({})),
+      shape({}),
+    ]),
+  }
+
   componentDidMount() {
     if (
       this.props.match.params &&
@@ -29,30 +48,14 @@ class Benchmark extends Component {
     return (
       <div>
         {isLoading || isError || result === null ? (
-          <Spinner />
+          <BenchmarkSkeleton />
         ) : (
-          renderBenchmark(hero, result)
+          renderBenchmark(hero, result, this.props.strings)
         )}
       </div>
     );
   }
 }
-
-Benchmark.propTypes = {
-  match: shape({
-    params: shape({
-      heroId: string,
-    }),
-  }),
-  getBenchmark: func,
-  isLoading: bool,
-  isError: bool,
-  hero: shape({}),
-  result: oneOfType([
-    arrayOf(shape({})),
-    shape({}),
-  ]),
-};
 
 /**
 HISTOGRAM API

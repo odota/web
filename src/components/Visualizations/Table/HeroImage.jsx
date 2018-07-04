@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import playerColors from 'dotaconstants/build/player_colors.json';
@@ -10,7 +11,6 @@ import { subTextStyle } from '../../../utility';
 import { TableLink } from '../../Table';
 import { IconDice, IconCrystalBall, IconCheckCircle } from '../../Icons';
 import constants from '../../constants';
-import strings from '../../../lang';
 
 const Styled = styled.div`
 .subTextContainer {
@@ -200,11 +200,11 @@ const Styled = styled.div`
   margin-left: 8px;
 }
 
-.pvgnaGuideContainer {
+.guideContainer {
   margin: auto;
 }
 
-.pvgnaGuideIcon {
+.guideIcon {
   max-width: 24px;
   max-height: 24px;
 }
@@ -238,12 +238,14 @@ const TableHeroImage = ({
   confirmed,
   party,
   heroName,
-  showPvgnaGuide,
-  pvgnaGuideInfo,
+  showGuide,
+  guideUrl,
+  guideType,
   randomed,
   repicked,
   predictedVictory,
   leaverStatus,
+  strings,
 }) => (
   <Styled style={expand}>
     <HeroImageContainer>
@@ -348,13 +350,15 @@ const TableHeroImage = ({
         }
       </div>
       }
-      { !!showPvgnaGuide && pvgnaGuideInfo && heroName &&
-      <div className="pvgnaGuideContainer" data-tip data-for={heroName}>
-        <a href={pvgnaGuideInfo.url}>
-          <img className="pvgnaGuideIcon" src="/assets/images/pvgna-guide-icon.png" alt={`Learn ${heroName} on Pvgna`} />
+      { Boolean(showGuide) && guideType && guideUrl && heroName &&
+      <div className="guideContainer" data-tip data-for={heroName}>
+        <a href={guideUrl}>
+          { guideType === 'PVGNA' ? <img className="guideIcon" src="/assets/images/pvgna-guide-icon.png" alt={`Learn ${heroName} on Pvgna`} /> : <div /> }
+          { guideType === 'MOREMMR' ? <img style={{ maxWidth: '60px' }} src="/assets/images/moremmr-icon2.svg" alt={`Learn ${heroName} on MoreMMR`} /> : <div /> }
         </a>
         <ReactTooltip id={heroName} place="top" type="light" effect="solid" offset="{'top': 1, 'right': 3}">
-          {`Learn ${heroName} on Pvgna`}
+          { guideType === 'PVGNA' ? `Learn ${heroName} on Pvgna` : '' }
+          { guideType === 'MOREMMR' ? `Learn ${heroName} on MoreMMR` : '' }
         </ReactTooltip>
       </div>
       }
@@ -363,7 +367,7 @@ const TableHeroImage = ({
 );
 
 const {
-  string, oneOfType, bool, node, shape, object,
+  string, oneOfType, bool, node, object,
 } = PropTypes;
 
 TableHeroImage.propTypes = {
@@ -384,19 +388,21 @@ TableHeroImage.propTypes = {
   party: node,
   confirmed: bool,
   heroName: string,
-  showPvgnaGuide: oneOfType([
+  showGuide: oneOfType([
     bool,
     PropTypes.number,
   ]),
-  pvgnaGuideInfo: shape({ url: string }),
+  guideUrl: string,
+  guideType: string,
   randomed: bool,
   repicked: string,
   predictedVictory: bool,
   leaverStatus: PropTypes.number,
+  strings: PropTypes.shape({}),
 };
 
 // If need party or estimated, just add new prop with default val = solo and change icons depending what needs
-export const Mmr = ({ number }) => (
+export const Mmr = ({ number, strings }) => (
   <span>
     <section
       data-hint={strings.th_solo_mmr}
@@ -407,11 +413,13 @@ export const Mmr = ({ number }) => (
     {number || strings.general_unknown}
   </span>
 );
+
 Mmr.propTypes = {
   number: PropTypes.number,
+  strings: PropTypes.shape({}),
 };
 
-export const CompetitiveRank = ({ rankTier }) => (
+export const CompetitiveRank = ({ rankTier, strings }) => (
   <span>
     <section
       data-hint={strings.th_rank}
@@ -422,8 +430,14 @@ export const CompetitiveRank = ({ rankTier }) => (
     {rankTier}
   </span>
 );
+
 CompetitiveRank.propTypes = {
   rankTier: PropTypes.number,
+  strings: PropTypes.shape({}),
 };
 
-export default TableHeroImage;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(TableHeroImage);

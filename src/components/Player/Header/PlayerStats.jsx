@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ActionHelp from 'material-ui/svg-icons/action/help';
+// import ActionHelp from 'material-ui/svg-icons/action/help';
 import styled from 'styled-components';
 import Error from '../../Error';
 import Spinner from '../../Spinner';
 import PlayedWith from './PlayedWith';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
-import strings from '../../../lang';
 
 const Styled = styled.div`
 .container {
@@ -53,31 +52,17 @@ const Styled = styled.div`
     }
   }
 }
-
-.estimatedMMR {
-  position: relative;
-
-  &[data-hint] {
-    &::after {
-      margin-left: 10px;
-      margin-top: 5px;
-    }
-  }
-}
-
 `;
 
 export const PlayerStatsCards = ({
   loading,
   error,
-  partyRank,
-  soloRank,
-  mmrEstimate,
   wins,
   losses,
   compact,
   playerId,
   loggedInId,
+  strings,
 }) => {
   if (error) {
     return <Error />;
@@ -101,41 +86,6 @@ export const PlayerStatsCards = ({
             subtitle={wins + losses ? `${((wins / (wins + losses)) * 100).toFixed(2)}%` : strings.abbr_not_available}
             title={strings.th_winrate}
           />
-          {soloRank && (
-            <PlayerStatsCard
-              subtitle={soloRank || strings.abbr_not_available}
-              title={strings.th_solo_mmr}
-            />
-          )}
-          {partyRank && (
-            <PlayerStatsCard
-              subtitle={partyRank || strings.abbr_not_available}
-              title={strings.th_party_mmr}
-            />
-          )}
-          {mmrEstimate && mmrEstimate.estimate > 0 && (
-            <PlayerStatsCard
-              subtitle={
-                <div
-                  className="estimatedMMR"
-                >
-                  {mmrEstimate.estimate}
-                </div>
-              }
-              title={
-                <div>
-                  {strings.th_estimated_mmr}
-                  <div
-                    className="estimateHelp"
-                    data-hint={strings.tooltip_estimated_mmr}
-                    data-hint-position="top"
-                  >
-                    <ActionHelp className="icon" />
-                  </div>
-                </div>
-              }
-            />
-          )}
           <PlayedWith loggedInId={loggedInId} playerId={playerId} />
         </div>
       </div>
@@ -150,24 +100,20 @@ const {
 PlayerStatsCards.propTypes = {
   loading: bool,
   error: bool,
-  partyRank: string,
-  soloRank: number,
-  mmrEstimate: shape({}),
   wins: number,
   losses: number,
   compact: bool,
   playerId: string,
   loggedInId: string,
+  strings: shape({}),
 };
 
 const mapStateToProps = state => ({
   loading: state.app.player.loading,
   error: state.app.player.error,
-  partyRank: state.app.player.data.competitive_rank,
-  soloRank: state.app.player.data.solo_competitive_rank,
-  mmrEstimate: state.app.player.data.mmr_estimate,
   wins: state.app.playerWinLoss.data.win,
   losses: state.app.playerWinLoss.data.lose,
+  strings: state.app.strings,
 });
 
 export default connect(mapStateToProps)(PlayerStatsCards);

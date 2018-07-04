@@ -1,8 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 import querystring from 'querystring';
-import strings from '../../lang';
 import ChipList from './ChipList';
 import constants from '../constants';
 
@@ -39,6 +39,22 @@ const deleteChipDefault = (name, index, history) => {
 };
 
 class FormField extends React.Component {
+  static propTypes = {
+    name: PropTypes.string,
+    dataSource: PropTypes.arrayOf({}),
+    strict: PropTypes.bool,
+    limit: PropTypes.number,
+    formSelectionState: PropTypes.shape({}),
+    addChip: PropTypes.string,
+    history: PropTypes.shape({}),
+    label: PropTypes.string,
+    filter: PropTypes.string,
+    className: PropTypes.string,
+    maxSearchResults: PropTypes.string,
+    deleteChip: PropTypes.string,
+    strings: PropTypes.shape({}),
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -56,6 +72,7 @@ class FormField extends React.Component {
       formSelectionState,
       addChip = addChipDefault,
       history,
+      strings,
     } = this.props;
 
     const selectedElements = formSelectionState[name];
@@ -150,19 +167,8 @@ class FormField extends React.Component {
   }
 }
 
-FormField.propTypes = {
-  name: PropTypes.string,
-  dataSource: PropTypes.arrayOf({}),
-  strict: PropTypes.bool,
-  limit: PropTypes.number,
-  formSelectionState: PropTypes.shape({}),
-  addChip: PropTypes.string,
-  history: PropTypes.shape({}),
-  label: PropTypes.string,
-  filter: PropTypes.string,
-  className: PropTypes.string,
-  maxSearchResults: PropTypes.string,
-  deleteChip: PropTypes.string,
-};
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
 
-export default FormField;
+export default connect(mapStateToProps)(FormField);

@@ -173,17 +173,28 @@ DraftHero.propTypes = {
   isCaptains: PropTypes.bool,
 };
 
-// one-based indexing (since draft[i].order starts at 1)
-const orderOne = [1, 3, 5, 7, 10, 12, 14, 16, 18, 20, 21];
-const orderTwo = [2, 4, 6, 8, 9, 11, 13, 15, 17, 19, 22];
-const picks = [7, 8, 9, 10, 15, 16, 17, 18, 21, 22];
-
 const Draft = ({
   gameMode,
   radiantTeam = {},
   direTeam = {},
   draft = [],
+  startTime,
+  sponsorURL,
+  sponsorIcon,
+  strings,
 }) => {
+  // one-based indexing (since draft[i].order starts at 1)
+  let orderOne = [];
+  let orderTwo = [];
+  if (startTime > 1525910400) { // post 7.15
+    orderOne = [1, 3, 5, 7, 10, 11, 13, 16, 18, 20, 21];
+    orderTwo = [2, 4, 6, 8, 9, 12, 14, 15, 17, 19, 22];
+  } else {
+    orderOne = [1, 3, 5, 7, 10, 12, 14, 16, 18, 20, 21];
+    orderTwo = [2, 4, 6, 8, 9, 11, 13, 15, 17, 19, 22];
+  }
+  const picks = [7, 8, 9, 10, 15, 16, 17, 18, 21, 22];
+
   // if there is no draft data there is no meaning to firstIsTeamTwo
   const firstIsTeamTwo = draft && draft[0] && draft[0].active_team === 2;
   const radiantOrder = firstIsTeamTwo ? orderTwo : orderOne;
@@ -206,6 +217,9 @@ const Draft = ({
         <section className="teams">
           <Heading
             title={`${getTeamName(radiantTeam, true)}`}
+            buttonLabel={strings.gosu_default}
+            buttonTo={`${sponsorURL}Draft`}
+            buttonIcon={sponsorIcon}
             icon={<IconRadiant />}
           />
           <Heading
@@ -306,6 +320,10 @@ Draft.propTypes = {
   radiantTeam: PropTypes.shape({}),
   direTeam: PropTypes.shape({}),
   draft: PropTypes.arrayOf(PropTypes.shape({})),
+  startTime: PropTypes.number,
+  sponsorURL: PropTypes.string,
+  sponsorIcon: PropTypes.string,
+  strings: PropTypes.shape({}),
 };
 
 export default Draft;

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   ReferenceArea,
   XAxis,
@@ -16,7 +17,6 @@ import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import Heading from '../../Heading';
 import constants from '../../constants';
-import strings from '../../../lang';
 import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHolder, GoldSpan, XpSpan, StyledTooltipGold } from './Styled';
 
 const formatGraphTime = minutes => `${minutes}:00`;
@@ -33,7 +33,7 @@ const generateDiffData = (match) => {
   return data;
 };
 
-const XpTooltipContent = ({ payload }) => {
+const XpTooltipContent = ({ payload, strings }) => {
   try {
     const data = payload && payload[0] && payload[0].payload;
     const { rXpAdv, rGoldAdv, time } = data;
@@ -68,9 +68,12 @@ const XpTooltipContent = ({ payload }) => {
 };
 XpTooltipContent.propTypes = {
   payload: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
 };
 
-const XpNetworthGraph = ({ match }) => {
+const XpNetworthGraph = ({
+  match, strings, sponsorURL, sponsorIcon,
+}) => {
   const matchData = generateDiffData(match);
   const maxY =
       Math.ceil(Math.max(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000) * 5000;
@@ -80,7 +83,12 @@ const XpNetworthGraph = ({ match }) => {
     <StyledHolder>
       <StyledRadiant>{strings.general_radiant}</StyledRadiant>
       <StyledDire>{strings.general_dire}</StyledDire>
-      <Heading title={strings.heading_graph_difference} />
+      <Heading
+        title={strings.heading_graph_difference}
+        buttonLabel={strings.gosu_default}
+        buttonTo={`${sponsorURL}Graphs`}
+        buttonIcon={sponsorIcon}
+      />
       <ResponsiveContainer width="100%" height={400}>
         <LineChart
           data={matchData}
@@ -122,9 +130,18 @@ const XpNetworthGraph = ({ match }) => {
 };
 XpNetworthGraph.propTypes = {
   match: PropTypes.shape({}),
+  strings: PropTypes.shape({}),
+  sponsorIcon: PropTypes.string,
+  sponsorURL: PropTypes.string,
 };
 
 class PlayersGraph extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({}),
+    type: PropTypes.string,
+    strings: PropTypes.shape({}),
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -145,7 +162,7 @@ class PlayersGraph extends React.Component {
   };
 
   render() {
-    const { match, type } = this.props;
+    const { match, type, strings } = this.props;
     const { hoverHero } = this.state;
 
     const matchData = [];
@@ -208,16 +225,14 @@ class PlayersGraph extends React.Component {
     return null;
   }
 }
-PlayersGraph.propTypes = {
-  match: PropTypes.shape({}),
-  type: PropTypes.string,
-};
 
-const MatchGraph = ({ type, match, width }) => {
+const MatchGraph = ({
+  type, match, width, strings, sponsorURL, sponsorIcon,
+}) => {
   if (type === 'difference') {
-    return <XpNetworthGraph match={match} width={width} />;
+    return <XpNetworthGraph match={match} width={width} strings={strings} sponsorURL={sponsorURL} sponsorIcon={sponsorIcon} />;
   } else if (type === 'gold' || type === 'xp' || type === 'lh') {
-    return <PlayersGraph type={type} match={match} width={width} />;
+    return <PlayersGraph type={type} match={match} width={width} strings={strings} />;
   }
   return null;
 };
@@ -228,6 +243,13 @@ MatchGraph.propTypes = {
   width: PropTypes.number,
   match: PropTypes.shape({}),
   type: PropTypes.string,
+  strings: PropTypes.shape({}),
+  sponsorIcon: PropTypes.string,
+  sponsorURL: PropTypes.string,
 };
 
-export default MatchGraph;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(MatchGraph);

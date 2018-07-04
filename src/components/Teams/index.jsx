@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import FlatButton from 'material-ui/FlatButton';
 import { getOrdinal, getTeamLogoUrl, fromNow, subTextStyle } from '../../utility';
-import strings from '../../lang';
 import { getTeams } from '../../actions';
 import Heading from '../Heading';
 import Team from '../Team';
@@ -27,7 +26,7 @@ const TeamImageContainer = styled.div`
   }
 `;
 
-const columns = [{
+const columns = strings => [{
   displayName: strings.th_rank,
   displayFn: (row, col, field, index) => getOrdinal(index + 1),
 },
@@ -66,10 +65,23 @@ const columns = [{
 }];
 
 class RequestLayer extends React.Component {
+  static propTypes = {
+    dispatchTeams: PropTypes.func,
+    data: PropTypes.arrayOf(PropTypes.object),
+    loading: PropTypes.bool,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        teamId: PropTypes.string,
+      }),
+    }),
+    strings: PropTypes.shape({}),
+  }
+
   componentDidMount() {
     this.props.dispatchTeams();
   }
   render() {
+    const { strings } = this.props;
     const route = this.props.match.params.teamId;
 
     if (Number.isInteger(Number(route))) {
@@ -89,25 +101,15 @@ class RequestLayer extends React.Component {
           />
         </div>
         <Heading title={strings.heading_team_elo_rankings} subtitle={strings.subheading_team_elo_rankings} />
-        <Table columns={columns} data={this.props.data.slice(0, 100)} loading={loading} />
+        <Table columns={columns(strings)} data={this.props.data.slice(0, 100)} loading={loading} />
       </div>);
   }
 }
 
-RequestLayer.propTypes = {
-  dispatchTeams: PropTypes.func,
-  data: PropTypes.arrayOf(PropTypes.object),
-  loading: PropTypes.bool,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      teamId: PropTypes.string,
-    }),
-  }),
-};
-
 const mapStateToProps = state => ({
   data: state.app.teams.data.filter(team => team.last_match_time > ((new Date() / 1000) - (60 * 60 * 24 * 30 * 6))),
   loading: state.app.teams.loading,
+  strings: state.app.strings,
 });
 
 const mapDispatchToProps = dispatch => ({
