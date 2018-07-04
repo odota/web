@@ -82,10 +82,7 @@ export const getAbilityIds = () => async (dispatch) => {
 };
 export * from './requestActions';
 export * from './formActions';
-<<<<<<< HEAD
 export const getLive = () => action('live', process.env.REACT_APP_API_HOST, 'api/live');
-=======
 export const getScenariosItemTimings = params => action('scenariosItemTimings', process.env.REACT_APP_API_HOST, 'api/scenarios/itemTimings', params);
 export const getScenariosLaneRoles = params => action('scenariosLaneRoles', process.env.REACT_APP_API_HOST, 'api/scenarios/laneRoles', params);
 export const getScenariosMisc = params => action('scenariosMisc', process.env.REACT_APP_API_HOST, 'api/scenarios/misc', params);
->>>>>>> 116a2c1cf23063f386578e2c204046a6a0f6d2a9

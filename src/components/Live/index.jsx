@@ -25,6 +25,7 @@ class Live extends React.Component {
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {data.map(game => (
             <div style={{ width: '25%' }}>
+              <a href={`steam://rungameid/570//watch_server ${game.server_steam_id}`}>Watch Game</a>
               <div>{game.spectators} watching</div>
               <div>{formatSeconds(game.game_time)}</div>
               {game.average_mmr ? <div>{game.average_mmr} Average MMR</div> : null}

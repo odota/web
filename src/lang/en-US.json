@@ -306,11 +306,8 @@
   "header_explorer": "Explorer",
   "header_teams": "Teams",
   "header_meta": "Meta",
-<<<<<<< HEAD
   "header_live": "Live",
-=======
   "header_scenarios": "Scenarios",
->>>>>>> 116a2c1cf23063f386578e2c204046a6a0f6d2a9
   "header_api": "API",
 
   "heading_lhten": "Last Hits @ 10",

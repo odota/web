@@ -49,11 +49,8 @@ export default combineReducers({
   abilityIds: (state = {}, action) => ((action && action.type === 'abilityIds') ? action.payload : state),
   form,
   request,
-<<<<<<< HEAD
   live: reducer('live'),
-=======
   scenariosItemTimings: reducer('scenariosItemTimings'),
   scenariosLaneRoles: reducer('scenariosLaneRoles'),
   scenariosMisc: reducer('scenariosMisc'),
->>>>>>> 116a2c1cf23063f386578e2c204046a6a0f6d2a9
 });
