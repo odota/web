@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import heroes from 'dotaconstants/build/heroes.json';
+import styled from 'styled-components';
 import { getHeroStats, getProPlayers } from '../../actions';
 import Heading from '../Heading';
 import Table from '../Table';
@@ -13,6 +14,33 @@ import {
   abbreviateNumber,
 } from '../../utility';
 import columns from './columns';
+
+const StyledTable = styled.div`
+  th:first-child, td:first-child {
+    position: sticky !important;
+    left: 0px;
+  }
+
+  th:first-child {
+    background-color: rgb(37, 35, 50) !important;
+    z-index: 100;
+  }
+
+  tr {
+    &:nth-child(odd) {
+      & td:first-child {
+        background-color: rgb(53, 50, 72) !important;
+        z-index: 100;
+      }
+    }
+
+    &:nth-child(even) {
+      & td:first-child {
+        background-color: rgb(48, 45, 66) !important;
+        z-index: 100;
+      }
+    }
+`;
 
 class RequestLayer extends React.Component {
   static propTypes = {
@@ -118,7 +146,9 @@ class RequestLayer extends React.Component {
             icon=""
             twoLine
           />
-          <Table data={data} columns={_columns} loading={loading} />
+          <StyledTable>
+            <Table data={data} columns={_columns} loading={loading} />
+          </StyledTable>
         </div>),
       route: '/heroes/public',
     }];
