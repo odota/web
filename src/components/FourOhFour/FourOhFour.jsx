@@ -38,7 +38,7 @@ const Styled = styled.div`
   }
 `;
 
-const imageList = ['sad', 'bawl', 'cry', 'charm-cry'];
+const imageList = ['sad', 'bawl', 'charm-cry'];
 
 const randomImage = imageList[Math.floor(Math.random() * imageList.length)];
 
