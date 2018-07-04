@@ -10,14 +10,25 @@ import constants from '../../constants';
 import LogHover from './LogHover';
 
 const Styled = styled.div`
-.placement{ 
-  display: none;
+  display: inline-block;
+
+  .minimap {
+  } 
+
+  .minimap:hover > img {
+    border: 1px solid ${constants.colorMutedLight};
   }
-  .minimap:hover .placement{
-  position: absolute;
-  display : block;
-  padding-left: 30px;
-  pointer-events: none
+
+  .placement {
+    position: absolute;
+    transform: scale(0);
+    transition: .1s ease;
+    pointer-events: none;
+    filter: brightness(110%);
+  }
+
+  .minimap:hover .placement {
+    transform: scale(1)
   }
 `;
 
@@ -51,10 +62,12 @@ const columns = (strings) => {
       displayName: strings.ward_log_duration,
       field: 'duration',
     },
+    /*
     {
       displayName: strings.ward_log_killed_by,
       field: 'killer',
     },
+    */
     {
       displayName: strings.placement,
       field: 'placement',
