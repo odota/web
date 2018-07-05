@@ -126,7 +126,7 @@ export const StyledBody = styled.div`
   }
 
   .scrolled th:first-child {
-    background-color: rgb(33, 34, 44, 0.8) !important;
+    background-color: rgba(33, 34, 44, 0.8) !important;
     z-index: 100;
     transition: all 0.5s ease-out !important;
   }
@@ -134,7 +134,7 @@ export const StyledBody = styled.div`
   .scrolled tr {
     &:nth-child(odd) {
       & td:first-child {
-        background-color: rgb(33, 34, 44, 0.8) !important;
+        background-color: rgba(33, 34, 44, 0.8) !important;
         z-index: 100;
         transition: all 0.5s ease-out !important;
       }
@@ -142,7 +142,7 @@ export const StyledBody = styled.div`
 
     &:nth-child(even) {
       & td:first-child {
-        background-color: rgb(33, 34, 44, 0.8) !important;
+        background-color: rgba(33, 34, 44, 0.8) !important;
         z-index: 100;
         transition: all 0.5s ease-out !important;
       }
