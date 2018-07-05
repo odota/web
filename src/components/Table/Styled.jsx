@@ -94,18 +94,25 @@ export const StyledBody = styled.div`
 
   .scrolled .textContainer {
     & .registered {
-      display: none;
+      display: none !important;
     }
 
     & .badge {
-      display: none;
+      display: none !important;
+    }
+  }
+
+  .scrolled .guideContainer {
+    & .moremmr-icon {
+      max-width: 50px !important;
+      margin-top: 3px !important;
     }
   }
 
   .scrolled .imageContainer {
     & img {
-      margin-right: 3px;
-      height: 15px;
+      margin-right: 4px;
+      height: 18px;
     }
 
     & .playerSlot {
