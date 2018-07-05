@@ -80,6 +80,7 @@ export const StyledBody = styled.div`
   }
   ` : '')};
 
+  /* -- scrolling behavior -- */
   .scrolled .textContainer {
     width: 70px !important;
     margin-right: 8px !important;
@@ -91,7 +92,6 @@ export const StyledBody = styled.div`
     text-overflow: ellipsis !important;
   }
 
-/* -- scrolling behavior -- */
   .scrolled .textContainer {
     & .registered {
       display: none;
