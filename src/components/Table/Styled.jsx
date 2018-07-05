@@ -79,6 +79,67 @@ export const StyledBody = styled.div`
      transition: background 100ms linear !important;
   }
   ` : '')};
+
+  .scrolled .textContainer {
+    width: 70px !important;
+    margin-right: 8px !important;
+  }
+
+  .scrolled .textContainer span {
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+  }
+
+/* -- scrolling behavior -- */
+  .scrolled .textContainer {
+    & .registered {
+      display: none;
+    }
+
+    & .badge {
+      display: none;
+    }
+  }
+
+  .scrolled .imageContainer {
+    & img {
+      margin-right: 3px;
+      height: 15px;
+    }
+
+    & .playerSlot {
+      display: none;
+    }
+  }
+
+  .scrolled th:first-child, .scrolled td:first-child {
+    position: sticky !important;
+    left: 0px !important;
+  }
+
+  .scrolled th:first-child {
+    background-color: rgb(33, 34, 44, 0.8) !important;
+    z-index: 100;
+    transition: all 0.5s ease-out !important;
+  }
+
+  .scrolled tr {
+    &:nth-child(odd) {
+      & td:first-child {
+        background-color: rgb(33, 34, 44, 0.8) !important;
+        z-index: 100;
+        transition: all 0.5s ease-out !important;
+      }
+    }
+
+    &:nth-child(even) {
+      & td:first-child {
+        background-color: rgb(33, 34, 44, 0.8) !important;
+        z-index: 100;
+        transition: all 0.5s ease-out !important;
+      }
+    }
 `;
 export const StyledContainer = styled.div`
   min-width: 100%;

@@ -112,6 +112,22 @@ class Table extends React.Component {
     this.state = initialState;
   }
 
+  setInnerContainerRef = (node) => { this.innerContainerRef = node; }
+
+  handleScroll = () => {
+    const { scrolled } = this.state;
+    const { scrollLeft } = this.innerContainerRef.childNodes[0].childNodes[0];
+    if (!scrolled && scrollLeft) {
+      this.setState({
+        scrolled: true,
+      });
+    } else if (scrolled && !scrollLeft) {
+      this.setState({
+        scrolled: false,
+      });
+    }
+  }
+
   setCurrentPage = (pageNumber) => {
     this.setState({
       ...this.state,
@@ -166,7 +182,7 @@ class Table extends React.Component {
       setHighlightedCol,
     } = this.props;
     const {
-      sortState, sortField, sortFn, currentPage,
+      sortState, sortField, sortFn, currentPage, scrolled,
     } = this.state;
     const dataLength = this.props.data.length;
     let { data } = this.props;
@@ -194,7 +210,7 @@ class Table extends React.Component {
           {!loading && error && <Error />}
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
-          <div className="innerContainer">
+          <div className={`innerContainer ${scrolled && 'scrolled'}`} ref={this.setInnerContainerRef} onScroll={this.handleScroll}>
             <MaterialTable fixedHeader={false} selectable={false}>
               <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableHeader
