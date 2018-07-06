@@ -117,13 +117,9 @@ class Table extends React.Component {
   handleScroll = () => {
     const { scrolled } = this.state;
     const { scrollLeft } = this.innerContainerRef.childNodes[0].childNodes[0];
-    if (!scrolled && scrollLeft) {
+    if ((!scrolled && scrollLeft) || (scrolled && !scrollLeft)) {
       this.setState({
-        scrolled: true,
-      });
-    } else if (scrolled && !scrollLeft) {
-      this.setState({
-        scrolled: false,
+        scrolled: scrollLeft,
       });
     }
   }
