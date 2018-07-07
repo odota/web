@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import constants from '../constants';
 
-
 const Styled = styled.div`
   .container {
     display: flex;
@@ -39,11 +38,18 @@ const Styled = styled.div`
   }
 `;
 
+const imageList = ['sad', 'bawl', 'charm-cry'];
+
+const randomImage = imageList[Math.floor(Math.random() * imageList.length)];
+
 const FourOhFour = ({ strings, msg }) => (
   <Styled>
     <div className="container">
       <Helmet title={`${strings.error} 404`} />
-      <img src="/assets/images/sad.gif" alt="" />
+      <img
+        src={`/assets/images/${randomImage}.gif`}
+        alt=""
+      />
       <div className="message">
         {strings.error_four_oh_four_message}
       </div>
