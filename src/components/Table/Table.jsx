@@ -112,17 +112,13 @@ class Table extends React.Component {
     this.state = initialState;
   }
 
-  setInnerContainerRef = (node) => { this.innerContainerRef = node; }
-
-  handleScroll = () => {
-    const { scrolled } = this.state;
-    const { scrollLeft } = this.innerContainerRef.childNodes[0].childNodes[0];
-    if ((!scrolled && scrollLeft) || (scrolled && !scrollLeft)) {
-      this.setState({
-        scrolled: scrollLeft,
-      });
+  componentDidUpdate() {
+    if (this.innerContainerRef) {
+      this.innerContainerRef.refs.tableDiv.onscroll = this.handleScroll;
     }
   }
+
+  setTableRef = (node) => { this.innerContainerRef = node; }
 
   setCurrentPage = (pageNumber) => {
     this.setState({
@@ -130,6 +126,16 @@ class Table extends React.Component {
       currentPage: pageNumber,
     });
   };
+
+  handleScroll = () => {
+    const { scrolled } = this.state;
+    const { scrollLeft } = this.innerContainerRef.refs.tableDiv;
+    if ((!scrolled && scrollLeft) || (scrolled && !scrollLeft)) {
+      this.setState({
+        scrolled: scrollLeft,
+      });
+    }
+  }
 
   static getDerivedStateFromProps(props) {
     if (props.resetTableState) {
@@ -206,8 +212,8 @@ class Table extends React.Component {
           {!loading && error && <Error />}
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
-          <div className={`innerContainer ${scrolled && 'scrolled'}`} ref={this.setInnerContainerRef} onScroll={this.handleScroll}>
-            <MaterialTable fixedHeader={false} selectable={false}>
+          <div className={`innerContainer ${scrolled && 'scrolled'}`}>
+            <MaterialTable fixedHeader={false} selectable={false} ref={this.setTableRef}>
               <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableHeader
                   columns={columns}
