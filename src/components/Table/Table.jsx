@@ -112,6 +112,12 @@ class Table extends React.Component {
     this.state = initialState;
   }
 
+  componentDidMount() {
+    if (this.innerContainerRef) {
+      this.innerContainerRef.refs.tableDiv.onscroll = this.handleScroll;
+    }
+  }
+
   componentDidUpdate() {
     if (this.innerContainerRef) {
       this.innerContainerRef.refs.tableDiv.onscroll = this.handleScroll;

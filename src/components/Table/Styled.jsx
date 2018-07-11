@@ -82,8 +82,8 @@ export const StyledBody = styled.div`
 
   /* -- scrolling behavior -- */
   .scrolled .textContainer {
-    width: 70px !important;
-    margin-right: 8px !important;
+    width: 50px !important;
+    margin-right: 0px !important;
   }
 
   .scrolled .textContainer span {
@@ -100,12 +100,15 @@ export const StyledBody = styled.div`
     & .badge {
       display: none !important;
     }
+
+    & .rank {
+      display: none !important;
+    }
   }
 
   .scrolled .guideContainer {
     & .moremmr-icon {
-      max-width: 50px !important;
-      margin-top: 3px !important;
+      display: none;
     }
   }
 
@@ -137,6 +140,7 @@ export const StyledBody = styled.div`
         background-color: rgba(33, 34, 44, 0.8) !important;
         z-index: 100;
         transition: all 0.5s ease-out !important;
+        padding-right: 0px !important;
       }
     }
 
@@ -145,6 +149,7 @@ export const StyledBody = styled.div`
         background-color: rgba(33, 34, 44, 0.8) !important;
         z-index: 100;
         transition: all 0.5s ease-out !important;
+        padding-right: 0px !important;
       }
     }
 `;

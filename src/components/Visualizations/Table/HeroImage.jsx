@@ -420,7 +420,7 @@ Mmr.propTypes = {
 };
 
 export const CompetitiveRank = ({ rankTier, strings }) => (
-  <span>
+  <span className="rank">
     <section
       data-hint={strings.th_rank}
       data-hint-position="bottom"
