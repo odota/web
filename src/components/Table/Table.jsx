@@ -112,12 +112,12 @@ class Table extends React.Component {
     this.state = initialState;
   }
 
-  setTableRef = (node) => { 
+  setTableRef = (node) => {
     this.innerContainerRef = node;
     if (this.innerContainerRef) {
       this.innerContainerRef.refs.tableDiv.onscroll = this.handleScroll;
     }
-   }
+  }
 
   setCurrentPage = (pageNumber) => {
     this.setState({
