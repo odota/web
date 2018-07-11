@@ -439,7 +439,25 @@ const BuildingMap = ({ match, strings }) => {
     const roaming = (
       <span className="roaming">{strings.roaming}</span>
     );
+
+    const getLaneScore = players => (Math.max(...players.map(player => player.gold_t[10] || 0)) || 0);
+    const laneScoreDraw = 500;
+
     for (let i = 0; i < match.players.length; i += 1) {
+      const { lane } = match.players[i];
+      const radiantPlayers = match.players.filter(player => player.lane === parseInt(lane, 10) && player.isRadiant && (!player.is_roaming));
+      const direPlayers = match.players.filter(player => player.lane === parseInt(lane, 10) && !player.isRadiant && (!player.is_roaming));
+      const bRadiantWon = getLaneScore(radiantPlayers) > getLaneScore(direPlayers);
+      const bIsDraw = Math.abs(getLaneScore(radiantPlayers) - getLaneScore(direPlayers)) <= laneScoreDraw;
+
+      let laneOutcome = strings.td_no_result;
+      if (!bIsDraw) {
+        if (match.players[i].isRadiant) {
+          laneOutcome = bRadiantWon ? strings.td_win : strings.td_loss;
+        } else {
+          laneOutcome = !bRadiantWon ? strings.td_win : strings.td_loss;
+        }
+      }
       const player = (
         <div
           key={heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].name}
@@ -455,6 +473,8 @@ const BuildingMap = ({ match, strings }) => {
             <br />
             {match.players[i].is_roaming ? roaming : ''}
             {match.players[i].desc}
+            <br />
+            {!(match.players[i].is_roaming) && laneOutcome}
           </ReactTooltip>
         </div>
       );
