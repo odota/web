@@ -350,13 +350,24 @@ const HeroToolTip = styled.div`
       color: ${constants.colorMutedLight}
     }
 
-    & span + span {
-      margin-left: 6px;
+    & span:last-child {
       font-size: larger;
+      margin-right: 23px;
     }
+    
+    & .stat {
+      display: flex;
+      align-items: baseline;
 
-  }
-  
+      & #dots {
+      border-bottom: 1px dashed rgba(114, 114, 114, 0.23);
+      flex: 1;
+      margin-right: 8px;
+      margin-left: 8px;
+      padding-bottom: 10px;
+      }
+    }
+  } 
 `;
 
 const Trim = styled.hr`
@@ -549,20 +560,24 @@ const TableHeroImage = ({
           </div>
           <Trim />
           <div className="stats">
-            <div>
+            <div className="stat">
               <span>{`${strings.heading_move_speed}:`}</span>
+              <span id="dots" />
               <span>{hero.move_speed}</span>
             </div>
-            <div>
+            <div className="stat">
               <span>{`${strings.heading_attack}:`}</span>
+              <span id="dots" />
               <span>{`${hero.base_attack_min}-${hero.base_attack_max}`}</span>
             </div>
-            <div>
+            <div className="stat">
               <span>{`${strings.heading_base_armor}:`}</span>
+              <span id="dots" />
               <span>{hero.base_armor}</span>
             </div>
-            <div>
+            <div className="stat">
               <span>{`${strings.heading_attack_range}:`}</span>
+              <span id="dots" />
               <span>{hero.attack_range}</span>
             </div>
           </div>
