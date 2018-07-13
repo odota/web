@@ -617,6 +617,7 @@ export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffi
       guideUrl={guideUrl}
       guideType={guideType}
       leaverStatus={row.leaver_status}
+      hero={compileLevelOneStats(heroes[row.hero_id])}
     />
   );
 }
