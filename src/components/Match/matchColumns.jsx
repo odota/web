@@ -45,6 +45,7 @@ export default (strings) => {
       hero={compileLevelOneStats(heroes[row.hero_id])}
     />);
   };
+
   const heroTdColumn = {
     displayName: strings.th_avatar,
     field: 'player_slot',
