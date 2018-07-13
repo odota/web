@@ -359,7 +359,7 @@ const HeroToolTip = styled.div`
       display: flex;
       align-items: baseline;
 
-      & #dots {
+      & .dots {
       border-bottom: 1px dashed rgba(114, 114, 114, 0.23);
       flex: 1;
       margin-right: 8px;
@@ -562,22 +562,22 @@ const TableHeroImage = ({
           <div className="stats">
             <div className="stat">
               <span>{`${strings.heading_move_speed}:`}</span>
-              <span id="dots" />
+              <span className="dots" />
               <span>{hero.move_speed}</span>
             </div>
             <div className="stat">
               <span>{`${strings.heading_attack}:`}</span>
-              <span id="dots" />
+              <span className="dots" />
               <span>{`${hero.base_attack_min}-${hero.base_attack_max}`}</span>
             </div>
             <div className="stat">
               <span>{`${strings.heading_base_armor}:`}</span>
-              <span id="dots" />
+              <span className="dots" />
               <span>{hero.base_armor}</span>
             </div>
             <div className="stat">
               <span>{`${strings.heading_attack_range}:`}</span>
-              <span id="dots" />
+              <span className="dots" />
               <span>{hero.attack_range}</span>
             </div>
           </div>
