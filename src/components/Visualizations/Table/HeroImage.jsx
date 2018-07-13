@@ -242,7 +242,7 @@ const HeroToolTip = styled.div`
       left: 10px;
       top: 98px;
       line-height: 12px;
-      background: ${constants.almostBlack};
+      background: rgba(0, 0, 0, 0.65);
 
       & #health {
         color: ${constants.colorGreen};
@@ -264,7 +264,7 @@ const HeroToolTip = styled.div`
       z-index: 2;
       left: 4px;
       top: 5px;
-      background: ${constants.almostBlack};
+      background: rgba(0, 0, 0, 0.65);
       border-radius: 50%;
     }
 
