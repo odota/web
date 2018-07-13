@@ -240,7 +240,7 @@ const HeroToolTip = styled.div`
     & .health-mana {
       position: absolute;
       left: 10px;
-      top: 99px;
+      top: 98px;
       line-height: 12px;
       background: ${constants.almostBlack};
 
