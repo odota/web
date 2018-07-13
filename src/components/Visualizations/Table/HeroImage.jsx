@@ -245,7 +245,7 @@ const HeroToolTip = styled.div`
       background: ${constants.almostBlack};
 
       & #health {
-        color: ${constants.colorRed};
+        color: ${constants.colorGreen};
 
         &::after {
           content: "/";
