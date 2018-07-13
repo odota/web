@@ -7,10 +7,14 @@ import playerColors from 'dotaconstants/build/player_colors.json';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import NotificationSync from 'material-ui/svg-icons/notification/sync';
 import styled from 'styled-components';
-import { subTextStyle } from '../../../utility';
+import { subTextStyle, getHeroImageUrl, IMAGESIZE_ENUM } from '../../../utility';
 import { TableLink } from '../../Table';
 import { IconDice, IconCrystalBall, IconCheckCircle } from '../../Icons';
 import constants from '../../constants';
+import AttrStrength from '../../Icons/AttrStrength';
+import AttrIntelligent from '../../Icons/AttrIntelligent';
+import AttrAgility from '../../Icons/AttrAgility';
+
 
 const Styled = styled.div`
 .subTextContainer {
@@ -217,6 +221,150 @@ const HeroImageContainer = styled.div`
   align-items: center;
 `;
 
+const HeroToolTip = styled.div`
+  height: 255px;
+  width: 300px;
+  background: linear-gradient(rgba(66, 66, 78, .3) , rgba(13, 13, 13, .3));
+  border-radius: 5px;
+  overflow: hidden;
+
+  .header {
+    height: 120px;
+    overflow: hidden;
+  }
+
+  .heroImg {
+    position: relative;
+    float: left;
+
+    & .health-mana {
+      position: absolute;
+      left: 10px;
+      top: 99px;
+      line-height: 12px;
+      background: ${constants.almostBlack};
+
+      & #health {
+        color: ${constants.colorRed};
+
+        &::after {
+          content: "/";
+          color: ${constants.colorMuted};
+        }
+      }
+      
+      & #mana {
+        color: ${constants.colorMana};
+      }
+    }
+
+    & #heroImg-attribute {
+      height: 15px;
+      position: absolute;
+      z-index: 2;
+      left: 4px;
+      top: 5px;
+      background: ${constants.almostBlack};
+      border-radius: 50%;
+    }
+
+    & img {
+      height: 100px;
+      margin-left: 10px;
+      margin-top: 10px;
+      border-radius: 3px;
+      border-bottom: 2px solid ${constants.almostBlack};
+      border-right: 2px solid ${constants.almostBlack};
+      display: inline-block;
+    }
+  }
+
+  .header-stats {
+    height: 100px;
+    width: 180px;
+    margin-left: 8px;
+    margin-bottom: 1px;
+    display: inline-block;
+    
+    & #hero-name {
+      color: ${constants.primaryTextColor};
+      text-shadow: 1px 1px ${constants.colorMuted};
+      margin-left: 7px;
+      font-size: ${constants.fontSizeCommon};
+      margin-top: 6px;
+    }
+
+    & #hero-roles {
+      font-size: ${constants.fontSizeTiny}
+      color: ${constants.colorMuted};
+      margin-left: 7px;
+      line-height: 10px;
+      position: relative;
+      top: -2px;
+      height: 18px;
+    }
+
+    & .attributes-container {
+      height: 50px;
+      width: 180px;
+      display: flex;
+      margin-top: 10px;
+      justify-content: space-between;
+
+      & .attributes {
+      width: 50px;
+      height: 50px;
+
+      & .attribute-img {
+        display: block;
+        height: 35px;
+        margin-left: auto;
+        margin-right: auto;
+        border: 2px solid ${constants.colorMuted};
+        border-radius: 50%;
+        box-sizing: border-box;
+
+        &[main="true"] {
+          border: 3px solid ${constants.primaryTextColor};
+        }
+      }
+
+      & .attribute-text {
+        text-align: center;
+        font-size: 11px;
+        margin-top: 2px;
+      }
+    }
+    }
+  }
+
+  .stats {
+    height: 180px;
+
+    & div {
+      margin-left: 9px;
+      margin-bottom: 3px;
+    }
+
+    & span:first-child {
+      color: ${constants.colorMutedLight}
+    }
+
+    & span + span {
+      margin-left: 6px;
+      font-size: larger;
+    }
+
+  }
+  
+`;
+
+const Trim = styled.hr`
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), ${constants.colorMuted}, rgba(0, 0, 0, 0));
+  margin: 12px 0;
+`;
 
 const expand = {
   display: 'flex',
@@ -246,6 +394,7 @@ const TableHeroImage = ({
   predictedVictory,
   leaverStatus,
   strings,
+  hero = {},
 }) => (
   <Styled style={expand}>
     <HeroImageContainer>
@@ -268,6 +417,8 @@ const TableHeroImage = ({
           src={image}
           alt=""
           className="image"
+          data-tip
+          data-for={image}
         />
         {leaverStatus !== undefined && leaverStatus > 1 &&
         <span
@@ -362,6 +513,61 @@ const TableHeroImage = ({
         </ReactTooltip>
       </div>
       }
+      <ReactTooltip id={image} effect="solid" place="right">
+        <HeroToolTip>
+          <div className="header">
+            <div className="heroImg">
+              <img
+                src={getHeroImageUrl(hero.id, IMAGESIZE_ENUM.VERT)}
+                alt=""
+              />
+              {hero.primary_attr === 'str' && <AttrStrength id="heroImg-attribute" />}
+              {hero.primary_attr === 'agi' && <AttrAgility id="heroImg-attribute" />}
+              {hero.primary_attr === 'int' && <AttrIntelligent id="heroImg-attribute" />}
+              <div className="health-mana">
+                <span id="health">{hero.base_health}</span><span id="mana">{hero.base_mana}</span>
+              </div>
+            </div>
+            <div className="header-stats">
+              <div id="hero-name">{hero.localized_name}</div>
+              <div id="hero-roles">{hero.attack_type} - {hero.roles.join(', ')}</div>
+              <div className="attributes-container">
+                <div className="attributes">
+                  <AttrStrength id="str" className="attribute-img" main={`${hero.primary_attr === 'str'}`} />
+                  <div className="attribute-text">{hero.base_str} +{hero.str_gain}</div>
+                </div>
+                <div className="attributes">
+                  <AttrAgility id="agi" className="attribute-img" main={`${hero.primary_attr === 'agi'}`} />
+                  <div className="attribute-text">{hero.base_agi} +{hero.agi_gain}</div>
+                </div>
+                <div className="attributes">
+                  <AttrIntelligent id="int" className="attribute-img" main={`${hero.primary_attr === 'int'}`} />
+                  <div className="attribute-text">{hero.base_int} +{hero.int_gain}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <Trim />
+          <div className="stats">
+            <div>
+              <span>{`${strings.heading_move_speed}:`}</span>
+              <span>{hero.move_speed}</span>
+            </div>
+            <div>
+              <span>{`${strings.heading_attack}:`}</span>
+              <span>{`${hero.base_attack_min}-${hero.base_attack_max}`}</span>
+            </div>
+            <div>
+              <span>{`${strings.heading_base_armor}:`}</span>
+              <span>{hero.base_armor}</span>
+            </div>
+            <div>
+              <span>{`${strings.heading_attack_range}:`}</span>
+              <span>{hero.attack_range}</span>
+            </div>
+          </div>
+        </HeroToolTip>
+      </ReactTooltip>
     </HeroImageContainer>
   </Styled>
 );
@@ -399,6 +605,7 @@ TableHeroImage.propTypes = {
   predictedVictory: bool,
   leaverStatus: PropTypes.number,
   strings: PropTypes.shape({}),
+  hero: PropTypes.shape({}),
 };
 
 // If need party or estimated, just add new prop with default val = solo and change icons depending what needs
