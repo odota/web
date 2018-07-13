@@ -530,7 +530,7 @@ const TableHeroImage = ({
             </div>
             <div className="header-stats">
               <div id="hero-name">{hero.localized_name}</div>
-              <div id="hero-roles">{hero.attack_type} - {hero.roles.join(', ')}</div>
+              <div id="hero-roles">{hero.attack_type} - {hero.roles && hero.roles.join(', ')}</div>
               <div className="attributes-container">
                 <div className="attributes">
                   <AttrStrength id="str" className="attribute-img" main={`${hero.primary_attr === 'str'}`} />
