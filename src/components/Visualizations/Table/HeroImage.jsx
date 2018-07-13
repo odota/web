@@ -352,7 +352,7 @@ const HeroToolTip = styled.div`
 
     & span:last-child {
       font-size: larger;
-      margin-right: 23px;
+      margin-right: 22px;
     }
     
     & .stat {
