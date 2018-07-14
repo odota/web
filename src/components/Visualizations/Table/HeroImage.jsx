@@ -310,6 +310,17 @@ const HeroToolTip = styled.div`
       display: flex;
       margin-top: 10px;
       justify-content: space-between;
+      position: relative;
+
+      & #connector {
+        position: absolute;
+        width: 120px;
+        border-top: 2px solid ${constants.colorMuted};
+        margin: 1em 0;
+        z-index: -1;
+        left 20px;
+        top: 4px;
+      }
 
       & .attributes {
       width: 50px;
@@ -323,6 +334,7 @@ const HeroToolTip = styled.div`
         border: 2px solid ${constants.colorMuted};
         border-radius: 50%;
         box-sizing: border-box;
+        background: #111111;
 
         &[main="true"] {
           border: 3px solid ${constants.primaryTextColor};
@@ -544,6 +556,7 @@ const TableHeroImage = ({
               <div id="hero-name">{hero.localized_name}</div>
               <div id="hero-roles">{hero.attack_type} - {hero.roles && hero.roles.join(', ')}</div>
               <div className="attributes-container">
+                <div id="connector" />
                 <div className="attributes">
                   <AttrStrength id="str" className="attribute-img" main={`${hero.primary_attr === 'str'}`} />
                   <div className="attribute-text">{hero.base_str} +{hero.str_gain}</div>
