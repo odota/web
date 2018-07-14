@@ -46,7 +46,7 @@ const queryTemplate = (props) => {
     tier,
     having,
     limit,
-    isTi7Team,
+    isTi8Team,
   } = props;
   // array inputs
   // group
@@ -126,7 +126,7 @@ ${conjoin`matches.cluster IN (${region.value.join(',')})`}
 ${conjoin`matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')`}
 ${conjoin`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')`}
 ${conjoin`leagues.tier = '${tier}'`}
-${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 1333179, 3331948, 1846548)' : ''}
+${isTi8Team ? 'AND teams.team_id IN (5, 15, 39, 67, 2163, 350190, 543897, 726228, 1375614, 1838315, 1883502, 2108395, 2586976, 5026801, 5027210, 5066616, 5228654, 5229127)' : ''}
 GROUP BY hero_id
 ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
@@ -199,7 +199,7 @@ ${conjoin`matches.cluster IN (${region})`}
 ${minDate ? conjoin`matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
 ${maxDate ? conjoin`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${conjoin`leagues.tier = '${tier}'`}
-${isTi7Team ? 'AND teams.team_id IN (5, 15, 39, 46, 2163, 350190, 1375614, 1838315, 1883502, 2108395, 2512249, 2581813, 2586976, 2640025, 2672298, 1333179, 3331948, 1846548)' : ''}
+${isTi8Team ? 'AND teams.team_id IN (5, 15, 39, 67, 2163, 350190, 543897, 726228, 1375614, 1838315, 1883502, 2108395, 2586976, 5026801, 5027210, 5066616, 5228654, 5229127)' : ''}
 ${validateArray(groupArray) ? 'GROUP BY' : ''}${(validateArray(groupArray) && groupArray.map(x => ` ${groupVal[x.key]}`)) || ''}
 ${validateArray(groupArray) ? `HAVING count(distinct matches.match_id) >= ${(having && having.value) || '1'}` : ''}
 ORDER BY ${

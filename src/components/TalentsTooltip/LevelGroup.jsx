@@ -56,9 +56,9 @@ const TalentContent = styled.div`
 
 const LevelGroup = ({ talents, level }) => (
   <Wrapper>
-    <TalentContent>{talents[0].name}</TalentContent>
+    <TalentContent>{talents && talents[0] && talents[0].name}</TalentContent>
     <Level>{level}</Level>
-    <TalentContent>{talents[1].name}</TalentContent>
+    <TalentContent>{talents && talents[1] && talents[1].name}</TalentContent>
   </Wrapper>
 );
 

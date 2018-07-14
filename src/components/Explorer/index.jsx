@@ -242,7 +242,7 @@ class Explorer extends React.Component {
           <ExplorerFormField label={strings.explorer_order} fields={expandedFields} builderField="order" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_having} fields={expandedFields} builderField="having" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_limit} fields={expandedFields} builderField="limit" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-          <ExplorerFormField label="Is TI7 Team" fields={expandedFields} builderField="isTi7Team" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label="Is TI8 Team" fields={expandedFields} builderField="isTi8Team" handleFieldUpdate={handleFieldUpdate} builder={builder} />
         </ExplorerControlSection>
         <div>
           <RaisedButton

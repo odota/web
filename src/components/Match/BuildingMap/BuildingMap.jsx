@@ -321,7 +321,7 @@ const BuildingMap = ({ match, strings }) => {
               (type === 'fort' && 25) ||
               (type === 'tower' && 16) ||
               (type.includes('rax') && 12),
-            opacity: bits[i] === '1' || '0.4',
+            filter: bits[i] === '1' ? 'contrast(150%)' : 'grayscale(100%) brightness(70%)',
           },
         },
       };
