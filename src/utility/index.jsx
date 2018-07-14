@@ -394,6 +394,10 @@ export const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 /* eslint-disable camelcase */
 // https://dota2.gamepedia.com/Attributes
 export function compileLevelOneStats(hero) {
+  if(!hero) {
+    return
+  }
+
   const statsBonuses = {
     str: {
       attackDamage: 1,
