@@ -223,7 +223,7 @@ const HeroImageContainer = styled.div`
 
 const HeroToolTip = styled.div`
   height: 255px;
-  width: 300px;
+  width: 290px;
   background: linear-gradient(rgba(66, 66, 78, .3) , rgba(13, 13, 13, .3));
   border-radius: 5px;
   overflow: hidden;
@@ -352,7 +352,7 @@ const HeroToolTip = styled.div`
 
     & span:last-child {
       font-size: larger;
-      margin-right: 22px;
+      margin-right: 11px;
     }
     
     & .stat {
@@ -373,6 +373,7 @@ const HeroToolTip = styled.div`
 const Trim = styled.hr`
   border: 0;
   height: 1px;
+  width: 290px;
   background: linear-gradient(to right, rgba(0, 0, 0, 0), ${constants.colorMuted}, rgba(0, 0, 0, 0));
   margin: 12px 0;
 `;
