@@ -71,26 +71,6 @@ function getMessagingToken() {
     });
 }
 
-messaging.onTokenRefresh(getMessagingToken);
-
-messaging.onMessage((payload) => {
-  console.log('Message received. ', payload);
-
-  if (payload.data.type === 'MATCH') {
-    const n = new Notification(
-      'Parsed $match'.replace('$match', payload.data.match_id),
-      {
-        body: 'Check out your performance.',
-      },
-    );
-    n.onclick = (event) => {
-      console.log(event);
-      event.preventDefault(); // prevent the browser from focusing the Notification's tab
-      window.open(`https://opendota.com/matches/${payload.data.match_id}`, '_blank');
-    };
-  }
-});
-
 getMessagingToken();
 
 const muiTheme = {
@@ -187,6 +167,28 @@ class App extends React.Component {
     if (this.props.location.key !== prevProps.location.key) {
       window.scrollTo(0, 0);
     }
+  }
+  
+  componentDidMount() {
+    messaging.onTokenRefresh(getMessagingToken);
+
+    messaging.onMessage((payload) => {
+      console.log('Message received. ', payload);
+    
+      if (payload.data.type === 'MATCH' && Object.keys(this.props.strings).length) {
+        const n = new Notification(
+          this.props.strings.notify_match_title.replace('$match', payload.data.match_id),
+          {
+            body: this.props.strings.notify_match_body,
+          },
+        );
+        n.onclick = (event) => {
+          console.log(event);
+          event.preventDefault(); // prevent the browser from focusing the Notification's tab
+          window.open(`https://opendota.com/matches/${payload.data.match_id}`, '_blank');
+        };
+      }
+    }); 
   }
 
   askForNotifiyPermission(strings) {
