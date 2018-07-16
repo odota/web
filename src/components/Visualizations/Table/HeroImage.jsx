@@ -237,12 +237,24 @@ const HeroToolTip = styled.div`
     position: relative;
     float: left;
 
+    &::after {
+      content: "";
+      position:absolute;
+      height: 100px;
+      width: 86px;
+      left: 10px;
+      top: 10px;
+      background: linear-gradient(to bottom, transparent 70%, rgba(0,0,0,1) 100%);
+      }
+
     & .health-mana {
       position: absolute;
       left: 10px;
       top: 98px;
       line-height: 12px;
-      background: rgba(0, 0, 0, 0.65);
+      width: 86px;
+      text-align: center;
+      z-index: 2;
 
       & #health {
         color: ${constants.colorGreen};
@@ -251,10 +263,20 @@ const HeroToolTip = styled.div`
           content: "/";
           color: ${constants.colorMuted};
         }
+
+        &::before {
+          content: "HP";
+          color: ${constants.colorGreen};
+        }
       }
       
       & #mana {
         color: ${constants.colorMana};
+
+        &::before {
+          content: "MP";
+          color: ${constants.colorMana};
+        }
       }
     }
 
@@ -549,7 +571,7 @@ const TableHeroImage = ({
               {hero.primary_attr === 'agi' && <AttrAgility id="heroImg-attribute" />}
               {hero.primary_attr === 'int' && <AttrIntelligent id="heroImg-attribute" />}
               <div className="health-mana">
-                <span id="health">{hero.base_health}</span><span id="mana">{hero.base_mana}</span>
+                <span id="health">{Math.floor(hero.base_health)}</span><span id="mana">{Math.floor(hero.base_mana)}</span>
               </div>
             </div>
             <div className="header-stats">
