@@ -266,7 +266,7 @@ const HeroToolTip = styled.div`
 
         &::before {
           content: "HP";
-          color: ${constants.colorGreen};
+          color: #488249;
         }
       }
       
@@ -275,7 +275,7 @@ const HeroToolTip = styled.div`
 
         &::before {
           content: "MP";
-          color: ${constants.colorMana};
+          color: #3C638E;
         }
       }
     }
