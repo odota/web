@@ -407,6 +407,8 @@
   "heading_cm_enabled": "CM ativado",
   "heading_current_players": "Jogadores atuais",
   "heading_former_players": "Ex-jogadores",
+  "heading_damage_dealt": "Damage Dealt",
+  "heading_damage_received": "Damage Received",
   "show_details": "Exibir detalhes",
   "hide_details": "Ocultar detalhes",
   "subheading_avg_and_max": "nas últimas %d partidas",
