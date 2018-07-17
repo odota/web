@@ -354,7 +354,7 @@ const TableHeroImage = ({
       <div className="guideContainer" data-tip data-for={heroName}>
         <a href={guideUrl}>
           { guideType === 'PVGNA' ? <img className="guideIcon" src="/assets/images/pvgna-guide-icon.png" alt={`Learn ${heroName} on Pvgna`} /> : <div /> }
-          { guideType === 'MOREMMR' ? <img style={{ maxWidth: '60px' }} src="/assets/images/moremmr-icon2.svg" alt={`Learn ${heroName} on MoreMMR`} /> : <div /> }
+          { guideType === 'MOREMMR' ? <img className="moremmr-icon" style={{ maxWidth: '60px' }} src="/assets/images/moremmr-icon2.svg" alt={`Learn ${heroName} on MoreMMR`} /> : <div /> }
         </a>
         <ReactTooltip id={heroName} place="top" type="light" effect="solid" offset="{'top': 1, 'right': 3}">
           { guideType === 'PVGNA' ? `Learn ${heroName} on Pvgna` : '' }
@@ -420,7 +420,7 @@ Mmr.propTypes = {
 };
 
 export const CompetitiveRank = ({ rankTier, strings }) => (
-  <span>
+  <span className="rank">
     <section
       data-hint={strings.th_rank}
       data-hint-position="bottom"
