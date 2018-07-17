@@ -407,6 +407,8 @@
   "heading_cm_enabled": "CM enabled",
   "heading_current_players": "Current Players",
   "heading_former_players": "Former Players",
+  "heading_damage_dealt": "Damage Dealt",
+  "heading_damage_received": "Damage Received",
   "show_details": "Show details",
   "hide_details": "Hide details",
   "subheading_avg_and_max": "i de seneste %d kampe",
