@@ -407,6 +407,8 @@
   "heading_cm_enabled": "是否启用队长模式",
   "heading_current_players": "当前玩家",
   "heading_former_players": "前队员",
+  "heading_damage_dealt": "Damage Dealt",
+  "heading_damage_received": "Damage Received",
   "show_details": "显示详情",
   "hide_details": "隐藏详情",
   "subheading_avg_and_max": "最近的 %d 场比赛中",
