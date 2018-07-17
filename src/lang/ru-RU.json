@@ -407,6 +407,8 @@
   "heading_cm_enabled": "Доступно в CM",
   "heading_current_players": "Текущее количество игроков",
   "heading_former_players": "Бывшие игроки",
+  "heading_damage_dealt": "Damage Dealt",
+  "heading_damage_received": "Damage Received",
   "show_details": "Показать подробности",
   "hide_details": "Скрыть подробности",
   "subheading_avg_and_max": "в последних %d матчах",
