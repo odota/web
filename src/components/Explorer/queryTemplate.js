@@ -47,6 +47,9 @@ const queryTemplate = (props) => {
     having,
     limit,
     isTi8Team,
+    megaWin,
+    radiantMinGoldAdvantage,
+    radiantMaxGoldAdvantage,
   } = props;
   // array inputs
   // group
@@ -127,6 +130,9 @@ ${conjoin`matches.start_time >= extract(epoch from timestamp '${new Date(minDate
 ${conjoin`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')`}
 ${conjoin`leagues.tier = '${tier}'`}
 ${isTi8Team ? 'AND teams.team_id IN (5, 15, 39, 67, 2163, 350190, 543897, 726228, 1375614, 1838315, 1883502, 2108395, 2586976, 5026801, 5027210, 5066616, 5228654, 5229127)' : ''}
+${megaWin ? 'AND ((matches.barracks_status_radiant = 0 AND matches.radiant_win) OR (matches.barracks_status_dire = 0 AND NOT matches.radiant_win))' : ''}
+${radiantMaxGoldAdvantage ? `AND (SELECT matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)]) ${radiantMaxGoldAdvantage.value >= 0 ? '<=' : '>='} ${radiantMaxGoldAdvantage.value}` : ''}
+${radiantMinGoldAdvantage ? `AND (SELECT matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)]) ${(radiantMinGoldAdvantage.value >= 0 && (!radiantMaxGoldAdvantage || radiantMaxGoldAdvantage.value > 0)) ? '>=' : '<='} ${radiantMinGoldAdvantage.value}` : ''}
 GROUP BY hero_id
 ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
@@ -200,6 +206,9 @@ ${minDate ? conjoin`matches.start_time >= extract(epoch from timestamp '${new Da
 ${maxDate ? conjoin`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${conjoin`leagues.tier = '${tier}'`}
 ${isTi8Team ? 'AND teams.team_id IN (5, 15, 39, 67, 2163, 350190, 543897, 726228, 1375614, 1838315, 1883502, 2108395, 2586976, 5026801, 5027210, 5066616, 5228654, 5229127)' : ''}
+${megaWin ? 'AND ((matches.barracks_status_radiant = 0 AND matches.radiant_win) OR (matches.barracks_status_dire = 0 AND NOT matches.radiant_win))' : ''}
+${radiantMaxGoldAdvantage ? `AND (SELECT matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)]) ${radiantMaxGoldAdvantage.value >= 0 ? '<=' : '>='} ${radiantMaxGoldAdvantage.value}` : ''}
+${radiantMinGoldAdvantage ? `AND (SELECT matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)]) ${(radiantMinGoldAdvantage.value >= 0 && (!radiantMaxGoldAdvantage || radiantMaxGoldAdvantage.value > 0)) ? '>=' : '<='} ${radiantMinGoldAdvantage.value}` : ''}
 ${validateArray(groupArray) ? 'GROUP BY' : ''}${(validateArray(groupArray) && groupArray.map(x => ` ${groupVal[x.key]}`)) || ''}
 ${validateArray(groupArray) ? `HAVING count(distinct matches.match_id) >= ${(having && having.value) || '1'}` : ''}
 ORDER BY ${
