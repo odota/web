@@ -121,10 +121,10 @@ ${conjoin`matches.leagueid = ${league}`}
 ${conjoin`matches.duration >= ${minDuration}`}
 ${conjoin`matches.duration <= ${maxDuration}`}
 ${conjoin`team_match.radiant = ${side}`}
-${conjoin`(team_match.radiant = matches.radiant_win) = ${result.value}`}
-${conjoin`matches.cluster IN (${region.value.join(',')})`}
-${conjoin`matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')`}
-${conjoin`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')`}
+${conjoin`(team_match.radiant = matches.radiant_win) = ${result}`}
+${conjoin`matches.cluster IN (${region})`}
+${minDate ? conjoin`matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
+${maxDate ? conjoin`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${conjoin`leagues.tier = '${tier}'`}
 ${isTi8Team ? 'AND teams.team_id IN (5, 15, 39, 67, 2163, 350190, 543897, 726228, 1375614, 1838315, 1883502, 2108395, 2586976, 5026801, 5027210, 5066616, 5228654, 5229127)' : ''}
 GROUP BY hero_id
