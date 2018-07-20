@@ -280,7 +280,7 @@ export default (strings) => {
         displayName: strings.th_permanent_buffs,
         field: 'permanent_buffs',
         displayFn: row =>
-          (row.permanent_buffs && row.permanent_buffs.length > 0 ? row.permanent_buffs.map(buff => buffs[buff.permanent_buff] && inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff')) : '-'),
+          (row.permanent_buffs && row.permanent_buffs.length > 0 ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff')) : '-'),
       }
       : []);
 
