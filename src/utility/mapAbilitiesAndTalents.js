@@ -7,12 +7,12 @@ const mapTalents = talents => talents.map(talent => ({ ...abilities[talent.name]
 const mapTalentsToLevel = (talents) => {
   const talentMap = [];
 
-  talents.forEach((talent) => {
-    if (!talentMap[talent.level - 1]) {
-      talentMap[talent.level - 1] = [];
+  talents.forEach((talent, i) => {
+    if (!talentMap[Math.floor(i / 2)]) {
+      talentMap[Math.floor(i / 2)] = [];
     }
 
-    talentMap[talent.level - 1].push({
+    talentMap[Math.floor(i / 2)].push({
       name: talent.dname,
     });
   });

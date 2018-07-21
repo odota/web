@@ -16,6 +16,8 @@ const getFields = (players = [], leagues = [], teams = []) => {
     groupValue: 'value::text::int',
     groupKey: 'key',
     avgPerMatch: true,
+    bundle: 'json_select',
+    singleSelection: 'true',
   };
 
   const usesSelect = itemKey => ({
@@ -23,6 +25,7 @@ const getFields = (players = [], leagues = [], teams = []) => {
     value: `(item_uses->>'${itemKey}')::int`,
     key: `uses_${itemKey}`,
     alias: 'uses',
+    bundle: 'uses',
   });
 
   const timingSelect = itemKey => ({
@@ -36,6 +39,8 @@ const getFields = (players = [], leagues = [], teams = []) => {
   AND match_logs.valuename = 'item_${itemKey}'`,
     key: `timing_${itemKey}`,
     formatSeconds: true,
+    bundle: 'timing',
+    singleSelection: true,
   });
 
   const killSelect = ({
@@ -51,6 +56,8 @@ const getFields = (players = [], leagues = [], teams = []) => {
   AND match_logs.type = 'DOTA_COMBATLOG_DEATH'
   AND match_logs.targetname LIKE '${unitKey}'`,
     key: `kill_${unitKey}`,
+    bundle: 'kill',
+    singleSelection: true,
   });
 
   const singleFields = [{
@@ -183,9 +190,20 @@ const getFields = (players = [], leagues = [], teams = []) => {
     value: 'round((0.3 * kills + (3 - 0.3 * deaths) + 0.003 * (last_hits + denies) + 0.002 * gold_per_min + towers_killed + roshans_killed + 3 * teamfight_participation + 0.5 * observers_placed + 0.5 * camps_stacked + 0.25 * rune_pickups + 4 * firstblood_claimed + 0.05 * stuns)::numeric, 1)',
     key: 'fantasy_points',
     bucket: 1,
+  },
+  {
+    text: strings.heading_damage_dealt,
+    value: '(SELECT SUM(value::text::int) FROM json_each(damage_inflictor))',
+    key: 'dmg_dealt',
+  },
+  {
+    text: strings.heading_damage_received,
+    value: '(SELECT SUM(value::text::int) FROM json_each(damage_inflictor_received))',
+    key: 'dmg_received',
   }].map(select => ({
     ...select,
     alias: select.alias || select.key,
+    bundle: 'single',
   }));
 
   const patches = patchData.reverse().map(patch => ({
@@ -220,6 +238,7 @@ const getFields = (players = [], leagues = [], teams = []) => {
         alias: 'as time',
         key: 'duration',
         formatSeconds: true,
+        bundle: 'duration',
       },
       {
         text: strings.heading_distinct_heroes,
@@ -227,6 +246,7 @@ const getFields = (players = [], leagues = [], teams = []) => {
         countValue: 'count(distinct player_matches.hero_id) distinct_heroes',
         key: 'distinct_heroes',
         distinct: true,
+        bundle: 'distinct_heroes',
       },
       {
         ...jsonSelect,
@@ -306,6 +326,7 @@ AND player_matches.hero_id != player_matches2.hero_id
 AND abs(player_matches.player_slot - player_matches2.player_slot) < 10
 ${props.hero && props.hero.value ? '' : 'AND player_matches.hero_id < player_matches2.hero_id'}`,
         key: 'hero_combos',
+        bundle: 'combinations',
       },
       {
         text: strings.explorer_hero_player,
@@ -313,6 +334,7 @@ ${props.hero && props.hero.value ? '' : 'AND player_matches.hero_id < player_mat
         groupValue: 1,
         groupKey: 'player_matches.hero_id, player_matches.account_id',
         key: 'hero_player',
+        bundle: 'combinations',
       },
       {
         text: strings.explorer_player_player,
@@ -326,6 +348,7 @@ AND player_matches.account_id != player_matches2.account_id
 AND abs(player_matches.player_slot - player_matches2.player_slot) < 10
 ${props.player && props.player.value ? '' : 'AND player_matches.account_id < player_matches2.account_id'}`,
         key: 'player_player',
+        bundle: 'combinations',
       },
       {
         text: strings.explorer_picks_bans,
@@ -334,6 +357,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
         // picks_bans.team is 0 for radiant, 1 for dire
         where: 'AND team_match.radiant::int != picks_bans.team',
         value: 1,
+        bundle: 'picks_bans',
       },
       {
         text: strings.explorer_counter_picks_bans,
@@ -341,6 +365,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
         key: 'counter_picks_bans',
         where: 'AND team_match.radiant::int = picks_bans.team',
         value: 1,
+        bundle: 'picks_bans',
       },
     ]
       .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cd).map(usesSelect))

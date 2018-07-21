@@ -292,13 +292,17 @@ export default (strings) => {
       displayName: `${index}`,
       tooltip: 'Ability upgraded at this level',
       field: `ability_upgrades_arr_${index}`,
-      displayFn: row =>
-        (
+      displayFn: (row) => {
+        if (!row[`ability_upgrades_arr_${index}`]) {
+          return null;
+        }
+        return (
           <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
             <div className="ability">
               {inflictorWithValue(null, null, null, null, row[`ability_upgrades_arr_${index}`]) || <div className="placeholder" />}
             </div>
-          </StyledAbilityUpgrades>),
+          </StyledAbilityUpgrades>);
+      },
     }));
 
     cols[0] = heroTdColumn;
