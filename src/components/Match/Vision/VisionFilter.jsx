@@ -39,6 +39,7 @@ class VisionFilter extends React.Component {
 
   columns(index) {
     const { teams } = this.props.parent.state;
+    const { strings } = this.props;
     return [
       {
         displayName: <Checkbox
@@ -56,7 +57,7 @@ class VisionFilter extends React.Component {
       this.playerColumn(3 + index),
       this.playerColumn(4 + index),
       {
-        displayName: 'All',
+        displayName: strings.chat_filter_all,
         displayFn: row => (<Checkbox
           checked={this.props.parent.checkedTypeWard(index, row.type)}
           onCheck={() => {
