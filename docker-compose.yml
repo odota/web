@@ -7,7 +7,7 @@ services:
     build:
       context: .
     image: odota/web
-    entrypoint: "./scripts/docker.sh"
+    entrypoint: "npm install-start"
     ports:
       - "8080:8080"
     volumes: 
