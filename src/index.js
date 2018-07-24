@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-filename-extension */
 /* Polyfills for Internet Explorer 11 */
+import 'core-js/fn/object/entries';
 import 'core-js/fn/object/values';
 import 'core-js/fn/array/includes';
 import 'core-js/fn/array/find';
@@ -9,8 +10,8 @@ import 'core-js/fn/array/from';
 import 'core-js/fn/number/is-nan';
 import 'core-js/fn/number/is-integer';
 import 'core-js/fn/number/is-finite';
-import 'core-js/fn/string/starts-with';
 import 'core-js/fn/string/includes';
+import 'core-js/fn/string/starts-with';
 import React from 'react';
 import createHistory from 'history/createBrowserHistory';
 import ReactGA from 'react-ga';
