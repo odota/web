@@ -5,6 +5,7 @@ import 'core-js/fn/array/find';
 import 'core-js/fn/array/fill';
 import 'core-js/fn/number/is-nan';
 import 'core-js/fn/number/is-integer';
+import 'core-js/fn/number/is-finite';
 import React from 'react';
 import createHistory from 'history/createBrowserHistory';
 import ReactGA from 'react-ga';
