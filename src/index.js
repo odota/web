@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-filename-extension */
 import 'core-js/fn/object/values';
+import 'core-js/fn/array/includes';
 import React from 'react';
 import createHistory from 'history/createBrowserHistory';
 import ReactGA from 'react-ga';
