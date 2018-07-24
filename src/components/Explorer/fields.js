@@ -236,9 +236,9 @@ const getFields = (players = [], leagues = [], teams = []) => {
       return String(element);
     }
     if (element > 0) {
-      return `${strings.general_radiant || "Radiant"} ${element * 1000}`;
+      return `${strings.general_radiant || 'Radiant'} ${element * 1000}`;
     }
-    return `${strings.general_dire || "Dire"} ${Math.abs(element * 1000)}`;
+    return `${strings.general_dire || 'Dire'} ${Math.abs(element * 1000)}`;
   }
 
   const goldAdvantage = Array(21).fill().map((_, i) => 50 - (i * 5)).map(element => ({
