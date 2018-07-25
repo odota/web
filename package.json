@@ -10,6 +10,7 @@
     "build:install": "npm install && npm run lintnofix && npm run build",
     "snapshot": "react-snap",
     "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
     "analyze": "source-map-explorer build/static/js/main.* --html",
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx",
