@@ -231,10 +231,10 @@ const getFields = (players = [], leagues = [], teams = []) => {
     key: String(element),
   }));
 
-  const goldAdvantage = Array(41).fill().map((_, i) => 20 - (i * 1)).map(element => ({
-    text: String(element * 1000),
-    value: element * 1000,
-    key: String(element * 1000),
+  const goldAdvantage = Array(41).fill().map((_, i) => 20000 - (i * 1000)).map(element => ({
+    text: String(element),
+    value: element,
+    key: String(element),
   }));
 
   return {
