@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
-    "install-start": "npm install && npm run lintnofix && npm run start",
-    "build": "npm install && npm run lintnofix && npm run rsbuild",
-    "rsbuild": "react-scripts build",
+    "start:install": "npm install && npm run lintnofix && npm run start",
+    "build": "react-scripts build",
+    "build:install": "npm install && npm run lintnofix && npm run build",
     "snapshot": "react-snap",
     "test": "react-scripts test --env=jsdom",
     "analyze": "source-map-explorer build/static/js/main.* --html",
