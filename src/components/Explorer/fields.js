@@ -231,18 +231,9 @@ const getFields = (players = [], leagues = [], teams = []) => {
     key: String(element),
   }));
 
-  function setGoldAdvantageText(element) {
-    if (!element) {
-      return String(element);
-    }
-    if (element > 0) {
-      return `${strings.general_radiant || 'Radiant'} ${element * 1000}`;
-    }
-    return `${strings.general_dire || 'Dire'} ${Math.abs(element * 1000)}`;
-  }
 
-  const goldAdvantage = Array(21).fill().map((_, i) => 50 - (i * 5)).map(element => ({
-    text: setGoldAdvantageText(element),
+  const goldAdvantage = Array(41).fill().map((_, i) => 20 - (i * 1)).map(element => ({
+    text: String(element * 1000),
     value: element * 1000,
     key: String(element * 1000),
   }));
@@ -509,8 +500,8 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
       const laneRoleId = Number(str.substring('lane_role_'.length));
       return { text: strings[str], value: laneRoleId, key: String(laneRoleId) };
     }),
-    isTi8Team: [{ text: '\u2714', value: true, key: 'true' }],
-    megaWin: [{ text: '\u2714', value: true, key: 'true' }],
+    isTi8Team: [{ text: 'Yes', value: true, key: 'true' }],
+    megaWin: [{ text: 'Yes', value: true, key: 'true' }],
     radiantMinGoldAdvantage: goldAdvantage,
     radiantMaxGoldAdvantage: goldAdvantage,
   };
