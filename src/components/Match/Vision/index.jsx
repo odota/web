@@ -124,7 +124,7 @@ class Vision extends React.Component {
     strings: PropTypes.shape({}),
     sponsorIcon: PropTypes.string,
     sponsorURL: PropTypes.string,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -149,9 +149,13 @@ class Vision extends React.Component {
   }
 
   setPlayer(player, type, value) {
-    const newArray = this.state.players[type];
+    const { players } = this.state;
+    const newArray = players[type];
     newArray[player] = value;
-    this.setState({ ...this.state, players: { ...this.state.players, [type]: newArray } });
+    const index = player < 5 ? 0 : 5;
+    const end = index + 5;
+    const newTeam = this.onCheckAllWardsTeam(index, end);
+    this.setState({ ...this.state, teams: { ...this.state.teams, [index === 0 ? 'radiant' : 'dire']: newTeam }, players: { ...this.state.players, [type]: newArray } });
   }
 
   setTeam(team, value) {
@@ -165,6 +169,29 @@ class Vision extends React.Component {
     }
     const newState = { ...this.state, teams: { ...this.state.teams, [team]: value }, players: { observer: newPlayerObs, sentry: newPlayerSentry } };
     this.setState(newState);
+  }
+
+  setTypeWard(index, ward) {
+    const { players } = this.state;
+    const end = index + 5;
+    const checked = (players[ward].slice(index, end).indexOf(true) !== -1);
+    for (let i = index; i < end; i += 1) {
+      players[ward][i] = !checked;
+    }
+    const newTeam = this.onCheckAllWardsTeam(index, end);
+    const newState = { ...this.state, teams: { ...this.state.teams, [index === 0 ? 'radiant' : 'dire']: newTeam }, players };
+    this.setState(newState);
+  }
+
+  onCheckAllWardsTeam(index, end) {
+    const { players } = this.state;
+    const [observer, sentry] = ['observer', 'sentry'];
+    const allWardsTeam = players[observer].slice(index, end).concat(players[sentry].slice(index, end));
+    return !(allWardsTeam.indexOf(true) === -1);
+  }
+
+  checkedTypeWard(index, ward) {
+    return (this.state.players[ward].slice(index, index + 5).indexOf(true) !== -1);
   }
 
   computeTick() {

@@ -30,15 +30,20 @@ class VisionFilter extends React.Component {
       setPlayer: PropTypes.func,
       teams: PropTypes.arrayOf({}),
       setTeam: PropTypes.func,
+      setTypeWard: PropTypes.func,
+      checkedTypeWard: PropTypes.func,
+      onCheckAllWardsTeam: PropTypes.func,
     }),
     strings: PropTypes.shape({}),
-  }
+  };
 
   columns(index) {
+    const { teams } = this.props.parent.state;
+    const { strings } = this.props;
     return [
       {
         displayName: <Checkbox
-          checked={this.props.parent.state.teams[index === 0 ? 'radiant' : 'dire']}
+          checked={teams[index === 0 ? 'radiant' : 'dire']}
           onCheck={(event, checked) => {
             this.props.parent.setTeam(index === 0 ? 'radiant' : 'dire', checked);
           }
@@ -51,6 +56,16 @@ class VisionFilter extends React.Component {
       this.playerColumn(2 + index),
       this.playerColumn(3 + index),
       this.playerColumn(4 + index),
+      {
+        displayName: strings.chat_filter_all,
+        displayFn: row => (<Checkbox
+          checked={this.props.parent.checkedTypeWard(index, row.type)}
+          onCheck={() => {
+            this.props.parent.setTypeWard(index, row.type);
+          }
+          }
+        />),
+      },
     ];
   }
 
