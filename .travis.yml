@@ -1,6 +1,7 @@
+sudo: false
 language: node_js
 node_js:
-- 'node'
+- '10'
 notifications:
   email:
   - howardc93@gmail.com
