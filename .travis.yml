@@ -8,6 +8,7 @@ notifications:
   - mjr127@case.edu
 script:
 - npm run build
+- npx chromatic test
 # blocklist
 branches:
   except:
