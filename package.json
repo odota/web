@@ -72,7 +72,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "react-snap": "^1.12.2",
-    "simple-vdf": "^1.1.0"
+    "simple-vdf": "^1.1.1"
   },
   "reactSnap": {
     "skipThirdPartyRequests": true
