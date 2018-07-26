@@ -8,6 +8,7 @@ notifications:
   - aqc2109@columbia.edu
   - mjr127@case.edu
 script:
+- npm run lintnofix
 - npm run build
 # blocklist
 branches:
