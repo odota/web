@@ -22,8 +22,7 @@ import store from './store';
 import { getMetadata, getStrings, getAbilities, getNeutralAbilities, getAbilityIds } from './actions';
 import App from './components/App';
 import constants from './components/constants';
-// import registerServiceWorker from './registerServiceWorker';
-import { unregister } from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 
 // Inject global styles
 injectGlobal([`
@@ -176,6 +175,7 @@ store.dispatch(getAbilityIds());
 
 ReactGA.initialize('UA-55757642-1');
 ReactGA.pageview(window.location.pathname + window.location.search);
+
 const history = createHistory();
 history.listen((location) => {
   ReactGA.pageview(location.pathname);
@@ -193,6 +193,6 @@ if (rootElement.hasChildNodes()) {
 } else {
   hydrate(app, rootElement);
 }
-// registerServiceWorker();
-unregister();
+registerServiceWorker();
+
 // document.getElementById('loader').style.display = 'none';

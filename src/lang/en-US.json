@@ -102,7 +102,20 @@
   "app_pro_players": "Pro Players",
   "app_public_players": "Public Players",
   "app_my_profile": "My Profile",
-
+  
+  "login_prompt_title": "Join the OpenDota Community",
+  "login_prompt_body": "Log in and get advanced stats for all your matches. All for free.",
+  "login_prompt_dismiss": "Dismiss",
+  
+  "notify_prompt_title": "Get Notified",
+  "notify_prompt_body": "Enable automatic updates for whenever your match is parsed.",
+  "notify_prompt_enable": "Enable",
+  "notify_prompt_dismiss": "Dismiss",
+  "notify_granted_title": "Awesome",
+  "notify_granted_body": "You'll get a notification like this when your match is parsed.",
+  "notify_match_title": "Parsed $match",
+  "notify_match_body": "Check out your performance on OpenDota.",
+  
   "barracks_value_1": "Dire Bot Melee",
   "barracks_value_2": "Dire Bot Ranged",
   "barracks_value_4": "Dire Mid Melee",

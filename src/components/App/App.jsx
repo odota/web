@@ -1,12 +1,18 @@
+/* global Notification */
 import React from 'react';
+import fetch from 'isomorphic-fetch';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
+import * as firebase from 'firebase/app';
+import 'firebase/messaging';
 import Header from '../Header';
 import Player from '../Player';
 import Home from '../Home';
@@ -28,6 +34,44 @@ import Api from '../Api';
 import Footer from '../Footer';
 import constants from '../constants';
 import FourOhFour from '../../components/FourOhFour';
+import { heroSelector } from '../../reducers/selectors';
+
+const path = '/notifications';
+
+firebase.initializeApp({
+  messagingSenderId: '94888484309',
+});
+
+const messaging = firebase.messaging();
+
+function getMessagingToken() {
+  messaging.getToken()
+    .then((token) => {
+      if (token) {
+        fetch(`${process.env.REACT_APP_API_HOST}${path}`, {
+          credentials: 'include',
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            token,
+          }),
+        })
+          .then((res) => {
+            if (!res.ok) {
+              throw Error();
+            }
+          })
+          .catch(err => console.log(err));
+      }
+    }).catch((err) => {
+      console.log('An error occurred while retrieving token. ', err);
+    });
+}
+
+getMessagingToken();
 
 const muiTheme = {
   fontFamily: constants.fontFamily,
@@ -85,6 +129,35 @@ const AdBannerDiv = styled.div`
   }
 `;
 
+const Prompt = styled.div`
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+  background: #0d2e39;
+  width: 325px;
+  z-index: 100;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.4);
+  margin: 0 5px 5px 0;
+  
+  @media only screen and (max-width: 480px) {
+    width: 100%;
+    margin: 0;
+  }
+`;
+
+const PromptContainer = styled.div`
+  padding: 10px;
+  
+  & img {
+    height: 25px;
+    margin: 0 5px -4px 0;
+  }
+  
+  & button {
+    margin: 5px;
+  }
+`;
+
 class App extends React.Component {
   static propTypes = {
     params: PropTypes.shape({}),
@@ -93,6 +166,19 @@ class App extends React.Component {
       key: PropTypes.string,
     }),
     strings: PropTypes.shape({}),
+    user: PropTypes.shape({}),
+  }
+
+  constructor(props) {
+    super(props);
+
+
+    this.state = {
+      canNotify: 'Notification' in window && Notification.permission,
+      showLoginPrompt: true,
+    };
+
+    this.askForNotifiyPermission = this.askForNotifiyPermission.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -100,10 +186,45 @@ class App extends React.Component {
       window.scrollTo(0, 0);
     }
   }
+  
+  componentDidMount() {
+    messaging.onTokenRefresh(getMessagingToken);
+
+    messaging.onMessage((payload) => {
+      console.log('Message received. ', payload);
+    
+      if (payload.data.type === 'MATCH' && Object.keys(this.props.strings).length) {
+        const n = new Notification(
+          this.props.strings.notify_match_title.replace('$match', payload.data.match_id),
+          {
+            body: this.props.strings.notify_match_body,
+          },
+        );
+        n.onclick = (event) => {
+          console.log(event);
+          event.preventDefault(); // prevent the browser from focusing the Notification's tab
+          window.open(`https://opendota.com/matches/${payload.data.match_id}`, '_blank');
+        };
+      }
+    }); 
+  }
+
+  askForNotifiyPermission(strings) {
+    Notification.requestPermission()
+      .then((permission) => {
+        this.setState({ canNotify: permission });
+        if (permission === 'granted') {
+          new Notification(`${strings.notify_granted_title}!`, { // eslint-disable-line no-new
+            body: strings.notify_granted_body,
+          });
+          getMessagingToken();
+        }
+      });
+  }
 
   render() {
     const {
-      params, width, location, strings,
+      params, width, location, strings, user, heroes
     } = this.props;
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
@@ -114,6 +235,50 @@ class App extends React.Component {
             titleTemplate={strings.title_template}
           />
           <Header params={params} location={location} />
+          {
+            user && this.state.canNotify !== false && !['denied', 'granted'].includes(this.state.canNotify) ?
+              <Prompt>
+                <PromptContainer>
+                  <img src="/assets/images/icons/icon-72x72.png" alt="logo"/>
+                  <h3 style={{ display: 'inline-block', margin: '0' }}>{strings.notify_prompt_title}</h3>
+                  <p>{strings.notify_prompt_body}</p>
+                  <RaisedButton
+                    primary
+                    label={strings.notify_prompt_enable}
+                    labelPosition="after"
+                    onClick={() => this.askForNotifiyPermission(strings)}
+                  />
+                  <FlatButton
+                    label={strings.notify_prompt_dismiss}
+                    labelPosition="after"
+                    onClick={() => this.setState({canNotify: false})}
+                  />
+                </PromptContainer>
+              </Prompt>
+            : <div />
+          }
+          {
+            !user && this.state.showLoginPrompt ?
+              <Prompt>
+                <PromptContainer>
+                  <img src="/assets/images/icons/icon-72x72.png" alt="logo"/>
+                  <h3 style={{ display: 'inline-block', margin: '0' }}>{strings.login_prompt_title}</h3>
+                  <p>{strings.login_prompt_body}</p>
+                  <RaisedButton
+                    primary
+                    label={strings.app_login}
+                    labelPosition="after"
+                    href={`${process.env.REACT_APP_API_HOST}/login`}
+                  />
+                  <FlatButton
+                    label={strings.login_prompt_dismiss}
+                    labelPosition="after"
+                    onClick={() => this.setState({ showLoginPrompt: false })}
+                  />
+                </PromptContainer>
+              </Prompt>
+            : <div />
+          }
           <AdBannerDiv>
             { includeAds &&
               <a href="http://www.vpgame.com/?lang=en_us">
@@ -161,6 +326,8 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
   strings: state.app.strings,
+  user: state.app.metadata.data.user,
+  heroes: state.app.heroStats.data,
 });
 
 export default connect(mapStateToProps)(App);
