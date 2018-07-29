@@ -131,13 +131,31 @@ const AdBannerDiv = styled.div`
 
 const Prompt = styled.div`
   position: fixed;
-  right: 5px;
-  bottom: 5px;
-  background: black;
-  width: 250px;
+  right: 0px;
+  bottom: 0px;
+  background: #0d2e39;
+  width: 325px;
   z-index: 100;
-  padding: 10px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.4);
+  margin: 0 5px 5px 0;
+  
+  @media only screen and (max-width: 480px) {
+    width: 100%;
+    margin: 0;
+  }
+`;
+
+const PromptContainer = styled.div`
+  padding: 10px;
+  
+  & img {
+    height: 25px;
+    margin: 0 5px -4px 0;
+  }
+  
+  & button {
+    margin: 5px;
+  }
 `;
 
 class App extends React.Component {
@@ -220,44 +238,44 @@ class App extends React.Component {
           {
             user && this.state.canNotify !== false && !['denied', 'granted'].includes(this.state.canNotify) ?
               <Prompt>
-                <img src="/assets/images/icons/icon-72x72.png" alt="logo" style={{ height: '25px', margin: '0 5px' }} />
-                <h3 style={{ display: 'inline-block', margin: '0' }}>Get Notified</h3>
-                <p>Enable automatic notfications for whenever a match is parsed.</p>
-                <RaisedButton
-                  primary
-                  label="Enable"
-                  labelPosition="after"
-                  onClick={() => this.askForNotifiyPermission(strings)}
-                  style={{ margin: '5px 5px' }}
-                />
-                <FlatButton
-                  label="Dismiss"
-                  labelPosition="after"
-                  onClick={() => this.setState({canNotify: false})}
-                  style={{ margin: '5px 5px' }}
-                />
+                <PromptContainer>
+                  <img src="/assets/images/icons/icon-72x72.png" alt="logo"/>
+                  <h3 style={{ display: 'inline-block', margin: '0' }}>{strings.notify_prompt_title}</h3>
+                  <p>{strings.notify_prompt_body}</p>
+                  <RaisedButton
+                    primary
+                    label={strings.notify_prompt_enable}
+                    labelPosition="after"
+                    onClick={() => this.askForNotifiyPermission(strings)}
+                  />
+                  <FlatButton
+                    label={strings.notify_prompt_dismiss}
+                    labelPosition="after"
+                    onClick={() => this.setState({canNotify: false})}
+                  />
+                </PromptContainer>
               </Prompt>
             : <div />
           }
           {
             !user && this.state.showLoginPrompt ?
               <Prompt>
-                <img src="/assets/images/icons/icon-72x72.png" alt="logo" style={{ height: '25px', margin: '0 5px' }} />
-                <h3 style={{ display: 'inline-block', margin: '0' }}>Get Tracked</h3>
-                <p>Log in to get your matches automatically parsed. All for free.</p>
-                <RaisedButton
-                  primary
-                  label={strings.app_login}
-                  labelPosition="after"
-                  href={`${process.env.REACT_APP_API_HOST}/login`}
-                  style={{ margin: '5px 5px' }}
-                />
-                <FlatButton
-                  label="Dismiss"
-                  labelPosition="after"
-                  onClick={() => this.setState({ showLoginPrompt: false })}
-                  style={{ margin: '5px 5px' }}
-                />
+                <PromptContainer>
+                  <img src="/assets/images/icons/icon-72x72.png" alt="logo"/>
+                  <h3 style={{ display: 'inline-block', margin: '0' }}>{strings.login_prompt_title}</h3>
+                  <p>{strings.login_prompt_body}</p>
+                  <RaisedButton
+                    primary
+                    label={strings.app_login}
+                    labelPosition="after"
+                    href={`${process.env.REACT_APP_API_HOST}/login`}
+                  />
+                  <FlatButton
+                    label={strings.login_prompt_dismiss}
+                    labelPosition="after"
+                    onClick={() => this.setState({ showLoginPrompt: false })}
+                  />
+                </PromptContainer>
               </Prompt>
             : <div />
           }

@@ -64,7 +64,6 @@
   "api_month": "Month",
   "api_header_key": "Your Key",
   "api_header_table": "Get started for free. Keep going at a ridiculously low price.",
-  "api_header_details": "Details",
 
   "app_name": "OpenDota",
   "app_language": "Language",
@@ -104,6 +103,14 @@
   "app_public_players": "Public Players",
   "app_my_profile": "My Profile",
   
+  "login_prompt_title": "Join the OpenDota Community",
+  "login_prompt_body": "Log in and get advanced stats for all your matches. All for free.",
+  "login_prompt_dismiss": "Dismiss",
+  
+  "notify_prompt_title": "Get Notified",
+  "notify_prompt_body": "Enable automatic updates for whenever your match is parsed.",
+  "notify_prompt_enable": "Enable",
+  "notify_prompt_dismiss": "Dismiss",
   "notify_granted_title": "Awesome",
   "notify_granted_body": "You'll get a notification like this when your match is parsed.",
   "notify_match_title": "Parsed $match",
@@ -432,7 +439,9 @@
   "heading_cm_enabled": "CM enabled",
   "heading_current_players": "Current Players",
   "heading_former_players": "Former Players",
-
+  "heading_damage_dealt": "Damage Dealt",
+  "heading_damage_received": "Damage Received",
+  
   "show_details": "Show details",
   "hide_details": "Hide details",
 

@@ -10,6 +10,7 @@ import {
   getPlayerRecentMatches,
   getPlayerHeroes,
   getPlayerPeers,
+  getPlayerCounts,
 } from '../../../../actions';
 import Table from '../../../Table';
 import Container from '../../../Container';
@@ -18,6 +19,7 @@ import { playerHeroesOverviewColumns } from '../Heroes/playerHeroesColumns';
 import { playerPeersOverviewColumns } from '../Peers/playerPeersColumns';
 import SummOfRecMatches from './Summary';
 import constants from '../../../constants';
+import CountsSummary from './CountsSummary';
 
 export const MAX_MATCHES_ROWS = 20;
 const MAX_HEROES_ROWS = 10;
@@ -32,8 +34,11 @@ const SummaryContainer = styled(Container)`
   width: 100%;
 
   & ul {
+    border: 1px solid rgb(52, 50, 50);
+    background-color: rgb(46, 47, 64);
     margin: 0;
-    padding: 0;
+    padding-left: 5px;
+    border-radius: 5px;
 
     & li {
       list-style: none;
@@ -111,6 +116,9 @@ const Overview = ({
   toggleTurboGames,
   showTurboGames,
   strings,
+  countsData,
+  countsLoading,
+  countsError,
 }) => (
   <OverviewContainer>
     <SummaryContainer
@@ -135,6 +143,17 @@ const Overview = ({
         />
       </Styled>
       <SummOfRecMatches matchesData={validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23)} />
+    </SummaryContainer>
+    <SummaryContainer
+      title={strings.tab_counts}
+      loading={countsLoading}
+      error={countsError}
+      subtitle={strings.th_win}
+      loaderWidth={250}
+      loaderHeight={30}
+      style={{ width: '100%' }}
+    >
+      <CountsSummary data={countsData} />
     </SummaryContainer>
     <MatchesContainer>
       <Container
@@ -199,6 +218,9 @@ Overview.propTypes = {
   toggleTurboGames: PropTypes.func,
   showTurboGames: PropTypes.bool,
   strings: PropTypes.shape({}),
+  countsData: PropTypes.arrayOf({}),
+  countsLoading: PropTypes.bool,
+  countsError: PropTypes.bool,
 };
 
 
@@ -206,6 +228,7 @@ const getData = (props) => {
   props.getPlayerRecentMatches(props.playerId);
   props.getPlayerHeroes(props.playerId, props.location.search);
   props.getPlayerPeers(props.playerId, props.location.search);
+  props.getPlayerCounts(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {
@@ -262,6 +285,57 @@ const countValidRecentMatches = matches => matches.filter(match => match.game_mo
 const getValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19)
   .slice(0, MAX_MATCHES_ROWS);
 
+const filterCounts = (counts) => {
+  const countMap = {
+    is_radiant: [],
+    game_mode: [],
+    patch: [],
+    region: [],
+    lane_role: [],
+  };
+
+  const limitCount = (key, field, lim) =>
+    counts[key].list.filter(el => el.category !== 'Unknown')
+      .sort((a, b) => (
+        b[field] - a[field]
+      )).slice(0, lim);
+
+  Object.keys(counts).forEach((key) => {
+    switch (key) {
+      case 'is_radiant':
+        countMap[key] = counts[key].list;
+        break;
+
+      case 'game_mode':
+        countMap[key] = limitCount(key, 'matches', 2);
+        break;
+
+      case 'patch':
+        countMap[key] = limitCount(key, 'category', 2);
+        break;
+
+      case 'region':
+        countMap[key] = limitCount(key, 'matches', 2);
+        break;
+
+      case 'lane_role':
+        countMap[key] = limitCount(key, 'matches', 2);
+        break;
+
+      default:
+        break;
+    }
+  });
+
+  return [
+    ...countMap.is_radiant,
+    ...countMap.game_mode,
+    ...countMap.region,
+    ...countMap.lane_role,
+    ...countMap.patch,
+  ];
+};
+
 const mapStateToProps = state => ({
   matchesData: state.app.playerRecentMatches.data,
   matchesLoading: state.app.playerRecentMatches.loading,
@@ -275,12 +349,16 @@ const mapStateToProps = state => ({
   peersLoading: state.app.playerPeers.loading,
   peersError: state.app.playerPeers.error,
   strings: state.app.strings,
+  countsData: filterCounts(state.app.playerCounts.data),
+  countsLoading: state.app.playerCounts.loading,
+  countsError: state.app.playerCounts.error,
 });
 
 const mapDispatchToProps = dispatch => ({
   getPlayerRecentMatches: (playerId, options) => dispatch(getPlayerRecentMatches(playerId, options)),
   getPlayerHeroes: (playerId, options) => dispatch(getPlayerHeroes(playerId, options)),
   getPlayerPeers: (playerId, options) => dispatch(getPlayerPeers(playerId, options)),
+  getPlayerCounts: (playerId, options) => dispatch(getPlayerCounts(playerId, options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

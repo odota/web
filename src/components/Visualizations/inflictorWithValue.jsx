@@ -135,7 +135,7 @@ class InflictorWithValue extends React.Component {
       inflictor, value, type, ptooltip, abilityId, strings,
     } = this.props;
     const { abilities, neutralAbilities, abilityIds } = this.state;
-    const resolvedInflictor = (abilityId && abilityIds && abilityIds[abilityId]) || inflictor;
+    const resolvedInflictor = (abilityId && abilityIds && abilityIds[abilityId]) || String(inflictor);
     if (resolvedInflictor) {
       const ability = abilities && abilities[resolvedInflictor];
       const neutralAbility = neutralAbilities && neutralAbilities[resolvedInflictor];
@@ -174,7 +174,7 @@ class InflictorWithValue extends React.Component {
           <div className="inflictorWithValue" data-tip={tooltip && true} data-for={ttId}>
             {!type &&
             <object data={image} height="27px" type="image/png">
-              <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)' }} />
+              <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)', height: '27px' }} />
             </object>}
             {type === 'buff' &&
             <div

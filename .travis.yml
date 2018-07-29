@@ -1,12 +1,14 @@
+sudo: false
 language: node_js
 node_js:
-- 'node'
+- '10'
 notifications:
   email:
   - howardc93@gmail.com
   - aqc2109@columbia.edu
   - mjr127@case.edu
 script:
+- npm run lintnofix
 - npm run build
 # blocklist
 branches:
