@@ -580,10 +580,10 @@ export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffi
         lane = row.lane_role;
       }
       const roleIconStyle = {
-        position: 'relative',
-        height: '12px',
+        position: 'absolute',
+        height: '13px',
         marginLeft: '5px',
-        filter: 'grayscale(60%)',
+        filter: 'grayscale(40%)',
         top: '2px',
       };
 
