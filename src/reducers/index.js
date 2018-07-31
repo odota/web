@@ -45,6 +45,7 @@ export default combineReducers({
   ghPulls: reducer('ghPulls'),
   strings: (state = {}, action) => ((action && action.type === 'strings') ? action.payload : state),
   abilities: (state = {}, action) => ((action && action.type === 'abilities') ? action.payload : state),
+  heroAbilities: (state = {}, action) => ((action && action.type === 'heroAbilities') ? action.payload : state),
   neutralAbilities: (state = {}, action) => ((action && action.type === 'neutralAbilities') ? action.payload : state),
   abilityIds: (state = {}, action) => ((action && action.type === 'abilityIds') ? action.payload : state),
   form,
