@@ -92,9 +92,11 @@ const Abilities = ({ hero, abilities, heroAbilities }) => {
 
 Abilities.propTypes = {
   hero: propTypes.shape({}).isRequired,
+  abilities: propTypes.shape({}).isRequired,
+  heroAbilities: propTypes.shape({}).isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   abilities: state.app.abilities,
   heroAbilities: state.app.heroAbilities,
 });
