@@ -581,7 +581,7 @@ export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffi
       }
       const roleIconStyle = {
         position: 'absolute',
-        height: '15px',
+        height: '13px',
         marginLeft: '5px',
         filter: 'grayscale(40%)',
         top: '2px',
