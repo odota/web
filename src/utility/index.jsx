@@ -669,7 +669,14 @@ export const transformations = {
       }
       return won ? strings.td_win : strings.td_loss;
     };
-    const partyTextStyle = { fontSize: '9px', position: 'absolute', lineHeight: '3px', textAlign: 'center', width: '100%', fontFamily: 'Tahoma' }
+    const partyTextStyle = {
+      fontSize: '9px',
+      position: 'absolute',
+      lineHeight: '3px',
+      textAlign: 'center',
+      width: '100%',
+      fontFamily: 'Tahoma',
+    };
 
     const partySize = (_partySize) => {
       if (_partySize === 1) {
@@ -678,10 +685,10 @@ export const transformations = {
         return null;
       }
       return (
-        <div style={{float: 'right', marginTop: '-3px', marginRight: '2px'}}>
+        <div style={{ float: 'right', marginTop: '-3px', marginRight: '2px' }}>
           <SocialPeople color="rgb(179, 179, 179)" style={iconStyle} />
           <div style={partyTextStyle}>{`x${row.party_size}`}</div>
-        </div>    
+        </div>
       );
     };
     const partyStyle = {
