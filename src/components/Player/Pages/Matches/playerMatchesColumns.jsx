@@ -12,6 +12,12 @@ export default strings => ([{
   sortFn: true,
   displayFn: transformations.radiant_win_and_game_mode,
 }, {
+  displayName: strings.filter_game_mode,
+  tooltip: strings.tooltip_game_mode,
+  field: 'game_mode',
+  sortFn: true,
+  displayFn: transformations.mode,
+}, {
   displayName: strings.th_duration,
   tooltip: strings.tooltip_duration,
   field: 'duration',
