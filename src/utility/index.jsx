@@ -677,7 +677,7 @@ export const transformations = {
       }
       return [
         <SocialPeople color="rgb(179, 179, 179)" style={iconStyle} />,
-        <span style={{ fontSize: '10px' }}>{`x${row.party_size}`}</span>,
+        <span style={{ fontSize: '10px', verticalAlign: 'top' }}>{`x${row.party_size}`}</span>,
       ];
     };
     const partyStyle = {
