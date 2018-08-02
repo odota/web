@@ -669,22 +669,6 @@ export const transformations = {
       }
       return won ? strings.td_win : strings.td_loss;
     };
-
-    return (
-      <div>
-        <TableLink to={`/matches/${matchId}`} color={getColor(field)}>
-          <span style={{ color: getColor(field) }}>
-            {getString(field)}
-          </span>
-        </TableLink>
-        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-          {row.league_name ? row.league_name : strings[`lobby_type_${row.lobby_type}`]}
-        </span>
-      </div>);
-  },
-  mode: (row, col, field) => {
-    const { strings } = store.getState().app;
-
     const partySize = (_partySize) => {
       if (_partySize === 1) {
         return <SocialPerson color="rgb(179, 179, 179)" style={{ ...iconStyle, marginLeft: '-2px' }} />;
@@ -696,28 +680,23 @@ export const transformations = {
         <span style={{ fontSize: '12px' }}>{`x${row.party_size}`}</span>,
       ];
     };
-
-    const skillStyle = {
-      ...subTextStyle,
-      display: 'inline',
-      float: 'left',
-      opacity: `${!row.skill ? 0.4 : 1}`,
-    };
-
     const partyStyle = {
       ...subTextStyle,
       display: 'inline',
-      marginRight: '3px',
-      marginLeft: '3px',
+      marginRight: '-6px',
       width: '33px',
     };
 
     return (
       <div>
-        {strings[`game_mode_${field}`] && (`${strings[`game_mode_${field}`]}`)}
+        <TableLink to={`/matches/${matchId}`} color={getColor(field)}>
+          <span style={{ color: getColor(field) }}>
+            {getString(field)}
+          </span>
+        </TableLink>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <span style={skillStyle}>
-            {strings[`skill_${row.skill || 0}`]}
+          <span style={{ ...subTextStyle, marginTop: 1 }}>
+            {row.league_name ? row.league_name : strings[`lobby_type_${row.lobby_type}`]}
           </span>
           <span
             style={partyStyle}
@@ -726,6 +705,26 @@ export const transformations = {
             data-delay-show="300"
           >
             {partySize(row.party_size)}
+          </span>
+        </div>
+      </div>);
+  },
+  mode: (row, col, field) => {
+    const { strings } = store.getState().app;
+
+    const skillStyle = {
+      ...subTextStyle,
+      display: 'inline',
+      float: 'left',
+      opacity: `${!row.skill ? 0.6 : 1}`,
+    };
+
+    return (
+      <div>
+        {strings[`game_mode_${field}`] && (`${strings[`game_mode_${field}`]}`)}
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <span style={skillStyle}>
+            {strings[`skill_${row.skill || 0}`]}
           </span>
         </div>
         <ReactTooltip place="top" effect="solid" />
