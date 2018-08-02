@@ -669,22 +669,25 @@ export const transformations = {
       }
       return won ? strings.td_win : strings.td_loss;
     };
+    const partyTextStyle = { fontSize: '9px', position: 'absolute', lineHeight: '3px', textAlign: 'center', width: '100%', fontFamily: 'Tahoma' }
+
     const partySize = (_partySize) => {
       if (_partySize === 1) {
-        return <SocialPerson color="rgb(179, 179, 179)" style={{ ...iconStyle, marginLeft: '-2px' }} />;
+        return <SocialPerson color="rgb(179, 179, 179)" style={{ ...iconStyle, float: 'right' }} />;
       } else if (_partySize === null || _partySize === undefined) {
         return null;
       }
-      return [
-        <SocialPeople color="rgb(179, 179, 179)" style={iconStyle} />,
-        <span style={{ fontSize: '10px', verticalAlign: 'top' }}>{`x${row.party_size}`}</span>,
-      ];
+      return (
+        <div style={{float: 'right', marginTop: '-3px', marginRight: '2px'}}>
+          <SocialPeople color="rgb(179, 179, 179)" style={iconStyle} />
+          <div style={partyTextStyle}>{`x${row.party_size}`}</div>
+        </div>    
+      );
     };
     const partyStyle = {
       ...subTextStyle,
-      display: 'inline',
-      marginRight: '-6px',
-      width: '33px',
+      float: 'right',
+      marginRight: '-14px',
     };
 
     return (
@@ -694,8 +697,8 @@ export const transformations = {
             {getString(field)}
           </span>
         </TableLink>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <span style={{ ...subTextStyle, marginTop: 1 }}>
+        <div>
+          <span style={{ ...subTextStyle, marginTop: 1, display: 'inline' }}>
             {row.league_name ? row.league_name : strings[`lobby_type_${row.lobby_type}`]}
           </span>
           <span
