@@ -144,11 +144,11 @@ class App extends React.Component {
           <AdBannerDiv>
             { includeAds &&
               <div style={{ fontSize: '12px' }}>
-                <a href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota">
-                  <img src="/assets/images/rivalry-banner.png" alt="" />
+                <a href="https://www.rivalry.gg/opendota">
+                  <img src="/assets/images/rivalry-banner.gif" alt="" />
                 </a>
                 <div>
-                  {strings.home_sponsored_by} <a href="https://www.rivalry.gg">Rivalry</a>
+                  {strings.home_sponsored_by} <a href="https://www.rivalry.gg/opendota">Rivalry</a>
                 </div>
               </div>
             }
