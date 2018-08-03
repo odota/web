@@ -88,6 +88,8 @@ class Table extends React.Component {
     setHighlightedCol: func,
   }
 
+  state = initialState;
+
   static renderSumRow({ columns, data, setHighlightedCol }) {
     return (
       <MaterialTableRow>
@@ -107,10 +109,6 @@ class Table extends React.Component {
       </MaterialTableRow>
     );
   }
-  constructor() {
-    super();
-    this.state = initialState;
-  }
 
   setTableRef = (node) => {
     if (node) {
@@ -124,7 +122,6 @@ class Table extends React.Component {
 
   setCurrentPage = (pageNumber) => {
     this.setState({
-      ...this.state,
       currentPage: pageNumber,
     });
   };
@@ -148,14 +145,12 @@ class Table extends React.Component {
 
   nextPage = () => {
     this.setState({
-      ...this.state,
       currentPage: this.state.currentPage + 1,
     });
   };
 
   prevPage = () => {
     this.setState({
-      ...this.state,
       currentPage: this.state.currentPage - 1,
     });
   };
@@ -163,7 +158,6 @@ class Table extends React.Component {
   sortClick = (sortField, sortState, sortFn) => {
     const { state } = this;
     this.setState({
-      ...state,
       sortState: sortField === state.sortField ? SORT_ENUM.next(SORT_ENUM[state.sortState]) : SORT_ENUM[0],
       sortField,
       sortFn,
