@@ -19,7 +19,7 @@ import { Provider } from 'react-redux';
 import { Route, Router } from 'react-router-dom';
 import { injectGlobal } from 'styled-components';
 import store from './store';
-import { getMetadata, getStrings, getAbilities, getNeutralAbilities, getAbilityIds } from './actions';
+import { getMetadata, getStrings, getAbilities, getHeroAbilities, getNeutralAbilities, getAbilityIds } from './actions';
 import App from './components/App';
 import constants from './components/constants';
 // import registerServiceWorker from './registerServiceWorker';
@@ -171,6 +171,7 @@ store.dispatch(getMetadata());
 // Fetch strings
 store.dispatch(getStrings());
 store.dispatch(getAbilities());
+store.dispatch(getHeroAbilities());
 store.dispatch(getNeutralAbilities());
 store.dispatch(getAbilityIds());
 
