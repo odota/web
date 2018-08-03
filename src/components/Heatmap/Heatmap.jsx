@@ -11,15 +11,15 @@ import DotaMap from '../DotaMap';
  * Returns the adjusted heatmap data.
  */
 function scaleAndExtrema(points, scalef, max, shift) {
-  const averageValue = (points.reduce((a, b) => a + b.value, 0) / points.length);
-  const maxDeviationFromAvg = 25;
+  // the max values should not deviate from the average by more than a factor of 25
+  const maxValue = (points.reduce((a, b) => a + b.value, 0) / points.length) * 25;
 
   const newPoints = points.map(p => ({
     x: Math.floor(p.x * scalef),
     y: Math.floor(p.y * scalef),
-    value: Math.min(p.value, (averageValue * maxDeviationFromAvg)) + (shift || 0),
+    value: Math.min(p.value, (maxValue)) + (shift || 0),
   }));
-  const vals = points.map(p => Math.min(p.value, (averageValue * maxDeviationFromAvg)));
+  const vals = points.map(p => Math.min(p.value, (maxValue)));
   const localMax = Math.max(...vals);
   return {
     min: 0,
