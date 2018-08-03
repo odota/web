@@ -463,8 +463,8 @@ const TableHeroImage = ({
           src={image}
           alt=""
           className="image"
-          data-tip
-          data-for={image}
+          data-tip={hero.id === undefined && null}
+          data-for={hero.id !== undefined && image}
         />
         {leaverStatus !== undefined && leaverStatus > 1 &&
         <span
