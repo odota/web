@@ -113,9 +113,13 @@ class Table extends React.Component {
   }
 
   setTableRef = (node) => {
-    this.innerContainerRef = node;
-    if (this.innerContainerRef) {
-      this.innerContainerRef.refs.tableDiv.onscroll = this.handleScroll;
+    if (node) {
+      this.innerContainerRef = node;
+      const { tableDiv } = this.innerContainerRef.refs;
+      // only shrink first column if there is enough wiggle room
+      if (tableDiv && (tableDiv.scrollWidth - tableDiv.clientWidth > 80)) {
+        tableDiv.onscroll = this.handleScroll;
+      }
     }
   }
 
