@@ -87,7 +87,7 @@ class Table extends React.Component {
     keyFn: func,
     setHighlightedCol: func,
   }
-  
+
   state = initialState;
 
   static renderSumRow({ columns, data, setHighlightedCol }) {
