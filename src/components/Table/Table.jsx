@@ -116,8 +116,9 @@ class Table extends React.Component {
     if (node) {
       this.innerContainerRef = node;
       const { tableDiv } = this.innerContainerRef.refs;
+      this.doShrink = (tableDiv.scrollWidth - tableDiv.clientWidth) > 80;
       // only fix & shrink first column if there is enough wiggle room
-      if (tableDiv && (tableDiv.scrollWidth - tableDiv.clientWidth > 80)) {
+      if (tableDiv) {
         tableDiv.onscroll = this.handleScroll;
       }
     }
@@ -215,7 +216,7 @@ class Table extends React.Component {
           {!loading && error && <Error />}
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
-          <div className={`innerContainer ${scrolled && 'scrolled'}`}>
+          <div className={`innerContainer ${scrolled && 'scrolled'} ${this.doShrink && 'shrink'}`}>
             <MaterialTable fixedHeader={false} selectable={false} ref={this.setTableRef}>
               <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableHeader
