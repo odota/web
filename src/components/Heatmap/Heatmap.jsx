@@ -17,9 +17,9 @@ function scaleAndExtrema(points, scalef, max, shift) {
   const newPoints = points.map(p => ({
     x: Math.floor(p.x * scalef),
     y: Math.floor(p.y * scalef),
-    value: Math.min(p.value, (maxValue)) + (shift || 0),
+    value: Math.min(p.value, maxValue) + (shift || 0),
   }));
-  const vals = points.map(p => Math.min(p.value, (maxValue)));
+  const vals = points.map(p => Math.min(p.value, maxValue));
   const localMax = Math.max(...vals);
   return {
     min: 0,
