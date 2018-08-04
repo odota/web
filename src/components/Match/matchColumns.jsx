@@ -9,7 +9,7 @@ import util from 'util';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy, IMAGESIZE_ENUM, getHeroImageUrl } from '../../utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy, IMAGESIZE_ENUM, getHeroImageUrl, compileLevelOneStats } from '../../utility';
 import { TableHeroImage, inflictorWithValue } from '../Visualizations';
 import { CompetitiveRank } from '../Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from '../Icons';
@@ -42,6 +42,7 @@ export default (strings) => {
       repicked={row.repicked}
       predictedVictory={row.pred_vict}
       leaverStatus={row.leaver_status}
+      hero={compileLevelOneStats(heroes[row.hero_id])}
     />);
   };
 

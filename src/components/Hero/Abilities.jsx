@@ -1,10 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
-
 import Ability from './Ability';
 import Talents from './Talents';
-import mapAbilitiesAndTalents from '../../utility/mapAbilitiesAndTalents';
 
 const Wrapper = styled.div`
   align-items: center;
@@ -38,14 +37,54 @@ const renderAbilities = (abilities) => {
   return mappedAbilities;
 };
 
-const Abilities = ({ hero }) => {
-  const heroAbilities = mapAbilitiesAndTalents(hero);
+const Abilities = ({ hero, abilities, heroAbilities }) => {
+  const filterAbilities = abilities => abilities.filter(ability => (ability !== 'generic_hidden'));
+  const mapAbilities = heroAbilities => heroAbilities.map(ability => abilities[ability]);
+  const mapTalents = talents => talents.map(talent => ({ ...abilities[talent.name], ...talent }));
+
+  const mapTalentsToLevel = (talents) => {
+    const talentMap = [];
+
+    talents.forEach((talent, i) => {
+      if (!talentMap[Math.floor(i / 2)]) {
+        talentMap[Math.floor(i / 2)] = [];
+      }
+
+      talentMap[Math.floor(i / 2)].push({
+        name: talent.dname,
+      });
+    });
+
+    return talentMap;
+  };
+
+  const mapAbilitiesAndTalents = (hero) => {
+    const abilities = {
+      skills: [],
+      talents: [],
+    };
+
+    const heroNpcName = hero.name;
+    const heroAbs = heroAbilities[heroNpcName];
+
+    // Filter out generic_hidden skills from skill list
+    heroAbs.abilities = filterAbilities(heroAbs.abilities);
+    abilities.skills = mapAbilities(heroAbs.abilities);
+
+    // Map Talents and assign them to correct level in Object
+    const heroTalents = mapTalents(heroAbs.talents);
+    abilities.talents = mapTalentsToLevel(heroTalents, abilities);
+
+    return abilities;
+  };
+
+  const heroAbs = mapAbilitiesAndTalents(hero);
 
   return (
     <Wrapper>
-      {renderAbilities(heroAbilities.skills)}
+      {renderAbilities(heroAbs.skills)}
       <AbilityItem>
-        <Talents talents={heroAbilities.talents} />
+        <Talents talents={heroAbs.talents} />
       </AbilityItem>
     </Wrapper>
   );
@@ -53,6 +92,13 @@ const Abilities = ({ hero }) => {
 
 Abilities.propTypes = {
   hero: propTypes.shape({}).isRequired,
+  abilities: propTypes.shape({}).isRequired,
+  heroAbilities: propTypes.shape({}).isRequired,
 };
 
-export default Abilities;
+const mapStateToProps = state => ({
+  abilities: state.app.abilities,
+  heroAbilities: state.app.heroAbilities,
+});
+
+export default connect(mapStateToProps)(Abilities);
