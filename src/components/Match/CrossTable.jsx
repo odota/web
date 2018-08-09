@@ -20,6 +20,8 @@ const StyledDiv = styled.div`
 table {
   border-collapse: separate !important;
   border-spacing: 0px 0px !important;
+  padding: 0px 3px 3px 3px !important;
+  background-color: ${constants.secondarySurfaceColor};
 }
 
 tr {
