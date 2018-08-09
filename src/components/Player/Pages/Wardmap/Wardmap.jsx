@@ -54,22 +54,6 @@ class RequestLayer extends React.Component {
     clicked: undefined,
   }
 
-  handleClick = mapId => () => {
-    this.setState({
-      clicked: !this.state.clicked && mapId,
-    });
-  }
-
-  getClickProperties(mapId) {
-    return {
-      className: this.state.clicked && this.state.clicked !== mapId ? 'heatmap-clicked' : 'heatmap',
-      onClick: this.handleClick(mapId),
-    };
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.props.updateWindowSize);
-  }
 
   componentDidMount() {
     getData(this.props);
@@ -80,6 +64,23 @@ class RequestLayer extends React.Component {
     if (this.props.playerId !== prevProps.playerId || this.props.location.key !== prevProps.location.key) {
       getData(this.props);
     }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.props.updateWindowSize);
+  }
+
+  getClickProperties(mapId) {
+    return {
+      className: this.state.clicked && this.state.clicked !== mapId ? 'heatmap-clicked' : 'heatmap',
+      onClick: this.handleClick(mapId),
+    };
+  }
+
+  handleClick = mapId => () => {
+    this.setState({
+      clicked: !this.state.clicked && mapId,
+    });
   }
 
   render() {

@@ -43,8 +43,6 @@ class Heatmap extends Component {
     width: PropTypes.number,
   }
 
-  id = `a-${uuid.v4()}`;
-
   componentDidMount() {
     this.heatmap = h337.create({
       container: document.getElementById(this.id),
@@ -55,6 +53,8 @@ class Heatmap extends Component {
   componentDidUpdate() {
     drawHeatmap(this.props, this.heatmap);
   }
+
+  id = `a-${uuid.v4()}`;
 
   render() {
     return (

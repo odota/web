@@ -88,8 +88,6 @@ class Table extends React.Component {
     setHighlightedCol: func,
   }
 
-  state = initialState;
-
   static renderSumRow({ columns, data, setHighlightedCol }) {
     return (
       <MaterialTableRow>
@@ -109,6 +107,15 @@ class Table extends React.Component {
       </MaterialTableRow>
     );
   }
+
+  static getDerivedStateFromProps(props) {
+    if (props.resetTableState) {
+      return initialState;
+    }
+    return null;
+  }
+
+  state = initialState;
 
   setTableRef = (node) => {
     if (node) {
@@ -134,13 +141,6 @@ class Table extends React.Component {
         scrolled: scrollLeft,
       });
     }
-  }
-
-  static getDerivedStateFromProps(props) {
-    if (props.resetTableState) {
-      return initialState;
-    }
-    return null;
   }
 
   nextPage = () => {
