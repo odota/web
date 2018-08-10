@@ -48,7 +48,7 @@
   "api_docs": "Документація",
   "api_header_details": "Деталі",
   "api_charging": "You're charged $cost per call, rounded up to the nearest cent.",
-  "api_credit_required": "Для отримання API ключа, потрібно мати активний метод оплати. Ми атоматично знімемо кошти з карти на початку місяця за поточну заборгованість.",
+  "api_credit_required": "Для отримання API ключа, потрібно мати активний метод оплати. Ми автоматично знімемо кошти з карти на початку місяця за поточну заборгованість.",
   "api_failure": "500 errors don't count as usage, since that means we messed up!",
   "api_error": "There was an error with the request. Please try again. If it continues, contact us at support@opendota.com.",
   "api_login": "Login to access API Key",
