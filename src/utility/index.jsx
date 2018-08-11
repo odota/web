@@ -31,14 +31,13 @@ const year = month * 12;
 
 export const iconStyle = {
   position: 'relative',
-  marginLeft: 5,
-  width: 18,
-  height: 18,
+  width: 16,
+  height: 16,
   verticalAlign: 'bottom',
-  top: '1px',
 };
 
 export const subTextStyle = {
+  position: 'relative',
   fontSize: '12px',
   color: constants.colorMutedLight,
   textOverflow: 'initial',
@@ -580,16 +579,15 @@ export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffi
         lane = row.lane_role;
       }
       const roleIconStyle = {
-        position: 'relative',
-        height: '12px',
-        marginLeft: '5px',
-        filter: 'grayscale(60%)',
-        top: '2px',
+        float: 'right',
+        marginRight: '20px',
+        marginTop: '2px',
+        height: '14px',
       };
 
       return (
-        <span>
-          <span>{(isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire)}</span>
+        <div>
+          {row && <span style={{ float: 'left' }}><FromNowTooltip timestamp={row.start_time + row.duration} /></span>}
           {lane ?
             <img
               src={`/assets/images/dota2/lane_${lane}.svg`}
@@ -600,7 +598,7 @@ export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffi
               style={roleIconStyle}
             />
           : ''}
-        </span>);
+        </div>);
     } else if (row.last_played) {
       return <FromNowTooltip timestamp={row.last_played} />;
     } else if (row.start_time) {
@@ -658,21 +656,6 @@ export const transformations = {
   radiant_win_and_game_mode: (row, col, field) => {
     const matchId = row.match_id;
     const { strings } = store.getState().app;
-    const partySize = (_partySize) => {
-      if (_partySize === 1) {
-        return [
-          <SocialPerson color="rgb(179, 179, 179)" style={iconStyle} />,
-          `x${row.party_size}`,
-        ];
-      } else if (_partySize === null || _partySize === undefined) {
-        return null;
-      }
-
-      return [
-        <SocialPeople color="rgb(179, 179, 179)" style={iconStyle} />,
-        `x${row.party_size}`,
-      ];
-    };
     const won = field === isRadiant(row.player_slot);
     const getColor = (result) => {
       if (result === null || result === undefined) {
@@ -686,25 +669,33 @@ export const transformations = {
       }
       return won ? strings.td_win : strings.td_loss;
     };
-    const skillDotsStyle = {
-      height: '5px',
-      width: '5px',
-      backgroundColor: constants.lightGray,
-      display: 'inline-block',
-      marginLeft: '3px',
-      marginBottom: '2px',
-      transform: 'rotate(45deg)',
+    const partyTextStyle = {
+      fontSize: '9px',
+      position: 'absolute',
+      lineHeight: '3px',
+      textAlign: 'center',
+      width: '100%',
+      fontFamily: 'Tahoma',
     };
-    const getSkill = (skill) => {
-      const skillDots = [];
-      if (skill) {
-        for (let i = 0; i < 3; i += 1) {
-          skillDots.push(<div style={{ ...skillDotsStyle, opacity: skill - i > 0 ? '1' : '0.3' }} />);
-        }
+
+    const partySize = (_partySize) => {
+      if (_partySize === 1) {
+        return <SocialPerson color="rgb(179, 179, 179)" style={{ ...iconStyle, float: 'right' }} />;
+      } else if (_partySize === null || _partySize === undefined) {
+        return null;
       }
-      return skillDots;
+      return (
+        <div style={{ float: 'right', marginTop: '-3px', marginRight: '2px' }}>
+          <SocialPeople color="rgb(179, 179, 179)" style={iconStyle} />
+          <div style={partyTextStyle}>{`x${row.party_size}`}</div>
+        </div>
+      );
     };
-    const lobbyTypeStyle = { color: row.lobby_type === 7 ? constants.colorRanked : undefined };
+    const partyStyle = {
+      ...subTextStyle,
+      float: 'right',
+      marginRight: '-14px',
+    };
 
     return (
       <div>
@@ -713,31 +704,56 @@ export const transformations = {
             {getString(field)}
           </span>
         </TableLink>
-        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-          {strings[`game_mode_${row.game_mode}`] && (`${strings[`game_mode_${row.game_mode}`]} / `)} {row.league_name ? row.league_name : <span style={lobbyTypeStyle}>{strings[`lobby_type_${row.lobby_type}`]}</span>}
-          <span style={{ marginRight: '3px' }} data-tip={`${strings.filter_party_size} ${row.party_size}`} data-offset="{'top': 4, 'right' : 20}" data-delay-show="300">
+        <div>
+          <span style={{ ...subTextStyle, marginTop: 1, display: 'inline' }}>
+            {row.league_name ? row.league_name : strings[`lobby_type_${row.lobby_type}`]}
+          </span>
+          <span
+            style={partyStyle}
+            data-tip={`${strings.filter_party_size} ${row.party_size || strings.game_mode_0}`}
+            data-offset="{'top': 4, 'right' : 8}"
+            data-delay-show="300"
+          >
             {partySize(row.party_size)}
           </span>
-          <span data-tip={row.skill ? `${strings[`skill_${row.skill}`]} ${strings.th_skill}` : ''} data-offset="{'right': 17}" data-delay-show="300">
-            {getSkill(row.skill)}
-          </span>
-          <ReactTooltip place="top" effect="solid" />
-        </span>
+        </div>
       </div>);
+  },
+  mode: (row, col, field) => {
+    const { strings } = store.getState().app;
+
+    const skillStyle = {
+      ...subTextStyle,
+      display: 'inline',
+      float: 'left',
+      opacity: `${!row.skill ? 0.6 : 1}`,
+    };
+
+    return (
+      <div>
+        {strings[`game_mode_${field}`] && (`${strings[`game_mode_${field}`]}`)}
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <span style={skillStyle}>
+            {strings[`skill_${row.skill || 0}`]}
+          </span>
+        </div>
+        <ReactTooltip place="top" effect="solid" />
+      </div>
+    );
   },
   start_time: (row, col, field) => <FromNowTooltip timestamp={field} />,
   last_played: (row, col, field) => <FromNowTooltip timestamp={field} />,
-  duration: (row, col, field) => (
-    <div>
-      <span>
-        {formatSeconds(field)}
-      </span>
-      {row &&
-        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
-          <FromNowTooltip timestamp={row.start_time + row.duration} />
-        </span>}
-    </div>
-  ),
+  duration: (row, col, field) => {
+    const { strings } = store.getState().app;
+    return (
+      <div>
+        <span>
+          {formatSeconds(field)}
+        </span>
+        {row && <span style={{ ...subTextStyle }}>{(isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire)}</span> }
+      </div>
+    );
+  },
   patch: (row, col, field) => (patch[field] ? patch[field].name : field),
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,

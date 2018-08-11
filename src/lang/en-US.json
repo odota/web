@@ -624,9 +624,10 @@
 
   "search_title": "Search by player name, match ID...",
 
-  "skill_1": "Normal",
-  "skill_2": "High",
-  "skill_3": "Very High",
+  "skill_0": "Unknown Skill",
+  "skill_1": "Normal Skill",
+  "skill_2": "High Skill",
+  "skill_3": "Very High Skill",
 
   "story_invalid_template": "(invalid template)",
   "story_error": "An error occured while compiling the story for this match",
@@ -718,8 +719,8 @@
 
   "placeholder_filter_heroes": "Filter Heroes",
 
-  "td_win": "Win",
-  "td_loss": "Loss",
+  "td_win": "Won Match",
+  "td_loss": "Lost Match",
   "td_no_result": "No Result",
 
   "th_hero_id": "Hero",
