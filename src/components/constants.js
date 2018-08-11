@@ -21,6 +21,8 @@ export default {
   colorBlueMuted: 'rgba(102, 187, 255, 0.3)',
   colorYelorMuted: 'rgba(255, 171, 64, 0.3)',
   colorMutedLight: 'rgb(179, 179, 179)',
+  colorMutedGreen: '#325233',
+  colorMutedRed: '#523332',
   colorRanked: 'rgba(241, 170, 64, 0.81)',
   primaryLinkColor: '#6BF',
   textColorPrimary: '#F5F5F5',
