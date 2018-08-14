@@ -1,20 +1,37 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
-
+import items from 'dotaconstants/build/items.json';
 import constants from '../constants';
 
-function extractAbilities(text) {
-  const types = {actives: [], passives: [], }
-  const abilities = text && text.split("/n")
-  console.log(abilities)
-  return text
+const itemAbilities = {
+  'active': {
+    color: '#4183d7',
+    headerColor: 'rgba(65, 131, 215, 0.25)',
+    text: 'Active'
+  },
+  'passive': {
+    color: '#a9a9a9',
+    headerColor: 'rgba(169, 169, 169, 0.25)',
+    text: 'Passive'
+  },
+  'use': {
+    color: '#65a665',
+    headerColor: 'rgba(101, 166, 101, 0.25)',
+    text: 'Use'
+  },
+  'toggle': {
+    color: '#a74d9b',
+    headerColor: 'rgba(167, 77, 155, 0.25)',
+    text: 'Toggle'
+  },
 }
 
 const Wrapper = styled.div`
   width: 300px;
   background: #131519;
   overflow: hidden;
+  border: 2px solid #27292b;
 `;
 
 const Header = styled.div`
@@ -66,14 +83,6 @@ const HeaderText = styled.div`
   }
 `
 
-const HeaderContent = styled.div`
-  font-size: ${constants.fontSizeSmall};
-  text-transform: none;
-  display: block;
-  color: ${constants.colorMutedLight};
-  margin-bottom: 5px;
-`;
-
 const Trim = styled.hr`
   border: 0;
   height: 1px;
@@ -105,7 +114,20 @@ const ResourceIcon = styled.img`
 `;
 
 const ContentBox = styled.div`
-  padding: 13px;
+  margin-top: 18px;
+  padding: 0px 13px 0px 13px;
+
+  & #footer {
+    color: #95a5a6;
+  }
+
+  & #value {
+    font-weight: 500;
+  }
+
+  & #header{
+    color: #95a5a6; 
+  }
 `
 
 const Lore = styled.div`
@@ -115,16 +137,21 @@ const Lore = styled.div`
   font-style: italic;
   color: #51565F;
   padding: 6px;
+`
 
+const Hint = styled.div`
+  margin: 20px 9px 10px 9px;
+  padding: 6px;
+  background-color: #51565F;
+  color: #080D15;
 `
 
 const Ability = styled.div`
-  margin: 20px 9px 10px 9px;
-
+  margin: 20px 9px 0px 9px;
   .ability-header {
-    background: linear-gradient(to right, #303338, #51565F);
-    padding: 6px;
-    color: #4183d7;
+    background: ${props => `linear-gradient(to right, #303338 , ${props.headerColor})`};
+    padding: 6px; };
+    color: ${props => props.color };
     font-weight: bold;
 
     & .resources {
@@ -141,11 +168,40 @@ const Ability = styled.div`
   .ability-text {
     padding: 6px;
     background-color: #303338;
-    border-top: 2px solid #4183d7;
+    border-top: 1px solid ${props => props.color };
+    font-weight: normal;
+    color: #95a5a6;
+  }
+`
+const Components = styled.div`
+  font-family: Tahoma;
+  margin: 16px 9px 0px 9px;
+
+  #header {
+    font-size: 10px;
+    color: #51565F;
+  }
+
+  .component {
+    display: inline-block;
+    margin-right: 5px;
+
+    & img {
+      height: 25px;
+      opacity: 0.75;
+    }
+
+    #cost {
+      font-size: 10px;
+      position: relative;
+      bottom: 6px;
+      text-align: center;
+      color: ${constants.colorYelorMuted};
+    }
   }
 `
 
-const ThingTooltip = ({ thing }) => (
+const ThingTooltip = ({ thing, inflictor }) => (
   <Wrapper>
       <Header>
         <div className="header-content">
@@ -155,38 +211,56 @@ const ThingTooltip = ({ thing }) => (
             <div id="gold">{<img src="https://api.opendota.com/apps/dota2/images/tooltips/gold.png" alt=""/>}{thing.cost}</div>
           </HeaderText>
         </div>
-        {/*thing.lore &&
-        <HeaderContent>{thing.lore}</HeaderContent>}
-        {thing.desc &&
-        <HeaderContent>{thing.desc}</HeaderContent>*/}
       </Header>
+    {(thing.attrib && thing.attrib.length > 0) &&
     <ContentBox>
-    {(thing.attrib || []).map(attrib => <Attribute key={attrib.key}>{`${attrib.header} ${attrib.value} ${attrib.footer || ''}`}</Attribute>)}
+      {(thing.attrib).map(attrib => <Attribute key={attrib.key}>
+      <span id="header">{attrib.header}</span>
+      <span id="value">{attrib.value}</span>
+      <span id="footer"> {attrib.footer || ''}</span></Attribute>)}
     </ContentBox>
-    <Ability>
-      <div className="ability-header">
-        <span>Active: Soul Burn</span>
-        <div className="resources">
-          {thing.mc && 
-          <span>
-            <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/mana.png`} alt="" />
-            {thing.mc}
-          </span>
-          }
-          {thing.cd && 
-          <span>
-            <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
-            {thing.cd}
-          </span>
-          }
+    }
+    {['active', 'toggle', 'use', 'passive'].map(type => {
+      if (thing[type]) {
+        return thing[type].map(ability => 
+          <Ability color={itemAbilities[type].color} headerColor={itemAbilities[type].headerColor}>
+            <div className="ability-header">
+              {`${itemAbilities[type].text}: ${ability.name}`}
+              <div className="resources">
+                {type === 'active' && thing.mc && 
+                <span>
+                  <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/mana.png`} alt="" />
+                  {thing.mc}
+                </span>
+                }
+                {type === 'active' && thing.cd && 
+                <span>
+                  <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
+                  {thing.cd}
+                </span>
+                }
+              </div>
+            </div>
+            <div className="ability-text">
+              {ability.desc}
+            </div>
+          </Ability>
+        )
+      }
+    })}
+    {thing.hint && <Hint>{thing.hint}</Hint>}
+    {thing.lore && <Lore> {thing.lore} </Lore>}
+    {thing.components &&
+    <Components>
+      <div id="header">Components:</div>
+      {thing.components.concat((items[`recipe_${inflictor}`] && [`recipe_${inflictor}`]) || []).map(component =>
+        <div className="component">
+          <img src={`${process.env.REACT_APP_API_HOST}${items[component].img}`} alt=""/>
+          <div id="cost">{items[component].cost}</div>
         </div>
-      </div>
-      <div className="ability-text">{extractAbilities(thing.desc)}</div>
-    </Ability>
-
-    <Lore>
-      {thing.lore}
-    </Lore>
+      )}
+    </Components>
+    }
   </Wrapper>
 );
 
