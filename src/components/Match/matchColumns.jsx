@@ -93,7 +93,7 @@ export default (strings) => {
       {
         displayName: strings.th_avatar,
         field: 'player_slot',
-        displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), true, 'MOREMMR', strings),
+        displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), false, null, strings),
         sortFn: true,
       },
       {
