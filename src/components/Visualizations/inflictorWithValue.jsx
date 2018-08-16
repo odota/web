@@ -128,8 +128,6 @@ class InflictorWithValue extends React.Component {
         await import('dotaconstants/build/neutral_abilities.json'),
         await import('dotaconstants/build/ability_ids.json'),
       ]);
-
-
       this.setState({
         abilities,
         neutralAbilities,
