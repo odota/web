@@ -7,6 +7,13 @@ import { inflictorWithValue } from '../Visualizations';
 import { sumValues, getHeroesById, abbreviateNumber } from '../../utility';
 import { StyledDmgTargetInflictor, StyledDmgTargetRow } from './StyledMatch';
 import constants from '../constants';
+import styled from '../../../node_modules/styled-components';
+
+const Dummy = styled.div`
+  height:30px;
+  width: 150px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.1), transparent);
+`;
 
 const dmgTargetValueStyle = {
   position: 'absolute',
@@ -114,9 +121,9 @@ const TargetsBreakdown = ({ field, abilityUses = null }) => {
               {inflictorWithValue(inflictor, value)}
             </StyledDmgTargetInflictor>
           }
-          {!f[inflictor].null ? <NavigationArrowForward style={arrowStyle} /> : null}
-          {
-            damageTargetIcons(f[inflictor])
+          {<NavigationArrowForward style={arrowStyle} />}
+          {!f[inflictor].null ?
+            damageTargetIcons(f[inflictor]) : <Dummy />
           }
         </div>
       ));

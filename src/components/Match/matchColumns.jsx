@@ -983,14 +983,22 @@ export default (strings) => {
       tooltip: strings.tooltip_casts,
       field: 'item_uses',
       displayFn: (row, col, field) =>
-        (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+        (
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''}
+          </div>
+        ),
     },
     {
       displayName: strings.th_hits,
       tooltip: strings.tooltip_hits,
       field: 'hero_hits',
       displayFn: (row, col, field) =>
-        (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+        (
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''}
+          </div>
+        ),
     },
   ];
 
