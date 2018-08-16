@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import heroes from 'dotaconstants/build/heroes.json';
 import ReactTooltip from 'react-tooltip';
+import styled from 'styled-components';
 import NavigationArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
 import { inflictorWithValue } from '../Visualizations';
 import { sumValues, getHeroesById, abbreviateNumber } from '../../utility';
 import { StyledDmgTargetInflictor, StyledDmgTargetRow } from './StyledMatch';
 import constants from '../constants';
-import styled from '../../../node_modules/styled-components';
 
 const Dummy = styled.div`
   height:30px;
