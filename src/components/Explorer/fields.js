@@ -501,8 +501,8 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     }),
     isTi8Team: [{ text: 'Yes', value: true, key: 'true' }],
     megaWin: [{ text: 'Yes', value: true, key: 'true' }],
-    radiantMinGoldAdvantage: goldAdvantage,
-    radiantMaxGoldAdvantage: goldAdvantage,
+    minGoldAdvantage: goldAdvantage,
+    maxGoldAdvantage: goldAdvantage,
   };
 };
 
