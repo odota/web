@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
-//import items from 'dotaconstants/build/items.json';
+import items from 'dotaconstants/build/items.json';
 import styled from 'styled-components';
 import ThingTooltip from '../ThingTooltip';
+import ItemTooltip from './../ItemTooltip/index';
 import constants from '../constants';
-import items from './items2'
 
 const customNameIcon = {
   kaya: 'trident',
@@ -129,6 +129,7 @@ class InflictorWithValue extends React.Component {
         await import('dotaconstants/build/ability_ids.json'),
       ]);
 
+
       this.setState({
         abilities,
         neutralAbilities,
@@ -168,7 +169,7 @@ class InflictorWithValue extends React.Component {
         } else {
           image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${getInflictorImage(resolvedInflictor)}_lg.png`;
         }
-        tooltip = <ThingTooltip thing={item} inflictor={resolvedInflictor}/>;
+        tooltip = <ItemTooltip item={item} inflictor={resolvedInflictor} />;
       } else {
         image = '/assets/images/default_attack.png';
       }
