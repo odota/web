@@ -564,7 +564,7 @@ const TableHeroImage = ({
           <div className="header">
             <div className="heroImg">
               <img
-                src={getHeroImageUrl(hero.id, IMAGESIZE_ENUM.VERT)}
+                src={getHeroImageUrl(hero.id, IMAGESIZE_ENUM.VERT.suffix)}
                 alt=""
               />
               {hero.primary_attr === 'str' && <AttrStrength id="heroImg-attribute" />}

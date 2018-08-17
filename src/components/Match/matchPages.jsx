@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import heroes from 'dotaconstants/build/heroes.json';
 import Heading from '../Heading';
 import Table from '../Table';
@@ -18,6 +19,33 @@ import Overview from './Overview';
 import TeamTable from './TeamTable';
 import Chat from './Chat';
 import { StyledFlexContainer, StyledFlexElement } from './StyledMatch';
+import { getHeroImageUrl, IMAGESIZE_ENUM } from '../../utility';
+
+const TickElement = (props) => {
+  const { x, y, payload } = props;
+
+  if (heroes[payload.value]) {
+    const href = getHeroImageUrl(payload.value, IMAGESIZE_ENUM.SMALL.suffix);
+    const imageProps = {
+      xlinkHref: href,
+      href,
+      width: IMAGESIZE_ENUM.SMALL.width,
+      height: IMAGESIZE_ENUM.SMALL.height,
+      x: (x - (IMAGESIZE_ENUM.SMALL.width / 2)),
+      y,
+    };
+
+    return <image {...imageProps} />;
+  }
+
+  return null;
+};
+TickElement.propTypes = {
+  x: PropTypes.number,
+  y: PropTypes.number,
+  payload: PropTypes.shape({}),
+};
+
 
 const matchPages = (strings) => {
   const {
@@ -159,14 +187,18 @@ const matchPages = (strings) => {
           hoverRowColumn
         />
         <StackedBarGraph
-          columns={match.players.map(player => ({ ...player.gold_reasons, name: heroes[player.hero_id] && heroes[player.hero_id].localized_name }))}
+          columns={match.players.map(player => ({ ...player.gold_reasons, name: player.hero_id }))}
           heading={strings.heading_gold_reasons}
           type="gold_reasons"
+          tooltipFormatter={heroId => heroes[heroId] && heroes[heroId].localized_name}
+          tickElement={TickElement}
         />
         <StackedBarGraph
-          columns={match.players.map(player => ({ ...player.xp_reasons, name: heroes[player.hero_id] && heroes[player.hero_id].localized_name }))}
+          columns={match.players.map(player => ({ ...player.xp_reasons, name: player.hero_id }))}
           heading={strings.heading_xp_reasons}
           type="xp_reasons"
+          tooltipFormatter={heroId => heroes[heroId] && heroes[heroId].localized_name}
+          tickElement={TickElement}
         />
         {/*
       <TeamTable

@@ -147,10 +147,26 @@ export const percentile = (pct) => {
 };
 
 export const IMAGESIZE_ENUM = {
-  SMALL: 'sb.png', //     ~10KB (59 px x 33 px)
-  MEDIUM: 'lg.png', //     ~41KB (205 px x 105 px)
-  LARGE: 'full.png', // ~52KB (256 px x 144 px)
-  VERT: 'vert.jpg', // ~18KB (235 px x 272 px) note that this is a jpg
+  SMALL: { // ~10KB
+    suffix: 'sb.png',
+    width: 59,
+    height: 33,
+  },
+  MEDIUM: { // ~41KB
+    suffix: 'lg.png',
+    width: 205,
+    height: 115,
+  },
+  LARGE: { // ~52KB
+    suffix: 'full.png',
+    width: 256,
+    height: 144,
+  },
+  VERT: { // ~18KB note that this is a jpg
+    suffix: 'vert.jpg',
+    width: 235,
+    height: 272,
+  },
 
 // if you ever wanna see what the above look like (change the suffix):
 // https://api.opendota.com/apps/dota2/images/heroes/abaddon_full.png
@@ -563,7 +579,7 @@ export function fromNow(time) {
   return '';
 }
 
-export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffix = IMAGESIZE_ENUM.SMALL, guideUrl, guideType) {
+export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffix = IMAGESIZE_ENUM.SMALL.suffix, guideUrl, guideType) {
   const { strings } = store.getState().app;
   const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
   const imageUrl = getHeroImageUrl(row[col.field], imageSizeSuffix);
@@ -625,7 +641,7 @@ export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffi
 }
 
 export function displayHeroIdWithPvgna(row, col, field) {
-  return displayHeroId(row, col, field, true, IMAGESIZE_ENUM.SMALL, row.pvgnaGuide && row.pvgnaGuide.url, 'PVGNA');
+  return displayHeroId(row, col, field, true, IMAGESIZE_ENUM.SMALL.suffix, row.pvgnaGuide && row.pvgnaGuide.url, 'PVGNA');
 }
 
 export function displayHeroIdWithMoreMmr(row, col, field) {
@@ -635,7 +651,7 @@ export function displayHeroIdWithMoreMmr(row, col, field) {
     url = `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`;
   }
 
-  return displayHeroId(row, col, field, true, IMAGESIZE_ENUM.SMALL, url, 'MOREMMR');
+  return displayHeroId(row, col, field, true, IMAGESIZE_ENUM.SMALL.suffix, url, 'MOREMMR');
 }
 
 /**
