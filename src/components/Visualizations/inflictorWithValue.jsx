@@ -6,6 +6,7 @@ import uuid from 'uuid';
 import items from 'dotaconstants/build/items.json';
 import styled from 'styled-components';
 import ThingTooltip from '../ThingTooltip';
+import ItemTooltip from './../ItemTooltip/index';
 import constants from '../constants';
 
 const customNameIcon = {
@@ -22,6 +23,11 @@ const getInflictorImage = (inflictor) => {
 const customImageIcon = ['refresher_shard'];
 
 const StyledDiv = styled.div`
+.__react_component_tooltip {
+  opacity: 1 !important;
+  padding: 0px !important;
+}
+
 .inflictorWithValue {
   position: relative;
   float: left;
@@ -161,7 +167,7 @@ class InflictorWithValue extends React.Component {
         } else {
           image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${getInflictorImage(resolvedInflictor)}_lg.png`;
         }
-        tooltip = <ThingTooltip thing={item} />;
+        tooltip = <ItemTooltip item={item} inflictor={resolvedInflictor} />;
       } else {
         image = '/assets/images/default_attack.png';
       }
