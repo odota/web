@@ -244,7 +244,7 @@ export function isActiveItem(key) {
   };
 
   // TODO this will only work for english data files
-  return (items[key].desc.indexOf('Active: ') > -1 && !(key in whitelist));
+  return (items[key].desc && items[key].desc.indexOf('Active: ') > -1 && !(key in whitelist));
 }
 
 export const sum = (a, b) => a + b;
