@@ -21,44 +21,57 @@ const StackedBarGraph = ({
   heading,
   type,
   strings,
+  tickElement,
+  tooltipFormatter,
 }) => {
   columns.sort((a, b) => {
     const aSum = Object.values(a).map(Number).filter(v => !Number.isNaN(v)).reduce((c, d) => c + d, 0);
     const bSum = Object.values(b).map(Number).filter(v => !Number.isNaN(v)).reduce((c, d) => c + d, 0);
     return bSum - aSum;
   });
+  const xAxisProps = {};
+  if (tickElement) {
+    xAxisProps.tick = tickElement;
+  }
+  const tooltipProps = {};
+  if (tooltipFormatter) {
+    tooltipProps.labelFormatter = tooltipFormatter;
+  }
   return (
     <StyledHolder>
       <Heading title={heading} />
-      <ResponsiveContainer width="100%" height={400}>
-        <BarChart
-          height={400}
-          data={columns}
-          margin={{
-      top: 5, right: 30, left: 30, bottom: 5,
-    }}
-        >
-          <XAxis dataKey="name" />
-          <YAxis />
-          <CartesianGrid
-            stroke="#505050"
-            strokeWidth={1}
-            opacity={0.5}
-          />
-          <Tooltip
-            cursor={{ opacity: '0.06' }}
-            wrapperStyle={{ backgroundColor: constants.darkPrimaryColor, border: 'none' }}
-          />
-          {Object.keys(strings).filter(str => str.indexOf(`${type}_`) === 0).map((gr, i) => (
-            <Bar
-              dataKey={gr.substring(`${type}_`.length)}
-              name={strings[gr]}
-              stackId={gr === 'gold_reasons_1' || gr === 'gold_reasons_2' ? 'a' : 'b'}
-              fill={category10[i]}
+      <div style={{ overflowX: 'auto', overflowY: 'hidden' }}>
+        <ResponsiveContainer width="100%" height={400} minWidth={1000} >
+          <BarChart
+            height={400}
+            data={columns}
+            margin={{
+              top: 15, right: 30, left: 30, bottom: 15,
+            }}
+          >
+            <XAxis dataKey="name" {...xAxisProps} />
+            <YAxis />
+            <CartesianGrid
+              stroke="#505050"
+              strokeWidth={1}
+              opacity={0.5}
             />
-        ))}
-        </BarChart>
-      </ResponsiveContainer>
+            <Tooltip
+              cursor={{ opacity: '0.06' }}
+              wrapperStyle={{ backgroundColor: constants.darkPrimaryColor, border: 'none' }}
+              {...tooltipProps}
+            />
+            {Object.keys(strings).filter(str => str.indexOf(`${type}_`) === 0).map((gr, i) => (
+              <Bar
+                dataKey={gr.substring(`${type}_`.length)}
+                name={strings[gr]}
+                stackId={gr === 'gold_reasons_1' || gr === 'gold_reasons_2' ? 'a' : 'b'}
+                fill={category10[i]}
+              />
+          ))}
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </StyledHolder>);
 };
 
@@ -67,6 +80,8 @@ StackedBarGraph.propTypes = {
   heading: PropTypes.string,
   type: PropTypes.string,
   strings: PropTypes.shape({}),
+  tickElement: PropTypes.func,
+  tooltipFormatter: PropTypes.func,
 };
 
 const mapStateToProps = state => ({

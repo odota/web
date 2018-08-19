@@ -22,6 +22,7 @@ import ExplorerFormField from './ExplorerFormField';
 import getFields from './fields';
 import autocomplete from './autocomplete';
 import TableSkeleton from '../Skeletons/TableSkeleton';
+import { formatTemplate } from '../../utility';
 
 const playerMapping = {};
 const teamMapping = {};
@@ -242,7 +243,10 @@ class Explorer extends React.Component {
           <ExplorerFormField label={strings.explorer_order} fields={expandedFields} builderField="order" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_having} fields={expandedFields} builderField="having" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_limit} fields={expandedFields} builderField="limit" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-          <ExplorerFormField label="Is TI8 Team" fields={expandedFields} builderField="isTi8Team" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={formatTemplate(strings.explorer_is_ti_team, { number: 8 })} fields={expandedFields} builderField="isTi8Team" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.explorer_mega_comeback} fields={expandedFields} builderField="megaWin" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.explorer_max_gold_adv} fields={expandedFields} builderField="maxGoldAdvantage" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.explorer_min_gold_adv} fields={expandedFields} builderField="minGoldAdvantage" handleFieldUpdate={handleFieldUpdate} builder={builder} />
         </ExplorerControlSection>
         <div>
           <RaisedButton

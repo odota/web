@@ -25,7 +25,7 @@ export default (strings) => {
   const heroTd = (row, col, field, index, hideName, party, showGuide = false, guideType) => {
     const heroName = heroes[row.hero_id] && heroes[row.hero_id].localized_name.toLowerCase().replace(' ', '-');
     return (<TableHeroImage
-      image={getHeroImageUrl(row.hero_id, IMAGESIZE_ENUM.SMALL)}
+      image={getHeroImageUrl(row.hero_id, IMAGESIZE_ENUM.SMALL.suffix)}
       title={row.name || row.personaname || strings.general_anonymous}
       registered={row.last_login}
       accountId={row.account_id}
@@ -93,7 +93,7 @@ export default (strings) => {
       {
         displayName: strings.th_avatar,
         field: 'player_slot',
-        displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), true, 'MOREMMR', strings),
+        displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), false, null, strings),
         sortFn: true,
       },
       {
@@ -983,14 +983,22 @@ export default (strings) => {
       tooltip: strings.tooltip_casts,
       field: 'item_uses',
       displayFn: (row, col, field) =>
-        (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+        (
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''}
+          </div>
+        ),
     },
     {
       displayName: strings.th_hits,
       tooltip: strings.tooltip_hits,
       field: 'hero_hits',
       displayFn: (row, col, field) =>
-        (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+        (
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''}
+          </div>
+        ),
     },
   ];
 

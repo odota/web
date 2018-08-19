@@ -71,7 +71,7 @@ const PicksBans = ({ data, strings }) => (
       {data.map(pb => (
         <section key={pb.order}>
           <img
-            src={getHeroImageUrl(pb.hero_id, IMAGESIZE_ENUM.SMALL)}
+            src={getHeroImageUrl(pb.hero_id, IMAGESIZE_ENUM.SMALL.suffix)}
             alt=""
             className="image"
             data-isPick={pb.is_pick}

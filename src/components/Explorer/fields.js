@@ -230,6 +230,13 @@ const getFields = (players = [], leagues = [], teams = []) => {
     value: element,
     key: String(element),
   }));
+
+  const goldAdvantage = Array(31).fill().map((_, i) => i * 1000).map(element => ({
+    text: String(element),
+    value: element,
+    key: String(element),
+  }));
+
   return {
     select: [
       {
@@ -493,6 +500,9 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
       return { text: strings[str], value: laneRoleId, key: String(laneRoleId) };
     }),
     isTi8Team: [{ text: 'Yes', value: true, key: 'true' }],
+    megaWin: [{ text: 'Yes', value: true, key: 'true' }],
+    minGoldAdvantage: goldAdvantage,
+    maxGoldAdvantage: goldAdvantage,
   };
 };
 

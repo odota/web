@@ -148,6 +148,13 @@ class Vision extends React.Component {
     this.handleViewportChange = debounce(50, this.viewportChange);
   }
 
+  onCheckAllWardsTeam(index, end) {
+    const { players } = this.state;
+    const [observer, sentry] = ['observer', 'sentry'];
+    const allWardsTeam = players[observer].slice(index, end).concat(players[sentry].slice(index, end));
+    return !(allWardsTeam.indexOf(true) === -1);
+  }
+
   setPlayer(player, type, value) {
     const { players } = this.state;
     const newArray = players[type];
@@ -181,13 +188,6 @@ class Vision extends React.Component {
     const newTeam = this.onCheckAllWardsTeam(index, end);
     const newState = { ...this.state, teams: { ...this.state.teams, [index === 0 ? 'radiant' : 'dire']: newTeam }, players };
     this.setState(newState);
-  }
-
-  onCheckAllWardsTeam(index, end) {
-    const { players } = this.state;
-    const [observer, sentry] = ['observer', 'sentry'];
-    const allWardsTeam = players[observer].slice(index, end).concat(players[sentry].slice(index, end));
-    return !(allWardsTeam.indexOf(true) === -1);
   }
 
   checkedTypeWard(index, ward) {
