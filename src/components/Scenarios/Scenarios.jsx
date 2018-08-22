@@ -115,6 +115,7 @@ class Scenarios extends React.Component {
   getData() {
     const { selectedTab, formFields } = this.state;
     this.props[selectedTab](formFields[selectedTab]);
+    this.incrementTableKey();
   }
 
   initialQuery() {
@@ -141,6 +142,12 @@ class Scenarios extends React.Component {
     this.setState({
       formFields: { ...formFields, [selectedTab]: { ...formFields[selectedTab], ...newFormFieldState } },
     }, this.updateQueryParams);
+  }
+
+  tableKey = 0;
+
+  incrementTableKey = () => {
+    this.tableKey += 1;
   }
 
   render() {
@@ -179,6 +186,7 @@ class Scenarios extends React.Component {
                 formFieldState={formFields[selectedTab] && formFields[selectedTab][field]}
                 metadata={metadata}
                 className={filterForms && filterForms.includes(field) ? 'filter' : 'query'}
+                incrementTableKey={this.incrementTableKey}
               />
           ))}
           </div>
@@ -193,12 +201,11 @@ class Scenarios extends React.Component {
           />
           <Heading title={strings.explorer_results} subtitle={`${data.filter(minSampleSize).length} ${strings.explorer_num_rows}`} />
           <Table
-            key={selectedTab}
+            key={selectedTab + this.tableKey}
             data={data.filter(minSampleSize)}
             columns={getColumns(selectedTab, metadata, strings)}
             loading={scenariosState[selectedTab].loading}
             paginated
-            resetTableState
           />
         </div>
         }
