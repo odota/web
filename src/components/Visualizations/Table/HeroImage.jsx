@@ -572,7 +572,7 @@ const TableHeroImage = ({
                 </div>
               </div>
               <div className="header-stats">
-                <div id="hero-name">{hero.localized_name.toUpperCase()}</div>
+                <div id="hero-name">{hero.localized_name && hero.localized_name.toUpperCase()}</div>
                 <div id="hero-roles">{hero.attack_type} - {hero.roles && hero.roles.join(', ')}</div>
                 <div className="attributes-container">
                   <div className="attributes">
