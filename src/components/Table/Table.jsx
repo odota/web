@@ -108,13 +108,6 @@ class Table extends React.Component {
     );
   }
 
-  static getDerivedStateFromProps(props) {
-    if (props.resetTableState) {
-      return initialState;
-    }
-    return null;
-  }
-
   state = initialState;
 
   setTableRef = (node) => {

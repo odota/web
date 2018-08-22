@@ -35,6 +35,7 @@ class ScenarioFormField extends React.Component {
     className: PropTypes.string,
     index: PropTypes.number,
     strings: PropTypes.shape({}),
+    incrementTableKey: PropTypes.func,
   }
 
   constructor(props) {
@@ -81,6 +82,9 @@ class ScenarioFormField extends React.Component {
   }
 
   resetField() {
+    if (this.props.className === 'filter') {
+      this.props.incrementTableKey();
+    }
     const { updateFormFieldState, field } = this.props;
     this.setState({ searchText: '' }, updateFormFieldState({ [field]: null }));
   }

@@ -14,10 +14,10 @@ const teamPages = strings => [Overview(strings), {
       error={matchData.error}
     >
       <Table
-        resetTableState
         columns={matchColumns(strings)}
         data={matchData.data}
         paginated
+        key="matches"
       />
     </Container>
   ),
@@ -31,10 +31,10 @@ const teamPages = strings => [Overview(strings), {
       error={heroData.error}
     >
       <Table
-        resetTableState
         columns={heroColumns(strings)}
         data={heroData.data}
         paginated
+        key="heroes"
       />
     </Container>
   ),
@@ -62,6 +62,7 @@ const teamPages = strings => [Overview(strings), {
           columns={memberColumns(strings)}
           data={playerData.data.filter(player => !player.is_current_team_member)}
           paginated
+          key="players"
         />
       </Container>
     </div>
