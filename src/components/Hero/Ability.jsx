@@ -5,13 +5,18 @@ import propTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
 import constants from '../constants';
-import ThingTooltip from '../ThingTooltip';
+import AbilityTooltip from '../AbilityTooltip';
 
 const Wrapper = styled.div`
   background: linear-gradient(to bottom, ${constants.colorBlueMuted}, ${constants.primarySurfaceColor});
   border-radius: 4px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, .3);
   position: relative;
+
+  .__react_component_tooltip {
+  opacity: 1 !important;
+  padding: 0px !important;
+}
 `;
 
 const AbilityIcon = styled.img`
@@ -57,7 +62,7 @@ const Ability = (props) => {
       <AbilityIcon src={process.env.REACT_APP_API_HOST + props.img} />
       {(showMana) && <AbilityManaComsumption>{manaString}</AbilityManaComsumption>}
       <ReactTooltip id={ttId} effect="solid" place="bottom">
-        <ThingTooltip thing={props} />
+        <AbilityTooltip ability={props} />
       </ReactTooltip>
     </Wrapper>
   );

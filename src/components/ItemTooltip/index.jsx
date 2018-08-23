@@ -199,7 +199,7 @@ const ItemTooltip = ({ item, inflictor }) => (
       (
         <Attribute key={attrib.key}>
           <span id="header">{attrib.header} </span>
-          <span id="value">{attrib.value}</span>
+          <span id="value">{`${attrib.value}`}</span>
           <span id="footer"> {attrib.footer || ''}</span>
         </Attribute>
       ))}

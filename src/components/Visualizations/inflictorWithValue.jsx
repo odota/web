@@ -5,9 +5,9 @@ import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
 import items from 'dotaconstants/build/items.json';
 import styled from 'styled-components';
-import ThingTooltip from '../ThingTooltip';
 import ItemTooltip from './../ItemTooltip/index';
 import constants from '../constants';
+import AbilityTooltip from '../AbilityTooltip';
 
 const customNameIcon = {
   kaya: 'trident',
@@ -160,7 +160,7 @@ class InflictorWithValue extends React.Component {
         } else {
           image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/abilities/${resolvedInflictor}_sm.png`;
         }
-        tooltip = <ThingTooltip thing={ability} />;
+        tooltip = <AbilityTooltip ability={ability} inflictor={resolvedInflictor} />;
       } else if (item) {
         if (customImageIcon.includes(resolvedInflictor)) {
           image = `/assets/images/dota2/${resolvedInflictor}.png`;
