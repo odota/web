@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import styled from 'styled-components';
 import items from 'dotaconstants/build/items.json';
 import constants from '../constants';
+import { styleValues } from '../../utility';
 
 const itemAbilities = {
   active: {
@@ -143,6 +144,10 @@ const Ability = styled.div`
       & > span {
         margin-left: 10px;
       }
+
+      & .values {
+        font-weight: 500;
+      }
     }
   }
 
@@ -216,18 +221,18 @@ const ItemTooltip = ({ item, inflictor }) => (
                   {type === 'active' && item.mc &&
                   <span>
                     <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/mana.png`} alt="" />
-                    {item.mc}
+                    <span className="values">{item.mc}</span>
                   </span>
                 }
                   {type === 'active' && item.cd &&
                   <span>
                     <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
-                    {item.cd}
+                    <span className="values">{item.cd}</span>
                   </span>
                 }
                 </div>
               </div>
-              <div className="ability-text">
+              <div className="ability-text" ref={el => styleValues(el)}>
                 {ability.desc}
               </div>
             </Ability>

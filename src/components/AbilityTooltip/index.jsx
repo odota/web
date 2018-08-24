@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import constants from '../constants';
+import { styleValues } from '../../utility';
 
 function formatValues(values) {
   if (Array.isArray(values)) {
@@ -89,6 +90,7 @@ const Attributes = styled.div`
 
         & #value {
         color: ${constants.primaryTextColor};
+        font-weight: 500;
         }
     }
 `;
@@ -96,10 +98,12 @@ const Attributes = styled.div`
 const Behavior = styled.div`
     position: relative;
     padding: 13px;
+    color: #95a5a6;
 
     span {  
-        &:nth-child(1) {
-            color: #95a5a6;
+        &:nth-child(2) {
+          color: ${constants.primaryTextColor};
+          font-weight: 500;
         }
         &[type="Yes"] {
             color: ${constants.colorGreen};
@@ -119,7 +123,12 @@ const Resources = styled.div`
     & span {
         margin-right: 15px;
     }
+
+    .values {
+      font-weight: 500;
+    }
 `;
+
 const ResourceIcon = styled.img`
   width: 16px;
   height: 16px;
@@ -158,7 +167,7 @@ const AbilityTooltip = ({ ability, inflictor }) => (
     </div>
     }
     {ability.desc &&
-    <Description>
+    <Description innerRef={el => styleValues(el)}>
         {ability.desc}
     </Description>
     }
@@ -183,13 +192,13 @@ const AbilityTooltip = ({ ability, inflictor }) => (
         {ability.mc &&
         <span>
           <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/mana.png`} alt="" />
-          {formatValues(ability.mc)}
+          <span className="values">{formatValues(ability.mc)}</span>
         </span>
         }
         {ability.cd &&
         <span>
           <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
-          {formatValues(ability.cd)}
+          <span className="values">{formatValues(ability.cd)}</span>
         </span>
         }
     </Resources>
