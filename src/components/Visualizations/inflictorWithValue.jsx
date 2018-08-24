@@ -28,6 +28,11 @@ const StyledDiv = styled.div`
   padding: 0px !important;
 }
 
+.tooltip-dummy {
+  width: 300px;
+  height: 300px;
+}
+
 .inflictorWithValue {
   position: relative;
   float: left;
@@ -118,7 +123,7 @@ class InflictorWithValue extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { showTooltip: false };
   }
 
   componentDidMount() {
@@ -135,6 +140,8 @@ class InflictorWithValue extends React.Component {
       });
     })();
   }
+
+  showTooltip = () => this.setState({ showTooltip: true });
 
   render() {
     const {
@@ -198,8 +205,8 @@ class InflictorWithValue extends React.Component {
           }
             {tooltip &&
             <div className="tooltip">
-              <ReactTooltip id={ttId} effect="solid" place="left">
-                {tooltip}
+              <ReactTooltip id={ttId} effect="solid" place="left" afterShow={this.showTooltip}>
+                {this.state.showTooltip ? tooltip : <div className="tooltip-dummy" />}
               </ReactTooltip>
             </div>}
           </div>
