@@ -45,6 +45,7 @@ const HeaderContent = styled.div`
         display: inline-block;
         position: relative;
         left: 15px;
+        bottom: 1px;
         height: 50px;
         width: 200px;
         font-size: ${constants.fontSizeCommon};
