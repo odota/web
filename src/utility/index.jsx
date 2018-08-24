@@ -812,7 +812,10 @@ for (let i = 0; i < 6; i += 1) {
 
 // find and style/highlight number values in tooltip descriptions
 export function styleValues(el) {
-  const element = el;
-  const regex = /-?\d+\.?%?\d*/gm;
-  element.innerHTML = el.innerHTML.replace(regex, match => `<span style="font-weight:500;color:#F5F5F5">${match}</span>`);
+  if (el) {
+    const element = el;
+    const regex = /-?\d+\.?%?\d*/gm;
+    element.innerHTML = el.innerHTML.replace(regex, match => `<span style="font-weight:500;color:#F5F5F5">${match}</span>`);
+  }
+  return null;
 }

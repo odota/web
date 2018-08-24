@@ -30,7 +30,7 @@ const StyledDiv = styled.div`
 
 .tooltip-dummy {
   width: 300px;
-  height: 300px;
+  height: 700px;
 }
 
 .inflictorWithValue {
