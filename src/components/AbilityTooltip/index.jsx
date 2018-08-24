@@ -45,13 +45,16 @@ const HeaderContent = styled.div`
         display: inline-block;
         position: relative;
         left: 15px;
-        bottom: 20px;
-        height: 100%;
+        height: 50px;
+        width: 200px;
         font-size: ${constants.fontSizeCommon};
         text-transform: uppercase;  
         color: ${constants.primaryTextColor};
         font-weight: bold;
         text-shadow: 1px 1px black;
+        white-space: normal !important;
+        overflow: hidden;
+        line-height: 50px;
     }
 `;
 
