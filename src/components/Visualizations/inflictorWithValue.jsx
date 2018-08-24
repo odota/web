@@ -28,11 +28,6 @@ const StyledDiv = styled.div`
   padding: 0px !important;
 }
 
-.tooltip-dummy {
-  width: 300px;
-  height: 700px;
-}
-
 .inflictorWithValue {
   position: relative;
   float: left;
@@ -83,7 +78,7 @@ const StyledDiv = styled.div`
     display: inline-block;
 
     &:first-child {
-      margin-right: 30px;
+      margin-right: 25px;
     }
 
     &:last-child {
@@ -141,7 +136,7 @@ class InflictorWithValue extends React.Component {
     })();
   }
 
-  showTooltip = () => {
+  setShowTooltip = () => {
     if (!this.state.showTooltip) {
       this.setState({ showTooltip: true });
     }
@@ -188,7 +183,7 @@ class InflictorWithValue extends React.Component {
 
       return (
         <StyledDiv>
-          <div className="inflictorWithValue" data-tip={tooltip && true} data-for={ttId}>
+          <div className="inflictorWithValue" data-tip={tooltip && true} data-for={ttId} onMouseEnter={this.setShowTooltip}>
             {!type &&
             <object data={image} height="27px" type="image/png">
               <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)', height: '27px' }} />
@@ -209,9 +204,11 @@ class InflictorWithValue extends React.Component {
           }
             {tooltip &&
             <div className="tooltip">
-              <ReactTooltip id={ttId} effect="solid" place="left" afterShow={this.showTooltip}>
-                {this.state.showTooltip ? tooltip : <div className="tooltip-dummy" />}
+              {this.state.showTooltip &&
+              <ReactTooltip id={ttId} effect="solid" place="left">
+                {tooltip}
               </ReactTooltip>
+            }
             </div>}
           </div>
         </StyledDiv>
