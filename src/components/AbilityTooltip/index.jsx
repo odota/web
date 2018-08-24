@@ -3,6 +3,13 @@ import propTypes from 'prop-types';
 import styled from 'styled-components';
 import constants from '../constants';
 
+function formatValues(values) {
+  if (Array.isArray(values)) {
+    return values.join(' / ');
+  }
+  return values;
+}
+
 const Wrapper = styled.div`
   position: relative;
   width: 300px;
@@ -10,6 +17,11 @@ const Wrapper = styled.div`
   background: linear-gradient(135deg, #131519, #1f2228);
   overflow: hidden;
   border: 2px solid #27292b;
+
+  & > div:nth-child(2) {
+    position: relative;
+    border-top: 1px solid #080D15;
+  }
 `;
 
 const Header = styled.div`
@@ -58,7 +70,6 @@ const HeaderBgImg = styled.div`
 const Description = styled.div`
     position: relative;
     padding: 13px;
-    border-top: 1px solid #080D15;
     color: #95a5a6;
     text-shadow: 1px 1px black;
 `;
@@ -77,6 +88,24 @@ const Attributes = styled.div`
         }
     }
 `;
+
+const Behavior = styled.div`
+    position: relative;
+    padding: 13px;
+
+    span {  
+        &:nth-child(1) {
+            color: #95a5a6;
+        }
+        &[type="Yes"] {
+            color: ${constants.colorGreen};
+        }
+        &[type="No"] {
+            color: ${constants.colorRed};
+        }
+    }
+`;
+
 const Resources = styled.div`
     padding: 6px 13px 13px 13px;
 
@@ -111,36 +140,49 @@ const AbilityTooltip = ({ ability, inflictor }) => (
         <div className="name">{ability.dname}</div>
       </HeaderContent>
     </Header>
+    {(ability.behavior || ability.dmg_type || ability.bkbpierce) &&
+    <div>
+      <Behavior>
+        {ability.behavior ? <div><span>TARGET: </span><span>{formatValues(ability.behavior)}</span></div> : ''}
+        {ability.dmg_type ? <div><span>DAMAGE TYPE: </span><span>{`${ability.dmg_type}`}</span></div> : ''}
+        {ability.bkbpierce ? <div><span>PIERCES SPELL IMMUNITY: </span><span type={ability.bkbpierce}>{`${ability.bkbpierce}`}</span></div> : ''}
+      </Behavior>
+      <Break />
+    </div>
+    }
     {ability.desc &&
     <Description>
         {ability.desc}
     </Description>
     }
-    {ability.attrib && ability.attrib.length > 0 && <Break />}
     {ability.attrib && ability.attrib.length > 0 &&
-    <Attributes>
-      <div>
-        {(ability.attrib || []).map(attrib => (
-          <div className="attribute" key={attrib.key}>
-            <span id="header">{attrib.header} </span>
-            <span id="value">{`${attrib.value}`}</span>
-            <span id="footer"> {attrib.footer || ''}</span>
-          </div>))}
-      </div>
-    </Attributes>
+    <div>
+      <Break />
+      <Attributes>
+        <div>
+          {(ability.attrib || []).map(attrib => (
+            <div className="attribute" key={attrib.key}>
+              <span id="header">{attrib.header} </span>
+              <span id="value">{formatValues(attrib.value)}</span>
+              <span id="footer"> {attrib.footer || ''}</span>
+            </div>))}
+          {ability.dmg ? <div className="attribute">DAMAGE: <span id="value">{`${ability.dmg}`}</span></div> : ''}
+        </div>
+      </Attributes>
+    </div>
     }
     {(ability.mc || ability.cd) &&
     <Resources>
         {ability.mc &&
         <span>
           <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/mana.png`} alt="" />
-          {`${ability.mc}`}
+          {formatValues(ability.mc)}
         </span>
         }
         {ability.cd &&
         <span>
           <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
-          {`${ability.cd}`}
+          {formatValues(ability.cd)}
         </span>
         }
     </Resources>
