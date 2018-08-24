@@ -182,7 +182,7 @@ const AbilityTooltip = ({ ability, inflictor }) => (
               <span id="value">{formatValues(attrib.value)}</span>
               <span id="footer"> {attrib.footer || ''}</span>
             </div>))}
-          {ability.dmg ? <div className="attribute">DAMAGE: <span id="value">{`${ability.dmg}`}</span></div> : ''}
+          {ability.dmg ? <div className="attribute">DAMAGE: <span id="value">{formatValues(ability.dmg)}</span></div> : ''}
         </div>
       </Attributes>
     </div>
