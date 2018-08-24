@@ -141,7 +141,11 @@ class InflictorWithValue extends React.Component {
     })();
   }
 
-  showTooltip = () => this.setState({ showTooltip: true });
+  showTooltip = () => {
+    if (!this.state.showTooltip) {
+      this.setState({ showTooltip: true });
+    }
+  };
 
   render() {
     const {
