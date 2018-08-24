@@ -5,7 +5,7 @@ import constants from '../constants';
 
 function formatValues(values) {
   if (Array.isArray(values)) {
-    return values.join(' / ');
+    return values.filter(value => value).join(' / ');
   }
   return values;
 }
