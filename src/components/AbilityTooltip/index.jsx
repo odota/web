@@ -57,6 +57,7 @@ const HeaderContent = styled.div`
         white-space: normal !important;
         overflow: hidden;
         line-height: 50px;
+        letter-spacing: 1px;
     }
 `;
 

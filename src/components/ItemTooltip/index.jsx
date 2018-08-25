@@ -63,6 +63,7 @@ const HeaderText = styled.div`
   margin-left: 15px;
   color: ${constants.primaryTextColor};
   font-weight: bold;
+  letter-spacing: 1px;
 
   & div {
     width: 200px;
