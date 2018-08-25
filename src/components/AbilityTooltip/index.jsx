@@ -121,7 +121,7 @@ const Resources = styled.div`
     padding: 6px 13px 13px 13px;
 
     & span {
-        margin-right: 15px;
+        margin-right: 7px;
     }
 
     .values {
