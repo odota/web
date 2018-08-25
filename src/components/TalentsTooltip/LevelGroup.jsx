@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.05));
+  background: linear-gradient(to right,rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.05));
   border-radius: 2px;
   min-height: 40px;
 
