@@ -114,6 +114,9 @@ const Behavior = styled.div`
         &[type="Pure"] {
             color: #bc7bfc;
         }
+        &[type="Physical"] {
+            color: #7bb2fc;
+        }
     }
 `;
 
