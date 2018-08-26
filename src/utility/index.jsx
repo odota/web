@@ -814,8 +814,9 @@ for (let i = 0; i < 6; i += 1) {
 export function styleValues(el) {
   if (el) {
     const element = el;
-    const regex = /\+?\s?-?\s?\d+\.?%?\d*%?x?/gm;
-    element.innerHTML = el.innerHTML.replace(regex, match => `<span style="font-weight:500;color:#F5F5F5">${match}</span>`);
+    element.innerHTML = el.innerHTML
+      .replace(/(,)(\d)/gm, ' / $2')
+      .replace(/\+?\s?-?\s?\d+\.?%?\d*%?x?/gm, '<span style="font-weight:500;color:#F5F5F5">$&</span>');
   }
   return null;
 }

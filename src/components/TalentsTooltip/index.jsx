@@ -16,7 +16,7 @@ const Content = styled.div`
   position: relative;
   width: 400px;
   background: linear-gradient(135deg, #131519, #1f2228);
-  padding: 13px;
+  padding: 9px;
   overflow: hidden;
   border: 2px solid #27292b;
 `;

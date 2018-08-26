@@ -48,14 +48,15 @@ const HeaderContent = styled.div`
         left: 15px;
         bottom: 1px;
         height: 50px;
-        width: 200px;
+        width: 220px;
         font-size: ${constants.fontSizeCommon};
         text-transform: uppercase;  
         color: ${constants.primaryTextColor};
         font-weight: bold;
         text-shadow: 1px 1px black;
-        white-space: normal !important;
         overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         line-height: 50px;
         letter-spacing: 1px;
     }
