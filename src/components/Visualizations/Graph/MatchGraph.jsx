@@ -107,7 +107,7 @@ const XpNetworthGraph = ({
             opacity={0.5}
           />
 
-          <Tooltip content={<XpTooltipContent />} />
+          <Tooltip content={<XpTooltipContent strings={strings} />} />
           <Line
             dot={false}
             dataKey="rXpAdv"
