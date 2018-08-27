@@ -323,6 +323,9 @@ const HeroToolTip = styled.div`
       font-size: ${constants.fontSizeCommon};
       margin-top: 6px;
       letter-spacing: 1px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     & #hero-roles {
