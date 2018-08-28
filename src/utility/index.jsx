@@ -180,6 +180,9 @@ const getTitle = (row, col, heroName) => {
 };
 
 export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
+  if (heroId === 121) {
+    return '/assets/images/grimstroke_sb.png';
+  }
   let imageUrl = heroes[heroId] && process.env.REACT_APP_API_HOST + heroes[heroId].img; // "[api url]/abaddon_full.png?"
   if (imageUrl) {
     imageUrl = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
