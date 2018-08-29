@@ -7,46 +7,45 @@ import constants from '../constants';
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding: 12px 0;
+  align-items: center;
   position: relative;
+  background: linear-gradient(to right,rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.05));
+  border-radius: 2px;
+  min-height: 40px;
 
-  &:before {
-    background: ${constants.colorGolden};
-    content: '';
-    height: 100%;
-    left: 0;
-    margin: auto;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 1px;
+  &:not(:last-child) {
+    margin-bottom: 14px;
   }
 `;
 
 const Level = styled.div`
   align-items: center;
-  background: ${constants.almostBlack};
   border-radius: 50%;
-  border: 1px solid ${constants.colorGolden};
   color: ${constants.colorGolden};
+  text-shadow: 0 0 5px ${constants.colorGolden};
+  background-color: #080D15;
+  box-shadow: 0 0 10px #b79a00;
   display: flex;
   flex: 0 0 24px;
-  font-size: 10px;
+  font-size: 16px;
   height: 24px;
   justify-content: center;
   position: relative;
   width: 24px;
   z-index: 2;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 5px;
 `;
 
 const TalentContent = styled.div`
   flex: 1 1 100%;
   font-size: 12px;
-  padding-top: 4px;
+  text-align: center;
+  align-items: center;
 
   &:first-child {
     padding-right: 12px;
-    text-align: right;
   }
 
   &:last-child {
