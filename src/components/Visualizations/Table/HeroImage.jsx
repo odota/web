@@ -567,9 +567,10 @@ const TableHeroImage = ({
                 </div>
               </div>
               <div className="header-stats">
-                <div id="hero-name">{hero.localized_name && hero.localized_name.toUpperCase()}</div>
+                <div id="hero-name">{hero.localized_name}</div>
                 <div id="hero-roles">{hero.attack_type} - {hero.roles && hero.roles.join(', ')}</div>
                 <div className="attributes-container">
+                  <div id="connector" />
                   <div className="attributes">
                     <AttrStrength id="str" className="attribute-img" main={`${hero.primary_attr === 'str'}`} />
                     <div className="attribute-text">{hero.base_str} +{hero.str_gain}</div>
@@ -577,10 +578,6 @@ const TableHeroImage = ({
                   <div className="attributes">
                     <AttrAgility id="agi" className="attribute-img" main={`${hero.primary_attr === 'agi'}`} />
                     <div className="attribute-text">{hero.base_agi} +{hero.agi_gain}</div>
-                  </div>
-                  <div className="attributes">
-                    <AttrIntelligent id="int" className="attribute-img" main={`${hero.primary_attr === 'int'}`} />
-                    <div className="attribute-text">{hero.base_int} +{hero.int_gain}</div>
                   </div>
                 </div>
               </div>
