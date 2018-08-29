@@ -63,13 +63,13 @@ const matchColumns = strings => [
     displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
     field: 'players',
     displayFn: (row, col, field) => [0, 1, 2, 3, 4].map(player =>
-      (heroes[field[player].hero_id] ? <HeroImage id={field[player].hero_id} img={heroes[field[player].hero_id].img} key={field[player].hero_id} style={{ width: '50px' }} alt="" /> : null)),
+      (heroes[field[player].hero_id] ? <HeroImage id={field[player].hero_id} key={field[player].hero_id} style={{ width: '50px' }} alt="" /> : null)),
   },
   {
     displayName: <StyledTeamIconContainer >{strings.general_dire}</StyledTeamIconContainer>,
     field: 'players',
     displayFn: (row, col, field) => [5, 6, 7, 8, 9].map(player =>
-      (heroes[field[player].hero_id] ? <HeroImage id={field[player].hero_id} img={heroes[field[player].hero_id].img} key={field[player].hero_id} style={{ width: '50px' }} alt="" /> : null)),
+      (heroes[field[player].hero_id] ? <HeroImage id={field[player].hero_id} key={field[player].hero_id} style={{ width: '50px' }} alt="" /> : null)),
   },
 ];
 

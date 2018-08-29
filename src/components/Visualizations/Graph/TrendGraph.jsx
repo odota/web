@@ -105,7 +105,7 @@ const TrendTooltipContent = ({ payload, name, strings }) => {
               )}
             </div>
             <div className="hero">
-              <HeroImage id={hero.id} img={hero.img} className="heroImg" />
+              <HeroImage id={hero.id} className="heroImg" />
             </div>
           </div>
         </div>

@@ -184,7 +184,7 @@ const logColumns = (strings) => {
             return (
               <span>
                 {killIcon(row.isRadiant)}
-                <HeroImage id={hero.id} img={hero.img} style={{ height: '30px', float: 'left', paddingTop: '6px' }} />
+                <HeroImage id={hero.id} style={{ height: '30px', float: 'left', paddingTop: '6px' }} />
               </span>
             );
           }

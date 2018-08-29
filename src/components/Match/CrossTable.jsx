@@ -142,7 +142,7 @@ const CrossTable = ({
           {match.players.slice(match.players.length / 2, match.players.length).map(player => (
             <TableRowColumn key={player.hero_id}>
               <div className="hero">
-                {heroes[player.hero_id] && <HeroImage id={player.hero_id} img={heroes[player.hero_id].icon} isIcon data-tip={heroes[player.hero_id].localized_name} />}
+                {heroes[player.hero_id] && <HeroImage id={player.hero_id} isIcon data-tip={heroes[player.hero_id].localized_name} />}
               </div>
             </TableRowColumn>))}
           <TableRowColumn>
@@ -155,7 +155,7 @@ const CrossTable = ({
           <TableRow key={player.hero_id}>
             <TableRowColumn>
               <div className="hero">
-                {heroes[player.hero_id] && <HeroImage id={player.hero_id} img={heroes[player.hero_id].icon} isIcon data-tip={heroes[player.hero_id].localized_name} />}
+                {heroes[player.hero_id] && <HeroImage id={player.hero_id} isIcon data-tip={heroes[player.hero_id].localized_name} />}
               </div>
             </TableRowColumn>
             {match.players.slice(match.players.length / 2, match.players.length).map((player2) => {

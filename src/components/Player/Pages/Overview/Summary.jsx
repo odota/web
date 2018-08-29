@@ -113,7 +113,7 @@ const SummOfRecMatches = ({ matchesData, strings }) => {
                     {key === 'duration' ? formatSeconds(c.avg) : abbreviateNumber(c.avg)}
                   &nbsp;
                     <span>{key === 'duration' ? formatSeconds(c.max.value) : abbreviateNumber(c.max.value)}
-                      <HeroImage id={hero.id} img={hero.icon} isIcon alt={hero.localized_name} />
+                      <HeroImage id={hero.id} isIcon alt={hero.localized_name} />
                     </span>
                   </p>
                 </Link>

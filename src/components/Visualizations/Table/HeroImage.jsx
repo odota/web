@@ -7,7 +7,7 @@ import playerColors from 'dotaconstants/build/player_colors.json';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import NotificationSync from 'material-ui/svg-icons/notification/sync';
 import styled from 'styled-components';
-import { subTextStyle, getHeroImageUrl, IMAGESIZE_ENUM } from '../../../utility';
+import { subTextStyle, IMAGESIZE_ENUM } from '../../../utility';
 import { TableLink } from '../../Table';
 import { IconDice, IconCrystalBall, IconCheckCircle } from '../../Icons';
 import constants from '../../constants';
@@ -423,7 +423,6 @@ const expand = {
 
 const TableHeroImage = ({
   parsed,
-  image,
   registered,
   title,
   subtitle,
@@ -459,9 +458,9 @@ const TableHeroImage = ({
         {party}
       </div>
       }
-      {image &&
+      {heroID &&
       <div className="imageContainer">
-        <HeroImage id={heroID} src={image} className="image" data-tip={hero.id === undefined && null} data-for={hero.id !== undefined && image} />
+        <HeroImage id={heroID} className="image" data-tip={hero.id === undefined && null} data-for={heroName !== undefined && heroName} />
         {leaverStatus !== undefined && leaverStatus > 1 &&
         <span
           className="abandoned"
@@ -483,7 +482,7 @@ const TableHeroImage = ({
       </div>
       }
       {!hideText &&
-      <div className="textContainer" style={{ marginLeft: !image && 59 }}>
+      <div className="textContainer" style={{ marginLeft: heroName === undefined && 59 }}>
         <span>
           {registered &&
             <div
@@ -555,14 +554,11 @@ const TableHeroImage = ({
         </ReactTooltip>
       </div>
       }
-      <ReactTooltip id={image} effect="solid" place="right">
+      <ReactTooltip id={heroName} effect="solid" place="right">
         <HeroToolTip>
           <div className="header">
             <div className="heroImg">
-              <img
-                src={getHeroImageUrl(hero.id, IMAGESIZE_ENUM.VERT.suffix)}
-                alt=""
-              />
+              <HeroImage id={heroID} imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix} />
               {hero.primary_attr === 'str' && <AttrStrength id="heroImg-attribute" />}
               {hero.primary_attr === 'agi' && <AttrAgility id="heroImg-attribute" />}
               {hero.primary_attr === 'int' && <AttrIntelligent id="heroImg-attribute" />}
@@ -625,7 +621,6 @@ const {
 
 TableHeroImage.propTypes = {
   parsed: PropTypes.number,
-  image: string,
   title: oneOfType([
     string,
     object,
