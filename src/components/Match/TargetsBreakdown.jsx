@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import heroes from 'dotaconstants/build/heroes.json';
 import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 import NavigationArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
