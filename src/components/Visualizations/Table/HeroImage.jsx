@@ -18,6 +18,12 @@ import HeroImage from '../HeroImage';
 
 
 const Styled = styled.div`
+
+.hero-tooltip .__react_component_tooltip {
+  opacity: 0.8 !important;
+  padding: 0px !important;
+}
+
 .subTextContainer {
   position: relative;
 
@@ -223,11 +229,12 @@ const HeroImageContainer = styled.div`
 `;
 
 const HeroToolTip = styled.div`
-  height: 255px;
   width: 290px;
-  background: linear-gradient(rgba(66, 66, 78, .3) , rgba(13, 13, 13, .3));
-  border-radius: 5px;
   overflow: hidden;
+  background-color: #131519;
+  background: linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(48,62,90,1) 12%, rgba(19,21,25,1) 70%);
+  overflow: hidden;
+  border: 2px solid #27292b;
 
   .header {
     height: 120px;
@@ -256,6 +263,7 @@ const HeroToolTip = styled.div`
       width: 86px;
       text-align: center;
       z-index: 2;
+      background: rgba(0, 0, 0, 0.6);
 
       & #health {
         color: ${constants.colorGreen};
@@ -296,8 +304,8 @@ const HeroToolTip = styled.div`
       margin-left: 10px;
       margin-top: 10px;
       border-radius: 3px;
-      border-bottom: 2px solid ${constants.almostBlack};
-      border-right: 2px solid ${constants.almostBlack};
+      border-bottom: 2px solid rgba(0, 0, 0, 0.35);
+      border-right: 2px solid rgba(0, 0, 0, 0.35);
       display: inline-block;
     }
   }
@@ -315,16 +323,21 @@ const HeroToolTip = styled.div`
       margin-left: 7px;
       font-size: ${constants.fontSizeCommon};
       margin-top: 6px;
+      letter-spacing: 1px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     & #hero-roles {
       font-size: ${constants.fontSizeTiny}
-      color: ${constants.colorMuted};
+      color: #829091;
       margin-left: 7px;
       line-height: 10px;
       position: relative;
       top: -2px;
       height: 18px;
+      letter-spacing: 1px;
     }
 
     & .attributes-container {
@@ -335,19 +348,10 @@ const HeroToolTip = styled.div`
       justify-content: space-between;
       position: relative;
 
-      & #connector {
-        position: absolute;
-        width: 120px;
-        border-top: 2px solid ${constants.colorMuted};
-        margin: 1em 0;
-        z-index: -1;
-        left 20px;
-        top: 4px;
-      }
-
       & .attributes {
       width: 50px;
       height: 50px;
+      z-index: 100;
 
       & .attribute-img {
         display: block;
@@ -360,13 +364,13 @@ const HeroToolTip = styled.div`
         background: #111111;
 
         &[main="true"] {
-          border: 3px solid ${constants.primaryTextColor};
+          border: 2px solid ${constants.primaryTextColor};
         }
       }
 
       & .attribute-text {
         text-align: center;
-        font-size: 11px;
+        font-size: 12px;
         margin-top: 2px;
       }
     }
@@ -374,15 +378,10 @@ const HeroToolTip = styled.div`
   }
 
   .stats {
-    height: 180px;
+    margin-bottom: 9px;
 
     & div {
       margin-left: 9px;
-      margin-bottom: 3px;
-    }
-
-    & span:first-child {
-      color: ${constants.colorMutedLight}
     }
 
     & span:last-child {
@@ -408,9 +407,9 @@ const HeroToolTip = styled.div`
 const Trim = styled.hr`
   border: 0;
   height: 1px;
-  width: 290px;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0), ${constants.colorMuted}, rgba(0, 0, 0, 0));
-  margin: 12px 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: ${constants.colorMuted};
 `;
 
 const expand = {
@@ -554,63 +553,61 @@ const TableHeroImage = ({
         </ReactTooltip>
       </div>
       }
-      <ReactTooltip id={heroName} effect="solid" place="right">
-        <HeroToolTip>
-          <div className="header">
-            <div className="heroImg">
-              <HeroImage id={heroID} imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix} />
-              {hero.primary_attr === 'str' && <AttrStrength id="heroImg-attribute" />}
-              {hero.primary_attr === 'agi' && <AttrAgility id="heroImg-attribute" />}
-              {hero.primary_attr === 'int' && <AttrIntelligent id="heroImg-attribute" />}
-              <div className="health-mana">
-                <span id="health">{Math.floor(hero.base_health)}</span><span id="mana">{Math.floor(hero.base_mana)}</span>
-              </div>
-            </div>
-            <div className="header-stats">
-              <div id="hero-name">{hero.localized_name}</div>
-              <div id="hero-roles">{hero.attack_type} - {hero.roles && hero.roles.join(', ')}</div>
-              <div className="attributes-container">
-                <div id="connector" />
-                <div className="attributes">
-                  <AttrStrength id="str" className="attribute-img" main={`${hero.primary_attr === 'str'}`} />
-                  <div className="attribute-text">{hero.base_str} +{hero.str_gain}</div>
-                </div>
-                <div className="attributes">
-                  <AttrAgility id="agi" className="attribute-img" main={`${hero.primary_attr === 'agi'}`} />
-                  <div className="attribute-text">{hero.base_agi} +{hero.agi_gain}</div>
-                </div>
-                <div className="attributes">
-                  <AttrIntelligent id="int" className="attribute-img" main={`${hero.primary_attr === 'int'}`} />
-                  <div className="attribute-text">{hero.base_int} +{hero.int_gain}</div>
+
+        <ReactTooltip id={heroName} effect="solid" place="right">
+          <HeroToolTip>
+            <div className="header">
+              <div className="heroImg">
+                <HeroImage id={heroID} imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix} />
+                {hero.primary_attr === 'str' && <AttrStrength id="heroImg-attribute" />}
+                {hero.primary_attr === 'agi' && <AttrAgility id="heroImg-attribute" />}
+                {hero.primary_attr === 'int' && <AttrIntelligent id="heroImg-attribute" />}
+                <div className="health-mana">
+                  <span id="health">{Math.floor(hero.base_health)}</span><span id="mana">{Math.floor(hero.base_mana)}</span>
                 </div>
               </div>
+              <div className="header-stats">
+                <div id="hero-name">{hero.localized_name}</div>
+                <div id="hero-roles">{hero.attack_type} - {hero.roles && hero.roles.join(', ')}</div>
+                <div className="attributes-container">
+                  <div id="connector" />
+                  <div className="attributes">
+                    <AttrStrength id="str" className="attribute-img" main={`${hero.primary_attr === 'str'}`} />
+                    <div className="attribute-text">{hero.base_str} +{hero.str_gain}</div>
+                  </div>
+                  <div className="attributes">
+                    <AttrAgility id="agi" className="attribute-img" main={`${hero.primary_attr === 'agi'}`} />
+                    <div className="attribute-text">{hero.base_agi} +{hero.agi_gain}</div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <Trim />
-          <div className="stats">
-            <div className="stat">
-              <span>{`${strings.heading_move_speed}:`}</span>
-              <span className="dots" />
-              <span>{hero.move_speed}</span>
+            <Trim />
+            <div className="stats">
+              <div className="stat">
+                <span>{`${strings.heading_move_speed}:`}</span>
+                <span className="dots" />
+                <span>{hero.move_speed}</span>
+              </div>
+              <div className="stat">
+                <span>{`${strings.heading_attack}:`}</span>
+                <span className="dots" />
+                <span>{`${hero.base_attack_min}-${hero.base_attack_max}`}</span>
+              </div>
+              <div className="stat">
+                <span>{`${strings.heading_base_armor}:`}</span>
+                <span className="dots" />
+                <span>{hero.base_armor}</span>
+              </div>
+              <div className="stat">
+                <span>{`${strings.heading_attack_range}:`}</span>
+                <span className="dots" />
+                <span>{hero.attack_range}</span>
+              </div>
             </div>
-            <div className="stat">
-              <span>{`${strings.heading_attack}:`}</span>
-              <span className="dots" />
-              <span>{`${hero.base_attack_min}-${hero.base_attack_max}`}</span>
-            </div>
-            <div className="stat">
-              <span>{`${strings.heading_base_armor}:`}</span>
-              <span className="dots" />
-              <span>{hero.base_armor}</span>
-            </div>
-            <div className="stat">
-              <span>{`${strings.heading_attack_range}:`}</span>
-              <span className="dots" />
-              <span>{hero.attack_range}</span>
-            </div>
-          </div>
-        </HeroToolTip>
-      </ReactTooltip>
+          </HeroToolTip>
+        </ReactTooltip>
+      </div>
     </HeroImageContainer>
   </Styled>
 );
