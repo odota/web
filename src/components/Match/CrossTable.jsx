@@ -13,6 +13,7 @@ import ReactTooltip from 'react-tooltip';
 import { abbreviateNumber } from '../../utility';
 import { IconRadiant, IconDire } from '../Icons';
 import constants from '../constants';
+import HeroImage from '../Visualizations/HeroImage';
 
 
 const StyledDiv = styled.div`
@@ -141,11 +142,7 @@ const CrossTable = ({
           {match.players.slice(match.players.length / 2, match.players.length).map(player => (
             <TableRowColumn key={player.hero_id}>
               <div className="hero">
-                <img
-                  src={heroes[player.hero_id] && process.env.REACT_APP_API_HOST + heroes[player.hero_id].icon}
-                  alt=""
-                  data-tip={heroes[player.hero_id].localized_name}
-                />
+                {heroes[player.hero_id] && <HeroImage id={player.hero_id} img={heroes[player.hero_id].icon} isIcon data-tip={heroes[player.hero_id].localized_name} />}
               </div>
             </TableRowColumn>))}
           <TableRowColumn>
@@ -158,11 +155,7 @@ const CrossTable = ({
           <TableRow key={player.hero_id}>
             <TableRowColumn>
               <div className="hero">
-                <img
-                  src={heroes[player.hero_id] && process.env.REACT_APP_API_HOST + heroes[player.hero_id].icon}
-                  alt=""
-                  data-tip={heroes[player.hero_id].localized_name}
-                />
+                {heroes[player.hero_id] && <HeroImage id={player.hero_id} img={heroes[player.hero_id].icon} isIcon data-tip={heroes[player.hero_id].localized_name} />}
               </div>
             </TableRowColumn>
             {match.players.slice(match.players.length / 2, match.players.length).map((player2) => {

@@ -13,6 +13,7 @@ import Match from '../Match';
 import TabBar from '../TabBar';
 import { StyledTeamIconContainer } from '../Match/StyledMatch';
 import constants from '../constants';
+import HeroImage from '../Visualizations/HeroImage';
 
 const WinnerSpan = styled.span`
   display: inline-block;
@@ -77,13 +78,13 @@ const publicMatchesColumns = strings => [
     displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
     field: 'radiant_team',
     displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
-      (heroes[heroId] ? <img key={heroId} style={{ width: '50px' }} src={`${process.env.REACT_APP_API_HOST}${heroes[heroId].img}`} alt="" /> : null)),
+      (heroes[heroId] ? <HeroImage id={heroId} img={heroes[heroId].img} key={heroId} style={{ width: '50px' }} alt="" /> : null)),
   },
   {
     displayName: <StyledTeamIconContainer >{strings.general_dire}</StyledTeamIconContainer>,
     field: 'dire_team',
     displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
-      (heroes[heroId] ? <img key={heroId} style={{ width: '50px' }} src={`${process.env.REACT_APP_API_HOST}${heroes[heroId].img}`} alt="" /> : null)),
+      (heroes[heroId] ? <HeroImage id={heroId} img={heroes[heroId].img} key={heroId} style={{ width: '50px' }} alt="" /> : null)),
   },
 ];
 

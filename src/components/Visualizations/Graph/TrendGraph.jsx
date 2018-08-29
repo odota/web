@@ -16,6 +16,7 @@ import heroes from 'dotaconstants/build/heroes.json';
 import styled from 'styled-components';
 import { formatSeconds, fromNow } from '../../../utility';
 import constants from '../../constants';
+import HeroImage from '../HeroImage';
 
 const TooltipStylesDiv = styled.div`
   .tooltipWrapper {
@@ -104,11 +105,7 @@ const TrendTooltipContent = ({ payload, name, strings }) => {
               )}
             </div>
             <div className="hero">
-              <img
-                className="heroImg"
-                src={`${process.env.REACT_APP_API_HOST}${hero.img}`}
-                alt=""
-              />
+              <HeroImage id={hero.id} img={hero.img} className="heroImg" />
             </div>
           </div>
         </div>

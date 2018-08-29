@@ -29,6 +29,10 @@ const day = hour * 24;
 const month = day * 30;
 const year = month * 12;
 
+// put the hero ID inside this array
+// and upload a {HERO_ID}.png and {HERO_ID_icon}.png image to \assets\images\dota2\heroes if we temporary host a hero image ourselves.
+export const customHeroImage = [121];
+
 export const iconStyle = {
   position: 'relative',
   width: 16,
@@ -180,8 +184,8 @@ const getTitle = (row, col, heroName) => {
 };
 
 export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
-  if (heroId === 121) {
-    return '/assets/images/grimstroke_sb.png';
+  if (customHeroImage.includes(Number(heroId))) {
+    return `/assets/images/dota2/heroes/${heroId}.png`;
   }
   let imageUrl = heroes[heroId] && process.env.REACT_APP_API_HOST + heroes[heroId].img; // "[api url]/abaddon_full.png?"
   if (imageUrl) {

@@ -14,6 +14,7 @@ import constants from '../../constants';
 import AttrStrength from '../../Icons/AttrStrength';
 import AttrIntelligent from '../../Icons/AttrIntelligent';
 import AttrAgility from '../../Icons/AttrAgility';
+import HeroImage from '../HeroImage';
 
 
 const Styled = styled.div`
@@ -291,7 +292,7 @@ const HeroToolTip = styled.div`
     }
 
     & img {
-      height: 100px;
+      width: 86px;
       margin-left: 10px;
       margin-top: 10px;
       border-radius: 3px;
@@ -432,6 +433,7 @@ const TableHeroImage = ({
   confirmed,
   party,
   heroName,
+  heroID,
   showGuide,
   guideUrl,
   guideType,
@@ -459,13 +461,7 @@ const TableHeroImage = ({
       }
       {image &&
       <div className="imageContainer">
-        <img
-          src={image}
-          alt=""
-          className="image"
-          data-tip={hero.id === undefined && null}
-          data-for={hero.id !== undefined && image}
-        />
+        <HeroImage id={heroID} src={image} className="image" data-tip={hero.id === undefined && null} data-for={hero.id !== undefined && image} />
         {leaverStatus !== undefined && leaverStatus > 1 &&
         <span
           className="abandoned"
@@ -657,6 +653,7 @@ TableHeroImage.propTypes = {
   leaverStatus: PropTypes.number,
   strings: PropTypes.shape({}),
   hero: PropTypes.shape({}),
+  heroID: PropTypes.number,
 };
 
 // If need party or estimated, just add new prop with default val = solo and change icons depending what needs
