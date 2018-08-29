@@ -553,7 +553,7 @@ const TableHeroImage = ({
         </ReactTooltip>
       </div>
       }
-
+      <div className="hero-tooltip">
         <ReactTooltip id={heroName} effect="solid" place="right">
           <HeroToolTip>
             <div className="header">
