@@ -29,8 +29,9 @@ const day = hour * 24;
 const month = day * 30;
 const year = month * 12;
 
+// temporary host a hero image ourselves:
 // put the hero ID inside this array
-// and upload a {HERO_ID}.png and {HERO_ID_icon}.png image to \assets\images\dota2\heroes if we temporary host a hero image ourselves.
+// and upload a {HERO_ID}.png and {HERO_ID_icon}.png image to \assets\images\dota2\heroes
 export const customHeroImage = [121];
 
 export const iconStyle = {
