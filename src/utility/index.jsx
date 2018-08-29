@@ -636,6 +636,7 @@ export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffi
     <TableHeroImage
       parsed={row.version}
       image={imageUrl}
+      heroID={row.hero_id}
       title={getTitle(row, col, heroName)}
       subtitle={getSubtitle(row)}
       heroName={heroName}

@@ -422,6 +422,7 @@ const expand = {
 
 const TableHeroImage = ({
   parsed,
+  image,
   registered,
   title,
   subtitle,
@@ -457,9 +458,18 @@ const TableHeroImage = ({
         {party}
       </div>
       }
-      {heroID &&
+      {(heroID || image) &&
       <div className="imageContainer">
-        <HeroImage id={heroID} className="image" data-tip={hero.id === undefined && null} data-for={heroName !== undefined && heroName} />
+        {image ?
+          <img
+            src={image}
+            alt=""
+            className="image"
+            data-tip={hero.id === undefined && null}
+            data-for={hero.id !== undefined && image}
+          /> :
+          <HeroImage id={heroID} className="image" data-tip={hero.id === undefined && null} data-for={heroName !== undefined && heroName} />
+        }
         {leaverStatus !== undefined && leaverStatus > 1 &&
         <span
           className="abandoned"
@@ -481,7 +491,7 @@ const TableHeroImage = ({
       </div>
       }
       {!hideText &&
-      <div className="textContainer" style={{ marginLeft: heroName === undefined && 59 }}>
+      <div className="textContainer">
         <span>
           {registered &&
             <div
@@ -618,6 +628,7 @@ const {
 
 TableHeroImage.propTypes = {
   parsed: PropTypes.number,
+  image: PropTypes.string,
   title: oneOfType([
     string,
     object,
