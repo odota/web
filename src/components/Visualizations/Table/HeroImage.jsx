@@ -7,13 +7,14 @@ import playerColors from 'dotaconstants/build/player_colors.json';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import NotificationSync from 'material-ui/svg-icons/notification/sync';
 import styled from 'styled-components';
-import { subTextStyle, getHeroImageUrl, IMAGESIZE_ENUM } from '../../../utility';
+import { subTextStyle, IMAGESIZE_ENUM } from '../../../utility';
 import { TableLink } from '../../Table';
 import { IconDice, IconCrystalBall, IconCheckCircle } from '../../Icons';
 import constants from '../../constants';
 import AttrStrength from '../../Icons/AttrStrength';
 import AttrIntelligent from '../../Icons/AttrIntelligent';
 import AttrAgility from '../../Icons/AttrAgility';
+import HeroImage from '../HeroImage';
 
 
 const Styled = styled.div`
@@ -299,7 +300,7 @@ const HeroToolTip = styled.div`
     }
 
     & img {
-      height: 100px;
+      width: 86px;
       margin-left: 10px;
       margin-top: 10px;
       border-radius: 3px;
@@ -431,6 +432,7 @@ const TableHeroImage = ({
   confirmed,
   party,
   heroName,
+  heroID,
   showGuide,
   guideUrl,
   guideType,
@@ -456,15 +458,18 @@ const TableHeroImage = ({
         {party}
       </div>
       }
-      {image &&
+      {(heroID || image) &&
       <div className="imageContainer">
-        <img
-          src={image}
-          alt=""
-          className="image"
-          data-tip={hero.id === undefined && null}
-          data-for={hero.id !== undefined && image}
-        />
+        {image ?
+          <img
+            src={image}
+            alt=""
+            className="image"
+            data-tip={hero.id === undefined && null}
+            data-for={hero.id !== undefined && image}
+          /> :
+          <HeroImage id={heroID} className="image" data-tip={hero.id === undefined && null} data-for={heroName !== undefined && heroName} />
+        }
         {leaverStatus !== undefined && leaverStatus > 1 &&
         <span
           className="abandoned"
@@ -486,7 +491,7 @@ const TableHeroImage = ({
       </div>
       }
       {!hideText &&
-      <div className="textContainer" style={{ marginLeft: !image && 59 }}>
+      <div className="textContainer">
         <span>
           {registered &&
             <div
@@ -559,14 +564,11 @@ const TableHeroImage = ({
       </div>
       }
       <div className="hero-tooltip">
-        <ReactTooltip id={image} effect="solid" place="right">
+        <ReactTooltip id={heroName} effect="solid" place="right">
           <HeroToolTip>
             <div className="header">
               <div className="heroImg">
-                <img
-                  src={getHeroImageUrl(hero.id, IMAGESIZE_ENUM.VERT.suffix)}
-                  alt=""
-                />
+                <HeroImage id={heroID} imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix} />
                 {hero.primary_attr === 'str' && <AttrStrength id="heroImg-attribute" />}
                 {hero.primary_attr === 'agi' && <AttrAgility id="heroImg-attribute" />}
                 {hero.primary_attr === 'int' && <AttrIntelligent id="heroImg-attribute" />}
@@ -575,7 +577,7 @@ const TableHeroImage = ({
                 </div>
               </div>
               <div className="header-stats">
-                <div id="hero-name">{hero.localized_name && hero.localized_name.toUpperCase()}</div>
+                <div id="hero-name">{hero.localized_name}</div>
                 <div id="hero-roles">{hero.attack_type} - {hero.roles && hero.roles.join(', ')}</div>
                 <div className="attributes-container">
                   <div className="attributes">
@@ -629,7 +631,7 @@ const {
 
 TableHeroImage.propTypes = {
   parsed: PropTypes.number,
-  image: string,
+  image: PropTypes.string,
   title: oneOfType([
     string,
     object,
@@ -657,6 +659,7 @@ TableHeroImage.propTypes = {
   leaverStatus: PropTypes.number,
   strings: PropTypes.shape({}),
   hero: PropTypes.shape({}),
+  heroID: PropTypes.number,
 };
 
 // If need party or estimated, just add new prop with default val = solo and change icons depending what needs

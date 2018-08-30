@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import { isRadiant, formatSeconds } from '../../../utility';
 import { IconRadiant, IconDire } from '../../Icons';
 import constants from '../../constants';
+import HeroImage from './../../Visualizations/HeroImage';
 
 const StyledDiv = styled.div`
   padding-left: 32px;
@@ -468,10 +469,8 @@ class Chat extends React.Component {
                 <time>
                   <a href={`#${index}`}>{formatSeconds(msg.time)}</a>
                 </time>
-                <img
-                  src={hero ? process.env.REACT_APP_API_HOST + hero.img : '/assets/images/blank-1x1.gif'}
-                  alt={hero && hero.localized_name}
-                />
+                {hero ? <HeroImage id={hero.id} alt={hero && hero.localized_name} />
+                : <img src="/assets/images/blank-1x1.gif" alt="" />}
                 <span className="target">
                   [{target.toUpperCase()}]
                 </span>

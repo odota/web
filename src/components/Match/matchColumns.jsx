@@ -9,13 +9,14 @@ import util from 'util';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy, IMAGESIZE_ENUM, getHeroImageUrl, compileLevelOneStats } from '../../utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy, compileLevelOneStats } from '../../utility';
 import { TableHeroImage, inflictorWithValue } from '../Visualizations';
 import { CompetitiveRank } from '../Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from '../Icons';
 import constants from '../constants';
 import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
 import TargetsBreakdown from './TargetsBreakdown';
+import HeroImage from './../Visualizations/HeroImage';
 
 const heroNames = getHeroesById();
 
@@ -25,7 +26,6 @@ export default (strings) => {
   const heroTd = (row, col, field, index, hideName, party, showGuide = false, guideType) => {
     const heroName = heroes[row.hero_id] && heroes[row.hero_id].localized_name.toLowerCase().replace(' ', '-');
     return (<TableHeroImage
-      image={getHeroImageUrl(row.hero_id, IMAGESIZE_ENUM.SMALL.suffix)}
       title={row.name || row.personaname || strings.general_anonymous}
       registered={row.last_login}
       accountId={row.account_id}
@@ -35,6 +35,7 @@ export default (strings) => {
       confirmed={row.account_id && row.name}
       party={party}
       heroName={heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero}
+      heroID={row.hero_id}
       showGuide={showGuide}
       guideType={guideType}
       guideUrl={heroes[row.hero_id] && `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`}
@@ -633,7 +634,7 @@ export default (strings) => {
           return (
             <div>
               {inflictorWithValue(field.inflictor, abbreviateNumber(field.value))}
-              <img src={`${process.env.REACT_APP_API_HOST}${hero.img}`} style={{ height: '30px' }} alt="" />
+              <HeroImage id={hero.id} style={{ height: '30px' }} />
             </div>
           );
         }
