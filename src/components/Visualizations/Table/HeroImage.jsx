@@ -20,7 +20,7 @@ import HeroImage from '../HeroImage';
 const Styled = styled.div`
 
 .hero-tooltip .__react_component_tooltip {
-  opacity: 0.8 !important;
+  opacity: 1 !important;
   padding: 0px !important;
 }
 
@@ -466,7 +466,7 @@ const TableHeroImage = ({
             alt=""
             className="image"
             data-tip={hero.id === undefined && null}
-            data-for={hero.id !== undefined && image}
+            data-for={heroName !== undefined && heroName}
           /> :
           <HeroImage id={heroID} className="image" data-tip={hero.id === undefined && null} data-for={heroName !== undefined && heroName} />
         }
