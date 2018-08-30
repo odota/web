@@ -466,7 +466,7 @@ const TableHeroImage = ({
             alt=""
             className="image"
             data-tip={hero.id === undefined && null}
-            data-for={heroName !== undefined && heroName}
+            data-for={heroName}
           /> :
           <HeroImage id={heroID} className="image" data-tip={hero.id === undefined && null} data-for={heroName !== undefined && heroName} />
         }
