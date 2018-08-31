@@ -14,6 +14,7 @@ import FormField from '../Form/FormField';
 import { IconRadiant, IconDire } from '../Icons';
 import mcs from './matchColumns';
 import { StyledLogFilterForm } from './StyledMatch';
+import HeroImage from '../Visualizations/HeroImage';
 
 const St = styled.div`
 table {
@@ -183,11 +184,7 @@ const logColumns = (strings) => {
             return (
               <span>
                 {killIcon(row.isRadiant)}
-                <img
-                  src={`${process.env.REACT_APP_API_HOST}${hero.img}`}
-                  style={{ height: '30px', float: 'left', paddingTop: '6px' }}
-                  alt=""
-                />
+                <HeroImage id={hero.id} style={{ height: '30px', float: 'left', paddingTop: '6px' }} />
               </span>
             );
           }

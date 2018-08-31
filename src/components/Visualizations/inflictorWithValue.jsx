@@ -5,9 +5,9 @@ import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
 import items from 'dotaconstants/build/items.json';
 import styled from 'styled-components';
-import ThingTooltip from '../ThingTooltip';
 import ItemTooltip from './../ItemTooltip/index';
 import constants from '../constants';
+import AbilityTooltip from '../AbilityTooltip';
 
 const customNameIcon = {
   kaya: 'trident',
@@ -78,7 +78,7 @@ const StyledDiv = styled.div`
     display: inline-block;
 
     &:first-child {
-      margin-right: 30px;
+      margin-right: 25px;
     }
 
     &:last-child {
@@ -118,7 +118,7 @@ class InflictorWithValue extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { showTooltip: false };
   }
 
   componentDidMount() {
@@ -135,6 +135,12 @@ class InflictorWithValue extends React.Component {
       });
     })();
   }
+
+  setShowTooltip = () => {
+    if (!this.state.showTooltip) {
+      this.setState({ showTooltip: true });
+    }
+  };
 
   render() {
     const {
@@ -160,7 +166,7 @@ class InflictorWithValue extends React.Component {
         } else {
           image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/abilities/${resolvedInflictor}_sm.png`;
         }
-        tooltip = <ThingTooltip thing={ability} />;
+        tooltip = <AbilityTooltip ability={ability} inflictor={resolvedInflictor} />;
       } else if (item) {
         if (customImageIcon.includes(resolvedInflictor)) {
           image = `/assets/images/dota2/${resolvedInflictor}.png`;
@@ -177,7 +183,7 @@ class InflictorWithValue extends React.Component {
 
       return (
         <StyledDiv>
-          <div className="inflictorWithValue" data-tip={tooltip && true} data-for={ttId}>
+          <div className="inflictorWithValue" data-tip={tooltip && true} data-for={ttId} onMouseEnter={this.setShowTooltip}>
             {!type &&
             <object data={image} height="27px" type="image/png">
               <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)', height: '27px' }} />
@@ -198,9 +204,11 @@ class InflictorWithValue extends React.Component {
           }
             {tooltip &&
             <div className="tooltip">
+              {this.state.showTooltip &&
               <ReactTooltip id={ttId} effect="solid" place="left">
                 {tooltip}
               </ReactTooltip>
+            }
             </div>}
           </div>
         </StyledDiv>
