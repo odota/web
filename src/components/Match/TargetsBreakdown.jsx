@@ -106,17 +106,11 @@ const TargetsBreakdown = ({ field, abilityUses = null }) => {
     }
     const r = [];
     Object.keys(f).forEach((inflictor) => {
-      const value = (
-        <div>
-          <div id="heroTargetValue">{abbreviateNumber(sumValues(f[inflictor]))}</div>
-          <div id="totalValue">{(abilityUses && abilityUses[inflictor]) || abbreviateNumber(sumValues(f[inflictor]))}</div>
-        </div>
-      );
       r.push((
         <div style={{ display: 'flex' }}>
           {
             <StyledDmgTargetInflictor id="target">
-              {inflictorWithValue(inflictor, value)}
+              {inflictorWithValue(inflictor, abbreviateNumber(sumValues(f[inflictor])))}
             </StyledDmgTargetInflictor>
           }
           {<NavigationArrowForward style={arrowStyle} />}

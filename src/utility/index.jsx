@@ -613,14 +613,13 @@ export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffi
         <div>
           {row && <span style={{ float: 'left' }}><FromNowTooltip timestamp={row.start_time + row.duration} /></span>}
           {lane ?
-            <img
-              src={`/assets/images/dota2/lane_${lane}.svg`}
-              alt=""
-              data-tip={tooltip}
-              data-offset="{'right': 4, 'top': 4}"
-              data-delay-show="300"
-              style={roleIconStyle}
-            />
+            <span data-hint={tooltip} data-hint-position="top" style={{ float: 'right' }}>
+              <img
+                src={`/assets/images/dota2/lane_${lane}.svg`}
+                alt=""
+                style={roleIconStyle}
+              />
+            </span>
           : ''}
         </div>);
     } else if (row.last_played) {
@@ -735,9 +734,8 @@ export const transformations = {
           </span>
           <span
             style={partyStyle}
-            data-tip={`${strings.filter_party_size} ${row.party_size || strings.game_mode_0}`}
-            data-offset="{'top': 4, 'right' : 8}"
-            data-delay-show="300"
+            data-hint={`${strings.filter_party_size} ${row.party_size || strings.game_mode_0}`}
+            data-hint-position="top"
           >
             {partySize(row.party_size)}
           </span>
