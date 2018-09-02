@@ -38,7 +38,7 @@ const CustomizedTooltip = ({ label, payload }) => (
     <div className="label">{label}</div>
     {payload.map((data, i) =>
     (
-      <div value={data.value} index={i} className={`data ${i < 5 && 'isRadiant'}`} style={{ borderLeft: `8px solid ${data.color}` }}>
+      <div value={data.value} className={`data ${i < 5 && 'isRadiant'}`} style={{ borderLeft: `8px solid ${data.color}` }}>
         {data.dataKey}: {data.value}
       </div>)).sort((a, b) => a.props.value < b.props.value)
     }
