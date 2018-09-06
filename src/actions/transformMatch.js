@@ -17,7 +17,7 @@ function generateExpandedUnitNames(strings) {
   Object.keys(strings)
     .filter(str => str.indexOf('npc_dota_') === 0)
     .forEach((key) => {
-    // Currently, no unit goes up higher than 4
+      // Currently, no unit goes up higher than 4
       for (let i = 1; i < 5; i += 1) {
         expanded[key.replace('#', i)] = strings[key];
       }
@@ -43,7 +43,9 @@ function generateTeamfights({ players, teamfights = [] }) {
     };
     newtf.players = players.map((player) => {
       const tfplayer = tf.players[player.player_slot % (128 - 5)];
-      // compute team gold/xp deltas
+      if (!tfplayer) {
+        return null;
+      }
       if (isRadiant(player.player_slot)) {
         newtf.radiant_gold_advantage_delta += tfplayer.gold_delta;
         newtf.radiant_gold_delta += tfplayer.gold_delta;
@@ -72,7 +74,8 @@ function generateTeamfights({ players, teamfights = [] }) {
         level_end: getLevelFromXp(tfplayer.xp_end),
         deaths_pos: playerDeathsPos,
       };
-    });
+    }).filter(player => (player !== null));
+
     // We have to do this after we process the stuff so that we will have the player in
     // the data instead of just the 'teamfight player' which doesn't have enough data.
     newtf.deaths_pos = newtf.deaths_pos
