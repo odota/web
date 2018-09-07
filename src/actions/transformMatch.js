@@ -43,6 +43,9 @@ function generateTeamfights({ players, teamfights = [] }) {
     };
     newtf.players = players.map((player) => {
       const tfplayer = tf.players[player.player_slot % (128 - 5)];
+      if (!tfplayer) {
+        return null;
+      }
       // compute team gold/xp deltas
       if (isRadiant(player.player_slot)) {
         newtf.radiant_gold_advantage_delta += tfplayer.gold_delta;
@@ -72,7 +75,8 @@ function generateTeamfights({ players, teamfights = [] }) {
         level_end: getLevelFromXp(tfplayer.xp_end),
         deaths_pos: playerDeathsPos,
       };
-    });
+    }).filter(player => (player !== null));
+
     // We have to do this after we process the stuff so that we will have the player in
     // the data instead of just the 'teamfight player' which doesn't have enough data.
     newtf.deaths_pos = newtf.deaths_pos
