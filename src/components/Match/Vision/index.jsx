@@ -11,6 +11,7 @@ import VisionItems from './VisionItems';
 import VisionMap from './VisionMap';
 import VisionLog from './VisionLog';
 import constants from '../../constants';
+import Heading from '../../Heading';
 
 const Styled = styled.div`
 .visionLog {
@@ -121,7 +122,9 @@ class Vision extends React.Component {
       wards_log: PropTypes.arrayOf({}),
     }),
     strings: PropTypes.shape({}),
-  }
+    sponsorIcon: PropTypes.string,
+    sponsorURL: PropTypes.string,
+  };
 
   constructor(props) {
     super(props);
@@ -145,10 +148,21 @@ class Vision extends React.Component {
     this.handleViewportChange = debounce(50, this.viewportChange);
   }
 
+  onCheckAllWardsTeam(index, end) {
+    const { players } = this.state;
+    const [observer, sentry] = ['observer', 'sentry'];
+    const allWardsTeam = players[observer].slice(index, end).concat(players[sentry].slice(index, end));
+    return !(allWardsTeam.indexOf(true) === -1);
+  }
+
   setPlayer(player, type, value) {
-    const newArray = this.state.players[type];
+    const { players } = this.state;
+    const newArray = players[type];
     newArray[player] = value;
-    this.setState({ ...this.state, players: { ...this.state.players, [type]: newArray } });
+    const index = player < 5 ? 0 : 5;
+    const end = index + 5;
+    const newTeam = this.onCheckAllWardsTeam(index, end);
+    this.setState({ ...this.state, teams: { ...this.state.teams, [index === 0 ? 'radiant' : 'dire']: newTeam }, players: { ...this.state.players, [type]: newArray } });
   }
 
   setTeam(team, value) {
@@ -162,6 +176,22 @@ class Vision extends React.Component {
     }
     const newState = { ...this.state, teams: { ...this.state.teams, [team]: value }, players: { observer: newPlayerObs, sentry: newPlayerSentry } };
     this.setState(newState);
+  }
+
+  setTypeWard(index, ward) {
+    const { players } = this.state;
+    const end = index + 5;
+    const checked = (players[ward].slice(index, end).indexOf(true) !== -1);
+    for (let i = index; i < end; i += 1) {
+      players[ward][i] = !checked;
+    }
+    const newTeam = this.onCheckAllWardsTeam(index, end);
+    const newState = { ...this.state, teams: { ...this.state.teams, [index === 0 ? 'radiant' : 'dire']: newTeam }, players };
+    this.setState(newState);
+  }
+
+  checkedTypeWard(index, ward) {
+    return (this.state.players[ward].slice(index, index + 5).indexOf(true) !== -1);
   }
 
   computeTick() {
@@ -182,15 +212,22 @@ class Vision extends React.Component {
 
   render() {
     const visibleWards = this.visibleData();
-    const { match, strings } = this.props;
+    const {
+      match, strings, sponsorIcon, sponsorURL,
+    } = this.props;
 
     return (
       <div>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          <div style={{ width: '30%', margin: '10px', flexGrow: '1' }}>
+          <div style={{ margin: '10px', flexGrow: '1' }}>
             <VisionMap match={match} wards={visibleWards} strings={strings} />
           </div>
-          <div style={{ flexGrow: '1' }}>
+          <div style={{ flexGrow: '2' }}>
+            <Heading
+              buttonLabel={strings.gosu_vision}
+              buttonTo={`${sponsorURL}Vision`}
+              buttonIcon={sponsorIcon}
+            />
             <div className="visionSliderText">
               {this.state.currentTick === -90 ? strings.vision_all_time : formatSeconds(this.state.currentTick)}
             </div>

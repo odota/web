@@ -11,13 +11,16 @@ import DotaMap from '../DotaMap';
  * Returns the adjusted heatmap data.
  */
 function scaleAndExtrema(points, scalef, max, shift) {
+  // the max values should not deviate from the average by more than a factor of 25
+  const maxValue = (points.reduce((a, b) => a + b.value, 0) / points.length) * 25;
+
   const newPoints = points.map(p => ({
     x: Math.floor(p.x * scalef),
     y: Math.floor(p.y * scalef),
-    value: p.value + (shift || 0),
+    value: Math.min(p.value, maxValue) + (shift || 0),
   }));
-  const vals = points.map(p => p.value);
-  const localMax = Math.max.apply(null, vals);
+  const vals = points.map(p => Math.min(p.value, maxValue));
+  const localMax = Math.max(...vals);
   return {
     min: 0,
     max: max || localMax,
@@ -40,8 +43,6 @@ class Heatmap extends Component {
     width: PropTypes.number,
   }
 
-  id = `a-${uuid.v4()}`;
-
   componentDidMount() {
     this.heatmap = h337.create({
       container: document.getElementById(this.id),
@@ -52,6 +53,8 @@ class Heatmap extends Component {
   componentDidUpdate() {
     drawHeatmap(this.props, this.heatmap);
   }
+
+  id = `a-${uuid.v4()}`;
 
   render() {
     return (

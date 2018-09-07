@@ -5,6 +5,15 @@ import { gameCoordToUV } from '../../../utility';
 import DotaMap from '../../DotaMap';
 import constants from '../../constants';
 
+const hoverMapStyle = {
+  height: 300,
+  position: 'absolute',
+  bottom: '25px',
+  left: '25px',
+  border: '5px solid rgb(21, 23, 27)',
+  outline: '1px solid #0E0E0E',
+};
+
 const Styled = styled.div`
 .tooltipContainer {
   display: flex;
@@ -108,7 +117,7 @@ WardPin.propTypes = {
 };
 
 const LogHover = ward => (
-  <div style={{ height: 300, position: 'absolute', bottom: '10px' }}>
+  <div style={hoverMapStyle}>
     <DotaMap
       maxWidth={300}
       width={300}

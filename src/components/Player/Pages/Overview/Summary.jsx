@@ -11,6 +11,7 @@ import {
 } from '../../../../utility';
 import { MAX_MATCHES_ROWS } from './Overview';
 import constants from '../../../constants';
+import HeroImage from '../../../Visualizations/HeroImage';
 
 const SummOfRecMatches = ({ matchesData, strings }) => {
   // initial values
@@ -112,7 +113,7 @@ const SummOfRecMatches = ({ matchesData, strings }) => {
                     {key === 'duration' ? formatSeconds(c.avg) : abbreviateNumber(c.avg)}
                   &nbsp;
                     <span>{key === 'duration' ? formatSeconds(c.max.value) : abbreviateNumber(c.max.value)}
-                      <img src={`${process.env.REACT_APP_API_HOST}${hero.icon}`} alt={hero.localized_name} />
+                      <HeroImage id={hero.id} isIcon alt={hero.localized_name} />
                     </span>
                   </p>
                 </Link>

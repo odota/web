@@ -17,7 +17,7 @@ import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import Heading from '../../Heading';
 import constants from '../../constants';
-import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHolder, GoldSpan, XpSpan, StyledTooltipGold } from './Styled';
+import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHolder, GoldSpan, XpSpan, StyledTooltipGold, StyledCustomizedTooltip } from './Styled';
 
 const formatGraphTime = minutes => `${minutes}:00`;
 
@@ -31,6 +31,22 @@ const generateDiffData = (match) => {
     }
   });
   return data;
+};
+
+const CustomizedTooltip = ({ label, payload }) => (
+  <StyledCustomizedTooltip>
+    <div className="label">{label}</div>
+    {payload.map((data, i) =>
+    (
+      <div value={data.value} className={`data ${i < 5 && 'isRadiant'}`} style={{ borderLeft: `8px solid ${data.color}` }}>
+        {data.dataKey}: {data.value}
+      </div>)).sort((a, b) => a.props.value < b.props.value)
+    }
+  </StyledCustomizedTooltip>
+);
+CustomizedTooltip.propTypes = {
+  payload: PropTypes.shape({}),
+  label: PropTypes.number,
 };
 
 const XpTooltipContent = ({ payload, strings }) => {
@@ -71,7 +87,9 @@ XpTooltipContent.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const XpNetworthGraph = ({ match, strings }) => {
+const XpNetworthGraph = ({
+  match, strings, sponsorURL, sponsorIcon,
+}) => {
   const matchData = generateDiffData(match);
   const maxY =
       Math.ceil(Math.max(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000) * 5000;
@@ -81,7 +99,12 @@ const XpNetworthGraph = ({ match, strings }) => {
     <StyledHolder>
       <StyledRadiant>{strings.general_radiant}</StyledRadiant>
       <StyledDire>{strings.general_dire}</StyledDire>
-      <Heading title={strings.heading_graph_difference} />
+      <Heading
+        title={strings.heading_graph_difference}
+        buttonLabel={strings.gosu_default}
+        buttonTo={`${sponsorURL}Graphs`}
+        buttonIcon={sponsorIcon}
+      />
       <ResponsiveContainer width="100%" height={400}>
         <LineChart
           data={matchData}
@@ -100,7 +123,7 @@ const XpNetworthGraph = ({ match, strings }) => {
             opacity={0.5}
           />
 
-          <Tooltip content={<XpTooltipContent />} />
+          <Tooltip content={<XpTooltipContent strings={strings} />} />
           <Line
             dot={false}
             dataKey="rXpAdv"
@@ -124,6 +147,8 @@ const XpNetworthGraph = ({ match, strings }) => {
 XpNetworthGraph.propTypes = {
   match: PropTypes.shape({}),
   strings: PropTypes.shape({}),
+  sponsorIcon: PropTypes.string,
+  sponsorURL: PropTypes.string,
 };
 
 class PlayersGraph extends React.Component {
@@ -187,10 +212,7 @@ class PlayersGraph extends React.Component {
                 opacity={0.5}
               />
 
-              <Tooltip
-                itemSorter={(a, b) => a.value < b.value}
-                wrapperStyle={{ backgroundColor: constants.darkPrimaryColor, border: 'none' }}
-              />
+              <Tooltip content={<CustomizedTooltip />} />
               {match.players.map((player) => {
                 const hero = heroes[player.hero_id] || {};
                 const playerColor = playerColors[player.player_slot];
@@ -218,10 +240,10 @@ class PlayersGraph extends React.Component {
 }
 
 const MatchGraph = ({
-  type, match, width, strings,
+  type, match, width, strings, sponsorURL, sponsorIcon,
 }) => {
   if (type === 'difference') {
-    return <XpNetworthGraph match={match} width={width} strings={strings} />;
+    return <XpNetworthGraph match={match} width={width} strings={strings} sponsorURL={sponsorURL} sponsorIcon={sponsorIcon} />;
   } else if (type === 'gold' || type === 'xp' || type === 'lh') {
     return <PlayersGraph type={type} match={match} width={width} strings={strings} />;
   }
@@ -235,6 +257,8 @@ MatchGraph.propTypes = {
   match: PropTypes.shape({}),
   type: PropTypes.string,
   strings: PropTypes.shape({}),
+  sponsorIcon: PropTypes.string,
+  sponsorURL: PropTypes.string,
 };
 
 const mapStateToProps = state => ({

@@ -24,7 +24,7 @@
 
   "announce_dismiss": "Dismiss",
   "announce_github_more": "View on GitHub",
-  
+
   "api_meta_description": "The OpenDota API gives you access to all the advanced Dota 2 stats offered by the OpenDota platform. Access performance graphs, heatmaps, wordclouds, and more. Get started for free.",
   "api_title": "The OpenDota API",
   "api_subtitle": "Build on top of the OpenDota platform. Bring advanced stats to your app and deep insights to your users.",
@@ -64,8 +64,7 @@
   "api_month": "Month",
   "api_header_key": "Your Key",
   "api_header_table": "Get started for free. Keep going at a ridiculously low price.",
-  "api_header_details": "Details",
-  
+
   "app_name": "OpenDota",
   "app_language": "Language",
   "app_localization": "Localization",
@@ -93,7 +92,6 @@
   "app_pvgna_alt": "Find a Dota 2 Guide on Pvgna",
   "app_rivalry": "Bet on Pro Matches",
   "app_rivalry_team": "Bet on %s Matches",
-  "app_moremmr": "Learn to play like a PRO",
   "app_refresh": "Refresh Match History: Queue a scan to find missing matches due to privacy settings",
   "app_refresh_label": "Refresh",
   "app_login": "Login",
@@ -211,6 +209,10 @@
   "explorer_having": "At Least This Many Matches",
   "explorer_limit": "Limit",
   "explorer_match": "Match",
+  "explorer_is_ti_team": "Is TI{number} Team",
+  "explorer_mega_comeback": "Won Against Mega Creeps",
+  "explorer_max_gold_adv": "Max Gold Advantage",
+  "explorer_min_gold_adv": "Min Gold Advantage",
 
   "farm_heroes": "Heroes killed",
   "farm_creeps": "Lane creeps killed",
@@ -427,6 +429,8 @@
   "heading_cm_enabled": "CM enabled",
   "heading_current_players": "Current Players",
   "heading_former_players": "Former Players",
+  "heading_damage_dealt": "Damage Dealt",
+  "heading_damage_received": "Damage Received",
   
   "show_details": "Show details",
   "hide_details": "Hide details",
@@ -603,6 +607,7 @@
 	"rank_tier_5": "Legend",
 	"rank_tier_6": "Ancient",
 	"rank_tier_7": "Divine",
+	"rank_tier_8": "Immortal",
 
   "request_title": "Request a Parse",
   "request_match_id": "Match ID",
@@ -622,9 +627,10 @@
 
   "search_title": "Search by player name, match ID...",
 
-  "skill_1": "Normal",
-  "skill_2": "High",
-  "skill_3": "Very High",
+  "skill_0": "Unknown Skill",
+  "skill_1": "Normal Skill",
+  "skill_2": "High Skill",
+  "skill_3": "Very High Skill",
 
   "story_invalid_template": "(invalid template)",
   "story_error": "An error occured while compiling the story for this match",
@@ -716,8 +722,8 @@
 
   "placeholder_filter_heroes": "Filter Heroes",
 
-  "td_win": "Win",
-  "td_loss": "Loss",
+  "td_win": "Won Match",
+  "td_loss": "Lost Match",
   "td_no_result": "No Result",
 
   "th_hero_id": "Hero",
@@ -797,6 +803,7 @@
   "th_denies": "DN",
   "th_gold_per_min": "GPM",
   "th_xp_per_min": "XPM",
+  "th_stuns_per_min": "SPM",
   "th_hero_damage": "HD",
   "th_hero_damage_per_min": "HDM",
   "th_hero_healing": "HH",
@@ -914,6 +921,7 @@
   "tooltip_gold": "Total gold farmed",
   "tooltip_gold_per_min": "Gold farmed per minute",
   "tooltip_xp_per_min": "Experience gained per minute",
+  "tooltip_stuns_per_min": "Seconds of hero stuns per minute",
   "tooltip_last_hits_per_min": "Last hits per minute",
   "tooltip_kills_per_min": "Kills per minute",
   "tooltip_hero_damage_per_min": "Hero damage per minute",
@@ -1277,7 +1285,16 @@
   "scenarios_first_blood": "Team drew First Blood",
   "scenarios_courier_kill": "Team sniped the enemy courier before the 3-minute mark",
   "scenarios_pos_chat_1min": "Team all chatted positive words before the 1-minute mark",
-  "scenarios_neg_chat_1min": "Team all chatted negative words before the 1-minute mark"
+  "scenarios_neg_chat_1min": "Team all chatted negative words before the 1-minute mark",
 
-
+  "gosu_default": "Get personal recommendations",
+  "gosu_benchmarks": "Get detailed benchmarks for your hero, lane and role",
+  "gosu_performances": "Get your map control performance",
+  "gosu_laning": "Get why you missed last hits",
+  "gosu_combat": "Get why kills attempts were unsuccessful",
+  "gosu_farm": "Get why you missed last hits",
+  "gosu_vision": "Get how many heroes were killed under your wards",
+  "gosu_actions": "Get your lost time from mouse usage vs hotkeys",
+  "gosu_teamfights": "Get who to target during teamfights",
+  "gosu_analysis": "Get your real MMR bracket"
 }

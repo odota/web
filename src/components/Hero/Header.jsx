@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { shape } from 'prop-types';
 import constants from '../constants';
 import AttributesMain from './AttributesMain';
+import Abilities from './Abilities';
 
 const getHeroImgSrc = src => process.env.REACT_APP_API_HOST + src;
 
@@ -45,7 +46,7 @@ const HeroProfileContent = styled.div`
 `;
 
 const HeroDetails = styled.div`
-  flex-grow: 1;
+  flex: 1 1 100%;
   margin: 0 24px;
 
   @media screen and (max-width: ${constants.wrapMobile}) {
@@ -107,6 +108,10 @@ const HeroDescription = styled.div`
   flex-grow: 1;
 `;
 
+const HeroStatsWrapper = styled.div`
+  flex: 1 1 100%;
+`;
+
 const Header = ({ hero }) => (
   <HeroDescription>
     <HeroProfile>
@@ -117,9 +122,10 @@ const Header = ({ hero }) => (
           <HeroName>{hero.localized_name}</HeroName>
           <HeroRoleInformations>{hero.attack_type} - <HeroRoles>{hero.roles.join(', ')}</HeroRoles></HeroRoleInformations>
         </HeroDetails>
-        <div>
+        <HeroStatsWrapper>
           <AttributesMain hero={hero} />
-        </div>
+          <Abilities hero={hero} />
+        </HeroStatsWrapper>
       </HeroProfileContent>
     </HeroProfile>
   </HeroDescription>

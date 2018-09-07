@@ -79,6 +79,79 @@ export const StyledBody = styled.div`
      transition: background 100ms linear !important;
   }
   ` : '')};
+
+  /* -- scrolling behavior -- */
+  .scrolled.shrink .textContainer {
+    width: 50px !important;
+    margin-right: 0px !important;
+  }
+
+  .scrolled .textContainer span {
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .scrolled .textContainer {
+    & .registered {
+      display: none !important;
+    }
+
+    & .badge {
+      display: none !important;
+    }
+
+    & .rank {
+      display: none !important;
+    }
+  }
+
+  .scrolled .guideContainer {
+    & .moremmr-icon {
+      display: none;
+    }
+  }
+
+  .scrolled .imageContainer {
+    & img {
+      margin-right: 4px;
+      height: 18px;
+    }
+
+    & .playerSlot {
+      display: none;
+    }
+  }
+
+  .scrolled th:first-child, .scrolled td:first-child {
+    position: sticky !important;
+    left: 0px !important;
+  }
+
+  .scrolled th:first-child {
+    background-color: rgba(33, 34, 44, 0.8) !important;
+    z-index: 100;
+    transition: all 0.5s ease-out !important;
+  }
+
+  .scrolled tr {
+    &:nth-child(odd) {
+      & td:first-child {
+        background-color: rgba(33, 34, 44, 0.8) !important;
+        z-index: 100;
+        transition: all 0.5s ease-out !important;
+        padding-right: 0px !important;
+      }
+    }
+
+    &:nth-child(even) {
+      & td:first-child {
+        background-color: rgba(33, 34, 44, 0.8) !important;
+        z-index: 100;
+        transition: all 0.5s ease-out !important;
+        padding-right: 0px !important;
+      }
+    }
 `;
 export const StyledContainer = styled.div`
   min-width: 100%;

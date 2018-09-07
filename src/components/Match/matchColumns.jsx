@@ -9,21 +9,23 @@ import util from 'util';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy, IMAGESIZE_ENUM, getHeroImageUrl } from '../../utility';
+import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy, compileLevelOneStats } from '../../utility';
 import { TableHeroImage, inflictorWithValue } from '../Visualizations';
 import { CompetitiveRank } from '../Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from '../Icons';
 import constants from '../constants';
 import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
 import TargetsBreakdown from './TargetsBreakdown';
+import HeroImage from './../Visualizations/HeroImage';
 
 const heroNames = getHeroesById();
+
+const parsedBenchmarkCols = ['lhten', 'stuns_per_min'];
 
 export default (strings) => {
   const heroTd = (row, col, field, index, hideName, party, showGuide = false, guideType) => {
     const heroName = heroes[row.hero_id] && heroes[row.hero_id].localized_name.toLowerCase().replace(' ', '-');
     return (<TableHeroImage
-      image={getHeroImageUrl(row.hero_id, IMAGESIZE_ENUM.SMALL)}
       title={row.name || row.personaname || strings.general_anonymous}
       registered={row.last_login}
       accountId={row.account_id}
@@ -33,6 +35,7 @@ export default (strings) => {
       confirmed={row.account_id && row.name}
       party={party}
       heroName={heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero}
+      heroID={row.hero_id}
       showGuide={showGuide}
       guideType={guideType}
       guideUrl={heroes[row.hero_id] && `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`}
@@ -40,6 +43,7 @@ export default (strings) => {
       repicked={row.repicked}
       predictedVictory={row.pred_vict}
       leaverStatus={row.leaver_status}
+      hero={compileLevelOneStats(heroes[row.hero_id])}
     />);
   };
 
@@ -90,7 +94,7 @@ export default (strings) => {
       {
         displayName: strings.th_avatar,
         field: 'player_slot',
-        displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), true, 'MOREMMR', strings),
+        displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), false, null, strings),
         sortFn: true,
       },
       {
@@ -290,13 +294,17 @@ export default (strings) => {
       displayName: `${index}`,
       tooltip: 'Ability upgraded at this level',
       field: `ability_upgrades_arr_${index}`,
-      displayFn: row =>
-        (
+      displayFn: (row) => {
+        if (!row[`ability_upgrades_arr_${index}`]) {
+          return null;
+        }
+        return (
           <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
             <div className="ability">
               {inflictorWithValue(null, null, null, null, row[`ability_upgrades_arr_${index}`]) || <div className="placeholder" />}
             </div>
-          </StyledAbilityUpgrades>),
+          </StyledAbilityUpgrades>);
+      },
     }));
 
     cols[0] = heroTdColumn;
@@ -327,32 +335,34 @@ export default (strings) => {
     const cols = [heroTdColumn];
     if (match.players && match.players[0] && match.players[0].benchmarks) {
       Object.keys(match.players[0].benchmarks).forEach((key, i) => {
-        cols.push({
-          displayName: strings[`th_${key}`],
-          tooltip: strings[`tooltip_${key}`],
-          field: 'benchmarks',
-          index: i,
-          displayFn: (row, column, field) => {
-            if (field) {
-              const bm = field[key];
-              const bucket = percentile(bm.pct);
-              const percent = Number(bm.pct * 100).toFixed(2);
-              const value = Number((bm.raw || 0).toFixed(2));
-              return (
-                <div data-tip data-for={`benchmarks_${row.player_slot}_${key}`}>
-                  <span style={{ color: constants[bucket.color] }}>{`${percent}%`}</span>
-                  <small style={{ margin: '3px' }}>
-                    {value}
-                  </small>
-                  <ReactTooltip id={`benchmarks_${row.player_slot}_${key}`} place="top" effect="solid">
-                    {util.format(strings.benchmarks_description, value, strings[`th_${key}`], percent)}
-                  </ReactTooltip>
-                </div>
-              );
-            }
-            return null;
-          },
-        });
+        if (match.version || !parsedBenchmarkCols.includes(key)) {
+          cols.push({
+            displayName: strings[`th_${key}`] || strings[`heading_${key}`] || strings[`tooltip_${key}`],
+            tooltip: strings[`tooltip_${key}`],
+            field: 'benchmarks',
+            index: i,
+            displayFn: (row, column, field) => {
+              if (field) {
+                const bm = field[key];
+                const bucket = percentile(bm.pct);
+                const percent = Number(bm.pct * 100).toFixed(2);
+                const value = Number((bm.raw || 0).toFixed(2));
+                return (
+                  <div data-tip data-for={`benchmarks_${row.player_slot}_${key}`}>
+                    <span style={{ color: constants[bucket.color] }}>{`${percent}%`}</span>
+                    <small style={{ margin: '3px' }}>
+                      {value}
+                    </small>
+                    <ReactTooltip id={`benchmarks_${row.player_slot}_${key}`} place="top" effect="solid">
+                      {util.format(strings.benchmarks_description, value, strings[`th_${key}`], percent)}
+                    </ReactTooltip>
+                  </div>
+                );
+              }
+              return null;
+            },
+          });
+        }
       });
     }
     return cols;
@@ -624,7 +634,7 @@ export default (strings) => {
           return (
             <div>
               {inflictorWithValue(field.inflictor, abbreviateNumber(field.value))}
-              <img src={`${process.env.REACT_APP_API_HOST}${hero.img}`} style={{ height: '30px' }} alt="" />
+              <HeroImage id={hero.id} style={{ height: '30px' }} />
             </div>
           );
         }
@@ -974,14 +984,22 @@ export default (strings) => {
       tooltip: strings.tooltip_casts,
       field: 'item_uses',
       displayFn: (row, col, field) =>
-        (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+        (
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''}
+          </div>
+        ),
     },
     {
       displayName: strings.th_hits,
       tooltip: strings.tooltip_hits,
       field: 'hero_hits',
       displayFn: (row, col, field) =>
-        (field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''),
+        (
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''}
+          </div>
+        ),
     },
   ];
 

@@ -107,35 +107,43 @@ class Table extends React.Component {
       </MaterialTableRow>
     );
   }
-  constructor() {
-    super();
-    this.state = initialState;
+
+  state = initialState;
+
+  setTableRef = (node) => {
+    if (node) {
+      this.innerContainerRef = node;
+      const { tableDiv } = this.innerContainerRef.refs;
+      // only shrink first column if there is enough wiggle room
+      this.doShrink = (tableDiv.scrollWidth - tableDiv.clientWidth) > 90;
+      tableDiv.onscroll = this.handleScroll;
+    }
   }
 
   setCurrentPage = (pageNumber) => {
     this.setState({
-      ...this.state,
       currentPage: pageNumber,
     });
   };
 
-  static getDerivedStateFromProps(props) {
-    if (props.resetTableState) {
-      return initialState;
+  handleScroll = () => {
+    const { scrolled } = this.state;
+    const { scrollLeft } = this.innerContainerRef.refs.tableDiv;
+    if ((!scrolled && scrollLeft) || (scrolled && !scrollLeft)) {
+      this.setState({
+        scrolled: scrollLeft,
+      });
     }
-    return null;
   }
 
   nextPage = () => {
     this.setState({
-      ...this.state,
       currentPage: this.state.currentPage + 1,
     });
   };
 
   prevPage = () => {
     this.setState({
-      ...this.state,
       currentPage: this.state.currentPage - 1,
     });
   };
@@ -143,7 +151,6 @@ class Table extends React.Component {
   sortClick = (sortField, sortState, sortFn) => {
     const { state } = this;
     this.setState({
-      ...state,
       sortState: sortField === state.sortField ? SORT_ENUM.next(SORT_ENUM[state.sortState]) : SORT_ENUM[0],
       sortField,
       sortFn,
@@ -166,7 +173,7 @@ class Table extends React.Component {
       setHighlightedCol,
     } = this.props;
     const {
-      sortState, sortField, sortFn, currentPage,
+      sortState, sortField, sortFn, currentPage, scrolled,
     } = this.state;
     const dataLength = this.props.data.length;
     let { data } = this.props;
@@ -194,8 +201,8 @@ class Table extends React.Component {
           {!loading && error && <Error />}
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
-          <div className="innerContainer">
-            <MaterialTable fixedHeader={false} selectable={false}>
+          <div className={`innerContainer ${scrolled && 'scrolled'} ${this.doShrink && 'shrink'}`}>
+            <MaterialTable fixedHeader={false} selectable={false} ref={this.setTableRef}>
               <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableHeader
                   columns={columns}

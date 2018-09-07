@@ -42,17 +42,17 @@ const Sponsors = ({ strings }) => (
       <a href="//dotacoach.org" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/dotacoach-logo.png" alt="" />
       </a>
-      <a href="https://moremmr.com?utm_source=opendota&utm_medium=homepage&utm_campaign=logo" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/moremmr-logo.png" alt="" />
-      </a>
       <a href="http://www.vpgame.com/" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/vp-logo.png" alt="" />
       </a>
       <a href="https://www.openai.com/" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/openai-logo.png" alt="" />
       </a>
-      <a href="https://www.rivalry.gg/" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.rivalry.gg" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/rivalry-logo.png" alt="" />
+      </a>
+      <a href="https://gosu.ai/dota/?utm_source=opendota&utm_medium=cpc&utm_campaign=Home" target="_blank" rel="noopener noreferrer">
+        <img src="/assets/images/gosu-logo.png" alt="" />
       </a>
     </div>
     <ButtonsDiv>

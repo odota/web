@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import items from 'dotaconstants/build/items.json';
 import { threshold, formatSeconds } from '../../../utility';
 import Table from '../../Table';
 import Heading from '../../Heading';
@@ -10,14 +9,25 @@ import constants from '../../constants';
 import LogHover from './LogHover';
 
 const Styled = styled.div`
-.placement{ 
-  display: none;
+  display: inline-block;
+
+  .minimap {
+  } 
+
+  .minimap:hover > img {
+    border: 1px solid ${constants.colorMutedLight};
   }
-  .minimap:hover .placement{
-  position: absolute;
-  display : block;
-  padding-left: 30px;
-  pointer-events: none
+
+  .placement {
+    position: absolute;
+    transform: scale(0);
+    transition: .1s ease;
+    pointer-events: none;
+    filter: brightness(110%);
+  }
+
+  .minimap:hover .placement {
+    transform: scale(1)
   }
 `;
 
@@ -51,10 +61,12 @@ const columns = (strings) => {
       displayName: strings.ward_log_duration,
       field: 'duration',
     },
+    /*
     {
       displayName: strings.ward_log_killed_by,
       field: 'killer',
     },
+    */
     {
       displayName: strings.placement,
       field: 'placement',
@@ -83,7 +95,7 @@ const generateData = (match, strings) => (log) => {
   const duration = (log.left && log.left.time - log.entered.time) || (match && match.duration - log.entered.time);
 
   // necessary until https://github.com/odota/parser/pull/3 is implemented
-  const discrepancy = duration - Math.min(items[`ward_${log.type}`].attrib.find(x => x.key === 'lifetime').value, duration);
+  const discrepancy = duration - Math.min(360, duration);
 
   const durationColor = log.type === 'observer' ? durationObserverColor(duration) : durationSentryColor(duration);
 

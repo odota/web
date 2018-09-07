@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import {
   Table,
@@ -11,41 +12,152 @@ import heroes from 'dotaconstants/build/heroes.json';
 import ReactTooltip from 'react-tooltip';
 import { abbreviateNumber } from '../../utility';
 import { IconRadiant, IconDire } from '../Icons';
-import mcs from './matchColumns';
 import constants from '../constants';
+import HeroImage from '../Visualizations/HeroImage';
 
-const teamIconStyle = { width: '30px', height: '30px' };
 
-const st = {
-  paddingLeft: 0,
-};
+const StyledDiv = styled.div`
+
+table {
+  border-collapse: separate !important;
+  border-spacing: 0px 0px !important;
+  padding: 0px 3px 3px 3px !important;
+  background-color: ${constants.secondarySurfaceColor};
+}
+
+tr {
+  background-color: rgba(0, 0, 0, 0.019);
+}
+
+td {
+  padding: 0px !important;
+  white-space: normal !important;
+  text-align: center; 
+  &:not(:last-child) {
+    border-right: 1px solid rgba(255, 255, 255, 0.04);
+  }
+}
+
+tr:not(:first-child) td{
+  @media screen and (max-width: ${constants.wrapMobile}) {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+  }
+}
+
+tr:not(:first-child) td {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+tr:first-child td:first-child {
+  background-color: rgba(0, 0, 0, 0.27) !important;
+}
+
+tr:first-child td:not(:first-child) {
+  background: linear-gradient(to bottom, ${constants.tableHeaderSurfaceColor} 15% , rgba(35, 0, 0, 0.3) 100%) !important;
+}
+
+td > div {
+  text-align: center;
+}
+
+td:first-child {
+  width: 30px !important;
+}
+
+tr:first-child {
+  height: 30px !important;
+
+  & td {
+    height: 30px !important;
+  }
+}
+
+tr:not(:first-child) td:first-child {
+border-right: 1px solid ${constants.colorMutedGreen} !important;
+  background: linear-gradient(to right, ${constants.tableHeaderSurfaceColor} 15% , rgba(0, 35, 0, 0.3) 100%) !important;
+  & > div {
+    position: relative;
+    top: 3px;
+    left: 1px;
+  }
+}
+
+tr:first-child td {
+  & > div {
+    position: relative;
+    top: 2px;
+  }
+}
+
+tr:nth-child(2) td:not(:first-child) {
+  border-top: 1px solid ${constants.colorMutedRed} !important;
+}
+
+.value-1 {
+  display: inline-block;
+  background: rgba(0, 3, 0, 0.3);
+  width: 38px;
+  height: 21px;
+  margin: 1px 1px 1px 1px;
+  text-align: center;
+  border: 1px solid ${constants.colorMutedGreen};
+  color: ${constants.colorMutedLight};
+
+  &:nth-child(2) {
+    border: 1px solid ${constants.colorMutedRed} !important;
+    background: rgba(3, 0, 0, 0.3) !important;
+  }
+
+  & span {
+    vertical-align: middle;
+  }
+}
+
+.hero img {
+  width: 25px;
+}
+
+.team {
+  margin: auto;
+  width: 25px;
+
+  & svg {
+    margin: 0 !important;
+  }
+}
+`;
 
 const CrossTable = ({
   match,
   field1,
   field2,
   strings,
-}) => {
-  const { heroTd } = mcs(strings);
-
-  return (
+}) => (
+  <StyledDiv>
     <Table selectable={false} >
       <TableBody displayRowCheckbox={false}>
         <TableRow>
           <TableRowColumn />
-          {match.players.slice(match.players.length / 2, match.players.length).map((player, i) => (
-            <TableRowColumn key={player.hero_id} style={st}>
-              {heroTd(player, 'hero_id', player.hero_id, i, true)}
+          {match.players.slice(match.players.length / 2, match.players.length).map(player => (
+            <TableRowColumn key={player.hero_id}>
+              <div className="hero">
+                {heroes[player.hero_id] && <HeroImage id={player.hero_id} isIcon data-tip={heroes[player.hero_id] && heroes[player.hero_id].localized_name} />}
+              </div>
             </TableRowColumn>))}
-          <TableRowColumn style={st}>
-            <div style={teamIconStyle}>
-              <IconDire />
+          <TableRowColumn>
+            <div className="team">
+              <IconDire data-tip={strings.general_dire} />
             </div>
           </TableRowColumn>
         </TableRow>
-        {match.players.slice(0, match.players.length / 2).map((player, i) => (
+        {match.players.slice(0, match.players.length / 2).map(player => (
           <TableRow key={player.hero_id}>
-            <TableRowColumn>{heroTd(player, 'hero_id', player.hero_id, i, true)}</TableRowColumn>
+            <TableRowColumn>
+              <div className="hero">
+                {heroes[player.hero_id] && <HeroImage id={player.hero_id} isIcon data-tip={heroes[player.hero_id] && heroes[player.hero_id].localized_name} />}
+              </div>
+            </TableRowColumn>
             {match.players.slice(match.players.length / 2, match.players.length).map((player2) => {
           const hero1 = heroes[player.hero_id] || {};
           const hero2 = heroes[player2.hero_id] || {};
@@ -54,11 +166,10 @@ const CrossTable = ({
           const pvalue1 = pfield1[hero2.name] || 0;
           const pvalue2 = pfield2[hero2.name] || 0;
           return (
-            <TableRowColumn key={player2.hero_id} style={st}>
+            <TableRowColumn key={player2.hero_id}>
               <div data-tip data-for={`${field1}_${field2}_${player.player_slot}_${player2.player_slot}`}>
-                <span style={{ color: pvalue1 > pvalue2 ? constants.colorSuccess : '' }}>{abbreviateNumber(pvalue1)}</span>
-                {'/'}
-                <span style={{ color: pvalue2 > pvalue1 ? constants.colorDanger : '' }}>{abbreviateNumber(pvalue2)}</span>
+                <div className="value-1" style={{ color: pvalue1 > pvalue2 ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(pvalue1)}</span></div>
+                <div className="value-1" style={{ color: pvalue2 > pvalue1 ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(pvalue2)}</span></div>
                 <ReactTooltip id={`${field1}_${field2}_${player.player_slot}_${player2.player_slot}`} place="top" effect="solid">
                   {`${hero1.localized_name} → ${hero2.localized_name}: ${pvalue1}`}
                   <br />
@@ -79,11 +190,10 @@ const CrossTable = ({
           });
 
           return (
-            <TableRowColumn key={`${player.hero_id}_totals`} style={st}>
+            <TableRowColumn key={`${player.hero_id}_totals`}>
               <div data-tip data-for={`${field1}_${field2}_${player.player_slot}_radiant`}>
-                <span style={{ color: ptotal1 > ptotal2 ? constants.colorSuccess : '' }}>{abbreviateNumber(ptotal1)}</span>
-                {'/'}
-                <span style={{ color: ptotal2 > ptotal1 ? constants.colorDanger : '' }}>{abbreviateNumber(ptotal2)}</span>
+                <div className="value-1" style={{ color: ptotal1 > ptotal2 ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(ptotal1)}</span></div>
+                <div className="value-1" style={{ color: ptotal2 > ptotal1 ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(ptotal2)}</span></div>
                 <ReactTooltip id={`${field1}_${field2}_${player.player_slot}_radiant`} place="top" effect="solid">
                   {`${hero1.localized_name} → ${strings.general_dire}: ${ptotal1}`}
                   <br />
@@ -96,8 +206,8 @@ const CrossTable = ({
           </TableRow>))}
         <TableRow>
           <TableRowColumn>
-            <div style={teamIconStyle}>
-              <IconRadiant />
+            <div className="team">
+              <IconRadiant data-tip={strings.general_radiant} />
             </div>
           </TableRowColumn>
           { match.players.slice(match.players.length / 2, match.players.length).map((player) => {
@@ -112,11 +222,10 @@ const CrossTable = ({
           });
 
           return (
-            <TableRowColumn key={`${player.hero_id}_totals`} style={st}>
+            <TableRowColumn key={`${player.hero_id}_totals`}>
               <div data-tip data-for={`${field1}_${field2}_${player.player_slot}_dire`}>
-                <span style={{ color: ptotal2 > ptotal1 ? constants.colorSuccess : '' }}>{abbreviateNumber(ptotal2)}</span>
-                {'/'}
-                <span style={{ color: ptotal1 > ptotal2 ? constants.colorDanger : '' }}>{abbreviateNumber(ptotal1)}</span>
+                <div className="value-1" style={{ color: ptotal2 > ptotal1 ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(ptotal2)}</span></div>
+                <div className="value-1" style={{ color: ptotal1 > ptotal2 ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(ptotal1)}</span></div>
                 <ReactTooltip id={`${field1}_${field2}_${player.player_slot}_dire`} place="top" effect="solid">
                   {`${strings.general_radiant} → ${hero1.localized_name}: ${ptotal2}`}
                   <br />
@@ -140,11 +249,10 @@ const CrossTable = ({
           });
 
           return (
-            <TableRowColumn style={st}>
+            <TableRowColumn>
               <div data-tip data-for={`${field1}_${field2}_total`}>
-                <span style={{ color: radiantTotal > direTotal ? constants.colorSuccess : '' }}>{abbreviateNumber(radiantTotal)}</span>
-                {'/'}
-                <span style={{ color: direTotal > radiantTotal ? constants.colorDanger : '' }}>{abbreviateNumber(direTotal)}</span>
+                <div className="value-1" style={{ color: radiantTotal > direTotal ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(radiantTotal)}</span></div>
+                <div className="value-1" style={{ color: direTotal > radiantTotal ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(direTotal)}</span></div>
                 <ReactTooltip id={`${field1}_${field2}_total`} place="top" effect="solid">
                   {`${strings.general_radiant} → ${strings.general_dire}: ${radiantTotal}`}
                   <br />
@@ -156,8 +264,8 @@ const CrossTable = ({
         })()}
         </TableRow>
       </TableBody>
-    </Table>);
-};
+    </Table>
+  </StyledDiv>);
 
 CrossTable.propTypes = {
   match: PropTypes.shape({}),
