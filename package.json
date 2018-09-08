@@ -71,7 +71,8 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.7.0",
-    "simple-vdf": "^1.1.1"
+    "simple-vdf": "^1.1.1",
+    "testcafe": "^0.22.0"
   },
   "reactSnap": {
     "skipThirdPartyRequests": true
