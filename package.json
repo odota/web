@@ -10,6 +10,7 @@
     "build:install": "npm install && npm run lintnofix && npm run build",
     "snapshot": "react-snap",
     "test": "react-scripts test --env=jsdom",
+    "test:e2e": "testcafe chrome test/test1.js",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer build/static/js/main.* --html",
     "lint": "eslint . --ext .js,.jsx --fix",
@@ -72,7 +73,8 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.7.0",
     "simple-vdf": "^1.1.1",
-    "testcafe": "^0.22.0"
+    "testcafe": "^0.22.0",
+    "testcafe-react-selectors": "^3.0.0"
   },
   "reactSnap": {
     "skipThirdPartyRequests": true
