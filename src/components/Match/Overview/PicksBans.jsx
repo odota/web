@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import constants from '../../constants';
-import { getHeroImageUrl, IMAGESIZE_ENUM } from '../../../utility';
+import { IMAGESIZE_ENUM } from '../../../utility';
+import HeroImage from './../../Visualizations/HeroImage';
 
 const Styled = styled.div`
 .PicksBans {
@@ -70,12 +71,7 @@ const PicksBans = ({ data, strings }) => (
     <div className="PicksBans">
       {data.map(pb => (
         <section key={pb.order}>
-          <img
-            src={getHeroImageUrl(pb.hero_id, IMAGESIZE_ENUM.SMALL.suffix)}
-            alt=""
-            className="image"
-            data-isPick={pb.is_pick}
-          />
+          <HeroImage id={pb.hero_id} imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix} data-isPick={pb.is_pick} />
           {!pb.is_pick && <div className="ban" />}
           <aside>
             {pb.is_pick ? strings.match_pick : strings.match_ban} <b>{pb.order + 1}</b>

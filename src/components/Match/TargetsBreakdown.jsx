@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import heroes from 'dotaconstants/build/heroes.json';
 import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 import NavigationArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
@@ -8,6 +7,7 @@ import { inflictorWithValue } from '../Visualizations';
 import { sumValues, getHeroesById, abbreviateNumber } from '../../utility';
 import { StyledDmgTargetInflictor, StyledDmgTargetRow } from './StyledMatch';
 import constants from '../constants';
+import HeroImage from '../Visualizations/HeroImage';
 
 const Dummy = styled.div`
   height:30px;
@@ -59,7 +59,6 @@ const damageTargetIcons = (t) => {
   const targets = [];
   Object.keys(t).forEach((target) => {
     const hero = getHeroesById()[target];
-    const heroicon = hero && heroes[hero.id] && process.env.REACT_APP_API_HOST + heroes[hero.id].icon;
     let j;
     if (hero) {
       j = (
@@ -73,11 +72,10 @@ const damageTargetIcons = (t) => {
           data-for={`${hero.localized_name}`}
         >
           <span id="targetvalue" style={dmgTargetValueStyle}>{`${abbreviateNumber(t[target])}`}</span>
-          <img
-            src={heroicon}
-            alt=""
+          <HeroImage
+            id={hero.id}
+            isIcon
             style={dmgTargetIconStyle}
-            data-tip={`${hero.localized_name}`}
             data-offset="{'right': 5}"
             data-delay-show="50"
           />
@@ -108,17 +106,11 @@ const TargetsBreakdown = ({ field, abilityUses = null }) => {
     }
     const r = [];
     Object.keys(f).forEach((inflictor) => {
-      const value = (
-        <div>
-          <div id="heroTargetValue">{abbreviateNumber(sumValues(f[inflictor]))}</div>
-          <div id="totalValue">{(abilityUses && abilityUses[inflictor]) || abbreviateNumber(sumValues(f[inflictor]))}</div>
-        </div>
-      );
       r.push((
         <div style={{ display: 'flex' }}>
           {
             <StyledDmgTargetInflictor id="target">
-              {inflictorWithValue(inflictor, value)}
+              {inflictorWithValue(inflictor, abbreviateNumber(sumValues(f[inflictor])))}
             </StyledDmgTargetInflictor>
           }
           {<NavigationArrowForward style={arrowStyle} />}

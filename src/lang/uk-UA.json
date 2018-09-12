@@ -92,7 +92,6 @@
   "app_pvgna_alt": "Знайти гайд на Дота 2 від Pvgna",
   "app_rivalry": "Ставки на професійні матчі",
   "app_rivalry_team": "Bet on %s Matches",
-  "app_moremmr": "Learn to play like a PRO",
   "app_refresh": "Оновити історії матчів: Запитати чергу на сканування матчів втрачених через параметри конфіденційності",
   "app_refresh_label": "Оновити",
   "app_login": "Увійти",
@@ -210,7 +209,10 @@
   "explorer_having": "Як мінімум таку кількість матчів",
   "explorer_limit": "Межа",
   "explorer_match": "Матч",
-
+  "explorer_is_ti_team": "Is TI{number} Team",
+  "explorer_mega_comeback": "Won Against Mega Creeps",
+  "explorer_max_gold_adv": "Max Gold Advantage",
+  "explorer_min_gold_adv": "Min Gold Advantage",
   "farm_heroes": "Героїв вбито",
   "farm_creeps": "Вбито кріпів на лінії",
   "farm_neutrals": "Нейтральних істот вбито (включно древніх)",
@@ -426,7 +428,8 @@
   "heading_cm_enabled": "CM enabled",
   "heading_current_players": "Current Players",
   "heading_former_players": "Former Players",
-
+  "heading_damage_dealt": "Damage Dealt",
+  "heading_damage_received": "Damage Received",
   "show_details": "Show details",
   "hide_details": "Hide details",
 
@@ -619,9 +622,9 @@
   "rune_4": "Регенерація",
   "rune_5": "Достаток",
   "rune_6": "Аркана",
-
+ 
   "search_title": "Пошук по гравцю, номеру матчу...",
-
+  "skill_0": "Unknown Skill",
   "skill_1": "Звичайний",
   "skill_2": "Високий",
   "skill_3": "Дуже високий",

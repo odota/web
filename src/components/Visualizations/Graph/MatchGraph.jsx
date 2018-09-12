@@ -17,7 +17,7 @@ import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import Heading from '../../Heading';
 import constants from '../../constants';
-import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHolder, GoldSpan, XpSpan, StyledTooltipGold } from './Styled';
+import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHolder, GoldSpan, XpSpan, StyledTooltipGold, StyledCustomizedTooltip } from './Styled';
 
 const formatGraphTime = minutes => `${minutes}:00`;
 
@@ -31,6 +31,22 @@ const generateDiffData = (match) => {
     }
   });
   return data;
+};
+
+const CustomizedTooltip = ({ label, payload }) => (
+  <StyledCustomizedTooltip>
+    <div className="label">{label}</div>
+    {payload.map((data, i) =>
+    (
+      <div value={data.value} className={`data ${i < 5 && 'isRadiant'}`} style={{ borderLeft: `8px solid ${data.color}` }}>
+        {data.dataKey}: {data.value}
+      </div>)).sort((a, b) => a.props.value < b.props.value)
+    }
+  </StyledCustomizedTooltip>
+);
+CustomizedTooltip.propTypes = {
+  payload: PropTypes.shape({}),
+  label: PropTypes.number,
 };
 
 const XpTooltipContent = ({ payload, strings }) => {
@@ -107,7 +123,7 @@ const XpNetworthGraph = ({
             opacity={0.5}
           />
 
-          <Tooltip content={<XpTooltipContent />} />
+          <Tooltip content={<XpTooltipContent strings={strings} />} />
           <Line
             dot={false}
             dataKey="rXpAdv"
@@ -196,10 +212,7 @@ class PlayersGraph extends React.Component {
                 opacity={0.5}
               />
 
-              <Tooltip
-                itemSorter={(a, b) => a.value < b.value}
-                wrapperStyle={{ backgroundColor: constants.darkPrimaryColor, border: 'none' }}
-              />
+              <Tooltip content={<CustomizedTooltip />} />
               {match.players.map((player) => {
                 const hero = heroes[player.hero_id] || {};
                 const playerColor = playerColors[player.player_slot];

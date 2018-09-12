@@ -131,7 +131,8 @@ const Overview = ({
       loaderHeight={30}
     >
       <Styled
-        data-tip={strings.exclude_turbo_matches}
+        data-hint={strings.exclude_turbo_matches}
+        data-hint-position="top"
         style={{ display: validRecentMatches.some(match => match.game_mode === 23) ? 'inline' : 'none' }}
       >
         <Checkbox

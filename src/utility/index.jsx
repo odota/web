@@ -29,6 +29,11 @@ const day = hour * 24;
 const month = day * 30;
 const year = month * 12;
 
+// temporary host a hero image ourselves:
+// put the hero ID inside this array
+// and upload a {HERO_ID}.png and {HERO_ID}_icon.png image to \assets\images\dota2\heroes
+export const customHeroImage = [];
+
 export const iconStyle = {
   position: 'relative',
   width: 16,
@@ -180,6 +185,9 @@ const getTitle = (row, col, heroName) => {
 };
 
 export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
+  if (customHeroImage.includes(Number(heroId))) {
+    return `/assets/images/dota2/heroes/${heroId}.png`;
+  }
   let imageUrl = heroes[heroId] && process.env.REACT_APP_API_HOST + heroes[heroId].img; // "[api url]/abaddon_full.png?"
   if (imageUrl) {
     imageUrl = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
@@ -605,14 +613,13 @@ export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffi
         <div>
           {row && <span style={{ float: 'left' }}><FromNowTooltip timestamp={row.start_time + row.duration} /></span>}
           {lane ?
-            <img
-              src={`/assets/images/dota2/lane_${lane}.svg`}
-              alt=""
-              data-tip={tooltip}
-              data-offset="{'right': 4, 'top': 4}"
-              data-delay-show="300"
-              style={roleIconStyle}
-            />
+            <span data-hint={tooltip} data-hint-position="top" style={{ float: 'right' }}>
+              <img
+                src={`/assets/images/dota2/lane_${lane}.svg`}
+                alt=""
+                style={roleIconStyle}
+              />
+            </span>
           : ''}
         </div>);
     } else if (row.last_played) {
@@ -628,6 +635,7 @@ export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffi
     <TableHeroImage
       parsed={row.version}
       image={imageUrl}
+      heroID={row.hero_id}
       title={getTitle(row, col, heroName)}
       subtitle={getSubtitle(row)}
       heroName={heroName}
@@ -726,9 +734,8 @@ export const transformations = {
           </span>
           <span
             style={partyStyle}
-            data-tip={`${strings.filter_party_size} ${row.party_size || strings.game_mode_0}`}
-            data-offset="{'top': 4, 'right' : 8}"
-            data-delay-show="300"
+            data-hint={`${strings.filter_party_size} ${row.party_size || strings.game_mode_0}`}
+            data-hint-position="top"
           >
             {partySize(row.party_size)}
           </span>
@@ -808,4 +815,15 @@ const transformMatchItem = ({
 
 for (let i = 0; i < 6; i += 1) {
   transformations[`item_${i}`] = transformMatchItem;
+}
+
+// find and style/highlight number values in tooltip descriptions
+export function styleValues(el) {
+  if (el) {
+    const element = el;
+    element.innerHTML = el.innerHTML
+      .replace(/(,)(\d)/gm, ' / $2')
+      .replace(/\+?\s?-?\s?\d+\.?%?\d*%?x?/gm, '<span style="font-weight:500;color:#F5F5F5">$&</span>');
+  }
+  return null;
 }
