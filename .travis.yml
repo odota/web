@@ -4,7 +4,6 @@ language: node_js
 node_js:
 - '10'
 addons:
-  firefox: latest
   apt:
     sources:
      - google-chrome
