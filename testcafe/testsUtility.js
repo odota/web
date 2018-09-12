@@ -36,7 +36,7 @@ export const fixtureBeforeHook = async (ctx) => {
 };
 
 export const fixtureBeforeEachHook = async () => {
-  await waitForReact();
+  await waitForReact(100000);
 };
 
 export const fixtureAfterHook = async (ctx) => {
