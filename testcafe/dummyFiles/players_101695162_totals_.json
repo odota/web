@@ -1,0 +1,42 @@
+[
+	{
+		"field": "kills",
+		"n": 6075,
+		"sum": 46663
+	},
+	{
+		"field": "deaths",
+		"n": 6075,
+		"sum": 32182
+	},
+	{
+		"field": "assists",
+		"n": 6075,
+		"sum": 75645
+	},
+	{
+		"field": "kda",
+		"n": 6075,
+		"sum": 25455
+	},
+	{
+		"field": "gold_per_min",
+		"n": 6075,
+		"sum": 2698748
+	},
+	{
+		"field": "xp_per_min",
+		"n": 6075,
+		"sum": 2956810
+	},
+	{
+		"field": "last_hits",
+		"n": 6075,
+		"sum": 829735
+	},
+	{
+		"field": "denies",
+		"n": 6075,
+		"sum": 49025
+	}
+]
