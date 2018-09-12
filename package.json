@@ -10,7 +10,7 @@
     "build:install": "npm install && npm run lintnofix && npm run build",
     "snapshot": "react-snap",
     "test": "react-scripts test --env=jsdom",
-    "testcafe": "testcafe -c 4 chrome testcafe/ --app \"react-scripts start\" --app-init-delay 20000",
+    "testcafe": "testcafe -c 4 chrome testcafe/ --app \"react-scripts start\" --app-init-delay 30000",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer build/static/js/main.* --html",
     "lint": "eslint . --ext .js,.jsx --fix",
