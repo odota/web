@@ -9,7 +9,7 @@ import {
   waitForReact,
 } from 'testcafe-react-selectors';
 
-export const host = 'http://localhost:3000';
+export const host = 'http://localhost:5000';
 
 async function fetchFromAPI(requestURL) {
   const response = await fetch(requestURL);
