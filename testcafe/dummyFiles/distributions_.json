@@ -1,0 +1,2471 @@
+{
+	"ranks": {
+		"command": "SELECT",
+		"rowCount": 36,
+		"oid": null,
+		"rows": [
+			{
+				"bin": 11,
+				"bin_name": 11,
+				"count": 280,
+				"cumulative_sum": 280
+			},
+			{
+				"bin": 12,
+				"bin_name": 12,
+				"count": 2907,
+				"cumulative_sum": 3187
+			},
+			{
+				"bin": 13,
+				"bin_name": 13,
+				"count": 10829,
+				"cumulative_sum": 14016
+			},
+			{
+				"bin": 14,
+				"bin_name": 14,
+				"count": 18523,
+				"cumulative_sum": 32539
+			},
+			{
+				"bin": 15,
+				"bin_name": 15,
+				"count": 24104,
+				"cumulative_sum": 56643
+			},
+			{
+				"bin": 21,
+				"bin_name": 21,
+				"count": 30208,
+				"cumulative_sum": 86851
+			},
+			{
+				"bin": 22,
+				"bin_name": 22,
+				"count": 36394,
+				"cumulative_sum": 123245
+			},
+			{
+				"bin": 23,
+				"bin_name": 23,
+				"count": 42887,
+				"cumulative_sum": 166132
+			},
+			{
+				"bin": 24,
+				"bin_name": 24,
+				"count": 49975,
+				"cumulative_sum": 216107
+			},
+			{
+				"bin": 25,
+				"bin_name": 25,
+				"count": 58518,
+				"cumulative_sum": 274625
+			},
+			{
+				"bin": 31,
+				"bin_name": 31,
+				"count": 68151,
+				"cumulative_sum": 342776
+			},
+			{
+				"bin": 32,
+				"bin_name": 32,
+				"count": 77422,
+				"cumulative_sum": 420198
+			},
+			{
+				"bin": 33,
+				"bin_name": 33,
+				"count": 86238,
+				"cumulative_sum": 506436
+			},
+			{
+				"bin": 34,
+				"bin_name": 34,
+				"count": 95713,
+				"cumulative_sum": 602149
+			},
+			{
+				"bin": 35,
+				"bin_name": 35,
+				"count": 103750,
+				"cumulative_sum": 705899
+			},
+			{
+				"bin": 41,
+				"bin_name": 41,
+				"count": 114904,
+				"cumulative_sum": 820803
+			},
+			{
+				"bin": 42,
+				"bin_name": 42,
+				"count": 121727,
+				"cumulative_sum": 942530
+			},
+			{
+				"bin": 43,
+				"bin_name": 43,
+				"count": 126972,
+				"cumulative_sum": 1069502
+			},
+			{
+				"bin": 44,
+				"bin_name": 44,
+				"count": 131179,
+				"cumulative_sum": 1200681
+			},
+			{
+				"bin": 45,
+				"bin_name": 45,
+				"count": 133026,
+				"cumulative_sum": 1333707
+			},
+			{
+				"bin": 51,
+				"bin_name": 51,
+				"count": 136646,
+				"cumulative_sum": 1470353
+			},
+			{
+				"bin": 52,
+				"bin_name": 52,
+				"count": 130584,
+				"cumulative_sum": 1600937
+			},
+			{
+				"bin": 53,
+				"bin_name": 53,
+				"count": 118668,
+				"cumulative_sum": 1719605
+			},
+			{
+				"bin": 54,
+				"bin_name": 54,
+				"count": 104923,
+				"cumulative_sum": 1824528
+			},
+			{
+				"bin": 55,
+				"bin_name": 55,
+				"count": 90000,
+				"cumulative_sum": 1914528
+			},
+			{
+				"bin": 61,
+				"bin_name": 61,
+				"count": 78864,
+				"cumulative_sum": 1993392
+			},
+			{
+				"bin": 62,
+				"bin_name": 62,
+				"count": 62520,
+				"cumulative_sum": 2055912
+			},
+			{
+				"bin": 63,
+				"bin_name": 63,
+				"count": 48824,
+				"cumulative_sum": 2104736
+			},
+			{
+				"bin": 64,
+				"bin_name": 64,
+				"count": 37980,
+				"cumulative_sum": 2142716
+			},
+			{
+				"bin": 65,
+				"bin_name": 65,
+				"count": 46863,
+				"cumulative_sum": 2189579
+			},
+			{
+				"bin": 71,
+				"bin_name": 71,
+				"count": 18815,
+				"cumulative_sum": 2208394
+			},
+			{
+				"bin": 72,
+				"bin_name": 72,
+				"count": 14055,
+				"cumulative_sum": 2222449
+			},
+			{
+				"bin": 73,
+				"bin_name": 73,
+				"count": 9901,
+				"cumulative_sum": 2232350
+			},
+			{
+				"bin": 74,
+				"bin_name": 74,
+				"count": 7177,
+				"cumulative_sum": 2239527
+			},
+			{
+				"bin": 75,
+				"bin_name": 75,
+				"count": 5218,
+				"cumulative_sum": 2244745
+			},
+			{
+				"bin": 80,
+				"bin_name": 80,
+				"count": 14171,
+				"cumulative_sum": 2258916
+			}
+		],
+		"fields": [
+			{
+				"name": "bin",
+				"tableID": 944157075,
+				"columnID": 2,
+				"dataTypeID": 23,
+				"dataTypeSize": 4,
+				"dataTypeModifier": -1,
+				"format": "text"
+			},
+			{
+				"name": "bin_name",
+				"tableID": 944157075,
+				"columnID": 2,
+				"dataTypeID": 23,
+				"dataTypeSize": 4,
+				"dataTypeModifier": -1,
+				"format": "text"
+			},
+			{
+				"name": "count",
+				"tableID": 0,
+				"columnID": 0,
+				"dataTypeID": 20,
+				"dataTypeSize": 8,
+				"dataTypeModifier": -1,
+				"format": "text"
+			}
+		],
+		"_parsers": [
+			null,
+			null,
+			null
+		],
+		"RowCtor": null,
+		"rowAsArray": false,
+		"sum": {
+			"count": 2258916
+		}
+	},
+	"mmr": {
+		"command": "SELECT",
+		"rowCount": 98,
+		"oid": null,
+		"rows": [
+			{
+				"bin": 0,
+				"bin_name": 0,
+				"count": 7473,
+				"cumulative_sum": 7473
+			},
+			{
+				"bin": 1,
+				"bin_name": 100,
+				"count": 5361,
+				"cumulative_sum": 12834
+			},
+			{
+				"bin": 2,
+				"bin_name": 200,
+				"count": 6382,
+				"cumulative_sum": 19216
+			},
+			{
+				"bin": 3,
+				"bin_name": 300,
+				"count": 7965,
+				"cumulative_sum": 27181
+			},
+			{
+				"bin": 4,
+				"bin_name": 400,
+				"count": 9262,
+				"cumulative_sum": 36443
+			},
+			{
+				"bin": 5,
+				"bin_name": 500,
+				"count": 10964,
+				"cumulative_sum": 47407
+			},
+			{
+				"bin": 6,
+				"bin_name": 600,
+				"count": 12941,
+				"cumulative_sum": 60348
+			},
+			{
+				"bin": 7,
+				"bin_name": 700,
+				"count": 14840,
+				"cumulative_sum": 75188
+			},
+			{
+				"bin": 8,
+				"bin_name": 800,
+				"count": 16956,
+				"cumulative_sum": 92144
+			},
+			{
+				"bin": 9,
+				"bin_name": 900,
+				"count": 20971,
+				"cumulative_sum": 113115
+			},
+			{
+				"bin": 10,
+				"bin_name": 1000,
+				"count": 25134,
+				"cumulative_sum": 138249
+			},
+			{
+				"bin": 11,
+				"bin_name": 1100,
+				"count": 26857,
+				"cumulative_sum": 165106
+			},
+			{
+				"bin": 12,
+				"bin_name": 1200,
+				"count": 28788,
+				"cumulative_sum": 193894
+			},
+			{
+				"bin": 13,
+				"bin_name": 1300,
+				"count": 31574,
+				"cumulative_sum": 225468
+			},
+			{
+				"bin": 14,
+				"bin_name": 1400,
+				"count": 34782,
+				"cumulative_sum": 260250
+			},
+			{
+				"bin": 15,
+				"bin_name": 1500,
+				"count": 37509,
+				"cumulative_sum": 297759
+			},
+			{
+				"bin": 16,
+				"bin_name": 1600,
+				"count": 40633,
+				"cumulative_sum": 338392
+			},
+			{
+				"bin": 17,
+				"bin_name": 1700,
+				"count": 43609,
+				"cumulative_sum": 382001
+			},
+			{
+				"bin": 18,
+				"bin_name": 1800,
+				"count": 47586,
+				"cumulative_sum": 429587
+			},
+			{
+				"bin": 19,
+				"bin_name": 1900,
+				"count": 54496,
+				"cumulative_sum": 484083
+			},
+			{
+				"bin": 20,
+				"bin_name": 2000,
+				"count": 65272,
+				"cumulative_sum": 549355
+			},
+			{
+				"bin": 21,
+				"bin_name": 2100,
+				"count": 64472,
+				"cumulative_sum": 613827
+			},
+			{
+				"bin": 22,
+				"bin_name": 2200,
+				"count": 68082,
+				"cumulative_sum": 681909
+			},
+			{
+				"bin": 23,
+				"bin_name": 2300,
+				"count": 71264,
+				"cumulative_sum": 753173
+			},
+			{
+				"bin": 24,
+				"bin_name": 2400,
+				"count": 75942,
+				"cumulative_sum": 829115
+			},
+			{
+				"bin": 25,
+				"bin_name": 2500,
+				"count": 79475,
+				"cumulative_sum": 908590
+			},
+			{
+				"bin": 26,
+				"bin_name": 2600,
+				"count": 82990,
+				"cumulative_sum": 991580
+			},
+			{
+				"bin": 27,
+				"bin_name": 2700,
+				"count": 85347,
+				"cumulative_sum": 1076927
+			},
+			{
+				"bin": 28,
+				"bin_name": 2800,
+				"count": 89603,
+				"cumulative_sum": 1166530
+			},
+			{
+				"bin": 29,
+				"bin_name": 2900,
+				"count": 100041,
+				"cumulative_sum": 1266571
+			},
+			{
+				"bin": 30,
+				"bin_name": 3000,
+				"count": 124998,
+				"cumulative_sum": 1391569
+			},
+			{
+				"bin": 31,
+				"bin_name": 3100,
+				"count": 109547,
+				"cumulative_sum": 1501116
+			},
+			{
+				"bin": 32,
+				"bin_name": 3200,
+				"count": 106357,
+				"cumulative_sum": 1607473
+			},
+			{
+				"bin": 33,
+				"bin_name": 3300,
+				"count": 103282,
+				"cumulative_sum": 1710755
+			},
+			{
+				"bin": 34,
+				"bin_name": 3400,
+				"count": 101297,
+				"cumulative_sum": 1812052
+			},
+			{
+				"bin": 35,
+				"bin_name": 3500,
+				"count": 95995,
+				"cumulative_sum": 1908047
+			},
+			{
+				"bin": 36,
+				"bin_name": 3600,
+				"count": 83196,
+				"cumulative_sum": 1991243
+			},
+			{
+				"bin": 37,
+				"bin_name": 3700,
+				"count": 75430,
+				"cumulative_sum": 2066673
+			},
+			{
+				"bin": 38,
+				"bin_name": 3800,
+				"count": 69235,
+				"cumulative_sum": 2135908
+			},
+			{
+				"bin": 39,
+				"bin_name": 3900,
+				"count": 67618,
+				"cumulative_sum": 2203526
+			},
+			{
+				"bin": 40,
+				"bin_name": 4000,
+				"count": 93092,
+				"cumulative_sum": 2296618
+			},
+			{
+				"bin": 41,
+				"bin_name": 4100,
+				"count": 62724,
+				"cumulative_sum": 2359342
+			},
+			{
+				"bin": 42,
+				"bin_name": 4200,
+				"count": 53132,
+				"cumulative_sum": 2412474
+			},
+			{
+				"bin": 43,
+				"bin_name": 4300,
+				"count": 44464,
+				"cumulative_sum": 2456938
+			},
+			{
+				"bin": 44,
+				"bin_name": 4400,
+				"count": 38709,
+				"cumulative_sum": 2495647
+			},
+			{
+				"bin": 45,
+				"bin_name": 4500,
+				"count": 33219,
+				"cumulative_sum": 2528866
+			},
+			{
+				"bin": 46,
+				"bin_name": 4600,
+				"count": 25233,
+				"cumulative_sum": 2554099
+			},
+			{
+				"bin": 47,
+				"bin_name": 4700,
+				"count": 19308,
+				"cumulative_sum": 2573407
+			},
+			{
+				"bin": 48,
+				"bin_name": 4800,
+				"count": 15103,
+				"cumulative_sum": 2588510
+			},
+			{
+				"bin": 49,
+				"bin_name": 4900,
+				"count": 13087,
+				"cumulative_sum": 2601597
+			},
+			{
+				"bin": 50,
+				"bin_name": 5000,
+				"count": 22760,
+				"cumulative_sum": 2624357
+			},
+			{
+				"bin": 51,
+				"bin_name": 5100,
+				"count": 10482,
+				"cumulative_sum": 2634839
+			},
+			{
+				"bin": 52,
+				"bin_name": 5200,
+				"count": 7449,
+				"cumulative_sum": 2642288
+			},
+			{
+				"bin": 53,
+				"bin_name": 5300,
+				"count": 5579,
+				"cumulative_sum": 2647867
+			},
+			{
+				"bin": 54,
+				"bin_name": 5400,
+				"count": 4396,
+				"cumulative_sum": 2652263
+			},
+			{
+				"bin": 55,
+				"bin_name": 5500,
+				"count": 4073,
+				"cumulative_sum": 2656336
+			},
+			{
+				"bin": 56,
+				"bin_name": 5600,
+				"count": 2673,
+				"cumulative_sum": 2659009
+			},
+			{
+				"bin": 57,
+				"bin_name": 5700,
+				"count": 2145,
+				"cumulative_sum": 2661154
+			},
+			{
+				"bin": 58,
+				"bin_name": 5800,
+				"count": 1686,
+				"cumulative_sum": 2662840
+			},
+			{
+				"bin": 59,
+				"bin_name": 5900,
+				"count": 1529,
+				"cumulative_sum": 2664369
+			},
+			{
+				"bin": 60,
+				"bin_name": 6000,
+				"count": 2961,
+				"cumulative_sum": 2667330
+			},
+			{
+				"bin": 61,
+				"bin_name": 6100,
+				"count": 1259,
+				"cumulative_sum": 2668589
+			},
+			{
+				"bin": 62,
+				"bin_name": 6200,
+				"count": 860,
+				"cumulative_sum": 2669449
+			},
+			{
+				"bin": 63,
+				"bin_name": 6300,
+				"count": 662,
+				"cumulative_sum": 2670111
+			},
+			{
+				"bin": 64,
+				"bin_name": 6400,
+				"count": 546,
+				"cumulative_sum": 2670657
+			},
+			{
+				"bin": 65,
+				"bin_name": 6500,
+				"count": 535,
+				"cumulative_sum": 2671192
+			},
+			{
+				"bin": 66,
+				"bin_name": 6600,
+				"count": 329,
+				"cumulative_sum": 2671521
+			},
+			{
+				"bin": 67,
+				"bin_name": 6700,
+				"count": 280,
+				"cumulative_sum": 2671801
+			},
+			{
+				"bin": 68,
+				"bin_name": 6800,
+				"count": 214,
+				"cumulative_sum": 2672015
+			},
+			{
+				"bin": 69,
+				"bin_name": 6900,
+				"count": 184,
+				"cumulative_sum": 2672199
+			},
+			{
+				"bin": 70,
+				"bin_name": 7000,
+				"count": 386,
+				"cumulative_sum": 2672585
+			},
+			{
+				"bin": 71,
+				"bin_name": 7100,
+				"count": 184,
+				"cumulative_sum": 2672769
+			},
+			{
+				"bin": 72,
+				"bin_name": 7200,
+				"count": 101,
+				"cumulative_sum": 2672870
+			},
+			{
+				"bin": 73,
+				"bin_name": 7300,
+				"count": 112,
+				"cumulative_sum": 2672982
+			},
+			{
+				"bin": 74,
+				"bin_name": 7400,
+				"count": 97,
+				"cumulative_sum": 2673079
+			},
+			{
+				"bin": 75,
+				"bin_name": 7500,
+				"count": 71,
+				"cumulative_sum": 2673150
+			},
+			{
+				"bin": 76,
+				"bin_name": 7600,
+				"count": 47,
+				"cumulative_sum": 2673197
+			},
+			{
+				"bin": 77,
+				"bin_name": 7700,
+				"count": 44,
+				"cumulative_sum": 2673241
+			},
+			{
+				"bin": 78,
+				"bin_name": 7800,
+				"count": 36,
+				"cumulative_sum": 2673277
+			},
+			{
+				"bin": 79,
+				"bin_name": 7900,
+				"count": 28,
+				"cumulative_sum": 2673305
+			},
+			{
+				"bin": 80,
+				"bin_name": 8000,
+				"count": 69,
+				"cumulative_sum": 2673374
+			},
+			{
+				"bin": 81,
+				"bin_name": 8100,
+				"count": 23,
+				"cumulative_sum": 2673397
+			},
+			{
+				"bin": 82,
+				"bin_name": 8200,
+				"count": 21,
+				"cumulative_sum": 2673418
+			},
+			{
+				"bin": 83,
+				"bin_name": 8300,
+				"count": 9,
+				"cumulative_sum": 2673427
+			},
+			{
+				"bin": 84,
+				"bin_name": 8400,
+				"count": 15,
+				"cumulative_sum": 2673442
+			},
+			{
+				"bin": 85,
+				"bin_name": 8500,
+				"count": 13,
+				"cumulative_sum": 2673455
+			},
+			{
+				"bin": 86,
+				"bin_name": 8600,
+				"count": 4,
+				"cumulative_sum": 2673459
+			},
+			{
+				"bin": 87,
+				"bin_name": 8700,
+				"count": 5,
+				"cumulative_sum": 2673464
+			},
+			{
+				"bin": 88,
+				"bin_name": 8800,
+				"count": 7,
+				"cumulative_sum": 2673471
+			},
+			{
+				"bin": 89,
+				"bin_name": 8900,
+				"count": 5,
+				"cumulative_sum": 2673476
+			},
+			{
+				"bin": 90,
+				"bin_name": 9000,
+				"count": 8,
+				"cumulative_sum": 2673484
+			},
+			{
+				"bin": 91,
+				"bin_name": 9100,
+				"count": 1,
+				"cumulative_sum": 2673485
+			},
+			{
+				"bin": 93,
+				"bin_name": 9300,
+				"count": 3,
+				"cumulative_sum": 2673488
+			},
+			{
+				"bin": 94,
+				"bin_name": 9400,
+				"count": 1,
+				"cumulative_sum": 2673489
+			},
+			{
+				"bin": 95,
+				"bin_name": 9500,
+				"count": 1,
+				"cumulative_sum": 2673490
+			},
+			{
+				"bin": 96,
+				"bin_name": 9600,
+				"count": 1,
+				"cumulative_sum": 2673491
+			},
+			{
+				"bin": 97,
+				"bin_name": 9700,
+				"count": 1,
+				"cumulative_sum": 2673492
+			},
+			{
+				"bin": 100,
+				"bin_name": 10000,
+				"count": 1,
+				"cumulative_sum": 2673493
+			}
+		],
+		"fields": [
+			{
+				"name": "bin",
+				"tableID": 0,
+				"columnID": 0,
+				"dataTypeID": 23,
+				"dataTypeSize": 4,
+				"dataTypeModifier": -1,
+				"format": "text"
+			},
+			{
+				"name": "bin_name",
+				"tableID": 0,
+				"columnID": 0,
+				"dataTypeID": 23,
+				"dataTypeSize": 4,
+				"dataTypeModifier": -1,
+				"format": "text"
+			},
+			{
+				"name": "count",
+				"tableID": 0,
+				"columnID": 0,
+				"dataTypeID": 20,
+				"dataTypeSize": 8,
+				"dataTypeModifier": -1,
+				"format": "text"
+			}
+		],
+		"_parsers": [
+			null,
+			null,
+			null
+		],
+		"RowCtor": null,
+		"rowAsArray": false,
+		"sum": {
+			"count": 2673493
+		}
+	},
+	"country_mmr": {
+		"command": "SELECT",
+		"rowCount": 255,
+		"oid": null,
+		"rows": [
+			{
+				"loccountrycode": "AN",
+				"count": 1,
+				"avg": "4085",
+				"common": "AN"
+			},
+			{
+				"loccountrycode": "SG",
+				"count": 12424,
+				"avg": "3568",
+				"common": "Singapore"
+			},
+			{
+				"loccountrycode": "PM",
+				"count": 86,
+				"avg": "3479",
+				"common": "Saint Pierre and Miquelon"
+			},
+			{
+				"loccountrycode": "VN",
+				"count": 14764,
+				"avg": "3407",
+				"common": "Vietnam"
+			},
+			{
+				"loccountrycode": "DK",
+				"count": 3674,
+				"avg": "3402",
+				"common": "Denmark"
+			},
+			{
+				"loccountrycode": "KR",
+				"count": 6718,
+				"avg": "3391",
+				"common": "South Korea"
+			},
+			{
+				"loccountrycode": "YU",
+				"count": 229,
+				"avg": "3385",
+				"common": "YU"
+			},
+			{
+				"loccountrycode": "WF",
+				"count": 249,
+				"avg": "3373",
+				"common": "Wallis and Futuna"
+			},
+			{
+				"loccountrycode": "CV",
+				"count": 116,
+				"avg": "3367",
+				"common": "Cape Verde"
+			},
+			{
+				"loccountrycode": "VA",
+				"count": 1802,
+				"avg": "3355",
+				"common": "Vatican City"
+			},
+			{
+				"loccountrycode": "SH",
+				"count": 227,
+				"avg": "3351",
+				"common": "Saint Helena, Ascension and Tristan da Cunha"
+			},
+			{
+				"loccountrycode": "BG",
+				"count": 2460,
+				"avg": "3346",
+				"common": "Bulgaria"
+			},
+			{
+				"loccountrycode": "BN",
+				"count": 249,
+				"avg": "3339",
+				"common": "Brunei"
+			},
+			{
+				"loccountrycode": "HR",
+				"count": 1879,
+				"avg": "3332",
+				"common": "Croatia"
+			},
+			{
+				"loccountrycode": "IS",
+				"count": 1833,
+				"avg": "3327",
+				"common": "Iceland"
+			},
+			{
+				"loccountrycode": "GS",
+				"count": 512,
+				"avg": "3324",
+				"common": "South Georgia"
+			},
+			{
+				"loccountrycode": "HM",
+				"count": 813,
+				"avg": "3323",
+				"common": "Heard Island and McDonald Islands"
+			},
+			{
+				"loccountrycode": "GR",
+				"count": 3615,
+				"avg": "3323",
+				"common": "Greece"
+			},
+			{
+				"loccountrycode": "CX",
+				"count": 1036,
+				"avg": "3315",
+				"common": "Christmas Island"
+			},
+			{
+				"loccountrycode": "TK",
+				"count": 116,
+				"avg": "3307",
+				"common": "Tokelau"
+			},
+			{
+				"loccountrycode": "BM",
+				"count": 318,
+				"avg": "3304",
+				"common": "Bermuda"
+			},
+			{
+				"loccountrycode": "JO",
+				"count": 2027,
+				"avg": "3303",
+				"common": "Jordan"
+			},
+			{
+				"loccountrycode": "SE",
+				"count": 15723,
+				"avg": "3300",
+				"common": "Sweden"
+			},
+			{
+				"loccountrycode": "MH",
+				"count": 149,
+				"avg": "3299",
+				"common": "Marshall Islands"
+			},
+			{
+				"loccountrycode": "KI",
+				"count": 93,
+				"avg": "3297",
+				"common": "Kiribati"
+			},
+			{
+				"loccountrycode": "SC",
+				"count": 126,
+				"avg": "3292",
+				"common": "Seychelles"
+			},
+			{
+				"loccountrycode": "TC",
+				"count": 79,
+				"avg": "3292",
+				"common": "Turks and Caicos Islands"
+			},
+			{
+				"loccountrycode": "FI",
+				"count": 5270,
+				"avg": "3286",
+				"common": "Finland"
+			},
+			{
+				"loccountrycode": "SJ",
+				"count": 86,
+				"avg": "3274",
+				"common": "Svalbard and Jan Mayen"
+			},
+			{
+				"loccountrycode": "LI",
+				"count": 189,
+				"avg": "3272",
+				"common": "Liechtenstein"
+			},
+			{
+				"loccountrycode": "CI",
+				"count": 172,
+				"avg": "3270",
+				"common": "Ivory Coast"
+			},
+			{
+				"loccountrycode": "AT",
+				"count": 2442,
+				"avg": "3267",
+				"common": "Austria"
+			},
+			{
+				"loccountrycode": "HK",
+				"count": 1994,
+				"avg": "3265",
+				"common": "Hong Kong"
+			},
+			{
+				"loccountrycode": "BF",
+				"count": 188,
+				"avg": "3265",
+				"common": "Burkina Faso"
+			},
+			{
+				"loccountrycode": "FO",
+				"count": 201,
+				"avg": "3259",
+				"common": "Faroe Islands"
+			},
+			{
+				"loccountrycode": "CD",
+				"count": 127,
+				"avg": "3253",
+				"common": "DR Congo"
+			},
+			{
+				"loccountrycode": "MS",
+				"count": 76,
+				"avg": "3246",
+				"common": "Montserrat"
+			},
+			{
+				"loccountrycode": "VC",
+				"count": 223,
+				"avg": "3244",
+				"common": "Saint Vincent and the Grenadines"
+			},
+			{
+				"loccountrycode": "CN",
+				"count": 187906,
+				"avg": "3243",
+				"common": "China"
+			},
+			{
+				"loccountrycode": "AU",
+				"count": 16652,
+				"avg": "3238",
+				"common": "Australia"
+			},
+			{
+				"loccountrycode": "SS",
+				"count": 50,
+				"avg": "3235",
+				"common": "South Sudan"
+			},
+			{
+				"loccountrycode": "MK",
+				"count": 1466,
+				"avg": "3234",
+				"common": "Macedonia"
+			},
+			{
+				"loccountrycode": "SN",
+				"count": 84,
+				"avg": "3231",
+				"common": "Senegal"
+			},
+			{
+				"loccountrycode": "CA",
+				"count": 31905,
+				"avg": "3223",
+				"common": "Canada"
+			},
+			{
+				"loccountrycode": "CY",
+				"count": 346,
+				"avg": "3221",
+				"common": "Cyprus"
+			},
+			{
+				"loccountrycode": "NZ",
+				"count": 3555,
+				"avg": "3221",
+				"common": "New Zealand"
+			},
+			{
+				"loccountrycode": "CH",
+				"count": 2595,
+				"avg": "3220",
+				"common": "Switzerland"
+			},
+			{
+				"loccountrycode": "TW",
+				"count": 1370,
+				"avg": "3218",
+				"common": "Taiwan"
+			},
+			{
+				"loccountrycode": "LU",
+				"count": 705,
+				"avg": "3215",
+				"common": "Luxembourg"
+			},
+			{
+				"loccountrycode": "RS",
+				"count": 4211,
+				"avg": "3208",
+				"common": "Serbia"
+			},
+			{
+				"loccountrycode": "ZW",
+				"count": 3526,
+				"avg": "3208",
+				"common": "Zimbabwe"
+			},
+			{
+				"loccountrycode": "MV",
+				"count": 489,
+				"avg": "3204",
+				"common": "Maldives"
+			},
+			{
+				"loccountrycode": "YT",
+				"count": 77,
+				"avg": "3202",
+				"common": "Mayotte"
+			},
+			{
+				"loccountrycode": "KH",
+				"count": 1109,
+				"avg": "3201",
+				"common": "Cambodia"
+			},
+			{
+				"loccountrycode": "GF",
+				"count": 51,
+				"avg": "3201",
+				"common": "French Guiana"
+			},
+			{
+				"loccountrycode": "NL",
+				"count": 4307,
+				"avg": "3200",
+				"common": "Netherlands"
+			},
+			{
+				"loccountrycode": "IM",
+				"count": 502,
+				"avg": "3199",
+				"common": "Isle of Man"
+			},
+			{
+				"loccountrycode": "KY",
+				"count": 152,
+				"avg": "3199",
+				"common": "Cayman Islands"
+			},
+			{
+				"loccountrycode": "YE",
+				"count": 408,
+				"avg": "3198",
+				"common": "Yemen"
+			},
+			{
+				"loccountrycode": "MO",
+				"count": 327,
+				"avg": "3195",
+				"common": "Macau"
+			},
+			{
+				"loccountrycode": "GU",
+				"count": 137,
+				"avg": "3194",
+				"common": "Guam"
+			},
+			{
+				"loccountrycode": "NR",
+				"count": 127,
+				"avg": "3193",
+				"common": "Nauru"
+			},
+			{
+				"loccountrycode": "LB",
+				"count": 980,
+				"avg": "3193",
+				"common": "Lebanon"
+			},
+			{
+				"loccountrycode": "SL",
+				"count": 181,
+				"avg": "3189",
+				"common": "Sierra Leone"
+			},
+			{
+				"loccountrycode": "BQ",
+				"count": 175,
+				"avg": "3189",
+				"common": "Caribbean Netherlands"
+			},
+			{
+				"loccountrycode": "SR",
+				"count": 98,
+				"avg": "3188",
+				"common": "Suriname"
+			},
+			{
+				"loccountrycode": "ME",
+				"count": 307,
+				"avg": "3187",
+				"common": "Montenegro"
+			},
+			{
+				"loccountrycode": "CW",
+				"count": 64,
+				"avg": "3185",
+				"common": "Curaçao"
+			},
+			{
+				"loccountrycode": "VG",
+				"count": 385,
+				"avg": "3183",
+				"common": "British Virgin Islands"
+			},
+			{
+				"loccountrycode": "SB",
+				"count": 188,
+				"avg": "3181",
+				"common": "Solomon Islands"
+			},
+			{
+				"loccountrycode": "BB",
+				"count": 288,
+				"avg": "3179",
+				"common": "Barbados"
+			},
+			{
+				"loccountrycode": "TH",
+				"count": 10336,
+				"avg": "3179",
+				"common": "Thailand"
+			},
+			{
+				"loccountrycode": "KP",
+				"count": 1461,
+				"avg": "3178",
+				"common": "North Korea"
+			},
+			{
+				"loccountrycode": "LT",
+				"count": 1529,
+				"avg": "3173",
+				"common": "Lithuania"
+			},
+			{
+				"loccountrycode": "CC",
+				"count": 445,
+				"avg": "3171",
+				"common": "Cocos (Keeling) Islands"
+			},
+			{
+				"loccountrycode": "PS",
+				"count": 607,
+				"avg": "3171",
+				"common": "Palestine"
+			},
+			{
+				"loccountrycode": "SA",
+				"count": 881,
+				"avg": "3170",
+				"common": "Saudi Arabia"
+			},
+			{
+				"loccountrycode": "GP",
+				"count": 89,
+				"avg": "3168",
+				"common": "Guadeloupe"
+			},
+			{
+				"loccountrycode": "KN",
+				"count": 127,
+				"avg": "3164",
+				"common": "Saint Kitts and Nevis"
+			},
+			{
+				"loccountrycode": "GQ",
+				"count": 52,
+				"avg": "3163",
+				"common": "Equatorial Guinea"
+			},
+			{
+				"loccountrycode": "HT",
+				"count": 357,
+				"avg": "3163",
+				"common": "Haiti"
+			},
+			{
+				"loccountrycode": "CM",
+				"count": 185,
+				"avg": "3162",
+				"common": "Cameroon"
+			},
+			{
+				"loccountrycode": "IO",
+				"count": 237,
+				"avg": "3161",
+				"common": "British Indian Ocean Territory"
+			},
+			{
+				"loccountrycode": "MZ",
+				"count": 187,
+				"avg": "3159",
+				"common": "Mozambique"
+			},
+			{
+				"loccountrycode": "TP",
+				"count": 4,
+				"avg": "3157",
+				"common": "TP"
+			},
+			{
+				"loccountrycode": "FM",
+				"count": 154,
+				"avg": "3157",
+				"common": "Micronesia"
+			},
+			{
+				"loccountrycode": "GW",
+				"count": 70,
+				"avg": "3156",
+				"common": "Guinea-Bissau"
+			},
+			{
+				"loccountrycode": "TL",
+				"count": 141,
+				"avg": "3155",
+				"common": "Timor-Leste"
+			},
+			{
+				"loccountrycode": "NA",
+				"count": 133,
+				"avg": "3154",
+				"common": "Namibia"
+			},
+			{
+				"loccountrycode": "VI",
+				"count": 1553,
+				"avg": "3154",
+				"common": "United States Virgin Islands"
+			},
+			{
+				"loccountrycode": "GL",
+				"count": 558,
+				"avg": "3154",
+				"common": "Greenland"
+			},
+			{
+				"loccountrycode": "HU",
+				"count": 1466,
+				"avg": "3153",
+				"common": "Hungary"
+			},
+			{
+				"loccountrycode": "BW",
+				"count": 187,
+				"avg": "3151",
+				"common": "Botswana"
+			},
+			{
+				"loccountrycode": "MY",
+				"count": 34792,
+				"avg": "3148",
+				"common": "Malaysia"
+			},
+			{
+				"loccountrycode": "GI",
+				"count": 114,
+				"avg": "3146",
+				"common": "Gibraltar"
+			},
+			{
+				"loccountrycode": "NU",
+				"count": 168,
+				"avg": "3144",
+				"common": "Niue"
+			},
+			{
+				"loccountrycode": "BJ",
+				"count": 91,
+				"avg": "3143",
+				"common": "Benin"
+			},
+			{
+				"loccountrycode": "BA",
+				"count": 1053,
+				"avg": "3143",
+				"common": "Bosnia and Herzegovina"
+			},
+			{
+				"loccountrycode": "BL",
+				"count": 100,
+				"avg": "3141",
+				"common": "Saint Barthélemy"
+			},
+			{
+				"loccountrycode": "GA",
+				"count": 244,
+				"avg": "3140",
+				"common": "Gabon"
+			},
+			{
+				"loccountrycode": "CG",
+				"count": 344,
+				"avg": "3137",
+				"common": "Republic of the Congo"
+			},
+			{
+				"loccountrycode": "KW",
+				"count": 227,
+				"avg": "3132",
+				"common": "Kuwait"
+			},
+			{
+				"loccountrycode": "EE",
+				"count": 2491,
+				"avg": "3132",
+				"common": "Estonia"
+			},
+			{
+				"loccountrycode": "LA",
+				"count": 498,
+				"avg": "3131",
+				"common": "Laos"
+			},
+			{
+				"loccountrycode": "AQ",
+				"count": 2232,
+				"avg": "3129",
+				"common": "Antarctica"
+			},
+			{
+				"loccountrycode": "NO",
+				"count": 6369,
+				"avg": "3128",
+				"common": "Norway"
+			},
+			{
+				"loccountrycode": "SO",
+				"count": 495,
+				"avg": "3123",
+				"common": "Somalia"
+			},
+			{
+				"loccountrycode": "BH",
+				"count": 190,
+				"avg": "3121",
+				"common": "Bahrain"
+			},
+			{
+				"loccountrycode": "DE",
+				"count": 23344,
+				"avg": "3119",
+				"common": "Germany"
+			},
+			{
+				"loccountrycode": "CZ",
+				"count": 4686,
+				"avg": "3118",
+				"common": "Czechia"
+			},
+			{
+				"loccountrycode": "VU",
+				"count": 139,
+				"avg": "3116",
+				"common": "Vanuatu"
+			},
+			{
+				"loccountrycode": "JM",
+				"count": 1578,
+				"avg": "3112",
+				"common": "Jamaica"
+			},
+			{
+				"loccountrycode": "LY",
+				"count": 154,
+				"avg": "3112",
+				"common": "Libya"
+			},
+			{
+				"loccountrycode": "SM",
+				"count": 430,
+				"avg": "3109",
+				"common": "San Marino"
+			},
+			{
+				"loccountrycode": "BS",
+				"count": 535,
+				"avg": "3109",
+				"common": "Bahamas"
+			},
+			{
+				"loccountrycode": "CF",
+				"count": 108,
+				"avg": "3108",
+				"common": "Central African Republic"
+			},
+			{
+				"loccountrycode": "RE",
+				"count": 166,
+				"avg": "3108",
+				"common": "Réunion"
+			},
+			{
+				"loccountrycode": "DM",
+				"count": 242,
+				"avg": "3105",
+				"common": "Dominica"
+			},
+			{
+				"loccountrycode": "LC",
+				"count": 316,
+				"avg": "3103",
+				"common": "Saint Lucia"
+			},
+			{
+				"loccountrycode": "FX",
+				"count": 63,
+				"avg": "3103",
+				"common": "FX"
+			},
+			{
+				"loccountrycode": "PG",
+				"count": 317,
+				"avg": "3099",
+				"common": "Papua New Guinea"
+			},
+			{
+				"loccountrycode": "FK",
+				"count": 118,
+				"avg": "3098",
+				"common": "Falkland Islands"
+			},
+			{
+				"loccountrycode": "MR",
+				"count": 58,
+				"avg": "3096",
+				"common": "Mauritania"
+			},
+			{
+				"loccountrycode": "SX",
+				"count": 65,
+				"avg": "3096",
+				"common": "Sint Maarten"
+			},
+			{
+				"loccountrycode": "CK",
+				"count": 182,
+				"avg": "3095",
+				"common": "Cook Islands"
+			},
+			{
+				"loccountrycode": "TR",
+				"count": 8642,
+				"avg": "3094",
+				"common": "Turkey"
+			},
+			{
+				"loccountrycode": "ET",
+				"count": 245,
+				"avg": "3094",
+				"common": "Ethiopia"
+			},
+			{
+				"loccountrycode": "TZ",
+				"count": 121,
+				"avg": "3093",
+				"common": "Tanzania"
+			},
+			{
+				"loccountrycode": "FJ",
+				"count": 927,
+				"avg": "3091",
+				"common": "Fiji"
+			},
+			{
+				"loccountrycode": "ML",
+				"count": 143,
+				"avg": "3087",
+				"common": "Mali"
+			},
+			{
+				"loccountrycode": "BT",
+				"count": 260,
+				"avg": "3086",
+				"common": "Bhutan"
+			},
+			{
+				"loccountrycode": "GH",
+				"count": 193,
+				"avg": "3082",
+				"common": "Ghana"
+			},
+			{
+				"loccountrycode": "AL",
+				"count": 2029,
+				"avg": "3082",
+				"common": "Albania"
+			},
+			{
+				"loccountrycode": "BV",
+				"count": 94,
+				"avg": "3080",
+				"common": "Bouvet Island"
+			},
+			{
+				"loccountrycode": "US",
+				"count": 87371,
+				"avg": "3080",
+				"common": "United States"
+			},
+			{
+				"loccountrycode": "SI",
+				"count": 438,
+				"avg": "3078",
+				"common": "Slovenia"
+			},
+			{
+				"loccountrycode": "SK",
+				"count": 2304,
+				"avg": "3077",
+				"common": "Slovakia"
+			},
+			{
+				"loccountrycode": "JP",
+				"count": 28951,
+				"avg": "3074",
+				"common": "Japan"
+			},
+			{
+				"loccountrycode": "TF",
+				"count": 49,
+				"avg": "3070",
+				"common": "French Southern and Antarctic Lands"
+			},
+			{
+				"loccountrycode": "FR",
+				"count": 9303,
+				"avg": "3067",
+				"common": "France"
+			},
+			{
+				"loccountrycode": "BI",
+				"count": 130,
+				"avg": "3067",
+				"common": "Burundi"
+			},
+			{
+				"loccountrycode": "IE",
+				"count": 1828,
+				"avg": "3067",
+				"common": "Ireland"
+			},
+			{
+				"loccountrycode": "EH",
+				"count": 278,
+				"avg": "3066",
+				"common": "Western Sahara"
+			},
+			{
+				"loccountrycode": "PF",
+				"count": 59,
+				"avg": "3065",
+				"common": "French Polynesia"
+			},
+			{
+				"loccountrycode": "AD",
+				"count": 520,
+				"avg": "3063",
+				"common": "Andorra"
+			},
+			{
+				"loccountrycode": "AF",
+				"count": 4846,
+				"avg": "3062",
+				"common": "Afghanistan"
+			},
+			{
+				"loccountrycode": "LS",
+				"count": 59,
+				"avg": "3060",
+				"common": "Lesotho"
+			},
+			{
+				"loccountrycode": "BR",
+				"count": 30012,
+				"avg": "3060",
+				"common": "Brazil"
+			},
+			{
+				"loccountrycode": "UM",
+				"count": 1942,
+				"avg": "3057",
+				"common": "United States Minor Outlying Islands"
+			},
+			{
+				"loccountrycode": "CL",
+				"count": 3032,
+				"avg": "3056",
+				"common": "Chile"
+			},
+			{
+				"loccountrycode": "QA",
+				"count": 625,
+				"avg": "3055",
+				"common": "Qatar"
+			},
+			{
+				"loccountrycode": "IL",
+				"count": 2592,
+				"avg": "3055",
+				"common": "Israel"
+			},
+			{
+				"loccountrycode": "TD",
+				"count": 173,
+				"avg": "3052",
+				"common": "Chad"
+			},
+			{
+				"loccountrycode": "MC",
+				"count": 989,
+				"avg": "3048",
+				"common": "Monaco"
+			},
+			{
+				"loccountrycode": "KE",
+				"count": 237,
+				"avg": "3046",
+				"common": "Kenya"
+			},
+			{
+				"loccountrycode": "ES",
+				"count": 4434,
+				"avg": "3045",
+				"common": "Spain"
+			},
+			{
+				"loccountrycode": "GD",
+				"count": 94,
+				"avg": "3044",
+				"common": "Grenada"
+			},
+			{
+				"loccountrycode": "GB",
+				"count": 24335,
+				"avg": "3044",
+				"common": "United Kingdom"
+			},
+			{
+				"loccountrycode": "BE",
+				"count": 1838,
+				"avg": "3044",
+				"common": "Belgium"
+			},
+			{
+				"loccountrycode": "NF",
+				"count": 743,
+				"avg": "3042",
+				"common": "Norfolk Island"
+			},
+			{
+				"loccountrycode": "BZ",
+				"count": 143,
+				"avg": "3042",
+				"common": "Belize"
+			},
+			{
+				"loccountrycode": "AG",
+				"count": 311,
+				"avg": "3040",
+				"common": "Antigua and Barbuda"
+			},
+			{
+				"loccountrycode": "TO",
+				"count": 148,
+				"avg": "3039",
+				"common": "Tonga"
+			},
+			{
+				"loccountrycode": "AE",
+				"count": 2456,
+				"avg": "3038",
+				"common": "United Arab Emirates"
+			},
+			{
+				"loccountrycode": "MT",
+				"count": 271,
+				"avg": "3037",
+				"common": "Malta"
+			},
+			{
+				"loccountrycode": "RO",
+				"count": 7200,
+				"avg": "3034",
+				"common": "Romania"
+			},
+			{
+				"loccountrycode": "CR",
+				"count": 923,
+				"avg": "3033",
+				"common": "Costa Rica"
+			},
+			{
+				"loccountrycode": "TV",
+				"count": 131,
+				"avg": "3032",
+				"common": "Tuvalu"
+			},
+			{
+				"loccountrycode": "DJ",
+				"count": 207,
+				"avg": "3028",
+				"common": "Djibouti"
+			},
+			{
+				"loccountrycode": "SZ",
+				"count": 394,
+				"avg": "3025",
+				"common": "Swaziland"
+			},
+			{
+				"loccountrycode": "PR",
+				"count": 535,
+				"avg": "3025",
+				"common": "Puerto Rico"
+			},
+			{
+				"loccountrycode": "MF",
+				"count": 83,
+				"avg": "3023",
+				"common": "Saint Martin"
+			},
+			{
+				"loccountrycode": "TG",
+				"count": 295,
+				"avg": "3021",
+				"common": "Togo"
+			},
+			{
+				"loccountrycode": "ER",
+				"count": 60,
+				"avg": "3018",
+				"common": "Eritrea"
+			},
+			{
+				"loccountrycode": "UZ",
+				"count": 1893,
+				"avg": "3017",
+				"common": "Uzbekistan"
+			},
+			{
+				"loccountrycode": "AX",
+				"count": 715,
+				"avg": "3013",
+				"common": "Åland Islands"
+			},
+			{
+				"loccountrycode": "PH",
+				"count": 60126,
+				"avg": "3012",
+				"common": "Philippines"
+			},
+			{
+				"loccountrycode": "GM",
+				"count": 77,
+				"avg": "3010",
+				"common": "Gambia"
+			},
+			{
+				"loccountrycode": "XK",
+				"count": 234,
+				"avg": "3007",
+				"common": "Kosovo"
+			},
+			{
+				"loccountrycode": "UY",
+				"count": 750,
+				"avg": "3006",
+				"common": "Uruguay"
+			},
+			{
+				"loccountrycode": "GY",
+				"count": 176,
+				"avg": "3006",
+				"common": "Guyana"
+			},
+			{
+				"loccountrycode": "SD",
+				"count": 158,
+				"avg": "3005",
+				"common": "Sudan"
+			},
+			{
+				"loccountrycode": "SY",
+				"count": 794,
+				"avg": "3004",
+				"common": "Syria"
+			},
+			{
+				"loccountrycode": "NE",
+				"count": 1903,
+				"avg": "3001",
+				"common": "Niger"
+			},
+			{
+				"loccountrycode": "MU",
+				"count": 150,
+				"avg": "3000",
+				"common": "Mauritius"
+			},
+			{
+				"loccountrycode": "IQ",
+				"count": 1315,
+				"avg": "2998",
+				"common": "Iraq"
+			},
+			{
+				"loccountrycode": "CU",
+				"count": 1381,
+				"avg": "2997",
+				"common": "Cuba"
+			},
+			{
+				"loccountrycode": "TT",
+				"count": 341,
+				"avg": "2997",
+				"common": "Trinidad and Tobago"
+			},
+			{
+				"loccountrycode": "AI",
+				"count": 249,
+				"avg": "2996",
+				"common": "Anguilla"
+			},
+			{
+				"loccountrycode": "RW",
+				"count": 141,
+				"avg": "2995",
+				"common": "Rwanda"
+			},
+			{
+				"loccountrycode": "MP",
+				"count": 376,
+				"avg": "2994",
+				"common": "Northern Mariana Islands"
+			},
+			{
+				"loccountrycode": "PT",
+				"count": 1778,
+				"avg": "2991",
+				"common": "Portugal"
+			},
+			{
+				"loccountrycode": "AO",
+				"count": 555,
+				"avg": "2989",
+				"common": "Angola"
+			},
+			{
+				"loccountrycode": "IT",
+				"count": 6486,
+				"avg": "2987",
+				"common": "Italy"
+			},
+			{
+				"loccountrycode": "OM",
+				"count": 654,
+				"avg": "2984",
+				"common": "Oman"
+			},
+			{
+				"loccountrycode": "MM",
+				"count": 9030,
+				"avg": "2975",
+				"common": "Myanmar"
+			},
+			{
+				"loccountrycode": "GN",
+				"count": 94,
+				"avg": "2973",
+				"common": "Guinea"
+			},
+			{
+				"loccountrycode": "WS",
+				"count": 129,
+				"avg": "2967",
+				"common": "Samoa"
+			},
+			{
+				"loccountrycode": "NG",
+				"count": 585,
+				"avg": "2967",
+				"common": "Nigeria"
+			},
+			{
+				"loccountrycode": "MG",
+				"count": 760,
+				"avg": "2967",
+				"common": "Madagascar"
+			},
+			{
+				"loccountrycode": "JE",
+				"count": 139,
+				"avg": "2962",
+				"common": "Jersey"
+			},
+			{
+				"loccountrycode": "MN",
+				"count": 8887,
+				"avg": "2959",
+				"common": "Mongolia"
+			},
+			{
+				"loccountrycode": "KG",
+				"count": 2400,
+				"avg": "2959",
+				"common": "Kyrgyzstan"
+			},
+			{
+				"loccountrycode": "EG",
+				"count": 1272,
+				"avg": "2957",
+				"common": "Egypt"
+			},
+			{
+				"loccountrycode": "NC",
+				"count": 135,
+				"avg": "2956",
+				"common": "New Caledonia"
+			},
+			{
+				"loccountrycode": "AR",
+				"count": 8574,
+				"avg": "2955",
+				"common": "Argentina"
+			},
+			{
+				"loccountrycode": "TM",
+				"count": 429,
+				"avg": "2953",
+				"common": "Turkmenistan"
+			},
+			{
+				"loccountrycode": "MA",
+				"count": 466,
+				"avg": "2952",
+				"common": "Morocco"
+			},
+			{
+				"loccountrycode": "ZA",
+				"count": 1717,
+				"avg": "2951",
+				"common": "South Africa"
+			},
+			{
+				"loccountrycode": "IR",
+				"count": 2823,
+				"avg": "2951",
+				"common": "Iran"
+			},
+			{
+				"loccountrycode": "AW",
+				"count": 375,
+				"avg": "2950",
+				"common": "Aruba"
+			},
+			{
+				"loccountrycode": "MQ",
+				"count": 76,
+				"avg": "2949",
+				"common": "Martinique"
+			},
+			{
+				"loccountrycode": "PL",
+				"count": 8084,
+				"avg": "2949",
+				"common": "Poland"
+			},
+			{
+				"loccountrycode": "MW",
+				"count": 73,
+				"avg": "2944",
+				"common": "Malawi"
+			},
+			{
+				"loccountrycode": "BY",
+				"count": 23851,
+				"avg": "2929",
+				"common": "Belarus"
+			},
+			{
+				"loccountrycode": "DO",
+				"count": 368,
+				"avg": "2919",
+				"common": "Dominican Republic"
+			},
+			{
+				"loccountrycode": "SV",
+				"count": 336,
+				"avg": "2918",
+				"common": "El Salvador"
+			},
+			{
+				"loccountrycode": "LV",
+				"count": 2605,
+				"avg": "2915",
+				"common": "Latvia"
+			},
+			{
+				"loccountrycode": "HN",
+				"count": 459,
+				"avg": "2913",
+				"common": "Honduras"
+			},
+			{
+				"loccountrycode": "DZ",
+				"count": 1006,
+				"avg": "2907",
+				"common": "Algeria"
+			},
+			{
+				"loccountrycode": "UG",
+				"count": 1803,
+				"avg": "2900",
+				"common": "Uganda"
+			},
+			{
+				"loccountrycode": "ZM",
+				"count": 653,
+				"avg": "2898",
+				"common": "Zambia"
+			},
+			{
+				"loccountrycode": "KZ",
+				"count": 17502,
+				"avg": "2897",
+				"common": "Kazakhstan"
+			},
+			{
+				"loccountrycode": "AS",
+				"count": 1292,
+				"avg": "2880",
+				"common": "American Samoa"
+			},
+			{
+				"loccountrycode": "BO",
+				"count": 3161,
+				"avg": "2878",
+				"common": "Bolivia"
+			},
+			{
+				"loccountrycode": "TJ",
+				"count": 560,
+				"avg": "2871",
+				"common": "Tajikistan"
+			},
+			{
+				"loccountrycode": "PN",
+				"count": 107,
+				"avg": "2869",
+				"common": "Pitcairn Islands"
+			},
+			{
+				"loccountrycode": "PY",
+				"count": 574,
+				"avg": "2861",
+				"common": "Paraguay"
+			},
+			{
+				"loccountrycode": "NI",
+				"count": 203,
+				"avg": "2859",
+				"common": "Nicaragua"
+			},
+			{
+				"loccountrycode": "PA",
+				"count": 676,
+				"avg": "2851",
+				"common": "Panama"
+			},
+			{
+				"loccountrycode": "AZ",
+				"count": 1169,
+				"avg": "2845",
+				"common": "Azerbaijan"
+			},
+			{
+				"loccountrycode": "ID",
+				"count": 76858,
+				"avg": "2843",
+				"common": "Indonesia"
+			},
+			{
+				"loccountrycode": "RU",
+				"count": 236605,
+				"avg": "2837",
+				"common": "Russia"
+			},
+			{
+				"loccountrycode": "LR",
+				"count": 97,
+				"avg": "2835",
+				"common": "Liberia"
+			},
+			{
+				"loccountrycode": "PE",
+				"count": 32348,
+				"avg": "2835",
+				"common": "Peru"
+			},
+			{
+				"loccountrycode": "CO",
+				"count": 2237,
+				"avg": "2835",
+				"common": "Colombia"
+			},
+			{
+				"loccountrycode": "AM",
+				"count": 1271,
+				"avg": "2833",
+				"common": "Armenia"
+			},
+			{
+				"loccountrycode": "GE",
+				"count": 2300,
+				"avg": "2832",
+				"common": "Georgia"
+			},
+			{
+				"loccountrycode": "ST",
+				"count": 90,
+				"avg": "2820",
+				"common": "São Tomé and Príncipe"
+			},
+			{
+				"loccountrycode": "TN",
+				"count": 153,
+				"avg": "2818",
+				"common": "Tunisia"
+			},
+			{
+				"loccountrycode": "UA",
+				"count": 66379,
+				"avg": "2808",
+				"common": "Ukraine"
+			},
+			{
+				"loccountrycode": "PK",
+				"count": 5078,
+				"avg": "2801",
+				"common": "Pakistan"
+			},
+			{
+				"loccountrycode": "GT",
+				"count": 338,
+				"avg": "2793",
+				"common": "Guatemala"
+			},
+			{
+				"loccountrycode": "PW",
+				"count": 227,
+				"avg": "2790",
+				"common": "Palau"
+			},
+			{
+				"loccountrycode": "MX",
+				"count": 3228,
+				"avg": "2783",
+				"common": "Mexico"
+			},
+			{
+				"loccountrycode": "LK",
+				"count": 992,
+				"avg": "2775",
+				"common": "Sri Lanka"
+			},
+			{
+				"loccountrycode": "MD",
+				"count": 2101,
+				"avg": "2761",
+				"common": "Moldova"
+			},
+			{
+				"loccountrycode": "KM",
+				"count": 50,
+				"avg": "2751",
+				"common": "Comoros"
+			},
+			{
+				"loccountrycode": "NP",
+				"count": 1541,
+				"avg": "2744",
+				"common": "Nepal"
+			},
+			{
+				"loccountrycode": "ZR",
+				"count": 5,
+				"avg": "2659",
+				"common": "ZR"
+			},
+			{
+				"loccountrycode": "GG",
+				"count": 93,
+				"avg": "2594",
+				"common": "Guernsey"
+			},
+			{
+				"loccountrycode": "BD",
+				"count": 1459,
+				"avg": "2594",
+				"common": "Bangladesh"
+			},
+			{
+				"loccountrycode": "IN",
+				"count": 12914,
+				"avg": "2580",
+				"common": "India"
+			},
+			{
+				"loccountrycode": "VE",
+				"count": 2801,
+				"avg": "2532",
+				"common": "Venezuela"
+			},
+			{
+				"loccountrycode": "EC",
+				"count": 2852,
+				"avg": "2511",
+				"common": "Ecuador"
+			}
+		],
+		"fields": [
+			{
+				"name": "loccountrycode",
+				"tableID": 16405,
+				"columnID": 12,
+				"dataTypeID": 1043,
+				"dataTypeSize": -1,
+				"dataTypeModifier": 6,
+				"format": "text"
+			},
+			{
+				"name": "count",
+				"tableID": 0,
+				"columnID": 0,
+				"dataTypeID": 20,
+				"dataTypeSize": 8,
+				"dataTypeModifier": -1,
+				"format": "text"
+			},
+			{
+				"name": "avg",
+				"tableID": 0,
+				"columnID": 0,
+				"dataTypeID": 1700,
+				"dataTypeSize": -1,
+				"dataTypeModifier": -1,
+				"format": "text"
+			}
+		],
+		"_parsers": [
+			null,
+			null,
+			null
+		],
+		"RowCtor": null,
+		"rowAsArray": false
+	}
+}

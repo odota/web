@@ -1,0 +1,750 @@
+{
+	"command": "SELECT",
+	"rowCount": 116,
+	"oid": null,
+	"rows": [
+		{
+			"hero_id": 14,
+			"games": 44316,
+			"pickrate": 0.438390313390313,
+			"winrate": 0.522362126545717
+		},
+		{
+			"hero_id": 74,
+			"games": 27551,
+			"pickrate": 0.272544713516936,
+			"winrate": 0.493085550433741
+		},
+		{
+			"hero_id": 67,
+			"games": 24561,
+			"pickrate": 0.242966524216524,
+			"winrate": 0.567485037254183
+		},
+		{
+			"hero_id": 7,
+			"games": 23709,
+			"pickrate": 0.234538224121557,
+			"winrate": 0.505588595048294
+		},
+		{
+			"hero_id": 121,
+			"games": 23519,
+			"pickrate": 0.232658673630896,
+			"winrate": 0.481610612696118
+		},
+		{
+			"hero_id": 22,
+			"games": 23168,
+			"pickrate": 0.229186451408674,
+			"winrate": 0.56824067679558
+		},
+		{
+			"hero_id": 35,
+			"games": 21898,
+			"pickrate": 0.216623140234251,
+			"winrate": 0.482418485706457
+		},
+		{
+			"hero_id": 17,
+			"games": 21241,
+			"pickrate": 0.210123852484964,
+			"winrate": 0.498846570312132
+		},
+		{
+			"hero_id": 42,
+			"games": 20915,
+			"pickrate": 0.206898939537828,
+			"winrate": 0.581400908438919
+		},
+		{
+			"hero_id": 44,
+			"games": 20852,
+			"pickrate": 0.206275720164609,
+			"winrate": 0.495300211010934
+		},
+		{
+			"hero_id": 32,
+			"games": 19855,
+			"pickrate": 0.196413026274137,
+			"winrate": 0.587257617728532
+		},
+		{
+			"hero_id": 5,
+			"games": 19785,
+			"pickrate": 0.195720560303894,
+			"winrate": 0.533737680060652
+		},
+		{
+			"hero_id": 2,
+			"games": 17423,
+			"pickrate": 0.172354779993669,
+			"winrate": 0.534064168053722
+		},
+		{
+			"hero_id": 9,
+			"games": 17037,
+			"pickrate": 0.168536324786325,
+			"winrate": 0.501496742384223
+		},
+		{
+			"hero_id": 21,
+			"games": 16758,
+			"pickrate": 0.165776353276353,
+			"winrate": 0.461391574173529
+		},
+		{
+			"hero_id": 4,
+			"games": 16669,
+			"pickrate": 0.164895932257043,
+			"winrate": 0.51958725778391
+		},
+		{
+			"hero_id": 8,
+			"games": 16182,
+			"pickrate": 0.160078347578348,
+			"winrate": 0.497095538252379
+		},
+		{
+			"hero_id": 70,
+			"games": 15454,
+			"pickrate": 0.152876701487813,
+			"winrate": 0.553060696259868
+		},
+		{
+			"hero_id": 63,
+			"games": 15221,
+			"pickrate": 0.150571779044001,
+			"winrate": 0.510347546153341
+		},
+		{
+			"hero_id": 75,
+			"games": 14470,
+			"pickrate": 0.143142608420386,
+			"winrate": 0.528472702142364
+		},
+		{
+			"hero_id": 26,
+			"games": 14448,
+			"pickrate": 0.14292497625831,
+			"winrate": 0.482696566998893
+		},
+		{
+			"hero_id": 71,
+			"games": 14131,
+			"pickrate": 0.139789094650206,
+			"winrate": 0.536621612058595
+		},
+		{
+			"hero_id": 56,
+			"games": 14128,
+			"pickrate": 0.139759417537195,
+			"winrate": 0.519818799546999
+		},
+		{
+			"hero_id": 104,
+			"games": 13909,
+			"pickrate": 0.137592988287433,
+			"winrate": 0.468401754259832
+		},
+		{
+			"hero_id": 36,
+			"games": 13832,
+			"pickrate": 0.136831275720165,
+			"winrate": 0.535425101214575
+		},
+		{
+			"hero_id": 1,
+			"games": 13697,
+			"pickrate": 0.135495805634695,
+			"winrate": 0.519748850113164
+		},
+		{
+			"hero_id": 6,
+			"games": 13480,
+			"pickrate": 0.133349161126939,
+			"winrate": 0.521884272997033
+		},
+		{
+			"hero_id": 99,
+			"games": 13460,
+			"pickrate": 0.133151313706869,
+			"winrate": 0.508766716196137
+		},
+		{
+			"hero_id": 41,
+			"games": 13193,
+			"pickrate": 0.13051005064894,
+			"winrate": 0.469415599181384
+		},
+		{
+			"hero_id": 34,
+			"games": 12853,
+			"pickrate": 0.127146644507756,
+			"winrate": 0.468606550999767
+		},
+		{
+			"hero_id": 27,
+			"games": 12635,
+			"pickrate": 0.124990107628997,
+			"winrate": 0.527107241788682
+		},
+		{
+			"hero_id": 12,
+			"games": 12459,
+			"pickrate": 0.123249050332384,
+			"winrate": 0.489445380849185
+		},
+		{
+			"hero_id": 114,
+			"games": 12269,
+			"pickrate": 0.121369499841722,
+			"winrate": 0.454641780096177
+		},
+		{
+			"hero_id": 11,
+			"games": 12025,
+			"pickrate": 0.118955761316872,
+			"winrate": 0.445072765072765
+		},
+		{
+			"hero_id": 23,
+			"games": 11340,
+			"pickrate": 0.112179487179487,
+			"winrate": 0.465520282186949
+		},
+		{
+			"hero_id": 20,
+			"games": 11134,
+			"pickrate": 0.11014165875277,
+			"winrate": 0.544278785701455
+		},
+		{
+			"hero_id": 93,
+			"games": 11029,
+			"pickrate": 0.109102959797404,
+			"winrate": 0.473841690089763
+		},
+		{
+			"hero_id": 106,
+			"games": 10551,
+			"pickrate": 0.10437440645774,
+			"winrate": 0.475784285849683
+		},
+		{
+			"hero_id": 31,
+			"games": 10217,
+			"pickrate": 0.101070354542577,
+			"winrate": 0.522462562396007
+		},
+		{
+			"hero_id": 119,
+			"games": 10119,
+			"pickrate": 0.100100902184236,
+			"winrate": 0.499752940013835
+		},
+		{
+			"hero_id": 84,
+			"games": 10062,
+			"pickrate": 0.099537037037037,
+			"winrate": 0.508944543828265
+		},
+		{
+			"hero_id": 110,
+			"games": 9768,
+			"pickrate": 0.0966286799620133,
+			"winrate": 0.516482391482392
+		},
+		{
+			"hero_id": 86,
+			"games": 9375,
+			"pickrate": 0.0927409781576448,
+			"winrate": 0.4496
+		},
+		{
+			"hero_id": 73,
+			"games": 8894,
+			"pickrate": 0.0879827477049699,
+			"winrate": 0.508769957274567
+		},
+		{
+			"hero_id": 25,
+			"games": 8251,
+			"pickrate": 0.0816219531497309,
+			"winrate": 0.414374015270876
+		},
+		{
+			"hero_id": 30,
+			"games": 7606,
+			"pickrate": 0.075241373852485,
+			"winrate": 0.475940047331054
+		},
+		{
+			"hero_id": 48,
+			"games": 7302,
+			"pickrate": 0.0722340930674264,
+			"winrate": 0.498082717063818
+		},
+		{
+			"hero_id": 59,
+			"games": 7198,
+			"pickrate": 0.0712052864830643,
+			"winrate": 0.47707696582384
+		},
+		{
+			"hero_id": 47,
+			"games": 7007,
+			"pickrate": 0.0693158436213992,
+			"winrate": 0.465249036677608
+		},
+		{
+			"hero_id": 101,
+			"games": 7004,
+			"pickrate": 0.0692861665083887,
+			"winrate": 0.479011993146773
+		},
+		{
+			"hero_id": 58,
+			"games": 6674,
+			"pickrate": 0.0660216840772396,
+			"winrate": 0.478423733892718
+		},
+		{
+			"hero_id": 19,
+			"games": 6484,
+			"pickrate": 0.064142133586578,
+			"winrate": 0.415484268969772
+		},
+		{
+			"hero_id": 96,
+			"games": 6448,
+			"pickrate": 0.0637860082304527,
+			"winrate": 0.563895781637717
+		},
+		{
+			"hero_id": 64,
+			"games": 6372,
+			"pickrate": 0.063034188034188,
+			"winrate": 0.490269930947897
+		},
+		{
+			"hero_id": 81,
+			"games": 6363,
+			"pickrate": 0.0629451566951567,
+			"winrate": 0.554455445544555
+		},
+		{
+			"hero_id": 18,
+			"games": 6266,
+			"pickrate": 0.0619855967078189,
+			"winrate": 0.481487392275774
+		},
+		{
+			"hero_id": 40,
+			"games": 6147,
+			"pickrate": 0.0608084045584046,
+			"winrate": 0.473889702293802
+		},
+		{
+			"hero_id": 69,
+			"games": 6138,
+			"pickrate": 0.0607193732193732,
+			"winrate": 0.434506353861193
+		},
+		{
+			"hero_id": 85,
+			"games": 6005,
+			"pickrate": 0.0594036878759101,
+			"winrate": 0.54571190674438
+		},
+		{
+			"hero_id": 88,
+			"games": 6001,
+			"pickrate": 0.0593641183918962,
+			"winrate": 0.493751041493084
+		},
+		{
+			"hero_id": 95,
+			"games": 5974,
+			"pickrate": 0.0590970243748022,
+			"winrate": 0.470371610311349
+		},
+		{
+			"hero_id": 39,
+			"games": 5961,
+			"pickrate": 0.0589684235517569,
+			"winrate": 0.462338533803053
+		},
+		{
+			"hero_id": 62,
+			"games": 5662,
+			"pickrate": 0.0560106046217157,
+			"winrate": 0.440657011656658
+		},
+		{
+			"hero_id": 94,
+			"games": 5632,
+			"pickrate": 0.0557138334916113,
+			"winrate": 0.461292613636364
+		},
+		{
+			"hero_id": 45,
+			"games": 5552,
+			"pickrate": 0.0549224438113327,
+			"winrate": 0.461455331412104
+		},
+		{
+			"hero_id": 53,
+			"games": 5506,
+			"pickrate": 0.0544673947451725,
+			"winrate": 0.403196512895024
+		},
+		{
+			"hero_id": 49,
+			"games": 5505,
+			"pickrate": 0.054457502374169,
+			"winrate": 0.500090826521344
+		},
+		{
+			"hero_id": 28,
+			"games": 5498,
+			"pickrate": 0.0543882557771447,
+			"winrate": 0.478719534376137
+		},
+		{
+			"hero_id": 100,
+			"games": 5209,
+			"pickrate": 0.0515293605571383,
+			"winrate": 0.445382990977155
+		},
+		{
+			"hero_id": 68,
+			"games": 5129,
+			"pickrate": 0.0507379708768598,
+			"winrate": 0.52115422109573
+		},
+		{
+			"hero_id": 109,
+			"games": 4866,
+			"pickrate": 0.048136277302944,
+			"winrate": 0.534319769831484
+		},
+		{
+			"hero_id": 10,
+			"games": 4858,
+			"pickrate": 0.0480571383349161,
+			"winrate": 0.459036640592837
+		},
+		{
+			"hero_id": 16,
+			"games": 4764,
+			"pickrate": 0.0471272554605888,
+			"winrate": 0.442905121746432
+		},
+		{
+			"hero_id": 37,
+			"games": 4681,
+			"pickrate": 0.0463061886672998,
+			"winrate": 0.527237769707327
+		},
+		{
+			"hero_id": 97,
+			"games": 4675,
+			"pickrate": 0.0462468344412789,
+			"winrate": 0.475935828877005
+		},
+		{
+			"hero_id": 112,
+			"games": 4574,
+			"pickrate": 0.0452477049699272,
+			"winrate": 0.482728465238303
+		},
+		{
+			"hero_id": 54,
+			"games": 4545,
+			"pickrate": 0.0449608262108262,
+			"winrate": 0.442684268426843
+		},
+		{
+			"hero_id": 82,
+			"games": 4509,
+			"pickrate": 0.0446047008547008,
+			"winrate": 0.52051452650255
+		},
+		{
+			"hero_id": 51,
+			"games": 4412,
+			"pickrate": 0.0436451408673631,
+			"winrate": 0.501133272892112
+		},
+		{
+			"hero_id": 87,
+			"games": 4405,
+			"pickrate": 0.0435758942703387,
+			"winrate": 0.459704880817253
+		},
+		{
+			"hero_id": 83,
+			"games": 4392,
+			"pickrate": 0.0434472934472934,
+			"winrate": 0.525273224043716
+		},
+		{
+			"hero_id": 105,
+			"games": 4155,
+			"pickrate": 0.0411028015194682,
+			"winrate": 0.450782190132371
+		},
+		{
+			"hero_id": 120,
+			"games": 4051,
+			"pickrate": 0.040073994935106,
+			"winrate": 0.432238953344853
+		},
+		{
+			"hero_id": 33,
+			"games": 4047,
+			"pickrate": 0.0400344254510921,
+			"winrate": 0.494687422782308
+		},
+		{
+			"hero_id": 98,
+			"games": 4012,
+			"pickrate": 0.0396881924659702,
+			"winrate": 0.448404785643071
+		},
+		{
+			"hero_id": 29,
+			"games": 3895,
+			"pickrate": 0.0385307850585628,
+			"winrate": 0.488831835686778
+		},
+		{
+			"hero_id": 72,
+			"games": 3855,
+			"pickrate": 0.0381350902184236,
+			"winrate": 0.41219195849546
+		},
+		{
+			"hero_id": 46,
+			"games": 3644,
+			"pickrate": 0.0360477999366888,
+			"winrate": 0.418221734357849
+		},
+		{
+			"hero_id": 61,
+			"games": 3536,
+			"pickrate": 0.0349794238683128,
+			"winrate": 0.486425339366516
+		},
+		{
+			"hero_id": 50,
+			"games": 3406,
+			"pickrate": 0.0336934156378601,
+			"winrate": 0.474163241338814
+		},
+		{
+			"hero_id": 76,
+			"games": 3385,
+			"pickrate": 0.033485675846787,
+			"winrate": 0.43397341211226
+		},
+		{
+			"hero_id": 108,
+			"games": 3350,
+			"pickrate": 0.0331394428616651,
+			"winrate": 0.510746268656716
+		},
+		{
+			"hero_id": 90,
+			"games": 3093,
+			"pickrate": 0.0305971035137702,
+			"winrate": 0.469770449401875
+		},
+		{
+			"hero_id": 57,
+			"games": 3057,
+			"pickrate": 0.0302409781576448,
+			"winrate": 0.481190709846255
+		},
+		{
+			"hero_id": 3,
+			"games": 2832,
+			"pickrate": 0.0280151946818613,
+			"winrate": 0.455861581920904
+		},
+		{
+			"hero_id": 102,
+			"games": 2614,
+			"pickrate": 0.0258586578031022,
+			"winrate": 0.523335883703137
+		},
+		{
+			"hero_id": 13,
+			"games": 2410,
+			"pickrate": 0.0238406141183919,
+			"winrate": 0.395435684647303
+		},
+		{
+			"hero_id": 80,
+			"games": 2315,
+			"pickrate": 0.0229008388730611,
+			"winrate": 0.339092872570194
+		},
+		{
+			"hero_id": 78,
+			"games": 2294,
+			"pickrate": 0.022693099081988,
+			"winrate": 0.511333914559721
+		},
+		{
+			"hero_id": 113,
+			"games": 2293,
+			"pickrate": 0.0226832067109845,
+			"winrate": 0.478412559965111
+		},
+		{
+			"hero_id": 107,
+			"games": 2280,
+			"pickrate": 0.0225546058879392,
+			"winrate": 0.453508771929825
+		},
+		{
+			"hero_id": 15,
+			"games": 2107,
+			"pickrate": 0.0208432257043368,
+			"winrate": 0.424774560987186
+		},
+		{
+			"hero_id": 103,
+			"games": 2075,
+			"pickrate": 0.0205266698322254,
+			"winrate": 0.511325301204819
+		},
+		{
+			"hero_id": 111,
+			"games": 2035,
+			"pickrate": 0.0201309749920861,
+			"winrate": 0.461425061425061
+		},
+		{
+			"hero_id": 79,
+			"games": 2022,
+			"pickrate": 0.0200023741690408,
+			"winrate": 0.477250247279921
+		},
+		{
+			"hero_id": 60,
+			"games": 1877,
+			"pickrate": 0.0185679803735359,
+			"winrate": 0.46723494938732
+		},
+		{
+			"hero_id": 43,
+			"games": 1675,
+			"pickrate": 0.0165697214308325,
+			"winrate": 0.423283582089552
+		},
+		{
+			"hero_id": 52,
+			"games": 1672,
+			"pickrate": 0.0165400443178221,
+			"winrate": 0.449162679425837
+		},
+		{
+			"hero_id": 91,
+			"games": 1567,
+			"pickrate": 0.0155013453624565,
+			"winrate": 0.400765794511806
+		},
+		{
+			"hero_id": 55,
+			"games": 1356,
+			"pickrate": 0.0134140550807217,
+			"winrate": 0.499262536873156
+		},
+		{
+			"hero_id": 65,
+			"games": 1336,
+			"pickrate": 0.0132162076606521,
+			"winrate": 0.413922155688623
+		},
+		{
+			"hero_id": 92,
+			"games": 1261,
+			"pickrate": 0.0124742798353909,
+			"winrate": 0.528152260111023
+		},
+		{
+			"hero_id": 77,
+			"games": 1220,
+			"pickrate": 0.0120686926242482,
+			"winrate": 0.492622950819672
+		},
+		{
+			"hero_id": 89,
+			"games": 1217,
+			"pickrate": 0.0120390155112377,
+			"winrate": 0.453574363188168
+		},
+		{
+			"hero_id": 38,
+			"games": 1078,
+			"pickrate": 0.0106639759417537,
+			"winrate": 0.456400742115028
+		},
+		{
+			"hero_id": 66,
+			"games": 691,
+			"pickrate": 0.00683562836340614,
+			"winrate": 0.451519536903039
+		}
+	],
+	"fields": [
+		{
+			"name": "hero_id",
+			"tableID": 930986209,
+			"columnID": 3,
+			"dataTypeID": 23,
+			"dataTypeSize": 4,
+			"dataTypeModifier": -1,
+			"format": "text"
+		},
+		{
+			"name": "games",
+			"tableID": 0,
+			"columnID": 0,
+			"dataTypeID": 20,
+			"dataTypeSize": 8,
+			"dataTypeModifier": -1,
+			"format": "text"
+		},
+		{
+			"name": "pickrate",
+			"tableID": 0,
+			"columnID": 0,
+			"dataTypeID": 701,
+			"dataTypeSize": 8,
+			"dataTypeModifier": -1,
+			"format": "text"
+		},
+		{
+			"name": "winrate",
+			"tableID": 0,
+			"columnID": 0,
+			"dataTypeID": 701,
+			"dataTypeSize": 8,
+			"dataTypeModifier": -1,
+			"format": "text"
+		}
+	],
+	"_parsers": [
+		null,
+		null,
+		null,
+		null
+	],
+	"RowCtor": null,
+	"rowAsArray": false,
+	"err": null
+}

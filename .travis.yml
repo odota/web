@@ -1,7 +1,22 @@
-sudo: false
+dist: trusty
+sudo: required
 language: node_js
 node_js:
 - '10'
+addons:
+  firefox: latest
+  apt:
+    sources:
+     - google-chrome
+    packages:
+     - google-chrome-stable fluxbox
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3
+  - fluxbox >/dev/null 2>&1 &
+before_install:
+  - stty cols 80
 notifications:
   email:
   - howardc93@gmail.com
@@ -10,6 +25,8 @@ notifications:
 script:
 - npm run lintnofix
 - npm run build
+- npm install -g serve
+- npm run testcafe
 # blocklist
 branches:
   except:
