@@ -15,8 +15,8 @@ async function fetchFromAPI(requestURL) {
   const response = await fetch(requestURL);
   const jsonData = await response.json();
 
-  console.log(`writing ./testcafe/dummyFiles/${path2file(requestURL)}.json`);
-  fs.writeFileSync(`./testcafe/dummyFiles/${path2file(requestURL)}.json`, JSON.stringify(jsonData, null, '\t'), (err) => {
+  console.log(`writing ./testcafe/cachedAjax/${path2file(requestURL)}.json`);
+  fs.writeFileSync(`./testcafe/cachedAjax/${path2file(requestURL)}.json`, JSON.stringify(jsonData, null, '\t'), (err) => {
     if (err) {
       console.log(err);
     }
@@ -41,7 +41,7 @@ export const fixtureBeforeEachHook = async () => {
 
 export const fixtureAfterHook = async (ctx) => {
   for (const request of logger.requests) {
-    if (fs.existsSync(`./testcafe/dummyFiles/${path2file(request.request.url)}.json`)) {
+    if (fs.existsSync(`./testcafe/cachedAjax/${path2file(request.request.url)}.json`)) {
       continue;
     }
 
@@ -53,7 +53,7 @@ export const fixtureAfterHook = async (ctx) => {
 
 const mock = RequestMock()
   .onRequestTo(/api.opendota.com\/api/).respond((req, res) => {
-    const data = fs.readFileSync(`./testcafe/dummyFiles/${path2file(req.url)}.json`, 'utf8');
+    const data = fs.readFileSync(`./testcafe/cachedAjax/${path2file(req.url)}.json`, 'utf8');
 
     res.headers['Access-Control-Allow-Origin'] = '*';
     res.statusCode = 200;
