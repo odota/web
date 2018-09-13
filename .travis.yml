@@ -4,7 +4,6 @@ language: node_js
 node_js:
 - '10'
 addons:
-  firefox: latest
   apt:
     sources:
      - google-chrome
@@ -25,7 +24,6 @@ notifications:
 script:
 - npm run lintnofix
 - npm run build
-- npm install -g serve
 - npm run testcafe
 # blocklist
 branches:
