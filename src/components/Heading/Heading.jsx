@@ -29,7 +29,7 @@ const Heading = ({
         <span className="sponsor-button">
           <RaisedButton
             label={buttonLabel}
-            icon={buttonIcon ? <img src={buttonIcon} alt="" /> : ''}
+            icon={<img src={buttonIcon} alt="" />}
             href={buttonTo}
             target="_blank"
             rel="noopener noreferrer"

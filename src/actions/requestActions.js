@@ -39,7 +39,7 @@ function poll(dispatch, json, matchId) {
       if (_json && _json.progress) {
         dispatch(requestProgress(_json.progress));
       }
-      if (!_json || (_json && _json.state === 'completed')) {
+      if (!_json || (_json.state === 'completed')) {
         dispatch(requestOk());
         window.location.href = `/matches/${matchId}`;
       } else {
