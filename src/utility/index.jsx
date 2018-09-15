@@ -198,16 +198,24 @@ export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
 // Fills in a template with the values provided in the dict
 // returns a list, so react object don't have to be converted to a string
 // Any keys not found in the given dictionary are simply left untouched
+// If a non-object is passed in, a dict will automatically be created with args[1...len] to be used.
 // brackets can be escaped with \
 // Examples:
 // formatTemplate("{person} name is {name}", { person: "My", name: "Gaben" });
 // returns [ "My", " name is ", "Gaben" ]
 // formatTemplate("{person} name is {name}", { name: <font color={styles.golden}>{"Gaben"}</font> });
 // returns [ "{person} name is ", <font color={styles.golden}>{"Gaben"}</font> ]
-export const formatTemplate = (template, dict) => {
+export const formatTemplate = (template, dict, ...rest) => {
   if (!template) {
     return ['(invalid template)'];
   }
+
+  // If the 2nd argument isn't a dictionary, then we will gather arguments 1 => end into an object.
+  // I'm arbitrarily making argument 0 the template.
+  if((dict instanceof object) === false){
+      dict = Object.assign({}, Array.concat[template, dict], rest);
+  }
+
   const pattern = /(\{[^}]+\})/g;
   let result = template.split(pattern);
   for (let i = 0; i < result.length; i += 1) {
