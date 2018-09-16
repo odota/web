@@ -16,7 +16,7 @@ import Table from '../Table';
 import Error from '../Error';
 import Heading from '../Heading';
 import ScenariosSkeleton from '../Skeletons/ScenariosSkeleton';
-import {formatTemplateToString, groupByArray} from '../../utility/index';
+import { formatTemplateToString, groupByArray } from '../../utility/index';
 import { IconLaneRoles } from '../Icons';
 
 const minSampleSize = row => row.games > 200;

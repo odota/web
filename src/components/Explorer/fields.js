@@ -4,7 +4,7 @@ import itemData from 'dotaconstants/build/items.json';
 import regionData from 'dotaconstants/build/region.json';
 import clusterData from 'dotaconstants/build/cluster.json';
 import store from '../../store';
-import {formatTemplateToString} from "../../utility";
+import { formatTemplateToString } from '../../utility';
 // import { isActiveItem } from '../../utility';
 
 const getItemSuffix = itemKey => (['_2', '_3', '_4', '_5'].some(suffix => itemKey.indexOf(suffix) !== -1) ? itemKey[itemKey.length - 1] : '');

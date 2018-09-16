@@ -9,17 +9,17 @@ import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import {
-    formatSeconds,
-    abbreviateNumber,
-    transformations,
-    percentile,
-    sum,
-    subTextStyle,
-    getHeroesById,
-    rankTierToString,
-    groupBy,
-    compileLevelOneStats,
-    formatTemplateToString
+  formatSeconds,
+  abbreviateNumber,
+  transformations,
+  percentile,
+  sum,
+  subTextStyle,
+  getHeroesById,
+  rankTierToString,
+  groupBy,
+  compileLevelOneStats,
+  formatTemplateToString,
 } from '../../utility';
 import { TableHeroImage, inflictorWithValue } from '../Visualizations';
 import { CompetitiveRank } from '../Visualizations/Table/HeroImage';

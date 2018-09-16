@@ -208,27 +208,25 @@ export const formatTemplate = (template, dict, ...rest) => {
   if (!template) {
     return ['(invalid template)'];
   }
-
+  let tmplValues = dict;
   // If the 2nd argument isn't a dictionary, then we will gather arguments 1 => end into an object.
   // I'm arbitrarily making argument 0 the template.
-  if((dict instanceof Object) === false){
-      dict = Object.assign({}, [template, dict].concat(rest));
+  if ((dict instanceof Object) === false) {
+    tmplValues = Object.assign({}, [template, dict].concat(rest));
   }
 
   const pattern = /(\{[^}]+\})/g;
   let result = template.split(pattern);
   for (let i = 0; i < result.length; i += 1) {
-    if (result[i].match(pattern) && result[i].slice(1, -1) in dict) {
-      result[i] = dict[result[i].slice(1, -1)];
+    if (result[i].match(pattern) && result[i].slice(1, -1) in tmplValues) {
+      result[i] = tmplValues[result[i].slice(1, -1)];
     }
   }
   result = result.filter(part => part !== '');
   return result;
 };
 
-export const formatTemplateToString = (template, dict, ...rest) => {
-  return formatTemplate(template, dict, ...rest).join('');
-}
+export const formatTemplateToString = (template, dict, ...rest) => formatTemplate(template, dict, ...rest).join('');
 
 export const defaultSort = (array, sortState, sortField, sortFn) =>
   array.sort((a, b) => {

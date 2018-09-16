@@ -1,38 +1,40 @@
 
-const fs = require('fs')
-const path = require('path')
-const langsPath = path.resolve(__dirname, '../src/lang')
-const oldLangsPath = path.resolve(__dirname, '../src/lang/old')
-const excludedLangKeys = ['title_template']
-const langs = fs.readdirSync(langsPath).filter((dir) => { return ['.','..','old','index.js'].includes(dir) === false});
+const fs = require('fs');
+const path = require('path');
 
-if(!fs.existsSync(oldLangsPath)){
-    fs.mkdirSync(oldLangsPath)
+const langsPath = path.resolve(__dirname, '../src/lang');
+const oldLangsPath = path.resolve(__dirname, '../src/lang/old');
+const excludedLangKeys = ['title_template'];
+const langs = fs.readdirSync(langsPath).filter(dir => ['.', '..', 'old', 'index.js'].includes(dir) === false);
+
+if (!fs.existsSync(oldLangsPath)) {
+  fs.mkdirSync(oldLangsPath);
 }
 
 langs.forEach((langFile) => {
-    //Make a backup of the old file.
-    if(!fs.existsSync(path.resolve(oldLangsPath, langFile))){
-        fs.copyFileSync(path.resolve(langsPath, langFile), path.resolve(oldLangsPath, langFile));
-    }
+  // Make a backup of the old file.
+  if (!fs.existsSync(path.resolve(oldLangsPath, langFile))) {
+    fs.copyFileSync(path.resolve(langsPath, langFile), path.resolve(oldLangsPath, langFile));
+  }
 
 
-    const lang = JSON.parse(fs.readFileSync(path.resolve(langsPath, langFile)))
-    const pattern = /(%[^\s^%]+)/g;
-    const updatedLang = {}
-    Object.entries(lang).map(([langKey, string]) => {
-        let count = 0
-        const replaced = string.split(pattern).map((split) => {
-            if(excludedLangKeys.includes(langKey) === false && split.match(pattern)){
-                return `{${++count}}`
-            }
+  const lang = JSON.parse(fs.readFileSync(path.resolve(langsPath, langFile)));
+  const pattern = /(%[^\s^%]+)/g;
+  const updatedLang = {};
+  Object.entries(lang).map(([langKey, string]) => {
+    let count = 0;
+    const replaced = string.split(pattern).map((split) => {
+      if (excludedLangKeys.includes(langKey) === false && split.match(pattern)) {
+        count += 1;
+        return `{${count}}`;
+      }
 
-            return split
-        });
-        return updatedLang[langKey] = replaced.join('')
-    })
+      return split;
+    });
+    updatedLang[langKey] = replaced.join('');
+    return updatedLang[langKey];
+  });
 
-    fs.writeFileSync(path.resolve(langsPath, langFile), JSON.stringify(updatedLang, undefined, "  "))
-})
-
+  fs.writeFileSync(path.resolve(langsPath, langFile), JSON.stringify(updatedLang, undefined, '  '));
+});
 

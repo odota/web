@@ -19,7 +19,7 @@ import { playerPeersOverviewColumns } from '../Peers/playerPeersColumns';
 import SummOfRecMatches from './Summary';
 import constants from '../../../constants';
 import CountsSummary from './CountsSummary';
-import {formatTemplateToString} from "../../../../utility";
+import { formatTemplateToString } from '../../../../utility';
 
 export const MAX_MATCHES_ROWS = 20;
 const MAX_HEROES_ROWS = 10;
