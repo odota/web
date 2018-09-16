@@ -847,7 +847,7 @@
   "timeline_teamfight_deaths": "Chết",
   "timeline_teamfight_gold_delta": "tiền",
   "title_default": "OpenDota - Phân tích trận đấu Dota2",
-  "title_template": "{1} - OpenDota - Phân tích trận đấu Dota2",
+  "title_template": "%s - OpenDota - Phân tích trận đấu Dota2",
   "title_matches": "Trận đấu",
   "title_request": "Đề nghị phân tích",
   "title_search": "Tìm kiếm",

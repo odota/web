@@ -847,7 +847,7 @@
   "timeline_teamfight_deaths": "ölümler",
   "timeline_teamfight_gold_delta": "altın delta",
   "title_default": "OpenDota - Dota 2 istatistikleri",
-  "title_template": "{1} - OpenDota - Dota 2 istatistikleri",
+  "title_template": "%s - OpenDota - Dota 2 istatistikleri",
   "title_matches": "Maçlar",
   "title_request": "Bir ayrıştırma iste",
   "title_search": "Ara",

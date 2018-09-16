@@ -847,7 +847,7 @@
   "timeline_teamfight_deaths": "Dödsfall",
   "timeline_teamfight_gold_delta": "guld delta",
   "title_default": "OpenDota - Dota 2 Statistik",
-  "title_template": "{1} - OpenDota - Dota 2 Statistik",
+  "title_template": "%s - OpenDota - Dota 2 Statistik",
   "title_matches": "Matcher",
   "title_request": "Begär en analys",
   "title_search": "Sök",

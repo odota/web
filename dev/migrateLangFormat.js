@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const langsPath = path.resolve(__dirname, '../src/lang')
 const oldLangsPath = path.resolve(__dirname, '../src/lang/old')
-
+const excludedLangKeys = ['title_template']
 const langs = fs.readdirSync(langsPath).filter((dir) => { return ['.','..','old','index.js'].includes(dir) === false});
 
 if(!fs.existsSync(oldLangsPath)){
@@ -23,7 +23,7 @@ langs.forEach((langFile) => {
     Object.entries(lang).map(([langKey, string]) => {
         let count = 0
         const replaced = string.split(pattern).map((split) => {
-            if(split.match(pattern)){
+            if(excludedLangKeys.includes(langKey) === false && split.match(pattern)){
                 return `{${++count}}`
             }
 

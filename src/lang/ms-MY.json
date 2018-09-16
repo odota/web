@@ -847,7 +847,7 @@
   "timeline_teamfight_deaths": "Death",
   "timeline_teamfight_gold_delta": "delta emas",
   "title_default": "OpenDota - Statistik Dota 2",
-  "title_template": "{1} - OpenDota - Statistik Dota 2",
+  "title_template": "%s - OpenDota - Statistik Dota 2",
   "title_matches": "Perlawanan",
   "title_request": "Memohon Penghuraian",
   "title_search": "Cari",

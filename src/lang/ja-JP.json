@@ -847,7 +847,7 @@
   "timeline_teamfight_deaths": "デス数",
   "timeline_teamfight_gold_delta": "ゴールド差",
   "title_default": "OpenDota - Dota 2 統計サイト",
-  "title_template": "{1} - OpenDota - Dota 2 統計サイト",
+  "title_template": "%s - OpenDota - Dota 2 統計サイト",
   "title_matches": "試合",
   "title_request": "解析をしてもらう",
   "title_search": "検索",

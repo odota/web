@@ -848,7 +848,7 @@
   "timeline_teamfight_deaths": "Смерти",
   "timeline_teamfight_gold_delta": "изменения по золоту",
   "title_default": "OpenDota — статистика по Dota 2",
-  "title_template": "{1} — OpenDota — статистика Dota 2",
+  "title_template": "%s — OpenDota — статистика Dota 2",
   "title_matches": "Профессиональные матчи",
   "title_request": "Запросить обработке",
   "title_search": "Поиск",
