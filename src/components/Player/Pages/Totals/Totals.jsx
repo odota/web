@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import util from 'util';
 import Card from './Card';
 import { getPlayerTotals } from '../../../../actions';
 import Container from '../../../Container';

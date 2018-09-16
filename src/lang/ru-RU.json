@@ -1,7 +1,6 @@
 {
   "yes": "да",
   "no": "нет",
-  
   "abbr_thousand": "тыс.",
   "abbr_million": "млн",
   "abbr_billion": "млрд",
@@ -11,7 +10,6 @@
   "abbr_pick": "В",
   "abbr_win": "П",
   "abbr_number": "Ном.",
-  
   "analysis_eff": "Эффективность на линии",
   "analysis_farm_drought": "Наименьший З/М в интервале 5 минут",
   "analysis_skillshot": "Успешных попаданий способностями",
@@ -21,10 +19,8 @@
   "analysis_rune_control": "Рун собрано",
   "analysis_unused_item": "Неиспользовано активных вещей",
   "analysis_expected": "из",
-  
   "announce_dismiss": "Скрыть",
   "announce_github_more": "Посмотреть на GitHub",
-  
   "api_meta_description": "OpenDota API даёт вам доступ к расширенной статистике Dota 2, предоставляемой платформой OpenDota. Доступ к графикам, диаграммам, облакам слов и многому другому. Начните бесплатно.",
   "api_title": "OpenDota API",
   "api_subtitle": "Построен на платформе OpenDota. Преподнесите расширенную статистику для вашего приложения и глубокое понимание для ваших пользователей.",
@@ -64,7 +60,6 @@
   "api_month": "Месяц",
   "api_header_key": "Ваш ключ",
   "api_header_table": "Начните бесплатно. Продолжайте по смехотворно низкой цене.",
-  
   "app_name": "OpenDota",
   "app_language": "Язык",
   "app_localization": "Локализация",
@@ -91,7 +86,7 @@
   "app_pvgna": "Найти руководство",
   "app_pvgna_alt": "Найти руководство на Pvgna",
   "app_rivalry": "Поставить на про-матч",
-  "app_rivalry_team": "Ставки на %s киберспорт",
+  "app_rivalry_team": "Ставки на {1} киберспорт",
   "app_moremmr": "Научиться играть как профессионал",
   "app_refresh": "Обновить историю матчей: Запросить сканирование пропущенных матчей из-за настроек приватности",
   "app_refresh_label": "Обновить",
@@ -102,7 +97,6 @@
   "app_pro_players": "Профессиональные игроки",
   "app_public_players": "Игроки",
   "app_my_profile": "Мой профиль",
-  
   "barracks_value_1": "Нижний ближнего боя сил Тьмы",
   "barracks_value_2": "Нижний дальнего боя сил Тьмы",
   "barracks_value_4": "Средний ближнего боя сил Тьмы",
@@ -115,10 +109,8 @@
   "barracks_value_512": "Средний дальнего боя сил Света",
   "barracks_value_1024": "Верхний ближнего боя сил Света",
   "barracks_value_2048": "Верхний дальнего боя сил Света",
-  
-  "benchmarks_description": "%d %s равен или больше %d% недавних показателей на этом герое",
-  "fantasy_description": "%d на %d балла",
-  
+  "benchmarks_description": "{1} {2} равен или больше {3}% недавних показателей на этом герое",
+  "fantasy_description": "{1} на {2} балла",
   "building_melee_rax": "Казармы ближнего боя",
   "building_range_rax": "Казармы дальнего боя",
   "building_lasthit": "добито",
@@ -126,7 +118,6 @@
   "building_hint": "У иконок на карте есть подсказки",
   "building_denied": "не отдано",
   "building_ancient": "Крепость",
-  
   "CHAT_MESSAGE_TOWER_KILL": "Башня",
   "CHAT_MESSAGE_BARRACKS_KILL": "Казармы",
   "CHAT_MESSAGE_ROSHAN_KILL": "Рошан",
@@ -135,7 +126,6 @@
   "CHAT_MESSAGE_TOWER_DENY": "Не отдаёт башню",
   "CHAT_MESSAGE_AEGIS_STOLEN": "Крадёт Aegis ",
   "CHAT_MESSAGE_DENIED_AEGIS": "Уничтожает Aegis",
-  
   "distributions_heading_ranks": "Распределение разрядов рангов",
   "distributions_heading_mmr": "Распределение одиночного рейтинга",
   "distributions_heading_country_mmr": "Средний одиночный рейтинг по странам",
@@ -144,11 +134,9 @@
   "distributions_tab_country_mmr": "Одиночный рейтинг по странам",
   "distributions_warning_1": "Эти данные основаны на игроках, выставляющих публично свою статистику и данные матчей.",
   "distributions_warning_2": "Игрокам не нужно регистрироваться, но из-за характера собираемых данных, средние значения выше, чем на самом деле.",
-  
   "error": "Ошибка",
   "error_message": "Упс! Что-то пошло не так.",
   "error_four_oh_four_message": "Страница, которую вы ищете, не найдена.",
-  
   "explorer_title": "Data Explorer",
   "explorer_subtitle": "Статистика профессионалов Dota 2",
   "explorer_description": "Выполнить дополнительные запросы о профессиональных матчах (за исключением любительских лиг)",
@@ -224,7 +212,6 @@
   "farm_sentries": "Сломано Sentry Ward",
   "farm_roshan": "Убито Рошанов",
   "farm_necronomicon": "Убито существ Necronomicon",
-  
   "filter_button_text_open": "Фильтр",
   "filter_button_text_close": "Закрыть",
   "filter_hero_id": "Герой",
@@ -248,7 +235,6 @@
   "filter_last_6_months": "Последние 6 месяцев",
   "filter_error": "Пожалуйста, выберите пункт из выпадающего списка",
   "filter_party_size": "Размер группы",
-  
   "game_mode_0": "Неизвестно",
   "game_mode_1": "All Pick",
   "game_mode_2": "Captains Mode",
@@ -274,7 +260,6 @@
   "game_mode_22": "All Draft",
   "game_mode_23": "Turbo",
   "game_mode_24": "Мутация",
-  
   "general_unknown": "Неизвестно",
   "general_no_hero": "Нет героя",
   "general_anonymous": "Аноним",
@@ -286,7 +271,6 @@
   "general_randomed": "Выбран случайно",
   "general_repicked": "Перевыбран",
   "general_predicted_victory": "Предсказывал победу",
-  
   "gold_reasons_0": "Другие",
   "gold_reasons_1": "Смерть",
   "gold_reasons_2": "Выкуп",
@@ -297,7 +281,6 @@
   "gold_reasons_13": "Крипы",
   "gold_reasons_14": "Рошан",
   "NULL_gold_reasons_15": "Курьер",
-  
   "header_request": "Запросить",
   "header_distributions": "Ранги",
   "header_heroes": "Герои",
@@ -310,7 +293,6 @@
   "header_meta": "Мета",
   "header_scenarios": "Сценарии",
   "header_api": "API",
-  
   "heading_lhten": "Добиваний @ 10",
   "heading_lhtwenty": "Добиваний @ 20",
   "heading_lhthirty": "Добиваний @ 30",
@@ -433,11 +415,9 @@
   "heading_damage_received": "Урона получено",
   "show_details": "Показать подробности",
   "hide_details": "Скрыть подробности",
-  
-  "subheading_avg_and_max": "в последних %d матчах",
+  "subheading_avg_and_max": "в последних {1} матчах",
   "subheading_records": "В рейтинговых матчах. Записи обновляются ежемесячно.",
   "subheading_team_elo_rankings": "k=32, init=1000",
-  
   "hero_pro_tab": "Профессионалы",
   "hero_public_tab": "Открытый",
   "hero_pro_heading": "Герои в профессиональных матчах",
@@ -457,7 +437,6 @@
   "hero_2000_win_rate": "2K П%",
   "hero_1000_pick_rate": "<2K В%",
   "hero_1000_win_rate": "<2K П%",
-  
   "home_login": "Войти",
   "home_login_desc": "для автоматической обработки повторов",
   "home_parse": "Запросить",
@@ -472,7 +451,6 @@
   "home_background_by": "Фоновый рисунок предоставлен",
   "home_sponsored_by": "При поддержке",
   "home_become_sponsor": "Стать спонсором",
-  
   "items_name": "Имя предмета",
   "items_built": "Количество раз, когда был собран предмет",
   "items_matches": "Количество матчей, в которых этот предмет был собран",
@@ -481,19 +459,16 @@
   "items_timing": "Среднее время сборки предмета",
   "items_build_pct": "Процент матчей, в которых этот предмет был собран",
   "items_win_pct": "Процент выигранных матчей, в которых этот предмет был собран",
-  
   "lane_role_0": "Неизвестно",
   "lane_role_1": "Лёгкая",
   "lane_role_2": "Центр",
   "lane_role_3": "Сложная",
   "lane_role_4": "Лес",
-  
   "lane_pos_1": "Нижняя",
   "lane_pos_2": "Центр",
   "lane_pos_3": "Верхняя",
   "lane_pos_4": "Лес сил Света",
   "lane_pos_5": "Лес сил Тьмы",
-  
   "leaver_status_0": "Неизвестно",
   "leaver_status_1": "Покинуто без последствий",
   "leaver_status_2": "Покинуто (DC)",
@@ -501,7 +476,6 @@
   "leaver_status_4": "Покинуто (AFK)",
   "leaver_status_5": "Не подключился",
   "leaver_status_6": "Не подключился (Time-out)",
-  
   "lobby_type_0": "Обычная",
   "lobby_type_1": "Практика",
   "lobby_type_2": "Турнир",
@@ -512,7 +486,6 @@
   "lobby_type_7": "Рейтинговая",
   "lobby_type_8": "1v1 Mid",
   "lobby_type_9": "Боевой кубок",
-  
   "match_radiant_win": "Победа сил Света",
   "match_dire_win": "Победа сил Тьмы",
   "match_team_win": "победили",
@@ -528,15 +501,11 @@
   "match_first_barracks": "Первые казармы",
   "match_pick": "Пик",
   "match_ban": "Бан",
-  
   "matches_highest_mmr": "Топ общественности",
   "matches_lowest_mmr": "Низкий рейтинг",
-  
   "meta_title": "Мета",
   "meta_description": "Запуск расширенных запросов с данными из отобранных публичных матчах за последние 24 часа",
-  
   "mmr_not_up_to_date": "Почему MMR не актуален?",
-  
   "npc_dota_beastmaster_boar_#": "Кабан",
   "npc_dota_lesser_eidolon": "Малый эйдолон",
   "npc_dota_eidolon": "Эйдолон",
@@ -575,7 +544,6 @@
   "npc_dota_treant_eyes": "Eyes in the Forest",
   "npc_dota_gyrocopter_homing_missile": "Homing Missile",
   "npc_dota_weaver_swarm": "The Swarm",
-  
   "objective_tower1_top": "В1",
   "objective_tower1_mid": "Ц1",
   "objective_tower1_bot": "Н1",
@@ -592,12 +560,10 @@
   "objective_fort": "Крепость",
   "objective_shrine": "Святыня",
   "objective_roshan": "Рошан",
-  
   "pagination_first": "Первая",
   "pagination_last": "Последняя",
   "pagination_of": "из",
   "peers_none": "У этой страницы нет связей.",
-  
   "rank_tier_0": "Без ранга",
   "rank_tier_1": "Рекрут",
   "rank_tier_2": "Страж",
@@ -607,15 +573,12 @@
   "rank_tier_6": "Властелин",
   "rank_tier_7": "Божество",
   "rank_tier_8": "Титан",
-  
   "request_title": "Обработать матч",
   "request_match_id": "Номер матча",
   "request_invalid_match_id": "Некорректный номер матча",
   "request_error": "Не удалось получить данные о матче",
   "request_submit": "Подтвердить",
-  
   "roaming": "Роуминг",
-  
   "rune_0": "Двойной Урон",
   "rune_1": "Ускорение",
   "rune_2": "Иллюзия",
@@ -671,10 +634,8 @@
   "story_predicted_victory_empty": "Никто",
   "story_networth_diff": "Разница {percent}% / {gold}",
   "story_gold": "Золото",
-  
   "story_chat_asked": "спросил",
   "story_chat_said": "сказал",
-  
   "tab_overview": "Обзор",
   "tab_matches": "Матчи",
   "tab_heroes": "Герои",
@@ -715,13 +676,10 @@
   "tab_matchups": "Подборы",
   "tab_durations": "Длительность",
   "tab_players": "Игроки",
-  
   "placeholder_filter_heroes": "Фильтр по герою",
-  
   "td_win": "Победа",
   "td_loss": "Поражение",
   "td_no_result": "Нет результата",
-  
   "th_hero_id": "Герой",
   "th_match_id": "Номер",
   "th_account_id": "ID аккаунта",
@@ -858,35 +816,30 @@
   "th_attack_type": "Тип атаки",
   "th_primary_attr": "Осн. характеристика",
   "th_opposing_team": "Команда противника",
-  
   "ward_log_type": "Тип",
   "ward_log_owner": "Владелец",
   "ward_log_entered_at": "Размещение",
   "ward_log_left_at": "Осталось",
   "ward_log_duration": "Продолжительность",
   "ward_log_killed_by": "Уничтожен",
-  
   "log_detail": "Сведения",
   "log_heroes": "Укажите героев",
-  
   "tier_professional": "Профессионал",
   "tier_premium": "Премиум",
-  
-  "time_past": "%s назад",
+  "time_past": "{1} назад",
   "time_just_now": "только что",
   "time_s": "секунда",
-  "time_ss": "%d сек",
+  "time_ss": "{1} сек",
   "time_m": "минута",
-  "time_mm": "%d мин",
+  "time_mm": "{1} мин",
   "time_h": "час",
-  "time_hh": "%d час",
+  "time_hh": "{1} час",
   "time_d": "день",
-  "time_dd": "%d дн",
+  "time_dd": "{1} дн",
   "time_M": "месяц",
-  "time_MM": "%d мес",
+  "time_MM": "{1} мес",
   "time_y": "год",
-  "time_yy": "%d лет",
-  
+  "time_yy": "{1} лет",
   "timeline_firstblood": "пролил первую кровь",
   "timeline_firstblood_key": "пролил первую кровь, убив",
   "timeline_aegis_picked_up": "поднял",
@@ -894,9 +847,8 @@
   "timeline_aegis_denied": "не отдал",
   "timeline_teamfight_deaths": "Смерти",
   "timeline_teamfight_gold_delta": "изменения по золоту",
-  
   "title_default": "OpenDota — статистика по Dota 2",
-  "title_template": "%s — OpenDota — статистика Dota 2",
+  "title_template": "{1} — OpenDota — статистика Dota 2",
   "title_matches": "Профессиональные матчи",
   "title_request": "Запросить обработке",
   "title_search": "Поиск",
@@ -905,7 +857,6 @@
   "title_meta": "Мета",
   "title_records": "Записи",
   "title_api": "Opendota API: расширенная Dota 2 статистика для вашего приложения",
-  
   "tooltip_mmr": "Одиночный рейтинг игрока",
   "tooltip_abilitydraft": "Выбранные способности",
   "tooltip_level": "Уровень, полученный героем",
@@ -1012,10 +963,8 @@
   "tooltip_others_greevils_gold": "Добыто золота из Greevil's Greed",
   "tooltip_advantage": "Рассчитывано Wilson score",
   "tooltip_winrate_samplesize": "Доля побед и размер выборки",
-  
   "histograms_name": "Гистограммы",
   "histograms_description": "Процентаж указывает на процент побед для этого столбца",
-  
   "histograms_actions_per_min_description": "Действий игрока в минуту",
   "histograms_comeback_description": "Наибольшее отставание по золоту в выигранной игре",
   "histograms_lane_efficiency_pct_description": "Процент золота с линии (начальное + пассивное + от крипов), заработанное за 10 первые минут",
@@ -1030,20 +979,16 @@
   "histograms_throw_description": "Наибольшее преимущество по золоту в проигранной игре",
   "histograms_purchase_tpscroll_description": "Покупок Town Portal Scroll",
   "histograms_xp_per_min_description": "Заработанный опыт в минуту",
-  
   "trends_name": "Графики",
   "trends_description": "Совокупное среднее за последние 500 игр",
   "trends_tooltip_average": "Сред.",
   "trends_no_data": "К сожалению, данные для диаграммы отсутствуют",
-  
   "xp_reasons_0": "Другие",
   "xp_reasons_1": "Герой",
   "xp_reasons_2": "Крипы",
   "xp_reasons_3": "Рошан",
-  
   "rankings_description": "",
   "rankings_none": "Этот игрок не место на любой героев.",
-  
   "region_0": "Автоматически",
   "region_1": "Запад США",
   "region_2": "Восток США",
@@ -1065,14 +1010,12 @@
   "region_19": "Япония",
   "region_20": "China TC - Ухань",
   "region_25": "Китай UC 2",
-  
   "vision_expired": "Истёк",
   "vision_destroyed": "Уничтожен",
   "vision_all_time": "За всё время",
   "vision_placed_observer": "установил Observer Ward на",
   "vision_placed_sentry": "установил Sentry Ward на",
   "vision_ward_log": "Журнал вардов",
-  
   "chat_category_faction": "Сторона",
   "chat_category_type": "Тип",
   "chat_category_target": "Цель",
@@ -1085,7 +1028,6 @@
   "chat_filter_allies": "Союзники",
   "chat_filter_spectator": "Зритель",
   "chat_filtered": "Отфильтровано",
-  
   "chatwheel_0": "Хорошо.",
   "chatwheel_1": "Осторожно!",
   "chatwheel_2": "Вернитесь!",
@@ -1172,105 +1114,86 @@
   "chatwheel_83": "Поставьте вард на нижней руне",
   "chatwheel_84": "Поставьте вард на верхней руне",
   "chatwheel_85": "Зевс, ультуй!",
-  
   "chatwheel_86": "Ба-дум тссс",
   "chatwheel_87": "В атаку",
   "chatwheel_88": "Лягушка",
   "chatwheel_89": "Крушение",
   "chatwheel_90": "Аплодисменты",
-  
   "chatwheel_91": "Грустный тромбон",
   "chatwheel_92": "Сверчки",
   "chatwheel_93": "Барабанная дробь",
   "chatwheel_94": "Встряска",
   "chatwheel_95": "Плач ребёнка",
-  
   "chatwheel_96": "Patience from Zhou",
   "chatwheel_97": "玩不了啦!",
   "chatwheel_98": "Боже, ты посмотри вокруг, что происходит!",
-  
   "chatwheel_99": "Waow",
   "chatwheel_100": "破两路更好打, 是吧?",
   "chatwheel_101": "Жил до конца, умер как герой",
-  
   "chatwheel_102": "Они все мертвы!",
   "chatwheel_103": "天火!",
   "chatwheel_104": "Ай-ай-ай-ай-ай, что сейчас произошло!",
-  
   "chatwheel_105": "Brutal. Savage. Rekt.",
   "chatwheel_106": "加油!",
   "chatwheel_107": "Это ГГ",
-  
   "chatwheel_108": "It's a disastah!",
   "chatwheel_109": "走好, 不送",
   "chatwheel_110": "Это. Просто. Нечто.",
-  
   "advb_almost": "почти",
   "advb_over": "больше",
   "advb_about": "около",
-  
   "article_before_consonant_sound": " ",
   "article_before_vowel_sound": " ",
-  
   "statement_long": "предпологаемый",
   "statement_shouted": "крикнул",
   "statement_excited": "воскликнул",
   "statement_normal": "сказал",
   "statement_laughed": "смеяться",
-  
   "question_long": "вопросы, нуждающиеся в ответы",
   "question_shouted": "спросил",
   "question_excited": "пытал",
   "question_normal": "спросил",
   "question_laughed": "насмешливо смеялся",
-  
   "statement_response_long": "советовал",
   "statement_response_shouted": "ответил в отчаянии",
   "statement_response_excited": "воскликнул",
   "statement_response_normal": "ответил",
   "statement_response_laughed": "смеяться",
-  
   "statement_continued_long": "разносил в щепки",
   "statement_continued_shouted": "продолжал с яростью",
   "statement_continued_excited": "продолжиил",
   "statement_continued_normal": "добавил",
   "statement_continued_laughed": "продолжил",
-  
   "question_response_long": "посоветовал",
   "question_response_shouted": "спросил из разочарования",
   "question_response_excited": "оспорил",
   "question_response_normal": "противопоставить",
   "question_response_laughed": "смеялся",
-  
   "question_continued_long": "предложил для улучшения",
   "question_continued_shouted": "спросил с яростью",
   "question_continued_excited": "спросил с любовью",
   "question_continued_normal": "спросил",
   "question_continued_laughed": "радостно спросил",
-  
   "hero_disclaimer_pro": "Данные профессиональных матчей",
   "hero_disclaimer_public": "Данные публичных матчей",
   "hero_duration_x_axis": "минут",
-  
   "top_tower": "Верхняя башня",
   "bot_tower": "Нижняя башня",
   "mid_tower": "Центральная башня",
   "top_rax": "Верхние казармы",
   "bot_rax": "Нижние казармы",
   "mid_rax": "Центральные казармы",
-  
   "tier1": "1-й разряд",
   "tier2": "2-й разряд",
   "tier3": "3-й разряд",
   "tier4": "4-й разряд",
-  
   "show_consumables_items": "Показать расходуемые предметы",
   "activated": "Активирован",
   "rune": "Руны",
   "placement": "Размещение",
   "exclude_turbo_matches": "Исключить матчи в Turbo ",
   "scenarios_subtitle": "Исследуйте шансы на победу комбинируя факты произошедшие в матче",
-  "scenarios_info": "Данные из матчей в течение последних недель %d",
+  "scenarios_info": "Данные из матчей в течение последних недель {1}",
   "scenarios_item_timings": "Тайминги предметов",
   "scenarios_misc": "Прочее",
   "scenarios_time": "Время",
@@ -1281,7 +1204,6 @@
   "scenarios_courier_kill": "Команда убивает вражеского курьера до 3-минуты",
   "scenarios_pos_chat_1min": "Команда пишет позитивные слова в общий чат до 1 минуты",
   "scenarios_neg_chat_1min": "Команда пишет негативные слова в общий чат до 1 минуты",
-  
   "gosu_default": "Получить персональные рекомендации",
   "gosu_benchmarks": "Получить подробные разбор для вашего героя, Лайн и роль",
   "gosu_performances": "Получите ваш показатель контроля карты",

@@ -1,7 +1,6 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import util from 'util';
-import { getTeamLogoUrl } from '../../utility';
+import {formatTemplateToString, getTeamLogoUrl} from '../../utility';
 import { HeaderContainer, Logo, Column, TeamName, Row, TeamStatsCard } from './TeamStyled';
 
 export default (generalData, strings) => (
@@ -28,7 +27,7 @@ export default (generalData, strings) => (
       </Row>
       <Row>
         <FlatButton
-          label={util.format(strings.app_rivalry_team, generalData.data.name)}
+          label={formatTemplateToString(strings.app_rivalry_team, generalData.data.name)}
           icon={<img src="/assets/images/rivalry-icon.png" alt="" height="24px" />}
           href="https://glhf.rivalry.gg/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota"
           target="_blank"

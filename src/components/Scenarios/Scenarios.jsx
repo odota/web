@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import util from 'util';
 import { connect } from 'react-redux';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Schedule from 'material-ui/svg-icons/action/schedule';
@@ -17,7 +16,7 @@ import Table from '../Table';
 import Error from '../Error';
 import Heading from '../Heading';
 import ScenariosSkeleton from '../Skeletons/ScenariosSkeleton';
-import { groupByArray } from '../../utility/index';
+import {formatTemplateToString, groupByArray} from '../../utility/index';
 import { IconLaneRoles } from '../Icons';
 
 const minSampleSize = row => row.games > 200;
@@ -168,7 +167,7 @@ class Scenarios extends React.Component {
         {metadataLoading && <ScenariosSkeleton />}
         {!metadataError && !metadataLoading &&
         <div>
-          <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} info={`${util.format(strings.scenarios_info, 4)}`} />
+          <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} info={`${formatTemplateToString(strings.scenarios_info, 4)}`} />
           <Tabs value={selectedTab} onChange={this.handleChange} style={tabsStyle}>
             {tabItems(strings).map(item => (
               <Tab label={item.text} value={item.value} icon={item.icon} containerElement={getLink(item.value)} className="tab" />

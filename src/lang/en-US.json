@@ -1,7 +1,6 @@
 {
   "yes": "yes",
   "no": "no",
-
   "abbr_thousand": "k",
   "abbr_million": "m",
   "abbr_billion": "b",
@@ -11,7 +10,6 @@
   "abbr_pick": "P",
   "abbr_win": "W",
   "abbr_number": "No.",
-
   "analysis_eff": "Lane efficiency",
   "analysis_farm_drought": "Lowest GPM in 5 minute interval",
   "analysis_skillshot": "Skillshots landed",
@@ -21,10 +19,8 @@
   "analysis_rune_control": "Runes obtained",
   "analysis_unused_item": "Unused active items",
   "analysis_expected": "of",
-
   "announce_dismiss": "Dismiss",
   "announce_github_more": "View on GitHub",
-
   "api_meta_description": "The OpenDota API gives you access to all the advanced Dota 2 stats offered by the OpenDota platform. Access performance graphs, heatmaps, wordclouds, and more. Get started for free.",
   "api_title": "The OpenDota API",
   "api_subtitle": "Build on top of the OpenDota platform. Bring advanced stats to your app and deep insights to your users.",
@@ -64,7 +60,6 @@
   "api_month": "Month",
   "api_header_key": "Your Key",
   "api_header_table": "Get started for free. Keep going at a ridiculously low price.",
-
   "app_name": "OpenDota",
   "app_language": "Language",
   "app_localization": "Localization",
@@ -91,7 +86,7 @@
   "app_pvgna": "Find a Guide",
   "app_pvgna_alt": "Find a Dota 2 Guide on Pvgna",
   "app_rivalry": "Bet on Pro Matches",
-  "app_rivalry_team": "Bet on %s Matches",
+  "app_rivalry_team": "Bet on {1} Matches",
   "app_refresh": "Refresh Match History: Queue a scan to find missing matches due to privacy settings",
   "app_refresh_label": "Refresh",
   "app_login": "Login",
@@ -101,7 +96,6 @@
   "app_pro_players": "Pro Players",
   "app_public_players": "Public Players",
   "app_my_profile": "My Profile",
-
   "barracks_value_1": "Dire Bot Melee",
   "barracks_value_2": "Dire Bot Ranged",
   "barracks_value_4": "Dire Mid Melee",
@@ -114,10 +108,8 @@
   "barracks_value_512": "Radiant Mid Ranged",
   "barracks_value_1024": "Radiant Top Melee",
   "barracks_value_2048": "Radiant Top Ranged",
-
-  "benchmarks_description": "%d %s is equal or higher than %d% of recent performances on this hero",
-  "fantasy_description": "%d for %d points",
-
+  "benchmarks_description": "{1} {2} is equal or higher than {3}% of recent performances on this hero",
+  "fantasy_description": "{1} for {2} points",
   "building_melee_rax": "Melee Barracks",
   "building_range_rax": "Ranged Barracks",
   "building_lasthit": "got the last hit",
@@ -125,7 +117,6 @@
   "building_hint": "Icons on the map have tooltips",
   "building_denied": "denied",
   "building_ancient": "Ancient",
-
   "CHAT_MESSAGE_TOWER_KILL": "Tower",
   "CHAT_MESSAGE_BARRACKS_KILL": "Barracks",
   "CHAT_MESSAGE_ROSHAN_KILL": "Roshan",
@@ -134,7 +125,6 @@
   "CHAT_MESSAGE_TOWER_DENY": "Tower Deny",
   "CHAT_MESSAGE_AEGIS_STOLEN": "Stole the Aegis",
   "CHAT_MESSAGE_DENIED_AEGIS": "Denied the Aegis",
-
   "distributions_heading_ranks": "Rank Tier Distribution",
   "distributions_heading_mmr": "Solo MMR Distribution",
   "distributions_heading_country_mmr": "Average Solo MMR by Country",
@@ -143,11 +133,9 @@
   "distributions_tab_country_mmr": "Solo MMR by Country",
   "distributions_warning_1": "This data set is limited to players displaying MMR on profile and sharing public match data.",
   "distributions_warning_2": "Players do not have to sign in, but due to the opt-in nature of the data collected, averages are likely higher than expected.",
-
   "error": "Error",
   "error_message": "Whoops! Something went wrong.",
   "error_four_oh_four_message": "The page you are looking for cannot be found.",
-
   "explorer_title": "Data Explorer",
   "explorer_subtitle": "Professional Dota 2 Stats",
   "explorer_description": "Run advanced queries on professional matches (excludes amateur leagues)",
@@ -213,7 +201,6 @@
   "explorer_mega_comeback": "Won Against Mega Creeps",
   "explorer_max_gold_adv": "Max Gold Advantage",
   "explorer_min_gold_adv": "Min Gold Advantage",
-
   "farm_heroes": "Heroes killed",
   "farm_creeps": "Lane creeps killed",
   "farm_neutrals": "Neutral creeps killed (includes Ancients)",
@@ -224,7 +211,6 @@
   "farm_sentries": "Sentries killed",
   "farm_roshan": "Roshans killed",
   "farm_necronomicon": "Necronomicon units killed",
-
   "filter_button_text_open": "Filter",
   "filter_button_text_close": "Close",
   "filter_hero_id": "Hero",
@@ -248,7 +234,6 @@
   "filter_last_6_months": "Last 6 months",
   "filter_error": "Please select an item from the dropdown",
   "filter_party_size": "Party Size",
-
   "game_mode_0": "Unknown",
   "game_mode_1": "All Pick",
   "game_mode_2": "Captains Mode",
@@ -274,7 +259,6 @@
   "game_mode_22": "All Draft",
   "game_mode_23": "Turbo",
   "game_mode_24": "Mutation",
-
   "general_unknown": "Unknown",
   "general_no_hero": "No hero",
   "general_anonymous": "Anonymous",
@@ -286,7 +270,6 @@
   "general_randomed": "Randomed",
   "general_repicked": "Repicked",
   "general_predicted_victory": "Predicted Victory",
-
   "gold_reasons_0": "Other",
   "gold_reasons_1": "Death",
   "gold_reasons_2": "Buyback",
@@ -297,7 +280,6 @@
   "gold_reasons_13": "Creep",
   "gold_reasons_14": "Roshan",
   "NULL_gold_reasons_15": "Courier",
-
   "header_request": "Request",
   "header_distributions": "Ranks",
   "header_heroes": "Heroes",
@@ -310,7 +292,6 @@
   "header_meta": "Meta",
   "header_scenarios": "Scenarios",
   "header_api": "API",
-
   "heading_lhten": "Last Hits @ 10",
   "heading_lhtwenty": "Last Hits @ 20",
   "heading_lhthirty": "Last Hits @ 30",
@@ -431,14 +412,11 @@
   "heading_former_players": "Former Players",
   "heading_damage_dealt": "Damage Dealt",
   "heading_damage_received": "Damage Received",
-  
   "show_details": "Show details",
   "hide_details": "Hide details",
-
-  "subheading_avg_and_max": "in last %d matches",
+  "subheading_avg_and_max": "in last {1} matches",
   "subheading_records": "In ranked matches. Records reset monthly.",
   "subheading_team_elo_rankings": "k=32, init=1000",
-
   "hero_pro_tab": "Professional",
   "hero_public_tab": "Public",
   "hero_pro_heading": "Heroes in Professional Matches",
@@ -458,7 +436,6 @@
   "hero_2000_win_rate": "2K W%",
   "hero_1000_pick_rate": "<2K P%",
   "hero_1000_win_rate": "<2K W%",
-
   "home_login": "Login",
   "home_login_desc": "for automatic replay parsing",
   "home_parse": "Request",
@@ -473,7 +450,6 @@
   "home_background_by": "Background picture by",
   "home_sponsored_by": "Sponsored by",
   "home_become_sponsor": "Become a Sponsor",
-
   "items_name": "Name of item",
   "items_built": "Number of times this item was built",
   "items_matches": "Number of matches where this item was built",
@@ -482,19 +458,16 @@
   "items_timing": "Mean time this item was built at",
   "items_build_pct": "Percentage of matches this item was built in",
   "items_win_pct": "Percentage of matches won where this item was built",
-
   "lane_role_0": "Unknown",
   "lane_role_1": "Safe",
   "lane_role_2": "Mid",
   "lane_role_3": "Off",
   "lane_role_4": "Jungle",
-
   "lane_pos_1": "Bot",
   "lane_pos_2": "Mid",
   "lane_pos_3": "Top",
   "lane_pos_4": "Radiant Jungle",
   "lane_pos_5": "Dire Jungle",
-
   "leaver_status_0": "None",
   "leaver_status_1": "Left Safely",
   "leaver_status_2": "Abandoned (DC)",
@@ -502,7 +475,6 @@
   "leaver_status_4": "Abandoned (AFK)",
   "leaver_status_5": "Never Connected",
   "leaver_status_6": "Never Connected (Timeout)",
-
   "lobby_type_0": "Normal",
   "lobby_type_1": "Practice",
   "lobby_type_2": "Tournament",
@@ -513,7 +485,6 @@
   "lobby_type_7": "Ranked",
   "lobby_type_8": "1v1 Mid",
   "lobby_type_9": "Battle Cup",
-
   "match_radiant_win": "Radiant Victory",
   "match_dire_win": "Dire Victory",
   "match_team_win": "Victory",
@@ -529,15 +500,11 @@
   "match_first_barracks": "First barracks",
   "match_pick": "Pick",
   "match_ban": "Ban",
-
   "matches_highest_mmr": "Top Public",
   "matches_lowest_mmr": "Low MMR",
-
   "meta_title": "Meta",
   "meta_description": "Run advanced queries on data from sampled public matches in previous 24h",
-
   "mmr_not_up_to_date": "Why is the MMR not up to date?",
-
   "npc_dota_beastmaster_boar_#": "Boar",
   "npc_dota_lesser_eidolon": "Lesser Eidolon",
   "npc_dota_eidolon": "Eidolon",
@@ -576,7 +543,6 @@
   "npc_dota_treant_eyes": "Eyes in the Forest",
   "npc_dota_gyrocopter_homing_missile": "Homing Missile",
   "npc_dota_weaver_swarm": "The Swarm",
-
   "objective_tower1_top": "T1",
   "objective_tower1_mid": "M1",
   "objective_tower1_bot": "B1",
@@ -593,30 +559,25 @@
   "objective_fort": "Anc",
   "objective_shrine": "Shr",
   "objective_roshan": "Rosh",
-
   "pagination_first": "First",
   "pagination_last": "Last",
   "pagination_of": "of",
   "peers_none": "This player has no peers.",
-
-	"rank_tier_0": "Uncalibrated",
-	"rank_tier_1": "Herald",
-	"rank_tier_2": "Guardian",
-	"rank_tier_3": "Crusader",
-	"rank_tier_4": "Archon",
-	"rank_tier_5": "Legend",
-	"rank_tier_6": "Ancient",
-	"rank_tier_7": "Divine",
-	"rank_tier_8": "Immortal",
-
+  "rank_tier_0": "Uncalibrated",
+  "rank_tier_1": "Herald",
+  "rank_tier_2": "Guardian",
+  "rank_tier_3": "Crusader",
+  "rank_tier_4": "Archon",
+  "rank_tier_5": "Legend",
+  "rank_tier_6": "Ancient",
+  "rank_tier_7": "Divine",
+  "rank_tier_8": "Immortal",
   "request_title": "Request a Parse",
   "request_match_id": "Match ID",
   "request_invalid_match_id": "Invalid Match ID",
   "request_error": "Failed to get match data",
   "request_submit": "Submit",
-
   "roaming": "Roaming",
-
   "rune_0": "Double Damage",
   "rune_1": "Haste",
   "rune_2": "Illusion",
@@ -624,14 +585,11 @@
   "rune_4": "Regeneration",
   "rune_5": "Bounty",
   "rune_6": "Arcane",
-
   "search_title": "Search by player name, match ID...",
-
   "skill_0": "Unknown Skill",
   "skill_1": "Normal Skill",
   "skill_2": "High Skill",
   "skill_3": "Very High Skill",
-
   "story_invalid_template": "(invalid template)",
   "story_error": "An error occured while compiling the story for this match",
   "story_intro": "on {date}, two teams decided to play {game_mode_article} {game_mode} game of Dota 2 in {region}. Little did they know, the game would last {duration_in_words}",
@@ -675,10 +633,8 @@
   "story_predicted_victory_empty": "No one",
   "story_networth_diff": "{percent}% / {gold} Diff",
   "story_gold": "gold",
-
   "story_chat_asked": "asked",
   "story_chat_said": "said",
-
   "tab_overview": "Overview",
   "tab_matches": "Matches",
   "tab_heroes": "Heroes",
@@ -719,13 +675,10 @@
   "tab_matchups": "Matchups",
   "tab_durations": "Durations",
   "tab_players": "Players",
-
   "placeholder_filter_heroes": "Filter Heroes",
-
   "td_win": "Won Match",
   "td_loss": "Lost Match",
   "td_no_result": "No Result",
-
   "th_hero_id": "Hero",
   "th_match_id": "ID",
   "th_account_id": "Account ID",
@@ -855,42 +808,37 @@
   "th_fantasy_points": "Fantasy Pts",
   "th_rating": "Rating",
   "th_teamfight_participation": "Participation",
-  "th_firstblood_claimed" : "First Blood",
+  "th_firstblood_claimed": "First Blood",
   "th_observers_placed": "Observers",
   "th_camps_stacked": "Stacks",
   "th_league": "League",
   "th_attack_type": "Attack Type",
   "th_primary_attr": "Primary Attribute",
   "th_opposing_team": "Opposing Team",
-
   "ward_log_type": "Type",
   "ward_log_owner": "Owner",
   "ward_log_entered_at": "Placed",
   "ward_log_left_at": "Left",
   "ward_log_duration": "Lifespan",
   "ward_log_killed_by": "Killed by",
-
   "log_detail": "Detail",
   "log_heroes": "Specify Heroes",
-
   "tier_professional": "Professional",
   "tier_premium": "Premium",
-
-  "time_past": "%s ago",
+  "time_past": "{1} ago",
   "time_just_now": "just now",
   "time_s": "a second",
-  "time_ss": "%d seconds",
+  "time_ss": "{1} seconds",
   "time_m": "a minute",
-  "time_mm": "%d minutes",
+  "time_mm": "{1} minutes",
   "time_h": "an hour",
-  "time_hh": "%d hours",
+  "time_hh": "{1} hours",
   "time_d": "a day",
-  "time_dd": "%d days",
+  "time_dd": "{1} days",
   "time_M": "a month",
-  "time_MM": "%d months",
+  "time_MM": "{1} months",
   "time_y": "a year",
-  "time_yy": "%d years",
-
+  "time_yy": "{1} years",
   "timeline_firstblood": "drew first blood",
   "timeline_firstblood_key": "drew first blood by killing",
   "timeline_aegis_picked_up": "picked up",
@@ -898,9 +846,8 @@
   "timeline_aegis_denied": "denied",
   "timeline_teamfight_deaths": "Deaths",
   "timeline_teamfight_gold_delta": "gold delta",
-
   "title_default": "OpenDota - Dota 2 Statistics",
-  "title_template": "%s - OpenDota - Dota 2 Statistics",
+  "title_template": "{1} - OpenDota - Dota 2 Statistics",
   "title_matches": "Matches",
   "title_request": "Request a Parse",
   "title_search": "Search",
@@ -909,7 +856,6 @@
   "title_meta": "Meta",
   "title_records": "Records",
   "title_api": "The Opendota API: Advanced Dota 2 stats for your app",
-
   "tooltip_mmr": "Solo MMR of the player",
   "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "Level achieved by hero",
@@ -1016,38 +962,32 @@
   "tooltip_others_greevils_gold": "gold earned from Greevil's Greed",
   "tooltip_advantage": "Calculated by Wilson score",
   "tooltip_winrate_samplesize": "Win rate and sample size",
-
   "histograms_name": "Histograms",
   "histograms_description": "Percentages indicate win rates for the labeled bin",
-
-  "histograms_actions_per_min_description" : "Actions performed by player per minute",
-  "histograms_comeback_description" : "Maximum gold disadvantage in a won game",
-  "histograms_lane_efficiency_pct_description" : "Percentage of lane gold (creeps+passive+starting) obtained at 10 minutes",
-  "histograms_gold_per_min_description" : "Gold farmed per minute",
-  "histograms_hero_damage_description" : "Amount of damage dealt to heroes",
-  "histograms_hero_healing_description" : "Amount of health restored to heroes",
-  "histograms_level_description" : "Level achieved in a game",
-  "histograms_loss_description" : "Maximum gold disadvantage in a lost game",
-  "histograms_pings_description" : "Number of times the player pinged the map",
-  "histograms_stomp_description" : "Maximum gold advantage in a won game",
-  "histograms_stuns_description" : "Seconds of disable on heroes",
-  "histograms_throw_description" : "Maximum gold advantage in a lost game",
-  "histograms_purchase_tpscroll_description" : "Town Portal Scroll purchases",
-  "histograms_xp_per_min_description" : "Experience gained per minute",
-
+  "histograms_actions_per_min_description": "Actions performed by player per minute",
+  "histograms_comeback_description": "Maximum gold disadvantage in a won game",
+  "histograms_lane_efficiency_pct_description": "Percentage of lane gold (creeps+passive+starting) obtained at 10 minutes",
+  "histograms_gold_per_min_description": "Gold farmed per minute",
+  "histograms_hero_damage_description": "Amount of damage dealt to heroes",
+  "histograms_hero_healing_description": "Amount of health restored to heroes",
+  "histograms_level_description": "Level achieved in a game",
+  "histograms_loss_description": "Maximum gold disadvantage in a lost game",
+  "histograms_pings_description": "Number of times the player pinged the map",
+  "histograms_stomp_description": "Maximum gold advantage in a won game",
+  "histograms_stuns_description": "Seconds of disable on heroes",
+  "histograms_throw_description": "Maximum gold advantage in a lost game",
+  "histograms_purchase_tpscroll_description": "Town Portal Scroll purchases",
+  "histograms_xp_per_min_description": "Experience gained per minute",
   "trends_name": "Trends",
   "trends_description": "Moving mean of last 20 games",
   "trends_tooltip_average": "Avg.",
   "trends_no_data": "Sorry, no data for this graph",
-
   "xp_reasons_0": "Other",
   "xp_reasons_1": "Hero",
   "xp_reasons_2": "Creep",
   "xp_reasons_3": "Roshan",
-
   "rankings_description": "",
   "rankings_none": "This player is not ranked on any heroes.",
-
   "region_0": "Automatic",
   "region_1": "US West",
   "region_2": "US East",
@@ -1069,14 +1009,12 @@
   "region_19": "Japan",
   "region_20": "China TC Wuhan",
   "region_25": "China UC 2",
-
   "vision_expired": "Expired after",
   "vision_destroyed": "Destroyed after",
   "vision_all_time": "All time",
   "vision_placed_observer": "placed Observer at",
   "vision_placed_sentry": "placed Sentry at",
   "vision_ward_log": "Ward Log",
-
   "chat_category_faction": "Faction",
   "chat_category_type": "Type",
   "chat_category_target": "Target",
@@ -1089,7 +1027,6 @@
   "chat_filter_allies": "Allies",
   "chat_filter_spectator": "Spectator",
   "chat_filtered": "Filtered",
-
   "chatwheel_0": "Okay.",
   "chatwheel_1": "Careful!",
   "chatwheel_2": "Get Back!",
@@ -1176,106 +1113,86 @@
   "chatwheel_83": "Ward the bottom rune",
   "chatwheel_84": "Ward the top rune",
   "chatwheel_85": "Zeus Ult Now!",
-
   "chatwheel_86": "Ba-dum tishh",
   "chatwheel_87": "Charge",
   "chatwheel_88": "Frog",
   "chatwheel_89": "Crash and burn",
   "chatwheel_90": "Applause",
-
   "chatwheel_91": "Sad trombone",
   "chatwheel_92": "Crickets",
   "chatwheel_93": "Drum roll",
   "chatwheel_94": "Headshake",
   "chatwheel_95": "Crybaby",
-
   "chatwheel_96": "Patience from Zhou",
   "chatwheel_97": "玩不了啦!",
   "chatwheel_98": "Боже, ты посмотри вокруг, что происходит!",
-
   "chatwheel_99": "Waow",
   "chatwheel_100": "破两路更好打, 是吧?",
   "chatwheel_101": "Жил до конца, умер как герой",
-
   "chatwheel_102": "They're all dead!",
   "chatwheel_103": "天火!",
   "chatwheel_104": "Ай-ай-ай-ай-ай, что сейчас произошло!",
-
   "chatwheel_105": "Brutal. Savage. Rekt.",
   "chatwheel_106": "加油!",
   "chatwheel_107": "Это ГГ",
-
   "chatwheel_108": "It's a disastah!",
   "chatwheel_109": "走好, 不送",
   "chatwheel_110": "Это. Просто. Нечто.",
-
   "advb_almost": "almost",
   "advb_over": "over",
   "advb_about": "about",
-
   "article_before_consonant_sound": "a",
   "article_before_vowel_sound": "an",
-
   "statement_long": "hypothesised",
   "statement_shouted": "shouted",
   "statement_excited": "exclaimed",
   "statement_normal": "said",
   "statement_laughed": "laughed",
-
   "question_long": "raised, in need of answers",
   "question_shouted": "inquired",
   "question_excited": "interrogated",
   "question_normal": "asked",
   "question_laughed": "laughed mockingly",
-
   "statement_response_long": "advised",
   "statement_response_shouted": "responded in frustration",
   "statement_response_excited": "exclaimed",
   "statement_response_normal": "replied",
   "statement_response_laughed": "laughed",
-
   "statement_continued_long": "ranted",
   "statement_continued_shouted": "continued furiously",
   "statement_continued_excited": "continued",
   "statement_continued_normal": "added",
   "statement_continued_laughed": "continued",
-
   "question_response_long": "advised",
   "question_response_shouted": "asked back, out of frustration",
   "question_response_excited": "disputed",
   "question_response_normal": "countered",
   "question_response_laughed": "laughed",
-
   "question_continued_long": "propositioned",
   "question_continued_shouted": "asked furiously",
   "question_continued_excited": "lovingly asked",
   "question_continued_normal": "asked",
   "question_continued_laughed": "asked joyfully",
-
   "hero_disclaimer_pro": "Data from professional matches",
   "hero_disclaimer_public": "Data from public matches",
   "hero_duration_x_axis": "Minutes",
-
   "top_tower": "Top Tower",
   "bot_tower": "Bottom Tower",
   "mid_tower": "Mid Tower",
   "top_rax": "Top Barracks",
   "bot_rax": "Bottom Barracks",
   "mid_rax": "Mid Barracks",
-
   "tier1": "Tier 1",
   "tier2": "Tier 2",
   "tier3": "Tier 3",
   "tier4": "Tier 4",
-
   "show_consumables_items": "Show consumables",
   "activated": "Activated",
   "rune": "Rune",
   "placement": "Placement",
   "exclude_turbo_matches": "Exclude Turbo matches",
-
   "scenarios_subtitle": "Explore win rates of combinations of factors that happen in matches",
-  "scenarios_info": "Data compiled from matches in the last %d weeks",
+  "scenarios_info": "Data compiled from matches in the last {1} weeks",
   "scenarios_item_timings": "Item Timings",
   "scenarios_misc": "Misc",
   "scenarios_time": "Time",
@@ -1286,7 +1203,6 @@
   "scenarios_courier_kill": "Team sniped the enemy courier before the 3-minute mark",
   "scenarios_pos_chat_1min": "Team all chatted positive words before the 1-minute mark",
   "scenarios_neg_chat_1min": "Team all chatted negative words before the 1-minute mark",
-
   "gosu_default": "Get personal recommendations",
   "gosu_benchmarks": "Get detailed benchmarks for your hero, lane and role",
   "gosu_performances": "Get your map control performance",

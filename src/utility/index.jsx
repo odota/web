@@ -9,7 +9,6 @@ import xpLevel from 'dotaconstants/build/xp_level.json';
 import curry from 'lodash/fp/curry';
 import findLast from 'lodash/fp/findLast';
 import inRange from 'lodash/fp/inRange';
-import util from 'util';
 // import SvgIcon from 'material-ui/SvgIcon';
 import SocialPeople from 'material-ui/svg-icons/social/people';
 import SocialPerson from 'material-ui/svg-icons/social/person';
@@ -212,8 +211,8 @@ export const formatTemplate = (template, dict, ...rest) => {
 
   // If the 2nd argument isn't a dictionary, then we will gather arguments 1 => end into an object.
   // I'm arbitrarily making argument 0 the template.
-  if((dict instanceof object) === false){
-      dict = Object.assign({}, Array.concat[template, dict], rest);
+  if((dict instanceof Object) === false){
+      dict = Object.assign({}, [template, dict].concat(rest));
   }
 
   const pattern = /(\{[^}]+\})/g;
@@ -226,6 +225,10 @@ export const formatTemplate = (template, dict, ...rest) => {
   result = result.filter(part => part !== '');
   return result;
 };
+
+export const formatTemplateToString = (template, dict, ...rest) => {
+  return formatTemplate(template, dict, ...rest).join('');
+}
 
 export const defaultSort = (array, sortState, sortField, sortFn) =>
   array.sort((a, b) => {
@@ -588,7 +591,7 @@ export function fromNow(time) {
 
     if (diff < unit.limit || !unit.limit) {
       const val = Math.floor(diff / unit.in_seconds);
-      return util.format(strings.time_past, val > 1 ? util.format(unit.plural, val) : unit.name);
+      return formatTemplate(strings.time_past, val > 1 ? formatTemplate(unit.plural, val) : unit.name);
     }
   }
 
