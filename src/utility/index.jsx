@@ -589,7 +589,7 @@ export function fromNow(time) {
 
     if (diff < unit.limit || !unit.limit) {
       const val = Math.floor(diff / unit.in_seconds);
-      return formatTemplate(strings.time_past, val > 1 ? formatTemplate(unit.plural, val) : unit.name);
+      return formatTemplateToString(strings.time_past, val > 1 ? formatTemplateToString(unit.plural, val) : unit.name);
     }
   }
 
