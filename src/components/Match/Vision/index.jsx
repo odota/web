@@ -205,7 +205,7 @@ class Vision extends React.Component {
 
   visibleData() {
     const self = this;
-    const filter = ward => alive(ward, self.state.currentTick) /* && isTeam(ward, self.state.teams) */ && self.state.players[ward.type][ward.player];
+    const filter = ward => alive(ward, self.state.currentTick) && self.state.players[ward.type][ward.player];
 
     return this.props.match.wards_log.filter(filter);
   }
