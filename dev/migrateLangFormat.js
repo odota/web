@@ -25,9 +25,8 @@ langs.forEach((langFile) => {
     let count = 0;
     const replaced = string.split(pattern).map((split) => {
       if (excludedLangKeys.includes(langKey) === false && split.match(pattern)) {
-        let str = `{${count}}`;
-        count += 1;
-        return str;
+        // eslint-disable-next-line no-plusplus
+        return `{${count++}}`;
       }
 
       return split;
