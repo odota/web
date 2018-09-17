@@ -212,7 +212,7 @@ export const formatTemplate = (template, dict, ...rest) => {
   // If the 2nd argument isn't a dictionary, then we will gather arguments 1 => end into an object.
   // I'm arbitrarily making argument 0 the template.
   if ((dict instanceof Object) === false) {
-    tmplValues = Object.assign({}, [template, dict].concat(rest));
+    tmplValues = Object.assign({}, [dict].concat(rest));
   }
 
   const pattern = /(\{[^}]+\})/g;
