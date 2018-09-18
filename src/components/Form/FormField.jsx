@@ -64,7 +64,7 @@ class FormField extends React.Component {
     this.state = {
       searchText: '',
       errorText: '',
-      selectedBundle: undefined || (initialState && initialState.bundle),
+      selectedBundle: initialState && initialState.bundle,
       singleSelection: initialState && initialState.singleSelection,
     };
   }
