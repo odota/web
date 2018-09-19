@@ -11,7 +11,7 @@ import {
   formatSeconds,
   jsonFn,
   formatTemplate,
-  formatTemplateToString
+  formatTemplateToString,
 } from '../../utility';
 import { StyledEmote, StyledStoryNetWorthBar, StyledStoryNetWorthText, StyledStorySpan, StyledStoryWrapper } from './StyledMatch';
 import constants from '../constants';
