@@ -11,6 +11,7 @@ import {
   formatSeconds,
   jsonFn,
   formatTemplate,
+  formatTemplateToString
 } from '../../utility';
 import { StyledEmote, StyledStoryNetWorthBar, StyledStoryNetWorthText, StyledStorySpan, StyledStoryWrapper } from './StyledMatch';
 import constants from '../constants';
@@ -141,7 +142,7 @@ const formatApproximateTime = (timeSeconds) => {
   // If the time is at least two hours, describe it in hours
   if (timeMinutes > 120) {
     const timeHours = parseInt(timeSeconds / (60 * 60), 10);
-    return `${strings.advb_over} ${formatTemplate(strings.time_hh, timeHours)}`;
+    return `${strings.advb_over} ${formatTemplateToString(strings.time_hh, timeHours)}`;
   } else if (timeMinutes > 60 && timeMinutes <= 120) {
     // If the time is an hour to a quarter after, describe it as "over an hour"
     return `${strings.advb_over} ${strings.time_h}`;
@@ -150,7 +151,7 @@ const formatApproximateTime = (timeSeconds) => {
     return `${strings.advb_almost} ${strings.time_h}`;
   }
   // Otherwise, describe the time in minutes
-  return `${strings.advb_about} ${formatTemplate(strings.time_mm, timeMinutes)}`;
+  return `${strings.advb_about} ${formatTemplateToString(strings.time_mm, timeMinutes)}`;
 };
 
 const renderSentence = (template, dict) => toSentence(formatTemplate(template, dict));
