@@ -63,7 +63,7 @@ const TabBar = ({ tabs, info, match }) => (
           disabled={tab.disabled}
           hidden={tab.hidden && tab.hidden(match)}
         >
-          <div data-tip={tab.tooltip && true} data-for={`tooltip_${tab.key}`}>
+          <div data-tip={tab.tooltip} data-for={`tooltip_${tab.key}`}>
             {tab.name}
             {tab.tooltip &&
             <ReactTooltip id={`tooltip_${tab.key}`} place="top" effect="solid">
