@@ -1,9 +1,9 @@
-import util from 'util';
 import heroData from 'dotaconstants/build/heroes.json';
 import gameModeData from 'dotaconstants/build/game_mode.json';
 import lobbyTypeData from 'dotaconstants/build/lobby_type.json';
 // import patchData from 'dotaconstants/build/patch.json';
 import store from '../../store';
+import { formatTemplateToString } from '../../utility';
 
 const getFields = () => {
   const { strings } = store.getState().app;
@@ -26,8 +26,8 @@ const mmrs = Array(20).fill().map((e, i) => i * 500).map(element => ({
   });
 
   const durations = Array(10).fill().map((e, i) => i * 10).map(duration => ({
-    text: `${util.format(strings.time_mm, duration)}`,
-    searchText: util.format(strings.time_mm, duration),
+    text: `${formatTemplateToString(strings.time_mm, duration)}`,
+    searchText: formatTemplateToString(strings.time_mm, duration),
     value: duration * 60,
     key: String(duration),
   }));

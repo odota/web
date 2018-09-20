@@ -9,7 +9,6 @@ import xpLevel from 'dotaconstants/build/xp_level.json';
 import curry from 'lodash/fp/curry';
 import findLast from 'lodash/fp/findLast';
 import inRange from 'lodash/fp/inRange';
-import util from 'util';
 // import SvgIcon from 'material-ui/SvgIcon';
 import SocialPeople from 'material-ui/svg-icons/social/people';
 import SocialPerson from 'material-ui/svg-icons/social/person';
@@ -198,26 +197,36 @@ export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
 // Fills in a template with the values provided in the dict
 // returns a list, so react object don't have to be converted to a string
 // Any keys not found in the given dictionary are simply left untouched
+// If a non-object is passed in, a dict will automatically be created with args[1...len] to be used.
 // brackets can be escaped with \
 // Examples:
 // formatTemplate("{person} name is {name}", { person: "My", name: "Gaben" });
 // returns [ "My", " name is ", "Gaben" ]
 // formatTemplate("{person} name is {name}", { name: <font color={styles.golden}>{"Gaben"}</font> });
 // returns [ "{person} name is ", <font color={styles.golden}>{"Gaben"}</font> ]
-export const formatTemplate = (template, dict) => {
+export const formatTemplate = (template, dict, ...rest) => {
   if (!template) {
     return ['(invalid template)'];
   }
+  let tmplValues = dict;
+  // If the 2nd argument isn't a dictionary, then we will gather arguments 1 => end into an object.
+  // I'm arbitrarily making argument 0 the template.
+  if ((dict instanceof Object) === false) {
+    tmplValues = Object.assign({}, [dict].concat(rest));
+  }
+
   const pattern = /(\{[^}]+\})/g;
   let result = template.split(pattern);
   for (let i = 0; i < result.length; i += 1) {
-    if (result[i].match(pattern) && result[i].slice(1, -1) in dict) {
-      result[i] = dict[result[i].slice(1, -1)];
+    if (result[i].match(pattern) && result[i].slice(1, -1) in tmplValues) {
+      result[i] = tmplValues[result[i].slice(1, -1)];
     }
   }
   result = result.filter(part => part !== '');
   return result;
 };
+
+export const formatTemplateToString = (template, dict, ...rest) => formatTemplate(template, dict, ...rest).join('');
 
 export const defaultSort = (array, sortState, sortField, sortFn) =>
   array.sort((a, b) => {
@@ -580,7 +589,7 @@ export function fromNow(time) {
 
     if (diff < unit.limit || !unit.limit) {
       const val = Math.floor(diff / unit.in_seconds);
-      return util.format(strings.time_past, val > 1 ? util.format(unit.plural, val) : unit.name);
+      return formatTemplateToString(strings.time_past, val > 1 ? formatTemplateToString(unit.plural, val) : unit.name);
     }
   }
 

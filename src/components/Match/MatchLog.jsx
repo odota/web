@@ -7,7 +7,7 @@ import heroes from 'dotaconstants/build/heroes.json';
 import {
   formatSeconds,
   getHeroesById,
-  formatTemplate,
+  formatTemplateToString,
 } from '../../utility';
 import Table from '../Table';
 import FormField from '../Form/FormField';
@@ -279,7 +279,7 @@ const logColumns = (strings) => {
                     alt=""
                     style={logDetailIconStyle}
                   />
-                  <p>{formatTemplate(strings.story_courier_kill, { team })}</p>
+                  <p>{formatTemplateToString(strings.story_courier_kill, { team })}</p>
                 </span>
               );
             }
