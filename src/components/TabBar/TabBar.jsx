@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 import constants from '../constants';
 
 const StyledMain = styled.main`
@@ -62,7 +63,14 @@ const TabBar = ({ tabs, info, match }) => (
           disabled={tab.disabled}
           hidden={tab.hidden && tab.hidden(match)}
         >
-          {tab.name}
+          <div data-tip={tab.tooltip} data-for={`tooltip_${tab.key}`}>
+            {tab.name}
+            {tab.tooltip &&
+            <ReactTooltip id={`tooltip_${tab.key}`} place="top" effect="solid">
+              {tab.tooltip}
+            </ReactTooltip>
+            }
+          </div>
         </Link>
       ))}
     </StyledSection>
