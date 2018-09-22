@@ -1,10 +1,10 @@
-import util from 'util';
 import heroData from 'dotaconstants/build/heroes.json';
 import patchData from 'dotaconstants/build/patch.json';
 import itemData from 'dotaconstants/build/items.json';
 import regionData from 'dotaconstants/build/region.json';
 import clusterData from 'dotaconstants/build/cluster.json';
 import store from '../../store';
+import { formatTemplateToString } from '../../utility';
 // import { isActiveItem } from '../../utility';
 
 const getItemSuffix = itemKey => (['_2', '_3', '_4', '_5'].some(suffix => itemKey.indexOf(suffix) !== -1) ? itemKey[itemKey.length - 1] : '');
@@ -213,8 +213,8 @@ const getFields = (players = [], leagues = [], teams = []) => {
   }));
 
   const durations = Array(10).fill().map((e, i) => i * 10).map(duration => ({
-    text: `${util.format(strings.time_mm, duration)}`,
-    searchText: util.format(strings.time_mm, duration),
+    text: `${formatTemplateToString(strings.time_mm, duration)}`,
+    searchText: formatTemplateToString(strings.time_mm, duration),
     value: duration * 60,
     key: String(duration),
   }));

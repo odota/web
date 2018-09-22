@@ -1,7 +1,6 @@
 {
   "yes": "так",
   "no": "ні",
-
   "abbr_thousand": "тис",
   "abbr_million": "міл",
   "abbr_billion": "м",
@@ -11,7 +10,6 @@
   "abbr_pick": "В",
   "abbr_win": "П",
   "abbr_number": "Ні.",
-
   "analysis_eff": "Ефективність на лінії",
   "analysis_farm_drought": "Найменше ДВХ за 5 хвилин",
   "analysis_skillshot": "Успішних скілшотів",
@@ -21,10 +19,8 @@
   "analysis_rune_control": "Рун отримано",
   "analysis_unused_item": "Невикористані активні речі",
   "analysis_expected": "з",
-
   "announce_dismiss": "Відхиляти",
   "announce_github_more": "Вид на GitHub",
-
   "api_meta_description": "OpenDota API надає доступ до розширенної статистики Dota 2, яку надає OpenDota платформа. Доступ до графіків, діаграм та хмарин слів і багато іншому. Спробуйте безкоштовно.",
   "api_title": "OpenDota API",
   "api_subtitle": "Розроблена на платформі OpenDota. Надає розширену статистику для вашого додатку і глибоке розуміння для ваших користувачів.",
@@ -64,7 +60,6 @@
   "api_month": "Місяць",
   "api_header_key": "Ваш ключ",
   "api_header_table": "Почніть безкоштовно. Продовжуйте по сміховинно низький ціні.",
-
   "app_name": "OpenDota",
   "app_language": "Мова",
   "app_localization": "Локалізація",
@@ -91,7 +86,7 @@
   "app_pvgna": "Шукати керівництво",
   "app_pvgna_alt": "Знайти гайд на Дота 2 від Pvgna",
   "app_rivalry": "Ставки на професійні матчі",
-  "app_rivalry_team": "Bet on %s Matches",
+  "app_rivalry_team": "Bet on {0} Matches",
   "app_refresh": "Оновити історії матчів: Запитати чергу на сканування матчів втрачених через параметри конфіденційності",
   "app_refresh_label": "Оновити",
   "app_login": "Увійти",
@@ -101,7 +96,6 @@
   "app_pro_players": "Професійні гравці",
   "app_public_players": "Громадські гравці",
   "app_my_profile": "Мій обліковий запис",
-
   "barracks_value_1": "Темрява, низ, ближній бій",
   "barracks_value_2": "Темрява, низ, дальній бій",
   "barracks_value_4": "Темрява, середина, ближній бій",
@@ -114,10 +108,8 @@
   "barracks_value_512": "Середній кріп Сяйва дальнього бою",
   "barracks_value_1024": "Верхній кріп Сяйва ближнього бою",
   "barracks_value_2048": "Верхній кріп Сяйва дальнього бою",
-
-  "benchmarks_description": "%d %s є кращим, ніж %d% недавніх результатів для цього героя",
-  "fantasy_description": "%d для %d балів",
-
+  "benchmarks_description": "{0} {1} є кращим, ніж {2}% недавніх результатів для цього героя",
+  "fantasy_description": "{0} для {1} балів",
   "building_melee_rax": "Казарми ближнього бою",
   "building_range_rax": "Казарми дальнього бою",
   "building_lasthit": "добив",
@@ -125,7 +117,6 @@
   "building_hint": "Значки на мапі мають спливаючі підказки",
   "building_denied": "не віддав",
   "building_ancient": "Ancient",
-
   "CHAT_MESSAGE_TOWER_KILL": "Вежа",
   "CHAT_MESSAGE_BARRACKS_KILL": "Казарми",
   "CHAT_MESSAGE_ROSHAN_KILL": "Рошан",
@@ -134,7 +125,6 @@
   "CHAT_MESSAGE_TOWER_DENY": "Добиття вежі",
   "CHAT_MESSAGE_AEGIS_STOLEN": "Вкрав егіду",
   "CHAT_MESSAGE_DENIED_AEGIS": "Знищив егіду",
-
   "distributions_heading_ranks": "Rank Tier Distribution",
   "distributions_heading_mmr": "Розподіл сольного MMR",
   "distributions_heading_country_mmr": "Середній сольний MMR по країнам",
@@ -143,11 +133,9 @@
   "distributions_tab_country_mmr": "Сольний MMR по країнам",
   "distributions_warning_1": "Цей набір даних обмежується гравцями які відображають MMR у профілі та обмінюються загальними даними матчів.",
   "distributions_warning_2": "Гравці не повинні реєструватися, але через характер зібраних даних, середні показники, ймовірно, вище, ніж насправді.",
-
   "error": "Помилка",
   "error_message": "Дідько.. щось пішло не так.",
   "error_four_oh_four_message": "Сторінку не знайдено.",
-
   "explorer_title": "Огляд Даних",
   "explorer_subtitle": " Статистика Професійної Dota 2",
   "explorer_description": "Виконати додаткові запити про професійні матчі (за виключенням аматорських ліг)",
@@ -223,7 +211,6 @@
   "farm_sentries": "Знищено Sentry Ward",
   "farm_roshan": "Рошанів вбито",
   "farm_necronomicon": "Вбито істот Некрономікону",
-
   "filter_button_text_open": "Фільтр",
   "filter_button_text_close": "Закрити",
   "filter_hero_id": "Герой",
@@ -247,7 +234,6 @@
   "filter_last_6_months": "Останні 6 місяців",
   "filter_error": "Будь ласка, виберіть пункт зі списку",
   "filter_party_size": "Розмір групи",
-
   "game_mode_0": "Невідомо",
   "game_mode_1": "All Pick",
   "game_mode_2": "Captains Mode",
@@ -273,7 +259,6 @@
   "game_mode_22": "All Draft",
   "game_mode_23": "Turbo",
   "game_mode_24": "Mutation",
-
   "general_unknown": "Невідомо",
   "general_no_hero": "Немає героя",
   "general_anonymous": "Анонім",
@@ -285,7 +270,6 @@
   "general_randomed": "Обрано випадково",
   "general_repicked": "Перевибраний",
   "general_predicted_victory": "Передбачив перемогу",
-
   "gold_reasons_0": "Інші",
   "gold_reasons_1": "Смерть",
   "gold_reasons_2": "Викуп",
@@ -296,7 +280,6 @@
   "gold_reasons_13": "Кріп",
   "gold_reasons_14": "Рошан",
   "NULL_gold_reasons_15": "Кур'єр",
-
   "header_request": "Запитати",
   "header_distributions": "Ranks",
   "header_heroes": "Герої",
@@ -309,7 +292,6 @@
   "header_meta": "Meta",
   "header_scenarios": "Scenarios",
   "header_api": "API",
-
   "heading_lhten": "Добито @ 10",
   "heading_lhtwenty": "Добито @ 20",
   "heading_lhthirty": "Добито @ 30",
@@ -432,11 +414,9 @@
   "heading_damage_received": "Damage Received",
   "show_details": "Show details",
   "hide_details": "Hide details",
-
-  "subheading_avg_and_max": "в останні %d матчів",
+  "subheading_avg_and_max": "в останні {0} матчів",
   "subheading_records": "У рейтингових матчах. Записи оновлюються щомісяця.",
   "subheading_team_elo_rankings": "k=32, init=1000",
-
   "hero_pro_tab": "Професійний",
   "hero_public_tab": "Публічний",
   "hero_pro_heading": "Герої в професійних матчах",
@@ -456,7 +436,6 @@
   "hero_2000_win_rate": "2K W%",
   "hero_1000_pick_rate": "<2K P%",
   "hero_1000_win_rate": "<2K W%",
-
   "home_login": "Увійти",
   "home_login_desc": "для автоматичного розбіру повтора",
   "home_parse": "Запитати",
@@ -471,7 +450,6 @@
   "home_background_by": "Фоновий малюнок:",
   "home_sponsored_by": "За підтримки",
   "home_become_sponsor": "Стати спонсором",
-
   "items_name": "Назва речі",
   "items_built": "Кількість разів, що ця річ була зібрана",
   "items_matches": "Кількість матчів, де ця річ була зібрана",
@@ -480,19 +458,16 @@
   "items_timing": "У середньому ця річ була побудована за",
   "items_build_pct": "Відсоток матчів, коли ця річ була зібрана",
   "items_win_pct": "Кількість виграшних матчів, де ця річ була зібрана",
-
   "lane_role_0": "Невідомо",
   "lane_role_1": "Легка",
   "lane_role_2": "Середня",
   "lane_role_3": "Важка",
   "lane_role_4": "Ліс",
-
   "lane_pos_1": "Низ",
   "lane_pos_2": "Середня",
   "lane_pos_3": "Верхня",
   "lane_pos_4": "Ліс Сяйва",
   "lane_pos_5": "Ліс Пітьми",
-
   "leaver_status_0": "Немає",
   "leaver_status_1": "Безпечне покидання",
   "leaver_status_2": "Покинуті (відключено)",
@@ -500,7 +475,6 @@
   "leaver_status_4": "Покинуті (бездіяльність)",
   "leaver_status_5": "Ніколи не підключено",
   "leaver_status_6": "Ніколи не підключений (тайм-аут)",
-
   "lobby_type_0": "Звичайний",
   "lobby_type_1": "Тренування",
   "lobby_type_2": "Турнір",
@@ -511,7 +485,6 @@
   "lobby_type_7": "Рейтинговий",
   "lobby_type_8": "Сам-на-сам на середині",
   "lobby_type_9": "Бойовий кубок",
-
   "match_radiant_win": "Перемога Radiant",
   "match_dire_win": "Перемога Dire",
   "match_team_win": "Перемога",
@@ -527,15 +500,11 @@
   "match_first_barracks": "Перші казарми",
   "match_pick": "Вибір",
   "match_ban": "Бан",
-
   "matches_highest_mmr": "Top Public",
   "matches_lowest_mmr": "Низький MMR",
-
   "meta_title": "Мета",
   "meta_description": "Запуск розширених запитів з данними з відібраних публічних матчів за останні 24 години",
-
   "mmr_not_up_to_date": "Чому MMR не відповідає сучасним вимогам?",
-
   "npc_dota_beastmaster_boar_#": "Кабан",
   "npc_dota_lesser_eidolon": "Малий ейдолон",
   "npc_dota_eidolon": "Ейдолон",
@@ -574,7 +543,6 @@
   "npc_dota_treant_eyes": "Очі в лісі",
   "npc_dota_gyrocopter_homing_missile": "Самонавідна ракета",
   "npc_dota_weaver_swarm": "Рій",
-
   "objective_tower1_top": "T1",
   "objective_tower1_mid": "М1",
   "objective_tower1_bot": "B1",
@@ -591,12 +559,10 @@
   "objective_fort": "Древній",
   "objective_shrine": "Святині",
   "objective_roshan": "Рошан",
-
   "pagination_first": "Перший",
   "pagination_last": "Остання",
   "pagination_of": "з",
   "peers_none": "This player has no peers.",
-
   "rank_tier_0": "Невідкалібровано",
   "rank_tier_1": "Вісник",
   "rank_tier_2": "Охоронець",
@@ -606,15 +572,12 @@
   "rank_tier_6": "Древній",
   "rank_tier_7": "Божественний",
   "rank_tier_8": "Immortal",
-
   "request_title": "Запит на аналізу маніфесту",
   "request_match_id": "ID матчу",
   "request_invalid_match_id": "Invalid Match ID",
   "request_error": "Не вдалося отримати дані матчу",
   "request_submit": "Підтвердити",
-
   "roaming": "Пересування",
-
   "rune_0": "Подвійна шкода",
   "rune_1": "Прискорення",
   "rune_2": "Іллюзії",
@@ -622,13 +585,11 @@
   "rune_4": "Регенерація",
   "rune_5": "Достаток",
   "rune_6": "Аркана",
- 
   "search_title": "Пошук по гравцю, номеру матчу...",
   "skill_0": "Unknown Skill",
   "skill_1": "Звичайний",
   "skill_2": "Високий",
   "skill_3": "Дуже високий",
-
   "story_invalid_template": "(Неприпустимий шаблон)",
   "story_error": "Сталася помилка при компіляції матеріалу для цього матчу",
   "story_intro": "{date} дві команди вирішили зіграти {game_mode_article} {game_mode} матч в Dota 2 в {region}. Вони ледь могли знати, що гра триватиме {duration_in_words}",
@@ -672,10 +633,8 @@
   "story_predicted_victory_empty": "Ніхто",
   "story_networth_diff": "Різниця {percent}% / {gold}",
   "story_gold": "золото",
-
   "story_chat_asked": "запитав",
   "story_chat_said": "сказав",
-
   "tab_overview": "Огляд",
   "tab_matches": "Матчі",
   "tab_heroes": "Герої",
@@ -716,13 +675,10 @@
   "tab_matchups": "Підбори",
   "tab_durations": "Тривалість",
   "tab_players": "Гравці",
-
   "placeholder_filter_heroes": "Фільтр героїв",
-
   "td_win": "Перемога",
   "td_loss": "Поразка",
   "td_no_result": "Немає результатів",
-
   "th_hero_id": "Герой",
   "th_match_id": "ID",
   "th_account_id": "Account ID",
@@ -859,35 +815,30 @@
   "th_attack_type": "Тип атаки",
   "th_primary_attr": "Основна характеристика",
   "th_opposing_team": "Команда суперників",
-
   "ward_log_type": "Тип",
   "ward_log_owner": "Власник",
   "ward_log_entered_at": "Розміщено",
   "ward_log_left_at": "Залишилось",
   "ward_log_duration": "Тривалість",
   "ward_log_killed_by": "Був вбитий",
-
   "log_detail": "Деталі",
   "log_heroes": "Вкажіть героїв",
-
   "tier_professional": "Професіонал",
   "tier_premium": "Преміум",
-
-  "time_past": "%s ago",
+  "time_past": "{0} ago",
   "time_just_now": "щойно",
   "time_s": "секунда",
-  "time_ss": "%d секунд",
+  "time_ss": "{0} секунд",
   "time_m": "хвилина",
-  "time_mm": "%d хвилин",
+  "time_mm": "{0} хвилин",
   "time_h": "an hour",
-  "time_hh": "%d год",
+  "time_hh": "{0} год",
   "time_d": "a day",
-  "time_dd": "%d days",
+  "time_dd": "{0} days",
   "time_M": "a month",
-  "time_MM": "%d months",
+  "time_MM": "{0} months",
   "time_y": "a year",
-  "time_yy": "%d years",
-
+  "time_yy": "{0} years",
   "timeline_firstblood": "пролив першу кров",
   "timeline_firstblood_key": "пролив першу кров, вбивши",
   "timeline_aegis_picked_up": "підняв",
@@ -895,7 +846,6 @@
   "timeline_aegis_denied": "не віддав",
   "timeline_teamfight_deaths": "Смерті",
   "timeline_teamfight_gold_delta": "зміни по золоту",
-
   "title_default": "OpenDota - статистика з Dota 2",
   "title_template": "%s - OpenDota - статистика Dota 2",
   "title_matches": "Матчі",
@@ -906,7 +856,6 @@
   "title_meta": "Meta",
   "title_records": "Рекорди",
   "title_api": "The Opendota API: розширена Dota 2 статистика для вашого додатку",
-
   "tooltip_mmr": "Соло MMR гравця",
   "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "Рівень, досягнутий героєм",
@@ -1013,10 +962,8 @@
   "tooltip_others_greevils_gold": "Добуто золота з Greevil's Greed",
   "tooltip_advantage": "Розраховано Wilson score",
   "tooltip_winrate_samplesize": "Частка перемог та розмір вибірки",
-
   "histograms_name": "Гістограма",
   "histograms_description": "Процентаж вказує на процент перемог для цього стовпчика",
-
   "histograms_actions_per_min_description": "Дій гравця за хвилину",
   "histograms_comeback_description": "Найбільше відставання по золоту у виграній грі",
   "histograms_lane_efficiency_pct_description": "Процент золота з лінії (початкове + пасивне + від крипів), заробленого за перші 10 хвилин",
@@ -1031,20 +978,16 @@
   "histograms_throw_description": "Найбільша перевага по золоту у програній грі",
   "histograms_purchase_tpscroll_description": "Покупок Town Portal Scroll",
   "histograms_xp_per_min_description": "Зароблений досвід за хвилину",
-
   "trends_name": "Тенденції",
   "trends_description": "Сукупне середнє за останні 500 ігор",
   "trends_tooltip_average": "Сер.",
   "trends_no_data": "На жаль, дані для діаграми відсутні",
-
   "xp_reasons_0": "Інші",
   "xp_reasons_1": "Hero",
   "xp_reasons_2": "Creep",
   "xp_reasons_3": "Рошан",
-
   "rankings_description": "",
   "rankings_none": "This player is not ranked on any heroes.",
-
   "region_0": "Автоматично",
   "region_1": "Захід США",
   "region_2": "Схід США",
@@ -1066,14 +1009,12 @@
   "region_19": "Японія",
   "region_20": "China TC (Вухань)",
   "region_25": "China UC II",
-
   "vision_expired": "Закінчився",
   "vision_destroyed": "Знищений",
   "vision_all_time": "За весь час",
   "vision_placed_observer": "встановив Observer на",
   "vision_placed_sentry": "встановив Sentry на",
   "vision_ward_log": "Журнал вардів",
-
   "chat_category_faction": "Сторона",
   "chat_category_type": "Тип",
   "chat_category_target": "Мета",
@@ -1086,7 +1027,6 @@
   "chat_filter_allies": "Союзники",
   "chat_filter_spectator": "Глядач",
   "chat_filtered": "Відфільтровано",
-
   "chatwheel_0": "Гаразд.",
   "chatwheel_1": "Обережно!",
   "chatwheel_2": "Назад!",
@@ -1173,105 +1113,86 @@
   "chatwheel_83": "Поставте вард на нижній руні",
   "chatwheel_84": "Поставте вард на верхній руні",
   "chatwheel_85": "Зевс, ультуй!",
-
   "chatwheel_86": "Ба-дум тссс",
   "chatwheel_87": "В атаку",
   "chatwheel_88": "Жаба",
   "chatwheel_89": "Крах",
   "chatwheel_90": "Оплески",
-
   "chatwheel_91": "Сумний тромбон",
   "chatwheel_92": "Цвіркуни",
   "chatwheel_93": "Барабанна дріб",
   "chatwheel_94": "Струс",
   "chatwheel_95": "Плаксій",
-
   "chatwheel_96": "Patience from Zhou",
   "chatwheel_97": "玩不了啦!",
   "chatwheel_98": "Боже, ты посмотри вокруг, что происходит!",
-
   "chatwheel_99": "Waow",
   "chatwheel_100": "破两路更好打, 是吧?",
   "chatwheel_101": "Жил до конца, умер как герой",
-
   "chatwheel_102": "They're all dead!",
   "chatwheel_103": "天火!",
   "chatwheel_104": "Ай-ай-ай-ай-ай, что сейчас произошло!",
-
   "chatwheel_105": "Brutal. Savage. Rekt.",
   "chatwheel_106": "加油!",
   "chatwheel_107": "Это ГГ",
-  
   "chatwheel_108": "It's a disastah!",
   "chatwheel_109": "走好, 不送",
   "chatwheel_110": "Это. Просто. Нечто.",
-
   "advb_almost": "майже",
   "advb_over": "більше",
   "advb_about": "близько",
-
   "article_before_consonant_sound": " ",
   "article_before_vowel_sound": " ",
-  
   "statement_long": "ймовірний",
   "statement_shouted": "крикнув",
   "statement_excited": "вигукнув",
   "statement_normal": "сказав",
   "statement_laughed": "засміявся",
-
   "question_long": "питання, які потребують відповідей",
   "question_shouted": "запитав",
   "question_excited": "допитувався",
   "question_normal": "запитав",
   "question_laughed": "глузливо засміявся",
-
   "statement_response_long": "радив",
   "statement_response_shouted": "відповів у розпачі",
   "statement_response_excited": "вигукнув",
   "statement_response_normal": "відповів",
   "statement_response_laughed": "засміявся",
-
   "statement_continued_long": "розносив на друзки",
   "statement_continued_shouted": "продовжував з люттю",
   "statement_continued_excited": "продовжив",
   "statement_continued_normal": "додав",
   "statement_continued_laughed": "продовжив",
-  
   "question_response_long": "порадив",
   "question_response_shouted": "запитав з розчарування",
   "question_response_excited": "оскаржив",
   "question_response_normal": "протиставив",
   "question_response_laughed": "засміявся",
-
   "question_continued_long": "запропонував для покращення",
   "question_continued_shouted": "запитав з люттю",
   "question_continued_excited": "запитав з любов'ю",
   "question_continued_normal": "запитав",
   "question_continued_laughed": "радісно запитав",
-
   "hero_disclaimer_pro": "Дані професійних матчів",
   "hero_disclaimer_public": "Дані публичних матчів",
   "hero_duration_x_axis": "хвилин",
-
   "top_tower": "Верхня вежа",
   "bot_tower": "Нижня вежа",
   "mid_tower": "Центральна вежа",
   "top_rax": "Верхні казарми",
   "bot_rax": "Нижні казарми",
   "mid_rax": "Центральні казарми",
-
   "tier1": "1-й розряд",
   "tier2": "2-й розряд",
   "tier3": "3-й розряд",
   "tier4": "4-й розряд",
-
   "show_consumables_items": "Показати витратні матеріали",
   "activated": "Активований",
   "rune": "Руна",
   "placement": "Розміщення",
   "exclude_turbo_matches": "Виключити матчі в Turbo",
   "scenarios_subtitle": "Досліджуйте шанси на перемогу, комбінуючи факти, що трапилися у матчі",
-  "scenarios_info": "Дані з матчів протягом останніх %d тижднів",
+  "scenarios_info": "Дані з матчів протягом останніх {0} тижднів",
   "scenarios_item_timings": "Таймінги предметів",
   "scenarios_misc": "Інше",
   "scenarios_time": "Час",
@@ -1282,7 +1203,6 @@
   "scenarios_courier_kill": "Команда вбиває ворожого кур'єра до 3-хвилини",
   "scenarios_pos_chat_1min": "Команда пише позитивні слова у спільний чат до 1 хвилини",
   "scenarios_neg_chat_1min": "Команда пише негативні слова у спільний чат до 1 хвилини",
-
   "gosu_default": "Отримати персональні рекомендації",
   "gosu_benchmarks": "Отримати докладний розбір для вашого героя, лайн і роль",
   "gosu_performances": "Отримати ваш показник котроля мапи",

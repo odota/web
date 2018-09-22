@@ -1,0 +1,602 @@
+[
+	{
+		"match_id": "4109475072",
+		"start_time": "1536511504",
+		"hero_id": "60",
+		"score": "112"
+	},
+	{
+		"match_id": "4101835159",
+		"start_time": "1536162031",
+		"hero_id": "91",
+		"score": "109"
+	},
+	{
+		"match_id": "4109850335",
+		"start_time": "1536531527",
+		"hero_id": "22",
+		"score": "89"
+	},
+	{
+		"match_id": "4098465996",
+		"start_time": "1535988880",
+		"hero_id": "91",
+		"score": "88"
+	},
+	{
+		"match_id": "4097747426",
+		"start_time": "1535959957",
+		"hero_id": "73",
+		"score": "87"
+	},
+	{
+		"match_id": "4104884260",
+		"start_time": "1536324343",
+		"hero_id": "91",
+		"score": "82"
+	},
+	{
+		"match_id": "4101721091",
+		"start_time": "1536158424",
+		"hero_id": "91",
+		"score": "82"
+	},
+	{
+		"match_id": "4111106349",
+		"start_time": "1536594830",
+		"hero_id": "64",
+		"score": "81"
+	},
+	{
+		"match_id": "4104323228",
+		"start_time": "1536299697",
+		"hero_id": "71",
+		"score": "80"
+	},
+	{
+		"match_id": "4109897669",
+		"start_time": "1536535832",
+		"hero_id": "85",
+		"score": "79"
+	},
+	{
+		"match_id": "4098465996",
+		"start_time": "1535988880",
+		"hero_id": "22",
+		"score": "79"
+	},
+	{
+		"match_id": "4108905840",
+		"start_time": "1536494251",
+		"hero_id": "86",
+		"score": "77"
+	},
+	{
+		"match_id": "4108506373",
+		"start_time": "1536481507",
+		"hero_id": "40",
+		"score": "77"
+	},
+	{
+		"match_id": "4105233697",
+		"start_time": "1536334641",
+		"hero_id": "40",
+		"score": "77"
+	},
+	{
+		"match_id": "4094128594",
+		"start_time": "1535796507",
+		"hero_id": "22",
+		"score": "77"
+	},
+	{
+		"match_id": "4109062148",
+		"start_time": "1536498697",
+		"hero_id": "62",
+		"score": "76"
+	},
+	{
+		"match_id": "4107402924",
+		"start_time": "1536428131",
+		"hero_id": "73",
+		"score": "76"
+	},
+	{
+		"match_id": "4093398795",
+		"start_time": "1535761305",
+		"hero_id": "86",
+		"score": "76"
+	},
+	{
+		"match_id": "4109446124",
+		"start_time": "1536510430",
+		"hero_id": "57",
+		"score": "75"
+	},
+	{
+		"match_id": "4100752610",
+		"start_time": "1536120889",
+		"hero_id": "22",
+		"score": "75"
+	},
+	{
+		"match_id": "4097747426",
+		"start_time": "1535959957",
+		"hero_id": "17",
+		"score": "75"
+	},
+	{
+		"match_id": "4110038691",
+		"start_time": "1536547469",
+		"hero_id": "42",
+		"score": "74"
+	},
+	{
+		"match_id": "4109087428",
+		"start_time": "1536499400",
+		"hero_id": "22",
+		"score": "74"
+	},
+	{
+		"match_id": "4106832807",
+		"start_time": "1536408239",
+		"hero_id": "86",
+		"score": "74"
+	},
+	{
+		"match_id": "4104929871",
+		"start_time": "1536325690",
+		"hero_id": "29",
+		"score": "74"
+	},
+	{
+		"match_id": "4101199017",
+		"start_time": "1536141757",
+		"hero_id": "22",
+		"score": "74"
+	},
+	{
+		"match_id": "4094701252",
+		"start_time": "1535814407",
+		"hero_id": "85",
+		"score": "74"
+	},
+	{
+		"match_id": "4110008420",
+		"start_time": "1536545286",
+		"hero_id": "85",
+		"score": "73"
+	},
+	{
+		"match_id": "4109440163",
+		"start_time": "1536510205",
+		"hero_id": "22",
+		"score": "73"
+	},
+	{
+		"match_id": "4107243913",
+		"start_time": "1536422708",
+		"hero_id": "71",
+		"score": "73"
+	},
+	{
+		"match_id": "4106377215",
+		"start_time": "1536392557",
+		"hero_id": "85",
+		"score": "73"
+	},
+	{
+		"match_id": "4103926054",
+		"start_time": "1536269828",
+		"hero_id": "110",
+		"score": "73"
+	},
+	{
+		"match_id": "4102119444",
+		"start_time": "1536174203",
+		"hero_id": "22",
+		"score": "73"
+	},
+	{
+		"match_id": "4098359744",
+		"start_time": "1535985265",
+		"hero_id": "91",
+		"score": "73"
+	},
+	{
+		"match_id": "4096470444",
+		"start_time": "1535891776",
+		"hero_id": "22",
+		"score": "73"
+	},
+	{
+		"match_id": "4094795769",
+		"start_time": "1535817128",
+		"hero_id": "86",
+		"score": "73"
+	},
+	{
+		"match_id": "4094742717",
+		"start_time": "1535815609",
+		"hero_id": "91",
+		"score": "73"
+	},
+	{
+		"match_id": "4105580346",
+		"start_time": "1536347809",
+		"hero_id": "84",
+		"score": "72"
+	},
+	{
+		"match_id": "4103468057",
+		"start_time": "1536246608",
+		"hero_id": "22",
+		"score": "72"
+	},
+	{
+		"match_id": "4101950713",
+		"start_time": "1536166340",
+		"hero_id": "16",
+		"score": "72"
+	},
+	{
+		"match_id": "4100195436",
+		"start_time": "1536081036",
+		"hero_id": "67",
+		"score": "72"
+	},
+	{
+		"match_id": "4099415371",
+		"start_time": "1536050314",
+		"hero_id": "23",
+		"score": "72"
+	},
+	{
+		"match_id": "4095855074",
+		"start_time": "1535870963",
+		"hero_id": "31",
+		"score": "72"
+	},
+	{
+		"match_id": "4110196126",
+		"start_time": "1536557997",
+		"hero_id": "40",
+		"score": "71"
+	},
+	{
+		"match_id": "4109850335",
+		"start_time": "1536531527",
+		"hero_id": "14",
+		"score": "71"
+	},
+	{
+		"match_id": "4109816983",
+		"start_time": "1536528862",
+		"hero_id": "20",
+		"score": "71"
+	},
+	{
+		"match_id": "4108268580",
+		"start_time": "1536473528",
+		"hero_id": "51",
+		"score": "71"
+	},
+	{
+		"match_id": "4107020219",
+		"start_time": "1536414132",
+		"hero_id": "85",
+		"score": "71"
+	},
+	{
+		"match_id": "4105605248",
+		"start_time": "1536349063",
+		"hero_id": "84",
+		"score": "71"
+	},
+	{
+		"match_id": "4103926054",
+		"start_time": "1536269828",
+		"hero_id": "32",
+		"score": "71"
+	},
+	{
+		"match_id": "4103324774",
+		"start_time": "1536240797",
+		"hero_id": "71",
+		"score": "71"
+	},
+	{
+		"match_id": "4102224351",
+		"start_time": "1536180599",
+		"hero_id": "67",
+		"score": "71"
+	},
+	{
+		"match_id": "4100112074",
+		"start_time": "1536077529",
+		"hero_id": "85",
+		"score": "71"
+	},
+	{
+		"match_id": "4096961695",
+		"start_time": "1535907490",
+		"hero_id": "84",
+		"score": "71"
+	},
+	{
+		"match_id": "4095855074",
+		"start_time": "1535870963",
+		"hero_id": "22",
+		"score": "71"
+	},
+	{
+		"match_id": "4095209522",
+		"start_time": "1535832907",
+		"hero_id": "22",
+		"score": "71"
+	},
+	{
+		"match_id": "4095091247",
+		"start_time": "1535827601",
+		"hero_id": "87",
+		"score": "71"
+	},
+	{
+		"match_id": "4111187142",
+		"start_time": "1536597996",
+		"hero_id": "31",
+		"score": "70"
+	},
+	{
+		"match_id": "4111029028",
+		"start_time": "1536592167",
+		"hero_id": "121",
+		"score": "70"
+	},
+	{
+		"match_id": "4108749760",
+		"start_time": "1536489336",
+		"hero_id": "55",
+		"score": "70"
+	},
+	{
+		"match_id": "4108268580",
+		"start_time": "1536473528",
+		"hero_id": "75",
+		"score": "70"
+	},
+	{
+		"match_id": "4106459754",
+		"start_time": "1536395488",
+		"hero_id": "22",
+		"score": "70"
+	},
+	{
+		"match_id": "4103249629",
+		"start_time": "1536238461",
+		"hero_id": "22",
+		"score": "70"
+	},
+	{
+		"match_id": "4100752610",
+		"start_time": "1536120889",
+		"hero_id": "40",
+		"score": "70"
+	},
+	{
+		"match_id": "4100574467",
+		"start_time": "1536108959",
+		"hero_id": "68",
+		"score": "70"
+	},
+	{
+		"match_id": "4100250464",
+		"start_time": "1536083590",
+		"hero_id": "91",
+		"score": "70"
+	},
+	{
+		"match_id": "4100061440",
+		"start_time": "1536075629",
+		"hero_id": "67",
+		"score": "70"
+	},
+	{
+		"match_id": "4098382763",
+		"start_time": "1535986027",
+		"hero_id": "17",
+		"score": "70"
+	},
+	{
+		"match_id": "4098302060",
+		"start_time": "1535983403",
+		"hero_id": "22",
+		"score": "70"
+	},
+	{
+		"match_id": "4098297361",
+		"start_time": "1535983282",
+		"hero_id": "62",
+		"score": "70"
+	},
+	{
+		"match_id": "4096007611",
+		"start_time": "1535876399",
+		"hero_id": "108",
+		"score": "70"
+	},
+	{
+		"match_id": "4095264600",
+		"start_time": "1535836158",
+		"hero_id": "14",
+		"score": "70"
+	},
+	{
+		"match_id": "4095133679",
+		"start_time": "1535829404",
+		"hero_id": "86",
+		"score": "70"
+	},
+	{
+		"match_id": "4095005458",
+		"start_time": "1535824250",
+		"hero_id": "86",
+		"score": "70"
+	},
+	{
+		"match_id": "4094581881",
+		"start_time": "1535811058",
+		"hero_id": "121",
+		"score": "70"
+	},
+	{
+		"match_id": "4111195228",
+		"start_time": "1536598322",
+		"hero_id": "22",
+		"score": "69"
+	},
+	{
+		"match_id": "4110696981",
+		"start_time": "1536581776",
+		"hero_id": "85",
+		"score": "69"
+	},
+	{
+		"match_id": "4110591187",
+		"start_time": "1536577833",
+		"hero_id": "71",
+		"score": "69"
+	},
+	{
+		"match_id": "4109097541",
+		"start_time": "1536499683",
+		"hero_id": "96",
+		"score": "69"
+	},
+	{
+		"match_id": "4109097541",
+		"start_time": "1536499683",
+		"hero_id": "9",
+		"score": "69"
+	},
+	{
+		"match_id": "4108449277",
+		"start_time": "1536479717",
+		"hero_id": "22",
+		"score": "69"
+	},
+	{
+		"match_id": "4107747272",
+		"start_time": "1536444224",
+		"hero_id": "31",
+		"score": "69"
+	},
+	{
+		"match_id": "4107451819",
+		"start_time": "1536429960",
+		"hero_id": "71",
+		"score": "69"
+	},
+	{
+		"match_id": "4107027892",
+		"start_time": "1536414678",
+		"hero_id": "50",
+		"score": "69"
+	},
+	{
+		"match_id": "4106618966",
+		"start_time": "1536401142",
+		"hero_id": "71",
+		"score": "69"
+	},
+	{
+		"match_id": "4106153395",
+		"start_time": "1536383812",
+		"hero_id": "75",
+		"score": "69"
+	},
+	{
+		"match_id": "4105760660",
+		"start_time": "1536358808",
+		"hero_id": "71",
+		"score": "69"
+	},
+	{
+		"match_id": "4104708954",
+		"start_time": "1536318285",
+		"hero_id": "83",
+		"score": "69"
+	},
+	{
+		"match_id": "4103802237",
+		"start_time": "1536261306",
+		"hero_id": "71",
+		"score": "69"
+	},
+	{
+		"match_id": "4102776156",
+		"start_time": "1536218642",
+		"hero_id": "68",
+		"score": "69"
+	},
+	{
+		"match_id": "4100643497",
+		"start_time": "1536114197",
+		"hero_id": "67",
+		"score": "69"
+	},
+	{
+		"match_id": "4099743971",
+		"start_time": "1536065117",
+		"hero_id": "68",
+		"score": "69"
+	},
+	{
+		"match_id": "4098302060",
+		"start_time": "1535983403",
+		"hero_id": "85",
+		"score": "69"
+	},
+	{
+		"match_id": "4096362563",
+		"start_time": "1535888476",
+		"hero_id": "71",
+		"score": "69"
+	},
+	{
+		"match_id": "4096112768",
+		"start_time": "1535879953",
+		"hero_id": "86",
+		"score": "69"
+	},
+	{
+		"match_id": "4095183943",
+		"start_time": "1535831690",
+		"hero_id": "71",
+		"score": "69"
+	},
+	{
+		"match_id": "4095161469",
+		"start_time": "1535830656",
+		"hero_id": "40",
+		"score": "69"
+	},
+	{
+		"match_id": "4111519345",
+		"start_time": "1536616911",
+		"hero_id": "68",
+		"score": "68"
+	},
+	{
+		"match_id": "4108837595",
+		"start_time": "1536492163",
+		"hero_id": "55",
+		"score": "68"
+	},
+	{
+		"match_id": "4108506373",
+		"start_time": "1536481507",
+		"hero_id": "102",
+		"score": "68"
+	}
+]

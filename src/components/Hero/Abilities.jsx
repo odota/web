@@ -73,7 +73,7 @@ const Abilities = ({ hero, abilities, heroAbilities }) => {
 
     // Map Talents and assign them to correct level in Object
     const heroTalents = mapTalents(heroAbs.talents);
-    abilities.talents = mapTalentsToLevel(heroTalents, abilities);
+    abilities.talents = mapTalentsToLevel(heroTalents);
 
     return abilities;
   };

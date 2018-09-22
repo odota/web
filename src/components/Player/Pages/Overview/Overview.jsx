@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Checkbox from 'material-ui/Checkbox';
 import Turbo from 'material-ui/svg-icons/image/timelapse';
 import TurboOff from 'material-ui/svg-icons/notification/do-not-disturb';
-import util from 'util';
 import styled from 'styled-components';
 import {
   getPlayerRecentMatches,
@@ -20,6 +19,7 @@ import { playerPeersOverviewColumns } from '../Peers/playerPeersColumns';
 import SummOfRecMatches from './Summary';
 import constants from '../../../constants';
 import CountsSummary from './CountsSummary';
+import { formatTemplateToString } from '../../../../utility';
 
 export const MAX_MATCHES_ROWS = 20;
 const MAX_HEROES_ROWS = 10;
@@ -124,14 +124,15 @@ const Overview = ({
     <SummaryContainer
       title={strings.heading_avg_and_max}
       titleTo={`/players/${playerId}/records`}
-      subtitle={util.format(strings.subheading_avg_and_max, numValidRecentMatches)}
+      subtitle={formatTemplateToString(strings.subheading_avg_and_max, numValidRecentMatches)}
       loading={matchesLoading}
       error={matchesError}
       loaderWidth={250}
       loaderHeight={30}
     >
       <Styled
-        data-tip={strings.exclude_turbo_matches}
+        data-hint={strings.exclude_turbo_matches}
+        data-hint-position="top"
         style={{ display: validRecentMatches.some(match => match.game_mode === 23) ? 'inline' : 'none' }}
       >
         <Checkbox
