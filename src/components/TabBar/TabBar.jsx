@@ -20,9 +20,9 @@ const StyledSection = styled.section`
     /* Tab */
     text-align: center;
     font-weight: ${constants.fontWeightLight};
-    font-size: 14px;
+    font-size: 13px;
     color: ${constants.primaryTextColor};
-    padding: 10px 12px 16px;
+    padding: 10px 9px 16px;
     border-bottom: 2px solid transparent;
     flex-grow: 1;
 
