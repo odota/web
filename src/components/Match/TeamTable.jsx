@@ -32,21 +32,46 @@ class TeamTable extends React.Component {
   };
   constructor() {
     super();
-    this.state = {
-      highlightedCol: undefined,
-    };
-    this.setHighlightedCol = this.setHighlightedCol.bind(this);
+    this.teamTableRef = null;
   }
 
-  setHighlightedCol = colIndex => ({
-    onMouseEnter: () => this.setState({
-      highlightedCol: colIndex,
-    }),
-    onMouseLeave: () => this.setState({
-      highlightedCol: undefined,
-    }),
-    className: this.state.highlightedCol === colIndex ? 'col_highlight' : undefined,
-  })
+  componentDidMount() {
+    this.addListeners();
+  }
+
+  componentDidUpdate() {
+    this.addListeners();
+  }
+
+  setTeamTableRef = (node) => {
+    this.teamTableRef = node;
+  }
+
+  addListeners() {
+    const tableCells = this.teamTableRef.querySelectorAll('td, th');
+
+    for (let i = 0; i < tableCells.length; i += 1) {
+      tableCells[i].onmouseenter = () => {
+        const {
+          cellIndex,
+        } = tableCells[i];
+        const rowCells = this.teamTableRef.querySelectorAll(`td:nth-child(${cellIndex + 1}), th:nth-child(${cellIndex + 1})`);
+        for (let j = 0; j < rowCells.length; j += 1) {
+          rowCells[j].classList.add('col_highlight');
+        }
+      };
+
+      tableCells[i].onmouseleave = () => {
+        const {
+          cellIndex,
+        } = tableCells[i];
+        const rowCells = this.teamTableRef.querySelectorAll(`td:nth-child(${cellIndex + 1}), th:nth-child(${cellIndex + 1})`);
+        for (let j = 0; j < rowCells.length; j += 1) {
+          rowCells[j].classList.remove('col_highlight');
+        }
+      };
+    }
+  }
 
   render() {
     const {
@@ -65,7 +90,7 @@ class TeamTable extends React.Component {
     } = this.props;
 
     return (
-      <div>
+      <div ref={this.setTeamTableRef}>
         <Heading
           title={`${getTeamName(radiantTeam, true)} - ${heading}`}
           icon={<IconRadiant />}
@@ -73,13 +98,13 @@ class TeamTable extends React.Component {
           buttonTo={buttonTo || ''}
           buttonIcon={buttonIcon || ''}
         />
-        <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} setHighlightedCol={this.setHighlightedCol} />
+        <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} />
         {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
         <Heading
           title={`${getTeamName(direTeam, false)} - ${heading}`}
           icon={<IconDire />}
         />
-        <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} setHighlightedCol={this.setHighlightedCol} />
+        <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} />
         {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
       </div>
     );
