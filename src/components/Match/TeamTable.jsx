@@ -52,9 +52,7 @@ class TeamTable extends React.Component {
 
     for (let i = 0; i < tableCells.length; i += 1) {
       tableCells[i].onmouseenter = () => {
-        const {
-          cellIndex,
-        } = tableCells[i];
+        const { cellIndex } = tableCells[i];
         const rowCells = this.teamTableRef.querySelectorAll(`td:nth-child(${cellIndex + 1}), th:nth-child(${cellIndex + 1})`);
         for (let j = 0; j < rowCells.length; j += 1) {
           rowCells[j].classList.add('col_highlight');
@@ -62,9 +60,7 @@ class TeamTable extends React.Component {
       };
 
       tableCells[i].onmouseleave = () => {
-        const {
-          cellIndex,
-        } = tableCells[i];
+        const { cellIndex } = tableCells[i];
         const rowCells = this.teamTableRef.querySelectorAll(`td:nth-child(${cellIndex + 1}), th:nth-child(${cellIndex + 1})`);
         for (let j = 0; j < rowCells.length; j += 1) {
           rowCells[j].classList.remove('col_highlight');
