@@ -109,9 +109,9 @@ const Styled = styled.div`
     & svg {
       height: 24px !important;
       margin-top: 4px;
-      -webkit-filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.6));
-      filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.6));
-      fill: ${constants.colorBlueGray}
+      -webkit-filter: drop-shadow(0 0 4px rgba(102,187,255, 1));
+      filter: drop-shadow(0 0 4px rgba(102,187,255, 1));
+      fill: ${constants.colorBlue}
     }
 
     &[data-hint-position="top"] {
@@ -201,10 +201,10 @@ export const PlayerBadgesIcons = ({
           {isContributor && (
               <div
                   className="iconButton iconContributor"
-                  data-hint={`${cheese} ${strings.app_contributor}`}
+                  data-hint={`${strings.app_contributor}`}
                   data-hint-position="top"
               >
-                  <IconContributor className="icon" />
+                  <IconContributor className="icon" outer={"#21be93"} inner={"#000"}/>
               </div>
           )}
         </div>
