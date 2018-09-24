@@ -204,7 +204,7 @@ export const PlayerBadgesIcons = ({
             data-hint={`${strings.app_contributor}`}
             data-hint-position="top"
           >
-            <IconContributor className="icon" dColour="#21be93" oColour="#000" />
+            <IconContributor className="icon" dColour="#21be93" oColour="#212121" />
           </div>
           )}
         </div>
