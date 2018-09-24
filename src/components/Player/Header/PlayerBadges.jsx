@@ -199,13 +199,13 @@ export const PlayerBadgesIcons = ({
             </div>
           )}
           {isContributor && (
-              <div
-                  className="iconButton iconContributor"
-                  data-hint={`${strings.app_contributor}`}
-                  data-hint-position="top"
-              >
-                  <IconContributor className="icon" outer={"#21be93"} inner={"#000"}/>
-              </div>
+          <div
+            className="iconButton iconContributor"
+            data-hint={`${strings.app_contributor}`}
+            data-hint-position="top"
+          >
+            <IconContributor className="icon" dColour="#21be93" oColour="#000" />
+          </div>
           )}
         </div>
       </Styled>
