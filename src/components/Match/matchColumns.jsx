@@ -942,6 +942,7 @@ export default (strings) => {
   const objectiveDamageColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('objective_') === 0).map(obj => ({
     displayName: strings[obj],
     field: obj,
+    tooltip: strings[`tooltip_${obj}`],
     sortFn: row => row.objective_damage && row.objective_damage[obj.substring('objective_'.length)],
     displayFn: (row, col, value) => value || '-',
     relativeBars: true,
