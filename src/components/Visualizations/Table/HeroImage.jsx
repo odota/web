@@ -9,7 +9,7 @@ import NotificationSync from 'material-ui/svg-icons/notification/sync';
 import styled from 'styled-components';
 import { subTextStyle, IMAGESIZE_ENUM } from '../../../utility';
 import { TableLink } from '../../Table';
-import { IconDice, IconCrystalBall, IconCheckCircle } from '../../Icons';
+import { IconDice, IconCrystalBall, IconCheckCircle, IconContributor } from '../../Icons';
 import constants from '../../constants';
 import AttrStrength from '../../Icons/AttrStrength';
 import AttrIntelligent from '../../Icons/AttrIntelligent';
@@ -127,6 +127,25 @@ const Styled = styled.div`
     height: 10px !important;
     margin-right: 5px;
   }
+}
+
+.contributor {
+  display: inline-block;
+
+  & svg {
+    width: 14px !important;
+    height: 14px !important;
+    margin-right: 5px;
+    -webkit-filter: drop-shadow(0 0 4px rgba(102,187,255, 1));
+    filter: drop-shadow(0 0 4px rgba(102,187,255, 1));
+    fill: ${constants.colorBlue}
+  }
+  width: 14px;
+  height: 14px;
+  margin-right: 2px;
+  position: relative;
+  top: 3px;
+  right: 2px;
 }
 
 .registered {
@@ -424,6 +443,7 @@ const TableHeroImage = ({
   parsed,
   image,
   registered,
+  contributor,
   title,
   subtitle,
   accountId,
@@ -493,12 +513,21 @@ const TableHeroImage = ({
       {!hideText &&
       <div className="textContainer">
         <span>
-          {registered &&
+          {registered && !contributor &&
             <div
               className="registered"
               data-hint={strings.tooltip_registered_user}
               data-hint-position="top"
             />
+          }
+          {contributor &&
+            <div
+              className="contributor"
+              data-hint={strings.tooltip_contributor}
+              data-hint-position="top"
+            >
+              <IconContributor className="icon" dColour="#21be93" oColour="#212121" />
+            </div>
           }
           {confirmed &&
             <div
@@ -626,12 +655,12 @@ const TableHeroImage = ({
 );
 
 const {
-  string, oneOfType, bool, node, object,
+  string, oneOfType, bool, node, object, number, shape,
 } = PropTypes;
 
 TableHeroImage.propTypes = {
-  parsed: PropTypes.number,
-  image: PropTypes.string,
+  parsed: number,
+  image: string,
   title: oneOfType([
     string,
     object,
@@ -641,25 +670,26 @@ TableHeroImage.propTypes = {
     node,
   ]),
   registered: string,
-  accountId: PropTypes.number,
-  playerSlot: PropTypes.number,
+  contributor: bool,
+  accountId: number,
+  playerSlot: number,
   hideText: bool,
   party: node,
   confirmed: bool,
   heroName: string,
   showGuide: oneOfType([
     bool,
-    PropTypes.number,
+    number,
   ]),
   guideUrl: string,
   guideType: string,
   randomed: bool,
   repicked: string,
   predictedVictory: bool,
-  leaverStatus: PropTypes.number,
-  strings: PropTypes.shape({}),
-  hero: PropTypes.shape({}),
-  heroID: PropTypes.number,
+  leaverStatus: number,
+  strings: shape({}),
+  hero: shape({}),
+  heroID: number,
 };
 
 // If need party or estimated, just add new prop with default val = solo and change icons depending what needs
