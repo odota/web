@@ -12,7 +12,7 @@
     "test": "react-scripts test --env=jsdom",
     "testcafe": "testcafe -c 1 chrome testcafe/ --app \"react-scripts start\" --app-init-delay 30000",
     "eject": "react-scripts eject",
-    "analyze": "source-map-explorer build/static/js/main.* --html",
+    "analyze": "source-map-explorer build/static/js/main.* --html > analyze.html",
     "lint": "eslint . --ext .js,.jsx --fix",
     "lintnofix": "eslint . --ext .js,.jsx",
     "update:emoticons": "npm r dota2-emoticons && npm i dota2-emoticons && node dev/updateEmoticons.js",
