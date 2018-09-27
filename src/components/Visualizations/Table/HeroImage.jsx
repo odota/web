@@ -523,10 +523,10 @@ const TableHeroImage = ({
           {contributor &&
             <div
               className="contributor"
-              data-hint={strings.tooltip_contributor}
+              data-hint={strings.app_contributor}
               data-hint-position="top"
             >
-              <IconContributor className="icon" dColour="#21be93" oColour="#212121" />
+              <IconContributor className="icon" dColor="#21be93" oColor="#212121" />
             </div>
           }
           {confirmed &&
