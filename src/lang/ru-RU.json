@@ -82,6 +82,7 @@
   "app_untracked": "Этот пользователь давно не посещал сайт, поэтому повторы новых матчей не будут обработаны автоматически.",
   "app_tracked": "Этот пользователь недавно заходил на сайт, и повторы его новых матчей будут обработаны автоматически.",
   "app_cheese_bought": "Сыра куплено",
+  "app_contributor": "This user has contributed to the development of the OpenDota project",
   "app_dotacoach": "Запросить тренера",
   "app_pvgna": "Найти руководство",
   "app_pvgna_alt": "Найти руководство на Pvgna",
