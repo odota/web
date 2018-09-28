@@ -54,7 +54,7 @@ const Ban = PickBan.extend`
 const DraftCell = styled.div`
   display: flex;
   width: fit-content;
-  margin-left: ${props => (props.radiant ? '0' : 'auto')};
+  justify-content: ${props => (props.radiant ? 'flex-start' : 'flex-end')};
 
   .time-tracker {
     display: flex;
