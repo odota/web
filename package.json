@@ -37,7 +37,7 @@
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
     "json2csv": "^3.11.5",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.11",
     "long": "^4.0.0",
     "material-ui": "^0.19.4",
     "prop-types": "^15.6.2",
