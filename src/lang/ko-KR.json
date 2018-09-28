@@ -82,6 +82,7 @@
   "app_untracked": "이 사용자는 최근에 방문하지 않았습니다, 그리고 새로운 리플레이 매치는 자동적으로 분석되지 않을 것입니다.",
   "app_tracked": "이 사용자는 최근에 방문하지 않았습니다, 그리고 새로운 리플레이 매치는 자동적으로 분석되지 않을 것입니다.",
   "app_cheese_bought": "치즈 구매 횟수 ",
+  "app_contributor": "This user has contributed to the development of the OpenDota project",
   "app_dotacoach": "코치에게 질문하세요",
   "app_pvgna": "가이드 찾기",
   "app_pvgna_alt": "Pvgna의 도타2 가이드 찾기",
