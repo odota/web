@@ -82,6 +82,7 @@
   "app_untracked": "This user has not visited recently, and replays of new matches will not be automatically parsed.",
   "app_tracked": "This user has visited recently, and replays of new matches will be automatically parsed.",
   "app_cheese_bought": "Закупени сирена",
+  "app_contributor": "This user has contributed to the development of the OpenDota project",
   "app_dotacoach": "Попитай треньор",
   "app_pvgna": "Find a Guide",
   "app_pvgna_alt": "Find a Dota 2 Guide on Pvgna",
