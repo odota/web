@@ -82,6 +82,7 @@
   "app_untracked": "Tento uživatel se v poslední době neukázal a záznamy nových zápasů nebudou automaticky analyzované.",
   "app_tracked": "Tento uživatel se nedávno ukázal a záznamy nových zápasů budou automaticky analyzovány.",
   "app_cheese_bought": "Sýr si koupilo",
+  "app_contributor": "This user has contributed to the development of the OpenDota project",
   "app_dotacoach": "Zeptejte se trenéra",
   "app_pvgna": "Find a Guide",
   "app_pvgna_alt": "Find a Dota 2 Guide on Pvgna",
