@@ -82,6 +82,7 @@
   "app_untracked": "Người dùng này không truy cập gần đây, và replays của những trận game mới sẽ không được tải tự động.",
   "app_tracked": "Người dùng này đã truy cập trong thời gian gần, và replay của những trận Dota mới sẽ được tải tự động.",
   "app_cheese_bought": "Phô mai đã mua",
+  "app_contributor": "This user has contributed to the development of the OpenDota project",
   "app_dotacoach": "Hỏi ý kiến một huấn luyện viên",
   "app_pvgna": "Tìm bài hướng dẫn",
   "app_pvgna_alt": "Tìm bài hướng dẫn Dota2 tren Pvgna",
