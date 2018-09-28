@@ -82,6 +82,7 @@
   "app_untracked": "Este usuario no ha visitado la web recientemente, y sus repeticiones de nuevas partidas no serán analizadas automáticamente.",
   "app_tracked": "Este usuario ha visitado la web recientemente, y sus repeticiones de nuevas partidas serán analizadas automáticamente.",
   "app_cheese_bought": "Queso comprado",
+  "app_contributor": "This user has contributed to the development of the OpenDota project",
   "app_dotacoach": "Pregúntale a un entrenador",
   "app_pvgna": "Find a Guide",
   "app_pvgna_alt": "Find a Dota 2 Guide on Pvgna",
