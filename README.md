@@ -12,6 +12,7 @@ Quickstart
 * Visit port 3000 on your development machine.
 * Make some changes
 * `npm run lint` to check your code for linting errors
+* `npm test` to check all app routes for uncaught JavaScript errors
 * Submit a pull request. Wait for review and merge.
 * Congratulations! You're a contributor.
 
