@@ -82,6 +82,7 @@
   "app_untracked": "このユーザーは最近このサイトに訪れてないので、自動的にマッチデータが解析されません。",
   "app_tracked": "このユーザーは最近訪れたので、自動的にマッチデータが解析されます。",
   "app_cheese_bought": "チーズ購入数",
+  "app_contributor": "This user has contributed to the development of the OpenDota project",
   "app_dotacoach": "コーチに尋ねる",
   "app_pvgna": "ガイドを探す",
   "app_pvgna_alt": "PvgnaでDota2のガイドを探す",
