@@ -22,13 +22,12 @@ export default function action(type, host, path, params = {}, transform) {
           err.fetchError = true;
           dispatch(getError(response.status));
           if (response.status >= 400 && response.status < 500) {
+            err.clientError = true;
             err.message = 'fetch failed - client error';
-            throw err;
           } else {
-            setTimeout(() => fetchDataWithRetry(delay + 3000), delay);
             err.message = 'fetch failed - retrying';
-            throw err;
           }
+          throw err;
         }
         return response.json();
       })
@@ -36,6 +35,9 @@ export default function action(type, host, path, params = {}, transform) {
       .then(json => dispatch(getDataOk(json)))
       .catch((e) => {
         console.error(e);
+        if (e.fetchError && !e.clientError) {
+          setTimeout(() => fetchDataWithRetry(delay + 3000), delay);
+        }
         if (!e.fetchError) {
           throw e;
         }

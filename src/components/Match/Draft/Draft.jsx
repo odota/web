@@ -53,8 +53,8 @@ const Ban = PickBan.extend`
 
 const DraftCell = styled.div`
   display: flex;
-  width: fit-content;
-  margin-left: ${props => (props.radiant ? '0' : 'auto')};
+  justify-content: ${props => (props.radiant ? 'flex-start' : 'flex-end')};
+  align-items: flex-end;
 
   .time-tracker {
     display: flex;
@@ -88,7 +88,7 @@ const DraftCell = styled.div`
 
 const HeroIcon = styled.div`
   position: relative;
-  width: fit-content;
+  width: 100px;
   
   img {
     width: 100px;
