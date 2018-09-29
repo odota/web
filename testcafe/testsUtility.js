@@ -28,7 +28,7 @@ const logger = RequestLogger(/api.opendota.com\/api/);
 function path2file(url) {
   return sanitize(url.replace('https://api.opendota.com/api/', ''), {
     replacement: '_',
-  }).substr(0, 200);
+  }).substr(0, 45);
 }
 
 export const fixtureBeforeHook = async (ctx) => {
