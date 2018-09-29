@@ -11,6 +11,7 @@ import {
 
 
 const paths = [
+  '/matches/4080856812/overview',
   '/matches/4080856812/benchmarks',
   '/matches/4080856812/draft',
   '/matches/4080856812/performances',
