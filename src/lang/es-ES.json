@@ -573,7 +573,7 @@
   "tooltip_objective_rax_mid": "Daño realizado al barracón central",
   "tooltip_objective_rax_bot": "Daño realizado al barracón inferior",
   "tooltip_objective_tower4": "Daño realizado a las torres centrales de nivel 4",
-  "tooltip_objective_fort": "Damage dealt to ancient",
+  "tooltip_objective_fort": "Daño realizado a la fortaleza ancestral",
   "tooltip_objective_shrine": "Damage dealt to shrines",
   "tooltip_objective_roshan": "Damage dealt to Roshan",
   "pagination_first": "Primero \t",
