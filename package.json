@@ -9,7 +9,7 @@
     "build": "react-scripts build",
     "build:install": "npm install && npm run lintnofix && npm run build",
     "snapshot": "react-snap",
-    "test": "testcafe -c 4 chrome:headless testcafe/ --app \"serve -s build\"",
+    "test": "testcafe -c 4 chrome testcafe/ --app \"serve -s build\"",
     "testcafe-travis": "testcafe chrome testcafe/ --app \"serve -s build\"",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer build/static/js/main.* --html > analyze.html",
