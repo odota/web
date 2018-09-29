@@ -39,6 +39,7 @@ export default (strings) => {
     return (<TableHeroImage
       title={row.name || row.personaname || strings.general_anonymous}
       registered={row.last_login}
+      contributor={row.is_contributor}
       accountId={row.account_id}
       playerSlot={row.player_slot}
       subtitle={<CompetitiveRank rankTier={rankTierToString(row.rank_tier)} strings={strings} />}

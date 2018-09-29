@@ -180,7 +180,7 @@ JOIN match_patch using(match_id)
 JOIN leagues using(leagueid)
 JOIN player_matches using(match_id)
 JOIN heroes on heroes.id = player_matches.hero_id
-LEFT JOIN notable_players ON notable_players.account_id = player_matches.account_id AND notable_players.locked_until = (SELECT MAX(locked_until) FROM notable_players)
+LEFT JOIN notable_players ON notable_players.account_id = player_matches.account_id
 LEFT JOIN teams using(team_id)
 ${organization || (groupArray !== null && groupArray.length > 0 && groupArray[0] && groupArray.some(x => x.key === 'organization')) ?
     'JOIN team_match ON matches.match_id = team_match.match_id AND (player_matches.player_slot < 128) = team_match.radiant JOIN teams teams2 ON team_match.team_id = teams2.team_id' : ''}

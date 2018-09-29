@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Error from '../../Error';
 import Spinner from '../../Spinner';
-import { IconCheese, IconSteam, IconEye, IconEyeInactive, IconCheckCircle } from '../../Icons';
+import { IconCheese, IconSteam, IconContributor, IconEye, IconEyeInactive, IconCheckCircle } from '../../Icons';
 import constants from '../../constants';
 
 const Styled = styled.div`
@@ -104,6 +104,28 @@ const Styled = styled.div`
       }
     }
   }
+  
+  & .iconContributor {
+    & svg {
+      height: 24px !important;
+      margin-top: 4px;
+      -webkit-filter: drop-shadow(0 0 4px rgba(102,187,255, 1));
+      filter: drop-shadow(0 0 4px rgba(102,187,255, 1));
+      fill: ${constants.colorBlue}
+    }
+
+    &[data-hint-position="top"] {
+      &::before {
+        margin-left: 11px;
+        top: -1px;
+      }
+
+      &::after {
+        margin-left: -32px;
+        margin-bottom: 1px;
+      }
+    }
+  }
 
   & .iconEyeTracked {
     fill: ${constants.colorSuccess};
@@ -118,10 +140,12 @@ const Styled = styled.div`
   -webkit-filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.6));
   filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.6));
 }
+
+
 `;
 
 export const PlayerBadgesIcons = ({
-  loading, error, cheese, tracked, steamLink, officialPlayerName, strings,
+  loading, error, cheese, isContributor, tracked, steamLink, officialPlayerName, strings,
 }) => {
   const getPlayerBadges = () => {
     if (error) return <Error />;
@@ -174,6 +198,15 @@ export const PlayerBadgesIcons = ({
               <IconCheese className="cheese icon" />
             </div>
           )}
+          {isContributor && (
+          <div
+            className="iconButton iconContributor"
+            data-hint={`${strings.app_contributor}`}
+            data-hint-position="top"
+          >
+            <IconContributor className="icon" dColor="#21be93" oColor="#212121" />
+          </div>
+          )}
         </div>
       </Styled>
     );
@@ -186,6 +219,7 @@ const mapStateToProps = state => ({
   loading: state.app.player.loading,
   error: state.app.player.error,
   cheese: (state.app.player.data.profile || {}).cheese,
+  isContributor: (state.app.player.data.profile || {}).is_contributor,
   tracked: state.app.player.data.tracked_until,
   steamLink: (state.app.player.data.profile || {}).profileurl,
   officialPlayerName: (state.app.player.data.profile || {}).name,
