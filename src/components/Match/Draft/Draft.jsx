@@ -89,7 +89,7 @@ const DraftCell = styled.div`
 
 const HeroIcon = styled.div`
   position: relative;
-  width: 100px;
+  width: fit-content;
   
   img {
     width: 100px;
