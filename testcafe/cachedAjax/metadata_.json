@@ -1,0 +1,32 @@
+{
+	"scenarios": {
+		"itemCost": 1400,
+		"timings": [
+			450,
+			600,
+			720,
+			900,
+			1200,
+			1500,
+			1800
+		],
+		"gameDurationBucket": [
+			900,
+			1800,
+			2700,
+			3600,
+			5400
+		],
+		"teamScenariosQueryParams": [
+			"pos_chat_1min",
+			"neg_chat_1min",
+			"courier_kill",
+			"first_blood"
+		]
+	},
+	"banner": null,
+	"cheese": {
+		"cheese": "33",
+		"goal": "100"
+	}
+}

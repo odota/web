@@ -42,7 +42,7 @@ class RequestLayer extends React.Component {
     const info = this.props.match.params.info || 'overview';
     const page = matchPages(matchId, null, strings).find(_page => _page.key.toLowerCase() === info);
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
-    if (error) {
+    if (error && !loading) {
       return <FourOhFour msg={strings.request_invalid_match_id} />;
     }
     return loading ? <List primaryColor="#666" width={250} height={120} /> :

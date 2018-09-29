@@ -19,6 +19,7 @@ export default (type, initialData) => (state = {
       return {
         ...state,
         error: action.error || true,
+        loading: false,
       };
     case `QUERY/${type}`:
       return {

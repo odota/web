@@ -5,11 +5,22 @@ import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
-import util from 'util';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
-import { formatSeconds, abbreviateNumber, transformations, percentile, sum, subTextStyle, getHeroesById, rankTierToString, groupBy, compileLevelOneStats } from '../../utility';
+import {
+  formatSeconds,
+  abbreviateNumber,
+  transformations,
+  percentile,
+  sum,
+  subTextStyle,
+  getHeroesById,
+  rankTierToString,
+  groupBy,
+  compileLevelOneStats,
+  formatTemplateToString,
+} from '../../utility';
 import { TableHeroImage, inflictorWithValue } from '../Visualizations';
 import { CompetitiveRank } from '../Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from '../Icons';
@@ -28,6 +39,7 @@ export default (strings) => {
     return (<TableHeroImage
       title={row.name || row.personaname || strings.general_anonymous}
       registered={row.last_login}
+      contributor={row.is_contributor}
       accountId={row.account_id}
       playerSlot={row.player_slot}
       subtitle={<CompetitiveRank rankTier={rankTierToString(row.rank_tier)} strings={strings} />}
@@ -94,7 +106,7 @@ export default (strings) => {
       {
         displayName: strings.th_avatar,
         field: 'player_slot',
-        displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), false, null, strings),
+        displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), false, null),
         sortFn: true,
       },
       {
@@ -354,7 +366,7 @@ export default (strings) => {
                       {value}
                     </small>
                     <ReactTooltip id={`benchmarks_${row.player_slot}_${key}`} place="top" effect="solid">
-                      {util.format(strings.benchmarks_description, value, strings[`th_${key}`], percent)}
+                      {formatTemplateToString(strings.benchmarks_description, value, strings[`th_${key}`], percent)}
                     </ReactTooltip>
                   </div>
                 );
@@ -380,7 +392,7 @@ export default (strings) => {
           {raw}
         </small>
         <ReactTooltip id={`fantasy_${row.player_slot}_${col.field}`} place="top" effect="solid">
-          {util.format(strings.fantasy_description, raw, score)}
+          {formatTemplateToString(strings.fantasy_description, raw, score)}
         </ReactTooltip>
       </div>
     );
@@ -931,6 +943,7 @@ export default (strings) => {
   const objectiveDamageColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('objective_') === 0).map(obj => ({
     displayName: strings[obj],
     field: obj,
+    tooltip: strings[`tooltip_${obj}`],
     sortFn: row => row.objective_damage && row.objective_damage[obj.substring('objective_'.length)],
     displayFn: (row, col, value) => value || '-',
     relativeBars: true,

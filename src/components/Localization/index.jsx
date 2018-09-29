@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import MenuItem from 'material-ui/MenuItem';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import styled from 'styled-components';
-import { langs } from '../../lang';
+import { langs } from '../../lang/index';
 import constants from '../constants';
 
 const ClickableDiv = styled.div`

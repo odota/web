@@ -85,10 +85,9 @@ class Table extends React.Component {
     hoverRowColumn: bool,
     highlightFn: func,
     keyFn: func,
-    setHighlightedCol: func,
   }
 
-  static renderSumRow({ columns, data, setHighlightedCol }) {
+  static renderSumRow({ columns, data }) {
     return (
       <MaterialTableRow>
         {columns.map((column, colIndex) => {
@@ -99,7 +98,7 @@ class Table extends React.Component {
             }
 
             return (
-              <MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }} {...(setHighlightedCol && setHighlightedCol(colIndex))}>
+              <MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
                 {column.sumFn && ((column.displaySumFn) ? column.displaySumFn(total) : abbreviateNumber(total))}
               </MaterialTableRowColumn>
             );
@@ -170,7 +169,6 @@ class Table extends React.Component {
       hoverRowColumn,
       highlightFn,
       keyFn,
-      setHighlightedCol,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage, scrolled,
@@ -209,7 +207,6 @@ class Table extends React.Component {
                   sortState={sortState}
                   sortField={sortField}
                   sortClick={this.sortClick}
-                  setHighlightedCol={setHighlightedCol}
                 />
               </MaterialTableHeader>
               <MaterialTableBody displayRowCheckbox={false} selectable={false}>
@@ -293,14 +290,14 @@ class Table extends React.Component {
                         style.textDecoration = toUnderline(data, row, field, underline) ? 'underline' : 'none';
                       }
                       return (
-                        <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style} {...(setHighlightedCol && setHighlightedCol(colIndex))}>
+                        <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style}>
                           {fieldEl}
                         </MaterialTableRowColumn>
                       );
                     })}
                   </MaterialTableRow>
                 ))}
-                {summable && Table.renderSumRow({ columns, data, setHighlightedCol })}
+                {summable && Table.renderSumRow({ columns, data })}
               </MaterialTableBody>
             </MaterialTable>
           </div>)}

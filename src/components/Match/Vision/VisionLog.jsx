@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import items from 'dotaconstants/build/items.json';
 import { threshold, formatSeconds } from '../../../utility';
 import Table from '../../Table';
 import Heading from '../../Heading';
@@ -95,7 +96,7 @@ const generateData = (match, strings) => (log) => {
   const duration = (log.left && log.left.time - log.entered.time) || (match && match.duration - log.entered.time);
 
   // necessary until https://github.com/odota/parser/pull/3 is implemented
-  const discrepancy = duration - Math.min(360, duration);
+  const discrepancy = duration - Math.min(items[`ward_${log.type}`].attrib.find(x => x.key === 'lifetime').value, duration);
 
   const durationColor = log.type === 'observer' ? durationObserverColor(duration) : durationSentryColor(duration);
 

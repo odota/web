@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 import constants from '../constants';
 
 const StyledMain = styled.main`
@@ -19,9 +20,9 @@ const StyledSection = styled.section`
     /* Tab */
     text-align: center;
     font-weight: ${constants.fontWeightLight};
-    font-size: 14px;
+    font-size: 13px;
     color: ${constants.primaryTextColor};
-    padding: 10px 12px 16px;
+    padding: 10px 9px 16px;
     border-bottom: 2px solid transparent;
     flex-grow: 1;
 
@@ -62,7 +63,14 @@ const TabBar = ({ tabs, info, match }) => (
           disabled={tab.disabled}
           hidden={tab.hidden && tab.hidden(match)}
         >
-          {tab.name}
+          <div data-tip={tab.tooltip} data-for={`tooltip_${tab.key}`}>
+            {tab.name}
+            {tab.tooltip &&
+            <ReactTooltip id={`tooltip_${tab.key}`} place="top" effect="solid">
+              {tab.tooltip}
+            </ReactTooltip>
+            }
+          </div>
         </Link>
       ))}
     </StyledSection>

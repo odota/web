@@ -33,6 +33,7 @@ const fields = ['duration', 'kills', 'deaths', 'assists', 'gold_per_min', 'xp_pe
 const tabs = strings => (fields.map(field => ({
   name: strings[`th_${field}`],
   key: field,
+  tooltip: strings[`tooltip_${field}`],
   content: propsPar => (
     <Container>
       <Table
