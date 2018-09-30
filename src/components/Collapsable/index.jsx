@@ -8,16 +8,16 @@ const ButtonContainer = styled.div`
     position: absolute;
     right: 0;
     cursor: pointer;
+    opacity: 0.15;
 
-    & svg {
+    :hover {
+      transform: scale(1.3);
+      opacity: 1;
+    }
+
+    svg {
       width: 20px;
       fill: white;
-      opacity: 0.15;
-
-      &:hover {
-        transform: scale(1.3);
-        opacity: 1;
-      }
     }
 `;
 
