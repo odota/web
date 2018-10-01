@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Transition from 'react-transition-group/Transition';
 import { connect } from 'react-redux';
 import { IconPlusSquare, IconMinusSquare } from '../Icons';
 
@@ -9,6 +8,7 @@ const ButtonContainer = styled.div`
     position: absolute;
     right: -4px;
     top: 5px;
+    z-index: 100;
 
     svg {
       width: 20px;
@@ -50,22 +50,12 @@ const CollapsableContainer = styled.div`
   width: 100%;
 `;
 
-const defaultStyle = {
-  transition: 'height 300ms ease-in-out',
-  height: 0,
-  overflow: 'hidden',
-};
-
-const transitionStyles = {
-  entering: { height: 0 },
-  entered: { height: '100%' },
-};
-
 class Collapsable extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     children: PropTypes.arrayOf(PropTypes.node),
     strings: PropTypes.shape({}),
+    initialMaxHeight: PropTypes.number,
   }
 
   constructor(props) {
@@ -83,17 +73,19 @@ class Collapsable extends React.Component {
 
   render() {
     const { collapsed } = this.state;
+    const { initialMaxHeight, strings } = this.props;
 
     return (
       <CollapsableContainer>
-        <CollapseButton handleClick={this.handleClick} collapsed={collapsed} strings={this.props.strings} />
-        <Transition in={!collapsed} timeout={{ enter: 0, exit: 300 }} unmountOnExit>
-          {status => (
-            <div style={{ ...defaultStyle, ...transitionStyles[status] }}>
-              {this.props.children}
-            </div>
-          )}
-        </Transition>
+        <CollapseButton handleClick={this.handleClick} collapsed={collapsed} strings={strings} />
+        <div style={{
+              transition: 'max-height 300ms ease-in-out',
+              overflow: 'hidden',
+              maxHeight: collapsed ? 0 : (initialMaxHeight || '100%'),
+            }}
+        >
+          {this.props.children}
+        </div>
       </CollapsableContainer>
     );
   }
