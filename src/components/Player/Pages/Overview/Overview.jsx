@@ -131,6 +131,7 @@ const Overview = ({
         error={matchesError}
         loaderWidth={250}
         loaderHeight={30}
+        key="averages"
       >
         <Styled
           data-hint={strings.exclude_turbo_matches}
@@ -155,6 +156,7 @@ const Overview = ({
         loaderWidth={250}
         loaderHeight={30}
         style={{ width: '100%' }}
+        key="counts"
       >
         <CountsSummary data={countsData} />
       </SummaryContainer>
