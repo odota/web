@@ -989,7 +989,7 @@
   "histograms_hero_healing_description": "Amount of health restored to heroes",
   "histograms_level_description": "Level achieved in a game",
   "histograms_loss_description": "Maximum gold disadvantage in a lost game",
-  "histograms_pings_description": "Number of times the player pinged the map",
+  "histograms_pings_description": "プレイヤーがマップをピングした回数",
   "histograms_stomp_description": "Maximum gold advantage in a won game",
   "histograms_stuns_description": "Seconds of disable on heroes",
   "histograms_throw_description": "Maximum gold advantage in a lost game",
