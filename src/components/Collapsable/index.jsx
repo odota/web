@@ -29,8 +29,10 @@ const ButtonContainer = styled.div`
     }
 `;
 
-const CollapseButton = ({ handleClick, collapsed, strings }) => (
-  <ButtonContainer>
+const CollapseButton = ({
+  handleClick, collapsed, strings, buttonStyle,
+}) => (
+  <ButtonContainer style={buttonStyle}>
     {collapsed ?
     [<span>{strings.show_more}</span>, <IconPlusSquare onClick={handleClick} />]
     :
@@ -43,6 +45,7 @@ CollapseButton.propTypes = {
   handleClick: PropTypes.func,
   collapsed: PropTypes.bool,
   strings: PropTypes.shape({}),
+  buttonStyle: PropTypes.shape({}),
 };
 
 const CollapsableContainer = styled.div`
@@ -56,6 +59,7 @@ class Collapsable extends React.Component {
     children: PropTypes.arrayOf(PropTypes.node),
     strings: PropTypes.shape({}),
     initialMaxHeight: PropTypes.number,
+    buttonStyle: PropTypes.shape({}),
   }
 
   constructor(props) {
@@ -73,11 +77,11 @@ class Collapsable extends React.Component {
 
   render() {
     const { collapsed } = this.state;
-    const { initialMaxHeight, strings } = this.props;
+    const { initialMaxHeight, strings, buttonStyle } = this.props;
 
     return (
       <CollapsableContainer>
-        <CollapseButton handleClick={this.handleClick} collapsed={collapsed} strings={strings} />
+        <CollapseButton handleClick={this.handleClick} collapsed={collapsed} strings={strings} buttonStyle={buttonStyle} />
         <div style={{
               transition: 'max-height 300ms ease-in-out',
               overflow: 'hidden',

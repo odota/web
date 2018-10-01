@@ -179,19 +179,20 @@ const Overview = ({
     </MatchesContainer>
 
     <HeroesContainer>
-      <Container
-        title={strings.heading_peers}
-        titleTo={`/players/${playerId}/peers`}
-        loading={peersLoading}
-        error={peersError}
-      >
-        <Table
-          columns={playerPeersOverviewColumns(playerId, strings)}
-          data={peersData}
-          maxRows={MAX_PEERS_ROWS}
-        />
-      </Container>
-
+      <Collapsable name="overviewPeers" initialMaxHeight={400} buttonStyle={{ top: 20 }}>
+        <Container
+          title={strings.heading_peers}
+          titleTo={`/players/${playerId}/peers`}
+          loading={peersLoading}
+          error={peersError}
+        >
+          <Table
+            columns={playerPeersOverviewColumns(playerId, strings)}
+            data={peersData}
+            maxRows={MAX_PEERS_ROWS}
+          />
+        </Container>
+      </Collapsable>
       <Container
         title={strings.heading_heroes}
         titleTo={`/players/${playerId}/heroes`}

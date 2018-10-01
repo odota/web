@@ -66,16 +66,17 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
           summable
         />
       }
-        {<Collapsable name="abilityBuilds" initialMaxHeight={800}>
-          <AbilityBuildTable
-            players={match.players}
-            columns={abilityColumns()}
-            heading={strings.heading_ability_build}
-            radiantTeam={match.radiant_team}
-            direTeam={match.dire_team}
-          />
-        </Collapsable>
-      }
+        {
+          <Collapsable name="abilityBuilds" initialMaxHeight={800}>
+            <AbilityBuildTable
+              players={match.players}
+              columns={abilityColumns()}
+              heading={strings.heading_ability_build}
+              radiantTeam={match.radiant_team}
+              direTeam={match.dire_team}
+            />
+          </Collapsable>
+        }
         {
           <Styled>
             <div className="map">
