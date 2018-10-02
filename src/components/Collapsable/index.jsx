@@ -9,36 +9,33 @@ const ButtonContainer = styled.div`
     right: -4px;
     top: 5px;
     z-index: 100;
+    cursor: pointer;
+    opacity: 0.15;
+
+    &:hover {
+      opacity: 1;
+    }
 
     svg {
-      width: 20px;
+      height: 19px;
       fill: white;
-      cursor: pointer;
-      opacity: 0.15;
-
-      &:hover {
-        transform: scale(1.3);
-        opacity: 1;
-      }
     }
 
     span {
       font-size: 11px;
       vertical-align: text-top;
-      opacity: 0.15;
+      text-transform: uppercase;
     }
 `;
 
 const CollapseButton = ({
   handleClick, collapsed, strings, buttonStyle, handleHoverOn, handleHoverOff,
 }) => (
-  <ButtonContainer style={buttonStyle}>
+  <ButtonContainer style={buttonStyle} onClick={handleClick} onMouseEnter={handleHoverOn} onMouseLeave={handleHoverOff}>
     {collapsed ?
-    [<span>{strings.show_more}</span>,
-      <IconPlusSquare onClick={handleClick} onMouseEnter={handleHoverOn} onMouseLeave={handleHoverOff} />]
+    [<span>{strings.show}</span>, <IconPlusSquare />]
     :
-    [<span>{strings.show_less}</span>,
-      <IconMinusSquare onClick={handleClick} onMouseEnter={handleHoverOn} onMouseLeave={handleHoverOff} />]}
+    [<span>{strings.hide}</span>, <IconMinusSquare />]}
   </ButtonContainer>
 );
 
