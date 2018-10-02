@@ -30,14 +30,15 @@ const ButtonContainer = styled.div`
 `;
 
 const CollapseButton = ({
-  handleClick, collapsed, strings, buttonStyle,
+  handleClick, collapsed, strings, buttonStyle, handleHoverOn, handleHoverOff,
 }) => (
   <ButtonContainer style={buttonStyle}>
     {collapsed ?
-    [<span>{strings.show_more}</span>, <IconPlusSquare onClick={handleClick} />]
+    [<span>{strings.show_more}</span>,
+      <IconPlusSquare onClick={handleClick} onMouseEnter={handleHoverOn} onMouseLeave={handleHoverOff} />]
     :
-    [<span>{strings.show_less}</span>, <IconMinusSquare onClick={handleClick} />]
-    }
+    [<span>{strings.show_less}</span>,
+      <IconMinusSquare onClick={handleClick} onMouseEnter={handleHoverOn} onMouseLeave={handleHoverOff} />]}
   </ButtonContainer>
 );
 
@@ -46,11 +47,15 @@ CollapseButton.propTypes = {
   collapsed: PropTypes.bool,
   strings: PropTypes.shape({}),
   buttonStyle: PropTypes.shape({}),
+  handleHoverOn: PropTypes.func,
+  handleHoverOff: PropTypes.func,
 };
 
 const CollapsableContainer = styled.div`
   position: relative;
   width: 100%;
+  border: 1px solid transparent;
+  box-sizing: border-box;
 `;
 
 class Collapsable extends React.Component {
@@ -66,6 +71,7 @@ class Collapsable extends React.Component {
     super(props);
     this.state = {
       collapsed: localStorage.getItem(`${props.name}Collapsed`) === 'true',
+      hovered: false,
     };
   }
 
@@ -75,18 +81,33 @@ class Collapsable extends React.Component {
     this.setState({ collapsed: !collapsed });
   }
 
+  handleHoverOn = () => {
+    this.setState({ hovered: true });
+  }
+
+  handleHoverOff = () => {
+    this.setState({ hovered: false });
+  }
+
   render() {
-    const { collapsed } = this.state;
+    const { collapsed, hovered } = this.state;
     const { initialMaxHeight, strings, buttonStyle } = this.props;
 
     return (
-      <CollapsableContainer>
-        <CollapseButton handleClick={this.handleClick} collapsed={collapsed} strings={strings} buttonStyle={buttonStyle} />
+      <CollapsableContainer style={{ border: !collapsed && hovered && '1px dashed rgba(255, 255, 255, 0.1)' }}>
+        <CollapseButton
+          handleClick={this.handleClick}
+          collapsed={collapsed}
+          strings={strings}
+          buttonStyle={buttonStyle}
+          handleHoverOn={this.handleHoverOn}
+          handleHoverOff={this.handleHoverOff}
+        />
         <div style={{
-              transition: 'max-height 300ms ease-in-out',
-              overflow: 'hidden',
-              maxHeight: collapsed ? 0 : (initialMaxHeight || '100%'),
-            }}
+          transition: 'max-height 300ms ease-in-out',
+          overflow: 'hidden',
+          maxHeight: collapsed ? 0 : (initialMaxHeight || '100%'),
+        }}
         >
           {this.props.children}
         </div>
