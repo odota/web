@@ -101,7 +101,7 @@ class Collapsable extends React.Component {
           handleHoverOn={this.handleHoverOn}
           handleHoverOff={this.handleHoverOff}
         />
-        <Transition in={!collapsed} timeout={{ enter: 0, exit: 300 }} unmountOnExit>
+        <Transition in={!collapsed} timeout={{ enter: 0, exit: 300 }} mountOnEnter>
           {status => (
             <div style={{
               transition: 'max-height 300ms ease-in-out',
