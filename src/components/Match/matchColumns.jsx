@@ -1118,7 +1118,7 @@ export default (strings) => {
     const maxDuration = items[t].attrib.find(x => x.key === 'lifetime').value;
     const totalDuration = [];
     row[`${type}_log`].forEach((ward) => {
-      const findTime = row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
+      const findTime = row[`${type}_left_log`] && row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
       const leftTime = (findTime && findTime.time) || false;
       if (leftTime !== false) { // exclude wards that did not expire before game ended from average time
         const duration = Math.min(Math.max(leftTime - ward.time, 0), maxDuration);
