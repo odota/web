@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Transition from 'react-transition-group/Transition';
 import { connect } from 'react-redux';
 import { IconPlusSquare, IconMinusSquare } from '../Icons';
 
@@ -100,14 +101,18 @@ class Collapsable extends React.Component {
           handleHoverOn={this.handleHoverOn}
           handleHoverOff={this.handleHoverOff}
         />
-        <div style={{
-          transition: 'max-height 300ms ease-in-out',
-          overflow: 'hidden',
-          maxHeight: collapsed ? 0 : (initialMaxHeight || '100%'),
-        }}
-        >
-          {this.props.children}
-        </div>
+        <Transition in={!collapsed} timeout={{ enter: 0, exit: 300 }} unmountOnExit>
+          {status => (
+            <div style={{
+              transition: 'max-height 300ms ease-in-out',
+              overflow: 'hidden',
+              maxHeight: status === 'entered' ? (initialMaxHeight || '100%') : 0,
+            }}
+            >
+              {this.props.children}
+            </div>
+          )}
+        </Transition>
       </CollapsableContainer>
     );
   }
