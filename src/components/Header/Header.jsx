@@ -79,7 +79,7 @@ class Header extends React.Component {
     small: PropTypes.bool,
     user: PropTypes.shape({}),
     strings: PropTypes.shape({}),
-  }
+  };
 
   constructor() {
     super();
@@ -114,9 +114,9 @@ class Header extends React.Component {
       children: <ActionSettings />,
     };
 
-    const LogoGroup = ({ small }) => (
+    const LogoGroup = ({ logoSmall = small }) => (
       <VerticalAlignToolbar>
-        {!small && <BurgerMenu menuItems={burgerItems} />}
+        {!logoSmall && <BurgerMenu menuItems={burgerItems} />}
         <AppLogo style={{ marginRight: 18 }} />
       </VerticalAlignToolbar>
     );
@@ -150,14 +150,14 @@ class Header extends React.Component {
       </VerticalAlignToolbar>
     );
 
-    const SettingsGroup = ({ user }) => (
+    const SettingsGroup = ({ userSettings = user }) => (
       <VerticalAlignDropdown
         Button={IconButton}
         buttonProps={buttonProps}
       >
         <LocalizationMenu />
         <ReportBug />
-        {user ? <LogOut /> : null}
+        {userSettings ? <LogOut /> : null}
       </VerticalAlignDropdown>
     );
 

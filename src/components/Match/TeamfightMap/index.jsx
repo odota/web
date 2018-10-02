@@ -267,7 +267,7 @@ export const Tombstones = ({
 }) => (
   <div>
     {deathPositions.map((position, index) => (
-      <div key={index}>
+      <div>
         <TeamfightIcon
           Icon={IconDot}
           position={position[0]}
@@ -282,8 +282,8 @@ export const Tombstones = ({
           border
           class={`${getTombStyle(position)}TombstoneTooltip`}
         >
-          {position.map((pos, _index) => (
-            <div key={_index} className="tooltipContainer">
+          {position.map(pos => (
+            <div className="tooltipContainer">
               <PlayerThumb {...pos.player} />
               <div>{strings.tooltip_tombstone_killer}</div>
               <PlayerThumb {...pos.killer} />

@@ -250,7 +250,7 @@ class Chat extends React.Component {
   static propTypes = {
     data: PropTypes.shape({}),
     strings: PropTypes.shape({}),
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -459,7 +459,6 @@ class Chat extends React.Component {
             return (
               <li
                 id={index}
-                key={index}
                 className={`
                   ${rad ? 'radiant' : 'dire'}
                   ${msg.spam ? 'spam' : ''}

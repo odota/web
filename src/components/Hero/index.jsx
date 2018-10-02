@@ -69,7 +69,7 @@ class Hero extends React.Component {
       return <ErrorBox text={errorText} />;
     }
 
-    const tabs = heroId => [
+    const tabs = (tabsHeroId = heroId) => [
       {
         name: strings.tab_rankings,
         key: 'rankings',
@@ -79,7 +79,7 @@ class Hero extends React.Component {
             <Ranking {...props} />
           </div>
         ),
-        route: `/heroes/${heroId}/rankings`,
+        route: `/heroes/${tabsHeroId}/rankings`,
       },
       {
         name: strings.tab_benchmarks,
@@ -90,7 +90,7 @@ class Hero extends React.Component {
             <Benchmark {...props} />
           </div>
         ),
-        route: `/heroes/${heroId}/benchmarks`,
+        route: `/heroes/${tabsHeroId}/benchmarks`,
       },
       {
         name: strings.tab_recent,
@@ -101,7 +101,7 @@ class Hero extends React.Component {
             <Recent {...props} />
           </div>
         ),
-        route: `/heroes/${heroId}/recent`,
+        route: `/heroes/${tabsHeroId}/recent`,
       },
       {
         name: strings.tab_matchups,
@@ -112,7 +112,7 @@ class Hero extends React.Component {
             <Matchups {...props} />
           </div>
         ),
-        route: `/heroes/${heroId}/matchups`,
+        route: `/heroes/${tabsHeroId}/matchups`,
       },
       {
         name: strings.tab_durations,
@@ -123,7 +123,7 @@ class Hero extends React.Component {
             <Durations {...props} />
           </div>
         ),
-        route: `/heroes/${heroId}/durations`,
+        route: `/heroes/${tabsHeroId}/durations`,
       },
       {
         name: strings.tab_players,
@@ -134,7 +134,7 @@ class Hero extends React.Component {
             <Players {...props} />
           </div>
         ),
-        route: `/heroes/${heroId}/players`,
+        route: `/heroes/${tabsHeroId}/players`,
       },
     ];
 
