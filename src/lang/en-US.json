@@ -969,6 +969,7 @@
   "tooltip_stomp": "Maximum gold advantage in a won game",
   "tooltip_loss": "Maximum gold disadvantage in a lost game",
   "tooltip_items": "Items built",
+  "tooltip_permanent_buffs": "Permanent buffs such as Flesh Heap stacks or Tomes of Knowledge used",
   "tooltip_lane": "Lane based on early game position",
   "tooltip_map": "Heatmap of the player's early game position",
   "tooltip_lane_efficiency": "Percentage of lane gold (creeps+passive+starting) obtained at 10 minutes",
