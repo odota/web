@@ -10,7 +10,7 @@ import {
   RecordsPage,
   CountsPage,
   TrendsPage,
-  MMRPage,
+  // MMRPage,
   // ItemsPage,
   WardmapPage,
   WordcloudPage,
@@ -75,11 +75,13 @@ const playerPages = strings => [{
   name: strings.tab_wordcloud,
   key: 'wordcloud',
   content: (playerId, routeParams, location) => (<WordcloudPage playerId={playerId} routeParams={routeParams} location={location} />),
-}, {
-  name: strings.tab_mmr,
-  key: 'mmr',
-  content: (playerId, routeParams, location) => (<MMRPage playerId={playerId} routeParams={routeParams} location={location} />),
-}, {
+},
+//  {
+//   name: strings.tab_mmr,
+//   key: 'mmr',
+//   content: (playerId, routeParams, location) => (<MMRPage playerId={playerId} routeParams={routeParams} location={location} />),
+// },
+{
   name: strings.tab_rankings,
   key: 'rankings',
   content: (playerId, routeParams, location) => (<RankingsPage playerId={playerId} routeParams={routeParams} location={location} />),
