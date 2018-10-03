@@ -82,7 +82,7 @@ const Styled = styled.div`
   }
 }
 `;
-
+/* eslint-disable jsx-a11y/anchor-is-valid */
 const SliderTicks = props => (
   <Styled>
     <div className="sliderTicks">
