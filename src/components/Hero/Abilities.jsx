@@ -23,16 +23,16 @@ const AbilityItem = styled.div`
   padding-right: 4px;
 `;
 
-const renderAbilities = abilities => abilities.map(ability => (
-  <AbilityItem key={abilities.key}>
-    <Ability {...ability} abilityID={abilities.key} />
+const renderAbilities = abilities => abilities.map((ability, key) => (
+  <AbilityItem key={key}>
+    <Ability {...ability} abilityID={key} />
   </AbilityItem>
 ));
 
 const Abilities = ({ hero, abilities, heroAbilities }) => {
-  const filterAbilities = (toFilterAbs = abilities) => toFilterAbs.filter(ability => (ability !== 'generic_hidden'));
+  const filterAbilities = toFilterAbs => toFilterAbs.filter(ability => (ability !== 'generic_hidden'));
 
-  function mapAbilities(toMapHeroAbs = heroAbilities) {
+  function mapAbilities(toMapHeroAbs) {
     return toMapHeroAbs.map(ability => abilities[ability]);
   }
   const mapTalents = talents => talents.map(talent => ({ ...abilities[talent.name], ...talent }));
@@ -53,7 +53,7 @@ const Abilities = ({ hero, abilities, heroAbilities }) => {
     return talentMap;
   };
 
-  const mapAbilitiesAndTalents = (toMapHeroAbsTals = hero) => {
+  const mapAbilitiesAndTalents = (toMapHeroAbsTals) => {
     const talsMap = {
       skills: [],
       talents: [],

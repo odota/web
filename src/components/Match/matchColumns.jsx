@@ -1239,7 +1239,7 @@ export default (strings) => {
     relativeBars: true,
   };
 
-  const visionColumns = (visionStrings = strings) => [
+  const visionColumns = visionStrings => [
     heroTdColumn,
     purchaseObserverColumn,
     {

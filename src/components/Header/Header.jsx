@@ -114,9 +114,9 @@ class Header extends React.Component {
       children: <ActionSettings />,
     };
 
-    const LogoGroup = ({ logoSmall = small }) => (
+    const LogoGroup = ({ small }) => (
       <VerticalAlignToolbar>
-        {!logoSmall && <BurgerMenu menuItems={burgerItems} />}
+        {!small && <BurgerMenu menuItems={burgerItems} />}
         <AppLogo style={{ marginRight: 18 }} />
       </VerticalAlignToolbar>
     );
@@ -150,14 +150,14 @@ class Header extends React.Component {
       </VerticalAlignToolbar>
     );
 
-    const SettingsGroup = ({ userSettings = user }) => (
+    const SettingsGroup = ({ user }) => (
       <VerticalAlignDropdown
         Button={IconButton}
         buttonProps={buttonProps}
       >
         <LocalizationMenu />
         <ReportBug />
-        {userSettings ? <LogOut /> : null}
+        {user ? <LogOut /> : null}
       </VerticalAlignDropdown>
     );
 

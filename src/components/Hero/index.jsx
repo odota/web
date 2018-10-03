@@ -69,7 +69,7 @@ class Hero extends React.Component {
       return <ErrorBox text={errorText} />;
     }
 
-    const tabs = (tabsHeroId = heroId) => [
+    const tabs = tabsHeroId => [
       {
         name: strings.tab_rankings,
         key: 'rankings',
