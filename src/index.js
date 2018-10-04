@@ -22,7 +22,7 @@ import store from './store';
 import { getMetadata, getStrings, getAbilities, getHeroAbilities, getNeutralAbilities, getAbilityIds } from './actions';
 import App from './components/App';
 import constants from './components/constants';
-import { unregister } from './common/serviceWorker';
+// import { unregister } from './common/serviceWorker';
 
 // Inject global styles
 injectGlobal([`
@@ -196,4 +196,4 @@ if (rootElement.hasChildNodes()) {
   hydrate(app, rootElement);
 }
 
-unregister();
+// unregister();
