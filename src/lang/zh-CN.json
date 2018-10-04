@@ -932,6 +932,7 @@
   "tooltip_stomp": "获胜的比赛中最大的经济领先",
   "tooltip_loss": "失败的比赛中最大的经济落后",
   "tooltip_items": "购买的物品",
+  "tooltip_permanent_buffs": "Permanent buffs such as Flesh Heap stacks or Tomes of Knowledge used",
   "tooltip_lane": "根据游戏前期英雄位置推断的分路",
   "tooltip_map": "游戏前期玩家热力图",
   "tooltip_lane_efficiency": "前10分钟内这个分路上出现资源的百分比",
