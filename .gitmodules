@@ -1,0 +1,3 @@
+[submodule "src/common"]
+	path = src/common
+	url = git://github.com/odota/components
