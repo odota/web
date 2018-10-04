@@ -932,6 +932,7 @@
   "tooltip_stomp": "勝利試合での最大ゴールド差",
   "tooltip_loss": "敗北試合での最小ゴールド差",
   "tooltip_items": "アイテム作成",
+  "tooltip_permanent_buffs": "Permanent buffs such as Flesh Heap stacks or Tomes of Knowledge used",
   "tooltip_lane": "ゲームの序盤で就いていたレーン",
   "tooltip_map": "プレイヤーがよくいた場所のヒートマップ",
   "tooltip_lane_efficiency": "10分間で得られたゴールドの割合 (クリープ+パッシブ+初期ゴールド)",
