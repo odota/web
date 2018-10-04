@@ -292,6 +292,7 @@ export default (strings) => {
     ].concat(match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0
       ? {
         displayName: strings.th_permanent_buffs,
+        tooltip: strings.tooltip_permanent_buffs,
         field: 'permanent_buffs',
         displayFn: row =>
           (row.permanent_buffs && row.permanent_buffs.length > 0 ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff')) : '-'),
@@ -1118,7 +1119,7 @@ export default (strings) => {
     const maxDuration = items[t].attrib.find(x => x.key === 'lifetime').value;
     const totalDuration = [];
     row[`${type}_log`].forEach((ward) => {
-      const findTime = row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
+      const findTime = row[`${type}_left_log`] && row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
       const leftTime = (findTime && findTime.time) || false;
       if (leftTime !== false) { // exclude wards that did not expire before game ended from average time
         const duration = Math.min(Math.max(leftTime - ward.time, 0), maxDuration);

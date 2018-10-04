@@ -2,6 +2,7 @@
   "name": "opendota-web",
   "description": "Dota 2 Data Web UI",
   "version": "1.0.1",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
@@ -18,9 +19,6 @@
     "update:emoticons": "npm r dota2-emoticons && npm i dota2-emoticons && node dev/updateEmoticons.js",
     "storybook": "start-storybook -p 9009 -s public",
     "storybook:build": "build-storybook -s public"
-  },
-  "greenkeeper": {
-    "label": "type: greenkeeper"
   },
   "repository": {
     "type": "git",

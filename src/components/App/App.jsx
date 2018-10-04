@@ -12,7 +12,6 @@ import Player from '../Player';
 import Home from '../Home';
 import Search from '../Search';
 import Explorer from '../Explorer';
-// import FourOhFour from '../FourOhFour';
 import Heroes from '../Heroes';
 import Request from '../Request';
 import Distributions from '../Distributions';
@@ -26,8 +25,8 @@ import Predictions from '../Predictions';
 import Meta from '../Meta';
 import Api from '../Api';
 import Footer from '../Footer';
+import FourOhFour from '../FourOhFour';
 import constants from '../constants';
-import FourOhFour from '../../components/FourOhFour';
 
 const muiTheme = {
   fontFamily: constants.fontFamily,
@@ -78,7 +77,7 @@ const StyledBodyDiv = styled.div`
 const AdBannerDiv = styled.div`
   text-align: center;
   margin-bottom: 5px;
-  
+
   & img {
     margin-top: 10px;
     max-width: 100%;
@@ -87,7 +86,6 @@ const AdBannerDiv = styled.div`
 
 class App extends React.Component {
   static propTypes = {
-    params: PropTypes.shape({}),
     width: PropTypes.number,
     location: PropTypes.shape({
       key: PropTypes.string,
@@ -103,7 +101,7 @@ class App extends React.Component {
 
   render() {
     const {
-      params, width, location, strings,
+      width, location, strings,
     } = this.props;
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
@@ -113,7 +111,7 @@ class App extends React.Component {
             defaultTitle={strings.title_default}
             titleTemplate={strings.title_template}
           />
-          <Header params={params} location={location} />
+          <Header location={location} />
           <AdBannerDiv>
             { includeAds &&
               <a href="http://www.vpgame.com/?lang=en_us">
