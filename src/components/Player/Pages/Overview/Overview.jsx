@@ -20,7 +20,7 @@ import SummOfRecMatches from './Summary';
 import constants from '../../../constants';
 import CountsSummary from './CountsSummary';
 import { formatTemplateToString } from '../../../../utility';
-import Collapsable from '../../../Collapsable';
+import Collapsible from '../../../Collapsible';
 
 export const MAX_MATCHES_ROWS = 20;
 const MAX_HEROES_ROWS = 10;
@@ -122,7 +122,7 @@ const Overview = ({
   countsError,
 }) => (
   <OverviewContainer>
-    <Collapsable name="playerSummary">
+    <Collapsible name="playerSummary">
       <SummaryContainer
         title={strings.heading_avg_and_max}
         titleTo={`/players/${playerId}/records`}
@@ -160,7 +160,7 @@ const Overview = ({
       >
         <CountsSummary data={countsData} />
       </SummaryContainer>
-    </Collapsable>
+    </Collapsible>
     <MatchesContainer>
       <Container
         title={strings.heading_matches}
@@ -179,7 +179,7 @@ const Overview = ({
     </MatchesContainer>
 
     <HeroesContainer>
-      <Collapsable name="overviewPeers" initialMaxHeight={400} buttonStyle={{ top: 20 }}>
+      <Collapsible name="overviewPeers" initialMaxHeight={400} buttonStyle={{ top: 20 }}>
         <Container
           title={strings.heading_peers}
           titleTo={`/players/${playerId}/peers`}
@@ -192,19 +192,21 @@ const Overview = ({
             maxRows={MAX_PEERS_ROWS}
           />
         </Container>
-      </Collapsable>
-      <Container
-        title={strings.heading_heroes}
-        titleTo={`/players/${playerId}/heroes`}
-        loading={heroesLoading}
-        error={heroesError}
-      >
-        <Table
-          columns={playerHeroesOverviewColumns(playerId, strings)}
-          data={heroesData}
-          maxRows={MAX_HEROES_ROWS}
-        />
-      </Container>
+      </Collapsible>
+      <Collapsible name="overviewHeroes" initialMaxHeight={700} buttonStyle={{ top: 35 }}>
+        <Container
+          title={strings.heading_heroes}
+          titleTo={`/players/${playerId}/heroes`}
+          loading={heroesLoading}
+          error={heroesError}
+        >
+          <Table
+            columns={playerHeroesOverviewColumns(playerId, strings)}
+            data={heroesData}
+            maxRows={MAX_HEROES_ROWS}
+          />
+        </Container>
+      </Collapsible>
     </HeroesContainer>
   </OverviewContainer>
 );

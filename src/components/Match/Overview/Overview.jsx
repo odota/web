@@ -6,7 +6,7 @@ import AbilityBuildTable from '../AbilityBuildTable';
 import AbilityDraftTable from '../AbilityDraftTable';
 import mcs from '../matchColumns';
 import BuildingMap from '../BuildingMap';
-import Collapsable from './../../Collapsable/index';
+import Collapsible from './../../Collapsible/index';
 
 const Styled = styled.div`
   width: 100%;
@@ -67,7 +67,7 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
         />
       }
         {
-          <Collapsable name="abilityBuilds" initialMaxHeight={800}>
+          <Collapsible name="abilityBuilds" initialMaxHeight={800}>
             <AbilityBuildTable
               players={match.players}
               columns={abilityColumns()}
@@ -75,7 +75,7 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
               radiantTeam={match.radiant_team}
               direTeam={match.dire_team}
             />
-          </Collapsable>
+          </Collapsible>
         }
         {
           <Styled>

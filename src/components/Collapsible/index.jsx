@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Transition from 'react-transition-group/Transition';
 import { connect } from 'react-redux';
 import { IconPlusSquare, IconMinusSquare } from '../Icons';
+import constants from '../constants';
 
 const ButtonContainer = styled.div`
     position: absolute;
@@ -11,7 +12,8 @@ const ButtonContainer = styled.div`
     top: 5px;
     z-index: 100;
     cursor: pointer;
-    opacity: 0.15;
+    opacity: 0.4;
+    color: ${constants.colorBlue};
 
     &:hover {
       opacity: 1;
@@ -19,7 +21,7 @@ const ButtonContainer = styled.div`
 
     svg {
       height: 19px;
-      fill: white;
+      fill: ${constants.colorBlue};
     }
 
     span {
@@ -49,14 +51,14 @@ CollapseButton.propTypes = {
   handleHoverOff: PropTypes.func,
 };
 
-const CollapsableContainer = styled.div`
+const CollapsibleContainer = styled.div`
   position: relative;
   width: 100%;
   border: 1px solid transparent;
   box-sizing: border-box;
 `;
 
-class Collapsable extends React.Component {
+class Collapsible extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     children: PropTypes.arrayOf(PropTypes.node),
@@ -92,7 +94,7 @@ class Collapsable extends React.Component {
     const { initialMaxHeight, strings, buttonStyle } = this.props;
 
     return (
-      <CollapsableContainer style={{ border: !collapsed && hovered && '1px dashed rgba(255, 255, 255, 0.1)' }}>
+      <CollapsibleContainer style={{ border: !collapsed && hovered && '1px dashed rgba(255, 255, 255, 0.1)' }}>
         <CollapseButton
           handleClick={this.handleClick}
           collapsed={collapsed}
@@ -113,7 +115,7 @@ class Collapsable extends React.Component {
             </div>
           )}
         </Transition>
-      </CollapsableContainer>
+      </CollapsibleContainer>
     );
   }
 }
@@ -122,4 +124,4 @@ const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 
-export default connect(mapStateToProps)(Collapsable);
+export default connect(mapStateToProps)(Collapsible);
