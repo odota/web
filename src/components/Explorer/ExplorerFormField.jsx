@@ -13,7 +13,7 @@ class ExplorerFormField extends React.Component {
     builder: PropTypes.func,
     chipLimit: PropTypes.number,
     multipleSelect: PropTypes.bool,
-  }
+  };
 
   constructor() {
     super();

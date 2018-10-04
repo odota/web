@@ -45,7 +45,7 @@ class RequestLayer extends React.Component {
     dispatchDistributions: PropTypes.func,
     data: PropTypes.shape({}),
     strings: PropTypes.shape({}),
-  }
+  };
 
   componentDidMount() {
     this.props.dispatchDistributions();

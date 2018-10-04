@@ -32,9 +32,7 @@ const renderAbilities = abilities => abilities.map((ability, key) => (
 const Abilities = ({ hero, abilities, heroAbilities }) => {
   const filterAbilities = toFilterAbs => toFilterAbs.filter(ability => (ability !== 'generic_hidden'));
 
-  function mapAbilities(toMapHeroAbs) {
-    return toMapHeroAbs.map(ability => abilities[ability]);
-  }
+  const mapAbilities = toFilterAbs => toFilterAbs.map(ability => abilities[ability]);
   const mapTalents = talents => talents.map(talent => ({ ...abilities[talent.name], ...talent }));
 
   const mapTalentsToLevel = (talents) => {
