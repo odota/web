@@ -932,7 +932,7 @@
   "tooltip_stomp": "Maior vantagem de ouro em uma partida ganha",
   "tooltip_loss": "Maior desvantagem de ouro em uma partida perdida",
   "tooltip_items": "Itens",
-  "tooltip_permanent_buffs": "Permanent buffs such as Flesh Heap stacks or Tomes of Knowledge used",
+  "tooltip_permanent_buffs": "Melhorias permanentes como acúmulos na Armadura de Carne (Pudge) ou Tomos da sabedoria utilizados",
   "tooltip_lane": "Lane, com base no early game do jogo",
   "tooltip_map": "Mapa do posicionamento do jogador nos primeiros 10 minutos",
   "tooltip_lane_efficiency": "Porcentagem de gold na lane (Creeps+Passivo+Inicial) obtido nos 10 minutos",
