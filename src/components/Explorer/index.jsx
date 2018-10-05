@@ -54,7 +54,7 @@ class Explorer extends React.Component {
     dispatchLeagues: PropTypes.func,
     dispatchTeams: PropTypes.func,
     strings: PropTypes.shape({}),
-  }
+  };
 
   constructor() {
     super();

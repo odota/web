@@ -91,7 +91,7 @@ class App extends React.Component {
       key: PropTypes.string,
     }),
     strings: PropTypes.shape({}),
-  }
+  };
 
   componentDidUpdate(prevProps) {
     if (this.props.location.key !== prevProps.location.key) {
