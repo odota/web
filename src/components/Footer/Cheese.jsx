@@ -7,9 +7,9 @@ const Cheese = ({ strings }) => (
   <div className="cheese">
     <CheeseCircle />
     <section>
-      <big>
+      <span style={{ fontSize: 'larger' }} >
         {strings.app_donation_goal}
-      </big>
+      </span>
       <p style={{ marginTop: 5 }}>
         <a href="//carry.opendota.com">
           {strings.app_sponsorship}

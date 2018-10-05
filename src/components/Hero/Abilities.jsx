@@ -23,23 +23,16 @@ const AbilityItem = styled.div`
   padding-right: 4px;
 `;
 
-const renderAbilities = (abilities) => {
-  const mappedAbilities = abilities.map((ability, key) => {
-    const mappedAbility = (
-      <AbilityItem key={key}>
-        <Ability {...ability} abilityID={key} />
-      </AbilityItem>
-    );
-
-    return mappedAbility;
-  });
-
-  return mappedAbilities;
-};
+const renderAbilities = abilities => abilities.map((ability, key) => (
+  <AbilityItem key={key}>
+    <Ability {...ability} abilityID={key} />
+  </AbilityItem>
+));
 
 const Abilities = ({ hero, abilities, heroAbilities }) => {
-  const filterAbilities = abilities => abilities.filter(ability => (ability !== 'generic_hidden'));
-  const mapAbilities = heroAbilities => heroAbilities.map(ability => abilities[ability]);
+  const filterAbilities = toFilterAbs => toFilterAbs.filter(ability => (ability !== 'generic_hidden'));
+
+  const mapAbilities = toFilterAbs => toFilterAbs.map(ability => abilities[ability]);
   const mapTalents = talents => talents.map(talent => ({ ...abilities[talent.name], ...talent }));
 
   const mapTalentsToLevel = (talents) => {
@@ -58,24 +51,24 @@ const Abilities = ({ hero, abilities, heroAbilities }) => {
     return talentMap;
   };
 
-  const mapAbilitiesAndTalents = (hero) => {
-    const abilities = {
+  const mapAbilitiesAndTalents = (toMapHeroAbsTals) => {
+    const talsMap = {
       skills: [],
       talents: [],
     };
 
-    const heroNpcName = hero.name;
+    const heroNpcName = toMapHeroAbsTals.name;
     const heroAbs = heroAbilities[heroNpcName];
 
     // Filter out generic_hidden skills from skill list
     heroAbs.abilities = filterAbilities(heroAbs.abilities);
-    abilities.skills = mapAbilities(heroAbs.abilities);
+    talsMap.skills = mapAbilities(heroAbs.abilities);
 
     // Map Talents and assign them to correct level in Object
     const heroTalents = mapTalents(heroAbs.talents);
-    abilities.talents = mapTalentsToLevel(heroTalents);
+    talsMap.talents = mapTalentsToLevel(heroTalents);
 
-    return abilities;
+    return talsMap;
   };
 
   const heroAbs = mapAbilitiesAndTalents(hero);
