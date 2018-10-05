@@ -82,7 +82,7 @@ const Styled = styled.div`
   }
 }
 `;
-
+/* eslint-disable jsx-a11y/anchor-is-valid */
 const SliderTicks = props => (
   <Styled>
     <div className="sliderTicks">
@@ -108,6 +108,7 @@ const SliderTicks = props => (
 SliderTicks.propTypes = {
   value: PropTypes.shape({}),
   ticks: PropTypes.arrayOf({}),
+  onTickClick: PropTypes.func,
 };
 
 const alive = (ward, time) => time === -90 || (time > ward.entered.time && (!ward.left || time < ward.left.time));
