@@ -537,7 +537,7 @@ export function rankTierToString(rankTier) {
   }
   const intRankTier = parseInt(rankTier, 10);
   let rank = strings[`rank_tier_${parseInt(intRankTier / 10, 10)}`];
-  if (intRankTier > 9) {
+  if (intRankTier > 9 && intRankTier !== 80) {
     rank += ` [${parseInt(intRankTier % 10, 10)}]`;
   }
   return rank;
