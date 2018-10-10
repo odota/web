@@ -85,7 +85,7 @@ const StyledDiv = styled.div`
     pointer-events: none;
     -webkit-transform: translate3d(0,0,0);
     padding: 3px;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
 
     & #back2TopTxt {
       font-size: 10px;
@@ -218,7 +218,7 @@ class App extends React.Component {
             }
           </AdBannerDiv>
           <Footer location={location} width={width} />
-          <button id="back2Top" title={strings.back2Top} href="#" onClick={this.handleBack2TopClick}>
+          <button id="back2Top" title={strings.back2Top} onClick={this.handleBack2TopClick}>
             <div>&#9650;</div>
             <div id="back2TopTxt">{strings.back2Top}</div>
           </button>
