@@ -1230,5 +1230,6 @@
   "gosu_vision": "Get how many heroes were killed under your wards",
   "gosu_actions": "Get your lost time from mouse usage vs hotkeys",
   "gosu_teamfights": "Get who to target during teamfights",
-  "gosu_analysis": "Get your real MMR bracket"
+  "gosu_analysis": "Get your real MMR bracket",
+  "back2Top": "Back to top"
 }

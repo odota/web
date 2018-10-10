@@ -62,6 +62,34 @@ const StyledDiv = styled.div`
   background-image: ${props => (props.location.pathname === '/' ? 'url("/assets/images/home-background.png")' : '')};
   background-position: ${props => (props.location.pathname === '/' ? 'center top' : '')};
   background-repeat: ${props => (props.location.pathname === '/' ? 'no-repeat' : '')};
+
+  #back2Top {
+    position: fixed;
+    left: auto;
+    right: 20px;
+    top: auto;
+    bottom: 20px;
+    outline: none;
+    overflow: hidden;
+    color: rgb(196, 196, 196);
+    text-align: center;
+    background-color: rgba(0,0,0,0.3);
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    z-index: 999999;
+    opacity: 0;
+    display: block;
+    pointer-events: none;
+    -webkit-transform: translate3d(0,0,0);
+  }
+
+  #back2Top:hover {
+    background-color: rgb(26, 108, 239);
+  }
 `;
 
 const StyledBodyDiv = styled.div`
@@ -93,9 +121,28 @@ class App extends React.Component {
     strings: PropTypes.shape({}),
   };
 
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.location.key !== prevProps.location.key) {
       window.scrollTo(0, 0);
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    const { style } = document.getElementById('back2Top');
+    if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+      style.opacity = 1;
+      style.pointerEvents = 'auto';
+    } else {
+      style.opacity = 0;
+      style.pointerEvents = 'none';
     }
   }
 
@@ -152,6 +199,7 @@ class App extends React.Component {
             }
           </AdBannerDiv>
           <Footer location={location} width={width} />
+          <a id="back2Top" title={strings.back2Top} href="#">&#9650;</a>
         </StyledDiv>
       </MuiThemeProvider>
     );
