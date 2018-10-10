@@ -145,19 +145,14 @@ class App extends React.Component {
   }
 
   handleScroll = () => {
-    if (this.timer) {
-      window.clearTimeout(this.timer);
+    const { style } = this.back2Top;
+    if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+      style.opacity = 1;
+      style.pointerEvents = 'auto';
+    } else {
+      style.opacity = 0;
+      style.pointerEvents = 'none';
     }
-    this.timer = window.setTimeout(() => {
-      const { style } = this.back2Top;
-      if (document.body.scrollTop > 1200 || document.documentElement.scrollTop > 1200) {
-        style.opacity = 1;
-        style.pointerEvents = 'auto';
-      } else {
-        style.opacity = 0;
-        style.pointerEvents = 'none';
-      }
-    }, 100);
   }
 
   handleBack2TopClick = () => {
