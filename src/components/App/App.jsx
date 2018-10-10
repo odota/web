@@ -72,6 +72,8 @@ const StyledDiv = styled.div`
     outline: none;
     color: rgb(196, 196, 196);
     text-align: center;
+    outline: none;
+    border: none;
     background-color: rgba(0,0,0,0.3);
     width: 40px;
     font-size: 14px;
@@ -157,6 +159,11 @@ class App extends React.Component {
     }, 100);
   }
 
+  handleBack2TopClick = () => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+
   render() {
     const {
       width, location, strings,
@@ -210,10 +217,10 @@ class App extends React.Component {
             }
           </AdBannerDiv>
           <Footer location={location} width={width} />
-          <a id="back2Top" title={strings.back2Top} href="#">
+          <button id="back2Top" title={strings.back2Top} href="#" onClick={this.handleBack2TopClick}>
             <div>&#9650;</div>
             <div id="back2TopTxt">{strings.back2Top}</div>
-          </a>
+          </button>
         </StyledDiv>
       </MuiThemeProvider>
     );
