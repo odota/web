@@ -4,20 +4,20 @@ import { connect } from 'react-redux';
 import { shape } from 'prop-types';
 import {formatTemplateToString} from "../../../../utility";
 
+const fastPlurality = (val, singular, plural) => {
+  return val === 1 ? singular : plural
+}
+
 const formatDurationString = (sec, strings) => {
   const days = Math.floor(sec / 86400);
-  const daysTempl = days === 1 ? strings.time_abbr_d : strings.time_abbr_dd
   const hours = Math.floor((sec - (days * 86400)) / 3600);
-  const hoursTempl = hours === 1 ? strings.time_abbr_hh : strings.time_abbr_hh
   const minutes = Math.floor((sec - (days * 86400) - (hours * 3600)) / 60);
-  const minutesTempl = minutes=== 1 ? strings.time_abbr_m : strings.time_abbr_mm
   const seconds = Math.floor((sec - (days * 86400) - (hours * 3600) - (minutes * 60)));
-  const secondsTempl = seconds === 1 ? strings.time_abbr_s : strings.time_abbr_ss
   return [
-      formatTemplateToString(daysTempl, days),
-      formatTemplateToString(hoursTempl, hours),
-      formatTemplateToString(minutesTempl, minutes),
-      formatTemplateToString(secondsTempl, seconds)
+      formatTemplateToString(fastPlurality(days, strings.time_abbr_d, strings.time_abbr_dd), days),
+      formatTemplateToString(fastPlurality(hours, strings.time_abbr_h, strings.time_abbr_hh), hours),
+      formatTemplateToString(fastPlurality(minutes, strings.time_abbr_m, strings.time_abbr_mm), minutes),
+      formatTemplateToString(fastPlurality(seconds, strings.time_abbr_s, strings.time_abbr_ss), seconds)
   ].join(' ')
 };
 
