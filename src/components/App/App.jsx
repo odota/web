@@ -85,7 +85,7 @@ const StyledDiv = styled.div`
     pointer-events: none;
     -webkit-transform: translate3d(0,0,0);
     padding: 3px;
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 1s ease-in-out;
 
     & #back2TopTxt {
       font-size: 10px;
@@ -161,10 +161,8 @@ class App extends React.Component {
   }
 
   handleBack2TopClick = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
   }
 
   render() {
