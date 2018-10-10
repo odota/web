@@ -2,16 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { shape } from 'prop-types';
-
-// Strings are in format e.g. '%d seconds'
-const getAbbrTime = str => str.slice(3, 4);
+import {formatTemplateToString} from "../../../../utility";
 
 const formatDurationString = (sec, strings) => {
   const days = Math.floor(sec / 86400);
+  const daysTempl = days === 1 ? strings.time_abbr_d : strings.time_abbr_dd
   const hours = Math.floor((sec - (days * 86400)) / 3600);
+  const hoursTempl = hours === 1 ? strings.time_abbr_hh : strings.time_abbr_hh
   const minutes = Math.floor((sec - (days * 86400) - (hours * 3600)) / 60);
+  const minutesTempl = minutes=== 1 ? strings.time_abbr_m : strings.time_abbr_mm
   const seconds = Math.floor((sec - (days * 86400) - (hours * 3600) - (minutes * 60)));
-  return `${days}${getAbbrTime(strings.time_dd)} ${hours}${getAbbrTime(strings.time_hh)} ${minutes}${getAbbrTime(strings.time_mm)} ${seconds}${getAbbrTime(strings.time_ss)}`;
+  const secondsTempl = seconds === 1 ? strings.time_abbr_s : strings.time_abbr_ss
+  return [
+      formatTemplateToString(daysTempl, days),
+      formatTemplateToString(hoursTempl, hours),
+      formatTemplateToString(minutesTempl, minutes),
+      formatTemplateToString(secondsTempl, seconds)
+  ].join(' ')
 };
 
 const Wrapper = styled.div`
