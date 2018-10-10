@@ -70,13 +70,10 @@ const StyledDiv = styled.div`
     top: auto;
     bottom: 20px;
     outline: none;
-    overflow: hidden;
     color: rgb(196, 196, 196);
     text-align: center;
     background-color: rgba(0,0,0,0.3);
-    height: 40px;
     width: 40px;
-    line-height: 40px;
     font-size: 14px;
     border-radius: 2px;
     cursor: pointer;
@@ -85,6 +82,14 @@ const StyledDiv = styled.div`
     display: block;
     pointer-events: none;
     -webkit-transform: translate3d(0,0,0);
+    padding: 3px;
+
+    & #back2TopTxt {
+      font-size: 10px;
+      line-height: 12px;
+      text-align: center;
+      margin-bottom: 3px;
+    }
   }
 
   #back2Top:hover {
@@ -122,6 +127,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
+    this.back2Top = document.getElementById('back2Top');
     window.addEventListener('scroll', this.handleScroll);
   }
 
@@ -136,14 +142,19 @@ class App extends React.Component {
   }
 
   handleScroll = () => {
-    const { style } = document.getElementById('back2Top');
-    if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
-      style.opacity = 1;
-      style.pointerEvents = 'auto';
-    } else {
-      style.opacity = 0;
-      style.pointerEvents = 'none';
+    if (this.timer) {
+      window.clearTimeout(this.timer);
     }
+    this.timer = window.setTimeout(() => {
+      const { style } = this.back2Top;
+      if (document.body.scrollTop > 1200 || document.documentElement.scrollTop > 1200) {
+        style.opacity = 1;
+        style.pointerEvents = 'auto';
+      } else {
+        style.opacity = 0;
+        style.pointerEvents = 'none';
+      }
+    }, 100);
   }
 
   render() {
@@ -199,7 +210,10 @@ class App extends React.Component {
             }
           </AdBannerDiv>
           <Footer location={location} width={width} />
-          <a id="back2Top" title={strings.back2Top} href="#">&#9650;</a>
+          <a id="back2Top" title={strings.back2Top} href="#">
+            <div>&#9650;</div>
+            <div id="back2TopTxt">{strings.back2Top}</div>
+          </a>
         </StyledDiv>
       </MuiThemeProvider>
     );
