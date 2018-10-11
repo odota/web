@@ -66,7 +66,7 @@ const StyledDiv = styled.div`
   #back2Top {
     position: fixed;
     left: auto;
-    right: 20px;
+    right: 0px;
     top: auto;
     bottom: 20px;
     outline: none;
@@ -129,11 +129,6 @@ class App extends React.Component {
     strings: PropTypes.shape({}),
   };
 
-  componentDidMount() {
-    this.back2Top = document.getElementById('back2Top');
-    window.addEventListener('scroll', this.handleScroll);
-  }
-
   componentDidUpdate(prevProps) {
     if (this.props.location.key !== prevProps.location.key) {
       window.scrollTo(0, 0);
@@ -142,6 +137,11 @@ class App extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  setBack2TopRef = (node) => {
+    this.back2Top = node;
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   handleScroll = () => {
@@ -213,7 +213,7 @@ class App extends React.Component {
             }
           </AdBannerDiv>
           <Footer location={location} width={width} />
-          <button id="back2Top" title={strings.back2Top} onClick={this.handleBack2TopClick}>
+          <button ref={this.setBack2TopRef} id="back2Top" title={strings.back2Top} onClick={this.handleBack2TopClick}>
             <div>&#9650;</div>
             <div id="back2TopTxt">{strings.back2Top}</div>
           </button>
