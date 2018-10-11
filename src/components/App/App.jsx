@@ -129,6 +129,10 @@ class App extends React.Component {
     strings: PropTypes.shape({}),
   };
 
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.location.key !== prevProps.location.key) {
       window.scrollTo(0, 0);
@@ -141,7 +145,6 @@ class App extends React.Component {
 
   setBack2TopRef = (node) => {
     this.back2Top = node;
-    window.addEventListener('scroll', this.handleScroll);
   }
 
   handleScroll = () => {
