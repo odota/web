@@ -155,7 +155,7 @@ const getRegistrationBadge = (registered, strings) => registered && (
   />
 );
 
-const getRankTierMedal = (rankTier, leaderboardRank) => {
+const getRankTierMedal = (rankTier, leaderboardRank, playerId) => {
   let medalElement = null;
   const imgDescription = rankTierToString(rankTier);
   if (rankTier) { // if the players ranktier is 0 they are uncalibrated
@@ -191,11 +191,13 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
       iconPath = `/assets/images/dota2/rank_icons/rank_icon_${Math.floor(intRankTier / 10)}.png`;
       medalElement = (
         <div className="rankTierContainer">
-          <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
-            <img className="rankMedal-icon" src={iconPath} alt="icon" />
-            {(star !== 0) ? <img className="rankMedal-star" src={starPath} alt="star" /> : ''}
-            {leaderboardRank && <span className="rankMedal-board">{leaderboardRank}</span>}
-          </div>
+          <a href={`/players/${playerId}/mmr`}>
+            <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
+              <img className="rankMedal-icon" src={iconPath} alt="icon" />
+              {(star !== 0) ? <img className="rankMedal-star" src={starPath} alt="star" /> : ''}
+              {leaderboardRank && <span className="rankMedal-board">{leaderboardRank}</span>}
+            </div>
+          </a>
         </div>
       );
     }
@@ -272,7 +274,7 @@ const PlayerHeader = ({
             <PlayerStats playerId={playerId} loggedInId={loggedInUser && String(loggedInUser.account_id)} compact={!small} />
             <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={!small} />
           </div>
-          {getRankTierMedal(rankTier, leaderboardRank)}
+          {getRankTierMedal(rankTier, leaderboardRank, playerId)}
         </div>
       </div>
     </Styled>
