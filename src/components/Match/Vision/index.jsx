@@ -83,15 +83,16 @@ const Styled = styled.div`
 }
 `;
 /* eslint-disable jsx-a11y/anchor-is-valid */
-const SliderTicks = props => (
+const SliderTicks = ({
+  ticks, onTickClick, value, min, max,
+}) => (
   <Styled>
     <div className="sliderTicks">
-      {props.ticks.map((tick) => {
-        const { min, max } = props;
+      {ticks.map((tick) => {
         const percent = 100 * ((tick - min) / (max - min));
         const classNames = ['sliderTick'];
 
-        if (tick <= props.value) {
+        if (tick <= value) {
           classNames.push('active');
         }
 
@@ -100,7 +101,7 @@ const SliderTicks = props => (
             role="link"
             tabIndex={0}
             key={tick}
-            onClick={() => props.onTickClick(tick)}
+            onClick={() => onTickClick(tick)}
             onKeyPress={() => {}}
             className={classNames.join(' ')}
             style={{ left: `${percent}%` }}
@@ -117,6 +118,8 @@ SliderTicks.propTypes = {
   value: PropTypes.shape({}),
   ticks: PropTypes.arrayOf({}),
   onTickClick: PropTypes.func,
+  min: PropTypes.number,
+  max: PropTypes.number,
 };
 
 const alive = (ward, time) => time === -90 || (time > ward.entered.time && (!ward.left || time < ward.left.time));
