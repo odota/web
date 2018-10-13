@@ -5,7 +5,7 @@ export const StyledBody = styled.div`
   table {
     background-color: transparent !important;
     table-layout: auto !important;
-    font-family: Tahoma !important;
+    font-family: ${constants.tableFontFamily} !important;
     box-sizing: border-box;
           
     thead {
