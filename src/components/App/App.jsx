@@ -77,7 +77,7 @@ const StyledBodyDiv = styled.div`
 const AdBannerDiv = styled.div`
   text-align: center;
   margin-bottom: 5px;
- 
+
   & img {
     margin-top: 10px;
     max-width: 100%;
@@ -86,7 +86,6 @@ const AdBannerDiv = styled.div`
 
 class App extends React.Component { // eslint-disable-line  react/prefer-stateless-function
   static propTypes = {
-    params: PropTypes.shape({}),
     width: PropTypes.number,
     location: PropTypes.shape({
       key: PropTypes.string,
