@@ -613,7 +613,6 @@ export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffi
       }
       const roleIconStyle = {
         float: 'right',
-        marginRight: '20px',
         marginTop: '2px',
         height: '14px',
       };
