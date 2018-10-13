@@ -7,12 +7,14 @@ import { IMAGESIZE_ENUM } from '../../../utility';
 import HeroImage from './../../Visualizations/HeroImage';
 
 const Styled = styled.div`
+position: relative;
+bottom: 20px;
+
 .PicksBans {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  margin: 0 24px;
 
   & > section {
     position: relative;
@@ -33,7 +35,7 @@ const Styled = styled.div`
   }
 }
 
-.image {
+img {
   position: relative;
   height: 29px;
   box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
