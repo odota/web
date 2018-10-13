@@ -736,7 +736,7 @@ export const transformations = {
       }
       return (
         <div>
-          {_sameTeam ? strings.td_partner_with : strings.td_partner_against}
+          {_sameTeam ? strings.th_with_games : strings.th_against_games}
         </div>
       );
     };
