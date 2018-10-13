@@ -730,6 +730,17 @@ export const transformations = {
       marginRight: '-14px',
     };
 
+    const sameTeam = (_sameTeam) => {
+      if (_sameTeam == null) {
+        return null;
+      }
+      return (
+        <div>
+          {_sameTeam ? strings.th_partner_with : strings.th_partner_against}
+        </div>
+      );
+    };
+
     return (
       <div>
         <TableLink to={`/matches/${matchId}`} color={getColor(field)}>
@@ -747,6 +758,9 @@ export const transformations = {
             data-hint-position="top"
           >
             {partySize(row.party_size)}
+          </span>
+          <span>
+            {sameTeam(row.sameTeam)}
           </span>
         </div>
       </div>);
