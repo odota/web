@@ -79,7 +79,7 @@ class Header extends React.Component {
     small: PropTypes.bool,
     user: PropTypes.shape({}),
     strings: PropTypes.shape({}),
-  }
+  };
 
   constructor() {
     super();

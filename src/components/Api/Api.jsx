@@ -65,7 +65,7 @@ class KeyManagement extends React.Component {
     loading: PropTypes.bool,
     user: PropTypes.shape({}),
     strings: PropTypes.shape({}),
-  }
+  };
 
   constructor(props) {
     super(props);
