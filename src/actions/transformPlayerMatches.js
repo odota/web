@@ -9,7 +9,7 @@ export default function transformPlayerMatches(fields) {
       return response.map((match) => {
         let sameTeam = false;
         const partnerHero = Object.values(match.heroes).find(hero => hero.account_id && hero.account_id.toString() === fields.included_account_id);
-        if ((isRadiant(partnerHero.player_slot) && isRadiant(match.player_slot)) || (!isRadiant(partnerHero.player_slot) && !isRadiant(match.player_slot))) {
+        if (isRadiant(partnerHero.player_slot) === isRadiant(match.player_slot)) {
           sameTeam = true;
         }
         return { ...match, sameTeam };
