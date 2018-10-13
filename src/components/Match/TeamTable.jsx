@@ -62,7 +62,7 @@ class TeamTable extends React.Component {
   }
 
   addListeners() {
-    const tableCells = this.teamTableRef.querySelectorAll('td, th');
+    const tableCells = this.teamTableRef.querySelectorAll('td:not(.no-col-hover), th:not(.no-col-hover)');
 
     for (let i = 0; i < tableCells.length; i += 1) {
       tableCells[i].onmouseenter = () => {

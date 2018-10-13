@@ -99,6 +99,7 @@ class Table extends React.Component {
 
             return (
               <MaterialTableRowColumn
+                className={column.className}
                 key={`${colIndex}_sum`}
                 style={{
                 color: column.color,
@@ -244,6 +245,7 @@ class Table extends React.Component {
                           <MaterialTableRowColumn
                             key={`${index}_${colIndex}`}
                             style={style}
+                            className={column.className}
                           />
                         );
                       }
@@ -297,7 +299,7 @@ class Table extends React.Component {
                         style.textDecoration = toUnderline(data, row, field, underline) ? 'underline' : 'none';
                       }
                       return (
-                        <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style}>
+                        <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style} className={column.className}>
                           {fieldEl}
                         </MaterialTableRowColumn>
                       );

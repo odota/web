@@ -21,6 +21,7 @@ const TableHeaderColumn = ({
         ...getColStyle(column),
       }}
       {...(setHighlightedCol && setHighlightedCol(index))}
+      className={column.className}
     >
       <StyledHeaderCell
         onClick={() => column.sortFn && sortClick(column.field, sortState, column.sortFn)}

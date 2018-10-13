@@ -182,6 +182,7 @@ export default (strings) => {
         paddingRight: 2,
         paddingLeft: 2,
         color: 'rgba(255, 255, 255, 0.4)',
+        className: 'no-col-hover',
       },
       {
         displayName: strings.th_denies,
@@ -216,6 +217,7 @@ export default (strings) => {
         paddingRight: 2,
         paddingLeft: 2,
         color: 'rgba(255, 255, 255, 0.4)',
+        className: 'no-col-hover',
       },
       {
         displayName: strings.th_xp_per_min,
