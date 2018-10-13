@@ -84,7 +84,7 @@ const AdBannerDiv = styled.div`
   }
 `;
 
-class App extends React.Component { // eslint-disable-line  react/prefer-stateless-function
+class App extends React.Component {
   static propTypes = {
     width: PropTypes.number,
     location: PropTypes.shape({
