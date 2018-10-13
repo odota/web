@@ -118,11 +118,8 @@ SliderTicks.propTypes = {
   value: PropTypes.shape({}),
   ticks: PropTypes.arrayOf({}),
   onTickClick: PropTypes.func,
-<<<<<<< HEAD
-=======
   min: PropTypes.number,
   max: PropTypes.number,
->>>>>>> 2fd2235544377b7bc657ce86cc7818e3d30ffd2f
 };
 
 const alive = (ward, time) => time === -90 || (time > ward.entered.time && (!ward.left || time < ward.left.time));
