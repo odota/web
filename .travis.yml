@@ -24,7 +24,8 @@ notifications:
 script:
 - npm run lintnofix
 - npm run build
-- npm run testcafe
+- npm install -g serve
+- npm run testcafe-travis
 # blocklist
 branches:
   except:

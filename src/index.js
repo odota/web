@@ -22,8 +22,7 @@ import store from './store';
 import { getMetadata, getStrings, getAbilities, getHeroAbilities, getNeutralAbilities, getAbilityIds } from './actions';
 import App from './components/App';
 import constants from './components/constants';
-// import registerServiceWorker from './registerServiceWorker';
-import { unregister } from './registerServiceWorker';
+// import { unregister } from './common/serviceWorker';
 
 // Inject global styles
 injectGlobal([`
@@ -188,12 +187,13 @@ const app = (
     <Router history={history}>
       <Route component={App} />
     </Router>
-  </Provider>);
+  </Provider>
+);
+
 if (rootElement.hasChildNodes()) {
   render(app, rootElement);
 } else {
   hydrate(app, rootElement);
 }
-// registerServiceWorker();
-unregister();
-// document.getElementById('loader').style.display = 'none';
+
+// unregister();

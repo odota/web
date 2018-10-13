@@ -42,7 +42,7 @@ class ExplorerOutputSection extends React.Component {
     playerMapping: PropTypes.string,
     format: PropTypes.string,
     strings: PropTypes.shape({}),
-  }
+  };
 
   shouldComponentUpdate(nextProps) {
     return nextProps.rows !== this.props.rows || nextProps.format !== this.props.format;

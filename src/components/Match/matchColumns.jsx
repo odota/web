@@ -39,6 +39,7 @@ export default (strings) => {
     return (<TableHeroImage
       title={row.name || row.personaname || strings.general_anonymous}
       registered={row.last_login}
+      contributor={row.is_contributor}
       accountId={row.account_id}
       playerSlot={row.player_slot}
       subtitle={<CompetitiveRank rankTier={rankTierToString(row.rank_tier)} strings={strings} />}
@@ -291,6 +292,7 @@ export default (strings) => {
     ].concat(match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0
       ? {
         displayName: strings.th_permanent_buffs,
+        tooltip: strings.tooltip_permanent_buffs,
         field: 'permanent_buffs',
         displayFn: row =>
           (row.permanent_buffs && row.permanent_buffs.length > 0 ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff')) : '-'),
@@ -942,6 +944,7 @@ export default (strings) => {
   const objectiveDamageColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('objective_') === 0).map(obj => ({
     displayName: strings[obj],
     field: obj,
+    tooltip: strings[`tooltip_${obj}`],
     sortFn: row => row.objective_damage && row.objective_damage[obj.substring('objective_'.length)],
     displayFn: (row, col, value) => value || '-',
     relativeBars: true,
@@ -1116,7 +1119,7 @@ export default (strings) => {
     const maxDuration = items[t].attrib.find(x => x.key === 'lifetime').value;
     const totalDuration = [];
     row[`${type}_log`].forEach((ward) => {
-      const findTime = row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
+      const findTime = row[`${type}_left_log`] && row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
       const leftTime = (findTime && findTime.time) || false;
       if (leftTime !== false) { // exclude wards that did not expire before game ended from average time
         const duration = Math.min(Math.max(leftTime - ward.time, 0), maxDuration);
@@ -1237,7 +1240,7 @@ export default (strings) => {
     relativeBars: true,
   };
 
-  const visionColumns = strings => [
+  const visionColumns = visionStrings => [
     heroTdColumn,
     purchaseObserverColumn,
     {
@@ -1245,10 +1248,10 @@ export default (strings) => {
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
-          &nbsp;{strings.th_use_shorthand}
+          &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
-      tooltip: strings.tooltip_used_ward_observer,
+      tooltip: visionStrings.tooltip_used_ward_observer,
       field: 'uses_ward_observer',
       sortFn: row => row.obs_log && row.obs_log.length,
       displayFn: (row, column, value) => value || '-',
@@ -1261,10 +1264,10 @@ export default (strings) => {
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
-          &nbsp;{strings.th_use_shorthand}
+          &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
-      tooltip: strings.tooltip_used_ward_sentry,
+      tooltip: visionStrings.tooltip_used_ward_sentry,
       field: 'uses_ward_sentry',
       sortFn: row => row.sen_log && row.sen_log.length,
       displayFn: (row, column, value) => value || '-',
@@ -1277,10 +1280,10 @@ export default (strings) => {
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/dust_lg.png`} alt="" />
-          &nbsp;{strings.th_use_shorthand}
+          &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
-      tooltip: strings.tooltip_used_dust,
+      tooltip: visionStrings.tooltip_used_dust,
       field: 'uses_dust',
       sortFn: row => row.item_uses && row.item_uses.dust,
       displayFn: (row, column, value) => value || '-',
@@ -1292,10 +1295,10 @@ export default (strings) => {
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
-          &nbsp;{strings.th_use_shorthand}
+          &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
-      tooltip: strings.tooltip_used_smoke_of_deceit,
+      tooltip: visionStrings.tooltip_used_smoke_of_deceit,
       field: 'uses_smoke',
       sortFn: row => row.item_uses && row.item_uses.smoke_of_deceit,
       displayFn: (row, column, value) => value || '-',
