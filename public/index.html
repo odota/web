@@ -118,15 +118,39 @@
         -webkit-transform: scale3D(0, 0, 1);
         transform: scale3D(0, 0, 1);
       }
+    } 
+
+    #no-browser-support {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color:#2d2d2d;
+      z-index: 9999;
+      font-size: 50px;
+      font-weight: bold;
+      padding-top: 300px;
+      color: white;
+      text-align: center;
     }
   </style>
 </head>
 
 <body>
+  <script type="text/javascript">
+    window.onload = function() {
+      if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
+        document.getElementById("no-browser-support").style.display = "block";
+      } 
+    };
+  </script>
   <div id="root" />
   <noscript>
     <h3>Looks like your browser isn't allowing scripts! Enable JavaScript to run this app.</h3>
   </noscript>
+  <div id="no-browser-support">&#9888; YOUR BROWSER IS NOT SUPPORTED BY OPENDOTA</div>
   <div class="sk-cube-grid">
     <div class="sk-cube sk-cube1"></div>
     <div class="sk-cube sk-cube2"></div>
