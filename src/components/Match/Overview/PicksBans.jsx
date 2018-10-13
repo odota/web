@@ -8,7 +8,7 @@ import HeroImage from './../../Visualizations/HeroImage';
 
 const Styled = styled.div`
 position: relative;
-bottom: 20px;
+bottom: 15px;
 
 .PicksBans {
   display: flex;
