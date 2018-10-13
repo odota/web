@@ -5,10 +5,26 @@ export const StyledBody = styled.div`
   table {
     background-color: transparent !important;
     table-layout: auto !important;
-    margin-bottom: 20px;
+    font-family: Tahoma !important;
+    box-sizing: border-box;
+          
+    thead {
+      border-style: none !important;
+      background-color: rgba(0, 0, 0, 0.17);
+    }
+
+    tr {
+      border-style: none !important;
+    }
 
     & th {
-      background-color: rgba(0, 0, 0, 0.3);
+      height: 48px !important;
+
+      svg {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+      }
 
       & svg {
         vertical-align: top;
@@ -26,7 +42,14 @@ export const StyledBody = styled.div`
       }
     }
 
-    & tr {
+
+    & tbody tr {
+      
+      & td {
+        border-bottom-width: 0px !important;
+        border-top-width: 0px !important;
+      }
+      
       &:nth-child(odd) {
         background-color: rgba(255, 255, 255, 0.019);
       }
@@ -34,17 +57,14 @@ export const StyledBody = styled.div`
       &:nth-child(even) {
         background-color: rgba(0, 0, 0, 0.019);
       }
-
-      & td {
-        border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
-        border-bottom: 0 !important;
-      }
     }
+
 
     & th,
     & td {
-      padding-left: 8px !important;
-      padding-right: 8px !important;
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      overflow: visible !important;
 
       &:first-child {
         padding-left: 24px !important;
@@ -56,6 +76,12 @@ export const StyledBody = styled.div`
     }
   }
   /* Override material-ui style */
+
+
+  .innerContainer {
+    background-color: rgba(19, 18, 18, 0.08) !important;
+    margin-bottom: 20px !important;
+  }
 
   .innerContainer > div > div {
     overflow-y: hidden !important;

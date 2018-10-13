@@ -108,6 +108,7 @@ const SliderTicks = props => (
 SliderTicks.propTypes = {
   value: PropTypes.shape({}),
   ticks: PropTypes.arrayOf({}),
+  onTickClick: PropTypes.func,
 };
 
 const alive = (ward, time) => time === -90 || (time > ward.entered.time && (!ward.left || time < ward.left.time));

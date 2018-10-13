@@ -8,7 +8,7 @@ export const StyledContainer = styled.div`
 `;
 
 export const KDAContainer = StyledContainer.extend`
-  width: calc(300% + 50px);
+  width: calc(300% + 30px);
   left: -10px;
   pointer-events: none;
 `;

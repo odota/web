@@ -213,7 +213,7 @@ const predictionArray = [
 const predColumns = [
   { displayName: 'Title', field: 'title' },
   { displayName: 'Prediction', field: 'prediction' },
-  { displayName: 'Explore', field: 'link', displayFn: (row, col, field) => (field ? (<a href={field} target="_blank">View in Explorer</a>) : null) },
+  { displayName: 'Explore', field: 'link', displayFn: (row, col, field) => (field ? (<a href={field} target="_blank" rel="noopener noreferrer">View in Explorer</a>) : null) },
   { displayName: 'Notes', field: 'notes', displayFn: (row, col, field) => (<pre>{field}</pre>) },
 ];
 

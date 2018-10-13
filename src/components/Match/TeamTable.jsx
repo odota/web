@@ -1,11 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import { isRadiant, getTeamName } from '../../utility';
 import Heading from '../Heading';
 import { IconRadiant, IconDire } from '../Icons';
 import Table from '../Table';
 import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
+
+const Styled = styled.div`
+  ${props => (props.customWidth ?
+    ` table {
+    width: ${props.customWidth}px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: 0px !important;
+    table-layout: fixed !important;
+  }`
+    : '')}
+`;
 
 const keyFn = row => row && row.player_slot + 1;
 
@@ -29,6 +42,7 @@ class TeamTable extends React.Component {
     buttonLabel: PropTypes.string,
     buttonTo: PropTypes.string,
     buttonIcon: PropTypes.string,
+    customWidth: PropTypes.number,
   };
   constructor() {
     super();
@@ -83,10 +97,11 @@ class TeamTable extends React.Component {
       buttonLabel,
       buttonTo,
       buttonIcon,
+      customWidth,
     } = this.props;
 
     return (
-      <div ref={this.setTeamTableRef}>
+      <Styled customWidth={customWidth} innerRef={this.setTeamTableRef}>
         <Heading
           title={`${getTeamName(radiantTeam, true)} - ${heading}`}
           icon={<IconRadiant />}
@@ -102,7 +117,7 @@ class TeamTable extends React.Component {
         />
         <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} />
         {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
-      </div>
+      </Styled>
     );
   }
 }

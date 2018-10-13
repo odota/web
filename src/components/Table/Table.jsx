@@ -7,7 +7,7 @@ import {
   TableRow as MaterialTableRow,
   TableRowColumn as MaterialTableRowColumn,
 } from 'material-ui/Table';
-import { abbreviateNumber, SORT_ENUM, defaultSort } from '../../utility';
+import { abbreviateNumber, SORT_ENUM, defaultSort, getColStyle } from '../../utility';
 import { TablePercent } from '../Visualizations';
 import Pagination from '../Table/PaginatedTable/Pagination';
 import TableHeader from './TableHeader';
@@ -98,7 +98,13 @@ class Table extends React.Component {
             }
 
             return (
-              <MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
+              <MaterialTableRowColumn
+                key={`${colIndex}_sum`}
+                style={{
+                color: column.color,
+                ...getColStyle(column),
+              }}
+              >
                 {column.sumFn && ((column.displaySumFn) ? column.displaySumFn(total) : abbreviateNumber(total))}
               </MaterialTableRowColumn>
             );
@@ -227,6 +233,7 @@ class Table extends React.Component {
                         marginBottom: 0,
                         textUnderlinePosition: 'under',
                         textDecorationColor: 'rgb(140, 140, 140)',
+                        ...getColStyle(column),
                       };
 
                       if (center) {

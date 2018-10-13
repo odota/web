@@ -836,3 +836,17 @@ export function styleValues(el) {
   }
   return null;
 }
+
+// handles table cell custom and default styling
+export function getColStyle(column) {
+  return {
+    textAlign: column.textAlign || 'initial',
+    paddingRight: column.paddingRight !== undefined ? column.paddingRight : 8,
+    paddingLeft: column.paddingLeft !== undefined ? column.paddingLeft : 8,
+    width: column.key === 'heroTd' && !column.width ? '1px' : column.width,
+    borderLeft: column.borderLeft,
+    borderRight: column.borderRight,
+    backgroundColor: column.backgroundColor,
+    direction: column.textAlign === 'right' && 'rtl',
+  };
+}
