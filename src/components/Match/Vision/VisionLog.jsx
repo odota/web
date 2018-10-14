@@ -62,12 +62,10 @@ const columns = (strings) => {
       displayName: strings.ward_log_duration,
       field: 'duration',
     },
-    /*
     {
       displayName: strings.ward_log_killed_by,
       field: 'killer',
     },
-    */
     {
       displayName: strings.placement,
       field: 'placement',
@@ -92,7 +90,7 @@ function logWard(log) {
 
 const generateData = (match, strings) => (log) => {
   const { heroTd } = mcs(strings);
-  const wardKiller = (log.left && log.left.player1) ? heroTd(match.players[log.left.player1]) : '';
+  
   const duration = (log.left && log.left.time - log.entered.time) || (match && match.duration - log.entered.time);
 
   // necessary until https://github.com/odota/parser/pull/3 is implemented
@@ -100,13 +98,15 @@ const generateData = (match, strings) => (log) => {
 
   const durationColor = log.type === 'observer' ? durationObserverColor(duration) : durationSentryColor(duration);
 
+  const wardKiller = match.players.find(p => log.left && p.hero_name === log.left.attackername)
+  
   return {
     ...match.players[log.player],
     type: <img height="29" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_${log.type}_lg.png`} alt="" />,
     enter_time: formatSeconds(log.entered.time),
     left_time: formatSeconds(((log.left && log.left.time) || (match && match.duration)) - discrepancy) || '-',
     duration: <span style={{ color: durationColor }}>{formatSeconds(duration - discrepancy)}</span>,
-    killer: wardKiller,
+    killer: wardKiller && heroTd(wardKiller),
     placement: logWard(log),
   };
 };
