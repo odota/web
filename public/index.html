@@ -134,7 +134,6 @@
       padding-top: 300px;
       color: white;
       text-align: center;
-      white-space: pre-wrap;
     }
   </style>
 </head>
@@ -142,7 +141,7 @@
 <body>
   <script type="text/javascript">
     window.onload = function() {
-      if(navigator.userAgent.indexOf('MSIE')!== -1 || navigator.appVersion.indexOf('Trident/') > 0){
+      if(navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0){
         document.getElementById("no-browser-support").style.display = "block";
       } 
     };
@@ -152,11 +151,9 @@
     <h3>Looks like your browser isn't allowing scripts! Enable JavaScript to run this app.</h3>
   </noscript>
   <div id="no-browser-support">
-    &#9888; Your browser is not supported anymore by OpenDota. Please update to a more recent one.
-
-    &#9888; OpenDota больше не поддерживается вашим браузером. Обновите его до более поздней версии.  
-
-    &#9888; OpenDota不再支持您的浏览器。请更新到更新的。
+    <div>&#9888; Your browser is not supported anymore by OpenDota. Please update to a more recent one.</div>
+    <div>&#9888; OpenDota больше не поддерживается вашим браузером. Обновите его до более поздней версии.</div>
+    <div>&#9888; OpenDota不再支持您的浏览器。请更新到更新的。</div>
   </div>
   <div class="sk-cube-grid">
     <div class="sk-cube sk-cube1"></div>
