@@ -1242,5 +1242,6 @@
   "gosu_vision": "Averigua cuántos héroes murieron bajo tu protección",
   "gosu_actions": "Obtenga el tiempo perdido por el uso del mouse frente a las teclas de acceso directo",
   "gosu_teamfights": "Consigue a quién apuntar durante las peleas en equipo",
-  "gosu_analysis": "Obtenga su soporte MMR real"
+  "gosu_analysis": "Obtenga su soporte MMR real",
+  "back2Top": "Back to Top"
 }
