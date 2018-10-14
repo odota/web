@@ -73,7 +73,7 @@
   "app_gravitech": "Un site Gravitech LLC",
   "app_powered_by": "powered by",
   "app_donation_goal": "Donație lunară",
-  "app_sponsorship": "Cu sprijinul vostru putem păstra serviciul gratuit pentru toată lumea.",
+  "app_sponsorship": "Sprijinul vostru ne ajută să păstrăm serviciul gratuit pentru toată lumea.",
   "app_twitter": "Urmăriți-ne pe Twitter",
   "app_github": "Vezi pe GitHub",
   "app_discord": "Chat pe Discord",
@@ -1241,9 +1241,9 @@
   "gosu_laning": "Află de ce ai ratat loviturile de finalizare",
   "gosu_combat": "Află de ce încercările de a ucide au eșuat",
   "gosu_farm": "Află de ce ai ratat loviturile de finalizare",
-  "gosu_vision": "Get how many heroes were killed under your wards",
-  "gosu_actions": "Get your lost time from mouse usage vs hotkeys",
-  "gosu_teamfights": "Get who to target during teamfights",
-  "gosu_analysis": "Get your real MMR bracket",
-  "back2Top": "Back to Top"
+  "gosu_vision": "Află câți eroi au fost uciși în raza ward-urilor tale",
+  "gosu_actions": "Află timpul pierdut din cauza folosirii mouse-ului în locul hotkey-urilor",
+  "gosu_teamfights": "Află pe cine să vizezi în timpul luptelor",
+  "gosu_analysis": "Află adevărata ta divizie MMR",
+  "back2Top": "Înapoi sus"
 }
