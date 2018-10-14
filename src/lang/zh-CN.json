@@ -1242,5 +1242,6 @@
   "gosu_vision": "获取你防守中击杀英雄数量",
   "gosu_actions": "获取你使用鼠标和热键时丢失的时间",
   "gosu_teamfights": "在团战中找到目标对象",
-  "gosu_analysis": "得到你实际的 MMR 分数"
+  "gosu_analysis": "得到你实际的 MMR 分数",
+  "back2Top": "Back to Top"
 }
