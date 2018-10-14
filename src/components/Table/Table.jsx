@@ -85,6 +85,7 @@ class Table extends React.Component {
     hoverRowColumn: bool,
     highlightFn: func,
     keyFn: func,
+    customWidth: number,
   }
 
   static renderSumRow({ columns, data }) {
@@ -176,6 +177,7 @@ class Table extends React.Component {
       hoverRowColumn,
       highlightFn,
       keyFn,
+      customWidth,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage, scrolled,
@@ -192,7 +194,7 @@ class Table extends React.Component {
       data = data.slice(currentPage * pageLength, (currentPage + 1) * pageLength);
     }
     return (
-      <StyledBody hoverRowColumn={hoverRowColumn} >
+      <StyledBody hoverRowColumn={hoverRowColumn} customWidth={customWidth}>
         {paginated && <Pagination
           numPages={Math.ceil(dataLength / pageLength)}
           currentPage={currentPage}

@@ -7,6 +7,16 @@ export const StyledBody = styled.div`
     table-layout: auto !important;
     font-family: ${constants.tableFontFamily} !important;
     box-sizing: border-box;
+
+    ${props => (props.customWidth ?
+    `
+      width: ${props.customWidth}px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      margin-bottom: 0px !important;
+      table-layout: fixed !important;
+      `
+    : '')}
           
     thead {
       border-style: none !important;

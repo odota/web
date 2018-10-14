@@ -1,24 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import { isRadiant, getTeamName } from '../../utility';
 import Heading from '../Heading';
 import { IconRadiant, IconDire } from '../Icons';
 import Table from '../Table';
 import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
-
-const Styled = styled.div`
-  ${props => (props.customWidth ?
-    ` table {
-    width: ${props.customWidth}px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    margin-bottom: 0px !important;
-    table-layout: fixed !important;
-  }`
-    : '')}
-`;
 
 const keyFn = row => row && row.player_slot + 1;
 
@@ -101,7 +88,7 @@ class TeamTable extends React.Component {
     } = this.props;
 
     return (
-      <Styled customWidth={customWidth} innerRef={this.setTeamTableRef}>
+      <div ref={this.setTeamTableRef}>
         <Heading
           title={`${getTeamName(radiantTeam, true)} - ${heading}`}
           icon={<IconRadiant />}
@@ -109,15 +96,15 @@ class TeamTable extends React.Component {
           buttonTo={buttonTo || ''}
           buttonIcon={buttonIcon || ''}
         />
-        <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} />
+        <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} customWidth={customWidth} />
         {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
         <Heading
           title={`${getTeamName(direTeam, false)} - ${heading}`}
           icon={<IconDire />}
         />
-        <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} />
+        <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} customWidth={customWidth} />
         {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
-      </Styled>
+      </div>
     );
   }
 }
