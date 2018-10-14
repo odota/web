@@ -62,6 +62,42 @@ const StyledDiv = styled.div`
   background-image: ${props => (props.location.pathname === '/' ? 'url("/assets/images/home-background.png")' : '')};
   background-position: ${props => (props.location.pathname === '/' ? 'center top' : '')};
   background-repeat: ${props => (props.location.pathname === '/' ? 'no-repeat' : '')};
+
+  #back2Top {
+    position: fixed;
+    left: auto;
+    right: 0px;
+    top: auto;
+    bottom: 20px;
+    outline: none;
+    color: rgb(196, 196, 196);
+    text-align: center;
+    outline: none;
+    border: none;
+    background-color: rgba(0,0,0,0.3);
+    width: 40px;
+    font-size: 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    z-index: 999999;
+    opacity: 0;
+    display: block;
+    pointer-events: none;
+    -webkit-transform: translate3d(0,0,0);
+    padding: 3px;
+    transition: opacity 0.3s ease-in-out;
+
+    & #back2TopTxt {
+      font-size: 10px;
+      line-height: 12px;
+      text-align: center;
+      margin-bottom: 3px;
+    }
+  }
+
+  #back2Top:hover {
+    background-color: rgb(26, 108, 239);
+  }
 `;
 
 const StyledBodyDiv = styled.div`
@@ -93,10 +129,38 @@ class App extends React.Component {
     strings: PropTypes.shape({}),
   };
 
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.location.key !== prevProps.location.key) {
       window.scrollTo(0, 0);
     }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  setBack2TopRef = (node) => {
+    this.back2Top = node;
+  }
+
+  handleScroll = () => {
+    const { style } = this.back2Top;
+    if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+      style.opacity = 1;
+      style.pointerEvents = 'auto';
+    } else {
+      style.opacity = 0;
+      style.pointerEvents = 'none';
+    }
+  }
+
+  handleBack2TopClick = () => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
   }
 
   render() {
@@ -152,6 +216,10 @@ class App extends React.Component {
             }
           </AdBannerDiv>
           <Footer location={location} width={width} />
+          <button ref={this.setBack2TopRef} id="back2Top" title={strings.back2Top} onClick={this.handleBack2TopClick}>
+            <div>&#9650;</div>
+            <div id="back2TopTxt">{strings.back2Top}</div>
+          </button>
         </StyledDiv>
       </MuiThemeProvider>
     );
