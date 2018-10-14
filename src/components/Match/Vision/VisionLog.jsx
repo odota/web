@@ -90,7 +90,7 @@ function logWard(log) {
 
 const generateData = (match, strings) => (log) => {
   const { heroTd } = mcs(strings);
-  
+
   const duration = (log.left && log.left.time - log.entered.time) || (match && match.duration - log.entered.time);
 
   // necessary until https://github.com/odota/parser/pull/3 is implemented
@@ -98,8 +98,8 @@ const generateData = (match, strings) => (log) => {
 
   const durationColor = log.type === 'observer' ? durationObserverColor(duration) : durationSentryColor(duration);
 
-  const wardKiller = match.players.find(p => log.left && p.hero_name === log.left.attackername)
-  
+  const wardKiller = match.players.find(p => log.left && p.hero_name === log.left.attackername);
+
   return {
     ...match.players[log.player],
     type: <img height="29" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_${log.type}_lg.png`} alt="" />,

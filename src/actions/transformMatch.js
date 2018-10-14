@@ -227,8 +227,8 @@ function transformMatch(m) {
       });
       newPlayer.abilities = arr;
     }
-    newPlayer.hero_name = heroes[player.hero_id].name
-    
+    newPlayer.hero_name = heroes[player.hero_id].name;
+
     return newPlayer;
   });
 
