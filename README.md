@@ -11,9 +11,9 @@ Quickstart
 * `npm install`
 * `npm start`
 * Visit port 3000 on your development machine.
-* Make some changes
-* `npm run lint` to check your code for linting errors
-* `npm test` to check all app routes for uncaught JavaScript errors
+* Make some changes.
+* `npm run lint` to check your code for linting errors.
+* `npm test` to check all app routes for uncaught JavaScript errors.
 * Submit a pull request. Wait for review and merge.
 * Congratulations! You're a contributor.
 
@@ -54,6 +54,6 @@ Testing
 ----
 <img src="/.github/browserstack_logo.png?raw=true" width="350" align="left">
 
-[Browserstack](https://www.browserstack.com/start) have been kind enough to provide us with a free account for Live and Automate. We will be using automate in the future to run automatic end-to-end testing.
+[BrowserStack](https://www.browserstack.com/start) have been kind enough to provide us with a free account for Live and Automate. We will be using Automate in the future to run automatic end-to-end testing.
 
 BrowserStack is a cloud-based cross-browser testing tool that enables developers to test their websites across various browsers on different operating systems and mobile devices, without requiring users to install virtual machines, devices or emulators.
