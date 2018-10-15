@@ -271,8 +271,8 @@
   "general_randomed": "Selecionou aleatoriamente",
   "general_repicked": "Reescolheu",
   "general_predicted_victory": "Vitória Prevista",
-  "general_show": "Show",
-  "general_hide": "Hide",
+  "general_show": "Exibir",
+  "general_hide": "Ocultar",
   "gold_reasons_0": "Outro",
   "gold_reasons_1": "Morte(s)",
   "gold_reasons_2": "Buyback",
@@ -1245,5 +1245,5 @@
   "gosu_actions": "Entenda o tempo perdido usando o mouse ao invés dos atalhos do teclado",
   "gosu_teamfights": "Entenda quem focar durante as batalhas de equipe",
   "gosu_analysis": "Obter seu ranking real",
-  "back2Top": "Back to Top"
+  "back2Top": "Topo"
 }
