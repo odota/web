@@ -15,11 +15,13 @@ const matchesColumns = (field, strings) => [{
   field: 'rank',
   displayFn: (row, col, _field) => getOrdinal(_field),
 }, {
-  displayName: strings[`th_${field}`],
+  displayName: strings[`heading_${field}`],
+  tooltip: strings[`tooltip_${field}`],
   field: 'score',
   displayFn: (row, col, _field) => (row.hero_id === '' ? formatSeconds(_field) : Number(_field).toLocaleString()),
 }, {
   displayName: strings.th_match_id,
+  tooltip: strings.match_id,
   field: 'match_id',
   displayFn: transformations.match_id_with_time,
 }, {
@@ -31,7 +33,7 @@ const matchesColumns = (field, strings) => [{
 const fields = ['duration', 'kills', 'deaths', 'assists', 'gold_per_min', 'xp_per_min', 'last_hits', 'denies', 'hero_damage', 'tower_damage', 'hero_healing'];
 
 const tabs = strings => (fields.map(field => ({
-  name: strings[`th_${field}`],
+  name: strings[`heading_${field}`],
   key: field,
   tooltip: strings[`tooltip_${field}`],
   content: propsPar => (
