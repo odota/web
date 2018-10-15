@@ -25,7 +25,8 @@ const matchesColumns = (field, strings) => [{
   field: 'match_id',
   displayFn: transformations.match_id_with_time,
 }, {
-  displayName: '',
+  displayName: strings.th_hero_id,
+  tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
   displayFn: (row, col, _field) => (row.hero_id === '' ? null : displayHeroId(row, col, _field)),
 }];
