@@ -934,7 +934,7 @@
   "tooltip_used_smoke_of_deceit": "Number of times Smoke of Deceit was used during the game",
   "tooltip_parsed": "Repris har analyserats för ytterligare data",
   "tooltip_unparsed": "Reprisen för den här matchen har ännu inte analyserats. Viss data kan vara otillgänglig.",
-  "tooltip_hero_id": "Hjälten spelade av spelare",
+  "tooltip_hero_id": "The hero played",
   "tooltip_result": "Huruvida spelaren vann eller förlorat",
   "tooltip_match_id": "Matchens ID",
   "tooltip_game_mode": "Matchens matchläge",
