@@ -934,7 +934,7 @@
   "tooltip_used_smoke_of_deceit": "Ile razy Dym Oszustwa został użyty podczas meczu",
   "tooltip_parsed": "Powtórka została przeanalizowana pod kątem dodatkowych danych",
   "tooltip_unparsed": "Powtórka z tego meczu nie została jeszcze przeanalizowana. Nie wszystkie dane mogą być dostępne.",
-  "tooltip_hero_id": "Bohater którym grał gracz",
+  "tooltip_hero_id": "The hero played",
   "tooltip_result": "Wygrana lub przegrana gracza",
   "tooltip_match_id": "ID meczu",
   "tooltip_game_mode": "Tryb gry meczu",
