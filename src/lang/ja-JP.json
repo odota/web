@@ -934,7 +934,7 @@
   "tooltip_used_smoke_of_deceit": "ゲーム中に使用された Smoke of Deceit の数",
   "tooltip_parsed": "リプレイデータから追加データが解析されました。",
   "tooltip_unparsed": "このマッチはリプレイデータから解析されていません。また、リプレイデータは有効とも限りません。",
-  "tooltip_hero_id": "プレイヤーのヒーロー使用数",
+  "tooltip_hero_id": "The hero played",
   "tooltip_result": "プレイヤーの勝敗",
   "tooltip_match_id": "この試合のマッチID",
   "tooltip_game_mode": "この試合のゲームモード",
