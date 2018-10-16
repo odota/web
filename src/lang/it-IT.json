@@ -934,7 +934,7 @@
   "tooltip_used_smoke_of_deceit": "Number of times Smoke of Deceit was used during the game",
   "tooltip_parsed": "Il replay è stato analizzato per informazioni dettagliate",
   "tooltip_unparsed": "Il replay di questa partita non è stato ancora analizzato. Non tutte le informazioni sono già disponibili.",
-  "tooltip_hero_id": "L'eroe giocato dal giocatore",
+  "tooltip_hero_id": "The hero played",
   "tooltip_result": "Se il giocatore ha vinto o perso",
   "tooltip_match_id": "L'ID della partita",
   "tooltip_game_mode": "La modalità della partita",
