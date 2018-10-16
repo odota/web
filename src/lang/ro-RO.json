@@ -934,7 +934,7 @@
   "tooltip_used_smoke_of_deceit": "Număr de ori Smoke of Deceit a fost folosit în timpul jocului",
   "tooltip_parsed": "Reluarea a fost analizată pentru date adiționale",
   "tooltip_unparsed": "Reluarea pentru acest meci nu a fost analizată încă. Nu toate datele pot fi disponibile.",
-  "tooltip_hero_id": "Eroul jucat de jucătorul",
+  "tooltip_hero_id": "The hero played",
   "tooltip_result": "Dacă jucătorul a câștigat sau a pierdut",
   "tooltip_match_id": "ID-ul meciului",
   "tooltip_game_mode": "Modul de joc",
