@@ -934,7 +934,7 @@
   "tooltip_used_smoke_of_deceit": "Number of times Smoke of Deceit was used during the game",
   "tooltip_parsed": "Replay has been parsed for additional data",
   "tooltip_unparsed": "이 매치에 관한 리플레이는 분석되지 않았습니다. 모든 데이터가 사용 가능하지 않습니다.",
-  "tooltip_hero_id": "플레리어에 의해 사용된 영웅",
+  "tooltip_hero_id": "The hero played",
   "tooltip_result": "Whether the player won or lost",
   "tooltip_match_id": "매치 ID",
   "tooltip_game_mode": "매치 모드",
