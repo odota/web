@@ -934,7 +934,7 @@
   "tooltip_used_smoke_of_deceit": "Número de veces que Humo del Engaño fue utilizado durante la partida",
   "tooltip_parsed": "La repetición se ha analizado para obtener datos adicionales",
   "tooltip_unparsed": "La repetición de esta partida no se ha analizado aún. No todos los datos están disponibles.",
-  "tooltip_hero_id": "El héroe jugado por jugador",
+  "tooltip_hero_id": "The hero played",
   "tooltip_result": "Si el jugador ganó o perdió",
   "tooltip_match_id": "El ID de la partida",
   "tooltip_game_mode": "El modo de juego de la partida",
