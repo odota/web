@@ -934,7 +934,7 @@
   "tooltip_used_smoke_of_deceit": "Số lần Smoke of Deceit được sử dụng trong trận đấu",
   "tooltip_parsed": "Replay has been parsed for additional data",
   "tooltip_unparsed": "Replay của trận đấu này vẫn chưa được phân tích. Một số thông tin sẽ bị thiếu.",
-  "tooltip_hero_id": "The hero played by player",
+  "tooltip_hero_id": "The hero played",
   "tooltip_result": "Whether the player won or lost",
   "tooltip_match_id": "ID của trận đấu",
   "tooltip_game_mode": "Chế độ chơi của trận đấu",
