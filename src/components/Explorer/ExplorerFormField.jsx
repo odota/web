@@ -35,6 +35,19 @@ class ExplorerFormField extends React.Component {
           searchText,
         });
       }
+    } else if (this.autocomplete && this.autocomplete.state.searchText) {
+      const {
+        builderField, builder, fields,
+      } = newProps;
+      const dataSource = fields && fields[builderField];
+      const searchText = builder[builderField]
+        ? (dataSource.find(element => element.key === builder[builderField]) || {}).text
+        : '';
+      if (searchText) {
+        this.autocomplete.setState({
+          searchText,
+        });
+      }
     }
   }
 
