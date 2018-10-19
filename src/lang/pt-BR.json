@@ -934,7 +934,7 @@
   "tooltip_used_smoke_of_deceit": "Quantidade de Fumaças da Enganação utilizadas durante a partida",
   "tooltip_parsed": "Replay analisado para obtenção de dados adicionais",
   "tooltip_unparsed": "O replay para esta partida ainda não foi analisado. Nem todos os dados podem estar disponíveis.",
-  "tooltip_hero_id": "The hero played",
+  "tooltip_hero_id": "Herói jogado",
   "tooltip_result": "Se o jogador ganhou ou perdeu",
   "tooltip_match_id": "O ID da partida",
   "tooltip_game_mode": "O modo de jogo da partida",
