@@ -13,7 +13,7 @@ bottom: 15px;
 .PicksBans {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
 
   & > section {
