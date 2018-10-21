@@ -994,6 +994,7 @@
   "tooltip_others_greevils_gold": "or gagné par Greevil's Greed",
   "tooltip_advantage": "Calculé par score de Wilson",
   "tooltip_winrate_samplesize": "Win rate and sample size",
+  "tooltip_teamfight_participation": "Amount of participation in teamfights",
   "histograms_name": "Histogrammes",
   "histograms_description": "Percentages indicate win rates for the labeled bin",
   "histograms_actions_per_min_description": "Actions performed by player per minute",
