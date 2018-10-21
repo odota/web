@@ -994,6 +994,7 @@
   "tooltip_others_greevils_gold": "emas yang diperolehi daripada Greevil's Greed",
   "tooltip_advantage": "Dikira oleh Wilson score",
   "tooltip_winrate_samplesize": "Win rate and sample size",
+  "tooltip_teamfight_participation": "Amount of participation in teamfights",
   "histograms_name": "Histogram",
   "histograms_description": "Peratusan menunjukkan kadar menang bagi bin berlabel",
   "histograms_actions_per_min_description": "Actions performed by player per minute",
