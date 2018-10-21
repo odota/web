@@ -22,7 +22,7 @@ notifications:
   - aqc2109@columbia.edu
   - mjr127@case.edu
 script:
-- npm run lintnofix
+- npm run lint
 - npm run build
 - npm install -g serve
 - npm run testcafe-travis
