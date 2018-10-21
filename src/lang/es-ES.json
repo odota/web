@@ -994,6 +994,7 @@
   "tooltip_others_greevils_gold": "oro ganado de Avaricia de Greevil",
   "tooltip_advantage": "Calculado por califacación de Wilson",
   "tooltip_winrate_samplesize": "Ganar velocidad y muestra el tamaño de",
+  "tooltip_teamfight_participation": "Amount of participation in teamfights",
   "histograms_name": "Histogramas",
   "histograms_description": "Porcentajes indican tasas de victoria para la gama rotulada",
   "histograms_actions_per_min_description": "Acciones realizadas por minuto",
