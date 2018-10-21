@@ -994,6 +994,7 @@
   "tooltip_others_greevils_gold": "aur câștigat datorită Greevil's Greed",
   "tooltip_advantage": "Calculat după scorul Wilson",
   "tooltip_winrate_samplesize": "Rată de câștig și mărimea eșantionului",
+  "tooltip_teamfight_participation": "Amount of participation in teamfights",
   "histograms_name": "Histograme",
   "histograms_description": "Procentele indică ratele de câștig pentru eșantionul marcat",
   "histograms_actions_per_min_description": "Acțiuni efectuate de jucător pe minut",
