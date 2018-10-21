@@ -994,6 +994,7 @@
   "tooltip_others_greevils_gold": "地精的贪婪所获金钱",
   "tooltip_advantage": "按 Wilson 评分计算",
   "tooltip_winrate_samplesize": "获胜概率与样品大小",
+  "tooltip_teamfight_participation": "Amount of participation in teamfights",
   "histograms_name": "直方图",
   "histograms_description": "百分比表示当前标签下的胜率",
   "histograms_actions_per_min_description": "每分钟操作数",
