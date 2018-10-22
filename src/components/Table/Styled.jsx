@@ -15,7 +15,7 @@ export const StyledBody = styled.div`
           
     thead {
       border-style: none !important;
-      background-color: rgba(0, 0, 0, 0.17);
+      background-color: rgba(0, 0, 0, .17);
     }
 
     tr {
