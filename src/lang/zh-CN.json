@@ -200,8 +200,8 @@
   "explorer_match": "比赛",
   "explorer_is_ti_team": "Is TI{number} Team",
   "explorer_mega_comeback": "Won Against Mega Creeps",
-  "explorer_max_gold_adv": "Max Gold Advantage",
-  "explorer_min_gold_adv": "Min Gold Advantage",
+  "explorer_max_gold_adv": "最大经济优势",
+  "explorer_min_gold_adv": "最小经济优势",
   "farm_heroes": "击杀英雄",
   "farm_creeps": "击杀小兵",
   "farm_neutrals": "击杀中立生物（包括远古）",
@@ -1185,7 +1185,7 @@
   "question_shouted": "询问道",
   "question_excited": "质问道",
   "question_normal": "问道",
-  "question_laughed": "laughed mockingly",
+  "question_laughed": "嘲笑",
   "statement_response_long": "建议道",
   "statement_response_shouted": "不满地回应道",
   "statement_response_excited": "解释道",
@@ -1246,5 +1246,5 @@
   "gosu_actions": "获取你使用鼠标和热键时丢失的时间",
   "gosu_teamfights": "在团战中找到目标对象",
   "gosu_analysis": "得到你实际的 MMR 分数",
-  "back2Top": "Back to Top"
+  "back2Top": "返回页首"
 }
