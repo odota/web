@@ -22,20 +22,7 @@ class ExplorerFormField extends React.Component {
   }
 
   componentDidUpdate(newProps) {
-    if (this.autocomplete && !this.autocomplete.state.searchText) {
-      const {
-        builderField, builder, fields,
-      } = newProps;
-      const dataSource = fields && fields[builderField];
-      const searchText = builder[builderField]
-        ? (dataSource.find(element => element.key === builder[builderField]) || {}).text
-        : '';
-      if (searchText) {
-        this.autocomplete.setState({
-          searchText,
-        });
-      }
-    } else if (this.autocomplete && this.autocomplete.state.searchText) {
+    if (this.autocomplete) {
       const {
         builderField, builder, fields,
       } = newProps;
@@ -49,7 +36,7 @@ class ExplorerFormField extends React.Component {
         });
       }
     }
-  }
+  };
 
   addChip = (name, input, limit) => {
     const currentChips = [].concat(this.props.builder[name] || []);
