@@ -8,12 +8,7 @@ export const StyledBody = styled.div`
     font-family: ${constants.tableFontFamily} !important;
     box-sizing: border-box;
 
-    ${props => (props.customWidth ?
-    `
-      width: ${props.customWidth}px !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
-      margin-bottom: 0px !important;
+    ${props => (props.customWidth ? `
       table-layout: fixed !important;
       `
     : '')}

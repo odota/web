@@ -107,7 +107,7 @@ export default (strings) => {
         field: 'player_slot',
         displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), false, null),
         sortFn: true,
-        width: 155,
+        width: 236,
       },
       {
         displayName: strings.th_level,
@@ -358,7 +358,7 @@ export default (strings) => {
         displayName: strings.th_permanent_buffs,
         tooltip: strings.tooltip_permanent_buffs,
         field: 'permanent_buffs',
-        width: 35,
+        width: 135,
         displayFn: row =>
           (row.permanent_buffs && row.permanent_buffs.length > 0 ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff')) : '-'),
       }
