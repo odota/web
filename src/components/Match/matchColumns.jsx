@@ -133,7 +133,7 @@ export default (strings) => {
         paddingLeft: 14,
         paddingRight: 5,
         width: 21,
-        underline: 'max'
+        underline: 'max',
       },
       {
         displayName: strings.th_deaths,
@@ -147,7 +147,7 @@ export default (strings) => {
         paddingLeft: 5,
         paddingRight: 5,
         width: 21,
-        underline: 'min'
+        underline: 'min',
       },
       {
         displayName: strings.th_assists,
@@ -161,7 +161,7 @@ export default (strings) => {
         paddingLeft: 5,
         paddingRight: 14,
         width: 21,
-        underline: 'max'
+        underline: 'max',
       },
       {
         displayName: strings.th_last_hits,
@@ -175,7 +175,7 @@ export default (strings) => {
         paddingRight: 0,
         paddingLeft: 14,
         width: 21,
-        underline: 'max'
+        underline: 'max',
       },
       {
         displayName: '/',
@@ -199,7 +199,7 @@ export default (strings) => {
         paddingLeft: 0,
         paddingRight: 10,
         width: 21,
-        underline: 'max'
+        underline: 'max',
       },
       {
         displayName: strings.th_gold_per_min,
@@ -212,7 +212,7 @@ export default (strings) => {
         paddingRight: 0,
         paddingLeft: 10,
         width: 25,
-        underline: 'max'
+        underline: 'max',
       },
       {
         displayName: '/',
@@ -235,7 +235,7 @@ export default (strings) => {
         paddingLeft: 0,
         paddingRight: 11,
         width: 25,
-        underline: 'max'
+        underline: 'max',
       },
       {
         displayName: strings.th_hero_damage,
@@ -251,7 +251,7 @@ export default (strings) => {
         width: 32,
         color: 'rgb(204, 134, 146)',
         borderLeft: '1px solid rgba(19, 19, 19, 0.2)',
-        underline: 'max'
+        underline: 'max',
       },
       {
         displayName: strings.th_tower_damage,
@@ -266,7 +266,7 @@ export default (strings) => {
         paddingRight: 5,
         width: 32,
         color: 'rgb(160, 145, 147)',
-        underline: 'max'
+        underline: 'max',
       },
       {
         displayName: strings.th_hero_healing,
@@ -282,7 +282,7 @@ export default (strings) => {
         paddingRight: 14,
         width: 32,
         borderRight: '1px solid rgba(19, 19, 19, 0.2)',
-        underline: 'max'
+        underline: 'max',
       },
       {
         displayName: (
@@ -301,7 +301,7 @@ export default (strings) => {
         textAlign: 'right',
         paddingLeft: 14,
         width: 32,
-        underline: 'max'
+        underline: 'max',
       },
       {
         displayName: strings.th_items,

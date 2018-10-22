@@ -8,11 +8,11 @@ import Table from '../Table';
 import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
 
 const isBestValueInMatch = players => (field, row, underline) => {
-  const values = players.map(player => player[field])  
-  const bestValue = underline === 'max' ? Math.max(...values) : Math.min(...values)
+  const values = players.map(player => player[field]);
+  const bestValue = underline === 'max' ? Math.max(...values) : Math.min(...values);
 
-  return bestValue === row[field]
-} 
+  return bestValue === row[field];
+};
 
 const keyFn = row => row && row.player_slot + 1;
 
@@ -103,13 +103,13 @@ class TeamTable extends React.Component {
           buttonTo={buttonTo || ''}
           buttonIcon={buttonIcon || ''}
         />
-        <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} customWidth={customWidth} isBestValueInMatch={isBestValueInMatch(players)}/>
+        <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} customWidth={customWidth} isBestValueInMatch={isBestValueInMatch(players)} />
         {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
         <Heading
           title={`${getTeamName(direTeam, false)} - ${heading}`}
           icon={<IconDire />}
         />
-        <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} customWidth={customWidth} isBestValueInMatch={isBestValueInMatch(players)}/>
+        <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} customWidth={customWidth} isBestValueInMatch={isBestValueInMatch(players)} />
         {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
       </div>
     );

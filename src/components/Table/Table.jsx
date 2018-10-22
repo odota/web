@@ -288,7 +288,7 @@ class Table extends React.Component {
                         fieldEl = value;
                       }
                       if ((underline === 'max' || underline === 'min') && typeof isBestValueInMatch === 'function') {
-                        style.textDecoration = isBestValueInMatch(field, row , underline) ? 'underline' : 'none';
+                        style.textDecoration = isBestValueInMatch(field, row, underline) ? 'underline' : 'none';
                       }
                       return (
                         <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style} className={column.className}>
