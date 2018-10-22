@@ -994,7 +994,7 @@
   "tooltip_others_greevils_gold": "ouro obtido com Greevil's Greed",
   "tooltip_advantage": "Calculado pelo método Wilson",
   "tooltip_winrate_samplesize": "Taxa de vitórias e tamanho da amostra",
-  "tooltip_teamfight_participation": "Participação total em teamfights",
+  "tooltip_teamfight_participation": "Participação nas batalhas em equipe",
   "histograms_name": "Histogramas",
   "histograms_description": "Percentagens indicam taxas de vitórias para o intervalo rotulado",
   "histograms_actions_per_min_description": "Ações por minuto",
