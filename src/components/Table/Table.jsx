@@ -41,18 +41,6 @@ const getColumnMin = (data, field, getValue) => {
   return Math.min(...valuesArr);
 };
 
-const toUnderline = (data, row, field, underline) => {
-  const x = [];
-  data.forEach((r) => {
-    x.push(r[field]);
-  });
-  x.sort((a, b) => a - b);
-  if ((underline === 'min' && x[0] === row[field]) || ((underline === 'max' && x[x.length - 1] === row[field]))) {
-    return true;
-  }
-  return false;
-};
-
 const rowStyle = (highlightFn, row) => ({ backgroundColor: highlightFn && highlightFn(row) ? 'rgba(74, 149, 247, 0.038)' : 'none' });
 
 const initialState = {
@@ -86,6 +74,7 @@ class Table extends React.Component {
     highlightFn: func,
     keyFn: func,
     customWidth: number,
+    isBestValueInMatch: func,
   }
 
   static renderSumRow({ columns, data }) {
@@ -178,6 +167,7 @@ class Table extends React.Component {
       highlightFn,
       keyFn,
       customWidth,
+      isBestValueInMatch,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage, scrolled,
@@ -297,8 +287,8 @@ class Table extends React.Component {
                       } else {
                         fieldEl = value;
                       }
-                      if (underline === 'max' || underline === 'min') {
-                        style.textDecoration = toUnderline(data, row, field, underline) ? 'underline' : 'none';
+                      if ((underline === 'max' || underline === 'min') && typeof isBestValueInMatch === 'function') {
+                        style.textDecoration = isBestValueInMatch(field, row , underline) ? 'underline' : 'none';
                       }
                       return (
                         <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style} className={column.className}>
