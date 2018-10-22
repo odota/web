@@ -22,7 +22,7 @@ class ExplorerFormField extends React.Component {
   }
 
   componentDidUpdate(newProps) {
-    if (this.autocomplete && !this.autocomplete.state.searchText) {
+    if (this.autocomplete && this.autocomplete.state) {
       const {
         builderField, builder, fields,
       } = newProps;
