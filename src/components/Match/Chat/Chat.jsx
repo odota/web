@@ -401,20 +401,20 @@ class Chat extends React.Component {
 
             let message = null;
             if (msg.type === 'chatwheel') {
-              let message_info = getChatWheel(msg.key);
+              const messageInfo = getChatWheel(msg.key);
               message = [
-                (message_info.message || "").replace(/%s1/, "A hero"),
+                (messageInfo.message || '').replace(/%s1/, 'A hero'),
               ];
-              if (message_info.sound_ext) {
+              if (messageInfo.sound_ext) {
                 message.unshift(<AvVolumeUp
-                  key={message_info.id}
+                  key={messageInfo.id}
                   viewBox="-2 -2 28 28"
-                  onClick={() => this.audio(message_info, index)}
+                  onClick={() => this.audio(messageInfo, index)}
                   className={`play ${this.state.playing === index ? 'playing' : ''}`}
                 />);
               } else {
                 message.unshift(<img
-                  key={message_info.id}
+                  key={messageInfo.id}
                   src="/assets/images/dota2/chat_wheel_icon.png"
                   alt="chatwheel"
                   className="chatwheel"
