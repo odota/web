@@ -148,7 +148,7 @@ class FormField extends React.Component {
       label,
       dataSource = [],
       className,
-      maxSearchResults = 100,
+      maxSearchResults = 116,
       deleteChip = deleteChipDefault,
       history,
       formSelectionState,
