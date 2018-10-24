@@ -50,6 +50,7 @@ export default combineReducers({
   abilityIds: (state = {}, action) => ((action && action.type === 'abilityIds') ? action.payload : state),
   form,
   request,
+  live: reducer('live'),
   scenariosItemTimings: reducer('scenariosItemTimings'),
   scenariosLaneRoles: reducer('scenariosLaneRoles'),
   scenariosMisc: reducer('scenariosMisc'),

@@ -23,6 +23,7 @@ import Records from '../Records';
 import Scenarios from '../Scenarios';
 import Predictions from '../Predictions';
 import Meta from '../Meta';
+import Live from '../Live';
 import Api from '../Api';
 import Footer from '../Footer';
 import FourOhFour from '../FourOhFour';
@@ -200,6 +201,7 @@ class App extends React.Component {
               <Route exact path="/scenarios/:info?" component={Scenarios} />
               <Route exact path="/predictions" component={Predictions} />
               <Route exact path="/api-keys" component={Api} />
+              <Route exact path="/live" component={Live} />
               <Route component={FourOhFour} />
             </Switch>
           </StyledBodyDiv>

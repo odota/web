@@ -99,6 +99,7 @@ class Header extends React.Component {
       <Link key="header_heroes" to="/heroes">{strings.header_heroes}</Link>,
       <Link key="header_distributions" to="/distributions">{strings.header_distributions}</Link>,
       <Link key="header_records" to="/records">{strings.header_records}</Link>,
+      <Link key="header_live" to="/live">{strings.header_live}</Link>,
       <Link key="header_scenarios" to="/scenarios">{strings.header_scenarios}</Link>,
       <Link key="header_api" to="/api-keys">{strings.header_api}</Link>,
       // <Link key="header_predictions" to="/predictions">TI Predictions</Link>,
