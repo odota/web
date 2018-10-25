@@ -15,6 +15,7 @@ import {
   WardmapPage,
   WordcloudPage,
   TotalsPage,
+  ActivityPage,
 } from './Pages';
 
 const playerPages = strings => [{
@@ -83,6 +84,10 @@ const playerPages = strings => [{
   name: strings.tab_rankings,
   key: 'rankings',
   content: (playerId, routeParams, location) => (<RankingsPage playerId={playerId} routeParams={routeParams} location={location} />),
+}, {
+  name: strings.tab_activity,
+  key: 'activity',
+  content: (playerId, routeParams, location) => (<ActivityPage playerId={playerId} routeParams={routeParams} location={location} />),
 }];
 
 export default (playerId, strings) => playerPages(strings).map(page => ({
