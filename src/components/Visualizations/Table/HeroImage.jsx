@@ -252,16 +252,17 @@ const HeroToolTip = styled.div`
   overflow: hidden;
   background-color: #131519;
   background: ${(props) => {
-    switch(props.heroAttr){
-        case "str":
-          return "linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(89,48,48,1) 12%, rgba(19,21,25,1) 70%);"
-        case "agi": 
-          return "linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(50,89,48,1) 12%, rgba(19,21,25,1) 70%);"
-        case "int":
-          return "linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(48,62,90,1) 12%, rgba(19,21,25,1) 70%);"
-        default:
-          return "linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(48,62,90,1) 12%, rgba(19,21,25,1) 70%);" 
-    }}}
+    switch (props.heroAttr) {
+      case 'str':
+        return 'linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(89,48,48,1) 12%, rgba(19,21,25,1) 70%);';
+      case 'agi':
+        return 'linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(50,89,48,1) 12%, rgba(19,21,25,1) 70%);';
+      case 'int':
+        return 'linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(48,62,90,1) 12%, rgba(19,21,25,1) 70%);';
+      default:
+        return 'linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(48,62,90,1) 12%, rgba(19,21,25,1) 70%);';
+    }
+  }}
   overflow: hidden;
   border: 2px solid #27292b;
 
