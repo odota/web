@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
 import { Object } from 'core-js';
 import constants from '../../../constants';
-import { getDOY, toLoca } from './../../../../utility/index';
+import { getDOY } from './../../../../utility/index';
 
 const Styled = styled.div`
   position: relative;
