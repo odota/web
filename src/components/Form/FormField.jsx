@@ -50,7 +50,6 @@ class FormField extends React.Component {
     label: PropTypes.string,
     filter: PropTypes.string,
     className: PropTypes.string,
-    maxSearchResults: PropTypes.string,
     deleteChip: PropTypes.string,
     strings: PropTypes.shape({}),
     resetField: PropTypes.func,
@@ -148,7 +147,6 @@ class FormField extends React.Component {
       label,
       dataSource = [],
       className,
-      maxSearchResults = 116,
       deleteChip = deleteChipDefault,
       history,
       formSelectionState,
@@ -170,7 +168,6 @@ class FormField extends React.Component {
           dataSource={dataSource.filter(this.bundleFilter)}
           floatingLabelText={label}
           filter={filter || AutoComplete.fuzzyFilter}
-          maxSearchResults={maxSearchResults}
           onNewRequest={this.handleSelect}
           onUpdateInput={this.handleUpdateInput}
           searchText={searchText}
