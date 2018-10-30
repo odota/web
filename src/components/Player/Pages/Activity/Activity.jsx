@@ -12,7 +12,7 @@ const defaultOptions = {
 const Activity = ({
   error, loading, strings, data,
 }) => (
-  <Container title={strings.tab_activity} error={error} loading={loading}>
+  <Container title={strings.tab_activity} subtitle={strings.activity_subtitle} error={error} loading={loading}>
     <ActivityCalendar strings={strings} data={data} />
   </Container>
 );

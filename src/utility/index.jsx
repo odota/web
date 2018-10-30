@@ -840,17 +840,6 @@ for (let i = 0; i < 6; i += 1) {
   transformations[`item_${i}`] = transformMatchItem;
 }
 
-// find and style/highlight number values in tooltip descriptions
-export function styleValues(el) {
-  if (el) {
-    const element = el;
-    element.innerHTML = el.innerHTML
-      .replace(/(,)(\d)/gm, ' / $2')
-      .replace(/\+?\s?-?\s?\d+\.?%?\d*%?x?/gm, '<span style="font-weight:500;color:#F5F5F5">$&</span>');
-  }
-  return null;
-}
-
 export function isLeapYear(date) {
   const year = date.getFullYear();
   if ((year & 3) !== 0) { // eslint-disable-line no-bitwise
@@ -869,4 +858,15 @@ export function getDOY(date) {
     dayOfYear += 1;
   }
   return dayOfYear;
+}
+
+// find and style/highlight number values in tooltip descriptions
+export function styleValues(el) {
+  if (el) {
+    const element = el;
+    element.innerHTML = el.innerHTML
+      .replace(/(,)(\d)/gm, ' / $2')
+      .replace(/\+?\s?-?\s?\d+\.?%?\d*%?x?/gm, '<span style="font-weight:500;color:#F5F5F5">$&</span>');
+  }
+  return null;
 }
