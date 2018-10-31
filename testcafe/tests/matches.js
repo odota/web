@@ -30,6 +30,7 @@ const pathSuffixes = [
   'fantasy',
   'chat',
   'story',
+  'activity',
 ];
 
 
