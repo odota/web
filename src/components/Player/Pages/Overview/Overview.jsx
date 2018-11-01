@@ -10,6 +10,7 @@ import {
   getPlayerHeroes,
   getPlayerPeers,
   getPlayerCounts,
+  getPlayerMatches,
 } from '../../../../actions';
 import Table from '../../../Table';
 import Container from '../../../Container';
@@ -35,11 +36,10 @@ const SummaryContainer = styled(Container)`
   width: 100%;
 
   & ul {
-    border: 1px solid rgb(52, 50, 50);
+    border: 1px solid rgb(0, 0, 0, 0.12);
     background-color: rgb(46, 47, 64);
     margin: 0;
     padding-left: 5px;
-    border-radius: 5px;
 
     & li {
       list-style: none;
@@ -104,9 +104,8 @@ width: 30px;
 const Overview = ({
   validRecentMatches,
   numValidRecentMatches,
-  matchesData,
-  matchesLoading,
-  matchesError,
+  recentMatches,
+  playerMatches,
   heroesData,
   heroesLoading,
   heroesError,
@@ -120,103 +119,112 @@ const Overview = ({
   countsData,
   countsLoading,
   countsError,
-}) => (
-  <OverviewContainer>
-    <Collapsible name="playerSummary">
-      <SummaryContainer
-        title={strings.heading_avg_and_max}
-        titleTo={`/players/${playerId}/records`}
-        subtitle={formatTemplateToString(strings.subheading_avg_and_max, numValidRecentMatches)}
-        loading={matchesLoading}
-        error={matchesError}
-        loaderWidth={250}
-        loaderHeight={30}
-        key="averages"
-      >
-        <Styled
-          data-hint={strings.exclude_turbo_matches}
-          data-hint-position="top"
-          style={{ display: validRecentMatches.some(match => match.game_mode === 23) ? 'inline' : 'none' }}
-        >
-          <Checkbox
-            style={{ display: validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23) }}
-            defaultChecked
-            onCheck={toggleTurboGames}
-            checkedIcon={<Turbo />}
-            uncheckedIcon={<TurboOff />}
-          />
-        </Styled>
-        <SummOfRecMatches matchesData={validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23)} />
-      </SummaryContainer>
-      <SummaryContainer
-        title={strings.tab_counts}
-        loading={countsLoading}
-        error={countsError}
-        subtitle={strings.th_win}
-        loaderWidth={250}
-        loaderHeight={30}
-        style={{ width: '100%' }}
-        key="counts"
-      >
-        <CountsSummary data={countsData} />
-      </SummaryContainer>
-    </Collapsible>
-    <MatchesContainer>
-      <Container
-        title={strings.heading_matches}
-        titleTo={`/players/${playerId}/matches`}
-        loading={matchesLoading}
-        error={matchesError}
-        loaderWidth={300}
-        loaderHeight={160}
-      >
-        <Table
-          columns={playerMatchesColumns(strings)}
-          data={matchesData}
-          maxRows={MAX_MATCHES_ROWS}
-        />
-      </Container>
-    </MatchesContainer>
+  location,
+}) => {
+  const {
+    data: matchesData,
+    loading: matchesLoading,
+    error: matchesError,
+  } = location.search ? playerMatches : recentMatches;
 
-    <HeroesContainer>
-      <Collapsible name="overviewPeers" initialMaxHeight={400} buttonStyle={{ top: 20 }}>
+  return (
+    <OverviewContainer>
+      <Collapsible name="playerSummary">
+        <SummaryContainer
+          title={strings.heading_avg_and_max}
+          titleTo={`/players/${playerId}/records`}
+          subtitle={formatTemplateToString(strings.subheading_avg_and_max, numValidRecentMatches)}
+          loading={matchesLoading}
+          error={matchesError}
+          loaderWidth={250}
+          loaderHeight={30}
+          key="averages"
+        >
+          <Styled
+            data-hint={strings.exclude_turbo_matches}
+            data-hint-position="top"
+            style={{ display: validRecentMatches.some(match => match.game_mode === 23) ? 'inline' : 'none' }}
+          >
+            <Checkbox
+              style={{ display: validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23) }}
+              defaultChecked
+              onCheck={toggleTurboGames}
+              checkedIcon={<Turbo />}
+              uncheckedIcon={<TurboOff />}
+            />
+          </Styled>
+          <SummOfRecMatches matchesData={validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23)} />
+        </SummaryContainer>
+        <SummaryContainer
+          title={strings.tab_counts}
+          loading={countsLoading}
+          error={countsError}
+          subtitle={strings.th_win}
+          loaderWidth={250}
+          loaderHeight={30}
+          style={{ width: '100%' }}
+          key="counts"
+        >
+          <CountsSummary data={countsData} />
+        </SummaryContainer>
+      </Collapsible>
+      <MatchesContainer>
         <Container
-          title={strings.heading_peers}
-          titleTo={`/players/${playerId}/peers`}
-          loading={peersLoading}
-          error={peersError}
+          title={strings.heading_matches}
+          titleTo={`/players/${playerId}/matches`}
+          loading={matchesLoading}
+          error={matchesError}
+          loaderWidth={300}
+          loaderHeight={160}
         >
           <Table
-            columns={playerPeersOverviewColumns(playerId, strings)}
-            data={peersData}
-            maxRows={MAX_PEERS_ROWS}
+            columns={playerMatchesColumns(strings)}
+            data={matchesData}
+            maxRows={MAX_MATCHES_ROWS}
+            paginated={matchesData.length > MAX_MATCHES_ROWS}
           />
         </Container>
-      </Collapsible>
-      <Collapsible name="overviewHeroes" initialMaxHeight={700} buttonStyle={{ top: 35 }}>
-        <Container
-          title={strings.heading_heroes}
-          titleTo={`/players/${playerId}/heroes`}
-          loading={heroesLoading}
-          error={heroesError}
-        >
-          <Table
-            columns={playerHeroesOverviewColumns(playerId, strings)}
-            data={heroesData}
-            maxRows={MAX_HEROES_ROWS}
-          />
-        </Container>
-      </Collapsible>
-    </HeroesContainer>
-  </OverviewContainer>
-);
+      </MatchesContainer>
+
+      <HeroesContainer>
+        <Collapsible name="overviewPeers" initialMaxHeight={400} buttonStyle={{ top: 20 }}>
+          <Container
+            title={strings.heading_peers}
+            titleTo={`/players/${playerId}/peers`}
+            loading={peersLoading}
+            error={peersError}
+          >
+            <Table
+              columns={playerPeersOverviewColumns(playerId, strings)}
+              data={peersData}
+              maxRows={MAX_PEERS_ROWS}
+            />
+          </Container>
+        </Collapsible>
+        <Collapsible name="overviewHeroes" initialMaxHeight={700} buttonStyle={{ top: 35 }}>
+          <Container
+            title={strings.heading_heroes}
+            titleTo={`/players/${playerId}/heroes`}
+            loading={heroesLoading}
+            error={heroesError}
+          >
+            <Table
+              columns={playerHeroesOverviewColumns(playerId, strings)}
+              data={heroesData}
+              maxRows={MAX_HEROES_ROWS}
+            />
+          </Container>
+        </Collapsible>
+      </HeroesContainer>
+    </OverviewContainer>
+  );
+};
 
 Overview.propTypes = {
   validRecentMatches: PropTypes.arrayOf({}),
   numValidRecentMatches: PropTypes.number,
-  matchesData: PropTypes.arrayOf({}),
-  matchesLoading: PropTypes.bool,
-  matchesError: PropTypes.string,
+  recentMatches: PropTypes.shape({}),
+  playerMatches: PropTypes.shape({}),
   heroesData: PropTypes.arrayOf({}),
   heroesLoading: PropTypes.bool,
   heroesError: PropTypes.string,
@@ -230,11 +238,16 @@ Overview.propTypes = {
   countsData: PropTypes.arrayOf({}),
   countsLoading: PropTypes.bool,
   countsError: PropTypes.bool,
+  location: PropTypes.string,
 };
 
 
 const getData = (props) => {
-  props.getPlayerRecentMatches(props.playerId);
+  if (props.location.search) {
+    props.getPlayerMatches(props.playerId, props.location.search);
+  } else {
+    props.getPlayerRecentMatches(props.playerId);
+  }
   props.getPlayerHeroes(props.playerId, props.location.search);
   props.getPlayerPeers(props.playerId, props.location.search);
   props.getPlayerCounts(props.playerId, props.location.search);
@@ -346,9 +359,16 @@ const filterCounts = (counts) => {
 };
 
 const mapStateToProps = state => ({
-  matchesData: state.app.playerRecentMatches.data,
-  matchesLoading: state.app.playerRecentMatches.loading,
-  matchesError: state.app.playerRecentMatches.error,
+  recentMatches: {
+    data: state.app.playerRecentMatches.data,
+    loading: state.app.playerRecentMatches.loading,
+    error: state.app.playerRecentMatches.error,
+  },
+  playerMatches: {
+    data: state.app.playerMatches.data,
+    loading: state.app.playerMatches.loading,
+    error: state.app.playerMatches.error,
+  },
   validRecentMatches: getValidRecentMatches(state.app.playerRecentMatches.data),
   numValidRecentMatches: countValidRecentMatches(state.app.playerRecentMatches.data),
   heroesData: state.app.playerHeroes.data,
@@ -365,6 +385,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getPlayerRecentMatches: (playerId, options) => dispatch(getPlayerRecentMatches(playerId, options)),
+  getPlayerMatches: (playerId, options) => dispatch(getPlayerMatches(playerId, options)),
   getPlayerHeroes: (playerId, options) => dispatch(getPlayerHeroes(playerId, options)),
   getPlayerPeers: (playerId, options) => dispatch(getPlayerPeers(playerId, options)),
   getPlayerCounts: (playerId, options) => dispatch(getPlayerCounts(playerId, options)),

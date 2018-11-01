@@ -5,9 +5,8 @@ import GaugeChart from './../../../Visualizations/GaugeChart';
 import constants from '../../../constants';
 
 const Styled = styled.div`
-    border: 1px solid rgb(52, 50, 50);
+    border: 1px solid rgb(0, 0, 0, 0.12);
     background-color: rgb(46, 47, 64);
-    border-radius: 5px;
     overflow: hidden;
     position: relative;
 
