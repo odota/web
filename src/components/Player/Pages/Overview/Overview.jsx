@@ -101,9 +101,10 @@ position: relative;
 width: 30px;
 `;
 
+const getValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19)
+  .slice(0, MAX_MATCHES_ROWS);
+
 const Overview = ({
-  validRecentMatches,
-  numValidRecentMatches,
   recentMatches,
   playerMatches,
   heroesData,
@@ -127,13 +128,15 @@ const Overview = ({
     error: matchesError,
   } = location.search ? playerMatches : recentMatches;
 
+  const validRecentMatches = getValidRecentMatches(matchesData);
+
   return (
     <OverviewContainer>
       <Collapsible name="playerSummary">
         <SummaryContainer
           title={strings.heading_avg_and_max}
           titleTo={`/players/${playerId}/records`}
-          subtitle={formatTemplateToString(strings.subheading_avg_and_max, numValidRecentMatches)}
+          subtitle={formatTemplateToString(strings.subheading_avg_and_max, validRecentMatches.length)}
           loading={matchesLoading}
           error={matchesError}
           loaderWidth={250}
@@ -221,8 +224,6 @@ const Overview = ({
 };
 
 Overview.propTypes = {
-  validRecentMatches: PropTypes.arrayOf({}),
-  numValidRecentMatches: PropTypes.number,
   recentMatches: PropTypes.shape({}),
   playerMatches: PropTypes.shape({}),
   heroesData: PropTypes.arrayOf({}),
@@ -294,18 +295,11 @@ class RequestLayer extends React.Component {
 }
 
 /**
- * Get the number of recent matches, filtering out Siltbreaker matches
- */
-const countValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19).length;
-
-/**
  * Get the recent matches, filtering out Siltbreaker matches
  *
  * XXX - this could be switched to use playerMatches while specifying the
  * desired fields in order to request >20 matches and filter down to 20 matches.
  */
-const getValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19)
-  .slice(0, MAX_MATCHES_ROWS);
 
 const filterCounts = (counts) => {
   const countMap = {
@@ -369,8 +363,6 @@ const mapStateToProps = state => ({
     loading: state.app.playerMatches.loading,
     error: state.app.playerMatches.error,
   },
-  validRecentMatches: getValidRecentMatches(state.app.playerRecentMatches.data),
-  numValidRecentMatches: countValidRecentMatches(state.app.playerRecentMatches.data),
   heroesData: state.app.playerHeroes.data,
   heroesLoading: state.app.playerHeroes.loading,
   heroesError: state.app.playerHeroes.error,
