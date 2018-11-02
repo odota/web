@@ -180,7 +180,7 @@ const Overview = ({
           <Table
             columns={playerMatchesColumns(strings)}
             data={matchesData}
-            maxRows={MAX_MATCHES_ROWS}
+            maxRows={!location.search && MAX_MATCHES_ROWS}
             paginated={matchesData.length > MAX_MATCHES_ROWS}
           />
         </Container>
