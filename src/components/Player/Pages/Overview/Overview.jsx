@@ -294,13 +294,6 @@ class RequestLayer extends React.Component {
   }
 }
 
-/**
- * Get the recent matches, filtering out Siltbreaker matches
- *
- * XXX - this could be switched to use playerMatches while specifying the
- * desired fields in order to request >20 matches and filter down to 20 matches.
- */
-
 const filterCounts = (counts) => {
   const countMap = {
     is_radiant: [],
