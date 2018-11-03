@@ -114,7 +114,7 @@ class RequestLayer extends React.Component {
       PropTypes.array,
     ]),
     strings: PropTypes.shape({}),
-  }
+  };
 
   constructor() {
     super();

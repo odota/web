@@ -17,24 +17,30 @@ export default function action(type, host, path, params = {}, transform) {
     });
     const fetchDataWithRetry = delay => fetch(url, path === 'api/metadata' ? { credentials: 'include' } : {})
       .then((response) => {
-        if (!response.ok) {
+        if (!response.ok || !response.status) {
+          const err = new Error();
+          err.fetchError = true;
           dispatch(getError(response.status));
           if (response.status >= 400 && response.status < 500) {
-            const err = new Error('client error');
             err.clientError = true;
-            throw err;
+            err.message = 'fetch failed - client error';
           } else {
-            throw new Error('fetch failed');
+            err.message = 'fetch failed - retrying';
           }
+          throw err;
         }
         return response.json();
       })
       .then(transform || (json => json))
       .then(json => dispatch(getDataOk(json)))
       .catch((e) => {
+        // eslint-disable-next-line no-console
         console.error(e);
-        if (!e.clientError) {
+        if (e.fetchError && !e.clientError) {
           setTimeout(() => fetchDataWithRetry(delay + 3000), delay);
+        }
+        if (!e.fetchError) {
+          throw e;
         }
       });
     dispatch(getDataStart());

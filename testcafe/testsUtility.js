@@ -9,7 +9,7 @@ import {
   waitForReact,
 } from 'testcafe-react-selectors';
 
-export const host = 'http://localhost:3000';
+export const host = 'http://localhost:5000';
 
 async function fetchFromAPI(requestURL) {
   const response = await fetch(requestURL);
@@ -28,7 +28,7 @@ const logger = RequestLogger(/api.opendota.com\/api/);
 function path2file(url) {
   return sanitize(url.replace('https://api.opendota.com/api/', ''), {
     replacement: '_',
-  }).substr(0, 200);
+  }).substr(0, 45);
 }
 
 export const fixtureBeforeHook = async (ctx) => {

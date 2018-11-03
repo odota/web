@@ -292,6 +292,7 @@ export default (strings) => {
     ].concat(match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0
       ? {
         displayName: strings.th_permanent_buffs,
+        tooltip: strings.tooltip_permanent_buffs,
         field: 'permanent_buffs',
         displayFn: row =>
           (row.permanent_buffs && row.permanent_buffs.length > 0 ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff')) : '-'),
@@ -402,6 +403,7 @@ export default (strings) => {
     {
       displayName: strings.th_kills,
       field: 'kills',
+      tooltip: strings.tooltip_kills,
       fantasyFn: v => 0.3 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -410,6 +412,7 @@ export default (strings) => {
     {
       displayName: strings.th_deaths,
       field: 'deaths',
+      tooltip: strings.tooltip_deaths,
       fantasyFn: v => 3 - (0.3 * v),
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -418,6 +421,7 @@ export default (strings) => {
     {
       displayName: strings.th_last_hits,
       field: 'last_hits',
+      tooltip: strings.tooltip_last_hits,
       fantasyFn: v => 0.003 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -426,6 +430,7 @@ export default (strings) => {
     {
       displayName: strings.th_denies,
       field: 'denies',
+      tooltip: strings.tooltip_denies,
       fantasyFn: v => 0.003 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -434,6 +439,7 @@ export default (strings) => {
     {
       displayName: strings.th_gold_per_min,
       field: 'gold_per_min',
+      tooltip: strings.tooltip_gold_per_min,
       fantasyFn: v => 0.002 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -442,6 +448,7 @@ export default (strings) => {
     {
       displayName: strings.th_towers,
       field: 'towers_killed',
+      tooltip: strings.tooltip_tower_kills,
       fantasyFn: v => 1 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -450,6 +457,7 @@ export default (strings) => {
     {
       displayName: strings.th_roshan,
       field: 'roshans_killed',
+      tooltip: strings.farm_roshan,
       fantasyFn: v => 1 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -458,6 +466,7 @@ export default (strings) => {
     {
       displayName: strings.th_teamfight_participation,
       field: 'teamfight_participation',
+      tooltip: strings.tooltip_teamfight_participation,
       fantasyFn: v => 3 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -466,6 +475,7 @@ export default (strings) => {
     {
       displayName: strings.th_observers_placed,
       field: 'obs_placed',
+      tooltip: strings.tooltip_used_ward_observer,
       fantasyFn: v => 0.5 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -474,6 +484,7 @@ export default (strings) => {
     {
       displayName: strings.th_camps_stacked,
       field: 'camps_stacked',
+      tooltip: strings.tooltip_camps_stacked,
       fantasyFn: v => 0.5 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -482,6 +493,7 @@ export default (strings) => {
     {
       displayName: strings.heading_runes,
       field: 'rune_pickups',
+      tooltip: strings.analysis_rune_control,
       fantasyFn: v => 0.25 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -490,6 +502,7 @@ export default (strings) => {
     {
       displayName: strings.th_firstblood_claimed,
       field: 'firstblood_claimed',
+      tooltip: strings.th_firstblood_claimed,
       fantasyFn: v => 4 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -498,6 +511,7 @@ export default (strings) => {
     {
       displayName: strings.th_stuns,
       field: 'stuns',
+      tooltip: strings.tooltip_stuns,
       fantasyFn: v => 0.05 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -1118,7 +1132,7 @@ export default (strings) => {
     const maxDuration = items[t].attrib.find(x => x.key === 'lifetime').value;
     const totalDuration = [];
     row[`${type}_log`].forEach((ward) => {
-      const findTime = row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
+      const findTime = row[`${type}_left_log`] && row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
       const leftTime = (findTime && findTime.time) || false;
       if (leftTime !== false) { // exclude wards that did not expire before game ended from average time
         const duration = Math.min(Math.max(leftTime - ward.time, 0), maxDuration);
@@ -1239,7 +1253,7 @@ export default (strings) => {
     relativeBars: true,
   };
 
-  const visionColumns = strings => [
+  const visionColumns = visionStrings => [
     heroTdColumn,
     purchaseObserverColumn,
     {
@@ -1247,10 +1261,10 @@ export default (strings) => {
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
-          &nbsp;{strings.th_use_shorthand}
+          &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
-      tooltip: strings.tooltip_used_ward_observer,
+      tooltip: visionStrings.tooltip_used_ward_observer,
       field: 'uses_ward_observer',
       sortFn: row => row.obs_log && row.obs_log.length,
       displayFn: (row, column, value) => value || '-',
@@ -1263,10 +1277,10 @@ export default (strings) => {
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
-          &nbsp;{strings.th_use_shorthand}
+          &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
-      tooltip: strings.tooltip_used_ward_sentry,
+      tooltip: visionStrings.tooltip_used_ward_sentry,
       field: 'uses_ward_sentry',
       sortFn: row => row.sen_log && row.sen_log.length,
       displayFn: (row, column, value) => value || '-',
@@ -1279,10 +1293,10 @@ export default (strings) => {
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/dust_lg.png`} alt="" />
-          &nbsp;{strings.th_use_shorthand}
+          &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
-      tooltip: strings.tooltip_used_dust,
+      tooltip: visionStrings.tooltip_used_dust,
       field: 'uses_dust',
       sortFn: row => row.item_uses && row.item_uses.dust,
       displayFn: (row, column, value) => value || '-',
@@ -1294,10 +1308,10 @@ export default (strings) => {
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
-          &nbsp;{strings.th_use_shorthand}
+          &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
-      tooltip: strings.tooltip_used_smoke_of_deceit,
+      tooltip: visionStrings.tooltip_used_smoke_of_deceit,
       field: 'uses_smoke',
       sortFn: row => row.item_uses && row.item_uses.smoke_of_deceit,
       displayFn: (row, column, value) => value || '-',

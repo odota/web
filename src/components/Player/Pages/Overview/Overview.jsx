@@ -20,6 +20,7 @@ import SummOfRecMatches from './Summary';
 import constants from '../../../constants';
 import CountsSummary from './CountsSummary';
 import { formatTemplateToString } from '../../../../utility';
+import Collapsible from '../../../Collapsible';
 
 export const MAX_MATCHES_ROWS = 20;
 const MAX_HEROES_ROWS = 10;
@@ -121,41 +122,45 @@ const Overview = ({
   countsError,
 }) => (
   <OverviewContainer>
-    <SummaryContainer
-      title={strings.heading_avg_and_max}
-      titleTo={`/players/${playerId}/records`}
-      subtitle={formatTemplateToString(strings.subheading_avg_and_max, numValidRecentMatches)}
-      loading={matchesLoading}
-      error={matchesError}
-      loaderWidth={250}
-      loaderHeight={30}
-    >
-      <Styled
-        data-hint={strings.exclude_turbo_matches}
-        data-hint-position="top"
-        style={{ display: validRecentMatches.some(match => match.game_mode === 23) ? 'inline' : 'none' }}
+    <Collapsible name="playerSummary">
+      <SummaryContainer
+        title={strings.heading_avg_and_max}
+        titleTo={`/players/${playerId}/records`}
+        subtitle={formatTemplateToString(strings.subheading_avg_and_max, numValidRecentMatches)}
+        loading={matchesLoading}
+        error={matchesError}
+        loaderWidth={250}
+        loaderHeight={30}
+        key="averages"
       >
-        <Checkbox
-          style={{ display: validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23) }}
-          defaultChecked
-          onCheck={toggleTurboGames}
-          checkedIcon={<Turbo />}
-          uncheckedIcon={<TurboOff />}
-        />
-      </Styled>
-      <SummOfRecMatches matchesData={validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23)} />
-    </SummaryContainer>
-    <SummaryContainer
-      title={strings.tab_counts}
-      loading={countsLoading}
-      error={countsError}
-      subtitle={strings.th_win}
-      loaderWidth={250}
-      loaderHeight={30}
-      style={{ width: '100%' }}
-    >
-      <CountsSummary data={countsData} />
-    </SummaryContainer>
+        <Styled
+          data-hint={strings.exclude_turbo_matches}
+          data-hint-position="top"
+          style={{ display: validRecentMatches.some(match => match.game_mode === 23) ? 'inline' : 'none' }}
+        >
+          <Checkbox
+            style={{ display: validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23) }}
+            defaultChecked
+            onCheck={toggleTurboGames}
+            checkedIcon={<Turbo />}
+            uncheckedIcon={<TurboOff />}
+          />
+        </Styled>
+        <SummOfRecMatches matchesData={validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23)} />
+      </SummaryContainer>
+      <SummaryContainer
+        title={strings.tab_counts}
+        loading={countsLoading}
+        error={countsError}
+        subtitle={strings.th_win}
+        loaderWidth={250}
+        loaderHeight={30}
+        style={{ width: '100%' }}
+        key="counts"
+      >
+        <CountsSummary data={countsData} />
+      </SummaryContainer>
+    </Collapsible>
     <MatchesContainer>
       <Container
         title={strings.heading_matches}
@@ -174,31 +179,34 @@ const Overview = ({
     </MatchesContainer>
 
     <HeroesContainer>
-      <Container
-        title={strings.heading_peers}
-        titleTo={`/players/${playerId}/peers`}
-        loading={peersLoading}
-        error={peersError}
-      >
-        <Table
-          columns={playerPeersOverviewColumns(playerId, strings)}
-          data={peersData}
-          maxRows={MAX_PEERS_ROWS}
-        />
-      </Container>
-
-      <Container
-        title={strings.heading_heroes}
-        titleTo={`/players/${playerId}/heroes`}
-        loading={heroesLoading}
-        error={heroesError}
-      >
-        <Table
-          columns={playerHeroesOverviewColumns(playerId, strings)}
-          data={heroesData}
-          maxRows={MAX_HEROES_ROWS}
-        />
-      </Container>
+      <Collapsible name="overviewPeers" initialMaxHeight={400} buttonStyle={{ top: 20 }}>
+        <Container
+          title={strings.heading_peers}
+          titleTo={`/players/${playerId}/peers`}
+          loading={peersLoading}
+          error={peersError}
+        >
+          <Table
+            columns={playerPeersOverviewColumns(playerId, strings)}
+            data={peersData}
+            maxRows={MAX_PEERS_ROWS}
+          />
+        </Container>
+      </Collapsible>
+      <Collapsible name="overviewHeroes" initialMaxHeight={700} buttonStyle={{ top: 35 }}>
+        <Container
+          title={strings.heading_heroes}
+          titleTo={`/players/${playerId}/heroes`}
+          loading={heroesLoading}
+          error={heroesError}
+        >
+          <Table
+            columns={playerHeroesOverviewColumns(playerId, strings)}
+            data={heroesData}
+            maxRows={MAX_HEROES_ROWS}
+          />
+        </Container>
+      </Collapsible>
     </HeroesContainer>
   </OverviewContainer>
 );

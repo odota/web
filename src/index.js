@@ -1,16 +1,4 @@
 /* eslint-disable react/jsx-filename-extension */
-import 'core-js/fn/object/entries';
-import 'core-js/fn/object/values';
-import 'core-js/fn/array/includes';
-import 'core-js/fn/array/find';
-import 'core-js/fn/array/find-index';
-import 'core-js/fn/array/fill';
-import 'core-js/fn/array/from';
-import 'core-js/fn/number/is-nan';
-import 'core-js/fn/number/is-integer';
-import 'core-js/fn/number/is-finite';
-import 'core-js/fn/string/includes';
-import 'core-js/fn/string/starts-with';
 import React from 'react';
 import createHistory from 'history/createBrowserHistory';
 import ReactGA from 'react-ga';
@@ -22,8 +10,7 @@ import store from './store';
 import { getMetadata, getStrings, getAbilities, getHeroAbilities, getNeutralAbilities, getAbilityIds } from './actions';
 import App from './components/App';
 import constants from './components/constants';
-// import registerServiceWorker from './registerServiceWorker';
-import { unregister } from './registerServiceWorker';
+// import { unregister } from './common/serviceWorker';
 
 // Inject global styles
 injectGlobal([`
@@ -188,12 +175,13 @@ const app = (
     <Router history={history}>
       <Route component={App} />
     </Router>
-  </Provider>);
+  </Provider>
+);
+
 if (rootElement.hasChildNodes()) {
   render(app, rootElement);
 } else {
   hydrate(app, rootElement);
 }
-// registerServiceWorker();
-unregister();
-// document.getElementById('loader').style.display = 'none';
+
+// unregister();
