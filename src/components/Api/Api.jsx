@@ -168,7 +168,7 @@ class KeyManagement extends React.Component {
     const premUnit = 100;
     const freeCallLimit = 50000;
     const freeRateLimit = 60;
-    const premRateLimit = 300;
+    const premRateLimit = 1200;
     const premPrice = 0.01;
 
     return (

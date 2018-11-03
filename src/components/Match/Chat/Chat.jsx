@@ -8,6 +8,7 @@ import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
+import chatWheelMessages from 'dotaconstants/build/chat_wheel.json';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
 import styled from 'styled-components';
 import { isRadiant, formatSeconds } from '../../../utility';
@@ -240,11 +241,10 @@ const StyledDiv = styled.div`
     }
   }
 `;
-// All chat
-// https://github.com/dotabuff/d2vpkr/blob/8fdc29b84f3e7e2c130fc1b8c6ffe3b811e2d4a7/dota/scripts/chat_wheel.txt#L640
-const chatwheelAll = [75, 76, 108, 109, 110];
 
 const isSpectator = slot => slot > 9 && slot < 128;
+
+const getChatWheel = id => chatWheelMessages[id] || {};
 
 class Chat extends React.Component {
   static propTypes = {
@@ -310,22 +310,22 @@ class Chat extends React.Component {
         disabled: () => this.state.phrases === false && this.state.audio === false,
       },
       phrases: {
-        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel' && Number(msg.key) < 86),
+        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel' && !getChatWheel(msg.key).sound_ext && !getChatWheel(msg.key).image),
         type: 'type',
         disabled: () => this.state.text === false && this.state.audio === false,
       },
       audio: {
-        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel' && Number(msg.key) >= 86),
+        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel' && getChatWheel(msg.key).sound_ext),
         type: 'type',
         disabled: () => this.state.phrases === false && this.state.text === false,
       },
       all: {
-        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chat' || (msg.type === 'chatwheel' && chatwheelAll.includes(Number(msg.key)))),
+        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chat' || (msg.type === 'chatwheel' && getChatWheel(msg.key).all_chat)),
         type: 'target',
         disabled: () => !this.state.allies,
       },
       allies: {
-        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel' && !chatwheelAll.includes(Number(msg.key))),
+        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel' && !getChatWheel(msg.key).all_chat),
         type: 'target',
         disabled: () => !this.state.all,
       },
@@ -337,8 +337,8 @@ class Chat extends React.Component {
     };
   }
 
-  audio = (key, index) => {
-    const a = new Audio(`/assets/chatwheel/dota_chatwheel_${key}.wav`);
+  audio = (message, index) => {
+    const a = new Audio(`https://odota.github.io/media/chatwheel/dota_chatwheel_${message.id}.${message.sound_ext}`);
     a.play();
     this.setState({
       playing: index,
@@ -401,19 +401,20 @@ class Chat extends React.Component {
 
             let message = null;
             if (msg.type === 'chatwheel') {
+              const messageInfo = getChatWheel(msg.key);
               message = [
-                strings[`chatwheel_${msg.key}`],
+                (messageInfo.message || '').replace(/%s1/, 'A hero'),
               ];
-              if (Number(msg.key) >= 86) {
+              if (messageInfo.sound_ext) {
                 message.unshift(<AvVolumeUp
-                  key={msg.key}
+                  key={messageInfo.id}
                   viewBox="-2 -2 28 28"
-                  onClick={() => this.audio(msg.key, index)}
+                  onClick={() => this.audio(messageInfo, index)}
                   className={`play ${this.state.playing === index ? 'playing' : ''}`}
                 />);
               } else {
                 message.unshift(<img
-                  key={msg.key}
+                  key={messageInfo.id}
                   src="/assets/images/dota2/chat_wheel_icon.png"
                   alt="chatwheel"
                   className="chatwheel"
@@ -436,7 +437,7 @@ class Chat extends React.Component {
             }
 
             let target = strings.chat_filter_all;
-            if (msg.type === 'chatwheel' && !chatwheelAll.includes(Number(msg.key))) {
+            if (msg.type === 'chatwheel' && !getChatWheel(msg.key)) {
               target = strings.chat_filter_allies;
             }
             if (spec) {

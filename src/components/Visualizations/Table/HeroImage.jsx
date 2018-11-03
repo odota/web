@@ -251,7 +251,18 @@ const HeroToolTip = styled.div`
   width: 290px;
   overflow: hidden;
   background-color: #131519;
-  background: linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(48,62,90,1) 12%, rgba(19,21,25,1) 70%);
+  background: ${(props) => {
+    switch (props.heroAttr) {
+      case 'str':
+        return 'linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(89,48,48,1) 12%, rgba(19,21,25,1) 70%);';
+      case 'agi':
+        return 'linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(50,89,48,1) 12%, rgba(19,21,25,1) 70%);';
+      case 'int':
+        return 'linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(48,62,90,1) 12%, rgba(19,21,25,1) 70%);';
+      default:
+        return 'linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(48,62,90,1) 12%, rgba(19,21,25,1) 70%);';
+    }
+  }}
   overflow: hidden;
   border: 2px solid #27292b;
 
@@ -594,7 +605,7 @@ const TableHeroImage = ({
       }
       <div className="hero-tooltip">
         <ReactTooltip id={heroName} effect="solid" place="right">
-          <HeroToolTip>
+          <HeroToolTip heroAttr={hero.primary_attr}>
             <div className="header">
               <div className="heroImg">
                 <HeroImage id={heroID} imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix} />

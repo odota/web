@@ -40,7 +40,7 @@ const CustomizedTooltip = ({ label, payload }) => (
     (
       <div value={data.value} className={`data ${i < 5 && 'isRadiant'}`} style={{ borderLeft: `8px solid ${data.color}` }}>
         {data.dataKey}: {data.value}
-      </div>)).sort((a, b) => a.props.value < b.props.value)
+      </div>)).sort((a, b) => b.props.value - a.props.value)
     }
   </StyledCustomizedTooltip>
 );

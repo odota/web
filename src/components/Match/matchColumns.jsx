@@ -403,6 +403,7 @@ export default (strings) => {
     {
       displayName: strings.th_kills,
       field: 'kills',
+      tooltip: strings.tooltip_kills,
       fantasyFn: v => 0.3 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -411,6 +412,7 @@ export default (strings) => {
     {
       displayName: strings.th_deaths,
       field: 'deaths',
+      tooltip: strings.tooltip_deaths,
       fantasyFn: v => 3 - (0.3 * v),
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -419,6 +421,7 @@ export default (strings) => {
     {
       displayName: strings.th_last_hits,
       field: 'last_hits',
+      tooltip: strings.tooltip_last_hits,
       fantasyFn: v => 0.003 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -427,6 +430,7 @@ export default (strings) => {
     {
       displayName: strings.th_denies,
       field: 'denies',
+      tooltip: strings.tooltip_denies,
       fantasyFn: v => 0.003 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -435,6 +439,7 @@ export default (strings) => {
     {
       displayName: strings.th_gold_per_min,
       field: 'gold_per_min',
+      tooltip: strings.tooltip_gold_per_min,
       fantasyFn: v => 0.002 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -443,6 +448,7 @@ export default (strings) => {
     {
       displayName: strings.th_towers,
       field: 'towers_killed',
+      tooltip: strings.tooltip_tower_kills,
       fantasyFn: v => 1 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -451,6 +457,7 @@ export default (strings) => {
     {
       displayName: strings.th_roshan,
       field: 'roshans_killed',
+      tooltip: strings.farm_roshan,
       fantasyFn: v => 1 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -459,6 +466,7 @@ export default (strings) => {
     {
       displayName: strings.th_teamfight_participation,
       field: 'teamfight_participation',
+      tooltip: strings.tooltip_teamfight_participation,
       fantasyFn: v => 3 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -467,6 +475,7 @@ export default (strings) => {
     {
       displayName: strings.th_observers_placed,
       field: 'obs_placed',
+      tooltip: strings.tooltip_used_ward_observer,
       fantasyFn: v => 0.5 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -475,6 +484,7 @@ export default (strings) => {
     {
       displayName: strings.th_camps_stacked,
       field: 'camps_stacked',
+      tooltip: strings.tooltip_camps_stacked,
       fantasyFn: v => 0.5 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -483,6 +493,7 @@ export default (strings) => {
     {
       displayName: strings.heading_runes,
       field: 'rune_pickups',
+      tooltip: strings.analysis_rune_control,
       fantasyFn: v => 0.25 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -491,6 +502,7 @@ export default (strings) => {
     {
       displayName: strings.th_firstblood_claimed,
       field: 'firstblood_claimed',
+      tooltip: strings.th_firstblood_claimed,
       fantasyFn: v => 4 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
@@ -499,6 +511,7 @@ export default (strings) => {
     {
       displayName: strings.th_stuns,
       field: 'stuns',
+      tooltip: strings.tooltip_stuns,
       fantasyFn: v => 0.05 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);

@@ -5,6 +5,7 @@ import transformCounts from './transformCounts';
 import transformHistograms from './transformHistograms';
 import transformTrends from './transformTrends';
 import transformRankings from './transformRankings';
+import transformPlayerMatches from './transformPlayerMatches';
 import action from './action';
 import { langs } from '../lang';
 
@@ -49,7 +50,7 @@ export const getGithubPulls = merged => action('ghPulls', 'https://api.github.co
 export const getPlayer = accountId => action('player', process.env.REACT_APP_API_HOST, `api/players/${accountId}`);
 export const getPlayerWinLoss = (accountId, params) => action('playerWinLoss', process.env.REACT_APP_API_HOST, `api/players/${accountId}/wl`, params);
 export const getPlayerRecentMatches = (accountId, params) => action('playerRecentMatches', process.env.REACT_APP_API_HOST, `api/players/${accountId}/recentMatches`, params);
-export const getPlayerMatches = (accountId, params) => action('playerMatches', process.env.REACT_APP_API_HOST, `api/players/${accountId}/matches`, { ...querystring.parse(params.substring(1)), significant: 0 });
+export const getPlayerMatches = (accountId, params) => action('playerMatches', process.env.REACT_APP_API_HOST, `api/players/${accountId}/matches`, { ...querystring.parse(params.substring(1)), significant: 0 }, transformPlayerMatches({ ...querystring.parse(params.substring(1)) }));
 export const getPlayerPeers = (accountId, params) => action('playerPeers', process.env.REACT_APP_API_HOST, `api/players/${accountId}/peers`, params);
 export const getPlayerHeroes = (accountId, params) => action('playerHeroes', process.env.REACT_APP_API_HOST, `api/players/${accountId}/heroes`, params);
 export const getPlayerPros = (accountId, params) => action('playerPros', process.env.REACT_APP_API_HOST, `api/players/${accountId}/pros`, params);
