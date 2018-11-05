@@ -73,7 +73,7 @@
     "eslint-plugin-react": "^7.7.0",
     "sanitize-filename": "^1.6.1",
     "simple-vdf": "^1.1.1",
-    "testcafe": "^0.22.0",
+    "testcafe": "^0.23.0",
     "testcafe-react-selectors": "^3.0.0"
   },
   "browserslist": [
