@@ -51,16 +51,19 @@ const columns = (strings) => {
       center: true,
       displayName: strings.ward_log_entered_at,
       field: 'enter_time',
+      textAlign: 'center',
     },
     {
       center: true,
       displayName: strings.ward_log_left_at,
       field: 'left_time',
+      textAlign: 'center',
     },
     {
       center: true,
       displayName: strings.ward_log_duration,
       field: 'duration',
+      textAlign: 'center',
     },
     /*
     {

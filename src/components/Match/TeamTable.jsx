@@ -104,7 +104,7 @@ class TeamTable extends React.Component {
           buttonIcon={buttonIcon || ''}
         />
         <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} customWidth={customWidth} isBestValueInMatch={isBestValueInMatch(players)} />
-        {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
+        {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} style={{ marginBottom: -25 }} /> /* team 0 - radiant */}
         <Heading
           title={`${getTeamName(direTeam, false)} - ${heading}`}
           icon={<IconDire />}
