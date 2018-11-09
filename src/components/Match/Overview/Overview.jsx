@@ -52,6 +52,7 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
             summable
             hoverRowColumn
             customWidth={960}
+            radiantWin={match.radiant_win}
           />
       }
         {

@@ -5,6 +5,12 @@ export const StyledDiv = styled.div`
   margin-top: 15px;
   margin-bottom: 15px;
 
+  .winner {
+    & svg {
+      height: 15px !important;
+    }
+  }
+
   & svg {
     vertical-align: middle;
     height: 26px !important;
