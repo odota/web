@@ -249,7 +249,6 @@ export default (strings) => {
         paddingLeft: 14,
         paddingRight: 5,
         width: 32,
-        color: 'rgb(204, 134, 146)',
         borderLeft: '1px solid rgba(19, 19, 19, 0.2)',
         underline: 'max',
       },
@@ -265,7 +264,6 @@ export default (strings) => {
         paddingLeft: 5,
         paddingRight: 5,
         width: 32,
-        color: 'rgb(160, 145, 147)',
         underline: 'max',
       },
       {
@@ -276,7 +274,6 @@ export default (strings) => {
         sumFn: true,
         displayFn: row => abbreviateNumber(row.hero_healing),
         // relativeBars: true,
-        color: 'rgb(120, 156, 93)',
         textAlign: 'right',
         paddingLeft: 5,
         paddingRight: 14,
