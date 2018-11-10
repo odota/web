@@ -160,7 +160,8 @@ export const StyledBody = styled.div`
   .scrolled th:first-child {
     background-color: rgba(33, 34, 44, 0.8) !important;
     z-index: 100;
-    transition: all 0.5s ease-out !important;
+    transition: background-color 0.5s ease-out !important;
+    width: 60px !important;
   }
 
   .scrolled tr {
@@ -168,8 +169,9 @@ export const StyledBody = styled.div`
       & td:first-child {
         background-color: rgba(33, 34, 44, 0.8) !important;
         z-index: 100;
-        transition: all 0.5s ease-out !important;
+        transition: background-color 0.5s ease-out !important;
         padding-right: 0px !important;
+        width: 60px !important;
       }
     }
 
@@ -177,8 +179,9 @@ export const StyledBody = styled.div`
       & td:first-child {
         background-color: rgba(33, 34, 44, 0.8) !important;
         z-index: 100;
-        transition: all 0.5s ease-out !important;
+        transition: background-color 0.5s ease-out !important;
         padding-right: 0px !important;
+        width: 60px !important;
       }
     }
 `;
