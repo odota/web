@@ -142,7 +142,7 @@ export default (strings) => {
         displayFn: (row, col, field) => (field || '-'),
         sortFn: true,
         sumFn: true,
-        color: constants.colorRed,
+        color: 'rgb(255, 79, 79)',
         textAlign: 'right',
         paddingLeft: 5,
         paddingRight: 5,
