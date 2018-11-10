@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
 import RaisedButton from 'material-ui/RaisedButton';
 import { StyledDiv, TwoLineDiv } from './Styled';
-import IconTrophy from '../Icons/Trophy';
 
 const Heading = ({
-  title = '', titleTo, icon = <ActionLabelOutline />, subtitle, buttonLabel, buttonTo, buttonIcon, twoLine, info, winner,
+  title = '', titleTo, icon = <ActionLabelOutline />, subtitle, buttonLabel, buttonTo, buttonIcon, twoLine, info, winner, strings,
 }) => {
   const DivToUse = twoLine ? TwoLineDiv : StyledDiv;
   return (
@@ -28,7 +28,7 @@ const Heading = ({
       </span>
       {winner &&
       <span className="winner">
-        <IconTrophy />
+        {strings.th_winner}
       </span>
       }
       { buttonLabel && buttonTo && buttonIcon ?
@@ -68,6 +68,11 @@ Heading.propTypes = {
   buttonTo: string,
   buttonIcon: string,
   winner: bool,
+  strings: shape({}),
 };
 
-export default Heading;
+const mapStateToProps = state => ({
+  strings: state.app.strings,
+});
+
+export default connect(mapStateToProps)(Heading);

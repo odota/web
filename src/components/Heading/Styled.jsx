@@ -6,9 +6,30 @@ export const StyledDiv = styled.div`
   margin-bottom: 15px;
 
   .winner {
-    & svg {
-      height: 15px !important;
-    }
+    position: relative;
+    background: rgb(25, 25, 25);
+    font-size: 10px;
+    padding: 1px;
+    padding-right: 4px;
+    margin-left: 10px;
+    margin-right: 5px;
+    letter-spacing: 1px;
+    color: rgb(210, 210, 210);
+    text-transform: uppercase;
+  }
+
+  .winner:after {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-right-color: rgb(25, 25, 25);
+    border-width: 8px;
+    margin-top: -8px;
   }
 
   & svg {
