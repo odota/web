@@ -16,7 +16,17 @@ const isBestValueInMatch = players => (field, row, underline) => {
 
 const keyFn = row => row && row.player_slot + 1;
 
-const getHighlightFn = loggedInId => row => loggedInId && row.account_id === loggedInId;
+const getHighlightFn = loggedInId => (row) => {
+  const s = { style: {} };
+  if (loggedInId && row.account_id === loggedInId) {
+    if (row.player_slot < 5) {
+      s.style.backgroundColor = 'rgba(18, 156, 40, 0.09)';
+    } else {
+      s.style.backgroundColor = 'rgba(156, 18, 18, 0.09)';
+    }
+  }
+  return s;
+};
 
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>

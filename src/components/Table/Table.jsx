@@ -41,8 +41,6 @@ const getColumnMin = (data, field, getValue) => {
   return Math.min(...valuesArr);
 };
 
-const rowStyle = (highlightFn, row) => ({ backgroundColor: highlightFn && highlightFn(row) ? 'rgba(74, 149, 247, 0.038)' : 'none' });
-
 const initialState = {
   currentPage: 0,
   sortState: '',
@@ -210,7 +208,7 @@ class Table extends React.Component {
               </MaterialTableHeader>
               <MaterialTableBody displayRowCheckbox={false} selectable={false}>
                 {data.map((row, index) => (
-                  <MaterialTableRow key={(keyFn && keyFn(row)) || index} style={rowStyle(highlightFn, row)}>
+                  <MaterialTableRow key={(keyFn && keyFn(row)) || index} {...(highlightFn && highlightFn(row))}>
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,
