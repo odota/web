@@ -7,6 +7,7 @@ export const StyledDiv = styled.div`
 
   .winner {
     position: relative;
+    bottom: 1px;
     background: rgb(25, 25, 25);
     font-size: 10px;
     padding: 1px;
