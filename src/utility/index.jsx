@@ -518,7 +518,7 @@ export function abbreviateNumber(num) {
   if (!num) {
     return '-';
   } else if (num >= 1000 && num < 1000000) {
-    return `${Number((num / 1000).toFixed(1))}${strings.abbr_thousand}`;
+    return `${Number((num / 1000).toFixed(1))}k`;
   } else if (num >= 1000000 && num < 1000000000) {
     return `${Number((num / 1000000).toFixed(1))}${strings.abbr_million}`;
   } else if (num >= 1000000000 && num < 1000000000000) {
@@ -846,6 +846,5 @@ export function getColStyle(column) {
     borderLeft: column.borderLeft,
     borderRight: column.borderRight,
     backgroundColor: column.backgroundColor,
-    direction: column.textAlign === 'right' && 'rtl',
   };
 }
