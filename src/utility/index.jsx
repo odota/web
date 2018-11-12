@@ -846,5 +846,6 @@ export function getColStyle(column) {
     borderLeft: column.borderLeft,
     borderRight: column.borderRight,
     backgroundColor: column.backgroundColor,
+    direction: column.textAlign === 'right' && 'rtl',
   };
 }
