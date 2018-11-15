@@ -1,4 +1,4 @@
-# web
+# opendota-web
 
 [![Help Contribute to Open Source](https://www.codetriage.com/odota/web/badges/users.svg)](https://www.codetriage.com/odota/web)
 
@@ -7,7 +7,8 @@ OpenDota Web UI: A web interface for viewing Dota 2 data. This utilizes the [Ope
 Quickstart
 ----
 * Clone the repo using `git clone --recurse-submodules git://github.com/odota/web`
-* Install Node.js (6.0.0 or greater) (on Ubuntu, `curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && sudo apt-get install -y nodejs`)
+  * If you already have a copy of the repo, run `git submodule init && git submodule update` to fetch shared components
+* Install Node.js (6.0.0 or greater) (on Ubuntu, `curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && sudo apt-get install -y nodejs`)
 * `npm install`
 * `npm start`
 * Visit port 3000 on your development machine.
