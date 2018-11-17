@@ -112,7 +112,6 @@ class Explorer extends React.Component {
 
   handleCancel = () => {
     this.setState({
-      ...this.state,
       loading: false,
     });
     window.stop();
@@ -120,30 +119,38 @@ class Explorer extends React.Component {
 
   handleFieldUpdate = (builderField, value) => {
     this.setState({
-      ...this.state,
       builder: {
         ...this.state.builder,
         [builderField]: value,
       },
-    }, this.buildQuery);
+    });
   };
 
-  handleQuery = () => {
-    if (this.state.loadingEditor === true) {
-      return setTimeout(this.handleQuery, 1000);
-    }
-    this.setState({
-      ...this.state,
-      loading: true,
-    });
+  sendRequest = () => {
+    this.buildQuery();
     this.syncWindowHistory();
     const sqlString = this.getSqlString();
     return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
+  }
+
+  handleQuery = () => {
+    const { builder } = this.state;
+    const { select, group } = builder;
+    if (this.state.loadingEditor === true) {
+      setTimeout(this.handleQuery, 1000);
+    } else {
+      this.setState({
+        loading: true,
+        builder: {
+          ...builder,
+          select: group && (!select || select.length < 1) ? 'kills' : select,
+        },
+      }, this.sendRequest);
+    }
   };
 
   handleResponse = (json) => {
     this.setState({
-      ...this.state,
       loading: false,
       result: json,
     });
