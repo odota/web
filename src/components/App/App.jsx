@@ -6,7 +6,7 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import Header from '../Header';
 import Player from '../Player';
 import Home from '../Home';
@@ -167,6 +167,21 @@ class App extends React.Component {
     const {
       width, location, strings,
     } = this.props;
+
+    const navbarPages = [
+      <Link key="header_explorer" to="/explorer">{strings.header_explorer}</Link>,
+      <Link key="header_meta" to="/meta">{strings.header_meta}</Link>,
+      <Link key="header_matches" to="/matches">{strings.header_matches}</Link>,
+      <Link key="header_teams" to="/teams">{strings.header_teams}</Link>,
+      <Link key="header_heroes" to="/heroes">{strings.header_heroes}</Link>,
+      <Link key="header_distributions" to="/distributions">{strings.header_distributions}</Link>,
+      <Link key="header_records" to="/records">{strings.header_records}</Link>,
+      <Link key="header_scenarios" to="/scenarios">{strings.header_scenarios}</Link>,
+      <Link key="header_api" to="/api-keys">{strings.header_api}</Link>,
+      // <Link key="header_predictions" to="/predictions">TI Predictions</Link>,
+      // <Link key="header_assistant" to="/assistant">Assistant</Link>,
+    ];
+
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
@@ -175,7 +190,7 @@ class App extends React.Component {
             defaultTitle={strings.title_default}
             titleTemplate={strings.title_template}
           />
-          <Header location={location} />
+          <Header location={location} navbarPages={navbarPages} />
           <AdBannerDiv>
             { includeAds &&
               <a href="http://www.vpgame.com/?lang=en_us">
