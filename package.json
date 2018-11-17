@@ -73,7 +73,7 @@
     "isomorphic-fetch": "^2.2.1",
     "sanitize-filename": "^1.6.1",
     "simple-vdf": "^1.1.1",
-    "testcafe": "^0.22.0",
+    "testcafe": "^0.23.2",
     "testcafe-react-selectors": "^3.0.0"
   },
   "browserslist": [
