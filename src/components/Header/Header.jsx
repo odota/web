@@ -78,6 +78,7 @@ class Header extends React.Component {
     small: PropTypes.bool,
     user: PropTypes.shape({}),
     strings: PropTypes.shape({}),
+    navbarPages: PropTypes.arrayOf(PropTypes.func),
   };
 
   constructor() {
@@ -88,7 +89,7 @@ class Header extends React.Component {
 
   render() {
     const {
-      location, small, user, strings, navbarPages
+      location, small, user, strings, navbarPages,
     } = this.props;
 
     const burgerItems = [

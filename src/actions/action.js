@@ -1,5 +1,4 @@
 import querystring from 'querystring';
-import fetch from 'isomorphic-fetch';
 
 export default function action(type, host, path, params = {}, transform) {
   return (dispatch) => {
