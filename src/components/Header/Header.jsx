@@ -78,7 +78,7 @@ class Header extends React.Component {
     small: PropTypes.bool,
     user: PropTypes.shape({}),
     strings: PropTypes.shape({}),
-    navbarPages: PropTypes.arrayOf(PropTypes.func),
+    navbarPages: PropTypes.arrayOf(PropTypes.shape({})),
   };
 
   constructor() {
