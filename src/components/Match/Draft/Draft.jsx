@@ -37,14 +37,14 @@ const PickBan = styled.span`
   font-weight: bold;
 `;
 
-const Pick = PickBan.extend`
+const Pick = styled(PickBan)`
   color: ${constants.colorGreen};
   svg {
     color: ${constants.colorGreen};
   }
 `;
 
-const Ban = PickBan.extend`
+const Ban = styled(PickBan)`
   color: ${constants.colorDanger};
   svg {
     color: ${constants.colorDanger};
