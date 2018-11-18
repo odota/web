@@ -7,7 +7,7 @@ export const StyledContainer = styled.div`
   height: 100%;
 `;
 
-export const KDAContainer = StyledContainer.extend`
+export const KDAContainer = styled(StyledContainer)`
   width: calc(300% + 10px);
   left: -10px;
   pointer-events: none;
@@ -37,7 +37,7 @@ export const PercentContainer = styled.div`
   }
 `;
 
-export const KDAPercentContainer = PercentContainer.extend`
+export const KDAPercentContainer = styled(PercentContainer)`
   display: flex;
 
   &[data-hint-position="top"] {

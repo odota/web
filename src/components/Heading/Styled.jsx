@@ -86,7 +86,7 @@ export const StyledDiv = styled.div`
   }
 `;
 
-export const TwoLineDiv = StyledDiv.extend`
+export const TwoLineDiv = styled(StyledDiv)`
   text-align: center;
   padding: 10px 0 15px;
 
