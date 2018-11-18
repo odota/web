@@ -24,6 +24,7 @@ const paths = [
   '/players/101695162/wordcloud',
   '/players/101695162/mmr',
   '/players/101695162/rankings',
+  '/players/101695162/activity',
 ];
 
 fixture`players/ paths`

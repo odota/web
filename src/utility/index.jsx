@@ -840,6 +840,26 @@ for (let i = 0; i < 6; i += 1) {
   transformations[`item_${i}`] = transformMatchItem;
 }
 
+export function isLeapYear(date) {
+  const year = date.getFullYear();
+  if ((year & 3) !== 0) { // eslint-disable-line no-bitwise
+    return false;
+  }
+  return ((year % 100) !== 0 || (year % 400) === 0);
+}
+
+// Get Day of Year
+export function getDOY(date) {
+  const dayCount = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+  const mn = date.getMonth();
+  const dn = date.getDate();
+  let dayOfYear = dayCount[mn] + dn;
+  if (mn > 1 && isLeapYear(date)) {
+    dayOfYear += 1;
+  }
+  return dayOfYear;
+}
+
 // find and style/highlight number values in tooltip descriptions
 export function styleValues(el) {
   if (el) {
