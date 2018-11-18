@@ -417,7 +417,7 @@
   "heading_damage_received": "Daño Recibido",
   "show_details": "Mostrar detalles",
   "hide_details": "Ocultar detalles",
-  "subheading_avg_and_max": "en las ultimas {0} partidas",
+  "subheading_avg_and_max": "in last {0} displayed matches",
   "subheading_records": "En partidas clasificatorias. Récords se resetean mensualmente.",
   "subheading_team_elo_rankings": "k = 32, init = 1000",
   "hero_pro_tab": "Profesional",
