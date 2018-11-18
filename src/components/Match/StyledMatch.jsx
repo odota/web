@@ -130,6 +130,9 @@ export const StyledRunes = styled.div`
 `;
 
 export const StyledDivClearBoth = styled.div`
+  padding-top: 2px;
+  padding-bottom: 2px;
+
   min-width: 240px;
   > div {
     clear: both;

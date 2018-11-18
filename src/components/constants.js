@@ -62,6 +62,13 @@ export default {
       Ubuntu, Cantarell,
       "Fira Sans",
       Helvetica, Arial, sans-serif`,
+  tableFontFamily: `
+      -apple-system, BlinkMacSystemFont,
+      Tahoma, "Segoe UI",
+      Roboto, "Droid Sans",
+      Ubuntu, Cantarell,
+      "Fira Sans",
+      Helvetica, Arial, sans-serif`,
   fontWeightLight: '300',
   fontWeightNormal: '400',
   fontWeightMedium: '500',

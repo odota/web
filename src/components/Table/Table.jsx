@@ -7,7 +7,7 @@ import {
   TableRow as MaterialTableRow,
   TableRowColumn as MaterialTableRowColumn,
 } from 'material-ui/Table';
-import { abbreviateNumber, SORT_ENUM, defaultSort } from '../../utility';
+import { abbreviateNumber, SORT_ENUM, defaultSort, getColStyle } from '../../utility';
 import { TablePercent } from '../Visualizations';
 import Pagination from '../Table/PaginatedTable/Pagination';
 import TableHeader from './TableHeader';
@@ -41,20 +41,6 @@ const getColumnMin = (data, field, getValue) => {
   return Math.min(...valuesArr);
 };
 
-const toUnderline = (data, row, field, underline) => {
-  const x = [];
-  data.forEach((r) => {
-    x.push(r[field]);
-  });
-  x.sort((a, b) => a - b);
-  if ((underline === 'min' && x[0] === row[field]) || ((underline === 'max' && x[x.length - 1] === row[field]))) {
-    return true;
-  }
-  return false;
-};
-
-const rowStyle = (highlightFn, row) => ({ backgroundColor: highlightFn && highlightFn(row) ? 'rgba(74, 149, 247, 0.038)' : 'none' });
-
 const initialState = {
   currentPage: 0,
   sortState: '',
@@ -85,6 +71,8 @@ class Table extends React.Component {
     hoverRowColumn: bool,
     highlightFn: func,
     keyFn: func,
+    customWidth: number,
+    isBestValueInMatch: func,
   }
 
   static renderSumRow({ columns, data }) {
@@ -98,7 +86,14 @@ class Table extends React.Component {
             }
 
             return (
-              <MaterialTableRowColumn key={`${colIndex}_sum`} style={{ color: column.color }}>
+              <MaterialTableRowColumn
+                className={column.className}
+                key={`${colIndex}_sum`}
+                style={{
+                color: column.color,
+                ...getColStyle(column),
+              }}
+              >
                 {column.sumFn && ((column.displaySumFn) ? column.displaySumFn(total) : abbreviateNumber(total))}
               </MaterialTableRowColumn>
             );
@@ -169,6 +164,8 @@ class Table extends React.Component {
       hoverRowColumn,
       highlightFn,
       keyFn,
+      customWidth,
+      isBestValueInMatch,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage, scrolled,
@@ -185,7 +182,7 @@ class Table extends React.Component {
       data = data.slice(currentPage * pageLength, (currentPage + 1) * pageLength);
     }
     return (
-      <StyledBody hoverRowColumn={hoverRowColumn} >
+      <StyledBody hoverRowColumn={hoverRowColumn} customWidth={customWidth}>
         {paginated && <Pagination
           numPages={Math.ceil(dataLength / pageLength)}
           currentPage={currentPage}
@@ -211,7 +208,7 @@ class Table extends React.Component {
               </MaterialTableHeader>
               <MaterialTableBody displayRowCheckbox={false} selectable={false}>
                 {data.map((row, index) => (
-                  <MaterialTableRow key={(keyFn && keyFn(row)) || index} style={rowStyle(highlightFn, row)}>
+                  <MaterialTableRow key={(keyFn && keyFn(row)) || index} {...(highlightFn && highlightFn(row))}>
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,
@@ -227,6 +224,7 @@ class Table extends React.Component {
                         marginBottom: 0,
                         textUnderlinePosition: 'under',
                         textDecorationColor: 'rgb(140, 140, 140)',
+                        ...getColStyle(column),
                       };
 
                       if (center) {
@@ -237,6 +235,7 @@ class Table extends React.Component {
                           <MaterialTableRowColumn
                             key={`${index}_${colIndex}`}
                             style={style}
+                            className={column.className}
                           />
                         );
                       }
@@ -286,11 +285,11 @@ class Table extends React.Component {
                       } else {
                         fieldEl = value;
                       }
-                      if (underline === 'max' || underline === 'min') {
-                        style.textDecoration = toUnderline(data, row, field, underline) ? 'underline' : 'none';
+                      if ((underline === 'max' || underline === 'min') && typeof isBestValueInMatch === 'function') {
+                        style.textDecoration = isBestValueInMatch(field, row, underline) ? 'underline' : 'none';
                       }
                       return (
-                        <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style}>
+                        <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style} className={column.className}>
                           {fieldEl}
                         </MaterialTableRowColumn>
                       );

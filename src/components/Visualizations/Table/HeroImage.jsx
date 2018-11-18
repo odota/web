@@ -47,7 +47,7 @@ const Styled = styled.div`
   flex-direction: column;
   justify-content: center;
   line-height: 1.2;
-  width: 125px;
+  width: 105px;
   text-align: left;
 
   & > span {
@@ -193,7 +193,7 @@ const Styled = styled.div`
   & > div {
     position: absolute;
     width: 100%;
-    height: 104%;
+    height: 100%;
     border-left: 2px solid;
 
     &::after {
