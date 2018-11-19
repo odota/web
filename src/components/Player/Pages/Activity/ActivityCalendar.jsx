@@ -7,6 +7,8 @@ import Table from './../../../Table/Table';
 import playerMatchesColumns from '../Matches/playerMatchesColumns';
 import { WeeksContainer, DayContainer, Week, Styled, Content, WeekDayLabels } from './Styled';
 
+const langCode = window.localStorage.getItem('localization') || 'en-US';
+
 const circleRadius = (dayData, normalizationRatio) => {
   if (!dayData) {
     return 0;
@@ -43,7 +45,7 @@ const getNormalizationRatio = (data) => {
 const getTooltip = (date, data) => {
   const dateString =
     date &&
-    date.toLocaleDateString('en-US', {
+    date.toLocaleDateString(langCode, {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
