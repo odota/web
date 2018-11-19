@@ -5,8 +5,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Helmet from 'react-helmet';
-import styled from 'styled-components';
 import { Route, Switch, Link } from 'react-router-dom';
+import styled from 'styled-components';
 import Header from '../Header';
 import Player from '../Player';
 import Home from '../Home';
@@ -27,30 +27,8 @@ import Api from '../Api';
 import Footer from '../Footer';
 import FourOhFour from '../FourOhFour';
 import constants from '../constants';
-
-const muiTheme = {
-  fontFamily: constants.fontFamily,
-  card: { fontWeight: constants.fontWeightNormal },
-  badge: { fontWeight: constants.fontWeightNormal },
-  subheader: { fontWeight: constants.fontWeightNormal },
-  raisedButton: { fontWeight: constants.fontWeightNormal },
-  flatButton: { fontWeight: constants.fontWeightNormal },
-  inkBar: {
-    backgroundColor: constants.colorBlue,
-  },
-  palette: {
-    textColor: constants.textColorPrimary,
-    primary1Color: constants.colorBlue,
-    canvasColor: constants.primarySurfaceColor,
-    borderColor: constants.dividerColor,
-  },
-  tabs: {
-    backgroundColor: 'transparent',
-    textColor: constants.colorMuted,
-    selectedTextColor: constants.textColorPrimary,
-  },
-  button: { height: 38 },
-};
+import { muiTheme } from './muiTheme';
+import { GlobalStyle } from './GlobalStyle';
 
 const StyledDiv = styled.div`
   transition: ${constants.normalTransition};
@@ -185,6 +163,7 @@ class App extends React.Component {
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
+        <GlobalStyle />
         <StyledDiv {...this.props}>
           <Helmet
             defaultTitle={strings.title_default}
