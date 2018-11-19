@@ -37,6 +37,5 @@ module.exports = {
       }
     ],
     "react/sort-comp": [2],
-    "import/prefer-default-export": 0
   },
 };

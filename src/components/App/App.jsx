@@ -27,8 +27,8 @@ import Api from '../Api';
 import Footer from '../Footer';
 import FourOhFour from '../FourOhFour';
 import constants from '../constants';
-import { muiTheme } from './muiTheme';
-import { GlobalStyle } from './GlobalStyle';
+import muiTheme from './muiTheme';
+import GlobalStyle from './GlobalStyle';
 
 const StyledDiv = styled.div`
   transition: ${constants.normalTransition};
@@ -163,7 +163,7 @@ class App extends React.Component {
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
-        <GlobalStyle />
+        <GlobalStyle />n
         <StyledDiv {...this.props}>
           <Helmet
             defaultTitle={strings.title_default}

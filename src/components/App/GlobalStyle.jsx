@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import constants from '../constants';
 
-export const GlobalStyle = createGlobalStyle([`
+const GlobalStyle = createGlobalStyle([`
 body {
   background-color: initial;
   text-align: initial;
@@ -140,3 +140,5 @@ li {
   }
 }
 `]);
+
+export default GlobalStyle;

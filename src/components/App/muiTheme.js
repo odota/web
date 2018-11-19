@@ -1,6 +1,6 @@
 import constants from '../constants';
 
-export const muiTheme = {
+const muiTheme = {
   fontFamily: constants.fontFamily,
   card: { fontWeight: constants.fontWeightNormal },
   badge: { fontWeight: constants.fontWeightNormal },
@@ -23,3 +23,5 @@ export const muiTheme = {
   },
   button: { height: 38 },
 };
+
+export default muiTheme;
