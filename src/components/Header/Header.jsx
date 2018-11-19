@@ -79,6 +79,7 @@ class Header extends React.Component {
     user: PropTypes.shape({}),
     strings: PropTypes.shape({}),
     navbarPages: PropTypes.arrayOf(PropTypes.shape({})),
+    disableSearch: PropTypes.bool,
   };
 
   constructor() {
@@ -89,7 +90,7 @@ class Header extends React.Component {
 
   render() {
     const {
-      location, small, user, strings, navbarPages,
+      location, small, user, strings, navbarPages, disableSearch,
     } = this.props;
 
     const burgerItems = [
@@ -185,7 +186,7 @@ class Header extends React.Component {
           <VerticalAlignDiv>
             <LogoGroup small={small} />
             {small && <LinkGroup />}
-            <SearchGroup />
+            {!disableSearch && <SearchGroup />}
           </VerticalAlignDiv>
           <VerticalAlignDiv style={{ marginLeft: 'auto' }}>
             {small && <AccountGroup />}
