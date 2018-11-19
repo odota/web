@@ -163,7 +163,7 @@ class App extends React.Component {
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
-        <GlobalStyle />n
+        <GlobalStyle />
         <StyledDiv {...this.props}>
           <Helmet
             defaultTitle={strings.title_default}
