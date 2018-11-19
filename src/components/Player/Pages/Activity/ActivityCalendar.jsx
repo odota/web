@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import constants from '../../../constants';
-import { getDOY } from './../../../../utility/index';
+import { getDOY, getLocalizedWeekdayStrings, getLocalizedMonthStrings } from './../../../../utility/index';
 import Table from './../../../Table/Table';
 import playerMatchesColumns from '../Matches/playerMatchesColumns';
 import { WeeksContainer, DayContainer, Week, Styled, Content, WeekDayLabels } from './Styled';
 
 const langCode = window.localStorage.getItem('localization') || 'en-US';
+const weekDayStrings = getLocalizedWeekdayStrings();
+const monthStrings = getLocalizedMonthStrings();
 
 const circleRadius = (dayData, normalizationRatio) => {
   if (!dayData) {
@@ -101,7 +103,7 @@ const Day = ({
           onMouseEnter={handleMonthHoverOn}
           onMouseLeave={handleMonthHoverOff}
         >
-          {strings[`month_abbr_${month}`]}
+          {monthStrings[month]}
           {month === 0 && <span className="year">{year}</span>}
         </div>
       )}
@@ -297,7 +299,7 @@ const ActivityCalendar = ({ strings, data }) => {
             <WeeksContainer>
               <WeekDayLabels>
                 {[...Array(7)].map((_, i) => (
-                  <div>{strings[`day_abbr_${i}`]}</div>
+                  <div>{weekDayStrings[i]}</div>
                 ))}
               </WeekDayLabels>
               <Weeks
