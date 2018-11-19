@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Helmet from 'react-helmet';
 import querystring from 'querystring';
-import json2csv from 'json2csv';
+import Papa from 'papaparse';
 import Heading from '../Heading';
 import {
   getProPlayers,
@@ -279,7 +279,7 @@ class Explorer extends React.Component {
           */}
             <ExplorerOutputButton
               label={strings.explorer_csv_button}
-              href={`data:application/octet-stream,${encodeURIComponent(json2csv({
+              href={`data:application/octet-stream,${encodeURIComponent(Papa.unparse({
               data: this.state.result.rows || [],
               fields: (this.state.result.fields || []).map(field => field.name),
             }))}`}
