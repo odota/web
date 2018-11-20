@@ -883,3 +883,15 @@ export function getColStyle(column) {
     direction: column.textAlign === 'right' && 'rtl',
   };
 }
+
+export function getLocalizedWeekdayStrings() {
+  const langCode = window.localStorage.getItem('localization') || 'en-US';
+  const d = new Date();
+  return [...Array(7)].map((_, i) => new Date(d.setDate(d.getDate() - d.getDay() + i)).toLocaleDateString(langCode, { weekday: 'short' }));
+}
+
+export function getLocalizedMonthStrings() {
+  const langCode = window.localStorage.getItem('localization') || 'en-US';
+  const d = new Date();
+  return [...Array(12)].map((_, i) => new Date(d.setMonth(i)).toLocaleDateString(langCode, { month: 'short' }));
+}
