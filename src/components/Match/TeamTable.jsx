@@ -48,6 +48,7 @@ class TeamTable extends React.Component {
     buttonIcon: PropTypes.string,
     customWidth: PropTypes.number,
     radiantWin: PropTypes.bool,
+    overflowAuto: PropTypes.bool,
   };
   constructor() {
     super();
@@ -104,7 +105,19 @@ class TeamTable extends React.Component {
       buttonIcon,
       customWidth,
       radiantWin,
+      overflowAuto,
     } = this.props;
+
+    const tableProps = {
+      columns,
+      summable,
+      hoverRowColumn,
+      highlightFn: getHighlightFn(loggedInId),
+      keyFn,
+      customWidth,
+      isBestValueInMatch: isBestValueInMatch(players),
+      overflowAuto,
+    };
 
     return (
       <div ref={this.setTeamTableRef}>
@@ -116,14 +129,14 @@ class TeamTable extends React.Component {
           buttonIcon={buttonIcon || ''}
           winner={radiantWin}
         />
-        <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} customWidth={customWidth} isBestValueInMatch={isBestValueInMatch(players)} />
+        <Table data={filterMatchPlayers(players, 'radiant')} {...tableProps} />
         {picksBans && picksBans.length > 0 && <PicksBans data={picksBans.filter(pb => pb.team === 0)} style={{ marginBottom: -25 }} /> /* team 0 - radiant */}
         <Heading
           title={`${getTeamName(direTeam, false)} - ${heading}`}
           icon={<IconDire />}
           winner={!radiantWin}
         />
-        <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} customWidth={customWidth} isBestValueInMatch={isBestValueInMatch(players)} />
+        <Table data={filterMatchPlayers(players, 'dire')} {...tableProps} />
         {picksBans && picksBans.length > 0 && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
       </div>
     );

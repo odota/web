@@ -60,6 +60,7 @@ class Purchases extends React.Component {
           buttonIcon={sponsorIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
+          overflowAuto
         />
       </div>);
   }

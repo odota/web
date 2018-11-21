@@ -73,6 +73,7 @@ class Table extends React.Component {
     keyFn: func,
     customWidth: number,
     isBestValueInMatch: func,
+    overflowAuto: bool,
   }
 
   static renderSumRow({ columns, data }) {
@@ -166,6 +167,7 @@ class Table extends React.Component {
       keyFn,
       customWidth,
       isBestValueInMatch,
+      overflowAuto,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage, scrolled,
@@ -196,7 +198,7 @@ class Table extends React.Component {
           {!loading && error && <Error />}
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
-          <div className={`innerContainer ${scrolled && 'scrolled'} ${this.doShrink && 'shrink'}`}>
+          <div className={`innerContainer ${scrolled && 'scrolled'} ${this.doShrink && 'shrink'} ${overflowAuto && 'table-container-overflow-auto'}`}>
             <MaterialTable fixedHeader={false} selectable={false} ref={this.setTableRef}>
               <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableHeader
