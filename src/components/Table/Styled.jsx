@@ -91,7 +91,15 @@ export const StyledBody = styled.div`
   .innerContainer > div > div {
     overflow-y: hidden !important;
     overflow-x: auto !important;
+    @media only screen and (min-width: 1200px) { 
+      overflow-x: hidden !important;
+    }
   }
+
+  .innerContainer.table-container-overflow-auto > div > div {
+    overflow-x: auto !important;
+  }
+
   @media only screen and (max-width: 960px) {
     .innerContainer {
       margin: 0 -25px;
@@ -111,7 +119,7 @@ export const StyledBody = styled.div`
 
   /* -- scrolling behavior -- */
   .scrolled.shrink .textContainer {
-    width: 50px !important;
+    width: 40px !important;
     margin-right: 0px !important;
   }
 
