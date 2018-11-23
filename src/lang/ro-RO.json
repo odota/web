@@ -417,7 +417,7 @@
   "heading_damage_received": "Daune primite",
   "show_details": "Afișează detalii",
   "hide_details": "Ascunde detalii",
-  "subheading_avg_and_max": "în ultimele {0} meciuri",
+  "subheading_avg_and_max": "în ultimele {0} meciuri afișate",
   "subheading_records": "În meciuri contorizate. Recordurile se resetează lunar.",
   "subheading_team_elo_rankings": "k=32, init=1000",
   "hero_pro_tab": "Profesionist",
@@ -1135,5 +1135,6 @@
   "gosu_actions": "Află timpul pierdut din cauza folosirii mouse-ului în locul hotkey-urilor",
   "gosu_teamfights": "Află pe cine să vizezi în timpul luptelor",
   "gosu_analysis": "Află adevărata ta divizie MMR",
-  "back2Top": "Înapoi sus"
+  "back2Top": "Înapoi sus",
+  "activity_subtitle": "Faceți click pe o zi pentru informații detaliate"
 }
