@@ -6,14 +6,6 @@ import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import styled from 'styled-components';
 import StripeCheckout from 'react-stripe-checkout';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
 
 const path = '/keys';
 
@@ -37,13 +29,20 @@ const KeyContainer = styled.pre`
 `;
 
 const TableContainer = styled.div`
-  width: 80%;
-  margin: 0 auto; 
-  
+  table {
+    width: 80%;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.011);
+  }
+
   & table td, table th {
     white-space: inherit !important;
   }
-  
+
+  th {
+    color: rgb(255, 128, 171);
+  }
+ 
   @media only screen and (max-width: 768px) {
     width: 100%;
   }
@@ -254,28 +253,28 @@ class KeyManagement extends React.Component {
                         <div>
                           <h4>{strings.api_header_usage}</h4>
                           <TableContainer>
-                            <Table>
-                              <TableHeader
+                            <table>
+                              <thead
                                 displaySelectAll={false}
                                 adjustForCheckbox={false}
                               >
-                                <TableRow>
-                                  <TableHeaderColumn>{strings.api_month}</TableHeaderColumn>
-                                  <TableHeaderColumn>{strings.api_usage_calls}</TableHeaderColumn>
-                                  <TableHeaderColumn>{strings.api_usage_fees}</TableHeaderColumn>
-                                </TableRow>
-                              </TableHeader>
-                              <TableBody
+                                <tr>
+                                  <th>{strings.api_month}</th>
+                                  <th>{strings.api_usage_calls}</th>
+                                  <th>{strings.api_usage_fees}</th>
+                                </tr>
+                              </thead>
+                              <tbody
                                 displayRowCheckbox={false}
                               >
                                 { this.state.usage.map(e => (
-                                  <TableRow key={e.month}>
-                                    <TableRowColumn>{e.month}</TableRowColumn>
-                                    <TableRowColumn>{e.usage_count}</TableRowColumn>
-                                    <TableRowColumn>{`$${Number(premPrice * Math.ceil(e.usage_count / premUnit)).toFixed(2)}`}</TableRowColumn>
-                                  </TableRow>))}
-                              </TableBody>
-                            </Table>
+                                  <tr key={e.month}>
+                                    <td>{e.month}</td>
+                                    <td>{e.usage_count}</td>
+                                    <td>{`$${Number(premPrice * Math.ceil(e.usage_count / premUnit)).toFixed(2)}`}</td>
+                                  </tr>))}
+                              </tbody>
+                            </table>
                           </TableContainer>
                         </div>
                       : <div />
@@ -285,48 +284,48 @@ class KeyManagement extends React.Component {
                 }
                 <h3>{strings.api_header_table}</h3>
                 <TableContainer>
-                  <Table>
-                    <TableHeader
+                  <table>
+                    <thead
                       displaySelectAll={false}
                       adjustForCheckbox={false}
                     >
-                      <TableRow>
-                        <TableHeaderColumn />
-                        <TableHeaderColumn>{strings.api_details_free_tier}</TableHeaderColumn>
-                        <TableHeaderColumn>{strings.api_details_premium_tier}</TableHeaderColumn>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody
+                      <tr>
+                        <th />
+                        <th>{strings.api_details_free_tier}</th>
+                        <th>{strings.api_details_premium_tier}</th>
+                      </tr>
+                    </thead>
+                    <tbody
                       displayRowCheckbox={false}
                     >
-                      <TableRow>
-                        <TableHeaderColumn>{strings.api_details_price}</TableHeaderColumn>
-                        <TableRowColumn>{strings.api_details_price_free}</TableRowColumn>
-                        <TableRowColumn>{strings.api_details_price_prem.replace('price', premPrice).replace('$unit', premUnit)}</TableRowColumn>
-                      </TableRow>
-                      <TableRow>
-                        <TableHeaderColumn>{strings.api_details_key_required}</TableHeaderColumn>
-                        <TableRowColumn>{strings.api_details_key_required_free}</TableRowColumn>
-                        <TableRowColumn>{strings.api_details_key_required_prem}</TableRowColumn>
-                      </TableRow>
-                      <TableRow>
-                        <TableHeaderColumn>{strings.api_details_call_limit}</TableHeaderColumn>
-                        <TableRowColumn>{strings.api_details_call_limit_free.replace('$limit', freeCallLimit)}</TableRowColumn>
-                        <TableRowColumn>{strings.api_details_call_limit_prem}</TableRowColumn>
-                      </TableRow>
-                      <TableRow>
-                        <TableHeaderColumn>{strings.api_details_rate_limit}</TableHeaderColumn>
-                        <TableRowColumn>{strings.api_details_rate_limit_val.replace('$num', freeRateLimit)}</TableRowColumn>
-                        <TableRowColumn>{strings.api_details_rate_limit_val.replace('$num', premRateLimit)}</TableRowColumn>
-                      </TableRow>
-                      <TableRow>
-                        <TableHeaderColumn>{strings.api_details_support}</TableHeaderColumn>
-                        <TableRowColumn>{strings.api_details_support_free}</TableRowColumn>
-                        <TableRowColumn>{strings.api_details_support_prem}</TableRowColumn>
-                      </TableRow>
-                      <TableRow style={{ height: '24px' }} />
-                    </TableBody>
-                  </Table>
+                      <tr>
+                        <th>{strings.api_details_price}</th>
+                        <td>{strings.api_details_price_free}</td>
+                        <td>{strings.api_details_price_prem.replace('price', premPrice).replace('$unit', premUnit)}</td>
+                      </tr>
+                      <tr>
+                        <th>{strings.api_details_key_required}</th>
+                        <td>{strings.api_details_key_required_free}</td>
+                        <td>{strings.api_details_key_required_prem}</td>
+                      </tr>
+                      <tr>
+                        <th>{strings.api_details_call_limit}</th>
+                        <td>{strings.api_details_call_limit_free.replace('$limit', freeCallLimit)}</td>
+                        <td>{strings.api_details_call_limit_prem}</td>
+                      </tr>
+                      <tr>
+                        <th>{strings.api_details_rate_limit}</th>
+                        <td>{strings.api_details_rate_limit_val.replace('$num', freeRateLimit)}</td>
+                        <td>{strings.api_details_rate_limit_val.replace('$num', premRateLimit)}</td>
+                      </tr>
+                      <tr>
+                        <th>{strings.api_details_support}</th>
+                        <td>{strings.api_details_support_free}</td>
+                        <td>{strings.api_details_support_prem}</td>
+                      </tr>
+                      <tr style={{ height: '24px' }} />
+                    </tbody>
+                  </table>
                 </TableContainer>
 
                 <h3>{strings.api_header_details}</h3>

@@ -1,12 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Table as MaterialTable,
-  TableBody as MaterialTableBody,
-  TableHeader as MaterialTableHeader,
-  TableRow as MaterialTableRow,
-  TableRowColumn as MaterialTableRowColumn,
-} from 'material-ui/Table';
 import { abbreviateNumber, SORT_ENUM, defaultSort, getColStyle } from '../../utility';
 import { TablePercent } from '../Visualizations';
 import Pagination from '../Table/PaginatedTable/Pagination';
@@ -78,7 +71,7 @@ class Table extends React.Component {
 
   static renderSumRow({ columns, data }) {
     return (
-      <MaterialTableRow>
+      <tr>
         {columns.map((column, colIndex) => {
             let total = 0;
             if (column.sumFn) {
@@ -87,7 +80,7 @@ class Table extends React.Component {
             }
 
             return (
-              <MaterialTableRowColumn
+              <td
                 className={column.className}
                 key={`${colIndex}_sum`}
                 style={{
@@ -96,10 +89,10 @@ class Table extends React.Component {
               }}
               >
                 {column.sumFn && ((column.displaySumFn) ? column.displaySumFn(total) : abbreviateNumber(total))}
-              </MaterialTableRowColumn>
+              </td>
             );
           })}
-      </MaterialTableRow>
+      </tr>
     );
   }
 
@@ -108,10 +101,9 @@ class Table extends React.Component {
   setTableRef = (node) => {
     if (node) {
       this.innerContainerRef = node;
-      const { tableDiv } = this.innerContainerRef.refs;
       // only shrink first column if there is enough wiggle room
-      this.doShrink = (tableDiv.scrollWidth - tableDiv.clientWidth) > 90;
-      tableDiv.onscroll = this.handleScroll;
+      this.doShrink = (this.innerContainerRef.scrollWidth - this.innerContainerRef.clientWidth) > 90;
+      this.innerContainerRef.onscroll = this.handleScroll;
     }
   }
 
@@ -123,7 +115,7 @@ class Table extends React.Component {
 
   handleScroll = () => {
     const { scrolled } = this.state;
-    const { scrollLeft } = this.innerContainerRef.refs.tableDiv;
+    const { scrollLeft } = this.innerContainerRef;
     if ((!scrolled && scrollLeft) || (scrolled && !scrollLeft)) {
       this.setState({
         scrolled: scrollLeft,
@@ -198,19 +190,23 @@ class Table extends React.Component {
           {!loading && error && <Error />}
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
-          <div className={`innerContainer ${scrolled && 'scrolled'} ${this.doShrink && 'shrink'} ${overflowAuto && 'table-container-overflow-auto'}`}>
-            <MaterialTable fixedHeader={false} selectable={false} ref={this.setTableRef}>
-              <MaterialTableHeader displaySelectAll={false} adjustForCheckbox={false}>
+          <div
+            className={`innerContainer ${scrolled && 'scrolled'} ${this.doShrink &&
+              'shrink'} ${overflowAuto && 'table-container-overflow-auto'}`}
+            ref={this.setTableRef}
+          >
+            <table>
+              <thead displaySelectAll={false} adjustForCheckbox={false}>
                 <TableHeader
                   columns={columns}
                   sortState={sortState}
                   sortField={sortField}
                   sortClick={this.sortClick}
                 />
-              </MaterialTableHeader>
-              <MaterialTableBody displayRowCheckbox={false} selectable={false}>
+              </thead>
+              <tbody >
                 {data.map((row, index) => (
-                  <MaterialTableRow key={(keyFn && keyFn(row)) || index} {...(highlightFn && highlightFn(row))}>
+                  <tr key={(keyFn && keyFn(row)) || index} {...(highlightFn && highlightFn(row))}>
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,
@@ -234,7 +230,7 @@ class Table extends React.Component {
                       }
                       if (!row) {
                         return (
-                          <MaterialTableRowColumn
+                          <td
                             key={`${index}_${colIndex}`}
                             style={style}
                             className={column.className}
@@ -291,16 +287,16 @@ class Table extends React.Component {
                         style.textDecoration = isBestValueInMatch(field, row, underline) ? 'underline' : 'none';
                       }
                       return (
-                        <MaterialTableRowColumn key={`${index}_${colIndex}`} style={style} className={column.className}>
+                        <td style={style} className={column.className}>
                           {fieldEl}
-                        </MaterialTableRowColumn>
+                        </td>
                       );
                     })}
-                  </MaterialTableRow>
+                  </tr>
                 ))}
                 {summable && Table.renderSumRow({ columns, data })}
-              </MaterialTableBody>
-            </MaterialTable>
+              </tbody>
+            </table>
           </div>)}
         </StyledContainer>
         {paginated && <Pagination

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid';
-import { TableHeaderColumn as MaterialTableHeaderColumn } from 'material-ui/Table';
 import { getSortIcon } from './tableHelpers';
 import { StyledHeaderCell } from './Styled';
 import { getColStyle } from '../../utility';
@@ -15,7 +14,7 @@ const TableHeaderColumn = ({
     justifyContent: column.center ? 'center' : null,
   };
   return (
-    <MaterialTableHeaderColumn
+    <th
       style={{
         backgroundColor: column.colColor,
         ...getColStyle(column),
@@ -41,7 +40,7 @@ const TableHeaderColumn = ({
           }
         </div>
       </StyledHeaderCell>
-    </MaterialTableHeaderColumn>
+    </th>
   );
 };
 
