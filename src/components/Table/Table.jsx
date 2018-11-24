@@ -196,7 +196,7 @@ class Table extends React.Component {
             ref={this.setTableRef}
           >
             <table>
-              <thead displaySelectAll={false} adjustForCheckbox={false}>
+              <thead>
                 <TableHeader
                   columns={columns}
                   sortState={sortState}

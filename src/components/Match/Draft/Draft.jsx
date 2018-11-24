@@ -227,10 +227,8 @@ const Draft = ({
             icon={<IconDire />}
           />
         </section>
-        <table selectable={false}>
+        <table>
           <tbody
-            displayRowCheckbox={false}
-            selectable={false}
             className="draft-table"
           >
             {gameMode === 2 ?
