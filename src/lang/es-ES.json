@@ -619,7 +619,7 @@
   "story_list_n": "{i}, {rest}",
   "story_firstblood": "la primera sangre fue derramada cuando {killer} mato a {victim} en {time}",
   "story_chatmessage": "\"{message}\", {player} {said_verb}",
-  "story_teamfight": "{winning_team} gano una teamfight tradeando {win_dead} por {lose_dead}, resultando en un incremento de net worth de {net_change}",
+  "story_teamfight": "{winning_team} gano una pelea de equipo intercambiando a {win_dead} por {lose_dead}, resultando en un incremento del valor neto de {net_change}",
   "story_teamfight_none_dead": "{winning_team} gano una teamfight matando a {lose_dead} sin perder ningun heroe, reusltando en un incremento de net worth increase de {net_change}",
   "story_teamfight_none_dead_loss": "{winning_team} de algún modo ganó una pelea de equipo sin asesinar a nadie, perdió {win_dead}, resultando en un incremento de net worth de {net_change}",
   "story_lane_intro": "A los 10 minutos dentro de la partida, las lineas fueron las siguientes:",
