@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import fetch from 'isomorphic-fetch';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
 

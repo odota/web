@@ -1,5 +1,4 @@
 import React from 'react';
-import fetch from 'isomorphic-fetch';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';

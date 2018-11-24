@@ -5,10 +5,31 @@ export const StyledBody = styled.div`
   table {
     background-color: transparent !important;
     table-layout: auto !important;
-    margin-bottom: 20px;
+    font-family: ${constants.tableFontFamily} !important;
+    box-sizing: border-box;
+
+    ${props => (props.customWidth ? `
+      table-layout: fixed !important;
+      `
+    : '')}
+          
+    thead {
+      border-style: none !important;
+      background-color: rgba(0, 0, 0, .17);
+    }
+
+    tr {
+      border-style: none !important;
+    }
 
     & th {
-      background-color: rgba(0, 0, 0, 0.3);
+      height: 48px !important;
+
+      svg {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+      }
 
       & svg {
         vertical-align: top;
@@ -26,7 +47,14 @@ export const StyledBody = styled.div`
       }
     }
 
-    & tr {
+
+    & tbody tr {
+      
+      & td {
+        border-bottom-width: 0px !important;
+        border-top-width: 0px !important;
+      }
+      
       &:nth-child(odd) {
         background-color: rgba(255, 255, 255, 0.019);
       }
@@ -34,17 +62,14 @@ export const StyledBody = styled.div`
       &:nth-child(even) {
         background-color: rgba(0, 0, 0, 0.019);
       }
-
-      & td {
-        border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
-        border-bottom: 0 !important;
-      }
     }
+
 
     & th,
     & td {
-      padding-left: 8px !important;
-      padding-right: 8px !important;
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      overflow: visible !important;
 
       &:first-child {
         padding-left: 24px !important;
@@ -57,10 +82,24 @@ export const StyledBody = styled.div`
   }
   /* Override material-ui style */
 
+
+  .innerContainer {
+    background-color: rgba(19, 18, 18, 0.08) !important;
+    margin-bottom: 20px !important;
+  }
+
   .innerContainer > div > div {
     overflow-y: hidden !important;
     overflow-x: auto !important;
+    @media only screen and (min-width: 1200px) { 
+      overflow-x: hidden !important;
+    }
   }
+
+  .innerContainer.table-container-overflow-auto > div > div {
+    overflow-x: auto !important;
+  }
+
   @media only screen and (max-width: 960px) {
     .innerContainer {
       margin: 0 -25px;
@@ -80,7 +119,7 @@ export const StyledBody = styled.div`
 
   /* -- scrolling behavior -- */
   .scrolled.shrink .textContainer {
-    width: 50px !important;
+    width: 40px !important;
     margin-right: 0px !important;
   }
 
@@ -129,7 +168,8 @@ export const StyledBody = styled.div`
   .scrolled th:first-child {
     background-color: rgba(33, 34, 44, 0.8) !important;
     z-index: 100;
-    transition: all 0.5s ease-out !important;
+    transition: background-color 0.5s ease-out !important;
+    width: 60px !important;
   }
 
   .scrolled tr {
@@ -137,8 +177,9 @@ export const StyledBody = styled.div`
       & td:first-child {
         background-color: rgba(33, 34, 44, 0.8) !important;
         z-index: 100;
-        transition: all 0.5s ease-out !important;
+        transition: background-color 0.5s ease-out !important;
         padding-right: 0px !important;
+        width: 60px !important;
       }
     }
 
@@ -146,8 +187,9 @@ export const StyledBody = styled.div`
       & td:first-child {
         background-color: rgba(33, 34, 44, 0.8) !important;
         z-index: 100;
-        transition: all 0.5s ease-out !important;
+        transition: background-color 0.5s ease-out !important;
         padding-right: 0px !important;
+        width: 60px !important;
       }
     }
 `;

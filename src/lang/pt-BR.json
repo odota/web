@@ -417,7 +417,7 @@
   "heading_damage_received": "Dano Sofrido",
   "show_details": "Exibir detalhes",
   "hide_details": "Ocultar detalhes",
-  "subheading_avg_and_max": "nas últimas {0} partidas",
+  "subheading_avg_and_max": "na(s) última(s) {0} partida(s) exibida(s)",
   "subheading_records": "Em partidas ranqueadas. Recordes reiniciam mensalmente.",
   "subheading_team_elo_rankings": "k = 32, init = 1000",
   "hero_pro_tab": "Profissional",
@@ -1135,5 +1135,6 @@
   "gosu_actions": "Entenda o tempo perdido usando o mouse ao invés dos atalhos do teclado",
   "gosu_teamfights": "Entenda quem focar durante as batalhas de equipe",
   "gosu_analysis": "Obter seu ranking real",
-  "back2Top": "Topo"
+  "back2Top": "Topo",
+  "activity_subtitle": "Clique no dia para informações detalhadas"
 }

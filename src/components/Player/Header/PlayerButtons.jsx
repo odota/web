@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import ActionUpdate from 'material-ui/svg-icons/navigation/refresh';
-import fetch from 'isomorphic-fetch';
 import styled from 'styled-components';
-import { toggleShowForm as toggleShowFormAction } from '../../../actions';
+import { toggleShowForm as toggleShowFormAction } from '../../../actions/formActions';
 import ShowFormToggle from '../../Form/ShowFormToggle';
 
 const Styled = styled.div`

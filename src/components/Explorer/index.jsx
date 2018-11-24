@@ -2,12 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import fetch from 'isomorphic-fetch';
 import RaisedButton from 'material-ui/RaisedButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Helmet from 'react-helmet';
 import querystring from 'querystring';
-import json2csv from 'json2csv';
+import Papa from 'papaparse';
 import Heading from '../Heading';
 import {
   getProPlayers,
@@ -113,7 +112,6 @@ class Explorer extends React.Component {
 
   handleCancel = () => {
     this.setState({
-      ...this.state,
       loading: false,
     });
     window.stop();
@@ -121,30 +119,38 @@ class Explorer extends React.Component {
 
   handleFieldUpdate = (builderField, value) => {
     this.setState({
-      ...this.state,
       builder: {
         ...this.state.builder,
         [builderField]: value,
       },
-    }, this.buildQuery);
+    });
   };
 
-  handleQuery = () => {
-    if (this.state.loadingEditor === true) {
-      return setTimeout(this.handleQuery, 1000);
-    }
-    this.setState({
-      ...this.state,
-      loading: true,
-    });
+  sendRequest = () => {
+    this.buildQuery();
     this.syncWindowHistory();
     const sqlString = this.getSqlString();
     return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
+  }
+
+  handleQuery = () => {
+    const { builder } = this.state;
+    const { select, group } = builder;
+    if (this.state.loadingEditor === true) {
+      setTimeout(this.handleQuery, 1000);
+    } else {
+      this.setState({
+        loading: true,
+        builder: {
+          ...builder,
+          select: group && (!select || select.length < 1) ? 'kills' : select,
+        },
+      }, this.sendRequest);
+    }
   };
 
   handleResponse = (json) => {
     this.setState({
-      ...this.state,
       loading: false,
       result: json,
     });
@@ -273,7 +279,7 @@ class Explorer extends React.Component {
           */}
             <ExplorerOutputButton
               label={strings.explorer_csv_button}
-              href={`data:application/octet-stream,${encodeURIComponent(json2csv({
+              href={`data:application/octet-stream,${encodeURIComponent(Papa.unparse({
               data: this.state.result.rows || [],
               fields: (this.state.result.fields || []).map(field => field.name),
             }))}`}

@@ -52,6 +52,8 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
             direTeam={match.dire_team}
             summable
             hoverRowColumn
+            customWidth={960}
+            radiantWin={match.radiant_win}
           />
       }
         {

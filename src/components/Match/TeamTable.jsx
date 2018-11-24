@@ -7,9 +7,26 @@ import { IconRadiant, IconDire } from '../Icons';
 import Table from '../Table';
 import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
 
+const isBestValueInMatch = players => (field, row, underline) => {
+  const values = players.map(player => player[field]);
+  const bestValue = underline === 'max' ? Math.max(...values) : Math.min(...values);
+
+  return bestValue === row[field];
+};
+
 const keyFn = row => row && row.player_slot + 1;
 
-const getHighlightFn = loggedInId => row => loggedInId && row.account_id === loggedInId;
+const getHighlightFn = loggedInId => (row) => {
+  const s = { style: {} };
+  if (loggedInId && row.account_id === loggedInId) {
+    if (row.player_slot < 5) {
+      s.style.backgroundColor = 'rgba(18, 156, 40, 0.09)';
+    } else {
+      s.style.backgroundColor = 'rgba(156, 18, 18, 0.09)';
+    }
+  }
+  return s;
+};
 
 const filterMatchPlayers = (players, team = '') =>
   players.filter(player =>
@@ -29,6 +46,9 @@ class TeamTable extends React.Component {
     buttonLabel: PropTypes.string,
     buttonTo: PropTypes.string,
     buttonIcon: PropTypes.string,
+    customWidth: PropTypes.number,
+    radiantWin: PropTypes.bool,
+    overflowAuto: PropTypes.bool,
   };
   constructor() {
     super();
@@ -48,7 +68,7 @@ class TeamTable extends React.Component {
   }
 
   addListeners() {
-    const tableCells = this.teamTableRef.querySelectorAll('td, th');
+    const tableCells = this.teamTableRef.querySelectorAll('td:not(.no-col-hover), th:not(.no-col-hover)');
 
     for (let i = 0; i < tableCells.length; i += 1) {
       tableCells[i].onmouseenter = () => {
@@ -83,7 +103,21 @@ class TeamTable extends React.Component {
       buttonLabel,
       buttonTo,
       buttonIcon,
+      customWidth,
+      radiantWin,
+      overflowAuto,
     } = this.props;
+
+    const tableProps = {
+      columns,
+      summable,
+      hoverRowColumn,
+      highlightFn: getHighlightFn(loggedInId),
+      keyFn,
+      customWidth,
+      isBestValueInMatch: isBestValueInMatch(players),
+      overflowAuto,
+    };
 
     return (
       <div ref={this.setTeamTableRef}>
@@ -93,15 +127,17 @@ class TeamTable extends React.Component {
           buttonLabel={buttonLabel || ''}
           buttonTo={buttonTo || ''}
           buttonIcon={buttonIcon || ''}
+          winner={radiantWin}
         />
-        <Table data={filterMatchPlayers(players, 'radiant')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} />
-        {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
+        <Table data={filterMatchPlayers(players, 'radiant')} {...tableProps} />
+        {picksBans && picksBans.length > 0 && <PicksBans data={picksBans.filter(pb => pb.team === 0)} style={{ marginBottom: -25 }} /> /* team 0 - radiant */}
         <Heading
           title={`${getTeamName(direTeam, false)} - ${heading}`}
           icon={<IconDire />}
+          winner={!radiantWin}
         />
-        <Table data={filterMatchPlayers(players, 'dire')} columns={columns} summable={summable} hoverRowColumn={hoverRowColumn} highlightFn={getHighlightFn(loggedInId)} keyFn={keyFn} />
-        {picksBans && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
+        <Table data={filterMatchPlayers(players, 'dire')} {...tableProps} />
+        {picksBans && picksBans.length > 0 && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
       </div>
     );
   }

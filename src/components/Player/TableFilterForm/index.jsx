@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import fetch from 'isomorphic-fetch';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import querystring from 'querystring';

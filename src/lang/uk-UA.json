@@ -417,7 +417,7 @@
   "heading_damage_received": "Damage Received",
   "show_details": "Show details",
   "hide_details": "Hide details",
-  "subheading_avg_and_max": "in last {0} matches",
+  "subheading_avg_and_max": "in last {0} displayed matches",
   "subheading_records": "У рейтингових матчах. Записи оновлюються щомісяця.",
   "subheading_team_elo_rankings": "k=32, init=1000",
   "hero_pro_tab": "Професійний",
@@ -1135,5 +1135,6 @@
   "gosu_actions": "Get your lost time from mouse usage vs hotkeys",
   "gosu_teamfights": "Get who to target during teamfights",
   "gosu_analysis": "Get your real MMR bracket",
-  "back2Top": "Back to Top"
+  "back2Top": "Back to Top",
+  "activity_subtitle": "Click on a day for detailed information"
 }

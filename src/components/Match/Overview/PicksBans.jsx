@@ -7,12 +7,14 @@ import { IMAGESIZE_ENUM } from '../../../utility';
 import HeroImage from './../../Visualizations/HeroImage';
 
 const Styled = styled.div`
+bottom: 15px;
+margin-top: -20px;
+
 .PicksBans {
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  margin: 0 24px;
 
   & > section {
     position: relative;
@@ -33,7 +35,7 @@ const Styled = styled.div`
   }
 }
 
-.image {
+img {
   position: relative;
   height: 29px;
   box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
@@ -66,8 +68,8 @@ const Styled = styled.div`
 }
 `;
 
-const PicksBans = ({ data, strings }) => (
-  <Styled>
+const PicksBans = ({ data, strings, style }) => (
+  <Styled style={style}>
     <div className="PicksBans">
       {data.map(pb => (
         <section key={pb.order}>
@@ -85,6 +87,7 @@ const PicksBans = ({ data, strings }) => (
 PicksBans.propTypes = {
   data: PropTypes.arrayOf({}),
   strings: PropTypes.shape({}),
+  style: PropTypes.shape({}),
 };
 
 const mapStateToProps = state => ({

@@ -417,7 +417,7 @@
   "heading_damage_received": "Урона получено",
   "show_details": "Показать подробности",
   "hide_details": "Скрыть подробности",
-  "subheading_avg_and_max": "в последних {0} матчах",
+  "subheading_avg_and_max": "in last {0} displayed matches",
   "subheading_records": "В рейтинге. Записи обновляются ежемеясчно.",
   "subheading_team_elo_rankings": "k=32, init=1000",
   "hero_pro_tab": "Профессионал",
@@ -1135,5 +1135,6 @@
   "gosu_actions": "Показать сколько времени вы потеряли используя мышь а не горячие клавиши",
   "gosu_teamfights": "Показать на кого вы ориентировались во время тимфайта",
   "gosu_analysis": "Получить ваш реальный MMR диапазон",
-  "back2Top": "Наверх"
+  "back2Top": "Наверх",
+  "activity_subtitle": "Click on a day for detailed information"
 }

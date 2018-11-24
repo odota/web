@@ -36,6 +36,6 @@ module.exports = {
         ]
       }
     ],
-    "react/sort-comp": [2]
+    "react/sort-comp": [2],
   },
 };

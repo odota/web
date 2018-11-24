@@ -1,5 +1,3 @@
-import fetch from 'isomorphic-fetch';
-
 const url = '/api/request';
 
 const START = 'request/START';

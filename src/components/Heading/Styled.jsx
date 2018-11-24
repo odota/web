@@ -5,6 +5,34 @@ export const StyledDiv = styled.div`
   margin-top: 15px;
   margin-bottom: 15px;
 
+  .winner {
+    position: relative;
+    bottom: 1px;
+    background: rgb(25, 25, 25);
+    font-size: 10px;
+    padding: 1px;
+    padding-right: 4px;
+    margin-left: 10px;
+    margin-right: 5px;
+    letter-spacing: 1px;
+    color: rgb(210, 210, 210);
+    text-transform: uppercase;
+  }
+
+  .winner:after {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-right-color: rgb(25, 25, 25);
+    border-width: 8px;
+    margin-top: -8px;
+  }
+
   & svg {
     vertical-align: middle;
     height: 26px !important;
@@ -58,7 +86,7 @@ export const StyledDiv = styled.div`
   }
 `;
 
-export const TwoLineDiv = StyledDiv.extend`
+export const TwoLineDiv = styled(StyledDiv)`
   text-align: center;
   padding: 10px 0 15px;
 
