@@ -123,11 +123,10 @@ class Explorer extends React.Component {
         ...this.state.builder,
         [builderField]: value,
       },
-    });
+    }, this.buildQuery);
   };
 
   sendRequest = () => {
-    this.buildQuery();
     this.syncWindowHistory();
     const sqlString = this.getSqlString();
     return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
@@ -138,13 +137,20 @@ class Explorer extends React.Component {
     const { select, group } = builder;
     if (this.state.loadingEditor === true) {
       setTimeout(this.handleQuery, 1000);
+    } 
+    else if (group && (!select || select.length < 1)) {
+      this.setState({
+        builder: {
+          ...builder,
+          select: 'kills',
+        },
+      }, () => {
+        this.buildQuery();
+        this.handleQuery();
+      });
     } else {
       this.setState({
         loading: true,
-        builder: {
-          ...builder,
-          select: group && (!select || select.length < 1) ? 'kills' : select,
-        },
       }, this.sendRequest);
     }
   };
