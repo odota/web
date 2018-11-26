@@ -139,6 +139,28 @@ li {
     bottom: -3px;
   }
 }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+  height: 48px;
+  font-size: 13px;
+  text-align: left;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+th {
+  height: 56px;
+  font-weight: normal;
+  font-size: 12px;
+  text-align: left;
+  padding-left: 24px;
+  padding-right: 24px;
+}
 `]);
 
 export default GlobalStyle;

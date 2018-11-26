@@ -2,12 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import {
-  Table,
-  TableRow,
-  TableRowColumn,
-  TableBody,
-} from 'material-ui/Table';
 import heroes from 'dotaconstants/build/heroes.json';
 import ReactTooltip from 'react-tooltip';
 import { abbreviateNumber } from '../../utility';
@@ -21,8 +15,10 @@ const StyledDiv = styled.div`
 table {
   border-collapse: separate !important;
   border-spacing: 0px 0px !important;
-  padding: 0px 3px 3px 3px !important;
+  padding: 3px !important;
   background-color: ${constants.secondarySurfaceColor};
+  width: 100%;
+  background-color: rgb(46, 47, 64);
 }
 
 tr {
@@ -135,29 +131,29 @@ const CrossTable = ({
   strings,
 }) => (
   <StyledDiv>
-    <Table selectable={false} >
-      <TableBody displayRowCheckbox={false}>
-        <TableRow>
-          <TableRowColumn />
+    <table selectable={false} >
+      <tbody displayRowCheckbox={false}>
+        <tr>
+          <td />
           {match.players.slice(match.players.length / 2, match.players.length).map(player => (
-            <TableRowColumn key={player.hero_id}>
+            <td key={player.hero_id}>
               <div className="hero">
                 {heroes[player.hero_id] && <HeroImage id={player.hero_id} isIcon data-tip={heroes[player.hero_id] && heroes[player.hero_id].localized_name} />}
               </div>
-            </TableRowColumn>))}
-          <TableRowColumn>
+            </td>))}
+          <td>
             <div className="team">
               <IconDire data-tip={strings.general_dire} />
             </div>
-          </TableRowColumn>
-        </TableRow>
+          </td>
+        </tr>
         {match.players.slice(0, match.players.length / 2).map(player => (
-          <TableRow key={player.hero_id}>
-            <TableRowColumn>
+          <tr key={player.hero_id}>
+            <td>
               <div className="hero">
                 {heroes[player.hero_id] && <HeroImage id={player.hero_id} isIcon data-tip={heroes[player.hero_id] && heroes[player.hero_id].localized_name} />}
               </div>
-            </TableRowColumn>
+            </td>
             {match.players.slice(match.players.length / 2, match.players.length).map((player2) => {
           const hero1 = heroes[player.hero_id] || {};
           const hero2 = heroes[player2.hero_id] || {};
@@ -166,7 +162,7 @@ const CrossTable = ({
           const pvalue1 = pfield1[hero2.name] || 0;
           const pvalue2 = pfield2[hero2.name] || 0;
           return (
-            <TableRowColumn key={player2.hero_id}>
+            <td key={player2.hero_id}>
               <div data-tip data-for={`${field1}_${field2}_${player.player_slot}_${player2.player_slot}`}>
                 <div className="value-1" style={{ color: pvalue1 > pvalue2 ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(pvalue1)}</span></div>
                 <div className="value-1" style={{ color: pvalue2 > pvalue1 ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(pvalue2)}</span></div>
@@ -176,7 +172,7 @@ const CrossTable = ({
                   {`${hero2.localized_name} → ${hero1.localized_name}: ${pvalue2}`}
                 </ReactTooltip>
               </div>
-            </TableRowColumn>);
+            </td>);
         })}
             {(() => {
           const hero1 = heroes[player.hero_id] || {};
@@ -190,7 +186,7 @@ const CrossTable = ({
           });
 
           return (
-            <TableRowColumn key={`${player.hero_id}_totals`}>
+            <td key={`${player.hero_id}_totals`}>
               <div data-tip data-for={`${field1}_${field2}_${player.player_slot}_radiant`}>
                 <div className="value-1" style={{ color: ptotal1 > ptotal2 ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(ptotal1)}</span></div>
                 <div className="value-1" style={{ color: ptotal2 > ptotal1 ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(ptotal2)}</span></div>
@@ -200,16 +196,16 @@ const CrossTable = ({
                   {`${strings.general_dire} → ${hero1.localized_name}: ${ptotal2}`}
                 </ReactTooltip>
               </div>
-            </TableRowColumn>
+            </td>
           );
         })()}
-          </TableRow>))}
-        <TableRow>
-          <TableRowColumn>
+          </tr>))}
+        <tr>
+          <td>
             <div className="team">
               <IconRadiant data-tip={strings.general_radiant} />
             </div>
-          </TableRowColumn>
+          </td>
           { match.players.slice(match.players.length / 2, match.players.length).map((player) => {
           const hero1 = heroes[player.hero_id] || {};
           let ptotal1 = 0;
@@ -222,7 +218,7 @@ const CrossTable = ({
           });
 
           return (
-            <TableRowColumn key={`${player.hero_id}_totals`}>
+            <td key={`${player.hero_id}_totals`}>
               <div data-tip data-for={`${field1}_${field2}_${player.player_slot}_dire`}>
                 <div className="value-1" style={{ color: ptotal2 > ptotal1 ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(ptotal2)}</span></div>
                 <div className="value-1" style={{ color: ptotal1 > ptotal2 ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(ptotal1)}</span></div>
@@ -232,7 +228,7 @@ const CrossTable = ({
                   {`${hero1.localized_name} → ${strings.general_radiant}: ${ptotal1}`}
                 </ReactTooltip>
               </div>
-            </TableRowColumn>
+            </td>
           );
         }) }
           {(() => {
@@ -249,7 +245,7 @@ const CrossTable = ({
           });
 
           return (
-            <TableRowColumn>
+            <td>
               <div data-tip data-for={`${field1}_${field2}_total`}>
                 <div className="value-1" style={{ color: radiantTotal > direTotal ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(radiantTotal)}</span></div>
                 <div className="value-1" style={{ color: direTotal > radiantTotal ? constants.primaryTextColor : '' }}><span>{abbreviateNumber(direTotal)}</span></div>
@@ -259,12 +255,12 @@ const CrossTable = ({
                   {`${strings.general_dire} → ${strings.general_radiant}: ${direTotal}`}
                 </ReactTooltip>
               </div>
-            </TableRowColumn>
+            </td>
           );
         })()}
-        </TableRow>
-      </TableBody>
-    </Table>
+        </tr>
+      </tbody>
+    </table>
   </StyledDiv>);
 
 CrossTable.propTypes = {

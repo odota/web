@@ -2,7 +2,6 @@ import React from 'react';
 import heroes from 'dotaconstants/build/heroes.json';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
-import { TableBody, TableRow, TableRowColumn, Table } from 'material-ui/Table';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Heading from '../../Heading';
@@ -228,19 +227,17 @@ const Draft = ({
             icon={<IconDire />}
           />
         </section>
-        <Table selectable={false}>
-          <TableBody
-            displayRowCheckbox={false}
-            selectable={false}
+        <table>
+          <tbody
             className="draft-table"
           >
             {gameMode === 2 ?
               draft.map(pb => (
-                <TableRow
+                <tr
                   key={pb.order}
                   className={`${radiantOrder.includes(pb.order) ? 'radiant' : 'dire'} draft-row`}
                 >
-                  <TableRowColumn style={{ paddingLeft: 0 }}>
+                  <td style={{ paddingLeft: 0 }}>
                     {radiantPick(pb) &&
                       <DraftHero
                         pb={pb}
@@ -250,8 +247,8 @@ const Draft = ({
                         isCaptains={gameMode === 2}
                       />
                     }
-                  </TableRowColumn>
-                  <TableRowColumn>
+                  </td>
+                  <td>
                     {picks.includes(pb.order) ?
                       <Pick>
                         <LeftArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'true' : 'false'} />
@@ -264,8 +261,8 @@ const Draft = ({
                         <RightArrow style={{ color: 'inherit' }} visible={radiantPick(pb) ? 'false' : 'true'} />
                       </Ban>
                     }
-                  </TableRowColumn>
-                  <TableRowColumn style={{ paddingRight: 0 }}>
+                  </td>
+                  <td style={{ paddingRight: 0 }}>
                     {!radiantPick(pb) &&
                       <DraftHero
                         pb={pb}
@@ -275,15 +272,15 @@ const Draft = ({
                         isCaptains={gameMode === 2}
                       />
                     }
-                  </TableRowColumn>
-                </TableRow>
+                  </td>
+                </tr>
               )) :
               draft.sort((a, b) => a.total_time_taken - b.total_time_taken).map(pb => (
-                <TableRow
+                <tr
                   key={pb.order}
                   className={`${radiantOrder.includes(pb.order) ? 'radiant' : 'dire'} draft-row`}
                 >
-                  <TableRowColumn style={{ paddingLeft: 0 }}>
+                  <td style={{ paddingLeft: 0 }}>
                     {radiantPick(pb) &&
                       <DraftHero
                         pb={pb}
@@ -293,8 +290,8 @@ const Draft = ({
                         isCaptains={gameMode === 2}
                       />
                     }
-                  </TableRowColumn>
-                  <TableRowColumn style={{ paddingRight: 0 }}>
+                  </td>
+                  <td style={{ paddingRight: 0 }}>
                     {!radiantPick(pb) &&
                       <DraftHero
                         pb={pb}
@@ -304,12 +301,12 @@ const Draft = ({
                         isCaptains={gameMode === 2}
                       />
                     }
-                  </TableRowColumn>
-                </TableRow>
+                  </td>
+                </tr>
               ))
             }
-          </TableBody>
-        </Table>
+          </tbody>
+        </table>
       </div>
       }
     </Styled>

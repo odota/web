@@ -24,6 +24,7 @@ export const StyledBody = styled.div`
 
     & th {
       height: 48px !important;
+      position: relative;
 
       svg {
         position: absolute;
@@ -88,7 +89,7 @@ export const StyledBody = styled.div`
     margin-bottom: 20px !important;
   }
 
-  .innerContainer > div > div {
+  .innerContainer {
     overflow-y: hidden !important;
     overflow-x: auto !important;
     @media only screen and (min-width: 1200px) { 
@@ -96,7 +97,7 @@ export const StyledBody = styled.div`
     }
   }
 
-  .innerContainer.table-container-overflow-auto > div > div {
+  .innerContainer.table-container-overflow-auto {
     overflow-x: auto !important;
   }
 
@@ -192,6 +193,7 @@ export const StyledBody = styled.div`
         width: 60px !important;
       }
     }
+  }
 `;
 export const StyledContainer = styled.div`
   min-width: 100%;
