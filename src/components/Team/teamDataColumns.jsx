@@ -5,6 +5,7 @@ import { TableLink } from '../Table';
 import constants from '../constants';
 import { TableRow, TableImage } from './TeamStyled';
 import proPlayerImages from './proPlayerImages';
+import { FromNowTooltip } from '../Visualizations';
 
 const getPlayerImageUrl = (accountId) => {
   if (proPlayerImages[accountId]) {
@@ -20,9 +21,13 @@ export const matchColumns = strings => [{
   displayFn: (row, col, field) => (
     <div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+      <div style={{ ...subTextStyle }}>
+        <div style={{ float: 'left' }}>
+          <FromNowTooltip timestamp={row.start_time + row.duration} />
+        </div>
+        <span style={{ marginLeft: 1, marginRight: 1 }}>/</span>
         {row.league_name}
-      </span>
+      </div>
     </div>
   ),
 }, {

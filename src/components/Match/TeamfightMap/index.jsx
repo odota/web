@@ -504,6 +504,7 @@ class TeamfightMap extends Component {
                 buttonIcon={sponsorIcon}
                 radiantTeam={this.props.match.radiant_team}
                 direTeam={this.props.match.dire_team}
+                radiantWin={match.radiant_win}
               />
             </div>
           </div>
