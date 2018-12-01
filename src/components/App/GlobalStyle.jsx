@@ -141,7 +141,7 @@ li {
 }
 
 table {
-  border-collapse: seperate;
+  border-collapse: separate;
   border-spacing: 0px;
   width: 100%;
 }
