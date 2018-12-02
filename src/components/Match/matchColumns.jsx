@@ -238,6 +238,29 @@ export default (strings) => {
         underline: 'max',
       },
       {
+        displayName: 'DPM',
+        tooltip: 'Damage per minute',
+        sortFn: true,
+        sumFn: true,
+        displayFn: row => { 
+            let dmg = row.damage;
+            let total_dmg = Object.keys(dmg).reduce((acc, key) => {
+              return acc + dmg[key];
+            }, 0);
+            let duration_in_seconds = row.duration;
+            let damage_per_second = total_dmg / duration_in_seconds;
+            let damage_per_minute = damage_per_second * 60;
+
+            return Math.round(damage_per_minute);
+        },
+        // relativeBars: true,
+        textAlign: 'right',
+        paddingLeft: 5,
+        paddingRight: 14,
+        width: 32,
+        borderLeft: '1px solid rgba(19, 19, 19, 0.2)',
+      },
+      {
         displayName: strings.th_hero_damage,
         tooltip: strings.tooltip_hero_damage,
         field: 'hero_damage',
