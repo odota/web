@@ -790,12 +790,18 @@ export const transformations = {
   last_played: (row, col, field) => <FromNowTooltip timestamp={field} />,
   duration: (row, col, field) => {
     const { strings } = store.getState().app;
+    const playerSideExists = row && typeof row.player_slot !== 'undefined';
+    const playerIsRadiant = playerSideExists && isRadiant(row.player_slot);
+    const teamSideExists = row && typeof row.radiant !== 'undefined';
+    const teamIsRadiant = teamSideExists && row.radiant;
+    const displaySide = playerSideExists || teamSideExists;
+
     return (
       <div>
         <span>
           {formatSeconds(field)}
         </span>
-        {row && <span style={{ ...subTextStyle }}>{(isRadiant(row.player_slot) ? strings.general_radiant : strings.general_dire)}</span> }
+        {displaySide && <span style={{ ...subTextStyle }}>{playerIsRadiant || teamIsRadiant ? strings.general_radiant : strings.general_dire}</span> }
       </div>
     );
   },

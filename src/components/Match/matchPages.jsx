@@ -82,6 +82,7 @@ const matchPages = (strings) => {
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
+          radiantWin={match.radiant_win}
           hoverRowColumn
         />
       </div>),
@@ -118,6 +119,7 @@ const matchPages = (strings) => {
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
+          radiantWin={match.radiant_win}
           summable
           hoverRowColumn
         />
@@ -157,6 +159,7 @@ const matchPages = (strings) => {
           heading={strings.heading_damage}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
+          radiantWin={match.radiant_win}
         />
       </div>),
   }, {
@@ -174,6 +177,7 @@ const matchPages = (strings) => {
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
+          radiantWin={match.radiant_win}
           summable
           hoverRowColumn
         />
@@ -183,6 +187,7 @@ const matchPages = (strings) => {
           heading={strings.heading_last_hits}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
+          radiantWin={match.radiant_win}
           summable
           hoverRowColumn
         />
@@ -207,6 +212,7 @@ const matchPages = (strings) => {
         heading={strings.heading_gold_reasons}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        radiantWin={match.radiant_win}
       />
       <TeamTable
         players={match.players}
@@ -214,6 +220,7 @@ const matchPages = (strings) => {
         heading={strings.heading_xp_reasons}
         radiantTeam={match.radiant_team}
         direTeam={match.dire_team}
+        radiantWin={match.radiant_win}
       />
       */}
       </div>),
@@ -256,6 +263,7 @@ const matchPages = (strings) => {
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
+          radiantWin={match.radiant_win}
         />
       </div>),
   }, {
@@ -273,6 +281,7 @@ const matchPages = (strings) => {
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
+          radiantWin={match.radiant_win}
           hoverRowColumn
         />
         <TeamTable
@@ -281,6 +290,7 @@ const matchPages = (strings) => {
           heading={strings.heading_runes}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
+          radiantWin={match.radiant_win}
           hoverRowColumn
         />
       </div>),
@@ -304,6 +314,7 @@ const matchPages = (strings) => {
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
+          radiantWin={match.radiant_win}
           hoverRowColumn
         />
       </div>),
@@ -330,6 +341,7 @@ const matchPages = (strings) => {
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
+          radiantWin={match.radiant_win}
         />
       </div>),
   }, {
@@ -376,6 +388,7 @@ const matchPages = (strings) => {
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
+          radiantWin={match.radiant_win}
           hoverRowColumn
         />
       </div>),

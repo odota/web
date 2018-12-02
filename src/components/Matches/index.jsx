@@ -13,6 +13,7 @@ import Match from '../Match';
 import TabBar from '../TabBar';
 import { StyledTeamIconContainer } from '../Match/StyledMatch';
 import constants from '../constants';
+import { FromNowTooltip } from '../Visualizations';
 import HeroImage from '../Visualizations/HeroImage';
 
 const WinnerSpan = styled.span`
@@ -33,9 +34,13 @@ const matchesColumns = strings => [{
   displayFn: (row, col, field) => (
     <div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+      <div style={{ ...subTextStyle }}>
+        <div style={{ float: 'left' }}>
+          <FromNowTooltip timestamp={row.start_time + row.duration} />
+        </div>
+        <span style={{ marginLeft: 1, marginRight: 1 }}>/</span>
         {row.league_name}
-      </span>
+      </div>
     </div>),
 }, {
   displayName: strings.th_duration,
@@ -63,9 +68,13 @@ const publicMatchesColumns = strings => [
     displayFn: (row, col, field) => (
       <div>
         <TableLink to={`/matches/${field}`}>{field}</TableLink>
-        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+        <div style={{ ...subTextStyle }}>
+          <div style={{ float: 'left' }}>
+            <FromNowTooltip timestamp={row.start_time + row.duration} />
+          </div>
+          <span style={{ marginLeft: 1, marginRight: 1 }}>/</span>
           {rankTierToString(row.avg_rank_tier)}
-        </span>
+        </div>
       </div>),
   }, {
     displayName: strings.th_duration,

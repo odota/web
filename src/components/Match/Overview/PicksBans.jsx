@@ -18,14 +18,14 @@ margin-top: -20px;
 
   & > section {
     position: relative;
-    margin: 5px;
+    margin: 5px 5px 9px 5px;
 
     & > aside {
       font-size: 11px;
       text-transform: uppercase;
       text-align: center;
       margin-top: -5px;
-      background-color: black;
+      background-color: rgba(0, 0, 0, 0.5);
       line-height: 1.6;
     }
   }

@@ -133,11 +133,11 @@ class Explorer extends React.Component {
   }
 
   handleQuery = () => {
-    const { builder } = this.state;
+    const { builder, showEditor } = this.state;
     const { select, group } = builder;
     if (this.state.loadingEditor === true) {
       setTimeout(this.handleQuery, 1000);
-    } else if (group && (!select || select.length < 1)) {
+    } else if (group && (!select || select.length < 1) && !showEditor) {
       this.setState({
         builder: {
           ...builder,

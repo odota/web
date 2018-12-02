@@ -12,6 +12,7 @@ const VisionItems = ({ match, strings }) => {
       columns={visionColumns(strings)}
       radiantTeam={match.radiant_team}
       direTeam={match.dire_team}
+      radiantWin={match.radiant_win}
     />
   );
 };
