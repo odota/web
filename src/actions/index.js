@@ -29,10 +29,11 @@ export const getSearchResultAndPros = query => dispatch => Promise.all([
   dispatch(setSearchQuery(query)),
   dispatch(getSearchResult(query)),
   dispatch(getProPlayers()),
-  (async () => {
+  (() => {
     if (/^\d+$/.test(query)) { // test if query is numerical
-      await dispatch(getMatch(query));
+      return dispatch(getMatch(query));
     }
+    return null;
   })(),
 ]);
 export const getDistributions = () => action('distributions', process.env.REACT_APP_API_HOST, 'api/distributions');
