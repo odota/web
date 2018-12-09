@@ -20,7 +20,7 @@ const StyledSection = styled.section`
     /* Tab */
     text-align: center;
     font-weight: ${constants.fontWeightLight};
-    font-size: 13px;
+    font-size: 16px;
     color: ${constants.primaryTextColor};
     padding: 10px 9px 16px;
     border-bottom: 2px solid transparent;
@@ -42,6 +42,7 @@ const StyledSection = styled.section`
     @media only screen and (max-width: 768px) {
       padding-left: 10px;
       padding-right: 10px;
+      font-size: 13px;
     }
   }
 
