@@ -136,7 +136,7 @@ const Ability = styled.div`
     padding: 6px; };
     color: ${props => props.color};
     font-weight: bold;
-    text-shadow: 1px 1px black;
+    text-shadow: 1px 1px #212121;
 
     & .resources {
       float: right;
