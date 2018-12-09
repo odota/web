@@ -13,17 +13,26 @@ import Container from '../Container';
 import { StyledTeamIconContainer } from '../../components/Match/StyledMatch';
 import HeroImage from '../Visualizations/HeroImage';
 
-const searchColumns = strings => [{
-  displayName: strings.th_name,
-  field: 'personaname',
-  displayFn: (row, col, field) => {
-    const subtitle = row.last_match_time ? fromNow(new Date(row.last_match_time) / 1000) : '';
-    return transformations.player({
-      ...row,
-      subtitle,
-    }, col, field);
+const searchColumns = strings => [
+  {
+    displayName: strings.th_name,
+    field: 'personaname',
+    sortFn: true,
+    displayFn: (row, col, field) => {
+      return transformations.player({
+        ...row,
+      }, col, field);
+    },
   },
-}];
+  {
+    displayName: strings.th_last_played,
+    field: 'lastplayed',
+    sortFn: true,
+    displayFn: (row, col, field) => {
+      return row.last_match_time ? fromNow(new Date(row.last_match_time) / 1000) : '';
+    },
+  }
+];
 
 const proColumns = strings => [{
   displayName: strings.th_name,
