@@ -29,12 +29,7 @@ export const getSearchResultAndPros = query => dispatch => Promise.all([
   dispatch(setSearchQuery(query)),
   dispatch(getSearchResult(query)),
   dispatch(getProPlayers()),
-  (() => {
-    if (/^\d+$/.test(query)) { // test if query is numerical
-      return dispatch(getMatch(query));
-    }
-    return null;
-  })(),
+  ...([/^\d+$/.test(query)] && [dispatch(getMatch(query))]),
 ]);
 export const getDistributions = () => action('distributions', process.env.REACT_APP_API_HOST, 'api/distributions');
 export const getPvgnaHeroGuides = () => action('pvgnaGuides', 'https://yasp.pvgna.com', 'yasp');
