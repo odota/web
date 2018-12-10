@@ -242,16 +242,13 @@ export default (strings) => {
         tooltip: 'Damage per minute',
         sortFn: true,
         sumFn: true,
-        displayFn: row => { 
-            let dmg = row.damage;
-            let total_dmg = Object.keys(dmg).reduce((acc, key) => {
-              return acc + dmg[key];
-            }, 0);
-            let duration_in_seconds = row.duration;
-            let damage_per_second = total_dmg / duration_in_seconds;
-            let damage_per_minute = damage_per_second * 60;
+        displayFn: (row) => {
+          const totalDamage = Object.keys(row.damage).reduce((acc, key) => acc + row.damage[key], 0);
+          const durationInSeconds = row.duration;
+          const damagePerSecond = totalDamage / durationInSeconds;
+          const damagePerMinute = damagePerSecond * 60;
 
-            return Math.round(damage_per_minute);
+          return Math.round(damagePerMinute);
         },
         // relativeBars: true,
         textAlign: 'right',
