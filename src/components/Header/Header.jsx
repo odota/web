@@ -15,8 +15,9 @@ import AccountWidget from '../AccountWidget';
 import SearchForm from '../Search/SearchForm';
 import AppLogo from '../App/AppLogo';
 import BurgerMenu from './BurgerMenu';
+import { GITHUB_REPO } from '../../config';
 
-const REPORT_BUG_PATH = '//github.com/odota/web/issues';
+const REPORT_BUG_PATH = `//github.com/${GITHUB_REPO}/issues`;
 
 const VerticalAlignToolbar = styled(ToolbarGroup)`
   display: flex;

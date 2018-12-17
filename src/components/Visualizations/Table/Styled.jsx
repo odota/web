@@ -15,10 +15,11 @@ export const KDAContainer = styled(StyledContainer)`
 
 export const TitleContainer = styled.div`
   align-self: center;
-  line-height: 0;
+  white-space: nowrap;
 
   & small {
     color: ${constants.colorMutedLight};
+    margin-left: 1px;
   }
 `;
 

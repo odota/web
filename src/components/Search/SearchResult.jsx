@@ -89,7 +89,7 @@ const Search = ({
     <Container
       loading={matchLoading}
       title={strings.explorer_match}
-      hide={matchError}
+      hide={!matchData || matchData.length === 0 || matchError}
     >
       <Table
         data={[matchData]}

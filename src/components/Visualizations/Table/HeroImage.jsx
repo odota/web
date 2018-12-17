@@ -207,7 +207,7 @@ const Styled = styled.div`
     }
 
     &.group0 {
-      border-color: #4C5900;
+      border-color: #498a1a;
     }      
     &.group1 {
       border-color: ${constants.blue};
@@ -216,7 +216,7 @@ const Styled = styled.div`
       border-color: #D7E874;
     }    
     &.group3 {
-      border-color: #740D00;
+      border-color: #923607;
     }
 
   }
@@ -445,8 +445,7 @@ const Trim = styled.hr`
 const expand = {
   display: 'flex',
   position: 'relative',
-  height: '107%',
-  marginTop: '-1px',
+  height: '100%',
   left: '-10px',
 };
 
