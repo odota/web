@@ -236,7 +236,7 @@ class Vision extends React.Component {
           </div>
           <div style={{ flexGrow: '2' }}>
             <Heading
-              buttonLabel={strings.gosu_vision}
+              buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_vision : null}
               buttonTo={`${sponsorURL}Vision`}
               buttonIcon={sponsorIcon}
             />
