@@ -217,7 +217,7 @@ const Draft = ({
         <section className="teams">
           <Heading
             title={`${getTeamName(radiantTeam, true)}`}
-            buttonLabel={strings.gosu_default}
+            buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_default : null}
             buttonTo={`${sponsorURL}Draft`}
             buttonIcon={sponsorIcon}
             icon={<IconRadiant />}

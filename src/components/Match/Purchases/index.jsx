@@ -55,7 +55,7 @@ class Purchases extends React.Component {
           players={match.players}
           columns={purchaseTimesColumns(match, this.state.showConsumables)}
           heading={strings.heading_purchase_log}
-          buttonLabel={strings.gosu_default}
+          buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_default : null}
           buttonTo={`${sponsorURL}Purchases`}
           buttonIcon={sponsorIcon}
           radiantTeam={match.radiant_team}

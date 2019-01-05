@@ -51,9 +51,10 @@ const Sponsors = ({ strings }) => (
       <a href="https://www.rivalry.gg" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/rivalry-logo.png" alt="" />
       </a>
-      <a href="https://gosu.ai/dota/?utm_source=opendota&utm_medium=cpc&utm_campaign=Home" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/gosu-logo.png" alt="" />
-      </a>
+      { process.env.ENABLE_GOSUAI &&
+        <a href="https://gosu.ai/dota/?utm_source=opendota&utm_medium=cpc&utm_campaign=Home" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/images/gosu-logo.png" alt="" />
+        </a> }
     </div>
     <ButtonsDiv>
       <FlatButton
