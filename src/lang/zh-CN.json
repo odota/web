@@ -577,7 +577,7 @@
   "tooltip_objective_tower4": "Damage dealt to middle Tier 4 towers",
   "tooltip_objective_fort": "Damage dealt to ancient",
   "tooltip_objective_shrine": "Damage dealt to shrines",
-  "tooltip_objective_roshan": "Damage dealt to Roshan",
+  "tooltip_objective_roshan": "对肉山伤害",
   "pagination_first": "首页",
   "pagination_last": "最近",
   "pagination_of": "of",
