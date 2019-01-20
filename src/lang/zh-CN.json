@@ -575,7 +575,7 @@
   "tooltip_objective_rax_mid": "Damage dealt to middle barracks",
   "tooltip_objective_rax_bot": "Damage dealt to bottom barracks",
   "tooltip_objective_tower4": "Damage dealt to middle Tier 4 towers",
-  "tooltip_objective_fort": "Damage dealt to ancient",
+  "tooltip_objective_fort": "对遗迹伤害",
   "tooltip_objective_shrine": "Damage dealt to shrines",
   "tooltip_objective_roshan": "对肉山伤害",
   "pagination_first": "首页",
