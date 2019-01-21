@@ -19,10 +19,9 @@ const StyledSection = styled.section`
   & a {
     /* Tab */
     text-align: center;
-    font-weight: ${constants.fontWeightLight};
     font-size: 13px;
     color: ${constants.primaryTextColor};
-    padding: 10px 9px 16px;
+    padding: 10px 8px 16px;
     border-bottom: 2px solid transparent;
     flex-grow: 1;
 

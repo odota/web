@@ -8,6 +8,7 @@ import transformRankings from './transformRankings';
 import transformPlayerMatches from './transformPlayerMatches';
 import action from './action';
 import { langs } from '../lang';
+import { GITHUB_REPO } from '../config';
 
 export const getMetadata = () => action('metadata', process.env.REACT_APP_API_HOST, 'api/metadata');
 export const getMatch = matchId => action('match', process.env.REACT_APP_API_HOST, `api/matches/${matchId}`, {}, transformMatch);
@@ -29,7 +30,7 @@ export const getSearchResultAndPros = query => dispatch => Promise.all([
   dispatch(setSearchQuery(query)),
   dispatch(getSearchResult(query)),
   dispatch(getProPlayers()),
-  dispatch(getMatch(query)),
+  ...(/^\d+$/.test(query) ? [dispatch(getMatch(query))] : []),
 ]);
 export const getDistributions = () => action('distributions', process.env.REACT_APP_API_HOST, 'api/distributions');
 export const getPvgnaHeroGuides = () => action('pvgnaGuides', 'https://yasp.pvgna.com', 'yasp');
@@ -42,7 +43,7 @@ export const getTeamPlayers = teamId => action('teamPlayers', process.env.REACT_
 export const getTeamHeroes = teamId => action('teamHeroes', process.env.REACT_APP_API_HOST, `api/teams/${teamId}/heroes`);
 export const getRecords = field => action('records', process.env.REACT_APP_API_HOST, `api/records/${field}`);
 export const getGithubPulls = merged => action('ghPulls', 'https://api.github.com', 'search/issues', {
-  q: `repo:odota/web type:pr base:production label:release merged:>${merged}`,
+  q: `repo:${GITHUB_REPO} type:pr base:production label:release merged:>${merged}`,
   order: 'desc',
   page: 1,
   per_page: 1,

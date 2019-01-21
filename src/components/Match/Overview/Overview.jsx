@@ -44,7 +44,7 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
             players={match.players}
             columns={overviewColumns(match)}
             heading={strings.heading_overview}
-            buttonLabel={strings.gosu_default}
+            buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_default : null}
             buttonTo={`${gosuUrl}Overview`}
             buttonIcon={gosuIcon}
             picksBans={match.picks_bans}

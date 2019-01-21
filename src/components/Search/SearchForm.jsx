@@ -41,7 +41,7 @@ class SearchForm extends React.Component {
   formSubmit = (e) => {
     const { query } = this.state;
     e.preventDefault();
-    this.props.history.push(`/search?q=${query}`);
+    this.props.history.push(`/search?q=${encodeURIComponent(query)}`);
     this.props.dispatchSearch(query);
   };
 

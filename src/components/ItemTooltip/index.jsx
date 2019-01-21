@@ -97,7 +97,7 @@ const ResourceIcon = styled.img`
 `;
 
 const Attributes = styled.div`
-  margin-top: 18px;
+  margin-top: 8px;
   padding: 0px 13px 0px 13px;
 
   & #footer {
@@ -115,7 +115,7 @@ const Attributes = styled.div`
 
 const Lore = styled.div`
   background-color: #0D1118;
-  margin: 20px 9px 10px 9px;
+  margin: 10px 9px 10px 9px;
   font-size: ${constants.fontSizeSmall};
   font-style: italic;
   color: #51565F;
@@ -123,19 +123,20 @@ const Lore = styled.div`
 `;
 
 const Hint = styled.div`
-  margin: 20px 9px 10px 9px;
+  margin: 10px 9px 10px 9px;
   padding: 6px;
   background-color: #51565F;
   color: #080D15;
 `;
 
 const Ability = styled.div`
-  margin: 20px 9px 0px 9px;
+  margin: 10px 9px 0px 9px;
   .ability-header {
     background: ${props => `linear-gradient(to right, #303338 , ${props.headerColor})`};
     padding: 6px; };
     color: ${props => props.color};
     font-weight: bold;
+    text-shadow: 1px 1px #212121;
 
     & .resources {
       float: right;
@@ -157,12 +158,12 @@ const Ability = styled.div`
     background-color: #303338;
     border-top: 1px solid ${props => props.color};
     font-weight: normal;
-    color: #95a5a6;
+    color: #a7b4b5;
   }
 `;
 const Components = styled.div`
   font-family: Tahoma;
-  margin: 16px 9px 0px 9px;
+  margin: 6px 9px 0px 9px;
 
   #header {
     font-size: 10px;

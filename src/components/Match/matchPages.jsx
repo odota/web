@@ -77,7 +77,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={benchmarksColumns(match)}
           heading={strings.heading_benchmarks}
-          buttonLabel={strings.gosu_benchmarks}
+          buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_benchmarks : null}
           buttonTo={`${gosuUrl}Benchmarks`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
@@ -114,7 +114,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={performanceColumns}
           heading={strings.heading_performances}
-          buttonLabel={strings.gosu_performances}
+          buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_performances : null}
           buttonTo={`${gosuUrl}Performances`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
@@ -139,7 +139,7 @@ const matchPages = (strings) => {
     content: match => (
       <div>
         <Heading
-          buttonLabel={strings.gosu_combat}
+          buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_combat : null}
           buttonTo={`${gosuUrl}Combat`}
           buttonIcon={gosuIcon}
         />
@@ -172,7 +172,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={unitKillsColumns}
           heading={strings.heading_unit_kills}
-          buttonLabel={strings.gosu_farm}
+          buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_farm : null}
           buttonTo={`${gosuUrl}Farm`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
@@ -258,7 +258,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={castsColumns}
           heading={strings.heading_casts}
-          buttonLabel={strings.gosu_default}
+          buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_default : null}
           buttonTo={`${gosuUrl}Casts`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
@@ -276,7 +276,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={objectiveDamageColumns}
           heading={strings.heading_objective_damage}
-          buttonLabel={strings.gosu_default}
+          buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_default : null}
           buttonTo={`${gosuUrl}Objectives`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
@@ -309,7 +309,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={actionsColumns}
           heading={strings.heading_actions}
-          buttonLabel={strings.gosu_actions}
+          buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_actions : null}
           buttonTo={`${gosuUrl}Actions`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
@@ -336,7 +336,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={analysisColumns}
           heading={strings.heading_analysis}
-          buttonLabel={strings.gosu_analysis}
+          buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_analysis : null}
           buttonTo={`${gosuUrl}Analysis`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
@@ -352,7 +352,7 @@ const matchPages = (strings) => {
       <div>
         <Heading
           title={strings.heading_cosmetics}
-          buttonLabel={strings.gosu_default}
+          buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_default : null}
           buttonTo={`${gosuUrl}Cosmetics`}
           buttonIcon={gosuIcon}
         />
@@ -367,7 +367,7 @@ const matchPages = (strings) => {
       <div>
         <Heading
           title={strings.heading_log}
-          buttonLabel={strings.gosu_default}
+          buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_default : null}
           buttonTo={`${gosuUrl}Log`}
           buttonIcon={gosuIcon}
         />
@@ -383,7 +383,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={fantasyColumns}
           heading={strings.heading_fantasy}
-          buttonLabel={strings.gosu_default}
+          buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_default : null}
           buttonTo={`${gosuUrl}Fantasy`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
@@ -415,7 +415,7 @@ const matchPages = (strings) => {
         <div>
           <Heading
             title={strings.heading_chat}
-            buttonLabel={strings.gosu_default}
+            buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_default : null}
             buttonTo={`${gosuUrl}Chat`}
             buttonIcon={gosuIcon}
           />
@@ -431,7 +431,7 @@ const matchPages = (strings) => {
       <div>
         <Heading
           title={strings.heading_story}
-          buttonLabel={strings.gosu_default}
+          buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_default : null}
           buttonTo={`${gosuUrl}Story`}
           buttonIcon={gosuIcon}
         />

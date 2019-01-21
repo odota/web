@@ -1,16 +1,21 @@
 import React from 'react';
 import { IconGithub, IconDiscord } from '../Icons';
+import { GITHUB_REPO, DISCORD_LINK } from '../../config';
 
 export default ({ strings }) => {
   const links = [{
     tooltip: strings.app_github,
-    path: '//github.com/odota',
+    path: `//github.com/${GITHUB_REPO}`,
     icon: <IconGithub />,
-  }, {
-    tooltip: strings.app_discord,
-    path: '//discord.gg/opendota',
-    icon: <IconDiscord />,
   }];
+
+  if (DISCORD_LINK) {
+    links.push({
+      tooltip: strings.app_discord,
+      path: `//discord.gg/${DISCORD_LINK}`,
+      icon: <IconDiscord />,
+    });
+  }
 
   return links.map(link => (
     <a
