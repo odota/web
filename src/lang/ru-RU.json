@@ -562,7 +562,7 @@
   "objective_fort": "Крепость",
   "objective_shrine": "Свят",
   "objective_roshan": "Рошан",
-  "tooltip_objective_tower1_top": "Damage dealt to top Tier 1 tower",
+  "tooltip_objective_tower1_top": "Нанесены повреждения верхней Tier 1 башня",
   "tooltip_objective_tower1_mid": "Damage dealt to middle Tier 1 tower",
   "tooltip_objective_tower1_bot": "Damage dealt to bottom Tier 1 tower",
   "tooltip_objective_tower2_top": "Damage dealt to top Tier 2 tower",
