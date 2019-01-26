@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import uuid from 'uuid';
+import nanoid from 'nanoid';
 import propTypes from 'prop-types';
 
 import TalentsTooltip from '../TalentsTooltip';
@@ -30,7 +30,7 @@ const Icon = styled.img`
 `;
 
 const Talents = ({ talents }) => {
-  const ttId = uuid.v4();
+  const ttId = nanoid();
 
   return (
     <Wrapper data-tip data-for={ttId}>

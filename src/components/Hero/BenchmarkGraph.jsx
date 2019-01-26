@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import uuid from 'uuid';
+import nanoid from 'nanoid';
 import styled from 'styled-components';
 import {
   XAxis,
@@ -48,7 +48,7 @@ const tooltipWrapperStyle = {
 };
 
 const BenchmarkGraph = ({ data }) => {
-  const graphId = uuid.v4();
+  const graphId = nanoid();
 
   return (
     <Wrapper>
