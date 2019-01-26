@@ -66,12 +66,14 @@ export const getPlayerTotals = (accountId, params) => action('playerTotals', pro
 export const getPlayerMmr = (accountId, params) => action('playerMmr', process.env.REACT_APP_API_HOST, `api/players/${accountId}/ratings`, params);
 export const getPlayerRankings = (accountId, params) => action('playerRankings', process.env.REACT_APP_API_HOST, `api/players/${accountId}/rankings`, params, transformRankings);
 export const getStrings = () => async (dispatch) => {
+  const getLang = (lang) => langs.find(item => item.value === lang);
+  const userLang = window.navigator.language;
+  const defaultLang = getLang(userLang) || langs[0];
   const savedLang = window.localStorage && window.localStorage.getItem('localization');
-  const defaultLang = langs[0];
-  const selectedLang = langs.find(lang => lang.value === savedLang) || langs[0];
-  const defData = await import(`../lang/${defaultLang.value}.json`);
+  const selectedLang = getLang(savedLang) || defaultLang;
   const selData = await import(`../lang/${selectedLang.value}.json`);
-  dispatch({ type: 'strings', payload: { ...defData, ...selData } });
+
+  dispatch({ type: 'strings', payload: { ...selData } });
 };
 export const getAbilities = () => async (dispatch) => {
   dispatch({ type: 'abilities', payload: await import('dotaconstants/build/abilities.json') });
