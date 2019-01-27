@@ -70,10 +70,15 @@ export const getStrings = () => async (dispatch) => {
   const savedLang = window.localStorage && window.localStorage.getItem('localization');
   const userLang = window.navigator.language;
   const defaultLang = langs[0];
-  const lang = getLang(savedLang) || getLang(userLang) || defaultLang;
-  const data = await import(`../lang/${lang.value}.json`);
+  const lang = getLang(savedLang) || getLang(userLang) || {};
 
-  dispatch({ type: 'strings', payload: { ...data } });
+  let defData;
+  if (lang.value !== defaultLang.value) {
+    defData = await import(/* webpackChunkName: 'i18n-[request]' */`../lang/${defaultLang.value}.json`);
+  }
+  const selData = await import(/* webpackChunkName: 'i18n-[request]' */`../lang/${lang.value}.json`);
+
+  dispatch({ type: 'strings', payload: { ...defData, ...selData } });
 };
 export const getAbilities = () => async (dispatch) => {
   dispatch({ type: 'abilities', payload: await import('dotaconstants/build/abilities.json') });
