@@ -83,7 +83,6 @@ const StyledBodyDiv = styled.div`
   flex-grow: 1;
 
   @media only screen and (min-width: ${constants.appWidth}px) {
-    width: ${constants.appWidth}px;
     margin: auto;
   }
 `;
@@ -140,7 +139,7 @@ class App extends React.Component {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   }
-
+  
   render() {
     const {
       width, location, strings,
