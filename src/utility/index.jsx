@@ -820,6 +820,8 @@ export const transformations = {
       title={row.name || row.personaname}
       subtitle={row.subtitle || (row.last_played && <FromNowTooltip timestamp={row.last_played} />)}
       registered={row.last_login}
+      confirmed={row.account_id && row.name}
+      contributor={row.is_contributor}
       accountId={row.account_id}
     />
   ),
