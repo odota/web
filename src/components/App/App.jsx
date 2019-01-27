@@ -83,7 +83,7 @@ const StyledBodyDiv = styled.div`
   flex-grow: 1;
 
   @media only screen and (min-width: ${constants.appWidth}px) {
-    width: ${constants.appWidth}px;
+    width: ${constants.appWidth === 1200 ? '1150px' : constants.appWidth};
     margin: auto;
   }
 `;
@@ -171,7 +171,7 @@ class App extends React.Component {
           />
           <Header location={location} navbarPages={navbarPages} />
           <AdBannerDiv>
-            { includeAds &&
+            {includeAds &&
               <a href="http://www.vpgame.com/?lang=en_us">
                 <img src="/assets/images/vp-banner.jpg" alt="" />
               </a>
@@ -198,7 +198,7 @@ class App extends React.Component {
             </Switch>
           </StyledBodyDiv>
           <AdBannerDiv>
-            { includeAds &&
+            {includeAds &&
               <div style={{ fontSize: '12px' }}>
                 <a href="https://www.rivalry.gg/opendota">
                   <img src="/assets/images/rivalry-banner.gif" alt="" />
