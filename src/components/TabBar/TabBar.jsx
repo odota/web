@@ -21,7 +21,7 @@ const StyledSection = styled.section`
     text-align: center;
     font-size: 13px;
     color: ${constants.primaryTextColor};
-    padding: 10px 8px 16px;
+    padding: 10px 7px 16px;
     border-bottom: 2px solid transparent;
     flex-grow: 1;
 

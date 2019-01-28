@@ -10,7 +10,7 @@ const toggleStyle = {
   float: 'right',
   position: 'relative',
   right: '10px',
-  top: '9px',
+  top: '4px',
   border: '1px solid rgba(179, 179, 179, 0.1)',
   padding: '6px',
   backgroundColor: 'rgba(0, 0, 0, 0.6)',
