@@ -92,7 +92,7 @@ export const StyledBody = styled.div`
   .innerContainer {
     overflow-y: hidden !important;
     overflow-x: auto !important;
-    @media only screen and (min-width: 1200px) {
+    @media only screen and (min-width: 1200px) { 
       overflow-x: hidden !important;
     }
   }
