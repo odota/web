@@ -17,14 +17,14 @@ const Styled = styled.div`
     }
 
     @media only screen and (min-width: ${constants.appWidth}px) {
-      .gauge-chart:nth-child(even)::after {
+      .gauge-chart:nth-child(even):not(:last-child)::after {
         content: "";
         width: 2px;
         height: 300px;
         position: absolute;
         background: rgb(39, 39, 58);
         bottom: -50px;
-        right: -13px;
+        right: -10px;
       }
     }
 `;

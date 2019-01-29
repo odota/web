@@ -5,7 +5,7 @@ import { abbreviateNumber } from '../../utility';
 
 const Styled = styled.div` 
    font-size: 60%;
-   margin: 5px 19px 15px 5px;
+   margin: 5px 13px 15px 5px;
    position: relative;
    display: inline-block;
    
