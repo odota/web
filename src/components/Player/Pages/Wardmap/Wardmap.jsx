@@ -10,7 +10,7 @@ import Container from '../../../Container';
 import constants from '../../../constants';
 
 const MAX_WIDTH = constants.appWidth;
-const HALF_WIDTH = constants.appWidth * 0.483;
+const HALF_WIDTH = constants.appWidth * 0.47;
 
 const StyledContainer = styled.div`
   display: flex;
