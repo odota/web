@@ -66,7 +66,7 @@ export const getPlayerTotals = (accountId, params) => action('playerTotals', pro
 export const getPlayerMmr = (accountId, params) => action('playerMmr', process.env.REACT_APP_API_HOST, `api/players/${accountId}/ratings`, params);
 export const getPlayerRankings = (accountId, params) => action('playerRankings', process.env.REACT_APP_API_HOST, `api/players/${accountId}/rankings`, params, transformRankings);
 export const getStrings = () => async (dispatch) => {
-  const getLang = (lang) => langs.find(item => item.value === lang);
+  const getLang = lang => langs.find(item => item.value === lang);
   const savedLang = window.localStorage && window.localStorage.getItem('localization');
   const userLang = window.navigator.language;
   const defaultLang = langs[0];
