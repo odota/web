@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import uuid from 'uuid';
+import nanoid from 'nanoid';
 import h337 from 'heatmap.js';
 import DotaMap from '../DotaMap';
 
@@ -54,7 +54,7 @@ class Heatmap extends Component {
     drawHeatmap(this.props, this.heatmap);
   }
 
-  id = `a-${uuid.v4()}`;
+  id = `a-${nanoid()}`;
 
   render() {
     return (

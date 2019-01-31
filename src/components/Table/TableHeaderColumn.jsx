@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
-import uuid from 'uuid';
+import nanoid from 'nanoid';
 import { getSortIcon } from './tableHelpers';
 import { StyledHeaderCell } from './Styled';
 import { getColStyle } from '../../utility';
@@ -9,7 +9,7 @@ import { getColStyle } from '../../utility';
 const TableHeaderColumn = ({
   column, sortClick, sortField, sortState, index, setHighlightedCol,
 }) => {
-  const tooltipId = uuid.v4();
+  const tooltipId = nanoid();
   const style = {
     justifyContent: column.center ? 'center' : null,
   };

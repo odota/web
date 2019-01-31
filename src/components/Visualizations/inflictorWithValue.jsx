@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
-import uuid from 'uuid';
+import nanoid from 'nanoid';
 import items from 'dotaconstants/build/items.json';
 import styled from 'styled-components';
 import ItemTooltip from './../ItemTooltip/index';
@@ -154,7 +154,7 @@ class InflictorWithValue extends React.Component {
       const item = items[resolvedInflictor];
       let image;
       let tooltip = strings.tooltip_autoattack_other;
-      const ttId = uuid.v4();
+      const ttId = nanoid();
 
       if (ability) {
         if (resolvedInflictor.includes('attribute_bonus')) {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import wordcloud from 'wordcloud';
-import uuid from 'uuid';
+import nanoid from 'nanoid';
 
 const stopWords = 'a,am,an,and,are,as,at,be,by,for,from,how,i,im,in,is,it,not,of,on,or,that,the,this,to,was,what,when,where,who,will,with';
 
@@ -74,7 +74,7 @@ class Wordcloud extends React.Component {
     updateWordCloud(nextProps.counts, this.id);
   }
 
-  id = `a-${uuid.v4()}`;
+  id = `a-${nanoid()}`;
 
   render() {
     const width = Math.min(1080, window.innerWidth * 0.75);

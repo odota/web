@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import uuid from 'uuid';
+import nanoid from 'nanoid';
 import propTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
@@ -49,7 +49,7 @@ const AbilityManaComsumption = styled.div`
 `;
 
 const Ability = (props) => {
-  const ttId = uuid.v4();
+  const ttId = nanoid();
   const showMana = (props.mc && parseInt(props.mc, 0) > 0);
   let manaString = false;
 
