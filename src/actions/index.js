@@ -66,11 +66,18 @@ export const getPlayerTotals = (accountId, params) => action('playerTotals', pro
 export const getPlayerMmr = (accountId, params) => action('playerMmr', process.env.REACT_APP_API_HOST, `api/players/${accountId}/ratings`, params);
 export const getPlayerRankings = (accountId, params) => action('playerRankings', process.env.REACT_APP_API_HOST, `api/players/${accountId}/rankings`, params, transformRankings);
 export const getStrings = () => async (dispatch) => {
+  const getLang = lang => langs.find(item => item.value === lang);
   const savedLang = window.localStorage && window.localStorage.getItem('localization');
+  const userLang = window.navigator.language;
   const defaultLang = langs[0];
-  const selectedLang = langs.find(lang => lang.value === savedLang) || langs[0];
-  const defData = await import(`../lang/${defaultLang.value}.json`);
-  const selData = await import(`../lang/${selectedLang.value}.json`);
+  const lang = getLang(savedLang) || getLang(userLang) || {};
+
+  let defData;
+  if (lang.value !== defaultLang.value) {
+    defData = await import(/* webpackChunkName: 'i18n-[request]' */`../lang/${defaultLang.value}.json`);
+  }
+  const selData = await import(/* webpackChunkName: 'i18n-[request]' */`../lang/${lang.value}.json`);
+
   dispatch({ type: 'strings', payload: { ...defData, ...selData } });
 };
 export const getAbilities = () => async (dispatch) => {
