@@ -183,8 +183,8 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
 
       if (star < 1) { // I'm not sure if ranktier can give a number outside this range but better safe than sorry
         star = 1;
-      } else if (star > 5) {
-        star = 5;
+      } else if (star > 7) {
+        star = 7;
       }
 
       const starPath = `/assets/images/dota2/rank_icons/rank_star_${star}.png`;
