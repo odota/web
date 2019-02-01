@@ -70,7 +70,7 @@ export const getStrings = () => async (dispatch) => {
   const savedLang = window.localStorage && window.localStorage.getItem('localization');
   const userLang = window.navigator.language;
   const defaultLang = langs[0];
-  const lang = getLang(savedLang) || getLang(userLang) || {};
+  const lang = getLang(savedLang) || getLang(userLang) || defaultLang;
 
   let defData;
   if (lang.value !== defaultLang.value) {
