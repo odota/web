@@ -75,7 +75,6 @@ const HeaderText = styled.div`
   & #gold {
     color: ${constants.colorGolden};
     font-weight: normal;
-    display: inline-block;
 
     & img {
       height: 13px;
@@ -83,12 +82,6 @@ const HeaderText = styled.div`
       position: relative;
       top: 2px;
     }
-  }
-
-  .time {
-    font-size: 10px;
-    margin-left: 4px;
-    color: #080D15;
   }
 `;
 
@@ -196,18 +189,14 @@ const Components = styled.div`
   }
 `;
 
-const ItemTooltip = ({ item, inflictor, time }) => (
+const ItemTooltip = ({ item, inflictor }) => (
   <Wrapper>
     <Header>
       <div className="header-content">
         <img id="item-img" src={`${process.env.REACT_APP_API_HOST}${item.img}`} alt="" />
         <HeaderText>
           <div>{item.dname}</div>
-          <div id="gold">
-            {<img src="https://api.opendota.com/apps/dota2/images/tooltips/gold.png" alt="" />}
-            {item.cost}
-            {time && <span className="time">{`(${time})`}</span>}
-          </div>
+          <div id="gold">{<img src="https://api.opendota.com/apps/dota2/images/tooltips/gold.png" alt="" />}</div>
         </HeaderText>
       </div>
     </Header>
@@ -274,7 +263,6 @@ const ItemTooltip = ({ item, inflictor, time }) => (
 ItemTooltip.propTypes = {
   item: propTypes.shape({}).isRequired,
   inflictor: propTypes.string.isRequired,
-  time: propTypes.string,
 };
 
 export default ItemTooltip;
