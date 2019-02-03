@@ -335,7 +335,7 @@ export default (strings) => {
             const backpackfirstPurchase = row.first_purchase_time && row.first_purchase_time[backpackItemKey];
 
             if (items[backpackItemKey]) {
-              backpackItemArray.push(inflictorWithValue(backpackItemKey, formatSeconds(backpackfirstPurchase)));
+              backpackItemArray.push(inflictorWithValue(backpackItemKey, formatSeconds(backpackfirstPurchase), 'backpack'));
             }
           }
 

@@ -60,6 +60,14 @@ const StyledDiv = styled.div`
       }
     }
   }
+
+  &.backpack {
+    height: 10px;
+    
+    object, img {
+      height: 18px;
+    }
+  }
 }
 
 .noBr {
@@ -173,7 +181,7 @@ class InflictorWithValue extends React.Component {
         } else {
           image = `${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/${getInflictorImage(resolvedInflictor)}_lg.png`;
         }
-        tooltip = <ItemTooltip item={item} inflictor={resolvedInflictor} />;
+        tooltip = <ItemTooltip item={item} inflictor={resolvedInflictor} time={value} />;
       } else {
         image = '/assets/images/default_attack.png';
       }
@@ -183,8 +191,13 @@ class InflictorWithValue extends React.Component {
 
       return (
         <StyledDiv>
-          <div className="inflictorWithValue" data-tip={tooltip && true} data-for={ttId} onMouseEnter={this.setShowTooltip}>
-            {!type &&
+          <div
+            className={`inflictorWithValue ${type === 'backpack' && 'backpack'}`}
+            data-tip={tooltip && true}
+            data-for={ttId}
+            onMouseEnter={this.setShowTooltip}
+          >
+            {(!type || type === 'backpack') &&
             <object data={image} height="27px" type="image/png">
               <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)', height: '27px' }} />
             </object>}

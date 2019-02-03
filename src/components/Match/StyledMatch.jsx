@@ -140,7 +140,6 @@ export const StyledDivClearBoth = styled.div`
 `;
 export const StyledBackpack = styled.div`
   display: flex;
-  align-items: center;
 
   & > div {
     position: relative;
@@ -157,8 +156,10 @@ export const StyledBackpack = styled.div`
   }
 
   & svg {
-    width: 21px;
-    height: 20px;
+    position: relative;
+    top: 2px;
+    width: 17px;
+    height: 16px;
     fill: ${constants.colorMutedLight};
     margin: 0 10px;
   }
