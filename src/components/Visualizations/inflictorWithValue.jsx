@@ -115,10 +115,11 @@ const StyledDiv = styled.div`
 
 .backpackOverlay {
   display: inline-block;
+  position: relative;
+  bottom: 5px;
   font-size: 10px;
   background-color: rgba(0, 0, 0, 0.5);
   line-height: 18px;
-  vertical-align: super;
   padding-left: 3px;
   padding-right: 3px;
   border-bottom-right-radius: 4px;
