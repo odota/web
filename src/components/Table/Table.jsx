@@ -75,7 +75,7 @@ class Table extends React.Component {
         {columns.map((column, colIndex) => {
             let total = 0;
             if (column.sumFn) {
-              const sumFn = (typeof column.sumFn === 'function') ? column.sumFn : (acc, row) => (acc + row[column.field]);
+              const sumFn = (typeof column.sumFn === 'function') ? column.sumFn : (acc, row) => (acc + (row[column.field] || 0));
               total = data.reduce(sumFn, null);
             }
 
