@@ -196,7 +196,7 @@ const ItemTooltip = ({ item, inflictor }) => (
         <img id="item-img" src={`${process.env.REACT_APP_API_HOST}${item.img}`} alt="" />
         <HeaderText>
           <div>{item.dname}</div>
-          <div id="gold">{<img src="https://api.opendota.com/apps/dota2/images/tooltips/gold.png" alt="" />}</div>
+          <div id="gold">{<img src="https://api.opendota.com/apps/dota2/images/tooltips/gold.png" alt="" />}{item.cost}</div>
         </HeaderText>
       </div>
     </Header>
