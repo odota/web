@@ -138,11 +138,13 @@ const matchPages = (strings) => {
     parsed: true,
     content: match => (
       <div>
+        {process.env.ENABLE_GOSUAI &&
         <Heading
-          buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_combat : null}
+          buttonLabel={strings.gosu_combat}
           buttonTo={`${gosuUrl}Combat`}
           buttonIcon={gosuIcon}
         />
+        }
         <StyledFlexContainer>
           <StyledFlexElement>
             <Heading title={strings.heading_kills} />
