@@ -23,7 +23,6 @@ export const StyledBody = styled.div`
     }
 
     & th {
-      height: 48px !important;
       position: relative;
 
       svg {
@@ -68,8 +67,6 @@ export const StyledBody = styled.div`
 
     & th,
     & td {
-      padding-top: 0px !important;
-      padding-bottom: 0px !important;
       overflow: visible !important;
 
       &:first-child {

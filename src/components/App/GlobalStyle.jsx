@@ -147,15 +147,16 @@ table {
 }
 
 td {
-  height: 48px;
   font-size: 13px;
   text-align: left;
   padding-left: 24px;
   padding-right: 24px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 th {
-  height: 56px;
+  height: 38px;
   font-weight: normal;
   font-size: 12px;
   text-align: left;
