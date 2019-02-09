@@ -165,7 +165,11 @@ class FormField extends React.Component {
     // Use dataSource on selectedElements to hydrate the chipList
     const chipList = selectedElements.map(this.findFromSource);
     return (
-      <div className={className}>
+      <div
+        className={className}
+        data-hint-position="left"
+        data-hint={label}
+      >
         <AutoComplete
           ref={(ref) => { this.autocomplete = ref; return null; }}
           openOnFocus

@@ -195,7 +195,7 @@
   "explorer_asc": "Ascending",
   "explorer_desc": "Descending",
   "explorer_tier": "Tier",
-  "explorer_having": "Min No. Of Matches",
+  "explorer_having": "At Least This Many Matches",
   "explorer_limit": "Limit",
   "explorer_match": "Match",
   "explorer_is_ti_team": "Is TI{number} Team",

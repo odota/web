@@ -23,7 +23,6 @@ const Styled = styled.div`
 
   > div {
     width: 60px;
-    margin-top: 4px;
 
     &:not(:last-child) {
       margin-right: 15px;
@@ -36,7 +35,7 @@ const Styled = styled.div`
   }
   
   label {
-    white-space: wrap !important;
+    white-space: nowrap !important;
     line-height: 12px !important;
     text-overflow: ellipsis !important;
     overflow: hidden !important;
@@ -49,7 +48,7 @@ const Styled = styled.div`
 
   input {
     height: 20px !important;
-    margin-top: 6px !important;
+    margin-top: 4px !important;
   }
 
   hr:first-child {
@@ -61,17 +60,17 @@ const Styled = styled.div`
     padding-left: 1px;
     > div {
       border-radius: 0px !important;
-      width: 60px !important;
+      width: 70px !important;
       margin: 0px !important;
       background-color: transparent !important;
       > span {
-        font-size: 9px !important;
+        font-size: 11px !important;
         letter-spacing: 1px;
         padding-left: 0px !important;
         padding-right: 1px !important;
         line-height: 12px !important;
         overflow: hidden !important;
-        max-width: 50px !important;
+        width: 50px !important;
         text-overflow: ellipsis !important;
       }
       > svg {
@@ -79,6 +78,8 @@ const Styled = styled.div`
         bottom: 5px !important;
         margin: 0px !important;
         fill: rgb(71, 71, 86) !important;
+        flex-grow: 0 !important;
+        flex-shrink: 0 !important;
 
         &:hover {
           fill: white !important;
@@ -96,7 +97,6 @@ const Styled = styled.div`
 .showForm {
   border: 1px solid rgb(0,0,0,0.12);
   background-color: rgba(35, 35, 58, 0.85);
-  padding-top: 5px !important;
   padding-left: 5px;
   padding-right: 5px;
   position: relative;
@@ -105,7 +105,7 @@ const Styled = styled.div`
     position: absolute;
     content: "${props => props.strings.filter_button_text_open}";
     font-size: 12px;
-    top: -14px;
+    top: -15px;
     left: 0px;
     line-height: 12px;
     letter-spacing: 1px;
