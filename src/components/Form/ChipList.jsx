@@ -12,7 +12,7 @@ const StyledDiv = styled.div`
 const ChipList = ({
   chipList, deleteChip, name, history,
 }) => (
-  <StyledDiv>
+  <StyledDiv className="chip">
     {chipList.map((chip, index) => (
       <Chip
         style={{ margin: '0 5px 5px 0' }}

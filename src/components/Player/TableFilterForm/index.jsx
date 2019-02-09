@@ -9,25 +9,110 @@ import patch from 'dotaconstants/build/patch.json';
 import region from 'dotaconstants/build/region.json';
 import { toggleShowForm } from '../../../actions/formActions';
 import FormField from '../../Form/FormField';
+import constants from '../../constants';
+
+const textFieldStyle = { width: 53, fontSize: 9, height: 'auto' };
 
 const Styled = styled.div`
 .formGroup {
-  padding: 0 15px;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin-bottom: -3px;
+
+  > div {
+    width: 60px;
+    margin-top: 4px;
+
+    &:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
+
+  /* Override material-ui */
+  > div > div > div {
+    width: 60px !important;
+  }
+  
+  label {
+    white-space: wrap !important;
+    line-height: 12px !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    top: auto !important;
+    bottom: 10px !important;
+    letter-spacing: 0.1px !important;
+    font-size: 11px !important;
+  }
+
+  input {
+    height: 20px !important;
+    margin-top: 6px !important;
+  }
+
+  hr:first-child {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    border-bottom-style: dashed !important;
+  }
+
+  .chip {
+    padding-left: 1px;
+    > div {
+      border-radius: 0px !important;
+      width: 60px !important;
+      margin: 0px !important;
+      background-color: transparent !important;
+      > span {
+        font-size: 9px !important;
+        letter-spacing: 1px;
+        padding-left: 0px !important;
+        padding-right: 1px !important;
+        line-height: 12px !important;
+        overflow: hidden !important;
+        max-width: 50px !important;
+        text-overflow: ellipsis !important;
+      }
+      > svg {
+        position: relative !important;
+        bottom: 5px !important;
+        margin: 0px !important;
+        fill: rgb(71, 71, 86) !important;
+
+        &:hover {
+          fill: white !important;
+        }
+      }
+    }
+  }
 }
 
 .hideForm {
   overflow: hidden;
-  transition: max-height 0.2s;
   max-height: 0px;
 }
 
 .showForm {
-  overflow: hidden;
-  transition: max-height 0.2s;
+  border: 1px solid rgb(0,0,0,0.12);
+  background-color: rgba(35, 35, 58, 0.85);
+  padding-top: 5px !important;
+  padding-left: 5px;
+  padding-right: 5px;
+  position: relative;
+
+  ::after {
+    position: absolute;
+    content: "${props => props.strings.filter_button_text_open}";
+    font-size: 12px;
+    top: -14px;
+    left: 0px;
+    line-height: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    backface-visibility: hidden;
+    color: ${constants.colorMuted};
+  }
 }
 `;
 
@@ -46,7 +131,6 @@ const setShowFormState = (props) => {
 
 class TableFilterForm extends React.Component {
   static propTypes = {
-    showForm: PropTypes.bool,
     currentQueryString: PropTypes.string,
     history: PropTypes.shape({}),
     playerId: PropTypes.string,
@@ -74,7 +158,7 @@ class TableFilterForm extends React.Component {
 
   render() {
     const {
-      showForm, currentQueryString, history, strings,
+      currentQueryString, history, strings,
     } = this.props;
     const formSelectionState = querystring.parse(currentQueryString.substring(1));
 
@@ -187,8 +271,8 @@ class TableFilterForm extends React.Component {
     }];
 
     return (
-      <Styled>
-        <div className={showForm ? 'showForm' : 'hideForm'}>
+      <Styled strings={strings}>
+        <div className="showForm">
           <div className="formGroup">
             <FormField
               name="hero_id"
@@ -198,6 +282,7 @@ class TableFilterForm extends React.Component {
               history={history}
               strict
               limit={1}
+              textFieldStyle={textFieldStyle}
             />
             <FormField
               name="is_radiant"
@@ -207,6 +292,7 @@ class TableFilterForm extends React.Component {
               history={history}
               strict
               limit={1}
+              textFieldStyle={textFieldStyle}
             />
             <FormField
               name="win"
@@ -216,6 +302,7 @@ class TableFilterForm extends React.Component {
               history={history}
               strict
               limit={1}
+              textFieldStyle={textFieldStyle}
             />
             <FormField
               name="lane_role"
@@ -225,6 +312,7 @@ class TableFilterForm extends React.Component {
               history={history}
               strict
               limit={1}
+              textFieldStyle={textFieldStyle}
             />
             <FormField
               name="patch"
@@ -234,6 +322,7 @@ class TableFilterForm extends React.Component {
               history={history}
               strict
               limit={1}
+              textFieldStyle={textFieldStyle}
             />
             <FormField
               name="game_mode"
@@ -243,6 +332,7 @@ class TableFilterForm extends React.Component {
               history={history}
               strict
               limit={1}
+              textFieldStyle={textFieldStyle}
             />
             <FormField
               name="lobby_type"
@@ -252,6 +342,7 @@ class TableFilterForm extends React.Component {
               history={history}
               strict
               limit={1}
+              textFieldStyle={textFieldStyle}
             />
             <FormField
               name="date"
@@ -261,6 +352,7 @@ class TableFilterForm extends React.Component {
               history={history}
               strict
               limit={1}
+              textFieldStyle={textFieldStyle}
             />
             <FormField
               name="region"
@@ -270,6 +362,7 @@ class TableFilterForm extends React.Component {
               history={history}
               strict
               limit={1}
+              textFieldStyle={textFieldStyle}
             />
             <FormField
               name="with_hero_id"
@@ -279,6 +372,7 @@ class TableFilterForm extends React.Component {
               history={history}
               strict
               limit={5}
+              textFieldStyle={textFieldStyle}
             />
             <FormField
               name="against_hero_id"
@@ -288,6 +382,7 @@ class TableFilterForm extends React.Component {
               history={history}
               strict
               limit={5}
+              textFieldStyle={textFieldStyle}
             />
             <FormField
               name="included_account_id"
@@ -296,6 +391,7 @@ class TableFilterForm extends React.Component {
               formSelectionState={formSelectionState}
               history={history}
               limit={10}
+              textFieldStyle={textFieldStyle}
             />
             <FormField
               name="excluded_account_id"
@@ -303,6 +399,7 @@ class TableFilterForm extends React.Component {
               dataSource={this.state.peers.map(peer => ({ text: `${peer.personaname}`, value: peer.account_id }))}
               formSelectionState={formSelectionState}
               history={history}
+              textFieldStyle={textFieldStyle}
             />
             <FormField
               name="significant"
@@ -312,6 +409,7 @@ class TableFilterForm extends React.Component {
               history={history}
               strict
               limit={1}
+              textFieldStyle={textFieldStyle}
             />
             <FormField
               name="having"
@@ -321,6 +419,7 @@ class TableFilterForm extends React.Component {
               history={history}
               strict
               limit={1}
+              textFieldStyle={textFieldStyle}
             />
             <FormField
               name="party_size"
@@ -330,6 +429,7 @@ class TableFilterForm extends React.Component {
               history={history}
               strict
               limit={1}
+              textFieldStyle={textFieldStyle}
             />
           </div>
         </div>

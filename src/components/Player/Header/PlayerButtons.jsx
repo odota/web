@@ -5,7 +5,6 @@ import FlatButton from 'material-ui/FlatButton';
 import ActionUpdate from 'material-ui/svg-icons/navigation/refresh';
 import styled from 'styled-components';
 import { toggleShowForm as toggleShowFormAction } from '../../../actions/formActions';
-import ShowFormToggle from '../../Form/ShowFormToggle';
 
 const Styled = styled.div`
   display: flex;
@@ -39,8 +38,6 @@ class PlayerButtons extends React.Component {
   static propTypes = {
     playerId: PropTypes.string,
     playerSoloCompetitiveRank: PropTypes.number,
-    showForm: PropTypes.bool,
-    toggleShowForm: PropTypes.func,
     strings: PropTypes.shape({}),
   }
 
@@ -50,8 +47,6 @@ class PlayerButtons extends React.Component {
     const {
       playerId,
       playerSoloCompetitiveRank,
-      showForm,
-      toggleShowForm,
       strings,
     } = this.props;
     return (
@@ -70,12 +65,10 @@ class PlayerButtons extends React.Component {
             label={strings.app_refresh_label}
           />
         </div>
-        <ShowFormToggle showForm={showForm} toggleShowForm={toggleShowForm} />
         <FlatButton
           label={strings.app_dotacoach}
           labelPosition="after"
           icon={<img src="/assets/images/dotacoach-32x24.png" alt="DotaCoach" />}
-          style={{ marginLeft: 15 }}
           href={`https://dotacoach.org/Hire/OpenDota?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}`}
         />
       </Styled>);
