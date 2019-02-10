@@ -31,7 +31,7 @@ const StyledPagination = styled.div`
   }
   ${props => props.top && `position: absolute;
   right: 0;
-  top: -46px;
+  top: -32px;
   font-size: ${constants.fontSizeMedium};
   @media only screen and (max-width: 767px) {
     position: initial;
