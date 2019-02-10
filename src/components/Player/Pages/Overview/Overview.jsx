@@ -155,6 +155,7 @@ const Overview = ({
           <SummOfRecMatches matchesData={validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23)} />
         </SummaryContainer>
         <SummaryContainer
+          title={strings.tab_counts}
           loading={countsLoading}
           error={countsError}
           subtitle={strings.th_win}

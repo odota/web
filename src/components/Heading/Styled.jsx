@@ -3,7 +3,8 @@ import constants from '../constants';
 
 export const StyledDiv = styled.div`
   margin-top: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 2px;
+  margin-left: 3px;
 
   .winner {
     position: relative;
@@ -34,10 +35,11 @@ export const StyledDiv = styled.div`
   }
 
   & svg {
-    vertical-align: middle;
-    height: 26px !important;
-    width: 26px !important;
+    height: 20px !important;
+    width: 20px !important;
+    position: relative;
     margin-right: 6px;
+    top: 2px;
     opacity: 0.8;
     fill: ${constants.textColorPrimary};
   }
@@ -53,6 +55,7 @@ export const StyledDiv = styled.div`
 
   & .title {
     font-size: 20px;
+    text-shadow: 2px 1px 2px black;
   }
 
   & .subtitle {
