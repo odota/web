@@ -44,11 +44,13 @@ const Styled = styled.div`
     bottom: 10px !important;
     letter-spacing: 0.1px !important;
     font-size: 11px !important;
+    color: rgba(255, 255, 255, 0.48) !important
   }
 
   input {
     height: 20px !important;
-    margin-top: 4px !important;
+    margin-top: 0px !important;
+    vertical-align: super !important;
   }
 
   hr:first-child {
@@ -270,166 +272,134 @@ class TableFilterForm extends React.Component {
       value: 5,
     }];
 
+    const CustomFormField = props =>
+      (<FormField
+        formSelectionState={formSelectionState}
+        history={history}
+        textFieldStyle={textFieldStyle}
+        {...props}
+      />);
+
+    const isFilterApplied = Object.keys(formSelectionState).length > 0;
+
     return (
       <Styled strings={strings}>
-        <div className="showForm">
+        <div
+          className="showForm"
+          style={{
+            borderColor: isFilterApplied && 'rgba(45,210,106,0.27)',
+            backgroundColor: isFilterApplied && 'rgba(31, 31, 33, 0.85)',
+          }}
+        >
           <div className="formGroup">
-            <FormField
+            <CustomFormField
               name="hero_id"
               label={strings.filter_hero_id}
               dataSource={heroList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
-              textFieldStyle={textFieldStyle}
             />
-            <FormField
+            <CustomFormField
               name="is_radiant"
               label={strings.filter_is_radiant}
               dataSource={factionList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
-              textFieldStyle={textFieldStyle}
             />
-            <FormField
+            <CustomFormField
               name="win"
               label={strings.filter_win}
               dataSource={resultList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
-              textFieldStyle={textFieldStyle}
             />
-            <FormField
+            <CustomFormField
               name="lane_role"
               label={strings.filter_lane_role}
               dataSource={laneList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
-              textFieldStyle={textFieldStyle}
             />
-            <FormField
+            <CustomFormField
               name="patch"
               label={strings.filter_patch}
               dataSource={patchList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
-              textFieldStyle={textFieldStyle}
             />
-            <FormField
+            <CustomFormField
               name="game_mode"
               label={strings.filter_game_mode}
               dataSource={modeList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
-              textFieldStyle={textFieldStyle}
             />
-            <FormField
+            <CustomFormField
               name="lobby_type"
               label={strings.filter_lobby_type}
               dataSource={lobbyTypeList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
-              textFieldStyle={textFieldStyle}
             />
-            <FormField
+            <CustomFormField
               name="date"
               label={strings.filter_date}
               dataSource={dateList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
-              textFieldStyle={textFieldStyle}
             />
-            <FormField
+            <CustomFormField
               name="region"
               label={strings.filter_region}
               dataSource={regionList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
-              textFieldStyle={textFieldStyle}
             />
-            <FormField
+            <CustomFormField
               name="with_hero_id"
               label={strings.filter_with_hero_id}
               dataSource={heroList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={5}
-              textFieldStyle={textFieldStyle}
             />
-            <FormField
+            <CustomFormField
               name="against_hero_id"
               label={strings.filter_against_hero_id}
               dataSource={heroList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={5}
-              textFieldStyle={textFieldStyle}
             />
-            <FormField
+            <CustomFormField
               name="included_account_id"
               label={strings.filter_included_account_id}
               dataSource={this.state.peers.map(peer => ({ text: `${peer.personaname}`, value: peer.account_id }))}
-              formSelectionState={formSelectionState}
-              history={history}
               limit={10}
-              textFieldStyle={textFieldStyle}
             />
-            <FormField
+            <CustomFormField
               name="excluded_account_id"
               label={strings.filter_excluded_account_id}
               dataSource={this.state.peers.map(peer => ({ text: `${peer.personaname}`, value: peer.account_id }))}
-              formSelectionState={formSelectionState}
-              history={history}
-              textFieldStyle={textFieldStyle}
             />
-            <FormField
+            <CustomFormField
               name="significant"
               label={strings.filter_significant}
               dataSource={significantList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
-              textFieldStyle={textFieldStyle}
             />
-            <FormField
+            <CustomFormField
               name="having"
               label={strings.explorer_having}
               dataSource={gamesPlayedList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
-              textFieldStyle={textFieldStyle}
             />
-            <FormField
+            <CustomFormField
               name="party_size"
               label={strings.filter_party_size}
               dataSource={partySize}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
-              textFieldStyle={textFieldStyle}
             />
           </div>
         </div>

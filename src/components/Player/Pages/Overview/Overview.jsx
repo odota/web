@@ -130,7 +130,7 @@ const Overview = ({
 
   return (
     <OverviewContainer>
-      <Collapsible name="playerSummary" initialMaxHeight={800}>
+      <Collapsible name="playerSummary" initialMaxHeight={800} buttonStyle={{ top: 8 }}>
         <SummaryContainer
           title={strings.heading_avg_and_max}
           titleTo={`/players/${playerId}/records`}
@@ -186,7 +186,7 @@ const Overview = ({
       </MatchesContainer>
 
       <HeroesContainer>
-        <Collapsible name="overviewPeers" initialMaxHeight={400} buttonStyle={{ top: 20 }}>
+        <Collapsible name="overviewPeers" initialMaxHeight={400} buttonStyle={{ top: 18 }}>
           <Container
             title={strings.heading_peers}
             titleTo={`/players/${playerId}/peers`}
@@ -200,7 +200,7 @@ const Overview = ({
             />
           </Container>
         </Collapsible>
-        <Collapsible name="overviewHeroes" initialMaxHeight={700} buttonStyle={{ top: 35 }}>
+        <Collapsible name="overviewHeroes" initialMaxHeight={700} buttonStyle={{ top: 28 }}>
           <Container
             title={strings.heading_heroes}
             titleTo={`/players/${playerId}/heroes`}
