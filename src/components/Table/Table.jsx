@@ -67,6 +67,7 @@ class Table extends React.Component {
     customWidth: number,
     isBestValueInMatch: func,
     overflowAuto: bool,
+    className: string,
   }
 
   static renderSumRow({ columns, data }) {
@@ -160,6 +161,7 @@ class Table extends React.Component {
       customWidth,
       isBestValueInMatch,
       overflowAuto,
+      className,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage, scrolled,
@@ -195,7 +197,7 @@ class Table extends React.Component {
               'shrink'} ${overflowAuto && 'table-container-overflow-auto'}`}
             ref={this.setTableRef}
           >
-            <table>
+            <table className={className}>
               <thead>
                 <TableHeader
                   columns={columns}
