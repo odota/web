@@ -946,7 +946,7 @@
   "tooltip_stomp": "Наибольшее преимущество по золоту в выигранной игре",
   "tooltip_loss": "Наибольшее отставание по золоту в проигранной игре",
   "tooltip_items": "Сборка предметов",
-  "tooltip_permanent_buffs": "Permanent buffs such as Flesh Heap stacks or Tomes of Knowledge used",
+  "tooltip_permanent_buffs": "Постоянные баффы такие как стаки Flesh Heap или использованные Tomes of Knowledge",
   "tooltip_lane": "Линия, основанная на положении героя на ранних этапах игры",
   "tooltip_map": "Тепловая карта положения игрока на ранних этапах игры",
   "tooltip_lane_efficiency": "Процент золота с линии (начальное + пассивное + от крипов), заработанное за 10 первые минут",
