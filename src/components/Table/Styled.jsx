@@ -119,6 +119,7 @@ export const StyledBody = styled.div`
   .scrolled.shrink .textContainer {
     width: 40px !important;
     margin-right: 0px !important;
+    height: 32px !important;
   }
 
   .scrolled .textContainer span {
