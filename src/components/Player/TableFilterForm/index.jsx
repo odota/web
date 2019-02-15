@@ -102,6 +102,7 @@ const Styled = styled.div`
   padding-left: 5px;
   padding-right: 5px;
   position: relative;
+  margin-top: 35px;
 
   ::after {
     position: absolute;
