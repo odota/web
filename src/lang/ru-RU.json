@@ -1112,7 +1112,7 @@
   "activated": "Активирован",
   "rune": "Руны",
   "placement": "Размещение",
-  "exclude_turbo_matches": "Исключить Turbo матчи",
+  "include_turbo_matches": "Include Turbo matches",
   "scenarios_subtitle": "Исследуйте шансы на победу комбинируя факты произошедшие в матче",
   "scenarios_info": "Данные из матчей в течение последних {0} недель",
   "scenarios_item_timings": "Тайминги предметов",
