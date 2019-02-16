@@ -1112,7 +1112,7 @@
   "activated": "Activat",
   "rune": "Rună",
   "placement": "Poziționare",
-  "exclude_turbo_matches": "Exclude meciurile Turbo",
+  "include_turbo_matches": "Include Turbo matches",
   "scenarios_subtitle": "Explorează ratele de câștig ale diverselor combinații de factori care au avut loc în meciuri",
   "scenarios_info": "Date compilate din meciurile din ultimele {0} săptămâni",
   "scenarios_item_timings": "Sincronizarea obiectelor",
