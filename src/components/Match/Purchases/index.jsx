@@ -8,9 +8,9 @@ import mcs from '../matchColumns';
 const toggleStyle = {
   width: '30px',
   float: 'right',
-  position: 'relative',
-  right: '10px',
-  top: '9px',
+  position: 'absolute',
+  right: '100px',
+  top: '-12px',
   border: '1px solid rgba(179, 179, 179, 0.1)',
   padding: '6px',
   backgroundColor: 'rgba(0, 0, 0, 0.6)',
@@ -42,7 +42,7 @@ class Purchases extends React.Component {
     } = this.props;
     const { purchaseTimesColumns } = mcs(strings);
     return (
-      <div>
+      <div style={{ position: 'relative' }}>
         <Toggle
           label={strings.show_consumables_items}
           labelStyle={{ color: '#b3b3b3', lineHeight: '13px', fontSize: '14px' }}

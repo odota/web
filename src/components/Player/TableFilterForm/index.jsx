@@ -9,25 +9,113 @@ import patch from 'dotaconstants/build/patch.json';
 import region from 'dotaconstants/build/region.json';
 import { toggleShowForm } from '../../../actions/formActions';
 import FormField from '../../Form/FormField';
+import constants from '../../constants';
+
+const textFieldStyle = { width: 53, fontSize: 9, height: 'auto' };
 
 const Styled = styled.div`
 .formGroup {
-  padding: 0 15px;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin-bottom: -3px;
+
+  > div {
+    width: 60px;
+
+    &:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
+
+  /* Override material-ui */
+  > div > div > div {
+    width: 60px !important;
+  }
+  
+  label {
+    white-space: nowrap !important;
+    line-height: 12px !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    top: auto !important;
+    bottom: 10px !important;
+    letter-spacing: 0.1px !important;
+    font-size: 11px !important;
+    color: rgba(255, 255, 255, 0.48) !important
+  }
+
+  input {
+    height: 20px !important;
+    margin-top: 0px !important;
+    vertical-align: super !important;
+  }
+
+  hr:first-child {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    border-bottom-style: dashed !important;
+  }
+
+  .chip {
+    padding-left: 1px;
+    > div {
+      border-radius: 0px !important;
+      width: 70px !important;
+      margin: 0px !important;
+      background-color: transparent !important;
+      > span {
+        font-size: 11px !important;
+        letter-spacing: 1px;
+        padding-left: 0px !important;
+        padding-right: 1px !important;
+        line-height: 12px !important;
+        overflow: hidden !important;
+        width: 50px !important;
+        text-overflow: ellipsis !important;
+      }
+      > svg {
+        position: relative !important;
+        bottom: 5px !important;
+        margin: 0px !important;
+        fill: rgb(71, 71, 86) !important;
+        flex-grow: 0 !important;
+        flex-shrink: 0 !important;
+
+        &:hover {
+          fill: white !important;
+        }
+      }
+    }
+  }
 }
 
 .hideForm {
   overflow: hidden;
-  transition: max-height 0.2s;
   max-height: 0px;
 }
 
 .showForm {
-  overflow: hidden;
-  transition: max-height 0.2s;
+  border: 1px solid rgb(0,0,0,0.12);
+  background-color: rgba(35, 35, 58, 0.85);
+  padding-left: 5px;
+  padding-right: 5px;
+  position: relative;
+  margin-top: 35px;
+
+  ::after {
+    position: absolute;
+    content: "${props => props.strings.filter_button_text_open}";
+    font-size: 12px;
+    top: -15px;
+    left: 0px;
+    line-height: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    backface-visibility: hidden;
+    color: ${constants.colorMuted};
+  }
 }
 `;
 
@@ -46,7 +134,6 @@ const setShowFormState = (props) => {
 
 class TableFilterForm extends React.Component {
   static propTypes = {
-    showForm: PropTypes.bool,
     currentQueryString: PropTypes.string,
     history: PropTypes.shape({}),
     playerId: PropTypes.string,
@@ -74,7 +161,7 @@ class TableFilterForm extends React.Component {
 
   render() {
     const {
-      showForm, currentQueryString, history, strings,
+      currentQueryString, history, strings,
     } = this.props;
     const formSelectionState = querystring.parse(currentQueryString.substring(1));
 
@@ -186,148 +273,132 @@ class TableFilterForm extends React.Component {
       value: 5,
     }];
 
+    const CustomFormField = props =>
+      (<FormField
+        formSelectionState={formSelectionState}
+        history={history}
+        textFieldStyle={textFieldStyle}
+        {...props}
+      />);
+
+    const isFilterApplied = Object.keys(formSelectionState).length > 0;
+
     return (
-      <Styled>
-        <div className={showForm ? 'showForm' : 'hideForm'}>
+      <Styled strings={strings}>
+        <div
+          className="showForm"
+          style={{
+            borderColor: isFilterApplied && 'rgba(45,210,106,0.27)',
+            backgroundColor: isFilterApplied && 'rgba(31, 31, 33, 0.85)',
+          }}
+        >
           <div className="formGroup">
-            <FormField
+            <CustomFormField
               name="hero_id"
               label={strings.filter_hero_id}
               dataSource={heroList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
             />
-            <FormField
+            <CustomFormField
               name="is_radiant"
               label={strings.filter_is_radiant}
               dataSource={factionList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
             />
-            <FormField
+            <CustomFormField
               name="win"
               label={strings.filter_win}
               dataSource={resultList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
             />
-            <FormField
+            <CustomFormField
               name="lane_role"
               label={strings.filter_lane_role}
               dataSource={laneList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
             />
-            <FormField
+            <CustomFormField
               name="patch"
               label={strings.filter_patch}
               dataSource={patchList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
             />
-            <FormField
+            <CustomFormField
               name="game_mode"
               label={strings.filter_game_mode}
               dataSource={modeList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
             />
-            <FormField
+            <CustomFormField
               name="lobby_type"
               label={strings.filter_lobby_type}
               dataSource={lobbyTypeList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
             />
-            <FormField
+            <CustomFormField
               name="date"
               label={strings.filter_date}
               dataSource={dateList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
             />
-            <FormField
+            <CustomFormField
               name="region"
               label={strings.filter_region}
               dataSource={regionList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
             />
-            <FormField
+            <CustomFormField
               name="with_hero_id"
               label={strings.filter_with_hero_id}
               dataSource={heroList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={5}
             />
-            <FormField
+            <CustomFormField
               name="against_hero_id"
               label={strings.filter_against_hero_id}
               dataSource={heroList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={5}
             />
-            <FormField
+            <CustomFormField
               name="included_account_id"
               label={strings.filter_included_account_id}
               dataSource={this.state.peers.map(peer => ({ text: `${peer.personaname}`, value: peer.account_id }))}
-              formSelectionState={formSelectionState}
-              history={history}
               limit={10}
             />
-            <FormField
+            <CustomFormField
               name="excluded_account_id"
               label={strings.filter_excluded_account_id}
               dataSource={this.state.peers.map(peer => ({ text: `${peer.personaname}`, value: peer.account_id }))}
-              formSelectionState={formSelectionState}
-              history={history}
             />
-            <FormField
+            <CustomFormField
               name="significant"
               label={strings.filter_significant}
               dataSource={significantList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
             />
-            <FormField
+            <CustomFormField
               name="having"
               label={strings.explorer_having}
               dataSource={gamesPlayedList}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
             />
-            <FormField
+            <CustomFormField
               name="party_size"
               label={strings.filter_party_size}
               dataSource={partySize}
-              formSelectionState={formSelectionState}
-              history={history}
               strict
               limit={1}
             />

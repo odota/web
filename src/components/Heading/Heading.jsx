@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import ActionLabelOutline from 'material-ui/svg-icons/action/label-outline';
 import RaisedButton from 'material-ui/RaisedButton';
 import { StyledDiv, TwoLineDiv } from './Styled';
 
 const Heading = ({
-  title = '', titleTo, icon = <ActionLabelOutline />, subtitle, buttonLabel, buttonTo, buttonIcon, twoLine, info, winner, strings,
+  title = '', titleTo, icon, subtitle, buttonLabel, buttonTo, buttonIcon, twoLine, info, winner, strings,
 }) => {
   const DivToUse = twoLine ? TwoLineDiv : StyledDiv;
   return (

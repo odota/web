@@ -30,11 +30,27 @@ const Styled = styled.header`
   }
   padding: 20px 0 10px;
   font-size: 28px;
-  filter: drop-shadow(0 0 20px ${constants.colorYelor});
 
   @media only screen and (max-width: 1023px) {
     text-align: center;
     margin: 10px 0;
+  }
+
+  & > span {
+    padding-bottom: 5px;
+    letter-spacing: 1px;
+  }
+
+  &.radiant > span {
+    background: linear-gradient(to right,rgba(167, 195, 42, 0) 0%, 
+      rgba(129, 146, 60, 0) 5%,rgba(19,82,44,0.3) 50%,
+      rgba(96, 236, 8, 0.05) 87%, rgba(255,255,255,0) 100%);
+  }
+
+  &.dire > span {
+    background: linear-gradient(to right,rgba(117,132,52,0) 0%, 
+    rgba(129,146,60,0) 5%,rgba(111,34,26,0.3) 50%,
+    rgba(255, 71, 0, 0.05) 87%, rgba(255,255,255,0) 100%);
   }
 
   & svg {
