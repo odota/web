@@ -1112,7 +1112,7 @@
   "activated": "Activado",
   "rune": "Runa",
   "placement": "Ubicación",
-  "exclude_turbo_matches": "Excluir partidas Turbo",
+  "include_turbo_matches": "Include Turbo matches",
   "scenarios_subtitle": "Explorar las tasas de ganancia de las combinaciones de factores que ocurren en los partidos",
   "scenarios_info": "Datos recopilados de partidas en las últimas {0} semanas",
   "scenarios_item_timings": "Tiempo de los ítems",
