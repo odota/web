@@ -1112,7 +1112,7 @@
   "activated": "Activé",
   "rune": "Rune",
   "placement": "Position",
-  "exclude_turbo_matches": "Exclure les parties Turbo",
+  "include_turbo_matches": "Include Turbo matches",
   "scenarios_subtitle": "Explore win rates of combinations of factors that happen in matches",
   "scenarios_info": "Data compiled from matches in the last {0} weeks",
   "scenarios_item_timings": "Item Timings",
