@@ -1112,7 +1112,7 @@
   "activated": "激活",
   "rune": "神符",
   "placement": "位置",
-  "exclude_turbo_matches": "排除加速模式",
+  "include_turbo_matches": "Include Turbo matches",
   "scenarios_subtitle": "探索在比赛中发生的不同因素组合的胜率",
   "scenarios_info": "Data compiled from matches in the last {0} weeks",
   "scenarios_item_timings": "物品计时",
