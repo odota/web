@@ -1,11 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import { isRadiant, getTeamName } from '../../utility';
 import Heading from '../Heading';
 import { IconRadiant, IconDire } from '../Icons';
 import Table from '../Table';
 import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
+
+const StyledDiv = styled.div`
+  table {
+    &.teamtable-radiant thead tr {
+      background: radial-gradient(150% 100% at -115% 20%, rgb(52, 95, 61) 2%, rgba(66, 6, 6, 0) 100%);
+      background-repeat: no-repeat;
+    }
+    &.teamtable-dire thead tr {
+      background: radial-gradient(150% 100% at -115% 20%, rgb(95,54,52) 2%, rgba(66, 6, 6, 0) 100%);
+      background-repeat: no-repeat;
+    }
+  }
+`;
 
 const isBestValueInMatch = players => (field, row, underline) => {
   const values = players.map(player => player[field]);
@@ -120,7 +134,7 @@ class TeamTable extends React.Component {
     };
 
     return (
-      <div ref={this.setTeamTableRef}>
+      <StyledDiv ref={this.setTeamTableRef} >
         <Heading
           title={`${getTeamName(radiantTeam, true)} - ${heading}`}
           icon={<IconRadiant />}
@@ -129,16 +143,16 @@ class TeamTable extends React.Component {
           buttonIcon={buttonIcon || ''}
           winner={radiantWin}
         />
-        <Table data={filterMatchPlayers(players, 'radiant')} {...tableProps} />
+        <Table data={filterMatchPlayers(players, 'radiant')} {...tableProps} className="teamtable-radiant" />
         {picksBans && picksBans.length > 0 && <PicksBans data={picksBans.filter(pb => pb.team === 0)} style={{ marginBottom: -25 }} /> /* team 0 - radiant */}
         <Heading
           title={`${getTeamName(direTeam, false)} - ${heading}`}
           icon={<IconDire />}
           winner={!radiantWin}
         />
-        <Table data={filterMatchPlayers(players, 'dire')} {...tableProps} />
+        <Table data={filterMatchPlayers(players, 'dire')} {...tableProps} className="teamtable-dire" />
         {picksBans && picksBans.length > 0 && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
-      </div>
+      </StyledDiv>
     );
   }
 }

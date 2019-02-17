@@ -23,7 +23,6 @@ export const StyledBody = styled.div`
     }
 
     & th {
-      height: 48px !important;
       position: relative;
 
       svg {
@@ -68,8 +67,6 @@ export const StyledBody = styled.div`
 
     & th,
     & td {
-      padding-top: 0px !important;
-      padding-bottom: 0px !important;
       overflow: visible !important;
 
       &:first-child {
@@ -122,6 +119,7 @@ export const StyledBody = styled.div`
   .scrolled.shrink .textContainer {
     width: 40px !important;
     margin-right: 0px !important;
+    height: 32px !important;
   }
 
   .scrolled .textContainer span {

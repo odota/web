@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Checkbox from 'material-ui/Checkbox';
-import Turbo from 'material-ui/svg-icons/image/timelapse';
-import TurboOff from 'material-ui/svg-icons/notification/do-not-disturb';
 import styled from 'styled-components';
 import {
   getPlayerRecentMatches,
@@ -132,7 +130,7 @@ const Overview = ({
 
   return (
     <OverviewContainer>
-      <Collapsible name="playerSummary">
+      <Collapsible name="playerSummary" initialMaxHeight={800} buttonStyle={{ top: 8 }}>
         <SummaryContainer
           title={strings.heading_avg_and_max}
           titleTo={`/players/${playerId}/records`}
@@ -144,16 +142,14 @@ const Overview = ({
           key="averages"
         >
           <Styled
-            data-hint={strings.exclude_turbo_matches}
-            data-hint-position="top"
+            data-hint={strings.include_turbo_matches}
+            data-hint-position="right"
             style={{ display: validRecentMatches.some(match => match.game_mode === 23) ? 'inline' : 'none' }}
           >
             <Checkbox
-              style={{ display: validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23) }}
+              style={{ display: validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23), opacity: 0.45 }}
               defaultChecked
               onCheck={toggleTurboGames}
-              checkedIcon={<Turbo />}
-              uncheckedIcon={<TurboOff />}
             />
           </Styled>
           <SummOfRecMatches matchesData={validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23)} />
@@ -190,7 +186,7 @@ const Overview = ({
       </MatchesContainer>
 
       <HeroesContainer>
-        <Collapsible name="overviewPeers" initialMaxHeight={400} buttonStyle={{ top: 20 }}>
+        <Collapsible name="overviewPeers" initialMaxHeight={400} buttonStyle={{ top: 18 }}>
           <Container
             title={strings.heading_peers}
             titleTo={`/players/${playerId}/peers`}
@@ -204,7 +200,7 @@ const Overview = ({
             />
           </Container>
         </Collapsible>
-        <Collapsible name="overviewHeroes" initialMaxHeight={700} buttonStyle={{ top: 35 }}>
+        <Collapsible name="overviewHeroes" initialMaxHeight={700} buttonStyle={{ top: 28 }}>
           <Container
             title={strings.heading_heroes}
             titleTo={`/players/${playerId}/heroes`}

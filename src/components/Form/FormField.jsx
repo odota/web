@@ -54,6 +54,7 @@ class FormField extends React.Component {
     deleteChip: PropTypes.string,
     strings: PropTypes.shape({}),
     resetField: PropTypes.func,
+    textFieldStyle: PropTypes.shape({}),
   }
 
   constructor(props) {
@@ -153,6 +154,7 @@ class FormField extends React.Component {
       history,
       formSelectionState,
       filter,
+      textFieldStyle,
     } = this.props;
     const {
       searchText,
@@ -163,7 +165,11 @@ class FormField extends React.Component {
     // Use dataSource on selectedElements to hydrate the chipList
     const chipList = selectedElements.map(this.findFromSource);
     return (
-      <div className={className}>
+      <div
+        className={className}
+        data-hint-position="left"
+        data-hint={label}
+      >
         <AutoComplete
           ref={(ref) => { this.autocomplete = ref; return null; }}
           openOnFocus
@@ -182,6 +188,7 @@ class FormField extends React.Component {
           errorStyle={{ color: colorRed }}
           onClose={() => this.setState({ errorText: '' })}
           onClick={this.handleClick}
+          textFieldStyle={textFieldStyle}
         />
         <ChipList name={name} chipList={chipList} deleteChip={deleteChip} history={history} />
       </div>);

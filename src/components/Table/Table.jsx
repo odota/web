@@ -67,6 +67,7 @@ class Table extends React.Component {
     customWidth: number,
     isBestValueInMatch: func,
     overflowAuto: bool,
+    className: string,
   }
 
   static renderSumRow({ columns, data }) {
@@ -75,7 +76,7 @@ class Table extends React.Component {
         {columns.map((column, colIndex) => {
             let total = 0;
             if (column.sumFn) {
-              const sumFn = (typeof column.sumFn === 'function') ? column.sumFn : (acc, row) => (acc + row[column.field]);
+              const sumFn = (typeof column.sumFn === 'function') ? column.sumFn : (acc, row) => (acc + (row[column.field] || 0));
               total = data.reduce(sumFn, null);
             }
 
@@ -160,6 +161,7 @@ class Table extends React.Component {
       customWidth,
       isBestValueInMatch,
       overflowAuto,
+      className,
     } = this.props;
     const {
       sortState, sortField, sortFn, currentPage, scrolled,
@@ -195,7 +197,7 @@ class Table extends React.Component {
               'shrink'} ${overflowAuto && 'table-container-overflow-auto'}`}
             ref={this.setTableRef}
           >
-            <table>
+            <table className={className}>
               <thead>
                 <TableHeader
                   columns={columns}

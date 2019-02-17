@@ -27,6 +27,7 @@ tr {
 
 td {
   padding: 0px !important;
+  height: 48px;
   white-space: normal !important;
   text-align: center; 
   &:not(:last-child) {

@@ -60,6 +60,14 @@ const StyledDiv = styled.div`
       }
     }
   }
+
+  &.backpack {
+    height: 10px;
+    
+    object, img {
+      height: 18px;
+    }
+  }
 }
 
 .noBr {
@@ -103,6 +111,23 @@ const StyledDiv = styled.div`
   color: ${constants.textColorPrimary};
   font-weight: ${constants.fontWeightMedium};
   text-shadow: 1px 1px 2px black, -1px -1px 2px black;
+}
+
+.backpackOverlay {
+  display: inline-block;
+  font-size: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 18px;
+  min-width: 20px;
+  padding-left: 3px;
+  padding-right: 3px;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+  overflow: hidden;
+
+  span {
+    line-height: 18px;
+  }
 }
 `;
 
@@ -183,8 +208,13 @@ class InflictorWithValue extends React.Component {
 
       return (
         <StyledDiv>
-          <div className="inflictorWithValue" data-tip={tooltip && true} data-for={ttId} onMouseEnter={this.setShowTooltip}>
-            {!type &&
+          <div
+            className={`inflictorWithValue ${type === 'backpack' && 'backpack'}`}
+            data-tip={tooltip && true}
+            data-for={ttId}
+            onMouseEnter={this.setShowTooltip}
+          >
+            {(!type || type === 'backpack') &&
             <object data={image} height="27px" type="image/png">
               <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)', height: '27px' }} />
             </object>}
@@ -200,6 +230,11 @@ class InflictorWithValue extends React.Component {
             {type === 'buff' &&
             <div className="buffOverlay">
               {value > 0 && value}
+            </div>
+          }
+            {type === 'backpack' &&
+            <div className="backpackOverlay">
+              <span>{value}</span>
             </div>
           }
             {tooltip &&
