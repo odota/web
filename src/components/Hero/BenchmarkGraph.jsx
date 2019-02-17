@@ -47,6 +47,11 @@ const tooltipWrapperStyle = {
   border: 0,
 };
 
+const tooltipContentStyle = {
+  background: 'transparent',
+  border: 0,
+};
+
 const BenchmarkGraph = ({ data }) => {
   const graphId = nanoid();
 
@@ -72,7 +77,7 @@ const BenchmarkGraph = ({ data }) => {
           <XAxis dataKey="Percentage" />
           <YAxis />
           <Area dataKey="Value" name={data.title} stroke={data.color} strokeWidth="3" fill={`url(#colorGraph-${graphId})`} />
-          <Tooltip wrapperStyle={tooltipWrapperStyle} cursor={tooltipCursorStyle} />
+          <Tooltip wrapperStyle={tooltipWrapperStyle} contentStyle={tooltipContentStyle} cursor={tooltipCursorStyle} />
         </AreaChart>
       </ResponsiveContainer>
       <Title>{data.title}</Title>
