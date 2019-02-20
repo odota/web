@@ -105,7 +105,7 @@ const Styled = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0;
+  margin: 0 20px;
   -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
   drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
   filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
@@ -138,7 +138,7 @@ const Styled = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 30px;
+  margin: 0 20;
   -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
   drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
   filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
