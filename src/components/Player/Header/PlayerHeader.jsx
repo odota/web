@@ -318,10 +318,10 @@ const PlayerHeader = ({
             <PlayerStats playerId={playerId} loggedInId={loggedInUser && String(loggedInUser.account_id)} compact={!small} />
             <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={!small} />
           </div>
-           <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex' }}>
             {getDotaPlusBadge(plus, strings)}
             {getRankTierMedal(rankTier, leaderboardRank)}
-           </div>
+          </div>
         </div>
       </div>
     </Styled>
