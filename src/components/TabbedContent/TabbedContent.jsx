@@ -22,7 +22,7 @@ class RenderContent extends React.Component {
   render() {
     const { skeleton, content } = this.props;
     const { render } = this.state;
-    console.log(content)
+
     const PlaceHolder = () =>
       (skeleton ? <List primaryColor="#666" width={250} height={120} /> : null);
 
