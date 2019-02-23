@@ -37,6 +37,7 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
   return ({
     name: strings.tab_overview,
     key: 'overview',
+    skeleton: true,
     content: match => (
       <div>
         {

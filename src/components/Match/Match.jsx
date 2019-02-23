@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { List } from 'react-content-loader';
-import TabBar from '../TabBar';
+import TabbedContent from '../TabbedContent';
 import { getMatch } from '../../actions';
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
@@ -53,12 +53,13 @@ class RequestLayer extends React.Component {
             match={matchData}
             user={this.props.user}
           />
-          <TabBar
+          <TabbedContent
             info={info}
             tabs={matchPages(matchId, matchData, strings)}
             match={matchData}
+            content={page && page.content(matchData)}
+            skeleton={page && page.skeleton}
           />
-          {page && page.content(matchData)}
         </div>);
   }
 }

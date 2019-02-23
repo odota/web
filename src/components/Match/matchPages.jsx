@@ -135,6 +135,7 @@ const matchPages = (strings) => {
   }, {
     name: strings.tab_combat,
     key: 'combat',
+    skeleton: true,
     parsed: true,
     content: match => (
       <div>
@@ -167,6 +168,7 @@ const matchPages = (strings) => {
   }, {
     name: strings.tab_farm,
     key: 'farm',
+    skeleton: true,
     parsed: true,
     content: match => (
       <div>
@@ -229,6 +231,7 @@ const matchPages = (strings) => {
   }, {
     name: strings.tab_items,
     key: 'purchases',
+    skeleton: true,
     parsed: true,
     content: match => (
       <div>
@@ -241,6 +244,7 @@ const matchPages = (strings) => {
   }, {
     name: strings.tab_graphs,
     key: 'graphs',
+    skeleton: true,
     parsed: true,
     content: match => (
       <div>
@@ -253,6 +257,7 @@ const matchPages = (strings) => {
   }, {
     name: strings.tab_casts,
     key: 'casts',
+    skeleton: true,
     parsed: true,
     content: match => (
       <div>
@@ -271,6 +276,7 @@ const matchPages = (strings) => {
   }, {
     name: strings.tab_objectives,
     key: 'objectives',
+    skeleton: true,
     parsed: true,
     content: match => (
       <div>
@@ -299,6 +305,7 @@ const matchPages = (strings) => {
   }, {
     name: strings.tab_vision,
     key: 'vision',
+    skeleton: true,
     parsed: true,
     content: match => <Vision match={match} sponsorURL={gosuUrl} sponsorIcon={gosuIcon} hoverRowColumn />,
   }, {
@@ -323,6 +330,7 @@ const matchPages = (strings) => {
   }, {
     name: strings.tab_teamfights,
     key: 'teamfights',
+    skeleton: true,
     parsed: true,
     content: match => (
       <div>
@@ -364,6 +372,7 @@ const matchPages = (strings) => {
   }, {
     name: strings.tab_log,
     key: 'log',
+    skeleton: true,
     parsed: true,
     content: match => (
       <div>
@@ -451,4 +460,5 @@ export default (matchId, match, strings) => matchPages(strings).map(page => ({
   route: `/matches/${matchId}/${page.key.toLowerCase()}`,
   disabled: match && !match.version && page.parsed,
   hidden: m => page.hidden && page.hidden(m),
+  skeleton: page.skeleton,
 }));
