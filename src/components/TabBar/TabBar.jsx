@@ -24,6 +24,7 @@ const StyledSection = styled.section`
     padding: 10px 8px 16px;
     border-bottom: 2px solid transparent;
     flex-grow: 1;
+    transition: none;
 
     &:hover {
       color: ${constants.colorMutedLight};
