@@ -139,26 +139,14 @@ class InflictorWithValue extends React.Component {
     ptooltip: PropTypes.shape({}),
     abilityId: PropTypes.number,
     strings: PropTypes.shape({}),
+    abilities: PropTypes.shape({}),
+    neutralAbilities: PropTypes.shape({}),
+    abilityIds: PropTypes.shape({}),
   }
 
   constructor(props) {
     super(props);
     this.state = { showTooltip: false };
-  }
-
-  componentDidMount() {
-    (async () => {
-      const [abilities, neutralAbilities, abilityIds] = await Promise.all([
-        await import('dotaconstants/build/abilities.json'),
-        await import('dotaconstants/build/neutral_abilities.json'),
-        await import('dotaconstants/build/ability_ids.json'),
-      ]);
-      this.setState({
-        abilities,
-        neutralAbilities,
-        abilityIds,
-      });
-    })();
   }
 
   setShowTooltip = () => {
@@ -171,7 +159,7 @@ class InflictorWithValue extends React.Component {
     const {
       inflictor, value, type, ptooltip, abilityId, strings,
     } = this.props;
-    const { abilities, neutralAbilities, abilityIds } = this.state;
+    const { abilities, neutralAbilities, abilityIds } = this.props;
     const resolvedInflictor = (abilityId && abilityIds && abilityIds[abilityId]) || String(inflictor);
     if (resolvedInflictor) {
       const ability = abilities && abilities[resolvedInflictor];
