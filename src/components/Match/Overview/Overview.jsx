@@ -2,11 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import MatchGraph from '../../Visualizations/Graph/MatchGraph';
 import TeamTable from '../TeamTable';
-import AbilityBuildTable from '../AbilityBuildTable';
 import AbilityDraftTable from '../AbilityDraftTable';
 import mcs from '../matchColumns';
 import BuildingMap from '../BuildingMap';
 import Collapsible from './../../Collapsible/index';
+import AbilityBuildTableSkeleton from './../../Skeletons/AbilityBuildTableSkeleton';
+
+const AbilityBuildTable = React.lazy(() =>
+  import(/* webpackChunkName: 'AbilityBuildTable' */ '../AbilityBuildTable'));
 
 const Styled = styled.div`
   width: 100%;
@@ -37,6 +40,7 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
   return ({
     name: strings.tab_overview,
     key: 'overview',
+    skeleton: true,
     content: match => (
       <div>
         {
@@ -70,13 +74,15 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
       }
         {
           <Collapsible name="abilityBuilds" initialMaxHeight={800}>
-            <AbilityBuildTable
-              players={match.players}
-              columns={abilityColumns()}
-              heading={strings.heading_ability_build}
-              radiantTeam={match.radiant_team}
-              direTeam={match.dire_team}
-            />
+            <React.Suspense fallback={<AbilityBuildTableSkeleton />}>
+              <AbilityBuildTable
+                players={match.players}
+                columns={abilityColumns()}
+                heading={strings.heading_ability_build}
+                radiantTeam={match.radiant_team}
+                direTeam={match.dire_team}
+              />
+            </React.Suspense>
           </Collapsible>
         }
         {

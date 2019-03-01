@@ -17,7 +17,7 @@ const pathSuffixes = [
   'laning',
   'combat',
   'farm',
-  'items',
+  'purchases',
   'graphs',
   'casts',
   'objectives',
