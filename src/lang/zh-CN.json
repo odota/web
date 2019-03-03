@@ -576,7 +576,7 @@
   "tooltip_objective_rax_bot": "对下路兵营造成的伤害",
   "tooltip_objective_tower4": "对中路第4层防御塔造成的伤害",
   "tooltip_objective_fort": "对遗迹伤害",
-  "tooltip_objective_shrine": "Damage dealt to shrines",
+  "tooltip_objective_shrine": "对圣坛造成的伤害",
   "tooltip_objective_roshan": "对肉山伤害",
   "pagination_first": "首页",
   "pagination_last": "最近",
