@@ -7,23 +7,15 @@ import { styleValues } from '../../utility';
 
 const itemAbilities = {
   active: {
-    color: '#4183d7',
-    headerColor: 'rgba(65, 131, 215, 0.25)',
     text: 'Active',
   },
   passive: {
-    color: '#a9a9a9',
-    headerColor: 'rgba(169, 169, 169, 0.35)',
     text: 'Passive',
   },
   use: {
-    color: '#65a665',
-    headerColor: 'rgba(101, 166, 101, 0.25)',
     text: 'Use',
   },
   toggle: {
-    color: '#a74d9b',
-    headerColor: 'rgba(167, 77, 155, 0.225)',
     text: 'Toggle',
   },
 };
@@ -131,12 +123,15 @@ const Hint = styled.div`
 
 const Ability = styled.div`
   margin: 10px 9px 0px 9px;
+  background-color: rgba(30, 37, 43, 0.67); 
+  color: rgb(176, 198, 212);
+
   .ability-header {
-    background: ${props => `linear-gradient(to right, #303338 , ${props.headerColor})`};
-    padding: 6px; };
-    color: ${props => props.color};
+    padding: 6px; 
+    text-shadow: 1px 1px 1px black;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.18);
+    background: linear-gradient(to right,rgba(255, 255, 255, 0.13) ,transparent )  ;
     font-weight: bold;
-    text-shadow: 1px 1px #212121;
 
     & .resources {
       float: right;
@@ -155,10 +150,9 @@ const Ability = styled.div`
 
   .ability-text {
     padding: 6px;
-    background-color: #303338;
-    border-top: 1px solid ${props => props.color};
     font-weight: normal;
-    color: #a7b4b5;
+    color: rgb(169, 181, 193);
+    text-shadow: 1px 1px black;
   }
 `;
 const Components = styled.div`
@@ -216,7 +210,7 @@ const ItemTooltip = ({ item, inflictor }) => (
       if (item[type]) {
         return item[type].map(ability =>
           (
-            <Ability color={itemAbilities[type].color} headerColor={itemAbilities[type].headerColor}>
+            <Ability>
               <div className="ability-header">
                 {`${itemAbilities[type].text}: ${ability.name}`}
                 <div className="resources">
