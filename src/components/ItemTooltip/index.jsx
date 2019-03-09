@@ -22,7 +22,7 @@ const itemAbilities = {
 
 const Wrapper = styled.div`
   width: 300px;
-  background: #131519;
+  background: rgb(21, 27, 29);
   overflow: hidden;
   border: 2px solid #27292b;
 `;
@@ -31,7 +31,7 @@ const Header = styled.div`
   font-size: ${constants.fontSizeCommon};
   text-transform: uppercase;
   color: ${constants.colorBlue};
-  background: linear-gradient(to bottom, #51565F , #303338);
+  background-color: rgba(0, 0, 0, 0.08);
   
   .header-content {
     height: 50px;
