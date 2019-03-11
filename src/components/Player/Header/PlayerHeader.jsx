@@ -105,7 +105,7 @@ const Styled = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 20px;
+  margin: 0 25px;
   -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
   drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
   filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
@@ -128,8 +128,8 @@ const Styled = styled.div`
   }
   
   & img {
-    width: 85px;
-    height: 85px;
+    width: 75px;
+    height: 75px;
   }
 }
 
@@ -138,7 +138,7 @@ const Styled = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 20;
+  margin: 0 25;
   -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
   drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
   filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
