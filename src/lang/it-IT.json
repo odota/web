@@ -978,6 +978,7 @@
   "tooltip_damage_dealt": "Danno inflitto ad eroi da oggetti/abilità",
   "tooltip_damage_received": "Danno ricevuto da oggetti/abilità di eroi",
   "tooltip_registered_user": "Utente registrato",
+  "tooltip_dotaplus": "Dota Plus subscriber",
   "tooltip_ability_builds": "Builds Abilità",
   "tooltip_ability_builds_expired": "L'abilità di aggiornare le informazioni è scaduta per questo match. Utilizza il modulo di richiesta per ricaricare i dati.",
   "tooltip_multikill": "Multi-uccisioni più lunga",
