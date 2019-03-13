@@ -978,7 +978,7 @@
   "tooltip_damage_dealt": "Dano causado a heróis por itens/habilidades",
   "tooltip_damage_received": "Dano recebido de heróis por itens/habilidades",
   "tooltip_registered_user": "Usuário registrado",
-  "tooltip_dotaplus": "Dota Plus subscriber",
+  "tooltip_dotaplus": "Assinante do Dota Plus",
   "tooltip_ability_builds": "Habilidades",
   "tooltip_ability_builds_expired": "A habilidade de atualizar dados foi expirada para esta partida. Use o formulário de requisição para recarregar os dados.",
   "tooltip_multikill": "Multi-kill mais longo",
