@@ -978,6 +978,7 @@
   "tooltip_damage_dealt": "Eşya/özellik ile kahramana verilen hasar",
   "tooltip_damage_received": "Kahramanlardan Eşya/özellik ile alınan hasar",
   "tooltip_registered_user": "Kayıtlı kullanıcı",
+  "tooltip_dotaplus": "Dota Plus subscriber",
   "tooltip_ability_builds": "Özellik Seçme Sırası",
   "tooltip_ability_builds_expired": "Ability upgrade data has expired for this match. Use the request form to reload data.",
   "tooltip_multikill": "En uzun çoklu-leş",
