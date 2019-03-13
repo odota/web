@@ -978,6 +978,7 @@
   "tooltip_damage_dealt": "Damage dealt to heroes by items/abilities",
   "tooltip_damage_received": "Damage received from heroes by items/abilities",
   "tooltip_registered_user": "Usuario registrado",
+  "tooltip_dotaplus": "Dota Plus subscriber",
   "tooltip_ability_builds": "Ability Builds",
   "tooltip_ability_builds_expired": "Los datos de las mejoras de habilidades han expirado para esta partida. Utiliza el formulario de solicitud para recargar los datos.",
   "tooltip_multikill": "Multi-kill más larga",
