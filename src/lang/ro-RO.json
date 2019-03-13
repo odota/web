@@ -978,6 +978,7 @@
   "tooltip_damage_dealt": "Daune provocate eroilor de obiecte/abilități",
   "tooltip_damage_received": "Daune primite de la eroi de la obiecte/abilități",
   "tooltip_registered_user": "Utilizator înregistrat",
+  "tooltip_dotaplus": "Dota Plus subscriber",
   "tooltip_ability_builds": "Ordinea de învățare a abilităților",
   "tooltip_ability_builds_expired": "Datele despre ordinea de învățare a abilităților pentru acest meci au expirat. Folosește formularul de cerere pentru a reîncărca datele.",
   "tooltip_multikill": "Cel mai lung multi-kill",
