@@ -978,6 +978,7 @@
   "tooltip_damage_dealt": "Урон, нанесённый героем предметами/способностями",
   "tooltip_damage_received": "Урон, полученный от героев предметами/способностями",
   "tooltip_registered_user": "Зарегистрированный пользователь",
+  "tooltip_dotaplus": "Dota Plus subscriber",
   "tooltip_ability_builds": "Порядок изучения способностей",
   "tooltip_ability_builds_expired": "Возможность обновить данные для этого матча истекла. Используйте форму запроса для перезагрузки данных.",
   "tooltip_multikill": "Наибольшее количество убийств подряд",
