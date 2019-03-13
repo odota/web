@@ -978,6 +978,7 @@
   "tooltip_damage_dealt": "Skada hanteras till hjältar genom föremål/förmågor",
   "tooltip_damage_received": "Skada som mottagits från hjältar genom föremål/förmågor",
   "tooltip_registered_user": "Registrerad användare",
+  "tooltip_dotaplus": "Dota Plus subscriber",
   "tooltip_ability_builds": "Ability Builds",
   "tooltip_ability_builds_expired": "Ability upgrade data has expired for this match. Use the request form to reload data.",
   "tooltip_multikill": "Longest multi-kill",
