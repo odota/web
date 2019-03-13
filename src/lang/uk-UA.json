@@ -978,6 +978,7 @@
   "tooltip_damage_dealt": "Пошкодження зроблені героєм за допомоги здібностей/речей",
   "tooltip_damage_received": "Пошкодження отримані героєм за допомоги здібностей/речей",
   "tooltip_registered_user": "Зареєстрований користувач",
+  "tooltip_dotaplus": "Dota Plus subscriber",
   "tooltip_ability_builds": "Порядок отримання здібностей",
   "tooltip_ability_builds_expired": "Для цього матчу, минула здатність оновлення даних. Використайте форму запиту для перезавантаження даних.",
   "tooltip_multikill": "Найдовша кількість вбивств поспіль",
