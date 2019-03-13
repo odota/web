@@ -100,12 +100,45 @@ const Styled = styled.div`
   justify-content: center;
 }
 
-.rankMedal {
+.dotaPlusMedal {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 0 30px;
+  -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
+  drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
+  drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
+  
+  @media only screen and (max-width: 768px) {
+    flex-wrap: nowrap;
+  }
+  
+  &[data-hint-position="top"] {
+    &::after {
+      margin-bottom: 3px;
+      margin-left: 52px;
+    }
+
+    &::before {
+      top: -3px;
+      margin-left: 57px;
+    }
+  }
+  
+  & img {
+    width: 65px;
+    height: 75px;
+  }
+}
+
+.rankMedal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 25;
   -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
   drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
   filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
@@ -153,6 +186,19 @@ const getRegistrationBadge = (registered, strings) => registered && (
     data-hint={strings.tooltip_registered_user}
     data-hint-position="top"
   />
+);
+
+const getDotaPlusBadge = (plus, strings) => plus && (
+  <div
+    className="dotaPlusMedal"
+    data-hint={strings.tooltip_dotaplus}
+    data-hint-position="top"
+  >
+    <img
+      src="/assets/images/dota2/dota_plus_icon.png"
+      alt="icon"
+    />
+  </div>
 );
 
 const getRankTierMedal = (rankTier, leaderboardRank) => {
@@ -213,7 +259,7 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
 };
 
 const PlayerHeader = ({
-  playerName, officialPlayerName, playerId, picture, registered, loading, error, small, playerSoloCompetitiveRank, loggedInUser, rankTier, leaderboardRank, strings,
+  playerName, officialPlayerName, playerId, picture, registered, plus, loading, error, small, playerSoloCompetitiveRank, loggedInUser, rankTier, leaderboardRank, strings,
 }) => {
   if (error) {
     return <Error />;
@@ -272,7 +318,10 @@ const PlayerHeader = ({
             <PlayerStats playerId={playerId} loggedInId={loggedInUser && String(loggedInUser.account_id)} compact={!small} />
             <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={!small} />
           </div>
-          {getRankTierMedal(rankTier, leaderboardRank)}
+          <div style={{ display: 'flex' }}>
+            {getDotaPlusBadge(plus, strings)}
+            {getRankTierMedal(rankTier, leaderboardRank)}
+          </div>
         </div>
       </div>
     </Styled>
@@ -285,6 +334,7 @@ PlayerHeader.propTypes = {
   playerId: PropTypes.string,
   picture: PropTypes.string,
   registered: PropTypes.string,
+  plus: PropTypes.string,
   loading: PropTypes.bool,
   error: PropTypes.string,
   small: PropTypes.bool,
@@ -303,6 +353,7 @@ const mapStateToProps = state => ({
   playerSoloCompetitiveRank: state.app.player.data.solo_competitive_rank,
   picture: (state.app.player.data.profile || {}).avatarfull,
   registered: (state.app.player.data.profile || {}).last_login,
+  plus: (state.app.player.data.profile || {}).plus,
   small: state.browser.greaterThan.small,
   loggedInUser: state.app.metadata.data.user,
   rankTier: state.app.player.data.rank_tier,
