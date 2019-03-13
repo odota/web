@@ -978,6 +978,7 @@
   "tooltip_damage_dealt": "Dégâts infligés à des héros avec des objets/aptitudes",
   "tooltip_damage_received": "Dégâts reçus depuis des héros avec des objets/aptitudes",
   "tooltip_registered_user": "Utilisateur enregistré",
+  "tooltip_dotaplus": "Dota Plus subscriber",
   "tooltip_ability_builds": "Builds d'aptitudes",
   "tooltip_ability_builds_expired": "Les données d'amélioration des aptitudes a expiré pour ce match. Utilisez le formulaire de requête pour recharger les données.",
   "tooltip_multikill": "Multikill le plus grand",
