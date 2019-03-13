@@ -978,6 +978,7 @@
   "tooltip_damage_dealt": "Obrażenia zadane temu bohaterowi przez przedmioty/umiejętności",
   "tooltip_damage_received": "Obrażenia otrzymane od tego bohatera od przedmiotów/umiejętności",
   "tooltip_registered_user": "Zarejestrowany użytkownik",
+  "tooltip_dotaplus": "Dota Plus subscriber",
   "tooltip_ability_builds": "Buildy umiejętności",
   "tooltip_ability_builds_expired": "Dane o ulepszeniach umiejętności wygasły dla tego meczu. Skorzystaj z formularza zapytania aby je odświeżyć.",
   "tooltip_multikill": "Najdłuższy multikill",
