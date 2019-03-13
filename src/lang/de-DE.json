@@ -978,6 +978,7 @@
   "tooltip_damage_dealt": "Erteilten Schaden gegen Helden durch Items/Fähigkeiten",
   "tooltip_damage_received": "Erhaltenen Schaden von Helden durch Items/Fähigkeiten",
   "tooltip_registered_user": "Registrierter Benutzer",
+  "tooltip_dotaplus": "Dota Plus subscriber",
   "tooltip_ability_builds": "Fähigkeiten-Builds",
   "tooltip_ability_builds_expired": "Fähigkeit Upgrade Daten für dieses Spiel sind abgelaufen. Nutze das Anfrageformular, um die Daten erneut zu laden.",
   "tooltip_multikill": "Längster Multi-kill",
