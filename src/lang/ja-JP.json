@@ -978,6 +978,7 @@
   "tooltip_damage_dealt": "このアイテム/アビリティで与えたダメージ量",
   "tooltip_damage_received": "このアイテム/アビリティから受けたダメージ量",
   "tooltip_registered_user": "登録済みユーザー",
+  "tooltip_dotaplus": "Dota Plus subscriber",
   "tooltip_ability_builds": "アビリティビルド",
   "tooltip_ability_builds_expired": "この試合ではアビリティアップグレードのデータの期限が切れています。データのリロードのリクエストをしてください。",
   "tooltip_multikill": "最長マルチキル",
