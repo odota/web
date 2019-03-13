@@ -978,6 +978,7 @@
   "tooltip_damage_dealt": "使用物品或技能造成的最大伤害",
   "tooltip_damage_received": "受到物品或技能的最大伤害",
   "tooltip_registered_user": "已注册用户",
+  "tooltip_dotaplus": "Dota Plus subscriber",
   "tooltip_ability_builds": "加点",
   "tooltip_ability_builds_expired": "这场比赛的加点信息已过期，请重新分析比赛。",
   "tooltip_multikill": "多杀记录",
