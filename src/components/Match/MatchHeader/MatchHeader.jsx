@@ -346,7 +346,7 @@ const MatchHeader = ({ match, user, strings }) => {
         <FlatButton
           label={strings.app_rivalry}
           icon={<img src="/assets/images/rivalry-icon.png" alt="" height="24px" />}
-          href="https://www.rivalry.gg/opendota"
+          href="https://www.rivalry.com/opendota"
           target="_blank"
           rel="noopener noreferrer"
         />

@@ -48,7 +48,7 @@ const Sponsors = ({ strings }) => (
       <a href="https://www.openai.com/" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/openai-logo.png" alt="" />
       </a>
-      <a href="https://www.rivalry.gg" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.rivalry.com" target="_blank" rel="noopener noreferrer">
         <img src="/assets/images/rivalry-logo.png" alt="" />
       </a>
       { process.env.ENABLE_GOSUAI &&
