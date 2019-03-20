@@ -200,11 +200,11 @@ class App extends React.Component {
           <AdBannerDiv>
             { includeAds &&
               <div style={{ fontSize: '12px' }}>
-                <a href="https://www.rivalry.gg/opendota">
+                <a href="https://www.rivalry.com/opendota">
                   <img src="/assets/images/rivalry-banner.gif" alt="" />
                 </a>
                 <div>
-                  {strings.home_sponsored_by} <a href="https://www.rivalry.gg/opendota">Rivalry</a>
+                  {strings.home_sponsored_by} <a href="https://www.rivalry.com/opendota">Rivalry</a>
                 </div>
               </div>
             }

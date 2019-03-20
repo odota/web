@@ -375,19 +375,32 @@ export default (strings) => {
     return cols;
   };
 
+  const abilityMapping = (index, upgradesArr, hero) => {
+    const mapping = {
+      17: -1,
+      19: -1,
+      18: 16,
+      20: 17,
+      25: 18,
+    };
+    const ability = upgradesArr[(hero !== 74 && mapping[index]) || index - 1];
+
+    return ability ? inflictorWithValue(null, null, null, null, ability) : null;
+  };
+
   const abilityColumns = () => {
     const cols = Array.from(new Array(26), (_, index) => ({
       displayName: `${index}`,
       tooltip: 'Ability upgraded at this level',
       field: `ability_upgrades_arr_${index}`,
       displayFn: (row) => {
-        if (!row[`ability_upgrades_arr_${index}`]) {
+        if (!row.ability_upgrades_arr) {
           return null;
         }
         return (
           <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
             <div className="ability">
-              {inflictorWithValue(null, null, null, null, row[`ability_upgrades_arr_${index}`]) || <div className="placeholder" />}
+              {abilityMapping(index, row.ability_upgrades_arr, row.hero_id) || <div className="placeholder" />}
             </div>
           </StyledAbilityUpgrades>);
       },
