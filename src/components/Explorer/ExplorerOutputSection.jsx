@@ -6,6 +6,7 @@ import itemData from 'dotaconstants/build/items.json';
 import {
   displayHeroId,
   formatSeconds,
+  IMAGESIZE_ENUM,
 }
   from '../../utility';
 import Table from '../Table';
@@ -19,6 +20,7 @@ import {
 // import redrawGraphs from './redrawGraphs';
 import constants from '../constants';
 import { StyledTeamIconContainer } from '../Match/StyledMatch';
+import HeroImage from './../Visualizations/HeroImage';
 
 /*
 function resolveId(key, value, mappings) {
@@ -80,6 +82,13 @@ class ExplorerOutputSection extends React.Component {
               return <Link to={`/matches/${field}`}>{field}</Link>;
             } else if (column.field.indexOf('hero_id') === 0) {
               return displayHeroId(row, col, field);
+            } else if (column.field.indexOf('team_composition') === 0) {
+              return field.map(id =>
+                (<HeroImage
+                  id={id}
+                  imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
+                  style={{ marginRight: 3, height: 25 }}
+                />));
             } else if (column.field.indexOf('account_id') === 0) {
               return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
             } else if (column.field.indexOf('winrate') === 0 || column.field.indexOf('pickrate') === 0 || column.field === 'winrate_wilson') {

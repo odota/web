@@ -29,6 +29,7 @@ import FourOhFour from '../FourOhFour';
 import constants from '../constants';
 import muiTheme from './muiTheme';
 import GlobalStyle from './GlobalStyle';
+import Combos from './../Combos/Combos';
 
 const StyledDiv = styled.div`
   transition: ${constants.normalTransition};
@@ -148,6 +149,7 @@ class App extends React.Component {
 
     const navbarPages = [
       <Link key="header_explorer" to="/explorer">{strings.header_explorer}</Link>,
+      <Link key="header_combos" to="/combos" style={{ color: '#88e3ff' }}>{strings.combos}</Link>,
       <Link key="header_meta" to="/meta">{strings.header_meta}</Link>,
       <Link key="header_matches" to="/matches">{strings.header_matches}</Link>,
       <Link key="header_teams" to="/teams">{strings.header_teams}</Link>,
@@ -188,6 +190,7 @@ class App extends React.Component {
               <Route exact path="/request" component={Request} />
               <Route exact path="/status" component={Status} />
               <Route exact path="/explorer" component={Explorer} />
+              <Route exact path="/combos" component={Combos} />
               <Route exact path="/search" component={Search} />
               <Route exact path="/records/:info?" component={Records} />
               <Route exact path="/meta" component={Meta} />

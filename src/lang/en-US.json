@@ -1138,5 +1138,11 @@
   "gosu_teamfights": "Get who to target during teamfights",
   "gosu_analysis": "Get your real MMR bracket",
   "back2Top": "Back to Top",
-  "activity_subtitle": "Click on a day for detailed information"
+  "activity_subtitle": "Click on a day for detailed information",
+  "vs": "vs.",
+  "add_team": "Add To Team",
+  "add_opp_team": "Add To Opposing Team",
+  "combos": "Combos",
+  "combos_title": "Hero Combos",
+  "combos_description": "Search for hero combinations in professional matches"
 }
