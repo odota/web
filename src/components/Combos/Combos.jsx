@@ -16,7 +16,7 @@ import {
   StyledCombos,
 } from './Styles';
 
-const heroesArray = Object.keys(heroes).map(id => heroes[id]);
+const heroesArray = Object.keys(heroes).map(id => heroes[id]).sort((a, b) => a.localized_name.localeCompare(b.localized_name));
 
 const HeroSelector = ({
   id,
@@ -25,8 +25,12 @@ const HeroSelector = ({
   teamAFull,
   teamBFull,
   strings,
+  heroName,
 }) => (
   <StyledHeroSelector>
+    <div className="name-overlay">
+      <div className="name">{heroName}</div>
+    </div>
     <HeroImage id={id} />
     <div className={`ts-container ${selected ? 'selected' : ''}`}>
       <div
@@ -57,6 +61,7 @@ HeroSelector.propTypes = {
   selected: PropTypes.bool,
   teamAFull: PropTypes.bool,
   teamBFull: PropTypes.bool,
+  heroName: PropTypes.string,
   strings: PropTypes.shape({}),
 };
 
@@ -184,6 +189,7 @@ class Combos extends React.Component {
     ].map(hero => (
       <HeroSelector
         id={hero.id}
+        heroName={hero.localized_name}
         handleHeroSelection={this.handleHeroSelection(resetSearchValue)}
         selected={[...this.state.teamA, ...this.state.teamB].includes(hero.id.toString())}
         teamAFull={this.state.teamA.length > 4}

@@ -27,6 +27,27 @@ export const StyledHeroSelector = styled.div`
     }
   }
 
+  .name-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.7));
+  }
+
+  .name {
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  &:hover .name {
+    display: none;
+  }
+
   .ts-container.selected {
     opacity: 1;
     background-color: rgba(32, 36, 45, 0.76);
