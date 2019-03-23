@@ -1,8 +1,7 @@
 /* eslint-disable */
 const getQueryString = (teamA, teamB) => {
-    const selectTeamA = [0, 1, 2, 3, 4]
+    const selectTeamA = [4, 3, 2, 1, 0]
         .map(i => `pma${i}.hero_id`)
-        .reverse()
         .join();
 
     const joinTeamA = [0, 1, 2, 3, 4]
