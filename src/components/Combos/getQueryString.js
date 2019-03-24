@@ -1,4 +1,3 @@
-
 const getQueryString = (teamA, teamB) => {
   const selectTeamA = [4, 3, 2, 1, 0]
     .map(i => `
