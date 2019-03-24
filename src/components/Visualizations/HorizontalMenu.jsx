@@ -73,11 +73,17 @@ class HorizontalMenu extends React.Component {
     searchValue: '',
   };
 
+  onWheel = (e) => { // eslint-disable-line react/sort-comp
+    e.preventDefault();
+    this.horizontalMenuRef.scrollLeft += e.deltaY;
+  }
+
   componentDidMount() {
-    this.horizontalMenuRef.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      this.horizontalMenuRef.scrollLeft += e.deltaY;
-    });
+    this.horizontalMenuRef.addEventListener('wheel', this.onWheel);
+  }
+
+  componentWillUnmount() {
+    this.horizontalMenuRef.removeEventListener('wheel', this.onWheel);
   }
 
   setInputRef = (input) => {
