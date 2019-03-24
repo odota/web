@@ -1,70 +1,52 @@
-/* eslint-disable */
+
 const getQueryString = (teamA, teamB) => {
-    const selectTeamA = [4, 3, 2, 1, 0]
-        .map(i => `pma${i}.hero_id`)
-        .join();
+  const selectTeamA = [4, 3, 2, 1, 0]
+    .map(i => `
+      pma${i}.hero_id
+    `).join();
 
-    const joinTeamA = [0, 1, 2, 3, 4]
-        .map(
-            i => `
-            JOIN player_matches pmA${i} 
-            ON pmA${i}.match_id = matches.match_id 
+  const joinTeamA = [0, 1, 2, 3, 4]
+    .map(i => `
+      JOIN player_matches pmA${i} 
+      ON pmA${i}.match_id = matches.match_id 
+      
+      ${teamA[i] ? `AND pmA${i}.hero_id = ${teamA[i]}` : ((teamA.length > 0 && `AND pmA${i}.hero_id NOT IN (${teamA})`) || '')}
   
-            ${
-            teamA[i] ? 
-                `AND pmA${i}.hero_id = ${teamA[i]}` : teamA.length > 0 ? 
-                    `AND pmA${i}.hero_id NOT IN (${teamA})` : ""
-            }
+      ${!teamA[i] && i > 0 && !teamA[i - 1] ? `AND pmA${i}.hero_id > pmA${i - 1}.hero_id` : ''}
+    `).join(' ');
+
+  const joinTeamAConditions = [1, 2, 3, 4]
+    .map(i => `
+      AND ( ( pmA0.player_slot < 5 ) = ( pmA${i}.player_Slot < 5 ) )
+    `).join(' ');
+
+  const selectTeamB = [0, 1, 2, 3, 4]
+    .map(i => `
+      pmB${i}.hero_id
+    `).join();
+
+  const joinTeamB = [0, 1, 2, 3, 4]
+    .map(i => `
+      JOIN player_matches pmB${i} 
+      ON pmB${i}.match_id = matches.match_id 
+
+      ${teamB[i] ? `AND pmB${i}.hero_id = ${teamB[i]}` : ((teamB.length > 0 && `AND pmB${i}.hero_id NOT IN (${teamB})`) || '')}
   
-            ${
-            !teamA[i] && i > 0 && !teamA[i - 1] ? 
-                `AND pmA${i}.hero_id > pmA${i - 1}.hero_id` : ""
-            }            
-        `
-        )
-        .join(" ");
+      ${!teamB[i] && i > 0 && !teamB[i - 1] ? `AND pmB${i}.hero_id > pmB${i - 1}.hero_id` : ''}            
+    `).join(' ');
 
-    const joinTeamAConditions = [1, 2, 3, 4]
-        .map(
-            i => `
-            AND ( ( pmA0.player_slot < 5 ) = ( pmA${i}.player_Slot < 5 ) ) 
-        `
-        )
-        .join(" ");
+  const joinTeamBConditions = [0, 1, 2, 3, 4]
+    .map(i => `
+      AND ( ( pmA0.player_slot < 5 ) = ( pmB${i}.player_Slot > 5 ) ) 
+    `).join(' ');
 
-    const selectTeamB = [0, 1, 2, 3, 4].map(i => `pmB${i}.hero_id`).join();
-
-    const joinTeamB = [0, 1, 2, 3, 4]
-        .map(
-            i => `
-            JOIN player_matches pmB${i} 
-            ON pmB${i}.match_id = matches.match_id 
-  
-            ${
-            teamB[i] ? 
-                `AND pmB${i}.hero_id = ${teamB[i]}` : teamB.length > 0 ? 
-                    `AND pmB${i}.hero_id NOT IN (${teamB})` : ""
-            }
-  
-            ${
-            !teamB[i] && i > 0 && !teamB[i - 1] ? 
-                `AND pmB${i}.hero_id > pmB${i - 1}.hero_id` : ""
-            }            
-        `
-        )
-        .join(" ");
-
-    const joinTeamBConditions = [0, 1, 2, 3, 4]
-        .map(
-            i => `
-            AND ( ( pmA0.player_slot < 5 ) = ( pmB${i}.player_Slot > 5 ) ) 
-        `
-        )
-        .join(" ");
-
-    return `SELECT matches.match_id, matches.start_time, 
-            ARRAY[${selectTeamA}] team_composition_a, ARRAY[${selectTeamB}] team_composition_b FROM matches 
-            ${joinTeamA} ${joinTeamAConditions} ${joinTeamB} ${joinTeamBConditions} ORDER BY matches.start_time DESC`;
+  return (
+    `SELECT matches.match_id, matches.start_time,           
+    ARRAY[${selectTeamA}] team_composition_a, ARRAY[${selectTeamB}] team_composition_b
+    FROM matches            
+    ${joinTeamA} ${joinTeamAConditions} ${joinTeamB} ${joinTeamBConditions} 
+    ORDER BY matches.start_time DESC`
+  );
 };
 
 export default getQueryString;
