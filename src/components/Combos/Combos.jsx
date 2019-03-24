@@ -104,17 +104,28 @@ SelectedHeroes.propTypes = {
   teamB: PropTypes.arrayOf(PropTypes.number),
 };
 
+function asArray(value) {
+  if (Array.isArray(value)) {
+    return value;
+  }
+  if (!value) {
+    return [];
+  }
+  return [value];
+}
+
 class Combos extends React.Component {
   static propTypes = {
     strings: PropTypes.shape({}),
   };
 
+  parsedUrlQuery = querystring.parse(window.location.search.substring(1)); // eslint-disable-line react/sort-comp
+
   state = {
-    teamA: [],
-    teamB: [],
+    teamA: asArray(this.parsedUrlQuery.teamA),
+    teamB: asArray(this.parsedUrlQuery.teamB),
     queryResult: {},
     loading: false,
-    ...querystring.parse(window.location.search.substring(1)),
   };
 
   componentDidMount() {
