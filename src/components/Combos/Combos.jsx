@@ -108,10 +108,7 @@ function asArray(value) {
   if (Array.isArray(value)) {
     return value;
   }
-  if (!value) {
-    return [];
-  }
-  return [value];
+  return value ? [value] : [];
 }
 
 class Combos extends React.Component {
