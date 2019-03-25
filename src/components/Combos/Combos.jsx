@@ -73,7 +73,7 @@ const SelectedHeroes = ({
 }) => (
   <StyledSelectedHeroes>
     <div className="team-container">
-      <div className="team-title team-a">{formatTemplateToString(strings.team, 'B')}</div>
+      <div className="team-title team-a">{formatTemplateToString(strings.team, 'A')}</div>
       <div>
         {[4, 3, 2, 1, 0].map(i =>
           (teamA[i] ? (
