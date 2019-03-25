@@ -34,17 +34,36 @@ export const StyledHeroSelector = styled.div`
     right: 0;
     left: 0;
     background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.7));
-  }
 
-  .name {
+    & .name {
     position: absolute;
     bottom: 10px;
     text-align: center;
     width: 100%;
     font-size: 14px;
+    }
+
+
+    & .team-indicator {
+      position: absolute;
+      top: 10px;
+      opacity: 0.8;
+      text-shadow: 1px 1px 2px black;
+      font-size: 15px;
+
+      &.team-a {
+        left: 10px;
+      }
+      &.team-b {
+        right: 10px;
+      }
+    }
   }
 
   &:hover .name {
+    display: none;
+  }
+  &:hover .team-indicator {
     display: none;
   }
 
@@ -121,12 +140,14 @@ export const StyledSelectedHeroes = styled.div`
 
   .seperator {
     font-size: 20px;
-    margin-right: 15px;
-    margin-left: 15px;
     letter-spacing: 1px;
     font-weight: bold;
     display: flex;
     align-items: center;
+    padding-top: 10px;
+    flex-basis: 60px;
+    justify-content: center;
+    flex-shrink: 0;
   }
 
   .team-container {
@@ -135,5 +156,15 @@ export const StyledSelectedHeroes = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
+    & div {
+      text-align: center;
+    }
+
+    & .team-title {
+      flex-basis: 100%;
+      font-size: 12px;
+      opacity: 0.6;
+    }
   }
 `;

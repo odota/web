@@ -41,7 +41,7 @@ const getQueryString = (teamA, teamB) => {
 
   return (
     `SELECT matches.match_id, matches.start_time,           
-    ARRAY[${selectTeamA}] team_composition_a, ARRAY[${selectTeamB}] team_composition_b
+    ARRAY[${selectTeamA}] team_a_composition, ARRAY[${selectTeamB}] team_b_composition
     FROM matches            
     ${joinTeamA} ${joinTeamAConditions} ${joinTeamB} ${joinTeamBConditions} 
     ORDER BY matches.start_time DESC`

@@ -82,7 +82,7 @@ class ExplorerOutputSection extends React.Component {
               return <Link to={`/matches/${field}`}>{field}</Link>;
             } else if (column.field.indexOf('hero_id') === 0) {
               return displayHeroId(row, col, field);
-            } else if (column.field.indexOf('team_composition') === 0) {
+            } else if (column.field.indexOf('_composition') !== -1) {
               return field.map(id =>
                 (<HeroImage
                   id={id}

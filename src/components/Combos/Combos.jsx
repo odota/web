@@ -15,6 +15,7 @@ import {
   StyledSelectedHeroes,
   StyledCombos,
 } from './Styles';
+import { formatTemplateToString } from '../../utility';
 
 const heroesArray = Object.keys(heroes).map(id => heroes[id]).sort((a, b) => a.localized_name.localeCompare(b.localized_name));
 
@@ -30,6 +31,8 @@ const HeroSelector = ({
   <StyledHeroSelector>
     <div className="name-overlay">
       <div className="name">{heroName}</div>
+      <div className="team-indicator team-a">A</div>
+      <div className="team-indicator team-b">B</div>
     </div>
     <HeroImage id={id} />
     <div className={`ts-container ${selected ? 'selected' : ''}`}>
@@ -40,7 +43,7 @@ const HeroSelector = ({
         role="button"
         tabIndex="0"
       >
-        {strings.add_team}
+        {formatTemplateToString(strings.add_team, 'A')}
       </div>
       <div
         className={`ts ts-right ${teamBFull ? 'no-event' : ''}`}
@@ -49,7 +52,7 @@ const HeroSelector = ({
         role="button"
         tabIndex="0"
       >
-        {strings.add_opp_team}
+        {formatTemplateToString(strings.add_team, 'B')}
       </div>
     </div>
   </StyledHeroSelector>
@@ -70,29 +73,35 @@ const SelectedHeroes = ({
 }) => (
   <StyledSelectedHeroes>
     <div className="team-container">
-      {[4, 3, 2, 1, 0].map(i =>
-        (teamA[i] ? (
-          <HeroImage
-            id={teamA[i]}
-            className="hero-img"
-            onClick={handleHeroDeSelection(i, 'teamA')}
-          />
-        ) : (
-          <div className="hero-placeholder hero-img" />
-        )))}
+      <div className="team-title team-a">{formatTemplateToString(strings.team, 'B')}</div>
+      <div>
+        {[4, 3, 2, 1, 0].map(i =>
+          (teamA[i] ? (
+            <HeroImage
+              id={teamA[i]}
+              className="hero-img"
+              onClick={handleHeroDeSelection(i, 'teamA')}
+            />
+          ) : (
+            <div className="hero-placeholder hero-img" />
+          )))}
+      </div>
     </div>
     <div className="seperator">{strings.vs}</div>
     <div className="team-container">
-      {[0, 1, 2, 3, 4].map(i =>
-        (teamB[i] ? (
-          <HeroImage
-            id={teamB[i]}
-            className="hero-img"
-            onClick={handleHeroDeSelection(i, 'teamB')}
-          />
-        ) : (
-          <div className="hero-placeholder hero-img" />
-        )))}
+      <div className="team-title team-b">{formatTemplateToString(strings.team, 'B')}</div>
+      <div>
+        {[0, 1, 2, 3, 4].map(i =>
+          (teamB[i] ? (
+            <HeroImage
+              id={teamB[i]}
+              className="hero-img"
+              onClick={handleHeroDeSelection(i, 'teamB')}
+            />
+          ) : (
+            <div className="hero-placeholder hero-img" />
+          )))}
+      </div>
     </div>
   </StyledSelectedHeroes>
 );
