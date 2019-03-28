@@ -149,7 +149,7 @@ class App extends React.Component {
 
     const navbarPages = [
       <Link key="header_explorer" to="/explorer">{strings.header_explorer}</Link>,
-      <Link key="header_combos" to="/combos" style={{ color: '#88e3ff' }}>{strings.combos}</Link>,
+      <Link key="header_combos" to="/combos">{strings.combos}</Link>,
       <Link key="header_meta" to="/meta">{strings.header_meta}</Link>,
       <Link key="header_matches" to="/matches">{strings.header_matches}</Link>,
       <Link key="header_teams" to="/teams">{strings.header_teams}</Link>,
