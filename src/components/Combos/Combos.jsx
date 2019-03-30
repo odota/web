@@ -250,7 +250,7 @@ class Combos extends React.Component {
         ) : (
           <ExplorerOutputSection
             rows={this.state.queryResult.rows}
-            fields={this.state.queryResult.fields}
+            fields={this.state.queryResult.fields && this.state.queryResult.fields.filter(field => field.name !== 'team_a_win')}
           />
         )}
       </StyledCombos>

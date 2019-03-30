@@ -40,11 +40,12 @@ const getQueryString = (teamA, teamB) => {
     `).join(' ');
 
   return (
-    `SELECT matches.match_id, matches.start_time,           
+    `SELECT matches.match_id, matches.start_time,
+    ((pmA0.player_slot < 5) = matches.radiant_win) team_a_win,      
     ARRAY[${selectTeamA}] team_a_composition, ARRAY[${selectTeamB}] team_b_composition
     FROM matches            
-    ${joinTeamA} ${joinTeamAConditions} ${joinTeamB} ${joinTeamBConditions} 
-    ORDER BY matches.start_time DESC`
+    ${joinTeamA} ${joinTeamAConditions} ${joinTeamB} ${joinTeamBConditions}
+    ORDER BY matches.start_time DESC LIMIT 500`
   );
 };
 
