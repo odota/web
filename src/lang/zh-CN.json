@@ -611,7 +611,7 @@
   "skill_3": "Very High等级",
   "story_invalid_template": "（无效的模板）",
   "story_error": "在导出这场比赛的战报时发生了错误",
-  "story_intro": "{date}，两支队伍决定在 在 {region} 进行一场 {game_mode_article} {game_mode} 模式的 Dota 2 比赛。他们这时还不知道，这场比赛会持续 {duration_in_words}。",
+  "story_intro": "{date}，两支队伍决定在 {region} 进行 {game_mode_article} {game_mode} 模式的 Dota 2 比赛。他们这时还不知道，这场比赛会持续 {duration_in_words}",
   "story_invalid_hero": "未识别的英雄",
   "story_fullstop": "。",
   "story_list_2": "{1} 和 {2}",
