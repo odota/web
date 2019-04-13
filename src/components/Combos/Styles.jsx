@@ -3,6 +3,17 @@ import styled from 'styled-components';
 export const StyledCombos = styled.div`
   margin-top: 55px;
   margin-bottom: 150px;
+
+  .submit-section {
+    display: inline-block;
+    margin-bottom: 23px;
+    margin-top: 15px;
+  }
+
+  .main-section {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+    margin-bottom: 10px;
+  }
 `;
 
 export const StyledHeroSelector = styled.div`

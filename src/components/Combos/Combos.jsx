@@ -1,5 +1,5 @@
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import { RaisedButton, RadioButton, RadioButtonGroup } from 'material-ui';
 import heroes from 'dotaconstants/build/heroes.json';
 import querystring from 'querystring';
 import PropTypes from 'prop-types';
@@ -16,6 +16,20 @@ import {
   StyledCombos,
 } from './Styles';
 import { formatTemplateToString } from '../../utility';
+
+const styles = {
+  radioButton: {
+    root: {
+      display: 'inline-block',
+      width: 'auto',
+      whiteSpace: 'nowrap',
+      marginRight: 5,
+    },
+    icon: {
+      marginRight: 1,
+    },
+  },
+};
 
 const heroesArray = Object.keys(heroes).map(id => heroes[id]).sort((a, b) => a.localized_name.localeCompare(b.localized_name));
 
@@ -128,6 +142,7 @@ class Combos extends React.Component {
   parsedUrlQuery = querystring.parse(window.location.search.substring(1)); // eslint-disable-line react/sort-comp
 
   state = {
+    queryType: this.parsedUrlQuery.queryType || 'public',
     teamA: asArray(this.parsedUrlQuery.teamA),
     teamB: asArray(this.parsedUrlQuery.teamB),
     queryResult: {},
@@ -167,25 +182,44 @@ class Combos extends React.Component {
   };
 
   handleResponse = (json) => {
-    this.setState({ queryResult: json, loading: false });
+    let data = json;
+    if (this.state.queryType === 'public') {
+      // adapt json format so ExplorerOutputSection can process it
+      data = {};
+      data.rows = json.map(el => ({
+        ...el,
+        team_a_win: el.teamawin,
+        team_a_composition: el.teama,
+        team_b_composition: el.teamb,
+      }));
+      data.rowCount = json.length;
+      data.fields = ['match_id', 'team_a_composition', 'team_b_composition'].map(el => ({
+        name: el,
+      }));
+    }
+    this.setState({ queryResult: data, loading: false });
   };
 
   sendRequest = () => {
-    const queryString = this.buildQueryString();
+    const { teamA, teamB } = this.state;
+
     this.setState({ loading: true }, () =>
-      fetch(`${
-        process.env.REACT_APP_API_HOST
-      }/api/explorer?sql=${encodeURIComponent(queryString)}`)
+      fetch(`${process.env.REACT_APP_API_HOST}/api/` +
+
+      `${this.state.queryType === 'pro' ?
+        `explorer?sql=${encodeURIComponent(this.buildQueryString())}` :
+        `findMatches?${querystring.stringify({ teamA, teamB })}`}`)
+
         .then(res => res.json())
         .then(this.handleResponse));
   };
 
   handleSubmit = () => {
-    const { teamA, teamB } = this.state;
+    const { teamA, teamB, queryType } = this.state;
     window.history.pushState(
       '',
       '',
-      `?${querystring.stringify({ teamA, teamB })}`,
+      `?${querystring.stringify({ teamA, teamB, queryType })}`,
     );
     this.sendRequest();
   };
@@ -193,6 +227,10 @@ class Combos extends React.Component {
   handleCancel = () => {
     this.setState({ loading: false });
     window.stop();
+  }
+
+  handleRadioButtonChange = (_, value) => {
+    this.setState({ queryType: value });
   }
 
   filterAndRenderElements = (searchValue, resetSearchValue) => {
@@ -221,24 +259,46 @@ class Combos extends React.Component {
     const { strings } = this.props;
     return (
       <StyledCombos>
-        <Heading title={strings.combos_title} subtitle={strings.combos_description} />
-        <HorizontalMenu
-          filterAndRenderElements={this.filterAndRenderElements}
-          filterText={strings.placeholder_filter_heroes}
-        />
-        <SelectedHeroes
-          teamA={teamA}
-          teamB={teamB}
-          handleHeroDeSelection={this.handleHeroDeSelection}
-          strings={strings}
-        />
-        <RaisedButton
-          label={this.state.loading ? strings.explorer_cancel_button : strings.request_submit}
-          onClick={this.state.loading ? this.handleCancel : this.handleSubmit}
-          style={{ marginBottom: 10 }}
-          buttonStyle={{ backgroundColor: this.state.loading ? '#822e2e' : 'rgba(23, 59, 90, 0.8)' }}
-        />
-        <pre style={{ color: 'red' }}>{this.state.queryResult.err}</pre>
+        <div className="main-section">
+          <Heading title={strings.combos_title} subtitle={strings.combos_description} />
+          <HorizontalMenu
+            filterAndRenderElements={this.filterAndRenderElements}
+            filterText={strings.placeholder_filter_heroes}
+          />
+          <SelectedHeroes
+            teamA={teamA}
+            teamB={teamB}
+            handleHeroDeSelection={this.handleHeroDeSelection}
+            strings={strings}
+          />
+          <div className="submit-section">
+            <RadioButtonGroup
+              name="queryType"
+              defaultSelected={this.state.queryType}
+              onChange={this.handleRadioButtonChange}
+            >
+              <RadioButton
+                value="public"
+                label="Public Matches"
+                style={styles.radioButton.root}
+                iconStyle={styles.radioButton.icon}
+              />
+              <RadioButton
+                value="pro"
+                label="Pro Matches"
+                style={{ ...styles.radioButton.root, marginRight: 0 }}
+                iconStyle={styles.radioButton.icon}
+              />
+            </RadioButtonGroup>
+            <RaisedButton
+              label={this.state.loading ? strings.explorer_cancel_button : strings.request_submit}
+              onClick={this.state.loading ? this.handleCancel : this.handleSubmit}
+              buttonStyle={{ backgroundColor: this.state.loading ? '#822e2e' : 'rgba(23, 59, 90, 0.8)' }}
+              style={{ display: 'block', marginTop: 5 }}
+            />
+          </div>
+        </div>
+        <pre style={{ color: 'red' }}>{this.state.queryResult && this.state.queryResult.err}</pre>
         <Heading
           title={strings.explorer_results}
           subtitle={`${
