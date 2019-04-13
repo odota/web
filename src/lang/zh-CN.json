@@ -1137,5 +1137,13 @@
   "gosu_teamfights": "在团战中找到目标对象",
   "gosu_analysis": "得到你实际的 MMR 分数",
   "back2Top": "返回页首",
-  "activity_subtitle": "点击某一天查看详细信息"
+  "activity_subtitle": "点击某一天查看详细信息",
+  "vs": "vs.",
+  "add_team": "Add To Team {0}",
+  "team": "Team {0}",
+  "combos": "Combos",
+  "combos_title": "Hero Combos",
+  "combos_description": "Search for hero combinations in public and professional matches",
+  "public_matches": "Public Matches",
+  "pro_matches": "Pro Matches"
 }
