@@ -1137,5 +1137,13 @@
   "gosu_teamfights": "Показать на кого вы ориентировались во время тимфайта",
   "gosu_analysis": "Получить ваш реальный MMR диапазон",
   "back2Top": "Наверх",
-  "activity_subtitle": "Нажмите на день для подробностей"
+  "activity_subtitle": "Нажмите на день для подробностей",
+  "vs": "vs.",
+  "add_team": "Add To Team {0}",
+  "team": "Team {0}",
+  "combos": "Combos",
+  "combos_title": "Hero Combos",
+  "combos_description": "Search for hero combinations in public and professional matches",
+  "public_matches": "Public Matches",
+  "pro_matches": "Pro Matches"
 }
