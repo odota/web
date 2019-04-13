@@ -6,10 +6,11 @@ import itemData from 'dotaconstants/build/items.json';
 import {
   displayHeroId,
   formatSeconds,
+  IMAGESIZE_ENUM,
 }
   from '../../utility';
 import Table from '../Table';
-import { IconRadiant, IconDire } from '../Icons';
+import { IconRadiant, IconDire, IconTrophy } from '../Icons';
 // import heroes from 'dotaconstants/build/heroes.json';
 import {
   TablePercent,
@@ -19,6 +20,8 @@ import {
 // import redrawGraphs from './redrawGraphs';
 import constants from '../constants';
 import { StyledTeamIconContainer } from '../Match/StyledMatch';
+import HeroImage from './../Visualizations/HeroImage';
+import { WinnerSpan } from '../Matches';
 
 /*
 function resolveId(key, value, mappings) {
@@ -80,6 +83,21 @@ class ExplorerOutputSection extends React.Component {
               return <Link to={`/matches/${field}`}>{field}</Link>;
             } else if (column.field.indexOf('hero_id') === 0) {
               return displayHeroId(row, col, field);
+            } else if (column.field.indexOf('_composition') !== -1) {
+              return (
+                <React.Fragment>
+                  {row.team_a_win === (column.field.indexOf('team_a') === 0) &&
+                  <WinnerSpan style={{ position: 'relative' }}>
+                    <IconTrophy style={{ position: 'absolute', left: -12, bottom: 12 }} />
+                  </WinnerSpan>}
+                  {field.map(id =>
+                  (<HeroImage
+                    id={id}
+                    imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
+                    style={{ marginRight: 3, height: 25 }}
+                  />))}
+                </React.Fragment>
+              );
             } else if (column.field.indexOf('account_id') === 0) {
               return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
             } else if (column.field.indexOf('winrate') === 0 || column.field.indexOf('pickrate') === 0 || column.field === 'winrate_wilson') {
