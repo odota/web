@@ -1137,5 +1137,13 @@
   "gosu_teamfights": "Averigua en quién centrarte durante las peleas en equipo",
   "gosu_analysis": "Averigua tu MMR real",
   "back2Top": "Volver arriba",
-  "activity_subtitle": "Click on a day for detailed information"
+  "activity_subtitle": "Click on a day for detailed information",
+  "vs": "vs.",
+  "add_team": "Add To Team {0}",
+  "team": "Team {0}",
+  "combos": "Combos",
+  "combos_title": "Hero Combos",
+  "combos_description": "Search for hero combinations in public and professional matches",
+  "public_matches": "Public Matches",
+  "pro_matches": "Pro Matches"
 }
