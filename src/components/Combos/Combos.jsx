@@ -279,13 +279,13 @@ class Combos extends React.Component {
             >
               <RadioButton
                 value="public"
-                label="Public Matches"
+                label={strings.public_matches}
                 style={styles.radioButton.root}
                 iconStyle={styles.radioButton.icon}
               />
               <RadioButton
                 value="pro"
-                label="Pro Matches"
+                label={strings.pro_matches}
                 style={{ ...styles.radioButton.root, marginRight: 0 }}
                 iconStyle={styles.radioButton.icon}
               />
