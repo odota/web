@@ -1137,5 +1137,13 @@
   "gosu_teamfights": "Entenda quem focar durante as batalhas de equipe",
   "gosu_analysis": "Obter seu ranking real",
   "back2Top": "Topo",
-  "activity_subtitle": "Clique no dia para informações detalhadas"
+  "activity_subtitle": "Clique no dia para informações detalhadas",
+  "vs": "vs.",
+  "add_team": "Add To Team {0}",
+  "team": "Team {0}",
+  "combos": "Combos",
+  "combos_title": "Hero Combos",
+  "combos_description": "Search for hero combinations in public and professional matches",
+  "public_matches": "Public Matches",
+  "pro_matches": "Pro Matches"
 }
