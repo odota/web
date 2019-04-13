@@ -16,7 +16,7 @@ import constants from '../constants';
 import { FromNowTooltip } from '../Visualizations';
 import HeroImage from '../Visualizations/HeroImage';
 
-const WinnerSpan = styled.span`
+export const WinnerSpan = styled.span`
   display: inline-block;
 
   & svg {
