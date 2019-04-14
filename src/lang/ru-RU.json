@@ -1138,12 +1138,12 @@
   "gosu_analysis": "Получить ваш реальный MMR диапазон",
   "back2Top": "Наверх",
   "activity_subtitle": "Нажмите на день для подробностей",
-  "vs": "vs.",
-  "add_team": "Add To Team {0}",
-  "team": "Team {0}",
-  "combos": "Combos",
-  "combos_title": "Hero Combos",
-  "combos_description": "Search for hero combinations in public and professional matches",
-  "public_matches": "Public Matches",
-  "pro_matches": "Pro Matches"
+  "vs": "против",
+  "add_team": "Добавить в команду {0}",
+  "team": "Команда {0}",
+  "combos": "Комбинации",
+  "combos_title": "Комбинации героев",
+  "combos_description": "Поиск комбинаций героев в публичных и профессиональных матчах",
+  "public_matches": "Публичные матчи",
+  "pro_matches": "Профессиональные матчи"
 }
