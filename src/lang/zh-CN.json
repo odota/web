@@ -1140,10 +1140,10 @@
   "activity_subtitle": "点击某一天查看详细信息",
   "vs": "对战",
   "add_team": "加入战队{0}",
-  "team": "Team {0}",
-  "combos": "Combos",
-  "combos_title": "Hero Combos",
-  "combos_description": "Search for hero combinations in public and professional matches",
-  "public_matches": "Public Matches",
+  "team": "战队{0}",
+  "combos": "组合",
+  "combos_title": "英雄组合",
+  "combos_description": "在公共和职业比赛中搜索英雄组合",
+  "public_matches": "公共比赛",
   "pro_matches": "职业比赛"
 }
