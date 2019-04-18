@@ -193,7 +193,7 @@ class Combos extends React.Component {
         team_b_composition: el.teamb,
       }));
       data.rowCount = json.length;
-      data.fields = ['match_id', 'team_a_composition', 'team_b_composition'].map(el => ({
+      data.fields = ['match_id', 'start_time', 'team_a_composition', 'team_b_composition'].map(el => ({
         name: el,
       }));
     }
