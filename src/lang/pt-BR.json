@@ -284,7 +284,7 @@
   "gold_reasons_14": "Roshan",
   "NULL_gold_reasons_15": "Entregador",
   "header_request": "Solicitar",
-  "header_distributions": "Distributions",
+  "header_distributions": "Distribuições",
   "header_heroes": "Heróis",
   "header_blog": "Blog",
   "header_ingame": "Em Jogo",
@@ -1144,6 +1144,6 @@
   "combos": "Combos",
   "combos_title": "Hero Combos",
   "combos_description": "Search for hero combinations in public and professional matches",
-  "public_matches": "Public Matches",
-  "pro_matches": "Pro Matches"
+  "public_matches": "Partidas públicas",
+  "pro_matches": "Partidas profissionais"
 }
