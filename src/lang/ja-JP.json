@@ -70,6 +70,7 @@
   "app_blog": "ブログ",
   "app_translate": "翻訳",
   "app_donate": "寄付",
+  "app_netlify": "Deploys by Netlify",
   "app_gravitech": "Gravitech LLCサイト",
   "app_powered_by": "powered by",
   "app_donation_goal": "今月の寄付目標",
