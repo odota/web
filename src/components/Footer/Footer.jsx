@@ -27,7 +27,6 @@ const StyledFooter = styled.footer`
     & .links,
     & .cheese {
       margin-top: 12px;
-      width: 50%;
     }
 
     & .mobile {
