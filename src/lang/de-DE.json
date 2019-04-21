@@ -70,6 +70,7 @@
   "app_blog": "Blog",
   "app_translate": "Übersetzen",
   "app_donate": "Spenden",
+  "app_netlify": "Deploys by Netlify",
   "app_gravitech": "Eine Gravitech LLC-Website",
   "app_powered_by": "Unterstützt durch",
   "app_donation_goal": "Monatliches Spenden Ziel",
