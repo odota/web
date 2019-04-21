@@ -70,6 +70,7 @@
   "app_blog": "Blog",
   "app_translate": "Traduzir",
   "app_donate": "Doar",
+  "app_netlify": "Deploys by Netlify",
   "app_gravitech": "Site do Grupo Gravitech LLC",
   "app_powered_by": "mantido através de",
   "app_donation_goal": "Meta de Doação Mensal",
