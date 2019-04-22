@@ -22,6 +22,9 @@ const PageLinks = ({ strings }) => {
     name: strings.app_donate,
     path: '//carry.opendota.com/',
   }, {
+    name: strings.app_netlify,
+    path: '//www.netlify.com',
+  }, {
     name: strings.app_gravitech,
     path: '//www.gravitech.io',
   }];
