@@ -7,23 +7,28 @@ import constants from '../../constants';
 const Percent = ({
   percent, altValue, valEl, inverse = false,
 }) => (
-  <StyledContainer>
-    <TitleContainer>
-      {valEl || percent} {altValue && <small>{altValue}</small>}
-    </TitleContainer>
-    <PercentContainer>
-      <div
-        style={{
-          width: `${percent}%`,
-          backgroundColor: gradient(percent, {
-            css: true,
-            from: inverse ? constants.colorGreen : constants.colorRed,
-            to: inverse ? constants.colorRed : constants.colorGreen,
-          }),
-        }}
-      />
-    </PercentContainer>
-  </StyledContainer>
+  <React.Fragment>
+    <div style={{ height: 30, display: 'inline-block', verticalAlign: 'middle' }} />
+    <div style={{ display: 'inline-block', width: '100%' }}>
+      <StyledContainer>
+        <TitleContainer>
+          {valEl || percent} {altValue && <small>{altValue}</small>}
+        </TitleContainer>
+        <PercentContainer>
+          <div
+            style={{
+              width: `${percent}%`,
+              backgroundColor: gradient(percent, {
+                css: true,
+                from: inverse ? constants.colorGreen : constants.colorRed,
+                to: inverse ? constants.colorRed : constants.colorGreen,
+              }),
+            }}
+          />
+        </PercentContainer>
+      </StyledContainer>
+    </div>
+  </React.Fragment>
 );
 
 const {
