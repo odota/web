@@ -288,8 +288,9 @@ class Table extends React.Component {
                       if ((underline === 'max' || underline === 'min') && typeof isBestValueInMatch === 'function') {
                         style.textDecoration = isBestValueInMatch(field, row, underline) ? 'underline' : 'none';
                       }
+                      const tdStyle = fieldEl && fieldEl.type && fieldEl.type.tdStyle;
                       return (
-                        <td style={style} className={column.className}>
+                        <td style={{ ...style, ...tdStyle }} className={column.className}>
                           {fieldEl}
                         </td>
                       );
