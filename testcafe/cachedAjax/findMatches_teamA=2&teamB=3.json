@@ -1,0 +1,192 @@
+[
+	{
+		"match_id": 4644814938,
+		"teama": [
+			68,
+			2,
+			26,
+			104,
+			106
+		],
+		"teamb": [
+			100,
+			3,
+			99,
+			73,
+			8
+		],
+		"teamawin": true,
+		"start_time": null
+	},
+	{
+		"match_id": 4644782923,
+		"teama": [
+			121,
+			109,
+			32,
+			34,
+			2
+		],
+		"teamb": [
+			67,
+			3,
+			107,
+			28,
+			13
+		],
+		"teamawin": false,
+		"start_time": null
+	},
+	{
+		"match_id": 4644792377,
+		"teama": [
+			14,
+			3,
+			71,
+			18,
+			55
+		],
+		"teamb": [
+			2,
+			6,
+			114,
+			23,
+			68
+		],
+		"teamawin": true,
+		"start_time": null
+	},
+	{
+		"match_id": 4644810256,
+		"teama": [
+			74,
+			8,
+			105,
+			3,
+			72
+		],
+		"teamb": [
+			36,
+			111,
+			2,
+			100,
+			41
+		],
+		"teamawin": true,
+		"start_time": null
+	},
+	{
+		"match_id": 4644819277,
+		"teama": [
+			3,
+			114,
+			120,
+			74,
+			9
+		],
+		"teamb": [
+			14,
+			48,
+			2,
+			17,
+			79
+		],
+		"teamawin": false,
+		"start_time": null
+	},
+	{
+		"match_id": 4644829226,
+		"teama": [
+			70,
+			37,
+			6,
+			22,
+			3
+		],
+		"teamb": [
+			27,
+			44,
+			8,
+			75,
+			2
+		],
+		"teamawin": true,
+		"start_time": null
+	},
+	{
+		"match_id": 4644811083,
+		"teama": [
+			10,
+			6,
+			3,
+			73,
+			54
+		],
+		"teamb": [
+			67,
+			2,
+			101,
+			64,
+			106
+		],
+		"teamawin": false,
+		"start_time": null
+	},
+	{
+		"match_id": 4644822475,
+		"teama": [
+			89,
+			5,
+			39,
+			50,
+			2
+		],
+		"teamb": [
+			114,
+			3,
+			34,
+			53,
+			97
+		],
+		"teamawin": true,
+		"start_time": null
+	},
+	{
+		"match_id": 4644837646,
+		"teama": [
+			26,
+			18,
+			27,
+			3,
+			81
+		],
+		"teamb": [
+			2,
+			11,
+			35,
+			74,
+			68
+		],
+		"teamawin": false,
+		"start_time": null
+	},
+	{
+		"match_id": 4644835937,
+		"teama": [
+			104,
+			45,
+			3,
+			42,
+			11
+		],
+		"teamb": [
+			2,
+			44,
+			110,
+			4,
+			26
+		],
+		"teamawin": true,
+		"start_time": null
+	}
+]
