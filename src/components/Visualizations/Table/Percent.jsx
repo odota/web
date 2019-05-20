@@ -37,4 +37,9 @@ Percent.propTypes = {
   inverse: bool,
 };
 
+Percent.tdStyle = {
+  paddingTop: 12,
+  paddingBottom: 12,
+};
+
 export default Percent;

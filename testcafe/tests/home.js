@@ -31,6 +31,7 @@ const paths = [
   '/records/hero_damage',
   '/records/tower_damage',
   '/records/hero_healing',
+  '/combos?teamA=2&teamB=3',
 ];
 
 fixture`home/ paths`
