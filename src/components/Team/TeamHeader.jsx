@@ -29,7 +29,7 @@ export default (generalData, strings) => (
         <FlatButton
           label={formatTemplateToString(strings.app_rivalry_team, generalData.data.name)}
           icon={<img src="/assets/images/rivalry-icon.png" alt="" height="24px" />}
-          href="https://glhf.rivalry.com/get-started-dota/?utm_source=opendota&utm_medium=link&utm_campaign=opendota"
+          href="https://rivalry.com/opendota"
           target="_blank"
           rel="noopener noreferrer"
         />
