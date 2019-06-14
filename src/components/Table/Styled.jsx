@@ -3,7 +3,6 @@ import constants from '../constants';
 
 export const StyledBody = styled.div`
   table {
-    position: relative;
   
     table-layout: auto !important;
     font-family: ${constants.tableFontFamily} !important;
