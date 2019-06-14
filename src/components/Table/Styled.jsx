@@ -98,9 +98,6 @@ export const StyledBody = styled.div`
   }
 
   @media only screen and (max-width: 960px) {
-    .innerContainer {
-      margin: 0 -25px;
-    }
   }
   ${props => (props.hoverRowColumn ? `
   & tr {
