@@ -7,7 +7,7 @@ import { IMAGESIZE_ENUM } from '../../../utility';
 import HeroImage from './../../Visualizations/HeroImage';
 
 const Styled = styled.div`
-bottom: 15px;
+color: ${constants.textColorSecondary};
 margin-top: -20px;
 
 .PicksBans {
@@ -18,14 +18,14 @@ margin-top: -20px;
 
   & > section {
     position: relative;
-    margin: 5px 5px 9px 5px;
+    margin: 5px 5px 0px 5px;
 
     & > aside {
       font-size: 11px;
       text-transform: uppercase;
       text-align: center;
       margin-top: -5px;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.8);
       line-height: 1.6;
     }
   }
