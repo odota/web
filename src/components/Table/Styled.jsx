@@ -3,7 +3,7 @@ import constants from '../constants';
 
 export const StyledBody = styled.div`
   table {
-    background-color: transparent !important;
+  
     table-layout: auto !important;
     font-family: ${constants.tableFontFamily} !important;
     box-sizing: border-box;
@@ -14,12 +14,13 @@ export const StyledBody = styled.div`
     : '')}
           
     thead {
-      border-style: none !important;
-      background-color: rgba(0, 0, 0, .17);
+      border-bottom: 1px solid rgba(255, 255, 255, .05) !important; 
     }
 
     tr {
-      border-style: none !important;
+      &:not(:last-child) {
+        border-bottom: 1px solid rgba(255, 255, 255, .05) !important;
+      }
     }
 
     & th {
@@ -53,14 +54,10 @@ export const StyledBody = styled.div`
       & td {
         border-bottom-width: 0px !important;
         border-top-width: 0px !important;
-      }
-      
-      &:nth-child(odd) {
-        background-color: rgba(255, 255, 255, 0.019);
-      }
-
-      &:nth-child(even) {
-        background-color: rgba(0, 0, 0, 0.019);
+        
+        & img, object {
+            opacity: 0.9;
+        }
       }
     }
 
@@ -82,8 +79,9 @@ export const StyledBody = styled.div`
 
 
   .innerContainer {
-    background-color: rgba(19, 18, 18, 0.08) !important;
-    margin-bottom: 20px !important;
+    background-color: rgba(255, 255, 255, 0.02);
+    box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.14);
+    margin-bottom: 20px;
   }
 
   .innerContainer {
@@ -99,9 +97,6 @@ export const StyledBody = styled.div`
   }
 
   @media only screen and (max-width: 960px) {
-    .innerContainer {
-      margin: 0 -25px;
-    }
   }
   ${props => (props.hoverRowColumn ? `
   & tr {
@@ -112,6 +107,7 @@ export const StyledBody = styled.div`
 
   & td.col_highlight, th.col_highlight {
      background: rgba(190, 190, 190, 0.07) !important;
+     color: ${constants.textColorPrimary} !important;
   }
   ` : '')};
 

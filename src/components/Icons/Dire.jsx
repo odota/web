@@ -117,4 +117,4 @@ const icon = props => (
 
 export default styled(icon)`filter: drop-shadow(0 0 5px ${constants.colorDanger});
   fill: black !important;
-margin-left: 5px;`;
+`;

@@ -117,7 +117,7 @@ export default (strings) => {
         maxFn: true,
         sumFn: true,
         textAlign: 'right',
-        color: '#a2a2a2',
+
         paddingRight: 14,
         width: 21,
       },
@@ -128,7 +128,7 @@ export default (strings) => {
         displayFn: (row, col, field) => field || '-',
         sortFn: true,
         sumFn: true,
-        color: constants.colorGreen,
+        color: 'hsla(123, 25%, 57%, 1)',
         textAlign: 'right',
         paddingLeft: 14,
         paddingRight: 5,
@@ -142,7 +142,7 @@ export default (strings) => {
         displayFn: (row, col, field) => (field || '-'),
         sortFn: true,
         sumFn: true,
-        color: 'rgb(255, 79, 79)',
+        color: 'hsla(0, 80%, 65%, 1)',
         textAlign: 'right',
         paddingLeft: 5,
         paddingRight: 5,
@@ -249,7 +249,6 @@ export default (strings) => {
         paddingLeft: 14,
         paddingRight: 5,
         width: 32,
-        borderLeft: '1px solid rgba(19, 19, 19, 0.2)',
         underline: 'max',
       },
       {
@@ -278,7 +277,6 @@ export default (strings) => {
         paddingLeft: 5,
         paddingRight: 14,
         width: 32,
-        borderRight: '1px solid rgba(19, 19, 19, 0.2)',
         underline: 'max',
       },
       {
