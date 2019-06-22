@@ -41,6 +41,7 @@ const StyledDiv = styled.div`
 
   & .overlay {
     background-color: ${constants.darkPrimaryColor};
+    color: ${constants.textColorPrimary};
     font-size: 10px;
     position: absolute;
     left: 0;

@@ -3,7 +3,7 @@ import constants from '../constants';
 
 export const StyledDiv = styled.div`
   margin-top: 15px;
-  margin-bottom: 2px;
+  margin-bottom: 5px;
   margin-left: 3px;
 
   .winner {
@@ -16,8 +16,8 @@ export const StyledDiv = styled.div`
     margin-left: 10px;
     margin-right: 5px;
     letter-spacing: 1px;
-    color: rgb(210, 210, 210);
     text-transform: uppercase;
+    opacity: 0.6;
   }
 
   .winner:after {

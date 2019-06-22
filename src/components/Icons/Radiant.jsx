@@ -33,6 +33,5 @@ const icon = props => (
 );
 export default styled(icon)`
 filter: drop-shadow(0 0 5px green);
-margin-left: 5px;
 fill: #f5f5f5;
 `;

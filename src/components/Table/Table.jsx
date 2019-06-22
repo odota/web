@@ -85,6 +85,8 @@ class Table extends React.Component {
                 className={column.className}
                 key={`${colIndex}_sum`}
                 style={{
+                paddingTop: 10,
+                paddingBottom: 10,
                 color: column.color,
                 ...getColStyle(column),
               }}
