@@ -1056,10 +1056,13 @@ export default (strings) => {
         if (field) {
           return <TargetsBreakdown field={field} />;
         }
-        // backwards compatibility 2018-03-17
-        return Object.keys(row.damage_inflictor)
-          .sort((a, b) => (row.damage_inflictor[b] - (row.damage_inflictor[a])))
-          .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber((row.damage_inflictor[inflictor]))));
+        if (row.damage_inflictor) {
+          // backwards compatibility 2018-03-17
+          return Object.keys(row.damage_inflictor)
+            .sort((a, b) => (row.damage_inflictor[b] - (row.damage_inflictor[a])))
+            .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber((row.damage_inflictor[inflictor]))));
+        }
+        return null;
       },
     },
     {
