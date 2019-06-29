@@ -165,7 +165,7 @@ export const StyledFlexContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  overflow: auto;
+  overflow: visible;
 
   @media only screen and (min-width: 800px) {
     flex-direction: row;
