@@ -807,6 +807,13 @@ export default (strings) => {
           </div>),
     },
     {
+      displayName: strings.cs_over_time,
+      tooltip: strings.cs_over_time,
+      field: 'cs_t',
+      sparkline: true,
+      width: 240,
+    },
+    {
       displayName: strings.th_lane_efficiency,
       tooltip: strings.tooltip_lane_efficiency,
       field: 'lane_efficiency',
@@ -823,13 +830,6 @@ export default (strings) => {
       displayFn: (row, col, field) => field || '-',
       relativeBars: true,
       sumFn: true,
-    },
-    {
-      displayName: "LH First 10 Mins",
-      tooltip: strings.lh_ten,
-      field: 'lh_t',
-      sparkline: true,
-
     },
     {
       displayName: strings.th_dnten,

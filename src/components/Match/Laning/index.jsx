@@ -33,12 +33,18 @@ class Laning extends React.Component {
       match, strings, sponsorURL, sponsorIcon,
     } = this.props;
     const { laningColumns } = mcs(strings);
+    const annotatedPlayers = match.players.map((p) => {
+      const cs_t = p.lh_t.map((v, i) => v + p.dn_t[i])
+
+      return {...p, cs_t}
+    })
+
     return (
       <StyledFlexContainer>
         <StyledFlexElementFullWidth>
           <Heading title={strings.heading_laning} />
           <Table
-            data={match.players}
+            data={annotatedPlayers}
             columns={laningColumns(this.state, this.setSelectedPlayer)}
           />
         </StyledFlexElementFullWidth>

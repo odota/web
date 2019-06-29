@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { gradient } from 'abcolor';
+
 import {
-  XAxis,
   YAxis,
   BarChart,
   Bar,
   Cell,
   ReferenceLine,
 } from 'recharts';
-import { StyledContainer, SparklineContainer, TitleContainer } from './Styled';
+import { StyledContainer, SparklineContainer } from './Styled';
 import constants from '../../constants';
 
 const Sparkline = ({
@@ -20,7 +19,7 @@ const Sparkline = ({
     const delta = v - lastValue;
     lastValue = v;
     return {v: delta};
-  }).slice(0,12);
+  }).slice(0,11);
 
 
   return (
