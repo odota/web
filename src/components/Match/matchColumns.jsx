@@ -833,6 +833,13 @@ export default (strings) => {
       relativeBars: true,
       sumFn: true,
     },
+    {
+      displayName: "LH First 10 Mins",
+      tooltip: strings.lh_ten,
+      field: 'lh_t',
+      sparkline: true,
+      width: 240,
+    },
   ];
 
   const unitKillsColumns = [

@@ -175,6 +175,11 @@ export const StyledFlexElement = styled.div`
   flex: 1;
   margin-right: 5px;
 `;
+export const StyledFlexElementFullWidth = styled.div`-
+  margin-right: 5px;
+  width: 100%;
+`;
+
 export const StyledTeamIconContainer = styled.span`
   vertical-align: top;
   height: 26px !important;

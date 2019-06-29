@@ -38,6 +38,13 @@ export const PercentContainer = styled.div`
   }
 `;
 
+export const SparklineContainer = styled.div`
+
+  width: 100%;
+  pointer-events: auto !important;
+
+`;
+
 export const KDAPercentContainer = styled(PercentContainer)`
   display: flex;
 
