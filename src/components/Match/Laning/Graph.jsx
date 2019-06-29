@@ -36,39 +36,46 @@ CustomizedTooltip.propTypes = {
 };
 
 const iconUrlFromHeroKey = (heroKey) => {
-  const heroIds = Object.keys(heroes).filter((k) => heroes[k].name === heroKey);
+  const heroIds = Object.keys(heroes).filter(k => heroes[k].name === heroKey);
   if (heroIds && heroIds[0] && heroes[heroIds[0]]) {
-    return `${process.env.REACT_APP_API_HOST}${heroes[heroIds[0]].icon}`
-  } else {
-    return '/assets/images/blank-1x1.gif'
+    return `${process.env.REACT_APP_API_HOST}${heroes[heroIds[0]].icon}`;
   }
-}
+
+  return '/assets/images/blank-1x1.gif';
+};
 
 const CustomizedDot = (props) => {
   const {
-    cx, cy, payload
+    cx, cy, payload, killsLog,
   } = props;
 
-  const kills = props.killsLog.filter((l) => {
-    const t = (l.time - l.time % 60) / 60;
-    return formatGraphTime(t) === payload.time
-  })
+  const kills = killsLog.filter((l) => {
+    const t = (l.time - (l.time % 60)) / 60;
+    return formatGraphTime(t) === payload.time;
+  });
 
   if (kills.length > 0) {
     return (
-      <svg x={cx - 16} y={(cy - 16*kills.length)} width={32} height={32*kills.length}>
-        {kills.map((k,i) => <image cx={16} y={32*i} width={32} height={32} href={iconUrlFromHeroKey(k.key)} />)}
+      <svg x={cx - 16} y={(cy - (16 * kills.length))} width={32} height={32 * kills.length}>
+        {kills.map((k, i) => <image cx={16} y={32 * i} width={32} height={32} href={iconUrlFromHeroKey(k.key)} />)}
       </svg>
     );
-  } else {
-    return <svg />;
   }
+
+  return <svg />;
+};
+CustomizedDot.propTypes = {
+  cx: PropTypes.number,
+  cy: PropTypes.number,
+  payload: PropTypes.shape({}),
+  killsLog: PropTypes.shape([]),
 };
 
 class Graph extends React.Component {
   static propTypes = {
     match: PropTypes.shape({}),
     strings: PropTypes.shape({}),
+    selectedPlayer: PropTypes.number,
   }
 
   constructor(props) {
@@ -78,18 +85,16 @@ class Graph extends React.Component {
   }
 
   render() {
-    const { match, strings } = this.props;
-    const { selectedPlayer } = this.props;
+    const { match, strings, selectedPlayer } = this.props;
 
     const matchData = [];
-    if (match.players && match.players[0] && match.players[0][`lh_t`]) {
-      match.players[0][`lh_t`].forEach((value, index) => {
+    if (match.players && match.players[0] && match.players[0].cs_t) {
+      match.players[0].lh_t.forEach((value, index) => {
         if (index <= Math.floor(match.duration / 60)) {
           const obj = { time: formatGraphTime(index) };
           match.players.forEach((player) => {
             const hero = heroes[player.hero_id] || {};
-            obj[hero.localized_name] = player[`lh_t`][index];
-            obj[hero.localized_name] += player[`dn_t`][index];
+            obj[hero.localized_name] = player.cs_t[index];
           });
           matchData.push(obj);
         }
@@ -97,7 +102,7 @@ class Graph extends React.Component {
 
       return (
         <StyledHolder>
-          <Heading title={strings[`heading_graph_cs`]} />
+          <Heading title={strings.heading_graph_cs} />
           <ResponsiveContainer width="100%" height={400}>
             <LineChart
               data={matchData}

@@ -214,7 +214,7 @@ class Table extends React.Component {
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,
-                        percentBarsWithValue, invertBarColor, underline, colColor, sparkline
+                        percentBarsWithValue, invertBarColor, underline, colColor, sparkline,
                       } = column;
                       const columnSortFn = column.sortFn;
                       const getValue = typeof columnSortFn === 'function' ? columnSortFn : null;
@@ -285,7 +285,7 @@ class Table extends React.Component {
                       } else if (displayFn) {
                         fieldEl = displayFn(row, column, value, index);
                       } else if (sparkline) {
-                        fieldEl = <TableSparkline values={value} />;
+                        fieldEl = <TableSparkline values={value} altValues={[]} />;
                       } else {
                         fieldEl = value;
                       }

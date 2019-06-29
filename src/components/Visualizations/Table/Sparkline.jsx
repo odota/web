@@ -12,45 +12,43 @@ import { StyledContainer, SparklineContainer } from './Styled';
 import constants from '../../constants';
 
 const Sparkline = ({
-  values, altValue, valEl, inverse = false,
+  values, altValues,
 }) => {
   let lastValue = 0;
-  const data = values.map((v) => {
+  const data = (values || altValues).map((v) => {
     const delta = v - lastValue;
     lastValue = v;
-    return {v: delta};
-  }).slice(0,11);
+    return { v: delta };
+  }).slice(0, 11);
 
 
   return (
     <StyledContainer>
       <SparklineContainer>
         <BarChart data={data} width={240} height={40} barCategoryGap={1}>
-          <YAxis hide={true} domain={[0, 12]} />
+          <YAxis hide domain={[0, 12]} />
           <ReferenceLine y={6} stroke={constants.colorRed} strokeDasharray="3 3" />
           <Bar dataKey="v" barGap={0}>
             {
               data.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.v >= 6 ? constants.colorGreen : constants.colorRed} />
-              )
-            )
+              ))
             }
           </Bar>
         </BarChart>
       </SparklineContainer>
     </StyledContainer>
-  )
+  );
 };
 
 const {
-  number, oneOfType, string, node, bool,
+  instanceOf,
 } = PropTypes;
 
+
 Sparkline.propTypes = {
-  avlues: Array,
-  altValue: oneOfType([string, number, bool]),
-  valEl: node,
-  inverse: bool,
+  values: instanceOf(Array),
+  altValues: instanceOf(Array),
 };
 
 Sparkline.tdStyle = {

@@ -34,10 +34,18 @@ class Laning extends React.Component {
     } = this.props;
     const { laningColumns } = mcs(strings);
     const annotatedPlayers = match.players.map((p) => {
-      const cs_t = p.lh_t.map((v, i) => v + p.dn_t[i])
+      if (!p.lh_t) {
+        return p;
+      }
 
-      return {...p, cs_t}
-    })
+      if (!p.dn_t) {
+        return { ...p, cs_t: p.lh_t };
+      }
+
+      const csT = p.lh_t.map((v, i) => v + p.dn_t[i]);
+
+      return { ...p, cs_t: csT };
+    });
 
     return (
       <StyledFlexContainer>
