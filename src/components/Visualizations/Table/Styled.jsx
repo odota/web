@@ -39,8 +39,7 @@ export const PercentContainer = styled.div`
 `;
 
 export const SparklineContainer = styled.div`
-
-  width: 100%;
+  overflow: visible !important;
   pointer-events: auto !important;
 
 `;
