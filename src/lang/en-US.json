@@ -893,6 +893,7 @@
   "title_records": "Records",
   "title_api": "The Opendota API: Advanced Dota 2 stats for your app",
   "tooltip_mmr": "Solo MMR of the player",
+  "tooltip_cs_over_time": "CS each minute, first 10 minutes",
   "tooltip_abilitydraft": "Ability Drafted",
   "tooltip_level": "Level achieved by hero",
   "tooltip_kills": "Number of kills by hero",

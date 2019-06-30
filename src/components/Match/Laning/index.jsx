@@ -66,7 +66,8 @@ class Laning extends React.Component {
           <Heatmap width={400} points={unpackPositionData((match.players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)} />
         </StyledFlexElement>
         <StyledFlexElement>
-          <Graph match={match} strings={strings} selectedPlayer={this.state.selectedPlayer} />
+          <span>wtf</span>
+          <Graph match={match} players={annotatedPlayers} strings={strings} selectedPlayer={this.state.selectedPlayer} />
         </StyledFlexElement>
       </StyledFlexContainer>);
   }

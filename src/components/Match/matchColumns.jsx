@@ -808,10 +808,10 @@ export default (strings) => {
     },
     {
       displayName: strings.cs_over_time,
-      tooltip: strings.cs_over_time,
+      tooltip: strings.tooltip_cs_over_time,
       field: 'cs_t',
       sparkline: true,
-      width: 240,
+      width: 200,
     },
     {
       displayName: strings.th_lane_efficiency,

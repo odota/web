@@ -7,9 +7,32 @@ import {
   Bar,
   Cell,
   ReferenceLine,
+  Tooltip,
 } from 'recharts';
 import { StyledContainer, SparklineContainer } from './Styled';
+import { StyledCustomizedTooltip } from '../../Visualizations/Graph/Styled';
 import constants from '../../constants';
+
+const CustomizedTooltip = ({ label, external }) => (
+  <StyledCustomizedTooltip>
+    <div className="label">{label} - {label + 1}</div>
+    {external && external[label] && (
+      <div>
+        <div>
+          CS This Minute: {external[label].delta}
+        </div>
+        <div>
+          Cumluative CS: {external[label].cumulative}
+        </div>
+      </div>)
+    }
+
+  </StyledCustomizedTooltip>
+);
+CustomizedTooltip.propTypes = {
+  label: PropTypes.number,
+  external: PropTypes.arrayOf(PropTypes.shape({})),
+};
 
 const Sparkline = ({
   values, altValues,
@@ -18,20 +41,20 @@ const Sparkline = ({
   const data = (values || altValues).map((v) => {
     const delta = v - lastValue;
     lastValue = v;
-    return { v: delta };
-  }).slice(0, 11);
-
+    return { delta, cumulative: v };
+  }).slice(1, 11);
 
   return (
     <StyledContainer>
       <SparklineContainer>
-        <BarChart data={data} width={240} height={40} barCategoryGap={1}>
+        <BarChart data={data} width={200} height={40} barCategoryGap={1}>
           <YAxis hide domain={[0, 12]} />
+          <Tooltip content={<CustomizedTooltip external={data} />} />
           <ReferenceLine y={6} stroke={constants.colorRed} strokeDasharray="3 3" />
-          <Bar dataKey="v" barGap={0}>
+          <Bar dataKey="delta" barGap={0}>
             {
               data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.v >= 6 ? constants.colorGreen : constants.colorRed} />
+                <Cell key={`cell-${index}`} fill={entry.delta >= 6 ? constants.colorGreen : constants.colorRed} />
               ))
             }
           </Bar>

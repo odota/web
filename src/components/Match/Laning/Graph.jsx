@@ -24,15 +24,15 @@ const CustomizedTooltip = ({ label, payload }) => (
     <div className="label">{label}</div>
     {payload.map((data, i) =>
     (
-      <div value={data.value} className={`data ${i < 5 && 'isRadiant'}`} style={{ borderLeft: `8px solid ${data.color}` }}>
+      <div key={i} value={data.value} className={`data ${i < 5 && 'isRadiant'}`} style={{ borderLeft: `8px solid ${data.color}` }}>
         {data.dataKey}: {data.value}
       </div>)).sort((a, b) => b.props.value - a.props.value)
     }
   </StyledCustomizedTooltip>
 );
 CustomizedTooltip.propTypes = {
-  payload: PropTypes.shape({}),
-  label: PropTypes.number,
+  payload: PropTypes.arrayOf(PropTypes.shape({})),
+  label: PropTypes.string,
 };
 
 const iconUrlFromHeroKey = (heroKey) => {
@@ -57,7 +57,7 @@ const CustomizedDot = (props) => {
   if (kills.length > 0) {
     return (
       <svg x={cx - 16} y={(cy - (16 * kills.length))} width={32} height={32 * kills.length}>
-        {kills.map((k, i) => <image cx={16} y={32 * i} width={32} height={32} href={iconUrlFromHeroKey(k.key)} />)}
+        {kills.map((k, i) => <image key={i} cx={16} y={32 * i} width={32} height={32} href={iconUrlFromHeroKey(k.key)} />)}
       </svg>
     );
   }
@@ -68,11 +68,12 @@ CustomizedDot.propTypes = {
   cx: PropTypes.number,
   cy: PropTypes.number,
   payload: PropTypes.shape({}),
-  killsLog: PropTypes.shape([]),
+  killsLog: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 class Graph extends React.Component {
   static propTypes = {
+    players: PropTypes.arrayOf(PropTypes.shape({})),
     match: PropTypes.shape({}),
     strings: PropTypes.shape({}),
     selectedPlayer: PropTypes.number,
@@ -85,14 +86,19 @@ class Graph extends React.Component {
   }
 
   render() {
-    const { match, strings, selectedPlayer } = this.props;
+    const {
+      players,
+      strings,
+      selectedPlayer,
+      match,
+    } = this.props;
 
     const matchData = [];
-    if (match.players && match.players[0] && match.players[0].cs_t) {
-      match.players[0].lh_t.forEach((value, index) => {
+    if (players[0] && players[0].cs_t) {
+      players[0].lh_t.forEach((value, index) => {
         if (index <= Math.floor(match.duration / 60)) {
           const obj = { time: formatGraphTime(index) };
-          match.players.forEach((player) => {
+          players.forEach((player) => {
             const hero = heroes[player.hero_id] || {};
             obj[hero.localized_name] = player.cs_t[index];
           });
@@ -111,7 +117,7 @@ class Graph extends React.Component {
               }}
             >
               <XAxis dataKey="time" />
-              <YAxis mirror="true" />
+              <YAxis mirror />
               <CartesianGrid
                 stroke="#505050"
                 strokeWidth={1}
@@ -128,6 +134,7 @@ class Graph extends React.Component {
                 return (<Line
                   dot={isSelected ? <CustomizedDot killsLog={player.kills_log} /> : false}
                   dataKey={hero.localized_name}
+                  key={hero.localized_name}
                   stroke={playerColor}
                   strokeWidth={stroke}
                   strokeOpacity={opacity}
