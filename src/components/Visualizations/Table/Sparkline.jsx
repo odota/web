@@ -43,7 +43,7 @@ const Sparkline = ({
     const delta = v - lastValue;
     lastValue = v;
     return { delta, cumulative: v };
-  }).slice(1, 11);
+  }).slice(0, 11);
 
   return (
     <StyledContainer>
