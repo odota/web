@@ -811,7 +811,7 @@ export default (strings) => {
       tooltip: strings.tooltip_cs_over_time,
       field: 'cs_t',
       sparkline: true,
-      strings: strings,
+      strings,
       width: 200,
     },
     {

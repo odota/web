@@ -156,16 +156,19 @@ function transformMatch(m) {
       analysis: analyzeMatch(m, player),
     };
 
-    // compute a cs_t as a sum of lh_t & dn_t
-    player['cs_t'] = (player.lh_t || []).map((v, i) => v + (player.dn_t || [])[i]);
-
     // filter interval data to only be >= 0
     if (player.times) {
-      const intervals = ['lh_t', 'cs_t', 'dn_t', 'gold_t', 'xp_t', 'times'];
+      const intervals = ['lh_t', 'dn_t', 'gold_t', 'xp_t', 'times'];
       intervals.forEach((key) => {
         newPlayer[key] = player[key].filter((el, i) => player.times[i] >= 0);
       });
+
+      // compute a cs_t as a sum of lh_t & dn_t
+      const csT = (player.lh_t || []).map((v, i) => v + (player.dn_t || [])[i]);
+      newPlayer.cs_t = csT.filter((el, i) => player.times[i] >= 0);
     }
+
+
     // compute damage to towers/rax/roshan
     if (player.damage) {
       // npc_dota_goodguys_tower2_top

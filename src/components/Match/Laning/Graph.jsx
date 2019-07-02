@@ -47,8 +47,6 @@ const CustomizedDot = (props) => {
     return formatGraphTime(t) === payload.time;
   });
 
-  console.log(props.killedBy)
-
   if (kills.length > 0) {
     return (
       <svg x={cx - 16} y={(cy - (16 * kills.length))} width={32} height={32 * kills.length}>
@@ -87,7 +85,8 @@ class Graph extends React.Component {
     } = this.props;
 
     const matchData = [];
-    const players = match.players
+    const { players } = match;
+
     if (players[0] && players[0].cs_t) {
       players[0].lh_t.forEach((value, index) => {
         if (index <= Math.floor(match.duration / 60)) {
@@ -120,14 +119,13 @@ class Graph extends React.Component {
 
               <Tooltip content={<CustomizedTooltip />} />
               {match.players.map((player) => {
-                console.log(player)
                 const hero = heroes[player.hero_id] || {};
                 const playerColor = playerColors[player.player_slot];
                 const isSelected = selectedPlayer === player.player_slot;
                 const opacity = (isSelected) ? 1 : 0.25;
                 const stroke = (isSelected) ? 4 : 2;
                 return (<Line
-                  dot={isSelected ? <CustomizedDot killedBy={player.killed_by} killsLog={player.kills_log} /> : false}
+                  dot={isSelected ? <CustomizedDot killsLog={player.kills_log} /> : false}
                   dataKey={hero.localized_name}
                   key={hero.localized_name}
                   stroke={playerColor}

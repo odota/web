@@ -32,11 +32,11 @@ const CustomizedTooltip = ({ label, external, strings }) => (
 CustomizedTooltip.propTypes = {
   label: PropTypes.number,
   external: PropTypes.arrayOf(PropTypes.shape({})),
-  strings: PropTypes.shape({})
+  strings: PropTypes.shape({}),
 };
 
 const Sparkline = ({
-  values, altValues, strings
+  values, altValues, strings,
 }) => {
   let lastValue = 0;
   const data = (values || altValues).map((v) => {
