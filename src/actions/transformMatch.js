@@ -164,7 +164,7 @@ function transformMatch(m) {
       });
 
       // compute a cs_t as a sum of lh_t & dn_t
-      const csT = (player.lh_t || []).map((v, i) => v + ((player.dn_t || [])[i] || 0) );
+      const csT = (player.lh_t || []).map((v, i) => v + ((player.dn_t || [])[i] || 0));
       newPlayer.cs_t = csT.filter((el, i) => player.times[i] >= 0);
     }
 
