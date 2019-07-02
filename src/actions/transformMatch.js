@@ -158,13 +158,13 @@ function transformMatch(m) {
 
     // filter interval data to only be >= 0
     if (player.times) {
-      const intervals = ['lh_t', 'dn_t', 'gold_t', 'xp_t', 'times'];
+      const intervals = ['lh_t', 'gold_t', 'xp_t', 'times'];
       intervals.forEach((key) => {
         newPlayer[key] = player[key].filter((el, i) => player.times[i] >= 0);
       });
 
       // compute a cs_t as a sum of lh_t & dn_t
-      const csT = (player.lh_t || []).map((v, i) => v + (player.dn_t || [])[i]);
+      const csT = (player.lh_t || []).map((v, i) => v + ((player.dn_t || [])[i] || 0) );
       newPlayer.cs_t = csT.filter((el, i) => player.times[i] >= 0);
     }
 
