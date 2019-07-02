@@ -285,7 +285,8 @@ class Table extends React.Component {
                       } else if (displayFn) {
                         fieldEl = displayFn(row, column, value, index);
                       } else if (sparkline) {
-                        fieldEl = <TableSparkline values={value} altValues={[]} />;
+                        console.log("Column", column)
+                        fieldEl = <TableSparkline strings={column.strings} values={value} altValues={[]} />;
                       } else {
                         fieldEl = value;
                       }

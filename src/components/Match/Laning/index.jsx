@@ -33,26 +33,13 @@ class Laning extends React.Component {
       match, strings, sponsorURL, sponsorIcon,
     } = this.props;
     const { laningColumns } = mcs(strings);
-    const annotatedPlayers = match.players.map((p) => {
-      if (!p.lh_t) {
-        return p;
-      }
-
-      if (!p.dn_t) {
-        return { ...p, cs_t: p.lh_t };
-      }
-
-      const csT = p.lh_t.map((v, i) => v + p.dn_t[i]);
-
-      return { ...p, cs_t: csT };
-    });
 
     return (
       <StyledFlexContainer>
         <StyledFlexElementFullWidth>
           <Heading title={strings.heading_laning} />
           <Table
-            data={annotatedPlayers}
+            data={match.players}
             columns={laningColumns(this.state, this.setSelectedPlayer)}
           />
         </StyledFlexElementFullWidth>
@@ -66,7 +53,7 @@ class Laning extends React.Component {
           <Heatmap width={400} points={unpackPositionData((match.players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)} />
         </StyledFlexElement>
         <StyledFlexElement>
-          <Graph match={match} players={annotatedPlayers} strings={strings} selectedPlayer={this.state.selectedPlayer} />
+          <Graph match={match} strings={strings} selectedPlayer={this.state.selectedPlayer} />
         </StyledFlexElement>
       </StyledFlexContainer>);
   }

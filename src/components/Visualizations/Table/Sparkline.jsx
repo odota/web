@@ -13,16 +13,16 @@ import { StyledContainer, SparklineContainer } from './Styled';
 import { StyledCustomizedTooltip } from '../../Visualizations/Graph/Styled';
 import constants from '../../constants';
 
-const CustomizedTooltip = ({ label, external }) => (
+const CustomizedTooltip = ({ label, external, strings }) => (
   <StyledCustomizedTooltip>
     <div className="label">{label} - {label + 1}</div>
     {external && external[label] && (
       <div>
         <div>
-          CS This Minute: {external[label].delta}
+          {strings.cs_this_minute}: {external[label].delta}
         </div>
         <div>
-          Cumluative CS: {external[label].cumulative}
+          {strings.cumulative_cs}: {external[label].cumulative}
         </div>
       </div>)
     }
@@ -32,10 +32,11 @@ const CustomizedTooltip = ({ label, external }) => (
 CustomizedTooltip.propTypes = {
   label: PropTypes.number,
   external: PropTypes.arrayOf(PropTypes.shape({})),
+  strings: PropTypes.shape({})
 };
 
 const Sparkline = ({
-  values, altValues,
+  values, altValues, strings
 }) => {
   let lastValue = 0;
   const data = (values || altValues).map((v) => {
@@ -49,7 +50,7 @@ const Sparkline = ({
       <SparklineContainer>
         <BarChart data={data} width={200} height={40} barCategoryGap={1}>
           <YAxis hide domain={[0, 12]} />
-          <Tooltip content={<CustomizedTooltip external={data} />} />
+          <Tooltip content={<CustomizedTooltip strings={strings} external={data} />} />
           <ReferenceLine y={6} stroke={constants.colorRed} strokeDasharray="3 3" />
           <Bar dataKey="delta" barGap={0}>
             {
@@ -72,6 +73,7 @@ const {
 Sparkline.propTypes = {
   values: instanceOf(Array),
   altValues: instanceOf(Array),
+  strings: PropTypes.shape({}),
 };
 
 Sparkline.tdStyle = {

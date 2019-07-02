@@ -194,6 +194,16 @@ export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
   return imageUrl + imageSizeSuffix;
 };
 
+export const getHeroIconUrlFromHeroKey = (heroKey) => {
+  const heroId = Object.keys(heroes).find(k => heroes[k].name === heroKey);
+  if (heroId && heroId[0] && heroes[heroId[0]]) {
+    return `${process.env.REACT_APP_API_HOST}${heroes[heroId].icon}`;
+  }
+
+  return '/assets/images/blank-1x1.gif';
+};
+
+
 // Fills in a template with the values provided in the dict
 // returns a list, so react object don't have to be converted to a string
 // Any keys not found in the given dictionary are simply left untouched

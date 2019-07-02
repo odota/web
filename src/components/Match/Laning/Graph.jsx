@@ -16,6 +16,8 @@ import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import Heading from '../../Heading';
 import { StyledHolder, StyledCustomizedTooltip } from '../../Visualizations/Graph/Styled';
+import { getHeroIconUrlFromHeroKey } from '../../../utility';
+
 
 const formatGraphTime = minutes => `${minutes}:00`;
 
@@ -35,15 +37,6 @@ CustomizedTooltip.propTypes = {
   label: PropTypes.string,
 };
 
-const iconUrlFromHeroKey = (heroKey) => {
-  const heroIds = Object.keys(heroes).filter(k => heroes[k].name === heroKey);
-  if (heroIds && heroIds[0] && heroes[heroIds[0]]) {
-    return `${process.env.REACT_APP_API_HOST}${heroes[heroIds[0]].icon}`;
-  }
-
-  return '/assets/images/blank-1x1.gif';
-};
-
 const CustomizedDot = (props) => {
   const {
     cx, cy, payload, killsLog,
@@ -54,10 +47,12 @@ const CustomizedDot = (props) => {
     return formatGraphTime(t) === payload.time;
   });
 
+  console.log(props.killedBy)
+
   if (kills.length > 0) {
     return (
       <svg x={cx - 16} y={(cy - (16 * kills.length))} width={32} height={32 * kills.length}>
-        {kills.map((k, i) => <image key={i} cx={16} y={32 * i} width={32} height={32} href={iconUrlFromHeroKey(k.key)} />)}
+        {kills.map((k, i) => <image key={i} cx={16} y={32 * i} width={32} height={32} href={getHeroIconUrlFromHeroKey(k.key)} />)}
       </svg>
     );
   }
@@ -73,7 +68,6 @@ CustomizedDot.propTypes = {
 
 class Graph extends React.Component {
   static propTypes = {
-    players: PropTypes.arrayOf(PropTypes.shape({})),
     match: PropTypes.shape({}),
     strings: PropTypes.shape({}),
     selectedPlayer: PropTypes.number,
@@ -87,13 +81,13 @@ class Graph extends React.Component {
 
   render() {
     const {
-      players,
       strings,
       selectedPlayer,
       match,
     } = this.props;
 
     const matchData = [];
+    const players = match.players
     if (players[0] && players[0].cs_t) {
       players[0].lh_t.forEach((value, index) => {
         if (index <= Math.floor(match.duration / 60)) {
@@ -126,13 +120,14 @@ class Graph extends React.Component {
 
               <Tooltip content={<CustomizedTooltip />} />
               {match.players.map((player) => {
+                console.log(player)
                 const hero = heroes[player.hero_id] || {};
                 const playerColor = playerColors[player.player_slot];
                 const isSelected = selectedPlayer === player.player_slot;
                 const opacity = (isSelected) ? 1 : 0.25;
                 const stroke = (isSelected) ? 4 : 2;
                 return (<Line
-                  dot={isSelected ? <CustomizedDot killsLog={player.kills_log} /> : false}
+                  dot={isSelected ? <CustomizedDot killedBy={player.killed_by} killsLog={player.kills_log} /> : false}
                   dataKey={hero.localized_name}
                   key={hero.localized_name}
                   stroke={playerColor}
