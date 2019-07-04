@@ -8,10 +8,25 @@ Quickstart
 ----
 * Clone the repo using `git clone --recurse-submodules git://github.com/odota/web`
   * If you already have a copy of the repo, run `git submodule init && git submodule update` to fetch shared components
+  
+### With Docker
+
+```
+$ docker-compose up
+```
+
+* Visit port 3000 on your development machine.
+
+### Without Docker
+
 * Install Node.js (6.0.0 or greater) (on Ubuntu, `curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && sudo apt-get install -y nodejs`)
 * `npm install`
 * `npm start`
 * Visit port 3000 on your development machine.
+
+Contributing
+----
+
 * Make some changes.
 * `npm run lint` to check your code for linting errors.
 * `npm test` to check all app routes for uncaught JavaScript errors.
