@@ -1,13 +1,12 @@
 # You don't usually need to edit this file.
 # If it does not fit your personal use case, docker-compose.override.yml is a preferred way to go.
 
-version: '2'
+version: '3.7'
 services:
-  ui:
+  web:
     build:
       context: .
     image: odota/web
-    entrypoint: "npm start:install"
     ports:
       - "8080:8080"
     volumes: 
