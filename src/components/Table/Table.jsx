@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { abbreviateNumber, SORT_ENUM, defaultSort, getColStyle } from '../../utility';
-import { TablePercent } from '../Visualizations';
+import { TablePercent, TableSparkline } from '../Visualizations';
 import Pagination from '../Table/PaginatedTable/Pagination';
 import TableHeader from './TableHeader';
 import Error from '../Error';
@@ -214,7 +214,7 @@ class Table extends React.Component {
                     {columns.map((column, colIndex) => {
                       const {
                         field, color, center, displayFn, relativeBars, percentBars,
-                        percentBarsWithValue, invertBarColor, underline, colColor,
+                        percentBarsWithValue, invertBarColor, underline, colColor, sparkline,
                       } = column;
                       const columnSortFn = column.sortFn;
                       const getValue = typeof columnSortFn === 'function' ? columnSortFn : null;
@@ -284,6 +284,8 @@ class Table extends React.Component {
                         />);
                       } else if (displayFn) {
                         fieldEl = displayFn(row, column, value, index);
+                      } else if (sparkline) {
+                        fieldEl = <TableSparkline strings={column.strings} values={value} altValues={[]} />;
                       } else {
                         fieldEl = value;
                       }

@@ -807,6 +807,14 @@ export default (strings) => {
           </div>),
     },
     {
+      displayName: strings.cs_over_time,
+      tooltip: strings.tooltip_cs_over_time,
+      field: 'cs_t',
+      sparkline: true,
+      strings,
+      width: 200,
+    },
+    {
       displayName: strings.th_lane_efficiency,
       tooltip: strings.tooltip_lane_efficiency,
       field: 'lane_efficiency',
@@ -833,6 +841,7 @@ export default (strings) => {
       relativeBars: true,
       sumFn: true,
     },
+
   ];
 
   const unitKillsColumns = [

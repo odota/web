@@ -165,7 +165,7 @@ export const StyledFlexContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  overflow: auto;
+  overflow: visible;
 
   @media only screen and (min-width: 800px) {
     flex-direction: row;
@@ -175,6 +175,11 @@ export const StyledFlexElement = styled.div`
   flex: 1;
   margin-right: 5px;
 `;
+export const StyledFlexElementFullWidth = styled.div`-
+  margin-right: 5px;
+  width: 100%;
+`;
+
 export const StyledTeamIconContainer = styled.span`
   vertical-align: top;
   height: 26px !important;
