@@ -6,7 +6,8 @@ import Heatmap from '../../Heatmap';
 import Table from '../../Table';
 import { unpackPositionData } from '../../../utility';
 import mcs from '../matchColumns';
-import { StyledFlexContainer, StyledFlexElement } from '../StyledMatch';
+import { StyledFlexContainer, StyledFlexElement, StyledFlexElementFullWidth } from '../StyledMatch';
+import Graph from './Graph';
 
 class Laning extends React.Component {
   static propTypes = {
@@ -32,8 +33,16 @@ class Laning extends React.Component {
       match, strings, sponsorURL, sponsorIcon,
     } = this.props;
     const { laningColumns } = mcs(strings);
+
     return (
       <StyledFlexContainer>
+        <StyledFlexElementFullWidth>
+          <Heading title={strings.heading_laning} />
+          <Table
+            data={match.players}
+            columns={laningColumns(this.state, this.setSelectedPlayer)}
+          />
+        </StyledFlexElementFullWidth>
         <StyledFlexElement>
           <Heading
             title={strings.th_map}
@@ -44,11 +53,7 @@ class Laning extends React.Component {
           <Heatmap width={400} points={unpackPositionData((match.players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)} />
         </StyledFlexElement>
         <StyledFlexElement>
-          <Heading title={strings.heading_laning} />
-          <Table
-            data={match.players}
-            columns={laningColumns(this.state, this.setSelectedPlayer)}
-          />
+          <Graph match={match} strings={strings} selectedPlayer={this.state.selectedPlayer} />
         </StyledFlexElement>
       </StyledFlexContainer>);
   }
