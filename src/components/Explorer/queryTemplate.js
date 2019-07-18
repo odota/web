@@ -46,7 +46,7 @@ const queryTemplate = (props) => {
     tier,
     having,
     limit,
-    isTi8Team,
+    isTi9Team,
     megaWin,
     minGoldAdvantage,
     maxGoldAdvantage,
@@ -129,7 +129,7 @@ ${conjoin`matches.cluster IN (${region})`}
 ${minDate ? conjoin`matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
 ${maxDate ? conjoin`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${conjoin`leagues.tier = '${tier}'`}
-${isTi8Team ? 'AND teams.team_id IN (5, 15, 39, 67, 2163, 350190, 543897, 726228, 1375614, 1838315, 1883502, 2108395, 2586976, 5026801, 5027210, 5066616, 5228654, 5229127)' : ''}
+${isTi9Team ? 'AND teams.team_id IN (15, 36, 39, 2163, 111474, 350190, 543897, 726228, 1838315, 1883502, 2108395, 2586976, 2626685, 2672298, 6209804, 6214538, 6214973, 7203342)' : ''}
 ${megaWin ? 'AND ((matches.barracks_status_radiant = 0 AND matches.radiant_win) OR (matches.barracks_status_dire = 0 AND NOT matches.radiant_win))' : ''}
 ${maxGoldAdvantage ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] <= ${maxGoldAdvantage.value}` : ''}
 ${minGoldAdvantage ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] >= ${minGoldAdvantage.value}` : ''}
@@ -205,7 +205,7 @@ ${conjoin`matches.cluster IN (${region})`}
 ${minDate ? conjoin`matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
 ${maxDate ? conjoin`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${conjoin`leagues.tier = '${tier}'`}
-${isTi8Team ? 'AND teams.team_id IN (5, 15, 39, 67, 2163, 350190, 543897, 726228, 1375614, 1838315, 1883502, 2108395, 2586976, 5026801, 5027210, 5066616, 5228654, 5229127)' : ''}
+${isTi9Team ? 'AND teams.team_id IN (15, 36, 39, 2163, 111474, 350190, 543897, 726228, 1838315, 1883502, 2108395, 2586976, 2626685, 2672298, 6209804, 6214538, 6214973, 7203342)' : ''}
 ${megaWin ? 'AND ((matches.barracks_status_radiant = 0 AND matches.radiant_win) OR (matches.barracks_status_dire = 0 AND NOT matches.radiant_win))' : ''}
 ${maxGoldAdvantage ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] <= ${maxGoldAdvantage.value}` : ''}
 ${minGoldAdvantage ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] >= ${minGoldAdvantage.value}` : ''}
