@@ -21,7 +21,7 @@ const HistogramTooltipContent = ({ payload, xAxisLabel = '', strings }) => {
     <StyledTooltip>
       <div>{`${data && data.x} ${xAxisLabel}`}</div>
       <div>{`${data && data.games} ${strings.th_matches}`}</div>
-      <div>{`${data && (data.win / data.games * 100).toFixed(2)} ${strings.th_win}`}</div>
+      {data && data.games > 0 && <div>{`${(data.win / data.games * 100).toFixed(2)} ${strings.th_win}`}</div>}
     </StyledTooltip>);
 };
 HistogramTooltipContent.propTypes = {
