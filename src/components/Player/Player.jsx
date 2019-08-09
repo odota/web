@@ -30,6 +30,7 @@ class RequestLayer extends React.Component {
     }),
     officialPlayerName: PropTypes.string,
     playerName: PropTypes.string,
+    playerLoading: PropTypes.bool,
     strings: PropTypes.shape({}),
   }
 
@@ -63,7 +64,7 @@ class RequestLayer extends React.Component {
     const title = page ? `${playerName} - ${page.name}` : playerName;
     return (
       <div>
-        <Helmet title={title} />
+        {!this.props.playerLoading && <Helmet title={title} />}
         <div>
           <PlayerHeader playerId={playerId} location={location} />
           <TabBar info={info} tabs={playerPages(playerId, strings)} />
@@ -79,6 +80,7 @@ class RequestLayer extends React.Component {
 
 const mapStateToProps = state => ({
   playerName: (state.app.player.data.profile || {}).personaname,
+  playerLoading: (state.app.player.loading),
   officialPlayerName: (state.app.player.data.profile || {}).name,
   strings: state.app.strings,
 });
