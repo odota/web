@@ -238,6 +238,7 @@
   "filter_last_month": "Letzter Monat",
   "filter_last_3_months": "Letzte 3 Monate",
   "filter_last_6_months": "Letzte 6 Monate",
+  "filter_last_12_months": "Last 12 months",
   "filter_error": "Bitte wähle ein Element aus dem Dropdown",
   "filter_party_size": "Gruppengröße",
   "game_mode_0": "Unbekannt",
