@@ -232,6 +232,9 @@ class TableFilterForm extends React.Component {
     }, {
       text: strings.filter_last_6_months,
       value: 180,
+    }, {
+      text: strings.filter_last_12_months,
+      value: 360,
     }];
 
     const significantList = [{

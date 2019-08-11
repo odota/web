@@ -13,7 +13,7 @@ import {
   formatTemplate,
   formatTemplateToString,
 } from '../../utility';
-import { StyledEmote, StyledStoryNetWorthBar, StyledStoryNetWorthText, StyledStorySpan, StyledStoryWrapper } from './StyledMatch';
+import { StyledEmote, StyledStoryNetWorthBar, StyledStoryNetWorthText, StyledStoryGoldAmount, StyledStorySpan, StyledStoryWrapper } from './StyledMatch';
 import constants from '../constants';
 import store from '../../store';
 
@@ -29,7 +29,9 @@ const GoldSpan = (amount) => {
   const { strings } = store.getState().app;
   return (
     <StyledStorySpan key={`gold_${amount}`}>
-      <font color={constants.colorGolden}>{amount.toLocaleString()}</font>
+      <StyledStoryGoldAmount>
+        {amount.toLocaleString()}
+      </StyledStoryGoldAmount>
       <img
         width="25px"
         height="17px"
