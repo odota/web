@@ -238,6 +238,7 @@
   "filter_last_month": "지난 한 달",
   "filter_last_3_months": "지난 3개월",
   "filter_last_6_months": "지난 6개월",
+  "filter_last_12_months": "Last 12 months",
   "filter_error": "다음 드랍다운 메뉴에서 아이템을 선택해주세요.",
   "filter_party_size": "Party Size",
   "game_mode_0": "알 수 없음",
