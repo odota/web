@@ -238,6 +238,7 @@
   "filter_last_month": "Mois dernier",
   "filter_last_3_months": "3 derniers mois",
   "filter_last_6_months": "6 derniers mois",
+  "filter_last_12_months": "Last 12 months",
   "filter_error": "Merci de sélectionner un objet dans la liste déroulante",
   "filter_party_size": "Taille du groupe",
   "game_mode_0": "Inconnu",
