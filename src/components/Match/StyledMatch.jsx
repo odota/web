@@ -268,6 +268,9 @@ export const StyledStoryNetWorthText = styled.div`
     }
   }
 `;
+export const StyledStoryGoldAmount = styled.span`
+  color: ${constants.colorGolden};
+`;
 export const StyledLogFilterForm = styled.div`
   max-width: 600px;
   display: flex;
