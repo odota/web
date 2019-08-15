@@ -505,6 +505,7 @@ class TeamfightMap extends Component {
                 radiantTeam={this.props.match.radiant_team}
                 direTeam={this.props.match.dire_team}
                 radiantWin={match.radiant_win}
+                hideWinnerTag
               />
             </div>
           </div>
