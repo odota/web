@@ -71,6 +71,7 @@ class TeamTable extends React.Component {
     customWidth: PropTypes.number,
     radiantWin: PropTypes.bool,
     overflowAuto: PropTypes.bool,
+    hideWinnerTag: PropTypes.bool,
   };
   constructor() {
     super();
@@ -128,6 +129,7 @@ class TeamTable extends React.Component {
       customWidth,
       radiantWin,
       overflowAuto,
+      hideWinnerTag = false,
     } = this.props;
 
     const tableProps = {
@@ -149,7 +151,7 @@ class TeamTable extends React.Component {
           buttonLabel={buttonLabel || ''}
           buttonTo={buttonTo || ''}
           buttonIcon={buttonIcon || ''}
-          winner={radiantWin}
+          winner={!hideWinnerTag && radiantWin}
         />
         <div className="teamtable teamtable-radiant">
           <Table data={filterMatchPlayers(players, 'radiant')} {...tableProps} />
@@ -158,7 +160,7 @@ class TeamTable extends React.Component {
         <Heading
           title={`${getTeamName(direTeam, false)} - ${heading}`}
           icon={<IconDire />}
-          winner={!radiantWin}
+          winner={!hideWinnerTag && !radiantWin}
         />
         <div className="teamtable teamtable-dire">
           <Table data={filterMatchPlayers(players, 'dire')} {...tableProps} />
