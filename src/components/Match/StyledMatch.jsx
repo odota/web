@@ -233,6 +233,17 @@ export const StyledStoryWrapper = styled.div`
 export const StyledStoryNetWorthBar = styled.div`
 
   display: flex;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 3px;
+    height: 13px;
+    background-color: white;
+    left: 50%;
+    margin-left: -3px;
+  }
 
  > div {
   display: inline-block;
