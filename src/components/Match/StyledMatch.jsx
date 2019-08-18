@@ -238,11 +238,11 @@ export const StyledStoryNetWorthBar = styled.div`
   &::after {
     content: "";
     position: absolute;
-    width: 3px;
+    width: 4px;
     height: 13px;
     background-color: white;
     left: 50%;
-    margin-left: -3px;
+    margin-left: -2px;
   }
 
  > div {
