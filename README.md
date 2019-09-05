@@ -48,7 +48,7 @@ Tech Stack
 Workflow
 ----
 * If you're interested in contributing regularly, let us know and we'll add you to the organization.
-* The `master` branch is automatically deployed to the stage environment: https://stage.opendota.com
+* The `master` branch is automatically deployed to the stage environment.
 * We'll periodically ship releases to production: https://www.opendota.com
 
 Notes
