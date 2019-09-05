@@ -158,7 +158,7 @@ class App extends React.Component {
       <Link key="header_records" to="/records">{strings.header_records}</Link>,
       <Link key="header_scenarios" to="/scenarios">{strings.header_scenarios}</Link>,
       <Link key="header_api" to="/api-keys">{strings.header_api}</Link>,
-      <Link key="header_predictions" to="/predictions">TI Predictions</Link>,
+      // <Link key="header_predictions" to="/predictions">TI Predictions</Link>,
       // <Link key="header_assistant" to="/assistant">Assistant</Link>,
     ];
 
