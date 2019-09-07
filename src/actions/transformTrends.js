@@ -1,4 +1,4 @@
-export default function transformTrends(fieldName, yIsTime) {
+export default function transformTrends(fieldName, yIsSeconds) {
   return (response) => {
     let cumulativeSum = 0;
     const chunkSize = 20;
@@ -21,7 +21,7 @@ export default function transformTrends(fieldName, yIsTime) {
       let value = Number(cumulativeSum);
       let indepentValue = currentValue;
 
-      if (yIsTime) {
+      if (yIsSeconds) {
         value /= 60;
         indepentValue /= 60;
       }

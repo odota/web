@@ -55,9 +55,9 @@ export const getPlayerMatches = (accountId, params) => action('playerMatches', p
 export const getPlayerPeers = (accountId, params) => action('playerPeers', process.env.REACT_APP_API_HOST, `api/players/${accountId}/peers`, params);
 export const getPlayerHeroes = (accountId, params) => action('playerHeroes', process.env.REACT_APP_API_HOST, `api/players/${accountId}/heroes`, params);
 export const getPlayerPros = (accountId, params) => action('playerPros', process.env.REACT_APP_API_HOST, `api/players/${accountId}/pros`, params);
-export const getPlayerHistograms = (accountId, params, field, xIsTime) => action('playerHistograms', process.env.REACT_APP_API_HOST, `api/players/${accountId}/histograms/${field}`, params, transformHistograms(xIsTime));
+export const getPlayerHistograms = (accountId, params, field, xIsSeconds) => action('playerHistograms', process.env.REACT_APP_API_HOST, `api/players/${accountId}/histograms/${field}`, params, transformHistograms(xIsSeconds));
 export const getPlayerRecords = (accountId, params, field) => action('playerRecords', process.env.REACT_APP_API_HOST, `api/players/${accountId}/matches`, { ...querystring.parse(params.substring(1)), sort: field, limit: 20 });
-export const getPlayerTrends = (accountId, params, field, yIsTime = false) => action('playerTrends', process.env.REACT_APP_API_HOST, `api/players/${accountId}/matches`, { ...querystring.parse(params.substring(1)), limit: 1000, project: [field, 'hero_id', 'start_time'] }, transformTrends(field, yIsTime));
+export const getPlayerTrends = (accountId, params, field, yIsSeconds = false) => action('playerTrends', process.env.REACT_APP_API_HOST, `api/players/${accountId}/matches`, { ...querystring.parse(params.substring(1)), limit: 1000, project: [field, 'hero_id', 'start_time'] }, transformTrends(field, yIsSeconds));
 export const getPlayerCounts = (accountId, params) => action('playerCounts', process.env.REACT_APP_API_HOST, `api/players/${accountId}/counts`, params, transformCounts);
 export const getPlayerItems = (accountId, params) => action('playerItems', process.env.REACT_APP_API_HOST, `api/players/${accountId}/items`, params);
 export const getPlayerWardmap = (accountId, params) => action('playerWardmap', process.env.REACT_APP_API_HOST, `api/players/${accountId}/wardmap`, params);
