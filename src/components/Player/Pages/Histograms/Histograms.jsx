@@ -64,7 +64,7 @@ Histogram.propTypes = {
 };
 
 const getData = (props) => {
-  props.getPlayerHistograms(props.playerId, props.location.search, props.routeParams.subInfo || histogramNames[0]);
+  props.getPlayerHistograms(props.playerId, props.location.search, props.routeParams.subInfo || histogramNames[0], props.histogramName === 'duration');
 };
 
 class RequestLayer extends React.Component {

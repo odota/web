@@ -1,4 +1,4 @@
-export default function transformTrends(fieldName) {
+export default function transformTrends(fieldName, yIsTime) {
   return (response) => {
     let cumulativeSum = 0;
     const chunkSize = 20;
@@ -18,11 +18,19 @@ export default function transformTrends(fieldName) {
 
       cumulativeSum += currentValue;
 
+      let value = Number(cumulativeSum);
+      let indepentValue = currentValue;
+
+      if (yIsTime) {
+        value /= 60;
+        indepentValue /= 60;
+      }
+
       const nextIndex = dataList.length + 1;
       dataList.push({
         x: nextIndex,
-        value: Number(cumulativeSum).toFixed(2),
-        independent_value: currentValue,
+        value: value.toFixed(2),
+        independent_value: indepentValue,
         match_id: match.match_id,
         hero_id: match.hero_id,
         game_mode: match.game_mode,

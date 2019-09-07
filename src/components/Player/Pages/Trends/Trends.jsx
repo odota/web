@@ -50,7 +50,7 @@ Trend.propTypes = {
 
 const getData = (props) => {
   const trendName = props.routeParams.subInfo || trendNames[0];
-  props.getPlayerTrends(props.playerId, props.location.search, trendName);
+  props.getPlayerTrends(props.playerId, props.location.search, trendName, trendName === 'duration');
 };
 
 class RequestLayer extends React.Component {
