@@ -1,9 +1,9 @@
-import React from 'react';
-import FlatButton from 'material-ui/FlatButton';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { ButtonsDiv } from './Styled';
+import React from "react";
+import FlatButton from "material-ui/FlatButton";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { ButtonsDiv } from "./Styled";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -35,33 +35,46 @@ const StyledDiv = styled.div`
 
 const Sponsors = ({ strings }) => (
   <StyledDiv>
-    <div className="headline">
-      {strings.home_sponsored_by}
-    </div>
+    <div className="headline">{strings.home_sponsored_by}</div>
     <div className="images">
-      <a href="//dotacoach.org" target="_blank" rel="noopener noreferrer">
-        <img src="/assets/images/dotacoach-logo.png" alt="" />
+      <a href="//gamerzclass.com" target="_blank" rel="noopener noreferrer">
+        <img src="/assets/images/gamerzclass-logo.png" alt="" />
       </a>
-      <a href="http://www.vpgame.com/" target="_blank" rel="noopener noreferrer">
+      <a
+        href="http://www.vpgame.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <img src="/assets/images/vp-logo.png" alt="" />
       </a>
-      <a href="https://www.openai.com/" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://www.openai.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <img src="/assets/images/openai-logo.png" alt="" />
       </a>
-      <a href="https://www.rivalry.com/opendota" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://www.rivalry.com/opendota"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <img src="/assets/images/rivalry-logo.png" alt="" />
       </a>
-      { process.env.ENABLE_GOSUAI &&
-        <a href="https://gosu.ai/dota/?utm_source=opendota&utm_medium=cpc&utm_campaign=Home" target="_blank" rel="noopener noreferrer">
+      {process.env.ENABLE_GOSUAI && (
+        <a
+          href="https://gosu.ai/dota/?utm_source=opendota&utm_medium=cpc&utm_campaign=Home"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <img src="/assets/images/gosu-logo.png" alt="" />
-        </a> }
+        </a>
+      )}
     </div>
     <ButtonsDiv>
       <FlatButton
         label={
-          <span style={{ fontWeight: 300 }}>
-            {strings.home_become_sponsor}
-          </span>
+          <span style={{ fontWeight: 300 }}>{strings.home_become_sponsor}</span>
         }
         href="//carry.opendota.com"
       />
@@ -70,11 +83,11 @@ const Sponsors = ({ strings }) => (
 );
 
 Sponsors.propTypes = {
-  strings: PropTypes.shape({}),
+  strings: PropTypes.shape({})
 };
 
 const mapStateToProps = state => ({
-  strings: state.app.strings,
+  strings: state.app.strings
 });
 
 export default connect(mapStateToProps)(Sponsors);
