@@ -5,10 +5,10 @@ import { customHeroImage, IMAGESIZE_ENUM } from '../../utility';
 
 
 const HeroImage = ({
-  id, isIcon, imageSizeSuffix = IMAGESIZE_ENUM.LARGE.suffix, ...rest
+  id, isIcon, imageSizeSuffix = IMAGESIZE_ENUM.LARGE.suffix, heroImageEventProps, ...rest
 }) => {
   if (customHeroImage.includes(Number(id))) {
-    return <img src={`/assets/images/dota2/heroes/${id}${isIcon ? '_icon' : ''}.png`} alt="" {...rest} />;
+    return <img src={`/assets/images/dota2/heroes/${id}${isIcon ? '_icon' : ''}.png`} alt="" {...rest} {...heroImageEventProps} />;
   }
 
   let imageUrl = heroes[id] && process.env.REACT_APP_API_HOST + heroes[id].img; // "[api url]/abaddon_full.png?"
@@ -17,7 +17,7 @@ const HeroImage = ({
   }
   imageUrl += (isIcon ? 'icon.png' : imageSizeSuffix);
 
-  return <img src={imageUrl} alt="" {...rest} />;
+  return <img src={imageUrl} alt="" {...rest} {...heroImageEventProps} />;
 };
 
 
