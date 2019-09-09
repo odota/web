@@ -4,4 +4,4 @@ ENV NPM_CONFIG_LOGLEVEL warn
 
 WORKDIR /usr/src
 
-CMD ["npm", "start:install"]
+CMD ["npm", "run", "start:install"]

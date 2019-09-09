@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import ActionUpdate from 'material-ui/svg-icons/navigation/refresh';
 import styled from 'styled-components';
+import ReactGA from 'react-ga';
 import { toggleShowForm as toggleShowFormAction } from '../../../actions/formActions';
 
 const Styled = styled.div`
@@ -37,41 +38,47 @@ const Styled = styled.div`
 class PlayerButtons extends React.Component {
   static propTypes = {
     playerId: PropTypes.string,
-    playerSoloCompetitiveRank: PropTypes.number,
     strings: PropTypes.shape({}),
-  }
+  };
 
-  state = { disableRefresh: false }
+  state = { disableRefresh: false };
 
   render() {
-    const {
-      playerId,
-      playerSoloCompetitiveRank,
-      strings,
-    } = this.props;
+    const { playerId, strings } = this.props;
     return (
       <Styled>
-        <div
-          data-hint={strings.app_refresh}
-          data-hint-position="top"
-        >
+        <div data-hint={strings.app_refresh} data-hint-position="top">
           <FlatButton
             icon={<ActionUpdate />}
             disabled={this.state.disableRefresh}
             onClick={() => {
-              fetch(`${process.env.REACT_APP_API_HOST}/api/players/${playerId}/refresh`, { method: 'POST' });
+              fetch(
+                `${process.env.REACT_APP_API_HOST}/api/players/${playerId}/refresh`,
+                { method: 'POST' },
+              );
               this.setState({ disableRefresh: true });
             }}
             label={strings.app_refresh_label}
           />
         </div>
         <FlatButton
-          label={strings.app_dotacoach}
+          label={strings.app_gamerzclass}
           labelPosition="after"
-          icon={<img src="/assets/images/dotacoach-32x24.png" alt="DotaCoach" />}
-          href={`https://dotacoach.org/Hire/OpenDota?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}`}
+          icon={
+            <img src="/assets/images/gamerzclass-24px.png" alt="GamerzClass" />
+          }
+          href="https://gamerzclass.com/products/johan-n0tail-sundstein"
+          target="_blank"
+          onclick={() =>
+            ReactGA.event({
+              category: 'sponsor',
+              action: 'gamerzclass',
+              label: 'playerPage',
+            })
+          }
         />
-      </Styled>);
+      </Styled>
+    );
   }
 }
 
@@ -84,4 +91,7 @@ const mapDispatchToProps = dispatch => ({
   toggleShowForm: () => dispatch(toggleShowFormAction('tableFilter')),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerButtons);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PlayerButtons);
