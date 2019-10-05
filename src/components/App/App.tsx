@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Helmet from 'react-helmet';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import { Route, Switch, Link, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../Header';
 import Player from '../Player';
@@ -30,8 +30,13 @@ import constants from '../constants';
 import muiTheme from './muiTheme';
 import GlobalStyle from './GlobalStyle';
 import Combos from './../Combos/Combos';
+import { AppState } from '../../store/types';
 
-const StyledDiv = styled.div`
+interface StyledDivProps extends RouteComponentProps {
+  open?: boolean;
+}
+
+const StyledDiv = styled<StyledDivProps, 'div'>('div')`
   transition: ${constants.normalTransition};
   position: relative;
   display: flex;
@@ -99,20 +104,19 @@ const AdBannerDiv = styled.div`
   }
 `;
 
-class App extends React.Component {
-  static propTypes = {
-    width: PropTypes.number,
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    strings: PropTypes.shape({}),
-  };
+interface AppProps extends RouteComponentProps {
+  width: number;
+  strings: AppState['app']['strings']
+}
+
+class App extends React.Component<AppProps> {
+  back2Top: HTMLElement | null = null;
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: AppProps) {
     if (this.props.location.key !== prevProps.location.key) {
       window.scrollTo(0, 0);
     }
@@ -122,17 +126,21 @@ class App extends React.Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  setBack2TopRef = (node) => {
+  setBack2TopRef = (node: HTMLButtonElement) => {
     this.back2Top = node;
   }
 
   handleScroll = () => {
+    if (!this.back2Top) {
+      return;
+    }
+    
     const { style } = this.back2Top;
     if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
-      style.opacity = 1;
+      style.opacity = '1';
       style.pointerEvents = 'auto';
     } else {
-      style.opacity = 0;
+      style.opacity = '0';
       style.pointerEvents = 'none';
     }
   }
@@ -164,7 +172,7 @@ class App extends React.Component {
 
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme as any)}>
         <GlobalStyle />
         <StyledDiv {...this.props}>
           <Helmet
@@ -212,7 +220,7 @@ class App extends React.Component {
               </div>
             }
           </AdBannerDiv>
-          <Footer location={location} width={width} />
+          <Footer />
           <button ref={this.setBack2TopRef} id="back2Top" title={strings.back2Top} onClick={this.handleBack2TopClick}>
             <div>&#9650;</div>
             <div id="back2TopTxt">{strings.back2Top}</div>
@@ -223,7 +231,7 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState) => ({
   strings: state.app.strings,
 });
 

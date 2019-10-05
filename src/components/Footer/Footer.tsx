@@ -8,6 +8,7 @@ import PageLinks from './PageLinks';
 import SocialLinks from './SocialLinks';
 import { IconSteam } from '../Icons';
 import constants from '../constants';
+import { AppState } from '../../store/types'; 
 
 const StyledFooter = styled.footer`
   & main {
@@ -149,7 +150,11 @@ const StyledHr = styled.hr`
   background: linear-gradient(to right, ${constants.primaryTextColor}, rgba(0, 0, 0, 0));
 `;
 
-const Footer = ({ strings }) => (
+interface FooterProps {
+  strings: AppState['app']['strings'];
+}
+
+const Footer: React.SFC<FooterProps> = ({ strings }) => (
   <StyledFooter>
     <main>
       <div className="links">
@@ -189,11 +194,7 @@ const Footer = ({ strings }) => (
   </StyledFooter>
 );
 
-Footer.propTypes = {
-  strings: PropTypes.shape({}),
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState) => ({
   strings: state.app.strings,
 });
 
