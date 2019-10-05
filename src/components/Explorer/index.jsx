@@ -213,7 +213,7 @@ class Explorer extends React.Component {
     const {
       handleQuery, handleCancel, getSqlString, handleFieldUpdate,
     } = this;
-    const explorer = this;
+    const explorer = this; // eslint-disable-line @typescript-eslint/no-this-alias
     const { builder } = this.state;
     const { strings } = this.props;
     return (

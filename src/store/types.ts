@@ -1,5 +1,5 @@
 export interface AppState {
   app: {
-    strings: { [key: string]: string }
+    strings: { [key: string]: string };
   };
-};
+}

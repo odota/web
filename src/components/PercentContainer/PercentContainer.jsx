@@ -37,3 +37,5 @@ PercentContainer.propTypes = {
   games: PropTypes.number,
   percent: PropTypes.number,
 };
+
+export default PercentContainer;

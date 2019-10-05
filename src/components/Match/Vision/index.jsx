@@ -216,7 +216,7 @@ class Vision extends React.Component {
   }
 
   visibleData() {
-    const self = this;
+    const self = this; // eslint-disable-line @typescript-eslint/no-this-alias
     const filter = ward => alive(ward, self.state.currentTick) && self.state.players[ward.type][ward.player];
 
     return this.props.match.wards_log.filter(filter);

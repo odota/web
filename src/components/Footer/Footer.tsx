@@ -1,14 +1,15 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { O } from 'ts-toolbelt';
 import AppLogo from '../App/AppLogo';
 import PageLinks from './PageLinks';
 // import Cheese from './Cheese';
 import SocialLinks from './SocialLinks';
 import { IconSteam } from '../Icons';
 import constants from '../constants';
-import { AppState } from '../../store/types'; 
+import { AppState } from '../../store/types';
 
 const StyledFooter = styled.footer`
   & main {
@@ -151,7 +152,7 @@ const StyledHr = styled.hr`
 `;
 
 interface FooterProps {
-  strings: AppState['app']['strings'];
+  strings: O.Path<AppState, ['app', 'strings']>;
 }
 
 const Footer: React.SFC<FooterProps> = ({ strings }) => (

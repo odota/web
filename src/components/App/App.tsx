@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
@@ -106,12 +105,10 @@ const AdBannerDiv = styled.div`
 
 interface AppProps extends RouteComponentProps {
   width: number;
-  strings: AppState['app']['strings']
+  strings: O.Path<AppState, ['app', 'strings']>;
 }
 
 class App extends React.Component<AppProps> {
-  back2Top: HTMLElement | null = null;
-
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
   }
@@ -130,11 +127,13 @@ class App extends React.Component<AppProps> {
     this.back2Top = node;
   }
 
+  back2Top: HTMLElement | null = null;
+
   handleScroll = () => {
     if (!this.back2Top) {
       return;
     }
-    
+
     const { style } = this.back2Top;
     if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
       style.opacity = '1';
@@ -151,9 +150,7 @@ class App extends React.Component<AppProps> {
   }
 
   render() {
-    const {
-      width, location, strings,
-    } = this.props;
+    const { location, strings } = this.props;
 
     const navbarPages = [
       <Link key="header_explorer" to="/explorer">{strings.header_explorer}</Link>,
@@ -172,7 +169,7 @@ class App extends React.Component<AppProps> {
 
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme as any)}>
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
         <GlobalStyle />
         <StyledDiv {...this.props}>
           <Helmet

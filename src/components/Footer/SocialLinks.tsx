@@ -1,24 +1,26 @@
+/* eslint-disable react/prop-types */
 import React, { Fragment } from 'react';
+import { O } from 'ts-toolbelt';
 import { IconGithub, IconDiscord } from '../Icons';
 import { GITHUB_REPO, DISCORD_LINK } from '../../config';
 import { AppState } from '../../store/types';
 
 interface SocialLinksProps {
-  strings: AppState['app']['strings'];
+  strings: O.Path<AppState, ['app', 'strings']>;
 }
 
 const SocialLinks: React.SFC<SocialLinksProps> = ({ strings }) => {
   const links = [{
     tooltip: strings.app_github,
     path: `//github.com/${GITHUB_REPO}`,
-    icon: <IconGithub />
+    icon: <IconGithub />,
   }];
 
   if (DISCORD_LINK) {
     links.push({
       tooltip: strings.app_discord,
       path: `//discord.gg/${DISCORD_LINK}`,
-      icon: <IconDiscord />
+      icon: <IconDiscord />,
     });
   }
 
