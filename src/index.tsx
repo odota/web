@@ -39,7 +39,7 @@ const app = (
   </Provider>
 );
 
-if (rootElement.hasChildNodes()) {
+if (rootElement && rootElement.hasChildNodes()) {
   render(app, rootElement);
 } else {
   hydrate(app, rootElement);
