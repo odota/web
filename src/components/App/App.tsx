@@ -6,6 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Helmet } from 'react-helmet';
 import { Route, Switch, Link, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
+import { O } from 'ts-toolbelt';
 import Header from '../Header';
 import Player from '../Player';
 import Home from '../Home';
@@ -169,7 +170,7 @@ class App extends React.Component<AppProps> {
 
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme as any)}>
         <GlobalStyle />
         <StyledDiv {...this.props}>
           <Helmet
