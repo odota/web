@@ -87,7 +87,12 @@ const damageTargetIcons = (t) => {
   });
 
   return (
-    <div style={{ paddingRight: '15px', display: 'flex', width: `${30 * 5}px`, flexWrap: 'wrap' }}>
+    <div style={{
+      paddingRight: '15px',
+      display: 'flex',
+      width: `${30 * 5}px`,
+      flexWrap: 'wrap',
+    }}>
       {targets.sort((a, b) => b[1] - a[1]).map(x => x[0])}
     </div>);
 };
