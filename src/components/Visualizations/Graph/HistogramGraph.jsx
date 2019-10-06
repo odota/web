@@ -1,25 +1,31 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
 import {
-  XAxis,
-  YAxis,
-  Tooltip,
   Bar,
   BarChart,
   CartesianGrid,
-  Label,
   Cell,
+  Label,
   ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from 'recharts';
-import { hsvToRgb } from '../../../utility';
+
+import { formatGraphValueData, hsvToRgb } from '../../../utility';
 import { StyledTooltip } from './Styled';
 
-const HistogramTooltipContent = ({ payload, xAxisLabel = '', strings }) => {
+const HistogramTooltipContent = ({
+  payload,
+  xAxisLabel = '',
+  strings,
+  histogramName,
+}) => {
   const data = payload && payload[0] && payload[0].payload;
   return (
     <StyledTooltip>
-      <div>{`${data && data.x} ${xAxisLabel}`}</div>
+      <div>{`${formatGraphValueData(data && data.x, histogramName)} ${xAxisLabel}`}</div>
       <div>{`${data && data.games} ${strings.th_matches}`}</div>
       {data && data.games > 0 && <div>{`${(data.win / data.games * 100).toFixed(2)} ${strings.th_win}`}</div>}
     </StyledTooltip>);
@@ -28,22 +34,23 @@ HistogramTooltipContent.propTypes = {
   payload: PropTypes.arrayOf(PropTypes.shape({})),
   xAxisLabel: PropTypes.string,
   strings: PropTypes.shape({}),
+  histogramName: PropTypes.string,
 };
 
 const graphHeight = 400;
 
 const HistogramGraph = ({
-  columns, xAxisLabel = '', strings,
+  columns, xAxisLabel = '', strings, histogramName,
 }) => (
   <ResponsiveContainer width="100%" height={graphHeight}>
     <BarChart
       height={graphHeight}
       data={columns}
       margin={{
-      top: 0, right: 0, left: 0, bottom: 0,
-    }}
+        top: 0, right: 0, left: 0, bottom: 0,
+      }}
     >
-      <XAxis dataKey="x" interval={1}>
+      <XAxis dataKey="x" interval={1} tickFormatter={val => formatGraphValueData(val, histogramName)}>
         <Label value="" position="insideTopRight" />
       </XAxis>
       <YAxis />
@@ -53,7 +60,7 @@ const HistogramGraph = ({
         opacity={0.5}
       />
 
-      <Tooltip content={<HistogramTooltipContent xAxisLabel={xAxisLabel} strings={strings} />} cursor={{ fill: 'rgba(255, 255, 255, .35)' }} />
+      <Tooltip content={<HistogramTooltipContent xAxisLabel={xAxisLabel} strings={strings} />} cursor={{ fill: 'rgba(255, 255, 255, .35)' }} histogramName={histogramName} />
       <Bar
         dataKey="games"
       >
@@ -79,6 +86,7 @@ HistogramGraph.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape({})),
   xAxisLabel: PropTypes.string,
   strings: PropTypes.shape({}),
+  histogramName: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
