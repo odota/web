@@ -406,8 +406,8 @@ export const wilsonScore = (up, down) => {
   return (
     phat + ((z * z) / (2 * n)) - (z * Math.sqrt(((phat * (1 - phat)) + (z * z / (4 * n))) / n))
   ) / (
-      1 + (z * z / n)
-    );
+    1 + (z * z / n)
+  );
 };
 
 export const groupBy = (xs, key) =>
