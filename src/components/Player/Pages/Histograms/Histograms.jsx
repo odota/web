@@ -1,13 +1,14 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
 import { getPlayerHistograms } from '../../../../actions';
+import ButtonGarden from '../../../ButtonGarden';
+import Container from '../../../Container';
 import Heading from '../../../Heading';
 import { HistogramGraph } from '../../../Visualizations';
-import ButtonGarden from '../../../ButtonGarden';
 import dataColumns from '../matchDataColumns';
-import Container from '../../../Container';
 
 const getMedian = (columns, midpoint) => {
   let sum = 0;
@@ -31,26 +32,26 @@ const histogramNames = dataColumns.filter(col => col !== 'win_rate');
 const Histogram = ({
   routeParams, columns, playerId, error, loading, histogramName, history, strings,
 }) => (
-  <div>
-    <Heading title={strings.histograms_name} subtitle={strings.histograms_description} />
-    <ButtonGarden
-      onClick={(buttonName) => {
-        history.push(`/players/${playerId}/histograms/${buttonName}${window.location.search}`);
-      }}
-      buttonNames={histogramNames}
-      selectedButton={routeParams.subInfo || histogramNames[0]}
-    />
-    <Container error={error} loading={loading}>
-      <div>
-        <Heading
-          title={strings[`heading_${histogramName}`]}
-          subtitle={loading ? '' : [getSubtitleDescription(histogramName, strings), getSubtitleStats(columns, strings)].filter(Boolean).join(' ')}
-        />
-        <HistogramGraph columns={columns || []} />
-      </div>
-    </Container>
-  </div>
-);
+    <div>
+      <Heading title={strings.histograms_name} subtitle={strings.histograms_description} />
+      <ButtonGarden
+        onClick={(buttonName) => {
+          history.push(`/players/${playerId}/histograms/${buttonName}${window.location.search}`);
+        }}
+        buttonNames={histogramNames}
+        selectedButton={routeParams.subInfo || histogramNames[0]}
+      />
+      <Container error={error} loading={loading}>
+        <div>
+          <Heading
+            title={strings[`heading_${histogramName}`]}
+            subtitle={loading ? '' : [getSubtitleDescription(histogramName, strings), getSubtitleStats(columns, strings)].filter(Boolean).join(' ')}
+          />
+          <HistogramGraph columns={columns || []} histogramName={histogramName} />
+        </div>
+      </Container>
+    </div>
+  );
 
 Histogram.propTypes = {
   routeParams: PropTypes.shape({}),

@@ -1,10 +1,7 @@
-import React from 'react';
-import ReactTooltip from 'react-tooltip';
-import { Link } from 'react-router-dom';
 import heroes from 'dotaconstants/build/heroes.json';
+import itemIds from 'dotaconstants/build/item_ids.json';
 import items from 'dotaconstants/build/items.json';
 import patch from 'dotaconstants/build/patch.json';
-import itemIds from 'dotaconstants/build/item_ids.json';
 import xpLevel from 'dotaconstants/build/xp_level.json';
 import curry from 'lodash/fp/curry';
 import findLast from 'lodash/fp/findLast';
@@ -12,13 +9,17 @@ import inRange from 'lodash/fp/inRange';
 // import SvgIcon from 'material-ui/SvgIcon';
 import SocialPeople from 'material-ui/svg-icons/social/people';
 import SocialPerson from 'material-ui/svg-icons/social/person';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
+
+import constants from '../components/constants';
 import { TableLink } from '../components/Table';
 import {
+  FromNowTooltip,
   KDA,
   TableHeroImage,
-  FromNowTooltip,
 } from '../components/Visualizations';
-import constants from '../components/constants';
 import store from '../store';
 
 const second = 1;
@@ -172,8 +173,8 @@ export const IMAGESIZE_ENUM = {
     height: 272,
   },
 
-// if you ever wanna see what the above look like (change the suffix):
-// https://api.opendota.com/apps/dota2/images/heroes/abaddon_full.png
+  // if you ever wanna see what the above look like (change the suffix):
+  // https://api.opendota.com/apps/dota2/images/heroes/abaddon_full.png
 };
 
 const getTitle = (row, col, heroName) => {
@@ -405,8 +406,8 @@ export const wilsonScore = (up, down) => {
   return (
     phat + ((z * z) / (2 * n)) - (z * Math.sqrt(((phat * (1 - phat)) + (z * z / (4 * n))) / n))
   ) / (
-    1 + (z * z / n)
-  );
+      1 + (z * z / n)
+    );
 };
 
 export const groupBy = (xs, key) =>
@@ -638,7 +639,7 @@ export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffi
                 style={roleIconStyle}
               />
             </span>
-          : ''}
+            : ''}
         </div>);
     } else if (row.last_played) {
       return <FromNowTooltip timestamp={row.last_played} />;
@@ -811,7 +812,7 @@ export const transformations = {
         <span>
           {formatSeconds(field)}
         </span>
-        {displaySide && <span style={{ ...subTextStyle }}>{playerIsRadiant || teamIsRadiant ? strings.general_radiant : strings.general_dire}</span> }
+        {displaySide && <span style={{ ...subTextStyle }}>{playerIsRadiant || teamIsRadiant ? strings.general_radiant : strings.general_dire}</span>}
       </div>
     );
   },
@@ -913,4 +914,16 @@ export function getLocalizedMonthStrings() {
   const langCode = window.localStorage.getItem('localization') || 'en-US';
   const d = new Date();
   return [...Array(12)].map((_, i) => new Date(d.setMonth(i)).toLocaleDateString(langCode, { month: 'short' }));
+}
+
+export function formatGraphValueData(data, histogramName) {
+  if (!data) return '';
+
+  switch (histogramName) {
+    case 'duration':
+      return formatSeconds(data);
+
+    default:
+      return data;
+  }
 }
