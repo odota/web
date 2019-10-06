@@ -5,15 +5,12 @@ import { Link } from 'react-router-dom';
 import useReactRouter from 'use-react-router';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import IconButton from '@material-ui/core/IconButton';
-import MoreVert from '@material-ui/icons/MoreVert';
+import { MoreVert, Settings, BugReport } from '@material-ui/icons';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import ActionSettings from 'material-ui/svg-icons/action/settings';
-import Bug from 'material-ui/svg-icons/action/bug-report';
 import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
 import { Menu, MenuItem } from '@material-ui/core';
 import styled from 'styled-components';
 import LocalizationMenu from '../Localization';
-import Dropdown from '../Header/Dropdown';
 import constants from '../constants';
 import AccountWidget from '../AccountWidget';
 import SearchForm from '../Search/SearchForm';
@@ -24,12 +21,6 @@ import { GITHUB_REPO } from '../../config';
 const REPORT_BUG_PATH = `//github.com/${GITHUB_REPO}/issues`;
 
 const VerticalAlignToolbar = styled(ToolbarGroup)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const VerticalAlignDropdown = styled(Dropdown)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -130,6 +121,24 @@ LinkGroup.propTypes = {
   navbarPages: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
+const SettingsGroup = ({ children }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClose = useCallback(() => {
+    setAnchorEl(undefined);
+  }, [anchorEl]);
+
+  return (
+    <>
+      <IconButton color="inherit" onClick={e => setAnchorEl(e.currentTarget)}>
+        <Settings />
+      </IconButton>
+      <DropdownMenu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose} PaperProps={{ style: { maxHeight: 600 } }}>
+        {children}
+      </DropdownMenu>
+    </>
+  );
+};
+
 class Header extends React.Component {
   static propTypes = {
     location: PropTypes.shape({}),
@@ -157,10 +166,6 @@ class Header extends React.Component {
 
     navbarPages.forEach(page => burgerItems.push(<Link key={page.key} to={page.to}>{page.label}</Link>));
 
-    const buttonProps = {
-      children: <ActionSettings />,
-    };
-
     const LogoGroup = ({ small }) => (
       <VerticalAlignToolbar>
         {!small && <BurgerMenu menuItems={burgerItems} />}
@@ -185,32 +190,11 @@ class Header extends React.Component {
       </VerticalAlignToolbar>
     );
 
-    const SettingsGroup = ({ user }) => (
-      <VerticalAlignDropdown
-        Button={IconButton}
-        buttonProps={buttonProps}
-      >
-        <LocalizationMenu />
-        <ReportBug />
-        {user ? <LogOut /> : null}
-      </VerticalAlignDropdown>
-    );
-
-    SettingsGroup.propTypes = {
-      user: PropTypes.shape({}),
-    };
-
     const ReportBug = () => (
-      <BugLink
-        href={REPORT_BUG_PATH}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Bug />
-        <span>
-          {strings.app_report_bug}
-        </span>
-      </BugLink>
+      <DropdownMenuItem component="a" href={REPORT_BUG_PATH} target="_blank" rel="noopener noreferrer" >
+        <BugReport style={{ marginRight: 32, width: 24, height: 24 }} />
+        {strings.app_report_bug}
+      </DropdownMenuItem>
     );
 
     const LogOut = () => (
@@ -237,7 +221,11 @@ class Header extends React.Component {
           {!disableSearch && <SearchGroup />}
           <VerticalAlignDiv style={{ marginLeft: '16px' }}>
             {small && <AccountGroup />}
-            {<SettingsGroup user={user} />}
+            <SettingsGroup>
+              <LocalizationMenu />
+              <ReportBug />
+              {user ? <LogOut /> : null}
+            </SettingsGroup>
           </VerticalAlignDiv>
         </ToolbarHeader>
         { location.pathname !== '/' && Announce && <Announce /> }
