@@ -61,7 +61,7 @@ class SearchForm extends React.Component {
   render() {
     const { strings, small } = this.props;
     return (
-      <form onSubmit={this.formSubmit} style={{ width: small ? '280px' : '350px' }}>
+      <form onSubmit={this.formSubmit} style={{ width: small ? '280px' : 'auto' }}>
         <TextField
           id="searchField"
           hintText={strings.search_title}
