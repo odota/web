@@ -235,7 +235,7 @@ class Header extends React.Component {
             {small && <LinkGroup navbarPages={navbarPages} />}
           </VerticalAlignDiv>
           {!disableSearch && <SearchGroup />}
-          <VerticalAlignDiv style={{ marginLeft: 'auto' }}>
+          <VerticalAlignDiv style={{ marginLeft: '16px' }}>
             {small && <AccountGroup />}
             {<SettingsGroup user={user} />}
           </VerticalAlignDiv>
