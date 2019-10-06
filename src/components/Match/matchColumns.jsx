@@ -1061,6 +1061,7 @@ export default (strings) => {
     {
       displayName: strings.th_damage_dealt,
       field: 'damage_targets',
+      width: '1px',
       displayFn: (row, col, field) => {
         if (field) {
           return <TargetsBreakdown field={field} />;
