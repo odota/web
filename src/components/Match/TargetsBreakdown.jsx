@@ -87,7 +87,7 @@ const damageTargetIcons = (t) => {
   });
 
   return (
-    <div style={{ paddingRight: '15px', display: 'flex' }}>
+    <div style={{ paddingRight: '15px', display: 'flex', width: `${30 * 5}px`, flexWrap: 'wrap' }}>
       {targets.sort((a, b) => b[1] - a[1]).map(x => x[0])}
     </div>);
 };
@@ -123,7 +123,7 @@ const TargetsBreakdown = ({ field, abilityUses = null }) => {
     return (
       <StyledDmgTargetRow>
         <div>
-          {r.map(row => <div style={{ display: 'flex', flexDirection: 'column', height: '33px' }} id="row">{row}</div>)}
+          {r.map(row => <div style={{ display: 'flex', flexDirection: 'column' }} id="row">{row}</div>)}
         </div>
       </StyledDmgTargetRow>
     );
