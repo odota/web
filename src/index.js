@@ -40,8 +40,6 @@ const app = (
   </Provider>
 );
 
-render(app, rootElement);
-
 if (rootElement.hasChildNodes()) {
   render(app, rootElement);
 } else {
