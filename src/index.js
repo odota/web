@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import createHistory from 'history/createBrowserHistory';
-import { hydrate, render } from 'react-dom';
+import { render, hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Route, Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import store from './store';
 import { getMetadata, getStrings, getAbilities, getHeroAbilities, getNeutralAbilities, getAbilityIds } from './actions';
 import App from './components/App';
@@ -31,13 +31,16 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const rootElement = document.getElementById('root');
+
 const app = (
   <Provider store={store}>
-    <Router history={history}>
-      <Route component={App} />
-    </Router>
+    <BrowserRouter history={history}>
+      <App />
+    </BrowserRouter>
   </Provider>
 );
+
+render(app, rootElement);
 
 if (rootElement.hasChildNodes()) {
   render(app, rootElement);

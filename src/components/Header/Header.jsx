@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import useReactRouter from 'use-react-router';
 import ActionSearch from 'material-ui/svg-icons/action/search';
+import IconButton from '@material-ui/core/IconButton';
+import MoreVert from '@material-ui/icons/MoreVert';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 import Bug from 'material-ui/svg-icons/action/bug-report';
 import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
+import { Menu, MenuItem } from '@material-ui/core';
 import styled from 'styled-components';
 import LocalizationMenu from '../Localization';
 import Dropdown from '../Header/Dropdown';
@@ -38,10 +42,13 @@ const VerticalAlignDiv = styled.div`
 `;
 
 const TabContainer = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: column;
+  font-weight: ${constants.fontWeightNormal};
+  height: 100%;
   justify-content: center;
+  margin: 0 10px;
+  text-align: center;
 `;
 
 const BugLink = styled.a`
@@ -61,6 +68,16 @@ const BugLink = styled.a`
   }
 `;
 
+const DropdownMenu = styled(Menu)`
+  & .MuiMenu-paper {
+    background: ${constants.primarySurfaceColor};
+  }
+`;
+
+const DropdownMenuItem = styled(MenuItem)`
+  color: ${constants.primaryTextColor} !important;
+`;
+
 const ToolbarHeader = styled(Toolbar)`
   background-color: ${constants.defaultPrimaryColor} !important;
   padding: 8px !important;
@@ -72,6 +89,46 @@ const ToolbarHeader = styled(Toolbar)`
     }
   }
 `;
+
+const LinkGroup = ({ navbarPages }) => {
+  const router = useReactRouter();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClose = useCallback(() => {
+    setAnchorEl(undefined);
+  }, [anchorEl]);
+
+  return (
+    <VerticalAlignToolbar>
+      {navbarPages.slice(0, 6).map(page => (
+        <TabContainer key={page.key}>
+          <Link to={page.to}>{page.label}</Link>
+        </TabContainer>
+      ))}
+      <TabContainer>
+        <IconButton size="small" color="inherit" onClick={e => setAnchorEl(e.currentTarget)}>
+          <MoreVert />
+        </IconButton>
+        <DropdownMenu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+          {navbarPages.slice(6, navbarPages.length).map(page => (
+            <DropdownMenuItem
+              onClick={() => {
+                router.history.push(page.to);
+                handleClose();
+              }}
+              key={page.key}
+            >
+              {page.label}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenu>
+      </TabContainer>
+    </VerticalAlignToolbar>
+  );
+};
+
+LinkGroup.propTypes = {
+  navbarPages: PropTypes.arrayOf(PropTypes.shape({})),
+};
 
 class Header extends React.Component {
   static propTypes = {
@@ -96,8 +153,9 @@ class Header extends React.Component {
 
     const burgerItems = [
       <AccountWidget key={0} />,
-      ...navbarPages,
     ];
+
+    navbarPages.forEach(page => burgerItems.push(<Link key={page.key} to={page.to}>{page.label}</Link>));
 
     const buttonProps = {
       children: <ActionSettings />,
@@ -114,20 +172,8 @@ class Header extends React.Component {
       small: PropTypes.bool,
     };
 
-    const LinkGroup = () => (
-      <VerticalAlignToolbar>
-        {navbarPages.map(Page => (
-          <TabContainer key={Page.key}>
-            <div style={{ margin: '0 10px', textAlign: 'center', fontWeight: `${constants.fontWeightNormal} !important` }}>
-              {Page}
-            </div>
-          </TabContainer>
-      ))}
-      </VerticalAlignToolbar>
-    );
-
     const SearchGroup = () => (
-      <VerticalAlignToolbar style={{ marginLeft: 20 }}>
+      <VerticalAlignToolbar style={{ marginLeft: 'auto' }}>
         <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
         <SearchForm />
       </VerticalAlignToolbar>
@@ -186,9 +232,9 @@ class Header extends React.Component {
         <ToolbarHeader>
           <VerticalAlignDiv>
             <LogoGroup small={small} />
-            {small && <LinkGroup />}
-            {!disableSearch && <SearchGroup />}
+            {small && <LinkGroup navbarPages={navbarPages} />}
           </VerticalAlignDiv>
+          {!disableSearch && <SearchGroup />}
           <VerticalAlignDiv style={{ marginLeft: 'auto' }}>
             {small && <AccountGroup />}
             {<SettingsGroup user={user} />}
