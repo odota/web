@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTooltip from 'react-tooltip';
-import nanoid from 'nanoid';
-import { getSortIcon } from './tableHelpers';
+import { Tooltip } from '@material-ui/core';
 import { StyledHeaderCell } from './Styled';
 import { getColStyle } from '../../utility';
-import { Tooltip } from '@material-ui/core';
 
 const TableHeaderColumn = ({
-  column, sortClick, sortField, sortState, index, setHighlightedCol,
+  column, sortClick, sortState, index, setHighlightedCol,
 }) => {
-  const tooltipId = nanoid();
   const style = {
     justifyContent: column.center ? 'center' : null,
   };
