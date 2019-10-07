@@ -48,7 +48,7 @@
     "react-ga": "^2.5.5",
     "react-helmet": "^5.2.0",
     "react-markdown": "^4.0.3",
-    "react-redux": "^5.1.1",
+    "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^2.1.1",
     "react-stripe-checkout": "^2.6.3",
