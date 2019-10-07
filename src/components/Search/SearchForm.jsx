@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import debounce from 'lodash/fp/debounce';
+import debounce from 'lodash/debounce';
 import TextField from 'material-ui/TextField';
 import querystring from 'querystring';
 import { getSearchResultAndPros, setSearchQuery } from '../../actions';
@@ -61,7 +61,7 @@ class SearchForm extends React.Component {
   render() {
     const { strings, small } = this.props;
     return (
-      <form onSubmit={this.formSubmit}>
+      <form onSubmit={this.formSubmit} style={{ width: small ? '280px' : 'auto' }}>
         <TextField
           id="searchField"
           hintText={strings.search_title}
@@ -74,7 +74,7 @@ class SearchForm extends React.Component {
             left: '-40px',
             width: 'calc(100% + 40px)',
           }}
-          style={{ width: small ? '150%' : '100%', whiteSpace: 'nowrap', overflow: 'hidden' }}
+          style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}
           underlineStyle={{ borderColor: 'transparent' }}
         />
       </form>

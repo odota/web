@@ -5,7 +5,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Helmet from 'react-helmet';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../Header';
 import Player from '../Player';
@@ -144,29 +144,62 @@ class App extends React.Component {
 
   render() {
     const {
-      width, location, strings,
+      width, strings, location,
     } = this.props;
 
     const navbarPages = [
-      <Link key="header_explorer" to="/explorer">{strings.header_explorer}</Link>,
-      <Link key="header_combos" to="/combos">{strings.combos}</Link>,
-      <Link key="header_meta" to="/meta">{strings.header_meta}</Link>,
-      <Link key="header_matches" to="/matches">{strings.header_matches}</Link>,
-      <Link key="header_teams" to="/teams">{strings.header_teams}</Link>,
-      <Link key="header_heroes" to="/heroes">{strings.header_heroes}</Link>,
-      <Link key="header_distributions" to="/distributions">{strings.header_distributions}</Link>,
-      <Link key="header_records" to="/records">{strings.header_records}</Link>,
-      <Link key="header_scenarios" to="/scenarios">{strings.header_scenarios}</Link>,
-      <Link key="header_api" to="/api-keys">{strings.header_api}</Link>,
-      // <Link key="header_predictions" to="/predictions">TI Predictions</Link>,
-      // <Link key="header_assistant" to="/assistant">Assistant</Link>,
+      {
+        key: 'header_matches',
+        to: '/matches',
+        label: strings.header_matches,
+      },
+      {
+        key: 'header_heroes',
+        to: '/heroes',
+        label: strings.header_heroes,
+      },
+      {
+        key: 'header_teams',
+        to: '/combos',
+        label: strings.combos,
+      },
+      {
+        key: 'header_meta',
+        to: '/meta',
+        label: strings.header_meta,
+      },
+      {
+        key: 'header_explorer',
+        to: '/explorer',
+        label: strings.header_explorer,
+      },
+      {
+        key: 'header_distributions',
+        to: '/distributions',
+        label: strings.header_distributions,
+      },
+      {
+        key: 'header_records',
+        to: '/records',
+        label: strings.header_records,
+      },
+      {
+        key: 'header_scenarios',
+        to: '/scenarios',
+        label: strings.header_scenarios,
+      },
+      {
+        key: 'header_api',
+        to: '/api-keys',
+        label: strings.header_api,
+      },
     ];
 
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
         <GlobalStyle />
-        <StyledDiv {...this.props}>
+        <StyledDiv {...this.props} location={location}>
           <Helmet
             defaultTitle={strings.title_default}
             titleTemplate={strings.title_template}
@@ -227,4 +260,4 @@ const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(withRouter(App));
