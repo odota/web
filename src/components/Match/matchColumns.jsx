@@ -470,17 +470,16 @@ export default (strings) => {
     const score = Number(transform(field).toFixed(2));
     const raw = Number((field || 0).toFixed(2));
     return (
-      <div data-tip data-for={`fantasy_${row.player_slot}_${col.field}`}>
-        <span>
-          {score}
-        </span>
-        <small style={{ margin: '3px', color: 'rgb(179, 179, 179)' }}>
-          {raw}
-        </small>
-        <ReactTooltip id={`fantasy_${row.player_slot}_${col.field}`} place="top" effect="solid">
-          {formatTemplateToString(strings.fantasy_description, raw, score)}
-        </ReactTooltip>
-      </div>
+      <Tooltip title={formatTemplateToString(strings.fantasy_description, raw, score)}>
+        <div>
+          <span>
+            {score}
+          </span>
+          <small style={{ margin: '3px', color: 'rgb(179, 179, 179)' }}>
+            {raw}
+          </small>
+        </div>
+      </Tooltip>
     );
   };
 
