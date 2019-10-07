@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -38,7 +38,7 @@ const TabContainer = styled.div`
   font-weight: ${constants.fontWeightNormal};
   height: 100%;
   justify-content: center;
-  margin: 0 10px;
+  margin: 0 12px;
   text-align: center;
 `;
 
@@ -71,7 +71,7 @@ const DropdownMenuItem = styled(MenuItem)`
 
 const ToolbarHeader = styled(Toolbar)`
   background-color: ${constants.defaultPrimaryColor} !important;
-  padding: 8px !important;
+  padding: 8px 16px !important;
   & a {
     color: ${constants.primaryTextColor};
     &:hover {
@@ -88,9 +88,12 @@ const LinkGroup = ({ navbarPages }) => {
     setAnchorEl(undefined);
   }, [anchorEl]);
 
+  const mainNavbarPages = useMemo(() => navbarPages.slice(0, 3), [navbarPages]);
+  const menuNavbarPages = useMemo(() => navbarPages.slice(3, navbarPages.length), [navbarPages]);
+
   return (
     <VerticalAlignToolbar>
-      {navbarPages.slice(0, 6).map(page => (
+      {mainNavbarPages.map(page => (
         <TabContainer key={page.key}>
           <Link to={page.to}>{page.label}</Link>
         </TabContainer>
@@ -100,7 +103,7 @@ const LinkGroup = ({ navbarPages }) => {
           <MoreVert />
         </IconButton>
         <DropdownMenu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-          {navbarPages.slice(6, navbarPages.length).map(page => (
+          {menuNavbarPages.map(page => (
             <DropdownMenuItem
               onClick={() => {
                 router.history.push(page.to);
@@ -167,10 +170,12 @@ class Header extends React.Component {
     navbarPages.forEach(page => burgerItems.push(<Link key={page.key} to={page.to}>{page.label}</Link>));
 
     const LogoGroup = ({ small }) => (
-      <VerticalAlignToolbar>
-        {!small && <BurgerMenu menuItems={burgerItems} />}
-        <AppLogo style={{ marginRight: 18 }} />
-      </VerticalAlignToolbar>
+      <div style={{ marginRight: 16 }}>
+        <VerticalAlignToolbar>
+          {!small && <BurgerMenu menuItems={burgerItems} />}
+          <AppLogo style={{ marginRight: 18 }} />
+        </VerticalAlignToolbar>
+      </div>
     );
 
     LogoGroup.propTypes = {

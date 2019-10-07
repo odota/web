@@ -164,16 +164,6 @@ class App extends React.Component {
         label: strings.combos,
       },
       {
-        key: 'header_meta',
-        to: '/meta',
-        label: strings.header_meta,
-      },
-      {
-        key: 'header_explorer',
-        to: '/explorer',
-        label: strings.header_explorer,
-      },
-      {
         key: 'header_distributions',
         to: '/distributions',
         label: strings.header_distributions,
@@ -182,6 +172,16 @@ class App extends React.Component {
         key: 'header_records',
         to: '/records',
         label: strings.header_records,
+      },
+      {
+        key: 'header_meta',
+        to: '/meta',
+        label: strings.header_meta,
+      },
+      {
+        key: 'header_explorer',
+        to: '/explorer',
+        label: strings.header_explorer,
       },
       {
         key: 'header_scenarios',
