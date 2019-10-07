@@ -5,6 +5,7 @@ import nanoid from 'nanoid';
 import { getSortIcon } from './tableHelpers';
 import { StyledHeaderCell } from './Styled';
 import { getColStyle } from '../../utility';
+import { Tooltip } from '@material-ui/core';
 
 const TableHeaderColumn = ({
   column, sortClick, sortField, sortState, index, setHighlightedCol,
@@ -27,17 +28,15 @@ const TableHeaderColumn = ({
         style={style}
       >
         <div
-          data-tip={column.tooltip && true}
-          data-for={tooltipId}
           style={{ color: column.color, width: '100%', textAlign: getColStyle(column).textAlign }}
         >
-          {column.displayName}
-          {column.sortFn && getSortIcon(sortState, sortField, column.field, { height: 14, width: 14 })}
-          {column.tooltip &&
-          <ReactTooltip id={tooltipId} place="top" type="light" effect="solid">
-            {column.tooltip}
-          </ReactTooltip>
-          }
+          { !column.tooltip ? column.displayName : (
+            <Tooltip title={column.tooltip}>
+              <span>
+                {column.displayName}
+              </span>
+            </Tooltip>
+          ) }
         </div>
       </StyledHeaderCell>
     </th>

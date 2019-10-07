@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Tooltip } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import constants from '../constants';
@@ -52,26 +53,37 @@ const StyledSection = styled.section`
   }
 `;
 
+const TabTooltip = ({ title, children }) => {
+  if (title) {
+    return (
+      <Tooltip title={title}>
+        {children}
+      </Tooltip>
+    );
+  }
+
+  return children;
+};
+
+TabTooltip.propTypes = {
+  title: PropTypes.string,
+};
+
 const TabBar = ({ tabs, info, match }) => (
   <StyledMain>
     <StyledSection>
       {tabs.map(tab => (
-        <Link
-          key={`${tab.name}_${tab.route}_${tab.key}`}
-          className={tab.key === info ? 'chosen' : ''}
-          to={tab.route + window.location.search}
-          disabled={tab.disabled}
-          hidden={tab.hidden && tab.hidden(match)}
-        >
-          <div data-tip={tab.tooltip} data-for={`tooltip_${tab.key}`}>
+        <TabTooltip title={tab.tooltip}>
+          <Link
+            key={`${tab.name}_${tab.route}_${tab.key}`}
+            className={tab.key === info ? 'chosen' : ''}
+            to={tab.route + window.location.search}
+            disabled={tab.disabled}
+            hidden={tab.hidden && tab.hidden(match)}
+          >
             {tab.name}
-            {tab.tooltip &&
-            <ReactTooltip id={`tooltip_${tab.key}`} place="top" effect="solid">
-              {tab.tooltip}
-            </ReactTooltip>
-            }
-          </div>
-        </Link>
+          </Link>
+        </TabTooltip>
       ))}
     </StyledSection>
   </StyledMain>
