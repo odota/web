@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
+import { Tooltip } from '@material-ui/core';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import SocialPerson from 'material-ui/svg-icons/social/person';
@@ -598,13 +599,11 @@ class TableHeroImage extends React.Component {
                     </span>
                   }
                   {predictedVictory &&
-                    <span
-                      className="hoverIcon"
-                      data-hint={strings.general_predicted_victory}
-                      data-hint-position="top"
-                    >
-                      <IconCrystalBall fill="currentcolor" />
-                    </span>
+                    <Tooltip title={strings.general_predicted_victory}>
+                      <span style={{ marginLeft: '4px' }}>
+                        <IconCrystalBall fill="currentcolor" />
+                      </span>
+                    </Tooltip>
                   }
                 </span>
               </span>
