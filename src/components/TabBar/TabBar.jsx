@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Tooltip } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 import constants from '../constants';
 
 const StyledMain = styled.main`
