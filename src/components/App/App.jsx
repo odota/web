@@ -203,10 +203,12 @@ class App extends React.Component {
 
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
-      <navigationContext.Provider value={{
-        navbarPages,
-        drawerPages,
-      }}>
+      <navigationContext.Provider
+        value={{
+          navbarPages,
+          drawerPages,
+        }}
+      >
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
           <GlobalStyle />
           <StyledDiv {...this.props} location={location}>

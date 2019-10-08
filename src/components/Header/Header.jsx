@@ -165,7 +165,7 @@ const LogoGroup = ({ onMenuClick }) => (
 
 LogoGroup.propTypes = {
   onMenuClick: PropTypes.func,
-}
+};
 
 const SearchGroup = () => (
   <VerticalAlignToolbar style={{ marginLeft: 'auto' }}>
@@ -245,8 +245,8 @@ const Header = ({
           <MenuContent>
             <List>
               <MenuLogoWrapper>
-                <div onClick={() => setMenuState(false)}>
-                  <AppLogo />
+                <div>
+                  <AppLogo onClick={() => setMenuState(false)} />
                 </div>
               </MenuLogoWrapper>
               {navigationState.drawerPages.map(page => (

@@ -84,8 +84,3 @@ export default {
   wrapMobile: '680px',
   appWidth: 1200,
 };
-
-
-export const navbarPages = [
-
-]
