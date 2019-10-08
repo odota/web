@@ -26,6 +26,7 @@ import Meta from '../Meta';
 import Api from '../Api';
 import Footer from '../Footer';
 import FourOhFour from '../FourOhFour';
+import navigationContext from '../../context/navigationContext';
 import constants from '../constants';
 import muiTheme from './muiTheme';
 import GlobalStyle from './GlobalStyle';
@@ -38,6 +39,7 @@ const StyledDiv = styled.div`
   flex-direction: column;
   height: 100%;
   left: ${props => (props.open ? '256px' : '0px')};
+  margin-top: ${props => (props.location.pathname === '/' ? '-56px' : '0px')};
   background-image: ${props => (props.location.pathname === '/' ? 'url("/assets/images/home-background.png")' : '')};
   background-position: ${props => (props.location.pathname === '/' ? 'center top' : '')};
   background-repeat: ${props => (props.location.pathname === '/' ? 'no-repeat' : '')};
@@ -163,6 +165,10 @@ class App extends React.Component {
         to: '/combos',
         label: strings.combos,
       },
+    ];
+
+    const drawerPages = [
+      ...navbarPages,
       {
         key: 'header_distributions',
         to: '/distributions',
@@ -197,61 +203,66 @@ class App extends React.Component {
 
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
-        <GlobalStyle />
-        <StyledDiv {...this.props} location={location}>
-          <Helmet
-            defaultTitle={strings.title_default}
-            titleTemplate={strings.title_template}
-          />
-          <Header location={location} navbarPages={navbarPages} />
-          <AdBannerDiv>
-            { includeAds &&
-              <a href="http://www.vpgame.com/?lang=en_us">
-                <img src="/assets/images/vp-banner.jpg" alt="" />
-              </a>
-            }
-          </AdBannerDiv>
-          <StyledBodyDiv {...this.props}>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/matches/:matchId?/:info?" component={Matches} />
-              <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
-              <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
-              <Route exact path="/teams/:teamId?/:info?" component={Teams} />
-              <Route exact path="/distributions/:info?" component={Distributions} />
-              <Route exact path="/request" component={Request} />
-              <Route exact path="/status" component={Status} />
-              <Route exact path="/explorer" component={Explorer} />
-              <Route exact path="/combos" component={Combos} />
-              <Route exact path="/search" component={Search} />
-              <Route exact path="/records/:info?" component={Records} />
-              <Route exact path="/meta" component={Meta} />
-              <Route exact path="/scenarios/:info?" component={Scenarios} />
-              <Route exact path="/predictions" component={Predictions} />
-              <Route exact path="/api-keys" component={Api} />
-              <Route component={FourOhFour} />
-            </Switch>
-          </StyledBodyDiv>
-          <AdBannerDiv>
-            { includeAds &&
-              <div style={{ fontSize: '12px' }}>
-                <a href="https://www.rivalry.com/opendota">
-                  <img src="/assets/images/rivalry-banner.gif" alt="" />
+      <navigationContext.Provider value={{
+        navbarPages,
+        drawerPages,
+      }}>
+        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
+          <GlobalStyle />
+          <StyledDiv {...this.props} location={location}>
+            <Helmet
+              defaultTitle={strings.title_default}
+              titleTemplate={strings.title_template}
+            />
+            <Header location={location} />
+            <AdBannerDiv>
+              { includeAds &&
+                <a href="http://www.vpgame.com/?lang=en_us">
+                  <img src="/assets/images/vp-banner.jpg" alt="" />
                 </a>
-                <div>
-                  {strings.home_sponsored_by} <a href="https://www.rivalry.com/opendota">Rivalry</a>
+              }
+            </AdBannerDiv>
+            <StyledBodyDiv {...this.props}>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/matches/:matchId?/:info?" component={Matches} />
+                <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
+                <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
+                <Route exact path="/teams/:teamId?/:info?" component={Teams} />
+                <Route exact path="/distributions/:info?" component={Distributions} />
+                <Route exact path="/request" component={Request} />
+                <Route exact path="/status" component={Status} />
+                <Route exact path="/explorer" component={Explorer} />
+                <Route exact path="/combos" component={Combos} />
+                <Route exact path="/search" component={Search} />
+                <Route exact path="/records/:info?" component={Records} />
+                <Route exact path="/meta" component={Meta} />
+                <Route exact path="/scenarios/:info?" component={Scenarios} />
+                <Route exact path="/predictions" component={Predictions} />
+                <Route exact path="/api-keys" component={Api} />
+                <Route component={FourOhFour} />
+              </Switch>
+            </StyledBodyDiv>
+            <AdBannerDiv>
+              { includeAds &&
+                <div style={{ fontSize: '12px' }}>
+                  <a href="https://www.rivalry.com/opendota">
+                    <img src="/assets/images/rivalry-banner.gif" alt="" />
+                  </a>
+                  <div>
+                    {strings.home_sponsored_by} <a href="https://www.rivalry.com/opendota">Rivalry</a>
+                  </div>
                 </div>
-              </div>
-            }
-          </AdBannerDiv>
-          <Footer location={location} width={width} />
-          <button ref={this.setBack2TopRef} id="back2Top" title={strings.back2Top} onClick={this.handleBack2TopClick}>
-            <div>&#9650;</div>
-            <div id="back2TopTxt">{strings.back2Top}</div>
-          </button>
-        </StyledDiv>
-      </MuiThemeProvider>
+              }
+            </AdBannerDiv>
+            <Footer location={location} width={width} />
+            <button ref={this.setBack2TopRef} id="back2Top" title={strings.back2Top} onClick={this.handleBack2TopClick}>
+              <div>&#9650;</div>
+              <div id="back2TopTxt">{strings.back2Top}</div>
+            </button>
+          </StyledDiv>
+        </MuiThemeProvider>
+      </navigationContext.Provider>
     );
   }
 }

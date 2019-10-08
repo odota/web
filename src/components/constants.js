@@ -1,5 +1,6 @@
 export default {
   defaultPrimaryColor: 'rgba(0, 0, 0, 0.4)',
+  defaultPrimaryColorSolid: 'rgba(16, 17, 34, .8)',
   darkPrimaryColor: 'rgba(0, 0, 0, 0.6)',
   almostBlack: 'rgba(0, 0, 0, 0.9)',
   colorSuccess: '#66BB6A',
@@ -83,3 +84,8 @@ export default {
   wrapMobile: '680px',
   appWidth: 1200,
 };
+
+
+export const navbarPages = [
+
+]
