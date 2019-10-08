@@ -1,11 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { Tooltip } from '@material-ui/core';
 import { StyledHeaderCell } from './Styled';
+import { getSortIcon } from './tableHelpers';
 import { getColStyle } from '../../utility';
 
+const HeaderCellContent = styled.div`
+  align-items: center;
+  display: flex;
+  position: relative;
+`;
+
+const HeaderCellSortIconWrapper = styled.div`
+  height: 14px;
+  margin-left: 0px;
+  position: relative;
+  width: 14px;
+`;
+
 const TableHeaderColumn = ({
-  column, sortClick, sortState, index, setHighlightedCol,
+  column, sortClick, sortState, sortField, index, setHighlightedCol,
 }) => {
   const style = {
     justifyContent: column.center ? 'center' : null,
@@ -28,9 +43,16 @@ const TableHeaderColumn = ({
         >
           { !column.tooltip ? column.displayName : (
             <Tooltip title={column.tooltip}>
-              <span>
-                {column.displayName}
-              </span>
+              <HeaderCellContent>
+                <span>
+                  {column.displayName}
+                </span>
+                {column.sortFn && (
+                  <HeaderCellSortIconWrapper>
+                    {getSortIcon(sortState, sortField, column.field, { height: 12, width: 12 })}
+                  </HeaderCellSortIconWrapper>
+                )}
+              </HeaderCellContent>
             </Tooltip>
           ) }
         </div>
