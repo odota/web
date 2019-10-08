@@ -1,24 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import FlatButton from 'material-ui/FlatButton';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import styled from 'styled-components'
+import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+
+const StyledFormControl = styled(FormControl)`
+  margin-bottom: 8px;
+  margin-top: 8px;
+`;
 
 const ButtonGarden = ({
   buttonNames, selectedButton, onClick, strings,
 }) => (
-  <SelectField
-    floatingLabelText={strings.explorer_select}
-    value={selectedButton}
-    onChange={(event, index, value) => onClick(value)}
-  >
-    {buttonNames.map(buttonName => (<MenuItem
-      value={buttonName}
-      key={buttonName}
-      primaryText={strings[`heading_${buttonName}`]}
-    />))}
-  </SelectField>
+  <StyledFormControl>
+    <InputLabel htmlFor="explorer_select">{strings.explorer_select}</InputLabel>
+    <Select
+      value={selectedButton}
+      autoWidth
+      style={{ minWidth: '200px' }}
+      onChange={event => onClick(event.target.value)}
+      inputProps={{
+        name: 'explorer_select',
+        id: 'explorer_select',
+      }}
+    >
+      {buttonNames.map(buttonName => (<MenuItem value={buttonName}>{strings[`heading_${buttonName}`]}</MenuItem>))}
+    </Select>
+  </StyledFormControl>
 );
 
 const {

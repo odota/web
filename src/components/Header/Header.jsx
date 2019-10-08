@@ -3,10 +3,8 @@ import { BugReport, Menu as MenuIcon, Settings } from '@material-ui/icons';
 import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
+import { Menu, MenuItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import styled from 'styled-components';
 
 import { GITHUB_REPO } from '../../config';
@@ -134,37 +132,86 @@ const MenuButtonWrapper = styled.div`
   margin-right: 12px;
 `;
 
-const LogoGroup = ({ onMenuClick }) => (
-  <div style={{ marginRight: 16 }}>
-    <VerticalAlignToolbar>
-      <MenuButtonWrapper>
-        <IconButton edge="start" color="inherit" onClick={onMenuClick}>
-          <MenuIcon />
-        </IconButton>
-      </MenuButtonWrapper>
-      <AppLogoWrapper>
-        <AppLogo />
-      </AppLogoWrapper>
-    </VerticalAlignToolbar>
-  </div>
-);
+  render() {
+    const {
+      location, small, user, strings, navbarPages, disableSearch,
+    } = this.props;
 
-LogoGroup.propTypes = {
-  onMenuClick: PropTypes.func,
-};
+    const burgerItems = [
+      <AccountWidget key={0} />,
+    ];
 
-const SearchGroup = () => (
-  <VerticalAlignToolbar style={{ marginLeft: 'auto' }}>
-    <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
-    <SearchForm />
-  </VerticalAlignToolbar>
-);
+    navbarPages.forEach(page => burgerItems.push(<Link key={page.key} to={page.to}>{page.label}</Link>));
 
-const AccountGroup = () => (
-  <VerticalAlignToolbar>
-    <AccountWidget />
-  </VerticalAlignToolbar>
-);
+    const LogoGroup = ({ small }) => (
+      <VerticalAlignToolbar>
+        {!small && <BurgerMenu menuItems={burgerItems} />}
+        <AppLogo style={{ marginRight: 18 }} />
+      </VerticalAlignToolbar>
+    );
+
+    LogoGroup.propTypes = {
+      small: PropTypes.bool,
+    };
+
+    const SearchGroup = () => (
+      <VerticalAlignToolbar style={{ marginLeft: 'auto' }}>
+        <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
+        <SearchForm />
+      </VerticalAlignToolbar>
+    );
+
+    const AccountGroup = () => (
+      <VerticalAlignToolbar>
+        <AccountWidget />
+      </VerticalAlignToolbar>
+    );
+
+    const ReportBug = () => (
+      <DropdownMenuItem divider component="a" href={REPORT_BUG_PATH} target="_blank" rel="noopener noreferrer" >
+        <ListItemIcon>
+          <BugReport />
+        </ListItemIcon>
+        <ListItemText>{strings.app_report_bug}</ListItemText>
+      </DropdownMenuItem>
+    );
+
+    const LogOut = () => (
+      <BugLink
+        href={`${process.env.REACT_APP_API_HOST}/logout`}
+        rel="noopener noreferrer"
+      >
+        <LogOutButton />
+        <span>
+          {strings.app_logout}
+        </span>
+      </BugLink>
+    );
+
+    const { Announce } = this.state;
+
+    return (
+      <div>
+        <ToolbarHeader>
+          <VerticalAlignDiv>
+            <LogoGroup small={small} />
+            {small && <LinkGroup navbarPages={navbarPages} />}
+          </VerticalAlignDiv>
+          {!disableSearch && <SearchGroup />}
+          <VerticalAlignDiv style={{ marginLeft: '16px' }}>
+            {small && <AccountGroup />}
+            <SettingsGroup>
+              <LocalizationMenu />
+              <ReportBug />
+              {user ? <LogOut /> : null}
+            </SettingsGroup>
+          </VerticalAlignDiv>
+        </ToolbarHeader>
+        { location.pathname !== '/' && Announce && <Announce /> }
+      </div>
+    );
+  }
+}
 
 const ReportBug = ({ strings }) => (
   <DropdownMenuItem component="a" href={REPORT_BUG_PATH} target="_blank" rel="noopener noreferrer">

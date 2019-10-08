@@ -1,27 +1,25 @@
-import darkBaseTheme from "material-ui/styles/baseThemes/darkBaseTheme";
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import PropTypes from "prop-types";
 import React from "react";
-import Helmet from "react-helmet";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { ThemeProvider, StylesProvider } from "@material-ui/styles";
+import "typeface-roboto/index.css";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import darkBaseTheme from "material-ui/styles/baseThemes/darkBaseTheme";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import Helmet from "react-helmet";
 import { Route, Switch, withRouter } from "react-router-dom";
 import styled from "styled-components";
-
-import Combos from "./../Combos/Combos";
-import Api from "../Api";
-import constants from "../constants";
-import Distributions from "../Distributions";
-import Explorer from "../Explorer";
-import Footer from "../Footer";
-import FourOhFour from "../FourOhFour";
 import Header from "../Header";
-import Heroes from "../Heroes";
-import Home from "../Home";
-import Matches from "../Matches";
-import Meta from "../Meta";
 import Player from "../Player";
-import Predictions from "../Predictions";
+import Home from "../Home";
+import Search from "../Search";
+import Explorer from "../Explorer";
+import Heroes from "../Heroes";
+import Request from "../Request";
+import Distributions from "../Distributions";
+import Status from "../Status";
+import Matches from "../Matches";
+import Teams from "../Teams";
 // import Assistant from '../Assistant';
 import Records from "../Records";
 import Request from "../Request";
@@ -221,85 +219,91 @@ class App extends React.Component {
 
     const includeAds = !["/", "/api-keys"].includes(location.pathname);
     return (
-      <ThemeProvider theme={darkTheme}>
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
-          <GlobalStyle />
-          <StyledDiv {...this.props} location={location}>
-            <Helmet
-              defaultTitle={strings.title_default}
-              titleTemplate={strings.title_template}
-            />
-            <Header location={location} navbarPages={navbarPages} />
-            <AdBannerDiv>
-              {includeAds && (
-                <a href="http://www.vpgame.com/?lang=en_us">
-                  <img src="/assets/images/vp-banner.jpg" alt="" />
-                </a>
-              )}
-            </AdBannerDiv>
-            <StyledBodyDiv {...this.props}>
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route
-                  exact
-                  path="/matches/:matchId?/:info?"
-                  component={Matches}
-                />
-                <Route
-                  exact
-                  path="/players/:playerId/:info?/:subInfo?"
-                  component={Player}
-                />
-                <Route
-                  exact
-                  path="/heroes/:heroId?/:info?"
-                  component={Heroes}
-                />
-                <Route exact path="/teams/:teamId?/:info?" component={Teams} />
-                <Route
-                  exact
-                  path="/distributions/:info?"
-                  component={Distributions}
-                />
-                <Route exact path="/request" component={Request} />
-                <Route exact path="/status" component={Status} />
-                <Route exact path="/explorer" component={Explorer} />
-                <Route exact path="/combos" component={Combos} />
-                <Route exact path="/search" component={Search} />
-                <Route exact path="/records/:info?" component={Records} />
-                <Route exact path="/meta" component={Meta} />
-                <Route exact path="/scenarios/:info?" component={Scenarios} />
-                <Route exact path="/predictions" component={Predictions} />
-                <Route exact path="/api-keys" component={Api} />
-                <Route component={FourOhFour} />
-              </Switch>
-            </StyledBodyDiv>
-            <AdBannerDiv>
-              {includeAds && (
-                <div style={{ fontSize: "12px" }}>
-                  <a href="https://www.rivalry.com/opendota">
-                    <img src="/assets/images/rivalry-banner.gif" alt="" />
+      <StylesProvider injectFirst>
+        <ThemeProvider theme={darkTheme}>
+          <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
+            <GlobalStyle />
+            <StyledDiv {...this.props} location={location}>
+              <Helmet
+                defaultTitle={strings.title_default}
+                titleTemplate={strings.title_template}
+              />
+              <Header location={location} navbarPages={navbarPages} />
+              <AdBannerDiv>
+                {includeAds && (
+                  <a href="http://www.vpgame.com/?lang=en_us">
+                    <img src="/assets/images/vp-banner.jpg" alt="" />
                   </a>
-                  <div>
-                    {strings.home_sponsored_by}{" "}
-                    <a href="https://www.rivalry.com/opendota">Rivalry</a>
+                )}
+              </AdBannerDiv>
+              <StyledBodyDiv {...this.props}>
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route
+                    exact
+                    path="/matches/:matchId?/:info?"
+                    component={Matches}
+                  />
+                  <Route
+                    exact
+                    path="/players/:playerId/:info?/:subInfo?"
+                    component={Player}
+                  />
+                  <Route
+                    exact
+                    path="/heroes/:heroId?/:info?"
+                    component={Heroes}
+                  />
+                  <Route
+                    exact
+                    path="/teams/:teamId?/:info?"
+                    component={Teams}
+                  />
+                  <Route
+                    exact
+                    path="/distributions/:info?"
+                    component={Distributions}
+                  />
+                  <Route exact path="/request" component={Request} />
+                  <Route exact path="/status" component={Status} />
+                  <Route exact path="/explorer" component={Explorer} />
+                  <Route exact path="/combos" component={Combos} />
+                  <Route exact path="/search" component={Search} />
+                  <Route exact path="/records/:info?" component={Records} />
+                  <Route exact path="/meta" component={Meta} />
+                  <Route exact path="/scenarios/:info?" component={Scenarios} />
+                  <Route exact path="/predictions" component={Predictions} />
+                  <Route exact path="/api-keys" component={Api} />
+                  <Route component={FourOhFour} />
+                </Switch>
+              </StyledBodyDiv>
+              <AdBannerDiv>
+                {includeAds && (
+                  <div style={{ fontSize: "12px" }}>
+                    <a href="https://www.rivalry.com/opendota">
+                      <img src="/assets/images/rivalry-banner.gif" alt="" />
+                    </a>
+                    <div>
+                      {strings.home_sponsored_by}{" "}
+                      <a href="https://www.rivalry.com/opendota">Rivalry</a>
+                    </div>
                   </div>
-                </div>
-              )}
-            </AdBannerDiv>
-            <Footer location={location} width={width} />
-            <button
-              ref={this.setBack2TopRef}
-              id="back2Top"
-              title={strings.back2Top}
-              onClick={this.handleBack2TopClick}
-            >
-              <div>&#9650;</div>
-              <div id="back2TopTxt">{strings.back2Top}</div>
-            </button>
-          </StyledDiv>
-        </MuiThemeProvider>
-      </ThemeProvider>
+                )}
+              </AdBannerDiv>
+              <Footer location={location} width={width} />
+              <button
+                ref={this.setBack2TopRef}
+                id="back2Top"
+                title={strings.back2Top}
+                onClick={this.handleBack2TopClick}
+              >
+                <div>&#9650;</div>
+                <div id="back2TopTxt">{strings.back2Top}</div>
+              </button>
+            </StyledDiv>
+          </MuiThemeProvider>
+        </ThemeProvider>
+      </StylesProvider>
     );
   }
 }
