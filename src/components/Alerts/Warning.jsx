@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AlertWarning from 'material-ui/svg-icons/alert/warning';
+import { Warning as WarningIcon } from '@material-ui/icons';
 import styled from 'styled-components';
 import constants from '../constants';
 
@@ -21,7 +21,7 @@ const StyledDiv = styled.div`
 
 const Warning = ({ children, className, msg }) => (
   <StyledDiv className={`${className}`}>
-    <AlertWarning />
+    <WarningIcon />
     <span>
       {!children && msg}
       {!msg && children}

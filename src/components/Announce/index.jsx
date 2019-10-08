@@ -1,7 +1,8 @@
 /* global localStorage */
 import React from 'react';
 import PropTypes from 'prop-types';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Button, IconButton } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
@@ -14,10 +15,11 @@ const StyledDiv = styled.div`
   flex-wrap: wrap;
   align-items: center;
   background-color: #008eff;
+  padding: 0 16px;
 
   & main,
   & aside {
-    padding: 8px 20px;
+    padding: 4px;
   }
 
   & main {
@@ -79,19 +81,12 @@ const Announce = ({
       {body && <ReactMarkdown source={body} />}
     </main>
     <aside>
-      <RaisedButton
-        backgroundColor={constants.colorBlue}
-        href={link}
-        target="_blank"
-        label={strings.announce_github_more}
-      />
+      <Button href={link} variant="outlined" small target="_blank">{strings.announce_github_more}</Button>
     </aside>
     <aside>
-      <RaisedButton
-        backgroundColor={constants.colorBlue}
-        onClick={onClick}
-        label={strings.announce_dismiss}
-      />
+      <IconButton size="small" onClick={onClick}>
+        <Close />
+      </IconButton>
     </aside>
   </StyledDiv>
 );

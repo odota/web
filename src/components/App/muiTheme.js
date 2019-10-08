@@ -1,4 +1,17 @@
+import { createMuiTheme } from '@material-ui/core/styles';
 import constants from '../constants';
+
+export const darkTheme = createMuiTheme({
+  palette: {
+    type: 'dark',
+    primary: {
+      main: '#6BF',
+    },
+    secondary: {
+      main: '#e02156',
+    },
+  },
+});
 
 const muiTheme = {
   fontFamily: constants.fontFamily,

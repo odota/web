@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import CircularProgress from 'material-ui/CircularProgress';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Button, CircularProgress } from '@material-ui/core';
 import styled from 'styled-components';
 import StripeCheckout from 'react-stripe-checkout';
 
@@ -20,6 +19,16 @@ const ApiContainer = styled.div`
   & li {
     list-style-type: initial;
   }
+`;
+
+const ButtonWrapper = styled.div`
+  margin: 0 8px;
+`;
+
+const Buttons = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
 `;
 
 const KeyContainer = styled.pre`
@@ -190,29 +199,35 @@ class KeyManagement extends React.Component {
               <CircularProgress mode="indeterminate" />
             :
               <div>
-                { showLoginButton ?
-                  <a href={`${process.env.REACT_APP_API_HOST}/login`}>
-                    <RaisedButton primary label={strings.api_login} style={{ margin: '5px 5px' }} />
-                  </a>
-                  : <div />
-                }
-                { showGetKeyButton ?
-                  <StripeCheckout
-                    name="OpenDota"
-                    description={strings.api_title}
-                    billingAddress
-                    stripeKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}
-                    token={this.handleSubmit}
-                    zipCode
-                    locale="auto"
-                  >
-                    <RaisedButton primary label={strings.api_get_key} style={{ margin: '5px 5px' }} />
-                  </StripeCheckout>
-                  : <span />
-                }
-                <a href="//docs.opendota.com" target="_blank" rel="noopener noreferrer">
-                  <RaisedButton label={strings.api_docs} style={{ margin: '5px 5px' }} />
-                </a>
+                <Buttons>
+                  { showLoginButton ?
+                    <a href={`${process.env.REACT_APP_API_HOST}/login`}>
+                      <Button color="primary">{strings.api_login}</Button>
+                    </a>
+                    : <div />
+                  }
+                  { showGetKeyButton ?
+                    <ButtonWrapper>
+                      <StripeCheckout
+                        name="OpenDota"
+                        description={strings.api_title}
+                        billingAddress
+                        stripeKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}
+                        token={this.handleSubmit}
+                        zipCode
+                        locale="auto"
+                      >
+                        <Button color="primary" variant="contained">{strings.api_get_key}</Button>
+                      </StripeCheckout>
+                    </ButtonWrapper>
+                    : <span />
+                  }
+                  <ButtonWrapper>
+                    <a href="//docs.opendota.com" target="_blank" rel="noopener noreferrer">
+                      <Button>{strings.api_docs}</Button>
+                    </a>
+                  </ButtonWrapper>
+                </Buttons>
                 { this.state.customer ?
                   <div>
                     { this.state.customer.api_key ?
@@ -233,7 +248,7 @@ class KeyManagement extends React.Component {
                             }
                         </p>
                         <p>{strings.api_support.replace('$email', 'api@opendota.com')}</p>
-                        <RaisedButton label={strings.api_delete} style={{ margin: '5px 5px' }} onClick={this.handleDelete} />
+                        <Button style={{ margin: '5px 5px' }} onClick={this.handleDelete}>{strings.api_delete}</Button>
                         <StripeCheckout
                           name="OpenDota"
                           description={strings.api_title}
@@ -243,7 +258,7 @@ class KeyManagement extends React.Component {
                           zipCode
                           locale="auto"
                         >
-                          <RaisedButton label={strings.api_update_billing} style={{ margin: '5px 5px' }} />
+                          <Button style={{ margin: '5px 5px' }}>{strings.api_update_billing}</Button>
                         </StripeCheckout>
                       </div>
                       : <div />

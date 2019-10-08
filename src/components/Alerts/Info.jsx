@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ActionInfo from 'material-ui/svg-icons/action/info';
+import { Info as InfoIcon } from '@material-ui/icons';
 import styled from 'styled-components';
 import constants from '../constants';
 
@@ -21,7 +21,7 @@ const StyledDiv = styled.div`
 
 const Info = ({ children, className, msg }) => (
   <StyledDiv className={`${className}`}>
-    <ActionInfo />
+    <InfoIcon />
     <span>
       {!children && msg}
       {!msg && children}
