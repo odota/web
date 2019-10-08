@@ -2,7 +2,6 @@ import React, { useCallback, useState, useEffect } from 'react';
 import useReactRouter from 'use-react-router';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { Tooltip, Tab, Tabs } from '@material-ui/core';
 import constants from '../constants';
 
@@ -22,9 +21,7 @@ const StyledTab = styled(Tab)`
   min-width: 0 !important;
 `;
 
-const TabTooltip = ({ title, children }) => {
-  return title ? <Tooltip title={title}>{children}</Tooltip> : children;
-};
+const TabTooltip = ({ title, children }) => (title ? <Tooltip title={title}>{children}</Tooltip> : children);
 
 TabTooltip.propTypes = {
   title: PropTypes.string,
