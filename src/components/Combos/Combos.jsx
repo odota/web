@@ -1,5 +1,5 @@
 import React from 'react';
-import { RaisedButton, RadioButton, RadioButtonGroup } from 'material-ui';
+import { Button, RadioGroup, Radio, FormControl, FormControlLabel } from '@material-ui/core';
 import heroes from 'dotaconstants/build/heroes.json';
 import querystring from 'querystring';
 import PropTypes from 'prop-types';
@@ -11,25 +11,12 @@ import ExplorerOutputSection from './../Explorer/ExplorerOutputSection';
 import getQueryString from './getQueryString';
 import HorizontalMenu from '../Visualizations/HorizontalMenu';
 import {
+  ButtonWrapper,
+  StyledCombos,
   StyledHeroSelector,
   StyledSelectedHeroes,
-  StyledCombos,
 } from './Styles';
 import { formatTemplateToString } from '../../utility';
-
-const styles = {
-  radioButton: {
-    root: {
-      display: 'inline-block',
-      width: 'auto',
-      whiteSpace: 'nowrap',
-      marginRight: 5,
-    },
-    icon: {
-      marginRight: 1,
-    },
-  },
-};
 
 const heroesArray = Object.keys(heroes).map(id => heroes[id]).sort((a, b) => a.localized_name.localeCompare(b.localized_name));
 
@@ -272,30 +259,25 @@ class Combos extends React.Component {
             strings={strings}
           />
           <div className="submit-section">
-            <RadioButtonGroup
-              name="queryType"
-              defaultSelected={this.state.queryType}
-              onChange={this.handleRadioButtonChange}
-            >
-              <RadioButton
-                value="public"
-                label={strings.public_matches}
-                style={styles.radioButton.root}
-                iconStyle={styles.radioButton.icon}
-              />
-              <RadioButton
-                value="pro"
-                label={strings.pro_matches}
-                style={{ ...styles.radioButton.root, marginRight: 0 }}
-                iconStyle={styles.radioButton.icon}
-              />
-            </RadioButtonGroup>
-            <RaisedButton
-              label={this.state.loading ? strings.explorer_cancel_button : strings.request_submit}
-              onClick={this.state.loading ? this.handleCancel : this.handleSubmit}
-              buttonStyle={{ backgroundColor: this.state.loading ? '#822e2e' : 'rgba(23, 59, 90, 0.8)' }}
-              style={{ display: 'block', marginTop: 5 }}
-            />
+            <FormControl>
+              <RadioGroup
+                name="queryType"
+                value={this.state.queryType}
+                onChange={this.handleRadioButtonChange}
+              >
+                <FormControlLabel value="public" label={strings.public_matches} control={<Radio />} />
+                <FormControlLabel value="pro" label={strings.pro_matches} control={<Radio />} />
+              </RadioGroup>
+            </FormControl>
+            <ButtonWrapper>
+              <Button
+                onClick={this.state.loading ? this.handleCancel : this.handleSubmit}
+                variant="contained"
+                color="primary"
+              >
+                {this.state.loading ? strings.explorer_cancel_button : strings.request_submit}
+              </Button>
+            </ButtonWrapper>
           </div>
         </div>
         <pre style={{ color: 'red' }}>{this.state.queryResult && this.state.queryResult.err}</pre>

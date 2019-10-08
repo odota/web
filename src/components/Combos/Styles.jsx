@@ -5,14 +5,25 @@ export const StyledCombos = styled.div`
   margin-bottom: 150px;
 
   .submit-section {
-    display: inline-block;
-    margin-bottom: 23px;
-    margin-top: 15px;
+    margin-bottom: 40px;
+    margin-top: 16px;
   }
 
   .main-section {
     border-bottom: 1px solid rgba(255, 255, 255, 0.28);
     margin-bottom: 10px;
+  }
+
+  .MuiFormControl-root {
+    display: flex;
+    width: 100%;
+  }
+
+  .MuiFormGroup-root {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
 `;
 
@@ -178,4 +189,11 @@ export const StyledSelectedHeroes = styled.div`
       opacity: 0.6;
     }
   }
+`;
+
+export const ButtonWrapper = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
 `;
