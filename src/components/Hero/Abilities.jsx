@@ -1,4 +1,3 @@
-/* eslint-disable object-curly-spacing */
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -33,7 +32,7 @@ const renderAbilities = abilities => abilities.map(ability => (
 const Abilities = ({ hero, abilities, heroAbilities }) => {
   const filterAbilities = toFilterAbs => toFilterAbs.filter(ability => (ability !== 'generic_hidden'));
 
-  const mapAbilities = toFilterAbs => toFilterAbs.map((ability, id) => ({data: abilities[ability], key: id }));
+  const mapAbilities = toFilterAbs => toFilterAbs.map((ability, id) => ({ data: abilities[ability], key: id }));
   const mapTalents = talents => talents.map(talent => ({ ...abilities[talent.name], ...talent }));
 
   const mapTalentsToLevel = (talents) => {
