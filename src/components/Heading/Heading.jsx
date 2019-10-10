@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Tooltip } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -22,9 +23,11 @@ const Heading = ({
       <span className="subtitle">
         {subtitle}
       </span>
-      <span className="info" data-hint={info} style={{ display: info ? 'inline' : 'none' }}>
-        {'(?)'}
-      </span>
+      <Tooltip title={info}>
+        <span className="info" style={{ display: info ? 'inline' : 'none' }}>
+          {'(?)'}
+        </span>
+      </Tooltip>
       {winner &&
       <span className="winner">
         {strings.th_winner}

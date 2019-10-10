@@ -1,5 +1,6 @@
 import React from 'react';
 import findLast from 'lodash/fp/findLast';
+import { Tooltip } from '@material-ui/core';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';
@@ -469,17 +470,16 @@ export default (strings) => {
     const score = Number(transform(field).toFixed(2));
     const raw = Number((field || 0).toFixed(2));
     return (
-      <div data-tip data-for={`fantasy_${row.player_slot}_${col.field}`}>
-        <span>
-          {score}
-        </span>
-        <small style={{ margin: '3px', color: 'rgb(179, 179, 179)' }}>
-          {raw}
-        </small>
-        <ReactTooltip id={`fantasy_${row.player_slot}_${col.field}`} place="top" effect="solid">
-          {formatTemplateToString(strings.fantasy_description, raw, score)}
-        </ReactTooltip>
-      </div>
+      <Tooltip title={formatTemplateToString(strings.fantasy_description, raw, score)}>
+        <div>
+          <span>
+            {score}
+          </span>
+          <small style={{ margin: '3px', color: 'rgb(179, 179, 179)' }}>
+            {raw}
+          </small>
+        </div>
+      </Tooltip>
     );
   };
 
@@ -974,12 +974,9 @@ export default (strings) => {
   const runesColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('rune_') === 0).map(str => str.split('_')[1]).map(runeType => ({
     displayName: (
       <StyledRunes data-tip data-for={`rune_${runeType}`}>
-        <img src={`/assets/images/dota2/runes/${runeType}.png`} alt="" />
-        <ReactTooltip id={`rune_${runeType}`} effect="solid">
-          <span>
-            {strings[`rune_${runeType}`]}
-          </span>
-        </ReactTooltip>
+        <Tooltip title={strings[`rune_${runeType}`]}>
+          <img src={`/assets/images/dota2/runes/${runeType}.png`} alt="" />
+        </Tooltip>
       </StyledRunes>
     ),
     field: `rune_${runeType}`,
