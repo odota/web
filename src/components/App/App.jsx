@@ -162,13 +162,28 @@ class App extends React.Component {
       },
       {
         key: 'header_teams',
-        to: '/combos',
-        label: strings.combos,
+        to: '/teams',
+        label: strings.header_teams,
+      },
+      {
+        key: 'header_explorer',
+        to: '/explorer',
+        label: strings.header_explorer,
+      },
+      {
+        key: 'header_api',
+        to: '/api-keys',
+        label: strings.header_api,
       },
     ];
 
     const drawerPages = [
       ...navbarPages,
+      {
+        key: 'header_combos',
+        to: '/combos',
+        label: strings.combos,
+      },
       {
         key: 'header_distributions',
         to: '/distributions',
@@ -185,19 +200,9 @@ class App extends React.Component {
         label: strings.header_meta,
       },
       {
-        key: 'header_explorer',
-        to: '/explorer',
-        label: strings.header_explorer,
-      },
-      {
         key: 'header_scenarios',
         to: '/scenarios',
         label: strings.header_scenarios,
-      },
-      {
-        key: 'header_api',
-        to: '/api-keys',
-        label: strings.header_api,
       },
     ];
 
