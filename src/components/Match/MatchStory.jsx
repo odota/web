@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Tooltip } from '@material-ui/core';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
 import itemColors from 'dotaconstants/build/item_colors.json';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
-import ReactTooltip from 'react-tooltip';
 import { IconRadiant, IconDire } from '../Icons';
 import {
   formatSeconds,
@@ -63,24 +63,21 @@ const PlayerSpan = (player) => {
   const heroName = heroes[player.hero_id] ? heroes[player.hero_id].localized_name : strings.story_invalid_hero;
   return (
     <span>
-      <StyledStorySpan
-        data-tip
-        data-for={`player_${player.account_id}`}
-        key={`player_${player.player_slot}`}
-        style={{ color: (player.isRadiant ? constants.colorGreen : constants.colorRed) }}
-      >
-        <img
-          src={heroes[player.hero_id]
-            ? process.env.REACT_APP_API_HOST + heroes[player.hero_id].icon
-            : '/assets/images/blank-1x1.gif'
-          }
-          alt=""
-        />
-        {heroName}
-      </StyledStorySpan>
-      <ReactTooltip id={`player_${player.account_id}`} place="left" effect="solid">
-        {player.account_id ? player.personaname : strings.general_anonymous}
-      </ReactTooltip>
+      <Tooltip title={player.account_id ? player.personaname : strings.general_anonymous}>
+        <StyledStorySpan
+          key={`player_${player.player_slot}`}
+          style={{ color: (player.isRadiant ? constants.colorGreen : constants.colorRed) }}
+        >
+          <img
+            src={heroes[player.hero_id]
+              ? process.env.REACT_APP_API_HOST + heroes[player.hero_id].icon
+              : '/assets/images/blank-1x1.gif'
+            }
+            alt=""
+          />
+          {heroName}
+        </StyledStorySpan>
+      </Tooltip>
     </span>);
 };
 
