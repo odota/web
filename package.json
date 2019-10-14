@@ -65,7 +65,7 @@
     "wordcloud": "^1.1.0"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^4.0.9",
+    "@storybook/addon-actions": "^5.2.4",
     "@storybook/react": "^4.0.9",
     "babel-preset-es2015": "^6.24.1",
     "cross-env": "^5.2.0",
