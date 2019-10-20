@@ -1,20 +1,20 @@
-import React, { useState, useCallback, useEffect, useContext } from 'react';
+import { IconButton, List, ListItem, ListItemText, Menu, MenuItem, SwipeableDrawer } from '@material-ui/core';
+import { BugReport, Menu as MenuIcon, Settings } from '@material-ui/icons';
+import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
+import ActionSearch from 'material-ui/svg-icons/action/search';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import ActionSearch from 'material-ui/svg-icons/action/search';
-import { Menu, MenuItem, IconButton, SwipeableDrawer, List, ListItem, ListItemText } from '@material-ui/core';
-import { Settings, BugReport, Menu as MenuIcon } from '@material-ui/icons';
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
 import styled from 'styled-components';
-import navigationContext from '../../context/navigationContext';
-import LocalizationMenu from '../Localization';
-import constants from '../constants';
-import AccountWidget from '../AccountWidget';
-import SearchForm from '../Search/SearchForm';
-import AppLogo from '../App/AppLogo';
+
 import { GITHUB_REPO } from '../../config';
+import AccountWidget from '../AccountWidget';
+import AppLogo from '../App/AppLogo';
+import constants from '../constants';
+import LocalizationMenu from '../Localization';
+import SearchForm from '../Search/SearchForm';
 
 const REPORT_BUG_PATH = `//github.com/${GITHUB_REPO}/issues`;
 
@@ -112,18 +112,20 @@ const DrawerLink = styled(Link)`
   color: ${constants.textColorPrimary};
 `;
 
-const LinkGroup = () => {
-  const navigationState = useContext(navigationContext);
-
+const LinkGroup = ({ navbarPages }) => {
   return (
     <VerticalAlignToolbar>
-      {navigationState.navbarPages.map(page => (
+      {navbarPages.map(page => (
         <TabContainer key={page.key}>
           <Link to={page.to}>{page.label}</Link>
         </TabContainer>
       ))}
     </VerticalAlignToolbar>
   );
+};
+
+LinkGroup.propTypes = {
+  navbarPages: PropTypes.shape([{}]),
 };
 
 const SettingsGroup = ({ children }) => {
@@ -208,11 +210,10 @@ LogOut.propTypes = {
 };
 
 const Header = ({
-  location, disableSearch,
+  location, disableSearch, navbarPages, drawerPages,
 }) => {
   const [Announce, setAnnounce] = useState(null);
   const [menuIsOpen, setMenuState] = useState(false);
-  const navigationState = useContext(navigationContext);
   const small = useSelector(state => state.browser.greaterThan.small);
   const user = useSelector(state => state.app.metadata.data.user);
   const strings = useSelector(state => state.app.strings);
@@ -226,7 +227,7 @@ const Header = ({
       <ToolbarHeader>
         <VerticalAlignDiv>
           <LogoGroup onMenuClick={() => setMenuState(true)} />
-          {small && <LinkGroup />}
+          {small && <LinkGroup navbarPages={navbarPages} />}
         </VerticalAlignDiv>
         {!disableSearch && <SearchGroup />}
         <VerticalAlignDiv style={{ marginLeft: '16px' }}>
@@ -249,7 +250,7 @@ const Header = ({
                   <AppLogo onClick={() => setMenuState(false)} />
                 </div>
               </MenuLogoWrapper>
-              {navigationState.drawerPages.map(page => (
+              {drawerPages.map(page => (
                 <DrawerLink key={`drawer__${page.to}`} to={page.to}>
                   <ListItem button key={`drawer__${page.to}`} onClick={() => setMenuState(false)}>
                     <ListItemText primary={page.label} />
@@ -268,6 +269,8 @@ const Header = ({
 Header.propTypes = {
   location: PropTypes.shape({}),
   disableSearch: PropTypes.bool,
+  navbarPages: PropTypes.shape([{}]),
+  drawerPages: PropTypes.shape([{}]),
 };
 
 export default Header;

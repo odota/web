@@ -1,36 +1,36 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Helmet from 'react-helmet';
+import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import Header from '../Header';
-import Player from '../Player';
-import Home from '../Home';
-import Search from '../Search';
-import Explorer from '../Explorer';
-import Heroes from '../Heroes';
-import Request from '../Request';
-import Distributions from '../Distributions';
-import Status from '../Status';
-import Matches from '../Matches';
-import Teams from '../Teams';
-// import Assistant from '../Assistant';
-import Records from '../Records';
-import Scenarios from '../Scenarios';
-import Predictions from '../Predictions';
-import Meta from '../Meta';
+
+import Combos from './../Combos/Combos';
 import Api from '../Api';
+import constants from '../constants';
+import Distributions from '../Distributions';
+import Explorer from '../Explorer';
 import Footer from '../Footer';
 import FourOhFour from '../FourOhFour';
-import navigationContext from '../../context/navigationContext';
-import constants from '../constants';
-import muiTheme from './muiTheme';
+import Header from '../Header';
+import Heroes from '../Heroes';
+import Home from '../Home';
+import Matches from '../Matches';
+import Meta from '../Meta';
+import Player from '../Player';
+import Predictions from '../Predictions';
+// import Assistant from '../Assistant';
+import Records from '../Records';
+import Request from '../Request';
+import Scenarios from '../Scenarios';
+import Search from '../Search';
+import Status from '../Status';
+import Teams from '../Teams';
 import GlobalStyle from './GlobalStyle';
-import Combos from './../Combos/Combos';
+import muiTheme from './muiTheme';
 
 const StyledDiv = styled.div`
   transition: ${constants.normalTransition};
@@ -208,12 +208,6 @@ class App extends React.Component {
 
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
-      <navigationContext.Provider
-        value={{
-          navbarPages,
-          drawerPages,
-        }}
-      >
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
           <GlobalStyle />
           <StyledDiv {...this.props} location={location}>
@@ -221,7 +215,7 @@ class App extends React.Component {
               defaultTitle={strings.title_default}
               titleTemplate={strings.title_template}
             />
-            <Header location={location} />
+            <Header location={location} navbarPages={navbarPages} drawerPages={drawerPages} />
             <AdBannerDiv>
               { includeAds &&
                 <a href="http://www.vpgame.com/?lang=en_us">
@@ -269,7 +263,6 @@ class App extends React.Component {
             </button>
           </StyledDiv>
         </MuiThemeProvider>
-      </navigationContext.Provider>
     );
   }
 }
