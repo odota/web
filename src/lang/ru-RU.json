@@ -1004,6 +1004,7 @@
   "tooltip_advantage": "Рассчитывано Wilson score",
   "tooltip_winrate_samplesize": "Доля побед и размер выборки",
   "tooltip_teamfight_participation": "Количество участий в тимфайтах",
+  "tooltip_hero_rankings_score": "The score is increased on a win and decreased on a loss. The scored points are based on the average MMR in a match.",
   "histograms_name": "Гистограммы",
   "histograms_description": "Процентаж указывает на процент побед для этого столбца",
   "histograms_actions_per_min_description": "Действий игрока в минуту",
