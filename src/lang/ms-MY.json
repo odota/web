@@ -1004,6 +1004,7 @@
   "tooltip_advantage": "Dikira oleh Wilson score",
   "tooltip_winrate_samplesize": "Kadar kemenangan dan saiz sampel",
   "tooltip_teamfight_participation": "Jumlah penyertaah dalam perlawanan",
+  "tooltip_hero_rankings_score": "The score is increased on a win and decreased on a loss. The scored points are based on the average MMR in a match.",
   "histograms_name": "Histogram",
   "histograms_description": "Peratusan menunjukkan kadar menang bagi bin berlabel",
   "histograms_actions_per_min_description": "Aksi dilakukan oleh pemain per minit",
