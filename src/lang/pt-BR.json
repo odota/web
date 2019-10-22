@@ -1004,6 +1004,7 @@
   "tooltip_advantage": "Calculado pelo método Wilson",
   "tooltip_winrate_samplesize": "Taxa de vitórias e tamanho da amostra",
   "tooltip_teamfight_participation": "Participação nas batalhas em equipe",
+  "tooltip_hero_rankings_score": "The score is increased on a win and decreased on a loss. The scored points are based on the average MMR in a match.",
   "histograms_name": "Histogramas",
   "histograms_description": "Percentagens indicam taxas de vitórias para o intervalo rotulado",
   "histograms_actions_per_min_description": "Ações por minuto",
