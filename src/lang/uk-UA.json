@@ -1004,6 +1004,7 @@
   "tooltip_advantage": "Calculated by Wilson score",
   "tooltip_winrate_samplesize": "Win rate and sample size",
   "tooltip_teamfight_participation": "Amount of participation in teamfights",
+  "tooltip_hero_rankings_score": "The score is increased on a win and decreased on a loss. The scored points are based on the average MMR in a match.",
   "histograms_name": "Гістограма",
   "histograms_description": "Percentages indicate win rates for the labeled bin",
   "histograms_actions_per_min_description": "Actions performed by player per minute",
