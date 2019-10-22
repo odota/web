@@ -15,6 +15,7 @@ export default strings => [{
   displayFn: displayHeroId,
 }, {
   displayName: strings.th_score,
+  tooltip: strings.tooltip_hero_rankings_score,
   field: 'score',
   sortFn: true,
   relativeBars: true,
