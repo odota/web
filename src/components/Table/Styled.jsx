@@ -136,6 +136,10 @@ export const StyledBody = styled.div`
     & .rank {
       display: none !important;
     }
+
+    & .contributor {
+      display: none !important;
+    }
   }
 
   .scrolled .guideContainer {
