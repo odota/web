@@ -1004,6 +1004,7 @@
   "tooltip_advantage": "Calculat după scorul Wilson",
   "tooltip_winrate_samplesize": "Rată de câștig și mărimea eșantionului",
   "tooltip_teamfight_participation": "Participarea în lupte",
+  "tooltip_hero_rankings_score": "The score is increased on a win and decreased on a loss. The scored points are based on the average MMR in a match.",
   "histograms_name": "Histograme",
   "histograms_description": "Procentele indică ratele de câștig pentru eșantionul marcat",
   "histograms_actions_per_min_description": "Acțiuni efectuate de jucător pe minut",
