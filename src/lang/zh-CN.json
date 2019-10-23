@@ -1004,7 +1004,7 @@
   "tooltip_advantage": "按 Wilson 评分计算",
   "tooltip_winrate_samplesize": "获胜概率与样品大小",
   "tooltip_teamfight_participation": "参与团战的人数",
-  "tooltip_hero_rankings_score": "The score is increased on a win and decreased on a loss. The scored points are based on the average MMR in a match.",
+  "tooltip_hero_rankings_score": "该分数会随胜负增减。分数增减多少基于那场匹配比赛中的平均MMR。",
   "histograms_name": "直方图",
   "histograms_description": "百分比表示当前标签下的胜率",
   "histograms_actions_per_min_description": "每分钟操作数",
