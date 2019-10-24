@@ -1,8 +1,9 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import useReactRouter from 'use-react-router';
+import { Tab, Tabs, Tooltip } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { Tooltip, Tab, Tabs } from '@material-ui/core';
+import useReactRouter from 'use-react-router';
+
 import constants from '../constants';
 
 const StyledMain = styled.main`
@@ -44,6 +45,8 @@ const TabBar = ({ tabs, match }) => {
     setTabValue(index);
   }, [history]);
 
+  const visibleTabs = useMemo(() => tabs.filter(tab => (!tab.hidden || (tab.hidden && !tab.hidden(match)))), [tabs]);
+
   return (
     <StyledMain>
       <StyledTabs
@@ -52,7 +55,7 @@ const TabBar = ({ tabs, match }) => {
         variant="scrollable"
         indicatorColor="primary"
       >
-        {tabs.map((tab, i) => (!tab.hidden || (tab.hidden && !tab.hidden(match))) && (
+        {visibleTabs.map((tab, i) => (
           <TabTooltip title={tab.tooltip} key={`${tab.name}_${tab.route}_${tab.key}`}>
             <StyledTab
               component="a"
