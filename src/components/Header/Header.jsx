@@ -112,17 +112,15 @@ const DrawerLink = styled(Link)`
   color: ${constants.textColorPrimary};
 `;
 
-const LinkGroup = ({ navbarPages }) => {
-  return (
-    <VerticalAlignToolbar>
-      {navbarPages.map(page => (
-        <TabContainer key={page.key}>
-          <Link to={page.to}>{page.label}</Link>
-        </TabContainer>
-      ))}
-    </VerticalAlignToolbar>
-  );
-};
+const LinkGroup = ({ navbarPages }) => (
+  <VerticalAlignToolbar>
+    {navbarPages.map(page => (
+      <TabContainer key={page.key}>
+        <Link to={page.to}>{page.label}</Link>
+      </TabContainer>
+    ))}
+  </VerticalAlignToolbar>
+);
 
 LinkGroup.propTypes = {
   navbarPages: PropTypes.shape([{}]),

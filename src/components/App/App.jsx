@@ -208,61 +208,61 @@ class App extends React.Component {
 
     const includeAds = !['/', '/api-keys'].includes(location.pathname);
     return (
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
-          <GlobalStyle />
-          <StyledDiv {...this.props} location={location}>
-            <Helmet
-              defaultTitle={strings.title_default}
-              titleTemplate={strings.title_template}
-            />
-            <Header location={location} navbarPages={navbarPages} drawerPages={drawerPages} />
-            <AdBannerDiv>
-              { includeAds &&
-                <a href="http://www.vpgame.com/?lang=en_us">
-                  <img src="/assets/images/vp-banner.jpg" alt="" />
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
+        <GlobalStyle />
+        <StyledDiv {...this.props} location={location}>
+          <Helmet
+            defaultTitle={strings.title_default}
+            titleTemplate={strings.title_template}
+          />
+          <Header location={location} navbarPages={navbarPages} drawerPages={drawerPages} />
+          <AdBannerDiv>
+            { includeAds &&
+              <a href="http://www.vpgame.com/?lang=en_us">
+                <img src="/assets/images/vp-banner.jpg" alt="" />
+              </a>
+            }
+          </AdBannerDiv>
+          <StyledBodyDiv {...this.props}>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/matches/:matchId?/:info?" component={Matches} />
+              <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
+              <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
+              <Route exact path="/teams/:teamId?/:info?" component={Teams} />
+              <Route exact path="/distributions/:info?" component={Distributions} />
+              <Route exact path="/request" component={Request} />
+              <Route exact path="/status" component={Status} />
+              <Route exact path="/explorer" component={Explorer} />
+              <Route exact path="/combos" component={Combos} />
+              <Route exact path="/search" component={Search} />
+              <Route exact path="/records/:info?" component={Records} />
+              <Route exact path="/meta" component={Meta} />
+              <Route exact path="/scenarios/:info?" component={Scenarios} />
+              <Route exact path="/predictions" component={Predictions} />
+              <Route exact path="/api-keys" component={Api} />
+              <Route component={FourOhFour} />
+            </Switch>
+          </StyledBodyDiv>
+          <AdBannerDiv>
+            { includeAds &&
+              <div style={{ fontSize: '12px' }}>
+                <a href="https://www.rivalry.com/opendota">
+                  <img src="/assets/images/rivalry-banner.gif" alt="" />
                 </a>
-              }
-            </AdBannerDiv>
-            <StyledBodyDiv {...this.props}>
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/matches/:matchId?/:info?" component={Matches} />
-                <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
-                <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
-                <Route exact path="/teams/:teamId?/:info?" component={Teams} />
-                <Route exact path="/distributions/:info?" component={Distributions} />
-                <Route exact path="/request" component={Request} />
-                <Route exact path="/status" component={Status} />
-                <Route exact path="/explorer" component={Explorer} />
-                <Route exact path="/combos" component={Combos} />
-                <Route exact path="/search" component={Search} />
-                <Route exact path="/records/:info?" component={Records} />
-                <Route exact path="/meta" component={Meta} />
-                <Route exact path="/scenarios/:info?" component={Scenarios} />
-                <Route exact path="/predictions" component={Predictions} />
-                <Route exact path="/api-keys" component={Api} />
-                <Route component={FourOhFour} />
-              </Switch>
-            </StyledBodyDiv>
-            <AdBannerDiv>
-              { includeAds &&
-                <div style={{ fontSize: '12px' }}>
-                  <a href="https://www.rivalry.com/opendota">
-                    <img src="/assets/images/rivalry-banner.gif" alt="" />
-                  </a>
-                  <div>
-                    {strings.home_sponsored_by} <a href="https://www.rivalry.com/opendota">Rivalry</a>
-                  </div>
+                <div>
+                  {strings.home_sponsored_by} <a href="https://www.rivalry.com/opendota">Rivalry</a>
                 </div>
-              }
-            </AdBannerDiv>
-            <Footer location={location} width={width} />
-            <button ref={this.setBack2TopRef} id="back2Top" title={strings.back2Top} onClick={this.handleBack2TopClick}>
-              <div>&#9650;</div>
-              <div id="back2TopTxt">{strings.back2Top}</div>
-            </button>
-          </StyledDiv>
-        </MuiThemeProvider>
+              </div>
+            }
+          </AdBannerDiv>
+          <Footer location={location} width={width} />
+          <button ref={this.setBack2TopRef} id="back2Top" title={strings.back2Top} onClick={this.handleBack2TopClick}>
+            <div>&#9650;</div>
+            <div id="back2TopTxt">{strings.back2Top}</div>
+          </button>
+        </StyledDiv>
+      </MuiThemeProvider>
     );
   }
 }

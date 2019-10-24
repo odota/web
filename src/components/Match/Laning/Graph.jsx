@@ -1,6 +1,8 @@
+import heroes from 'dotaconstants/build/heroes.json';
+import playerColors from 'dotaconstants/build/player_colors.json';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import {
   Brush,
   CartesianGrid,
@@ -12,12 +14,10 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import heroes from 'dotaconstants/build/heroes.json';
-import playerColors from 'dotaconstants/build/player_colors.json';
-import Heading from '../../Heading';
-import { StyledHolder, StyledCustomizedTooltip } from '../../Visualizations/Graph/Styled';
-import { getHeroIconUrlFromHeroKey } from '../../../utility';
 
+import { getHeroIconUrlFromHeroKey } from '../../../utility';
+import Heading from '../../Heading';
+import { StyledCustomizedTooltip, StyledHolder } from '../../Visualizations/Graph/Styled';
 
 const formatGraphTime = minutes => `${minutes}:00`;
 
