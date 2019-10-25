@@ -39,7 +39,7 @@ const StyledDiv = styled.div`
     z-index: 9999;
   }
 
-  & img {
+  & > img {
     height: 27px;
   }
 
