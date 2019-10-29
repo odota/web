@@ -39,6 +39,10 @@ const StyledDiv = styled.div`
     z-index: 9999;
   }
 
+  & > img {
+    height: 27px;
+  }
+
   & .overlay {
     background-color: ${constants.darkPrimaryColor};
     color: ${constants.textColorPrimary};
@@ -204,9 +208,7 @@ class InflictorWithValue extends React.Component {
             onMouseEnter={this.setShowTooltip}
           >
             {(!type || type === 'backpack') &&
-            <object data={image} height="27px" type="image/png">
-              <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)', height: '27px' }} />
-            </object>}
+              <img src={image} alt="" />}
             {type === 'buff' &&
             <div
               className="buff"
