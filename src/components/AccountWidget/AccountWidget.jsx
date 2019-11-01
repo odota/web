@@ -2,48 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { Button } from '@material-ui/core';
 import { IconSteam } from '../Icons';
-import Spinner from '../Spinner';
 import Error from '../Error';
 import LoggedIn from './LoggedIn';
 
-const IconButtonLink = styled.a`
-  padding: 0 !important;
-  height: auto !important;
-  width: auto !important;
-
-  & svg:hover {
-    opacity: 1;
-  }
-
-  &[data-hint-position="bottom"] {
-    &::before {
-      bottom: -9px;
-      left: 8px;
-    }
-
-    &::after {
-      margin-top: 9px;
-    }
-  }
+const ButtonLabel = styled.span`
+  margin-left: 4px;
 `;
 
 const AccountWidget = ({
   loading, error, user, style, strings,
-}) => (
-  <div style={style}>
-    {loading && !error && <Spinner />}
-    {error && <Error />}
-    {!error && !loading && user
-      ? <LoggedIn style={style} playerId={user.account_id} />
-      :
-      <IconButtonLink href={`${process.env.REACT_APP_API_HOST}/login`}>
-        <IconSteam />
-        {strings.app_login}
-      </IconButtonLink>
-    }
-  </div>
-);
+}) => {
+  if (loading) return null;
+  return (
+    <div style={style}>
+      {error && <Error />}
+      {!error && !loading && user
+        ? <LoggedIn style={style} playerId={user.account_id} />
+        :
+        <Button href={`${process.env.REACT_APP_API_HOST}/login`}>
+          <IconSteam />
+          <ButtonLabel>{strings.app_login}</ButtonLabel>
+        </Button>
+      }
+    </div>
+  );
+};
 
 AccountWidget.propTypes = {
   loading: PropTypes.bool,

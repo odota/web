@@ -1,27 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import MenuItem from 'material-ui/MenuItem';
-import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import { List, ListItem, ListItemIcon, ListItemText, Collapse } from '@material-ui/core';
+import { ExpandMore, ExpandLess, Translate } from '@material-ui/icons';
 import styled from 'styled-components';
 import { langs } from '../../lang/index';
 import constants from '../constants';
 
-const ClickableDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  transition: ${constants.linearTransition};
-  padding-right: 10px;
+const StyledListItem = styled(ListItem)`
+  color: ${constants.primaryTextColor} !important;
 `;
 
-const LanguageContainerDiv = styled.div`
-  max-height: 300px;
-  overflow: auto;
+const StyledListItemIcon = styled(ListItemIcon)`
+  color: ${constants.primaryTextColor} !important;
 `;
-
-const getLocalization = window.localStorage.getItem('localization');
 
 const setLocalization = (event, key, payload) => {
   window.localStorage.setItem('localization', payload.value);
@@ -49,22 +41,24 @@ class LocalizationMenuItems extends Component {
     const { open } = this.state;
     return (
       <div style={{ minWidth: '200px' }}>
-        <ClickableDiv
-          onClick={this.handleOnClick}
-        >
-          {strings.app_language} <Next />
-        </ClickableDiv>
-        <LanguageContainerDiv>
-          {open && langs.map(lang => (<MenuItem
-            style={{
-              color: lang.value === getLocalization && constants.colorGolden,
-            }}
-            key={lang.translated}
-            value={lang.value}
-            primaryText={lang.native}
-            onClick={() => setLocalization(null, null, lang)}
-          />))}
-        </LanguageContainerDiv>
+        <List component="div">
+          <StyledListItem button onClick={this.handleOnClick}>
+            <StyledListItemIcon>
+              <Translate />
+            </StyledListItemIcon>
+            <ListItemText primary={strings.app_language} />
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </StyledListItem>
+          <Collapse in={open} timeout="auto" unmountOnExit style={{ maxHeight: 300, overflow: 'auto' }}>
+            <List component="div" disablePadding>
+              {langs.map(lang => (
+                <StyledListItem button onClick={() => setLocalization(null, null, lang)} key={lang.translated}>
+                  <ListItemText primary={lang.native} />
+                </StyledListItem>
+              ))}
+            </List>
+          </Collapse>
+        </List>
       </div>
     );
   }

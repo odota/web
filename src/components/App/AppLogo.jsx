@@ -16,8 +16,8 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const AppLogo = ({ size, strings }) => (
-  <StyledLink to="/">
+const AppLogo = ({ size, strings, onClick }) => (
+  <StyledLink to="/" onClick={onClick}>
     <span style={{ fontSize: size }}>
       {`<${strings.app_name}/>`}
     </span>
@@ -27,6 +27,7 @@ const AppLogo = ({ size, strings }) => (
 AppLogo.propTypes = {
   size: PropTypes.string,
   strings: PropTypes.shape({}),
+  onClick: PropTypes.func,
 };
 
 const mapStateToProps = state => ({

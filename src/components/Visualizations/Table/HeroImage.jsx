@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
+import { Tooltip } from '@material-ui/core';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import SocialPerson from 'material-ui/svg-icons/social/person';
@@ -449,220 +450,243 @@ const expand = {
   left: '-10px',
 };
 
-const TableHeroImage = ({
-  parsed,
-  image,
-  registered,
-  contributor,
-  title,
-  subtitle,
-  accountId,
-  playerSlot,
-  hideText,
-  confirmed,
-  party,
-  heroName,
-  heroID,
-  showGuide,
-  guideUrl,
-  guideType,
-  randomed,
-  repicked,
-  predictedVictory,
-  leaverStatus,
-  strings,
-  hero = {},
-}) => (
-  <Styled style={expand}>
-    <HeroImageContainer>
-      {parsed !== undefined &&
-      <div
-        className={parsed ? 'parsed' : 'unparsed'}
-        data-hint={parsed && strings.tooltip_parsed}
-      >
-        <ActionDoneAll />
-      </div>
-      }
-      {party &&
-      <div className="party">
-        {party}
-      </div>
-      }
-      {(heroID || image) &&
-      <div className="imageContainer">
-        {image ?
-          <img
-            src={image}
-            alt=""
-            className="image"
-            data-tip={hero.id === undefined && null}
-            data-for={heroName}
-          /> :
-          <HeroImage id={heroID} className="image" data-tip={hero.id === undefined && null} data-for={heroName !== undefined && heroName} />
-        }
-        {leaverStatus !== undefined && leaverStatus > 1 &&
-        <span
-          className="abandoned"
-          data-hint={strings[`leaver_status_${leaverStatus}`]}
-          data-hint-position="top"
-        >
-          <img
-            src="/assets/images/dota2/disconnect_icon.png"
-            alt=""
-          />
-        </span>
-        }
-        {playerSlot !== undefined &&
+class TableHeroImage extends React.Component {
+  state = { tooltipVisible: false };
+
+  setTooltipVisibility = (value) => {
+    this.setState({ tooltipVisible: value });
+  }
+
+  render() {
+    const {
+      parsed,
+      image,
+      registered,
+      contributor,
+      title,
+      subtitle,
+      accountId,
+      playerSlot,
+      hideText,
+      confirmed,
+      party,
+      heroName,
+      heroID,
+      showGuide,
+      guideUrl,
+      guideType,
+      randomed,
+      repicked,
+      predictedVictory,
+      leaverStatus,
+      strings,
+      hero = {},
+    } = this.props;
+    const { tooltipVisible } = this.state;
+
+    const heroImageEventProps = {
+      onMouseEnter: () => {
+        this.setTooltipVisibility(true);
+      },
+      onMouseLeave: () => {
+        this.setTooltipVisibility(false);
+      },
+    };
+
+    return (
+      <Styled style={expand}>
+        <HeroImageContainer>
+          {parsed !== undefined &&
           <div
-            className="playerSlot"
-            style={{ backgroundColor: playerColors[playerSlot] }}
-          />
-        }
-      </div>
-      }
-      {!hideText &&
-      <div className="textContainer">
-        <span>
-          {registered && !contributor &&
-            <div
-              className="registered"
-              data-hint={strings.tooltip_registered_user}
-              data-hint-position="top"
-            />
+            className={parsed ? 'parsed' : 'unparsed'}
+            data-hint={parsed && strings.tooltip_parsed}
+          >
+            <ActionDoneAll />
+          </div>
           }
-          {contributor &&
-            <div
-              className="contributor"
-              data-hint={strings.app_contributor}
+          {party &&
+          <div className="party">
+            {party}
+          </div>
+          }
+          {(heroID || image) &&
+          <div className="imageContainer">
+            {image ?
+              <img
+                src={image}
+                alt=""
+                className="image"
+                data-tip={hero.id === undefined && null}
+                data-for={heroName}
+                {...heroImageEventProps}
+              /> :
+              <HeroImage id={heroID} className="image" data-tip={hero.id === undefined && null} data-for={heroName !== undefined && heroName} heroImageEventProps={heroImageEventProps} />
+            }
+            {leaverStatus !== undefined && leaverStatus > 1 &&
+            <span
+              className="abandoned"
+              data-hint={strings[`leaver_status_${leaverStatus}`]}
               data-hint-position="top"
             >
-              <IconContributor className="icon" dColor="#21be93" oColor="#212121" />
-            </div>
-          }
-          {confirmed &&
-            <div
-              className="badge"
-              data-hint={`${strings.app_confirmed_as} ${title}`}
-              data-hint-position="top"
-            >
-              <IconCheckCircle className="golden" />
-            </div>
-          }
-          {accountId ?
-            <TableLink to={`/players/${accountId}`}>
-              {title}
-            </TableLink>
-            : title}
-        </span>
-        {subtitle &&
-          <span style={subTextStyle} className="subTextContainer">
-            {subtitle}
-            <span>
-              {randomed &&
-                <span
-                  className="hoverIcon"
-                  data-hint={strings.general_randomed}
-                  data-hint-position="top"
-                >
-                  <IconDice fill="currentcolor" />
-                </span>
-              }
-              {repicked &&
-                <span
-                  className="hoverIcon"
-                  data-hint={strings.general_repicked}
-                  data-hint-position="top"
-                >
-                  <NotificationSync />
-                </span>
-              }
-              {predictedVictory &&
-                <span
-                  className="hoverIcon"
-                  data-hint={strings.general_predicted_victory}
-                  data-hint-position="top"
-                >
-                  <IconCrystalBall fill="currentcolor" />
-                </span>
-              }
+              <img
+                src="/assets/images/dota2/disconnect_icon.png"
+                alt=""
+              />
             </span>
-          </span>
-        }
-      </div>
-      }
-      { Boolean(showGuide) && guideType && guideUrl && heroName &&
-      <div className="guideContainer" data-tip data-for={heroName}>
-        <a href={guideUrl}>
-          { guideType === 'PVGNA' ? <img className="guideIcon" src="/assets/images/pvgna-guide-icon.png" alt={`Learn ${heroName} on Pvgna`} /> : <div /> }
-          { guideType === 'MOREMMR' ? <img className="moremmr-icon" style={{ maxWidth: '60px' }} src="/assets/images/moremmr-icon2.svg" alt={`Learn ${heroName} on MoreMMR`} /> : <div /> }
-        </a>
-        <ReactTooltip id={heroName} place="top" type="light" effect="solid" offset="{'top': 1, 'right': 3}">
-          { guideType === 'PVGNA' ? `Learn ${heroName} on Pvgna` : '' }
-          { guideType === 'MOREMMR' ? `Learn ${heroName} on MoreMMR` : '' }
-        </ReactTooltip>
-      </div>
-      }
-      <div className="hero-tooltip">
-        <ReactTooltip id={heroName} effect="solid" place="right">
-          <HeroToolTip heroAttr={hero.primary_attr}>
-            <div className="header">
-              <div className="heroImg">
-                <HeroImage id={heroID} imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix} />
-                {hero.primary_attr === 'str' && <AttrStrength id="heroImg-attribute" />}
-                {hero.primary_attr === 'agi' && <AttrAgility id="heroImg-attribute" />}
-                {hero.primary_attr === 'int' && <AttrIntelligent id="heroImg-attribute" />}
-                <div className="health-mana">
-                  <span id="health">{Math.floor(hero.base_health)}</span><span id="mana">{Math.floor(hero.base_mana)}</span>
+            }
+            {playerSlot !== undefined &&
+              <div
+                className="playerSlot"
+                style={{ backgroundColor: playerColors[playerSlot] }}
+              />
+            }
+          </div>
+          }
+          {!hideText &&
+          <div className="textContainer">
+            <span>
+              {registered && !contributor &&
+                <div
+                  className="registered"
+                  data-hint={strings.tooltip_registered_user}
+                  data-hint-position="top"
+                />
+              }
+              {contributor &&
+                <div
+                  className="contributor"
+                  data-hint={strings.app_contributor}
+                  data-hint-position="top"
+                >
+                  <IconContributor className="icon" dColor="#21be93" oColor="#212121" />
                 </div>
-              </div>
-              <div className="header-stats">
-                <div id="hero-name">{hero.localized_name}</div>
-                <div id="hero-roles">{hero.attack_type} - {hero.roles && hero.roles.join(', ')}</div>
-                <div className="attributes-container">
-                  <div className="attributes">
-                    <AttrStrength id="str" className="attribute-img" main={`${hero.primary_attr === 'str'}`} />
-                    <div className="attribute-text">{hero.base_str} +{hero.str_gain}</div>
+              }
+              {confirmed &&
+                <div
+                  className="badge"
+                  data-hint={`${strings.app_confirmed_as} ${title}`}
+                  data-hint-position="top"
+                >
+                  <IconCheckCircle className="golden" />
+                </div>
+              }
+              {accountId ?
+                <TableLink to={`/players/${accountId}`}>
+                  {title}
+                </TableLink>
+                : title}
+            </span>
+            {subtitle &&
+              <span style={subTextStyle} className="subTextContainer">
+                {subtitle}
+                <span>
+                  {randomed &&
+                    <span
+                      className="hoverIcon"
+                      data-hint={strings.general_randomed}
+                      data-hint-position="top"
+                    >
+                      <IconDice fill="currentcolor" />
+                    </span>
+                  }
+                  {repicked &&
+                    <span
+                      className="hoverIcon"
+                      data-hint={strings.general_repicked}
+                      data-hint-position="top"
+                    >
+                      <NotificationSync />
+                    </span>
+                  }
+                  {predictedVictory &&
+                    <Tooltip title={strings.general_predicted_victory}>
+                      <span style={{ marginLeft: '4px' }}>
+                        <IconCrystalBall fill="currentcolor" />
+                      </span>
+                    </Tooltip>
+                  }
+                </span>
+              </span>
+            }
+          </div>
+          }
+          { Boolean(showGuide) && guideType && guideUrl && heroName &&
+          <div className="guideContainer" data-tip data-for={heroName}>
+            <a href={guideUrl}>
+              { guideType === 'PVGNA' ? <img className="guideIcon" src="/assets/images/pvgna-guide-icon.png" alt={`Learn ${heroName} on Pvgna`} /> : <div /> }
+              { guideType === 'MOREMMR' ? <img className="moremmr-icon" style={{ maxWidth: '60px' }} src="/assets/images/moremmr-icon2.svg" alt={`Learn ${heroName} on MoreMMR`} /> : <div /> }
+            </a>
+            <ReactTooltip id={heroName} place="top" type="light" effect="solid" offset="{'top': 1, 'right': 3}">
+              { guideType === 'PVGNA' ? `Learn ${heroName} on Pvgna` : '' }
+              { guideType === 'MOREMMR' ? `Learn ${heroName} on MoreMMR` : '' }
+            </ReactTooltip>
+          </div>
+          }
+          { tooltipVisible &&
+          <div className="hero-tooltip">
+            <ReactTooltip id={heroName} effect="solid" place="right">
+              <HeroToolTip heroAttr={hero.primary_attr}>
+                <div className="header">
+                  <div className="heroImg">
+                    <HeroImage id={heroID} imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix} />
+                    {hero.primary_attr === 'str' && <AttrStrength id="heroImg-attribute" />}
+                    {hero.primary_attr === 'agi' && <AttrAgility id="heroImg-attribute" />}
+                    {hero.primary_attr === 'int' && <AttrIntelligent id="heroImg-attribute" />}
+                    <div className="health-mana">
+                      <span id="health">{Math.floor(hero.base_health)}</span><span id="mana">{Math.floor(hero.base_mana)}</span>
+                    </div>
                   </div>
-                  <div className="attributes">
-                    <AttrAgility id="agi" className="attribute-img" main={`${hero.primary_attr === 'agi'}`} />
-                    <div className="attribute-text">{hero.base_agi} +{hero.agi_gain}</div>
-                  </div>
-                  <div className="attributes">
-                    <AttrIntelligent id="int" className="attribute-img" main={`${hero.primary_attr === 'int'}`} />
-                    <div className="attribute-text">{hero.base_int} +{hero.int_gain}</div>
+                  <div className="header-stats">
+                    <div id="hero-name">{hero.localized_name}</div>
+                    <div id="hero-roles">{hero.attack_type} - {hero.roles && hero.roles.join(', ')}</div>
+                    <div className="attributes-container">
+                      <div className="attributes">
+                        <AttrStrength id="str" className="attribute-img" main={`${hero.primary_attr === 'str'}`} />
+                        <div className="attribute-text">{hero.base_str} +{hero.str_gain}</div>
+                      </div>
+                      <div className="attributes">
+                        <AttrAgility id="agi" className="attribute-img" main={`${hero.primary_attr === 'agi'}`} />
+                        <div className="attribute-text">{hero.base_agi} +{hero.agi_gain}</div>
+                      </div>
+                      <div className="attributes">
+                        <AttrIntelligent id="int" className="attribute-img" main={`${hero.primary_attr === 'int'}`} />
+                        <div className="attribute-text">{hero.base_int} +{hero.int_gain}</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <Trim />
-            <div className="stats">
-              <div className="stat">
-                <span>{`${strings.heading_move_speed}:`}</span>
-                <span className="dots" />
-                <span>{hero.move_speed}</span>
-              </div>
-              <div className="stat">
-                <span>{`${strings.heading_attack}:`}</span>
-                <span className="dots" />
-                <span>{`${hero.base_attack_min}-${hero.base_attack_max}`}</span>
-              </div>
-              <div className="stat">
-                <span>{`${strings.heading_base_armor}:`}</span>
-                <span className="dots" />
-                <span>{hero.base_armor}</span>
-              </div>
-              <div className="stat">
-                <span>{`${strings.heading_attack_range}:`}</span>
-                <span className="dots" />
-                <span>{hero.attack_range}</span>
-              </div>
-            </div>
-          </HeroToolTip>
-        </ReactTooltip>
-      </div>
-    </HeroImageContainer>
-  </Styled>
-);
+                <Trim />
+                <div className="stats">
+                  <div className="stat">
+                    <span>{`${strings.heading_move_speed}:`}</span>
+                    <span className="dots" />
+                    <span>{hero.move_speed}</span>
+                  </div>
+                  <div className="stat">
+                    <span>{`${strings.heading_attack}:`}</span>
+                    <span className="dots" />
+                    <span>{`${hero.base_attack_min}-${hero.base_attack_max}`}</span>
+                  </div>
+                  <div className="stat">
+                    <span>{`${strings.heading_base_armor}:`}</span>
+                    <span className="dots" />
+                    <span>{hero.base_armor}</span>
+                  </div>
+                  <div className="stat">
+                    <span>{`${strings.heading_attack_range}:`}</span>
+                    <span className="dots" />
+                    <span>{hero.attack_range}</span>
+                  </div>
+                </div>
+              </HeroToolTip>
+            </ReactTooltip>
+          </div>
+          }
+        </HeroImageContainer>
+      </Styled>
+    );
+  }
+}
 
 const {
   string, oneOfType, bool, node, object, number, shape,

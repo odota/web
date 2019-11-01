@@ -61,7 +61,7 @@ export const getPlayerTrends = (accountId, params, field) => action('playerTrend
 export const getPlayerCounts = (accountId, params) => action('playerCounts', process.env.REACT_APP_API_HOST, `api/players/${accountId}/counts`, params, transformCounts);
 export const getPlayerItems = (accountId, params) => action('playerItems', process.env.REACT_APP_API_HOST, `api/players/${accountId}/items`, params);
 export const getPlayerWardmap = (accountId, params) => action('playerWardmap', process.env.REACT_APP_API_HOST, `api/players/${accountId}/wardmap`, params);
-export const getPlayerWordcloud = (accountId, params) => action('playerWordcloud', process.env.REACT_APP_API_HOST, `api/players/${accountId}/wordcloud`, { date: 180, ...querystring.parse(params.substring(1)) });
+export const getPlayerWordcloud = (accountId, params) => action('playerWordcloud', process.env.REACT_APP_API_HOST, `api/players/${accountId}/wordcloud`, { date: 365, ...querystring.parse(params.substring(1)) });
 export const getPlayerTotals = (accountId, params) => action('playerTotals', process.env.REACT_APP_API_HOST, `api/players/${accountId}/totals`, params);
 export const getPlayerMmr = (accountId, params) => action('playerMmr', process.env.REACT_APP_API_HOST, `api/players/${accountId}/ratings`, params);
 export const getPlayerRankings = (accountId, params) => action('playerRankings', process.env.REACT_APP_API_HOST, `api/players/${accountId}/rankings`, params, transformRankings);

@@ -14,7 +14,7 @@ import {
 } from 'recharts';
 import heroes from 'dotaconstants/build/heroes.json';
 import styled from 'styled-components';
-import { formatSeconds, fromNow } from '../../../utility';
+import { formatSeconds, fromNow, formatGraphValueData } from '../../../utility';
 import constants from '../../constants';
 import HeroImage from '../HeroImage';
 
@@ -84,7 +84,7 @@ const TrendTooltipContent = ({ payload, name, strings }) => {
         <div className="tooltipWrapper">
           <div className="value">
             {data.name === 'win_rate' ? '' : strings.trends_tooltip_average}
-            {` ${trendStr}: ${Number(data.value.toFixed(2))}${unit}`}
+            {` ${trendStr}: ${formatGraphValueData(Number(data.value.toFixed(2)), name)}${unit}`}
           </div>
           <div className="match">
             <div>
@@ -96,11 +96,11 @@ const TrendTooltipContent = ({ payload, name, strings }) => {
               </div>
               <div>{strings[`game_mode_${data.game_mode}`]}</div>
               <div>{formatSeconds(data.duration)}</div>
-              {data.name === 'win_rate' ? (
+              {data.name === 'win_rate' || name === 'duration' ? (
                 ''
               ) : (
                 <div className="matchValue">
-                  {`${trendStr}: ${Number(data.independent_value.toFixed(2))}${unit}`}
+                  {`${trendStr}: ${formatGraphValueData(Number(data.independent_value.toFixed(2)), name)}${unit}`}
                 </div>
               )}
             </div>

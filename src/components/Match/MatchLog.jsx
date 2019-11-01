@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
+import { Tooltip } from '@material-ui/core';
 import heroes from 'dotaconstants/build/heroes.json';
 import {
   formatSeconds,
@@ -194,13 +195,13 @@ const logColumns = (strings) => {
             return (
               <span>
                 <p style={{ float: 'left' }}>{strings.activated}</p>
-                <img
-                  src={`/assets/images/dota2/runes/${runeType}.png`}
-                  alt=""
-                  style={{ height: '30px', float: 'left' }}
-                  data-tip
-                  data-for={runeString}
-                />
+                <Tooltip title={runeString}>
+                  <img
+                    src={`/assets/images/dota2/runes/${runeType}.png`}
+                    alt=""
+                    style={{ height: '30px', float: 'left' }}
+                  />
+                </Tooltip>
                 <p style={{ float: 'left' }}> {runeString} {strings.rune}</p>
               </span>
             );
