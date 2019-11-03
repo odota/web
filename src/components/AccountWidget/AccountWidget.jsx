@@ -1,10 +1,11 @@
-import React from 'react';
+import { Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { Button } from '@material-ui/core';
-import { IconSteam } from '../Icons';
+
 import Error from '../Error';
+import { IconSteam } from '../Icons';
 import LoggedIn from './LoggedIn';
 
 const ButtonLabel = styled.span`

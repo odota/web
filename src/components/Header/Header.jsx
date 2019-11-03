@@ -96,8 +96,9 @@ const ToolbarHeader = styled(Toolbar)`
 
 const MenuContent = styled.div`
   background: ${constants.primarySurfaceColor};
-  height: 100%;
   max-width: 300px;
+  height: 100%;
+  overflow: auto;
   min-width: 220px;
 `;
 
@@ -242,12 +243,12 @@ const Header = ({
           open={menuIsOpen}
         >
           <MenuContent>
+            <MenuLogoWrapper>
+              <div>
+                <AppLogo onClick={() => setMenuState(false)} />
+              </div>
+            </MenuLogoWrapper>
             <List>
-              <MenuLogoWrapper>
-                <div>
-                  <AppLogo onClick={() => setMenuState(false)} />
-                </div>
-              </MenuLogoWrapper>
               {drawerPages.map(page => (
                 <DrawerLink key={`drawer__${page.to}`} to={page.to}>
                   <ListItem button key={`drawer__${page.to}`} onClick={() => setMenuState(false)}>
@@ -255,6 +256,30 @@ const Header = ({
                   </ListItem>
                 </DrawerLink>
               ))}
+            </List>
+            <List>
+              {user ? (
+                <>
+                  <DrawerLink to={`/players/${user.account_id}`}>
+                    <ListItem button onClick={() => setMenuState(false)}>
+                      <ListItemText primary={strings.app_my_profile} />
+                    </ListItem>
+                  </DrawerLink>
+                  <DrawerLink to={`${process.env.REACT_APP_API_HOST}/logout`}>
+                    <ListItem button onClick={() => setMenuState(false)}>
+                      <ListItemText primary={strings.app_logout} />
+                    </ListItem>
+                  </DrawerLink>
+                </>
+              ) : (
+                <>
+                  <DrawerLink as="a" href={`${process.env.REACT_APP_API_HOST}/login`}>
+                    <ListItem button onClick={() => setMenuState(false)}>
+                      <ListItemText primary={strings.app_login} />
+                    </ListItem>
+                  </DrawerLink>
+                </>
+              )}
             </List>
           </MenuContent>
         </SwipeableDrawer>

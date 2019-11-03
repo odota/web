@@ -20,6 +20,11 @@
     "storybook": "start-storybook -p 9009 -s public",
     "storybook:build": "build-storybook -s public"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "http://github.com/odota/web"
@@ -74,6 +79,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.7.0",
+    "husky": "^3.0.9",
     "isomorphic-fetch": "^2.2.1",
     "sanitize-filename": "^1.6.1",
     "simple-vdf": "^1.1.1",
