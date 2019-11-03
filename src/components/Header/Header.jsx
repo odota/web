@@ -40,23 +40,6 @@ const TabContainer = styled.div`
   text-align: center;
 `;
 
-const BugLink = styled.a`
-  font-size: ${constants.fontSizeMedium};
-  font-weight: ${constants.fontWeightLight};
-  color: ${constants.colorMutedLight} !important;
-  display: flex;
-  align-items: center;
-  margin-top: 2px;
-  margin-right: 15px;
-  & svg {
-    margin-right: 5px;
-    /* Override material-ui */
-    color: currentColor !important;
-    width: 18px !important;
-    height: 18px !important;
-  }
-`;
-
 const AppLogoWrapper = styled.div`
   @media screen and (max-width: 800px) {
     display: none;
@@ -71,6 +54,8 @@ const DropdownMenu = styled(Menu)`
 
 const DropdownMenuItem = styled(MenuItem)`
   color: ${constants.primaryTextColor} !important;
+  padding-bottom: 12px !important;
+  padding-top: 12px !important;
 `;
 
 const ToolbarHeader = styled(Toolbar)`
@@ -182,7 +167,7 @@ const AccountGroup = () => (
 );
 
 const ReportBug = ({ strings }) => (
-  <DropdownMenuItem component="a" href={REPORT_BUG_PATH} target="_blank" rel="noopener noreferrer" >
+  <DropdownMenuItem component="a" href={REPORT_BUG_PATH} target="_blank" rel="noopener noreferrer">
     <BugReport style={{ marginRight: 32, width: 24, height: 24 }} />
     {strings.app_report_bug}
   </DropdownMenuItem>
@@ -193,15 +178,10 @@ ReportBug.propTypes = {
 };
 
 const LogOut = ({ strings }) => (
-  <BugLink
-    href={`${process.env.REACT_APP_API_HOST}/logout`}
-    rel="noopener noreferrer"
-  >
-    <LogOutButton />
-    <span>
-      {strings.app_logout}
-    </span>
-  </BugLink>
+  <DropdownMenuItem component="a" href={`${process.env.REACT_APP_API_HOST}/logout`} rel="noopener noreferrer">
+    <LogOutButton style={{ marginRight: 32, width: 24, height: 24 }} />
+    {strings.app_logout}
+  </DropdownMenuItem>
 );
 
 LogOut.propTypes = {
