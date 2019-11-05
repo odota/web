@@ -1,5 +1,6 @@
 import React from 'react';
 import findLast from 'lodash/fp/findLast';
+import sortBy from 'lodash/sortBy';
 import { Tooltip } from '@material-ui/core';
 import heroes from 'dotaconstants/build/heroes.json';
 import items from 'dotaconstants/build/items.json';
@@ -32,6 +33,8 @@ import HeroImage from './../Visualizations/HeroImage';
 const heroNames = getHeroesById();
 
 const parsedBenchmarkCols = ['lhten', 'stuns_per_min'];
+
+const sortByFn = o => o.time || -1000;
 
 export default (strings) => {
   const heroTd = (row, col, field, index, hideName, party, showGuide = false, guideType) => {
@@ -308,6 +311,9 @@ export default (strings) => {
           const itemArray = [];
           const additionalItemArray = [];
           const backpackItemArray = [];
+          const itemDataArray = [];
+          const additionalItemDataArray = [];
+          const backpackItemDataArray = [];
 
           const visitedItemsCount = {};
 
@@ -317,7 +323,7 @@ export default (strings) => {
             visitedItemsCount[itemKey] = itemSkipCount;
 
             if (items[itemKey]) {
-              itemArray.push(inflictorWithValue(itemKey, formatSeconds(purchaseEvent && purchaseEvent.time)));
+              itemDataArray.push({ key: itemKey, time: purchaseEvent && purchaseEvent.time });
             }
 
             // Use hero_id because Meepo showing up as an additional unit in some matches http://dev.dota2.com/showthread.php?t=132401
@@ -326,7 +332,7 @@ export default (strings) => {
               const additionalFirstPurchase = row.first_purchase_time && row.first_purchase_time[additionalItemKey];
 
               if (items[additionalItemKey]) {
-                additionalItemArray.push(inflictorWithValue(additionalItemKey, formatSeconds(additionalFirstPurchase)));
+                additionalItemDataArray.push({ key: additionalItemKey, time: additionalFirstPurchase });
               }
             }
 
@@ -334,9 +340,19 @@ export default (strings) => {
             const backpackfirstPurchase = row.first_purchase_time && row.first_purchase_time[backpackItemKey];
 
             if (items[backpackItemKey]) {
-              backpackItemArray.push(inflictorWithValue(backpackItemKey, formatSeconds(backpackfirstPurchase), 'backpack'));
+              backpackItemDataArray.push({ key: backpackItemKey, time: backpackfirstPurchase });
             }
           }
+
+          sortBy(itemDataArray, sortByFn).forEach((item) => {
+            itemArray.push(inflictorWithValue(item.key, formatSeconds(item.time)));
+          });
+          sortBy(additionalItemDataArray, sortByFn).forEach((item) => {
+            additionalItemArray.push(inflictorWithValue(item.key, formatSeconds(item.time)));
+          });
+          sortBy(backpackItemDataArray, sortByFn).forEach((item) => {
+            backpackItemArray.push(inflictorWithValue(item.key, formatSeconds(item.time), 'backpack'));
+          });
 
           return (
             <StyledDivClearBoth>
