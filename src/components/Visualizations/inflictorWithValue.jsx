@@ -23,6 +23,8 @@ const getInflictorImage = (inflictor) => {
 const customImageIcon = ['refresher_shard'];
 
 const StyledDiv = styled.div`
+min-height: 1px;
+
 .__react_component_tooltip {
   opacity: 1 !important;
   padding: 0px !important;
@@ -37,10 +39,6 @@ const StyledDiv = styled.div`
 
   :hover {
     z-index: 9999;
-  }
-
-  & > img {
-    height: 27px;
   }
 
   & .overlay {
@@ -208,7 +206,9 @@ class InflictorWithValue extends React.Component {
             onMouseEnter={this.setShowTooltip}
           >
             {(!type || type === 'backpack') &&
-              <img src={image} alt="" />}
+            <object data={image} height="27px" type="image/png">
+              <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)', height: '27px' }} />
+            </object>}
             {type === 'buff' &&
             <div
               className="buff"
