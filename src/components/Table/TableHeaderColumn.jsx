@@ -1,15 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTooltip from 'react-tooltip';
-import nanoid from 'nanoid';
-import { getSortIcon } from './tableHelpers';
+import styled from 'styled-components';
+import { Tooltip } from '@material-ui/core';
 import { StyledHeaderCell } from './Styled';
+import { getSortIcon } from './tableHelpers';
 import { getColStyle } from '../../utility';
 
+const HeaderCellContent = styled.div`
+  align-items: center;
+  display: flex;
+  position: relative;
+`;
+
+const HeaderCellSortIconWrapper = styled.div`
+  height: 14px;
+  margin-left: 0px;
+  position: relative;
+  width: 14px;
+`;
+
 const TableHeaderColumn = ({
-  column, sortClick, sortField, sortState, index, setHighlightedCol,
+  column, sortClick, sortState, sortField, index, setHighlightedCol,
 }) => {
-  const tooltipId = nanoid();
   const style = {
     justifyContent: column.center ? 'center' : null,
   };
@@ -27,17 +39,22 @@ const TableHeaderColumn = ({
         style={style}
       >
         <div
-          data-tip={column.tooltip && true}
-          data-for={tooltipId}
           style={{ color: column.color, width: '100%', textAlign: getColStyle(column).textAlign }}
         >
-          {column.displayName}
-          {column.sortFn && getSortIcon(sortState, sortField, column.field, { height: 14, width: 14 })}
-          {column.tooltip &&
-          <ReactTooltip id={tooltipId} place="top" type="light" effect="solid">
-            {column.tooltip}
-          </ReactTooltip>
-          }
+          { !column.tooltip ? column.displayName : (
+            <Tooltip title={column.tooltip}>
+              <HeaderCellContent>
+                <span>
+                  {column.displayName}
+                </span>
+                {column.sortFn && (
+                  <HeaderCellSortIconWrapper>
+                    {getSortIcon(sortState, sortField, column.field, { height: 12, width: 12 })}
+                  </HeaderCellSortIconWrapper>
+                )}
+              </HeaderCellContent>
+            </Tooltip>
+          ) }
         </div>
       </StyledHeaderCell>
     </th>

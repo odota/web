@@ -23,6 +23,8 @@ const getInflictorImage = (inflictor) => {
 const customImageIcon = ['refresher_shard'];
 
 const StyledDiv = styled.div`
+min-height: 1px;
+
 .__react_component_tooltip {
   opacity: 1 !important;
   padding: 0px !important;

@@ -25,13 +25,11 @@ patch.forEach((patchElement) => {
 });
 
 const getPatchMap = (startTime) => {
-  if (startTime == null) return dotaMaps[0];
+  if (!startTime) return dotaMaps[0];
 
-  for (let i = 0; i < dotaMaps.length; i += 1) {
-    if (startTime >= patchDate[dotaMaps[i].patchName]) return dotaMaps[i];
-  }
+  const patchMap = dotaMaps.find(dotaMap => startTime >= patchDate[dotaMap.patch]);
 
-  return dotaMaps[0];
+  return patchMap || dotaMaps[0];
 };
 
 const MapContainer = styled.div`

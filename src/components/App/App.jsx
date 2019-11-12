@@ -1,35 +1,36 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Helmet from 'react-helmet';
+import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import Header from '../Header';
-import Player from '../Player';
-import Home from '../Home';
-import Search from '../Search';
-import Explorer from '../Explorer';
-import Heroes from '../Heroes';
-import Request from '../Request';
-import Distributions from '../Distributions';
-import Status from '../Status';
-import Matches from '../Matches';
-import Teams from '../Teams';
-// import Assistant from '../Assistant';
-import Records from '../Records';
-import Scenarios from '../Scenarios';
-import Predictions from '../Predictions';
-import Meta from '../Meta';
+
+import Combos from './../Combos/Combos';
 import Api from '../Api';
+import constants from '../constants';
+import Distributions from '../Distributions';
+import Explorer from '../Explorer';
 import Footer from '../Footer';
 import FourOhFour from '../FourOhFour';
-import constants from '../constants';
-import muiTheme from './muiTheme';
+import Header from '../Header';
+import Heroes from '../Heroes';
+import Home from '../Home';
+import Matches from '../Matches';
+import Meta from '../Meta';
+import Player from '../Player';
+import Predictions from '../Predictions';
+// import Assistant from '../Assistant';
+import Records from '../Records';
+import Request from '../Request';
+import Scenarios from '../Scenarios';
+import Search from '../Search';
+import Status from '../Status';
+import Teams from '../Teams';
 import GlobalStyle from './GlobalStyle';
-import Combos from './../Combos/Combos';
+import muiTheme from './muiTheme';
 
 const StyledDiv = styled.div`
   transition: ${constants.normalTransition};
@@ -38,6 +39,7 @@ const StyledDiv = styled.div`
   flex-direction: column;
   height: 100%;
   left: ${props => (props.open ? '256px' : '0px')};
+  margin-top: ${props => (props.location.pathname === '/' ? '-56px' : '0px')};
   background-image: ${props => (props.location.pathname === '/' ? 'url("/assets/images/home-background.png")' : '')};
   background-position: ${props => (props.location.pathname === '/' ? 'center top' : '')};
   background-repeat: ${props => (props.location.pathname === '/' ? 'no-repeat' : '')};
@@ -160,18 +162,27 @@ class App extends React.Component {
       },
       {
         key: 'header_teams',
-        to: '/combos',
-        label: strings.combos,
-      },
-      {
-        key: 'header_meta',
-        to: '/meta',
-        label: strings.header_meta,
+        to: '/teams',
+        label: strings.header_teams,
       },
       {
         key: 'header_explorer',
         to: '/explorer',
         label: strings.header_explorer,
+      },
+      {
+        key: 'header_api',
+        to: '/api-keys',
+        label: strings.header_api,
+      },
+    ];
+
+    const drawerPages = [
+      ...navbarPages,
+      {
+        key: 'header_combos',
+        to: '/combos',
+        label: strings.combos,
       },
       {
         key: 'header_distributions',
@@ -184,14 +195,14 @@ class App extends React.Component {
         label: strings.header_records,
       },
       {
+        key: 'header_meta',
+        to: '/meta',
+        label: strings.header_meta,
+      },
+      {
         key: 'header_scenarios',
         to: '/scenarios',
         label: strings.header_scenarios,
-      },
-      {
-        key: 'header_api',
-        to: '/api-keys',
-        label: strings.header_api,
       },
     ];
 
@@ -204,7 +215,7 @@ class App extends React.Component {
             defaultTitle={strings.title_default}
             titleTemplate={strings.title_template}
           />
-          <Header location={location} navbarPages={navbarPages} />
+          <Header location={location} navbarPages={navbarPages} drawerPages={drawerPages} />
           <AdBannerDiv>
             { includeAds &&
               <a href="http://www.vpgame.com/?lang=en_us">

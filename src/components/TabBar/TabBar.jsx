@@ -1,8 +1,9 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import useReactRouter from 'use-react-router';
+import { Tab, Tabs, Tooltip } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { Tab, Tabs } from '@material-ui/core';
+import useReactRouter from 'use-react-router';
+
 import constants from '../constants';
 
 const StyledMain = styled.main`
@@ -21,19 +22,28 @@ const StyledTab = styled(Tab)`
   min-width: 0 !important;
 `;
 
+const TabTooltip = ({ title, children }) => (title ? <Tooltip title={title}>{children}</Tooltip> : children);
+
+TabTooltip.propTypes = {
+  title: PropTypes.string,
+  children: PropTypes.node,
+};
+
 const TabBar = ({ tabs, match }) => {
   const [tabValue, setTabValue] = useState(0);
   const { history, location } = useReactRouter();
+  const visibleTabs = useMemo(() => tabs.filter(tab => (!tab.hidden || (tab.hidden && !tab.hidden(match)))), [tabs]);
 
   useEffect(() => {
-    tabs.forEach((tab, i) => {
+    visibleTabs.forEach((tab, i) => {
       if (location.pathname === tab.route) setTabValue(i);
     });
-  }, []);
+  }, [visibleTabs]);
 
-  const handleTabClick = useCallback((e) => {
+  const handleTabClick = useCallback((e, tab, index) => {
     e.preventDefault();
     history.push(e.currentTarget.getAttribute('href'));
+    setTabValue(index);
   }, [history]);
 
   return (
@@ -44,15 +54,16 @@ const TabBar = ({ tabs, match }) => {
         variant="scrollable"
         indicatorColor="primary"
       >
-        {tabs.map(tab => (!tab.hidden || (tab.hidden && !tab.hidden(match))) && (
-          <StyledTab
-            component="a"
-            key={`${tab.name}_${tab.route}_${tab.key}`}
-            href={tab.route + window.location.search}
-            onClick={handleTabClick}
-            label={tab.name}
-            disabled={tab.disabled}
-          />
+        {visibleTabs.map((tab, i) => (
+          <TabTooltip title={tab.tooltip} key={`${tab.name}_${tab.route}_${tab.key}`}>
+            <StyledTab
+              component="a"
+              href={tab.route + window.location.search}
+              onClick={e => handleTabClick(e, tab, i)}
+              label={tab.name}
+              disabled={tab.disabled}
+            />
+          </TabTooltip>
         ))}
       </StyledTabs>
     </StyledMain>

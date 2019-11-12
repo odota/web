@@ -1,22 +1,20 @@
-import React, { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import useReactRouter from 'use-react-router';
-import ActionSearch from 'material-ui/svg-icons/action/search';
-import IconButton from '@material-ui/core/IconButton';
-import { MoreVert, Settings, BugReport } from '@material-ui/icons';
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import { IconButton, List, ListItem, ListItemText, Menu, MenuItem, SwipeableDrawer } from '@material-ui/core';
+import { BugReport, Menu as MenuIcon, Settings } from '@material-ui/icons';
 import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
-import { Menu, MenuItem } from '@material-ui/core';
+import ActionSearch from 'material-ui/svg-icons/action/search';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import LocalizationMenu from '../Localization';
-import constants from '../constants';
-import AccountWidget from '../AccountWidget';
-import SearchForm from '../Search/SearchForm';
-import AppLogo from '../App/AppLogo';
-import BurgerMenu from './BurgerMenu';
+
 import { GITHUB_REPO } from '../../config';
+import AccountWidget from '../AccountWidget';
+import AppLogo from '../App/AppLogo';
+import constants from '../constants';
+import LocalizationMenu from '../Localization';
+import SearchForm from '../Search/SearchForm';
 
 const REPORT_BUG_PATH = `//github.com/${GITHUB_REPO}/issues`;
 
@@ -38,24 +36,13 @@ const TabContainer = styled.div`
   font-weight: ${constants.fontWeightNormal};
   height: 100%;
   justify-content: center;
-  margin: 0 10px;
+  margin: 0 12px;
   text-align: center;
 `;
 
-const BugLink = styled.a`
-  font-size: ${constants.fontSizeMedium};
-  font-weight: ${constants.fontWeightLight};
-  color: ${constants.colorMutedLight} !important;
-  display: flex;
-  align-items: center;
-  margin-top: 2px;
-  margin-right: 15px;
-  & svg {
-    margin-right: 5px;
-    /* Override material-ui */
-    color: currentColor !important;
-    width: 18px !important;
-    height: 18px !important;
+const AppLogoWrapper = styled.div`
+  @media screen and (max-width: 800px) {
+    display: none;
   }
 `;
 
@@ -67,13 +54,24 @@ const DropdownMenu = styled(Menu)`
 
 const DropdownMenuItem = styled(MenuItem)`
   color: ${constants.primaryTextColor} !important;
+  padding-bottom: 12px !important;
+  padding-top: 12px !important;
 `;
 
 const ToolbarHeader = styled(Toolbar)`
-  background-color: ${constants.defaultPrimaryColor} !important;
-  padding: 8px !important;
+  backdrop-filter: blur(16px);
+  background-color: ${constants.defaultPrimaryColorSolid} !important;
+  height: 56px;
+  left: 0;
+  padding: 8px 16px !important;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+
   & a {
     color: ${constants.primaryTextColor};
+
     &:hover {
       color: ${constants.primaryTextColor};
       opacity: 0.6;
@@ -81,44 +79,37 @@ const ToolbarHeader = styled(Toolbar)`
   }
 `;
 
-const LinkGroup = ({ navbarPages }) => {
-  const router = useReactRouter();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const handleClose = useCallback(() => {
-    setAnchorEl(undefined);
-  }, [anchorEl]);
+const MenuContent = styled.div`
+  background: ${constants.primarySurfaceColor};
+  max-width: 300px;
+  height: 100%;
+  overflow: auto;
+  min-width: 220px;
+`;
 
-  return (
-    <VerticalAlignToolbar>
-      {navbarPages.slice(0, 6).map(page => (
-        <TabContainer key={page.key}>
-          <Link to={page.to}>{page.label}</Link>
-        </TabContainer>
-      ))}
-      <TabContainer>
-        <IconButton size="small" color="inherit" onClick={e => setAnchorEl(e.currentTarget)}>
-          <MoreVert />
-        </IconButton>
-        <DropdownMenu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-          {navbarPages.slice(6, navbarPages.length).map(page => (
-            <DropdownMenuItem
-              onClick={() => {
-                router.history.push(page.to);
-                handleClose();
-              }}
-              key={page.key}
-            >
-              {page.label}
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenu>
+const MenuLogoWrapper = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 24px 0;
+`;
+
+const DrawerLink = styled(Link)`
+  color: ${constants.textColorPrimary};
+`;
+
+const LinkGroup = ({ navbarPages }) => (
+  <VerticalAlignToolbar>
+    {navbarPages.map(page => (
+      <TabContainer key={page.key}>
+        <Link to={page.to}>{page.label}</Link>
       </TabContainer>
-    </VerticalAlignToolbar>
-  );
-};
+    ))}
+  </VerticalAlignToolbar>
+);
 
 LinkGroup.propTypes = {
-  navbarPages: PropTypes.arrayOf(PropTypes.shape({})),
+  navbarPages: PropTypes.shape([{}]),
 };
 
 const SettingsGroup = ({ children }) => {
@@ -139,105 +130,150 @@ const SettingsGroup = ({ children }) => {
   );
 };
 
-class Header extends React.Component {
-  static propTypes = {
-    location: PropTypes.shape({}),
-    small: PropTypes.bool,
-    user: PropTypes.shape({}),
-    strings: PropTypes.shape({}),
-    navbarPages: PropTypes.arrayOf(PropTypes.shape({})),
-    disableSearch: PropTypes.bool,
-  };
+const MenuButtonWrapper = styled.div`
+  margin-right: 12px;
+`;
 
-  constructor() {
-    super();
-    this.state = {};
-    import('../Announce').then(ann => this.setState({ Announce: ann.default }));
-  }
+const LogoGroup = ({ onMenuClick }) => (
+  <div style={{ marginRight: 16 }}>
+    <VerticalAlignToolbar>
+      <MenuButtonWrapper>
+        <IconButton edge="start" color="inherit" onClick={onMenuClick}>
+          <MenuIcon />
+        </IconButton>
+      </MenuButtonWrapper>
+      <AppLogoWrapper>
+        <AppLogo />
+      </AppLogoWrapper>
+    </VerticalAlignToolbar>
+  </div>
+);
 
-  render() {
-    const {
-      location, small, user, strings, navbarPages, disableSearch,
-    } = this.props;
+LogoGroup.propTypes = {
+  onMenuClick: PropTypes.func,
+};
 
-    const burgerItems = [
-      <AccountWidget key={0} />,
-    ];
+const SearchGroup = () => (
+  <VerticalAlignToolbar style={{ marginLeft: 'auto' }}>
+    <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
+    <SearchForm />
+  </VerticalAlignToolbar>
+);
 
-    navbarPages.forEach(page => burgerItems.push(<Link key={page.key} to={page.to}>{page.label}</Link>));
+const AccountGroup = () => (
+  <VerticalAlignToolbar>
+    <AccountWidget />
+  </VerticalAlignToolbar>
+);
 
-    const LogoGroup = ({ small }) => (
-      <VerticalAlignToolbar>
-        {!small && <BurgerMenu menuItems={burgerItems} />}
-        <AppLogo style={{ marginRight: 18 }} />
-      </VerticalAlignToolbar>
-    );
+const ReportBug = ({ strings }) => (
+  <DropdownMenuItem component="a" href={REPORT_BUG_PATH} target="_blank" rel="noopener noreferrer">
+    <BugReport style={{ marginRight: 32, width: 24, height: 24 }} />
+    {strings.app_report_bug}
+  </DropdownMenuItem>
+);
 
-    LogoGroup.propTypes = {
-      small: PropTypes.bool,
-    };
+ReportBug.propTypes = {
+  strings: PropTypes.shape({}),
+};
 
-    const SearchGroup = () => (
-      <VerticalAlignToolbar style={{ marginLeft: 'auto' }}>
-        <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
-        <SearchForm />
-      </VerticalAlignToolbar>
-    );
+const LogOut = ({ strings }) => (
+  <DropdownMenuItem component="a" href={`${process.env.REACT_APP_API_HOST}/logout`} rel="noopener noreferrer">
+    <LogOutButton style={{ marginRight: 32, width: 24, height: 24 }} />
+    {strings.app_logout}
+  </DropdownMenuItem>
+);
 
-    const AccountGroup = () => (
-      <VerticalAlignToolbar>
-        <AccountWidget />
-      </VerticalAlignToolbar>
-    );
+LogOut.propTypes = {
+  strings: PropTypes.shape({}),
+};
 
-    const ReportBug = () => (
-      <DropdownMenuItem component="a" href={REPORT_BUG_PATH} target="_blank" rel="noopener noreferrer" >
-        <BugReport style={{ marginRight: 32, width: 24, height: 24 }} />
-        {strings.app_report_bug}
-      </DropdownMenuItem>
-    );
+const Header = ({
+  location, disableSearch, navbarPages, drawerPages,
+}) => {
+  const [Announce, setAnnounce] = useState(null);
+  const [menuIsOpen, setMenuState] = useState(false);
+  const small = useSelector(state => state.browser.greaterThan.small);
+  const user = useSelector(state => state.app.metadata.data.user);
+  const strings = useSelector(state => state.app.strings);
 
-    const LogOut = () => (
-      <BugLink
-        href={`${process.env.REACT_APP_API_HOST}/logout`}
-        rel="noopener noreferrer"
-      >
-        <LogOutButton />
-        <span>
-          {strings.app_logout}
-        </span>
-      </BugLink>
-    );
+  useEffect(() => {
+    import('../Announce').then(ann => setAnnounce(ann.default));
+  }, []);
 
-    const { Announce } = this.state;
+  return (
+    <>
+      <ToolbarHeader>
+        <VerticalAlignDiv>
+          <LogoGroup onMenuClick={() => setMenuState(true)} />
+          {small && <LinkGroup navbarPages={navbarPages} />}
+        </VerticalAlignDiv>
+        {!disableSearch && <SearchGroup />}
+        <VerticalAlignDiv style={{ marginLeft: '16px' }}>
+          {small && <AccountGroup />}
+          <SettingsGroup>
+            <LocalizationMenu />
+            <ReportBug strings={strings} />
+            {user ? <LogOut strings={strings} /> : null}
+          </SettingsGroup>
+        </VerticalAlignDiv>
+        <SwipeableDrawer
+          onOpen={() => setMenuState(true)}
+          onClose={() => setMenuState(false)}
+          open={menuIsOpen}
+        >
+          <MenuContent>
+            <MenuLogoWrapper>
+              <div>
+                <AppLogo onClick={() => setMenuState(false)} />
+              </div>
+            </MenuLogoWrapper>
+            <List>
+              {drawerPages.map(page => (
+                <DrawerLink key={`drawer__${page.to}`} to={page.to}>
+                  <ListItem button key={`drawer__${page.to}`} onClick={() => setMenuState(false)}>
+                    <ListItemText primary={page.label} />
+                  </ListItem>
+                </DrawerLink>
+              ))}
+            </List>
+            <List>
+              {user ? (
+                <>
+                  <DrawerLink to={`/players/${user.account_id}`}>
+                    <ListItem button onClick={() => setMenuState(false)}>
+                      <ListItemText primary={strings.app_my_profile} />
+                    </ListItem>
+                  </DrawerLink>
+                  <DrawerLink to={`${process.env.REACT_APP_API_HOST}/logout`}>
+                    <ListItem button onClick={() => setMenuState(false)}>
+                      <ListItemText primary={strings.app_logout} />
+                    </ListItem>
+                  </DrawerLink>
+                </>
+              ) : (
+                <>
+                  <DrawerLink as="a" href={`${process.env.REACT_APP_API_HOST}/login`}>
+                    <ListItem button onClick={() => setMenuState(false)}>
+                      <ListItemText primary={strings.app_login} />
+                    </ListItem>
+                  </DrawerLink>
+                </>
+              )}
+            </List>
+          </MenuContent>
+        </SwipeableDrawer>
+      </ToolbarHeader>
+      { location.pathname !== '/' && Announce && <Announce /> }
+    </>
+  );
+};
 
-    return (
-      <div>
-        <ToolbarHeader>
-          <VerticalAlignDiv>
-            <LogoGroup small={small} />
-            {small && <LinkGroup navbarPages={navbarPages} />}
-          </VerticalAlignDiv>
-          {!disableSearch && <SearchGroup />}
-          <VerticalAlignDiv style={{ marginLeft: '16px' }}>
-            {small && <AccountGroup />}
-            <SettingsGroup>
-              <LocalizationMenu />
-              <ReportBug />
-              {user ? <LogOut /> : null}
-            </SettingsGroup>
-          </VerticalAlignDiv>
-        </ToolbarHeader>
-        { location.pathname !== '/' && Announce && <Announce /> }
-      </div>
-    );
-  }
-}
+Header.propTypes = {
+  location: PropTypes.shape({}),
+  disableSearch: PropTypes.bool,
+  navbarPages: PropTypes.shape([{}]),
+  drawerPages: PropTypes.shape([{}]),
+};
 
-const mapStateToProps = state => ({
-  small: state.browser.greaterThan.small,
-  user: state.app.metadata.data.user,
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps, null)(Header);
+export default Header;
