@@ -34,19 +34,19 @@ const castsColumns = strings => [{
   displayFn: (row, col, field) => field || '-',
 }];
 
-const getCastArray = (pm) => {
+const getCastArray = (player) => {
   // Get from ability_uses, item_uses
   const resultArray = [];
   const targets = ['ability_uses', 'item_uses'];
   targets.forEach((target) => {
-    if (pm[target]) {
-      Object.keys(pm[target]).forEach((key) => {
+    if (player[target]) {
+      Object.keys(player[target]).forEach((key) => {
         resultArray.push({
           name: key,
-          val: pm[target][key],
-          casts: pm[target][key],
-          hero_hits: (pm.hero_hits || {})[key],
-          damage_inflictor: (pm.damage_inflictor || {})[key],
+          val: player[target][key],
+          casts: player[target][key],
+          hero_hits: (player.hero_hits || {})[key],
+          damage_inflictor: (player.damage_inflictor || {})[key],
         });
       });
     }
@@ -55,16 +55,17 @@ const getCastArray = (pm) => {
   return resultArray;
 };
 
+//Deprecated & unused
 const CastTable = ({
   match,
   strings,
 }) => (
   <Tabs>
-    {match.players.map(p =>
+    {match.players.map(player =>
       (
-        <Tab key={p.player_slot} icon={<img src={heroes[p.hero_id] && process.env.REACT_APP_API_HOST + heroes[p.hero_id].img} height={30} alt="" />}>
+        <Tab key={player.player_slot} icon={<img src={heroes[player.hero_id] && process.env.REACT_APP_API_HOST + heroes[player.hero_id].img} height={30} alt="" />}>
           <Table
-            data={getCastArray(p)}
+            data={getCastArray(player)}
             columns={castsColumns(strings)}
           />
         </Tab>
