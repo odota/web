@@ -37,14 +37,14 @@ const castsColumns = strings => [{
 const getCastArray = (player) => {
   // Get from ability_uses, item_uses
   const resultArray = [];
-  const targets = ['ability_uses', 'item_uses'];
-  targets.forEach((target) => {
-    if (player[target]) {
-      Object.keys(player[target]).forEach((key) => {
+  const castKeys = ['ability_uses', 'item_uses'];
+  castKeys.forEach((castKey) => {
+    if (player[castKey]) {
+      Object.keys(player[castKey]).forEach((key) => {
         resultArray.push({
           name: key,
-          val: player[target][key],
-          casts: player[target][key],
+          val: player[castKey][key],
+          casts: player[castKey][key],
           hero_hits: (player.hero_hits || {})[key],
           damage_inflictor: (player.damage_inflictor || {})[key],
         });
@@ -55,7 +55,7 @@ const getCastArray = (player) => {
   return resultArray;
 };
 
-//Deprecated & unused
+// Deprecated & unused
 const CastTable = ({
   match,
   strings,
