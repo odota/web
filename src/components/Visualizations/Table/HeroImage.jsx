@@ -577,7 +577,7 @@ class TableHeroImage extends React.Component {
                 </TableLink>
                 : title}
             </span>
-            <span>{role}</span>
+            {role && <span>{role}</span>}
             {subtitle &&
               <span style={subTextStyle} className="subTextContainer">
                 {subtitle}
