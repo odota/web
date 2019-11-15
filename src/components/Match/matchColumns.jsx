@@ -56,6 +56,7 @@ export default (strings) => {
       predictedVictory={row.pred_vict}
       leaverStatus={row.leaver_status}
       hero={compileLevelOneStats(heroes[row.hero_id])}
+      role={row.desc}
     />);
   };
 
