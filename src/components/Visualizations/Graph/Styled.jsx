@@ -33,6 +33,8 @@ export const StyledDire = styled.span`
 export const StyledCustomizedTooltip = styled.div`
   background-color: #131519;
   border: 2px solid #27292b;
+  bottom: 25px;
+  position: relative;
 
   div {
     margin-bottom: 5px;
