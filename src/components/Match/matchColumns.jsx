@@ -1222,8 +1222,8 @@ export default (strings) => {
   ];
 
   const computeAverage = (row, type) => {
-    const t = type === 'obs' ? 'ward_observer' : 'ward_sentry';
-    const maxDuration = items[t].attrib.find(x => x.key === 'lifetime').value;
+    const wardType = type === 'obs' ? 'ward_observer' : 'ward_sentry';
+    const maxDuration = items[wardType].attrib.find(x => x.key === 'lifetime').value;
     const totalDuration = [];
     row[`${type}_log`].forEach((ward) => {
       const findTime = row[`${type}_left_log`] && row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
@@ -1233,10 +1233,8 @@ export default (strings) => {
         totalDuration.push(duration);
       }
     });
-    let total = 0;
-    for (let i = 0; i < totalDuration.length; i += 1) {
-      total += totalDuration[i];
-    }
+
+    const total = totalDuration.reduce((a, b) => a + b, 0);
     const avg = total / totalDuration.length;
 
     return avg;

@@ -37,9 +37,9 @@ class RequestLayer extends React.Component {
 
   render() {
     const {
-      loading, matchId, matchData, error, strings,
+      loading, matchId, matchData, error, strings, match, user,
     } = this.props;
-    const info = this.props.match.params.info || 'overview';
+    const info = match.params.info || 'overview';
     const page = matchPages(matchId, null, strings).find(_page => _page.key.toLowerCase() === info);
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
     if (error && !loading) {
@@ -51,7 +51,7 @@ class RequestLayer extends React.Component {
           <Helmet title={pageTitle} />
           <MatchHeader
             match={matchData}
-            user={this.props.user}
+            user={user}
           />
           <TabbedContent
             info={info}
