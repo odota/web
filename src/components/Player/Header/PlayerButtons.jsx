@@ -37,7 +37,6 @@ const Styled = styled.div`
 class PlayerButtons extends React.Component {
   static propTypes = {
     playerId: PropTypes.string,
-    playerSoloCompetitiveRank: PropTypes.number,
     strings: PropTypes.shape({}),
   }
 
@@ -46,7 +45,6 @@ class PlayerButtons extends React.Component {
   render() {
     const {
       playerId,
-      playerSoloCompetitiveRank,
       strings,
     } = this.props;
     return (
@@ -65,12 +63,6 @@ class PlayerButtons extends React.Component {
             label={strings.app_refresh_label}
           />
         </div>
-        <FlatButton
-          label={strings.app_dotacoach}
-          labelPosition="after"
-          icon={<img src="/assets/images/dotacoach-32x24.png" alt="DotaCoach" />}
-          href={`https://dotacoach.org/Hire/OpenDota?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}`}
-        />
       </Styled>);
   }
 }

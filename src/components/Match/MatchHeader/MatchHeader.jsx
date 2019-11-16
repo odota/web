@@ -238,7 +238,7 @@ const getWinnerStyle = (radiantWin) => {
   return radiantWin ? 'radiant' : 'dire';
 };
 
-const MatchHeader = ({ match, user, strings }) => {
+const MatchHeader = ({ match, strings }) => {
   if (!match) {
     return null;
   }
@@ -336,13 +336,6 @@ const MatchHeader = ({ match, user, strings }) => {
             target="_blank"
             rel="noopener noreferrer"
           />}
-        <FlatButton
-          label={strings.app_dotacoach}
-          icon={<img src="/assets/images/dotacoach-32x24.png" alt="" />}
-          href={`//dotacoach.org/Hire/OpenDota?matchID=${match.match_id}&userSteamId=${user && user.account_id}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        />
         <FlatButton
           label={strings.app_rivalry}
           icon={<img src="/assets/images/rivalry-icon.png" alt="" height="24px" />}
