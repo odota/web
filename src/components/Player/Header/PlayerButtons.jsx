@@ -39,39 +39,30 @@ class PlayerButtons extends React.Component {
     playerId: PropTypes.string,
     playerSoloCompetitiveRank: PropTypes.number,
     strings: PropTypes.shape({}),
-  }
+  };
 
-  state = { disableRefresh: false }
+  state = { disableRefresh: false };
 
   render() {
-    const {
-      playerId,
-      playerSoloCompetitiveRank,
-      strings,
-    } = this.props;
+    const { playerId, playerSoloCompetitiveRank, strings } = this.props;
     return (
       <Styled>
-        <div
-          data-hint={strings.app_refresh}
-          data-hint-position="top"
-        >
+        <div data-hint={strings.app_refresh} data-hint-position="top">
           <FlatButton
             icon={<ActionUpdate />}
             disabled={this.state.disableRefresh}
             onClick={() => {
-              fetch(`${process.env.REACT_APP_API_HOST}/api/players/${playerId}/refresh`, { method: 'POST' });
+              fetch(
+                `${process.env.REACT_APP_API_HOST}/api/players/${playerId}/refresh`,
+                { method: 'POST' },
+              );
               this.setState({ disableRefresh: true });
             }}
             label={strings.app_refresh_label}
           />
         </div>
-        <FlatButton
-          label={strings.app_dotacoach}
-          labelPosition="after"
-          icon={<img src="/assets/images/dotacoach-32x24.png" alt="DotaCoach" />}
-          href={`https://dotacoach.org/Hire/OpenDota?userSteamId=${playerId}&playerMmr=${playerSoloCompetitiveRank}`}
-        />
-      </Styled>);
+      </Styled>
+    );
   }
 }
 
