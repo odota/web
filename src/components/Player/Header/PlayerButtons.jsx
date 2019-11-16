@@ -37,14 +37,13 @@ const Styled = styled.div`
 class PlayerButtons extends React.Component {
   static propTypes = {
     playerId: PropTypes.string,
-    playerSoloCompetitiveRank: PropTypes.number,
     strings: PropTypes.shape({}),
   };
 
   state = { disableRefresh: false };
 
   render() {
-    const { playerId, playerSoloCompetitiveRank, strings } = this.props;
+    const { playerId, strings } = this.props;
     return (
       <Styled>
         <div data-hint={strings.app_refresh} data-hint-position="top">

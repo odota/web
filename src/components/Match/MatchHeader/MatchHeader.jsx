@@ -248,7 +248,7 @@ const getWinnerStyle = (radiantWin) => {
   return radiantWin ? 'radiant' : 'dire';
 };
 
-const MatchHeader = ({ match, user, strings }) => {
+const MatchHeader = ({ match, strings }) => {
   if (!match) {
     return null;
   }
