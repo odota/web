@@ -7,9 +7,13 @@ import mcs from '../matchColumns';
 import BuildingMap from '../BuildingMap';
 import Collapsible from './../../Collapsible/index';
 import AbilityBuildTableSkeleton from './../../Skeletons/AbilityBuildTableSkeleton';
+import AbilityBuildTable from '../AbilityBuildTable';
+import deferredComponent from './../../DeferredComponent/index';
 
-const AbilityBuildTable = React.lazy(() =>
-  import(/* webpackChunkName: 'AbilityBuildTable' */ '../AbilityBuildTable'));
+
+const DeferredAbilityBuildTable = deferredComponent(AbilityBuildTable, AbilityBuildTableSkeleton);
+const DeferredBuildingMap = deferredComponent(BuildingMap);
+const DeferredMatchGraph = deferredComponent(MatchGraph);
 
 const Styled = styled.div`
   width: 100%;
@@ -74,25 +78,23 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
       }
         {
           <Collapsible name="abilityBuilds" initialMaxHeight={800}>
-            <React.Suspense fallback={<AbilityBuildTableSkeleton />}>
-              <AbilityBuildTable
-                players={match.players}
-                columns={abilityColumns()}
-                heading={strings.heading_ability_build}
-                radiantTeam={match.radiant_team}
-                direTeam={match.dire_team}
-              />
-            </React.Suspense>
+            <DeferredAbilityBuildTable
+              players={match.players}
+              columns={abilityColumns()}
+              heading={strings.heading_ability_build}
+              radiantTeam={match.radiant_team}
+              direTeam={match.dire_team}
+            />
           </Collapsible>
         }
         {
           <Styled>
             <div className="map">
-              <BuildingMap match={match} />
+              <DeferredBuildingMap match={match} />
             </div>
             {match.version && (
             <div className="graph">
-              <MatchGraph match={match} type="difference" />
+              <DeferredMatchGraph match={match} type="difference" />
             </div>
           )}
           </Styled>
