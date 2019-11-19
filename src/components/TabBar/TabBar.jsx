@@ -35,10 +35,9 @@ const TabBar = ({ tabs, match }) => {
   const visibleTabs = useMemo(() => tabs.filter(tab => (!tab.hidden || (tab.hidden && !tab.hidden(match)))), [tabs]);
 
   useEffect(() => {
-    visibleTabs.forEach((tab, i) => {
-      if (location.pathname === tab.route) setTabValue(i);
-    });
-  }, [visibleTabs]);
+    const newTabIndex = visibleTabs.findIndex(tab => location.pathname === tab.route);
+    setTabValue(newTabIndex !== -1 ? newTabIndex : 0);
+  }, [visibleTabs, history]);
 
   const handleTabClick = useCallback((e, tab, index) => {
     e.preventDefault();

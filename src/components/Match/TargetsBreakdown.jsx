@@ -47,7 +47,7 @@ const processCasts = (uses, targets) => {
   const field = {};
   Object.keys(uses).forEach(((ability) => {
     if (targets[ability]) {
-      field[ability] = targets[ability];
+      field[ability] = { ...targets[ability], totalCasts: uses[ability] };
     } else {
       field[ability] = { null: uses[ability] };
     }
@@ -113,11 +113,12 @@ const TargetsBreakdown = ({ field, abilityUses = null }) => {
     }
     const r = [];
     Object.keys(f).forEach((inflictor) => {
+      const valueOverall = f[inflictor].totalCasts ? f[inflictor].totalCasts : sumValues(f[inflictor]);
       r.push((
         <div style={{ display: 'flex' }}>
           {
             <StyledDmgTargetInflictor id="target">
-              {inflictorWithValue(inflictor, abbreviateNumber(sumValues(f[inflictor])))}
+              {inflictorWithValue(inflictor, abbreviateNumber(valueOverall))}
             </StyledDmgTargetInflictor>
           }
           {<NavigationArrowForward style={arrowStyle} />}
