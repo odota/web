@@ -6,10 +6,9 @@ import AbilityDraftTable from '../AbilityDraftTable';
 import mcs from '../matchColumns';
 import BuildingMap from '../BuildingMap';
 import Collapsible from './../../Collapsible/index';
-import AbilityBuildTableSkeleton from './../../Skeletons/AbilityBuildTableSkeleton';
+import AbilityBuildTable from '../AbilityBuildTable';
+import DeferredContainer from './../../DeferredContainer/index';
 
-const AbilityBuildTable = React.lazy(() =>
-  import(/* webpackChunkName: 'AbilityBuildTable' */ '../AbilityBuildTable'));
 
 const Styled = styled.div`
   width: 100%;
@@ -43,25 +42,22 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
     skeleton: true,
     content: match => (
       <div>
-        {
-          <TeamTable
-            players={match.players}
-            columns={overviewColumns(match)}
-            heading={strings.heading_overview}
-            buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_default : null}
-            buttonTo={`${gosuUrl}Overview`}
-            buttonIcon={gosuIcon}
-            picksBans={match.picks_bans}
-            radiantTeam={match.radiant_team}
-            direTeam={match.dire_team}
-            summable
-            hoverRowColumn
-            customWidth={960}
-            radiantWin={match.radiant_win}
-          />
-      }
-        {
-        match.game_mode === 18 &&
+        <TeamTable
+          players={match.players}
+          columns={overviewColumns(match)}
+          heading={strings.heading_overview}
+          buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_default : null}
+          buttonTo={`${gosuUrl}Overview`}
+          buttonIcon={gosuIcon}
+          picksBans={match.picks_bans}
+          radiantTeam={match.radiant_team}
+          direTeam={match.dire_team}
+          summable
+          hoverRowColumn
+          customWidth={960}
+          radiantWin={match.radiant_win}
+        />
+        {match.game_mode === 18 &&
         <AbilityDraftTable
           players={match.players}
           columns={abilityDraftColumns()}
@@ -70,33 +66,28 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
           summable
-        />
-      }
-        {
+        />}
+        <DeferredContainer>
           <Collapsible name="abilityBuilds" initialMaxHeight={800}>
-            <React.Suspense fallback={<AbilityBuildTableSkeleton />}>
-              <AbilityBuildTable
-                players={match.players}
-                columns={abilityColumns()}
-                heading={strings.heading_ability_build}
-                radiantTeam={match.radiant_team}
-                direTeam={match.dire_team}
-              />
-            </React.Suspense>
+            <AbilityBuildTable
+              players={match.players}
+              columns={abilityColumns()}
+              heading={strings.heading_ability_build}
+              radiantTeam={match.radiant_team}
+              direTeam={match.dire_team}
+            />
           </Collapsible>
-        }
-        {
           <Styled>
             <div className="map">
               <BuildingMap match={match} />
             </div>
             {match.version && (
-            <div className="graph">
-              <MatchGraph match={match} type="difference" />
-            </div>
-          )}
+              <div className="graph">
+                <MatchGraph match={match} type="difference" />
+              </div>
+            )}
           </Styled>
-      }
+        </DeferredContainer>
       </div>
     ),
   });
