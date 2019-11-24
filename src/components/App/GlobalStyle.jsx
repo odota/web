@@ -1,7 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
+
 import constants from '../constants';
 
-const GlobalStyle = createGlobalStyle([`
+const GlobalStyle = createGlobalStyle([
+  `
 body {
   background-color: initial;
   text-align: initial;
@@ -30,8 +32,8 @@ li {
 
 #root {
   background-color: #192023;
-  background-image: -webkit-linear-gradient(315deg, #2e2d45, #1c2127);
-  background-image: linear-gradient(135deg, #2e2d45, #1c2127);
+  background-image: -webkit-linear-gradient(315deg, #2e2d45 0px, #1c2127 400vh);
+  background-image: linear-gradient(135deg, #2e2d45 0px, #1c2127 400vh);
   color: ${constants.primaryTextColor};
   height: 100%;
   min-height: 100vh;
@@ -164,6 +166,7 @@ th {
   padding-left: 24px;
   padding-right: 24px;
 }
-`]);
+`,
+]);
 
 export default GlobalStyle;
