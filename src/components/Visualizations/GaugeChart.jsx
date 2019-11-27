@@ -52,7 +52,7 @@ const Styled = styled.div`
     position:absolute;
     bottom:-.75em;
     left:2.5em;
-    z-index:1000;
+    z-index:1;
     width:5em;
     height:2.5em;
     overflow:hidden;
