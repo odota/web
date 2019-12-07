@@ -30,8 +30,8 @@ li {
 
 #root {
   background-color: #192023;
-  background-image: -webkit-linear-gradient(315deg, #2e2d45, #1c2127);
-  background-image: linear-gradient(135deg, #2e2d45, #1c2127);
+  background-image: -webkit-linear-gradient(to right, #1a2b3e, #141E30);
+  background-image: linear-gradient(to right, #1a2b3e, #141E30);
   color: ${constants.primaryTextColor};
   height: 100%;
   min-height: 100vh;

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { isRadiant, getTeamName } from '../../utility';
 import Heading from '../Heading';
-import { IconRadiant, IconDire } from '../Icons';
 import Table from '../Table';
 import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
 
@@ -18,7 +17,7 @@ const StyledDiv = styled.div`
       left: 0px;
       bottom: 0px;
       right: 0px;
-      height: 5px;
+      height: 8px;
     }
     &.teamtable-radiant:after {
       background-image: linear-gradient(to right, hsla(133, 20%, 41%, 0.4), transparent 27%);
@@ -147,7 +146,6 @@ class TeamTable extends React.Component {
       <StyledDiv ref={this.setTeamTableRef} >
         <Heading
           title={`${getTeamName(radiantTeam, true)} - ${heading}`}
-          icon={<IconRadiant />}
           buttonLabel={buttonLabel || ''}
           buttonTo={buttonTo || ''}
           buttonIcon={buttonIcon || ''}
@@ -159,7 +157,6 @@ class TeamTable extends React.Component {
         {picksBans && picksBans.length > 0 && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
         <Heading
           title={`${getTeamName(direTeam, false)} - ${heading}`}
-          icon={<IconDire />}
           winner={!hideWinnerTag && !radiantWin}
         />
         <div className="teamtable teamtable-dire">

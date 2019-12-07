@@ -18,7 +18,7 @@ table {
   padding: 3px !important;
   background-color: ${constants.secondarySurfaceColor};
   width: 100%;
-  background-color: rgb(46, 47, 64);
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
 tr {
