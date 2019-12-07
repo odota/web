@@ -3,7 +3,7 @@ import constants from '../constants';
 
 export const StyledDiv = styled.div`
   margin-top: 15px;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   margin-left: 3px;
 
   .winner {
@@ -54,7 +54,9 @@ export const StyledDiv = styled.div`
   }
 
   & .title {
-    font-size: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
     text-shadow: 2px 1px 2px black;
   }
 

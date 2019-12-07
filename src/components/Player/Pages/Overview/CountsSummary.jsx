@@ -6,7 +6,7 @@ import constants from '../../../constants';
 
 const Styled = styled.div`
     border: 1px solid rgb(0, 0, 0, 0.12);
-    background-color: rgb(46, 47, 64);
+    background-color: rgba(255,255,255,0.03);
     overflow: hidden;
     position: relative;
 

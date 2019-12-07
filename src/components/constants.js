@@ -1,6 +1,6 @@
 export default {
   defaultPrimaryColor: 'rgba(0, 0, 0, 0.4)',
-  defaultPrimaryColorSolid: 'rgba(16, 17, 34, .8)',
+  defaultPrimaryColorSolid: 'rgba(0, 0, 0, 0.37)',
   darkPrimaryColor: 'rgba(0, 0, 0, 0.6)',
   almostBlack: 'rgba(0, 0, 0, 0.9)',
   colorSuccess: '#66BB6A',
@@ -30,7 +30,7 @@ export default {
   primaryTextColor: 'rgba(255, 255, 255, 0.87)',
   textColorSecondary: 'rgba(255, 255, 255, 0.6)',
   secondaryTextColor: 'rgba(255, 255, 255, 0.6)',
-  primarySurfaceColor: 'rgb(46, 47, 64)',
+  primarySurfaceColor: 'rgb(22, 40, 62)',
   secondarySurfaceColor: 'rgb(39, 39, 58)',
   tableHeaderSurfaceColor: 'rgba(0, 0, 0, .3)',
   tableRowOddSurfaceColor: 'rgba(255, 255, 255, .019)',

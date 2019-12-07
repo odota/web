@@ -79,7 +79,7 @@ export const StyledBody = styled.div`
 
 
   .innerContainer {
-    background-color: rgba(255, 255, 255, 0.02);
+    background-color: rgba(255, 255, 255, 0.03);
     box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.14);
     margin-bottom: 20px;
   }
