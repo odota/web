@@ -137,6 +137,7 @@ export const StyledDivClearBoth = styled.div`
 `;
 export const StyledBackpack = styled.div`
   display: flex;
+  flex-wrap: wrap;
 
   & > div {
     position: relative;
@@ -158,7 +159,7 @@ export const StyledBackpack = styled.div`
     width: 17px;
     height: 16px;
     fill: ${constants.colorMutedLight};
-    margin: 0 10px;
+    margin: 0 4px 0 0;
   }
 `;
 export const StyledFlexContainer = styled.div`
