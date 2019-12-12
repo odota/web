@@ -24,6 +24,7 @@ const customImageIcon = ['refresher_shard'];
 
 const StyledDiv = styled.div`
 min-height: 1px;
+display: inline-block;
 
 .__react_component_tooltip {
   opacity: 1 !important;
@@ -66,6 +67,7 @@ min-height: 1px;
 
   &.backpack {
     height: 10px;
+    white-space: nowrap;
     
     object, img {
       height: 18px;
