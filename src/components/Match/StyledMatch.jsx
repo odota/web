@@ -137,6 +137,7 @@ export const StyledDivClearBoth = styled.div`
 `;
 export const StyledBackpack = styled.div`
   display: flex;
+  flex-wrap: wrap;
 
   & > div {
     position: relative;
