@@ -355,7 +355,6 @@ export default (strings) => {
                     <IconBackpack />
                   </div>
                   {backpackItemArray}
-                  {backpackItemArray}
                 </StyledBackpack>}
             </StyledDivClearBoth>
           );
