@@ -158,7 +158,7 @@ export const StyledBackpack = styled.div`
     width: 17px;
     height: 16px;
     fill: ${constants.colorMutedLight};
-    margin: 0 10px;
+    margin: 0 4px 0 0;
   }
 `;
 export const StyledFlexContainer = styled.div`
