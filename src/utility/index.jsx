@@ -898,7 +898,7 @@ export function getColStyle(column) {
     width: column.key === 'heroTd' && !column.width ? '1px' : column.width,
     borderLeft: column.borderLeft,
     borderRight: column.borderRight,
-    backgroundColor: column.backgroundColor,
+    backgroundColor: column.colColor,
     direction: column.textAlign === 'right' && 'rtl',
     color: column.color || constants.secondaryTextColor,
   };
