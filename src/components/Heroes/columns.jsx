@@ -158,6 +158,8 @@ export default (strings) => {
       ...col,
       displayName: i === 0 ? col.displayName : `${(col.displayName || '').substring(0, 2)} ${col.field.startsWith('pick') ? strings.abbr_pick : strings.abbr_win}%`,
       tooltip: col.displayName,
+      paddingLeft: 4,
+      paddingRight: 1,
     })),
   };
 };
