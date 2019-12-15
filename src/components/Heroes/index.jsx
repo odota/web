@@ -56,7 +56,7 @@ class RequestLayer extends React.Component {
     const matchCount3 = json.map(heroStat => heroStat['3_pick'] || 0).reduce(sum, 0) / 10;
     const matchCount2 = json.map(heroStat => heroStat['2_pick'] || 0).reduce(sum, 0) / 10;
     const matchCount1 = json.map(heroStat => heroStat['1_pick'] || 0).reduce(sum, 0) / 10;
-    const matchCountPublic = matchCount7 + matchCount6 + matchCount5 + matchCount4 + matchCount3 + matchCount2 + matchCount1;
+    const matchCountPublic = matchCount8 + matchCount7 + matchCount6 + matchCount5 + matchCount4 + matchCount3 + matchCount2 + matchCount1;
 
     const processedData = json.map((heroStat) => {
       const pickRatePro = (heroStat.pro_pick || 0) / matchCountPro;
