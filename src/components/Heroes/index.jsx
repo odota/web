@@ -48,6 +48,7 @@ class RequestLayer extends React.Component {
 
     // Assemble the result data array
     const matchCountPro = json.map(heroStat => heroStat.pro_pick || 0).reduce(sum, 0) / 10;
+    const matchCount8 = json.map(heroStat => heroStat['8_pick'] || 0).reduce(sum, 0) / 10;
     const matchCount7 = json.map(heroStat => heroStat['7_pick'] || 0).reduce(sum, 0) / 10;
     const matchCount6 = json.map(heroStat => heroStat['6_pick'] || 0).reduce(sum, 0) / 10;
     const matchCount5 = json.map(heroStat => heroStat['5_pick'] || 0).reduce(sum, 0) / 10;
@@ -65,6 +66,7 @@ class RequestLayer extends React.Component {
         hero_id: heroStat.id,
         heroName: (heroes[heroStat.id] && heroes[heroStat.id].localized_name) || '',
         matchCountPro,
+        matchCount8,
         matchCount7,
         matchCount6,
         matchCount5,
@@ -76,6 +78,7 @@ class RequestLayer extends React.Component {
         pickRatePro,
         banRatePro,
         winRatePro: (heroStat.pro_win || 0) / heroStat.pro_pick,
+        pickRate8: (heroStat['8_pick'] || 0) / matchCount8,
         pickRate7: (heroStat['7_pick'] || 0) / matchCount7,
         pickRate6: (heroStat['6_pick'] || 0) / matchCount6,
         pickRate5: (heroStat['5_pick'] || 0) / matchCount5,
@@ -83,6 +86,7 @@ class RequestLayer extends React.Component {
         pickRate3: (heroStat['3_pick'] || 0) / matchCount3,
         pickRate2: (heroStat['2_pick'] || 0) / matchCount2,
         pickRate1: (heroStat['1_pick'] || 0) / matchCount1,
+        winRate8: (heroStat['8_win'] || 0) / heroStat['8_pick'],
         winRate7: (heroStat['7_win'] || 0) / heroStat['7_pick'],
         winRate6: (heroStat['6_win'] || 0) / heroStat['6_pick'],
         winRate5: (heroStat['5_win'] || 0) / heroStat['5_pick'],

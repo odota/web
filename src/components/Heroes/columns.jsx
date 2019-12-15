@@ -1,9 +1,5 @@
-// import React from 'react';
 import heroes from 'dotaconstants/build/heroes.json';
-import {
-  displayHeroId,
-  abbreviateNumber,
-} from '../../utility';
+import { abbreviateNumber, displayHeroId } from '../../utility';
 import constants from '../constants';
 // import TablePercent from '../Visualizations/Table/Percent';
 
@@ -45,6 +41,18 @@ export default (strings) => {
       percentBarsWithValue: row => decimalToCount(row.winRatePro, row.pro_pick),
     }],
     public: [heroColumn, {
+      displayName: strings.rank_tier_8,
+      field: 'pickRate8',
+      sortFn: true,
+      percentBarsWithValue: row => decimalToCount(row.pickRate8, row.matchCount8),
+      colColor: constants.colorImmortal,
+    }, {
+      displayName: strings.rank_tier_8,
+      field: 'winRate8',
+      sortFn: true,
+      percentBarsWithValue: row => decimalToCount(row.winRate8, row['8_pick']),
+      colColor: constants.colorImmortalAlt,
+    }, {
       displayName: strings.rank_tier_7,
       field: 'pickRate7',
       sortFn: true,
