@@ -13,8 +13,8 @@ const HeaderCellContent = styled.div`
 `;
 
 const HeaderCellImageContent = styled.img`
-  height: 30px;
-  width: 30px;
+  height: 24px;
+  width: 24px;
 `;
 
 const HeaderCellSortIconWrapper = styled.div`
