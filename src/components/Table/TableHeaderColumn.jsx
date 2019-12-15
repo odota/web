@@ -21,7 +21,8 @@ const HeaderCellSortIconWrapper = styled.div`
   height: 14px;
   margin-left: 0px;
   position: relative;
-  width: 14px;
+  width: 10px;
+  left: -3px;
 `;
 
 const TableHeaderColumn = ({
