@@ -18,6 +18,8 @@ export default (strings) => {
     sortFn: row => (heroes[row.hero_id] && heroes[row.hero_id].localized_name),
   };
 
+  const getRankIcon = number => `/assets/images/dota2/rank_icons/rank_icon_${number}.png`;
+
   return {
     pro: [heroColumn, {
       displayName: strings.hero_pick_ban_rate,
@@ -42,96 +44,112 @@ export default (strings) => {
     }],
     public: [heroColumn, {
       displayName: strings.rank_tier_8,
+      displayIcon: getRankIcon(8),
       field: 'pickRate8',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.pickRate8, row.matchCount8),
       colColor: constants.colorImmortal,
     }, {
       displayName: strings.rank_tier_8,
+      displayIcon: getRankIcon(8),
       field: 'winRate8',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.winRate8, row['8_pick']),
       colColor: constants.colorImmortalAlt,
     }, {
       displayName: strings.rank_tier_7,
+      displayIcon: getRankIcon(7),
       field: 'pickRate7',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.pickRate7, row.matchCount7),
       colColor: constants.colorDivine,
     }, {
       displayName: strings.rank_tier_7,
+      displayIcon: getRankIcon(7),
       field: 'winRate7',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.winRate7, row['7_pick']),
       colColor: constants.colorDivineAlt,
     }, {
       displayName: strings.rank_tier_6,
+      displayIcon: getRankIcon(6),
       field: 'pickRate6',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.pickRate6, row.matchCount6),
       colColor: constants.colorAncient,
     }, {
       displayName: strings.rank_tier_6,
+      displayIcon: getRankIcon(6),
       field: 'winRate6',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.winRate6, row['6_pick']),
       colColor: constants.colorAncientAlt,
     }, {
       displayName: strings.rank_tier_5,
+      displayIcon: getRankIcon(5),
       field: 'pickRate5',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.pickRate5, row.matchCount5),
       colColor: constants.colorLegend,
     }, {
       displayName: strings.rank_tier_5,
+      displayIcon: getRankIcon(5),
       field: 'winRate5',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.winRate5, row['5_pick']),
       colColor: constants.colorLegendAlt,
     }, {
       displayName: strings.rank_tier_4,
+      displayIcon: getRankIcon(4),
       field: 'pickRate4',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.pickRate4, row.matchCount4),
       colColor: constants.colorArchon,
     }, {
       displayName: strings.rank_tier_4,
+      displayIcon: getRankIcon(4),
       field: 'winRate4',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.winRate4, row['4_pick']),
       colColor: constants.colorArchonAlt,
     }, {
       displayName: strings.rank_tier_3,
+      displayIcon: getRankIcon(3),
       field: 'pickRate3',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.pickRate3, row.matchCount3),
       colColor: constants.colorCrusader,
     }, {
       displayName: strings.rank_tier_3,
+      displayIcon: getRankIcon(3),
       field: 'winRate3',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.winRate3, row['3_pick']),
       colColor: constants.colorCrusaderAlt,
     }, {
       displayName: strings.rank_tier_2,
+      displayIcon: getRankIcon(2),
       field: 'pickRate2',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.pickRate2, row.matchCount2),
       colColor: constants.colorGuardian,
     }, {
       displayName: strings.rank_tier_2,
+      displayIcon: getRankIcon(2),
       field: 'winRate2',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.winRate2, row['2_pick']),
       colColor: constants.colorGuardianAlt,
     }, {
       displayName: strings.rank_tier_1,
+      displayIcon: getRankIcon(1),
       field: 'pickRate1',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.pickRate1, row.matchCount1),
       colColor: constants.colorHerald,
     }, {
       displayName: strings.rank_tier_1,
+      displayIcon: getRankIcon(1),
       field: 'winRate1',
       sortFn: true,
       percentBarsWithValue: row => decimalToCount(row.winRate1, row['1_pick']),

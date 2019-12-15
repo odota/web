@@ -12,6 +12,11 @@ const HeaderCellContent = styled.div`
   position: relative;
 `;
 
+const HeaderCellImageContent = styled.img`
+  height: 30px;
+  width: 30px;
+`;
+
 const HeaderCellSortIconWrapper = styled.div`
   height: 14px;
   margin-left: 0px;
@@ -44,9 +49,17 @@ const TableHeaderColumn = ({
           { !column.tooltip ? column.displayName : (
             <Tooltip title={column.tooltip}>
               <HeaderCellContent>
-                <span>
-                  {column.displayName}
-                </span>
+                {column.displayIcon
+                  ?
+                    <React.Fragment>
+                      <span> {column.displayName} </span>
+                      <HeaderCellImageContent src={column.displayIcon} />
+                    </React.Fragment>
+                  :
+                    <span>
+                      {column.displayName}
+                    </span>
+                }
                 {column.sortFn && (
                   <HeaderCellSortIconWrapper>
                     {getSortIcon(sortState, sortField, column.field, { height: 12, width: 12 })}
