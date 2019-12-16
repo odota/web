@@ -44,9 +44,9 @@ class RequestLayer extends React.Component {
       ? strings.hero_public_tab
       : strings.hero_pro_tab;
 
-    const title = key === 'pro'
-      ? strings.hero_pro_heading
-      : strings.hero_public_heading;
+    const title = key === 'public'
+      ? strings.hero_public_heading
+      : strings.hero_pro_heading;
 
     return {
       name,
