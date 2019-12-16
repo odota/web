@@ -37,8 +37,16 @@ class RequestLayer extends React.Component {
     this.props.onGetProPlayers();
   }
 
-  createTab = (key, name, title, matchCount) => {
+  createTab = (key, matchCount) => {
     const { strings } = this.props;
+
+    const name = key === 'public'
+      ? strings.hero_public_tab
+      : strings.hero_pro_tab;
+
+    const title = key === 'pro'
+      ? strings.hero_pro_heading
+      : strings.hero_public_heading;
 
     return {
       name,
@@ -120,8 +128,8 @@ class RequestLayer extends React.Component {
     processedData.sort((a, b) => a.heroName && a.heroName.localeCompare(b.heroName));
 
     const heroTabs = [
-      this.createTab('pro', strings.hero_pro_tab, strings.hero_pro_heading, matchCountPro),
-      this.createTab('public', strings.hero_public_tab, strings.hero_public_heading, matchCountPublic),
+      this.createTab('pro', matchCountPro),
+      this.createTab('public', matchCountPublic),
     ];
 
     const selectedTab = heroTabs.find(_tab => _tab.key === route);
