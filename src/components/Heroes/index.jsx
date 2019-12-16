@@ -36,6 +36,27 @@ class RequestLayer extends React.Component {
     this.props.dispatchHeroStats();
     this.props.onGetProPlayers();
   }
+
+  createTab = (key, name, title, matchCount) => {
+    const { strings } = this.props;
+
+    return {
+      name,
+      key,
+      content: (data, _columns, loading) => (
+        <div>
+          <Heading
+            title={title}
+            subtitle={`${abbreviateNumber(matchCount)} ${strings.hero_this_month}`}
+            icon=""
+            twoLine
+          />
+          <Table data={data} columns={_columns} loading={loading} />
+        </div>),
+      route: `/heroes/${key}`,
+    };
+  }
+
   render() {
     const route = this.props.match.params.heroId || 'pro';
 
@@ -97,37 +118,13 @@ class RequestLayer extends React.Component {
       };
     });
     processedData.sort((a, b) => a.heroName && a.heroName.localeCompare(b.heroName));
-    const heroTabs = [{
-      name: strings.hero_pro_tab,
-      key: 'pro',
-      content: (data, _columns, loading) => (
-        <div>
-          <Heading
-            title={strings.hero_pro_heading}
-            subtitle={`${abbreviateNumber(matchCountPro)} ${strings.hero_this_month}`}
-            icon=""
-            twoLine
-          />
-          <Table data={data} columns={_columns} loading={loading} />
-        </div>),
-      route: '/heroes/pro',
-    }, {
-      name: strings.hero_public_tab,
-      key: 'public',
-      content: (data, _columns, loading) => (
-        <div>
-          <Heading
-            title={strings.hero_public_heading}
-            subtitle={`${abbreviateNumber(matchCountPublic)} ${strings.hero_this_month}`}
-            icon=""
-            twoLine
-          />
-          <Table data={data} columns={_columns} loading={loading} />
-        </div>),
-      route: '/heroes/public',
-    }];
 
-    const tab = heroTabs.find(_tab => _tab.key === route);
+    const heroTabs = [
+      this.createTab('pro', strings.hero_pro_tab, strings.hero_pro_heading, matchCountPro),
+      this.createTab('public', strings.hero_public_tab, strings.hero_public_heading, matchCountPublic),
+    ];
+
+    const selectedTab = heroTabs.find(_tab => _tab.key === route);
     const { loading } = this.props;
 
     return (
@@ -138,7 +135,7 @@ class RequestLayer extends React.Component {
             info={route}
             tabs={heroTabs}
           />
-          {tab && tab.content(processedData, columns(strings)[route], loading)}
+          {selectedTab && selectedTab.content(processedData, columns(strings)[route], loading)}
         </div>
       </div>);
   }
