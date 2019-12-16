@@ -75,18 +75,17 @@ class RequestLayer extends React.Component {
     }
 
     const json = this.props.data;
-    const { strings } = this.props;
 
     // Assemble the result data array
     const matchCountPro = json.map(heroStat => heroStat.pro_pick || 0).reduce(sum, 0) / 10;
-    const matchCount8 = this.getMatchCountByRank('8_pick');
-    const matchCount7 = this.getMatchCountByRank('7_pick');
-    const matchCount6 = this.getMatchCountByRank('6_pick');
-    const matchCount5 = this.getMatchCountByRank('5_pick');
-    const matchCount4 = this.getMatchCountByRank('4_pick');
-    const matchCount3 = this.getMatchCountByRank('3_pick');
-    const matchCount2 = this.getMatchCountByRank('2_pick');
-    const matchCount1 = this.getMatchCountByRank('1_pick');
+    const matchCount8 = this.getMatchCountByRank(json, '8_pick');
+    const matchCount7 = this.getMatchCountByRank(json, '7_pick');
+    const matchCount6 = this.getMatchCountByRank(json, '6_pick');
+    const matchCount5 = this.getMatchCountByRank(json, '5_pick');
+    const matchCount4 = this.getMatchCountByRank(json, '4_pick');
+    const matchCount3 = this.getMatchCountByRank(json, '3_pick');
+    const matchCount2 = this.getMatchCountByRank(json, '2_pick');
+    const matchCount1 = this.getMatchCountByRank(json, '1_pick');
     const matchCountPublic = matchCount8 + matchCount7 + matchCount6 + matchCount5 + matchCount4 + matchCount3 + matchCount2 + matchCount1;
 
     const processedData = json.map((heroStat) => {
@@ -135,7 +134,7 @@ class RequestLayer extends React.Component {
     ];
 
     const selectedTab = heroTabs.find(_tab => _tab.key === route);
-    const { loading } = this.props;
+    const { loading, strings } = this.props;
 
     return (
       <div>
