@@ -35,6 +35,8 @@ export default {
   tableHeaderSurfaceColor: 'rgba(0, 0, 0, .3)',
   tableRowOddSurfaceColor: 'rgba(255, 255, 255, .019)',
   tableRowEvenSurfaceColor: 'rgba(0, 0, 0, .019)',
+  colorImmortal: 'rgba(17,17,35,0.65)',
+  colorImmortalAlt: 'rgba(17,17,35,0.45)',
   colorDivine: 'rgba(33, 41, 69, 0.45)',
   colorDivineAlt: 'rgba(33, 41, 69, 0.65)',
   colorAncient: 'rgba(82, 52, 91, 0.45)',
