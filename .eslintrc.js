@@ -13,7 +13,6 @@ module.exports = {
       },
     },
   },
-  "extends": "airbnb",
   "rules": {
     "max-len": ["error", { "code": 180, "ignoreTemplateLiterals": true, "ignoreStrings": true }],
     "no-mixed-operators": ["error", {
@@ -37,5 +36,29 @@ module.exports = {
       }
     ],
     "react/sort-comp": [2],
+
   },
+  "overrides": [
+    {
+      "files": ["./src/**/*.ts","./src/**/*.tsx"],
+      "env": { "browser": true, "jest": true},
+      "extends": [
+        "airbnb",
+        "plugin:@typescript-eslint/recommended",
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaFeatures": { "jsx": true },
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+      },
+      "plugins": ["react", "@typescript-eslint"],
+      "rules": {
+        "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+        "@typescript-eslint/no-inferrable-types": ["error", {"ignoreProperties": true, "ignoreParameters": false}],
+        "@typescript-eslint/interface-name-prefix": ["error", { "prefixWithI": "never" }],
+        'react/jsx-filename-extension': [1, { 'extensions': ['.ts', '.tsx'] }],
+      },
+    }
+  ]
 };
