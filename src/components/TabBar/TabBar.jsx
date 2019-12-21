@@ -32,12 +32,12 @@ TabTooltip.propTypes = {
 const TabBar = ({ tabs, match }) => {
   const [tabValue, setTabValue] = useState(0);
   const { history, location } = useReactRouter();
-  const visibleTabs = useMemo(() => tabs.filter(tab => (!tab.hidden || (tab.hidden && !tab.hidden(match)))), [tabs]);
+  const visibleTabs = useMemo(() => tabs.filter(tab => (!tab.hidden || (tab.hidden && !tab.hidden(match)))), [match, tabs]);
 
   useEffect(() => {
     const newTabIndex = visibleTabs.findIndex(tab => location.pathname === tab.route);
     setTabValue(newTabIndex !== -1 ? newTabIndex : 0);
-  }, [visibleTabs, history]);
+  }, [visibleTabs, history, location.pathname]);
 
   const handleTabClick = useCallback((e, tab, index) => {
     e.preventDefault();
