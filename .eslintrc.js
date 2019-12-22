@@ -58,6 +58,8 @@ module.exports = {
         "@typescript-eslint/no-inferrable-types": ["error", {"ignoreProperties": true, "ignoreParameters": false}],
         "@typescript-eslint/interface-name-prefix": ["error", { "prefixWithI": "never" }],
         "@typescript-eslint/explicit-function-return-type": "off",
+        "no-useless-constructor": "off",
+        "@typescript-eslint/no-useless-constructor": "error",
         'react/jsx-filename-extension': [1, { 'extensions': ['.ts', '.tsx'] }],
         "import/prefer-default-export": "off"
       },
