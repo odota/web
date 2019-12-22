@@ -116,8 +116,7 @@ const SettingsGroup = ({ children }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = useCallback(() => {
     setAnchorEl(undefined);
-    // eslint-disable-next-line
-  }, [anchorEl]);
+  }, [setAnchorEl]);
 
   return (
     <>
