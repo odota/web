@@ -59,6 +59,7 @@ module.exports = {
         "@typescript-eslint/interface-name-prefix": ["error", { "prefixWithI": "never" }],
         "@typescript-eslint/explicit-function-return-type": "off",
         'react/jsx-filename-extension': [1, { 'extensions': ['.ts', '.tsx'] }],
+        "import/prefer-default-export": "off"
       },
     }
   ]
