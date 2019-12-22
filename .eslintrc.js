@@ -60,6 +60,8 @@ module.exports = {
         "@typescript-eslint/explicit-function-return-type": "off",
         "no-useless-constructor": "off",
         "@typescript-eslint/no-useless-constructor": "error",
+        "@typescript-eslint/prefer-optional-chain": "error",
+        "@typescript-eslint/prefer-nullish-coalescing": "error",
         'react/jsx-filename-extension': [1, { 'extensions': ['.ts', '.tsx'] }],
         "import/prefer-default-export": "off"
       },
