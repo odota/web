@@ -1,5 +1,29 @@
 const path = require('path');
 
+const commonRules = {
+  "max-len": ["error", { "code": 180, "ignoreTemplateLiterals": true, "ignoreStrings": true }],
+  "no-mixed-operators": ["error", {
+    "allowSamePrecedence": true
+  }],
+  "no-shadow": 1,
+  "jsx-a11y/anchor-is-valid": ["warn", {
+    "components": ["Link"],
+    "specialLink": ["to"],
+  }],
+  "react/no-array-index-key": 1,
+  "react/require-default-props": 0,
+  'import/no-extraneous-dependencies': [
+    "error",
+    {
+      devDependencies: [
+        '.storybook/**',
+        'src/stories/**'
+      ]
+    }
+  ],
+  "react/sort-comp": [2]
+}
+
 module.exports = {
   "parser": "babel-eslint",
   "env": {
@@ -14,29 +38,8 @@ module.exports = {
     },
   },
   "rules": {
-    "max-len": ["error", { "code": 180, "ignoreTemplateLiterals": true, "ignoreStrings": true }],
-    "no-mixed-operators": ["error", {
-      "allowSamePrecedence": true
-    }],
-    "no-shadow": 1,
+    ...commonRules,
     "import/named": ["error"],
-    "jsx-a11y/anchor-is-valid": ["warn", {
-      "components": ["Link"],
-      "specialLink": ["to"],
-    }],
-    "react/no-array-index-key": 1,
-    "react/require-default-props": 0,
-    'import/no-extraneous-dependencies': [
-      "error",
-      {
-        devDependencies: [
-          '.storybook/**',
-          'src/stories/**'
-        ]
-      }
-    ],
-    "react/sort-comp": [2],
-
   },
   "overrides": [
     {
@@ -54,6 +57,7 @@ module.exports = {
       },
       "plugins": ["react", "@typescript-eslint"],
       "rules": {
+        ...commonRules,
         "@typescript-eslint/consistent-type-definitions": ["error", "type"],
         "@typescript-eslint/no-inferrable-types": ["error", {"ignoreProperties": true, "ignoreParameters": false}],
         "@typescript-eslint/interface-name-prefix": ["error", { "prefixWithI": "never" }],
