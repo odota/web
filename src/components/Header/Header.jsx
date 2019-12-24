@@ -245,7 +245,7 @@ const Header = ({
                       <ListItemText primary={strings.app_my_profile} />
                     </ListItem>
                   </DrawerLink>
-                  <DrawerLink to={`${process.env.REACT_APP_API_HOST}/logout`}>
+                  <DrawerLink as="a" href={`${process.env.REACT_APP_API_HOST}/logout`}>
                     <ListItem button onClick={() => setMenuState(false)}>
                       <ListItemText primary={strings.app_logout} />
                     </ListItem>
