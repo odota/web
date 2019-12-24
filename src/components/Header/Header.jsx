@@ -116,7 +116,7 @@ const SettingsGroup = ({ children }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = useCallback(() => {
     setAnchorEl(undefined);
-  }, [anchorEl]);
+  }, [setAnchorEl]);
 
   return (
     <>

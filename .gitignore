@@ -7,3 +7,4 @@ build
 *.swp
 .env
 yarn.lock
+src/*.d.ts
