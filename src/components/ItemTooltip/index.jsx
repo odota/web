@@ -241,7 +241,7 @@ const ItemTooltip = ({ item, inflictor }) => (
     {item.components &&
     <Components>
       <div id="header">Components:</div>
-      {item.components.concat((items[`recipe_${inflictor}`] && [`recipe_${inflictor}`]) || []).map(component =>
+      {item.components.concat((items[`recipe_${inflictor}`] && [`recipe_${inflictor}`]) || []).filter(Boolean).map(component =>
         (
           <div className="component">
             <img src={`${process.env.REACT_APP_API_HOST}${items[component].img}`} alt="" />
