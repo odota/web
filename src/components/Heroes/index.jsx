@@ -36,6 +36,37 @@ class RequestLayer extends React.Component {
     this.props.dispatchHeroStats();
     this.props.onGetProPlayers();
   }
+
+  getMatchCountByRank = (json, rank) => json.map(heroStat => heroStat[rank] || 0).reduce(sum, 0) / 10
+
+  createTab = (key, matchCount) => {
+    const { strings } = this.props;
+
+    const name = key === 'public'
+      ? strings.hero_public_tab
+      : strings.hero_pro_tab;
+
+    const title = key === 'public'
+      ? strings.hero_public_heading
+      : strings.hero_pro_heading;
+
+    return {
+      name,
+      key,
+      content: (data, _columns, loading) => (
+        <div>
+          <Heading
+            title={title}
+            subtitle={`${abbreviateNumber(matchCount)} ${strings.hero_this_month}`}
+            icon=""
+            twoLine
+          />
+          <Table data={data} columns={_columns} loading={loading} />
+        </div>),
+      route: `/heroes/${key}`,
+    };
+  }
+
   render() {
     const route = this.props.match.params.heroId || 'pro';
 
@@ -44,18 +75,18 @@ class RequestLayer extends React.Component {
     }
 
     const json = this.props.data;
-    const { strings } = this.props;
 
     // Assemble the result data array
     const matchCountPro = json.map(heroStat => heroStat.pro_pick || 0).reduce(sum, 0) / 10;
-    const matchCount7 = json.map(heroStat => heroStat['7_pick'] || 0).reduce(sum, 0) / 10;
-    const matchCount6 = json.map(heroStat => heroStat['6_pick'] || 0).reduce(sum, 0) / 10;
-    const matchCount5 = json.map(heroStat => heroStat['5_pick'] || 0).reduce(sum, 0) / 10;
-    const matchCount4 = json.map(heroStat => heroStat['4_pick'] || 0).reduce(sum, 0) / 10;
-    const matchCount3 = json.map(heroStat => heroStat['3_pick'] || 0).reduce(sum, 0) / 10;
-    const matchCount2 = json.map(heroStat => heroStat['2_pick'] || 0).reduce(sum, 0) / 10;
-    const matchCount1 = json.map(heroStat => heroStat['1_pick'] || 0).reduce(sum, 0) / 10;
-    const matchCountPublic = matchCount7 + matchCount6 + matchCount5 + matchCount4 + matchCount3 + matchCount2 + matchCount1;
+    const matchCount8 = this.getMatchCountByRank(json, '8_pick');
+    const matchCount7 = this.getMatchCountByRank(json, '7_pick');
+    const matchCount6 = this.getMatchCountByRank(json, '6_pick');
+    const matchCount5 = this.getMatchCountByRank(json, '5_pick');
+    const matchCount4 = this.getMatchCountByRank(json, '4_pick');
+    const matchCount3 = this.getMatchCountByRank(json, '3_pick');
+    const matchCount2 = this.getMatchCountByRank(json, '2_pick');
+    const matchCount1 = this.getMatchCountByRank(json, '1_pick');
+    const matchCountPublic = matchCount8 + matchCount7 + matchCount6 + matchCount5 + matchCount4 + matchCount3 + matchCount2 + matchCount1;
 
     const processedData = json.map((heroStat) => {
       const pickRatePro = (heroStat.pro_pick || 0) / matchCountPro;
@@ -65,6 +96,7 @@ class RequestLayer extends React.Component {
         hero_id: heroStat.id,
         heroName: (heroes[heroStat.id] && heroes[heroStat.id].localized_name) || '',
         matchCountPro,
+        matchCount8,
         matchCount7,
         matchCount6,
         matchCount5,
@@ -76,6 +108,7 @@ class RequestLayer extends React.Component {
         pickRatePro,
         banRatePro,
         winRatePro: (heroStat.pro_win || 0) / heroStat.pro_pick,
+        pickRate8: (heroStat['8_pick'] || 0) / matchCount8,
         pickRate7: (heroStat['7_pick'] || 0) / matchCount7,
         pickRate6: (heroStat['6_pick'] || 0) / matchCount6,
         pickRate5: (heroStat['5_pick'] || 0) / matchCount5,
@@ -83,6 +116,7 @@ class RequestLayer extends React.Component {
         pickRate3: (heroStat['3_pick'] || 0) / matchCount3,
         pickRate2: (heroStat['2_pick'] || 0) / matchCount2,
         pickRate1: (heroStat['1_pick'] || 0) / matchCount1,
+        winRate8: (heroStat['8_win'] || 0) / heroStat['8_pick'],
         winRate7: (heroStat['7_win'] || 0) / heroStat['7_pick'],
         winRate6: (heroStat['6_win'] || 0) / heroStat['6_pick'],
         winRate5: (heroStat['5_win'] || 0) / heroStat['5_pick'],
@@ -93,38 +127,14 @@ class RequestLayer extends React.Component {
       };
     });
     processedData.sort((a, b) => a.heroName && a.heroName.localeCompare(b.heroName));
-    const heroTabs = [{
-      name: strings.hero_pro_tab,
-      key: 'pro',
-      content: (data, _columns, loading) => (
-        <div>
-          <Heading
-            title={strings.hero_pro_heading}
-            subtitle={`${abbreviateNumber(matchCountPro)} ${strings.hero_this_month}`}
-            icon=""
-            twoLine
-          />
-          <Table data={data} columns={_columns} loading={loading} />
-        </div>),
-      route: '/heroes/pro',
-    }, {
-      name: strings.hero_public_tab,
-      key: 'public',
-      content: (data, _columns, loading) => (
-        <div>
-          <Heading
-            title={strings.hero_public_heading}
-            subtitle={`${abbreviateNumber(matchCountPublic)} ${strings.hero_this_month}`}
-            icon=""
-            twoLine
-          />
-          <Table data={data} columns={_columns} loading={loading} />
-        </div>),
-      route: '/heroes/public',
-    }];
 
-    const tab = heroTabs.find(_tab => _tab.key === route);
-    const { loading } = this.props;
+    const heroTabs = [
+      this.createTab('pro', matchCountPro),
+      this.createTab('public', matchCountPublic),
+    ];
+
+    const selectedTab = heroTabs.find(_tab => _tab.key === route);
+    const { loading, strings } = this.props;
 
     return (
       <div>
@@ -134,7 +144,7 @@ class RequestLayer extends React.Component {
             info={route}
             tabs={heroTabs}
           />
-          {tab && tab.content(processedData, columns(strings)[route], loading)}
+          {selectedTab && selectedTab.content(processedData, columns(strings)[route], loading)}
         </div>
       </div>);
   }
