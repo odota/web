@@ -116,7 +116,7 @@
     "simple-vdf": "^1.1.1",
     "testcafe": "^1.7.1",
     "testcafe-react-selectors": "^3.3.0",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.4"
   },
   "browserslist": [
     ">0.2%",
