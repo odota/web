@@ -129,18 +129,6 @@ class Scenarios extends React.Component {
     this.tableKey += 1;
   }
 
-  updateFormFieldStates(newFormFieldState) {
-    const { selectedTab, formFields } = this.state;
-    this.setState({
-      formFields: { ...formFields, [selectedTab]: { ...formFields[selectedTab], ...newFormFieldState } },
-    }, this.updateQueryParams);
-  }
-
-  updateQueryParams() {
-    const { formFields, selectedTab } = this.state;
-    this.props.history.push(`/scenarios/${selectedTab}?${querystring.stringify(formFields[selectedTab])}`);
-  }
-
   initialQuery() {
     const { scenariosState } = this.props;
     const { selectedTab } = this.state;
@@ -149,6 +137,18 @@ class Scenarios extends React.Component {
       this.getData();
     }
     this.updateQueryParams();
+  }
+
+  updateQueryParams() {
+    const { formFields, selectedTab } = this.state;
+    this.props.history.push(`/scenarios/${selectedTab}?${querystring.stringify(formFields[selectedTab])}`);
+  }
+
+  updateFormFieldStates(newFormFieldState) {
+    const { selectedTab, formFields } = this.state;
+    this.setState({
+      formFields: { ...formFields, [selectedTab]: { ...formFields[selectedTab], ...newFormFieldState } },
+    }, this.updateQueryParams);
   }
 
   render() {

@@ -310,8 +310,7 @@ class Table extends React.Component {
                 {summable && Table.renderSumRow({ columns, data })}
               </tbody>
             </table>
-          </div>
-          )}
+          </div>)}
         </StyledContainer>
         {paginated && (
         <Pagination
