@@ -108,7 +108,7 @@ PlayerStatsCards.propTypes = {
   strings: shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loading: state.app.player.loading,
   error: state.app.player.error,
   wins: state.app.playerWinLoss.data.win,

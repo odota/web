@@ -83,7 +83,7 @@ Card.propTypes = {
   strings: shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

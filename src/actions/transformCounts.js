@@ -24,7 +24,7 @@ export default function transformCounts(data) {
     result[key] = {
       name: key,
       list: Object.keys(data[key])
-        .map(innerKey => ({
+        .map((innerKey) => ({
           category: strings[`${key}_${innerKey}`] || (countTypes[key] && countTypes[key][innerKey]) || innerKey,
           matches: data[key][innerKey].games,
           winPercent: getPercentWin(data[key][innerKey].win, data[key][innerKey].games),

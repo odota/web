@@ -16,7 +16,7 @@ const mmrs = Array(20).fill().map((e, i) => i * 500).map(element => ({
 }));
 */
 
-  const rankTiers = Object.keys(strings).filter(str => str.indexOf('rank_tier_') === 0 && str !== 'rank_tier_0').map((str) => {
+  const rankTiers = Object.keys(strings).filter((str) => str.indexOf('rank_tier_') === 0 && str !== 'rank_tier_0').map((str) => {
     const num = str.substring('rank_tier_'.length);
     return {
       text: `[${num}] ${strings[str]}`,
@@ -25,32 +25,32 @@ const mmrs = Array(20).fill().map((e, i) => i * 500).map(element => ({
     };
   });
 
-  const durations = Array(10).fill().map((e, i) => i * 10).map(duration => ({
+  const durations = Array(10).fill().map((e, i) => i * 10).map((duration) => ({
     text: `${formatTemplateToString(strings.time_mm, duration)}`,
     searchText: formatTemplateToString(strings.time_mm, duration),
     value: duration * 60,
     key: String(duration),
   }));
 
-  const having = Array(5).fill().map((e, i) => (i + 1) * 5).map(element => ({
+  const having = Array(5).fill().map((e, i) => (i + 1) * 5).map((element) => ({
     text: String(element),
     value: element,
     key: String(element),
   }));
 
-  const limit = [100, 200, 500, 1000].map(element => ({
+  const limit = [100, 200, 500, 1000].map((element) => ({
     text: String(element),
     value: element,
     key: String(element),
   }));
 
-  const gameMode = Object.values(gameModeData).map(element => ({
+  const gameMode = Object.values(gameModeData).map((element) => ({
     text: strings[`game_mode_${element.id}`],
     value: element.id,
     key: String(element.id),
   }));
 
-  const lobbyType = Object.values(lobbyTypeData).map(element => ({
+  const lobbyType = Object.values(lobbyTypeData).map((element) => ({
     text: strings[`lobby_type_${element.id}`],
     value: element.id,
     key: String(element.id),
@@ -123,7 +123,7 @@ const mmrs = Array(20).fill().map((e, i) => i * 500).map(element => ({
     // maxMmr: mmrs,
     minRankTier: rankTiers,
     maxRankTier: rankTiers,
-    hero: Object.keys(heroData).map(heroId => ({
+    hero: Object.keys(heroData).map((heroId) => ({
       text: `[${heroId}] ${heroData[heroId].localized_name}`,
       searchText: heroData[heroId].localized_name,
       value: heroData[heroId].id,

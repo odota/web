@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default props => (
+export default (props) => (
   // Taked from http://game-icons.net/skoll/originals/fist.html
   // by Skoll under CC BY 3.0
   <svg viewBox="0 0 512 512" {...props}>

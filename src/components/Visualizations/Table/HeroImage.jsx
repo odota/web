@@ -10,7 +10,9 @@ import NotificationSync from 'material-ui/svg-icons/notification/sync';
 import styled from 'styled-components';
 import { subTextStyle, IMAGESIZE_ENUM } from '../../../utility';
 import { TableLink } from '../../Table';
-import { IconDice, IconCrystalBall, IconCheckCircle, IconContributor } from '../../Icons';
+import {
+  IconDice, IconCrystalBall, IconCheckCircle, IconContributor,
+} from '../../Icons';
 import constants from '../../constants';
 import AttrStrength from '../../Icons/AttrStrength';
 import AttrIntelligent from '../../Icons/AttrIntelligent';
@@ -496,33 +498,41 @@ class TableHeroImage extends React.Component {
     return (
       <Styled style={expand}>
         <HeroImageContainer>
-          {parsed !== undefined &&
+          {parsed !== undefined
+          && (
           <div
             className={parsed ? 'parsed' : 'unparsed'}
             data-hint={parsed && strings.tooltip_parsed}
           >
             <ActionDoneAll />
           </div>
+          )
           }
-          {party &&
+          {party
+          && (
           <div className="party">
             {party}
           </div>
+          )
           }
-          {(heroID || image) &&
+          {(heroID || image)
+          && (
           <div className="imageContainer">
-            {image ?
-              <img
-                src={image}
-                alt=""
-                className="image"
-                data-tip={hero.id === undefined && null}
-                data-for={heroName}
-                {...heroImageEventProps}
-              /> :
-              <HeroImage id={heroID} className="image" data-tip={hero.id === undefined && null} data-for={heroName !== undefined && heroName} heroImageEventProps={heroImageEventProps} />
+            {image
+              ? (
+                <img
+                  src={image}
+                  alt=""
+                  className="image"
+                  data-tip={hero.id === undefined && null}
+                  data-for={heroName}
+                  {...heroImageEventProps}
+                />
+              )
+              : <HeroImage id={heroID} className="image" data-tip={hero.id === undefined && null} data-for={heroName !== undefined && heroName} heroImageEventProps={heroImageEventProps} />
             }
-            {leaverStatus !== undefined && leaverStatus > 1 &&
+            {leaverStatus !== undefined && leaverStatus > 1
+            && (
             <span
               className="abandoned"
               data-hint={strings[`leaver_status_${leaverStatus}`]}
@@ -533,26 +543,34 @@ class TableHeroImage extends React.Component {
                 alt=""
               />
             </span>
+            )
             }
-            {playerSlot !== undefined &&
+            {playerSlot !== undefined
+              && (
               <div
                 className="playerSlot"
                 style={{ backgroundColor: playerColors[playerSlot] }}
               />
+              )
             }
           </div>
+          )
           }
-          {!hideText &&
+          {!hideText
+          && (
           <div className="textContainer">
             <span>
-              {registered && !contributor &&
+              {registered && !contributor
+                && (
                 <div
                   className="registered"
                   data-hint={strings.tooltip_registered_user}
                   data-hint-position="top"
                 />
+                )
               }
-              {contributor &&
+              {contributor
+                && (
                 <div
                   className="contributor"
                   data-hint={strings.app_contributor}
@@ -560,8 +578,10 @@ class TableHeroImage extends React.Component {
                 >
                   <IconContributor className="icon" dColor="#21be93" oColor="#212121" />
                 </div>
+                )
               }
-              {confirmed &&
+              {confirmed
+                && (
                 <div
                   className="badge"
                   data-hint={`${strings.app_confirmed_as} ${title}`}
@@ -569,18 +589,23 @@ class TableHeroImage extends React.Component {
                 >
                   <IconCheckCircle className="golden" />
                 </div>
+                )
               }
-              {accountId ?
-                <TableLink to={`/players/${accountId}`}>
-                  {title}
-                </TableLink>
+              {accountId
+                ? (
+                  <TableLink to={`/players/${accountId}`}>
+                    {title}
+                  </TableLink>
+                )
                 : title}
             </span>
-            {subtitle &&
+            {subtitle
+              && (
               <span style={subTextStyle} className="subTextContainer">
                 {subtitle}
                 <span>
-                  {randomed &&
+                  {randomed
+                    && (
                     <span
                       className="hoverIcon"
                       data-hint={strings.general_randomed}
@@ -588,8 +613,10 @@ class TableHeroImage extends React.Component {
                     >
                       <IconDice fill="currentcolor" />
                     </span>
+                    )
                   }
-                  {repicked &&
+                  {repicked
+                    && (
                     <span
                       className="hoverIcon"
                       data-hint={strings.general_repicked}
@@ -597,20 +624,26 @@ class TableHeroImage extends React.Component {
                     >
                       <NotificationSync />
                     </span>
+                    )
                   }
-                  {predictedVictory &&
+                  {predictedVictory
+                    && (
                     <Tooltip title={strings.general_predicted_victory}>
                       <span style={{ marginLeft: '4px' }}>
                         <IconCrystalBall fill="currentcolor" />
                       </span>
                     </Tooltip>
+                    )
                   }
                 </span>
               </span>
+              )
             }
           </div>
+          )
           }
-          { Boolean(showGuide) && guideType && guideUrl && heroName &&
+          { Boolean(showGuide) && guideType && guideUrl && heroName
+          && (
           <div className="guideContainer" data-tip data-for={heroName}>
             <a href={guideUrl}>
               { guideType === 'PVGNA' ? <img className="guideIcon" src="/assets/images/pvgna-guide-icon.png" alt={`Learn ${heroName} on Pvgna`} /> : <div /> }
@@ -621,8 +654,10 @@ class TableHeroImage extends React.Component {
               { guideType === 'MOREMMR' ? `Learn ${heroName} on MoreMMR` : '' }
             </ReactTooltip>
           </div>
+          )
           }
-          { tooltipVisible &&
+          { tooltipVisible
+          && (
           <div className="hero-tooltip">
             <ReactTooltip id={heroName} effect="solid" place="right">
               <HeroToolTip heroAttr={hero.primary_attr}>
@@ -633,24 +668,46 @@ class TableHeroImage extends React.Component {
                     {hero.primary_attr === 'agi' && <AttrAgility id="heroImg-attribute" />}
                     {hero.primary_attr === 'int' && <AttrIntelligent id="heroImg-attribute" />}
                     <div className="health-mana">
-                      <span id="health">{Math.floor(hero.base_health)}</span><span id="mana">{Math.floor(hero.base_mana)}</span>
+                      <span id="health">{Math.floor(hero.base_health)}</span>
+                      <span id="mana">{Math.floor(hero.base_mana)}</span>
                     </div>
                   </div>
                   <div className="header-stats">
                     <div id="hero-name">{hero.localized_name}</div>
-                    <div id="hero-roles">{hero.attack_type} - {hero.roles && hero.roles.join(', ')}</div>
+                    <div id="hero-roles">
+                      {hero.attack_type}
+                      {' '}
+-
+                      {' '}
+                      {hero.roles && hero.roles.join(', ')}
+                    </div>
                     <div className="attributes-container">
                       <div className="attributes">
                         <AttrStrength id="str" className="attribute-img" main={`${hero.primary_attr === 'str'}`} />
-                        <div className="attribute-text">{hero.base_str} +{hero.str_gain}</div>
+                        <div className="attribute-text">
+                          {hero.base_str}
+                          {' '}
++
+                          {hero.str_gain}
+                        </div>
                       </div>
                       <div className="attributes">
                         <AttrAgility id="agi" className="attribute-img" main={`${hero.primary_attr === 'agi'}`} />
-                        <div className="attribute-text">{hero.base_agi} +{hero.agi_gain}</div>
+                        <div className="attribute-text">
+                          {hero.base_agi}
+                          {' '}
++
+                          {hero.agi_gain}
+                        </div>
                       </div>
                       <div className="attributes">
                         <AttrIntelligent id="int" className="attribute-img" main={`${hero.primary_attr === 'int'}`} />
-                        <div className="attribute-text">{hero.base_int} +{hero.int_gain}</div>
+                        <div className="attribute-text">
+                          {hero.base_int}
+                          {' '}
++
+                          {hero.int_gain}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -681,6 +738,7 @@ class TableHeroImage extends React.Component {
               </HeroToolTip>
             </ReactTooltip>
           </div>
+          )
           }
         </HeroImageContainer>
       </Styled>
@@ -761,7 +819,7 @@ CompetitiveRank.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

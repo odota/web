@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import constants from '../../constants';
 import { IMAGESIZE_ENUM } from '../../../utility';
-import HeroImage from './../../Visualizations/HeroImage';
+import HeroImage from '../../Visualizations/HeroImage';
 
 const Styled = styled.div`
 color: ${constants.textColorSecondary};
@@ -73,12 +73,14 @@ img {
 const PicksBans = ({ data, strings, style }) => (
   <Styled style={style}>
     <div className="PicksBans">
-      {data.map(pb => (
+      {data.map((pb) => (
         <section key={pb.order}>
           <HeroImage id={pb.hero_id} imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix} data-isPick={pb.is_pick} />
           {!pb.is_pick && <div className="ban" />}
           <aside>
-            {pb.is_pick ? strings.match_pick : strings.match_ban} <b>{pb.order + 1}</b>
+            {pb.is_pick ? strings.match_pick : strings.match_ban}
+            {' '}
+            <b>{pb.order + 1}</b>
           </aside>
         </section>
       ))}
@@ -92,7 +94,7 @@ PicksBans.propTypes = {
   style: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

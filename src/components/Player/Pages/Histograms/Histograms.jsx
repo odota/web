@@ -27,7 +27,7 @@ const getSubtitleStats = (columns, strings) => {
 
 const getSubtitleDescription = (histogramName, strings) => (strings[`histograms_${histogramName}_description`] || '');
 
-const histogramNames = dataColumns.filter(col => col !== 'win_rate');
+const histogramNames = dataColumns.filter((col) => col !== 'win_rate');
 
 const Histogram = ({
   routeParams, columns, playerId, error, loading, histogramName, history, strings,

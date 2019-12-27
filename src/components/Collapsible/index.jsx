@@ -35,10 +35,9 @@ const CollapseButton = ({
   handleClick, collapsed, strings, buttonStyle, handleHoverOn, handleHoverOff,
 }) => (
   <ButtonContainer style={buttonStyle} onClick={handleClick} onMouseEnter={handleHoverOn} onMouseLeave={handleHoverOff}>
-    {collapsed ?
-    [<span>{strings.general_show}</span>, <IconPlusSquare />]
-    :
-    [<span>{strings.general_hide}</span>, <IconMinusSquare />]}
+    {collapsed
+      ? [<span>{strings.general_show}</span>, <IconPlusSquare />]
+      : [<span>{strings.general_hide}</span>, <IconMinusSquare />]}
   </ButtonContainer>
 );
 
@@ -104,7 +103,7 @@ class Collapsible extends React.Component {
           handleHoverOff={this.handleHoverOff}
         />
         <Transition in={!collapsed} timeout={{ enter: 0, exit: 300 }} mountOnEnter>
-          {status => (
+          {(status) => (
             <div style={{
               transition: 'max-height 300ms ease-in-out',
               overflow: 'hidden',
@@ -120,7 +119,7 @@ class Collapsible extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

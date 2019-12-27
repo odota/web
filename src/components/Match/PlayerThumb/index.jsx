@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { string, oneOfType, number, bool, shape } from 'prop-types';
+import {
+  string, oneOfType, number, bool, shape,
+} from 'prop-types';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import heroes from 'dotaconstants/build/heroes.json';
 import styled from 'styled-components';
@@ -50,7 +52,7 @@ PlayerThumb.propTypes = {
   strings: shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

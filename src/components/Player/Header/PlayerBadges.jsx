@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Error from '../../Error';
 import Spinner from '../../Spinner';
-import { IconCheese, IconSteam, IconContributor, IconEye, IconEyeInactive, IconCheckCircle } from '../../Icons';
+import {
+  IconCheese, IconSteam, IconContributor, IconEye, IconEyeInactive, IconCheckCircle,
+} from '../../Icons';
 import constants from '../../constants';
 
 const Styled = styled.div`
@@ -215,7 +217,7 @@ export const PlayerBadgesIcons = ({
   return getPlayerBadges();
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loading: state.app.player.loading,
   error: state.app.player.error,
   cheese: (state.app.player.data.profile || {}).cheese,

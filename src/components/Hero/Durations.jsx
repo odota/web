@@ -1,5 +1,7 @@
 import React from 'react';
-import { string, shape, func, bool, arrayOf, number } from 'prop-types';
+import {
+  string, shape, func, bool, arrayOf, number,
+} from 'prop-types';
 import { connect } from 'react-redux';
 import { getHeroDurations } from '../../actions';
 import { HistogramGraph } from '../Visualizations';
@@ -37,7 +39,7 @@ class Durations extends React.Component {
       return <DurationsSkeleton />;
     }
 
-    const result = data.map(item => ({
+    const result = data.map((item) => ({
       win: item.wins,
       games: item.games_played,
       x: (item.duration_bin / 60),

@@ -15,7 +15,7 @@ let expandedUnitNames = null;
 function generateExpandedUnitNames(strings) {
   const expanded = {};
   Object.keys(strings)
-    .filter(str => str.indexOf('npc_dota_') === 0)
+    .filter((str) => str.indexOf('npc_dota_') === 0)
     .forEach((key) => {
     // Currently, no unit goes up higher than 4
       for (let i = 1; i < 5; i += 1) {
@@ -25,7 +25,7 @@ function generateExpandedUnitNames(strings) {
   return expanded;
 }
 
-const getMaxKeyOfObject = field => Number(Object.keys(field || {}).sort((a, b) => Number(b) - Number(a))[0]) || 0;
+const getMaxKeyOfObject = (field) => Number(Object.keys(field || {}).sort((a, b) => Number(b) - Number(a))[0]) || 0;
 
 function generateTeamfights({ players, teamfights = [] }) {
   const computeTfData = (tf) => {
@@ -61,7 +61,7 @@ function generateTeamfights({ players, teamfights = [] }) {
         newtf.dire_deaths += tfplayer.deaths ? 1 : 0;
       }
       const playerDeathsPos = unpackPositionData(tfplayer.deaths_pos)
-        .map(deathPos => ({
+        .map((deathPos) => ({
           ...deathPos,
           isRadiant: isRadiant(player.player_slot),
           player,
@@ -75,15 +75,15 @@ function generateTeamfights({ players, teamfights = [] }) {
         level_end: getLevelFromXp(tfplayer.xp_end),
         deaths_pos: playerDeathsPos,
       };
-    }).filter(player => (player !== null));
+    }).filter((player) => (player !== null));
 
     // We have to do this after we process the stuff so that we will have the player in
     // the data instead of just the 'teamfight player' which doesn't have enough data.
     newtf.deaths_pos = newtf.deaths_pos
-      .map(death => ([{
+      .map((death) => ([{
         ...death,
         killer: newtf.players
-          .find(killer => heroes[death.player.hero_id] && killer.killed[heroes[death.player.hero_id].name]),
+          .find((killer) => heroes[death.player.hero_id] && killer.killed[heroes[death.player.hero_id].name]),
       }]))
       .reduce(
         (newDeathsPos, death) => {
@@ -120,17 +120,16 @@ function generateVisionLog(match) {
     };
 
     // let's zip the *_log and the *_left log in a 2-tuples
-    const extractVisionLog = (type, enteredLog, leftLog) =>
-      enteredLog.map((e) => {
-        const wards = [e, leftLog.find(l => l.ehandle === e.ehandle)];
-        return {
-          player: i,
-          key: wards[0].ehandle,
-          type,
-          entered: wards[0],
-          left: wards[1],
-        };
-      });
+    const extractVisionLog = (type, enteredLog, leftLog) => enteredLog.map((e) => {
+      const wards = [e, leftLog.find((l) => l.ehandle === e.ehandle)];
+      return {
+        player: i,
+        key: wards[0].ehandle,
+        type,
+        entered: wards[0],
+        left: wards[1],
+      };
+    });
     const observers = extractVisionLog('observer', safePlayer.obs_log, safePlayer.obs_left_log);
     const sentries = extractVisionLog('sentry', safePlayer.sen_log, safePlayer.sen_left_log);
     return observers.concat(sentries);
@@ -194,9 +193,9 @@ function transformMatch(m) {
         if (key.indexOf('healers') !== -1) {
           identifier = 'shrine';
         }
-        newPlayer.objective_damage[identifier] = newPlayer.objective_damage[identifier] ?
-          newPlayer.objective_damage[identifier] + player.damage[key] :
-          player.damage[key];
+        newPlayer.objective_damage[identifier] = newPlayer.objective_damage[identifier]
+          ? newPlayer.objective_damage[identifier] + player.damage[key]
+          : player.damage[key];
       });
     }
     if (player.killed) {

@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Combos from './../Combos/Combos';
+import Combos from '../Combos/Combos';
 import Api from '../Api';
 import constants from '../constants';
 import Distributions from '../Distributions';
@@ -38,11 +38,11 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  left: ${props => (props.open ? '256px' : '0px')};
-  margin-top: ${props => (props.location.pathname === '/' ? '-56px' : '0px')};
-  background-image: ${props => (props.location.pathname === '/' ? 'url("/assets/images/home-background.png")' : '')};
-  background-position: ${props => (props.location.pathname === '/' ? 'center top' : '')};
-  background-repeat: ${props => (props.location.pathname === '/' ? 'no-repeat' : '')};
+  left: ${(props) => (props.open ? '256px' : '0px')};
+  margin-top: ${(props) => (props.location.pathname === '/' ? '-56px' : '0px')};
+  background-image: ${(props) => (props.location.pathname === '/' ? 'url("/assets/images/home-background.png")' : '')};
+  background-position: ${(props) => (props.location.pathname === '/' ? 'center top' : '')};
+  background-repeat: ${(props) => (props.location.pathname === '/' ? 'no-repeat' : '')};
 
   #back2Top {
     position: fixed;
@@ -217,10 +217,12 @@ class App extends React.Component {
           />
           <Header location={location} navbarPages={navbarPages} drawerPages={drawerPages} />
           <AdBannerDiv>
-            { includeAds &&
+            { includeAds
+              && (
               <a href="http://www.vpgame.com/?lang=en_us">
                 <img src="/assets/images/vp-banner.jpg" alt="" />
               </a>
+              )
             }
           </AdBannerDiv>
           <StyledBodyDiv {...this.props}>
@@ -245,15 +247,19 @@ class App extends React.Component {
             </Switch>
           </StyledBodyDiv>
           <AdBannerDiv>
-            { includeAds &&
+            { includeAds
+              && (
               <div style={{ fontSize: '12px' }}>
                 <a href="https://www.rivalry.com/opendota">
                   <img src="/assets/images/rivalry-banner.gif" alt="" />
                 </a>
                 <div>
-                  {strings.home_sponsored_by} <a href="https://www.rivalry.com/opendota">Rivalry</a>
+                  {strings.home_sponsored_by}
+                  {' '}
+                  <a href="https://www.rivalry.com/opendota">Rivalry</a>
                 </div>
               </div>
+              )
             }
           </AdBannerDiv>
           <Footer location={location} width={width} />
@@ -267,7 +273,7 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

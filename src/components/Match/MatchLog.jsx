@@ -99,7 +99,7 @@ const generateLog = (match, { types, players }, strings) => {
 
   matchPlayers.forEach((player) => {
     if (types.includes(typeConfig.kills)) {
-      log = log.concat((player.kills_log || []).map(entry => ({
+      log = log.concat((player.kills_log || []).map((entry) => ({
         ...entry,
         ...player,
         type: 'kills',
@@ -108,7 +108,7 @@ const generateLog = (match, { types, players }, strings) => {
     }
 
     if (types.includes(typeConfig.runes)) {
-      log = log.concat((player.runes_log || []).map(entry => ({
+      log = log.concat((player.runes_log || []).map((entry) => ({
         ...entry,
         ...player,
         type: 'runes',
@@ -141,13 +141,12 @@ const logColumns = (strings) => {
       tooltip: strings.heading_is_radiant,
       field: 'isRadiant',
       sortFn: true,
-      displayFn: (row, col, field) =>
-        (
-          <span>
-            {isRadiant(field, row) && <IconRadiant height="30" />}
-            {isDire(field, row) && <IconDire height="30" />}
-          </span>
-        ),
+      displayFn: (row, col, field) => (
+        <span>
+          {isRadiant(field, row) && <IconRadiant height="30" />}
+          {isDire(field, row) && <IconDire height="30" />}
+        </span>
+      ),
     }, heroTdColumn,
     {
       displayName: strings.log_detail,
@@ -202,7 +201,12 @@ const logColumns = (strings) => {
                     style={{ height: '30px', float: 'left' }}
                   />
                 </Tooltip>
-                <p style={{ float: 'left' }}> {runeString} {strings.rune}</p>
+                <p style={{ float: 'left' }}>
+                  {' '}
+                  {runeString}
+                  {' '}
+                  {strings.rune}
+                </p>
               </span>
             );
           }
@@ -228,7 +232,9 @@ const logColumns = (strings) => {
                       style={logDetailIconStyleTower}
                     />
                     <p style={{ float: 'left' }}>
-                      {translateBuildings(true, row.key)} {row.isRadiant === true ? `(${strings.building_denied})` : ''}
+                      {translateBuildings(true, row.key)}
+                      {' '}
+                      {row.isRadiant === true ? `(${strings.building_denied})` : ''}
                     </p>
                   </span>
                 );
@@ -241,7 +247,9 @@ const logColumns = (strings) => {
                     style={logDetailIconStyleTower}
                   />
                   <p style={{ float: 'left' }}>
-                    {translateBuildings(false, row.key)} {row.isRadiant === false ? `(${strings.building_denied})` : ''}
+                    {translateBuildings(false, row.key)}
+                    {' '}
+                    {row.isRadiant === false ? `(${strings.building_denied})` : ''}
                   </p>
                 </span>
               );
@@ -338,7 +346,7 @@ class MatchLog extends React.Component {
   render() {
     const { strings } = this.props;
     const runeTooltips = Object.keys(strings)
-      .filter(str => str.indexOf('rune_') === 0)
+      .filter((str) => str.indexOf('rune_') === 0)
       .map((runeKey) => {
         const runeString = strings[runeKey];
         return (
@@ -352,7 +360,7 @@ class MatchLog extends React.Component {
     return (
       <div>
         {runeTooltips}
-        <StyledLogFilterForm >
+        <StyledLogFilterForm>
           <FormField
             name="types"
             label={strings.ward_log_type}
@@ -380,7 +388,7 @@ class MatchLog extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

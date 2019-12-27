@@ -6,7 +6,7 @@ import { styleValues } from '../../utility';
 
 function formatValues(values) {
   if (Array.isArray(values)) {
-    return values.filter(value => value).join(' / ');
+    return values.filter((value) => value).join(' / ');
   }
   return values;
 }
@@ -154,59 +154,97 @@ const AbilityTooltip = ({ ability, inflictor }) => (
     <Header>
       <HeaderBgImg img={ability.img} />
       <HeaderContent>
-        {inflictor && inflictor.startsWith('special_') ?
-          <img id="ability-img" src="/assets/images/dota2/talent_tree.svg" alt="" /> :
-          <img id="ability-img" src={`${process.env.REACT_APP_API_HOST}${ability.img}`} alt="" />
+        {inflictor && inflictor.startsWith('special_')
+          ? <img id="ability-img" src="/assets/images/dota2/talent_tree.svg" alt="" />
+          : <img id="ability-img" src={`${process.env.REACT_APP_API_HOST}${ability.img}`} alt="" />
             }
         <div className="name">{ability.dname}</div>
       </HeaderContent>
     </Header>
-    {(ability.behavior || ability.dmg_type || ability.bkbpierce) &&
+    {(ability.behavior || ability.dmg_type || ability.bkbpierce)
+    && (
     <div>
       <Behavior>
-        {ability.behavior ? <div><span>TARGET: </span><span>{formatValues(ability.behavior)}</span></div> : ''}
-        {ability.dmg_type ? <div><span>DAMAGE TYPE: </span><span type={ability.dmg_type}>{`${ability.dmg_type}`}</span></div> : ''}
-        {ability.bkbpierce ? <div><span>PIERCES SPELL IMMUNITY: </span><span type={ability.bkbpierce}>{`${ability.bkbpierce}`}</span></div> : ''}
+        {ability.behavior ? (
+          <div>
+            <span>TARGET: </span>
+            <span>{formatValues(ability.behavior)}</span>
+          </div>
+        ) : ''}
+        {ability.dmg_type ? (
+          <div>
+            <span>DAMAGE TYPE: </span>
+            <span type={ability.dmg_type}>{`${ability.dmg_type}`}</span>
+          </div>
+        ) : ''}
+        {ability.bkbpierce ? (
+          <div>
+            <span>PIERCES SPELL IMMUNITY: </span>
+            <span type={ability.bkbpierce}>{`${ability.bkbpierce}`}</span>
+          </div>
+        ) : ''}
       </Behavior>
       <Break />
     </div>
+    )
     }
-    {ability.desc &&
-    <Description innerRef={el => styleValues(el)}>
-        {ability.desc}
+    {ability.desc
+    && (
+    <Description innerRef={(el) => styleValues(el)}>
+      {ability.desc}
     </Description>
+    )
     }
-    {ability.attrib && ability.attrib.length > 0 &&
+    {ability.attrib && ability.attrib.length > 0
+    && (
     <div>
       <Break />
       <Attributes>
         <div>
-          {(ability.attrib || []).map(attrib => (
+          {(ability.attrib || []).map((attrib) => (
             <div className="attribute" key={attrib.key}>
-              <span id="header">{attrib.header} </span>
+              <span id="header">
+                {attrib.header}
+                {' '}
+              </span>
               <span id="value">{formatValues(attrib.value)}</span>
-              <span id="footer"> {attrib.footer || ''}</span>
+              <span id="footer">
+                {' '}
+                {attrib.footer || ''}
+              </span>
             </div>))}
-          {ability.dmg ? <div className="attribute">DAMAGE: <span id="value">{formatValues(ability.dmg)}</span></div> : ''}
+          {ability.dmg ? (
+            <div className="attribute">
+DAMAGE:
+              <span id="value">{formatValues(ability.dmg)}</span>
+            </div>
+          ) : ''}
         </div>
       </Attributes>
     </div>
+    )
     }
-    {(ability.mc || ability.cd) &&
+    {(ability.mc || ability.cd)
+    && (
     <Resources>
-        {ability.mc &&
+      {ability.mc
+        && (
         <span>
           <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/mana.png`} alt="" />
           <span className="values">{formatValues(ability.mc)}</span>
         </span>
+        )
         }
-        {ability.cd &&
+      {ability.cd
+        && (
         <span>
           <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
           <span className="values">{formatValues(ability.cd)}</span>
         </span>
+        )
         }
     </Resources>
+    )
 }
   </Wrapper>
 

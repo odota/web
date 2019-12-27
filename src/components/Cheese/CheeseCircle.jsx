@@ -66,7 +66,8 @@ const Cheese = ({ donations = {}, error, loading }) => {
     <div>
       {error && <Error />}
       {loading && <Spinner />}
-      {!error && !loading &&
+      {!error && !loading
+      && (
       <ProgressDiv data-hint={`${cheese} / ${goal}`}>
         <FrontProgress mode="determinate" value={Math.min(percent, 100)} size={90} />
         <BackProgress mode="determinate" value={100} size={90} />
@@ -77,6 +78,7 @@ const Cheese = ({ donations = {}, error, loading }) => {
           </PercentP>
         </CheeseDiv>
       </ProgressDiv>
+      )
       }
     </div>
   );

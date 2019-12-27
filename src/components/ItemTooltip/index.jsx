@@ -190,66 +190,80 @@ const ItemTooltip = ({ item, inflictor }) => (
         <img id="item-img" src={`${process.env.REACT_APP_API_HOST}${item.img}`} alt="" />
         <HeaderText>
           <div>{item.dname}</div>
-          <div id="gold">{<img src="https://api.opendota.com/apps/dota2/images/tooltips/gold.png" alt="" />}{item.cost}</div>
+          <div id="gold">
+            {<img src="https://api.opendota.com/apps/dota2/images/tooltips/gold.png" alt="" />}
+            {item.cost}
+          </div>
         </HeaderText>
       </div>
     </Header>
-    {(item.attrib && item.attrib.length > 0) &&
+    {(item.attrib && item.attrib.length > 0)
+    && (
     <Attributes>
-      {(item.attrib).map(attrib =>
-      (
+      {(item.attrib).map((attrib) => (
         <Attribute key={attrib.key}>
-          <span id="header">{attrib.header} </span>
+          <span id="header">
+            {attrib.header}
+            {' '}
+          </span>
           <span id="value">{`${attrib.value}`}</span>
-          <span id="footer"> {attrib.footer || ''}</span>
+          <span id="footer">
+            {' '}
+            {attrib.footer || ''}
+          </span>
         </Attribute>
       ))}
     </Attributes>
+    )
     }
     {['active', 'toggle', 'use', 'passive'].map((type) => {
       if (item[type]) {
-        return item[type].map(ability =>
-          (
-            <Ability>
-              <div className="ability-header">
-                {`${itemAbilities[type].text}: ${ability.name}`}
-                <div className="resources">
-                  {type === 'active' && item.mc &&
+        return item[type].map((ability) => (
+          <Ability>
+            <div className="ability-header">
+              {`${itemAbilities[type].text}: ${ability.name}`}
+              <div className="resources">
+                {type === 'active' && item.mc
+                  && (
                   <span>
                     <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/mana.png`} alt="" />
                     <span className="values">{item.mc}</span>
                   </span>
+                  )
                 }
-                  {type === 'active' && item.cd &&
+                {type === 'active' && item.cd
+                  && (
                   <span>
                     <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
                     <span className="values">{item.cd}</span>
                   </span>
+                  )
                 }
-                </div>
               </div>
-              <div className="ability-text" ref={el => styleValues(el)}>
-                {ability.desc}
-              </div>
-            </Ability>
-          ));
+            </div>
+            <div className="ability-text" ref={(el) => styleValues(el)}>
+              {ability.desc}
+            </div>
+          </Ability>
+        ));
       }
       return null;
     })}
     {item.hint && <Hint>{item.hint}</Hint>}
     {item.lore && <Lore>{item.lore}</Lore>}
-    {item.components &&
+    {item.components
+    && (
     <Components>
       <div id="header">Components:</div>
-      {item.components.concat((items[`recipe_${inflictor}`] && [`recipe_${inflictor}`]) || []).filter(Boolean).map(component =>
-        (
-          <div className="component">
-            <img src={`${process.env.REACT_APP_API_HOST}${items[component].img}`} alt="" />
-            <div id="cost">{items[component].cost}</div>
-          </div>
-        ))
+      {item.components.concat((items[`recipe_${inflictor}`] && [`recipe_${inflictor}`]) || []).filter(Boolean).map((component) => (
+        <div className="component">
+          <img src={`${process.env.REACT_APP_API_HOST}${items[component].img}`} alt="" />
+          <div id="cost">{items[component].cost}</div>
+        </div>
+      ))
       }
     </Components>
+    )
     }
   </Wrapper>
 );

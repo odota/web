@@ -252,10 +252,9 @@ const MatchHeader = ({ match, strings }) => {
   if (!match) {
     return null;
   }
-  const mapPlayers = (key, radiant) => player =>
-    (radiant === undefined || radiant === isRadiant(player.player_slot)
-      ? Number(player[key])
-      : null);
+  const mapPlayers = (key, radiant) => (player) => (radiant === undefined || radiant === isRadiant(player.player_slot)
+    ? Number(player[key])
+    : null);
 
   const victorySection = match.radiant_win ? (
     <span>
@@ -282,8 +281,8 @@ const MatchHeader = ({ match, strings }) => {
         </div>
         <div className="mainInfo">
           <div className="killsRadiant">
-            {match.radiant_score ||
-              match.players.map(mapPlayers('kills', true)).reduce(sum, 0)}
+            {match.radiant_score
+              || match.players.map(mapPlayers('kills', true)).reduce(sum, 0)}
           </div>
           <div className="gmde">
             <span className="gameMode">
@@ -293,7 +292,8 @@ const MatchHeader = ({ match, strings }) => {
               {transformations.duration(null, null, match.duration)}
             </span>
             <span className="ended">
-              {strings.match_ended}{' '}
+              {strings.match_ended}
+              {' '}
               {transformations.start_time(
                 null,
                 null,
@@ -302,8 +302,8 @@ const MatchHeader = ({ match, strings }) => {
             </span>
           </div>
           <div className="killsDire">
-            {match.dire_score ||
-              match.players.map(mapPlayers('kills', false)).reduce(sum, 0)}
+            {match.dire_score
+              || match.players.map(mapPlayers('kills', false)).reduce(sum, 0)}
           </div>
         </div>
         <div className="additionalInfo">
@@ -373,7 +373,7 @@ MatchHeader.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

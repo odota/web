@@ -19,15 +19,16 @@ import { getHeroIconUrlFromHeroKey } from '../../../utility';
 import Heading from '../../Heading';
 import { StyledCustomizedTooltip, StyledHolder } from '../../Visualizations/Graph/Styled';
 
-const formatGraphTime = minutes => `${minutes}:00`;
+const formatGraphTime = (minutes) => `${minutes}:00`;
 
 const CustomizedTooltip = ({ label, payload }) => (
   <StyledCustomizedTooltip>
     <div className="label">{label}</div>
-    {payload.map((data, i) =>
-    (
+    {payload.map((data, i) => (
       <div key={i} value={data.value} className={`data ${i < 5 && 'isRadiant'}`} style={{ borderLeft: `8px solid ${data.color}` }}>
-        {data.dataKey}: {data.value}
+        {data.dataKey}
+:
+        {data.value}
       </div>)).sort((a, b) => b.props.value - a.props.value)
     }
   </StyledCustomizedTooltip>
@@ -124,15 +125,17 @@ class Graph extends React.Component {
                 const isSelected = selectedPlayer === player.player_slot;
                 const opacity = (isSelected) ? 1 : 0.25;
                 const stroke = (isSelected) ? 4 : 2;
-                return (<Line
-                  dot={isSelected ? <CustomizedDot killsLog={player.kills_log} /> : false}
-                  dataKey={hero.localized_name}
-                  key={hero.localized_name}
-                  stroke={playerColor}
-                  strokeWidth={stroke}
-                  strokeOpacity={opacity}
-                  name={hero.localized_name}
-                />);
+                return (
+                  <Line
+                    dot={isSelected ? <CustomizedDot killsLog={player.kills_log} /> : false}
+                    dataKey={hero.localized_name}
+                    key={hero.localized_name}
+                    stroke={playerColor}
+                    strokeWidth={stroke}
+                    strokeOpacity={opacity}
+                    name={hero.localized_name}
+                  />
+                );
               })}
               <Legend />
               <Brush endIndex={12} height={20} />
@@ -147,7 +150,7 @@ class Graph extends React.Component {
 }
 
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

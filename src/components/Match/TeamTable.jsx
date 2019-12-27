@@ -28,16 +28,16 @@ const StyledDiv = styled.div`
 }
 `;
 
-const isBestValueInMatch = players => (field, row, underline) => {
-  const values = players.map(player => player[field]);
+const isBestValueInMatch = (players) => (field, row, underline) => {
+  const values = players.map((player) => player[field]);
   const bestValue = underline === 'max' ? Math.max(...values) : Math.min(...values);
 
   return bestValue === row[field];
 };
 
-const keyFn = row => row && row.player_slot + 1;
+const keyFn = (row) => row && row.player_slot + 1;
 
-const getHighlightFn = loggedInId => (row) => {
+const getHighlightFn = (loggedInId) => (row) => {
   const s = { style: {} };
   if (loggedInId && row.account_id === loggedInId) {
     if (row.player_slot < 5) {
@@ -49,9 +49,7 @@ const getHighlightFn = loggedInId => (row) => {
   return s;
 };
 
-const filterMatchPlayers = (players, team = '') =>
-  players.filter(player =>
-    ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === '')).sort((a, b) => a.player_slot - b.player_slot);
+const filterMatchPlayers = (players, team = '') => players.filter((player) => ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === '')).sort((a, b) => a.player_slot - b.player_slot);
 
 class TeamTable extends React.Component {
   static propTypes = {
@@ -72,6 +70,7 @@ class TeamTable extends React.Component {
     overflowAuto: PropTypes.bool,
     hideWinnerTag: PropTypes.bool,
   };
+
   constructor() {
     super();
     this.teamTableRef = null;
@@ -143,7 +142,7 @@ class TeamTable extends React.Component {
     };
 
     return (
-      <StyledDiv ref={this.setTeamTableRef} >
+      <StyledDiv ref={this.setTeamTableRef}>
         <Heading
           title={`${getTeamName(radiantTeam, true)} - ${heading}`}
           buttonLabel={buttonLabel || ''}
@@ -154,7 +153,7 @@ class TeamTable extends React.Component {
         <div className="teamtable teamtable-radiant">
           <Table data={filterMatchPlayers(players, 'radiant')} {...tableProps} />
         </div>
-        {picksBans && picksBans.length > 0 && <PicksBans data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */}
+        {picksBans && picksBans.length > 0 && <PicksBans data={picksBans.filter((pb) => pb.team === 0)} /> /* team 0 - radiant */}
         <Heading
           title={`${getTeamName(direTeam, false)} - ${heading}`}
           winner={!hideWinnerTag && !radiantWin}
@@ -162,14 +161,14 @@ class TeamTable extends React.Component {
         <div className="teamtable teamtable-dire">
           <Table data={filterMatchPlayers(players, 'dire')} {...tableProps} />
         </div>
-        {picksBans && picksBans.length > 0 && <PicksBans data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
+        {picksBans && picksBans.length > 0 && <PicksBans data={picksBans.filter((pb) => pb.team === 1)} /> /* team 1 - dire */}
       </StyledDiv>
     );
   }
 }
 
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loggedInId: state.app.metadata.data.user ? state.app.metadata.data.user.account_id : null,
 });
 

@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import constants from '../components/constants';
 
 const StyledPanel = styled.div`
-  background-color: ${props => props.color};
-  color: ${props => props.textColor};
+  background-color: ${(props) => props.color};
+  color: ${(props) => props.textColor};
   min-height: 64px;
   width: 192px;
   display: flex;

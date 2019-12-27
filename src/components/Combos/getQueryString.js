@@ -1,11 +1,11 @@
 const getQueryString = (teamA, teamB) => {
   const selectTeamA = [4, 3, 2, 1, 0]
-    .map(i => `
+    .map((i) => `
       pma${i}.hero_id
     `).join();
 
   const joinTeamA = [0, 1, 2, 3, 4]
-    .map(i => `
+    .map((i) => `
       JOIN player_matches pmA${i} 
       ON pmA${i}.match_id = matches.match_id 
       
@@ -15,17 +15,17 @@ const getQueryString = (teamA, teamB) => {
     `).join(' ');
 
   const joinTeamAConditions = [1, 2, 3, 4]
-    .map(i => `
+    .map((i) => `
       AND ( ( pmA0.player_slot < 5 ) = ( pmA${i}.player_Slot < 5 ) )
     `).join(' ');
 
   const selectTeamB = [0, 1, 2, 3, 4]
-    .map(i => `
+    .map((i) => `
       pmB${i}.hero_id
     `).join();
 
   const joinTeamB = [0, 1, 2, 3, 4]
-    .map(i => `
+    .map((i) => `
       JOIN player_matches pmB${i} 
       ON pmB${i}.match_id = matches.match_id 
 
@@ -35,7 +35,7 @@ const getQueryString = (teamA, teamB) => {
     `).join(' ');
 
   const joinTeamBConditions = [0, 1, 2, 3, 4]
-    .map(i => `
+    .map((i) => `
       AND ( ( pmA0.player_slot < 5 ) = ( pmB${i}.player_Slot > 5 ) ) 
     `).join(' ');
 

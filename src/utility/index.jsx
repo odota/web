@@ -51,7 +51,7 @@ export const subTextStyle = {
 };
 
 // TODO - add in the relevant text invocations of TableHeroImage
-export const isRadiant = playerSlot => playerSlot < 128;
+export const isRadiant = (playerSlot) => playerSlot < 128;
 
 export function pad(n, width, z = '0') {
   const str = `${n}`;
@@ -83,8 +83,7 @@ export function getLevelFromXp(xp) {
   return xpLevel.length;
 }
 
-export const calculateDistance = (x1, y1, x2, y2) =>
-  (((x2 - x1) ** 2) + ((y2 - y1) ** 2)) ** 0.5;
+export const calculateDistance = (x1, y1, x2, y2) => (((x2 - x1) ** 2) + ((y2 - y1) ** 2)) ** 0.5;
 
 export const calculateRelativeXY = ({ clientX, clientY, currentTarget }) => {
   // const bounds = target.getBoundingClientRect();
@@ -108,8 +107,7 @@ export const calculateRelativeXY = ({ clientX, clientY, currentTarget }) => {
 
 export const getPercentWin = (wins, games) => (games ? Number(((wins * 100) / games).toFixed(2)) : 0);
 
-export const camelToSnake = str =>
-  str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
+export const camelToSnake = (str) => str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
 
 export const getOrdinal = (n) => {
   // TODO localize
@@ -118,10 +116,7 @@ export const getOrdinal = (n) => {
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
 
-export const jsonFn = json =>
-  arrayFn =>
-    fn =>
-      json[Object.keys(json)[arrayFn]((key, index) => fn(json[key], index))];
+export const jsonFn = (json) => (arrayFn) => (fn) => json[Object.keys(json)[arrayFn]((key, index) => fn(json[key], index))];
 
 export const percentile = (pct) => {
   if (pct >= 0.8) {
@@ -129,17 +124,17 @@ export const percentile = (pct) => {
       color: 'green',
       grade: 'A',
     };
-  } else if (pct >= 0.6) {
+  } if (pct >= 0.6) {
     return {
       color: 'blue',
       grade: 'B',
     };
-  } else if (pct >= 0.4) {
+  } if (pct >= 0.4) {
     return {
       color: 'golden',
       grade: 'C',
     };
-  } else if (pct >= 0.2) {
+  } if (pct >= 0.2) {
     return {
       color: 'yelor',
       grade: 'D',
@@ -196,7 +191,7 @@ export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
 };
 
 export const getHeroIconUrlFromHeroKey = (heroKey) => {
-  const heroId = Object.keys(heroes).find(k => heroes[k].name === heroKey);
+  const heroId = Object.keys(heroes).find((k) => heroes[k].name === heroKey);
   if (heroId && heroId[0] && heroes[heroId[0]]) {
     return `${process.env.REACT_APP_API_HOST}${heroes[heroId].icon}`;
   }
@@ -223,7 +218,7 @@ export const formatTemplate = (template, dict, ...rest) => {
   // If the 2nd argument isn't a dictionary, then we will gather arguments 1 => end into an object.
   // I'm arbitrarily making argument 0 the template.
   if ((dict instanceof Object) === false) {
-    tmplValues = Object.assign({}, [dict].concat(rest));
+    tmplValues = { ...[dict].concat(rest) };
   }
 
   const pattern = /(\{[^}]+\})/g;
@@ -233,28 +228,27 @@ export const formatTemplate = (template, dict, ...rest) => {
       result[i] = tmplValues[result[i].slice(1, -1)];
     }
   }
-  result = result.filter(part => part !== '');
+  result = result.filter((part) => part !== '');
   return result;
 };
 
 export const formatTemplateToString = (template, dict, ...rest) => formatTemplate(template, dict, ...rest).join('');
 
-export const defaultSort = (array, sortState, sortField, sortFn) =>
-  array.sort((a, b) => {
-    const sortFnExists = typeof sortFn === 'function';
-    const aVal = (sortFnExists ? sortFn(a) : a[sortField]) || 0;
-    const bVal = (sortFnExists ? sortFn(b) : b[sortField]) || 0;
-    const desc = aVal < bVal ? 1 : -1;
-    const asc = aVal < bVal ? -1 : 1;
-    return sortState === 'desc' ? desc : asc;
-  });
+export const defaultSort = (array, sortState, sortField, sortFn) => array.sort((a, b) => {
+  const sortFnExists = typeof sortFn === 'function';
+  const aVal = (sortFnExists ? sortFn(a) : a[sortField]) || 0;
+  const bVal = (sortFnExists ? sortFn(b) : b[sortField]) || 0;
+  const desc = aVal < bVal ? 1 : -1;
+  const asc = aVal < bVal ? -1 : 1;
+  return sortState === 'desc' ? desc : asc;
+});
 
 export const SORT_ENUM = {
   0: 'desc',
   1: 'asc',
   asc: 1,
   desc: 0,
-  next: state => SORT_ENUM[(state >= 1 ? 0 : state + 1)],
+  next: (state) => SORT_ENUM[(state >= 1 ? 0 : state + 1)],
 };
 
 export function getObsWardsPlaced(pm) {
@@ -262,7 +256,7 @@ export function getObsWardsPlaced(pm) {
     return 0;
   }
 
-  return pm.obs_log.filter(l => !l.entityleft).length;
+  return pm.obs_log.filter((l) => !l.entityleft).length;
 }
 
 export function isSupport(pm) {
@@ -292,7 +286,7 @@ export function isActiveItem(key) {
 
 export const sum = (a, b) => a + b;
 
-export const extractTransitionClasses = _styles => name => ({
+export const extractTransitionClasses = (_styles) => (name) => ({
   enter: _styles[`${name}-enter`],
   enterActive: _styles[`${name}-enter-active`],
   leave: _styles[`${name}-leave`],
@@ -410,16 +404,15 @@ export const wilsonScore = (up, down) => {
   );
 };
 
-export const groupBy = (xs, key) =>
-  xs.reduce((rv, x) => {
-    (rv[x[key]] = rv[x[key]] || []).push(x); // eslint-disable-line no-param-reassign
-    return rv;
-  }, {});
+export const groupBy = (xs, key) => xs.reduce((rv, x) => {
+  (rv[x[key]] = rv[x[key]] || []).push(x); // eslint-disable-line no-param-reassign
+  return rv;
+}, {});
 
 export function groupByArray(xs, key) {
   return xs.reduce((rv, x) => {
     const v = key instanceof Function ? key(x) : x[key];
-    const el = rv.find(r => r && r.key === v);
+    const el = rv.find((r) => r && r.key === v);
     if (el) {
       el.values.push(x);
     } else {
@@ -432,7 +425,7 @@ export function groupByArray(xs, key) {
   }, []);
 }
 
-export const sumValues = f => Object.values(f).reduce((a, b) => a + b);
+export const sumValues = (f) => Object.values(f).reduce((a, b) => a + b);
 
 /* eslint-disable camelcase */
 // https://dota2.gamepedia.com/Attributes
@@ -479,7 +472,7 @@ export function compileLevelOneStats(hero) {
     },
   };
 
-  const round = value => Math.round(value * 100) / 100;
+  const round = (value) => Math.round(value * 100) / 100;
 
   const {
     primary_attr,
@@ -528,13 +521,13 @@ export function abbreviateNumber(num) {
   const { strings } = store.getState().app;
   if (!num) {
     return '-';
-  } else if (num >= 1000 && num < 1000000) {
+  } if (num >= 1000 && num < 1000000) {
     return `${Number((num / 1000).toFixed(1))}k`;
-  } else if (num >= 1000000 && num < 1000000000) {
+  } if (num >= 1000000 && num < 1000000000) {
     return `${Number((num / 1000000).toFixed(1))}${strings.abbr_million}`;
-  } else if (num >= 1000000000 && num < 1000000000000) {
+  } if (num >= 1000000000 && num < 1000000000000) {
     return `${Number((num / 1000000000).toFixed(1))}${strings.abbr_billion}`;
-  } else if (num >= 1000000000000) {
+  } if (num >= 1000000000000) {
     return `${Number((num / 1000000000000).toFixed(1))}${strings.abbr_trillion}`;
   }
 
@@ -631,19 +624,21 @@ export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffi
       return (
         <div>
           {row && <span style={{ float: 'left' }}><FromNowTooltip timestamp={row.start_time + row.duration} /></span>}
-          {lane ?
-            <span data-hint={tooltip} data-hint-position="top" style={{ float: 'right' }}>
-              <img
-                src={`/assets/images/dota2/lane_${lane}.svg`}
-                alt=""
-                style={roleIconStyle}
-              />
-            </span>
+          {lane
+            ? (
+              <span data-hint={tooltip} data-hint-position="top" style={{ float: 'right' }}>
+                <img
+                  src={`/assets/images/dota2/lane_${lane}.svg`}
+                  alt=""
+                  style={roleIconStyle}
+                />
+              </span>
+            )
             : ''}
         </div>);
-    } else if (row.last_played) {
+    } if (row.last_played) {
       return <FromNowTooltip timestamp={row.last_played} />;
-    } else if (row.start_time) {
+    } if (row.start_time) {
       return <FromNowTooltip timestamp={row.start_time} />;
     }
 
@@ -724,7 +719,7 @@ export const transformations = {
     const partySize = (_partySize) => {
       if (_partySize === 1) {
         return <SocialPerson color="rgb(179, 179, 179)" style={{ ...iconStyle, float: 'right' }} />;
-      } else if (_partySize === null || _partySize === undefined) {
+      } if (_partySize === null || _partySize === undefined) {
         return null;
       }
       return (
@@ -820,12 +815,13 @@ export const transformations = {
   winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
   kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
   rank: (row, col, field) => getOrdinal(field),
-  rank_percentile: row => (
+  rank_percentile: (row) => (
     <span style={{ color: constants[percentile(row.rank / row.card).color] }}>
-      {getPercentWin(row.rank, row.card).toFixed(2)}%
+      {getPercentWin(row.rank, row.card).toFixed(2)}
+%
     </span>
   ),
-  player: row => (
+  player: (row) => (
     <TableHeroImage
       image={row.avatar || row.avatarfull}
       title={row.name || row.personaname}

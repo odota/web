@@ -42,61 +42,62 @@ class Status extends React.Component {
   componentDidMount() {
     fetch(`${process.env.REACT_APP_API_HOST}/api/status`)
       .then(jsonResponse)
-      .then(json => this.setState({ result: json }));
+      .then((json) => this.setState({ result: json }));
   }
+
   render() {
     const { strings } = this.props;
     return (
       <div style={{
- display: 'flex', flexDirection: 'row', flexWrap: 'wrap', fontSize: '10px',
-}}
+        display: 'flex', flexDirection: 'row', flexWrap: 'wrap', fontSize: '10px',
+      }}
       >
         <Helmet title={strings.title_status} />
         <Table
           style={tableStyle}
           data={Object.keys(this.state.result)
-          .filter(key => typeof (this.state.result[key]) !== 'object')
-          .map(key => ({ key, value: this.state.result[key] }))}
+            .filter((key) => typeof (this.state.result[key]) !== 'object')
+            .map((key) => ({ key, value: this.state.result[key] }))}
           columns={columns}
         />
         <Table
           style={tableStyle}
           data={Object.keys(this.state.result.health || {})
-          .map(key => ({
-            key,
-            value: `${abbreviateNumber(this.state.result.health[key].metric)}/${abbreviateNumber(this.state.result.health[key].threshold)}`,
-          }))}
+            .map((key) => ({
+              key,
+              value: `${abbreviateNumber(this.state.result.health[key].metric)}/${abbreviateNumber(this.state.result.health[key].threshold)}`,
+            }))}
           columns={columns}
         />
         <Table
           style={tableStyle}
           data={(this.state.result.last_added || [])
-          .map(match => ({ key: match.match_id, value: fromNow(match.start_time + match.duration) }))}
+            .map((match) => ({ key: match.match_id, value: fromNow(match.start_time + match.duration) }))}
           columns={columns}
         />
         <Table
           style={tableStyle}
           data={(this.state.result.last_parsed || [])
-          .map(match => ({ key: match.match_id, value: fromNow(match.start_time + match.duration) }))}
+            .map((match) => ({ key: match.match_id, value: fromNow(match.start_time + match.duration) }))}
           columns={columns}
         />
         <Table
           style={tableStyle}
           data={Object.keys(this.state.result.load_times || {})
-          .map(key => ({ key, value: this.state.result.load_times[key] }))}
+            .map((key) => ({ key, value: this.state.result.load_times[key] }))}
           columns={columns}
         />
         <Table
           style={tableStyle}
           data={reverse((this.state.result.api_paths || [])
-          .map(row => ({ key: row.hostname, value: row.count })))
+            .map((row) => ({ key: row.hostname, value: row.count })))
           }
           columns={columns}
         />
         <Table
           style={tableStyle}
           data={reverse((this.state.result.retriever || [])
-          .map(row => ({ key: row.hostname, value: row.count })))
+            .map((row) => ({ key: row.hostname, value: row.count })))
           }
           columns={columns}
         />
@@ -104,7 +105,7 @@ class Status extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

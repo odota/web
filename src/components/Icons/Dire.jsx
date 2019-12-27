@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import constants from '../constants';
 
-const icon = props => (
+const icon = (props) => (
   <svg {...props} viewBox="0 0 300 300">
     <path
       d="M150,106.4c0,0,6.6,0,8,0.5c1.4,0.5,2.3,4.2,5.2,5.2c2.3,0.9,35.6,1.4,35.2,3.7c0,2.3-2.3,2.8-2.8,3.8

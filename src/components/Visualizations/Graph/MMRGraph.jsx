@@ -18,7 +18,7 @@ const StyledGraphArea = styled.div`
 user-select: none;
 `;
 
-const filterZeroValues = column => ({
+const filterZeroValues = (column) => ({
   ...column,
   solo_competitive_rank: column.solo_competitive_rank || null,
   competitive_rank: column.competitive_rank || null,
@@ -39,8 +39,8 @@ const MMRGraph = ({ columns, strings }) => (
       <LineChart
         data={columns.map(filterZeroValues)}
         margin={{
-        top: 5, right: 30, left: 30, bottom: 5,
-      }}
+          top: 5, right: 30, left: 30, bottom: 5,
+        }}
       >
         <XAxis dataKey="time" interval={49} tickFormatter={formatXTick}>
           <Label value={strings.th_time} position="insideTopRight" />
@@ -82,7 +82,7 @@ MMRGraph.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

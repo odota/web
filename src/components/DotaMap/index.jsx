@@ -28,7 +28,7 @@ patch.forEach((patchElement) => {
 const getPatchMap = (startTime) => {
   if (!startTime) return dotaMaps[0];
 
-  const patchMap = dotaMaps.find(dotaMap => startTime >= patchDate[dotaMap.patch]);
+  const patchMap = dotaMaps.find((dotaMap) => startTime >= patchDate[dotaMap.patch]);
 
   return patchMap || dotaMaps[0];
 };

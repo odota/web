@@ -345,7 +345,7 @@ PlayerHeader.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loading: state.app.player.loading,
   error: state.app.player.error,
   playerName: (state.app.player.data.profile || {}).personaname,

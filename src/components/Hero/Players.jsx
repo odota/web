@@ -1,5 +1,7 @@
 import React from 'react';
-import { bool, func, arrayOf, shape, number, string } from 'prop-types';
+import {
+  bool, func, arrayOf, shape, number, string,
+} from 'prop-types';
 import { connect } from 'react-redux';
 import { getHeroPlayers } from '../../actions';
 import Table, { TableLink } from '../Table';
@@ -91,7 +93,7 @@ class Players extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isLoading: state.app.heroPlayers.loading,
   data: Object.values(state.app.heroPlayers.data),
   proPlayers: proPlayersSelector(state),

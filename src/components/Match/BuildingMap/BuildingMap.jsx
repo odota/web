@@ -270,37 +270,35 @@ const BuildingMap = ({ match, strings }) => {
     // determine ancient display by match winner
     for (let i = 0; i < bits.length; i += 1) {
       let type = buildingData[i].id.slice(0, 1);
-      type =
-        (type === 't' && 'tower') ||
-        (type === 'b' && (buildingData[i].id.slice(1, 2) === 'm' ? 'melee_rax' : 'range_rax')) ||
-        (type === 'a' && 'fort');
+      type = (type === 't' && 'tower')
+        || (type === 'b' && (buildingData[i].id.slice(1, 2) === 'm' ? 'melee_rax' : 'range_rax'))
+        || (type === 'a' && 'fort');
       const side = buildingData[i].id.slice(-1) === 'r' ? 'good' : 'bad';
       const tier = Number(buildingData[i].id.slice(1, 2)) || '';
       let lane = buildingData[i].id.slice(2, 3);
       lane = (tier !== 4 && (
-        (lane === 't' && 'top') ||
-        (lane === 'm' && 'mid') ||
-        (lane === 'b' && 'bot') || '')) || '';
+        (lane === 't' && 'top')
+        || (lane === 'm' && 'mid')
+        || (lane === 'b' && 'bot') || '')) || '';
 
       const key = `npc_dota_${side}guys_${type}${tier}${lane && `_${lane}`}`;
-      const title =
-        strings[`${type.includes('rax') ? 'building_' : 'objective_'}${type}${tier}${type.includes('rax') ? '' : lane && `_${lane}`}`];
+      const title = strings[`${type.includes('rax') ? 'building_' : 'objective_'}${type}${tier}${type.includes('rax') ? '' : lane && `_${lane}`}`];
 
       const destroyedBy = match.players
-        .filter(player => player.killed && player.killed[key] > 0)
-        .map(player => ({
+        .filter((player) => player.killed && player.killed[key] > 0)
+        .map((player) => ({
           player_slot: player.player_slot,
         }))[0];
       const damage = match.players
-        .filter(player => player.damage && player.damage[key] > 0)
-        .map(player => ({
+        .filter((player) => player.damage && player.damage[key] > 0)
+        .map((player) => ({
           name: player.name || player.personaname || strings.general_anonymous,
           player_slot: player.player_slot,
           hero_id: player.hero_id,
           damage: player.damage[key],
         }));
       let damageByCreeps = damage
-        .map(player => player.damage)
+        .map((player) => player.damage)
         .reduce(sum, 0);
       damageByCreeps = buildingsHealth[type === 'tower' ? `tower${tier}` : type] - damageByCreeps;
 
@@ -318,9 +316,9 @@ const BuildingMap = ({ match, strings }) => {
             // TODO scale based on client width
             // d.style += 'zoom: ' + document.getElementById(map').clientWidth / 600 + ';';
             height:
-              (type === 'fort' && 25) ||
-              (type === 'tower' && 16) ||
-              (type.includes('rax') && 12),
+              (type === 'fort' && 25)
+              || (type === 'tower' && 16)
+              || (type.includes('rax') && 12),
             filter: bits[i] === '1' ? 'contrast(150%)' : 'grayscale(100%) brightness(70%)',
           },
         },
@@ -339,28 +337,32 @@ const BuildingMap = ({ match, strings }) => {
           />
           <ReactTooltip id={props.key} effect="solid">
             {title}
-            {damage && damage.length > 0 &&
+            {damage && damage.length > 0
+            && (
             <span>
-              <span className="subtitle"> {strings.building_damage}</span>
+              <span className="subtitle">
+                {' '}
+                {strings.building_damage}
+              </span>
               <div>
                 <div
                   className="buildingHealth"
                   style={{
-                  backgroundColor: (bits[i] === '1' && constants.colorMuted) || (side === 'good' ? constants.colorRed : constants.colorGreen),
-                }}
+                    backgroundColor: (bits[i] === '1' && constants.colorMuted) || (side === 'good' ? constants.colorRed : constants.colorGreen),
+                  }}
                 >
-                  {damage.map(player => (
+                  {damage.map((player) => (
                     <div
                       key={player.hero_id}
                       style={{
-                      width: `${(Number(player.damage) * 100) / buildingsHealth[type === 'tower' ? `tower${tier}` : type]}%`,
-                      backgroundColor: playerColors[player.player_slot],
-                    }}
+                        width: `${(Number(player.damage) * 100) / buildingsHealth[type === 'tower' ? `tower${tier}` : type]}%`,
+                        backgroundColor: playerColors[player.player_slot],
+                      }}
                     />
-                ))}
+                  ))}
                 </div>
                 <div className="damage">
-                  {damage.map(player => (
+                  {damage.map((player) => (
                     <div key={player.hero_id}>
                       <img
                         src={heroes[player.hero_id] && process.env.REACT_APP_API_HOST + heroes[player.hero_id].icon}
@@ -375,34 +377,40 @@ const BuildingMap = ({ match, strings }) => {
                       >
                         {player.name}
                       </span>
-                      {destroyedBy && destroyedBy.player_slot === player.player_slot &&
+                      {destroyedBy && destroyedBy.player_slot === player.player_slot
+                      && (
                       <span className="lasthit">
                         {
-                          ((side === 'good' && isRadiant(destroyedBy.player_slot)) || (side === 'bad' && !isRadiant(destroyedBy.player_slot))) ?
-                            <span className="deny">
-                              {strings.building_denied}
-                            </span>
-                            :
-                            <span>
-                              {type !== 'fort' && <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />}
-                              {strings.building_lasthit}
-                            </span>
+                          ((side === 'good' && isRadiant(destroyedBy.player_slot)) || (side === 'bad' && !isRadiant(destroyedBy.player_slot)))
+                            ? (
+                              <span className="deny">
+                                {strings.building_denied}
+                              </span>
+                            )
+                            : (
+                              <span>
+                                {type !== 'fort' && <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />}
+                                {strings.building_lasthit}
+                              </span>
+                            )
                         }
                       </span>
+                      )
                     }
                     </div>
-                ))}
-                  {(damageByCreeps > 0) && (bits[i] !== '1') &&
+                  ))}
+                  {(damageByCreeps > 0) && (bits[i] !== '1')
+                  && (
                   <div className="creeps">
                     <img
                       src="/assets/images/blank-1x1.gif"
                       alt=""
                       style={{
-                      backgroundImage: `url(/assets/images/dota2/${side === 'good' ? 'bad' : 'good'}guys_creep.png)`,
-                      backgroundPosition: 'center',
-                      backgroundRepeat: 'no-repeat',
-                      backgroundSize: 'contain',
-                    }}
+                        backgroundImage: `url(/assets/images/dota2/${side === 'good' ? 'bad' : 'good'}guys_creep.png)`,
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'contain',
+                      }}
                     />
                     <span className="damageValue">
                       {damageByCreeps}
@@ -410,18 +418,23 @@ const BuildingMap = ({ match, strings }) => {
                     <span
                       style={{ color: side === 'good' ? constants.colorRed : constants.colorGreen }}
                       className="playerName"
-                    >creeps
+                    >
+creeps
                     </span>
-                    {!destroyedBy &&
+                    {!destroyedBy
+                    && (
                     <span className="lasthit">
                       {strings.building_lasthit}
                     </span>
+                    )
                   }
                   </div>
+                  )
                 }
                 </div>
               </div>
             </span>
+            )
           }
           </ReactTooltip>
         </span>);
@@ -561,7 +574,7 @@ BuildingMap.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

@@ -1,4 +1,4 @@
-const reduceArray = backwards => (array, val) => {
+const reduceArray = (backwards) => (array, val) => {
   if (array.length !== 0 || val.games !== 0) {
     if (backwards) {
       array.unshift(val);

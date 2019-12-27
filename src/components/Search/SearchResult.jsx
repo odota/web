@@ -10,10 +10,10 @@ import {
 import Table, { TableLink } from '../Table';
 import Container from '../Container';
 // import { List } from 'material-ui/List';
-import { StyledTeamIconContainer } from '../../components/Match/StyledMatch';
+import { StyledTeamIconContainer } from '../Match/StyledMatch';
 import HeroImage from '../Visualizations/HeroImage';
 
-const searchColumns = strings => [{
+const searchColumns = (strings) => [{
   displayName: strings.th_name,
   field: 'personaname',
   displayFn: (row, col, field) => {
@@ -25,7 +25,7 @@ const searchColumns = strings => [{
   },
 }];
 
-const proColumns = strings => [{
+const proColumns = (strings) => [{
   displayName: strings.th_name,
   field: 'name',
   displayFn: (row, col, field) => transformations.player({
@@ -39,7 +39,7 @@ const proColumns = strings => [{
   ),
 }];
 
-const matchColumns = strings => [
+const matchColumns = (strings) => [
   {
     displayName: strings.th_match_id,
     field: 'match_id',
@@ -62,14 +62,12 @@ const matchColumns = strings => [
   {
     displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
     field: 'players',
-    displayFn: (row, col, field) => [0, 1, 2, 3, 4].map(player =>
-      (heroes[field[player].hero_id] ? <HeroImage id={field[player].hero_id} key={field[player].hero_id} style={{ width: '50px' }} alt="" /> : null)),
+    displayFn: (row, col, field) => [0, 1, 2, 3, 4].map((player) => (heroes[field[player].hero_id] ? <HeroImage id={field[player].hero_id} key={field[player].hero_id} style={{ width: '50px' }} alt="" /> : null)),
   },
   {
-    displayName: <StyledTeamIconContainer >{strings.general_dire}</StyledTeamIconContainer>,
+    displayName: <StyledTeamIconContainer>{strings.general_dire}</StyledTeamIconContainer>,
     field: 'players',
-    displayFn: (row, col, field) => [5, 6, 7, 8, 9].map(player =>
-      (heroes[field[player].hero_id] ? <HeroImage id={field[player].hero_id} key={field[player].hero_id} style={{ width: '50px' }} alt="" /> : null)),
+    displayFn: (row, col, field) => [5, 6, 7, 8, 9].map((player) => (heroes[field[player].hero_id] ? <HeroImage id={field[player].hero_id} key={field[player].hero_id} style={{ width: '50px' }} alt="" /> : null)),
   },
 ];
 
@@ -137,7 +135,7 @@ Search.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

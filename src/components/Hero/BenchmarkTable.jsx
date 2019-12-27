@@ -4,7 +4,7 @@ import { oneOfType, shape, arrayOf } from 'prop-types';
 import Table from '../Table';
 
 const BenchmarkTable = ({ data, strings }) => {
-  const columns = d => Object.keys(d[0] || {}).map(stat => ({
+  const columns = (d) => Object.keys(d[0] || {}).map((stat) => ({
     displayName: strings[`th_${stat}`],
     tooltip: strings[`tooltip_${stat}`],
     field: stat,
@@ -21,7 +21,7 @@ BenchmarkTable.propTypes = {
   strings: shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

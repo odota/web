@@ -5,7 +5,9 @@ import { render, hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import store from './store';
-import { getMetadata, getStrings, getAbilities, getHeroAbilities, getNeutralAbilities, getAbilityIds } from './actions';
+import {
+  getMetadata, getStrings, getAbilities, getHeroAbilities, getNeutralAbilities, getAbilityIds,
+} from './actions';
 import App from './components/App';
 // import { unregister } from './common/serviceWorker';
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { abbreviateNumber, SORT_ENUM, defaultSort, getColStyle } from '../../utility';
+import {
+  abbreviateNumber, SORT_ENUM, defaultSort, getColStyle,
+} from '../../utility';
 import { TablePercent, TableSparkline } from '../Visualizations';
-import Pagination from '../Table/PaginatedTable/Pagination';
+import Pagination from './PaginatedTable/Pagination';
 import TableHeader from './TableHeader';
 import Error from '../Error';
 import TableSkeleton from '../Skeletons/TableSkeleton';
@@ -38,7 +40,7 @@ const initialState = {
   currentPage: 0,
   sortState: '',
   sortField: '',
-  sortFn: f => f,
+  sortFn: (f) => f,
 };
 
 const {
@@ -74,27 +76,27 @@ class Table extends React.Component {
     return (
       <tr>
         {columns.map((column, colIndex) => {
-            let total = 0;
-            if (column.sumFn) {
-              const sumFn = (typeof column.sumFn === 'function') ? column.sumFn : (acc, row) => (acc + (row[column.field] || 0));
-              total = data.reduce(sumFn, null);
-            }
+          let total = 0;
+          if (column.sumFn) {
+            const sumFn = (typeof column.sumFn === 'function') ? column.sumFn : (acc, row) => (acc + (row[column.field] || 0));
+            total = data.reduce(sumFn, null);
+          }
 
-            return (
-              <td
-                className={column.className}
-                key={`${colIndex}_sum`}
-                style={{
+          return (
+            <td
+              className={column.className}
+              key={`${colIndex}_sum`}
+              style={{
                 paddingTop: 10,
                 paddingBottom: 10,
                 color: column.color,
                 ...getColStyle(column),
               }}
-              >
-                {column.sumFn && ((column.displaySumFn) ? column.displaySumFn(total) : abbreviateNumber(total))}
-              </td>
-            );
-          })}
+            >
+              {column.sumFn && ((column.displaySumFn) ? column.displaySumFn(total) : abbreviateNumber(total))}
+            </td>
+          );
+        })}
       </tr>
     );
   }
@@ -181,22 +183,24 @@ class Table extends React.Component {
     }
     return (
       <StyledBody hoverRowColumn={hoverRowColumn} customWidth={customWidth}>
-        {paginated && <Pagination
+        {paginated && (
+        <Pagination
           numPages={Math.ceil(dataLength / pageLength)}
           currentPage={currentPage}
           nextPage={this.nextPage}
           prevPage={this.prevPage}
           setCurrentPage={this.setCurrentPage}
           place="top"
-        />}
-        <StyledContainer >
+        />
+        )}
+        <StyledContainer>
           {loading && <TableSkeleton />}
           {!loading && error && <Error />}
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
           <div
-            className={`innerContainer ${scrolled && 'scrolled'} ${this.doShrink &&
-              'shrink'} ${overflowAuto && 'table-container-overflow-auto'}`}
+            className={`innerContainer ${scrolled && 'scrolled'} ${this.doShrink
+              && 'shrink'} ${overflowAuto && 'table-container-overflow-auto'}`}
             ref={this.setTableRef}
           >
             <table className={className}>
@@ -208,7 +212,7 @@ class Table extends React.Component {
                   sortClick={this.sortClick}
                 />
               </thead>
-              <tbody >
+              <tbody>
                 {data.map((row, index) => (
                   <tr key={(keyFn && keyFn(row)) || index} {...(highlightFn && highlightFn(row))}>
                     {columns.map((column, colIndex) => {
@@ -276,12 +280,14 @@ class Table extends React.Component {
                             : <span>{barPercentValue}</span>;
                         }
 
-                        fieldEl = (<TablePercent
-                          valEl={valEl}
-                          percent={barPercentValue}
-                          altValue={altValue}
-                          inverse={invertBarColor}
-                        />);
+                        fieldEl = (
+                          <TablePercent
+                            valEl={valEl}
+                            percent={barPercentValue}
+                            altValue={altValue}
+                            inverse={invertBarColor}
+                          />
+                        );
                       } else if (displayFn) {
                         fieldEl = displayFn(row, column, value, index);
                       } else if (sparkline) {
@@ -304,9 +310,11 @@ class Table extends React.Component {
                 {summable && Table.renderSumRow({ columns, data })}
               </tbody>
             </table>
-          </div>)}
+          </div>
+          )}
         </StyledContainer>
-        {paginated && <Pagination
+        {paginated && (
+        <Pagination
           numPages={Math.ceil(dataLength / pageLength)}
           currentPage={currentPage}
           pageLength={pageLength}
@@ -315,7 +323,8 @@ class Table extends React.Component {
           prevPage={this.prevPage}
           setCurrentPage={this.setCurrentPage}
           place="bot"
-        />}
+        />
+        )}
       </StyledBody>
     );
   }

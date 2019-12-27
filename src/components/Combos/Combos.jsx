@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import HeroImage from '../Visualizations/HeroImage';
 import TableSkeleton from '../Skeletons/TableSkeleton';
 import Heading from '../Heading/Heading';
-import ExplorerOutputSection from './../Explorer/ExplorerOutputSection';
+import ExplorerOutputSection from '../Explorer/ExplorerOutputSection';
 import getQueryString from './getQueryString';
 import HorizontalMenu from '../Visualizations/HorizontalMenu';
 import {
@@ -31,7 +31,7 @@ const styles = {
   },
 };
 
-const heroesArray = Object.keys(heroes).map(id => heroes[id]).sort((a, b) => a.localized_name.localeCompare(b.localized_name));
+const heroesArray = Object.keys(heroes).map((id) => heroes[id]).sort((a, b) => a.localized_name.localeCompare(b.localized_name));
 
 const HeroSelector = ({
   id,
@@ -89,32 +89,30 @@ const SelectedHeroes = ({
     <div className="team-container">
       <div className="team-title team-a">{formatTemplateToString(strings.team, 'A')}</div>
       <div>
-        {[4, 3, 2, 1, 0].map(i =>
-          (teamA[i] ? (
-            <HeroImage
-              id={teamA[i]}
-              className="hero-img"
-              onClick={handleHeroDeSelection(i, 'teamA')}
-            />
-          ) : (
-            <div className="hero-placeholder hero-img" />
-          )))}
+        {[4, 3, 2, 1, 0].map((i) => (teamA[i] ? (
+          <HeroImage
+            id={teamA[i]}
+            className="hero-img"
+            onClick={handleHeroDeSelection(i, 'teamA')}
+          />
+        ) : (
+          <div className="hero-placeholder hero-img" />
+        )))}
       </div>
     </div>
     <div className="seperator">{strings.vs}</div>
     <div className="team-container">
       <div className="team-title team-b">{formatTemplateToString(strings.team, 'B')}</div>
       <div>
-        {[0, 1, 2, 3, 4].map(i =>
-          (teamB[i] ? (
-            <HeroImage
-              id={teamB[i]}
-              className="hero-img"
-              onClick={handleHeroDeSelection(i, 'teamB')}
-            />
-          ) : (
-            <div className="hero-placeholder hero-img" />
-          )))}
+        {[0, 1, 2, 3, 4].map((i) => (teamB[i] ? (
+          <HeroImage
+            id={teamB[i]}
+            className="hero-img"
+            onClick={handleHeroDeSelection(i, 'teamB')}
+          />
+        ) : (
+          <div className="hero-placeholder hero-img" />
+        )))}
       </div>
     </div>
   </StyledSelectedHeroes>
@@ -155,7 +153,7 @@ class Combos extends React.Component {
     }
   }
 
-  handleHeroSelection = resetSearchValue => (heroID, team) => () => {
+  handleHeroSelection = (resetSearchValue) => (heroID, team) => () => {
     const { teamA, teamB } = this.state;
     if (this.state[team].length < 5 && ![...teamA, ...teamB].includes(heroID)) {
       this.setState(
@@ -186,14 +184,14 @@ class Combos extends React.Component {
     if (this.state.queryType === 'public') {
       // adapt json format so ExplorerOutputSection can process it
       data = {};
-      data.rows = json.map(el => ({
+      data.rows = json.map((el) => ({
         ...el,
         team_a_win: el.teamawin,
         team_a_composition: el.teama,
         team_b_composition: el.teamb,
       }));
       data.rowCount = json.length;
-      data.fields = ['match_id', 'start_time', 'team_a_composition', 'team_b_composition'].map(el => ({
+      data.fields = ['match_id', 'start_time', 'team_a_composition', 'team_b_composition'].map((el) => ({
         name: el,
       }));
     }
@@ -203,15 +201,14 @@ class Combos extends React.Component {
   sendRequest = () => {
     const { teamA, teamB } = this.state;
 
-    this.setState({ loading: true }, () =>
-      fetch(`${process.env.REACT_APP_API_HOST}/api/` +
+    this.setState({ loading: true }, () => fetch(`${process.env.REACT_APP_API_HOST}/api/`
 
-      `${this.state.queryType === 'pro' ?
-        `explorer?sql=${encodeURIComponent(this.buildQueryString())}` :
-        `findMatches?${querystring.stringify({ teamA, teamB })}`}`)
+      + `${this.state.queryType === 'pro'
+        ? `explorer?sql=${encodeURIComponent(this.buildQueryString())}`
+        : `findMatches?${querystring.stringify({ teamA, teamB })}`}`)
 
-        .then(res => res.json())
-        .then(this.handleResponse));
+      .then((res) => res.json())
+      .then(this.handleResponse));
   };
 
   handleSubmit = () => {
@@ -234,14 +231,13 @@ class Combos extends React.Component {
   }
 
   filterAndRenderElements = (searchValue, resetSearchValue) => {
-    const filteredHeroesArray = heroesArray.filter(hero =>
-      (searchValue
-        ? new RegExp(searchValue, 'i').test(hero.localized_name)
-        : true));
+    const filteredHeroesArray = heroesArray.filter((hero) => (searchValue
+      ? new RegExp(searchValue, 'i').test(hero.localized_name)
+      : true));
 
     return [
       ...(filteredHeroesArray.length > 0 ? filteredHeroesArray : heroesArray),
-    ].map(hero => (
+    ].map((hero) => (
       <HeroSelector
         id={hero.id}
         heroName={hero.localized_name}
@@ -310,7 +306,7 @@ class Combos extends React.Component {
         ) : (
           <ExplorerOutputSection
             rows={this.state.queryResult.rows}
-            fields={this.state.queryResult.fields && this.state.queryResult.fields.filter(field => field.name !== 'team_a_win')}
+            fields={this.state.queryResult.fields && this.state.queryResult.fields.filter((field) => field.name !== 'team_a_win')}
           />
         )}
       </StyledCombos>
@@ -318,7 +314,7 @@ class Combos extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

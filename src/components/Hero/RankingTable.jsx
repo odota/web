@@ -20,7 +20,7 @@ const RankingTable = ({
   }, {
     displayName: strings.th_score,
     field: 'score',
-    displayFn: row => parseFloat(row.score).toFixed(),
+    displayFn: (row) => parseFloat(row.score).toFixed(),
     relativeBars: true,
   }];
   return (<Table data={rankings} columns={rankingColumns} />);
@@ -34,7 +34,7 @@ RankingTable.propTypes = {
   strings: shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

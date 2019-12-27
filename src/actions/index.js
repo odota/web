@@ -11,22 +11,22 @@ import { langs } from '../lang';
 import { GITHUB_REPO } from '../config';
 
 export const getMetadata = () => action('metadata', process.env.REACT_APP_API_HOST, 'api/metadata');
-export const getMatch = matchId => action('match', process.env.REACT_APP_API_HOST, `api/matches/${matchId}`, {}, transformMatch);
-export const getRanking = heroId => action('heroRanking', process.env.REACT_APP_API_HOST, 'api/rankings', { hero_id: heroId });
-export const getBenchmark = heroId => action('heroBenchmark', process.env.REACT_APP_API_HOST, 'api/benchmarks', { hero_id: heroId }, transformBenchmarks);
-export const getHeroRecentGames = heroId => action('heroRecentGames', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/matches`);
-export const getHeroMatchups = heroId => action('heroMatchups', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/matchups`);
-export const getHeroDurations = heroId => action('heroDurations', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/durations`);
-export const getHeroPlayers = heroId => action('heroPlayers', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/players`);
+export const getMatch = (matchId) => action('match', process.env.REACT_APP_API_HOST, `api/matches/${matchId}`, {}, transformMatch);
+export const getRanking = (heroId) => action('heroRanking', process.env.REACT_APP_API_HOST, 'api/rankings', { hero_id: heroId });
+export const getBenchmark = (heroId) => action('heroBenchmark', process.env.REACT_APP_API_HOST, 'api/benchmarks', { hero_id: heroId }, transformBenchmarks);
+export const getHeroRecentGames = (heroId) => action('heroRecentGames', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/matches`);
+export const getHeroMatchups = (heroId) => action('heroMatchups', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/matchups`);
+export const getHeroDurations = (heroId) => action('heroDurations', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/durations`);
+export const getHeroPlayers = (heroId) => action('heroPlayers', process.env.REACT_APP_API_HOST, `api/heroes/${heroId}/players`);
 export const getProPlayers = () => action('proPlayers', process.env.REACT_APP_API_HOST, 'api/proPlayers');
 export const getProMatches = () => action('proMatches', process.env.REACT_APP_API_HOST, 'api/proMatches');
-export const getPublicMatches = params => action('publicMatches', process.env.REACT_APP_API_HOST, 'api/publicMatches', params);
-export const setSearchQuery = query => dispatch => dispatch(({
+export const getPublicMatches = (params) => action('publicMatches', process.env.REACT_APP_API_HOST, 'api/publicMatches', params);
+export const setSearchQuery = (query) => (dispatch) => dispatch(({
   type: 'QUERY/search',
   query,
 }));
-export const getSearchResult = query => action('search', process.env.REACT_APP_API_HOST, 'api/search', { q: query });
-export const getSearchResultAndPros = query => dispatch => Promise.all([
+export const getSearchResult = (query) => action('search', process.env.REACT_APP_API_HOST, 'api/search', { q: query });
+export const getSearchResultAndPros = (query) => (dispatch) => Promise.all([
   dispatch(setSearchQuery(query)),
   dispatch(getSearchResult(query)),
   dispatch(getProPlayers()),
@@ -34,21 +34,21 @@ export const getSearchResultAndPros = query => dispatch => Promise.all([
 ]);
 export const getDistributions = () => action('distributions', process.env.REACT_APP_API_HOST, 'api/distributions');
 export const getPvgnaHeroGuides = () => action('pvgnaGuides', 'https://yasp.pvgna.com', 'yasp');
-export const getHeroStats = params => action('heroStats', process.env.REACT_APP_API_HOST, 'api/heroStats', params);
+export const getHeroStats = (params) => action('heroStats', process.env.REACT_APP_API_HOST, 'api/heroStats', params);
 export const getLeagues = () => action('leagues', process.env.REACT_APP_API_HOST, 'api/leagues');
 export const getTeams = () => action('teams', process.env.REACT_APP_API_HOST, 'api/teams');
-export const getTeam = teamId => action('team', process.env.REACT_APP_API_HOST, `api/teams/${teamId}`);
-export const getTeamMatches = teamId => action('teamMatches', process.env.REACT_APP_API_HOST, `api/teams/${teamId}/matches`);
-export const getTeamPlayers = teamId => action('teamPlayers', process.env.REACT_APP_API_HOST, `api/teams/${teamId}/players`);
-export const getTeamHeroes = teamId => action('teamHeroes', process.env.REACT_APP_API_HOST, `api/teams/${teamId}/heroes`);
-export const getRecords = field => action('records', process.env.REACT_APP_API_HOST, `api/records/${field}`);
-export const getGithubPulls = merged => action('ghPulls', 'https://api.github.com', 'search/issues', {
+export const getTeam = (teamId) => action('team', process.env.REACT_APP_API_HOST, `api/teams/${teamId}`);
+export const getTeamMatches = (teamId) => action('teamMatches', process.env.REACT_APP_API_HOST, `api/teams/${teamId}/matches`);
+export const getTeamPlayers = (teamId) => action('teamPlayers', process.env.REACT_APP_API_HOST, `api/teams/${teamId}/players`);
+export const getTeamHeroes = (teamId) => action('teamHeroes', process.env.REACT_APP_API_HOST, `api/teams/${teamId}/heroes`);
+export const getRecords = (field) => action('records', process.env.REACT_APP_API_HOST, `api/records/${field}`);
+export const getGithubPulls = (merged) => action('ghPulls', 'https://api.github.com', 'search/issues', {
   q: `repo:${GITHUB_REPO} type:pr base:production label:release merged:>${merged}`,
   order: 'desc',
   page: 1,
   per_page: 1,
 });
-export const getPlayer = accountId => action('player', process.env.REACT_APP_API_HOST, `api/players/${accountId}`);
+export const getPlayer = (accountId) => action('player', process.env.REACT_APP_API_HOST, `api/players/${accountId}`);
 export const getPlayerWinLoss = (accountId, params) => action('playerWinLoss', process.env.REACT_APP_API_HOST, `api/players/${accountId}/wl`, params);
 export const getPlayerRecentMatches = (accountId, params) => action('playerRecentMatches', process.env.REACT_APP_API_HOST, `api/players/${accountId}/recentMatches`, params);
 export const getPlayerMatches = (accountId, params) => action('playerMatches', process.env.REACT_APP_API_HOST, `api/players/${accountId}/matches`, { significant: 0, ...querystring.parse(params.substring(1)) }, transformPlayerMatches({ ...querystring.parse(params.substring(1)) }));
@@ -66,7 +66,7 @@ export const getPlayerTotals = (accountId, params) => action('playerTotals', pro
 export const getPlayerMmr = (accountId, params) => action('playerMmr', process.env.REACT_APP_API_HOST, `api/players/${accountId}/ratings`, params);
 export const getPlayerRankings = (accountId, params) => action('playerRankings', process.env.REACT_APP_API_HOST, `api/players/${accountId}/rankings`, params, transformRankings);
 export const getStrings = () => async (dispatch) => {
-  const getLang = lang => langs.find(item => item.value === lang);
+  const getLang = (lang) => langs.find((item) => item.value === lang);
   const savedLang = window.localStorage && window.localStorage.getItem('localization');
   const userLang = window.navigator.language;
   const defaultLang = langs[0];
@@ -89,6 +89,6 @@ export const getNeutralAbilities = () => async (dispatch) => {
 export const getAbilityIds = () => async (dispatch) => {
   dispatch({ type: 'abilityIds', payload: await import('dotaconstants/build/ability_ids.json') });
 };
-export const getScenariosItemTimings = params => action('scenariosItemTimings', process.env.REACT_APP_API_HOST, 'api/scenarios/itemTimings', params);
-export const getScenariosLaneRoles = params => action('scenariosLaneRoles', process.env.REACT_APP_API_HOST, 'api/scenarios/laneRoles', params);
-export const getScenariosMisc = params => action('scenariosMisc', process.env.REACT_APP_API_HOST, 'api/scenarios/misc', params);
+export const getScenariosItemTimings = (params) => action('scenariosItemTimings', process.env.REACT_APP_API_HOST, 'api/scenarios/itemTimings', params);
+export const getScenariosLaneRoles = (params) => action('scenariosLaneRoles', process.env.REACT_APP_API_HOST, 'api/scenarios/laneRoles', params);
+export const getScenariosMisc = (params) => action('scenariosMisc', process.env.REACT_APP_API_HOST, 'api/scenarios/misc', params);

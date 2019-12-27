@@ -1,5 +1,7 @@
 import React from 'react';
-import { shape, string, bool, number, func, arrayOf } from 'prop-types';
+import {
+  shape, string, bool, number, func, arrayOf,
+} from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { getHeroMatchups } from '../../actions';
@@ -22,7 +24,7 @@ const HeroWrapper = styled.div`
 const getMatchupsColumns = (heroes, strings) => {
   // Optimization from O(n^2) to O(n + 1);
   const heroMap = new Map();
-  heroes.forEach(hero => heroMap.set(hero.id, hero));
+  heroes.forEach((hero) => heroMap.set(hero.id, hero));
 
   return [
     {
@@ -94,7 +96,7 @@ class Matchups extends React.Component {
   renderTable() {
     const { heroes, data, strings } = this.props;
 
-    const preparedData = data.map(item => ({
+    const preparedData = data.map((item) => ({
       ...item,
       win_rate: Math.max(0, Math.min(100, (item.wins / item.games_played * 100).toFixed(2))),
       advantage: Math.round(wilsonScore(item.wins, item.games_played - item.wins) * 100),

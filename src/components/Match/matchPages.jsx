@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import heroes from 'dotaconstants/build/heroes.json';
 import Heading from '../Heading';
 import Table from '../Table';
-import TeamfightMap from '../Match/TeamfightMap';
-import Purchases from '../Match/Purchases';
-import Timeline from '../Match/Overview/Timeline';
+import TeamfightMap from './TeamfightMap';
+import Purchases from './Purchases';
+import Timeline from './Overview/Timeline';
 import MatchGraph from '../Visualizations/Graph/MatchGraph';
 import StackedBarGraph from '../Visualizations/Graph/StackedBarGraph';
 import Draft from './Draft';
@@ -71,7 +71,7 @@ const matchPages = (strings) => {
   return [Overview(strings, gosuUrl, gosuIcon), {
     name: strings.tab_benchmarks,
     key: 'benchmarks',
-    content: match => (
+    content: (match) => (
       <div>
         <TeamTable
           players={match.players}
@@ -90,8 +90,8 @@ const matchPages = (strings) => {
     name: strings.tab_drafts,
     key: 'draft',
     parsed: true,
-    hidden: match => match.game_mode !== 2,
-    content: match => (
+    hidden: (match) => match.game_mode !== 2,
+    content: (match) => (
       <div>
         <Draft
           gameMode={match.game_mode}
@@ -108,7 +108,7 @@ const matchPages = (strings) => {
     name: strings.tab_performances,
     key: 'performances',
     parsed: true,
-    content: match => (
+    content: (match) => (
       <div>
         <TeamTable
           players={match.players}
@@ -128,7 +128,7 @@ const matchPages = (strings) => {
     name: strings.tab_laning,
     key: 'laning',
     parsed: true,
-    content: match => (
+    content: (match) => (
       <div>
         <Laning match={match} sponsorURL={gosuUrl} sponsorIcon={gosuIcon} />
       </div>),
@@ -137,14 +137,16 @@ const matchPages = (strings) => {
     key: 'combat',
     skeleton: true,
     parsed: true,
-    content: match => (
+    content: (match) => (
       <div>
-        {process.env.ENABLE_GOSUAI &&
+        {process.env.ENABLE_GOSUAI
+        && (
         <Heading
           buttonLabel={strings.gosu_combat}
           buttonTo={`${gosuUrl}Combat`}
           buttonIcon={gosuIcon}
         />
+        )
         }
         <StyledFlexContainer>
           <StyledFlexElement>
@@ -170,7 +172,7 @@ const matchPages = (strings) => {
     key: 'farm',
     skeleton: true,
     parsed: true,
-    content: match => (
+    content: (match) => (
       <div>
         <TeamTable
           players={match.players}
@@ -196,17 +198,17 @@ const matchPages = (strings) => {
           hoverRowColumn
         />
         <StackedBarGraph
-          columns={match.players.map(player => ({ ...player.gold_reasons, name: player.hero_id }))}
+          columns={match.players.map((player) => ({ ...player.gold_reasons, name: player.hero_id }))}
           heading={strings.heading_gold_reasons}
           type="gold_reasons"
-          tooltipFormatter={heroId => heroes[heroId] && heroes[heroId].localized_name}
+          tooltipFormatter={(heroId) => heroes[heroId] && heroes[heroId].localized_name}
           tickElement={TickElement}
         />
         <StackedBarGraph
-          columns={match.players.map(player => ({ ...player.xp_reasons, name: player.hero_id }))}
+          columns={match.players.map((player) => ({ ...player.xp_reasons, name: player.hero_id }))}
           heading={strings.heading_xp_reasons}
           type="xp_reasons"
-          tooltipFormatter={heroId => heroes[heroId] && heroes[heroId].localized_name}
+          tooltipFormatter={(heroId) => heroes[heroId] && heroes[heroId].localized_name}
           tickElement={TickElement}
         />
         {/*
@@ -233,7 +235,7 @@ const matchPages = (strings) => {
     key: 'purchases',
     skeleton: true,
     parsed: true,
-    content: match => (
+    content: (match) => (
       <div>
         <Purchases
           match={match}
@@ -246,7 +248,7 @@ const matchPages = (strings) => {
     key: 'graphs',
     skeleton: true,
     parsed: true,
-    content: match => (
+    content: (match) => (
       <div>
         <Timeline match={match} />
         <MatchGraph match={match} type="difference" sponsorURL={gosuUrl} sponsorIcon={gosuIcon} />
@@ -259,7 +261,7 @@ const matchPages = (strings) => {
     key: 'casts',
     skeleton: true,
     parsed: true,
-    content: match => (
+    content: (match) => (
       <div>
         <TeamTable
           players={match.players}
@@ -278,7 +280,7 @@ const matchPages = (strings) => {
     key: 'objectives',
     skeleton: true,
     parsed: true,
-    content: match => (
+    content: (match) => (
       <div>
         <TeamTable
           players={match.players}
@@ -307,12 +309,12 @@ const matchPages = (strings) => {
     key: 'vision',
     skeleton: true,
     parsed: true,
-    content: match => <Vision match={match} sponsorURL={gosuUrl} sponsorIcon={gosuIcon} hoverRowColumn />,
+    content: (match) => <Vision match={match} sponsorURL={gosuUrl} sponsorIcon={gosuIcon} hoverRowColumn />,
   }, {
     name: strings.tab_actions,
     key: 'actions',
     parsed: true,
-    content: match => (
+    content: (match) => (
       <div>
         <TeamTable
           players={match.players}
@@ -332,7 +334,7 @@ const matchPages = (strings) => {
     key: 'teamfights',
     skeleton: true,
     parsed: true,
-    content: match => (
+    content: (match) => (
       <div>
         <TeamfightMap teamfights={match.teamfights} match={match} sponsorURL={gosuUrl} sponsorIcon={gosuIcon} hoverRowColumn />
       </div>),
@@ -340,7 +342,7 @@ const matchPages = (strings) => {
     name: strings.tab_analysis,
     key: 'analysis',
     parsed: true,
-    content: match => (
+    content: (match) => (
       <div>
         <TeamTable
           players={match.players}
@@ -358,7 +360,7 @@ const matchPages = (strings) => {
     name: strings.tab_cosmetics,
     key: 'cosmetics',
     parsed: true,
-    content: match => (
+    content: (match) => (
       <div>
         <Heading
           title={strings.heading_cosmetics}
@@ -366,7 +368,7 @@ const matchPages = (strings) => {
           buttonTo={`${gosuUrl}Cosmetics`}
           buttonIcon={gosuIcon}
         />
-        <Table data={match.players.filter(obj => obj.cosmetics.length > 0)} columns={cosmeticsColumns} />
+        <Table data={match.players.filter((obj) => obj.cosmetics.length > 0)} columns={cosmeticsColumns} />
       </div>
     ),
   }, {
@@ -374,7 +376,7 @@ const matchPages = (strings) => {
     key: 'log',
     skeleton: true,
     parsed: true,
-    content: match => (
+    content: (match) => (
       <div>
         <Heading
           title={strings.heading_log}
@@ -388,7 +390,7 @@ const matchPages = (strings) => {
     name: strings.tab_fantasy,
     key: 'fantasy',
     parsed: true,
-    content: match => (
+    content: (match) => (
       <div>
         <TeamTable
           players={match.players}
@@ -438,7 +440,7 @@ const matchPages = (strings) => {
     name: strings.tab_story,
     key: 'story',
     parsed: true,
-    content: match => (
+    content: (match) => (
       <div>
         <Heading
           title={strings.heading_story}
@@ -451,7 +453,7 @@ const matchPages = (strings) => {
   }];
 };
 
-export default (matchId, match, strings) => matchPages(strings).map(page => ({
+export default (matchId, match, strings) => matchPages(strings).map((page) => ({
   // ...page,
   name: page.name,
   key: page.key,
@@ -459,6 +461,6 @@ export default (matchId, match, strings) => matchPages(strings).map(page => ({
   content: page.content,
   route: `/matches/${matchId}/${page.key.toLowerCase()}`,
   disabled: match && !match.version && page.parsed,
-  hidden: m => page.hidden && page.hidden(m),
+  hidden: (m) => page.hidden && page.hidden(m),
   skeleton: page.skeleton,
 }));

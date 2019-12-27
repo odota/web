@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { transformations, formatSeconds, getOrdinal, displayHeroId } from '../../utility';
+import {
+  transformations, formatSeconds, getOrdinal, displayHeroId,
+} from '../../utility';
 import { getRecords } from '../../actions';
 import Table from '../Table';
 import Heading from '../Heading';
@@ -33,11 +35,11 @@ const matchesColumns = (field, strings) => [{
 
 const fields = ['duration', 'kills', 'deaths', 'assists', 'gold_per_min', 'xp_per_min', 'last_hits', 'denies', 'hero_damage', 'tower_damage', 'hero_healing'];
 
-const tabs = strings => (fields.map(field => ({
+const tabs = (strings) => (fields.map((field) => ({
   name: strings[`heading_${field}`],
   key: field,
   tooltip: strings[`tooltip_${field}`],
-  content: propsPar => (
+  content: (propsPar) => (
     <Container>
       <Table
         data={propsPar.data.map((element, index) => ({ ...element, rank: index + 1 }))}
@@ -72,11 +74,12 @@ class RequestLayer extends React.Component {
       getData(this.props);
     }
   }
+
   render() {
     const route = this.props.match.params.info || 'duration';
     const { strings } = this.props;
 
-    const tab = tabs(strings).find(_tab => _tab.key === route);
+    const tab = tabs(strings).find((_tab) => _tab.key === route);
     return (
       <div>
         <Helmet title={strings.heading_records} />
@@ -92,14 +95,14 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.app.records.data,
   loading: state.app.records.loading,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
-  dispatchRecords: info => dispatch(getRecords(info)),
+const mapDispatchToProps = (dispatch) => ({
+  dispatchRecords: (info) => dispatch(getRecords(info)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

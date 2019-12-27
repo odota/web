@@ -23,8 +23,7 @@ class RenderContent extends React.Component {
     const { skeleton, content } = this.props;
     const { render } = this.state;
 
-    const PlaceHolder = () =>
-      (skeleton ? <List primaryColor="#666" width={250} height={120} /> : null);
+    const PlaceHolder = () => (skeleton ? <List primaryColor="#666" width={250} height={120} /> : null);
 
     return render && content ? (
       content

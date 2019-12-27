@@ -4,7 +4,7 @@ import Table from '../Table';
 import Overview from './Overview';
 import { matchColumns, memberColumns, heroColumns } from './teamDataColumns';
 
-const teamPages = strings => [Overview(strings), {
+const teamPages = (strings) => [Overview(strings), {
   name: strings.tab_matches,
   key: 'matches',
   content: (generalData, matchData) => (
@@ -50,7 +50,7 @@ const teamPages = strings => [Overview(strings), {
       >
         <Table
           columns={memberColumns(strings)}
-          data={playerData.data.filter(player => player.is_current_team_member)}
+          data={playerData.data.filter((player) => player.is_current_team_member)}
         />
       </Container>
       <Container
@@ -60,7 +60,7 @@ const teamPages = strings => [Overview(strings), {
       >
         <Table
           columns={memberColumns(strings)}
-          data={playerData.data.filter(player => !player.is_current_team_member)}
+          data={playerData.data.filter((player) => !player.is_current_team_member)}
           paginated
           key="players"
         />
@@ -69,7 +69,7 @@ const teamPages = strings => [Overview(strings), {
   ),
 }];
 
-export default (teamId, strings) => teamPages(strings).map(page => ({
+export default (teamId, strings) => teamPages(strings).map((page) => ({
   ...page,
   route: `/teams/${teamId}/${page.key}`,
 }));

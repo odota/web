@@ -80,11 +80,13 @@ const columns = (strings) => {
 function logWard(log) {
   return (
     <Styled>
-      <div className="minimap"><img
-        src="/assets/images/dota2/map/minimap2.jpg"
-        style={{ height: '30px' }}
-        alt=""
-      /><div className="placement">{LogHover(log)}</div>
+      <div className="minimap">
+        <img
+          src="/assets/images/dota2/map/minimap2.jpg"
+          style={{ height: '30px' }}
+          alt=""
+        />
+        <div className="placement">{LogHover(log)}</div>
       </div>
 
     </Styled>
@@ -97,11 +99,11 @@ const generateData = (match, strings) => (log) => {
   const duration = (log.left && log.left.time - log.entered.time) || (match && match.duration - log.entered.time);
 
   // necessary until https://github.com/odota/parser/pull/3 is implemented
-  const discrepancy = duration - Math.min(items[`ward_${log.type}`].attrib.find(x => x.key === 'lifetime').value, duration);
+  const discrepancy = duration - Math.min(items[`ward_${log.type}`].attrib.find((x) => x.key === 'lifetime').value, duration);
 
   const durationColor = log.type === 'observer' ? durationObserverColor(duration) : durationSentryColor(duration);
 
-  const wardKiller = match.players.find(p => log.left && p.hero_name === log.left.attackername);
+  const wardKiller = match.players.find((p) => log.left && p.hero_name === log.left.attackername);
 
   return {
     ...match.players[log.player],

@@ -51,15 +51,21 @@ const TableHeaderColumn = ({
             <Tooltip title={column.tooltip}>
               <HeaderCellContent>
                 {column.displayIcon
-                  ?
+                  ? (
                     <React.Fragment>
-                      <span> {column.displayName} </span>
+                      <span>
+                        {' '}
+                        {column.displayName}
+                        {' '}
+                      </span>
                       <HeaderCellImageContent src={column.displayIcon} />
                     </React.Fragment>
-                  :
+                  )
+                  : (
                     <span>
                       {column.displayName}
                     </span>
+                  )
                 }
                 {column.sortFn && (
                   <HeaderCellSortIconWrapper>

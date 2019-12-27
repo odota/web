@@ -5,7 +5,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 import getFormFieldData from './FormFieldData';
 import { listStyle } from './Styles';
 
-const hintTexts = strings => ({
+const hintTexts = (strings) => ({
   itemTimings: {
     hero_id: strings.filter_hero_id,
     item: strings.scenarios_item,
@@ -63,7 +63,7 @@ class ScenarioFormField extends React.Component {
     };
 
 
-    let searchText = this.dataSources[selectedTab][field].find(el => (el.altValue !== undefined && el.altValue === formFieldState) || el.value === formFieldState);
+    let searchText = this.dataSources[selectedTab][field].find((el) => (el.altValue !== undefined && el.altValue === formFieldState) || el.value === formFieldState);
     searchText = searchText ? searchText.text : '';
 
     this.state = {
@@ -129,7 +129,7 @@ class ScenarioFormField extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

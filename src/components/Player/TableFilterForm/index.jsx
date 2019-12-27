@@ -106,7 +106,7 @@ const Styled = styled.div`
 
   ::after {
     position: absolute;
-    content: "${props => props.strings.filter_button_text_open}";
+    content: "${(props) => props.strings.filter_button_text_open}";
     font-size: 12px;
     top: -15px;
     left: 0px;
@@ -121,8 +121,8 @@ const Styled = styled.div`
 
 const getPeers = (props, context) => {
   fetch(`${process.env.REACT_APP_API_HOST}/api/players/${props.playerId}/peers`)
-    .then(resp => resp.json())
-    .then(json => context.setState({ peers: json }));
+    .then((resp) => resp.json())
+    .then((json) => context.setState({ peers: json }));
 };
 
 const setShowFormState = (props) => {
@@ -165,15 +165,15 @@ class TableFilterForm extends React.Component {
     } = this.props;
     const formSelectionState = querystring.parse(currentQueryString.substring(1));
 
-    const heroList = Object.keys(heroes).map(id => ({
+    const heroList = Object.keys(heroes).map((id) => ({
       text: heroes[id] && heroes[id].localized_name,
       value: id,
     })).sort((a, b) => a.text && a.text.localeCompare(b.text));
 
     const laneList = Object.keys(strings)
-      .filter(str => str.indexOf('lane_role_') === 0)
-      .map(str => str.substring('lane_role_'.length))
-      .map(id => ({
+      .filter((str) => str.indexOf('lane_role_') === 0)
+      .map((str) => str.substring('lane_role_'.length))
+      .map((id) => ({
         text: strings[`lane_role_${id}`],
         value: Number(id),
       }));
@@ -184,22 +184,22 @@ class TableFilterForm extends React.Component {
     })).reverse();
 
     const modeList = Object.keys(strings)
-      .filter(str => str.indexOf('game_mode_') === 0)
-      .map(str => str.substring('game_mode_'.length))
-      .map(id => ({
+      .filter((str) => str.indexOf('game_mode_') === 0)
+      .map((str) => str.substring('game_mode_'.length))
+      .map((id) => ({
         text: strings[`game_mode_${id}`],
         value: id,
       }));
 
     const lobbyTypeList = Object.keys(strings)
-      .filter(str => str.indexOf('lobby_type_') === 0)
-      .map(str => str.substring('lobby_type_'.length))
-      .map(id => ({
+      .filter((str) => str.indexOf('lobby_type_') === 0)
+      .map((str) => str.substring('lobby_type_'.length))
+      .map((id) => ({
         text: strings[`lobby_type_${id}`],
         value: id,
       }));
 
-    const regionList = Object.keys(region).map(id => ({
+    const regionList = Object.keys(region).map((id) => ({
       text: strings[`region_${id}`],
       value: Number(id),
     }));
@@ -276,13 +276,14 @@ class TableFilterForm extends React.Component {
       value: 5,
     }];
 
-    const CustomFormField = props =>
-      (<FormField
+    const CustomFormField = (props) => (
+      <FormField
         formSelectionState={formSelectionState}
         history={history}
         textFieldStyle={textFieldStyle}
         {...props}
-      />);
+      />
+    );
 
     const isFilterApplied = Object.keys(formSelectionState).length > 0;
 
@@ -376,13 +377,13 @@ class TableFilterForm extends React.Component {
             <CustomFormField
               name="included_account_id"
               label={strings.filter_included_account_id}
-              dataSource={this.state.peers.map(peer => ({ text: `${peer.personaname}`, value: peer.account_id }))}
+              dataSource={this.state.peers.map((peer) => ({ text: `${peer.personaname}`, value: peer.account_id }))}
               limit={10}
             />
             <CustomFormField
               name="excluded_account_id"
               label={strings.filter_excluded_account_id}
-              dataSource={this.state.peers.map(peer => ({ text: `${peer.personaname}`, value: peer.account_id }))}
+              dataSource={this.state.peers.map((peer) => ({ text: `${peer.personaname}`, value: peer.account_id }))}
             />
             <CustomFormField
               name="significant"
@@ -412,13 +413,13 @@ class TableFilterForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   showForm: state.app.form.show,
   currentQueryString: window.location.search,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   toggleShowForm: () => dispatch(toggleShowForm()),
 });
 

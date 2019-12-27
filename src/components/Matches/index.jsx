@@ -27,7 +27,7 @@ export const WinnerSpan = styled.span`
   }
 `;
 
-const matchesColumns = strings => [{
+const matchesColumns = (strings) => [{
   displayName: strings.th_match_id,
   field: 'match_id',
   sortFn: true,
@@ -52,15 +52,25 @@ const matchesColumns = strings => [{
   displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
   field: 'radiant_name',
   color: constants.colorGreen,
-  displayFn: (row, col, field) => <div>{row.radiant_win && <WinnerSpan><IconTrophy /></WinnerSpan>}{field}</div>,
+  displayFn: (row, col, field) => (
+    <div>
+      {row.radiant_win && <WinnerSpan><IconTrophy /></WinnerSpan>}
+      {field}
+    </div>
+  ),
 }, {
   displayName: <StyledTeamIconContainer>{strings.general_dire}</StyledTeamIconContainer>,
   field: 'dire_name',
   color: constants.colorRed,
-  displayFn: (row, col, field) => <div>{!row.radiant_win && <WinnerSpan><IconTrophy /></WinnerSpan>}{field}</div>,
+  displayFn: (row, col, field) => (
+    <div>
+      {!row.radiant_win && <WinnerSpan><IconTrophy /></WinnerSpan>}
+      {field}
+    </div>
+  ),
 }];
 
-const publicMatchesColumns = strings => [
+const publicMatchesColumns = (strings) => [
   {
     displayName: strings.th_match_id,
     field: 'match_id',
@@ -86,21 +96,19 @@ const publicMatchesColumns = strings => [
   {
     displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
     field: 'radiant_team',
-    displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
-      (heroes[heroId] ? <HeroImage id={heroId} key={heroId} style={{ width: '50px' }} alt="" /> : null)),
+    displayFn: (row, col, field) => (field || '').split(',').map((heroId) => (heroes[heroId] ? <HeroImage id={heroId} key={heroId} style={{ width: '50px' }} alt="" /> : null)),
   },
   {
-    displayName: <StyledTeamIconContainer >{strings.general_dire}</StyledTeamIconContainer>,
+    displayName: <StyledTeamIconContainer>{strings.general_dire}</StyledTeamIconContainer>,
     field: 'dire_team',
-    displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
-      (heroes[heroId] ? <HeroImage id={heroId} key={heroId} style={{ width: '50px' }} alt="" /> : null)),
+    displayFn: (row, col, field) => (field || '').split(',').map((heroId) => (heroes[heroId] ? <HeroImage id={heroId} key={heroId} style={{ width: '50px' }} alt="" /> : null)),
   },
 ];
 
-const matchTabs = strings => [{
+const matchTabs = (strings) => [{
   name: strings.hero_pro_tab,
   key: 'pro',
-  content: propsPar => (
+  content: (propsPar) => (
     <div>
       <Table data={propsPar.proData} columns={matchesColumns(strings)} loading={propsPar.loading} />
     </div>),
@@ -108,7 +116,7 @@ const matchTabs = strings => [{
 }, {
   name: strings.matches_highest_mmr,
   key: 'highMmr',
-  content: propsPar => (
+  content: (propsPar) => (
     <div>
       <Table data={propsPar.publicData} columns={publicMatchesColumns(strings)} loading={propsPar.loading} />
     </div>),
@@ -144,6 +152,7 @@ class RequestLayer extends React.Component {
       getData(this.props);
     }
   }
+
   render() {
     const { strings } = this.props;
     const route = this.props.match.params.matchId || 'pro';
@@ -152,7 +161,7 @@ class RequestLayer extends React.Component {
       return <Match {...this.props} matchId={route} />;
     }
 
-    const tab = matchTabs(strings).find(_tab => _tab.key === route);
+    const tab = matchTabs(strings).find((_tab) => _tab.key === route);
     return (
       <div>
         <Helmet title={strings.title_matches} />
@@ -167,16 +176,16 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   proData: state.app.proMatches.data,
   publicData: state.app.publicMatches.data,
   loading: state.app.proMatches.loading,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   dispatchProMatches: () => dispatch(getProMatches()),
-  dispatchPublicMatches: options => dispatch(getPublicMatches(options)),
+  dispatchPublicMatches: (options) => dispatch(getPublicMatches(options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

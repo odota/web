@@ -18,7 +18,7 @@ import {
   ActivityPage,
 } from './Pages';
 
-const playerPages = strings => [{
+const playerPages = (strings) => [{
   name: strings.tab_overview,
   key: 'overview',
   content: (playerId, routeParams, location) => (<OverviewPage playerId={playerId} routeParams={routeParams} location={location} />),
@@ -53,21 +53,25 @@ const playerPages = strings => [{
 }, {
   name: strings.tab_histograms,
   key: 'histograms',
-  content: (playerId, routeParams, location) => (<HistogramsPage
-    playerId={playerId}
-    routeParams={routeParams}
-    location={location}
-    histogramName={routeParams.subInfo}
-  />),
+  content: (playerId, routeParams, location) => (
+    <HistogramsPage
+      playerId={playerId}
+      routeParams={routeParams}
+      location={location}
+      histogramName={routeParams.subInfo}
+    />
+  ),
 }, {
   name: strings.tab_trends,
   key: 'trends',
-  content: (playerId, routeParams, location) => (<TrendsPage
-    playerId={playerId}
-    routeParams={routeParams}
-    location={location}
-    trendName={routeParams.subInfo}
-  />),
+  content: (playerId, routeParams, location) => (
+    <TrendsPage
+      playerId={playerId}
+      routeParams={routeParams}
+      location={location}
+      trendName={routeParams.subInfo}
+    />
+  ),
 }, {
   name: strings.tab_wardmap,
   key: 'wardmap',
@@ -90,7 +94,7 @@ const playerPages = strings => [{
   content: (playerId, routeParams, location) => (<ActivityPage playerId={playerId} routeParams={routeParams} location={location} />),
 }];
 
-export default (playerId, strings) => playerPages(strings).map(page => ({
+export default (playerId, strings) => playerPages(strings).map((page) => ({
   ...page,
   route: `/players/${playerId}/${page.key}`,
 }));

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { shape, string, bool, oneOfType, func, arrayOf } from 'prop-types';
+import {
+  shape, string, bool, oneOfType, func, arrayOf,
+} from 'prop-types';
 import { connect } from 'react-redux';
 import { getRanking } from '../../actions';
 import RankingTable from './RankingTable';
@@ -30,8 +32,8 @@ class Ranking extends Component {
 
   componentDidMount() {
     if (
-      this.props.match.params &&
-      this.props.match.params.heroId
+      this.props.match.params
+      && this.props.match.params.heroId
     ) {
       this.props.getRanking(this.props.match.params.heroId);
     }
@@ -54,14 +56,14 @@ class Ranking extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   rankings: state.app.heroRanking.data.rankings,
   isLoading: state.app.heroRanking.loading,
   isError: state.app.heroRanking.error,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getRanking: heroId => dispatch(getRanking(heroId)),
+const mapDispatchToProps = (dispatch) => ({
+  getRanking: (heroId) => dispatch(getRanking(heroId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ranking);

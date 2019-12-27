@@ -10,7 +10,7 @@ import ButtonGarden from '../../../ButtonGarden';
 import playerRecordsColumns from './playerRecordsColumns';
 
 const excludedColumns = ['win_rate', 'level'];
-const recordsColumns = dataColumns.filter(col => !excludedColumns.includes(col));
+const recordsColumns = dataColumns.filter((col) => !excludedColumns.includes(col));
 
 const Records = ({
   routeParams, data, error, loading, playerId, history, strings,
@@ -20,19 +20,19 @@ const Records = ({
     <div style={{ fontSize: 10 }}>
       <ButtonGarden
         onClick={(buttonName) => {
-        history.push(`/players/${playerId}/records/${buttonName}${window.location.search}`);
-      }}
+          history.push(`/players/${playerId}/records/${buttonName}${window.location.search}`);
+        }}
         buttonNames={recordsColumns}
         selectedButton={selected}
       />
       <Container title={strings.heading_records} error={error} loading={loading}>
         <Table
           columns={playerRecordsColumns(strings).concat({
-          displayName: strings[`th_${selected}`] || strings.th_record,
-          displayFn: (row, col, field) => (field && field.toFixed ? Number(field.toFixed(2)) : ''),
-          field: selected,
-          relativeBars: true,
-        })}
+            displayName: strings[`th_${selected}`] || strings.th_record,
+            displayFn: (row, col, field) => (field && field.toFixed ? Number(field.toFixed(2)) : ''),
+            field: selected,
+            relativeBars: true,
+          })}
           data={data}
         />
       </Container>
@@ -78,14 +78,14 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.app.playerRecords.data,
   error: state.app.playerRecords.error,
   loading: state.app.playerRecords.loading,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getPlayerRecords: (playerId, options, subInfo) => dispatch(getPlayerRecords(playerId, options, subInfo)),
 });
 

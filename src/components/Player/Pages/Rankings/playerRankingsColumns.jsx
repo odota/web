@@ -8,7 +8,7 @@ function roundUp(x) {
   return newX;
 }
 
-export default strings => [{
+export default (strings) => [{
   displayName: strings.th_hero,
   tooltip: strings.hero_id,
   field: 'hero_id',
@@ -28,6 +28,6 @@ export default strings => [{
 }, {
   displayName: strings.th_rank,
   field: 'card',
-  sortFn: row => Math.max(100, roundUp(Math.floor(row.card * (1 - row.percent_rank)))),
-  displayFn: row => `~${Math.max(100, roundUp(Math.floor(row.card * (1 - row.percent_rank))))}`,
+  sortFn: (row) => Math.max(100, roundUp(Math.floor(row.card * (1 - row.percent_rank)))),
+  displayFn: (row) => `~${Math.max(100, roundUp(Math.floor(row.card * (1 - row.percent_rank))))}`,
 }];

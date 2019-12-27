@@ -38,7 +38,7 @@ function updateWordCloud(wordCounts, cloudDomId) {
   // take the log of each count and scale them up to top_size
   // use log since words such as "gg" tend to dominate
   // w[1] = Math.max(w[1]*scale, min_size);
-  wordList = wordList.map(w => [w[0], Math.max(getBaseLog(w[1], 6) * scale, minSize)]);
+  wordList = wordList.map((w) => [w[0], Math.max(getBaseLog(w[1], 6) * scale, minSize)]);
 
   /*
     //@albertcui implementation of scaling
@@ -63,6 +63,8 @@ function updateWordCloud(wordCounts, cloudDomId) {
 const { string } = PropTypes;
 
 class Wordcloud extends React.Component {
+  id = `a-${nanoid()}`;
+
   static propTypes = {
     counts: string,
   }
@@ -70,11 +72,10 @@ class Wordcloud extends React.Component {
   componentDidMount() {
     updateWordCloud(this.props.counts, this.id);
   }
+
   componentDidUpdate(nextProps) {
     updateWordCloud(nextProps.counts, this.id);
   }
-
-  id = `a-${nanoid()}`;
 
   render() {
     const width = Math.min(1080, window.innerWidth * 0.75);

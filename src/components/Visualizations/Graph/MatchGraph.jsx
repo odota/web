@@ -17,9 +17,11 @@ import heroes from 'dotaconstants/build/heroes.json';
 import playerColors from 'dotaconstants/build/player_colors.json';
 import Heading from '../../Heading';
 import constants from '../../constants';
-import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHolder, GoldSpan, XpSpan, StyledTooltipGold, StyledCustomizedTooltip } from './Styled';
+import {
+  StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHolder, GoldSpan, XpSpan, StyledTooltipGold, StyledCustomizedTooltip,
+} from './Styled';
 
-const formatGraphTime = minutes => `${minutes}:00`;
+const formatGraphTime = (minutes) => `${minutes}:00`;
 
 const generateDiffData = (match) => {
   const radiantGoldAdv = match.radiant_gold_adv;
@@ -36,10 +38,11 @@ const generateDiffData = (match) => {
 const CustomizedTooltip = ({ label, payload }) => (
   <StyledCustomizedTooltip>
     <div className="label">{label}</div>
-    {payload.map((data, i) =>
-    (
+    {payload.map((data, i) => (
       <div value={data.value} className={`data ${i < 5 && 'isRadiant'}`} style={{ borderLeft: `8px solid ${data.color}` }}>
-        {data.dataKey}: {data.value}
+        {data.dataKey}
+:
+        {data.value}
       </div>)).sort((a, b) => b.props.value - a.props.value)
     }
   </StyledCustomizedTooltip>
@@ -65,7 +68,11 @@ const XpTooltipContent = ({ payload, strings }) => {
           >
             {rGoldAdv > 0 ? strings.general_radiant : strings.general_dire}
           </StyledTooltipTeam>
-          <GoldSpan>{Math.abs(rGoldAdv)} {strings.heading_graph_gold}</GoldSpan>
+          <GoldSpan>
+            {Math.abs(rGoldAdv)}
+            {' '}
+            {strings.heading_graph_gold}
+          </GoldSpan>
         </StyledTooltipGold>
         <br />
         <StyledTooltipGold>
@@ -74,7 +81,11 @@ const XpTooltipContent = ({ payload, strings }) => {
           >
             {rXpAdv > 0 ? strings.general_radiant : strings.general_dire}
           </StyledTooltipTeam>
-          <XpSpan>{Math.abs(rXpAdv)} {strings.heading_graph_xp}</XpSpan>
+          <XpSpan>
+            {Math.abs(rXpAdv)}
+            {' '}
+            {strings.heading_graph_xp}
+          </XpSpan>
         </StyledTooltipGold>
       </StyledTooltip>
     );
@@ -91,10 +102,8 @@ const XpNetworthGraph = ({
   match, strings, sponsorURL, sponsorIcon,
 }) => {
   const matchData = generateDiffData(match);
-  const maxY =
-      Math.ceil(Math.max(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000) * 5000;
-  const minY =
-      Math.floor(Math.min(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000) * 5000;
+  const maxY = Math.ceil(Math.max(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000) * 5000;
+  const minY = Math.floor(Math.min(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000) * 5000;
   return (
     <StyledHolder>
       <StyledRadiant>{strings.general_radiant}</StyledRadiant>
@@ -219,14 +228,16 @@ class PlayersGraph extends React.Component {
                 const isSelected = heroes[player.hero_id] && (hoverHero === heroes[player.hero_id].localized_name);
                 const opacity = (!hoverHero || isSelected) ? 1 : 0.25;
                 const stroke = (isSelected) ? 4 : 2;
-                return (<Line
-                  dot={false}
-                  dataKey={hero.localized_name}
-                  stroke={playerColor}
-                  strokeWidth={stroke}
-                  strokeOpacity={opacity}
-                  name={hero.localized_name}
-                />);
+                return (
+                  <Line
+                    dot={false}
+                    dataKey={hero.localized_name}
+                    stroke={playerColor}
+                    strokeWidth={stroke}
+                    strokeOpacity={opacity}
+                    name={hero.localized_name}
+                  />
+                );
               })}
               <Legend onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} />
             </LineChart>
@@ -244,7 +255,7 @@ const MatchGraph = ({
 }) => {
   if (type === 'difference') {
     return <XpNetworthGraph match={match} width={width} strings={strings} sponsorURL={sponsorURL} sponsorIcon={sponsorIcon} />;
-  } else if (type === 'gold' || type === 'xp' || type === 'lh') {
+  } if (type === 'gold' || type === 'xp' || type === 'lh') {
     return <PlayersGraph type={type} match={match} width={width} strings={strings} />;
   }
   return null;
@@ -261,7 +272,7 @@ MatchGraph.propTypes = {
   sponsorURL: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

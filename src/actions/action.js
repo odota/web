@@ -6,15 +6,15 @@ export default function action(type, host, path, params = {}, transform) {
     const getDataStart = () => ({
       type: `REQUEST/${type}`,
     });
-    const getDataOk = payload => ({
+    const getDataOk = (payload) => ({
       type: `OK/${type}`,
       payload,
     });
-    const getError = error => ({
+    const getError = (error) => ({
       type: `ERROR/${type}`,
       error,
     });
-    const fetchDataWithRetry = delay => fetch(url, path === 'api/metadata' ? { credentials: 'include' } : {})
+    const fetchDataWithRetry = (delay) => fetch(url, path === 'api/metadata' ? { credentials: 'include' } : {})
       .then((response) => {
         if (!response.ok || !response.status) {
           const err = new Error();
@@ -30,8 +30,8 @@ export default function action(type, host, path, params = {}, transform) {
         }
         return response.json();
       })
-      .then(transform || (json => json))
-      .then(json => dispatch(getDataOk(json)))
+      .then(transform || ((json) => json))
+      .then((json) => dispatch(getDataOk(json)))
       .catch((e) => {
         // eslint-disable-next-line no-console
         console.error(e);

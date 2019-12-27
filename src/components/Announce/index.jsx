@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-redeclare
 /* global localStorage */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -176,8 +177,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  getPulls: repo => dispatch(getGithubPulls(repo)),
+const mapDispatchToProps = (dispatch) => ({
+  getPulls: (repo) => dispatch(getGithubPulls(repo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

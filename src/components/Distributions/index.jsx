@@ -50,6 +50,7 @@ class RequestLayer extends React.Component {
   componentDidMount() {
     this.props.dispatchDistributions();
   }
+
   render() {
     const { strings, loading } = this.props;
     const countryMmrColumns = [{
@@ -106,21 +107,21 @@ class RequestLayer extends React.Component {
       let rows = data && data[key] && data[key].rows;
       if (key === 'ranks') {
         // Translate the rank integers into names
-        rows = rows.map(r => ({ ...r, bin_name: rankTierToString(r.bin_name) }));
+        rows = rows.map((r) => ({ ...r, bin_name: rankTierToString(r.bin_name) }));
       }
       return (
         <div>
           <Heading
             title={strings[`distributions_heading_${key}`]}
             subtitle={`
-            ${data[key] && data[key].rows && abbreviateNumber(data[key].rows.map(row => row.count).reduce(sum, 0))} ${strings.th_players}
+            ${data[key] && data[key].rows && abbreviateNumber(data[key].rows.map((row) => row.count).reduce(sum, 0))} ${strings.th_players}
           `}
             icon=" "
             twoLine
           />
-          {(key === 'mmr' || key === 'ranks') ?
-            <DistributionGraph data={rows} xTickInterval={key === 'ranks' ? 4 : null} />
-          : <Table data={data && data[key] && data[key].rows} columns={countryMmrColumns} />}
+          {(key === 'mmr' || key === 'ranks')
+            ? <DistributionGraph data={rows} xTickInterval={key === 'ranks' ? 4 : null} />
+            : <Table data={data && data[key] && data[key].rows} columns={countryMmrColumns} />}
         </div>);
     };
 
@@ -130,7 +131,7 @@ class RequestLayer extends React.Component {
       },
     ];
     const info = this.props.match.params.info || 'ranks';
-    const page = distributionsPages.find(_page => (_page.key || _page.name.toLowerCase()) === info);
+    const page = distributionsPages.find((_page) => (_page.key || _page.name.toLowerCase()) === info);
     return loading
       ? <DistributionsSkeleton />
       : (
@@ -142,13 +143,13 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.app.distributions.data,
   loading: state.app.distributions.loading,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   dispatchDistributions: () => dispatch(getDistributions()),
 });
 

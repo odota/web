@@ -9,8 +9,8 @@ import constants from '../../constants';
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: ${props => (props.top ? 'flex-end' : 'center')};
-  ${props => (props.top && `position:relative;
+  align-items: ${(props) => (props.top ? 'flex-end' : 'center')};
+  ${(props) => (props.top && `position:relative;
   @media only screen and (max-width: 767px) {
     align-items: center;
   }
@@ -29,7 +29,7 @@ const StyledPagination = styled.div`
   @media only screen and (max-width: 511px) {
     flex-direction: column;
   }
-  ${props => props.top && `position: absolute;
+  ${(props) => props.top && `position: absolute;
   right: 0;
   top: -32px;
   font-size: ${constants.fontSizeMedium};
@@ -92,19 +92,23 @@ const getPages = ({ currentPage, numPages, setCurrentPage }) => {
   const start = Math.min(targetStart, minStart);
   const end = Math.max(targetEnd, minEnd);
   for (let i = start; i <= end; i += 1) {
-    pages.push(i === currentPage ?
-      <StyledCurrentPage
-        key={i}
-        onClick={i === currentPage ? () => {} : () => setCurrentPage(i)}
-      >
-        {i + 1}
-      </StyledCurrentPage> :
-      <StyledPage
-        key={i}
-        onClick={i === currentPage ? () => {} : () => setCurrentPage(i)}
-      >
-        {i + 1}
-      </StyledPage>);
+    pages.push(i === currentPage
+      ? (
+        <StyledCurrentPage
+          key={i}
+          onClick={i === currentPage ? () => {} : () => setCurrentPage(i)}
+        >
+          {i + 1}
+        </StyledCurrentPage>
+      )
+      : (
+        <StyledPage
+          key={i}
+          onClick={i === currentPage ? () => {} : () => setCurrentPage(i)}
+        >
+          {i + 1}
+        </StyledPage>
+      ));
   }
   return pages;
 };
@@ -119,55 +123,72 @@ const Pagination = ({
   length,
   place,
   strings,
-}) =>
-  numPages > 1 && (
-    <StyledContainer top={place === 'top'}>
-      <StyledPagination top={place === 'top'}>
-        {currentPage > 0 &&
+}) => numPages > 1 && (
+<StyledContainer top={place === 'top'}>
+  <StyledPagination top={place === 'top'}>
+    {currentPage > 0
+        && (
         <StyledPage onClick={() => setCurrentPage(0)}>
           {strings.pagination_first}
         </StyledPage>
+        )
         }
-        <div>
-          {currentPage > 0 &&
+    <div>
+      {currentPage > 0
+          && (
           <StyledArrowButton onClick={currentPage > 0 ? prevPage : () => {}}>
             <StyledPrev />
           </StyledArrowButton>
+          )
           }
-          {currentPage > 2 && numPages > 2 &&
+      {currentPage > 2 && numPages > 2
+          && (
           <StyledCurrentPage disabled>
             ...
           </StyledCurrentPage>
+          )
           }
-          {getPages({ currentPage, numPages, setCurrentPage })}
-          {numPages > currentPage + 3 &&
+      {getPages({ currentPage, numPages, setCurrentPage })}
+      {numPages > currentPage + 3
+          && (
           <StyledCurrentPage disabled>
             ...
           </StyledCurrentPage>
+          )
           }
-          {currentPage < numPages - 1 &&
+      {currentPage < numPages - 1
+          && (
           <StyledArrowButton onClick={currentPage < (numPages - 1) ? nextPage : () => {}}>
             <StyledNext />
           </StyledArrowButton>
+          )
           }
-        </div>
-        {currentPage < numPages - 1 &&
+    </div>
+    {currentPage < numPages - 1
+        && (
         <StyledPage onClick={() => setCurrentPage(numPages - 1)}>
           {strings.pagination_last}
         </StyledPage>
+        )
         }
-      </StyledPagination>
-      {place === 'bot' &&
+  </StyledPagination>
+  {place === 'bot'
+      && (
       <StyledInfo>
         {((pageLength * currentPage) + 1).toLocaleString('en-US')}
         {' - '}
-        {Math.min((pageLength * currentPage) + pageLength, length).toLocaleString('en-US')} {strings.pagination_of} {length.toLocaleString('en-US')}
+        {Math.min((pageLength * currentPage) + pageLength, length).toLocaleString('en-US')}
+        {' '}
+        {strings.pagination_of}
+        {' '}
+        {length.toLocaleString('en-US')}
       </StyledInfo>
+      )
       }
-    </StyledContainer>
-  );
+</StyledContainer>
+);
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

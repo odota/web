@@ -10,19 +10,29 @@ import {
   Tooltip,
 } from 'recharts';
 import { StyledContainer, SparklineContainer } from './Styled';
-import { StyledCustomizedTooltip } from '../../Visualizations/Graph/Styled';
+import { StyledCustomizedTooltip } from '../Graph/Styled';
 import constants from '../../constants';
 
 const CustomizedTooltip = ({ label, external, strings }) => (
   <StyledCustomizedTooltip>
-    <div className="label">{label} - {label + 1}</div>
+    <div className="label">
+      {label}
+      {' '}
+-
+      {' '}
+      {label + 1}
+    </div>
     {external && external[label] && (
       <div>
         <div>
-          {strings.cs_this_minute}: {external[label].delta}
+          {strings.cs_this_minute}
+:
+          {external[label].delta}
         </div>
         <div>
-          {strings.cumulative_cs}: {external[label].cumulative}
+          {strings.cumulative_cs}
+:
+          {external[label].cumulative}
         </div>
       </div>)
     }

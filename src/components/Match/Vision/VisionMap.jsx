@@ -188,7 +188,7 @@ class VisionMap extends React.Component {
           maxWidth={width}
           width={width}
         >
-          {this.props.wards.map(w => <WardPin match={this.props.match} key={w.key} width={width} log={w} strings={strings} />)}
+          {this.props.wards.map((w) => <WardPin match={this.props.match} key={w.key} width={width} log={w} strings={strings} />)}
         </DotaMap>
       </div>
     );

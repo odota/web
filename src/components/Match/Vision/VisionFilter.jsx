@@ -49,7 +49,7 @@ class VisionFilter extends React.Component {
           }
           }
         />,
-        displayFn: row => row.image,
+        displayFn: (row) => row.image,
       },
       this.playerColumn(0 + index),
       this.playerColumn(1 + index),
@@ -58,13 +58,15 @@ class VisionFilter extends React.Component {
       this.playerColumn(4 + index),
       {
         displayName: strings.chat_filter_all,
-        displayFn: row => (<Checkbox
-          checked={this.props.parent.checkedTypeWard(index, row.type)}
-          onCheck={() => {
-            this.props.parent.setTypeWard(index, row.type);
+        displayFn: (row) => (
+          <Checkbox
+            checked={this.props.parent.checkedTypeWard(index, row.type)}
+            onCheck={() => {
+              this.props.parent.setTypeWard(index, row.type);
+            }
           }
-          }
-        />),
+          />
+        ),
       },
     ];
   }
@@ -72,13 +74,15 @@ class VisionFilter extends React.Component {
   playerColumn(playerNumber) {
     return {
       displayName: <PlayerThumb {...this.props.match.players[playerNumber]} hideText />,
-      displayFn: row => (<Checkbox
-        checked={this.props.parent.state.players[row.type][playerNumber]}
-        onCheck={(event, checked) => {
-          this.props.parent.setPlayer(playerNumber, row.type, checked);
+      displayFn: (row) => (
+        <Checkbox
+          checked={this.props.parent.state.players[row.type][playerNumber]}
+          onCheck={(event, checked) => {
+            this.props.parent.setPlayer(playerNumber, row.type, checked);
+          }
         }
-        }
-      />),
+        />
+      ),
     };
   }
 

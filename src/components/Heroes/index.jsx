@@ -37,7 +37,7 @@ class RequestLayer extends React.Component {
     this.props.onGetProPlayers();
   }
 
-  getMatchCountByRank = (json, rank) => json.map(heroStat => heroStat[rank] || 0).reduce(sum, 0) / 10
+  getMatchCountByRank = (json, rank) => json.map((heroStat) => heroStat[rank] || 0).reduce(sum, 0) / 10
 
   createTab = (key, matchCount) => {
     const { strings } = this.props;
@@ -77,7 +77,7 @@ class RequestLayer extends React.Component {
     const json = this.props.data;
 
     // Assemble the result data array
-    const matchCountPro = json.map(heroStat => heroStat.pro_pick || 0).reduce(sum, 0) / 10;
+    const matchCountPro = json.map((heroStat) => heroStat.pro_pick || 0).reduce(sum, 0) / 10;
     const matchCount8 = this.getMatchCountByRank(json, '8_pick');
     const matchCount7 = this.getMatchCountByRank(json, '7_pick');
     const matchCount6 = this.getMatchCountByRank(json, '6_pick');
@@ -133,7 +133,7 @@ class RequestLayer extends React.Component {
       this.createTab('public', matchCountPublic),
     ];
 
-    const selectedTab = heroTabs.find(_tab => _tab.key === route);
+    const selectedTab = heroTabs.find((_tab) => _tab.key === route);
     const { loading, strings } = this.props;
 
     return (
@@ -150,7 +150,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.app.heroStats.data,
   loading: state.app.heroStats.loading,
   strings: state.app.strings,

@@ -7,7 +7,7 @@ import { Row, MatchesContainer, MemberAndHeroContainer } from './TeamStyled';
 const MAX_MATCHES_ROWS = 20;
 const MAX_HEROES_ROWS = 10;
 
-export default strings => ({
+export default (strings) => ({
   name: strings.tab_overview,
   key: 'overview',
   content: (generalData, matchData, heroData, playerData) => (
@@ -33,7 +33,7 @@ export default strings => ({
         >
           <Table
             columns={memberColumns(strings)}
-            data={playerData.data.filter(player => player.is_current_team_member)}
+            data={playerData.data.filter((player) => player.is_current_team_member)}
           />
         </Container>
         <Container

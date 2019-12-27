@@ -292,8 +292,7 @@ const Styled = styled.div`
 
 const heroesArr = jsonFn(heroes);
 
-const getWinnerStyle = obj =>
-  (obj && obj.radiant_gold_advantage_delta >= 0 ? 'radiantWinner' : 'direWinner');
+const getWinnerStyle = (obj) => (obj && obj.radiant_gold_advantage_delta >= 0 ? 'radiantWinner' : 'direWinner');
 
 const Timeline = ({
   match,
@@ -306,12 +305,11 @@ const Timeline = ({
 
   if (match.objectives && match.objectives.length > 0) {
     // Firstblood
-    const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
+    const fbIndex = match.objectives.findIndex((obj) => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
     let fbArr = [{ type: 'firstblood', time: match.first_blood_time || 0 }];
 
     if (fbIndex > -1 && match.objectives[fbIndex].player_slot !== undefined) {
-      const killer = match.players.find(player =>
-        player.player_slot === match.objectives[fbIndex].player_slot) || {};
+      const killer = match.players.find((player) => player.player_slot === match.objectives[fbIndex].player_slot) || {};
       const killerLog = killer.kills_log;
 
       fbArr = [{
@@ -326,7 +324,7 @@ const Timeline = ({
 
     // Roshan kills, team 2 = radiant, 3 = dire
       .concat(match.objectives
-        .filter(obj => obj.type === 'CHAT_MESSAGE_ROSHAN_KILL')
+        .filter((obj) => obj.type === 'CHAT_MESSAGE_ROSHAN_KILL')
         .map((obj, i) => ({
           type: 'roshan',
           time: obj.time,
@@ -335,8 +333,8 @@ const Timeline = ({
         })) || [])
 
       // Teamfights
-      .concat(match.teamfights && match.teamfights.length > 0 ?
-        match.teamfights.map(fight => ({
+      .concat(match.teamfights && match.teamfights.length > 0
+        ? match.teamfights.map((fight) => ({
           type: 'teamfight',
           start: fight.start,
           end: fight.end,
@@ -353,31 +351,32 @@ const Timeline = ({
 
     // Aegis pickups
     const aegis = (match.objectives || [])
-      .filter(obj => (
-        obj.type === 'CHAT_MESSAGE_AEGIS' ||
-            obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' ||
-            obj.type === 'CHAT_MESSAGE_DENIED_AEGIS'
+      .filter((obj) => (
+        obj.type === 'CHAT_MESSAGE_AEGIS'
+            || obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN'
+            || obj.type === 'CHAT_MESSAGE_DENIED_AEGIS'
       ))
-      .map(obj => ({
+      .map((obj) => ({
         type: 'aegis',
         act: (
-          (obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' && 'stolen') ||
-              (obj.type === 'CHAT_MESSAGE_DENIED_AEGIS' && 'denied')
+          (obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' && 'stolen')
+              || (obj.type === 'CHAT_MESSAGE_DENIED_AEGIS' && 'denied')
         ),
         time: obj.time,
         player_slot: obj.player_slot,
       }));
 
-    let fTower = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_TOWER_KILL' || o.type === 'CHAT_MESSAGE_TOWER_DENY');
+    let fTower = match.objectives.findIndex((o) => o.type === 'CHAT_MESSAGE_TOWER_KILL' || o.type === 'CHAT_MESSAGE_TOWER_DENY');
     fTower = match.objectives[fTower] ? match.objectives[fTower].time : null;
 
-    let fRax = match.objectives.findIndex(o => o.type === 'CHAT_MESSAGE_BARRACKS_KILL');
+    let fRax = match.objectives.findIndex((o) => o.type === 'CHAT_MESSAGE_BARRACKS_KILL');
     fRax = match.objectives[fRax] || null;
 
     return (
-      Math.abs(events.filter(obj => obj.type === 'firstblood')[0].time - match.first_blood_time) <= preHorn &&
+      Math.abs(events.filter((obj) => obj.type === 'firstblood')[0].time - match.first_blood_time) <= preHorn
       // some old (source1) matches have wrong time in objectives, ex: 271008789.
       // preHorn (90) is just small allowable mismatch. Since first_blood_time always >= 0, ex: 2792706825, fb before battle horn
+      && (
       <Styled>
         <main className="timeline">
           <section>
@@ -418,19 +417,24 @@ const Timeline = ({
                         // ),
                       }}
                     >
-                      {obj.type === 'firstblood' &&
+                      {obj.type === 'firstblood'
+                        && (
                         <IconBloodDrop
                           data-tip
                           data-for={`event_${i}`}
                         />
+                        )
                       }
-                      {obj.type === 'roshan' &&
+                      {obj.type === 'roshan'
+                        && (
                         <IconRoshan
                           data-tip
                           data-for={`event_${i}`}
                         />
+                        )
                       }
-                      {obj.type === 'teamfight' &&
+                      {obj.type === 'teamfight'
+                        && (
                         <IconBattle
                           onClick={onTeamfightClick && onTeamfightClick(obj.start)}
                           onMouseEnter={onTeamfightHover && onTeamfightHover(obj.start)}
@@ -442,6 +446,7 @@ const Timeline = ({
                             ${(selectedTeamfight || selectedTeamfight === 0) && 'clickable'}
                           `}
                         />
+                        )
                       }
                       <ReactTooltip
                         // Hide tooltip if it's not in objectives
@@ -449,29 +454,33 @@ const Timeline = ({
                         effect="solid"
                         place="right"
                       >
-                        {obj.type === 'firstblood' &&
+                        {obj.type === 'firstblood'
+                          && (
                           <section>
                             {match.players
-                              .filter(player => player.player_slot === obj.player_slot)
-                              .map(player => <PlayerThumb key={player.player_slot} {...player} />)
+                              .filter((player) => player.player_slot === obj.player_slot)
+                              .map((player) => <PlayerThumb key={player.player_slot} {...player} />)
                             }
                             <span>
                               {obj.key ? strings.timeline_firstblood_key : strings.timeline_firstblood}
                             </span>
-                            {obj.key &&
+                            {obj.key
+                              && (
                               <PlayerThumb
                                 {...match.players.find((player) => {
-                                  const foundHero = heroesArr('find')(hero => hero.name === obj.key);
+                                  const foundHero = heroesArr('find')((hero) => hero.name === obj.key);
                                   return foundHero && player.hero_id === foundHero.id;
                                 })}
                               />
+                              )
                             }
                           </section>
+                          )
                         }
-                        {obj.type === 'roshan' && aegis[obj.key] &&
-                          match.players
-                            .filter(player => player.player_slot === aegis[obj.key].player_slot)
-                            .map(player => (
+                        {obj.type === 'roshan' && aegis[obj.key]
+                          && match.players
+                            .filter((player) => player.player_slot === aegis[obj.key].player_slot)
+                            .map((player) => (
                               <section key={player.player_slot}>
                                 <PlayerThumb {...player} />
                                 <span>
@@ -486,22 +495,35 @@ const Timeline = ({
                               </section>
                             ))
                         }
-                        {obj.type === 'teamfight' &&
+                        {obj.type === 'teamfight'
+                          && (
                           <div>
                             <header>
                               {strings.timeline_teamfight_deaths}
                               <span className="subtitle">
-                                & {strings.timeline_teamfight_gold_delta}, {formatSeconds(obj.start)} - {formatSeconds(obj.end)}
+                                &
+                                {' '}
+                                {strings.timeline_teamfight_gold_delta}
+,
+                                {' '}
+                                {formatSeconds(obj.start)}
+                                {' '}
+-
+                                {' '}
+                                {formatSeconds(obj.end)}
                               </span>
                             </header>
-                            {obj.deaths.map(death => (
+                            {obj.deaths.map((death) => (
                               <section key={death.key}>
                                 <PlayerThumb {...match.players[death.key]} />
                                 {death.deaths > 0 ? <img src="/assets/images/player_death.png" alt="died" /> : ''}
                                 <span className="goldDelta">
                                   {death.gold_delta > 0 ? <span className="goldChange goldGot" /> : <span className="goldChange goldLost" />}
                                   {/* nothing if === 0 */}
-                                  <font style={{ color: constants.colorGolden }}>{Math.abs(death.gold_delta)} </font>
+                                  <font style={{ color: constants.colorGolden }}>
+                                    {Math.abs(death.gold_delta)}
+                                    {' '}
+                                  </font>
                                   <img
                                     alt=""
                                     src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`}
@@ -510,6 +532,7 @@ const Timeline = ({
                               </section>
                             ))}
                           </div>
+                          )
                         }
                       </ReactTooltip>
                       <time>
@@ -524,20 +547,35 @@ const Timeline = ({
           <time>{formatSeconds(match.duration)}</time>
         </main>
         <div className="matchNumbers">
-          {fTower &&
+          {fTower
+            && (
             <div>
-              <span>{strings.match_first_tower} </span>
+              <span>
+                {strings.match_first_tower}
+                {' '}
+              </span>
               {formatSeconds(fTower)}
             </div>
+            )
           }
-          {fRax &&
+          {fRax
+            && (
             <div>
-              <span>{strings.match_first_barracks} ({strings[`barracks_value_${fRax.key}`]}) </span>
+              <span>
+                {strings.match_first_barracks}
+                {' '}
+(
+                {strings[`barracks_value_${fRax.key}`]}
+)
+                {' '}
+              </span>
               {formatSeconds(fRax.time)}
             </div>
+            )
           }
         </div>
       </Styled>
+      )
     );
   }
 
@@ -549,7 +587,7 @@ Timeline.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

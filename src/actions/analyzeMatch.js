@@ -172,7 +172,7 @@ export default function analyzeMatch(match, _pm) {
       function getGroupedItemUses(key) {
         let total = 0;
         Object.keys(pm.item_uses).forEach((key2) => {
-          if (key === key2 || itemGroups.some(g => (key in g) && (key2 in g))) {
+          if (key === key2 || itemGroups.some((g) => (key in g) && (key2 in g))) {
             total += pm.item_uses[key];
           }
         });

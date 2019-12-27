@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import GaugeChart from './../../../Visualizations/GaugeChart';
+import GaugeChart from '../../../Visualizations/GaugeChart';
 import constants from '../../../constants';
 
 const Styled = styled.div`
@@ -32,7 +32,7 @@ const Styled = styled.div`
 const Summary = ({ data }) => (
   <Styled>
     <div className="gauge-container">
-      {data.map(el => <GaugeChart number={el.matches} percent={el.winPercent} caption={el.category} />)}
+      {data.map((el) => <GaugeChart number={el.matches} percent={el.winPercent} caption={el.category} />)}
     </div>
   </Styled>
 );

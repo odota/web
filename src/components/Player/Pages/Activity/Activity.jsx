@@ -43,8 +43,8 @@ class RequestLayer extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (
-      this.props.playerId !== prevProps.playerId ||
-      this.props.location.key !== prevProps.location.key
+      this.props.playerId !== prevProps.playerId
+      || this.props.location.key !== prevProps.location.key
     ) {
       getData(this.props);
     }
@@ -55,16 +55,15 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.app.playerMatches.data,
   loading: state.app.playerMatches.loading,
   error: state.app.playerMatches.error,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getPlayerMatches: (playerId, options = defaultOptions) =>
-    dispatch(getPlayerMatches(playerId, options)),
+const mapDispatchToProps = (dispatch) => ({
+  getPlayerMatches: (playerId, options = defaultOptions) => dispatch(getPlayerMatches(playerId, options)),
 });
 
 export default connect(

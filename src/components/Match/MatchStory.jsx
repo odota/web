@@ -13,7 +13,9 @@ import {
   formatTemplate,
   formatTemplateToString,
 } from '../../utility';
-import { StyledEmote, StyledStoryNetWorthBar, StyledStoryNetWorthText, StyledStoryGoldAmount, StyledStorySpan, StyledStoryWrapper } from './StyledMatch';
+import {
+  StyledEmote, StyledStoryNetWorthBar, StyledStoryNetWorthText, StyledStoryGoldAmount, StyledStorySpan, StyledStoryWrapper,
+} from './StyledMatch';
 import constants from '../constants';
 import store from '../../store';
 
@@ -82,7 +84,7 @@ const PlayerSpan = (player) => {
 };
 
 // Modified version of PlayerThumb
-const ItemSpan = item => (
+const ItemSpan = (item) => (
   <StyledStorySpan
     key={`item_${item}`}
     style={{ color: itemColors[(items[item] || {}).qual] }}
@@ -142,10 +144,10 @@ const formatApproximateTime = (timeSeconds) => {
   if (timeMinutes > 120) {
     const timeHours = parseInt(timeSeconds / (60 * 60), 10);
     return `${strings.advb_over} ${formatTemplateToString(strings.time_hh, timeHours)}`;
-  } else if (timeMinutes > 60 && timeMinutes <= 120) {
+  } if (timeMinutes > 60 && timeMinutes <= 120) {
     // If the time is an hour to a quarter after, describe it as "over an hour"
     return `${strings.advb_over} ${strings.time_h}`;
-  } else if (timeMinutes >= 50 && timeMinutes < 60) {
+  } if (timeMinutes >= 50 && timeMinutes < 60) {
     // If the time is between 50 and 60 minutes, describe it as "almost an hour"
     return `${strings.advb_almost} ${strings.time_h}`;
   }
@@ -173,7 +175,7 @@ const formatList = (list, noneValue = []) => {
   }
 };
 
-const isQuestion = message => /\w(?:\W*(\?)\W*)$/.test(message);
+const isQuestion = (message) => /\w(?:\W*(\?)\W*)$/.test(message);
 
 // evaluate the sentiment behind the message - rage, question, statement etc
 const evaluateSentiment = (event, lastMessage) => {
@@ -212,9 +214,11 @@ class StoryEvent {
   constructor(time) {
     this.time = time;
   }
+
   formatSentence() {
     return toSentence(this.format());
   }
+
   render() {
     return <div key={`event_at_${this.time}`}>{this.formatSentence()}</div>;
   }
@@ -228,6 +232,7 @@ class IntroEvent extends StoryEvent {
     this.date = new Date(match.start_time * 1000);
     this.match_duration_seconds = match.duration;
   }
+
   format() {
     const { strings } = store.getState().app;
 
@@ -249,17 +254,18 @@ class IntroEvent extends StoryEvent {
 class FirstbloodEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
-    this.killer = match.players.find(player => player.player_slot === obj.player_slot);
+    this.killer = match.players.find((player) => player.player_slot === obj.player_slot);
 
     if (obj.key !== null && obj.key !== undefined) {
       this.victim = match.players[obj.key];
     } else {
       const killerLog = this.killer.kills_log;
       const victimHero = (Array.isArray(killerLog) && killerLog[0] ? killerLog[0].key : null);
-      const foundHero = heroesArr('find')(hero => hero.name === victimHero);
-      this.victim = match.players.find(player => foundHero && player.hero_id === foundHero.id);
+      const foundHero = heroesArr('find')((hero) => hero.name === victimHero);
+      this.victim = match.players.find((player) => foundHero && player.hero_id === foundHero.id);
     }
   }
+
   format() {
     const { strings } = store.getState().app;
 
@@ -275,7 +281,7 @@ class ChatMessageEvent extends StoryEvent {
   constructor(match, obj, lastMessage) {
     super(obj.time + 70);
     this.type = obj.type;
-    this.player = match.players.find(player => player.player_slot === obj.player_slot);
+    this.player = match.players.find((player) => player.player_slot === obj.player_slot);
     this.lastMessage = lastMessage;
     this.message = obj.key.trim();
   }
@@ -303,15 +309,17 @@ class AegisEvent extends StoryEvent {
     super(obj.time);
     this.action = obj.type;
     this.index = index;
-    this.player = match.players.find(player => player.player_slot === obj.player_slot);
+    this.player = match.players.find((player) => player.player_slot === obj.player_slot);
   }
+
   get localizedAction() {
     const { strings } = store.getState().app;
 
-    return ((this.action === 'CHAT_MESSAGE_AEGIS' && strings.timeline_aegis_picked_up) ||
-            (this.action === 'CHAT_MESSAGE_AEGIS_STOLEN' && strings.timeline_aegis_snatched) ||
-            (this.action === 'CHAT_MESSAGE_DENIED_AEGIS' && strings.timeline_aegis_denied));
+    return ((this.action === 'CHAT_MESSAGE_AEGIS' && strings.timeline_aegis_picked_up)
+            || (this.action === 'CHAT_MESSAGE_AEGIS_STOLEN' && strings.timeline_aegis_snatched)
+            || (this.action === 'CHAT_MESSAGE_DENIED_AEGIS' && strings.timeline_aegis_denied));
   }
+
   format() {
     const { strings } = store.getState().app;
 
@@ -326,8 +334,9 @@ class RoshanEvent extends StoryEvent {
   constructor(match, obj, index, aegisEvents) {
     super(obj.time);
     this.team = obj.team === 2;
-    this.aegis = aegisEvents.find(aegis => aegis.index === index);
+    this.aegis = aegisEvents.find((aegis) => aegis.index === index);
   }
+
   format() {
     const { strings } = store.getState().app;
 
@@ -341,6 +350,7 @@ class CourierKillEvent extends StoryEvent {
     super(obj.time);
     this.team = obj.team === 2;
   }
+
   format() {
     const { strings } = store.getState().app;
 
@@ -355,12 +365,13 @@ class PredictionEvent extends StoryEvent {
     super(team);
     if (team === -89) {
       this.team = true; // radiant
-      this.players = match.players.filter(player => player.isRadiant && player.pred_vict);
+      this.players = match.players.filter((player) => player.isRadiant && player.pred_vict);
     } else {
       this.team = false; // dire
-      this.players = match.players.filter(player => !player.isRadiant && player.pred_vict);
+      this.players = match.players.filter((player) => !player.isRadiant && player.pred_vict);
     }
   }
+
   format() {
     const { strings } = store.getState().app;
 
@@ -371,23 +382,24 @@ class PredictionEvent extends StoryEvent {
   }
 }
 
-const localizedLane = strings => ({
+const localizedLane = (strings) => ({
   1: strings.lane_pos_1,
   2: strings.lane_pos_2,
   3: strings.lane_pos_3,
 });
 
-const getLaneScore = players => (Math.max(...players.map(player => player.gold_t[10] || 0)) || 0);
+const getLaneScore = (players) => (Math.max(...players.map((player) => player.gold_t[10] || 0)) || 0);
 const laneScoreDraw = 500;
 
 class LaneStory {
   constructor(match, lane) {
-    this.radiant_players = match.players.filter(player => player.lane === parseInt(lane, 10) && player.isRadiant && (!player.is_roaming));
-    this.dire_players = match.players.filter(player => player.lane === parseInt(lane, 10) && !player.isRadiant && (!player.is_roaming));
+    this.radiant_players = match.players.filter((player) => player.lane === parseInt(lane, 10) && player.isRadiant && (!player.is_roaming));
+    this.dire_players = match.players.filter((player) => player.lane === parseInt(lane, 10) && !player.isRadiant && (!player.is_roaming));
     this.lane = lane;
     this.winning_team = getLaneScore(this.radiant_players) > getLaneScore(this.dire_players);
     this.is_draw = Math.abs(getLaneScore(this.radiant_players) - getLaneScore(this.dire_players)) <= laneScoreDraw;
   }
+
   format() {
     const { strings } = store.getState().app;
 
@@ -426,12 +438,14 @@ class LaneStory {
 
 class JungleStory {
   constructor(match) {
-    this.players = match.players.filter(player => (player.lane === 4 || player.lane === 5) && !player.is_roaming);
+    this.players = match.players.filter((player) => (player.lane === 4 || player.lane === 5) && !player.is_roaming);
     this.lane = 4;
   }
+
   static exists(match) {
-    return match.players.filter(player => (player.lane === 4 || player.lane === 5) && !player.is_roaming).length > 0;
+    return match.players.filter((player) => (player.lane === 4 || player.lane === 5) && !player.is_roaming).length > 0;
   }
+
   format() {
     const { strings } = store.getState().app;
 
@@ -443,12 +457,14 @@ class JungleStory {
 
 class RoamStory {
   constructor(match) {
-    this.players = match.players.filter(player => player.is_roaming);
+    this.players = match.players.filter((player) => player.is_roaming);
     this.lane = 6;
   }
+
   static exists(match) {
-    return match.players.filter(player => player.is_roaming).length > 0;
+    return match.players.filter((player) => player.is_roaming).length > 0;
   }
+
   format() {
     const { strings } = store.getState().app;
 
@@ -461,7 +477,7 @@ class RoamStory {
 class LanesEvent extends StoryEvent {
   constructor(match) {
     super(10 * 60);
-    this.lanes = Object.keys(localizedLane({})).map(lane => new LaneStory(match, lane));
+    this.lanes = Object.keys(localizedLane({})).map((lane) => new LaneStory(match, lane));
     if (JungleStory.exists(match)) {
       this.lanes.push(new JungleStory(match));
     }
@@ -469,13 +485,15 @@ class LanesEvent extends StoryEvent {
       this.lanes.push(new RoamStory(match));
     }
   }
+
   formatSentence() {
     return this.format();
   }
+
   format() {
     const { strings } = store.getState().app;
 
-    return [strings.story_lane_intro, <ul key="lanestory">{this.lanes.map(lane => <li key={lane.lane}>{lane.format()}</li>)}</ul>];
+    return [strings.story_lane_intro, <ul key="lanestory">{this.lanes.map((lane) => <li key={lane.lane}>{lane.format()}</li>)}</ul>];
   }
 }
 
@@ -506,12 +524,13 @@ class TowerEvent extends StoryEvent {
         top: 3,
         '': 2,
       }[groups[3]];
-      this.player = match.players.find(player => player.player_slot === obj.player_slot);
+      this.player = match.players.find((player) => player.player_slot === obj.player_slot);
     } else if (obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY') {
-      this.player = match.players.find(player => player.player_slot === obj.player_slot);
+      this.player = match.players.find((player) => player.player_slot === obj.player_slot);
       this.team = obj.type === 'CHAT_MESSAGE_TOWER_DENY' ? this.player.isRadiant : obj.team !== 2;
     }
   }
+
   get localizedBuilding() {
     const { strings } = store.getState().app;
 
@@ -522,6 +541,7 @@ class TowerEvent extends StoryEvent {
       lane: localizedLane(strings)[this.lane],
     });
   }
+
   format() {
     return formatBuilding(this);
   }
@@ -539,7 +559,7 @@ class BarracksEvent extends StoryEvent {
         mid: 2,
         top: 3,
       }[groups[3]];
-      this.player = match.players.find(player => player.player_slot === obj.player_slot);
+      this.player = match.players.find((player) => player.player_slot === obj.player_slot);
     } else if (obj.type === 'CHAT_MESSAGE_BARRACKS_KILL') {
       this.team = obj.key >= 64;
       this.key = obj.key < 64 ? obj.key : obj.key / 64;
@@ -548,6 +568,7 @@ class BarracksEvent extends StoryEvent {
       this.lane = Math.floor(power / 2) + 1;
     }
   }
+
   get localizedBuilding() {
     const { strings } = store.getState().app;
 
@@ -557,6 +578,7 @@ class BarracksEvent extends StoryEvent {
       rax_type: this.is_melee ? strings.building_melee_rax : strings.building_range_rax,
     });
   }
+
   format() {
     return formatBuilding(this);
   }
@@ -567,12 +589,13 @@ class BuildingListEvent extends StoryEvent {
     super(buildingEvents[0].time);
     this.buildings = buildingEvents;
   }
+
   format() {
     const { strings } = store.getState().app;
 
     const buildingList = [];
     [TEAM.radiant, TEAM.dire].forEach((team) => {
-      const towers = this.buildings.filter(building => building.team === team && building instanceof TowerEvent);
+      const towers = this.buildings.filter((building) => building.team === team && building instanceof TowerEvent);
       if (towers.length === 1) {
         buildingList.push(towers[0].localizedBuilding);
       } else if (towers.length > 1) {
@@ -582,7 +605,7 @@ class BuildingListEvent extends StoryEvent {
         }));
       }
       Object.keys(localizedLane(strings)).forEach((lane) => {
-        const barracks = this.buildings.filter(building => (
+        const barracks = this.buildings.filter((building) => (
           building.team === team && building instanceof BarracksEvent && building.lane === parseInt(lane, 10)));
         if (barracks.length === 1) {
           buildingList.push(barracks[0].localizedBuilding);
@@ -600,14 +623,14 @@ class BuildingListEvent extends StoryEvent {
 
 
 const formatObjectiveEvents = (events) => {
-  let formatted = events.filter(event => !(event instanceof TowerEvent || event instanceof BarracksEvent));
-  const buildings = events.filter(event => event instanceof TowerEvent || event instanceof BarracksEvent);
+  let formatted = events.filter((event) => !(event instanceof TowerEvent || event instanceof BarracksEvent));
+  const buildings = events.filter((event) => event instanceof TowerEvent || event instanceof BarracksEvent);
   if (buildings.length <= 1) {
     formatted = formatted.concat(buildings);
   } else {
     formatted.push(new BuildingListEvent(buildings));
   }
-  return formatList(formatted.map(event => event.format()));
+  return formatList(formatted.map((event) => event.format()));
 };
 
 class TeamfightEvent extends StoryEvent {
@@ -619,15 +642,17 @@ class TeamfightEvent extends StoryEvent {
     this.gold_delta = Math.abs(fight.radiant_gold_advantage_delta);
     const deaths = fight.players
       .map((player, i) => ({ player: match.players[i], count: player.deaths }))
-      .filter(death => death.count > 0);
-    this.win_dead = deaths.filter(death => death.player.isRadiant === this.winning_team);
-    this.lose_dead = deaths.filter(death => death.player.isRadiant !== this.winning_team);
+      .filter((death) => death.count > 0);
+    this.win_dead = deaths.filter((death) => death.player.isRadiant === this.winning_team);
+    this.lose_dead = deaths.filter((death) => death.player.isRadiant !== this.winning_team);
     this.during_events = [];
     this.after_events = [];
   }
+
   formatSentence() {
     return this.format();
   }
+
   format() {
     const { strings } = store.getState().app;
 
@@ -640,9 +665,9 @@ class TeamfightEvent extends StoryEvent {
     let formatted = [renderSentence(template, {
       winning_team: TeamSpan(this.winning_team),
       net_change: GoldSpan(this.gold_delta),
-      win_dead: formatList(this.win_dead.map(death => (
+      win_dead: formatList(this.win_dead.map((death) => (
         death.count === 1 ? PlayerSpan(death.player) : [PlayerSpan(death.player), `(x${death.count})`]))),
-      lose_dead: formatList(this.lose_dead.map(death => (
+      lose_dead: formatList(this.lose_dead.map((death) => (
         death.count === 1 ? PlayerSpan(death.player) : [PlayerSpan(death.player), `(x${death.count})`]))),
     })];
     if (this.during_events.length > 0) {
@@ -675,6 +700,7 @@ class ExpensiveItemEvent extends StoryEvent {
       });
     });
   }
+
   static exists(match, price) {
     let found = false;
     match.players.forEach((player) => {
@@ -686,6 +712,7 @@ class ExpensiveItemEvent extends StoryEvent {
     });
     return found;
   }
+
   format() {
     const { strings } = store.getState().app;
 
@@ -704,6 +731,7 @@ class ItemPurchaseEvent extends StoryEvent {
     this.player = player;
     this.item = purchase.key;
   }
+
   format() {
     const { strings } = store.getState().app;
 
@@ -719,22 +747,25 @@ class TimeMarkerEvent extends StoryEvent {
   constructor(match, minutes) {
     super(minutes * 60);
     this.radiant_gold = match.players
-      .filter(player => player.isRadiant)
-      .map(player => player.gold_t[minutes])
+      .filter((player) => player.isRadiant)
+      .map((player) => player.gold_t[minutes])
       .reduce((a, b) => a + b, 0);
     this.dire_gold = match.players
-      .filter(player => !player.isRadiant)
-      .map(player => player.gold_t[minutes])
+      .filter((player) => !player.isRadiant)
+      .map((player) => player.gold_t[minutes])
       .reduce((a, b) => a + b, 0);
     this.radiant_percent = Math.round(100 * this.radiant_gold / (this.radiant_gold + this.dire_gold));
     this.dire_percent = 100 - this.radiant_percent;
   }
+
   formatSentence() {
     return this.format();
   }
+
   get minutes() {
     return this.time / 60;
   }
+
   format() {
     const { strings } = store.getState().app;
 
@@ -769,14 +800,15 @@ class GameoverEvent extends StoryEvent {
     super(match.duration);
     this.winning_team = match.radiant_win;
     this.radiant_score = match.radiant_score || match.players
-      .filter(player => player.isRadiant)
-      .map(player => player.kills)
+      .filter((player) => player.isRadiant)
+      .map((player) => player.kills)
       .reduce((a, b) => a + b, 0);
     this.dire_score = match.dire_score || match.players
-      .filter(player => !player.isRadiant)
-      .map(player => player.kills)
+      .filter((player) => !player.isRadiant)
+      .map((player) => player.kills)
       .reduce((a, b) => a + b, 0);
   }
+
   format() {
     const { strings } = store.getState().app;
 
@@ -809,7 +841,7 @@ const generateStory = (match) => {
   }
 
   // Firstblood
-  const fbIndex = match.objectives.findIndex(obj => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
+  const fbIndex = match.objectives.findIndex((obj) => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD');
 
   if (fbIndex > -1) {
     events.push(new FirstbloodEvent(match, match.objectives[fbIndex]));
@@ -817,29 +849,29 @@ const generateStory = (match) => {
 
   // Chat messages
   const chatMessageEvents = match.chat
-    .filter(obj => obj.type === 'chat')
+    .filter((obj) => obj.type === 'chat')
     .map((obj, i, array) => new ChatMessageEvent(match, obj, i > 0 && array[i - 1]));
   events = events.concat(chatMessageEvents);
 
   // Aegis pickups
   const aegisEvents = match.objectives
-    .filter(obj => obj.type === 'CHAT_MESSAGE_AEGIS' ||
-                   obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' ||
-                   obj.type === 'CHAT_MESSAGE_DENIED_AEGIS')
+    .filter((obj) => obj.type === 'CHAT_MESSAGE_AEGIS'
+                   || obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN'
+                   || obj.type === 'CHAT_MESSAGE_DENIED_AEGIS')
     .map((obj, index) => new AegisEvent(match, obj, index));
 
   // Roshan kills, team 2 = radiant, 3 = dire
   events = events.concat(match.objectives
-    .filter(obj => obj.type === 'CHAT_MESSAGE_ROSHAN_KILL')
+    .filter((obj) => obj.type === 'CHAT_MESSAGE_ROSHAN_KILL')
     .map((obj, index) => new RoshanEvent(match, obj, index, aegisEvents)));
 
   // Courier kills
   events = events.concat(match.objectives
-    .filter(obj => obj.type === 'CHAT_MESSAGE_COURIER_LOST')
-    .map(obj => new CourierKillEvent(match, obj)));
+    .filter((obj) => obj.type === 'CHAT_MESSAGE_COURIER_LOST')
+    .map((obj) => new CourierKillEvent(match, obj)));
 
   // Teamfights
-  events = events.concat(match.teamfights && match.teamfights.length > 0 ? match.teamfights.map(fight => new TeamfightEvent(match, fight)) : []);
+  events = events.concat(match.teamfights && match.teamfights.length > 0 ? match.teamfights.map((fight) => new TeamfightEvent(match, fight)) : []);
 
   // Lanes (1=Bottom, 2=Middle, 3=Top) (jungle/roaming not considered a lane here)
   if (match.duration > 10 * 60) {
@@ -847,7 +879,7 @@ const generateStory = (match) => {
   }
 
   // New Buildings Events
-  match.objectives.filter(obj => obj.type === 'building_kill').forEach((obj) => {
+  match.objectives.filter((obj) => obj.type === 'building_kill').forEach((obj) => {
     if (obj.key.includes('tower')) {
       events.push(new TowerEvent(match, obj));
     } else if (obj.key.includes('rax')) {
@@ -858,12 +890,12 @@ const generateStory = (match) => {
   // Old Buildings Events
   // Towers
   events = events.concat(match.objectives
-    .filter(obj => obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY')
-    .map(obj => new TowerEvent(match, obj)));
+    .filter((obj) => obj.type === 'CHAT_MESSAGE_TOWER_KILL' || obj.type === 'CHAT_MESSAGE_TOWER_DENY')
+    .map((obj) => new TowerEvent(match, obj)));
   // Barracks
   events = events.concat(match.objectives
-    .filter(obj => obj.type === 'CHAT_MESSAGE_BARRACKS_KILL')
-    .map(obj => new BarracksEvent(match, obj)));
+    .filter((obj) => obj.type === 'CHAT_MESSAGE_BARRACKS_KILL')
+    .map((obj) => new BarracksEvent(match, obj)));
 
   // Expensive Item
   if (ExpensiveItemEvent.exists(match, 4000)) {
@@ -925,8 +957,9 @@ class MatchStory extends React.Component {
 
   renderEvents() {
     const events = generateStory(this.props.match);
-    return (<StyledStoryWrapper key="matchstory">{events.map(event => event.render())}</StyledStoryWrapper>);
+    return (<StyledStoryWrapper key="matchstory">{events.map((event) => event.render())}</StyledStoryWrapper>);
   }
+
   render() {
     const { strings } = this.props;
     try {
@@ -945,7 +978,7 @@ class MatchStory extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

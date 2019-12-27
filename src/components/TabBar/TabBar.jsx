@@ -1,6 +1,8 @@
 import { Tab, Tabs, Tooltip } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 import styled from 'styled-components';
 import useReactRouter from 'use-react-router';
 
@@ -32,10 +34,10 @@ TabTooltip.propTypes = {
 const TabBar = ({ tabs, match }) => {
   const [tabValue, setTabValue] = useState(0);
   const { history, location } = useReactRouter();
-  const visibleTabs = useMemo(() => tabs.filter(tab => (!tab.hidden || (tab.hidden && !tab.hidden(match)))), [match, tabs]);
+  const visibleTabs = useMemo(() => tabs.filter((tab) => (!tab.hidden || (tab.hidden && !tab.hidden(match)))), [match, tabs]);
 
   useEffect(() => {
-    const newTabIndex = visibleTabs.findIndex(tab => location.pathname === tab.route);
+    const newTabIndex = visibleTabs.findIndex((tab) => location.pathname === tab.route);
     setTabValue(newTabIndex !== -1 ? newTabIndex : 0);
   }, [visibleTabs, history, location.pathname]);
 
@@ -58,7 +60,7 @@ const TabBar = ({ tabs, match }) => {
             <StyledTab
               component="a"
               href={tab.route + window.location.search}
-              onClick={e => handleTabClick(e, tab, i)}
+              onClick={(e) => handleTabClick(e, tab, i)}
               label={tab.name}
               disabled={tab.disabled}
             />
