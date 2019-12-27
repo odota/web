@@ -31,7 +31,8 @@ const commonRules = {
   "react/no-access-state-in-setstate" : "off",
   "react/button-has-type": "off",
   "max-classes-per-file": 'off',
-  "import/no-cycle": "off"
+  "import/no-cycle": "off",
+  "import/no-unresolved": "off"
 }
 
 module.exports = {
