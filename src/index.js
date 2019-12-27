@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import createHistory from 'history/createBrowserHistory';
 import { render, hydrate } from 'react-dom';
@@ -20,7 +21,7 @@ store.dispatch(getAbilityIds());
 const history = createHistory();
 
 if (process.env.NODE_ENV === 'production') {
-  const ReactGA = require('react-ga');
+  const ReactGA = require('react-ga'); // eslint-disable-line global-require
   ReactGA.initialize('UA-55757642-1');
   ReactGA.pageview(window.location.pathname + window.location.search);
 
