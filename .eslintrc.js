@@ -26,12 +26,6 @@ const commonRules = {
   "react/jsx-curly-newline": "off",
   "react/static-property-placement": "off",
   "react/jsx-props-no-spreading": "off",
-  "react/destructuring-assignment": "off",
-  "react/prop-types": "off",
-  "react/no-access-state-in-setstate" : "off",
-  "react/button-has-type": "off",
-  "max-classes-per-file": 'off',
-  "import/no-cycle": "off"
 }
 
 module.exports = {
@@ -54,6 +48,12 @@ module.exports = {
     ...commonRules,
     "import/named": ["error"],
     "react/state-in-constructor": "off",
+    "react/destructuring-assignment": "off",
+    "react/prop-types": "off",
+    "react/no-access-state-in-setstate" : "off",
+    "react/button-has-type": "off",
+    "max-classes-per-file": 'off',
+    "import/no-cycle": "off"
   },
   "overrides": [
     {
