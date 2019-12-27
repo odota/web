@@ -19,6 +19,7 @@ const reducer = combineReducers({
     }),
   }),
 });
+/* eslint-disable no-underscore-dangle */
 // This enables the redux dev tools extension, or does nothing if not installed
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /* eslint-enable */

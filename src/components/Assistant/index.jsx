@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import Heading from '../Heading';
 import IconButton from 'material-ui/IconButton';
