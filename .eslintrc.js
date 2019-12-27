@@ -21,7 +21,12 @@ const commonRules = {
       ]
     }
   ],
-  "react/sort-comp": [2]
+  "react/sort-comp": [2],
+  "react/jsx-fragments": "off",
+  "react/jsx-curly-newline": "off",
+  "react/static-property-placement": "off",
+  "react/jsx-props-no-spreading": "off",
+
 }
 
 module.exports = {
@@ -47,6 +52,7 @@ module.exports = {
       "env": { "browser": true, "jest": true},
       "extends": [
         "airbnb",
+        "plugin:import/typescript",
         "plugin:@typescript-eslint/recommended",
       ],
       "parser": "@typescript-eslint/parser",
@@ -67,7 +73,9 @@ module.exports = {
         "@typescript-eslint/prefer-optional-chain": "error",
         "@typescript-eslint/prefer-nullish-coalescing": "error",
         'react/jsx-filename-extension': [1, { 'extensions': ['.ts', '.tsx'] }],
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "react/state-in-constructor": "off",
+        "import/extensions": "off",
       },
     }
   ]
