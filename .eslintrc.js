@@ -32,7 +32,6 @@ const commonRules = {
   "react/button-has-type": "off",
   "max-classes-per-file": 'off',
   "import/no-cycle": "off",
-  "import/no-unresolved": "off"
 }
 
 module.exports = {
@@ -60,7 +59,8 @@ module.exports = {
     "react/no-access-state-in-setstate" : "off",
     "react/button-has-type": "off",
     "max-classes-per-file": 'off',
-    "import/no-cycle": "off"
+    "import/no-cycle": "off",
+    "arrow-parens": "off"
   },
   "overrides": [
     {
@@ -92,6 +92,7 @@ module.exports = {
         "import/prefer-default-export": "off",
         "react/state-in-constructor": "off",
         "import/extensions": "off",
+        "import/no-unresolved": "off"
       },
     }
   ]
