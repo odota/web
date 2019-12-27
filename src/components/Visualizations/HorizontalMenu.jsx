@@ -63,6 +63,10 @@ export const StyledHeroHorizontalMenu = styled.div`
 `;
 
 class HorizontalMenu extends React.Component {
+  inputRef = null;
+
+  horizontalMenuRef = null;
+
   static propTypes = {
     filterAndRenderElements: PropTypes.func,
     filterText: PropTypes.string,
@@ -89,11 +93,10 @@ class HorizontalMenu extends React.Component {
   setInputRef = (input) => {
     this.inputRef = input;
   };
+
   sethorizontalMenuRef = (node) => {
     this.horizontalMenuRef = node;
   };
-  inputRef = null;
-  horizontalMenuRef = null;
 
   resetSearchValue = () => {
     if (this.state.searchValue.length > 0) {

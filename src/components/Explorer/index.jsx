@@ -285,9 +285,9 @@ class Explorer extends React.Component {
             <ExplorerOutputButton
               label={strings.explorer_csv_button}
               href={`data:application/octet-stream,${encodeURIComponent(Papa.unparse({
-              data: this.state.result.rows || [],
-              fields: (this.state.result.fields || []).map(field => field.name),
-            }))}`}
+                data: this.state.result.rows || [],
+                fields: (this.state.result.fields || []).map((field) => field.name),
+              }))}`}
               download="data.csv"
               context={explorer}
             />

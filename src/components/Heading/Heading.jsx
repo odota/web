@@ -14,11 +14,13 @@ const Heading = ({
     <DivToUse>
       <span className="title">
         {icon}
-        {titleTo ?
-          <Link to={titleTo}>
-            {title.trim()}
-          </Link>
-        : title.trim()}
+        {titleTo
+          ? (
+            <Link to={titleTo}>
+              {title.trim()}
+            </Link>
+          )
+          : title.trim()}
       </span>
       <span className="subtitle">
         {subtitle}

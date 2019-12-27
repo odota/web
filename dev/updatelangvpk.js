@@ -154,4 +154,3 @@ request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/r
     Object.keys(langTagNames).forEach(tag => updateLang(tag, langTagNames[tag]));
   });
 });
-

@@ -215,8 +215,8 @@ class InflictorWithValue extends React.Component {
             <div
               className="buff"
               style={{
-              backgroundImage: `url(${image})`,
-            }}
+                backgroundImage: `url(${image})`,
+              }}
             />
           }
             {!type && <div className="overlay">{value}</div>}

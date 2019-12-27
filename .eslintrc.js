@@ -21,7 +21,17 @@ const commonRules = {
       ]
     }
   ],
-  "react/sort-comp": [2]
+  "react/sort-comp": [2],
+  "react/jsx-fragments": "off",
+  "react/jsx-curly-newline": "off",
+  "react/static-property-placement": "off",
+  "react/jsx-props-no-spreading": "off",
+  "react/destructuring-assignment": "off",
+  "react/prop-types": "off",
+  "react/no-access-state-in-setstate" : "off",
+  "react/button-has-type": "off",
+  "max-classes-per-file": 'off',
+  "import/no-cycle": "off",
 }
 
 module.exports = {
@@ -37,9 +47,31 @@ module.exports = {
       },
     },
   },
+  "extends": [
+    "airbnb",
+  ],
   "rules": {
     ...commonRules,
     "import/named": ["error"],
+    "react/state-in-constructor": "off",
+    "react/destructuring-assignment": "off",
+    "react/prop-types": "off",
+    "react/no-access-state-in-setstate" : "off",
+    "react/button-has-type": "off",
+    "max-classes-per-file": 'off',
+    "import/no-cycle": "off",
+    "arrow-parens": "off",
+    "operator-linebreak": "off",
+    "react/jsx-wrap-multilines": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "object-curly-newline": "off",
+    "no-else-return": "off",
+    "implicit-arrow-linebreak": "off",
+    "prefer-object-spread": "off",
+    "lines-between-class-members": "off",
+    "react/jsx-tag-spacing": "off",
+    "import/no-useless-path-segments": "off",
+    "no-dupe-class-members": "off"
   },
   "overrides": [
     {
@@ -47,6 +79,7 @@ module.exports = {
       "env": { "browser": true, "jest": true},
       "extends": [
         "airbnb",
+        "plugin:import/typescript",
         "plugin:@typescript-eslint/recommended",
       ],
       "parser": "@typescript-eslint/parser",
@@ -67,7 +100,10 @@ module.exports = {
         "@typescript-eslint/prefer-optional-chain": "error",
         "@typescript-eslint/prefer-nullish-coalescing": "error",
         'react/jsx-filename-extension': [1, { 'extensions': ['.ts', '.tsx'] }],
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "react/state-in-constructor": "off",
+        "import/extensions": "off",
+        "import/no-unresolved": "off"
       },
     }
   ]

@@ -39,8 +39,8 @@ const MMRGraph = ({ columns, strings }) => (
       <LineChart
         data={columns.map(filterZeroValues)}
         margin={{
-        top: 5, right: 30, left: 30, bottom: 5,
-      }}
+          top: 5, right: 30, left: 30, bottom: 5,
+        }}
       >
         <XAxis dataKey="time" interval={49} tickFormatter={formatXTick}>
           <Label value={strings.th_time} position="insideTopRight" />
