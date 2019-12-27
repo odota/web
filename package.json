@@ -15,7 +15,7 @@
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer build/static/js/main.* --html > analyze.html",
     "lintfix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
-    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx --report-unused-disable-directives",
     "update:emoticons": "npm r dota2-emoticons && npm i dota2-emoticons && node dev/updateEmoticons.js",
     "storybook": "start-storybook -p 9009 -s public",
     "storybook:build": "build-storybook -s public"

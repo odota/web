@@ -412,7 +412,7 @@ export const wilsonScore = (up, down) => {
 
 export const groupBy = (xs, key) =>
   xs.reduce((rv, x) => {
-    (rv[x[key]] = rv[x[key]] || []).push(x); // eslint-disable-line no-param-reassign
+    (rv[x[key]] = rv[x[key]] || []).push(x);
     return rv;
   }, {});
 
@@ -434,7 +434,6 @@ export function groupByArray(xs, key) {
 
 export const sumValues = f => Object.values(f).reduce((a, b) => a + b);
 
-/* eslint-disable camelcase */
 // https://dota2.gamepedia.com/Attributes
 export function compileLevelOneStats(hero) {
   if (!hero) {
@@ -860,7 +859,7 @@ for (let i = 0; i < 6; i += 1) {
 
 export function isLeapYear(date) {
   const year = date.getFullYear();
-  if ((year & 3) !== 0) { // eslint-disable-line no-bitwise
+  if ((year & 3) !== 0) {
     return false;
   }
   return ((year % 100) !== 0 || (year % 400) === 0);
