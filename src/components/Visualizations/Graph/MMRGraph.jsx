@@ -18,7 +18,7 @@ const StyledGraphArea = styled.div`
 user-select: none;
 `;
 
-const filterZeroValues = (column) => ({
+const filterZeroValues = column => ({
   ...column,
   solo_competitive_rank: column.solo_competitive_rank || null,
   competitive_rank: column.competitive_rank || null,
@@ -82,7 +82,7 @@ MMRGraph.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

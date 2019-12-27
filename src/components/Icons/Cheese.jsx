@@ -1,7 +1,7 @@
 import React from 'react';
 import constants from '../constants';
 
-export default (props) => (
+export default props => (
   <svg
     {...props}
     viewBox="0 0 300 300"

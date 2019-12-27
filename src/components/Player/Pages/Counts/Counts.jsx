@@ -24,7 +24,7 @@ const Counts = ({
   counts, error, loading, strings,
 }) => (
   <StyledContainer>
-    {Object.keys(counts).map((key) => (
+    {Object.keys(counts).map(key => (
       <StyledTableContainer key={key}>
         <Container title={strings[`heading_${key}`]} error={error} loading={loading}>
           <Table columns={playerCountsColumns(strings)} data={counts[key].list} />
@@ -74,14 +74,14 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   counts: state.app.playerCounts.data,
   error: state.app.playerCounts.error,
   loading: state.app.playerCounts.loading,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getPlayerCounts: (playerId, options) => dispatch(getPlayerCounts(playerId, options)),
 });
 

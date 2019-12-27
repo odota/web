@@ -13,18 +13,16 @@ const ExplorerOutputButton = ({
       context.setState({ ...context.state, builder: { ...context.state.builder, format } }, context.syncWindowHistory);
     };
   } else {
-    clickFn = (noOp) => noOp;
+    clickFn = noOp => noOp;
   }
-  return (
-    <RaisedButton
-      secondary={format && ((defaultSelected && !context.state.builder.format) || context.state.builder.format === format)}
-      style={{ margin: '5px' }}
-      label={label}
-      href={href}
-      download={download}
-      onClick={clickFn}
-    />
-  );
+  return (<RaisedButton
+    secondary={format && ((defaultSelected && !context.state.builder.format) || context.state.builder.format === format)}
+    style={{ margin: '5px' }}
+    label={label}
+    href={href}
+    download={download}
+    onClick={clickFn}
+  />);
 };
 
 ExplorerOutputButton.propTypes = {

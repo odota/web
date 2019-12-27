@@ -5,9 +5,9 @@ import TeamTable from '../TeamTable';
 import AbilityDraftTable from '../AbilityDraftTable';
 import mcs from '../matchColumns';
 import BuildingMap from '../BuildingMap';
-import Collapsible from '../../Collapsible/index';
+import Collapsible from './../../Collapsible/index';
 import AbilityBuildTable from '../AbilityBuildTable';
-import DeferredContainer from '../../DeferredContainer/index';
+import DeferredContainer from './../../DeferredContainer/index';
 
 
 const Styled = styled.div`
@@ -40,7 +40,7 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
     name: strings.tab_overview,
     key: 'overview',
     skeleton: true,
-    content: (match) => (
+    content: match => (
       <div>
         <TeamTable
           players={match.players}
@@ -57,8 +57,7 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
           customWidth={960}
           radiantWin={match.radiant_win}
         />
-        {match.game_mode === 18
-        && (
+        {match.game_mode === 18 &&
         <AbilityDraftTable
           players={match.players}
           columns={abilityDraftColumns()}
@@ -67,8 +66,7 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
           summable
-        />
-        )}
+        />}
         <DeferredContainer>
           <Collapsible name="abilityBuilds" initialMaxHeight={800}>
             <AbilityBuildTable

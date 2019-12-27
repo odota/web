@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const mapData = (data, key) => data.map((item) => ({ Percentage: (`${item.percentile * 100}%`), Value: typeof item[key] === 'number' && Number(item[key].toFixed(2)) }));
+const mapData = (data, key) => data.map(item => ({ Percentage: (`${item.percentile * 100}%`), Value: typeof item[key] === 'number' && Number(item[key].toFixed(2)) }));
 
 const getData = (data, strings) => [
   { title: strings.tooltip_gold_per_min, data: mapData(data, 'gold_per_min'), color: constants.golden },
@@ -30,7 +30,7 @@ const getData = (data, strings) => [
   { title: strings.tooltip_stuns_per_min, data: mapData(data, 'stuns_per_min'), color: constants.red },
 ];
 
-const renderGraphs = (data) => data.map((graphData) => <BenchmarkGraph key={graphData.title} data={graphData} />);
+const renderGraphs = data => data.map(graphData => <BenchmarkGraph key={graphData.title} data={graphData} />);
 
 const BenchmarkGraphs = ({ data, strings }) => {
   const mappedData = getData(data, strings);

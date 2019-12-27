@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import constants from '../../../constants';
-import { getDOY, getLocalizedWeekdayStrings, getLocalizedMonthStrings } from '../../../../utility/index';
-import Table from '../../../Table/Table';
+import { getDOY, getLocalizedWeekdayStrings, getLocalizedMonthStrings } from './../../../../utility/index';
+import Table from './../../../Table/Table';
 import playerMatchesColumns from '../Matches/playerMatchesColumns';
-import {
-  WeeksContainer, DayContainer, Week, Styled, Content, WeekDayLabels,
-} from './Styled';
+import { WeeksContainer, DayContainer, Week, Styled, Content, WeekDayLabels } from './Styled';
 
 const langCode = window.localStorage.getItem('localization') || 'en-US';
 const weekDayStrings = getLocalizedWeekdayStrings();
@@ -47,15 +45,16 @@ const getNormalizationRatio = (data) => {
 };
 
 const getTooltip = (date, data) => {
-  const dateString = date
-    && date.toLocaleDateString(langCode, {
+  const dateString =
+    date &&
+    date.toLocaleDateString(langCode, {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
     });
   if (!date) {
     return null;
-  } if (!data) {
+  } else if (!data) {
     return `${dateString}\n`;
   }
   const { win, loss } = data;
@@ -144,9 +143,9 @@ const mapDays2Weeks = (year, data) => {
 
   for (let i = 1; i <= 53 * 7; i += 1) {
     if (
-      i >= firstDay + 1
-      && i <= (53 * 7) - 6 + lastDay
-      && (year < todayYear || i <= todayDays + 1)
+      i >= firstDay + 1 &&
+      i <= (53 * 7) - 6 + lastDay &&
+      (year < todayYear || i <= todayDays + 1)
     ) {
       const date = new Date(year, 0, i - firstDay);
       week.push({
@@ -176,7 +175,7 @@ class Weeks extends React.Component {
 
   state = { hoveredMonth: null, clickedDay: null };
 
-  handleMonthHoverOn = (month) => () => {
+  handleMonthHoverOn = month => () => {
     this.setState({ hoveredMonth: month });
   };
 
@@ -184,7 +183,7 @@ class Weeks extends React.Component {
     this.setState({ hoveredMonth: null });
   };
 
-  handleDayClick = (clickedDay) => () => {
+  handleDayClick = clickedDay => () => {
     this.setState({
       clickedDay: clickedDay === this.state.clickedDay ? null : clickedDay,
     });
@@ -201,7 +200,7 @@ class Weeks extends React.Component {
 
     return (
       <React.Fragment>
-        {mapDays2Weeks(year, data).map((week) => (
+        {mapDays2Weeks(year, data).map(week => (
           <Week>
             {week.map((day) => {
               const { firstDayOfMonth, month } = day;
@@ -295,7 +294,7 @@ const ActivityCalendar = ({ strings, data }) => {
       />
       {Object.keys(aggregatedData)
         .reverse()
-        .map((year) => (
+        .map(year => (
           <Content>
             <WeeksContainer>
               <WeekDayLabels>

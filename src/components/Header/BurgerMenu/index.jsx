@@ -38,7 +38,7 @@ export default class BurgerMenu extends React.Component {
           docked={false}
           width={260}
           open={this.state.open}
-          onRequestChange={(open) => this.setState({ open })}
+          onRequestChange={open => this.setState({ open })}
         >
           <Menu>
             {this.props.menuItems.map((item) => {

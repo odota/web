@@ -69,11 +69,11 @@ class Hero extends React.Component {
       return <ErrorBox text={errorText} />;
     }
 
-    const tabs = (tabsHeroId) => [
+    const tabs = tabsHeroId => [
       {
         name: strings.tab_rankings,
         key: 'rankings',
-        content: (props) => (
+        content: props => (
           <div>
             <Heading title={strings.tab_rankings} subtitle={strings.rankings_description} />
             <Ranking {...props} />
@@ -84,7 +84,7 @@ class Hero extends React.Component {
       {
         name: strings.tab_benchmarks,
         key: 'benchmarks',
-        content: (props) => (
+        content: props => (
           <div>
             <Heading title={strings.tab_benchmarks} subtitle={strings.hero_disclaimer_public} />
             <Benchmark {...props} />
@@ -95,7 +95,7 @@ class Hero extends React.Component {
       {
         name: strings.tab_recent,
         key: 'recent',
-        content: (props) => (
+        content: props => (
           <div>
             <Heading title={strings.tab_recent} subtitle={strings.hero_disclaimer_pro} />
             <Recent {...props} />
@@ -106,7 +106,7 @@ class Hero extends React.Component {
       {
         name: strings.tab_matchups,
         key: 'matchups',
-        content: (props) => (
+        content: props => (
           <div>
             <Heading title={strings.tab_matchups} subtitle={strings.hero_disclaimer_pro} />
             <Matchups {...props} />
@@ -117,7 +117,7 @@ class Hero extends React.Component {
       {
         name: strings.tab_durations,
         key: 'durations',
-        content: (props) => (
+        content: props => (
           <div>
             <Heading title={strings.tab_durations} subtitle={strings.hero_disclaimer_pro} />
             <Durations {...props} />
@@ -128,7 +128,7 @@ class Hero extends React.Component {
       {
         name: strings.tab_players,
         key: 'players',
-        content: (props) => (
+        content: props => (
           <div>
             <Heading title={strings.tab_players} subtitle={strings.hero_disclaimer_pro} />
             <Players {...props} />
@@ -138,7 +138,7 @@ class Hero extends React.Component {
       },
     ];
 
-    const currentTab = tabs(heroId).find((tab) => tab.key === route);
+    const currentTab = tabs(heroId).find(tab => tab.key === route);
     return (
       <div>
         <Helmet title={hero.localized_name} />
@@ -177,7 +177,7 @@ Hero.defaultProps = {
   heroes: [],
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isLoading: state.app.heroStats.loading,
   isError: state.app.heroStats.error,
   heroes: state.app.heroStats.data,

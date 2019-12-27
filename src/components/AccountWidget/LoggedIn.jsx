@@ -41,7 +41,7 @@ LoggedIn.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

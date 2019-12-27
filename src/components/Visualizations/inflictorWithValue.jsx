@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip';
 import nanoid from 'nanoid';
 import items from 'dotaconstants/build/items.json';
 import styled from 'styled-components';
-import ItemTooltip from '../ItemTooltip/index';
+import ItemTooltip from './../ItemTooltip/index';
 import constants from '../constants';
 import AbilityTooltip from '../AbilityTooltip';
 
@@ -207,49 +207,37 @@ class InflictorWithValue extends React.Component {
             data-for={ttId}
             onMouseEnter={this.setShowTooltip}
           >
-            {(!type || type === 'backpack')
-            && (
+            {(!type || type === 'backpack') &&
             <object data={image} height="27px" type="image/png">
               <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)', height: '27px' }} />
-            </object>
-            )}
-            {type === 'buff'
-            && (
+            </object>}
+            {type === 'buff' &&
             <div
               className="buff"
               style={{
                 backgroundImage: `url(${image})`,
               }}
             />
-            )
           }
             {!type && <div className="overlay">{value}</div>}
-            {type === 'buff'
-            && (
+            {type === 'buff' &&
             <div className="buffOverlay">
               {value > 0 && value}
             </div>
-            )
           }
-            {type === 'backpack'
-            && (
+            {type === 'backpack' &&
             <div className="backpackOverlay">
               <span>{value}</span>
             </div>
-            )
           }
-            {tooltip
-            && (
+            {tooltip &&
             <div className="tooltip">
-              {this.state.showTooltip
-              && (
+              {this.state.showTooltip &&
               <ReactTooltip id={ttId} effect="solid" place="left">
                 {tooltip}
               </ReactTooltip>
-              )
             }
-            </div>
-            )}
+            </div>}
           </div>
         </StyledDiv>
       );
@@ -258,7 +246,7 @@ class InflictorWithValue extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   abilities: state.app.abilities,
   neutralAbilities: state.app.neutralAbilities,
   abilityIds: state.app.abilityIds,

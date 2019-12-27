@@ -5,7 +5,7 @@ function conjoin(strings, value) {
   const str0 = strings[0];
   const str1 = strings[1];
   if (Array.isArray(value)) {
-    const o = value.map((x) => x.value);
+    const o = value.map(x => x.value);
     const r = [];
     if (!value.length) {
       return '';
@@ -71,14 +71,14 @@ const queryTemplate = (props) => {
   } else {
     selectArray = select;
   }
-  selectArray = selectArray.filter((x) => x !== undefined);
-  groupArray = groupArray.filter((x) => x !== undefined);
+  selectArray = selectArray.filter(x => x !== undefined);
+  groupArray = groupArray.filter(x => x !== undefined);
   groupArray.forEach((x) => {
     if (x.json_each) {
       selectArray.push(x);
     }
   });
-  groupArray = groupArray.filter((x) => !x.json_each);
+  groupArray = groupArray.filter(x => !x.json_each);
   selectArray.forEach((x, index) => {
     if (x && x.groupValue) {
       const a = {
@@ -94,7 +94,7 @@ const queryTemplate = (props) => {
       groupArray.push(a);
     }
   });
-  if (validateArray(selectArray) && selectArray.some((p) => p.template === 'picks_bans')) {
+  if (validateArray(selectArray) && selectArray.some(p => p.template === 'picks_bans')) {
     query = `SELECT
 hero_id, 
 count(1) total,
@@ -116,7 +116,7 @@ JOIN leagues using(leagueid)
 JOIN team_match using(match_id)
 JOIN teams using(team_id)
 WHERE TRUE
-${validateArray(selectArray) && selectArray.find((x) => x.where) !== undefined ? selectArray.find((x) => x.where).where : ''}
+${validateArray(selectArray) && selectArray.find(x => x.where) !== undefined ? selectArray.find(x => x.where).where : ''}
 ${conjoin`team_id = ${organization}`}
 ${conjoin`match_patch.patch >= '${minPatch}'`}
 ${conjoin`match_patch.patch <= '${maxPatch}'`}
@@ -145,27 +145,29 @@ ORDER BY total ${(order && order.value) || 'DESC'}`;
       selectArray.forEach((x) => { selectVal[x.key] = x.groupValue || (x && x.value) || 1; });
     }
     query = `SELECT
-    ${validateArray(selectArray) ? selectArray.map((x) => (x.distinct && !validateArray(groupArray) ? `DISTINCT ON (${x.value})` : '')).join('') : ''}\
-    ${(validateArray(groupArray))
-    ? groupArray.map((x) => [`${x.groupKeySelect || groupVal[x.key]} ${x.alias || ''},`].filter(Boolean).join(',\n')).join('') : ''}
-${(validateArray(groupArray))
-    ? (validateArray(selectArray) && selectArray.map((x) => [
-      (x && x.countValue) || '',
-      (x && x.avgPerMatch) ? `sum(${selectVal[x.key]})::numeric/count(distinct matches.match_id) "AVG ${x.text}"` : `${x && x.avg ? x.avg : `avg(${selectVal[x.key]})`} "AVG ${x.text}"`,
-      'count(distinct matches.match_id) count',
-      'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
-      `((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) 
+    ${validateArray(selectArray) ? selectArray.map(x => (x.distinct && !validateArray(groupArray) ? `DISTINCT ON (${x.value})` : '')).join('') : ''}\
+    ${(validateArray(groupArray)) ?
+    groupArray.map(x =>
+      [`${x.groupKeySelect || groupVal[x.key]} ${x.alias || ''},`].filter(Boolean).join(',\n')).join('') : ''}
+${(validateArray(groupArray)) ?
+    (validateArray(selectArray) && selectArray.map(x =>
+      [
+        (x && x.countValue) || '',
+        (x && x.avgPerMatch) ? `sum(${selectVal[x.key]})::numeric/count(distinct matches.match_id) "AVG ${x.text}"` : `${x && x.avg ? x.avg : `avg(${selectVal[x.key]})`} "AVG ${x.text}"`,
+        'count(distinct matches.match_id) count',
+        'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
+        `((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) 
 + 1.96 * 1.96 / (2 * count(1)) 
 - 1.96 * sqrt((((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) * (1 - (sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1))) + 1.96 * 1.96 / (4 * count(1))) / count(1))))
 / (1 + 1.96 * 1.96 / count(1)) winrate_wilson`,
-      `sum(${selectVal[x.key]}) sum`,
-      `min(${selectVal[x.key]}) min`,
-      `max(${selectVal[x.key]}) max`,
-      `stddev(${selectVal[x.key]}::numeric) stddev
+        `sum(${selectVal[x.key]}) sum`,
+        `min(${selectVal[x.key]}) min`,
+        `max(${selectVal[x.key]}) max`,
+        `stddev(${selectVal[x.key]}::numeric) stddev
   `,
-    ].filter(Boolean).join(',\n'))) || '' : ''}
-${!validateArray(groupArray)
-    ? [validateArray(selectArray) ? selectArray.map((x) => `${x.value} ${x.alias || ''}`) : '',
+      ].filter(Boolean).join(',\n'))) || '' : ''}
+${!validateArray(groupArray) ?
+    [validateArray(selectArray) ? selectArray.map(x => `${x.value} ${x.alias || ''}`) : '',
       'matches.match_id',
       'matches.start_time',
       '((player_matches.player_slot < 128) = matches.radiant_win) win',
@@ -180,12 +182,12 @@ JOIN player_matches using(match_id)
 JOIN heroes on heroes.id = player_matches.hero_id
 LEFT JOIN notable_players ON notable_players.account_id = player_matches.account_id
 LEFT JOIN teams using(team_id)
-${organization || (groupArray !== null && groupArray.length > 0 && groupArray[0] && groupArray.some((x) => x.key === 'organization'))
-    ? 'JOIN team_match ON matches.match_id = team_match.match_id AND (player_matches.player_slot < 128) = team_match.radiant JOIN teams teams2 ON team_match.team_id = teams2.team_id' : ''}
-${validateArray(selectArray) ? selectArray.map((x) => (x.joinFn ? x.joinFn(props) : '')).join('') : ''}
-${validateArray(selectArray) ? selectArray.map((x) => (x.join ? x.join : '')).join('') : ''}
+${organization || (groupArray !== null && groupArray.length > 0 && groupArray[0] && groupArray.some(x => x.key === 'organization')) ?
+    'JOIN team_match ON matches.match_id = team_match.match_id AND (player_matches.player_slot < 128) = team_match.radiant JOIN teams teams2 ON team_match.team_id = teams2.team_id' : ''}
+${validateArray(selectArray) ? selectArray.map(x => (x.joinFn ? x.joinFn(props) : '')).join('') : ''}
+${validateArray(selectArray) ? selectArray.map(x => (x.join ? x.join : '')).join('') : ''}
 WHERE TRUE
-${validateArray(selectArray) ? selectArray.map((x) => `AND ${x.value} IS NOT NULL `).join('') : ''}
+${validateArray(selectArray) ? selectArray.map(x => `AND ${x.value} IS NOT NULL `).join('') : ''}
 ${conjoin`match_patch.patch >= '${minPatch}'`}
 ${conjoin`match_patch.patch <= '${maxPatch}'`}
 ${conjoin`player_matches.hero_id = ${hero}`}
@@ -207,11 +209,11 @@ ${isTi9Team ? 'AND teams.team_id IN (15, 36, 39, 2163, 111474, 350190, 543897, 7
 ${megaWin ? 'AND ((matches.barracks_status_radiant = 0 AND matches.radiant_win) OR (matches.barracks_status_dire = 0 AND NOT matches.radiant_win))' : ''}
 ${maxGoldAdvantage ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] <= ${maxGoldAdvantage.value}` : ''}
 ${minGoldAdvantage ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] >= ${minGoldAdvantage.value}` : ''}
-${validateArray(groupArray) ? 'GROUP BY' : ''}${(validateArray(groupArray) && groupArray.map((x) => ` ${groupVal[x.key]}`)) || ''}
+${validateArray(groupArray) ? 'GROUP BY' : ''}${(validateArray(groupArray) && groupArray.map(x => ` ${groupVal[x.key]}`)) || ''}
 ${validateArray(groupArray) ? `HAVING count(distinct matches.match_id) >= ${(having && having.value) || '1'}` : ''}
 ORDER BY ${
-  [`${(validateArray(groupArray) && validateArray(selectArray) && selectArray.map((x) => `"AVG ${x.text}" ${order ? order.value : 'DESC'}`))
-    || (validateArray(selectArray) && selectArray.map((x) => `${x.value} ${order ? order.value : 'DESC'}`).join(',')) || 'matches.match_id'}`,
+  [`${(validateArray(groupArray) && validateArray(selectArray) && selectArray.map(x => `"AVG ${x.text}" ${order ? order.value : 'DESC'}`)) ||
+    (validateArray(selectArray) && selectArray.map(x => `${x.value} ${order ? order.value : 'DESC'}`).join(',')) || 'matches.match_id'}`,
   validateArray(groupArray) ? 'count DESC' : '',
   ].filter(Boolean).join(',')} NULLS LAST
 LIMIT ${limit ? limit.value : 200}`;

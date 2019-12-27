@@ -10,9 +10,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import ScenariosFormField from './ScenariosFormField';
 import getColumns from './ScenariosColumns';
-import {
-  buttonStyle, formFieldStyle, StyledDiv, tabsStyle,
-} from './Styles';
+import { buttonStyle, formFieldStyle, StyledDiv, tabsStyle } from './Styles';
 import { getScenariosItemTimings, getScenariosMisc, getScenariosLaneRoles } from '../../actions/index';
 import Table from '../Table';
 import Error from '../Error';
@@ -21,7 +19,7 @@ import ScenariosSkeleton from '../Skeletons/ScenariosSkeleton';
 import { formatTemplateToString, groupByArray } from '../../utility/index';
 import { IconLaneRoles } from '../Icons';
 
-const minSampleSize = (row) => row.games > 200;
+const minSampleSize = row => row.games > 200;
 
 const forms = {
   itemTimings: {
@@ -39,7 +37,7 @@ const forms = {
   },
 };
 
-const tabItems = (strings) => ([{
+const tabItems = strings => ([{
   text: strings.scenarios_item_timings,
   value: 'itemTimings',
   icon: <Schedule />,
@@ -60,16 +58,18 @@ const reduceRows = (data) => {
   if (data.length === 0) {
     return data;
   }
-  return data.map((scenario) => scenario.values.reduce((a, b) => ({
+  return data.map(scenario => scenario.values.reduce((a, b) => ({
     ...a,
     games: Number(a.games) + Number(b.games),
     wins: Number(a.wins) + Number(b.wins),
   })));
 };
 
-const getLink = (scenario) => <Link to={`/scenarios/${scenario}`} />;
+const getLink = scenario => <Link to={`/scenarios/${scenario}`} />;
 
 class Scenarios extends React.Component {
+  tableKey = 0;
+
   static propTypes = {
     match: PropTypes.shape({
       params: PropTypes.shape({ info: PropTypes.string }),
@@ -158,19 +158,18 @@ class Scenarios extends React.Component {
     if (filterForms) {
       filterForms.forEach((key) => {
         const formValue = formFields[selectedTab] && formFields[selectedTab][key];
-        data = data.filter((row) => Number(formValue) === row[key] || formValue === row[key] || !formValue);
+        data = data.filter(row => Number(formValue) === row[key] || formValue === row[key] || !formValue);
       });
     }
     return (
       <StyledDiv>
         {metadataError && <Error />}
         {metadataLoading && <ScenariosSkeleton />}
-        {!metadataError && !metadataLoading
-        && (
+        {!metadataError && !metadataLoading &&
         <div>
           <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} info={`${formatTemplateToString(strings.scenarios_info, 4)}`} />
           <Tabs value={selectedTab} onChange={this.handleChange} style={tabsStyle}>
-            {tabItems(strings).map((item) => (
+            {tabItems(strings).map(item => (
               <Tab label={item.text} value={item.value} icon={item.icon} containerElement={getLink(item.value)} className="tab" />
             ))}
           </Tabs>
@@ -208,7 +207,6 @@ class Scenarios extends React.Component {
             paginated
           />
         </div>
-        )
         }
       </StyledDiv>
     );
@@ -250,10 +248,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  itemTimings: (params) => dispatch(getScenariosItemTimings(params)),
-  laneRoles: (params) => dispatch(getScenariosLaneRoles(params)),
-  misc: (params) => dispatch(getScenariosMisc(params)),
+const mapDispatchToProps = dispatch => ({
+  itemTimings: params => dispatch(getScenariosItemTimings(params)),
+  laneRoles: params => dispatch(getScenariosLaneRoles(params)),
+  misc: params => dispatch(getScenariosMisc(params)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Scenarios));

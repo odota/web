@@ -7,7 +7,7 @@ import store from '../../store';
 import { formatTemplateToString } from '../../utility';
 // import { isActiveItem } from '../../utility';
 
-const getItemSuffix = (itemKey) => (['_2', '_3', '_4', '_5'].some((suffix) => itemKey.indexOf(suffix) !== -1) ? itemKey[itemKey.length - 1] : '');
+const getItemSuffix = itemKey => (['_2', '_3', '_4', '_5'].some(suffix => itemKey.indexOf(suffix) !== -1) ? itemKey[itemKey.length - 1] : '');
 
 const getFields = (players = [], leagues = [], teams = []) => {
   const { strings } = store.getState().app;
@@ -20,7 +20,7 @@ const getFields = (players = [], leagues = [], teams = []) => {
     singleSelection: 'true',
   };
 
-  const usesSelect = (itemKey) => ({
+  const usesSelect = itemKey => ({
     text: `${strings.explorer_uses} - ${itemData[itemKey].dname} ${getItemSuffix(itemKey)}`,
     value: `(item_uses->>'${itemKey}')::int`,
     key: `uses_${itemKey}`,
@@ -28,7 +28,7 @@ const getFields = (players = [], leagues = [], teams = []) => {
     bundle: 'uses',
   });
 
-  const timingSelect = (itemKey) => ({
+  const timingSelect = itemKey => ({
     text: `${strings.explorer_timing} - ${itemData[itemKey].dname} ${getItemSuffix(itemKey)}`,
     value: 'match_logs.time',
     order: 'ASC',
@@ -200,38 +200,38 @@ const getFields = (players = [], leagues = [], teams = []) => {
     text: strings.heading_damage_received,
     value: '(SELECT SUM(value::text::int) FROM json_each(damage_inflictor_received))',
     key: 'dmg_received',
-  }].map((select) => ({
+  }].map(select => ({
     ...select,
     alias: select.alias || select.key,
     bundle: 'single',
   }));
 
-  const patches = patchData.reverse().map((patch) => ({
+  const patches = patchData.reverse().map(patch => ({
     text: patch.name,
     value: patch.name,
     key: patch.name,
   }));
 
-  const durations = Array(10).fill().map((e, i) => i * 10).map((duration) => ({
+  const durations = Array(10).fill().map((e, i) => i * 10).map(duration => ({
     text: `${formatTemplateToString(strings.time_mm, duration)}`,
     searchText: formatTemplateToString(strings.time_mm, duration),
     value: duration * 60,
     key: String(duration),
   }));
 
-  const having = Array(5).fill().map((e, i) => (i + 1) * 5).map((element) => ({
+  const having = Array(5).fill().map((e, i) => (i + 1) * 5).map(element => ({
     text: String(element),
     value: element,
     key: String(element),
   }));
 
-  const limit = [100, 200, 500, 1000].map((element) => ({
+  const limit = [100, 200, 500, 1000].map(element => ({
     text: String(element),
     value: element,
     key: String(element),
   }));
 
-  const goldAdvantage = Array(31).fill().map((_, i) => i * 1000).map((element) => ({
+  const goldAdvantage = Array(31).fill().map((_, i) => i * 1000).map(element => ({
     text: String(element),
     value: element,
     key: String(element),
@@ -327,7 +327,7 @@ const getFields = (players = [], leagues = [], teams = []) => {
         groupValue: 1,
         groupKeySelect: 'player_matches.hero_id, player_matches2.hero_id hero_id2',
         groupKey: 'player_matches.hero_id, player_matches2.hero_id',
-        joinFn: (props) => `JOIN player_matches player_matches2
+        joinFn: props => `JOIN player_matches player_matches2
 ON player_matches.match_id = player_matches2.match_id
 AND player_matches.hero_id != player_matches2.hero_id 
 AND abs(player_matches.player_slot - player_matches2.player_slot) < 10
@@ -349,7 +349,7 @@ ${props.hero && props.hero.value ? '' : 'AND player_matches.hero_id < player_mat
         groupValue: 1,
         groupKeySelect: 'player_matches.account_id, player_matches2.account_id account_id2',
         groupKey: 'player_matches.account_id, player_matches2.account_id',
-        joinFn: (props) => `JOIN player_matches player_matches2
+        joinFn: props => `JOIN player_matches player_matches2
 ON player_matches.match_id = player_matches2.match_id
 AND player_matches.account_id != player_matches2.account_id 
 AND abs(player_matches.player_slot - player_matches2.player_slot) < 10
@@ -375,8 +375,8 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
         bundle: 'picks_bans',
       },
     ]
-      .concat(Object.keys(itemData).filter((itemKey) => itemData[itemKey].cd).map(usesSelect))
-      .concat(Object.keys(itemData).filter((itemKey) => itemData[itemKey].cost > 2000).map(timingSelect))
+      .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cd).map(usesSelect))
+      .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect))
       .concat(singleFields)
       .sort((a, b) => a.text && a.text.localeCompare(b.text)),
     group: [{
@@ -427,13 +427,13 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     ].concat(singleFields),
     minPatch: patches,
     maxPatch: patches,
-    hero: Object.keys(heroData).map((heroId) => ({
+    hero: Object.keys(heroData).map(heroId => ({
       text: `[${heroId}] ${heroData[heroId].localized_name}`,
       searchText: heroData[heroId].localized_name,
       value: heroData[heroId].id,
       key: String(heroData[heroId].id),
     })),
-    playerPurchased: Object.keys(itemData).map((itemName) => ({
+    playerPurchased: Object.keys(itemData).map(itemName => ({
       text: itemData[itemName].dname,
       value: itemName,
       key: itemName,
@@ -458,36 +458,36 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
       value: false,
       key: 'loss',
     }],
-    region: Object.keys(regionData).map((regionKey) => ({
+    region: Object.keys(regionData).map(regionKey => ({
       text: strings[`region_${regionKey}`],
-      value: Object.keys(clusterData).filter((key) => String(clusterData[key]) === regionKey),
+      value: Object.keys(clusterData).filter(key => String(clusterData[key]) === regionKey),
       key: String(regionKey),
     })),
-    league: leagues.map((league) => ({
+    league: leagues.map(league => ({
       text: `[${league.leagueid}] ${league.name}`,
       searchText: league.name,
       value: league.leagueid,
       key: String(league.leagueid),
     })),
-    team: teams.map((team) => ({
+    team: teams.map(team => ({
       text: `[${team.team_id}] ${team.name}`,
       searchText: team.name,
       value: team.team_id,
       key: String(team.team_id),
     })),
-    organization: teams.map((team) => ({
+    organization: teams.map(team => ({
       text: `[${team.team_id}] ${team.name}`,
       searchText: team.name,
       value: team.team_id,
       key: String(team.team_id),
     })),
-    player: players.map((player) => ({
+    player: players.map(player => ({
       text: `[${player.account_id}] ${player.name}`,
       searchText: player.name,
       value: player.account_id,
       key: String(player.account_id),
     })),
-    tier: ['premium', 'professional'].map((tier) => ({
+    tier: ['premium', 'professional'].map(tier => ({
       text: strings[`tier_${tier}`],
       value: tier,
       key: tier,
@@ -495,7 +495,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     order: [{ text: strings.explorer_asc, value: 'ASC', key: 'asc' }, { text: strings.explorer_desc, value: 'DESC', key: 'desc' }],
     having,
     limit,
-    laneRole: Object.keys(strings).filter((str) => str.indexOf('lane_role_') === 0).map((str) => {
+    laneRole: Object.keys(strings).filter(str => str.indexOf('lane_role_') === 0).map((str) => {
       const laneRoleId = Number(str.substring('lane_role_'.length));
       return { text: strings[str], value: laneRoleId, key: String(laneRoleId) };
     }),

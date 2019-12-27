@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const RankingSkeleton = (props) => (
+const RankingSkeleton = props => (
   <ContentLoader
     primaryColor="#666"
     secondaryColor="#ecebeb"

@@ -7,7 +7,7 @@ const Cheese = ({ strings }) => (
   <div className="cheese">
     <CheeseCircle />
     <section>
-      <span style={{ fontSize: 'larger' }}>
+      <span style={{ fontSize: 'larger' }} >
         {strings.app_donation_goal}
       </span>
       <p style={{ marginTop: 5 }}>
@@ -23,7 +23,7 @@ Cheese.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

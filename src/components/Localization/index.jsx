@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  List, ListItem, ListItemIcon, ListItemText, Collapse,
-} from '@material-ui/core';
+import { List, ListItem, ListItemIcon, ListItemText, Collapse } from '@material-ui/core';
 import { ExpandMore, ExpandLess, Translate } from '@material-ui/icons';
 import styled from 'styled-components';
 import { langs } from '../../lang/index';
@@ -53,7 +51,7 @@ class LocalizationMenuItems extends Component {
           </StyledListItem>
           <Collapse in={open} timeout="auto" unmountOnExit style={{ maxHeight: 300, overflow: 'auto' }}>
             <List component="div" disablePadding>
-              {langs.map((lang) => (
+              {langs.map(lang => (
                 <StyledListItem button onClick={() => setLocalization(null, null, lang)} key={lang.translated}>
                   <ListItemText primary={lang.native} />
                 </StyledListItem>
@@ -66,7 +64,7 @@ class LocalizationMenuItems extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

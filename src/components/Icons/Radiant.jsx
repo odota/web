@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const icon = (props) => (
+const icon = props => (
   <svg {...props} viewBox="0 0 300 300">
     <ellipse cx="148.6" cy="65.5" rx="35" ry="64.4" />
     <path

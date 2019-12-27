@@ -1,4 +1,4 @@
-const playerItemsColumns = (strings) => ([{
+const playerItemsColumns = strings => ([{
   displayName: 'Name',
   tooltip: strings.items_name,
   field: 'name',

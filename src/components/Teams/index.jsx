@@ -4,9 +4,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import FlatButton from 'material-ui/FlatButton';
-import {
-  getOrdinal, getTeamLogoUrl, fromNow, subTextStyle,
-} from '../../utility';
+import { getOrdinal, getTeamLogoUrl, fromNow, subTextStyle } from '../../utility';
 import { getTeams } from '../../actions';
 import Heading from '../Heading';
 import Team from '../Team';
@@ -28,7 +26,7 @@ const TeamImageContainer = styled.div`
   }
 `;
 
-const columns = (strings) => [{
+const columns = strings => [{
   displayName: strings.th_rank,
   displayFn: (row, col, field, index) => getOrdinal(index + 1),
 },
@@ -82,7 +80,6 @@ class RequestLayer extends React.Component {
   componentDidMount() {
     this.props.dispatchTeams();
   }
-
   render() {
     const { strings } = this.props;
     const route = this.props.match.params.teamId;
@@ -109,13 +106,13 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  data: state.app.teams.data.filter((team) => team.last_match_time > ((new Date() / 1000) - (60 * 60 * 24 * 30 * 6))),
+const mapStateToProps = state => ({
+  data: state.app.teams.data.filter(team => team.last_match_time > ((new Date() / 1000) - (60 * 60 * 24 * 30 * 6))),
   loading: state.app.teams.loading,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   dispatchTeams: () => dispatch(getTeams()),
 });
 

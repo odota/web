@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  shape, number, string, bool,
-} from 'prop-types';
+import { shape, number, string, bool } from 'prop-types';
 import styled from 'styled-components';
 import constants from '../constants';
 import Attribute from './Attribute';
@@ -41,7 +39,7 @@ const Label = styled.span`
 `;
 
 // Damage multiplier https://dota2.gamepedia.com/Armor#Damage_multiplier
-const calcArmorPercent = (hero) => Math.round(0.06 * hero / (1 + (0.06 * hero)) * 100);
+const calcArmorPercent = hero => Math.round(0.06 * hero / (1 + (0.06 * hero)) * 100);
 
 const HeroAttributes = ({ hero, strings }) => {
   const h = compileLevelOneStats(hero);
@@ -50,124 +48,54 @@ const HeroAttributes = ({ hero, strings }) => {
     <AttributesWrapper>
       <AttributeBlock>
         <Attribute>
-          <Label>
-            {strings.heading_attack}
-:
-          </Label>
-          {' '}
-          {`${h.base_attack_min} - ${h.base_attack_max}`}
+          <Label>{strings.heading_attack}:</Label> {`${h.base_attack_min} - ${h.base_attack_max}`}
         </Attribute>
         <Attribute>
-          <Label>
-            {strings.heading_attack_range}
-:
-          </Label>
-          {' '}
-          {h.attack_range}
+          <Label>{strings.heading_attack_range}:</Label> {h.attack_range}
         </Attribute>
         <Attribute>
-          <Label>
-            {strings.heading_attack_speed}
-:
-          </Label>
-          {' '}
-          {h.attack_rate}
+          <Label>{strings.heading_attack_speed}:</Label> {h.attack_rate}
         </Attribute>
         {h.projectile_speed !== 0 && (
           <Attribute>
-            <Label>
-              {strings.heading_projectile_speed}
-:
-            </Label>
-            {' '}
-            {h.projectile_speed}
+            <Label>{strings.heading_projectile_speed}:</Label> {h.projectile_speed}
           </Attribute>
         )}
       </AttributeBlock>
       <AttributeBlock>
         <Attribute>
-          <Label>
-            {strings.heading_base_health}
-:
-          </Label>
-          {' '}
-          {h.base_health}
+          <Label>{strings.heading_base_health}:</Label> {h.base_health}
         </Attribute>
         <Attribute>
-          <Label>
-            {strings.heading_base_health_regen}
-:
-          </Label>
-          {' '}
-          {h.base_health_regen}
+          <Label>{strings.heading_base_health_regen}:</Label> {h.base_health_regen}
         </Attribute>
         <Attribute>
-          <Label>
-            {strings.heading_base_mana}
-:
-          </Label>
-          {' '}
-          {h.base_mana}
+          <Label>{strings.heading_base_mana}:</Label> {h.base_mana}
         </Attribute>
         <Attribute>
-          <Label>
-            {strings.heading_base_mana_regen}
-:
-          </Label>
-          {' '}
-          {h.base_mana_regen}
+          <Label>{strings.heading_base_mana_regen}:</Label> {h.base_mana_regen}
         </Attribute>
       </AttributeBlock>
       <AttributeBlock>
         <Attribute>
-          <Label>
-            {strings.heading_base_armor}
-:
-          </Label>
-          {' '}
-          {`${h.base_armor} (${calcArmorPercent(h.base_armor)}%)`}
+          <Label>{strings.heading_base_armor}:</Label> {`${h.base_armor} (${calcArmorPercent(h.base_armor)}%)`}
         </Attribute>
         <Attribute>
-          <Label>
-            {strings.heading_base_mr}
-:
-          </Label>
-          {' '}
-          {`${h.base_mr}%`}
+          <Label>{strings.heading_base_mr}:</Label> {`${h.base_mr}%`}
         </Attribute>
         <Attribute>
-          <Label>
-            {strings.heading_move_speed}
-:
-          </Label>
-          {' '}
-          {h.move_speed}
+          <Label>{strings.heading_move_speed}:</Label> {h.move_speed}
         </Attribute>
         <Attribute>
-          <Label>
-            {strings.heading_turn_rate}
-:
-          </Label>
-          {' '}
-          {h.turn_rate}
+          <Label>{strings.heading_turn_rate}:</Label> {h.turn_rate}
         </Attribute>
       </AttributeBlock>
       <AttributeBlock>
         <Attribute>
-          <Label>
-            {strings.heading_legs}
-:
-          </Label>
-          {' '}
-          {h.legs}
+          <Label>{strings.heading_legs}:</Label> {h.legs}
         </Attribute>
         <Attribute>
-          <Label>
-            {strings.heading_cm_enabled}
-:
-          </Label>
-          {' '}
-          {h.cm_enabled ? strings.yes : strings.no}
+          <Label>{strings.heading_cm_enabled}:</Label> {h.cm_enabled ? strings.yes : strings.no}
         </Attribute>
       </AttributeBlock>
     </AttributesWrapper>
@@ -202,7 +130,7 @@ HeroAttributes.propTypes = {
   strings: shape({}),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

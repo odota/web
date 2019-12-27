@@ -86,7 +86,7 @@ class KeyManagement extends React.Component {
       .then((res) => {
         if (res.ok) {
           return res.json();
-        } if (res.status === 403) {
+        } else if (res.status === 403) {
           return {};
         }
         throw Error();

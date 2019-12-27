@@ -30,26 +30,22 @@ const Heading = ({
           {'(?)'}
         </span>
       </Tooltip>
-      {winner
-      && (
+      {winner &&
       <span className="winner">
         {strings.th_winner}
       </span>
-      )
       }
-      { buttonLabel && buttonTo && buttonIcon
-        ? (
-          <span className="sponsor-button">
-            <RaisedButton
-              label={buttonLabel}
-              icon={<img src={buttonIcon} alt="" />}
-              href={buttonTo}
-              target="_blank"
-              rel="noopener noreferrer"
-              primary
-            />
-          </span>
-        )
+      { buttonLabel && buttonTo && buttonIcon ?
+        <span className="sponsor-button">
+          <RaisedButton
+            label={buttonLabel}
+            icon={<img src={buttonIcon} alt="" />}
+            href={buttonTo}
+            target="_blank"
+            rel="noopener noreferrer"
+            primary
+          />
+        </span>
         : <div />
       }
     </DivToUse>);
@@ -79,7 +75,7 @@ Heading.propTypes = {
   strings: shape({}),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

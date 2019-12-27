@@ -77,7 +77,7 @@ class RequestLayer extends React.Component {
     };
   }
 
-  handleClick = (mapId) => () => {
+  handleClick = mapId => () => {
     this.setState({
       clicked: !this.state.clicked && mapId,
     });
@@ -121,7 +121,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   data: state.app.playerWardmap.data,
   loading: state.app.playerWardmap.loading,
   error: state.app.playerWardmap.data.error,
@@ -129,7 +129,7 @@ const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getPlayerWardmap: (playerId, options) => dispatch(getPlayerWardmap(playerId, options)),
   updateWindowSize: () => dispatch(calculateResponsiveState(window)),
 });

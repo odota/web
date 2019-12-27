@@ -19,16 +19,8 @@ const DistributionTooltipContent = ({ payload, array, strings }) => {
   return (
     <StyledTooltip>
       <div>{data && data.bin_name}</div>
-      <div>
-        {data && data.count}
-        {' '}
-        {strings.th_players}
-      </div>
-      <div>
-        {data && (data.cumulative_sum / total * 100).toFixed(2)}
-        {' '}
-        {strings.th_percentile}
-      </div>
+      <div>{data && data.count} {strings.th_players}</div>
+      <div>{data && (data.cumulative_sum / total * 100).toFixed(2)} {strings.th_percentile}</div>
     </StyledTooltip>);
 };
 
@@ -87,7 +79,7 @@ DistributionGraph.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

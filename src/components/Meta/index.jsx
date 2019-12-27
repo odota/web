@@ -22,7 +22,7 @@ function expandBuilderState(builder, fields) {
   const expandedBuilder = {};
   Object.keys(builder).forEach((key) => {
     if (builder[key]) {
-      expandedBuilder[key] = (fields[key] || []).find((element) => element.key === builder[key]) || { value: builder[key] };
+      expandedBuilder[key] = (fields[key] || []).find(element => element.key === builder[key]) || { value: builder[key] };
     }
   });
   return expandedBuilder;
@@ -44,7 +44,6 @@ class Explorer extends React.Component {
       sql: '',
     };
   }
-
   componentDidMount() {
     this.buildQuery(this.handleQuery);
   }
@@ -149,7 +148,7 @@ class Explorer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

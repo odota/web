@@ -7,7 +7,7 @@ import TabbedContent from '../TabbedContent';
 import { getMatch } from '../../actions';
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
-import FourOhFour from '../FourOhFour';
+import FourOhFour from '../../components/FourOhFour';
 
 class RequestLayer extends React.Component {
   static propTypes = {
@@ -40,13 +40,13 @@ class RequestLayer extends React.Component {
       loading, matchId, matchData, error, strings, match, user,
     } = this.props;
     const info = match.params.info || 'overview';
-    const page = matchPages(matchId, null, strings).find((_page) => _page.key.toLowerCase() === info);
+    const page = matchPages(matchId, null, strings).find(_page => _page.key.toLowerCase() === info);
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
     if (error && !loading) {
       return <FourOhFour msg={strings.request_invalid_match_id} />;
     }
-    return loading ? <List primaryColor="#666" width={250} height={120} />
-      : (
+    return loading ? <List primaryColor="#666" width={250} height={120} /> :
+      (
         <div>
           <Helmet title={pageTitle} />
           <MatchHeader
@@ -64,7 +64,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   matchData: state.app.match.data,
   loading: state.app.match.loading,
   error: state.app.match.error,
@@ -72,8 +72,8 @@ const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getMatch: (matchId) => dispatch(getMatch(matchId)),
+const mapDispatchToProps = dispatch => ({
+  getMatch: matchId => dispatch(getMatch(matchId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

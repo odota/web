@@ -1,6 +1,4 @@
-import {
-  IconButton, List, ListItem, ListItemText, Menu, MenuItem, SwipeableDrawer,
-} from '@material-ui/core';
+import { IconButton, List, ListItem, ListItemText, Menu, MenuItem, SwipeableDrawer } from '@material-ui/core';
 import { BugReport, Menu as MenuIcon, Settings } from '@material-ui/icons';
 import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
 import ActionSearch from 'material-ui/svg-icons/action/search';
@@ -102,7 +100,7 @@ const DrawerLink = styled(Link)`
 
 const LinkGroup = ({ navbarPages }) => (
   <VerticalAlignToolbar>
-    {navbarPages.map((page) => (
+    {navbarPages.map(page => (
       <TabContainer key={page.key}>
         <Link to={page.to}>{page.label}</Link>
       </TabContainer>
@@ -122,7 +120,7 @@ const SettingsGroup = ({ children }) => {
 
   return (
     <>
-      <IconButton color="inherit" onClick={(e) => setAnchorEl(e.currentTarget)}>
+      <IconButton color="inherit" onClick={e => setAnchorEl(e.currentTarget)}>
         <Settings />
       </IconButton>
       <DropdownMenu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose} PaperProps={{ style: { maxHeight: 600 } }}>
@@ -195,12 +193,12 @@ const Header = ({
 }) => {
   const [Announce, setAnnounce] = useState(null);
   const [menuIsOpen, setMenuState] = useState(false);
-  const small = useSelector((state) => state.browser.greaterThan.small);
-  const user = useSelector((state) => state.app.metadata.data.user);
-  const strings = useSelector((state) => state.app.strings);
+  const small = useSelector(state => state.browser.greaterThan.small);
+  const user = useSelector(state => state.app.metadata.data.user);
+  const strings = useSelector(state => state.app.strings);
 
   useEffect(() => {
-    import('../Announce').then((ann) => setAnnounce(ann.default));
+    import('../Announce').then(ann => setAnnounce(ann.default));
   }, []);
 
   return (
@@ -231,7 +229,7 @@ const Header = ({
               </div>
             </MenuLogoWrapper>
             <List>
-              {drawerPages.map((page) => (
+              {drawerPages.map(page => (
                 <DrawerLink key={`drawer__${page.to}`} to={page.to}>
                   <ListItem button key={`drawer__${page.to}`} onClick={() => setMenuState(false)}>
                     <ListItemText primary={page.label} />

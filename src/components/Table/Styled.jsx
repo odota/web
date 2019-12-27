@@ -8,7 +8,7 @@ export const StyledBody = styled.div`
     font-family: ${constants.tableFontFamily} !important;
     box-sizing: border-box;
 
-    ${(props) => (props.customWidth ? `
+    ${props => (props.customWidth ? `
       table-layout: fixed !important;
       `
     : '')}
@@ -98,7 +98,7 @@ export const StyledBody = styled.div`
 
   @media only screen and (max-width: 960px) {
   }
-  ${(props) => (props.hoverRowColumn ? `
+  ${props => (props.hoverRowColumn ? `
   & tr {
     :hover {
       background: rgba(190, 190, 140, 0.07) !important;

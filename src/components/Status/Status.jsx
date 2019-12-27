@@ -42,9 +42,8 @@ class Status extends React.Component {
   componentDidMount() {
     fetch(`${process.env.REACT_APP_API_HOST}/api/status`)
       .then(jsonResponse)
-      .then((json) => this.setState({ result: json }));
+      .then(json => this.setState({ result: json }));
   }
-
   render() {
     const { strings } = this.props;
     return (
@@ -97,7 +96,7 @@ class Status extends React.Component {
         <Table
           style={tableStyle}
           data={reverse((this.state.result.retriever || [])
-            .map((row) => ({ key: row.hostname, value: row.count })))
+            .map(row => ({ key: row.hostname, value: row.count })))
           }
           columns={columns}
         />
@@ -105,7 +104,7 @@ class Status extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

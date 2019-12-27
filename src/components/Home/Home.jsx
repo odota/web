@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import Buttons from './Buttons';
 import Why from './Why';
 import Sponsors from './Sponsors';
-import {
-  HeadContainerDiv, HeadlineDiv, DescriptionDiv, BottomTextDiv,
-} from './Styled';
+import { HeadContainerDiv, HeadlineDiv, DescriptionDiv, BottomTextDiv } from './Styled';
 
 const Home = ({ strings }) => (
   <div>
@@ -32,7 +30,7 @@ Home.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   content: state.content,
   strings: state.app.strings,
 });

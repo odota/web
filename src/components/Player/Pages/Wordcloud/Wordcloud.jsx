@@ -48,14 +48,14 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   data: state.app.playerWordcloud.data,
   loading: state.app.playerWordcloud.loading,
   error: state.app.playerWordcloud.error,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getPlayerWordcloud: (playerId, options) => dispatch(getPlayerWordcloud(playerId, options)),
 });
 

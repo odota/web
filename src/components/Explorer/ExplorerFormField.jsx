@@ -18,7 +18,7 @@ class ExplorerFormField extends React.Component {
   constructor() {
     super();
     this.state = {};
-    import('material-ui/DatePicker').then((dp) => this.setState({ DatePicker: dp.default }));
+    import('material-ui/DatePicker').then(dp => this.setState({ DatePicker: dp.default }));
   }
 
   componentDidUpdate(newProps) {
@@ -28,7 +28,7 @@ class ExplorerFormField extends React.Component {
       } = newProps;
       const dataSource = fields && fields[builderField];
       const searchText = builder[builderField]
-        ? (dataSource.find((element) => element.key === builder[builderField]) || {}).text
+        ? (dataSource.find(element => element.key === builder[builderField]) || {}).text
         : '';
       if (searchText) {
         this.autocomplete.setState({

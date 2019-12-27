@@ -9,9 +9,7 @@ const Percent = ({
 }) => (
   <StyledContainer>
     <TitleContainer>
-      {valEl || percent}
-      {' '}
-      {altValue && <small>{altValue}</small>}
+      {valEl || percent} {altValue && <small>{altValue}</small>}
     </TitleContainer>
     <PercentContainer>
       <div

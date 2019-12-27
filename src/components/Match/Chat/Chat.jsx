@@ -14,7 +14,7 @@ import styled from 'styled-components';
 import { isRadiant, formatSeconds } from '../../../utility';
 import { IconRadiant, IconDire } from '../../Icons';
 import constants from '../../constants';
-import HeroImage from '../../Visualizations/HeroImage';
+import HeroImage from './../../Visualizations/HeroImage';
 
 const StyledDiv = styled.div`
   padding-left: 32px;
@@ -242,9 +242,9 @@ const StyledDiv = styled.div`
   }
 `;
 
-const isSpectator = (slot) => slot > 9 && slot < 128;
+const isSpectator = slot => slot > 9 && slot < 128;
 
-const getChatWheel = (id) => chatWheelMessages[id] || {};
+const getChatWheel = id => chatWheelMessages[id] || {};
 
 class Chat extends React.Component {
   static propTypes = {
@@ -295,42 +295,42 @@ class Chat extends React.Component {
 
     this.filters = {
       radiant: {
-        f: (arr = this.raw) => arr.filter((msg) => isRadiant(msg.player_slot) || isSpectator(msg.slot)),
+        f: (arr = this.raw) => arr.filter(msg => isRadiant(msg.player_slot) || isSpectator(msg.slot)),
         type: 'faction',
         disabled: () => !this.state.dire,
       },
       dire: {
-        f: (arr = this.raw) => arr.filter((msg) => !isRadiant(msg.player_slot)),
+        f: (arr = this.raw) => arr.filter(msg => !isRadiant(msg.player_slot)),
         type: 'faction',
         disabled: () => !this.state.radiant,
       },
       text: {
-        f: (arr = this.raw) => arr.filter((msg) => msg.type === 'chat'),
+        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chat'),
         type: 'type',
         disabled: () => this.state.phrases === false && this.state.audio === false,
       },
       phrases: {
-        f: (arr = this.raw) => arr.filter((msg) => msg.type === 'chatwheel' && !getChatWheel(msg.key).sound_ext && !getChatWheel(msg.key).image),
+        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel' && !getChatWheel(msg.key).sound_ext && !getChatWheel(msg.key).image),
         type: 'type',
         disabled: () => this.state.text === false && this.state.audio === false,
       },
       audio: {
-        f: (arr = this.raw) => arr.filter((msg) => msg.type === 'chatwheel' && getChatWheel(msg.key).sound_ext),
+        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel' && getChatWheel(msg.key).sound_ext),
         type: 'type',
         disabled: () => this.state.phrases === false && this.state.text === false,
       },
       all: {
-        f: (arr = this.raw) => arr.filter((msg) => msg.type === 'chat' || (msg.type === 'chatwheel' && getChatWheel(msg.key).all_chat)),
+        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chat' || (msg.type === 'chatwheel' && getChatWheel(msg.key).all_chat)),
         type: 'target',
         disabled: () => !this.state.allies,
       },
       allies: {
-        f: (arr = this.raw) => arr.filter((msg) => msg.type === 'chatwheel' && !getChatWheel(msg.key).all_chat),
+        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel' && !getChatWheel(msg.key).all_chat),
         type: 'target',
         disabled: () => !this.state.all,
       },
       spam: {
-        f: (arr = this.raw) => arr.filter((msg) => msg.spam),
+        f: (arr = this.raw) => arr.filter(msg => msg.spam),
         type: 'other',
         disabled: () => false,
       },
@@ -444,13 +444,11 @@ class Chat extends React.Component {
               target = strings.chat_filter_spectator;
             }
 
-            let icon = (
-              <img
-                src="/assets/images/blank-1x1.gif"
-                alt="???"
-                className="unknown"
-              />
-            );
+            let icon = (<img
+              src="/assets/images/blank-1x1.gif"
+              alt="???"
+              className="unknown"
+            />);
             if (!spec) {
               if (rad) {
                 icon = <IconRadiant className="icon" />;
@@ -474,9 +472,7 @@ class Chat extends React.Component {
                 {hero ? <HeroImage id={hero.id} alt={hero && hero.localized_name} />
                   : <img src="/assets/images/blank-1x1.gif" alt="" />}
                 <span className="target">
-                  [
-                  {target.toUpperCase()}
-]
+                  [{target.toUpperCase()}]
                 </span>
                 <Link
                   to={`/players/${msg.accountID}`}
@@ -512,7 +508,7 @@ class Chat extends React.Component {
 
       return (
         <ul className="Filters">
-          {Object.keys(categories).map((cat) => (
+          {Object.keys(categories).map(cat => (
             <li key={cat}>
               <div>{strings[`chat_category_${cat}`]}</div>
               <ul>
@@ -523,21 +519,15 @@ class Chat extends React.Component {
                   return (
                     <li key={filter.name}>
                       <Checkbox
-                        label={(
+                        label={
                           <span>
                             <div>
                               {strings[`chat_filter_${filter.name}`] || strings[`general_${filter.name}`]}
                               <b>{len}</b>
                             </div>
-                            {len !== lenFiltered && (
-                            <small>
-                              {strings.chat_filtered.toLowerCase()}
-                              {' '}
-                              <span>{lenFiltered}</span>
-                            </small>
-                            )}
+                            {len !== lenFiltered && <small>{strings.chat_filtered.toLowerCase()} <span>{lenFiltered}</span></small>}
                           </span>
-)}
+                        }
                         checked={this.state[filter.name]}
                         onCheck={() => this.filter(filter.name)}
                         checkedIcon={<Visibility />}
@@ -564,7 +554,7 @@ class Chat extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

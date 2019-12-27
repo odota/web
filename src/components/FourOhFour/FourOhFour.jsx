@@ -57,15 +57,13 @@ const FourOhFour = ({ strings, msg }) => (
         {msg}
       </div>
       <div className="FourOhFour">
-        {strings.error}
-        {' '}
-404
+        {strings.error} 404
       </div>
     </div>
   </Styled>
 );
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

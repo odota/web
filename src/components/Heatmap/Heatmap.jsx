@@ -14,12 +14,12 @@ function scaleAndExtrema(points, scalef, max, shift) {
   // the max values should not deviate from the average by more than a factor of 25
   const maxValue = (points.reduce((a, b) => a + b.value, 0) / points.length) * 25;
 
-  const newPoints = points.map((p) => ({
+  const newPoints = points.map(p => ({
     x: Math.floor(p.x * scalef),
     y: Math.floor(p.y * scalef),
     value: Math.min(p.value, maxValue) + shift,
   }));
-  const vals = points.map((p) => Math.min(p.value, maxValue));
+  const vals = points.map(p => Math.min(p.value, maxValue));
   const localMax = Math.max(...vals);
   return {
     min: 0,
@@ -52,7 +52,6 @@ class Heatmap extends Component {
     });
     drawHeatmap(this.props, this.heatmap);
   }
-
   componentDidUpdate() {
     drawHeatmap(this.props, this.heatmap);
   }

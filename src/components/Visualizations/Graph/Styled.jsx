@@ -12,7 +12,7 @@ export const StyledTooltip = styled.div`
 export const StyledTooltipTeam = styled.span`
   position: relative;
   margin-right: 0.3em;
-  color: ${(props) => props.color};
+  color: ${props => props.color};
 `;
 
 export const StyledRadiant = styled.span`

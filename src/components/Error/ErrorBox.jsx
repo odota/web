@@ -9,11 +9,9 @@ const Wrapper = styled.div`
   color: white;
 `;
 
-const Error = (props) => (
+const Error = props => (
   <Wrapper>
-    Whoops! Something went wrong.
-    {' '}
-    {props.text ? props.text : ''}
+    Whoops! Something went wrong. {props.text ? props.text : ''}
   </Wrapper>
 );
 

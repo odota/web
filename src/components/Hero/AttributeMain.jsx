@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  shape, bool, string, number,
-} from 'prop-types';
+import { shape, bool, string, number } from 'prop-types';
 import styled from 'styled-components';
 
 import constants from '../constants';
@@ -45,7 +43,7 @@ const AttributeDot = styled.div`
 `;
 
 const AttributeValue = styled.div`
-  color: ${(props) => ((props.isPrimary) ? constants.colorAttributes[props.attribute] : constants.primaryTextColor)};
+  color: ${props => ((props.isPrimary) ? constants.colorAttributes[props.attribute] : constants.primaryTextColor)};
   flex-shrink: 0;
   font-size: 12px;
   font-weight: 600;
@@ -94,13 +92,7 @@ const AttributeMain = ({
   return (
     <Wrapper style={style}>
       <AttributeDot attribute={attribute} style={attributeDotStyle} />
-      <AttributeValue attribute={attribute} style={attributeValueStyle}>
-        {base}
-        {' '}
-+
-        {' '}
-        {gain}
-      </AttributeValue>
+      <AttributeValue attribute={attribute} style={attributeValueStyle}>{base} + {gain}</AttributeValue>
     </Wrapper>
   );
 };

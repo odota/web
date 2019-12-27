@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  arrayOf, object, shape, number, bool, func, string, array,
-} from 'prop-types';
+import { arrayOf, object, shape, number, bool, func, string, array } from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
-import {
-  formatSeconds, calculateDistance, calculateRelativeXY, bindWidth,
-} from '../../../utility';
+import { formatSeconds, calculateDistance, calculateRelativeXY, bindWidth } from '../../../utility';
 import { IconRadiant, IconDire, IconDot } from '../../Icons';
 import TeamTable from '../TeamTable';
 import mcs from '../matchColumns';
@@ -217,7 +213,8 @@ const Styled = styled.div`
 `;
 
 const MAP_WIDTH = 400;
-const iconSize = (mapWidth, factor = 12, minSize = 15) => (mapWidth / factor <= minSize ? minSize : mapWidth / factor);
+const iconSize = (mapWidth, factor = 12, minSize = 15) =>
+  (mapWidth / factor <= minSize ? minSize : mapWidth / factor);
 
 const style = (width, position, iconSizeOverride, options = { noTopAdjustment: false }) => ({
   width: iconSizeOverride || iconSize(width),
@@ -226,9 +223,9 @@ const style = (width, position, iconSizeOverride, options = { noTopAdjustment: f
   left: ((width / 127) * position.x) - (iconSizeOverride || iconSize(width) / 2),
 });
 
-const isRadiant = (radiantGoldDelta) => radiantGoldDelta > 0;
+const isRadiant = radiantGoldDelta => radiantGoldDelta > 0;
 
-const IconType = (_isRadiant) => (_isRadiant ? IconRadiant : IconDire);
+const IconType = _isRadiant => (_isRadiant ? IconRadiant : IconDire);
 
 export const TeamfightIcon = ({
   position, tooltipKey, mapWidth = MAP_WIDTH, onClick, Icon, ...props
@@ -250,10 +247,11 @@ export const GoldDelta = ({ radiantGoldDelta }) => (
   </div>
 );
 
-const getIconStyle = (radiantGoldDelta) => (isRadiant(radiantGoldDelta) ? 'radiant' : 'dire');
-const getSelectedStyle = (radiantGoldDelta) => (isRadiant(radiantGoldDelta) ? 'radiantSelected' : 'direSelected');
+const getIconStyle = radiantGoldDelta => (isRadiant(radiantGoldDelta) ? 'radiant' : 'dire');
+const getSelectedStyle = radiantGoldDelta =>
+  (isRadiant(radiantGoldDelta) ? 'radiantSelected' : 'direSelected');
 
-const getTombStyle = (position) => position.reduce(
+const getTombStyle = position => position.reduce(
   (str, _position) => {
     const radStr = _position.isRadiant ? 'radiant' : 'dire';
     if (str !== radStr) {
@@ -327,13 +325,7 @@ export const Teamfight = ({
         effect="solid"
       >
         <div className="tooltipContainer teamfightTooltipContainer">
-          <div>
-            {formatSeconds(start)}
-            {' '}
--
-            {' '}
-            {formatSeconds(end)}
-          </div>
+          <div>{formatSeconds(start)} - {formatSeconds(end)}</div>
           <div>
             <GoldDelta radiantGoldDelta={radiantGoldDelta} />
           </div>
@@ -395,7 +387,7 @@ class TeamfightMap extends Component {
     };
   }
 
-  onIconClick = (teamfight) => () => {
+  onIconClick = teamfight => () => {
     // We do this because we need to prevent the map click event from
     // being executed. That click event is innaccurate if the actual icon is clicked.
     // event.stopPropagation();
@@ -404,7 +396,7 @@ class TeamfightMap extends Component {
     });
   };
 
-  onMapClick = (width) => (event) => {
+  onMapClick = width => (event) => {
     const { x: x1, y: y1 } = calculateRelativeXY(event);
     const { teamfights } = this.props;
     const newSelection = teamfights
@@ -428,20 +420,19 @@ class TeamfightMap extends Component {
     });
   };
 
-  onTeamfightHover = (teamfight) => () => {
+  onTeamfightHover = teamfight => () => {
     this.setState({
       hoveredTeamfight: teamfight,
     });
   };
 
-  onTimelineHover = (start) => this.curriedTeamfightHandler(this.onTeamfightHover, start);
+  onTimelineHover = start => this.curriedTeamfightHandler(this.onTeamfightHover, start);
 
-  onTimelineIconClick = (start) => this.curriedTeamfightHandler(this.onIconClick, start);
+  onTimelineIconClick = start => this.curriedTeamfightHandler(this.onIconClick, start);
 
   curriedTeamfightHandler = (fn, start) => (event) => {
-    fn(this.props.teamfights.find((tf) => tf.start === start))(event);
+    fn(this.props.teamfights.find(tf => tf.start === start))(event);
   };
-
 
   isSelected = (teamfight = { start: null }) => this.state.teamfight && this.state.teamfight.start === teamfight.start;
 
@@ -493,10 +484,7 @@ class TeamfightMap extends Component {
               </DotaMap>
               <header className="header">
                 <div className="muted">
-                  {formatSeconds(teamfight.start)}
-                  {' '}
--
-                  {formatSeconds(teamfight.end)}
+                  {formatSeconds(teamfight.start)} - {formatSeconds(teamfight.end)}
                 </div>
                 <div className="headerSubInfo">
                   <div className={getIconStyle(teamfight.radiant_gold_advantage_delta)}>
@@ -508,7 +496,7 @@ class TeamfightMap extends Component {
             </div>
             <div className="tableContainer">
               <TeamTable
-                players={teamfight.players && teamfight.players.filter((p) => p.participate)}
+                players={teamfight.players && teamfight.players.filter(p => p.participate)}
                 columns={teamfightColumns}
                 heading={strings.heading_teamfights}
                 buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_teamfights : null}
@@ -566,7 +554,7 @@ Teamfight.propTypes = {
   strings: shape({}),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

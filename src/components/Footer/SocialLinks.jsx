@@ -17,7 +17,7 @@ export default ({ strings }) => {
     });
   }
 
-  return links.map((link) => (
+  return links.map(link => (
     <a
       key={link.path}
       target="_blank"

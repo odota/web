@@ -5,9 +5,10 @@ import { IconRadiant, IconDire } from '../Icons';
 import Heading from '../Heading';
 import Table from '../Table';
 
-const filterMatchPlayers = (players, team = '') => players
-  .filter((player) => (team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === '')
-  .sort((a, b) => a.player_slot - b.player_slot);
+const filterMatchPlayers = (players, team = '') =>
+  players
+    .filter(player => (team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === '')
+    .sort((a, b) => a.player_slot - b.player_slot);
 
 
 const AbilityBuildTable = ({

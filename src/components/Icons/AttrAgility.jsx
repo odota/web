@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default (props) => (
+export default props => (
   // Taked from http://game-icons.net/lorc/originals/wind-slap.html
   // by http://lorcblog.blogspot.ru/ under CC BY 3.0
   <svg {...props} viewBox="0 0 512 512">

@@ -59,7 +59,7 @@ class RequestLayer extends React.Component {
       this.props.history.push(`/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
     }
     const info = match.params.info || 'overview';
-    const page = playerPages(playerId, strings).find((_page) => _page.key === info);
+    const page = playerPages(playerId, strings).find(_page => _page.key === info);
     const playerName = this.props.officialPlayerName || this.props.playerName || strings.general_anonymous;
     const title = page ? `${playerName} - ${page.name}` : playerName;
     return (
@@ -78,15 +78,15 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   playerName: (state.app.player.data.profile || {}).personaname,
   playerLoading: (state.app.player.loading),
   officialPlayerName: (state.app.player.data.profile || {}).name,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getPlayer: (playerId) => dispatch(getPlayer(playerId)),
+const mapDispatchToProps = dispatch => ({
+  getPlayer: playerId => dispatch(getPlayer(playerId)),
   getPlayerWinLoss: (playerId, options) => dispatch(getPlayerWinLoss(playerId, options)),
 });
 

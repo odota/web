@@ -127,14 +127,15 @@ class FormField extends React.Component {
   };
 
   findFromSource = (element) => {
-    let fromSource = this.props.dataSource.find((data) => Number(data.value) === Number(element));
-    fromSource = fromSource || this.props.dataSource.find((data) => data.key === element);
+    let fromSource = this.props.dataSource.find(data => Number(data.value) === Number(element));
+    fromSource = fromSource || this.props.dataSource.find(data => data.key === element);
     return fromSource || { text: element, value: element };
   }
 
-  bundleFilter = (field) => !this.state.selectedBundle
-    || (!this.props.formSelectionState[this.props.name] || this.props.formSelectionState[this.props.name].length < 1)
-    || field.bundle === this.state.selectedBundle
+  bundleFilter = field =>
+    !this.state.selectedBundle ||
+    (!this.props.formSelectionState[this.props.name] || this.props.formSelectionState[this.props.name].length < 1) ||
+    field.bundle === this.state.selectedBundle
 
   handleClick = () => {
     if (this.state.singleSelection) {
@@ -194,7 +195,7 @@ class FormField extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

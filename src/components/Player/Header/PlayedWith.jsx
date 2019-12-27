@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
 
-const shouldShow = (props) => props.loggedInId && props.loggedInId !== props.playerId;
+const shouldShow = props => props.loggedInId && props.loggedInId !== props.playerId;
 
 const getData = (props, context) => {
   if (shouldShow(props)) {
     fetch(`${process.env.REACT_APP_API_HOST}/api/players/${props.loggedInId}/wl?included_account_id=${props.playerId}`)
-      .then((resp) => resp.json())
-      .then((json) => context.setState({ ...context.state, ...json }));
+      .then(resp => resp.json())
+      .then(json => context.setState({ ...context.state, ...json }));
   }
 };
 
@@ -32,32 +32,30 @@ class PlayedWith extends React.Component {
   componentDidMount() {
     getData(this.props, this);
   }
-
   componentDidUpdate(prevProps) {
     if (this.props.playerId !== prevProps.playerId) {
       getData(this.props, this);
     }
   }
-
   render() {
     const { strings } = this.props;
     return (
       <div style={{ display: shouldShow(this.props) ? 'inline' : 'none', marginLeft: '10px' }}>
         <PlayerStatsCard
-          subtitle={(
+          subtitle={
             <div>
               <div style={{ ...inlineStyle, color: constants.colorGreen }}>{this.state.win}</div>
               <div style={inlineStyle}> - </div>
               <div style={{ ...inlineStyle, color: constants.colorRed }}>{this.state.lose}</div>
             </div>
-)}
+        }
           title={<Link to={`/players/${this.props.loggedInId}/matches?included_account_id=${this.props.playerId}`}>{strings.th_played_with}</Link>}
         />
       </div>);
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

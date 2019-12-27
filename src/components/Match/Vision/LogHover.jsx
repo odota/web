@@ -116,7 +116,7 @@ WardPin.propTypes = {
   log: PropTypes.shape({}),
 };
 
-const LogHover = (ward) => (
+const LogHover = ward => (
   <div style={hoverMapStyle}>
     <DotaMap
       maxWidth={300}

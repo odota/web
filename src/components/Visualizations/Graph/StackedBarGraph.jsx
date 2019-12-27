@@ -25,8 +25,8 @@ const StackedBarGraph = ({
   tooltipFormatter,
 }) => {
   columns.sort((a, b) => {
-    const aSum = Object.values(a).map(Number).filter((v) => !Number.isNaN(v)).reduce((c, d) => c + d, 0);
-    const bSum = Object.values(b).map(Number).filter((v) => !Number.isNaN(v)).reduce((c, d) => c + d, 0);
+    const aSum = Object.values(a).map(Number).filter(v => !Number.isNaN(v)).reduce((c, d) => c + d, 0);
+    const bSum = Object.values(b).map(Number).filter(v => !Number.isNaN(v)).reduce((c, d) => c + d, 0);
     return bSum - aSum;
   });
   const xAxisProps = {};
@@ -41,7 +41,7 @@ const StackedBarGraph = ({
     <StyledHolder>
       <Heading title={heading} />
       <div style={{ overflowX: 'auto', overflowY: 'hidden' }}>
-        <ResponsiveContainer width="100%" height={400} minWidth={1000}>
+        <ResponsiveContainer width="100%" height={400} minWidth={1000} >
           <BarChart
             height={400}
             data={columns}
@@ -61,7 +61,7 @@ const StackedBarGraph = ({
               wrapperStyle={{ backgroundColor: constants.darkPrimaryColor, border: 'none' }}
               {...tooltipProps}
             />
-            {Object.keys(strings).filter((str) => str.indexOf(`${type}_`) === 0).map((gr, i) => (
+            {Object.keys(strings).filter(str => str.indexOf(`${type}_`) === 0).map((gr, i) => (
               <Bar
                 dataKey={gr.substring(`${type}_`.length)}
                 name={strings[gr]}
@@ -84,7 +84,7 @@ StackedBarGraph.propTypes = {
   tooltipFormatter: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

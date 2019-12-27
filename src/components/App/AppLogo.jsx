@@ -30,7 +30,7 @@ AppLogo.propTypes = {
   onClick: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

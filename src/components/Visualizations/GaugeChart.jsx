@@ -44,10 +44,10 @@ const Styled = styled.div`
     top:100%;
     transform-origin:center top;
     border-radius:0 0 6em 6em;
-    transform:rotate(${(props) => props.percent}turn);
+    transform:rotate(${props => props.percent}turn);
   }
   
-  .percentage .meter { background:${(props) => props.meterColor}; }
+  .percentage .meter { background:${props => props.meterColor}; }
   .percentage-container {
     position:absolute;
     bottom:-.75em;
@@ -60,7 +60,7 @@ const Styled = styled.div`
   
   .percentage-indicator {
     font:bold 1.25em/1.6 sans-serif;
-    color:${(props) => props.meterColor};
+    color:${props => props.meterColor};
     
     white-space:pre;
     vertical-align:baseline;
@@ -121,14 +121,14 @@ const Styled = styled.div`
   }
 `;
 
-const computeMeterPercent = (value) => 0.005 * value;
+const computeMeterPercent = value => 0.005 * value;
 
 const computeMeterColor = (value) => {
   if (value < 45) {
     return 'rgb(179,132,91)';
-  } if (value < 50) {
+  } else if (value < 50) {
     return 'rgb(156,148,96)';
-  } if (value < 53) {
+  } else if (value < 53) {
     return 'rgb(140,159,99)';
   }
   return 'rgb(117,176,103)';

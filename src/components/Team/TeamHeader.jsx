@@ -1,9 +1,7 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import { formatTemplateToString, getTeamLogoUrl } from '../../utility';
-import {
-  HeaderContainer, Logo, Column, TeamName, Row, TeamStatsCard,
-} from './TeamStyled';
+import { HeaderContainer, Logo, Column, TeamName, Row, TeamStatsCard } from './TeamStyled';
 
 export default (generalData, strings) => (
   <HeaderContainer loading={generalData.loading} error={generalData.error}>

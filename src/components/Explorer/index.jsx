@@ -36,9 +36,9 @@ function expandBuilderState(builder, _fields) {
   const expandedBuilder = {};
   Object.keys(builder).forEach((key) => {
     if (Array.isArray(builder[key])) {
-      expandedBuilder[key] = builder[key].map((x) => (_fields[key] || []).find((element) => element.key === x) || { value: x });
+      expandedBuilder[key] = builder[key].map(x => (_fields[key] || []).find(element => element.key === x) || { value: x });
     } else if (builder[key]) {
-      expandedBuilder[key] = (_fields[key] || []).find((element) => element.key === builder[key]) || { value: builder[key] };
+      expandedBuilder[key] = (_fields[key] || []).find(element => element.key === builder[key]) || { value: builder[key] };
     }
   });
   return expandedBuilder;
@@ -78,7 +78,6 @@ class Explorer extends React.Component {
       this.state.builder.minDate = new Date(new Date().setDate(new Date().getDate() - defaultMinDate)).toISOString();
     }
   }
-
   async componentDidMount() {
     this.props.dispatchProPlayers();
     this.props.dispatchLeagues();
@@ -308,28 +307,26 @@ class Explorer extends React.Component {
         <Heading title={strings.explorer_results} subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`} />
         <pre style={{ color: 'red' }}>{this.state.result.err}</pre>
         {this.state.loading ? <TableSkeleton /> : null}
-        {!this.state.loading && (
-        <ExplorerOutputSection
+        {!this.state.loading && <ExplorerOutputSection
           rows={this.state.result.rows}
           fields={this.state.result.fields}
           expandedBuilder={expandedBuilder}
           playerMapping={playerMapping}
           teamMapping={teamMapping}
           format={this.state.builder.format}
-        />
-        )}
+        />}
       </div>);
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   proPlayers: state.app.proPlayers.data,
   leagues: state.app.leagues.data,
   teams: state.app.teams.data,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   dispatchProPlayers: () => dispatch(getProPlayers()),
   dispatchLeagues: () => dispatch(getLeagues()),
   dispatchTeams: () => dispatch(getTeams()),

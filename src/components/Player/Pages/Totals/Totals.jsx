@@ -49,12 +49,12 @@ const Totals = ({
   <div>
     <Container title={strings.heading_all_matches} error={error} loading={loading}>
       <CardContainer>
-        {data.map((element) => drawElement(element, 1))}
+        {data.map(element => drawElement(element, 1))}
       </CardContainer>
     </Container>
     <Container title={strings.heading_parsed_matches} error={error} loading={loading}>
       <CardContainer>
-        {data.map((element) => drawElement(element, 'parsed'))}
+        {data.map(element => drawElement(element, 'parsed'))}
       </CardContainer>
     </Container>
   </div>);
@@ -94,14 +94,14 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   data: state.app.playerTotals.data,
   error: state.app.playerTotals.error,
   loading: state.app.playerTotals.loading,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getPlayerTotals: (playerId, options) => dispatch(getPlayerTotals(playerId, options)),
 });
 

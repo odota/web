@@ -60,7 +60,18 @@ module.exports = {
     "react/button-has-type": "off",
     "max-classes-per-file": 'off',
     "import/no-cycle": "off",
-    "arrow-parens": "off"
+    "arrow-parens": "off",
+    "operator-linebreak": "off",
+    "react/jsx-wrap-multilines": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "object-curly-newline": "off",
+    "no-else-return": "off",
+    "implicit-arrow-linebreak": "off",
+    "prefer-object-spread": "off",
+    "lines-between-class-members": "off",
+    "react/jsx-tag-spacing": "off",
+    "import/no-useless-path-segments": "off",
+    "no-dupe-class-members": "off"
   },
   "overrides": [
     {

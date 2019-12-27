@@ -132,11 +132,11 @@ const CrossTable = ({
   strings,
 }) => (
   <StyledDiv>
-    <table selectable={false}>
+    <table selectable={false} >
       <tbody displayRowCheckbox={false}>
         <tr>
           <td />
-          {match.players.slice(match.players.length / 2, match.players.length).map((player) => (
+          {match.players.slice(match.players.length / 2, match.players.length).map(player => (
             <td key={player.hero_id}>
               <div className="hero">
                 {heroes[player.hero_id] && <HeroImage id={player.hero_id} isIcon data-tip={heroes[player.hero_id] && heroes[player.hero_id].localized_name} />}
@@ -148,7 +148,7 @@ const CrossTable = ({
             </div>
           </td>
         </tr>
-        {match.players.slice(0, match.players.length / 2).map((player) => (
+        {match.players.slice(0, match.players.length / 2).map(player => (
           <tr key={player.hero_id}>
             <td>
               <div className="hero">
@@ -271,7 +271,7 @@ CrossTable.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

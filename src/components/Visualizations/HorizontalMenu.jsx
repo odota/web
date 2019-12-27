@@ -105,7 +105,7 @@ class HorizontalMenu extends React.Component {
     this.setState({ searchValue: '' });
   };
 
-  handleChange = (e) => this.setState({ searchValue: e.target.value });
+  handleChange = e => this.setState({ searchValue: e.target.value });
 
   render() {
     return (

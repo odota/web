@@ -6,7 +6,7 @@ import { getPlayerMmr } from '../../../../actions';
 import Container from '../../../Container';
 import Info from '../../../Alerts/Info';
 
-const MMRInfo = (strings) => (
+const MMRInfo = strings => (
   <Info>
     <a href="https://blog.opendota.com/2016/01/13/opendota-mmr-and-you/" target="_blank" rel="noopener noreferrer">
       {strings.mmr_not_up_to_date}
@@ -60,7 +60,7 @@ class RequestLayer extends React.Component {
 }
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   columns: state.app.playerMmr.data,
   loading: state.app.playerMmr.loading,
   error: state.app.playerMmr.error,

@@ -1,4 +1,4 @@
-export default (strings) => ([{
+export default strings => ([{
   displayName: strings.th_category,
   field: 'category',
   sortFn: true,
@@ -10,6 +10,6 @@ export default (strings) => ([{
 }, {
   displayName: strings.th_win,
   field: 'winPercent',
-  sortFn: (row) => row.winPercent / 100, // percentBars expects decimal value
+  sortFn: row => row.winPercent / 100, // percentBars expects decimal value
   percentBars: true,
 }]);

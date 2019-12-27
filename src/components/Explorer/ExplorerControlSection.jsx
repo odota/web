@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const StyledDiv = styled.div`
   padding: 0 15px;
   box-sizing: border-box;
-  display: ${(props) => (props.showEditor ? 'none' : 'flex')};
+  display: ${props => (props.showEditor ? 'none' : 'flex')};
   flex-direction: row;
   flex-wrap: wrap;
 `;
@@ -18,13 +18,11 @@ const ExplorerControlSection = ({
   <div>
     <div style={{ width: '180px', margin: '10px' }}>
       <div>{/* drawOmnibox(this, expandedFields) */}</div>
-      {showToggle && (
-      <Toggle
+      {showToggle && <Toggle
         label={strings.explorer_toggle_sql}
         defaultToggled={showEditor}
         onToggle={toggleEditor}
-      />
-      )}
+      />}
     </div>
     <StyledDiv showEditor={showEditor}>
       {children}
@@ -48,7 +46,7 @@ ExplorerControlSection.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

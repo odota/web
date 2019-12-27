@@ -17,7 +17,7 @@ const Trend = ({
     <div>
       <Heading title={strings.trends_name} subtitle={strings.trends_description} />
       <ButtonGarden
-        onClick={(buttonName) => history.push(`/players/${playerId}/trends/${buttonName}${window.location.search}`)}
+        onClick={buttonName => history.push(`/players/${playerId}/trends/${buttonName}${window.location.search}`)}
         buttonNames={trendNames}
         selectedButton={selectedTrend}
       />
@@ -78,7 +78,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   columns: state.app.playerTrends.data,
   loading: state.app.playerTrends.loading,
   error: state.app.playerTrends.error,

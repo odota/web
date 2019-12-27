@@ -99,7 +99,7 @@ position: relative;
 width: 30px;
 `;
 
-const getValidRecentMatches = (matches) => matches.filter((match) => match.game_mode !== 19)
+const getValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19)
   .slice(0, MAX_MATCHES_ROWS);
 
 const Overview = ({
@@ -144,15 +144,15 @@ const Overview = ({
           <Styled
             data-hint={strings.include_turbo_matches}
             data-hint-position="right"
-            style={{ display: validRecentMatches.some((match) => match.game_mode === 23) ? 'inline' : 'none' }}
+            style={{ display: validRecentMatches.some(match => match.game_mode === 23) ? 'inline' : 'none' }}
           >
             <Checkbox
-              style={{ display: validRecentMatches.filter((match) => showTurboGames || match.game_mode !== 23), opacity: 0.45 }}
+              style={{ display: validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23), opacity: 0.45 }}
               defaultChecked
               onCheck={toggleTurboGames}
             />
           </Styled>
-          <SummOfRecMatches matchesData={validRecentMatches.filter((match) => showTurboGames || match.game_mode !== 23)} />
+          <SummOfRecMatches matchesData={validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23)} />
         </SummaryContainer>
         <SummaryContainer
           title={strings.tab_counts}
@@ -299,10 +299,11 @@ const filterCounts = (counts) => {
     lane_role: [],
   };
 
-  const limitCount = (key, field, lim) => counts[key].list.filter((el) => el.category !== 'Unknown')
-    .sort((a, b) => (
-      b[field] - a[field]
-    )).slice(0, lim);
+  const limitCount = (key, field, lim) =>
+    counts[key].list.filter(el => el.category !== 'Unknown')
+      .sort((a, b) => (
+        b[field] - a[field]
+      )).slice(0, lim);
 
   Object.keys(counts).forEach((key) => {
     switch (key) {
@@ -340,7 +341,7 @@ const filterCounts = (counts) => {
   ];
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   recentMatches: {
     data: state.app.playerRecentMatches.data,
     loading: state.app.playerRecentMatches.loading,
@@ -363,7 +364,7 @@ const mapStateToProps = (state) => ({
   countsError: state.app.playerCounts.error,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getPlayerRecentMatches: (playerId, options) => dispatch(getPlayerRecentMatches(playerId, options)),
   getPlayerMatches: (playerId, options) => dispatch(getPlayerMatches(playerId, options)),
   getPlayerHeroes: (playerId, options) => dispatch(getPlayerHeroes(playerId, options)),

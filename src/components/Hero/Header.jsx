@@ -5,7 +5,7 @@ import constants from '../constants';
 import AttributesMain from './AttributesMain';
 import Abilities from './Abilities';
 
-const getHeroImgSrc = (src) => process.env.REACT_APP_API_HOST + src;
+const getHeroImgSrc = src => process.env.REACT_APP_API_HOST + src;
 
 const HeroProfile = styled.div`
   background: ${constants.almostBlack};
@@ -120,13 +120,7 @@ const Header = ({ hero }) => (
         <HeroAvatar alt={hero.localized_name} src={getHeroImgSrc(hero.img)} />
         <HeroDetails>
           <HeroName>{hero.localized_name}</HeroName>
-          <HeroRoleInformations>
-            {hero.attack_type}
-            {' '}
--
-            {' '}
-            <HeroRoles>{hero.roles.join(', ')}</HeroRoles>
-          </HeroRoleInformations>
+          <HeroRoleInformations>{hero.attack_type} - <HeroRoles>{hero.roles.join(', ')}</HeroRoles></HeroRoleInformations>
         </HeroDetails>
         <HeroStatsWrapper>
           <AttributesMain hero={hero} />

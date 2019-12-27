@@ -103,7 +103,7 @@ class Collapsible extends React.Component {
           handleHoverOff={this.handleHoverOff}
         />
         <Transition in={!collapsed} timeout={{ enter: 0, exit: 300 }} mountOnEnter>
-          {(status) => (
+          {status => (
             <div style={{
               transition: 'max-height 300ms ease-in-out',
               overflow: 'hidden',
@@ -119,7 +119,7 @@ class Collapsible extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

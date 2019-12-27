@@ -5,7 +5,7 @@ const path = require('path');
 const langsPath = path.resolve(__dirname, '../src/lang');
 const oldLangsPath = path.resolve(__dirname, '../src/lang/old');
 const excludedLangKeys = ['title_template'];
-const langs = fs.readdirSync(langsPath).filter((dir) => ['.', '..', 'old', 'index.js'].includes(dir) === false);
+const langs = fs.readdirSync(langsPath).filter(dir => ['.', '..', 'old', 'index.js'].includes(dir) === false);
 
 if (!fs.existsSync(oldLangsPath)) {
   fs.mkdirSync(oldLangsPath);

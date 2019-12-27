@@ -217,7 +217,7 @@ class Vision extends React.Component {
 
   visibleData() {
     const self = this;
-    const filter = (ward) => alive(ward, self.state.currentTick) && self.state.players[ward.type][ward.player];
+    const filter = ward => alive(ward, self.state.currentTick) && self.state.players[ward.type][ward.player];
 
     return this.props.match.wards_log.filter(filter);
   }
@@ -247,7 +247,7 @@ class Vision extends React.Component {
               value={this.state.currentTick}
               min={this.sliderMin}
               max={this.sliderMax}
-              onTickClick={(tick) => this.handleViewportChange(tick)}
+              onTickClick={tick => this.handleViewportChange(tick)}
               ticks={this.ticks}
             />
             <Slider
@@ -268,7 +268,7 @@ class Vision extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

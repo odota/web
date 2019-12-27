@@ -56,14 +56,14 @@ const defaultOptions = {
   limit: null,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   data: state.app.playerMatches.data,
   loading: state.app.playerMatches.loading,
   error: state.app.playerMatches.error,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getPlayerMatches: (playerId, options = defaultOptions) => dispatch(getPlayerMatches(playerId, options)),
 });
 

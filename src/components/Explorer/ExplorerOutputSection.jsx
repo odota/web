@@ -20,7 +20,7 @@ import {
 // import redrawGraphs from './redrawGraphs';
 import constants from '../constants';
 import { StyledTeamIconContainer } from '../Match/StyledMatch';
-import HeroImage from '../Visualizations/HeroImage';
+import HeroImage from './../Visualizations/HeroImage';
 import { WinnerSpan } from '../Matches';
 
 /*
@@ -50,7 +50,6 @@ class ExplorerOutputSection extends React.Component {
   shouldComponentUpdate(nextProps) {
     return nextProps.rows !== this.props.rows || nextProps.format !== this.props.format;
   }
-
   render() {
     const {
       rows = [], fields, expandedBuilder, teamMapping, playerMapping, format, strings,
@@ -66,25 +65,25 @@ class ExplorerOutputSection extends React.Component {
       */
     if (format === 'donut') {
       return <div id="donut" />;
-    } if (format === 'bar') {
+    } else if (format === 'bar') {
       return <div id="bar" />;
-    } if (format === 'timeseries') {
+    } else if (format === 'timeseries') {
       return <div id="timeseries" />;
     }
     return (
       <Table
         data={(rows || []).slice(0, 500)}
-        columns={(fields || []).map((column) => ({
+        columns={(fields || []).map(column => ({
           displayName: column.name === 'count' ? strings.general_matches : column.name,
           field: column.name,
-        })).map((column) => ({
+        })).map(column => ({
           ...column,
           displayFn: (row, col, field) => {
             if (column.field === 'match_id') {
               return <Link to={`/matches/${field}`}>{field}</Link>;
-            } if (column.field.indexOf('hero_id') === 0) {
+            } else if (column.field.indexOf('hero_id') === 0) {
               return displayHeroId(row, col, field);
-            } if (column.field.indexOf('_composition') !== -1) {
+            } else if (column.field.indexOf('_composition') !== -1) {
               return (
                 <React.Fragment>
                   {row.team_a_win === (column.field.indexOf('team_a') === 0)
@@ -102,55 +101,37 @@ class ExplorerOutputSection extends React.Component {
                   ))}
                 </React.Fragment>
               );
-            } if (column.field.indexOf('account_id') === 0) {
+            } else if (column.field.indexOf('account_id') === 0) {
               return <Link to={`/players/${field}`}>{playerMapping[field] || field}</Link>;
-            } if (column.field.indexOf('winrate') === 0 || column.field.indexOf('pickrate') === 0 || column.field === 'winrate_wilson') {
-              return (field >= 0 && field <= 1 ? (
-                <TablePercent
-                  percent={Number((field * 100).toFixed(2))}
-                />
-              ) : null);
-            } if (column.field === 'rune_id') {
+            } else if (column.field.indexOf('winrate') === 0 || column.field.indexOf('pickrate') === 0 || column.field === 'winrate_wilson') {
+              return (field >= 0 && field <= 1 ? <TablePercent
+                percent={Number((field * 100).toFixed(2))}
+              /> : null);
+            } else if (column.field === 'rune_id') {
               return strings[`rune_${field}`];
-            } if (column.field === 'item_name') {
+            } else if (column.field === 'item_name') {
               return itemData[field] ? itemData[field].dname : field;
-            } if (column.field === 'team_id') {
+            } else if (column.field === 'team_id') {
               return teamMapping[field] || field;
-            } if (column.field === 'time' || (column.field === 'avg' && expandedBuilder.select && expandedBuilder.select.formatSeconds)) {
+            } else if (column.field === 'time' || (column.field === 'avg' && expandedBuilder.select && expandedBuilder.select.formatSeconds)) {
               return formatSeconds(field);
-            } if (column.field === 'inflictor') {
-              return (
-                <span>
-                  {inflictorWithValue(field)}
-                  {' '}
-                  {field}
-                </span>
-              );
-            } if (column.field === 'win') {
+            } else if (column.field === 'inflictor') {
+              return <span>{inflictorWithValue(field)} {field}</span>;
+            } else if (column.field === 'win') {
               return <span style={{ color: field ? constants.colorSuccess : constants.colorDanger }}>{field ? strings.td_win : strings.td_loss}</span>;
-            } if (column.field === 'is_radiant') {
+            } else if (column.field === 'is_radiant') {
               return field
-                ? (
-                  <StyledTeamIconContainer>
-                    <IconRadiant width={30} />
-                    {strings.general_radiant}
-                  </StyledTeamIconContainer>
-                )
-                : (
-                  <StyledTeamIconContainer>
-                    <IconDire width={30} />
-                    {strings.general_dire}
-                  </StyledTeamIconContainer>
-                );
-            } if (column.field === 'start_time') {
+                ? <StyledTeamIconContainer><IconRadiant width={30} />{strings.general_radiant}</StyledTeamIconContainer>
+                : <StyledTeamIconContainer><IconDire width={30} />{strings.general_dire}</StyledTeamIconContainer>;
+            } else if (column.field === 'start_time') {
               return (new Date(field * 1000)).toLocaleDateString('en-US', {
                 day: 'numeric',
                 month: 'short',
                 year: 'numeric',
               });
-            } if (column.field === 'game_mode') {
+            } else if (column.field === 'game_mode') {
               return strings[`game_mode_${field}`];
-            } if (column.field === 'lobby_type') {
+            } else if (column.field === 'lobby_type') {
               return strings[`lobby_type_${field}`];
             }
             if (typeof field === 'string') {
@@ -169,7 +150,7 @@ class ExplorerOutputSection extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

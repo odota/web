@@ -13,13 +13,11 @@ const ButtonGarden = ({
     value={selectedButton}
     onChange={(event, index, value) => onClick(value)}
   >
-    {buttonNames.map((buttonName) => (
-      <MenuItem
-        value={buttonName}
-        key={buttonName}
-        primaryText={strings[`heading_${buttonName}`]}
-      />
-    ))}
+    {buttonNames.map(buttonName => (<MenuItem
+      value={buttonName}
+      key={buttonName}
+      primaryText={strings[`heading_${buttonName}`]}
+    />))}
   </SelectField>
 );
 
@@ -34,7 +32,7 @@ ButtonGarden.propTypes = {
   strings: shape({}),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

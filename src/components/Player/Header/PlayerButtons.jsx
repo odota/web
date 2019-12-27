@@ -65,12 +65,12 @@ class PlayerButtons extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   showForm: state.app.form.show,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   toggleShowForm: () => dispatch(toggleShowFormAction('tableFilter')),
 });
 

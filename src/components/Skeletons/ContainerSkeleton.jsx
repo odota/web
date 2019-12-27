@@ -1,7 +1,7 @@
 import React from 'react';
 import { BulletList } from 'react-content-loader';
 
-const ContainerSkeleton = (props) => (
+const ContainerSkeleton = props => (
   <BulletList
     primaryColor="#666"
     secondaryColor="#ecebeb"

@@ -50,13 +50,13 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   data: state.app.playerPeers.data,
   error: state.app.playerPeers.error,
   loading: state.app.playerPeers.loading,
   strings: state.app.strings,
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getPlayerPeers: (playerId, options) => dispatch(getPlayerPeers(playerId, options)),
 });
 

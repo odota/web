@@ -25,11 +25,9 @@ import { TableHeroImage, inflictorWithValue } from '../Visualizations';
 import { CompetitiveRank } from '../Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from '../Icons';
 import constants from '../constants';
-import {
-  StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem,
-} from './StyledMatch';
+import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
 import TargetsBreakdown from './TargetsBreakdown';
-import HeroImage from '../Visualizations/HeroImage';
+import HeroImage from './../Visualizations/HeroImage';
 
 const heroNames = getHeroesById();
 
@@ -38,29 +36,27 @@ const parsedBenchmarkCols = ['lhten', 'stuns_per_min'];
 export default (strings) => {
   const heroTd = (row, col, field, index, hideName, party, showGuide = false, guideType) => {
     const heroName = heroes[row.hero_id] && heroes[row.hero_id].localized_name.toLowerCase().replace(' ', '-');
-    return (
-      <TableHeroImage
-        title={row.name || row.personaname || strings.general_anonymous}
-        registered={row.last_login}
-        contributor={row.is_contributor}
-        accountId={row.account_id}
-        playerSlot={row.player_slot}
-        subtitle={<CompetitiveRank rankTier={rankTierToString(row.rank_tier)} strings={strings} />}
-        hideText={hideName}
-        confirmed={row.account_id && row.name}
-        party={party}
-        heroName={heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero}
-        heroID={row.hero_id}
-        showGuide={showGuide}
-        guideType={guideType}
-        guideUrl={heroes[row.hero_id] && `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`}
-        randomed={row.randomed}
-        repicked={row.repicked}
-        predictedVictory={row.pred_vict}
-        leaverStatus={row.leaver_status}
-        hero={compileLevelOneStats(heroes[row.hero_id])}
-      />
-    );
+    return (<TableHeroImage
+      title={row.name || row.personaname || strings.general_anonymous}
+      registered={row.last_login}
+      contributor={row.is_contributor}
+      accountId={row.account_id}
+      playerSlot={row.player_slot}
+      subtitle={<CompetitiveRank rankTier={rankTierToString(row.rank_tier)} strings={strings} />}
+      hideText={hideName}
+      confirmed={row.account_id && row.name}
+      party={party}
+      heroName={heroes[row.hero_id] ? heroes[row.hero_id].localized_name : strings.general_no_hero}
+      heroID={row.hero_id}
+      showGuide={showGuide}
+      guideType={guideType}
+      guideUrl={heroes[row.hero_id] && `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`}
+      randomed={row.randomed}
+      repicked={row.repicked}
+      predictedVictory={row.pred_vict}
+      leaverStatus={row.leaver_status}
+      hero={compileLevelOneStats(heroes[row.hero_id])}
+    />);
   };
 
   const heroTdColumn = {
@@ -72,13 +68,13 @@ export default (strings) => {
   };
 
   const partyStyles = (row, match) => {
-    if (row.party_size === 1 || (match.players && !match.players.map((player) => player.party_id).reduce(sum))) {
+    if (row.party_size === 1 || (match.players && !match.players.map(player => player.party_id).reduce(sum))) {
       return null;
     }
     // groupBy party id, then remove all the solo players, then find the index the party the row player is in
     const index = Object.values(groupBy(match.players, 'party_id'))
-      .filter((x) => x.length > 1)
-      .findIndex((x) => x.find((y) => y.player_slot === row.player_slot));
+      .filter(x => x.length > 1)
+      .findIndex(x => x.find(y => y.player_slot === row.player_slot));
     return <div className={`group${index}`} />;
   };
 
@@ -248,7 +244,7 @@ export default (strings) => {
         field: 'hero_damage',
         sortFn: true,
         sumFn: true,
-        displayFn: (row) => abbreviateNumber(row.hero_damage),
+        displayFn: row => abbreviateNumber(row.hero_damage),
         // relativeBars: true,
         textAlign: 'right',
         paddingLeft: 14,
@@ -260,7 +256,7 @@ export default (strings) => {
         displayName: strings.th_tower_damage,
         tooltip: strings.tooltip_tower_damage,
         field: 'tower_damage',
-        displayFn: (row) => abbreviateNumber(row.tower_damage),
+        displayFn: row => abbreviateNumber(row.tower_damage),
         sortFn: true,
         sumFn: true,
         // relativeBars: true,
@@ -276,7 +272,7 @@ export default (strings) => {
         field: 'hero_healing',
         sortFn: true,
         sumFn: true,
-        displayFn: (row) => abbreviateNumber(row.hero_healing),
+        displayFn: row => abbreviateNumber(row.hero_healing),
         // relativeBars: true,
         textAlign: 'right',
         paddingLeft: 5,
@@ -296,7 +292,7 @@ export default (strings) => {
         sortFn: true,
         color: constants.golden,
         sumFn: true,
-        displayFn: (row) => abbreviateNumber(row.total_gold),
+        displayFn: row => abbreviateNumber(row.total_gold),
         // relativeBars: true,
         textAlign: 'right',
         paddingLeft: 14,
@@ -344,39 +340,34 @@ export default (strings) => {
 
           return (
             <StyledDivClearBoth>
-              {itemArray
-                && (
+              {itemArray &&
                 <div>
                   {itemArray}
-                </div>
-                )}
-              {additionalItemArray
-                && (
+                </div>}
+              {additionalItemArray &&
                 <div>
                   {additionalItemArray}
-                </div>
-                )}
-              {backpackItemArray
-                && backpackItemArray.length > 0
-                && (
+                </div>}
+              {backpackItemArray &&
+                backpackItemArray.length > 0 &&
                 <StyledBackpack>
                   <div data-hint={strings.tooltip_backpack} data-hint-position="bottom">
                     <IconBackpack />
                   </div>
                   {backpackItemArray}
-                </StyledBackpack>
-                )}
+                </StyledBackpack>}
             </StyledDivClearBoth>
           );
         },
       },
-    ].concat(match.players.map((player) => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0
+    ].concat(match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0
       ? {
         displayName: strings.th_permanent_buffs,
         tooltip: strings.tooltip_permanent_buffs,
         field: 'permanent_buffs',
         width: 135,
-        displayFn: (row) => (row.permanent_buffs && row.permanent_buffs.length > 0 ? row.permanent_buffs.map((buff) => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff')) : '-'),
+        displayFn: row =>
+          (row.permanent_buffs && row.permanent_buffs.length > 0 ? row.permanent_buffs.map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff')) : '-'),
       }
       : []);
 
@@ -406,7 +397,7 @@ export default (strings) => {
           return null;
         }
         return (
-          <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`}>
+          <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
             <div className="ability">
               {abilityMapping(index, row.ability_upgrades_arr, row.hero_id) || <div className="placeholder" />}
             </div>
@@ -424,12 +415,13 @@ export default (strings) => {
       displayName: `${index}`,
       tooltip: strings.tooltip_abilitydraft,
       field: `abilities${index}`,
-      displayFn: (row) => (
-        <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`}>
-          <div className="ability">
-            {inflictorWithValue(null, null, null, null, row.abilities[index - 1]) || <div className="placeholder" />}
-          </div>
-        </StyledAbilityUpgrades>),
+      displayFn: row =>
+        (
+          <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`} >
+            <div className="ability">
+              {inflictorWithValue(null, null, null, null, row.abilities[index - 1]) || <div className="placeholder" />}
+            </div>
+          </StyledAbilityUpgrades>),
     }));
 
     cols[0] = heroTdColumn;
@@ -474,7 +466,7 @@ export default (strings) => {
     return cols;
   };
 
-  const displayFantasyComponent = (transform) => (row, col, field) => {
+  const displayFantasyComponent = transform => (row, col, field) => {
     const score = Number(transform(field).toFixed(2));
     const raw = Number((field || 0).toFixed(2));
     return (
@@ -496,7 +488,7 @@ export default (strings) => {
       displayName: strings.th_kills,
       field: 'kills',
       tooltip: strings.tooltip_kills,
-      fantasyFn: (v) => 0.3 * v,
+      fantasyFn: v => 0.3 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -505,7 +497,7 @@ export default (strings) => {
       displayName: strings.th_deaths,
       field: 'deaths',
       tooltip: strings.tooltip_deaths,
-      fantasyFn: (v) => 3 - (0.3 * v),
+      fantasyFn: v => 3 - (0.3 * v),
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -514,7 +506,7 @@ export default (strings) => {
       displayName: strings.th_last_hits,
       field: 'last_hits',
       tooltip: strings.tooltip_last_hits,
-      fantasyFn: (v) => 0.003 * v,
+      fantasyFn: v => 0.003 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -523,7 +515,7 @@ export default (strings) => {
       displayName: strings.th_denies,
       field: 'denies',
       tooltip: strings.tooltip_denies,
-      fantasyFn: (v) => 0.003 * v,
+      fantasyFn: v => 0.003 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -532,7 +524,7 @@ export default (strings) => {
       displayName: strings.th_gold_per_min,
       field: 'gold_per_min',
       tooltip: strings.tooltip_gold_per_min,
-      fantasyFn: (v) => 0.002 * v,
+      fantasyFn: v => 0.002 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -541,7 +533,7 @@ export default (strings) => {
       displayName: strings.th_towers,
       field: 'towers_killed',
       tooltip: strings.tooltip_tower_kills,
-      fantasyFn: (v) => 1 * v,
+      fantasyFn: v => 1 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -550,7 +542,7 @@ export default (strings) => {
       displayName: strings.th_roshan,
       field: 'roshans_killed',
       tooltip: strings.farm_roshan,
-      fantasyFn: (v) => 1 * v,
+      fantasyFn: v => 1 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -559,7 +551,7 @@ export default (strings) => {
       displayName: strings.th_teamfight_participation,
       field: 'teamfight_participation',
       tooltip: strings.tooltip_teamfight_participation,
-      fantasyFn: (v) => 3 * v,
+      fantasyFn: v => 3 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -568,7 +560,7 @@ export default (strings) => {
       displayName: strings.th_observers_placed,
       field: 'obs_placed',
       tooltip: strings.tooltip_used_ward_observer,
-      fantasyFn: (v) => 0.5 * v,
+      fantasyFn: v => 0.5 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -577,7 +569,7 @@ export default (strings) => {
       displayName: strings.th_camps_stacked,
       field: 'camps_stacked',
       tooltip: strings.tooltip_camps_stacked,
-      fantasyFn: (v) => 0.5 * v,
+      fantasyFn: v => 0.5 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -586,7 +578,7 @@ export default (strings) => {
       displayName: strings.heading_runes,
       field: 'rune_pickups',
       tooltip: strings.analysis_rune_control,
-      fantasyFn: (v) => 0.25 * v,
+      fantasyFn: v => 0.25 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -595,7 +587,7 @@ export default (strings) => {
       displayName: strings.th_firstblood_claimed,
       field: 'firstblood_claimed',
       tooltip: strings.th_firstblood_claimed,
-      fantasyFn: (v) => 4 * v,
+      fantasyFn: v => 4 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -604,7 +596,7 @@ export default (strings) => {
       displayName: strings.th_stuns,
       field: 'stuns',
       tooltip: strings.tooltip_stuns,
-      fantasyFn: (v) => 0.05 * v,
+      fantasyFn: v => 0.05 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -615,7 +607,7 @@ export default (strings) => {
     heroTdColumn,
     {
       displayName: strings.th_fantasy_points,
-      displayFn: (row) => fantasyComponents.map((comp) => comp.fantasyFn(row[comp.field])).reduce((a, b) => a + b).toFixed(2),
+      displayFn: row => fantasyComponents.map(comp => comp.fantasyFn(row[comp.field])).reduce((a, b) => a + b).toFixed(2),
     },
   ].concat(fantasyComponents);
 
@@ -631,7 +623,7 @@ export default (strings) => {
           <div>
             {field
               ? field
-                .filter((purchase) => purchase.time >= curTime - bucket && purchase.time < curTime)
+                .filter(purchase => purchase.time >= curTime - bucket && purchase.time < curTime)
                 .sort((p1, p2) => {
                   const item1 = items[p1.key];
                   const item2 = items[p2.key];
@@ -664,8 +656,8 @@ export default (strings) => {
       cols.push({
         displayName: `${minutes}'`,
         field: i,
-        sortFn: (row) => row.lh_t && row.lh_t[minutes],
-        displayFn: (row) => `${row.lh_t[minutes]} (+${row.lh_t[minutes] - row.lh_t[minutes - (bucket / 60)]})`,
+        sortFn: row => row.lh_t && row.lh_t[minutes],
+        displayFn: row => `${row.lh_t[minutes]} (+${row.lh_t[minutes] - row.lh_t[minutes - (bucket / 60)]})`,
         relativeBars: true,
         sumFn: (acc, row) => (acc + ((row.lh_t && row.lh_t[minutes]) ? row.lh_t[minutes] : 0)),
       });
@@ -720,7 +712,7 @@ export default (strings) => {
       relativeBars: true,
       invertBarColor: true,
       sumFn: true,
-      displaySumFn: (total) => formatSeconds(total) || '-',
+      displaySumFn: total => formatSeconds(total) || '-',
     },
     {
       displayName: strings.th_buybacks,
@@ -781,37 +773,37 @@ export default (strings) => {
   ];
 
   const laningColumns = (currentState, setSelectedPlayer) => [
-    { displayFn: (row) => <RadioButton checked={currentState.selectedPlayer === row.player_slot} onClick={() => setSelectedPlayer(row.player_slot)} /> },
+    { displayFn: row => <RadioButton checked={currentState.selectedPlayer === row.player_slot} onClick={() => setSelectedPlayer(row.player_slot)} /> },
     heroTdColumn,
     {
       displayName: strings.heading_is_radiant,
       tooltip: strings.heading_is_radiant,
       field: 'isRadiant',
       sortFn: true,
-      displayFn: (row, col, field) => (
-        <span>
-          {field && <IconRadiant height="30" /> }
-          {!field && <IconDire height="30" /> }
-        </span>
-      ),
+      displayFn: (row, col, field) =>
+        (
+          <span>
+            {field && <IconRadiant height="30" /> }
+            {!field && <IconDire height="30" /> }
+          </span>
+        ),
     },
     {
       displayName: strings.th_lane,
       tooltip: strings.tooltip_lane,
       field: 'lane_role',
       sortFn: true,
-      displayFn: (row, col, field) => (
-        <div>
-          <span>
-            {strings[`lane_role_${field}`]}
-          </span>
-          {row.is_roaming
-            && (
+      displayFn: (row, col, field) =>
+        (
+          <div>
+            <span>
+              {strings[`lane_role_${field}`]}
+            </span>
+            {row.is_roaming &&
             <span style={subTextStyle}>
               {strings.roaming}
-            </span>
-            )}
-        </div>),
+            </span>}
+          </div>),
     },
     {
       displayName: strings.cs_over_time,
@@ -938,10 +930,11 @@ export default (strings) => {
       displayName: strings.th_other,
       field: 'specific',
       // TODO make this work for non-english (current names are hardcoded in dotaconstants)
-      displayFn: (row, col, field) => (
-        <div>
-          {Object.keys(field || {}).map((unit) => <div key={unit}>{`${field[unit]} ${unit}`}</div>)}
-        </div>),
+      displayFn: (row, col, field) =>
+        (
+          <div>
+            {Object.keys(field || {}).map(unit => <div key={unit}>{`${field[unit]} ${unit}`}</div>)}
+          </div>),
       sumFn: (acc, row) => {
         const result = (acc != null) ? acc : {};
 
@@ -951,9 +944,9 @@ export default (strings) => {
 
         return result;
       },
-      displaySumFn: (totals) => (
+      displaySumFn: totals => (
         <div>
-          {Object.keys(totals || {}).map((unit) => <div key={unit}>{`${totals[unit]} ${unit}`}</div>)}
+          {Object.keys(totals || {}).map(unit => <div key={unit}>{`${totals[unit]} ${unit}`}</div>)}
         </div>
       ),
     },
@@ -968,16 +961,16 @@ export default (strings) => {
       sortFn: true,
       relativeBars: true,
     },
-  ].concat(Object.keys(orderTypes).filter((orderType) => `th_${orderTypes[orderType]}` in strings).map((orderType) => ({
+  ].concat(Object.keys(orderTypes).filter(orderType => `th_${orderTypes[orderType]}` in strings).map(orderType => ({
     displayName: strings[`th_${orderTypes[orderType]}`],
     tooltip: strings[`tooltip_${orderTypes[orderType]}`],
     field: orderType,
-    sortFn: (row) => (row.actions ? row.actions[orderType] : 0),
+    sortFn: row => (row.actions ? row.actions[orderType] : 0),
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
   })));
 
-  const runesColumns = [heroTdColumn].concat(Object.keys(strings).filter((str) => str.indexOf('rune_') === 0).map((str) => str.split('_')[1]).map((runeType) => ({
+  const runesColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('rune_') === 0).map(str => str.split('_')[1]).map(runeType => ({
     displayName: (
       <StyledRunes data-tip data-for={`rune_${runeType}`}>
         <Tooltip title={strings[`rune_${runeType}`]}>
@@ -987,7 +980,7 @@ export default (strings) => {
     ),
     field: `rune_${runeType}`,
     displayFn: (row, col, value) => value || '-',
-    sortFn: (row) => row.runes && row.runes[runeType],
+    sortFn: row => row.runes && row.runes[runeType],
     relativeBars: true,
   })));
 
@@ -1030,29 +1023,29 @@ export default (strings) => {
     },
   ];
 
-  const goldReasonsColumns = [heroTdColumn].concat(Object.keys(strings).filter((str) => str.indexOf('gold_reasons_') === 0).map((gr) => ({
+  const goldReasonsColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('gold_reasons_') === 0).map(gr => ({
     displayName: strings[gr],
     field: gr,
-    sortFn: (row) => (row.gold_reasons ? row.gold_reasons[gr.substring('gold_reasons_'.length)] : 0),
+    sortFn: row => (row.gold_reasons ? row.gold_reasons[gr.substring('gold_reasons_'.length)] : 0),
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
     sumFn: (acc, row) => (acc + (row.gold_reasons ? (row.gold_reasons[gr.substring('gold_reasons_'.length)] || 0) : 0)),
   })));
 
-  const xpReasonsColumns = [heroTdColumn].concat(Object.keys(strings).filter((str) => str.indexOf('xp_reasons_') === 0).map((xpr) => ({
+  const xpReasonsColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('xp_reasons_') === 0).map(xpr => ({
     displayName: strings[xpr],
     field: xpr,
-    sortFn: (row) => (row.xp_reasons ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] : 0),
+    sortFn: row => (row.xp_reasons ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] : 0),
     displayFn: (row, column, value) => value || '-',
     relativeBars: true,
     sumFn: (acc, row) => (acc + (row.xp_reasons ? (row.xp_reasons[xpr.substring('xp_reasons_'.length)] || 0) : 0)),
   })));
 
-  const objectiveDamageColumns = [heroTdColumn].concat(Object.keys(strings).filter((str) => str.indexOf('objective_') === 0).map((obj) => ({
+  const objectiveDamageColumns = [heroTdColumn].concat(Object.keys(strings).filter(str => str.indexOf('objective_') === 0).map(obj => ({
     displayName: strings[obj],
     field: obj,
     tooltip: strings[`tooltip_${obj}`],
-    sortFn: (row) => row.objective_damage && row.objective_damage[obj.substring('objective_'.length)],
+    sortFn: row => row.objective_damage && row.objective_damage[obj.substring('objective_'.length)],
     displayFn: (row, col, value) => value || '-',
     relativeBars: true,
   })));
@@ -1071,7 +1064,7 @@ export default (strings) => {
           // backwards compatibility 2018-03-17
           return Object.keys(row.damage_inflictor)
             .sort((a, b) => (row.damage_inflictor[b] - (row.damage_inflictor[a])))
-            .map((inflictor) => inflictorWithValue(inflictor, abbreviateNumber((row.damage_inflictor[inflictor]))));
+            .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber((row.damage_inflictor[inflictor]))));
         }
         return null;
       },
@@ -1079,11 +1072,12 @@ export default (strings) => {
     {
       displayName: strings.th_damage_received,
       field: 'damage_inflictor_received',
-      displayFn: (row, col, field) => (
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {(field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map((inflictor) => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : '')}
-        </div>
-      ),
+      displayFn: (row, col, field) =>
+        (
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {(field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : '')}
+          </div>
+        ),
     },
   ];
 
@@ -1100,28 +1094,30 @@ export default (strings) => {
         // backwards compatibility 2018-03-17
         return Object.keys(row.ability_uses)
           .sort((a, b) => row.ability_uses[b] - row.ability_uses[a])
-          .map((inflictor) => inflictorWithValue(inflictor, abbreviateNumber((row.ability_uses[inflictor]))));
+          .map(inflictor => inflictorWithValue(inflictor, abbreviateNumber((row.ability_uses[inflictor]))));
       },
     },
     {
       displayName: strings.th_items,
       tooltip: strings.tooltip_casts,
       field: 'item_uses',
-      displayFn: (row, col, field) => (
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map((inflictor) => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''}
-        </div>
-      ),
+      displayFn: (row, col, field) =>
+        (
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''}
+          </div>
+        ),
     },
     {
       displayName: strings.th_hits,
       tooltip: strings.tooltip_hits,
       field: 'hero_hits',
-      displayFn: (row, col, field) => (
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map((inflictor) => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''}
-        </div>
-      ),
+      displayFn: (row, col, field) =>
+        (
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {field ? Object.keys(field).sort((a, b) => field[b] - field[a]).map(inflictor => inflictorWithValue(inflictor, abbreviateNumber(field[inflictor]))) : ''}
+          </div>
+        ),
     },
   ];
 
@@ -1130,29 +1126,30 @@ export default (strings) => {
     {
       displayName: strings.th_analysis,
       field: 'analysis',
-      displayFn: (row, col, field) => Object.keys(field || {}).map((key) => {
-        const val = field[key];
-        val.display = `${val.name}: ${Number(val.value ? val.value.toFixed(2) : '')} / ${Number(val.top.toFixed(2))}`;
-        val.pct = val.score(val.value) / val.score(val.top);
-        if (val.valid) {
-          const percent = field[key].pct;
-          const bucket = percentile(percent);
-          return (
-            <div>
-              <span style={{ color: constants[bucket.color], margin: '10px', fontSize: '18px' }}>
-                {bucket.grade}
-              </span>
-              <span>
-                {field[key].display}
-              </span>
-              <StyledUnusedItem>
-                {key === 'unused_item' && field[key].metadata.map((item) => inflictorWithValue(item))}
-              </StyledUnusedItem>
-            </div>
-          );
-        }
-        return null;
-      }),
+      displayFn: (row, col, field) =>
+        Object.keys(field || {}).map((key) => {
+          const val = field[key];
+          val.display = `${val.name}: ${Number(val.value ? val.value.toFixed(2) : '')} / ${Number(val.top.toFixed(2))}`;
+          val.pct = val.score(val.value) / val.score(val.top);
+          if (val.valid) {
+            const percent = field[key].pct;
+            const bucket = percentile(percent);
+            return (
+              <div>
+                <span style={{ color: constants[bucket.color], margin: '10px', fontSize: '18px' }}>
+                  {bucket.grade}
+                </span>
+                <span>
+                  {field[key].display}
+                </span>
+                <StyledUnusedItem>
+                  {key === 'unused_item' && field[key].metadata.map(item => inflictorWithValue(item))}
+                </StyledUnusedItem>
+              </div>
+            );
+          }
+          return null;
+        }),
     },
   ];
 
@@ -1162,22 +1159,20 @@ export default (strings) => {
       deaths.push(<img src="/assets/images/player_death.png" alt="" />);
     }
     return (
-      field > 0
-      && (
+      field > 0 &&
       <StyledPlayersDeath>
         {deaths}
       </StyledPlayersDeath>
-      )
     );
   };
 
-  const inflictorRow = (row, col, field) => (field
-    ? (
-      <div style={{ maxWidth: '100px' }}>
-        {Object.keys(field).map((inflictor) => inflictorWithValue(inflictor, field[inflictor]))}
-      </div>
-    )
-    : '');
+  const inflictorRow = (row, col, field) =>
+    (field
+      ?
+        <div style={{ maxWidth: '100px' }}>
+          {Object.keys(field).map(inflictor => inflictorWithValue(inflictor, field[inflictor]))}
+        </div>
+      : '');
 
   const teamfightColumns = [
     heroTdColumn,
@@ -1225,10 +1220,10 @@ export default (strings) => {
 
   const computeAverage = (row, type) => {
     const wardType = type === 'obs' ? 'ward_observer' : 'ward_sentry';
-    const maxDuration = items[wardType].attrib.find((x) => x.key === 'lifetime').value;
+    const maxDuration = items[wardType].attrib.find(x => x.key === 'lifetime').value;
     const totalDuration = [];
     row[`${type}_log`].forEach((ward) => {
-      const findTime = row[`${type}_left_log`] && row[`${type}_left_log`].find((x) => x.ehandle === ward.ehandle);
+      const findTime = row[`${type}_left_log`] && row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
       const leftTime = (findTime && findTime.time) || false;
       if (leftTime !== false) { // exclude wards that did not expire before game ended from average time
         const duration = Math.min(Math.max(leftTime - ward.time, 0), maxDuration);
@@ -1247,14 +1242,13 @@ export default (strings) => {
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
-        &nbsp;
-        {strings.th_duration_shorthand}
+        &nbsp;{strings.th_duration_shorthand}
       </div>
     ),
     field: 'obs_avg_life',
     tooltip: strings.tooltip_duration_observer,
-    sortFn: (row) => computeAverage(row, 'obs'),
-    displayFn: (row) => formatSeconds(computeAverage(row, 'obs')) || '-',
+    sortFn: row => computeAverage(row, 'obs'),
+    displayFn: row => formatSeconds(computeAverage(row, 'obs')) || '-',
     relativeBars: true,
   };
 
@@ -1263,14 +1257,13 @@ export default (strings) => {
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
-        &nbsp;
-        {strings.th_duration_shorthand}
+        &nbsp;{strings.th_duration_shorthand}
       </div>
     ),
     field: 'sen_avg_life',
     tooltip: strings.tooltip_duration_sentry,
-    sortFn: (row) => computeAverage(row, 'sen'),
-    displayFn: (row) => formatSeconds(computeAverage(row, 'sen')) || '-',
+    sortFn: row => computeAverage(row, 'sen'),
+    displayFn: row => formatSeconds(computeAverage(row, 'sen')) || '-',
     relativeBars: true,
   };
 
@@ -1279,8 +1272,7 @@ export default (strings) => {
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
-        &nbsp;
-        {strings.th_purchase_shorthand}
+        &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
     tooltip: strings.tooltip_purchase_ward_observer,
@@ -1295,8 +1287,7 @@ export default (strings) => {
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
-        &nbsp;
-        {strings.th_purchase_shorthand}
+        &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
     tooltip: strings.tooltip_purchase_ward_sentry,
@@ -1311,8 +1302,7 @@ export default (strings) => {
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/dust_lg.png`} alt="" />
-        &nbsp;
-        {strings.th_purchase_shorthand}
+        &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
     tooltip: strings.tooltip_purchase_dust,
@@ -1327,8 +1317,7 @@ export default (strings) => {
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
-        &nbsp;
-        {strings.th_purchase_shorthand}
+        &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
     tooltip: strings.tooltip_purchase_smoke_of_deceit,
@@ -1343,8 +1332,7 @@ export default (strings) => {
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/gem_lg.png`} alt="" />
-        &nbsp;
-        {strings.th_purchase_shorthand}
+        &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
     tooltip: strings.tooltip_purchase_gem,
@@ -1354,7 +1342,7 @@ export default (strings) => {
     relativeBars: true,
   };
 
-  const visionColumns = (visionStrings) => [
+  const visionColumns = visionStrings => [
     heroTdColumn,
     purchaseObserverColumn,
     {
@@ -1362,13 +1350,12 @@ export default (strings) => {
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
-          &nbsp;
-          {visionStrings.th_use_shorthand}
+          &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
       tooltip: visionStrings.tooltip_used_ward_observer,
       field: 'uses_ward_observer',
-      sortFn: (row) => row.obs_log && row.obs_log.length,
+      sortFn: row => row.obs_log && row.obs_log.length,
       displayFn: (row, column, value) => value || '-',
       relativeBars: true,
     },
@@ -1379,13 +1366,12 @@ export default (strings) => {
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
-          &nbsp;
-          {visionStrings.th_use_shorthand}
+          &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
       tooltip: visionStrings.tooltip_used_ward_sentry,
       field: 'uses_ward_sentry',
-      sortFn: (row) => row.sen_log && row.sen_log.length,
+      sortFn: row => row.sen_log && row.sen_log.length,
       displayFn: (row, column, value) => value || '-',
       relativeBars: true,
     },
@@ -1396,13 +1382,12 @@ export default (strings) => {
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/dust_lg.png`} alt="" />
-          &nbsp;
-          {visionStrings.th_use_shorthand}
+          &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
       tooltip: visionStrings.tooltip_used_dust,
       field: 'uses_dust',
-      sortFn: (row) => row.item_uses && row.item_uses.dust,
+      sortFn: row => row.item_uses && row.item_uses.dust,
       displayFn: (row, column, value) => value || '-',
       relativeBars: true,
     },
@@ -1412,13 +1397,12 @@ export default (strings) => {
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
-          &nbsp;
-          {visionStrings.th_use_shorthand}
+          &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
       tooltip: visionStrings.tooltip_used_smoke_of_deceit,
       field: 'uses_smoke',
-      sortFn: (row) => row.item_uses && row.item_uses.smoke_of_deceit,
+      sortFn: row => row.item_uses && row.item_uses.smoke_of_deceit,
       displayFn: (row, column, value) => value || '-',
       relativeBars: true,
     },

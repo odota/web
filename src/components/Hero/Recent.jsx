@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  arrayOf, shape, bool, func, string, oneOfType,
-} from 'prop-types';
+import { arrayOf, shape, bool, func, string, oneOfType } from 'prop-types';
 import { connect } from 'react-redux';
 import Table, { TableLink } from '../Table';
 import RecentSkeleton from '../Skeletons/RecentSkeleton';
@@ -116,7 +114,7 @@ Recent.defaultProps = {
   isLoading: false,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isLoading: state.app.heroRecentGames.loading,
   isError: state.app.heroRecentGames.error || !!state.app.heroRecentGames.data.error,
   result: state.app.heroRecentGames.data,

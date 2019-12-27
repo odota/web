@@ -10,7 +10,7 @@ import ButtonGarden from '../../../ButtonGarden';
 import playerRecordsColumns from './playerRecordsColumns';
 
 const excludedColumns = ['win_rate', 'level'];
-const recordsColumns = dataColumns.filter((col) => !excludedColumns.includes(col));
+const recordsColumns = dataColumns.filter(col => !excludedColumns.includes(col));
 
 const Records = ({
   routeParams, data, error, loading, playerId, history, strings,
@@ -78,14 +78,14 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   data: state.app.playerRecords.data,
   error: state.app.playerRecords.error,
   loading: state.app.playerRecords.loading,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getPlayerRecords: (playerId, options, subInfo) => dispatch(getPlayerRecords(playerId, options, subInfo)),
 });
 

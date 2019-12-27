@@ -50,7 +50,7 @@ const HistogramGraph = ({
         top: 0, right: 0, left: 0, bottom: 0,
       }}
     >
-      <XAxis dataKey="x" interval={1} tickFormatter={(val) => formatGraphValueData(val, histogramName)}>
+      <XAxis dataKey="x" interval={1} tickFormatter={val => formatGraphValueData(val, histogramName)}>
         <Label value="" position="insideTopRight" />
       </XAxis>
       <YAxis />
@@ -68,9 +68,9 @@ const HistogramGraph = ({
           columns.map((entry) => {
             const { win, games, x } = entry;
             const percent = win / games;
-            const adjustedVal = percent >= 0.5
-              ? percent + ((1 - percent) / 5)
-              : percent - (percent / 5);
+            const adjustedVal = percent >= 0.5 ?
+              percent + ((1 - percent) / 5) :
+              percent - (percent / 5);
             const rgb = hsvToRgb(adjustedVal * (1 / 3), 0.9, 0.9);
             const stroke = `rgba(${Math.floor(rgb[0])}, ${Math.floor(rgb[1])}, ${Math.floor(rgb[2])}, .8)`;
             const color = `rgba(${Math.floor(rgb[0])}, ${Math.floor(rgb[1])}, ${Math.floor(rgb[2])}, .5)`;
@@ -89,7 +89,7 @@ HistogramGraph.propTypes = {
   histogramName: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

@@ -1,7 +1,7 @@
 import { inflictorWithValue } from '../Visualizations';
 import { displayHeroId, formatSeconds, abbreviateNumber } from '../../utility';
 
-const computeWinRate = (row) => (row.wins / row.games);
+const computeWinRate = row => (row.wins / row.games);
 
 export const getTimeRange = (field, metadata) => {
   let lower;
@@ -23,7 +23,7 @@ const getColumns = (f, metadata, strings) => {
     }, {
       displayName: strings.scenarios_time,
       field: 'time',
-      sortFn: (row) => row.time,
+      sortFn: row => row.time,
       displayFn: (row, col, field) => getTimeRange(field, metadata.timings),
     }, {
       displayName: strings.scenarios_item,
@@ -34,7 +34,7 @@ const getColumns = (f, metadata, strings) => {
       displayName: strings.heading_win_rate,
       field: 'games',
       sortFn: computeWinRate,
-      percentBarsWithValue: (row) => abbreviateNumber(Number(row.games)),
+      percentBarsWithValue: row => abbreviateNumber(Number(row.games)),
       tooltip: strings.tooltip_winrate_samplesize,
     }],
 
@@ -57,7 +57,7 @@ const getColumns = (f, metadata, strings) => {
       displayName: strings.heading_win_rate,
       field: 'games',
       sortFn: computeWinRate,
-      percentBarsWithValue: (row) => abbreviateNumber(Number(row.games)),
+      percentBarsWithValue: row => abbreviateNumber(Number(row.games)),
       tooltip: strings.tooltip_winrate_samplesize,
     }],
 
@@ -70,7 +70,7 @@ const getColumns = (f, metadata, strings) => {
       displayName: strings.heading_win_rate,
       field: 'games',
       sortFn: computeWinRate,
-      percentBarsWithValue: (row) => abbreviateNumber(Number(row.games)),
+      percentBarsWithValue: row => abbreviateNumber(Number(row.games)),
       tooltip: strings.tooltip_winrate_samplesize,
     }],
   };

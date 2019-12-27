@@ -31,7 +31,7 @@ const PageLinks = ({ strings }) => {
     name: strings.app_gravitech,
     path: '//www.gravitech.io',
   }];
-  return links.map((link) => (
+  return links.map(link => (
     <a href={link.path} key={link.name} target="_blank" rel="noopener noreferrer">{link.name}</a>
   ));
 };
@@ -40,7 +40,7 @@ PageLinks.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 

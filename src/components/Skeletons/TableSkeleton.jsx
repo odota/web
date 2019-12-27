@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const TableSkeleton = (props) => (
+const TableSkeleton = props => (
   <ContentLoader
     height={160}
     width={500}

@@ -1,8 +1,6 @@
 import React from 'react';
 import heroes from 'dotaconstants/build/heroes.json';
-import {
-  transformations, displayHeroId, subTextStyle, getTeamLogoUrl,
-} from '../../utility';
+import { transformations, displayHeroId, subTextStyle, getTeamLogoUrl } from '../../utility';
 import { TableLink } from '../Table';
 import constants from '../constants';
 import { TableRow, TableImage } from './TeamStyled';
@@ -16,7 +14,7 @@ const getPlayerImageUrl = (accountId) => {
   return '/assets/images/dota2/players/portrait.png';
 };
 
-export const matchColumns = (strings) => [{
+export const matchColumns = strings => [{
   displayName: strings.th_match_id,
   field: 'match_id',
   sortFn: true,
@@ -61,7 +59,7 @@ export const matchColumns = (strings) => [{
 },
 ];
 
-export const memberColumns = (strings) => [{
+export const memberColumns = strings => [{
   displayName: strings.th_name,
   field: 'name',
   sortFn: true,
@@ -79,16 +77,16 @@ export const memberColumns = (strings) => [{
 }, {
   displayName: strings.th_winrate,
   field: 'wins',
-  sortFn: (row) => row.wins / row.games_played,
+  sortFn: row => row.wins / row.games_played,
   percentBars: true,
 },
 ];
 
-export const heroColumns = (strings) => [{
+export const heroColumns = strings => [{
   displayName: strings.th_hero_id,
   field: 'hero_id',
   displayFn: displayHeroId,
-  sortFn: (row) => (heroes[row.hero_id] && heroes[row.hero_id].localized_name),
+  sortFn: row => (heroes[row.hero_id] && heroes[row.hero_id].localized_name),
 }, {
   displayName: strings.th_games_played,
   field: 'games_played',
@@ -97,7 +95,7 @@ export const heroColumns = (strings) => [{
 }, {
   displayName: strings.th_winrate,
   field: 'wins',
-  sortFn: (row) => (row.wins / row.games_played),
+  sortFn: row => (row.wins / row.games_played),
   percentBars: true,
 },
 ];
