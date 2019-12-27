@@ -1,7 +1,9 @@
 import { MatchCategory } from './Match/MatchCategory';
+import { Match } from './Match/Match';
 
 //  Below is what my IDE auto generates for import
 // import { MatchCategory } from 'src/types/Match/MatchCategory'
+// import { Match } from 'src/types/Match/Match'
 
 const testEnum = MatchCategory.PRO_BAN;
 const testType: Match = {
