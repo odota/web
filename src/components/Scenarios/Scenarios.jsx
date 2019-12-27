@@ -70,8 +70,6 @@ const reduceRows = (data) => {
 const getLink = (scenario) => <Link to={`/scenarios/${scenario}`} />;
 
 class Scenarios extends React.Component {
-  tableKey = 0;
-
   static propTypes = {
     match: PropTypes.shape({
       params: PropTypes.shape({ info: PropTypes.string }),

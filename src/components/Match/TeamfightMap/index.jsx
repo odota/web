@@ -442,6 +442,7 @@ class TeamfightMap extends Component {
     fn(this.props.teamfights.find((tf) => tf.start === start))(event);
   };
 
+
   isSelected = (teamfight = { start: null }) => this.state.teamfight && this.state.teamfight.start === teamfight.start;
 
   isHovered(teamfight = { start: null }) {
