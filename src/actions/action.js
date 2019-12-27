@@ -33,7 +33,6 @@ export default function action(type, host, path, params = {}, transform) {
       .then(transform || (json => json))
       .then(json => dispatch(getDataOk(json)))
       .catch((e) => {
-        // eslint-disable-next-line no-console
         console.error(e);
         if (e.fetchError && !e.clientError) {
           setTimeout(() => fetchDataWithRetry(delay + 3000), delay);

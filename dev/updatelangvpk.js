@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, no-console, import/no-unresolved */
+/* eslint-disable import/no-extraneous-dependencies */
 const request = require('request');
 const fs = require('fs');
 const vdf = require('simple-vdf');

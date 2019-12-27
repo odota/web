@@ -939,7 +939,7 @@ class MatchStory extends React.Component {
       if (e.stack) {
         exmsg += ` | stack: ${e.stack}`;
       }
-      console.error(exmsg); // eslint-disable-line no-console
+      console.error(exmsg);
       return (<div>{strings.story_error}</div>);
     }
   }
