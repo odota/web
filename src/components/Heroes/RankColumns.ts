@@ -1,15 +1,16 @@
 import heroes from 'dotaconstants/build/heroes.json';
 import constants from 'src/components/constants'
 import { abbreviateNumber, displayHeroId } from '../../utility';
-import { GlobalStrings } from 'src/types/common/GlobalStrings'
+import { GlobalString } from 'src/types/common/GlobalString'
 import { Heroes } from 'src/types/Hero/Heroes'
+import React from 'react'
 
 type Props = {
-  tabType: HeroesTabType
-  strings: GlobalStrings
+  tabType: HeroesTab
+  strings: GlobalString
 }
 
-enum HeroesTabType {
+enum HeroesTab {
   PRO = 'pro',
   PUBLIC = 'public'
 }
@@ -34,13 +35,13 @@ type HeroColumn = {
   displayName: string,
   tooltip: string,
   field: string
-  displayFn: () => JSX.Element,
+  displayFn: () => React.ReactNode,
   sortFn: (row: Row) => string
 }
 
-type PreparedColumn = (ProColumn | PublicColumn | HeroColumn) & ColumnAdditions
+type PreparedColumn = (ProColumn | PublicColumn | HeroColumn) & ColumnAddition
 
-type ColumnAdditions = {
+type ColumnAddition = {
   paddingLeft: number,
   paddingRight: number,
   tooltip: string
@@ -50,15 +51,15 @@ type Row = {
   [key in string]: number
 }
 
-type ColumnTypes = ProColumn | PublicColumn | HeroColumn
+type Column = ProColumn | PublicColumn | HeroColumn
 
-export const RankColumns = (props: Props) => {
-  return props.tabType === HeroesTabType.PRO
+export const rankColumns = (props: Props) => {
+  return props.tabType === HeroesTab.PRO
     ? generateProTabColumns(props.strings)
     : generatePublicTabColumns(props.strings);
 };
 
-const generateProTabColumns = (strings: GlobalStrings) => {
+const generateProTabColumns = (strings: GlobalString) => {
   const heroColumn = generateHeroColumn(strings)
 
   const combinedColumns = [heroColumn, {
@@ -86,7 +87,7 @@ const generateProTabColumns = (strings: GlobalStrings) => {
   return combinedColumns
 };
 
-const generateHeroColumn = (strings: GlobalStrings): HeroColumn => {
+const generateHeroColumn = (strings: GlobalString): HeroColumn => {
   return {
     displayName: strings.th_hero_id,
     tooltip: strings.tooltip_hero_id,
@@ -108,7 +109,7 @@ const decimalToCount = (decimal: number, matchTotal: number) => {
   return 0
 }
 
-const generatePublicTabColumns = (strings: GlobalStrings) => {
+const generatePublicTabColumns = (strings: GlobalString) => {
   const columns = [{
     displayName: strings.rank_tier_8,
     displayIcon: getRankIcon(8),
@@ -231,7 +232,7 @@ const generatePublicTabColumns = (strings: GlobalStrings) => {
 
 const getRankIcon = (number: number) => `/assets/images/dota2/rank_icons/rank_icon_${number}.png`;
 
-const prepareColumns = (columns: ColumnTypes[], strings: GlobalStrings) => {
+const prepareColumns = (columns: Column[], strings: GlobalString) => {
   return columns.map((column) => {
     const preparedColumn: PreparedColumn = {
       ...column,
@@ -245,7 +246,7 @@ const prepareColumns = (columns: ColumnTypes[], strings: GlobalStrings) => {
   })
 }
 
-const prepareDisplayName = (column: ColumnTypes, strings: GlobalStrings) => {
+const prepareDisplayName = (column: Column, strings: GlobalString) => {
   if (isHeroColumn(column)) {
     return column.displayName
   }
@@ -258,11 +259,11 @@ const prepareDisplayName = (column: ColumnTypes, strings: GlobalStrings) => {
   return `${baseName} ${variableName}%`
 }
 
-const isHeroColumn = (column: ColumnTypes): column is HeroColumn => {
+const isHeroColumn = (column: Column): column is HeroColumn => {
   return column.field === 'hero_id'
 }
 
-const prepareHeroColumn = (strings: GlobalStrings): PreparedColumn[] => {
+const prepareHeroColumn = (strings: GlobalString): PreparedColumn[] => {
   const columns = [
     generateHeroColumn(strings),
   ];
