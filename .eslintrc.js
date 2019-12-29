@@ -103,7 +103,12 @@ module.exports = {
         "import/prefer-default-export": "off",
         "react/state-in-constructor": "off",
         "import/extensions": "off",
-        "import/no-unresolved": "off"
+        "import/no-unresolved": "off",
+        "semi": "off",
+        "arrow-body-style": "off",
+        "@typescript-eslint/member-delimiter-style": "off",
+        "@typescript-eslint/no-use-before-define": "off",
+        "import/order": "off",
       },
     }
   ]
