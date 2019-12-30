@@ -32,7 +32,7 @@
   "dependencies": {
     "@material-ui/core": "^4.5.0",
     "@material-ui/icons": "^4.5.1",
-    "@material-ui/styles": "^4.5.0",
+    "@material-ui/styles": "^4.7.1",
     "abcolor": "^0.5.5",
     "ace-builds": "^1.4.7",
     "core-js": "^3.6.0",
