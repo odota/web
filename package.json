@@ -35,7 +35,7 @@
     "@material-ui/styles": "^4.5.0",
     "abcolor": "^0.5.5",
     "ace-builds": "^1.4.7",
-    "core-js": "^3.6.0",
+    "core-js": "^3.6.1",
     "dota2-emoticons": "^1.0.1",
     "dotaconstants": "^6.27.0",
     "fuzzy": "^0.1.3",
