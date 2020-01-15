@@ -20,19 +20,19 @@ const Records = ({
     <div style={{ fontSize: 10 }}>
       <ButtonGarden
         onClick={(buttonName) => {
-        history.push(`/players/${playerId}/records/${buttonName}${window.location.search}`);
-      }}
+          history.push(`/players/${playerId}/records/${buttonName}${window.location.search}`);
+        }}
         buttonNames={recordsColumns}
         selectedButton={selected}
       />
       <Container title={strings.heading_records} error={error} loading={loading}>
         <Table
           columns={playerRecordsColumns(strings).concat({
-          displayName: strings[`th_${selected}`] || strings.th_record,
-          displayFn: (row, col, field) => (field && field.toFixed ? Number(field.toFixed(2)) : ''),
-          field: selected,
-          relativeBars: true,
-        })}
+            displayName: strings[`th_${selected}`] || strings.th_record,
+            displayFn: (row, col, field) => (field && field.toFixed ? Number(field.toFixed(2)) : ''),
+            field: selected,
+            relativeBars: true,
+          })}
           data={data}
         />
       </Container>

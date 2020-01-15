@@ -63,6 +63,8 @@ function updateWordCloud(wordCounts, cloudDomId) {
 const { string } = PropTypes;
 
 class Wordcloud extends React.Component {
+  id = `a-${nanoid()}`;
+
   static propTypes = {
     counts: string,
   }
@@ -73,8 +75,6 @@ class Wordcloud extends React.Component {
   componentDidUpdate(nextProps) {
     updateWordCloud(nextProps.counts, this.id);
   }
-
-  id = `a-${nanoid()}`;
 
   render() {
     const width = Math.min(1080, window.innerWidth * 0.75);

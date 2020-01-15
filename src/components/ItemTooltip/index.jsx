@@ -196,8 +196,7 @@ const ItemTooltip = ({ item, inflictor }) => (
     </Header>
     {(item.attrib && item.attrib.length > 0) &&
     <Attributes>
-      {(item.attrib).map(attrib =>
-      (
+      {(item.attrib).map((attrib) => (
         <Attribute key={attrib.key}>
           <span id="header">{attrib.header} </span>
           <span id="value">{`${attrib.value}`}</span>

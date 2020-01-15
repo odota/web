@@ -346,18 +346,18 @@ const BuildingMap = ({ match, strings }) => {
                 <div
                   className="buildingHealth"
                   style={{
-                  backgroundColor: (bits[i] === '1' && constants.colorMuted) || (side === 'good' ? constants.colorRed : constants.colorGreen),
-                }}
+                    backgroundColor: (bits[i] === '1' && constants.colorMuted) || (side === 'good' ? constants.colorRed : constants.colorGreen),
+                  }}
                 >
                   {damage.map(player => (
                     <div
                       key={player.hero_id}
                       style={{
-                      width: `${(Number(player.damage) * 100) / buildingsHealth[type === 'tower' ? `tower${tier}` : type]}%`,
-                      backgroundColor: playerColors[player.player_slot],
-                    }}
+                        width: `${(Number(player.damage) * 100) / buildingsHealth[type === 'tower' ? `tower${tier}` : type]}%`,
+                        backgroundColor: playerColors[player.player_slot],
+                      }}
                     />
-                ))}
+                  ))}
                 </div>
                 <div className="damage">
                   {damage.map(player => (
@@ -391,18 +391,19 @@ const BuildingMap = ({ match, strings }) => {
                       </span>
                     }
                     </div>
-                ))}
-                  {(damageByCreeps > 0) && (bits[i] !== '1') &&
+                  ))}
+                  {(damageByCreeps > 0) && (bits[i] !== '1')
+                  && (
                   <div className="creeps">
                     <img
                       src="/assets/images/blank-1x1.gif"
                       alt=""
                       style={{
-                      backgroundImage: `url(/assets/images/dota2/${side === 'good' ? 'bad' : 'good'}guys_creep.png)`,
-                      backgroundPosition: 'center',
-                      backgroundRepeat: 'no-repeat',
-                      backgroundSize: 'contain',
-                    }}
+                        backgroundImage: `url(/assets/images/dota2/${side === 'good' ? 'bad' : 'good'}guys_creep.png)`,
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'contain',
+                      }}
                     />
                     <span className="damageValue">
                       {damageByCreeps}
@@ -418,6 +419,7 @@ const BuildingMap = ({ match, strings }) => {
                     </span>
                   }
                   </div>
+                  )
                 }
                 </div>
               </div>

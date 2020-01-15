@@ -12,7 +12,7 @@ import {
   sum,
   abbreviateNumber,
 } from '../../utility';
-import columns from './columns';
+import { rankColumns } from './rankColumns.ts';
 
 class RequestLayer extends React.Component {
   static propTypes = {
@@ -144,7 +144,7 @@ class RequestLayer extends React.Component {
             info={route}
             tabs={heroTabs}
           />
-          {selectedTab && selectedTab.content(processedData, columns(strings)[route], loading)}
+          {selectedTab && selectedTab.content(processedData, rankColumns({ tabType: route, strings }), loading)}
         </div>
       </div>);
   }

@@ -470,7 +470,7 @@ class Chat extends React.Component {
                   <a href={`#${index}`}>{formatSeconds(msg.time)}</a>
                 </time>
                 {hero ? <HeroImage id={hero.id} alt={hero && hero.localized_name} />
-                : <img src="/assets/images/blank-1x1.gif" alt="" />}
+                  : <img src="/assets/images/blank-1x1.gif" alt="" />}
                 <span className="target">
                   [{target.toUpperCase()}]
                 </span>

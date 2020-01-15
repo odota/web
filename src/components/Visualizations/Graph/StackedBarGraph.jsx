@@ -68,7 +68,7 @@ const StackedBarGraph = ({
                 stackId={gr === 'gold_reasons_1' || gr === 'gold_reasons_2' ? 'a' : 'b'}
                 fill={category10[i]}
               />
-          ))}
+            ))}
           </BarChart>
         </ResponsiveContainer>
       </div>
