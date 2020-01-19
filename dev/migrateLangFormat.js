@@ -37,4 +37,3 @@ langs.forEach((langFile) => {
 
   fs.writeFileSync(path.resolve(langsPath, langFile), JSON.stringify(updatedLang, undefined, '  '));
 });
-

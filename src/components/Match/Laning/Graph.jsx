@@ -24,8 +24,7 @@ const formatGraphTime = minutes => `${minutes}:00`;
 const CustomizedTooltip = ({ label, payload }) => (
   <StyledCustomizedTooltip>
     <div className="label">{label}</div>
-    {payload.map((data, i) =>
-    (
+    {payload.map((data, i) => (
       <div key={i} value={data.value} className={`data ${i < 5 && 'isRadiant'}`} style={{ borderLeft: `8px solid ${data.color}` }}>
         {data.dataKey}: {data.value}
       </div>)).sort((a, b) => b.props.value - a.props.value)

@@ -196,8 +196,7 @@ const ItemTooltip = ({ item, inflictor }) => (
     </Header>
     {(item.attrib && item.attrib.length > 0) &&
     <Attributes>
-      {(item.attrib).map(attrib =>
-      (
+      {(item.attrib).map((attrib) => (
         <Attribute key={attrib.key}>
           <span id="header">{attrib.header} </span>
           <span id="value">{`${attrib.value}`}</span>
@@ -241,7 +240,7 @@ const ItemTooltip = ({ item, inflictor }) => (
     {item.components &&
     <Components>
       <div id="header">Components:</div>
-      {item.components.concat((items[`recipe_${inflictor}`] && [`recipe_${inflictor}`]) || []).map(component =>
+      {item.components.concat((items[`recipe_${inflictor}`] && [`recipe_${inflictor}`]) || []).filter(Boolean).map(component =>
         (
           <div className="component">
             <img src={`${process.env.REACT_APP_API_HOST}${items[component].img}`} alt="" />

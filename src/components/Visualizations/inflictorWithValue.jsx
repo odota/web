@@ -24,6 +24,7 @@ const customImageIcon = ['refresher_shard'];
 
 const StyledDiv = styled.div`
 min-height: 1px;
+display: inline-block;
 
 .__react_component_tooltip {
   opacity: 1 !important;
@@ -66,6 +67,7 @@ min-height: 1px;
 
   &.backpack {
     height: 10px;
+    white-space: nowrap;
     
     object, img {
       height: 18px;
@@ -160,9 +162,9 @@ class InflictorWithValue extends React.Component {
 
   render() {
     const {
-      inflictor, value, type, ptooltip, abilityId, strings,
+      inflictor, value, type, ptooltip, abilityId, strings, abilities, neutralAbilities, abilityIds,
     } = this.props;
-    const { abilities, neutralAbilities, abilityIds } = this.props;
+
     const resolvedInflictor = (abilityId && abilityIds && abilityIds[abilityId]) || String(inflictor);
     if (resolvedInflictor) {
       const ability = abilities && abilities[resolvedInflictor];
@@ -213,8 +215,8 @@ class InflictorWithValue extends React.Component {
             <div
               className="buff"
               style={{
-              backgroundImage: `url(${image})`,
-            }}
+                backgroundImage: `url(${image})`,
+              }}
             />
           }
             {!type && <div className="overlay">{value}</div>}

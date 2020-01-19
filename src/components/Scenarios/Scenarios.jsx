@@ -68,6 +68,8 @@ const reduceRows = (data) => {
 const getLink = scenario => <Link to={`/scenarios/${scenario}`} />;
 
 class Scenarios extends React.Component {
+  tableKey = 0;
+
   static propTypes = {
     match: PropTypes.shape({
       params: PropTypes.shape({ info: PropTypes.string }),
@@ -117,6 +119,14 @@ class Scenarios extends React.Component {
     this.incrementTableKey();
   }
 
+  handleChange = (selectedTab) => {
+    this.setState({ selectedTab }, this.initialQuery);
+  }
+
+  incrementTableKey = () => {
+    this.tableKey += 1;
+  }
+
   initialQuery() {
     const { scenariosState } = this.props;
     const { selectedTab } = this.state;
@@ -125,10 +135,6 @@ class Scenarios extends React.Component {
       this.getData();
     }
     this.updateQueryParams();
-  }
-
-  handleChange = (selectedTab) => {
-    this.setState({ selectedTab }, this.initialQuery);
   }
 
   updateQueryParams() {
@@ -141,12 +147,6 @@ class Scenarios extends React.Component {
     this.setState({
       formFields: { ...formFields, [selectedTab]: { ...formFields[selectedTab], ...newFormFieldState } },
     }, this.updateQueryParams);
-  }
-
-  tableKey = 0;
-
-  incrementTableKey = () => {
-    this.tableKey += 1;
   }
 
   render() {
@@ -187,7 +187,7 @@ class Scenarios extends React.Component {
                 className={filterForms && filterForms.includes(field) ? 'filter' : 'query'}
                 incrementTableKey={this.incrementTableKey}
               />
-          ))}
+            ))}
           </div>
           <FlatButton
             onClick={this.getData}

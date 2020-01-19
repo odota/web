@@ -620,10 +620,9 @@ export default (strings) => {
       cols.push({
         displayName: `${curTime / 60}'`,
         field: 'purchase_log',
-        displayFn: (row, column, field) =>
-          (
-            <div>
-              {field
+        displayFn: (row, column, field) => (
+          <div>
+            {field
               ? field
                 .filter(purchase => purchase.time >= curTime - bucket && purchase.time < curTime)
                 .sort((p1, p2) => {
@@ -643,7 +642,7 @@ export default (strings) => {
                   return null;
                 })
               : ''}
-            </div>),
+          </div>),
       });
     }
     return cols;
@@ -1001,29 +1000,27 @@ export default (strings) => {
     {
       displayName: strings.th_cosmetics,
       field: 'cosmetics',
-      displayFn: (row, col, field) =>
-        field.map(cosmetic =>
-          (
-            <StyledCosmetic key={cosmetic.item_id} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
-              <a href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`} target="_blank" rel="noopener noreferrer">
-                <img
-                  src={`${process.env.REACT_APP_API_HOST}/apps/570/${cosmetic.image_path}`}
-                  alt=""
-                  style={{
-                  borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : constants.colorMuted}`,
-                }}
-                />
-                <ActionOpenInNew />
-              </a>
-              <ReactTooltip id={`cosmetic_${cosmetic.item_id}`} effect="solid">
-                <span style={{ color: cosmetic.item_rarity && cosmeticsRarity[cosmetic.item_rarity] }}>
-                  {cosmetic.name}
-                  <span>
-                    {cosmetic.item_rarity}
-                  </span>
-                </span>
-              </ReactTooltip>
-            </StyledCosmetic>)),
+      displayFn: (row, col, field) => field.map((cosmetic) => (
+        <StyledCosmetic key={cosmetic.item_id} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
+          <a href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`} target="_blank" rel="noopener noreferrer">
+            <img
+              src={`${process.env.REACT_APP_API_HOST}/apps/570/${cosmetic.image_path}`}
+              alt=""
+              style={{
+                borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : constants.colorMuted}`,
+              }}
+            />
+            <ActionOpenInNew />
+          </a>
+          <ReactTooltip id={`cosmetic_${cosmetic.item_id}`} effect="solid">
+            <span style={{ color: cosmetic.item_rarity && cosmeticsRarity[cosmetic.item_rarity] }}>
+              {cosmetic.name}
+              <span>
+                {cosmetic.item_rarity}
+              </span>
+            </span>
+          </ReactTooltip>
+        </StyledCosmetic>)),
     },
   ];
 
@@ -1223,8 +1220,8 @@ export default (strings) => {
   ];
 
   const computeAverage = (row, type) => {
-    const t = type === 'obs' ? 'ward_observer' : 'ward_sentry';
-    const maxDuration = items[t].attrib.find(x => x.key === 'lifetime').value;
+    const wardType = type === 'obs' ? 'ward_observer' : 'ward_sentry';
+    const maxDuration = items[wardType].attrib.find(x => x.key === 'lifetime').value;
     const totalDuration = [];
     row[`${type}_log`].forEach((ward) => {
       const findTime = row[`${type}_left_log`] && row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
@@ -1234,10 +1231,8 @@ export default (strings) => {
         totalDuration.push(duration);
       }
     });
-    let total = 0;
-    for (let i = 0; i < totalDuration.length; i += 1) {
-      total += totalDuration[i];
-    }
+
+    const total = totalDuration.reduce((a, b) => a + b, 0);
     const avg = total / totalDuration.length;
 
     return avg;

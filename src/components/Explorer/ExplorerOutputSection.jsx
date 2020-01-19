@@ -86,16 +86,19 @@ class ExplorerOutputSection extends React.Component {
             } else if (column.field.indexOf('_composition') !== -1) {
               return (
                 <React.Fragment>
-                  {row.team_a_win === (column.field.indexOf('team_a') === 0) &&
+                  {row.team_a_win === (column.field.indexOf('team_a') === 0)
+                  && (
                   <WinnerSpan style={{ position: 'relative' }}>
                     <IconTrophy style={{ position: 'absolute', left: -12, bottom: 12 }} />
-                  </WinnerSpan>}
-                  {field.map(id =>
-                  (<HeroImage
-                    id={id}
-                    imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
-                    style={{ marginRight: 3, height: 25 }}
-                  />))}
+                  </WinnerSpan>
+                  )}
+                  {field.map((id) => (
+                    <HeroImage
+                      id={id}
+                      imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
+                      style={{ marginRight: 3, height: 25 }}
+                    />
+                  ))}
                 </React.Fragment>
               );
             } else if (column.field.indexOf('account_id') === 0) {

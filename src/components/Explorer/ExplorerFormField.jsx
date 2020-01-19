@@ -77,7 +77,8 @@ class ExplorerFormField extends React.Component {
     if (isDateField) {
       return (
         <span style={{ width: fieldWidth }}>
-          {DatePicker &&
+          {DatePicker
+          && (
           <DatePicker
             ref={(ref) => { this.datepicker = ref; return null; }}
             floatingLabelText={label}
@@ -86,41 +87,45 @@ class ExplorerFormField extends React.Component {
             defaultDate={builder[builderField] ? new Date(builder[builderField]) : undefined}
             onShow={this.resetField}
             onChange={(event, date) => {
-            handleFieldUpdate(builderField, date.toISOString());
-          }}
-          />}
+              handleFieldUpdate(builderField, date.toISOString());
+            }}
+          />
+          )}
         </span>);
     }
     return (
       <span style={{ width: fieldWidth }}>
-        { multipleSelect ?
-          <FormField
-            name={builderField}
-            label={label}
-            dataSource={dataSource}
-            formSelectionState={builder}
-            filter={AutoComplete.caseInsensitiveFilter}
-            strict
-            limit={chipLimit}
-            addChip={this.addChip}
-            deleteChip={this.deleteChip}
-            resetField={this.resetField}
-          />
-      :
-          <AutoComplete
-            ref={(ref) => { this.autocomplete = ref; return null; }}
-            openOnFocus
-            listStyle={{ maxHeight: 400, overflow: 'auto' }}
-            fullWidth
-            filter={AutoComplete.caseInsensitiveFilter}
-            floatingLabelText={label}
-            dataSource={dataSource}
-            maxSearchResults={100}
-            onClick={this.resetField}
-            onNewRequest={(value, index) => {
-        handleFieldUpdate(builderField, index > -1 ? value.key : '');
-      }}
-          />
+        { multipleSelect
+          ? (
+            <FormField
+              name={builderField}
+              label={label}
+              dataSource={dataSource}
+              formSelectionState={builder}
+              filter={AutoComplete.caseInsensitiveFilter}
+              strict
+              limit={chipLimit}
+              addChip={this.addChip}
+              deleteChip={this.deleteChip}
+              resetField={this.resetField}
+            />
+          )
+          : (
+            <AutoComplete
+              ref={(ref) => { this.autocomplete = ref; return null; }}
+              openOnFocus
+              listStyle={{ maxHeight: 400, overflow: 'auto' }}
+              fullWidth
+              filter={AutoComplete.caseInsensitiveFilter}
+              floatingLabelText={label}
+              dataSource={dataSource}
+              maxSearchResults={100}
+              onClick={this.resetField}
+              onNewRequest={(value, index) => {
+                handleFieldUpdate(builderField, index > -1 ? value.key : '');
+              }}
+            />
+          )
     }
       </span>);
   }

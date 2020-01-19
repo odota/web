@@ -39,6 +39,8 @@ const drawHeatmap = ({
 };
 
 class Heatmap extends Component {
+  id = `a-${nanoid()}`;
+
   static propTypes = {
     width: PropTypes.number,
   }
@@ -53,8 +55,6 @@ class Heatmap extends Component {
   componentDidUpdate() {
     drawHeatmap(this.props, this.heatmap);
   }
-
-  id = `a-${nanoid()}`;
 
   render() {
     return (

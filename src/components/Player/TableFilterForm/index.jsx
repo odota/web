@@ -98,7 +98,7 @@ const Styled = styled.div`
 
 .showForm {
   border: 1px solid rgb(0,0,0,0.12);
-  background-color: rgba(35, 35, 58, 0.85);
+  background-color: rgba(20, 20, 21, 0.32);
   padding-left: 5px;
   padding-right: 5px;
   position: relative;

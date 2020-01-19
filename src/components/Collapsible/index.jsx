@@ -35,10 +35,9 @@ const CollapseButton = ({
   handleClick, collapsed, strings, buttonStyle, handleHoverOn, handleHoverOff,
 }) => (
   <ButtonContainer style={buttonStyle} onClick={handleClick} onMouseEnter={handleHoverOn} onMouseLeave={handleHoverOff}>
-    {collapsed ?
-    [<span>{strings.general_show}</span>, <IconPlusSquare />]
-    :
-    [<span>{strings.general_hide}</span>, <IconMinusSquare />]}
+    {collapsed
+      ? [<span>{strings.general_show}</span>, <IconPlusSquare />]
+      : [<span>{strings.general_hide}</span>, <IconMinusSquare />]}
   </ButtonContainer>
 );
 

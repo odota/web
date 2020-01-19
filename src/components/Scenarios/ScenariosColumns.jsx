@@ -79,4 +79,3 @@ const getColumns = (f, metadata, strings) => {
 };
 
 export default getColumns;
-

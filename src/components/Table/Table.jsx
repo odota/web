@@ -74,27 +74,27 @@ class Table extends React.Component {
     return (
       <tr>
         {columns.map((column, colIndex) => {
-            let total = 0;
-            if (column.sumFn) {
-              const sumFn = (typeof column.sumFn === 'function') ? column.sumFn : (acc, row) => (acc + (row[column.field] || 0));
-              total = data.reduce(sumFn, null);
-            }
+          let total = 0;
+          if (column.sumFn) {
+            const sumFn = (typeof column.sumFn === 'function') ? column.sumFn : (acc, row) => (acc + (row[column.field] || 0));
+            total = data.reduce(sumFn, null);
+          }
 
-            return (
-              <td
-                className={column.className}
-                key={`${colIndex}_sum`}
-                style={{
+          return (
+            <td
+              className={column.className}
+              key={`${colIndex}_sum`}
+              style={{
                 paddingTop: 10,
                 paddingBottom: 10,
                 color: column.color,
                 ...getColStyle(column),
               }}
-              >
-                {column.sumFn && ((column.displaySumFn) ? column.displaySumFn(total) : abbreviateNumber(total))}
-              </td>
-            );
-          })}
+            >
+              {column.sumFn && ((column.displaySumFn) ? column.displaySumFn(total) : abbreviateNumber(total))}
+            </td>
+          );
+        })}
       </tr>
     );
   }

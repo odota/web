@@ -13,12 +13,14 @@ margin-top: -20px;
 .PicksBans {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: left;
   flex-wrap: wrap;
+  margin-top: 33px;
+  margin-bottom: 15px;
 
   & > section {
     position: relative;
-    margin: 5px 5px 0px 5px;
+    margin: 5px 5px 0px 0px;
 
     & > aside {
       font-size: 11px;
