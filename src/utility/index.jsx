@@ -917,7 +917,7 @@ export function getLocalizedMonthStrings() {
 }
 
 export function formatGraphValueData(data, histogramName) {
-  if (!data) return '';
+  if (data !== 0 && !data) return '';
 
   switch (histogramName) {
     case 'duration':
