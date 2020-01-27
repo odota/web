@@ -25,11 +25,13 @@ const generateDiffData = (match) => {
   const radiantGoldAdv = match.radiant_gold_adv;
   const radiantXpAdv = match.radiant_xp_adv;
   const data = [];
-  radiantXpAdv.forEach((rXpAdv, index) => {
-    if (index <= Math.floor(match.duration / 60)) {
-      data.push({ time: index, rXpAdv, rGoldAdv: radiantGoldAdv[index] });
-    }
-  });
+  if (radiantGoldAdv && radiantXpAdv) {
+    radiantXpAdv.forEach((rXpAdv, index) => {
+      if (index <= Math.floor(match.duration / 60)) {
+        data.push({ time: index, rXpAdv, rGoldAdv: radiantGoldAdv[index] });
+      }
+    });
+  }
   return data;
 };
 
@@ -89,6 +91,9 @@ XpTooltipContent.propTypes = {
 const XpNetworthGraph = ({
   match, strings, sponsorURL, sponsorIcon,
 }) => {
+  if (!match.radiant_gold_adv || !match.radiant_xp_adv) {
+    return null;
+  }
   const matchData = generateDiffData(match);
   const maxY =
       Math.ceil(Math.max(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000) * 5000;
