@@ -87,7 +87,7 @@ const StyledFooter = styled.footer`
           display: inline-block;
 
           &:hover {
-            color: rgba(255,255,255,0.87);
+            color: ${constants.textColorPrimary};
           }
 
           &::after {
