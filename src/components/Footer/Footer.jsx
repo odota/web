@@ -86,6 +86,10 @@ const StyledFooter = styled.footer`
         & a {
           display: inline-block;
 
+          &:hover {
+            color: ${constants.textColorPrimary};
+          }
+
           &::after {
             content: "•";
             margin: 0 8px;
