@@ -41,9 +41,9 @@ const app = (
 );
 
 if (rootElement.hasChildNodes()) {
-  render(app, rootElement);
-} else {
   hydrate(app, rootElement);
+} else {
+  render(app, rootElement);
 }
 
 // unregister();
