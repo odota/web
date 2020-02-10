@@ -46,4 +46,10 @@ if (rootElement.hasChildNodes()) {
   render(app, rootElement);
 }
 
+// Remove loader
+const loader = document.getElementById('loader');
+if (loader) {
+  loader.remove();
+}
+
 // unregister();
