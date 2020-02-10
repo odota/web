@@ -27,6 +27,9 @@ export const langs = [
     value: 'it-IT',
     native: 'Italiano',
   }, {
+    value: 'hu-HU',
+    native: 'Magyar',
+  }, {
     value: 'ja-JP',
     native: '日本語',
   }, /* {
