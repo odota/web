@@ -78,6 +78,8 @@ display: inline-block;
       height: 30px;
       width: 30px;
       border-radius: 15px;
+      position: relative;
+      bottom: 1px;
     }
   }
 }

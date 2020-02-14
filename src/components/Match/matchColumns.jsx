@@ -367,7 +367,7 @@ export default (strings) => {
         paddingRight: 23,
         paddingLeft: 5,
         displayFn: row =>
-          <div style={{ height: 30, width: 30 }}>
+          <div style={{ height: 30, width: 30, backgroundColor: 'rgba(38, 71, 90, 0.29)', borderRadius: '15px' }}>
             {row.item_neutral ? inflictorWithValue(itemIds[row.item_neutral], null, 'neutral') : null}
           </div>,
       }
