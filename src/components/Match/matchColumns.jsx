@@ -360,7 +360,19 @@ export default (strings) => {
           );
         },
       },
-    ].concat(match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0
+    ].concat(match.players.map(player => player.item_neutral).reduce(sum, 0) > 0
+    ? {
+      field: 'item_neutral',
+      width: 20,
+      paddingRight: 23,
+      paddingLeft: 5,
+      displayFn: row => 
+        <div style={{height: 30, width: 30}}>
+          {inflictorWithValue(itemIds[row.item_neutral], null, 'neutral')}
+        </div>,
+    }
+    : [])
+    .concat(match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0
       ? {
         displayName: strings.th_permanent_buffs,
         tooltip: strings.tooltip_permanent_buffs,
