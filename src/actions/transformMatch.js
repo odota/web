@@ -228,7 +228,7 @@ function transformMatch(m) {
     if (m.game_mode === 18 && Object.prototype.hasOwnProperty.call(player, 'ability_upgrades_arr')) {
       const arr = [];
       player.ability_upgrades_arr.forEach((ability) => {
-        if (!arr.includes(ability) && ability < 5900) {
+        if (!arr.includes(ability)) {
           arr.push(ability);
         }
       });
