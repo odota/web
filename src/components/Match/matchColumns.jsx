@@ -366,9 +366,9 @@ export default (strings) => {
         width: 20,
         paddingRight: 23,
         paddingLeft: 5,
-        displayFn: (row, field) =>
+        displayFn: row =>
           <div style={{ height: 30, width: 30 }}>
-            {field ? inflictorWithValue(itemIds[field], null, 'neutral') : null}
+            {row.item_neutral ? inflictorWithValue(itemIds[row.item_neutral], null, 'neutral') : null}
           </div>,
       }
       : [])
