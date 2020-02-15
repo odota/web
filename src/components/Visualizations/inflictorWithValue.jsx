@@ -73,6 +73,15 @@ display: inline-block;
       height: 18px;
     }
   }
+  &.neutral {    
+    > object, > img {
+      height: 30px;
+      width: 30px;
+      border-radius: 15px;
+      position: relative;
+      bottom: 1px;
+    }
+  }
 }
 
 .noBr {
@@ -202,12 +211,12 @@ class InflictorWithValue extends React.Component {
       return (
         <StyledDiv>
           <div
-            className={`inflictorWithValue ${type === 'backpack' && 'backpack'}`}
+            className={`inflictorWithValue ${type ? `${type}` : ''}`}
             data-tip={tooltip && true}
             data-for={ttId}
             onMouseEnter={this.setShowTooltip}
           >
-            {(!type || type === 'backpack') &&
+            {(!type || type === 'backpack' || type === 'neutral') &&
             <object data={image} height="27px" type="image/png">
               <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)', height: '27px' }} />
             </object>}
