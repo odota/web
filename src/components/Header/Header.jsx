@@ -189,7 +189,8 @@ LogOut.propTypes = {
 };
 
 const Header = ({
-  location, disableSearch, navbarPages, drawerPages,
+  location,
+  disableSearch,
 }) => {
   const [Announce, setAnnounce] = useState(null);
   const [menuIsOpen, setMenuState] = useState(false);
@@ -200,6 +201,63 @@ const Header = ({
   useEffect(() => {
     import('../Announce').then(ann => setAnnounce(ann.default));
   }, []);
+
+  const navbarPages = [
+    {
+      key: 'header_matches',
+      to: '/matches',
+      label: strings.header_matches,
+    },
+    {
+      key: 'header_heroes',
+      to: '/heroes',
+      label: strings.header_heroes,
+    },
+    {
+      key: 'header_teams',
+      to: '/teams',
+      label: strings.header_teams,
+    },
+    {
+      key: 'header_explorer',
+      to: '/explorer',
+      label: strings.header_explorer,
+    },
+    {
+      key: 'header_api',
+      to: '/api-keys',
+      label: strings.header_api,
+    },
+  ];
+
+  const drawerPages = [
+    ...navbarPages,
+    {
+      key: 'header_combos',
+      to: '/combos',
+      label: strings.combos,
+    },
+    {
+      key: 'header_distributions',
+      to: '/distributions',
+      label: strings.header_distributions,
+    },
+    {
+      key: 'header_records',
+      to: '/records',
+      label: strings.header_records,
+    },
+    {
+      key: 'header_meta',
+      to: '/meta',
+      label: strings.header_meta,
+    },
+    {
+      key: 'header_scenarios',
+      to: '/scenarios',
+      label: strings.header_scenarios,
+    },
+  ];
 
   return (
     <>
