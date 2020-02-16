@@ -33,7 +33,10 @@ const AccountWidget = ({
 
 AccountWidget.propTypes = {
   loading: PropTypes.bool,
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string,
+  ]),
   user: PropTypes.shape({}),
   style: PropTypes.string,
   strings: PropTypes.shape({}),

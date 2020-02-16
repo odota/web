@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { List, ListItem, ListItemIcon, ListItemText, Collapse } from '@material-ui/core';
@@ -20,49 +20,38 @@ const setLocalization = (event, key, payload) => {
   window.location.reload();
 };
 
-class LocalizationMenuItems extends Component {
-  constructor() {
-    super();
-    this.state = {
-      open: false,
-    };
-  }
+const LocalizationMenuItems = ({ strings }) => {
+  const [open, setOpen] = React.useState(false);
 
-  handleOnClick = (event) => {
+  const handleOnClick = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    this.setState({
-      open: !this.state.open,
-    });
+    setOpen(!open);
   };
 
-  render() {
-    const { strings } = this.props;
-    const { open } = this.state;
-    return (
-      <div style={{ minWidth: '200px' }}>
-        <List component="div">
-          <StyledListItem button onClick={this.handleOnClick}>
-            <StyledListItemIcon>
-              <Translate />
-            </StyledListItemIcon>
-            <ListItemText primary={strings.app_language} />
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </StyledListItem>
-          <Collapse in={open} timeout="auto" unmountOnExit style={{ maxHeight: 300, overflow: 'auto' }}>
-            <List component="div" disablePadding>
-              {langs.map(lang => (
-                <StyledListItem button onClick={() => setLocalization(null, null, lang)} key={lang.translated}>
-                  <ListItemText primary={lang.native} />
-                </StyledListItem>
-              ))}
-            </List>
-          </Collapse>
-        </List>
-      </div>
-    );
-  }
-}
+  return (
+    <div style={{ minWidth: '200px' }}>
+      <List component="div">
+        <StyledListItem button onClick={handleOnClick}>
+          <StyledListItemIcon>
+            <Translate />
+          </StyledListItemIcon>
+          <ListItemText primary={strings.app_language} />
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </StyledListItem>
+        <Collapse in={open} timeout="auto" unmountOnExit style={{ maxHeight: 300, overflow: 'auto' }}>
+          <List component="div" disablePadding>
+            {langs.map(lang => (
+              <StyledListItem button onClick={() => setLocalization(null, null, lang)} key={lang.native}>
+                <ListItemText primary={lang.native} />
+              </StyledListItem>
+            ))}
+          </List>
+        </Collapse>
+      </List>
+    </div>
+  );
+};
 
 const mapStateToProps = state => ({
   strings: state.app.strings,

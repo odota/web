@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { StyledDiv, TwoLineDiv } from './Styled';
 
 const Heading = ({
-  title = '', titleTo, icon, subtitle, buttonLabel, buttonTo, buttonIcon, twoLine, info, winner, strings,
+  title = '', titleTo, icon, subtitle, buttonLabel, buttonTo, buttonIcon, twoLine, info = '', winner, strings,
 }) => {
   const DivToUse = twoLine ? TwoLineDiv : StyledDiv;
   return (

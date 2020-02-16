@@ -181,130 +181,133 @@ class Table extends React.Component {
     }
     return (
       <StyledBody hoverRowColumn={hoverRowColumn} customWidth={customWidth}>
-        {paginated && <Pagination
-          numPages={Math.ceil(dataLength / pageLength)}
-          currentPage={currentPage}
-          nextPage={this.nextPage}
-          prevPage={this.prevPage}
-          setCurrentPage={this.setCurrentPage}
-          place="top"
-        />}
+        {paginated &&
+          <Pagination
+            numPages={Math.ceil(dataLength / pageLength)}
+            currentPage={currentPage}
+            nextPage={this.nextPage}
+            prevPage={this.prevPage}
+            setCurrentPage={this.setCurrentPage}
+            place="top"
+          />}
         <StyledContainer >
           {loading && <TableSkeleton />}
           {!loading && error && <Error />}
           {!loading && !error && dataLength <= 0 && <div>{placeholderMessage}</div>}
           {!loading && !error && dataLength > 0 && (
-          <div
-            className={`innerContainer ${scrolled && 'scrolled'} ${this.doShrink &&
+            <div
+              className={`innerContainer ${scrolled && 'scrolled'} ${this.doShrink &&
               'shrink'} ${overflowAuto && 'table-container-overflow-auto'}`}
-            ref={this.setTableRef}
-          >
-            <table className={className}>
-              <thead>
-                <TableHeader
-                  columns={columns}
-                  sortState={sortState}
-                  sortField={sortField}
-                  sortClick={this.sortClick}
-                />
-              </thead>
-              <tbody >
-                {data.map((row, index) => (
-                  <tr key={(keyFn && keyFn(row)) || index} {...(highlightFn && highlightFn(row))}>
-                    {columns.map((column, colIndex) => {
-                      const {
-                        field, color, center, displayFn, relativeBars, percentBars,
-                        percentBarsWithValue, invertBarColor, underline, colColor, sparkline,
-                      } = column;
-                      const columnSortFn = column.sortFn;
-                      const getValue = typeof columnSortFn === 'function' ? columnSortFn : null;
-                      const value = getValue ? getValue(row) : row[field];
-                      const style = {
-                        overflow: `${field === 'kills' ? 'visible' : null}`,
-                        backgroundColor: colColor,
-                        color,
-                        marginBottom: 0,
-                        textUnderlinePosition: 'under',
-                        textDecorationColor: 'rgb(140, 140, 140)',
-                        ...getColStyle(column),
-                      };
+              ref={this.setTableRef}
+            >
+              <table className={className}>
+                <thead>
+                  <TableHeader
+                    columns={columns}
+                    sortState={sortState}
+                    sortField={sortField}
+                    sortClick={this.sortClick}
+                  />
+                </thead>
+                <tbody >
+                  {data.map((row, index) => (
+                    <tr key={(keyFn && keyFn(row)) || index} {...(highlightFn && highlightFn(row))}>
+                      {columns.map((column, colIndex) => {
+                        const {
+                          field, color, center, displayFn, relativeBars, percentBars,
+                          percentBarsWithValue, invertBarColor, underline, colColor, sparkline,
+                        } = column;
+                        const columnSortFn = column.sortFn;
+                        const getValue = typeof columnSortFn === 'function' ? columnSortFn : null;
+                        const value = getValue ? getValue(row) : row[field];
+                        const style = {
+                          overflow: `${field === 'kills' ? 'visible' : null}`,
+                          backgroundColor: colColor,
+                          color,
+                          marginBottom: 0,
+                          textUnderlinePosition: 'under',
+                          textDecorationColor: 'rgb(140, 140, 140)',
+                          ...getColStyle(column),
+                        };
 
-                      if (center) {
-                        style.textAlign = 'center';
-                      }
-                      if (!row) {
-                        return (
-                          <td
-                            key={`${index}_${colIndex}`}
-                            style={style}
-                            className={column.className}
-                          />
-                        );
-                      }
-
-                      let fieldEl = null;
-                      const bars = relativeBars || percentBars || percentBarsWithValue;
-                      if (bars) {
-                        const altValue = typeof bars === 'function' && percentBarsWithValue ? bars(row) : null;
-                        let valEl = null;
-                        let barPercentValue = 0;
-                        if (relativeBars) {
-                          // Relative bars calculates the max for the column
-                          // and gets the percentage of value/max
-                          // TODO masad-frost memoize or something
-                          const min = getColumnMin(data, field, getValue);
-                          let max = getColumnMax(data, field, getValue);
-                          let valueWithOffset = value;
-                          if (!Number.isNaN(Number(min)) && min < 0) {
-                            // Rescale to cater for columns with negatives
-                            max -= min;
-                            valueWithOffset -= min;
-                          }
-
-                          const isValidNumber = !Number.isNaN(Number(valueWithOffset));
-                          barPercentValue = max !== 0 && isValidNumber
-                            ? Number((valueWithOffset * 100 / max).toFixed(1))
-                            : 0;
-                          valEl = displayFn
-                            ? displayFn(row, column, value, index, barPercentValue)
-                            : <span>{value}</span>;
-                        } else {
-                          // Percent bars assumes that the value is in decimal
-                          barPercentValue = Number((value * 100).toFixed(1)) || 0;
-                          valEl = displayFn
-                            ? displayFn(row, column, value, index, barPercentValue)
-                            : <span>{barPercentValue}</span>;
+                        if (center) {
+                          style.textAlign = 'center';
+                        }
+                        if (!row) {
+                          return (
+                            <td
+                              key={`${index}_${colIndex}`}
+                              style={style}
+                              className={column.className}
+                            />
+                          );
                         }
 
-                        fieldEl = (<TablePercent
-                          valEl={valEl}
-                          percent={barPercentValue}
-                          altValue={altValue}
-                          inverse={invertBarColor}
-                        />);
-                      } else if (displayFn) {
-                        fieldEl = displayFn(row, column, value, index);
-                      } else if (sparkline) {
-                        fieldEl = <TableSparkline strings={column.strings} values={value} altValues={[]} />;
-                      } else {
-                        fieldEl = value;
-                      }
-                      if ((underline === 'max' || underline === 'min') && typeof isBestValueInMatch === 'function') {
-                        style.textDecoration = isBestValueInMatch(field, row, underline) ? 'underline' : 'none';
-                      }
-                      const tdStyle = fieldEl && fieldEl.type && fieldEl.type.tdStyle;
-                      return (
-                        <td style={{ ...style, ...tdStyle }} className={column.className}>
-                          {fieldEl}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
-                {summable && Table.renderSumRow({ columns, data })}
-              </tbody>
-            </table>
-          </div>)}
+                        let fieldEl = null;
+                        const bars = relativeBars || percentBars || percentBarsWithValue;
+                        if (bars) {
+                          const altValue = typeof bars === 'function' && percentBarsWithValue ? bars(row) : null;
+                          let valEl = null;
+                          let barPercentValue = 0;
+                          if (relativeBars) {
+                            // Relative bars calculates the max for the column
+                            // and gets the percentage of value/max
+                            // TODO masad-frost memoize or something
+                            const min = getColumnMin(data, field, getValue);
+                            let max = getColumnMax(data, field, getValue);
+                            let valueWithOffset = value;
+                            if (!Number.isNaN(Number(min)) && min < 0) {
+                              // Rescale to cater for columns with negatives
+                              max -= min;
+                              valueWithOffset -= min;
+                            }
+
+                            const isValidNumber = !Number.isNaN(Number(valueWithOffset));
+                            barPercentValue = max !== 0 && isValidNumber
+                              ? Number((valueWithOffset * 100 / max).toFixed(1))
+                              : 0;
+                            valEl = displayFn
+                              ? displayFn(row, column, value, index, barPercentValue)
+                              : <span>{value}</span>;
+                          } else {
+                            // Percent bars assumes that the value is in decimal
+                            barPercentValue = Number((value * 100).toFixed(1)) || 0;
+                            valEl = displayFn
+                              ? displayFn(row, column, value, index, barPercentValue)
+                              : <span>{barPercentValue}</span>;
+                          }
+
+                          fieldEl = (
+                            <TablePercent
+                              valEl={valEl}
+                              percent={barPercentValue}
+                              altValue={altValue}
+                              inverse={invertBarColor}
+                            />);
+                        } else if (displayFn) {
+                          fieldEl = displayFn(row, column, value, index);
+                        } else if (sparkline) {
+                          fieldEl = <TableSparkline strings={column.strings} values={value} altValues={[]} />;
+                        } else {
+                          fieldEl = value;
+                        }
+                        if ((underline === 'max' || underline === 'min') && typeof isBestValueInMatch === 'function') {
+                          style.textDecoration = isBestValueInMatch(field, row, underline) ? 'underline' : 'none';
+                        }
+                        const tdStyle = fieldEl && fieldEl.type && fieldEl.type.tdStyle;
+                        return (
+                          <td key={`${index}_${colIndex}`} style={{ ...style, ...tdStyle }} className={column.className}>
+                            {fieldEl}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                  {summable && Table.renderSumRow({ columns, data })}
+                </tbody>
+              </table>
+            </div>)
+          }
         </StyledContainer>
         {paginated && <Pagination
           numPages={Math.ceil(dataLength / pageLength)}

@@ -109,24 +109,30 @@ const LinkGroup = ({ navbarPages }) => (
 );
 
 LinkGroup.propTypes = {
-  navbarPages: PropTypes.shape([{}]),
+  navbarPages: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string,
+      to: PropTypes.string,
+      label: PropTypes.string,
+    }),
+  ),
 };
 
 const SettingsGroup = ({ children }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = useCallback(() => {
-    setAnchorEl(undefined);
+    setAnchorEl(null);
   }, [setAnchorEl]);
 
   return (
-    <>
+    <div>
       <IconButton color="inherit" onClick={e => setAnchorEl(e.currentTarget)}>
         <Settings />
       </IconButton>
       <DropdownMenu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose} PaperProps={{ style: { maxHeight: 600 } }}>
         {children}
       </DropdownMenu>
-    </>
+    </div>
   );
 };
 
@@ -166,12 +172,12 @@ const AccountGroup = () => (
   </VerticalAlignToolbar>
 );
 
-const ReportBug = ({ strings }) => (
-  <DropdownMenuItem component="a" href={REPORT_BUG_PATH} target="_blank" rel="noopener noreferrer">
+const ReportBug = React.forwardRef(({ strings }, ref) => (
+  <DropdownMenuItem ref={ref} component="a" href={REPORT_BUG_PATH} target="_blank" rel="noopener noreferrer">
     <BugReport style={{ marginRight: 32, width: 24, height: 24 }} />
     {strings.app_report_bug}
   </DropdownMenuItem>
-);
+));
 
 ReportBug.propTypes = {
   strings: PropTypes.shape({}),
@@ -303,7 +309,7 @@ const Header = ({
                       <ListItemText primary={strings.app_my_profile} />
                     </ListItem>
                   </DrawerLink>
-                  <DrawerLink as="a" href={`${process.env.REACT_APP_API_HOST}/logout`}>
+                  <DrawerLink as="a" to={`${process.env.REACT_APP_API_HOST}/logout`}>
                     <ListItem button onClick={() => setMenuState(false)}>
                       <ListItemText primary={strings.app_logout} />
                     </ListItem>
@@ -311,7 +317,7 @@ const Header = ({
                 </>
               ) : (
                 <>
-                  <DrawerLink as="a" href={`${process.env.REACT_APP_API_HOST}/login`}>
+                  <DrawerLink as="a" to={`${process.env.REACT_APP_API_HOST}/login`}>
                     <ListItem button onClick={() => setMenuState(false)}>
                       <ListItemText primary={strings.app_login} />
                     </ListItem>
@@ -330,8 +336,22 @@ const Header = ({
 Header.propTypes = {
   location: PropTypes.shape({}),
   disableSearch: PropTypes.bool,
-  navbarPages: PropTypes.shape([{}]),
-  drawerPages: PropTypes.shape([{}]),
+  navbarPages: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string,
+      to: PropTypes.string,
+      label: PropTypes.string,
+    }),
+  ),
+  drawerPages: PropTypes.arrayOf(
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string,
+        to: PropTypes.string,
+        label: PropTypes.string,
+      }),
+    ),
+  ),
 };
 
 export default Header;

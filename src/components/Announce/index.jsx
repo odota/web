@@ -108,7 +108,10 @@ Announce.propTypes = {
 class RequestLayer extends React.Component {
   static propTypes = {
     getPulls: PropTypes.func,
-    error: PropTypes.string,
+    error: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.string,
+    ]),
     loading: PropTypes.bool,
     data: PropTypes.oneOfType([
       PropTypes.object,

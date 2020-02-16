@@ -141,67 +141,69 @@ const App = (props) => {
 
   return (
     <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
-      <GlobalStyle />
-      <StyledDiv {...props}>
-        <Helmet
-          defaultTitle={strings.title_default}
-          titleTemplate={strings.title_template}
-        />
-        <Header location={location} />
-        <AdBannerDiv>
-          { includeAds &&
-            <a href="http://www.vpgame.com/?lang=en_us">
-              <img src="/assets/images/vp-banner.jpg" alt="" />
-            </a>
-          }
-        </AdBannerDiv>
-        <StyledBodyDiv {...props}>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/matches/:matchId?/:info?" component={Matches} />
-            <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
-            <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
-            <Route exact path="/teams/:teamId?/:info?" component={Teams} />
-            <Route exact path="/distributions/:info?" component={Distributions} />
-            <Route exact path="/request" component={Request} />
-            <Route exact path="/status" component={Status} />
-            <Route exact path="/explorer" component={Explorer} />
-            <Route exact path="/combos" component={Combos} />
-            <Route exact path="/search" component={Search} />
-            <Route exact path="/records/:info?" component={Records} />
-            <Route exact path="/meta" component={Meta} />
-            <Route exact path="/scenarios/:info?" component={Scenarios} />
-            <Route exact path="/predictions" component={Predictions} />
-            <Route exact path="/api-keys" component={Api} />
-            <Route component={FourOhFour} />
-          </Switch>
-        </StyledBodyDiv>
-        <AdBannerDiv>
-          { includeAds &&
-            <div style={{ fontSize: '12px' }}>
-              <a href="https://www.rivalry.com/opendota">
-                <img src="/assets/images/rivalry-banner.gif" alt="" />
+      <>
+        <GlobalStyle />
+        <StyledDiv {...props}>
+          <Helmet
+            defaultTitle={strings.title_default}
+            titleTemplate={strings.title_template}
+          />
+          <Header location={location} />
+          <AdBannerDiv>
+            { includeAds &&
+              <a href="http://www.vpgame.com/?lang=en_us">
+                <img src="/assets/images/vp-banner.jpg" alt="" />
               </a>
-              <div>
-                {strings.home_sponsored_by} <a href="https://www.rivalry.com/opendota">Rivalry</a>
+            }
+          </AdBannerDiv>
+          <StyledBodyDiv {...props}>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/matches/:matchId?/:info?" component={Matches} />
+              <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
+              <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
+              <Route exact path="/teams/:teamId?/:info?" component={Teams} />
+              <Route exact path="/distributions/:info?" component={Distributions} />
+              <Route exact path="/request" component={Request} />
+              <Route exact path="/status" component={Status} />
+              <Route exact path="/explorer" component={Explorer} />
+              <Route exact path="/combos" component={Combos} />
+              <Route exact path="/search" component={Search} />
+              <Route exact path="/records/:info?" component={Records} />
+              <Route exact path="/meta" component={Meta} />
+              <Route exact path="/scenarios/:info?" component={Scenarios} />
+              <Route exact path="/predictions" component={Predictions} />
+              <Route exact path="/api-keys" component={Api} />
+              <Route component={FourOhFour} />
+            </Switch>
+          </StyledBodyDiv>
+          <AdBannerDiv>
+            { includeAds &&
+              <div style={{ fontSize: '12px' }}>
+                <a href="https://www.rivalry.com/opendota">
+                  <img src="/assets/images/rivalry-banner.gif" alt="" />
+                </a>
+                <div>
+                  {strings.home_sponsored_by} <a href="https://www.rivalry.com/opendota">Rivalry</a>
+                </div>
               </div>
-            </div>
-          }
-        </AdBannerDiv>
-        <Footer />
-        <button
-          ref={back2Top}
-          id="back2Top"
-          title={strings.back2Top}
-          onClick={() => {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-          }}
-        >
-          <div>&#9650;</div>
-          <div id="back2TopTxt">{strings.back2Top}</div>
-        </button>
-      </StyledDiv>
+            }
+          </AdBannerDiv>
+          <Footer />
+          <button
+            ref={back2Top}
+            id="back2Top"
+            title={strings.back2Top}
+            onClick={() => {
+              document.body.scrollTop = 0;
+              document.documentElement.scrollTop = 0;
+            }}
+          >
+            <div>&#9650;</div>
+            <div id="back2TopTxt">{strings.back2Top}</div>
+          </button>
+        </StyledDiv>
+      </>
     </MuiThemeProvider>
   );
 };
