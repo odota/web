@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import { render, hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
@@ -18,7 +18,7 @@ store.dispatch(getHeroAbilities());
 store.dispatch(getNeutralAbilities());
 store.dispatch(getAbilityIds());
 
-const history = createHistory();
+const history = createBrowserHistory();
 
 if (process.env.NODE_ENV === 'production') {
   const ReactGA = require('react-ga'); // eslint-disable-line global-require

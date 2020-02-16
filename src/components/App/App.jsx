@@ -1,7 +1,6 @@
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import PropTypes from 'prop-types';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
@@ -101,171 +100,111 @@ const AdBannerDiv = styled.div`
   }
 `;
 
-class App extends React.Component {
-  static propTypes = {
-    width: PropTypes.number,
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    strings: PropTypes.shape({}),
-  };
+const App = (props) => {
+  const {
+    strings,
+    location,
+  } = props;
 
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-  }
+  const back2Top = React.useRef();
 
-  componentDidUpdate(prevProps) {
-    if (this.props.location.key !== prevProps.location.key) {
-      window.scrollTo(0, 0);
-    }
-  }
+  React.useEffect(() => {
+    const handleScroll = () => {
+      let wait = false;
+      const { current } = back2Top;
+      if (!wait) {
+        if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+          current.style.opacity = 1;
+          current.style.pointerEvents = 'auto';
+        } else {
+          current.style.opacity = 0;
+          current.style.pointerEvents = 'none';
+        }
+      }
+      setTimeout(() => {
+        wait = !wait;
+      }, 300);
+    };
 
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
+    window.addEventListener('scroll', handleScroll);
 
-  setBack2TopRef = (node) => {
-    this.back2Top = node;
-  }
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  });
 
-  handleScroll = () => {
-    const { style } = this.back2Top;
-    if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
-      style.opacity = 1;
-      style.pointerEvents = 'auto';
-    } else {
-      style.opacity = 0;
-      style.pointerEvents = 'none';
-    }
-  }
+  React.useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
-  handleBack2TopClick = () => {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
+  const includeAds = !['/', '/api-keys'].includes(location.pathname);
 
-  render() {
-    const {
-      width, strings, location,
-    } = this.props;
-
-    const navbarPages = [
-      {
-        key: 'header_matches',
-        to: '/matches',
-        label: strings.header_matches,
-      },
-      {
-        key: 'header_heroes',
-        to: '/heroes',
-        label: strings.header_heroes,
-      },
-      {
-        key: 'header_teams',
-        to: '/teams',
-        label: strings.header_teams,
-      },
-      {
-        key: 'header_explorer',
-        to: '/explorer',
-        label: strings.header_explorer,
-      },
-      {
-        key: 'header_api',
-        to: '/api-keys',
-        label: strings.header_api,
-      },
-    ];
-
-    const drawerPages = [
-      ...navbarPages,
-      {
-        key: 'header_combos',
-        to: '/combos',
-        label: strings.combos,
-      },
-      {
-        key: 'header_distributions',
-        to: '/distributions',
-        label: strings.header_distributions,
-      },
-      {
-        key: 'header_records',
-        to: '/records',
-        label: strings.header_records,
-      },
-      {
-        key: 'header_meta',
-        to: '/meta',
-        label: strings.header_meta,
-      },
-      {
-        key: 'header_scenarios',
-        to: '/scenarios',
-        label: strings.header_scenarios,
-      },
-    ];
-
-    const includeAds = !['/', '/api-keys'].includes(location.pathname);
-    return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
-        <GlobalStyle />
-        <StyledDiv {...this.props} location={location}>
-          <Helmet
-            defaultTitle={strings.title_default}
-            titleTemplate={strings.title_template}
-          />
-          <Header location={location} navbarPages={navbarPages} drawerPages={drawerPages} />
-          <AdBannerDiv>
-            { includeAds &&
-              <a href="http://www.vpgame.com/?lang=en_us">
-                <img src="/assets/images/vp-banner.jpg" alt="" />
+  return (
+    <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
+      <GlobalStyle />
+      <StyledDiv {...props}>
+        <Helmet
+          defaultTitle={strings.title_default}
+          titleTemplate={strings.title_template}
+        />
+        <Header location={location} />
+        <AdBannerDiv>
+          { includeAds &&
+            <a href="http://www.vpgame.com/?lang=en_us">
+              <img src="/assets/images/vp-banner.jpg" alt="" />
+            </a>
+          }
+        </AdBannerDiv>
+        <StyledBodyDiv {...props}>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/matches/:matchId?/:info?" component={Matches} />
+            <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
+            <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
+            <Route exact path="/teams/:teamId?/:info?" component={Teams} />
+            <Route exact path="/distributions/:info?" component={Distributions} />
+            <Route exact path="/request" component={Request} />
+            <Route exact path="/status" component={Status} />
+            <Route exact path="/explorer" component={Explorer} />
+            <Route exact path="/combos" component={Combos} />
+            <Route exact path="/search" component={Search} />
+            <Route exact path="/records/:info?" component={Records} />
+            <Route exact path="/meta" component={Meta} />
+            <Route exact path="/scenarios/:info?" component={Scenarios} />
+            <Route exact path="/predictions" component={Predictions} />
+            <Route exact path="/api-keys" component={Api} />
+            <Route component={FourOhFour} />
+          </Switch>
+        </StyledBodyDiv>
+        <AdBannerDiv>
+          { includeAds &&
+            <div style={{ fontSize: '12px' }}>
+              <a href="https://www.rivalry.com/opendota">
+                <img src="/assets/images/rivalry-banner.gif" alt="" />
               </a>
-            }
-          </AdBannerDiv>
-          <StyledBodyDiv {...this.props}>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/matches/:matchId?/:info?" component={Matches} />
-              <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
-              <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
-              <Route exact path="/teams/:teamId?/:info?" component={Teams} />
-              <Route exact path="/distributions/:info?" component={Distributions} />
-              <Route exact path="/request" component={Request} />
-              <Route exact path="/status" component={Status} />
-              <Route exact path="/explorer" component={Explorer} />
-              <Route exact path="/combos" component={Combos} />
-              <Route exact path="/search" component={Search} />
-              <Route exact path="/records/:info?" component={Records} />
-              <Route exact path="/meta" component={Meta} />
-              <Route exact path="/scenarios/:info?" component={Scenarios} />
-              <Route exact path="/predictions" component={Predictions} />
-              <Route exact path="/api-keys" component={Api} />
-              <Route component={FourOhFour} />
-            </Switch>
-          </StyledBodyDiv>
-          <AdBannerDiv>
-            { includeAds &&
-              <div style={{ fontSize: '12px' }}>
-                <a href="https://www.rivalry.com/opendota">
-                  <img src="/assets/images/rivalry-banner.gif" alt="" />
-                </a>
-                <div>
-                  {strings.home_sponsored_by} <a href="https://www.rivalry.com/opendota">Rivalry</a>
-                </div>
+              <div>
+                {strings.home_sponsored_by} <a href="https://www.rivalry.com/opendota">Rivalry</a>
               </div>
-            }
-          </AdBannerDiv>
-          <Footer location={location} width={width} />
-          <button ref={this.setBack2TopRef} id="back2Top" title={strings.back2Top} onClick={this.handleBack2TopClick}>
-            <div>&#9650;</div>
-            <div id="back2TopTxt">{strings.back2Top}</div>
-          </button>
-        </StyledDiv>
-      </MuiThemeProvider>
-    );
-  }
-}
+            </div>
+          }
+        </AdBannerDiv>
+        <Footer />
+        <button
+          ref={back2Top}
+          id="back2Top"
+          title={strings.back2Top}
+          onClick={() => {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+          }}
+        >
+          <div>&#9650;</div>
+          <div id="back2TopTxt">{strings.back2Top}</div>
+        </button>
+      </StyledDiv>
+    </MuiThemeProvider>
+  );
+};
 
 const mapStateToProps = state => ({
   strings: state.app.strings,
