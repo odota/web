@@ -41,7 +41,7 @@ class ExplorerOutputSection extends React.Component {
     rows: PropTypes.string,
     fields: PropTypes.string,
     expandedBuilder: PropTypes.string,
-    teamMapping: PropTypes.string,
+    // teamMapping: PropTypes.string,
     playerMapping: PropTypes.string,
     format: PropTypes.string,
     strings: PropTypes.shape({}),
