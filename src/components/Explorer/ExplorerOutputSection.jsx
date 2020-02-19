@@ -52,7 +52,7 @@ class ExplorerOutputSection extends React.Component {
   }
   render() {
     const {
-      rows = [], fields, expandedBuilder, teamMapping, playerMapping, format, strings,
+      rows = [], fields, expandedBuilder, playerMapping, format, strings,
     } = this.props;
     /*
     setTimeout(() => {
