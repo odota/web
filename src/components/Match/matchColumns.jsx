@@ -387,12 +387,19 @@ export default (strings) => {
   };
 
   const abilityMapping = (index, upgradesArr, hero) => {
+    // Map the actual level position to the position in the data array
+    // Some levels now don't correspond to any ability upgrade
+    // 21 to 23 are the additional abilities gained at level 30
     const mapping = {
       17: -1,
       19: -1,
       18: 16,
       20: 17,
       25: 18,
+      30: -1,
+      21: -1,
+      22: -1,
+      23: -1,
     };
     const ability = upgradesArr[(hero !== 74 && mapping[index]) || index - 1];
 
