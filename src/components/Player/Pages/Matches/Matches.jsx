@@ -25,7 +25,11 @@ Matches.propTypes = {
 };
 
 const getData = (props) => {
-  props.getPlayerMatches(props.playerId, props.location.search);
+  const paramFields = ['hero_id', 'start_time', 'version', 'kills', 'deaths', 'assists', 'skill', 'leaver_status', 'party_size', // default fields
+    'item_0', 'item_1', 'item_2', 'item_3', 'item_4', 'item_5', // additional fields required for items
+  ];
+  const paramString = `${props.location.search}&${paramFields.map(x => `project=${x}`).join('&')}`;
+  props.getPlayerMatches(props.playerId, paramString);
 };
 
 class RequestLayer extends React.Component {

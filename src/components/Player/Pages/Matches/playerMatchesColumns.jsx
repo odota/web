@@ -1,4 +1,5 @@
 import { transformations, displayHeroId } from '../../../../utility';
+import mcs from '../../../Match/matchColumns';
 
 export default strings => ([{
   displayName: strings.th_hero_id,
@@ -39,5 +40,10 @@ export default strings => ([{
   tooltip: strings.tooltip_assists,
   field: 'assists',
   sortFn: true,
+}, {
+  displayName: strings.th_items,
+  tooltip: strings.tooltip_items,
+  field: 'items',
+  displayFn: mcs(strings).itemsTd,
 },
 ]);
