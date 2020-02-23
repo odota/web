@@ -177,7 +177,7 @@ const Overview = ({
           loaderHeight={160}
         >
           <Table
-            columns={playerMatchesColumns(strings)}
+            columns={playerMatchesColumns(strings, false)}
             data={matchesData}
             maxRows={!location.search && MAX_MATCHES_ROWS}
             paginated={matchesData.length > MAX_MATCHES_ROWS}
@@ -240,6 +240,7 @@ Overview.propTypes = {
 
 
 const getData = (props) => {
+  console.log('props.location.search', props.location.search);
   if (props.location.search) {
     props.getPlayerMatches(props.playerId, props.location.search);
   } else {

@@ -13,10 +13,9 @@ const Matches = ({
   strings,
 }) => (
   <Container title={strings.heading_matches} error={error} loading={loading}>
-    <Table paginated columns={playerMatchesColumns(strings)} data={data} />
+    <Table paginated columns={playerMatchesColumns(strings, true)} data={data} />
   </Container>
 );
-
 Matches.propTypes = {
   data: PropTypes.arrayOf({}),
   error: PropTypes.string,
@@ -25,11 +24,7 @@ Matches.propTypes = {
 };
 
 const getData = (props) => {
-  const paramFields = ['hero_id', 'start_time', 'version', 'kills', 'deaths', 'assists', 'skill', 'leaver_status', 'party_size', // default fields
-    'item_0', 'item_1', 'item_2', 'item_3', 'item_4', 'item_5', // additional fields required for items
-  ];
-  const paramString = `${props.location.search}&${paramFields.map(x => `project=${x}`).join('&')}`;
-  props.getPlayerMatches(props.playerId, paramString);
+  props.getPlayerMatches(props.playerId, props.location.search);
 };
 
 class RequestLayer extends React.Component {

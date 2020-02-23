@@ -254,7 +254,7 @@ class Weeks extends React.Component {
         >
           {clickedDay !== null && (
             <Table
-              columns={playerMatchesColumns(strings)}
+              columns={playerMatchesColumns(strings, false)}
               data={data[clickedDay].matches}
             />
           )}
