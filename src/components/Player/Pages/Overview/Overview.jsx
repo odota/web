@@ -240,7 +240,6 @@ Overview.propTypes = {
 
 
 const getData = (props) => {
-  console.log('props.location.search', props.location.search);
   if (props.location.search) {
     props.getPlayerMatches(props.playerId, props.location.search);
   } else {
