@@ -41,7 +41,7 @@ class ExplorerOutputSection extends React.Component {
     rows: PropTypes.string,
     fields: PropTypes.string,
     expandedBuilder: PropTypes.string,
-    teamMapping: PropTypes.string,
+    // teamMapping: PropTypes.string,
     playerMapping: PropTypes.string,
     format: PropTypes.string,
     strings: PropTypes.shape({}),
@@ -52,7 +52,7 @@ class ExplorerOutputSection extends React.Component {
   }
   render() {
     const {
-      rows = [], fields, expandedBuilder, teamMapping, playerMapping, format, strings,
+      rows = [], fields, expandedBuilder, playerMapping, format, strings,
     } = this.props;
     /*
     setTimeout(() => {
@@ -111,8 +111,6 @@ class ExplorerOutputSection extends React.Component {
               return strings[`rune_${field}`];
             } else if (column.field === 'item_name') {
               return itemData[field] ? itemData[field].dname : field;
-            } else if (column.field === 'team_id') {
-              return teamMapping[field] || field;
             } else if (column.field === 'time' || (column.field === 'avg' && expandedBuilder.select && expandedBuilder.select.formatSeconds)) {
               return formatSeconds(field);
             } else if (column.field === 'inflictor') {

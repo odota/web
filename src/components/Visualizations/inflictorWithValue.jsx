@@ -9,15 +9,11 @@ import ItemTooltip from './../ItemTooltip/index';
 import constants from '../constants';
 import AbilityTooltip from '../AbilityTooltip';
 
-const customNameIcon = {
-  kaya: 'trident',
-};
-
 const getInflictorImage = (inflictor) => {
   if (inflictor.includes('recipe')) {
     return 'recipe';
   }
-  return customNameIcon[inflictor] || inflictor;
+  return inflictor;
 };
 
 const customImageIcon = ['refresher_shard'];
