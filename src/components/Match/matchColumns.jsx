@@ -101,6 +101,62 @@ export default (strings) => {
     };
   };
 
+  const itemsTd = (row) => {
+    const itemArray = [];
+    const additionalItemArray = [];
+    const backpackItemArray = [];
+
+    const visitedItemsCount = {};
+
+    for (let i = 0; i < 6; i += 1) {
+      const itemKey = itemIds[row[`item_${i}`]];
+      const { itemSkipCount, purchaseEvent } = findBuyTime(row.purchase_log, itemKey, visitedItemsCount[itemKey]);
+      visitedItemsCount[itemKey] = itemSkipCount;
+
+      if (items[itemKey]) {
+        itemArray.push(inflictorWithValue(itemKey, formatSeconds(purchaseEvent && purchaseEvent.time)));
+      }
+
+      // Use hero_id because Meepo showing up as an additional unit in some matches http://dev.dota2.com/showthread.php?t=132401
+      if (row.hero_id === 80 && row.additional_units) {
+        const additionalItemKey = itemIds[row.additional_units[0][`item_${i}`]];
+        const additionalFirstPurchase = row.first_purchase_time && row.first_purchase_time[additionalItemKey];
+
+        if (items[additionalItemKey]) {
+          additionalItemArray.push(inflictorWithValue(additionalItemKey, formatSeconds(additionalFirstPurchase)));
+        }
+      }
+
+      const backpackItemKey = itemIds[row[`backpack_${i}`]];
+      const backpackfirstPurchase = row.first_purchase_time && row.first_purchase_time[backpackItemKey];
+
+      if (items[backpackItemKey]) {
+        backpackItemArray.push(inflictorWithValue(backpackItemKey, formatSeconds(backpackfirstPurchase), 'backpack'));
+      }
+    }
+
+    return (
+      <StyledDivClearBoth>
+        {itemArray &&
+          <div>
+            {itemArray}
+          </div>}
+        {additionalItemArray &&
+          <div>
+            {additionalItemArray}
+          </div>}
+        {backpackItemArray &&
+          backpackItemArray.length > 0 &&
+          <StyledBackpack>
+            <div data-hint={strings.tooltip_backpack} data-hint-position="bottom">
+              <IconBackpack />
+            </div>
+            {backpackItemArray}
+          </StyledBackpack>}
+      </StyledDivClearBoth>
+    );
+  };
+
   const overviewColumns = (match) => {
     const cols = [
       {
@@ -304,61 +360,7 @@ export default (strings) => {
         tooltip: strings.tooltip_items,
         field: 'items',
         width: 240,
-        displayFn: (row) => {
-          const itemArray = [];
-          const additionalItemArray = [];
-          const backpackItemArray = [];
-
-          const visitedItemsCount = {};
-
-          for (let i = 0; i < 6; i += 1) {
-            const itemKey = itemIds[row[`item_${i}`]];
-            const { itemSkipCount, purchaseEvent } = findBuyTime(row.purchase_log, itemKey, visitedItemsCount[itemKey]);
-            visitedItemsCount[itemKey] = itemSkipCount;
-
-            if (items[itemKey]) {
-              itemArray.push(inflictorWithValue(itemKey, formatSeconds(purchaseEvent && purchaseEvent.time)));
-            }
-
-            // Use hero_id because Meepo showing up as an additional unit in some matches http://dev.dota2.com/showthread.php?t=132401
-            if (row.hero_id === 80 && row.additional_units) {
-              const additionalItemKey = itemIds[row.additional_units[0][`item_${i}`]];
-              const additionalFirstPurchase = row.first_purchase_time && row.first_purchase_time[additionalItemKey];
-
-              if (items[additionalItemKey]) {
-                additionalItemArray.push(inflictorWithValue(additionalItemKey, formatSeconds(additionalFirstPurchase)));
-              }
-            }
-
-            const backpackItemKey = itemIds[row[`backpack_${i}`]];
-            const backpackfirstPurchase = row.first_purchase_time && row.first_purchase_time[backpackItemKey];
-
-            if (items[backpackItemKey]) {
-              backpackItemArray.push(inflictorWithValue(backpackItemKey, formatSeconds(backpackfirstPurchase), 'backpack'));
-            }
-          }
-
-          return (
-            <StyledDivClearBoth>
-              {itemArray &&
-                <div>
-                  {itemArray}
-                </div>}
-              {additionalItemArray &&
-                <div>
-                  {additionalItemArray}
-                </div>}
-              {backpackItemArray &&
-                backpackItemArray.length > 0 &&
-                <StyledBackpack>
-                  <div data-hint={strings.tooltip_backpack} data-hint-position="bottom">
-                    <IconBackpack />
-                  </div>
-                  {backpackItemArray}
-                </StyledBackpack>}
-            </StyledDivClearBoth>
-          );
-        },
+        displayFn: itemsTd,
       },
     ].concat(match.players.map(player => player.item_neutral).reduce(sum, 0) > 0
       ? {
@@ -1440,6 +1442,7 @@ export default (strings) => {
     goldReasonsColumns,
     heroTd,
     heroTdColumn,
+    itemsTd,
     inflictorsColumns,
     laningColumns,
     lastHitsTimesColumns,

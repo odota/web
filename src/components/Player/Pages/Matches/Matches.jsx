@@ -13,10 +13,9 @@ const Matches = ({
   strings,
 }) => (
   <Container title={strings.heading_matches} error={error} loading={loading}>
-    <Table paginated columns={playerMatchesColumns(strings)} data={data} />
+    <Table paginated columns={playerMatchesColumns(strings, true)} data={data} />
   </Container>
 );
-
 Matches.propTypes = {
   data: PropTypes.arrayOf({}),
   error: PropTypes.string,
