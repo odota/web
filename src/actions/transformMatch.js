@@ -225,13 +225,15 @@ function transformMatch(m) {
     }
     newPlayer.buybacks = (player.buyback_log || []).length;
     newPlayer.total_gold = (player.gold_per_min * m.duration) / 60;
-    if (m.game_mode === 18 && Object.prototype.hasOwnProperty.call(player, 'ability_upgrades_arr') && player.ability_upgrades_arr) {
+    if (m.game_mode === 18 && Object.prototype.hasOwnProperty.call(player, 'ability_upgrades_arr')) {
       const arr = [];
-      player.ability_upgrades_arr.forEach((ability) => {
-        if (!arr.includes(ability) && ability < 5900) {
-          arr.push(ability);
-        }
-      });
+      if (player.ability_upgrades_arr) {
+        player.ability_upgrades_arr.forEach((ability) => {
+          if (!arr.includes(ability) && ability < 5900) {
+            arr.push(ability);
+          }
+        });
+      }
       newPlayer.abilities = arr;
     }
     newPlayer.hero_name = heroes[player.hero_id] && heroes[player.hero_id].name;
