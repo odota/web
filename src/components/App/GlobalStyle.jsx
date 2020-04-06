@@ -4,15 +4,16 @@ import constants from '../constants';
 const GlobalStyle = createGlobalStyle([
   `
 body {
-  background-color: initial;
-  text-align: initial;
-  display: block;
-  justify-content: initial;
   align-items: initial;
-  height: initial;
-  width: initial;
-  margin: 0;
+  background-color: initial;
+  display: block;
   font-family: ${constants.fontFamily};
+  height: initial;
+  justify-content: initial;
+  margin: 0;
+  padding-right: 0 !important;
+  text-align: initial;
+  width: initial;
 }
 
 a {
