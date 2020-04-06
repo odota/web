@@ -927,3 +927,8 @@ export function formatGraphValueData(data, histogramName) {
       return data;
   }
 }
+
+export const HTML_REGEX = /(<([^>]+)>)/ig;
+export function stripHTML(string) {
+  return string.replace(HTML_REGEX, '');
+}

@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import styled from 'styled-components';
 import items from 'dotaconstants/build/items.json';
 import constants from '../constants';
-import { styleValues } from '../../utility';
+import { styleValues, stripHTML } from '../../utility';
 
 const itemAbilities = {
   active: {
@@ -198,9 +198,9 @@ const ItemTooltip = ({ item, inflictor }) => (
     <Attributes>
       {(item.attrib).map((attrib) => (
         <Attribute key={attrib.key}>
-          <span id="header">{attrib.header} </span>
-          <span id="value">{`${attrib.value}`}</span>
-          <span id="footer"> {attrib.footer || ''}</span>
+          <span id="header">{stripHTML(attrib.header)} </span>
+          <span id="value">{`${stripHTML(attrib.value)} `}</span>
+          <span id="footer">{stripHTML(attrib.footer || '')}</span>
         </Attribute>
       ))}
     </Attributes>
