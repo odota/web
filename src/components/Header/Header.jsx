@@ -1,10 +1,18 @@
-import { IconButton, List, ListItem, ListItemText, Menu, MenuItem, SwipeableDrawer } from '@material-ui/core';
+import {
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Menu,
+  MenuItem,
+  SwipeableDrawer,
+} from '@material-ui/core';
 import { BugReport, Menu as MenuIcon, Settings } from '@material-ui/icons';
 import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -100,7 +108,7 @@ const DrawerLink = styled(Link)`
 
 const LinkGroup = ({ navbarPages }) => (
   <VerticalAlignToolbar>
-    {navbarPages.map(page => (
+    {navbarPages.map((page) => (
       <TabContainer key={page.key}>
         <Link to={page.to}>{page.label}</Link>
       </TabContainer>
@@ -114,18 +122,31 @@ LinkGroup.propTypes = {
 
 const SettingsGroup = ({ children }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const buttonRef = useRef();
+
   const handleClose = useCallback(() => {
     setAnchorEl(undefined);
   }, [setAnchorEl]);
 
   return (
     <>
-      <IconButton color="inherit" onClick={e => setAnchorEl(e.currentTarget)}>
+      <IconButton
+        ref={buttonRef}
+        color="inherit"
+        onClick={(e) => setAnchorEl(e.currentTarget)}
+      >
         <Settings />
       </IconButton>
-      <DropdownMenu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose} PaperProps={{ style: { maxHeight: 600 } }}>
-        {children}
-      </DropdownMenu>
+      {buttonRef.current && (
+        <DropdownMenu
+          anchorEl={buttonRef.current}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+          PaperProps={{ style: { maxHeight: 600 } }}
+        >
+          {children}
+        </DropdownMenu>
+      )}
     </>
   );
 };
@@ -167,7 +188,12 @@ const AccountGroup = () => (
 );
 
 const ReportBug = ({ strings }) => (
-  <DropdownMenuItem component="a" href={REPORT_BUG_PATH} target="_blank" rel="noopener noreferrer">
+  <DropdownMenuItem
+    component="a"
+    href={REPORT_BUG_PATH}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
     <BugReport style={{ marginRight: 32, width: 24, height: 24 }} />
     {strings.app_report_bug}
   </DropdownMenuItem>
@@ -178,7 +204,11 @@ ReportBug.propTypes = {
 };
 
 const LogOut = ({ strings }) => (
-  <DropdownMenuItem component="a" href={`${process.env.REACT_APP_API_HOST}/logout`} rel="noopener noreferrer">
+  <DropdownMenuItem
+    component="a"
+    href={`${process.env.REACT_APP_API_HOST}/logout`}
+    rel="noopener noreferrer"
+  >
     <LogOutButton style={{ marginRight: 32, width: 24, height: 24 }} />
     {strings.app_logout}
   </DropdownMenuItem>
@@ -188,18 +218,15 @@ LogOut.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const Header = ({
-  location,
-  disableSearch,
-}) => {
+const Header = ({ location, disableSearch }) => {
   const [Announce, setAnnounce] = useState(null);
   const [menuIsOpen, setMenuState] = useState(false);
-  const small = useSelector(state => state.browser.greaterThan.small);
-  const user = useSelector(state => state.app.metadata.data.user);
-  const strings = useSelector(state => state.app.strings);
+  const small = useSelector((state) => state.browser.greaterThan.small);
+  const user = useSelector((state) => state.app.metadata.data.user);
+  const strings = useSelector((state) => state.app.strings);
 
   useEffect(() => {
-    import('../Announce').then(ann => setAnnounce(ann.default));
+    import('../Announce').then((ann) => setAnnounce(ann.default));
   }, []);
 
   const navbarPages = [
@@ -287,9 +314,13 @@ const Header = ({
               </div>
             </MenuLogoWrapper>
             <List>
-              {drawerPages.map(page => (
+              {drawerPages.map((page) => (
                 <DrawerLink key={`drawer__${page.to}`} to={page.to}>
-                  <ListItem button key={`drawer__${page.to}`} onClick={() => setMenuState(false)}>
+                  <ListItem
+                    button
+                    key={`drawer__${page.to}`}
+                    onClick={() => setMenuState(false)}
+                  >
                     <ListItemText primary={page.label} />
                   </ListItem>
                 </DrawerLink>
@@ -303,7 +334,10 @@ const Header = ({
                       <ListItemText primary={strings.app_my_profile} />
                     </ListItem>
                   </DrawerLink>
-                  <DrawerLink as="a" href={`${process.env.REACT_APP_API_HOST}/logout`}>
+                  <DrawerLink
+                    as="a"
+                    href={`${process.env.REACT_APP_API_HOST}/logout`}
+                  >
                     <ListItem button onClick={() => setMenuState(false)}>
                       <ListItemText primary={strings.app_logout} />
                     </ListItem>
@@ -311,7 +345,10 @@ const Header = ({
                 </>
               ) : (
                 <>
-                  <DrawerLink as="a" href={`${process.env.REACT_APP_API_HOST}/login`}>
+                  <DrawerLink
+                    as="a"
+                    href={`${process.env.REACT_APP_API_HOST}/login`}
+                  >
                     <ListItem button onClick={() => setMenuState(false)}>
                       <ListItemText primary={strings.app_login} />
                     </ListItem>
@@ -322,7 +359,7 @@ const Header = ({
           </MenuContent>
         </SwipeableDrawer>
       </ToolbarHeader>
-      { location.pathname !== '/' && Announce && <Announce /> }
+      {location.pathname !== '/' && Announce && <Announce />}
     </>
   );
 };
