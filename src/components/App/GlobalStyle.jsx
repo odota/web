@@ -1,17 +1,19 @@
 import { createGlobalStyle } from 'styled-components';
 import constants from '../constants';
 
-const GlobalStyle = createGlobalStyle([`
+const GlobalStyle = createGlobalStyle([
+  `
 body {
-  background-color: initial;
-  text-align: initial;
-  display: initial;
-  justify-content: initial;
   align-items: initial;
-  height: initial;
-  width: initial;
-  margin: 0;
+  background-color: initial;
+  display: block;
   font-family: ${constants.fontFamily};
+  height: initial;
+  justify-content: initial;
+  margin: 0;
+  padding-right: 0 !important;
+  text-align: initial;
+  width: initial;
 }
 
 a {
@@ -164,6 +166,7 @@ th {
   padding-left: 24px;
   padding-right: 24px;
 }
-`]);
+`,
+]);
 
 export default GlobalStyle;

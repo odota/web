@@ -21,7 +21,7 @@ import Matches from '../Matches';
 import Meta from '../Meta';
 import Player from '../Player';
 import Predictions from '../Predictions';
-// import Assistant from '../Assistant';
+// import Assistant from "../Assistant";
 import Records from '../Records';
 import Request from '../Request';
 import Scenarios from '../Scenarios';
@@ -37,11 +37,15 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  left: ${props => (props.open ? '256px' : '0px')};
-  margin-top: ${props => (props.location.pathname === '/' ? '-56px' : '0px')};
-  background-image: ${props => (props.location.pathname === '/' ? 'url("/assets/images/home-background.png")' : '')};
-  background-position: ${props => (props.location.pathname === '/' ? 'center top' : '')};
-  background-repeat: ${props => (props.location.pathname === '/' ? 'no-repeat' : '')};
+  left: ${(props) => (props.open ? '256px' : '0px')};
+  margin-top: 0px;
+  background-image: ${(props) =>
+    props.location.pathname === '/'
+      ? 'url("/assets/images/home-background.png")'
+      : ''};
+  background-position: center top -56px;
+  background-repeat: ${(props) =>
+    props.location.pathname === '/' ? 'no-repeat' : ''};
 
   #back2Top {
     position: fixed;
@@ -54,7 +58,7 @@ const StyledDiv = styled.div`
     text-align: center;
     outline: none;
     border: none;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0, 0, 0, 0.3);
     width: 40px;
     font-size: 14px;
     border-radius: 2px;
@@ -63,7 +67,7 @@ const StyledDiv = styled.div`
     opacity: 0;
     display: block;
     pointer-events: none;
-    -webkit-transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0, 0, 0);
     padding: 3px;
     transition: opacity 0.3s ease-in-out;
 
@@ -101,10 +105,7 @@ const AdBannerDiv = styled.div`
 `;
 
 const App = (props) => {
-  const {
-    strings,
-    location,
-  } = props;
+  const { strings, location } = props;
 
   const back2Top = React.useRef();
 
@@ -113,7 +114,10 @@ const App = (props) => {
       let wait = false;
       const { current } = back2Top;
       if (!wait) {
-        if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+        if (
+          document.body.scrollTop > 1000 ||
+          document.documentElement.scrollTop > 1000
+        ) {
           current.style.opacity = 1;
           current.style.pointerEvents = 'auto';
         } else {
@@ -149,20 +153,28 @@ const App = (props) => {
         />
         <Header location={location} />
         <AdBannerDiv>
-          { includeAds &&
+          {includeAds && (
             <a href="http://www.vpgame.com/?lang=en_us">
               <img src="/assets/images/vp-banner.jpg" alt="" />
             </a>
-          }
+          )}
         </AdBannerDiv>
         <StyledBodyDiv {...props}>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/matches/:matchId?/:info?" component={Matches} />
-            <Route exact path="/players/:playerId/:info?/:subInfo?" component={Player} />
+            <Route
+              exact
+              path="/players/:playerId/:info?/:subInfo?"
+              component={Player}
+            />
             <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
             <Route exact path="/teams/:teamId?/:info?" component={Teams} />
-            <Route exact path="/distributions/:info?" component={Distributions} />
+            <Route
+              exact
+              path="/distributions/:info?"
+              component={Distributions}
+            />
             <Route exact path="/request" component={Request} />
             <Route exact path="/status" component={Status} />
             <Route exact path="/explorer" component={Explorer} />
@@ -177,16 +189,17 @@ const App = (props) => {
           </Switch>
         </StyledBodyDiv>
         <AdBannerDiv>
-          { includeAds &&
+          {includeAds && (
             <div style={{ fontSize: '12px' }}>
               <a href="https://www.rivalry.com/opendota">
                 <img src="/assets/images/rivalry-banner.gif" alt="" />
               </a>
               <div>
-                {strings.home_sponsored_by} <a href="https://www.rivalry.com/opendota">Rivalry</a>
+                {strings.home_sponsored_by}{' '}
+                <a href="https://www.rivalry.com/opendota">Rivalry</a>
               </div>
             </div>
-          }
+          )}
         </AdBannerDiv>
         <Footer />
         <button
@@ -206,7 +219,7 @@ const App = (props) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 
