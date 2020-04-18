@@ -92,7 +92,7 @@
     "@types/react-helmet": "^5.0.11",
     "@types/react-redux": "^7.1.4",
     "@types/react-router-dom": "^4.3.5",
-    "@types/react-tooltip": "3.9.3",
+    "@types/react-tooltip": "3.11.0",
     "@types/react-transition-group": "^2.9.2",
     "@types/recharts": "^1.8.3",
     "@types/seamless-immutable": "^7.1.11",
