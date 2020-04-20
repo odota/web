@@ -7,19 +7,15 @@ import DotaMap from '../DotaMap';
 /**
  * Adjust each x/y coordinate by the provided scale factor.
  * If max is provided, use that, otherwise, use local max of data.
- * Shift all values by the provided shift.
  * Returns the adjusted heatmap data.
  */
-function scaleAndExtrema(points, scalef, max, shift) {
-  // the max values should not deviate from the average by more than a factor of 25
-  const maxValue = (points.reduce((a, b) => a + b.value, 0) / points.length) * 25;
-
+function scaleAndExtrema(points, scalef, max) {
   const newPoints = points.map(p => ({
     x: Math.floor(p.x * scalef),
     y: Math.floor(p.y * scalef),
-    value: Math.min(p.value, maxValue) + shift,
+    value: Math.sqrt(p.value),
   }));
-  const vals = points.map(p => Math.min(p.value, maxValue));
+  const vals = newPoints.map(p => p.value);
   const localMax = Math.max(...vals);
   return {
     min: 0,
@@ -33,8 +29,7 @@ const drawHeatmap = ({
   width,
 }, heatmap) => {
   // scale points by width/127 units to fit to size of map
-  // offset points by 25 units to increase visibility
-  const adjustedData = scaleAndExtrema(points, width / 127, null, 25);
+  const adjustedData = scaleAndExtrema(points, width / 127, null);
   heatmap.setData(adjustedData);
 };
 
