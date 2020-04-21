@@ -516,7 +516,7 @@
   "matches_highest_mmr": "Top Public",
   "matches_lowest_mmr": "MMR basso",
   "meta_title": "Meta",
-  "meta_description": "Run advanced queries on data from sampled public matches in previous 24h",
+  "meta_description": "Run advanced queries on data from recent sampled public matches",
   "mmr_not_up_to_date": "Perché l'MMR non è aggiornato?",
   "npc_dota_beastmaster_boar_#": "Cinghiale",
   "npc_dota_lesser_eidolon": "Spettro minore",
