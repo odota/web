@@ -516,7 +516,7 @@
   "matches_highest_mmr": "高分公开",
   "matches_lowest_mmr": "低天梯分",
   "meta_title": "玩法",
-  "meta_description": "基于24小时内的样本公开比赛数据进行高级查询",
+  "meta_description": "Run advanced queries on data from recent sampled public matches",
   "mmr_not_up_to_date": "为什么 MMR 没有更新？",
   "npc_dota_beastmaster_boar_#": "豪猪",
   "npc_dota_lesser_eidolon": "次级精神体",
