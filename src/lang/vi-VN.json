@@ -516,7 +516,7 @@
   "matches_highest_mmr": "Top Public",
   "matches_lowest_mmr": "MMR thấp",
   "meta_title": "Meta",
-  "meta_description": "Run advanced queries on data from sampled public matches in previous 24h",
+  "meta_description": "Run advanced queries on data from recent sampled public matches",
   "mmr_not_up_to_date": "Why is the MMR not up to date?",
   "npc_dota_beastmaster_boar_#": "Lợn rừng",
   "npc_dota_lesser_eidolon": "Eidolon con",
