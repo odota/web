@@ -74,6 +74,7 @@ display: inline-block;
       height: 30px;
       width: 30px;
       border-radius: 15px;
+      object-fit: cover;
       position: relative;
       bottom: 1px;
     }
