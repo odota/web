@@ -9,15 +9,6 @@ function jsonResponse(response) {
   return response.json();
 }
 
-function reverse(a) {
-  const temp = [];
-  const len = a.length;
-  for (let i = (len - 1); i > 0; i -= 1) {
-    temp.push(a[i]);
-  }
-  return temp;
-}
-
 const columns = [
   { displayName: 'key', field: 'key' },
   { displayName: 'value', field: 'value' },
@@ -88,15 +79,19 @@ class Status extends React.Component {
         />
         <Table
           style={tableStyle}
-          data={reverse((this.state.result.api_paths || [])
-            .map((row) => ({ key: row.hostname, value: row.count })))
+          data={(this.state.result.api_paths || [])
+            .slice()
+            .reverse()
+            .map((row) => ({ key: row.hostname, value: row.count }))
           }
           columns={columns}
         />
         <Table
           style={tableStyle}
-          data={reverse((this.state.result.retriever || [])
-            .map(row => ({ key: row.hostname, value: row.count })))
+          data={(this.state.result.retriever || [])
+            .slice()
+            .reverse()
+            .map(row => ({ key: row.hostname, value: row.count }))
           }
           columns={columns}
         />
