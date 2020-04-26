@@ -82,7 +82,7 @@ class Status extends React.Component {
           data={(this.state.result.api_paths || [])
             .slice()
             .reverse()
-            .map((row) => ({ key: row.hostname, value: row.count })))
+            .map((row) => ({ key: row.hostname, value: row.count }))
           }
           columns={columns}
         />
@@ -91,7 +91,7 @@ class Status extends React.Component {
           data={(this.state.result.retriever || [])
             .slice()
             .reverse()
-            .map(row => ({ key: row.hostname, value: row.count })))
+            .map(row => ({ key: row.hostname, value: row.count }))
           }
           columns={columns}
         />
