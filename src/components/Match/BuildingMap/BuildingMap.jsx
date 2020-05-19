@@ -12,6 +12,7 @@ import {
 } from '../../../utility';
 import Heading from '../../Heading';
 import DotaMap from '../../DotaMap';
+import HeroImage from '../../Visualizations/HeroImage';
 // import { IconLightbulb } from '../Icons';
 import buildingData from './buildingData';
 import constants from '../../constants';
@@ -448,9 +449,9 @@ const BuildingMap = ({ match, strings }) => {
           data-for={heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].name}
           data-tip
         >
-          <img
-            src={heroes[match.players[i].hero_id] && process.env.REACT_APP_API_HOST + heroes[match.players[i].hero_id].icon}
-            alt=""
+          <HeroImage
+            id={match.players[i].hero_id}
+            isIcon
           />
           <ReactTooltip id={heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].name} effect="solid">
             <span className={match.players[i].isRadiant ? 'radiant' : 'dire'}>{heroes[match.players[i].hero_id] && heroes[match.players[i].hero_id].localized_name}</span>
