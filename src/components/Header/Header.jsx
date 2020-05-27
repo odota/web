@@ -46,6 +46,7 @@ const TabContainer = styled.div`
   justify-content: center;
   margin: 0 12px;
   text-align: center;
+  position: relative;
 `;
 
 const AppLogoWrapper = styled.div`
@@ -111,6 +112,7 @@ const LinkGroup = ({ navbarPages }) => (
     {navbarPages.map((page) => (
       <TabContainer key={page.key}>
         <Link to={page.to}>{page.label}</Link>
+        {Boolean(page.feature) && <div style={{ position: 'absolute', textTransform: 'uppercase', fontSize: '10px', top: '-10px', right: '0', color: 'lightblue' }}>{page.feature}</div>}
       </TabContainer>
     ))}
   </VerticalAlignToolbar>
@@ -251,6 +253,12 @@ const Header = ({ location, disableSearch }) => {
       label: strings.header_explorer,
     },
     {
+      key: 'header_combos',
+      to: '/combos',
+      label: strings.combos,
+      feature: '2020 BP',
+    },
+    {
       key: 'header_api',
       to: '/api-keys',
       label: strings.header_api,
@@ -259,11 +267,6 @@ const Header = ({ location, disableSearch }) => {
 
   const drawerPages = [
     ...navbarPages,
-    {
-      key: 'header_combos',
-      to: '/combos',
-      label: strings.combos,
-    },
     {
       key: 'header_distributions',
       to: '/distributions',
