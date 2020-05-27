@@ -112,7 +112,7 @@ const LinkGroup = ({ navbarPages }) => (
     {navbarPages.map((page) => (
       <TabContainer key={page.key}>
         <Link to={page.to}>{page.label}</Link>
-        <div style={{ position: 'absolute', textTransform: 'uppercase', fontSize: '10px', top: '-10px', right: '0', color: 'lightblue' }}>{page.feature || null}</div>
+        {Boolean(page.feature) && <div style={{ position: 'absolute', textTransform: 'uppercase', fontSize: '10px', top: '-10px', right: '0', color: 'lightblue' }}>{page.feature}</div>}
       </TabContainer>
     ))}
   </VerticalAlignToolbar>
