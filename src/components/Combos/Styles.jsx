@@ -125,8 +125,8 @@ export const StyledSelectedHeroes = styled.div`
 
   .hero-placeholder {
     display: inline-block;
-    height: 30px;
-    width: 53px;
+    height: 60px;
+    width: 106px;
     background: rgba(18, 24, 37, 0.98);
     box-shadow: inset 0px 0px 5px rgba(21, 21, 21, 0.61);
   }
@@ -138,8 +138,8 @@ export const StyledSelectedHeroes = styled.div`
   }
 
   img {
-    height: 30px;
-    width: 53px;
+    height: 60px;
+    width: 106px;
     cursor: pointer;
     transition: all 0.1s ease-out;
     backface-visibility: hidden;
@@ -174,7 +174,7 @@ export const StyledSelectedHeroes = styled.div`
 
     & .team-title {
       flex-basis: 100%;
-      font-size: 12px;
+      font-size: 20px;
       opacity: 0.6;
     }
   }
