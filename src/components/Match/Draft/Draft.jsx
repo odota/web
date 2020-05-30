@@ -188,7 +188,7 @@ const Draft = ({
   let orderTwo = [];
   let picks = [];
   if (startTime > 1584403200) { // post 7.25
-    orderOne = [1, 3, 5, 7, 9, 12, 12, 14, 16, 18, 20, 21];
+    orderOne = [1, 3, 5, 7, 9, 12, 14, 16, 18, 20, 21];
     orderTwo = [2, 4, 6, 8, 10, 11, 13, 15, 17, 19, 22];
     picks = [7, 8, 9, 10, 15, 16, 17, 18, 21, 22];
   } else if (startTime > 1525910400) { // post 7.15
