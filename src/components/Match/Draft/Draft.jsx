@@ -186,14 +186,20 @@ const Draft = ({
   // one-based indexing (since draft[i].order starts at 1)
   let orderOne = [];
   let orderTwo = [];
+  let picks = [];
   if (startTime > 1525910400) { // post 7.15
     orderOne = [1, 3, 5, 7, 10, 11, 13, 16, 18, 20, 21];
     orderTwo = [2, 4, 6, 8, 9, 12, 14, 15, 17, 19, 22];
-  } else {
-    orderOne = [1, 3, 5, 7, 10, 12, 14, 16, 18, 20, 21];
-    orderTwo = [2, 4, 6, 8, 9, 11, 13, 15, 17, 19, 22];
+    picks = [7, 8, 9, 10, 15, 16, 17, 18, 21, 22];
+  } if (startTime > 1584403200) { // post 7.25
+    orderOne = [1, 3, 5, 7, 9, 12, 12, 14, 16, 18, 20, 21];
+    orderTwo = [2, 4, 6, 8, 10, 11, 13, 15, 17, 19, 22];
+    picks = [7, 8, 9, 10, 15, 16, 17, 18, 21, 22];
+  } else { 
+    orderOne = [1, 3, 5, 7, 9, 12, 13, 16, 18, 20, 21];
+    orderTwo = [2, 4, 6, 8, 10, 11, 14, 15, 17, 19, 22];
+    picks = [9, 10, 11, 12, 15, 16, 17, 18, 21, 22];
   }
-  const picks = [7, 8, 9, 10, 15, 16, 17, 18, 21, 22];
 
   // if there is no draft data there is no meaning to firstIsTeamTwo
   const firstIsTeamTwo = draft && draft[0] && draft[0].active_team === 2;
