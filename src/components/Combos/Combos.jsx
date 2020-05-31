@@ -15,7 +15,7 @@ import {
   StyledSelectedHeroes,
   StyledCombos,
 } from './Styles';
-import { formatTemplateToString } from '../../utility';
+import { formatTemplateToString, escapeRegExp } from '../../utility';
 
 const styles = {
   radioButton: {
@@ -236,7 +236,7 @@ class Combos extends React.Component {
   filterAndRenderElements = (searchValue, resetSearchValue) => {
     const filteredHeroesArray = heroesArray.filter(hero =>
       (searchValue
-        ? new RegExp(searchValue, 'i').test(hero.localized_name)
+        ? new RegExp(escapeRegExp(searchValue), 'i').test(hero.localized_name)
         : true));
 
     return [
