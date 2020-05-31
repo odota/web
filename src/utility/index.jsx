@@ -927,3 +927,8 @@ export function formatGraphValueData(data, histogramName) {
       return data;
   }
 }
+
+export function escapeRegExp(stringToGoIntoTheRegex) {
+  return stringToGoIntoTheRegex.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'); // eslint-disable-line no-useless-escape
+}
+
