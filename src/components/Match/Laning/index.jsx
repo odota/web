@@ -46,7 +46,7 @@ class Laning extends React.Component {
         <StyledFlexElement>
           <Heading
             title={strings.th_map}
-            buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_laning : null}
+            buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_laning : null}
             buttonTo={`${sponsorURL}Laning`}
             buttonIcon={sponsorIcon}
           />

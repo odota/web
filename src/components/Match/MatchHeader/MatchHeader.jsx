@@ -353,7 +353,7 @@ const MatchHeader = ({ match, strings }) => {
             rel="noopener noreferrer"
           />
         )}
-        <FlatButton
+        {process.env.REACT_APP_ENABLE_RIVALRY && <FlatButton
           label={strings.app_rivalry}
           icon={
             <img src="/assets/images/rivalry-icon.png" alt="" height="24px" />
@@ -361,7 +361,7 @@ const MatchHeader = ({ match, strings }) => {
           href="https://www.rivalry.com/opendota"
           target="_blank"
           rel="noopener noreferrer"
-        />
+        />}
       </div>
     </Styled>
   );

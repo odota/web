@@ -105,7 +105,7 @@ const XpNetworthGraph = ({
       <StyledDire>{strings.general_dire}</StyledDire>
       <Heading
         title={strings.heading_graph_difference}
-        buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_default : null}
+        buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_default : null}
         buttonTo={`${sponsorURL}Graphs`}
         buttonIcon={sponsorIcon}
       />
