@@ -51,14 +51,15 @@ const Sponsors = ({ strings }) => (
       >
         <img src="/assets/images/openai-logo.png" alt="" />
       </a>
+      {process.env.REACT_APP_ENABLE_RIVALRY &&
       <a
         href="https://www.rivalry.com/opendota"
         target="_blank"
         rel="noopener noreferrer"
       >
         <img src="/assets/images/rivalry-logo.png" alt="" />
-      </a>
-      {process.env.ENABLE_GOSUAI && (
+      </a>}
+      {process.env.REACT_APP_ENABLE_GOSUAI && (
         <a
           href="https://gosu.ai/dota/?utm_source=opendota&utm_medium=cpc&utm_campaign=Home"
           target="_blank"

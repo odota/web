@@ -92,13 +92,13 @@ class RequestLayer extends React.Component {
       <div>
         <Helmet title={strings.header_teams} />
         <div style={{ textAlign: 'center' }}>
-          <FlatButton
+          {process.env.REACT_APP_ENABLE_RIVALRY && <FlatButton
             label={strings.app_rivalry}
             icon={<img src="/assets/images/rivalry-icon.png" alt="" height="24px" />}
             href="https://rivalry.com/opendota"
             target="_blank"
             rel="noopener noreferrer"
-          />
+          />}
         </div>
         <Heading title={strings.heading_team_elo_rankings} subtitle={strings.subheading_team_elo_rankings} />
         <Table columns={columns(strings)} data={this.props.data.slice(0, 100)} loading={loading} />

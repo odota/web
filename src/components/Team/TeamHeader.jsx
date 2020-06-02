@@ -26,13 +26,13 @@ export default (generalData, strings) => (
         />
       </Row>
       <Row>
-        <FlatButton
+        {process.env.REACT_APP_ENABLE_RIVALRY && <FlatButton
           label={formatTemplateToString(strings.app_rivalry_team, generalData.data.name)}
           icon={<img src="/assets/images/rivalry-icon.png" alt="" height="24px" />}
           href="https://rivalry.com/opendota"
           target="_blank"
           rel="noopener noreferrer"
-        />
+        />}
       </Row>
     </Column>
   </HeaderContainer>
