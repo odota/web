@@ -150,7 +150,12 @@ const App = (props) => {
         <Helmet
           defaultTitle={strings.title_default}
           titleTemplate={strings.title_template}
-        />
+        >
+          {
+            includeAds && process.env.REACT_APP_ENABLE_BOTTOM_BANNER && 
+            <script data-ad-client="ca-pub-5591574346816667" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"/>
+          }
+        </Helmet>
         <Header location={location} />
         <AdBannerDiv>
           {includeAds && (
@@ -200,6 +205,23 @@ const App = (props) => {
               </div>
             </div>
           )}
+          {
+            includeAds && process.env.REACT_APP_ENABLE_BOTTOM_BANNER &&
+            <>
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"/>
+              <ins
+                className="adsbygoogle"
+                style={{display: "block"}}
+                data-ad-client="ca-pub-5591574346816667"
+                data-ad-slot="5235463836"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              />
+              <script>
+                  (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </>
+          }
         </AdBannerDiv>
         <Footer />
         <button
