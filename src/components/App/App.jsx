@@ -190,6 +190,18 @@ const App = (props) => {
         </StyledBodyDiv>
         <AdBannerDiv>
           {includeAds && process.env.REACT_APP_ENABLE_RIVALRY && (
+            <div style={{ fontSize: '12px' }}>
+              <a href="https://www.rivalry.com/opendota">
+                <img src="/assets/images/rivalry-banner.gif" alt="" />
+              </a>
+              <div>
+                {strings.home_sponsored_by}{' '}
+                <a href="https://www.rivalry.com/opendota">Rivalry</a>
+              </div>
+            </div>
+          )}
+          {
+            includeAds && process.env.REACT_APP_ENABLE_BOTTOM_BANNER &&
             <>
               <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"/>
               <ins
@@ -204,7 +216,7 @@ const App = (props) => {
                   (adsbygoogle = window.adsbygoogle || []).push({});
               </script>
             </>
-          )}
+          }
         </AdBannerDiv>
         <Footer />
         <button
