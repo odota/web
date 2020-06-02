@@ -189,7 +189,7 @@ const App = (props) => {
           </Switch>
         </StyledBodyDiv>
         <AdBannerDiv>
-          {includeAds && (
+          {includeAds && process.env.REACT_APP_ENABLE_RIVALRY && (
             <div style={{ fontSize: '12px' }}>
               <a href="https://www.rivalry.com/opendota">
                 <img src="/assets/images/rivalry-banner.gif" alt="" />

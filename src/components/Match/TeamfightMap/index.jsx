@@ -499,7 +499,7 @@ class TeamfightMap extends Component {
                 players={teamfight.players && teamfight.players.filter(p => p.participate)}
                 columns={teamfightColumns}
                 heading={strings.heading_teamfights}
-                buttonLabel={process.env.ENABLE_GOSUAI ? strings.gosu_teamfights : null}
+                buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_teamfights : null}
                 buttonTo={`${sponsorURL}Teamfights`}
                 buttonIcon={sponsorIcon}
                 radiantTeam={this.props.match.radiant_team}
