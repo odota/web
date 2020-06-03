@@ -36,7 +36,7 @@ const GoldSpan = (amount) => {
         width="25px"
         height="17px"
         alt={` ${strings.story_gold}`}
-        src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`}
+        src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`}
         style={{ marginLeft: '3px' }}
       />
     </StyledStorySpan>
@@ -70,7 +70,7 @@ const PlayerSpan = (player) => {
         >
           <img
             src={heroes[player.hero_id]
-              ? process.env.REACT_APP_API_HOST + heroes[player.hero_id].icon
+              ? process.env.REACT_APP_IMAGE_CDN + heroes[player.hero_id].icon
               : '/assets/images/blank-1x1.gif'
             }
             alt=""
@@ -90,7 +90,7 @@ const ItemSpan = item => (
     <img
       width="26px"
       src={items[item]
-        ? `${process.env.REACT_APP_API_HOST}${items[item].img}`
+        ? `${process.env.REACT_APP_IMAGE_CDN}${items[item].img}`
         : '/assets/images/blank-1x1.gif'
       }
       alt={(items[item] || {}).dname}

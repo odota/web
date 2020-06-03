@@ -188,7 +188,7 @@ export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
   if (customHeroImage.includes(Number(heroId))) {
     return `/assets/images/dota2/heroes/${heroId}.png`;
   }
-  let imageUrl = heroes[heroId] && process.env.REACT_APP_API_HOST + heroes[heroId].img; // "[api url]/abaddon_full.png?"
+  let imageUrl = heroes[heroId] && process.env.REACT_APP_IMAGE_CDN + heroes[heroId].img; // "[api url]/abaddon_full.png?"
   if (imageUrl) {
     imageUrl = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
   }
@@ -198,7 +198,7 @@ export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
 export const getHeroIconUrlFromHeroKey = (heroKey) => {
   const heroId = Object.keys(heroes).find(k => heroes[k].name === heroKey);
   if (heroId && heroId[0] && heroes[heroId[0]]) {
-    return `${process.env.REACT_APP_API_HOST}${heroes[heroId].icon}`;
+    return `${process.env.REACT_APP_IMAGE_CDN}${heroes[heroId].icon}`;
   }
 
   return '/assets/images/blank-1x1.gif';
@@ -851,7 +851,7 @@ const transformMatchItem = ({
   if (field === 0) {
     return false;
   }
-  return `${process.env.REACT_APP_API_HOST}${items[itemIds[field]].img}`;
+  return `${process.env.REACT_APP_IMAGE_CDN}${items[itemIds[field]].img}`;
 };
 
 for (let i = 0; i < 6; i += 1) {
