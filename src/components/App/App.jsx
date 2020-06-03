@@ -208,7 +208,6 @@ const App = (props) => {
           {
             includeAds && process.env.REACT_APP_ENABLE_BOTTOM_BANNER &&
             <>
-              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"/>
               <ins
                 className="adsbygoogle"
                 style={{display: "block"}}
