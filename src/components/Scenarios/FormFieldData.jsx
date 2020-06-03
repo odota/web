@@ -14,7 +14,7 @@ export default function getFormFieldData(metadata, strings) {
       value: (
         <MenuItem
           primaryText={heroes[id] && heroes[id].localized_name}
-          leftIcon={<img src={`${process.env.REACT_APP_API_HOST}${heroes[id] && heroes[id].icon}`} alt="" />}
+          leftIcon={<img src={`${process.env.REACT_APP_IMAGE_CDN}${heroes[id] && heroes[id].icon}`} alt="" />}
         />
       ),
       altValue: id,
@@ -26,7 +26,7 @@ export default function getFormFieldData(metadata, strings) {
       value: (
         <MenuItem
           primaryText={items[item].dname}
-          leftIcon={<img src={`${process.env.REACT_APP_API_HOST}${items[item].img}`} alt="" />}
+          leftIcon={<img src={`${process.env.REACT_APP_IMAGE_CDN}${items[item].img}`} alt="" />}
         />
       ),
       altValue: item,

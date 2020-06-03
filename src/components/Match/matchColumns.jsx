@@ -340,7 +340,7 @@ export default (strings) => {
         displayName: (
           <StyledGoldIcon>
             {strings.th_gold}
-            <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />
+            <img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="" />
           </StyledGoldIcon>
         ),
         tooltip: strings.tooltip_gold,
@@ -1024,7 +1024,7 @@ export default (strings) => {
         <StyledCosmetic key={cosmetic.item_id} data-tip data-for={`cosmetic_${cosmetic.item_id}`}>
           <a href={`http://steamcommunity.com/market/listings/570/${cosmetic.name}`} target="_blank" rel="noopener noreferrer">
             <img
-              src={`${process.env.REACT_APP_API_HOST}/apps/570/${cosmetic.image_path}`}
+              src={`${process.env.REACT_APP_IMAGE_CDN}/apps/570/${cosmetic.image_path}`}
               alt=""
               style={{
                 borderBottom: `2px solid ${cosmetic.item_rarity ? cosmeticsRarity[cosmetic.item_rarity] : constants.colorMuted}`,
@@ -1262,7 +1262,7 @@ export default (strings) => {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
         &nbsp;{strings.th_duration_shorthand}
       </div>
     ),
@@ -1277,7 +1277,7 @@ export default (strings) => {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
         &nbsp;{strings.th_duration_shorthand}
       </div>
     ),
@@ -1292,7 +1292,7 @@ export default (strings) => {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
         &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
@@ -1307,7 +1307,7 @@ export default (strings) => {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
         &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
@@ -1322,7 +1322,7 @@ export default (strings) => {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/dust_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/dust_lg.png`} alt="" />
         &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
@@ -1337,7 +1337,7 @@ export default (strings) => {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
         &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
@@ -1352,7 +1352,7 @@ export default (strings) => {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/gem_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/gem_lg.png`} alt="" />
         &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
@@ -1370,7 +1370,7 @@ export default (strings) => {
       center: true,
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-          <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
+          <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
           &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
@@ -1386,7 +1386,7 @@ export default (strings) => {
       center: true,
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-          <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
+          <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
           &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
@@ -1402,7 +1402,7 @@ export default (strings) => {
       center: true,
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-          <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/dust_lg.png`} alt="" />
+          <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/dust_lg.png`} alt="" />
           &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
@@ -1417,7 +1417,7 @@ export default (strings) => {
       center: true,
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-          <img height="15" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
+          <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
           &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
