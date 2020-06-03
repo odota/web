@@ -105,7 +105,7 @@ const generateData = (match, strings) => (log) => {
 
   return {
     ...match.players[log.player],
-    type: <img height="29" src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/items/ward_${log.type}_lg.png`} alt="" />,
+    type: <img height="29" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/ward_${log.type}_lg.png`} alt="" />,
     enter_time: formatSeconds(log.entered.time),
     left_time: formatSeconds(((log.left && log.left.time) || (match && match.duration)) - discrepancy) || '-',
     duration: <span style={{ color: durationColor }}>{formatSeconds(duration - discrepancy)}</span>,

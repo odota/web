@@ -67,7 +67,7 @@ const HeaderBgImg = styled.div`
     left: -20px;
     height: 100%;
     width: 20%;
-    background: ${({ img }) => `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${process.env.REACT_APP_API_HOST}${img}')`};
+    background: ${({ img }) => `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${process.env.REACT_APP_IMAGE_CDN}${img}')`};
     background-color: transparent;
     background-repeat: no-repeat;
     transform: scale(4);
@@ -156,7 +156,7 @@ const AbilityTooltip = ({ ability, inflictor }) => (
       <HeaderContent>
         {inflictor && inflictor.startsWith('special_') ?
           <img id="ability-img" src="/assets/images/dota2/talent_tree.svg" alt="" /> :
-          <img id="ability-img" src={`${process.env.REACT_APP_API_HOST}${ability.img}`} alt="" />
+          <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${ability.img}`} alt="" />
             }
         <div className="name">{ability.dname}</div>
       </HeaderContent>
@@ -196,13 +196,13 @@ const AbilityTooltip = ({ ability, inflictor }) => (
     <Resources>
         {ability.mc &&
         <span>
-          <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/mana.png`} alt="" />
+          <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/mana.png`} alt="" />
           <span className="values">{formatValues(ability.mc)}</span>
         </span>
         }
         {ability.cd &&
         <span>
-          <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
+          <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
           <span className="values">{formatValues(ability.cd)}</span>
         </span>
         }

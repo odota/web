@@ -59,7 +59,7 @@ const Ability = (props) => {
 
   return (
     <Wrapper data-tip data-for={ttId}>
-      <AbilityIcon src={process.env.REACT_APP_API_HOST + props.img} />
+      <AbilityIcon src={process.env.REACT_APP_IMAGE_CDN + props.img} />
       {(showMana) && <AbilityManaComsumption>{manaString}</AbilityManaComsumption>}
       <ReactTooltip id={ttId} effect="solid" place="bottom">
         <AbilityTooltip ability={props} />

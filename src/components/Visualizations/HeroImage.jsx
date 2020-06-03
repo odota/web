@@ -15,7 +15,7 @@ const HeroImage = ({
     return <img src={`/assets/images/dota2/heroes/${id}${isIcon ? '_icon' : ''}.png`} alt="" {...rest} {...heroImageEventProps} />;
   }
 
-  let imageUrl = heroes[id] && process.env.REACT_APP_API_HOST + heroes[id].img; // "[api url]/abaddon_full.png?"
+  let imageUrl = heroes[id] && process.env.REACT_APP_IMAGE_CDN + heroes[id].img; // "[api url]/abaddon_full.png?"
   if (imageUrl) {
     imageUrl = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
   }

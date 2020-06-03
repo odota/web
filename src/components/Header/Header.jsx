@@ -256,7 +256,6 @@ const Header = ({ location, disableSearch }) => {
       key: 'header_combos',
       to: '/combos',
       label: strings.combos,
-      feature: '2020 BP',
     },
     {
       key: 'header_api',

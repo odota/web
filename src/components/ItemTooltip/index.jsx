@@ -187,10 +187,10 @@ const ItemTooltip = ({ item, inflictor }) => (
   <Wrapper>
     <Header>
       <div className="header-content">
-        <img id="item-img" src={`${process.env.REACT_APP_API_HOST}${item.img}`} alt="" />
+        <img id="item-img" src={`${process.env.REACT_APP_IMAGE_CDN}${item.img}`} alt="" />
         <HeaderText>
           <div>{item.dname}</div>
-          <div id="gold">{<img src="https://api.opendota.com/apps/dota2/images/tooltips/gold.png" alt="" />}{item.cost}</div>
+          <div id="gold">{<img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="" />}{item.cost}</div>
         </HeaderText>
       </div>
     </Header>
@@ -215,13 +215,13 @@ const ItemTooltip = ({ item, inflictor }) => (
                 <div className="resources">
                   {type === 'active' && item.mc &&
                   <span>
-                    <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/mana.png`} alt="" />
+                    <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/mana.png`} alt="" />
                     <span className="values">{item.mc}</span>
                   </span>
                 }
                   {type === 'active' && item.cd &&
                   <span>
-                    <ResourceIcon src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
+                    <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
                     <span className="values">{item.cd}</span>
                   </span>
                 }
@@ -243,7 +243,7 @@ const ItemTooltip = ({ item, inflictor }) => (
       {item.components.concat((items[`recipe_${inflictor}`] && [`recipe_${inflictor}`]) || []).filter(Boolean).map(component =>
         (
           <div className="component">
-            <img src={`${process.env.REACT_APP_API_HOST}${items[component].img}`} alt="" />
+            <img src={`${process.env.REACT_APP_IMAGE_CDN}${items[component].img}`} alt="" />
             <div id="cost">{items[component].cost}</div>
           </div>
         ))
