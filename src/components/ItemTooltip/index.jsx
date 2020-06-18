@@ -235,7 +235,7 @@ const ItemTooltip = ({ item, inflictor }) => (
       }
       return null;
     })}
-    {item.hint && <Hint>{item.hint}</Hint>}
+    {item.hint && <Hint>{item.hint.map(hintLine => hintLine.replace(/[ a-zA-Z]+: %\w+%/g,""))}</Hint>}
     {item.lore && <Lore>{item.lore}</Lore>}
     {item.components &&
     <Components>
