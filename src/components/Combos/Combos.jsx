@@ -93,7 +93,7 @@ const SelectedHeroes = ({
           (teamA[i] ? (
             <HeroImage
               id={teamA[i]}
-              className="hero-img"
+              className="hero-img fade-in"
               onClick={handleHeroDeSelection(i, 'teamA')}
             />
           ) : (
@@ -109,7 +109,7 @@ const SelectedHeroes = ({
           (teamB[i] ? (
             <HeroImage
               id={teamB[i]}
-              className="hero-img"
+              className="hero-img fade-in"
               onClick={handleHeroDeSelection(i, 'teamB')}
             />
           ) : (
