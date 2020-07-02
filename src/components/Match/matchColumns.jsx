@@ -711,7 +711,7 @@ export default (strings) => {
       tooltip: strings.tooltip_stuns,
       field: 'stuns',
       sortFn: true,
-      displayFn: (row, col, field) => (field ? field.toFixed(2) : '-'),
+      displayFn: (row, col, field) => ((field && field > 0) ? field.toFixed(2) : '-'),
       relativeBars: true,
       sumFn: true,
     },
