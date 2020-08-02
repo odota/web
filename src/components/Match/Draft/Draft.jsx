@@ -157,7 +157,7 @@ const DraftHero = ({
     />
     <HeroIcon radiant={radiant}>
       <img
-        src={heroes[pb.hero_id] && process.env.REACT_APP_API_HOST + heroes[pb.hero_id].img}
+        src={heroes[pb.hero_id] && process.env.REACT_APP_IMAGE_CDN + heroes[pb.hero_id].img}
         alt=""
         data-ispick={picks.includes(pb.order)}
       />
