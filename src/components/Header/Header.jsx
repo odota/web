@@ -76,7 +76,7 @@ const ToolbarHeader = styled(Toolbar)`
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 200;
 
   & a {
     color: ${constants.primaryTextColor};
