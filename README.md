@@ -30,6 +30,7 @@ Contributing
 * Make some changes.
 * `npm run lint` to check your code for linting errors.
 * `npm test` to check all app routes for uncaught JavaScript errors.
+  * In order to run `npm test`, `npm run build` has to be executed to run the project to prevent error 404.
 * Submit a pull request. Wait for review and merge.
 * Congratulations! You're a contributor.
 
