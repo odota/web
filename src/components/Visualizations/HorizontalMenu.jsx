@@ -18,7 +18,6 @@ const StyledHorizontalMenuFilter = styled.div`
   }
 `;
 
-
 const HorizontalMenuFilter = ({
   handleChange,
   value,
