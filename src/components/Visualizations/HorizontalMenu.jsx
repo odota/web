@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
+import { IconMagnyfingGlass } from '../Icons';
 
 const StyledHorizontalMenuFilter = styled.div`
   .reset-button {
@@ -17,6 +18,7 @@ const StyledHorizontalMenuFilter = styled.div`
   }
 `;
 
+
 const HorizontalMenuFilter = ({
   handleChange,
   value,
@@ -25,6 +27,7 @@ const HorizontalMenuFilter = ({
   filterText,
 }) => (
   <StyledHorizontalMenuFilter>
+    <IconMagnyfingGlass/>
     <TextField
       ref={setInputRef}
       hintText={filterText}
