@@ -257,6 +257,7 @@ class Combos extends React.Component {
   render() {
     const { teamA, teamB } = this.state;
     const { strings } = this.props;
+    const noHeroesSelected = !teamA.length && !teamB.length;
     return (
       <StyledCombos>
         <div className="main-section">
@@ -295,6 +296,7 @@ class Combos extends React.Component {
               onClick={this.state.loading ? this.handleCancel : this.handleSubmit}
               buttonStyle={{ backgroundColor: this.state.loading ? '#822e2e' : 'rgba(23, 59, 90, 0.8)' }}
               style={{ display: 'block', marginTop: 5 }}
+              disabled={noHeroesSelected}
             />
           </div>
         </div>
