@@ -364,7 +364,7 @@ const BuildingMap = ({ match, strings }) => {
                   {damage.map(player => (
                     <div key={player.hero_id}>
                       <img
-                        src={heroes[player.hero_id] && process.env.REACT_APP_API_HOST + heroes[player.hero_id].icon}
+                        src={heroes[player.hero_id] && process.env.REACT_APP_IMAGE_CDN + heroes[player.hero_id].icon}
                         alt=""
                       />
                       <span className="damageValue">
@@ -385,7 +385,7 @@ const BuildingMap = ({ match, strings }) => {
                             </span>
                             :
                             <span>
-                              {type !== 'fort' && <img src={`${process.env.REACT_APP_API_HOST}/apps/dota2/images/tooltips/gold.png`} alt="" />}
+                              {type !== 'fort' && <img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="" />}
                               {strings.building_lasthit}
                             </span>
                         }
