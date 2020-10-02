@@ -239,9 +239,7 @@ class Combos extends React.Component {
         ? new RegExp(escapeRegExp(searchValue), 'i').test(hero.localized_name)
         : true));
 
-    return [
-      ...(filteredHeroesArray.length > 0 ? filteredHeroesArray : heroesArray),
-    ].map(hero => (
+    return filteredHeroesArray.map(hero => (
       <HeroSelector
         id={hero.id}
         heroName={hero.localized_name}
