@@ -2,7 +2,7 @@ import * as React from 'react';
 
 const GamemodeContext = React.createContext({
   value: {
-    gamemode: 'default',
+    gamemode: null,
   },
   mutations: {
     setGamemodeTo: () => null,
@@ -13,7 +13,7 @@ const GamemodeContext = React.createContext({
 
 export const GamemodeConsumer = GamemodeContext.Consumer;
 export const GamemodeProvider = ({ children }) => {
-  const [gamemode, setGamemode] = React.useState('default');
+  const [gamemode, setGamemode] = React.useState(null);
 
   const setGamemodeTo = React.useCallback(
     (newGamemode) => {

@@ -1,25 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Checkbox from 'material-ui/Checkbox';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+
 import {
-  getPlayerRecentMatches,
-  getPlayerHeroes,
-  getPlayerPeers,
   getPlayerCounts,
+  getPlayerHeroes,
   getPlayerMatches,
+  getPlayerPeers,
+  getPlayerRecentMatches,
 } from '../../../../actions';
-import Table from '../../../Table';
-import Container from '../../../Container';
-import playerMatchesColumns from '../Matches/playerMatchesColumns';
-import { playerHeroesOverviewColumns } from '../Heroes/playerHeroesColumns';
-import { playerPeersOverviewColumns } from '../Peers/playerPeersColumns';
-import SummOfRecMatches from './Summary';
-import constants from '../../../constants';
-import CountsSummary from './CountsSummary';
+import GamemodeContext from '../../../../context/GamemodeContext';
 import { formatTemplateToString } from '../../../../utility';
 import Collapsible from '../../../Collapsible';
+import Container from '../../../Container';
+import Table from '../../../Table';
+import constants from '../../../constants';
+import { playerHeroesOverviewColumns } from '../Heroes/playerHeroesColumns';
+import playerMatchesColumns from '../Matches/playerMatchesColumns';
+import { playerPeersOverviewColumns } from '../Peers/playerPeersColumns';
+import CountsSummary from './CountsSummary';
+import SummOfRecMatches from './Summary';
 
 export const MAX_MATCHES_ROWS = 20;
 const MAX_HEROES_ROWS = 10;
@@ -35,7 +37,7 @@ const SummaryContainer = styled(Container)`
 
   & ul {
     border: 1px solid rgb(0, 0, 0, 0.12);
-    background-color: rgba(255,255,255,0.03);
+    background-color: rgba(255, 255, 255, 0.03);
     margin: 0;
     padding-left: 5px;
 
@@ -94,13 +96,13 @@ const HeroesContainer = styled.div`
 `;
 
 const Styled = styled.div`
-float: left;
-position: relative;
-width: 30px;
+  float: left;
+  position: relative;
+  width: 30px;
 `;
 
-const getValidRecentMatches = matches => matches.filter(match => match.game_mode !== 19)
-  .slice(0, MAX_MATCHES_ROWS);
+const getValidRecentMatches = (matches) =>
+  matches.filter((match) => match.game_mode !== 19).slice(0, MAX_MATCHES_ROWS);
 
 const Overview = ({
   recentMatches,
@@ -130,11 +132,18 @@ const Overview = ({
 
   return (
     <OverviewContainer>
-      <Collapsible name="playerSummary" initialMaxHeight={800} buttonStyle={{ top: 8 }}>
+      <Collapsible
+        name="playerSummary"
+        initialMaxHeight={800}
+        buttonStyle={{ top: 8 }}
+      >
         <SummaryContainer
           title={strings.heading_avg_and_max}
           titleTo={`/players/${playerId}/records`}
-          subtitle={formatTemplateToString(strings.subheading_avg_and_max, validRecentMatches.length)}
+          subtitle={formatTemplateToString(
+            strings.subheading_avg_and_max,
+            validRecentMatches.length
+          )}
           loading={matchesLoading}
           error={matchesError}
           loaderWidth={250}
@@ -144,15 +153,30 @@ const Overview = ({
           <Styled
             data-hint={strings.include_turbo_matches}
             data-hint-position="right"
-            style={{ display: validRecentMatches.some(match => match.game_mode === 23) ? 'inline' : 'none' }}
+            style={{
+              display: validRecentMatches.some(
+                (match) => match.game_mode === 23
+              )
+                ? 'inline'
+                : 'none',
+            }}
           >
             <Checkbox
-              style={{ display: validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23), opacity: 0.45 }}
+              style={{
+                display: validRecentMatches.filter(
+                  (match) => showTurboGames || match.game_mode !== 23
+                ),
+                opacity: 0.45,
+              }}
               defaultChecked
               onCheck={toggleTurboGames}
             />
           </Styled>
-          <SummOfRecMatches matchesData={validRecentMatches.filter(match => showTurboGames || match.game_mode !== 23)} />
+          <SummOfRecMatches
+            matchesData={validRecentMatches.filter(
+              (match) => showTurboGames || match.game_mode !== 23
+            )}
+          />
         </SummaryContainer>
         <SummaryContainer
           title={strings.tab_counts}
@@ -186,7 +210,11 @@ const Overview = ({
       </MatchesContainer>
 
       <HeroesContainer>
-        <Collapsible name="overviewPeers" initialMaxHeight={400} buttonStyle={{ top: 18 }}>
+        <Collapsible
+          name="overviewPeers"
+          initialMaxHeight={400}
+          buttonStyle={{ top: 18 }}
+        >
           <Container
             title={strings.heading_peers}
             titleTo={`/players/${playerId}/peers`}
@@ -200,7 +228,11 @@ const Overview = ({
             />
           </Container>
         </Collapsible>
-        <Collapsible name="overviewHeroes" initialMaxHeight={700} buttonStyle={{ top: 28 }}>
+        <Collapsible
+          name="overviewHeroes"
+          initialMaxHeight={700}
+          buttonStyle={{ top: 28 }}
+        >
           <Container
             title={strings.heading_heroes}
             titleTo={`/players/${playerId}/heroes`}
@@ -238,57 +270,46 @@ Overview.propTypes = {
   location: PropTypes.string,
 };
 
-
-const getData = (props) => {
-  if (props.location.search) {
-    props.getPlayerMatches(props.playerId, props.location.search);
-  } else {
-    props.getPlayerRecentMatches(props.playerId);
+const getData = (props, gamemode) => {
+  let params = props.location.search;
+  const hasGameMode =
+    props.location &&
+    props.location.search &&
+    props.location.search.indexOf('game_mode') !== -1;
+  if (gamemode === 'turbo' && !hasGameMode) {
+    params = `${props.location.search}&significant=0&game_mode=23`;
   }
-  props.getPlayerHeroes(props.playerId, props.location.search);
-  props.getPlayerPeers(props.playerId, props.location.search);
-  props.getPlayerCounts(props.playerId, props.location.search);
+
+  if (props.location.search) {
+    props.getPlayerMatches(props.playerId, params);
+  } else {
+    props.getPlayerRecentMatches(props.playerId, params);
+  }
+  props.getPlayerHeroes(props.playerId, params);
+  props.getPlayerPeers(props.playerId, params);
+  props.getPlayerCounts(props.playerId, params);
 };
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    playerId: PropTypes.string,
-    toggleTurboGames: PropTypes.func,
-    showTurboGames: PropTypes.bool,
-    strings: PropTypes.shape({}),
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      showTurboGames: true,
-    };
-    this.toggleTurboGames = this.toggleTurboGames.bind(this);
-  }
-
-
-  componentDidMount() {
-    getData(this.props);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.playerId !== prevProps.playerId || this.props.location.key !== prevProps.location.key) {
-      getData(this.props);
+const RequestLayer = (props) => {
+  const gamemodeState = React.useContext(GamemodeContext);
+  React.useEffect(() => {
+    if (gamemodeState.value.gamemode) {
+      getData(props, gamemodeState.value.gamemode);
     }
-  }
+  }, [props.location, gamemodeState.value.gamemode]);
 
-  toggleTurboGames = () => {
-    const { showTurboGames } = this.state;
-    this.setState({ showTurboGames: !showTurboGames });
-  };
+  return <Overview {...props} />;
+};
 
-  render() {
-    return <Overview {...this.props} toggleTurboGames={this.toggleTurboGames} showTurboGames={this.state.showTurboGames} />;
-  }
-}
+RequestLayer.propTypes = {
+  location: PropTypes.shape({
+    key: PropTypes.string,
+  }),
+  playerId: PropTypes.string,
+  toggleTurboGames: PropTypes.func,
+  showTurboGames: PropTypes.bool,
+  strings: PropTypes.shape({}),
+};
 
 const filterCounts = (counts) => {
   const countMap = {
@@ -300,10 +321,10 @@ const filterCounts = (counts) => {
   };
 
   const limitCount = (key, field, lim) =>
-    counts[key].list.filter(el => el.category !== 'Unknown')
-      .sort((a, b) => (
-        b[field] - a[field]
-      )).slice(0, lim);
+    counts[key].list
+      .filter((el) => el.category !== 'Unknown')
+      .sort((a, b) => b[field] - a[field])
+      .slice(0, lim);
 
   Object.keys(counts).forEach((key) => {
     switch (key) {
@@ -341,7 +362,7 @@ const filterCounts = (counts) => {
   ];
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   recentMatches: {
     data: state.app.playerRecentMatches.data,
     loading: state.app.playerRecentMatches.loading,
@@ -364,12 +385,17 @@ const mapStateToProps = state => ({
   countsError: state.app.playerCounts.error,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getPlayerRecentMatches: (playerId, options) => dispatch(getPlayerRecentMatches(playerId, options)),
-  getPlayerMatches: (playerId, options) => dispatch(getPlayerMatches(playerId, options)),
-  getPlayerHeroes: (playerId, options) => dispatch(getPlayerHeroes(playerId, options)),
-  getPlayerPeers: (playerId, options) => dispatch(getPlayerPeers(playerId, options)),
-  getPlayerCounts: (playerId, options) => dispatch(getPlayerCounts(playerId, options)),
+const mapDispatchToProps = (dispatch) => ({
+  getPlayerRecentMatches: (playerId, options) =>
+    dispatch(getPlayerRecentMatches(playerId, options)),
+  getPlayerMatches: (playerId, options) =>
+    dispatch(getPlayerMatches(playerId, options)),
+  getPlayerHeroes: (playerId, options) =>
+    dispatch(getPlayerHeroes(playerId, options)),
+  getPlayerPeers: (playerId, options) =>
+    dispatch(getPlayerPeers(playerId, options)),
+  getPlayerCounts: (playerId, options) =>
+    dispatch(getPlayerCounts(playerId, options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
