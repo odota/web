@@ -1,12 +1,22 @@
+import { createBrowserHistory } from 'history';
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import { createBrowserHistory } from 'history';
-import { render, hydrate } from 'react-dom';
+import { hydrate, render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import store from './store';
-import { getMetadata, getStrings, getAbilities, getHeroAbilities, getNeutralAbilities, getAbilityIds } from './actions';
+
+import {
+  getAbilities,
+  getAbilityIds,
+  getHeroAbilities,
+  getMetadata,
+  getNeutralAbilities,
+  getStrings,
+} from './actions';
 import App from './components/App';
+import { GamemodeProvider } from './context/GamemodeContext';
+import store from './store';
+
 // import { unregister } from './common/serviceWorker';
 
 // Fetch metadata (used on all pages)
@@ -35,7 +45,9 @@ const rootElement = document.getElementById('root');
 const app = (
   <Provider store={store}>
     <BrowserRouter history={history}>
-      <App />
+      <GamemodeProvider>
+        <App />
+      </GamemodeProvider>
     </BrowserRouter>
   </Provider>
 );
