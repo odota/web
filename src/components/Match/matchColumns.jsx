@@ -360,7 +360,7 @@ export default (strings) => {
         tooltip: strings.tooltip_items,
         field: 'items',
         width: 240,
-        displayFn: itemsTd,
+        displayFn: row => itemsTd(row),
       },
     ].concat(match.players.map(player => player.item_neutral).reduce(sum, 0) > 0
       ? {

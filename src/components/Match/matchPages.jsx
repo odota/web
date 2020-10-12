@@ -68,7 +68,18 @@ const matchPages = (strings) => {
   const gosuUrl = 'https://gosu.ai/dota/?utm_source=opendota&utm_medium=cpc&utm_campaign=';
   const gosuIcon = '/assets/images/gosu-24px.png';
 
-  return [Overview(strings, gosuUrl, gosuIcon), {
+  return [{
+    name: strings.tab_overview,
+    key: 'overview',
+    skeleton: true,
+    content: (match) => (
+      <div>
+        <Overview
+          match={match}
+        />
+      </div>
+    ),
+  }, {
     name: strings.tab_benchmarks,
     key: 'benchmarks',
     content: match => (
