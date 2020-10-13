@@ -20,11 +20,11 @@ const StyledDiv = styled.div`
       height: 8px;
     }
     &.teamtable-radiant thead {
-      background: linear-gradient(90deg, rgb(34 72 72 / 5%) 2%, rgb(28 123 57 / 5%) 27%, rgb(10 64 2 / 4%) 80%);
+      background: linear-gradient(90deg, rgba(31, 169, 54, 0.09) 2%, rgba(10, 109, 72, 0.26) 27%, rgba(52, 177, 113, 0.08) 80%);
     }
   
     &.teamtable-dire thead {
-      background: linear-gradient(90deg,rgb(72 34 34 / 5%) 2%,rgb(123 28 28 / 5%) 27%,rgb(64 2 2 / 4%) 80%);
+      background: linear-gradient(90deg, rgba(255, 139, 20, 0.09) 2%, rgba(158, 56, 26, 0.18) 27%, rgba(255, 186, 59, 0.04) 80%);
     }
 `;
 
