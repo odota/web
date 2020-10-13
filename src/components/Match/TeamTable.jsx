@@ -19,13 +19,6 @@ const StyledDiv = styled.div`
       right: 0px;
       height: 8px;
     }
-    &.teamtable-radiant thead {
-      background: linear-gradient(90deg, rgba(31, 169, 54, 0.09) 2%, rgba(10, 109, 72, 0.26) 27%, rgba(52, 177, 113, 0.08) 80%);
-    }
-  
-    &.teamtable-dire thead {
-      background: linear-gradient(90deg, rgba(255, 139, 20, 0.09) 2%, rgba(158, 56, 26, 0.18) 27%, rgba(255, 186, 59, 0.04) 80%);
-    }
 `;
 
 const isBestValueInMatch = players => (field, row, underline) => {
