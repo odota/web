@@ -19,13 +19,13 @@ const StyledDiv = styled.div`
       right: 0px;
       height: 8px;
     }
-    &.teamtable-radiant:after {
-      background-image: linear-gradient(to right, hsla(133, 20%, 41%, 0.4), transparent 27%);
+    &.teamtable-radiant thead {
+      background: linear-gradient(90deg, rgb(34 72 72 / 5%) 2%, rgb(28 123 57 / 5%) 27%, rgb(10 64 2 / 4%) 80%);
     }
-    &.teamtable-dire:after {
-      background-image: linear-gradient(to right, hsla(19, 40%, 30%, 0.57), transparent 27%);
-  }
-}
+  
+    &.teamtable-dire thead {
+      background: linear-gradient(90deg,rgb(72 34 34 / 5%) 2%,rgb(123 28 28 / 5%) 27%,rgb(64 2 2 / 4%) 80%);
+    }
 `;
 
 const isBestValueInMatch = players => (field, row, underline) => {

@@ -15,6 +15,7 @@ export const StyledBody = styled.div`
           
     thead {
       border-bottom: 1px solid rgba(255, 255, 255, .05) !important; 
+      background: linear-gradient(90deg,rgb(113 121 123 / 5%) 2%,rgb(25 158 222 / 5%) 27%,rgb(52 111 162 / 4%) 80%);
     }
 
     tr {
@@ -79,9 +80,9 @@ export const StyledBody = styled.div`
 
 
   .innerContainer {
-    background-color: rgba(255, 255, 255, 0.03);
-    box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.14);
     margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, .05);
+    border-radius: 3px;
   }
 
   .innerContainer {
