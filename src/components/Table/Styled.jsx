@@ -21,7 +21,7 @@ export const StyledBody = styled.div`
 
       /* target iOS devices */
       @supports (-webkit-touch-callout: none) {
-        rgba(46, 160, 214, 0.26) 
+        rgba(46, 160, 214, 0.26);
       }
     }
 
