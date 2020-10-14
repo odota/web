@@ -114,6 +114,14 @@ display: inline-block;
   background-size: cover;
   box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
 }
+.chargeOverlay {
+  position: absolute;
+  bottom: 0;
+  right: 2px;
+  color: ${constants.textColorPrimary};
+  font-weight: ${constants.fontWeightMedium};
+  text-shadow: 1px 1px 2px black, -1px -1px 2px black;
+}
 
 .buffOverlay {
   position: absolute;
@@ -213,7 +221,7 @@ class InflictorWithValue extends React.Component {
             data-for={ttId}
             onMouseEnter={this.setShowTooltip}
           >
-            {(!type || type === 'backpack' || type === 'neutral') &&
+            {(!type || type === 'starting' || type === 'backpack' || type === 'neutral') &&
             <object data={image} height="27px" type="image/png">
               <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)', height: '27px' }} />
             </object>}
@@ -229,6 +237,11 @@ class InflictorWithValue extends React.Component {
             {type === 'buff' &&
             <div className="buffOverlay">
               {value > 0 && value}
+            </div>
+          }
+            {type ==='starting'&&
+            <div className='chargeOverlay'>
+              <span>{value > 1 && value}</span>
             </div>
           }
             {type === 'backpack' &&
