@@ -101,39 +101,49 @@ export default (strings) => {
     };
   };
 
-  const itemsTd = (row) => {
+  const itemsTd = (row,starterItems) => {
     const itemArray = [];
     const additionalItemArray = [];
     const backpackItemArray = [];
 
     const visitedItemsCount = {};
-
-    for (let i = 0; i < 6; i += 1) {
-      const itemKey = itemIds[row[`item_${i}`]];
-      const { itemSkipCount, purchaseEvent } = findBuyTime(row.purchase_log, itemKey, visitedItemsCount[itemKey]);
-      visitedItemsCount[itemKey] = itemSkipCount;
-
-      if (items[itemKey]) {
-        itemArray.push(inflictorWithValue(itemKey, formatSeconds(purchaseEvent && purchaseEvent.time)));
-      }
-
-      // Use hero_id because Meepo showing up as an additional unit in some matches http://dev.dota2.com/showthread.php?t=132401
-      if (row.hero_id === 80 && row.additional_units) {
-        const additionalItemKey = itemIds[row.additional_units[0][`item_${i}`]];
-        const additionalFirstPurchase = row.first_purchase_time && row.first_purchase_time[additionalItemKey];
-
-        if (items[additionalItemKey]) {
-          additionalItemArray.push(inflictorWithValue(additionalItemKey, formatSeconds(additionalFirstPurchase)));
+    if (starterItems) {
+      for (let i = 0; i < row.starting_items.length; i += 1) {
+        const item = row.starting_items[i];
+        if (item.itemslot < 6) {
+          itemArray.push(inflictorWithValue(item.key,item.charges,'starting'));
+        } else {
+          backpackItemArray.push(inflictorWithValue(item.key, item.charges, 'starting'));
         }
       }
-
-      const backpackItemKey = itemIds[row[`backpack_${i}`]];
-      const backpackfirstPurchase = row.first_purchase_time && row.first_purchase_time[backpackItemKey];
-
-      if (items[backpackItemKey]) {
-        backpackItemArray.push(inflictorWithValue(backpackItemKey, formatSeconds(backpackfirstPurchase), 'backpack'));
-      }
+    } else {
+      for (let i = 0; i < 6; i += 1) {
+        const itemKey = itemIds[row[`item_${i}`]];
+        const { itemSkipCount, purchaseEvent } = findBuyTime(row.purchase_log, itemKey, visitedItemsCount[itemKey]);
+        visitedItemsCount[itemKey] = itemSkipCount;
+      
+        if (items[itemKey]) {
+          itemArray.push(inflictorWithValue(itemKey, formatSeconds(purchaseEvent && purchaseEvent.time)));
+        }
+      
+        // Use hero_id because Meepo showing up as an additional unit in some matches http://dev.dota2.com/showthread.php?t=132401
+        if (row.hero_id === 80 && row.additional_units) {
+          const additionalItemKey = itemIds[row.additional_units[0][`item_${i}`]];
+          const additionalFirstPurchase = row.first_purchase_time && row.first_purchase_time[additionalItemKey];
+        
+          if (items[additionalItemKey]) {
+            additionalItemArray.push(inflictorWithValue(additionalItemKey, formatSeconds(additionalFirstPurchase)));
+          }
+        }
+      
+        const backpackItemKey = itemIds[row[`backpack_${i}`]];
+        const backpackfirstPurchase = row.first_purchase_time && row.first_purchase_time[backpackItemKey];
+      
+        if (items[backpackItemKey]) {
+          backpackItemArray.push(inflictorWithValue(backpackItemKey, formatSeconds(backpackfirstPurchase), 'backpack'));
+        }
     }
+  }
 
     return (
       <StyledDivClearBoth>
@@ -157,7 +167,7 @@ export default (strings) => {
     );
   };
 
-  const overviewColumns = (match) => {
+  const overviewColumns = (match,starterItems) => {
     const cols = [
       {
         displayName: strings.th_avatar,
@@ -360,7 +370,7 @@ export default (strings) => {
         tooltip: strings.tooltip_items,
         field: 'items',
         width: 240,
-        displayFn: row => itemsTd(row),
+        displayFn: row => itemsTd(row,starterItems),
       },
     ].concat(match.players.map(player => player.item_neutral).reduce(sum, 0) > 0
       ? {
