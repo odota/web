@@ -239,9 +239,7 @@ class Combos extends React.Component {
         ? new RegExp(escapeRegExp(searchValue), 'i').test(hero.localized_name)
         : true));
 
-    return [
-      ...(filteredHeroesArray.length > 0 ? filteredHeroesArray : heroesArray),
-    ].map(hero => (
+    return filteredHeroesArray.map(hero => (
       <HeroSelector
         id={hero.id}
         heroName={hero.localized_name}
@@ -257,6 +255,7 @@ class Combos extends React.Component {
   render() {
     const { teamA, teamB } = this.state;
     const { strings } = this.props;
+    const noHeroesSelected = !teamA.length && !teamB.length;
     return (
       <StyledCombos>
         <div className="main-section">
@@ -295,6 +294,7 @@ class Combos extends React.Component {
               onClick={this.state.loading ? this.handleCancel : this.handleSubmit}
               buttonStyle={{ backgroundColor: this.state.loading ? '#822e2e' : 'rgba(23, 59, 90, 0.8)' }}
               style={{ display: 'block', marginTop: 5 }}
+              disabled={noHeroesSelected}
             />
           </div>
         </div>
