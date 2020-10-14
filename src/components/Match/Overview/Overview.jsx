@@ -67,9 +67,9 @@ class Overview extends React.Component {
     const { overviewColumns, abilityColumns, abilityDraftColumns } = mcs(
       strings
     );
-    // console.log(this.state)
     return (
       <div>
+        {match.players[0].starting_items &&
         <Toggle
           onToggle={this.change}
           label="Starting Items"
@@ -90,6 +90,7 @@ class Overview extends React.Component {
             marginRight: '3px',
           }}
         />
+        }
         <TeamTable
           players={match.players}
           columns={overviewColumns(match,this.state.showStarterItems)}
