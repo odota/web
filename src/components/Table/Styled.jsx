@@ -20,6 +20,12 @@ export const StyledBody = styled.div`
         background: -moz-linear-gradient(90deg, rgba(20,255,212,0.09) 2%, rgba(46,160,214,0.26) 27%, rgba(5,181,249,0.04) 80%);
         background: -webkit-linear-gradient(90deg, rgba(20,255,212,0.09) 2%, rgba(46,160,214,0.26) 27%, rgba(5,181,249,0.04) 80%); 
         background: linear-gradient(90deg, rgba(20,255,212,0.09) 2%, rgba(46,160,214,0.26) 27%, rgba(5,181,249,0.04) 80%);
+
+        /* Safari */
+        @media not all and (min-resolution:.001dpcm)
+        { @supports (-webkit-appearance:none) {
+          background: rgba(46, 160, 214, 0.26);
+        }}
       }
     }
 
