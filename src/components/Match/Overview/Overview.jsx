@@ -62,7 +62,7 @@ class Overview extends React.Component {
     };
   }
   render() {
-    const { match, strings, gosuUrl} = this.props;
+    const { match, strings, gosuUrl, gosuIcon} = this.props;
     const { overviewColumns, abilityColumns, abilityDraftColumns } = mcs(
       strings
     );
@@ -98,7 +98,7 @@ class Overview extends React.Component {
             process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_default : null
           }
           buttonTo={`${gosuUrl}Overview`}
-          // buttonIcon={gosuIcon}
+          buttonIcon={gosuIcon}
           picksBans={match.picks_bans}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
