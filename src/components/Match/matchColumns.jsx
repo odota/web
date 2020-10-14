@@ -105,9 +105,9 @@ export default (strings) => {
     const itemArray = [];
     const additionalItemArray = [];
     const backpackItemArray = [];
-
     const visitedItemsCount = {};
-    if (starterItems) {
+    
+    if (starterItems && 'starting_items' in row) {
       for (let i = 0; i < row.starting_items.length; i += 1) {
         const item = row.starting_items[i];
         if (item.itemslot < 6) {
