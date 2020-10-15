@@ -2,8 +2,12 @@ import styled from 'styled-components';
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
+import ActionSearch from 'material-ui/svg-icons/action/search';
 
 const StyledHorizontalMenuFilter = styled.div`
+  display: flex;
+  align-items: center;
+
   .reset-button {
     display: inline-block;
     font-size: 22px;
@@ -25,6 +29,7 @@ const HorizontalMenuFilter = ({
   filterText,
 }) => (
   <StyledHorizontalMenuFilter>
+    <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
     <TextField
       ref={setInputRef}
       hintText={filterText}
