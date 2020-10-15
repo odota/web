@@ -68,7 +68,7 @@ class Overview extends React.Component {
     );
     return (
       <div>
-        {'starting_items' in match.players[0] &&
+        {match.players[0].starting_items &&
         <Toggle
           onToggle={this.change}
           label="Starting Items"
