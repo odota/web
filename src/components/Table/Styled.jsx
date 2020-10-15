@@ -3,7 +3,6 @@ import constants from '../constants';
 
 export const StyledBody = styled.div`
   table {
-  
     table-layout: auto !important;
     font-family: ${constants.tableFontFamily} !important;
     box-sizing: border-box;
@@ -14,7 +13,20 @@ export const StyledBody = styled.div`
     : '')}
           
     thead {
-      border-bottom: 1px solid rgba(255, 255, 255, .05) !important; 
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+         
+      & tr {
+        background: rgba(46, 160, 214, 0.26);
+        background: -moz-linear-gradient(90deg, rgba(20,255,212,0.09) 2%, rgba(46,160,214,0.26) 27%, rgba(5,181,249,0.04) 80%);
+        background: -webkit-linear-gradient(90deg, rgba(20,255,212,0.09) 2%, rgba(46,160,214,0.26) 27%, rgba(5,181,249,0.04) 80%); 
+        background: linear-gradient(90deg, rgba(20,255,212,0.09) 2%, rgba(46,160,214,0.26) 27%, rgba(5,181,249,0.04) 80%);
+
+        /* Safari */
+        @media not all and (min-resolution:.001dpcm)
+        { @supports (-webkit-appearance:none) {
+          background: rgba(46, 160, 214, 0.26);
+        }}
+      }
     }
 
     tr {
@@ -79,9 +91,9 @@ export const StyledBody = styled.div`
 
 
   .innerContainer {
-    background-color: rgba(255, 255, 255, 0.03);
-    box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.14);
     margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, .05);
+    border-radius: 3px;
   }
 
   .innerContainer {

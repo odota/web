@@ -8,13 +8,24 @@ import constants from '../constants';
 
 const StyledMain = styled.main`
   position: relative;
-  margin: 10px 0 30px;
+  margin: 17px 0 30px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.19);
+  border-top: 1px solid rgba(255, 255, 255, 0.19);
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 `;
 
 const StyledTabs = styled(Tabs)`
+  justify-content: center;
+
   & .MuiTabs-indicator {
     background: ${constants.primaryLinkColor};
+  }
+  & .MuiTabs-scroller {
+    flex-grow: 0;
   }
 `;
 
