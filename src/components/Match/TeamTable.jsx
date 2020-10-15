@@ -19,13 +19,6 @@ const StyledDiv = styled.div`
       right: 0px;
       height: 8px;
     }
-    &.teamtable-radiant:after {
-      background-image: linear-gradient(to right, hsla(133, 20%, 41%, 0.4), transparent 27%);
-    }
-    &.teamtable-dire:after {
-      background-image: linear-gradient(to right, hsla(19, 40%, 30%, 0.57), transparent 27%);
-  }
-}
 `;
 
 const isBestValueInMatch = players => (field, row, underline) => {

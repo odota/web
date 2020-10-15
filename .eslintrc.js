@@ -119,6 +119,7 @@ module.exports = {
         '@typescript-eslint/member-delimiter-style': 'off',
         '@typescript-eslint/no-use-before-define': 'off',
         'import/order': 'off',
+        'linebreak-style': 'off',
       },
     },
   ],
