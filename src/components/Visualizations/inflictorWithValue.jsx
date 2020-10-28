@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import ItemTooltip from './../ItemTooltip/index';
 import constants from '../constants';
 import AbilityTooltip from '../AbilityTooltip';
+import { formatSeconds } from '../../utility'
 
 const getInflictorImage = (inflictor) => {
   if (inflictor.includes('recipe')) {
@@ -123,7 +124,15 @@ display: inline-block;
   font-weight: ${constants.fontWeightMedium};
   text-shadow: 1px 1px 2px black, -1px -1px 2px black;
 }
-
+.chargeOverlay {
+  position: absolute;
+  top: -2px;
+  right: 0px;
+  font-size: 11px;
+  color: ${constants.textColorPrimary};
+  font-weight: ${constants.fontWeightMedium};
+  text-shadow: 1px 1px 2px black, -1px -1px 2px black;
+}
 .backpackOverlay {
   display: inline-block;
   font-size: 10px;
@@ -213,7 +222,7 @@ class InflictorWithValue extends React.Component {
             data-for={ttId}
             onMouseEnter={this.setShowTooltip}
           >
-            {(!type || type === 'backpack' || type === 'neutral') &&
+            {(!type || type === 'purchase' || type === 'backpack' || type === 'neutral') &&
             <object data={image} height="27px" type="image/png">
               <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)', height: '27px' }} />
             </object>}
@@ -229,6 +238,16 @@ class InflictorWithValue extends React.Component {
             {type === 'buff' &&
             <div className="buffOverlay">
               {value > 0 && value}
+            </div>
+          }
+            {type === 'purchase' &&
+            <div className='textOverlay'>
+              {value.charges &&
+              <div className="chargeOverlay">
+                {value.charges}
+              </div>
+              }
+              <div className="overlay">{formatSeconds(value.time)}</div>
             </div>
           }
             {type === 'backpack' &&
