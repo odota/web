@@ -9,6 +9,7 @@ import transformPlayerMatches from './transformPlayerMatches';
 import action from './action';
 import { langs } from '../lang';
 import { GITHUB_REPO } from '../config';
+import {paramsWithTurbo} from '../utility';
 
 export const getMetadata = () => action('metadata', process.env.REACT_APP_API_HOST, 'api/metadata');
 export const getMatch = matchId => action('match', process.env.REACT_APP_API_HOST, `api/matches/${matchId}`, {}, transformMatch);
@@ -49,28 +50,29 @@ export const getGithubPulls = merged => action('ghPulls', 'https://api.github.co
   per_page: 1,
 });
 export const getPlayer = accountId => action('player', process.env.REACT_APP_API_HOST, `api/players/${accountId}`);
-export const getPlayerWinLoss = (accountId, params) => action('playerWinLoss', process.env.REACT_APP_API_HOST, `api/players/${accountId}/wl`, params);
-export const getPlayerRecentMatches = (accountId, params) => action('playerRecentMatches', process.env.REACT_APP_API_HOST, `api/players/${accountId}/recentMatches`, params);
-export const getPlayerMatches = (accountId, params) => action('playerMatches', process.env.REACT_APP_API_HOST, `api/players/${accountId}/matches`, { significant: 0,
-  ...querystring.parse(params.substring(1)),
+export const getPlayerWinLoss = (accountId, params) => action('playerWinLoss', process.env.REACT_APP_API_HOST, `api/players/${accountId}/wl`, paramsWithTurbo(params));
+export const getPlayerRecentMatches = (accountId, params) => action('playerRecentMatches', process.env.REACT_APP_API_HOST, `api/players/${accountId}/recentMatches`, paramsWithTurbo(params));
+export const getPlayerMatches = (accountId, params) => action('playerMatches', process.env.REACT_APP_API_HOST, `api/players/${accountId}/matches`, {
+  ...paramsWithTurbo(params),
+  significant: 0,
   project: [
     'duration', 'game_mode', 'lobby_type', // needed since significant = 0 excludes these fields when used with project field
     'start_time', 'hero_id', 'start_time', 'version', 'kills', 'deaths', 'assists', 'skill', 'leaver_status', 'party_size', // default fields when querying without project field
     'item_0', 'item_1', 'item_2', 'item_3', 'item_4', 'item_5', 'backpack_0', // additional fields required for items
   ] }, transformPlayerMatches({ ...querystring.parse(params.substring(1)) }));
-export const getPlayerPeers = (accountId, params) => action('playerPeers', process.env.REACT_APP_API_HOST, `api/players/${accountId}/peers`, params);
-export const getPlayerHeroes = (accountId, params) => action('playerHeroes', process.env.REACT_APP_API_HOST, `api/players/${accountId}/heroes`, params);
-export const getPlayerPros = (accountId, params) => action('playerPros', process.env.REACT_APP_API_HOST, `api/players/${accountId}/pros`, params);
-export const getPlayerHistograms = (accountId, params, field) => action('playerHistograms', process.env.REACT_APP_API_HOST, `api/players/${accountId}/histograms/${field}`, params, transformHistograms);
-export const getPlayerRecords = (accountId, params, field) => action('playerRecords', process.env.REACT_APP_API_HOST, `api/players/${accountId}/matches`, { ...querystring.parse(params.substring(1)), sort: field, limit: 20 });
-export const getPlayerTrends = (accountId, params, field) => action('playerTrends', process.env.REACT_APP_API_HOST, `api/players/${accountId}/matches`, { ...querystring.parse(params.substring(1)), limit: 1000, project: [field, 'hero_id', 'start_time'] }, transformTrends(field));
-export const getPlayerCounts = (accountId, params) => action('playerCounts', process.env.REACT_APP_API_HOST, `api/players/${accountId}/counts`, params, transformCounts);
-export const getPlayerItems = (accountId, params) => action('playerItems', process.env.REACT_APP_API_HOST, `api/players/${accountId}/items`, params);
-export const getPlayerWardmap = (accountId, params) => action('playerWardmap', process.env.REACT_APP_API_HOST, `api/players/${accountId}/wardmap`, params);
-export const getPlayerWordcloud = (accountId, params) => action('playerWordcloud', process.env.REACT_APP_API_HOST, `api/players/${accountId}/wordcloud`, { date: 365, ...querystring.parse(params.substring(1)) });
-export const getPlayerTotals = (accountId, params) => action('playerTotals', process.env.REACT_APP_API_HOST, `api/players/${accountId}/totals`, params);
-export const getPlayerMmr = (accountId, params) => action('playerMmr', process.env.REACT_APP_API_HOST, `api/players/${accountId}/ratings`, params);
-export const getPlayerRankings = (accountId, params) => action('playerRankings', process.env.REACT_APP_API_HOST, `api/players/${accountId}/rankings`, params, transformRankings);
+export const getPlayerPeers = (accountId, params) => action('playerPeers', process.env.REACT_APP_API_HOST, `api/players/${accountId}/peers`, paramsWithTurbo(params));
+export const getPlayerHeroes = (accountId, params) => action('playerHeroes', process.env.REACT_APP_API_HOST, `api/players/${accountId}/heroes`, paramsWithTurbo(params));
+export const getPlayerPros = (accountId, params) => action('playerPros', process.env.REACT_APP_API_HOST, `api/players/${accountId}/pros`, paramsWithTurbo(params));
+export const getPlayerHistograms = (accountId, params, field) => action('playerHistograms', process.env.REACT_APP_API_HOST, `api/players/${accountId}/histograms/${field}`, paramsWithTurbo(params), transformHistograms);
+export const getPlayerRecords = (accountId, params, field) => action('playerRecords', process.env.REACT_APP_API_HOST, `api/players/${accountId}/matches`, { ...paramsWithTurbo(params), sort: field, limit: 20 });
+export const getPlayerTrends = (accountId, params, field) => action('playerTrends', process.env.REACT_APP_API_HOST, `api/players/${accountId}/matches`, { ...paramsWithTurbo(params), limit: 1000, project: [field, 'hero_id', 'start_time'] }, transformTrends(field));
+export const getPlayerCounts = (accountId, params) => action('playerCounts', process.env.REACT_APP_API_HOST, `api/players/${accountId}/counts`, paramsWithTurbo(params), transformCounts);
+export const getPlayerItems = (accountId, params) => action('playerItems', process.env.REACT_APP_API_HOST, `api/players/${accountId}/items`, paramsWithTurbo(params));
+export const getPlayerWardmap = (accountId, params) => action('playerWardmap', process.env.REACT_APP_API_HOST, `api/players/${accountId}/wardmap`, paramsWithTurbo(params));
+export const getPlayerWordcloud = (accountId, params) => action('playerWordcloud', process.env.REACT_APP_API_HOST, `api/players/${accountId}/wordcloud`, { ...paramsWithTurbo(params), date: 365 });
+export const getPlayerTotals = (accountId, params) => action('playerTotals', process.env.REACT_APP_API_HOST, `api/players/${accountId}/totals`, paramsWithTurbo(params));
+export const getPlayerMmr = (accountId, params) => action('playerMmr', process.env.REACT_APP_API_HOST, `api/players/${accountId}/ratings`, paramsWithTurbo(params));
+export const getPlayerRankings = (accountId, params) => action('playerRankings', process.env.REACT_APP_API_HOST, `api/players/${accountId}/rankings`, paramsWithTurbo(params), transformRankings);
 export const getStrings = () => async (dispatch) => {
   const getLang = lang => langs.find(item => item.value === lang);
   const savedLang = window.localStorage && window.localStorage.getItem('localization');
