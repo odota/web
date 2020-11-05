@@ -92,6 +92,7 @@
   "app_rivalry_team": "Bet on {0} Matches with Rivalry",
   "app_refresh": "Refresh Match History: Queue a scan to find missing matches due to privacy settings",
   "app_refresh_label": "Refresh",
+  "app_show_turbo_stats": "Show Turbo Stats",
   "app_login": "Login",
   "app_logout": "Logout",
   "app_results": "result(s)",
