@@ -92,6 +92,7 @@
   "app_rivalry_team": "Aposte em {0} partidas com a Rivalry",
   "app_refresh": "Atualizar o Histórico de Partidas: Agendar uma varredura para encontrar as partidas que faltam devido às configurações de privacidade",
   "app_refresh_label": "Atualizar",
+  "app_show_turbo_stats": "Turbo",
   "app_login": "Entrar",
   "app_logout": "Sair",
   "app_results": "resultado(s)",
