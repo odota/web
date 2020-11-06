@@ -9,6 +9,7 @@ import inRange from 'lodash/fp/inRange';
 // import SvgIcon from 'material-ui/SvgIcon';
 import SocialPeople from 'material-ui/svg-icons/social/people';
 import SocialPerson from 'material-ui/svg-icons/social/person';
+import querystring from 'querystring';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
@@ -932,3 +933,15 @@ export function escapeRegExp(stringToGoIntoTheRegex) {
   return stringToGoIntoTheRegex.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'); // eslint-disable-line no-useless-escape
 }
 
+/**
+ * Takes a string of URL query params, converts it into an object, and adds the turbo filter params if localstorage setting is set
+ * @param params A string of URL query params
+ */
+export function paramsWithTurbo(params) {
+  const isTurboMode = window.localStorage.getItem('modeFilter') === 'turbo';
+  if (!isTurboMode) {
+    return params;
+  }
+  const objParams = params ? querystring.parse(params.slice(1)) : {};
+  return {...objParams, significant: 0, game_mode: 23};
+}
