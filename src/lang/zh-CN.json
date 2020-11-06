@@ -92,6 +92,7 @@
   "app_rivalry_team": "在 {0} 场比赛中用Rivalry下注",
   "app_refresh": "刷新比赛历史：由于打开隐私设定而导致的比赛缺失时可使用此功能刷新。",
   "app_refresh_label": "刷新",
+  "app_show_turbo_stats": "Turbo",
   "app_login": "登陆",
   "app_logout": "退出",
   "app_results": "结果",
