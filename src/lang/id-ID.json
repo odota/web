@@ -92,6 +92,7 @@
   "app_rivalry_team": "Bet on {0} Matches with Rivalry",
   "app_refresh": "Refresh Match History: Queue a scan to find missing matches due to privacy settings",
   "app_refresh_label": "Perbarui",
+  "app_show_turbo_stats": "Turbo",
   "app_login": "Masuk",
   "app_logout": "Keluar",
   "app_results": "result(s)",
