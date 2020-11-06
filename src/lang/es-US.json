@@ -92,6 +92,7 @@
   "app_rivalry_team": "Bet on {0} Matches with Rivalry",
   "app_refresh": "Actualizar Historial de Partidas: Añade a la cola una búsqueda para encontrar partidas que faltan debido a la configuración de privacidad",
   "app_refresh_label": "Refresh",
+  "app_show_turbo_stats": "Turbo",
   "app_login": "Iniciar sesión",
   "app_logout": "Cerrar sesión",
   "app_results": "result(s)",
