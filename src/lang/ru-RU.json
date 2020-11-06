@@ -92,6 +92,7 @@
   "app_rivalry_team": "Поставить на {0} матчей в Rivalry",
   "app_refresh": "Обновить историю матчей: Запросить сканирование пропущенных матчей из-за настроек приватности",
   "app_refresh_label": "Обновить",
+  "app_show_turbo_stats": "Turbo",
   "app_login": "Войти",
   "app_logout": "Выйти",
   "app_results": "результаты",
