@@ -939,9 +939,12 @@ export function escapeRegExp(stringToGoIntoTheRegex) {
  */
 export function paramsWithTurbo(params) {
   const isTurboMode = window.localStorage.getItem('modeFilter') === 'turbo';
-  if (!isTurboMode) {
-    return params;
+  let objParams = params ?? {};
+  if (typeof params === 'string' && params) {
+    objParams = querystring.parse(params.slice(1));
   }
-  const objParams = params ? querystring.parse(params.slice(1)) : {};
+  if (!isTurboMode) {
+    return objParams;
+  }
   return {...objParams, significant: 0, game_mode: 23};
 }
