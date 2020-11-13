@@ -8,7 +8,6 @@ import styled from 'styled-components';
 import ItemTooltip from './../ItemTooltip/index';
 import constants from '../constants';
 import AbilityTooltip from '../AbilityTooltip';
-import { formatSeconds } from '../../utility'
 
 const getInflictorImage = (inflictor) => {
   if (inflictor.includes('recipe')) {
@@ -162,13 +161,13 @@ class InflictorWithValue extends React.Component {
     abilities: PropTypes.shape({}),
     neutralAbilities: PropTypes.shape({}),
     abilityIds: PropTypes.shape({}),
+    charges: PropTypes.number,
   }
 
   constructor(props) {
     super(props);
     this.state = { showTooltip: false };
   }
-
   setShowTooltip = () => {
     if (!this.state.showTooltip) {
       this.setState({ showTooltip: true });
@@ -177,7 +176,7 @@ class InflictorWithValue extends React.Component {
 
   render() {
     const {
-      inflictor, value, type, ptooltip, abilityId, strings, abilities, neutralAbilities, abilityIds,
+      inflictor, value, type, ptooltip, abilityId, strings, abilities, neutralAbilities, abilityIds, charges,
     } = this.props;
 
     const resolvedInflictor = (abilityId && abilityIds && abilityIds[abilityId]) || String(inflictor);
@@ -242,12 +241,12 @@ class InflictorWithValue extends React.Component {
           }
             {type === 'purchase' &&
             <div className='textOverlay'>
-              {value.charges &&
+              {charges &&
               <div className="chargeOverlay">
-                {value.charges}
+                {charges}
               </div>
               }
-              <div className="overlay">{formatSeconds(value.time)}</div>
+              <div className="overlay">{value}</div>
             </div>
           }
             {type === 'backpack' &&
@@ -280,12 +279,13 @@ const mapStateToProps = state => ({
 
 const InflictorWithValueCont = connect(mapStateToProps)(InflictorWithValue);
 
-export default (inflictor, value, type, ptooltip, abilityId) => (
+export default (inflictor, value, type, ptooltip, abilityId, charges) => (
   <InflictorWithValueCont
     inflictor={inflictor}
     value={value}
     type={type}
     ptooltip={ptooltip}
     abilityId={abilityId}
+    charges={charges}
   />
 );
