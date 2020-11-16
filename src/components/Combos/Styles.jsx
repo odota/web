@@ -84,7 +84,7 @@ export const StyledHeroSelector = styled.div`
     & > div {
       display: none;
     }
-    transition: all 1s ease-out;
+    transition: all 0.3s ease-out;
   }
 
   .ts {
