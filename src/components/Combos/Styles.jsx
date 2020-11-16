@@ -31,9 +31,9 @@ export const StyledHeroSelector = styled.div`
     width: 100%;
     height: 100%;
     white-space: normal;
-    transition: all 1s ease-out;
+    transition: all 0.3s ease-out;
     &:hover {
-      transition: all 0.1s ease-out;
+      transition: all 0.3s ease-out;
       opacity: 1;
     }
   }
