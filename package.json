@@ -20,11 +20,6 @@
     "storybook": "start-storybook -p 6006 -s public",
     "storybook:build": "build-storybook -s public"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "http://github.com/odota/web"
