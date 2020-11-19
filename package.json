@@ -98,7 +98,7 @@
     "@types/seamless-immutable": "^7.1.11",
     "@types/styled-components": "4.0.3",
     "@types/wordcloud": "^1.1.1",
-    "@typescript-eslint/eslint-plugin": "^2.13.0",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.18.0",
     "babel-preset-es2015": "^6.24.1",
     "cross-env": "^6.0.3",
