@@ -31,9 +31,9 @@ export const StyledHeroSelector = styled.div`
     width: 100%;
     height: 100%;
     white-space: normal;
-    transition: all 0.1s ease-out;
-
+    transition: all 0.3s ease-out;
     &:hover {
+      transition: all 0.3s ease-out;
       opacity: 1;
     }
   }
@@ -81,10 +81,10 @@ export const StyledHeroSelector = styled.div`
   .ts-container.selected {
     opacity: 1;
     background-color: rgba(32, 36, 45, 0.76);
-    transition: none;
     & > div {
       display: none;
     }
+    transition: all 0.3s ease-out;
   }
 
   .ts {
@@ -141,9 +141,7 @@ export const StyledSelectedHeroes = styled.div`
     height: 60px;
     width: 106px;
     cursor: pointer;
-    transition: all 0.1s ease-out;
     backface-visibility: hidden;
-
     &:hover {
       opacity: 0.3;
     }
