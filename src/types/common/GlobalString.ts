@@ -15,4 +15,6 @@ export type GlobalString = {
   rank_tier_8: string
   abbr_pick: string
   abbr_win: string
+  hero_turbo_pick_rate: string
+  hero_turbo_win_rate: string
 }

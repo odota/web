@@ -452,6 +452,8 @@
   "hero_2000_win_rate": "2K W%",
   "hero_1000_pick_rate": "<2K P%",
   "hero_1000_win_rate": "<2K W%",
+  "hero_turbo_pick_rate": "Turbo P%",
+  "hero_turbo_win_rate": "Turbo W%",
   "home_login": "Login",
   "home_login_desc": "for automatic replay parsing",
   "home_parse": "Request",
