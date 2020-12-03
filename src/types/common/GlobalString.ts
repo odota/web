@@ -5,6 +5,8 @@ export type GlobalString = {
   hero_pick_rate: string
   hero_ban_rate: string
   hero_win_rate: string
+  hero_pick_rate_turbo: string,
+  hero_win_rate_turbo: string,
   rank_tier_1: string
   rank_tier_2: string
   rank_tier_3: string

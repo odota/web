@@ -12,7 +12,8 @@ type Props = {
 
 enum HeroesTab {
   PRO = 'pro',
-  PUBLIC = 'public'
+  PUBLIC = 'public',
+  TURBO = 'turbo',
 }
 
 type ProColumn = {
@@ -54,9 +55,12 @@ type Row = {
 type Column = ProColumn | PublicColumn | HeroColumn
 
 export const rankColumns = (props: Props) => {
-  return props.tabType === HeroesTab.PRO
-    ? generateProTabColumns(props.strings)
-    : generatePublicTabColumns(props.strings);
+  const columns = {
+    [HeroesTab.PRO]: generateProTabColumns(props.strings),
+    [HeroesTab.PUBLIC]: generatePublicTabColumns(props.strings),
+    [HeroesTab.TURBO]: generateTurboTabColumns(props.strings),
+  }
+  return columns[props.tabType];
 };
 
 const generateProTabColumns = (strings: GlobalString) => {
@@ -228,6 +232,26 @@ const generatePublicTabColumns = (strings: GlobalString) => {
   const preparedColumns = prepareColumns(columns, strings)
 
   return preparedHeroColumn.concat(preparedColumns);
+};
+
+const generateTurboTabColumns = (strings: GlobalString) => {
+  const heroColumn = generateHeroColumn(strings)
+
+  const combinedColumns = [heroColumn, {
+    displayName: strings.hero_pick_rate_turbo,
+    field: 'turboPickRate',
+    sortFn: true,
+    displayFn: (_row: Row, _col: string, field: any) => (field * 100).toFixed(1),
+    percentBarsWithValue: (row: Row) => decimalToCount(row.turboPickRate, row.matchCountTurbo),
+  }, {
+    displayName: strings.hero_win_rate_turbo,
+    field: 'turboWinRate',
+    sortFn: true,
+    displayFn: (_row: Row, _col: string, field: any) => (field * 100).toFixed(1),
+    percentBarsWithValue: (row: Row) => decimalToCount(row.turboWinRate, row.turbo_picks),
+  }]
+
+  return combinedColumns;
 };
 
 const getRankIcon = (number: number) => `/assets/images/dota2/rank_icons/rank_icon_${number}.png`;
