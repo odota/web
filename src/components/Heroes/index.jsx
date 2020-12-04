@@ -40,15 +40,17 @@ class RequestLayer extends React.Component {
   createTab = (key, matchCount) => {
     const { strings } = this.props;
 
-    let name;
-    if (key === 'public') name = strings.hero_public_tab;
-    else if (key === 'turbo') name = strings.hero_turbo_tab;
-    else name = strings.hero_pro_tab;
+    const names = {
+      public: strings.hero_public_tab,
+      turbo: strings.hero_turbo_tab,
+    };
+    const titles = {
+      public: strings.hero_public_heading,
+      turbo: strings.hero_turbo_heading,
+    };
 
-    let title;
-    if (key === 'public') title = strings.hero_public_heading;
-    else if (key === 'turbo') title = strings.hero_turbo_heading;
-    else title = strings.hero_pro_heading;
+    const name = names[key] ?? strings.hero_pro_tab;
+    const title = titles[key] ?? strings.pro_heading;
 
     return {
       name,
@@ -110,7 +112,13 @@ class RequestLayer extends React.Component {
         hero_id: heroStat.id,
         heroName:
           (heroes[heroStat.id] && heroes[heroStat.id].localized_name) || '',
+
         matchCountPro,
+        pickBanRatePro: pickRatePro + banRatePro,
+        pickRatePro,
+        banRatePro,
+        winRatePro: (heroStat.pro_win || 0) / heroStat.pro_pick,
+
         matchCount8,
         matchCount7,
         matchCount6,
@@ -119,12 +127,6 @@ class RequestLayer extends React.Component {
         matchCount3,
         matchCount2,
         matchCount1,
-        matchCountTurbo,
-
-        pickBanRatePro: pickRatePro + banRatePro,
-        pickRatePro,
-        banRatePro,
-        winRatePro: (heroStat.pro_win || 0) / heroStat.pro_pick,
 
         pickRate8: (heroStat['8_pick'] || 0) / matchCount8,
         pickRate7: (heroStat['7_pick'] || 0) / matchCount7,
@@ -134,7 +136,6 @@ class RequestLayer extends React.Component {
         pickRate3: (heroStat['3_pick'] || 0) / matchCount3,
         pickRate2: (heroStat['2_pick'] || 0) / matchCount2,
         pickRate1: (heroStat['1_pick'] || 0) / matchCount1,
-        pickRateTurbo: (heroStat.turbo_wins || 0) / matchCountTurbo,
 
         winRate8: (heroStat['8_win'] || 0) / heroStat['8_pick'],
         winRate7: (heroStat['7_win'] || 0) / heroStat['7_pick'],
@@ -144,6 +145,9 @@ class RequestLayer extends React.Component {
         winRate3: (heroStat['3_win'] || 0) / heroStat['3_pick'],
         winRate2: (heroStat['2_win'] || 0) / heroStat['2_pick'],
         winRate1: (heroStat['1_win'] || 0) / heroStat['1_pick'],
+
+        matchCountTurbo,
+        pickRateTurbo: (heroStat.turbo_wins || 0) / matchCountTurbo,
         winRateTurbo: (heroStat.turbo_wins || 0) / heroStat.turbo_picks,
       };
     });
