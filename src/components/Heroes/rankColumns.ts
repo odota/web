@@ -66,8 +66,6 @@ export const rankColumns = (props: Props) => {
 const generateTurboTabColumns = (strings: GlobalString) => {
   const heroColumn = generateHeroColumn(strings)
 
-  console.log(strings)
-
   const combinedColumns = [heroColumn, {
     displayName: strings.hero_turbo_pick_rate,
     field: 'pickRateTurbo',
