@@ -12,7 +12,8 @@ type Props = {
 
 enum HeroesTab {
   PRO = 'pro',
-  PUBLIC = 'public'
+  PUBLIC = 'public',
+  TURBO = 'turbo'
 }
 
 type ProColumn = {
@@ -54,9 +55,32 @@ type Row = {
 type Column = ProColumn | PublicColumn | HeroColumn
 
 export const rankColumns = (props: Props) => {
-  return props.tabType === HeroesTab.PRO
-    ? generateProTabColumns(props.strings)
-    : generatePublicTabColumns(props.strings);
+  const columns = {
+    [HeroesTab.PRO]: generateProTabColumns(props.strings),
+    [HeroesTab.PUBLIC]: generatePublicTabColumns(props.strings),
+    [HeroesTab.TURBO]: generateTurboTabColumns(props.strings),
+  }
+  return columns[props.tabType];
+};
+
+const generateTurboTabColumns = (strings: GlobalString) => {
+  const heroColumn = generateHeroColumn(strings)
+
+  const combinedColumns = [heroColumn, {
+    displayName: strings.hero_turbo_pick_rate,
+    field: 'pickRateTurbo',
+    sortFn: true,
+    displayFn: (_row: Row, _col: string, field: any) => (field * 100).toFixed(1),
+    percentBarsWithValue: (row: Row) => decimalToCount(row.pickRateTurbo, row.matchCountTurbo),
+  }, {
+    displayName: strings.hero_turbo_win_rate,
+    field: 'winRateTurbo',
+    sortFn: true,
+    displayFn: (_row: Row, _col: string, field: any) => (field * 100).toFixed(1),
+    percentBarsWithValue: (row: Row) => decimalToCount(row.winRateTurbo, row.turbo_picks),
+  }]
+
+  return combinedColumns;
 };
 
 const generateProTabColumns = (strings: GlobalString) => {

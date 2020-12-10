@@ -42,13 +42,18 @@ class RequestLayer extends React.Component {
   createTab = (key, matchCount) => {
     const { strings } = this.props;
 
-    const name = key === 'public'
-      ? strings.hero_public_tab
-      : strings.hero_pro_tab;
+    const names = {
+      public: strings.hero_public_tab,
+      turbo: strings.hero_turbo_tab,
+    }
 
-    const title = key === 'public'
-      ? strings.hero_public_heading
-      : strings.hero_pro_heading;
+    const titles = {
+      public: strings.hero_public_heading,
+      turbo: strings.hero_turbo_heading,
+    }
+
+    const name = names[key] ?? strings.hero_pro_tab;
+    const title = titles[key] ?? strings.hero_pro_heading;
 
     return {
       name,
@@ -57,7 +62,7 @@ class RequestLayer extends React.Component {
         <div>
           <Heading
             title={title}
-            subtitle={`${abbreviateNumber(matchCount)} ${strings.hero_this_month}`}
+            subtitle={`${abbreviateNumber(matchCount)} ${key === 'turbo' ? strings.hero_this_month : strings.hero_last_30days}`}
             icon=""
             twoLine
           />
@@ -87,6 +92,7 @@ class RequestLayer extends React.Component {
     const matchCount2 = this.getMatchCountByRank(json, '2_pick');
     const matchCount1 = this.getMatchCountByRank(json, '1_pick');
     const matchCountPublic = matchCount8 + matchCount7 + matchCount6 + matchCount5 + matchCount4 + matchCount3 + matchCount2 + matchCount1;
+    const matchCountTurbo = json.map(heroStat => heroStat.turbo_picks || 0).reduce(sum, 0) / 10;
 
     const processedData = json.map((heroStat) => {
       const pickRatePro = (heroStat.pro_pick || 0) / matchCountPro;
@@ -108,6 +114,7 @@ class RequestLayer extends React.Component {
         pickRatePro,
         banRatePro,
         winRatePro: (heroStat.pro_win || 0) / heroStat.pro_pick,
+
         pickRate8: (heroStat['8_pick'] || 0) / matchCount8,
         pickRate7: (heroStat['7_pick'] || 0) / matchCount7,
         pickRate6: (heroStat['6_pick'] || 0) / matchCount6,
@@ -116,6 +123,7 @@ class RequestLayer extends React.Component {
         pickRate3: (heroStat['3_pick'] || 0) / matchCount3,
         pickRate2: (heroStat['2_pick'] || 0) / matchCount2,
         pickRate1: (heroStat['1_pick'] || 0) / matchCount1,
+
         winRate8: (heroStat['8_win'] || 0) / heroStat['8_pick'],
         winRate7: (heroStat['7_win'] || 0) / heroStat['7_pick'],
         winRate6: (heroStat['6_win'] || 0) / heroStat['6_pick'],
@@ -124,6 +132,10 @@ class RequestLayer extends React.Component {
         winRate3: (heroStat['3_win'] || 0) / heroStat['3_pick'],
         winRate2: (heroStat['2_win'] || 0) / heroStat['2_pick'],
         winRate1: (heroStat['1_win'] || 0) / heroStat['1_pick'],
+
+        matchCountTurbo,
+        pickRateTurbo: (heroStat.turbo_picks || 0) / matchCountTurbo,
+        winRateTurbo: (heroStat.turbo_wins || 0) / heroStat.turbo_picks,
       };
     });
     processedData.sort((a, b) => a.heroName && a.heroName.localeCompare(b.heroName));
@@ -131,6 +143,7 @@ class RequestLayer extends React.Component {
     const heroTabs = [
       this.createTab('pro', matchCountPro),
       this.createTab('public', matchCountPublic),
+      this.createTab('turbo', matchCountTurbo)
     ];
 
     const selectedTab = heroTabs.find(_tab => _tab.key === route);

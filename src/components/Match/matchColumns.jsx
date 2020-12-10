@@ -657,7 +657,7 @@ export default (strings) => {
                 })
                 .map((purchase) => {
                   if (items[purchase.key] && (showConsumables || items[purchase.key].qual !== 'consumable')) {
-                    return inflictorWithValue(purchase.key, formatSeconds(purchase.time));
+                    return inflictorWithValue(purchase.key, formatSeconds(purchase.time), null, null, null, purchase.charges);
                   }
                   return null;
                 })
