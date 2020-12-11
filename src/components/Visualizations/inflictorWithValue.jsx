@@ -240,12 +240,9 @@ class InflictorWithValue extends React.Component {
             </div>
           }
             {charges &&
-            <div className='textOverlay'>
               <div className="chargeOverlay">
                 {charges}
               </div>
-              <div className="overlay">{value}</div>
-            </div>
           }
             {type === 'backpack' &&
             <div className="backpackOverlay">
