@@ -107,7 +107,7 @@
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-react": "^7.21.5",
     "hoist-non-react-statics": "^3.3.1",
     "husky": "^3.1.0",
     "isomorphic-fetch": "^2.2.1",
