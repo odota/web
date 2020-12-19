@@ -380,16 +380,18 @@ export default (strings) => {
           paddingRight: 0,
           width: 32,
           displayFn: row => 
-          <React.Fragment>
-            <img
-              src={`/assets/images/dota2/agh_${row.permanent_buffs && row.permanent_buffs.some(b => b.permanent_buff === 2) ? '1' : '0'}.png`}
-              alt=""
-              style={{width: 24}}/>
-            <img
-              src={`/assets/images/dota2/shard_${row.permanent_buffs && row.permanent_buffs.some(b => b.permanent_buff === 12) ? '1' : '0'}.png`}
-              alt=""
-              style={{width: 24}}/>        
-          </React.Fragment>  
+            <React.Fragment>
+              <img
+                src={`/assets/images/dota2/agh_${row.permanent_buffs && row.permanent_buffs.some(b => b.permanent_buff === 2) ? '1' : '0'}.png`}
+                alt=""
+                style={{width: 24}}
+              />
+              <img
+                src={`/assets/images/dota2/shard_${row.permanent_buffs && row.permanent_buffs.some(b => b.permanent_buff === 12) ? '1' : '0'}.png`}
+                alt=""
+                style={{width: 24}}
+              />        
+            </React.Fragment>  
         },
       )
       .concat(match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0
