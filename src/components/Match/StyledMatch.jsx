@@ -56,6 +56,8 @@ export const StyledAbilityUpgrades = styled.div`
 `;
 
 export const StyledAghanimsBuffs = styled.div`
+  min-height: 44px;
+
   > img {
     width: 24px;
   }
