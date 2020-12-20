@@ -36,6 +36,8 @@ const parsedBenchmarkCols = ['lhten', 'stuns_per_min'];
 
 const shardTooltip = <ItemTooltip item={items.aghanims_shard}/>;
 const aghTooltip = <ItemTooltip item={items.ultimate_scepter}/>
+const AGHANIMS_SHARD = 12;
+const AGHANIMS_SCEPTER = 2;
 
 export default (strings) => {
   const heroTd = (row, col, field, index, hideName, party, showGuide = false, guideType) => {
@@ -414,7 +416,7 @@ export default (strings) => {
           width: 135,
           displayFn: row =>
             (row.permanent_buffs && row.permanent_buffs.length > 0 ? row.permanent_buffs
-            .filter(b => b.permanent_buff !== 2 && b.permanent_buff !== 12).map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff')) : '-'),
+            .filter(b => b.permanent_buff !== AGHANIMS_SCEPTER && b.permanent_buff !== AGHANIMS_SHARD).map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff')) : '-'),
         }
         : []);
 
