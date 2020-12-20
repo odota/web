@@ -35,7 +35,7 @@ const heroNames = getHeroesById();
 const parsedBenchmarkCols = ['lhten', 'stuns_per_min'];
 
 const shardTooltip = <ItemTooltip item={items.aghanims_shard}/>;
-const aghTooltip = <ItemTooltip item={items.ultimate_scepter}/>
+const scepterTooltip = <ItemTooltip item={items.ultimate_scepter}/>
 const AGHANIMS_SHARD = 12;
 const AGHANIMS_SCEPTER = 2;
 
@@ -387,17 +387,17 @@ export default (strings) => {
           width: 32,
           displayFn: row => 
             <StyledAghanimsBuffs>
-              <ReactTooltip id="agh" effect="solid" place="left">
-                {aghTooltip}
+              <ReactTooltip id="scepter" effect="solid" place="left">
+                {scepterTooltip}
               </ReactTooltip>
               <ReactTooltip id="shard" effect="solid" place="left">
                 {shardTooltip}
               </ReactTooltip>
               <img
-                src={`/assets/images/dota2/agh_${row.permanent_buffs && row.permanent_buffs.some(b => b.permanent_buff === 2) ? '1' : '0'}.png`}
+                src={`/assets/images/dota2/scepter_${row.permanent_buffs && row.permanent_buffs.some(b => b.permanent_buff === 2) ? '1' : '0'}.png`}
                 alt=""
-                data-tip={aghTooltip}
-                data-for="agh"
+                data-tip={scepterTooltip}
+                data-for="scepter"
               />
               <img
                 src={`/assets/images/dota2/shard_${row.permanent_buffs && row.permanent_buffs.some(b => b.permanent_buff === 12) ? '1' : '0'}.png`}
