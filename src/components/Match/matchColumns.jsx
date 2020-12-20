@@ -25,9 +25,10 @@ import { TableHeroImage, inflictorWithValue } from '../Visualizations';
 import { CompetitiveRank } from '../Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from '../Icons';
 import constants from '../constants';
-import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem } from './StyledMatch';
+import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem, StyledAghanimsBuffs } from './StyledMatch';
 import TargetsBreakdown from './TargetsBreakdown';
 import HeroImage from './../Visualizations/HeroImage';
+import ItemTooltip from '../ItemTooltip';
 
 const heroNames = getHeroesById();
 
@@ -379,19 +380,32 @@ export default (strings) => {
           paddingLeft: 5,
           paddingRight: 0,
           width: 32,
-          displayFn: row => 
-            <React.Fragment>
-              <img
-                src={`/assets/images/dota2/agh_${row.permanent_buffs && row.permanent_buffs.some(b => b.permanent_buff === 2) ? '1' : '0'}.png`}
-                alt=""
-                style={{width: 24}}
-              />
-              <img
-                src={`/assets/images/dota2/shard_${row.permanent_buffs && row.permanent_buffs.some(b => b.permanent_buff === 12) ? '1' : '0'}.png`}
-                alt=""
-                style={{width: 24}}
-              />        
-            </React.Fragment>  
+          displayFn: row => {
+            const shardTooltip = <ItemTooltip item={items.aghanims_shard}/>;
+            const aghTooltip = <ItemTooltip item={items.ultimate_scepter}/>
+            return (
+              <StyledAghanimsBuffs>
+                <ReactTooltip id="agh" effect="solid" place="left">
+                  {aghTooltip}
+                </ReactTooltip>
+                <ReactTooltip id="shard" effect="solid" place="left">
+                  {shardTooltip}
+                </ReactTooltip>
+                <img
+                  src={`/assets/images/dota2/agh_${row.permanent_buffs && row.permanent_buffs.some(b => b.permanent_buff === 2) ? '1' : '0'}.png`}
+                  alt=""
+                  data-tip={aghTooltip}
+                  data-for="agh"
+                />
+                <img
+                  src={`/assets/images/dota2/shard_${row.permanent_buffs && row.permanent_buffs.some(b => b.permanent_buff === 12) ? '1' : '0'}.png`}
+                  alt=""
+                  data-tip={shardTooltip}
+                  data-for="shard"
+                />        
+              </StyledAghanimsBuffs>  
+            )
+          }
         },
       )
       .concat(match.players.map(player => player.permanent_buffs && player.permanent_buffs.length).reduce(sum, 0) > 0
