@@ -394,13 +394,13 @@ export default (strings) => {
                 {shardTooltip}
               </ReactTooltip>
               <img
-                src={`/assets/images/dota2/scepter_${row.permanent_buffs && row.permanent_buffs.some(b => b.permanent_buff === 2) ? '1' : '0'}.png`}
+                src={`/assets/images/dota2/scepter_${row.permanent_buffs && row.permanent_buffs.some(b => b.permanent_buff === AGHANIMS_SCEPTER) ? '1' : '0'}.png`}
                 alt=""
                 data-tip={scepterTooltip}
                 data-for="scepter"
               />
               <img
-                src={`/assets/images/dota2/shard_${row.permanent_buffs && row.permanent_buffs.some(b => b.permanent_buff === 12) ? '1' : '0'}.png`}
+                src={`/assets/images/dota2/shard_${row.permanent_buffs && row.permanent_buffs.some(b => b.permanent_buff === AGHANIMS_SHARD) ? '1' : '0'}.png`}
                 alt=""
                 data-tip={shardTooltip}
                 data-for="shard"
