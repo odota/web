@@ -55,6 +55,19 @@ export const StyledAbilityUpgrades = styled.div`
   }
 `;
 
+export const StyledAghanimsBuffs = styled.div`
+  min-height: 44px;
+
+  > img {
+    width: 24px;
+  }
+
+  .__react_component_tooltip {
+    opacity: 1 !important;
+    padding: 0px !important;
+  }
+`
+
 export const StyledCosmetic = styled.div`
   display: inline-block;
   margin: 5px;
