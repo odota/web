@@ -179,12 +179,12 @@ export default (strings) => {
         sortFn: true,
         maxFn: true,
         sumFn: true,
-        textAlign: 'right',
-        paddingRight: 32,
-        width: 35,
+        textAlign: 'center',
+        paddingRight: 31,
+        width: 21,
         displayFn: (row, col, field) => (
           <StyledLevel>
-            <div className="level_number">{field}</div>
+            {field}
             <svg viewBox="0 0 36 36" className="circular_chart">
               <path
                 className="circle"

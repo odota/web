@@ -69,21 +69,15 @@ export const StyledAghanimsBuffs = styled.div`
 `
 
 export const StyledLevel = styled.div`
+  display: flex;
   position: relative;
-  left: 2px;
-
-  .level_number {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 14px;
-    text-align: center;
-  }
+  align-items: center;
+  justify-content: center;
 
   .circular_chart {
-    display: block;
-    max-width: 80%;
+    position: absolute;
     fill: none;
+    width: 130%;
   }
 
   .circle {
