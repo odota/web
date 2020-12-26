@@ -179,9 +179,9 @@ export default (strings) => {
         sortFn: true,
         maxFn: true,
         sumFn: true,
-        textAlign: 'right',
-        paddingRight: 40,
-        width: 34,
+        textAlign: 'center',
+        paddingRight: 32,
+        width: 35,
         displayFn: (row, col, field) => (
           <StyledLevel>
             <div className="level_number">{field}</div>

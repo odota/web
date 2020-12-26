@@ -73,8 +73,8 @@ export const StyledLevel = styled.div`
 
   .level_number {
     position: absolute;
-    top: 5px;
-    right: 6px;
+    top: 6px;
+    right: 13px;
     width: 14px;
     text-align: center;
   }
