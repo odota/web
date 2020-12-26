@@ -68,6 +68,31 @@ export const StyledAghanimsBuffs = styled.div`
   }
 `
 
+export const StyledLevel = styled.div`
+  position: relative;
+
+  .level_number {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    width: 14px;
+    text-align: center;
+  }
+
+  .circular_chart {
+    display: block;
+    max-width: 80%;
+    max-height: 25px;
+    fill: none;
+  }
+
+  .circle {
+    stroke: #ffffff4d;
+    stroke-width: 2.8;
+    stroke-linecap: round;
+  }
+`
+
 export const StyledCosmetic = styled.div`
   display: inline-block;
   margin: 5px;
