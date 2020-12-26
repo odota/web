@@ -188,7 +188,7 @@ export default (strings) => {
             <svg viewBox="0 0 36 36" className="circular_chart">
               <path
                 className="circle"
-                strokeDasharray={`${(field / 30)*100}, 100`}
+                strokeDasharray={`${(field / constants.dotaMaxLevel)*100}, 100`}
                 d="M18 2.0845
                 a 15.9155 15.9155 0 0 1 0 31.831
                 a 15.9155 15.9155 0 0 1 0 -31.831"
