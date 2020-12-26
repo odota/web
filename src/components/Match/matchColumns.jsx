@@ -181,7 +181,7 @@ export default (strings) => {
         sumFn: true,
         textAlign: 'right',
         paddingRight: 40,
-        width: 31,
+        width: 34,
         displayFn: (row, col, field) => (
           <StyledLevel>
             <div className="level_number">{field}</div>

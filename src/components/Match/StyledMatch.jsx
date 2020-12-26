@@ -73,8 +73,8 @@ export const StyledLevel = styled.div`
 
   .level_number {
     position: absolute;
-    top: 4px;
-    right: 5px;
+    top: 5px;
+    right: 6px;
     width: 14px;
     text-align: center;
   }
@@ -82,7 +82,6 @@ export const StyledLevel = styled.div`
   .circular_chart {
     display: block;
     max-width: 80%;
-    max-height: 25px;
     fill: none;
   }
 
