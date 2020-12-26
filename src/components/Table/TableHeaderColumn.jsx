@@ -7,8 +7,6 @@ import { getSortIcon } from './tableHelpers';
 import { getColStyle } from '../../utility';
 
 const HeaderCellContent = styled.div`
-  align-items: center;
-  display: flex;
   position: relative;
 `;
 
@@ -20,9 +18,10 @@ const HeaderCellImageContent = styled.img`
 const HeaderCellSortIconWrapper = styled.div`
   height: 14px;
   margin-left: 0px;
-  position: relative;
+  position: absolute;
   width: 10px;
-  left: -3px;
+  left: -5px;
+  bottom: -12px;
 `;
 
 const TableHeaderColumn = ({
