@@ -179,7 +179,7 @@ export default (strings) => {
         sortFn: true,
         maxFn: true,
         sumFn: true,
-        textAlign: 'center',
+        textAlign: 'right',
         paddingRight: 32,
         width: 35,
         displayFn: (row, col, field) => (

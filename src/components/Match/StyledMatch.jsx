@@ -70,11 +70,12 @@ export const StyledAghanimsBuffs = styled.div`
 
 export const StyledLevel = styled.div`
   position: relative;
+  left: 2px;
 
   .level_number {
     position: absolute;
     top: 6px;
-    right: 13px;
+    right: 6px;
     width: 14px;
     text-align: center;
   }
