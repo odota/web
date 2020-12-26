@@ -180,7 +180,7 @@ export default (strings) => {
         maxFn: true,
         sumFn: true,
         textAlign: 'center',
-        paddingRight: 31,
+        paddingRight: 20,
         width: 41,
         displayFn: (row, col, field) => (
           <StyledLevel>
