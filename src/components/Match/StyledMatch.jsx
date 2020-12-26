@@ -77,7 +77,7 @@ export const StyledLevel = styled.div`
   .circular_chart {
     position: absolute;
     fill: none;
-    width: 130%;
+    width: 70%;
   }
 
   .circle {

@@ -181,10 +181,10 @@ export default (strings) => {
         sumFn: true,
         textAlign: 'center',
         paddingRight: 31,
-        width: 21,
+        width: 41,
         displayFn: (row, col, field) => (
           <StyledLevel>
-            {field}
+            <span>{field}</span>
             <svg viewBox="0 0 36 36" className="circular_chart">
               <path
                 className="circle"
