@@ -93,10 +93,10 @@ export const StyledHeroSelector = styled.div`
     width: 100%;
     height: 100%;
     white-space: normal;
-    transition: all 0.3s ease-out;
+    transition: opacity 0.2s ease-out;
     &:hover {
-      transition: all 0.3s ease-out;
       opacity: 1;
+      background-color: #0000005e;
     }
     @media screen and (max-width: ${constants.wrapMobile}) {
       opacity: 1;
