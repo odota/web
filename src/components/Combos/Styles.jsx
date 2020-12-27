@@ -165,10 +165,10 @@ export const StyledHeroSelector = styled.div`
       text-shadow: 1px 1px 1px black;
 
       &.ts-left {
-        background: linear-gradient(45deg, rgb(48 241 241 / 16%), transparent);
+        background: linear-gradient(to left,rgb(17 84 115 / 74%) 40%, transparent);
       }
       &.ts-right {
-        background: linear-gradient(225deg, rgb(189 98 3 / 16%), transparent);
+        background: linear-gradient(to right,rgb(191 74 26 / 65%) 40%, transparent);
       }
     }
   }
@@ -191,12 +191,14 @@ export const StyledSelectedHeroes = styled.div`
     width: 106px;
     background: rgba(18, 24, 37, 0.98);
     box-shadow: inset 0px 0px 5px rgba(21, 21, 21, 0.61);
+    border-radius: 4px;
   }
 
   .hero-img {
     margin-top: 3px;
     margin-right: 5px;
     position: relative;
+    border-radius: 4px;
   }
 
   img {
@@ -230,11 +232,11 @@ export const StyledSelectedHeroes = styled.div`
     border-radius: 5px;
 
     &.left {
-      background: linear-gradient(45deg, #5d5d5d29, transparent);
+      background: linear-gradient(45deg, rgb(48 241 241 / 16%), transparent);
       border-top: 3px solid #087f9263;
     }
     &.right {
-      background: linear-gradient(225deg, #5d5d5d29, transparent);
+      background: linear-gradient(225deg, rgb(189 98 3 / 16%), transparent);
       border-top: 3px solid #a22f0c63;
     }
 
