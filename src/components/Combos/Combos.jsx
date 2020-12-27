@@ -126,7 +126,7 @@ const SelectedHeroes = ({
           )))}
       </div>
     </div>
-    <div className="seperator">{strings.vs}</div>
+    <div className="seperator"/>
     <div className="team-container right">
       <div className="team-title team-b">{formatTemplateToString(strings.team, 'B')}</div>
       <div>
