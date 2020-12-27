@@ -249,6 +249,13 @@ export const StyledSelectedHeroes = styled.div`
       flex-basis: 100%;
       font-size: 20px;
       opacity: 0.6;
+
+      &.team-a {
+        color : #5dfff8;
+      }
+      &.team-b {
+        color: #ff815b;
+      }
     }
   }
 `;
