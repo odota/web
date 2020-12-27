@@ -273,19 +273,16 @@ class Combos extends React.Component {
   }
 
   filterAndRenderElements = (searchValue, resetSearchValue) => {
-    const filteredHeroesArray = heroesArray.map(hero => { 
-      return {hero, isFiltered :  !new RegExp(escapeRegExp(searchValue), 'i').test(hero.localized_name)}});
-
-    return filteredHeroesArray.map(h => (
+    return heroesArray.map(hero => (
       <HeroSelector
-        id={h.hero.id}
-        heroName={h.hero.localized_name}
+        id={hero.id}
+        heroName={hero.localized_name}
         handleHeroSelection={this.handleHeroSelection(resetSearchValue)}
-        selected={[...this.state.teamA, ...this.state.teamB].includes(h.hero.id.toString())}
+        selected={[...this.state.teamA, ...this.state.teamB].includes(hero.id.toString())}
         teamAFull={this.state.teamA.length > 4}
         teamBFull={this.state.teamB.length > 4}
         strings={this.props.strings}
-        isFiltered={h.isFiltered}
+        isFiltered={!new RegExp(escapeRegExp(searchValue), 'i').test(hero.localized_name)}
       />
     ));
   };
