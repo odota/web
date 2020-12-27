@@ -4,18 +4,20 @@ import heroes from 'dotaconstants/build/heroes.json';
 import querystring from 'querystring';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import TextField from 'material-ui/TextField';
+import ActionSearch from 'material-ui/svg-icons/action/search';
 import HeroImage from '../Visualizations/HeroImage';
 import TableSkeleton from '../Skeletons/TableSkeleton';
 import Heading from '../Heading/Heading';
 import ExplorerOutputSection from './../Explorer/ExplorerOutputSection';
 import getQueryString from './getQueryString';
-import HorizontalMenu from '../Visualizations/HorizontalMenu';
 import {
   StyledHeroSelector,
   StyledSelectedHeroes,
   StyledCombos,
+  StyledInputFilter,
 } from './Styles';
-import { formatTemplateToString, escapeRegExp } from '../../utility';
+import { formatTemplateToString, escapeRegExp, IMAGESIZE_ENUM } from '../../utility';
 
 const styles = {
   radioButton: {
@@ -31,6 +33,36 @@ const styles = {
   },
 };
 
+const InputFilter = ({
+  handleChange,
+  value,
+  setInputRef,
+  reset,
+  filterText,
+}) => (
+  <StyledInputFilter>
+    <div className="container">
+      <ActionSearch style={{ marginRight: 6, opacity: '.6', verticalAlign: 'middle' }} />
+      <TextField
+        ref={setInputRef}
+        hintText={filterText}
+        value={value}
+        onChange={handleChange}
+        style={{ width: 150 }}
+      />
+      <div
+        className="reset-button"
+        onClick={reset}
+        onKeyPress={reset}
+        role="button"
+        tabIndex="0"
+      >
+        x
+      </div>
+    </div>
+  </StyledInputFilter>
+);
+
 const heroesArray = Object.keys(heroes).map(id => heroes[id]).sort((a, b) => a.localized_name.localeCompare(b.localized_name));
 
 const HeroSelector = ({
@@ -39,16 +71,10 @@ const HeroSelector = ({
   selected,
   teamAFull,
   teamBFull,
-  strings,
-  heroName,
+  isFiltered,
 }) => (
-  <StyledHeroSelector>
-    <div className="name-overlay">
-      <div className="name">{heroName}</div>
-      <div className="team-indicator team-a">A</div>
-      <div className="team-indicator team-b">B</div>
-    </div>
-    <HeroImage id={id} />
+  <StyledHeroSelector selected={selected} isFiltered={isFiltered}>
+    <HeroImage id={id} imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix}/>
     <div className={`ts-container ${selected ? 'selected' : ''}`}>
       <div
         className={`ts ts-left ${teamAFull ? 'no-event' : ''}`}
@@ -57,7 +83,7 @@ const HeroSelector = ({
         role="button"
         tabIndex="0"
       >
-        {formatTemplateToString(strings.add_team, 'A')}
+        {'A'}
       </div>
       <div
         className={`ts ts-right ${teamBFull ? 'no-event' : ''}`}
@@ -66,7 +92,7 @@ const HeroSelector = ({
         role="button"
         tabIndex="0"
       >
-        {formatTemplateToString(strings.add_team, 'B')}
+        {'B'}
       </div>
     </div>
   </StyledHeroSelector>
@@ -78,15 +104,14 @@ HeroSelector.propTypes = {
   selected: PropTypes.bool,
   teamAFull: PropTypes.bool,
   teamBFull: PropTypes.bool,
-  heroName: PropTypes.string,
   strings: PropTypes.shape({}),
 };
 
 const SelectedHeroes = ({
-  teamA, teamB, handleHeroDeSelection, strings,
+  teamA, teamB, handleHeroDeSelection, strings
 }) => (
   <StyledSelectedHeroes>
-    <div className="team-container">
+    <div className="team-container left">
       <div className="team-title team-a">{formatTemplateToString(strings.team, 'A')}</div>
       <div>
         {[4, 3, 2, 1, 0].map(i =>
@@ -101,8 +126,8 @@ const SelectedHeroes = ({
           )))}
       </div>
     </div>
-    <div className="seperator">{strings.vs}</div>
-    <div className="team-container">
+    <div className="seperator"/>
+    <div className="team-container right">
       <div className="team-title team-b">{formatTemplateToString(strings.team, 'B')}</div>
       <div>
         {[0, 1, 2, 3, 4].map(i =>
@@ -147,6 +172,7 @@ class Combos extends React.Component {
     teamB: asArray(this.parsedUrlQuery.teamB),
     queryResult: {},
     loading: false,
+    searchValue: '',
   };
 
   componentDidMount() {
@@ -155,6 +181,19 @@ class Combos extends React.Component {
     }
   }
 
+  setInputRef = (input) => {
+    this.inputRef = input;
+  };
+
+  resetSearchValue = () => {
+    if (this.state.searchValue.length > 0) {
+      this.inputRef.focus();
+    }
+    this.setState({ searchValue: '' });
+  };
+
+  handleChange = e => this.setState({ searchValue: e.target.value });
+  
   handleHeroSelection = resetSearchValue => (heroID, team) => () => {
     const { teamA, teamB } = this.state;
     if (this.state[team].length < 5 && ![...teamA, ...teamB].includes(heroID)) {
@@ -234,12 +273,7 @@ class Combos extends React.Component {
   }
 
   filterAndRenderElements = (searchValue, resetSearchValue) => {
-    const filteredHeroesArray = heroesArray.filter(hero =>
-      (searchValue
-        ? new RegExp(escapeRegExp(searchValue), 'i').test(hero.localized_name)
-        : true));
-
-    return filteredHeroesArray.map(hero => (
+    return heroesArray.map(hero => (
       <HeroSelector
         id={hero.id}
         heroName={hero.localized_name}
@@ -248,6 +282,7 @@ class Combos extends React.Component {
         teamAFull={this.state.teamA.length > 4}
         teamBFull={this.state.teamB.length > 4}
         strings={this.props.strings}
+        isFiltered={!new RegExp(escapeRegExp(searchValue), 'i').test(hero.localized_name)}
       />
     ));
   };
@@ -258,12 +293,18 @@ class Combos extends React.Component {
     const noHeroesSelected = !teamA.length && !teamB.length;
     return (
       <StyledCombos>
+        <Heading title={strings.combos_title} info={strings.combos_description} />
         <div className="main-section">
-          <Heading title={strings.combos_title} subtitle={strings.combos_description} />
-          <HorizontalMenu
-            filterAndRenderElements={this.filterAndRenderElements}
+          <InputFilter
+            handleChange={this.handleChange}
+            value={this.state.searchValue}
+            reset={this.resetSearchValue}
+            setInputRef={this.setInputRef}
             filterText={strings.placeholder_filter_heroes}
           />
+          <div className="hero-overview">
+            {this.filterAndRenderElements(this.state.searchValue, this.resetSearchValue)}
+          </div>
           <SelectedHeroes
             teamA={teamA}
             teamB={teamB}
