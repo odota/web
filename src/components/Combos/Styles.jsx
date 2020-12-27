@@ -165,10 +165,10 @@ export const StyledHeroSelector = styled.div`
       text-shadow: 1px 1px 1px black;
 
       &.ts-left {
-        background: linear-gradient(to left,rgb(17 84 115 / 74%) 40%, transparent);
+        background: linear-gradient(45deg, rgb(48 241 241 / 16%), transparent);
       }
       &.ts-right {
-        background: linear-gradient(to right,rgb(191 74 26 / 65%) 40%, transparent);
+        background: linear-gradient(225deg, rgb(189 98 3 / 16%), transparent);
       }
     }
   }
