@@ -85,4 +85,5 @@ export default {
   wrapTablet: '1024px',
   wrapMobile: '680px',
   appWidth: 1200,
+  dotaMaxLevel: 30,
 };

@@ -25,7 +25,7 @@ import { TableHeroImage, inflictorWithValue } from '../Visualizations';
 import { CompetitiveRank } from '../Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from '../Icons';
 import constants from '../constants';
-import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem, StyledAghanimsBuffs } from './StyledMatch';
+import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem, StyledAghanimsBuffs, StyledLevel } from './StyledMatch';
 import TargetsBreakdown from './TargetsBreakdown';
 import HeroImage from './../Visualizations/HeroImage';
 import ItemTooltip from '../ItemTooltip';
@@ -179,10 +179,22 @@ export default (strings) => {
         sortFn: true,
         maxFn: true,
         sumFn: true,
-        textAlign: 'right',
-
-        paddingRight: 14,
-        width: 21,
+        textAlign: 'center',
+        paddingRight: 20,
+        width: 41,
+        displayFn: (row, col, field) => (
+          <StyledLevel>
+            <span>{field}</span>
+            <svg viewBox="0 0 36 36" className="circular_chart">
+              <path
+                className="circle"
+                strokeDasharray={`${(field / constants.dotaMaxLevel)*100}, 100`}
+                d="M18 2.0845
+                a 15.9155 15.9155 0 0 1 0 31.831
+                a 15.9155 15.9155 0 0 1 0 -31.831"
+              />
+            </svg>
+          </StyledLevel>)
       },
       {
         displayName: strings.th_kills,
