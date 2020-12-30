@@ -180,7 +180,7 @@ export default (strings) => {
         maxFn: true,
         sumFn: true,
         textAlign: 'center',
-        paddingRight: 20,
+        paddingRight: 7,
         width: 41,
         displayFn: (row, col, field) => (
           <StyledLevel>
@@ -205,7 +205,7 @@ export default (strings) => {
         sumFn: true,
         color: 'hsla(123, 25%, 57%, 1)',
         textAlign: 'right',
-        paddingLeft: 14,
+        paddingLeft: 10,
         paddingRight: 5,
         width: 21,
         underline: 'max',
