@@ -914,7 +914,7 @@
   "tooltip_last_hits": "Număr de lovituri de finalizare de erou",
   "tooltip_denies": "Număr de denied creeps",
   "tooltip_gold": "Total aur acumulat",
-  "tooltip_net_worth": "Hero's net worth",
+  "tooltip_net_worth": "Valoarea netă a eroului",
   "tooltip_gold_per_min": "Aur acumulat pe minut",
   "tooltip_xp_per_min": "Experiență acumulată pe minut",
   "tooltip_stuns_per_min": "Secunde de năucire a eroilor pe minut",
