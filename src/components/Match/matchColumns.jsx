@@ -25,7 +25,7 @@ import { TableHeroImage, inflictorWithValue } from '../Visualizations';
 import { CompetitiveRank } from '../Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from '../Icons';
 import constants from '../constants';
-import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem, StyledAghanimsBuffs, StyledLevel } from './StyledMatch';
+import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledPlayersDeath, StyledRunes, StyledUnusedItem, StyledAghanimsBuffs, StyledLevel } from './StyledMatch';
 import TargetsBreakdown from './TargetsBreakdown';
 import HeroImage from './../Visualizations/HeroImage';
 import ItemTooltip from '../ItemTooltip';
@@ -285,7 +285,6 @@ export default (strings) => {
         sumFn: true,
         displayFn: row => abbreviateNumber(row.net_worth),
         textAlign: 'right',
-        paddingLeft: 14,
         width: 32,
         underline: 'max',
       },
@@ -368,25 +367,6 @@ export default (strings) => {
         underline: 'max',
       },
       {
-        displayName: (
-          <StyledGoldIcon>
-            {strings.th_gold}
-            <img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="" />
-          </StyledGoldIcon>
-        ),
-        tooltip: strings.tooltip_gold,
-        field: 'total_gold',
-        sortFn: true,
-        color: constants.golden,
-        sumFn: true,
-        displayFn: row => abbreviateNumber(row.total_gold),
-        // relativeBars: true,
-        textAlign: 'right',
-        paddingLeft: 14,
-        width: 32,
-        underline: 'max',
-      },
-      {
         displayName: strings.th_items,
         tooltip: strings.tooltip_items,
         field: 'items',
@@ -438,7 +418,7 @@ export default (strings) => {
           displayName: strings.th_permanent_buffs,
           tooltip: strings.tooltip_permanent_buffs,
           field: 'permanent_buffs',
-          width: 135,
+          width: 60,
           displayFn: row =>
             (row.permanent_buffs && row.permanent_buffs.length > 0 ? row.permanent_buffs
             .filter(b => b.permanent_buff !== AGHANIMS_SCEPTER && b.permanent_buff !== AGHANIMS_SHARD).map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff')) : '-'),
