@@ -7,9 +7,9 @@ import { customHeroImage, IMAGESIZE_ENUM } from '../../utility';
 const HeroImage = ({
   id, isIcon, imageSizeSuffix = IMAGESIZE_ENUM.LARGE.suffix, heroImageEventProps, ...rest
 }) => {
-  // Temporary fix for the CDN icons for void spirit and snapfire:
-  if (isIcon && (Number(id) === 126 || Number(id) === 128)) {
-    return <img src={`/assets/images/dota2/heroes/${id}${isIcon ? '_icon' : ''}.png`} alt="" {...rest} {...heroImageEventProps} />;
+  // Temporary fix for the CDN icons for void spirit, snapfire, & Hoodwink:
+  if (isIcon && [123, 126, 128].includes(Number(id))) {
+    return <img src={`/assets/images/dota2/heroes/${id}_icon.png`} alt="" {...rest} {...heroImageEventProps} />;
   }
   if (customHeroImage.includes(Number(id)) && isIcon) {
     return <img src={`/assets/images/dota2/heroes/${id}${isIcon ? '_icon' : ''}.png`} alt="" {...rest} {...heroImageEventProps} />;
