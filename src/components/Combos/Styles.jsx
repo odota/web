@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import constants from '../constants';
 
 export const StyledCombos = styled.div`
   margin-top: 55px;
@@ -14,26 +15,90 @@ export const StyledCombos = styled.div`
     border-bottom: 1px solid rgba(255, 255, 255, 0.28);
     margin-bottom: 10px;
   }
+
+  .hero-overview {
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(auto-fill,50px);
+    margin-bottom: 50px;
+    @media screen and (max-width: ${constants.wrapMobile}) {
+      grid-template-columns: repeat(auto-fill,60px);
+    }
+  }
+`;
+
+export const StyledInputFilter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+
+  .container {
+    background: #1313135c;
+    padding: 0px 7px 3px 7px;
+    border-radius: 5px;
+    border: 1px solid #e3e3e421;
+  }
+
+  .reset-button {
+    display: inline-block;
+    font-size: 22px;
+    opacity: 0.5;
+    cursor: pointer;
+    margin-left: 10px;
+    outline: none;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
 `;
 
 export const StyledHeroSelector = styled.div`
+  ${props => (props.isFiltered || props.selected) && 
+    `pointer-events: none; 
+    filter: grayscale(1) brightness(0.4);
+    opacity: 0.5;`
+  }
+  overflow: hidden;
+  border-radius: 4px;
+  backface-visibility: hidden;
+  box-sizing: border-box;
+  transition: transform .1s ease-in-out;
+  border: 1px solid transparent;
+
+  @media screen and (min-width: ${constants.wrapMobile}) {
+    :hover {
+      transform: scale(2);
+      box-shadow: 0px 0px 8px 5px #000000b0;
+      z-index: 100;
+      border: 1px solid #d2d2d2a6;
+    }
+  }
+
   display: inline-block;
   position: relative;
   line-height: 0px;
+  width: 100%;
   img {
-    height: 72px;
+    width: 100%;
+    height: 100%;
   }
 
   .ts-container {
+    outline: none;
     opacity: 0;
     position: absolute;
     top: 0;
     width: 100%;
     height: 100%;
     white-space: normal;
-    transition: all 0.3s ease-out;
+    transition: opacity 0.2s ease-out;
     &:hover {
-      transition: all 0.3s ease-out;
+      opacity: 1;
+      background-color: #0000005e;
+    }
+    @media screen and (max-width: ${constants.wrapMobile}) {
       opacity: 1;
     }
   }
@@ -47,11 +112,14 @@ export const StyledHeroSelector = styled.div`
     background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.7));
 
     & .name {
-    position: absolute;
-    bottom: 10px;
-    text-align: center;
-    width: 100%;
-    font-size: 14px;
+      position: relative;
+      text-align: center;
+      font-size: 10px;
+      white-space: nowrap;
+      line-height: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      top: 75%;
     }
 
 
@@ -78,36 +146,31 @@ export const StyledHeroSelector = styled.div`
     display: none;
   }
 
-  .ts-container.selected {
-    opacity: 1;
-    background-color: rgba(32, 36, 45, 0.76);
-    & > div {
-      display: none;
-    }
-    transition: all 0.3s ease-out;
-  }
-
   .ts {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 50%;
     height: 100%;
-    line-height: 16px;
-    color: rgb(158, 152, 152);
-    font-size: 13px;
-    word-break: break-word;
-    white-space: normal;
+    font-size: 15px;
     text-align: center;
-    background: rgba(0, 0, 0, 0.8);
     cursor: pointer;
     transition: all 0.1s ease-out;
     vertical-align: top;
+    outline: none;
+    color: #ffffffeb;
+    text-shadow: 1px 1px black;
 
     &:hover {
       color: white;
-      background: rgba(23, 59, 90, 0.8);
       text-shadow: 1px 1px 1px black;
+
+      &.ts-left {
+        background: linear-gradient(to left,rgb(17 84 115 / 74%) 40%, transparent);
+      }
+      &.ts-right {
+        background: linear-gradient(to right,rgb(191 74 26 / 65%) 40%, transparent);
+      }
     }
   }
 
@@ -129,12 +192,14 @@ export const StyledSelectedHeroes = styled.div`
     width: 106px;
     background: rgba(18, 24, 37, 0.98);
     box-shadow: inset 0px 0px 5px rgba(21, 21, 21, 0.61);
+    border-radius: 4px;
   }
 
   .hero-img {
     margin-top: 3px;
     margin-right: 5px;
     position: relative;
+    border-radius: 4px;
   }
 
   img {
@@ -165,6 +230,16 @@ export const StyledSelectedHeroes = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    border-radius: 5px;
+
+    &.left {
+      background: linear-gradient(45deg, rgb(48 241 241 / 16%), transparent);
+      border-top: 3px solid #087f9263;
+    }
+    &.right {
+      background: linear-gradient(225deg, rgb(189 98 3 / 16%), transparent);
+      border-top: 3px solid #a22f0c63;
+    }
 
     & div {
       text-align: center;
@@ -174,6 +249,13 @@ export const StyledSelectedHeroes = styled.div`
       flex-basis: 100%;
       font-size: 20px;
       opacity: 0.6;
+
+      &.team-a {
+        color : #5dfff8;
+      }
+      &.team-b {
+        color: #ff815b;
+      }
     }
   }
 `;

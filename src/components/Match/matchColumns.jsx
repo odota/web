@@ -25,7 +25,7 @@ import { TableHeroImage, inflictorWithValue } from '../Visualizations';
 import { CompetitiveRank } from '../Visualizations/Table/HeroImage';
 import { IconBackpack, IconRadiant, IconDire } from '../Icons';
 import constants from '../constants';
-import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledGoldIcon, StyledPlayersDeath, StyledRunes, StyledUnusedItem, StyledAghanimsBuffs } from './StyledMatch';
+import { StyledAbilityUpgrades, StyledBackpack, StyledCosmetic, StyledDivClearBoth, StyledPlayersDeath, StyledRunes, StyledUnusedItem, StyledAghanimsBuffs, StyledLevel } from './StyledMatch';
 import TargetsBreakdown from './TargetsBreakdown';
 import HeroImage from './../Visualizations/HeroImage';
 import ItemTooltip from '../ItemTooltip';
@@ -170,7 +170,7 @@ export default (strings) => {
         field: 'player_slot',
         displayFn: (row, col, field, i) => heroTd(row, col, field, i, false, partyStyles(row, match), false, null),
         sortFn: true,
-        width: 236,
+        width: 170,
       },
       {
         displayName: strings.th_level,
@@ -179,10 +179,22 @@ export default (strings) => {
         sortFn: true,
         maxFn: true,
         sumFn: true,
-        textAlign: 'right',
-
-        paddingRight: 14,
-        width: 21,
+        textAlign: 'center',
+        paddingRight: 7,
+        width: 41,
+        displayFn: (row, col, field) => (
+          <StyledLevel>
+            <span>{field}</span>
+            <svg viewBox="0 0 36 36" className="circular_chart">
+              <path
+                className="circle"
+                strokeDasharray={`${(field / constants.dotaMaxLevel)*100}, 100`}
+                d="M18 2.0845
+                a 15.9155 15.9155 0 0 1 0 31.831
+                a 15.9155 15.9155 0 0 1 0 -31.831"
+              />
+            </svg>
+          </StyledLevel>)
       },
       {
         displayName: strings.th_kills,
@@ -193,7 +205,7 @@ export default (strings) => {
         sumFn: true,
         color: 'hsla(123, 25%, 57%, 1)',
         textAlign: 'right',
-        paddingLeft: 14,
+        paddingLeft: 10,
         paddingRight: 5,
         width: 21,
         underline: 'max',
@@ -260,8 +272,20 @@ export default (strings) => {
         sumFn: true,
         // relativeBars: true,
         paddingLeft: 0,
-        paddingRight: 10,
+        paddingRight: 8,
         width: 21,
+        underline: 'max',
+      },
+      {
+        displayName: strings.th_net_worth,
+        tooltip: strings.tooltip_net_worth,
+        field: 'net_worth',
+        sortFn: true,
+        color: constants.golden,
+        sumFn: true,
+        displayFn: row => abbreviateNumber(row.net_worth),
+        textAlign: 'right',
+        width: 32,
         underline: 'max',
       },
       {
@@ -343,25 +367,6 @@ export default (strings) => {
         underline: 'max',
       },
       {
-        displayName: (
-          <StyledGoldIcon>
-            {strings.th_gold}
-            <img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="" />
-          </StyledGoldIcon>
-        ),
-        tooltip: strings.tooltip_gold,
-        field: 'total_gold',
-        sortFn: true,
-        color: constants.golden,
-        sumFn: true,
-        displayFn: row => abbreviateNumber(row.total_gold),
-        // relativeBars: true,
-        textAlign: 'right',
-        paddingLeft: 14,
-        width: 32,
-        underline: 'max',
-      },
-      {
         displayName: strings.th_items,
         tooltip: strings.tooltip_items,
         field: 'items',
@@ -413,7 +418,7 @@ export default (strings) => {
           displayName: strings.th_permanent_buffs,
           tooltip: strings.tooltip_permanent_buffs,
           field: 'permanent_buffs',
-          width: 135,
+          width: 60,
           displayFn: row =>
             (row.permanent_buffs && row.permanent_buffs.length > 0 ? row.permanent_buffs
             .filter(b => b.permanent_buff !== AGHANIMS_SCEPTER && b.permanent_buff !== AGHANIMS_SHARD).map(buff => inflictorWithValue(buffs[buff.permanent_buff], buff.stack_count, 'buff')) : '-'),
