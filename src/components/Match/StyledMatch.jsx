@@ -81,7 +81,7 @@ export const StyledLevel = styled.div`
   }
 
   .circle {
-    stroke: #ffffff4d;
+    stroke: #a9a9a94d;
     stroke-width: 2.8;
     stroke-linecap: round;
   }
