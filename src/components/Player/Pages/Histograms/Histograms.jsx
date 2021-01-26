@@ -9,6 +9,7 @@ import Container from '../../../Container';
 import Heading from '../../../Heading';
 import { HistogramGraph } from '../../../Visualizations';
 import dataColumns from '../matchDataColumns';
+import { formatGraphValueData } from '../../../../utility';
 
 const getMedian = (columns, midpoint) => {
   let sum = 0;
@@ -19,9 +20,10 @@ const getMedian = (columns, midpoint) => {
   return medianCol && medianCol.x;
 };
 
-const getSubtitleStats = (columns, strings) => {
+const getSubtitleStats = (columns, strings, histogramName) => {
   const total = columns.reduce((sum, col) => (sum + col.games), 0);
-  const median = getMedian(columns, total / 2);
+  let median = getMedian(columns, total / 2);
+  median = formatGraphValueData(median, histogramName);
   return `(${strings.heading_total_matches}: ${total}${(median !== undefined) ? `, ${strings.heading_median}: ${median})` : ''}`;
 };
 
@@ -45,7 +47,7 @@ const Histogram = ({
       <div>
         <Heading
           title={strings[`heading_${histogramName}`]}
-          subtitle={loading ? '' : [getSubtitleDescription(histogramName, strings), getSubtitleStats(columns, strings)].filter(Boolean).join(' ')}
+          subtitle={loading ? '' : [getSubtitleDescription(histogramName, strings), getSubtitleStats(columns, strings, histogramName)].filter(Boolean).join(' ')}
         />
         <HistogramGraph columns={columns || []} histogramName={histogramName} />
       </div>
