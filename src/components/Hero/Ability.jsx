@@ -38,7 +38,7 @@ const AbilityIcon = styled.img`
 const AbilityManaComsumption = styled.div`
   background: ${constants.colorBlackMuted};
   color: ${constants.colorMana};
-  border-radius: 2px 0 0 0;
+  border-radius:  4px 0 4px 0;
   font-weight: 600;
   bottom: 0;
   font-size: 10px;
