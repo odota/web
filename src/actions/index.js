@@ -91,6 +91,9 @@ export const getAbilities = () => async (dispatch) => {
 export const getHeroAbilities = () => async (dispatch) => {
   dispatch({ type: 'heroAbilities', payload: await import('dotaconstants/build/hero_abilities.json') });
 };
+export const getHeroAghs = () => async (dispatch) => {
+  dispatch({ type: 'heroAghs', payload: await import('dotaconstants/build/aghs_desc.json') });
+};
 export const getNeutralAbilities = () => async (dispatch) => {
   dispatch({ type: 'neutralAbilities', payload: await import('dotaconstants/build/neutral_abilities.json') });
 };
