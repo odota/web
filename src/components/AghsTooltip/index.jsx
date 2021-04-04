@@ -55,17 +55,16 @@ const HeaderContent = styled.div`
     }
 `;
 
-const HeaderBgImg = styled.div`
+const HeaderBgImg = styled.img`
     position: absolute;
-    left: -20px;
-    height: 100%;
-    width: 20%;
-    background: ${({ img }) => `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${process.env.REACT_APP_IMAGE_CDN}${img}')`};
-    background-color: transparent;
-    background-repeat: no-repeat;
     transform: scale(4);
     filter: blur(15px);
+    opacity: 0.4;
 `;
+
+const ShardWrapper = styled.div`
+    overflow:hidden;
+`
 
 const HeaderBgImg2 = styled.div`
     position: absolute;
@@ -75,7 +74,7 @@ const HeaderBgImg2 = styled.div`
     background: ${({ img }) => `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${process.env.REACT_APP_IMAGE_CDN}${img}')`};
     background-color: transparent;
     background-repeat: no-repeat;
-    transform: scale(4);
+    transform: scale(2);
     filter: blur(15px);
 `;
 
@@ -97,31 +96,34 @@ const Break = styled.div`
 
 const AghsTooltip = ({aghs}) => (
   <Wrapper>
-    <HeaderBgImg img={aghs.img} />
-    <Header>
-      
-      <HeaderContent>
-        <img id="ability-img" src="/assets/images/dota2/talent_tree.svg" alt="" />
-        <div className="name">Scepter/Shard...</div>
-      </HeaderContent>
-    </Header>
-    <Description>
-      this is a description...{aghs.hero_npc_name}
-      <Break />
-      2nd desc (after break)
-    </Description>
-    <Header>
-      <HeaderBgImg2 img={aghs.img} />
-      <HeaderContent>
-        <img id="ability-img" src="/assets/images/dota2/talent_tree.svg" alt="" />
-        <div className="name">Scepter/Shard...{aghs.hero_npc_name}</div>
-      </HeaderContent>
-    </Header>
-    <Description>
-      this is a description...
-      <Break />
-      2nd desc (after break)
-    </Description>
+    <ShardWrapper id="ShardOuterWrapper1">
+      <Header>
+        <HeaderContent>
+          <HeaderBgImg src="https://steamcdn-a.akamaihd.net/apps/dota2/images/abilities/antimage_mana_break_md.png" />
+          <img id="ability-img" src="/assets/images/dota2/talent_tree.svg" alt="" />
+          <div className="name">Scepter/Shard...</div>
+        </HeaderContent>
+      </Header>
+      <Description>
+        this is a description...{aghs.hero_npc_name}
+        <Break />
+        2nd desc (after break)
+      </Description>
+    </ShardWrapper>
+    <ShardWrapper id="ShardOuterWraper2">
+      <Header>
+        <HeaderContent>
+          <HeaderBgImg src="https://steamcdn-a.akamaihd.net/apps/dota2/images/abilities/antimage_mana_break_md.png" />
+          <img id="ability-img" src="/assets/images/dota2/talent_tree.svg" alt="" />
+          <div className="name">Scepter/Shard...{aghs.hero_npc_name}</div>
+        </HeaderContent>
+      </Header>
+      <Description>
+        this is a description...
+        <Break />
+        2nd desc (after break)
+      </Description>
+    </ShardWrapper>
   </Wrapper>
 );
 
