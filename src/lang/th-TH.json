@@ -661,7 +661,7 @@
   "story_tower_simple": "หนึ่งในป้อมของฝ่าย {team}",
   "story_towers_n": "{n} ป้อมของฝ่าย {team}",
   "story_barracks": " {lane} {rax_type} ของฝ่าย {team}",
-  "story_barracks_both": "บาร์แร็คฝั่ง{lane}ทั้งสองของฝ่าย {team}",
+  "story_barracks_both": "บาร์แร็คเลน{lane}ทั้งสองของฝ่าย {team}",
   "story_time_marker": "ผ่านไป {minutes} นาที",
   "story_item_purchase": "{player} ซื้อ {item} ณ เวลา {time}",
   "story_predicted_victory": "{players} ทำนายว่าฝ่าย {team} จะชนะ",
