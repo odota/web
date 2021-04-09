@@ -99,40 +99,38 @@ const Break = styled.div`
     background-color: #080D15;
 `;
 
-function upgradeType(aghs) {
-  if (Array.isArray(values)) {
-    return values.filter(value => value).join(' / ');
-  }
-  return values;
-}
-
-const AghsTooltip = ({aghs}) => (
+const AghsTooltip = ({aghs: props}) => (
   <Wrapper>
     <InnerWrapper>
       <Header>
-      <HeaderBgImg img={aghs.img} />
+      <HeaderBgImg img={props.img} />
         <HeaderContent>
-          <img id="ability-img" src="https://steamcdn-a.akamaihd.net/apps/dota2/images/abilities/antimage_mana_break_md.png" alt="" />
-          <div className="name">Scepter/Shard...</div>
-          {aghs.upgradeType() ?
-            <span classNmae="upgrade_type">New Ability</span> :
-            <span classNmae="upgrade_type">Ability Upgrade</span>
-          }
+          <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${props.img}`} alt="" />
+          <div className="name">Scepter</div>
+          {/* {props.heroAghs.scepter.new_skill ?
+            <span className="upgrade_type">New Ability</span> :
+            <span className="upgrade_type">Upgrade</span>
+          } */}
           <div className="header2"></div>
         </HeaderContent>
       </Header>
       <Description>
-        this is a description... this is a long ass descriptiong yes yes yes hello{aghs.hero_npc_name}
+        hero: {props.hero_npc_name}<br/>
+        aghinism:
         <Break />
         2nd desc (after break)
       </Description>
     </InnerWrapper>
     <InnerWrapper>
       <Header>
-        <HeaderBgImg img={aghs.img} />
+        <HeaderBgImg img={props.img} />
         <HeaderContent>
-          <img id="ability-img" src="https://steamcdn-a.akamaihd.net/apps/dota2/images/abilities/antimage_mana_break_md.png" alt="" />
-          <div className="name">Scepter/Shard...{aghs.hero_npc_name}</div>
+          <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${props.img}`} alt="" />
+          <div className="name">Shard</div>
+          {/* {props.shard.new_skill ?
+            <span className="upgrade_type">New Ability</span> :
+            <span className="upgrade_type">Upgrade</span>
+          } */}
         </HeaderContent>
       </Header>
       <Description>
