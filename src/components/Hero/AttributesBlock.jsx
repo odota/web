@@ -123,7 +123,7 @@ HeroAttributes.propTypes = {
     projectile_speed: number,
     attack_rate: number,
     move_speed: number,
-    turn_rate: number | null,
+    turn_rate: number,
     cm_enabled: bool,
     legs: number,
   }),

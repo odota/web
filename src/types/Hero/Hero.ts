@@ -26,6 +26,6 @@ export type Hero = {
   projectile_speed: number
   attack_rate: number
   move_speed: number
-  turn_rate: number
+  turn_rate: number | null
   legs: number
 }
