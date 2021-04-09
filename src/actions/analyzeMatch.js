@@ -1,10 +1,8 @@
-import items from 'dotaconstants/build/items.json';
 import skillshots from 'dotaconstants/build/skillshots.json';
 import {
   isSupport,
   getObsWardsPlaced,
   isRoshHero,
-  isActiveItem,
 } from '../utility';
 import store from '../store';
 
