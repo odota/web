@@ -929,7 +929,7 @@
   "tooltip_hero_healing": "จำนวนการรักษาพลังชีวิตต่อฮีโร่",
   "tooltip_duration": "ระยะเวลาของแมตช์",
   "tooltip_first_blood_time": "เวลาที่ First Blood เกิดขึ้น",
-  "tooltip_kda": "(Kills + Assists) / (Deaths + 1)",
+  "tooltip_kda": "(สังหาร + ช่วยเหลือ) / (ตาย + 1)",
   "tooltip_stuns": "จำนวนวินาทีที่หยุดฮีโร่",
   "tooltip_dead": "ระยะเวลาที่ตาย",
   "tooltip_buybacks": "จำนวนการซื้อเกิด",
