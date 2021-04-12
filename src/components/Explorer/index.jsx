@@ -26,7 +26,8 @@ import { formatTemplateToString } from '../../utility';
 const playerMapping = {};
 const teamMapping = {};
 
-const defaultMinDate = 30;
+
+const defaultMaxDate = 0;
 
 function jsonResponse(response) {
   return response.json();
@@ -74,8 +75,9 @@ class Explorer extends React.Component {
       builder: urlState,
     };
 
-    if (!('minDate' in this.state.builder)) {
-      this.state.builder.minDate = new Date(new Date().setDate(new Date().getDate() - defaultMinDate)).toISOString();
+    
+    if (!('maxDate' in this.state.builder)) {
+      this.state.builder.maxDate = new Date(new Date().setDate(new Date().getDate() - defaultMaxDate )).toISOString();
     }
   }
   async componentDidMount() {
@@ -259,6 +261,7 @@ class Explorer extends React.Component {
           <ExplorerFormField label={strings.explorer_max_gold_adv} fields={expandedFields} builderField="maxGoldAdvantage" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_min_gold_adv} fields={expandedFields} builderField="minGoldAdvantage" handleFieldUpdate={handleFieldUpdate} builder={builder} />
         </ExplorerControlSection>
+        
         <div>
           <RaisedButton
             primary={!this.state.loading}
