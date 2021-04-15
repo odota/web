@@ -1,11 +1,8 @@
-import items from 'dotaconstants/build/items.json';
-import itemGroups from 'dotaconstants/build/item_groups.json';
 import skillshots from 'dotaconstants/build/skillshots.json';
 import {
   isSupport,
   getObsWardsPlaced,
   isRoshHero,
-  isActiveItem,
 } from '../utility';
 import store from '../store';
 
@@ -154,54 +151,6 @@ export default function analyzeMatch(match, _pm) {
           return raw / target;
         },
         top: target,
-      };
-    },
-    // unused item actives (multiple results?)
-    unused_item(m, pm) {
-      const whitelistUnusedActiveItems = [
-        'quelling_blade',
-        'faerie_fire',
-        'enchanted_mango',
-        'power_treads',
-        'ring_of_basilius',
-        'sphere',
-        'butterfly',
-        'bfury',
-        'ring_of_aquila',
-      ];
-      function getGroupedItemUses(key) {
-        let total = 0;
-        Object.keys(pm.item_uses).forEach((key2) => {
-          if (key === key2 || itemGroups.some(g => (key in g) && (key2 in g))) {
-            total += pm.item_uses[key];
-          }
-        });
-        return total;
-      }
-      const result = [];
-      if (pm.purchase) {
-        Object.keys(pm.purchase).forEach((key) => {
-          if (pm.purchase[key] && getGroupedItemUses(key) < 1 && items[key] && isActiveItem(key)) {
-            // if item has cooldown, consider it usable
-            // if item is purchased shortly before game end, ignore it
-            if (m.duration - pm.purchase[key].time < 60) {
-              if (whitelistUnusedActiveItems.includes(key)) {
-                result.push(key);
-              }
-            }
-          }
-        });
-      }
-
-      return {
-        name: strings.analysis_unused_item,
-        metadata: result,
-        value: result.length,
-        valid: pm.purchase && result.length,
-        score(raw) {
-          return 4 - raw;
-        },
-        top: 0,
       };
     },
   };
