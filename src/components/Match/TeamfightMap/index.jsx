@@ -163,7 +163,6 @@ const Styled = styled.div`
 }
 
 .radiant {
-  filter: drop-shadow(0 0 20px #000);
   padding: 0;
 
   & .goldChange {
@@ -173,12 +172,11 @@ const Styled = styled.div`
   margin: 0;
   fill: #f5f5f5;
   & svg {
-    filter: drop-shadow(0 0 5px green);
+    filter: drop-shadow(0 0 5px green) drop-shadow(0 0 20px #000);
   }
 }
 
 .dire {
-  filter: drop-shadow(0 0 20px #000);
   padding: 0;
 
   & .goldChange {
@@ -186,7 +184,7 @@ const Styled = styled.div`
   }
 
   & svg {
-    filter: drop-shadow(0 0 5px red);
+    filter: drop-shadow(0 0 5px red) drop-shadow(0 0 20px #000);
   }
 
   margin: 0;
