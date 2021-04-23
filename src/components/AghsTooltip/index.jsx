@@ -1,5 +1,5 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import propTypes, { string } from 'prop-types';
 import styled from 'styled-components';
 import constants from '../constants';
 
@@ -71,19 +71,6 @@ const HeaderBgImg = styled.div`
     filter: blur(15px);
 `;
 
-const HeaderBgImg2 = styled.div`
-    position: absolute;
-    left: -20px;
-    height: 100%;
-    width: 20%;
-    background: ${({ img }) => `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${process.env.REACT_APP_IMAGE_CDN}${img}')`};
-    background-color: transparent;
-    background-repeat: no-repeat;
-    transform: scale(4);
-    filter: blur(15px);
-`;
-
-
 const Description = styled.div`
     position: relative;
     padding: 13px;
@@ -99,51 +86,55 @@ const Break = styled.div`
     background-color: #080D15;
 `;
 
-const AghsTooltip = ({aghs: props}) => (
-  <Wrapper>
-    <InnerWrapper>
-      <Header>
-      <HeaderBgImg img={props.img} />
-        <HeaderContent>
-          <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${props.img}`} alt="" />
-          <div className="name">Scepter</div>
-          {/* {props.heroAghs.scepter.new_skill ?
-            <span className="upgrade_type">New Ability</span> :
-            <span className="upgrade_type">Upgrade</span>
-          } */}
-          <div className="header2"></div>
-        </HeaderContent>
-      </Header>
-      <Description>
-        hero: {props.hero_npc_name}<br/>
-        aghinism:
-        <Break />
-        2nd desc (after break)
-      </Description>
-    </InnerWrapper>
-    <InnerWrapper>
-      <Header>
-        <HeaderBgImg img={props.img} />
-        <HeaderContent>
-          <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${props.img}`} alt="" />
-          <div className="name">Shard</div>
-          {/* {props.shard.new_skill ?
-            <span className="upgrade_type">New Ability</span> :
-            <span className="upgrade_type">Upgrade</span>
-          } */}
-        </HeaderContent>
-      </Header>
-      <Description>
-        this is a description...
-        <Break />
-        2nd desc (after break)
-      </Description>
-    </InnerWrapper>
-  </Wrapper>
-);
+const AghsTooltip = (props) => {
+
+
+  return (
+    <Wrapper>
+      <InnerWrapper>
+        <Header>
+          <HeaderBgImg img={props.img} />
+          <HeaderContent>
+            <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${props.aghs.img}`} alt="" />
+            <div className="name">Scepter</div>
+            {/* {props.aghs.scepter.new_skill ?
+              <span className="upgrade_type">New Ability</span> :
+              <span className="upgrade_type">Upgrade</span>
+            } */}
+            <div className="header2"></div>
+          </HeaderContent>
+        </Header>
+        <Description>
+          skill: {props.aghs.scepter.skill_name_loc} - {props.img}
+          <Break />
+          {props.aghs.scepter.desc}
+        </Description>
+      </InnerWrapper>
+      <InnerWrapper>
+        <Header>
+          <HeaderBgImg img={props.img} />
+          <HeaderContent>
+            <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${props.img}`} alt="" />
+            <div className="name">Shard</div>
+            {/* {props.shard.new_skill ?
+              <span className="upgrade_type">New Ability</span> :
+              <span className="upgrade_type">Upgrade</span>
+            } */}
+          </HeaderContent>
+        </Header>
+        <Description>
+        skill: {props.aghs.shard.skill_name_loc}
+          <Break />
+          {props.aghs.shard.desc}
+        </Description>
+      </InnerWrapper>
+    </Wrapper>
+  );
+}
 
 AghsTooltip.propTypes = {
-  aghs: propTypes.shape({}).isRequired,
+  aghs_desc: string.isRequired,
+  img: string.isRequired,
 };
 
 export default AghsTooltip;

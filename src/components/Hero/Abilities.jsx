@@ -82,7 +82,7 @@ const Abilities = ({ hero, abilities, heroAbilities }) => {
       </AbilityItem>
       {renderAbilities(heroAbs.skills)}
       <AbilityItem>
-        <Aghs hero_npc_name={hero.name} skills={heroAbs.skills} img="/apps/dota2/images/abilities/antimage_mana_break_md.png"/>
+        <Aghs hero_npc_name={hero.name} skills={heroAbs.skills}/>
       </AbilityItem>
     </Wrapper>
   );
