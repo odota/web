@@ -1162,8 +1162,8 @@
   "add_team": "加入战队{0}",
   "team": "战队{0}",
   "combos": "组合",
-  "combos_title": "英雄组合",
-  "combos_description": "在公共和职业比赛中搜索英雄组合",
+  "combos_title": "英雄搭配",
+  "combos_description": "在公开和职业比赛中搜索英雄搭配",
   "public_matches": "公共比赛",
   "pro_matches": "职业比赛"
 }
