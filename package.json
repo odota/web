@@ -95,7 +95,7 @@
     "@types/react-tooltip": "3.9.3",
     "@types/react-transition-group": "^2.9.2",
     "@types/recharts": "^1.8.3",
-    "@types/seamless-immutable": "^7.1.11",
+    "@types/seamless-immutable": "^7.1.15",
     "@types/styled-components": "4.0.3",
     "@types/wordcloud": "^1.1.1",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
