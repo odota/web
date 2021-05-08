@@ -608,10 +608,9 @@ export function fromNow(time) {
   return '';
 }
 
-export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffix = IMAGESIZE_ENUM.SMALL.suffix, guideUrl, guideType) {
+export function displayHeroId(row, col, field, showGuide = false, guideUrl, guideType) {
   const { strings } = store.getState().app;
   const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
-  const imageUrl = getHeroImageUrl(row[col.field], imageSizeSuffix);
   const getSubtitle = (row) => {
     if (row.match_id && row.player_slot !== undefined) {
       let lane;
@@ -654,7 +653,6 @@ export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffi
   return (
     <TableHeroImage
       parsed={row.version}
-      image={imageUrl}
       heroID={row.hero_id}
       title={getTitle(row, col, heroName)}
       subtitle={getSubtitle(row)}
@@ -669,7 +667,7 @@ export function displayHeroId(row, col, field, showGuide = false, imageSizeSuffi
 }
 
 export function displayHeroIdWithPvgna(row, col, field) {
-  return displayHeroId(row, col, field, true, IMAGESIZE_ENUM.SMALL.suffix, row.pvgnaGuide && row.pvgnaGuide.url, 'PVGNA');
+  return displayHeroId(row, col, field, true, row.pvgnaGuide && row.pvgnaGuide.url, 'PVGNA');
 }
 
 export function displayHeroIdWithMoreMmr(row, col, field) {
@@ -679,7 +677,7 @@ export function displayHeroIdWithMoreMmr(row, col, field) {
     url = `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`;
   }
 
-  return displayHeroId(row, col, field, true, IMAGESIZE_ENUM.SMALL.suffix, url, 'MOREMMR');
+  return displayHeroId(row, col, field, true, url, 'MOREMMR');
 }
 
 /**
