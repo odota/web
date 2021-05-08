@@ -33,7 +33,7 @@ const year = month * 12;
 // temporary host a hero image ourselves:
 // put the hero ID inside this array
 // and upload a {HERO_ID}.png and {HERO_ID}_icon.png image to \assets\images\dota2\heroes
-export const customHeroImage = [];
+export const customHeroImage = [135];
 
 export const iconStyle = {
   position: 'relative',
