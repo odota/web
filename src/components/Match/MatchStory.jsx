@@ -7,6 +7,7 @@ import items from 'dotaconstants/build/items.json';
 import itemColors from 'dotaconstants/build/item_colors.json';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
 import { IconRadiant, IconDire } from '../Icons';
+import HeroImage from "../Visualizations/HeroImage";
 import {
   formatSeconds,
   jsonFn,
@@ -68,13 +69,7 @@ const PlayerSpan = (player) => {
           key={`player_${player.player_slot}`}
           style={{ color: (player.isRadiant ? constants.colorGreen : constants.colorRed) }}
         >
-          <img
-            src={heroes[player.hero_id]
-              ? process.env.REACT_APP_IMAGE_CDN + heroes[player.hero_id].icon
-              : '/assets/images/blank-1x1.gif'
-            }
-            alt=""
-          />
+          <HeroImage id={player.hero_id} isIcon/>
           {heroName}
         </StyledStorySpan>
       </Tooltip>
