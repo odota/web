@@ -7,13 +7,13 @@ import { customHeroImage, IMAGESIZE_ENUM } from '../../utility';
 const HeroImage = ({
   id, isIcon, imageSizeSuffix = IMAGESIZE_ENUM.LARGE.suffix, heroImageEventProps, ...rest
 }) => {
+  // Temporary fix for the CDN icons for void spirit, snapfire, Hoodwink & Dawnbreaker:
+  if (isIcon && [123, 126, 128, 135].includes(Number(id))) {
+    return <img src={`/assets/images/dota2/heroes/${id}_icon.png`} alt="" {...rest} {...heroImageEventProps} />;
+  }
   // Dawnbreaker
   if ([135].includes(Number(id))) {
     return <img src="//cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png" alt="" {...rest} {...heroImageEventProps} />
-  }
-  // Temporary fix for the CDN icons for void spirit, snapfire, & Hoodwink:
-  if (isIcon && [123, 126, 128].includes(Number(id))) {
-    return <img src={`/assets/images/dota2/heroes/${id}_icon.png`} alt="" {...rest} {...heroImageEventProps} />;
   }
   if (customHeroImage.includes(Number(id)) && isIcon) {
     return <img src={`/assets/images/dota2/heroes/${id}${isIcon ? '_icon' : ''}.png`} alt="" {...rest} {...heroImageEventProps} />;
