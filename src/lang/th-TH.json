@@ -640,7 +640,7 @@
   "story_teamfight_none_dead_loss": "{winning_team} เอาชนะการต่อสู้เป็นทีมได้โดยไม่ได้สังหารใครเลย แต่ทว่าได้สูญเสีย {win_dead} ทำให้รายได้สุทธิของทีมเพิ่มขึ้น {net_change}",
   "story_lane_intro": "เมื่อเกมดำเนินผ่านไป 10 นาที ผลลัพธ์ช่วงในเลนออกมาเป็นดังนี้:",
   "story_lane_radiant_win": "{radiant_players} เอาชนะเลน{lane}ด้วยการปราบ {dire_players}",
-  "story_lane_radiant_lose": "{radiant_players} พ่ายแพ้เลน{lane}ให้แก่ {dire_players}",
+  "story_lane_radiant_lose": "{radiant_players} พ่ายแพ้เลน{lane}ให้กับ {dire_players}",
   "story_lane_draw": "{radiant_players} เสมอเลน{lane}อย่างสูสีกับ {dire_players}",
   "story_lane_free": "{players} ได้ฟาร์มในเลน{lane}อย่างสบายใจ",
   "story_lane_empty": "ไม่มีใครอยู่ในเลน{lane}เลย",
