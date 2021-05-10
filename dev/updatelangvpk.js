@@ -41,6 +41,7 @@ const langTagNames = {
   'sk-SK': null,
   'sr-SP': null,
   'sv-SE': 'swedish',
+  'th-TH': 'thai',
   'tr-TR': 'turkish',
   'uk-UA': 'ukrainian',
   'vi-VN': null,

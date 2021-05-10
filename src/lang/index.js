@@ -56,7 +56,10 @@ export const langs = [
   }, /* {
     value: 'sv-SE',
     native: 'Svenska',
-  }, {
+  }, */ {
+    value: 'th-TH',
+    native: 'ไทย',
+  }, /* {
     value: 'tr-TR',
     native: 'Türkçe',
   },  {
