@@ -92,7 +92,7 @@ class ExplorerOutputSection extends React.Component {
                     <IconTrophy style={{ position: 'absolute', left: -12, bottom: 12 }} />
                   </WinnerSpan>
                   )}
-                  {field.map((id) => (
+                  {row.map((id) => (
                     <HeroImage
                       id={id}
                       imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
