@@ -610,6 +610,7 @@ export function fromNow(time) {
 
 export function displayHeroId(row, col, field, showGuide = false, guideUrl, guideType) {
   const { strings } = store.getState().app;
+  const heroId = row[col.field];
   const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
   const getSubtitle = (row) => {
     if (row.match_id && row.player_slot !== undefined) {
@@ -653,7 +654,7 @@ export function displayHeroId(row, col, field, showGuide = false, guideUrl, guid
   return (
     <TableHeroImage
       parsed={row.version}
-      heroID={row.hero_id}
+      heroID={heroId}
       title={getTitle(row, col, heroName)}
       subtitle={getSubtitle(row)}
       heroName={heroName}
