@@ -13,10 +13,6 @@ const Wrapper = styled.div`
   border-radius: 4px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, .3);
   position: relative;
-
-  .__react_component_tooltip {
-    opacity: 1 !important;
-    padding: 0px !important;
 `;
 
 const AghsSlot = styled.div`
@@ -29,14 +25,30 @@ const AghsSlot = styled.div`
   transition: opacity .2s, box-shadow .4s, transform .2s;
   width: 100%;
 
+  .solid_line {
+    border-top: 1px solid #1e1e1f;
+    margin: 2px 5px 2px 5px;
+  }
+`;
+
+const IconWrapper = styled.div`
+  display: block;
+  overflow: hidden;
+  margin-right: auto;
+  margin-left: auto;
+
   &:hover {
     opacity: 1;
     box-shadow: 0 0 150px rgba(255, 255, 255, .4);
     transform: scale(1.1);
   }
+
+  .__react_component_tooltip {
+    opacity: 1 !important;
+    padding: 0px !important;
 `;
 
-const ScepterIcon = styled.img`
+const AghsIcon = styled.img`
   display: block;
   overflow: hidden;
   margin-right: auto;
@@ -57,31 +69,41 @@ const ShardIcon = styled.img`
 
 const Aghs = ({heroAghs, hero_npc_name, skills}) => {
   const ttId = nanoid();
+  const ttId2 = nanoid();
 
   const hero_name = hero_npc_name;
   const agh_element = heroAghs[hero_name];
-  //agh_element.scepter.img = skills[agh_element.scepter.skill_name].data.img;
 
-  // skills.forEach(skill =>
-  //   {
-  //     if(agh_element.scepter.skill_name_loc == skill){
-  //       agh_element.img = skill.img;
-  //     }
-  //   });
+  agh_element.scepter.skillObj = skills.find(skill => {
+    return skill.data.dname === agh_element.scepter.skill_name_loc;
+  }).data;
+  agh_element.shard.skillObj = skills.find(skill => {
+    return skill.data.dname === agh_element.shard.skill_name_loc;
+  }).data;
+
+
 
   const scepter_img = skills[0].key + skills[0].data.img;
-  const shard_img   = "hat";
-  const desc        = agh_element.scepter.skill_name
+
 
   return (
-    <Wrapper data-tip data-for={ttId}>
+    <Wrapper>
       <AghsSlot alt="aghs">
-        <ScepterIcon src="/assets/images/dota2/scepter_1.png"/>
-        <ShardIcon src="/assets/images/dota2/shard_1.png"/>
+        <IconWrapper data-tip data-for={ttId}>
+          <AghsIcon src="/assets/images/dota2/scepter_1.png"/>
+          <ReactTooltip id={ttId} effect="solid" place="left">
+            <AghsTooltip place="right" aghs={agh_element.scepter}/>
+          </ReactTooltip>
+        </IconWrapper>
+        <div class="solid_line"/>
+        <IconWrapper data-tip data-for={ttId2}>
+          <ShardIcon src="/assets/images/dota2/shard_1.png"/>
+          <ReactTooltip id={ttId2} effect="solid" place="left">
+            <AghsTooltip place="right" aghs={agh_element.shard}/>
+          </ReactTooltip>
+        </IconWrapper>
       </AghsSlot>
-      <ReactTooltip id={ttId} effect="solid" place="bottom">
-          <AghsTooltip place="right" aghs={agh_element} img={scepter_img}/>
-        </ReactTooltip>
+
     </Wrapper>
   );
 };

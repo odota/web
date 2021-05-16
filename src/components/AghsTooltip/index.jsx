@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes, { string } from 'prop-types';
 import styled from 'styled-components';
 import constants from '../constants';
-
+import AbilityTooltip from '../AbilityTooltip';
 
 const Wrapper = styled.div`
   position: relative;
@@ -86,16 +86,26 @@ const Break = styled.div`
     background-color: #080D15;
 `;
 
+
 const AghsTooltip = (props) => {
 
+  const aghs = props.aghs;
 
-  return (
-    <Wrapper>
+  const renderToolTip = (aghs) => {
+    if(aghs.new_skill === true) {
+      // display ability type TT
+      return (
+      <AbilityTooltip ability={aghs.skillObj} />
+      )
+    }
+    else{
+      return (
+      // display minimal description
       <InnerWrapper>
         <Header>
-          <HeaderBgImg img={props.img} />
+          <HeaderBgImg img={aghs.skillObj.img} />
           <HeaderContent>
-            <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${props.aghs.img}`} alt="" />
+            <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${aghs.skillObj.img}`} alt="" />
             <div className="name">Scepter</div>
             {/* {props.aghs.scepter.new_skill ?
               <span className="upgrade_type">New Ability</span> :
@@ -105,36 +115,24 @@ const AghsTooltip = (props) => {
           </HeaderContent>
         </Header>
         <Description>
-          skill: {props.aghs.scepter.skill_name_loc} - {props.img}
+          skill: {aghs.skill_name_loc}
           <Break />
-          {props.aghs.scepter.desc}
+          {aghs.desc}
         </Description>
       </InnerWrapper>
-      <InnerWrapper>
-        <Header>
-          <HeaderBgImg img={props.img} />
-          <HeaderContent>
-            <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${props.img}`} alt="" />
-            <div className="name">Shard</div>
-            {/* {props.shard.new_skill ?
-              <span className="upgrade_type">New Ability</span> :
-              <span className="upgrade_type">Upgrade</span>
-            } */}
-          </HeaderContent>
-        </Header>
-        <Description>
-        skill: {props.aghs.shard.skill_name_loc}
-          <Break />
-          {props.aghs.shard.desc}
-        </Description>
-      </InnerWrapper>
+      )
+    }
+  }
+
+  return (
+    <Wrapper>
+      {renderToolTip(aghs)}
     </Wrapper>
   );
 }
 
 AghsTooltip.propTypes = {
-  aghs_desc: string.isRequired,
-  img: string.isRequired,
+  aghs: propTypes.shape({}).isRequired,
 };
 
 export default AghsTooltip;
