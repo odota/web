@@ -13,6 +13,10 @@ const Wrapper = styled.div`
   border-radius: 4px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, .3);
   position: relative;
+
+  .__react_component_tooltip {
+    opacity: 1 !important;
+    padding: 0px !important;
 `;
 
 const AghsSlot = styled.div`
@@ -42,10 +46,6 @@ const IconWrapper = styled.div`
     box-shadow: 0 0 150px rgba(255, 255, 255, .4);
     transform: scale(1.1);
   }
-
-  .__react_component_tooltip {
-    opacity: 1 !important;
-    padding: 0px !important;
 `;
 
 const AghsIcon = styled.img`
@@ -83,25 +83,26 @@ const Aghs = ({heroAghs, hero_npc_name, skills}) => {
 
 
 
-  const scepter_img = skills[0].key + skills[0].data.img;
+  //const scepter_img = skills[0].key + skills[0].data.img;
 
 
   return (
     <Wrapper>
       <AghsSlot alt="aghs">
-        <IconWrapper data-tip data-for={ttId}>
+        <IconWrapper data-tip data-for="scepter_tt">
           <AghsIcon src="/assets/images/dota2/scepter_1.png"/>
-          <ReactTooltip id={ttId} effect="solid" place="left">
+         
+        </IconWrapper>
+        <ReactTooltip id="scepter_tt" effect="solid" place="left">
             <AghsTooltip place="right" aghs={agh_element.scepter}/>
-          </ReactTooltip>
-        </IconWrapper>
+        </ReactTooltip>
         <div class="solid_line"/>
-        <IconWrapper data-tip data-for={ttId2}>
+        <IconWrapper data-tip data-for="shard_tt">
           <ShardIcon src="/assets/images/dota2/shard_1.png"/>
-          <ReactTooltip id={ttId2} effect="solid" place="left">
-            <AghsTooltip place="right" aghs={agh_element.shard}/>
-          </ReactTooltip>
         </IconWrapper>
+        <ReactTooltip id="shard_tt" effect="solid" place="left">
+            <AghsTooltip place="right" aghs={agh_element.shard}/>
+        </ReactTooltip>
       </AghsSlot>
 
     </Wrapper>

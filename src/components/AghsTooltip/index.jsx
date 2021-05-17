@@ -40,7 +40,6 @@ const HeaderContent = styled.div`
     }
 
     & .name {
-        display: inline-block;
         position: relative;
         left: 15px;
         bottom: 1px;
@@ -57,7 +56,26 @@ const HeaderContent = styled.div`
         line-height: 50px;
         letter-spacing: 1px;
     }
+
+    & .upgrade_type {
+      background-color: #1c2e50;
+      color: #DDDDDD;
+      display: inline-flex;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 8px;
+      margin: 3px 0px;
+      border-radius: 4px;
+    }
 `;
+
+const HeaderText = styled.div`
+
+  display: flex;
+  flex-direction: column;
+
+`;
+
 
 const HeaderBgImg = styled.div`
     position: absolute;
@@ -106,17 +124,13 @@ const AghsTooltip = (props) => {
           <HeaderBgImg img={aghs.skillObj.img} />
           <HeaderContent>
             <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${aghs.skillObj.img}`} alt="" />
-            <div className="name">Scepter</div>
-            {/* {props.aghs.scepter.new_skill ?
-              <span className="upgrade_type">New Ability</span> :
-              <span className="upgrade_type">Upgrade</span>
-            } */}
-            <div className="header2"></div>
+            <HeaderText>
+              <div className="name">{aghs.skill_name_loc}</div>
+              <div className="upgrade_type"></div>
+            </HeaderText>
           </HeaderContent>
         </Header>
         <Description>
-          skill: {aghs.skill_name_loc}
-          <Break />
           {aghs.desc}
         </Description>
       </InnerWrapper>
