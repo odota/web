@@ -29,6 +29,7 @@ position: relative;
 
 const HeaderContent = styled.div`
     position: relative;
+    display: flex;
     height: 50px;
     padding: 13px;
     white-space: nowrap;
@@ -40,11 +41,6 @@ const HeaderContent = styled.div`
     }
 
     & .name {
-        position: relative;
-        left: 15px;
-        bottom: 1px;
-        height: 50px;
-        width: 220px;
         font-size: ${constants.fontSizeCommon};
         text-transform: uppercase;  
         color: ${constants.primaryTextColor};
@@ -53,24 +49,24 @@ const HeaderContent = styled.div`
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        line-height: 50px;
         letter-spacing: 1px;
     }
 
     & .upgrade_type {
       background-color: #1c2e50;
       color: #DDDDDD;
+      font-size: ${constants.fontSizeTiny};
       display: inline-flex;
       text-transform: uppercase;
       letter-spacing: 1px;
-      padding: 3px 8px;
-      margin: 3px 0px;
+      padding: 2px 4px;
+      margin: 2px 0px;
       border-radius: 4px;
     }
 `;
 
 const HeaderText = styled.div`
-
+  padding-left: 10px;
   display: flex;
   flex-direction: column;
 
@@ -126,7 +122,7 @@ const AghsTooltip = (props) => {
             <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${aghs.skillObj.img}`} alt="" />
             <HeaderText>
               <div className="name">{aghs.skill_name_loc}</div>
-              <div className="upgrade_type"></div>
+              <div className="upgrade_type">Ability Upgrade</div>
             </HeaderText>
           </HeaderContent>
         </Header>
