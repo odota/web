@@ -33,6 +33,7 @@ display: inline-block;
   margin: 1px;
   height: 27px;
   z-index: 1;
+  image-rendering: -webkit-optimize-contrast;
 
   :hover {
     z-index: 9999;
