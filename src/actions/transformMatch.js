@@ -144,7 +144,7 @@ function generateVisionLog(match) {
 }
 
 function transformMatch(m) {
-  const { strings } = store.getState().app;
+  const { abilityIds, strings } = store.getState().app;
   const newPlayers = m.players.map((player) => {
     const newPlayer = {
       ...player,
@@ -229,7 +229,7 @@ function transformMatch(m) {
       const arr = [];
       if (player.ability_upgrades_arr) {
         player.ability_upgrades_arr.forEach((ability) => {
-          if (!arr.includes(ability) && ability < 5900) {
+          if (!arr.includes(ability) && abilityIds[ability] && abilityIds[ability].indexOf('special_bonus') === -1) {
             arr.push(ability);
           }
         });
