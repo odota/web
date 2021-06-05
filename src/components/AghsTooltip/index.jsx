@@ -23,46 +23,58 @@ const InnerWrapper = styled.div`
 `;
 
 const Header = styled.div`
-background: linear-gradient(to right, #51565F , #303338);
-position: relative;
+  background: linear-gradient(to right, #51565F , #303338);
+  position: relative;
 `;
 
 const HeaderContent = styled.div`
-    position: relative;
-    display: flex;
-    height: 50px;
-    padding: 13px;
-    white-space: nowrap;
-  
-    & img {
-        display: inline-block;
-        height: 100%;
-        border: 1px solid #080D15;
-    }
+  position: relative;
+  display: flex;
+  height: 50px;
+  padding: 13px;
+  white-space: nowrap;
 
-    & .name {
-        font-size: ${constants.fontSizeCommon};
-        text-transform: uppercase;  
-        color: ${constants.primaryTextColor};
-        font-weight: bold;
-        text-shadow: 1px 1px black;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        letter-spacing: 1px;
-    }
+  & img {
+      display: inline-block;
+      height: 100%;
+      border: 1px solid #080D15;
+  }
 
-    & .upgrade_type {
-      background-color: #1c2e50;
-      color: #DDDDDD;
-      font-size: ${constants.fontSizeTiny};
-      display: inline-flex;
-      text-transform: uppercase;
+  & .name {
+      font-size: ${constants.fontSizeCommon};
+      text-transform: uppercase;  
+      color: ${constants.primaryTextColor};
+      font-weight: bold;
+      text-shadow: 1px 1px black;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       letter-spacing: 1px;
-      padding: 2px 4px;
-      margin: 2px 0px;
-      border-radius: 4px;
-    }
+  }
+`;
+
+const UpgradeTypeWrapper = styled.div`
+
+  display: flex;
+  flex-direction: row;
+  padding: 2px 0px;
+  margin: 2px 0px;
+  border-radius: 4px;
+
+  & .upgrade_type_text {
+    background-color: #1c2e50;
+    color: #DDDDDD;
+    font-size: ${constants.fontSizeTiny};
+    display: inline-flex;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 2px 4px;
+  }
+
+  & .upgrade_type_filler {
+    display: inline-flex;
+  }
+
 `;
 
 const HeaderText = styled.div`
@@ -122,7 +134,10 @@ const AghsTooltip = (props) => {
             <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${aghs.skillObj.img}`} alt="" />
             <HeaderText>
               <div className="name">{aghs.skill_name_loc}</div>
-              <div className="upgrade_type">Ability Upgrade</div>
+              <UpgradeTypeWrapper>
+                <div className="upgrade_type_text">Ability Upgrade</div>
+                <div className="upgrade_type_filler"/>
+              </UpgradeTypeWrapper>
             </HeaderText>
           </HeaderContent>
         </Header>
