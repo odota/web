@@ -17,6 +17,7 @@ import Matchups from './Matchups';
 import AttributesBlock from './AttributesBlock';
 import Durations from './Durations';
 import Players from './Players';
+import ItemsSuggestion from './ItemSuggestion';
 
 const HeroBlock = styled.div`
   margin-bottom: 8px;
@@ -43,14 +44,14 @@ class Hero extends React.Component {
   }
 
   state = {
-    detailsOpen: false,
-  }
+    detailsOpen: false
+  };
 
   toggleDetailVisibility(e) {
     e.preventDefault();
 
     this.setState({
-      detailsOpen: !this.state.detailsOpen,
+      detailsOpen: !this.state.detailsOpen
     });
   }
 
@@ -79,7 +80,7 @@ class Hero extends React.Component {
             <Ranking {...props} />
           </div>
         ),
-        route: `/heroes/${tabsHeroId}/rankings`,
+        route: `/heroes/${tabsHeroId}/rankings`
       },
       {
         name: strings.tab_benchmarks,
@@ -90,7 +91,7 @@ class Hero extends React.Component {
             <Benchmark {...props} />
           </div>
         ),
-        route: `/heroes/${tabsHeroId}/benchmarks`,
+        route: `/heroes/${tabsHeroId}/benchmarks`
       },
       {
         name: strings.tab_recent,
@@ -101,7 +102,7 @@ class Hero extends React.Component {
             <Recent {...props} />
           </div>
         ),
-        route: `/heroes/${tabsHeroId}/recent`,
+        route: `/heroes/${tabsHeroId}/recent`
       },
       {
         name: strings.tab_matchups,
@@ -112,7 +113,7 @@ class Hero extends React.Component {
             <Matchups {...props} />
           </div>
         ),
-        route: `/heroes/${tabsHeroId}/matchups`,
+        route: `/heroes/${tabsHeroId}/matchups`
       },
       {
         name: strings.tab_durations,
@@ -123,7 +124,7 @@ class Hero extends React.Component {
             <Durations {...props} />
           </div>
         ),
-        route: `/heroes/${tabsHeroId}/durations`,
+        route: `/heroes/${tabsHeroId}/durations`
       },
       {
         name: strings.tab_players,
@@ -134,8 +135,20 @@ class Hero extends React.Component {
             <Players {...props} />
           </div>
         ),
-        route: `/heroes/${tabsHeroId}/players`,
+        route: `/heroes/${tabsHeroId}/players`
       },
+      {
+        name: strings.tab_items,
+        key: 'items',
+        content: (props) => (
+          <>
+            <Heading title='Suggested Items' subtitle={strings.hero_disclaimer_pro} />
+            <ItemsSuggestion {...props} />
+          </>
+        )
+        ,
+        route: `/heroes/${tabsHeroId}/items`
+      }
     ];
 
     const currentTab = tabs(heroId).find(tab => tab.key === route);
@@ -145,7 +158,7 @@ class Hero extends React.Component {
         <HeroBlock>
           <Header hero={hero} />
           <HeroFooter>
-            <HeroDetailsButton type="button" onClick={this.toggleDetailVisibility}>
+            <HeroDetailsButton type='button' onClick={this.toggleDetailVisibility}>
               {this.state.detailsOpen ? strings.hide_details : strings.show_details}
             </HeroDetailsButton>
           </HeroFooter>
@@ -166,22 +179,22 @@ Hero.propTypes = {
   match: shape({
     params: shape({
       info: string,
-      heroId: string,
-    }),
+      heroId: string
+    })
   }),
   heroes: arrayOf(shape({})),
-  strings: shape({}),
+  strings: shape({})
 };
 
 Hero.defaultProps = {
-  heroes: [],
+  heroes: []
 };
 
 const mapStateToProps = state => ({
   isLoading: state.app.heroStats.loading,
   isError: state.app.heroStats.error,
   heroes: state.app.heroStats.data,
-  strings: state.app.strings,
+  strings: state.app.strings
 });
 
 export default connect(mapStateToProps)(Hero);
