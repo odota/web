@@ -12,12 +12,12 @@ function ItemsSuggestion(props) {
     return Object.keys(i).map(itemId => inflictorWithValue(itemIds[itemId]));
   };
 
+  const {onGetHeroItemSuggestions, match} = props;
   useEffect(() => {
-    const { onGetHeroItemSuggestions, match } = props;
     if (match.params && match.params.heroId) {
       onGetHeroItemSuggestions(match.params.heroId);
     }
-  }, [props.onGetHeroItemSuggestions, props.match.params.heroId]);
+  }, [onGetHeroItemSuggestions, match]);
 
   const itemSuggestionColumns = [
     {
@@ -46,7 +46,6 @@ function ItemsSuggestion(props) {
 }
 
 ItemsSuggestion.propTypes = {
-  onGetHeroItemSuggestions: PropTypes.func,
   match: PropTypes.shape({
     params: PropTypes.shape({
       heroId: PropTypes.string
