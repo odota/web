@@ -12,58 +12,57 @@ function ItemsSuggestion(props) {
     return Object.keys(i).map(itemId => inflictorWithValue(itemIds[itemId]));
   };
 
+  const { onGetHeroItemSuggestions, match } = props;
   useEffect(() => {
-    const { onGetHeroItemSuggestions, match } = props;
     if (match.params && match.params.heroId) {
       onGetHeroItemSuggestions(match.params.heroId);
     }
-  }, [props.onGetHeroItemSuggestions, props.match.params.heroId]);
+  }, [onGetHeroItemSuggestions, match]);
 
   const itemSuggestionColumns = [
     {
       field: 'start_game_items',
       displayName: 'Start Game',
-      displayFn
+      displayFn,
     },
     {
       field: 'early_game_items',
       displayName: 'Early Game',
-      displayFn
+      displayFn,
     },
     {
       field: 'mid_game_items',
       displayName: 'Mid Game',
-      displayFn
+      displayFn,
     },
     {
       field: 'late_game_items',
       displayName: 'Late Game',
-      displayFn
-    }
+      displayFn,
+    },
   ];
   const itemsPopularityData = props.data;
-  return props.isLoading ? <TableSkeleton/> : <Table data={itemsPopularityData} columns={itemSuggestionColumns} />;
+  return props.isLoading ? <TableSkeleton /> : <Table data={itemsPopularityData} columns={itemSuggestionColumns} />;
 }
 
 ItemsSuggestion.propTypes = {
-  onGetHeroItemSuggestions: PropTypes.func,
   match: PropTypes.shape({
     params: PropTypes.shape({
-      heroId: PropTypes.string
-    })
+      heroId: PropTypes.string,
+    }),
   }),
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
 };
 
 const mapStateToProps = ({ app }) => ({
     isLoading: app.heroItemSuggestions.loading,
-    data: Object.values(app.heroItemSuggestions.data)
+    data: Object.values(app.heroItemSuggestions.data),
   }
 );
 
 
 const mapDispatchToProps = {
-  onGetHeroItemSuggestions: getHeroItemSuggestions
+  onGetHeroItemSuggestions: getHeroItemSuggestions,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsSuggestion);
