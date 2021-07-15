@@ -29,6 +29,7 @@ export default combineReducers({
   heroMatchups: reducer('heroMatchups'),
   heroDurations: reducer('heroDurations'),
   heroPlayers: reducer('heroPlayers'),
+  heroItemSuggestions: reducer('heroItemSuggestions'),
   search: reducer('search'),
   distributions: reducer('distributions'),
   proPlayers: reducer('proPlayers'),

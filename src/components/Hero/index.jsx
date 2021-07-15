@@ -17,6 +17,7 @@ import Matchups from './Matchups';
 import AttributesBlock from './AttributesBlock';
 import Durations from './Durations';
 import Players from './Players';
+import ItemsSuggestion from './ItemSuggestion';
 
 const HeroBlock = styled.div`
   margin-bottom: 8px;
@@ -44,7 +45,7 @@ class Hero extends React.Component {
 
   state = {
     detailsOpen: false,
-  }
+  };
 
   toggleDetailVisibility(e) {
     e.preventDefault();
@@ -136,6 +137,18 @@ class Hero extends React.Component {
         ),
         route: `/heroes/${tabsHeroId}/players`,
       },
+      {
+        name: strings.tab_items,
+        key: 'items',
+        content: (props) => (
+          <>
+            <Heading title='Suggested Items' subtitle={strings.hero_disclaimer_pro} />
+            <ItemsSuggestion {...props} />
+          </>
+        )
+        ,
+        route: `/heroes/${tabsHeroId}/items`,
+      },
     ];
 
     const currentTab = tabs(heroId).find(tab => tab.key === route);
@@ -145,7 +158,7 @@ class Hero extends React.Component {
         <HeroBlock>
           <Header hero={hero} />
           <HeroFooter>
-            <HeroDetailsButton type="button" onClick={this.toggleDetailVisibility}>
+            <HeroDetailsButton type='button' onClick={this.toggleDetailVisibility}>
               {this.state.detailsOpen ? strings.hide_details : strings.show_details}
             </HeroDetailsButton>
           </HeroFooter>
