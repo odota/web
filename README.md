@@ -47,7 +47,7 @@ Tech Stack
 ----
 * View: React
 * State Management: Redux
-* CSS: styled-components
+* Styling of Components: CSS
 
 Workflow
 ----
