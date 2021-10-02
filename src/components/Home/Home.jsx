@@ -20,8 +20,15 @@ const Home = ({ strings }) => (
     <Why />
     <Sponsors />
     <BottomTextDiv>
-      {strings.home_background_by}
-      <a href="//www.artstation.com/artist/mikeazevedo" target="_blank" rel="noopener noreferrer"> Mike Azevedo</a>
+      <span id="bg-image-description">{strings.home_background_by}</span>
+      <a 
+        href="//www.artstation.com/artist/mikeazevedo" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        aria-describedby="bg-image-description" 
+        aria-label="Mike Azevedo on artstation.com"
+      > Mike Azevedo
+      </a> 
     </BottomTextDiv>
   </div>
 );
