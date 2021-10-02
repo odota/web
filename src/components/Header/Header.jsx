@@ -134,6 +134,7 @@ const SettingsGroup = ({ children }) => {
     <>
       <IconButton
         ref={buttonRef}
+        aria-label="settings menu"
         color="inherit"
         onClick={(e) => setAnchorEl(e.currentTarget)}
       >
@@ -161,7 +162,7 @@ const LogoGroup = ({ onMenuClick }) => (
   <div style={{ marginRight: 16 }}>
     <VerticalAlignToolbar>
       <MenuButtonWrapper>
-        <IconButton edge="start" color="inherit" onClick={onMenuClick}>
+        <IconButton aria-label="main menu" edge="start" color="inherit" onClick={onMenuClick}>
           <MenuIcon />
         </IconButton>
       </MenuButtonWrapper>
