@@ -55,7 +55,7 @@
     "react-tooltip": "3.11.1",
     "react-transition-group": "^2.5.0",
     "recharts": "^1.8.5",
-    "redux": "^4.0.5",
+    "redux": "^4.1.1",
     "redux-responsive": "^4.3.8",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
