@@ -39,7 +39,7 @@
     "lodash": "^4.17.15",
     "long": "^4.0.0",
     "material-ui": "^0.20.2",
-    "nanoid": "^2.1.8",
+    "nanoid": "^3.1.28",
     "papaparse": "^5.1.1",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
