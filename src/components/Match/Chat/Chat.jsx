@@ -433,7 +433,8 @@ class Chat extends React.Component {
                     });
                   }
                   return char;
-                });
+                })
+                .join('');
             }
 
             let target = strings.chat_filter_all;
