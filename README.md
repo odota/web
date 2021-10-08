@@ -61,6 +61,7 @@ Notes
 * Use the configuration to point to your own API (if you are working on a new feature and want to start building the UI before it's deployed to production).
 * Discord: https://discord.gg/opendota
   * Strongly recommended for active developers! We move fast and it's helpful to be up to speed with everything that's happening.
+  * hi i am alekha moharana
 
 Resources
 ----
