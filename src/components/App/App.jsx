@@ -155,7 +155,7 @@ const App = (props) => {
         <AdBannerDiv>
           {includeAds && (
             <a href="http://www.vpgame.com/?lang=en_us">
-              <img src="/assets/images/vp-banner.jpg" alt="" />
+              <img src="/assets/images/vp-banner.jpg" alt="VP Game home" />
             </a>
           )}
         </AdBannerDiv>
