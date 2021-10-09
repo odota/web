@@ -10,10 +10,10 @@ const Home = ({ strings }) => (
   <div>
     <HeadContainerDiv>
       <HeadlineDiv>
-        {strings.app_name}
+        <h1>{strings.app_name}</h1>
       </HeadlineDiv>
       <DescriptionDiv>
-        {strings.app_description}
+        <h2>{strings.app_description}</h2>
       </DescriptionDiv>
       <Buttons />
     </HeadContainerDiv>

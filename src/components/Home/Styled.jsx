@@ -19,6 +19,10 @@ export const HeadlineDiv = styled.div`
   line-height: 1.2;
   text-shadow: #000 0 0 3px;
 
+  & h1 {
+    all: inherit;
+  }
+
   @media only screen and (max-width: 425px) {
     font-size: 60px;
   }
@@ -32,6 +36,10 @@ export const DescriptionDiv = styled.div`
   font-weight: ${constants.fontWeightLight};
   margin-bottom: 20px;
   text-shadow: #000 0 0 3px;
+
+  & h2 {
+    all: inherit;
+  }
 
   @media only screen and (max-width: 768px) {
     font-size: 25px;
