@@ -55,7 +55,7 @@
   "api_billed_to": "We'll automatically bill the $brand ending in $last4.",
   "api_support": "Χρειάζεστε υποστήριξη; Στείλτε email στο $email.",
   "api_header_usage": "Η Χρήση Σας",
-  "api_usage_calls": "# API calls",
+  "api_usage_calls": "καλοντας το API",
   "api_usage_fees": "Εκτιμώμενα Τέλη",
   "api_month": "Μήνας",
   "api_header_key": "Το Κλειδί Σας",
