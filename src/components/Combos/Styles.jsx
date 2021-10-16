@@ -46,7 +46,6 @@ export const StyledInputFilter = styled.div`
     opacity: 0.5;
     cursor: pointer;
     margin-left: 10px;
-    outline: none;
 
     &:hover {
       opacity: 1;
