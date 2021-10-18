@@ -17,8 +17,8 @@ const autocomplete = (cols, proPlayers = [], teams = [], leagues = []) => {
   return {
     getCompletions(editor, session, pos, prefix, callback) {
       callback(null, []
-        .concat(Object.keys(heroes).map(k => ({ value: heroes[k].localized_name, snippet: k, meta: `${k} (${strings.explorer_hero})` })))
-        .concat(Object.keys(items).filter(k => k.indexOf('recipe_') !== 0).map(k => ({ value: items[k].dname, snippet: `'${k}'`, meta: `${k} (${strings.scenarios_item})` })))
+        .concat(Object.keys(heroes).map(k => ({ caption: heroes[k].localized_name, value: heroes[k].name, snippet: k, meta: `${k} (${strings.explorer_hero})` })))
+        .concat(Object.keys(items).filter(k => k.indexOf('recipe_') !== 0).map(k => ({ caption: items[k].dname, value: k, snippet: `'${k}'`, meta: `${k} (${strings.scenarios_item})` })))
         .concat(filteredPros)
         .concat(filteredTeams)
         .concat(filteredLeagues)
