@@ -20,6 +20,10 @@ const ApiContainer = styled.div`
   & li {
     list-style-type: initial;
   }
+
+  & h2 {
+    font-size: 1.17em;
+  }
 `;
 
 const KeyContainer = styled.pre`
@@ -186,7 +190,7 @@ class KeyManagement extends React.Component {
               : <div />
           }
           <h1>{strings.api_title}</h1>
-          <h3>{strings.api_subtitle}</h3>
+          <h2>{strings.api_subtitle}</h2>
           {
             loading || this.state.loading || !Object.keys(strings).length
               ? <CircularProgress mode="indeterminate" />
@@ -194,9 +198,7 @@ class KeyManagement extends React.Component {
                 <div>
                   { showLoginButton
                     ? (
-                      <a href={`${process.env.REACT_APP_API_HOST}/login`}>
-                        <RaisedButton primary label={strings.api_login} style={{ margin: '5px 5px' }} />
-                      </a>
+                      <RaisedButton primary href={`${process.env.REACT_APP_API_HOST}/login`} label={strings.api_login} style={{ margin: '5px 5px' }} />
                     )
                     : <div />
                 }
@@ -216,9 +218,7 @@ class KeyManagement extends React.Component {
                     )
                     : <span />
                 }
-                  <a href="//docs.opendota.com" target="_blank" rel="noopener noreferrer">
-                    <RaisedButton label={strings.api_docs} style={{ margin: '5px 5px' }} />
-                  </a>
+                  <RaisedButton href="//docs.opendota.com" target="_blank" rel="noopener noreferrer" label={strings.api_docs} style={{ margin: '5px 5px' }} />
                   { this.state.customer
                     ? (
                       <div>
@@ -295,7 +295,7 @@ class KeyManagement extends React.Component {
                     )
                     : <div />
                 }
-                  <h3>{strings.api_header_table}</h3>
+                  <h2>{strings.api_header_table}</h2>
                   <TableContainer>
                     <table>
                       <thead
@@ -304,7 +304,7 @@ class KeyManagement extends React.Component {
                       >
                         <tr>
                           {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-                          <th />
+                          <th aria-hidden="true"/>
                           <th>{strings.api_details_free_tier}</th>
                           <th>{strings.api_details_premium_tier}</th>
                         </tr>

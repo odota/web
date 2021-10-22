@@ -44,6 +44,7 @@ const InputFilter = ({
     <div className="container">
       <ActionSearch style={{ marginRight: 6, opacity: '.6', verticalAlign: 'middle' }} />
       <TextField
+        aria-label={filterText}
         ref={setInputRef}
         hintText={filterText}
         value={value}
@@ -51,6 +52,7 @@ const InputFilter = ({
         style={{ width: 150 }}
       />
       <div
+        aria-label="clear hero filter"
         className="reset-button"
         onClick={reset}
         onKeyPress={reset}
@@ -72,11 +74,13 @@ const HeroSelector = ({
   teamAFull,
   teamBFull,
   isFiltered,
+  heroName
 }) => (
   <StyledHeroSelector selected={selected} isFiltered={isFiltered}>
     <HeroImage id={id} imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix}/>
     <div className={`ts-container ${selected ? 'selected' : ''}`}>
       <div
+        aria-label={`${heroName} team A`}
         className={`ts ts-left ${teamAFull ? 'no-event' : ''}`}
         onClick={handleHeroSelection(id.toString(), 'teamA')}
         onKeyPress={handleHeroSelection(id.toString(), 'teamA')}
@@ -86,6 +90,7 @@ const HeroSelector = ({
         {'A'}
       </div>
       <div
+        aria-label={`${heroName} team B`}
         className={`ts ts-right ${teamBFull ? 'no-event' : ''}`}
         onClick={handleHeroSelection(id.toString(), 'teamB')}
         onKeyPress={handleHeroSelection(id.toString(), 'teamB')}

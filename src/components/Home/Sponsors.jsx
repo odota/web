@@ -42,14 +42,14 @@ const Sponsors = ({ strings }) => (
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src="/assets/images/vp-logo.png" alt="" />
+        <img src="/assets/images/vp-logo.png" alt="VP Game home" />
       </a>
       <a
         href="https://www.openai.com/"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src="/assets/images/openai-logo.png" alt="" />
+        <img src="/assets/images/openai-logo.png" alt="Open AI home" />
       </a>
       {process.env.REACT_APP_ENABLE_RIVALRY &&
       <a

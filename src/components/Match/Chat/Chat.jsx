@@ -291,6 +291,7 @@ class Chat extends React.Component {
       spam: true,
 
       playing: null,
+      messages: null,
     };
 
     this.filters = {
@@ -335,6 +336,8 @@ class Chat extends React.Component {
         disabled: () => false,
       },
     };
+
+    this.state.messages = this.filter();
   }
 
   audio = (message, index) => {
@@ -353,26 +356,28 @@ class Chat extends React.Component {
     }, 500);
   };
 
-  filter = (key) => {
+  toggleFilter = (key) => {
     if (key !== undefined) {
-      this.setState({ ...this.state, [key]: !this.state[key] });
+      this.setState((state) => {return {[key]: !state[key]}}, () => {this.setState({messages: this.filter()})});
     }
+  }
 
-    this.messages = this.raw.slice();
+  filter = () => {
+    const messages = this.raw.slice();
 
     Object.keys(this.filters).forEach((k) => {
       if (!this.state[k]) {
         this.filters[k].f().forEach((obj) => {
-          const index = this.messages.indexOf(obj);
+          const index = messages.indexOf(obj);
           if (index >= 0) {
-            this.messages.splice(index, 1);
+            messages.splice(index, 1);
           }
         });
       }
     });
 
     // sort by time, considering spam
-    this.messages.sort((a, b) => {
+    messages.sort((a, b) => {
       const timeDiff = Number(a.time) - Number(b.time);
       if (timeDiff === 0) {
         if (a.spam === b.spam) {
@@ -382,19 +387,17 @@ class Chat extends React.Component {
       }
       return timeDiff;
     });
+
+    return messages
   };
 
   render() {
-    if (!this.messages) {
-      this.filter();
-    }
-
     const emoteKeys = Object.keys(emotes);
 
     const Messages = ({ strings }) => (
       <div>
         <ul className="Chat">
-          {this.messages.map((msg, index) => {
+          {this.state.messages.map((msg, index) => {
             const hero = heroes[msg.heroID];
             const rad = isRadiant(msg.player_slot);
             const spec = isSpectator(msg.slot);
@@ -433,7 +436,8 @@ class Chat extends React.Component {
                     });
                   }
                   return char;
-                });
+                })
+                .join('');
             }
 
             let target = strings.chat_filter_all;
@@ -514,7 +518,7 @@ class Chat extends React.Component {
               <ul>
                 {categories[cat].map((filter) => {
                   const len = filter.f().length;
-                  const lenFiltered = filter.f(this.messages).length;
+                  const lenFiltered = filter.f(this.state.messages).length;
 
                   return (
                     <li key={filter.name}>
@@ -529,7 +533,7 @@ class Chat extends React.Component {
                           </span>
                         }
                         checked={this.state[filter.name]}
-                        onCheck={() => this.filter(filter.name)}
+                        onCheck={() => this.toggleFilter(filter.name)}
                         checkedIcon={<Visibility />}
                         uncheckedIcon={<VisibilityOff />}
                         disabled={filter.disabled()}
