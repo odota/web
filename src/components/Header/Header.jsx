@@ -103,8 +103,15 @@ const MenuLogoWrapper = styled.div`
   padding: 24px 0;
 `;
 
+
+
 const DrawerLink = styled(Link)`
   color: ${constants.textColorPrimary};
+
+   & li:hover {
+      background-color: rgba(0, 0, 0, 0.08);
+      transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; 
+  }
 `;
 
 const LinkGroup = ({ navbarPages }) => (
@@ -318,12 +325,12 @@ const Header = ({ location, disableSearch }) => {
             </MenuLogoWrapper>
             <List>
               {drawerPages.map((page) => (
-                <DrawerLink key={`drawer__${page.to}`} to={page.to}>
-                  <ListItem
-                    button
-                    key={`drawer__${page.to}`}
-                    onClick={() => setMenuState(false)}
-                  >
+                <DrawerLink 
+                  key={`drawer__${page.to}`} 
+                  to={page.to}
+                  onClick={() => setMenuState(false)}
+                >
+                  <ListItem>
                     <ListItemText primary={page.label} />
                   </ListItem>
                 </DrawerLink>
