@@ -6,8 +6,7 @@ OpenDota Web UI: A web interface for viewing Dota 2 data. This utilizes the [Ope
 
 Quickstart
 ----
-* Clone the repo using `git clone --recurse-submodules git://github.com/odota/web`
-  * If you already have a copy of the repo, run `git submodule init && git submodule update` to fetch shared components
+* Clone the repo using `git clone git://github.com/odota/web`
   
 ### With Docker
 
