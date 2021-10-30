@@ -5,14 +5,10 @@ export type GlobalString = {
   hero_pick_rate: string
   hero_ban_rate: string
   hero_win_rate: string
-  rank_tier_1: string
-  rank_tier_2: string
-  rank_tier_3: string
-  rank_tier_4: string
-  rank_tier_5: string
-  rank_tier_6: string
-  rank_tier_7: string
-  rank_tier_8: string
+  rank_tier_overall: string
+  rank_tier_high: string
+  rank_tier_mid: string
+  rank_tier_low: string
   abbr_pick: string
   abbr_win: string
   hero_turbo_pick_rate: string

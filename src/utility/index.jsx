@@ -30,11 +30,6 @@ const day = hour * 24;
 const month = day * 30;
 const year = month * 12;
 
-// temporary host a hero image ourselves:
-// put the hero ID inside this array
-// and upload a {HERO_ID}.png and {HERO_ID}_icon.png image to \assets\images\dota2\heroes
-export const customHeroImage = [135];
-
 export const iconStyle = {
   position: 'relative',
   width: 16,
@@ -186,14 +181,8 @@ const getTitle = (row, col, heroName) => {
 };
 
 export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
-  if (customHeroImage.includes(Number(heroId))) {
-    return `/assets/images/dota2/heroes/${heroId}.png`;
-  }
-  let imageUrl = heroes[heroId] && process.env.REACT_APP_IMAGE_CDN + heroes[heroId].img; // "[api url]/abaddon_full.png?"
-  if (imageUrl) {
-    imageUrl = imageUrl.slice(0, -('full.png?'.length)); // "[api url]/abaddon"
-  }
-  return imageUrl + imageSizeSuffix;
+  let imageUrl = heroes[heroId] && process.env.REACT_APP_IMAGE_CDN + heroes[heroId].img;
+  return imageUrl;
 };
 
 export const getHeroIconUrlFromHeroKey = (heroKey) => {
