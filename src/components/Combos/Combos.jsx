@@ -77,7 +77,12 @@ const HeroSelector = ({
   heroName
 }) => (
   <StyledHeroSelector selected={selected} isFiltered={isFiltered}>
-    <HeroImage id={id} imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix}/>
+    <HeroImage
+      id={id} 
+      imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix} 
+      style={{position: 'absolute', width: 200, left: -30, opacity: .5, filter: 'blur(5px)'}}
+    />
+    <HeroImage id={id} imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix} style={{width: 'auto', height: 40, zIndex: 2}}/>
     <div className={`ts-container ${selected ? 'selected' : ''}`}>
       <div
         aria-label={`${heroName} team A`}
