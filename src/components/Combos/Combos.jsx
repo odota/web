@@ -178,8 +178,8 @@ class Combos extends React.Component {
 
   state = {
     queryType: this.parsedUrlQuery.queryType || 'public',
-    teamA: asArray(this.parsedUrlQuery.teamA),
-    teamB: asArray(this.parsedUrlQuery.teamB),
+    teamA: asArray(this.parsedUrlQuery.teamA).map(Number),
+    teamB: asArray(this.parsedUrlQuery.teamB).map(Number),
     queryResult: {},
     loading: false,
     searchValue: '',
@@ -205,11 +205,14 @@ class Combos extends React.Component {
   handleChange = e => this.setState({ searchValue: e.target.value });
   
   handleHeroSelection = resetSearchValue => (heroID, team) => () => {
+    if(this.state.loading) {
+      return;
+    }
     const { teamA, teamB } = this.state;
     if (this.state[team].length < 5 && ![...teamA, ...teamB].includes(heroID)) {
       this.setState(
         {
-          [team]: [...this.state[team], heroID],
+          [team]: [...this.state[team], Number(heroID)],
         },
         resetSearchValue,
       );
@@ -217,6 +220,9 @@ class Combos extends React.Component {
   };
 
   handleHeroDeSelection = (index, team) => () => {
+    if(this.state.loading) {
+      return;
+    }
     this.setState({
       [team]: [
         ...this.state[team].slice(0, index),
@@ -232,6 +238,21 @@ class Combos extends React.Component {
 
   handleResponse = (json) => {
     let data = json;
+    const { teamA, teamB } = this.state;
+
+    // rearrange order of heroes so the results are displayed in the same order as selection
+    data.forEach(row => {
+      if(!row.teama.includes(teamA[0]) && !row.teamb.includes(teamB[0])) {
+        const temp = row.teama;
+        row.teama = row.teamb
+        row.teamb = temp;
+      }  
+      row.teama.sort((a, b) =>  teamA.indexOf(b) - teamA.indexOf(a))
+      row.teama = [...row.teama.slice(teamA.length, 5), ...row.teama.slice(0, teamA.length)]
+      row.teamb.sort((a, b) =>  teamB.indexOf(a) - teamB.indexOf(b))
+      row.teamb = [...row.teamb.slice(5 - teamB.length, 5), ...row.teamb.slice(0, 5 - teamB.length)]
+    })
+
     if (this.state.queryType === 'public') {
       // adapt json format so ExplorerOutputSection can process it
       data = {};
