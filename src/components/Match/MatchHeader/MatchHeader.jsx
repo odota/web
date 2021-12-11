@@ -252,10 +252,10 @@ const MatchHeader = ({ match, strings }) => {
   if (!match) {
     return null;
   }
-  const mapPlayers = (key, radiant) => player =>
-    (radiant === undefined || radiant === isRadiant(player.player_slot)
+  const mapPlayers = (key, radiant) => (player) =>
+    radiant === undefined || radiant === isRadiant(player.player_slot)
       ? Number(player[key])
-      : null);
+      : null;
 
   const victorySection = match.radiant_win ? (
     <span>
@@ -297,7 +297,7 @@ const MatchHeader = ({ match, strings }) => {
               {transformations.start_time(
                 null,
                 null,
-                match.start_time + match.duration,
+                match.start_time + match.duration
               )}
             </span>
           </div>
@@ -353,15 +353,32 @@ const MatchHeader = ({ match, strings }) => {
             rel="noopener noreferrer"
           />
         )}
-        {process.env.REACT_APP_ENABLE_RIVALRY && <FlatButton
-          label={strings.app_rivalry}
-          icon={
-            <img src="/assets/images/rivalry-icon.png" alt="" height="24px" />
-          }
-          href="https://www.rivalry.com/opendota"
-          target="_blank"
-          rel="noopener noreferrer"
-        />}
+        {process.env.REACT_APP_ENABLE_DOTA_COACH && (
+          <FlatButton
+            label={strings.app_dota_coach_button}
+            icon={
+              <img
+                src="/assets/images/dota-coach-icon.png"
+                alt=""
+                height="24px"
+              />
+            }
+            href="https://dota-coach.com?s=OpenDota&c=analytics"
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+        )}
+        {process.env.REACT_APP_ENABLE_RIVALRY && (
+          <FlatButton
+            label={strings.app_rivalry}
+            icon={
+              <img src="/assets/images/rivalry-icon.png" alt="" height="24px" />
+            }
+            href="https://www.rivalry.com/opendota"
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+        )}
       </div>
     </Styled>
   );
@@ -373,7 +390,7 @@ MatchHeader.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

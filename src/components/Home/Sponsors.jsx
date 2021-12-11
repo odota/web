@@ -37,6 +37,15 @@ const Sponsors = ({ strings }) => (
   <StyledDiv>
     <div className="headline">{strings.home_sponsored_by}</div>
     <div className="images">
+      {process.env.REACT_APP_ENABLE_DOTA_COACH && (
+        <a
+          href="https://dota-coach.com?s=OpenDota&c=main"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="/assets/images/dotaCoachLogo.svg" alt="" />
+        </a>
+      )}
       <a
         href="https://www.openai.com/"
         target="_blank"
