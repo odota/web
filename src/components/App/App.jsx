@@ -150,7 +150,15 @@ const App = (props) => {
         <Helmet
           defaultTitle={strings.title_default}
           titleTemplate={strings.title_template}
-        />
+        >
+          {process.env.REACT_APP_ENABLE_ADSENSE && (
+            <script
+              data-ad-client="ca-pub-5591574346816667"
+              async
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+            />
+          )}
+        </Helmet>
         <Header location={location} />
         <StyledBodyDiv {...props}>
           <Switch>
@@ -195,11 +203,6 @@ const App = (props) => {
           )}
           {includeAds && process.env.REACT_APP_ENABLE_BOTTOM_BANNER && (
             <>
-              <script
-                data-ad-client="ca-pub-5591574346816667"
-                async
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-              />
               <ins
                 className="adsbygoogle"
                 style={{ display: 'block' }}
