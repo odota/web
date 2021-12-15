@@ -181,7 +181,7 @@ const getTitle = (row, col, heroName) => {
 };
 
 export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
-  let imageUrl = heroes[heroId] && process.env.REACT_APP_IMAGE_CDN + heroes[heroId].img;
+  const imageUrl = heroes[heroId] && process.env.REACT_APP_IMAGE_CDN + heroes[heroId].img;
   return imageUrl;
 };
 

@@ -37,13 +37,15 @@ const Sponsors = ({ strings }) => (
   <StyledDiv>
     <div className="headline">{strings.home_sponsored_by}</div>
     <div className="images">
-      <a
-        href="http://www.vpgame.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img src="/assets/images/vp-logo.png" alt="VP Game home" />
-      </a>
+      {process.env.REACT_APP_ENABLE_DOTA_COACH && (
+        <a
+          href="https://dota-coach.com?s=OpenDota&c=main"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="/assets/images/dotaCoachLogo.svg" alt="" />
+        </a>
+      )}
       <a
         href="https://www.openai.com/"
         target="_blank"
@@ -51,14 +53,15 @@ const Sponsors = ({ strings }) => (
       >
         <img src="/assets/images/openai-logo.png" alt="Open AI home" />
       </a>
-      {process.env.REACT_APP_ENABLE_RIVALRY &&
-      <a
-        href="https://www.rivalry.com/opendota"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img src="/assets/images/rivalry-logo.png" alt="" />
-      </a>}
+      {process.env.REACT_APP_ENABLE_RIVALRY && (
+        <a
+          href="https://www.rivalry.com/opendota"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="/assets/images/rivalry-logo.png" alt="" />
+        </a>
+      )}
       {process.env.REACT_APP_ENABLE_GOSUAI && (
         <a
           href="https://gosu.ai/dota/?utm_source=opendota&utm_medium=cpc&utm_campaign=Home"
@@ -84,7 +87,7 @@ Sponsors.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 
