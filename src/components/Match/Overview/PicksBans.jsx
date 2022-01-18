@@ -68,8 +68,7 @@ img {
 
 
 const PicksBans = ({ gameMode, data, strings, style }) => {
-  let counter = 0;
-  console.log(gameMode);
+  let banNumber = 0;
   return (
     <Styled style={style}>
       <div className="PicksBans">
@@ -78,7 +77,7 @@ const PicksBans = ({ gameMode, data, strings, style }) => {
             <HeroImage id={pb.hero_id} imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix} data-isPick={pb.is_pick} />
             {!pb.is_pick && <div className="ban" />}
             <aside>
-              {pb.is_pick ? strings.match_pick : strings.match_ban} <b>{gameMode === 22 ? pb.is_pick ? pb.order + 1 : counter+=1 : pb.order + 1}</b>
+              {pb.is_pick ? strings.match_pick : strings.match_ban} <b>{gameMode === 22 ? pb.is_pick ? pb.order + 1 : banNumber+=1 : pb.order + 1}</b>
             </aside>
           </section>
         ))}
