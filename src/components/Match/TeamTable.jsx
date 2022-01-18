@@ -149,13 +149,13 @@ class TeamTable extends React.Component {
         <div className="teamtable teamtable-radiant">
           <Table data={filterMatchPlayers(players, 'radiant')} {...tableProps} />
         </div>
-        {gameMode === 22 ?
-        <>
-          {picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 0 && pb.is_pick)} /> /* team 0 - radiant */}
-          {picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 0 && !pb.is_pick)} /> /* team 0 - radiant */}
-        </>
-        :
-          picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */
+        {
+          gameMode === 22 ?
+            <>
+              {picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 0 && pb.is_pick)} /> /* team 0 - radiant */}
+              {picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 0 && !pb.is_pick)} /> /* team 0 - radiant */}
+            </>
+            : picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */
         }
         <Heading
           title={`${getTeamName(direTeam, false)} - ${heading}`}
