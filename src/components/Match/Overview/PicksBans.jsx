@@ -31,10 +31,6 @@ margin-top: -20px;
       line-height: 1.6;
     }
   }
-
-  @media only screen and (max-width: 716px) {
-    margin: 0;
-  }
 }
 
 img {
