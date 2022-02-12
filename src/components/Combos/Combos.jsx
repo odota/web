@@ -87,8 +87,8 @@ const HeroSelector = ({
       <div
         aria-label={`${heroName} team A`}
         className={`ts ts-left ${teamAFull ? 'no-event' : ''}`}
-        onClick={handleHeroSelection(id.toString(), 'teamA')}
-        onKeyPress={handleHeroSelection(id.toString(), 'teamA')}
+        onClick={handleHeroSelection(id, 'teamA')}
+        onKeyPress={handleHeroSelection(id, 'teamA')}
         role="button"
         tabIndex="0"
       >
@@ -97,8 +97,8 @@ const HeroSelector = ({
       <div
         aria-label={`${heroName} team B`}
         className={`ts ts-right ${teamBFull ? 'no-event' : ''}`}
-        onClick={handleHeroSelection(id.toString(), 'teamB')}
-        onKeyPress={handleHeroSelection(id.toString(), 'teamB')}
+        onClick={handleHeroSelection(id, 'teamB')}
+        onKeyPress={handleHeroSelection(id, 'teamB')}
         role="button"
         tabIndex="0"
       >
@@ -212,7 +212,7 @@ class Combos extends React.Component {
     if (this.state[team].length < 5 && ![...teamA, ...teamB].includes(heroID)) {
       this.setState(
         {
-          [team]: [...this.state[team], Number(heroID)],
+          [team]: [...this.state[team], heroID],
         },
         resetSearchValue,
       );
@@ -309,7 +309,7 @@ class Combos extends React.Component {
         id={hero.id}
         heroName={hero.localized_name}
         handleHeroSelection={this.handleHeroSelection(resetSearchValue)}
-        selected={[...this.state.teamA, ...this.state.teamB].includes(hero.id.toString())}
+        selected={[...this.state.teamA, ...this.state.teamB].includes(hero.id)}
         teamAFull={this.state.teamA.length > 4}
         teamBFull={this.state.teamB.length > 4}
         strings={this.props.strings}
