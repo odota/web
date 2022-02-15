@@ -214,7 +214,7 @@ const Styled = styled.div`
     }
 
     & .numerals {
-      color: white;
+      color: rgb(255 255 255 / 90%);
       white-space: nowrap;
       font-weight: bold;
       transform: rotate(-90deg);
