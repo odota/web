@@ -615,7 +615,7 @@ export function displayHeroId(row, col, field, showGuide = false, guideUrl, guid
       const roleIconStyle = {
         float: 'right',
         marginTop: '2px',
-        height: '14px',
+        height: '17px',
       };
 
       return (

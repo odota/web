@@ -1,22 +1,12 @@
-<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
- <g>
-  <title>background</title>
-  <rect x="-1" y="-1" width="514" height="514" id="canvas_background" fill="none"/>
+<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
+ <g id="Layer_1">
+  <title>Layer 1</title>
+  <path id="svg_1" d="m133.5,798c-70.44199,0 -127.5,-57.05801 -127.5,-127.5c0,-70.44199 57.05801,-127.5 127.5,-127.5c70.44199,0 127.5,57.05801 127.5,127.5c0,70.44199 -57.05801,127.5 -127.5,127.5z" opacity="undefined" stroke-width="0" stroke="#000" fill="#dedede"/>
+  <ellipse fill="#dedede" stroke="#000" cx="159" cy="627" id="svg_2"/>
+  <path fill="#dedede" opacity="undefined" d="m307,603l571,0l0,133l-571,0l0,-133z" id="svg_3"/>
+  <rect fill="#dedede" stroke="#000" x="492" y="244" width="2" height="0" id="svg_5"/>
+  <rect transform="rotate(-45 459.5 337.5)" fill="#dedede" x="174" y="271" width="571" height="133" id="svg_6"/>
+  <rect transform="rotate(-90 134.5 198.5)" fill="#ff5d00" x="-151" y="132" width="571" height="133" id="svg_7"/>
  </g>
 
- <g>
-  <title>Layer 1</title>
-  <g id="svg_1">
-   <g id="svg_2">
-    <g id="svg_3">
-     <path d="m237.014743,188.003008l-90.001,-120.002c-5.654,-7.559 -18.34,-7.559 -23.994,0l-90.001,120.002c-7.399,9.844 -0.355,23.994 11.997,23.994l45.001,0l0,285.003c0,8.291 6.709,15 15,15l60,0c8.291,0 14.8,-6.709 14.8,-15l0,-285.003l45.2,0c12.363,0 19.389,-14.16 11.998,-23.994z" class="active-path" fill="rgb(252, 125, 27)" id="svg_4"/>
-    </g>
-   </g>
-   <g id="svg_5">
-    <g id="svg_6">
-     <path d="m465.018914,299.004001l-45.201,0l0,-285.004c0,-8.291 -6.509,-15 -14.8,-15l-60.001,0c-8.291,0 -15,6.709 -15,15l0,285.003l-45.001,0c-12.353,0 -19.396,14.15 -11.997,23.994l90.002,120.002c5.989,8.006 18.014,7.994 23.994,0l90.001,-120.001c7.391,-9.834 0.365,-23.994 -11.997,-23.994z" class="active-path" fill="rgb(252, 125, 27)" id="svg_7"/>
-    </g>
-   </g>
-  </g>
- </g>
 </svg>

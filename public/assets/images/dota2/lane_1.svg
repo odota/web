@@ -1,16 +1,12 @@
-<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
- <g>
-  <title>background</title>
-  <rect fill="none" id="canvas_background" height="26" width="26" y="-1" x="-1"/>
-  <g display="none" id="canvasGrid">
-   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%" id="svg_1"/>
-  </g>
+<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
+ <g id="Layer_1">
+  <title>Layer 1</title>
+  <path id="svg_1" d="m133.5,798c-70.44199,0 -127.5,-57.05801 -127.5,-127.5c0,-70.44199 57.05801,-127.5 127.5,-127.5c70.44199,0 127.5,57.05801 127.5,127.5c0,70.44199 -57.05801,127.5 -127.5,127.5z" opacity="undefined" stroke-width="0" stroke="#000" fill="#dedede"/>
+  <ellipse fill="#dedede" stroke="#000" cx="159" cy="627" id="svg_2"/>
+  <path fill="#00d0ff" opacity="undefined" d="m307,603l571,0l0,133l-571,0l0,-133z" id="svg_3"/>
+  <rect fill="#dedede" stroke="#000" x="492" y="244" width="2" height="0" id="svg_5"/>
+  <rect transform="rotate(-45 459.5 337.5)" fill="#dedede" x="174" y="271" width="571" height="133" id="svg_6"/>
+  <rect transform="rotate(-90 134.5 198.5)" fill="#dedede" x="-151" y="132" width="571" height="133" id="svg_7"/>
  </g>
 
- <g>
-  <title>Layer 1</title>
-  <line stroke-linecap="null" stroke-linejoin="null" id="svg_13" y2="4.020203" x2="3.616162" y1="9.070707" x1="1.6633" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="null" fill="none"/>
-  <path stroke="null" id="svg_22" d="m1.633841,19.588383l14.807068,0l0,-5.892256l-2.269696,0l4.539393,-2.946127l4.539395,2.946127l-2.269698,0l0,8.838385l-19.346462,0l0,-2.946129z" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" fill="#e0cf6e"/>
-  <path transform="rotate(180 11.558079719543457,7.642255783081055) " stroke="null" id="svg_23" d="m0.75,10.588383l14.807068,0l0,-5.892256l-2.269696,0l4.539393,-2.946127l4.539395,2.946127l-2.269698,0l0,8.838385l-19.346462,0l0,-2.946129z" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" fill="#e0cf6e"/>
- </g>
 </svg>
