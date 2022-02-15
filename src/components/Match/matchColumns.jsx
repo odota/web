@@ -83,7 +83,7 @@ export default (strings) => {
       .findIndex(x => x.find(y => y.player_slot === row.player_slot));
     return (
       <div className={`group group${index}`}>
-        <div className="dashes">{['i', 'i i', 'i i i', 'ii ii'][index]}</div>
+        <div className="numerals">{['I', 'II', 'III', 'IV'][index]}</div>
       </div>
     );
   };

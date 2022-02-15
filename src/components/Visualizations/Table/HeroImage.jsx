@@ -188,9 +188,9 @@ const Styled = styled.div`
   overflow: hidden;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
-  width: 12px;
+  width: 13px;
   height: 29px;
-  left: -12px;
+  left: -13px;
 
 
   & .group {
@@ -213,7 +213,7 @@ const Styled = styled.div`
       background: #a76411;
     }
 
-    & .dashes {
+    & .numerals {
       color: white;
       white-space: nowrap;
       font-weight: bold;
