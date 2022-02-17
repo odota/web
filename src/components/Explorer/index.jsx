@@ -219,7 +219,7 @@ class Explorer extends React.Component {
     return (
       <div>
         <Helmet title={`${strings.title_explorer} - ${strings.explorer_subtitle}`} />
-        <Heading title={strings.explorer_title} subtitle={strings.explorer_description} />
+        <Heading title={strings.explorer_title} subtitle={strings.explorer_description} className="top-heading"/>
         <ExplorerControlSection
           showToggle
           showEditor={this.state.showEditor}

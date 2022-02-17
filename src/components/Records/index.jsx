@@ -81,11 +81,11 @@ class RequestLayer extends React.Component {
       <div>
         <Helmet title={strings.heading_records} />
         <div>
-          <Heading title={strings.heading_records} subtitle={strings.subheading_records} />
           <TabBar
             info={route}
             tabs={tabs(strings)}
           />
+          <Heading title={strings.heading_records} subtitle={strings.subheading_records} className="top-heading with-tabbar"/>
           {tab && tab.content(this.props)}
         </div>
       </div>);

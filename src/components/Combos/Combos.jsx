@@ -324,7 +324,7 @@ class Combos extends React.Component {
     const noHeroesSelected = !teamA.length && !teamB.length;
     return (
       <StyledCombos>
-        <Heading title={strings.combos_title} info={strings.combos_description} />
+        <Heading title={strings.combos_title} subtitle={strings.combos_description} className="top-heading"/>
         <div className="main-section">
           <InputFilter
             handleChange={this.handleChange}

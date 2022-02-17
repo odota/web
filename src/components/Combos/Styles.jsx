@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import constants from '../constants';
 
 export const StyledCombos = styled.div`
-  margin-top: 55px;
   margin-bottom: 150px;
 
   .submit-section {

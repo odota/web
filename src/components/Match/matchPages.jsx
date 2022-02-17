@@ -376,12 +376,6 @@ const matchPages = (strings) => {
     parsed: true,
     content: match => (
       <div>
-        <Heading
-          title={strings.heading_log}
-          buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_default : null}
-          buttonTo={`${gosuUrl}Log`}
-          buttonIcon={gosuIcon}
-        />
         <MatchLog match={match} />
       </div>),
   }, {
@@ -424,12 +418,6 @@ const matchPages = (strings) => {
 
       return (
         <div>
-          <Heading
-            title={strings.heading_chat}
-            buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_default : null}
-            buttonTo={`${gosuUrl}Chat`}
-            buttonIcon={gosuIcon}
-          />
           <Chat data={data} />
         </div>
       );
@@ -440,12 +428,6 @@ const matchPages = (strings) => {
     parsed: true,
     content: match => (
       <div>
-        <Heading
-          title={strings.heading_story}
-          buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_default : null}
-          buttonTo={`${gosuUrl}Story`}
-          buttonIcon={gosuIcon}
-        />
         <MatchStory match={match} />
       </div>),
   }];

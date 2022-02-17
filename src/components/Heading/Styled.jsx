@@ -6,6 +6,28 @@ export const StyledDiv = styled.div`
   margin-bottom: 4px;
   margin-left: 3px;
 
+  &.top-heading {
+    width: 100vw;
+    margin: -57px -50vw 50px -50vw;
+    margin-top: 0px;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: baseline;
+    letter-spacing: 10px;
+    font-weight: bold; 
+    background-color: rgba(14, 84, 113, 37%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    &.with-tabbar {
+      margin-top: -30px;
+    }
+  }
+
   .winner {
     position: relative;
     bottom: 1px;
@@ -59,10 +81,31 @@ export const StyledDiv = styled.div`
     letter-spacing: 1px;
   }
 
+  &.top-heading .title {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-left: 52px;
+
+    &::before {
+      content: "▶";
+      margin-right: 4px;
+    }
+  }
+
   & .subtitle {
     margin-left: 5px;
     font-size: ${constants.fontSizeMedium};
     color: ${constants.colorMutedLight};
+  }
+
+  &.top-heading .subtitle {
+    margin-left: 10px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: normal;
+    font-weight: normal;
+    margin-left: 51px;
   }
 
   .sponsor-button {
