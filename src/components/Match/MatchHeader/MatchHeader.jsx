@@ -13,22 +13,41 @@ import Warning from '../../Alerts';
 import constants from '../../constants';
 
 const Styled = styled.header`
+  width: 100vw;
+  margin: 0px -50vw 0px -50vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  padding-top: 35px;
+  background-color: rgba(14, 84, 113, 37%);
+
   .matchInfo {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 40% 20% 40%;
+    justify-items: center;
+    align-items: center;
+
+    @media only screen and (max-width: 1000px) {
+      grid-template-columns: none;
+      grid-template-rows: auto;
+      grid-gap: 10px;
+      margin-bottom: 15px;
+    }
   }
 
   .team {
     box-sizing: border-box;
-    flex-basis: 33.33%;
-    max-width: 33.33%;
+    border: 1px solid rgba(255, 255, 255, 6%);
+    background: rgba(0, 0, 0, 23%);
+    padding: 8px;
+    border-radius: 3px;
+    margin-right: 30px;
+    margin-left: 30px;
 
     @media only screen and (max-width: 1023px) {
       flex-basis: 100%;
       max-width: 100%;
     }
-    padding: 20px 0 10px;
     font-size: 28px;
 
     @media only screen and (max-width: 1023px) {
@@ -37,36 +56,21 @@ const Styled = styled.header`
     }
 
     & > span {
-      padding-bottom: 5px;
       letter-spacing: 1px;
     }
 
-    &.radiant > span {
-      background: linear-gradient(
-        to right,
-        rgba(167, 195, 42, 0) 0%,
-        rgba(129, 146, 60, 0) 5%,
-        rgba(19, 82, 44, 0.3) 50%,
-        rgba(96, 236, 8, 0.05) 87%,
-        rgba(255, 255, 255, 0) 100%
-      );
+    &.radiant {
+      background: rgba(9, 90, 30, 23%);
     }
 
-    &.dire > span {
-      background: linear-gradient(
-        to right,
-        rgba(117, 132, 52, 0) 0%,
-        rgba(129, 146, 60, 0) 5%,
-        rgba(111, 34, 26, 0.3) 50%,
-        rgba(255, 71, 0, 0.05) 87%,
-        rgba(255, 255, 255, 0) 100%
-      );
+    &.dire {
+      background: rgba(143, 16, 16, 23%);
     }
 
     & svg {
       width: 32px;
       height: 32px;
-      margin: 0 15px;
+      margin-right: 10px;
       vertical-align: sub;
 
       @media only screen and (max-width: 1023px) {
@@ -102,8 +106,6 @@ const Styled = styled.header`
 
   .mainInfo {
     box-sizing: border-box;
-    flex-basis: 33.33%;
-    max-width: 33.33%;
 
     @media only screen and (max-width: 1023px) {
       flex-basis: 100%;
@@ -171,15 +173,15 @@ const Styled = styled.header`
 
   .additionalInfo {
     box-sizing: border-box;
-    flex-basis: 33.33%;
-    max-width: 33.33%;
+    padding: 20px 0px 10px 0px;
+    margin-right: 30px;
+    margin-left: 30px;
 
     @media only screen and (max-width: 1023px) {
       flex-basis: 100%;
       max-width: 100%;
     }
     text-align: right;
-    padding-top: 20px;
 
     @media only screen and (max-width: 1023px) {
       text-align: center;
@@ -321,12 +323,6 @@ const MatchHeader = ({ match, strings }) => {
             <li>
               <span>{strings.match_region}</span>
               {strings[`region_${match.region}`]}
-            </li>
-            <li>
-              <span>{strings.th_skill}</span>
-              {match.skill
-                ? strings[`skill_${match.skill}`]
-                : strings.general_unknown}
             </li>
           </ul>
         </div>

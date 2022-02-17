@@ -100,7 +100,7 @@ class RequestLayer extends React.Component {
             rel="noopener noreferrer"
           />}
         </div>
-        <Heading title={strings.heading_team_elo_rankings} subtitle={strings.subheading_team_elo_rankings} />
+        <Heading title={strings.heading_team_elo_rankings} subtitle={strings.subheading_team_elo_rankings} className="top-heading"/>
         <Table columns={columns(strings)} data={this.props.data.slice(0, 100)} loading={loading} />
       </div>);
   }
