@@ -20,7 +20,7 @@ left: 50%;
 right: 50%;
 display: grid;
 background-color: rgba(14,84,113,37%);
-grid-template-columns: 1fr ${constants.appWidth}px 1fr;
+grid-template-columns: 1fr 4fr 1fr;
 
 .container {
   display: flex;
