@@ -13,7 +13,7 @@ export const StyledDiv = styled.div`
     position: relative;
     left: 50%;
     right: 50%;
-    padding: 20px;
+    padding: 15px 0px 15px 20px;
     display: flex;
     flex-direction: column;
     justify-content: left;
