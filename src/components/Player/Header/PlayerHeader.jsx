@@ -13,10 +13,22 @@ import PlayerButtons from './PlayerButtons';
 import constants from '../../constants';
 
 const Styled = styled.div`
+width: 100vw;
+margin: 0px -50vw;
+position: relative;
+left: 50%;
+right: 50%;
+display: grid;
+padding-top: 35px;
+background-color: rgba(14,84,113,37%);
+grid-template-columns: 1fr 4fr 1fr;
+
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-bottom: 20px;
+  grid-column: 2;
 }
 
 .playerName {

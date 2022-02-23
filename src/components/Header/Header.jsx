@@ -69,7 +69,8 @@ const DropdownMenuItem = styled(MenuItem)`
 
 const ToolbarHeader = styled(Toolbar)`
   backdrop-filter: blur(16px);
-  background-color: ${constants.defaultPrimaryColorSolid} !important;
+  background-color: rgba(19, 111, 149, 37%) !important;
+  box-shadow: 2px 2px 3px -2px rgb(0 0 0 / 23%);
   height: 56px;
   left: 0;
   padding: 8px 16px !important;
