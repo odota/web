@@ -23,7 +23,7 @@ const Styled = styled.header`
 
   .matchInfo {
     display: grid;
-    grid-template-columns: 40% 20% 40%;
+    grid-template-columns: 1fr minmax(500px, max-content) 1fr;
     justify-items: center;
     align-items: center;
 
