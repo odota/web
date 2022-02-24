@@ -1284,8 +1284,10 @@ export default (strings) => {
   ];
 
   const computeAverage = (row, type) => {
-    const wardType = type === 'obs' ? 'ward_observer' : 'ward_sentry';
-    const maxDuration = items[wardType].attrib.find(x => x.key === 'lifetime').value;
+    // const wardType = type === 'obs' ? 'ward_observer' : 'ward_sentry';
+    // const maxDuration = items[wardType].attrib.find(x => x.key === 'lifetime').value;
+    // 7.31 broke attrib values, so hardcode them here
+    const maxDuration = type === 'obs' ? 360 : 420;
     const totalDuration = [];
     row[`${type}_log`].forEach((ward) => {
       const findTime = row[`${type}_left_log`] && row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);
