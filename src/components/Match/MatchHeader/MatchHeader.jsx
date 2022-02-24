@@ -43,10 +43,12 @@ const Styled = styled.header`
     border-radius: 3px;
     margin-right: 30px;
     margin-left: 30px;
+    justify-self: flex-end;
 
     @media only screen and (max-width: 1023px) {
       flex-basis: 100%;
       max-width: 100%;
+      justify-self: auto;
     }
     font-size: 28px;
 
@@ -176,10 +178,12 @@ const Styled = styled.header`
     padding: 20px 0px 10px 0px;
     margin-right: 30px;
     margin-left: 30px;
+    justify-self: flex-start;
 
     @media only screen and (max-width: 1023px) {
       flex-basis: 100%;
       max-width: 100%;
+      justify-self: auto;
     }
     text-align: right;
 
