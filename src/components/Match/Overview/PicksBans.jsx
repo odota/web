@@ -66,21 +66,29 @@ img {
 }
 `;
 
-
 const PicksBans = ({ gameMode, data, strings, style }) => {
-  let banNumber = 0;
+  let firstBan = 0;
+
   return (
     <Styled style={style}>
       <div className="PicksBans">
-        {data.map(pb => (
-          <section key={pb.order}>
-            <HeroImage id={pb.hero_id} imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix} data-isPick={pb.is_pick} />
-            {!pb.is_pick && <div className="ban" />}
-            <aside>
-              {pb.is_pick ? strings.match_pick : strings.match_ban} <b>{gameMode === 22 ? pb.is_pick ? pb.order + 1 : banNumber+=1 : pb.order + 1}</b>
-            </aside>
-          </section>
-        ))}
+        {data.map(pb => {
+
+          // This records the first ban numbers pb.order 
+          (firstBan === 0 && gameMode === 22 && !pb.is_pick) && (firstBan = pb.order);
+          // This generates the order number associated with the pick or ban
+          const orderNumber = (gameMode === 22 && !pb.is_pick) ? (pb.order + 1 - firstBan) : pb.order + 1;
+
+          return (
+            <section key={pb.order}>
+              <HeroImage id={pb.hero_id} imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix} data-isPick={pb.is_pick} />
+              {!pb.is_pick && <div className="ban" />}
+              <aside>
+                {pb.is_pick ? strings.match_pick : strings.match_ban} <b>{orderNumber}</b>
+              </aside>
+            </section>
+          )
+        })}
       </div>
     </Styled>
   )

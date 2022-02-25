@@ -164,7 +164,14 @@ class TeamTable extends React.Component {
         <div className="teamtable teamtable-dire">
           <Table data={filterMatchPlayers(players, 'dire')} {...tableProps} />
         </div>
-        {picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */}
+        {
+          gameMode === 22 ?
+            <>
+              {picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 1 && pb.is_pick)} /> /* team 1 - dire */}
+              {picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 1 && !pb.is_pick)} /> /* team 1 - dire */}
+            </>
+            : picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */
+        }
       </StyledDiv>
     );
   }
