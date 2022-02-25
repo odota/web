@@ -31,15 +31,12 @@ margin-top: -20px;
       line-height: 1.6;
     }
   }
-
-  @media only screen and (max-width: 716px) {
-    margin: 0;
-  }
 }
 
 img {
   position: relative;
   height: 29px;
+  width:100%;
   box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
   margin-right: 0;
   z-index: 0;
@@ -49,7 +46,6 @@ img {
   }
 
   @media only screen and (max-width: 716px) {
-    width: 42px;
     object-fit: cover;
   }
 }
@@ -70,21 +66,33 @@ img {
 }
 `;
 
-const PicksBans = ({ data, strings, style }) => (
-  <Styled style={style}>
-    <div className="PicksBans">
-      {data.map(pb => (
-        <section key={pb.order}>
-          <HeroImage id={pb.hero_id} imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix} data-isPick={pb.is_pick} />
-          {!pb.is_pick && <div className="ban" />}
-          <aside>
-            {pb.is_pick ? strings.match_pick : strings.match_ban} <b>{pb.order + 1}</b>
-          </aside>
-        </section>
-      ))}
-    </div>
-  </Styled>
-);
+const PicksBans = ({ gameMode, data, strings, style }) => {
+  let firstBan = 0;
+
+  return (
+    <Styled style={style}>
+      <div className="PicksBans">
+        {data.map(pb => {
+
+          // This records the first ban numbers pb.order 
+          (firstBan === 0 && gameMode === 22 && !pb.is_pick) && (firstBan = pb.order);
+          // This generates the order number associated with the pick or ban
+          const orderNumber = (gameMode === 22 && !pb.is_pick) ? (pb.order + 1 - firstBan) : pb.order + 1;
+
+          return (
+            <section key={pb.order}>
+              <HeroImage id={pb.hero_id} imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix} data-isPick={pb.is_pick} />
+              {!pb.is_pick && <div className="ban" />}
+              <aside>
+                {pb.is_pick ? strings.match_pick : strings.match_ban} <b>{orderNumber}</b>
+              </aside>
+            </section>
+          )
+        })}
+      </div>
+    </Styled>
+  )
+};
 
 PicksBans.propTypes = {
   data: PropTypes.arrayOf({}),
