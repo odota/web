@@ -111,6 +111,7 @@ class RequestLayer extends React.Component {
       return (
         <div>
           <Heading
+            className="top-heading with-tabbar"
             title={strings[`distributions_heading_${key}`]}
             subtitle={`
             ${data[key] && data[key].rows && abbreviateNumber(data[key].rows.map(row => row.count).reduce(sum, 0))} ${strings.th_players}
