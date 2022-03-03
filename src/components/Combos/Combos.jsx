@@ -246,6 +246,7 @@ class Combos extends React.Component {
         const temp = row.teama;
         row.teama = row.teamb
         row.teamb = temp;
+        row.teamawin = !row.teamawin;
       }  
       row.teama.sort((a, b) =>  teamA.indexOf(b) - teamA.indexOf(a))
       row.teama = [...row.teama.slice(teamA.length, 5), ...row.teama.slice(0, teamA.length)]
