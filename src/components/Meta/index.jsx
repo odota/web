@@ -105,7 +105,7 @@ class Explorer extends React.Component {
     return (
       <div>
         <Helmet title={`${strings.title_meta}`} />
-        <Heading title={strings.meta_title} subtitle={strings.meta_description} />
+        <Heading title={strings.meta_title} subtitle={strings.meta_description} className="top-heading"/>
         <ExplorerControlSection>
           <ExplorerFormField label={strings.explorer_group_by} fields={expandedFields} builderField="group" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_min_rank_tier} fields={expandedFields} builderField="minRankTier" handleFieldUpdate={handleFieldUpdate} builder={builder} />

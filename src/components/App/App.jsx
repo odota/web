@@ -85,7 +85,7 @@ const StyledDiv = styled.div`
 `;
 
 const StyledBodyDiv = styled.div`
-  padding: 25px;
+  padding: 0px 25px 25px 25px;
   flex-grow: 1;
 
   @media only screen and (min-width: ${constants.appWidth}px) {
@@ -150,15 +150,16 @@ const App = (props) => {
         <Helmet
           defaultTitle={strings.title_default}
           titleTemplate={strings.title_template}
-        />
-        <Header location={location} />
-        <AdBannerDiv>
-          {includeAds && (
-            <a href="http://www.vpgame.com/?lang=en_us">
-              <img src="/assets/images/vp-banner.jpg" alt="" />
-            </a>
+        >
+          {process.env.REACT_APP_ENABLE_ADSENSE && (
+            <script
+              data-ad-client="ca-pub-5591574346816667"
+              async
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+            />
           )}
-        </AdBannerDiv>
+        </Helmet>
+        <Header location={location} />
         <StyledBodyDiv {...props}>
           <Switch>
             <Route exact path="/" component={Home} />
@@ -200,23 +201,21 @@ const App = (props) => {
               </div>
             </div>
           )}
-          {
-            includeAds && process.env.REACT_APP_ENABLE_BOTTOM_BANNER &&
+          {includeAds && process.env.REACT_APP_ENABLE_BOTTOM_BANNER && (
             <>
-              <script data-ad-client="ca-pub-5591574346816667" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"/>
               <ins
                 className="adsbygoogle"
-                style={{display: "block"}}
+                style={{ display: 'block' }}
                 data-ad-client="ca-pub-5591574346816667"
                 data-ad-slot="5235463836"
                 data-ad-format="auto"
                 data-full-width-responsive="true"
               />
               <script>
-                  (adsbygoogle = window.adsbygoogle || []).push({});
+                (adsbygoogle = window.adsbygoogle || []).push({});
               </script>
             </>
-          }
+          )}
         </AdBannerDiv>
         <Footer />
         <button

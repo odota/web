@@ -7,11 +7,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { StyledDiv, TwoLineDiv } from './Styled';
 
 const Heading = ({
-  title = '', titleTo, icon, subtitle, buttonLabel, buttonTo, buttonIcon, twoLine, info, winner, strings,
+  title = '', titleTo, icon, subtitle, buttonLabel, buttonTo, buttonIcon, twoLine, info, winner, strings, className
 }) => {
   const DivToUse = twoLine ? TwoLineDiv : StyledDiv;
   return (
-    <DivToUse>
+    <DivToUse className={className}>
       <span className="title">
         {icon}
         {titleTo
@@ -24,12 +24,12 @@ const Heading = ({
       </span>
       <span className="subtitle">
         {subtitle}
+        <Tooltip title={info}>
+          <span className="info" style={{ display: info ? 'inline' : 'none' }}>
+            {'(?)'}
+          </span>
+        </Tooltip>
       </span>
-      <Tooltip title={info}>
-        <span className="info" style={{ display: info ? 'inline' : 'none' }}>
-          {'(?)'}
-        </span>
-      </Tooltip>
       {winner &&
       <span className="winner">
         {strings.th_winner}

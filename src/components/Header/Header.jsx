@@ -69,7 +69,8 @@ const DropdownMenuItem = styled(MenuItem)`
 
 const ToolbarHeader = styled(Toolbar)`
   backdrop-filter: blur(16px);
-  background-color: ${constants.defaultPrimaryColorSolid} !important;
+  background-color: rgba(19, 111, 149, 37%) !important;
+  box-shadow: 2px 2px 3px -2px rgb(0 0 0 / 23%);
   height: 56px;
   left: 0;
   padding: 8px 16px !important;
@@ -103,8 +104,15 @@ const MenuLogoWrapper = styled.div`
   padding: 24px 0;
 `;
 
+
+
 const DrawerLink = styled(Link)`
   color: ${constants.textColorPrimary};
+
+   & li:hover {
+      background-color: rgba(0, 0, 0, 0.08);
+      transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; 
+  }
 `;
 
 const LinkGroup = ({ navbarPages }) => (
@@ -134,6 +142,7 @@ const SettingsGroup = ({ children }) => {
     <>
       <IconButton
         ref={buttonRef}
+        aria-label="settings menu"
         color="inherit"
         onClick={(e) => setAnchorEl(e.currentTarget)}
       >
@@ -161,7 +170,7 @@ const LogoGroup = ({ onMenuClick }) => (
   <div style={{ marginRight: 16 }}>
     <VerticalAlignToolbar>
       <MenuButtonWrapper>
-        <IconButton edge="start" color="inherit" onClick={onMenuClick}>
+        <IconButton aria-label="main menu" edge="start" color="inherit" onClick={onMenuClick}>
           <MenuIcon />
         </IconButton>
       </MenuButtonWrapper>
@@ -317,12 +326,12 @@ const Header = ({ location, disableSearch }) => {
             </MenuLogoWrapper>
             <List>
               {drawerPages.map((page) => (
-                <DrawerLink key={`drawer__${page.to}`} to={page.to}>
-                  <ListItem
-                    button
-                    key={`drawer__${page.to}`}
-                    onClick={() => setMenuState(false)}
-                  >
+                <DrawerLink 
+                  key={`drawer__${page.to}`} 
+                  to={page.to}
+                  onClick={() => setMenuState(false)}
+                >
+                  <ListItem>
                     <ListItemText primary={page.label} />
                   </ListItem>
                 </DrawerLink>

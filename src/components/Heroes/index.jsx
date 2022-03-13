@@ -61,6 +61,7 @@ class RequestLayer extends React.Component {
       content: (data, _columns, loading) => (
         <div>
           <Heading
+            className="top-heading with-tabbar"
             title={title}
             subtitle={`${abbreviateNumber(matchCount)} ${key === 'turbo' ? strings.hero_this_month : strings.hero_last_30days}`}
             icon=""
@@ -97,41 +98,46 @@ class RequestLayer extends React.Component {
     const processedData = json.map((heroStat) => {
       const pickRatePro = (heroStat.pro_pick || 0) / matchCountPro;
       const banRatePro = (heroStat.pro_ban || 0) / matchCountPro;
+
+      const matchCountPub = matchCountPublic;
+      const pickCountPub = heroStat['8_pick'] + heroStat['7_pick'] + heroStat['6_pick'] + heroStat['5_pick'] + heroStat['4_pick'] + heroStat['3_pick'] + heroStat['2_pick'] + heroStat['1_pick'];
+      const winCountPub = heroStat['8_win'] + heroStat['7_win'] + heroStat['6_win'] + heroStat['5_win'] + heroStat['4_win'] + heroStat['3_win'] + heroStat['2_win'] + heroStat['1_win'];
+      const matchCountHigh = matchCount8 + matchCount7 + matchCount6;
+      const matchCountMid = matchCount5 + matchCount4;
+      const matchCountLow = matchCount3 + matchCount2 + matchCount1;
+      const pickCountHigh = heroStat['8_pick'] + heroStat['7_pick'] + heroStat['6_pick'];
+      const pickCountMid = heroStat['5_pick'] + heroStat['4_pick'];
+      const pickCountLow = heroStat['3_pick'] + heroStat['2_pick'] + heroStat['1_pick'];
+      const winCountHigh = heroStat['8_win'] + heroStat['7_win'] + heroStat['6_win'];
+      const winCountMid = heroStat['5_win'] + heroStat['4_win'];
+      const winCountLow = heroStat['3_win'] + heroStat['2_win'] + heroStat['1_win'];
+
       return {
         ...heroStat,
         hero_id: heroStat.id,
         heroName: (heroes[heroStat.id] && heroes[heroStat.id].localized_name) || '',
         matchCountPro,
-        matchCount8,
-        matchCount7,
-        matchCount6,
-        matchCount5,
-        matchCount4,
-        matchCount3,
-        matchCount2,
-        matchCount1,
         pickBanRatePro: pickRatePro + banRatePro,
         pickRatePro,
         banRatePro,
         winRatePro: (heroStat.pro_win || 0) / heroStat.pro_pick,
 
-        pickRate8: (heroStat['8_pick'] || 0) / matchCount8,
-        pickRate7: (heroStat['7_pick'] || 0) / matchCount7,
-        pickRate6: (heroStat['6_pick'] || 0) / matchCount6,
-        pickRate5: (heroStat['5_pick'] || 0) / matchCount5,
-        pickRate4: (heroStat['4_pick'] || 0) / matchCount4,
-        pickRate3: (heroStat['3_pick'] || 0) / matchCount3,
-        pickRate2: (heroStat['2_pick'] || 0) / matchCount2,
-        pickRate1: (heroStat['1_pick'] || 0) / matchCount1,
-
-        winRate8: (heroStat['8_win'] || 0) / heroStat['8_pick'],
-        winRate7: (heroStat['7_win'] || 0) / heroStat['7_pick'],
-        winRate6: (heroStat['6_win'] || 0) / heroStat['6_pick'],
-        winRate5: (heroStat['5_win'] || 0) / heroStat['5_pick'],
-        winRate4: (heroStat['4_win'] || 0) / heroStat['4_pick'],
-        winRate3: (heroStat['3_win'] || 0) / heroStat['3_pick'],
-        winRate2: (heroStat['2_win'] || 0) / heroStat['2_pick'],
-        winRate1: (heroStat['1_win'] || 0) / heroStat['1_pick'],
+        pickCountPub,
+        winCountPub,
+        pickRatePub: pickCountPub / matchCountPub,
+        winRatePub: winCountPub / pickCountPub,
+        pickCountHigh,
+        winCountHigh,
+        pickRateHigh: pickCountHigh / matchCountHigh,
+        winRateHigh: winCountHigh / pickCountHigh,
+        pickCountMid,
+        winCountMid,
+        pickRateMid: pickCountMid / matchCountMid,
+        winRateMid: winCountMid / pickCountMid,
+        pickCountLow,
+        winCountLow,
+        pickRateLow: pickCountLow / matchCountLow,
+        winRateLow: winCountLow / pickCountLow,
 
         matchCountTurbo,
         pickRateTurbo: (heroStat.turbo_picks || 0) / matchCountTurbo,

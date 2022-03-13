@@ -64,6 +64,7 @@ class SearchForm extends React.Component {
       <form onSubmit={this.formSubmit} style={{ width: small ? '280px' : 'auto' }}>
         <TextField
           id="searchField"
+          aria-label={strings.search_title}
           hintText={strings.search_title}
           value={this.state.query}
           onChange={this.handleChange}

@@ -187,7 +187,15 @@ const Draft = ({
   let orderOne = [];
   let orderTwo = [];
   let picks = [];
-  if (startTime > 1584403200) { // post 7.25
+  if (startTime > 1629255201) { // post 7.30
+    orderOne = [1, 3, 5, 8, 9, 11, 13, 16, 17, 19, 21, 23];
+    orderTwo = [2, 4, 6, 7, 10, 12, 14, 15, 18, 20, 22, 24];
+    picks = [5, 6, 7, 8, 15, 16, 17, 18, 23, 24];
+  } else if (startTime > 1593388800) { // post 7.27
+    orderOne = [1, 3, 5, 7, 9, 11, 13, 16, 18, 19, 21, 23];
+    orderTwo = [2, 4, 6, 8, 10, 12, 14, 15, 17, 20, 22, 24];
+    picks = [5, 6, 7, 8, 15, 16, 17, 18, 23, 24];
+  } else if (startTime > 1584403200) { // post 7.25
     orderOne = [1, 3, 5, 7, 9, 12, 14, 16, 18, 20, 21];
     orderTwo = [2, 4, 6, 8, 10, 11, 13, 15, 17, 19, 22];
     picks = [7, 8, 9, 10, 15, 16, 17, 18, 21, 22];
@@ -201,9 +209,9 @@ const Draft = ({
     picks = [9, 10, 11, 12, 15, 16, 17, 18, 21, 22];
   }
 
-  // if there is no draft data there is no meaning to firstIsTeamTwo
-  const firstIsTeamTwo = draft && draft[0] && draft[0].active_team === 2;
-  const radiantOrder = firstIsTeamTwo ? orderTwo : orderOne;
+  // radiant is team 2, dire is team 3
+  const lastIsDire = draft && draft[draft.length - 1] && draft[draft.length - 1].active_team === 3;
+  const radiantOrder = lastIsDire ? orderOne : orderTwo;
   const radiantPick = pb => (radiantOrder.includes(pb.order));
   let radiantTimeLeft = 130;
   let direTimeLeft = 130;

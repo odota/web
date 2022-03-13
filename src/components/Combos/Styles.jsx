@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import constants from '../constants';
 
 export const StyledCombos = styled.div`
-  margin-top: 55px;
   margin-bottom: 150px;
 
   .submit-section {
@@ -46,7 +45,6 @@ export const StyledInputFilter = styled.div`
     opacity: 0.5;
     cursor: pointer;
     margin-left: 10px;
-    outline: none;
 
     &:hover {
       opacity: 1;
@@ -60,6 +58,7 @@ export const StyledHeroSelector = styled.div`
     filter: grayscale(1) brightness(0.4);
     opacity: 0.5;`
   }
+  height: 60px;
   overflow: hidden;
   border-radius: 4px;
   backface-visibility: hidden;
@@ -73,10 +72,17 @@ export const StyledHeroSelector = styled.div`
       box-shadow: 0px 0px 8px 5px #000000b0;
       z-index: 100;
       border: 1px solid #d2d2d2a6;
+
+      & img {
+        opacity: 1 !important;
+      }
     }
   }
 
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ffffff1a;
   position: relative;
   line-height: 0px;
   width: 100%;
@@ -86,6 +92,7 @@ export const StyledHeroSelector = styled.div`
   }
 
   .ts-container {
+    z-index: 1000;
     outline: none;
     opacity: 0;
     position: absolute;
