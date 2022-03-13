@@ -664,7 +664,7 @@
   "story_barracks_both": "บาร์แร็ก{lane}ทั้งสองของฝ่าย {team}",
   "story_time_marker": "ผ่านไป {minutes} นาที",
   "story_item_purchase": "{player} ซื้อ {item} ณ เวลา {time}",
-  "story_predicted_victory": "{players} ได้ทำนายว่าฝ่าย {team} จะชนะ",
+  "story_predicted_victory": "{players} ทำนายว่าฝ่าย {team} จะชนะ",
   "story_predicted_victory_empty": "ไม่มีผู้เล่นคนใด",
   "story_networth_diff": "ต่างกัน {percent}% / {gold}",
   "story_gold": "โกลด์",
