@@ -987,7 +987,7 @@
   "tooltip_played_with": "จำนวนแมตช์ที่เล่นร่วมกับผู้เล่น/ฮีโร่นี้ในทีม",
   "tooltip_played_against": "จำนวนแมตช์ที่เล่นกับผู้เล่น/ฮีโร่นี้ในทีมฝ่ายตรงข้าม",
   "tooltip_tombstone_victim": "ที่แห่งนี้มีร่างของ",
-  "tooltip_tombstone_killer": "ทำลายโดย",
+  "tooltip_tombstone_killer": "ถูกสังหารโดย",
   "tooltip_win_pct_as": "อัตราการชนะโดยฮีโร่นี้",
   "tooltip_win_pct_with": "อัตราการชนะเมื่อเล่นร่วมทีมกับผู้เล่น/ฮีโร่นี้",
   "tooltip_win_pct_against": "อัตราการชนะเมื่อเล่นกับผู้เล่น/ฮีโร่นี้ในทีมฝ่ายตรงข้าม",
