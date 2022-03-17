@@ -167,7 +167,7 @@ class Scenarios extends React.Component {
         {metadataLoading && <ScenariosSkeleton />}
         {!metadataError && !metadataLoading &&
         <div>
-          <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} info={`${formatTemplateToString(strings.scenarios_info, 4)}`} />
+          <Heading title={strings.header_scenarios} subtitle={strings.scenarios_subtitle} info={`${formatTemplateToString(strings.scenarios_info, 4)}`} className="top-heading"/>
           <Tabs value={selectedTab} onChange={this.handleChange} style={tabsStyle}>
             {tabItems(strings).map(item => (
               <Tab label={item.text} value={item.value} icon={item.icon} containerElement={getLink(item.value)} className="tab" />

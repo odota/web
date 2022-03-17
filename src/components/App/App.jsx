@@ -85,7 +85,7 @@ const StyledDiv = styled.div`
 `;
 
 const StyledBodyDiv = styled.div`
-  padding: 25px;
+  padding: 0px 25px 25px 25px;
   flex-grow: 1;
 
   @media only screen and (min-width: ${constants.appWidth}px) {

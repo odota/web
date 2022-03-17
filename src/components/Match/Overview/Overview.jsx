@@ -43,6 +43,7 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
     content: match => (
       <div>
         <TeamTable
+          gameMode={match.game_mode}
           players={match.players}
           columns={overviewColumns(match)}
           heading={strings.heading_overview}

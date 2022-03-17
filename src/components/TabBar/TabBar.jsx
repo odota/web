@@ -8,14 +8,15 @@ import constants from '../constants';
 
 const StyledMain = styled.main`
   position: relative;
-  margin: 17px 0 30px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.19);
-  border-top: 1px solid rgba(255, 255, 255, 0.19);
+  margin: 0px 0px 30px 0px;
+  background-color: rgba(14, 84, 113, 37%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   width: 100vw;
   left: 50%;
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
+  padding-top: 25px;
 `;
 
 const StyledTabs = styled(Tabs)`

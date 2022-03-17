@@ -81,7 +81,11 @@ export default (strings) => {
     const index = Object.values(groupBy(match.players, 'party_id'))
       .filter(x => x.length > 1)
       .findIndex(x => x.find(y => y.player_slot === row.player_slot));
-    return <div className={`group${index}`} />;
+    return (
+      <div className={`group group${index}`}>
+        <div className="numerals">{['I', 'II', 'III', 'IV'][index]}</div>
+      </div>
+    );
   };
 
   const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
@@ -1280,8 +1284,10 @@ export default (strings) => {
   ];
 
   const computeAverage = (row, type) => {
-    const wardType = type === 'obs' ? 'ward_observer' : 'ward_sentry';
-    const maxDuration = items[wardType].attrib.find(x => x.key === 'lifetime').value;
+    // const wardType = type === 'obs' ? 'ward_observer' : 'ward_sentry';
+    // const maxDuration = items[wardType].attrib.find(x => x.key === 'lifetime').value;
+    // 7.31 broke attrib values, so hardcode them here
+    const maxDuration = type === 'obs' ? 360 : 420;
     const totalDuration = [];
     row[`${type}_log`].forEach((ward) => {
       const findTime = row[`${type}_left_log`] && row[`${type}_left_log`].find(x => x.ehandle === ward.ehandle);

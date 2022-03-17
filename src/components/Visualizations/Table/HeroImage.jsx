@@ -185,41 +185,40 @@ const Styled = styled.div`
 
 .party {
   position: absolute;
-  top: 0;
-  width: 8px;
-  height: 100%;
+  overflow: hidden;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  width: 13px;
+  height: 29px;
   left: -13px;
 
 
-  & > div {
-    position: absolute;
-    width: 100%;
+  & .group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
-    border-left: 2px solid;
-
-    &::after {
-      content: "";
-      border-top: 2px solid;
-      position: absolute;
-      width: 132%;
-      top: 50%;
-      box-shadow: 0 0 5px rgba(0,0,0,0.4);
-      border-color: inherit
-    }
+    width: 100%;
 
     &.group0 {
-      border-color: #498a1a;
-    }      
+      background: #a73411;
+    }
     &.group1 {
-      border-color: ${constants.blue};
+      background: #107e79;
     }
     &.group2 {
-      border-color: #D7E874;
-    }    
+      background: #a71164;
+    }
     &.group3 {
-      border-color: #923607;
+      background: #a76411;
     }
 
+    & .numerals {
+      color: rgba(255, 255, 255, 0.9);
+      white-space: nowrap;
+      font-weight: bold;
+      transform: rotate(-90deg);
+    }
   }
 }
 
