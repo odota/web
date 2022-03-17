@@ -160,7 +160,8 @@ const predictionArray = [
   {
     title: 'Tournament number of games in Main Event',
     prediction: '51',
-    notes: '4 Bo1, 17 Bo3, 1 Bo5. (4) + (2.5 * 17) + (4) = 50.5 Main Event\n(18 * 8 * 2) / 2 = 144 Group Stage\nFollowing are based on ~191 recent matches',
+    notes:
+      '4 Bo1, 17 Bo3, 1 Bo5. (4) + (2.5 * 17) + (4) = 50.5 Main Event\n(18 * 8 * 2) / 2 = 144 Group Stage\nFollowing are based on ~191 recent matches',
   },
   {
     title: 'Tournament heroes picked',
@@ -215,19 +216,38 @@ const predictionArray = [
 const predColumns = [
   { displayName: 'Title', field: 'title' },
   { displayName: 'Prediction', field: 'prediction' },
-  { displayName: 'Explore', field: 'link', displayFn: (row, col, field) => (field ? (<a href={field} target="_blank" rel="noopener noreferrer">View in Explorer</a>) : null) },
-  { displayName: 'Notes', field: 'notes', displayFn: (row, col, field) => (<pre>{field}</pre>) },
+  {
+    displayName: 'Explore',
+    field: 'link',
+    displayFn: (row, col, field) =>
+      field ? (
+        <a href={field} target="_blank" rel="noopener noreferrer">
+          View in Explorer
+        </a>
+      ) : null,
+  },
+  {
+    displayName: 'Notes',
+    field: 'notes',
+    displayFn: (row, col, field) => <pre>{field}</pre>,
+  },
 ];
 
 const Predictions = () => (
   <div>
     <Helmet title="TI Predictions" />
-    <Heading title="TI Predictions" subtitle="Based on the last 60 days of games of the 18 participating teams" />
+    <Heading
+      title="TI Predictions"
+      subtitle="Based on the last 60 days of games of the 18 participating teams"
+    />
     <Warning className="">
-      {'These predictions assume future play will be similar to past play, which is not guaranteed! Use the Explorer link for each prediction if you want to examine the data in more detail.'}
+      These predictions assume future play will be similar to past play, which
+      is not guaranteed! Use the Explorer link for each prediction if you want
+      to examine the data in more detail.
     </Warning>
     <br />
     <Table data={predictionArray} columns={predColumns} />
-  </div>);
+  </div>
+);
 
 export default Predictions;

@@ -355,16 +355,14 @@ const Header = ({ location, disableSearch }) => {
                   </DrawerLink>
                 </>
               ) : (
-                <>
-                  <DrawerLink
-                    as="a"
-                    href={`${process.env.REACT_APP_API_HOST}/login`}
-                  >
-                    <ListItem button onClick={() => setMenuState(false)}>
-                      <ListItemText primary={strings.app_login} />
-                    </ListItem>
-                  </DrawerLink>
-                </>
+                <DrawerLink
+                  as="a"
+                  href={`${process.env.REACT_APP_API_HOST}/login`}
+                >
+                  <ListItem button onClick={() => setMenuState(false)}>
+                    <ListItemText primary={strings.app_login} />
+                  </ListItem>
+                </DrawerLink>
               )}
             </List>
           </MenuContent>

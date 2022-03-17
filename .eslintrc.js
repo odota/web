@@ -28,19 +28,36 @@ const commonRules = {
     },
   ],
   'react/sort-comp': [2],
+  'react/jsx-indent': 'off',
   'react/jsx-fragments': 'off',
   'react/jsx-curly-newline': 'off',
+  'react/forbid-prop-types': 'off',
   'react/static-property-placement': 'off',
   'react/jsx-props-no-spreading': 'off',
   'react/destructuring-assignment': 'off',
   'react/prop-types': 'off',
   'react/no-access-state-in-setstate': 'off',
   'react/button-has-type': 'off',
+  'react/function-component-definition': 'off',
+  'react/default-props-match-prop-types': 'off',
   'max-classes-per-file': 'off',
   'import/no-cycle': 'off',
+  camelcase: 'off',
+  'default-param-last': 'off',
+  'no-restricted-exports': 'off',
+  'default-case-last': 'off',
+  'react/no-unused-class-component-methods': 'warn',
+  'react/no-unstable-nested-components': 'warn',
+  'react/no-unused-prop-types': 'warn',
+  radix: 'warn',
+  'no-use-before-define': 'warn',
+  'no-unused-vars': 'warn',
+  'no-unused-expressions': 'warn',
+  'no-param-reassign': 'warn',
 };
 
 module.exports = {
+  parser: 'babel-eslint',
   env: {
     browser: true,
     jest: true,
@@ -84,6 +101,7 @@ module.exports = {
         'airbnb',
         'plugin:import/typescript',
         'plugin:@typescript-eslint/recommended',
+        'prettier',
       ],
       parser: '@typescript-eslint/parser',
       parserOptions: {
@@ -99,9 +117,16 @@ module.exports = {
           'error',
           { ignoreProperties: true, ignoreParameters: false },
         ],
-        '@typescript-eslint/interface-name-prefix': [
+        '@typescript-eslint/naming-convention': [
           'error',
-          { prefixWithI: 'never' },
+          {
+            selector: 'interface',
+            format: ['PascalCase'],
+            custom: {
+              regex: '^I[A-Z]',
+              match: true,
+            },
+          },
         ],
         '@typescript-eslint/explicit-function-return-type': 'off',
         'no-useless-constructor': 'off',
