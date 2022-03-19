@@ -358,7 +358,7 @@ class Chat extends React.Component {
 
   toggleFilter = (key) => {
     if (key !== undefined) {
-      this.setState((state) => {return {[key]: !state[key]}}, () => {this.setState({messages: this.filter()})});
+      this.setState((state) => ({[key]: !state[key]}), () => {this.setState({messages: this.filter()})});
     }
   }
 

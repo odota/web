@@ -26,7 +26,7 @@ const Heading = ({
         {subtitle}
         <Tooltip title={info}>
           <span className="info" style={{ display: info ? 'inline' : 'none' }}>
-            {'(?)'}
+            (?)
           </span>
         </Tooltip>
       </span>
