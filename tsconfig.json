@@ -5,7 +5,7 @@
     "suppressImplicitAnyIndexErrors": false,
     "module": "esnext",
     "target": "es6",
-    "jsx": "preserve",
+    "jsx": "react",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
@@ -30,7 +30,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "skipLibCheck": false
+    "skipLibCheck": false,
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "src"

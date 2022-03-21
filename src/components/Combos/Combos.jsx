@@ -92,7 +92,7 @@ const HeroSelector = ({
         role="button"
         tabIndex="0"
       >
-        {'A'}
+        A
       </div>
       <div
         aria-label={`${heroName} team B`}
@@ -102,7 +102,7 @@ const HeroSelector = ({
         role="button"
         tabIndex="0"
       >
-        {'B'}
+        B
       </div>
     </div>
   </StyledHeroSelector>
@@ -304,20 +304,18 @@ class Combos extends React.Component {
     this.setState({ queryType: value });
   }
 
-  filterAndRenderElements = (searchValue, resetSearchValue) => {
-    return heroesArray.map(hero => (
-      <HeroSelector
-        id={hero.id}
-        heroName={hero.localized_name}
-        handleHeroSelection={this.handleHeroSelection(resetSearchValue)}
-        selected={[...this.state.teamA, ...this.state.teamB].includes(hero.id)}
-        teamAFull={this.state.teamA.length > 4}
-        teamBFull={this.state.teamB.length > 4}
-        strings={this.props.strings}
-        isFiltered={!new RegExp(escapeRegExp(searchValue), 'i').test(hero.localized_name)}
-      />
+  filterAndRenderElements = (searchValue, resetSearchValue) => heroesArray.map(hero => (
+    <HeroSelector
+      id={hero.id}
+      heroName={hero.localized_name}
+      handleHeroSelection={this.handleHeroSelection(resetSearchValue)}
+      selected={[...this.state.teamA, ...this.state.teamB].includes(hero.id)}
+      teamAFull={this.state.teamA.length > 4}
+      teamBFull={this.state.teamB.length > 4}
+      strings={this.props.strings}
+      isFiltered={!new RegExp(escapeRegExp(searchValue), 'i').test(hero.localized_name)}
+    />
     ));
-  };
 
   render() {
     const { teamA, teamB } = this.state;
