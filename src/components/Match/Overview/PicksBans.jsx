@@ -7,6 +7,7 @@ import { IMAGESIZE_ENUM } from '../../../utility';
 import HeroImage from './../../Visualizations/HeroImage';
 
 const Styled = styled.div`
+display: inline-block;
 color: ${constants.textColorSecondary};
 margin-top: -20px;
 
@@ -15,8 +16,9 @@ margin-top: -20px;
   flex-direction: row;
   justify-content: left;
   flex-wrap: wrap;
-  margin-top: 33px;
-  margin-bottom: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 1px;
 
   & > section {
     position: relative;
