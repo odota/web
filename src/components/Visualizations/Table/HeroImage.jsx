@@ -480,6 +480,7 @@ class TableHeroImage extends React.Component {
       leaverStatus,
       strings,
       hero = {},
+      role,
     } = this.props;
     const { tooltipVisible } = this.state;
 
@@ -575,6 +576,7 @@ class TableHeroImage extends React.Component {
                 </TableLink>
                 : title}
             </span>
+            {role && <span>{role}</span>}
             {subtitle &&
               <span style={subTextStyle} className="subTextContainer">
                 {subtitle}
@@ -723,6 +725,7 @@ TableHeroImage.propTypes = {
   strings: shape({}),
   hero: shape({}),
   heroID: number,
+  role: string,
 };
 
 // If need party or estimated, just add new prop with default val = solo and change icons depending what needs
