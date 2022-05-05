@@ -235,7 +235,7 @@ const ItemTooltip = ({ item, inflictor }) => (
       }
       return null;
     })}
-    {item.hint && <Hint>{item.hint}</Hint>}
+    {item.hint && item.hint.map((hint) => <Hint>{hint}</Hint>)}
     {item.lore && <Lore>{item.lore}</Lore>}
     {item.components &&
     <Components>
